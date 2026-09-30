@@ -57,6 +57,10 @@
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
     },
+    "./qr-code": {
+      "types": "./dist/components/qr-code/index.d.ts",
+      "import": "./dist/components/qr-code/index.js"
+    },
     "./pin-input": {
       "types": "./dist/components/pin-input/index.d.ts",
       "import": "./dist/components/pin-input/index.js"
@@ -165,6 +169,10 @@
       "types": "./dist/components/angle-slider/index.d.ts",
       "import": "./dist/components/angle-slider/index.js"
     },
+    "./slider": {
+      "types": "./dist/components/slider/index.d.ts",
+      "import": "./dist/components/slider/index.js"
+    },
     "./aspect-ratio": {
       "types": "./dist/components/aspect-ratio/index.d.ts",
       "import": "./dist/components/aspect-ratio/index.js"
@@ -220,6 +228,10 @@
     "./radio-group": {
       "types": "./dist/components/radio-group/index.d.ts",
       "import": "./dist/components/radio-group/index.js"
+    },
+    "./segment-group": {
+      "types": "./dist/components/segment-group/index.d.ts",
+      "import": "./dist/components/segment-group/index.js"
     },
     "./fieldset": {
       "types": "./dist/components/fieldset/index.d.ts",

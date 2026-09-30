@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import {
-  SliderControl,
-  SliderHiddenInput,
-  SliderLabel,
-  SliderRange,
-  SliderRoot,
-  SliderThumb,
-  SliderTrack,
-} from '@ark-ui/vue/slider';
-import {
   ProgressLinear,
   ProgressLinearLabel,
   ProgressLinearRange,
   ProgressLinearTrack,
   ProgressLinearValueText,
 } from '@moduix/vue/progress-linear';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/vue/slider';
 import { ref } from 'vue';
 
 const value = ref<number | null>(45);
@@ -31,13 +32,9 @@ const handleSliderValueChange = (details: { value: number[] }) => {
       <ProgressLinearRange />
     </ProgressLinearTrack>
   </ProgressLinear>
-  <SliderRoot
-    :model-value="[value ?? 0]"
-    :min="0"
-    :max="100"
-    @value-change="handleSliderValueChange"
-  >
+  <Slider :model-value="[value ?? 0]" :min="0" :max="100" @value-change="handleSliderValueChange">
     <SliderLabel>Progress value</SliderLabel>
+    <SliderValueText />
     <SliderControl>
       <SliderTrack>
         <SliderRange />
@@ -46,5 +43,5 @@ const handleSliderValueChange = (details: { value: number[] }) => {
         <SliderHiddenInput />
       </SliderThumb>
     </SliderControl>
-  </SliderRoot>
+  </Slider>
 </template>

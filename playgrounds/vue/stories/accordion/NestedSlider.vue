@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import {
+  Slider,
   SliderControl,
   SliderHiddenInput,
   SliderLabel,
   SliderRange,
-  SliderRoot,
   SliderThumb,
   SliderTrack,
-} from '@ark-ui/vue/slider';
+} from '@/components/slider';
 import styles from './NestedSlider.module.css';
 
 defineProps<{ label: string }>();
 </script>
 
 <template>
-  <SliderRoot :default-value="[40]" :class="styles.root">
+  <Slider :default-value="[40]" :class="styles.root">
     <SliderLabel :class="styles.label">{{ label }}</SliderLabel>
     <SliderControl :class="styles.control">
       <SliderTrack :class="styles.track">
@@ -24,5 +24,5 @@ defineProps<{ label: string }>();
         <SliderHiddenInput />
       </SliderThumb>
     </SliderControl>
-  </SliderRoot>
+  </Slider>
 </template>

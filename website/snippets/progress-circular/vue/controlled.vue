@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import {
-  SliderControl,
-  SliderHiddenInput,
-  SliderLabel,
-  SliderRange,
-  SliderRoot,
-  SliderThumb,
-  SliderTrack,
-  SliderValueText,
-} from '@ark-ui/vue/slider';
-import {
   ProgressCircular,
   ProgressCircularLabel,
   ProgressCircularRing,
   ProgressCircularValueText,
 } from '@moduix/vue/progress-circular';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/vue/slider';
 import { ref } from 'vue';
 import styles from '@/components/examples/progress-circular/component-controlled.module.css';
 
@@ -32,7 +32,7 @@ const value = ref<number | null>(42);
     </ProgressCircular>
     <div>
       <output>Progress: {{ value ?? 'loading' }}%</output>
-      <SliderRoot
+      <Slider
         :class="styles.slider"
         :value="[value ?? 0]"
         :min="0"
@@ -49,7 +49,7 @@ const value = ref<number | null>(42);
             <SliderHiddenInput />
           </SliderThumb>
         </SliderControl>
-      </SliderRoot>
+      </Slider>
     </div>
   </div>
 </template>

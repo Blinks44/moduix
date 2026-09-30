@@ -26,6 +26,16 @@ import segmentGroupSolidFormSubmission from '../../../snippets/segment-group/sol
 import segmentGroupSolidInvalid from '../../../snippets/segment-group/solid/invalid.tsx?raw';
 import segmentGroupSolidRootProvider from '../../../snippets/segment-group/solid/root-provider.tsx?raw';
 import segmentGroupSolidVerticalOrientation from '../../../snippets/segment-group/solid/vertical-orientation.tsx?raw';
+import segmentGroupVueAsChild from '../../../snippets/segment-group/vue/aschild.vue?raw';
+import segmentGroupVueBasic from '../../../snippets/segment-group/vue/basic.vue?raw';
+import segmentGroupVueConditionalMount from '../../../snippets/segment-group/vue/conditional-mount.vue?raw';
+import segmentGroupVueControlled from '../../../snippets/segment-group/vue/controlled.vue?raw';
+import segmentGroupVueDisabled from '../../../snippets/segment-group/vue/disabled.vue?raw';
+import segmentGroupVueField from '../../../snippets/segment-group/vue/field.vue?raw';
+import segmentGroupVueFormSubmission from '../../../snippets/segment-group/vue/form-submission.vue?raw';
+import segmentGroupVueInvalid from '../../../snippets/segment-group/vue/invalid.vue?raw';
+import segmentGroupVueRootProvider from '../../../snippets/segment-group/vue/root-provider.vue?raw';
+import segmentGroupVueVerticalOrientation from '../../../snippets/segment-group/vue/vertical-orientation.vue?raw';
 
 ## API Reference
 
@@ -58,6 +68,7 @@ text, control, and one synchronized native form input for every entry.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -70,6 +81,12 @@ text, control, and one synchronized native form input for every entry.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidBasic} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueBasic} />
 
     </Tab>
   </Tabs>
@@ -98,6 +115,17 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/segment-group' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/segment-group' },
+  ]}
+/>
+
+  </Tab>
+
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/segment-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/segment-group' },
   ]}
 />
 
@@ -142,8 +170,8 @@ compose those parts yourself and keep exactly one `SegmentGroupItemHiddenInput` 
 `asChild` must remain one semantic `label`.
 
 Use `SegmentGroupRootProvider` with `useSegmentGroup()` when the state must be created outside
-the rendered tree or controlled by another part of the application. React reads the store as an
-object, while Solid reads its reactive state through the returned accessor.
+the rendered tree or controlled by another part of the application. React and Vue read the store as
+an object, while Solid reads its reactive state through the returned accessor.
 
 ## Examples
 
@@ -163,6 +191,7 @@ geometry used by the indicator.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -175,6 +204,12 @@ geometry used by the indicator.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidConditionalMount} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueConditionalMount} />
 
     </Tab>
   </Tabs>
@@ -203,6 +238,7 @@ Keep the selected value in application state and update it from `details.value` 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -215,6 +251,12 @@ Keep the selected value in application state and update it from `details.value` 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidControlled} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueControlled} />
 
     </Tab>
   </Tabs>
@@ -243,6 +285,7 @@ disable the whole group.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -255,6 +298,12 @@ disable the whole group.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidDisabled} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -283,6 +332,7 @@ Ark inherits the field's disabled, invalid, required, and read-only state.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -295,6 +345,12 @@ Ark inherits the field's disabled, invalid, required, and read-only state.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidField} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueField} />
 
     </Tab>
   </Tabs>
@@ -323,6 +379,7 @@ adds a native form input to every generated item.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -335,6 +392,12 @@ adds a native form input to every generated item.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidFormSubmission} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueFormSubmission} />
 
     </Tab>
   </Tabs>
@@ -363,6 +426,7 @@ group participates in native form validation.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -375,6 +439,12 @@ group participates in native form validation.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidInvalid} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueInvalid} />
 
     </Tab>
   </Tabs>
@@ -398,6 +468,7 @@ to the same state.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -410,6 +481,12 @@ to the same state.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidRootProvider} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -438,6 +515,7 @@ navigation.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -450,6 +528,12 @@ navigation.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidVerticalOrientation} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueVerticalOrientation} />
 
     </Tab>
   </Tabs>
@@ -478,6 +562,7 @@ own the item's DOM node.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -492,6 +577,12 @@ own the item's DOM node.
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidAsChild} />
 
     </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -504,7 +595,7 @@ own the item's DOM node.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+Use `className` in React or `class` in Solid/Vue on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-state`, `data-disabled`, and `data-orientation`,
 together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
 classes; the component variables below customize the CSS Modules variants. Data attributes and

@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import {
+  Slider,
   SliderControl,
   SliderHiddenInput,
   SliderLabel,
   SliderRange,
-  SliderRoot,
   SliderThumb,
   SliderTrack,
-} from '@ark-ui/vue/slider';
+} from '@/components/slider';
 
 defineProps<{ label: string }>();
 </script>
 
 <template>
-  <SliderRoot :default-value="[40]" class="grid gap-2">
+  <Slider :default-value="[40]" class="grid gap-2">
     <SliderLabel class="text-sm">{{ label }}</SliderLabel>
     <SliderControl class="relative flex h-5 items-center">
       <SliderTrack class="relative h-1 w-full rounded-full bg-muted">
@@ -26,5 +26,5 @@ defineProps<{ label: string }>();
         <SliderHiddenInput />
       </SliderThumb>
     </SliderControl>
-  </SliderRoot>
+  </Slider>
 </template>

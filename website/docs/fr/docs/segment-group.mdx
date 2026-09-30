@@ -26,6 +26,16 @@ import segmentGroupSolidFormSubmission from '../../../snippets/segment-group/sol
 import segmentGroupSolidInvalid from '../../../snippets/segment-group/solid/invalid.tsx?raw';
 import segmentGroupSolidRootProvider from '../../../snippets/segment-group/solid/root-provider.tsx?raw';
 import segmentGroupSolidVerticalOrientation from '../../../snippets/segment-group/solid/vertical-orientation.tsx?raw';
+import segmentGroupVueAsChild from '../../../snippets/segment-group/vue/aschild.vue?raw';
+import segmentGroupVueBasic from '../../../snippets/segment-group/vue/basic.vue?raw';
+import segmentGroupVueConditionalMount from '../../../snippets/segment-group/vue/conditional-mount.vue?raw';
+import segmentGroupVueControlled from '../../../snippets/segment-group/vue/controlled.vue?raw';
+import segmentGroupVueDisabled from '../../../snippets/segment-group/vue/disabled.vue?raw';
+import segmentGroupVueField from '../../../snippets/segment-group/vue/field.vue?raw';
+import segmentGroupVueFormSubmission from '../../../snippets/segment-group/vue/form-submission.vue?raw';
+import segmentGroupVueInvalid from '../../../snippets/segment-group/vue/invalid.vue?raw';
+import segmentGroupVueRootProvider from '../../../snippets/segment-group/vue/root-provider.vue?raw';
+import segmentGroupVueVerticalOrientation from '../../../snippets/segment-group/vue/vertical-orientation.vue?raw';
 
 ## Référence de l’API
 
@@ -59,6 +69,7 @@ entrée les parties item, text et control, ainsi qu'un champ de formulaire natif
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -71,6 +82,12 @@ entrée les parties item, text et control, ainsi qu'un champ de formulaire natif
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidBasic} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +116,17 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/segment-group' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/segment-group' },
+  ]}
+/>
+
+  </Tab>
+
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/segment-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/segment-group' },
   ]}
 />
 
@@ -147,7 +175,7 @@ directement, composez ces parties vous-même et conservez exactement un
 `asChild` doit rester un seul `label` sémantique.
 
 Utilisez `SegmentGroupRootProvider` avec `useSegmentGroup()` lorsque l'état doit être créé en dehors
-de l'arbre rendu ou contrôlé par une autre partie de l'application. React expose le store comme un
+de l'arbre rendu ou contrôlé par une autre partie de l'application. React et Vue exposent le store comme un
 objet, tandis que Solid lit son état réactif à travers la fonction d'accès renvoyée.
 
 ## Exemples
@@ -168,6 +196,7 @@ géométrie des éléments utilisée par l’indicateur.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -180,6 +209,12 @@ géométrie des éléments utilisée par l’indicateur.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidConditionalMount} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueConditionalMount} />
 
     </Tab>
   </Tabs>
@@ -208,6 +243,7 @@ Conservez la valeur sélectionnée dans l’état React et mettez-la à jour ave
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -220,6 +256,12 @@ Conservez la valeur sélectionnée dans l’état React et mettez-la à jour ave
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidControlled} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueControlled} />
 
     </Tab>
   </Tabs>
@@ -249,6 +291,7 @@ l’opacité du groupe, sans la cumuler avec celle de chaque élément.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -261,6 +304,12 @@ l’opacité du groupe, sans la cumuler avec celle de chaque élément.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidDisabled} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -290,6 +339,7 @@ du champ.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -302,6 +352,12 @@ du champ.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidField} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueField} />
 
     </Tab>
   </Tabs>
@@ -330,6 +386,7 @@ natif. `SegmentGroupItems` ajoute un champ de formulaire natif à chaque éléme
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -342,6 +399,12 @@ natif. `SegmentGroupItems` ajoute un champ de formulaire natif à chaque éléme
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidFormSubmission} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueFormSubmission} />
 
     </Tab>
   </Tabs>
@@ -370,6 +433,7 @@ lorsque le groupe participe à la validation native du formulaire.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -382,6 +446,12 @@ lorsque le groupe participe à la validation native du formulaire.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidInvalid} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueInvalid} />
 
     </Tab>
   </Tabs>
@@ -405,6 +475,7 @@ l’arborescence des segments doivent accéder au même état.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -417,6 +488,12 @@ l’arborescence des segments doivent accéder au même état.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidRootProvider} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -445,6 +522,7 @@ une navigation verticale avec les touches fléchées.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -457,6 +535,12 @@ une navigation verticale avec les touches fléchées.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidVerticalOrientation} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueVerticalOrientation} />
 
     </Tab>
   </Tabs>
@@ -485,6 +569,7 @@ personnalisée du libellé doit posséder le nœud DOM de l’élément.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -499,6 +584,12 @@ personnalisée du libellé doit posséder le nœud DOM de l’élément.
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidAsChild} />
 
     </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -511,7 +602,7 @@ personnalisée du libellé doit posséder le nœud DOM de l’élément.
 
 ## Styles
 
-Dans React, utilisez `className` et, dans Solid, `class` sur les parties exportées pour les styles
+Dans React, utilisez `className` et, dans Solid/Vue, `class` sur les parties exportées pour les styles
 structurels. Pour les styles fondés sur l'état, préférez les attributs Ark comme `data-state`,
 `data-disabled` et `data-orientation`, avec les sélecteurs moduix `data-slot`. Les variantes
 Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les variables ci-dessous

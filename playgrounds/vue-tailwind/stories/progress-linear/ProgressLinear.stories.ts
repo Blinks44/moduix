@@ -1,12 +1,3 @@
-import {
-  SliderControl,
-  SliderHiddenInput,
-  SliderLabel,
-  SliderRange,
-  SliderRoot,
-  SliderThumb,
-  SliderTrack,
-} from '@ark-ui/vue/slider';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref } from 'vue';
 import type { Component } from 'vue';
@@ -20,6 +11,16 @@ import {
   ProgressLinearValueText,
   useProgress,
 } from '@/components/progress-linear';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@/components/slider';
 
 const meta = {
   title: 'Components/ProgressLinear',
@@ -58,9 +59,10 @@ const storyComponents = {
   SliderHiddenInput,
   SliderLabel,
   SliderRange,
-  SliderRoot,
+  Slider,
   SliderThumb,
   SliderTrack,
+  SliderValueText,
 } as unknown as Record<string, Component>;
 
 function renderStory(template: string, setup?: () => Record<string, unknown>) {
@@ -114,7 +116,7 @@ export const Controlled: Story = {
             <ProgressLinearRange />
           </ProgressLinearTrack>
         </ProgressLinear>
-        <SliderRoot
+        <Slider
           :class="sliderClass"
           :model-value="[value ?? 0]"
           :min="0"
@@ -122,6 +124,7 @@ export const Controlled: Story = {
           @value-change="handleSliderValueChange"
         >
           <SliderLabel>Progress value</SliderLabel>
+          <SliderValueText />
           <SliderControl>
             <SliderTrack>
               <SliderRange />
@@ -130,7 +133,7 @@ export const Controlled: Story = {
               <SliderHiddenInput />
             </SliderThumb>
           </SliderControl>
-        </SliderRoot>
+        </Slider>
       </div>
     `,
     () => {

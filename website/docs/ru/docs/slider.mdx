@@ -1,7 +1,7 @@
 ---
 title: Slider
 component: slider
-description: Элемент управления для выбора одного значения или диапазона в заданных границах.
+description: Доступный слайдер для React, Solid и Vue, позволяющий выбирать одно значение или диапазон в заданных границах.
 ---
 
 import * as SliderDocs from '@/components/examples/slider/css-properties';
@@ -47,6 +47,27 @@ import sliderSolidThumbOverlap from '../../../snippets/slider/solid/thumb-overla
 import sliderSolidVertical from '../../../snippets/slider/solid/vertical.tsx?raw';
 import sliderSolidVerticalWithMarks from '../../../snippets/slider/solid/vertical-with-marks.tsx?raw';
 import sliderSolidAdvancedCustomization from '../../../snippets/slider/solid/advanced-customization.tsx?raw';
+import sliderVueBasic from '../../../snippets/slider/vue/basic.vue?raw';
+import sliderVueCenterOrigin from '../../../snippets/slider/vue/center-origin.vue?raw';
+import sliderVueChangeEvents from '../../../snippets/slider/vue/change-events.vue?raw';
+import sliderVueContext from '../../../snippets/slider/vue/context.vue?raw';
+import sliderVueControlled from '../../../snippets/slider/vue/controlled.vue?raw';
+import sliderVueDisabled from '../../../snippets/slider/vue/disabled.vue?raw';
+import sliderVueDraggingIndicator from '../../../snippets/slider/vue/dragging-indicator.vue?raw';
+import sliderVueForm from '../../../snippets/slider/vue/form.vue?raw';
+import sliderVueInvalid from '../../../snippets/slider/vue/invalid.vue?raw';
+import sliderVueMarks from '../../../snippets/slider/vue/marks.vue?raw';
+import sliderVueMinAndMax from '../../../snippets/slider/vue/min-and-max.vue?raw';
+import sliderVueRange from '../../../snippets/slider/vue/range.vue?raw';
+import sliderVueReadOnly from '../../../snippets/slider/vue/read-only.vue?raw';
+import sliderVueRootProvider from '../../../snippets/slider/vue/root-provider.vue?raw';
+import sliderVueStep from '../../../snippets/slider/vue/step.vue?raw';
+import sliderVueThumbAlignment from '../../../snippets/slider/vue/thumb-alignment.vue?raw';
+import sliderVueThumbCollision from '../../../snippets/slider/vue/thumb-collision.vue?raw';
+import sliderVueThumbOverlap from '../../../snippets/slider/vue/thumb-overlap.vue?raw';
+import sliderVueVertical from '../../../snippets/slider/vue/vertical.vue?raw';
+import sliderVueVerticalWithMarks from '../../../snippets/slider/vue/vertical-with-marks.vue?raw';
+import sliderVueAdvancedCustomization from '../../../snippets/slider/vue/advanced-customization.vue?raw';
 
 ## Справочник API
 
@@ -78,6 +99,7 @@ import sliderSolidAdvancedCustomization from '../../../snippets/slider/solid/adv
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -90,6 +112,11 @@ import sliderSolidAdvancedCustomization from '../../../snippets/slider/solid/adv
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueBasic} />
 
     </Tab>
   </Tabs>
@@ -123,6 +150,16 @@ import sliderSolidAdvancedCustomization from '../../../snippets/slider/solid/adv
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/slider' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/slider' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/slider' },
   ]}
 />
 
@@ -169,10 +206,11 @@ Slider
 компоненте.
 
 Для управляемого состояния сохраняйте `details.value` из `onValueChange` или
-`onValueChangeEnd`. Используйте `useSliderContext` во вложенных компонентах, чтобы читать
-состояние. Если состояние нужно создать вне дерева, создайте его через `useSlider` и передайте
-в `SliderRootProvider`; не создавайте второй корневой компонент для того же store. В React
-store читается как объект, а в Solid через возвращённый реактивный accessor.
+`onValueChangeEnd`; во Vue для того же контракта можно связать `v-model` с ref. Используйте
+`useSliderContext` во вложенных компонентах, чтобы читать состояние. Если состояние нужно создать
+вне дерева, создайте его через `useSlider` и передайте в `SliderRootProvider`; не создавайте
+второй корневой компонент для того же store. В React store читается как объект, в Solid через
+возвращённый реактивный accessor, а во Vue реактивный store доступен прямо в шаблоне.
 
 ## Примеры
 
@@ -191,6 +229,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -205,6 +244,11 @@ store читается как объект, а в Solid через возвра�
 <CodeBlockRuntime lang="tsx" code={sliderSolidCenterOrigin} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueCenterOrigin} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -217,8 +261,9 @@ store читается как объект, а в Solid через возвра�
 
 ### События изменения
 
-Используйте `onValueChange`, чтобы обновлять интерфейс во время взаимодействия, а `onValueChangeEnd` - когда перетаскивание
-или взаимодействие с клавиатурой завершено.
+Используйте `onValueChange` (или событие Vue `value-change`), чтобы обновлять интерфейс во время
+взаимодействия, а `onValueChangeEnd` (или `value-change-end`) - когда перетаскивание или
+взаимодействие с клавиатурой завершено.
 
 <ExampleFrame variant="component">
   <SliderChangeEvents />
@@ -231,6 +276,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -243,6 +289,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidChangeEvents} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueChangeEvents} />
 
     </Tab>
   </Tabs>
@@ -271,6 +322,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -285,6 +337,11 @@ store читается как объект, а в Solid через возвра�
 <CodeBlockRuntime lang="tsx" code={sliderSolidContext} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueContext} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -292,7 +349,8 @@ store читается как объект, а в Solid через возвра�
 
 ### Управляемое состояние
 
-Управляйте слайдером из состояния React, сохраняя массив из `details.value`.
+Управляйте слайдером из состояния выбранного фреймворка, сохраняя массив из `details.value`; во
+Vue для управляемого контракта можно связать `v-model` с ref.
 
 <ExampleFrame variant="component">
   <SliderControlled />
@@ -305,6 +363,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -317,6 +376,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueControlled} />
 
     </Tab>
   </Tabs>
@@ -344,6 +408,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -356,6 +421,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -383,6 +453,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -395,6 +466,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidDraggingIndicator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueDraggingIndicator} />
 
     </Tab>
   </Tabs>
@@ -418,6 +494,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -430,6 +507,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueForm} />
 
     </Tab>
   </Tabs>
@@ -458,6 +540,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -470,6 +553,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidInvalid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueInvalid} />
 
     </Tab>
   </Tabs>
@@ -498,6 +586,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -510,6 +599,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidMarks} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueMarks} />
 
     </Tab>
   </Tabs>
@@ -537,6 +631,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -549,6 +644,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidMinAndMax} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueMinAndMax} />
 
     </Tab>
   </Tabs>
@@ -572,6 +672,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -584,6 +685,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidRange} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueRange} />
 
     </Tab>
   </Tabs>
@@ -607,6 +713,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -619,6 +726,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidReadOnly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueReadOnly} />
 
     </Tab>
   </Tabs>
@@ -647,6 +759,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -659,6 +772,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -686,6 +804,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -698,6 +817,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidStep} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueStep} />
 
     </Tab>
   </Tabs>
@@ -725,6 +849,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -737,6 +862,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidThumbAlignment} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueThumbAlignment} />
 
     </Tab>
   </Tabs>
@@ -765,6 +895,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -777,6 +908,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidThumbCollision} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueThumbCollision} />
 
     </Tab>
   </Tabs>
@@ -805,6 +941,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -817,6 +954,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidThumbOverlap} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueThumbOverlap} />
 
     </Tab>
   </Tabs>
@@ -844,6 +986,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -856,6 +999,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueVertical} />
 
     </Tab>
   </Tabs>
@@ -883,6 +1031,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -895,6 +1044,11 @@ store читается как объект, а в Solid через возвра�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidVerticalWithMarks} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueVerticalWithMarks} />
 
     </Tab>
   </Tabs>
@@ -923,6 +1077,7 @@ store читается как объект, а в Solid через возвра�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -937,6 +1092,11 @@ store читается как объект, а в Solid через возвра�
 <CodeBlockRuntime lang="tsx" code={sliderSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -949,7 +1109,7 @@ store читается как объект, а в Solid через возвра�
 
 ## Стилизация
 
-Настраивайте внешний вид `Slider` через `className`, атрибуты Ark, стабильные точки настройки `data-slot="slider-*"`,
+Настраивайте внешний вид `Slider` через `className` (или `class` во Vue), атрибуты Ark, стабильные точки настройки `data-slot="slider-*"`,
 CSS-переменные Ark и публичные CSS-переменные moduix ниже.
 
 ### CSS-свойства

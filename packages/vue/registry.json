@@ -140,6 +140,136 @@
       ]
     },
     {
+      "name": "segment-group",
+      "type": "registry:item",
+      "title": "SegmentGroup",
+      "description": "moduix Vue SegmentGroup component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/segment-group/SegmentGroup.vue",
+          "target": "@components/ui/segment-group/SegmentGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupRootProvider.vue",
+          "target": "@components/ui/segment-group/SegmentGroupRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupLabel.vue",
+          "target": "@components/ui/segment-group/SegmentGroupLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupItem.vue",
+          "target": "@components/ui/segment-group/SegmentGroupItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupItemControl.vue",
+          "target": "@components/ui/segment-group/SegmentGroupItemControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupItemText.vue",
+          "target": "@components/ui/segment-group/SegmentGroupItemText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupItemHiddenInput.vue",
+          "target": "@components/ui/segment-group/SegmentGroupItemHiddenInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupIndicator.vue",
+          "target": "@components/ui/segment-group/SegmentGroupIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupContext.vue",
+          "target": "@components/ui/segment-group/SegmentGroupContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupItemContext.vue",
+          "target": "@components/ui/segment-group/SegmentGroupItemContext.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroupItems.vue",
+          "target": "@components/ui/segment-group/SegmentGroupItems.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/segment-group/useSegmentGroup.ts",
+          "target": "@components/ui/segment-group/useSegmentGroup.ts",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/segment-group/SegmentGroup.module.css",
+          "target": "@components/ui/segment-group/SegmentGroup.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/segment-group/index.ts",
+          "target": "@components/ui/segment-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "qr-code",
+      "type": "registry:item",
+      "title": "QR Code",
+      "description": "moduix Vue QR Code component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/qr-code/QrCode.vue",
+          "target": "@components/ui/qr-code/QrCode.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCodeRootProvider.vue",
+          "target": "@components/ui/qr-code/QrCodeRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCodeFrame.vue",
+          "target": "@components/ui/qr-code/QrCodeFrame.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCodePattern.vue",
+          "target": "@components/ui/qr-code/QrCodePattern.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCodeOverlay.vue",
+          "target": "@components/ui/qr-code/QrCodeOverlay.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCodeDownloadTrigger.vue",
+          "target": "@components/ui/qr-code/QrCodeDownloadTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/qr-code/QrCode.module.css",
+          "target": "@components/ui/qr-code/QrCode.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/qr-code/index.ts",
+          "target": "@components/ui/qr-code/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "progress-linear",
       "type": "registry:item",
       "title": "ProgressLinear",
@@ -3105,6 +3235,86 @@
         {
           "path": "src/components/aspect-ratio/index.ts",
           "target": "@components/ui/aspect-ratio/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:item",
+      "title": "Slider",
+      "description": "moduix Vue Slider component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/slider/Slider.vue",
+          "target": "@components/ui/slider/Slider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderRootProvider.vue",
+          "target": "@components/ui/slider/SliderRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderLabel.vue",
+          "target": "@components/ui/slider/SliderLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderValueText.vue",
+          "target": "@components/ui/slider/SliderValueText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderControl.vue",
+          "target": "@components/ui/slider/SliderControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderTrack.vue",
+          "target": "@components/ui/slider/SliderTrack.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderRange.vue",
+          "target": "@components/ui/slider/SliderRange.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderThumb.vue",
+          "target": "@components/ui/slider/SliderThumb.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderThumbs.vue",
+          "target": "@components/ui/slider/SliderThumbs.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderMarkerGroup.vue",
+          "target": "@components/ui/slider/SliderMarkerGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderMarker.vue",
+          "target": "@components/ui/slider/SliderMarker.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/SliderDraggingIndicator.vue",
+          "target": "@components/ui/slider/SliderDraggingIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/slider/Slider.module.css",
+          "target": "@components/ui/slider/Slider.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/slider/index.ts",
+          "target": "@components/ui/slider/index.ts",
           "type": "registry:component"
         }
       ]

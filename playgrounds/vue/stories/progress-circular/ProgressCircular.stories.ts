@@ -1,13 +1,3 @@
-import {
-  SliderControl,
-  SliderHiddenInput,
-  SliderLabel,
-  SliderRange,
-  SliderRoot,
-  SliderThumb,
-  SliderTrack,
-  SliderValueText,
-} from '@ark-ui/vue/slider';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref } from 'vue';
 import type { Component } from 'vue';
@@ -20,6 +10,16 @@ import {
   ProgressCircularValueText,
   useProgress,
 } from '@/components/progress-circular';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+  SliderValueText,
+} from '@/components/slider';
 import styles from './ProgressCircular.stories.module.css';
 
 const meta = {
@@ -66,7 +66,7 @@ const storyComponents = {
   SliderHiddenInput,
   SliderLabel,
   SliderRange,
-  SliderRoot,
+  Slider,
   SliderThumb,
   SliderTrack,
   SliderValueText,
@@ -100,7 +100,7 @@ export const Controlled: Story = {
           <ProgressCircularLabel>Upload status</ProgressCircularLabel>
           <CircularParts aria-label="Upload status" />
         </ProgressCircular>
-        <SliderRoot :class="styles.slider" :value="[value ?? 0]" :min="0" :max="100" @value-change="value = $event.value[0] ?? 0">
+        <Slider :class="styles.slider" :value="[value ?? 0]" :min="0" :max="100" @value-change="value = $event.value[0] ?? 0">
           <SliderLabel>Progress value</SliderLabel>
           <SliderValueText />
           <SliderControl>
@@ -111,7 +111,7 @@ export const Controlled: Story = {
               <SliderHiddenInput />
             </SliderThumb>
           </SliderControl>
-        </SliderRoot>
+        </Slider>
       </div>
     `,
     () => ({ value: ref<number | null>(42) }),

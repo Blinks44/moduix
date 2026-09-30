@@ -1,14 +1,5 @@
 <script setup lang="ts">
 import {
-  SliderControl,
-  SliderHiddenInput,
-  SliderLabel,
-  SliderRange,
-  SliderRoot,
-  SliderThumb,
-  SliderTrack,
-} from '@ark-ui/vue/slider';
-import {
   Accordion,
   AccordionItem,
   AccordionItemBody,
@@ -16,6 +7,15 @@ import {
   AccordionItemIndicator,
   AccordionItemTrigger,
 } from '@moduix/vue/accordion';
+import {
+  Slider,
+  SliderControl,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderRange,
+  SliderThumb,
+  SliderTrack,
+} from '@moduix/vue/slider';
 import styles from '@/components/examples/accordion/accordion-with-slider.module.css';
 
 const items = [
@@ -48,7 +48,7 @@ const items = [
       <AccordionItemContent>
         <AccordionItemBody>
           <span>{{ item.description }}</span>
-          <SliderRoot :class="styles.sliderRoot" :default-value="[40]">
+          <Slider :class="styles.sliderRoot" :default-value="[40]">
             <SliderLabel :class="styles.sliderLabel">{{ item.title }} priority</SliderLabel>
             <SliderControl :class="styles.sliderControl">
               <SliderTrack :class="styles.sliderTrack">
@@ -58,7 +58,7 @@ const items = [
                 <SliderHiddenInput />
               </SliderThumb>
             </SliderControl>
-          </SliderRoot>
+          </Slider>
         </AccordionItemBody>
       </AccordionItemContent>
     </AccordionItem>

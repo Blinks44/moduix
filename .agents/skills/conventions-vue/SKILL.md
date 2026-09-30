@@ -51,6 +51,9 @@ Use this skill for JS/TS Vue work in this repo.
   forms into one `mergeProps` call that keeps template order.
 - Never snapshot reactive values outside reactive scopes; read prop and context properties inside
   render, `computed`, and watcher scopes so updates track.
+- Ark Vue's `useFieldsetContext()` exposes `disabled` as `boolean | 'true' | 'false'`. When a
+  wrapper feeds that value into a machine prop typed as boolean, normalize both string forms inside
+  a reactive scope so `'false'` does not become truthy.
 - Create browser-constructed values in `<script setup>` or another setup scope and expose them to
   the template explicitly. Runtime template expressions resolve the component context; do not rely
   on unexposed browser globals such as `new File(...)` directly in a template.

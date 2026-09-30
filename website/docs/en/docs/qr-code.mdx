@@ -21,6 +21,14 @@ import qrCodeSolidFill from '../../../snippets/qr-code/solid/fill.tsx?raw';
 import qrCodeSolidInput from '../../../snippets/qr-code/solid/input.tsx?raw';
 import qrCodeSolidOverlay from '../../../snippets/qr-code/solid/overlay.tsx?raw';
 import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provider.tsx?raw';
+import qrCodeVueBasic from '../../../snippets/qr-code/vue/basic.vue?raw';
+import qrCodeVueControlled from '../../../snippets/qr-code/vue/controlled.vue?raw';
+import qrCodeVueDownload from '../../../snippets/qr-code/vue/download.vue?raw';
+import qrCodeVueErrorCorrection from '../../../snippets/qr-code/vue/error-correction.vue?raw';
+import qrCodeVueFill from '../../../snippets/qr-code/vue/fill.vue?raw';
+import qrCodeVueInput from '../../../snippets/qr-code/vue/input.vue?raw';
+import qrCodeVueOverlay from '../../../snippets/qr-code/vue/overlay.vue?raw';
+import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.vue?raw';
 
 ## API Reference
 
@@ -44,6 +52,7 @@ name when the QR code conveys information.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -56,6 +65,11 @@ name when the QR code conveys information.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -84,6 +98,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/qr-code' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/qr-code' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/qr-code' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/qr-code' },
   ]}
 />
 
@@ -141,6 +165,7 @@ state.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -153,6 +178,11 @@ state.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueControlled} />
 
     </Tab>
   </Tabs>
@@ -181,6 +211,7 @@ Add `QrCodeDownloadTrigger` when users need to save the generated code as an ima
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -193,6 +224,11 @@ Add `QrCodeDownloadTrigger` when users need to save the generated code as an ima
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidDownload} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueDownload} />
 
     </Tab>
   </Tabs>
@@ -221,6 +257,7 @@ an overlay covers part of the code or when the code may be scratched or distorte
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -233,6 +270,11 @@ an overlay covers part of the code or when the code may be scratched or distorte
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidErrorCorrection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueErrorCorrection} />
 
     </Tab>
   </Tabs>
@@ -261,6 +303,7 @@ The QR modules use `currentColor` by default. Change the SVG fill with `style`, 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -273,6 +316,11 @@ The QR modules use `currentColor` by default. Change the SVG fill with `style`, 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidFill} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueFill} />
 
     </Tab>
   </Tabs>
@@ -301,6 +349,7 @@ Give the frame an accessible name that explains what the code represents.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -313,6 +362,11 @@ Give the frame an accessible name that explains what the code represents.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidInput} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueInput} />
 
     </Tab>
   </Tabs>
@@ -341,6 +395,7 @@ overlay small enough that scanners can still read the code.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -353,6 +408,11 @@ overlay small enough that scanners can still read the code.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidOverlay} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueOverlay} />
 
     </Tab>
   </Tabs>
@@ -381,6 +441,7 @@ pass that state to `QrCodeRootProvider`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -395,6 +456,11 @@ pass that state to `QrCodeRootProvider`.
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueRootProvider} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -402,7 +468,7 @@ pass that state to `QrCodeRootProvider`.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes; the variables below customize the CSS Modules
 variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
 
