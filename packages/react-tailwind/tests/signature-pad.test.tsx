@@ -187,7 +187,16 @@ test('uses native utility defaults for component-owned visual parts', () => {
   expect(control).toHaveClass('h-40', 'min-h-40', 'rounded-md', 'border', 'bg-background');
   expect(segment).toHaveClass('fill-current');
   expect(guide).toHaveClass('absolute', 'start-6', 'end-6', 'bottom-8', 'border-dashed');
-  expect(clearTrigger).toHaveClass('size-control-md', 'absolute', 'top-2', 'end-2');
+  expect(clearTrigger).toHaveClass(
+    'size-control-xs',
+    'rounded-sm',
+    'focus-visible:outline-1',
+    'focus-visible:outline-offset-1',
+    '[@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted',
+    'absolute',
+    'top-2',
+    'end-2',
+  );
   expect(clearTrigger.querySelector('svg')).toHaveClass('size-4');
 });
 

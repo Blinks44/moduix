@@ -171,19 +171,19 @@
   }
 
   .clearTrigger {
-    --moduix-close-button-size: var(--moduix-command-palette-clear-size, var(--moduix-spacing-6));
+    --moduix-close-button-size: var(--moduix-command-palette-clear-size, var(--moduix-size-xs));
     --moduix-close-button-radius: var(
       --moduix-command-palette-clear-radius,
-      var(--moduix-radius-md)
+      var(--moduix-radius-sm)
     );
     --moduix-close-button-icon-size: var(
       --moduix-command-palette-icon-size,
-      var(--moduix-spacing-3)
+      var(--moduix-spacing-4)
     );
     --moduix-close-button-bg: transparent;
     --moduix-close-button-bg-hover: var(
       --moduix-command-palette-clear-bg-hover,
-      var(--moduix-color-accent)
+      var(--moduix-color-muted)
     );
     --moduix-close-button-color: var(
       --moduix-command-palette-muted-color,

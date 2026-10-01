@@ -19,11 +19,11 @@
     white-space: nowrap;
     cursor: pointer;
     transition:
-      background-color var(--moduix-button-transition, var(--moduix-transition-default)),
-      border-color var(--moduix-button-transition, var(--moduix-transition-default)),
-      color var(--moduix-button-transition, var(--moduix-transition-default)),
-      opacity var(--moduix-button-transition, var(--moduix-transition-default)),
-      transform var(--moduix-button-transition, var(--moduix-transition-default));
+      background-color var(--moduix-button-transition, var(--moduix-transition-fast)),
+      border-color var(--moduix-button-transition, var(--moduix-transition-fast)),
+      color var(--moduix-button-transition, var(--moduix-transition-fast)),
+      opacity var(--moduix-button-transition, var(--moduix-transition-fast)),
+      transform var(--moduix-button-transition, var(--moduix-transition-fast));
 
     &:focus-visible {
       outline: var(
@@ -41,7 +41,7 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      &:active:not([data-variant='link']) {
+      &[data-slot='button-root']:active:not([data-variant='link'], [aria-haspopup]) {
         transform: translateY(1px);
       }
     }

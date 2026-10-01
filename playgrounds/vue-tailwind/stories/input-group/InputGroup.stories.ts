@@ -6,6 +6,7 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
+  InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
 } from '@/components/input-group';
@@ -30,6 +31,7 @@ const storyComponents = {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
+  InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
 } as unknown as Record<string, Component>;
@@ -163,4 +165,20 @@ export const CustomStyles: Story = {
       </InputGroupButton>
     </InputGroup>
   `),
+};
+
+export const ClearTrigger: Story = {
+  render: renderStory(
+    `
+    <Field :class="fieldClass">
+      <FieldLabel>Search</FieldLabel>
+      <InputGroup>
+        <InputGroupInput v-model="value" placeholder="Search…" />
+        <InputGroupClearTrigger v-if="value" aria-label="Clear search"
+          @click="value = ''; $el.querySelector('input').focus()" />
+      </InputGroup>
+    </Field>
+    `,
+    () => ({ value: ref('moduix') }),
+  ),
 };

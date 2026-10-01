@@ -122,8 +122,8 @@ The text input and copy trigger use the shared `--moduix-size-md` baseline; the 
 - Input and trigger tokens intentionally fall back to the existing `--moduix-input-*` and `--moduix-button-*` families where that keeps the visual system aligned.
 - `--moduix-clipboard-max-width` defaults to `none` instead of a fixed cap.
 - Copied-state styling should target Ark `data-copied` directly; there is no separate `--moduix-clipboard-*-copied` token layer.
-- The trigger follows the moduix button interaction model with hover, focus-visible, pressed, and
-  reduced-motion-aware feedback.
+- The trigger keeps hover, focus-visible, and pressed opacity feedback without press translation
+  or scaling. Movement is reserved for standalone Button roots.
 
 ## Intentional sugar and differences from upstream
 

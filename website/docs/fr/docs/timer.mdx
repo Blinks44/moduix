@@ -1,7 +1,7 @@
 ---
 title: Timer
 component: timer
-description: Un composant pour suivre le temps écoulé ou restant, avec des contrôles explicites en React ou Solid.
+description: Un composant pour suivre le temps écoulé ou restant, avec des contrôles explicites en React, Solid ou Vue.
 ---
 
 import * as TimerDocs from '@/components/examples/timer/css-properties';
@@ -17,6 +17,12 @@ import timerSolidEvents from '../../../snippets/timer/solid/events.tsx?raw';
 import timerSolidInterval from '../../../snippets/timer/solid/interval.tsx?raw';
 import timerSolidPomodoro from '../../../snippets/timer/solid/pomodoro.tsx?raw';
 import timerSolidRootProvider from '../../../snippets/timer/solid/root-provider.tsx?raw';
+import timerVueBasic from '../../../snippets/timer/vue/basic.vue?raw';
+import timerVueCountdown from '../../../snippets/timer/vue/countdown.vue?raw';
+import timerVueEvents from '../../../snippets/timer/vue/events.vue?raw';
+import timerVueInterval from '../../../snippets/timer/vue/interval.vue?raw';
+import timerVuePomodoro from '../../../snippets/timer/vue/pomodoro.vue?raw';
+import timerVueRootProvider from '../../../snippets/timer/vue/root-provider.vue?raw';
 
 ## Référence de l’API
 
@@ -45,6 +51,7 @@ l’élément hôte ou fournir vos propres enfants.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -57,6 +64,11 @@ l’élément hôte ou fournir vos propres enfants.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={timerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={timerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -85,6 +97,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/timer' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/timer' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/timer' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/timer' },
   ]}
 />
 
@@ -128,7 +150,12 @@ d’unité, des séparateurs personnalisés ou une mise en page propre à chaque
 Utilisez `TimerRootProvider` avec `useTimer()` lorsque l’état doit être créé en dehors de l’arbre de composition
 rendu. `TimerContext` et `useTimerContext()` conviennent lorsque d’autres éléments de l’interface doivent accéder à
 l’état ou aux méthodes du minuteur. En Solid, l’état et le contexte se lisent via des fonctions réactives : utilisez
-`timer()` et `api()`.
+`timer()` et `api()`. En Vue, les refs sont automatiquement déballées dans les templates et s’utilisent avec `.value`
+dans le code du script.
+
+Dans la version installée d’Ark UI, `TimerItem` remplace son contenu enfant par la valeur formatée avant de traiter
+`asChild`. L’élément fourni est donc perdu en Vue et en React. Utilisez l’élément par défaut de `TimerItem` en attendant
+la correction dans Ark ; les exemples ci-dessus utilisent cette composition prise en charge.
 
 ## Exemples
 
@@ -147,6 +174,7 @@ Définissez `countdown` et `startMs` si l’affichage doit décompter jusqu’à
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -161,6 +189,11 @@ Définissez `countdown` et `startMs` si l’affichage doit décompter jusqu’à
 <CodeBlockRuntime lang="tsx" code={timerSolidCountdown} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={timerVueCountdown} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -173,7 +206,8 @@ Définissez `countdown` et `startMs` si l’affichage doit décompter jusqu’à
 
 ### Événements
 
-Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie du minuteur.
+Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie du minuteur. En Vue, écoutez les
+événements avec `@tick` et `@complete`.
 
 <ExampleFrame variant="component">
   <TimerEvents />
@@ -186,6 +220,7 @@ Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -198,6 +233,11 @@ Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={timerSolidEvents} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={timerVueEvents} />
 
     </Tab>
   </Tabs>
@@ -226,6 +266,7 @@ plusieurs fois par seconde.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -240,6 +281,11 @@ plusieurs fois par seconde.
 <CodeBlockRuntime lang="tsx" code={timerSolidInterval} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={timerVueInterval} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -252,7 +298,7 @@ plusieurs fois par seconde.
 
 ### Pomodoro
 
-Utilisez `onComplete` pour passer du travail à la pause et inversement lorsque le minuteur doit enchaîner les cycles.
+Utilisez `onComplete` (`@complete` en Vue) pour passer du travail à la pause et inversement lorsque le minuteur doit enchaîner les cycles.
 
 <ExampleFrame variant="component">
   <TimerPomodoro />
@@ -265,6 +311,7 @@ Utilisez `onComplete` pour passer du travail à la pause et inversement lorsque 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -277,6 +324,11 @@ Utilisez `onComplete` pour passer du travail à la pause et inversement lorsque 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={timerSolidPomodoro} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={timerVuePomodoro} />
 
     </Tab>
   </Tabs>
@@ -306,6 +358,7 @@ personnalisés.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -320,6 +373,11 @@ personnalisés.
 <CodeBlockRuntime lang="tsx" code={timerSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={timerVueRootProvider} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -332,8 +390,9 @@ personnalisés.
 
 ## Styles
 
-Pour modifier la structure, utilisez `className` sur les éléments exportés et les variables CSS pour les valeurs
-visuelles par défaut. Les attributs Ark restent disponibles pour cibler chaque élément.
+Pour modifier la structure, utilisez `className` en React ou `class` en Solid et en Vue sur les éléments exportés.
+La variante CSS Modules expose des variables CSS pour les valeurs visuelles par défaut ; Tailwind utilise des
+classes utilitaires et vos propres classes pour les remplacer. Les attributs Ark restent disponibles pour cibler chaque élément.
 
 ### Propriétés CSS
 

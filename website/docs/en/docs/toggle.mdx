@@ -23,11 +23,20 @@ import toggleSolidIcons from '../../../snippets/toggle/solid/icons.tsx?raw';
 import toggleSolidIndicator from '../../../snippets/toggle/solid/indicator.tsx?raw';
 import toggleSolidSizes from '../../../snippets/toggle/solid/sizes.tsx?raw';
 import toggleSolidVariants from '../../../snippets/toggle/solid/variants.tsx?raw';
+import toggleVueAdvancedCustomization from '../../../snippets/toggle/vue/advanced-customization.vue?raw';
+import toggleVueAsChild from '../../../snippets/toggle/vue/aschild.vue?raw';
+import toggleVueBasic from '../../../snippets/toggle/vue/basic.vue?raw';
+import toggleVueControlled from '../../../snippets/toggle/vue/controlled.vue?raw';
+import toggleVueDisabled from '../../../snippets/toggle/vue/disabled.vue?raw';
+import toggleVueIcons from '../../../snippets/toggle/vue/icons.vue?raw';
+import toggleVueIndicator from '../../../snippets/toggle/vue/indicator.vue?raw';
+import toggleVueSizes from '../../../snippets/toggle/vue/sizes.vue?raw';
+import toggleVueVariants from '../../../snippets/toggle/vue/variants.vue?raw';
 
 ## API Reference
 
 `Toggle` wraps Ark UI's Toggle primitive and adds moduix visual props for variants and sizes.
-Import it from `@moduix/react/toggle` or `@moduix/solid/toggle`.
+Import it from `@moduix/react/toggle`, `@moduix/solid/toggle`, or `@moduix/vue/toggle`.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toggle" />
 
@@ -56,6 +65,7 @@ Use `Toggle` for the common case. It preserves Ark's pressed-state behavior.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +78,11 @@ Use `Toggle` for the common case. It preserves Ark's pressed-state behavior.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +114,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toggle' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toggle' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -123,7 +148,10 @@ application state owns the value. Use `ToggleIndicator` when
 the button content changes with its pressed state. For custom descendants that need the state, use
 `ToggleContext` or `useToggleContext()` from the matching package. Use `asChild` when another button
 should host the toggle behavior. In Solid, `asChild` takes a render function; in React, it takes one
-button-like child.
+button-like child; in Vue, it uses one button-like child in the default slot. In Vue, use
+`v-model:pressed` for the controlled value, the named `fallback` slot with `ToggleIndicator`, and the
+`ToggleContext` slot when a custom descendant needs the current state. Listen to `@pressed-change`
+when you need the emitted Boolean value without binding it with `v-model:pressed`.
 
 ## Examples
 
@@ -143,6 +171,7 @@ can merge its interaction props and accessibility state into that element.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -155,6 +184,11 @@ can merge its interaction props and accessibility state into that element.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidAsChild} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueAsChild} />
 
     </Tab>
   </Tabs>
@@ -176,6 +210,7 @@ Control `pressed` when the toggle is part of application state, analytics, or an
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -188,6 +223,11 @@ Control `pressed` when the toggle is part of application state, analytics, or an
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueControlled} />
 
     </Tab>
   </Tabs>
@@ -214,6 +254,7 @@ Set `disabled` to prevent interaction while preserving the current pressed state
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -226,6 +267,11 @@ Set `disabled` to prevent interaction while preserving the current pressed state
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -252,6 +298,7 @@ Pass icons as regular children. Icon-only toggles need an accessible name such a
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -264,6 +311,11 @@ Pass icons as regular children. Icon-only toggles need an accessible name such a
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidIcons} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueIcons} />
 
     </Tab>
   </Tabs>
@@ -290,6 +342,7 @@ Use `ToggleIndicator` when pressed and unpressed states need different inline co
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -302,6 +355,11 @@ Use `ToggleIndicator` when pressed and unpressed states need different inline co
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidIndicator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueIndicator} />
 
     </Tab>
   </Tabs>
@@ -323,6 +381,7 @@ Use text sizes for labeled toggles and icon-only sizes for denser action rows.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -335,6 +394,11 @@ Use text sizes for labeled toggles and icon-only sizes for denser action rows.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueSizes} />
 
     </Tab>
   </Tabs>
@@ -361,6 +425,7 @@ Set `variant` to `default`, `outline`, or `ghost` to match the surrounding surfa
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -375,6 +440,11 @@ Set `variant` to `default`, `outline`, or `ghost` to match the surrounding surfa
 <CodeBlockRuntime lang="tsx" code={toggleSolidVariants} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueVariants} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -386,7 +456,7 @@ Set `variant` to `default`, `outline`, or `ghost` to match the surrounding surfa
 
 ### Advanced Customization
 
-Use the context hook when a custom descendant needs the pressed state instead of changing the
+Use the context hook or scoped slot when a custom descendant needs the pressed state instead of changing the
 button content with `ToggleIndicator`.
 
 <ExampleFrame variant="component">
@@ -400,6 +470,7 @@ button content with `ToggleIndicator`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -414,13 +485,18 @@ button content with `ToggleIndicator`.
 <CodeBlockRuntime lang="tsx" code={toggleSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes; CSS Modules variants additionally expose the
 `--moduix-toggle-*` tokens for variants, sizes, focus ring, spacing, and icon sizing.
 

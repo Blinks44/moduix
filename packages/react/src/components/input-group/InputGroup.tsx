@@ -10,7 +10,10 @@ import {
   type ComponentProps,
   type ComponentRef,
 } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
+import { CloseButton } from '../close-button';
 import { Input } from '../input';
 import styles from './InputGroup.module.css';
 
@@ -109,4 +112,45 @@ const InputGroupButton = forwardRef<HTMLButtonElement, ComponentProps<typeof But
   },
 );
 
-export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText };
+const InputGroupClearTrigger = forwardRef<
+  HTMLButtonElement,
+  ComponentProps<typeof CloseButton> & { size?: InputGroupSize }
+>(function InputGroupClearTrigger(
+  {
+    className,
+    children,
+    size,
+    type = 'button',
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
+  const groupSize = useContext(InputGroupSizeContext);
+  return (
+    <CloseButton
+      ref={ref}
+      {...props}
+      data-scope="input-group"
+      data-part="clear-trigger"
+      data-slot="input-group-clear-trigger"
+      data-size={size ?? groupSize}
+      className={clsx(styles.clearTrigger, className)}
+      type={type}
+      aria-label={ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.clearInput : undefined)}
+      aria-labelledby={ariaLabelledBy}
+    >
+      {children ?? <CloseIcon />}
+    </CloseButton>
+  );
+});
+
+export {
+  InputGroup,
+  InputGroupClearTrigger,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+};

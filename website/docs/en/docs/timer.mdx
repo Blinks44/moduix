@@ -1,7 +1,7 @@
 ---
 title: Timer
 component: timer
-description: A timer for tracking elapsed or remaining time with explicit controls in React or Solid.
+description: A timer for tracking elapsed or remaining time with explicit controls in React, Solid, or Vue.
 ---
 
 import * as TimerDocs from '@/components/examples/timer/css-properties';
@@ -17,6 +17,12 @@ import timerSolidEvents from '../../../snippets/timer/solid/events.tsx?raw';
 import timerSolidInterval from '../../../snippets/timer/solid/interval.tsx?raw';
 import timerSolidPomodoro from '../../../snippets/timer/solid/pomodoro.tsx?raw';
 import timerSolidRootProvider from '../../../snippets/timer/solid/root-provider.tsx?raw';
+import timerVueBasic from '../../../snippets/timer/vue/basic.vue?raw';
+import timerVueCountdown from '../../../snippets/timer/vue/countdown.vue?raw';
+import timerVueEvents from '../../../snippets/timer/vue/events.vue?raw';
+import timerVueInterval from '../../../snippets/timer/vue/interval.vue?raw';
+import timerVuePomodoro from '../../../snippets/timer/vue/pomodoro.vue?raw';
+import timerVueRootProvider from '../../../snippets/timer/vue/root-provider.vue?raw';
 
 ## API Reference
 
@@ -44,6 +50,7 @@ custom children.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -56,6 +63,11 @@ custom children.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={timerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={timerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -84,6 +96,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/timer' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/timer' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/timer' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/timer' },
   ]}
 />
 
@@ -126,7 +148,12 @@ custom separators, or per-item layout.
 
 Use `TimerRootProvider` with `useTimer()` when the state must be created outside the rendered part tree. Use
 `TimerContext` or `useTimerContext()` when other UI needs the timer state or methods. In Solid, the store and context
-are accessors, so read them as `timer()` and `api()`.
+are accessors, so read them as `timer()` and `api()`. In Vue, refs are unwrapped in templates, while script logic
+uses the usual `.value` access.
+
+In the installed Ark UI version, `TimerItem` replaces child content with the formatted value before `asChild`
+composition. Its replacement host is therefore lost in Vue and React. Use the default `TimerItem` host until
+upstream fixes this behavior; the examples above use that supported composition.
 
 ## Examples
 
@@ -145,6 +172,7 @@ Set `countdown` and `startMs` when the display should count down to zero.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -159,6 +187,11 @@ Set `countdown` and `startMs` when the display should count down to zero.
 <CodeBlockRuntime lang="tsx" code={timerSolidCountdown} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={timerVueCountdown} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -171,7 +204,7 @@ Set `countdown` and `startMs` when the display should count down to zero.
 
 ### Events
 
-Use `onTick` and `onComplete` for side effects tied to the timer lifecycle.
+Use `onTick` and `onComplete` for side effects tied to the timer lifecycle. In Vue, listen with `@tick` and `@complete`.
 
 <ExampleFrame variant="component">
   <TimerEvents />
@@ -184,6 +217,7 @@ Use `onTick` and `onComplete` for side effects tied to the timer lifecycle.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -196,6 +230,11 @@ Use `onTick` and `onComplete` for side effects tied to the timer lifecycle.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={timerSolidEvents} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={timerVueEvents} />
 
     </Tab>
   </Tabs>
@@ -223,6 +262,7 @@ Use a shorter `interval` with a `milliseconds` item when the UI needs sub-second
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -237,6 +277,11 @@ Use a shorter `interval` with a `milliseconds` item when the UI needs sub-second
 <CodeBlockRuntime lang="tsx" code={timerSolidInterval} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={timerVueInterval} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -249,7 +294,7 @@ Use a shorter `interval` with a `milliseconds` item when the UI needs sub-second
 
 ### Pomodoro
 
-Use `onComplete` to switch between work and break durations when the timer should advance to the next cycle.
+Use `onComplete` (`@complete` in Vue) to switch between work and break durations when the timer should advance to the next cycle.
 
 <ExampleFrame variant="component">
   <TimerPomodoro />
@@ -262,6 +307,7 @@ Use `onComplete` to switch between work and break durations when the timer shoul
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -274,6 +320,11 @@ Use `onComplete` to switch between work and break durations when the timer shoul
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={timerSolidPomodoro} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={timerVuePomodoro} />
 
     </Tab>
   </Tabs>
@@ -302,6 +353,7 @@ also the right composition for unit labels and other custom item layouts.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -316,6 +368,11 @@ also the right composition for unit labels and other custom item layouts.
 <CodeBlockRuntime lang="tsx" code={timerSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={timerVueRootProvider} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -328,7 +385,8 @@ also the right composition for unit labels and other custom item layouts.
 
 ## Styling
 
-Use `className` on exported parts for structural overrides and CSS variables for visual defaults. Ark attributes remain
+Use `className` in React or `class` in Solid and Vue on exported parts for structural overrides. CSS Modules expose
+CSS variables for visual defaults; Tailwind uses utility classes and consumer overrides. Ark attributes remain
 available for part-specific styling.
 
 ### CSS Properties

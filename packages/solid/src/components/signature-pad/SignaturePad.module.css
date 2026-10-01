@@ -80,7 +80,7 @@
       var(--moduix-signature-pad-clear-trigger-border-color, transparent);
     --moduix-close-button-size: var(
       --moduix-signature-pad-clear-trigger-size,
-      var(--moduix-size-md)
+      var(--moduix-size-xs)
     );
     --moduix-close-button-radius: var(
       --moduix-signature-pad-clear-trigger-radius,
@@ -89,7 +89,7 @@
     --moduix-close-button-bg: var(--moduix-signature-pad-clear-trigger-bg, transparent);
     --moduix-close-button-bg-hover: var(
       --moduix-signature-pad-clear-trigger-bg-hover,
-      var(--moduix-color-accent)
+      var(--moduix-color-muted)
     );
     --moduix-close-button-color: var(
       --moduix-signature-pad-clear-trigger-color,
@@ -105,7 +105,7 @@
     );
     --moduix-close-button-focus-ring-width: var(
       --moduix-signature-pad-clear-trigger-focus-ring-width,
-      var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+      var(--moduix-border-width-sm)
     );
     --moduix-close-button-focus-ring-color: var(
       --moduix-signature-pad-clear-trigger-focus-ring-color,
@@ -113,7 +113,7 @@
     );
     --moduix-close-button-focus-ring-offset: var(
       --moduix-signature-pad-clear-trigger-focus-ring-offset,
-      var(--moduix-spacing-1)
+      var(--moduix-border-width-sm)
     );
     --moduix-close-button-disabled-opacity: 1;
   }

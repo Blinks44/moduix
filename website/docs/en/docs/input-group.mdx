@@ -6,6 +6,9 @@ description: Build inputs with prefixes, suffixes, and inline actions in React, 
 
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
 import InputGroupAsChild from '@/components/examples/input-group/as-child.tsx';
+import InputGroupClearTrigger from '@/components/examples/input-group/clear-trigger.tsx';
+import inputGroupSolidClearTrigger from '../../../snippets/input-group/solid/clear-trigger.tsx?raw';
+import inputGroupVueClearTrigger from '../../../snippets/input-group/vue/clear-trigger.vue?raw';
 import InputGroupBasic from '@/components/examples/input-group/basic.tsx';
 import InputGroupDisabled from '@/components/examples/input-group/disabled.tsx';
 import InputGroupFieldState from '@/components/examples/input-group/field-state.tsx';
@@ -134,7 +137,8 @@ InputGroup
 ├─ InputGroupAddon (optional)
 ├─ InputGroupInput
 ├─ InputGroupText (optional)
-└─ InputGroupButton (optional)
+├─ InputGroupButton (optional)
+└─ InputGroupClearTrigger (optional)
 ```
 
 | Part                             | Role                                                        |
@@ -144,6 +148,7 @@ InputGroup
 | `InputGroupAddon`               | Filled prefix or suffix.                                   |
 | `InputGroupText`                | Inline text without a fill.                                |
 | `InputGroupButton`              | Action button associated with the input.                   |
+| `InputGroupClearTrigger` | Clear action with a default close icon; clearing is handled by the application. |
 
 ## Composition
 
@@ -388,6 +393,51 @@ controlled and enables `Send` only after a value is entered.
 
 </ExampleCode>
 
+### Clear Trigger
+
+Use `InputGroupClearTrigger` for a clear action with a default close icon and accessible label.
+It inherits the group size and defaults to `type="button"`. Handle value clearing and focus in
+`onClick` (Vue: `@click`); render it only when the value is non-empty. It does not clear or hide
+automatically. Disable it explicitly for disabled or read-only fields. Override `aria-label`
+for your language, or use `aria-labelledby`; children replace the default icon.
+The compact hover surface matches the clear buttons in Select and Combobox.
+
+<ExampleFrame variant="component">
+  <InputGroupClearTrigger />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
+  ]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/clear-trigger.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidClearTrigger} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueClearTrigger} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input-group/input-group-clear-trigger.module.css"
+```
+</div>
+</ExampleCode>
+
 ### Advanced Customization
 
 Use `asChild` when the root must render a custom container instead of the default `div`. The group
@@ -452,6 +502,7 @@ hooks are shared by both styling tracks.
 - `data-scope="input-group"` and `data-part="root" | "addon" | "text"` on the Ark factory parts
 - `data-slot="input-root"` plus Ark Field input state attributes
 - `data-slot="input-group-addon"`
+- `data-slot="input-group-clear-trigger"`
 - `data-slot="input-group-text"`
 - `data-slot="input-group-button"` on the grouped action button
 - Nested `data-invalid`, `aria-invalid="true"`, `data-disabled`/`:disabled`, and `data-readonly`/`:read-only` states are reflected through `:has(...)` on the root

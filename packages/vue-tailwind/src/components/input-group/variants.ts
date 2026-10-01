@@ -63,3 +63,10 @@ export const inputGroupTextVariants = cva(
 );
 
 export const inputGroupButtonClass = 'h-auto self-stretch rounded-none border-0';
+export const inputGroupClearTriggerVariants = cva(
+  'me-2 size-control-xs self-center focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none',
+  {
+    variants: { size: { xs: 'size-5', sm: '', md: '', lg: '', xl: '' } },
+    defaultVariants: { size: 'md' },
+  },
+);

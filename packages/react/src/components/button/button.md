@@ -123,8 +123,10 @@ equivalent labeling mechanism.
 ## Defaults and styling
 
 The default `md` and `icon-md` variants use `--moduix-size-md`; the `md` text button uses `--moduix-spacing-1` block padding.
-Enabled button variants use a subtle press movement; `link` keeps opacity feedback only, and
-reduced-motion preferences omit the movement.
+Standalone Button roots use a subtle 1px press movement with a 150ms ease-in-out transition.
+Link variants, popup triggers
+(`aria-haspopup`), composed parts with another `data-slot`, and reduced-motion preferences omit
+the movement. This keeps InputGroupButton, SplitButton, and trigger compositions stationary.
 
 | Entry       | Default   | Values                                                                                   |
 | ----------- | --------- | ---------------------------------------------------------------------------------------- |
@@ -198,7 +200,7 @@ Primary CSS variables:
 | `--moduix-button-size-md`                                         | `var(--moduix-size-md)`                                                                       |
 | `--moduix-button-size-lg`                                         | `var(--moduix-size-lg)`                                                                       |
 | `--moduix-button-size-xl`                                         | `var(--moduix-size-xl)`                                                                       |
-| `--moduix-button-transition`                                      | `var(--moduix-transition-default)`                                                            |
+| `--moduix-button-transition`                                      | `var(--moduix-transition-fast)`                                                               |
 
 ## Intentional sugar and differences from upstream
 

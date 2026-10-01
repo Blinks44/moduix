@@ -51,6 +51,9 @@ Use this skill for JS/TS Vue work in this repo.
   forms into one `mergeProps` call that keeps template order.
 - Never snapshot reactive values outside reactive scopes; read prop and context properties inside
   render, `computed`, and watcher scopes so updates track.
+- `useAttrs()` reflects current attrs but does not provide reactive dependencies for `computed`.
+  Read forwarded attrs in the render/template path; when an attr participates in cached derived
+  state, declare and forward it as a local native prop so parent updates invalidate that state.
 - Ark Vue's `useFieldsetContext()` exposes `disabled` as `boolean | 'true' | 'false'`. When a
   wrapper feeds that value into a machine prop typed as boolean, normalize both string forms inside
   a reactive scope so `'false'` does not become truthy.
@@ -129,6 +132,11 @@ Use this skill for JS/TS Vue work in this repo.
 - Keep Ark-owned `modelValue` and `update:modelValue` on the Ark surface. Do not add `defineModel`
   merely to proxy an existing Ark model, because doing so consumes the prop and event at the
   wrapper boundary. Use `defineModel` only for a genuinely moduix-owned model contract.
+- Vue `mergeProps` can combine native listeners into arrays, including handlers injected by Ark's
+  `asChild` factory. Do not consume those arrays as Function-only props or call them as one function.
+  When a wrapper intercepts a native event for a guard, prefer concrete typed Vue emits and emit it
+  once after the guard; otherwise keep listeners transparent. Verify capture/bubble order, single
+  invocation, and consumer cancellation through both ordinary and `asChild` hosts.
 - Keep setup and module evaluation SSR-safe. Access `window`, `document`, layout, observers, and DOM
   nodes only behind the appropriate Vue lifecycle or an existing client-safe helper. Components
   using Teleport, generated ids, or browser measurement need an SSR and hydration-oriented check.

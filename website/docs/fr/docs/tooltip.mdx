@@ -27,6 +27,17 @@ import tooltipSolidPositioning from '../../../snippets/tooltip/solid/positioning
 import tooltipSolidRootProvider from '../../../snippets/tooltip/solid/root-provider.tsx?raw';
 import tooltipSolidWithArrow from '../../../snippets/tooltip/solid/with-arrow.tsx?raw';
 import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/within-fixed-containers.tsx?raw';
+import tooltipVueAdvancedCustomization from '../../../snippets/tooltip/vue/advanced-customization.vue?raw';
+import tooltipVueBasic from '../../../snippets/tooltip/vue/basic.vue?raw';
+import tooltipVueContext from '../../../snippets/tooltip/vue/context.vue?raw';
+import tooltipVueControlled from '../../../snippets/tooltip/vue/controlled.vue?raw';
+import tooltipVueDelay from '../../../snippets/tooltip/vue/delay.vue?raw';
+import tooltipVueDisabledTrigger from '../../../snippets/tooltip/vue/disabled-trigger.vue?raw';
+import tooltipVueMultipleTriggers from '../../../snippets/tooltip/vue/multiple-triggers.vue?raw';
+import tooltipVuePositioning from '../../../snippets/tooltip/vue/positioning.vue?raw';
+import tooltipVueRootProvider from '../../../snippets/tooltip/vue/root-provider.vue?raw';
+import tooltipVueWithArrow from '../../../snippets/tooltip/vue/with-arrow.vue?raw';
+import tooltipVueWithinFixedContainers from '../../../snippets/tooltip/vue/within-fixed-containers.vue?raw';
 
 ## Référence de l’API
 
@@ -60,6 +71,7 @@ nom accessible. Le contenu de l’infobulle est complémentaire et ne remplace n
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +84,11 @@ nom accessible. Le contenu de l’infobulle est complémentaire et ne remplace n
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueBasic} />
 
     </Tab>
   </Tabs>
@@ -100,6 +117,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tooltip' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tooltip' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tooltip' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tooltip' },
   ]}
 />
 
@@ -135,7 +162,7 @@ Tooltip
 | --- | --- |
 | `Tooltip` | Gère l’état, l’ouverture et la fermeture, les délais, le positionnement et le cycle de vie de l’infobulle. |
 | `TooltipRootProvider` | Affiche une infobulle à partir d’un objet d’état `useTooltip()` créé en dehors de l’arbre. |
-| `TooltipContext` | Expose l’état courant via une fonction de rendu pour les descendants personnalisés. |
+| `TooltipContext` | Expose l’état courant aux descendants personnalisés via une fonction de rendu ou un slot avec portée en Vue. |
 | `TooltipBody` | Raccourci qui rend `TooltipPositioner` et `TooltipContent` ensemble. |
 | `TooltipTrigger` | Élément interactif qui ouvre l’infobulle au survol ou au focus. |
 | `TooltipDisabledTrigger` | Enveloppe pouvant recevoir le focus autour d’un unique contrôle natif désactivé qui nécessite une explication. |
@@ -155,7 +182,13 @@ store est créé en dehors de l’arbre rendu, et `TooltipContext` ou `useToolti
 descendant doit lire cet état. `asChild` attend un unique enfant pouvant recevoir le focus ; Solid
 utilise une fonction de rendu. `TooltipDisabledTrigger` est prévu pour un seul contrôle natif
 désactivé. Le portail est activé par défaut : définissez `portalled={false}` ou passez `portalRef`
-uniquement lorsque l’infobulle doit rester dans une limite DOM précise.
+uniquement lorsque l’infobulle doit rester dans une limite DOM précise. En Vue, utilisez
+`v-model:open` pour l’état contrôlé et les événements Vue en kebab-case, comme `@open-change`.
+
+Par défaut, le contenu est monté à la première ouverture et retiré après l’animation de fermeture.
+Définissez `unmountOnExit` sur `false` pour le conserver après la première ouverture ;
+définissez aussi `lazyMount` sur `false` pour le monter dès le départ. En Vue, passez ces
+options avec `:unmount-on-exit="false"` et `:lazy-mount="false"`.
 
 ## Exemples
 
@@ -174,6 +207,7 @@ Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état couran
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -186,6 +220,11 @@ Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état couran
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueContext} />
 
     </Tab>
   </Tabs>
@@ -208,6 +247,7 @@ Contrôlez l’ouverture de l’infobulle avec `open` et `onOpenChange(details)`
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -220,6 +260,11 @@ Contrôlez l’ouverture de l’infobulle avec `open` et `onOpenChange(details)`
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueControlled} />
 
     </Tab>
   </Tabs>
@@ -242,6 +287,7 @@ Définissez `openDelay` et `closeDelay` sur la racine pour régler le délai au 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -254,6 +300,11 @@ Définissez `openDelay` et `closeDelay` sur la racine pour régler le délai au 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidDelay} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueDelay} />
 
     </Tab>
   </Tabs>
@@ -277,6 +328,7 @@ explication. L’enveloppe peut recevoir le focus sans modifier l’état désac
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -289,6 +341,11 @@ explication. L’enveloppe peut recevoir le focus sans modifier l’état désac
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidDisabledTrigger} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueDisabledTrigger} />
 
     </Tab>
   </Tabs>
@@ -312,6 +369,7 @@ une seule infobulle entre plusieurs déclencheurs.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -324,6 +382,11 @@ une seule infobulle entre plusieurs déclencheurs.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -351,6 +414,7 @@ Passez les options de positionnement d’Ark à `Tooltip`, notamment le placemen
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -363,6 +427,11 @@ Passez les options de positionnement d’Ark à `Tooltip`, notamment le placemen
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidPositioning} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVuePositioning} />
 
     </Tab>
   </Tabs>
@@ -391,6 +460,7 @@ de l’arbre rendu.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -403,6 +473,11 @@ de l’arbre rendu.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -427,6 +502,7 @@ l’enveloppe fournit `TooltipArrowTip` par défaut.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -439,6 +515,11 @@ l’enveloppe fournit `TooltipArrowTip` par défaut.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidWithArrow} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueWithArrow} />
 
     </Tab>
   </Tabs>
@@ -463,6 +544,7 @@ focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alig
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -475,6 +557,11 @@ focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alig
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidWithinFixedContainers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueWithinFixedContainers} />
 
     </Tab>
   </Tabs>
@@ -503,6 +590,7 @@ avoir une composition ou une mise en forme indépendantes.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -517,6 +605,11 @@ avoir une composition ou une mise en forme indépendantes.
 <CodeBlockRuntime lang="tsx" code={tooltipSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -524,7 +617,7 @@ avoir une composition ou une mise en forme indépendantes.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur les parties exportées pour les styles
+Utilisez `className` en React, `class` en Solid et Vue sur les parties exportées pour les styles
 structurels. Pour les styles liés à l’état, préférez les attributs Ark tels que `data-state`,
 `data-placement` et `data-side`, avec les sélecteurs `data-slot` de moduix. Les variantes Tailwind
 utilisent des utilitaires natifs et les classes du consommateur ; les variables CSS ci-dessous

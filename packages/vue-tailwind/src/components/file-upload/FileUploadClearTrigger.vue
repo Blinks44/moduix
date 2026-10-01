@@ -20,8 +20,7 @@ const attrs = useAttrs();
 const clearLabel = computed(
   () => ariaLabel ?? (ariaLabelledby == null ? 'Clear files' : undefined),
 );
-const triggerClass =
-  'size-control-sm self-start rounded-sm bg-transparent text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring data-readonly:pointer-events-none data-readonly:opacity-50 [&>svg]:size-4';
+const triggerClass = `size-control-xs self-start rounded-sm bg-transparent text-muted-foreground focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-readonly:pointer-events-none data-readonly:opacity-50 [&>svg:not([class*='size-'])]:size-4`;
 </script>
 <template>
   <ArkFileUploadClearTrigger
@@ -30,7 +29,13 @@ const triggerClass =
     as-child
     :aria-label="clearLabel"
     :aria-labelledby="ariaLabelledby"
-    :class="cn(triggerClass, $slots.default && 'w-auto gap-2 px-2 text-sm leading-5', className)"
+    :class="
+      cn(
+        triggerClass,
+        $slots.default && 'size-control-sm w-auto gap-2 px-2 text-sm leading-5',
+        className,
+      )
+    "
     data-slot="file-upload-clear-trigger"
     ><slot
   /></ArkFileUploadClearTrigger>
@@ -38,7 +43,13 @@ const triggerClass =
     v-else
     v-bind="attrs"
     as-child
-    :class="cn(triggerClass, $slots.default && 'w-auto gap-2 px-2 text-sm leading-5', className)"
+    :class="
+      cn(
+        triggerClass,
+        $slots.default && 'size-control-sm w-auto gap-2 px-2 text-sm leading-5',
+        className,
+      )
+    "
     data-slot="file-upload-clear-trigger"
   >
     <CloseButton

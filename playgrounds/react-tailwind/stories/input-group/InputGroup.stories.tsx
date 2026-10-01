@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Field, FieldErrorText, FieldLabel } from '@/components/field';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
+  InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
 } from '@/components/input-group/InputGroup';
@@ -158,4 +159,33 @@ export const CustomStyles: Story = {
       </InputGroupButton>
     </InputGroup>
   ),
+};
+
+export const ClearTrigger: Story = {
+  render: () => {
+    const [value, setValue] = useState('moduix');
+    const inputRef = useRef<HTMLInputElement>(null);
+    return (
+      <Field className={'w-full max-w-96'}>
+        <FieldLabel>Search</FieldLabel>
+        <InputGroup>
+          <InputGroupInput
+            ref={inputRef}
+            value={value}
+            placeholder="Search…"
+            onChange={(event) => setValue(event.currentTarget.value)}
+          />
+          {value && (
+            <InputGroupClearTrigger
+              aria-label="Clear search"
+              onClick={() => {
+                setValue('');
+                inputRef.current?.focus();
+              }}
+            />
+          )}
+        </InputGroup>
+      </Field>
+    );
+  },
 };

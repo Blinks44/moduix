@@ -24,8 +24,7 @@ const attrs = useAttrs();
 const tagsInput = useTagsInputContext();
 const clearTriggerLabel = computed(() => tagsInput.value.getClearTriggerProps()['aria-label']);
 const triggerClass = 'ms-auto shrink-0 self-center data-readonly:hidden';
-const defaultTriggerClass =
-  'ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 data-readonly:hidden motion-reduce:transition-none [&>svg]:size-3';
+const defaultTriggerClass = `ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 focus-visible:outline-offset-1 data-readonly:hidden motion-reduce:transition-none [&>svg:not([class*='size-'])]:size-4`;
 </script>
 
 <template>

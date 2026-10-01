@@ -201,6 +201,61 @@
       ]
     },
     {
+      "name": "timer",
+      "type": "registry:item",
+      "title": "Timer",
+      "description": "moduix Vue Tailwind Timer component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/timer/Timer.vue",
+          "target": "@components/ui/timer/Timer.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerRootProvider.vue",
+          "target": "@components/ui/timer/TimerRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerArea.vue",
+          "target": "@components/ui/timer/TimerArea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerItem.vue",
+          "target": "@components/ui/timer/TimerItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerSeparator.vue",
+          "target": "@components/ui/timer/TimerSeparator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerControl.vue",
+          "target": "@components/ui/timer/TimerControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerActionTrigger.vue",
+          "target": "@components/ui/timer/TimerActionTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/TimerSegments.vue",
+          "target": "@components/ui/timer/TimerSegments.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/timer/index.ts",
+          "target": "@components/ui/timer/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "accordion",
       "type": "registry:item",
       "title": "Accordion",
@@ -250,6 +305,150 @@
         {
           "path": "src/components/accordion/index.ts",
           "target": "@components/ui/accordion/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:item",
+      "title": "Toggle",
+      "description": "moduix Vue Tailwind Toggle component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/toggle/Toggle.vue",
+          "target": "@components/ui/toggle/Toggle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle/ToggleIndicator.vue",
+          "target": "@components/ui/toggle/ToggleIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle/Toggle.variants.ts",
+          "target": "@components/ui/toggle/Toggle.variants.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle/index.ts",
+          "target": "@components/ui/toggle/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:item",
+      "title": "Tooltip",
+      "description": "moduix Vue Tailwind Tooltip component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/tooltip/Tooltip.vue",
+          "target": "@components/ui/tooltip/Tooltip.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipRootProvider.vue",
+          "target": "@components/ui/tooltip/TooltipRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipTrigger.vue",
+          "target": "@components/ui/tooltip/TooltipTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipDisabledTrigger.vue",
+          "target": "@components/ui/tooltip/TooltipDisabledTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipPositioner.vue",
+          "target": "@components/ui/tooltip/TooltipPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipContent.vue",
+          "target": "@components/ui/tooltip/TooltipContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipBody.vue",
+          "target": "@components/ui/tooltip/TooltipBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipArrow.vue",
+          "target": "@components/ui/tooltip/TooltipArrow.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/TooltipArrowTip.vue",
+          "target": "@components/ui/tooltip/TooltipArrowTip.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tooltip/index.ts",
+          "target": "@components/ui/tooltip/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:item",
+      "title": "Toast",
+      "description": "moduix Vue Tailwind Toast component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/toast/Toast.vue",
+          "target": "@components/ui/toast/Toast.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/ToastTitle.vue",
+          "target": "@components/ui/toast/ToastTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/ToastDescription.vue",
+          "target": "@components/ui/toast/ToastDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/ToastActionTrigger.vue",
+          "target": "@components/ui/toast/ToastActionTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/ToastCloseTrigger.vue",
+          "target": "@components/ui/toast/ToastCloseTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/ToastToaster.vue",
+          "target": "@components/ui/toast/ToastToaster.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toast/index.ts",
+          "target": "@components/ui/toast/index.ts",
           "type": "registry:component"
         }
       ]
@@ -2369,12 +2568,19 @@
       "description": "moduix Vue Tailwind InputGroup component.",
       "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": [
+        "@moduix-vue-tailwind/icons",
+        "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/button",
         "@moduix-vue-tailwind/input"
       ],
       "files": [
+        {
+          "path": "src/components/input-group/InputGroupClearTrigger.vue",
+          "target": "@components/ui/input-group/InputGroupClearTrigger.vue",
+          "type": "registry:component"
+        },
         {
           "path": "src/components/input-group/InputGroup.vue",
           "target": "@components/ui/input-group/InputGroup.vue",

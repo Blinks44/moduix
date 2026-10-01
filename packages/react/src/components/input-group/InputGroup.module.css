@@ -225,6 +225,19 @@
     background-color: transparent;
   }
 
+  .clearTrigger {
+    --moduix-close-button-size: var(--moduix-size-xs);
+    --moduix-close-button-icon-size: var(--moduix-spacing-4);
+    --moduix-close-button-focus-ring-width: var(--moduix-border-width-sm);
+    --moduix-close-button-focus-ring-offset: var(--moduix-border-width-sm);
+    align-self: center;
+    margin-inline-end: var(--moduix-spacing-2);
+
+    &[data-size='xs'] {
+      --moduix-close-button-size: var(--moduix-spacing-5);
+    }
+  }
+
   .button {
     min-height: auto;
     height: auto;

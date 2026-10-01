@@ -3,6 +3,7 @@ export const a11yLabels = {
   breadcrumb: 'Breadcrumb',
   clipboardCopied: 'Copied',
   clipboardCopy: 'Copy',
+  clearInput: 'Clear input',
   clearFiles: 'Clear files',
   clearSearch: 'Clear search',
   clearSelection: 'Clear selection',

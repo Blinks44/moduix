@@ -1,5 +1,5 @@
-import { expect, test } from '@rstest/core';
-import { render, screen } from '@solidjs/testing-library';
+import { expect, test, rs } from '@rstest/core';
+import { fireEvent, render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import {
   Field,
@@ -7,6 +7,7 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
+  InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
 } from '../src';
@@ -161,4 +162,97 @@ test('preserves factory asChild composition without forwarding refs', () => {
   expect(rootRef).toBeUndefined();
   expect(addonRef).toBeUndefined();
   expect(textRef).toBeUndefined();
+});
+
+test('clear trigger forwards a single click, inherits size, and does not submit or reset a form', () => {
+  const clear = rs.fn();
+  const submit = rs.fn();
+  render(() => (
+    <form onSubmit={submit}>
+      <InputGroup size="lg">
+        <InputGroupInput aria-label="Search" value="moduix" />
+        <InputGroupClearTrigger class="consumer-clear" data-slot="override" onClick={clear} />
+      </InputGroup>
+    </form>
+  ));
+  const button = screen.getByRole('button', { name: 'Clear input' });
+  expect(button).toHaveAttribute('type', 'button');
+  expect(button).toHaveAttribute('data-size', 'lg');
+  expect(button).toHaveAttribute('data-slot', 'input-group-clear-trigger');
+  expect(button).toHaveAttribute('data-scope', 'input-group');
+  expect(button).toHaveAttribute('data-part', 'clear-trigger');
+  expect(button).toHaveClass('consumer-clear');
+  expect(button.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
+  fireEvent.click(button);
+  expect(clear).toHaveBeenCalledTimes(1);
+  expect(submit).not.toHaveBeenCalled();
+  expect(screen.getByRole('textbox', { name: 'Search' })).toHaveValue('moduix');
+});
+
+test('clear trigger supports app-owned value, visibility, and focus', () => {
+  const [value, setValue] = createSignal('moduix');
+  let input: HTMLInputElement | undefined;
+  render(() => (
+    <InputGroup>
+      <InputGroupInput
+        ref={(element) => {
+          input = element;
+        }}
+        aria-label="Search"
+        value={value()}
+        onInput={(event) => setValue(event.currentTarget.value)}
+      />
+      {value() && (
+        <InputGroupClearTrigger
+          onClick={() => {
+            setValue('');
+            input?.focus();
+          }}
+        />
+      )}
+    </InputGroup>
+  ));
+
+  fireEvent.click(screen.getByRole('button', { name: 'Clear input' }));
+  expect(screen.getByRole('textbox', { name: 'Search' })).toHaveValue('');
+  expect(screen.getByRole('textbox', { name: 'Search' })).toHaveFocus();
+  expect(screen.queryByRole('button')).not.toBeInTheDocument();
+});
+
+test('clear trigger preserves custom labels, children, asChild hosts, refs, and disabled behavior', () => {
+  const clear = rs.fn();
+  let trigger: HTMLButtonElement | undefined;
+  render(() => (
+    <>
+      <span id="clear-label">Erase query</span>
+      <InputGroupClearTrigger
+        aria-labelledby="clear-label"
+        size="sm"
+        onClick={clear}
+        asChild={(props) => (
+          <button
+            {...props()}
+            ref={(element) => {
+              trigger = element;
+            }}
+            type="button"
+          >
+            Custom icon
+          </button>
+        )}
+      />
+      <InputGroupClearTrigger aria-label="Disabled clear" disabled onClick={clear} />
+    </>
+  ));
+  const button = screen.getByRole('button', { name: 'Erase query' });
+  expect(trigger).toBe(button);
+  expect(button).not.toHaveAttribute('aria-label');
+  expect(button).toHaveTextContent('Custom icon');
+  expect(button).toHaveAttribute('data-size', 'sm');
+  fireEvent.click(button);
+  expect(clear).toHaveBeenCalledTimes(1);
+  const disabled = screen.getByRole('button', { name: 'Disabled clear' });
+  expect(disabled).toBeDisabled();
+  fireEvent.click(disabled);
+  expect(clear).toHaveBeenCalledTimes(1);
 });

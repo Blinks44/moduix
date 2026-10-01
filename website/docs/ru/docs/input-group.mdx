@@ -6,6 +6,9 @@ description: Создавайте поля ввода с префиксами, �
 
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
 import InputGroupAsChild from '@/components/examples/input-group/as-child.tsx';
+import InputGroupClearTrigger from '@/components/examples/input-group/clear-trigger.tsx';
+import inputGroupSolidClearTrigger from '../../../snippets/input-group/solid/clear-trigger.tsx?raw';
+import inputGroupVueClearTrigger from '../../../snippets/input-group/vue/clear-trigger.vue?raw';
 import InputGroupBasic from '@/components/examples/input-group/basic.tsx';
 import InputGroupDisabled from '@/components/examples/input-group/disabled.tsx';
 import InputGroupFieldState from '@/components/examples/input-group/field-state.tsx';
@@ -135,7 +138,8 @@ InputGroup
 ├─ InputGroupAddon (необязательно)
 ├─ InputGroupInput
 ├─ InputGroupText (необязательно)
-└─ InputGroupButton (необязательно)
+├─ InputGroupButton (необязательно)
+└─ InputGroupClearTrigger (необязательно)
 ```
 
 | Часть                            | Назначение                                                  |
@@ -145,6 +149,7 @@ InputGroup
 | `InputGroupAddon`               | Префикс или суффикс с заливкой.                             |
 | `InputGroupText`                | Встроенный текст без заливки.                               |
 | `InputGroupButton`              | Кнопка действия, связанного с полем.                       |
+| `InputGroupClearTrigger` | Кнопка с крестиком; очисткой значения управляет приложение. |
 
 ## Композиция
 
@@ -390,6 +395,52 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
 
 </ExampleCode>
 
+### Кнопка очистки
+
+Используйте `InputGroupClearTrigger` для очистки поля: у кнопки уже есть крестик и доступная подпись.
+Она наследует размер группы и по умолчанию использует `type="button"`. Очистку значения и возврат
+фокуса задайте в `onClick` (в Vue — `@click`), а кнопку показывайте только при непустом значении.
+Автоматической очистки и скрытия нет. Для отключённого поля или поля только для чтения отключайте
+кнопку отдельно. Передайте `aria-label` на нужном языке или `aria-labelledby`; дочернее содержимое
+заменяет стандартную иконку.
+Компактная область наведения оформлена так же, как кнопки очистки в Select и Combobox.
+
+<ExampleFrame variant="component">
+  <InputGroupClearTrigger />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
+  ]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/clear-trigger.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidClearTrigger} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueClearTrigger} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/input-group/input-group-clear-trigger.module.css"
+```
+</div>
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `asChild`, если вместо стандартного `div` нужен собственный контейнер. Группа сохранит
@@ -454,6 +505,7 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
 - `data-scope="input-group"` и `data-part="root" | "addon" | "text"` на частях фабрики Ark
 - `data-slot="input-root"` вместе с атрибутами состояния поля Ark
 - `data-slot="input-group-addon"`
+- `data-slot="input-group-clear-trigger"`
 - `data-slot="input-group-text"`
 - `data-slot="input-group-button"` у кнопки действия в группе
 - вложенные состояния `data-invalid`, `aria-invalid="true"`, `data-disabled`/`:disabled` и `data-readonly`/`:read-only` отражаются на корне через `:has(...)`

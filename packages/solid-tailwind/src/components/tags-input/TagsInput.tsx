@@ -207,7 +207,7 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
         </CloseButton>
       )}
       class={cn(
-        'ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 data-readonly:hidden motion-reduce:transition-none [&>svg]:size-3',
+        `ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 focus-visible:outline-offset-1 data-readonly:hidden motion-reduce:transition-none [&>svg:not([class*='size-'])]:size-4`,
         local.class,
       )}
       {...others}

@@ -4,6 +4,9 @@
 flat anatomy, copy lifecycle, callback details, accessibility behavior, CSS hooks, and
 `ClipboardRootProvider` composition.
 
+The trigger keeps hover, focus-visible, and pressed opacity feedback without press translation
+or scaling. Movement is reserved for standalone Button roots.
+
 ## Composition
 
 ```tsx

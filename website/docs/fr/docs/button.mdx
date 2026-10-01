@@ -464,5 +464,7 @@ Utilisez `className` en React et `class` en Solid ou Vue sur la racine pour appl
 - `data-disabled` est présent pour les propriétés natives `disabled`, `aria-disabled="true"` et `loading`.
 - `data-loading` est présent lorsque `loading={true}`.
 - `[data-disabled]` contrôle les styles de l’état désactivé pour `disabled`, `aria-disabled="true"` et `loading`.
-- Les variantes actives du bouton utilisent un léger déplacement à l’appui ; `link` ne modifie que l’opacité,
-  et le déplacement est supprimé lorsque l’utilisateur préfère réduire les animations.
+- Un Button utilisé seul se décale de 1px vers le bas à l’appui. Les variantes `link`, les déclencheurs avec
+  `aria-haspopup`, les éléments composés dont le `data-slot` est différent et la préférence de réduction des
+  animations désactivent ce déplacement. InputGroupButton et SplitButton restent immobiles ; les effets de
+  survol, de focus et d’opacité sont conservés.

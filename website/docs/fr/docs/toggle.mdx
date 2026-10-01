@@ -23,11 +23,20 @@ import toggleSolidIcons from '../../../snippets/toggle/solid/icons.tsx?raw';
 import toggleSolidIndicator from '../../../snippets/toggle/solid/indicator.tsx?raw';
 import toggleSolidSizes from '../../../snippets/toggle/solid/sizes.tsx?raw';
 import toggleSolidVariants from '../../../snippets/toggle/solid/variants.tsx?raw';
+import toggleVueAdvancedCustomization from '../../../snippets/toggle/vue/advanced-customization.vue?raw';
+import toggleVueAsChild from '../../../snippets/toggle/vue/aschild.vue?raw';
+import toggleVueBasic from '../../../snippets/toggle/vue/basic.vue?raw';
+import toggleVueControlled from '../../../snippets/toggle/vue/controlled.vue?raw';
+import toggleVueDisabled from '../../../snippets/toggle/vue/disabled.vue?raw';
+import toggleVueIcons from '../../../snippets/toggle/vue/icons.vue?raw';
+import toggleVueIndicator from '../../../snippets/toggle/vue/indicator.vue?raw';
+import toggleVueSizes from '../../../snippets/toggle/vue/sizes.vue?raw';
+import toggleVueVariants from '../../../snippets/toggle/vue/variants.vue?raw';
 
 ## Référence de l’API
 
 `Toggle` enveloppe le composant primitif Toggle d’Ark UI et ajoute les propriétés visuelles moduix pour les variantes et les tailles.
-Importez-le depuis `@moduix/react/toggle` ou `@moduix/solid/toggle`.
+Importez-le depuis `@moduix/react/toggle`, `@moduix/solid/toggle` ou `@moduix/vue/toggle`.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toggle" />
 
@@ -56,6 +65,7 @@ Utilisez `Toggle` dans le cas courant et conservez le comportement d’Ark lié 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +78,11 @@ Utilisez `Toggle` dans le cas courant et conservez le comportement d’Ark lié 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +114,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toggle' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toggle' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -123,7 +148,11 @@ appartient à l’application. Utilisez `ToggleIndicator` lorsque
 le contenu du bouton change selon son état. Pour les descendants personnalisés qui doivent lire cet état, utilisez
 `ToggleContext` ou `useToggleContext()` depuis le package correspondant. Utilisez `asChild` lorsqu’un autre bouton
 doit porter le comportement du toggle. Dans Solid, `asChild` reçoit une fonction de rendu ; dans React, il reçoit
-un seul enfant compatible avec un bouton.
+un seul enfant compatible avec un bouton ; dans Vue, il utilise un seul enfant compatible avec un bouton dans le slot
+par défaut. Dans Vue, utilisez `v-model:pressed` pour la valeur contrôlée, le slot nommé `fallback` avec
+`ToggleIndicator` et le slot `ToggleContext` lorsqu’un descendant personnalisé doit lire l’état courant.
+L’événement `@pressed-change` transmet la nouvelle valeur booléenne pour traiter le changement sans liaison
+avec `v-model:pressed`.
 
 ## Exemples
 
@@ -143,6 +172,7 @@ avec un bouton afin qu’Ark puisse lui transmettre les propriétés d’interac
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -155,6 +185,11 @@ avec un bouton afin qu’Ark puisse lui transmettre les propriétés d’interac
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidAsChild} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueAsChild} />
 
     </Tab>
   </Tabs>
@@ -176,6 +211,7 @@ Contrôlez `pressed` lorsque le toggle fait partie de l’état de l’applicati
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -188,6 +224,11 @@ Contrôlez `pressed` lorsque le toggle fait partie de l’état de l’applicati
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueControlled} />
 
     </Tab>
   </Tabs>
@@ -214,6 +255,7 @@ Utilisez `disabled` pour bloquer les interactions tout en conservant l’état a
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -226,6 +268,11 @@ Utilisez `disabled` pour bloquer les interactions tout en conservant l’état a
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -253,6 +300,7 @@ par exemple avec `aria-label`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -265,6 +313,11 @@ par exemple avec `aria-label`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidIcons} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueIcons} />
 
     </Tab>
   </Tabs>
@@ -291,6 +344,7 @@ Utilisez `ToggleIndicator` lorsque le contenu intégré doit différer selon que
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -303,6 +357,11 @@ Utilisez `ToggleIndicator` lorsque le contenu intégré doit différer selon que
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidIndicator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueIndicator} />
 
     </Tab>
   </Tabs>
@@ -325,6 +384,7 @@ lorsque l’espace est limité.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -337,6 +397,11 @@ lorsque l’espace est limité.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueSizes} />
 
     </Tab>
   </Tabs>
@@ -363,6 +428,7 @@ Définissez `variant` sur `default`, `outline` ou `ghost` pour l’adapter à la
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -377,6 +443,11 @@ Définissez `variant` sur `default`, `outline` ou `ghost` pour l’adapter à la
 <CodeBlockRuntime lang="tsx" code={toggleSolidVariants} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueVariants} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -388,7 +459,7 @@ Définissez `variant` sur `default`, `outline` ou `ghost` pour l’adapter à la
 
 ### Personnalisation avancée
 
-Utilisez le hook de contexte lorsqu’un descendant personnalisé doit connaître l’état activé, sans modifier le contenu
+Utilisez le hook de contexte ou le slot avec paramètres lorsqu’un descendant personnalisé doit connaître l’état activé, sans modifier le contenu
 du bouton avec `ToggleIndicator`.
 
 <ExampleFrame variant="component">
@@ -402,6 +473,7 @@ du bouton avec `ToggleIndicator`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -416,13 +488,18 @@ du bouton avec `ToggleIndicator`.
 <CodeBlockRuntime lang="tsx" code={toggleSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ## Styles
 
-Utilisez `className` dans React ou `class` dans Solid sur les parties exportées pour les styles structurels. Les variantes
+Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées pour les styles structurels. Les variantes
 Tailwind utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules exposent en plus les
 tokens `--moduix-toggle-*` pour les variantes, les tailles, l’anneau de focus, l’espacement et la taille des icônes.
 

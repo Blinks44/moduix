@@ -49,7 +49,7 @@ const handlePointerDown = (event: PointerEvent) => {
     :aria-labelledby="ariaLabelledby"
     :class="
       cn(
-        'inline-flex size-6 shrink-0 cursor-pointer appearance-none items-center justify-center rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity,translate,scale] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-3 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent [@media(hover:hover)]:hover:text-popover-foreground',
+        'inline-flex size-control-xs shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm bg-transparent text-muted-foreground transition-[background-color,color,opacity,translate,scale] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-foreground',
         className,
       )
     "

@@ -241,11 +241,6 @@
         var(
           --moduix-clipboard-transition,
           var(--moduix-button-transition, var(--moduix-transition-default))
-        ),
-      transform
-        var(
-          --moduix-clipboard-transition,
-          var(--moduix-button-transition, var(--moduix-transition-default))
         );
 
     & :where(svg) {
@@ -296,12 +291,6 @@
 
     &:active:not(:disabled, [data-disabled]) {
       opacity: 0.94;
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-      &:active:not(:disabled, [data-disabled]) {
-        transform: translateY(1px) scale(0.985);
-      }
     }
 
     &:is(:disabled, [data-disabled]) {

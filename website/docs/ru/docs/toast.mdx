@@ -25,14 +25,24 @@ import toastSolidPlacement from '../../../snippets/toast/solid/placement.tsx?raw
 import toastSolidPromise from '../../../snippets/toast/solid/promise-toast.tsx?raw';
 import toastSolidTypes from '../../../snippets/toast/solid/types.tsx?raw';
 import toastSolidUpdate from '../../../snippets/toast/solid/update.tsx?raw';
+import toastVueAction from '../../../snippets/toast/vue/action.vue?raw';
+import toastVueBasic from '../../../snippets/toast/vue/basic.vue?raw';
+import toastVueCustomComposition from '../../../snippets/toast/vue/custom-composition.vue?raw';
+import toastVueDuration from '../../../snippets/toast/vue/duration.vue?raw';
+import toastVueMaximumVisible from '../../../snippets/toast/vue/max-toasts.vue?raw';
+import toastVueNonOverlapping from '../../../snippets/toast/vue/always-expanded.vue?raw';
+import toastVuePlacement from '../../../snippets/toast/vue/placement.vue?raw';
+import toastVuePromise from '../../../snippets/toast/vue/promise-toast.vue?raw';
+import toastVueTypes from '../../../snippets/toast/vue/types.vue?raw';
+import toastVueUpdate from '../../../snippets/toast/vue/update.vue?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
 
 Moduix экспортирует `Toast`, `ToastToaster`, `createToaster` и `useToastContext` из
-`@moduix/react/toast` и `@moduix/solid/toast`. Полный API хранилища и его частей приведён в
-справочнике Ark.
+`@moduix/react/toast`, `@moduix/solid/toast` и `@moduix/vue/toast`. Полный API хранилища и его
+частей приведён в справочнике Ark.
 
 ## Базовый пример
 
@@ -51,6 +61,7 @@ Moduix экспортирует `Toast`, `ToastToaster`, `createToaster` и `use
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -63,6 +74,11 @@ Moduix экспортирует `Toast`, `ToastToaster`, `createToaster` и `use
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueBasic} />
 
     </Tab>
   </Tabs>
@@ -100,6 +116,16 @@ Moduix экспортирует `Toast`, `ToastToaster`, `createToaster` и `use
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toast' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toast' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -126,16 +152,26 @@ createToaster()
 
 ## Композиция
 
-По возможности создайте toaster вне тела компонента и передайте тот же экземпляр в `ToastToaster`.
-ToastToaster управляет размещением, стеком, очередью, таймерами и фокусом. По умолчанию `ToastToaster`
+Создайте toaster один раз и передайте тот же экземпляр в `ToastToaster`. В Vue создавайте его внутри
+`<script setup>`, чтобы у каждого экземпляра компонента было своё хранилище; общее для приложения
+хранилище можно вынести в отдельный модуль. При серверном рендеринге создавайте отдельное хранилище
+для каждого запроса. Хранилище управляет размещением, стеком, очередью, таймерами и фокусом.
+По умолчанию `ToastToaster`
 выводит группу через портал в `document.body`; используйте `portalled={false}` или `portalRef`,
 если группа должна находиться в другом контейнере. Отдельная обёртка `Portal` не нужна.
 
 Для обычного уведомления используйте стандартный рендерер `ToastToaster`: он выводит заголовок, описание,
 действие и кнопку закрытия. Для другой разметки или собственных элементов управления передайте
-render prop, оставьте `Toast` внешним элементом и соберите внутри его части.
-Используйте `asChild` только с семантическим дочерним элементом-кнопкой, а `useToastContext()`
+render prop в React/Solid или основной scoped slot в Vue, оставьте `Toast` внешним элементом и
+соберите внутри его части. Слот Vue получает параметры уведомления; `useToastContext()` возвращает
+computed ref. Для `asChild` у кнопок действия и закрытия используйте семантический элемент-кнопку,
+а `useToastContext()`
 подключайте, когда собственному элементу нужен прямой доступ к текущему уведомлению.
+
+В `@ark-ui/vue@5.39.2` свойство `asChild` у `Toast` переносит атрибуты корня на внутренний
+вспомогательный элемент, а `ToastToaster` игнорирует `asChild`. Используйте их стандартные элементы
+до исправления этих вариантов композиции в upstream. Композиция с `asChild` у заголовка,
+описания, кнопки действия и кнопки закрытия поддерживается.
 
 ## Примеры
 
@@ -149,7 +185,7 @@ render prop, оставьте `Toast` внешним элементом и со�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/action.tsx"
@@ -159,6 +195,11 @@ render prop, оставьте `Toast` внешним элементом и со�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidAction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueAction} />
 
     </Tab>
   </Tabs>
@@ -182,7 +223,7 @@ render prop, оставьте `Toast` внешним элементом и со�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/duration.tsx"
@@ -192,6 +233,11 @@ render prop, оставьте `Toast` внешним элементом и со�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidDuration} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueDuration} />
 
     </Tab>
   </Tabs>
@@ -215,7 +261,7 @@ render prop, оставьте `Toast` внешним элементом и со�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/max-toasts.tsx"
@@ -225,6 +271,11 @@ render prop, оставьте `Toast` внешним элементом и со�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidMaximumVisible} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueMaximumVisible} />
 
     </Tab>
   </Tabs>
@@ -248,7 +299,7 @@ toaster, а не отдельный режим компонента.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/always-expanded.tsx"
@@ -258,6 +309,11 @@ toaster, а не отдельный режим компонента.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidNonOverlapping} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueNonOverlapping} />
 
     </Tab>
   </Tabs>
@@ -281,7 +337,7 @@ toaster, а не отдельный режим компонента.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/placement.tsx"
@@ -291,6 +347,11 @@ toaster, а не отдельный режим компонента.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidPlacement} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVuePlacement} />
 
     </Tab>
   </Tabs>
@@ -314,7 +375,7 @@ toaster, а не отдельный режим компонента.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/promise-toast.tsx"
@@ -324,6 +385,11 @@ toaster, а не отдельный режим компонента.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidPromise} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVuePromise} />
 
     </Tab>
   </Tabs>
@@ -347,7 +413,7 @@ toaster, а не отдельный режим компонента.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/types.tsx"
@@ -357,6 +423,11 @@ toaster, а не отдельный режим компонента.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidTypes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueTypes} />
 
     </Tab>
   </Tabs>
@@ -380,7 +451,7 @@ toaster, а не отдельный режим компонента.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/update.tsx"
@@ -390,6 +461,11 @@ toaster, а не отдельный режим компонента.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidUpdate} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueUpdate} />
 
     </Tab>
   </Tabs>
@@ -413,7 +489,7 @@ toaster, а не отдельный режим компонента.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/custom-composition.tsx"
@@ -423,6 +499,11 @@ toaster, а не отдельный режим компонента.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidCustomComposition} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueCustomComposition} />
 
     </Tab>
   </Tabs>

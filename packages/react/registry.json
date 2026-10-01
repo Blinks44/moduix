@@ -1052,6 +1052,9 @@
       "description": "moduix React InputGroup component.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": [
+        "@moduix-react/icons",
+        "@moduix-react/close-button",
+        "@moduix-react/a11y-labels",
         "@moduix-react/foundation",
         "@moduix-react/button",
         "@moduix-react/input"

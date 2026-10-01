@@ -27,6 +27,17 @@ import tooltipSolidPositioning from '../../../snippets/tooltip/solid/positioning
 import tooltipSolidRootProvider from '../../../snippets/tooltip/solid/root-provider.tsx?raw';
 import tooltipSolidWithArrow from '../../../snippets/tooltip/solid/with-arrow.tsx?raw';
 import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/within-fixed-containers.tsx?raw';
+import tooltipVueAdvancedCustomization from '../../../snippets/tooltip/vue/advanced-customization.vue?raw';
+import tooltipVueBasic from '../../../snippets/tooltip/vue/basic.vue?raw';
+import tooltipVueContext from '../../../snippets/tooltip/vue/context.vue?raw';
+import tooltipVueControlled from '../../../snippets/tooltip/vue/controlled.vue?raw';
+import tooltipVueDelay from '../../../snippets/tooltip/vue/delay.vue?raw';
+import tooltipVueDisabledTrigger from '../../../snippets/tooltip/vue/disabled-trigger.vue?raw';
+import tooltipVueMultipleTriggers from '../../../snippets/tooltip/vue/multiple-triggers.vue?raw';
+import tooltipVuePositioning from '../../../snippets/tooltip/vue/positioning.vue?raw';
+import tooltipVueRootProvider from '../../../snippets/tooltip/vue/root-provider.vue?raw';
+import tooltipVueWithArrow from '../../../snippets/tooltip/vue/with-arrow.vue?raw';
+import tooltipVueWithinFixedContainers from '../../../snippets/tooltip/vue/within-fixed-containers.vue?raw';
 
 ## Справочник API
 
@@ -60,6 +71,7 @@ import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/w
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +84,11 @@ import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/w
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueBasic} />
 
     </Tab>
   </Tabs>
@@ -100,6 +117,16 @@ import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/w
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tooltip' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tooltip' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tooltip' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tooltip' },
   ]}
 />
 
@@ -135,7 +162,7 @@ Tooltip
 | --- | --- |
 | `Tooltip` | Управляет состоянием подсказки, открытием и закрытием, задержками, позиционированием и жизненным циклом. |
 | `TooltipRootProvider` | Отображает подсказку из объекта состояния `useTooltip()`, созданного за пределами дерева. |
-| `TooltipContext` | Передаёт текущее состояние пользовательским потомкам через render prop. |
+| `TooltipContext` | Передаёт текущее состояние пользовательским потомкам через функцию рендеринга или слот с параметрами в Vue. |
 | `TooltipBody` | Удобная обёртка, которая одновременно выводит `TooltipPositioner` и `TooltipContent`. |
 | `TooltipTrigger` | Интерактивный элемент, открывающий подсказку при наведении или фокусе. |
 | `TooltipDisabledTrigger` | Доступная для фокуса обёртка для одного отключённого нативного элемента управления, которому нужно пояснение. |
@@ -156,6 +183,13 @@ Tooltip
 используется функция рендеринга. `TooltipDisabledTrigger` предназначен для одного отключённого
 нативного элемента. Портал включён по умолчанию, поэтому задавайте `portalled={false}` или
 передавайте `portalRef` только при необходимости ограничить подсказку конкретной DOM-областью.
+В Vue используйте `v-model:open` для контролируемого состояния и kebab-case-события, например
+`@open-change`.
+
+По умолчанию содержимое монтируется при первом открытии и удаляется после анимации закрытия.
+Задайте `unmountOnExit` значение `false`, чтобы сохранить его после первого открытия;
+для монтирования сразу задайте также `lazyMount` значение `false`. В Vue эти параметры
+передаются как `:unmount-on-exit="false"` и `:lazy-mount="false"`.
 
 ## Примеры
 
@@ -174,6 +208,7 @@ Tooltip
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -186,6 +221,11 @@ Tooltip
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueContext} />
 
     </Tab>
   </Tabs>
@@ -208,6 +248,7 @@ Tooltip
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -220,6 +261,11 @@ Tooltip
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueControlled} />
 
     </Tab>
   </Tabs>
@@ -243,6 +289,7 @@ Tooltip
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -255,6 +302,11 @@ Tooltip
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidDelay} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueDelay} />
 
     </Tab>
   </Tabs>
@@ -278,6 +330,7 @@ Tooltip
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -290,6 +343,11 @@ Tooltip
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidDisabledTrigger} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueDisabledTrigger} />
 
     </Tab>
   </Tabs>
@@ -313,6 +371,7 @@ Tooltip
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -325,6 +384,11 @@ Tooltip
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -352,6 +416,7 @@ Tooltip
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -364,6 +429,11 @@ Tooltip
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidPositioning} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVuePositioning} />
 
     </Tab>
   </Tabs>
@@ -392,6 +462,7 @@ Tooltip
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -404,6 +475,11 @@ Tooltip
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -428,6 +504,7 @@ Tooltip
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -440,6 +517,11 @@ Tooltip
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidWithArrow} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueWithArrow} />
 
     </Tab>
   </Tabs>
@@ -464,6 +546,7 @@ Tooltip
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -476,6 +559,11 @@ Tooltip
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidWithinFixedContainers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueWithinFixedContainers} />
 
     </Tab>
   </Tabs>
@@ -504,6 +592,7 @@ Tooltip
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -518,6 +607,11 @@ Tooltip
 <CodeBlockRuntime lang="tsx" code={tooltipSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -525,7 +619,7 @@ Tooltip
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid у экспортируемых частей для структурных
+Используйте `className` в React, `class` в Solid и Vue у экспортируемых частей для структурных
 стилей. Для состояний предпочитайте атрибуты Ark, такие как `data-state`, `data-placement` и
 `data-side`, вместе с селекторами moduix `data-slot`. Варианты Tailwind используют нативные
 утилиты и классы потребителя, а переменные CSS ниже настраивают вариант с CSS Modules.

@@ -19,6 +19,17 @@ test('renders a native button with safe defaults, stable hooks, and a forwarded 
   expect(button).toHaveAttribute('data-scope', 'button');
   expect(button).toHaveAttribute('data-part', 'root');
   expect(button).toHaveAttribute('data-slot', 'button-root');
+  expect(button).toHaveClass(
+    'transition-[background-color,border-color,color,opacity,transform,translate]',
+    'duration-150',
+    'motion-reduce:transition-none',
+  );
+  expect(button).toHaveClass(
+    "motion-safe:[&[data-slot='button-root']:not([data-variant='link']):not([aria-haspopup]):active]:translate-y-px",
+  );
+  expect(button).not.toHaveClass(
+    "motion-safe:[&:not([data-variant='link']):active]:translate-y-px",
+  );
   expect(button).toHaveAttribute('data-variant', 'default');
   expect(button).toHaveAttribute('data-size', 'md');
 });

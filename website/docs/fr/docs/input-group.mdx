@@ -6,6 +6,9 @@ description: Créez des champs de saisie avec préfixes, suffixes et actions en 
 
 import * as InputGroupDocs from '@/components/examples/input-group/css-properties';
 import InputGroupAsChild from '@/components/examples/input-group/as-child.tsx';
+import InputGroupClearTrigger from '@/components/examples/input-group/clear-trigger.tsx';
+import inputGroupSolidClearTrigger from '../../../snippets/input-group/solid/clear-trigger.tsx?raw';
+import inputGroupVueClearTrigger from '../../../snippets/input-group/vue/clear-trigger.vue?raw';
 import InputGroupBasic from '@/components/examples/input-group/basic.tsx';
 import InputGroupDisabled from '@/components/examples/input-group/disabled.tsx';
 import InputGroupFieldState from '@/components/examples/input-group/field-state.tsx';
@@ -134,7 +137,8 @@ InputGroup
 ├─ InputGroupAddon (facultatif)
 ├─ InputGroupInput
 ├─ InputGroupText (facultatif)
-└─ InputGroupButton (facultatif)
+├─ InputGroupButton (facultatif)
+└─ InputGroupClearTrigger (facultatif)
 ```
 
 | Partie                            | Rôle                                                       |
@@ -144,6 +148,7 @@ InputGroup
 | `InputGroupAddon`               | Préfixe ou suffixe avec un fond.                           |
 | `InputGroupText`                | Texte intégré sans fond.                                  |
 | `InputGroupButton`              | Bouton d’action associé au champ.                         |
+| `InputGroupClearTrigger` | Bouton avec une icône de croix ; l’application gère l’effacement. |
 
 ## Composition
 
@@ -389,6 +394,52 @@ est contrôlé et `Send` ne devient disponible qu’après la saisie d’une val
 
 </ExampleCode>
 
+### Bouton d’effacement
+
+Utilisez `InputGroupClearTrigger` pour afficher un bouton d’effacement avec une icône de croix
+et un libellé accessible par défaut. Il hérite de la taille du groupe et utilise `type="button"`
+par défaut. Gérez l’effacement et le retour du focus dans `onClick` (`@click` en Vue), et affichez
+le bouton uniquement lorsque le champ contient une valeur. L’effacement et le masquage ne sont pas
+automatiques. Désactivez le bouton pour un champ désactivé ou en lecture seule. Fournissez
+un `aria-label` dans la langue souhaitée ou `aria-labelledby` ; le contenu enfant remplace l’icône.
+La petite zone de survol reprend le style des boutons d’effacement de Select et Combobox.
+
+<ExampleFrame variant="component">
+  <InputGroupClearTrigger />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
+  ]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/clear-trigger.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidClearTrigger} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueClearTrigger} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input-group/input-group-clear-trigger.module.css"
+```
+</div>
+</ExampleCode>
+
 ### Personnalisation avancée
 
 Utilisez `asChild` lorsque la racine doit rendre un conteneur personnalisé à la place du `div` par
@@ -455,6 +506,7 @@ sélecteurs `data-slot` sont communs aux deux approches.
 - `data-scope="input-group"` et `data-part="root" | "addon" | "text"` sur les parties de la fabrique Ark
 - `data-slot="input-root"` et les attributs d’état du champ Ark
 - `data-slot="input-group-addon"`
+- `data-slot="input-group-clear-trigger"`
 - `data-slot="input-group-text"`
 - `data-slot="input-group-button"` sur le bouton d’action du groupe
 - les états imbriqués `data-invalid`, `aria-invalid="true"`, `data-disabled`/`:disabled` et `data-readonly`/`:read-only` sont reflétés sur la racine via `:has(...)`

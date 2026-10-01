@@ -5,6 +5,7 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
+  InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
 } from '@/components/input-group/InputGroup';
@@ -159,4 +160,35 @@ export const CustomStyles: Story = {
       <InputGroupButton class={storyStyles.customButton}>Check</InputGroupButton>
     </InputGroup>
   ),
+};
+
+export const ClearTrigger: Story = {
+  render: () => {
+    const [value, setValue] = createSignal('moduix');
+    let inputRef: HTMLInputElement | undefined;
+    return (
+      <Field class={storyStyles.field}>
+        <FieldLabel>Search</FieldLabel>
+        <InputGroup>
+          <InputGroupInput
+            ref={(element) => {
+              inputRef = element;
+            }}
+            value={value()}
+            placeholder="Search…"
+            onInput={(event) => setValue(event.currentTarget.value)}
+          />
+          {value() && (
+            <InputGroupClearTrigger
+              aria-label="Clear search"
+              onClick={() => {
+                setValue('');
+                inputRef?.focus();
+              }}
+            />
+          )}
+        </InputGroup>
+      </Field>
+    );
+  },
 };

@@ -77,6 +77,22 @@
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
     },
+    "./toggle": {
+      "types": "./dist/components/toggle/index.d.ts",
+      "import": "./dist/components/toggle/index.js"
+    },
+    "./timer": {
+      "types": "./dist/components/timer/index.d.ts",
+      "import": "./dist/components/timer/index.js"
+    },
+    "./tooltip": {
+      "types": "./dist/components/tooltip/index.d.ts",
+      "import": "./dist/components/tooltip/index.js"
+    },
+    "./toast": {
+      "types": "./dist/components/toast/index.d.ts",
+      "import": "./dist/components/toast/index.js"
+    },
     "./steps": {
       "types": "./dist/components/steps/index.d.ts",
       "import": "./dist/components/steps/index.js"
@@ -389,6 +405,7 @@
     "@tanstack/charts": "catalog:",
     "@testing-library/dom": "catalog:",
     "@testing-library/jest-dom": "catalog:",
+    "@testing-library/user-event": "catalog:",
     "@testing-library/vue": "catalog:",
     "@types/node": "catalog:",
     "@vue/language-core": "catalog:",

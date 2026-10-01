@@ -199,7 +199,7 @@ const TagsInputClearTrigger = forwardRef<
       className={cn(
         asChild
           ? 'ms-auto shrink-0 self-center data-readonly:hidden'
-          : 'ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 data-readonly:hidden motion-reduce:transition-none [&>svg]:size-3',
+          : `ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 focus-visible:outline-offset-1 data-readonly:hidden motion-reduce:transition-none [&>svg:not([class*='size-'])]:size-4`,
         className,
       )}
       aria-label={asChild ? ariaLabel : undefined}

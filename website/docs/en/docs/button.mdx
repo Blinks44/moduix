@@ -469,5 +469,6 @@ Button variables below; Tailwind variants use native utilities and consumer clas
 - `data-disabled` is present for native `disabled`, `aria-disabled="true"`, and `loading`.
 - `data-loading` is present when `loading={true}`.
 - `[data-disabled]` drives disabled visuals for native `disabled`, `aria-disabled="true"`, and `loading`.
-- Enabled button variants use a subtle press movement; `link` keeps opacity feedback only, and the movement is
-  omitted when the user prefers reduced motion.
+- Standalone Button roots move down by 1px when pressed. Link variants, popup triggers with `aria-haspopup`,
+  composed parts with another `data-slot`, and reduced-motion preferences omit this movement.
+  InputGroupButton and SplitButton stay stationary; hover, focus, and opacity feedback remain available.

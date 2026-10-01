@@ -4,6 +4,90 @@ import { defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { CloseButton } from '../src';
 
+test('respects stopImmediatePropagation from a consumer capture listener', async () => {
+  const handleClick = rs.fn();
+  const handleChildClick = rs.fn();
+  const handleCapture = rs.fn((event: MouseEvent) => event.stopImmediatePropagation());
+  render(
+    defineComponent({
+      components: { CloseButton },
+      setup: () => ({ handleClick, handleCapture, handleChildClick }),
+      template: `
+      <CloseButton as-child aria-label="Stop propagation" @click.capture="handleCapture" @click="handleClick">
+        <button type="button" @click="handleChildClick">Stop propagation</button>
+      </CloseButton>
+    `,
+    }),
+  );
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  await fireEvent.click(screen.getByRole('button', { name: 'Stop propagation' }));
+  expect(handleCapture).toHaveBeenCalledTimes(1);
+  expect(handleClick).not.toHaveBeenCalled();
+  expect(handleChildClick).not.toHaveBeenCalled();
+});
+
+test('keeps merged Vue listener arrays ordered and forwards the native event', async () => {
+  const calls: string[] = [];
+  const Harness = defineComponent({
+    components: { CloseButton },
+    setup: () => ({
+      listeners: {
+        onClickCapture: [() => calls.push('capture first'), () => calls.push('capture second')],
+        onClick: [() => calls.push('bubble first'), () => calls.push('bubble second')],
+      },
+    }),
+    template: '<CloseButton v-bind="listeners" aria-label="Merged handlers" />',
+  });
+  render(Harness);
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  await fireEvent.click(screen.getByRole('button', { name: 'Merged handlers' }));
+  expect(calls).toEqual(['capture first', 'capture second', 'bubble first', 'bubble second']);
+});
+
+test('reacts to aria-disabled changes and blocks all same-host listeners while disabled', async () => {
+  const ariaDisabled = ref<boolean | 'true' | 'false' | undefined>(undefined);
+  const handleClick = rs.fn();
+  const handleCapture = rs.fn();
+  render(
+    defineComponent({
+      components: { CloseButton },
+      setup: () => ({ ariaDisabled, handleClick, handleCapture }),
+      template: `
+      <CloseButton as-child :aria-disabled="ariaDisabled" aria-label="Reactive disabled"
+        @click="handleClick" @click.capture="handleCapture">
+        <button type="button">Reactive disabled</button>
+      </CloseButton>
+    `,
+    }),
+  );
+  const button = screen.getByRole('button', { name: 'Reactive disabled' });
+  const handleSameHostCapture = rs.fn();
+  button.addEventListener('click', handleSameHostCapture, { capture: true });
+  for (const value of [true, 'true'] as const) {
+    ariaDisabled.value = value;
+    await nextTick();
+    expect(button).toHaveAttribute('aria-disabled', 'true');
+    expect(button).toHaveAttribute('data-disabled');
+    expect(button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }))).toBe(
+      false,
+    );
+  }
+  expect(handleClick).not.toHaveBeenCalled();
+  expect(handleCapture).not.toHaveBeenCalled();
+  expect(handleSameHostCapture).not.toHaveBeenCalled();
+
+  for (const value of [false, 'false', undefined] as const) {
+    ariaDisabled.value = value;
+    await nextTick();
+    expect(button).not.toHaveAttribute('data-disabled');
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    await fireEvent.click(button);
+  }
+  expect(handleClick).toHaveBeenCalledTimes(3);
+  expect(handleCapture).toHaveBeenCalledTimes(3);
+  expect(handleSameHostCapture).toHaveBeenCalledTimes(3);
+});
+
 test('renders an accessible native button with safe defaults and a Vue ref', () => {
   const buttonRef = ref<ComponentPublicInstance | null>(null);
   const Harness = defineComponent({

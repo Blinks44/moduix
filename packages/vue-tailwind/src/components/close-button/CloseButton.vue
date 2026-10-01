@@ -12,6 +12,7 @@ type Booleanish = boolean | 'false' | 'true';
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'button'> {
   asChild?: boolean;
+  ariaDisabled?: Booleanish;
   ariaLabel?: string;
   ariaLabelledby?: string;
   class?: HTMLAttributes['class'];
@@ -20,13 +21,12 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'button'> {
   dataScope?: string;
   dataSlot?: string;
   disabled?: boolean;
-  onClick?: (event: MouseEvent) => void;
-  onClickCapture?: (event: MouseEvent) => void;
   type?: 'button' | 'reset' | 'submit';
 }
 
 const {
   asChild = false,
+  ariaDisabled,
   ariaLabel,
   ariaLabelledby,
   class: className,
@@ -35,46 +35,43 @@ const {
   dataScope = 'close-button',
   dataSlot = 'close-button-root',
   disabled = false,
-  onClick,
-  onClickCapture,
   type,
 } = defineProps<Props>();
 
 defineSlots<{ default?: () => unknown }>();
+const emit = defineEmits<{
+  click: [event: MouseEvent];
+  clickCapture: [event: MouseEvent];
+}>();
 
 const attrs = useAttrs();
-const ariaDisabled = computed(() => attrs['aria-disabled'] as Booleanish | undefined);
 const isDisabled = computed(
-  () =>
-    disabled ||
-    ariaDisabled.value === true ||
-    ariaDisabled.value === 'true' ||
-    dataDisabled !== undefined,
+  () => disabled || ariaDisabled === true || ariaDisabled === 'true' || dataDisabled !== undefined,
 );
 
 const handleClickCapture = (event: MouseEvent) => {
   if (isDisabled.value) {
     event.preventDefault();
-    event.stopPropagation();
+    event.stopImmediatePropagation();
     return;
   }
-
-  onClickCapture?.(event);
+  emit('clickCapture', event);
 };
 
 const handleClick = (event: MouseEvent) => {
   if (isDisabled.value) {
     event.preventDefault();
-    event.stopPropagation();
+    event.stopImmediatePropagation();
     return;
   }
-
-  onClick?.(event);
+  emit('click', event);
 };
 </script>
 
 <template>
   <ark.button
+    @click.capture="handleClickCapture"
+    @click="handleClick"
     v-bind="attrs"
     :as-child="asChild"
     :type="asChild ? type : (type ?? 'button')"
@@ -82,8 +79,6 @@ const handleClick = (event: MouseEvent) => {
     :aria-disabled="asChild && disabled ? true : ariaDisabled"
     :aria-label="ariaLabel ?? (ariaLabelledby == null ? 'Close' : undefined)"
     :aria-labelledby="ariaLabelledby"
-    @click.capture="handleClickCapture"
-    @click="handleClick"
     :data-scope="dataScope"
     :data-part="dataPart"
     :data-slot="dataSlot"

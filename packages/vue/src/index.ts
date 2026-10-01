@@ -3,6 +3,7 @@
 export * from './components/simple-grid';
 export * from './components/text';
 export * from './components/accordion';
+export * from './components/toggle';
 export * from './components/toc';
 export * from './components/qr-code';
 export * from './components/pin-input';
@@ -76,3 +77,6 @@ export * from './components/split-button';
 export * from './components/steps';
 export * from './components/table';
 export * from './components/tabs';
+export * from './components/timer';
+export * from './components/tooltip';
+export * from './components/toast';

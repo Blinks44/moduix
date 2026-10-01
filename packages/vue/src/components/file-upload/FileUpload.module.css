@@ -327,8 +327,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--moduix-file-upload-action-size, var(--moduix-size-sm));
-    height: var(--moduix-file-upload-action-size, var(--moduix-size-sm));
+    width: var(--moduix-file-upload-action-size, var(--moduix-size-xs));
+    height: var(--moduix-file-upload-action-size, var(--moduix-size-xs));
     border: 0;
     border-radius: var(--moduix-file-upload-action-radius, var(--moduix-radius-sm));
     padding: 0;
@@ -354,11 +354,8 @@
     }
 
     &:focus-visible {
-      outline: var(
-          --moduix-file-upload-focus-ring-width,
-          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
-        )
-        solid var(--moduix-file-upload-focus-ring-color, var(--moduix-color-ring));
+      outline: var(--moduix-file-upload-focus-ring-width, var(--moduix-border-width-sm)) solid
+        var(--moduix-file-upload-focus-ring-color, var(--moduix-color-ring));
       outline-offset: var(--moduix-file-upload-focus-ring-offset, var(--moduix-border-width-sm));
     }
 
@@ -427,7 +424,7 @@
 
   .clearTrigger {
     align-self: flex-start;
-    --moduix-close-button-size: var(--moduix-file-upload-action-size, var(--moduix-size-sm));
+    --moduix-close-button-size: var(--moduix-file-upload-action-size, var(--moduix-size-xs));
     --moduix-close-button-radius: var(--moduix-file-upload-action-radius, var(--moduix-radius-sm));
     --moduix-close-button-bg: var(--moduix-file-upload-action-bg, transparent);
     --moduix-close-button-bg-hover: var(
@@ -448,7 +445,7 @@
     );
     --moduix-close-button-focus-ring-width: var(
       --moduix-file-upload-focus-ring-width,
-      var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+      var(--moduix-border-width-sm)
     );
     --moduix-close-button-focus-ring-color: var(
       --moduix-file-upload-focus-ring-color,
@@ -465,6 +462,7 @@
   }
 
   .clearTriggerWithContent {
+    --moduix-close-button-size: var(--moduix-file-upload-action-size, var(--moduix-size-sm));
     gap: var(--moduix-file-upload-clear-trigger-gap, var(--moduix-spacing-2));
     width: auto;
     padding-inline: var(--moduix-file-upload-clear-trigger-padding-x, var(--moduix-spacing-2));

@@ -973,6 +973,9 @@
       "description": "moduix Solid InputGroup component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": [
+        "@moduix-solid/icons",
+        "@moduix-solid/close-button",
+        "@moduix-solid/a11y-labels",
         "@moduix-solid/foundation",
         "@moduix-solid/button",
         "@moduix-solid/input"

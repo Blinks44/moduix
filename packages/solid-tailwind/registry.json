@@ -974,6 +974,8 @@
       "description": "moduix Solid Tailwind InputGroup component.",
       "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": [
+        "@moduix-solid-tailwind/icons",
+        "@moduix-solid-tailwind/close-button",
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
         "@moduix-solid-tailwind/button",

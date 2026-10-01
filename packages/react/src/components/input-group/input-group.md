@@ -42,6 +42,7 @@ intentionally.
 - `InputGroupAddon` and `InputGroupText` render Ark factory `span` elements and support `asChild`.
 - `InputGroupButton` renders `Button`, inherits group size, defaults to `variant="ghost"` and
   `type="button"`.
+- `InputGroupClearTrigger` renders a compact `CloseButton` with a default close icon and clear label; the consumer handles value changes.
 - One `InputGroupInput` per group is the supported composition.
 
 ## Anatomy and exported parts
@@ -51,16 +52,18 @@ InputGroup
 ├─ InputGroupAddon (optional)
 ├─ InputGroupInput
 ├─ InputGroupText (optional)
-└─ InputGroupButton (optional)
+├─ InputGroupButton (optional)
+└─ InputGroupClearTrigger (optional)
 ```
 
-| Part               | Stable slot          |
-| ------------------ | -------------------- |
-| `InputGroup`       | `input-group-root`   |
-| `InputGroupInput`  | `input-root`         |
-| `InputGroupAddon`  | `input-group-addon`  |
-| `InputGroupText`   | `input-group-text`   |
-| `InputGroupButton` | `input-group-button` |
+| Part                     | Stable slot                 |
+| ------------------------ | --------------------------- |
+| `InputGroup`             | `input-group-root`          |
+| `InputGroupInput`        | `input-root`                |
+| `InputGroupAddon`        | `input-group-addon`         |
+| `InputGroupText`         | `input-group-text`          |
+| `InputGroupButton`       | `input-group-button`        |
+| `InputGroupClearTrigger` | `input-group-clear-trigger` |
 
 ## Composition
 
@@ -174,3 +177,25 @@ The default `md` group uses `--moduix-size-md`; the `sm` variant uses `--moduix-
   belongs to `Editable`.
 - 2026-06-19: Migrated structural elements to Ark factory composition and the nested input to Ark
   `FieldInput`; added `asChild`; replaced legacy value callbacks with native input events.
+
+## Clear action
+
+`InputGroupClearTrigger` renders the local `CloseButton`, with the same compact hover surface as
+Select and Combobox. Its action is 24px (20px in an `xs` group), centered with an 8px end inset.
+It inherits the group size and defaults to `type="button"`, a decorative close icon, and
+`aria-label="Clear input"`. Explicit `aria-label` or `aria-labelledby` replaces the fallback label.
+Children replace the icon; `asChild`, native button refs, events, disabled behavior, and
+consumer classes follow `CloseButton`. The host owns `data-scope="input-group"`,
+`data-part="clear-trigger"`, and `data-slot="input-group-clear-trigger"`.
+
+This part does not own value state, clear an input automatically, hide itself, reset a form, or
+redirect focus. Handle clearing and focus in the consumer's `onClick`, and render it conditionally
+for non-empty values. Set `disabled` explicitly for disabled or read-only fields; actions do not
+inherit Field state.
+
+Upstream composition reviewed 2026-10-01: https://ark-ui.com/docs/guides/composition.
+This is moduix-owned composition; there is no Ark InputGroup clear primitive.
+
+## Clear action changelog
+
+- 2026-10-01: Added `InputGroupClearTrigger` across React, Solid, Vue, CSS Modules, and Tailwind.

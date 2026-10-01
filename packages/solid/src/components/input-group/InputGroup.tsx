@@ -3,7 +3,10 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { Accessor, ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
+import { CloseButton } from '../close-button';
 import { Input } from '../input';
 import styles from './InputGroup.module.css';
 
@@ -121,4 +124,43 @@ function InputGroupButton(props: ComponentProps<typeof Button>) {
   );
 }
 
-export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText };
+function InputGroupClearTrigger(
+  props: ComponentProps<typeof CloseButton> & { size?: InputGroupSize },
+) {
+  const [local, others] = splitProps(props, [
+    'class',
+    'children',
+    'size',
+    'type',
+    'aria-label',
+    'aria-labelledby',
+  ]);
+  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  return (
+    <CloseButton
+      {...others}
+      data-scope="input-group"
+      data-part="clear-trigger"
+      data-slot="input-group-clear-trigger"
+      data-size={local.size ?? groupSize()}
+      class={clsx(styles.clearTrigger, local.class)}
+      type={local.type ?? 'button'}
+      aria-label={
+        local['aria-label'] ??
+        (local['aria-labelledby'] == null ? a11yLabels.clearInput : undefined)
+      }
+      aria-labelledby={local['aria-labelledby']}
+    >
+      {local.children ?? <CloseIcon />}
+    </CloseButton>
+  );
+}
+
+export {
+  InputGroup,
+  InputGroupClearTrigger,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+};

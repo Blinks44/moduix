@@ -1,5 +1,8 @@
 # QR Code (Solid)
 
+The download trigger keeps hover, focus-visible, and pressed opacity feedback without press
+translation or scaling. Movement is reserved for standalone Button roots.
+
 `QrCode` is the native Solid wrapper around Ark UI QR Code. It exports the same flat public values as
 the React adapter: `QrCode`, `QrCodeRootProvider`, `QrCodeContext`, `QrCodeFrame`, `QrCodePattern`,
 `QrCodeOverlay`, and `QrCodeDownloadTrigger`. The contract includes QR generation, controlled values,

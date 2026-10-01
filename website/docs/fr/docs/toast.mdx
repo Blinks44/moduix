@@ -25,14 +25,24 @@ import toastSolidPlacement from '../../../snippets/toast/solid/placement.tsx?raw
 import toastSolidPromise from '../../../snippets/toast/solid/promise-toast.tsx?raw';
 import toastSolidTypes from '../../../snippets/toast/solid/types.tsx?raw';
 import toastSolidUpdate from '../../../snippets/toast/solid/update.tsx?raw';
+import toastVueAction from '../../../snippets/toast/vue/action.vue?raw';
+import toastVueBasic from '../../../snippets/toast/vue/basic.vue?raw';
+import toastVueCustomComposition from '../../../snippets/toast/vue/custom-composition.vue?raw';
+import toastVueDuration from '../../../snippets/toast/vue/duration.vue?raw';
+import toastVueMaximumVisible from '../../../snippets/toast/vue/max-toasts.vue?raw';
+import toastVueNonOverlapping from '../../../snippets/toast/vue/always-expanded.vue?raw';
+import toastVuePlacement from '../../../snippets/toast/vue/placement.vue?raw';
+import toastVuePromise from '../../../snippets/toast/vue/promise-toast.vue?raw';
+import toastVueTypes from '../../../snippets/toast/vue/types.vue?raw';
+import toastVueUpdate from '../../../snippets/toast/vue/update.vue?raw';
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
 
 Moduix exporte `Toast`, `ToastToaster`, `createToaster` et `useToastContext` depuis
-`@moduix/react/toast` et `@moduix/solid/toast`. La référence Ark décrit l’API complète du store et
-de ses parties.
+`@moduix/react/toast`, `@moduix/solid/toast` et `@moduix/vue/toast`. La référence Ark décrit l’API
+complète du store et de ses parties.
 
 ## Exemple de base
 
@@ -51,6 +61,7 @@ notifications, puis affichez-la avec `ToastToaster`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -63,6 +74,11 @@ notifications, puis affichez-la avec `ToastToaster`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueBasic} />
 
     </Tab>
   </Tabs>
@@ -100,6 +116,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toast' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toast' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -126,16 +152,25 @@ createToaster()
 
 ## Composition
 
-Créez le toaster en dehors du rendu du composant lorsque c’est possible, puis passez la même instance
-à `ToastToaster`. Le toaster gère le placement, la pile, la file d’attente, les minuteurs et le focus. Par
+Créez le toaster une seule fois, puis passez la même instance à `ToastToaster`. En Vue, créez-le dans
+`<script setup>` pour que chaque instance du composant possède son propre store ; un store partagé
+par l’application peut résider dans un module séparé. Pour le rendu côté serveur, créez un store
+distinct pour chaque requête. Le store gère le placement, la pile, la file d’attente, les minuteurs et le focus. Par
 défaut, `ToastToaster` rend le groupe via un portail vers `document.body` ; utilisez `portalled={false}` ou
 `portalRef` s’il doit rester dans un autre conteneur. Aucun wrapper `Portal` séparé n’est nécessaire.
 
 Pour une notification standard, utilisez le rendu par défaut de `ToastToaster`, qui affiche le titre, la
 description, l’action et le bouton de fermeture. Pour une autre structure ou des contrôles personnalisés,
-passez une render prop, gardez `Toast` comme élément extérieur et composez ses parties
-à l’intérieur. Utilisez `asChild` uniquement avec un enfant bouton sémantique, et
+passez une render prop en React/Solid ou un slot par défaut avec portée en Vue, gardez `Toast`
+comme élément extérieur et composez ses parties à l’intérieur. Le slot Vue reçoit les options de
+la notification ; `useToastContext()` renvoie une computed ref. Pour `asChild` sur les boutons
+d’action et de fermeture, utilisez un enfant bouton sémantique, et
 `useToastContext()` lorsqu’un enfant personnalisé doit accéder directement à la notification courante.
+
+Avec `@ark-ui/vue@5.39.2`, `asChild` sur `Toast` applique les attributs de la racine à un élément
+interne auxiliaire, et `ToastToaster` ignore `asChild`. Conservez leurs éléments par défaut jusqu’à
+la correction de ces compositions en amont. La composition avec `asChild` reste disponible pour
+le titre, la description et les boutons d’action et de fermeture.
 
 ## Exemples
 
@@ -149,7 +184,7 @@ Ajoutez `action: { label, onClick }` lorsque la notification doit proposer une a
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/action.tsx"
@@ -159,6 +194,11 @@ Ajoutez `action: { label, onClick }` lorsque la notification doit proposer une a
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidAction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueAction} />
 
     </Tab>
   </Tabs>
@@ -182,7 +222,7 @@ visible plus longtemps ou rester affichée jusqu’à sa fermeture manuelle avec
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/duration.tsx"
@@ -192,6 +232,11 @@ visible plus longtemps ou rester affichée jusqu’à sa fermeture manuelle avec
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidDuration} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueDuration} />
 
     </Tab>
   </Tabs>
@@ -215,7 +260,7 @@ lieu de remplir l’écran.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/max-toasts.tsx"
@@ -225,6 +270,11 @@ lieu de remplir l’écran.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidMaximumVisible} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueMaximumVisible} />
 
     </Tab>
   </Tabs>
@@ -248,7 +298,7 @@ réglage du toaster, pas d’un mode distinct du composant.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/always-expanded.tsx"
@@ -258,6 +308,11 @@ réglage du toaster, pas d’un mode distinct du composant.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidNonOverlapping} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueNonOverlapping} />
 
     </Tab>
   </Tabs>
@@ -281,7 +336,7 @@ bord précis de la fenêtre.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/placement.tsx"
@@ -291,6 +346,11 @@ bord précis de la fenêtre.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidPlacement} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVuePlacement} />
 
     </Tab>
   </Tabs>
@@ -314,7 +374,7 @@ l’erreur lorsque l’opération asynchrone se termine.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/promise-toast.tsx"
@@ -324,6 +384,11 @@ l’erreur lorsque l’opération asynchrone se termine.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidPromise} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVuePromise} />
 
     </Tab>
   </Tabs>
@@ -347,7 +412,7 @@ Utilisez les helpers typés du toaster pour les variantes liées au statut. Modu
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/types.tsx"
@@ -357,6 +422,11 @@ Utilisez les helpers typés du toaster pour les variantes liées au statut. Modu
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidTypes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueTypes} />
 
     </Tab>
   </Tabs>
@@ -380,7 +450,7 @@ Conservez l’identifiant renvoyé lors de la création d’une notification et 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/update.tsx"
@@ -390,6 +460,11 @@ Conservez l’identifiant renvoyé lors de la création d’une notification et 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidUpdate} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueUpdate} />
 
     </Tab>
   </Tabs>
@@ -413,7 +488,7 @@ l’icône de fermeture et appliquer des variables CSS propres au composant.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/toast/custom-composition.tsx"
@@ -423,6 +498,11 @@ l’icône de fermeture et appliquer des variables CSS propres au composant.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toastSolidCustomComposition} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toastVueCustomComposition} />
 
     </Tab>
   </Tabs>

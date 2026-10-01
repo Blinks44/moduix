@@ -11,7 +11,9 @@ import {
   type ComponentRef,
 } from 'react';
 import { cn } from '@/internal/cn';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
+import { CloseButton } from '../close-button';
 import { Input } from '../input';
 
 type InputGroupSize = NonNullable<ComponentProps<typeof Input>['size']>;
@@ -79,6 +81,14 @@ const inputGroupTextVariants = cva(
 );
 
 const inputGroupButtonClass = 'h-auto self-stretch rounded-none border-0';
+
+const inputGroupClearTriggerVariants = cva(
+  'me-2 size-control-xs self-center focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none',
+  {
+    variants: { size: { xs: 'size-5', sm: '', md: '', lg: '', xl: '' } },
+    defaultVariants: { size: 'md' },
+  },
+);
 
 const InputGroupSizeContext = createContext<InputGroupSize>('md');
 
@@ -179,4 +189,45 @@ const InputGroupButton = forwardRef<HTMLButtonElement, ComponentProps<typeof But
   },
 );
 
-export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText };
+const InputGroupClearTrigger = forwardRef<
+  HTMLButtonElement,
+  ComponentProps<typeof CloseButton> & { size?: InputGroupSize }
+>(function InputGroupClearTrigger(
+  {
+    className,
+    children,
+    size,
+    type = 'button',
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
+  const groupSize = useContext(InputGroupSizeContext);
+  return (
+    <CloseButton
+      ref={ref}
+      {...props}
+      data-scope="input-group"
+      data-part="clear-trigger"
+      data-slot="input-group-clear-trigger"
+      data-size={size ?? groupSize}
+      className={cn(inputGroupClearTriggerVariants({ size: size ?? groupSize }), className)}
+      type={type}
+      aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear input' : undefined)}
+      aria-labelledby={ariaLabelledBy}
+    >
+      {children ?? <CloseIcon className="size-4 shrink-0" />}
+    </CloseButton>
+  );
+});
+
+export {
+  InputGroup,
+  InputGroupClearTrigger,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+};

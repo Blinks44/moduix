@@ -129,6 +129,9 @@ parts, plus runtime CSS variables on the root:
 
 The download trigger follows Button's `--moduix-size-md` default; the visual QR overlay remains independently sized.
 
+The download trigger keeps hover, focus-visible, and pressed opacity feedback without press
+translation or scaling. Movement is reserved for standalone Button roots.
+
 Moduix adds default classes, stable `data-slot` hooks, SVG sizing, overlay styling, and a
 button-like default style for `QrCodeDownloadTrigger`. The root has no border, background, padding, or
 radius by default.

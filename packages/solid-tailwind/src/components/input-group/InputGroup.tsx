@@ -4,7 +4,9 @@ import { cva } from 'class-variance-authority';
 import type { Accessor, ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
 import { cn } from '@/internal/cn';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
+import { CloseButton } from '../close-button';
 import { Input } from '../input';
 
 type InputGroupSize = NonNullable<ComponentProps<typeof Input>['size']>;
@@ -87,6 +89,14 @@ const inputGroupButtonClass = 'h-auto self-stretch rounded-none border-0';
 
 const defaultInputGroupSize: InputGroupSize = 'md';
 const defaultInputGroupSizeAccessor: Accessor<InputGroupSize> = () => defaultInputGroupSize;
+const inputGroupClearTriggerVariants = cva(
+  'me-2 size-control-xs self-center focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none',
+  {
+    variants: { size: { xs: 'size-5', sm: '', md: '', lg: '', xl: '' } },
+    defaultVariants: { size: 'md' },
+  },
+);
+
 const InputGroupSizeContext = createContext(defaultInputGroupSizeAccessor);
 
 function InputGroup(props: InputGroupProps) {
@@ -193,4 +203,42 @@ function InputGroupButton(props: ComponentProps<typeof Button>) {
   );
 }
 
-export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText };
+function InputGroupClearTrigger(
+  props: ComponentProps<typeof CloseButton> & { size?: InputGroupSize },
+) {
+  const [local, others] = splitProps(props, [
+    'class',
+    'children',
+    'size',
+    'type',
+    'aria-label',
+    'aria-labelledby',
+  ]);
+  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  return (
+    <CloseButton
+      {...others}
+      data-scope="input-group"
+      data-part="clear-trigger"
+      data-slot="input-group-clear-trigger"
+      data-size={local.size ?? groupSize()}
+      class={cn(inputGroupClearTriggerVariants({ size: local.size ?? groupSize() }), local.class)}
+      type={local.type ?? 'button'}
+      aria-label={
+        local['aria-label'] ?? (local['aria-labelledby'] == null ? 'Clear input' : undefined)
+      }
+      aria-labelledby={local['aria-labelledby']}
+    >
+      {local.children ?? <CloseIcon class="size-4 shrink-0" />}
+    </CloseButton>
+  );
+}
+
+export {
+  InputGroup,
+  InputGroupClearTrigger,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+};
