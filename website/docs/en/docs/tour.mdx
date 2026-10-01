@@ -15,6 +15,11 @@ import tourSolidBasic from '../../../snippets/tour/solid/basic.tsx?raw';
 import tourSolidEvents from '../../../snippets/tour/solid/events.tsx?raw';
 import tourSolidWaitForInput from '../../../snippets/tour/solid/wait-for-input.tsx?raw';
 import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw';
+import tourVueAdvancedCustomization from '../../../snippets/tour/vue/advanced-customization.vue?raw';
+import tourVueBasic from '../../../snippets/tour/vue/basic.vue?raw';
+import tourVueEvents from '../../../snippets/tour/vue/events.vue?raw';
+import tourVueWaitForInput from '../../../snippets/tour/vue/wait-for-input.vue?raw';
+import tourVueWithArrow from '../../../snippets/tour/vue/with-arrow.vue?raw';
 
 ## API Reference
 
@@ -38,6 +43,7 @@ you can adjust the composition when needed. `TourBody` keeps long copy scrollabl
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -50,6 +56,11 @@ you can adjust the composition when needed. `TourBody` keeps long copy scrollabl
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueBasic} />
 
     </Tab>
   </Tabs>
@@ -83,6 +94,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tour' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tour' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tour' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tour' },
   ]}
 />
 
@@ -124,12 +145,16 @@ Tour
 ## Composition
 
 Create state with `useTour` and pass its return value to `Tour`; in Solid, the return value is an accessor, so call
-`tour()` to use methods such as `start()` and `next()`. Keep the structural parts explicit and include `TourTitle` and
+`tour()` to use methods such as `start()` and `next()`. In Vue, the return value is a ref: templates unwrap it, while
+script code calls methods through `tour.value`. Keep the structural parts explicit and include `TourTitle` and
 `TourDescription` so the alert dialog has an accessible name and description. `TourBackdrop`, `TourSpotlight`, and `TourPositioner`
 are portalled by default; use `portalled={false}` or `portalRef` only when the overlay must stay in or target a specific
 container. Use `TourActionList` for the actions declared in `steps`, or replace it with `TourActions` and
 `TourActionTrigger asChild` when each action needs custom markup. `lazyMount` and `unmountOnExit` default to `true`; pass
 callbacks to `useTour` when surrounding UI or analytics need to react to step or status changes.
+In Vue, configure machine callbacks such as `onStepChange` and `onStatusChange` in `useTour`;
+`@exit-complete` on `Tour` reports the end of the presence exit animation. Ark Vue currently declares
+other root events but does not emit them from a tour object created outside the root.
 
 ## Examples
 
@@ -149,6 +174,7 @@ then Done. The status output shows the latest step or final status event.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -161,6 +187,11 @@ then Done. The status output shows the latest step or final status event.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidEvents} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueEvents} />
 
     </Tab>
   </Tabs>
@@ -177,7 +208,7 @@ then Done. The status output shows the latest step or final status event.
 
 Call `tour.next()` from an input handler after the value reaches two characters. For steps that depend on an
 asynchronous condition, `waitForElement`, `waitForElementValue`, `waitForEvent`, and `waitForPromise` are also
-exported from `@moduix/react/tour` and `@moduix/solid/tour`.
+exported from `@moduix/react/tour`, `@moduix/solid/tour`, and `@moduix/vue/tour`.
 
 <ExampleFrame variant="component">
   <TourWaitForInput />
@@ -190,6 +221,7 @@ exported from `@moduix/react/tour` and `@moduix/solid/tour`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -202,6 +234,11 @@ exported from `@moduix/react/tour` and `@moduix/solid/tour`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidWaitForInput} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueWaitForInput} />
 
     </Tab>
   </Tabs>
@@ -230,6 +267,7 @@ option so Ark can position it.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -242,6 +280,11 @@ option so Ark can position it.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidWithArrow} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueWithArrow} />
 
     </Tab>
   </Tabs>
@@ -271,6 +314,7 @@ dismissal, and disabled state continue to work.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -283,6 +327,11 @@ dismissal, and disabled state continue to work.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -318,6 +367,6 @@ dismissal, and disabled state continue to work.
 Use moduix `data-slot` hooks such as `tour-content`, `tour-body`, and `tour-action-trigger` for local styling. Ark also
 provides `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`, `data-step`, and
 `data-disabled`, plus runtime variables including `--tour-layer`, `--tour-z-index`, `--available-width`,
-`--available-height`, `--transform-origin`, and the arrow variables. Pass `className` to `TourActionList` to style
+`--available-height`, `--transform-origin`, and the arrow variables. Pass `className` (or `class` in Vue) to `TourActionList` to style
 every generated trigger. The stylesheet shortens overlay animations and removes action-button transitions for people
 who prefer reduced motion.

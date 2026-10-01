@@ -116,7 +116,14 @@ function TourArrow(props: ComponentProps<typeof TourPrimitive.Arrow>) {
   const resolvedChildren = children(() => local.children);
 
   return (
-    <TourPrimitive.Arrow class={cn('!size-2.5', local.class)} {...others} data-slot="tour-arrow">
+    <TourPrimitive.Arrow
+      class={cn(
+        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]',
+        local.class,
+      )}
+      {...others}
+      data-slot="tour-arrow"
+    >
       {resolvedChildren() ?? <TourArrowTip />}
     </TourPrimitive.Arrow>
   );

@@ -15,6 +15,11 @@ import tourSolidBasic from '../../../snippets/tour/solid/basic.tsx?raw';
 import tourSolidEvents from '../../../snippets/tour/solid/events.tsx?raw';
 import tourSolidWaitForInput from '../../../snippets/tour/solid/wait-for-input.tsx?raw';
 import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw';
+import tourVueAdvancedCustomization from '../../../snippets/tour/vue/advanced-customization.vue?raw';
+import tourVueBasic from '../../../snippets/tour/vue/basic.vue?raw';
+import tourVueEvents from '../../../snippets/tour/vue/events.vue?raw';
+import tourVueWaitForInput from '../../../snippets/tour/vue/wait-for-input.vue?raw';
+import tourVueWithArrow from '../../../snippets/tour/vue/with-arrow.vue?raw';
 
 ## Справочник API
 
@@ -38,6 +43,7 @@ import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw'
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -50,6 +56,11 @@ import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw'
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueBasic} />
 
     </Tab>
   </Tabs>
@@ -83,6 +94,16 @@ import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw'
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tour' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tour' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tour' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tour' },
   ]}
 />
 
@@ -124,12 +145,16 @@ Tour
 ## Композиция
 
 Создайте состояние через `useTour` и передайте его в `Tour`. В Solid результат является accessor, поэтому для вызова
-методов вроде `start()` и `next()` используйте `tour()`. Оставляйте структурные части явными и добавляйте `TourTitle` и
+методов вроде `start()` и `next()` используйте `tour()`. В Vue результат является ref: в шаблоне он раскрывается
+автоматически, а в коде скрипта методы вызываются через `tour.value`. Оставляйте структурные части явными и добавляйте `TourTitle` и
 `TourDescription`, чтобы у `alertdialog` были доступные имя и описание. `TourBackdrop`, `TourSpotlight` и `TourPositioner` по
 умолчанию выводятся в портал; используйте `portalled={false}` или `portalRef`, только если оверлей должен остаться в
 разметке или попасть в определённый контейнер. Используйте `TourActionList` для действий из `steps`, а для собственной
 разметки заменяйте его на `TourActions` с `TourActionTrigger asChild`. По умолчанию `lazyMount` и `unmountOnExit` равны `true`;
 передавайте колбэки в `useTour`, если внешний интерфейс или аналитика должны реагировать на смену шага или статуса.
+В Vue задавайте колбэки состояния, например `onStepChange` и `onStatusChange`, в `useTour`;
+событие `@exit-complete` на `Tour` сообщает о завершении анимации скрытия. Ark Vue сейчас объявляет
+другие события корня, но не отправляет их для объекта состояния, созданного вне корня.
 
 ## Примеры
 
@@ -149,6 +174,7 @@ Tour
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -161,6 +187,11 @@ Tour
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidEvents} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueEvents} />
 
     </Tab>
   </Tabs>
@@ -176,8 +207,8 @@ Tour
 ### Ожидание ввода
 
 Вызовите `tour.next()` из обработчика поля после ввода двух символов. Для шагов, которые зависят от асинхронного
-условия, из `@moduix/react/tour` и `@moduix/solid/tour` также экспортируются `waitForElement`, `waitForElementValue`,
-`waitForEvent` и `waitForPromise`.
+условия, из `@moduix/react/tour`, `@moduix/solid/tour` и `@moduix/vue/tour` также экспортируются `waitForElement`,
+`waitForElementValue`, `waitForEvent` и `waitForPromise`.
 
 <ExampleFrame variant="component">
   <TourWaitForInput />
@@ -190,6 +221,7 @@ Tour
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -202,6 +234,11 @@ Tour
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidWaitForInput} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueWaitForInput} />
 
     </Tab>
   </Tabs>
@@ -230,6 +267,7 @@ Tour
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -242,6 +280,11 @@ Tour
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidWithArrow} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueWithArrow} />
 
     </Tab>
   </Tabs>
@@ -271,6 +314,7 @@ Tour
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -283,6 +327,11 @@ Tour
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -318,6 +367,6 @@ Tour
 Для локальной стилизации используйте атрибуты moduix `data-slot`, например `tour-content`, `tour-body` и
 `tour-action-trigger`. Ark также добавляет `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
 `data-placement`, `data-side`, `data-step` и `data-disabled`, а также CSS-переменные `--tour-layer`, `--tour-z-index`,
-`--available-width`, `--available-height`, `--transform-origin` и переменные стрелки. Передайте `className` в
+`--available-width`, `--available-height`, `--transform-origin` и переменные стрелки. Передайте `className` (или `class` в Vue) в
 `TourActionList`, чтобы стилизовать каждый созданный триггер. Если пользователь уменьшил анимации в системе, стили
 сокращают анимацию оверлея и убирают переходы у кнопок действий.

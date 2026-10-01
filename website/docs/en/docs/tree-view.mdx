@@ -19,6 +19,13 @@ import treeViewSolidControlledSelection from '../../../snippets/tree-view/solid/
 import treeViewSolidFileIcons from '../../../snippets/tree-view/solid/file-icons.tsx?raw';
 import treeViewSolidLinks from '../../../snippets/tree-view/solid/links.tsx?raw';
 import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-provider.tsx?raw';
+import treeViewVueAsyncLoading from '../../../snippets/tree-view/vue/async-loading.vue?raw';
+import treeViewVueBasic from '../../../snippets/tree-view/vue/basic.vue?raw';
+import treeViewVueCheckboxes from '../../../snippets/tree-view/vue/checkboxes.vue?raw';
+import treeViewVueControlledSelection from '../../../snippets/tree-view/vue/controlled-selection.vue?raw';
+import treeViewVueFileIcons from '../../../snippets/tree-view/vue/file-icons.vue?raw';
+import treeViewVueLinks from '../../../snippets/tree-view/vue/links.vue?raw';
+import treeViewVueRootProvider from '../../../snippets/tree-view/vue/root-provider.vue?raw';
 
 ## API Reference
 
@@ -31,6 +38,8 @@ Create the data collection with `createTreeCollection`, then pass it to `TreeVie
 `TreeViewNode` gives each recursive render callback the current `node`, `indexPath`, and `state`, so
 you can render a branch or a leaf while keeping the part structure explicit.
 
+React, Solid, and Vue use the same flat TreeView names; the examples below keep each framework's native composition.
+
 <ExampleFrame variant="component">
   <TreeViewBasic />
 </ExampleFrame>
@@ -42,6 +51,7 @@ you can render a branch or a leaf while keeping the part structure explicit.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -54,6 +64,11 @@ you can render a branch or a leaf while keeping the part structure explicit.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueBasic} />
 
     </Tab>
   </Tabs>
@@ -82,6 +97,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tree-view' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tree-view' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tree-view' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tree-view' },
   ]}
 />
 
@@ -129,6 +154,11 @@ own its state, create it with `useTreeView` and pass it to `TreeViewRootProvider
 second root for the same store. If a branch has a separate `TreeViewBranchTrigger`, set `role="none"` on
 `TreeViewBranchControl`.
 
+In Vue, `TreeViewNode` exposes its render data through a scoped default slot. Control values with
+`v-model:expanded-value`, `v-model:selected-value`, `v-model:checked-value`, and
+`v-model:focused-value`; events such as `@selection-change` keep Ark's detail objects. Keep a
+replaceable collection in a `shallowRef` so Vue preserves its class instance.
+
 ## Examples
 
 ### Links
@@ -147,6 +177,7 @@ child must accept the Ark props so focus and keyboard behavior stay intact.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -159,6 +190,11 @@ child must accept the Ark props so focus and keyboard behavior stay intact.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidLinks} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueLinks} />
 
     </Tab>
   </Tabs>
@@ -182,6 +218,7 @@ For a branch with a known `childrenCount`, load its children with `loadChildren`
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -196,6 +233,11 @@ For a branch with a known `childrenCount`, load its children with `loadChildren`
 <CodeBlockRuntime lang="tsx" code={treeViewSolidAsyncLoading} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueAsyncLoading} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -205,6 +247,10 @@ For a branch with a known `childrenCount`, load its children with `loadChildren`
 
 Place `TreeViewNodeCheckbox` in both branch controls and leaf items. Its default indicator already covers
 the checked and indeterminate states.
+
+Vue uses the default slot for the checked icon and the named `indeterminate` and `fallback`
+slots for the mixed and unchecked states. In Ark Vue 5.39.2, the declared `indeterminate` and
+`fallback` props are ignored; use the native slots to customize these states.
 
 <ExampleFrame variant="component">
   <CheckboxTreeView />
@@ -217,6 +263,7 @@ the checked and indeterminate states.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -229,6 +276,11 @@ the checked and indeterminate states.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidCheckboxes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueCheckboxes} />
 
     </Tab>
   </Tabs>
@@ -252,6 +304,7 @@ separate so it remains the only expand and collapse affordance.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -264,6 +317,11 @@ separate so it remains the only expand and collapse affordance.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidFileIcons} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueFileIcons} />
 
     </Tab>
   </Tabs>
@@ -287,6 +345,7 @@ extend a selection range. The example keeps the selected values in application s
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -299,6 +358,11 @@ extend a selection range. The example keeps the selected values in application s
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidControlledSelection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueControlledSelection} />
 
     </Tab>
   </Tabs>
@@ -327,6 +391,7 @@ or `collapse()`. Pass that state to `TreeViewRootProvider` instead of rendering 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -341,6 +406,11 @@ or `collapse()`. Pass that state to `TreeViewRootProvider` instead of rendering 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueRootProvider} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -353,7 +423,7 @@ or `collapse()`. Pass that state to `TreeViewRootProvider` instead of rendering 
 
 ## Styling
 
-Use `className` in React or `class` in Solid on any exported part for structural styling. Branch
+Use `className` in React, `class` in Solid, or `class` in Vue on any exported part for structural styling. Branch
 parts expose `data-state="open|closed"`; checkbox parts expose
 `data-state="checked|unchecked|indeterminate"`; and node parts expose `data-focus`, `data-selected`,
 `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path`, and `data-value`. The

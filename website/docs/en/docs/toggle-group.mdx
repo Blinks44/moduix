@@ -1,7 +1,7 @@
 ---
 title: Toggle Group
 component: toggle-group
-description: A keyboard-navigable group of toggle buttons for single or multiple selection in React and Solid.
+description: A keyboard-navigable group of toggle buttons for single or multiple selection in React, Solid, and Vue.
 ---
 
 import * as ToggleGroupDocs from '@/components/examples/toggle-group/css-properties';
@@ -26,13 +26,24 @@ import toggleGroupSolidMultipleSelection from '../../../snippets/toggle-group/so
 import toggleGroupSolidRootProvider from '../../../snippets/toggle-group/solid/root-provider.tsx?raw';
 import toggleGroupSolidVariants from '../../../snippets/toggle-group/solid/variants.tsx?raw';
 import toggleGroupSolidVertical from '../../../snippets/toggle-group/solid/vertical.tsx?raw';
+import toggleGroupVueAsChild from '../../../snippets/toggle-group/vue/as-child.vue?raw';
+import toggleGroupVueBasic from '../../../snippets/toggle-group/vue/basic.vue?raw';
+import toggleGroupVueContext from '../../../snippets/toggle-group/vue/context.vue?raw';
+import toggleGroupVueControlled from '../../../snippets/toggle-group/vue/controlled.vue?raw';
+import toggleGroupVueDisabled from '../../../snippets/toggle-group/vue/disabled.vue?raw';
+import toggleGroupVueIcons from '../../../snippets/toggle-group/vue/icons.vue?raw';
+import toggleGroupVueMultipleSelection from '../../../snippets/toggle-group/vue/multiple-selection.vue?raw';
+import toggleGroupVueRootProvider from '../../../snippets/toggle-group/vue/root-provider.vue?raw';
+import toggleGroupVueVariants from '../../../snippets/toggle-group/vue/variants.vue?raw';
+import toggleGroupVueVertical from '../../../snippets/toggle-group/vue/vertical.vue?raw';
 
 ## API Reference
 
 `ToggleGroup` wraps Ark UI's Toggle Group primitive and adds moduix visual props for variants and
 sizes. Import it from the matching framework package: `@moduix/react/toggle-group`,
 `@moduix/solid/toggle-group`, `@moduix/react-tailwind/toggle-group`, or
-`@moduix/solid-tailwind/toggle-group`.
+`@moduix/solid-tailwind/toggle-group`. Vue packages are `@moduix/vue/toggle-group` and
+`@moduix/vue-tailwind/toggle-group`.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toggle-group" />
 
@@ -63,6 +74,7 @@ accessible name with `aria-label` or `aria-labelledby`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -75,6 +87,11 @@ accessible name with `aria-label` or `aria-labelledby`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleGroupSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleGroupVueBasic} />
 
     </Tab>
   </Tabs>
@@ -106,6 +123,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toggle-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toggle-group' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -124,19 +151,22 @@ ToggleGroupRootProvider
 | `ToggleGroup`           | Root part that owns selected values, focus movement, orientation, and disabled state. |
 | `ToggleGroupItem`       | Interactive item with a required `value` and Ark selection state.                    |
 | `ToggleGroupRootProvider` | Connects the item tree to state created with `useToggleGroup()`.                    |
-| `ToggleGroupContext`    | Exposes the current group state through a render prop.                               |
+| `ToggleGroupContext`    | Exposes the current group state through a render prop or Vue scoped slot.             |
 
 ## Composition
 
 Use `defaultValue` for an uncontrolled group, or pass `value` with `onValueChange(details)` when
-another part of the application owns the selection. Both values are `string[]` in single and
+another part of the application owns the selection in React and Solid. In Vue, use `v-model` and
+listen to `@value-change` for Ark details; inside script, read the store through `.value`. Selected
+values are `string[]` in single and
 multiple-selection modes. Use `ToggleGroupRootProvider` with `useToggleGroup()` from the matching
 framework package when state must be created outside the rendered tree. React reads the store as an
-object, while Solid reads its reactive state through the returned accessor.
+object, Solid reads its reactive state through the returned accessor, and Vue exposes the reactive
+store directly to the template.
 
 Use `ToggleGroupContext` or `useToggleGroupContext()` when a custom item needs the current group
-state. With `asChild`, React receives one button-like child, while Solid receives a render function
-that returns the element hosting the Ark behavior. Do not render `ToggleGroup` and
+state. With `asChild`, React receives one button-like child, Solid receives a render function
+that returns the element hosting the Ark behavior, and Vue receives one element child. Do not render `ToggleGroup` and
 `ToggleGroupRootProvider` for the same state instance.
 
 ## Examples
@@ -157,6 +187,7 @@ button-like child so Ark can merge the group's semantics and keyboard behavior i
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -171,6 +202,11 @@ button-like child so Ark can merge the group's semantics and keyboard behavior i
 <CodeBlockRuntime lang="tsx" code={toggleGroupSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleGroupVueAsChild} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
@@ -178,7 +214,8 @@ button-like child so Ark can merge the group's semantics and keyboard behavior i
 ### Context
 
 Use `useToggleGroupContext()` in a custom item when its contents need the current group state.
-`ToggleGroupContext` provides the same state through a render prop.
+`ToggleGroupContext` provides the same state through a render prop in React and Solid, or a scoped
+slot in Vue.
 
 <ExampleFrame variant="component">
   <ToggleGroupContext />
@@ -191,6 +228,7 @@ Use `useToggleGroupContext()` in a custom item when its contents need the curren
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -205,13 +243,19 @@ Use `useToggleGroupContext()` in a custom item when its contents need the curren
 <CodeBlockRuntime lang="tsx" code={toggleGroupSolidContext} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleGroupVueContext} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ### Controlled
 
-Control `value` when the selected items must stay in sync with surrounding application state.
+Control `value` in React and Solid, or use `v-model` in Vue, when the selected items must stay in sync
+with surrounding application state.
 
 <ExampleFrame variant="component">
   <ToggleGroupControlled />
@@ -224,6 +268,7 @@ Control `value` when the selected items must stay in sync with surrounding appli
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -236,6 +281,11 @@ Control `value` when the selected items must stay in sync with surrounding appli
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleGroupSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleGroupVueControlled} />
 
     </Tab>
   </Tabs>
@@ -262,6 +312,7 @@ Set `disabled` on the group or on a specific item to prevent interaction.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -274,6 +325,11 @@ Set `disabled` on the group or on a specific item to prevent interaction.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleGroupSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleGroupVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -300,6 +356,7 @@ Pass icons as regular children. Icon-only items should always include an accessi
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -312,6 +369,11 @@ Pass icons as regular children. Icon-only items should always include an accessi
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleGroupSolidIcons} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleGroupVueIcons} />
 
     </Tab>
   </Tabs>
@@ -333,6 +395,7 @@ Set `multiple` when several options can stay pressed at the same time.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -345,6 +408,11 @@ Set `multiple` when several options can stay pressed at the same time.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleGroupSolidMultipleSelection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleGroupVueMultipleSelection} />
 
     </Tab>
   </Tabs>
@@ -366,6 +434,7 @@ Set `variant` on the group when every item should share the same visual treatmen
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -378,6 +447,11 @@ Set `variant` on the group when every item should share the same visual treatmen
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleGroupSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleGroupVueVariants} />
 
     </Tab>
   </Tabs>
@@ -404,6 +478,7 @@ Set `orientation="vertical"` when the choices should stack in a column.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -416,6 +491,11 @@ Set `orientation="vertical"` when the choices should stack in a column.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleGroupSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleGroupVueVertical} />
 
     </Tab>
   </Tabs>
@@ -438,6 +518,7 @@ outside the rendered group tree.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -452,6 +533,11 @@ outside the rendered group tree.
 <CodeBlockRuntime lang="tsx" code={toggleGroupSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleGroupVueRootProvider} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -463,7 +549,7 @@ outside the rendered group tree.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes; CSS Modules variants expose the
 `--moduix-toggle-group-*` tokens. Items inherit `variant` and `size` from the root, and can override
 either prop when one item needs different treatment.

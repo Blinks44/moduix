@@ -120,7 +120,10 @@ const TourArrow = forwardRef<
   return (
     <TourPrimitive.Arrow
       ref={ref}
-      className={cn('!size-2.5', className)}
+      className={cn(
+        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]',
+        className,
+      )}
       {...props}
       data-slot="tour-arrow"
     >

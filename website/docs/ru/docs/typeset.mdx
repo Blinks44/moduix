@@ -17,6 +17,12 @@ import typesetSolidMarkdownExtensions from '../../../snippets/typeset/solid/mark
 import typesetSolidReadingRhythm from '../../../snippets/typeset/solid/reading-rhythm.tsx?raw';
 import typesetSolidScrollableTable from '../../../snippets/typeset/solid/scrollable-table.tsx?raw';
 import typesetSolidStreamingContent from '../../../snippets/typeset/solid/streaming-content.tsx?raw';
+import typesetVueBasic from '../../../snippets/typeset/vue/basic.vue?raw';
+import typesetVueExcludedSubtree from '../../../snippets/typeset/vue/excluded-subtree.vue?raw';
+import typesetVueMarkdownExtensions from '../../../snippets/typeset/vue/markdown-extensions.vue?raw';
+import typesetVueReadingRhythm from '../../../snippets/typeset/vue/reading-rhythm.vue?raw';
+import typesetVueScrollableTable from '../../../snippets/typeset/vue/scrollable-table.vue?raw';
+import typesetVueStreamingContent from '../../../snippets/typeset/vue/streaming-content.vue?raw';
 
 ## Справочник API
 
@@ -28,13 +34,15 @@ import typesetSolidStreamingContent from '../../../snippets/typeset/solid/stream
 [фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory), поэтому поддерживают
 нативные свойства `div`, ref и композицию через `asChild`.
 
+В Vue используйте нативный атрибут `tabindex`, чтобы изменить порядок фокуса области прокрутки.
+Отрендеренный элемент доступен через `$el` в ref компонента.
+
 CSS-first контракт Typeset следует подходу из [документации shadcn/typeset](https://ui.shadcn.com/docs/typeset).
 Как и там, ритм чтения задают три переменные, а рендеринг контента и его ширина остаются
-ответственностью приложения. moduix добавляет нативные компоненты для React и Solid и
-`TypesetScroll`.
+ответственностью приложения. moduix добавляет нативные компоненты для React, Solid и Vue,
+а также `TypesetScroll`.
 
 ## Базовый пример
-
 
 Оберните в `<Typeset>` HTML, который уже подготовил ваш рендерер. Используйте `asChild`, только
 когда внешний контейнер должен быть семантическим элементом, например `article` или `section`.
@@ -52,6 +60,7 @@ CSS-first контракт Typeset следует подходу из [доку�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -64,6 +73,11 @@ CSS-first контракт Typeset следует подходу из [доку�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueBasic} />
 
     </Tab>
   </Tabs>
@@ -91,6 +105,16 @@ CSS-first контракт Typeset следует подходу из [доку�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/typeset' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/typeset' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/typeset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/typeset' },
   ]}
 />
 
@@ -139,6 +163,7 @@ Typeset
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -151,6 +176,11 @@ Typeset
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidExcludedSubtree} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueExcludedSubtree} />
 
     </Tab>
   </Tabs>
@@ -178,6 +208,7 @@ Typeset
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -190,6 +221,11 @@ Typeset
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidMarkdownExtensions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueMarkdownExtensions} />
 
     </Tab>
   </Tabs>
@@ -212,6 +248,7 @@ Typeset
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -224,6 +261,11 @@ Typeset
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidReadingRhythm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueReadingRhythm} />
 
     </Tab>
   </Tabs>
@@ -252,6 +294,7 @@ Typeset
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -264,6 +307,11 @@ Typeset
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidScrollableTable} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueScrollableTable} />
 
     </Tab>
   </Tabs>
@@ -291,6 +339,7 @@ Typeset
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -303,6 +352,11 @@ Typeset
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidStreamingContent} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueStreamingContent} />
 
     </Tab>
   </Tabs>
@@ -336,9 +390,9 @@ Typeset
 переменных - в слое `base`; они используют низкоспецифичные селекторы `:where()`, поэтому обычный CSS
 приложения может переопределять отдельные элементы без `!important`.
 
-Для структурных стилей используйте `className` в React и `class` в Solid. Варианты Tailwind
-поставляют тот же CSS Module и объединяют классы через `cn` вместо utility-классов, поэтому шесть
-CSS-переменных работают в обоих вариантах.
+Для структурных стилей используйте `className` в React и `class` в Solid и Vue. Варианты Tailwind
+сохраняют тот же CSS-first контракт элементов и объединяют классы через `cn`, оставляя класс
+потребителя последним; поэтому шесть CSS-переменных работают в обоих вариантах.
 
 ### Хуки стилизации
 

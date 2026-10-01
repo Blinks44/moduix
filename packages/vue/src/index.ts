@@ -2,8 +2,32 @@
 
 export * from './components/simple-grid';
 export * from './components/text';
+export * from './components/typeset';
 export * from './components/accordion';
+export * from './components/tree-view';
 export * from './components/toggle';
+export {
+  ToggleGroup,
+  ToggleGroupContext,
+  ToggleGroupItem,
+  ToggleGroupRootProvider,
+  useToggleGroup,
+  useToggleGroupContext,
+} from './components/toggle-group';
+export type {
+  ToggleGroupContextProps,
+  ToggleGroupItemBaseProps,
+  ToggleGroupItemProps,
+  ToggleGroupRootBaseProps,
+  ToggleGroupRootEmits,
+  ToggleGroupRootProps,
+  ToggleGroupRootProviderBaseProps,
+  ToggleGroupRootProviderProps,
+  ToggleGroupValueChangeDetails,
+  UseToggleGroupContext,
+  UseToggleGroupProps,
+  UseToggleGroupReturn,
+} from './components/toggle-group';
 export * from './components/toc';
 export * from './components/qr-code';
 export * from './components/pin-input';
@@ -78,5 +102,6 @@ export * from './components/steps';
 export * from './components/table';
 export * from './components/tabs';
 export * from './components/timer';
+export * from './components/tour';
 export * from './components/tooltip';
 export * from './components/toast';

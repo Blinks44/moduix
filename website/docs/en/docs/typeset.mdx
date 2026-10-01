@@ -17,6 +17,12 @@ import typesetSolidMarkdownExtensions from '../../../snippets/typeset/solid/mark
 import typesetSolidReadingRhythm from '../../../snippets/typeset/solid/reading-rhythm.tsx?raw';
 import typesetSolidScrollableTable from '../../../snippets/typeset/solid/scrollable-table.tsx?raw';
 import typesetSolidStreamingContent from '../../../snippets/typeset/solid/streaming-content.tsx?raw';
+import typesetVueBasic from '../../../snippets/typeset/vue/basic.vue?raw';
+import typesetVueExcludedSubtree from '../../../snippets/typeset/vue/excluded-subtree.vue?raw';
+import typesetVueMarkdownExtensions from '../../../snippets/typeset/vue/markdown-extensions.vue?raw';
+import typesetVueReadingRhythm from '../../../snippets/typeset/vue/reading-rhythm.vue?raw';
+import typesetVueScrollableTable from '../../../snippets/typeset/vue/scrollable-table.vue?raw';
+import typesetVueStreamingContent from '../../../snippets/typeset/vue/streaming-content.vue?raw';
 
 ## API Reference
 
@@ -28,13 +34,15 @@ moduix builds `Typeset` with the
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory). `Typeset` and
 `TypesetScroll` therefore accept native `div` props, refs, and `asChild` composition.
 
+In Vue, bind the native `tabindex` attribute to change a scroller’s tab order and access the rendered
+element through a component ref’s `$el`.
+
 The CSS-first contract follows the approach documented in
 [shadcn/typeset](https://ui.shadcn.com/docs/typeset). It uses the same three rhythm controls while
 leaving content rendering and reading width to the application; moduix adds framework-native
-components and `TypesetScroll`.
+components for React, Solid, and Vue, plus `TypesetScroll`.
 
 ## Basic
-
 
 Wrap HTML that your renderer has already produced in `<Typeset>`. Use `asChild` only when the outer
 container needs to be semantic, such as an `article` or `section`. Keep lists as native `<ul>` and
@@ -51,6 +59,7 @@ container needs to be semantic, such as an `article` or `section`. Keep lists as
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -63,6 +72,11 @@ container needs to be semantic, such as an `article` or `section`. Keep lists as
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueBasic} />
 
     </Tab>
   </Tabs>
@@ -90,6 +104,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/typeset' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/typeset' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/typeset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/typeset' },
   ]}
 />
 
@@ -138,6 +162,7 @@ including a nested `Typeset` root.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -150,6 +175,11 @@ including a nested `Typeset` root.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidExcludedSubtree} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueExcludedSubtree} />
 
     </Tab>
   </Tabs>
@@ -177,6 +207,7 @@ block spacing as the core HTML elements.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -189,6 +220,11 @@ block spacing as the core HTML elements.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidMarkdownExtensions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueMarkdownExtensions} />
 
     </Tab>
   </Tabs>
@@ -211,6 +247,7 @@ props.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -223,6 +260,11 @@ props.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidReadingRhythm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueReadingRhythm} />
 
     </Tab>
   </Tabs>
@@ -250,6 +292,7 @@ narrow container. Give the scroller an accessible name that identifies the table
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -262,6 +305,11 @@ narrow container. Give the scroller an accessible name that identifies the table
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidScrollableTable} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueScrollableTable} />
 
     </Tab>
   </Tabs>
@@ -289,6 +337,7 @@ content stays in place as the stream grows.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -301,6 +350,11 @@ content stays in place as the stream grows.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidStreamingContent} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueStreamingContent} />
 
     </Tab>
   </Tabs>
@@ -334,9 +388,10 @@ theme. Element rules live in the `components` cascade layer, with the variable d
 and use low-specificity `:where()` selectors, so normal application CSS can override individual
 elements without `!important`.
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. The Tailwind
-variants ship the same CSS Module with `cn` class merging instead of utility classes, so the six CSS
-variables customize both styling tracks.
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. The
+CSS Modules variants keep the semantic rules local; Tailwind variants preserve the same CSS-first
+element contract and merge consumer classes with `cn` last, so the six CSS variables customize both
+styling tracks.
 
 ### Styling hooks
 

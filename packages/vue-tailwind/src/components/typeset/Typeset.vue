@@ -1,0 +1,31 @@
+<script setup lang="ts">
+import { ark } from '@ark-ui/vue/factory';
+import type { HTMLArkProps } from '@ark-ui/vue/factory';
+import { useAttrs } from 'vue';
+import type { HTMLAttributes } from 'vue';
+import { cn } from '@/lib/moduix/cn';
+import './Typeset.css';
+
+defineOptions({ inheritAttrs: false });
+
+export interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {
+  class?: HTMLAttributes['class'];
+}
+
+const { class: className } = defineProps<Props>();
+defineSlots<{ default?: () => unknown }>();
+
+const attrs = useAttrs();
+</script>
+
+<template>
+  <ark.div
+    v-bind="attrs"
+    :class="cn('typeset', className)"
+    data-scope="typeset"
+    data-part="root"
+    data-slot="typeset"
+  >
+    <slot />
+  </ark.div>
+</template>

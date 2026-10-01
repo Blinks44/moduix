@@ -7,6 +7,7 @@ import {
   TourSpotlight,
   TourPositioner,
   TourContent,
+  TourArrow,
   TourTitle,
   TourDescription,
   TourProgressText,
@@ -34,6 +35,7 @@ const steps = [
     type: 'dialog',
     title: 'Welcome',
     description: 'Start the tour.',
+    arrow: true,
     actions: [
       { label: 'Continue', action: 'next' },
       { label: 'Continue', action: 'dismiss' },
@@ -108,6 +110,7 @@ function StyledTourExample() {
         <TourSpotlight />
         <TourPositioner>
           <TourContent className="w-96 bg-card p-4">
+            <TourArrow />
             <TourCloseIcon className="size-8 rounded-full bg-primary" />
             <TourBody>
               <TourTitle className="text-xl">Welcome</TourTitle>
@@ -190,6 +193,7 @@ describe('Tour', () => {
     const backdrop = document.querySelector('[data-slot="tour-backdrop"]');
     const spotlight = document.querySelector('[data-slot="tour-spotlight"]');
     const positioner = document.querySelector('[data-slot="tour-positioner"]');
+    const arrow = document.querySelector('[data-slot="tour-arrow"]');
     const closeIcon = screen.getByRole('button', { name: 'Close tour' });
 
     expect(backdrop).toHaveClass('bg-overlay', 'backdrop-blur-xs');
@@ -197,6 +201,10 @@ describe('Tour', () => {
     expect(positioner).toHaveClass(
       '[--tour-z-index:var(--moduix-tour-z-index,var(--moduix-z-modal))]',
       'max-w-[var(--available-width)]',
+    );
+    expect(arrow).toHaveClass(
+      '[--arrow-background:var(--color-popover)]',
+      '[--arrow-size:var(--spacing-2_5)]',
     );
     expect(content).toHaveClass('w-96', 'bg-card', 'p-4');
     expect(content).not.toHaveClass('w-80', 'bg-popover', 'p-5');

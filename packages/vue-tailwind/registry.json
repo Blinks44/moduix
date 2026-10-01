@@ -310,6 +310,115 @@
       ]
     },
     {
+      "name": "tree-view",
+      "type": "registry:item",
+      "title": "TreeView",
+      "description": "moduix Vue Tailwind TreeView component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/tree-view/TreeView.vue",
+          "target": "@components/ui/tree-view/TreeView.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewRootProvider.vue",
+          "target": "@components/ui/tree-view/TreeViewRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewLabel.vue",
+          "target": "@components/ui/tree-view/TreeViewLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewTree.vue",
+          "target": "@components/ui/tree-view/TreeViewTree.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewNode.vue",
+          "target": "@components/ui/tree-view/TreeViewNode.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewBranch.vue",
+          "target": "@components/ui/tree-view/TreeViewBranch.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewBranchControl.vue",
+          "target": "@components/ui/tree-view/TreeViewBranchControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewBranchTrigger.vue",
+          "target": "@components/ui/tree-view/TreeViewBranchTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewBranchIndicator.vue",
+          "target": "@components/ui/tree-view/TreeViewBranchIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewBranchText.vue",
+          "target": "@components/ui/tree-view/TreeViewBranchText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewBranchContent.vue",
+          "target": "@components/ui/tree-view/TreeViewBranchContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewBranchIndentGuide.vue",
+          "target": "@components/ui/tree-view/TreeViewBranchIndentGuide.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewItem.vue",
+          "target": "@components/ui/tree-view/TreeViewItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewItemText.vue",
+          "target": "@components/ui/tree-view/TreeViewItemText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewItemIndicator.vue",
+          "target": "@components/ui/tree-view/TreeViewItemIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewNodeCheckbox.vue",
+          "target": "@components/ui/tree-view/TreeViewNodeCheckbox.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewNodeCheckboxIndicator.vue",
+          "target": "@components/ui/tree-view/TreeViewNodeCheckboxIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeViewNodeRenameInput.vue",
+          "target": "@components/ui/tree-view/TreeViewNodeRenameInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/index.ts",
+          "target": "@components/ui/tree-view/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "toggle",
       "type": "registry:item",
       "title": "Toggle",
@@ -335,6 +444,50 @@
         {
           "path": "src/components/toggle/index.ts",
           "target": "@components/ui/toggle/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:item",
+      "title": "ToggleGroup",
+      "description": "moduix Vue Tailwind ToggleGroup component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/toggle"
+      ],
+      "files": [
+        {
+          "path": "src/components/toggle-group/ToggleGroup.vue",
+          "target": "@components/ui/toggle-group/ToggleGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle-group/ToggleGroupRootProvider.vue",
+          "target": "@components/ui/toggle-group/ToggleGroupRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle-group/ToggleGroupItem.vue",
+          "target": "@components/ui/toggle-group/ToggleGroupItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle-group/context.ts",
+          "target": "@components/ui/toggle-group/context.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle-group/ToggleGroup.variants.ts",
+          "target": "@components/ui/toggle-group/ToggleGroup.variants.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toggle-group/index.ts",
+          "target": "@components/ui/toggle-group/index.ts",
           "type": "registry:component"
         }
       ]
@@ -5115,6 +5268,136 @@
       "description": "Rounded moduix tokens with a warmer violet palette for product workflows.",
       "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/soft.css'. Put data-moduix-theme=\"soft\" on the document root.",
       "registryDependencies": ["https://moduix.dev/r/foundation/theme-soft.json"]
+    },
+    {
+      "name": "tour",
+      "type": "registry:item",
+      "title": "Tour",
+      "description": "moduix Vue Tailwind Tour component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/overlay-portal"
+      ],
+      "files": [
+        {
+          "path": "src/components/tour/Tour.vue",
+          "target": "@components/ui/tour/Tour.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourActionList.vue",
+          "target": "@components/ui/tour/TourActionList.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourActionTrigger.vue",
+          "target": "@components/ui/tour/TourActionTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourArrow.vue",
+          "target": "@components/ui/tour/TourArrow.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourArrowTip.vue",
+          "target": "@components/ui/tour/TourArrowTip.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourBackdrop.vue",
+          "target": "@components/ui/tour/TourBackdrop.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourBody.vue",
+          "target": "@components/ui/tour/TourBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourCloseIcon.vue",
+          "target": "@components/ui/tour/TourCloseIcon.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourCloseTrigger.vue",
+          "target": "@components/ui/tour/TourCloseTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourContent.vue",
+          "target": "@components/ui/tour/TourContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourControl.vue",
+          "target": "@components/ui/tour/TourControl.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourDescription.vue",
+          "target": "@components/ui/tour/TourDescription.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourPositioner.vue",
+          "target": "@components/ui/tour/TourPositioner.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourProgressText.vue",
+          "target": "@components/ui/tour/TourProgressText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourSpotlight.vue",
+          "target": "@components/ui/tour/TourSpotlight.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/TourTitle.vue",
+          "target": "@components/ui/tour/TourTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tour/index.ts",
+          "target": "@components/ui/tour/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "typeset",
+      "type": "registry:item",
+      "title": "Typeset",
+      "description": "moduix Vue Tailwind Typeset component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/typeset/Typeset.vue",
+          "target": "@components/ui/typeset/Typeset.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/typeset/TypesetScroll.vue",
+          "target": "@components/ui/typeset/TypesetScroll.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/typeset/Typeset.css",
+          "target": "@components/ui/typeset/Typeset.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/typeset/index.ts",
+          "target": "@components/ui/typeset/index.ts",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

@@ -19,6 +19,13 @@ import treeViewSolidControlledSelection from '../../../snippets/tree-view/solid/
 import treeViewSolidFileIcons from '../../../snippets/tree-view/solid/file-icons.tsx?raw';
 import treeViewSolidLinks from '../../../snippets/tree-view/solid/links.tsx?raw';
 import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-provider.tsx?raw';
+import treeViewVueAsyncLoading from '../../../snippets/tree-view/vue/async-loading.vue?raw';
+import treeViewVueBasic from '../../../snippets/tree-view/vue/basic.vue?raw';
+import treeViewVueCheckboxes from '../../../snippets/tree-view/vue/checkboxes.vue?raw';
+import treeViewVueControlledSelection from '../../../snippets/tree-view/vue/controlled-selection.vue?raw';
+import treeViewVueFileIcons from '../../../snippets/tree-view/vue/file-icons.vue?raw';
+import treeViewVueLinks from '../../../snippets/tree-view/vue/links.vue?raw';
+import treeViewVueRootProvider from '../../../snippets/tree-view/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -31,6 +38,8 @@ import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-pr
 `TreeViewNode` передаёт в рекурсивный рендерер текущие `node`, `indexPath` и `state`, поэтому можно
 вывести ветку или конечный узел, сохранив явную структуру частей.
 
+React, Solid и Vue используют одинаковые плоские имена TreeView; вкладки ниже сохраняют нативную композицию каждого фреймворка.
+
 <ExampleFrame variant="component">
   <TreeViewBasic />
 </ExampleFrame>
@@ -42,6 +51,7 @@ import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-pr
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -54,6 +64,11 @@ import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-pr
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueBasic} />
 
     </Tab>
   </Tabs>
@@ -82,6 +97,16 @@ import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-pr
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tree-view' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tree-view' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tree-view' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tree-view' },
   ]}
 />
 
@@ -128,6 +153,12 @@ TreeView
 `useTreeView` и передайте в `TreeViewRootProvider`; не создавайте второй root для того же хранилища.
 Если у ветки есть отдельный `TreeViewBranchTrigger`, задайте `role="none"` для `TreeViewBranchControl`.
 
+В Vue `TreeViewNode` передаёт данные для рендера через слот по умолчанию с параметрами.
+Управляйте значениями через `v-model:expanded-value`, `v-model:selected-value`,
+`v-model:checked-value` и `v-model:focused-value`; события вроде `@selection-change` сохраняют
+объекты с подробностями Ark. Если коллекция может заменяться, храните её в `shallowRef`, чтобы
+Vue сохранял экземпляр класса.
+
 ## Примеры
 
 ### Ссылки
@@ -147,6 +178,7 @@ TreeView
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -159,6 +191,11 @@ TreeView
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidLinks} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueLinks} />
 
     </Tab>
   </Tabs>
@@ -182,6 +219,7 @@ TreeView
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -196,6 +234,11 @@ TreeView
 <CodeBlockRuntime lang="tsx" code={treeViewSolidAsyncLoading} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueAsyncLoading} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -205,6 +248,11 @@ TreeView
 
 Разместите `TreeViewNodeCheckbox` и в элементах управления ветками, и в конечных узлах. Индикатор по
 умолчанию уже отображает отмеченное и частично отмеченное состояния.
+
+В Vue слот по умолчанию задаёт значок отмеченного состояния, а именованные слоты
+`indeterminate` и `fallback` — частично отмеченного и неотмеченного состояний. В Ark Vue 5.39.2
+объявленные props `indeterminate` и `fallback` игнорируются; для настройки этих состояний
+используйте нативные слоты.
 
 <ExampleFrame variant="component">
   <CheckboxTreeView />
@@ -217,6 +265,7 @@ TreeView
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -229,6 +278,11 @@ TreeView
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidCheckboxes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueCheckboxes} />
 
     </Tab>
   </Tabs>
@@ -252,6 +306,7 @@ TreeView
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -264,6 +319,11 @@ TreeView
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidFileIcons} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueFileIcons} />
 
     </Tab>
   </Tabs>
@@ -288,6 +348,7 @@ TreeView
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -300,6 +361,11 @@ TreeView
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidControlledSelection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueControlledSelection} />
 
     </Tab>
   </Tabs>
@@ -329,6 +395,7 @@ TreeView
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -343,6 +410,11 @@ TreeView
 <CodeBlockRuntime lang="tsx" code={treeViewSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueRootProvider} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -355,7 +427,7 @@ TreeView
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на любой экспортируемой части для структурной
+Используйте `className` в React, `class` в Solid или `class` в Vue на любой экспортируемой части для структурной
 стилизации. Части ветки имеют `data-state="open|closed"`, части флажка имеют
 `data-state="checked|unchecked|indeterminate"`, а части узлов имеют `data-focus`, `data-selected`,
 `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path` и `data-value`. Обёртка
