@@ -13,6 +13,10 @@ import tocSolidBasic from '../../../snippets/table-of-contents/solid/basic.tsx?r
 import tocSolidRail from '../../../snippets/table-of-contents/solid/rail.tsx?raw';
 import tocSolidRootProvider from '../../../snippets/table-of-contents/solid/root-provider.tsx?raw';
 import tocSolidWithCollapsible from '../../../snippets/table-of-contents/solid/with-collapsible.tsx?raw';
+import tocVueBasic from '../../../snippets/table-of-contents/vue/basic.vue?raw';
+import tocVueRail from '../../../snippets/table-of-contents/vue/rail.vue?raw';
+import tocVueRootProvider from '../../../snippets/table-of-contents/vue/root-provider.vue?raw';
+import tocVueWithCollapsible from '../../../snippets/table-of-contents/vue/with-collapsible.vue?raw';
 
 ## API Reference
 
@@ -41,6 +45,7 @@ tracking and link navigation inside the preview.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -53,6 +58,11 @@ tracking and link navigation inside the preview.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tocSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tocVueBasic} />
 
     </Tab>
   </Tabs>
@@ -86,6 +96,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toc' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toc' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toc' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toc' },
   ]}
 />
 
@@ -134,11 +154,19 @@ container.
 
 Use `TocRootProvider` with `useToc()` only when controls outside the part tree need the same
 tracking state, such as `activeIds` or `scrollTo`. React reads the store as an object; Solid reads
-its reactive state through the returned accessor. Use `TocContext` when a surrounding composition
-such as `Collapsible` needs the active items. For router links, use `TocLink asChild` with one
-semantic `<a>` child; in Solid, pass that child through the render function expected by `asChild`.
+its reactive state through the returned accessor. In Vue, the reactive store is exposed directly to
+the template. Use `TocContext` when a surrounding composition such as `Collapsible` needs the
+active items. For router links, use `TocLink asChild` with one semantic `<a>` child; in Solid, pass
+that child through the render function expected by `asChild`.
 Choose either `TocIndicator` for an active-range marker or `TocRail` for per-link hierarchy; do
 not render both in the same list.
+
+:::warning Upstream limitations
+With Ark UI Vue 5.39.2 and Zag 1.43.3, controlled `activeIds` changes report the previous IDs in
+`activeChange`, so writing that payload back cannot update the active section. Uncontrolled
+tracking remains available. Ark's `TocNav` also reuses the root ID, producing duplicate IDs when
+both parts render. These upstream issues must be resolved before this component is production-ready.
+:::
 
 ## Examples
 
@@ -157,6 +185,7 @@ Use `useToc()` when another control needs to read the active headings or scroll 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -169,6 +198,11 @@ Use `useToc()` when another control needs to read the active headings or scroll 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tocSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tocVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -198,6 +232,7 @@ active link uses the indicator colour. Do not render `TocIndicator` in the same 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -210,6 +245,11 @@ active link uses the indicator colour. Do not render `TocIndicator` in the same 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tocSolidRail} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tocVueRail} />
 
     </Tab>
   </Tabs>
@@ -239,6 +279,7 @@ the links continue to target the same reading pane.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -253,6 +294,11 @@ the links continue to target the same reading pane.
 <CodeBlockRuntime lang="tsx" code={tocSolidWithCollapsible} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tocVueWithCollapsible} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -265,7 +311,7 @@ the links continue to target the same reading pane.
 
 ## Styling
 
-Style the component through `className` in React or `class` in Solid, Ark attributes, moduix
+Style the component through `className` in React or `class` in Solid and Vue, Ark attributes, moduix
 `data-slot` hooks, and the public `--moduix-table-of-contents-*` variables. The CSS Modules
 packages use these variables; the Tailwind packages use native utility classes and consumer classes
 for overrides.

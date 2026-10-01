@@ -602,6 +602,13 @@ FieldRootProvider
 
 ## Стилизация
 
+По умолчанию `FieldInput` выглядит так же, как `Input size="md"`: совпадают оформление кнопки выбора
+файла, кольцо фокуса, рамка ошибки и вид отключённого поля. Его `size` остаётся нативным числовым
+HTML-атрибутом; для визуальных размеров и `htmlSize` используйте `Input`. В CSS Modules `FieldInput`
+настраивается через `--moduix-field-control-*`, а `Input` — через `--moduix-input-*`.
+Отключённый `Field` или `FieldRootProvider` приглушает всё поле один раз, без дополнительного
+приглушения самого input.
+
 Используйте `className` в React или `class` в Solid и Vue для структурной стилизации экспортируемых частей.
 Для стилей состояний применяйте атрибуты Ark, такие как `data-disabled`, `data-invalid`, `data-readonly`
 и `data-required`, вместе с селекторами moduix `data-slot`. Варианты на Tailwind используют нативные

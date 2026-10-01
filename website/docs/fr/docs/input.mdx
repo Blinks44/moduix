@@ -535,6 +535,11 @@ fusionnées et la `ref`.
 
 ## Styles
 
+`Input size="md"` et `FieldInput` ont la même apparence par défaut. Tous deux bénéficient du contexte
+`Field` ; `Input` ajoute les tailles visuelles et `htmlSize`, tandis que `FieldInput` conserve
+le `size` numérique natif. Dans un `Field` ou `FieldRootProvider` moduix désactivé, seule la racine
+applique l’opacité de l’état désactivé.
+
 Utilisez `className` dans React ou `class` dans Solid et Vue sur `Input`. Les variantes CSS Modules
 exposent les variables ci-dessous, tandis que les variantes Tailwind utilisent les classes utilitaires
 natives et les classes du consommateur. Pour les états du champ, utilisez les attributs de données

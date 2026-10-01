@@ -3,6 +3,7 @@
 export * from './components/simple-grid';
 export * from './components/text';
 export * from './components/accordion';
+export * from './components/toc';
 export * from './components/qr-code';
 export * from './components/pin-input';
 export * from './components/navigation-menu';
@@ -71,3 +72,5 @@ export * from './components/progress-circular';
 export * from './components/signature-pad';
 export * from './components/skeleton';
 export * from './components/split-button';
+export * from './components/steps';
+export * from './components/table';

@@ -255,6 +255,155 @@
       ]
     },
     {
+      "name": "steps",
+      "type": "registry:item",
+      "title": "Steps",
+      "description": "moduix Vue Tailwind Steps component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/steps/Steps.vue",
+          "target": "@components/ui/steps/Steps.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/StepsRootProvider.vue",
+          "target": "@components/ui/steps/StepsRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/StepsList.vue",
+          "target": "@components/ui/steps/StepsList.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/StepsItem.vue",
+          "target": "@components/ui/steps/StepsItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/StepsTrigger.vue",
+          "target": "@components/ui/steps/StepsTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/StepsIndicator.vue",
+          "target": "@components/ui/steps/StepsIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/StepsSeparator.vue",
+          "target": "@components/ui/steps/StepsSeparator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/StepsContent.vue",
+          "target": "@components/ui/steps/StepsContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/StepsCompletedContent.vue",
+          "target": "@components/ui/steps/StepsCompletedContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/StepsPrevTrigger.vue",
+          "target": "@components/ui/steps/StepsPrevTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/StepsNextTrigger.vue",
+          "target": "@components/ui/steps/StepsNextTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/StepsProgress.vue",
+          "target": "@components/ui/steps/StepsProgress.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/steps/index.ts",
+          "target": "@components/ui/steps/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toc",
+      "type": "registry:item",
+      "title": "Table of Contents",
+      "description": "moduix Vue Tailwind Table of Contents component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/toc/Toc.vue",
+          "target": "@components/ui/toc/Toc.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/TocRootProvider.vue",
+          "target": "@components/ui/toc/TocRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/TocContent.vue",
+          "target": "@components/ui/toc/TocContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/TocNav.vue",
+          "target": "@components/ui/toc/TocNav.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/TocTitle.vue",
+          "target": "@components/ui/toc/TocTitle.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/TocList.vue",
+          "target": "@components/ui/toc/TocList.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/TocItem.vue",
+          "target": "@components/ui/toc/TocItem.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/TocLink.vue",
+          "target": "@components/ui/toc/TocLink.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/TocIndicator.vue",
+          "target": "@components/ui/toc/TocIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/TocRail.vue",
+          "target": "@components/ui/toc/TocRail.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/useToc.ts",
+          "target": "@components/ui/toc/useToc.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/index.ts",
+          "target": "@components/ui/toc/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "segment-group",
       "type": "registry:item",
       "title": "SegmentGroup",
@@ -325,6 +474,81 @@
         {
           "path": "src/components/segment-group/index.ts",
           "target": "@components/ui/segment-group/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:item",
+      "title": "Table",
+      "description": "moduix Vue Tailwind Table component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/table/Table.vue",
+          "target": "@components/ui/table/Table.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/TableScrollArea.vue",
+          "target": "@components/ui/table/TableScrollArea.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/TableCaption.vue",
+          "target": "@components/ui/table/TableCaption.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/TableColumnGroup.vue",
+          "target": "@components/ui/table/TableColumnGroup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/TableColumn.vue",
+          "target": "@components/ui/table/TableColumn.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/TableHeader.vue",
+          "target": "@components/ui/table/TableHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/TableBody.vue",
+          "target": "@components/ui/table/TableBody.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/TableFooter.vue",
+          "target": "@components/ui/table/TableFooter.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/TableRow.vue",
+          "target": "@components/ui/table/TableRow.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/TableColumnHeader.vue",
+          "target": "@components/ui/table/TableColumnHeader.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/TableCell.vue",
+          "target": "@components/ui/table/TableCell.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/TableEmpty.vue",
+          "target": "@components/ui/table/TableEmpty.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/table/index.ts",
+          "target": "@components/ui/table/index.ts",
           "type": "registry:component"
         }
       ]

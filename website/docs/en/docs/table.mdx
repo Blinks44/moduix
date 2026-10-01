@@ -1,7 +1,7 @@
 ---
 title: Table
 component: table
-description: A native table component with an optional scroll container, numeric columns, captions, and empty-state support.
+description: A native table component with an optional scroll container, numeric columns, captions, and empty-state support for React, Solid, and Vue.
 ---
 
 import * as TableDocs from '@/components/examples/table/css-properties';
@@ -29,6 +29,18 @@ import tableSolidSizesAndVariants from '../../../snippets/table/solid/sizes-and-
 import tableSolidStickyHeaderAndColumn from '../../../snippets/table/solid/sticky-header-and-column.tsx?raw';
 import tableSolidStripedRows from '../../../snippets/table/solid/striped-rows.tsx?raw';
 import tableSolidWithScrollarea from '../../../snippets/table/solid/with-scrollarea.tsx?raw';
+import tableVueBasic from '../../../snippets/table/vue/basic.vue?raw';
+import tableVueCaptionAndFooter from '../../../snippets/table/vue/caption-and-footer.vue?raw';
+import tableVueColumnGroupAndBorders from '../../../snippets/table/vue/column-group-and-borders.vue?raw';
+import tableVueCustomComposition from '../../../snippets/table/vue/custom-composition.vue?raw';
+import tableVueEmptyState from '../../../snippets/table/vue/empty-state.vue?raw';
+import tableVueInsideCard from '../../../snippets/table/vue/inside-card.vue?raw';
+import tableVueNumericColumns from '../../../snippets/table/vue/numeric-columns.vue?raw';
+import tableVueRowActions from '../../../snippets/table/vue/row-actions-with-menu.vue?raw';
+import tableVueSizesAndVariants from '../../../snippets/table/vue/sizes-and-variants.vue?raw';
+import tableVueStickyHeaderAndColumn from '../../../snippets/table/vue/sticky-header-and-column.vue?raw';
+import tableVueStripedRows from '../../../snippets/table/vue/striped-rows.vue?raw';
+import tableVueWithScrollarea from '../../../snippets/table/vue/with-scrollarea.vue?raw';
 
 ## API Reference
 
@@ -38,7 +50,7 @@ Ark UI does not provide a dedicated table primitive. moduix builds `Table` with 
 [ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 Each part renders its corresponding native HTML element by default, accepts native element props and
-`className` in React or `class` in Solid, forwards its ref, and supports Ark's `asChild`. When using
+`className` in React or `class` in Solid and Vue, forwards its ref, and supports Ark's `asChild`. When using
 `asChild`, pass one semantic element as the child. `TableEmpty` is the exception to the usual
 one-element composition: its `asChild` replaces only the generated `td`.
 
@@ -59,6 +71,7 @@ recommended setup for invoices, summaries, and admin-style read-only datasets.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -71,6 +84,11 @@ recommended setup for invoices, summaries, and admin-style read-only datasets.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +117,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/table' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/table' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/table' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/table' },
   ]}
 />
 
@@ -177,6 +205,7 @@ totals or summaries.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -189,6 +218,11 @@ totals or summaries.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidCaptionAndFooter} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueCaptionAndFooter} />
 
     </Tab>
   </Tabs>
@@ -212,6 +246,7 @@ column separation needs to be visible.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -224,6 +259,11 @@ column separation needs to be visible.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidColumnGroupAndBorders} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueColumnGroupAndBorders} />
 
     </Tab>
   </Tabs>
@@ -247,6 +287,7 @@ columns.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -259,6 +300,11 @@ columns.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidEmptyState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueEmptyState} />
 
     </Tab>
   </Tabs>
@@ -281,6 +327,7 @@ columns.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -293,6 +340,11 @@ columns.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidInsideCard} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueInsideCard} />
 
     </Tab>
   </Tabs>
@@ -316,6 +368,7 @@ numeric metrics.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -328,6 +381,11 @@ numeric metrics.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidNumericColumns} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueNumericColumns} />
 
     </Tab>
   </Tabs>
@@ -351,6 +409,7 @@ Use the last column for row-specific actions when the dataset needs lightweight 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -363,6 +422,11 @@ Use the last column for row-specific actions when the dataset needs lightweight 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidRowActions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueRowActions} />
 
     </Tab>
   </Tabs>
@@ -386,6 +450,7 @@ native root instead of adding extra state.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -398,6 +463,11 @@ native root instead of adding extra state.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidSizesAndVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueSizesAndVariants} />
 
     </Tab>
   </Tabs>
@@ -426,6 +496,7 @@ vertically scrolling table needs persistent context.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -438,6 +509,11 @@ vertically scrolling table needs persistent context.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidStickyHeaderAndColumn} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueStickyHeaderAndColumn} />
 
     </Tab>
   </Tabs>
@@ -466,6 +542,7 @@ opinionated table abstraction.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -478,6 +555,11 @@ opinionated table abstraction.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidStripedRows} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueStripedRows} />
 
     </Tab>
   </Tabs>
@@ -502,6 +584,7 @@ scroll area API. `TableScrollArea` is a simpler bordered horizontal-overflow wra
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -514,6 +597,11 @@ scroll area API. `TableScrollArea` is a simpler bordered horizontal-overflow wra
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidWithScrollarea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueWithScrollarea} />
 
     </Tab>
   </Tabs>
@@ -543,6 +631,7 @@ layout full control of the shell.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -557,6 +646,11 @@ layout full control of the shell.
 <CodeBlockRuntime lang="tsx" code={tableSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -569,7 +663,7 @@ layout full control of the shell.
 
 ## Styling
 
-Style `Table` through `className` in React or `class` in Solid, the public `data-slot`, `data-scope`,
+Style `Table` through `className` in React or `class` in Solid and Vue, the public `data-slot`, `data-scope`,
 and `data-part` hooks, the `data-side` and `data-numeric` attributes, and the `--moduix-table-*`
 CSS variables shown below. Tailwind variants use native utility classes and consumer classes; the
 variables below apply to CSS Modules variants.

@@ -1,7 +1,7 @@
 ---
 title: Table
 component: table
-description: Нативный компонент таблицы с необязательным контейнером для прокрутки, числовыми столбцами, подписями и состоянием «нет данных».
+description: Нативный компонент таблицы с необязательным контейнером для прокрутки, числовыми столбцами, подписями и состоянием «нет данных» для React, Solid и Vue.
 ---
 
 import * as TableDocs from '@/components/examples/table/css-properties';
@@ -29,13 +29,25 @@ import tableSolidSizesAndVariants from '../../../snippets/table/solid/sizes-and-
 import tableSolidStickyHeaderAndColumn from '../../../snippets/table/solid/sticky-header-and-column.tsx?raw';
 import tableSolidStripedRows from '../../../snippets/table/solid/striped-rows.tsx?raw';
 import tableSolidWithScrollarea from '../../../snippets/table/solid/with-scrollarea.tsx?raw';
+import tableVueBasic from '../../../snippets/table/vue/basic.vue?raw';
+import tableVueCaptionAndFooter from '../../../snippets/table/vue/caption-and-footer.vue?raw';
+import tableVueColumnGroupAndBorders from '../../../snippets/table/vue/column-group-and-borders.vue?raw';
+import tableVueCustomComposition from '../../../snippets/table/vue/custom-composition.vue?raw';
+import tableVueEmptyState from '../../../snippets/table/vue/empty-state.vue?raw';
+import tableVueInsideCard from '../../../snippets/table/vue/inside-card.vue?raw';
+import tableVueNumericColumns from '../../../snippets/table/vue/numeric-columns.vue?raw';
+import tableVueRowActions from '../../../snippets/table/vue/row-actions-with-menu.vue?raw';
+import tableVueSizesAndVariants from '../../../snippets/table/vue/sizes-and-variants.vue?raw';
+import tableVueStickyHeaderAndColumn from '../../../snippets/table/vue/sticky-header-and-column.vue?raw';
+import tableVueStripedRows from '../../../snippets/table/vue/striped-rows.vue?raw';
+import tableVueWithScrollarea from '../../../snippets/table/vue/with-scrollarea.vue?raw';
 
 ## Справочник API
 
 В Ark UI нет отдельного примитива для таблиц. moduix собирает `Table` через официальную [фабрику Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и работе с [ref](https://ark-ui.com/docs/guides/ref).
 
 Каждая часть по умолчанию рендерит соответствующий нативный HTML-элемент, принимает его свойства,
-`className` в React или `class` в Solid, передаёт `ref` и поддерживает `asChild`. При использовании
+`className` в React или `class` в Solid и Vue, передаёт `ref` и поддерживает `asChild`. При использовании
 `asChild` передавайте один семантический элемент. У `TableEmpty` есть особенность: это свойство
 заменяет только созданную `td`-ячейку.
 
@@ -56,6 +68,7 @@ import tableSolidWithScrollarea from '../../../snippets/table/solid/with-scrolla
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +81,11 @@ import tableSolidWithScrollarea from '../../../snippets/table/solid/with-scrolla
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueBasic} />
 
     </Tab>
   </Tabs>
@@ -96,6 +114,16 @@ import tableSolidWithScrollarea from '../../../snippets/table/solid/with-scrolla
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/table' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/table' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/table' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/table' },
   ]}
 />
 
@@ -175,6 +203,7 @@ TableScrollArea (optional)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -187,6 +216,11 @@ TableScrollArea (optional)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidCaptionAndFooter} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueCaptionAndFooter} />
 
     </Tab>
   </Tabs>
@@ -210,6 +244,7 @@ TableScrollArea (optional)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -222,6 +257,11 @@ TableScrollArea (optional)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidColumnGroupAndBorders} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueColumnGroupAndBorders} />
 
     </Tab>
   </Tabs>
@@ -245,6 +285,7 @@ TableScrollArea (optional)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -257,6 +298,11 @@ TableScrollArea (optional)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidEmptyState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueEmptyState} />
 
     </Tab>
   </Tabs>
@@ -279,6 +325,7 @@ TableScrollArea (optional)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -291,6 +338,11 @@ TableScrollArea (optional)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidInsideCard} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueInsideCard} />
 
     </Tab>
   </Tabs>
@@ -314,6 +366,7 @@ TableScrollArea (optional)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -326,6 +379,11 @@ TableScrollArea (optional)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidNumericColumns} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueNumericColumns} />
 
     </Tab>
   </Tabs>
@@ -349,6 +407,7 @@ TableScrollArea (optional)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -361,6 +420,11 @@ TableScrollArea (optional)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidRowActions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueRowActions} />
 
     </Tab>
   </Tabs>
@@ -384,6 +448,7 @@ TableScrollArea (optional)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -396,6 +461,11 @@ TableScrollArea (optional)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidSizesAndVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueSizesAndVariants} />
 
     </Tab>
   </Tabs>
@@ -424,6 +494,7 @@ TableScrollArea (optional)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -436,6 +507,11 @@ TableScrollArea (optional)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidStickyHeaderAndColumn} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueStickyHeaderAndColumn} />
 
     </Tab>
   </Tabs>
@@ -463,6 +539,7 @@ TableScrollArea (optional)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -475,6 +552,11 @@ TableScrollArea (optional)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidStripedRows} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueStripedRows} />
 
     </Tab>
   </Tabs>
@@ -500,6 +582,7 @@ TableScrollArea (optional)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -512,6 +595,11 @@ TableScrollArea (optional)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidWithScrollarea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueWithScrollarea} />
 
     </Tab>
   </Tabs>
@@ -541,6 +629,7 @@ TableScrollArea (optional)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -555,6 +644,11 @@ TableScrollArea (optional)
 <CodeBlockRuntime lang="tsx" code={tableSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -567,7 +661,7 @@ TableScrollArea (optional)
 
 ## Стилизация
 
-Настраивайте `Table` через `className` в React или `class` в Solid, публичные хуки `data-slot`,
+Настраивайте `Table` через `className` в React или `class` в Solid и Vue, публичные хуки `data-slot`,
 `data-scope` и `data-part`, атрибуты `data-side` и `data-numeric`, а также перечисленные ниже
 CSS-переменные `--moduix-table-*`. Варианты Tailwind используют нативные utility-классы и классы
 потребителя, а переменные ниже относятся к вариантам CSS Modules.

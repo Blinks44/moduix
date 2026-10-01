@@ -601,6 +601,13 @@ sa description et son état.
 
 ## Styles
 
+Par défaut, `FieldInput` a la même apparence que `Input size="md"`, y compris le bouton de sélection
+de fichier, l’anneau de focus, la bordure d’erreur et le rendu désactivé. Son `size` reste l’attribut
+HTML numérique natif ; utilisez `Input` pour les tailles visuelles et `htmlSize`. Avec CSS Modules,
+`FieldInput` utilise `--moduix-field-control-*`, tandis que `Input` utilise `--moduix-input-*`.
+Un `Field` ou `FieldRootProvider` désactivé atténue l’ensemble du champ une seule fois, sans
+réduire à nouveau l’opacité de l’input.
+
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour la structure. Pour les
 styles liés à l’état, préférez les attributs de données Ark comme `data-disabled`, `data-invalid`,
 `data-readonly` et `data-required`, avec les sélecteurs `data-slot` de moduix. Les variantes Tailwind

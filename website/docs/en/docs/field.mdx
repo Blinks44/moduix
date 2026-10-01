@@ -601,6 +601,12 @@ connections.
 
 ## Styling
 
+`FieldInput` has the same default appearance as `Input size="md"`, including the file chooser button,
+focus ring, invalid border, and disabled treatment. Its `size` remains the native numeric HTML attribute;
+use `Input` for visual size variants and `htmlSize`. In CSS Modules, `FieldInput` uses
+`--moduix-field-control-*`, while `Input` uses `--moduix-input-*`. A disabled `Field` or
+`FieldRootProvider` dims the whole field once, without dimming either input again.
+
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-disabled`, `data-invalid`, `data-readonly`, and
 `data-required`, together with moduix `data-slot` selectors. Tailwind variants use native utilities and

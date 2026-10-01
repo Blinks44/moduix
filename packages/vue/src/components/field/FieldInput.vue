@@ -31,7 +31,7 @@ const attrs = useAttrs();
   <ArkFieldInput
     v-bind="attrs"
     :as-child="props.asChild ?? false"
-    :class="clsx(styles.control, props.class)"
+    :class="clsx(styles.control, styles.input, props.class)"
     :default-value="props.defaultValue"
     :model-value="props.modelValue"
     data-slot="field-input"

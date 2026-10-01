@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import {
   Field,
+  Input,
   useField,
   FieldErrorText,
   FieldHelperText,
@@ -13,6 +14,30 @@ import {
   FieldSelect,
   FieldTextarea,
 } from '../src';
+import fieldStyles from '../src/components/field/Field.module.css';
+
+test('keeps FieldInput native size distinct from Input visual size', () => {
+  render(
+    <>
+      <FieldInput aria-label="Field input" size={8} disabled aria-invalid="true" />
+      <Input aria-label="Input" size="md" htmlSize={8} disabled aria-invalid="true" />
+    </>,
+  );
+
+  const fieldInput = screen.getByRole('textbox', { name: 'Field input' });
+  const input = screen.getByRole('textbox', { name: 'Input' });
+
+  expect(fieldInput).toHaveAttribute('size', '8');
+  expect(input).toHaveAttribute('size', '8');
+  expect(fieldInput).toHaveAttribute('data-slot', 'field-input');
+  expect(fieldInput).toHaveClass(fieldStyles.control, fieldStyles.input);
+  expect(fieldInput).not.toHaveAttribute('data-size');
+  expect(input).toHaveAttribute('data-size', 'md');
+  expect(fieldInput).toBeDisabled();
+  expect(input).toBeDisabled();
+  expect(fieldInput).toHaveAttribute('aria-invalid', 'true');
+  expect(input).toHaveAttribute('aria-invalid', 'true');
+});
 
 test('wires labels, descriptions, errors, and field state to a native control', () => {
   render(

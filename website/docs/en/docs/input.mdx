@@ -534,6 +534,10 @@ focusable input element that can receive the merged props and `ref`.
 
 ## Styling
 
+`Input size="md"` and `FieldInput` share the same default appearance. Both inherit the `Field` context;
+`Input` adds visual sizes and `htmlSize`, while `FieldInput` keeps the native numeric `size`.
+Inside a disabled moduix `Field` or `FieldRootProvider`, the root applies the disabled opacity once.
+
 Use `className` in React or `class` in Solid and Vue on `Input`. CSS Modules variants expose the
 variables below, while Tailwind variants use native utility classes and consumer classes. Use the
 shared data attributes and native state selectors when styling field state.

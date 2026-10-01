@@ -1,7 +1,7 @@
 ---
 title: Table
 component: table
-description: Un composant de tableau natif avec un conteneur de défilement facultatif, des colonnes numériques, des légendes et un état vide.
+description: Un composant de tableau natif avec un conteneur de défilement facultatif, des colonnes numériques, des légendes et un état vide pour React, Solid et Vue.
 ---
 
 import * as TableDocs from '@/components/examples/table/css-properties';
@@ -29,6 +29,18 @@ import tableSolidSizesAndVariants from '../../../snippets/table/solid/sizes-and-
 import tableSolidStickyHeaderAndColumn from '../../../snippets/table/solid/sticky-header-and-column.tsx?raw';
 import tableSolidStripedRows from '../../../snippets/table/solid/striped-rows.tsx?raw';
 import tableSolidWithScrollarea from '../../../snippets/table/solid/with-scrollarea.tsx?raw';
+import tableVueBasic from '../../../snippets/table/vue/basic.vue?raw';
+import tableVueCaptionAndFooter from '../../../snippets/table/vue/caption-and-footer.vue?raw';
+import tableVueColumnGroupAndBorders from '../../../snippets/table/vue/column-group-and-borders.vue?raw';
+import tableVueCustomComposition from '../../../snippets/table/vue/custom-composition.vue?raw';
+import tableVueEmptyState from '../../../snippets/table/vue/empty-state.vue?raw';
+import tableVueInsideCard from '../../../snippets/table/vue/inside-card.vue?raw';
+import tableVueNumericColumns from '../../../snippets/table/vue/numeric-columns.vue?raw';
+import tableVueRowActions from '../../../snippets/table/vue/row-actions-with-menu.vue?raw';
+import tableVueSizesAndVariants from '../../../snippets/table/vue/sizes-and-variants.vue?raw';
+import tableVueStickyHeaderAndColumn from '../../../snippets/table/vue/sticky-header-and-column.vue?raw';
+import tableVueStripedRows from '../../../snippets/table/vue/striped-rows.vue?raw';
+import tableVueWithScrollarea from '../../../snippets/table/vue/with-scrollarea.vue?raw';
 
 ## Référence de l’API
 
@@ -38,7 +50,7 @@ d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition),
 [styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
 
 Chaque partie rend par défaut l’élément HTML natif correspondant, accepte ses propriétés, `className`
-en React ou `class` en Solid, transmet sa ref et prend en charge `asChild`. Avec `asChild`, fournissez
+en React ou `class` en Solid et Vue, transmet sa ref et prend en charge `asChild`. Avec `asChild`, fournissez
 un seul élément sémantique. `TableEmpty` fait exception à cette composition habituelle : `asChild` y
 remplace uniquement la cellule `td` générée.
 
@@ -60,6 +72,7 @@ interfaces d’administration.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +85,11 @@ interfaces d’administration.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueBasic} />
 
     </Tab>
   </Tabs>
@@ -100,6 +118,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/table' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/table' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/table' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/table' },
   ]}
 />
 
@@ -179,6 +207,7 @@ totaux ou les synthèses.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -191,6 +220,11 @@ totaux ou les synthèses.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidCaptionAndFooter} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueCaptionAndFooter} />
 
     </Tab>
   </Tabs>
@@ -214,6 +248,7 @@ Utilisez `TableColumnGroup` et `TableColumn` pour définir les largeurs natives 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -226,6 +261,11 @@ Utilisez `TableColumnGroup` et `TableColumn` pour définir les largeurs natives 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidColumnGroupAndBorders} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueColumnGroupAndBorders} />
 
     </Tab>
   </Tabs>
@@ -249,6 +289,7 @@ colonnes.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -261,6 +302,11 @@ colonnes.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidEmptyState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueEmptyState} />
 
     </Tab>
   </Tabs>
@@ -284,6 +330,7 @@ carte.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -296,6 +343,11 @@ carte.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidInsideCard} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueInsideCard} />
 
     </Tab>
   </Tabs>
@@ -319,6 +371,7 @@ autres valeurs numériques.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -331,6 +384,11 @@ autres valeurs numériques.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidNumericColumns} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueNumericColumns} />
 
     </Tab>
   </Tabs>
@@ -354,6 +412,7 @@ secondaires. `Menu` convient à ce cas sans modifier la structure native du tabl
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -366,6 +425,11 @@ secondaires. `Menu` convient à ce cas sans modifier la structure native du tabl
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidRowActions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueRowActions} />
 
     </Tab>
   </Tabs>
@@ -389,6 +453,7 @@ sur la racine native sans ajouter d’état au tableau.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -401,6 +466,11 @@ sur la racine native sans ajouter d’état au tableau.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidSizesAndVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueSizesAndVariants} />
 
     </Tab>
   </Tabs>
@@ -429,6 +499,7 @@ horizontalement ou verticalement doit conserver son en-tête ou une colonne impo
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -441,6 +512,11 @@ horizontalement ou verticalement doit conserver son en-tête ou une colonne impo
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidStickyHeaderAndColumn} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueStickyHeaderAndColumn} />
 
     </Tab>
   </Tabs>
@@ -469,6 +545,7 @@ sans passer à une abstraction de tableau plus directive.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -481,6 +558,11 @@ sans passer à une abstraction de tableau plus directive.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidStripedRows} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueStripedRows} />
 
     </Tab>
   </Tabs>
@@ -505,6 +587,7 @@ défilement horizontal. Gardez la structure de `ScrollArea` explicite afin que l
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -517,6 +600,11 @@ défilement horizontal. Gardez la structure de `ScrollArea` explicite afin que l
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tableSolidWithScrollarea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueWithScrollarea} />
 
     </Tab>
   </Tabs>
@@ -546,6 +634,7 @@ conteneur.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -560,6 +649,11 @@ conteneur.
 <CodeBlockRuntime lang="tsx" code={tableSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tableVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -572,7 +666,7 @@ conteneur.
 
 ## Styles
 
-Stylisez `Table` avec `className` en React ou `class` en Solid, les hooks publics `data-slot`,
+Stylisez `Table` avec `className` en React ou `class` en Solid et Vue, les hooks publics `data-slot`,
 `data-scope` et `data-part`, les attributs `data-side` et `data-numeric`, ainsi que les variables
 CSS `--moduix-table-*` présentées ci-dessous. Les variantes Tailwind utilisent des classes utilitaires
 natives et les classes du consommateur ; les variables ci-dessous s’appliquent aux variantes CSS Modules.

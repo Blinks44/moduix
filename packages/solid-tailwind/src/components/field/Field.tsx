@@ -97,7 +97,7 @@ function FieldInput(props: FieldInputProps) {
       {...(local.asChild ? { 'prop:defaultValue': local.defaultValue } : {})}
       data-slot="field-input"
       class={cn(
-        'min-h-control-md w-full rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none data-disabled:pointer-events-none data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',
+        'min-h-control-md w-full max-w-none rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out file:me-3 file:cursor-pointer file:rounded-md file:border file:border-primary file:bg-primary file:px-2 file:py-0.5 file:font-medium file:text-primary-foreground file:transition-colors file:duration-200 file:ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none [@media(hover:hover)]:file:hover:bg-foreground [[data-slot=field-root-provider][data-disabled]_&]:opacity-100 [[data-slot=field-root][data-disabled]_&]:opacity-100',
         local.class,
       )}
       ref={(element) => {

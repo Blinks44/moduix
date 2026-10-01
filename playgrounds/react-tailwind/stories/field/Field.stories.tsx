@@ -19,6 +19,7 @@ import {
   FieldRootProvider,
   FieldTextarea,
 } from '@/components/field/Field';
+import { Input } from '@/components/input';
 import { NativeSelect } from '@/components/native-select/NativeSelect';
 import {
   RadioGroup,
@@ -40,6 +41,66 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+
+export const InputParity: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+        gap: '1rem',
+        width: '36rem',
+      }}
+    >
+      <Field>
+        <FieldLabel>FieldInput Default</FieldLabel>
+        <FieldInput placeholder="Enter your name" />
+      </Field>
+      <Field>
+        <FieldLabel>Input Default</FieldLabel>
+        <Input placeholder="Enter your name" />
+      </Field>
+      <Field invalid>
+        <FieldLabel>FieldInput Invalid</FieldLabel>
+        <FieldInput placeholder="name@example.com" />
+      </Field>
+      <Field invalid>
+        <FieldLabel>Input Invalid</FieldLabel>
+        <Input placeholder="name@example.com" />
+      </Field>
+      <Field readOnly>
+        <FieldLabel>FieldInput Read-only</FieldLabel>
+        <FieldInput placeholder="Workspace key" />
+      </Field>
+      <Field readOnly>
+        <FieldLabel>Input Read-only</FieldLabel>
+        <Input placeholder="Workspace key" />
+      </Field>
+      <Field disabled>
+        <FieldLabel>FieldInput Disabled</FieldLabel>
+        <FieldInput placeholder="Acme Inc." />
+      </Field>
+      <Field disabled>
+        <FieldLabel>Input Disabled</FieldLabel>
+        <Input placeholder="Acme Inc." />
+      </Field>
+      <Field>
+        <FieldLabel>FieldInput File</FieldLabel>
+        <FieldInput type="file" />
+      </Field>
+      <Field>
+        <FieldLabel>Input File</FieldLabel>
+        <Input type="file" />
+      </Field>
+      <FieldInput
+        aria-label="FieldInput standalone disabled"
+        disabled
+        placeholder="Standalone disabled"
+      />
+      <Input aria-label="Input standalone disabled" disabled placeholder="Standalone disabled" />
+    </div>
+  ),
+};
 
 export const Basic: Story = {
   render: () => (

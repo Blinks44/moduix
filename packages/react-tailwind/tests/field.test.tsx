@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import {
   Field,
+  Input,
   useField,
   useFieldContext,
   FieldContext,
@@ -16,6 +17,43 @@ import {
   FieldSelect,
   FieldTextarea,
 } from '../src';
+
+test('keeps FieldInput native size distinct from Input visual size', () => {
+  render(
+    <>
+      <FieldInput aria-label="Field input" size={8} disabled aria-invalid="true" />
+      <Input aria-label="Input" size="md" htmlSize={8} disabled aria-invalid="true" />
+    </>,
+  );
+
+  const fieldInput = screen.getByRole('textbox', { name: 'Field input' });
+  const input = screen.getByRole('textbox', { name: 'Input' });
+
+  expect(fieldInput).toHaveAttribute('size', '8');
+  expect(input).toHaveAttribute('size', '8');
+  expect(fieldInput).toHaveAttribute('data-slot', 'field-input');
+  expect(fieldInput).not.toHaveAttribute('data-size');
+  expect(input).toHaveAttribute('data-size', 'md');
+  expect(fieldInput).toBeDisabled();
+  expect(input).toBeDisabled();
+  expect(fieldInput).toHaveAttribute('aria-invalid', 'true');
+  expect(input).toHaveAttribute('aria-invalid', 'true');
+
+  const inputClasses = new Set(input.classList);
+  inputClasses.delete('w-auto');
+  inputClasses.add('w-full');
+  expect(new Set(fieldInput.classList)).toEqual(inputClasses);
+  expect(fieldInput).toHaveClass(
+    'px-3',
+    'max-w-none',
+    'aria-invalid:border-destructive',
+    'aria-invalid:focus-visible:outline-destructive',
+    'file:bg-primary',
+    'disabled:opacity-50',
+    '[[data-slot=field-root][data-disabled]_&]:opacity-100',
+    '[[data-slot=field-root-provider][data-disabled]_&]:opacity-100',
+  );
+});
 
 test('wires labels, descriptions, errors, and field state to a native control', () => {
   render(
@@ -255,7 +293,7 @@ test('applies native utilities to component-owned parts', () => {
     'rounded-md',
     'border-border',
     'bg-background',
-    'px-3.5',
+    'px-3',
     'py-1',
     'text-md',
   );
@@ -297,5 +335,5 @@ test('lets consumer utilities replace component defaults', () => {
   expect(label).toHaveClass('gap-4', 'text-primary');
   expect(label).not.toHaveClass('gap-2', 'text-foreground');
   expect(input).toHaveClass('w-80', 'rounded-lg', 'bg-muted', 'px-0', 'text-primary');
-  expect(input).not.toHaveClass('w-full', 'rounded-md', 'bg-background', 'px-3.5', 'text-md');
+  expect(input).not.toHaveClass('w-full', 'rounded-md', 'bg-background', 'px-3', 'text-md');
 });

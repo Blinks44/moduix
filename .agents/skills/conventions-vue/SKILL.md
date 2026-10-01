@@ -79,6 +79,10 @@ Use this skill for JS/TS Vue work in this repo.
 - Preserve every accepted Vue `StyleValue` form when a wrapper consumes `style`. Merge wrapper-owned
   inline values through a style array and put them last, so consumer styles remain intact while
   required wrapper values retain precedence.
+- Vue does not append `px` to numeric inline CSS lengths. Bind measured or calculated `width`,
+  `height`, offsets, and similar lengths as strings with explicit units; leave genuinely unitless
+  properties numeric. When dimensions are consumer-overridable defaults (such as `TocRail`), put
+  the consumer style last, matching the established component contract.
 - In a CSS Modules SFC, import the external stylesheet explicitly from `<script setup>` with
   `import styles from './Component.module.css'` and reference classes through `styles.root` in the
   template. This keeps class names visible to IDE CSS Modules tooling and matches the React/Solid

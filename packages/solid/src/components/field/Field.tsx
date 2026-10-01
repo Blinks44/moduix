@@ -94,7 +94,7 @@ function FieldInput(props: FieldInputProps) {
       {...others}
       {...(local.asChild ? toPropDefaultValue(local.defaultValue) : {})}
       data-slot="field-input"
-      class={clsx(styles.control, local.class)}
+      class={clsx(styles.control, styles.input, local.class)}
       ref={(element) => {
         applyDefaultValue(element, () => local.defaultValue);
         if (typeof local.ref === 'function') local.ref(element);

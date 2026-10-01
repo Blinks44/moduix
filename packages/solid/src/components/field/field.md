@@ -4,6 +4,15 @@
 flat root and part exports, field state, ARIA wiring, CSS variables, and `FieldRootProvider`
 composition.
 
+## Defaults and styling
+
+`FieldInput` matches the default `Input size="md"` appearance, including inline padding,
+file chooser button, focus and invalid styles. It retains the native numeric `size` and
+`--moduix-field-control-*` customization; `Input` adds visual sizes and `htmlSize`.
+`FieldInput` uses `--moduix-spacing-3` inline padding; `FieldTextarea` and `FieldSelect`
+keep `--moduix-spacing-3-5`. A disabled moduix field root owns opacity for either input;
+standalone disabled inputs apply their own opacity.
+
 ## Composition
 
 ```tsx

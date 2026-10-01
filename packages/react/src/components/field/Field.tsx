@@ -70,7 +70,7 @@ const FieldInput = forwardRef<
   return (
     <FieldPrimitive.Input
       ref={ref}
-      className={clsx(styles.control, className)}
+      className={clsx(styles.control, styles.input, className)}
       {...props}
       data-slot="field-input"
     />

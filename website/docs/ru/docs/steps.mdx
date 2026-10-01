@@ -19,14 +19,19 @@ import stepsSolidProgress from '../../../snippets/steps/solid/progress.tsx?raw';
 import stepsSolidRootProvider from '../../../snippets/steps/solid/root-provider.tsx?raw';
 import stepsSolidVertical from '../../../snippets/steps/solid/vertical.tsx?raw';
 import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-composition.tsx?raw';
+import stepsVueBasic from '../../../snippets/steps/vue/basic.vue?raw';
+import stepsVueControlled from '../../../snippets/steps/vue/controlled.vue?raw';
+import stepsVueValidation from '../../../snippets/steps/vue/validation.vue?raw';
+import stepsVueProgress from '../../../snippets/steps/vue/progress.vue?raw';
+import stepsVueRootProvider from '../../../snippets/steps/vue/root-provider.vue?raw';
+import stepsVueVertical from '../../../snippets/steps/vue/vertical.vue?raw';
+import stepsVueCustomComposition from '../../../snippets/steps/vue/custom-composition.vue?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/steps" />
 
 ## Базовый пример
-
-Пример ниже использует
 
 Используйте `Steps` с параметром `count`, списком `StepsList`, содержащим по одному
 `StepsItem` для каждого шага, соответствующими панелями `StepsContent` и встроенными кнопками
@@ -35,7 +40,11 @@ import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-co
 `StepsCompletedContent`.
 
 Экспорт `Steps` является корневым компонентом. Используйте `StepsRootProvider` вместе с `useSteps()`,
-имя корневой части.
+если состояние нужно создать вне дерева отрисованных частей.
+
+React, Solid и Vue используют одинаковые плоские имена значений. В Vue связывайте управляемое
+состояние через `v-model:step`, а хранилище `useSteps()` передавайте в `StepsRootProvider`, если
+оно создаётся вне дерева отрисованных частей.
 
 <ExampleFrame variant="component">
   <StepsBasic />
@@ -48,6 +57,7 @@ import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-co
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -60,6 +70,11 @@ import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-co
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueBasic} />
 
     </Tab>
   </Tabs>
@@ -93,6 +108,16 @@ import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-co
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/steps' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/steps' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/steps' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/steps' },
   ]}
 />
 
@@ -166,6 +191,7 @@ StepsRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -178,6 +204,11 @@ StepsRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueControlled} />
 
     </Tab>
   </Tabs>
@@ -206,6 +237,7 @@ StepsRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -218,6 +250,11 @@ StepsRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidValidation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueValidation} />
 
     </Tab>
   </Tabs>
@@ -246,6 +283,7 @@ StepsRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -258,6 +296,11 @@ StepsRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidProgress} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueProgress} />
 
     </Tab>
   </Tabs>
@@ -286,6 +329,7 @@ StepsRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -298,6 +342,11 @@ StepsRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -326,6 +375,7 @@ StepsRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -338,6 +388,11 @@ StepsRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueVertical} />
 
     </Tab>
   </Tabs>
@@ -367,6 +422,7 @@ StepsRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -381,6 +437,11 @@ StepsRootProvider
 <CodeBlockRuntime lang="tsx" code={stepsSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -393,7 +454,7 @@ StepsRootProvider
 
 ## Стилизация
 
-Стилизуйте `Steps` через `className` в React или `class` в Solid, атрибуты Ark `data-scope="steps"`
+Стилизуйте `Steps` через `className` в React или `class` в Solid и Vue, атрибуты Ark `data-scope="steps"`
 и `data-part`, атрибуты состояния Ark, хуки moduix `data-slot` и публичные CSS-переменные
 `--moduix-steps-*`, перечисленные ниже.
 
@@ -415,7 +476,7 @@ StepsRootProvider
 
 Доступные публичные хуки:
 
-- `className` в React или `class` в Solid у `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` и `StepsProgress`
+- `className` в React или `class` в Solid и Vue у `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` и `StepsProgress`
 - `data-slot="steps-root"`, `steps-root-provider`, `steps-list`, `steps-item`, `steps-trigger`, `steps-indicator`, `steps-separator`, `steps-content`, `steps-completed-content`, `steps-prev-trigger`, `steps-next-trigger` и `steps-progress`
 - Значения `data-scope="steps"` и `data-part` от Ark для каждой примитивной части
 - `data-orientation="horizontal" | "vertical"` у корня, списка, шага, триггера, содержимого и разделителя

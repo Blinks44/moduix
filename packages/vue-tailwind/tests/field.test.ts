@@ -5,6 +5,7 @@ import { createSSRApp, defineComponent, ref } from 'vue';
 import type { Component, ComponentPublicInstance } from 'vue';
 import {
   Field,
+  Input,
   FieldContext,
   FieldErrorText,
   FieldHelperText,
@@ -18,6 +19,44 @@ import {
   useField,
   useFieldContext,
 } from '../src';
+
+test('keeps FieldInput native size distinct from Input visual size', () => {
+  render({
+    components: { FieldInput, Input } as unknown as Record<string, Component>,
+    template: `
+      <FieldInput aria-label="Field input" :size="8" disabled aria-invalid="true" />
+      <Input aria-label="Input" size="md" :html-size="8" disabled aria-invalid="true" />
+    `,
+  });
+
+  const fieldInput = screen.getByRole('textbox', { name: 'Field input' });
+  const input = screen.getByRole('textbox', { name: 'Input' });
+
+  expect(fieldInput).toHaveAttribute('size', '8');
+  expect(input).toHaveAttribute('size', '8');
+  expect(fieldInput).toHaveAttribute('data-slot', 'field-input');
+  expect(fieldInput).not.toHaveAttribute('data-size');
+  expect(input).toHaveAttribute('data-size', 'md');
+  expect(fieldInput).toBeDisabled();
+  expect(input).toBeDisabled();
+  expect(fieldInput).toHaveAttribute('aria-invalid', 'true');
+  expect(input).toHaveAttribute('aria-invalid', 'true');
+
+  const inputClasses = new Set(input.classList);
+  inputClasses.delete('w-auto');
+  inputClasses.add('w-full');
+  expect(new Set(fieldInput.classList)).toEqual(inputClasses);
+  expect(fieldInput).toHaveClass(
+    'px-3',
+    'max-w-none',
+    'aria-invalid:border-destructive',
+    'aria-invalid:focus-visible:outline-destructive',
+    'file:bg-primary',
+    'disabled:opacity-50',
+    '[[data-slot=field-root][data-disabled]_&]:opacity-100',
+    '[[data-slot=field-root-provider][data-disabled]_&]:opacity-100',
+  );
+});
 
 const fieldComponents: Record<string, Component> = {
   Field,

@@ -101,6 +101,12 @@ edit, submit, and cancel controls.
 
 ## Defaults and styling
 
+`Input size="md"` matches the default `FieldInput` appearance. Both use Ark FieldInput directly;
+`Input` owns visual sizes, `htmlSize`, and `--moduix-input-*`, while `FieldInput` keeps the
+native numeric `size` and `--moduix-field-control-*`. A disabled moduix Field or FieldRootProvider
+owns the whole field’s opacity; the input is not dimmed a second time. Standalone disabled inputs
+retain their own disabled opacity.
+
 The default `md` input uses `--moduix-size-md` with `--moduix-spacing-1` block padding; explicit size variants and `--moduix-input-*` overrides remain available.
 
 - `size` defaults to `md`; native character width uses `htmlSize` unless
@@ -134,6 +140,9 @@ The default `md` input uses `--moduix-size-md` with `--moduix-spacing-1` block p
 - Keep file selection flows that need state or upload UI on `FileUpload`.
 
 ## Local changelog
+
+- 2026-10-01: Aligned FieldInput with the default Input appearance and prevented compounded
+  disabled opacity for either input inside Field and FieldRootProvider.
 
 - 2026-07-28: Preserved native character width for `htmlSize`, made component-owned data hooks
   stable, and gave simple native file inputs the compact moduix button treatment.

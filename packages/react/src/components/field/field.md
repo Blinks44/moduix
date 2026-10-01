@@ -113,6 +113,13 @@ moduix row wrapper.
 
 ## Defaults and styling
 
+`FieldInput` matches the default `Input size="md"` appearance, including inline padding,
+file chooser button, focus and invalid styles. It retains the native numeric `size` and
+`--moduix-field-control-*` customization; `Input` adds visual sizes and `htmlSize`.
+`FieldInput` uses `--moduix-spacing-3` inline padding; `FieldTextarea` and `FieldSelect`
+keep `--moduix-spacing-3-5`. A disabled moduix field root owns opacity for either input;
+standalone disabled inputs apply their own opacity.
+
 `FieldInput`, `FieldTextarea`, and `FieldSelect` default to `--moduix-size-md` with
 `--moduix-spacing-1` block padding. Their `--moduix-field-control-*` variables continue to override
 that baseline.
@@ -145,6 +152,9 @@ or delegated to form-specific components. If future controls need native form su
 their own `HiddenInput`; Field itself has no hidden input.
 
 ## Local changelog
+
+- 2026-10-01: Aligned FieldInput with the default Input appearance and prevented compounded
+  disabled opacity for either input inside Field and FieldRootProvider.
 
 - 2026-09-21: Replaced the compound public API with flat `Field`-prefixed values across packages,
   tests, stories, registries, and documentation without compatibility aliases.

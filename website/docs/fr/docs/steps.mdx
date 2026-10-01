@@ -19,6 +19,13 @@ import stepsSolidProgress from '../../../snippets/steps/solid/progress.tsx?raw';
 import stepsSolidRootProvider from '../../../snippets/steps/solid/root-provider.tsx?raw';
 import stepsSolidVertical from '../../../snippets/steps/solid/vertical.tsx?raw';
 import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-composition.tsx?raw';
+import stepsVueBasic from '../../../snippets/steps/vue/basic.vue?raw';
+import stepsVueControlled from '../../../snippets/steps/vue/controlled.vue?raw';
+import stepsVueValidation from '../../../snippets/steps/vue/validation.vue?raw';
+import stepsVueProgress from '../../../snippets/steps/vue/progress.vue?raw';
+import stepsVueRootProvider from '../../../snippets/steps/vue/root-provider.vue?raw';
+import stepsVueVertical from '../../../snippets/steps/vue/vertical.vue?raw';
+import stepsVueCustomComposition from '../../../snippets/steps/vue/custom-composition.vue?raw';
 
 ## Référence de l’API
 
@@ -34,6 +41,10 @@ l’étape atteint `count`, `StepsCompletedContent` s’affiche.
 L’export `Steps` est le composant racine. Utilisez `StepsRootProvider` avec `useSteps()` lorsque l’état
 doit être créé en dehors de l’arbre des parties rendues.
 
+React, Solid et Vue utilisent les mêmes noms de valeurs plats. En Vue, liez l’état contrôlé avec
+`v-model:step` et transmettez un store `useSteps()` à `StepsRootProvider` lorsqu’il est créé en
+dehors de l’arbre rendu.
+
 <ExampleFrame variant="component">
   <StepsBasic />
 </ExampleFrame>
@@ -45,6 +56,7 @@ doit être créé en dehors de l’arbre des parties rendues.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -57,6 +69,11 @@ doit être créé en dehors de l’arbre des parties rendues.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueBasic} />
 
     </Tab>
   </Tabs>
@@ -90,6 +107,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/steps' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/steps' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/steps' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/steps' },
   ]}
 />
 
@@ -164,6 +191,7 @@ avec le routage, la validation ou une autre partie de l’interface.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -176,6 +204,11 @@ avec le routage, la validation ou une autre partie de l’interface.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueControlled} />
 
     </Tab>
   </Tabs>
@@ -204,6 +237,7 @@ courante ne respecte pas votre règle de validation.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -216,6 +250,11 @@ courante ne respecte pas votre règle de validation.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidValidation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueValidation} />
 
     </Tab>
   </Tabs>
@@ -245,6 +284,7 @@ technologies d’assistance.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -257,6 +297,11 @@ technologies d’assistance.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidProgress} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueProgress} />
 
     </Tab>
   </Tabs>
@@ -285,6 +330,7 @@ Créez l’état avec `useSteps()` en dehors de l’arbre des parties rendues, p
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -297,6 +343,11 @@ Créez l’état avec `useSteps()` en dehors de l’arbre des parties rendues, p
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -325,6 +376,7 @@ actif sur les écrans larges, puis au-dessus sur les écrans étroits.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -337,6 +389,11 @@ actif sur les écrans larges, puis au-dessus sur les écrans étroits.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueVertical} />
 
     </Tab>
   </Tabs>
@@ -366,6 +423,7 @@ ARIA, le clavier et le focus gérés par Ark.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -380,6 +438,11 @@ ARIA, le clavier et le focus gérés par Ark.
 <CodeBlockRuntime lang="tsx" code={stepsSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -392,7 +455,7 @@ ARIA, le clavier et le focus gérés par Ark.
 
 ## Styles
 
-Stylez `Steps` avec `className` dans React ou `class` dans Solid, les attributs Ark
+Stylez `Steps` avec `className` dans React ou `class` dans Solid et Vue, les attributs Ark
 `data-scope="steps"` et `data-part`, les attributs d’état Ark, les hooks moduix `data-slot` et les
 variables CSS publiques `--moduix-steps-*` listées ci-dessous.
 
@@ -414,7 +477,7 @@ variables CSS publiques `--moduix-steps-*` listées ci-dessous.
 
 Les hooks publics utiles sont les suivants :
 
-- `className` dans React ou `class` dans Solid sur `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` et `StepsProgress`
+- `className` dans React ou `class` dans Solid et Vue sur `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` et `StepsProgress`
 - `data-slot="steps-root"`, `steps-root-provider`, `steps-list`, `steps-item`, `steps-trigger`, `steps-indicator`, `steps-separator`, `steps-content`, `steps-completed-content`, `steps-prev-trigger`, `steps-next-trigger` et `steps-progress`
 - Les valeurs Ark `data-scope="steps"` et `data-part` pour chaque partie primitive
 - `data-orientation="horizontal" | "vertical"` sur la racine, la liste, l’étape, le déclencheur, le contenu et le séparateur

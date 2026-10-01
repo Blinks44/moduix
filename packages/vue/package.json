@@ -69,6 +69,10 @@
       "types": "./dist/components/skeleton/index.d.ts",
       "import": "./dist/components/skeleton/index.js"
     },
+    "./table": {
+      "types": "./dist/components/table/index.d.ts",
+      "import": "./dist/components/table/index.js"
+    },
     "./date-picker": {
       "types": "./dist/components/date-picker/index.d.ts",
       "import": "./dist/components/date-picker/index.js"
@@ -76,6 +80,14 @@
     "./accordion": {
       "types": "./dist/components/accordion/index.d.ts",
       "import": "./dist/components/accordion/index.js"
+    },
+    "./steps": {
+      "types": "./dist/components/steps/index.d.ts",
+      "import": "./dist/components/steps/index.js"
+    },
+    "./toc": {
+      "types": "./dist/components/toc/index.d.ts",
+      "import": "./dist/components/toc/index.js"
     },
     "./qr-code": {
       "types": "./dist/components/qr-code/index.d.ts",

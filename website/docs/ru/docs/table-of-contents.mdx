@@ -13,6 +13,10 @@ import tocSolidBasic from '../../../snippets/table-of-contents/solid/basic.tsx?r
 import tocSolidRail from '../../../snippets/table-of-contents/solid/rail.tsx?raw';
 import tocSolidRootProvider from '../../../snippets/table-of-contents/solid/root-provider.tsx?raw';
 import tocSolidWithCollapsible from '../../../snippets/table-of-contents/solid/with-collapsible.tsx?raw';
+import tocVueBasic from '../../../snippets/table-of-contents/vue/basic.vue?raw';
+import tocVueRail from '../../../snippets/table-of-contents/vue/rail.vue?raw';
+import tocVueRootProvider from '../../../snippets/table-of-contents/vue/root-provider.vue?raw';
+import tocVueWithCollapsible from '../../../snippets/table-of-contents/vue/with-collapsible.vue?raw';
 
 ## Справочник API
 
@@ -41,6 +45,7 @@ import tocSolidWithCollapsible from '../../../snippets/table-of-contents/solid/w
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -53,6 +58,11 @@ import tocSolidWithCollapsible from '../../../snippets/table-of-contents/solid/w
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tocSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tocVueBasic} />
 
     </Tab>
   </Tabs>
@@ -86,6 +96,16 @@ import tocSolidWithCollapsible from '../../../snippets/table-of-contents/solid/w
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/toc' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/toc' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toc' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toc' },
   ]}
 />
 
@@ -135,11 +155,19 @@ TocRootProvider
 
 Используйте `TocRootProvider` вместе с `useToc()` только тогда, когда элементам вне дерева нужно
 то же состояние отслеживания, например `activeIds` или `scrollTo`. В React состояние читается как
-объект, а в Solid доступно через возвращаемую функцию доступа. Используйте `TocContext`, если
-внешней композиции, такой как `Collapsible`, нужны активные элементы. Для ссылок роутера передайте
+объект, а в Solid доступно через возвращаемую функцию доступа; в Vue реактивное состояние доступно
+напрямую в шаблоне. Используйте `TocContext`, если внешней композиции, такой как `Collapsible`, нужны активные элементы. Для ссылок роутера передайте
 в `TocLink asChild` один семантический дочерний элемент `<a>`; в Solid передайте его через
 функцию рендера, которую ожидает `asChild`. Выберите либо `TocIndicator` для маркера активного
 диапазона, либо `TocRail` для иерархии отдельных ссылок: не добавляйте оба в один список.
+
+:::warning Ограничения upstream
+В Ark UI Vue 5.39.2 и Zag 1.43.3 при изменении управляемого `activeIds` событие `activeChange`
+возвращает предыдущие ID. Если записывать их обратно в состояние, активный раздел не обновляется.
+Неуправляемое отслеживание работает. Кроме того, `TocNav` в Ark повторно использует ID корня,
+поэтому при рендеринге обеих частей ID дублируются. До исправления этих ошибок в upstream
+компонент нельзя считать готовым к production.
+:::
 
 ## Примеры
 
@@ -159,6 +187,7 @@ TocRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -171,6 +200,11 @@ TocRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tocSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tocVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -201,6 +235,7 @@ TocRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -213,6 +248,11 @@ TocRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tocSolidRail} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tocVueRail} />
 
     </Tab>
   </Tabs>
@@ -242,6 +282,7 @@ TocRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -256,6 +297,11 @@ TocRootProvider
 <CodeBlockRuntime lang="tsx" code={tocSolidWithCollapsible} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tocVueWithCollapsible} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -268,7 +314,7 @@ TocRootProvider
 
 ## Стилизация
 
-Стилизуйте компонент через `className` в React или `class` в Solid, атрибуты Ark, хуки moduix
+Стилизуйте компонент через `className` в React или `class` в Solid и Vue, атрибуты Ark, хуки moduix
 `data-slot` и публичные переменные `--moduix-table-of-contents-*`. Пакеты CSS Modules используют
 эти переменные, а Tailwind-пакеты используют нативные utility-классы и классы потребителя для
 переопределений.
