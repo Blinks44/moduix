@@ -19,6 +19,13 @@ import tagSolidOverflow from '../../../snippets/tag/solid/overflow.tsx?raw';
 import tagSolidRenderAsButton from '../../../snippets/tag/solid/render-as-button.tsx?raw';
 import tagSolidSizes from '../../../snippets/tag/solid/sizes.tsx?raw';
 import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
+import tagVueBasic from '../../../snippets/tag/vue/basic.vue?raw';
+import tagVueClosable from '../../../snippets/tag/vue/closable.vue?raw';
+import tagVueIcon from '../../../snippets/tag/vue/icon.vue?raw';
+import tagVueOverflow from '../../../snippets/tag/vue/overflow.vue?raw';
+import tagVueRenderAsButton from '../../../snippets/tag/vue/render-as-button.vue?raw';
+import tagVueSizes from '../../../snippets/tag/vue/sizes.vue?raw';
+import tagVueVariants from '../../../snippets/tag/vue/variants.vue?raw';
 
 ## API Reference
 
@@ -52,6 +59,7 @@ or an inline close action.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -64,6 +72,11 @@ or an inline close action.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueBasic} />
 
     </Tab>
   </Tabs>
@@ -91,6 +104,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tag' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tag' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tag' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tag' },
   ]}
 />
 
@@ -144,6 +167,7 @@ Give each trigger a label that includes the value being removed.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -156,6 +180,11 @@ Give each trigger a label that includes the value being removed.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidClosable} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueClosable} />
 
     </Tab>
   </Tabs>
@@ -183,6 +212,7 @@ truncation boundary and action sizing stays independent.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -195,6 +225,11 @@ truncation boundary and action sizing stays independent.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueIcon} />
 
     </Tab>
   </Tabs>
@@ -222,6 +257,7 @@ boundary and shows an ellipsis; add `title` when the full value should remain di
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -234,6 +270,11 @@ boundary and shows an ellipsis; add `title` when the full value should remain di
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidOverflow} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueOverflow} />
 
     </Tab>
   </Tabs>
@@ -261,6 +302,7 @@ comfortable spacing.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -273,6 +315,11 @@ comfortable spacing.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueSizes} />
 
     </Tab>
   </Tabs>
@@ -299,6 +346,7 @@ Use the built-in variants for common moduix color roles while keeping the same p
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -311,6 +359,11 @@ Use the built-in variants for common moduix color roles while keeping the same p
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueVariants} />
 
     </Tab>
   </Tabs>
@@ -338,6 +391,7 @@ becomes the semantic and interactive host, so it must provide the behavior expec
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -352,6 +406,11 @@ becomes the semantic and interactive host, so it must provide the behavior expec
 <CodeBlockRuntime lang="tsx" code={tagSolidRenderAsButton} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueRenderAsButton} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -364,8 +423,8 @@ becomes the semantic and interactive host, so it must provide the behavior expec
 ## Styling
 
 Start with a built-in variant. CSS Modules users can adjust the public variables or override an
-exported part with `className` in React or `class` in Solid. Tailwind users can use native utility
-classes on the exported parts. Data attributes and `data-slot` hooks are shared by both styling tracks.
+exported part with `className` in React or `class` in Solid and Vue. Tailwind users can use native utility
+classes on the exported parts. Data attributes and `data-slot` hooks are shared by all three framework tracks.
 
 ### CSS Variables
 

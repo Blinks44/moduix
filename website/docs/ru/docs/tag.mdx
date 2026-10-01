@@ -19,6 +19,13 @@ import tagSolidOverflow from '../../../snippets/tag/solid/overflow.tsx?raw';
 import tagSolidRenderAsButton from '../../../snippets/tag/solid/render-as-button.tsx?raw';
 import tagSolidSizes from '../../../snippets/tag/solid/sizes.tsx?raw';
 import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
+import tagVueBasic from '../../../snippets/tag/vue/basic.vue?raw';
+import tagVueClosable from '../../../snippets/tag/vue/closable.vue?raw';
+import tagVueIcon from '../../../snippets/tag/vue/icon.vue?raw';
+import tagVueOverflow from '../../../snippets/tag/vue/overflow.vue?raw';
+import tagVueRenderAsButton from '../../../snippets/tag/vue/render-as-button.vue?raw';
+import tagVueSizes from '../../../snippets/tag/vue/sizes.vue?raw';
+import tagVueVariants from '../../../snippets/tag/vue/variants.vue?raw';
 
 ## Справочник API
 
@@ -52,6 +59,7 @@ import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -64,6 +72,11 @@ import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueBasic} />
 
     </Tab>
   </Tabs>
@@ -91,6 +104,16 @@ import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/tag' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/tag' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tag' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tag' },
   ]}
 />
 
@@ -146,6 +169,7 @@ Tag
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -158,6 +182,11 @@ Tag
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidClosable} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueClosable} />
 
     </Tab>
   </Tabs>
@@ -185,6 +214,7 @@ Tag
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -197,6 +227,11 @@ Tag
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueIcon} />
 
     </Tab>
   </Tabs>
@@ -225,6 +260,7 @@ Tag
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -237,6 +273,11 @@ Tag
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidOverflow} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueOverflow} />
 
     </Tab>
   </Tabs>
@@ -264,6 +305,7 @@ Tag
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -276,6 +318,11 @@ Tag
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueSizes} />
 
     </Tab>
   </Tabs>
@@ -302,6 +349,7 @@ Tag
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -314,6 +362,11 @@ Tag
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueVariants} />
 
     </Tab>
   </Tabs>
@@ -342,6 +395,7 @@ Tag
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -356,6 +410,11 @@ Tag
 <CodeBlockRuntime lang="tsx" code={tagSolidRenderAsButton} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueRenderAsButton} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -368,8 +427,8 @@ Tag
 ## Стилизация
 
 Начните со встроенного варианта. В CSS Modules можно изменять публичные переменные или переопределять
-экспортированные части через `className` в React и `class` в Solid. В Tailwind используйте нативные
-классы Tailwind на экспортированных частях. Атрибуты данных и хуки `data-slot` общие для обоих вариантов.
+экспортированные части через `className` в React или `class` в Solid и Vue. В Tailwind используйте нативные
+классы Tailwind на экспортированных частях. Атрибуты данных и хуки `data-slot` общие для всех трёх вариантов.
 
 ### CSS-переменные
 

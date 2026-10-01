@@ -2756,6 +2756,50 @@
       ]
     },
     {
+      "name": "tag",
+      "type": "registry:item",
+      "title": "Tag",
+      "description": "moduix Vue Tailwind Tag component.",
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/tag/Tag.vue",
+          "target": "@components/ui/tag/Tag.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tag/TagLabel.vue",
+          "target": "@components/ui/tag/TagLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tag/TagStartElement.vue",
+          "target": "@components/ui/tag/TagStartElement.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tag/TagEndElement.vue",
+          "target": "@components/ui/tag/TagEndElement.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tag/TagCloseTrigger.vue",
+          "target": "@components/ui/tag/TagCloseTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tag/index.ts",
+          "target": "@components/ui/tag/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "tags-input",
       "type": "registry:item",
       "title": "Tags Input",
@@ -4723,6 +4767,51 @@
         {
           "path": "src/components/progress-circular/index.ts",
           "target": "@components/ui/progress-circular/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:item",
+      "title": "Tabs",
+      "description": "moduix Vue Tailwind Tabs component.",
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "files": [
+        {
+          "path": "src/components/tabs/Tabs.vue",
+          "target": "@components/ui/tabs/Tabs.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tabs/TabsRootProvider.vue",
+          "target": "@components/ui/tabs/TabsRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tabs/TabsList.vue",
+          "target": "@components/ui/tabs/TabsList.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tabs/TabsTrigger.vue",
+          "target": "@components/ui/tabs/TabsTrigger.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tabs/TabsIndicator.vue",
+          "target": "@components/ui/tabs/TabsIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tabs/TabsContent.vue",
+          "target": "@components/ui/tabs/TabsContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tabs/index.ts",
+          "target": "@components/ui/tabs/index.ts",
           "type": "registry:component"
         }
       ]

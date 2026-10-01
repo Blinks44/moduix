@@ -81,6 +81,10 @@
       "types": "./dist/components/steps/index.d.ts",
       "import": "./dist/components/steps/index.js"
     },
+    "./tabs": {
+      "types": "./dist/components/tabs/index.d.ts",
+      "import": "./dist/components/tabs/index.js"
+    },
     "./toc": {
       "types": "./dist/components/toc/index.d.ts",
       "import": "./dist/components/toc/index.js"
@@ -292,6 +296,10 @@
     "./tags-input": {
       "types": "./dist/components/tags-input/index.d.ts",
       "import": "./dist/components/tags-input/index.js"
+    },
+    "./tag": {
+      "types": "./dist/components/tag/index.d.ts",
+      "import": "./dist/components/tag/index.js"
     },
     "./container": {
       "types": "./dist/components/container/index.d.ts",

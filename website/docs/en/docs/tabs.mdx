@@ -26,6 +26,16 @@ import tabsSolidLinks from '../../../snippets/tabs/solid/links.tsx?raw';
 import tabsSolidManualActivation from '../../../snippets/tabs/solid/manual-activation.tsx?raw';
 import tabsSolidRootProvider from '../../../snippets/tabs/solid/root-provider.tsx?raw';
 import tabsSolidVertical from '../../../snippets/tabs/solid/vertical.tsx?raw';
+import tabsVueBasic from '../../../snippets/tabs/vue/basic.vue?raw';
+import tabsVueControlledValue from '../../../snippets/tabs/vue/controlled-value.vue?raw';
+import tabsVueCustomIcons from '../../../snippets/tabs/vue/custom-icons.vue?raw';
+import tabsVueDisabledTab from '../../../snippets/tabs/vue/disabled-tab.vue?raw';
+import tabsVueLazyMount from '../../../snippets/tabs/vue/lazy-mount.vue?raw';
+import tabsVueLine from '../../../snippets/tabs/vue/line.vue?raw';
+import tabsVueLinks from '../../../snippets/tabs/vue/links.vue?raw';
+import tabsVueManualActivation from '../../../snippets/tabs/vue/manual-activation.vue?raw';
+import tabsVueRootProvider from '../../../snippets/tabs/vue/root-provider.vue?raw';
+import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 
 ## API Reference
 
@@ -59,6 +69,7 @@ Start with `Tabs` and give each `TabsTrigger` and `TabsContent` the same `value`
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -71,6 +82,11 @@ Start with `Tabs` and give each `TabsTrigger` and `TabsContent` the same `value`
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tabsSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueBasic} />
 
     </Tab>
   </Tabs>
@@ -103,6 +119,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tabs' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tabs' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -119,14 +145,14 @@ TabsRootProvider
 └─ same parts connected to a useTabs() store
 
 TabsContext
-└─ render prop
+└─ render prop / scoped slot
 ```
 
 | Part                  | Role                                                               |
 | --------------------- | ------------------------------------------------------------------ |
 | `Tabs`                | Root that owns the selected value, focus, orientation, and mode.   |
 | `TabsRootProvider`   | Connects the parts to state created with moduix `useTabs()`.       |
-| `TabsContext`        | Exposes the current tab state through a render prop.              |
+| `TabsContext`        | Exposes the current tab state through a render prop or Vue scoped slot. |
 | `TabsList`           | Groups triggers and manages focus movement between them.          |
 | `TabsTrigger`        | Interactive tab button, or an `asChild` host, with a required value. |
 | `TabsIndicator`      | Optional indicator for the selected tab.                           |
@@ -137,6 +163,9 @@ TabsContext
 Use `defaultValue` for an uncontrolled component. When another part of the application owns the
 selection, pass `value` and `onValueChange(details)` and read the selected value from
 `details.value`.
+
+In Vue, use `v-model` for controlled selection and `@value-change` to receive the same details
+object. `TabsContext` exposes that state through its default scoped slot.
 
 Use `TabsRootProvider` with `useTabs()` when the state must be created outside the rendered tree
 or shared with adjacent UI. Pass the store to `TabsRootProvider` and do not render another `Tabs` root
@@ -162,6 +191,7 @@ Control the selected tab from application state when the active panel needs to c
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -174,6 +204,11 @@ Control the selected tab from application state when the active panel needs to c
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tabsSolidControlledValue} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueControlledValue} />
 
     </Tab>
   </Tabs>
@@ -198,6 +233,7 @@ Place icons and labels directly inside `TabsTrigger`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -210,6 +246,11 @@ Place icons and labels directly inside `TabsTrigger`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tabsSolidCustomIcons} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueCustomIcons} />
 
     </Tab>
   </Tabs>
@@ -234,6 +275,7 @@ Disable a tab that should remain visible but is not currently available.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -246,6 +288,11 @@ Disable a tab that should remain visible but is not currently available.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tabsSolidDisabledTab} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueDisabledTab} />
 
     </Tab>
   </Tabs>
@@ -271,6 +318,7 @@ remove them from the DOM again after the user leaves them.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -283,6 +331,11 @@ remove them from the DOM again after the user leaves them.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tabsSolidLazyMount} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueLazyMount} />
 
     </Tab>
   </Tabs>
@@ -308,6 +361,7 @@ selected tab. This treatment is available for horizontal tabs.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -320,6 +374,11 @@ selected tab. This treatment is available for horizontal tabs.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tabsSolidLine} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueLine} />
 
     </Tab>
   </Tabs>
@@ -344,6 +403,7 @@ Use `asChild` when tab triggers should render anchors or links managed by your r
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -356,6 +416,11 @@ Use `asChild` when tab triggers should render anchors or links managed by your r
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tabsSolidLinks} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueLinks} />
 
     </Tab>
   </Tabs>
@@ -381,6 +446,7 @@ tab. Activate it with a click, Enter, or Space.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -393,6 +459,11 @@ tab. Activate it with a click, Enter, or Space.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tabsSolidManualActivation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueManualActivation} />
 
     </Tab>
   </Tabs>
@@ -418,6 +489,7 @@ use the filled indicator, which makes the selected item easy to scan.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -430,6 +502,11 @@ use the filled indicator, which makes the selected item easy to scan.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tabsSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueVertical} />
 
     </Tab>
   </Tabs>
@@ -455,6 +532,7 @@ adjacent UI needs to read the selected value.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -469,6 +547,11 @@ adjacent UI needs to read the selected value.
 <CodeBlockRuntime lang="tsx" code={tabsSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueRootProvider} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -481,7 +564,7 @@ adjacent UI needs to read the selected value.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-selected`, `data-disabled`, and `data-orientation`,
 together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
 classes; the variables below customize the CSS Modules variants.
