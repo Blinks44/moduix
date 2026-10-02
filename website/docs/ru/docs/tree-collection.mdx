@@ -5,8 +5,12 @@ description: "Создавайте, находите, обходите, филь
 
 import TreeCollectionBasic from '@/components/examples/tree-collection/basic.tsx';
 import treeCollectionSolidCustomNodes from '../../../snippets/tree-collection/solid/custom-nodes.tsx?raw';
+import treeCollectionVueCustomNodes from '../../../snippets/tree-collection/vue/custom-nodes.ts?raw';
 import treeCollectionSolidFilePaths from '../../../snippets/tree-collection/solid/file-paths.tsx?raw';
+import treeCollectionVueFilePaths from '../../../snippets/tree-collection/vue/file-paths.ts?raw';
 import treeCollectionSolidBasic from '../../../snippets/tree-collection/solid/basic.tsx?raw';
+import treeCollectionVueBasic from '../../../snippets/tree-collection/vue/basic.vue?raw';
+import treeCollectionVueBasicHelper from '../../../snippets/tree-collection/vue/FileTreeNode.vue?raw';
 
 # Tree Collection
 
@@ -26,6 +30,7 @@ import treeCollectionSolidBasic from '../../../snippets/tree-collection/solid/ba
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -40,6 +45,13 @@ import { createFileTreeCollection, createTreeCollection } from '@ark-ui/react/co
 
 ```tsx
 import { createFileTreeCollection, createTreeCollection } from '@ark-ui/solid/collection';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/vue/collection';
 ```
 
   </Tab>
@@ -70,6 +82,7 @@ Moduix также реэкспортирует обе функции из каж
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -82,6 +95,13 @@ Moduix также реэкспортирует обе функции из каж
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeCollectionSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeCollectionVueBasic} title="basic.vue" />
+
+<CodeBlockRuntime lang="vue" code={treeCollectionVueBasicHelper} title="FileTreeNode.vue" />
 
     </Tab>
   </Tabs>
@@ -104,6 +124,7 @@ Moduix также реэкспортирует обе функции из каж
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -116,6 +137,11 @@ Moduix также реэкспортирует обе функции из каж
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeCollectionSolidCustomNodes} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="ts" code={treeCollectionVueCustomNodes} />
 
   </Tab>
 </Tabs>
@@ -277,6 +303,7 @@ const moved = collection.move([readmePath], srcPath);
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -289,6 +316,11 @@ const moved = collection.move([readmePath], srcPath);
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeCollectionSolidFilePaths} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="ts" code={treeCollectionVueFilePaths} />
 
   </Tab>
 </Tabs>

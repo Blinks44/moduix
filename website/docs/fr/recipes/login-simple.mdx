@@ -5,8 +5,10 @@ description: Un formulaire de connexion par e-mail et mot de passe composé avec
 
 import { LoginSimple } from '@/components/recipes/login-simple/login-simple';
 import loginSimpleSolid from '../../../snippets/recipes/solid/login-simple.tsx?raw';
+import loginSimpleVue from '../../../snippets/recipes/vue/login-simple.vue?raw';
 import loginRouteReact from '../../../snippets/recipes/react/login-route.tsx?raw';
 import loginRouteSolid from '../../../snippets/recipes/solid/login-route.tsx?raw';
+import loginRouteVue from '../../../snippets/recipes/vue/login-route.vue?raw';
 
 # Connexion
 
@@ -16,7 +18,7 @@ pour s’inscrire. Elle utilise les composants moduix `Card`, `Field`, `Input`, 
 Elle ne gère ni l’authentification ni l’état de la requête. Branchez ces éléments dans votre application
 via `onSubmit`.
 
-L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React, Solid et Vue avec les mêmes styles.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -34,6 +36,7 @@ copiée transmet `onSubmit` au formulaire natif et laisse votre application gér
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -47,6 +50,11 @@ copiée transmet `onSubmit` au formulaire natif et laisse votre application gér
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={loginSimpleSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={loginSimpleVue} />
 
     </Tab>
   </Tabs>
@@ -76,6 +84,7 @@ puis envoyez-le à votre API. Les champs du formulaire s’appellent `email`, `p
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
 >
   <Tab value="react">
@@ -86,6 +95,11 @@ puis envoyez-le à votre API. Les champs du formulaire s’appellent `email`, `p
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={loginRouteSolid} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={loginRouteVue} />
 
   </Tab>
 </Tabs>

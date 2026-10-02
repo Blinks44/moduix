@@ -201,8 +201,8 @@
     }
 
     & > svg {
-      width: var(--moduix-editable-trigger-icon-size, var(--moduix-spacing-3-5));
-      height: var(--moduix-editable-trigger-icon-size, var(--moduix-spacing-3-5));
+      width: var(--moduix-editable-trigger-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-editable-trigger-icon-size, var(--moduix-spacing-4));
       flex-shrink: 0;
     }
   }

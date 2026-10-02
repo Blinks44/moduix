@@ -5,6 +5,7 @@ description: Un groupe d’avatars compact qui s’écarte au survol ou au focus
 
 import { ExpandableAvatarGroup } from '@/components/recipes/expandable-avatar-group';
 import expandableAvatarGroupSolid from '../../../snippets/recipes/solid/expandable-avatar-group.tsx?raw';
+import expandableAvatarGroupVue from '../../../snippets/recipes/vue/expandable-avatar-group.vue?raw';
 
 # Groupe d’avatars extensible
 
@@ -16,7 +17,7 @@ Cette recette est une composition à copier, et non un composant `ExpandableAvat
 moduix. Elle combine `Avatar` et `Tooltip`. Installez ces deux composants, copiez le code
 et les styles ci-dessous, puis remplacez les membres d’exemple par les données de votre application.
 
-L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React, Solid et Vue avec les mêmes styles.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -31,6 +32,7 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -44,6 +46,11 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={expandableAvatarGroupSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={expandableAvatarGroupVue} />
 
     </Tab>
   </Tabs>

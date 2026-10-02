@@ -17,7 +17,11 @@ const attrs = useAttrs();
 </script>
 
 <template>
-  <ark.div v-bind="attrs" :class="cn('mt-6 flex justify-end gap-2', className)" data-slot="drawer-footer">
+  <ark.div
+    v-bind="attrs"
+    :class="cn('mt-6 flex justify-end gap-2', className)"
+    data-slot="drawer-footer"
+  >
     <slot />
   </ark.div>
 </template>

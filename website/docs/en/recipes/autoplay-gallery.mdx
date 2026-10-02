@@ -5,6 +5,7 @@ description: An autoplay gallery recipe built with Carousel, overlaid slide copy
 
 import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
 import autoplayGallerySolid from '../../../snippets/recipes/solid/autoplay-gallery.tsx?raw';
+import autoplayGalleryVue from '../../../snippets/recipes/vue/autoplay-gallery.vue?raw';
 
 # Autoplay gallery
 
@@ -12,7 +13,7 @@ Use this recipe for featured content that advances automatically while keeping n
 `Carousel` with partially visible neighbouring slides, overlaid copy, arrow controls, and indicators that fill during
 each autoplay interval.
 
-The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+The live preview uses the React package. The source tabs show native React, Solid, and Vue implementations that share the same stylesheet.
 
 <ExampleFrame variant="recipe" clientOnly>
   <AutoplayGalleryPreview />
@@ -25,6 +26,7 @@ The live preview uses the React package. The source tabs show native React and S
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -38,6 +40,11 @@ The live preview uses the React package. The source tabs show native React and S
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={autoplayGallerySolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={autoplayGalleryVue} />
 
     </Tab>
   </Tabs>

@@ -19,7 +19,7 @@ implementation of the documentation site separate from the runtimes the library 
 
 ## Model current and future frameworks
 
-moduix is multi-framework by design. React and Solid adapters ship today; Vue and Svelte are planned.
+moduix is multi-framework by design. React, Solid, and Vue adapters ship today; Svelte is planned.
 Shared prose and workflows must speak about framework adapters without implying that the current set
 is permanent. Availability claims, tabs, commands, and examples must include only adapters verified
 against current packages and registries.

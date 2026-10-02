@@ -72,7 +72,7 @@ function CloseButton(props: CloseButtonProps) {
       data-slot={local['data-slot'] ?? 'close-button-root'}
       data-disabled={local['data-disabled'] ?? (isDisabled() ? '' : undefined)}
       class={cn(
-        "m-0 box-border inline-flex size-7 shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 [&:active:not([data-disabled])]:opacity-[0.94] [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground",
+        "m-0 box-border inline-flex size-7 shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 [&:active:not([data-disabled])]:opacity-[0.94] [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground",
         local.class,
       )}
       aria-disabled={local.asChild && local.disabled ? true : local['aria-disabled']}
@@ -81,7 +81,7 @@ function CloseButton(props: CloseButtonProps) {
       oncapture:click={handleClickCapture}
       onClick={handleClick}
     >
-      {local.asChild ? undefined : resolvedChildren() || <CloseIcon class="size-3 shrink-0" />}
+      {local.asChild ? undefined : resolvedChildren() || <CloseIcon class="size-4 shrink-0" />}
     </ArkButton>
   );
 }

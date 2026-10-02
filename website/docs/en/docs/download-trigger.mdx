@@ -6,7 +6,9 @@ description: Trigger browser downloads from strings, Blobs, Files, or data gener
 import DownloadTriggerBasic from '@/components/examples/download-trigger/basic.tsx';
 import DownloadTriggerAsyncData from '@/components/examples/download-trigger/async-data.tsx';
 import downloadTriggerSolidBasic from '../../../snippets/download-trigger/solid/basic.tsx?raw';
+import downloadTriggerVueBasic from '../../../snippets/download-trigger/vue/basic.vue?raw';
 import downloadTriggerSolidAsyncData from '../../../snippets/download-trigger/solid/async-data.tsx?raw';
+import downloadTriggerVueAsyncData from '../../../snippets/download-trigger/vue/async-data.vue?raw';
 
 Use Ark UI's `DownloadTrigger` to turn file data into a browser download. Pair it with a moduix `Button` when the
 action should match the rest of your interface.
@@ -22,6 +24,7 @@ Import the utility from the matching Ark UI package:
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -39,6 +42,13 @@ import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { DownloadTrigger } from '@ark-ui/vue/download-trigger';
+```
+
+  </Tab>
 </Tabs>
 
 ## Basic
@@ -46,7 +56,7 @@ import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
 Pass ready-to-use content through `data`. It accepts a string, `Blob`, or `File`. `fileName` and `mimeType` describe the
 file saved by the browser.
 
-The preview uses React. The source tabs contain native React and Solid examples with the same behavior.
+The preview uses React. The source tabs contain native React, Solid, and Vue examples with the same behavior.
 
 <ExampleFrame clientOnly variant="component">
   <PreviewFrame maxWidth="sm">
@@ -61,6 +71,7 @@ The preview uses React. The source tabs contain native React and Solid examples 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -73,6 +84,11 @@ The preview uses React. The source tabs contain native React and Solid examples 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={downloadTriggerSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={downloadTriggerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -98,6 +114,7 @@ activation and waits for a returned promise before saving the result.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -110,6 +127,11 @@ activation and waits for a returned promise before saving the result.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={downloadTriggerSolidAsyncData} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={downloadTriggerVueAsyncData} />
 
     </Tab>
   </Tabs>
@@ -132,7 +154,8 @@ the requested MIME type as well.
 
 `DownloadTrigger` renders a native button by default. Use `asChild` when a moduix `Button` should own the button element
 and its states. React uses a boolean `asChild` prop with a child element; Solid uses a render-function `asChild` prop.
-Both compositions keep one accessible button in the DOM.
+Vue uses `as-child` with one button component in the default slot. Every composition keeps one
+accessible button in the DOM.
 
 For QR code images, use `QrCodeDownloadTrigger` on the [QrCode](/docs/qr-code) page. It reads the image from the
 nearest QR code and exports it with the required file metadata.

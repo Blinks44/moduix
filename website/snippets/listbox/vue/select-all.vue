@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { createListCollection } from '@ark-ui/vue/collection';
-import { Button } from '@moduix/vue/button';
 import {
   Listbox,
   ListboxContent,
@@ -8,9 +7,8 @@ import {
   ListboxItemIndicator,
   ListboxItemText,
   ListboxLabel,
-  useListboxContext,
 } from '@moduix/vue/listbox';
-import { computed, defineComponent } from 'vue';
+import SelectAllMeta from './SelectAllMeta.vue';
 import styles from '@/components/examples/listbox/listbox-select-all.module.css';
 
 const days = createListCollection({
@@ -24,17 +22,6 @@ const days = createListCollection({
     { label: 'Sunday', value: 'sun' },
   ],
 });
-const SelectAllMeta = defineComponent({
-  components: { Button },
-  setup() {
-    const listbox = useListboxContext();
-    const allValues = days.items.map((item) => item.value);
-    const allSelected = computed(() => listbox.value.value.length === allValues.length);
-    return { listbox, allSelected, allValues };
-  },
-  template:
-    '<div><output>Selected: {{ listbox.value.length }}</output><Button type="button" @click="listbox.setValue(allSelected ? [] : allValues)">{{ allSelected ? "Clear all" : "Select all" }}</Button></div>',
-});
 </script>
 
 <template>
@@ -46,6 +33,6 @@ const SelectAllMeta = defineComponent({
         <ListboxItemIndicator />
       </ListboxItem>
     </ListboxContent>
-    <SelectAllMeta />
+    <SelectAllMeta :all-values="days.items.map((item) => item.value)" />
   </Listbox>
 </template>

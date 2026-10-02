@@ -1,0 +1,76 @@
+<script setup lang="ts">
+import { Button } from '@moduix/vue/button';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/vue/card';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/vue/checkbox';
+import { Field, FieldLabel } from '@moduix/vue/field';
+import { Input } from '@moduix/vue/input';
+import styles from './sign-up-form.module.css';
+
+const emit = defineEmits<{ submit: [event: Event] }>();
+</script>
+
+<template>
+  <Card :class="styles.root">
+    <CardHeader :class="styles.header">
+      <CardTitle>Create your account</CardTitle>
+      <CardDescription>Start building with moduix in minutes.</CardDescription>
+    </CardHeader>
+
+    <CardBody>
+      <form :class="styles.stack" @submit="emit('submit', $event)">
+        <Field required>
+          <FieldLabel>Full name</FieldLabel>
+          <Input name="name" autocomplete="name" placeholder="Alex Morgan" />
+        </Field>
+
+        <Field required>
+          <FieldLabel>Email address</FieldLabel>
+          <Input name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+        </Field>
+
+        <Field required>
+          <FieldLabel>Password</FieldLabel>
+          <Input name="password" type="password" autocomplete="new-password" />
+        </Field>
+
+        <Field required>
+          <FieldLabel>Confirm password</FieldLabel>
+          <Input name="confirm-password" type="password" autocomplete="new-password" />
+        </Field>
+
+        <Checkbox name="terms" required>
+          <CheckboxHiddenInput />
+          <CheckboxControl />
+          <CheckboxLabel>
+            I agree to the
+            <a :class="styles.link" href="/terms"> Terms of service </a>
+            and
+            <a :class="styles.link" href="/privacy"> Privacy policy </a>
+            .
+          </CheckboxLabel>
+        </Checkbox>
+
+        <Button type="submit" :class="styles.submit"> Create account </Button>
+      </form>
+    </CardBody>
+
+    <CardFooter :class="styles.footer">
+      <p>
+        Already have an account?
+        <a :class="styles.link" href="/sign-in"> Sign in </a>
+      </p>
+    </CardFooter>
+  </Card>
+</template>

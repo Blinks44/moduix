@@ -46,6 +46,7 @@ function ShadcnInstall({
   copiedSource = false,
   dependencies = [],
   solidDependencies = [],
+  vueDependencies = [],
   frameworks = false,
 }: {
   packageName: string | string[];
@@ -53,6 +54,7 @@ function ShadcnInstall({
   copiedSource?: boolean;
   dependencies?: string[];
   solidDependencies?: string[];
+  vueDependencies?: string[];
   frameworks?: boolean;
 }) {
   const packageNames = Array.isArray(packageName) ? packageName : [packageName];
@@ -61,7 +63,7 @@ function ShadcnInstall({
     itemKind === 'recipe' ? t('shadcnInstallRecipe') : t('shadcnInstallComponent');
   const copyMessage = itemKind === 'recipe' ? t('shadcnCopyRecipe') : t('shadcnCopyComponent');
 
-  const renderInstall = (framework: 'react' | 'solid', extraDependencies: string[]) => (
+  const renderInstall = (framework: 'react' | 'solid' | 'vue', extraDependencies: string[]) => (
     <div className={styles.install}>
       <p>{copiedSource ? copyMessage : installMessage}</p>
       <PackageManagerTabs
@@ -70,7 +72,7 @@ function ShadcnInstall({
       />
       <p>{t('shadcnImportHint')}</p>
       <CodeBlockRuntime
-        lang="tsx"
+        lang={framework === 'vue' ? 'ts' : 'tsx'}
         code={`// Package
 // import { Component } from '@moduix/${framework}/<component>';
 
@@ -95,6 +97,9 @@ import { Component } from '@/components/ui/<component>';`}
       </Tab>
       <Tab label="Solid" value="solid">
         {renderInstall('solid', solidDependencies)}
+      </Tab>
+      <Tab label="Vue" value="vue">
+        {renderInstall('vue', vueDependencies)}
       </Tab>
     </Tabs>
   );

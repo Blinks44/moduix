@@ -1,0 +1,51 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-group",
+  "title": "ToggleGroup",
+  "description": "moduix Vue Tailwind ToggleGroup component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/toggle"
+  ],
+  "files": [
+    {
+      "path": "src/components/toggle-group/ToggleGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ToggleGroupRoot as ArkToggleGroupRoot } from '@ark-ui/vue/toggle-group';\nimport type {\n  ToggleGroupRootEmits,\n  ToggleGroupRootProps as ArkToggleGroupRootProps,\n} from '@ark-ui/vue/toggle-group';\nimport { provide, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport type { ToggleSize, ToggleVariant } from '../toggle/Toggle.vue';\nimport { ToggleGroupStyleContextKey, type ToggleGroupStyleContextValue } from './context';\nimport { toggleGroupRootVariants } from './ToggleGroup.variants';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface ToggleGroupRootProps extends /* @vue-ignore */ ArkToggleGroupRootProps {\n  class?: HTMLAttributes['class'];\n  size?: ToggleSize;\n  variant?: ToggleVariant;\n}\n\nexport interface Emits extends /* @vue-ignore */ ToggleGroupRootEmits {}\n\nconst { class: className, size = 'md', variant = 'default' } = defineProps<ToggleGroupRootProps>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst styleContext: ToggleGroupStyleContextValue = {\n  size: () => size,\n  variant: () => variant,\n};\nprovide(ToggleGroupStyleContextKey, styleContext);\n</script>\n\n<template>\n  <ArkToggleGroupRoot\n    v-bind=\"attrs\"\n    :class=\"cn(toggleGroupRootVariants({ variant }), className)\"\n    :data-size=\"size\"\n    :data-variant=\"variant\"\n    data-slot=\"toggle-group-root\"\n  >\n    <slot />\n  </ArkToggleGroupRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toggle-group/ToggleGroup.vue"
+    },
+    {
+      "path": "src/components/toggle-group/ToggleGroupRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ToggleGroupRootProvider as ArkToggleGroupRootProvider } from '@ark-ui/vue/toggle-group';\nimport type { ToggleGroupRootProviderProps as ArkToggleGroupRootProviderProps } from '@ark-ui/vue/toggle-group';\nimport { provide, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport type { ToggleSize, ToggleVariant } from '../toggle/Toggle.vue';\nimport { ToggleGroupStyleContextKey, type ToggleGroupStyleContextValue } from './context';\nimport { toggleGroupRootVariants } from './ToggleGroup.variants';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface ToggleGroupRootProviderProps\n  extends /* @vue-ignore */ ArkToggleGroupRootProviderProps {\n  class?: HTMLAttributes['class'];\n  size?: ToggleSize;\n  value: ArkToggleGroupRootProviderProps['value'];\n  variant?: ToggleVariant;\n}\n\nconst {\n  class: className,\n  size = 'md',\n  value,\n  variant = 'default',\n} = defineProps<ToggleGroupRootProviderProps>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst styleContext: ToggleGroupStyleContextValue = {\n  size: () => size,\n  variant: () => variant,\n};\nprovide(ToggleGroupStyleContextKey, styleContext);\n</script>\n\n<template>\n  <ArkToggleGroupRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(toggleGroupRootVariants({ variant }), className)\"\n    :data-size=\"size\"\n    :data-variant=\"variant\"\n    :value=\"value\"\n    data-slot=\"toggle-group-root-provider\"\n  >\n    <slot />\n  </ArkToggleGroupRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toggle-group/ToggleGroupRootProvider.vue"
+    },
+    {
+      "path": "src/components/toggle-group/ToggleGroupItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ToggleGroupItem as ArkToggleGroupItem } from '@ark-ui/vue/toggle-group';\nimport type { ToggleGroupItemProps as ArkToggleGroupItemProps } from '@ark-ui/vue/toggle-group';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { toggleVariants } from '../toggle/Toggle.variants';\nimport type { ToggleSize, ToggleVariant } from '../toggle/Toggle.vue';\nimport { useToggleGroupStyleContext } from './context';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface ToggleGroupItemProps extends /* @vue-ignore */ ArkToggleGroupItemProps {\n  class?: HTMLAttributes['class'];\n  size?: ToggleSize;\n  value: ArkToggleGroupItemProps['value'];\n  variant?: ToggleVariant;\n}\n\nconst { class: className, size, value, variant } = defineProps<ToggleGroupItemProps>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst inherited = useToggleGroupStyleContext();\nconst resolvedSize = computed(() => size ?? inherited.size());\nconst resolvedVariant = computed(() => variant ?? inherited.variant());\nconst itemClass = computed(() =>\n  cn(\n    toggleVariants({ size: resolvedSize.value, variant: resolvedVariant.value }),\n    'flex-none text-foreground group-data-[orientation=vertical]/toggle-group:w-full group-data-[orientation=vertical]/toggle-group:justify-start',\n    className,\n  ),\n);\n</script>\n\n<template>\n  <ArkToggleGroupItem\n    v-bind=\"attrs\"\n    :class=\"itemClass\"\n    :data-size=\"resolvedSize\"\n    :data-variant=\"resolvedVariant\"\n    :value=\"value\"\n    data-slot=\"toggle-group-item\"\n  >\n    <slot />\n  </ArkToggleGroupItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toggle-group/ToggleGroupItem.vue"
+    },
+    {
+      "path": "src/components/toggle-group/context.ts",
+      "content": "import { inject, type InjectionKey } from 'vue';\nimport type { ToggleSize, ToggleVariant } from '../toggle/Toggle.vue';\n\nexport type ToggleGroupStyleContextValue = {\n  size: () => ToggleSize;\n  variant: () => ToggleVariant;\n};\n\nconst defaultToggleGroupStyleContext: ToggleGroupStyleContextValue = {\n  size: () => 'md',\n  variant: () => 'default',\n};\n\nexport const ToggleGroupStyleContextKey: InjectionKey<ToggleGroupStyleContextValue> =\n  Symbol('ToggleGroupStyleContext');\n\nexport const useToggleGroupStyleContext = () =>\n  inject(ToggleGroupStyleContextKey, defaultToggleGroupStyleContext);",
+      "type": "registry:component",
+      "target": "@components/ui/toggle-group/context.ts"
+    },
+    {
+      "path": "src/components/toggle-group/ToggleGroup.variants.ts",
+      "content": "import { cva } from 'class-variance-authority';\n\nexport const toggleGroupRootVariants = cva(\n  'group/toggle-group inline-flex max-w-full items-center gap-px overflow-x-auto overscroll-x-contain rounded-lg border border-border bg-muted p-0.5 text-foreground [scrollbar-width:none] data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch [&::-webkit-scrollbar]:hidden',\n  {\n    variants: {\n      variant: {\n        default: '',\n        outline: 'bg-background',\n        ghost: 'border-transparent bg-transparent p-0',\n      },\n    },\n    defaultVariants: {\n      variant: 'default',\n    },\n  },\n);",
+      "type": "registry:component",
+      "target": "@components/ui/toggle-group/ToggleGroup.variants.ts"
+    },
+    {
+      "path": "src/components/toggle-group/index.ts",
+      "content": "import {\n  ToggleGroupContext,\n  useToggleGroup,\n  useToggleGroupContext,\n} from '@ark-ui/vue/toggle-group';\nimport ToggleGroup from './ToggleGroup.vue';\nimport ToggleGroupItem from './ToggleGroupItem.vue';\nimport ToggleGroupRootProvider from './ToggleGroupRootProvider.vue';\n\nexport {\n  ToggleGroup,\n  ToggleGroupContext,\n  ToggleGroupItem,\n  ToggleGroupRootProvider,\n  useToggleGroup,\n  useToggleGroupContext,\n};\n\nexport type {\n  ToggleGroupContextProps,\n  ToggleGroupItemBaseProps,\n  ToggleGroupRootBaseProps,\n  ToggleGroupRootEmits,\n  ToggleGroupRootProviderBaseProps,\n  ToggleGroupValueChangeDetails,\n  UseToggleGroupContext,\n  UseToggleGroupProps,\n  UseToggleGroupReturn,\n} from '@ark-ui/vue/toggle-group';\n\nexport type { ToggleGroupItemProps } from './ToggleGroupItem.vue';\nexport type { ToggleGroupRootProps } from './ToggleGroup.vue';\nexport type { ToggleGroupRootProviderProps } from './ToggleGroupRootProvider.vue';\nexport type { ToggleSize, ToggleVariant } from '../toggle/Toggle.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/toggle-group/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

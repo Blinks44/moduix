@@ -116,19 +116,19 @@
     "fr": "GitHub"
   },
   "homeReleaseBadge": {
-    "en": "New: Tailwind CSS support",
-    "ru": "Новое: поддержка Tailwind CSS",
-    "fr": "Nouveau : prise en charge de Tailwind CSS"
+    "en": "New: Vue support",
+    "ru": "Новое: поддержка Vue",
+    "fr": "Nouveau : prise en charge de Vue"
   },
   "homeLead": {
-    "en": "A multi-framework component system built on <a href='https://ark-ui.com/'>Ark UI</a>, with <a href='https://ui.shadcn.com/'>shadcn</a>-compatible registries. React and Solid ship with native APIs, accessible behavior, considered defaults, and matching CSS Modules and <a href='https://tailwindcss.com/'>Tailwind</a> styling tracks.",
-    "ru": "Мультифреймворковая система компонентов на базе <a href='https://ark-ui.com/'>Ark UI</a> с реестрами, совместимыми с <a href='https://ui.shadcn.com/'>shadcn</a>. React и Solid уже доступны с нативными API, доступным поведением, продуманными настройками и равноправными вариантами на CSS Modules и <a href='https://tailwindcss.com/'>Tailwind</a>.",
-    "fr": "Un système de composants multi-framework fondé sur <a href='https://ark-ui.com/'>Ark UI</a>, dont les registres sont compatibles avec <a href='https://ui.shadcn.com/'>shadcn</a>. React et Solid proposent des API natives, un comportement accessible, des valeurs par défaut soignées et deux approches équivalentes avec CSS Modules et <a href='https://tailwindcss.com/'>Tailwind</a>."
+    "en": "A multi-framework component system built on <a href='https://ark-ui.com/'>Ark UI</a>, with <a href='https://ui.shadcn.com/'>shadcn</a>-compatible registries. React, Solid, and Vue ship with native APIs, accessible behavior, considered defaults, and matching CSS Modules and <a href='https://tailwindcss.com/'>Tailwind</a> styling tracks.",
+    "ru": "Мультифреймворковая система компонентов на базе <a href='https://ark-ui.com/'>Ark UI</a> с реестрами, совместимыми с <a href='https://ui.shadcn.com/'>shadcn</a>. React, Solid и Vue доступны с нативными API, доступным поведением, продуманными настройками и равноправными вариантами на CSS Modules и <a href='https://tailwindcss.com/'>Tailwind</a>.",
+    "fr": "Un système de composants multi-framework fondé sur <a href='https://ark-ui.com/'>Ark UI</a>, dont les registres sont compatibles avec <a href='https://ui.shadcn.com/'>shadcn</a>. React, Solid et Vue proposent des API natives, un comportement accessible, des valeurs par défaut soignées et deux approches équivalentes avec CSS Modules et <a href='https://tailwindcss.com/'>Tailwind</a>."
   },
   "homeFrameworkStatus": {
-    "en": "React and Solid are available today. Vue and Svelte are planned.",
-    "ru": "React и Solid доступны сейчас. Vue и Svelte запланированы.",
-    "fr": "React et Solid sont disponibles dès maintenant. Vue et Svelte sont prévus."
+    "en": "React, Solid, and Vue are available today. Svelte is planned.",
+    "ru": "React, Solid и Vue доступны сейчас. Svelte запланирован.",
+    "fr": "React, Solid et Vue sont disponibles dès maintenant. Svelte est prévu."
   },
   "homeGetStarted": {
     "en": "Get started",
@@ -146,9 +146,9 @@
     "fr": "Des primitives aux scénarios produit"
   },
   "homeDocumentationDescription": {
-    "en": "Use the layer you need. Each section follows a consistent structure and shows native React and Solid source where the runtime matters.",
-    "ru": "Выберите нужный уровень. Все разделы построены единообразно и показывают нативный код для React и Solid там, где важен фреймворк.",
-    "fr": "Choisissez le niveau dont vous avez besoin. Chaque section suit une structure cohérente et présente du code natif React et Solid lorsque le framework compte."
+    "en": "Use the layer you need. Each section follows a consistent structure and shows native React, Solid, and Vue source where the runtime matters.",
+    "ru": "Выберите нужный уровень. Все разделы построены единообразно и показывают нативный код для React, Solid и Vue там, где важен фреймворк.",
+    "fr": "Choisissez le niveau dont vous avez besoin. Chaque section suit une structure cohérente et présente du code natif React, Solid et Vue lorsque le framework compte."
   },
   "homeAreaComponents": {
     "en": "Components",
@@ -206,9 +206,9 @@
     "fr": "Recettes"
   },
   "homeAreaRecipesDescription": {
-    "en": "Complete product patterns with copyable React and Solid implementations.",
-    "ru": "Готовые продуктовые сценарии с копируемыми реализациями для React и Solid.",
-    "fr": "Des scénarios produit complets avec des implémentations React et Solid prêtes à copier."
+    "en": "Complete product patterns with copyable React, Solid, and Vue implementations.",
+    "ru": "Готовые продуктовые сценарии с копируемыми реализациями для React, Solid и Vue.",
+    "fr": "Des scénarios produit complets avec des implémentations React, Solid et Vue prêtes à copier."
   },
   "homeCompositionInPractice": {
     "en": "Composition in practice",
@@ -1131,9 +1131,9 @@
     "fr": "Un système, trois couches claires"
   },
   "ownershipLayersSummary": {
-    "en": "Ark UI owns interaction behavior, moduix supplies framework-native React and Solid components with shared tokens, and your application owns the final theme and composition.",
-    "ru": "Ark UI отвечает за поведение, moduix предоставляет нативные компоненты для React и Solid с общими токенами, а приложение управляет итоговой темой и композицией.",
-    "fr": "Ark UI gère le comportement, moduix fournit des composants natifs pour React et Solid avec des tokens partagés, et l’application garde la main sur le thème et la composition finaux."
+    "en": "Ark UI owns interaction behavior, moduix supplies framework-native React, Solid, and Vue components with shared tokens, and your application owns the final theme and composition.",
+    "ru": "Ark UI отвечает за поведение, moduix предоставляет нативные компоненты для React, Solid и Vue с общими токенами, а приложение управляет итоговой темой и композицией.",
+    "fr": "Ark UI gère le comportement, moduix fournit des composants natifs pour React, Solid et Vue avec des tokens partagés, et l’application garde la main sur le thème et la composition finaux."
   },
   "ownershipLayersTokenFirstStyling": {
     "en": "Token-first styling",
@@ -1196,9 +1196,9 @@
     "fr": "20 septembre 2026"
   },
   "tailwindReleaseHeroSummary": {
-    "en": "The full moduix catalog is now available with Tailwind CSS for React and Solid.",
-    "ru": "Полный каталог moduix теперь доступен с Tailwind CSS для React и Solid.",
-    "fr": "Le catalogue complet de moduix est désormais disponible avec Tailwind CSS pour React et Solid."
+    "en": "The full moduix catalog is now available with Tailwind CSS for React, Solid, and Vue.",
+    "ru": "Полный каталог moduix теперь доступен с Tailwind CSS для React, Solid и Vue.",
+    "fr": "Le catalogue complet de moduix est désormais disponible avec Tailwind CSS pour React, Solid et Vue."
   },
   "chartHeroSummary": {
     "en": "A figure wrapper for TanStack Charts with accessible defaults from moduix.",
@@ -1301,9 +1301,9 @@
     "fr": "Les valeurs par défaut de l’arrière-plan, des fenêtres contextuelles et de leurs animations sont partagées par les familles de superpositions ; chaque composant peut ensuite appliquer ses tokens locaux."
   },
   "frameworkAstroDescription": {
-    "en": "Interactive React and Solid islands.",
-    "ru": "Интерактивные острова на React и Solid.",
-    "fr": "Îlots interactifs en React et Solid."
+    "en": "Interactive React, Solid, and Vue islands.",
+    "ru": "Интерактивные острова на React, Solid и Vue.",
+    "fr": "Îlots interactifs en React, Solid et Vue."
   },
   "frameworkNextDescription": {
     "en": "App Router and React Server Components.",
@@ -1316,9 +1316,9 @@
     "fr": "Applications en mode framework ou en mode data."
   },
   "frameworkRsbuildDescription": {
-    "en": "React and Solid apps powered by Rspack.",
-    "ru": "React- и Solid-приложения на базе Rspack.",
-    "fr": "Applications React et Solid basées sur Rspack."
+    "en": "React, Solid, and Vue apps powered by Rspack.",
+    "ru": "Приложения на React, Solid и Vue на базе Rspack.",
+    "fr": "Applications React, Solid et Vue basées sur Rspack."
   },
   "frameworkTanStackStartDescription": {
     "en": "Full-stack React and Solid with TanStack Router.",
@@ -1331,9 +1331,9 @@
     "fr": "Le framework full-stack pour Solid."
   },
   "frameworkViteDescription": {
-    "en": "React and Solid apps and SPAs.",
-    "ru": "React- и Solid-приложения, включая SPA.",
-    "fr": "Applications React et Solid, y compris les SPA."
+    "en": "React, Solid, and Vue apps and SPAs.",
+    "ru": "Приложения на React, Solid и Vue, включая SPA.",
+    "fr": "Applications React, Solid et Vue, y compris les SPA."
   },
   "frameworkSupportGroupLabel": {
     "en": "Framework support",
@@ -1355,10 +1355,10 @@
     "ru": "Запланировано",
     "fr": "Prévu"
   },
-  "frameworkSupportInProgress": {
-    "en": "In progress",
-    "ru": "В разработке",
-    "fr": "En cours"
+  "frameworkVueAvailable": {
+    "en": "Vue is available",
+    "ru": "Vue доступен",
+    "fr": "Vue est disponible"
   },
   "copyMarkdownText": {
     "en": "Copy Markdown",
@@ -1389,5 +1389,10 @@
     "en": "Next page",
     "ru": "Следующая страница",
     "fr": "Page suivante"
+  },
+  "vueReleaseHeroSummary": {
+    "en": "Native Vue components, CSS Modules and Tailwind, with SFC examples, form integrations, and product recipes.",
+    "ru": "Нативные Vue-компоненты, CSS Modules и Tailwind, SFC-примеры, интеграции форм и продуктовые рецепты.",
+    "fr": "Composants Vue natifs, CSS Modules et Tailwind, exemples SFC, intégrations de formulaires et recettes produit."
   }
 }

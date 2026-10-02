@@ -478,7 +478,7 @@
     );
     --moduix-close-button-icon-size: var(
       --moduix-drawer-close-icon-glyph-size,
-      var(--moduix-spacing-3)
+      var(--moduix-spacing-4)
     );
   }
 

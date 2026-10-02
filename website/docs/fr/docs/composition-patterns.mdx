@@ -5,9 +5,13 @@ description: Composez les parties Moduix dans tous les frameworks sans masquer l
 
 import reactAsChild from '../../../snippets/composition-patterns/react/as-child.tsx?raw';
 import solidAsChild from '../../../snippets/composition-patterns/solid/as-child.tsx?raw';
+import VueAsChild from '../../../snippets/composition-patterns/vue/as-child.vue?raw';
 import reactExternalState from '../../../snippets/composition-patterns/react/external-state.tsx?raw';
 import solidExternalState from '../../../snippets/composition-patterns/solid/external-state.tsx?raw';
+import VueExternalState from '../../../snippets/composition-patterns/vue/external-state.vue?raw';
 import solidProductDialog from '../../../snippets/composition-patterns/solid/product-dialog.tsx?raw';
+import VueProductDialog from '../../../snippets/composition-patterns/vue/product-dialog.vue?raw';
+import VueProductDialogHelper from '../../../snippets/composition-patterns/vue/product-dialog.ts?raw';
 
 # Patrons de composition
 
@@ -54,7 +58,8 @@ le composant les prend en charge. `DialogRootProvider` sert uniquement à un ét
 ## Composer un élément sémantique
 
 Utilisez `asChild` lorsque l’élément existant doit rester le nœud DOM. React reçoit un enfant unique.
-Solid reçoit une fonction de rendu qui transmet les propriétés d’Ark à l’élément retourné.
+Solid reçoit une fonction de rendu qui transmet les propriétés d’Ark à l’élément retourné. Vue utilise
+`as-child` avec exactement un élément ou composant dans le slot par défaut.
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -65,6 +70,11 @@ Solid reçoit une fonction de rendu qui transmet les propriétés d’Ark à l�
   <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidAsChild} />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueAsChild} />
 
   </Tab>
 </Tabs>
@@ -95,6 +105,15 @@ export { Dialog, DialogTrigger, DialogContent };
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/vue/dialog';
+
+export { Dialog, DialogTrigger, DialogContent };
+```
+
+  </Tab>
 </Tabs>
 
 Le passage entre les imports du package et le code du registre reste alors simple.
@@ -116,6 +135,13 @@ traduit en variables publiques de Dialog sans modifier le reste de l’arbre.
     <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidProductDialog} />
+
+    </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueProductDialog} title="product-dialog.vue" />
+
+<CodeBlockRuntime lang="ts" code={VueProductDialogHelper} title="product-dialog.ts" />
 
     </Tab>
     <Tab label="Styles" value="styles">
@@ -147,6 +173,11 @@ des contrôles extérieurs au Dialog en ont besoin.
   <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidExternalState} />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueExternalState} />
 
   </Tab>
 </Tabs>

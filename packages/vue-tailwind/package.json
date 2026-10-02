@@ -1,8 +1,7 @@
 {
   "name": "@moduix/vue-tailwind",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Private development package for the Tailwind implementation of the moduix Vue component system.",
+  "version": "3.0.0",
+  "description": "Tailwind CSS implementation of the moduix Vue component system, built on Ark UI primitives.",
   "keywords": [
     "accessible",
     "ark-ui",

@@ -5,7 +5,9 @@ description: Manage asynchronous list data with useAsyncList, including loading,
 
 import AsyncListBasic from '@/components/examples/async-list/basic.tsx';
 import asyncListSolidBasic from '../../../snippets/async-list/solid/basic.tsx?raw';
+import asyncListVueBasic from '../../../snippets/async-list/vue/basic.vue?raw';
 import asyncListSolidServerDriven from '../../../snippets/async-list/solid/server-driven.tsx?raw';
+import asyncListVueServerDriven from '../../../snippets/async-list/vue/server-driven.vue?raw';
 
 # Async List
 
@@ -25,6 +27,7 @@ framework in your application:
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -39,6 +42,13 @@ import { useAsyncList } from '@ark-ui/react/collection';
 
 ```tsx
 import { useAsyncList } from '@ark-ui/solid/collection';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { useAsyncList } from '@ark-ui/vue/collection';
 ```
 
   </Tab>
@@ -68,6 +78,7 @@ any list semantics, so the example supplies a labelled section, a list, and stat
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -80,6 +91,11 @@ any list semantics, so the example supplies a labelled section, a list, and stat
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={asyncListSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={asyncListVueBasic} />
 
     </Tab>
   </Tabs>
@@ -103,6 +119,7 @@ sorting, or loading another page. Pass `signal` to `fetch` so a superseded reque
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -115,6 +132,11 @@ sorting, or loading another page. Pass `signal` to `fetch` so a superseded reque
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={asyncListSolidServerDriven} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={asyncListVueServerDriven} />
 
     </Tab>
   </Tabs>

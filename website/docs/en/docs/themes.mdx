@@ -107,6 +107,31 @@ import '@moduix/solid/presets/soft.css';
 </StyleTrackCards>
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
+```ts
+import '@moduix/vue/style.css';
+import '@moduix/vue/presets/soft.css';
+```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/vue-tailwind/style.css';
+@import '@moduix/vue-tailwind/presets/soft.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/vue-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
 </Tabs>
 
 ```html
@@ -117,7 +142,7 @@ Replace `soft.css` with `dense.css` or `contrast.css` under the same package pre
 
 ## Use with the registry
 
-Presets are framework-neutral, so the same foundation registry URL works with React or Solid and
+Presets are framework-neutral, so the same foundation registry URL works with React, Solid, or Vue and
 with either styling track. The CLI copies the CSS source into your project:
 
 <PackageManagerTabs command="shadcn@latest add https://moduix.dev/r/foundation/theme-dense.json" dlx />
@@ -221,6 +246,31 @@ import './brand.css';
 @import 'tailwindcss';
 
 @source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
+```ts
+import '@moduix/vue/style.css';
+import './brand.css';
+```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/vue-tailwind/style.css';
+@import './brand.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/vue-tailwind/dist/components';
 ```
 
   </StyleTrackCard>

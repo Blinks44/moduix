@@ -5,6 +5,7 @@ description: A compact avatar group that expands on hover or keyboard focus and 
 
 import { ExpandableAvatarGroup } from '@/components/recipes/expandable-avatar-group';
 import expandableAvatarGroupSolid from '../../../snippets/recipes/solid/expandable-avatar-group.tsx?raw';
+import expandableAvatarGroupVue from '../../../snippets/recipes/vue/expandable-avatar-group.vue?raw';
 
 # Expandable avatar group
 
@@ -15,7 +16,7 @@ This is a copy-ready composition, not an `ExpandableAvatarGroup` component expor
 moduix. It combines `Avatar` and `Tooltip`. Install those components, copy the source
 and styles below, then replace the sample members with data from your application.
 
-The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+The live preview uses the React package. The source tabs show native React, Solid, and Vue implementations that share the same stylesheet.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -30,6 +31,7 @@ The live preview uses the React package. The source tabs show native React and S
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -43,6 +45,11 @@ The live preview uses the React package. The source tabs show native React and S
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={expandableAvatarGroupSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={expandableAvatarGroupVue} />
 
     </Tab>
   </Tabs>

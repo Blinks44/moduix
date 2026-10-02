@@ -1,14 +1,17 @@
 ---
 title: Format Time
-description: Formatez les heures selon une locale donnée en React ou Solid avec Format.Time d’Ark UI.
+description: Formatez les heures selon une locale donnée en React, Solid ou Vue avec Format.Time d’Ark UI.
 ---
 
 import FormatTimeBasic from '@/components/examples/format-time/basic.tsx';
 import FormatTimeSecondsAndLabels from '@/components/examples/format-time/seconds-and-labels.tsx';
 import FormatTimeLocale from '@/components/examples/format-time/locale.tsx';
 import formatTimeSolidBasic from '../../../snippets/format-time/solid/basic.tsx?raw';
+import formatTimeVueBasic from '../../../snippets/format-time/vue/basic.vue?raw';
 import formatTimeSolidSecondsAndLabels from '../../../snippets/format-time/solid/seconds-and-labels.tsx?raw';
+import formatTimeVueSecondsAndLabels from '../../../snippets/format-time/vue/seconds-and-labels.vue?raw';
 import formatTimeSolidLocale from '../../../snippets/format-time/solid/locale.tsx?raw';
+import formatTimeVueLocale from '../../../snippets/format-time/vue/locale.vue?raw';
 
 `Format.Time` transforme une valeur horaire en texte selon la locale. Chaque adaptateur publié utilise les mêmes paramètres.
 
@@ -23,6 +26,7 @@ Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -37,6 +41,13 @@ import { Format } from '@ark-ui/react';
 
 ```tsx
 import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { Format } from '@ark-ui/vue';
 ```
 
   </Tab>
@@ -60,6 +71,7 @@ Une chaîne n’est pas convertie entre les fuseaux horaires.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +84,11 @@ Une chaîne n’est pas convertie entre les fuseaux horaires.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatTimeSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatTimeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -96,6 +113,7 @@ ajouter les secondes, et `amLabel` ou `pmLabel` pour remplacer les libellés de 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -108,6 +126,11 @@ ajouter les secondes, et `amLabel` ou `pmLabel` pour remplacer les libellés de 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatTimeSolidSecondsAndLabels} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatTimeVueSecondsAndLabels} />
 
     </Tab>
   </Tabs>
@@ -140,6 +163,7 @@ prévue.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -152,6 +176,11 @@ prévue.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatTimeSolidLocale} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatTimeVueLocale} />
 
     </Tab>
   </Tabs>

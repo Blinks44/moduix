@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "highlight",
+  "title": "Highlight",
+  "description": "moduix Vue Tailwind Highlight component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/highlight/Highlight.vue",
+      "content": "<script setup lang=\"ts\">\nimport { Highlight as ArkHighlight } from '@ark-ui/vue/highlight';\nimport type { HighlightProps as ArkHighlightProps } from '@ark-ui/vue/highlight';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ArkHighlightProps {\n  class?: HTMLAttributes['class'];\n  text: ArkHighlightProps['text'];\n  query: ArkHighlightProps['query'];\n}\n\nconst { class: className, text, query } = defineProps<Props>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkHighlight\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'rounded-xs bg-[color-mix(in_oklab,var(--color-warning)_40%,var(--color-accent))] box-decoration-clone px-1 py-px font-medium text-foreground no-underline shadow-none',\n        className,\n      )\n    \"\n    :text=\"text\"\n    :query=\"query\"\n    data-scope=\"highlight\"\n    data-part=\"root\"\n    data-slot=\"highlight-root\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/highlight/Highlight.vue"
+    },
+    {
+      "path": "src/components/highlight/index.ts",
+      "content": "import type { HighlightChunk, HighlightProps, UseHighlightProps } from '@ark-ui/vue/highlight';\nimport Highlight from './Highlight.vue';\n\nexport { Highlight };\n\nexport type { HighlightChunk, HighlightProps, UseHighlightProps };",
+      "type": "registry:component",
+      "target": "@components/ui/highlight/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

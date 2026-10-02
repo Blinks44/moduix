@@ -5,6 +5,7 @@ description: En-tête d’application responsive avec navigation principale, esp
 
 import { AppHeaderPreview } from '@/components/recipes/app-header-preview';
 import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
+import appHeaderVue from '../../../snippets/recipes/vue/app-header.vue?raw';
 
 # En-tête d’application
 
@@ -25,7 +26,7 @@ par les vôtres.
 - Un `Menu` distinct pour la navigation principale sur les petits écrans.
 - Des noms accessibles pour les contrôles composés uniquement d’une icône et un affichage de secours pour l’avatar.
 
-L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React, Solid et Vue avec les mêmes styles.
 
 <ExampleFrame variant="recipe" clientOnly>
   <AppHeaderPreview />
@@ -38,6 +39,7 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -51,6 +53,11 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={appHeaderSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={appHeaderVue} />
 
     </Tab>
   </Tabs>
@@ -69,7 +76,7 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
 Installez les composants moduix utilisés par la recette ainsi que `lucide-react` pour les icônes. Les
 onglets « Composant » et « Styles » contiennent les fichiers à copier dans votre application.
 
-<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
+<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} vueDependencies={['@lucide/vue']} />
 
 ## Utiliser la recette dans votre application
 

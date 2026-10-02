@@ -5,6 +5,7 @@ description: Выбор подходящего уровня стилизации
 
 import { ProjectChecklist } from '@/components/examples/styling/project-checklist';
 import solidProjectChecklist from '../../../snippets/styling/solid/project-checklist.tsx?raw';
+import VueProjectChecklist from '../../../snippets/styling/vue/project-checklist.vue?raw';
 
 # Стилизация
 
@@ -17,10 +18,10 @@ Moduix выпускает отдельные CSS Modules- и Tailwind-пакет
 
 ## Выберите способ стилизации
 
-| Способ | React | Solid | Когда подходит |
-| --- | --- | --- | --- |
-| CSS Modules | `@moduix/react` | `@moduix/solid` | Готовые стили компонентов с переопределениями через токены и локальные классы |
-| Tailwind CSS | `@moduix/react-tailwind` | `@moduix/solid-tailwind` | Компоненты на utility-классах в приложении с Tailwind v4 |
+| Способ | React | Solid | Vue | Когда подходит |
+| --- | --- | --- | --- | --- |
+| CSS Modules | `@moduix/react` | `@moduix/solid` | `@moduix/vue` | Готовые стили компонентов с переопределениями через токены и локальные классы |
+| Tailwind CSS | `@moduix/react-tailwind` | `@moduix/solid-tailwind` | `@moduix/vue-tailwind` | Компоненты на utility-классах в приложении с Tailwind v4 |
 
 CSS Modules и Tailwind являются равноправными вариантами поставки, а не слоями одного компонента.
 Пакет должен соответствовать и фреймворку, и способу стилизации.
@@ -65,6 +66,11 @@ CSS Modules и Tailwind являются равноправными вариан
     <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidProjectChecklist} />
+
+    </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueProjectChecklist} />
 
     </Tab>
     <Tab label="Styles" value="styles">
@@ -125,7 +131,7 @@ Tailwind-пакеты уже содержат стандартные utility-с�
   <Tab label="React" value="react">
 
 ```tsx
-import { Accordion } from '@moduix/react-tailwind/accordion';
+import { Accordion, AccordionItem, AccordionItemTrigger, AccordionItemContent } from '@moduix/react-tailwind/accordion';
 
 <Accordion collapsible>
   <AccordionItem value="shipping" className="rounded-lg border data-[state=open]:border-blue-500">
@@ -139,7 +145,7 @@ import { Accordion } from '@moduix/react-tailwind/accordion';
   <Tab label="Solid" value="solid">
 
 ```tsx
-import { Accordion } from '@moduix/solid-tailwind/accordion';
+import { Accordion, AccordionItem, AccordionItemTrigger, AccordionItemContent } from '@moduix/solid-tailwind/accordion';
 
 <Accordion collapsible>
   <AccordionItem value="shipping" class="rounded-lg border data-[state=open]:border-blue-500">
@@ -147,6 +153,24 @@ import { Accordion } from '@moduix/solid-tailwind/accordion';
     <AccordionItemContent class="px-4">Usually 2 to 4 days.</AccordionItemContent>
   </AccordionItem>
 </Accordion>;
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```vue
+<script setup lang="ts">
+import { Accordion, AccordionItem, AccordionItemTrigger, AccordionItemContent } from '@moduix/vue-tailwind/accordion';
+</script>
+
+<template>
+  <Accordion collapsible>
+    <AccordionItem value="shipping" class="rounded-lg border data-[state=open]:border-blue-500">
+      <AccordionItemTrigger class="px-4">Shipping</AccordionItemTrigger>
+      <AccordionItemContent class="px-4">Usually 2 to 4 days.</AccordionItemContent>
+    </AccordionItem>
+  </Accordion>
+</template>
 ```
 
   </Tab>

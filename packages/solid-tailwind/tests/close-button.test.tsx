@@ -14,7 +14,7 @@ test('renders an accessible native button with safe defaults and a forwarded ref
   expect(ref).toBe(button);
   expect(button).toHaveAttribute('type', 'button');
   expect(button).toHaveAccessibleName('Close');
-  expect(icon).toHaveClass('size-3', 'shrink-0');
+  expect(icon).toHaveClass('size-4', 'shrink-0');
   expect(button).toHaveClass('size-7', 'rounded-sm', 'bg-transparent', 'text-muted-foreground');
   expect(button).not.toHaveClass(
     'transition-[background-color,color,opacity,translate,scale]',

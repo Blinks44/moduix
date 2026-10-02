@@ -1,12 +1,14 @@
 ---
 title: Hotkeys
-description: Register platform-aware keyboard shortcuts, sequences, and command metadata in a React or Solid application.
+description: Register platform-aware keyboard shortcuts, sequences, and command metadata in a React, Solid, or Vue application.
 ---
 
 import HotkeysBasicDemo from '@/components/examples/hotkeys/basic.tsx';
 import HotkeysSequencesDemo from '@/components/examples/hotkeys/sequences.tsx';
 import hotkeysSolidBasic from '../../../snippets/hotkeys/solid/basic.tsx?raw';
+import hotkeysVueBasic from '../../../snippets/hotkeys/vue/basic.vue?raw';
 import hotkeysSolidSequences from '../../../snippets/hotkeys/solid/sequences.tsx?raw';
+import hotkeysVueSequences from '../../../snippets/hotkeys/vue/sequences.vue?raw';
 
 `Hotkeys` is Ark UI's utility for registering keyboard commands. It listens on a document or another
 target, while your application owns the command action and the visible controls.
@@ -22,6 +24,7 @@ The API is available from the root entry point of the matching Ark UI package:
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -36,6 +39,13 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
 
 ```tsx
 import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/solid';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/vue';
 ```
 
   </Tab>
@@ -60,6 +70,7 @@ works across platforms.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +83,11 @@ works across platforms.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hotkeysSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hotkeysVueBasic} />
 
     </Tab>
   </Tabs>
@@ -103,6 +119,7 @@ Separate the steps in a sequence with `>`. The default sequence timeout is 1000 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -115,6 +132,11 @@ Separate the steps in a sequence with `>`. The default sequence timeout is 1000 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hotkeysSolidSequences} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hotkeysVueSequences} />
 
     </Tab>
   </Tabs>
@@ -165,7 +187,8 @@ command only:
 
 In Solid, state returned by these hooks is an accessor, so read it as `registrations()`,
 `pressedKeys()`, `isPressed()`, or `platform()`. React returns the current value directly. A recorded
-shortcut can be committed with `stop`, discarded with `cancel`, or removed with `clear`.
+shortcut can be committed with `stop`, discarded with `cancel`, or removed with `clear`. In Vue, hook
+state is a ref: read `.value` in script, while top-level refs unwrap automatically in templates.
 
 Hotkeys manages registration, matching, formatting, scopes, and recorder state. Your application
 still owns side effects, navigation, persistence, command-palette UI, focus management, and an

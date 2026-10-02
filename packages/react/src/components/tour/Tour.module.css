@@ -272,8 +272,8 @@
     cursor: pointer;
 
     :where(svg) {
-      width: var(--moduix-tour-close-trigger-icon-size, var(--moduix-spacing-3));
-      height: var(--moduix-tour-close-trigger-icon-size, var(--moduix-spacing-3));
+      width: var(--moduix-tour-close-trigger-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-tour-close-trigger-icon-size, var(--moduix-spacing-4));
     }
 
     @media (hover: hover) {
@@ -307,7 +307,7 @@
     --moduix-close-button-radius: var(--moduix-tour-close-trigger-radius, var(--moduix-radius-md));
     --moduix-close-button-icon-size: var(
       --moduix-tour-close-trigger-icon-size,
-      var(--moduix-spacing-3)
+      var(--moduix-spacing-4)
     );
     --moduix-close-button-bg: var(--moduix-tour-close-trigger-bg, transparent);
     --moduix-close-button-bg-hover: var(

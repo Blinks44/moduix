@@ -1,13 +1,16 @@
 ---
 title: Format Byte
-description: Форматируйте размеры в React и Solid с помощью Ark UI, выбирая десятичную или двоичную систему единиц и локализованный вывод.
+description: Форматируйте размеры в React, Solid и Vue с помощью Ark UI, выбирая десятичную или двоичную систему единиц и локализованный вывод.
 ---
 
 import FormatByteBasic from '@/components/examples/format-byte/basic.tsx';
 import FormatByteUnitSystem from '@/components/examples/format-byte/unit-system.tsx';
 import formatByteSolidBasic from '../../../snippets/format-byte/solid/basic.tsx?raw';
+import formatByteVueBasic from '../../../snippets/format-byte/vue/basic.vue?raw';
 import formatByteSolidUnitSystem from '../../../snippets/format-byte/solid/unit-system.tsx?raw';
+import formatByteVueUnitSystem from '../../../snippets/format-byte/vue/unit-system.vue?raw';
 import formatByteSolidLocale from '../../../snippets/format-byte/solid/locale.tsx?raw';
+import formatByteVueLocale from '../../../snippets/format-byte/vue/locale.vue?raw';
 
 `Format.Byte` форматирует число байтов в понятный текст. Импортируйте его из пакета Ark для нужного фреймворка.
 
@@ -22,6 +25,7 @@ import formatByteSolidLocale from '../../../snippets/format-byte/solid/locale.ts
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -39,6 +43,13 @@ import { Format } from '@ark-ui/solid';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { Format } from '@ark-ui/vue';
+```
+
+  </Tab>
 </Tabs>
 
 ## Базовый пример
@@ -47,8 +58,8 @@ import { Format } from '@ark-ui/solid';
 с подписью или другим элементом, который объясняет значение. В примерах для одного значения используется абзац, а
 для нескольких значений с общим контекстом - список определений.
 
-Предпросмотр использует React-исходник, потому что документация работает на React. Во вкладке Solid показан нативный
-исходник Solid с тем же результатом и API.
+Предпросмотр использует React, потому что документация работает на React. Во вкладках Solid и Vue
+показаны нативные исходники с тем же результатом и API.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -63,6 +74,7 @@ import { Format } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -75,6 +87,11 @@ import { Format } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatByteSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatByteVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +116,7 @@ import { Format } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -111,6 +129,11 @@ import { Format } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatByteSolidUnitSystem} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatByteVueUnitSystem} />
 
     </Tab>
   </Tabs>
@@ -127,6 +150,7 @@ import { Format } from '@ark-ui/solid';
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -139,6 +163,11 @@ import { Format } from '@ark-ui/solid';
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatByteSolidLocale} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatByteVueLocale} />
 
   </Tab>
 </Tabs>

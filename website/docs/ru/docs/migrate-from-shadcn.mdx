@@ -5,6 +5,9 @@ description: "Перенесите приложение с shadcn на moduix п
 
 # Переход с shadcn на moduix
 
+import vueAccordion from '../../../snippets/quick-start/vue-css-modules.vue?raw';
+import vueControlledAccordion from '../../../snippets/migrate-from-shadcn/vue/controlled-accordion.vue?raw';
+
 Если приложение уже использует shadcn, переход на moduix можно выполнять по одному компоненту.
 Пока вы переносите отдельные экраны или семейства компонентов, обе библиотеки могут работать
 рядом.
@@ -19,7 +22,7 @@ description: "Перенесите приложение с shadcn на moduix п
 
 | Способ установки moduix | Подходит, если | Как приходят обновления |
 | --- | --- | --- |
-| npm-пакет | Компоненты должны оставаться зависимостью, а импорты идти из `@moduix/react/*` или `@moduix/solid/*`. | Обновляйте пакет через пакетный менеджер. |
+| npm-пакет | Компоненты должны оставаться зависимостью, а импорты идти из `@moduix/react/*`, `@moduix/solid/*` или `@moduix/vue/*`. | Обновляйте пакет через пакетный менеджер. |
 | Реестр, совместимый с shadcn | Вы хотите хранить исходники в приложении, просматривать их и менять напрямую. | Проверяйте и объединяйте каждое обновление реестра вручную. |
 
 Полная настройка описана в [Быстром старте](/docs/quick-start). Если в проекте уже настроены CLI
@@ -45,6 +48,13 @@ import { Dialog } from '@moduix/solid/dialog';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import { Dialog } from '@moduix/vue/dialog';
+```
+
+  </Tab>
 </Tabs>
 
 При установке с исходниками сначала выполните [настройку CLI shadcn](/docs/quick-start#установить-через-shadcn-cli),
@@ -59,6 +69,11 @@ import { Dialog } from '@moduix/solid/dialog';
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="shadcn@latest add @moduix-solid/dialog" dlx />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-vue/dialog" dlx />
 
   </Tab>
 </Tabs>
@@ -137,6 +152,10 @@ export function FrequentlyAskedQuestions() {
 import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 ```
 
+Vue использует нативные SFC с `script setup`, свойствами в template и `v-model` для управляемого состояния.
+
+<CodeBlockRuntime lang="vue" code={vueAccordion} />
+
 При установке с исходниками сохраните композицию и замените только путь импорта:
 
 ```tsx
@@ -165,6 +184,13 @@ import '@moduix/react/style.css';
 
 ```tsx
 import '@moduix/solid/style.css';
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import '@moduix/vue/style.css';
 ```
 
   </Tab>
@@ -220,6 +246,10 @@ export function ControlledAccordion() {
 import { createSignal } from 'solid-js';
 import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 ```
+
+Vue использует нативные SFC с `script setup`, свойствами в template и `v-model` для управляемого состояния.
+
+<CodeBlockRuntime lang="vue" code={vueControlledAccordion} />
 
 Компоненты с коллекциями, например `Combobox` и `Select`, используют явное состояние коллекции
 Ark. Для элементов-объектов задайте через `itemToString` и `itemToValue`, как получить видимый

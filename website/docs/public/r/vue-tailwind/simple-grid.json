@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "simple-grid",
+  "title": "SimpleGrid",
+  "description": "moduix Vue Tailwind SimpleGrid component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/simple-grid/SimpleGrid.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { computed, useAttrs } from 'vue';\nimport type { CSSProperties, HTMLAttributes, StyleValue } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n  style?: StyleValue;\n  columns?: number;\n  minChildWidth?: number | string;\n  gap?: number | string;\n  rowGap?: number | string;\n  columnGap?: number | string;\n}\n\nconst {\n  class: className,\n  style,\n  columns,\n  minChildWidth,\n  gap,\n  rowGap,\n  columnGap,\n} = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n\nconst toCssLength = (value: number | string) => (typeof value === 'number' ? `${value}px` : value);\n\nconst gridStyle = computed<StyleValue>(() => {\n  if (columns != null && (!Number.isInteger(columns) || columns <= 0)) {\n    throw new Error('SimpleGrid `columns` must be a finite positive integer.');\n  }\n  if (typeof minChildWidth === 'number' && (!Number.isFinite(minChildWidth) || minChildWidth < 0)) {\n    throw new Error('SimpleGrid `minChildWidth` must be a finite non-negative number.');\n  }\n\n  let gridTemplateColumns: string | undefined = undefined;\n  if (columns != null) {\n    gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;\n  }\n  if (minChildWidth != null) {\n    gridTemplateColumns = `repeat(auto-fit, minmax(min(100%, ${toCssLength(minChildWidth)}), 1fr))`;\n  }\n\n  const generatedStyle: CSSProperties = {\n    ...(gridTemplateColumns == null ? {} : { gridTemplateColumns }),\n    ...(gap == null ? {} : { gap: toCssLength(gap) }),\n    ...(rowGap == null ? {} : { rowGap: toCssLength(rowGap) }),\n    ...(columnGap == null ? {} : { columnGap: toCssLength(columnGap) }),\n  };\n  return [generatedStyle, style];\n});\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"cn('grid grid-cols-1', className)\"\n    :style=\"gridStyle\"\n    data-scope=\"simple-grid\"\n    data-part=\"root\"\n    data-slot=\"simple-grid-root\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/simple-grid/SimpleGrid.vue"
+    },
+    {
+      "path": "src/components/simple-grid/index.ts",
+      "content": "export { default as SimpleGrid } from './SimpleGrid.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/simple-grid/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

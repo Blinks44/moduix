@@ -1,0 +1,51 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tag",
+  "title": "Tag",
+  "description": "moduix Vue Tailwind Tag component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/close-button",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/foundation"
+  ],
+  "files": [
+    {
+      "path": "src/components/tag/Tag.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { cva } from 'class-variance-authority';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ntype TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';\ntype TagSize = 'sm' | 'md';\n\nconst tagVariants = cva(\n  'inline-flex min-h-control-xs w-fit max-w-full min-w-0 items-center gap-1.5 rounded-full border px-2 py-0.5 align-middle font-medium text-xs whitespace-nowrap transition-colors duration-200 ease-in-out motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',\n  {\n    variants: {\n      variant: {\n        default: 'border-transparent bg-primary text-primary-foreground',\n        secondary: 'border-transparent bg-secondary text-secondary-foreground',\n        outline: 'border-border bg-transparent text-foreground',\n        ghost: 'border-transparent bg-transparent text-foreground',\n        destructive: 'border-transparent bg-destructive text-destructive-foreground',\n      },\n      size: {\n        sm: 'min-h-5 gap-1 px-1.5 py-0',\n        md: '',\n      },\n    },\n    defaultVariants: {\n      variant: 'default',\n      size: 'md',\n    },\n  },\n);\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n  size?: TagSize;\n  variant?: TagVariant;\n}\n\nconst {\n  asChild = false,\n  class: className,\n  size = 'md',\n  variant = 'default',\n} = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    data-scope=\"tag\"\n    data-part=\"root\"\n    data-slot=\"tag-root\"\n    :data-size=\"size\"\n    :data-variant=\"variant\"\n    :class=\"cn(tagVariants({ size, variant }), className)\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tag/Tag.vue"
+    },
+    {
+      "path": "src/components/tag/TagLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    data-scope=\"tag\"\n    data-part=\"label\"\n    data-slot=\"tag-label\"\n    :class=\"cn('min-w-0 overflow-hidden text-ellipsis', className)\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tag/TagLabel.vue"
+    },
+    {
+      "path": "src/components/tag/TagStartElement.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    data-scope=\"tag\"\n    data-part=\"start-element\"\n    data-slot=\"tag-start-element\"\n    :class=\"\n      cn(\n        'inline-flex min-w-0 shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',\n        className,\n      )\n    \"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tag/TagStartElement.vue"
+    },
+    {
+      "path": "src/components/tag/TagEndElement.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    data-scope=\"tag\"\n    data-part=\"end-element\"\n    data-slot=\"tag-end-element\"\n    :class=\"\n      cn(\n        'inline-flex min-w-0 shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',\n        className,\n      )\n    \"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tag/TagEndElement.vue"
+    },
+    {
+      "path": "src/components/tag/TagCloseTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs, useSlots } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport CloseButton from '../close-button/CloseButton.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'button'> {\n  ariaLabel?: string;\n  ariaLabelledby?: string;\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { ariaLabel, ariaLabelledby, asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst slots = useSlots();\n</script>\n\n<template>\n  <CloseButton\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :aria-label=\"\n      ariaLabel ?? (!asChild && !slots.default && ariaLabelledby == null ? 'Remove tag' : undefined)\n    \"\n    :aria-labelledby=\"ariaLabelledby\"\n    data-scope=\"tag\"\n    data-part=\"close-trigger\"\n    data-slot=\"tag-close-trigger\"\n    :class=\"\n      cn(\n        'size-4 rounded-full bg-transparent p-0 text-inherit focus-visible:outline-1 focus-visible:outline-offset-0 [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/12 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit',\n        className,\n      )\n    \"\n  >\n    <slot v-if=\"slots.default\" />\n  </CloseButton>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tag/TagCloseTrigger.vue"
+    },
+    {
+      "path": "src/components/tag/index.ts",
+      "content": "export { default as Tag } from './Tag.vue';\nexport { default as TagCloseTrigger } from './TagCloseTrigger.vue';\nexport { default as TagEndElement } from './TagEndElement.vue';\nexport { default as TagLabel } from './TagLabel.vue';\nexport { default as TagStartElement } from './TagStartElement.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/tag/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

@@ -5,6 +5,7 @@ description: Build an attachment manager with drag-and-drop, file validation, pr
 
 import { FileUploadManagerPreview } from '@/components/recipes/file-upload-manager-preview';
 import fileUploadManagerSolid from '../../../snippets/recipes/solid/file-upload-manager.tsx?raw';
+import fileUploadManagerVue from '../../../snippets/recipes/vue/file-upload-manager.vue?raw';
 
 # File upload manager
 
@@ -15,7 +16,7 @@ one file or clear the whole list. Rejected files stay visible with their validat
 The recipe manages selection and the local file list only. It does not send files to a server or track
 upload progress. Connect `onFileChange` to the form or upload request in the feature that owns the data.
 
-The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+The live preview uses the React package. The source tabs show native React, Solid, and Vue implementations that share the same stylesheet.
 
 <ExampleFrame variant="recipe" clientOnly>
   <FileUploadManagerPreview />
@@ -28,6 +29,7 @@ The live preview uses the React package. The source tabs show native React and S
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -41,6 +43,11 @@ The live preview uses the React package. The source tabs show native React and S
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadManagerSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadManagerVue} />
 
     </Tab>
   </Tabs>

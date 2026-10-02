@@ -5,6 +5,9 @@ description: Passez d’une application shadcn à moduix composant par composant
 
 # Migrer depuis shadcn vers moduix
 
+import vueAccordion from '../../../snippets/quick-start/vue-css-modules.vue?raw';
+import vueControlledAccordion from '../../../snippets/migrate-from-shadcn/vue/controlled-accordion.vue?raw';
+
 Si votre application utilise déjà shadcn, vous pouvez passer à moduix composant par composant. Les
 deux bibliothèques peuvent cohabiter pendant que vous remplacez certains écrans ou certaines
 familles de composants.
@@ -20,7 +23,7 @@ de framework volontaire.
 
 | Installation moduix | À privilégier si | Fonctionnement des mises à jour |
 | --- | --- | --- |
-| Paquet npm | Vous voulez que les composants restent une dépendance et utiliser des imports depuis `@moduix/react/*` ou `@moduix/solid/*`. | Mettez le paquet à jour avec votre gestionnaire de paquets. |
+| Paquet npm | Vous voulez que les composants restent une dépendance et utiliser des imports depuis `@moduix/react/*`, `@moduix/solid/*` ou `@moduix/vue/*`. | Mettez le paquet à jour avec votre gestionnaire de paquets. |
 | Registre compatible avec shadcn | Vous voulez versionner, consulter et modifier le code source des composants dans votre application. | Examinez et fusionnez vous-même chaque mise à jour du registre. |
 
 Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète. Si votre projet
@@ -47,6 +50,13 @@ import { Dialog } from '@moduix/solid/dialog';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import { Dialog } from '@moduix/vue/dialog';
+```
+
+  </Tab>
 </Tabs>
 
 Avec le code copié dans votre projet, terminez la [configuration du CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn),
@@ -61,6 +71,11 @@ puis ajoutez les éléments du registre un par un :
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="shadcn@latest add @moduix-solid/dialog" dlx />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-vue/dialog" dlx />
 
   </Tab>
 </Tabs>
@@ -140,6 +155,10 @@ Avec Solid, seul le spécificateur d’import change :
 import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 ```
 
+Vue utilise des SFC natifs avec `script setup`, les props du template et `v-model` pour l’état contrôlé.
+
+<CodeBlockRuntime lang="vue" code={vueAccordion} />
+
 Avec une installation qui copie le code dans le projet, gardez la composition et changez seulement
 le chemin d’import :
 
@@ -172,6 +191,13 @@ import '@moduix/solid/style.css';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import '@moduix/vue/style.css';
+```
+
+  </Tab>
 </Tabs>
 
 Avec un registre fondé sur CSS Modules :
@@ -191,7 +217,7 @@ Personnalisez les tokens sémantiques dans votre propre CSS :
 
 Tailwind peut rester dans l’application pour la mise en page et les classes ponctuelles pendant une
 migration vers les paquets CSS Modules. Si les styles des composants doivent rester en Tailwind,
-utilisez le paquet Tailwind React ou Solid lorsque le composant y est disponible. Consultez sa page
+utilisez le paquet Tailwind React, Solid ou Vue lorsque le composant y est disponible. Consultez sa page
 pour connaître ses slots stables, ses variables CSS et ses propriétés `className` ou `class`.
 
 ## Adaptez les callbacks Ark et les collections
@@ -224,6 +250,10 @@ imports changent en conséquence :
 import { createSignal } from 'solid-js';
 import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 ```
+
+Vue utilise des SFC natifs avec `script setup`, les props du template et `v-model` pour l’état contrôlé.
+
+<CodeBlockRuntime lang="vue" code={vueControlledAccordion} />
 
 Les composants qui utilisent des collections, notamment `Combobox` et `Select`, s’appuient sur un
 état de collection Ark explicite. Pour des éléments-objets, définissez avec `itemToString` et

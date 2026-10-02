@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "swap",
+  "title": "Swap",
+  "description": "moduix Vue Tailwind Swap component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/swap/Swap.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SwapRoot as ArkSwapRoot } from '@ark-ui/vue/swap';\nimport type { SwapRootProps } from '@ark-ui/vue/swap';\nimport { useAttrs, type HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport type SwapAnimation = 'fade' | 'scale' | 'rotate' | 'flip' | (string & {});\n\nexport interface Props extends /* @vue-ignore */ SwapRootProps {\n  animation?: SwapAnimation;\n  class?: HTMLAttributes['class'];\n}\n\nconst { animation = 'scale', class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass =\n  \"group/swap place-items-center align-middle [grid-template-areas:'swap'] data-[animation=flip]:[perspective:24rem]\";\n</script>\n\n<template>\n  <ArkSwapRoot\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    :data-animation=\"animation\"\n    data-slot=\"swap-root\"\n  >\n    <slot />\n  </ArkSwapRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/swap/Swap.vue"
+    },
+    {
+      "path": "src/components/swap/SwapRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SwapRootProvider as ArkSwapRootProvider } from '@ark-ui/vue/swap';\nimport type { SwapRootProviderProps } from '@ark-ui/vue/swap';\nimport { useAttrs, type HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport type { SwapAnimation } from './Swap.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SwapRootProviderProps {\n  animation?: SwapAnimation;\n  class?: HTMLAttributes['class'];\n  value: SwapRootProviderProps['value'];\n}\n\nconst { animation = 'scale', class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass =\n  \"group/swap place-items-center align-middle [grid-template-areas:'swap'] data-[animation=flip]:[perspective:24rem]\";\n</script>\n\n<template>\n  <ArkSwapRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    :data-animation=\"animation\"\n    :value=\"value\"\n    data-slot=\"swap-root-provider\"\n  >\n    <slot />\n  </ArkSwapRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/swap/SwapRootProvider.vue"
+    },
+    {
+      "path": "src/components/swap/SwapIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SwapIndicator as ArkSwapIndicator } from '@ark-ui/vue/swap';\nimport type { SwapIndicatorProps } from '@ark-ui/vue/swap';\nimport { useAttrs, type HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SwapIndicatorProps {\n  class?: HTMLAttributes['class'];\n  type: SwapIndicatorProps['type'];\n}\n\nconst { class: className, type } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst indicatorClass =\n  'items-center justify-center text-inherit group-data-[animation=flip]/swap:[backface-visibility:hidden] group-data-[animation=fade]/swap:data-[state=closed]:animate-moduix-swap-fade-exit group-data-[animation=flip]/swap:data-[state=closed]:animate-moduix-swap-flip-exit group-data-[animation=rotate]/swap:data-[state=closed]:animate-moduix-swap-rotate-exit group-data-[animation=scale]/swap:data-[state=closed]:animate-moduix-swap-scale-exit group-data-[animation=fade]/swap:data-[state=open]:animate-moduix-swap-fade-enter group-data-[animation=flip]/swap:data-[state=open]:animate-moduix-swap-flip-enter group-data-[animation=rotate]/swap:data-[state=open]:animate-moduix-swap-rotate-enter group-data-[animation=scale]/swap:data-[state=open]:animate-moduix-swap-scale-enter motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]';\n</script>\n\n<template>\n  <ArkSwapIndicator\n    v-bind=\"attrs\"\n    :class=\"cn(indicatorClass, className)\"\n    :type=\"type\"\n    data-slot=\"swap-indicator\"\n  >\n    <slot />\n  </ArkSwapIndicator>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/swap/SwapIndicator.vue"
+    },
+    {
+      "path": "src/components/swap/index.ts",
+      "content": "import { useSwap, useSwapContext } from '@ark-ui/vue/swap';\nimport Swap from './Swap.vue';\nimport SwapIndicator from './SwapIndicator.vue';\nimport SwapRootProvider from './SwapRootProvider.vue';\n\nexport { Swap, SwapIndicator, SwapRootProvider, useSwap, useSwapContext };\nexport type { SwapAnimation } from './Swap.vue';\nexport type {\n  SwapIndicatorProps,\n  SwapRootProps,\n  SwapRootProviderProps,\n  UseSwapContext,\n  UseSwapProps,\n  UseSwapReturn,\n} from '@ark-ui/vue/swap';",
+      "type": "registry:component",
+      "target": "@components/ui/swap/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

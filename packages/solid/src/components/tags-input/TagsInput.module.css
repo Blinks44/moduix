@@ -290,8 +290,8 @@
       box-shadow var(--moduix-tags-input-transition, var(--moduix-transition-default));
 
     & > svg {
-      width: var(--moduix-tags-input-trigger-icon-size, var(--moduix-spacing-2-5));
-      height: var(--moduix-tags-input-trigger-icon-size, var(--moduix-spacing-2-5));
+      width: var(--moduix-tags-input-trigger-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-tags-input-trigger-icon-size, var(--moduix-spacing-4));
       flex: none;
       pointer-events: none;
     }

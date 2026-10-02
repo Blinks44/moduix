@@ -7,7 +7,11 @@ import { DataTable } from '@/components/recipes/data-table';
 import DataTableBasic from '@/components/recipes/data-table/basic';
 import InteractiveDataTable from '@/components/recipes/data-table/sorting-filtering-and-pagination';
 import dataTableSolid from '../../../snippets/recipes/solid/data-table.tsx?raw';
+import dataTableCatalogSolid from '../../../snippets/recipes/solid/data-table-component-catalog.tsx?raw';
+import dataTableVue from '../../../snippets/recipes/vue/data-table.vue?raw';
+import dataTableControlsVue from '../../../snippets/recipes/vue/data-table-controls.vue?raw';
 import dataTableBasicSolid from '../../../snippets/recipes/solid/data-table-basic.tsx?raw';
+import dataTableBasicVue from '../../../snippets/recipes/vue/data-table-basic.vue?raw';
 
 # Data Table
 
@@ -33,7 +37,7 @@ example records and actions with your product data.
 Use only the controls your table needs. Remove selection, column visibility, actions, or pagination
 when users cannot use that capability.
 
-The live previews use the React package. The source tabs show native React and Solid implementations for TanStack Table v9.
+The live previews use the React package. The source tabs show native React, Solid, and Vue implementations for TanStack Table v9.
 
 <ExampleFrame variant="recipe" clientOnly>
   <DataTable />
@@ -46,6 +50,7 @@ The live previews use the React package. The source tabs show native React and S
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -58,7 +63,12 @@ The live previews use the React package. The source tabs show native React and S
     </Tab>
     <Tab value="solid">
 
-<CodeBlockRuntime lang="tsx" code={dataTableSolid} />
+<CodeBlockRuntime lang="tsx" code={dataTableCatalogSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dataTableVue} />
 
     </Tab>
   </Tabs>
@@ -81,6 +91,7 @@ The live previews use the React package. The source tabs show native React and S
   copiedSource
   dependencies={['@tanstack/react-table@^9.2.4', 'lucide-react']}
   solidDependencies={['@tanstack/solid-table@^9.2.4', 'lucide-solid']}
+  vueDependencies={['@tanstack/vue-table@^9.2.4', '@lucide/vue']}
 />
 
 ## Setup
@@ -98,6 +109,11 @@ Install TanStack Table in the application or feature that owns the data-grid beh
 <PackageManagerTabs command="install @tanstack/solid-table@^9.2.4" />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @tanstack/vue-table@^9.2.4" />
+
+  </Tab>
 </Tabs>
 
 `Table` is available from the matching `@moduix/<framework>/table` package. It deliberately does not include TanStack Table, so
@@ -107,8 +123,8 @@ applications that only need a semantic table do not load data-grid logic.
 
 Declare the feature set with `tableFeatures()` and define typed `ColumnDef<typeof features, Payment>`
 entries. React creates the instance with `useTable` and renders definitions with `flexRender`; Solid
-uses `createTable` and `table.FlexRender`. In both cases, map header groups and visible cells into the
-moduix table anatomy.
+uses `createTable` and `table.FlexRender`; Vue uses `useTable` and the `FlexRender` component with
+`:header` or `:cell`. In every adapter, map header groups and visible cells into the moduix table anatomy.
 
 The snippet renders visible columns and cells, so it registers `columnVisibilityFeature`. Add other
 features only when the table needs them.
@@ -138,6 +154,7 @@ part of the recipe source — do not copy them into your application.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -153,6 +170,11 @@ part of the recipe source — do not copy them into your application.
 <CodeBlockRuntime lang="tsx" code={dataTableBasicSolid} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dataTableBasicVue} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -163,10 +185,12 @@ alignment, row actions, and business-specific filter definitions.
 
 ## Stable references
 
-The examples define `features`, `payments`, and `columns` outside their components, so TanStack Table
-receives stable inputs. In React, memoize arrays derived from props or state instead of passing a new
+Keep `features`, records, and `columns` stable for the lifetime of the table. React and Solid declare
+static inputs outside their components; Vue declares them once in `<script setup>`. In React, memoize
+arrays derived from props or state instead of passing a new
 reference to `useTable` on every render. In Solid, expose changing data through the reactive `data`
-getter passed to `createTable`. See the TanStack
+getter passed to `createTable`. In Vue, pass a `ref` or `computed` directly as `data`, not a one-time
+`data.value` snapshot. See the TanStack
 [FAQ](https://tanstack.com/table/latest/docs/faq) for the full explanation.
 
 ## Column widths
@@ -240,6 +264,7 @@ Import the individual built-in filter and sort functions that a table uses and r
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -253,6 +278,11 @@ Import the individual built-in filter and sort functions that a table uses and r
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dataTableSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dataTableControlsVue} />
 
     </Tab>
   </Tabs>
@@ -271,6 +301,9 @@ for the current page. When no rows match, render `TableEmpty` with
 When the API filters, sorts, or paginates records, keep those values in the feature's query state.
 Pass the returned page to TanStack Table and turn off the corresponding client-side transforms.
 This configuration replaces the client-side row models from the interactive example:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx
 const features = tableFeatures({
@@ -293,6 +326,73 @@ const table = useTable({
   state: { columnFilters, pagination, sorting },
 });
 ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```ts
+const features = tableFeatures({
+  columnFilteringFeature,
+  rowPaginationFeature,
+  rowSortingFeature,
+});
+
+const table = createTable({
+  features,
+  get data() { return response().rows; },
+  columns,
+  manualFiltering: true,
+  manualPagination: true,
+  manualSorting: true,
+  get rowCount() { return response().rowCount; },
+  onColumnFiltersChange: setColumnFilters,
+  onPaginationChange: setPagination,
+  onSortingChange: setSorting,
+  get state() {
+    return { columnFilters: columnFilters(), pagination: pagination(), sorting: sorting() };
+  },
+});
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import { computed } from 'vue';
+
+const features = tableFeatures({
+  columnFilteringFeature,
+  rowPaginationFeature,
+  rowSortingFeature,
+});
+
+const table = useTable({
+  features,
+  data: computed(() => response.value.rows),
+  columns,
+  manualFiltering: true,
+  manualPagination: true,
+  manualSorting: true,
+  rowCount: computed(() => response.value.rowCount),
+  onColumnFiltersChange: (next) => {
+    columnFilters.value = typeof next === 'function' ? next(columnFilters.value) : next;
+  },
+  onPaginationChange: (next) => {
+    pagination.value = typeof next === 'function' ? next(pagination.value) : next;
+  },
+  onSortingChange: (next) => {
+    sorting.value = typeof next === 'function' ? next(sorting.value) : next;
+  },
+  state: computed(() => ({
+    columnFilters: columnFilters.value,
+    pagination: pagination.value,
+    sorting: sorting.value,
+  })),
+});
+```
+
+  </Tab>
+</Tabs>
 
 For server-owned behavior, do not add the matching `filteredRowModel`, `sortedRowModel`, or
 `paginatedRowModel` to `features`: TanStack assumes that `response.rows` already reflects the query.

@@ -1,16 +1,16 @@
 ---
 title: Rsbuild
-description: Intégrez moduix à Rsbuild avec React ou Solid par paquet ou avec shadcn, avec les styles, les alias et les imports natifs.
+description: Intégrez moduix à Rsbuild avec React, Solid ou Vue par paquet ou avec shadcn, avec les styles, les alias et les imports natifs.
 ---
 
 # Rsbuild
 
-Ce guide part d’une application Rsbuild déjà configurée pour React ou Solid. Rsbuild prend en compte
+Ce guide part d’une application Rsbuild déjà configurée pour React, Solid ou Vue. Rsbuild prend en compte
 les alias TypeScript, il est donc inutile de les répéter dans `resolve.alias` pour utiliser shadcn.
 
 ## Choisir votre configuration
 
-- **Framework :** React ou Solid avec le plugin Rsbuild correspondant.
+- **Framework :** React, Solid ou Vue avec le plugin Rsbuild correspondant.
 - **Styles :** CSS Modules ou Tailwind CSS v4.
 - **Distribution :** paquet ou code source copié avec la CLI shadcn.
 
@@ -62,6 +62,26 @@ export function App() {
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
+
+```ts title="src/main.ts"
+import '@moduix/vue/reset.css';
+import '@moduix/vue/style.css';
+```
+
+```vue title="src/App.vue"
+<script setup lang="ts">
+import { Button } from '@moduix/vue/button';
+</script>
+
+<template>
+  <Button>Continue</Button>
+</template>
+```
+
+  </Tab>
 </Tabs>
 
 ## Installation avec la CLI shadcn
@@ -93,6 +113,11 @@ framework :
 <ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' }]} />
+
+  </Tab>
 </Tabs>
 
 Remplacez l’import de la feuille de styles du paquet par celui du fichier généré ; n’importez pas les
@@ -108,4 +133,4 @@ Démarrez le serveur de développement. Le composant moduix doit être mis en fo
 Rsbuild doivent résoudre `@/components/ui/*` après une installation depuis le registre.
 
 Consultez le guide Rsbuild pour [React](https://rsbuild.rs/guide/framework/react) ou la documentation
-officielle du [plugin Solid](https://rsbuild.rs/plugins/list/plugin-solid).
+officielle du [plugin Solid](https://rsbuild.rs/plugins/list/plugin-solid), [Vue](https://rsbuild.rs/guide/framework/vue).

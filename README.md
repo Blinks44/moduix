@@ -8,8 +8,8 @@
 # moduix
 
 Product-minded, multi-framework components built on [Ark UI](https://ark-ui.com/), with accessible
-behavior, explicit composition, and first-class CSS Modules and Tailwind styling tracks. React and
-Solid adapters ship today; the Vue adapter is in development and Svelte adapters are planned.
+behavior, explicit composition, and first-class CSS Modules and Tailwind styling tracks. React,
+Solid, and Vue adapters ship today; Svelte adapters are planned.
 
 moduix combines Ark UI primitives with considered defaults and a shadcn-inspired ownership model.
 Use the published package when you want managed updates, or add the component source
@@ -26,7 +26,7 @@ to your application through the hosted shadcn registry when you want to own it.
 | ------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | React   | [`@moduix/react`](https://www.npmjs.com/package/@moduix/react) | [`@moduix/react-tailwind`](https://www.npmjs.com/package/@moduix/react-tailwind) |
 | Solid   | [`@moduix/solid`](https://www.npmjs.com/package/@moduix/solid) | [`@moduix/solid-tailwind`](https://www.npmjs.com/package/@moduix/solid-tailwind) |
-| Vue     | `@moduix/vue` (in development)                                 | `@moduix/vue-tailwind` (in development)                                          |
+| Vue     | [`@moduix/vue`](https://www.npmjs.com/package/@moduix/vue)     | [`@moduix/vue-tailwind`](https://www.npmjs.com/package/@moduix/vue-tailwind)     |
 
 The package matrix grows with shipped adapters. Shared workflows and documentation are structured so
 Svelte can join without redefining the library around today's runtimes.
@@ -49,7 +49,8 @@ Svelte can join without redefining the library around today's runtimes.
 The example below uses the React CSS Modules package. Choose the shipped framework, styling track,
 and ownership model that matches your application in the [Quick start](https://moduix.dev/docs/quick-start).
 For Tailwind CSS v4, use [`@moduix/react-tailwind`](packages/react-tailwind/README.md) or
-[`@moduix/solid-tailwind`](packages/solid-tailwind/README.md); their README files include the
+[`@moduix/solid-tailwind`](packages/solid-tailwind/README.md), or
+[`@moduix/vue-tailwind`](packages/vue-tailwind/README.md); their README files include the
 required stylesheet import order and `@source` configuration.
 
 ### Use the published package
@@ -74,6 +75,10 @@ import '@moduix/react/style.css';
 ```
 
 Then import component subpaths and compose the flat named parts you need:
+
+Subpath imports also keep optional integrations separate. The root package barrel re-exports Chart;
+install `@tanstack/charts` if you import that barrel, since a bundler may resolve the integration
+even when you only use another component.
 
 ```tsx
 import {
@@ -175,6 +180,9 @@ pnpm run tsc:check
 Run `pnpm run build:registry` after changing files shipped by the registry.
 
 ## Contributing
+
+See [Release validation](RELEASE_CHECKLIST.md) for package, registry, documentation, and upstream
+checks required before a release.
 
 Contributions are welcome, especially focused component improvements, accessibility fixes, bug
 reports, and documentation corrections. Keep public component behavior, local component notes,

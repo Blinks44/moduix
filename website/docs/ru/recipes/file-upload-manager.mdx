@@ -5,6 +5,7 @@ description: Интерфейс для добавления вложений с 
 
 import { FileUploadManagerPreview } from '@/components/recipes/file-upload-manager-preview';
 import fileUploadManagerSolid from '../../../snippets/recipes/solid/file-upload-manager.tsx?raw';
+import fileUploadManagerVue from '../../../snippets/recipes/vue/file-upload-manager.vue?raw';
 
 # Загрузка файлов
 
@@ -17,7 +18,7 @@ import fileUploadManagerSolid from '../../../snippets/recipes/solid/file-upload-
 отслеживает прогресс загрузки. Подключите `onFileChange` к форме или запросу на загрузку в той части приложения,
 которой принадлежат эти данные.
 
-Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React, Solid и Vue с общими стилями.
 
 <ExampleFrame variant="recipe" clientOnly>
   <FileUploadManagerPreview />
@@ -30,6 +31,7 @@ import fileUploadManagerSolid from '../../../snippets/recipes/solid/file-upload-
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -43,6 +45,11 @@ import fileUploadManagerSolid from '../../../snippets/recipes/solid/file-upload-
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadManagerSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadManagerVue} />
 
     </Tab>
   </Tabs>

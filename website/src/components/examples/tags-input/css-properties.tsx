@@ -247,7 +247,7 @@ const tagsInputCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-tags-input-trigger-icon-size',
-    'var(--moduix-spacing-2-5)',
+    'var(--moduix-spacing-4)',
     'Controls trigger icon size.',
   ],
   [

@@ -5,6 +5,7 @@ description: Готовый к копированию рецепт moduix с д�
 
 import { ParallaxCardPreview } from '@/components/recipes/parallax-card-preview';
 import parallaxCardSolid from '../../../snippets/recipes/solid/parallax-card.tsx?raw';
+import parallaxCardVue from '../../../snippets/recipes/vue/parallax-card.vue?raw';
 
 # Карточка с параллаксом
 
@@ -17,7 +18,7 @@ import parallaxCardSolid from '../../../snippets/recipes/solid/parallax-card.tsx
 только на устройствах с точным указателем, поддерживающим наведение. Если такой указатель недоступен или
 пользователь включил уменьшение анимации, карточка остаётся статичной.
 
-Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React, Solid и Vue с общими стилями.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -32,6 +33,7 @@ import parallaxCardSolid from '../../../snippets/recipes/solid/parallax-card.tsx
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -45,6 +47,11 @@ import parallaxCardSolid from '../../../snippets/recipes/solid/parallax-card.tsx
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={parallaxCardSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={parallaxCardVue} />
 
     </Tab>
   </Tabs>

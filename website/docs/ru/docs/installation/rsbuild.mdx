@@ -1,16 +1,16 @@
 ---
 title: Rsbuild
-description: Подключение moduix к Rsbuild на React или Solid через пакеты или shadcn, включая стили, алиасы и нативные импорты.
+description: Подключение moduix к Rsbuild на React, Solid или Vue через пакеты или shadcn, включая стили, алиасы и нативные импорты.
 ---
 
 # Rsbuild
 
-В этом руководстве предполагается, что приложение Rsbuild уже настроено для React или Solid. Rsbuild
+В этом руководстве предполагается, что приложение Rsbuild уже настроено для React, Solid или Vue. Rsbuild
 сам учитывает алиасы из TypeScript, поэтому для shadcn не нужно повторять `resolve.alias`.
 
 ## Выберите вариант настройки
 
-- **Среда:** React или Solid с соответствующим плагином Rsbuild.
+- **Среда:** React, Solid или Vue с соответствующим плагином Rsbuild.
 - **Стилизация:** CSS Modules или Tailwind CSS v4.
 - **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
 
@@ -62,6 +62,26 @@ export function App() {
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
+
+```ts title="src/main.ts"
+import '@moduix/vue/reset.css';
+import '@moduix/vue/style.css';
+```
+
+```vue title="src/App.vue"
+<script setup lang="ts">
+import { Button } from '@moduix/vue/button';
+</script>
+
+<template>
+  <Button>Continue</Button>
+</template>
+```
+
+  </Tab>
 </Tabs>
 
 ## Установка через shadcn CLI
@@ -92,6 +112,11 @@ Rsbuild автоматически читает `compilerOptions.paths`. Доб�
 <ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' }]} />
+
+  </Tab>
 </Tabs>
 
 Замените импорт стилей из пакета на импорт сгенерированного файла. Подключать оба не нужно:
@@ -106,4 +131,4 @@ import '@/lib/moduix/styles/style.css';
 должны разрешать пути `@/components/ui/*` после установки из реестра.
 
 Настройка фреймворка описана в руководстве Rsbuild для [React](https://rsbuild.rs/guide/framework/react)
-и официальной документации [плагина Solid](https://rsbuild.rs/plugins/list/plugin-solid).
+и официальной документации [плагина Solid](https://rsbuild.rs/plugins/list/plugin-solid), [Vue](https://rsbuild.rs/guide/framework/vue).

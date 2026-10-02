@@ -1,16 +1,16 @@
 ---
 title: Vite
-description: Intégrez moduix à Vite avec React ou Solid par paquet ou avec shadcn, avec les styles globaux, les chemins TypeScript et les alias Vite.
+description: Intégrez moduix à Vite avec React, Solid ou Vue par paquet ou avec shadcn, avec les styles globaux, les chemins TypeScript et les alias Vite.
 ---
 
 # Vite
 
 Ce guide part d’une application existante, créée avec un modèle Vite pour React, React + TypeScript,
-Solid ou Solid + TypeScript.
+Vue, Vue + TypeScript, Solid ou Solid + TypeScript.
 
 ## Choisir votre configuration
 
-- **Framework :** React ou Solid avec le plugin Vite correspondant.
+- **Framework :** React, Solid ou Vue avec le plugin Vite correspondant.
 - **Styles :** CSS Modules ou Tailwind CSS v4.
 - **Distribution :** paquet ou code source copié avec la CLI shadcn.
 
@@ -59,6 +59,26 @@ import { Button } from '@moduix/solid/button';
 export function App() {
   return <Button>Continue</Button>;
 }
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
+
+```ts title="src/main.ts"
+import '@moduix/vue/reset.css';
+import '@moduix/vue/style.css';
+```
+
+```vue title="src/App.vue"
+<script setup lang="ts">
+import { Button } from '@moduix/vue/button';
+</script>
+
+<template>
+  <Button>Continue</Button>
+</template>
 ```
 
   </Tab>
@@ -127,6 +147,26 @@ export default defineConfig({
 <ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts title="vite.config.ts"
+import { fileURLToPath, URL } from 'node:url';
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+});
+```
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' }]} />
+
+  </Tab>
 </Tabs>
 
 Dans le point d’entrée du framework, importez la feuille de styles générée à la place de celle du
@@ -143,6 +183,13 @@ import '@/lib/moduix/styles/style.css';
   <Tab label="Solid" value="solid">
 
 ```tsx title="src/index.tsx"
+import '@/lib/moduix/styles/style.css';
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts title="src/main.ts"
 import '@/lib/moduix/styles/style.css';
 ```
 

@@ -5,6 +5,7 @@ description: Адаптивная шапка приложения с основ�
 
 import { AppHeaderPreview } from '@/components/recipes/app-header-preview';
 import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
+import appHeaderVue from '../../../snippets/recipes/vue/app-header.vue?raw';
 
 # Шапка приложения
 
@@ -24,7 +25,7 @@ import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
 - Отдельное меню `Menu` для основной навигации на узких экранах.
 - Доступные имена для кнопок только с иконками и резервное отображение аватара.
 
-Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React, Solid и Vue с общими стилями.
 
 <ExampleFrame variant="recipe" clientOnly>
   <AppHeaderPreview />
@@ -37,6 +38,7 @@ import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -50,6 +52,11 @@ import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={appHeaderSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={appHeaderVue} />
 
     </Tab>
   </Tabs>
@@ -68,7 +75,7 @@ import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
 Установите компоненты moduix, которые использует рецепт, и `lucide-react` для иконок. На вкладках
 «Компонент» и «Стили» находятся файлы, которые нужно скопировать в приложение.
 
-<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
+<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} vueDependencies={['@lucide/vue']} />
 
 ## Используйте рецепт в приложении
 

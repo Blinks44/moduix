@@ -6,8 +6,11 @@ description: Formatez les nombres selon une locale avec une devise, un pourcenta
 import FormatNumberBasic from '@/components/examples/format-number/basic.tsx';
 import FormatNumberOptions from '@/components/examples/format-number/options.tsx';
 import formatNumberSolidBasic from '../../../snippets/format-number/solid/basic.tsx?raw';
+import formatNumberVueBasic from '../../../snippets/format-number/vue/basic.vue?raw';
 import formatNumberSolidLocale from '../../../snippets/format-number/solid/locale.tsx?raw';
+import formatNumberVueLocale from '../../../snippets/format-number/vue/locale.vue?raw';
 import formatNumberSolidOptions from '../../../snippets/format-number/solid/options.tsx?raw';
+import formatNumberVueOptions from '../../../snippets/format-number/vue/options.vue?raw';
 
 `Format.Number` formate une valeur numérique selon les règles `Intl.NumberFormat` du navigateur. C’est un formateur en
 lecture seule, pas un champ de saisie.
@@ -23,6 +26,7 @@ Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -40,6 +44,13 @@ import { Format } from '@ark-ui/solid';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { Format } from '@ark-ui/vue';
+```
+
+  </Tab>
 </Tabs>
 
 ## Exemple de base
@@ -47,8 +58,8 @@ import { Format } from '@ark-ui/solid';
 Passez un nombre à `value`. Sans option de formatage, le résultat suit la locale active. `Format.Number` ne rend que
 du texte : ajoutez vous-même le libellé et la structure qui l’entourent.
 
-L’aperçu utilise l’implémentation React, car le site de documentation fonctionne avec React. L’onglet Solid contient
-la version Solid native du même exemple.
+L’aperçu utilise React, car le site de documentation fonctionne avec React. Les onglets Solid et Vue
+contiennent les versions natives du même exemple.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -63,6 +74,7 @@ la version Solid native du même exemple.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -75,6 +87,11 @@ la version Solid native du même exemple.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatNumberSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatNumberVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +116,7 @@ la version Solid native du même exemple.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -111,6 +129,11 @@ la version Solid native du même exemple.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatNumberSolidOptions} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatNumberVueOptions} />
 
     </Tab>
   </Tabs>
@@ -134,6 +157,7 @@ la locale par défaut est `en-US`. Importez le fournisseur depuis le package Ark
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -146,6 +170,11 @@ la locale par défaut est `en-US`. Importez le fournisseur depuis le package Ark
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatNumberSolidLocale} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatNumberVueLocale} />
 
     </Tab>
   </Tabs>

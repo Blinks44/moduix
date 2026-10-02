@@ -227,7 +227,7 @@
     --moduix-close-button-radius: var(--moduix-lightbox-close-icon-radius, var(--moduix-radius-sm));
     --moduix-close-button-icon-size: var(
       --moduix-lightbox-close-icon-glyph-size,
-      var(--moduix-spacing-3-5)
+      var(--moduix-spacing-4)
     );
     --moduix-close-button-color: var(
       --moduix-lightbox-close-icon-color,

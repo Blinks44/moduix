@@ -974,6 +974,8 @@
       "description": "moduix React Tailwind InputGroup component.",
       "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": [
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/close-button",
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
         "@moduix-react-tailwind/button",

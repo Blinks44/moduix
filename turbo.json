@@ -38,12 +38,7 @@
       "outputs": []
     },
     "moduix-docs#tsc:check": {
-      "dependsOn": [
-        "^tsc:check",
-        "@moduix/react#build",
-        "@moduix/solid#build",
-        "@moduix/vue#build"
-      ],
+      "dependsOn": ["^tsc:check", "^build"],
       "outputs": []
     }
   }

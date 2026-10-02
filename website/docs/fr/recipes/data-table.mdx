@@ -7,7 +7,11 @@ import { DataTable } from '@/components/recipes/data-table';
 import DataTableBasic from '@/components/recipes/data-table/basic';
 import InteractiveDataTable from '@/components/recipes/data-table/sorting-filtering-and-pagination';
 import dataTableSolid from '../../../snippets/recipes/solid/data-table.tsx?raw';
+import dataTableCatalogSolid from '../../../snippets/recipes/solid/data-table-component-catalog.tsx?raw';
+import dataTableVue from '../../../snippets/recipes/vue/data-table.vue?raw';
+import dataTableControlsVue from '../../../snippets/recipes/vue/data-table-controls.vue?raw';
 import dataTableBasicSolid from '../../../snippets/recipes/solid/data-table-basic.tsx?raw';
+import dataTableBasicVue from '../../../snippets/recipes/vue/data-table-basic.vue?raw';
 
 # Tableau de données
 
@@ -34,7 +38,7 @@ puis remplacez les enregistrements et les actions d’exemple par les données d
 N’utilisez que les contrôles nécessaires. Retirez la sélection, la visibilité des colonnes, les actions ou
 la pagination si ces fonctions ne sont pas utiles aux utilisateurs.
 
-Les aperçus interactifs utilisent le paquet React. Les onglets de code présentent des implémentations natives de TanStack Table v9 pour React et Solid.
+Les aperçus interactifs utilisent le paquet React. Les onglets de code présentent des implémentations natives de TanStack Table v9 pour React, Solid et Vue.
 
 <ExampleFrame variant="recipe" clientOnly>
   <DataTable />
@@ -47,6 +51,7 @@ Les aperçus interactifs utilisent le paquet React. Les onglets de code présent
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -59,7 +64,12 @@ Les aperçus interactifs utilisent le paquet React. Les onglets de code présent
     </Tab>
     <Tab value="solid">
 
-<CodeBlockRuntime lang="tsx" code={dataTableSolid} />
+<CodeBlockRuntime lang="tsx" code={dataTableCatalogSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dataTableVue} />
 
     </Tab>
   </Tabs>
@@ -82,6 +92,7 @@ Les aperçus interactifs utilisent le paquet React. Les onglets de code présent
   copiedSource
   dependencies={['@tanstack/react-table@^9.2.4', 'lucide-react']}
   solidDependencies={['@tanstack/solid-table@^9.2.4', 'lucide-solid']}
+  vueDependencies={['@tanstack/vue-table@^9.2.4', '@lucide/vue']}
 />
 
 ## Configuration
@@ -99,6 +110,11 @@ Installez TanStack Table dans l’application ou la fonctionnalité qui gère la
 <PackageManagerTabs command="install @tanstack/solid-table@^9.2.4" />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @tanstack/vue-table@^9.2.4" />
+
+  </Tab>
 </Tabs>
 
 `Table` est disponible dans le paquet `@moduix/<framework>/table` correspondant. TanStack Table n’y est volontairement pas inclus : les
@@ -108,8 +124,9 @@ applications qui n’ont besoin que d’un tableau sémantique ne chargent donc 
 
 Déclarez l’ensemble des fonctionnalités avec `tableFeatures()` et définissez des entrées
 `ColumnDef<typeof features, Payment>` typées. React crée l’instance avec `useTable` et utilise
-`flexRender`; Solid utilise `createTable` et `table.FlexRender`. Dans les deux cas, insérez les groupes
-d’en-têtes et les cellules visibles dans l’anatomie de tableau moduix.
+`flexRender`; Solid utilise `createTable` et `table.FlexRender`; Vue utilise `useTable` et le composant
+`FlexRender` avec `:header` ou `:cell`. Dans chaque adaptateur, insérez les groupes d’en-têtes et les
+cellules visibles dans l’anatomie de tableau moduix.
 
 L’exemple affiche les colonnes et les cellules visibles : il enregistre donc `columnVisibilityFeature`.
 N’ajoutez les autres fonctionnalités que lorsque le tableau en a besoin.
@@ -139,6 +156,7 @@ Ils ne font pas partie du code de la recette : ne les copiez pas dans votre appl
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -154,6 +172,11 @@ Ils ne font pas partie du code de la recette : ne les copiez pas dans votre appl
 <CodeBlockRuntime lang="tsx" code={dataTableBasicSolid} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dataTableBasicVue} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -164,10 +187,12 @@ formatage, l’alignement numérique, les actions de ligne et les filtres propre
 
 ## Références stables
 
-Dans les exemples, `features`, `payments` et `columns` sont définis en dehors des composants afin de fournir
-des entrées stables à TanStack Table. Avec React, mémorisez les tableaux dérivés au lieu de transmettre une
+Gardez des références stables pour `features`, les données et `columns` pendant la vie du tableau.
+React et Solid déclarent les données statiques en dehors des composants ; Vue les déclare une fois dans
+`<script setup>`. Avec React, mémorisez les tableaux dérivés au lieu de transmettre une
 nouvelle référence à `useTable` à chaque rendu. Avec Solid, exposez les données variables à `createTable` par
-le getter réactif `data`. Consultez la
+le getter réactif `data`. Avec Vue, passez directement une `ref` ou une valeur `computed` comme `data`,
+pas un instantané `data.value`. Consultez la
 [FAQ](https://tanstack.com/table/latest/docs/faq) de TanStack pour plus de détails.
 
 ## Largeur des colonnes
@@ -241,6 +266,7 @@ Importez les fonctions intégrées de filtrage et de tri utilisées par le table
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -254,6 +280,11 @@ Importez les fonctions intégrées de filtrage et de tri utilisées par le table
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dataTableSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dataTableControlsVue} />
 
     </Tab>
   </Tabs>
@@ -273,6 +304,9 @@ Lorsque l’API filtre, trie ou pagine les enregistrements, conservez ces param�
 la fonctionnalité. Transmettez la page renvoyée par l’API à TanStack Table et désactivez les transformations
 correspondantes côté client. Cette configuration remplace les modèles de lignes côté client de l’exemple
 interactif :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
 
 ```tsx
 const features = tableFeatures({
@@ -295,6 +329,73 @@ const table = useTable({
   state: { columnFilters, pagination, sorting },
 });
 ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```ts
+const features = tableFeatures({
+  columnFilteringFeature,
+  rowPaginationFeature,
+  rowSortingFeature,
+});
+
+const table = createTable({
+  features,
+  get data() { return response().rows; },
+  columns,
+  manualFiltering: true,
+  manualPagination: true,
+  manualSorting: true,
+  get rowCount() { return response().rowCount; },
+  onColumnFiltersChange: setColumnFilters,
+  onPaginationChange: setPagination,
+  onSortingChange: setSorting,
+  get state() {
+    return { columnFilters: columnFilters(), pagination: pagination(), sorting: sorting() };
+  },
+});
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import { computed } from 'vue';
+
+const features = tableFeatures({
+  columnFilteringFeature,
+  rowPaginationFeature,
+  rowSortingFeature,
+});
+
+const table = useTable({
+  features,
+  data: computed(() => response.value.rows),
+  columns,
+  manualFiltering: true,
+  manualPagination: true,
+  manualSorting: true,
+  rowCount: computed(() => response.value.rowCount),
+  onColumnFiltersChange: (next) => {
+    columnFilters.value = typeof next === 'function' ? next(columnFilters.value) : next;
+  },
+  onPaginationChange: (next) => {
+    pagination.value = typeof next === 'function' ? next(pagination.value) : next;
+  },
+  onSortingChange: (next) => {
+    sorting.value = typeof next === 'function' ? next(sorting.value) : next;
+  },
+  state: computed(() => ({
+    columnFilters: columnFilters.value,
+    pagination: pagination.value,
+    sorting: sorting.value,
+  })),
+});
+```
+
+  </Tab>
+</Tabs>
 
 Pour un comportement géré par le serveur, n’ajoutez pas les modèles `filteredRowModel`, `sortedRowModel` ou
 `paginatedRowModel` correspondants à `features` : TanStack suppose que `response.rows` reflète déjà la requête.

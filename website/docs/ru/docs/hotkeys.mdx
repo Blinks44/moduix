@@ -1,12 +1,14 @@
 ---
 title: Hotkeys
-description: Регистрируйте сочетания клавиш с учетом платформы, последовательности и метаданные команд в приложении на React или Solid.
+description: Регистрируйте сочетания клавиш с учетом платформы, последовательности и метаданные команд в приложении на React, Solid или Vue.
 ---
 
 import HotkeysBasicDemo from '@/components/examples/hotkeys/basic.tsx';
 import HotkeysSequencesDemo from '@/components/examples/hotkeys/sequences.tsx';
 import hotkeysSolidBasic from '../../../snippets/hotkeys/solid/basic.tsx?raw';
+import hotkeysVueBasic from '../../../snippets/hotkeys/vue/basic.vue?raw';
 import hotkeysSolidSequences from '../../../snippets/hotkeys/solid/sequences.tsx?raw';
+import hotkeysVueSequences from '../../../snippets/hotkeys/vue/sequences.vue?raw';
 
 `Hotkeys` - утилита Ark UI для регистрации команд с клавиатуры. Она слушает события документа или
 другого объекта, указанного через `target`, а приложение отвечает за действие команды и видимые
@@ -23,6 +25,7 @@ API доступен из корневой точки входа Ark UI для �
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -37,6 +40,13 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
 
 ```tsx
 import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/solid';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/vue';
 ```
 
   </Tab>
@@ -61,6 +71,7 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -73,6 +84,11 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hotkeysSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hotkeysVueBasic} />
 
     </Tab>
   </Tabs>
@@ -105,6 +121,7 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -117,6 +134,11 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hotkeysSolidSequences} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hotkeysVueSequences} />
 
     </Tab>
   </Tabs>
@@ -170,6 +192,8 @@ Hotkeys не рисует подсказку. Используйте `useFormatH
 В Solid значения, которые возвращают эти хуки, являются accessors: используйте `registrations()`,
 `pressedKeys()`, `isPressed()` и `platform()`. В React хуки возвращают текущее значение напрямую.
 Записанное сочетание можно сохранить через `stop`, отменить через `cancel` или удалить через `clear`.
+В Vue состояние хуков — это ref: в скрипте читайте `.value`, а в шаблоне ref верхнего уровня
+распаковывается автоматически.
 
 Hotkeys отвечает за регистрацию, сопоставление, форматирование, области и запись сочетаний. Побочные
 эффекты, навигация, хранение данных, интерфейс палитры команд, управление фокусом и доступный способ

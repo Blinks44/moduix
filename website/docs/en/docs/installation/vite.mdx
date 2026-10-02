@@ -1,17 +1,17 @@
 ---
 title: Vite
-description: Integrate moduix with a Vite React or Solid app through packages or shadcn, including global styles, TypeScript paths, and Vite aliases.
+description: Integrate moduix with a Vite React, Solid, or Vue app through packages or shadcn, including global styles, TypeScript paths, and Vite aliases.
 ---
 
 # Vite
 
-This guide assumes an existing app created from Vite's React, React + TypeScript, Solid, or Solid +
+This guide assumes an existing app created from Vite's React, React + TypeScript, Vue, Vue + TypeScript, Solid, or Solid +
 TypeScript template.
 
 
 ## Choose your setup
 
-- **Runtime:** React or Solid with the matching Vite plugin.
+- **Runtime:** React, Solid, or Vue with the matching Vite plugin.
 - **Styling:** CSS Modules or Tailwind CSS v4.
 - **Distribution:** a package or source copied with the shadcn CLI.
 
@@ -60,6 +60,26 @@ import { Button } from '@moduix/solid/button';
 export function App() {
   return <Button>Continue</Button>;
 }
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
+
+```ts title="src/main.ts"
+import '@moduix/vue/reset.css';
+import '@moduix/vue/style.css';
+```
+
+```vue title="src/App.vue"
+<script setup lang="ts">
+import { Button } from '@moduix/vue/button';
+</script>
+
+<template>
+  <Button>Continue</Button>
+</template>
 ```
 
   </Tab>
@@ -138,6 +158,31 @@ export default defineConfig({
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts title="vite.config.ts"
+import { fileURLToPath, URL } from 'node:url';
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+});
+```
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 Import the generated foundation stylesheet from the framework entry point instead of the package
@@ -154,6 +199,13 @@ import '@/lib/moduix/styles/style.css';
   <Tab label="Solid" value="solid">
 
 ```tsx title="src/index.tsx"
+import '@/lib/moduix/styles/style.css';
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts title="src/main.ts"
 import '@/lib/moduix/styles/style.css';
 ```
 

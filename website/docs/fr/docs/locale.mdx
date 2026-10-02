@@ -1,13 +1,17 @@
 ---
 title: Locale
-description: Fournissez une locale et une direction d’écriture aux formateurs Ark et au contenu localisé, avec React ou Solid.
+description: Fournissez une locale et une direction d’écriture aux formateurs Ark et au contenu localisé, avec React, Solid ou Vue.
 ---
 
 import LocaleBasic from '@/components/examples/locale/basic.tsx';
 import LocaleContext from '@/components/examples/locale/context.tsx';
 import localeSolidBasic from '../../../snippets/locale/solid/basic.tsx?raw';
+import localeVueBasic from '../../../snippets/locale/vue/basic.vue?raw';
 import localeSolidContext from '../../../snippets/locale/solid/context.tsx?raw';
+import localeVueContext from '../../../snippets/locale/vue/context.vue?raw';
+import localeVueContextHelper from '../../../snippets/locale/vue/LocaleSection.vue?raw';
 import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw';
+import localeVueDocument from '../../../snippets/locale/vue/document.vue?raw';
 
 `LocaleProvider` fournit une locale et sa direction d’écriture à un sous-arbre. Les formateurs Ark et le contenu
 localisé utilisent ce contexte.
@@ -24,6 +28,7 @@ d’Ark UI :
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -41,10 +46,17 @@ import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
+```
+
+  </Tab>
 </Tabs>
 
 `Format.Number`, `Format.Time` et les autres utilitaires `Format` restent importés depuis `@ark-ui/react` ou
-`@ark-ui/solid`.
+`@ark-ui/solid` ou `@ark-ui/vue`.
 
 ## Définir une locale
 
@@ -64,6 +76,7 @@ locale lisent alors le même contexte.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -78,6 +91,11 @@ locale lisent alors le même contexte.
 <CodeBlockRuntime lang="tsx" code={localeSolidBasic} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={localeVueBasic} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
@@ -89,7 +107,8 @@ et `ltr`.
 
 `useLocaleContext` renvoie `locale` et `dir` depuis le provider le plus proche. Utilisez ces valeurs lorsque votre propre
 structure doit reprendre la même langue et la même direction que les composants qui tiennent compte de la locale. React
-lit directement les valeurs ; Solid les lit via un accessor.
+lit directement les valeurs ; Solid les lit via un accessor. Vue renvoie une ref calculée : utilisez
+`.value` dans le code setup ; le template la déballe automatiquement.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -104,6 +123,7 @@ lit directement les valeurs ; Solid les lit via un accessor.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -116,6 +136,13 @@ lit directement les valeurs ; Solid les lit via un accessor.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={localeSolidContext} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={localeVueContext} title="context.vue" />
+
+<CodeBlockRuntime lang="vue" code={localeVueContextHelper} title="LocaleSection.vue" />
 
     </Tab>
   </Tabs>
@@ -134,6 +161,7 @@ document :
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -146,6 +174,11 @@ document :
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={localeSolidDocument} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={localeVueDocument} />
 
     </Tab>
   </Tabs>

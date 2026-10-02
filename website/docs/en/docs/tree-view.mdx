@@ -20,12 +20,18 @@ import treeViewSolidFileIcons from '../../../snippets/tree-view/solid/file-icons
 import treeViewSolidLinks from '../../../snippets/tree-view/solid/links.tsx?raw';
 import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-provider.tsx?raw';
 import treeViewVueAsyncLoading from '../../../snippets/tree-view/vue/async-loading.vue?raw';
+import treeViewVueAsyncLoadingNode from '../../../snippets/tree-view/vue/AsyncLoadingTreeNode.vue?raw';
 import treeViewVueBasic from '../../../snippets/tree-view/vue/basic.vue?raw';
+import treeViewVueBasicNode from '../../../snippets/tree-view/vue/BasicTreeNode.vue?raw';
 import treeViewVueCheckboxes from '../../../snippets/tree-view/vue/checkboxes.vue?raw';
+import treeViewVueCheckboxesNode from '../../../snippets/tree-view/vue/CheckboxesTreeNode.vue?raw';
 import treeViewVueControlledSelection from '../../../snippets/tree-view/vue/controlled-selection.vue?raw';
 import treeViewVueFileIcons from '../../../snippets/tree-view/vue/file-icons.vue?raw';
+import treeViewVueFileIconsNode from '../../../snippets/tree-view/vue/FileIconsTreeNode.vue?raw';
 import treeViewVueLinks from '../../../snippets/tree-view/vue/links.vue?raw';
+import treeViewVueLinksNode from '../../../snippets/tree-view/vue/LinksTreeNode.vue?raw';
 import treeViewVueRootProvider from '../../../snippets/tree-view/vue/root-provider.vue?raw';
+import treeViewVueRootProviderNode from '../../../snippets/tree-view/vue/RootProviderTreeNode.vue?raw';
 
 ## API Reference
 
@@ -69,6 +75,8 @@ React, Solid, and Vue use the same flat TreeView names; the examples below keep 
     <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={treeViewVueBasic} />
+
+<CodeBlockRuntime lang="vue" code={treeViewVueBasicNode} title="BasicTreeNode.vue" />
 
     </Tab>
   </Tabs>
@@ -196,6 +204,8 @@ child must accept the Ark props so focus and keyboard behavior stay intact.
 
 <CodeBlockRuntime lang="vue" code={treeViewVueLinks} />
 
+<CodeBlockRuntime lang="vue" code={treeViewVueLinksNode} title="LinksTreeNode.vue" />
+
     </Tab>
   </Tabs>
 </div>
@@ -236,6 +246,8 @@ For a branch with a known `childrenCount`, load its children with `loadChildren`
     <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={treeViewVueAsyncLoading} />
+
+<CodeBlockRuntime lang="vue" code={treeViewVueAsyncLoadingNode} title="AsyncLoadingTreeNode.vue" />
 
     </Tab>
   </Tabs>
@@ -282,6 +294,8 @@ slots for the mixed and unchecked states. In Ark Vue 5.39.2, the declared `indet
 
 <CodeBlockRuntime lang="vue" code={treeViewVueCheckboxes} />
 
+<CodeBlockRuntime lang="vue" code={treeViewVueCheckboxesNode} title="CheckboxesTreeNode.vue" />
+
     </Tab>
   </Tabs>
 </div>
@@ -322,6 +336,8 @@ separate so it remains the only expand and collapse affordance.
     <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={treeViewVueFileIcons} />
+
+<CodeBlockRuntime lang="vue" code={treeViewVueFileIconsNode} title="FileIconsTreeNode.vue" />
 
     </Tab>
   </Tabs>
@@ -409,6 +425,8 @@ or `collapse()`. Pass that state to `TreeViewRootProvider` instead of rendering 
     <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={treeViewVueRootProvider} />
+
+<CodeBlockRuntime lang="vue" code={treeViewVueRootProviderNode} title="RootProviderTreeNode.vue" />
 
     </Tab>
   </Tabs>

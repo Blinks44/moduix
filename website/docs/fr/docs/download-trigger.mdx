@@ -6,7 +6,9 @@ description: Déclenchez dans le navigateur le téléchargement de chaînes, de 
 import DownloadTriggerBasic from '@/components/examples/download-trigger/basic.tsx';
 import DownloadTriggerAsyncData from '@/components/examples/download-trigger/async-data.tsx';
 import downloadTriggerSolidBasic from '../../../snippets/download-trigger/solid/basic.tsx?raw';
+import downloadTriggerVueBasic from '../../../snippets/download-trigger/vue/basic.vue?raw';
 import downloadTriggerSolidAsyncData from '../../../snippets/download-trigger/solid/async-data.tsx?raw';
+import downloadTriggerVueAsyncData from '../../../snippets/download-trigger/vue/async-data.vue?raw';
 
 Utilisez `DownloadTrigger` d’Ark UI pour transformer des données de fichier en téléchargement dans le navigateur.
 Associez-le à un `Button` moduix lorsque l’action doit s’intégrer au reste de votre interface.
@@ -22,6 +24,7 @@ Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -39,6 +42,13 @@ import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { DownloadTrigger } from '@ark-ui/vue/download-trigger';
+```
+
+  </Tab>
 </Tabs>
 
 ## Exemple de base
@@ -46,7 +56,7 @@ import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
 Passez les données déjà prêtes via `data`. La prop accepte une chaîne, un `Blob` ou un `File`. `fileName` et `mimeType`
 décrivent le fichier enregistré par le navigateur.
 
-L’aperçu utilise React. Les onglets de code contiennent des exemples natifs React et Solid avec le même comportement.
+L’aperçu utilise React. Les onglets de code contiennent des exemples natifs React, Solid et Vue avec le même comportement.
 
 <ExampleFrame clientOnly variant="component">
   <PreviewFrame maxWidth="sm">
@@ -61,6 +71,7 @@ L’aperçu utilise React. Les onglets de code contiennent des exemples natifs R
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -73,6 +84,11 @@ L’aperçu utilise React. Les onglets de code contiennent des exemples natifs R
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={downloadTriggerSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={downloadTriggerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -98,6 +114,7 @@ moment du clic et attend la résolution de la promesse renvoyée avant d’enreg
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -110,6 +127,11 @@ moment du clic et attend la résolution de la promesse renvoyée avant d’enreg
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={downloadTriggerSolidAsyncData} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={downloadTriggerVueAsyncData} />
 
     </Tab>
   </Tabs>
@@ -132,7 +154,8 @@ Faites correspondre l’extension de `fileName` au contenu et définissez le `mi
 
 Par défaut, `DownloadTrigger` rend un bouton natif. Utilisez `asChild` lorsqu’un `Button` moduix doit posséder l’élément
 bouton et ses états. React utilise une prop `asChild` booléenne avec un élément enfant ; Solid utilise une prop `asChild`
-sous forme de fonction de rendu. Dans les deux cas, le DOM contient un seul bouton accessible.
+sous forme de fonction de rendu. Vue utilise `as-child` avec un seul composant bouton dans le slot par
+défaut. Chaque composition conserve un seul bouton accessible dans le DOM.
 
 Pour les images QR, utilisez `QrCodeDownloadTrigger` sur la page [QrCode](/docs/qr-code). Il récupère l’image du QR code
 le plus proche et l’exporte avec les métadonnées de fichier requises.

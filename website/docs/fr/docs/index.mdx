@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: Architecture multi-framework de moduix, prise en charge de React et Solid, approches de style, modes d’intégration et sections de la documentation.
+description: Architecture multi-framework de moduix, prise en charge de React, Solid et Vue, approches de style, modes d’intégration et sections de la documentation.
 ---
 
 import { OwnershipLayers } from '@/components/docs/ownership-layers';
@@ -17,14 +17,14 @@ afficher votre premier composant.
 
 ## Prise en charge des frameworks
 
-React et Solid sont disponibles dès maintenant. Vue et Svelte sont prévus et adopteront les mêmes
-contrats de composants et les mêmes approches de style lors de leur sortie.
+React, Solid et Vue sont disponibles avec des API natives et les deux approches de style. Svelte
+est prévu et suivra les mêmes contrats de composants et les mêmes choix de style.
 
 | Framework | Statut | Documentation |
 | --------- | ------ | ------------- |
 | React | Disponible | Code React natif et aperçus interactifs |
 | Solid | Disponible | Code Solid natif aux côtés de l’aperçu React |
-| Vue | Prévu | Ajouté après la sortie de l’adaptateur |
+| Vue | Disponible | Code Vue SFC natif aux côtés de l’aperçu React |
 | Svelte | Prévu | Ajouté après la sortie de l’adaptateur |
 
 Les onglets par framework apparaissent uniquement lorsque le code diffère réellement. Les concepts
@@ -38,7 +38,7 @@ le registre shadcn si vous voulez conserver le code source des composants, les s
 
 | Mode d’installation | Imports | À privilégier si |
 | --- | --- | --- |
-| Paquet | `@moduix/react/*` ou `@moduix/solid/*` | Vous voulez des mises à jour centralisées et un minimum de code géré par l’application. |
+| Paquet | `@moduix/react/*`, `@moduix/solid/*` ou `@moduix/vue/*` | Vous voulez des mises à jour centralisées et un minimum de code géré par l’application. |
 | Registre shadcn avec code source dans le projet | `@/components/ui/*` | Vous voulez garder la main sur le code source et ses modifications locales. |
 
 Les deux approches exposent la même API, native pour le framework choisi, et le même système de
@@ -64,10 +64,15 @@ source :
       <td><code>@moduix/solid</code></td>
       <td><code>@moduix/solid-tailwind</code></td>
     </tr>
+    <tr>
+      <th scope="row">Vue</th>
+      <td><code>@moduix/vue</code></td>
+      <td><code>@moduix/vue-tailwind</code></td>
+    </tr>
   </tbody>
 </table>
 
-Les paquets CSS Modules et Tailwind sont disponibles pour React et Solid. Consultez la page du
+Les paquets CSS Modules et Tailwind sont disponibles pour React, Solid et Vue. Consultez la page du
 composant visé pour connaître précisément les paquets et les commandes de registre disponibles. Le
 [Démarrage rapide](/docs/quick-start) explique la configuration complète de chaque approche.
 
@@ -79,8 +84,9 @@ Les plages déclarées dans `peerDependencies` définissent les versions prises 
 | ----------- | ------------------------- | ----------- |
 | React et React DOM | 18 et 19 | `@moduix/react`, `@moduix/react-tailwind` |
 | Solid | 1.9 et versions 1.x ultérieures | `@moduix/solid`, `@moduix/solid-tailwind` |
+| Vue | 3.5 et versions ultérieures de la branche 3.x | `@moduix/vue`, `@moduix/vue-tailwind` |
 | Tailwind CSS | 4.x | Paquets et registres Tailwind uniquement |
-| Ark UI | `^5.37.2` | Le paquet React ou Solid correspondant |
+| Ark UI | `^5.37.2` | Le paquet React, Solid ou Vue correspondant |
 
 Votre gestionnaire de paquets vérifie ces plages à l’installation. Les paquets CSS Modules ne
 requièrent pas Tailwind CSS.
@@ -107,7 +113,7 @@ L’influence de shadcn se retrouve dans des choix pratiques :
 - un registre shadcn pour installer le code source dans le projet.
 
 Cette influence ne lie pas CSS Modules à Tailwind et ne remplace pas l’anatomie Ark par des enveloppes
-propres à shadcn. Les paquets Tailwind sont disponibles pour les composants déjà portés.
+propres à shadcn. Les deux approches de style proposent le même catalogue de composants.
 
 ## Comment fonctionnent les styles
 
@@ -165,7 +171,7 @@ avec le code copié. Consultez [Tokens](/docs/tokens) pour la hiérarchie compl�
   />
   <Card
     title="Recettes"
-    description="Copiez des scénarios produit complets avec des implémentations natives pour React et Solid."
+    description="Copiez des scénarios produit complets avec des implémentations natives pour React, Solid et Vue."
     href="/recipes"
   />
 </Cards>

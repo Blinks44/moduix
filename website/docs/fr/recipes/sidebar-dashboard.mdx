@@ -5,6 +5,7 @@ description: Une structure de tableau de bord prête à copier, avec navigation 
 
 import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-preview';
 import sidebarDashboardSolid from '../../../snippets/recipes/solid/sidebar-dashboard.tsx?raw';
+import sidebarDashboardVue from '../../../snippets/recipes/vue/sidebar-dashboard.vue?raw';
 
 # Tableau de bord avec navigation latérale
 
@@ -22,7 +23,7 @@ Il s’agit d’une composition prête à copier, et non d’un composant `Sideb
 moduix. Copiez le composant et le CSS ci-dessous, puis remplacez les liens, libellés et
 données de démonstration.
 
-L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React, Solid et Vue avec les mêmes styles.
 
 <ExampleFrame variant="recipe" clientOnly>
   <SidebarDashboardPreview />
@@ -35,6 +36,7 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -50,6 +52,11 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
 <CodeBlockRuntime lang="tsx" code={sidebarDashboardSolid} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarDashboardVue} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -63,7 +70,7 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
 
 ## Installation
 
-<ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
+<ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} vueDependencies={['@lucide/vue']} />
 
 ## Utiliser la recette dans votre application
 

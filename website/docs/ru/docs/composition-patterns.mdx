@@ -5,9 +5,13 @@ description: Композиция частей Moduix в разных фрейм
 
 import reactAsChild from '../../../snippets/composition-patterns/react/as-child.tsx?raw';
 import solidAsChild from '../../../snippets/composition-patterns/solid/as-child.tsx?raw';
+import VueAsChild from '../../../snippets/composition-patterns/vue/as-child.vue?raw';
 import reactExternalState from '../../../snippets/composition-patterns/react/external-state.tsx?raw';
 import solidExternalState from '../../../snippets/composition-patterns/solid/external-state.tsx?raw';
+import VueExternalState from '../../../snippets/composition-patterns/vue/external-state.vue?raw';
 import solidProductDialog from '../../../snippets/composition-patterns/solid/product-dialog.tsx?raw';
+import VueProductDialog from '../../../snippets/composition-patterns/vue/product-dialog.vue?raw';
+import VueProductDialogHelper from '../../../snippets/composition-patterns/vue/product-dialog.ts?raw';
 
 # Паттерны композиции
 
@@ -54,7 +58,8 @@ Dialog
 
 Используйте `asChild`, когда существующий элемент должен остаться DOM-узлом, а часть Moduix только
 добавляет к нему поведение. React принимает единственный дочерний элемент. Solid принимает render
-function, а свойства Ark нужно передать возвращаемому элементу.
+function, а свойства Ark нужно передать возвращаемому элементу. В Vue используйте `as-child` с ровно
+одним элементом или компонентом в слоте по умолчанию.
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -65,6 +70,11 @@ function, а свойства Ark нужно передать возвращае
   <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidAsChild} />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueAsChild} />
 
   </Tab>
 </Tabs>
@@ -95,6 +105,15 @@ export { Dialog, DialogTrigger, DialogContent };
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/vue/dialog';
+
+export { Dialog, DialogTrigger, DialogContent };
+```
+
+  </Tab>
 </Tabs>
 
 Так переход между импортами из пакета и кодом из реестра останется простым.
@@ -116,6 +135,13 @@ export { Dialog, DialogTrigger, DialogContent };
     <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidProductDialog} />
+
+    </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueProductDialog} title="product-dialog.vue" />
+
+<CodeBlockRuntime lang="ts" code={VueProductDialogHelper} title="product-dialog.ts" />
 
     </Tab>
     <Tab label="Styles" value="styles">
@@ -146,6 +172,11 @@ export { Dialog, DialogTrigger, DialogContent };
   <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidExternalState} />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueExternalState} />
 
   </Tab>
 </Tabs>

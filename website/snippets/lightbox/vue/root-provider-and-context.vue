@@ -7,9 +7,8 @@ import {
   LightboxPositioner,
   LightboxRootProvider,
   useLightbox,
-  useLightboxContext,
 } from '@moduix/vue/lightbox';
-import { defineComponent } from 'vue';
+import LightboxStatus from './LightboxStatus.vue';
 
 const image = {
   src: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=90',
@@ -17,12 +16,6 @@ const image = {
 };
 
 const lightbox = useLightbox();
-const LightboxStatus = defineComponent({
-  setup() {
-    return { dialog: useLightboxContext() };
-  },
-  template: '<output>Preview is {{ dialog.open ? "open" : "closed" }}</output>',
-});
 </script>
 
 <template>

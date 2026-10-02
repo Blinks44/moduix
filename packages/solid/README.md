@@ -33,6 +33,10 @@ The optional `Chart` component also requires its TanStack peer dependency:
 pnpm add @tanstack/charts
 ```
 
+Prefer component subpaths when you do not use Chart. The root barrel also re-exports Chart; install
+`@tanstack/charts` when importing that barrel, since a bundler may resolve the integration even if
+you only use another component.
+
 ## Add styles
 
 Import the shared foundation stylesheet once in your application entry point:

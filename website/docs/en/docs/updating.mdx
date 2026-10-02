@@ -24,9 +24,10 @@ Keep framework and styling choices explicit:
 | --- | --- | --- |
 | React | `@moduix/react` | `@moduix/react-tailwind` |
 | Solid | `@moduix/solid` | `@moduix/solid-tailwind` |
+| Vue | `@moduix/vue` | `@moduix/vue-tailwind` |
 
-Do not update a similarly named adapter that the application does not use. Tailwind packages may have
-a smaller component catalog while ports are still in progress.
+Do not update a similarly named adapter that the application does not use. React, Solid, and Vue
+offer the same component catalog in both CSS Modules and Tailwind variants.
 
 ## Update packages
 
@@ -48,6 +49,11 @@ manager already used by the application.
 <PackageManagerTabs command="install @moduix/solid@latest @ark-ui/solid@latest" />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue@latest @ark-ui/vue@latest" />
+
+  </Tab>
 </Tabs>
 
   </Tab>
@@ -62,6 +68,11 @@ manager already used by the application.
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="install @moduix/solid-tailwind@latest @ark-ui/solid@latest" />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue-tailwind@latest @ark-ui/vue@latest" />
 
   </Tab>
 </Tabs>
@@ -81,6 +92,7 @@ the registry namespace that matches both axes:
 | --- | --- | --- |
 | React | `@moduix-react` | `@moduix-react-tailwind` |
 | Solid | `@moduix-solid` | `@moduix-solid-tailwind` |
+| Vue | `@moduix-vue` | `@moduix-vue-tailwind` |
 
 Preview a component before changing local files: `view` prints the upstream item, while `add
 --dry-run` and `add --diff` show what an update would write:

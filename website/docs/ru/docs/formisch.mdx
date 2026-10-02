@@ -5,6 +5,7 @@ description: Подключайте компоненты Moduix к Formisch и V
 
 import ProjectForm from '@/components/examples/formisch/complete-form.tsx';
 import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete-form.tsx?raw';
+import formischVueCompleteForm from '../../../snippets/formisch/vue/complete-form.vue?raw';
 
 # Formisch
 
@@ -13,7 +14,7 @@ import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete
 
 ## Поддержка фреймворков
 
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
   <Tab value="react">
 
 <PackageManagerTabs command="install @formisch/react valibot" />
@@ -28,6 +29,13 @@ import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete
 
 В Solid хранилище создается через `createForm`, а составные компоненты обновляются через
 `field.onInput`.
+
+  </Tab>
+  <Tab value="vue">
+
+<PackageManagerTabs command="install @formisch/vue valibot" />
+
+Vue использует `useForm` и scoped slot компонента `Field`. Присваивайте значения в `field.input`; перед регистрацией фокуса извлекайте `$el` из ссылки на компонент.
 
   </Tab>
 </Tabs>
@@ -70,7 +78,7 @@ import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/formisch/complete-form.tsx"
@@ -80,6 +88,11 @@ import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formischSolidCompleteForm} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formischVueCompleteForm} />
 
     </Tab>
   </Tabs>
@@ -103,6 +116,7 @@ import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete
 ## Фокус и поведение
 
 - Передавайте `field.props.ref`, `onFocus` и `onBlur` элементу, который действительно получает фокус.
-- В React используйте `field.onChange` для составных значений, а в Solid `field.onInput`.
+- В React используйте `field.onChange` для составных значений, а в Solid `field.onInput`. В Vue обновляйте
+  `field.input` из деталей события изменения значения или используйте `v-model` для нативных значений.
 - Оставляйте значение управляемым, чтобы `initialInput`, `setInput` и `reset` обновляли интерфейс.
 - Не передавайте объект деталей Ark нативному обработчику событий из `field.props`.

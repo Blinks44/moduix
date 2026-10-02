@@ -9,7 +9,7 @@ Use the public moduix documentation as the source of truth. Preserve the project
 styling track, and ownership model. Do not migrate between framework adapters, CSS Modules and
 Tailwind, or package-managed and copy-owned code unless the user asks.
 
-moduix is multi-framework by design. React and Solid adapters ship today; Vue and Svelte are planned.
+moduix is multi-framework by design. React, Solid, and Vue adapters ship today; Svelte is planned.
 Never present a planned adapter as available. Discover the current package or registry before choosing
 commands, imports, or examples.
 
@@ -24,6 +24,8 @@ changing code. Select the matching package or registry:
 | React   | registry  | `@moduix-react` | `@moduix-react-tailwind` |
 | Solid   | package   | `@moduix/solid` | `@moduix/solid-tailwind` |
 | Solid   | registry  | `@moduix-solid` | `@moduix-solid-tailwind` |
+| Vue     | package   | `@moduix/vue`   | `@moduix/vue-tailwind`   |
+| Vue     | registry  | `@moduix-vue`   | `@moduix-vue-tailwind`   |
 
 Assume the application is already configured for its framework. For a Tailwind track, also confirm
 that Tailwind CSS v4 is already configured. Do not scaffold a framework, install Tailwind, or
@@ -35,8 +37,8 @@ choose between package-managed and copy-owned components.
 Read [references/discovery.md](references/discovery.md), then:
 
 1. Read the canonical moduix page for the component, recipe, or setup task.
-2. Confirm that the component exists in the selected package or registry. The CSS Modules and
-   Tailwind catalogues may differ while components are being ported.
+2. Confirm that the component exists in the selected package or registry. React, Solid, and Vue
+   provide the same component catalog in both styling variants; discover future adapters separately.
 3. Prefer a documented component or recipe to custom UI when it fits. Recipes are documentation,
    not registry items; install their listed components and keep application behavior in the app.
 
@@ -61,7 +63,7 @@ Read [references/discovery.md](references/discovery.md), then:
 @source '../node_modules/@moduix/react-tailwind/dist/components';
 ```
 
-Replace `react-tailwind` with `solid-tailwind` for Solid.
+Replace `react-tailwind` with `solid-tailwind` for Solid or `vue-tailwind` for Vue.
 
 ## Use copy-owned components
 

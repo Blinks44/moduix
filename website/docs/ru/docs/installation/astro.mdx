@@ -1,17 +1,17 @@
 ---
 title: Astro
-description: Подключение компонентов moduix для React и Solid к Astro через пакеты или shadcn, включая стили, алиасы и клиентские директивы.
+description: Подключение компонентов moduix для React, Solid и Vue к Astro через пакеты или shadcn, включая стили, алиасы и клиентские директивы.
 ---
 
 # Astro
 
-Руководство предполагает существующий Astro-проект с уже настроенной официальной интеграцией React
-или Solid. По умолчанию компонент превращается в статический HTML. Чтобы он работал в браузере,
+Руководство предполагает существующий Astro-проект с уже настроенной официальной интеграцией React, Solid
+или Vue. По умолчанию компонент превращается в статический HTML. Чтобы он работал в браузере,
 добавьте директиву `client:*`.
 
 ## Выберите вариант настройки
 
-- **Среда:** React или Solid с соответствующей официальной интеграцией Astro.
+- **Среда:** React, Solid или Vue с соответствующей официальной интеграцией Astro.
 - **Стилизация:** CSS Modules или Tailwind CSS v4.
 - **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
 
@@ -38,6 +38,11 @@ description: Подключение компонентов moduix для React �
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
 
   </Tab>
 </Tabs>
@@ -73,6 +78,20 @@ import '@moduix/solid/style.css';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```astro title="src/layouts/Layout.astro"
+---
+import '@moduix/vue/reset.css';
+import '@moduix/vue/style.css';
+---
+
+<html lang="en">
+  <body><slot /></body>
+</html>
+```
+
+  </Tab>
 </Tabs>
 
 Создайте компонент для выбранного фреймворка:
@@ -100,9 +119,25 @@ export function ContinueButton() {
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```vue title="src/components/ContinueButton.vue"
+<script setup lang="ts">
+import { Button } from '@moduix/vue/button';
+</script>
+
+<template>
+  <Button>Continue</Button>
+</template>
+```
+
+  </Tab>
 </Tabs>
 
 Импортируйте компонент непосредственно в страницу Astro и добавьте клиентскую директиву:
+
+<Tabs groupId="framework">
+  <Tab label="React / Solid" value="react-solid">
 
 ```astro title="src/pages/index.astro"
 ---
@@ -111,6 +146,20 @@ import { ContinueButton } from '../components/ContinueButton';
 
 <ContinueButton client:load />
 ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```astro title="src/pages/index.astro"
+---
+import ContinueButton from '../components/ContinueButton.vue';
+---
+
+<ContinueButton client:load />
+```
+
+  </Tab>
+</Tabs>
 
 Без директивы `client:*` Astro отправит статический HTML без клиентского JavaScript компонента.
 Используйте `client:load` для сразу доступных элементов управления, `client:idle`, если интерактивность
@@ -134,6 +183,11 @@ import { ContinueButton } from '../components/ContinueButton';
 <ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' }]} />
+
+  </Tab>
 </Tabs>
 
 Импортируйте сгенерированный компонент непосредственно в файл `.astro`, а уже затем добавьте
@@ -147,4 +201,4 @@ import { ContinueButton } from '../components/ContinueButton';
 
 Подробности есть в руководстве Astro по [компонентам разных фреймворков](https://docs.astro.build/en/guides/framework-components/)
 и официальных инструкциях для [React](https://docs.astro.build/en/guides/integrations-guide/react/)
-и [Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/).
+и [Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/) / [Vue](https://docs.astro.build/en/guides/integrations-guide/vue/).

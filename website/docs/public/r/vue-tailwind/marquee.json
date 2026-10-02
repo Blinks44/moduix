@@ -1,0 +1,53 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "marquee",
+  "title": "Marquee",
+  "description": "moduix Vue Tailwind Marquee component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/marquee/Marquee.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MarqueeRoot as ArkMarqueeRoot } from '@ark-ui/vue/marquee';\nimport type { MarqueeRootProps } from '@ark-ui/vue/marquee';\nimport { cva } from 'class-variance-authority';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ MarqueeRootProps {\n  class?: HTMLAttributes['class'];\n  side?: MarqueeRootProps['side'];\n}\n\nconst { class: className, side } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst marqueeRootVariants = cva('group relative w-full overflow-hidden text-foreground', {\n  variants: {\n    orientation: {\n      horizontal: '',\n      vertical: 'h-60',\n    },\n  },\n  defaultVariants: {\n    orientation: 'horizontal',\n  },\n});\n</script>\n\n<template>\n  <ArkMarqueeRoot\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        marqueeRootVariants({\n          orientation: side === 'top' || side === 'bottom' ? 'vertical' : 'horizontal',\n        }),\n        className,\n      )\n    \"\n    :side=\"side\"\n    data-slot=\"marquee-root\"\n  >\n    <slot />\n  </ArkMarqueeRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/marquee/Marquee.vue"
+    },
+    {
+      "path": "src/components/marquee/MarqueeRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MarqueeRootProvider as ArkMarqueeRootProvider } from '@ark-ui/vue/marquee';\nimport type { MarqueeRootProviderProps } from '@ark-ui/vue/marquee';\nimport { cva } from 'class-variance-authority';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ MarqueeRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: MarqueeRootProviderProps['value'];\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst marqueeRootVariants = cva('group relative w-full overflow-hidden text-foreground', {\n  variants: {\n    orientation: {\n      horizontal: '',\n      vertical: 'h-60',\n    },\n  },\n  defaultVariants: {\n    orientation: 'horizontal',\n  },\n});\n</script>\n\n<template>\n  <ArkMarqueeRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(marqueeRootVariants({ orientation: value.orientation }), className)\"\n    :value=\"value\"\n    data-slot=\"marquee-root-provider\"\n  >\n    <slot />\n  </ArkMarqueeRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/marquee/MarqueeRootProvider.vue"
+    },
+    {
+      "path": "src/components/marquee/MarqueeViewport.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MarqueeViewport as ArkMarqueeViewport } from '@ark-ui/vue/marquee';\nimport type { MarqueeViewportProps } from '@ark-ui/vue/marquee';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ MarqueeViewportProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMarqueeViewport\n    v-bind=\"attrs\"\n    :class=\"cn('size-full', className)\"\n    data-slot=\"marquee-viewport\"\n  >\n    <slot />\n  </ArkMarqueeViewport>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/marquee/MarqueeViewport.vue"
+    },
+    {
+      "path": "src/components/marquee/MarqueeContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MarqueeContent as ArkMarqueeContent } from '@ark-ui/vue/marquee';\nimport type { MarqueeContentProps } from '@ark-ui/vue/marquee';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ MarqueeContentProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMarqueeContent\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'animate-moduix-marquee-x group-data-paused:[animation-play-state:paused] data-reverse:[animation-direction:reverse] data-[side=bottom]:animate-moduix-marquee-y data-[side=top]:animate-moduix-marquee-y motion-reduce:animate-none',\n        className,\n      )\n    \"\n    data-slot=\"marquee-content\"\n  >\n    <slot />\n  </ArkMarqueeContent>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/marquee/MarqueeContent.vue"
+    },
+    {
+      "path": "src/components/marquee/MarqueeItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MarqueeItem as ArkMarqueeItem } from '@ark-ui/vue/marquee';\nimport type { MarqueeItemProps } from '@ark-ui/vue/marquee';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ MarqueeItemProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMarqueeItem v-bind=\"attrs\" :class=\"cn('shrink-0', className)\" data-slot=\"marquee-item\">\n    <slot />\n  </ArkMarqueeItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/marquee/MarqueeItem.vue"
+    },
+    {
+      "path": "src/components/marquee/MarqueeEdge.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MarqueeEdge as ArkMarqueeEdge } from '@ark-ui/vue/marquee';\nimport type { MarqueeEdgeProps } from '@ark-ui/vue/marquee';\nimport { cva } from 'class-variance-authority';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ MarqueeEdgeProps {\n  class?: HTMLAttributes['class'];\n  side: MarqueeEdgeProps['side'];\n}\n\nconst { class: className, side } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst marqueeEdgeVariants = cva('pointer-events-none z-1', {\n  variants: {\n    side: {\n      start: 'w-1/5 bg-linear-to-r from-background to-transparent rtl:bg-linear-to-l',\n      end: 'w-1/5 bg-linear-to-l from-background to-transparent rtl:bg-linear-to-r',\n      top: 'h-1/5 bg-linear-to-b from-background to-transparent',\n      bottom: 'h-1/5 bg-linear-to-t from-background to-transparent',\n    },\n  },\n});\n</script>\n\n<template>\n  <ArkMarqueeEdge\n    v-bind=\"attrs\"\n    :class=\"cn(marqueeEdgeVariants({ side }), className)\"\n    :side=\"side\"\n    data-slot=\"marquee-edge\"\n  >\n    <slot />\n  </ArkMarqueeEdge>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/marquee/MarqueeEdge.vue"
+    },
+    {
+      "path": "src/components/marquee/index.ts",
+      "content": "import { MarqueeContext, useMarquee, useMarqueeContext } from '@ark-ui/vue/marquee';\nimport Marquee from './Marquee.vue';\nimport MarqueeContent from './MarqueeContent.vue';\nimport MarqueeEdge from './MarqueeEdge.vue';\nimport MarqueeItem from './MarqueeItem.vue';\nimport MarqueeRootProvider from './MarqueeRootProvider.vue';\nimport MarqueeViewport from './MarqueeViewport.vue';\n\nexport {\n  Marquee,\n  MarqueeContext,\n  MarqueeContent,\n  MarqueeEdge,\n  MarqueeItem,\n  MarqueeRootProvider,\n  MarqueeViewport,\n  useMarquee,\n  useMarqueeContext,\n};\n\nexport type {\n  MarqueeContentBaseProps,\n  MarqueeContentProps,\n  MarqueeContextProps,\n  MarqueeEdgeBaseProps,\n  MarqueeEdgeProps,\n  MarqueeItemBaseProps,\n  MarqueeItemProps,\n  MarqueePauseStatusDetails,\n  MarqueeRootBaseProps,\n  MarqueeRootEmits,\n  MarqueeRootProps,\n  MarqueeRootProviderBaseProps,\n  MarqueeRootProviderProps,\n  MarqueeSide,\n  MarqueeViewportBaseProps,\n  MarqueeViewportProps,\n  UseMarqueeContext,\n  UseMarqueeProps,\n  UseMarqueeReturn,\n} from '@ark-ui/vue/marquee';",
+      "type": "registry:component",
+      "target": "@components/ui/marquee/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

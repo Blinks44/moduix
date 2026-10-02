@@ -1,13 +1,16 @@
 ---
 title: Presence
-description: Управляйте монтированием, скрытием, анимацией и размонтированием содержимого приложения в React и Solid.
+description: Управляйте монтированием, скрытием, анимацией и размонтированием содержимого приложения в React, Solid и Vue.
 ---
 
 import PresenceBasic from '@/components/examples/presence/basic.tsx';
 import PresenceMountOnDemand from '@/components/examples/presence/mount-on-demand.tsx';
 import presenceSolidBasic from '../../../snippets/presence/solid/basic.tsx?raw';
+import presenceVueBasic from '../../../snippets/presence/vue/basic.vue?raw';
 import presenceSolidExitAnimations from '../../../snippets/presence/solid/exit-animations.tsx?raw';
+import presenceVueExitAnimations from '../../../snippets/presence/vue/exit-animations.vue?raw';
 import presenceSolidMountOnDemand from '../../../snippets/presence/solid/mount-on-demand.tsx?raw';
+import presenceVueMountOnDemand from '../../../snippets/presence/vue/mount-on-demand.vue?raw';
 
 ## Справочник API
 
@@ -20,6 +23,7 @@ import presenceSolidMountOnDemand from '../../../snippets/presence/solid/mount-o
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -34,6 +38,13 @@ import { Presence } from '@ark-ui/react/presence';
 
 ```tsx
 import { Presence } from '@ark-ui/solid/presence';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { Presence } from '@ark-ui/vue/presence';
 ```
 
   </Tab>
@@ -61,6 +72,7 @@ import { Presence } from '@ark-ui/solid/presence';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -73,6 +85,11 @@ import { Presence } from '@ark-ui/solid/presence';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={presenceSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={presenceVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,6 +121,7 @@ import { Presence } from '@ark-ui/solid/presence';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -116,6 +134,11 @@ import { Presence } from '@ark-ui/solid/presence';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={presenceSolidMountOnDemand} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={presenceVueMountOnDemand} />
 
     </Tab>
   </Tabs>
@@ -140,6 +163,7 @@ import { Presence } from '@ark-ui/solid/presence';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -152,6 +176,11 @@ import { Presence } from '@ark-ui/solid/presence';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={presenceSolidExitAnimations} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={presenceVueExitAnimations} />
 
     </Tab>
   </Tabs>
@@ -177,7 +206,8 @@ import { Presence } from '@ark-ui/solid/presence';
 | `immediate` | Применяет изменение `present` сразу, не дожидаясь следующего кадра. |
 | `hideMode` | Только React. `display-none` использует `hidden`, а `activity` приостанавливает эффекты через `Activity` из React 19. |
 
-Общие параметры жизненного цикла и обратные вызовы имеют одинаковый смысл в React и Solid. Ark Solid не экспортирует
+Общие параметры жизненного цикла имеют одинаковый смысл в React, Solid и Vue. В Vue используйте
+`@enter-complete` и `@exit-complete` для событий жизненного цикла. Ark Solid и Vue не экспортируют
 `hideMode`: смонтированное, но отсутствующее содержимое скрывается атрибутом `hidden`.
 
 ## Композиция и доступность
@@ -190,6 +220,7 @@ Drawer, Menu, Popover, Tooltip, Tour и других интерактивных 
 По умолчанию `Presence` рендерит `<div>` с атрибутами `data-scope="presence"` и `data-part="root"`. Укажите
 `asChild`, если эти свойства должен получить существующий элемент без дополнительной обёртки. Дочерний элемент React
 должен принимать передаваемые ref, `hidden`, `data-*` и класс. В Solid используется форма с render-функцией:
-`asChild={(props) => <article {...props()} />}`. В каждом адаптере сохраняйте один семантический корень и его
+`asChild={(props) => <article {...props()} />}`. Vue использует `<Presence as-child><article>…</article></Presence>`.
+В каждом адаптере сохраняйте один семантический корень и его
 доступное имя и содержимое. Не заменяйте поведение `hidden` одной только прозрачностью, если неактивное содержимое
 должно исчезать из дерева доступности.

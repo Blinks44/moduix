@@ -5,6 +5,7 @@ description: Configurez la direction du document, la locale d’Ark, les portail
 
 import reactSection from '../../../snippets/rtl/react/section.tsx?raw';
 import solidSection from '../../../snippets/rtl/solid/section.tsx?raw';
+import VueSection from '../../../snippets/rtl/vue/section.vue?raw';
 
 # De droite à gauche (RTL)
 
@@ -41,6 +42,19 @@ import { LocaleProvider } from '@moduix/solid/locale';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```vue
+<script setup lang="ts">
+import { LocaleProvider } from '@moduix/vue/locale';
+</script>
+
+<template>
+  <LocaleProvider locale="ar-EG"><slot /></LocaleProvider>
+</template>
+```
+
+  </Tab>
 </Tabs>
 
 `LocaleProvider` déduit la direction d’Ark à partir de la locale, mais ne modifie pas les attributs
@@ -63,10 +77,16 @@ composants Moduix avec `LocaleProvider`.
 <CodeBlockRuntime lang="tsx" code={solidSection} />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueSection} />
+
+  </Tab>
+
 </Tabs>
 
 L’exemple construit sa collection avec `createListCollection` depuis `@ark-ui/react/collection` ou
-`@ark-ui/solid/collection`. Select, Button et LocaleProvider viennent de l’adaptateur Moduix
+`@ark-ui/solid/collection`, `@ark-ui/vue/collection`. Select, Button et LocaleProvider viennent de l’adaptateur Moduix
 correspondant. Aucun prop RTL supplémentaire n’est nécessaire.
 
 ## Gérer les portails et les directions mixtes

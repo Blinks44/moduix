@@ -5,6 +5,7 @@ description: Применение тёмных токенов Moduix ко все
 
 import reactScopedSurface from '../../../snippets/dark-mode/react/scoped-surface.tsx?raw';
 import solidScopedSurface from '../../../snippets/dark-mode/solid/scoped-surface.tsx?raw';
+import VueScopedSurface from '../../../snippets/dark-mode/vue/scoped-surface.vue?raw';
 
 # Тёмный режим
 
@@ -89,6 +90,11 @@ export function saveColorScheme(scheme: ColorScheme) {
   <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidScopedSurface} />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueScopedSurface} />
 
   </Tab>
 </Tabs>

@@ -15,8 +15,8 @@ export function ChangelogHero({
 }: {
   id?: string;
   category: string;
-  date: string;
-  dateTime: string;
+  date?: string;
+  dateTime?: string;
   title: string;
   summary: string;
   tone: ChangelogHeroTone;
@@ -26,9 +26,11 @@ export function ChangelogHero({
     <section className={`${styles.hero} ${styles[tone]}`} id={id} aria-label={title}>
       <div className={styles.meta}>
         <span className={styles.category}>{category}</span>
-        <time className={styles.date} dateTime={dateTime}>
-          {date}
-        </time>
+        {date && (
+          <time className={styles.date} dateTime={dateTime}>
+            {date}
+          </time>
+        )}
       </div>
 
       <div className={styles.layout}>

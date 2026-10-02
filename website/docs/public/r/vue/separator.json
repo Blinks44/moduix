@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "title": "Separator",
+  "description": "moduix Vue Separator component.",
+  "dependencies": ["@ark-ui/vue", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation"],
+  "files": [
+    {
+      "path": "src/components/separator/Separator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Separator.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\ntype SeparatorOrientation = 'horizontal' | 'vertical';\ntype SeparatorSize = 'xs' | 'sm' | 'md' | 'lg';\ntype SeparatorVariant = 'solid' | 'dashed' | 'dotted';\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n  orientation?: SeparatorOrientation;\n  role?: HTMLAttributes['role'];\n  size?: SeparatorSize;\n  variant?: SeparatorVariant;\n}\n\nconst {\n  class: className,\n  orientation = 'horizontal',\n  role,\n  size = 'sm',\n  variant = 'solid',\n} = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst resolvedRole = computed(() => role ?? 'separator');\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.root, className)\"\n    :role=\"resolvedRole\"\n    :aria-orientation=\"resolvedRole === 'separator' ? orientation : undefined\"\n    data-scope=\"separator\"\n    data-part=\"root\"\n    data-slot=\"separator-root\"\n    :data-orientation=\"orientation\"\n    :data-size=\"size\"\n    :data-variant=\"variant\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/separator/Separator.vue"
+    },
+    {
+      "path": "src/components/separator/Separator.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    display: block;\n    flex-shrink: 0;\n    margin: 0;\n    border: 0;\n    border-color: var(--moduix-separator-color, var(--moduix-color-border));\n    border-style: var(\n      --moduix-separator-border-style,\n      var(--_separator-variant-border-style, solid)\n    );\n\n    &[data-size='xs'] {\n      --_separator-size-thickness: var(--moduix-separator-thickness-xs, 0.5px);\n    }\n\n    &[data-size='sm'] {\n      --_separator-size-thickness: var(\n        --moduix-separator-thickness-sm,\n        var(--moduix-border-width-sm)\n      );\n    }\n\n    &[data-size='md'] {\n      --_separator-size-thickness: var(\n        --moduix-separator-thickness-md,\n        var(--moduix-border-width-md)\n      );\n    }\n\n    &[data-size='lg'] {\n      --_separator-size-thickness: var(--moduix-separator-thickness-lg, 3px);\n    }\n\n    &[data-variant='dashed'] {\n      --_separator-variant-border-style: dashed;\n    }\n\n    &[data-variant='dotted'] {\n      --_separator-variant-border-style: dotted;\n    }\n\n    &[data-orientation='horizontal'] {\n      width: var(--moduix-separator-length-horizontal, 100%);\n      height: 0;\n      border-block-start-width: var(\n        --moduix-separator-thickness,\n        var(--_separator-size-thickness, var(--moduix-border-width-sm))\n      );\n    }\n\n    &[data-orientation='vertical'] {\n      width: 0;\n      height: var(--moduix-separator-length-vertical, 1em);\n      border-inline-start-width: var(\n        --moduix-separator-thickness,\n        var(--_separator-size-thickness, var(--moduix-border-width-sm))\n      );\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/separator/Separator.module.css"
+    },
+    {
+      "path": "src/components/separator/index.ts",
+      "content": "import Separator from './Separator.vue';\n\nexport { Separator };",
+      "type": "registry:component",
+      "target": "@components/ui/separator/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

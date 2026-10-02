@@ -1,11 +1,13 @@
 ---
 title: Environment
-description: Configure Ark UI DOM queries for iframes, Shadow DOM, Electron, and other custom environments in React or Solid.
+description: Configure Ark UI DOM queries for iframes, Shadow DOM, Electron, and other custom environments in React, Solid, or Vue.
 ---
 
 import EnvironmentBasic from '@/components/examples/environment/basic.tsx';
 import environmentSolidBasic from '../../../snippets/environment/solid/basic.tsx?raw';
+import environmentVueBasic from '../../../snippets/environment/vue/basic.vue?raw';
 import environmentSolidCustomRoot from '../../../snippets/environment/solid/custom-root.tsx?raw';
+import environmentVueCustomRoot from '../../../snippets/environment/vue/custom-root.vue?raw';
 
 `EnvironmentProvider` tells Ark UI which DOM root, `Document`, and `Window` to use for Ark-backed components. It is useful when the component tree is rendered outside the page's main document.
 
@@ -20,6 +22,7 @@ Import the utility from the matching Ark UI package:
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -34,6 +37,13 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/react/enviro
 
 ```tsx
 import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/solid/environment';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/vue/environment';
 ```
 
   </Tab>
@@ -56,6 +66,7 @@ Use `EnvironmentProvider` around the whole subtree that belongs to the environme
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +79,11 @@ Use `EnvironmentProvider` around the whole subtree that belongs to the environme
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={environmentSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={environmentVueBasic} />
 
     </Tab>
   </Tabs>
@@ -90,6 +106,7 @@ This example needs only the Ark environment API, a `Button` from the selected Mo
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -102,6 +119,11 @@ This example needs only the Ark environment API, a `Button` from the selected Mo
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={environmentSolidCustomRoot} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={environmentVueCustomRoot} />
 
     </Tab>
   </Tabs>

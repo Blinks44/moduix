@@ -5,6 +5,7 @@ description: A responsive app header with one level of navigation, focused actio
 
 import { AppHeaderPreview } from '@/components/recipes/app-header-preview';
 import appHeaderSolid from '../../../snippets/recipes/solid/app-header.tsx?raw';
+import appHeaderVue from '../../../snippets/recipes/vue/app-header.vue?raw';
 
 # App header
 
@@ -24,7 +25,7 @@ and styles below, then replace the sample navigation and account data with your 
 - A separate `Menu` for the main navigation on small screens.
 - Accessible names for icon-only controls and an avatar fallback while the image loads.
 
-The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+The live preview uses the React package. The source tabs show native React, Solid, and Vue implementations that share the same stylesheet.
 
 <ExampleFrame variant="recipe" clientOnly>
   <AppHeaderPreview />
@@ -37,6 +38,7 @@ The live preview uses the React package. The source tabs show native React and S
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -52,6 +54,11 @@ The live preview uses the React package. The source tabs show native React and S
 <CodeBlockRuntime lang="tsx" code={appHeaderSolid} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={appHeaderVue} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -65,7 +72,7 @@ The live preview uses the React package. The source tabs show native React and S
 
 ## Install
 
-<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
+<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} vueDependencies={['@lucide/vue']} />
 
 ## Use the recipe in your application
 

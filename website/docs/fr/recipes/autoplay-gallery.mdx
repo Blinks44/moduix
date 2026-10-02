@@ -5,6 +5,7 @@ description: Une recette de galerie à lecture automatique avec Carousel, texte 
 
 import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
 import autoplayGallerySolid from '../../../snippets/recipes/solid/autoplay-gallery.tsx?raw';
+import autoplayGalleryVue from '../../../snippets/recipes/vue/autoplay-gallery.vue?raw';
 
 # Galerie à lecture automatique
 
@@ -12,7 +13,7 @@ Utilisez cette recette pour du contenu mis en avant qui défile automatiquement 
 Elle associe `Carousel` à des diapositives voisines partiellement visibles, du texte superposé, des flèches de
 navigation et des indicateurs qui se remplissent pendant chaque intervalle de lecture automatique.
 
-L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React, Solid et Vue avec les mêmes styles.
 
 <ExampleFrame variant="recipe" clientOnly>
   <AutoplayGalleryPreview />
@@ -25,6 +26,7 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -38,6 +40,11 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={autoplayGallerySolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={autoplayGalleryVue} />
 
     </Tab>
   </Tabs>

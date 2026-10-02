@@ -6,7 +6,9 @@ description: Создавайте, ищите, фильтруйте и обно�
 import ListCollectionBasic from '@/components/examples/list-collection/basic.tsx';
 import ListCollectionFiltering from '@/components/examples/listbox/standalone-filter-input.tsx';
 import listCollectionSolidBasic from '../../../snippets/select/solid/basic.tsx?raw';
+import listCollectionVueBasic from '../../../snippets/select/vue/basic.vue?raw';
 import listCollectionSolidFiltering from '../../../snippets/listbox/solid/standalone-filter-input.tsx?raw';
+import listCollectionVueFiltering from '../../../snippets/listbox/vue/standalone-filter-input.vue?raw';
 
 # List Collection
 
@@ -28,6 +30,7 @@ import listCollectionSolidFiltering from '../../../snippets/listbox/solid/standa
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -42,6 +45,13 @@ import { createListCollection, useListCollection } from '@ark-ui/react/collectio
 
 ```tsx
 import { createListCollection, useListCollection } from '@ark-ui/solid/collection';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { createListCollection, useListCollection } from '@ark-ui/vue/collection';
 ```
 
   </Tab>
@@ -70,6 +80,7 @@ Solid для одного и того же примера. Исходник Soli
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -84,6 +95,11 @@ Solid для одного и того же примера. Исходник Soli
 <CodeBlockRuntime lang="tsx" code={listCollectionSolidBasic} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listCollectionVueBasic} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
@@ -92,7 +108,7 @@ Solid для одного и того же примера. Исходник Soli
 состояния или запроса, создавайте коллекцию заново только при изменении исходных данных. Если
 фильтрация или обновления должны управляться состоянием фреймворка, используйте динамический хук
 ниже.
-В React для этого используйте `useMemo`, а в Solid, если исходные данные реактивны, `createMemo`.
+В React для этого используйте `useMemo`, в Solid — `createMemo`, а в Vue — `computed`, если исходные данные реактивны.
 
 ## Нестандартная структура элементов
 
@@ -177,6 +193,7 @@ const nextValue = collection.search('p', {
 
 Храните `searchState` в течение всего взаимодействия. В React для этого удобно использовать
 `useRef`. В Solid оставьте тот же объект в области компонента или в другом стабильном хранилище.
+В Vue создайте его один раз в `<script setup>`.
 
 ## Динамические коллекции
 
@@ -201,6 +218,7 @@ const nextValue = collection.search('p', {
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -215,6 +233,11 @@ const nextValue = collection.search('p', {
 <CodeBlockRuntime lang="tsx" code={listCollectionSolidFiltering} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listCollectionVueFiltering} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -225,7 +248,8 @@ const nextValue = collection.search('p', {
 </ExampleCode>
 
 В React `collection` - это `ListCollection`. В Solid это accessor, поэтому при передаче коллекции
-компоненту или чтении `collection().items` в цикле `<For>` вызывайте `collection()`. Хук предоставляет
+компоненту или чтении `collection().items` в цикле `<For>` вызывайте `collection()`. В Vue это ref:
+используйте `collection.value` в скрипте или распакованный `collection` в шаблоне. Хук предоставляет
 `filter`, `set`, `reset`, `clear`, `insert`, `insertBefore`, `insertAfter`, `remove`, `move`,
 `moveBefore`, `moveAfter`, `reorder`, `append`, `prepend`, `update` и `upsert`.
 

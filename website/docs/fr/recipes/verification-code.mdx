@@ -5,6 +5,7 @@ description: Un formulaire de vérification d’adresse e-mail avec un code à u
 
 import { VerificationCode } from '@/components/recipes/verification-code/verification-code';
 import verificationCodeSolid from '../../../snippets/recipes/solid/verification-code.tsx?raw';
+import verificationCodeVue from '../../../snippets/recipes/vue/verification-code.vue?raw';
 
 # Code de vérification
 
@@ -15,7 +16,7 @@ le collage, et active le remplissage automatique du code à usage unique sur mob
 avec moins de six chiffres pour afficher l’erreur intégrée au champ. Cette vérification confirme uniquement
 que les six chiffres ont été saisis. Votre application doit toujours vérifier le code sur le serveur.
 
-L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React, Solid et Vue avec les mêmes styles.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -30,6 +31,7 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -43,6 +45,11 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={verificationCodeSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={verificationCodeVue} />
 
     </Tab>
   </Tabs>

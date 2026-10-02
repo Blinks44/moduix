@@ -5,6 +5,7 @@ description: A copy-ready moduix Card recipe with a decorative background image 
 
 import { ParallaxCardPreview } from '@/components/recipes/parallax-card-preview';
 import parallaxCardSolid from '../../../snippets/recipes/solid/parallax-card.tsx?raw';
+import parallaxCardVue from '../../../snippets/recipes/vue/parallax-card.vue?raw';
 
 # Parallax card
 
@@ -17,7 +18,7 @@ defined in the example CSS, so you can adjust them for the image you choose. The
 only when the device has a fine pointer that supports hover. The card stays still when that pointer is
 unavailable or the user prefers reduced motion.
 
-The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+The live preview uses the React package. The source tabs show native React, Solid, and Vue implementations that share the same stylesheet.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -32,6 +33,7 @@ The live preview uses the React package. The source tabs show native React and S
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -45,6 +47,11 @@ The live preview uses the React package. The source tabs show native React and S
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={parallaxCardSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={parallaxCardVue} />
 
     </Tab>
   </Tabs>

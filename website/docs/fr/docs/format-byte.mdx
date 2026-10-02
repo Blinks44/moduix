@@ -1,13 +1,16 @@
 ---
 title: Format Byte
-description: Formatez des tailles en React et Solid avec Ark UI, en choisissant un système décimal ou binaire et un affichage localisé.
+description: Formatez des tailles en React, Solid et Vue avec Ark UI, en choisissant un système décimal ou binaire et un affichage localisé.
 ---
 
 import FormatByteBasic from '@/components/examples/format-byte/basic.tsx';
 import FormatByteUnitSystem from '@/components/examples/format-byte/unit-system.tsx';
 import formatByteSolidBasic from '../../../snippets/format-byte/solid/basic.tsx?raw';
+import formatByteVueBasic from '../../../snippets/format-byte/vue/basic.vue?raw';
 import formatByteSolidUnitSystem from '../../../snippets/format-byte/solid/unit-system.tsx?raw';
+import formatByteVueUnitSystem from '../../../snippets/format-byte/vue/unit-system.vue?raw';
 import formatByteSolidLocale from '../../../snippets/format-byte/solid/locale.tsx?raw';
+import formatByteVueLocale from '../../../snippets/format-byte/vue/locale.vue?raw';
 
 `Format.Byte` transforme un nombre d’octets en texte lisible. Importez-le depuis le package Ark correspondant à votre
 framework.
@@ -23,6 +26,7 @@ Importez `Format` depuis le package Ark UI correspondant :
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -40,6 +44,13 @@ import { Format } from '@ark-ui/solid';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { Format } from '@ark-ui/vue';
+```
+
+  </Tab>
 </Tabs>
 
 ## Exemple de base
@@ -48,8 +59,8 @@ Passez le nombre d’octets dans `value`. `Format.Byte` ne rend que le texte for
 ou d’un autre élément qui explique la valeur. Les exemples utilisent un paragraphe pour une valeur et une liste de
 définitions lorsque plusieurs valeurs partagent le même contexte.
 
-L’aperçu utilise la source React, car l’application de documentation est basée sur React. L’onglet Solid contient la
-source Solid native pour le même résultat et la même API.
+L’aperçu utilise React, car l’application de documentation est basée sur React. Les onglets Solid et
+Vue contiennent le code natif pour le même résultat et la même API.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -64,6 +75,7 @@ source Solid native pour le même résultat et la même API.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -76,6 +88,11 @@ source Solid native pour le même résultat et la même API.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatByteSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatByteVueBasic} />
 
     </Tab>
   </Tabs>
@@ -101,6 +118,7 @@ techniques de stockage.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -113,6 +131,11 @@ techniques de stockage.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatByteSolidUnitSystem} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatByteVueUnitSystem} />
 
     </Tab>
   </Tabs>
@@ -129,6 +152,7 @@ partie localisée de l’interface avec le provider du package Ark UI correspond
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -141,6 +165,11 @@ partie localisée de l’interface avec le provider du package Ark UI correspond
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatByteSolidLocale} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatByteVueLocale} />
 
   </Tab>
 </Tabs>

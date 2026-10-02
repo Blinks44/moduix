@@ -5,8 +5,10 @@ description: A ready-to-copy account registration form built with moduix compone
 
 import { SignUp } from '@/components/recipes/sign-up/sign-up';
 import signUpSolid from '../../../snippets/recipes/solid/sign-up.tsx?raw';
+import signUpVue from '../../../snippets/recipes/vue/sign-up.vue?raw';
 import signUpRouteReact from '../../../snippets/recipes/react/sign-up-route.tsx?raw';
 import signUpRouteSolid from '../../../snippets/recipes/solid/sign-up-route.tsx?raw';
+import signUpRouteVue from '../../../snippets/recipes/vue/sign-up-route.vue?raw';
 
 # Sign up
 
@@ -15,7 +17,7 @@ Use this recipe as a starting point for an account registration screen. It combi
 and terms acceptance. The recipe does not connect to an authentication service or compare the two
 password fields, so add that logic in your `onSubmit` handler.
 
-The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+The live preview uses the React package. The source tabs show native React, Solid, and Vue implementations that share the same stylesheet.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -30,6 +32,7 @@ The live preview uses the React package. The source tabs show native React and S
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -43,6 +46,11 @@ The live preview uses the React package. The source tabs show native React and S
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signUpSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signUpVue} />
 
     </Tab>
   </Tabs>
@@ -71,6 +79,7 @@ passwords and send the form data to your registration endpoint.
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
 >
   <Tab value="react">
@@ -81,6 +90,11 @@ passwords and send the form data to your registration endpoint.
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signUpRouteSolid} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signUpRouteVue} />
 
   </Tab>
 </Tabs>

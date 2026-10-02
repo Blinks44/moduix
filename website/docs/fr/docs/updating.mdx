@@ -25,9 +25,10 @@ Gardez le framework et la méthode de style explicites :
 | --- | --- | --- |
 | React | `@moduix/react` | `@moduix/react-tailwind` |
 | Solid | `@moduix/solid` | `@moduix/solid-tailwind` |
+| Vue | `@moduix/vue` | `@moduix/vue-tailwind` |
 
-Ne mettez pas à jour un adaptateur au nom proche que l’application n’utilise pas. Le catalogue
-Tailwind peut rester plus réduit pendant la migration des composants.
+Ne mettez pas à jour un adaptateur au nom proche que l’application n’utilise pas. React, Solid et Vue
+proposent le même catalogue de composants avec CSS Modules et Tailwind.
 
 ## Mettre les packages à jour
 
@@ -49,6 +50,11 @@ gestionnaire de packages déjà choisi par l’application.
 <PackageManagerTabs command="install @moduix/solid@latest @ark-ui/solid@latest" />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue@latest @ark-ui/vue@latest" />
+
+  </Tab>
 </Tabs>
 
   </Tab>
@@ -63,6 +69,11 @@ gestionnaire de packages déjà choisi par l’application.
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="install @moduix/solid-tailwind@latest @ark-ui/solid@latest" />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue-tailwind@latest @ark-ui/vue@latest" />
 
   </Tab>
 </Tabs>
@@ -83,6 +94,7 @@ le namespace qui correspond aux deux axes :
 | --- | --- | --- |
 | React | `@moduix-react` | `@moduix-react-tailwind` |
 | Solid | `@moduix-solid` | `@moduix-solid-tailwind` |
+| Vue | `@moduix-vue` | `@moduix-vue-tailwind` |
 
 Prévisualisez un composant avant de modifier les fichiers locaux : `view` affiche l’élément amont,
 tandis que `add --dry-run` et `add --diff` montrent ce qu’une mise à jour écrirait :

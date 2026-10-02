@@ -5,8 +5,10 @@ description: Un formulaire d’inscription prêt à copier, construit avec les c
 
 import { SignUp } from '@/components/recipes/sign-up/sign-up';
 import signUpSolid from '../../../snippets/recipes/solid/sign-up.tsx?raw';
+import signUpVue from '../../../snippets/recipes/vue/sign-up.vue?raw';
 import signUpRouteReact from '../../../snippets/recipes/react/sign-up-route.tsx?raw';
 import signUpRouteSolid from '../../../snippets/recipes/solid/sign-up-route.tsx?raw';
+import signUpRouteVue from '../../../snippets/recipes/vue/sign-up-route.vue?raw';
 
 # Inscription
 
@@ -16,7 +18,7 @@ de l’adresse e-mail et de l’acceptation des conditions. La recette ne se con
 d’authentification et ne compare pas les deux mots de passe : ajoutez cette logique dans le gestionnaire
 `onSubmit`.
 
-L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React, Solid et Vue avec les mêmes styles.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -31,6 +33,7 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -44,6 +47,11 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signUpSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signUpVue} />
 
     </Tab>
   </Tabs>
@@ -72,6 +80,7 @@ gestionnaire pour comparer les deux mots de passe et envoyer les données à vot
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
 >
   <Tab value="react">
@@ -82,6 +91,11 @@ gestionnaire pour comparer les deux mots de passe et envoyer les données à vot
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signUpRouteSolid} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signUpRouteVue} />
 
   </Tab>
 </Tabs>

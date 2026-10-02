@@ -5,8 +5,12 @@ description: Create, query, traverse, filter, and update hierarchical data for T
 
 import TreeCollectionBasic from '@/components/examples/tree-collection/basic.tsx';
 import treeCollectionSolidCustomNodes from '../../../snippets/tree-collection/solid/custom-nodes.tsx?raw';
+import treeCollectionVueCustomNodes from '../../../snippets/tree-collection/vue/custom-nodes.ts?raw';
 import treeCollectionSolidFilePaths from '../../../snippets/tree-collection/solid/file-paths.tsx?raw';
+import treeCollectionVueFilePaths from '../../../snippets/tree-collection/vue/file-paths.ts?raw';
 import treeCollectionSolidBasic from '../../../snippets/tree-collection/solid/basic.tsx?raw';
+import treeCollectionVueBasic from '../../../snippets/tree-collection/vue/basic.vue?raw';
+import treeCollectionVueBasicHelper from '../../../snippets/tree-collection/vue/FileTreeNode.vue?raw';
 
 # Tree Collection
 
@@ -25,6 +29,7 @@ Import the collection helpers from the Ark UI entry point for your framework:
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -39,6 +44,13 @@ import { createFileTreeCollection, createTreeCollection } from '@ark-ui/react/co
 
 ```tsx
 import { createFileTreeCollection, createTreeCollection } from '@ark-ui/solid/collection';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/vue/collection';
 ```
 
   </Tab>
@@ -69,6 +81,7 @@ each node's numeric position as its `indexPath`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -81,6 +94,13 @@ each node's numeric position as its `indexPath`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeCollectionSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeCollectionVueBasic} title="basic.vue" />
+
+<CodeBlockRuntime lang="vue" code={treeCollectionVueBasicHelper} title="FileTreeNode.vue" />
 
     </Tab>
   </Tabs>
@@ -103,6 +123,7 @@ known count before its children are loaded.
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -115,6 +136,11 @@ known count before its children are loaded.
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeCollectionSolidCustomNodes} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="ts" code={treeCollectionVueCustomNodes} />
 
   </Tab>
 </Tabs>
@@ -276,6 +302,7 @@ state that owns the tree and render its new `rootNode`.
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -288,6 +315,11 @@ state that owns the tree and render its new `rootNode`.
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeCollectionSolidFilePaths} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="ts" code={treeCollectionVueFilePaths} />
 
   </Tab>
 </Tabs>

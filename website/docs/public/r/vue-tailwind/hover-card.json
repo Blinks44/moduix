@@ -1,0 +1,75 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hover-card",
+  "title": "HoverCard",
+  "description": "moduix Vue Tailwind HoverCard component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/overlay-portal"
+  ],
+  "files": [
+    {
+      "path": "src/components/hover-card/HoverCard.vue",
+      "content": "<script setup lang=\"ts\">\nimport { HoverCardRoot as ArkHoverCardRoot } from '@ark-ui/vue/hover-card';\nimport type { HoverCardRootEmits, HoverCardRootProps } from '@ark-ui/vue/hover-card';\nimport { useAttrs } from 'vue';\nimport type { PortalRef } from '../../internal/overlayPortal/context';\nimport OverlayPortalProvider from '../../internal/overlayPortal/OverlayPortalProvider.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HoverCardRootProps {\n  lazyMount?: boolean;\n  portalled?: boolean;\n  portalRef?: PortalRef;\n  unmountOnExit?: boolean;\n}\n\nexport interface Emits extends /* @vue-ignore */ HoverCardRootEmits {}\n\nconst {\n  lazyMount = true,\n  portalled = true,\n  portalRef,\n  unmountOnExit = true,\n} = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <OverlayPortalProvider :portalled=\"portalled\" :portal-ref=\"portalRef\">\n    <ArkHoverCardRoot v-bind=\"attrs\" :lazy-mount=\"lazyMount\" :unmount-on-exit=\"unmountOnExit\">\n      <slot />\n    </ArkHoverCardRoot>\n  </OverlayPortalProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/hover-card/HoverCard.vue"
+    },
+    {
+      "path": "src/components/hover-card/HoverCardRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { HoverCardRootProvider as ArkHoverCardRootProvider } from '@ark-ui/vue/hover-card';\nimport type {\n  HoverCardRootProviderEmits,\n  HoverCardRootProviderProps,\n} from '@ark-ui/vue/hover-card';\nimport { useAttrs } from 'vue';\nimport type { PortalRef } from '../../internal/overlayPortal/context';\nimport OverlayPortalProvider from '../../internal/overlayPortal/OverlayPortalProvider.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HoverCardRootProviderProps {\n  lazyMount?: boolean;\n  portalled?: boolean;\n  portalRef?: PortalRef;\n  unmountOnExit?: boolean;\n  value: HoverCardRootProviderProps['value'];\n}\n\nexport interface Emits extends /* @vue-ignore */ HoverCardRootProviderEmits {}\n\nconst {\n  lazyMount = true,\n  portalled = true,\n  portalRef,\n  unmountOnExit = true,\n  value,\n} = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <OverlayPortalProvider :portalled=\"portalled\" :portal-ref=\"portalRef\">\n    <ArkHoverCardRootProvider\n      v-bind=\"attrs\"\n      :lazy-mount=\"lazyMount\"\n      :unmount-on-exit=\"unmountOnExit\"\n      :value=\"value\"\n    >\n      <slot />\n    </ArkHoverCardRootProvider>\n  </OverlayPortalProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/hover-card/HoverCardRootProvider.vue"
+    },
+    {
+      "path": "src/components/hover-card/HoverCardTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { HoverCardTrigger as ArkHoverCardTrigger } from '@ark-ui/vue/hover-card';\nimport type { HoverCardTriggerProps } from '@ark-ui/vue/hover-card';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HoverCardTriggerProps {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst triggerClass =\n  'inline-flex cursor-pointer items-center gap-1 text-primary underline decoration-primary/60 decoration-1 underline-offset-2 outline-0 transition-[color,text-decoration-color] duration-150 ease-in-out focus-visible:rounded-xs focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:decoration-primary motion-reduce:transition-none [@media(hover:hover)]:hover:decoration-primary';\n</script>\n\n<template>\n  <ArkHoverCardTrigger\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :class=\"cn(!asChild && triggerClass, className)\"\n    data-slot=\"hover-card-trigger\"\n  >\n    <slot />\n  </ArkHoverCardTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/hover-card/HoverCardTrigger.vue"
+    },
+    {
+      "path": "src/components/hover-card/HoverCardPositioner.vue",
+      "content": "<script setup lang=\"ts\">\nimport { HoverCardPositioner as ArkHoverCardPositioner } from '@ark-ui/vue/hover-card';\nimport type { HoverCardPositionerProps } from '@ark-ui/vue/hover-card';\nimport { useForwardExpose } from '@ark-ui/vue/utils';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport OverlayPortal from '../../internal/overlayPortal/OverlayPortal.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HoverCardPositionerProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst { forwardRef } = useForwardExpose();\n</script>\n\n<template>\n  <OverlayPortal>\n    <ArkHoverCardPositioner\n      :ref=\"forwardRef\"\n      v-bind=\"attrs\"\n      :class=\"\n        cn(\n          'z-[var(--z-index,var(--moduix-z-popup))] max-w-[var(--available-width)] outline-0',\n          className,\n        )\n      \"\n      data-slot=\"hover-card-positioner\"\n    >\n      <slot />\n    </ArkHoverCardPositioner>\n  </OverlayPortal>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/hover-card/HoverCardPositioner.vue"
+    },
+    {
+      "path": "src/components/hover-card/HoverCardContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { HoverCardContent as ArkHoverCardContent } from '@ark-ui/vue/hover-card';\nimport type { HoverCardContentProps } from '@ark-ui/vue/hover-card';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HoverCardContentProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst contentClass =\n  'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(24rem,var(--available-width))] min-w-[min(14rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-lg border border-border bg-popover p-2 wrap-anywhere text-popover-foreground shadow-lg outline-0 has-[>[data-slot=hover-card-body]]:flex has-[>[data-slot=hover-card-body]]:flex-col data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none has-[>[data-slot=hover-card-body]]:[&>[data-slot=hover-card-body]]:overflow-auto';\n</script>\n\n<template>\n  <ArkHoverCardContent\n    v-bind=\"attrs\"\n    :class=\"cn(contentClass, className)\"\n    data-slot=\"hover-card-content\"\n  >\n    <slot />\n  </ArkHoverCardContent>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/hover-card/HoverCardContent.vue"
+    },
+    {
+      "path": "src/components/hover-card/HoverCardArrow.vue",
+      "content": "<script setup lang=\"ts\">\nimport { HoverCardArrow as ArkHoverCardArrow } from '@ark-ui/vue/hover-card';\nimport type { HoverCardArrowProps } from '@ark-ui/vue/hover-card';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport HoverCardArrowTip from './HoverCardArrowTip.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HoverCardArrowProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkHoverCardArrow\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        '[--arrow-background:var(--color-popover)] [--arrow-shadow-color:var(--color-border)] [--arrow-size:0.625rem]',\n        className,\n      )\n    \"\n    data-slot=\"hover-card-arrow\"\n  >\n    <slot><HoverCardArrowTip /></slot>\n  </ArkHoverCardArrow>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/hover-card/HoverCardArrow.vue"
+    },
+    {
+      "path": "src/components/hover-card/HoverCardArrowTip.vue",
+      "content": "<script setup lang=\"ts\">\nimport { HoverCardArrowTip as ArkHoverCardArrowTip } from '@ark-ui/vue/hover-card';\nimport type { HoverCardArrowTipProps } from '@ark-ui/vue/hover-card';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HoverCardArrowTipProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkHoverCardArrowTip\n    v-bind=\"attrs\"\n    :class=\"cn('border-t border-l border-border', className)\"\n    data-slot=\"hover-card-arrow-tip\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/hover-card/HoverCardArrowTip.vue"
+    },
+    {
+      "path": "src/components/hover-card/HoverCardBody.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark, type HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.div v-bind=\"attrs\" :class=\"cn('min-h-0', className)\" data-slot=\"hover-card-body\">\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/hover-card/HoverCardBody.vue"
+    },
+    {
+      "path": "src/components/hover-card/HoverCardContext.vue",
+      "content": "<script setup lang=\"ts\">\nimport {\n  HoverCardContext as ArkHoverCardContext,\n  type UseHoverCardContext,\n} from '@ark-ui/vue/hover-card';\nimport type { UnwrapRef } from 'vue';\n\ndefineSlots<{ default: (hoverCard: UnwrapRef<UseHoverCardContext>) => unknown }>();\n</script>\n\n<template>\n  <ArkHoverCardContext v-slot=\"hoverCard\">\n    <slot v-bind=\"hoverCard\" />\n  </ArkHoverCardContext>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/hover-card/HoverCardContext.vue"
+    },
+    {
+      "path": "src/components/hover-card/index.ts",
+      "content": "import { useHoverCard, useHoverCardContext } from '@ark-ui/vue/hover-card';\nimport HoverCard from './HoverCard.vue';\nimport HoverCardArrow from './HoverCardArrow.vue';\nimport HoverCardArrowTip from './HoverCardArrowTip.vue';\nimport HoverCardBody from './HoverCardBody.vue';\nimport HoverCardContent from './HoverCardContent.vue';\nimport HoverCardContext from './HoverCardContext.vue';\nimport HoverCardPositioner from './HoverCardPositioner.vue';\nimport HoverCardRootProvider from './HoverCardRootProvider.vue';\nimport HoverCardTrigger from './HoverCardTrigger.vue';\n\nexport {\n  HoverCard,\n  HoverCardArrow,\n  HoverCardArrowTip,\n  HoverCardBody,\n  HoverCardContent,\n  HoverCardContext,\n  HoverCardPositioner,\n  HoverCardRootProvider,\n  HoverCardTrigger,\n  useHoverCard,\n  useHoverCardContext,\n};\n\nexport type {\n  HoverCardArrowProps,\n  HoverCardContentProps,\n  HoverCardFocusOutsideEvent,\n  HoverCardInteractOutsideEvent,\n  HoverCardOpenChangeDetails,\n  HoverCardPointerDownOutsideEvent,\n  HoverCardPositionerProps,\n  HoverCardRootEmits,\n  HoverCardRootProps,\n  HoverCardRootProviderEmits,\n  HoverCardRootProviderProps,\n  HoverCardTriggerProps,\n  HoverCardTriggerValueChangeDetails,\n  UseHoverCardContext,\n  UseHoverCardProps,\n  UseHoverCardReturn,\n} from '@ark-ui/vue/hover-card';\n\nexport type { HTMLArkProps } from '@ark-ui/vue/factory';",
+      "type": "registry:component",
+      "target": "@components/ui/hover-card/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

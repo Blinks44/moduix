@@ -13,7 +13,7 @@ composant moduix gère déjà l’interaction voulue, commencez par lui.
 Les guides ci-dessous couvrent les utilitaires Ark UI directs et les composants moduix construits sur les mêmes
 primitives. Les utilitaires Ark UI fournissent un comportement propre au framework sans imposer de système de styles.
 `Highlight`, `JsonTreeView` et `Swap` encapsulent les primitives Ark UI correspondantes et ajoutent la composition et
-les styles moduix. Ils sont disponibles dans les packages React et Solid, pour les deux modes de style.
+les styles moduix. Ils sont disponibles dans les packages React, Solid et Vue, pour les deux modes de style.
 
 ## Utilitaires Ark UI
 
@@ -80,7 +80,7 @@ code d’intégration.
 
 ## Composants moduix basés sur Ark UI
 
-Ces composants conservent la même API publique dans les packages React et Solid, pour les deux modes de style. Les packages CSS Modules
+Ces composants conservent la même API publique dans les packages React, Solid et Vue, pour les deux modes de style. Les packages CSS Modules
 fournissent les styles des composants. Les packages Tailwind utilisent des classes utilitaires natives et permettent de les surcharger avec les classes de
 votre application.
 
@@ -106,7 +106,7 @@ votre application.
 
 `Locale` fournit la locale et la direction du texte aux formateurs Ark UI et aux composants qui gèrent la locale. Il
 s’agit d’un contexte de framework, pas d’un composant stylé : utilisez `@moduix/react/locale` avec React ou
-`@moduix/solid/locale` avec Solid. La configuration des packages et des feuilles de style est décrite dans [Quick
+`@moduix/solid/locale` avec Solid, ou `@moduix/vue/locale` avec Vue. La configuration des packages et des feuilles de style est décrite dans [Quick
 Start](/docs/quick-start).
 
 <Cards>

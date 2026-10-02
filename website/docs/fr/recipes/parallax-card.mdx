@@ -5,6 +5,7 @@ description: Une recette moduix prête à copier, avec une image de fond décora
 
 import { ParallaxCardPreview } from '@/components/recipes/parallax-card-preview';
 import parallaxCardSolid from '../../../snippets/recipes/solid/parallax-card.tsx?raw';
+import parallaxCardVue from '../../../snippets/recipes/vue/parallax-card.vue?raw';
 
 # Carte avec effet parallaxe
 
@@ -17,7 +18,7 @@ définis dans le fichier CSS de l’exemple, afin que vous puissiez les adapter 
 ne s’active que sur les appareils dotés d’un pointeur précis prenant en charge le survol. Si ce pointeur
 n’est pas disponible ou si la personne préfère réduire les animations, la carte reste immobile.
 
-L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React, Solid et Vue avec les mêmes styles.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -32,6 +33,7 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -45,6 +47,11 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={parallaxCardSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={parallaxCardVue} />
 
     </Tab>
   </Tabs>

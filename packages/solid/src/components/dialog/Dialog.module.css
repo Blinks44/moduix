@@ -248,7 +248,7 @@
     );
     --moduix-close-button-icon-size: var(
       --moduix-dialog-close-icon-glyph-size,
-      var(--moduix-spacing-3)
+      var(--moduix-spacing-4)
     );
     position: absolute;
     z-index: 2;

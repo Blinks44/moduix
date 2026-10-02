@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: Multi-framework moduix architecture, React and Solid support, styling tracks, ownership models, documentation areas, and Ark UI foundations.
+description: Multi-framework moduix architecture, React, Solid, and Vue support, styling tracks, ownership models, documentation areas, and Ark UI foundations.
 ---
 
 import { OwnershipLayers } from '@/components/docs/ownership-layers';
@@ -17,14 +17,14 @@ component.
 
 ## Framework support
 
-React and Solid are available today. Vue and Svelte are planned, and will follow the same component
-contracts and styling choices when they ship.
+React, Solid, and Vue are available with native component APIs and both styling tracks. Svelte is
+planned and will follow the same component contracts and styling choices.
 
 | Framework | Status | Documentation |
 | --------- | ------ | ------------- |
 | React | Available | Native React source and live previews |
 | Solid | Available | Native Solid source alongside the React preview |
-| Vue | Planned | Added only after the adapter ships |
+| Vue | Available | Native Vue SFC source alongside the React preview |
 | Svelte | Planned | Added only after the adapter ships |
 
 Framework-specific examples use tabs only when the code genuinely differs. Shared concepts stay
@@ -37,7 +37,7 @@ when you want the component source, styles, and supporting utilities inside your
 
 | Workflow                   | Imports                                           | Best fit                                                               |
 | -------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------- |
-| Package                    | `@moduix/react/*` or `@moduix/solid/*`            | Centralized updates and the smallest amount of application-owned code. |
+| Package                    | `@moduix/react/*`, `@moduix/solid/*` or `@moduix/vue/*`            | Centralized updates and the smallest amount of application-owned code. |
 | Copy-owned shadcn registry | `@/components/ui/*`                               | Direct source ownership and deliberate local changes.                  |
 
 Both workflows expose the same framework-native component contracts and token system. Choose the
@@ -62,10 +62,15 @@ runtime and styling track independently from where the source lives:
       <td><code>@moduix/solid</code></td>
       <td><code>@moduix/solid-tailwind</code></td>
     </tr>
+    <tr>
+      <th scope="row">Vue</th>
+      <td><code>@moduix/vue</code></td>
+      <td><code>@moduix/vue-tailwind</code></td>
+    </tr>
   </tbody>
 </table>
 
-CSS Modules and Tailwind packages both ship for React and Solid. Check the target component page for
+CSS Modules and Tailwind packages both ship for React, Solid, and Vue. Check the target component page for
 its exact package and registry availability. [Quick start](/docs/quick-start) covers the complete
 setup for each path.
 
@@ -77,8 +82,9 @@ The package peer dependencies define the supported framework range:
 | ---------- | ------------------ | ------- |
 | React and React DOM | 18 and 19 | `@moduix/react`, `@moduix/react-tailwind` |
 | Solid | 1.9 and later 1.x releases | `@moduix/solid`, `@moduix/solid-tailwind` |
+| Vue | 3.5 and later 3.x releases | `@moduix/vue`, `@moduix/vue-tailwind` |
 | Tailwind CSS | 4.x | Tailwind packages and registries only |
-| Ark UI | `^5.37.2` | The matching React or Solid package |
+| Ark UI | `^5.37.2` | The matching React, Solid, or Vue package |
 
 Your package manager checks these ranges during installation. CSS Modules packages do not require
 Tailwind CSS.
@@ -104,7 +110,7 @@ The influence is practical rather than cosmetic:
 - a shadcn registry for copy-owned installation.
 
 This influence does not couple CSS Modules to Tailwind or replace Ark anatomy with shadcn-specific
-wrapper contracts. Tailwind packages are available for components that have already been ported.
+wrapper contracts. Both styling tracks provide the same component catalog.
 
 ## How styling works
 
@@ -118,7 +124,7 @@ instead of the optional moduix reset. Both styling tracks share semantic foundat
 global tokens, animations, and component behavior:
 
 - import `style.css` once for shared tokens and base layer styles;
-- use `className` in React or `class` in Solid on roots and named parts;
+- use `className` in React or `class` in Solid or Vue on roots and named parts;
 - target stable `data-slot` and Ark state attributes when a state-specific rule is needed;
 - override `--moduix-*` variables for themes and shared visual decisions.
 
@@ -161,7 +167,7 @@ ready-made presets.
   />
   <Card
     title="Recipes"
-    description="Copy complete product patterns with native React and Solid implementations."
+    description="Copy complete product patterns with native React, Solid, and Vue implementations."
     href="/recipes"
   />
 </Cards>

@@ -5,6 +5,7 @@ description: Render browser-dependent UI after hydration with Ark UI ClientOnly 
 
 import ClientOnlyBasic from '@/components/examples/client-only/basic.tsx';
 import clientOnlySolidBasic from '../../../snippets/client-only/solid/basic.tsx?raw';
+import clientOnlyVueBasic from '../../../snippets/client-only/vue/basic.vue?raw';
 
 Use `ClientOnly` when a browser-dependent subtree should stay out of server rendering while a fallback keeps its
 place in the layout.
@@ -20,6 +21,7 @@ Import the utility from the matching Ark UI package:
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -37,6 +39,13 @@ import { ClientOnly } from '@ark-ui/solid/client-only';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { ClientOnly } from '@ark-ui/vue/client-only';
+```
+
+  </Tab>
 </Tabs>
 
 ## Render browser-dependent content
@@ -48,7 +57,7 @@ browser-only library.
 ## Basic recipe
 
 This recipe shows a browser-dependent `Card` with a `Skeleton` fallback that reserves the same structure. The preview
-uses the React CSS Modules package; the source tabs contain native React and Solid code for the same behavior.
+uses the React CSS Modules package; the source tabs contain native React, Solid, and Vue code for the same behavior.
 
 <ExampleFrame clientOnly variant="component">
   <PreviewFrame maxWidth="sm">
@@ -63,6 +72,7 @@ uses the React CSS Modules package; the source tabs contain native React and Sol
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -75,6 +85,11 @@ uses the React CSS Modules package; the source tabs contain native React and Sol
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clientOnlySolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clientOnlyVueBasic} />
 
     </Tab>
   </Tabs>

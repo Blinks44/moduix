@@ -1,21 +1,6 @@
 <script setup lang="ts">
-import {
-  TreeView,
-  TreeViewBranch,
-  TreeViewBranchContent,
-  TreeViewBranchControl,
-  TreeViewBranchIndicator,
-  TreeViewBranchIndentGuide,
-  TreeViewBranchText,
-  TreeViewItem,
-  TreeViewItemText,
-  TreeViewLabel,
-  TreeViewNode,
-  TreeViewTree,
-  createTreeCollection,
-} from '@moduix/vue/tree-view';
-import { defineComponent } from 'vue';
-import type { PropType } from 'vue';
+import { TreeView, TreeViewLabel, TreeViewTree, createTreeCollection } from '@moduix/vue/tree-view';
+import LinkTreeNode from './LinksTreeNode.vue';
 
 type LinkNode = {
   children?: LinkNode[];
@@ -50,52 +35,6 @@ const collection = createTreeCollection<LinkNode>({
       { id: 'CHANGELOG.md', name: 'CHANGELOG.md', href: '/docs' },
     ],
   },
-});
-
-const treeComponents = {
-  TreeView,
-  TreeViewBranch,
-  TreeViewBranchContent,
-  TreeViewBranchControl,
-  TreeViewBranchIndicator,
-  TreeViewBranchIndentGuide,
-  TreeViewBranchText,
-  TreeViewItem,
-  TreeViewItemText,
-  TreeViewLabel,
-  TreeViewNode,
-  TreeViewTree,
-};
-
-const LinkTreeNode = defineComponent({
-  name: 'LinkTreeNode',
-  components: treeComponents,
-  props: {
-    node: { type: Object as PropType<LinkNode>, required: true },
-    indexPath: { type: Array as PropType<number[]>, required: true },
-  },
-  template: `
-    <TreeViewNode :node="node" :index-path="indexPath" v-slot="{ node: currentNode, indexPath: currentIndexPath, state }">
-      <TreeViewBranch v-if="state.isBranch">
-        <TreeViewBranchControl>
-          <TreeViewBranchIndicator />
-          <TreeViewBranchText>{{ currentNode.name }}</TreeViewBranchText>
-        </TreeViewBranchControl>
-        <TreeViewBranchContent>
-          <TreeViewBranchIndentGuide />
-          <LinkTreeNode
-            v-for="(child, index) in currentNode.children"
-            :key="child.id"
-            :node="child"
-            :index-path="[...currentIndexPath, index]"
-          />
-        </TreeViewBranchContent>
-      </TreeViewBranch>
-      <TreeViewItem v-else as-child>
-        <a :href="currentNode.href">{{ currentNode.name }}</a>
-      </TreeViewItem>
-    </TreeViewNode>
-  `,
 });
 </script>
 

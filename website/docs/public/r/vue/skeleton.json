@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "title": "Skeleton",
+  "description": "moduix Vue Skeleton component.",
+  "dependencies": ["@ark-ui/vue", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation"],
+  "files": [
+    {
+      "path": "src/components/skeleton/Skeleton.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes, StyleValue } from 'vue';\nimport styles from './Skeleton.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  ariaHidden?: HTMLAttributes['aria-hidden'];\n  loading?: boolean;\n  variant?: 'pulse' | 'none';\n  width?: number | string;\n  height?: number | string;\n  boxSize?: number | string;\n  borderRadius?: number | string;\n  class?: HTMLAttributes['class'];\n  style?: StyleValue;\n}\n\nconst {\n  ariaHidden = undefined,\n  loading = true,\n  variant = 'pulse',\n  width,\n  height,\n  boxSize,\n  borderRadius,\n  class: className,\n  style,\n} = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst toCssValue = (value: number | string | undefined) =>\n  typeof value === 'number' ? `${value}px` : value;\nconst skeletonStyle = computed<StyleValue>(() => [\n  {\n    width: toCssValue(width ?? boxSize),\n    height: toCssValue(height ?? boxSize),\n    borderRadius: toCssValue(borderRadius),\n  },\n  style,\n]);\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :aria-hidden=\"ariaHidden ?? (loading ? true : undefined)\"\n    data-scope=\"skeleton\"\n    data-part=\"root\"\n    data-slot=\"skeleton-root\"\n    :data-state=\"loading ? 'loading' : 'loaded'\"\n    :data-loading=\"loading ? '' : undefined\"\n    :data-variant=\"variant\"\n    :class=\"clsx(styles.root, className)\"\n    :style=\"skeletonStyle\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/skeleton/Skeleton.vue"
+    },
+    {
+      "path": "src/components/skeleton/Skeleton.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    display: block;\n    width: 100%;\n    overflow: hidden;\n    border-radius: var(--moduix-skeleton-border-radius, var(--moduix-radius-md));\n\n    &[data-state='loading'] {\n      height: var(--moduix-skeleton-height, var(--moduix-spacing-4));\n      animation: var(--moduix-skeleton-animation, var(--moduix-animation-pulse));\n      background: var(\n        --moduix-skeleton-bg,\n        color-mix(\n          in oklab,\n          var(--moduix-color-muted-foreground) 18%,\n          var(--moduix-color-background)\n        )\n      );\n      color: transparent;\n      pointer-events: none;\n      user-select: none;\n\n      &::before,\n      &::after,\n      & * {\n        visibility: hidden;\n      }\n\n      &[data-variant='none'] {\n        animation: none;\n      }\n\n      @media (prefers-reduced-motion: reduce) {\n        animation: none;\n      }\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/skeleton/Skeleton.module.css"
+    },
+    {
+      "path": "src/components/skeleton/index.ts",
+      "content": "export { default as Skeleton } from './Skeleton.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/skeleton/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

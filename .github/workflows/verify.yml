@@ -116,8 +116,5 @@ jobs:
           cache: true
           require-lockfile: true
 
-      - name: Build React playground storybook
-        run: pnpm --filter @moduix/playground-react build:storybook
-
-      - name: Build React Tailwind playground storybook
-        run: pnpm --filter @moduix/playground-react-tailwind build:storybook
+      - name: Build shipped playground storybooks
+        run: pnpm --filter './playgrounds/*' run build:storybook

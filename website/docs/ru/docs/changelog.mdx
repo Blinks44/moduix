@@ -11,8 +11,25 @@ import { TableOfContentsHero } from '@/components/changelog/table-of-contents-he
 import { SolidReleaseHero } from '@/components/changelog/solid-release-hero';
 import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+import { VueReleaseHero } from '@/components/changelog/vue-release-hero';
 
 # Что нового
+
+<ChangelogNewsItem>
+  <VueReleaseHero />
+
+Vue стал нативным адаптером moduix наряду с React и Solid. [`@moduix/vue`](/docs/quick-start) и
+`@moduix/vue-tailwind` предоставляют полный каталог компонентов с общими токенами и темами.
+
+### Нативная композиция Vue
+
+Используйте плоские именованные экспорты в SFC с `script setup`, нативными свойствами, событиями,
+`v-model` и scoped slots. Реестры `@moduix-vue` и `@moduix-vue-tailwind` копируют Vue-исходники в приложение.
+
+[Быстрый старт](/docs/quick-start), [интеграции форм](/docs/forms) и [рецепты](/recipes) теперь
+содержат Vue вместе с React и Solid во всех трёх языках документации. Страницы компонентов описывают
+реальные различия адаптеров Ark и ограничения конкретных версий upstream. Svelte остаётся в планах.
+</ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <TailwindReleaseHero />

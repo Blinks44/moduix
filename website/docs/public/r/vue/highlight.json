@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "highlight",
+  "title": "Highlight",
+  "description": "moduix Vue Highlight component.",
+  "dependencies": ["@ark-ui/vue", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation"],
+  "files": [
+    {
+      "path": "src/components/highlight/Highlight.vue",
+      "content": "<script setup lang=\"ts\">\nimport { Highlight as ArkHighlight } from '@ark-ui/vue/highlight';\nimport type { HighlightProps as ArkHighlightProps } from '@ark-ui/vue/highlight';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Highlight.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ArkHighlightProps {\n  class?: HTMLAttributes['class'];\n  text: ArkHighlightProps['text'];\n  query: ArkHighlightProps['query'];\n}\n\nconst { class: className, text, query } = defineProps<Props>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkHighlight\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.root, className)\"\n    :text=\"text\"\n    :query=\"query\"\n    data-scope=\"highlight\"\n    data-part=\"root\"\n    data-slot=\"highlight-root\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/highlight/Highlight.vue"
+    },
+    {
+      "path": "src/components/highlight/Highlight.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    padding-block: var(--moduix-highlight-padding-y, 0.0625rem);\n    padding-inline: var(--moduix-highlight-padding-x, var(--moduix-spacing-1));\n    border-radius: var(--moduix-highlight-radius, var(--moduix-radius-xs));\n    background-color: var(\n      --moduix-highlight-bg,\n      color-mix(in oklab, var(--moduix-color-warning) 40%, var(--moduix-color-accent))\n    );\n    color: var(--moduix-highlight-color, var(--moduix-color-foreground));\n    box-shadow: var(--moduix-highlight-shadow, none);\n    font-weight: var(--moduix-highlight-font-weight, var(--moduix-weight-medium));\n    text-decoration: none;\n    -webkit-box-decoration-break: clone;\n    box-decoration-break: clone;\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/highlight/Highlight.module.css"
+    },
+    {
+      "path": "src/components/highlight/index.ts",
+      "content": "import type { HighlightChunk, HighlightProps, UseHighlightProps } from '@ark-ui/vue/highlight';\nimport Highlight from './Highlight.vue';\n\nexport { Highlight };\n\nexport type { HighlightChunk, HighlightProps, UseHighlightProps };",
+      "type": "registry:component",
+      "target": "@components/ui/highlight/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

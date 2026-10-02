@@ -11,8 +11,26 @@ import { TableOfContentsHero } from '@/components/changelog/table-of-contents-he
 import { SolidReleaseHero } from '@/components/changelog/solid-release-hero';
 import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+import { VueReleaseHero } from '@/components/changelog/vue-release-hero';
 
 # Nouveautés
+
+<ChangelogNewsItem>
+  <VueReleaseHero />
+
+Vue rejoint React et Solid comme adaptateur natif de moduix. [`@moduix/vue`](/docs/quick-start) et
+`@moduix/vue-tailwind` proposent le catalogue complet avec les mêmes tokens et thèmes.
+
+### Composition Vue native
+
+Utilisez les exports nommés plats dans des SFC avec `script setup`, des props et événements natifs,
+`v-model` et des slots de portée. Les registres `@moduix-vue` et `@moduix-vue-tailwind` copient les sources Vue dans votre application.
+
+Le [démarrage rapide](/docs/quick-start), les [intégrations de formulaires](/docs/forms) et les
+[recettes](/recipes) incluent désormais Vue aux côtés de React et Solid dans les trois langues.
+Les pages des composants décrivent les différences réelles des adaptateurs Ark et les limitations
+upstream propres à certaines versions. Svelte reste prévu.
+</ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <TailwindReleaseHero />

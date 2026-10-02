@@ -31,9 +31,8 @@ or component-index pages, read [the framework-support contract](references/frame
   root, family-prefixed parts, and top-level hooks directly from the component subpath. Do not show
   `Component.Part`, `Component.Root`, namespace imports, or duplicate `<Family>Root` aliases.
 - Use public imports from the shipped or explicitly staged package the example documents. Current
-  shipped package roots are `@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind`, and
-  `@moduix/solid-tailwind`. The staged Vue roots are `@moduix/vue` and `@moduix/vue-tailwind` and may
-  appear only for components already implemented in those packages. Discover later adapters from
+  shipped package roots are `@moduix/react`, `@moduix/solid`, `@moduix/vue`,
+  `@moduix/react-tailwind`, `@moduix/solid-tailwind`, and `@moduix/vue-tailwind`. Discover later adapters from
   package exports and registries. The documentation application runs React; do not silently present
   its live preview as a different runtime or styling variant.
 - Keep prose and snippets consumer-facing, complete, and production-like. Do not hide required setup, callbacks, collection data, or Ark composition behind docs-only helpers.

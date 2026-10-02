@@ -1,8 +1,7 @@
 {
   "name": "@moduix/vue",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Private development package for the Vue implementation of moduix.",
+  "version": "3.0.0",
+  "description": "Vue implementation of the moduix component system, built on Ark UI primitives.",
   "keywords": [
     "accessible",
     "ark-ui",

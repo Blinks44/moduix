@@ -5,6 +5,7 @@ description: Reliez les composants Moduix aux adaptateurs TanStack Form natifs d
 
 import ProjectForm from '@/components/examples/tanstack-form/complete-form.tsx';
 import tanStackFormSolidCompleteForm from '../../../snippets/tanstack-form/solid/complete-form.tsx?raw';
+import tanStackFormVueCompleteForm from '../../../snippets/tanstack-form/vue/complete-form.vue?raw';
 
 # TanStack Form
 
@@ -13,7 +14,7 @@ avec des adaptateurs natifs pour chaque framework pris en charge. Ce guide relie
 
 ## Prise en charge des frameworks
 
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
   <Tab value="react">
 
 <PackageManagerTabs command="install @tanstack/react-form" />
@@ -26,6 +27,13 @@ React crée le formulaire avec `useForm` et fournit directement l’API du champ
 <PackageManagerTabs command="install @tanstack/solid-form" />
 
 Solid crée le formulaire avec `createForm` et fournit des accesseurs aux callbacks de champ et d’abonnement.
+
+  </Tab>
+  <Tab value="vue">
+
+<PackageManagerTabs command="install @tanstack/vue-form" />
+
+Vue utilise `useForm` et le slot de portée `{ field, state }` de `form.Field`. Lisez `state.value` et appelez `field.handleChange`.
 
   </Tab>
 </Tabs>
@@ -68,7 +76,7 @@ styles. L’aperçu utilise React.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/tanstack-form/complete-form.tsx"
@@ -78,6 +86,11 @@ styles. L’aperçu utilise React.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tanStackFormSolidCompleteForm} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tanStackFormVueCompleteForm} />
 
     </Tab>
   </Tabs>

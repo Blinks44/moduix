@@ -5,6 +5,7 @@ description: Готовый каркас панели управления с и
 
 import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-preview';
 import sidebarDashboardSolid from '../../../snippets/recipes/solid/sidebar-dashboard.tsx?raw';
+import sidebarDashboardVue from '../../../snippets/recipes/vue/sidebar-dashboard.vue?raw';
 
 # Панель управления с боковой навигацией
 
@@ -22,7 +23,7 @@ import sidebarDashboardSolid from '../../../snippets/recipes/solid/sidebar-dashb
 moduix. Скопируйте компонент и CSS ниже, затем замените демонстрационные ссылки,
 подписи и данные панели.
 
-Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React, Solid и Vue с общими стилями.
 
 <ExampleFrame variant="recipe" clientOnly>
   <SidebarDashboardPreview />
@@ -35,6 +36,7 @@ moduix. Скопируйте компонент и CSS ниже, затем за
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -50,6 +52,11 @@ moduix. Скопируйте компонент и CSS ниже, затем за
 <CodeBlockRuntime lang="tsx" code={sidebarDashboardSolid} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarDashboardVue} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -63,7 +70,7 @@ moduix. Скопируйте компонент и CSS ниже, затем за
 
 ## Установка
 
-<ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} />
+<ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" frameworks copiedSource dependencies={['lucide-react']} solidDependencies={['lucide-solid']} vueDependencies={['@lucide/vue']} />
 
 ## Используйте рецепт в приложении
 

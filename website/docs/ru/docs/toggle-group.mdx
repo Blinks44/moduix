@@ -29,6 +29,7 @@ import toggleGroupSolidVertical from '../../../snippets/toggle-group/solid/verti
 import toggleGroupVueAsChild from '../../../snippets/toggle-group/vue/as-child.vue?raw';
 import toggleGroupVueBasic from '../../../snippets/toggle-group/vue/basic.vue?raw';
 import toggleGroupVueContext from '../../../snippets/toggle-group/vue/context.vue?raw';
+import toggleGroupVueContextPart from '../../../snippets/toggle-group/vue/AlignmentItem.vue?raw';
 import toggleGroupVueControlled from '../../../snippets/toggle-group/vue/controlled.vue?raw';
 import toggleGroupVueDisabled from '../../../snippets/toggle-group/vue/disabled.vue?raw';
 import toggleGroupVueIcons from '../../../snippets/toggle-group/vue/icons.vue?raw';
@@ -249,6 +250,8 @@ Solid или scoped slot во Vue.
     <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={toggleGroupVueContext} />
+
+<CodeBlockRuntime lang="vue" code={toggleGroupVueContextPart} title="AlignmentItem.vue" />
 
     </Tab>
   </Tabs>
@@ -562,7 +565,7 @@ Solid или scoped slot во Vue.
 <CssPropertiesSection properties={ToggleGroupDocs.toggleGroupOverrideCssProperties} />
 
 В таблице перечислены свойства уровня группы. Каждый `ToggleGroupItem` также поддерживает [CSS-свойства
-Toggle](/docs/toggle#css-properties) для цветов и состояний взаимодействия. Задайте свойство
+Toggle](/docs/toggle#css-свойства) для цветов и состояний взаимодействия. Задайте свойство
 `--moduix-toggle-*` на корневом компоненте, чтобы оформить все элементы, или на элементе, чтобы изменить
 оформление только одного элемента.
 

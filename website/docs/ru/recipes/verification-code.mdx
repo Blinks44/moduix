@@ -5,6 +5,7 @@ description: Форма подтверждения адреса электрон
 
 import { VerificationCode } from '@/components/recipes/verification-code/verification-code';
 import verificationCodeSolid from '../../../snippets/recipes/solid/verification-code.tsx?raw';
+import verificationCodeVue from '../../../snippets/recipes/vue/verification-code.vue?raw';
 
 # Код подтверждения
 
@@ -15,7 +16,7 @@ import verificationCodeSolid from '../../../snippets/recipes/solid/verification-
 встроенную ошибку поля. Эта проверка подтверждает только наличие всех шести цифр. Проверяйте сам код на
 сервере.
 
-Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React, Solid и Vue с общими стилями.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -30,6 +31,7 @@ import verificationCodeSolid from '../../../snippets/recipes/solid/verification-
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -43,6 +45,11 @@ import verificationCodeSolid from '../../../snippets/recipes/solid/verification-
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={verificationCodeSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={verificationCodeVue} />
 
     </Tab>
   </Tabs>

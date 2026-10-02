@@ -5,6 +5,7 @@ description: Reliez les composants Moduix à Formisch et Valibot dans chaque fra
 
 import ProjectForm from '@/components/examples/formisch/complete-form.tsx';
 import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete-form.tsx?raw';
+import formischVueCompleteForm from '../../../snippets/formisch/vue/complete-form.vue?raw';
 
 # Formisch
 
@@ -13,7 +14,7 @@ dotée d’adaptateurs natifs. Ce guide relie son état validé par Valibot aux 
 
 ## Prise en charge des frameworks
 
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
   <Tab value="react">
 
 <PackageManagerTabs command="install @formisch/react valibot" />
@@ -26,6 +27,13 @@ React crée le store avec `useForm` et met à jour les composants composés avec
 <PackageManagerTabs command="install @formisch/solid valibot" />
 
 Solid crée le store avec `createForm` et met à jour les composants composés avec `field.onInput`.
+
+  </Tab>
+  <Tab value="vue">
+
+<PackageManagerTabs command="install @formisch/vue valibot" />
+
+Vue utilise `useForm` et le slot de portée de `Field`. Affectez les valeurs à `field.input` et transmettez `$el` pour enregistrer le focus.
 
   </Tab>
 </Tabs>
@@ -69,7 +77,7 @@ même schéma, le même comportement, la même composition Moduix et les mêmes 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/formisch/complete-form.tsx"
@@ -79,6 +87,11 @@ même schéma, le même comportement, la même composition Moduix et les mêmes 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formischSolidCompleteForm} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formischVueCompleteForm} />
 
     </Tab>
   </Tabs>
@@ -103,5 +116,6 @@ chemin pour une erreur du formulaire. Conservez la saisie afin que l’utilisate
 
 - Transmettez `field.props.ref`, `onFocus` et `onBlur` à l’élément réellement focalisé.
 - Dans React, utilisez `field.onChange` pour les valeurs composées. Dans Solid, utilisez `field.onInput`.
+  Dans Vue, mettez à jour `field.input` à partir des détails de changement, ou utilisez `v-model` pour les valeurs natives.
 - Gardez la valeur contrôlée afin que `initialInput`, `setInput` et `reset` mettent l’interface à jour.
 - Ne transmettez pas un objet de détails Ark à un gestionnaire d’événement natif de `field.props`.

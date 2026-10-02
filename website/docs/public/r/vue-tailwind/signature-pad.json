@@ -1,0 +1,82 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "signature-pad",
+  "title": "SignaturePad",
+  "description": "moduix Vue Tailwind SignaturePad component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons",
+    "@moduix-vue-tailwind/close-button"
+  ],
+  "files": [
+    {
+      "path": "src/components/signature-pad/SignaturePad.vue",
+      "content": "<script setup lang=\"ts\">\nimport { useFieldContext } from '@ark-ui/vue/field';\nimport { SignaturePadRoot as ArkSignaturePadRoot } from '@ark-ui/vue/signature-pad';\nimport type { SignaturePadRootEmits, SignaturePadRootProps } from '@ark-ui/vue/signature-pad';\nimport { computed, provide, unref, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { signaturePadReadOnlyKey } from './context';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SignaturePadRootProps {\n  class?: HTMLAttributes['class'];\n  readOnly?: SignaturePadRootProps['readOnly'];\n}\n\nexport interface Emits extends /* @vue-ignore */ SignaturePadRootEmits {}\n\nconst { class: className, readOnly = undefined } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst field = useFieldContext();\nconst resolvedReadOnly = computed(() => readOnly ?? unref(field)?.readOnly);\nconst readOnlyContext = computed(() => resolvedReadOnly.value ?? false);\n\nprovide(signaturePadReadOnlyKey, readOnlyContext);\n</script>\n\n<template>\n  <ArkSignaturePadRoot\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50',\n        className,\n      )\n    \"\n    :read-only=\"resolvedReadOnly\"\n    data-slot=\"signature-pad-root\"\n  >\n    <slot />\n  </ArkSignaturePadRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/signature-pad/SignaturePad.vue"
+    },
+    {
+      "path": "src/components/signature-pad/SignaturePadRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SignaturePadRootProvider as ArkSignaturePadRootProvider } from '@ark-ui/vue/signature-pad';\nimport type { SignaturePadRootProviderProps as ArkSignaturePadRootProviderProps } from '@ark-ui/vue/signature-pad';\nimport { computed, provide, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { signaturePadReadOnlyKey } from './context';\nimport type { SignaturePadApi } from './context';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ArkSignaturePadRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: SignaturePadApi;\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst resolvedReadOnly = computed(() => value.readOnly ?? false);\n\nprovide(signaturePadReadOnlyKey, resolvedReadOnly);\n</script>\n\n<template>\n  <ArkSignaturePadRootProvider\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50',\n        className,\n      )\n    \"\n    :value=\"value\"\n    data-slot=\"signature-pad-root-provider\"\n  >\n    <slot />\n  </ArkSignaturePadRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/signature-pad/SignaturePadRootProvider.vue"
+    },
+    {
+      "path": "src/components/signature-pad/SignaturePadLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SignaturePadLabel as ArkSignaturePadLabel } from '@ark-ui/vue/signature-pad';\nimport type { SignaturePadLabelProps } from '@ark-ui/vue/signature-pad';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SignaturePadLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSignaturePadLabel\n    v-bind=\"attrs\"\n    :class=\"cn('text-sm leading-5 font-medium text-foreground select-none', className)\"\n    data-slot=\"signature-pad-label\"\n  >\n    <slot />\n  </ArkSignaturePadLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/signature-pad/SignaturePadLabel.vue"
+    },
+    {
+      "path": "src/components/signature-pad/SignaturePadCanvas.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { SignaturePadControlProps } from '@ark-ui/vue/signature-pad';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { RotateCcwIcon } from '@/lib/moduix/icons/ui';\nimport SignaturePadClearTrigger from './SignaturePadClearTrigger.vue';\nimport SignaturePadControl from './SignaturePadControl.vue';\nimport SignaturePadGuide from './SignaturePadGuide.vue';\nimport SignaturePadSegment from './SignaturePadSegment.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props\n  extends /* @vue-ignore */ Omit<SignaturePadControlProps, 'asChild' | 'children'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <SignaturePadControl v-bind=\"attrs\" :class=\"className\">\n    <SignaturePadSegment />\n    <SignaturePadClearTrigger>\n      <RotateCcwIcon class=\"size-4\" aria-hidden=\"true\" />\n    </SignaturePadClearTrigger>\n    <SignaturePadGuide />\n  </SignaturePadControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/signature-pad/SignaturePadCanvas.vue"
+    },
+    {
+      "path": "src/components/signature-pad/SignaturePadControl.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SignaturePadControl as ArkSignaturePadControl } from '@ark-ui/vue/signature-pad';\nimport type { SignaturePadControlProps } from '@ark-ui/vue/signature-pad';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SignaturePadControlProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSignaturePadControl\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'box-border h-40 min-h-40 w-full min-w-0 overflow-hidden rounded-md border border-border bg-background text-foreground shadow-sm transition-[border-color,box-shadow,opacity] duration-200 ease-in-out outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-not-allowed motion-reduce:transition-none',\n        className,\n      )\n    \"\n    data-slot=\"signature-pad-control\"\n  >\n    <slot />\n  </ArkSignaturePadControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/signature-pad/SignaturePadControl.vue"
+    },
+    {
+      "path": "src/components/signature-pad/SignaturePadSegment.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SignaturePadSegment as ArkSignaturePadSegment } from '@ark-ui/vue/signature-pad';\nimport type { SignaturePadSegmentProps } from '@ark-ui/vue/signature-pad';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SignaturePadSegmentProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSignaturePadSegment\n    v-bind=\"attrs\"\n    :class=\"cn('fill-current', className)\"\n    data-slot=\"signature-pad-segment\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/signature-pad/SignaturePadSegment.vue"
+    },
+    {
+      "path": "src/components/signature-pad/SignaturePadClearTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SignaturePadClearTrigger as ArkSignaturePadClearTrigger } from '@ark-ui/vue/signature-pad';\nimport type { SignaturePadClearTriggerProps } from '@ark-ui/vue/signature-pad';\nimport { computed, inject, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { RotateCcwIcon } from '@/lib/moduix/icons/ui';\nimport CloseButton from '../close-button/CloseButton.vue';\nimport { signaturePadReadOnlyKey } from './context';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SignaturePadClearTriggerProps {\n  ariaLabel?: string;\n  ariaLabelledby?: string;\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n  disabled?: boolean;\n}\n\nconst {\n  ariaLabel,\n  ariaLabelledby,\n  asChild = false,\n  class: className,\n  disabled = undefined,\n} = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst readOnly = inject(\n  signaturePadReadOnlyKey,\n  computed(() => false),\n);\nconst isDisabled = computed(() => {\n  if (readOnly.value || disabled === true) return true;\n  return disabled;\n});\nconst clearTriggerProps = computed(() =>\n  isDisabled.value === undefined ? {} : { disabled: isDisabled.value },\n);\n</script>\n\n<template>\n  <ArkSignaturePadClearTrigger\n    v-if=\"asChild\"\n    v-bind=\"{ ...attrs, ...clearTriggerProps }\"\n    as-child\n    :aria-label=\"ariaLabel\"\n    :aria-labelledby=\"ariaLabelledby\"\n    :class=\"cn('absolute end-2 top-2 border-0', className)\"\n    data-slot=\"signature-pad-clear-trigger\"\n  >\n    <slot><RotateCcwIcon class=\"size-4\" aria-hidden=\"true\" /></slot>\n  </ArkSignaturePadClearTrigger>\n  <ArkSignaturePadClearTrigger\n    v-else\n    v-bind=\"{ ...attrs, ...clearTriggerProps }\"\n    as-child\n    :class=\"\n      cn(\n        `absolute end-2 top-2 size-control-xs rounded-sm border-0 bg-transparent text-muted-foreground focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground`,\n        className,\n      )\n    \"\n    data-slot=\"signature-pad-clear-trigger\"\n  >\n    <CloseButton :aria-label=\"ariaLabel\" :aria-labelledby=\"ariaLabelledby\">\n      <slot><RotateCcwIcon class=\"size-4\" aria-hidden=\"true\" /></slot>\n    </CloseButton>\n  </ArkSignaturePadClearTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/signature-pad/SignaturePadClearTrigger.vue"
+    },
+    {
+      "path": "src/components/signature-pad/SignaturePadGuide.vue",
+      "content": "<script setup lang=\"ts\">\nimport { SignaturePadGuide as ArkSignaturePadGuide } from '@ark-ui/vue/signature-pad';\nimport type { SignaturePadGuideProps } from '@ark-ui/vue/signature-pad';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SignaturePadGuideProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSignaturePadGuide\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'pointer-events-none absolute start-6 end-6 bottom-8 border-b border-dashed border-border',\n        className,\n      )\n    \"\n    data-slot=\"signature-pad-guide\"\n  >\n    <slot />\n  </ArkSignaturePadGuide>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/signature-pad/SignaturePadGuide.vue"
+    },
+    {
+      "path": "src/components/signature-pad/context.ts",
+      "content": "import type { UseSignaturePadReturn } from '@ark-ui/vue/signature-pad';\nimport type { ComputedRef, InjectionKey, UnwrapRef } from 'vue';\n\nexport type SignaturePadApi = UnwrapRef<UseSignaturePadReturn> & {\n  readOnly: boolean;\n};\n\nexport const signaturePadReadOnlyKey: InjectionKey<ComputedRef<boolean>> =\n  Symbol('SignaturePadReadOnly');",
+      "type": "registry:lib",
+      "target": "@components/ui/signature-pad/context.ts"
+    },
+    {
+      "path": "src/components/signature-pad/useSignaturePad.ts",
+      "content": "import { useFieldContext } from '@ark-ui/vue/field';\nimport { useSignaturePad as useSignaturePadPrimitive } from '@ark-ui/vue/signature-pad';\nimport type { UseSignaturePadProps } from '@ark-ui/vue/signature-pad';\nimport { computed, toValue, unref } from 'vue';\nimport type { ComputedRef, MaybeRef } from 'vue';\nimport type { SignaturePadApi } from './context';\n\ntype SignaturePadHookProps = MaybeRef<UseSignaturePadProps> | undefined;\n\nexport const useSignaturePad = (props?: SignaturePadHookProps): ComputedRef<SignaturePadApi> => {\n  const field = useFieldContext();\n  const signaturePad = useSignaturePadPrimitive(props);\n  const readOnly = computed(() => {\n    const machineProps = toValue(props);\n\n    return machineProps?.readOnly ?? unref(field)?.readOnly ?? false;\n  });\n\n  return computed(() => ({\n    ...signaturePad.value,\n    readOnly: readOnly.value,\n  }));\n};",
+      "type": "registry:lib",
+      "target": "@components/ui/signature-pad/useSignaturePad.ts"
+    },
+    {
+      "path": "src/components/signature-pad/index.ts",
+      "content": "import {\n  SignaturePadContext,\n  SignaturePadHiddenInput,\n  useSignaturePadContext,\n} from '@ark-ui/vue/signature-pad';\nimport SignaturePad from './SignaturePad.vue';\nimport SignaturePadCanvas from './SignaturePadCanvas.vue';\nimport SignaturePadClearTrigger from './SignaturePadClearTrigger.vue';\nimport SignaturePadControl from './SignaturePadControl.vue';\nimport SignaturePadGuide from './SignaturePadGuide.vue';\nimport SignaturePadLabel from './SignaturePadLabel.vue';\nimport SignaturePadRootProvider from './SignaturePadRootProvider.vue';\nimport SignaturePadSegment from './SignaturePadSegment.vue';\nimport { useSignaturePad } from './useSignaturePad';\n\nexport {\n  SignaturePad,\n  SignaturePadCanvas,\n  SignaturePadClearTrigger,\n  SignaturePadContext,\n  SignaturePadControl,\n  SignaturePadGuide,\n  SignaturePadHiddenInput,\n  SignaturePadLabel,\n  SignaturePadRootProvider,\n  SignaturePadSegment,\n  useSignaturePad,\n  useSignaturePadContext,\n};\n\nexport type {\n  SignaturePadClearTriggerBaseProps,\n  SignaturePadClearTriggerProps,\n  SignaturePadContextProps,\n  SignaturePadControlBaseProps,\n  SignaturePadControlProps,\n  SignaturePadDrawDetails,\n  SignaturePadDrawEndDetails,\n  SignaturePadDrawingOptions,\n  SignaturePadGuideBaseProps,\n  SignaturePadGuideProps,\n  SignaturePadHiddenInputBaseProps,\n  SignaturePadHiddenInputProps,\n  SignaturePadLabelBaseProps,\n  SignaturePadLabelProps,\n  SignaturePadRootEmits,\n  SignaturePadRootProps,\n  SignaturePadRootProviderBaseProps,\n  SignaturePadRootProviderProps,\n  SignaturePadSegmentBaseProps,\n  SignaturePadSegmentProps,\n  UseSignaturePadProps,\n  UseSignaturePadReturn,\n} from '@ark-ui/vue/signature-pad';",
+      "type": "registry:component",
+      "target": "@components/ui/signature-pad/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

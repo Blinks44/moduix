@@ -5,6 +5,7 @@ description: Une interface de pièces jointes avec glisser-déposer, validation,
 
 import { FileUploadManagerPreview } from '@/components/recipes/file-upload-manager-preview';
 import fileUploadManagerSolid from '../../../snippets/recipes/solid/file-upload-manager.tsx?raw';
+import fileUploadManagerVue from '../../../snippets/recipes/vue/file-upload-manager.vue?raw';
 
 # Téléversement de fichiers
 
@@ -17,7 +18,7 @@ La recette gère uniquement la sélection et la liste locale. Elle n’envoie pa
 leur progression. Reliez `onFileChange` à votre formulaire ou à votre requête de téléversement dans la fonctionnalité
 qui gère ces données.
 
-L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React et Solid avec les mêmes styles.
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React, Solid et Vue avec les mêmes styles.
 
 <ExampleFrame variant="recipe" clientOnly>
   <FileUploadManagerPreview />
@@ -30,6 +31,7 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -43,6 +45,11 @@ L’aperçu interactif utilise le paquet React. Les onglets de code présentent 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fileUploadManagerSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadManagerVue} />
 
     </Tab>
   </Tabs>

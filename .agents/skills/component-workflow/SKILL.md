@@ -11,11 +11,11 @@ Own the public component contract across every shipped framework and styling ada
 | ------- | ---------------- | ------------------------- |
 | React   | `packages/react` | `packages/react-tailwind` |
 | Solid   | `packages/solid` | `packages/solid-tailwind` |
+| Vue     | `packages/vue`   | `packages/vue-tailwind`   |
 
-Vue is scaffolded and in development (`packages/vue`, `packages/vue-tailwind`, `playgrounds/vue`,
-`playgrounds/vue-tailwind`) but is not a shipped contract yet; Svelte adapters are planned. When a
-new adapter becomes public, mark its package and playground rows as shipped here; the rest of this
-workflow should continue to operate on the discovered shipped set.
+Each runtime has matching playgrounds under `playgrounds/`. Svelte adapters are planned. When a
+new adapter becomes public, add its package and playground rows here; this workflow continues to
+operate on the discovered shipped set.
 
 Use framework-native code in every package. Share tokens, animations, reset, and presets through
 `packages/foundation`; do not create a shared component runtime or generate framework source.

@@ -19,6 +19,7 @@
   },
   "registries": {
     "@moduix-react-tailwind": "https://moduix.dev/r/react-tailwind/{name}.json",
-    "@moduix-solid-tailwind": "https://moduix.dev/r/solid-tailwind/{name}.json"
+    "@moduix-solid-tailwind": "https://moduix.dev/r/solid-tailwind/{name}.json",
+    "@moduix-vue-tailwind": "https://moduix.dev/r/vue-tailwind/{name}.json"
   }
 }

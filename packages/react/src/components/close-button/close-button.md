@@ -125,7 +125,7 @@ Public CSS variables:
 | `--moduix-close-button-focus-ring-color`  | `var(--moduix-color-ring)`                                      |
 | `--moduix-close-button-focus-ring-offset` | `var(--moduix-focus-ring-offset)`                               |
 | `--moduix-close-button-focus-ring-width`  | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))` |
-| `--moduix-close-button-icon-size`         | `var(--moduix-spacing-3)`                                       |
+| `--moduix-close-button-icon-size`         | `var(--moduix-spacing-4)`                                       |
 | `--moduix-close-button-radius`            | `var(--moduix-radius-sm)`                                       |
 | `--moduix-close-button-size`              | `var(--moduix-spacing-7)`                                       |
 | `--moduix-close-button-transition`        | `var(--moduix-transition-default)`                              |
@@ -147,6 +147,8 @@ Public CSS variables:
 - Do not reintroduce legacy render props.
 
 ## Local changelog
+
+- 2026-10-02: Standardized close and clear glyphs at 16px, matching InputGroup across CSS Modules and Tailwind. Button dimensions remain context-specific.
 
 - 2026-09-09: Removed active `translate` and `scale` press feedback so composed close controls do
   not shift or resize on click.

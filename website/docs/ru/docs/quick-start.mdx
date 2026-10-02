@@ -1,6 +1,6 @@
 ---
 title: Быстрый старт
-description: Выберите React или Solid, CSS Modules или Tailwind, затем установите moduix как пакет или добавьте исходный код через shadcn CLI.
+description: Выберите React, Solid или Vue, CSS Modules или Tailwind, затем установите moduix как пакет или добавьте исходный код через shadcn CLI.
 ---
 
 import { FrameworkGrid } from '@/components/docs/framework-grid';
@@ -9,9 +9,12 @@ import componentsCssModules from '../../../snippets/quick-start/components-css-m
 import componentsTailwind from '../../../snippets/quick-start/components-tailwind.json?raw';
 import reactCssModules from '../../../snippets/quick-start/react-css-modules.tsx?raw';
 import reactTailwind from '../../../snippets/quick-start/react-tailwind.tsx?raw';
+import shadcnAccordionVue from '../../../snippets/quick-start/shadcn-accordion-vue.vue?raw';
 import shadcnAccordion from '../../../snippets/quick-start/shadcn-accordion.tsx?raw';
 import solidCssModules from '../../../snippets/quick-start/solid-css-modules.tsx?raw';
+import VueCssModules from '../../../snippets/quick-start/vue-css-modules.vue?raw';
 import solidTailwind from '../../../snippets/quick-start/solid-tailwind.tsx?raw';
+import VueTailwind from '../../../snippets/quick-start/vue-tailwind.vue?raw';
 
 # Быстрый старт
 
@@ -24,7 +27,7 @@ moduix можно использовать в приложении двумя р
 контракты и систему токенов. Выбирайте исходя из того, где должен находиться исходный код и как вы
 планируете его обновлять.
 
-Начинайте с существующего приложения на React или Solid. Для Tailwind-пакета или реестра в проекте
+Начинайте с существующего приложения на React, Solid или Vue. Для Tailwind-пакета или реестра в проекте
 уже должен быть настроен Tailwind CSS v4.
 
 ## Выберите, где будет храниться исходный код
@@ -43,7 +46,8 @@ moduix можно использовать в приложении двумя р
 </Cards>
 
 Для начала выберите React 18 или 19 с `@ark-ui/react` либо Solid 1.9 или более новую версию 1.x с
-`@ark-ui/solid`. Фреймворк или сборщик должен уметь импортировать CSS из установленных пакетов. Если окружение этого требует,
+`@ark-ui/solid` либо Vue 3.5 или более новую версию 3.x с `@ark-ui/vue`. Фреймворк или сборщик должен
+уметь импортировать CSS из установленных пакетов. Если окружение этого требует,
 размещайте интерактивные компоненты в клиентской границе.
 
 За доступность отвечают все участники: Ark UI реализует поведение примитивов, moduix задаёт контракты обёрток и
@@ -52,18 +56,25 @@ moduix можно использовать в приложении двумя р
 
 ## Выберите фреймворк
 
-Выберите нативные для фреймворка пакет и пространство имён реестра. Каталоги компонентов для React и
-Solid доступны в обоих вариантах стилизации. Для CSS Modules необходим reset moduix или эквивалентный
-reset приложения, а Tailwind использует Preflight. Адаптеры Vue и Svelte запланированы, но пока недоступны для установки.
+Выберите нативные для фреймворка пакет и пространство имён реестра. Каталоги компонентов для React,
+Solid и Vue доступны в обоих вариантах стилизации. Для CSS Modules необходим reset moduix или эквивалентный
+reset приложения, а Tailwind использует Preflight.
+Svelte запланирован.
+
+Примеры используют импорты отдельных компонентов, чтобы необязательные интеграции оставались
+изолированными. Корневая точка входа пакета также экспортирует Chart: установите peer-зависимость
+`@tanstack/charts`, если импортируете из неё, поскольку сборщик может разрешать эту интеграцию,
+даже когда используется другой компонент.
 
 | Среда | CSS Modules | Tailwind CSS |
 | --- | --- | --- |
 | React | `@moduix/react` / `@moduix-react` | `@moduix/react-tailwind` / `@moduix-react-tailwind` |
 | Solid | `@moduix/solid` / `@moduix-solid` | `@moduix/solid-tailwind` / `@moduix-solid-tailwind` |
+| Vue | `@moduix/vue` / `@moduix-vue` | `@moduix/vue-tailwind` / `@moduix-vue-tailwind` |
 
-В каждой инструкции ниже указаны поддерживаемые фреймворки. Astro, Rsbuild, TanStack Start и Vite
-описаны для React и Solid; у SolidStart есть отдельная страница, а Next.js и React Router остаются
-вариантами только для React.
+В каждой инструкции ниже указаны поддерживаемые фреймворки. Astro, Rsbuild и Vite описаны для React,
+Solid и Vue. TanStack Start поддерживает React и Solid; у SolidStart есть отдельная страница, а
+Next.js и React Router остаются вариантами только для React.
 
 <FrameworkGrid />
 
@@ -96,6 +107,11 @@ reset приложения, а Tailwind использует Preflight. Адап
 <PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
+
+  </Tab>
 </Tabs>
 
 Среда выполнения и соответствующий пакет Ark UI остаются в приложении, поэтому moduix не добавляет
@@ -117,6 +133,13 @@ import '@moduix/react/style.css';
 
 ```tsx
 import '@moduix/solid/style.css';
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import '@moduix/vue/style.css';
 ```
 
   </Tab>
@@ -148,6 +171,14 @@ import '@moduix/solid/style.css';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import '@moduix/vue/reset.css';
+import '@moduix/vue/style.css';
+```
+
+  </Tab>
 </Tabs>
 
 Если в приложении уже есть корректный собственный reset, используйте его вместо reset moduix.
@@ -167,6 +198,11 @@ Accordion доступен в каждом выпущенном фреймвор
   <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidCssModules} />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueCssModules} />
 
   </Tab>
 </Tabs>
@@ -191,6 +227,11 @@ Accordion доступен в каждом выпущенном фреймвор
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="install @moduix/solid-tailwind @ark-ui/solid" />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue-tailwind @ark-ui/vue" />
 
   </Tab>
 </Tabs>
@@ -220,6 +261,16 @@ Accordion доступен в каждом выпущенном фреймвор
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```css title="styles.css"
+@import '@moduix/vue-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/vue-tailwind/dist/components';
+```
+
+  </Tab>
 </Tabs>
 
 Путь `@source` разрешается относительно файла стилей и должен охватывать только каталог
@@ -236,6 +287,11 @@ Accordion доступен в каждом выпущенном фреймвор
   <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidTailwind} />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueTailwind} />
 
   </Tab>
 </Tabs>
@@ -271,7 +327,7 @@ Accordion доступен в каждом выпущенном фреймвор
 глобальные стили проекта лежат в другом месте. Реестрам CSS Modules Tailwind не нужен, поэтому в их
 конфигурации используются пустые значения, обязательные для схемы shadcn.
 
-`rsc` относится только к элементам React-реестра. Оставьте `false` для Solid и обычных
+`rsc` относится только к элементам React-реестра. Оставьте `false` для Solid, Vue и обычных
 React-приложений. В приложении с React Server Components установите `true`: тогда CLI добавит
 `use client` к клиентским компонентам из реестра.
 
@@ -315,6 +371,16 @@ React-приложений. В приложении с React Server Components �
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/accordion' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 Чтобы добавить другой компонент, замените его имя в выбранном пространстве имён. Используйте пространство
@@ -347,6 +413,11 @@ import '@/lib/moduix/styles/style.css';
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="shadcn@latest add @moduix-solid/reset" dlx />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-vue/reset" dlx />
 
   </Tab>
 </Tabs>
@@ -383,7 +454,11 @@ import '@/lib/moduix/styles/style.css';
 Accordion доступен в каждом опубликованном фреймворке и варианте стилизации, поэтому с него удобно
 начать проверку:
 
-<CodeBlockRuntime lang="tsx" code={shadcnAccordion} />
+<Tabs groupId="framework">
+  <Tab label="React" value="react"><CodeBlockRuntime lang="tsx" code={shadcnAccordion} /></Tab>
+  <Tab label="Solid" value="solid"><CodeBlockRuntime lang="tsx" code={shadcnAccordion} /></Tab>
+  <Tab label="Vue" value="vue"><CodeBlockRuntime lang="vue" code={shadcnAccordionVue} /></Tab>
+</Tabs>
 
 Большинство компонентов собрано из именованных частей. Такая структура сохраняет доступное поведение и позволяет
 управлять разметкой, компоновкой и стилями в приложении.

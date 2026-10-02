@@ -1,21 +1,6 @@
 <script setup lang="ts">
-import {
-  TreeView,
-  TreeViewBranch,
-  TreeViewBranchContent,
-  TreeViewBranchControl,
-  TreeViewBranchIndicator,
-  TreeViewBranchIndentGuide,
-  TreeViewBranchText,
-  TreeViewItem,
-  TreeViewItemText,
-  TreeViewLabel,
-  TreeViewNode,
-  TreeViewTree,
-  createTreeCollection,
-} from '@moduix/vue/tree-view';
-import { defineComponent } from 'vue';
-import type { PropType } from 'vue';
+import { TreeView, TreeViewLabel, TreeViewTree, createTreeCollection } from '@moduix/vue/tree-view';
+import FileTreeNode from './BasicTreeNode.vue';
 
 type FileNode = {
   children?: FileNode[];
@@ -55,52 +40,6 @@ const collection = createTreeCollection<FileNode>({
       { id: 'package.json', name: 'package.json' },
     ],
   },
-});
-
-const treeComponents = {
-  TreeView,
-  TreeViewBranch,
-  TreeViewBranchContent,
-  TreeViewBranchControl,
-  TreeViewBranchIndicator,
-  TreeViewBranchIndentGuide,
-  TreeViewBranchText,
-  TreeViewItem,
-  TreeViewItemText,
-  TreeViewLabel,
-  TreeViewNode,
-  TreeViewTree,
-};
-
-const FileTreeNode = defineComponent({
-  name: 'FileTreeNode',
-  components: treeComponents,
-  props: {
-    node: { type: Object as PropType<FileNode>, required: true },
-    indexPath: { type: Array as PropType<number[]>, required: true },
-  },
-  template: `
-    <TreeViewNode :node="node" :index-path="indexPath" v-slot="{ node: currentNode, indexPath: currentIndexPath, state }">
-      <TreeViewBranch v-if="state.isBranch">
-        <TreeViewBranchControl>
-          <TreeViewBranchIndicator />
-          <TreeViewBranchText>{{ currentNode.name }}</TreeViewBranchText>
-        </TreeViewBranchControl>
-        <TreeViewBranchContent>
-          <TreeViewBranchIndentGuide />
-          <FileTreeNode
-            v-for="(child, index) in currentNode.children"
-            :key="child.id"
-            :node="child"
-            :index-path="[...currentIndexPath, index]"
-          />
-        </TreeViewBranchContent>
-      </TreeViewBranch>
-      <TreeViewItem v-else>
-        <TreeViewItemText>{{ currentNode.name }}</TreeViewItemText>
-      </TreeViewItem>
-    </TreeViewNode>
-  `,
 });
 </script>
 

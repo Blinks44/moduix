@@ -5,6 +5,7 @@ description: A six-digit email verification form built with moduix components.
 
 import { VerificationCode } from '@/components/recipes/verification-code/verification-code';
 import verificationCodeSolid from '../../../snippets/recipes/solid/verification-code.tsx?raw';
+import verificationCodeVue from '../../../snippets/recipes/vue/verification-code.vue?raw';
 
 # Verification code
 
@@ -14,7 +15,7 @@ native form input, handles keyboard navigation and paste, and enables OTP autofi
 with fewer than six digits to see the built-in field error. This check only confirms that all six digits
 are present. Your application still needs to verify the code on the server.
 
-The live preview uses the React package. The source tabs show native React and Solid implementations that share the same stylesheet.
+The live preview uses the React package. The source tabs show native React, Solid, and Vue implementations that share the same stylesheet.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -29,6 +30,7 @@ The live preview uses the React package. The source tabs show native React and S
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -42,6 +44,11 @@ The live preview uses the React package. The source tabs show native React and S
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={verificationCodeSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={verificationCodeVue} />
 
     </Tab>
   </Tabs>

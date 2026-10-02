@@ -1,0 +1,72 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-group",
+  "title": "InputGroup",
+  "description": "moduix Vue Tailwind InputGroup component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/icons",
+    "@moduix-vue-tailwind/close-button",
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/button",
+    "@moduix-vue-tailwind/input"
+  ],
+  "files": [
+    {
+      "path": "src/components/input-group/InputGroupClearTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { useAttrs, computed, inject } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { CloseIcon } from '@/lib/moduix/icons/ui';\nimport CloseButton from '../close-button/CloseButton.vue';\nimport type { Props as CloseButtonProps } from '../close-button/CloseButton.vue';\nimport { defaultInputGroupSize, InputGroupSizeContextKey } from './context';\nimport type { InputGroupSize } from './context';\nimport { inputGroupClearTriggerVariants } from './variants';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props\n  extends /* @vue-ignore */ Omit<\n    CloseButtonProps,\n    'class' | 'type' | 'ariaLabel' | 'ariaLabelledby'\n  > {\n  ariaLabel?: string;\n  ariaLabelledby?: string;\n  class?: HTMLAttributes['class'];\n  size?: InputGroupSize;\n  type?: CloseButtonProps['type'];\n}\n\nconst { ariaLabel, ariaLabelledby, class: className, size, type = 'button' } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst groupSize = inject(\n  InputGroupSizeContextKey,\n  computed(() => defaultInputGroupSize),\n);\nconst buttonSize = computed(() => size ?? groupSize.value);\n</script>\n\n<template>\n  <CloseButton\n    v-bind=\"attrs\"\n    :class=\"cn(inputGroupClearTriggerVariants({ size: buttonSize }), className)\"\n    :data-size=\"buttonSize\"\n    :type=\"type\"\n    :aria-label=\"ariaLabel ?? (ariaLabelledby == null ? 'Clear input' : undefined)\"\n    :aria-labelledby=\"ariaLabelledby\"\n    data-scope=\"input-group\"\n    data-part=\"clear-trigger\"\n    data-slot=\"input-group-clear-trigger\"\n  >\n    <slot><CloseIcon class=\"size-4 shrink-0\" /></slot>\n  </CloseButton>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/input-group/InputGroupClearTrigger.vue"
+    },
+    {
+      "path": "src/components/input-group/InputGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { ark } from '@ark-ui/vue/factory';\nimport { useAttrs, computed, provide } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { defaultInputGroupSize, InputGroupSizeContextKey, type InputGroupSize } from './context';\nimport { inputGroupRootVariants } from './variants';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n  size?: InputGroupSize;\n}\n\nconst { class: className, size = defaultInputGroupSize } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nprovide(\n  InputGroupSizeContextKey,\n  computed(() => size),\n);\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"cn(inputGroupRootVariants({ size }), className)\"\n    :data-size=\"size\"\n    data-scope=\"input-group\"\n    data-part=\"root\"\n    data-slot=\"input-group-root\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/input-group/InputGroup.vue"
+    },
+    {
+      "path": "src/components/input-group/InputGroupAddon.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs, computed, inject } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { defaultInputGroupSize, InputGroupSizeContextKey } from './context';\nimport { inputGroupAddonVariants } from './variants';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst groupSize = inject(\n  InputGroupSizeContextKey,\n  computed(() => defaultInputGroupSize),\n);\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"cn(inputGroupAddonVariants({ size: groupSize }), className)\"\n    data-scope=\"input-group\"\n    data-part=\"addon\"\n    data-slot=\"input-group-addon\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/input-group/InputGroupAddon.vue"
+    },
+    {
+      "path": "src/components/input-group/InputGroupButton.vue",
+      "content": "<script setup lang=\"ts\">\nimport { useAttrs, computed, inject } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport Button from '../button/Button.vue';\nimport type { Props as ButtonProps } from '../button/Button.vue';\nimport { defaultInputGroupSize, InputGroupSizeContextKey } from './context';\nimport { inputGroupButtonClass } from './variants';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props\n  extends /* @vue-ignore */ Omit<ButtonProps, 'class' | 'size' | 'type' | 'variant'> {\n  class?: HTMLAttributes['class'];\n  size?: ButtonProps['size'];\n  type?: ButtonProps['type'];\n  variant?: ButtonProps['variant'];\n}\n\nconst { class: className, size, type = 'button', variant = 'ghost' } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst groupSize = inject(\n  InputGroupSizeContextKey,\n  computed(() => defaultInputGroupSize),\n);\nconst buttonSize = computed(() => size ?? groupSize.value);\n</script>\n\n<template>\n  <Button\n    v-bind=\"attrs\"\n    :class=\"cn(inputGroupButtonClass, className)\"\n    :size=\"buttonSize\"\n    :type=\"type\"\n    :variant=\"variant\"\n    data-slot=\"input-group-button\"\n  >\n    <slot />\n  </Button>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/input-group/InputGroupButton.vue"
+    },
+    {
+      "path": "src/components/input-group/InputGroupInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { FieldInputProps } from '@ark-ui/vue/field';\nimport { computed, inject, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport Input from '../input/Input.vue';\nimport { defaultInputGroupSize, InputGroupSizeContextKey } from './context';\nimport type { InputGroupSize } from './context';\nimport { inputGroupInputVariants } from './variants';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ Omit<FieldInputProps, 'size'> {\n  class?: HTMLAttributes['class'];\n  htmlSize?: FieldInputProps['size'];\n  size?: InputGroupSize;\n}\n\nexport interface Emits {\n  'update:modelValue': [value: FieldInputProps['modelValue']];\n}\n\nconst props = defineProps<Props>();\nconst emit = defineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\ninterface InputGroupInputBindings {\n  class?: HTMLAttributes['class'];\n  htmlSize?: FieldInputProps['size'];\n  modelValue?: FieldInputProps['modelValue'];\n  size?: InputGroupSize;\n}\n\nconst inputProps = props as unknown as InputGroupInputBindings;\n\nconst attrs = useAttrs();\nconst modelValue = computed(() => inputProps.modelValue ?? attrs.modelValue);\nconst groupSize = inject(\n  InputGroupSizeContextKey,\n  computed(() => defaultInputGroupSize),\n);\nconst inputSize = computed<InputGroupSize>(() => {\n  const localSize: InputGroupSize | undefined = inputProps.size;\n  return localSize ?? groupSize.value;\n});\n</script>\n\n<template>\n  <Input\n    v-bind=\"attrs\"\n    :class=\"cn(inputGroupInputVariants({ size: inputSize }), inputProps.class)\"\n    :html-size=\"inputProps.htmlSize\"\n    :model-value=\"modelValue\"\n    :size=\"inputSize\"\n    @update:model-value=\"emit('update:modelValue', $event)\"\n  >\n    <slot />\n  </Input>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/input-group/InputGroupInput.vue"
+    },
+    {
+      "path": "src/components/input-group/InputGroupText.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs, computed, inject } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { defaultInputGroupSize, InputGroupSizeContextKey } from './context';\nimport { inputGroupTextVariants } from './variants';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst groupSize = inject(\n  InputGroupSizeContextKey,\n  computed(() => defaultInputGroupSize),\n);\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"cn(inputGroupTextVariants({ size: groupSize }), className)\"\n    data-scope=\"input-group\"\n    data-part=\"text\"\n    data-slot=\"input-group-text\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/input-group/InputGroupText.vue"
+    },
+    {
+      "path": "src/components/input-group/context.ts",
+      "content": "import type { InjectionKey, Ref } from 'vue';\n\nexport type InputGroupSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n\nexport const defaultInputGroupSize: InputGroupSize = 'md';\n\nexport const InputGroupSizeContextKey: InjectionKey<Readonly<Ref<InputGroupSize>>> =\n  Symbol('InputGroupSize');",
+      "type": "registry:component",
+      "target": "@components/ui/input-group/context.ts"
+    },
+    {
+      "path": "src/components/input-group/variants.ts",
+      "content": "import { cva } from 'class-variance-authority';\n\nexport const inputGroupSizeVariants = {\n  xs: 'px-2.5 text-xs leading-4',\n  sm: 'px-3 text-sm leading-5',\n  md: 'px-3.5 text-md leading-6',\n  lg: 'px-4 text-lg leading-7',\n  xl: 'px-4.5 text-lg leading-7',\n};\n\nexport const inputGroupRootVariants = cva(\n  'flex w-full max-w-none items-stretch overflow-hidden rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring has-[[data-slot=input-root][data-invalid]]:border-destructive has-[[data-slot=input-root][data-invalid]]:focus-within:outline-destructive has-[[data-slot=input-root][aria-invalid=true]]:border-destructive has-[[data-slot=input-root][aria-invalid=true]]:focus-within:outline-destructive has-[[data-slot=input-root][data-disabled]]:opacity-50 has-[[data-slot=input-root]:disabled]:opacity-50 motion-reduce:transition-none',\n  {\n    variants: {\n      size: {\n        xs: 'min-h-control-xs',\n        sm: 'min-h-control-sm',\n        md: 'min-h-control-md',\n        lg: 'min-h-control-lg',\n        xl: 'min-h-control-xl',\n      },\n    },\n    defaultVariants: {\n      size: 'md',\n    },\n  },\n);\n\nexport const inputGroupInputVariants = cva(\n  'min-h-0 min-w-0 grow basis-auto rounded-none border-0 bg-transparent outline-0',\n  {\n    variants: {\n      size: inputGroupSizeVariants,\n    },\n    defaultVariants: {\n      size: 'md',\n    },\n  },\n);\n\nexport const inputGroupAddonVariants = cva(\n  'inline-flex min-w-0 items-center justify-center gap-2 truncate bg-muted text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0 border-s border-e border-border first:border-s-0 last:border-e-0',\n  {\n    variants: {\n      size: inputGroupSizeVariants,\n    },\n    defaultVariants: {\n      size: 'md',\n    },\n  },\n);\n\nexport const inputGroupTextVariants = cva(\n  'inline-flex min-w-0 items-center justify-center gap-2 truncate bg-transparent text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',\n  {\n    variants: {\n      size: inputGroupSizeVariants,\n    },\n    defaultVariants: {\n      size: 'md',\n    },\n  },\n);\n\nexport const inputGroupButtonClass = 'h-auto self-stretch rounded-none border-0';\nexport const inputGroupClearTriggerVariants = cva(\n  'me-2 size-control-xs self-center focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none',\n  {\n    variants: { size: { xs: 'size-5', sm: '', md: '', lg: '', xl: '' } },\n    defaultVariants: { size: 'md' },\n  },\n);",
+      "type": "registry:component",
+      "target": "@components/ui/input-group/variants.ts"
+    },
+    {
+      "path": "src/components/input-group/index.ts",
+      "content": "import InputGroup from './InputGroup.vue';\nimport InputGroupAddon from './InputGroupAddon.vue';\nimport InputGroupButton from './InputGroupButton.vue';\nimport InputGroupClearTrigger from './InputGroupClearTrigger.vue';\nimport InputGroupInput from './InputGroupInput.vue';\nimport InputGroupText from './InputGroupText.vue';\n\nexport {\n  InputGroup,\n  InputGroupClearTrigger,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n  InputGroupText,\n};\n\nexport type { InputGroupSize } from './context';",
+      "type": "registry:component",
+      "target": "@components/ui/input-group/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

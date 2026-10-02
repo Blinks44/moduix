@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "image",
+  "title": "Image",
+  "description": "moduix Vue Image component.",
+  "dependencies": ["@unpic/core", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation"],
+  "files": [
+    {
+      "path": "src/components/image/Image.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { UnpicImageProps } from '@unpic/core';\nimport { transformProps } from '@unpic/core';\nimport { clsx } from 'clsx';\nimport { ref, useAttrs } from 'vue';\nimport type { HTMLAttributes, ImgHTMLAttributes } from 'vue';\nimport styles from './Image.module.css';\n\ntype ImageTransformProps = UnpicImageProps<ImgHTMLAttributes> & {\n  style?: ImgHTMLAttributes['style'];\n};\n\nexport interface Props\n  extends /* @vue-ignore */ Omit<UnpicImageProps<ImgHTMLAttributes>, 'fetchpriority'> {\n  class?: HTMLAttributes['class'];\n  fetchpriority?: ImgHTMLAttributes['fetchpriority'];\n  style?: ImgHTMLAttributes['style'];\n}\n\ndefineOptions({ inheritAttrs: false });\n\nconst props = defineProps<Props>();\nconst attrs = useAttrs();\nconst imageElement = ref<HTMLImageElement>();\n\ndefineExpose({ $el: imageElement });\n\nconst getImageProps = () => {\n  const { class: _class, ...inputProps } = { ...attrs, ...props };\n  return transformProps<ImgHTMLAttributes>(inputProps as ImageTransformProps);\n};\n</script>\n\n<template>\n  <img\n    ref=\"imageElement\"\n    v-bind=\"getImageProps()\"\n    :class=\"clsx(styles.root, props.class)\"\n    data-slot=\"image-root\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/image/Image.vue"
+    },
+    {
+      "path": "src/components/image/ImageSource.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { UnpicSourceProps } from '@unpic/core';\nimport { transformSourceProps } from '@unpic/core';\nimport { ref, useAttrs } from 'vue';\nimport type { HTMLAttributes, SourceHTMLAttributes } from 'vue';\n\nexport interface Props\n  extends\n    /* @vue-ignore */ Omit<UnpicSourceProps, 'srcset'>,\n    /* @vue-ignore */ Omit<\n      SourceHTMLAttributes,\n      'class' | 'media' | 'sizes' | 'src' | 'srcset' | 'style' | 'type'\n    > {\n  class?: HTMLAttributes['class'];\n  style?: SourceHTMLAttributes['style'];\n}\n\ndefineOptions({ inheritAttrs: false });\n\nconst props = defineProps<Props>();\nconst attrs = useAttrs();\nconst sourceElement = ref<HTMLSourceElement>();\n\ndefineExpose({ $el: sourceElement });\n\nconst getSourceProps = () => {\n  const { class: _class, ...inputProps } = { ...attrs, ...props };\n  return transformSourceProps<SourceHTMLAttributes>(inputProps as UnpicSourceProps);\n};\n</script>\n\n<template>\n  <source\n    ref=\"sourceElement\"\n    v-bind=\"getSourceProps()\"\n    :class=\"props.class\"\n    data-slot=\"image-source\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/image/ImageSource.vue"
+    },
+    {
+      "path": "src/components/image/Image.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    box-sizing: border-box;\n    display: block;\n    border-radius: var(--moduix-image-radius, var(--moduix-radius-md));\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/image/Image.module.css"
+    },
+    {
+      "path": "src/components/image/index.ts",
+      "content": "import Image from './Image.vue';\nimport ImageSource from './ImageSource.vue';\n\nexport { Image, ImageSource };",
+      "type": "registry:component",
+      "target": "@components/ui/image/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

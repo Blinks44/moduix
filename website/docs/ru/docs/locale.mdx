@@ -1,13 +1,17 @@
 ---
 title: Локаль
-description: Передавайте локаль и направление текста форматтерам Ark и локализованному содержимому в React и Solid.
+description: Передавайте локаль и направление текста форматтерам Ark и локализованному содержимому в React, Solid и Vue.
 ---
 
 import LocaleBasic from '@/components/examples/locale/basic.tsx';
 import LocaleContext from '@/components/examples/locale/context.tsx';
 import localeSolidBasic from '../../../snippets/locale/solid/basic.tsx?raw';
+import localeVueBasic from '../../../snippets/locale/vue/basic.vue?raw';
 import localeSolidContext from '../../../snippets/locale/solid/context.tsx?raw';
+import localeVueContext from '../../../snippets/locale/vue/context.vue?raw';
+import localeVueContextHelper from '../../../snippets/locale/vue/LocaleSection.vue?raw';
 import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw';
+import localeVueDocument from '../../../snippets/locale/vue/document.vue?raw';
 
 `LocaleProvider` передаёт локаль и направление текста всему поддереву. Форматтеры Ark и локализованное содержимое
 читают этот контекст.
@@ -23,6 +27,7 @@ import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -40,10 +45,17 @@ import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
+```
+
+  </Tab>
 </Tabs>
 
 `Format.Number`, `Format.Time` и другие утилиты `Format` по-прежнему импортируются из `@ark-ui/react` или
-`@ark-ui/solid`.
+`@ark-ui/solid` или `@ark-ui/vue`.
 
 ## Задайте локаль
 
@@ -63,6 +75,7 @@ import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -77,6 +90,11 @@ import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
 <CodeBlockRuntime lang="tsx" code={localeSolidBasic} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={localeVueBasic} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
@@ -88,7 +106,8 @@ import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
 
 `useLocaleContext` возвращает `locale` и `dir` из ближайшего провайдера. Используйте их, если собственная разметка
 должна следовать тому же языку и направлению, что и компоненты, учитывающие локаль. В React значения читаются
-напрямую, а в Solid доступны через accessor-функцию.
+напрямую, а в Solid доступны через accessor-функцию. Vue возвращает computed ref: в setup используйте
+`.value`, а шаблон автоматически раскрывает ref.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -103,6 +122,7 @@ import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -115,6 +135,13 @@ import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={localeSolidContext} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={localeVueContext} title="context.vue" />
+
+<CodeBlockRuntime lang="vue" code={localeVueContextHelper} title="LocaleSection.vue" />
 
     </Tab>
   </Tabs>
@@ -132,6 +159,7 @@ import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -144,6 +172,11 @@ import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={localeSolidDocument} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={localeVueDocument} />
 
     </Tab>
   </Tabs>

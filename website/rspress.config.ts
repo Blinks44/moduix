@@ -7,7 +7,7 @@ const siteOrigin = 'https://moduix.dev';
 const brandName = 'Moduix';
 const defaultTitle = `${brandName} - Multi-framework Component System Built on Ark UI`;
 const defaultDescription =
-  'Accessible React and Solid components with native APIs, considered defaults, and matching CSS Modules and Tailwind styling tracks.';
+  'Accessible React, Solid, and Vue components with native APIs, considered defaults, and matching CSS Modules and Tailwind styling tracks.';
 const locales = [
   {
     lang: 'en',
@@ -20,14 +20,14 @@ const locales = [
     label: 'Français',
     title: `${brandName} - système de composants multi-framework fondé sur Ark UI`,
     description:
-      'Composants accessibles pour React et Solid avec des API natives, des valeurs par défaut soignées et deux approches avec CSS Modules et Tailwind.',
+      'Composants accessibles pour React, Solid et Vue avec des API natives, des valeurs par défaut soignées et deux approches avec CSS Modules et Tailwind.',
   },
   {
     lang: 'ru',
     label: 'Русский',
     title: `${brandName} - мультифреймворковая система компонентов на базе Ark UI`,
     description:
-      'Доступные компоненты для React и Solid с нативными API, продуманными настройками и равноправными вариантами на CSS Modules и Tailwind.',
+      'Доступные компоненты для React, Solid и Vue с нативными API, продуманными настройками и равноправными вариантами на CSS Modules и Tailwind.',
   },
 ];
 const socialImage = `${siteOrigin}/banner.png`;

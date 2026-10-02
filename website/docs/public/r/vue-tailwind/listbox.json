@@ -1,0 +1,136 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "listbox",
+  "title": "Listbox",
+  "description": "moduix Vue Tailwind Listbox component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/close-button",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/icons"
+  ],
+  "files": [
+    {
+      "path": "src/components/listbox/Listbox.vue",
+      "content": "<script lang=\"ts\">\nimport type { CollectionItem } from '@ark-ui/vue/collection';\nimport type { ListboxRootEmits, ListboxRootProps } from '@ark-ui/vue/listbox';\nimport type { HTMLAttributes } from 'vue';\n\nexport interface Props<T extends CollectionItem> extends /* @vue-ignore */ ListboxRootProps<T> {\n  class?: HTMLAttributes['class'];\n  collection: ListboxRootProps<T>['collection'];\n}\n\nexport interface Emits<T extends CollectionItem> extends /* @vue-ignore */ ListboxRootEmits<T> {}\n</script>\n\n<script setup lang=\"ts\" generic=\"T extends CollectionItem\">\nimport { ListboxRoot as ArkListboxRoot } from '@ark-ui/vue/listbox';\nimport { useAttrs } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nconst { class: className, collection } = defineProps<Props<T>>();\ndefineEmits<Emits<T>>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkListboxRoot\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'box-border flex w-64 max-w-full min-w-0 flex-col gap-3 text-foreground data-disabled:opacity-50',\n        className,\n      )\n    \"\n    :collection=\"collection\"\n    data-slot=\"listbox-root\"\n  >\n    <slot />\n  </ArkListboxRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/Listbox.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxRootProvider.vue",
+      "content": "<script lang=\"ts\">\nimport type { CollectionItem } from '@ark-ui/vue/collection';\nimport type { ListboxRootProviderProps } from '@ark-ui/vue/listbox';\nimport type { HTMLAttributes } from 'vue';\n\nexport interface Props<T extends CollectionItem>\n  extends /* @vue-ignore */ ListboxRootProviderProps<T> {\n  class?: HTMLAttributes['class'];\n  value: ListboxRootProviderProps<T>['value'];\n}\n</script>\n\n<script setup lang=\"ts\" generic=\"T extends CollectionItem\">\nimport { ListboxRootProvider as ArkListboxRootProvider } from '@ark-ui/vue/listbox';\nimport { useAttrs } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nconst { class: className, value } = defineProps<Props<T>>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkListboxRootProvider\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'box-border flex w-64 max-w-full min-w-0 flex-col gap-3 text-foreground data-disabled:opacity-50',\n        className,\n      )\n    \"\n    :value=\"value\"\n    data-slot=\"listbox-root-provider\"\n  >\n    <slot />\n  </ArkListboxRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxRootProvider.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ListboxLabel as ArkListboxLabel } from '@ark-ui/vue/listbox';\nimport type { ListboxLabelProps } from '@ark-ui/vue/listbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ListboxLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkListboxLabel\n    v-bind=\"attrs\"\n    :class=\"cn('text-sm leading-5 font-medium text-foreground select-none', className)\"\n    data-slot=\"listbox-label\"\n  >\n    <slot />\n  </ArkListboxLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxLabel.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ListboxInput as ArkListboxInput } from '@ark-ui/vue/listbox';\nimport type { ListboxInputProps } from '@ark-ui/vue/listbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ListboxInputProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst props = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst inputClass =\n  'm-0 box-border min-h-control-md w-full rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:ps-9 group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:pe-10 group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:focus-visible:outline-transparent group-has-[+_[data-slot=listbox-content]]/listbox-filter:rounded-b-none group-has-[+_[data-slot=listbox-content]]/listbox-filter:border-b-0 placeholder:text-muted-foreground focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none';\n</script>\n\n<template>\n  <ArkListboxInput v-bind=\"attrs\" :class=\"cn(inputClass, props.class)\" data-slot=\"listbox-input\">\n    <slot />\n  </ArkListboxInput>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxInput.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxFilter.vue",
+      "content": "<script setup lang=\"ts\">\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { SearchIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLAttributes {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <div\n    v-bind=\"attrs\"\n    :class=\"cn('group/listbox-filter peer/listbox-filter relative box-border w-full', className)\"\n    data-slot=\"listbox-filter\"\n  >\n    <SearchIcon\n      class=\"pointer-events-none absolute start-3 top-1/2 z-1 size-4 -translate-y-1/2 text-muted-foreground\"\n      data-slot=\"listbox-filter-icon\"\n    />\n    <slot />\n  </div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxFilter.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxClearTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { CloseIcon } from '@/internal/icons/ui/Icons';\nimport { cn } from '@/lib/moduix/cn';\nimport CloseButton from '../close-button/CloseButton.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'button'> {\n  class?: HTMLAttributes['class'];\n  type?: 'button' | 'reset' | 'submit';\n}\n\nconst props = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst ariaLabel = computed(() => (attrs['aria-label'] as string | undefined) ?? 'Clear search');\n</script>\n\n<template>\n  <CloseButton\n    v-bind=\"attrs\"\n    :aria-label=\"ariaLabel\"\n    :class=\"\n      cn(\n        'absolute end-3 top-1/2 size-control-xs -translate-y-1/2 rounded-sm bg-transparent text-muted-foreground [&>svg]:size-4 [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-foreground',\n        props.class,\n      )\n    \"\n    data-slot=\"listbox-clear-trigger\"\n    :type=\"props.type ?? 'button'\"\n  >\n    <slot><CloseIcon class=\"size-3 shrink-0\" /></slot>\n  </CloseButton>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxClearTrigger.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ListboxContent as ArkListboxContent } from '@ark-ui/vue/listbox';\nimport type { ListboxContentProps } from '@ark-ui/vue/listbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ListboxContentProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkListboxContent\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'box-border flex max-h-56 min-h-0 scroll-py-1 [scrollbar-gutter:stable] flex-col overflow-x-hidden overflow-y-auto overscroll-contain rounded-md border border-border bg-background py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out peer-data-[slot=listbox-filter]/listbox-filter:-mt-3 peer-data-[slot=listbox-filter]/listbox-filter:rounded-t-none focus-visible:outline-ring data-[layout=grid]:grid data-[layout=grid]:grid-cols-[repeat(var(--column-count),minmax(0,1fr))] data-[layout=grid]:gap-1 data-[layout=grid]:p-2 data-[orientation=horizontal]:not-data-[layout=grid]:max-h-none data-[orientation=horizontal]:not-data-[layout=grid]:flex-row data-[orientation=horizontal]:not-data-[layout=grid]:gap-2 data-[orientation=horizontal]:not-data-[layout=grid]:overflow-x-auto data-[orientation=horizontal]:not-data-[layout=grid]:overflow-y-hidden data-[orientation=horizontal]:not-data-[layout=grid]:px-1 motion-reduce:transition-none',\n        className,\n      )\n    \"\n    data-slot=\"listbox-content\"\n  >\n    <slot />\n  </ArkListboxContent>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxContent.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxEmpty.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ListboxEmpty as ArkListboxEmpty } from '@ark-ui/vue/listbox';\nimport type { ListboxEmptyProps } from '@ark-ui/vue/listbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ListboxEmptyProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkListboxEmpty\n    v-bind=\"attrs\"\n    :class=\"cn('px-3 py-1 text-center text-sm leading-5 text-muted-foreground', className)\"\n    data-slot=\"listbox-empty\"\n  >\n    <slot />\n  </ArkListboxEmpty>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxEmpty.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxItemGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ListboxItemGroup as ArkListboxItemGroup } from '@ark-ui/vue/listbox';\nimport type { ListboxItemGroupProps } from '@ark-ui/vue/listbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ListboxItemGroupProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkListboxItemGroup\n    v-bind=\"attrs\"\n    :class=\"cn('flex flex-col [&+&]:mt-2', className)\"\n    data-slot=\"listbox-item-group\"\n  >\n    <slot />\n  </ArkListboxItemGroup>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxItemGroup.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxItemGroupLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ListboxItemGroupLabel as ArkListboxItemGroupLabel } from '@ark-ui/vue/listbox';\nimport type { ListboxItemGroupLabelProps } from '@ark-ui/vue/listbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ListboxItemGroupLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkListboxItemGroupLabel\n    v-bind=\"attrs\"\n    :class=\"\n      cn('px-2 py-1 text-xs leading-4 font-normal text-muted-foreground select-none', className)\n    \"\n    data-slot=\"listbox-item-group-label\"\n  >\n    <slot />\n  </ArkListboxItemGroupLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxItemGroupLabel.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxItem.vue",
+      "content": "<script lang=\"ts\">\nimport type { CollectionItem } from '@ark-ui/vue/collection';\nimport type { ListboxItemProps } from '@ark-ui/vue/listbox';\nimport type { HTMLAttributes } from 'vue';\n\nexport interface Props<T extends CollectionItem>\n  extends /* @vue-ignore */ Omit<ListboxItemProps, 'item'> {\n  class?: HTMLAttributes['class'];\n  item: T;\n}\n</script>\n\n<script setup lang=\"ts\" generic=\"T extends CollectionItem\">\nimport { ListboxItem as ArkListboxItem } from '@ark-ui/vue/listbox';\nimport { useAttrs } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nconst { class: className, item } = defineProps<Props<T>>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkListboxItem\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'relative mx-1 box-border grid min-h-control-sm w-[calc(100%-0.5rem)] cursor-pointer grid-cols-[minmax(0,1fr)_1rem] items-center gap-2 rounded-sm bg-transparent px-3 py-1 text-sm leading-5 text-foreground outline-0 transition-[background-color,color] duration-200 ease-in-out select-none data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:text-muted-foreground data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[layout=grid]:mx-0 data-[layout=grid]:w-full data-[layout=grid]:min-w-0 data-[layout=grid]:grid-cols-1 data-[layout=grid]:justify-items-center data-[layout=grid]:text-center data-[layout=grid]:data-selected:bg-muted data-[layout=grid]:data-selected:text-foreground data-[orientation=horizontal]:not-data-[layout=grid]:w-44 data-[orientation=horizontal]:not-data-[layout=grid]:min-w-44 data-[orientation=horizontal]:not-data-[layout=grid]:items-start motion-reduce:transition-none [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-accent-foreground',\n        className,\n      )\n    \"\n    :item=\"item\"\n    data-slot=\"listbox-item\"\n  >\n    <slot />\n  </ArkListboxItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxItem.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxItemText.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ListboxItemText as ArkListboxItemText } from '@ark-ui/vue/listbox';\nimport type { ListboxItemTextProps } from '@ark-ui/vue/listbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ListboxItemTextProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkListboxItemText\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)\"\n    data-slot=\"listbox-item-text\"\n  >\n    <slot />\n  </ArkListboxItemText>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxItemText.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxItemTextContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark, type HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"cn('inline-flex max-w-full min-w-0 items-center gap-2 align-top', className)\"\n    data-slot=\"listbox-item-text-content\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxItemTextContent.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxItemTextIcon.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark, type HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"cn('inline-flex size-4 shrink-0 items-center justify-center', className)\"\n    data-slot=\"listbox-item-text-icon\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxItemTextIcon.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxItemTextLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark, type HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className)\"\n    data-slot=\"listbox-item-text-label\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxItemTextLabel.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxItemIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ListboxItemIndicator as ArkListboxItemIndicator } from '@ark-ui/vue/listbox';\nimport type { ListboxItemIndicatorProps } from '@ark-ui/vue/listbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { CheckIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ListboxItemIndicatorProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkListboxItemIndicator\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'inline-flex size-4 shrink-0 items-center justify-center data-[state=unchecked]:invisible [&>svg]:size-3',\n        className,\n      )\n    \"\n    data-slot=\"listbox-item-indicator\"\n  >\n    <slot><CheckIcon /></slot>\n  </ArkListboxItemIndicator>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxItemIndicator.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxValueText.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ListboxValueText as ArkListboxValueText } from '@ark-ui/vue/listbox';\nimport type { ListboxValueTextProps } from '@ark-ui/vue/listbox';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ListboxValueTextProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkListboxValueText\n    v-if=\"$slots.default\"\n    v-bind=\"attrs\"\n    :class=\"cn('text-sm leading-5 text-muted-foreground', className)\"\n    data-slot=\"listbox-value-text\"\n  >\n    <slot />\n  </ArkListboxValueText>\n  <ArkListboxValueText\n    v-else\n    v-bind=\"attrs\"\n    :class=\"cn('text-sm leading-5 text-muted-foreground', className)\"\n    data-slot=\"listbox-value-text\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxValueText.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxContext.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { CollectionItem } from '@ark-ui/vue/collection';\nimport { ListboxContext as ArkListboxContext, type UseListboxContext } from '@ark-ui/vue/listbox';\nimport type { UnwrapRef } from 'vue';\n\ndefineSlots<{ default: (context: UnwrapRef<UseListboxContext<CollectionItem>>) => unknown }>();\n</script>\n\n<template>\n  <ArkListboxContext v-slot=\"context\">\n    <slot v-bind=\"context\" />\n  </ArkListboxContext>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxContext.vue"
+    },
+    {
+      "path": "src/components/listbox/ListboxItemContext.vue",
+      "content": "<script setup lang=\"ts\">\nimport {\n  ListboxItemContext as ArkListboxItemContext,\n  type UseListboxItemContext,\n} from '@ark-ui/vue/listbox';\nimport type { UnwrapRef } from 'vue';\n\ndefineSlots<{ default: (context: UnwrapRef<UseListboxItemContext>) => unknown }>();\n</script>\n\n<template>\n  <ArkListboxItemContext v-slot=\"context\">\n    <slot v-bind=\"context\" />\n  </ArkListboxItemContext>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/ListboxItemContext.vue"
+    },
+    {
+      "path": "src/components/listbox/index.ts",
+      "content": "import { useListbox, useListboxContext, useListboxItemContext } from '@ark-ui/vue/listbox';\nimport Listbox from './Listbox.vue';\nimport ListboxClearTrigger from './ListboxClearTrigger.vue';\nimport ListboxContent from './ListboxContent.vue';\nimport ListboxContext from './ListboxContext.vue';\nimport ListboxEmpty from './ListboxEmpty.vue';\nimport ListboxFilter from './ListboxFilter.vue';\nimport ListboxInput from './ListboxInput.vue';\nimport ListboxItem from './ListboxItem.vue';\nimport ListboxItemContext from './ListboxItemContext.vue';\nimport ListboxItemGroup from './ListboxItemGroup.vue';\nimport ListboxItemGroupLabel from './ListboxItemGroupLabel.vue';\nimport ListboxItemIndicator from './ListboxItemIndicator.vue';\nimport ListboxItemText from './ListboxItemText.vue';\nimport ListboxItemTextContent from './ListboxItemTextContent.vue';\nimport ListboxItemTextIcon from './ListboxItemTextIcon.vue';\nimport ListboxItemTextLabel from './ListboxItemTextLabel.vue';\nimport ListboxLabel from './ListboxLabel.vue';\nimport ListboxRootProvider from './ListboxRootProvider.vue';\nimport ListboxValueText from './ListboxValueText.vue';\n\nexport {\n  Listbox,\n  ListboxClearTrigger,\n  ListboxContent,\n  ListboxContext,\n  ListboxEmpty,\n  ListboxFilter,\n  ListboxInput,\n  ListboxItem,\n  ListboxItemContext,\n  ListboxItemGroup,\n  ListboxItemGroupLabel,\n  ListboxItemIndicator,\n  ListboxItemText,\n  ListboxItemTextContent,\n  ListboxItemTextIcon,\n  ListboxItemTextLabel,\n  ListboxLabel,\n  ListboxRootProvider,\n  ListboxValueText,\n  useListbox,\n  useListboxContext,\n  useListboxItemContext,\n};\n\nexport type {\n  CollectionItem,\n  ListboxContextProps,\n  ListboxContentProps,\n  ListboxEmptyProps,\n  ListboxHighlightChangeDetails,\n  ListboxInputProps,\n  ListboxItemContextProps,\n  ListboxItemGroupLabelProps,\n  ListboxItemGroupProps,\n  ListboxItemIndicatorProps,\n  ListboxItemProps,\n  ListboxItemTextProps,\n  ListboxLabelProps,\n  ListboxRootEmits,\n  ListboxRootProps,\n  ListboxRootProviderProps,\n  ListboxScrollToIndexDetails,\n  ListboxSelectionDetails,\n  ListboxSelectionMode,\n  ListboxValueChangeDetails,\n  ListboxValueTextProps,\n  ListCollection,\n  UseListboxContext,\n  UseListboxItemContext,\n  UseListboxProps,\n  UseListboxReturn,\n} from '@ark-ui/vue/listbox';",
+      "type": "registry:component",
+      "target": "@components/ui/listbox/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

@@ -5,6 +5,7 @@ description: Рецепт галереи с автопрокруткой на Ca
 
 import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
 import autoplayGallerySolid from '../../../snippets/recipes/solid/autoplay-gallery.tsx?raw';
+import autoplayGalleryVue from '../../../snippets/recipes/vue/autoplay-gallery.vue?raw';
 
 # Галерея с автопрокруткой
 
@@ -12,7 +13,7 @@ import autoplayGallerySolid from '../../../snippets/recipes/solid/autoplay-galle
 под управлением пользователя. В нём `Carousel` показывает соседние слайды частично, выводит текст поверх изображения,
 добавляет стрелки навигации и заполняющийся индикатор для каждого интервала автопрокрутки.
 
-Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React, Solid и Vue с общими стилями.
 
 <ExampleFrame variant="recipe" clientOnly>
   <AutoplayGalleryPreview />
@@ -25,6 +26,7 @@ import autoplayGallerySolid from '../../../snippets/recipes/solid/autoplay-galle
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -38,6 +40,11 @@ import autoplayGallerySolid from '../../../snippets/recipes/solid/autoplay-galle
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={autoplayGallerySolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={autoplayGalleryVue} />
 
     </Tab>
   </Tabs>

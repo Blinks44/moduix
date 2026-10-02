@@ -161,7 +161,7 @@ Primary CSS variables:
 | `--moduix-toast-close-bg-hover`         | `var(--moduix-color-muted)`                                           |
 | `--moduix-toast-close-focus-ring-width` | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`       |
 | `--moduix-toast-close-size`             | `var(--moduix-spacing-7)`                                             |
-| `--moduix-toast-close-icon-size`        | `var(--moduix-spacing-3)`                                             |
+| `--moduix-toast-close-icon-size`        | `var(--moduix-spacing-4)`                                             |
 | `--moduix-toast-transition`             | `350ms`                                                               |
 | `--moduix-toast-transition-out`         | `350ms`                                                               |
 | `--moduix-toast-opacity-transition-out` | `200ms`                                                               |

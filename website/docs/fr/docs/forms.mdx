@@ -6,6 +6,7 @@ description: Créez des formulaires accessibles avec les composants Moduix, le c
 import { Card, Cards } from '@/components/mdx/Components';
 import NativeForm from '@/components/examples/forms/native-form.tsx';
 import nativeFormSolid from '../../../snippets/forms/solid/native-form.tsx?raw';
+import nativeFormVue from '../../../snippets/forms/vue/native-form.vue?raw';
 
 # Formulaires
 
@@ -19,19 +20,19 @@ répétés ou le cycle de soumission l’exigent.
   <Card title="Formulaire natif" description="Validation du navigateur, FormData et réinitialisation native pour un petit formulaire." href="/docs/forms#formulaire-natif" />
   <Card title="Formisch" description="Schémas Valibot et adaptateurs natifs pour les frameworks pris en charge." href="/docs/formisch" />
   <Card title="React Hook Form" description="Champs natifs et composants composés contrôlés dans React." href="/docs/react-hook-form" />
-  <Card title="TanStack Form" description="État contrôlé et typé dans React ou Solid." href="/docs/tanstack-form" />
+  <Card title="TanStack Form" description="État contrôlé et typé dans React, Solid ou Vue." href="/docs/tanstack-form" />
 </Cards>
 
 ## Prise en charge des frameworks
 
-| Approche        | React | Solid | Cas d’usage                                      |
-| --------------- | ----- | ----- | ------------------------------------------------ |
-| Formulaire natif | Oui  | Oui   | Petits formulaires et validation du navigateur. |
-| Formisch        | Oui   | Oui   | Schémas Valibot et état réactif compact.         |
-| React Hook Form | Oui   | Non   | Formulaires React privilégiant le non-contrôlé.  |
-| TanStack Form   | Oui   | Oui   | État contrôlé explicite et scénarios typés.      |
+| Approche        | React | Solid | Vue | Cas d’usage                                      |
+| --------------- | ----- | ----- | ----- | ------------------------------------------------ |
+| Formulaire natif | Oui  | Oui   | Oui | Petits formulaires et validation du navigateur. |
+| Formisch        | Oui   | Oui   | Oui | Schémas Valibot et état réactif compact.         |
+| React Hook Form | Oui   | Non   | Non | Formulaires React privilégiant le non-contrôlé.  |
+| TanStack Form   | Oui   | Oui   | Oui | État contrôlé explicite et scénarios typés.      |
 
-React Hook Form est volontairement documenté uniquement pour React. Dans Solid, utilisez un
+React Hook Form est volontairement documenté uniquement pour React. Dans Solid ou Vue, utilisez un
 formulaire natif, Formisch ou TanStack Form plutôt qu’une couche de compatibilité pour des hooks React.
 
 ## Règles essentielles
@@ -70,7 +71,7 @@ interactif utilise React, car le site de documentation fonctionne avec React.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/forms/native-form.tsx"
@@ -80,6 +81,11 @@ interactif utilise React, car le site de documentation fonctionne avec React.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeFormSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeFormVue} />
 
     </Tab>
   </Tabs>

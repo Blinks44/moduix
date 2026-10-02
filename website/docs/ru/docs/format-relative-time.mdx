@@ -1,13 +1,16 @@
 ---
 title: Format Relative Time
-description: Форматируйте даты относительно текущего момента в Ark UI для React и Solid с учетом локали и компактных вариантов отображения.
+description: Форматируйте даты относительно текущего момента в Ark UI для React, Solid и Vue с учетом локали и компактных вариантов отображения.
 ---
 
 import FormatRelativeTimeBasic from '@/components/examples/format-relative-time/basic.tsx';
 import FormatRelativeTimeShort from '@/components/examples/format-relative-time/short.tsx';
 import formatRelativeTimeSolidBasic from '../../../snippets/format-relative-time/solid/basic.tsx?raw';
+import formatRelativeTimeVueBasic from '../../../snippets/format-relative-time/vue/basic.vue?raw';
 import formatRelativeTimeSolidLocale from '../../../snippets/format-relative-time/solid/locale.tsx?raw';
+import formatRelativeTimeVueLocale from '../../../snippets/format-relative-time/vue/locale.vue?raw';
 import formatRelativeTimeSolidShort from '../../../snippets/format-relative-time/solid/short.tsx?raw';
+import formatRelativeTimeVueShort from '../../../snippets/format-relative-time/vue/short.vue?raw';
 
 ## Справочник API
 
@@ -20,6 +23,7 @@ import formatRelativeTimeSolidShort from '../../../snippets/format-relative-time
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -34,6 +38,13 @@ import { Format } from '@ark-ui/react';
 
 ```tsx
 import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { Format } from '@ark-ui/vue';
 ```
 
   </Tab>
@@ -53,7 +64,7 @@ import { Format } from '@ark-ui/solid';
 ## Базовый пример
 
 Укажите `numeric="auto"`, когда близкие к текущей дате значения лучше описывать словами вроде «завтра» или «вчера».
-Предпросмотр в документации работает на React, а вкладка Solid содержит нативный эквивалент той же композиции.
+Предпросмотр в документации работает на React, а вкладки Solid и Vue содержат нативные эквиваленты той же композиции.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -68,6 +79,7 @@ import { Format } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -80,6 +92,11 @@ import { Format } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatRelativeTimeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -105,6 +122,7 @@ import { Format } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -117,6 +135,11 @@ import { Format } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidShort} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatRelativeTimeVueShort} />
 
     </Tab>
   </Tabs>
@@ -144,6 +167,7 @@ import { Format } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -156,6 +180,11 @@ import { Format } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidLocale} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatRelativeTimeVueLocale} />
 
     </Tab>
   </Tabs>

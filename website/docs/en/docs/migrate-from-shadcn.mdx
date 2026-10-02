@@ -5,20 +5,23 @@ description: Move an existing shadcn app to moduix one component at a time, with
 
 # Migrate from shadcn
 
+import vueAccordion from '../../../snippets/quick-start/vue-css-modules.vue?raw';
+import vueControlledAccordion from '../../../snippets/migrate-from-shadcn/vue/controlled-accordion.vue?raw';
+
 If your application already uses shadcn, you can move to moduix one component at a time. The two
 libraries can coexist while you replace individual screens or component families.
 
 The main choice is where each component's source code should live. Use the npm package when you
 want package-managed updates. Use the shadcn-compatible registry when you want the source and styles
 in your own repository. Choose React when you are replacing components inside the existing shadcn
-application. Choose Solid only when the application itself already uses Solid or the migration also
+application. Choose Solid or Vue only when the application itself already uses Solid or Vue, or the migration also
 includes a deliberate framework change.
 
 ## Choose where the source code lives
 
 | moduix installation | Choose it when | How updates work |
 | --- | --- | --- |
-| npm package | You want components to remain a dependency and use imports from `@moduix/react/*` or `@moduix/solid/*`. | Update the package with your package manager. |
+| npm package | You want components to remain a dependency and use imports from `@moduix/react/*`, `@moduix/solid/*`, or `@moduix/vue/*`. | Update the package with your package manager. |
 | shadcn-compatible registry | You want to version, inspect, and edit component source in your application. | Review and merge each registry update yourself. |
 
 Read the [Quick start](/docs/quick-start) for the complete setup. If your project already has a
@@ -45,6 +48,13 @@ import { Dialog } from '@moduix/solid/dialog';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import { Dialog } from '@moduix/vue/dialog';
+```
+
+  </Tab>
 </Tabs>
 
 For the copy-owned workflow, finish the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli),
@@ -59,6 +69,11 @@ then add one registry item at a time:
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="shadcn@latest add @moduix-solid/dialog" dlx />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-vue/dialog" dlx />
 
   </Tab>
 </Tabs>
@@ -138,6 +153,10 @@ In Solid, only the import specifier changes:
 import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 ```
 
+Vue uses native SFCs with `script setup`, template props, and `v-model` for controlled state.
+
+<CodeBlockRuntime lang="vue" code={vueAccordion} />
+
 For a copy-owned install, keep the composition and change only the import source:
 
 ```tsx
@@ -169,6 +188,13 @@ import '@moduix/solid/style.css';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import '@moduix/vue/style.css';
+```
+
+  </Tab>
 </Tabs>
 
 With a CSS Modules registry:
@@ -187,9 +213,9 @@ Customize semantic tokens in your own CSS:
 ```
 
 Tailwind can stay in the application for layout and one-off utility classes while you migrate to the
-CSS Modules packages. If you want component styling to remain in Tailwind, use the separate React or
-Solid Tailwind package where that component is available. Use the target component page for stable
-slots, CSS variables, and React `className` or Solid `class` props.
+CSS Modules packages. If you want component styling to remain in Tailwind, use the separate React, Solid, or
+Vue Tailwind package where that component is available. Use the target component page for stable
+slots, CSS variables, and React `className` or Solid/Vue `class` props.
 
 ## Adapt Ark state callbacks and collections
 
@@ -221,6 +247,10 @@ the imports change accordingly:
 import { createSignal } from 'solid-js';
 import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 ```
+
+Vue uses native SFCs with `script setup`, template props, and `v-model` for controlled state.
+
+<CodeBlockRuntime lang="vue" code={vueControlledAccordion} />
 
 Components with collections, including `Combobox` and `Select`, use explicit Ark collection state.
 For object items, define how an item becomes its visible string and stable value with

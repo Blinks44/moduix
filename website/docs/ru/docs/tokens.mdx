@@ -7,7 +7,7 @@ import { TokensOverview } from '@/components/docs/tokens-overview';
 
 # Токены
 
-Стили moduix построены на одинаковых CSS-переменных в React и Solid. Начните с семантических цветовых токенов для поверхностей, текста, границ,
+Стили moduix построены на одинаковых CSS-переменных в React, Solid и Vue. Начните с семантических цветовых токенов для поверхностей, текста, границ,
 колец фокуса и оверлеев. Если продукту нужен другой визуальный ритм, настройте интервалы, радиусы, размеры,
 типографику, анимацию, тени и слои.
 
@@ -57,6 +57,29 @@ import '@moduix/solid/style.css';
 @import 'tailwindcss';
 
 @source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
+```ts
+import '@moduix/vue/style.css';
+```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/vue-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/vue-tailwind/dist/components';
 ```
 
   </StyleTrackCard>

@@ -3,8 +3,9 @@
   "compilerOptions": {
     "types": [],
     "paths": {
+      "@/components/ui/accordion": ["../../packages/vue/dist/components/accordion/index.d.ts"],
       "@/*": ["../src/*"]
     }
   },
-  "include": ["**/solid", "**/vue", "../theme/env.d.ts"]
+  "include": ["**/solid", "**/vue", "quick-start/*.vue", "vue-env.d.ts", "../theme/env.d.ts"]
 }

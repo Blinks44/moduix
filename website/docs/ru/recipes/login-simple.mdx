@@ -5,8 +5,10 @@ description: Форма входа по адресу электронной по
 
 import { LoginSimple } from '@/components/recipes/login-simple/login-simple';
 import loginSimpleSolid from '../../../snippets/recipes/solid/login-simple.tsx?raw';
+import loginSimpleVue from '../../../snippets/recipes/vue/login-simple.vue?raw';
 import loginRouteReact from '../../../snippets/recipes/react/login-route.tsx?raw';
 import loginRouteSolid from '../../../snippets/recipes/solid/login-route.tsx?raw';
+import loginRouteVue from '../../../snippets/recipes/vue/login-route.vue?raw';
 
 # Вход
 
@@ -15,7 +17,7 @@ import loginRouteSolid from '../../../snippets/recipes/solid/login-route.tsx?raw
 компоненты moduix `Card`, `Field`, `Input`, `Checkbox` и `Button`. Рецепт не выполняет вход и не
 управляет состоянием запроса. Подключите обработку входа в своём приложении через `onSubmit`.
 
-Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React, Solid и Vue с общими стилями.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -33,6 +35,7 @@ import loginRouteSolid from '../../../snippets/recipes/solid/login-route.tsx?raw
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -46,6 +49,11 @@ import loginRouteSolid from '../../../snippets/recipes/solid/login-route.tsx?raw
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={loginSimpleSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={loginSimpleVue} />
 
     </Tab>
   </Tabs>
@@ -75,6 +83,7 @@ import loginRouteSolid from '../../../snippets/recipes/solid/login-route.tsx?raw
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
 >
   <Tab value="react">
@@ -85,6 +94,11 @@ import loginRouteSolid from '../../../snippets/recipes/solid/login-route.tsx?raw
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={loginRouteSolid} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={loginRouteVue} />
 
   </Tab>
 </Tabs>

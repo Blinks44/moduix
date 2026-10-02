@@ -5,6 +5,7 @@ description: Отображайте зависящий от браузера и�
 
 import ClientOnlyBasic from '@/components/examples/client-only/basic.tsx';
 import clientOnlySolidBasic from '../../../snippets/client-only/solid/basic.tsx?raw';
+import clientOnlyVueBasic from '../../../snippets/client-only/vue/basic.vue?raw';
 
 Используйте `ClientOnly`, когда зависящая от браузера часть интерфейса не должна участвовать в серверном рендеринге,
 а `fallback` должен сохранить её место в разметке.
@@ -20,6 +21,7 @@ import clientOnlySolidBasic from '../../../snippets/client-only/solid/basic.tsx?
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -37,6 +39,13 @@ import { ClientOnly } from '@ark-ui/solid/client-only';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { ClientOnly } from '@ark-ui/vue/client-only';
+```
+
+  </Tab>
 </Tabs>
 
 ## Отображение зависящего от браузера содержимого
@@ -49,7 +58,7 @@ import { ClientOnly } from '@ark-ui/solid/client-only';
 
 В этом рецепте `Card` с данными, зависящими от браузера, заменяется на `Skeleton`, сохраняющий ту же структуру.
 В интерактивном примере используется пакет React с CSS Modules, а во вкладках исходного кода показаны нативные
-примеры React и Solid с одинаковым поведением.
+примеры React, Solid и Vue с одинаковым поведением.
 
 <ExampleFrame clientOnly variant="component">
   <PreviewFrame maxWidth="sm">
@@ -64,6 +73,7 @@ import { ClientOnly } from '@ark-ui/solid/client-only';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -76,6 +86,11 @@ import { ClientOnly } from '@ark-ui/solid/client-only';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clientOnlySolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clientOnlyVueBasic} />
 
     </Tab>
   </Tabs>

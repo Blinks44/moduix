@@ -18,11 +18,7 @@ const attrs = useAttrs();
 </script>
 
 <template>
-  <ArkDrawerIndent
-    v-bind="attrs"
-    :class="clsx(styles.indent, className)"
-    data-slot="drawer-indent"
-  >
+  <ArkDrawerIndent v-bind="attrs" :class="clsx(styles.indent, className)" data-slot="drawer-indent">
     <slot />
   </ArkDrawerIndent>
 </template>

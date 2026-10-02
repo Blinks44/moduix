@@ -5,8 +5,10 @@ description: Готовая к копированию форма регистр�
 
 import { SignUp } from '@/components/recipes/sign-up/sign-up';
 import signUpSolid from '../../../snippets/recipes/solid/sign-up.tsx?raw';
+import signUpVue from '../../../snippets/recipes/vue/sign-up.vue?raw';
 import signUpRouteReact from '../../../snippets/recipes/react/sign-up-route.tsx?raw';
 import signUpRouteSolid from '../../../snippets/recipes/solid/sign-up-route.tsx?raw';
+import signUpRouteVue from '../../../snippets/recipes/vue/sign-up-route.vue?raw';
 
 # Регистрация
 
@@ -15,7 +17,7 @@ import signUpRouteSolid from '../../../snippets/recipes/solid/sign-up-route.tsx?
 наличие согласия с условиями. Рецепт не содержит интеграции с сервисом аутентификации и не сравнивает два
 пароля, поэтому добавьте эту логику в обработчик `onSubmit`.
 
-Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React и Solid с общими стилями.
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React, Solid и Vue с общими стилями.
 
 <ExampleFrame variant="recipe" clientOnly>
   <PreviewFrame maxWidth="sm">
@@ -30,6 +32,7 @@ import signUpRouteSolid from '../../../snippets/recipes/solid/sign-up-route.tsx?
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -43,6 +46,11 @@ import signUpRouteSolid from '../../../snippets/recipes/solid/sign-up-route.tsx?
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signUpSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signUpVue} />
 
     </Tab>
   </Tabs>
@@ -71,6 +79,7 @@ import signUpRouteSolid from '../../../snippets/recipes/solid/sign-up-route.tsx?
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
 >
   <Tab value="react">
@@ -81,6 +90,11 @@ import signUpRouteSolid from '../../../snippets/recipes/solid/sign-up-route.tsx?
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={signUpRouteSolid} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signUpRouteVue} />
 
   </Tab>
 </Tabs>

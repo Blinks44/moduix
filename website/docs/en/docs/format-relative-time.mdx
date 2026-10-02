@@ -1,13 +1,16 @@
 ---
 title: Format Relative Time
-description: Format dates relative to now with Ark UI in React and Solid, with locale-aware output and compact display options.
+description: Format dates relative to now with Ark UI in React, Solid, and Vue, with locale-aware output and compact display options.
 ---
 
 import FormatRelativeTimeBasic from '@/components/examples/format-relative-time/basic.tsx';
 import FormatRelativeTimeShort from '@/components/examples/format-relative-time/short.tsx';
 import formatRelativeTimeSolidBasic from '../../../snippets/format-relative-time/solid/basic.tsx?raw';
+import formatRelativeTimeVueBasic from '../../../snippets/format-relative-time/vue/basic.vue?raw';
 import formatRelativeTimeSolidLocale from '../../../snippets/format-relative-time/solid/locale.tsx?raw';
+import formatRelativeTimeVueLocale from '../../../snippets/format-relative-time/vue/locale.vue?raw';
 import formatRelativeTimeSolidShort from '../../../snippets/format-relative-time/solid/short.tsx?raw';
+import formatRelativeTimeVueShort from '../../../snippets/format-relative-time/vue/short.vue?raw';
 
 ## API Reference
 
@@ -20,6 +23,7 @@ Import the utility from the matching Ark UI package:
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -37,6 +41,13 @@ import { Format } from '@ark-ui/solid';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { Format } from '@ark-ui/vue';
+```
+
+  </Tab>
 </Tabs>
 
 ## When to use it
@@ -51,7 +62,7 @@ timestamp, use a semantic `<time>` element with its exact ISO value in `dateTime
 ## Basic
 
 Set `numeric="auto"` when nearby dates should use natural words such as “tomorrow” or “yesterday”. The preview is
-rendered with React in the documentation app; the Solid tab contains the native equivalent for the same composition.
+rendered with React in the documentation app; the Solid and Vue tabs contain native equivalents for the same composition.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -66,6 +77,7 @@ rendered with React in the documentation app; the Solid tab contains the native 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -78,6 +90,11 @@ rendered with React in the documentation app; the Solid tab contains the native 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatRelativeTimeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -103,6 +120,7 @@ form when the surrounding interface already makes the meaning clear. Keep the ex
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -115,6 +133,11 @@ form when the surrounding interface already makes the meaning clear. Keep the ex
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidShort} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatRelativeTimeVueShort} />
 
     </Tab>
   </Tabs>
@@ -142,6 +165,7 @@ The unit and numeric distance are derived from the `Date`; you do not pass them 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -154,6 +178,11 @@ The unit and numeric distance are derived from the `Date`; you do not pass them 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatRelativeTimeSolidLocale} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatRelativeTimeVueLocale} />
 
     </Tab>
   </Tabs>
