@@ -15,18 +15,6 @@ import jsonTreeViewVueCompactPreviews from '../../../snippets/json-tree-view/vue
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
 
-:::warning Vue : blocages pour la production
-
-Avec `@ark-ui/vue@5.39.2`, `JsonTreeView` conserve les valeurs initiales de `data` et des options
-d’aperçu lorsque les props changent. `useJsonTreeView` fige également ses paramètres à la création.
-L’événement `expandedChange` du composant racine fonctionne, mais les écouteurs de `v-model` ne sont
-pas transmis au TreeView interne. Les données réactives et l’état contrôlé n’offrent donc pas la
-même prise en charge qu’en React et Solid. L’adaptateur Vue n’est pas prêt pour la production tant
-que ces défauts ne sont pas corrigés dans Ark ; les exemples ci-dessous utilisent des données
-statiques et un état non contrôlé.
-
-:::
-
 ## Choisir le bon composant
 
 Utilisez `JsonTreeView` lorsque vous disposez déjà d’une valeur JavaScript à inspecter et que vous ne voulez pas
@@ -201,9 +189,7 @@ repères stables `data-slot="json-tree-view-root"`, `json-tree-view-root-provide
 style pas les éléments `[data-part='branch-indent-guide']` générés ; ciblez cet attribut avec vos propres styles
 lorsque les guides sont activés.
 
-En Vue avec `@ark-ui/vue@5.39.2`, la prop `indentGuide` ne génère pas de guides : un slot vide
-d’Ark supprime le contenu par défaut. Le slot natif `#indentGuide` accepte un contenu personnalisé,
-mais le rendu automatique des guides reste un défaut à corriger dans Ark.
+En Vue, utilisez le slot nommé `#indentGuide` pour personnaliser le contenu des guides.
 
 Le composant utilise directement les tokens de base, sans couche de variables
 `--moduix-json-tree-view-*`. Ajoutez une classe ou ciblez les attributs des parties Ark lorsqu’une vue

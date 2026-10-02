@@ -28,15 +28,6 @@ import highlightVueMultipleQueries from '../../../snippets/highlight/vue/multipl
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/highlight" />
 
-:::warning Vue: блокер для production
-
-В `@ark-ui/vue@5.39.2` компонент Ark `Highlight` теряет классы, стили, атрибуты и обработчики событий
-при отрисовке фрагмента из элементов `<mark>`. Поиск совпадений работает, но Vue-варианты на
-CSS Modules и Tailwind не могут применить свои стили и публичные хуки стилизации. Vue-адаптер
-не готов к production до исправления передачи атрибутов в Ark; примеры ниже показывают целевой контракт.
-
-:::
-
 ## Выбор подходящего компонента
 
 Используйте `Highlight`, чтобы выделить поисковые термины внутри текста, у которого уже есть

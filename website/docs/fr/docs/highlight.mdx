@@ -28,16 +28,6 @@ import highlightVueMultipleQueries from '../../../snippets/highlight/vue/multipl
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/highlight" />
 
-:::warning Vue : blocage pour la production
-
-Avec `@ark-ui/vue@5.39.2`, le composant Ark `Highlight` perd les classes, styles, attributs et
-écouteurs d’événements lors du rendu de son fragment d’éléments `<mark>`. La recherche fonctionne,
-mais les variantes Vue CSS Modules et Tailwind ne peuvent pas appliquer leurs styles ni leurs
-points d’accroche CSS. L’adaptateur Vue n’est pas prêt pour la production tant qu’Ark ne corrige pas
-la transmission des attributs ; les exemples ci-dessous présentent le contrat attendu.
-
-:::
-
 ## Choisir le bon composant
 
 Utilisez `Highlight` pour mettre en évidence des termes de recherche dans un texte qui possède déjà

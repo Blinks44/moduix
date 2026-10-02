@@ -28,15 +28,6 @@ import highlightVueMultipleQueries from '../../../snippets/highlight/vue/multipl
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/highlight" />
 
-:::warning Vue production blocker
-
-With `@ark-ui/vue@5.39.2`, Ark's `Highlight` drops classes, styles, attributes, and listeners on its
-fragment of `<mark>` elements. Matching works, but the Vue CSS Modules and Tailwind variants cannot
-apply their styles or public styling hooks. The Vue adapter is not production-ready until upstream
-fixes attribute forwarding; the examples below describe the intended contract.
-
-:::
-
 ## Choosing the right component
 
 Use `Highlight` to emphasize search terms inside text that already has a semantic container. It
