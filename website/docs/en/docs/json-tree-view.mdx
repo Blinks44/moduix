@@ -8,10 +8,22 @@ import JsonTreeViewBasicDemo from '@/components/examples/json-tree-view/basic.ts
 import JsonTreeViewCompactPreviewsDemo from '@/components/examples/json-tree-view/compact-previews.tsx';
 import jsonTreeViewSolidBasic from '../../../snippets/json-tree-view/solid/basic.tsx?raw';
 import jsonTreeViewSolidCompactPreviews from '../../../snippets/json-tree-view/solid/compact-previews.tsx?raw';
+import jsonTreeViewVueBasic from '../../../snippets/json-tree-view/vue/basic.vue?raw';
+import jsonTreeViewVueCompactPreviews from '../../../snippets/json-tree-view/vue/compact-previews.vue?raw';
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
+
+:::warning Vue production blockers
+
+With `@ark-ui/vue@5.39.2`, `JsonTreeView` keeps the initial `data` and preview options when props
+change. `useJsonTreeView` also snapshots its inputs. The root's `expandedChange` event works, but
+`v-model` listeners are not forwarded to the internal TreeView. Reactive data and controlled state
+therefore do not have parity with React and Solid. The Vue adapter is not production-ready until
+these upstream defects are fixed; the examples below use static data and uncontrolled state.
+
+:::
 
 ## Choosing the right component
 
@@ -24,6 +36,8 @@ content.
 Pass any JSON-like JavaScript value through `data`, then render `<JsonTreeViewTree />` inside the component.
 `JsonTreeView` generates the object, array, and value nodes for you. moduix styles the rows, indentation, focus
 states, and default disclosure icon.
+
+The framework adapters keep the same flat public names; the Vue example uses native SFC syntax and named slots.
 
 The example starts with two levels expanded. Use `defaultExpandedDepth` to choose how much of a response or
 configuration should be visible on the first render.
@@ -39,6 +53,7 @@ configuration should be visible on the first render.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -51,6 +66,11 @@ configuration should be visible on the first render.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={jsonTreeViewSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={jsonTreeViewVueBasic} />
 
     </Tab>
   </Tabs>
@@ -79,6 +99,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/json-tree-view' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/json-tree-view' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/json-tree-view' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/json-tree-view' },
   ]}
 />
 
@@ -128,6 +158,7 @@ Users can expand a node to inspect its complete value.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -142,6 +173,11 @@ Users can expand a node to inspect its complete value.
 <CodeBlockRuntime lang="tsx" code={jsonTreeViewSolidCompactPreviews} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={jsonTreeViewVueCompactPreviews} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -149,12 +185,12 @@ Users can expand a node to inspect its complete value.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on `JsonTreeView`, `JsonTreeViewRootProvider`, or `JsonTreeViewTree` for local layout changes. Tailwind
+Use `className` in React, or `class` in Solid and Vue, on `JsonTreeView`, `JsonTreeViewRootProvider`, or `JsonTreeViewTree` for local layout changes. Tailwind
 variants use utility classes and consumer classes; CSS Modules variants use their bundled styles and foundation
 tokens.
 
-`JsonTreeViewTree` uses the `ChevronRightIcon` supplied by moduix when `arrow` is omitted. Pass your own `arrow`
-when the inspection surface needs a different disclosure icon.
+`JsonTreeViewTree` uses the `ChevronRightIcon` supplied by moduix when `arrow` is omitted in React or Solid. In Vue,
+provide the `#arrow` slot when the inspection surface needs a different disclosure icon.
 
 Generated nodes preserve Ark's `data-scope="json-tree-view"` and `data-part` attributes. moduix adds the stable
 `data-slot="json-tree-view-root"`, `json-tree-view-root-provider`, and `json-tree-view-tree` hooks.
@@ -162,6 +198,10 @@ Generated nodes preserve Ark's `data-scope="json-tree-view"` and `data-part` att
 `JsonTreeViewTree` forwards Ark's `indentGuide` prop when you opt into indentation guides. moduix does not style the
 generated `[data-part='branch-indent-guide']` elements; target that attribute with your own styles when guides are
 enabled.
+
+In Vue with `@ark-ui/vue@5.39.2`, the `indentGuide` prop does not generate guides because Ark
+suppresses its built-in fallback with an empty slot. The native `#indentGuide` slot accepts custom
+guide content, but automatic guides remain an upstream gap.
 
 The component uses foundation tokens directly, without a separate `--moduix-json-tree-view-*` variable layer. Add a
 class or target Ark part attributes when an inspection surface needs different styling.

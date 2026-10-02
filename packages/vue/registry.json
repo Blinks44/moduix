@@ -327,6 +327,41 @@
       ]
     },
     {
+      "name": "swap",
+      "type": "registry:item",
+      "title": "Swap",
+      "description": "moduix Vue Swap component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/swap/Swap.vue",
+          "target": "@components/ui/swap/Swap.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/swap/SwapRootProvider.vue",
+          "target": "@components/ui/swap/SwapRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/swap/SwapIndicator.vue",
+          "target": "@components/ui/swap/SwapIndicator.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/swap/Swap.module.css",
+          "target": "@components/ui/swap/Swap.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/swap/index.ts",
+          "target": "@components/ui/swap/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "tree-view",
       "type": "registry:item",
       "title": "TreeView",
@@ -2118,6 +2153,31 @@
         {
           "path": "src/components/heading/index.ts",
           "target": "@components/ui/heading/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "highlight",
+      "type": "registry:item",
+      "title": "Highlight",
+      "description": "moduix Vue Highlight component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation"],
+      "files": [
+        {
+          "path": "src/components/highlight/Highlight.vue",
+          "target": "@components/ui/highlight/Highlight.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/highlight/Highlight.module.css",
+          "target": "@components/ui/highlight/Highlight.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/highlight/index.ts",
+          "target": "@components/ui/highlight/index.ts",
           "type": "registry:component"
         }
       ]
@@ -5672,6 +5732,41 @@
         {
           "path": "src/components/tour/index.ts",
           "target": "@components/ui/tour/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "json-tree-view",
+      "type": "registry:item",
+      "title": "JsonTreeView",
+      "description": "moduix Vue JsonTreeView component.",
+      "dependencies": ["@ark-ui/vue", "clsx"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "files": [
+        {
+          "path": "src/components/json-tree-view/JsonTreeView.vue",
+          "target": "@components/ui/json-tree-view/JsonTreeView.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/json-tree-view/JsonTreeViewRootProvider.vue",
+          "target": "@components/ui/json-tree-view/JsonTreeViewRootProvider.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/json-tree-view/JsonTreeViewTree.vue",
+          "target": "@components/ui/json-tree-view/JsonTreeViewTree.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/json-tree-view/JsonTreeView.module.css",
+          "target": "@components/ui/json-tree-view/JsonTreeView.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/json-tree-view/index.ts",
+          "target": "@components/ui/json-tree-view/index.ts",
           "type": "registry:component"
         }
       ]

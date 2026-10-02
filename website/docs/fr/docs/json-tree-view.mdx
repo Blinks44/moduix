@@ -8,10 +8,24 @@ import JsonTreeViewBasicDemo from '@/components/examples/json-tree-view/basic.ts
 import JsonTreeViewCompactPreviewsDemo from '@/components/examples/json-tree-view/compact-previews.tsx';
 import jsonTreeViewSolidBasic from '../../../snippets/json-tree-view/solid/basic.tsx?raw';
 import jsonTreeViewSolidCompactPreviews from '../../../snippets/json-tree-view/solid/compact-previews.tsx?raw';
+import jsonTreeViewVueBasic from '../../../snippets/json-tree-view/vue/basic.vue?raw';
+import jsonTreeViewVueCompactPreviews from '../../../snippets/json-tree-view/vue/compact-previews.vue?raw';
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
+
+:::warning Vue : blocages pour la production
+
+Avec `@ark-ui/vue@5.39.2`, `JsonTreeView` conserve les valeurs initiales de `data` et des options
+d’aperçu lorsque les props changent. `useJsonTreeView` fige également ses paramètres à la création.
+L’événement `expandedChange` du composant racine fonctionne, mais les écouteurs de `v-model` ne sont
+pas transmis au TreeView interne. Les données réactives et l’état contrôlé n’offrent donc pas la
+même prise en charge qu’en React et Solid. L’adaptateur Vue n’est pas prêt pour la production tant
+que ces défauts ne sont pas corrigés dans Ark ; les exemples ci-dessous utilisent des données
+statiques et un état non contrôlé.
+
+:::
 
 ## Choisir le bon composant
 
@@ -40,6 +54,7 @@ configuration à afficher au premier rendu.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -52,6 +67,11 @@ configuration à afficher au premier rendu.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={jsonTreeViewSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={jsonTreeViewVueBasic} />
 
     </Tab>
   </Tabs>
@@ -80,6 +100,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/json-tree-view' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/json-tree-view' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/json-tree-view' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/json-tree-view' },
   ]}
 />
 
@@ -129,6 +159,7 @@ raccourcir les chaînes longues. L’utilisateur peut ouvrir un nœud pour consu
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -143,6 +174,11 @@ raccourcir les chaînes longues. L’utilisateur peut ouvrir un nœud pour consu
 <CodeBlockRuntime lang="tsx" code={jsonTreeViewSolidCompactPreviews} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={jsonTreeViewVueCompactPreviews} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -150,12 +186,13 @@ raccourcir les chaînes longues. L’utilisateur peut ouvrir un nœud pour consu
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur `JsonTreeView`, `JsonTreeViewRootProvider` ou `JsonTreeViewTree` pour modifier localement la
+Utilisez `className` en React, ou `class` en Solid et Vue, sur `JsonTreeView`, `JsonTreeViewRootProvider` ou `JsonTreeViewTree` pour modifier localement la
 mise en page. Les variantes Tailwind utilisent des classes utilitaires et les classes de l’application ; les
 variantes CSS Modules utilisent leurs styles et les tokens de base.
 
-Lorsque `arrow` est omis, `JsonTreeViewTree` utilise le `ChevronRightIcon` fourni par moduix. Passez votre propre
-icône via `arrow` si la vue d’inspection utilise un autre indicateur d’ouverture.
+Lorsque `arrow` est omis, `JsonTreeViewTree` utilise le `ChevronRightIcon` fourni par moduix en React et Solid. En
+Vue, fournissez votre propre icône via le slot nommé `#arrow` si la vue d’inspection utilise un autre indicateur
+d’ouverture.
 
 Les nœuds générés conservent les attributs Ark `data-scope="json-tree-view"` et `data-part`. moduix ajoute les
 repères stables `data-slot="json-tree-view-root"`, `json-tree-view-root-provider` et `json-tree-view-tree`.
@@ -163,6 +200,10 @@ repères stables `data-slot="json-tree-view-root"`, `json-tree-view-root-provide
 `JsonTreeViewTree` transmet la prop Ark `indentGuide` lorsque vous activez les guides d’indentation. moduix ne
 style pas les éléments `[data-part='branch-indent-guide']` générés ; ciblez cet attribut avec vos propres styles
 lorsque les guides sont activés.
+
+En Vue avec `@ark-ui/vue@5.39.2`, la prop `indentGuide` ne génère pas de guides : un slot vide
+d’Ark supprime le contenu par défaut. Le slot natif `#indentGuide` accepte un contenu personnalisé,
+mais le rendu automatique des guides reste un défaut à corriger dans Ark.
 
 Le composant utilise directement les tokens de base, sans couche de variables
 `--moduix-json-tree-view-*`. Ajoutez une classe ou ciblez les attributs des parties Ark lorsqu’une vue

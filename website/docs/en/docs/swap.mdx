@@ -13,6 +13,10 @@ import swapSolidAnimationPresets from '../../../snippets/swap/solid/animation-pr
 import swapSolidBasic from '../../../snippets/swap/solid/basic.tsx?raw';
 import swapSolidCustomAnimation from '../../../snippets/swap/solid/custom-animation.tsx?raw';
 import swapSolidRootProvider from '../../../snippets/swap/solid/root-provider.tsx?raw';
+import swapVueAnimationPresets from '../../../snippets/swap/vue/animation-presets.vue?raw';
+import swapVueBasic from '../../../snippets/swap/vue/basic.vue?raw';
+import swapVueCustomAnimation from '../../../snippets/swap/vue/custom-animation.vue?raw';
+import swapVueRootProvider from '../../../snippets/swap/vue/root-provider.vue?raw';
 
 ## API Reference
 
@@ -36,6 +40,7 @@ changes after an action. Pass the current boolean to `swap`: `false` shows the `
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -48,6 +53,11 @@ changes after an action. Pass the current boolean to `swap`: `false` shows the `
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={swapSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={swapVueBasic} />
 
     </Tab>
   </Tabs>
@@ -76,6 +86,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/swap' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/swap' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/swap' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/swap' },
   ]}
 />
 
@@ -130,6 +150,7 @@ and recipe controls are shown below the demo.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -142,6 +163,11 @@ and recipe controls are shown below the demo.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={swapSolidAnimationPresets} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={swapVueAnimationPresets} />
 
     </Tab>
   </Tabs>
@@ -171,6 +197,7 @@ exit animations and include a reduced-motion fallback.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -183,6 +210,11 @@ exit animations and include a reduced-motion fallback.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={swapSolidCustomAnimation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={swapVueCustomAnimation} />
 
     </Tab>
   </Tabs>
@@ -212,6 +244,7 @@ root.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -224,6 +257,11 @@ root.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={swapSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={swapVueRootProvider} />
 
     </Tab>
   </Tabs>

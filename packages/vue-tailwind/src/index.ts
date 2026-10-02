@@ -5,6 +5,7 @@ export * from './components/text';
 export * from './components/typeset';
 export * from './components/accordion';
 export * from './components/tree-view';
+export * from './components/json-tree-view';
 export * from './components/toggle';
 export {
   ToggleGroup,
@@ -42,6 +43,7 @@ export * from './components/hover-card';
 export * from './components/popover';
 export * from './components/floating-panel';
 export * from './components/heading';
+export * from './components/highlight';
 export * from './components/empty';
 export * from './components/date-picker';
 export * from './components/date-input';
@@ -99,6 +101,7 @@ export * from './components/signature-pad';
 export * from './components/skeleton';
 export * from './components/split-button';
 export * from './components/steps';
+export * from './components/swap';
 export * from './components/table';
 export * from './components/tabs';
 export * from './components/timer';

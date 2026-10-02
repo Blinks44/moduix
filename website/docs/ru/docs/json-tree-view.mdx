@@ -8,10 +8,23 @@ import JsonTreeViewBasicDemo from '@/components/examples/json-tree-view/basic.ts
 import JsonTreeViewCompactPreviewsDemo from '@/components/examples/json-tree-view/compact-previews.tsx';
 import jsonTreeViewSolidBasic from '../../../snippets/json-tree-view/solid/basic.tsx?raw';
 import jsonTreeViewSolidCompactPreviews from '../../../snippets/json-tree-view/solid/compact-previews.tsx?raw';
+import jsonTreeViewVueBasic from '../../../snippets/json-tree-view/vue/basic.vue?raw';
+import jsonTreeViewVueCompactPreviews from '../../../snippets/json-tree-view/vue/compact-previews.vue?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
+
+:::warning Vue: блокеры для production
+
+В `@ark-ui/vue@5.39.2` компонент `JsonTreeView` сохраняет начальные `data` и параметры превью при
+изменении пропсов. `useJsonTreeView` также фиксирует входные значения при создании. Событие
+`expandedChange` корневого компонента работает, но обработчики `v-model` не передаются во внутренний
+TreeView. Поэтому реактивное обновление данных и управляемое состояние не соответствуют контракту
+React и Solid. Vue-адаптер не готов к production до исправления этих дефектов в Ark; примеры ниже
+используют статические данные и неуправляемое состояние.
+
+:::
 
 ## Какой компонент выбрать
 
@@ -21,8 +34,8 @@ import jsonTreeViewSolidCompactPreviews from '../../../snippets/json-tree-view/s
 
 ## Базовый пример
 
-Интерактивный пример на этой странице
-контрактом.
+Адаптеры фреймворков сохраняют одинаковые плоские имена компонентов; в примере Vue используются нативный SFC и
+именованные слоты.
 
 Передайте через `data` любое JSON-подобное JavaScript-значение, а внутри компонента добавьте
 `<JsonTreeViewTree />`. `JsonTreeView` сам создаёт узлы объектов, массивов и значений. moduix оформляет строки,
@@ -42,6 +55,7 @@ import jsonTreeViewSolidCompactPreviews from '../../../snippets/json-tree-view/s
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -54,6 +68,11 @@ import jsonTreeViewSolidCompactPreviews from '../../../snippets/json-tree-view/s
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={jsonTreeViewSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={jsonTreeViewVueBasic} />
 
     </Tab>
   </Tabs>
@@ -82,6 +101,16 @@ import jsonTreeViewSolidCompactPreviews from '../../../snippets/json-tree-view/s
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/json-tree-view' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/json-tree-view' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/json-tree-view' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/json-tree-view' },
   ]}
 />
 
@@ -133,6 +162,7 @@ JsonTreeViewRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -147,6 +177,11 @@ JsonTreeViewRootProvider
 <CodeBlockRuntime lang="tsx" code={jsonTreeViewSolidCompactPreviews} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={jsonTreeViewVueCompactPreviews} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -154,12 +189,13 @@ JsonTreeViewRootProvider
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на `JsonTreeView`, `JsonTreeViewRootProvider` или `JsonTreeViewTree`, чтобы локально изменить
+Используйте `className` в React или `class` в Solid и Vue на `JsonTreeView`, `JsonTreeViewRootProvider` или `JsonTreeViewTree`, чтобы локально изменить
 компоновку. Варианты Tailwind используют классы Tailwind и классы приложения. Варианты с CSS Modules используют
 свои стили и базовые токены.
 
-Если не передать `arrow`, `JsonTreeViewTree` использует `ChevronRightIcon` из moduix. Передайте собственную иконку
-через `arrow`, если для области просмотра нужна другая стрелка раскрытия.
+Если не передать `arrow`, `JsonTreeViewTree` использует `ChevronRightIcon` из moduix в React и Solid. В Vue
+передайте собственную иконку через именованный слот `#arrow`, если для области просмотра нужна другая стрелка
+раскрытия.
 
 Сгенерированные узлы сохраняют атрибуты Ark `data-scope="json-tree-view"` и `data-part`. moduix добавляет
 стабильные селекторы `data-slot="json-tree-view-root"`, `json-tree-view-root-provider` и `json-tree-view-tree`.
@@ -167,6 +203,10 @@ JsonTreeViewRootProvider
 `JsonTreeViewTree` пробрасывает проп Ark `indentGuide`, когда вы включаете направляющие отступов. moduix не
 стилизует сгенерированные элементы `[data-part='branch-indent-guide']`; при включённых направляющих задайте им
 стили самостоятельно через этот атрибут.
+
+В Vue с `@ark-ui/vue@5.39.2` проп `indentGuide` не создаёт направляющие: пустой слот Ark подавляет
+стандартное содержимое. Нативный слот `#indentGuide` принимает свою разметку направляющих, но их
+автоматическая отрисовка остаётся неисправленной в Ark.
 
 Компонент напрямую использует базовые токены и не вводит отдельный слой переменных
 `--moduix-json-tree-view-*`. Если области просмотра нужно другое оформление, добавьте класс или обратитесь к

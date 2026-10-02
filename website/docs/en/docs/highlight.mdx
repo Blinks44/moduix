@@ -1,6 +1,7 @@
 ---
 title: Highlight
-description: Highlight words and phrases inside existing text with native mark elements and moduix styles.
+description: Highlight words and phrases inside existing text with native mark elements and moduix styles in React, Solid, or Vue.
+component: highlight
 ---
 
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
@@ -16,10 +17,25 @@ import highlightSolidExactMatch from '../../../snippets/highlight/solid/exact-ma
 import highlightSolidIgnoreCase from '../../../snippets/highlight/solid/ignore-case.tsx?raw';
 import highlightSolidMatchAll from '../../../snippets/highlight/solid/match-all.tsx?raw';
 import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/multiple-queries.tsx?raw';
+import highlightVueBasic from '../../../snippets/highlight/vue/basic.vue?raw';
+import highlightVueDynamicQuery from '../../../snippets/highlight/vue/dynamic-query.vue?raw';
+import highlightVueExactMatch from '../../../snippets/highlight/vue/exact-match.vue?raw';
+import highlightVueIgnoreCase from '../../../snippets/highlight/vue/ignore-case.vue?raw';
+import highlightVueMatchAll from '../../../snippets/highlight/vue/match-all.vue?raw';
+import highlightVueMultipleQueries from '../../../snippets/highlight/vue/multiple-queries.vue?raw';
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/highlight" />
+
+:::warning Vue production blocker
+
+With `@ark-ui/vue@5.39.2`, Ark's `Highlight` drops classes, styles, attributes, and listeners on its
+fragment of `<mark>` elements. Matching works, but the Vue CSS Modules and Tailwind variants cannot
+apply their styles or public styling hooks. The Vue adapter is not production-ready until upstream
+fixes attribute forwarding; the examples below describe the intended contract.
+
+:::
 
 ## Choosing the right component
 
@@ -46,6 +62,7 @@ and semantics.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -58,6 +75,11 @@ and semantics.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueBasic} />
 
     </Tab>
   </Tabs>
@@ -85,6 +107,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/highlight' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/highlight' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/highlight' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/highlight' },
   ]}
 />
 
@@ -132,6 +164,7 @@ visible text.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -144,6 +177,11 @@ visible text.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidDynamicQuery} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueDynamicQuery} />
 
     </Tab>
   </Tabs>
@@ -172,6 +210,7 @@ which are reliable for Latin text but do not treat Cyrillic and some other scrip
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -184,6 +223,11 @@ which are reliable for Latin text but do not treat Cyrillic and some other scrip
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidExactMatch} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueExactMatch} />
 
     </Tab>
   </Tabs>
@@ -210,6 +254,7 @@ Set `ignoreCase` when the capitalization of the source text should not affect th
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -222,6 +267,11 @@ Set `ignoreCase` when the capitalization of the source text should not affect th
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidIgnoreCase} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueIgnoreCase} />
 
     </Tab>
   </Tabs>
@@ -243,6 +293,7 @@ Set `matchAll` when every occurrence should be highlighted instead of only the f
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -255,6 +306,11 @@ Set `matchAll` when every occurrence should be highlighted instead of only the f
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidMatchAll} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueMatchAll} />
 
     </Tab>
   </Tabs>
@@ -282,6 +338,7 @@ Pass a string array when several terms should be highlighted in the same text. F
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -296,6 +353,11 @@ Pass a string array when several terms should be highlighted in the same text. F
 <CodeBlockRuntime lang="tsx" code={highlightSolidMultipleQueries} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueMultipleQueries} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
@@ -303,8 +365,8 @@ Pass a string array when several terms should be highlighted in the same text. F
 ## Styling
 
 Matched ranges receive moduix's default `<mark>` styles. Use `className` in React or `class` in Solid
-for a local adjustment. CSS Modules variants also expose the `--moduix-highlight-*` variables; use
-Tailwind utilities or consumer classes for Tailwind variants.
+and Vue for a local adjustment. CSS Modules variants also expose the `--moduix-highlight-*` variables;
+use Tailwind utilities or consumer classes for Tailwind variants.
 
 ### CSS Properties
 

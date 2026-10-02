@@ -85,6 +85,10 @@
       "types": "./dist/components/tree-view/index.d.ts",
       "import": "./dist/components/tree-view/index.js"
     },
+    "./json-tree-view": {
+      "types": "./dist/components/json-tree-view/index.d.ts",
+      "import": "./dist/components/json-tree-view/index.js"
+    },
     "./toggle": {
       "types": "./dist/components/toggle/index.d.ts",
       "import": "./dist/components/toggle/index.js"
@@ -112,6 +116,10 @@
     "./steps": {
       "types": "./dist/components/steps/index.d.ts",
       "import": "./dist/components/steps/index.js"
+    },
+    "./swap": {
+      "types": "./dist/components/swap/index.d.ts",
+      "import": "./dist/components/swap/index.js"
     },
     "./tabs": {
       "types": "./dist/components/tabs/index.d.ts",
@@ -176,6 +184,10 @@
     "./heading": {
       "types": "./dist/components/heading/index.d.ts",
       "import": "./dist/components/heading/index.js"
+    },
+    "./highlight": {
+      "types": "./dist/components/highlight/index.d.ts",
+      "import": "./dist/components/highlight/index.js"
     },
     "./editable": {
       "types": "./dist/components/editable/index.d.ts",

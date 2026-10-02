@@ -13,6 +13,10 @@ import swapSolidAnimationPresets from '../../../snippets/swap/solid/animation-pr
 import swapSolidBasic from '../../../snippets/swap/solid/basic.tsx?raw';
 import swapSolidCustomAnimation from '../../../snippets/swap/solid/custom-animation.tsx?raw';
 import swapSolidRootProvider from '../../../snippets/swap/solid/root-provider.tsx?raw';
+import swapVueAnimationPresets from '../../../snippets/swap/vue/animation-presets.vue?raw';
+import swapVueBasic from '../../../snippets/swap/vue/basic.vue?raw';
+import swapVueCustomAnimation from '../../../snippets/swap/vue/custom-animation.vue?raw';
+import swapVueRootProvider from '../../../snippets/swap/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -36,6 +40,7 @@ import swapSolidRootProvider from '../../../snippets/swap/solid/root-provider.ts
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -48,6 +53,11 @@ import swapSolidRootProvider from '../../../snippets/swap/solid/root-provider.ts
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={swapSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={swapVueBasic} />
 
     </Tab>
   </Tabs>
@@ -76,6 +86,16 @@ import swapSolidRootProvider from '../../../snippets/swap/solid/root-provider.ts
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/swap' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/swap' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/swap' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/swap' },
   ]}
 />
 
@@ -130,6 +150,7 @@ SwapRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -142,6 +163,11 @@ SwapRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={swapSolidAnimationPresets} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={swapVueAnimationPresets} />
 
     </Tab>
   </Tabs>
@@ -172,6 +198,7 @@ SwapRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -184,6 +211,11 @@ SwapRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={swapSolidCustomAnimation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={swapVueCustomAnimation} />
 
     </Tab>
   </Tabs>
@@ -213,6 +245,7 @@ SwapRootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -225,6 +258,11 @@ SwapRootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={swapSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={swapVueRootProvider} />
 
     </Tab>
   </Tabs>

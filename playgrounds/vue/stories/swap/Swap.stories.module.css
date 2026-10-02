@@ -1,0 +1,70 @@
+.feedbackButton {
+  --moduix-swap-button-width: 7rem;
+
+  width: var(--moduix-swap-button-width);
+  min-width: var(--moduix-swap-button-width);
+  overflow: hidden;
+  transition:
+    width var(--moduix-transition-default),
+    min-width var(--moduix-transition-default);
+}
+
+.feedbackButton[data-playing] {
+  --moduix-swap-button-width: 7.5rem;
+}
+
+.feedbackSwap {
+  width: 100%;
+}
+
+.compactButton[data-size='icon-md'] {
+  --moduix-compact-content-gap: 0;
+  --moduix-compact-label-width: 0;
+
+  width: var(--moduix-button-size-icon-md, var(--moduix-size-md));
+  min-width: var(--moduix-button-size-icon-md, var(--moduix-size-md));
+  overflow: hidden;
+  transition:
+    width var(--moduix-transition-default),
+    min-width var(--moduix-transition-default);
+}
+
+.compactButton[data-size='icon-md'][data-expanded] {
+  --moduix-compact-content-gap: var(--moduix-button-content-gap, var(--moduix-spacing-2));
+  --moduix-compact-label-width: 4.25rem;
+
+  width: 8.25rem;
+  min-width: 8.25rem;
+}
+
+.compactContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--moduix-compact-content-gap);
+  transition: gap var(--moduix-transition-default);
+}
+
+.compactLabel {
+  width: var(--moduix-compact-label-width);
+  min-width: 0;
+  overflow: hidden;
+  transition: width var(--moduix-transition-default);
+}
+
+.compactIndicator {
+  gap: var(--moduix-button-content-gap, var(--moduix-spacing-2));
+}
+
+.animationPresets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--moduix-spacing-2);
+}
+
+.provider {
+  display: grid;
+  justify-items: center;
+  gap: var(--moduix-spacing-3);
+}

@@ -1,6 +1,7 @@
 ---
 title: Highlight
-description: Выделяйте слова и фразы внутри существующего текста с помощью нативных элементов mark и стилей moduix.
+description: Выделяйте слова и фразы внутри существующего текста с помощью нативных элементов mark и стилей moduix в React, Solid или Vue.
+component: highlight
 ---
 
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
@@ -16,10 +17,25 @@ import highlightSolidExactMatch from '../../../snippets/highlight/solid/exact-ma
 import highlightSolidIgnoreCase from '../../../snippets/highlight/solid/ignore-case.tsx?raw';
 import highlightSolidMatchAll from '../../../snippets/highlight/solid/match-all.tsx?raw';
 import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/multiple-queries.tsx?raw';
+import highlightVueBasic from '../../../snippets/highlight/vue/basic.vue?raw';
+import highlightVueDynamicQuery from '../../../snippets/highlight/vue/dynamic-query.vue?raw';
+import highlightVueExactMatch from '../../../snippets/highlight/vue/exact-match.vue?raw';
+import highlightVueIgnoreCase from '../../../snippets/highlight/vue/ignore-case.vue?raw';
+import highlightVueMatchAll from '../../../snippets/highlight/vue/match-all.vue?raw';
+import highlightVueMultipleQueries from '../../../snippets/highlight/vue/multiple-queries.vue?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/highlight" />
+
+:::warning Vue: блокер для production
+
+В `@ark-ui/vue@5.39.2` компонент Ark `Highlight` теряет классы, стили, атрибуты и обработчики событий
+при отрисовке фрагмента из элементов `<mark>`. Поиск совпадений работает, но Vue-варианты на
+CSS Modules и Tailwind не могут применить свои стили и публичные хуки стилизации. Vue-адаптер
+не готов к production до исправления передачи атрибутов в Ark; примеры ниже показывают целевой контракт.
+
+:::
 
 ## Выбор подходящего компонента
 
@@ -46,6 +62,7 @@ import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/mul
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -58,6 +75,11 @@ import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/mul
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueBasic} />
 
     </Tab>
   </Tabs>
@@ -85,6 +107,16 @@ import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/mul
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/highlight' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/highlight' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/highlight' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/highlight' },
   ]}
 />
 
@@ -118,7 +150,7 @@ Highlight
 
 ### Динамический запрос
 
-Управляйте `query` состоянием React или Solid, чтобы выделять текущий термин во время поиска или
+Управляйте `query` состоянием React, Solid или Vue, чтобы выделять текущий термин во время поиска или
 фильтрации видимого текста.
 
 <ExampleFrame variant="component">
@@ -132,6 +164,7 @@ Highlight
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -144,6 +177,11 @@ Highlight
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidDynamicQuery} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueDynamicQuery} />
 
     </Tab>
   </Tabs>
@@ -173,6 +211,7 @@ Highlight
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -185,6 +224,11 @@ Highlight
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidExactMatch} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueExactMatch} />
 
     </Tab>
   </Tabs>
@@ -211,6 +255,7 @@ Highlight
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -223,6 +268,11 @@ Highlight
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidIgnoreCase} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueIgnoreCase} />
 
     </Tab>
   </Tabs>
@@ -244,6 +294,7 @@ Highlight
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -256,6 +307,11 @@ Highlight
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidMatchAll} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueMatchAll} />
 
     </Tab>
   </Tabs>
@@ -283,6 +339,7 @@ Highlight
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -297,6 +354,11 @@ Highlight
 <CodeBlockRuntime lang="tsx" code={highlightSolidMultipleQueries} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueMultipleQueries} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
@@ -304,8 +366,8 @@ Highlight
 ## Стилизация
 
 Совпавшие фрагменты получают стандартные стили moduix для `<mark>`. Для локальной правки в React
-используйте `className`, а в Solid `class`. Варианты CSS Modules также предоставляют переменные
-`--moduix-highlight-*`; для Tailwind используйте utility-классы или классы потребителя.
+используйте `className`, а в Solid и Vue `class`. Варианты CSS Modules также предоставляют
+переменные `--moduix-highlight-*`; для Tailwind используйте utility-классы или классы потребителя.
 
 ### CSS-свойства
 

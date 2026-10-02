@@ -19,7 +19,7 @@ const JsonTreeView = forwardRef<
   return (
     <JsonTreeViewPrimitive.Root
       ref={ref}
-      className={cn(rootClassName, className)}
+      className={cn(rootClassName, "[&_[data-kind='colon']]:me-0.5", className)}
       {...props}
       data-slot="json-tree-view-root"
     />
@@ -33,7 +33,7 @@ const JsonTreeViewRootProvider = forwardRef<
   return (
     <JsonTreeViewPrimitive.RootProvider
       ref={ref}
-      className={cn(rootClassName, className)}
+      className={cn(rootClassName, "[&_[data-kind='colon']]:me-0.5", className)}
       {...props}
       data-slot="json-tree-view-root-provider"
     />
