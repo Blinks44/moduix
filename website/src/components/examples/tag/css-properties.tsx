@@ -107,7 +107,7 @@ const tagCssProperties = (
     ],
     [
       '--moduix-tag-close-trigger-icon-size',
-      'var(--moduix-spacing-4)',
+      'var(--moduix-spacing-3)',
       'Controls close trigger icon size.',
     ],
     [

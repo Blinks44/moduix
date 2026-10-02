@@ -45,6 +45,9 @@ composition are separate supported paths.
 
 ## Accessibility and styling
 
+`TagCloseTrigger` uses a 12px glyph inside its 16px button, matching item deletion in `TagsInput`
+and the icon size in `Badge`. Standalone close and field-clear controls use 16px glyphs.
+
 - The root is a presentational `span` by default.
 - `TagCloseTrigger` defaults to `type="button"` and uses `aria-label="Remove tag"` only when it
   is a native button without children or `aria-labelledby`.

@@ -124,6 +124,9 @@ colors intentionally match `Badge` so shared variant names carry the same visual
 compact token components. Close-trigger variables use the `--moduix-tag-close-trigger-*` prefix. Consumers
 can style parts through `className`, `data-scope`, `data-part`, and `data-slot`.
 
+`TagCloseTrigger` uses a 12px glyph inside its 16px button, matching item deletion in `TagsInput`
+and the icon size in `Badge`. Standalone close and field-clear controls use 16px glyphs.
+
 For colors, the component-wide `--moduix-tag-bg`, `--moduix-tag-border-color`, and
 `--moduix-tag-color` overrides take precedence. Otherwise, each variant resolves its own background,
 border, and foreground through `--moduix-tag-default-*`, `--moduix-tag-secondary-*`,

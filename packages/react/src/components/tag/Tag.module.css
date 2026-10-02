@@ -124,7 +124,7 @@
     --moduix-close-button-radius: var(--moduix-tag-close-trigger-radius, var(--moduix-radius-full));
     --moduix-close-button-icon-size: var(
       --moduix-tag-close-trigger-icon-size,
-      var(--moduix-spacing-4)
+      var(--moduix-spacing-3)
     );
     --moduix-close-button-bg: var(--moduix-tag-close-trigger-bg, transparent);
     --moduix-close-button-bg-hover: var(

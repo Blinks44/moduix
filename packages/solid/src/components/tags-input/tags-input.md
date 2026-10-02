@@ -132,6 +132,9 @@ needs customization.
 
 ## Agent notes
 
+Item delete triggers use 12px glyphs inside 16px buttons, matching `TagCloseTrigger`.
+`TagsInputClearTrigger` keeps a 16px glyph for clearing the entire field.
+
 Keep docs, examples, registry metadata, and generated registry artifacts in sync with the flat API.
 Do not replace Ark detail objects with positional callbacks. `TagsInputContext` and
 `TagsInputItemContext` stay because custom composition

@@ -2937,7 +2937,7 @@
   --moduix-tag-close-trigger-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-tag-close-trigger-focus-ring-offset: initial; /* 0 */
   --moduix-tag-close-trigger-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
-  --moduix-tag-close-trigger-icon-size: initial; /* var(--moduix-spacing-4) */
+  --moduix-tag-close-trigger-icon-size: initial; /* var(--moduix-spacing-3) */
   --moduix-tag-close-trigger-radius: initial; /* var(--moduix-radius-full) */
   --moduix-tag-close-trigger-size: initial; /* var(--moduix-spacing-4) */
   --moduix-tag-transition: initial; /* var(--moduix-transition-default) */
@@ -3002,7 +3002,7 @@
   --moduix-tags-input-trigger-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-tags-input-trigger-focus-ring-offset: initial; /* var(--moduix-focus-ring-offset) */
   --moduix-tags-input-trigger-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
-  --moduix-tags-input-trigger-icon-size: initial; /* var(--moduix-spacing-4) */
+  --moduix-tags-input-trigger-icon-size: initial; /* var(--moduix-spacing-3) */
   --moduix-tags-input-trigger-radius: initial; /* var(--moduix-radius-full) */
   --moduix-tags-input-trigger-size: initial; /* var(--moduix-spacing-4) */
   --moduix-tags-input-width: initial; /* 100% */
