@@ -1,0 +1,201 @@
+---
+title: Nuxt
+description: Intégrez moduix à Nuxt 4 par paquets Vue ou avec shadcn, avec les styles globaux, les sources Tailwind, les alias, le SSR et l’hydratation.
+---
+
+import VueCssModules from '../../../../snippets/quick-start/vue-css-modules.vue?raw';
+import VueTailwind from '../../../../snippets/quick-start/vue-tailwind.vue?raw';
+import shadcnAccordionVue from '../../../../snippets/quick-start/shadcn-accordion-vue.vue?raw';
+
+# Nuxt
+
+Ce guide part d’une application Nuxt 4 existante utilisant le répertoire source par défaut `app/`.
+Nuxt rend les composants Vue côté serveur, puis les hydrate dans le navigateur.
+
+## Choisir votre configuration
+
+- **Framework :** Vue 3.5 ou une version ultérieure de la branche 3.x, fourni par Nuxt.
+- **Styles :** CSS Modules ou Tailwind CSS v4, déjà configuré dans l’application.
+- **Distribution :** paquet ou code source copié avec la CLI shadcn.
+
+Choisissez Vue dans la [configuration du paquet](/docs/quick-start#installer-le-paquet) ou la
+[configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune. Nuxt utilise
+`@moduix/vue` et `@moduix/vue-tailwind`, ou les espaces de noms de registre `@moduix-vue` et
+`@moduix-vue-tailwind`.
+
+## Installation par paquet
+
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
+
+Ajoutez la réinitialisation et la feuille de styles de base au tableau global `css` de Nuxt. Ajoutez
+le paquet à `build.transpile` pour que la compilation serveur traite les imports CSS des composants
+au lieu de charger directement le CSS dans Node.js :
+
+```ts title="nuxt.config.ts"
+export default defineNuxtConfig({
+  css: ['@moduix/vue/reset.css', '@moduix/vue/style.css'],
+  build: {
+    transpile: ['@moduix/vue'],
+  },
+});
+```
+
+Si l’application possède déjà une réinitialisation équivalente, omettez `@moduix/vue/reset.css`.
+
+Importez explicitement les parties du composant depuis le sous-chemin du paquet :
+
+<CodeBlockRuntime lang="vue" title="app/app.vue" code={VueCssModules} />
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+<PackageManagerTabs command="install @moduix/vue-tailwind @ark-ui/vue" />
+
+Conservez l’intégration Tailwind CSS v4 existante et chargez sa feuille de styles globalement :
+
+```ts title="nuxt.config.ts"
+export default defineNuxtConfig({
+  css: ['~/assets/css/main.css'],
+});
+```
+
+Chargez les styles de base de moduix avant Tailwind et indiquez où analyser les utilitaires du paquet :
+
+```css title="app/assets/css/main.css"
+@import '@moduix/vue-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../../../node_modules/@moduix/vue-tailwind/dist/components';
+```
+
+Le chemin `@source` est relatif à cette feuille de styles. Tailwind Preflight assure la réinitialisation.
+
+<CodeBlockRuntime lang="vue" title="app/app.vue" code={VueTailwind} />
+
+  </Tab>
+</Tabs>
+
+Fusionnez ces paramètres avec la configuration Nuxt existante. L’exemple Accordion prend en charge
+le SSR et ne nécessite pas de composant `<ClientOnly>`. Placez le code propre au navigateur dans
+`onMounted` ou dans un composant rendu uniquement côté client.
+
+## Installation avec la CLI shadcn
+
+Effectuez la [configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune avec
+l’espace de noms Vue correspondant à vos styles. Conservez `rsc: false` ; utilisez la CLI `shadcn`
+présentée ici avec le registre moduix, sans ajouter de module Nuxt pour les composants.
+
+Nuxt résout déjà les alias `@` et `~` vers son répertoire source. Avec la structure par défaut de
+Nuxt 4, ils pointent tous deux vers `app/`. La CLI shadcn a également besoin de cette correspondance
+dans le fichier racine `tsconfig.json` ; ajoutez `compilerOptions` en conservant les références de
+projets Nuxt :
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./app/*"]
+    }
+  },
+  "files": [],
+  "references": [
+    { "path": "./.nuxt/tsconfig.app.json" },
+    { "path": "./.nuxt/tsconfig.server.json" },
+    { "path": "./.nuxt/tsconfig.shared.json" },
+    { "path": "./.nuxt/tsconfig.node.json" }
+  ]
+}
+```
+
+Si `.nuxt` n’a pas encore été généré, exécutez la commande Nuxt `prepare` avant la CLI. Avec un
+`srcDir` personnalisé, adaptez cette correspondance. Ne modifiez pas les configurations TypeScript
+générées par Nuxt.
+
+Pour Tailwind, définissez `tailwind.css` sur `app/assets/css/main.css` dans `components.json` avant
+d’ajouter un composant, et laissez `tailwind.config` vide pour la v4.
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/accordion' },
+  ]}
+/>
+
+La CLI place les composants dans `app/components/ui/accordion` et les fichiers partagés dans
+`app/lib/moduix`. Limitez l’analyse des composants pour l’import automatique de Nuxt aux fichiers
+`.vue`, afin que les fichiers de réexportation `index.ts` générés ne créent pas de conflits de noms
+avec les SFC :
+
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
+
+Si l’application a besoin de la réinitialisation moduix, ajoutez-la séparément :
+
+<PackageManagerTabs command="shadcn@latest add @moduix-vue/reset" dlx />
+
+Chargez les styles générés à la place des styles du paquet :
+
+```ts title="nuxt.config.ts"
+export default defineNuxtConfig({
+  components: [{ path: '~/components', extensions: ['vue'] }],
+  css: ['~/lib/moduix/styles/reset.css', '~/lib/moduix/styles/style.css'],
+});
+```
+
+Omettez l’entrée de réinitialisation si vous utilisez celle de l’application. Le code du registre
+est compilé avec l’application et n’a donc pas besoin du paramètre `build.transpile` du paquet.
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+Utilisez les styles de base générés dans la feuille de styles Tailwind de l’application :
+
+```css title="app/assets/css/main.css"
+@import '../../lib/moduix/styles/style.css';
+@import 'tailwindcss';
+```
+
+Les composants générés se trouvent dans le code source de l’application : la directive `@source`
+du paquet n’est donc pas nécessaire. Conservez l’intégration Tailwind existante et chargez la
+feuille de styles globalement :
+
+```ts title="nuxt.config.ts"
+export default defineNuxtConfig({
+  components: [{ path: '~/components', extensions: ['vue'] }],
+  css: ['~/assets/css/main.css'],
+});
+```
+
+  </Tab>
+</Tabs>
+
+Conservez les éventuels autres répertoires de composants lors de la fusion du paramètre `components`.
+Importez explicitement l’API plate du composant depuis le fichier de réexportation généré :
+
+<CodeBlockRuntime lang="vue" title="app/app.vue" code={shadcnAccordionVue} />
+
+Pour la [configuration des couches de portails](/docs/quick-start#configurer-la-superposition-des-portails),
+la racine de l’application Nuxt est `#__nuxt` par défaut. Ajoutez cette règle à votre feuille de
+styles globale :
+
+```css
+#__nuxt {
+  isolation: isolate;
+}
+```
+
+## Vérifier
+
+Démarrez le serveur de développement, puis compilez l’application pour la production et vérifiez-la
+en mode aperçu. La réponse initiale du serveur doit contenir l’Accordion et ses styles. Dans le
+navigateur, le composant doit s’hydrater sans divergence et répondre au clavier et au pointeur.
+Avec le registre, vérifiez que les imports se résolvent dans `app/components` et `app/lib`, sans
+avertissements de conflits de noms de composants.
+
+Consultez la documentation officielle de Nuxt sur les
+[styles](https://nuxt.com/docs/4.x/getting-started/styling), la
+[configuration TypeScript](https://nuxt.com/docs/4.x/directory-structure/tsconfig) et
+[build.transpile](https://nuxt.com/docs/4.x/api/nuxt-config#transpile).

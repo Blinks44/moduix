@@ -1310,6 +1310,11 @@
     "ru": "App Router и React Server Components.",
     "fr": "App Router et React Server Components."
   },
+  "frameworkNuxtDescription": {
+    "en": "Vue apps with server rendering and hydration.",
+    "ru": "Vue-приложения с серверным рендерингом и гидратацией.",
+    "fr": "Applications Vue avec rendu serveur et hydratation."
+  },
   "frameworkReactRouterDescription": {
     "en": "Framework mode and data mode apps.",
     "ru": "Приложения в режимах framework и data.",

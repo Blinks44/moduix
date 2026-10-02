@@ -11,6 +11,11 @@
   },
   {
     "type": "file",
+    "name": "nuxt",
+    "label": "Nuxt"
+  },
+  {
+    "type": "file",
     "name": "react-router",
     "label": "React Router"
   },
