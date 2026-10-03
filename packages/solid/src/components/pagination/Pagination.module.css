@@ -95,7 +95,7 @@
     padding-inline: 0;
   }
 
-  :global([dir='rtl']) .iconTrigger svg {
+  .iconTrigger:dir(rtl) svg {
     transform: scaleX(-1);
   }
 

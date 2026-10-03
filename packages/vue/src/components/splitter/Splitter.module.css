@@ -201,7 +201,8 @@
     transform: translate(-50%, -50%) scale(1.08);
   }
 
-  .resizeTrigger:focus-visible:not([data-dragging]) .resizeTriggerIndicator {
+  .resizeTrigger:focus-visible:not([data-dragging]) .resizeTriggerIndicator,
+  .resizeTrigger:focus-visible:not([data-dragging]):not(:has(.resizeTriggerIndicator))::after {
     outline: var(
         --moduix-splitter-resize-trigger-focus-ring-width,
         var(--moduix-focus-ring-width, var(--moduix-border-width-md))

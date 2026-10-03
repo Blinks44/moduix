@@ -2872,11 +2872,11 @@
   --moduix-switch-thumb-icon-size: initial; /* 65% */
   --moduix-switch-thumb-radius: initial; /* var(--moduix-radius-full) */
   --moduix-switch-thumb-shadow: initial; /* var(--moduix-shadow-sm) */
-  --moduix-switch-thumb-size-xs: initial; /* var(--moduix-spacing-3) */
-  --moduix-switch-thumb-size-sm: initial; /* var(--moduix-spacing-4) */
-  --moduix-switch-thumb-size-md: initial; /* var(--moduix-spacing-5) */
-  --moduix-switch-thumb-size-lg: initial; /* var(--moduix-size-xs) */
-  --moduix-switch-thumb-size-xl: initial; /* var(--moduix-spacing-7) */
+  --moduix-switch-thumb-size-xs: initial; /* Track height minus twice its padding and border width */
+  --moduix-switch-thumb-size-sm: initial; /* Track height minus twice its padding and border width */
+  --moduix-switch-thumb-size-md: initial; /* Track height minus twice its padding and border width */
+  --moduix-switch-thumb-size-lg: initial; /* Track height minus twice its padding and border width */
+  --moduix-switch-thumb-size-xl: initial; /* Track height minus twice its padding and border width */
   --moduix-switch-thumb-transition: initial; /* var(--moduix-switch-transition, var(--moduix-transition-default)) */
   --moduix-switch-thumb-translate: initial; /* size-dependent control width minus thumb size and borders */
   --moduix-switch-transition: initial; /* var(--moduix-transition-default) */

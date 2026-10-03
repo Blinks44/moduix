@@ -317,7 +317,7 @@ function ChartPlot<
     <ChartPrimitive
       {...others}
       class={cn(
-        '[&_.ts-chart:focus-visible]:outline-offset-0.5 min-w-0 text-muted-foreground [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-ring',
+        'min-w-0 text-muted-foreground [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-offset-2 [&_.ts-chart:focus-visible]:outline-ring',
         local.class,
       )}
       motion={local.motion}

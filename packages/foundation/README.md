@@ -18,3 +18,23 @@ overriding Tailwind's standard size names such as `max-w-lg`. Foundation categor
 Tailwind theme namespace, such as border widths, opacity, durations, scale factors, and z-index
 roles, remain CSS variables and can be used through Tailwind's custom-property syntax when a
 component needs them.
+
+## CSS scopes
+
+`data-moduix-theme` marks a token-override boundary; Dense, Soft, and Contrast are optional CSS
+presets, not a runtime theme system. Derived colors, spacing, and radii are recalculated at each
+theme or color-scheme boundary. For custom scoped tokens, put `data-moduix-theme` on the same
+element as the overrides. Direct semantic-token overrides remain supported.
+
+Palettes use native `light-dark()` pairs. `data-moduix-color-scheme="light"` or `"dark"` sets the
+inherited `color-scheme`, including nested opposite-scheme islands; the default is explicitly light.
+Native support requires Chrome/Edge 123+, Firefox 120+, and Safari/iOS 17.5+. Applications targeting
+older browsers need a compatible CSS build strategy; raw foundation CSS has no legacy fallback.
+
+Presets override only their declared tokens: a nested preset still inherits unspecified values
+from its parent. Portals inherit from their DOM container, not the framework component tree;
+use the component's `portalRef` when an overlay must remain in a local CSS scope.
+
+Lightbox, CommandPalette, and Drawer in every shipped adapter now consume foundation keyframes. CSS Modules retain
+their public motion overrides; Tailwind uses the matching named animation utilities. Drawer
+motion reads its content's island offset and bleed, without replacing Ark's swipe/snap transforms.

@@ -158,6 +158,10 @@ export function RootProviderSwitchDemo() {
 
 ## Defaults and styling
 
+The default thumb size is track height minus twice its padding and border width. It does not
+flex-shrink. The checked position is derived from actual size rather than a fixed translation;
+size-specific thumb overrides and the public translation override remain supported.
+
 Public CSS variables:
 
 | Variable                                | Default fallback                                                        | Purpose                              |
@@ -197,11 +201,11 @@ Public CSS variables:
 | `--moduix-switch-thumb-icon-size`       | `65%`                                                                   | Custom thumb icon size.              |
 | `--moduix-switch-thumb-radius`          | `var(--moduix-radius-full)`                                             | Thumb border radius.                 |
 | `--moduix-switch-thumb-shadow`          | `var(--moduix-shadow-sm)`                                               | Thumb shadow.                        |
-| `--moduix-switch-thumb-size-xs`         | `var(--moduix-spacing-3)`                                               | Thumb size for `size="xs"`.          |
-| `--moduix-switch-thumb-size-sm`         | `var(--moduix-spacing-4)`                                               | Thumb size for `size="sm"`.          |
-| `--moduix-switch-thumb-size-md`         | `var(--moduix-spacing-5)`                                               | Thumb size for `size="md"`.          |
-| `--moduix-switch-thumb-size-lg`         | `var(--moduix-size-xs)`                                                 | Thumb size for `size="lg"`.          |
-| `--moduix-switch-thumb-size-xl`         | `var(--moduix-spacing-7)`                                               | Thumb size for `size="xl"`.          |
+| `--moduix-switch-thumb-size-xs`         | Track height minus padding and borders                                  | Thumb size for `size="xs"`.          |
+| `--moduix-switch-thumb-size-sm`         | Track height minus padding and borders                                  | Thumb size for `size="sm"`.          |
+| `--moduix-switch-thumb-size-md`         | Track height minus padding and borders                                  | Thumb size for `size="md"`.          |
+| `--moduix-switch-thumb-size-lg`         | Track height minus padding and borders                                  | Thumb size for `size="lg"`.          |
+| `--moduix-switch-thumb-size-xl`         | Track height minus padding and borders                                  | Thumb size for `size="xl"`.          |
 | `--moduix-switch-thumb-transition`      | `var(--moduix-switch-transition, var(--moduix-transition-default))`     | Thumb movement transition timing.    |
 | `--moduix-switch-thumb-translate`       | Size-dependent control width minus thumb size and borders               | Checked thumb translation distance.  |
 | `--moduix-switch-transition`            | `var(--moduix-transition-default)`                                      | State transition timing.             |
@@ -244,6 +248,8 @@ Hover colors apply only when a switch is neither disabled nor read-only.
 - Keep advanced Ark state APIs available through moduix without wrapping or translating them.
 
 ## Local changelog
+
+- 2026-10-02: Derived thumb size from track height, padding, and border; preserved size overrides and effective RTL direction.
 
 - 2026-08-13: Marked read-only native controls with `aria-readonly`, made invalid borders token-
   overridable, disabled switch transitions for reduced motion, corrected the public CSS-variable

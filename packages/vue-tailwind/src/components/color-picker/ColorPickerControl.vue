@@ -20,7 +20,12 @@ const attrs = useAttrs();
 <template>
   <ArkColorPickerControl
     v-bind="attrs"
-    :class="cn('flex min-w-0 items-center gap-2 data-disabled:opacity-50', className)"
+    :class="
+      cn(
+        'flex min-w-0 items-center gap-2 data-disabled:opacity-50 [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
+        className,
+      )
+    "
     data-slot="color-picker-control"
   >
     <slot />

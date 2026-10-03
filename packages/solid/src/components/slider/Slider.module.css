@@ -62,7 +62,7 @@
     font-size: var(--moduix-slider-value-text-font-size, var(--moduix-text-sm));
     font-weight: var(--moduix-slider-value-text-font-weight, var(--moduix-weight-regular));
     line-height: var(--moduix-slider-value-text-line-height, var(--moduix-line-height-text-sm));
-    text-align: right;
+    text-align: end;
   }
 
   .control {

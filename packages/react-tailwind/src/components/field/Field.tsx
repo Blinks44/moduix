@@ -1,11 +1,16 @@
 'use client';
 
 import { Field as FieldPrimitive, useField, useFieldContext } from '@ark-ui/react/field';
+import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
 type FieldItemProps = ComponentProps<'div'> & ComponentProps<typeof FieldPrimitive.Item>;
+
+const fieldRootVariants = cva(
+  'flex w-full max-w-none flex-col items-start gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
+);
 
 const Field = forwardRef<
   ComponentRef<typeof FieldPrimitive.Root>,
@@ -14,10 +19,7 @@ const Field = forwardRef<
   return (
     <FieldPrimitive.Root
       ref={ref}
-      className={cn(
-        'flex w-full max-w-none flex-col items-start gap-1 text-foreground data-disabled:opacity-50',
-        className,
-      )}
+      className={cn(fieldRootVariants(), className)}
       {...props}
       data-slot="field-root"
     />
@@ -31,10 +33,7 @@ const FieldRootProvider = forwardRef<
   return (
     <FieldPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'flex w-full max-w-none flex-col items-start gap-1 text-foreground data-disabled:opacity-50',
-        className,
-      )}
+      className={cn(fieldRootVariants(), className)}
       {...props}
       data-slot="field-root-provider"
     />
@@ -79,7 +78,7 @@ const FieldInput = forwardRef<
     <FieldPrimitive.Input
       ref={ref}
       className={cn(
-        'min-h-control-md w-full max-w-none rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out file:me-3 file:cursor-pointer file:rounded-md file:border file:border-primary file:bg-primary file:px-2 file:py-0.5 file:font-medium file:text-primary-foreground file:transition-colors file:duration-200 file:ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none [@media(hover:hover)]:file:hover:bg-foreground [[data-slot=field-root-provider][data-disabled]_&]:opacity-100 [[data-slot=field-root][data-disabled]_&]:opacity-100',
+        'min-h-control-md w-full max-w-none rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out file:me-3 file:cursor-pointer file:rounded-md file:border file:border-primary file:bg-primary file:px-2 file:py-0.5 file:font-medium file:text-primary-foreground file:transition-colors file:duration-200 file:ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none [:is([data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 [@media(hover:hover)]:file:hover:bg-foreground [[data-slot=field-root-provider][data-disabled]_&]:opacity-100 [[data-slot=field-root][data-disabled]_&]:opacity-100 [[data-slot=input-group-root]:has([data-slot=input-root]:is([data-disabled],:disabled))_&]:opacity-100',
         className,
       )}
       {...props}

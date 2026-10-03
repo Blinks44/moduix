@@ -122,7 +122,9 @@ function BreadcrumbsSeparator(props: HTMLArkProps<'li'>) {
         local.class,
       )}
     >
-      {resolvedChildren() ?? <ChevronRightIcon class="size-[1em] flex-none rtl:rotate-180" />}
+      {resolvedChildren() ?? (
+        <ChevronRightIcon class="size-[1em] flex-none [&:dir(rtl)]:rotate-180" />
+      )}
     </ark.li>
   );
 }

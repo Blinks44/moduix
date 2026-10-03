@@ -240,7 +240,13 @@ test('applies native utilities to component-owned visual parts', () => {
   const label = screen.getByText('Notifications');
 
   expect(root).toHaveClass('inline-flex', 'gap-2', 'w-fit');
-  expect(control).toHaveClass('inline-flex', 'w-11', 'h-control-xs', 'rounded-full', 'bg-muted');
+  expect(control).toHaveClass(
+    'inline-flex',
+    'w-11',
+    'h-[var(--switch-height)]',
+    'rounded-full',
+    'bg-muted',
+  );
   expect(control).toHaveClass(
     'data-invalid:border-destructive',
     'data-[state=checked]:data-invalid:border-destructive',
@@ -248,11 +254,11 @@ test('applies native utilities to component-owned visual parts', () => {
   );
   expect(thumb).toHaveClass(
     'inline-flex',
-    'size-5',
+    'size-[var(--switch-thumb-size)]',
     'rounded-full',
     'bg-background',
     'shadow-sm',
-    'transition-[translate,background-color,color]',
+    'transition-[inset-inline-start,translate,background-color,color]',
   );
   expect(label).toHaveClass('text-sm', 'font-medium');
 });
@@ -281,7 +287,7 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   expect(control).toHaveClass('w-10', 'rounded-md', 'bg-background', 'p-1');
   expect(control).not.toHaveClass('w-11', 'rounded-full', 'bg-muted', 'p-0.5');
   expect(thumb).toHaveClass('size-4', 'bg-muted-foreground');
-  expect(thumb).not.toHaveClass('size-5', 'bg-background');
+  expect(thumb).not.toHaveClass('size-[var(--switch-thumb-size)]', 'bg-background');
   expect(label).toHaveClass('text-lg');
   expect(label).not.toHaveClass('text-sm');
 });

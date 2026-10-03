@@ -111,27 +111,27 @@ const switchOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-switch-thumb-shadow', 'var(--moduix-shadow-sm)', 'Controls thumb shadow.'],
   [
     '--moduix-switch-thumb-size-xs',
-    'var(--moduix-spacing-3)',
+    'calc(var(--_switch-height, var(--moduix-size-xs)) - var(--moduix-switch-padding, var(--moduix-spacing-0-5)) * 2 - var(--moduix-switch-border-width, var(--moduix-border-width-sm)) * 2)',
     'Controls thumb size for the xs switch size.',
   ],
   [
     '--moduix-switch-thumb-size-sm',
-    'var(--moduix-spacing-4)',
+    'calc(var(--_switch-height, var(--moduix-size-xs)) - var(--moduix-switch-padding, var(--moduix-spacing-0-5)) * 2 - var(--moduix-switch-border-width, var(--moduix-border-width-sm)) * 2)',
     'Controls thumb size for the sm switch size.',
   ],
   [
     '--moduix-switch-thumb-size-md',
-    'var(--moduix-spacing-5)',
+    'calc(var(--_switch-height, var(--moduix-size-xs)) - var(--moduix-switch-padding, var(--moduix-spacing-0-5)) * 2 - var(--moduix-switch-border-width, var(--moduix-border-width-sm)) * 2)',
     'Controls thumb size for the md switch size.',
   ],
   [
     '--moduix-switch-thumb-size-lg',
-    'var(--moduix-size-xs)',
+    'calc(var(--_switch-height, var(--moduix-size-xs)) - var(--moduix-switch-padding, var(--moduix-spacing-0-5)) * 2 - var(--moduix-switch-border-width, var(--moduix-border-width-sm)) * 2)',
     'Controls thumb size for the lg switch size.',
   ],
   [
     '--moduix-switch-thumb-size-xl',
-    'var(--moduix-spacing-7)',
+    'calc(var(--_switch-height, var(--moduix-size-xs)) - var(--moduix-switch-padding, var(--moduix-spacing-0-5)) * 2 - var(--moduix-switch-border-width, var(--moduix-border-width-sm)) * 2)',
     'Controls thumb size for the xl switch size.',
   ],
   [

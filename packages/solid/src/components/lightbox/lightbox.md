@@ -72,3 +72,7 @@ Ark Solid uses a render-function `asChild` prop:
 forward refs through `asChild`, so ordinary refs and custom-host composition are supported as
 separate paths. `LightboxCloseIcon` composes `CloseButton` through this native contract and
 defaults its accessible label to `Close image`.
+
+## Style contract (2026-10-03)
+
+Content shares the --moduix-z-popup base and adds Ark --layer-index; surrounding parts use Ark’s mirrored --z-index. Foundation owns the content/backdrop keyframes, preserving public motion overrides, backdrop blur and reduced-motion behavior.

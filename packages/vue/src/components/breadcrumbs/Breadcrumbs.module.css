@@ -89,7 +89,7 @@
     flex: none;
   }
 
-  :global([dir='rtl']) .separatorIcon {
+  .separatorIcon:dir(rtl) {
     transform: rotate(180deg);
   }
 

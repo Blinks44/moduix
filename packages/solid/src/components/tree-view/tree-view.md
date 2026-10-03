@@ -66,3 +66,7 @@ CSS hook available while preserving Ark's checked, indeterminate, and fallback s
 
 - 2026-09-22: Migrated TreeView to the flat public API. The root is `TreeView`, while parts,
   contexts, and the provider use family-prefixed exports; legacy static members are removed.
+
+## Style contract (2026-10-03)
+
+Disabled root, row and checkbox opacity is not compounded. Preserve collection state, Ark measurement variables and keyboard navigation.

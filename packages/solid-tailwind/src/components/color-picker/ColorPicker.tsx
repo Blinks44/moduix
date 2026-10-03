@@ -4,6 +4,7 @@ import {
   useColorPicker,
   useColorPickerContext,
 } from '@ark-ui/solid/color-picker';
+import { cva } from 'class-variance-authority';
 import { children, type ComponentProps, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, ChevronDownIcon, PipetteIcon } from '@/lib/moduix/icons/ui/Icons';
@@ -16,6 +17,10 @@ import {
 type ColorPickerRootProps = ComponentProps<typeof ColorPickerPrimitive.Root> & OverlayPortalProps;
 type ColorPickerRootProviderProps = ComponentProps<typeof ColorPickerPrimitive.RootProvider> &
   OverlayPortalProps;
+
+const colorPickerRootVariants = cva(
+  'box-border flex w-64 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
+);
 
 function ColorPicker(props: ColorPickerRootProps) {
   const [local, others] = splitProps(props, [
@@ -32,10 +37,7 @@ function ColorPicker(props: ColorPickerRootProps) {
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ColorPickerPrimitive.Root
         asChild={local.asChild}
-        class={cn(
-          'box-border flex w-64 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50',
-          local.class,
-        )}
+        class={cn(colorPickerRootVariants(), local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
@@ -62,10 +64,7 @@ function ColorPickerRootProvider(props: ColorPickerRootProviderProps) {
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ColorPickerPrimitive.RootProvider
         asChild={local.asChild}
-        class={cn(
-          'box-border flex w-64 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50',
-          local.class,
-        )}
+        class={cn(colorPickerRootVariants(), local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
@@ -97,7 +96,10 @@ function ColorPickerControl(props: ComponentProps<typeof ColorPickerPrimitive.Co
 
   return (
     <ColorPickerPrimitive.Control
-      class={cn('flex min-w-0 items-center gap-2 data-disabled:opacity-50', local.class)}
+      class={cn(
+        'flex min-w-0 items-center gap-2 data-disabled:opacity-50 [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
+        local.class,
+      )}
       {...others}
       data-slot="color-picker-control"
     />
@@ -341,7 +343,7 @@ function ColorPickerChannelInput(props: ComponentProps<typeof ColorPickerPrimiti
   return (
     <ColorPickerPrimitive.ChannelInput
       class={cn(
-        'box-border h-control-md w-full min-w-0 [appearance:textfield] rounded-md border border-border bg-background px-3 text-sm text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive data-[channel=alpha]:w-16 data-[channel=alpha]:flex-none motion-reduce:transition-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
+        'box-border h-control-md w-full min-w-0 [appearance:textfield] rounded-md border border-border bg-background px-3 text-sm text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive data-[channel=alpha]:w-16 data-[channel=alpha]:flex-none motion-reduce:transition-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
         local.class,
       )}
       {...others}
@@ -377,7 +379,7 @@ function ColorPickerFormatSelect(props: ComponentProps<typeof ColorPickerPrimiti
     <span class="group/format-select relative inline-grid w-fit max-w-full min-w-0 shrink-0">
       <ColorPickerPrimitive.FormatSelect
         class={cn(
-          'peer/format-select box-border h-control-md w-auto min-w-0 rounded-md border border-border bg-background px-3 pe-8 text-sm text-foreground uppercase outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-disabled:cursor-default data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive forced-colors:appearance-auto forced-colors:pe-3',
+          'peer/format-select box-border h-control-md w-auto min-w-0 rounded-md border border-border bg-background px-3 pe-8 text-sm text-foreground uppercase outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-disabled:cursor-default data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive forced-colors:appearance-auto forced-colors:pe-3 [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
           local.class,
         )}
         {...others}
@@ -431,7 +433,7 @@ function ColorPickerSwatchTrigger(
   return (
     <ColorPickerPrimitive.SwatchTrigger
       class={cn(
-        'group/swatch inline-flex cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 outline-0 focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-default data-disabled:opacity-50',
+        'group/swatch inline-flex cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 outline-0 focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-default data-disabled:opacity-50 [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
         local.class,
       )}
       value={local.value}

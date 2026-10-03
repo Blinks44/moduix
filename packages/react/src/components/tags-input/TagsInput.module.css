@@ -19,6 +19,16 @@
           var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled))
         )
       );
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
     }
   }
 
@@ -369,5 +379,9 @@
     &[data-readonly] {
       display: none;
     }
+  }
+
+  .root[data-disabled] :is(.label, .itemPreview, .itemDeleteTrigger, .clearTrigger) {
+    opacity: 1;
   }
 }

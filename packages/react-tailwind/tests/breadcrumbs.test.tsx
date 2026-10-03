@@ -67,7 +67,7 @@ test('renders semantic path navigation with one current page', () => {
   expect(container.querySelector('[data-slot="breadcrumbs-separator"] svg')).toHaveClass(
     'size-[1em]',
     'flex-none',
-    'rtl:rotate-180',
+    '[&:dir(rtl)]:rotate-180',
   );
 });
 

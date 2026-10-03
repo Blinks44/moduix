@@ -143,6 +143,8 @@ for normal provider and state access.
 
 ## Local changelog
 
+- 2026-10-02: Prevented repeated disabled opacity on parts inside an already disabled root or Field/Fieldset.
+
 - 2026-09-20: Hid item delete triggers in the read-only presentation alongside the entry input and
   clear trigger.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
@@ -174,3 +176,7 @@ for normal provider and state access.
 - 2026-06-23: Switched the default clear-all trigger to shared `CloseButton` via Ark `asChild`
   and anchored it to the inline end of wrapped controls so it does not jump left when the input
   wraps.
+
+## Style contract (2026-10-03)
+
+Disabled root opacity is applied once; label, item and delete trigger do not dim an already disabled root again.

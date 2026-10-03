@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-disabled:opacity-50',
+        'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-disabled:opacity-50 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
         className,
       )
     "

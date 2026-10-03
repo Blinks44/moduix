@@ -175,7 +175,13 @@ test('applies native utilities to component-owned visual parts', () => {
   const label = screen.getByText('Notifications');
 
   expect(root).toHaveClass('inline-flex', 'gap-2', 'w-fit');
-  expect(control).toHaveClass('inline-flex', 'w-11', 'h-control-xs', 'rounded-full', 'bg-muted');
+  expect(control).toHaveClass(
+    'inline-flex',
+    'w-11',
+    'h-[var(--switch-height)]',
+    'rounded-full',
+    'bg-muted',
+  );
   expect(control).toHaveClass(
     'data-invalid:border-destructive',
     'data-[state=checked]:data-invalid:border-destructive',
@@ -183,11 +189,11 @@ test('applies native utilities to component-owned visual parts', () => {
   );
   expect(thumb).toHaveClass(
     'inline-flex',
-    'size-5',
+    'size-[var(--switch-thumb-size)]',
     'rounded-full',
     'bg-background',
     'shadow-sm',
-    'transition-[translate,background-color,color]',
+    'transition-[inset-inline-start,translate,background-color,color]',
   );
   expect(label).toHaveClass('text-sm', 'font-medium');
 });

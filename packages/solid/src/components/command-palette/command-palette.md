@@ -24,3 +24,7 @@ The flat API includes `CommandPalette`, `CommandPaletteRootProvider`, `CommandPa
 ## Styling and accessibility
 
 Give the root an accessible name with `aria-label` or `CommandPaletteTitle`. Keep search input labeling and `data-slot` hooks on the composed parts.
+
+## Style contract (2026-10-03)
+
+Content shares the --moduix-z-popup base and adds Ark --layer-index. Positioner and backdrop use Ark’s mirrored --z-index; the backdrop sits one level below. Foundation owns the content/backdrop keyframes, preserving public motion overrides and reduced-motion behavior.

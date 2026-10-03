@@ -33,7 +33,7 @@
     font-family: var(--moduix-table-font-family, inherit);
     font-size: var(--moduix-table-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-table-line-height, var(--moduix-line-height-text-sm));
-    text-align: left;
+    text-align: start;
     isolation: isolate;
 
     &[data-size='sm'] {
@@ -62,7 +62,7 @@
     font-size: var(--moduix-table-caption-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-table-caption-line-height, var(--moduix-line-height-text-sm));
     padding-inline: var(--moduix-table-caption-padding-x, var(--_table-cell-padding-x-default));
-    text-align: left;
+    text-align: start;
     text-wrap: pretty;
 
     &[data-side='top'] {

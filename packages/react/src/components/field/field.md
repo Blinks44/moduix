@@ -118,7 +118,9 @@ file chooser button, focus and invalid styles. It retains the native numeric `si
 `--moduix-field-control-*` customization; `Input` adds visual sizes and `htmlSize`.
 `FieldInput` uses `--moduix-spacing-3` inline padding; `FieldTextarea` and `FieldSelect`
 keep `--moduix-spacing-3-5`. A disabled moduix field root owns opacity for either input;
-standalone disabled inputs apply their own opacity.
+standalone disabled inputs apply their own opacity. A disabled `Fieldset` owns opacity above a
+`Field`, and a disabled `InputGroup` owns opacity instead of its nested input; these compositions
+must not multiply the dimming.
 
 `FieldInput`, `FieldTextarea`, and `FieldSelect` default to `--moduix-size-md` with
 `--moduix-spacing-1` block padding. Their `--moduix-field-control-*` variables continue to override
@@ -152,6 +154,8 @@ or delegated to form-specific components. If future controls need native form su
 their own `HiddenInput`; Field itself has no hidden input.
 
 ## Local changelog
+
+- 2026-10-02: Prevented repeated disabled opacity under Fieldset and through InputGroup.
 
 - 2026-10-01: Aligned FieldInput with the default Input appearance and prevented compounded
   disabled opacity for either input inside Field and FieldRootProvider.

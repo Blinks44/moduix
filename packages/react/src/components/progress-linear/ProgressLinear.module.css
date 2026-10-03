@@ -77,7 +77,7 @@
       );
       animation: var(
         --moduix-progress-linear-range-indeterminate-animation,
-        progress-linear-indeterminate 1.5s ease-in-out infinite
+        moduix-progress-linear-indeterminate 1.5s ease-in-out infinite
       );
     }
 
@@ -89,7 +89,7 @@
       height: var(--moduix-progress-linear-range-indeterminate-width, 35%);
       animation: var(
         --moduix-progress-linear-range-indeterminate-vertical-animation,
-        progress-linear-indeterminate-vertical 1.5s ease-in-out infinite
+        moduix-progress-linear-indeterminate-vertical 1.5s ease-in-out infinite
       );
     }
 
@@ -101,31 +101,11 @@
     }
   }
 
-  :global([dir='rtl']) .range[data-state='indeterminate'][data-orientation='horizontal'] {
+  .range:dir(rtl)[data-state='indeterminate'][data-orientation='horizontal'] {
     animation-direction: reverse;
   }
 
   .view {
     display: contents;
-  }
-
-  @keyframes :global(progress-linear-indeterminate) {
-    from {
-      transform: translateX(-100%);
-    }
-
-    to {
-      transform: translateX(300%);
-    }
-  }
-
-  @keyframes :global(progress-linear-indeterminate-vertical) {
-    from {
-      transform: translateY(100%);
-    }
-
-    to {
-      transform: translateY(-300%);
-    }
   }
 }

@@ -137,6 +137,10 @@ Refs forward to the underlying Ark DOM parts. `CommandPaletteInput` is the input
 
 ## Defaults and styling
 
+Dismissible overlays share the `--moduix-z-popup` base. Content adds Ark's `--layer-index`;
+Ark mirrors its computed `--z-index` onto positioners and backdrops. Backdrops sit one level below
+content. Customize stacking on content rather than independently raising its surrounding parts.
+
 The external trigger and search control use `--moduix-size-md`; single-line command items default to `--moduix-size-sm` with `--moduix-spacing-1` block padding. The search control and result rows share a `--moduix-spacing-3` inline gutter; the list adds the same spacing at its block edges, without reserving space for a scrollbar.
 Empty messages use the roomier `--moduix-spacing-3` block padding for the dialog surface.
 
@@ -145,6 +149,8 @@ and `--moduix-spacing-1` block padding. Command-palette-specific variables still
 
 Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-command-palette-*` content
 motion variables remain the more specific override. Backdrop motion remains separate.
+React CSS Modules and Tailwind share foundation keyframes, including the default `-0.75rem`
+vertical offset, popup scale, and `200ms` timing. Reduced-motion still removes this animation.
 
 The visual contract uses `data-slot="command-palette-*"` hooks on each exported part and on the internal scroll area. `lazyMount` and `unmountOnExit` default to `true` so Ark Presence can run enter and exit animations while still removing the palette after close. Motion is tied to Ark `data-state` on `CommandPaletteBackdrop` and `CommandPaletteContent`, not legacy starting/ending style attributes.
 
@@ -173,6 +179,8 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-10-02: Aligned content, positioner, and backdrop stacking with Ark layer indices and its mirrored z-index.
 
 - 2026-08-12: Aligned the search control and result-list gutters, and removed the command-palette scrollbar track while retaining scroll behavior.
 

@@ -154,6 +154,8 @@ The default `md` group uses `--moduix-size-md`; the `sm` variant uses `--moduix-
 
 ## Local changelog
 
+- 2026-10-02: Made the outer disabled owner dim the composition once instead of multiplying input and ancestor opacity.
+
 - 2026-09-21: Replaced the compound value surface with the shared flat API across
   React, Solid, and both Tailwind adapters. `InputGroup` is now the only root value; parts use
   `InputGroupAddon`, `InputGroupInput`, `InputGroupText`, and `InputGroupButton` exports.

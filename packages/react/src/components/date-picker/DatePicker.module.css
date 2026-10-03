@@ -281,6 +281,8 @@
   .content {
     box-sizing: border-box;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
+    max-height: min(var(--available-height, 100dvh), calc(100dvh - 2rem));
+    overflow: auto;
     width: min(var(--moduix-date-picker-content-width, 20rem), var(--available-width));
     min-width: min(var(--moduix-date-picker-content-min-width, 20rem), var(--available-width));
     max-width: min(
@@ -325,7 +327,8 @@
   }
 
   .content[data-inline] {
-    min-width: var(--moduix-date-picker-inline-content-min-width, 18rem);
+    min-width: min(var(--moduix-date-picker-inline-content-min-width, 18rem), 100%);
+    max-width: 100%;
     box-shadow: var(--moduix-date-picker-inline-content-shadow, none);
   }
 

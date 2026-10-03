@@ -276,8 +276,9 @@ The text input defaults to `--moduix-size-md` with `--moduix-spacing-1` block pa
 Content motion falls back to the shared `--moduix-popup-motion-*` tokens. `--moduix-date-picker-transition` and
 closed-state variables remain the more specific override.
 
-Calendar content does not scroll by default. Keep a constrained, scrollable calendar as an explicit consumer
-composition when the available viewport space requires it.
+Calendar content is capped by Ark's available height and the dynamic viewport height. It scrolls
+only when necessary, keeping navigation and calendar cells reachable on short screens. Inline
+content keeps its preferred minimum width without forcing a narrow parent wider.
 
 All visual parts accept `className`. The CSS module defines defaults for root spacing, label text,
 input frame, icon triggers, popup surface, view controls, calendar cells, month/year selects,
@@ -338,6 +339,8 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-10-02: Constrained calendar content to available viewport height with overflow scrolling and narrowed inline minimum sizing.
 
 - 2026-08-10: Made the root inherit Ark `Field` / `Fieldset` state and kept `DatePickerField` /
   `DatePickerRangeField` convenience-field

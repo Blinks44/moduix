@@ -344,7 +344,7 @@
       "type": "registry:item",
       "title": "TreeView",
       "description": "moduix Vue Tailwind TreeView component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -354,6 +354,11 @@
         {
           "path": "src/components/tree-view/TreeView.vue",
           "target": "@components/ui/tree-view/TreeView.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tree-view/TreeView.variants.ts",
+          "target": "@components/ui/tree-view/TreeView.variants.ts",
           "type": "registry:component"
         },
         {
@@ -720,12 +725,17 @@
       "type": "registry:item",
       "title": "Table of Contents",
       "description": "moduix Vue Tailwind Table of Contents component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
           "path": "src/components/toc/Toc.vue",
           "target": "@components/ui/toc/Toc.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/toc/Toc.variants.ts",
+          "target": "@components/ui/toc/Toc.variants.ts",
           "type": "registry:component"
         },
         {
@@ -1158,7 +1168,7 @@
       "type": "registry:item",
       "title": "Listbox",
       "description": "moduix Vue Tailwind Listbox component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/cn",
@@ -1169,6 +1179,11 @@
         {
           "path": "src/components/listbox/Listbox.vue",
           "target": "@components/ui/listbox/Listbox.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/listbox/Listbox.variants.ts",
+          "target": "@components/ui/listbox/Listbox.variants.ts",
           "type": "registry:component"
         },
         {
@@ -3213,7 +3228,7 @@
       "type": "registry:item",
       "title": "Tags Input",
       "description": "moduix Vue Tailwind Tags Input component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -3224,6 +3239,11 @@
         {
           "path": "src/components/tags-input/TagsInput.vue",
           "target": "@components/ui/tags-input/TagsInput.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/tags-input/TagsInput.variants.ts",
+          "target": "@components/ui/tags-input/TagsInput.variants.ts",
           "type": "registry:component"
         },
         {
@@ -3627,12 +3647,17 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix Vue Tailwind Field component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
           "path": "src/components/field/Field.vue",
           "target": "@components/ui/field/Field.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/field/Field.variants.ts",
+          "target": "@components/ui/field/Field.variants.ts",
           "type": "registry:component"
         },
         {
@@ -4851,7 +4876,7 @@
       "type": "registry:item",
       "title": "ColorPicker",
       "description": "moduix Vue Tailwind ColorPicker component.",
-      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -4862,6 +4887,11 @@
         {
           "path": "src/components/color-picker/ColorPicker.vue",
           "target": "@components/ui/color-picker/ColorPicker.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/color-picker/ColorPicker.variants.ts",
+          "target": "@components/ui/color-picker/ColorPicker.variants.ts",
           "type": "registry:component"
         },
         {

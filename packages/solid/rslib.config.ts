@@ -74,4 +74,10 @@ export default defineConfig({
     ],
     target: 'web',
   },
+  tools: {
+    lightningcssLoader: {
+      // Language-based lowering cannot preserve nested direction overrides.
+      exclude: { dirSelector: true },
+    },
+  },
 });

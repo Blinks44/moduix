@@ -68,7 +68,7 @@ import { computed, h, onBeforeUnmount, onMounted, ref, shallowRef, useId, watch 
 import { cn } from '@/lib/moduix/cn';
 
 const plotClass =
-  '[&_.ts-chart:focus-visible]:outline-offset-0.5 min-w-0 text-muted-foreground [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-ring';
+  'min-w-0 text-muted-foreground [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-offset-2 [&_.ts-chart:focus-visible]:outline-ring';
 
 const tooltipShellClass =
   '!rounded-md !border !border-border !bg-popover !p-3 !font-sans !text-xs !leading-4 !font-medium !text-popover-foreground !shadow-lg';

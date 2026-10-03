@@ -82,6 +82,10 @@ test('keeps non-modal dialogs interactive and renders inline', () => {
     pointerEvents: 'auto',
   });
   expect(screen.getByRole('dialog').parentElement).toHaveStyle({ pointerEvents: 'none' });
+  expect(screen.getByRole('dialog')).toHaveClass(
+    'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))]',
+    "after:content-['']",
+  );
 });
 
 test('supports portalRef, context, RootProvider, refs, and asChild', async () => {

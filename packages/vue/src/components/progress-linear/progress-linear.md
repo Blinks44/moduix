@@ -116,3 +116,5 @@ aliases, compatibility aliases, or circular progress parts.
 
 - 2026-09-29: Added the native Vue CSS Modules ProgressLinear adapter with flat exports, Vue
   stories, registry source, localized snippets, and SSR/hydration coverage.
+
+- 2026-10-03: Reused foundation indeterminate keyframes and honored effective direction for nested RTL/LTR islands.

@@ -59,3 +59,7 @@ Solid Ark components use a render-function `asChild` prop:
 The installed Ark Solid factory does not forward `ref` through an `asChild` render function.
 Ordinary refs and custom-host composition are therefore supported as separate native paths, and
 the Solid tests cover them independently.
+
+## Style contract (2026-10-03)
+
+Disabled Field/Fieldset owns the outer opacity. Nested Field, InputGroup and input controls avoid applying the same opacity twice.

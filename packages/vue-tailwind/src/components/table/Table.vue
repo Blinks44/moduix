@@ -9,7 +9,7 @@ import { cn } from '@/lib/moduix/cn';
 defineOptions({ inheritAttrs: false });
 
 const tableVariants = cva(
-  'group/table isolate w-full border-collapse border-spacing-0 text-left text-foreground',
+  'group/table isolate w-full border-collapse border-spacing-0 text-start text-foreground',
   {
     variants: {
       size: {

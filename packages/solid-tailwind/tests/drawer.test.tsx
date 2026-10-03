@@ -274,7 +274,9 @@ test('applies Tailwind defaults and lets consumer utilities win', () => {
   expect(content).toHaveClass(
     'data-[swipe-direction=left]:after:inset-y-0',
     'data-[swipe-direction=right]:after:inset-y-0',
-    '[transition:transform_calc(var(--drawer-swipe-strength,1)*450ms)_cubic-bezier(0,0,0.2,1),scale_450ms_cubic-bezier(0.32,0.72,0,1),translate_450ms_cubic-bezier(0.32,0.72,0,1)]',
+    '[--drawer-island-translate-distance:0px]',
+    '[--_drawer-bleed:var(--moduix-size-xl)]',
+    '[transition:transform_calc(var(--drawer-swipe-strength,1)*var(--moduix-duration-slower))_cubic-bezier(0,0,0.2,1),scale_var(--moduix-duration-slower)_cubic-bezier(0.32,0.72,0,1),translate_var(--moduix-duration-slower)_cubic-bezier(0.32,0.72,0,1)]',
   );
   expect(document.querySelector('[data-slot="drawer-grabber-indicator"]')).toHaveClass(
     'h-1',

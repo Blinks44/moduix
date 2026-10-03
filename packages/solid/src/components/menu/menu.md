@@ -21,3 +21,7 @@ The flat API includes `Menu`, `MenuRootProvider`, `MenuTrigger`, `MenuContextTri
 ## Styling and accessibility
 
 Ark owns menu roles and state. The wrapper adds default icons, item indicator placement, and stable `data-slot` hooks.
+
+## Style contract (2026-10-03)
+
+Bare MenuTrigger and MenuContextTrigger get muted hover, active and open backgrounds. asChild composition does not receive the bare-trigger skin.

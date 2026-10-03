@@ -191,6 +191,10 @@ remain the more specific override.
 Visual defaults preserve moduix tokens for trigger density, popup radius, shadow, item highlight,
 destructive tone, indicators, and shortcuts.
 
+Bare `MenuTrigger` and `MenuContextTrigger` use the muted surface on hover, active, and open.
+Their public background overrides still take precedence. `asChild` leaves the consumer host's
+skin untouched; use it for custom context-menu targets and composed buttons.
+
 `MenuContent` allows its overflow to be overridden with `--moduix-menu-popup-overflow`; it defaults
 to `visible` so the direct `MenuArrow` can extend beyond the popup outline. Set it to `hidden` only
 when clipping popup content is required.
@@ -239,6 +243,8 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-10-02: Aligned bare trigger hover, active, and open muted surfaces with Tailwind defaults; asChild retains consumer styling.
 
 - 2026-09-08: Added the explicit `MenuViewport` part and removed child inspection/reordering from
   `MenuContent`, making the popup structure deterministic across client rendering, SSR, and

@@ -76,3 +76,7 @@ component and defaults to the full snap point. `DrawerContent variant="island"` 
 explicit presentation selection. `DrawerHeader`, `DrawerBody`, and `DrawerFooter` are layout helpers
 only; all Ark
 structural parts remain explicit and independently styleable.
+
+## Style contract (2026-10-03)
+
+Content shares the --moduix-z-popup base and adds Ark --layer-index; surrounding parts use Ark’s mirrored --z-index. Foundation owns direction-aware keyframes. Ordinary drawers have no island offset; islands use the safe-area-aware inset. Upward exit includes the token-based bleed. Preserve Ark drag/snap and nested transforms.

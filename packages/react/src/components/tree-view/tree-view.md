@@ -215,6 +215,8 @@ function TreeNode({ node, indexPath }) {
 
 ## Local changelog
 
+- 2026-10-02: Prevented repeated disabled opacity on rows and checkboxes inside disabled owners.
+
 - 2026-09-22: Migrated TreeView to the flat public API. The root is `TreeView`, while parts,
   contexts, and the provider use family-prefixed exports; legacy static members are removed.
 - 2026-08-14: Corrected `TreeViewNodeProps<T>` to describe the actual generic `TreeViewNode`

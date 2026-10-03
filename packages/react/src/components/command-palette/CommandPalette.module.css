@@ -54,7 +54,7 @@
 
   .backdrop {
     position: fixed;
-    z-index: calc(var(--moduix-z-backdrop) + var(--layer-index, 0));
+    z-index: calc(var(--z-index, var(--moduix-z-popup)) - 1);
     inset: 0;
     background-color: var(
       --moduix-command-palette-backdrop-bg,
@@ -66,12 +66,12 @@
     );
 
     &[data-state='open'] {
-      animation: command-palette-backdrop-in
+      animation: global(moduix-command-palette-backdrop-in)
         var(--moduix-command-palette-backdrop-transition, var(--moduix-transition-default));
     }
 
     &[data-state='closed'] {
-      animation: command-palette-backdrop-out
+      animation: global(moduix-command-palette-backdrop-out)
         var(--moduix-command-palette-backdrop-transition, var(--moduix-transition-default));
       animation-fill-mode: forwards;
     }
@@ -80,7 +80,7 @@
   .positioner {
     box-sizing: border-box;
     position: fixed;
-    z-index: calc(var(--moduix-z-modal) + var(--layer-index, 0));
+    z-index: var(--z-index, var(--moduix-z-popup));
     inset: 0;
     display: grid;
     align-items: start;
@@ -94,6 +94,7 @@
   }
 
   .content {
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     box-sizing: border-box;
     display: flex;
     width: min(
@@ -123,7 +124,7 @@
     transform-origin: top center;
 
     &[data-state='open'] {
-      animation: command-palette-content-in
+      animation: global(moduix-command-palette-content-in)
         var(
           --moduix-command-palette-transition,
           var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
@@ -132,7 +133,7 @@
     }
 
     &[data-state='closed'] {
-      animation: command-palette-content-out
+      animation: global(moduix-command-palette-content-out)
         var(
           --moduix-command-palette-transition,
           var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
@@ -548,62 +549,6 @@
     --moduix-kbd-min-width: var(--moduix-command-palette-kbd-min-width, 1.25rem);
     --moduix-kbd-padding-x: var(--moduix-command-palette-kbd-padding-x, var(--moduix-spacing-1));
     --moduix-kbd-radius: var(--moduix-command-palette-kbd-radius, var(--moduix-radius-sm));
-  }
-
-  @keyframes command-palette-backdrop-in {
-    from {
-      opacity: var(--moduix-command-palette-backdrop-starting-opacity, 0);
-      backdrop-filter: var(--moduix-command-palette-backdrop-starting-blur, none);
-    }
-  }
-
-  @keyframes command-palette-backdrop-out {
-    to {
-      opacity: var(--moduix-command-palette-backdrop-ending-opacity, 0);
-      backdrop-filter: var(--moduix-command-palette-backdrop-ending-blur, none);
-    }
-  }
-
-  @keyframes command-palette-content-in {
-    from {
-      opacity: var(
-        --moduix-command-palette-content-starting-opacity,
-        var(--moduix-popup-motion-starting-opacity, 0)
-      );
-      translate: var(
-          --moduix-command-palette-content-starting-translate-x,
-          var(--moduix-popup-motion-starting-translate-x, 0)
-        )
-        var(
-          --moduix-command-palette-content-starting-translate-y,
-          var(--moduix-popup-motion-starting-translate-y, -0.75rem)
-        );
-      scale: var(
-        --moduix-command-palette-content-starting-scale,
-        var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup))
-      );
-    }
-  }
-
-  @keyframes command-palette-content-out {
-    to {
-      opacity: var(
-        --moduix-command-palette-content-ending-opacity,
-        var(--moduix-popup-motion-ending-opacity, 0)
-      );
-      translate: var(
-          --moduix-command-palette-content-ending-translate-x,
-          var(--moduix-popup-motion-ending-translate-x, 0)
-        )
-        var(
-          --moduix-command-palette-content-ending-translate-y,
-          var(--moduix-popup-motion-ending-translate-y, -0.75rem)
-        );
-      scale: var(
-        --moduix-command-palette-content-ending-scale,
-        var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup))
-      );
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

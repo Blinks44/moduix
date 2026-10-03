@@ -12,6 +12,7 @@ export interface Props<T extends TreeNode> extends /* @vue-ignore */ TreeViewRoo
 import { TreeViewRootProvider as ArkTreeViewRootProvider } from '@ark-ui/vue/tree-view';
 import { useAttrs } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import { treeViewRootVariants } from './TreeView.variants';
 
 defineOptions({ inheritAttrs: false });
 
@@ -24,12 +25,7 @@ const attrs = useAttrs();
 <template>
   <ArkTreeViewRootProvider
     v-bind="attrs"
-    :class="
-      cn(
-        'box-border flex w-80 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50',
-        className,
-      )
-    "
+    :class="cn(treeViewRootVariants(), className)"
     :value="value"
     data-slot="tree-view-root-provider"
   >

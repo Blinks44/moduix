@@ -30,6 +30,6 @@ const attrs = useAttrs();
       )
     "
   >
-    <slot><ChevronRightIcon class="size-[1em] flex-none rtl:rotate-180" /></slot>
+    <slot><ChevronRightIcon class="size-[1em] flex-none [&:dir(rtl)]:rotate-180" /></slot>
   </ark.li>
 </template>

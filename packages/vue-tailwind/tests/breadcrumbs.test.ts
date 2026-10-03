@@ -64,6 +64,11 @@ test('forwards Path list props and Vue refs without exposing owned composition p
     'true',
   );
   expect(document.querySelectorAll('[aria-current="page"]')).toHaveLength(1);
+  expect(document.querySelector('[data-slot="breadcrumbs-separator"] svg')).toHaveClass(
+    'size-[1em]',
+    'flex-none',
+    '[&:dir(rtl)]:rotate-180',
+  );
 });
 
 test('renders Vue VNode values passed through Path props', () => {

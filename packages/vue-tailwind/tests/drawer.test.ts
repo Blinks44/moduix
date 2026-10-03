@@ -208,6 +208,13 @@ test('lets consumer Tailwind utilities win', () => {
     'px-3.5',
   );
   expect(screen.getByRole('dialog')).toHaveClass('w-96', 'bg-card', 'p-4');
+  expect(screen.getByRole('dialog')).toHaveClass(
+    '[--drawer-island-translate-distance:0px]',
+    '[--_drawer-bleed:var(--moduix-size-xl)]',
+    'data-[swipe-direction=left]:after:inset-y-0',
+    'data-[swipe-direction=right]:after:inset-y-0',
+    '[transition:transform_calc(var(--drawer-swipe-strength,1)*var(--moduix-duration-slower))_cubic-bezier(0,0,0.2,1),scale_var(--moduix-duration-slower)_cubic-bezier(0.32,0.72,0,1),translate_var(--moduix-duration-slower)_cubic-bezier(0.32,0.72,0,1)]',
+  );
   expect(screen.getByRole('dialog')).not.toHaveClass('bg-popover', 'p-6');
   expect(screen.getByRole('button', { name: 'Close drawer' })).toHaveClass(
     'size-8',

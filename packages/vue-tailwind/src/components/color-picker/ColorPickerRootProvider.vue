@@ -8,6 +8,7 @@ import { provide, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 import { OverlayPortalContextKey, type PortalRef } from '@/lib/moduix/overlayPortal/context';
+import { colorPickerRootVariants } from './ColorPicker.variants';
 
 defineOptions({ inheritAttrs: false });
 
@@ -44,12 +45,7 @@ const attrs = useAttrs();
 <template>
   <ArkColorPickerRootProvider
     v-bind="attrs"
-    :class="
-      cn(
-        'box-border flex w-64 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50',
-        className,
-      )
-    "
+    :class="cn(colorPickerRootVariants(), className)"
     :lazy-mount="lazyMount"
     :unmount-on-exit="unmountOnExit"
     :value="value"

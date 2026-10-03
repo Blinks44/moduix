@@ -57,7 +57,7 @@ type TableEmptyProps = HTMLArkProps<'td'> &
   };
 
 const tableVariants = cva(
-  'group/table isolate w-full border-collapse border-spacing-0 text-left text-foreground',
+  'group/table isolate w-full border-collapse border-spacing-0 text-start text-foreground',
   {
     variants: {
       size: {
@@ -163,7 +163,7 @@ function TableCaption(props: TableCaptionProps) {
       data-side={side()}
       data-slot="table-caption"
       class={cn(
-        'px-4 text-left text-sm leading-5 text-pretty text-muted-foreground group-data-[size=lg]/table:px-5 group-data-[size=sm]/table:px-3 data-[side=bottom]:caption-bottom data-[side=bottom]:pt-3 data-[side=bottom]:pb-2 data-[side=top]:caption-top data-[side=top]:pt-2 data-[side=top]:pb-3',
+        'px-4 text-start text-sm leading-5 text-pretty text-muted-foreground group-data-[size=lg]/table:px-5 group-data-[size=sm]/table:px-3 data-[side=bottom]:caption-bottom data-[side=bottom]:pt-3 data-[side=bottom]:pb-2 data-[side=top]:caption-top data-[side=top]:pt-2 data-[side=top]:pb-3',
         local.class,
       )}
     />
@@ -325,7 +325,7 @@ function TableColumnHeader(props: TableColumnHeaderProps) {
       data-numeric={local.numeric || undefined}
       data-slot="table-column-header"
       class={cn(
-        'relative z-0 px-4 py-3 text-left align-middle font-medium whitespace-nowrap text-muted-foreground group-data-[size=lg]/table:px-5 group-data-[size=lg]/table:py-4 group-data-[size=sm]/table:px-3 group-data-[size=sm]/table:py-2 group-data-[sticky-header]/table:data-[sticky]:z-4 data-[sticky=end]:sticky data-[sticky=end]:end-0 data-[sticky=end]:z-2 data-[sticky=end]:bg-card data-[sticky=start]:sticky data-[sticky=start]:start-0 data-[sticky=start]:z-2 data-[sticky=start]:bg-card group-data-[show-column-border]/table:[&:not(:last-child)]:border-e group-data-[show-column-border]/table:[&:not(:last-child)]:border-border',
+        'relative z-0 px-4 py-3 text-start align-middle font-medium whitespace-nowrap text-muted-foreground group-data-[size=lg]/table:px-5 group-data-[size=lg]/table:py-4 group-data-[size=sm]/table:px-3 group-data-[size=sm]/table:py-2 group-data-[sticky-header]/table:data-[sticky]:z-4 data-[sticky=end]:sticky data-[sticky=end]:end-0 data-[sticky=end]:z-2 data-[sticky=end]:bg-card data-[sticky=start]:sticky data-[sticky=start]:start-0 data-[sticky=start]:z-2 data-[sticky=start]:bg-card group-data-[show-column-border]/table:[&:not(:last-child)]:border-e group-data-[show-column-border]/table:[&:not(:last-child)]:border-border',
         local.numeric && 'text-end tabular-nums',
         local.class,
       )}

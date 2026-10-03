@@ -66,7 +66,7 @@ const SliderValueText = forwardRef<
     <SliderPrimitive.ValueText
       ref={ref}
       className={cn(
-        'text-right text-sm leading-5 font-normal text-foreground group-data-[orientation=vertical]:justify-self-end group-data-[orientation=vertical]:[grid-area:value]',
+        'text-end text-sm leading-5 font-normal text-foreground group-data-[orientation=vertical]:justify-self-end group-data-[orientation=vertical]:[grid-area:value]',
         className,
       )}
       {...props}

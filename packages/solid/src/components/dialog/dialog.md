@@ -61,3 +61,7 @@ Ark Solid uses render-function `asChild`:
 through `asChild`, so ordinary refs and custom-host composition are supported as separate native
 paths. `DialogCloseIcon` composes `CloseButton` through the same native render-function
 contract and defaults its accessible label to `Close dialog`.
+
+## Style contract (2026-10-03)
+
+Content shares the --moduix-z-popup base and adds Ark --layer-index. Positioner and backdrop use Ark’s mirrored --z-index; the backdrop sits one level below. Customize stacking on content.

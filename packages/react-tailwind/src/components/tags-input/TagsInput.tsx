@@ -4,11 +4,16 @@ import {
   useTagsInputContext,
   useTagsInputItemContext,
 } from '@ark-ui/react/tags-input';
+import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
+
+const tagsInputRootVariants = cva(
+  'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
+);
 
 const TagsInput = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.Root>,
@@ -17,10 +22,7 @@ const TagsInput = forwardRef<
   return (
     <TagsInputPrimitive.Root
       ref={ref}
-      className={cn(
-        'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50',
-        className,
-      )}
+      className={cn(tagsInputRootVariants(), className)}
       {...props}
       data-slot="tags-input-root"
     />
@@ -34,10 +36,7 @@ const TagsInputRootProvider = forwardRef<
   return (
     <TagsInputPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50',
-        className,
-      )}
+      className={cn(tagsInputRootVariants(), className)}
       {...props}
       data-slot="tags-input-root-provider"
     />
@@ -52,7 +51,7 @@ const TagsInputLabel = forwardRef<
     <TagsInputPrimitive.Label
       ref={ref}
       className={cn(
-        'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-disabled:opacity-50',
+        'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-disabled:opacity-50 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
         className,
       )}
       {...props}
@@ -100,7 +99,7 @@ const TagsInputItemPreview = forwardRef<
     <TagsInputPrimitive.ItemPreview
       ref={ref}
       className={cn(
-        'inline-flex min-h-control-xs max-w-full min-w-0 items-center gap-1 rounded-full border border-transparent bg-secondary px-2 py-0.5 text-xs leading-4 font-medium text-secondary-foreground transition-[border-color,background-color,color,box-shadow] duration-200 ease-in-out data-disabled:opacity-50 data-highlighted:ring-1 data-highlighted:ring-ring motion-reduce:transition-none',
+        'inline-flex min-h-control-xs max-w-full min-w-0 items-center gap-1 rounded-full border border-transparent bg-secondary px-2 py-0.5 text-xs leading-4 font-medium text-secondary-foreground transition-[border-color,background-color,color,box-shadow] duration-200 ease-in-out data-disabled:opacity-50 data-highlighted:ring-1 data-highlighted:ring-ring motion-reduce:transition-none [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
         className,
       )}
       {...props}
@@ -131,7 +130,7 @@ const TagsInputItemDeleteTrigger = forwardRef<
     <TagsInputPrimitive.ItemDeleteTrigger
       ref={ref}
       className={cn(
-        'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,color,opacity,box-shadow] duration-200 ease-in-out group-data-readonly:hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-current/12',
+        'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,color,opacity,box-shadow] duration-200 ease-in-out group-data-readonly:hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100 [@media(hover:hover)]:hover:bg-current/12',
         className,
       )}
       {...props}

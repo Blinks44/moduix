@@ -170,9 +170,10 @@ and `--moduix-spacing-1` block padding. Listbox-specific variables still take pr
 - Default root width is `16rem` through `--moduix-listbox-width`.
 - `ListboxFilter` has a default search icon. When placed immediately before `ListboxContent`, the
   content provides the visible boundary and divider between the input and results.
-- `ListboxContent` shows the shared focus ring on keyboard focus. A standalone `ListboxInput`
-  retains its focus ring, while an input composed inside `ListboxFilter` keeps only the caret
-  visible.
+- Standalone `ListboxContent` and `ListboxInput` retain their keyboard focus rings. When
+  `ListboxFilter` immediately precedes `ListboxContent`, focus on either the input or content
+  highlights their shared outer border. The internal divider stays neutral; no separate outline
+  surrounds only the results.
 - `ListboxContent` has a `14rem` default max height and scrolls long lists without blocking page scroll
   chaining.
 - `ListboxInput` is optional and only needed for filtering scenarios. Its default border matches
@@ -204,6 +205,11 @@ and `--moduix-spacing-1` block padding. Listbox-specific variables still take pr
 - When registry-shipped listbox source changes, run `pnpm run build:registry`.
 
 ## Local changelog
+
+- 2026-10-03: Unified filter/content focus also covers content focus after keyboard navigation
+  or pointer selection; the internal divider no longer takes the focus-ring color.
+
+- 2026-10-02: Filter input focus highlights the composed outer boundary; disabled parts no longer dim an already disabled root twice.
 
 - 2026-07-23: Compacted empty-message block padding to `--moduix-spacing-1` to align with popup items.
 - 2026-07-28: Restored visible keyboard focus for content and unified filter inputs; added Listbox

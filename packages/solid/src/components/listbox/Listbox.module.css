@@ -11,6 +11,16 @@
 
     &[data-disabled] {
       opacity: var(--moduix-listbox-disabled-opacity, var(--moduix-opacity-disabled));
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
     }
   }
 
@@ -26,6 +36,13 @@
   }
 
   .input {
+    --_listbox-input-focus-ring-width: var(
+      --moduix-listbox-input-focus-ring-width,
+      var(
+        --moduix-listbox-focus-ring-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+      )
+    );
     box-sizing: border-box;
     width: 100%;
     min-height: var(--moduix-listbox-input-height, var(--moduix-size-md));
@@ -53,24 +70,8 @@
     font: inherit;
     font-size: var(--moduix-listbox-input-font-size, var(--moduix-text-md));
     line-height: var(--moduix-listbox-input-line-height, var(--moduix-line-height-text-md));
-    outline: var(
-        --moduix-listbox-input-focus-ring-width,
-        var(
-          --moduix-listbox-focus-ring-width,
-          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-        )
-      )
-      solid transparent;
-    outline-offset: calc(
-      var(
-          --moduix-listbox-input-focus-ring-width,
-          var(
-            --moduix-listbox-focus-ring-width,
-            var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-          )
-        ) *
-        -1
-    );
+    outline: var(--_listbox-input-focus-ring-width) solid transparent;
+    outline-offset: calc(var(--_listbox-input-focus-ring-width) * -1);
     transition:
       border-color var(--moduix-listbox-transition, var(--moduix-transition-default)),
       outline-color var(--moduix-listbox-transition, var(--moduix-transition-default)),
@@ -110,6 +111,21 @@
     margin-block-start: calc(-1 * var(--moduix-listbox-root-gap, var(--moduix-spacing-3)));
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+
+    &:focus-visible {
+      outline-color: transparent;
+    }
+  }
+
+  .filter:has(.input:focus-visible, + .content:focus-visible) {
+    .input {
+      border-color: var(--moduix-listbox-focus-ring-color, var(--moduix-color-ring));
+    }
+
+    + .content {
+      border-inline-color: var(--moduix-listbox-focus-ring-color, var(--moduix-color-ring));
+      border-bottom-color: var(--moduix-listbox-focus-ring-color, var(--moduix-color-ring));
+    }
   }
 
   .filterIcon {
@@ -177,6 +193,10 @@
   }
 
   .content {
+    --_listbox-focus-ring-width: var(
+      --moduix-listbox-focus-ring-width,
+      var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+    );
     box-sizing: border-box;
     display: flex;
     min-height: 0;
@@ -193,18 +213,8 @@
     );
     background-color: var(--moduix-listbox-bg, var(--moduix-color-background));
     color: var(--moduix-listbox-color, var(--moduix-color-foreground));
-    outline: var(
-        --moduix-listbox-focus-ring-width,
-        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-      )
-      solid transparent;
-    outline-offset: calc(
-      var(
-          --moduix-listbox-focus-ring-width,
-          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-        ) *
-        -1
-    );
+    outline: var(--_listbox-focus-ring-width) solid transparent;
+    outline-offset: calc(var(--_listbox-focus-ring-width) * -1);
     scrollbar-gutter: stable;
     scroll-padding-block: var(
       --moduix-listbox-content-padding-y,
@@ -429,5 +439,9 @@
     align-items: center;
     justify-content: center;
     color: var(--moduix-listbox-item-text-icon-color, currentColor);
+  }
+
+  .root[data-disabled] :is(.input, .item) {
+    opacity: 1;
   }
 }

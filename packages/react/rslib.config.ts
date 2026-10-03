@@ -35,4 +35,12 @@ export default defineConfig({
     target: 'web',
   },
   plugins: [pluginReact()],
+  tools: {
+    lightningcssLoader: {
+      exclude: {
+        // Language selectors cannot preserve nested dir overrides.
+        dirSelector: true,
+      },
+    },
+  },
 });

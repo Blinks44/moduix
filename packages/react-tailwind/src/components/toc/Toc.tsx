@@ -6,9 +6,14 @@ import {
   useToc as useTocPrimitive,
   useTocContext as useTocContextPrimitive,
 } from '@ark-ui/react/toc';
+import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
+
+const tocRootVariants = cva(
+  'group/toc box-border grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] gap-6 text-foreground has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)] max-md:grid-cols-[minmax(0,1fr)] max-md:has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(0,1fr)]',
+);
 
 const railBaseOffset = 0;
 const railStep = 12;
@@ -31,10 +36,7 @@ const Toc = forwardRef<
     <TocPrimitive.Root
       ref={ref}
       autoScroll={autoScroll}
-      className={cn(
-        'group/toc box-border grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] gap-6 text-foreground has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)] max-md:grid-cols-[minmax(0,1fr)] max-md:has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(0,1fr)]',
-        className,
-      )}
+      className={cn(tocRootVariants(), className)}
       {...props}
       data-slot="toc-root"
     />
@@ -52,10 +54,7 @@ const TocRootProvider = forwardRef<
       ref={ref}
       value={value}
       {...rootProps}
-      className={cn(
-        'group/toc box-border grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] gap-6 text-foreground has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)] max-md:grid-cols-[minmax(0,1fr)] max-md:has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(0,1fr)]',
-        className,
-      )}
+      className={cn(tocRootVariants(), className)}
       style={{ ...rootProps.style, ...style }}
       {...props}
       data-slot="toc-root-provider"

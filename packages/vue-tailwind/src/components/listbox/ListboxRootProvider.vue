@@ -14,6 +14,7 @@ export interface Props<T extends CollectionItem>
 import { ListboxRootProvider as ArkListboxRootProvider } from '@ark-ui/vue/listbox';
 import { useAttrs } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import { listboxRootVariants } from './Listbox.variants';
 
 defineOptions({ inheritAttrs: false });
 
@@ -26,12 +27,7 @@ const attrs = useAttrs();
 <template>
   <ArkListboxRootProvider
     v-bind="attrs"
-    :class="
-      cn(
-        'box-border flex w-64 max-w-full min-w-0 flex-col gap-3 text-foreground data-disabled:opacity-50',
-        className,
-      )
-    "
+    :class="cn(listboxRootVariants(), className)"
     :value="value"
     data-slot="listbox-root-provider"
   >

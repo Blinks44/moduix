@@ -4,6 +4,7 @@ import type { FieldRootProviderProps as ArkFieldRootProviderProps } from '@ark-u
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import { fieldRootVariants } from './Field.variants';
 
 defineOptions({ inheritAttrs: false });
 
@@ -16,14 +17,12 @@ const { class: className, value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const rootClass =
-  'box-border flex w-full max-w-none flex-col items-start gap-1 text-foreground data-disabled:opacity-50';
 </script>
 
 <template>
   <ArkFieldRootProvider
     v-bind="attrs"
-    :class="cn(rootClass, className)"
+    :class="cn(fieldRootVariants(), className)"
     :value="value"
     data-slot="field-root-provider"
   >

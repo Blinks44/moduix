@@ -32,6 +32,10 @@ test('keeps page interaction available for a non-modal dialog', () => {
   ));
 
   expect(screen.getByRole('dialog')).toHaveStyle({ pointerEvents: 'auto' });
+  expect(screen.getByRole('dialog')).toHaveClass(
+    'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))]',
+    "after:content-['']",
+  );
   expect(screen.getByRole('dialog').parentElement).toHaveStyle({ pointerEvents: 'none' });
 });
 

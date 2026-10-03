@@ -127,7 +127,7 @@ const BreadcrumbsSeparator = forwardRef<ComponentRef<typeof ark.li>, HTMLArkProp
           className,
         )}
       >
-        {children ?? <ChevronRightIcon className="size-[1em] flex-none rtl:rotate-180" />}
+        {children ?? <ChevronRightIcon className="size-[1em] flex-none [&:dir(rtl)]:rotate-180" />}
       </ark.li>
     );
   },

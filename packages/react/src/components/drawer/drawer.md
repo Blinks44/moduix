@@ -146,6 +146,10 @@ Runtime variables include `--drawer-translate`, `--drawer-translate-x`, `--drawe
 
 ## Defaults and styling
 
+Dismissible overlays share the `--moduix-z-popup` base. Content adds Ark's `--layer-index`;
+Ark mirrors its computed `--z-index` onto positioners and backdrops. Backdrops sit one level below
+content. Customize stacking on content rather than independently raising its surrounding parts.
+
 Default drawer and close controls use `--moduix-size-md` with `--moduix-spacing-1` block padding.
 `Drawer variant="island"` uses the full default snap point (`[1]`) and passes the island presentation
 to `DrawerContent`. The `swipeDirection` remains controlled by the caller. The island surface is
@@ -158,6 +162,11 @@ uses moduix colors, spacing, radii, shadows, and motion tokens.
 
 Backdrop and content enter/exit animations target Ark `data-state`. The backdrop remains fully
 visible while dragging between snap points and fades only after the drawer enters its closed state.
+
+Every shipped CSS Modules and Tailwind adapter shares foundation keyframes. Ordinary drawers have no island travel
+offset; islands use their direction's safe-area-aware inset. Upward exit also includes the same
+token-based bleed used by the content's extension. Ark drag/snap and nested transforms remain intact.
+
 When `prefers-reduced-motion: reduce` matches, overlay and stack animations take 1ms while keeping
 Ark's exit lifecycle completion intact.
 During open drag, CSS must not toggle `animation: none` on `DrawerContent`; otherwise the open keyframe
@@ -225,6 +234,8 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-10-02: Aligned content, positioner, and backdrop stacking with Ark layer indices and its mirrored z-index.
 
 - 2026-08-10: Added reduced-motion timing for overlay and stack transitions, plus focused coverage
   for default lifecycle, island styling, and the accessible close icon.

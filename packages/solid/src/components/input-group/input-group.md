@@ -46,3 +46,7 @@ This is moduix-owned composition; there is no Ark InputGroup clear primitive.
 ## Clear action changelog
 
 - 2026-10-01: Added `InputGroupClearTrigger` across React, Solid, Vue, CSS Modules, and Tailwind.
+
+## Style contract (2026-10-03)
+
+The group owns disabled opacity when its input is disabled; its input keeps opacity 1. An outer disabled Field/Fieldset owns opacity instead.

@@ -1,5 +1,5 @@
 @layer moduix.components {
-  .root[data-scope='list'][data-part='root'] {
+  .root {
     --_list-color: var(
       --moduix-list-color,
       var(--moduix-list-default-color, var(--moduix-color-foreground))

@@ -76,3 +76,7 @@ All visual parts accept `class`. Consumer-targetable state attributes include `d
 `data-today`, `data-unavailable`, `data-outside-range`, and range state attributes.
 The CSS module exposes `--moduix-date-picker-*` variables for sizing, colors, focus rings,
 actions, popup content, calendar cells, and transitions.
+
+## Style contract (2026-10-03)
+
+Content scrolls within the smaller of Ark --available-height and 100dvh minus 2rem. Inline calendars fit their container rather than forcing an 18rem minimum width.

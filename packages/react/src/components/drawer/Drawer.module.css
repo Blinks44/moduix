@@ -54,7 +54,7 @@
 
   .backdrop {
     position: fixed;
-    z-index: calc(var(--moduix-z-backdrop) + var(--layer-index, 0));
+    z-index: calc(var(--z-index, var(--moduix-z-popup)) - 1);
     inset: 0;
     min-height: 100dvh;
     background-color: var(
@@ -69,12 +69,12 @@
         var(--moduix-ease-out);
 
     &[data-state='open'] {
-      animation: drawer-backdrop-in
+      animation: global(moduix-drawer-backdrop-in)
         var(--moduix-drawer-backdrop-transition, var(--moduix-transition-spring));
     }
 
     &[data-state='closed'] {
-      animation: drawer-backdrop-out
+      animation: global(moduix-drawer-backdrop-out)
         var(--moduix-drawer-backdrop-transition, var(--moduix-transition-spring));
       animation-fill-mode: forwards;
     }
@@ -91,7 +91,7 @@
   .positioner {
     box-sizing: border-box;
     position: fixed;
-    z-index: calc(var(--moduix-z-modal) + var(--layer-index, 0));
+    z-index: var(--z-index, var(--moduix-z-popup));
     inset: 0;
     display: flex;
     align-items: flex-end;
@@ -141,6 +141,7 @@
   }
 
   .content {
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     --_drawer-bleed: var(--moduix-drawer-bleed-size, var(--moduix-size-xl));
     --drawer-island-translate-distance: 0px;
     box-sizing: border-box;
@@ -192,12 +193,12 @@
     }
 
     &[data-state='open'] {
-      animation: drawer-content-in-down
+      animation: global(moduix-drawer-content-in-down)
         var(--moduix-drawer-transition, var(--moduix-transition-spring));
     }
 
     &[data-state='closed'] {
-      animation: drawer-content-out-down
+      animation: global(moduix-drawer-content-out-down)
         var(--moduix-drawer-transition, var(--moduix-transition-spring));
       animation-fill-mode: forwards;
     }
@@ -226,11 +227,11 @@
       }
 
       &[data-state='open'] {
-        animation-name: drawer-content-in-up;
+        animation-name: global(moduix-drawer-content-in-up);
       }
 
       &[data-state='closed'] {
-        animation-name: drawer-content-out-up;
+        animation-name: global(moduix-drawer-content-out-up);
       }
     }
 
@@ -261,11 +262,11 @@
       }
 
       &[data-state='open'] {
-        animation-name: drawer-content-in-left;
+        animation-name: global(moduix-drawer-content-in-left);
       }
 
       &[data-state='closed'] {
-        animation-name: drawer-content-out-left;
+        animation-name: global(moduix-drawer-content-out-left);
       }
     }
 
@@ -279,11 +280,11 @@
       }
 
       &[data-state='open'] {
-        animation-name: drawer-content-in-right;
+        animation-name: global(moduix-drawer-content-in-right);
       }
 
       &[data-state='closed'] {
-        animation-name: drawer-content-out-right;
+        animation-name: global(moduix-drawer-content-out-right);
       }
     }
 
@@ -559,72 +560,6 @@
               (1 - var(--moduix-drawer-indent-scale-active, 0.97)) * var(--drawer-swipe-progress, 0)
           )
         );
-    }
-  }
-
-  @keyframes drawer-backdrop-in {
-    from {
-      opacity: 0;
-      backdrop-filter: none;
-    }
-  }
-
-  @keyframes drawer-backdrop-out {
-    to {
-      opacity: 0;
-      backdrop-filter: none;
-    }
-  }
-
-  @keyframes drawer-content-in-down {
-    from {
-      transform: translate3d(0, calc(100% + var(--drawer-island-translate-distance)), 0);
-    }
-  }
-
-  @keyframes drawer-content-out-down {
-    to {
-      transform: translate3d(0, calc(100% + var(--drawer-island-translate-distance)), 0);
-    }
-  }
-
-  @keyframes drawer-content-in-up {
-    from {
-      transform: translate3d(0, calc(-100% - var(--drawer-island-translate-distance)), 0);
-    }
-  }
-
-  @keyframes drawer-content-out-up {
-    to {
-      transform: translate3d(
-        0,
-        calc(-100% - var(--drawer-island-translate-distance) - var(--_drawer-bleed)),
-        0
-      );
-    }
-  }
-
-  @keyframes drawer-content-in-left {
-    from {
-      transform: translate3d(calc(-100% - var(--drawer-island-translate-distance)), 0, 0);
-    }
-  }
-
-  @keyframes drawer-content-out-left {
-    to {
-      transform: translate3d(calc(-100% - var(--drawer-island-translate-distance)), 0, 0);
-    }
-  }
-
-  @keyframes drawer-content-in-right {
-    from {
-      transform: translate3d(calc(100% + var(--drawer-island-translate-distance)), 0, 0);
-    }
-  }
-
-  @keyframes drawer-content-out-right {
-    to {
-      transform: translate3d(calc(100% + var(--drawer-island-translate-distance)), 0, 0);
     }
   }
 

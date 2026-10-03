@@ -4,6 +4,7 @@ import type { TagsInputRootEmits, TagsInputRootProps } from '@ark-ui/vue/tags-in
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import { tagsInputRootVariants } from './TagsInput.variants';
 
 defineOptions({ inheritAttrs: false });
 
@@ -18,11 +19,14 @@ defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const rootClass = 'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50';
 </script>
 
 <template>
-  <ArkTagsInputRoot v-bind="attrs" :class="cn(rootClass, className)" data-slot="tags-input-root">
+  <ArkTagsInputRoot
+    v-bind="attrs"
+    :class="cn(tagsInputRootVariants(), className)"
+    data-slot="tags-input-root"
+  >
     <slot />
   </ArkTagsInputRoot>
 </template>

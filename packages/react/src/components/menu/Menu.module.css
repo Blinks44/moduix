@@ -29,16 +29,22 @@
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--moduix-menu-trigger-bg-hover);
+        background-color: var(--moduix-menu-trigger-bg-hover, var(--moduix-color-muted));
       }
     }
 
     &:active {
-      background-color: var(--moduix-menu-trigger-bg-active, var(--moduix-menu-trigger-bg-hover));
+      background-color: var(
+        --moduix-menu-trigger-bg-active,
+        var(--moduix-menu-trigger-bg-hover, var(--moduix-color-muted))
+      );
     }
 
     &[data-current][data-state='open'] {
-      background-color: var(--moduix-menu-trigger-bg-active, var(--moduix-menu-trigger-bg-hover));
+      background-color: var(
+        --moduix-menu-trigger-bg-active,
+        var(--moduix-menu-trigger-bg-hover, var(--moduix-color-muted))
+      );
     }
 
     &:focus-visible {

@@ -167,3 +167,7 @@ with rendered `SplitterPanel` ids and adjacent trigger ids.
 - 2026-06-27: Aligned focus styling with Ark's `data-focus` state and refreshed docs examples/CSS variable coverage after the Ark migration review.
 - 2026-06-27: Moved root width/height defaults into the wrapper's inline style so `--moduix-splitter-width` and `--moduix-splitter-height` override Ark's inline root layout.
 - 2026-07-05: Made the divider tint slightly darker on hover and drag by default, while restoring the idle line color for default focus so pointer release cannot leave the divider visually active.
+
+## Style contract (2026-10-03)
+
+Pointer and drag styling stays restrained. Keyboard focus highlights the indicator, or the hit area when the indicator is omitted; dragging suppresses that highlight.

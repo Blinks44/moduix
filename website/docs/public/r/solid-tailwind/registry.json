@@ -414,7 +414,7 @@
       "type": "registry:item",
       "title": "ColorPicker",
       "description": "moduix Solid Tailwind ColorPicker component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -560,7 +560,7 @@
       "type": "registry:item",
       "title": "Listbox",
       "description": "moduix Solid Tailwind Listbox component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -673,7 +673,7 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix Solid Tailwind Field component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1893,7 +1893,7 @@
       "type": "registry:item",
       "title": "Table of Contents",
       "description": "moduix Solid Tailwind Table of Contents component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {
@@ -1913,7 +1913,7 @@
       "type": "registry:item",
       "title": "TagsInput",
       "description": "moduix Solid Tailwind TagsInput component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
@@ -1962,7 +1962,7 @@
       "type": "registry:item",
       "title": "Tree View",
       "description": "moduix Solid Tailwind Tree View component.",
-      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",

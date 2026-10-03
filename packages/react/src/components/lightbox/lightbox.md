@@ -177,12 +177,18 @@ Ark parts expose `data-scope="dialog"`, `data-part`, and `data-state="open|close
 
 ## Defaults and styling
 
+Dismissible overlays share the `--moduix-z-popup` base. Content adds Ark's `--layer-index`;
+Ark mirrors its computed `--z-index` onto positioners and backdrops. Backdrops sit one level below
+content. Customize stacking on content rather than independently raising its surrounding parts.
+
 The current gallery thumbnail uses
 `--moduix-lightbox-gallery-thumbnail-active-translate-y` with a one-border-width upward offset, so themes
 can tune or remove the selected-state lift without replacing the thumbnail selector.
 
 Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-lightbox-*` content-motion
 variables remain the more specific override. Backdrop motion remains separate.
+React CSS Modules and Tailwind share foundation keyframes: content enters/exits at scale `0.82`
+over `220ms` by default. CSS-specific motion overrides and Ark Presence timing are preserved.
 
 When `prefers-reduced-motion: reduce` is active, backdrop and content animations run for 1ms. This
 keeps Ark's exit lifecycle intact while avoiding visible motion.
@@ -229,6 +235,8 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-10-02: Aligned content, positioner, and backdrop stacking with Ark layer indices and its mirrored z-index.
 
 - 2026-08-11: Added a reduced-motion animation path and coverage for the accessible close icon's
   focus restoration.

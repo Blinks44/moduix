@@ -276,6 +276,8 @@ content after the first open; set both props to `false` only when eager initial 
 
 ## Local changelog
 
+- 2026-10-02: Prevented repeated disabled opacity on parts inside an already disabled root or Field/Fieldset.
+
 - 2026-08-14: Styled the native `ColorPickerFormatSelect` with a moduix chevron and Select-aligned collapsed
   control while preserving Ark format behavior.
 

@@ -68,7 +68,7 @@
       );
       animation: var(
         --moduix-progress-circular-range-indeterminate-animation,
-        progress-circular-indeterminate 1.4s linear infinite
+        moduix-progress-circular-indeterminate 1.4s linear infinite
       );
       stroke-dasharray: var(--moduix-progress-circular-range-indeterminate-dasharray, 1 200);
     }
@@ -88,15 +88,5 @@
 
   .view {
     display: contents;
-  }
-
-  @keyframes :global(progress-circular-indeterminate) {
-    from {
-      transform: rotate(-90deg);
-    }
-
-    to {
-      transform: rotate(270deg);
-    }
   }
 }

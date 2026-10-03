@@ -147,6 +147,10 @@ variables remain the more specific override. Backdrop motion remains separate.
 Moduix supplies visual defaults for native trigger/close buttons, backdrop, centered positioner,
 content surface, typography, layout helpers, motion, and close icon.
 
+Dismissible overlays share the `--moduix-z-popup` base. Content adds Ark's `--layer-index`;
+Ark mirrors its computed `--z-index` onto the positioner and backdrop, which sits one level below.
+Set custom stacking on content, not an independent positioner/backdrop layer.
+
 Open and close animations use Ark `data-state="open|closed"`. Nested scaling uses
 `--nested-layer-count` and transitions through `--moduix-dialog-nested-transition`. Like `Drawer`, nested
 dialogs animate the parent `Content` with CSS `scale` and `translate` individual transform
@@ -184,6 +188,8 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-10-02: Aligned content, positioner, and backdrop stacking with Ark layer indices and its mirrored z-index.
 
 - 2026-08-10: Added a reduced-motion path for dialog backdrop and content transitions, and covered
   Escape dismissal, controlled state, external state, and portal behavior with focused tests.
