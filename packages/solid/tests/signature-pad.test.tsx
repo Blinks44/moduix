@@ -170,3 +170,45 @@ test('preserves read-only behavior through useSignaturePad and RootProvider', ()
 
   expect(screen.getByRole('button', { name: /clear signature/i })).toBeDisabled();
 });
+import { useSignaturePad as useArkSignaturePad } from '@ark-ui/solid/signature-pad';
+import { createSignal } from 'solid-js';
+
+test('accepts a native Ark provider API without moduix metadata', () => {
+  function NativeProvider() {
+    const value = useArkSignaturePad({ defaultPaths, translations });
+    return (
+      <SignaturePadRootProvider value={value}>
+        <SignaturePadParts />
+      </SignaturePadRootProvider>
+    );
+  }
+  render(() => <NativeProvider />);
+  expect(screen.getByRole('button', { name: 'Clear signature' })).not.toBeDisabled();
+});
+
+test('keeps plain readOnly metadata reactive with Field inheritance and explicit overrides', () => {
+  const [readOnly, setReadOnly] = createSignal<boolean | undefined>(undefined);
+  function Provider() {
+    const value = useSignaturePad(() => ({ defaultPaths, translations, readOnly: readOnly() }));
+    return (
+      <SignaturePadRootProvider value={value}>
+        <output data-testid="read-only">{String(value.readOnly())}</output>
+        <SignaturePadParts />
+      </SignaturePadRootProvider>
+    );
+  }
+  render(() => (
+    <Field readOnly>
+      <Provider />
+    </Field>
+  ));
+  const clear = screen.getByRole('button', { name: 'Clear signature' });
+  expect(screen.getByTestId('read-only')).toHaveTextContent('true');
+  expect(clear).toBeDisabled();
+  setReadOnly(false);
+  expect(screen.getByTestId('read-only')).toHaveTextContent('false');
+  expect(clear).not.toBeDisabled();
+  setReadOnly(true);
+  expect(screen.getByTestId('read-only')).toHaveTextContent('true');
+  expect(clear).toBeDisabled();
+});

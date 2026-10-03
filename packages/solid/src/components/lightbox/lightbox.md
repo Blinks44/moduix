@@ -65,6 +65,9 @@ slide state. `LightboxBind` renders no DOM and binds a semantic button or link s
 accessor such as `rootRef={() => rootElement}`. `onImageSelect` receives `src`, optional `alt`,
 and the source `HTMLImageElement`.
 
+The image URL uses `data-lightbox-src` first, then a nonempty `currentSrc`, then `src`.
+An explicitly empty `data-lightbox-src` excludes the image rather than falling back.
+
 ## Solid composition notes
 
 Ark Solid uses a render-function `asChild` prop:
@@ -76,3 +79,7 @@ defaults its accessible label to `Close image`.
 ## Style contract (2026-10-03)
 
 Content shares the --moduix-z-popup base and adds Ark --layer-index; surrounding parts use Ark’s mirrored --z-index. Foundation owns the content/backdrop keyframes, preserving public motion overrides, backdrop blur and reduced-motion behavior.
+
+## Local changelog
+
+- 2026-10-03: Binding falls back to `src` when `currentSrc` is empty, preserving explicit source overrides.

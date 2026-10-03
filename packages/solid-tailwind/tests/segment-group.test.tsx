@@ -394,3 +394,75 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   expect(item).toHaveClass('gap-4', 'text-primary');
   expect(item).not.toHaveClass('gap-2', 'text-muted-foreground');
 });
+
+test('preserves defaults and generated ids when machine props are undefined', () => {
+  render(() => (
+    <Field disabled invalid readOnly required>
+      <SegmentGroup id={undefined} orientation={undefined} disabled={undefined}>
+        <SegmentItems />
+      </SegmentGroup>
+    </Field>
+  ));
+  const group = screen.getByRole('radiogroup');
+  expect(group.id).not.toBe('');
+  expect(group.id).not.toContain('undefined');
+  expect(group).toHaveAttribute('data-orientation', 'horizontal');
+  expect(group).toHaveAttribute('data-disabled');
+  expect(group).toHaveAttribute('data-invalid');
+  expect(group).toHaveAttribute('aria-readonly', 'true');
+  expect(group).toHaveAttribute('data-required');
+  expect(screen.getByRole('radio', { name: 'React' })).toBeDisabled();
+  expect(screen.getByRole('radio', { name: 'React' })).toBeRequired();
+  expect(screen.getByRole('radio', { name: 'React' }).parentElement).toHaveAttribute(
+    'data-readonly',
+  );
+});
+
+test('keeps state overrides and orientation reactive through the native Root', async () => {
+  const [override, setOverride] = createSignal<boolean | undefined>(undefined);
+  const [orientation, setOrientation] = createSignal<'horizontal' | 'vertical'>('horizontal');
+  render(() => (
+    <Field disabled invalid readOnly required>
+      <SegmentGroup
+        disabled={override()}
+        invalid={override()}
+        readOnly={override()}
+        required={override()}
+        orientation={orientation()}
+      >
+        <SegmentItems />
+      </SegmentGroup>
+    </Field>
+  ));
+  expect(screen.getByRole('radio', { name: 'Solid' })).toBeDisabled();
+  setOverride(false);
+  setOrientation('vertical');
+  const group = screen.getByRole('radiogroup');
+  expect(group).not.toHaveAttribute('data-disabled');
+  expect(group).not.toHaveAttribute('data-invalid');
+  expect(group).not.toHaveAttribute('aria-readonly');
+  expect(group).not.toHaveAttribute('data-required');
+  expect(group).toHaveAttribute('data-orientation', 'vertical');
+  const solid = screen.getByRole('radio', { name: 'Solid' });
+  expect(solid).not.toBeDisabled();
+  expect(solid).not.toBeRequired();
+  expect(solid.parentElement).not.toHaveAttribute('data-readonly');
+  fireEvent.click(solid);
+  await waitFor(() => expect(solid).toBeChecked());
+});
+
+test('preserves the native Root asChild host without emulating ref forwarding', () => {
+  let rootRef: HTMLDivElement | undefined;
+  render(() => (
+    <SegmentGroup
+      defaultValue="React"
+      ref={(element) => (rootRef = element)}
+      asChild={(props) => <section {...props()} data-testid="custom-root" />}
+    >
+      <SegmentItems />
+    </SegmentGroup>
+  ));
+  expect(screen.getByTestId('custom-root')).toHaveAttribute('data-slot', 'segment-group-root');
+  expect(screen.getByRole('radio', { name: 'React' })).toBeChecked();
+  expect(rootRef).toBeUndefined();
+});

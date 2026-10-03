@@ -1,5 +1,6 @@
 'use client';
 
+import { Portal } from '@ark-ui/react/portal';
 import {
   Toast as ToastPrimitive,
   Toaster as ToasterPrimitive,
@@ -10,11 +11,7 @@ import type { ToastOptions } from '@ark-ui/react/toast';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
-import {
-  OverlayPortal,
-  OverlayPortalProvider,
-  type OverlayPortalProps,
-} from '@/lib/moduix/overlayPortal';
+import type { OverlayPortalProps } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 
 const DEFAULT_CLOSE_TRIGGER_LABEL = 'Close toast';
@@ -25,20 +22,18 @@ type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
   };
 
 const ToastToaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(
-  function ToastToaster({ className, portalled, portalRef, ...props }, ref) {
+  function ToastToaster({ className, portalled = true, portalRef, ...props }, ref) {
     return (
-      <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-        <OverlayPortal>
-          <ToasterPrimitive
-            ref={ref}
-            className={cn('max-[40rem]:w-full', className)}
-            {...props}
-            data-slot="toast-toaster"
-          >
-            {props.children ?? ((toast) => <DefaultToast toast={toast} />)}
-          </ToasterPrimitive>
-        </OverlayPortal>
-      </OverlayPortalProvider>
+      <Portal disabled={!portalled} container={portalRef}>
+        <ToasterPrimitive
+          ref={ref}
+          className={cn('max-[40rem]:w-full', className)}
+          {...props}
+          data-slot="toast-toaster"
+        >
+          {props.children ?? ((toast) => <DefaultToast toast={toast} />)}
+        </ToasterPrimitive>
+      </Portal>
     );
   },
 );

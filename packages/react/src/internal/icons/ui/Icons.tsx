@@ -10,9 +10,9 @@ import {
   PlusIcon as LucidePlusIcon,
   XIcon as LucideCloseIcon,
 } from 'lucide-react';
-import type { ComponentProps } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
-type IconProps = ComponentProps<'svg'>;
+type IconProps = ComponentPropsWithoutRef<'svg'>;
 
 export function ChevronLeftIcon(props: IconProps) {
   return <LucideChevronLeftIcon aria-hidden="true" focusable="false" strokeWidth={3} {...props} />;

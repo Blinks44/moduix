@@ -135,6 +135,9 @@ button or link as the matched `selector` when images must be keyboard-accessible
 `LightboxBind` relies on the element's native click activation. It preloads the resolved full-size
 source on pointer hover or keyboard focus.
 
+Image resolution prefers `data-lightbox-src`, then a nonempty responsive `currentSrc`, then
+the image's `src`. An explicitly empty `data-lightbox-src` excludes that image from binding.
+
 ## Upstream feature coverage
 
 - Basic, controlled, root-provider, lazy-mount, initial-focus, final-focus, nested, and
@@ -236,6 +239,8 @@ content after the first open; set both props to `false` only when eager initial 
 
 ## Local changelog
 
+- 2026-10-03: Fixed the React external-image binding fallback when `currentSrc` is empty;
+  explicit empty `data-lightbox-src` overrides still exclude an image.
 - 2026-10-02: Aligned content, positioner, and backdrop stacking with Ark layer indices and its mirrored z-index.
 
 - 2026-08-11: Added a reduced-motion animation path and coverage for the accessible close icon's

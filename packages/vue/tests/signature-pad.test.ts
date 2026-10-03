@@ -1,4 +1,5 @@
 import {
+  useSignaturePad as useArkSignaturePad,
   SignaturePadRoot as ArkSignaturePadRoot,
   SignaturePadControl as ArkSignaturePadControl,
   SignaturePadSegment as ArkSignaturePadSegment,
@@ -6,7 +7,7 @@ import {
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, defineComponent, ref } from 'vue';
+import { computed, createSSRApp, defineComponent, ref } from 'vue';
 import type { Component, ComponentPublicInstance } from 'vue';
 import {
   Field,
@@ -433,4 +434,56 @@ test('renders and hydrates generated ids consistently', async () => {
   expect([...host.querySelectorAll('[id]')].map((element) => element.id)).toEqual(serverIds);
   app.unmount();
   host.remove();
+});
+
+type RawSignaturePadApi = ReturnType<typeof useArkSignaturePad>['value'];
+const nativeProviderType: RawSignaturePadApi extends InstanceType<
+  typeof SignaturePadRootProvider
+>['$props']['value']
+  ? true
+  : false = true;
+
+test('accepts the raw Ark API without read-only metadata', () => {
+  expect(nativeProviderType).toBe(true);
+  render(
+    defineComponent({
+      components: signaturePadComponents,
+      setup: () => ({ pad: useArkSignaturePad({ defaultPaths, translations }) }),
+      template:
+        '<SignaturePadRootProvider :value="pad"><SignaturePadParts /></SignaturePadRootProvider>',
+    }),
+  );
+  expect(screen.getByRole('button', { name: 'Clear signature' })).not.toBeDisabled();
+});
+
+test('keeps hook metadata reactive and lets explicit false override Field read-only', async () => {
+  const readOnly = ref<boolean | undefined>();
+  const Provider = defineComponent({
+    components: signaturePadComponents,
+    setup: () => ({
+      pad: useSignaturePad(
+        computed(() => ({ defaultPaths, translations, readOnly: readOnly.value })),
+      ),
+    }),
+    template: `
+      <SignaturePadRootProvider :value="pad">
+        <SignaturePadParts />
+        <output data-testid="read-only">{{ pad.readOnly }}</output>
+      </SignaturePadRootProvider>
+    `,
+  });
+  render({ components: { Field, Provider }, template: '<Field read-only><Provider /></Field>' });
+  const clear = screen.getByRole('button', { name: 'Clear signature' });
+  expect(clear).toBeDisabled();
+  expect(screen.getByTestId('read-only')).toHaveTextContent('true');
+  readOnly.value = false;
+  await waitFor(() => {
+    expect(clear).not.toBeDisabled();
+    expect(screen.getByTestId('read-only')).toHaveTextContent('false');
+  });
+  readOnly.value = true;
+  await waitFor(() => {
+    expect(clear).toBeDisabled();
+    expect(screen.getByTestId('read-only')).toHaveTextContent('true');
+  });
 });

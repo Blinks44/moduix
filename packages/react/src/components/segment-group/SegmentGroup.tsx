@@ -37,45 +37,23 @@ const SegmentGroup = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.Root>,
   ComponentProps<typeof SegmentGroupPrimitive.Root>
 >(function SegmentGroup(
-  {
-    className,
-    defaultValue,
-    disabled,
-    form,
-    id,
-    ids,
-    invalid,
-    name,
-    onValueChange,
-    orientation = 'horizontal',
-    readOnly,
-    required,
-    value,
-    ...props
-  },
+  { className, disabled, invalid, orientation = 'horizontal', readOnly, required, ...props },
   ref,
 ) {
-  const segmentGroup = useSegmentGroup({
-    defaultValue,
-    disabled,
-    form,
-    id,
-    ids,
-    invalid,
-    name,
-    onValueChange,
-    orientation,
-    readOnly,
-    required,
-    value,
-  });
-
+  const field = useFieldContext();
+  const fieldset = useFieldsetContext();
   return (
-    <SegmentGroupPrimitive.RootProvider
+    <SegmentGroupPrimitive.Root
       ref={ref}
-      value={segmentGroup}
       className={clsx(styles.root, className)}
-      {...props}
+      {...omitUndefined({
+        ...props,
+        orientation,
+        disabled: disabled ?? field?.disabled ?? fieldset?.disabled,
+        invalid: invalid ?? field?.invalid ?? fieldset?.invalid,
+        readOnly: readOnly ?? field?.readOnly,
+        required: required ?? field?.required,
+      })}
       data-slot="segment-group-root"
     />
   );

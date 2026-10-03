@@ -2,7 +2,7 @@ import { type DateValue } from '@ark-ui/react/date-picker';
 import { CalendarDate } from '@internationalized/date';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { createRef, useState } from 'react';
+import { createElement, createRef, useState, type ComponentProps } from 'react';
 import {
   DatePicker,
   Field,
@@ -12,6 +12,7 @@ import {
   DatePickerContext,
   DatePickerLabel,
   DatePickerField,
+  DatePickerClearTrigger,
   DatePickerRangeField,
   DatePickerPositioner,
   DatePickerContent,
@@ -294,4 +295,101 @@ test('renders and selects years in a year-only picker', async () => {
   await waitFor(() => {
     expect(input).toHaveValue('2020');
   });
+});
+
+const fixedCompositionTypes: Extract<
+  | keyof ComponentProps<typeof DatePickerField>
+  | keyof ComponentProps<typeof DatePickerRangeField>
+  | keyof ComponentProps<typeof DatePickerDayTable>,
+  'asChild' | 'children'
+> extends never
+  ? true
+  : false = true;
+
+test('does not expose composition props on fixed DatePicker conveniences', () => {
+  expect(fixedCompositionTypes).toBe(true);
+});
+
+test.each([
+  { name: 'single', Control: DatePickerField, inputs: 1 },
+  { name: 'range', Control: DatePickerRangeField, inputs: 2 },
+])(
+  'preserves $name control anatomy with unsupported JS composition props',
+  ({ name, Control, inputs }) => {
+    render(
+      <DatePicker selectionMode={name === 'range' ? 'range' : 'single'}>
+        <DatePickerLabel>Fixed date control</DatePickerLabel>
+        {createElement(Control, {
+          asChild: true,
+          children: <div>Unsupported child</div>,
+          'data-testid': 'fixed-control',
+        } as never)}
+      </DatePicker>,
+    );
+    expect(screen.getByTestId('fixed-control').tagName).toBe('DIV');
+    expect(screen.getAllByRole('textbox')).toHaveLength(inputs);
+    expect(screen.queryByText('Unsupported child')).not.toBeInTheDocument();
+  },
+);
+
+test('preserves day-table anatomy with unsupported JS composition props', async () => {
+  render(
+    <DatePicker defaultOpen portalled={false}>
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerView view="day">
+            {createElement(DatePickerDayTable, {
+              asChild: true,
+              children: <div>Unsupported table child</div>,
+              showHeader: false,
+              showWeekNumbers: true,
+              'data-testid': 'fixed-table',
+            } as never)}
+          </DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
+    </DatePicker>,
+  );
+  expect((await screen.findByTestId('fixed-table')).tagName).toBe('TABLE');
+  expect(screen.getAllByRole('columnheader', { hidden: true })).toHaveLength(8);
+  expect(screen.queryByText('Unsupported table child')).not.toBeInTheDocument();
+});
+
+test('lets nested field props override convenience placeholders and labels', () => {
+  render(
+    <DatePicker defaultValue={[new CalendarDate(2026, 6, 22)]}>
+      <DatePickerLabel>Override date</DatePickerLabel>
+      <DatePickerField
+        placeholder="Outer placeholder"
+        inputProps={{ placeholder: 'Inner placeholder' }}
+        clearLabel="Outer clear"
+        clearTriggerProps={{ 'aria-label': 'Inner clear' }}
+        triggerLabel="Outer open"
+        triggerProps={{ 'aria-label': 'Inner open' }}
+      />
+    </DatePicker>,
+  );
+  expect(screen.getByRole('textbox', { name: 'Override date' })).toHaveAttribute(
+    'placeholder',
+    'Inner placeholder',
+  );
+  expect(screen.getByRole('button', { name: 'Inner clear' })).toBeVisible();
+  expect(screen.getByRole('button', { name: 'Inner open' })).toBeVisible();
+});
+
+test.each([false, true])('preserves a labelled clear trigger with asChild=%s', async (asChild) => {
+  render(
+    <DatePicker defaultValue={[new CalendarDate(2026, 6, 22)]}>
+      <DatePickerLabel>Clearable date</DatePickerLabel>
+      <DatePickerField />
+      <span id="clear-date-label">Reset labelled date</span>
+      <DatePickerClearTrigger asChild={asChild} aria-labelledby="clear-date-label">
+        {asChild ? <button type="button">Custom clear</button> : undefined}
+      </DatePickerClearTrigger>
+    </DatePicker>,
+  );
+  fireEvent.click(screen.getByRole('button', { name: 'Reset labelled date' }));
+  await waitFor(() =>
+    expect(screen.getByRole('textbox', { name: 'Clearable date' })).toHaveValue(''),
+  );
 });

@@ -98,28 +98,28 @@ function PinInputInputs({ className }: { className?: string }) {
   return items.map((index) => <PinInputInput key={index} index={index} className={className} />);
 }
 
-function PinInputSeparator({
-  className,
-  'aria-hidden': ariaHidden = true,
-  role = 'presentation',
-  children,
-  ...props
-}: ComponentProps<'span'>) {
-  return (
-    <span
-      aria-hidden={ariaHidden}
-      role={role}
-      className={cn(
-        'pointer-events-none inline-flex size-4 flex-none items-center justify-center leading-none text-muted-foreground [&>svg]:size-full [&>svg]:flex-none',
-        className,
-      )}
-      {...props}
-      data-slot="pin-input-separator"
-    >
-      {children ?? <SeparatorMarkIcon />}
-    </span>
-  );
-}
+const PinInputSeparator = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
+  function PinInputSeparator(
+    { className, 'aria-hidden': ariaHidden = true, role = 'presentation', children, ...props },
+    ref,
+  ) {
+    return (
+      <span
+        ref={ref}
+        aria-hidden={ariaHidden}
+        role={role}
+        className={cn(
+          'pointer-events-none inline-flex size-4 flex-none items-center justify-center leading-none text-muted-foreground [&>svg]:size-full [&>svg]:flex-none',
+          className,
+        )}
+        {...props}
+        data-slot="pin-input-separator"
+      >
+        {children ?? <SeparatorMarkIcon />}
+      </span>
+    );
+  },
+);
 
 function usePinInput(props: UsePinInputProps = {}) {
   return usePinInputPrimitive({ placeholder: '', ...props });

@@ -310,9 +310,13 @@ const DrawerIndentBackground = forwardRef<
   );
 });
 
-function DrawerHeader({ className, ...props }: HTMLArkProps<'div'>) {
+const DrawerHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function DrawerHeader(
+  { className, ...props },
+  ref,
+) {
   return (
     <ark.div
+      ref={ref}
       className={cn(
         "grid grid-cols-[minmax(0,1fr)_auto] items-start gap-1 [&>[data-slot='drawer-close-icon']]:col-start-2 [&>[data-slot='drawer-close-icon']]:justify-self-end [&>[data-slot='drawer-close-trigger']]:col-start-2 [&>[data-slot='drawer-close-trigger']]:justify-self-end [&>[data-slot='drawer-description']]:col-span-2 [&>[data-slot='drawer-title']]:col-start-1",
         className,
@@ -321,11 +325,15 @@ function DrawerHeader({ className, ...props }: HTMLArkProps<'div'>) {
       data-slot="drawer-header"
     />
   );
-}
+});
 
-function DrawerBody({ className, ...props }: HTMLArkProps<'div'>) {
+const DrawerBody = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function DrawerBody(
+  { className, ...props },
+  ref,
+) {
   return (
     <ark.div
+      ref={ref}
       className={cn(
         'mt-4 min-h-0 overflow-y-auto text-md leading-6 text-muted-foreground',
         className,
@@ -334,17 +342,21 @@ function DrawerBody({ className, ...props }: HTMLArkProps<'div'>) {
       data-slot="drawer-body"
     />
   );
-}
+});
 
-function DrawerFooter({ className, ...props }: HTMLArkProps<'div'>) {
+const DrawerFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function DrawerFooter(
+  { className, ...props },
+  ref,
+) {
   return (
     <ark.div
+      ref={ref}
       className={cn('mt-6 flex justify-end gap-2', className)}
       {...props}
       data-slot="drawer-footer"
     />
   );
-}
+});
 
 const DrawerContext = DrawerPrimitive.Context;
 

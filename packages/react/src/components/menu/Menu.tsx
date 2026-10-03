@@ -75,13 +75,20 @@ const MenuTrigger = forwardRef<
   );
 });
 
-function MenuTriggerIcon({ className, children, ...props }: ComponentProps<'span'>) {
-  return (
-    <span className={clsx(styles.triggerIcon, className)} {...props} data-slot="menu-trigger-icon">
-      {children ?? <ChevronDownIcon className={styles.iconSvg} />}
-    </span>
-  );
-}
+const MenuTriggerIcon = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
+  function MenuTriggerIcon({ className, children, ...props }, ref) {
+    return (
+      <span
+        ref={ref}
+        className={clsx(styles.triggerIcon, className)}
+        {...props}
+        data-slot="menu-trigger-icon"
+      >
+        {children ?? <ChevronDownIcon className={styles.iconSvg} />}
+      </span>
+    );
+  },
+);
 
 const MenuIndicator = forwardRef<
   ComponentRef<typeof MenuPrimitive.Indicator>,
@@ -222,17 +229,20 @@ const MenuTriggerItem = forwardRef<
   );
 });
 
-function MenuTriggerItemIcon({ className, children, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      className={clsx(styles.triggerItemIcon, className)}
-      {...props}
-      data-slot="menu-trigger-item-icon"
-    >
-      {children ?? <ChevronRightIcon className={styles.iconSvg} />}
-    </span>
-  );
-}
+const MenuTriggerItemIcon = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
+  function MenuTriggerItemIcon({ className, children, ...props }, ref) {
+    return (
+      <span
+        ref={ref}
+        className={clsx(styles.triggerItemIcon, className)}
+        {...props}
+        data-slot="menu-trigger-item-icon"
+      >
+        {children ?? <ChevronRightIcon className={styles.iconSvg} />}
+      </span>
+    );
+  },
+);
 
 const MenuSeparator = forwardRef<
   ComponentRef<typeof MenuPrimitive.Separator>,

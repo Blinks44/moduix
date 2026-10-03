@@ -11,6 +11,10 @@ import { createSSRApp, defineComponent, h, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance, VNodeChild } from 'vue';
 import {
   Toast,
+  Popover,
+  PopoverTrigger,
+  PopoverPositioner,
+  PopoverContent,
   ToastActionTrigger,
   ToastCloseTrigger,
   ToastDescription,
@@ -505,3 +509,77 @@ test('renders and hydrates the public anatomy on the server', async () => {
   app.unmount();
   host.remove();
 });
+
+test('moves the same toaster host when portal options change reactively', async () => {
+  const first = document.createElement('div');
+  const second = document.createElement('div');
+  document.body.append(first, second);
+  const target = ref(first);
+  const portalled = ref(true);
+  const toaster = createToaster({ placement: 'bottom', duration: Infinity });
+  const { container, unmount } = render(
+    defineComponent({
+      components: { ToastToaster },
+      setup: () => ({ target, portalled, toaster }),
+      template:
+        '<ToastToaster :toaster="toaster" :portalled="portalled" :portal-ref="() => target" />',
+    }),
+  );
+  toaster.create({ title: 'Moving toast' });
+  const title = await within(first).findByText('Moving toast');
+  const group = title.closest('[data-slot="toast-toaster"]');
+  target.value = second;
+  await waitFor(() => expect(second).toContainElement(title));
+  expect(title.closest('[data-slot="toast-toaster"]')).toBe(group);
+  portalled.value = false;
+  await waitFor(() => expect(container).toContainElement(title));
+  portalled.value = true;
+  await waitFor(() => expect(second).toContainElement(title));
+  expect(title.closest('[data-slot="toast-toaster"]')).toBe(group);
+  unmount();
+  first.remove();
+  second.remove();
+});
+
+test.each([false, true])(
+  'keeps nested Popover portal independent (toaster portalled=%s)',
+  async (portalled) => {
+    const target = document.createElement('div');
+    document.body.append(target);
+    const toaster = createToaster({ placement: 'bottom', duration: Infinity });
+    const { container, unmount } = render(
+      defineComponent({
+        components: {
+          ...toastComponents,
+          Popover,
+          PopoverTrigger,
+          PopoverPositioner,
+          PopoverContent,
+        },
+        setup: () => ({ toaster, portalled, target }),
+        template: `
+      <ToastToaster :toaster="toaster" :portalled="portalled" :portal-ref="target">
+        <template #default>
+          <Toast>
+            <ToastTitle />
+            <Popover default-open>
+              <PopoverTrigger>Popover trigger</PopoverTrigger>
+              <PopoverPositioner><PopoverContent data-testid="nested-popover">Nested popover</PopoverContent></PopoverPositioner>
+            </Popover>
+          </Toast>
+        </template>
+      </ToastToaster>
+    `,
+      }),
+    );
+    toaster.create({ title: 'Toast with popover' });
+    const title = await screen.findByText('Toast with popover');
+    const popover = await screen.findByTestId('nested-popover');
+    expect(portalled ? target : container).toContainElement(title);
+    expect(target).not.toContainElement(popover);
+    expect(container).not.toContainElement(popover);
+    expect(document.body).toContainElement(popover);
+    unmount();
+    target.remove();
+  },
+);

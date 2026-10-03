@@ -14,7 +14,7 @@ import DatePickerTrigger from './DatePickerTrigger.vue';
 
 defineOptions({ inheritAttrs: false });
 
-export interface Props extends /* @vue-ignore */ DatePickerControlProps {
+export interface Props extends /* @vue-ignore */ Omit<DatePickerControlProps, 'asChild'> {
   class?: HTMLAttributes['class'];
   clearLabel?: string;
   clearTriggerProps?: DatePickerClearTriggerProps;
@@ -27,7 +27,7 @@ export interface Props extends /* @vue-ignore */ DatePickerControlProps {
 }
 
 const props = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+defineSlots<{}>();
 
 const attrs = useAttrs();
 const startInputProps = computed(() => ({
@@ -51,7 +51,7 @@ const triggerProps = computed(() => ({
 </script>
 
 <template>
-  <DatePickerControl v-bind="attrs" :class="props.class">
+  <DatePickerControl v-bind="attrs" :as-child="false" :class="props.class">
     <DatePickerInput v-bind="startInputProps" />
     <DatePickerInput v-bind="endInputProps" />
     <DatePickerClearTrigger v-bind="clearTriggerProps" />

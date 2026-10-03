@@ -22,7 +22,7 @@ defineOptions({ inheritAttrs: false });
 type DatePickerApi = UnwrapRef<UseDatePickerReturn>;
 type DatePickerOffset = ReturnType<DatePickerApi['getOffset']>;
 
-export interface Props extends /* @vue-ignore */ DatePickerTableProps {
+export interface Props extends /* @vue-ignore */ Omit<DatePickerTableProps, 'asChild'> {
   class?: HTMLAttributes['class'];
   offset?: DatePickerOffset;
   showHeader?: boolean;
@@ -35,7 +35,7 @@ const {
   showHeader = true,
   showWeekNumbers = false,
 } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+defineSlots<{}>();
 
 const attrs = useAttrs();
 const datePicker = useDatePickerContext();
@@ -49,7 +49,7 @@ const datePicker = useDatePickerContext();
       <DatePickerNextTrigger />
     </DatePickerViewControl>
   </template>
-  <DatePickerTable v-bind="attrs" :class="className">
+  <DatePickerTable v-bind="attrs" :as-child="false" :class="className">
     <DatePickerTableHead>
       <DatePickerTableRow>
         <DatePickerWeekNumberHeaderCell v-if="showWeekNumbers" />

@@ -27,7 +27,10 @@ import { CloseButton } from '../close-button';
 type DatePickerRootProps = ComponentProps<typeof DatePickerPrimitive.Root> & OverlayPortalProps;
 type DatePickerRootProviderProps = ComponentProps<typeof DatePickerPrimitive.RootProvider> &
   OverlayPortalProps;
-type DatePickerFieldProps = ComponentProps<typeof DatePickerPrimitive.Control> & {
+type DatePickerFieldProps = Omit<
+  ComponentProps<typeof DatePickerPrimitive.Control>,
+  'asChild' | 'children'
+> & {
   clearLabel?: string;
   clearTriggerProps?: ComponentProps<typeof DatePickerPrimitive.ClearTrigger>;
   inputProps?: ComponentProps<typeof DatePickerPrimitive.Input>;
@@ -35,7 +38,10 @@ type DatePickerFieldProps = ComponentProps<typeof DatePickerPrimitive.Control> &
   triggerLabel?: string;
   triggerProps?: ComponentProps<typeof DatePickerPrimitive.Trigger>;
 };
-type DatePickerRangeFieldProps = ComponentProps<typeof DatePickerPrimitive.Control> & {
+type DatePickerRangeFieldProps = Omit<
+  ComponentProps<typeof DatePickerPrimitive.Control>,
+  'asChild' | 'children'
+> & {
   clearLabel?: string;
   clearTriggerProps?: ComponentProps<typeof DatePickerPrimitive.ClearTrigger>;
   endInputProps?: ComponentProps<typeof DatePickerPrimitive.Input>;
@@ -46,7 +52,10 @@ type DatePickerRangeFieldProps = ComponentProps<typeof DatePickerPrimitive.Contr
   triggerProps?: ComponentProps<typeof DatePickerPrimitive.Trigger>;
 };
 type DatePickerOffset = ReturnType<UseDatePickerReturn['getOffset']>;
-type DatePickerDayTableProps = ComponentProps<typeof DatePickerPrimitive.Table> & {
+type DatePickerDayTableProps = Omit<
+  ComponentProps<typeof DatePickerPrimitive.Table>,
+  'asChild' | 'children'
+> & {
   offset?: DatePickerOffset;
   showHeader?: boolean;
   showWeekNumbers?: boolean;
@@ -159,20 +168,10 @@ const DatePickerField = forwardRef<
   ref,
 ) {
   return (
-    <DatePickerControl ref={ref} {...props}>
-      <DatePickerInput
-        {...(placeholder === undefined ? {} : { placeholder })}
-        {...inputProps}
-        index={0}
-      />
-      <DatePickerClearTrigger
-        {...(clearLabel === undefined ? {} : { 'aria-label': clearLabel })}
-        {...clearTriggerProps}
-      />
-      <DatePickerTrigger
-        {...(triggerLabel === undefined ? {} : { 'aria-label': triggerLabel })}
-        {...triggerProps}
-      />
+    <DatePickerControl ref={ref} {...props} asChild={false}>
+      <DatePickerInput placeholder={placeholder} {...inputProps} index={0} />
+      <DatePickerClearTrigger aria-label={clearLabel} {...clearTriggerProps} />
+      <DatePickerTrigger aria-label={triggerLabel} {...triggerProps} />
     </DatePickerControl>
   );
 });
@@ -195,25 +194,11 @@ const DatePickerRangeField = forwardRef<
   ref,
 ) {
   return (
-    <DatePickerControl ref={ref} {...props}>
-      <DatePickerInput
-        {...(startPlaceholder === undefined ? {} : { placeholder: startPlaceholder })}
-        {...startInputProps}
-        index={0}
-      />
-      <DatePickerInput
-        {...(endPlaceholder === undefined ? {} : { placeholder: endPlaceholder })}
-        {...endInputProps}
-        index={1}
-      />
-      <DatePickerClearTrigger
-        {...(clearLabel === undefined ? {} : { 'aria-label': clearLabel })}
-        {...clearTriggerProps}
-      />
-      <DatePickerTrigger
-        {...(triggerLabel === undefined ? {} : { 'aria-label': triggerLabel })}
-        {...triggerProps}
-      />
+    <DatePickerControl ref={ref} {...props} asChild={false}>
+      <DatePickerInput placeholder={startPlaceholder} {...startInputProps} index={0} />
+      <DatePickerInput placeholder={endPlaceholder} {...endInputProps} index={1} />
+      <DatePickerClearTrigger aria-label={clearLabel} {...clearTriggerProps} />
+      <DatePickerTrigger aria-label={triggerLabel} {...triggerProps} />
     </DatePickerControl>
   );
 });
@@ -279,8 +264,8 @@ const DatePickerClearTrigger = forwardRef<
         'absolute end-[2.125rem] top-1/2 inline-flex size-control-xs shrink-0 -translate-y-1/2 cursor-pointer items-center justify-center rounded-sm bg-transparent p-0 leading-none text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 data-disabled:cursor-default data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:text-foreground',
         className,
       )}
-      {...(asChild && ariaLabel !== undefined ? { 'aria-label': ariaLabel } : {})}
-      {...(asChild && ariaLabelledBy !== undefined ? { 'aria-labelledby': ariaLabelledBy } : {})}
+      aria-label={asChild ? ariaLabel : undefined}
+      aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
       data-slot="date-picker-clear-trigger"
     >
@@ -288,8 +273,8 @@ const DatePickerClearTrigger = forwardRef<
         children
       ) : (
         <CloseButton
-          {...(ariaLabel === undefined ? {} : { 'aria-label': ariaLabel })}
-          {...(ariaLabelledBy === undefined ? {} : { 'aria-labelledby': ariaLabelledBy })}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
           className={cn(
             'size-control-xs focus-visible:outline-1 focus-visible:-outline-offset-1 [&>svg]:size-4',
             className,
@@ -601,7 +586,7 @@ const DatePickerDayTable = forwardRef<
               <DatePickerNextTrigger />
             </DatePickerViewControl>
           ) : null}
-          <DatePickerTable ref={ref} {...props}>
+          <DatePickerTable ref={ref} {...props} asChild={false}>
             <DatePickerTableHead>
               <DatePickerTableRow>
                 {showWeekNumbers ? <DatePickerWeekNumberHeaderCell /> : null}

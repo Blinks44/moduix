@@ -2,9 +2,7 @@ import { ark, type HTMLArkProps } from '@ark-ui/solid/factory';
 import {
   Listbox as ListboxPrimitive,
   type CollectionItem,
-  type ListboxRootComponent,
   type ListboxRootProps,
-  type ListboxRootProviderComponent,
   type ListboxRootProviderProps,
   useListbox,
   useListboxContext,
@@ -21,7 +19,7 @@ const listboxRootVariants = cva(
   'box-border flex w-64 max-w-full min-w-0 flex-col gap-3 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
 );
 
-const Listbox = function Listbox<T extends CollectionItem>(props: ListboxRootProps<T>) {
+function Listbox<T extends CollectionItem>(props: ListboxRootProps<T>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -31,11 +29,9 @@ const Listbox = function Listbox<T extends CollectionItem>(props: ListboxRootPro
       data-slot="listbox-root"
     />
   );
-} as ListboxRootComponent;
+}
 
-const ListboxRootProvider = function ListboxRootProvider<T extends CollectionItem>(
-  props: ListboxRootProviderProps<T>,
-) {
+function ListboxRootProvider<T extends CollectionItem>(props: ListboxRootProviderProps<T>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -45,7 +41,7 @@ const ListboxRootProvider = function ListboxRootProvider<T extends CollectionIte
       data-slot="listbox-root-provider"
     />
   );
-} as ListboxRootProviderComponent;
+}
 
 function ListboxLabel(props: ComponentProps<typeof ListboxPrimitive.Label>) {
   const [local, others] = splitProps(props, ['class']);

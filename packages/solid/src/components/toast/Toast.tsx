@@ -121,13 +121,14 @@ function ToastCloseTrigger(props: ComponentProps<typeof ToastPrimitive.CloseTrig
     'class',
   ]);
   const resolvedChildren = resolveChildren(() => local.children);
-  const ariaLabel = local['aria-label'] === undefined ? a11yLabels.closeToast : local['aria-label'];
+  const ariaLabel = () =>
+    local['aria-label'] === undefined ? a11yLabels.closeToast : local['aria-label'];
 
   if (local.asChild) {
     return (
       <ToastPrimitive.CloseTrigger
         asChild={local.asChild}
-        aria-label={ariaLabel}
+        aria-label={ariaLabel()}
         aria-labelledby={local['aria-labelledby']}
         class={local.class}
         {...others}
@@ -144,14 +145,14 @@ function ToastCloseTrigger(props: ComponentProps<typeof ToastPrimitive.CloseTrig
         <CloseButton
           {...triggerProps()}
           data-slot="toast-close-trigger"
-          aria-label={ariaLabel}
+          aria-label={ariaLabel()}
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeTrigger, local.class)}
         >
           {resolvedChildren()}
         </CloseButton>
       )}
-      aria-label={ariaLabel}
+      aria-label={ariaLabel()}
       aria-labelledby={local['aria-labelledby']}
       {...others}
       data-slot="toast-close-trigger"

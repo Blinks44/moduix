@@ -6,6 +6,7 @@ import { createSSRApp, defineComponent, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
   DatePicker,
+  DatePickerClearTrigger,
   DatePickerContext,
   DatePickerContent,
   DatePickerDayTable,
@@ -31,6 +32,7 @@ import {
 
 const datePickerComponents = {
   DatePicker,
+  DatePickerClearTrigger,
   DatePickerContext,
   DatePickerContent,
   DatePickerDayTable,
@@ -68,6 +70,38 @@ const translations = {
 };
 
 const date = (value: string) => parseDate(value);
+
+test.each([false, true])(
+  'keeps clear-trigger accessible names reactive (asChild=%s)',
+  async (asChild) => {
+    const label = ref('Clear initial date');
+    const labelledby = ref<string | undefined>();
+    render(
+      defineComponent({
+        components: datePickerComponents,
+        setup: () => ({ asChild, label, labelledby, value: date('2026-06-22') }),
+        template: `
+      <DatePicker :default-value="[value]">
+        <span id="clear-date-label">Clear labelled date</span>
+        <DatePickerClearTrigger :as-child="asChild" :aria-label="label" :aria-labelledby="labelledby">
+          <button v-if="asChild" type="button">Clear</button>
+        </DatePickerClearTrigger>
+      </DatePicker>
+    `,
+      }),
+    );
+    expect(screen.getByRole('button', { name: 'Clear initial date' })).toBeVisible();
+    label.value = 'Clear updated date';
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Clear updated date' })).toBeVisible(),
+    );
+    labelledby.value = 'clear-date-label';
+    await waitFor(() => {
+      const clear = screen.getByRole('button', { name: 'Clear labelled date' });
+      expect(clear).toHaveAttribute('aria-labelledby', 'clear-date-label');
+    });
+  },
+);
 
 test('renders Ark month and year primitives as native selects', () => {
   render(
@@ -421,3 +455,125 @@ test('applies Tailwind defaults before consumer classes', () => {
   expect(root).toHaveClass('custom-root');
   expect(root).toHaveClass('group/date-picker');
 });
+
+const fixedPropTypes: Extract<
+  | keyof InstanceType<typeof DatePickerField>['$props']
+  | keyof InstanceType<typeof DatePickerRangeField>['$props']
+  | keyof InstanceType<typeof DatePickerDayTable>['$props'],
+  'asChild'
+> extends never
+  ? true
+  : false = true;
+const fixedSlotTypes: Extract<
+  | keyof InstanceType<typeof DatePickerField>['$slots']
+  | keyof InstanceType<typeof DatePickerRangeField>['$slots']
+  | keyof InstanceType<typeof DatePickerDayTable>['$slots'],
+  'default'
+> extends never
+  ? true
+  : false = true;
+
+test('excludes unsupported composition props and slots on fixed sugar', () => {
+  expect(fixedPropTypes).toBe(true);
+  expect(fixedSlotTypes).toBe(true);
+});
+
+test.each([
+  { component: 'DatePickerField', count: 1 },
+  { component: 'DatePickerRangeField', count: 2 },
+])('preserves fixed $component anatomy when JavaScript passes asChild', ({ component, count }) => {
+  render({
+    components: datePickerComponents,
+    template: `
+      <DatePicker :default-value="[date]" :translations="translations">
+        <DatePickerLabel>Fixed date</DatePickerLabel>
+        <${component} :as-child="true" data-testid="fixed-control">
+          <button>Ignored content</button>
+        </${component}>
+      </DatePicker>
+    `,
+    setup: () => ({ date: date('2026-06-22'), translations }),
+  });
+  expect(screen.getByTestId('fixed-control').tagName).toBe('DIV');
+  expect(screen.getAllByRole('textbox')).toHaveLength(count);
+  expect(screen.queryByText('Ignored content')).toBeNull();
+  expect(screen.getByRole('button', { name: 'Clear localized date' })).toBeVisible();
+  expect(screen.getByRole('button', { name: 'Open localized calendar' })).toBeVisible();
+  expect(screen.getAllByRole('textbox').map((input) => input.getAttribute('placeholder'))).toEqual(
+    Array(count).fill('mm/dd/yyyy'),
+  );
+});
+
+test('preserves the fixed day table despite unsupported JavaScript composition', async () => {
+  render({
+    components: datePickerComponents,
+    template: `
+      <DatePicker default-open :portalled="false">
+        <DatePickerPositioner><DatePickerContent><DatePickerView view="day">
+          <DatePickerDayTable :as-child="true" :show-header="false" show-week-numbers data-testid="fixed-table">
+            <span>Ignored table content</span>
+          </DatePickerDayTable>
+        </DatePickerView></DatePickerContent></DatePickerPositioner>
+      </DatePicker>
+    `,
+  });
+  expect((await screen.findByTestId('fixed-table')).tagName).toBe('TABLE');
+  expect(screen.getAllByRole('columnheader', { hidden: true })).toHaveLength(8);
+  expect(screen.queryByText('Ignored table content')).toBeNull();
+});
+
+test.each(['DatePickerField', 'DatePickerRangeField'])(
+  'keeps %s convenience props reactive and consumer overrides last',
+  async (component) => {
+    const placeholder = ref('Convenience placeholder');
+    const clearLabel = ref('Convenience clear');
+    const triggerLabel = ref('Convenience trigger');
+    const overrides = ref(false);
+    render(
+      defineComponent({
+        components: datePickerComponents,
+        setup: () => ({
+          placeholder,
+          clearLabel,
+          triggerLabel,
+          overrides,
+          date: date('2026-06-22'),
+        }),
+        template: `
+        <DatePicker :default-value="[date]">
+          <${component}
+            :placeholder="placeholder" :start-placeholder="placeholder" :end-placeholder="placeholder"
+            :clear-label="clearLabel" :trigger-label="triggerLabel"
+            :input-props="overrides ? { placeholder: 'Override placeholder' } : undefined"
+            :start-input-props="overrides ? { placeholder: 'Override placeholder', index: 1 } : undefined"
+            :end-input-props="overrides ? { placeholder: 'Override placeholder', index: 0 } : undefined"
+            :clear-trigger-props="overrides ? { 'aria-label': 'Override clear' } : undefined"
+            :trigger-props="overrides ? { 'aria-label': 'Override trigger' } : undefined"
+          />
+        </DatePicker>
+      `,
+      }),
+    );
+    expect(screen.getByRole('button', { name: 'Convenience clear' })).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Convenience trigger' })).toBeVisible();
+    placeholder.value = 'Updated placeholder';
+    clearLabel.value = 'Updated clear';
+    triggerLabel.value = 'Updated trigger';
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'Updated clear' })).toBeVisible();
+      expect(screen.getByRole('button', { name: 'Updated trigger' })).toBeVisible();
+      for (const input of screen.getAllByRole('textbox'))
+        expect(input).toHaveAttribute('placeholder', 'Updated placeholder');
+    });
+    overrides.value = true;
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'Override clear' })).toBeVisible();
+      expect(screen.getByRole('button', { name: 'Override trigger' })).toBeVisible();
+      for (const input of screen.getAllByRole('textbox'))
+        expect(input).toHaveAttribute('placeholder', 'Override placeholder');
+    });
+    expect(screen.getAllByRole('textbox').map((input) => input.getAttribute('data-index'))).toEqual(
+      component === 'DatePickerRangeField' ? ['0', '1'] : ['0'],
+    );
+  },
+);

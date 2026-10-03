@@ -1,9 +1,7 @@
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
-  type ComboboxRootComponent as ArkComboboxRootComponent,
   type ComboboxRootProps as ArkComboboxRootProps,
-  type ComboboxRootProviderComponent as ArkComboboxRootProviderComponent,
   type ComboboxRootProviderProps as ArkComboboxRootProviderProps,
   useCombobox,
   useComboboxContext,
@@ -25,7 +23,7 @@ type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & Ove
 type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProviderProps<T> &
   OverlayPortalProps;
 
-const Combobox = function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
+function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -53,11 +51,9 @@ const Combobox = function Combobox<T extends CollectionItem>(props: ComboboxRoot
       </ComboboxPrimitive.Root>
     </OverlayPortalProvider>
   );
-} as ArkComboboxRootComponent<OverlayPortalProps>;
+}
 
-const ComboboxRootProvider = function ComboboxRootProvider<T extends CollectionItem>(
-  props: ComboboxRootProviderProps<T>,
-) {
+function ComboboxRootProvider<T extends CollectionItem>(props: ComboboxRootProviderProps<T>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -85,7 +81,7 @@ const ComboboxRootProvider = function ComboboxRootProvider<T extends CollectionI
       </ComboboxPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
-} as ArkComboboxRootProviderComponent<OverlayPortalProps>;
+}
 
 function ComboboxLabel(props: ComponentProps<typeof ComboboxPrimitive.Label>) {
   const [local, others] = splitProps(props, ['class']);
@@ -143,10 +139,11 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
     'class',
   ]);
   const resolvedChildren = children(() => local.children);
-  const triggerClass = cn(
-    'absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4',
-    local.class,
-  );
+  const triggerClass = () =>
+    cn(
+      'absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4',
+      local.class,
+    );
 
   if (local.asChild) {
     return (
@@ -154,7 +151,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        class={triggerClass}
+        class={triggerClass()}
         {...others}
         data-slot="combobox-clear-trigger"
       >
@@ -181,7 +178,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
           </CloseButton>
         );
       }}
-      class={triggerClass}
+      class={triggerClass()}
       {...others}
       data-slot="combobox-clear-trigger"
     />

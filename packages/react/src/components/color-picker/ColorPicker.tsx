@@ -25,31 +25,19 @@ const ColorPicker = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.Root>,
   ColorPickerRootProps
 >(function ColorPicker(
-  {
-    asChild,
-    children,
-    className,
-    lazyMount = true,
-    portalled,
-    portalRef,
-    unmountOnExit = true,
-    ...props
-  },
+  { className, lazyMount = true, portalled, portalRef, unmountOnExit = true, ...props },
   ref,
 ) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <ColorPickerPrimitive.Root
         ref={ref}
-        asChild={asChild}
         className={clsx(styles.root, className)}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
         data-slot="color-picker-root"
-      >
-        {children}
-      </ColorPickerPrimitive.Root>
+      />
     </OverlayPortalProvider>
   );
 });
@@ -58,31 +46,19 @@ const ColorPickerRootProvider = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.RootProvider>,
   ColorPickerRootProviderProps
 >(function ColorPickerRootProvider(
-  {
-    asChild,
-    children,
-    className,
-    lazyMount = true,
-    portalled,
-    portalRef,
-    unmountOnExit = true,
-    ...props
-  },
+  { className, lazyMount = true, portalled, portalRef, unmountOnExit = true, ...props },
   ref,
 ) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <ColorPickerPrimitive.RootProvider
         ref={ref}
-        asChild={asChild}
         className={clsx(styles.root, className)}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
         data-slot="color-picker-root-provider"
-      >
-        {children}
-      </ColorPickerPrimitive.RootProvider>
+      />
     </OverlayPortalProvider>
   );
 });

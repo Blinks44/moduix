@@ -19,7 +19,7 @@ type SignaturePadApi = ReturnType<typeof useSignaturePadPrimitive> & { readOnly:
 type SignaturePadRootProviderProps = Omit<
   ComponentProps<typeof SignaturePadPrimitive.RootProvider>,
   'value'
-> & { value: SignaturePadApi };
+> & { value: ReturnType<typeof useSignaturePadPrimitive> & { readOnly?: boolean } };
 
 const SignaturePad = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.Root>,

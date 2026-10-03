@@ -46,9 +46,10 @@ export type {
   SignaturePadRootEmits,
   SignaturePadRootProps,
   SignaturePadRootProviderBaseProps,
-  SignaturePadRootProviderProps,
   SignaturePadSegmentBaseProps,
   SignaturePadSegmentProps,
   UseSignaturePadProps,
   UseSignaturePadReturn,
 } from '@ark-ui/vue/signature-pad';
+
+export type { Props as SignaturePadRootProviderProps } from './SignaturePadRootProvider.vue';

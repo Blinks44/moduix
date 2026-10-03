@@ -26,7 +26,7 @@ Preserve these upstream behaviors:
 
 ## Current behavior contract
 
-- `Highlight` is the callable root and `Highlight` is the same component.
+- `Highlight` is the callable root; its props exclude `ref` because there is no single DOM target.
 - The component renders one `<mark>` per matched chunk and plain text nodes for unmatched chunks.
 - If the query does not match, the component renders only plain text with no `<mark>` output.
 - `matchAll` defaults to `false` for a string query and to `true` for a string-array query. A string
@@ -42,9 +42,9 @@ Highlight
 └─ repeated <mark> segments for matched ranges inside the provided text
 ```
 
-| Part                      | `data-slot`      | Notes                                                                    |
-| ------------------------- | ---------------- | ------------------------------------------------------------------------ |
-| `Highlight` / `Highlight` | `highlight-root` | Applied to every matched `<mark>` segment; no outer wrapper is rendered. |
+| Part        | `data-slot`      | Notes                                                                    |
+| ----------- | ---------------- | ------------------------------------------------------------------------ |
+| `Highlight` | `highlight-root` | Applied to every matched `<mark>` segment; no outer wrapper is rendered. |
 
 ## Composition
 
@@ -139,6 +139,7 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-10-03: Excluded the unsupported `ref` prop from the React Highlight contract without adding a wrapper.
 - 2026-08-11: Protected the stable `data-scope`, `data-part`, and `data-slot` hooks from consumer-prop overrides.
 - 2026-07-27: Documented conditional `matchAll` defaults and the upstream non-ASCII `exactMatch`
   limitation; added regression coverage for the rendered contract.

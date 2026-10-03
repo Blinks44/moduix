@@ -250,3 +250,55 @@ test('preserves vertical orientation for Ark navigation', () => {
     'vertical',
   );
 });
+
+test('preserves generated IDs, inherited state and root asChild with undefined props', () => {
+  const rootRef = createRef<HTMLDivElement>();
+  render(
+    <Field disabled invalid readOnly required>
+      <SegmentGroup
+        ref={rootRef}
+        asChild
+        id={undefined}
+        orientation={undefined}
+        disabled={undefined}
+        defaultValue="React"
+      >
+        <section data-testid="custom-group">
+          <SegmentItems />
+        </section>
+      </SegmentGroup>
+    </Field>,
+  );
+  const root = screen.getByTestId('custom-group');
+  expect(rootRef.current).toBe(root);
+  expect(root.id).not.toMatch(/undefined|^$/);
+  expect(root).toHaveAttribute('data-orientation', 'horizontal');
+  expect(root).toHaveAttribute('data-disabled');
+  expect(root).toHaveAttribute('data-invalid');
+  expect(root).toHaveAttribute('data-required');
+  for (const radio of screen.getAllByRole('radio')) expect(radio).toBeDisabled();
+});
+
+test('lets explicit false override inherited Field state', async () => {
+  render(
+    <Field disabled invalid readOnly required>
+      <SegmentGroup
+        disabled={false}
+        invalid={false}
+        readOnly={false}
+        required={false}
+        defaultValue="React"
+      >
+        <SegmentItems />
+      </SegmentGroup>
+    </Field>,
+  );
+  const root = screen.getByRole('radiogroup');
+  expect(root).not.toHaveAttribute('data-disabled');
+  expect(root).not.toHaveAttribute('data-invalid');
+  expect(root).not.toHaveAttribute('data-required');
+  const solid = screen.getByRole('radio', { name: 'Solid' });
+  expect(solid).not.toBeDisabled();
+  fireEvent.click(solid);
+  await waitFor(() => expect(solid).toBeChecked());
+});

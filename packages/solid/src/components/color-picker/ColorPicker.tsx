@@ -20,8 +20,6 @@ type ColorPickerRootProviderProps = ComponentProps<typeof ColorPickerPrimitive.R
 
 function ColorPicker(props: ColorPickerRootProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
     'class',
     'lazyMount',
     'portalled',
@@ -32,23 +30,18 @@ function ColorPicker(props: ColorPickerRootProps) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ColorPickerPrimitive.Root
-        asChild={local.asChild}
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
         data-slot="color-picker-root"
-      >
-        {local.children}
-      </ColorPickerPrimitive.Root>
+      />
     </OverlayPortalProvider>
   );
 }
 
 function ColorPickerRootProvider(props: ColorPickerRootProviderProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
     'class',
     'lazyMount',
     'portalled',
@@ -59,15 +52,12 @@ function ColorPickerRootProvider(props: ColorPickerRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ColorPickerPrimitive.RootProvider
-        asChild={local.asChild}
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
         data-slot="color-picker-root-provider"
-      >
-        {local.children}
-      </ColorPickerPrimitive.RootProvider>
+      />
     </OverlayPortalProvider>
   );
 }

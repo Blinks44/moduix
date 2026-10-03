@@ -1,4 +1,4 @@
-import { expect, test } from '@rstest/core';
+import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, ref } from 'vue';
@@ -334,4 +334,52 @@ test('renders and hydrates the public anatomy on the server', async () => {
   expect([...host.querySelectorAll('[id]')].map((element) => element.id)).toEqual(serverIds);
   app.unmount();
   host.remove();
+});
+
+test.each([
+  { name: 'empty currentSrc', currentSrc: '', override: undefined, selected: 'fallback' },
+  {
+    name: 'responsive source',
+    currentSrc: '/responsive.jpg',
+    override: undefined,
+    selected: '/responsive.jpg',
+  },
+  {
+    name: 'source override',
+    currentSrc: '/responsive.jpg',
+    override: '/full.jpg',
+    selected: '/full.jpg',
+  },
+  { name: 'explicit empty override', currentSrc: '/responsive.jpg', override: '', selected: null },
+])('resolves bound images with $name', async ({ currentSrc, override, selected }) => {
+  const root = ref<HTMLElement>();
+  const onImageSelect = rs.fn();
+  render(
+    defineComponent({
+      components: lightboxComponents,
+      setup: () => ({ root, onImageSelect }),
+      template: `
+      <div ref="root"><button type="button"><img src="/thumbnail.jpg" alt="Bound image" /></button></div>
+      <Lightbox :portalled="false">
+        <LightboxBind :root-ref="() => root" selector="button" :on-image-select="onImageSelect" />
+        <LightboxPositioner><LightboxContent aria-label="Bound preview" /></LightboxPositioner>
+      </Lightbox>
+    `,
+    }),
+  );
+  const image = screen.getByRole('img', { name: 'Bound image' }) as HTMLImageElement;
+  Object.defineProperty(image, 'currentSrc', { configurable: true, value: currentSrc });
+  if (override !== undefined) image.dataset.lightboxSrc = override;
+  await fireEvent.click(image);
+  if (selected === null) {
+    expect(onImageSelect).not.toHaveBeenCalled();
+    expect(screen.queryByRole('dialog')).toBeNull();
+  } else {
+    expect(onImageSelect).toHaveBeenCalledExactlyOnceWith({
+      src: selected === 'fallback' ? image.src : selected,
+      alt: image.alt,
+      element: image,
+    });
+    expect(await screen.findByRole('dialog', { name: 'Bound preview' })).toBeVisible();
+  }
 });

@@ -44,50 +44,35 @@ function SegmentGroup(props: ComponentProps<typeof SegmentGroupPrimitive.Root>) 
     'asChild',
     'children',
     'class',
-    'defaultValue',
     'disabled',
-    'form',
-    'id',
-    'ids',
     'invalid',
-    'name',
-    'onValueChange',
     'orientation',
     'readOnly',
     'required',
-    'value',
   ]);
 
-  const segmentGroup = useSegmentGroup(() =>
-    omitUndefined({
-      defaultValue: local.defaultValue,
-      disabled: local.disabled,
-      form: local.form,
-      id: local.id,
-      ids: local.ids,
-      invalid: local.invalid,
-      name: local.name,
-      onValueChange: local.onValueChange,
-      orientation: local.orientation ?? 'horizontal',
-      readOnly: local.readOnly,
-      required: local.required,
-      value: local.value,
-    }),
-  );
+  const field = useFieldContext();
+  const fieldset = useFieldsetContext();
 
   return (
-    <SegmentGroupPrimitive.RootProvider
+    <SegmentGroupPrimitive.Root
       asChild={local.asChild}
-      value={segmentGroup}
       class={cn(
         'group/segment-group relative isolate box-border inline-flex max-w-full items-stretch gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
         local.class,
       )}
-      {...others}
+      {...omitUndefined({
+        ...others,
+        orientation: local.orientation ?? 'horizontal',
+        disabled: local.disabled ?? field?.()?.disabled ?? fieldset?.()?.disabled,
+        invalid: local.invalid ?? field?.()?.invalid ?? fieldset?.()?.invalid,
+        readOnly: local.readOnly ?? field?.()?.readOnly,
+        required: local.required ?? field?.()?.required,
+      })}
       data-slot="segment-group-root"
     >
       {local.children}
-    </SegmentGroupPrimitive.RootProvider>
+    </SegmentGroupPrimitive.Root>
   );
 }
 

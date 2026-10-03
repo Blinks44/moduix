@@ -82,9 +82,13 @@ const ListboxInput = forwardRef<
   );
 });
 
-function ListboxFilter({ className, children, ...props }: ComponentProps<'div'>) {
+const ListboxFilter = forwardRef<HTMLDivElement, ComponentProps<'div'>>(function ListboxFilter(
+  { className, children, ...props },
+  ref,
+) {
   return (
     <div
+      ref={ref}
       className={cn(
         'group/listbox-filter peer/listbox-filter relative box-border w-full',
         className,
@@ -99,7 +103,7 @@ function ListboxFilter({ className, children, ...props }: ComponentProps<'div'>)
       {children}
     </div>
   );
-}
+});
 
 const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkProps<'button'>>(
   function ListboxClearTrigger(

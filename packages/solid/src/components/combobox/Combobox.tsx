@@ -1,9 +1,7 @@
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
-  type ComboboxRootComponent as ArkComboboxRootComponent,
   type ComboboxRootProps as ArkComboboxRootProps,
-  type ComboboxRootProviderComponent as ArkComboboxRootProviderComponent,
   type ComboboxRootProviderProps as ArkComboboxRootProviderProps,
   useCombobox,
   useComboboxContext,
@@ -27,7 +25,7 @@ type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & Ove
 type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProviderProps<T> &
   OverlayPortalProps;
 
-const Combobox = function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
+function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -52,11 +50,9 @@ const Combobox = function Combobox<T extends CollectionItem>(props: ComboboxRoot
       </ComboboxPrimitive.Root>
     </OverlayPortalProvider>
   );
-} as ArkComboboxRootComponent<OverlayPortalProps>;
+}
 
-const ComboboxRootProvider = function ComboboxRootProvider<T extends CollectionItem>(
-  props: ComboboxRootProviderProps<T>,
-) {
+function ComboboxRootProvider<T extends CollectionItem>(props: ComboboxRootProviderProps<T>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -81,7 +77,7 @@ const ComboboxRootProvider = function ComboboxRootProvider<T extends CollectionI
       </ComboboxPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
-} as ArkComboboxRootProviderComponent<OverlayPortalProps>;
+}
 
 function ComboboxLabel(props: ComponentProps<typeof ComboboxPrimitive.Label>) {
   const [local, others] = splitProps(props, ['class']);
@@ -129,7 +125,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
     'class',
   ]);
   const resolvedChildren = children(() => local.children);
-  const triggerClass = clsx(styles.clearTrigger, local.class);
+  const triggerClass = () => clsx(styles.clearTrigger, local.class);
 
   if (local.asChild) {
     return (
@@ -137,7 +133,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        class={triggerClass}
+        class={triggerClass()}
         {...others}
         data-slot="combobox-clear-trigger"
       >
@@ -164,7 +160,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
           </CloseButton>
         );
       }}
-      class={triggerClass}
+      class={triggerClass()}
       {...others}
       data-slot="combobox-clear-trigger"
     />

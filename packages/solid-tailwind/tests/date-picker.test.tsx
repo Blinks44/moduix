@@ -2,7 +2,7 @@ import { type DateValue } from '@ark-ui/solid/date-picker';
 import { CalendarDate } from '@internationalized/date';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { createSignal, For } from 'solid-js';
+import { createSignal, For, type ComponentProps } from 'solid-js';
 import {
   DatePicker,
   Field,
@@ -399,4 +399,52 @@ test('lets consumer utilities replace component defaults', () => {
   expect(control).not.toHaveClass('w-full', 'gap-2');
   expect(input).toHaveClass('h-10', 'bg-muted', 'ps-0', 'pe-0');
   expect(input).not.toHaveClass('h-control-md', 'bg-background', 'ps-3.5', 'pe-17');
+});
+
+test.each([
+  { name: 'single', Field: DatePickerField, inputs: 1 },
+  { name: 'range', Field: DatePickerRangeField, inputs: 2 },
+])('preserves $name fixed children through native Solid asChild', ({ name, Field, inputs }) => {
+  render(() => (
+    <DatePicker selectionMode={name === 'range' ? 'range' : 'single'}>
+      <DatePickerLabel>Composed date</DatePickerLabel>
+      <Field asChild={(props) => <section {...props()} data-testid="composed-control" />} />
+    </DatePicker>
+  ));
+  expect(screen.getByTestId('composed-control').tagName).toBe('SECTION');
+  expect(screen.getAllByRole('textbox')).toHaveLength(inputs);
+  expect(screen.getAllByRole('button', { hidden: true })).toHaveLength(2);
+});
+
+const fixedChildrenTypes: Extract<
+  | keyof ComponentProps<typeof DatePickerField>
+  | keyof ComponentProps<typeof DatePickerRangeField>
+  | keyof ComponentProps<typeof DatePickerDayTable>,
+  'children'
+> extends never
+  ? true
+  : false = true;
+
+test('does not promise consumer children for fixed date-picker compositions', () => {
+  expect(fixedChildrenTypes).toBe(true);
+});
+
+test('preserves native table asChild composition with the fixed calendar child tree', async () => {
+  render(() => (
+    <DatePicker defaultOpen portalled={false}>
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerView view="day">
+            <DatePickerDayTable
+              showHeader={false}
+              showWeekNumbers
+              asChild={(props) => <table {...props()} data-testid="composed-table" />}
+            />
+          </DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
+    </DatePicker>
+  ));
+  expect((await screen.findByTestId('composed-table')).tagName).toBe('TABLE');
+  expect(screen.getAllByRole('columnheader', { hidden: true })).toHaveLength(8);
 });

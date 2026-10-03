@@ -34,6 +34,11 @@ Preserve Ark callback detail objects for `onDraw(details)` and `onDrawEnd(detail
 
 `useSignaturePad()` with `SignaturePadRootProvider` is exported for state that must be created outside the rendered tree. `useSignaturePadContext()` is exported for advanced in-tree state reads.
 
+The React CSS Modules and Tailwind hooks expose a plain `readOnly: boolean` field on the returned
+API so `SignaturePadRootProvider` can also disable its clear trigger. The provider still accepts
+Ark's native API without this metadata, defaulting the clear-trigger guard to `false`. Use the
+moduix hook for a read-only provider tree, or supply the optional `readOnly` field explicitly.
+
 Compose `SignaturePadHiddenInput` explicitly and pass its required serialized `value`. Use
 `useSignaturePadContext()` inside the root when the value should follow the current paths.
 
@@ -140,6 +145,8 @@ override `--moduix-signature-pad-stroke-color` instead.
 
 ## Local changelog
 
+- 2026-10-03: Aligned React CSS Modules and Tailwind provider APIs around plain `readOnly`
+  metadata while accepting native Ark APIs without it.
 - 2026-08-12: Disabled clearing in read-only state, forwarded `SignaturePadCanvas` control props and refs, added
   state coverage, and aligned the documented Zag drawing defaults with runtime behavior.
 - 2026-07-30: Made disabled opacity apply once across the composed drawing surface, aligned the height and minimum-height defaults, and clarified CSS-variable stroke colors.

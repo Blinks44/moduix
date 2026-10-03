@@ -26,7 +26,7 @@ import styles from './DatePicker.module.css';
 type DatePickerRootProps = ComponentProps<typeof DatePickerPrimitive.Root> & OverlayPortalProps;
 type DatePickerRootProviderProps = ComponentProps<typeof DatePickerPrimitive.RootProvider> &
   OverlayPortalProps;
-type DatePickerFieldProps = ComponentProps<typeof DatePickerPrimitive.Control> & {
+type DatePickerFieldProps = Omit<ComponentProps<typeof DatePickerPrimitive.Control>, 'children'> & {
   clearLabel?: string;
   clearTriggerProps?: ComponentProps<typeof DatePickerPrimitive.ClearTrigger>;
   inputProps?: ComponentProps<typeof DatePickerPrimitive.Input>;
@@ -34,7 +34,10 @@ type DatePickerFieldProps = ComponentProps<typeof DatePickerPrimitive.Control> &
   triggerLabel?: string;
   triggerProps?: ComponentProps<typeof DatePickerPrimitive.Trigger>;
 };
-type DatePickerRangeFieldProps = ComponentProps<typeof DatePickerPrimitive.Control> & {
+type DatePickerRangeFieldProps = Omit<
+  ComponentProps<typeof DatePickerPrimitive.Control>,
+  'children'
+> & {
   clearLabel?: string;
   clearTriggerProps?: ComponentProps<typeof DatePickerPrimitive.ClearTrigger>;
   endInputProps?: ComponentProps<typeof DatePickerPrimitive.Input>;
@@ -46,7 +49,10 @@ type DatePickerRangeFieldProps = ComponentProps<typeof DatePickerPrimitive.Contr
 };
 type DatePickerApi = ReturnType<UseDatePickerReturn>;
 type DatePickerOffset = ReturnType<DatePickerApi['getOffset']>;
-type DatePickerDayTableProps = ComponentProps<typeof DatePickerPrimitive.Table> & {
+type DatePickerDayTableProps = Omit<
+  ComponentProps<typeof DatePickerPrimitive.Table>,
+  'children'
+> & {
   offset?: DatePickerOffset;
   showHeader?: boolean;
   showWeekNumbers?: boolean;
@@ -226,7 +232,7 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
     'class',
   ]);
   const resolvedChildren = children(() => local.children);
-  const triggerClass = clsx(styles.clearTrigger, local.class);
+  const triggerClass = () => clsx(styles.clearTrigger, local.class);
 
   if (local.asChild) {
     return (
@@ -234,7 +240,7 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        class={triggerClass}
+        class={triggerClass()}
         {...others}
         data-slot="date-picker-clear-trigger"
       >
@@ -260,7 +266,7 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
           </CloseButton>
         );
       }}
-      class={triggerClass}
+      class={triggerClass()}
       {...others}
       data-slot="date-picker-clear-trigger"
     />

@@ -168,3 +168,52 @@ test('preserves read-only behavior through useSignaturePad and RootProvider', ()
 
   expect(screen.getByRole('button', { name: /clear signature/i })).toBeDisabled();
 });
+
+test('preserves raw Ark provider values without private readonly metadata', () => {
+  function ArkProvider() {
+    const signaturePad = useArkSignaturePad({ defaultPaths, translations });
+    return (
+      <SignaturePadRootProvider value={signaturePad}>
+        <SignaturePadParts />
+      </SignaturePadRootProvider>
+    );
+  }
+  render(<ArkProvider />);
+  expect(screen.getByRole('button', { name: 'Clear signature' })).not.toBeDisabled();
+});
+
+test('updates provider readonly metadata and preserves explicit Field overrides', () => {
+  function Provider({ readOnly }: { readOnly?: boolean }) {
+    const signaturePad = useSignaturePad({ defaultPaths, translations, readOnly });
+    return (
+      <SignaturePadRootProvider value={signaturePad}>
+        <output data-testid="readonly">{String(signaturePad.readOnly)}</output>
+        <SignaturePadParts />
+      </SignaturePadRootProvider>
+    );
+  }
+  const { rerender } = render(
+    <Field readOnly>
+      <Provider />
+    </Field>,
+  );
+  expect(screen.getByTestId('readonly')).toHaveTextContent('true');
+  expect(screen.getByRole('button', { name: 'Clear signature' })).toBeDisabled();
+
+  rerender(
+    <Field readOnly>
+      <Provider readOnly={false} />
+    </Field>,
+  );
+  expect(screen.getByTestId('readonly')).toHaveTextContent('false');
+  expect(screen.getByRole('button', { name: 'Clear signature' })).not.toBeDisabled();
+
+  rerender(
+    <Field readOnly>
+      <Provider readOnly />
+    </Field>,
+  );
+  expect(screen.getByTestId('readonly')).toHaveTextContent('true');
+  expect(screen.getByRole('button', { name: 'Clear signature' })).toBeDisabled();
+});
+import { useSignaturePad as useArkSignaturePad } from '@ark-ui/react/signature-pad';

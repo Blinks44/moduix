@@ -1,8 +1,8 @@
 import { Highlight as HighlightPrimitive } from '@ark-ui/react/highlight';
-import type { ComponentProps } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-function Highlight({ className, ...props }: ComponentProps<typeof HighlightPrimitive>) {
+function Highlight({ className, ...props }: ComponentPropsWithoutRef<typeof HighlightPrimitive>) {
   return (
     <HighlightPrimitive
       {...props}

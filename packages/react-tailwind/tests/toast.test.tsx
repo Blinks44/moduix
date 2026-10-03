@@ -1,6 +1,10 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import {
+  Popover,
+  PopoverContent,
+  PopoverPositioner,
+  PopoverTrigger,
   Toast,
   ToastCloseTrigger,
   ToastDescription,
@@ -125,12 +129,13 @@ test('portals by default, supports inline rendering, and accepts a custom portal
   const portalRef = { current: document.createElement('div') };
   portalRef.current.dataset.testid = 'toast-portal';
   document.body.append(portalRef.current);
-  render(<ToastToaster toaster={customToaster} portalRef={portalRef} />);
+  const custom = render(<ToastToaster toaster={customToaster} portalRef={portalRef} />);
   customToaster.create({ title: 'Custom portal toast' });
 
   expect(
     await within(screen.getByTestId('toast-portal')).findByText('Custom portal toast'),
   ).toBeInTheDocument();
+  custom.unmount();
   portalRef.current.remove();
 });
 
@@ -156,3 +161,33 @@ test('lets consumer Tailwind utilities override conflicting defaults', async () 
   expect(screen.getByText('Custom styles')).toHaveClass('text-lg');
   expect(screen.getByText('Custom styles')).not.toHaveClass('text-sm');
 });
+
+test.each([true, false])(
+  "preserves a nested popover's own portalled=%s setting",
+  async (portalled) => {
+    const toaster = createToaster({ duration: Infinity });
+    const portalRef = { current: document.createElement('div') };
+    document.body.append(portalRef.current);
+    const view = render(
+      <ToastToaster toaster={toaster} portalRef={portalRef}>
+        {(toast) => (
+          <Toast key={toast.id}>
+            <ToastTitle />
+            <Popover portalled={portalled}>
+              <PopoverTrigger>Toast details</PopoverTrigger>
+              <PopoverPositioner>
+                <PopoverContent>Nested toast details</PopoverContent>
+              </PopoverPositioner>
+            </Popover>
+          </Toast>
+        )}
+      </ToastToaster>,
+    );
+    toaster.create({ title: 'Toast with popover' });
+    fireEvent.click(await screen.findByRole('button', { name: 'Toast details' }));
+    const content = await screen.findByText('Nested toast details');
+    expect(portalRef.current.contains(content)).toBe(!portalled);
+    view.unmount();
+    portalRef.current.remove();
+  },
+);

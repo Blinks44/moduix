@@ -5,14 +5,13 @@ import { clsx } from 'clsx';
 import { computed, provide, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { signaturePadReadOnlyKey } from './context';
-import type { SignaturePadApi } from './context';
 import styles from './SignaturePad.module.css';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ ArkSignaturePadRootProviderProps {
   class?: HTMLAttributes['class'];
-  value: SignaturePadApi;
+  value: ArkSignaturePadRootProviderProps['value'] & { readOnly?: boolean };
 }
 
 const { class: className, value } = defineProps<Props>();

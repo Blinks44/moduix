@@ -5,13 +5,12 @@ import { computed, provide, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 import { signaturePadReadOnlyKey } from './context';
-import type { SignaturePadApi } from './context';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ ArkSignaturePadRootProviderProps {
   class?: HTMLAttributes['class'];
-  value: SignaturePadApi;
+  value: ArkSignaturePadRootProviderProps['value'] & { readOnly?: boolean };
 }
 
 const { class: className, value } = defineProps<Props>();

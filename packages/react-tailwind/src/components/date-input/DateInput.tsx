@@ -119,22 +119,23 @@ const DateInputSegments = forwardRef<
   );
 });
 
-function DateInputSeparator({
-  className,
-  'aria-hidden': ariaHidden = true,
-  role = 'presentation',
-  ...props
-}: ComponentProps<'span'>) {
-  return (
-    <span
-      aria-hidden={ariaHidden}
-      role={role}
-      className={cn('text-muted-foreground select-none', className)}
-      {...props}
-      data-slot="date-input-separator"
-    />
-  );
-}
+const DateInputSeparator = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
+  function DateInputSeparator(
+    { className, 'aria-hidden': ariaHidden = true, role = 'presentation', ...props },
+    ref,
+  ) {
+    return (
+      <span
+        ref={ref}
+        aria-hidden={ariaHidden}
+        role={role}
+        className={cn('text-muted-foreground select-none', className)}
+        {...props}
+        data-slot="date-input-separator"
+      />
+    );
+  },
+);
 
 const DateInputHiddenInput = DateInputPrimitive.HiddenInput;
 const DateInputContext = DateInputPrimitive.Context;

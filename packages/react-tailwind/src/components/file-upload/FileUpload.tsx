@@ -173,15 +173,18 @@ const FileUploadItemPreviewImage = forwardRef<
   );
 });
 
-function FileUploadItemPreviewIcon({ className, ...props }: ComponentProps<'svg'>) {
-  return (
-    <FileIcon
-      className={cn('size-4', className)}
-      {...props}
-      data-slot="file-upload-item-preview-icon"
-    />
-  );
-}
+const FileUploadItemPreviewIcon = forwardRef<SVGSVGElement, ComponentProps<'svg'>>(
+  function FileUploadItemPreviewIcon({ className, ...props }, ref) {
+    return (
+      <FileIcon
+        ref={ref}
+        className={cn('size-4', className)}
+        {...props}
+        data-slot="file-upload-item-preview-icon"
+      />
+    );
+  },
+);
 
 function getFileTypeLabel(file: File) {
   const extension = file.name.split('.').pop();

@@ -10,14 +10,8 @@ type SignaturePadHookProps = MaybeRef<UseSignaturePadProps> | undefined;
 export const useSignaturePad = (props?: SignaturePadHookProps): ComputedRef<SignaturePadApi> => {
   const field = useFieldContext();
   const signaturePad = useSignaturePadPrimitive(props);
-  const readOnly = computed(() => {
-    const machineProps = toValue(props);
-
-    return machineProps?.readOnly ?? unref(field)?.readOnly ?? false;
-  });
-
   return computed(() => ({
     ...signaturePad.value,
-    readOnly: readOnly.value,
+    readOnly: toValue(props)?.readOnly ?? unref(field)?.readOnly ?? false,
   }));
 };

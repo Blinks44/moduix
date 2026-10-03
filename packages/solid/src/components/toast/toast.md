@@ -18,6 +18,8 @@ The wrapper preserves Ark's store-first model: `createToaster(options)` creates 
   are omitted. Explicit `null` children remain empty.
 - `ToastCloseTrigger` uses the moduix `CloseButton` by default and defaults its accessible
   label to `Close toast`.
+  Updating `aria-label` changes the existing button in both default and callback `asChild`
+  compositions; removing the override restores the default label.
 - Ark store methods and callback detail objects pass through unchanged, including `create`,
   `success`, `error`, `warning`, `info`, `loading`, `promise`, `update`, `dismiss`, `remove`,
   placement, overlap, gap, max, duration, remove delay, hotkey, offsets, and status changes.

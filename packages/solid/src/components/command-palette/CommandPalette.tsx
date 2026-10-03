@@ -1,7 +1,6 @@
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
-  type ComboboxRootComponent,
   type ComboboxRootProps,
 } from '@ark-ui/solid/combobox';
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/solid/dialog';
@@ -226,9 +225,7 @@ function CommandPaletteBody(props: HTMLArkProps<'div'>) {
 
 type CommandPaletteComboboxProps<T extends CollectionItem> = ComboboxRootProps<T>;
 
-const CommandPaletteCombobox = function CommandPaletteCombobox<T extends CollectionItem>(
-  props: CommandPaletteComboboxProps<T>,
-) {
+function CommandPaletteCombobox<T extends CollectionItem>(props: CommandPaletteComboboxProps<T>) {
   const [local, others] = splitProps(props, [
     'children',
     'class',
@@ -263,7 +260,7 @@ const CommandPaletteCombobox = function CommandPaletteCombobox<T extends Collect
       {local.children}
     </ComboboxPrimitive.Root>
   );
-} as ComboboxRootComponent;
+}
 
 function CommandPaletteControl(props: ComponentProps<typeof ComboboxPrimitive.Control>) {
   const [local, others] = splitProps(props, ['class']);

@@ -620,18 +620,21 @@ const CommandPaletteFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
   },
 );
 
-function CommandPaletteKbd({ className, ...props }: ComponentProps<typeof Kbd>) {
-  return (
-    <Kbd
-      className={cn(
-        'min-h-5 min-w-5 rounded-sm px-1 text-xs leading-4 text-muted-foreground',
-        className,
-      )}
-      {...props}
-      data-slot="command-palette-kbd"
-    />
-  );
-}
+const CommandPaletteKbd = forwardRef<ComponentRef<typeof Kbd>, ComponentProps<typeof Kbd>>(
+  function CommandPaletteKbd({ className, ...props }, ref) {
+    return (
+      <Kbd
+        ref={ref}
+        className={cn(
+          'min-h-5 min-w-5 rounded-sm px-1 text-xs leading-4 text-muted-foreground',
+          className,
+        )}
+        {...props}
+        data-slot="command-palette-kbd"
+      />
+    );
+  },
+);
 
 export {
   CommandPalette,

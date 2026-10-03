@@ -29,6 +29,9 @@ Use `SignaturePadControl`, `SignaturePadSegment`, `SignaturePadClearTrigger`, an
 `SignaturePadGuide` directly when the drawing tree needs to be customized. `SignaturePadClearTrigger`
 uses the moduix `CloseButton` and `RotateCcwIcon` by default.
 
+The clear trigger's consumer class and accessible label stay reactive. In the default composition,
+omitting `aria-label` uses Ark's current `translations.clearTrigger` value.
+
 The public parts are `SignaturePad`, `SignaturePadRootProvider`, `SignaturePadContext`,
 `SignaturePadLabel`, `SignaturePadControl`, `SignaturePadCanvas`, `SignaturePadSegment`,
 `SignaturePadGuide`, `SignaturePadClearTrigger`, and `SignaturePadHiddenInput`. The barrel also re-exports `useSignaturePad` and
@@ -58,6 +61,11 @@ function SignaturePadFormInput() {
 `useSignaturePad()`. This prevents data loss while leaving programmatic `clear()` available through
 the Ark state API.
 
+The moduix hook adds a reactive `readOnly: Accessor<boolean>` property to the native Ark
+accessor; read it as `signaturePad.readOnly()`. `SignaturePadRootProvider` also accepts an
+unmodified Ark accessor, where absent metadata defaults to `false` for the clear-button guard.
+Use the moduix hook when that guard must track read-only state.
+
 ## Ark Solid behavior
 
 Solid uses a render-function `asChild` prop:
@@ -76,3 +84,7 @@ Ordinary refs and custom-host composition are therefore supported as separate na
 read as `signaturePad().paths`. Ark owns drawing, pointer capture, SVG segment paths, ids, state
 attributes, translations, and callback detail objects. `onDrawEnd(details)` exposes
 `details.getDataUrl('image/png' | 'image/jpeg' | 'image/svg+xml', quality?)`.
+
+## Local changelog
+
+- 2026-10-03: Providers accept unmodified Ark accessors as well as accessors with optional reactive read-only metadata.

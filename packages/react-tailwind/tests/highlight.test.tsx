@@ -1,6 +1,13 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
+import type { ComponentProps } from 'react';
 import { Highlight } from '../src';
+
+const hasRootRef: 'ref' extends keyof ComponentProps<typeof Highlight> ? true : false = false;
+
+test('does not promise a ref target for multi-mark output', () => {
+  expect(hasRootRef).toBe(false);
+});
 
 test('renders matched text as styled marks without a wrapper', () => {
   const { container } = render(

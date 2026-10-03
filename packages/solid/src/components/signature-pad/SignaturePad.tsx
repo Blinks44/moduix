@@ -13,14 +13,13 @@ import styles from './SignaturePad.module.css';
 
 const SignaturePadReadOnlyContext = createContext<Accessor<boolean>>(() => false);
 
-type SignaturePadMachineApi = ReturnType<ReturnType<typeof useSignaturePadPrimitive>>;
-type SignaturePadApi = ((...args: never[]) => SignaturePadMachineApi) & {
+type SignaturePadApi = ReturnType<typeof useSignaturePadPrimitive> & {
   readOnly: Accessor<boolean>;
 };
 type SignaturePadRootProviderProps = Omit<
   ComponentProps<typeof SignaturePadPrimitive.RootProvider>,
   'value'
-> & { value: SignaturePadApi };
+> & { value: ReturnType<typeof useSignaturePadPrimitive> & { readOnly?: Accessor<boolean> } };
 type SignaturePadHookProps = Parameters<typeof useSignaturePadPrimitive>[0];
 function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
@@ -46,7 +45,7 @@ function SignaturePadRootProvider(props: SignaturePadRootProviderProps) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
-    <SignaturePadReadOnlyContext.Provider value={() => props.value.readOnly() ?? false}>
+    <SignaturePadReadOnlyContext.Provider value={() => props.value.readOnly?.() ?? false}>
       <SignaturePadPrimitive.RootProvider
         asChild={local.asChild}
         class={clsx(styles.root, local.class)}
@@ -121,7 +120,7 @@ function SignaturePadClearTrigger(
   const resolvedChildren = children(() => local.children);
   const readOnly = useContext(SignaturePadReadOnlyContext);
   const isDisabled = () => (readOnly() || local.disabled ? true : undefined);
-  const triggerClass = clsx(styles.clearTrigger, local.class);
+  const triggerClass = () => clsx(styles.clearTrigger, local.class);
 
   if (local.asChild) {
     return (
@@ -129,7 +128,7 @@ function SignaturePadClearTrigger(
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        class={triggerClass}
+        class={triggerClass()}
         {...others}
         data-slot="signature-pad-clear-trigger"
         disabled={isDisabled()}
@@ -143,21 +142,20 @@ function SignaturePadClearTrigger(
     <SignaturePadPrimitive.ClearTrigger
       asChild={(triggerProps) => {
         const resolvedProps = triggerProps();
-        const ariaLabel =
-          local['aria-label'] ??
-          (local['aria-labelledby'] == null ? resolvedProps['aria-label'] : undefined);
-
         return (
           <CloseButton
             {...resolvedProps}
-            aria-label={ariaLabel}
+            aria-label={
+              local['aria-label'] ??
+              (local['aria-labelledby'] == null ? resolvedProps['aria-label'] : undefined)
+            }
             aria-labelledby={local['aria-labelledby'] ?? resolvedProps['aria-labelledby']}
           >
             {resolvedChildren() ?? <RotateCcwIcon aria-hidden="true" />}
           </CloseButton>
         );
       }}
-      class={triggerClass}
+      class={triggerClass()}
       {...others}
       data-slot="signature-pad-clear-trigger"
       disabled={isDisabled()}
@@ -185,16 +183,12 @@ function SignaturePadCanvas(props: SignaturePadCanvasProps) {
 function useSignaturePad(props?: SignaturePadHookProps): SignaturePadApi {
   const field = useFieldContext();
   const signaturePad = useSignaturePadPrimitive(props);
-  const api = ((...args: never[]) =>
-    signaturePad(...(args as Parameters<typeof signaturePad>))) as SignaturePadApi;
-
-  api.readOnly = () => {
-    const machineProps = typeof props === 'function' ? props() : props;
-
-    return machineProps?.readOnly ?? field?.().readOnly ?? false;
-  };
-
-  return api;
+  return Object.assign(signaturePad, {
+    readOnly: () => {
+      const machineProps = typeof props === 'function' ? props() : props;
+      return machineProps?.readOnly ?? field?.().readOnly ?? false;
+    },
+  });
 }
 
 const SignaturePadContext = SignaturePadPrimitive.Context;

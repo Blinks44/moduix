@@ -15,6 +15,7 @@ import {
   DatePickerField,
   DatePickerLabel,
   DatePickerPositioner,
+  DatePickerView,
 } from '@moduix/solid/date-picker';
 import { parseDate } from '@ark-ui/solid/date-picker';
 
@@ -41,6 +42,9 @@ The barrel exports `DatePicker`, all `DatePicker`-prefixed parts, `DatePickerCon
 `useDatePicker`, and `useDatePickerContext`.
 
 `DatePickerField` reserves input index `0`; `DatePickerRangeField` renders inputs at indexes `0` and `1`.
+These parts and `DatePickerDayTable` own their child trees and do not accept consumer `children`.
+Their native Solid `asChild` callback remains supported: spread `props()` onto the replacement
+host to preserve the generated inputs, triggers, or calendar rows.
 Use `DatePickerControl` and `DatePickerInput` directly for a custom input layout. Ark owns date parsing, calendar
 state, keyboard navigation, min/max validation, unavailable dates, labels, form values, IDs,
 and details-object callbacks.
@@ -61,6 +65,8 @@ Solid render props expose the accessor directly, so read state as `datePicker().
 
 ## Solid composition notes
 
+Clear-trigger classes stay reactive in both default and callback `asChild` compositions.
+
 Ark Solid uses a render-function `asChild` prop:
 `asChild={(props) => <button {...props()} type="button" />}`. Its factory does not forward refs
 through an `asChild` render function, so ordinary refs and custom-host composition are separate
@@ -80,3 +86,7 @@ actions, popup content, calendar cells, and transitions.
 ## Style contract (2026-10-03)
 
 Content scrolls within the smaller of Ark --available-height and 100dvh minus 2rem. Inline calendars fit their container rather than forcing an 18rem minimum width.
+
+## Local changelog
+
+- 2026-10-03: Fixed-tree sugar types exclude consumer children while preserving native Solid callback composition.

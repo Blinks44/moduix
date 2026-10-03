@@ -14,6 +14,8 @@ The flat API includes `Combobox`, `ComboboxRootProvider`, `ComboboxPositioner`, 
 
 ## Preservation notes
 
+Clear-trigger classes stay reactive in both default and callback `asChild` compositions.
+
 - The root requires an Ark collection. Preserve controlled `value`, `inputValue`, and `open`, details callbacks, filtering, multiple selection, and provider state.
 - The popup is portalled by default; `portalled={false}` and `portalRef` customize placement. Preserve lazy mounting options.
 - Keep Solid accessors and native `class` semantics when passing reactive collection and children values.

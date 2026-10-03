@@ -14,6 +14,8 @@ The flat API includes `Select`, `SelectRootProvider`, `SelectControl`, `SelectTr
 
 ## Preservation notes
 
+Clear-trigger classes stay reactive in both default and callback `asChild` compositions.
+
 - Keep collection-backed items, controlled and uncontrolled value state, Ark detail callbacks, and root-provider composition.
 - The popup is portalled by default; preserve inline rendering and custom portal target options.
 - Keep `SelectField` as a narrow helper and retain explicit lower-level parts.

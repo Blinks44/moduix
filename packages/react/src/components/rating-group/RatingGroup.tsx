@@ -122,17 +122,15 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
 
 function RatingGroupItems({ children }: { children?: ReactNode }) {
   return (
-    <>
-      <RatingGroupPrimitive.Context>
-        {({ items }) =>
-          items.map((item) => (
-            <RatingGroupItem key={item} index={item}>
-              {children ?? <RatingGroupItemIndicator />}
-            </RatingGroupItem>
-          ))
-        }
-      </RatingGroupPrimitive.Context>
-    </>
+    <RatingGroupPrimitive.Context>
+      {({ items }) =>
+        items.map((item) => (
+          <RatingGroupItem key={item} index={item}>
+            {children ?? <RatingGroupItemIndicator />}
+          </RatingGroupItem>
+        ))
+      }
+    </RatingGroupPrimitive.Context>
   );
 }
 

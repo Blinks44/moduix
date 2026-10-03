@@ -46,7 +46,7 @@ export const resolveImage = (
     return null;
   }
 
-  const src = imageNode.dataset.lightboxSrc ?? imageNode.currentSrc ?? imageNode.src;
+  const src = imageNode.dataset.lightboxSrc ?? (imageNode.currentSrc || imageNode.src);
   if (!src) {
     return null;
   }

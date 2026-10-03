@@ -3,9 +3,7 @@ import { ark } from '@ark-ui/solid/factory';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
-  type SelectRootComponent as ArkSelectRootComponent,
   type SelectRootProps as ArkSelectRootProps,
-  type SelectRootProviderComponent as ArkSelectRootProviderComponent,
   type SelectRootProviderProps as ArkSelectRootProviderProps,
   useSelect,
   useSelectContext,
@@ -34,7 +32,7 @@ type SelectFieldProps = Omit<
   placeholder?: ComponentProps<typeof SelectPrimitive.ValueText>['placeholder'];
 };
 
-const Select = function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
+function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -59,11 +57,9 @@ const Select = function Select<T extends CollectionItem>(props: SelectRootProps<
       </SelectPrimitive.Root>
     </OverlayPortalProvider>
   );
-} as ArkSelectRootComponent<OverlayPortalProps>;
+}
 
-const SelectRootProvider = function SelectRootProvider<T extends CollectionItem>(
-  props: SelectRootProviderProps<T>,
-) {
+function SelectRootProvider<T extends CollectionItem>(props: SelectRootProviderProps<T>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -88,7 +84,7 @@ const SelectRootProvider = function SelectRootProvider<T extends CollectionItem>
       </SelectPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
-} as ArkSelectRootProviderComponent<OverlayPortalProps>;
+}
 
 function SelectLabel(props: ComponentProps<typeof SelectPrimitive.Label>) {
   const [local, others] = splitProps(props, ['class']);

@@ -7,9 +7,7 @@ import {
   type TreeViewLoadChildrenDetails,
   type TreeViewNodeProviderProps,
   type TreeViewNodeState,
-  type TreeViewRootComponent,
   type TreeViewRootProps,
-  type TreeViewRootProviderComponent,
   type TreeViewRootProviderProps,
   useTreeView,
   useTreeViewContext,
@@ -21,7 +19,7 @@ import { children, splitProps } from 'solid-js';
 import { CheckIcon, ChevronRightIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './TreeView.module.css';
 
-const TreeView = function TreeView<T extends TreeNode>(props: TreeViewRootProps<T>) {
+function TreeView<T extends TreeNode>(props: TreeViewRootProps<T>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -34,11 +32,9 @@ const TreeView = function TreeView<T extends TreeNode>(props: TreeViewRootProps<
       {local.children}
     </TreeViewPrimitive.Root>
   );
-} as TreeViewRootComponent;
+}
 
-const TreeViewRootProvider = function TreeViewRootProvider<T extends TreeNode>(
-  props: TreeViewRootProviderProps<T>,
-) {
+function TreeViewRootProvider<T extends TreeNode>(props: TreeViewRootProviderProps<T>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -51,7 +47,7 @@ const TreeViewRootProvider = function TreeViewRootProvider<T extends TreeNode>(
       {local.children}
     </TreeViewPrimitive.RootProvider>
   );
-} as TreeViewRootProviderComponent;
+}
 
 function TreeViewLabel(props: ComponentProps<typeof TreeViewPrimitive.Label>) {
   const [local, others] = splitProps(props, ['class']);

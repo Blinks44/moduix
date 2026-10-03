@@ -3,9 +3,7 @@ import { ark } from '@ark-ui/solid/factory';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
-  type SelectRootComponent as ArkSelectRootComponent,
   type SelectRootProps as ArkSelectRootProps,
-  type SelectRootProviderComponent as ArkSelectRootProviderComponent,
   type SelectRootProviderProps as ArkSelectRootProviderProps,
   useSelect,
   useSelectContext,
@@ -27,8 +25,6 @@ import styles from './Select.module.css';
 type SelectRootProps<T extends CollectionItem> = ArkSelectRootProps<T> & OverlayPortalProps;
 type SelectRootProviderProps<T extends CollectionItem> = ArkSelectRootProviderProps<T> &
   OverlayPortalProps;
-type SelectRootComponent = ArkSelectRootComponent<OverlayPortalProps>;
-type SelectRootProviderComponent = ArkSelectRootProviderComponent<OverlayPortalProps>;
 type SelectFieldProps = Omit<
   ComponentProps<typeof SelectPrimitive.Control>,
   'asChild' | 'children'
@@ -38,7 +34,7 @@ type SelectFieldProps = Omit<
   placeholder?: ComponentProps<typeof SelectPrimitive.ValueText>['placeholder'];
 };
 
-const Select = function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
+function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -63,11 +59,9 @@ const Select = function Select<T extends CollectionItem>(props: SelectRootProps<
       </SelectPrimitive.Root>
     </OverlayPortalProvider>
   );
-} as SelectRootComponent;
+}
 
-const SelectRootProvider = function SelectRootProvider<T extends CollectionItem>(
-  props: SelectRootProviderProps<T>,
-) {
+function SelectRootProvider<T extends CollectionItem>(props: SelectRootProviderProps<T>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -92,7 +86,7 @@ const SelectRootProvider = function SelectRootProvider<T extends CollectionItem>
       </SelectPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
-} as SelectRootProviderComponent;
+}
 
 function SelectLabel(props: ComponentProps<typeof SelectPrimitive.Label>) {
   const [local, others] = splitProps(props, ['class']);
@@ -152,7 +146,7 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
     'class',
   ]);
   const resolvedChildren = children(() => local.children);
-  const triggerClass = clsx(styles.clearTrigger, local.class);
+  const triggerClass = () => clsx(styles.clearTrigger, local.class);
 
   if (local.asChild) {
     return (
@@ -160,7 +154,7 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        class={triggerClass}
+        class={triggerClass()}
         {...others}
         data-slot="select-clear-trigger"
       >
@@ -187,7 +181,7 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
           </CloseButton>
         );
       }}
-      class={triggerClass}
+      class={triggerClass()}
       {...others}
       data-slot="select-clear-trigger"
     />

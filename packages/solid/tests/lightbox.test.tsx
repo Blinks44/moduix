@@ -1,4 +1,4 @@
-import { expect, test } from '@rstest/core';
+import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import {
@@ -278,4 +278,57 @@ test('keeps the close-on-click marker aligned with its behavior', () => {
   expect(screen.getByRole('img', { name: 'Stays open' })).not.toHaveAttribute(
     'data-close-on-click',
   );
+});
+
+test.each([
+  { name: 'empty currentSrc', currentSrc: '', override: undefined, selected: 'fallback' },
+  {
+    name: 'responsive source',
+    currentSrc: '/responsive.jpg',
+    override: undefined,
+    selected: '/responsive.jpg',
+  },
+  {
+    name: 'explicit override',
+    currentSrc: '/responsive.jpg',
+    override: '/full.jpg',
+    selected: '/full.jpg',
+  },
+  { name: 'empty override exclusion', currentSrc: '/responsive.jpg', override: '', selected: null },
+])('resolves Bind image with $name', async ({ currentSrc, override, selected }) => {
+  const onImageSelect = rs.fn();
+  function BoundImage() {
+    let root!: HTMLDivElement;
+    return (
+      <>
+        <div ref={(element) => (root = element)}>
+          <button type="button">
+            <img src="/thumbnail.jpg" alt="Bound image" />
+          </button>
+        </div>
+        <Lightbox portalled={false}>
+          <LightboxBind rootRef={() => root} selector="button" onImageSelect={onImageSelect} />
+          <LightboxPositioner>
+            <LightboxContent aria-label="Bound preview" />
+          </LightboxPositioner>
+        </Lightbox>
+      </>
+    );
+  }
+  render(() => <BoundImage />);
+  const image = screen.getByRole('img', { name: 'Bound image' }) as HTMLImageElement;
+  Object.defineProperty(image, 'currentSrc', { configurable: true, value: currentSrc });
+  if (override !== undefined) image.dataset.lightboxSrc = override;
+  fireEvent.click(image);
+  if (selected === null) {
+    expect(onImageSelect).not.toHaveBeenCalled();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  } else {
+    expect(onImageSelect).toHaveBeenCalledExactlyOnceWith({
+      src: selected === 'fallback' ? image.src : selected,
+      alt: image.alt,
+      element: image,
+    });
+    expect(await screen.findByRole('dialog', { name: 'Bound preview' })).toBeInTheDocument();
+  }
 });

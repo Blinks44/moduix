@@ -38,6 +38,9 @@ and accessible labels. Do not translate dates to strings or local callback shape
   and `readOnly` and `required` from `Field`. Values passed directly to `DatePicker` take
   precedence.
 - `DatePickerDayTable` renders the standard day-view header and table from Ark context.
+- `DatePickerField`, `DatePickerRangeField`, and `DatePickerDayTable` own their child tree and do
+  not accept `asChild` or `children`. Use the individual control, input, and table parts for custom
+  composition; those parts keep Ark's `asChild` contract.
 - Multiple selection should render selected values through `DatePickerContext` instead of trying to
   display every date in one text input.
 - Popup calendars are explicit: render `DatePickerPositioner` and
@@ -340,6 +343,8 @@ content after the first open; set both props to `false` only when eager initial 
 
 ## Local changelog
 
+- 2026-10-03: Removed unsupported `asChild` and `children` props from the fixed React field,
+  range-field, and day-table compositions; custom layouts still use the individual Ark-backed parts.
 - 2026-10-02: Constrained calendar content to available viewport height with overflow scrolling and narrowed inline minimum sizing.
 
 - 2026-08-10: Made the root inherit Ark `Field` / `Fieldset` state and kept `DatePickerField` /

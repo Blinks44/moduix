@@ -1,4 +1,4 @@
-import { expect, test } from '@rstest/core';
+import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useRef, useState } from 'react';
 import {
@@ -197,4 +197,59 @@ test('keeps the close-on-click marker aligned with its behavior', () => {
   expect(screen.getByRole('img', { name: 'Stays open' })).not.toHaveAttribute(
     'data-close-on-click',
   );
+});
+
+test.each([
+  { name: 'src fallback', currentSrc: '', override: undefined, expected: undefined },
+  {
+    name: 'responsive source',
+    currentSrc: '/responsive.jpg',
+    override: undefined,
+    expected: '/responsive.jpg',
+  },
+  {
+    name: 'full-size override',
+    currentSrc: '/responsive.jpg',
+    override: '/full.jpg',
+    expected: '/full.jpg',
+  },
+  { name: 'explicit exclusion', currentSrc: '/responsive.jpg', override: '', expected: '' },
+])('resolves Bind images: $name', async ({ currentSrc, override, expected }) => {
+  const onImageSelect = rs.fn();
+  function BoundGallery() {
+    const rootRef = useRef<HTMLDivElement | null>(null);
+    return (
+      <>
+        <div ref={rootRef}>
+          <button type="button">
+            <img src="/thumbnail.jpg" alt="Bound image" />
+          </button>
+        </div>
+        <Lightbox portalled={false}>
+          <LightboxBind rootRef={rootRef} selector="button" onImageSelect={onImageSelect} />
+          <LightboxPositioner>
+            <LightboxContent aria-label="Bound preview" />
+          </LightboxPositioner>
+        </Lightbox>
+      </>
+    );
+  }
+  render(<BoundGallery />);
+  const image = screen.getByAltText('Bound image') as HTMLImageElement;
+  Object.defineProperty(image, 'currentSrc', { configurable: true, value: currentSrc });
+  if (override !== undefined) image.dataset.lightboxSrc = override;
+
+  fireEvent.click(image);
+
+  if (expected === '') {
+    expect(onImageSelect).not.toHaveBeenCalled();
+    expect(screen.queryByRole('dialog', { name: 'Bound preview' })).not.toBeInTheDocument();
+    return;
+  }
+  expect(onImageSelect).toHaveBeenCalledWith({
+    src: expected ?? image.src,
+    alt: 'Bound image',
+    element: image,
+  });
+  expect(await screen.findByRole('dialog', { name: 'Bound preview' })).toBeInTheDocument();
 });
