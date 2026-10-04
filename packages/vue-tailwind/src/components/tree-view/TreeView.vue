@@ -44,7 +44,7 @@ import { treeViewRootVariants } from './TreeView.variants';
 defineOptions({ inheritAttrs: false });
 
 const { class: className, collection } = defineProps<Props<T>>();
-const emit = defineEmits<TreeViewRootEmits<T>>();
+defineEmits</* @vue-ignore */ TreeViewRootEmits<T>>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -56,19 +56,6 @@ const attrs = useAttrs();
     :class="cn(treeViewRootVariants(), className)"
     :collection="collection"
     data-slot="tree-view-root"
-    @expanded-change="emit('expandedChange', $event)"
-    @focus-change="emit('focusChange', $event)"
-    @selection-change="emit('selectionChange', $event)"
-    @checked-change="emit('checkedChange', $event)"
-    @load-children-complete="emit('loadChildrenComplete', $event)"
-    @load-children-error="emit('loadChildrenError', $event)"
-    @rename-start="emit('renameStart', $event)"
-    @before-rename="emit('beforeRename', $event)"
-    @rename-complete="emit('renameComplete', $event)"
-    @update:expanded-value="emit('update:expandedValue', $event)"
-    @update:focused-value="emit('update:focusedValue', $event)"
-    @update:selected-value="emit('update:selectedValue', $event)"
-    @update:checked-value="emit('update:checkedValue', $event)"
   >
     <slot />
   </ArkTreeViewRoot>

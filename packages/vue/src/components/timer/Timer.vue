@@ -24,20 +24,14 @@ export interface Emits {
 }
 
 const { class: className } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 </script>
 
 <template>
-  <ArkTimerRoot
-    v-bind="attrs"
-    :class="clsx(styles.root, className)"
-    data-slot="timer-root"
-    @complete="emit('complete')"
-    @tick="emit('tick', $event)"
-  >
+  <ArkTimerRoot v-bind="attrs" :class="clsx(styles.root, className)" data-slot="timer-root">
     <slot />
   </ArkTimerRoot>
 </template>

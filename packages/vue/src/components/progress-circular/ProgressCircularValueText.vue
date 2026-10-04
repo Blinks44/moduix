@@ -20,17 +20,10 @@ const attrs = useAttrs();
 
 <template>
   <ArkProgressValueText
-    v-if="$slots.default"
     v-bind="attrs"
     :class="clsx(styles.valueText, className)"
     data-slot="progress-circular-value-text"
   >
-    <slot />
+    <template v-if="$slots.default" #default><slot /></template>
   </ArkProgressValueText>
-  <ArkProgressValueText
-    v-else
-    v-bind="attrs"
-    :class="clsx(styles.valueText, className)"
-    data-slot="progress-circular-value-text"
-  />
 </template>

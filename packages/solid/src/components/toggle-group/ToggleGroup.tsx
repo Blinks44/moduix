@@ -10,18 +10,15 @@ import type { ToggleSize, ToggleVariant } from '../toggle/Toggle';
 import toggleStyles from '../toggle/Toggle.module.css';
 import styles from './ToggleGroup.module.css';
 
-const defaultToggleGroupStyles = {
-  variant: () => 'default' as ToggleVariant,
-  size: () => 'md' as ToggleSize,
-};
-
 type ToggleGroupStyleContextValue = {
   variant: Accessor<ToggleVariant>;
   size: Accessor<ToggleSize>;
 };
 
-const ToggleGroupStyleContext =
-  createContext<ToggleGroupStyleContextValue>(defaultToggleGroupStyles);
+const ToggleGroupStyleContext = createContext<ToggleGroupStyleContextValue>({
+  variant: (): ToggleVariant => 'default',
+  size: (): ToggleSize => 'md',
+});
 
 type ToggleGroupRootProps = ComponentProps<typeof ToggleGroupPrimitive.Root> & {
   variant?: ToggleVariant;

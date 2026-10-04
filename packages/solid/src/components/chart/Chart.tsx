@@ -196,15 +196,15 @@ function ChartPrimitive<
     TYValue
   > | null>(null);
 
-  const getOptions = () => {
-    const [local, others] = splitProps(props, [
-      'class',
-      'motion',
-      'renderTooltipBody',
-      'renderer',
-      'style',
-    ]);
+  const [local, others] = splitProps(props, [
+    'class',
+    'motion',
+    'renderTooltipBody',
+    'renderer',
+    'style',
+  ]);
 
+  const getOptions = () => {
     return {
       ...others,
       idPrefix: props.idPrefix ?? generatedId,

@@ -21,28 +21,17 @@ export interface Emits {
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
-interface InputGroupInputBindings {
-  class?: HTMLAttributes['class'];
-  htmlSize?: FieldInputProps['size'];
-  modelValue?: FieldInputProps['modelValue'];
-  size?: InputGroupSize;
-}
-
-const inputProps = props as unknown as InputGroupInputBindings;
+const inputProps = props as unknown as Pick<Props, 'class' | 'htmlSize' | 'size'>;
 
 const attrs = useAttrs();
-const modelValue = computed(() => inputProps.modelValue ?? attrs.modelValue);
 const groupSize = inject(
   InputGroupSizeContextKey,
   computed(() => defaultInputGroupSize),
 );
-const inputSize = computed<InputGroupSize>(() => {
-  const localSize: InputGroupSize | undefined = inputProps.size;
-  return localSize ?? groupSize.value;
-});
+const inputSize = computed(() => inputProps.size ?? groupSize.value);
 </script>
 
 <template>
@@ -50,9 +39,7 @@ const inputSize = computed<InputGroupSize>(() => {
     v-bind="attrs"
     :class="cn(inputGroupInputVariants({ size: inputSize }), inputProps.class)"
     :html-size="inputProps.htmlSize"
-    :model-value="modelValue"
     :size="inputSize"
-    @update:model-value="emit('update:modelValue', $event)"
   >
     <slot />
   </Input>

@@ -226,7 +226,6 @@ function FloatingPanelCloseTrigger(
 
 function FloatingPanelCloseIcon(props: FloatingPanelCloseIconProps) {
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
-  const resolvedChildren = children(() => local.children);
 
   return (
     <FloatingPanelPrimitive.CloseTrigger
@@ -238,7 +237,7 @@ function FloatingPanelCloseIcon(props: FloatingPanelCloseIconProps) {
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.controlButton, local.class)}
         >
-          {resolvedChildren()}
+          {local.children}
         </CloseButton>
       )}
       {...others}

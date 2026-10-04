@@ -108,6 +108,48 @@ const FruitSelect = defineComponent({
   `,
 });
 
+test('switches between native value text and an optional custom slot', async () => {
+  const custom = ref(false);
+  const value = ref<string[]>([]);
+  const valueRef = ref<ComponentPublicInstance>();
+  const App = defineComponent({
+    components: selectComponents,
+    setup() {
+      return { custom, value, valueRef, collection: fruits };
+    },
+    template: `
+      <Select :collection="collection" v-model="value" :portalled="false">
+        <SelectControl><SelectTrigger>
+          <SelectValueText ref="valueRef" placeholder="Choose fruit" class="consumer-value"
+            style="color: red" data-testid="value-text">
+            <template v-if="custom" #default><span>Custom value</span></template>
+          </SelectValueText>
+        </SelectTrigger></SelectControl>
+      </Select>
+    `,
+  });
+
+  render(App);
+  const host = screen.getByTestId('value-text');
+  expect(host).toHaveTextContent('Choose fruit');
+  value.value = ['apple'];
+  await waitFor(() => expect(screen.getByTestId('value-text')).toHaveTextContent('Apple'));
+  custom.value = true;
+  await waitFor(() => expect(screen.getByTestId('value-text')).toHaveTextContent('Custom value'));
+  expect(screen.getByTestId('value-text')).toBe(host);
+  expect(valueRef.value?.$el).toBe(host);
+  value.value = ['mango'];
+  custom.value = false;
+  await waitFor(() => expect(screen.getByTestId('value-text')).toHaveTextContent('Mango'));
+  value.value = [];
+  await waitFor(() => expect(screen.getByTestId('value-text')).toHaveTextContent('Choose fruit'));
+  expect(screen.getByTestId('value-text')).toBe(host);
+  expect(host).toHaveAttribute('data-slot', 'select-value-text');
+  expect(host).toHaveClass('consumer-value');
+  expect(host).toHaveStyle({ color: 'red' });
+  expect(valueRef.value?.$el).toBe(host);
+});
+
 test('preserves Ark semantics, Vue refs, anatomy, attrs, and flat exports', () => {
   const rootRef = ref<ComponentPublicInstance>();
   const fieldRef = ref<ComponentPublicInstance>();

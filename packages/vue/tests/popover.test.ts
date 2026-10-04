@@ -361,3 +361,46 @@ test('renders and hydrates the public anatomy through Vue SSR', async () => {
   app.unmount();
   container.remove();
 });
+
+test('keeps close-icon labels, attrs and fallback content reactive', async () => {
+  const label = ref<string | undefined>('Dismiss first');
+  const labelledby = ref<string | undefined>();
+  const custom = ref(false);
+  render({
+    components: popoverComponents,
+    setup: () => ({ label, labelledby, custom }),
+    template: `
+      <Popover default-open :portalled="false">
+        <PopoverPositioner><PopoverContent>
+          <PopoverTitle>Preview</PopoverTitle>
+          <PopoverCloseIcon :aria-label="label" :aria-labelledby="labelledby"
+            class="consumer-close" style="color: red" title="Dismiss preview" data-testid="close">
+            <template v-if="custom" #default><span>Custom close</span></template>
+          </PopoverCloseIcon>
+        </PopoverContent></PopoverPositioner>
+      </Popover>
+    `,
+  });
+  const button = await screen.findByTestId('close');
+  expect(button.tagName).toBe('BUTTON');
+  expect(button).toHaveAttribute('aria-label', 'Dismiss first');
+  expect(button).toHaveClass('consumer-close');
+  expect(button).toHaveStyle({ color: 'red' });
+  expect(button).toHaveAttribute('title', 'Dismiss preview');
+  expect(button.querySelector('svg')).toBeInTheDocument();
+  label.value = 'Dismiss second';
+  await waitFor(() => expect(button).toHaveAttribute('aria-label', 'Dismiss second'));
+  labelledby.value = 'dismiss-label';
+  label.value = undefined;
+  await waitFor(() => {
+    expect(button).toHaveAttribute('aria-labelledby', 'dismiss-label');
+    expect(button).toHaveAttribute('aria-label', 'Close popover');
+  });
+  label.value = '';
+  await waitFor(() => expect(button).toHaveAttribute('aria-label', ''));
+  custom.value = true;
+  await waitFor(() => expect(screen.getByTestId('close')).toHaveTextContent('Custom close'));
+  expect(screen.getByTestId('close').querySelector('svg')).toBeNull();
+  custom.value = false;
+  await waitFor(() => expect(screen.getByTestId('close').querySelector('svg')).toBeInTheDocument());
+});

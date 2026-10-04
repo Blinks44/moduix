@@ -2,7 +2,7 @@
 import { SplitterResizeTrigger as ArkSplitterResizeTrigger } from '@ark-ui/vue/splitter';
 import type { SplitterResizeTriggerProps } from '@ark-ui/vue/splitter';
 import { clsx } from 'clsx';
-import { useAttrs, useSlots } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './Splitter.module.css';
 import SplitterResizeTriggerIndicator from './SplitterResizeTriggerIndicator.vue';
@@ -16,10 +16,9 @@ export interface Props extends /* @vue-ignore */ SplitterResizeTriggerProps {
 }
 
 const { asChild = false, class: className, id } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const slots = useSlots();
 </script>
 
 <template>

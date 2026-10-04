@@ -2,7 +2,7 @@
 import { FloatingPanelStageTrigger as ArkFloatingPanelStageTrigger } from '@ark-ui/vue/floating-panel';
 import type { FloatingPanelStageTriggerProps } from '@ark-ui/vue/floating-panel';
 import { clsx } from 'clsx';
-import { useAttrs, useSlots } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './FloatingPanel.module.css';
@@ -16,10 +16,9 @@ export interface Props extends /* @vue-ignore */ FloatingPanelStageTriggerProps 
 }
 
 const { asChild = false, class: className, stage } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const slots = useSlots();
 </script>
 
 <template>

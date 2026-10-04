@@ -1,4 +1,5 @@
-import { expect, test } from '@rstest/core';
+import { DrawerRootProvider as ArkDrawerRootProvider } from '@ark-ui/vue/drawer';
+import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, ref } from 'vue';
@@ -176,6 +177,55 @@ test('opens a RootProvider drawer from external state', async () => {
   expect(await screen.findByRole('dialog')).toBeInTheDocument();
 });
 
+test.each([
+  ['moduix', DrawerRootProvider],
+  ['Ark', ArkDrawerRootProvider],
+] as const)('preserves native RootProvider presence callbacks (%s)', async (_name, Provider) => {
+  const enterComplete = rs.fn();
+  const exitComplete = rs.fn();
+  const Harness = defineComponent({
+    components: { ...drawerComponents, Provider },
+    setup: () => ({ drawer: useDrawer(), enterComplete, exitComplete }),
+    template: `
+      <button type="button" @click="drawer.setOpen(true)">Open via API</button>
+      <Provider
+        :value="drawer"
+        @enter-complete="enterComplete"
+        @exit-complete="exitComplete"
+      >
+        <DrawerPositioner>
+          <DrawerContent>
+            <DrawerTitle>Provider lifecycle</DrawerTitle>
+            <DrawerCloseTrigger>Close drawer</DrawerCloseTrigger>
+          </DrawerContent>
+        </DrawerPositioner>
+      </Provider>
+    `,
+  });
+
+  render(Harness);
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  expect(enterComplete).not.toHaveBeenCalled();
+  expect(exitComplete).not.toHaveBeenCalled();
+
+  for (const count of [1, 2]) {
+    await fireEvent.click(screen.getByRole('button', { name: 'Open via API' }));
+    await screen.findByRole('dialog', { name: 'Provider lifecycle' });
+    // Ark Presence skips enter completion for its first mount.
+    if (count > 1) {
+      await waitFor(() => expect(enterComplete).toHaveBeenCalledTimes(count - 1));
+    } else {
+      expect(enterComplete).not.toHaveBeenCalled();
+    }
+
+    await fireEvent.click(screen.getByRole('button', { name: 'Close drawer' }));
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      expect(exitComplete).toHaveBeenCalledTimes(count);
+    });
+  }
+});
+
 test('starts content dragging outside the grabber by default', async () => {
   const Harness = defineComponent({
     components: drawerComponents,
@@ -346,4 +396,47 @@ test('renders and hydrates the public anatomy through Vue SSR', async () => {
   );
   app.unmount();
   container.remove();
+});
+
+test('keeps close-icon labels, attrs and fallback content reactive', async () => {
+  const label = ref<string | undefined>('Dismiss first');
+  const labelledby = ref<string | undefined>();
+  const custom = ref(false);
+  render({
+    components: drawerComponents,
+    setup: () => ({ label, labelledby, custom }),
+    template: `
+      <Drawer default-open :portalled="false">
+        <DrawerPositioner><DrawerContent>
+          <DrawerTitle>Preview</DrawerTitle>
+          <DrawerCloseIcon :aria-label="label" :aria-labelledby="labelledby"
+            class="consumer-close" style="color: red" title="Dismiss preview" data-testid="close">
+            <template v-if="custom" #default><span>Custom close</span></template>
+          </DrawerCloseIcon>
+        </DrawerContent></DrawerPositioner>
+      </Drawer>
+    `,
+  });
+  const button = await screen.findByTestId('close');
+  expect(button.tagName).toBe('BUTTON');
+  expect(button).toHaveAttribute('aria-label', 'Dismiss first');
+  expect(button).toHaveClass('consumer-close');
+  expect(button).toHaveStyle({ color: 'red' });
+  expect(button).toHaveAttribute('title', 'Dismiss preview');
+  expect(button.querySelector('svg')).toBeInTheDocument();
+  label.value = 'Dismiss second';
+  await waitFor(() => expect(button).toHaveAttribute('aria-label', 'Dismiss second'));
+  labelledby.value = 'dismiss-label';
+  label.value = undefined;
+  await waitFor(() => {
+    expect(button).toHaveAttribute('aria-labelledby', 'dismiss-label');
+    expect(button).toHaveAttribute('aria-label', 'Close drawer');
+  });
+  label.value = '';
+  await waitFor(() => expect(button).toHaveAttribute('aria-label', ''));
+  custom.value = true;
+  await waitFor(() => expect(screen.getByTestId('close')).toHaveTextContent('Custom close'));
+  expect(screen.getByTestId('close').querySelector('svg')).toBeNull();
+  custom.value = false;
+  await waitFor(() => expect(screen.getByTestId('close').querySelector('svg')).toBeInTheDocument());
 });

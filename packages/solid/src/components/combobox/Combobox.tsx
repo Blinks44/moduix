@@ -124,7 +124,6 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
     'children',
     'class',
   ]);
-  const resolvedChildren = children(() => local.children);
   const triggerClass = () => clsx(styles.clearTrigger, local.class);
 
   if (local.asChild) {
@@ -156,7 +155,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
             }
             aria-labelledby={local['aria-labelledby']}
           >
-            {resolvedChildren()}
+            {local.children}
           </CloseButton>
         );
       }}

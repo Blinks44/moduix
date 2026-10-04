@@ -1,4 +1,4 @@
-import { expect, test } from '@rstest/core';
+import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, ref } from 'vue';
@@ -111,6 +111,41 @@ test('distributes pasted values through controlled v-model and forwards one valu
   });
   expect(value.value).toEqual(['1', '2', '3', '4']);
   expect(changes.at(-1)).toBe('1234');
+});
+
+test('forwards native hook emits once alongside prop callbacks', async () => {
+  const emit = rs.fn();
+  const onValueChange = rs.fn();
+  const onValueComplete = rs.fn();
+  const App = defineComponent({
+    components: pinInputComponents,
+    setup: () => ({
+      pinInput: usePinInput({ count: 4, onValueChange, onValueComplete }, emit),
+    }),
+    template: `
+      <PinInputRootProvider :value="pinInput">
+        <PinInputLabel>Verification code</PinInputLabel>
+        <PinInputControl><PinInputInputs /></PinInputControl>
+      </PinInputRootProvider>
+    `,
+  });
+
+  render(App);
+  const [input] = screen.getAllByRole('textbox');
+  input.focus();
+  await fireEvent.focusIn(input);
+  paste(input, '1234');
+
+  await waitFor(() => expect(onValueComplete).toHaveBeenCalledTimes(1));
+  expect(onValueChange).toHaveBeenCalledTimes(1);
+  expect(emit.mock.calls.map(([event]) => event)).toEqual([
+    'valueChange',
+    'update:modelValue',
+    'valueComplete',
+  ]);
+  expect(emit).toHaveBeenCalledWith('valueChange', onValueChange.mock.calls[0][0]);
+  expect(emit).toHaveBeenCalledWith('update:modelValue', ['1', '2', '3', '4']);
+  expect(emit).toHaveBeenCalledWith('valueComplete', onValueComplete.mock.calls[0][0]);
 });
 
 test('keeps invalid, disabled, and read-only Field state on visible inputs', () => {

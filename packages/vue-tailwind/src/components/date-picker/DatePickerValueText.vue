@@ -14,26 +14,25 @@ export interface Props extends /* @vue-ignore */ DatePickerValueTextProps {
   class?: HTMLAttributes['class'];
 }
 
-const props = defineProps<Props>();
-defineSlots<{ default?: (value: DatePickerValueTextRenderProps) => unknown }>();
+const { class: className } = defineProps<Props>();
+const slots = defineSlots<{ default?: (value: DatePickerValueTextRenderProps) => unknown }>();
 
 const attrs = useAttrs();
 </script>
 
 <template>
   <ArkDatePickerValueText
-    v-if="!$slots.default"
-    v-bind="attrs"
-    :class="cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', props.class)"
-    data-slot="date-picker-value-text"
-  />
-  <ArkDatePickerValueText
-    v-else
-    v-bind="attrs"
-    :class="cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', props.class)"
-    data-slot="date-picker-value-text"
+    v-bind="
+      slots.default
+        ? attrs
+        : {
+            ...attrs,
+            class: cn('min-w-0 overflow-hidden text-ellipsis whitespace-nowrap', className),
+            'data-slot': 'date-picker-value-text',
+          }
+    "
   >
-    <template #default="value">
+    <template v-if="slots.default" #default="value">
       <slot v-bind="value" />
     </template>
   </ArkDatePickerValueText>

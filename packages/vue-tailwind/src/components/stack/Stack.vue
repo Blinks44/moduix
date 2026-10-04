@@ -64,30 +64,22 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 
-const mobileDirection = computed(() =>
-  typeof direction === 'string' ? direction : (direction?.mobile ?? direction?.desktop),
-);
-const desktopDirection = computed(() =>
-  typeof direction === 'string' ? direction : (direction?.desktop ?? direction?.mobile),
-);
-
 const stackClass = computed(() =>
   cn(
     stackVariants({
-      mobileDirection: mobileDirection.value,
-      desktopDirection: desktopDirection.value,
+      mobileDirection:
+        typeof direction === 'string' ? direction : (direction?.mobile ?? direction?.desktop),
+      desktopDirection:
+        typeof direction === 'string' ? direction : (direction?.desktop ?? direction?.mobile),
       fill,
     }),
     className,
   ),
 );
 
-const toCssLength = (value: number | string | undefined) =>
-  typeof value === 'number' ? `${value}px` : value;
-
 const stackStyle = computed<StyleValue>(() => [
   {
-    gap: toCssLength(gap),
+    gap: typeof gap === 'number' ? `${gap}px` : gap,
     alignItems: align,
     justifyContent: justify,
     flexWrap: wrap,

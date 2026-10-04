@@ -40,22 +40,16 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 
-const mobileDirection = computed(() =>
-  typeof direction === 'string' ? direction : (direction?.mobile ?? direction?.desktop),
-);
-const desktopDirection = computed(() =>
-  typeof direction === 'string' ? direction : (direction?.desktop ?? direction?.mobile),
-);
-
-const toCssLength = (value: number | string | undefined) =>
-  typeof value === 'number' ? `${value}px` : value;
-
 const stackStyle = computed<StyleValue>(() => [
   {
-    '--moduix-stack-direction-desktop': desktopDirection.value ?? 'column',
-    '--moduix-stack-direction-mobile': mobileDirection.value ?? 'column',
+    '--moduix-stack-direction-desktop':
+      (typeof direction === 'string' ? direction : (direction?.desktop ?? direction?.mobile)) ??
+      'column',
+    '--moduix-stack-direction-mobile':
+      (typeof direction === 'string' ? direction : (direction?.mobile ?? direction?.desktop)) ??
+      'column',
     ...(fill == null ? {} : { '--moduix-stack-flex': fill ? '1 1 0%' : 'initial' }),
-    gap: toCssLength(gap),
+    gap: typeof gap === 'number' ? `${gap}px` : gap,
     alignItems: align,
     justifyContent: justify,
     flexWrap: wrap,

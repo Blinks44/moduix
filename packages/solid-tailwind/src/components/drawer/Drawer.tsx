@@ -6,8 +6,8 @@ import {
 } from '@ark-ui/solid/drawer';
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
-import type { ComponentProps } from 'solid-js';
-import { children as resolveChildren, createContext, splitProps, useContext } from 'solid-js';
+import type { Accessor, ComponentProps } from 'solid-js';
+import { createContext, splitProps, useContext } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import {
   OverlayPortal,
@@ -18,7 +18,7 @@ import { CloseButton } from '../close-button';
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';
 type DrawerVariant = 'island';
-const DrawerVariantContext = createContext<DrawerVariant>();
+const DrawerVariantContext = createContext<Accessor<DrawerVariant | undefined>>();
 
 type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> &
   OverlayPortalProps & { variant?: DrawerVariant };
@@ -44,7 +44,7 @@ function Drawer(props: DrawerRootProps) {
 
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
-      <DrawerVariantContext.Provider value={local.variant}>
+      <DrawerVariantContext.Provider value={() => local.variant}>
         <DrawerPrimitive.Root
           lazyMount={local.lazyMount ?? true}
           unmountOnExit={local.unmountOnExit ?? true}
@@ -153,7 +153,7 @@ function DrawerContent(props: DrawerContentProps) {
       )}
       draggable={local.draggable ?? true}
       {...others}
-      data-variant={local.variant ?? rootVariant}
+      data-variant={local.variant ?? rootVariant?.()}
       data-slot="drawer-content"
     />
   );
@@ -232,7 +232,6 @@ function DrawerCloseTrigger(props: ComponentProps<typeof DrawerPrimitive.CloseTr
 
 function DrawerCloseIcon(props: DrawerCloseIconProps) {
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
-  const resolvedChildren = resolveChildren(() => local.children);
 
   return (
     <DrawerPrimitive.CloseTrigger
@@ -250,7 +249,7 @@ function DrawerCloseIcon(props: DrawerCloseIconProps) {
             local.class,
           )}
         >
-          {resolvedChildren()}
+          {local.children}
         </CloseButton>
       )}
       {...others}

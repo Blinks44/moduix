@@ -59,11 +59,6 @@ const listVariants = cva('flex flex-col font-regular tracking-normal list-outsid
   },
 });
 
-const elements = {
-  ol: ark.ol,
-  ul: ark.ul,
-} as const;
-
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'ol'> {
@@ -88,7 +83,6 @@ const {
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const element = computed(() => elements[elementName ?? 'ul']);
 const markerValue = computed(() => marker ?? 'auto');
 const listRole = computed(() => role ?? (markerValue.value === 'none' ? 'list' : undefined));
 const rootClass = computed(() =>
@@ -107,7 +101,7 @@ const rootClass = computed(() =>
 
 <template>
   <component
-    :is="element"
+    :is="ark[elementName ?? 'ul']"
     v-bind="attrs"
     :class="rootClass"
     :role="listRole"

@@ -137,6 +137,10 @@ test('preserves active link composition for primary and nested navigation', () =
   const details = screen.getByRole('link', { name: 'Details' });
 
   expect(overview).toHaveAttribute('aria-current', 'page');
+  expect(overview).toHaveClass(
+    'group-data-[state=expanded]/sidebar-panel:@min-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-10',
+  );
+  expect(overview).not.toHaveClass('@max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2');
   expect(overview).toHaveAttribute('data-slot', 'sidebar-navigation-button');
   expect(overview).toHaveAttribute('data-active');
   expect(overview).toHaveAttribute('data-size', 'sm');
@@ -266,6 +270,10 @@ test('uses native Tailwind defaults and merges consumer utilities last', () => {
   const root = container.querySelector('[data-slot="sidebar-root"]');
   const panel = container.querySelector('[data-slot="sidebar-panel"]');
   const navigationButton = screen.getByRole('button', { name: 'Overview' });
+  expect(navigationButton).toHaveClass(
+    'group-data-[state=expanded]/sidebar-panel:@min-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-10',
+  );
+  expect(navigationButton).not.toHaveClass('has-[+_[data-slot=sidebar-navigation-badge]]:pe-10');
   const trigger = screen.getByRole('button', { name: 'Toggle sidebar' });
 
   expect(root).toHaveClass('h-64', 'bg-muted');

@@ -1,5 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@solidjs/testing-library';
+import { createSignal } from 'solid-js';
 import {
   Toast,
   ToastCloseTrigger,
@@ -170,3 +171,31 @@ test('lets consumer Tailwind utilities override conflicting defaults', async () 
   expect(screen.getByText('Custom styles')).toHaveClass('text-lg');
   expect(screen.getByText('Custom styles')).not.toHaveClass('text-sm');
 });
+
+test.each([false, true])(
+  'updates the close trigger accessible name (asChild=%s)',
+  async (asChild) => {
+    const toaster = createToaster({ placement: 'bottom', duration: Infinity });
+    const [label, setLabel] = createSignal<string | undefined>();
+    render(() => (
+      <ToastToaster toaster={toaster} portalled={false}>
+        {() => (
+          <Toast>
+            <ToastTitle />
+            <ToastCloseTrigger
+              aria-label={label()}
+              asChild={asChild ? (props) => <button {...props()}>Clear</button> : undefined}
+            />
+          </Toast>
+        )}
+      </ToastToaster>
+    ));
+    toaster.create({ title: 'Reactive label' });
+    const trigger = await screen.findByRole('button', { name: 'Close toast' });
+
+    setLabel('Dismiss notification');
+    expect(trigger).toHaveAccessibleName('Dismiss notification');
+    setLabel(undefined);
+    expect(trigger).toHaveAccessibleName('Close toast');
+  },
+);

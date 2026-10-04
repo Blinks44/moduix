@@ -20,17 +20,10 @@ const attrs = useAttrs();
 
 <template>
   <ArkListboxValueText
-    v-if="$slots.default"
     v-bind="attrs"
     :class="clsx(styles.valueText, className)"
     data-slot="listbox-value-text"
   >
-    <slot />
+    <template v-if="$slots.default" #default><slot /></template>
   </ArkListboxValueText>
-  <ArkListboxValueText
-    v-else
-    v-bind="attrs"
-    :class="clsx(styles.valueText, className)"
-    data-slot="listbox-value-text"
-  />
 </template>

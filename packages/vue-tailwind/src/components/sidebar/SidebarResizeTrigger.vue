@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { SplitterResizeTrigger as ArkSplitterResizeTrigger } from '@ark-ui/vue/splitter';
 import type { SplitterResizeTriggerProps } from '@ark-ui/vue/splitter';
-import { computed, useAttrs, useSlots } from 'vue';
+import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 import SplitterResizeTriggerIndicator from '../splitter/SplitterResizeTriggerIndicator.vue';
@@ -14,9 +14,8 @@ export interface Props extends /* @vue-ignore */ Omit<SplitterResizeTriggerProps
   class?: HTMLAttributes['class'];
 }
 const { asChild = false, class: className } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+const slots = defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
-const slots = useSlots();
 const { panelId, side } = useSidebarConfig();
 const resizeTriggerId = computed<`${string}:${string}`>(() =>
   side.value === 'left' ? `${panelId.value}:content` : `content:${panelId.value}`,

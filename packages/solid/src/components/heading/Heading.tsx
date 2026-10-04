@@ -41,11 +41,10 @@ function Heading(props: HeadingProps) {
     'data-size',
     'data-weight',
   ]);
-  const Element = () => elements[local.as ?? 'h1'] as typeof ark.h1;
 
   return (
     <Dynamic
-      component={Element()}
+      component={elements[local.as ?? 'h1']}
       asChild={local.asChild}
       {...others}
       data-scope="heading"

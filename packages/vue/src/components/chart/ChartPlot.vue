@@ -25,31 +25,21 @@ export type ChartTooltipBodyRenderContext<
   defaultBody: () => VNodeChild;
 };
 
-type ChartTooltipBodyRenderProps<
-  TDatum = unknown,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
-> = {
-  renderTooltipBody?: (
-    context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>,
-  ) => VNodeChild;
-};
-
 export interface Props<
   TDatum = unknown,
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
->
-  extends
-    Omit<
-      ChartRendererHostOptions<TDatum, TXValue, TYValue>,
-      'className' | 'onTooltipBodyChange' | 'renderer'
-    >,
-    ChartTooltipBodyRenderProps<TDatum, TXValue, TYValue> {
+> extends Omit<
+  ChartRendererHostOptions<TDatum, TXValue, TYValue>,
+  'className' | 'onTooltipBodyChange' | 'renderer'
+> {
   class?: HTMLAttributes['class'];
   style?: HTMLAttributes['style'];
   motion?: boolean;
   renderer?: ChartRenderer<NoInfer<TDatum>, NoInfer<TXValue>, NoInfer<TYValue>>;
+  renderTooltipBody?: (
+    context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>,
+  ) => VNodeChild;
 }
 </script>
 
@@ -59,6 +49,7 @@ export interface Props<
   generic="TDatum, TXValue extends ChartValue = ChartValue, TYValue extends ChartValue = ChartValue"
 >
 import type { ChartTooltipBodyTarget, ChartTooltipContent } from '@tanstack/charts';
+import { resolveChartAdapterLayout } from '@tanstack/charts/adapter';
 import { createChartRendererAdapter } from '@tanstack/charts/adapter/renderer';
 import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
 import { clsx } from 'clsx';
@@ -142,11 +133,7 @@ const renderModuixTooltipBody = (content: ChartTooltipContent | string): VNodeCh
 
 const generatedIdPrefix = `ts-chart-${useId().replaceAll(/[^a-zA-Z0-9_-]/g, '')}`;
 
-const resolvedAspectRatio = computed(() =>
-  typeof aspectRatio === 'number' && Number.isFinite(aspectRatio) && aspectRatio > 0
-    ? aspectRatio
-    : undefined,
-);
+const resolvedAspectRatio = computed(() => resolveChartAdapterLayout({ aspectRatio }).aspectRatio);
 
 const resolvedRenderer = computed(
   () =>
@@ -162,10 +149,6 @@ const tooltipTarget = shallowRef<ChartTooltipBodyTarget<TDatum, TXValue, TYValue
 const setTooltipTarget = (target: ChartTooltipBodyTarget<TDatum, TXValue, TYValue> | null) => {
   tooltipTarget.value = target;
 };
-
-const renderDefaultTooltipBody = (
-  context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>,
-) => renderModuixTooltipBody(context.content);
 
 const hostOptions = computed<ChartRendererHostOptions<TDatum, TXValue, TYValue>>(() => ({
   definition,
@@ -226,7 +209,9 @@ const renderTooltipContent = () => {
     return null;
   }
 
-  return (renderTooltipBody ?? renderDefaultTooltipBody)({
+  if (!renderTooltipBody) return renderModuixTooltipBody(target.content);
+
+  return renderTooltipBody({
     primaryPoint: target.primaryPoint,
     points: target.points,
     content: target.content,

@@ -9,6 +9,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { isHotKey } from '@ark-ui/solid/hotkeys';
 import type { ComponentProps } from 'solid-js';
 import { children, createEffect, onCleanup, splitProps } from 'solid-js';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
@@ -357,7 +358,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
             local.class,
           )}
           onClick={(event) => {
-            (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
+            callEventHandler(local.onClick, event);
 
             if (!event.defaultPrevented) {
               event.preventDefault();
@@ -365,7 +366,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
             }
           }}
           onPointerDown={(event) => {
-            (local.onPointerDown as ((event: PointerEvent) => void) | undefined)?.(event);
+            callEventHandler(local.onPointerDown, event);
 
             if (event.button === 0) {
               event.preventDefault();

@@ -1,5 +1,6 @@
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
+import { createSignal } from 'solid-js';
 import {
   Chart,
   ChartDescription,
@@ -43,12 +44,13 @@ rs.mock('@tanstack/charts/svg/renderer', () => ({
 rs.mock('@tanstack/charts/adapter/renderer', () => ({
   createChartRendererAdapter: (initialOptions: MockOptions) => {
     let options = initialOptions;
+    let target: HTMLElement | null = null;
 
     return {
       prerender: () =>
         `<div role="img" aria-label="${options.ariaLabel}" class="${options.className ?? ''}" data-testid="tanstack-chart" data-renderer="${options.renderer?.type ?? ''}" data-tooltip-class="${options.definition?.tooltip?.className ?? ''}"></div>`,
       mount: (container: HTMLElement) => {
-        const target = container.querySelector<HTMLElement>('[data-testid="tanstack-chart"]');
+        target = container.querySelector<HTMLElement>('[data-testid="tanstack-chart"]');
 
         if (target) {
           options.onTooltipBodyChange?.({
@@ -68,6 +70,8 @@ rs.mock('@tanstack/charts/adapter/renderer', () => ({
       },
       update: (nextOptions: MockOptions) => {
         options = nextOptions;
+        target?.setAttribute('aria-label', options.ariaLabel);
+        target?.setAttribute('data-renderer', options.renderer?.type ?? '');
       },
       destroy: () => undefined,
     };
@@ -85,6 +89,19 @@ test('renders the callable root with stable hooks and replaceable Tailwind defau
   expect(root).toHaveAttribute('data-slot', 'chart-root');
   expect(root).toHaveClass('consumer-chart', 'p-0', 'bg-muted', 'shadow-none');
   expect(root).not.toHaveClass('p-5', 'bg-card', 'shadow-sm');
+});
+
+test('updates renderer options reactively without replacing the plot', () => {
+  const [label, setLabel] = createSignal('Monthly revenue');
+  const [motion, setMotion] = createSignal(true);
+  render(() => <ChartPlot ariaLabel={label()} definition={{} as never} motion={motion()} />);
+
+  const plot = screen.getByTestId('tanstack-chart');
+  setLabel('Annual revenue');
+  expect(plot).toHaveAccessibleName('Annual revenue');
+  setMotion(false);
+  expect(plot).toHaveAttribute('data-renderer', 'static-svg-renderer');
+  expect(screen.getByTestId('tanstack-chart')).toBe(plot);
 });
 
 test('forwards plot props and supplies the default motion renderer', () => {

@@ -105,7 +105,7 @@ function TagCloseTrigger(props: TagCloseTriggerProps) {
       aria-labelledby={local['aria-labelledby']}
       class={clsx(styles.closeTrigger, local.class)}
     >
-      {local.children}
+      {resolvedChildren()}
     </CloseButton>
   );
 }

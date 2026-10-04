@@ -80,6 +80,26 @@ test('keeps the Input slot that drives grouped field state styling', () => {
   expect(button).toBeEnabled();
 });
 
+test('uses the default size when parts are rendered without a group provider', () => {
+  render(() => (
+    <>
+      <InputGroupInput aria-label="Standalone input" />
+      <InputGroupButton>Standalone action</InputGroupButton>
+      <InputGroupClearTrigger />
+    </>
+  ));
+
+  expect(screen.getByRole('textbox', { name: 'Standalone input' })).toHaveAttribute(
+    'data-size',
+    'md',
+  );
+  expect(screen.getByRole('button', { name: 'Standalone action' })).toHaveAttribute(
+    'data-size',
+    'md',
+  );
+  expect(screen.getByRole('button', { name: 'Clear input' })).toHaveAttribute('data-size', 'md');
+});
+
 test('keeps the group size context reactive', () => {
   const [size, setSize] = createSignal<'sm' | 'xl'>('sm');
 

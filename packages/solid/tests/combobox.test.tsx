@@ -187,3 +187,22 @@ test('preserves native asChild composition and its Ark Solid ref limitation', ()
   expect(container.contains(root)).toBe(true);
   expect(rootRef).toBeUndefined();
 });
+
+test.each([false, true])('updates the clear trigger class (asChild=%s)', (asChild) => {
+  const [className, setClassName] = createSignal('before');
+  const { container } = render(() => (
+    <Combobox collection={fruits} defaultValue={['apple']}>
+      <ComboboxClearTrigger
+        class={className()}
+        asChild={asChild ? (props) => <button {...props()}>Clear</button> : undefined}
+      />
+    </Combobox>
+  ));
+  const trigger = container.querySelector('button')!;
+
+  expect(trigger).toHaveClass('before');
+  setClassName('after');
+  expect(trigger).toHaveClass('after');
+  expect(trigger).not.toHaveClass('before');
+  expect(container.querySelector('button')).toBe(trigger);
+});

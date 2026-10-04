@@ -88,25 +88,27 @@ test('keeps non-modal dialogs interactive and renders inline', () => {
   );
 });
 
-test('supports portalRef, context, RootProvider, refs, and asChild', async () => {
-  const contentRef = ref<ComponentPublicInstance>();
-  const Harness = defineComponent({
-    components: dialogComponents,
-    setup() {
-      const portalTarget = ref<HTMLDivElement>();
-      const dialog = useDialog({ defaultOpen: true });
-      return { contentRef, dialog, getPortal: () => portalTarget.value, portalTarget };
-    },
-    template:
-      '<div><div ref="portalTarget" data-testid="portal"></div><DialogRootProvider :value="dialog" :portal-ref="getPortal"><DialogBackdrop /><DialogPositioner><DialogContent ref="contentRef"><DialogTitle>Preferences</DialogTitle><DialogContext v-slot="context"><output>Open: {{ context.open ? "true" : "false" }}</output></DialogContext></DialogContent></DialogPositioner></DialogRootProvider></div>',
-  });
-  render(Harness);
-  await waitFor(() =>
-    expect(screen.getByTestId('portal')).toContainElement(screen.getByRole('dialog')),
-  );
-  expect(screen.getByText('Open: true')).toBeInTheDocument();
-  expect(contentRef.value?.$el).toBe(screen.getByRole('dialog'));
-});
+test.each(['element', 'getter'] as const)(
+  'supports portalRef, context, RootProvider, refs, and asChild (%s)',
+  async (targetType) => {
+    const contentRef = ref<ComponentPublicInstance>();
+    const portalTarget = ref<HTMLElement>();
+    const Harness = defineComponent({
+      components: dialogComponents,
+      setup() {
+        const dialog = useDialog({ defaultOpen: true });
+        return { contentRef, dialog, getPortal: () => portalTarget.value, portalTarget };
+      },
+      template: `<div><div ref="portalTarget" data-testid="portal"></div><DialogRootProvider :value="dialog" :portal-ref="${targetType === 'getter' ? 'getPortal' : 'portalTarget'}"><DialogBackdrop /><DialogPositioner><DialogContent ref="contentRef"><DialogTitle>Preferences</DialogTitle><DialogContext v-slot="context"><output>Open: {{ context.open ? "true" : "false" }}</output></DialogContext></DialogContent></DialogPositioner></DialogRootProvider></div>`,
+    });
+    render(Harness);
+    await waitFor(() =>
+      expect(screen.getByTestId('portal')).toContainElement(screen.getByRole('dialog')),
+    );
+    expect(screen.getByText('Open: true')).toBeInTheDocument();
+    expect(contentRef.value?.$el).toBe(screen.getByRole('dialog'));
+  },
+);
 
 test('forwards refs through every public part and supports asChild', () => {
   const refs = {
@@ -189,4 +191,47 @@ test('renders and hydrates the public anatomy through Vue SSR', async () => {
   );
   app.unmount();
   container.remove();
+});
+
+test('keeps close-icon labels, attrs and fallback content reactive', async () => {
+  const label = ref<string | undefined>('Dismiss first');
+  const labelledby = ref<string | undefined>();
+  const custom = ref(false);
+  render({
+    components: dialogComponents,
+    setup: () => ({ label, labelledby, custom }),
+    template: `
+      <Dialog default-open :portalled="false">
+        <DialogPositioner><DialogContent>
+          <DialogTitle>Preview</DialogTitle>
+          <DialogCloseIcon :aria-label="label" :aria-labelledby="labelledby"
+            class="consumer-close" style="color: red" title="Dismiss preview" data-testid="close">
+            <template v-if="custom" #default><span>Custom close</span></template>
+          </DialogCloseIcon>
+        </DialogContent></DialogPositioner>
+      </Dialog>
+    `,
+  });
+  const button = await screen.findByTestId('close');
+  expect(button.tagName).toBe('BUTTON');
+  expect(button).toHaveAttribute('aria-label', 'Dismiss first');
+  expect(button).toHaveClass('consumer-close');
+  expect(button).toHaveStyle({ color: 'red' });
+  expect(button).toHaveAttribute('title', 'Dismiss preview');
+  expect(button.querySelector('svg')).toBeInTheDocument();
+  label.value = 'Dismiss second';
+  await waitFor(() => expect(button).toHaveAttribute('aria-label', 'Dismiss second'));
+  labelledby.value = 'dismiss-label';
+  label.value = undefined;
+  await waitFor(() => {
+    expect(button).toHaveAttribute('aria-labelledby', 'dismiss-label');
+    expect(button).toHaveAttribute('aria-label', 'Close dialog');
+  });
+  label.value = '';
+  await waitFor(() => expect(button).toHaveAttribute('aria-label', ''));
+  custom.value = true;
+  await waitFor(() => expect(screen.getByTestId('close')).toHaveTextContent('Custom close'));
+  expect(screen.getByTestId('close').querySelector('svg')).toBeNull();
+  custom.value = false;
+  await waitFor(() => expect(screen.getByTestId('close').querySelector('svg')).toBeInTheDocument());
 });

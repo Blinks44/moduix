@@ -39,9 +39,10 @@ const attrs = useAttrs();
           <VNodeOutlet :value="link.label" />
         </BreadcrumbsLink>
       </BreadcrumbsItem>
-      <BreadcrumbsSeparator v-if="separator == null" />
-      <BreadcrumbsSeparator v-else>
-        <VNodeOutlet :value="separator" />
+      <BreadcrumbsSeparator>
+        <template v-if="separator != null" #default>
+          <VNodeOutlet :value="separator" />
+        </template>
       </BreadcrumbsSeparator>
     </template>
     <BreadcrumbsItem>

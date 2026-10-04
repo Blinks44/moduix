@@ -20,6 +20,34 @@ import {
   useDialog,
 } from '../src';
 
+test('passes dynamic children through CloseIcon and keeps the default icon and close action', async () => {
+  const [custom, setCustom] = createSignal(false);
+  render(() => (
+    <Dialog defaultOpen portalled={false}>
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Preferences</DialogTitle>
+          <DialogCloseIcon>
+            {custom() ? [[<span data-testid="custom-close">Dismiss</span>]] : false}
+          </DialogCloseIcon>
+        </DialogContent>
+      </DialogPositioner>
+    </Dialog>
+  ));
+
+  const button = screen.getByRole('button', { name: 'Close dialog' });
+  expect(button.querySelector('svg')).not.toBeNull();
+  setCustom(true);
+  expect(screen.getByTestId('custom-close')).toHaveTextContent('Dismiss');
+  expect(button.querySelector('svg')).toBeNull();
+  expect(screen.getByRole('button', { name: 'Close dialog' })).toBe(button);
+  setCustom(false);
+  expect(screen.queryByTestId('custom-close')).not.toBeInTheDocument();
+  expect(button.querySelector('svg')).not.toBeNull();
+  fireEvent.click(button);
+  await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+});
+
 test('keeps page interaction available for a non-modal dialog', () => {
   render(() => (
     <Dialog defaultOpen modal={false} portalled={false}>

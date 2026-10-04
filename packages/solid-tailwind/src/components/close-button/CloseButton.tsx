@@ -2,6 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import type { JSX } from 'solid-js';
 import { children as resolveChildren, splitProps } from 'solid-js';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 
@@ -51,14 +52,14 @@ function CloseButton(props: CloseButtonProps) {
 
     local.onClickCapture?.(event);
   };
-  const handleClick = (event: MouseEvent) => {
+  const handleClick: JSX.EventHandler<HTMLButtonElement, MouseEvent> = (event) => {
     if (isDisabled()) {
       event.preventDefault();
       event.stopPropagation();
       return;
     }
 
-    (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
+    callEventHandler(local.onClick, event);
   };
 
   return (

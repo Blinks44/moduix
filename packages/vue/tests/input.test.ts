@@ -89,22 +89,25 @@ test('preserves asChild composition and forwards its ref to the semantic input',
   expect(input).toHaveAttribute('data-slot', 'input-root');
 });
 
-test('supports native events and controlled v-model updates', async () => {
+test.each([false, true])('supports controlled v-model updates (asChild=%s)', async (asChild) => {
   const changes: string[] = [];
+  const value = ref('initial');
   const Harness = defineComponent({
     components: fieldComponents,
     setup() {
       return {
+        asChild,
         changes,
-        value: ref('initial'),
+        value,
       };
     },
     template: `
       <Input
         v-model="value"
+        :as-child="asChild"
         aria-label="Project key"
         @update:model-value="changes.push($event)"
-      />
+      >${asChild ? '<input />' : ''}</Input>
       <output>{{ value }}</output>
     `,
   });
@@ -117,6 +120,10 @@ test('supports native events and controlled v-model updates', async () => {
 
   await waitFor(() => expect(input).toHaveValue('next'));
   expect(screen.getByText('next')).toBeInTheDocument();
+  expect(changes).toEqual(['next']);
+
+  value.value = 'from parent';
+  await waitFor(() => expect(input).toHaveValue('from parent'));
   expect(changes).toEqual(['next']);
 });
 

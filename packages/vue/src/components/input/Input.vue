@@ -21,7 +21,7 @@ export interface Emits {
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -37,7 +37,6 @@ const attrs = useAttrs();
     data-slot="input-root"
     :data-size="props.size ?? 'md'"
     :data-html-size="props.htmlSize === undefined ? undefined : ''"
-    @update:model-value="emit('update:modelValue', $event)"
   >
     <slot />
   </ArkFieldInput>

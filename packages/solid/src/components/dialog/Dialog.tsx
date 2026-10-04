@@ -3,7 +3,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
-import { children, splitProps } from 'solid-js';
+import { splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
@@ -154,7 +154,6 @@ function DialogCloseTrigger(props: ComponentProps<typeof DialogPrimitive.CloseTr
 
 function DialogCloseIcon(props: DialogCloseIconProps) {
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
-  const resolvedChildren = children(() => local.children);
 
   return (
     <DialogPrimitive.CloseTrigger
@@ -166,7 +165,7 @@ function DialogCloseIcon(props: DialogCloseIconProps) {
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >
-          {resolvedChildren()}
+          {local.children}
         </CloseButton>
       )}
       {...others}

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
-import { computed, ref, useAttrs, useSlots } from 'vue';
+import { computed, ref, useAttrs } from 'vue';
 import type { ComponentPublicInstance, HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 
@@ -13,10 +13,9 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'td'> {
 }
 
 const { class: className, colSpan } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const slots = useSlots();
 const cellRef = ref<ComponentPublicInstance | null>(null);
 const cellElement = computed(() => cellRef.value?.$el ?? null);
 

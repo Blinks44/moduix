@@ -1,4 +1,4 @@
-import { afterEach, expect, test } from '@rstest/core';
+import { afterEach, expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, ref } from 'vue';
@@ -72,6 +72,44 @@ test('keeps controlled value changes Ark-shaped and emits each Vue listener once
   await waitFor(() => expect(input).toHaveValue('https://chakra-ui.com'));
   await waitFor(() => expect(details).toEqual(['https://chakra-ui.com']));
 });
+
+test.each([false, true])(
+  'keeps reactive input attrs and classes with asChild=%s',
+  async (asChild) => {
+    const inputRef = ref<ComponentPublicInstance>();
+    const inputClass = ref<string[] | Record<string, boolean>>(['consumer-input', 'initial-class']);
+    const title = ref('Initial title');
+    const clicked = rs.fn();
+    render(
+      defineComponent({
+        components: clipboardComponents,
+        setup: () => ({ asChild, inputRef, inputClass, title, clicked }),
+        template: `
+      <Clipboard default-value="clipboard-code">
+        <ClipboardLabel>Code</ClipboardLabel>
+        <ClipboardInput ref="inputRef" :as-child="asChild" :class="inputClass" :title="title"
+          style="color: red" data-testid="clipboard-input" @click="clicked"
+        ><input v-if="asChild" readonly /></ClipboardInput>
+      </Clipboard>
+    `,
+      }),
+    );
+
+    const input = screen.getByRole('textbox', { name: 'Code' });
+    expect(inputRef.value?.$el).toBe(input);
+    expect(input).toHaveClass('consumer-input', 'initial-class');
+    expect(input).toHaveStyle({ color: 'red' });
+    expect(input).toHaveValue('clipboard-code');
+    expect(input).toHaveAttribute('data-testid', 'clipboard-input');
+    inputClass.value = { 'updated-class': true };
+    title.value = 'Updated title';
+    await waitFor(() => expect(input).toHaveAttribute('title', 'Updated title'));
+    expect(input).toHaveClass('updated-class');
+    expect(input).not.toHaveClass('consumer-input', 'initial-class');
+    await fireEvent.click(input);
+    expect(clicked).toHaveBeenCalledTimes(1);
+  },
+);
 
 test('keeps RootProvider and asChild composition semantic', () => {
   const ProviderClipboard = defineComponent({
@@ -199,6 +237,7 @@ test('preserves native disabled semantics on the input and trigger', () => {
 });
 
 test('clears copied state after the configured timeout', async () => {
+  const statusChange = rs.fn();
   Object.defineProperty(navigator, 'clipboard', {
     configurable: true,
     value: { writeText: async () => undefined },
@@ -206,8 +245,9 @@ test('clears copied state after the configured timeout', async () => {
 
   render({
     components: clipboardComponents,
+    setup: () => ({ statusChange }),
     template: `
-      <Clipboard default-value="workspace-secret" :timeout="1">
+      <Clipboard default-value="workspace-secret" :timeout="1" @status-change="statusChange">
         <ClipboardControl><ClipboardTrigger>Copy secret</ClipboardTrigger></ClipboardControl>
       </Clipboard>
     `,
@@ -218,6 +258,7 @@ test('clears copied state after the configured timeout', async () => {
 
   await waitFor(() => expect(trigger).toHaveAttribute('data-copied'));
   await waitFor(() => expect(trigger).not.toHaveAttribute('data-copied'));
+  expect(statusChange).toHaveBeenCalledExactlyOnceWith({ copied: true });
 });
 
 test('renders and hydrates Clipboard with stable anatomy and ids', async () => {

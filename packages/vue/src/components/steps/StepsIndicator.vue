@@ -2,7 +2,7 @@
 import { StepsIndicator as ArkStepsIndicator, useStepsItemContext } from '@ark-ui/vue/steps';
 import type { StepsIndicatorProps } from '@ark-ui/vue/steps';
 import { clsx } from 'clsx';
-import { useAttrs, useSlots } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Steps.module.css';
@@ -14,9 +14,8 @@ export interface Props extends /* @vue-ignore */ StepsIndicatorProps {
 }
 
 const { class: className } = defineProps<Props>();
-const slots = useSlots();
 const item = useStepsItemContext();
-defineSlots<{ default?: () => unknown }>();
+const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 </script>

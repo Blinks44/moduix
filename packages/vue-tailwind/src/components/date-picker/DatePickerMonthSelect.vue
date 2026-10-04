@@ -11,6 +11,8 @@ defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ DatePickerMonthSelectProps {
   class?: HTMLAttributes['class'];
+  multiple?: DatePickerMonthSelectProps['multiple'];
+  size?: DatePickerMonthSelectProps['size'];
 }
 
 const props = defineProps<Props>();

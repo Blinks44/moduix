@@ -7,6 +7,34 @@ const theme =
   readFileSync('../foundation/src/styles/style.css', 'utf8').replace(/@import[^;]+;/g, '');
 
 const cases = [
+  [
+    'file-upload/FileUpload',
+    'has-[[data-slot=file-upload-item-preview]]:not-has-[[data-slot=file-upload-item-preview-image]]:grid-cols-[auto_minmax(0,1fr)_auto]',
+  ],
+  [
+    'file-upload/FileUpload',
+    'group-not-has-[[data-slot=file-upload-item-preview-image]]/item:row-[1/span_2]',
+  ],
+  [
+    'file-upload/FileUpload',
+    'group-has-[[data-slot=file-upload-item-preview-image]]/item:col-span-full',
+  ],
+  [
+    'file-upload/FileUpload',
+    'group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-2',
+  ],
+  [
+    'file-upload/FileUpload',
+    'group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-3',
+  ],
+  [
+    'file-upload/FileUpload',
+    'group-has-[[data-slot=file-upload-item-preview-image]]/item:row-[2/span_2]',
+  ],
+  [
+    'file-upload/FileUpload',
+    'group-has-[[data-slot=file-upload-item-size-text]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:row-[1/span_2]',
+  ],
   ['lightbox/Lightbox', 'data-[state=open]:animate-moduix-lightbox-content-in'],
   ['lightbox/Lightbox', 'data-[state=closed]:animate-moduix-lightbox-content-out'],
   ['command-palette/CommandPalette', 'data-[state=open]:animate-moduix-command-palette-content-in'],

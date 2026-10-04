@@ -1,6 +1,6 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { expect, test } from '@rstest/core';
-import { fireEvent, render, screen } from '@solidjs/testing-library';
+import { expect, rs, test } from '@rstest/core';
+import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import {
   Select,
   Sidebar,
@@ -38,6 +38,39 @@ function DefaultSidebarConstraints() {
 
   return <output data-testid="constraints">{`${panel().minSize}:${panel().collapsedSize}`}</output>;
 }
+
+test.each([false, true])('supports bound toggle handlers (prevented=%s)', async (prevented) => {
+  const payload = { action: 'toggle' };
+  const calls: unknown[] = [];
+  render(() => (
+    <Sidebar
+      defaultSize={[20, 80]}
+      ref={(element) => {
+        rs.spyOn(element, 'getBoundingClientRect').mockReturnValue(new DOMRect(0, 0, 1000, 600));
+      }}
+    >
+      <SidebarPanel />
+      <SidebarResizeTrigger />
+      <SidebarTrigger
+        onClick={[
+          (data, event) => {
+            calls.push(data, event.currentTarget);
+            if (prevented) event.preventDefault();
+          },
+          payload,
+        ]}
+      />
+      <SidebarInset />
+    </Sidebar>
+  ));
+  const trigger = screen.getByRole('button', { name: 'Toggle sidebar' });
+  await new Promise(requestAnimationFrame);
+  fireEvent.click(trigger);
+  expect(calls).toEqual([payload, trigger]);
+  await waitFor(() =>
+    expect(trigger).toHaveAttribute('aria-expanded', prevented ? 'true' : 'false'),
+  );
+});
 
 test('keeps the default panel, inset, and resize ids aligned', () => {
   render(() => (

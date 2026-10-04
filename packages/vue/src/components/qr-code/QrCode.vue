@@ -18,20 +18,14 @@ export interface Emits {
 }
 
 const { class: className } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 </script>
 
 <template>
-  <ArkQrCodeRoot
-    v-bind="attrs"
-    :class="clsx(styles.root, className)"
-    data-slot="qr-code-root"
-    @value-change="emit('valueChange', $event)"
-    @update:model-value="emit('update:modelValue', $event)"
-  >
+  <ArkQrCodeRoot v-bind="attrs" :class="clsx(styles.root, className)" data-slot="qr-code-root">
     <slot />
   </ArkQrCodeRoot>
 </template>

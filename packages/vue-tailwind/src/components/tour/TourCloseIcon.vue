@@ -10,9 +10,10 @@ defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ Omit<TourCloseTriggerProps, 'asChild'> {
   class?: HTMLAttributes['class'];
+  ariaLabel?: HTMLAttributes['aria-label'];
 }
 
-const { class: className } = defineProps<Props>();
+const { class: className, ariaLabel } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -21,7 +22,7 @@ const attrs = useAttrs();
 <template>
   <ArkTourCloseTrigger v-bind="attrs" as-child>
     <CloseButton
-      :aria-label="(attrs['aria-label'] as string | undefined) ?? 'Close tour'"
+      :aria-label="ariaLabel ?? 'Close tour'"
       :class="
         cn(
           'absolute end-4 top-4 size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',

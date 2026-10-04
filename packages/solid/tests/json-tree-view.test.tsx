@@ -1,6 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
-import { JsonTreeView, JsonTreeViewTree } from '../src';
+import { createSignal } from 'solid-js';
+import { JsonTreeView, JsonTreeViewRootProvider, JsonTreeViewTree, useJsonTreeView } from '../src';
 
 const data = {
   release: {
@@ -8,6 +9,34 @@ const data = {
     version: '2.3.0',
   },
 };
+
+test('forwards provider props, refs and reactive classes to the existing root', () => {
+  const [className, setClassName] = createSignal('consumer-before');
+  let rootRef: HTMLDivElement | undefined;
+  render(() => {
+    const tree = useJsonTreeView({ data, defaultExpandedDepth: 1 });
+    return (
+      <JsonTreeViewRootProvider
+        value={tree}
+        class={className()}
+        ref={(element) => (rootRef = element)}
+        data-owner="consumer"
+      >
+        <JsonTreeViewTree />
+      </JsonTreeViewRootProvider>
+    );
+  });
+
+  const root = screen.getByRole('tree').parentElement!;
+  expect(rootRef).toBe(root);
+  expect(root).toHaveAttribute('data-owner', 'consumer');
+  expect(root).toHaveAttribute('data-slot', 'json-tree-view-root-provider');
+  expect(root).toHaveClass('consumer-before');
+  setClassName('consumer-after');
+  expect(root).toHaveClass('consumer-after');
+  expect(root).not.toHaveClass('consumer-before');
+  expect(screen.getByRole('tree').parentElement).toBe(root);
+});
 
 test('renders a styled Ark tree with the generated JSON nodes', async () => {
   render(() => (

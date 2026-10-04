@@ -3,6 +3,28 @@ import { fireEvent, render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '../src';
 
+test('resolves custom close-trigger children once and preserves their reactive content', () => {
+  const [label, setLabel] = createSignal('Dismiss');
+  let childMounts = 0;
+  function CustomChild() {
+    childMounts++;
+    return <span data-testid="custom-child">{label()}</span>;
+  }
+  render(() => (
+    <TagCloseTrigger data-testid="close">
+      <CustomChild />
+    </TagCloseTrigger>
+  ));
+
+  const child = screen.getByTestId('custom-child');
+  expect(childMounts).toBe(1);
+  expect(child.parentElement).toBe(screen.getByTestId('close'));
+  setLabel('Remove');
+  expect(screen.getByTestId('custom-child')).toBe(child);
+  expect(child).toHaveTextContent('Remove');
+  expect(childMounts).toBe(1);
+});
+
 test('renders every part with stable hooks and native defaults', () => {
   render(() => (
     <Tag class="consumer-tag" data-testid="root" size="sm" variant="secondary">

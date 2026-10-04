@@ -26,6 +26,30 @@ function ProviderAngleSlider() {
   );
 }
 
+test.each([false, true])('supports bound pointer handlers (prevented=%s)', (prevented) => {
+  const payload = { action: 'rotate' };
+  const calls: unknown[] = [];
+  const { container } = render(() => (
+    <AngleSlider aria-label="Rotation">
+      <AngleSliderDial
+        onPointerDown={[
+          (data, event) => {
+            calls.push(data, event.currentTarget);
+            if (prevented) event.preventDefault();
+          },
+          payload,
+        ]}
+      />
+    </AngleSlider>
+  ));
+  const control = container.querySelector('[data-slot="angle-slider-control"]')!;
+  fireEvent.pointerDown(control, { button: 0 });
+  expect(calls).toEqual([payload, control]);
+  expect(screen.getByRole('slider', { name: 'Rotation' }) === document.activeElement).toBe(
+    !prevented,
+  );
+});
+
 test('submits through explicit hidden inputs for root and RootProvider composition', () => {
   const { container } = render(() => (
     <>

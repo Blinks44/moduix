@@ -49,7 +49,7 @@ const {
   unmountOnExit = true,
   variant,
 } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -74,13 +74,6 @@ const resolvedDefaultSnapPoint = computed(() =>
       :snap-points="resolvedSnapPoints"
       :swipe-direction="swipeDirection"
       :unmount-on-exit="unmountOnExit"
-      @exit-complete="emit('exitComplete')"
-      @open-change="emit('openChange', $event)"
-      @snap-point-change="emit('snapPointChange', $event)"
-      @trigger-value-change="emit('triggerValueChange', $event)"
-      @update:open="emit('update:open', $event)"
-      @update:snap-point="emit('update:snapPoint', $event)"
-      @update:trigger-value="emit('update:triggerValue', $event)"
     >
       <slot />
     </ArkDrawerRoot>

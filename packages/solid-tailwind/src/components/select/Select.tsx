@@ -156,7 +156,6 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
     'children',
     'class',
   ]);
-  const resolvedChildren = children(() => local.children);
 
   if (local.asChild) {
     return (
@@ -187,7 +186,7 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
             }
             aria-labelledby={local['aria-labelledby']}
           >
-            {resolvedChildren()}
+            {local.children}
           </CloseButton>
         );
       }}

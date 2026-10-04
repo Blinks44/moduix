@@ -13,19 +13,15 @@ export interface Props extends /* @vue-ignore */ TourTitleProps {
 }
 
 const { class: className } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 </script>
 
 <template>
-  <ArkTourTitle
-    v-if="!$slots.default"
-    v-bind="attrs"
-    :class="clsx(styles.title, className)"
-    data-slot="tour-title"
-  />
-  <ArkTourTitle v-else v-bind="attrs" :class="clsx(styles.title, className)" data-slot="tour-title">
-    <slot />
+  <ArkTourTitle v-bind="attrs" :class="clsx(styles.title, className)" data-slot="tour-title">
+    <template v-if="slots.default" #default>
+      <slot />
+    </template>
   </ArkTourTitle>
 </template>

@@ -459,36 +459,38 @@ test('renders and hydrates the public anatomy on the server', async () => {
   host.remove();
 });
 
-test('moves the same toaster host when portal options change reactively', async () => {
-  const first = document.createElement('div');
-  const second = document.createElement('div');
-  document.body.append(first, second);
-  const target = ref(first);
-  const portalled = ref(true);
-  const toaster = createToaster({ placement: 'bottom', duration: Infinity });
-  const { container, unmount } = render(
-    defineComponent({
-      components: { ToastToaster },
-      setup: () => ({ target, portalled, toaster }),
-      template:
-        '<ToastToaster :toaster="toaster" :portalled="portalled" :portal-ref="() => target" />',
-    }),
-  );
-  toaster.create({ title: 'Moving toast' });
-  const title = await within(first).findByText('Moving toast');
-  const group = title.closest('[data-slot="toast-toaster"]');
-  target.value = second;
-  await waitFor(() => expect(second).toContainElement(title));
-  expect(title.closest('[data-slot="toast-toaster"]')).toBe(group);
-  portalled.value = false;
-  await waitFor(() => expect(container).toContainElement(title));
-  portalled.value = true;
-  await waitFor(() => expect(second).toContainElement(title));
-  expect(title.closest('[data-slot="toast-toaster"]')).toBe(group);
-  unmount();
-  first.remove();
-  second.remove();
-});
+test.each(['element', 'getter'] as const)(
+  'moves the same toaster host when portal options change reactively (%s)',
+  async (targetType) => {
+    const first = document.createElement('div');
+    const second = document.createElement('div');
+    document.body.append(first, second);
+    const target = ref(first);
+    const portalled = ref(true);
+    const toaster = createToaster({ placement: 'bottom', duration: Infinity });
+    const { container, unmount } = render(
+      defineComponent({
+        components: { ToastToaster },
+        setup: () => ({ target, portalled, toaster }),
+        template: `<ToastToaster :toaster="toaster" :portalled="portalled" :portal-ref="${targetType === 'getter' ? '() => target' : 'target'}" />`,
+      }),
+    );
+    toaster.create({ title: 'Moving toast' });
+    const title = await within(first).findByText('Moving toast');
+    const group = title.closest('[data-slot="toast-toaster"]');
+    target.value = second;
+    await waitFor(() => expect(second).toContainElement(title));
+    expect(title.closest('[data-slot="toast-toaster"]')).toBe(group);
+    portalled.value = false;
+    await waitFor(() => expect(container).toContainElement(title));
+    portalled.value = true;
+    await waitFor(() => expect(second).toContainElement(title));
+    expect(title.closest('[data-slot="toast-toaster"]')).toBe(group);
+    unmount();
+    first.remove();
+    second.remove();
+  },
+);
 
 test.each([false, true])(
   'keeps nested Popover portal independent (toaster portalled=%s)',

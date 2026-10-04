@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, defineComponent, ref } from 'vue';
+import { createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
   ProgressCircular,
@@ -30,6 +30,77 @@ const progressComponents = {
   ProgressCircularValueText,
   ProgressCircularView,
 };
+
+test('updates fallback and consumer value text without losing attrs or refs', async () => {
+  const value = ref<number | null>(42);
+  const custom = ref(false);
+  const text = ref('Uploaded');
+  const valueRef = ref<ComponentPublicInstance>();
+  const clicks: MouseEvent[] = [];
+  render({
+    components: progressComponents,
+    setup: () => ({ value, custom, text, valueRef, clicks }),
+    template: `
+      <ProgressCircular :model-value="value">
+        <ProgressCircularValueText ref="valueRef" class="consumer-value" style="color:red"
+          title="Upload progress" data-testid="value" @click="clicks.push($event)">
+          <template v-if="custom" #default><strong>{{ text }}</strong></template>
+        </ProgressCircularValueText>
+      </ProgressCircular>
+    `,
+  });
+  expect(screen.getByTestId('value')).toHaveTextContent('42%');
+  value.value = 75;
+  await nextTick();
+  expect(screen.getByTestId('value')).toHaveTextContent('75%');
+  custom.value = true;
+  await nextTick();
+  expect(screen.getByTestId('value')).toHaveTextContent('Uploaded');
+  text.value = '';
+  await nextTick();
+  expect(screen.getByTestId('value').textContent).toBe('');
+  custom.value = false;
+  await nextTick();
+  expect(screen.getByTestId('value')).toHaveTextContent('75%');
+  value.value = null;
+  await nextTick();
+  const host = screen.getByTestId('value');
+  expect(host.textContent).toBe('');
+  expect(valueRef.value?.$el).toBe(host);
+  expect(host).toHaveAttribute('data-slot', 'progress-circular-value-text');
+  expect(host).toHaveAttribute('aria-live', 'polite');
+  expect(host).toHaveAttribute('title', 'Upload progress');
+  expect(host).toHaveClass('consumer-value');
+  expect(host).toHaveStyle({ color: 'red' });
+  await fireEvent.click(host);
+  expect(clicks).toHaveLength(1);
+});
+
+test('preserves the consumer value text host and ref with asChild', async () => {
+  const text = ref('Uploaded');
+  const valueRef = ref<ComponentPublicInstance>();
+  render({
+    components: progressComponents,
+    setup: () => ({ text, valueRef }),
+    template: `
+      <ProgressCircular>
+        <ProgressCircularValueText ref="valueRef" as-child class="consumer-value"
+          title="Upload progress" data-testid="value"><output>{{ text }}</output></ProgressCircularValueText>
+      </ProgressCircular>
+    `,
+  });
+  const host = screen.getByTestId('value');
+  expect(host.tagName).toBe('OUTPUT');
+  expect(valueRef.value?.$el).toBe(host);
+  expect(host).toHaveAttribute('data-slot', 'progress-circular-value-text');
+  expect(host).toHaveClass('consumer-value');
+  expect(host).toHaveAttribute('title', 'Upload progress');
+  text.value = 'Complete';
+  await nextTick();
+  expect(screen.getByTestId('value')).toBe(host);
+  expect(valueRef.value?.$el).toBe(host);
+  expect(host).toHaveTextContent('Complete');
+});
 
 test('renders the circular Ark anatomy with stable hooks and an accessible name', () => {
   const rootRef = ref<ComponentPublicInstance>();

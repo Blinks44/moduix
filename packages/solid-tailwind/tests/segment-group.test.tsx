@@ -287,6 +287,66 @@ test('preserves controlled and provider composition paths', async () => {
   expect(screen.getByRole('radio', { name: 'Solid' })).toBeChecked();
 });
 
+test('preserves hook defaults, Field inheritance, and reactive explicit overrides', async () => {
+  const [override, setOverride] = createSignal<boolean | undefined>(undefined);
+  const [orientation, setOrientation] = createSignal<'horizontal' | 'vertical' | undefined>(
+    undefined,
+  );
+
+  function Provider() {
+    const group = useSegmentGroup(() => ({
+      id: undefined,
+      orientation: orientation(),
+      disabled: override(),
+      invalid: override(),
+      readOnly: override(),
+      required: override(),
+    }));
+    return (
+      <SegmentGroupRootProvider value={group}>
+        <SegmentItems />
+      </SegmentGroupRootProvider>
+    );
+  }
+
+  render(() => (
+    <Field disabled invalid readOnly required>
+      <Provider />
+    </Field>
+  ));
+
+  const group = screen.getByRole('radiogroup');
+  const solid = screen.getByRole('radio', { name: 'Solid' });
+  const id = group.id;
+  expect(id).not.toBe('');
+  expect(id).not.toContain('undefined');
+  expect(group).toHaveAttribute('data-orientation', 'horizontal');
+  expect(group).toHaveAttribute('data-invalid');
+  expect(group).toHaveAttribute('aria-readonly', 'true');
+  expect(solid).toBeDisabled();
+  expect(solid).toBeRequired();
+
+  setOverride(false);
+  setOrientation('vertical');
+  expect(screen.getByRole('radiogroup')).toBe(group);
+  expect(group.id).toBe(id);
+  expect(group).toHaveAttribute('data-orientation', 'vertical');
+  expect(group).not.toHaveAttribute('data-invalid');
+  expect(group).not.toHaveAttribute('aria-readonly');
+  expect(solid).not.toBeDisabled();
+  expect(solid).not.toBeRequired();
+  fireEvent.click(solid);
+  await waitFor(() => expect(solid).toBeChecked());
+
+  setOverride(undefined);
+  setOrientation(undefined);
+  expect(group).toHaveAttribute('data-orientation', 'horizontal');
+  expect(group).toHaveAttribute('data-invalid');
+  expect(group).toHaveAttribute('aria-readonly', 'true');
+  expect(solid).toBeDisabled();
+  expect(solid).toBeRequired();
+});
+
 test('inherits Field state on Ark item parts', () => {
   render(() => (
     <Field disabled invalid readOnly required>

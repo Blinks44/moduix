@@ -2,9 +2,10 @@ import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
-import type { ComponentProps } from 'solid-js';
-import { children, createEffect, onCleanup, splitProps } from 'solid-js';
+import type { ComponentProps, JSX } from 'solid-js';
+import { createEffect, onCleanup, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -223,7 +224,6 @@ type LightboxCloseIconProps = Omit<ComponentProps<typeof DialogPrimitive.CloseTr
 function LightboxCloseIcon(props: LightboxCloseIconProps) {
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
   const dialog = useDialogContext();
-  const resolvedChildren = children(() => local.children);
 
   return (
     <DialogPrimitive.CloseTrigger
@@ -236,7 +236,7 @@ function LightboxCloseIcon(props: LightboxCloseIconProps) {
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >
-          {resolvedChildren()}
+          {local.children}
         </CloseButton>
       )}
       {...others}
@@ -253,8 +253,8 @@ function LightboxImage(props: LightboxImageProps) {
   ]);
   const dialog = useDialogContext();
 
-  const handleClick = (event: MouseEvent) => {
-    (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
+  const handleClick: JSX.EventHandler<HTMLImageElement, MouseEvent> = (event) => {
+    callEventHandler(local.onClick, event);
 
     if (local.closeOnClick && !event.defaultPrevented) {
       dialog().setOpen(false);

@@ -27,7 +27,7 @@ const {
   unmountOnExit = true,
   value,
 } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 </script>
@@ -39,8 +39,6 @@ const attrs = useAttrs();
       :lazy-mount="lazyMount"
       :unmount-on-exit="unmountOnExit"
       :value="value"
-      @enter-complete="emit('enterComplete')"
-      @exit-complete="emit('exitComplete')"
     >
       <slot />
     </ArkDrawerRootProvider>

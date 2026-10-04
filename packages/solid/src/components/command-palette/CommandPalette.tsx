@@ -11,6 +11,7 @@ import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, createEffect, onCleanup, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
   OverlayPortal,
@@ -331,7 +332,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
           aria-labelledby={local['aria-labelledby']}
           class={clsx(closeButtonStyles.root, styles.clearTrigger, local.class)}
           onClick={(event) => {
-            (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
+            callEventHandler(local.onClick, event);
 
             if (!event.defaultPrevented) {
               event.preventDefault();
@@ -339,7 +340,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
             }
           }}
           onPointerDown={(event) => {
-            (local.onPointerDown as ((event: PointerEvent) => void) | undefined)?.(event);
+            callEventHandler(local.onPointerDown, event);
 
             if (event.button === 0) {
               event.preventDefault();

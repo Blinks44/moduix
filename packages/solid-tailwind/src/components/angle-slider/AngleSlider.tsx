@@ -5,9 +5,10 @@ import {
 } from '@ark-ui/solid/angle-slider';
 import type { ComponentProps, JSX } from 'solid-js';
 import { For, splitProps } from 'solid-js';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { cn } from '@/lib/moduix/cn';
 
-function AngleSliderRoot(props: ComponentProps<typeof AngleSliderPrimitive.Root>) {
+function AngleSlider(props: ComponentProps<typeof AngleSliderPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -67,7 +68,7 @@ function AngleSliderControl(props: ComponentProps<typeof AngleSliderPrimitive.Co
       )}
       {...others}
       onPointerDown={(event) => {
-        (local.onPointerDown as ((event: PointerEvent) => void) | undefined)?.(event);
+        callEventHandler(local.onPointerDown, event);
 
         if (event.defaultPrevented || event.button !== 0) return;
         if (event.currentTarget.matches('[data-disabled], [data-readonly]')) return;
@@ -174,8 +175,6 @@ function AngleSliderValueText(props: ComponentProps<typeof AngleSliderPrimitive.
     />
   );
 }
-
-const AngleSlider = AngleSliderRoot;
 
 const AngleSliderContext = AngleSliderPrimitive.Context;
 const AngleSliderHiddenInput = AngleSliderPrimitive.HiddenInput;

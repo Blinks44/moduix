@@ -29,7 +29,7 @@ export interface Emits {
 }
 
 const { class: className } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -38,16 +38,7 @@ const rootClass =
 </script>
 
 <template>
-  <ArkDateInputRoot
-    v-bind="attrs"
-    :class="cn(rootClass, className)"
-    data-slot="date-input-root"
-    @focus-change="emit('focusChange', $event)"
-    @value-change="emit('valueChange', $event)"
-    @update:model-value="emit('update:modelValue', $event)"
-    @placeholder-change="emit('placeholderChange', $event)"
-    @update:placeholder-value="emit('update:placeholderValue', $event)"
-  >
+  <ArkDateInputRoot v-bind="attrs" :class="cn(rootClass, className)" data-slot="date-input-root">
     <slot />
   </ArkDateInputRoot>
 </template>

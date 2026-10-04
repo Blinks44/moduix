@@ -1,7 +1,8 @@
 import { expect, test } from '@rstest/core';
+import userEvent from '@testing-library/user-event';
 import { fireEvent, render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, defineComponent, ref } from 'vue';
+import { createSSRApp, defineComponent, mergeProps, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { Button } from '../src';
 
@@ -25,6 +26,7 @@ test('renders a native button with safe defaults, stable hooks, attrs, classes, 
   expect(button).toHaveAttribute('data-probe', 'root');
   expect(button).toHaveAttribute('type', 'button');
   expect(button).not.toHaveAttribute('aria-busy');
+  expect(button).not.toHaveAttribute('aria-disabled');
   expect(button).toHaveAttribute('data-scope', 'button');
   expect(button).toHaveAttribute('data-part', 'root');
   expect(button).toHaveAttribute('data-slot', 'button-root');
@@ -153,6 +155,118 @@ test('wires the loading state without taking over its content', () => {
   expect(button).toHaveAttribute('aria-disabled', 'true');
   expect(button).toHaveAttribute('data-disabled');
   expect(button).toHaveAttribute('data-loading');
+});
+
+test.each([false, true])(
+  'updates native ARIA state without remounting (asChild=%s)',
+  async (asChild) => {
+    const ariaDisabled = ref<boolean | 'false' | 'true'>('false');
+    const ariaBusy = ref<boolean | undefined>(false);
+    const loading = ref(false);
+    let activations = 0;
+    render({
+      components: { Button },
+      setup: () => ({ asChild, ariaDisabled, ariaBusy, loading, activate: () => activations++ }),
+      template: `
+      <Button :as-child="asChild" :aria-disabled="ariaDisabled" :aria-busy="ariaBusy" :loading="loading" @click="activate">
+        <a v-if="asChild" href="#docs">Continue</a>
+        <template v-else>Continue</template>
+      </Button>
+    `,
+    });
+    const host = screen.getByRole(asChild ? 'link' : 'button', { name: 'Continue' });
+
+    for (const value of [true, 'true'] as const) {
+      ariaDisabled.value = value;
+      ariaBusy.value = true;
+      await nextTick();
+      expect(host).toHaveAttribute('aria-disabled', 'true');
+      expect(host).toHaveAttribute('aria-busy', 'true');
+      expect(host).toHaveAttribute('data-disabled');
+      await fireEvent.click(host);
+      expect(activations).toBe(0);
+    }
+
+    ariaDisabled.value = false;
+    ariaBusy.value = undefined;
+    await nextTick();
+    expect(host).toHaveAttribute('aria-disabled', 'false');
+    expect(host).not.toHaveAttribute('aria-busy');
+    expect(host).not.toHaveAttribute('data-disabled');
+    if (!asChild) expect(host).not.toBeDisabled();
+    await fireEvent.click(host);
+    expect(activations).toBe(1);
+
+    loading.value = true;
+    await nextTick();
+    expect(host).toHaveAttribute('aria-busy', 'true');
+    expect(host).toHaveAttribute('aria-disabled', 'true');
+    loading.value = false;
+    await nextTick();
+    expect(host).not.toHaveAttribute('aria-busy');
+    expect(host).toHaveAttribute('aria-disabled', 'false');
+    expect(screen.getByRole(asChild ? 'link' : 'button', { name: 'Continue' })).toBe(host);
+  },
+);
+
+test.each([false, true])(
+  'invokes merged native listeners once in event order (asChild=%s)',
+  async (asChild) => {
+    const user = userEvent.setup();
+    const calls: string[] = [];
+    const listeners = mergeProps(
+      {
+        onClickCapture: () => calls.push('first capture'),
+        onClick: () => calls.push('first click'),
+      },
+      {
+        onClickCapture: () => calls.push('second capture'),
+        onClick: () => calls.push('second click'),
+      },
+    );
+    render({
+      components: { Button },
+      setup: () => ({ asChild, listeners, childClick: () => calls.push('child click') }),
+      template: `
+      <Button v-bind="listeners" :as-child="asChild">
+        <a v-if="asChild" href="#docs" @click="childClick">Continue</a>
+        <template v-else>Continue</template>
+      </Button>
+    `,
+    });
+    await user.click(screen.getByRole(asChild ? 'link' : 'button', { name: 'Continue' }));
+    expect(calls).toEqual([
+      'first capture',
+      'second capture',
+      ...(asChild ? ['child click'] : []),
+      'first click',
+      'second click',
+    ]);
+  },
+);
+
+test('preserves cancellation by merged capture listeners on a custom host', async () => {
+  const user = userEvent.setup();
+  const calls: string[] = [];
+  const listeners = mergeProps(
+    {
+      onClickCapture: (event: MouseEvent) => {
+        calls.push('first capture');
+        event.preventDefault();
+      },
+    },
+    {
+      onClickCapture: () => calls.push('second capture'),
+      onClick: (event: MouseEvent) => calls.push(`click ${event.defaultPrevented}`),
+    },
+  );
+  render({
+    components: { Button },
+    setup: () => ({ listeners }),
+    template: '<Button as-child v-bind="listeners"><a href="#docs">Continue</a></Button>',
+  });
+  await user.click(screen.getByRole('link', { name: 'Continue' }));
+  expect(calls).toEqual(['first capture', 'second capture', 'click true']);
 });
 
 test('applies explicit variant and size values to the root', () => {

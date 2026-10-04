@@ -1,6 +1,6 @@
 # Image (Solid)
 
-`Image` is a native Solid wrapper around `@unpic/core`. It preserves the React component's
+`Image` is a native Solid wrapper around `@unpic/solid`. It preserves the React component's
 responsive `srcset` and `sizes` generation, CDN detection, layout modes, priority, background,
 native image attributes, and `ImageSource` picture composition without a React runtime.
 
@@ -28,5 +28,5 @@ Use `ImageSource` inside a native `<picture>` and place `Image` last as the fall
 
 The wrapper adds `data-slot="image-root"` and
 `border-radius: var(--moduix-image-radius, var(--moduix-radius-md))`; `ImageSource` adds
-`data-slot="image-source"`. Solid uses `@unpic/core` directly because Unpic does not publish a
-Solid adapter.
+`data-slot="image-source"`. The CSS Modules adapter uses Unpic's native Solid components;
+the Tailwind adapter uses the same `@unpic/core` transforms on native `img`/`source` hosts.

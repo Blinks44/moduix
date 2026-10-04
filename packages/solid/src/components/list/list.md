@@ -22,6 +22,8 @@ Ark UI has no dedicated visual list primitive. This component uses the Ark Solid
 - `marker="none"` keeps list semantics with a default `role="list"` unless a custom role is supplied.
 - Component-owned `data-scope`, `data-part`, `data-slot`, and styling data hooks override colliding
   consumer values.
+- Updating `marker` updates the styling hook and the default markerless list role without
+  replacing the host. An explicit consumer role takes precedence.
 
 ```tsx
 import { List, ListItem } from '@moduix/solid/list';

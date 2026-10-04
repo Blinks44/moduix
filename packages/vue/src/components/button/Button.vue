@@ -24,11 +24,11 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'button'> {
   dataScope?: string;
   dataSlot?: string;
   asChild?: boolean;
+  ariaBusy?: Booleanish;
+  ariaDisabled?: Booleanish;
   class?: HTMLAttributes['class'];
   disabled?: boolean;
   loading?: boolean;
-  onClick?: (event: MouseEvent) => void;
-  onClickCapture?: (event: MouseEvent) => void;
   size?: ButtonSize;
   type?: 'button' | 'reset' | 'submit';
   variant?: ButtonVariant;
@@ -39,23 +39,25 @@ const {
   dataScope = 'button',
   dataSlot = 'button-root',
   asChild = false,
+  ariaBusy = undefined,
+  ariaDisabled = undefined,
   class: className,
   disabled = false,
   loading = false,
-  onClick,
-  onClickCapture,
   size = 'md',
   type,
   variant = 'default',
 } = defineProps<Props>();
 
 defineSlots<{ default?: () => unknown }>();
+const emit = defineEmits<{
+  click: [event: MouseEvent];
+  clickCapture: [event: MouseEvent];
+}>();
 
 const attrs = useAttrs();
-const ariaBusy = computed(() => attrs['aria-busy'] as Booleanish | undefined);
-const ariaDisabled = computed(() => attrs['aria-disabled'] as Booleanish | undefined);
 const isDisabled = computed(
-  () => disabled || loading || ariaDisabled.value === true || ariaDisabled.value === 'true',
+  () => disabled || loading || ariaDisabled === true || ariaDisabled === 'true',
 );
 
 const handleClickCapture = (event: MouseEvent) => {
@@ -65,7 +67,7 @@ const handleClickCapture = (event: MouseEvent) => {
     return;
   }
 
-  onClickCapture?.(event);
+  emit('clickCapture', event);
 };
 
 const handleClick = (event: MouseEvent) => {
@@ -75,7 +77,7 @@ const handleClick = (event: MouseEvent) => {
     return;
   }
 
-  onClick?.(event);
+  emit('click', event);
 };
 </script>
 

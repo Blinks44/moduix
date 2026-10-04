@@ -1,4 +1,4 @@
-import { isRef } from 'vue';
+import { toValue } from 'vue';
 import type { Ref } from 'vue';
 
 export type LightboxImageSelectDetails = {
@@ -62,7 +62,6 @@ export const resolveRootNode = (
   rootRef: LightboxBindProps['rootRef'],
   rootSelector: string | undefined,
 ): HTMLElement | null => {
-  const rootNode =
-    typeof rootRef === 'function' ? rootRef() : isRef(rootRef) ? rootRef.value : rootRef;
+  const rootNode = toValue(rootRef);
   return rootNode ?? (rootSelector ? document.querySelector<HTMLElement>(rootSelector) : null);
 };

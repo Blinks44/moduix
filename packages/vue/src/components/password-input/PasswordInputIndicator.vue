@@ -2,7 +2,7 @@
 import { PasswordInputIndicator as ArkPasswordInputIndicator } from '@ark-ui/vue/password-input';
 import type { PasswordInputIndicatorProps } from '@ark-ui/vue/password-input';
 import { clsx } from 'clsx';
-import { useAttrs, useSlots } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './PasswordInput.module.css';
@@ -14,13 +14,12 @@ export interface Props extends /* @vue-ignore */ PasswordInputIndicatorProps {
 }
 
 const { class: className } = defineProps<Props>();
-defineSlots<{
+const slots = defineSlots<{
   default?: () => unknown;
   fallback?: (props: { fallback: string | undefined }) => unknown;
 }>();
 
 const attrs = useAttrs();
-const slots = useSlots();
 </script>
 
 <template>

@@ -29,24 +29,16 @@ const clearLabel = computed(
 
 <template>
   <ArkFileUploadClearTrigger
-    v-if="asChild"
     v-bind="attrs"
     as-child
-    :aria-label="clearLabel"
-    :aria-labelledby="ariaLabelledby"
+    :aria-label="asChild ? clearLabel : undefined"
+    :aria-labelledby="asChild ? ariaLabelledby : undefined"
     :class="clsx(styles.clearTrigger, $slots.default && styles.clearTriggerWithContent, className)"
     data-slot="file-upload-clear-trigger"
   >
-    <slot />
-  </ArkFileUploadClearTrigger>
-  <ArkFileUploadClearTrigger
-    v-else
-    v-bind="attrs"
-    as-child
-    :class="clsx(styles.clearTrigger, $slots.default && styles.clearTriggerWithContent, className)"
-    data-slot="file-upload-clear-trigger"
-  >
+    <slot v-if="asChild" />
     <CloseButton
+      v-else
       :aria-label="clearLabel"
       :aria-labelledby="ariaLabelledby"
       data-part="root"

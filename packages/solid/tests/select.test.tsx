@@ -1,9 +1,11 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
+import { createSignal } from 'solid-js';
 import {
   Field,
   Select,
+  SelectClearTrigger,
   useSelect,
   useSelectContext,
   SelectLabel,
@@ -212,4 +214,23 @@ test('preserves native asChild composition and its Ark Solid ref limitation', ()
   expect(root.querySelector('select')).toBeInTheDocument();
   expect(container.contains(root)).toBe(true);
   expect(rootRef).toBeUndefined();
+});
+
+test.each([false, true])('updates the clear trigger class (asChild=%s)', (asChild) => {
+  const [className, setClassName] = createSignal('before');
+  const { container } = render(() => (
+    <Select collection={fruits} defaultValue={['apple']}>
+      <SelectClearTrigger
+        class={className()}
+        asChild={asChild ? (props) => <button {...props()}>Clear</button> : undefined}
+      />
+    </Select>
+  ));
+  const trigger = container.querySelector('button')!;
+
+  expect(trigger).toHaveClass('before');
+  setClassName('after');
+  expect(trigger).toHaveClass('after');
+  expect(trigger).not.toHaveClass('before');
+  expect(container.querySelector('button')).toBe(trigger);
 });

@@ -9,8 +9,8 @@ import type { TourStepDetails } from '@ark-ui/vue/tour';
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { computed, createSSRApp, defineComponent, nextTick, ref } from 'vue';
-import type { ComponentPublicInstance } from 'vue';
+import { computed, createSSRApp, defineComponent, nextTick, ref, shallowRef } from 'vue';
+import type { ComponentPublicInstance, HTMLAttributes } from 'vue';
 import {
   Tour,
   TourActionList,
@@ -102,10 +102,11 @@ const StyledTourExample = defineComponent({
 test('renders the inline anatomy, fallback content, refs, and Tailwind classes', async () => {
   const positionerRef = ref<ComponentPublicInstance>();
   const contentRef = ref<ComponentPublicInstance>();
+  const actionClass = shallowRef<HTMLAttributes['class']>('consumer-action');
   const App = defineComponent({
     components: tourComponents,
     setup() {
-      return { contentRef, positionerRef, tour: useTour({ steps }) };
+      return { actionClass, contentRef, positionerRef, tour: useTour({ steps }) };
     },
     template: `
       <button type="button" @click="tour.start()">Start tour</button>
@@ -119,7 +120,7 @@ test('renders the inline anatomy, fallback content, refs, and Tailwind classes',
               <TourDescription />
               <TourProgressText />
             </TourBody>
-            <TourControl><TourActionList class="consumer-action" /></TourControl>
+            <TourControl><TourActionList :class="actionClass" /></TourControl>
           </TourContent>
         </TourPositioner>
       </Tour>
@@ -140,6 +141,25 @@ test('renders the inline anatomy, fallback content, refs, and Tailwind classes',
   expect(action.className.trim().endsWith('consumer-action')).toBe(true);
   expect(positionerRef.value?.$el).toHaveAttribute('data-slot', 'tour-positioner');
   expect(contentRef.value?.$el).toBe(content);
+
+  const actions = screen.getAllByText('Continue');
+  actionClass.value = ['consumer-array', 'px-6', { 'font-normal': true }];
+  await nextTick();
+  for (const button of actions) {
+    expect(button).toHaveClass('consumer-array', 'px-6', 'font-normal');
+    expect(button).not.toHaveClass('consumer-action');
+    expect(button).not.toHaveClass('px-3');
+    expect(button).not.toHaveClass('font-medium');
+  }
+
+  actionClass.value = { 'consumer-object': true, 'px-4': true };
+  await nextTick();
+  for (const button of actions) {
+    expect(button).toHaveClass('consumer-object', 'px-4');
+    expect(button).not.toHaveClass('consumer-array');
+    expect(button).not.toHaveClass('px-6');
+    expect(button).not.toHaveClass('font-normal');
+  }
 });
 
 test('portals overlay parts by default and keeps duplicate actions distinct', async () => {
@@ -283,15 +303,98 @@ test('preserves hook lifecycle callbacks and keeps the public actions slot conne
   expect(changes.at(-1)).toEqual(expect.objectContaining({ stepId: 'welcome' }));
 });
 
+test('switches optional content slots without changing native fallback semantics', async () => {
+  const custom = ref(false);
+  const emptyArrow = ref(false);
+  const titleRef = ref<ComponentPublicInstance>();
+  const App = defineComponent({
+    components: tourComponents,
+    setup() {
+      return { custom, emptyArrow, titleRef, tour: useTour({ steps }) };
+    },
+    template: `
+      <button type="button" @click="tour.start()">Start slot tour</button>
+      <Tour :tour="tour" :portalled="false">
+        <TourPositioner><TourContent>
+          <TourTitle ref="titleRef" class="consumer-title" style="color: red" data-testid="title">
+            <template v-if="custom" #default>Custom title</template>
+          </TourTitle>
+          <TourDescription data-testid="description">
+            <template v-if="custom" #default>Custom description</template>
+          </TourDescription>
+          <TourProgressText data-testid="progress">
+            <template v-if="custom" #default>Custom progress</template>
+          </TourProgressText>
+          <TourArrow data-testid="arrow">
+            <template v-if="custom" #default><span v-if="!emptyArrow">Custom arrow</span></template>
+          </TourArrow>
+          <TourCloseIcon />
+        </TourContent></TourPositioner>
+      </Tour>
+    `,
+  });
+
+  render(App);
+  await fireEvent.click(screen.getByRole('button', { name: 'Start slot tour' }));
+  await screen.findByRole('alertdialog', { name: 'Welcome' });
+  const hosts = ['title', 'description', 'progress', 'arrow'].map((id) => screen.getByTestId(id));
+  expect(screen.getByTestId('description')).toHaveTextContent('Start the tour.');
+  const progress = screen.getByTestId('progress').textContent;
+  expect(progress).toBeTruthy();
+  expect(
+    screen.getByTestId('arrow').querySelector('[data-slot="tour-arrow-tip"]'),
+  ).toBeInTheDocument();
+
+  custom.value = true;
+  await waitFor(() => expect(screen.getByTestId('title')).toHaveTextContent('Custom title'));
+  ['title', 'description', 'progress', 'arrow'].forEach((id, index) => {
+    expect(screen.getByTestId(id)).toBe(hosts[index]);
+  });
+  expect(titleRef.value?.$el).toBe(hosts[0]);
+  expect(screen.getByTestId('description')).toHaveTextContent('Custom description');
+  expect(screen.getByTestId('progress')).toHaveTextContent('Custom progress');
+  expect(screen.getByTestId('arrow')).toHaveTextContent('Custom arrow');
+  expect(screen.getByTestId('arrow').querySelector('[data-slot="tour-arrow-tip"]')).toBeNull();
+  emptyArrow.value = true;
+  await waitFor(() => expect(screen.getByTestId('arrow').textContent?.trim()).toBe(''));
+  expect(screen.getByTestId('arrow').querySelector('[data-slot="tour-arrow-tip"]')).toBeNull();
+
+  custom.value = false;
+  await waitFor(() => expect(screen.getByTestId('title')).toHaveTextContent('Welcome'));
+  ['title', 'description', 'progress', 'arrow'].forEach((id, index) => {
+    expect(screen.getByTestId(id)).toBe(hosts[index]);
+  });
+  expect(screen.getByTestId('description')).toHaveTextContent('Start the tour.');
+  expect(screen.getByTestId('progress').textContent).toBe(progress);
+  expect(
+    screen.getByTestId('arrow').querySelector('[data-slot="tour-arrow-tip"]'),
+  ).toBeInTheDocument();
+  const title = screen.getByTestId('title');
+  expect(title).toHaveAttribute('data-slot', 'tour-title');
+  expect(title).toHaveClass('consumer-title');
+  expect(title).toHaveStyle({ color: 'red' });
+  expect(titleRef.value?.$el).toBe(title);
+});
+
 test('preserves close-icon fallback, reactive labels, native refs, and a single exit event', async () => {
   const label = ref<string>();
+  const labelledby = ref<string>();
+  const customIcon = ref(false);
   const closeRef = ref<ComponentPublicInstance>();
   const exitComplete = rs.fn();
   const click = rs.fn();
   const App = defineComponent({
     components: tourComponents,
     setup() {
-      return { label, closeRef, exitComplete, click, tour: useTour({ steps }) };
+      return {
+        label,
+        labelledby,
+        customIcon,
+        closeRef,
+        exitComplete,
+        click,
+        tour: useTour({ steps }),
+      };
     },
     template: `
       <button type="button" @click="tour.start()">Start dismiss tour</button>
@@ -300,7 +403,11 @@ test('preserves close-icon fallback, reactive labels, native refs, and a single 
           <TourContent>
             <TourTitle />
             <TourDescription />
-            <TourCloseIcon ref="closeRef" :aria-label="label" @click="click" />
+            <span id="dismiss-label">Dismiss with label</span>
+            <TourCloseIcon ref="closeRef" :aria-label="label" :aria-labelledby="labelledby"
+              class="consumer-close" style="color: red" title="Dismiss walkthrough" @click="click">
+              <template v-if="customIcon" #default><span>Custom close</span></template>
+            </TourCloseIcon>
           </TourContent>
         </TourPositioner>
       </Tour>
@@ -313,9 +420,26 @@ test('preserves close-icon fallback, reactive labels, native refs, and a single 
   const close = await screen.findByRole('button', { name: 'Close tour' });
   expect(close.querySelector('svg')).toBeInTheDocument();
   expect(closeRef.value?.$el).toBe(close);
+  expect(close).toHaveAttribute('data-slot', 'tour-close-icon');
+  expect(close).toHaveClass('consumer-close');
+  expect(close).toHaveStyle({ color: 'red' });
+  expect(close).toHaveAttribute('title', 'Dismiss walkthrough');
 
   label.value = 'Dismiss walkthrough';
   await waitFor(() => expect(close).toHaveAccessibleName('Dismiss walkthrough'));
+  label.value = '';
+  await waitFor(() => expect(close).toHaveAttribute('aria-label', ''));
+  label.value = undefined;
+  await waitFor(() => expect(close).toHaveAccessibleName('Close tour'));
+  labelledby.value = 'dismiss-label';
+  await waitFor(() => expect(close).toHaveAccessibleName('Dismiss with label'));
+  labelledby.value = undefined;
+  customIcon.value = true;
+  await waitFor(() => expect(close).toHaveTextContent('Custom close'));
+  expect(close.querySelector('svg')).toBeNull();
+  customIcon.value = false;
+  await waitFor(() => expect(close.querySelector('svg')).toBeInTheDocument());
+  expect(closeRef.value?.$el).toBe(close);
   await fireEvent.click(close);
   await waitFor(() => expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument());
   expect(click).toHaveBeenCalledTimes(1);

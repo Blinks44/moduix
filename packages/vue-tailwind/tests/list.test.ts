@@ -1,11 +1,45 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, defineComponent, ref } from 'vue';
+import { createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { List, ListItem } from '../src';
 
 const listComponents = { List, ListItem };
+
+test.each([false, true])(
+  'keeps the host and ref stable between semantic changes, asChild=%s',
+  async (asChild) => {
+    const element = ref<NonNullable<InstanceType<typeof List>['$props']['as']>>();
+    const title = ref('Initial');
+    const rootRef = ref<ComponentPublicInstance>();
+    render({
+      components: { List },
+      setup: () => ({ element, title, rootRef, asChild }),
+      template: `
+      <List ref="rootRef" :as="element" :as-child="asChild" :title="title" data-testid="root">
+        <ul><li>Content</li></ul>
+      </List>
+    `,
+    });
+    for (const as of ['ul', 'ol'] as const) {
+      element.value = as;
+      await nextTick();
+      const host = screen.getByTestId('root');
+      expect(host.tagName).toBe(asChild ? 'UL' : as.toUpperCase());
+      expect(rootRef.value?.$el).toBe(host);
+      title.value = as;
+      await nextTick();
+      expect(screen.getByTestId('root')).toBe(host);
+      expect(rootRef.value?.$el).toBe(host);
+      expect(host).toHaveAttribute('title', as);
+      expect(host).toHaveTextContent('Content');
+    }
+    element.value = undefined;
+    await nextTick();
+    expect(screen.getByTestId('root').tagName).toBe(asChild ? 'UL' : 'UL');
+  },
+);
 
 test('updates the semantic host when as changes', async () => {
   const element = ref<'ul' | 'ol'>('ul');

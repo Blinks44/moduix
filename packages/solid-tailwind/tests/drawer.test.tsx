@@ -182,6 +182,58 @@ test('opens a RootProvider drawer from external state', async () => {
   expect(await screen.findByRole('dialog')).toBeInTheDocument();
 });
 
+test('keeps the inherited variant reactive without remounting open content', async () => {
+  const [variant, setVariant] = createSignal<'island' | undefined>('island');
+
+  render(() => (
+    <Drawer defaultOpen variant={variant()} portalled={false}>
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerTitle>Preferences</DrawerTitle>
+          <input aria-label="Draft" />
+        </DrawerContent>
+      </DrawerPositioner>
+    </Drawer>
+  ));
+
+  const content = await screen.findByRole('dialog');
+  const input = screen.getByRole('textbox', { name: 'Draft' });
+  fireEvent.input(input, { target: { value: 'Keep my draft' } });
+  expect(content).toHaveAttribute('data-variant', 'island');
+
+  setVariant(undefined);
+  expect(content).not.toHaveAttribute('data-variant');
+  expect(screen.getByRole('dialog')).toBe(content);
+  expect(screen.getByRole('textbox', { name: 'Draft' })).toBe(input);
+  expect(input).toHaveValue('Keep my draft');
+
+  setVariant('island');
+  expect(content).toHaveAttribute('data-variant', 'island');
+  expect(screen.getByRole('dialog')).toBe(content);
+  expect(input).toHaveValue('Keep my draft');
+});
+
+test('keeps an explicit content variant ahead of changing root defaults', async () => {
+  const [variant, setVariant] = createSignal<'island' | undefined>(undefined);
+  render(() => (
+    <Drawer defaultOpen variant={variant()} portalled={false}>
+      <DrawerPositioner>
+        <DrawerContent variant="island">
+          <DrawerTitle>Preferences</DrawerTitle>
+        </DrawerContent>
+      </DrawerPositioner>
+    </Drawer>
+  ));
+
+  const content = await screen.findByRole('dialog');
+  expect(content).toHaveAttribute('data-variant', 'island');
+  setVariant('island');
+  expect(content).toHaveAttribute('data-variant', 'island');
+  setVariant(undefined);
+  expect(content).toHaveAttribute('data-variant', 'island');
+  expect(screen.getByRole('dialog')).toBe(content);
+});
+
 test('marks an island drawer and closes it through its accessible close icon', async () => {
   render(() => (
     <Drawer variant="island">

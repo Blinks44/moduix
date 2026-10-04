@@ -101,6 +101,7 @@ or root-provider layouts.
 `useSidebar()`, Ark panel data, rendered panels, and the adjacent splitter handle stay aligned.
 `SidebarTrigger` reads the current Ark Splitter state at click time, invokes any consumer `onClick` first,
 and does not toggle when the event is prevented.
+Solid callbacks and bound `[handler, data]` pairs follow this same cancellation contract.
 
 `SidebarNavigationButton` supports `active`, `size="sm" | "md" | "lg"`, and native Solid `asChild`.
 Active navigation controls set `data-active` and default `aria-current="page"`.

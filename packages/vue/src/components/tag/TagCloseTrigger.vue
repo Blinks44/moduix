@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
-import { useAttrs, useSlots } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import CloseButton from '../close-button/CloseButton.vue';
@@ -17,10 +17,9 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'button'> {
 }
 
 const { ariaLabel, ariaLabelledby, asChild = false, class: className } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const slots = useSlots();
 </script>
 
 <template>

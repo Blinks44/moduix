@@ -1,7 +1,7 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
-import type { Accessor, ComponentProps } from 'solid-js';
+import type { ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
 import { cn } from '@/internal/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
@@ -87,8 +87,6 @@ const inputGroupTextVariants = cva(
 
 const inputGroupButtonClass = 'h-auto self-stretch rounded-none border-0';
 
-const defaultInputGroupSize: InputGroupSize = 'md';
-const defaultInputGroupSizeAccessor: Accessor<InputGroupSize> = () => defaultInputGroupSize;
 const inputGroupClearTriggerVariants = cva(
   'me-2 size-control-xs self-center focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none',
   {
@@ -97,7 +95,7 @@ const inputGroupClearTriggerVariants = cva(
   },
 );
 
-const InputGroupSizeContext = createContext(defaultInputGroupSizeAccessor);
+const InputGroupSizeContext = createContext((): InputGroupSize => 'md');
 
 function InputGroup(props: InputGroupProps) {
   const [local, others] = splitProps(props, [
@@ -112,7 +110,7 @@ function InputGroup(props: InputGroupProps) {
   ]);
 
   return (
-    <InputGroupSizeContext.Provider value={() => local.size ?? defaultInputGroupSize}>
+    <InputGroupSizeContext.Provider value={() => local.size ?? 'md'}>
       <ark.div
         asChild={local.asChild}
         {...others}
@@ -130,7 +128,7 @@ function InputGroup(props: InputGroupProps) {
 
 function InputGroupInput(props: ComponentProps<typeof Input>) {
   const [local, others] = splitProps(props, ['class', 'size']);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
   const inputSize = () => local.size ?? groupSize();
 
   return (
@@ -150,7 +148,7 @@ function InputGroupAddon(props: HTMLArkProps<'span'> & InputGroupDataProps) {
     'data-scope',
     'data-slot',
   ]);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
 
   return (
     <ark.span
@@ -172,7 +170,7 @@ function InputGroupText(props: HTMLArkProps<'span'> & InputGroupDataProps) {
     'data-scope',
     'data-slot',
   ]);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
 
   return (
     <ark.span
@@ -188,7 +186,7 @@ function InputGroupText(props: HTMLArkProps<'span'> & InputGroupDataProps) {
 
 function InputGroupButton(props: ComponentProps<typeof Button>) {
   const [local, others] = splitProps(props, ['class', 'size', 'type', 'variant']);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
   const buttonSize = () => local.size ?? groupSize();
 
   return (
@@ -214,7 +212,7 @@ function InputGroupClearTrigger(
     'aria-label',
     'aria-labelledby',
   ]);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
   return (
     <CloseButton
       {...others}

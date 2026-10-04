@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import {
   Field,
   SignaturePad,
+  SignaturePadClearTrigger,
   SignaturePadCanvas,
   SignaturePadHiddenInput,
   SignaturePadLabel,
@@ -211,4 +212,40 @@ test('keeps plain readOnly metadata reactive with Field inheritance and explicit
   setReadOnly(true);
   expect(screen.getByTestId('read-only')).toHaveTextContent('true');
   expect(clear).toBeDisabled();
+});
+
+test.each([false, true])('updates the clear trigger class (asChild=%s)', (asChild) => {
+  const [className, setClassName] = createSignal('before');
+  const { container } = render(() => (
+    <SignaturePad defaultPaths={defaultPaths}>
+      <SignaturePadClearTrigger
+        class={className()}
+        asChild={asChild ? (props) => <button {...props()}>Clear</button> : undefined}
+      />
+    </SignaturePad>
+  ));
+  const trigger = container.querySelector('button')!;
+
+  expect(trigger).toHaveClass('before');
+  setClassName('after');
+  expect(trigger).toHaveClass('after');
+  expect(trigger).not.toHaveClass('before');
+  expect(container.querySelector('button')).toBe(trigger);
+});
+
+test('SignaturePadClearTrigger updates consumer labels and Ark translations', async () => {
+  const [label, setLabel] = createSignal<string | undefined>();
+  const [translation, setTranslation] = createSignal('Clear signature');
+  render(() => (
+    <SignaturePad defaultPaths={['M1,1 L2,2']} translations={{ clearTrigger: translation() }}>
+      <SignaturePadClearTrigger aria-label={label()} />
+    </SignaturePad>
+  ));
+  const trigger = screen.getByRole('button', { name: 'Clear signature' });
+
+  setLabel('Remove signature');
+  expect(trigger).toHaveAccessibleName('Remove signature');
+  setLabel(undefined);
+  setTranslation('Erase drawing');
+  await waitFor(() => expect(trigger).toHaveAccessibleName('Erase drawing'));
 });

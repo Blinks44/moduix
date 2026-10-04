@@ -186,7 +186,6 @@ function PopoverCloseTrigger(props: ComponentProps<typeof PopoverPrimitive.Close
 
 function PopoverCloseIcon(props: PopoverCloseIconProps) {
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
-  const resolvedChildren = children(() => local.children);
 
   return (
     <PopoverPrimitive.CloseTrigger
@@ -198,7 +197,7 @@ function PopoverCloseIcon(props: PopoverCloseIconProps) {
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >
-          {resolvedChildren()}
+          {local.children}
         </CloseButton>
       )}
       {...others}

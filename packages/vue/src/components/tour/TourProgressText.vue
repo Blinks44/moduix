@@ -13,24 +13,19 @@ export interface Props extends /* @vue-ignore */ TourProgressTextProps {
 }
 
 const { class: className } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 </script>
 
 <template>
   <ArkTourProgressText
-    v-if="!$slots.default"
-    v-bind="attrs"
-    :class="clsx(styles.progressText, className)"
-    data-slot="tour-progress-text"
-  />
-  <ArkTourProgressText
-    v-else
     v-bind="attrs"
     :class="clsx(styles.progressText, className)"
     data-slot="tour-progress-text"
   >
-    <slot />
+    <template v-if="slots.default" #default>
+      <slot />
+    </template>
   </ArkTourProgressText>
 </template>

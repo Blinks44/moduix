@@ -2,7 +2,7 @@ import { createListCollection } from '@ark-ui/vue/collection';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, defineComponent, ref } from 'vue';
+import { createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { Component, ComponentPublicInstance } from 'vue';
 import {
   Listbox,
@@ -147,18 +147,52 @@ test('applies consumer classes after CSS Module defaults and keeps clear trigger
   expect(clear.querySelector('svg')).toBeInTheDocument();
 });
 
-test('shows the selected value when ValueText has no consumer slot', () => {
+test('updates clear trigger labels without replacing the host', async () => {
+  const label = ref<string | undefined>('Clear fruit');
+  render({
+    components: { ListboxClearTrigger },
+    setup: () => ({ label }),
+    template: '<ListboxClearTrigger :aria-label="label" />',
+  });
+  const host = screen.getByRole('button', { name: 'Clear fruit' });
+  label.value = 'Clear vegetables';
+  await nextTick();
+  expect(host).toHaveAccessibleName('Clear vegetables');
+  label.value = undefined;
+  await nextTick();
+  expect(screen.getByRole('button', { name: 'Clear search' })).toBe(host);
+});
+
+test('shows the selected value when ValueText has no consumer slot', async () => {
+  const value = ref(['apple']);
+  const custom = ref(false);
+  const valueRef = ref<ComponentPublicInstance>();
   render(
     defineComponent({
       components: listboxComponents,
       setup() {
-        return { collection: fruits };
+        return { collection: fruits, value, custom, valueRef };
       },
-      template: `<Listbox :collection="collection" :default-value="['apple']"><ListboxContent /><ListboxValueText /></Listbox>`,
+      template: `<Listbox :collection="collection" v-model="value"><ListboxContent /><ListboxValueText ref="valueRef" data-testid="value" class="consumer-value" title="Selected fruit" placeholder="Choose fruit"><template v-if="custom" #default><strong>Custom value</strong></template></ListboxValueText></Listbox>`,
     }),
   );
 
   expect(screen.getByText('Apple')).toHaveAttribute('data-slot', 'listbox-value-text');
+  expect(valueRef.value?.$el).toBe(screen.getByTestId('value'));
+  value.value = ['mango'];
+  await waitFor(() => expect(screen.getByTestId('value')).toHaveTextContent('Mango'));
+  custom.value = true;
+  await nextTick();
+  expect(screen.getByText('Custom value').tagName).toBe('STRONG');
+  expect(screen.getByTestId('value')).toHaveClass('consumer-value');
+  expect(screen.getByTestId('value')).toHaveAttribute('title', 'Selected fruit');
+  expect(valueRef.value?.$el).toBe(screen.getByTestId('value'));
+  custom.value = false;
+  await nextTick();
+  expect(screen.getByTestId('value')).toHaveTextContent('Mango');
+  expect(screen.queryByText('Custom value')).toBeNull();
+  value.value = [];
+  await waitFor(() => expect(screen.getByTestId('value')).toHaveTextContent('Choose fruit'));
 });
 
 test('renders and hydrates the public anatomy through Vue SSR', async () => {

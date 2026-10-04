@@ -19,17 +19,10 @@ const attrs = useAttrs();
 
 <template>
   <ArkProgressValueText
-    v-if="$slots.default"
     v-bind="attrs"
     :class="cn('max-w-full min-w-0 text-center text-sm font-medium wrap-anywhere', className)"
     data-slot="progress-circular-value-text"
   >
-    <slot />
+    <template v-if="$slots.default" #default><slot /></template>
   </ArkProgressValueText>
-  <ArkProgressValueText
-    v-else
-    v-bind="attrs"
-    :class="cn('max-w-full min-w-0 text-center text-sm font-medium wrap-anywhere', className)"
-    data-slot="progress-circular-value-text"
-  />
 </template>

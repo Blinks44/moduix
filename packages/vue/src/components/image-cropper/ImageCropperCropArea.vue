@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ImageCropper as ArkImageCropper } from '@ark-ui/vue/image-cropper';
 import type { ImageCropperSelectionProps } from '@ark-ui/vue/image-cropper';
-import { computed, useAttrs } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import ImageCropperGrid from './ImageCropperGrid.vue';
 import ImageCropperHandle from './ImageCropperHandle.vue';
@@ -21,7 +21,7 @@ export interface Props
 const { class: className, gridClassName, handleClassName } = defineProps<Props>();
 
 const attrs = useAttrs();
-const selectionAttrs = computed(() => {
+const getSelectionAttrs = () => {
   const {
     asChild: _asChild,
     children: _children,
@@ -29,12 +29,12 @@ const selectionAttrs = computed(() => {
     ...selectionAttrs
   } = attrs;
   return selectionAttrs;
-});
+};
 </script>
 
 <template>
   <ImageCropperSelection
-    v-bind="selectionAttrs"
+    v-bind="getSelectionAttrs()"
     :class="className"
     data-slot="image-cropper-selection"
   >

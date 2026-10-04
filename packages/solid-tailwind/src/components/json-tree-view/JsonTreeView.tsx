@@ -37,7 +37,6 @@ function JsonTreeViewRootProvider(props: JsonTreeViewRootProviderProps) {
       asChild={local.asChild}
       {...others}
       class={cn(rootClassName, "[&_[data-kind='colon']]:me-0.5", local.class)}
-      {...others}
       data-slot="json-tree-view-root-provider"
     >
       {local.children}

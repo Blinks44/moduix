@@ -211,35 +211,43 @@ test('preserves semantic hosts with asChild composition', () => {
   expect(textRef.value?.$el).toBe(text);
 });
 
-test('supports controlled v-model updates through InputGroupInput', async () => {
-  const changes: string[] = [];
-  const Harness = defineComponent({
-    components,
-    setup() {
-      return { changes, value: ref('initial') };
-    },
-    template: `
+test.each([false, true])(
+  'supports controlled v-model through InputGroupInput (asChild=%s)',
+  async (asChild) => {
+    const changes: string[] = [];
+    const value = ref('initial');
+    const Harness = defineComponent({
+      components,
+      setup() {
+        return { asChild, changes, value };
+      },
+      template: `
       <InputGroup>
         <InputGroupInput
           v-model="value"
+          :as-child="asChild"
           aria-label="Project key"
           @update:model-value="changes.push($event)"
-        />
+        >${asChild ? '<input />' : ''}</InputGroupInput>
       </InputGroup>
       <output>{{ value }}</output>
     `,
-  });
+    });
 
-  render(Harness);
-  const input = screen.getByRole('textbox', { name: 'Project key' });
+    render(Harness);
+    const input = screen.getByRole('textbox', { name: 'Project key' });
 
-  expect(input).toHaveValue('initial');
-  await fireEvent.update(input, 'next');
+    expect(input).toHaveValue('initial');
+    await fireEvent.update(input, 'next');
 
-  await waitFor(() => expect(input).toHaveValue('next'));
-  expect(screen.getByText('next')).toBeInTheDocument();
-  expect(changes).toEqual(['next']);
-});
+    await waitFor(() => expect(input).toHaveValue('next'));
+    expect(screen.getByText('next')).toBeInTheDocument();
+    expect(changes).toEqual(['next']);
+    value.value = 'from parent';
+    await waitFor(() => expect(input).toHaveValue('from parent'));
+    expect(changes).toEqual(['next']);
+  },
+);
 
 test('applies native utilities to the component-owned parts', () => {
   const { container } = render({

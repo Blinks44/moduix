@@ -1,12 +1,7 @@
 import type { Accessor } from 'solid-js';
-import { createEffect, untrack } from 'solid-js';
+import { onMount } from 'solid-js';
 
 type DefaultValue = string | number | readonly string[];
-type MaybeDefaultValue = DefaultValue | Accessor<DefaultValue | undefined>;
-
-function resolveValue(value: MaybeDefaultValue): DefaultValue | undefined {
-  return typeof value === 'function' ? value() : value;
-}
 
 /**
  * Applies React-style `defaultValue` to a rendered native control.
@@ -15,17 +10,20 @@ function resolveValue(value: MaybeDefaultValue): DefaultValue | undefined {
  */
 export function applyDefaultValue(
   ref: HTMLElement & { defaultValue: string },
-  value: MaybeDefaultValue,
+  value: Accessor<DefaultValue | undefined>,
 ) {
-  createEffect(() => {
-    ref.defaultValue = String(untrack(() => resolveValue(value)) ?? '');
+  onMount(() => {
+    ref.defaultValue = String(value() ?? '');
   });
 }
 
 /** Selects the option matching `defaultValue` on a native `<select>`. */
-export function applyDefaultSelected(ref: HTMLSelectElement, value: MaybeDefaultValue) {
-  createEffect(() => {
-    const defaultValue = untrack(() => resolveValue(value));
+export function applyDefaultSelected(
+  ref: HTMLSelectElement,
+  value: Accessor<DefaultValue | undefined>,
+) {
+  onMount(() => {
+    const defaultValue = value();
 
     if (defaultValue === undefined) return;
 
@@ -33,7 +31,7 @@ export function applyDefaultSelected(ref: HTMLSelectElement, value: MaybeDefault
       (Array.isArray(defaultValue) ? defaultValue : [defaultValue]).map((v) => String(v)),
     );
 
-    for (const option of Array.from(ref.options)) {
+    for (const option of ref.options) {
       const selected = values.has(option.value);
       option.selected = selected;
       option.defaultSelected = selected;
@@ -43,6 +41,6 @@ export function applyDefaultSelected(ref: HTMLSelectElement, value: MaybeDefault
 
 export function toPropDefaultValue(value: DefaultValue | undefined) {
   return {
-    'prop:defaultValue': value === undefined ? undefined : (value as string | number | string[]),
+    'prop:defaultValue': value as string | number | string[] | undefined,
   } as const;
 }

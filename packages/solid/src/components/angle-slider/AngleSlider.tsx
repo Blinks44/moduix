@@ -6,9 +6,10 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
 import { For, splitProps } from 'solid-js';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import styles from './AngleSlider.module.css';
 
-function AngleSliderRoot(props: ComponentProps<typeof AngleSliderPrimitive.Root>) {
+function AngleSlider(props: ComponentProps<typeof AngleSliderPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -58,7 +59,7 @@ function AngleSliderControl(props: ComponentProps<typeof AngleSliderPrimitive.Co
       class={clsx(styles.control, local.class)}
       {...others}
       onPointerDown={(event) => {
-        (local.onPointerDown as ((event: PointerEvent) => void) | undefined)?.(event);
+        callEventHandler(local.onPointerDown, event);
 
         if (event.defaultPrevented || event.button !== 0) return;
         if (event.currentTarget.matches('[data-disabled], [data-readonly]')) return;
@@ -156,8 +157,6 @@ function AngleSliderValueText(props: ComponentProps<typeof AngleSliderPrimitive.
     />
   );
 }
-
-const AngleSlider = AngleSliderRoot;
 
 const AngleSliderContext = AngleSliderPrimitive.Context;
 const AngleSliderHiddenInput = AngleSliderPrimitive.HiddenInput;

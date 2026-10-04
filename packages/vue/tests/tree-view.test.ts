@@ -8,6 +8,10 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, nextTick, ref, shallowRef } from 'vue';
 import type { Component, ComponentPublicInstance, PropType } from 'vue';
+import type {
+  TreeViewRenameCompleteDetails,
+  TreeViewRenameStartDetails,
+} from '../src/components/tree-view';
 import {
   TreeView,
   TreeViewBranch,
@@ -469,14 +473,20 @@ test.skip('upstream: native Ark renders declared checkbox indicator fallback and
 });
 
 test('preserves rename input asChild refs, attrs, and native rename completion', async () => {
-  const renameComplete = rs.fn();
+  const order: string[] = [];
+  const renameStart = rs.fn((_details: TreeViewRenameStartDetails<FileNode>) =>
+    order.push('start'),
+  );
+  const beforeRename = rs.fn((_details: TreeViewRenameCompleteDetails) => order.push('before'));
+  const renameComplete = rs.fn((_details: TreeViewRenameCompleteDetails) => order.push('complete'));
   const inputRef = ref<ComponentPublicInstance>();
   render(
     defineComponent({
       components: storyComponents,
-      setup: () => ({ collection, inputRef, renameComplete }),
+      setup: () => ({ collection, inputRef, renameStart, beforeRename, renameComplete }),
       template: `
-      <TreeView :collection="collection" :can-rename="() => true" @rename-complete="renameComplete">
+      <TreeView :collection="collection" :can-rename="() => true"
+        @rename-start="renameStart" @before-rename="beforeRename" @rename-complete="renameComplete">
         <TreeViewLabel>Rename files</TreeViewLabel>
         <TreeViewTree>
           <TreeViewNodeProvider :node="collection.rootNode.children[1]" :index-path="[1]">
@@ -505,6 +515,15 @@ test('preserves rename input asChild refs, attrs, and native rename completion',
   await fireEvent.keyDown(input, { key: 'Enter' });
   expect(renameComplete).toHaveBeenCalledTimes(1);
   expect(renameComplete.mock.calls[0][0]).toMatchObject({ value: 'README.md', label: 'GUIDE.md' });
+  expect(renameStart).toHaveBeenCalledTimes(1);
+  expect(renameStart.mock.calls[0][0]).toMatchObject({
+    value: 'README.md',
+    node: collection.rootNode.children![1],
+    indexPath: [1],
+  });
+  expect(beforeRename).toHaveBeenCalledTimes(1);
+  expect(beforeRename.mock.calls[0][0]).toEqual(renameComplete.mock.calls[0][0]);
+  expect(order).toEqual(['start', 'before', 'complete']);
 });
 
 test('loads children through native events and a replaced shallow collection', async () => {
@@ -541,6 +560,43 @@ test('loads children through native events and a replaced shallow collection', a
   expect(lazyCollection.value.rootNode.children![0].children).toEqual([
     { id: 'src/App.tsx', name: 'App.tsx' },
   ]);
+});
+
+test('delivers native lazy-loading errors once without replacing the collection', async () => {
+  const lazyCollection = createTreeCollection<FileNode>({
+    nodeToValue: (node) => node.id,
+    nodeToString: (node) => node.name,
+    rootNode: { id: 'ROOT', name: '', children: [{ id: 'src', name: 'src', childrenCount: 1 }] },
+  });
+  const error = new Error('Cannot load files');
+  const loadChildren = rs.fn().mockRejectedValue(error);
+  const failed = rs.fn();
+  const complete = rs.fn();
+  render(
+    defineComponent({
+      components: storyComponents,
+      setup: () => ({ lazyCollection, loadChildren, failed, complete }),
+      template: `
+      <TreeView :collection="lazyCollection" :load-children="loadChildren"
+        @load-children-error="failed" @load-children-complete="complete">
+        <TreeViewLabel>Lazy files</TreeViewLabel>
+        <TreeViewTree>
+          <FileTreeNode v-for="(node, index) in lazyCollection.rootNode.children"
+            :key="node.id" :node="node" :index-path="[index]" />
+        </TreeViewTree>
+      </TreeView>
+    `,
+    }),
+  );
+
+  await fireEvent.click(screen.getByRole('button', { name: 'src' }));
+  await waitFor(() => expect(failed).toHaveBeenCalledTimes(1));
+  expect(failed.mock.calls[0][0]).toMatchObject({
+    nodes: [{ node: lazyCollection.rootNode.children![0], error, indexPath: [0] }],
+  });
+  expect(loadChildren).toHaveBeenCalledTimes(1);
+  expect(complete).not.toHaveBeenCalled();
+  expect(lazyCollection.rootNode.children![0].children).toBeUndefined();
 });
 
 test('renders the public anatomy on the server and hydrates stable ids', async () => {

@@ -7,18 +7,18 @@ import styles from './Lightbox.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-export interface Props extends /* @vue-ignore */ Omit<ImgHTMLAttributes, 'onClick'> {
+export interface Props extends /* @vue-ignore */ ImgHTMLAttributes {
   class?: HTMLAttributes['class'];
   closeOnClick?: boolean;
-  onClick?: (event: MouseEvent) => void;
 }
 
-const { class: className, closeOnClick = false, onClick } = defineProps<Props>();
+const { class: className, closeOnClick = false } = defineProps<Props>();
+const emit = defineEmits<{ click: [event: MouseEvent] }>();
 const attrs = useAttrs();
 const dialog = useDialogContext();
 
 const handleClick = (event: MouseEvent) => {
-  onClick?.(event);
+  emit('click', event);
 
   if (closeOnClick && !event.defaultPrevented) {
     dialog.value.setOpen(false);

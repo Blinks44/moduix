@@ -20,7 +20,7 @@ export interface Emits {
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -46,7 +46,6 @@ const controlAttrs = computed(() => {
       data-scope="field"
       data-part="select"
       data-slot="native-select-root"
-      @update:model-value="emit('update:modelValue', $event)"
     >
       <slot />
     </ArkFieldSelect>

@@ -77,7 +77,6 @@ function ListboxFilter(props: ComponentProps<'div'>) {
 
 function ListboxClearTrigger(props: HTMLArkProps<'button'>) {
   const [local, others] = splitProps(props, ['aria-label', 'children', 'class', 'type']);
-  const resolvedChildren = children(() => local.children);
 
   return (
     <CloseButton
@@ -87,7 +86,7 @@ function ListboxClearTrigger(props: HTMLArkProps<'button'>) {
       {...others}
       data-slot="listbox-clear-trigger"
     >
-      {resolvedChildren()}
+      {local.children}
     </CloseButton>
   );
 }

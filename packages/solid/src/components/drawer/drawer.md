@@ -36,6 +36,8 @@ default; use `portalled={false}` or `portalRef` on the root to control overlay p
 `DrawerContent`, and keeps `swipeDirection` controlled by the caller. The surface is inset from the
 viewport, rounded on all sides, and has no directional overdrag bleed. `DrawerContent variant="island"`
 remains supported when the presentation needs to be selected on the content part.
+The inherited variant stays reactive in Solid; changing the root variant updates existing
+content without remounting it. An explicit content variant takes precedence.
 
 ## API surface
 

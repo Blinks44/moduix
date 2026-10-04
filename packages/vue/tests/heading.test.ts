@@ -5,6 +5,40 @@ import { createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { Heading } from '../src';
 
+test.each([false, true])(
+  'keeps the host and ref stable between semantic changes, asChild=%s',
+  async (asChild) => {
+    const element = ref<NonNullable<InstanceType<typeof Heading>['$props']['as']>>();
+    const title = ref('Initial');
+    const rootRef = ref<ComponentPublicInstance>();
+    render({
+      components: { Heading },
+      setup: () => ({ element, title, rootRef, asChild }),
+      template: `
+      <Heading ref="rootRef" :as="element" :as-child="asChild" :title="title" data-testid="root">
+        <h2>Content</h2>
+      </Heading>
+    `,
+    });
+    for (const as of ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as const) {
+      element.value = as;
+      await nextTick();
+      const host = screen.getByTestId('root');
+      expect(host.tagName).toBe(asChild ? 'H2' : as.toUpperCase());
+      expect(rootRef.value?.$el).toBe(host);
+      title.value = as;
+      await nextTick();
+      expect(screen.getByTestId('root')).toBe(host);
+      expect(rootRef.value?.$el).toBe(host);
+      expect(host).toHaveAttribute('title', as);
+      expect(host).toHaveTextContent('Content');
+    }
+    element.value = undefined;
+    await nextTick();
+    expect(screen.getByTestId('root').tagName).toBe(asChild ? 'H2' : 'H1');
+  },
+);
+
 test('exposes only the flat root value', () => {
   expect('Root' in Heading).toBe(false);
 });

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Toaster as ArkToaster } from '@ark-ui/vue/toast';
 import type { ToasterBaseProps, ToastOptions } from '@ark-ui/vue/toast';
-import { computed, useAttrs } from 'vue';
+import { computed, toValue, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import type { PortalRef } from '@/internal/overlayPortal/context';
 import { cn } from '@/lib/moduix/cn';
@@ -26,9 +26,7 @@ const { asChild, class: className, portalRef, portalled = true, toaster } = defi
 defineSlots<{ default?: (toast: ToastOptions) => unknown }>();
 
 const attrs = useAttrs();
-const portalTarget = computed(
-  () => (typeof portalRef === 'function' ? portalRef() : portalRef) ?? 'body',
-);
+const portalTarget = computed(() => toValue(portalRef) ?? 'body');
 </script>
 
 <template>

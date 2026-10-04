@@ -231,7 +231,6 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
     'children',
     'class',
   ]);
-  const resolvedChildren = children(() => local.children);
   const triggerClass = () => clsx(styles.clearTrigger, local.class);
 
   if (local.asChild) {
@@ -262,7 +261,7 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
               ? {}
               : { 'aria-labelledby': local['aria-labelledby'] })}
           >
-            {resolvedChildren()}
+            {local.children}
           </CloseButton>
         );
       }}

@@ -40,6 +40,7 @@ visible content. Use explicit `Positioner` and `Content` for advanced compositio
 
 `TooltipDisabledTrigger` renders Ark's trigger behavior onto a focusable `span` wrapper around one
 disabled native control. Give the wrapper its own accessible name.
+Its ref points directly to that wrapper span; it is not a ref to the disabled child.
 
 ## Solid composition notes
 

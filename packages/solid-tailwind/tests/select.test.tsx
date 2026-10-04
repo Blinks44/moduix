@@ -1,6 +1,7 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
+import { createSignal } from 'solid-js';
 import {
   Field,
   Select,
@@ -267,4 +268,23 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
   expect(item).not.toHaveClass('px-3');
   expect(itemText).toHaveClass('min-w-0', 'flex-1');
   expect(itemIndicator).toHaveClass('size-3.5');
+});
+
+test.each([false, true])('updates the clear trigger class (asChild=%s)', (asChild) => {
+  const [className, setClassName] = createSignal('before');
+  const { container } = render(() => (
+    <Select collection={fruits} defaultValue={['apple']}>
+      <SelectClearTrigger
+        class={className()}
+        asChild={asChild ? (props) => <button {...props()}>Clear</button> : undefined}
+      />
+    </Select>
+  ));
+  const trigger = container.querySelector('button')!;
+
+  expect(trigger).toHaveClass('before');
+  setClassName('after');
+  expect(trigger).toHaveClass('after');
+  expect(trigger).not.toHaveClass('before');
+  expect(container.querySelector('button')).toBe(trigger);
 });

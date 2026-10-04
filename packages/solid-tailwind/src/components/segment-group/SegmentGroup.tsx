@@ -5,9 +5,10 @@ import {
   useSegmentGroup as useSegmentGroupPrimitive,
   useSegmentGroupContext,
   useSegmentGroupItemContext,
+  type UseSegmentGroupProps,
 } from '@ark-ui/solid/segment-group';
 import type { ComponentProps, JSX } from 'solid-js';
-import { For, splitProps } from 'solid-js';
+import { For, mergeProps, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
 type SegmentGroupMachineProps = NonNullable<Parameters<typeof useSegmentGroupPrimitive>[0]>;
@@ -28,14 +29,18 @@ function useSegmentGroup(props?: SegmentGroupMachineProps) {
   return useSegmentGroupPrimitive(() => {
     const machineProps = typeof props === 'function' ? props() : props;
 
-    return omitUndefined({
-      orientation: 'horizontal',
-      disabled: field?.()?.disabled ?? fieldset?.()?.disabled,
-      invalid: field?.()?.invalid ?? fieldset?.()?.invalid,
-      readOnly: field?.()?.readOnly,
-      required: field?.()?.required,
-      ...omitUndefined(machineProps ?? {}),
-    });
+    return omitUndefined(
+      mergeProps(
+        {
+          orientation: 'horizontal',
+          disabled: field?.()?.disabled ?? fieldset?.()?.disabled,
+          invalid: field?.()?.invalid ?? fieldset?.()?.invalid,
+          readOnly: field?.()?.readOnly,
+          required: field?.()?.required,
+        } satisfies UseSegmentGroupProps,
+        machineProps ?? {},
+      ),
+    );
   });
 }
 

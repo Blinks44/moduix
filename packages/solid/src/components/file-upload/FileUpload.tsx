@@ -230,15 +230,9 @@ function FileUploadItems() {
     <For each={fileUpload().acceptedFiles}>
       {(file) => (
         <FileUploadItem file={file}>
-          {isImageFile(file) ? (
-            <FileUploadItemPreview>
-              <FileUploadItemPreviewImage />
-            </FileUploadItemPreview>
-          ) : (
-            <FileUploadItemPreview>
-              <FileUploadItemPreviewIcon />
-            </FileUploadItemPreview>
-          )}
+          <FileUploadItemPreview>
+            {isImageFile(file) ? <FileUploadItemPreviewImage /> : <FileUploadItemPreviewIcon />}
+          </FileUploadItemPreview>
           <FileUploadItemName />
           <FileUploadItemMetadata file={file} />
           <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />

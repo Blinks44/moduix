@@ -245,3 +245,22 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
   expect(itemText).toHaveClass('min-w-0', 'flex-1');
   expect(indicator).toHaveClass('size-3');
 });
+
+test.each([false, true])('updates the clear trigger class (asChild=%s)', (asChild) => {
+  const [className, setClassName] = createSignal('before');
+  const { container } = render(() => (
+    <Combobox collection={fruits} defaultValue={['apple']}>
+      <ComboboxClearTrigger
+        class={className()}
+        asChild={asChild ? (props) => <button {...props()}>Clear</button> : undefined}
+      />
+    </Combobox>
+  ));
+  const trigger = container.querySelector('button')!;
+
+  expect(trigger).toHaveClass('before');
+  setClassName('after');
+  expect(trigger).toHaveClass('after');
+  expect(trigger).not.toHaveClass('before');
+  expect(container.querySelector('button')).toBe(trigger);
+});

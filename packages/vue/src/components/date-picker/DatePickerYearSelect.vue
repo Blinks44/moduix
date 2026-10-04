@@ -14,7 +14,7 @@ export interface Props extends /* @vue-ignore */ DatePickerYearSelectProps {
   class?: HTMLAttributes['class'];
 }
 
-const props = defineProps<Props>();
+const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -26,9 +26,7 @@ const { forwardRef } = useForwardExpose();
     <ArkDatePickerYearSelect
       :ref="forwardRef"
       v-bind="attrs"
-      :multiple="props.multiple"
-      :size="props.size"
-      :class="clsx(styles.select, props.class)"
+      :class="clsx(styles.select, className)"
       data-slot="date-picker-year-select"
     >
       <slot />

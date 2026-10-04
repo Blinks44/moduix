@@ -33,13 +33,10 @@ const readOnly = inject(
   signaturePadReadOnlyKey,
   computed(() => false),
 );
-const isDisabled = computed(() => {
-  if (readOnly.value || disabled === true) return true;
-  return disabled;
+const clearTriggerProps = computed(() => {
+  const isDisabled = readOnly.value || disabled;
+  return isDisabled === undefined ? {} : { disabled: isDisabled };
 });
-const clearTriggerProps = computed(() =>
-  isDisabled.value === undefined ? {} : { disabled: isDisabled.value },
-);
 </script>
 
 <template>

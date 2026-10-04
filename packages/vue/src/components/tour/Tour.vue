@@ -52,7 +52,7 @@ const {
   tour,
   unmountOnExit = true,
 } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -65,13 +65,6 @@ const attrs = useAttrs();
       :lazy-mount="lazyMount"
       :tour="tour"
       :unmount-on-exit="unmountOnExit"
-      @exit-complete="emit('exitComplete')"
-      @focus-outside="emit('focusOutside', $event)"
-      @interact-outside="emit('interactOutside', $event)"
-      @pointer-down-outside="emit('pointerDownOutside', $event)"
-      @status-change="emit('statusChange', $event)"
-      @step-change="emit('stepChange', $event)"
-      @steps-change="emit('stepsChange', $event)"
     >
       <slot />
     </ArkTourRoot>

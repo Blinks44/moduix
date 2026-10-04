@@ -16,7 +16,7 @@ export interface Props extends /* @vue-ignore */ DatePickerValueTextProps {
 }
 
 const { class: className } = defineProps<Props>();
-defineSlots<{
+const slots = defineSlots<{
   default?: (value: DatePickerValueTextRenderProps) => unknown;
 }>();
 
@@ -25,18 +25,17 @@ const attrs = useAttrs();
 
 <template>
   <ArkDatePickerValueText
-    v-if="!$slots.default"
-    v-bind="attrs"
-    :class="clsx(styles.valueText, className)"
-    data-slot="date-picker-value-text"
-  />
-  <ArkDatePickerValueText
-    v-else
-    v-bind="attrs"
-    :class="clsx(styles.valueText, className)"
-    data-slot="date-picker-value-text"
+    v-bind="
+      slots.default
+        ? attrs
+        : {
+            ...attrs,
+            class: clsx(styles.valueText, className),
+            'data-slot': 'date-picker-value-text',
+          }
+    "
   >
-    <template #default="value">
+    <template v-if="slots.default" #default="value">
       <slot v-bind="value" />
     </template>
   </ArkDatePickerValueText>

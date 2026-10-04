@@ -136,7 +136,7 @@ function TagCloseTrigger(props: TagCloseTriggerProps) {
         local.class,
       )}
     >
-      {local.children}
+      {resolvedChildren()}
     </CloseButton>
   );
 }

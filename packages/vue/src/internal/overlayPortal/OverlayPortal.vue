@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue';
+import { computed, inject, toValue } from 'vue';
 import { defaultOverlayPortalContext, OverlayPortalContextKey } from './context';
 
 const context = inject(OverlayPortalContextKey, defaultOverlayPortalContext);
 
-const target = computed(() => {
-  const portalRef = context.portalRef();
-  return (typeof portalRef === 'function' ? portalRef() : portalRef) ?? 'body';
-});
+const target = computed(() => toValue(context.portalRef()) ?? 'body');
 
 const portalled = computed(() => context.portalled() !== false);
 </script>

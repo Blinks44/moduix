@@ -38,7 +38,7 @@ const gridStyle = computed<StyleValue>(() => {
     throw new Error('SimpleGrid `minChildWidth` must be a finite non-negative number.');
   }
 
-  let gridTemplateColumns: string | undefined = 'minmax(0, 1fr)';
+  let gridTemplateColumns = 'minmax(0, 1fr)';
   if (columns != null) {
     gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
   }
@@ -48,7 +48,7 @@ const gridStyle = computed<StyleValue>(() => {
 
   const generatedStyle: CSSProperties = {
     display: 'grid',
-    ...(gridTemplateColumns == null ? {} : { gridTemplateColumns }),
+    gridTemplateColumns,
     ...(gap == null ? {} : { gap: toCssLength(gap) }),
     ...(rowGap == null ? {} : { rowGap: toCssLength(rowGap) }),
     ...(columnGap == null ? {} : { columnGap: toCssLength(columnGap) }),

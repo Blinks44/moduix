@@ -36,6 +36,25 @@ function Tags(props: {
   );
 }
 
+test('does not evaluate unused children when the clear trigger uses asChild', () => {
+  let childMounts = 0;
+  function UnusedChild() {
+    childMounts++;
+    return <span>Unused</span>;
+  }
+
+  render(() => (
+    <TagsInput defaultValue={['Solid']}>
+      <TagsInputClearTrigger asChild={(props) => <button {...props()}>Clear</button>}>
+        <UnusedChild />
+      </TagsInputClearTrigger>
+    </TagsInput>
+  ));
+
+  expect(screen.getByRole('button', { name: 'Clear all tags' })).toHaveTextContent('Clear');
+  expect(childMounts).toBe(0);
+});
+
 test('renders the standard item tree with stable parts and default actions', () => {
   render(() => <Tags defaultValue={['React', 'Solid']} />);
 

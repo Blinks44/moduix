@@ -93,6 +93,27 @@ test('preserves RootProvider state with an explicit hidden input', () => {
   expect(document.querySelector('input[type="file"]')).not.toBeNull();
 });
 
+test('keeps a single preview wrapper for image and generic file items', () => {
+  const image = new File(['image'], 'photo.png', { type: 'image/png' });
+  const { container } = render(() => (
+    <FileUpload defaultAcceptedFiles={[image, file]} maxFiles={2}>
+      <FileUploadItemGroup>
+        <FileUploadItems />
+      </FileUploadItemGroup>
+    </FileUpload>
+  ));
+
+  const items = container.querySelectorAll('[data-slot="file-upload-item"]');
+  expect(items).toHaveLength(2);
+  for (const item of items) {
+    expect(item.querySelectorAll('[data-slot="file-upload-item-preview"]')).toHaveLength(1);
+  }
+  expect(items[0]?.querySelector('[data-slot="file-upload-item-preview-image"]')).not.toBeNull();
+  expect(items[0]?.querySelector('[data-slot="file-upload-item-preview-icon"]')).toBeNull();
+  expect(items[1]?.querySelector('[data-slot="file-upload-item-preview-image"]')).toBeNull();
+  expect(items[1]?.querySelector('[data-slot="file-upload-item-preview-icon"]')).not.toBeNull();
+});
+
 test('uses a generic preview when an image filename has no image MIME type', () => {
   render(() => (
     <FileUpload defaultAcceptedFiles={[imageWithoutMimeType]}>

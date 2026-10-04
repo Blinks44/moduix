@@ -1,9 +1,63 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, defineComponent, ref } from 'vue';
+import { createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { Stack } from '../src';
+
+test.each([false, true])(
+  'updates responsive layout and removes stale styles, asChild=%s',
+  async (asChild) => {
+    const direction = ref<InstanceType<typeof Stack>['$props']['direction']>();
+    const gap = ref<number | string>();
+    const fill = ref<boolean>();
+    const style = ref<InstanceType<typeof Stack>['$props']['style']>();
+    const rootRef = ref<ComponentPublicInstance>();
+    render({
+      components: { Stack },
+      setup: () => ({ direction, gap, fill, style, rootRef, asChild }),
+      template: `
+      <Stack ref="rootRef" :as-child="asChild" :direction="direction" :gap="gap" :fill="fill"
+        :style="style" data-testid="stack"><section>Content</section></Stack>
+    `,
+    });
+    const stack = screen.getByTestId('stack');
+    for (const [value, mobile, desktop] of [
+      ['row', 'row', 'row'],
+      [{ desktop: 'row-reverse' }, 'row-reverse', 'row-reverse'],
+      [{ mobile: 'column-reverse' }, 'column-reverse', 'column-reverse'],
+      [{ mobile: 'column', desktop: 'row' }, 'column', 'row'],
+      [undefined, 'column', 'column'],
+    ] as const) {
+      direction.value = value;
+      await nextTick();
+      expect(stack.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe(mobile);
+      expect(stack.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe(desktop);
+      expect(screen.getByTestId('stack')).toBe(stack);
+      expect(rootRef.value?.$el).toBe(stack);
+    }
+    gap.value = 0;
+    fill.value = true;
+    await nextTick();
+    expect(stack.style.gap).toBe('0px');
+    expect(stack.style.getPropertyValue('--moduix-stack-flex')).toBe('1 1 0%');
+    gap.value = '1rem';
+    fill.value = false;
+    style.value = ['color:red', { gap: '2rem' }];
+    await nextTick();
+    expect(stack).toHaveStyle({ color: 'red', gap: '2rem' });
+    expect(stack.style.getPropertyValue('--moduix-stack-flex')).toBe('initial');
+    style.value = undefined;
+    await nextTick();
+    expect(stack.style.gap).toBe('1rem');
+    expect(stack.style.color).toBe('');
+    gap.value = undefined;
+    fill.value = undefined;
+    await nextTick();
+    expect(stack.style.gap).toBe('');
+    expect(stack.style.getPropertyValue('--moduix-stack-flex')).toBe('');
+  },
+);
 
 test('renders a flex root with stable styling hooks', () => {
   render({

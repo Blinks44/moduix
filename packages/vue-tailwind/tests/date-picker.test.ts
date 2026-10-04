@@ -1,8 +1,8 @@
 import { parseDate } from '@ark-ui/vue/date-picker';
-import { expect, test } from '@rstest/core';
+import { afterEach, expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, defineComponent, ref } from 'vue';
+import { createSSRApp, defineComponent, ref, shallowRef } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
   DatePicker,
@@ -24,6 +24,7 @@ import {
   DatePickerTableRow,
   DatePickerTrigger,
   DatePickerView,
+  DatePickerValueText,
   DatePickerYearSelect,
   Field,
   Fieldset,
@@ -50,6 +51,7 @@ const datePickerComponents = {
   DatePickerTableRow,
   DatePickerTrigger,
   DatePickerView,
+  DatePickerValueText,
   DatePickerYearSelect,
   Field,
   Fieldset,
@@ -70,6 +72,10 @@ const translations = {
 };
 
 const date = (value: string) => parseDate(value);
+
+afterEach(() => {
+  rs.restoreAllMocks();
+});
 
 test.each([false, true])(
   'keeps clear-trigger accessible names reactive (asChild=%s)',
@@ -102,6 +108,100 @@ test.each([false, true])(
     });
   },
 );
+
+test.each(['DatePickerMonthSelect', 'DatePickerYearSelect'])(
+  'preserves reactive native select attributes and ref for %s',
+  async (component) => {
+    const multiple = ref(false);
+    const size = ref<string | number>();
+    const selectRef = ref<ComponentPublicInstance>();
+    render({
+      components: datePickerComponents,
+      setup: () => ({ multiple, size, selectRef, date: date('2026-06-22') }),
+      template: `
+        <DatePicker :default-value="[date]">
+          <${component} ref="selectRef" :multiple="multiple" :size="size"
+            class="consumer-select" style="color: red" aria-label="Date navigation"
+            name="navigation" data-testid="navigation-select" />
+        </DatePicker>
+      `,
+    });
+    const select = screen.getByTestId('navigation-select');
+    expect(select.tagName).toBe('SELECT');
+    expect(selectRef.value?.$el).toBe(select);
+    expect(select).toHaveAttribute('name', 'navigation');
+    expect(select).toHaveClass('consumer-select');
+    expect(select).toHaveStyle({ color: 'red' });
+    expect(select).not.toHaveAttribute('multiple');
+    expect(select).not.toHaveAttribute('size');
+    multiple.value = true;
+    await waitFor(() => {
+      expect(select).toHaveAttribute('multiple');
+      expect(select).toHaveClass('h-auto', 'appearance-auto');
+      expect(select.nextElementSibling).toHaveClass('hidden');
+    });
+    size.value = '4';
+    multiple.value = false;
+    await waitFor(() => {
+      expect(select).not.toHaveAttribute('multiple');
+      expect(select).toHaveAttribute('size', '4');
+      expect(select).toHaveClass('h-auto', 'appearance-auto');
+      expect(select.nextElementSibling).toHaveClass('hidden');
+    });
+    size.value = 1;
+    await waitFor(() => {
+      expect(select).toHaveAttribute('size', '1');
+      expect(select).not.toHaveClass('h-auto');
+      expect(select.nextElementSibling).not.toHaveClass('hidden');
+    });
+    size.value = undefined;
+    await waitFor(() => expect(select).not.toHaveAttribute('size'));
+    expect(screen.getByRole('combobox', { name: 'Date navigation' })).toBe(select);
+    expect(selectRef.value?.$el).toBe(select);
+    expect(select.querySelectorAll('option').length).toBeGreaterThan(0);
+  },
+);
+
+test('preserves default value text and reactive scoped-slot rendering', async () => {
+  const warn = rs.spyOn(console, 'warn');
+  const custom = ref(false);
+  const value = shallowRef([date('2026-06-22'), date('2026-06-26')]);
+  render({
+    components: datePickerComponents,
+    setup: () => ({ custom, value }),
+    template: `
+      <DatePicker v-model="value" selection-mode="multiple">
+        <DatePickerValueText placeholder="Pick a date" separator=" | ">
+          <template v-if="custom" #default="entry">
+            <button type="button" @click="entry.remove()">
+              Remove {{ entry.index }}: {{ entry.valueAsString }} (day {{ entry.value.day }})
+            </button>
+          </template>
+        </DatePickerValueText>
+      </DatePicker>
+    `,
+  });
+  const defaultText = screen.getByText('06/22/2026 | 06/26/2026');
+  expect(defaultText.tagName).toBe('SPAN');
+  expect(defaultText).toHaveAttribute('data-slot', 'date-picker-value-text');
+  custom.value = true;
+  const remove = await screen.findByRole('button', { name: 'Remove 0: 06/22/2026 (day 22)' });
+  await fireEvent.click(remove);
+  await waitFor(() => {
+    expect(value.value).toHaveLength(1);
+    expect(screen.getByRole('button', { name: 'Remove 0: 06/26/2026 (day 26)' })).toBeVisible();
+  });
+  custom.value = false;
+  expect((await screen.findByText('06/26/2026')).tagName).toBe('SPAN');
+  value.value = [];
+  expect(await screen.findByText('Pick a date')).toBeInTheDocument();
+  custom.value = true;
+  await waitFor(() => {
+    expect(screen.getByText('Pick a date')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /^Remove/ })).toBeNull();
+  });
+  expect(warn).not.toHaveBeenCalled();
+});
 
 test('renders Ark month and year primitives as native selects', () => {
   render(
@@ -422,6 +522,9 @@ test('renders a stable public anatomy through SSR and hydration', async () => {
     template: `
       <DatePicker :default-value="[date]">
         <DatePickerLabel>Release date</DatePickerLabel><DatePickerField />
+        <DatePickerMonthSelect aria-label="SSR month" />
+        <DatePickerYearSelect aria-label="SSR year" />
+        <DatePickerValueText />
       </DatePicker>
     `,
   });
@@ -429,6 +532,9 @@ test('renders a stable public anatomy through SSR and hydration', async () => {
   const html = await renderToString(createSSRApp(App));
   expect(html).toContain('data-slot="date-picker-root"');
   expect(html).toContain('data-slot="date-picker-input"');
+  expect(html).toContain('data-slot="date-picker-month-select"');
+  expect(html).toContain('data-slot="date-picker-year-select"');
+  expect(html).toContain('data-slot="date-picker-value-text"');
 
   const host = document.createElement('div');
   host.innerHTML = html;
@@ -437,6 +543,12 @@ test('renders a stable public anatomy through SSR and hydration', async () => {
   const app = createSSRApp(App);
   app.mount(host);
   expect([...host.querySelectorAll('[id]')].map((element) => element.id)).toEqual(serverIds);
+  expect(
+    host.querySelector('[data-slot="date-picker-month-select"]')?.querySelectorAll('option'),
+  ).toHaveLength(12);
+  expect(host.querySelector('[data-slot="date-picker-value-text"]')).toHaveTextContent(
+    '06/22/2026',
+  );
   app.unmount();
   host.remove();
 });

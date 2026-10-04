@@ -69,8 +69,8 @@ function Container(props: ContainerProps) {
     'data-size',
     'data-gutter',
   ]);
-  const size = local.size ?? 'lg';
-  const gutter = local.gutter ?? 'md';
+  const size = () => local.size ?? 'lg';
+  const gutter = () => local.gutter ?? 'md';
 
   return (
     <ark.div
@@ -79,9 +79,9 @@ function Container(props: ContainerProps) {
       data-scope="container"
       data-part="root"
       data-slot="container-root"
-      data-size={size}
-      data-gutter={gutter}
-      class={cn(containerVariants({ size, gutter }), local.class)}
+      data-size={size()}
+      data-gutter={gutter()}
+      class={cn(containerVariants({ size: size(), gutter: gutter() }), local.class)}
     />
   );
 }

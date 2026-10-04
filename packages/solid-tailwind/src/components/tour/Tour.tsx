@@ -208,7 +208,6 @@ function TourCloseTrigger(props: ComponentProps<typeof TourPrimitive.CloseTrigge
 
 function TourCloseIcon(props: TourCloseIconProps) {
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
-  const resolvedChildren = children(() => local.children);
 
   return (
     <TourPrimitive.CloseTrigger
@@ -223,7 +222,7 @@ function TourCloseIcon(props: TourCloseIconProps) {
             local.class,
           )}
         >
-          {resolvedChildren()}
+          {local.children}
         </CloseButton>
       )}
       {...others}

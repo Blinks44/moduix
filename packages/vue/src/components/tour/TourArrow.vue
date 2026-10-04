@@ -14,21 +14,14 @@ export interface Props extends /* @vue-ignore */ TourArrowProps {
 }
 
 const { class: className } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 </script>
 
 <template>
-  <ArkTourArrow
-    v-if="!$slots.default"
-    v-bind="attrs"
-    :class="clsx(styles.arrow, className)"
-    data-slot="tour-arrow"
-  >
-    <TourArrowTip />
-  </ArkTourArrow>
-  <ArkTourArrow v-else v-bind="attrs" :class="clsx(styles.arrow, className)" data-slot="tour-arrow">
-    <slot />
+  <ArkTourArrow v-bind="attrs" :class="clsx(styles.arrow, className)" data-slot="tour-arrow">
+    <TourArrowTip v-if="!slots.default" />
+    <slot v-else />
   </ArkTourArrow>
 </template>

@@ -23,7 +23,7 @@ export interface Emits {
 }
 
 const { class: className } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -34,8 +34,6 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="cn('inline-grid w-max max-w-full place-items-center gap-3 text-foreground', className)"
     data-slot="timer-root"
-    @complete="emit('complete')"
-    @tick="emit('tick', $event)"
   >
     <slot />
   </ArkTimerRoot>

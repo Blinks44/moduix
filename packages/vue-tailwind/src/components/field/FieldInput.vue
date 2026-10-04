@@ -20,7 +20,7 @@ export interface Emits {
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -39,7 +39,6 @@ const attrs = useAttrs();
     :default-value="props.defaultValue"
     :model-value="props.modelValue"
     data-slot="field-input"
-    @update:model-value="emit('update:modelValue', $event)"
   >
     <slot />
   </ArkFieldInput>

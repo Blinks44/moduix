@@ -2,7 +2,7 @@
 import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
-import { computed, ref, useAttrs, useSlots } from 'vue';
+import { computed, ref, useAttrs } from 'vue';
 import type { ComponentPublicInstance, HTMLAttributes } from 'vue';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Table.module.css';
@@ -15,10 +15,9 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'td'> {
 }
 
 const { class: className, colSpan } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const slots = useSlots();
 const cellRef = ref<ComponentPublicInstance | null>(null);
 const cellElement = computed(() => cellRef.value?.$el ?? null);
 

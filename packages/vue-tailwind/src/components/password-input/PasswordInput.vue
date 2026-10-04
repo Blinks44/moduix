@@ -20,7 +20,7 @@ export interface PasswordInputRootEmits {
 }
 
 const { class: className } = defineProps<Props>();
-const emit = defineEmits<PasswordInputRootEmits>();
+defineEmits</* @vue-ignore */ PasswordInputRootEmits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -35,8 +35,6 @@ const attrs = useAttrs();
         className,
       )
     "
-    @visibility-change="emit('visibilityChange', $event)"
-    @update:visible="emit('update:visible', $event)"
     data-slot="password-input-root"
   >
     <slot />

@@ -195,6 +195,28 @@ test('exposes RootProvider state through the moduix context hook', () => {
   expect(screen.getByRole('status')).toHaveTextContent('mango');
 });
 
+test('passes dynamic children through the clear trigger without replacing the button', () => {
+  const [custom, setCustom] = createSignal(false);
+  let calls = 0;
+  render(() => (
+    <ListboxClearTrigger onClick={() => calls++}>
+      {custom() ? [[<span data-testid="custom-clear">Reset</span>]] : false}
+    </ListboxClearTrigger>
+  ));
+
+  const button = screen.getByRole('button', { name: 'Clear search' });
+  expect(button.querySelector('svg')).not.toBeNull();
+  setCustom(true);
+  expect(screen.getByTestId('custom-clear')).toHaveTextContent('Reset');
+  expect(button.querySelector('svg')).toBeNull();
+  expect(screen.getByRole('button', { name: 'Clear search' })).toBe(button);
+  fireEvent.click(button);
+  expect(calls).toBe(1);
+  setCustom(false);
+  expect(screen.queryByTestId('custom-clear')).not.toBeInTheDocument();
+  expect(button.querySelector('svg')).not.toBeNull();
+});
+
 test('renders the consumer-wired clear trigger as an accessible button', () => {
   const handleClick = () => undefined;
 

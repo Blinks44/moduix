@@ -50,7 +50,7 @@
     },
     {
       "path": "src/components/select/SelectValueText.vue",
-      "content": "<script setup lang=\"ts\">\nimport { SelectValueText as ArkSelectValueText } from '@ark-ui/vue/select';\nimport type { SelectValueTextProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectValueTextProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectValueText\n    v-if=\"!$slots.default\"\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)\"\n    data-slot=\"select-value-text\"\n  />\n  <ArkSelectValueText\n    v-else\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)\"\n    data-slot=\"select-value-text\"\n    ><slot\n  /></ArkSelectValueText>\n</template>",
+      "content": "<script setup lang=\"ts\">\nimport { SelectValueText as ArkSelectValueText } from '@ark-ui/vue/select';\nimport type { SelectValueTextProps } from '@ark-ui/vue/select';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectValueTextProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\nconst slots = defineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectValueText\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)\"\n    data-slot=\"select-value-text\"\n  >\n    <template v-if=\"slots.default\" #default>\n      <slot />\n    </template>\n  </ArkSelectValueText>\n</template>",
       "type": "registry:component",
       "target": "@components/ui/select/SelectValueText.vue"
     },
@@ -134,7 +134,7 @@
     },
     {
       "path": "src/components/select/SelectContext.vue",
-      "content": "<script setup lang=\"ts\">\nimport type { CollectionItem } from '@ark-ui/vue/collection';\nimport { SelectContext as ArkSelectContext, type UseSelectContext } from '@ark-ui/vue/select';\nimport type { UnwrapRef } from 'vue';\n\ndefineSlots<{ default: (context: UnwrapRef<UseSelectContext<CollectionItem>>) => unknown }>();\n</script>\n\n<template>\n  <ArkSelectContext v-slot=\"context\">\n    <slot v-bind=\"context\" />\n  </ArkSelectContext>\n</template>",
+      "content": "<script setup lang=\"ts\" generic=\"T extends CollectionItem = CollectionItem\">\nimport type { CollectionItem } from '@ark-ui/vue/collection';\nimport { SelectContext as ArkSelectContext, type UseSelectContext } from '@ark-ui/vue/select';\nimport type { UnwrapRef } from 'vue';\n\ndefineSlots<{ default: (context: UnwrapRef<UseSelectContext<T>>) => unknown }>();\n</script>\n\n<template>\n  <!-- @vue-generic {T} -->\n  <ArkSelectContext v-slot=\"context\">\n    <slot v-bind=\"context\" />\n  </ArkSelectContext>\n</template>",
       "type": "registry:component",
       "target": "@components/ui/select/SelectContext.vue"
     },

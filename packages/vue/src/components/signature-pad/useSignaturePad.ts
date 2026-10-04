@@ -7,9 +7,12 @@ import type { SignaturePadApi } from './context';
 
 type SignaturePadHookProps = MaybeRef<UseSignaturePadProps> | undefined;
 
-export const useSignaturePad = (props?: SignaturePadHookProps): ComputedRef<SignaturePadApi> => {
+export const useSignaturePad = (
+  props?: SignaturePadHookProps,
+  emit?: Parameters<typeof useSignaturePadPrimitive>[1],
+): ComputedRef<SignaturePadApi> => {
   const field = useFieldContext();
-  const signaturePad = useSignaturePadPrimitive(props);
+  const signaturePad = useSignaturePadPrimitive(props, emit);
   return computed(() => ({
     ...signaturePad.value,
     readOnly: toValue(props)?.readOnly ?? unref(field)?.readOnly ?? false,

@@ -4,8 +4,8 @@
 
 - TanStack Charts chart reference: https://tanstack.com/charts/latest/docs/reference/chart
   (accessed 2026-09-25)
-- TanStack Charts adapter controller: https://tanstack.com/charts/latest/docs/reference/adapter-controller
-  (accessed 2026-09-25)
+- TanStack Charts Vue adapter: https://tanstack.com/charts/latest/docs/framework/vue/adapter
+  (accessed 2026-10-04)
 - TanStack Charts SSR and hydration: https://tanstack.com/charts/latest/docs/guides/ssr-and-hydration
   (accessed 2026-09-25)
 - TanStack Charts themes and styling: https://tanstack.com/charts/latest/docs/guides/themes-and-styling
@@ -22,11 +22,11 @@ the Vue renderer adapter host, using Tailwind utilities instead of component var
 `Chart` is the Ark factory root. It renders a `figure` and accepts native props, `asChild`,
 `class`, `style`, and a component ref exposing the `figure` through `$el`.
 
-`ChartPlot` accepts the TanStack `ChartRendererHostOptions` contract from the framework-independent
-adapter tier, except that `renderer` is optional. It defaults to the Moduix `motion()` preset. Set
-`motion={false}` to use TanStack's static SVG renderer; an explicit `renderer` always takes
-precedence. Definitions, responsiveness, accessibility props, and callbacks pass through unchanged,
-including TanStack's optional `renderTooltipBody`.
+`ChartPlot` accepts TanStack `ChartRendererHostOptions` from the framework-independent adapter tier,
+with `className` exposed as `class`, `onTooltipBodyChange` owned by the wrapper, and `renderer`
+optional. It defaults to the Moduix `motion()` preset. Set `:motion="false"` to use TanStack's static
+SVG renderer; an explicit `renderer` always takes precedence. Definitions, responsiveness,
+accessibility props, and the remaining callbacks pass through unchanged.
 
 By default, `ChartPlot` uses a compact Moduix tooltip layout, so rows without a swatch do not
 reserve an empty column. When you provide `renderTooltipBody`, its `defaultBody` is the same compact
@@ -60,7 +60,11 @@ becomes the host.
 - `renderTooltipBody` is an escape hatch for Vue-owned tooltip content rendered through a Teleport
   into TanStack's tooltip element. Its `defaultBody` is a render function over the current target
   content. TanStack owns tooltip anchoring, placement, pinned state, portalling, and dismissal;
-  interactive content renders only while pinned.
+  interactive content renders only while pinned. Returning `null` leaves the body empty; the
+  default body is used only when the callback is absent or explicitly invokes `defaultBody()`.
+- A finite positive `aspectRatio` supplies the responsive host ratio when `height` is absent.
+  Otherwise the host defaults to `320px`; explicit numeric dimensions include CSS units.
+  Consumer `style` is applied last and can override these defaults.
 - The internal focusable SVG keeps TanStack keyboard navigation and receives the moduix focus ring
   through arbitrary variants on the host. Do not disable `focusRing` unless the definition provides
   replacement focus geometry.

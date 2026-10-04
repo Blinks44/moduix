@@ -94,39 +94,44 @@ test('keeps Ark autoresize behavior and the moduix styling hook', () => {
   expect(textarea).toHaveStyle({ resize: 'none' });
 });
 
-test('supports controlled v-model updates and external value changes', async () => {
-  const value = ref('Draft');
-  const changes: string[] = [];
-  const Harness = defineComponent({
-    components: fieldComponents,
-    setup() {
-      return { changes, value };
-    },
-    template: `
+test.each([false, true])(
+  'supports controlled v-model updates and external value changes (asChild=%s)',
+  async (asChild) => {
+    const value = ref('Draft');
+    const changes: string[] = [];
+    const Harness = defineComponent({
+      components: fieldComponents,
+      setup() {
+        return { asChild, changes, value };
+      },
+      template: `
       <Textarea
         v-model="value"
+        :as-child="asChild"
         aria-label="Summary"
         @update:model-value="changes.push($event)"
-      />
+      >${asChild ? '<textarea />' : ''}</Textarea>
       <output>{{ value }}</output>
     `,
-  });
+    });
 
-  render(Harness);
-  const textarea = screen.getByRole('textbox', { name: 'Summary' });
+    render(Harness);
+    const textarea = screen.getByRole('textbox', { name: 'Summary' });
 
-  expect(textarea).toHaveValue('Draft');
-  await fireEvent.update(textarea, 'Published');
+    expect(textarea).toHaveValue('Draft');
+    await fireEvent.update(textarea, 'Published');
 
-  await waitFor(() => expect(textarea).toHaveValue('Published'));
-  expect(screen.getByText('Published')).toBeInTheDocument();
-  expect(changes).toEqual(['Published']);
+    await waitFor(() => expect(textarea).toHaveValue('Published'));
+    expect(screen.getByText('Published')).toBeInTheDocument();
+    expect(changes).toEqual(['Published']);
 
-  value.value = 'Imported';
-  await nextTick();
+    value.value = 'Imported';
+    await nextTick();
 
-  expect(textarea).toHaveValue('Imported');
-});
+    expect(textarea).toHaveValue('Imported');
+    expect(changes).toEqual(['Published']);
+  },
+);
 
 test('preserves native form ownership', async () => {
   render({

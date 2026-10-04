@@ -173,7 +173,6 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
     'class',
   ]);
   const tagsInput = useTagsInputContext();
-  const resolvedChildren = children(() => local.children);
   const clearTriggerLabel = () => tagsInput().getClearTriggerProps()['aria-label'];
 
   if (local.asChild) {
@@ -202,7 +201,7 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
           data-scope="tags-input"
           data-slot="tags-input-clear-trigger"
         >
-          {resolvedChildren()}
+          {local.children}
         </CloseButton>
       )}
       class={cn(

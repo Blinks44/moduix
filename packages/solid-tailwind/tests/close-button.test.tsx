@@ -3,6 +3,29 @@ import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import { CloseButton } from '../src';
 
+test('supports bound click handlers and still blocks disabled activation', () => {
+  const payload = { action: 'dismiss' };
+  const calls: unknown[] = [];
+  const [disabled, setDisabled] = createSignal(false);
+  render(() => (
+    <CloseButton
+      aria-disabled={disabled()}
+      onClick={[
+        (data, event) => {
+          calls.push(data, event.currentTarget);
+        },
+        payload,
+      ]}
+    />
+  ));
+  const button = screen.getByRole('button', { name: 'Close' });
+  fireEvent.click(button);
+  expect(calls).toEqual([payload, button]);
+  setDisabled(true);
+  expect(fireEvent.click(button)).toBe(false);
+  expect(calls).toHaveLength(2);
+});
+
 test('renders an accessible native button with safe defaults and a forwarded ref', () => {
   let ref!: HTMLButtonElement;
 

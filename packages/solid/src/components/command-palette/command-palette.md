@@ -20,6 +20,8 @@ The flat API includes `CommandPalette`, `CommandPaletteRootProvider`, `CommandPa
 
 - Preserve Dialog focus, dismissal, modal, and lifecycle behavior plus Combobox collection state. The popup portals by default.
 - Keep the global shortcut opt-in and Solid reactive cleanup for its listener.
+- Clear-trigger click/pointer handlers support Solid callbacks and bound `[handler, data]`
+  pairs. Consumer click cancellation preserves the search value; pointer activation keeps focus.
 
 ## Styling and accessibility
 

@@ -10,18 +10,15 @@ import { cn } from '@/lib/moduix/cn';
 import type { ToggleSize, ToggleVariant } from '../toggle/Toggle';
 import { toggleVariants } from '../toggle/Toggle.variants';
 
-const defaultToggleGroupStyles = {
-  variant: () => 'default' as ToggleVariant,
-  size: () => 'md' as ToggleSize,
-};
-
 type ToggleGroupStyleContextValue = {
   variant: Accessor<ToggleVariant>;
   size: Accessor<ToggleSize>;
 };
 
-const ToggleGroupStyleContext =
-  createContext<ToggleGroupStyleContextValue>(defaultToggleGroupStyles);
+const ToggleGroupStyleContext = createContext<ToggleGroupStyleContextValue>({
+  variant: (): ToggleVariant => 'default',
+  size: (): ToggleSize => 'md',
+});
 
 const toggleGroupRootVariants = cva(
   'group/toggle-group inline-flex max-w-full items-center gap-px overflow-x-auto overscroll-x-contain rounded-lg border border-border bg-muted p-0.5 text-foreground [scrollbar-width:none] data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch [&::-webkit-scrollbar]:hidden',

@@ -1,5 +1,5 @@
 import { expect, rs, test } from '@rstest/core';
-import { render, screen } from '@testing-library/vue';
+import { render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, h, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance, VNodeChild } from 'vue';
@@ -86,6 +86,54 @@ const chartComponents = {
   ChartPlot,
   ChartTitle,
 };
+
+test('preserves reactive plot dimensions and consumer style precedence', async () => {
+  const aspectRatio = ref<number>();
+  const height = ref<number>();
+  const width = ref<number>();
+  const style = ref([{ color: 'red' }, { height: '180px' }]);
+  render({
+    components: chartComponents,
+    setup: () => ({ definition: {} as never, aspectRatio, height, width, style }),
+    template:
+      '<ChartPlot aria-label="Revenue" :definition="definition" :aspect-ratio="aspectRatio" :height="height" :width="width" :style="style" />',
+  });
+  const host = document.querySelector<HTMLElement>('.ts-chart-host')!;
+  expect(host).toHaveStyle({ height: '180px', color: 'red', width: '100%' });
+  style.value = [];
+  for (const ratio of [undefined, 0, -1, Number.NaN, Number.POSITIVE_INFINITY, 2]) {
+    aspectRatio.value = ratio;
+    await waitFor(() => {
+      expect(host.style.height).toBe(ratio === 2 ? '' : '320px');
+      expect(host.style.aspectRatio).toBe(ratio === 2 ? '2 / 1' : '');
+    });
+  }
+  height.value = 240;
+  width.value = 640;
+  await waitFor(() => {
+    expect(host).toHaveStyle({ width: '640px', height: '240px' });
+    expect(host.style.aspectRatio).toBe('');
+  });
+});
+
+test('preserves empty custom tooltip output and reactive callback replacement', async () => {
+  const renderTooltipBody = ref<(() => VNodeChild) | undefined>(() => null);
+  render({
+    components: chartComponents,
+    setup: () => ({ definition: {} as never, renderTooltipBody }),
+    template:
+      '<ChartPlot aria-label="Revenue" :definition="definition" :render-tooltip-body="renderTooltipBody" />',
+  });
+  await nextTick();
+  expect(document.querySelector('[data-slot="chart-tooltip-body"]')).toBeNull();
+  renderTooltipBody.value = () => h('span', { 'data-testid': 'replacement-tooltip' }, 'Custom');
+  expect(await screen.findByTestId('replacement-tooltip')).toHaveTextContent('Custom');
+  renderTooltipBody.value = undefined;
+  await waitFor(() => {
+    expect(screen.queryByTestId('replacement-tooltip')).toBeNull();
+    expect(document.querySelector('[data-slot="chart-tooltip-rows"]')).toBeInTheDocument();
+  });
+});
 
 test('renders the callable root with stable hooks and replaceable Tailwind defaults', () => {
   render({

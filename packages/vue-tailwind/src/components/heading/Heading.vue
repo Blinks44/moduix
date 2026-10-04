@@ -10,15 +10,6 @@ type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
-const elements = {
-  h1: ark.h1,
-  h2: ark.h2,
-  h3: ark.h3,
-  h4: ark.h4,
-  h5: ark.h5,
-  h6: ark.h6,
-} as const;
-
 const defaultSizes: Record<HeadingElement, HeadingSize> = {
   h1: '2xl',
   h2: 'xl',
@@ -60,7 +51,6 @@ const { as: elementName, class: className, size, weight = 'semibold' } = defineP
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const element = computed(() => elements[elementName ?? 'h1']);
 const headingClass = computed(() =>
   cn(headingVariants({ size: size ?? defaultSizes[elementName ?? 'h1'], weight }), className),
 );
@@ -68,7 +58,7 @@ const headingClass = computed(() =>
 
 <template>
   <component
-    :is="element"
+    :is="ark[elementName ?? 'h1']"
     v-bind="attrs"
     :class="headingClass"
     data-scope="heading"

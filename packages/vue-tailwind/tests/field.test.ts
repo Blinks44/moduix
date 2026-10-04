@@ -1,4 +1,4 @@
-import { expect, test } from '@rstest/core';
+import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, ref } from 'vue';
@@ -175,6 +175,65 @@ test('forwards refs and styling hooks for the Ark native parts', () => {
   expect(inputRef.value?.$el).toHaveAttribute('data-slot', 'field-input');
   expect(textareaRef.value?.$el).toHaveAttribute('data-slot', 'field-textarea');
   expect(selectRef.value?.$el).toHaveAttribute('data-slot', 'field-select');
+});
+
+test.each([
+  ['input', false],
+  ['input', true],
+  ['textarea', false],
+  ['textarea', true],
+  ['select', false],
+  ['select', true],
+] as const)('preserves controlled native models (%s, asChild=%s)', async (tag, asChild) => {
+  const value = ref('initial');
+  const controlRef = ref<ComponentPublicInstance>();
+  const changes: string[] = [];
+  const nativeEvent = rs.fn();
+  const options =
+    tag === 'select'
+      ? '<option value="initial">Initial</option><option value="next">Next</option><option value="parent">Parent</option>'
+      : '';
+  const Harness = defineComponent({
+    components: {
+      Control: { input: FieldInput, textarea: FieldTextarea, select: FieldSelect }[
+        tag
+      ] as Component,
+    },
+    setup: () => ({ asChild, changes, controlRef, nativeEvent, value }),
+    template: `
+      <form aria-label="Field form">
+        <Control
+          ref="controlRef"
+          v-model="value"
+          :as-child="asChild"
+          aria-label="Value"
+          name="value"
+          @${tag === 'select' ? 'change' : 'input'}="nativeEvent"
+          @update:model-value="changes.push($event)"
+        >${asChild ? `<${tag}>${options}</${tag}>` : options}</Control>
+      </form>
+    `,
+  });
+
+  render(Harness);
+  const control = screen.getByRole(tag === 'select' ? 'combobox' : 'textbox', { name: 'Value' });
+  const form = screen.getByRole('form', { name: 'Field form' }) as HTMLFormElement;
+
+  expect(controlRef.value?.$el).toBe(control);
+  expect(control).toHaveValue('initial');
+  await fireEvent.update(control, 'next');
+
+  await waitFor(() => expect(control).toHaveValue('next'));
+  expect(value.value).toBe('next');
+  expect(changes).toEqual(['next']);
+  expect(nativeEvent).toHaveBeenCalledTimes(1);
+  expect(new FormData(form).get('value')).toBe('next');
+
+  value.value = 'parent';
+  await waitFor(() => expect(control).toHaveValue('parent'));
+  expect(changes).toEqual(['next']);
+  expect(nativeEvent).toHaveBeenCalledTimes(1);
+  expect(new FormData(form).get('value')).toBe('parent');
 });
 
 test('keeps the RootProvider composition path Ark-shaped', () => {

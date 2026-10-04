@@ -250,7 +250,6 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
     'children',
     'class',
   ]);
-  const resolvedChildren = children(() => local.children);
   if (local.asChild) {
     return (
       <DatePickerPrimitive.ClearTrigger
@@ -287,7 +286,7 @@ function DatePickerClearTrigger(props: ComponentProps<typeof DatePickerPrimitive
               local.class,
             )}
           >
-            {resolvedChildren()}
+            {local.children}
           </CloseButton>
         );
       }}

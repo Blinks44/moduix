@@ -1,6 +1,6 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { expect, test } from '@rstest/core';
-import { fireEvent, render, screen } from '@solidjs/testing-library';
+import { expect, rs, test } from '@rstest/core';
+import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
 import {
   Select,
   Sidebar,
@@ -38,6 +38,39 @@ function DefaultSidebarConstraints() {
 
   return <output data-testid="constraints">{`${panel().minSize}:${panel().collapsedSize}`}</output>;
 }
+
+test.each([false, true])('supports bound toggle handlers (prevented=%s)', async (prevented) => {
+  const payload = { action: 'toggle' };
+  const calls: unknown[] = [];
+  render(() => (
+    <Sidebar
+      defaultSize={[20, 80]}
+      ref={(element) => {
+        rs.spyOn(element, 'getBoundingClientRect').mockReturnValue(new DOMRect(0, 0, 1000, 600));
+      }}
+    >
+      <SidebarPanel />
+      <SidebarResizeTrigger />
+      <SidebarTrigger
+        onClick={[
+          (data, event) => {
+            calls.push(data, event.currentTarget);
+            if (prevented) event.preventDefault();
+          },
+          payload,
+        ]}
+      />
+      <SidebarInset />
+    </Sidebar>
+  ));
+  const trigger = screen.getByRole('button', { name: 'Toggle sidebar' });
+  await new Promise(requestAnimationFrame);
+  fireEvent.click(trigger);
+  expect(calls).toEqual([payload, trigger]);
+  await waitFor(() =>
+    expect(trigger).toHaveAttribute('aria-expanded', prevented ? 'true' : 'false'),
+  );
+});
 
 test('keeps the default panel, inset, and resize ids aligned', () => {
   render(() => (
@@ -148,6 +181,10 @@ test('preserves active link composition for primary and nested navigation', () =
   const details = screen.getByRole('link', { name: 'Details' });
 
   expect(overview).toHaveAttribute('aria-current', 'page');
+  expect(overview).toHaveClass(
+    'group-data-[state=expanded]/sidebar-panel:@min-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-10',
+  );
+  expect(overview).not.toHaveClass('@max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2');
   expect(overview).toHaveAttribute('data-slot', 'sidebar-navigation-button');
   expect(overview).toHaveAttribute('data-active');
   expect(overview).toHaveAttribute('data-size', 'sm');
@@ -279,6 +316,10 @@ test('uses native Tailwind defaults and merges consumer utilities last', () => {
   const root = container.querySelector('[data-slot="sidebar-root"]');
   const panel = container.querySelector('[data-slot="sidebar-panel"]');
   const navigationButton = screen.getByRole('button', { name: 'Overview' });
+  expect(navigationButton).toHaveClass(
+    'group-data-[state=expanded]/sidebar-panel:@min-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-10',
+  );
+  expect(navigationButton).not.toHaveClass('has-[+_[data-slot=sidebar-navigation-badge]]:pe-10');
   const trigger = screen.getByRole('button', { name: 'Toggle sidebar' });
 
   expect(root).toHaveClass('h-64', 'bg-muted');

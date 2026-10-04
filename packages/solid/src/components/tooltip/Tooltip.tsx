@@ -14,16 +14,6 @@ type TooltipRootProviderProps = ComponentProps<typeof TooltipPrimitive.RootProvi
   OverlayPortalProps;
 type TooltipTriggerAsChildProps = Omit<ComponentProps<typeof TooltipPrimitive.Trigger>, 'asChild'>;
 type TooltipDisabledTriggerProps = JSX.IntrinsicElements['span'];
-type TooltipDisabledTriggerRef = TooltipDisabledTriggerProps['ref'];
-
-function assignDisabledTriggerRef(
-  ref: TooltipDisabledTriggerRef | undefined,
-  element: HTMLSpanElement,
-) {
-  if (typeof ref === 'function') {
-    ref(element);
-  }
-}
 
 function Tooltip(props: TooltipRootProps) {
   const [local, others] = splitProps(props, [
@@ -88,25 +78,17 @@ function TooltipDisabledTrigger(props: TooltipDisabledTriggerProps) {
   return (
     <TooltipPrimitive.Trigger
       {...(others as TooltipTriggerAsChildProps)}
-      asChild={(triggerProps) => {
-        const primitiveProps = triggerProps() as JSX.IntrinsicElements['span'];
-        const primitiveRef = primitiveProps.ref;
-
-        return (
-          <span
-            {...primitiveProps}
-            ref={(element) => {
-              assignDisabledTriggerRef(primitiveRef, element);
-              assignDisabledTriggerRef(local.ref, element);
-            }}
-            data-slot="tooltip-disabled-trigger"
-            tabIndex={local.tabIndex ?? 0}
-            class={clsx(styles.disabledTrigger, local.class)}
-          >
-            {local.children}
-          </span>
-        );
-      }}
+      asChild={(triggerProps) => (
+        <span
+          {...triggerProps()}
+          ref={local.ref}
+          data-slot="tooltip-disabled-trigger"
+          tabIndex={local.tabIndex ?? 0}
+          class={clsx(styles.disabledTrigger, local.class)}
+        >
+          {local.children}
+        </span>
+      )}
     />
   );
 }

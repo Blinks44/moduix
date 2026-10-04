@@ -1,7 +1,7 @@
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, defineComponent, ref } from 'vue';
+import { createSSRApp, defineComponent, mergeProps, ref, shallowRef } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
   Lightbox,
@@ -24,6 +24,7 @@ import {
   useLightboxContext,
 } from '../src';
 import type { LightboxImageSelectDetails } from '../src';
+import { resolveRootNode } from '../src/components/lightbox/lightbox';
 
 const lightboxComponents = {
   Lightbox,
@@ -43,6 +44,33 @@ const lightboxComponents = {
   LightboxTitle,
   LightboxTrigger,
 };
+
+test('resolves Bind elements, refs, getters, and selector fallbacks', () => {
+  render({ template: '<section id="bind-root" data-testid="bind-root" />' });
+  const root = screen.getByTestId('bind-root');
+  const otherRoot = document.createElement('section');
+  const rootRef = shallowRef<HTMLElement | null>(root);
+  const getRoot = rs.fn(() => rootRef.value);
+
+  expect(resolveRootNode(root, '#missing-root')).toBe(root);
+  expect(resolveRootNode(rootRef, '#missing-root')).toBe(root);
+  expect(resolveRootNode(getRoot, '#missing-root')).toBe(root);
+  expect(getRoot).toHaveBeenCalledTimes(1);
+
+  rootRef.value = otherRoot;
+  expect(resolveRootNode(rootRef, '#bind-root')).toBe(otherRoot);
+  expect(resolveRootNode(getRoot, '#bind-root')).toBe(otherRoot);
+  expect(getRoot).toHaveBeenCalledTimes(2);
+
+  rootRef.value = null;
+  expect(resolveRootNode(rootRef, '#bind-root')).toBe(root);
+  expect(resolveRootNode(getRoot, '#bind-root')).toBe(root);
+  expect(getRoot).toHaveBeenCalledTimes(3);
+  expect(resolveRootNode(undefined, '#bind-root')).toBe(root);
+  expect(resolveRootNode(() => undefined, '#bind-root')).toBe(root);
+  expect(resolveRootNode(undefined, '#missing-root')).toBeNull();
+  expect(resolveRootNode(undefined, undefined)).toBeNull();
+});
 
 test('opens from a semantic Bind selector', async () => {
   const rootRef = ref<HTMLElement | null>(null);
@@ -102,6 +130,43 @@ test('keeps the lightbox open when an image click is prevented', () => {
   fireEvent.click(screen.getByRole('img', { name: 'Mountain ridge' }));
   expect(screen.getByRole('dialog', { name: 'Image preview' })).toBeInTheDocument();
 });
+
+test.each([false, true])(
+  'composes image listeners before click-to-close (cancel=%s)',
+  async (cancel) => {
+    const calls: string[] = [];
+    const listeners = mergeProps(
+      {
+        onClick: (event: MouseEvent) => {
+          calls.push('first');
+          if (cancel) event.preventDefault();
+        },
+      },
+      { onClick: () => calls.push('second') },
+    );
+    render({
+      components: lightboxComponents,
+      setup: () => ({ listeners }),
+      template: `
+      <Lightbox :portalled="false">
+        <LightboxTrigger>Open preview</LightboxTrigger>
+        <LightboxPositioner>
+          <LightboxContent aria-label="Image preview">
+            <LightboxImage v-bind="listeners" src="/full-size.jpg" alt="Mountain ridge" close-on-click />
+          </LightboxContent>
+        </LightboxPositioner>
+      </Lightbox>
+    `,
+    });
+    await fireEvent.click(screen.getByRole('button', { name: 'Open preview' }));
+    await fireEvent.click(await screen.findByRole('img', { name: 'Mountain ridge' }));
+    expect(calls).toEqual(['first', 'second']);
+    await waitFor(() => {
+      if (cancel) expect(screen.getByRole('dialog', { name: 'Image preview' })).toBeInTheDocument();
+      else expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  },
+);
 
 test('closes a click-to-close image and restores focus to its trigger', async () => {
   render({
@@ -382,4 +447,47 @@ test.each([
     });
     expect(await screen.findByRole('dialog', { name: 'Bound preview' })).toBeVisible();
   }
+});
+
+test('keeps close-icon labels, attrs and fallback content reactive', async () => {
+  const label = ref<string | undefined>('Dismiss first');
+  const labelledby = ref<string | undefined>();
+  const custom = ref(false);
+  render({
+    components: lightboxComponents,
+    setup: () => ({ label, labelledby, custom }),
+    template: `
+      <Lightbox default-open :portalled="false">
+        <LightboxPositioner><LightboxContent>
+          <LightboxTitle>Preview</LightboxTitle>
+          <LightboxCloseIcon :aria-label="label" :aria-labelledby="labelledby"
+            class="consumer-close" style="color: red" title="Dismiss preview" data-testid="close">
+            <template v-if="custom" #default><span>Custom close</span></template>
+          </LightboxCloseIcon>
+        </LightboxContent></LightboxPositioner>
+      </Lightbox>
+    `,
+  });
+  const button = await screen.findByTestId('close');
+  expect(button.tagName).toBe('BUTTON');
+  expect(button).toHaveAttribute('aria-label', 'Dismiss first');
+  expect(button).toHaveClass('consumer-close');
+  expect(button).toHaveStyle({ color: 'red' });
+  expect(button).toHaveAttribute('title', 'Dismiss preview');
+  expect(button.querySelector('svg')).toBeInTheDocument();
+  label.value = 'Dismiss second';
+  await waitFor(() => expect(button).toHaveAttribute('aria-label', 'Dismiss second'));
+  labelledby.value = 'dismiss-label';
+  label.value = undefined;
+  await waitFor(() => {
+    expect(button).toHaveAttribute('aria-labelledby', 'dismiss-label');
+    expect(button).toHaveAttribute('aria-label', 'Close image');
+  });
+  label.value = '';
+  await waitFor(() => expect(button).toHaveAttribute('aria-label', ''));
+  custom.value = true;
+  await waitFor(() => expect(screen.getByTestId('close')).toHaveTextContent('Custom close'));
+  expect(screen.getByTestId('close').querySelector('svg')).toBeNull();
+  custom.value = false;
+  await waitFor(() => expect(screen.getByTestId('close').querySelector('svg')).toBeInTheDocument());
 });

@@ -96,7 +96,7 @@ export const Controlled: Story = {
           <ProgressCircularLabel>Upload status</ProgressCircularLabel>
           <CircularParts aria-label="Upload status" />
         </ProgressCircular>
-        <Slider :value="[value ?? 0]" :min="0" :max="100" @value-change="value = $event.value[0] ?? 0">
+        <Slider :model-value="[value ?? 0]" :min="0" :max="100" @value-change="value = $event.value[0] ?? 0">
           <SliderLabel>Progress value</SliderLabel>
           <SliderValueText />
           <SliderControl>

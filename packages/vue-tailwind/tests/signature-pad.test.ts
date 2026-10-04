@@ -60,6 +60,77 @@ const signaturePadComponents = {
   SignaturePadRootProvider,
 } as unknown as Record<string, Component>;
 
+test.each([false, true])(
+  'preserves omitted disabled and read-only clear guards with asChild=%s',
+  async (asChild) => {
+    const paths = ref([...defaultPaths]);
+    const rootDisabled = ref(true);
+    const disabled = ref<boolean>();
+    const readOnly = ref(false);
+    const triggerRef = ref<ComponentPublicInstance>();
+    const changes = rs.fn();
+    const click = rs.fn();
+    const App = defineComponent({
+      components: signaturePadComponents,
+      setup: () => ({
+        paths,
+        rootDisabled,
+        disabled,
+        readOnly,
+        triggerRef,
+        changes,
+        click,
+        asChild,
+      }),
+      template: `
+      <SignaturePad v-model:paths="paths" :disabled="rootDisabled" :read-only="readOnly" @draw-end="changes">
+        <SignaturePadClearTrigger ref="triggerRef" :as-child="asChild" :disabled="disabled"
+          aria-label="Reset signature" class="consumer-clear" style="color: red"
+          title="Reset drawing" data-testid="clear" @click="click">
+          <template v-if="asChild" #default><button type="button">Reset</button></template>
+        </SignaturePadClearTrigger>
+      </SignaturePad>
+    `,
+    });
+
+    render(App);
+    const trigger = screen.getByTestId('clear');
+    expect(trigger).toBeDisabled();
+    expect(trigger).toHaveAccessibleName('Reset signature');
+    expect(triggerRef.value?.$el).toBe(trigger);
+    expect(trigger).toHaveAttribute('data-slot', 'signature-pad-clear-trigger');
+    expect(trigger).toHaveClass('consumer-clear');
+    expect(trigger).toHaveStyle({ color: 'red' });
+    expect(trigger).toHaveAttribute('title', 'Reset drawing');
+    expect(trigger.querySelector('svg') !== null).toBe(!asChild);
+    await fireEvent.click(trigger);
+    expect(changes).not.toHaveBeenCalled();
+    expect(paths.value).toEqual(defaultPaths);
+
+    rootDisabled.value = false;
+    await waitFor(() => expect(trigger).not.toBeDisabled());
+    disabled.value = true;
+    await waitFor(() => expect(trigger).toBeDisabled());
+    disabled.value = false;
+    await waitFor(() => expect(trigger).not.toBeDisabled());
+    readOnly.value = true;
+    await waitFor(() => expect(trigger).toBeDisabled());
+    await fireEvent.click(trigger);
+    expect(changes).not.toHaveBeenCalled();
+    expect(paths.value).toEqual(defaultPaths);
+    readOnly.value = false;
+    disabled.value = undefined;
+    await waitFor(() => expect(trigger).not.toBeDisabled());
+    click.mockClear();
+    await fireEvent.click(trigger);
+    await waitFor(() => expect(paths.value).toEqual([]));
+    expect(changes).toHaveBeenCalledTimes(1);
+    expect(click).toHaveBeenCalledTimes(1);
+    expect(trigger).toHaveAttribute('hidden');
+    expect(triggerRef.value?.$el).toBe(trigger);
+  },
+);
+
 test('serializes an explicit hidden input with Ark defaults', () => {
   const App = defineComponent({
     components: signaturePadComponents,
@@ -103,6 +174,34 @@ test('keeps the clear action and callback details Ark-shaped', async () => {
     expect(container.querySelector('input[hidden]')).toHaveValue('');
     expect(drawEnds).toEqual([[]]);
   });
+});
+
+test('forwards native hook emits once alongside prop callbacks', async () => {
+  const emit = rs.fn();
+  const onDraw = rs.fn();
+  const onDrawEnd = rs.fn();
+  const App = defineComponent({
+    components: signaturePadComponents,
+    setup: () => ({
+      signaturePad: useSignaturePad({ defaultPaths, translations, onDraw, onDrawEnd }, emit),
+    }),
+    template: `
+      <SignaturePadRootProvider :value="signaturePad">
+        <SignaturePadParts />
+      </SignaturePadRootProvider>
+    `,
+  });
+
+  render(App);
+  await fireEvent.click(screen.getByRole('button', { name: 'Clear signature' }));
+
+  await waitFor(() => expect(onDrawEnd).toHaveBeenCalledTimes(1));
+  expect(onDraw).toHaveBeenCalledTimes(1);
+  expect(emit.mock.calls.map(([event]) => event)).toEqual(['update:paths', 'draw', 'drawEnd']);
+  expect(emit).toHaveBeenCalledWith('update:paths', []);
+  expect(emit).toHaveBeenCalledWith('draw', onDraw.mock.calls[0][0]);
+  expect(emit).toHaveBeenCalledWith('drawEnd', onDrawEnd.mock.calls[0][0]);
+  expect(onDrawEnd.mock.calls[0][0].paths).toEqual([]);
 });
 
 test('keeps the disabled control and clear action unavailable', () => {

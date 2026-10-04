@@ -63,43 +63,54 @@ test('shows the selected option while disabled', () => {
   expect(screen.getByRole('combobox', { name: 'Framework' })).toHaveValue('react');
 });
 
-test('forwards the native select ref and supports controlled values and events', async () => {
-  const selectRef = ref<ComponentPublicInstance | null>(null);
-  const value = ref('react');
-  const changes: string[] = [];
-  const Harness = defineComponent({
-    components,
-    setup() {
-      return { changes, selectRef, value };
-    },
-    template: `
+test.each([false, true])(
+  'forwards the native select ref and controlled events (asChild=%s)',
+  async (asChild) => {
+    const selectRef = ref<ComponentPublicInstance | null>(null);
+    const value = ref('react');
+    const changes: string[] = [];
+    const modelChanges: string[] = [];
+    const Harness = defineComponent({
+      components,
+      setup() {
+        return { asChild, changes, modelChanges, selectRef, value };
+      },
+      template: `
       <NativeSelect
         ref="selectRef"
         v-model="value"
+        :as-child="asChild"
         aria-label="Framework"
         @change="changes.push($event.target.value)"
+        @update:model-value="modelChanges.push($event)"
       >
+        ${asChild ? '<select>' : ''}
         <option value="react">React</option>
         <option value="vue">Vue</option>
+        ${asChild ? '</select>' : ''}
       </NativeSelect>
     `,
-  });
+    });
 
-  render(Harness);
+    render(Harness);
 
-  const select = screen.getByRole('combobox', { name: 'Framework' });
+    const select = screen.getByRole('combobox', { name: 'Framework' });
 
-  expect(selectRef.value?.$el).toBe(select);
-  await fireEvent.update(select, 'vue');
+    expect(selectRef.value?.$el).toBe(select);
+    await fireEvent.update(select, 'vue');
 
-  await waitFor(() => expect(select).toHaveValue('vue'));
-  expect(value.value).toBe('vue');
-  expect(changes).toEqual(['vue']);
+    await waitFor(() => expect(select).toHaveValue('vue'));
+    expect(value.value).toBe('vue');
+    expect(changes).toEqual(['vue']);
+    expect(modelChanges).toEqual(['vue']);
 
-  value.value = 'react';
-  await nextTick();
-  expect(select).toHaveValue('react');
-});
+    value.value = 'react';
+    await nextTick();
+    expect(select).toHaveValue('react');
+    expect(changes).toEqual(['vue']);
+    expect(modelChanges).toEqual(['vue']);
+  },
+);
 
 test('preserves native form submission and reset behavior', async () => {
   render({

@@ -19,7 +19,7 @@ export interface Emits {
 }
 
 const { class: className } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -28,15 +28,7 @@ const rootClass =
 </script>
 
 <template>
-  <ArkStepsRoot
-    v-bind="attrs"
-    :class="cn(rootClass, className)"
-    data-slot="steps-root"
-    @step-change="emit('stepChange', $event)"
-    @step-complete="emit('stepComplete')"
-    @step-invalid="emit('stepInvalid', $event)"
-    @update:step="emit('update:step', $event)"
-  >
+  <ArkStepsRoot v-bind="attrs" :class="cn(rootClass, className)" data-slot="steps-root">
     <slot />
   </ArkStepsRoot>
 </template>

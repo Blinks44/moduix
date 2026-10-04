@@ -89,6 +89,33 @@ test('preserves a custom content host with asChild', () => {
   expect(screen.getByRole('menu')).toHaveProperty('tagName', 'SECTION');
 });
 
+test.each([undefined, false, true])(
+  'preserves RootProvider portal defaults with portalled=%s',
+  (portalled) => {
+    const Harness = defineComponent({
+      components: menuComponents,
+      setup: () => ({
+        menu: useMenu({ defaultOpen: true }),
+        providerProps: portalled === undefined ? {} : { portalled },
+      }),
+      template: `
+      <MenuRootProvider :value="menu" v-bind="providerProps">
+        <MenuTrigger>Provider actions</MenuTrigger>
+        <MenuPositioner><MenuContent>
+          <MenuItem value="edit">Edit</MenuItem>
+        </MenuContent></MenuPositioner>
+      </MenuRootProvider>
+    `,
+    });
+
+    const { container } = render(Harness);
+    const positioner = container.querySelector('[data-slot="menu-positioner"]');
+    if (portalled === false) expect(positioner).toBeInTheDocument();
+    else expect(positioner).toBeNull();
+    expect(screen.getByRole('menu')).toBeVisible();
+  },
+);
+
 test('portals Positioner by default', () => {
   const { container } = render(TestMenu);
   expect(container.querySelector('[data-slot="menu-positioner"]')).toBeNull();

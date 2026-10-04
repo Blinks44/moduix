@@ -17,7 +17,7 @@ export interface Emits {
 }
 
 const { class: className } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -33,8 +33,6 @@ const attrs = useAttrs();
       )
     "
     data-slot="qr-code-root"
-    @value-change="emit('valueChange', $event)"
-    @update:model-value="emit('update:modelValue', $event)"
   >
     <slot />
   </ArkQrCodeRoot>

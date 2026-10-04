@@ -3,6 +3,8 @@
 `Container` is the only public root value. It centers a content column, applies responsive inline
 gutters, and preserves the React component's size presets, data hooks, and CSS variables.
 
+Changes to `size` and `gutter` update the existing host reactively in both styling tracks.
+
 ## Ark Solid composition
 
 Ark Solid uses a render-function `asChild` prop, for example

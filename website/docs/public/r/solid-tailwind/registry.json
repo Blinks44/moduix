@@ -48,6 +48,19 @@
       ]
     },
     {
+      "name": "event-handlers",
+      "type": "registry:item",
+      "title": "moduix Solid event handlers",
+      "description": "Internal invocation of native Solid callback and bound event props.",
+      "files": [
+        {
+          "path": "src/internal/callEventHandler.ts",
+          "target": "@lib/moduix/callEventHandler.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "icons",
       "type": "registry:item",
       "title": "moduix icons",
@@ -129,7 +142,11 @@
       "title": "AngleSlider",
       "description": "moduix Solid Tailwind AngleSlider component.",
       "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/event-handlers"
+      ],
       "files": [
         {
           "path": "src/components/angle-slider/AngleSlider.tsx",
@@ -344,7 +361,8 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
-        "@moduix-solid-tailwind/icons"
+        "@moduix-solid-tailwind/icons",
+        "@moduix-solid-tailwind/event-handlers"
       ],
       "files": [
         {
@@ -540,7 +558,8 @@
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
         "@moduix-solid-tailwind/close-button",
-        "@moduix-solid-tailwind/overlay-portal"
+        "@moduix-solid-tailwind/overlay-portal",
+        "@moduix-solid-tailwind/event-handlers"
       ],
       "files": [
         {
@@ -1050,7 +1069,8 @@
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/kbd",
         "@moduix-solid-tailwind/overlay-portal",
-        "@moduix-solid-tailwind/scroll-area"
+        "@moduix-solid-tailwind/scroll-area",
+        "@moduix-solid-tailwind/event-handlers"
       ],
       "files": [
         {
@@ -1232,7 +1252,8 @@
         "@moduix-solid-tailwind/input",
         "@moduix-solid-tailwind/separator",
         "@moduix-solid-tailwind/splitter",
-        "@moduix-solid-tailwind/tooltip"
+        "@moduix-solid-tailwind/tooltip",
+        "@moduix-solid-tailwind/event-handlers"
       ],
       "files": [
         {

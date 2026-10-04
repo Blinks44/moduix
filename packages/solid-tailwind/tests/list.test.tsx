@@ -3,6 +3,37 @@ import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import { List, ListItem } from '../src';
 
+test.each(['ul', 'ol'] as const)('updates %s markers without replacing the host', (as) => {
+  const [marker, setMarker] = createSignal<'none' | 'disc'>('none');
+  render(() => (
+    <List as={as} marker={marker()} data-testid="list">
+      Tasks
+    </List>
+  ));
+
+  const list = screen.getByTestId('list');
+  expect(list).toHaveAttribute('role', 'list');
+  expect(list).toHaveAttribute('data-marker', 'none');
+  setMarker('disc');
+  expect(screen.getByTestId('list')).toBe(list);
+  expect(list).toHaveAttribute('data-marker', 'disc');
+  expect(list).not.toHaveAttribute('role');
+  setMarker('none');
+  expect(list).toHaveAttribute('role', 'list');
+  expect(list).toHaveAttribute('data-marker', 'none');
+});
+
+test('preserves an explicit role when the marker changes', () => {
+  const [marker, setMarker] = createSignal<'none' | 'disc'>('none');
+  render(() => (
+    <List marker={marker()} role="group" data-testid="list">
+      Tasks
+    </List>
+  ));
+  setMarker('disc');
+  expect(screen.getByTestId('list')).toHaveAttribute('role', 'group');
+});
+
 test('updates the semantic host when as changes', () => {
   const [ordered, setOrdered] = createSignal(false);
   render(() => (

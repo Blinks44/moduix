@@ -20,7 +20,7 @@ export interface Emits {
 }
 
 const { asChild = false, autoresize = false, class: className, modelValue } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -39,7 +39,6 @@ const attrs = useAttrs();
     "
     :model-value="modelValue"
     data-slot="field-textarea"
-    @update:model-value="emit('update:modelValue', $event)"
   >
     <slot />
   </ArkFieldTextarea>

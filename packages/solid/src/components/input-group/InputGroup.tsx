@@ -1,7 +1,7 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
-import type { Accessor, ComponentProps } from 'solid-js';
+import type { ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
@@ -24,9 +24,7 @@ type InputGroupProps = HTMLArkProps<'div'> &
     'data-size'?: string;
   };
 
-const defaultInputGroupSize: InputGroupSize = 'md';
-const defaultInputGroupSizeAccessor: Accessor<InputGroupSize> = () => defaultInputGroupSize;
-const InputGroupSizeContext = createContext(defaultInputGroupSizeAccessor);
+const InputGroupSizeContext = createContext((): InputGroupSize => 'md');
 
 function InputGroup(props: InputGroupProps) {
   const [local, others] = splitProps(props, [
@@ -41,7 +39,7 @@ function InputGroup(props: InputGroupProps) {
   ]);
 
   return (
-    <InputGroupSizeContext.Provider value={() => local.size ?? defaultInputGroupSize}>
+    <InputGroupSizeContext.Provider value={() => local.size ?? 'md'}>
       <ark.div
         asChild={local.asChild}
         {...others}
@@ -59,7 +57,7 @@ function InputGroup(props: InputGroupProps) {
 
 function InputGroupInput(props: ComponentProps<typeof Input>) {
   const [local, others] = splitProps(props, ['class', 'size']);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
 
   return (
     <Input {...others} class={clsx(styles.input, local.class)} size={local.size ?? groupSize()} />
@@ -110,7 +108,7 @@ function InputGroupText(props: HTMLArkProps<'span'> & InputGroupDataProps) {
 
 function InputGroupButton(props: ComponentProps<typeof Button>) {
   const [local, others] = splitProps(props, ['class', 'size', 'type', 'variant']);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
 
   return (
     <Button
@@ -135,7 +133,7 @@ function InputGroupClearTrigger(
     'aria-label',
     'aria-labelledby',
   ]);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
   return (
     <CloseButton
       {...others}

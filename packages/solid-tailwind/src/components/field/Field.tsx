@@ -146,7 +146,7 @@ function FieldSelect(props: FieldSelectProps) {
       (Array.isArray(defaultValue) ? defaultValue : [defaultValue]).map((value) => String(value)),
     );
 
-    for (const option of Array.from(selectRef.options)) {
+    for (const option of selectRef.options) {
       const selected = values.has(option.value);
       option.selected = selected;
       option.defaultSelected = selected;

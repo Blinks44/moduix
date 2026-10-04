@@ -5,6 +5,40 @@ import { createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { Text } from '../src/components/text';
 
+test.each([false, true])(
+  'keeps the host and ref stable between semantic changes, asChild=%s',
+  async (asChild) => {
+    const element = ref<NonNullable<InstanceType<typeof Text>['$props']['as']>>();
+    const title = ref('Initial');
+    const rootRef = ref<ComponentPublicInstance>();
+    render({
+      components: { Text },
+      setup: () => ({ element, title, rootRef, asChild }),
+      template: `
+      <Text ref="rootRef" :as="element" :as-child="asChild" :title="title" data-testid="root">
+        <span>Content</span>
+      </Text>
+    `,
+    });
+    for (const as of ['p', 'span', 'small', 'strong', 'em', 'div'] as const) {
+      element.value = as;
+      await nextTick();
+      const host = screen.getByTestId('root');
+      expect(host.tagName).toBe(asChild ? 'SPAN' : as.toUpperCase());
+      expect(rootRef.value?.$el).toBe(host);
+      title.value = as;
+      await nextTick();
+      expect(screen.getByTestId('root')).toBe(host);
+      expect(rootRef.value?.$el).toBe(host);
+      expect(host).toHaveAttribute('title', as);
+      expect(host).toHaveTextContent('Content');
+    }
+    element.value = undefined;
+    await nextTick();
+    expect(screen.getByTestId('root').tagName).toBe(asChild ? 'SPAN' : 'P');
+  },
+);
+
 test('renders semantic defaults and stable data hooks', () => {
   render({
     components: { Text },

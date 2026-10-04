@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, defineComponent, ref } from 'vue';
+import { createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { Spinner } from '../src';
 
@@ -36,6 +36,42 @@ test('renders the default status with stable styling hooks', () => {
   );
   expect(spinner.querySelector('[data-slot="spinner-ring"]')).toBeTruthy();
 });
+
+test.each([false, true])(
+  'updates accessible names and decorative semantics on the same host (asChild=%s)',
+  async (asChild) => {
+    const label = ref<string | undefined>('Syncing');
+    const labelledBy = ref<string | undefined>();
+    const decorative = ref(false);
+    render({
+      components: { Spinner },
+      setup: () => ({ asChild, label, labelledBy, decorative }),
+      template: `
+      <span id="progress-label">Uploading</span>
+      <Spinner :as-child="asChild" :aria-label="label" :aria-labelledby="labelledBy" :decorative="decorative" data-testid="spinner">
+        <span v-if="asChild" />
+      </Spinner>
+    `,
+    });
+    const host = screen.getByRole('status', { name: 'Syncing' });
+    label.value = 'Processing';
+    await nextTick();
+    expect(host).toHaveAccessibleName('Processing');
+    label.value = undefined;
+    labelledBy.value = 'progress-label';
+    await nextTick();
+    expect(host).toHaveAccessibleName('Uploading');
+    expect(host).not.toHaveAttribute('aria-label');
+    decorative.value = true;
+    await nextTick();
+    expect(host).not.toHaveAttribute('aria-label');
+    expect(host).not.toHaveAttribute('aria-labelledby');
+    decorative.value = false;
+    labelledBy.value = undefined;
+    await nextTick();
+    expect(screen.getByRole('status', { name: 'Loading' })).toBe(host);
+  },
+);
 
 test('uses the inherited font size when requested', () => {
   render({

@@ -56,7 +56,7 @@
     },
     {
       "path": "src/components/pin-input/usePinInput.ts",
-      "content": "import { usePinInput as usePinInputPrimitive } from '@ark-ui/vue/pin-input';\nimport type { UsePinInputProps, UsePinInputReturn } from '@ark-ui/vue/pin-input';\nimport { computed, toValue } from 'vue';\nimport type { MaybeRef } from 'vue';\n\nconst usePinInput = (props: MaybeRef<UsePinInputProps> = {}): UsePinInputReturn =>\n  usePinInputPrimitive(\n    computed(() => ({\n      placeholder: '',\n      ...toValue(props),\n    })),\n  );\n\nexport default usePinInput;",
+      "content": "import { usePinInput as usePinInputPrimitive } from '@ark-ui/vue/pin-input';\nimport type { UsePinInputProps, UsePinInputReturn } from '@ark-ui/vue/pin-input';\nimport { computed, toValue } from 'vue';\nimport type { MaybeRef } from 'vue';\n\nconst usePinInput = (\n  props: MaybeRef<UsePinInputProps> = {},\n  emit?: Parameters<typeof usePinInputPrimitive>[1],\n): UsePinInputReturn =>\n  usePinInputPrimitive(\n    computed(() => ({\n      placeholder: '',\n      ...toValue(props),\n    })),\n    emit,\n  );\n\nexport default usePinInput;",
       "type": "registry:file",
       "target": "@components/ui/pin-input/usePinInput.ts"
     },

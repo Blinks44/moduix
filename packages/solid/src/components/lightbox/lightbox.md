@@ -58,6 +58,7 @@ variables. Callback handlers receive Ark detail objects, including `details.open
 
 `LightboxImage` is a styled native image. `closeOnClick` closes the dialog after the consumer
 click handler unless that handler calls `event.preventDefault()`.
+Solid callbacks and bound `[handler, data]` pairs are both supported.
 
 `LightboxGallery` is a layout boundary for composing `Carousel`; it does not own image data or
 slide state. `LightboxBind` renders no DOM and binds a semantic button or link selected by

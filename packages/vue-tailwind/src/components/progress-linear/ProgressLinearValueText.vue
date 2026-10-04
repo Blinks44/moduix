@@ -19,7 +19,6 @@ const attrs = useAttrs();
 
 <template>
   <ArkProgressValueText
-    v-if="$slots.default"
     v-bind="attrs"
     :class="
       cn(
@@ -29,17 +28,6 @@ const attrs = useAttrs();
     "
     data-slot="progress-linear-value-text"
   >
-    <slot />
+    <template v-if="$slots.default" #default><slot /></template>
   </ArkProgressValueText>
-  <ArkProgressValueText
-    v-else
-    v-bind="attrs"
-    :class="
-      cn(
-        'min-w-0 justify-self-end text-end text-sm leading-5 font-normal [overflow-wrap:anywhere] text-current',
-        className,
-      )
-    "
-    data-slot="progress-linear-value-text"
-  />
 </template>

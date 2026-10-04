@@ -448,3 +448,22 @@ test('preserves native table asChild composition with the fixed calendar child t
   expect((await screen.findByTestId('composed-table')).tagName).toBe('TABLE');
   expect(screen.getAllByRole('columnheader', { hidden: true })).toHaveLength(8);
 });
+
+test.each([false, true])('updates the clear trigger class (asChild=%s)', (asChild) => {
+  const [className, setClassName] = createSignal('before');
+  const { container } = render(() => (
+    <DatePicker defaultValue={[new CalendarDate(2026, 6, 22)]}>
+      <DatePickerClearTrigger
+        class={className()}
+        asChild={asChild ? (props) => <button {...props()}>Clear</button> : undefined}
+      />
+    </DatePicker>
+  ));
+  const trigger = container.querySelector('button')!;
+
+  expect(trigger).toHaveClass('before');
+  setClassName('after');
+  expect(trigger).toHaveClass('after');
+  expect(trigger).not.toHaveClass('before');
+  expect(container.querySelector('button')).toBe(trigger);
+});

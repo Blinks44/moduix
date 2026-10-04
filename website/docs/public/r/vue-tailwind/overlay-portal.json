@@ -12,7 +12,7 @@
     },
     {
       "path": "src/internal/overlayPortal/OverlayPortal.vue",
-      "content": "<script setup lang=\"ts\">\nimport { computed, inject } from 'vue';\nimport { defaultOverlayPortalContext, OverlayPortalContextKey } from './context';\n\nconst context = inject(OverlayPortalContextKey, defaultOverlayPortalContext);\n\nconst target = computed(() => {\n  const portalRef = context.portalRef();\n  return (typeof portalRef === 'function' ? portalRef() : portalRef) ?? 'body';\n});\n\nconst portalled = computed(() => context.portalled() !== false);\n</script>\n\n<template>\n  <slot v-if=\"!portalled\" />\n  <Teleport v-else :to=\"target\">\n    <slot />\n  </Teleport>\n</template>",
+      "content": "<script setup lang=\"ts\">\nimport { computed, inject, toValue } from 'vue';\nimport { defaultOverlayPortalContext, OverlayPortalContextKey } from './context';\n\nconst context = inject(OverlayPortalContextKey, defaultOverlayPortalContext);\n\nconst target = computed(() => toValue(context.portalRef()) ?? 'body');\n\nconst portalled = computed(() => context.portalled() !== false);\n</script>\n\n<template>\n  <slot v-if=\"!portalled\" />\n  <Teleport v-else :to=\"target\">\n    <slot />\n  </Teleport>\n</template>",
       "type": "registry:lib",
       "target": "@lib/moduix/overlayPortal/OverlayPortal.vue"
     },

@@ -1,6 +1,7 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library';
+import { createSignal } from 'solid-js';
 import {
   CommandPalette,
   CommandPaletteClearTrigger,
@@ -22,6 +23,67 @@ import {
 
 const commands = createListCollection({
   items: [{ label: 'Open settings', value: 'settings' }],
+});
+
+test.each([false, true])('supports bound clear handlers (prevented=%s)', async (prevented) => {
+  const payload = { action: 'clear' };
+  const calls: unknown[] = [];
+  render(() => (
+    <CommandPalette defaultOpen aria-label="Command palette" portalled={false}>
+      <CommandPalettePanel>
+        <CommandPaletteCombobox collection={commands}>
+          <CommandPaletteSearch />
+          <CommandPaletteClearTrigger
+            data-testid="bound-clear"
+            onPointerDown={[(data, event) => calls.push(data, event.currentTarget), payload]}
+            onClick={[
+              (data, event) => {
+                calls.push(data, event.currentTarget);
+                if (prevented) event.preventDefault();
+              },
+              payload,
+            ]}
+          />
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
+    </CommandPalette>
+  ));
+  const search = await screen.findByRole('combobox', { name: 'Search commands' });
+  fireEvent.input(search, { target: { value: 'open' } });
+  search.focus();
+  const clear = screen.getByTestId('bound-clear');
+  await waitFor(() => expect(clear).not.toHaveAttribute('hidden'));
+  expect(fireEvent.pointerDown(clear, { button: 0 })).toBe(false);
+  fireEvent.click(clear);
+  expect(calls).toEqual([payload, clear, payload, clear]);
+  await waitFor(() => expect(search).toHaveValue(prevented ? 'open' : ''));
+  expect(search).toHaveFocus();
+});
+
+test('rebinds an optional shortcut and removes it on cleanup', async () => {
+  const [shortcut, setShortcut] = createSignal<string | false>('alt+k');
+  const changes: boolean[] = [];
+  const { unmount } = render(() => (
+    <CommandPalette
+      open={false}
+      shortcut={shortcut()}
+      onOpenChange={(details) => changes.push(details.open)}
+    />
+  ));
+  fireEvent.keyDown(document, { altKey: true, code: 'KeyK', key: 'k' });
+  await waitFor(() => expect(changes).toEqual([true]));
+  setShortcut('alt+p');
+  fireEvent.keyDown(document, { altKey: true, code: 'KeyK', key: 'k' });
+  expect(changes).toHaveLength(1);
+  fireEvent.keyDown(document, { altKey: true, code: 'KeyP', key: 'p' });
+  await waitFor(() => expect(changes).toEqual([true, true]));
+  setShortcut(false);
+  fireEvent.keyDown(document, { altKey: true, code: 'KeyP', key: 'p' });
+  expect(changes).toHaveLength(2);
+  setShortcut('alt+k');
+  unmount();
+  fireEvent.keyDown(document, { altKey: true, code: 'KeyK', key: 'k' });
+  expect(changes).toHaveLength(2);
 });
 
 test('opens and closes from the Ark shortcut while suppressing repeated events', async () => {

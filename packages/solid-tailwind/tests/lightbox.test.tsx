@@ -23,6 +23,77 @@ import {
   type LightboxImageSelectDetails,
 } from '../src';
 
+test.each([false, true])('supports bound image handlers (prevented=%s)', async (prevented) => {
+  const payload = { action: 'close-preview' };
+  const calls: unknown[] = [];
+  render(() => (
+    <Lightbox defaultOpen portalled={false}>
+      <LightboxPositioner>
+        <LightboxContent aria-label="Image preview">
+          <LightboxImage
+            src="/full-size.jpg"
+            alt="Mountain ridge"
+            closeOnClick
+            onClick={[
+              (data, event) => {
+                calls.push(data, event.currentTarget);
+                if (prevented) event.preventDefault();
+              },
+              payload,
+            ]}
+          />
+        </LightboxContent>
+      </LightboxPositioner>
+    </Lightbox>
+  ));
+  const image = screen.getByRole('img', { name: 'Mountain ridge' });
+  fireEvent.click(image);
+  expect(calls).toEqual([payload, image]);
+  await waitFor(() => {
+    expect(screen.queryByRole('dialog', { name: 'Image preview' }) !== null).toBe(prevented);
+  });
+});
+
+test('rebinds the gallery root and removes delegated listeners on cleanup', () => {
+  let first!: HTMLDivElement;
+  let second!: HTMLDivElement;
+  const [useSecond, setUseSecond] = createSignal(false);
+  const calls: string[] = [];
+  const { unmount } = render(() => (
+    <>
+      <div ref={(element) => (first = element)}>
+        <button>
+          <img src="/first.jpg" alt="First" />
+        </button>
+      </div>
+      <div ref={(element) => (second = element)}>
+        <button>
+          <img src="/second.jpg" alt="Second" />
+        </button>
+      </div>
+      <Lightbox open={false}>
+        <LightboxBind
+          rootRef={() => (useSecond() ? second : first)}
+          selector="button"
+          onImageSelect={(details) => calls.push(details.src)}
+        />
+      </Lightbox>
+    </>
+  ));
+  fireEvent.click(first.querySelector('button')!);
+  const firstSrc = first.querySelector('img')!.src;
+  const secondSrc = second.querySelector('img')!.src;
+  expect(calls).toEqual([firstSrc]);
+  setUseSecond(true);
+  fireEvent.click(first.querySelector('button')!);
+  fireEvent.click(second.querySelector('button')!);
+  expect(calls).toEqual([firstSrc, secondSrc]);
+  const detachedButton = second.querySelector('button')!;
+  unmount();
+  fireEvent.click(detachedButton);
+  expect(calls).toHaveLength(2);
+});
+
 test('opens from a semantic Bind selector', async () => {
   function BoundLightbox() {
     let rootRef: HTMLDivElement | undefined;

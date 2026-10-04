@@ -41,6 +41,19 @@
       "registryDependencies": ["https://moduix.dev/r/foundation/reset.json"]
     },
     {
+      "name": "event-handlers",
+      "type": "registry:item",
+      "title": "moduix Solid event handlers",
+      "description": "Internal invocation of native Solid callback and bound event props.",
+      "files": [
+        {
+          "path": "src/internal/callEventHandler.ts",
+          "target": "@lib/moduix/callEventHandler.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "icons",
       "type": "registry:item",
       "title": "moduix icons",
@@ -158,7 +171,7 @@
       "title": "AngleSlider",
       "description": "moduix Solid AngleSlider component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/foundation"],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/event-handlers"],
       "files": [
         {
           "path": "src/components/angle-slider/AngleSlider.tsx",
@@ -440,7 +453,8 @@
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/foundation",
-        "@moduix-solid/icons"
+        "@moduix-solid/icons",
+        "@moduix-solid/event-handlers"
       ],
       "files": [
         {
@@ -1843,7 +1857,8 @@
         "@moduix-solid/input",
         "@moduix-solid/separator",
         "@moduix-solid/splitter",
-        "@moduix-solid/tooltip"
+        "@moduix-solid/tooltip",
+        "@moduix-solid/event-handlers"
       ],
       "files": [
         {
@@ -2153,7 +2168,8 @@
         "@moduix-solid/icons",
         "@moduix-solid/kbd",
         "@moduix-solid/overlay-portal",
-        "@moduix-solid/scroll-area"
+        "@moduix-solid/scroll-area",
+        "@moduix-solid/event-handlers"
       ],
       "files": [
         {
@@ -2213,7 +2229,8 @@
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
         "@moduix-solid/foundation",
-        "@moduix-solid/overlay-portal"
+        "@moduix-solid/overlay-portal",
+        "@moduix-solid/event-handlers"
       ],
       "files": [
         {

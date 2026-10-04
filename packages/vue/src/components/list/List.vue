@@ -11,11 +11,6 @@ type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
 
-const elements = {
-  ol: ark.ol,
-  ul: ark.ul,
-} as const;
-
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'ol'> {
@@ -40,14 +35,13 @@ const {
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const element = computed(() => elements[elementName ?? 'ul']);
 const markerValue = computed(() => marker ?? 'auto');
 const listRole = computed(() => role ?? (markerValue.value === 'none' ? 'list' : undefined));
 </script>
 
 <template>
   <component
-    :is="element"
+    :is="ark[elementName ?? 'ul']"
     v-bind="attrs"
     :class="clsx(styles.root, className)"
     :role="listRole"

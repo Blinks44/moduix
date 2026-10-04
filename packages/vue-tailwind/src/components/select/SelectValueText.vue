@@ -12,21 +12,18 @@ export interface Props extends /* @vue-ignore */ SelectValueTextProps {
 }
 
 const { class: className } = defineProps<Props>();
+const slots = defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 </script>
 
 <template>
   <ArkSelectValueText
-    v-if="!$slots.default"
     v-bind="attrs"
     :class="cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)"
     data-slot="select-value-text"
-  />
-  <ArkSelectValueText
-    v-else
-    v-bind="attrs"
-    :class="cn('min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap', className)"
-    data-slot="select-value-text"
-    ><slot
-  /></ArkSelectValueText>
+  >
+    <template v-if="slots.default" #default>
+      <slot />
+    </template>
+  </ArkSelectValueText>
 </template>

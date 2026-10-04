@@ -12,15 +12,6 @@ type TextWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 type TextTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
 type TextAlign = 'start' | 'center' | 'end' | 'left' | 'right' | 'justify';
 
-const elements = {
-  div: ark.div,
-  em: ark.em,
-  p: ark.p,
-  small: ark.small,
-  span: ark.span,
-  strong: ark.strong,
-} as const;
-
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'p'> {
@@ -49,7 +40,6 @@ const {
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const element = computed(() => elements[elementName ?? 'p']);
 const resolvedSize = computed(() => size ?? (elementName === 'small' ? 'sm' : 'md'));
 const resolvedWeight = computed(
   () => weight ?? (elementName === 'strong' ? 'semibold' : 'regular'),
@@ -66,7 +56,7 @@ const textStyle = computed<StyleValue>(() =>
 
 <template>
   <component
-    :is="element"
+    :is="ark[elementName ?? 'p']"
     v-bind="attrs"
     :class="clsx(styles.root, className)"
     :style="textStyle"

@@ -24,12 +24,10 @@ const {
   unmountOnExit = true,
   value,
 } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const handleEnterComplete = () => emit('enterComplete');
-const handleExitComplete = () => emit('exitComplete');
 </script>
 
 <template>
@@ -39,8 +37,6 @@ const handleExitComplete = () => emit('exitComplete');
       :lazy-mount="lazyMount"
       :unmount-on-exit="unmountOnExit"
       :value="value"
-      @enter-complete="handleEnterComplete"
-      @exit-complete="handleExitComplete"
     >
       <slot />
     </ArkDialogRootProvider>

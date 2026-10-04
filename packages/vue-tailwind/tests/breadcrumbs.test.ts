@@ -1,7 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/vue';
-import { defineComponent, h, ref } from 'vue';
-import type { ComponentPublicInstance } from 'vue';
+import { defineComponent, h, nextTick, ref, shallowRef } from 'vue';
+import type { ComponentPublicInstance, VNodeChild } from 'vue';
 import {
   Breadcrumbs,
   BreadcrumbsEllipsis,
@@ -71,15 +71,15 @@ test('forwards Path list props and Vue refs without exposing owned composition p
   );
 });
 
-test('renders Vue VNode values passed through Path props', () => {
+test('renders Vue VNode values passed through Path props', async () => {
   const links = [{ href: '/', label: h('em', { 'data-label': 'home' }, 'Home') }];
   const page = h('span', { title: 'Current page detail' }, 'Overview');
-  const separator = h('span', { 'data-separator': 'custom' }, '·');
+  const separator = shallowRef<VNodeChild>(h('span', { 'data-separator': 'custom' }, '·'));
   const Harness = defineComponent({
     setup() {
       return () =>
         h(Breadcrumbs, null, {
-          default: () => h(BreadcrumbsPath, { links, page, separator }),
+          default: () => h(BreadcrumbsPath, { links, page, separator: separator.value }),
         });
     },
   });
@@ -95,6 +95,25 @@ test('renders Vue VNode values passed through Path props', () => {
   expect(pageLabel.tagName).toBe('SPAN');
   expect(pageLabel).toHaveAttribute('title', 'Current page detail');
   expect(separatorLabel).toHaveAttribute('data-separator', 'custom');
+
+  for (const value of [undefined, null]) {
+    separator.value = value;
+    await nextTick();
+    expect(document.querySelector('[data-slot="breadcrumbs-separator"] svg')).not.toBeNull();
+    expect(screen.queryByText('·')).toBeNull();
+  }
+  for (const value of ['', false, 0]) {
+    separator.value = value;
+    await nextTick();
+    const host = document.querySelector('[data-slot="breadcrumbs-separator"]');
+    expect(host?.querySelector('svg')).toBeNull();
+    expect(host).toHaveTextContent(value === 0 ? '0' : '');
+    expect(host).toHaveAttribute('aria-hidden', 'true');
+  }
+  separator.value = h('strong', { 'data-separator': 'updated' }, '/');
+  await nextTick();
+  expect(screen.getByText('/').tagName).toBe('STRONG');
+  expect(screen.getByText('/')).toHaveAttribute('data-separator', 'updated');
 });
 
 test('preserves consumer labels and native listeners while keeping owned ARIA attributes', async () => {

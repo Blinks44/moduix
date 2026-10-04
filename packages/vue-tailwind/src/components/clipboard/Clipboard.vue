@@ -22,7 +22,7 @@ export interface Emits {
 }
 
 const { class: className } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -30,14 +30,7 @@ const rootClass = 'flex w-full flex-col gap-1.5 text-foreground';
 </script>
 
 <template>
-  <ArkClipboardRoot
-    v-bind="attrs"
-    :class="cn(rootClass, className)"
-    data-slot="clipboard-root"
-    @value-change="emit('valueChange', $event)"
-    @update:model-value="emit('update:modelValue', $event)"
-    @status-change="emit('statusChange', $event)"
-  >
+  <ArkClipboardRoot v-bind="attrs" :class="cn(rootClass, className)" data-slot="clipboard-root">
     <slot />
   </ArkClipboardRoot>
 </template>

@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { children as resolveChildren, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './CloseButton.module.css';
 
@@ -53,14 +54,14 @@ function CloseButton(props: CloseButtonProps) {
 
     local.onClickCapture?.(event);
   };
-  const handleClick = (event: MouseEvent) => {
+  const handleClick: JSX.EventHandler<HTMLButtonElement, MouseEvent> = (event) => {
     if (isDisabled()) {
       event.preventDefault();
       event.stopPropagation();
       return;
     }
 
-    (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
+    callEventHandler(local.onClick, event);
   };
 
   return (

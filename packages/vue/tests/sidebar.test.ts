@@ -6,7 +6,7 @@ import {
 import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { computed, createSSRApp, defineComponent, ref } from 'vue';
+import { computed, createSSRApp, defineComponent, mergeProps, ref } from 'vue';
 import type { Component, ComponentPublicInstance } from 'vue';
 import {
   Select,
@@ -165,6 +165,51 @@ test('lets consumer click handlers cancel the default toggle', () => {
 
   expect(trigger).toHaveAttribute('aria-expanded', 'true');
 });
+
+test.each([false, true])(
+  'composes trigger listeners and honors cancellation before toggling (cancel=%s)',
+  async (cancel) => {
+    const rect = rs
+      .spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+      .mockReturnValue(new DOMRect(0, 0, 800, 400));
+    const calls: string[] = [];
+    const listeners = mergeProps(
+      {
+        onClick: (event: MouseEvent) => {
+          calls.push('first');
+          if (cancel) event.preventDefault();
+        },
+      },
+      { onClick: () => calls.push('second') },
+    );
+    render({
+      components,
+      setup: () => ({ listeners }),
+      template: `
+      <Sidebar :default-size="[25, 75]">
+        <SidebarPanel />
+        <SidebarResizeTrigger />
+        <SidebarTrigger v-bind="listeners" />
+        <SidebarInset />
+      </Sidebar>
+    `,
+    });
+    try {
+      const host = screen.getByRole('button', { name: 'Toggle sidebar' });
+      await waitFor(() =>
+        expect(screen.getByRole('separator', { name: 'Resize sidebar' })).toHaveAttribute(
+          'aria-valuenow',
+          '25',
+        ),
+      );
+      await fireEvent.click(host);
+      expect(calls).toEqual(['first', 'second']);
+      await waitFor(() => expect(host).toHaveAttribute('aria-expanded', cancel ? 'true' : 'false'));
+    } finally {
+      rect.mockRestore();
+    }
+  },
+);
 
 test('preserves active link composition for primary and nested navigation', () => {
   const Harness = defineComponent({

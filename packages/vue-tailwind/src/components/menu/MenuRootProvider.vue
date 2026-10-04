@@ -18,7 +18,7 @@ interface Emits extends /* @vue-ignore */ MenuRootProviderEmits {}
 
 const {
   lazyMount = true,
-  portalled,
+  portalled = true,
   portalRef,
   unmountOnExit = true,
   value,

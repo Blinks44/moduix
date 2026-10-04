@@ -2,7 +2,7 @@
 import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
-import { computed, useAttrs, useSlots } from 'vue';
+import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { a11yLabels } from '../../internal/a11yLabels';
 import { ChevronLeftIcon } from '../../internal/icons/ui/Icons';
@@ -13,17 +13,16 @@ defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ Omit<HTMLArkProps<'button'>, 'class'> {
   class?: HTMLAttributes['class'];
-  onClick?: (event: MouseEvent) => void;
   type?: 'button' | 'reset' | 'submit';
 }
 
 const props = withDefaults(defineProps<Props>(), {
   type: 'button',
 });
-defineSlots<{ default?: () => unknown }>();
+const slots = defineSlots<{ default?: () => unknown }>();
+const emit = defineEmits<{ click: [event: MouseEvent] }>();
 
 const attrs = useAttrs();
-const slots = useSlots();
 const { side } = useSidebarConfig();
 const sidebar = useSidebar();
 const collapsed = sidebar.collapsed;
@@ -32,7 +31,7 @@ const ariaLabel = computed(() =>
 );
 
 const handleClick = (event: MouseEvent) => {
-  props.onClick?.(event);
+  emit('click', event);
   if (event.defaultPrevented) return;
 
   sidebar.toggleSidebar();

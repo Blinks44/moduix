@@ -2,9 +2,10 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { Splitter as SplitterPrimitive } from '@ark-ui/solid/splitter';
 import { clsx } from 'clsx';
-import type { Accessor, ComponentProps } from 'solid-js';
+import type { Accessor, ComponentProps, JSX } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
 import { Input } from '../input';
 import { Separator } from '../separator';
@@ -194,8 +195,8 @@ function SidebarTrigger(props: SidebarTriggerProps) {
   const config = useSidebarConfig();
   const splitter = useSplitterContext();
   const collapsed = () => splitter().isPanelCollapsed(config.panelId());
-  const handleClick = (event: MouseEvent) => {
-    (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
+  const handleClick: JSX.EventHandler<HTMLButtonElement, MouseEvent> = (event) => {
+    callEventHandler(local.onClick, event);
     if (event.defaultPrevented) return;
 
     toggleSidebarPanel(splitter, config.panelId());

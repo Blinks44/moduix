@@ -231,15 +231,15 @@ function ChartPrimitive<
     TYValue
   > | null>(null);
 
-  const getOptions = () => {
-    const [local, others] = splitProps(props, [
-      'class',
-      'motion',
-      'renderTooltipBody',
-      'renderer',
-      'style',
-    ]);
+  const [local, others] = splitProps(props, [
+    'class',
+    'motion',
+    'renderTooltipBody',
+    'renderer',
+    'style',
+  ]);
 
+  const getOptions = () => {
     return {
       ...others,
       definition: withTooltipStyles(props.definition),

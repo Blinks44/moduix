@@ -1,4 +1,4 @@
-import { expect, test } from '@rstest/core';
+import { expect, rs, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, ref } from 'vue';
@@ -80,6 +80,73 @@ test('renders the recommended CropArea anatomy with refs, attrs, and styles', ()
   expect(container.querySelectorAll('[data-slot="image-cropper-handle"]')).toHaveLength(
     ImageCropperHandles.length,
   );
+});
+
+test('updates and removes CropArea attrs and listeners without replacing its host', async () => {
+  const selectionRef = ref<ComponentPublicInstance>();
+  const firstClick = rs.fn();
+  const nextClick = rs.fn();
+  const Harness = defineComponent({
+    components: imageCropperComponents,
+    props: ['selectionAttrs'],
+    setup: () => ({ selectionRef }),
+    template: `
+      <ImageCropper>
+        <ImageCropperViewport>
+          <ImageCropperImage src="/landscape.jpg" />
+          <ImageCropperCropArea ref="selectionRef" v-bind="selectionAttrs" />
+        </ImageCropperViewport>
+      </ImageCropper>
+    `,
+  });
+  const { container, rerender } = render(Harness, {
+    props: {
+      selectionAttrs: {
+        title: 'First selection',
+        'aria-label': 'First crop',
+        'data-probe': 'first',
+        style: { color: 'red' },
+        onClick: firstClick,
+      },
+    },
+  });
+  const selection = screen.getByTitle('First selection');
+  await fireEvent.click(selection);
+  expect(firstClick).toHaveBeenCalledTimes(1);
+
+  await rerender({
+    selectionAttrs: {
+      title: 'Next selection',
+      'aria-label': 'Next crop',
+      'data-probe': 'next',
+      style: { color: 'blue' },
+      onClick: nextClick,
+      asChild: true,
+      'as-child': true,
+      children: 'Unsupported content',
+    },
+  });
+  expect(screen.getByTitle('Next selection')).toBe(selection);
+  expect(selectionRef.value?.$el).toBe(selection);
+  expect(selection).toHaveAttribute('aria-label', 'Next crop');
+  expect(selection).toHaveAttribute('data-probe', 'next');
+  expect(selection).toHaveStyle({ color: 'blue' });
+  expect(selection).not.toHaveAttribute('children');
+  expect(container.querySelectorAll('[data-slot="image-cropper-grid"]')).toHaveLength(2);
+  expect(container.querySelectorAll('[data-slot="image-cropper-handle"]')).toHaveLength(
+    ImageCropperHandles.length,
+  );
+  await fireEvent.click(selection);
+  expect(firstClick).toHaveBeenCalledTimes(1);
+  expect(nextClick).toHaveBeenCalledTimes(1);
+
+  await rerender({ selectionAttrs: {} });
+  expect(selection).not.toHaveAttribute('title');
+  expect(selection).not.toHaveAttribute('data-probe');
+  expect(selection.style.color).toBe('');
+  await fireEvent.click(selection);
+  expect(firstClick).toHaveBeenCalledTimes(1);
+  expect(nextClick).toHaveBeenCalledTimes(1);
 });
 
 test('preserves root asChild composition and exposes its semantic host through a Vue ref', () => {

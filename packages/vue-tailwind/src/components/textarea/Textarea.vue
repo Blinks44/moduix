@@ -17,7 +17,7 @@ export interface Emits {
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits<Emits>();
+defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -37,7 +37,6 @@ const attrs = useAttrs();
     data-part="textarea"
     data-slot="textarea-root"
     :data-autoresize="props.autoresize ? '' : undefined"
-    @update:model-value="emit('update:modelValue', $event)"
   >
     <slot />
   </ArkFieldTextarea>

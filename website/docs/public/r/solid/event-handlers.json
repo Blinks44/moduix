@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "event-handlers",
+  "title": "moduix Solid event handlers",
+  "description": "Internal invocation of native Solid callback and bound event props.",
+  "files": [
+    {
+      "path": "src/internal/callEventHandler.ts",
+      "content": "import type { JSX } from 'solid-js';\n\n// Solid event props accept a callback or a bound [callback, data] pair.\nexport function callEventHandler<T, E extends Event>(\n  handler: JSX.EventHandlerUnion<T, E> | undefined,\n  event: Parameters<JSX.EventHandler<T, E>>[0],\n) {\n  if (typeof handler === 'function') handler(event);\n  else handler?.[0](handler[1], event);\n}",
+      "type": "registry:lib",
+      "target": "@lib/moduix/callEventHandler.ts"
+    }
+  ],
+  "type": "registry:item"
+}
