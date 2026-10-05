@@ -1,0 +1,268 @@
+import { page } from '@rstest/browser';
+import { expect, test } from '@rstest/core';
+import { render, screen } from '@testing-library/react';
+import { createRef, useState } from 'react';
+import {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationFirstTrigger,
+  PaginationItem,
+  PaginationItems,
+  PaginationLastTrigger,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationRootProvider,
+  usePagination,
+  usePaginationContext,
+} from '../src';
+
+function PageItems() {
+  return (
+    <>
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
+    </>
+  );
+}
+
+test('preserves Ark navigation semantics, refs, and default trigger boundaries', async () => {
+  const ref = createRef<HTMLElement>();
+
+  render(
+    <Pagination ref={ref} count={20} defaultPage={1} pageSize={10}>
+      <PageItems />
+    </Pagination>,
+  );
+
+  await expect
+    .element(page.getByRole('navigation', { name: 'pagination', exact: true }))
+    .toHaveAttribute('data-slot', 'pagination-root');
+  expect(ref.current?.getAttribute('data-slot')).toBe('pagination-root');
+  await expect
+    .element(page.getByRole('button', { name: /previous page/i, exact: true }))
+    .toHaveAttribute('data-slot', 'pagination-prev-trigger');
+  await expect
+    .element(page.getByRole('button', { name: /previous page/i, exact: true }))
+    .toBeDisabled();
+  await expect
+    .element(page.getByRole('button', { name: /next page/i, exact: true }))
+    .toHaveAttribute('data-slot', 'pagination-next-trigger');
+  await expect
+    .element(page.getByRole('button', { name: /next page/i, exact: true }))
+    .not.toBeDisabled();
+  await expect
+    .element(page.getByRole('button', { name: /page 1/i, exact: true }))
+    .toHaveAttribute('data-slot', 'pagination-item');
+  await expect
+    .element(page.getByRole('button', { name: /page 1/i, exact: true }))
+    .toHaveAttribute('data-selected');
+});
+
+test('uses Ark translations for the navigation landmark label', async () => {
+  render(
+    <Pagination count={20} pageSize={10} translations={{ rootLabel: 'Page navigation' }}>
+      <PageItems />
+    </Pagination>,
+  );
+
+  await expect
+    .element(page.getByRole('navigation', { name: 'Page navigation', exact: true }))
+    .toBeAttached();
+});
+
+test('renders a long range with ellipses and keeps edge trigger boundaries in sync', async () => {
+  render(
+    <Pagination count={200} defaultPage={10} pageSize={10} siblingCount={1}>
+      <PaginationFirstTrigger />
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
+      <PaginationLastTrigger />
+    </Pagination>,
+  );
+
+  expect(screen.getAllByText('...')).toHaveLength(2);
+
+  const firstPageTrigger = page.getByRole('button', { name: 'first page', exact: true });
+  await expect.element(firstPageTrigger).toHaveAttribute('data-slot', 'pagination-first-trigger');
+  const lastPageTrigger = page.getByRole('button', { name: 'last page', exact: true });
+  await expect.element(lastPageTrigger).toHaveAttribute('data-slot', 'pagination-last-trigger');
+
+  await firstPageTrigger.click();
+  await expect
+    .element(page.locator('[data-slot="pagination-item"][data-selected]'))
+    .toContainText('1');
+  await expect.element(firstPageTrigger).toBeDisabled();
+  await expect
+    .element(page.getByRole('button', { name: /previous page/i, exact: true }))
+    .toBeDisabled();
+
+  await lastPageTrigger.click();
+  await expect
+    .element(page.locator('[data-slot="pagination-item"][data-selected]'))
+    .toContainText('20');
+  await expect
+    .element(page.getByRole('button', { name: /next page/i, exact: true }))
+    .toBeDisabled();
+  await expect.element(lastPageTrigger).toBeDisabled();
+});
+
+test('keeps controlled page changes and Ark callback details intact', async () => {
+  const changes: number[] = [];
+
+  function ControlledPagination() {
+    const [page, setPage] = useState(1);
+
+    return (
+      <Pagination
+        count={30}
+        page={page}
+        pageSize={10}
+        onPageChange={(details) => {
+          changes.push(details.page);
+          setPage(details.page);
+        }}
+      >
+        <PageItems />
+      </Pagination>
+    );
+  }
+
+  render(<ControlledPagination />);
+  await page.getByRole('button', { name: /page 2/i, exact: true }).click();
+
+  await expect.poll(() => changes).toEqual([2]);
+  await expect
+    .element(page.getByRole('button', { name: /page 2/i, exact: true }))
+    .toHaveAttribute('data-selected');
+});
+
+test('renders Ark link mode with generated page URLs', async () => {
+  render(
+    <Pagination
+      count={30}
+      pageSize={10}
+      type="link"
+      getPageUrl={(details) => `?page=${details.page}`}
+    >
+      <PaginationPrevTrigger asChild>
+        <a>Previous</a>
+      </PaginationPrevTrigger>
+      <PaginationContext>
+        {(pagination) =>
+          pagination.pages.map((page, index) =>
+            page.type === 'page' ? (
+              <PaginationItem key={index} asChild {...page}>
+                <a>{page.value}</a>
+              </PaginationItem>
+            ) : (
+              <PaginationEllipsis key={index} index={index} />
+            ),
+          )
+        }
+      </PaginationContext>
+      <PaginationNextTrigger asChild>
+        <a>Next</a>
+      </PaginationNextTrigger>
+    </Pagination>,
+  );
+
+  await expect
+    .element(page.getByRole('link', { name: /page 2/i, exact: true }))
+    .toHaveAttribute('href', '?page=2');
+});
+
+test('exposes usePagination state through RootProvider and context', async () => {
+  function PageValue() {
+    const pagination = usePaginationContext();
+    return <output>Page {pagination.page}</output>;
+  }
+
+  function ProviderPagination() {
+    const pagination = usePagination({ count: 30, defaultPage: 2, pageSize: 10 });
+
+    return (
+      <PaginationRootProvider value={pagination}>
+        <PageItems />
+        <PageValue />
+      </PaginationRootProvider>
+    );
+  }
+
+  render(<ProviderPagination />);
+
+  await expect.element(page.getByText('Page 2')).toBeAttached();
+  await page.getByRole('button', { name: /next page/i, exact: true }).click();
+  await expect.element(page.getByText('Page 3')).toBeAttached();
+});
+
+test('applies Tailwind utilities to owned visual parts', () => {
+  const { container } = render(
+    <Pagination count={200} defaultPage={10} pageSize={10} siblingCount={1}>
+      <PaginationFirstTrigger />
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
+      <PaginationLastTrigger />
+    </Pagination>,
+  );
+
+  expect([...screen.getByRole('navigation')!.classList]).toEqual(
+    expect.arrayContaining([
+      'inline-flex',
+      'max-w-full',
+      'gap-1',
+      'overflow-x-auto',
+      'text-foreground',
+    ]),
+  );
+  expect([...screen.getByRole('button', { name: /page 10/i })!.classList]).toEqual(
+    expect.arrayContaining([
+      'h-control-md',
+      'min-w-control-md',
+      'rounded-md',
+      'data-selected:bg-foreground',
+      'data-selected:text-background',
+    ]),
+  );
+  expect([...screen.getAllByText('...')[0]!.classList]).toEqual(
+    expect.arrayContaining([
+      'h-control-md',
+      'min-w-control-md',
+      'rounded-md',
+      'text-muted-foreground',
+    ]),
+  );
+  const firstTrigger = screen.getByRole('button', { name: 'first page' });
+  expect([...firstTrigger.classList]).toEqual(
+    expect.arrayContaining(['h-control-md', 'w-control-md', 'p-0']),
+  );
+  expect([...firstTrigger.querySelector('span')!.classList]).toEqual(
+    expect.arrayContaining(['inline-flex', '[&_svg+svg]:-ms-2']),
+  );
+  expect(container.querySelectorAll('[data-slot="pagination-first-trigger"] svg')).toHaveLength(2);
+});
+
+test('lets consumer Tailwind classes override conflicting defaults', async () => {
+  render(
+    <Pagination count={20} pageSize={10}>
+      <PaginationPrevTrigger className="rounded-none px-0" />
+      <PaginationItems />
+      <PaginationNextTrigger />
+    </Pagination>,
+  );
+
+  const previousTrigger = screen.getByRole('button', { name: /previous page/i });
+  expect([...previousTrigger.classList]).toEqual(expect.arrayContaining(['rounded-none', 'px-0']));
+  expect(['rounded-md', 'px-3'].some((name) => previousTrigger.classList.contains(name))).toBe(
+    false,
+  );
+  await expect
+    .element(page.getByRole('button', { name: /previous page/i }))
+    .toHaveCSS('border-radius', '0px');
+  await expect
+    .element(page.getByRole('button', { name: /previous page/i }))
+    .toHaveCSS('padding-left', '0px');
+});

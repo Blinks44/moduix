@@ -1,0 +1,181 @@
+import { page } from '@rstest/browser';
+import { expect, test } from '@rstest/core';
+import { render, screen } from '@testing-library/react';
+import { createRef } from 'react';
+import {
+  Field,
+  Input,
+  useField,
+  FieldErrorText,
+  FieldHelperText,
+  FieldInput,
+  FieldItem,
+  FieldLabel,
+  FieldRootProvider,
+  FieldSelect,
+  FieldTextarea,
+} from '../src';
+import fieldStyles from '../src/components/field/Field.module.css';
+
+test('keeps FieldInput native size distinct from Input visual size', async () => {
+  render(
+    <>
+      <FieldInput aria-label="Field input" size={8} disabled aria-invalid="true" />
+      <Input aria-label="Input" size="md" htmlSize={8} disabled aria-invalid="true" />
+    </>,
+  );
+
+  const fieldInput = screen.getByRole('textbox', { name: 'Field input' });
+
+  const fieldInputLocator = page.getByRole('textbox', { name: 'Field input', exact: true });
+  await expect.element(fieldInputLocator).toHaveAttribute('size', '8');
+  const textbox = page.getByRole('textbox', { name: 'Input', exact: true });
+  await expect.element(textbox).toHaveAttribute('size', '8');
+  await expect.element(fieldInputLocator).toHaveAttribute('data-slot', 'field-input');
+  expect([...fieldInput.classList]).toEqual(
+    expect.arrayContaining([fieldStyles.control, fieldStyles.input]),
+  );
+  await expect.element(fieldInputLocator).not.toHaveAttribute('data-size');
+  await expect.element(textbox).toHaveAttribute('data-size', 'md');
+  await expect.element(fieldInputLocator).toBeDisabled();
+  await expect.element(textbox).toBeDisabled();
+  await expect.element(fieldInputLocator).toHaveAttribute('aria-invalid', 'true');
+  await expect.element(textbox).toHaveAttribute('aria-invalid', 'true');
+});
+
+test('wires labels, descriptions, errors, and field state to a native control', async () => {
+  render(
+    <Field disabled id="email" invalid readOnly required>
+      <FieldLabel>Email</FieldLabel>
+      <FieldInput />
+      <FieldHelperText>Use your work email.</FieldHelperText>
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
+    </Field>,
+  );
+
+  const input = screen.getByRole('textbox', { name: 'Email' });
+  const helperText = screen.getByText('Use your work email.');
+  const errorText = screen.getByText('Enter a valid email address.');
+
+  const inputLocator = page.getByRole('textbox', { name: 'Email', exact: true });
+  await expect.element(inputLocator).toBeDisabled();
+  await expect.element(inputLocator).toHaveAttribute('aria-invalid', 'true');
+  expect(input.getAttribute('aria-describedby')).toContain(helperText.id);
+  await expect.element(inputLocator).toHaveAttribute('aria-errormessage', errorText.id);
+  await expect.element(inputLocator).toHaveAttribute('required');
+  await expect.element(inputLocator).toHaveAttribute('readonly');
+  await expect.element(page.getByText('Email', { exact: true })).toHaveAttribute('for', input.id);
+});
+
+test('renders error text only while invalid', async () => {
+  const { rerender } = render(
+    <Field>
+      <FieldInput aria-label="Email" />
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
+    </Field>,
+  );
+
+  await expect
+    .element(page.getByText('Enter a valid email address.', { exact: true }))
+    .toHaveCount(0);
+
+  rerender(
+    <Field invalid>
+      <FieldInput aria-label="Email" />
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
+    </Field>,
+  );
+
+  await expect
+    .element(page.getByText('Enter a valid email address.', { exact: true }))
+    .toHaveAttribute('aria-live', 'polite');
+});
+
+test('forwards FieldItem refs and uses target for its label wiring', async () => {
+  const itemRef = createRef<HTMLDivElement>();
+
+  render(
+    <Field id="contact" target="email">
+      <FieldItem ref={itemRef} value="email">
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput />
+      </FieldItem>
+    </Field>,
+  );
+
+  const input = screen.getByRole('textbox', { name: 'Email' });
+
+  expect(itemRef.current!.getAttribute('data-slot')).toBe('field-item');
+  await expect.element(page.getByText('Email', { exact: true })).toHaveAttribute('for', input.id);
+});
+
+test('forwards refs and styling hooks for the Ark native parts', () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const inputRef = createRef<HTMLInputElement>();
+  const textareaRef = createRef<HTMLTextAreaElement>();
+  const selectRef = createRef<HTMLSelectElement>();
+
+  render(
+    <>
+      <Field ref={rootRef}>
+        <FieldLabel>Name</FieldLabel>
+        <FieldInput ref={inputRef} />
+      </Field>
+      <Field>
+        <FieldLabel>Summary</FieldLabel>
+        <FieldTextarea ref={textareaRef} />
+      </Field>
+      <Field>
+        <FieldLabel>Priority</FieldLabel>
+        <FieldSelect ref={selectRef}>
+          <option>Normal</option>
+        </FieldSelect>
+      </Field>
+    </>,
+  );
+
+  expect(rootRef.current!.getAttribute('data-slot')).toBe('field-root');
+  expect(inputRef.current!.getAttribute('data-slot')).toBe('field-input');
+  expect(textareaRef.current!.getAttribute('data-slot')).toBe('field-textarea');
+  expect(selectRef.current!.getAttribute('data-slot')).toBe('field-select');
+});
+
+test('keeps the RootProvider composition path Ark-shaped', async () => {
+  function ProviderField() {
+    const field = useField({ id: 'provider-email', invalid: true });
+
+    return (
+      <FieldRootProvider value={field}>
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput />
+        <FieldErrorText>Enter a valid email address.</FieldErrorText>
+      </FieldRootProvider>
+    );
+  }
+
+  render(<ProviderField />);
+
+  await expect
+    .element(page.getByRole('textbox', { name: 'Email', exact: true }))
+    .toHaveAttribute('aria-invalid', 'true');
+  await expect
+    .element(page.getByText('Enter a valid email address.', { exact: true }))
+    .toBeVisible();
+});
+
+test('preserves Ark asChild composition and forwards refs for the root', async () => {
+  const rootRef = createRef<HTMLDivElement>();
+
+  render(
+    <Field asChild ref={rootRef}>
+      <section>
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput />
+      </section>
+    </Field>,
+  );
+
+  expect(rootRef.current).toBe(screen.getByRole('group'));
+  expect(rootRef.current!.getAttribute('data-slot')).toBe('field-root');
+  await expect.element(page.getByRole('textbox', { name: 'Email', exact: true })).toBeVisible();
+});

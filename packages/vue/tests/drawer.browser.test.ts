@@ -115,7 +115,10 @@ test('supports controlled open state and v-model', async () => {
   render(Harness);
   await page.getByRole('button', { name: 'Open drawer' }).click();
   await expect.element(page.getByRole('dialog')).toBeVisible();
-  await page.getByRole('button', { name: 'Close drawer' }).click();
+  await expect.poll(() => details).toEqual([{ open: true }]);
+  const close = page.getByRole('button', { name: 'Close drawer' });
+  await expect.element(close).toBeFocused();
+  await close.click();
   await expect.poll(() => details).toEqual([{ open: true }, { open: false }]);
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
 });

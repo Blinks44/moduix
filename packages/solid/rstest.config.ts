@@ -18,7 +18,13 @@ export default defineConfig({
       // Browser Mode supplies the environment; do not inherit Rslib's happy-dom setting.
       testEnvironment: 'node',
       include: ['tests/**/*.browser.test.{ts,tsx}'],
-      browser: { enabled: true, provider: 'playwright', headless: true, port: 0 },
+      browser: {
+        enabled: true,
+        provider: 'playwright',
+        headless: true,
+        port: 0,
+        providerOptions: { context: { permissions: ['clipboard-read', 'clipboard-write'] } },
+      },
     }),
   ],
 });

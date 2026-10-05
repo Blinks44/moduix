@@ -18,6 +18,8 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   Keep upstream-related checks that protect a documented contract or a real regression.
 - Check public styling hooks and consumer overrides where they are contracts. Avoid snapshots of
   full markup, generated IDs, CSS hashes, or long class strings.
+  Assert each conflicting utility is absent; a negated multi-class matcher may only mean that
+  the complete set is not present. Preserve unrelated defaults such as min-height when overriding padding.
 - Do not remove a meaningful scenario merely to reduce line count or make a test pass.
 
 ## Choose the Environment
@@ -33,6 +35,8 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   styling adapters. Register cleanup explicitly through Rstest. Do not add a second renderer,
   a cross-framework test DSL, or a local rendering abstraction.
 - Import shipped foundation CSS in browser setup; component CSS comes through normal source imports.
+  CSS Modules setup also imports the shipped reset, matching the documented installation. Tailwind
+  uses Preflight instead; do not layer the foundation reset on top of it.
   Keep the DOM and browser projects' file sets disjoint. Move tests rather than duplicate them.
 - Tailwind browser projects use the official Rsbuild Tailwind plugin and a CSS entry scanning their
   own components/tests. Check computed CSS where layout, cascade or utility overrides matter;
@@ -48,8 +52,17 @@ follow the matching native convention skill. `component-workflow` owns adapter p
 
 - Prefer role and accessible-name queries. Use native DOM queries for node identity, form data,
   containment, or public styling hooks.
+  Check native form semantics rather than an emulated DOM's output: an empty input and a select
+  with no selected option do not necessarily produce the same FormData entry.
 - In Browser Mode, await `page` locator interactions and `expect.element` assertions.
   Use `expect.poll` for asynchronous callback/state values, not fixed sleeps.
+- Locator `press` focuses its target: after arrow navigation, send the next key to the newly
+  focused part. Do not follow keyboard activation with a click that could mask its failure.
+  Focus may enter a nested tabbable part, such as SelectList; inspect the actual composition
+  instead of assuming the popup's outer host receives focus. Native focus can also set initial
+  highlighting, so choose a deterministic starting point for navigation.
+  Browser `toHaveClass` compares the whole class attribute; use native `classList` for individual
+  utility membership and `toHaveCSS` for the rendered result.
 - When timing is itself the contract (such as synchronous focus during pointerdown), dispatch
   the precise native event and assert immediately after dispatch. Retrying assertions can hide
   deferred behavior; synthetic dispatch does not verify trusted gestures or CSS `:active`.
@@ -61,6 +74,13 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   do not hide those events by clearing callbacks or weakening expected payloads.
 - Keep Testing Library focused on rendering. Prefer Browser Mode locators over its queries,
   user-event, and jest-dom matchers; use native DOM inspection for identity and FormData contracts.
+- Use exact labels when a field name is also part of a trigger name, such as Password and Show password.
+  Keep a stable locator when an action changes its own accessible name. Use ControlOrMeta for
+  platform-dependent shortcuts instead of always sending Control on macOS.
+- Clipboard tests use the native API with Playwright context permissions. System clipboard contents
+  can race across parallel pages; for isolated paste-event handling, use native DataTransfer and
+  ClipboardEvent when the installed browser locator API has no paste method. This checks event
+  handling, not a trusted OS paste gesture; do not fake clipboardData or serialize the whole suite.
 - In DOM tests, use Testing Library's user interactions and retrying queries/assertions when needed.
   Reserve `fireEvent` for a specific event contract that user interactions cannot express.
 - Keep fixtures local and small. Extract repeated component composition, not a configurable test DSL.
@@ -70,6 +90,11 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   public contract nor a known regression. Do not pursue a target test count.
 - Mock external boundaries only when necessary. Prefer real browser APIs over global geometry,
   focus, scrolling, or observer mocks. Restore unavoidable mocks after their scoped use.
+  Native disabled controls are checked through disabled semantics; do not click them with force.
+  Use cancelable dispatch only for an explicit event-guard contract, not an emulated DOM's return value.
+  For short-lived states, avoid duplicating a DOM check that another scenario already protects:
+  capture the public callback and check the settled DOM state rather than racing browser polling
+  against a short timer. Keep the configured timeout and independent rendering coverage intact.
 - Give layout fixtures explicit dimensions/overflow so the intended interaction is possible.
   Assert actual measurements and scroll targets, not zero-valued artifacts of a simulated DOM.
 
