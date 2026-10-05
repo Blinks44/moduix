@@ -10,7 +10,13 @@ contracts themselves are described in [AGENTS.md](./AGENTS.md) and the shipped p
 
 ```bash
 pnpm install
+pnpm exec playwright install --only-shell chromium
 ```
+
+Playwright is a root devDependency with an exact version in the pnpm catalog. Browser tests use
+Chromium headless shell from Playwright's shared user cache. Run the browser installation command
+again after updating Playwright; projects using the same browser revision reuse that download.
+For headed tests, omit `--only-shell`. Linux CI also passes `--with-deps`.
 
 ## Everyday commands
 

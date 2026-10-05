@@ -14,7 +14,14 @@ const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
     <ImagePrimitive
       ref={ref}
       {...(props as UnpicImageProps)}
-      fetchpriority={(fetchPriority ?? fetchpriority) as 'high' | 'low' | undefined}
+      loading={props.loading ?? (props.priority ? 'eager' : 'lazy')}
+      decoding={props.decoding ?? (props.priority ? undefined : 'async')}
+      fetchpriority={
+        (fetchPriority ?? fetchpriority ?? (props.priority ? 'high' : undefined)) as
+          | 'high'
+          | 'low'
+          | undefined
+      }
       data-slot="image-root"
       className={clsx(styles.root, className)}
     />

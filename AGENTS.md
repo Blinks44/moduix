@@ -52,7 +52,7 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply onl
   Rspress configuration, navigation, build, deployment, or debugging, `rspress-localization` for any localization
   work, and `rspress-custom-theme` for theme
   or layout changes.
-- **Tests:** `rstest-best-practices`.
+- **Tests:** `conventions-tests` and `rstest-best-practices`.
 - **Rslib configuration or library build issues:** `rslib-best-practices`.
 - **Changesets:** `changeset-workflow`, only when the user explicitly requests one.
 

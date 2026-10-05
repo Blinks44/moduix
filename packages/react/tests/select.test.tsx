@@ -91,6 +91,7 @@ test('selects with the keyboard and clears through the accessible action', async
   const user = userEvent.setup();
 
   await user.click(trigger);
+  await waitFor(() => expect(screen.getByRole('listbox')).toHaveFocus());
   await user.keyboard('{ArrowDown}{Enter}');
 
   expect(trigger).toHaveTextContent('Apple');

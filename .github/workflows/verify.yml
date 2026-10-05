@@ -50,6 +50,9 @@ jobs:
           cache: true
           require-lockfile: true
 
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps --only-shell chromium
+
       - name: Run tests
         run: pnpm run test
 

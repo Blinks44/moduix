@@ -1,4 +1,5 @@
 import { expect, rs, test } from '@rstest/core';
+import userEvent from '@testing-library/user-event';
 import { fireEvent, render, screen } from '@testing-library/vue';
 import { defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
@@ -19,8 +20,7 @@ test('respects stopImmediatePropagation from a consumer capture listener', async
     `,
     }),
   );
-  await new Promise((resolve) => setTimeout(resolve, 0));
-  await fireEvent.click(screen.getByRole('button', { name: 'Stop propagation' }));
+  await userEvent.setup().click(screen.getByRole('button', { name: 'Stop propagation' }));
   expect(handleCapture).toHaveBeenCalledTimes(1);
   expect(handleClick).not.toHaveBeenCalled();
   expect(handleChildClick).not.toHaveBeenCalled();
@@ -39,8 +39,7 @@ test('keeps merged Vue listener arrays ordered and forwards the native event', a
     template: '<CloseButton v-bind="listeners" aria-label="Merged handlers" />',
   });
   render(Harness);
-  await new Promise((resolve) => setTimeout(resolve, 0));
-  await fireEvent.click(screen.getByRole('button', { name: 'Merged handlers' }));
+  await userEvent.setup().click(screen.getByRole('button', { name: 'Merged handlers' }));
   expect(calls).toEqual(['capture first', 'capture second', 'bubble first', 'bubble second']);
 });
 
@@ -76,12 +75,12 @@ test('reacts to aria-disabled changes and blocks all same-host listeners while d
   expect(handleCapture).not.toHaveBeenCalled();
   expect(handleSameHostCapture).not.toHaveBeenCalled();
 
+  const user = userEvent.setup();
   for (const value of [false, 'false', undefined] as const) {
     ariaDisabled.value = value;
     await nextTick();
     expect(button).not.toHaveAttribute('data-disabled');
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    await fireEvent.click(button);
+    await user.click(button);
   }
   expect(handleClick).toHaveBeenCalledTimes(3);
   expect(handleCapture).toHaveBeenCalledTimes(3);
@@ -207,8 +206,7 @@ test('preserves composed click handlers while enabled', async () => {
 
   const button = screen.getByRole('button', { name: 'Dismiss notification' });
 
-  await new Promise<void>((resolve) => setTimeout(resolve, 0));
-  await fireEvent.click(button);
+  await userEvent.setup().click(button);
 
   expect(calls).toEqual(['close capture', 'button click', 'close click']);
 });

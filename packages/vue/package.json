@@ -417,7 +417,7 @@
   "scripts": {
     "build": "rslib",
     "dev": "rslib --watch --no-clean",
-    "test": "rstest run --passWithNoTests",
+    "test": "rstest run",
     "test:watch": "rstest --watch",
     "tsc:check": "vue-tsc --noEmit"
   },
@@ -433,6 +433,7 @@
     "@rsbuild/plugin-vue": "catalog:",
     "@rslib/core": "catalog:",
     "@rstest/adapter-rslib": "catalog:",
+    "@rstest/browser": "catalog:",
     "@rstest/core": "catalog:",
     "@tanstack/charts": "catalog:",
     "@testing-library/dom": "catalog:",

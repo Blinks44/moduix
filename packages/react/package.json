@@ -435,6 +435,7 @@
     "@rsbuild/plugin-react": "catalog:",
     "@rslib/core": "catalog:",
     "@rstest/adapter-rslib": "catalog:",
+    "@rstest/browser": "catalog:",
     "@rstest/core": "catalog:",
     "@tanstack/charts": "catalog:",
     "@testing-library/dom": "catalog:",

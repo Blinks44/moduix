@@ -26,7 +26,13 @@ defineExpose({ $el: imageElement });
 
 const getImageProps = () => {
   const { class: _class, ...inputProps } = { ...attrs, ...props };
-  return transformProps<ImgHTMLAttributes>(inputProps as ImageTransformProps);
+  const input = inputProps as ImageTransformProps;
+  return transformProps<ImgHTMLAttributes>({
+    ...input,
+    loading: input.loading ?? (input.priority ? 'eager' : 'lazy'),
+    decoding: input.decoding ?? (input.priority ? undefined : 'async'),
+    fetchpriority: input.fetchpriority ?? (input.priority ? 'high' : undefined),
+  });
 };
 </script>
 

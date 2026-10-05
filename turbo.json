@@ -31,11 +31,24 @@
       "env": ["CLOUDFLARE_API_TOKEN"]
     },
     "test": {
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/packages/foundation/src/**"],
       "outputs": []
     },
     "tsc:check": {
       "dependsOn": ["^tsc:check"],
       "outputs": []
+    },
+    "@moduix/solid#tsc:check": {
+      "dependsOn": ["^tsc:check", "build"]
+    },
+    "@moduix/solid-tailwind#tsc:check": {
+      "dependsOn": ["^tsc:check", "build"]
+    },
+    "@moduix/vue#tsc:check": {
+      "dependsOn": ["^tsc:check", "build"]
+    },
+    "@moduix/vue-tailwind#tsc:check": {
+      "dependsOn": ["^tsc:check", "build"]
     },
     "moduix-docs#tsc:check": {
       "dependsOn": ["^tsc:check", "^build"],

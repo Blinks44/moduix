@@ -1,0 +1,344 @@
+import { page } from '@rstest/browser';
+import { expect, test } from '@rstest/core';
+import { render } from '@solidjs/testing-library';
+import { createSignal, type JSX } from 'solid-js';
+import {
+  Button,
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerRootProvider,
+  DrawerTitle,
+  DrawerTrigger,
+  useDrawer,
+  useDrawerContext,
+} from '../src';
+
+function DrawerParts(props: { children?: JSX.Element }) {
+  return (
+    <DrawerPositioner>
+      <DrawerContent>
+        <DrawerTitle>Preferences</DrawerTitle>
+        {props.children}
+      </DrawerContent>
+    </DrawerPositioner>
+  );
+}
+
+function DrawerStateReadout() {
+  const drawer = useDrawerContext();
+
+  return (
+    <output data-testid="drawer-state">
+      {`${drawer().swipeDirection}:${drawer().snapPoints.join(',')}:${String(drawer().snapPoint)}`}
+    </output>
+  );
+}
+
+test('keeps page interaction available for a non-modal drawer', async () => {
+  render(() => (
+    <Drawer defaultOpen modal={false} portalled={false}>
+      <DrawerParts />
+    </Drawer>
+  ));
+
+  await expect.element(page.getByRole('dialog')).toHaveCSS('pointer-events', 'auto');
+  await expect
+    .element(page.locator('[data-slot="drawer-positioner"]'))
+    .toHaveCSS('pointer-events', 'none');
+});
+
+test.each(['touch', 'mouse'])(
+  'drags content outside the grabber and dismisses it (%s)',
+  async (pointerType) => {
+    const details: Array<{ open: boolean }> = [];
+    render(() => (
+      <Drawer defaultOpen onOpenChange={(detail) => details.push(detail)}>
+        <DrawerParts>
+          <div data-testid="drawer-body">Body</div>
+        </DrawerParts>
+      </Drawer>
+    ));
+    await expect.element(page.getByRole('dialog')).toBeFocused();
+    const content = document.querySelector('[role="dialog"]')!;
+    const body = document.querySelector('[data-testid="drawer-body"]')!;
+    const { left, top, width } = body.getBoundingClientRect();
+    const y = top + 2;
+    const height = content.getBoundingClientRect().height;
+    expect(height).toBeGreaterThan(0);
+    // Rstest locators do not expose a pointer sequence with an explicit pointerType.
+    const pointer = {
+      bubbles: true,
+      cancelable: true,
+      button: 0,
+      buttons: 1,
+      pointerId: 1,
+      pointerType,
+      clientX: left + width / 2,
+    };
+    body.dispatchEvent(new PointerEvent('pointerdown', { ...pointer, clientY: y }));
+    body.dispatchEvent(new PointerEvent('pointermove', { ...pointer, clientY: y + 60 }));
+    await expect.element(page.getByRole('dialog')).toHaveAttribute('data-dragging', '');
+    body.dispatchEvent(new PointerEvent('pointermove', { ...pointer, clientY: y + height }));
+    body.dispatchEvent(
+      new PointerEvent('pointerup', { ...pointer, buttons: 0, clientY: y + height }),
+    );
+    await expect.poll(() => details).toEqual([{ open: false }]);
+    await expect.element(page.getByRole('dialog')).toHaveCount(0);
+  },
+);
+
+test('lazily mounts, preserves open-change details, and restores focus after Escape', async () => {
+  const details: Array<{ open: boolean }> = [];
+  render(() => (
+    <Drawer onOpenChange={(detail) => details.push(detail)}>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
+      <DrawerParts />
+    </Drawer>
+  ));
+  const trigger = page.getByRole('button', { name: 'Open drawer' });
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
+  await trigger.click();
+  await expect.element(page.getByRole('dialog')).toBeFocused();
+  expect(details).toEqual([{ open: true }]);
+  await page.getByRole('dialog').press('Escape');
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
+  await expect.element(trigger).toBeFocused();
+});
+
+test('supports controlled open state', async () => {
+  const details: Array<{ open: boolean }> = [];
+
+  function ControlledDrawer() {
+    const [open, setOpen] = createSignal(false);
+
+    return (
+      <Drawer
+        open={open()}
+        onOpenChange={(detail) => {
+          details.push(detail);
+          setOpen(detail.open);
+        }}
+      >
+        <DrawerTrigger asChild={(props) => <Button {...props()}>Open drawer</Button>} />
+        <DrawerParts>
+          <DrawerCloseTrigger>Close drawer</DrawerCloseTrigger>
+        </DrawerParts>
+      </Drawer>
+    );
+  }
+
+  render(() => <ControlledDrawer />);
+
+  await page.getByRole('button', { name: 'Open drawer' }).click();
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  await page.getByRole('button', { name: 'Close drawer' }).click();
+
+  await expect.poll(() => details).toEqual([{ open: true }, { open: false }]);
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
+});
+
+test('opens a RootProvider drawer from external state', async () => {
+  function RootProviderDrawer() {
+    const drawer = useDrawer();
+
+    return (
+      <>
+        <Button onClick={() => drawer().setOpen(true)}>Open via API</Button>
+        <DrawerRootProvider value={drawer}>
+          <DrawerParts />
+        </DrawerRootProvider>
+      </>
+    );
+  }
+
+  render(() => <RootProviderDrawer />);
+  await page.getByRole('button', { name: 'Open via API' }).click();
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+});
+
+test('keeps the inherited variant reactive without remounting open content', async () => {
+  const [variant, setVariant] = createSignal<'island' | undefined>('island');
+
+  render(() => (
+    <Drawer defaultOpen variant={variant()} portalled={false}>
+      <DrawerParts>
+        <input aria-label="Draft" />
+      </DrawerParts>
+    </Drawer>
+  ));
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  const content = document.querySelector('[role="dialog"]')!;
+  const input = document.querySelector('input[aria-label="Draft"]')!;
+  await page.getByRole('textbox', { name: 'Draft' }).fill('Keep my draft');
+  await expect.element(page.getByRole('dialog')).toHaveAttribute('data-variant', 'island');
+
+  setVariant(undefined);
+  await expect.element(page.getByRole('dialog')).not.toHaveAttribute('data-variant');
+  expect(document.querySelector('[role="dialog"]')).toBe(content);
+  expect(document.querySelector('input[aria-label="Draft"]')).toBe(input);
+  await expect.element(page.getByRole('textbox', { name: 'Draft' })).toHaveValue('Keep my draft');
+
+  setVariant('island');
+  await expect.element(page.getByRole('dialog')).toHaveAttribute('data-variant', 'island');
+  expect(document.querySelector('[role="dialog"]')).toBe(content);
+  await expect.element(page.getByRole('textbox', { name: 'Draft' })).toHaveValue('Keep my draft');
+});
+
+test('keeps an explicit content variant ahead of changing root defaults', async () => {
+  const [variant, setVariant] = createSignal<'island' | undefined>(undefined);
+  render(() => (
+    <Drawer defaultOpen variant={variant()} portalled={false}>
+      <DrawerPositioner>
+        <DrawerContent variant="island">
+          <DrawerTitle>Preferences</DrawerTitle>
+        </DrawerContent>
+      </DrawerPositioner>
+    </Drawer>
+  ));
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  const content = document.querySelector('[role="dialog"]')!;
+  await expect.element(page.getByRole('dialog')).toHaveAttribute('data-variant', 'island');
+  setVariant('island');
+  await expect.element(page.getByRole('dialog')).toHaveAttribute('data-variant', 'island');
+  setVariant(undefined);
+  await expect.element(page.getByRole('dialog')).toHaveAttribute('data-variant', 'island');
+  expect(document.querySelector('[role="dialog"]')).toBe(content);
+});
+
+test('marks an island drawer and closes it through its accessible close icon', async () => {
+  render(() => (
+    <Drawer variant="island">
+      <DrawerTrigger>Open drawer</DrawerTrigger>
+      <DrawerParts>
+        <DrawerStateReadout />
+        <DrawerCloseIcon />
+      </DrawerParts>
+    </Drawer>
+  ));
+
+  const trigger = page.getByRole('button', { name: 'Open drawer' });
+  await trigger.click();
+
+  await expect.element(page.getByRole('dialog')).toHaveAttribute('data-variant', 'island');
+  await expect.element(page.getByTestId('drawer-state')).toHaveText('down:1:1');
+  await expect
+    .element(page.locator('[data-slot="drawer-positioner"]'))
+    .toHaveAttribute('data-swipe-direction', 'down');
+  await page.getByRole('button', { name: 'Close drawer' }).click();
+
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
+  await expect.element(trigger).toBeFocused();
+});
+
+test('forwards refs through ordinary parts and keeps asChild composition native', () => {
+  let triggerRef!: HTMLButtonElement;
+  let contentRef!: HTMLDivElement;
+
+  render(() => (
+    <Drawer defaultOpen portalled={false}>
+      <DrawerTrigger ref={(element) => (triggerRef = element)}>Open drawer</DrawerTrigger>
+      <DrawerPositioner>
+        <DrawerContent
+          ref={(element) => (contentRef = element)}
+          asChild={(props) => <section {...props()} />}
+        >
+          <DrawerTitle>Preferences</DrawerTitle>
+        </DrawerContent>
+      </DrawerPositioner>
+    </Drawer>
+  ));
+
+  expect(triggerRef).toBe(document.querySelector('[data-slot="drawer-trigger"]'));
+  expect(contentRef).toBeUndefined();
+  expect(document.querySelector('[role="dialog"]')?.tagName).toBe('SECTION');
+});
+
+test('applies Tailwind defaults and lets consumer utilities win', async () => {
+  render(() => (
+    <Drawer defaultOpen portalled={false}>
+      <DrawerTrigger class="bg-primary px-2">Open drawer</DrawerTrigger>
+      <DrawerBackdrop />
+      <DrawerPositioner>
+        <DrawerContent class="w-96 bg-card p-4">
+          <DrawerGrabber>
+            <DrawerGrabberIndicator />
+          </DrawerGrabber>
+          <DrawerHeader>
+            <DrawerTitle>Preferences</DrawerTitle>
+            <DrawerCloseIcon class="size-8 rounded-full bg-primary" />
+            <DrawerDescription>Description</DrawerDescription>
+          </DrawerHeader>
+          <DrawerBody>Body</DrawerBody>
+          <DrawerFooter>Footer</DrawerFooter>
+        </DrawerContent>
+      </DrawerPositioner>
+    </Drawer>
+  ));
+
+  const trigger = document.querySelector('[data-slot="drawer-trigger"]')!;
+  const content = document.querySelector('[role="dialog"]')!;
+  const closeIcon = document.querySelector('[data-slot="drawer-close-icon"]')!;
+
+  expect([...trigger.classList]).toEqual(expect.arrayContaining(['bg-primary', 'px-2']));
+  expect([...trigger.classList]).not.toContain('bg-background');
+  expect([...trigger.classList]).not.toContain('px-3.5');
+  expect([...document.querySelector('[data-slot="drawer-backdrop"]')!.classList]).toEqual(
+    expect.arrayContaining(['fixed', 'inset-0', 'bg-overlay']),
+  );
+  expect([...document.querySelector('[data-slot="drawer-positioner"]')!.classList]).toEqual(
+    expect.arrayContaining(['flex', 'items-end']),
+  );
+  expect([...content.classList]).toEqual(expect.arrayContaining(['w-96', 'bg-card', 'p-4']));
+  expect([...content.classList]).not.toContain('bg-popover');
+  expect([...content.classList]).not.toContain('px-6');
+  expect([...content.classList]).not.toContain('pt-3');
+  expect([...content.classList]).toEqual(
+    expect.arrayContaining([
+      'data-[swipe-direction=left]:after:inset-y-0',
+      'data-[swipe-direction=right]:after:inset-y-0',
+      '[--drawer-island-translate-distance:0px]',
+      '[--_drawer-bleed:var(--moduix-size-xl)]',
+    ]),
+  );
+  expect([...document.querySelector('[data-slot="drawer-grabber-indicator"]')!.classList]).toEqual(
+    expect.arrayContaining(['h-1', 'w-12', 'rounded-full']),
+  );
+  expect([...document.querySelector('[data-slot="drawer-title"]')!.classList]).toEqual(
+    expect.arrayContaining(['text-lg', 'font-semibold']),
+  );
+  expect([...document.querySelector('[data-slot="drawer-description"]')!.classList]).toEqual(
+    expect.arrayContaining(['text-md', 'text-muted-foreground']),
+  );
+  expect([...document.querySelector('[data-slot="drawer-body"]')!.classList]).toEqual(
+    expect.arrayContaining(['mt-4', 'text-md']),
+  );
+  expect([...document.querySelector('[data-slot="drawer-footer"]')!.classList]).toEqual(
+    expect.arrayContaining(['mt-6', 'gap-2']),
+  );
+  expect([...closeIcon.classList]).toEqual(
+    expect.arrayContaining(['size-8', 'rounded-full', 'bg-primary']),
+  );
+  expect([...closeIcon.classList]).not.toContain('rounded-md');
+  expect([...closeIcon.classList]).not.toContain('bg-transparent');
+  await expect
+    .element(page.getByRole('dialog'))
+    .toHaveCSS('transition-property', 'transform, scale, translate');
+  await expect.element(page.getByRole('dialog')).toHaveCSS('width', '384px');
+  await expect.element(page.getByRole('dialog')).toHaveCSS('padding-top', '16px');
+  await expect
+    .element(page.getByRole('button', { name: 'Close drawer' }))
+    .toHaveCSS('width', '32px');
+});

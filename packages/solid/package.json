@@ -613,6 +613,7 @@
     "@rsbuild/plugin-solid": "catalog:",
     "@rslib/core": "catalog:",
     "@rstest/adapter-rslib": "catalog:",
+    "@rstest/browser": "catalog:",
     "@rstest/core": "catalog:",
     "@solidjs/testing-library": "catalog:",
     "@tanstack/charts": "catalog:",

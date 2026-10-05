@@ -42,55 +42,60 @@ test('preserves ref forwarding and invariant moduix hooks', () => {
   expect(source).toHaveAttribute('type', 'image/avif');
 });
 
-test('preserves Unpic priority, native overrides, and decorative image defaults', async () => {
-  const [alt, setAlt] = createSignal<string | undefined>('Mountain landscape');
-  const [loading, setLoading] = createSignal<'lazy' | undefined>();
-  const [decoding, setDecoding] = createSignal<'sync' | undefined>();
-  const [fetchpriority, setFetchpriority] = createSignal<'high' | 'low' | 'auto' | undefined>();
+test.each([imageUrl, '/__info-new/assets/photo.webp'])(
+  'preserves priority, native overrides, and decorative defaults with %s',
+  async (src) => {
+    const [source, setSource] = createSignal(src);
+    const [alt, setAlt] = createSignal<string | undefined>('Mountain landscape');
+    const [loading, setLoading] = createSignal<'lazy' | undefined>();
+    const [decoding, setDecoding] = createSignal<'sync' | undefined>();
+    const [fetchpriority, setFetchpriority] = createSignal<'high' | 'low' | 'auto' | undefined>();
 
-  render(() => (
-    <Image
-      src={imageUrl}
-      alt={alt()}
-      width={800}
-      height={520}
-      priority
-      loading={loading()}
-      decoding={decoding()}
-      fetchpriority={fetchpriority()}
-    />
-  ));
+    render(() => (
+      <Image
+        src={source()}
+        alt={alt()}
+        width={800}
+        height={520}
+        priority
+        loading={loading()}
+        decoding={decoding()}
+        fetchpriority={fetchpriority()}
+      />
+    ));
 
-  const priorityImage = screen.getByAltText('Mountain landscape');
+    const priorityImage = screen.getByAltText('Mountain landscape');
 
-  expect(priorityImage).toHaveAttribute('loading', 'eager');
-  expect(priorityImage).toHaveAttribute('fetchpriority', 'high');
-  expect(priorityImage).not.toHaveAttribute('decoding');
+    expect(priorityImage).toHaveAttribute('loading', 'eager');
+    expect(priorityImage).toHaveAttribute('fetchpriority', 'high');
+    expect(priorityImage).not.toHaveAttribute('decoding');
 
-  setLoading('lazy');
-  setDecoding('sync');
-  setFetchpriority('low');
+    setLoading('lazy');
+    setDecoding('sync');
+    setFetchpriority('low');
 
-  const overriddenImage = screen.getByAltText('Mountain landscape');
+    const overriddenImage = screen.getByAltText('Mountain landscape');
 
-  await waitFor(() => {
-    expect(overriddenImage).toHaveAttribute('loading', 'lazy');
-    expect(overriddenImage).toHaveAttribute('decoding', 'sync');
-    expect(overriddenImage).toHaveAttribute('fetchpriority', 'low');
-  });
+    await waitFor(() => {
+      expect(overriddenImage).toHaveAttribute('loading', 'lazy');
+      expect(overriddenImage).toHaveAttribute('decoding', 'sync');
+      expect(overriddenImage).toHaveAttribute('fetchpriority', 'low');
+    });
 
-  setFetchpriority('auto');
+    setFetchpriority('auto');
 
-  await waitFor(() =>
-    expect(screen.getByAltText('Mountain landscape')).toHaveAttribute('fetchpriority', 'auto'),
-  );
+    await waitFor(() =>
+      expect(screen.getByAltText('Mountain landscape')).toHaveAttribute('fetchpriority', 'auto'),
+    );
 
-  setAlt('');
+    setSource(imageUrl);
+    setAlt('');
 
-  await waitFor(() =>
-    expect(screen.getByRole('presentation')).toHaveAttribute('data-slot', 'image-root'),
-  );
-});
+    await waitFor(() =>
+      expect(screen.getByRole('presentation')).toHaveAttribute('data-slot', 'image-root'),
+    );
+  },
+);
 
 test('leaves layout styles to the consumer when unstyled is set', () => {
   render(() => <Image src={imageUrl} alt="Mountain landscape" width={800} height={520} unstyled />);
@@ -114,4 +119,13 @@ test('preserves consumer class names and styles', () => {
 
   expect(image).toHaveClass('consumer-image');
   expect(image).toHaveStyle({ objectFit: 'contain' });
+});
+test('defaults local images to lazy loading and async decoding', () => {
+  render(() => (
+    <Image src="/__info-new/assets/photo.webp" alt="Local photo" width={800} height={520} />
+  ));
+  const image = screen.getByAltText('Local photo');
+  expect(image).toHaveAttribute('loading', 'lazy');
+  expect(image).toHaveAttribute('decoding', 'async');
+  expect(image).not.toHaveAttribute('fetchpriority');
 });

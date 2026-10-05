@@ -34,6 +34,7 @@ Skills are intentionally narrow and composable:
 - `conventions-react`: React and TypeScript implementation conventions.
 - `conventions-solid`: Solid and TypeScript implementation conventions.
 - `conventions-vue`: Vue and TypeScript implementation conventions.
+- `conventions-tests`: repository test scope, environment selection, and readable fixtures.
 - `component-contract-docs`: maintainers' markdown beside a component source file.
 - `research-upstream-libraries`: current Ark UI, Chakra UI, and shadcn research.
 - `rstest-best-practices`: Rstest configuration and test design.

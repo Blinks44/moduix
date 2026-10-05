@@ -23,9 +23,9 @@ function Image(props: ImageProps) {
   return (
     <UnpicImage
       {...(others as UnpicImageProps)}
-      {...(local.fetchpriority !== undefined
-        ? { fetchpriority: local.fetchpriority as never }
-        : {})}
+      loading={props.loading ?? (props.priority ? 'eager' : 'lazy')}
+      decoding={props.decoding ?? (props.priority ? undefined : 'async')}
+      fetchpriority={(local.fetchpriority ?? (props.priority ? 'high' : undefined)) as never}
       {...(local.style !== undefined ? { style: local.style as never } : {})}
       data-slot="image-root"
       class={clsx(styles.root, local.class)}

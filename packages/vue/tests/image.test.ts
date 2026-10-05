@@ -54,55 +54,58 @@ test('preserves native refs, attrs, generated sources, and invariant moduix hook
   expect(source).toHaveAttribute('srcset');
 });
 
-test('preserves Unpic priority, native overrides, and decorative image defaults', async () => {
-  const { rerender } = render(Image, {
-    props: {
-      src: imageUrl,
+test.each([imageUrl, '/__info-new/assets/photo.webp'])(
+  'preserves priority, native overrides, and decorative defaults with %s',
+  async (src) => {
+    const { rerender } = render(Image, {
+      props: {
+        src,
+        alt: 'Mountain landscape',
+        width: 800,
+        height: 520,
+        priority: true,
+      },
+    });
+
+    const priorityImage = screen.getByAltText('Mountain landscape');
+
+    expect(priorityImage).toHaveAttribute('loading', 'eager');
+    expect(priorityImage).toHaveAttribute('fetchpriority', 'high');
+    expect(priorityImage).not.toHaveAttribute('decoding');
+
+    await rerender({
+      src,
       alt: 'Mountain landscape',
       width: 800,
       height: 520,
       priority: true,
-    },
-  });
+      loading: 'lazy',
+      decoding: 'sync',
+      fetchpriority: 'low',
+    });
 
-  const priorityImage = screen.getByAltText('Mountain landscape');
+    const overriddenImage = screen.getByAltText('Mountain landscape');
 
-  expect(priorityImage).toHaveAttribute('loading', 'eager');
-  expect(priorityImage).toHaveAttribute('fetchpriority', 'high');
-  expect(priorityImage).not.toHaveAttribute('decoding');
+    expect(overriddenImage).toHaveAttribute('loading', 'lazy');
+    expect(overriddenImage).toHaveAttribute('decoding', 'sync');
+    expect(overriddenImage).toHaveAttribute('fetchpriority', 'low');
 
-  await rerender({
-    src: imageUrl,
-    alt: 'Mountain landscape',
-    width: 800,
-    height: 520,
-    priority: true,
-    loading: 'lazy',
-    decoding: 'sync',
-    fetchpriority: 'low',
-  });
+    await rerender({
+      src,
+      alt: 'Mountain landscape',
+      width: 800,
+      height: 520,
+      priority: true,
+      fetchpriority: 'auto',
+    });
 
-  const overriddenImage = screen.getByAltText('Mountain landscape');
+    expect(screen.getByAltText('Mountain landscape')).toHaveAttribute('fetchpriority', 'auto');
 
-  expect(overriddenImage).toHaveAttribute('loading', 'lazy');
-  expect(overriddenImage).toHaveAttribute('decoding', 'sync');
-  expect(overriddenImage).toHaveAttribute('fetchpriority', 'low');
+    await rerender({ src: imageUrl, alt: '', width: 800, height: 520 });
 
-  await rerender({
-    src: imageUrl,
-    alt: 'Mountain landscape',
-    width: 800,
-    height: 520,
-    priority: true,
-    fetchpriority: 'auto',
-  });
-
-  expect(screen.getByAltText('Mountain landscape')).toHaveAttribute('fetchpriority', 'auto');
-
-  await rerender({ src: imageUrl, alt: '', width: 800, height: 520 });
-
-  expect(screen.getByRole('presentation')).toHaveAttribute('data-slot', 'image-root');
-});
+    expect(screen.getByRole('presentation')).toHaveAttribute('data-slot', 'image-root');
+  },
+);
 
 test('leaves layout styles to the consumer when unstyled is set', () => {
   render(Image, {
@@ -170,4 +173,13 @@ test('renders and hydrates the native picture composition through Vue SSR', asyn
 
   app.unmount();
   host.remove();
+});
+test('defaults local images to lazy loading and async decoding', () => {
+  render(Image, {
+    props: { src: '/__info-new/assets/photo.webp', alt: 'Local photo', width: 800, height: 520 },
+  });
+  const image = screen.getByAltText('Local photo');
+  expect(image).toHaveAttribute('loading', 'lazy');
+  expect(image).toHaveAttribute('decoding', 'async');
+  expect(image).not.toHaveAttribute('fetchpriority');
 });

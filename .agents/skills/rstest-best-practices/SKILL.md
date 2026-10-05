@@ -43,17 +43,38 @@ Apply these rules when writing or reviewing Rstest test projects.
 ## Test environment
 
 - Use `testEnvironment: 'node'` (default) for Node.js / server-side code
-- Use `testEnvironment: 'jsdom'` or `testEnvironment: 'happy-dom'` for DOM / browser API testing
-- Install `jsdom` or `happy-dom` as a dev dependency when using DOM environments
-- Prefer `happy-dom` for faster DOM testing; use `jsdom` when better browser API compatibility is needed
+- Use `testEnvironment: 'jsdom'` or `testEnvironment: 'happy-dom'` only for simulated DOM tests;
+  they do not provide real layout, focus, or browser API behavior. In moduix this is a temporary
+  environment for unmigrated tests, following `conventions-tests`.
+- Install the selected DOM environment only while tests still consume it.
 - For real browser testing, use `@rstest/browser` with Playwright
-- Use inline project configs to run different test environments within one project (e.g., `node` and `jsdom` projects)
+- Use `defineInlineProject` for named inline projects with different environments.
+  Project build/setup options do not inherit from the root config; configure each project explicitly.
+
+## Browser Mode
+
+- Check the current official docs before migration; Browser Mode is experimental.
+- Keep `@rstest/core`, `@rstest/browser`, and framework renderer versions compatible with their peers.
+- Configure `browser: { enabled: true, provider: 'playwright', headless: true }` for CI-compatible runs.
+- Install the selected browser locally and in CI with Playwright's CLI; use `--with-deps` on Linux CI.
+- Import `page` from `@rstest/browser`. Await locator interactions and auto-retrying
+  `expect.element(locator)` assertions; use `expect.poll` for non-DOM asynchronous values.
+- Rstest provides `@rstest/browser-react` as an optional React renderer. In moduix, follow
+  `conventions-tests`: use the existing framework Testing Library renderers consistently and reuse
+  the Rslib JSX/SFC transforms. Register native cleanup explicitly in browser setup.
+- Do not extend jest-dom matchers in browser setup when `expect.element` covers the assertions.
+- Playwright is managed at the workspace root through an exact catalog version. Install Chromium
+  with `pnpm exec playwright install --only-shell chromium`; add `--with-deps` on Linux CI.
+- Browser Mode loads real CSS; DOM environments do not provide real layout/computed-style coverage.
+- Use `port: 0` for parallel workspace browser projects so the OS assigns distinct server ports.
+  Keep the default file isolation; do not solve readiness failures with retries or larger timeouts.
 
 ## React / Vue testing
 
 - For React: use `@rsbuild/plugin-react` plugin and `@testing-library/react` for component testing
 - For Vue: use `@rsbuild/plugin-vue` plugin and `@testing-library/vue` for component testing
-- Create a `rstest.setup.ts` with `expect.extend(jestDomMatchers)` and `afterEach(() => cleanup())` for Testing Library
+- For DOM projects, register `expect.extend(jestDomMatchers)` and native cleanup in `rstest.setup.ts`.
+  Browser setup registers native cleanup and CSS only; use the built-in browser assertions there.
 - Add the setup file to `setupFiles` in config
 - For SSR testing, use `testEnvironment: 'node'` and the framework's server renderer. Vue SFC tests
   use `@vue/server-renderer`; declare it directly when a package imports it in tests.
@@ -89,6 +110,7 @@ Apply these rules when writing or reviewing Rstest test projects.
 - Use `projects` field in root config to define multiple test projects
 - For monorepos, use glob patterns like `'packages/*'` to auto-discover sub-projects
 - Use `defineProject` helper in sub-project configs
+- Use `defineInlineProject` for inline entries rather than `defineProject`.
 - Extract shared config and use `mergeRstestConfig` to compose project configs
 - Global options (`reporters`, `pool`, `isolate`, `coverage`, `bail`) must be set at the root level, not in projects
 
