@@ -32,6 +32,11 @@ Dans le mode `layout="constrained"`, indiquez `width` et `height`. Unpic génèr
 `sizes` adaptés lorsqu’il reconnaît le fournisseur. Dans le cas contraire, il conserve l’URL source telle quelle.
 Le navigateur réserve l’espace nécessaire avant le chargement de l’image.
 
+Les images utilisent par défaut `loading="lazy"` et `decoding="async"`, y compris les fichiers
+locaux et les URL sans CDN pris en charge. Utilisez `priority` pour l’image principale visible
+au chargement de la page : cette prop définit `loading="eager"` et `fetchpriority="high"` sans
+fixer `decoding`. Les attributs natifs définis explicitement remplacent ces valeurs par défaut.
+
 <ExampleFrame variant="component">
   <ImageBasic />
 </ExampleFrame>

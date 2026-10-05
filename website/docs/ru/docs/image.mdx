@@ -34,6 +34,11 @@ import imageVueFullWidth from '../../../snippets/image/vue/full-width.vue?raw';
 адаптивные атрибуты `srcset` и `sizes`. Для остальных URL Unpic сохраняет исходный адрес без изменений.
 Браузер заранее резервирует место под изображение до его загрузки.
 
+Изображения по умолчанию используют `loading="lazy"` и `decoding="async"`, в том числе
+локальные файлы и URL без поддерживаемого CDN. Для главного изображения на первом экране
+укажите `priority`: он задаёт `loading="eager"` и `fetchpriority="high"`, не устанавливая
+`decoding`. Явно заданные нативные атрибуты имеют преимущество перед этими значениями.
+
 <ExampleFrame variant="component">
   <ImageBasic />
 </ExampleFrame>

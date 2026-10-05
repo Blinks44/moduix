@@ -30,3 +30,8 @@ The wrapper adds `data-slot="image-root"` and
 `border-radius: var(--moduix-image-radius, var(--moduix-radius-md))`; `ImageSource` adds
 `data-slot="image-source"`. The CSS Modules adapter uses Unpic's native Solid components;
 the Tailwind adapter uses the same `@unpic/core` transforms on native `img`/`source` hosts.
+
+Native loading defaults apply to every URL, including local paths: `loading="lazy"` and
+`decoding="async"`. With `priority`, the defaults are `loading="eager"` and
+`fetchpriority="high"`, with no default `decoding`. Explicit native attributes take precedence.
+URL transformations and layout styles remain owned by Unpic and require a supported provider.

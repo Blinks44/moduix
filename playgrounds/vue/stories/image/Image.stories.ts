@@ -43,6 +43,13 @@ function renderStory(template: string) {
 
 export const Basic: Story = {};
 
+export const WithoutCdn: Story = {
+  args: {
+    src: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520"%3E%3Crect width="800" height="520" fill="%2387ceeb"/%3E%3Ccircle cx="400" cy="260" r="100" fill="%23ffd700"/%3E%3C/svg%3E',
+    alt: 'Sun illustration without an image CDN',
+  },
+};
+
 export const Fixed: Story = {
   render: renderStory(`
     <Image

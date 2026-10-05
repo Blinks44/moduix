@@ -32,6 +32,11 @@ Use `Image` with a URL from a supported image CDN or any regular image URL. For 
 generates responsive `srcset` and `sizes` attributes. Otherwise, it keeps the source URL unchanged.
 The browser reserves space for the image before it loads.
 
+Images default to `loading="lazy"` and `decoding="async"`, including local files and URLs
+without a supported CDN. Set `priority` for the main image in the initial viewport: it defaults
+to `loading="eager"` and `fetchpriority="high"` without setting `decoding`. Explicit native
+attributes override these defaults.
+
 <ExampleFrame variant="component">
   <ImageBasic />
 </ExampleFrame>

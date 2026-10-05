@@ -25,10 +25,13 @@ composition for art direction and format sources.
 - The component passes through Unpic React props: `layout`, `priority`, `background`,
   `aspectRatio`, `fallback`, `operations`, `options`, and `breakpoints`, alongside native image
   attributes. Unpic generates `srcset`.
+- Native loading defaults apply to every URL: `loading="lazy"` and `decoding="async"`.
+  `priority` defaults to eager loading and high fetch priority without setting `decoding`;
+  explicit native attributes take precedence.
 - Supported image CDN URLs are transformed automatically. URLs from other sources remain regular
   images unless a Unpic `fallback` provider is supplied.
 - moduix adds a display block, a rounded default, and invariant `data-slot` hooks. Unpic owns the
-  layout-mode width constraints.
+  layout-mode width constraints for supported providers.
 
 ## Anatomy and exported parts
 
@@ -119,6 +122,9 @@ consumer CSS.
 - Do not add Next.js-specific behavior to this entry point.
 
 ## Local changelog
+
+- 2026-10-05: Applied native loading, decoding, and priority defaults to URLs without a CDN
+  across all shipped framework and styling adapters.
 
 - 2026-08-11: Preserved explicit React `fetchPriority` overrides when `priority` is set and
   documented the native-element composition decision.
