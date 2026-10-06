@@ -8,9 +8,9 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 # moduix
 
-moduix is a multi-framework component system built on [Ark UI](https://ark-ui.com/). It pairs Ark's
-accessible interaction primitives with considered defaults, explicit composition, and shared design
-tokens. Every adapter keeps the public API native to its framework.
+moduix provides React, Solid, and Vue components built on [Ark UI](https://ark-ui.com/), with
+CSS Modules or Tailwind CSS styles and shared design tokens. Ark UI handles keyboard interaction,
+focus, and accessibility semantics. Each package uses its framework's props, events, and reactivity.
 
 Start with [Quick start](/docs/quick-start) to choose an installation method and render your first
 component.
@@ -27,8 +27,7 @@ planned and will follow the same component contracts and styling choices.
 | Vue | Available | Native Vue SFC source alongside the React preview |
 | Svelte | Planned | Added only after the adapter ships |
 
-Framework-specific examples use tabs only when the code genuinely differs. Shared concepts stay
-outside the tabs, so the documentation remains concise as new adapters are added.
+Examples include source for each framework. Live previews run React.
 
 ## Choose how you own it
 
@@ -38,10 +37,10 @@ when you want the component source, styles, and supporting utilities inside your
 | Workflow                   | Imports                                           | Best fit                                                               |
 | -------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------- |
 | Package                    | `@moduix/react/*`, `@moduix/solid/*` or `@moduix/vue/*`            | Centralized updates and the smallest amount of application-owned code. |
-| Copy-owned shadcn registry | `@/components/ui/*`                               | Direct source ownership and deliberate local changes.                  |
+| shadcn registry | `@/components/ui/*`                               | Edit component source in your project.                  |
 
-Both workflows expose the same framework-native component contracts and token system. Choose the
-runtime and styling track independently from where the source lives:
+The package and registry versions have the same API. Both installation methods support these
+frameworks and styling options:
 
 <table className="packageMatrix">
   <thead>
@@ -93,24 +92,18 @@ Tailwind CSS.
 
 ## What Ark-backed means
 
-Complex components keep the Ark UI model visible: named parts, controlled and uncontrolled state,
+Complex components use Ark UI's named parts, controlled and uncontrolled state,
 callback detail objects, context providers, `asChild` composition, native form controls, and state
-attributes. moduix adds component styles, considered defaults, convenience composition, and stable
-`data-slot` hooks without hiding the primitive structure you need for advanced product work.
-
-Ark UI remains the source of truth for interaction behavior and accessibility. moduix is the
-opinionated product layer that sits on top.
+attributes. moduix adds styles, default icons, layout helpers, and `data-slot` attributes for CSS
+selectors. You can still compose individual parts and use Ark's providers and context hooks.
 
 ## What shadcn-inspired means
 
-The influence is practical rather than cosmetic:
+The shadcn registry copies components and their supporting files into your project. You can edit
+that source directly; updates to the published packages will not update your copy.
 
-- polished defaults that feel coherent before customization;
-- readable composition, open CSS variables, and source code that is straightforward to inspect;
-- a shadcn registry for copy-owned installation.
-
-This influence does not couple CSS Modules to Tailwind or replace Ark anatomy with shadcn-specific
-wrapper contracts. Both styling tracks provide the same component catalog.
+Registry components use the same Ark UI parts as the packages. CSS Modules and Tailwind are
+available through separate registries.
 
 ## How styling works
 
@@ -176,12 +169,9 @@ ready-made presets.
 
 moduix is possible because of the work and ideas of these projects:
 
-- [Ark UI](https://ark-ui.com/) for the accessible, state-machine-backed primitives that define the
-  behavioral foundation.
-- [Chakra UI](https://chakra-ui.com/) for the Ark-aligned composition ergonomics and design-system
-  craft that continue to inform moduix.
-- [shadcn/ui](https://ui.shadcn.com/) for open-code distribution, beautiful defaults, and a
-  documentation style centered on practical ownership.
+- [Ark UI](https://ark-ui.com/) for interaction primitives.
+- [Chakra UI](https://chakra-ui.com/) for component composition and styling patterns.
+- [shadcn/ui](https://ui.shadcn.com/) for source distribution through registries.
 - [Lucide](https://lucide.dev/) for the open-source icon set used throughout the component library.
 - [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
   adapted by the optional reset.

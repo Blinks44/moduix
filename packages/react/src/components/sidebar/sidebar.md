@@ -23,7 +23,7 @@ adjacent trigger ids, CSS length sizes, controlled sizes, collapse/expand callba
 resizing, and keyboard resizing stay Ark-shaped.
 
 Compose nested navigation with moduix `Collapsible` and account or workspace popups with `Menu`.
-`SidebarTooltip` is the blessed collapsed-label helper and keeps Tooltip as an explicit primitive
+`SidebarTooltip` shows labels when the sidebar is collapsed and uses the Tooltip primitive
 without repeating its full anatomy around every menu button. Persisted layout belongs in app state
 or storage through normal Splitter callbacks, not in a sidebar-owned provider.
 
@@ -34,7 +34,7 @@ place it at the trailing edge.
 
 ## Current behavior contract
 
-- `Sidebar` wraps `Splitter` and preserve its props and callbacks.
+- `Sidebar` wraps `Splitter` and preserves its props and callbacks.
 - Sidebar is a horizontal navigation/inset layout; `orientation` is intentionally fixed and omitted
   from its public props.
 - The sidebar starts at `16rem` (256px), resizes continuously down to its `3rem` (48px) collapsed

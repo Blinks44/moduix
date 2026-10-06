@@ -9,7 +9,7 @@
 Solid components built on [Ark UI](https://ark-ui.com/), with accessible behavior, explicit
 composition, and CSS Modules styling.
 
-moduix gives Ark UI primitives a coherent visual system without adding a styling runtime. Components
+moduix adds CSS Modules and shared design tokens to Ark UI primitives. Components
 are composed from named parts and customizable through CSS custom properties, `class`, stable
 `data-slot` hooks, and Ark state attributes.
 
@@ -33,9 +33,8 @@ The optional `Chart` component also requires its TanStack peer dependency:
 pnpm add @tanstack/charts
 ```
 
-Prefer component subpaths when you do not use Chart. The root barrel also re-exports Chart; install
-`@tanstack/charts` when importing that barrel, since a bundler may resolve the integration even if
-you only use another component.
+Import components from their subpaths, such as `@moduix/solid/accordion`. The package has no
+root export. Only Chart requires `@tanstack/charts`.
 
 ## Add styles
 
@@ -110,7 +109,7 @@ The available presets are `dense`, `soft`, and `contrast`.
 
 ## Prefer to own the source?
 
-The hosted shadcn-compatible registry provides the same component contracts in source form:
+The shadcn registry copies the component source and styles into your project:
 
 ```bash
 pnpm dlx shadcn@latest add @moduix-solid/accordion

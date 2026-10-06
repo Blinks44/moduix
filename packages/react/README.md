@@ -9,7 +9,7 @@
 React components built on [Ark UI](https://ark-ui.com/), with accessible behavior, explicit
 composition, and CSS Modules styling.
 
-moduix gives Ark UI primitives a coherent visual system without adding a styling runtime. Components
+moduix adds CSS Modules and shared design tokens to Ark UI primitives. Components
 are composed from named parts, styled with regular CSS, and customizable through CSS custom
 properties, `className`, stable `data-slot` hooks, and Ark state attributes.
 
@@ -34,9 +34,8 @@ The optional `Chart` component also requires its TanStack peer dependency:
 pnpm add @tanstack/charts
 ```
 
-Prefer component subpaths when you do not use Chart. The root barrel also re-exports Chart; install
-`@tanstack/charts` when importing that barrel, since a bundler may resolve the integration even if
-you only use another component.
+Import components from their subpaths, such as `@moduix/react/accordion`. The package has no
+root export. Only Chart requires `@tanstack/charts`.
 
 ## Add styles
 
@@ -91,7 +90,7 @@ export function Example() {
 
 The family name is the root component. Every additional part is a separate family-prefixed export.
 
-## Customize deliberately
+## Customize
 
 CSS Modules keep the package defaults locally scoped while leaving clear extension points for your
 application:
@@ -130,8 +129,7 @@ The available presets are `dense`, `soft`, and `contrast`.
 
 ## Prefer to own the source?
 
-The hosted shadcn-compatible registry provides the same Ark-aligned component contracts in source
-form. Set up `components.json` with the [Quick start](https://moduix.dev/docs/quick-start), then add
+The shadcn registry copies the component source and styles into your project. Set up `components.json` with the [Quick start](https://moduix.dev/docs/quick-start), then add
 the components you need:
 
 ```bash
@@ -157,12 +155,9 @@ application bundler configured for the browsers your application supports.
 
 moduix is possible because of the work and ideas of these projects:
 
-- [Ark UI](https://ark-ui.com/) for the accessible, state-machine-backed primitives that define the
-  behavioral foundation.
-- [Chakra UI](https://chakra-ui.com/) for Ark-aligned composition ergonomics and design-system
-  craft.
-- [shadcn/ui](https://ui.shadcn.com/) for open-code distribution, beautiful defaults, and a
-  documentation style centered on practical ownership.
+- [Ark UI](https://ark-ui.com/) for interaction primitives.
+- [Chakra UI](https://chakra-ui.com/) for component composition and styling patterns.
+- [shadcn/ui](https://ui.shadcn.com/) for source distribution through registries.
 - [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
   adapted by the optional reset.
 - [Rstack](https://rstack.rs/) for its Rust-based ecosystem: Rspress for documentation, Rslib for

@@ -32,9 +32,8 @@ The optional `Chart` component also requires `@tanstack/charts`:
 pnpm add @tanstack/charts
 ```
 
-Prefer component subpaths when you do not use Chart. The root barrel also re-exports Chart; install
-`@tanstack/charts` when importing that barrel, since a bundler may resolve the integration even if
-you only use another component.
+Import components from their subpaths, such as `@moduix/react-tailwind/accordion`. The package has no
+root export. Only Chart requires `@tanstack/charts`.
 
 ## Add styles
 

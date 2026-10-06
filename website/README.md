@@ -2,7 +2,8 @@
 
 This is the moduix documentation site built with Rspress.
 
-The site documents a multi-framework library. React and Solid adapters ship today; its page structure, shared prose, and framework tabs are designed to accept Vue and Svelte when those adapters ship.
+The site documents the React, Solid, and Vue packages. Examples show native source for each
+framework; live previews run React. Svelte support is planned.
 
 ## Commands
 

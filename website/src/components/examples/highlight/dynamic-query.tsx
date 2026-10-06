@@ -18,7 +18,7 @@ export default function HighlightDynamicQueryDemo() {
       <Text>
         <Highlight
           query={query}
-          text="With Ark UI, you can build accessible, custom components. Each component is fully typed and works seamlessly with React, Solid, Svelte, and Vue."
+          text="Choose a component from the list. Open its documentation to see examples, props, and keyboard controls."
         />
       </Text>
     </div>

@@ -8,8 +8,6 @@ Upstream docs:
 - Chakra UI: https://chakra-ui.com/docs/components/card
 - shadcn/ui: https://ui.shadcn.com/docs/components/card
 
-Reviewed on 2026-08-09.
-
 ## Purpose
 
 `Card` is a standalone moduix surface component.
@@ -27,15 +25,7 @@ component built with `@ark-ui/react/factory` and Chakra's Card anatomy.
 - Keeps Ark-style DOM ownership through `asChild` while leaving card state and workflow logic
   outside the component.
 
-Release comparison:
-
-| Source    | Useful difference                                                                                       | Decision                                                                                              |
-| --------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| Ark UI    | Factory parts preserve `asChild`, merged props, and rendered-element refs.                              | Required correctness; preserved.                                                                      |
-| Chakra UI | `sm` / `md` / `lg` sizes and `elevated` / `outline` / `subtle` variants form a compact recipe contract. | Consumer friction; preserved with independent variant CSS variables.                                  |
-| shadcn/ui | A header action, shared spacing hook, and explicit image composition are easy to discover.              | Optional sugar; covered by `CardAction`, `--moduix-card-spacing*`, `CardMedia`, and `CardBackground`. |
-| moduix    | A flat part-prefixed API and `CardBody` fit adjacent components better than shadcn's `CardContent`.     | Intentional difference.                                                                               |
-| Chakra UI | An `unstyled` prop would create a parallel styling mode.                                                | Rejected complexity; use parts, `className`, and CSS variables instead.                               |
+Card has no `unstyled` prop. Customize its parts with `className` and CSS variables.
 
 ## Current behavior contract
 
@@ -285,10 +275,10 @@ Public CSS variables:
 - `CardAction` and `CardLink` remain narrow moduix extensions for header-side actions and the
   stretched overlay-link pattern.
 
-## Agent notes
+## Preservation notes
 
 - Keep the exported part names stable and aligned with the card docs page.
-- Preserve `CardMedia` as optional sugar; advanced docs should still show the low-level path without it.
+- `CardMedia` is optional; direct image composition remains supported.
 - Preserve `CardBackground` as decorative media only; keep contrast treatments and overlays consumer-owned.
 - Preserve the distinction between `Card asChild` for single-link cards and `CardLink` for
   cards that still contain nested actions.

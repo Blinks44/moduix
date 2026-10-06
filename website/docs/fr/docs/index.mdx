@@ -8,9 +8,10 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 # moduix
 
-moduix est un système de composants multi-framework fondé sur [Ark UI](https://ark-ui.com/). Il associe
-les primitives d’interaction accessibles d’Ark à des valeurs par défaut soignées, une composition
-explicite et des tokens de design partagés. Chaque adaptateur conserve une API native pour son framework.
+moduix fournit des composants React, Solid et Vue basés sur [Ark UI](https://ark-ui.com/), avec des
+styles CSS Modules ou Tailwind CSS et des tokens de design partagés. Ark UI gère les interactions
+au clavier, le focus et la sémantique d’accessibilité. Chaque paquet utilise les propriétés,
+les événements et la réactivité de son framework.
 
 Commencez par le [Démarrage rapide](/docs/quick-start) pour choisir une méthode d’installation et
 afficher votre premier composant.
@@ -27,9 +28,7 @@ est prévu et suivra les mêmes contrats de composants et les mêmes choix de st
 | Vue | Disponible | Code Vue SFC natif aux côtés de l’aperçu React |
 | Svelte | Prévu | Ajouté après la sortie de l’adaptateur |
 
-Les onglets par framework apparaissent uniquement lorsque le code diffère réellement. Les concepts
-communs restent en dehors des onglets afin de préserver une documentation concise lors de l’ajout de
-nouveaux adaptateurs.
+Les exemples présentent le code source pour chaque framework. Les aperçus interactifs utilisent React.
 
 ## Choisissez votre mode d’intégration
 
@@ -41,9 +40,8 @@ le registre shadcn si vous voulez conserver le code source des composants, les s
 | Paquet | `@moduix/react/*`, `@moduix/solid/*` ou `@moduix/vue/*` | Vous voulez des mises à jour centralisées et un minimum de code géré par l’application. |
 | Registre shadcn avec code source dans le projet | `@/components/ui/*` | Vous voulez garder la main sur le code source et ses modifications locales. |
 
-Les deux approches exposent la même API, native pour le framework choisi, et le même système de
-tokens. Choisissez le framework et l’approche de stylisation indépendamment de l’emplacement du code
-source :
+Les paquets et les composants du registre ont la même API. Les deux méthodes d’installation
+prennent en charge les frameworks et les styles suivants :
 
 <table className="packageMatrix">
   <thead>
@@ -95,25 +93,20 @@ requièrent pas Tailwind CSS.
 
 ## Ce que signifie « basé sur Ark »
 
-Les composants complexes conservent le modèle Ark UI visible : parties nommées, état contrôlé et non
-contrôlé, objets contenant les données de l’événement transmis aux fonctions de rappel, fournisseurs de
-contexte, composition `asChild`, contrôles de formulaire natifs et attributs d’état. moduix ajoute les
-styles des composants, des valeurs par défaut soignées, des compositions pratiques et des attributs
-`data-slot` stables, sans masquer la structure des primitives nécessaire aux scénarios produit avancés.
-
-Ark UI reste la référence pour le comportement des interactions et l’accessibilité. moduix fournit par-dessus une
-couche produit avec des styles et des choix assumés.
+Les composants complexes utilisent les parties nommées d’Ark UI, l’état contrôlé et non
+contrôlé, les objets contenant les données de l’événement transmis aux fonctions de rappel, les fournisseurs de
+contexte, la composition `asChild`, les contrôles de formulaire natifs et les attributs d’état.
+moduix ajoute des styles, des icônes par défaut, des éléments de mise en page et des attributs
+`data-slot` pour les sélecteurs CSS. Vous pouvez composer les parties individuelles et utiliser
+les fournisseurs et les hooks de contexte d’Ark.
 
 ## Ce que signifie « inspiré de shadcn »
 
-L’influence de shadcn se retrouve dans des choix pratiques :
+Le registre shadcn copie les composants et les fichiers nécessaires dans votre projet. Vous pouvez
+modifier ce code directement ; les mises à jour des paquets publiés ne modifieront pas votre copie.
 
-- des valeurs par défaut soignées qui paraissent cohérentes avant toute personnalisation ;
-- une composition lisible, des variables CSS publiques et un code source faciles à inspecter ;
-- un registre shadcn pour installer le code source dans le projet.
-
-Cette influence ne lie pas CSS Modules à Tailwind et ne remplace pas l’anatomie Ark par des enveloppes
-propres à shadcn. Les deux approches de style proposent le même catalogue de composants.
+Les composants du registre utilisent les mêmes parties Ark UI que les paquets. CSS Modules et
+Tailwind disposent de registres distincts.
 
 ## Comment fonctionnent les styles
 
@@ -127,7 +120,7 @@ partagent les couleurs sémantiques de base, certains tokens globaux, les animat
 des composants :
 
 - importez `style.css` une seule fois pour charger les tokens partagés et les styles de base ;
-- utilisez `className` avec React ou `class` avec Solid sur la racine et les parties nommées ;
+- utilisez `className` avec React ou `class` avec Solid et Vue sur la racine et les parties nommées ;
 - ciblez les attributs stables `data-slot` et les attributs d’état d’Ark pour les règles liées à un état précis ;
 - redéfinissez les variables `--moduix-*` pour définir le thème et les choix visuels partagés.
 
@@ -180,12 +173,9 @@ avec le code copié. Consultez [Tokens](/docs/tokens) pour la hiérarchie compl�
 
 moduix existe grâce au travail et aux idées de ces projets :
 
-- [Ark UI](https://ark-ui.com/) pour les primitives accessibles fondées sur des machines à états,
-  qui définissent le socle comportemental.
-- [Chakra UI](https://chakra-ui.com/) pour l’ergonomie de composition alignée sur Ark et le
-  savoir-faire en design system qui continuent d’inspirer moduix.
-- [shadcn/ui](https://ui.shadcn.com/) pour la distribution de code ouvert, les belles valeurs par
-  défaut et un style de documentation centré sur la maîtrise concrète du code.
+- [Ark UI](https://ark-ui.com/) pour les primitives d’interaction.
+- [Chakra UI](https://chakra-ui.com/) pour la composition et les styles des composants.
+- [shadcn/ui](https://ui.shadcn.com/) pour la distribution du code source via les registres.
 - [Lucide](https://lucide.dev/) pour le jeu d’icônes open source utilisé dans toute la bibliothèque de composants.
 - [UnoCSS](https://unocss.dev/) et [Tailwind CSS](https://tailwindcss.com/) pour les bases adaptées
   par le reset optionnel.

@@ -29,9 +29,8 @@ The optional `Chart` component also requires `@tanstack/charts`:
 pnpm add @tanstack/charts
 ```
 
-Prefer component subpaths when you do not use Chart. The root barrel also re-exports Chart; install
-`@tanstack/charts` when importing that barrel, since a bundler may resolve the integration even if
-you only use another component.
+Import components from their subpaths, such as `@moduix/vue/accordion`. The package has no
+root export. Only Chart requires `@tanstack/charts`.
 
 ## Add styles
 
@@ -102,7 +101,7 @@ import '@moduix/vue/presets/soft.css';
 ```
 
 ```html
-<html data-moduix-preset="soft"></html>
+<html data-moduix-theme="soft"></html>
 ```
 
 See [Styling](https://moduix.dev/docs/styling), [Tokens](https://moduix.dev/docs/tokens), and

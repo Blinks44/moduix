@@ -7,13 +7,12 @@
 
 # moduix
 
-Product-minded, multi-framework components built on [Ark UI](https://ark-ui.com/), with accessible
-behavior, explicit composition, and first-class CSS Modules and Tailwind styling tracks. React,
-Solid, and Vue adapters ship today; Svelte adapters are planned.
+Components for React, Solid, and Vue built on [Ark UI](https://ark-ui.com/), styled with CSS Modules
+or Tailwind CSS. Ark UI handles keyboard interaction, focus, and accessibility semantics.
+Svelte support is planned.
 
-moduix combines Ark UI primitives with considered defaults and a shadcn-inspired ownership model.
-Use the published package when you want managed updates, or add the component source
-to your application through the hosted shadcn registry when you want to own it.
+Install a published package to receive updates through your package manager, or copy component
+source into your application with the shadcn registry to edit it directly.
 
 [Documentation](https://moduix.dev/) ·
 [Quick start](https://moduix.dev/docs/quick-start) ·
@@ -27,9 +26,6 @@ to your application through the hosted shadcn registry when you want to own it.
 | React   | [`@moduix/react`](https://www.npmjs.com/package/@moduix/react) | [`@moduix/react-tailwind`](https://www.npmjs.com/package/@moduix/react-tailwind) |
 | Solid   | [`@moduix/solid`](https://www.npmjs.com/package/@moduix/solid) | [`@moduix/solid-tailwind`](https://www.npmjs.com/package/@moduix/solid-tailwind) |
 | Vue     | [`@moduix/vue`](https://www.npmjs.com/package/@moduix/vue)     | [`@moduix/vue-tailwind`](https://www.npmjs.com/package/@moduix/vue-tailwind)     |
-
-The package matrix grows with shipped adapters. Shared workflows and documentation are structured so
-Svelte can join without redefining the library around today's runtimes.
 
 ## Why moduix
 
@@ -74,11 +70,8 @@ import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
-Then import component subpaths and compose the flat named parts you need:
-
-Subpath imports also keep optional integrations separate. The root package barrel re-exports Chart;
-install `@tanstack/charts` if you import that barrel, since a bundler may resolve the integration
-even when you only use another component.
+Import components from their subpaths. There is no package-root import. The optional Chart component
+requires `@tanstack/charts`; other components do not need it.
 
 ```tsx
 import {
@@ -129,7 +122,7 @@ The registry preserves the same component contracts and design tokens as the pub
 
 The CSS Modules packages bundle component styles with their component imports. `style.css` supplies
 the shared tokens and base layer styles, while each component keeps its own CSS Module. Start with
-the built-in appearance, then customize deliberately:
+the built-in appearance, then customize it:
 
 - pass `className` to a root or named part for application-owned selectors;
 - target stable moduix `data-slot` hooks or Ark state attributes for state-specific rules;
@@ -195,12 +188,9 @@ repository conventions. Security issues go through [SECURITY.md](./SECURITY.md).
 
 moduix is possible because of the work and ideas of these projects:
 
-- [Ark UI](https://ark-ui.com/) for the accessible, state-machine-backed primitives that define the
-  behavioral foundation.
-- [Chakra UI](https://chakra-ui.com/) for Ark-aligned composition ergonomics and design-system
-  craft.
-- [shadcn/ui](https://ui.shadcn.com/) for open-code distribution, beautiful defaults, and a
-  documentation style centered on practical ownership.
+- [Ark UI](https://ark-ui.com/) for interaction primitives.
+- [Chakra UI](https://chakra-ui.com/) for component composition and styling patterns.
+- [shadcn/ui](https://ui.shadcn.com/) for source distribution through registries.
 - [Lucide](https://lucide.dev/) for the open-source icon set used throughout the component library.
 - [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
   adapted by the optional reset.

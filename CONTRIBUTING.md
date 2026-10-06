@@ -45,7 +45,7 @@ For headed tests, omit `--only-shell`. Linux CI also passes `--with-deps`.
    pick the change type that matches the dependency impact.
 
 3. Keep the multi-adapter contract synchronized. A public component change must reach every
-   shipped counterpart (React, Solid, CSS Modules, Tailwind): implementation, tests, playground
+   shipped counterpart (React, Solid, Vue, CSS Modules, Tailwind): implementation, tests, playground
    story, package `exports` entry, registry item, and component-local docs.
 4. If any registry source file changed, run `pnpm run build:registry` and commit the regenerated
    artifacts under `website/docs/public/r`. Never edit those files by hand.
