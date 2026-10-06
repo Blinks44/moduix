@@ -55,10 +55,29 @@ For headed tests, omit `--only-shell`. Linux CI also passes `--with-deps`.
 ## Releases
 
 Releases are automated with [Changesets](https://changesets.dev). When a pull request with
-changesets merges to `main`, a "Version Packages" PR is created; merging it publishes the packages.
+changesets merges to `main` and Verify passes, the release workflow creates a version PR. After
+that PR merges and Verify passes again, the workflow publishes the prepared versions.
 Publishing authenticates through npm [trusted publishing](https://docs.npmjs.com/trusted-publishers):
 every published package lists this repository and workflow as a trusted publisher, and the release
 workflow attaches a provenance attestation. No npm token is stored in the repository.
+
+Before releasing, stop `dev:docs` and run:
+
+```bash
+pnpm install --frozen-lockfile --no-runtime
+pnpm run fmt:check
+pnpm run lint:check
+pnpm run test
+pnpm run tsc:check
+pnpm run build:packages
+pnpm run check:packages
+pnpm run build:registry
+pnpm run build:docs
+pnpm --filter './playgrounds/*' run build:storybook
+```
+
+Commit regenerated registry files and require a green Verify run for the release commit.
+Review skipped regressions before publishing; passing tests do not mean those contracts are fixed.
 
 ## Reporting issues
 

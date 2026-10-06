@@ -4903,7 +4903,7 @@
         "@moduix-vue/input",
         "@moduix-vue/separator",
         "@moduix-vue/splitter",
-        "@moduix-vue/overlay-portal"
+        "@moduix-vue/tooltip"
       ],
       "files": [
         {

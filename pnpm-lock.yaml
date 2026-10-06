@@ -1076,8 +1076,8 @@ importers:
         specifier: workspace:*
         version: link:../packages/react
       '@rspress/core':
-        specifier: ^2.0.21
-        version: 2.0.21(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2)
+        specifier: ^2.0.23
+        version: 2.0.23(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2)
       '@tanstack/charts':
         specifier: 'catalog:'
         version: 1.0.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(solid-js@1.9.15)(vue@3.5.43(typescript@6.0.3))
@@ -1137,11 +1137,11 @@ importers:
         specifier: workspace:*
         version: link:../packages/vue-tailwind
       '@rspress/plugin-preview':
-        specifier: ^2.0.21
-        version: 2.0.21(@rspack/core@2.2.4(@swc/helpers@0.5.23))(@rspress/core@2.0.21(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: ^2.0.23
+        version: 2.0.23(@rspack/core@2.2.4(@swc/helpers@0.5.23))(@rspress/core@2.0.23(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@rspress/plugin-sitemap':
-        specifier: ^2.0.21
-        version: 2.0.21(@rspress/core@2.0.21(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2))
+        specifier: ^2.0.23
+        version: 2.0.23(@rspress/core@2.0.23(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2))
       '@tanstack/solid-form':
         specifier: ^1.33.5
         version: 1.33.5(solid-js@1.9.15)
@@ -3285,27 +3285,27 @@ packages:
       '@rspack/core':
         optional: true
 
-  '@rspress/core@2.0.21':
-    resolution: {integrity: sha512-QxhVqhHhN4guA24MlvlsFTb96pE/X8gBd5RBfp4j1kn5tAu1nJ7A9itKcRAuEw0WYJHcsWtI+WUnd7JPioHtlw==}
+  '@rspress/core@2.0.23':
+    resolution: {integrity: sha512-two8zdTxN9iJBSyiFXwRLLDXz/yLY2+4ycz8wHjJYzeeuFi/EN2eqsKw1nSpY7sxEGIssY1X74c6017JJUBTyA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
-  '@rspress/plugin-preview@2.0.21':
-    resolution: {integrity: sha512-nvn5uIQqyrT2kv30EcJE/6UPhyKfxHuJIAjhjoapzGI0gxRRkcSsvDQMow6JHkmf3pulywAmYH13uhkFBl13mA==}
+  '@rspress/plugin-preview@2.0.23':
+    resolution: {integrity: sha512-GlMrF8s0UIzS27DNRv21Isx7pnkfH7L3atsadatXuZhlWdMV4WGOLpzWNNElyJ6kRbouUcBzSWlyvrUrXAel7Q==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       '@rspress/core': ^2.0.10
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@rspress/plugin-sitemap@2.0.21':
-    resolution: {integrity: sha512-PldjjLDFqtQZ3yPHHsWxmxGNlmoNH7nSx76ww7QkPzkO9rPrlr71sBLZR3MMc1s6cd5Csyd+gHjfIJiP7o77XQ==}
+  '@rspress/plugin-sitemap@2.0.23':
+    resolution: {integrity: sha512-r37TvCP2wuQX8JbA7hHti8JXhVx4HiaJPn702NgFhGyolGJYIUTRQCO2/ixiP1FZJuxZ4c0yb4ZyNeDa9ZPMlw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       '@rspress/core': ^2.0.10
 
-  '@rspress/shared@2.0.21':
-    resolution: {integrity: sha512-siCWkv1a4n6y7JdVRII+fwCRZGZtG5KGFfKi2w/Tt33UnIgh4XGqozZ5F/K0iZ/QUwg0wi93SoVdOQm2Q+wf8w==}
+  '@rspress/shared@2.0.23':
+    resolution: {integrity: sha512-kE2GXRCQ7GAl2wll1JBWRHEkZICKcWv3V86m8TkjiWb0eEdjACl3kns7j00KTq4UbE35kUPOs+0Lx8vGqK7q9w==}
 
   '@rstest/adapter-rslib@0.12.3':
     resolution: {integrity: sha512-TrTIFtJq6sy7EA8aQFqyP119/d93YOyK/Caig0OArC3jceVrQ40EIb5lpdPilwB5S3Y3e4uwl5EQJ8qjetN+uQ==}
@@ -7094,15 +7094,15 @@ packages:
     peerDependencies:
       react: '>=19'
 
-  react-router-dom@7.18.3:
-    resolution: {integrity: sha512-ytVbyBBM7vMfRCam25r0WMhSVSom909A8p+8m0/f1w853dz/xfFu6etAT2SEbVoSnI+ZoPRDqIsQXVT89gp7kg==}
+  react-router-dom@7.18.4:
+    resolution: {integrity: sha512-yrfmJHIpDG7taCpqKjT1G5B6q3O2K+RN8/fgNf0lTjCwiPbQ0ei6vXX9ZjQR+7ld8Tr7Z5xmyMnZ8YJrphWQUw==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
 
-  react-router@7.18.3:
-    resolution: {integrity: sha512-gyXgtdr5uACJ5b1Q4udzjVV+tb/rlHIMJKuJ0e89R4Kzgz47z/rgP0dIKxktqIEUhDHluGTPJJH/wRha7CyqsA==}
+  react-router@7.18.4:
+    resolution: {integrity: sha512-PUPQcMhMGRAslLcvtlPz/kmzBEWPhLdgLFrL7pLNepBL6dX0lWj4WD2cUYVgYCuT3jxvghYFg81cDTj44DhetQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -10106,13 +10106,13 @@ snapshots:
     optionalDependencies:
       '@rspack/core': 2.2.4(@swc/helpers@0.5.23)
 
-  '@rspress/core@2.0.21(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2)':
+  '@rspress/core@2.0.23(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2)':
     dependencies:
       '@mdx-js/mdx': 3.1.1(supports-color@10.2.2)
       '@mdx-js/react': 3.1.1(@types/react@19.3.0)(react@19.3.0)
       '@rsbuild/core': 2.2.11
       '@rsbuild/plugin-react': 2.1.0(@rsbuild/core@2.2.11)(@rspack/core@2.2.4(@swc/helpers@0.5.23))
-      '@rspress/shared': 2.0.21(supports-color@10.2.2)
+      '@rspress/shared': 2.0.23(supports-color@10.2.2)
       '@shikijs/rehype': 4.4.3
       '@types/mdast': 4.0.4
       '@types/react': 19.3.0
@@ -10131,7 +10131,7 @@ snapshots:
       react-dom: 19.3.0(react@19.3.0)
       react-lazy-with-preload: 2.2.1
       react-render-to-markdown: 19.1.0(react@19.3.0)
-      react-router-dom: 7.18.3(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      react-router-dom: 7.18.4(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       rehype-external-links: 3.0.0
       rehype-raw: 7.0.0
       remark-cjk-friendly: 2.3.1(@types/mdast@4.0.4)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(unified@11.0.5)
@@ -10154,11 +10154,11 @@ snapshots:
       - micromark-util-types
       - supports-color
 
-  '@rspress/plugin-preview@2.0.21(@rspack/core@2.2.4(@swc/helpers@0.5.23))(@rspress/core@2.0.21(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@rspress/plugin-preview@2.0.23(@rspack/core@2.2.4(@swc/helpers@0.5.23))(@rspress/core@2.0.23(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@rsbuild/core': 2.2.11
       '@rsbuild/plugin-react': 2.1.0(@rsbuild/core@2.2.11)(@rspack/core@2.2.4(@swc/helpers@0.5.23))
-      '@rspress/core': 2.0.21(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2)
+      '@rspress/core': 2.0.23(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2)
       picocolors: 1.1.1
       qrcode.react: 4.2.0(react@19.3.0)
       react: 19.3.0
@@ -10168,11 +10168,11 @@ snapshots:
       - '@rspack/core'
       - core-js
 
-  '@rspress/plugin-sitemap@2.0.21(@rspress/core@2.0.21(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2))':
+  '@rspress/plugin-sitemap@2.0.23(@rspress/core@2.0.23(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2))':
     dependencies:
-      '@rspress/core': 2.0.21(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2)
+      '@rspress/core': 2.0.23(@rspack/core@2.2.4(@swc/helpers@0.5.23))(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@10.2.2))(supports-color@10.2.2)
 
-  '@rspress/shared@2.0.21(supports-color@10.2.2)':
+  '@rspress/shared@2.0.23(supports-color@10.2.2)':
     dependencies:
       '@rsbuild/core': 2.2.11
       '@shikijs/rehype': 4.4.3
@@ -14661,13 +14661,13 @@ snapshots:
       react: 19.3.0
       react-reconciler: 0.33.0(react@19.3.0)
 
-  react-router-dom@7.18.3(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+  react-router-dom@7.18.4(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
-      react-router: 7.18.3(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      react-router: 7.18.4(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
 
-  react-router@7.18.3(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+  react-router@7.18.4(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
       cookie: 1.1.1
       react: 19.3.0

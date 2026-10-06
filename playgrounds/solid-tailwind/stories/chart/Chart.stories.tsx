@@ -246,17 +246,7 @@ const radarDefinition = defineChart({
     range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
   },
   focus: focusGroupAngle,
-  tooltip: {
-    use: tooltip,
-    content: (points) => ({
-      title: points[0]?.datum.metric,
-      rows: points.map((point) => ({
-        label: point.datum.series,
-        value: `${point.datum.value}/100`,
-        color: point.color,
-      })),
-    }),
-  },
+  tooltip,
 });
 
 const meta = {

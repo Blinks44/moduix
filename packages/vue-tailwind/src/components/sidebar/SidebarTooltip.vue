@@ -1,16 +1,9 @@
 <script setup lang="ts">
-import {
-  TooltipContent as ArkTooltipContent,
-  TooltipPositioner as ArkTooltipPositioner,
-  TooltipRoot as ArkTooltipRoot,
-  TooltipTrigger as ArkTooltipTrigger,
-} from '@ark-ui/vue/tooltip';
 import type { TooltipRootEmits, TooltipRootProps } from '@ark-ui/vue/tooltip';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import type { PortalRef } from '@/internal/overlayPortal/context';
-import OverlayPortal from '@/internal/overlayPortal/OverlayPortal.vue';
-import OverlayPortalProvider from '@/internal/overlayPortal/OverlayPortalProvider.vue';
+import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '../tooltip';
 import { useSidebar } from './context';
 
 defineOptions({ inheritAttrs: false });
@@ -46,31 +39,25 @@ const positioning = computed<TooltipRootProps['positioning']>(() => ({
   gutter: 8,
   ...positioningProp,
 }));
-const positionerClass =
-  'z-[var(--z-index,var(--moduix-z-popup))] max-h-[var(--available-height)] max-w-[var(--available-width)] outline-0';
-const contentClass =
-  'relative z-60 max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(20rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-md border border-border bg-popover px-2 py-1 text-center text-sm leading-5 wrap-anywhere text-popover-foreground shadow-md data-instant:animate-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none';
 </script>
 
 <template>
-  <OverlayPortalProvider :portalled="portalled" :portal-ref="portalRef">
-    <ArkTooltipRoot
-      v-bind="attrs"
-      :close-delay="closeDelay"
-      :lazy-mount="lazyMount"
-      :open-delay="openDelay"
-      :unmount-on-exit="unmountOnExit"
-      :disabled="!collapsed"
-      :positioning="positioning"
-    >
-      <ArkTooltipTrigger as-child data-slot="tooltip-trigger"><slot /></ArkTooltipTrigger>
-      <OverlayPortal>
-        <ArkTooltipPositioner :class="positionerClass" data-slot="tooltip-positioner">
-          <ArkTooltipContent :class="contentClass" data-slot="tooltip-content">
-            <slot name="content">{{ content }}</slot>
-          </ArkTooltipContent>
-        </ArkTooltipPositioner>
-      </OverlayPortal>
-    </ArkTooltipRoot>
-  </OverlayPortalProvider>
+  <Tooltip
+    v-bind="attrs"
+    :portalled="portalled"
+    :portal-ref="portalRef"
+    :close-delay="closeDelay"
+    :lazy-mount="lazyMount"
+    :open-delay="openDelay"
+    :unmount-on-exit="unmountOnExit"
+    :disabled="!collapsed"
+    :positioning="positioning"
+  >
+    <TooltipTrigger as-child><slot /></TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        <slot name="content">{{ content }}</slot>
+      </TooltipContent>
+    </TooltipPositioner>
+  </Tooltip>
 </template>

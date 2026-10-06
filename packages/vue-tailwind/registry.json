@@ -4657,7 +4657,7 @@
         "@moduix-vue-tailwind/input",
         "@moduix-vue-tailwind/separator",
         "@moduix-vue-tailwind/splitter",
-        "@moduix-vue-tailwind/overlay-portal"
+        "@moduix-vue-tailwind/tooltip"
       ],
       "files": [
         {

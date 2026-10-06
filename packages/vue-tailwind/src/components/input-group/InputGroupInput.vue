@@ -24,7 +24,7 @@ const props = defineProps<Props>();
 defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
-const inputProps = props as unknown as Pick<Props, 'class' | 'htmlSize' | 'size'>;
+const inputProps = props as Pick<Props, 'class' | 'htmlSize' | 'size'>;
 
 const attrs = useAttrs();
 const groupSize = inject(

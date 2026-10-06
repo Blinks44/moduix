@@ -59,17 +59,7 @@ const radarDefinition = defineChart({
     range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
   },
   focus: focusGroupAngle,
-  tooltip: {
-    use: tooltip,
-    content: (points) => ({
-      title: points[0]?.datum.metric,
-      rows: points.map((point) => ({
-        label: point.datum.series,
-        value: `${point.datum.value}/100`,
-        color: point.color,
-      })),
-    }),
-  },
+  tooltip,
 });
 </script>
 
@@ -81,7 +71,7 @@ const radarDefinition = defineChart({
         >Scores out of 100. Hover a point or use arrow keys to compare a metric.</ChartDescription
       >
     </ChartHeader>
-    <ChartPlot :definition="radarDefinition" :height="360" aria-label="Product scores by metric" />
+    <ChartPlot :definition="radarDefinition" :height="360" ariaLabel="Product scores by metric" />
     <ChartLegend aria-label="Products">
       <ChartLegendItem color="var(--moduix-color-chart-1)">Product A</ChartLegendItem>
       <ChartLegendItem color="var(--moduix-color-chart-2)">Product B</ChartLegendItem>

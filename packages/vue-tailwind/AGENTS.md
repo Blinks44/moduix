@@ -9,9 +9,8 @@ You are an expert in JavaScript, Vue, Tailwind CSS, Rspack, Rsbuild, Rslib, and 
 - `pnpm --filter @moduix/vue-tailwind test` - Run tests
 - `pnpm --filter @moduix/vue-tailwind test:watch` - Run tests in watch mode
 
-Component contract changes must be ported against the shipped React and Solid counterparts in
-`packages/react`, `packages/solid`, `packages/react-tailwind`, and `packages/solid-tailwind`
-through the root `component-workflow` skill.
+Use the root `component-workflow` skill to check and synchronize component contract changes
+across every shipped framework and styling counterpart.
 
 ## Docs
 

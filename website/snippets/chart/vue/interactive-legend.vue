@@ -67,7 +67,7 @@ const definition = computed(() =>
     <ChartPlot
       :definition="definition"
       :height="320"
-      aria-label="Monthly revenue and target with interactive legend"
+      ariaLabel="Monthly revenue and target with interactive legend"
     />
   </Chart>
 </template>

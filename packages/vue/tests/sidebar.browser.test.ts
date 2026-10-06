@@ -538,6 +538,46 @@ test('controls CSS-length sizes, emits resize details once, and enables collapse
   await expect.element(toggle).toHaveAttribute('aria-expanded', 'true');
 });
 
+test.each([false, true])(
+  'preserves sidebar tooltip slots and portal scope (portalled=%s)',
+  async (portalled) => {
+    const portal = ref<HTMLElement | null>(null);
+    const content = ref('Initial overview');
+    render({
+      components,
+      setup: () => ({ portal, content, portalled }),
+      template: `
+      <div ref="portal" data-testid="tooltip-target" style="--moduix-color-popover: rgb(11, 22, 33)" />
+      <Sidebar style="width: 800px; height: 400px; --moduix-color-popover: rgb(44, 55, 66)">
+        <SidebarPanel>
+          <SidebarTooltip content="Unused fallback" :portalled="portalled" :portal-ref="portal" :open-delay="0">
+            <SidebarNavigationButton aria-label="Overview">Overview</SidebarNavigationButton>
+            <template #content>{{ content }}</template>
+          </SidebarTooltip>
+        </SidebarPanel>
+        <SidebarResizeTrigger />
+        <SidebarTrigger />
+        <SidebarInset />
+      </Sidebar>
+    `,
+    });
+
+    await expect
+      .element(page.getByRole('separator', { name: 'Resize sidebar' }))
+      .toHaveAttribute('aria-valuenow', '32');
+    await page.getByRole('button', { name: 'Toggle sidebar' }).click();
+    await page.getByRole('button', { name: 'Overview' }).hover();
+    const tooltip = page.getByRole('tooltip');
+    await expect.element(tooltip).toHaveText('Initial overview');
+    await expect
+      .element(tooltip)
+      .toHaveCSS('background-color', portalled ? 'rgb(11, 22, 33)' : 'rgb(44, 55, 66)');
+    expect(portal.value?.querySelector('[role="tooltip"]') !== null).toBe(portalled);
+    content.value = 'Updated overview';
+    await expect.element(tooltip).toHaveText('Updated overview');
+  },
+);
+
 // Zag Splitter omits the first programmatic collapse notification (chakra-ui/zag#3371).
 // Keep the direct Ark reproduction until the upstream size-notification map is initialized correctly.
 test.skip('emits collapse on the first controlled transition in direct Ark', async () => {

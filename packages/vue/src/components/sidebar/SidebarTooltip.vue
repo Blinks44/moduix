@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import { TooltipContent as ArkTooltipContent } from '@ark-ui/vue/tooltip';
-import { TooltipPositioner as ArkTooltipPositioner } from '@ark-ui/vue/tooltip';
-import { TooltipRoot as ArkTooltipRoot } from '@ark-ui/vue/tooltip';
-import { TooltipTrigger as ArkTooltipTrigger } from '@ark-ui/vue/tooltip';
 import type { TooltipRootEmits, TooltipRootProps } from '@ark-ui/vue/tooltip';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import type { PortalRef } from '../../internal/overlayPortal/context';
-import OverlayPortal from '../../internal/overlayPortal/OverlayPortal.vue';
-import OverlayPortalProvider from '../../internal/overlayPortal/OverlayPortalProvider.vue';
+import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '../tooltip';
 import { useSidebar } from './context';
-import styles from './Sidebar.module.css';
 
 defineOptions({ inheritAttrs: false });
 
@@ -53,26 +47,24 @@ const positioning = computed<TooltipRootProps['positioning']>(() => ({
 </script>
 
 <template>
-  <OverlayPortalProvider :portalled="portalled" :portal-ref="portalRef">
-    <ArkTooltipRoot
-      v-bind="attrs"
-      :close-delay="closeDelay"
-      :lazy-mount="lazyMount"
-      :open-delay="openDelay"
-      :unmount-on-exit="unmountOnExit"
-      :disabled="!collapsed"
-      :positioning="positioning"
-    >
-      <ArkTooltipTrigger as-child data-slot="tooltip-trigger">
-        <slot />
-      </ArkTooltipTrigger>
-      <OverlayPortal>
-        <ArkTooltipPositioner :class="styles.tooltipPositioner" data-slot="tooltip-positioner">
-          <ArkTooltipContent :class="styles.tooltipContent" data-slot="tooltip-content">
-            <slot name="content">{{ content }}</slot>
-          </ArkTooltipContent>
-        </ArkTooltipPositioner>
-      </OverlayPortal>
-    </ArkTooltipRoot>
-  </OverlayPortalProvider>
+  <Tooltip
+    v-bind="attrs"
+    :portalled="portalled"
+    :portal-ref="portalRef"
+    :close-delay="closeDelay"
+    :lazy-mount="lazyMount"
+    :open-delay="openDelay"
+    :unmount-on-exit="unmountOnExit"
+    :disabled="!collapsed"
+    :positioning="positioning"
+  >
+    <TooltipTrigger as-child>
+      <slot />
+    </TooltipTrigger>
+    <TooltipPositioner>
+      <TooltipContent>
+        <slot name="content">{{ content }}</slot>
+      </TooltipContent>
+    </TooltipPositioner>
+  </Tooltip>
 </template>

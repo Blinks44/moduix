@@ -9,8 +9,8 @@ You are an expert in JavaScript, Rspack, Rsbuild, Rslib, and library development
 - `pnpm --filter @moduix/react test` - Run tests
 - `pnpm --filter @moduix/react test:watch` - Run tests in watch mode
 
-Component contract changes must also be checked against existing counterparts in `packages/solid`,
-`packages/react-tailwind`, and `packages/solid-tailwind` through the root `component-workflow` skill.
+Use the root `component-workflow` skill to check and synchronize component contract changes
+across every shipped framework and styling counterpart.
 
 ## Docs
 

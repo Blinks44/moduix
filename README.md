@@ -35,7 +35,7 @@ source into your application with the shadcn registry to edit it directly.
   Tailwind CSS v4 for utility-first composition and overrides. Neither path adds a styling runtime.
 - **Composable APIs.** Components expose the useful parts of their anatomy without hiding the
   primitive structure needed for product-specific UI.
-- **A predictable styling contract.** Shared tokens, `className`, stable `data-slot` hooks, and Ark
+- **A predictable styling contract.** Shared tokens, `className` / `class`, stable `data-slot` hooks, and Ark
   state attributes give application CSS clear extension points.
 - **Two ownership models.** Keep dependencies package-managed or copy component source into your
   application through the shadcn registry.
@@ -124,7 +124,7 @@ The CSS Modules packages bundle component styles with their component imports. `
 the shared tokens and base layer styles, while each component keeps its own CSS Module. Start with
 the built-in appearance, then customize it:
 
-- pass `className` to a root or named part for application-owned selectors;
+- pass `className` (React) or `class` (Solid and Vue) to a root or named part for application CSS;
 - target stable moduix `data-slot` hooks or Ark state attributes for state-specific rules;
 - override public CSS custom properties at the appropriate theme, semantic, or component layer.
 
@@ -173,9 +173,6 @@ pnpm run tsc:check
 Run `pnpm run build:registry` after changing files shipped by the registry.
 
 ## Contributing
-
-See [Release validation](RELEASE_CHECKLIST.md) for package, registry, documentation, and upstream
-checks required before a release.
 
 Contributions are welcome, especially focused component improvements, accessibility fixes, bug
 reports, and documentation corrections. Keep public component behavior, local component notes,
