@@ -10,7 +10,8 @@
   (accessed 2026-09-25)
 - TanStack Charts themes and styling: https://tanstack.com/charts/latest/docs/guides/themes-and-styling
   (accessed 2026-09-25)
-- Installed @tanstack/charts 0.16.2 declarations and Vue adapter source (accessed 2026-09-25)
+- TanStack Charts 1.0.0 published types and release-source docs:
+  https://github.com/TanStack/charts/tree/v1.0.0/docs (accessed 2026-10-06)
 
 ## Purpose
 
@@ -43,7 +44,7 @@ becomes the host.
 - Create `areaY`, `barX`, `barY`, `cell`, `dot`, `lineY`, `pie`, `polar`, `radialArc`, scales, axes,
   layouts, focus behavior, and interactions with `@tanstack/charts`; moduix does not mirror the mark
   API or add a second definition DSL.
-- TanStack's official Vue entry is SVG-only, so `ChartPlot` drives `createChartRendererAdapter` from
+- TanStack's official Vue entry in v1 accepts `renderSvg`, not `ChartRenderer`, so `ChartPlot` drives `createChartRendererAdapter` from
   `@tanstack/charts/adapter/renderer` directly, mirroring the Solid adapter. This is the documented
   renderer-neutral tier for hosts that expose an application-selected `ChartRenderer`, and it keeps
   the moduix motion preset and custom renderers available.
@@ -68,7 +69,7 @@ becomes the host.
 - The internal focusable SVG keeps TanStack keyboard navigation and receives the moduix focus ring
   through arbitrary variants on the host. Do not disable `focusRing` unless the definition provides
   replacement focus geometry.
-- `@tanstack/charts` is an optional peer dependency. The current moduix peer range is `^0.16.0`.
+- `@tanstack/charts` is an optional peer dependency. The current moduix peer range is `^1.0.0`.
 
 ## Styling and accessibility
 

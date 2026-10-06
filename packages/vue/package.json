@@ -447,7 +447,7 @@
   },
   "peerDependencies": {
     "@ark-ui/vue": "^5.39.3",
-    "@tanstack/charts": "^0.16.0",
+    "@tanstack/charts": "^1.0.0",
     "vue": "^3.5.0"
   },
   "peerDependenciesMeta": {

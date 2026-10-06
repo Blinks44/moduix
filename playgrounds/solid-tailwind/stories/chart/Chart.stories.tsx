@@ -1,10 +1,21 @@
 import { areaY, barY, defineChart, lineY, stack } from '@tanstack/charts';
-import { pie, polar, radialArc } from '@tanstack/charts/polar';
+import { controlledSignal } from '@tanstack/charts/interaction/signal';
+import { interactiveColorLegend } from '@tanstack/charts/legend';
+import {
+  angleGrid,
+  focusGroupAngle,
+  pie,
+  polar,
+  radialArc,
+  radialGrid,
+  radialLine,
+} from '@tanstack/charts/polar';
 import { scaleBand } from '@tanstack/charts/scales/band';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
 import { scalePoint } from '@tanstack/charts/scales/point';
 import { tooltip } from '@tanstack/charts/tooltip';
-import { Show } from 'solid-js';
+import { curveLinearClosed } from 'd3-shape';
+import { createMemo, createSignal, Show } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
 import {
@@ -180,6 +191,74 @@ const donutDefinition = defineChart({
   },
 });
 
+const revenue = [
+  { month: 'Jan', series: 'Revenue', value: 42 },
+  { month: 'Feb', series: 'Revenue', value: 58 },
+  { month: 'Mar', series: 'Revenue', value: 76 },
+  { month: 'Apr', series: 'Revenue', value: 64 },
+  { month: 'Jan', series: 'Target', value: 48 },
+  { month: 'Feb', series: 'Target', value: 55 },
+  { month: 'Mar', series: 'Target', value: 68 },
+  { month: 'Apr', series: 'Target', value: 72 },
+];
+
+const scores = [
+  { metric: 'Speed', series: 'Product A', value: 85 },
+  { metric: 'Reliability', series: 'Product A', value: 92 },
+  { metric: 'Usability', series: 'Product A', value: 78 },
+  { metric: 'Features', series: 'Product A', value: 72 },
+  { metric: 'Support', series: 'Product A', value: 88 },
+  { metric: 'Speed', series: 'Product B', value: 72 },
+  { metric: 'Reliability', series: 'Product B', value: 82 },
+  { metric: 'Usability', series: 'Product B', value: 90 },
+  { metric: 'Features', series: 'Product B', value: 88 },
+  { metric: 'Support', series: 'Product B', value: 68 },
+];
+
+const radarDefinition = defineChart({
+  marks: [
+    polar({
+      radiusRatio: 0.7,
+      scales: {
+        angle: { scale: scalePoint },
+        radius: { scale: scaleLinear().domain([0, 100]) },
+      },
+      guides: [
+        radialGrid({ values: [25, 50, 75, 100], shape: 'polygon' }),
+        angleGrid({ labels: true }),
+      ],
+      states: [{ when: { focus: 'unmatched' }, style: { opacity: 0.2 } }],
+      marks: [
+        radialLine(scores, {
+          angle: 'metric',
+          radius: 'value',
+          color: 'series',
+          curve: curveLinearClosed,
+          points: true,
+          strokeWidth: 2,
+        }),
+      ],
+    }),
+  ],
+  scales: { x: null, y: null },
+  color: {
+    domain: ['Product A', 'Product B'],
+    range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
+  },
+  focus: focusGroupAngle,
+  tooltip: {
+    use: tooltip,
+    content: (points) => ({
+      title: points[0]?.datum.metric,
+      rows: points.map((point) => ({
+        label: point.datum.series,
+        value: `${point.datum.value}/100`,
+        color: point.color,
+      })),
+    }),
+  },
+});
+
 const meta = {
   title: 'Components/Chart',
   component: ChartPlot,
@@ -278,6 +357,77 @@ export const Donut: Story = {
             {channel}
           </ChartLegendItem>
         ))}
+      </ChartLegend>
+    </Chart>
+  ),
+};
+
+export const InteractiveLegend: Story = {
+  render: () => {
+    const [visible, setVisible] = createSignal<readonly string[]>(['Revenue', 'Target']);
+    const definition = createMemo(() =>
+      defineChart({
+        marks: [
+          lineY(revenue, {
+            x: 'month',
+            y: 'value',
+            color: 'series',
+            points: true,
+            strokeWidth: 2,
+            states: [
+              { when: { focus: 'unmatched', source: 'legend' }, style: { opacity: 0.2 } },
+              { when: { focus: 'series', source: 'legend' }, style: { strokeWidth: 3 } },
+            ],
+          }),
+        ],
+        scales: {
+          x: { scale: () => scalePoint<string>().padding(0.2), axis: { label: 'Month' } },
+          y: { scale: scaleLinear, nice: true, grid: true, axis: { label: 'Revenue ($k)' } },
+        },
+        color: {
+          domain: ['Revenue', 'Target'],
+          range: ['var(--moduix-color-chart-1)', 'var(--moduix-color-chart-2)'],
+          legend: interactiveColorLegend({
+            hover: 'series',
+            visible: controlledSignal(visible(), setVisible),
+            ariaLabel: 'Revenue series visibility',
+          }),
+        },
+        focus: 'group-x',
+        tooltip,
+      }),
+    );
+    return (
+      <Chart>
+        <ChartHeader>
+          <ChartTitle>Revenue and target</ChartTitle>
+          <ChartDescription>
+            Hover or focus a legend item to highlight it. Click to hide its series.
+          </ChartDescription>
+        </ChartHeader>
+        <ChartPlot
+          definition={definition()}
+          height={320}
+          ariaLabel="Monthly revenue and target with interactive legend"
+        />
+      </Chart>
+    );
+  },
+};
+
+export const Radar: Story = {
+  render: () => (
+    <Chart>
+      <ChartHeader>
+        <ChartTitle>Product comparison</ChartTitle>
+        <ChartDescription>
+          Scores out of 100. Hover a point or use arrow keys to compare a metric.
+        </ChartDescription>
+      </ChartHeader>
+      <ChartPlot definition={radarDefinition} height={360} ariaLabel="Product scores by metric" />
+      <ChartLegend aria-label="Products">
+        <ChartLegendItem color="var(--moduix-color-chart-1)">Product A</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-color-chart-2)">Product B</ChartLegendItem>
       </ChartLegend>
     </Chart>
   ),

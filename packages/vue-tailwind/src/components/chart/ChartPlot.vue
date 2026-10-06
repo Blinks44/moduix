@@ -1,11 +1,7 @@
 <script lang="ts">
-import type {
-  ChartRenderer,
-  ChartRendererHostOptions,
-  ChartTooltipBodyContext,
-  ChartValue,
-} from '@tanstack/charts';
+import type { ChartRenderer, ChartRendererHostOptions, ChartValue } from '@tanstack/charts';
 import { motion as createMotionRenderer } from '@tanstack/charts/motion';
+import type { ChartTooltipBodySlotContext as ChartTooltipBodyRenderContext } from '@tanstack/charts/vue';
 import type { HTMLAttributes, StyleValue, VNodeChild } from 'vue';
 
 const defaultChartRenderer = createMotionRenderer({
@@ -17,13 +13,7 @@ const defaultChartRenderer = createMotionRenderer({
   },
 });
 
-export type ChartTooltipBodyRenderContext<
-  TDatum = unknown,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
-> = ChartTooltipBodyContext<TDatum, TXValue, TYValue> & {
-  defaultBody: () => VNodeChild;
-};
+export type { ChartTooltipBodyRenderContext };
 
 export interface Props<
   TDatum = unknown,

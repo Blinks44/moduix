@@ -2,6 +2,9 @@
 
 ## Upstream reference
 
+- TanStack Charts 1.0.0 published types and release-source docs:
+  https://github.com/TanStack/charts/tree/v1.0.0/docs (accessed 2026-10-06)
+
 - TanStack Charts React chart reference: https://tanstack.com/charts/latest/docs/framework/react/reference/chart
   (accessed 2026-08-18)
 - TanStack Charts focus and interaction: https://tanstack.com/charts/latest/docs/reference/focus-and-interaction
@@ -54,8 +57,8 @@ TanStack.
   portalling, and dismissal. Interactive content renders only while pinned.
 - The internal focusable SVG keeps TanStack keyboard navigation and receives the moduix focus ring.
   Do not disable `focusRing` unless the definition provides replacement focus geometry.
-- `@tanstack/charts` is an optional peer dependency. The current moduix peer range is `^0.16.0`,
-  and its React adapter requires React 19.
+- `@tanstack/charts` is an optional peer dependency. The current moduix peer range is `^1.0.0`,
+  and its React adapter supports React 18 and 19.
 
 ## Styling and accessibility
 

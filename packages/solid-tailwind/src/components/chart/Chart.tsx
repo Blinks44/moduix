@@ -9,6 +9,7 @@ import type {
 } from '@tanstack/charts';
 import { createChartRendererAdapter } from '@tanstack/charts/adapter/renderer';
 import { motion as createMotionRenderer } from '@tanstack/charts/motion';
+import type { ChartTooltipBodyRenderContext } from '@tanstack/charts/solid';
 import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
 import {
   For,
@@ -63,14 +64,6 @@ function withTooltipStyles<
 
 type ChartTooltipContent = ChartTooltipBodyContext['content'];
 type ChartTooltipObjectContent = Exclude<ChartTooltipContent, string>;
-
-type ChartTooltipBodyRenderContext<
-  TDatum = unknown,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
-> = ChartTooltipBodyContext<TDatum, TXValue, TYValue> & {
-  defaultBody: JSX.Element;
-};
 
 type ChartTooltipBodyRenderProps<
   TDatum = unknown,

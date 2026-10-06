@@ -11,7 +11,9 @@ import ChartBasic from '@/components/examples/chart/basic.tsx';
 import ChartDonut from '@/components/examples/chart/donut.tsx';
 import ChartHeatmap from '@/components/examples/chart/heatmap.tsx';
 import ChartHorizontalBars from '@/components/examples/chart/horizontal-bars.tsx';
+import ChartInteractiveLegend from '@/components/examples/chart/interactive-legend.tsx';
 import ChartColors from '@/components/examples/chart/line-colors.tsx';
+import ChartRadar from '@/components/examples/chart/radar.tsx';
 import ChartScatter from '@/components/examples/chart/scatter.tsx';
 import ChartStackedBars from '@/components/examples/chart/stacked-bars.tsx';
 import chartSolidAdvancedCustomization from '../../../snippets/chart/solid/advanced-customization.tsx?raw';
@@ -20,7 +22,9 @@ import chartSolidBasic from '../../../snippets/chart/solid/basic.tsx?raw';
 import chartSolidDonut from '../../../snippets/chart/solid/donut.tsx?raw';
 import chartSolidHeatmap from '../../../snippets/chart/solid/heatmap.tsx?raw';
 import chartSolidHorizontalBars from '../../../snippets/chart/solid/horizontal-bars.tsx?raw';
+import chartSolidInteractiveLegend from '../../../snippets/chart/solid/interactive-legend.tsx?raw';
 import chartSolidColors from '../../../snippets/chart/solid/line-colors.tsx?raw';
+import chartSolidRadar from '../../../snippets/chart/solid/radar.tsx?raw';
 import chartSolidScatter from '../../../snippets/chart/solid/scatter.tsx?raw';
 import chartSolidStackedBars from '../../../snippets/chart/solid/stacked-bars.tsx?raw';
 import chartVueAdvancedCustomization from '../../../snippets/chart/vue/advanced-customization.vue?raw';
@@ -29,7 +33,9 @@ import chartVueBasic from '../../../snippets/chart/vue/basic.vue?raw';
 import chartVueDonut from '../../../snippets/chart/vue/donut.vue?raw';
 import chartVueHeatmap from '../../../snippets/chart/vue/heatmap.vue?raw';
 import chartVueHorizontalBars from '../../../snippets/chart/vue/horizontal-bars.vue?raw';
+import chartVueInteractiveLegend from '../../../snippets/chart/vue/interactive-legend.vue?raw';
 import chartVueColors from '../../../snippets/chart/vue/line-colors.vue?raw';
+import chartVueRadar from '../../../snippets/chart/vue/radar.vue?raw';
 import chartVueScatter from '../../../snippets/chart/vue/scatter.vue?raw';
 import chartVueStackedBars from '../../../snippets/chart/vue/stacked-bars.vue?raw';
 
@@ -221,6 +227,80 @@ TanStack.
     <Tab value="vue">
 
 <CodeBlockRuntime lang="vue" code={chartVueColors} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
+
+### Интерактивная легенда
+
+Используйте `interactiveColorLegend` TanStack вместо отдельного `ChartLegend`, если нужно скрывать
+серии. В v1 параметр `hover: 'series'` также применяет состояния графических элементов при наведении
+и клавиатурном фокусе. Состояния с `source: 'legend'` выделяют серию, не открывая подсказку и не меняя
+фокус графика. Храните видимые серии в состоянии фреймворка через `controlledSignal`; кнопками,
+фильтрацией и клавиатурным управлением занимается TanStack.
+
+<ExampleFrame variant="component">
+  <ChartInteractiveLegend />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/chart/interactive-legend.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={chartSolidInteractiveLegend} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueInteractiveLegend} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
+
+### Радарная диаграмма
+
+Сравнивайте показатели по общей шкале 0–100 с помощью `radialLine` и замкнутой кривой D3. Радарные
+диаграммы были доступны и до v1; новинка в этом примере — `polar.states`, приглушающие точки вне
+фокуса. `focusGroupAngle` объединяет оба продукта по показателю для подсказки и клавиатурного
+управления.
+
+Для этого примера также нужны `d3-shape` и его TypeScript-типы:
+
+<PackageManagerTabs command="install d3-shape" />
+<PackageManagerTabs command="install -D @types/d3-shape" />
+
+<ExampleFrame variant="component">
+  <ChartRadar />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/chart/radar.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={chartSolidRadar} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={chartVueRadar} />
 
     </Tab>
   </Tabs>
