@@ -59,8 +59,8 @@ export default function CmsLightboxDemo() {
         />
         <LightboxBackdrop />
         <LightboxPositioner>
-          <LightboxCloseIcon />
           <LightboxContent aria-label={activeImage()?.alt ?? 'Image preview'}>
+            <LightboxCloseIcon />
             <Show when={activeImage()}>
               {(image) => <LightboxImage src={image().src} alt={image().alt ?? ''} />}
             </Show>

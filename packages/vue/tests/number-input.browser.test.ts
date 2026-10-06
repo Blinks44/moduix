@@ -392,8 +392,7 @@ test('keeps consumer classes on the styled root and parts', () => {
   ]).toEqual(expect.arrayContaining(['consumer-increment']));
 });
 
-// Ark Vue 5.39.2 does not declare or forward onValueCommit and renders no default value text.
-test.skip('renders the formatted value in NumberInputValueText', async () => {
+test('renders the formatted value in NumberInputValueText', async () => {
   const Harness = {
     components: numberInputComponents,
     template: `
@@ -407,18 +406,23 @@ test.skip('renders the formatted value in NumberInputValueText', async () => {
   await expect.element(page.getByText('2')).toBeAttached();
 });
 
-test.skip('forwards Ark value commit details on blur and Enter', async () => {
+test('reports value commit details through the hook on blur and Enter', async () => {
   const commits: Array<{ value: string }> = [];
   const Harness = {
     components: numberInputComponents,
     setup() {
-      return { commits };
+      return {
+        numberInput: useNumberInput({
+          defaultValue: '2',
+          onValueCommit: (details) => commits.push(details),
+        }),
+      };
     },
     template: `
-      <NumberInput default-value="2" @value-commit="commits.push($event)">
+      <NumberInputRootProvider :value="numberInput">
         <NumberInputLabel>Amount</NumberInputLabel>
         <NumberInputField />
-      </NumberInput>
+      </NumberInputRootProvider>
       <button type="button">After input</button>
     `,
   };
@@ -427,9 +431,12 @@ test.skip('forwards Ark value commit details on blur and Enter', async () => {
   const input = page.getByRole('spinbutton', { name: 'Amount' });
   await input.click();
   await input.fill('3');
+  await expect.element(input).toHaveAttribute('aria-valuenow', '3');
   await page.getByRole('button', { name: 'After input' }).click();
   await expect.poll(() => commits).toEqual([{ value: '3', valueAsNumber: 3 }]);
+  await input.click();
   await input.fill('4');
+  await expect.element(input).toHaveAttribute('aria-valuenow', '4');
   await input.press('Enter');
   await expect
     .poll(() => commits)

@@ -191,7 +191,7 @@ Use this skill for JS/TS Vue work in this repo.
   controlled state through a parent harness that writes emitted values back into its ref. Test
   relevant omitted Boolean defaults, fallthrough listeners, scoped slots, ordinary refs through
   `$el`, and `asChild` separately rather than weakening an established behavior assertion.
-- Prefer Browser Mode locator interactions, or user-event in unmigrated DOM tests, for capture/bubble
-  listener checks. Vue runtime-dom timestamps event invokers, so same-tick synthetic dispatch can
+- Prefer Browser Mode locator interactions for capture/bubble listener checks.
+  Vue runtime-dom timestamps event invokers, so same-tick synthetic dispatch can
   skip a later invoker. If an exact low-level event is required, account for that timing in the test;
   do not change the component listener contract or add routine sleeps to mask it.

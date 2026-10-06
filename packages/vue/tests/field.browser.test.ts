@@ -82,7 +82,9 @@ test('wires labels, descriptions, errors, and field state to a native control', 
   await expect.element(inputLocator).toBeDisabled();
   await expect.element(inputLocator).toHaveAttribute('aria-invalid', 'true');
   await expect.poll(() => input.getAttribute('aria-describedby')).toContain(helperText.id);
-  await expect.element(inputLocator).toHaveAttribute('aria-errormessage', errorText.id);
+  await expect
+    .poll(() => input.getAttribute('aria-describedby')?.split(' '))
+    .toEqual(expect.arrayContaining([helperText.id, errorText.id]));
   await expect.element(inputLocator).toHaveAttribute('required');
   await expect.element(inputLocator).toHaveAttribute('readonly');
   await expect.element(page.getByText('Email', { exact: true })).toHaveAttribute('for', input.id);
@@ -184,7 +186,7 @@ test.each([
     },
     setup: () => ({ asChild, changes, controlRef, nativeEvent, value }),
     template: `
-      <form aria-label="Field form">
+      <form aria-label="Field form" @reset="value = 'initial'">
         <Control
           ref="controlRef"
           v-model="value"
@@ -223,6 +225,12 @@ test.each([
   expect(changes).toEqual(['next']);
   expect(nativeEvent).toHaveBeenCalledTimes(1);
   expect(new FormData(form).get('value')).toBe('parent');
+  form.reset();
+  await expect.element(controlLocator).toHaveValue('initial');
+  expect(value.value).toBe('initial');
+  expect(new FormData(form).get('value')).toBe('initial');
+  expect(changes).toEqual(['next']);
+  expect(nativeEvent).toHaveBeenCalledTimes(1);
 });
 
 test('keeps the RootProvider composition path Ark-shaped', async () => {
@@ -317,19 +325,20 @@ test('keeps controlled field props reactive', async () => {
     .toHaveAttribute('required');
 });
 
-// Ark Vue 5.39.2 declares native defaultValue props but drops them in FieldInput/FieldSelect.
+// Ark binds value=undefined without a model, clearing native defaultValue/selected.
+// Plain controls preserve both. Re-enable after Ark omits that uncontrolled value binding.
 test.skip('preserves native default values and reset behavior', async () => {
   render({
     components: fieldComponents,
     template: `
       <form aria-label="Project form">
         <Field>
-          <FieldInput aria-label="Project key" default-value="MAPS" name="project" />
+          <FieldInput aria-label="Project key" :defaultValue="'MAPS'" name="project" />
         </Field>
         <Field>
-          <FieldSelect aria-label="Priority" default-value="normal" name="priority">
+          <FieldSelect aria-label="Priority" name="priority">
             <option value="low">Low</option>
-            <option value="normal">Normal</option>
+            <option value="normal" selected>Normal</option>
           </FieldSelect>
         </Field>
       </form>
@@ -338,13 +347,26 @@ test.skip('preserves native default values and reset behavior', async () => {
   const form = screen.getByRole('form', { name: 'Project form' }) as HTMLFormElement;
 
   const textbox = page.getByRole('textbox', { name: 'Project key', exact: true });
+  const priority = page.getByRole('combobox', { name: 'Priority', exact: true });
   await expect.element(textbox).toHaveValue('MAPS');
-  await expect
-    .element(page.getByRole('combobox', { name: 'Priority', exact: true }))
-    .toHaveValue('normal');
+  await expect.element(priority).toHaveValue('normal');
+  expect([...new FormData(form)]).toEqual([
+    ['project', 'MAPS'],
+    ['priority', 'normal'],
+  ]);
   await textbox.fill('MODUIX');
+  await priority.selectOption('low');
+  expect([...new FormData(form)]).toEqual([
+    ['project', 'MODUIX'],
+    ['priority', 'low'],
+  ]);
   form.reset();
   await expect.element(textbox).toHaveValue('MAPS');
+  await expect.element(priority).toHaveValue('normal');
+  expect([...new FormData(form)]).toEqual([
+    ['project', 'MAPS'],
+    ['priority', 'normal'],
+  ]);
 });
 
 test('hydrates without replacing hosts or generated ids', async () => {
@@ -362,6 +384,7 @@ test('hydrates without replacing hosts or generated ids', async () => {
     expect(host.querySelectorAll('[data-slot="field-root"]')).toHaveLength(1);
     expect(host.querySelector('[data-slot="field-root"]')).toBe(serverRoot);
     expect([...host.querySelectorAll('[id]')].map((element) => element.id)).toEqual(serverIds);
+    await expect.element(page.getByRole('textbox', { name: 'Name' })).toHaveValue('Initial name');
     await page.getByRole('textbox', { name: 'Name' }).fill('Hydrated value');
     await expect.element(page.getByRole('textbox', { name: 'Name' })).toHaveValue('Hydrated value');
     expect(warn).not.toHaveBeenCalled();

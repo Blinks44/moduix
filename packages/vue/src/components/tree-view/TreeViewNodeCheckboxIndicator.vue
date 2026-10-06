@@ -11,11 +11,9 @@ defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ TreeViewNodeCheckboxIndicatorProps {
   class?: HTMLAttributes['class'];
-  fallback?: TreeViewNodeCheckboxIndicatorProps['fallback'];
-  indeterminate?: TreeViewNodeCheckboxIndicatorProps['indeterminate'];
 }
 
-const { class: className, fallback, indeterminate } = defineProps<Props>();
+const { class: className } = defineProps<Props>();
 defineSlots<{
   default?: () => unknown;
   indeterminate?: () => unknown;
@@ -31,7 +29,7 @@ const attrs = useAttrs();
     :class="clsx(styles.nodeCheckboxIndicator, className)"
     data-slot="tree-view-node-checkbox-indicator"
   >
-    <ArkTreeViewNodeCheckboxIndicator :fallback="fallback" :indeterminate="indeterminate">
+    <ArkTreeViewNodeCheckboxIndicator>
       <template #indeterminate>
         <slot name="indeterminate"><IndeterminateIcon /></slot>
       </template>

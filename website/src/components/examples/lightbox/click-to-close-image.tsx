@@ -39,8 +39,8 @@ export default function ClickToCloseLightboxDemo() {
       <LightboxTrigger className={styles.button}>Open click-to-close lightbox</LightboxTrigger>
       <LightboxBackdrop />
       <LightboxPositioner>
-        <LightboxCloseIcon />
         <LightboxContent aria-label={images[1].alt}>
+          <LightboxCloseIcon />
           <LightboxImage src={images[1].src} alt={images[1].alt} closeOnClick />
         </LightboxContent>
       </LightboxPositioner>

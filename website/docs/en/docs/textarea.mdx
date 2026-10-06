@@ -150,6 +150,9 @@ Use `defaultValue` for an uncontrolled textarea. Use `value` with native `onChan
 Solid, or `v-model` in Vue, when the application owns the content, using the matching framework's
 state primitive.
 
+In Vue, bind the native DOM property as `:defaultValue="initialValue"`, not `default-value`.
+With `v-model`, reset the bound state in the form's reset handler: native reset does not emit an input event.
+
 Wrap `Textarea` with `Field`, `FieldLabel`, `FieldHelperText`, and `FieldErrorText` when the
 control needs a label, supporting text, or validation. Outside `Field`, provide an accessible name
 with a native `<label>` or `aria-label`.

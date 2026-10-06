@@ -38,8 +38,8 @@ export default function FocusLightboxDemo() {
         <LightboxTrigger class={styles.button}>Open focus-managed lightbox</LightboxTrigger>
         <LightboxBackdrop />
         <LightboxPositioner>
-          <LightboxCloseIcon id={closeId} />
           <LightboxContent>
+            <LightboxCloseIcon id={closeId} />
             <LightboxTitle class={styles.status}>Mountain ridge at sunset</LightboxTitle>
             <LightboxImage src={image.src} alt={image.alt} />
           </LightboxContent>

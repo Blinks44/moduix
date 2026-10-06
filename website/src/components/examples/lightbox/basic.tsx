@@ -44,8 +44,8 @@ export default function LightboxDemo() {
       </LightboxTrigger>
       <LightboxBackdrop />
       <LightboxPositioner>
-        <LightboxCloseIcon />
         <LightboxContent aria-label={images[0].alt}>
+          <LightboxCloseIcon />
           <LightboxBody>
             <LightboxImage src={images[0].src} alt={images[0].alt} />
           </LightboxBody>

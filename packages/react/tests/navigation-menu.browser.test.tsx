@@ -178,6 +178,11 @@ test('keeps viewport motion and provider composition Ark-shaped', async () => {
   await page.getByRole('button', { name: 'Docs', exact: true }).hover();
 
   await expect
-    .element(page.locator('[data-slot="navigation-menu-content"][data-motion="from-end"]'))
-    .toBeAttached();
+    .element(page.locator('[data-slot="navigation-menu-content"][data-value="docs"]'))
+    .toHaveAttribute('data-motion', 'from-end');
+
+  await page.getByRole('button', { name: 'Products', exact: true }).hover();
+  await expect
+    .element(page.locator('[data-slot="navigation-menu-content"][data-value="products"]'))
+    .toHaveAttribute('data-motion', 'from-start');
 });

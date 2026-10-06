@@ -2,7 +2,10 @@
 import { Field, FieldHelperText, FieldItem, FieldLabel } from '@moduix/vue/field';
 import { Input } from '@moduix/vue/input';
 import { NativeSelect } from '@moduix/vue/native-select';
+import { ref } from 'vue';
 import styles from '@/components/examples/field/field-item-target.module.css';
+
+const currency = ref('USD');
 </script>
 
 <template>
@@ -10,7 +13,7 @@ import styles from '@/components/examples/field/field-item-target.module.css';
     <FieldLabel>Amount</FieldLabel>
     <div :class="styles.inlineControls">
       <FieldItem value="currency">
-        <NativeSelect aria-label="Currency" default-value="USD">
+        <NativeSelect v-model="currency" aria-label="Currency">
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
           <option value="GBP">GBP</option>

@@ -162,28 +162,28 @@ test('preserves Ark navigation semantics, active state, anatomy, attrs, and refs
   await expect.element(nestedItem).toHaveAttribute('data-depth', '3');
 });
 
-// Ark Vue 5.39.2 / Zag 1.43.3 reports the old controlled activeIds in activeChange.
-// Re-enable after the upstream machine invokes the callback with the requested ids.
-test.skip('direct Ark controlled active-change reports the requested ids', async () => {
+test('controlled active-change reports the requested ids', async () => {
   const activeIds = ref(['introduction']);
   const change = rs.fn((details: { activeIds: string[] }) => {
     activeIds.value = details.activeIds;
   });
   render(
     defineComponent({
-      components: { ...tocComponents, Toc: ArkTocRoot },
+      components: tocComponents,
       setup: () => ({ items, activeIds, change }),
       template: `
     <Toc :items="items" :active-ids="activeIds" @active-change="change">
-      <TocContent><h2 id="introduction">Introduction</h2><h3 id="configuration">Configuration</h3></TocContent>
+      <TocContent>
+      <TocContext v-slot="context">
+        <button @click="context.setActiveIds(['configuration'])">Activate configuration</button>
+      </TocContext>
+      </TocContent>
       <TocNav><TocTitle>On this page</TocTitle><TocList>
         <TocItem v-for="item in items" :key="item.value" :item="item">
           <TocLink as-child><a :href="'#' + item.value">{{ item.value }}</a></TocLink>
         </TocItem>
       </TocList></TocNav>
-      <TocContext v-slot="context">
-        <button @click="context.setActiveIds(['configuration'])">Activate configuration</button>
-      </TocContext>
+
     </Toc>
   `,
     }),

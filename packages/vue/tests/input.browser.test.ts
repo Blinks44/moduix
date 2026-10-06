@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Input } from '../src';
+import { Input as TextInput } from '../src';
 import styles from '../src/components/input/Input.module.css';
 import SsrInput from './fixtures/SsrInput.vue';
 
@@ -13,7 +13,7 @@ const fieldComponents = {
   FieldErrorText,
   FieldLabel,
   FieldRoot,
-  Input,
+  TextInput,
 };
 
 test('preserves native field state and component-owned styling hooks', async () => {
@@ -22,7 +22,7 @@ test('preserves native field state and component-owned styling hooks', async () 
     template: `
       <FieldRoot disabled id="email" invalid read-only required>
         <FieldLabel>Email</FieldLabel>
-        <Input
+        <TextInput
           :data-part="'consumer-part'"
           :data-scope="'consumer-scope'"
           :data-size="'xs'"
@@ -61,7 +61,7 @@ test('forwards the input ref on the ordinary path', () => {
     setup() {
       return { inputRef };
     },
-    template: '<Input ref="inputRef" aria-label="Repository" />',
+    template: '<TextInput ref="inputRef" aria-label="Repository" />',
   });
 
   const input = screen.getByRole('textbox', { name: 'Repository' });
@@ -79,9 +79,9 @@ test('preserves asChild composition and forwards its ref to the semantic input',
       return { inputRef };
     },
     template: `
-      <Input ref="inputRef" as-child>
+      <TextInput ref="inputRef" as-child>
         <input name="repository" aria-label="Repository" />
-      </Input>
+      </TextInput>
     `,
   });
 
@@ -108,12 +108,12 @@ test.each([false, true])('supports controlled v-model updates (asChild=%s)', asy
       };
     },
     template: `
-      <Input
+      <TextInput
         v-model="value"
         :as-child="asChild"
         aria-label="Project key"
         @update:model-value="changes.push($event)"
-      >${asChild ? '<input />' : ''}</Input>
+      ><input v-if="asChild" /></TextInput>
       <output>{{ value }}</output>
     `,
   });

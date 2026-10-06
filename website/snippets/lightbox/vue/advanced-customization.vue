@@ -21,8 +21,8 @@ const image = {
     <LightboxTrigger :class="styles.button">Open styled lightbox</LightboxTrigger>
     <LightboxBackdrop :class="styles.customBackdrop" />
     <LightboxPositioner>
-      <LightboxCloseIcon :class="styles.customClose" />
       <LightboxContent :class="styles.customContent" :aria-label="image.alt">
+        <LightboxCloseIcon :class="styles.customClose" />
         <LightboxImage :src="image.src" :alt="image.alt" />
       </LightboxContent>
     </LightboxPositioner>

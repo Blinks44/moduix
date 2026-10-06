@@ -1,10 +1,3 @@
-import {
-  TourContent as ArkTourContent,
-  TourDescription as ArkTourDescription,
-  TourPositioner as ArkTourPositioner,
-  TourRoot as ArkTourRoot,
-  TourTitle as ArkTourTitle,
-} from '@ark-ui/vue/tour';
 import type { TourStepDetails } from '@ark-ui/vue/tour';
 import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
@@ -489,42 +482,6 @@ test('keeps controlled hook state, scoped context, slots, and asChild refs react
     'welcome',
     'finish',
   ]);
-});
-
-// Ark Vue 5.39.2 declares machine emits on Root but only connects its presence exit event.
-// Re-enable after upstream connects the declared events; keep the direct Ark reproduction.
-test.skip('native Ark TourRoot emits its declared machine statusChange event', async () => {
-  const statusChange = rs.fn();
-  const App = defineComponent({
-    components: {
-      ArkTourContent,
-      ArkTourDescription,
-      ArkTourPositioner,
-      ArkTourRoot,
-      ArkTourTitle,
-    },
-    setup() {
-      return { statusChange, tour: useTour({ steps }) };
-    },
-    template: `
-      <button type="button" @click="tour.start()">Start native tour</button>
-      <ArkTourRoot :tour="tour" @status-change="statusChange">
-        <ArkTourPositioner>
-          <ArkTourContent><ArkTourTitle /><ArkTourDescription /></ArkTourContent>
-        </ArkTourPositioner>
-      </ArkTourRoot>
-    `,
-  });
-
-  render(App);
-  await page.getByRole('button', { name: 'Start native tour', exact: true }).click();
-  await expect
-    .poll(() => statusChange)
-    .toHaveBeenCalledWith(
-      expect.objectContaining({
-        status: 'started',
-      }),
-    );
 });
 
 test('renders and hydrates inline and portalled Tour anatomy without replacing server nodes', async () => {

@@ -108,6 +108,16 @@
   .body {
     display: grid;
     gap: var(--moduix-lightbox-body-gap, var(--moduix-spacing-3));
+
+    .content[data-state='open'] > & {
+      animation: inherit;
+      animation-name: global(moduix-lightbox-body-in);
+    }
+
+    .content[data-state='closed'] > & {
+      animation: inherit;
+      animation-name: global(moduix-lightbox-body-out);
+    }
   }
 
   .footer {

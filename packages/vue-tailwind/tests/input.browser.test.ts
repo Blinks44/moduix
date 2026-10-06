@@ -5,10 +5,10 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Input } from '../src';
+import { Input as TextInput } from '../src';
 import SsrInput from './fixtures/SsrInput.vue';
 
-const fieldComponents = { FieldLabel, FieldRoot, Input };
+const fieldComponents = { FieldLabel, FieldRoot, TextInput };
 
 test('preserves native field state and component-owned styling hooks', async () => {
   render({
@@ -16,7 +16,7 @@ test('preserves native field state and component-owned styling hooks', async () 
     template: `
       <FieldRoot disabled id="email" invalid read-only required>
         <FieldLabel>Email</FieldLabel>
-        <Input
+        <TextInput
           :data-part="'consumer-part'"
           :data-scope="'consumer-scope'"
           :data-size="'xs'"
@@ -54,7 +54,7 @@ test('forwards the input ref on the ordinary path', () => {
     setup() {
       return { inputRef };
     },
-    template: '<Input ref="inputRef" aria-label="Repository" />',
+    template: '<TextInput ref="inputRef" aria-label="Repository" />',
   });
 
   const input = screen.getByRole('textbox', { name: 'Repository' });
@@ -72,9 +72,9 @@ test('preserves asChild composition and forwards its ref to the semantic input',
       return { inputRef };
     },
     template: `
-      <Input ref="inputRef" as-child>
+      <TextInput ref="inputRef" as-child>
         <input name="repository" aria-label="Repository" />
-      </Input>
+      </TextInput>
     `,
   });
 
@@ -101,12 +101,12 @@ test.each([false, true])('supports controlled v-model updates (asChild=%s)', asy
       };
     },
     template: `
-      <Input
+      <TextInput
         v-model="value"
         :as-child="asChild"
         aria-label="Project key"
         @update:model-value="changes.push($event)"
-      >${asChild ? '<input />' : ''}</Input>
+      ><input v-if="asChild" /></TextInput>
       <output>{{ value }}</output>
     `,
   });
@@ -126,7 +126,7 @@ test.each([false, true])('supports controlled v-model updates (asChild=%s)', asy
 });
 
 test('applies native utilities to the input', () => {
-  render({ components: fieldComponents, template: '<Input aria-label="Project key" />' });
+  render({ components: fieldComponents, template: '<TextInput aria-label="Project key" />' });
   const input = screen.getByRole('textbox', { name: 'Project key' });
   expect([...input.classList]).toEqual(
     expect.arrayContaining([
@@ -153,11 +153,11 @@ test('applies each visual size with native utilities', () => {
   render({
     components: fieldComponents,
     template: `
-      <Input size="xs" aria-label="Extra-small input" />
-      <Input size="sm" aria-label="Small input" />
-      <Input size="md" aria-label="Medium input" />
-      <Input size="lg" aria-label="Large input" />
-      <Input size="xl" aria-label="Extra-large input" />
+      <TextInput size="xs" aria-label="Extra-small input" />
+      <TextInput size="sm" aria-label="Small input" />
+      <TextInput size="md" aria-label="Medium input" />
+      <TextInput size="lg" aria-label="Large input" />
+      <TextInput size="xl" aria-label="Extra-large input" />
     `,
   });
 
@@ -180,7 +180,7 @@ test('lets consumer utilities replace component defaults', () => {
   render({
     components: fieldComponents,
     template: `
-      <Input
+      <TextInput
         size="lg"
         :html-size="8"
         aria-label="Project key"

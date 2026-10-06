@@ -81,8 +81,7 @@ test('keeps Ark semantics, form values, anatomy, and flat exports', async () => 
     setup() {
       return { collection: fruits, item: fruits.items[0], inputRef, itemRef, rootRef };
     },
-    template:
-      '<form><Combobox ref="rootRef" :collection="collection" default-open :default-value="[&quot;apple&quot;]" name="fruit"><ComboboxLabel>Fruit</ComboboxLabel><ComboboxControl><ComboboxInput ref="inputRef" data-probe="input" /><ComboboxTrigger aria-label="Open fruits" /></ComboboxControl><ComboboxPositioner><ComboboxContent><ComboboxList><ComboboxOption ref="itemRef" :item="item">Apple</ComboboxOption></ComboboxList></ComboboxContent></ComboboxPositioner></Combobox></form>',
+    template: `<form><Combobox ref="rootRef" :collection="collection" default-open :default-value="['apple']" name="fruit"><ComboboxLabel>Fruit</ComboboxLabel><ComboboxControl><ComboboxInput ref="inputRef" data-probe="input" /><ComboboxTrigger aria-label="Open fruits" /></ComboboxControl><ComboboxPositioner><ComboboxContent><ComboboxList><ComboboxOption ref="itemRef" :item="item">Apple</ComboboxOption></ComboboxList></ComboboxContent></ComboboxPositioner></Combobox></form>`,
   });
 
   const { container } = render(Harness);
@@ -119,8 +118,7 @@ test('supports controlled input v-model updates', async () => {
       const inputValue = ref('mango');
       return { collection: fruits, inputValue };
     },
-    template:
-      '<div><Combobox :collection="collection" v-model:input-value="inputValue" :portalled="false"><ComboboxLabel>Controlled fruit</ComboboxLabel><ComboboxControl><ComboboxInput /></ComboboxControl></Combobox><button type="button" @click="inputValue = &quot;apple&quot;">Set apple</button></div>',
+    template: `<div><Combobox :collection="collection" v-model:input-value="inputValue" :portalled="false"><ComboboxLabel>Controlled fruit</ComboboxLabel><ComboboxControl><ComboboxInput /></ComboboxControl></Combobox><button type="button" @click="inputValue = 'apple'">Set apple</button></div>`,
   });
 
   render(Harness);

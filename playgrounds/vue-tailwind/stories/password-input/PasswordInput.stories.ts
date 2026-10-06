@@ -104,7 +104,7 @@ export const IgnorePasswordManager: Story = {
     <PasswordInput ignore-password-managers>
       <PasswordInputLabel>API key</PasswordInputLabel>
       <PasswordInputControl>
-        <PasswordInputInput default-value="spd_1234567890" />
+        <PasswordInputInput :defaultValue="'spd_1234567890'" />
         <PasswordInputVisibilityTrigger><PasswordInputIndicator /></PasswordInputVisibilityTrigger>
       </PasswordInputControl>
     </PasswordInput>

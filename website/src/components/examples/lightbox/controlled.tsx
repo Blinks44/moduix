@@ -41,8 +41,8 @@ export default function ControlledLightboxDemo() {
       <LightboxTrigger className={styles.button}>Open controlled lightbox</LightboxTrigger>
       <LightboxBackdrop />
       <LightboxPositioner>
-        <LightboxCloseIcon />
         <LightboxContent aria-label={images[1].alt}>
+          <LightboxCloseIcon />
           <LightboxImage src={images[1].src} alt={images[1].alt} />
         </LightboxContent>
       </LightboxPositioner>

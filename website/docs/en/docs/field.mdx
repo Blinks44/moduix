@@ -180,6 +180,10 @@ For several native controls, wrap each one in `FieldItem value` and set the root
 `FieldRootProvider` with `useField()` when state is created outside the rendered tree; custom controls
 can read the current state through `FieldContext` or `useFieldContext`.
 
+In Vue, initialize native controls with `v-model` and reset the bound refs in the form's reset handler.
+`FieldInput` and `FieldSelect` do not provide React's `defaultValue` prop. Ark currently clears native
+uncontrolled defaults on these controls; use `v-model` until that upstream behavior is fixed.
+
 ## Examples
 
 ### Checkbox
@@ -619,6 +623,6 @@ consumer classes; the CSS variables below customize the CSS Modules variants.
 ### Styling hooks
 
 Ark adds `data-disabled`, `data-invalid`, `data-readonly`, and `data-required` to the relevant parts.
-`FieldErrorText` exists only while the current field context is invalid. The helper text id is included
-in the control's `aria-describedby`, and the active error text id is included in `aria-errormessage`.
+`FieldErrorText` exists only while the current field context is invalid. The helper text id and the
+active error text id are included in the control's `aria-describedby`.
 Every DOM part also keeps a stable `data-slot="field-*"` hook.

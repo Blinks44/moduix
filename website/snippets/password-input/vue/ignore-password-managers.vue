@@ -14,7 +14,7 @@ import styles from '@/components/examples/password-input/password-input-ignore-p
   <PasswordInput :class="styles.root" ignore-password-managers>
     <PasswordInputLabel>API key</PasswordInputLabel>
     <PasswordInputControl>
-      <PasswordInputInput default-value="spd_1234567890" />
+      <PasswordInputInput :defaultValue="'spd_1234567890'" />
       <PasswordInputVisibilityTrigger>
         <PasswordInputIndicator />
       </PasswordInputVisibilityTrigger>

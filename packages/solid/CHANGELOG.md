@@ -4,11 +4,14 @@
 
 ### Major Changes
 
+- Ship React, Solid, and the first Vue adapters, including their Tailwind variants, on the same `3.0.0` release line.
+- Use flat component exports: `Dialog`, `DialogTrigger`, `DialogContent`, `DialogRootProvider`, and `DialogContext`, rather than compound `Dialog.*` APIs or duplicate `DialogRoot` aliases.
+- Configure dismissible overlay layers with `--moduix-z-popup`; `--moduix-z-modal` no longer controls these overlays.
+
 ### Clipboard
 
 - Remove `ClipboardCopyText`.
   Pass `copied="Copied"` and children directly to `ClipboardIndicator` for text content; the icon defaults are unchanged.
-  This major release also aligns all four adapters on one version line: the Solid and Tailwind adapters move from their divergent versions to 3.0.0 together with `@moduix/react`, and future releases ship the same version for every adapter.
 
 ### Minor Changes
 
@@ -19,6 +22,10 @@
   The public `--moduix-angle-slider-*` variable set was retuned; the needle thumb, inner disc, center dot, and track/control border variables were removed.
 
 ### Patch Changes
+
+- Update Ark UI to `^5.39.3` and simplify component styles and TypeScript integration while preserving native events, refs, portals, and controlled state.
+- Fix Lightbox motion and image previews, Listbox focus styling, and collapsed Tailwind Sidebar icons.
+- Foundation CSS uses `light-dark()` and scoped derived tokens. Raw CSS requires Chrome/Edge 123+, Firefox 120+, or Safari/iOS 17.5+.
 
 - Consolidate the default accessible labels (clear triggers, close buttons, loading text, and friends) into shared internal helpers and ship them as `a11y-labels` registry items so every component entry point resolves its label imports after a shadcn install.
 - Switch every component barrel to `export * from './Component.js'` and normalize the `.js` extension in Tailwind barrels, so new component exports no longer need barrel updates in four packages.

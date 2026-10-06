@@ -153,6 +153,10 @@ test('uses the native input for form submission and reset', async () => {
   expect(new FormData(form).get('password')).toBe('initial-password');
 
   await page.getByLabel('Password', { exact: true }).fill('updated-password');
+  await page.getByRole('button', { name: /show password/i, exact: true }).click();
+  await expect
+    .element(page.getByLabel('Password', { exact: true }))
+    .toHaveValue('updated-password');
   expect(new FormData(form).get('password')).toBe('updated-password');
 
   form.reset();

@@ -183,27 +183,39 @@ test('lazily mounts, closes a click-to-close image, and restores focus', async (
     .toBeFocused();
 });
 
-test('closes from its accessible close icon and restores focus to its trigger', async () => {
+test('keeps its close icon accessible and viewport-fixed, then restores trigger focus', async () => {
   render(() => (
     <Lightbox portalled={false}>
       <LightboxTrigger>Open preview</LightboxTrigger>
       <LightboxPositioner>
-        <LightboxCloseIcon />
         <LightboxContent aria-label="Image preview">
-          <LightboxImage src="/full-size.jpg" alt="Mountain ridge" />
+          <LightboxCloseIcon />
+          <LightboxBody style={{ width: '240px', height: '160px' }}>
+            <LightboxImage src="/full-size.jpg" alt="Mountain ridge" />
+          </LightboxBody>
         </LightboxContent>
       </LightboxPositioner>
     </Lightbox>
   ));
 
   await page.getByRole('button', { name: 'Open preview', exact: true }).click();
+  const closeIcon = page.getByRole('button', { name: 'Close image', exact: true });
+  await expect.element(closeIcon).toBeFocused();
+  await expect.element(closeIcon).toBeVisible();
+  const dialog = screen.getByRole('dialog', { name: 'Image preview' });
+  const button = screen.getByRole('button', { name: 'Close image' });
+  expect(dialog.contains(button)).toBe(true);
+  expect(getComputedStyle(dialog).scale).toBe('none');
+  expect(getComputedStyle(dialog).translate).toBe('none');
+  const rect = button.getBoundingClientRect();
+  expect(rect.top).toBeCloseTo(16);
+  expect(window.innerWidth - rect.right).toBeCloseTo(16);
   await expect
-    .element(page.getByRole('dialog', { name: 'Image preview', exact: true }))
-    .toBeFocused();
-  await expect
-    .element(page.getByRole('button', { name: 'Close image', exact: true }))
-    .toBeVisible();
-  await page.getByRole('button', { name: 'Close image', exact: true }).click();
+    .element(page.locator('[data-slot="lightbox-body"]'))
+    .toHaveCSS('animation-name', 'moduix-lightbox-body-in');
+  await closeIcon.press('Tab');
+  await expect.element(closeIcon).toBeFocused();
+  await closeIcon.click();
 
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
   await expect
@@ -275,8 +287,8 @@ test('forwards refs through native parts and keeps asChild composition native', 
       />
       <LightboxBackdrop ref={(element) => (backdropRef = element)} />
       <LightboxPositioner ref={(element) => (positionerRef = element)}>
-        <LightboxCloseIcon ref={(element) => (closeIconRef = element)} />
         <LightboxContent ref={(element) => (contentRef = element)}>
+          <LightboxCloseIcon ref={(element) => (closeIconRef = element)} />
           <LightboxHeader ref={(element) => (headerRef = element)}>
             <LightboxTitle ref={(element) => (titleRef = element)}>Preview</LightboxTitle>
             <LightboxDescription ref={(element) => (descriptionRef = element)}>
@@ -321,8 +333,8 @@ test('merges consumer utilities over Tailwind defaults', async () => {
     <Lightbox defaultOpen portalled={false}>
       <LightboxBackdrop class="bg-red-500" />
       <LightboxPositioner class="p-8">
-        <LightboxCloseIcon class="size-10" />
         <LightboxContent class="max-w-full" aria-label="Image preview">
+          <LightboxCloseIcon class="size-10" />
           <LightboxImage class="rounded-none" src="/full-size.jpg" alt="Mountain ridge" />
         </LightboxContent>
       </LightboxPositioner>
@@ -362,8 +374,8 @@ test('applies component-owned visual utilities to every visual part', async () =
     <Lightbox defaultOpen portalled={false}>
       <LightboxBackdrop />
       <LightboxPositioner>
-        <LightboxCloseIcon />
         <LightboxContent aria-label="Image preview">
+          <LightboxCloseIcon />
           <LightboxHeader>
             <LightboxTitle>Preview</LightboxTitle>
             <LightboxDescription>Description</LightboxDescription>

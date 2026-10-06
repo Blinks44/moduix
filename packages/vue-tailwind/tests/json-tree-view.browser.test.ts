@@ -1,7 +1,6 @@
 import {
   JsonTreeViewRoot as ArkJsonTreeView,
   JsonTreeViewTree as ArkJsonTreeViewTree,
-  useJsonTreeView as useArkJsonTreeView,
 } from '@ark-ui/vue/json-tree-view';
 import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
@@ -224,38 +223,30 @@ test.skip.each([
   expect(container.querySelector('[data-part="branch-indent-guide"]')).not.toBeNull();
 });
 
-// Ark Vue 5.39.2 snapshots data before creating its computed collection.
-// Keep the direct Ark reproduction and re-enable after the upstream fix.
-test.skip.each([
-  ['Ark', ArkJsonTreeView, ArkJsonTreeViewTree],
-  ['moduix', JsonTreeView, JsonTreeViewTree],
-])('%s updates rendered nodes when data is replaced', async (_name, Root, Tree) => {
+test('updates rendered nodes when data is replaced', async () => {
   const currentData = ref({ status: 'before' });
   render(
     defineComponent({
-      components: { Root, Tree },
+      components: jsonTreeViewComponents,
       setup: () => ({ currentData }),
-      template: '<Root :data="currentData" :default-expanded-depth="2"><Tree /></Root>',
+      template:
+        '<JsonTreeView :data="currentData" :default-expanded-depth="2"><JsonTreeViewTree /></JsonTreeView>',
     }),
   );
-  await expect.element(page.getByText('"before"')).toBeAttached();
+  await expect.element(page.getByText('"before"', { exact: true })).toBeAttached();
   currentData.value = { status: 'after' };
-  await expect.element(page.getByText('"after"')).toBeAttached();
-  await expect.element(page.getByText('"before"')).toHaveCount(0);
+  await expect.element(page.getByText('"after"', { exact: true })).toBeAttached();
+  await expect.element(page.getByText('"before"', { exact: true })).toHaveCount(0);
 });
 
-// Ark's hook snapshots toValue(props), including data and preview options.
-test.skip.each([
-  ['Ark', useArkJsonTreeView],
-  ['moduix', useJsonTreeView],
-])('%s hook tracks replaced data and preview options', async (_name, useTree) => {
+test('hook tracks replaced data and preview options', async () => {
   const currentData = ref({ status: 'before' });
   const maxPreviewItems = ref(1);
   let tree: ReturnType<typeof useJsonTreeView> | undefined;
   render(
     defineComponent({
       setup() {
-        tree = useTree(
+        tree = useJsonTreeView(
           computed(() => ({ data: currentData.value, maxPreviewItems: maxPreviewItems.value })),
         );
         return {};
@@ -271,17 +262,14 @@ test.skip.each([
   expect(tree?.value.options.maxPreviewItems).toBe(2);
 });
 
-test.each([
-  ['Ark', ArkJsonTreeView, ArkJsonTreeViewTree],
-  ['moduix', JsonTreeView, JsonTreeViewTree],
-])('%s forwards expansion events from the root', async (_name, Root, Tree) => {
+test('forwards expansion events from the root', async () => {
   const handleExpandedChange = rs.fn();
   render(
     defineComponent({
-      components: { Root, Tree },
+      components: jsonTreeViewComponents,
       setup: () => ({ data, handleExpandedChange }),
       template:
-        '<Root :data="data" :default-expanded-depth="1" @expanded-change="handleExpandedChange"><Tree /></Root>',
+        '<JsonTreeView :data="data" :default-expanded-depth="1" @expanded-change="handleExpandedChange"><JsonTreeViewTree /></JsonTreeView>',
     }),
   );
 
@@ -290,19 +278,14 @@ test.each([
   expect(handleExpandedChange).toHaveBeenCalledTimes(1);
 });
 
-// JsonTreeViewRoot declares model props but no emits; Vue filters model listeners
-// before forwarding attrs to TreeViewRoot. The direct Ark path fails identically.
-test.skip.each([
-  ['Ark', ArkJsonTreeView, ArkJsonTreeViewTree],
-  ['moduix', JsonTreeView, JsonTreeViewTree],
-])('%s reflects controlled selection updates in the DOM', async (_name, Root, Tree) => {
+test('reflects controlled selection updates in the DOM', async () => {
   const selected = ref<string[]>([]);
   render(
     defineComponent({
-      components: { Root, Tree },
+      components: jsonTreeViewComponents,
       setup: () => ({ data, selected }),
       template:
-        '<Root :data="data" :default-expanded-depth="3" v-model:selected-value="selected"><Tree /></Root>',
+        '<JsonTreeView :data="data" :default-expanded-depth="3" v-model:selected-value="selected"><JsonTreeViewTree /></JsonTreeView>',
     }),
   );
   const item = screen.getByRole('treeitem', { name: 'status: "ready"' });

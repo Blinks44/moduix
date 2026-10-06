@@ -150,6 +150,11 @@ champ React contrôlé, utilisez `value` avec `onChange(event)`, `v-model` pour 
 ou `defaultValue` pour un champ non contrôlé. Le composant ne gère ni la validation, ni le focus, ni
 la navigation au clavier.
 
+Dans Vue, initialisez le champ avec `v-model` et réinitialisez l’état lié dans le gestionnaire de
+réinitialisation du formulaire : la réinitialisation native ne déclenche pas d’événement de saisie.
+Ark efface actuellement le `defaultValue` natif sans modèle ; utilisez donc `v-model` pour les valeurs
+initiales en attendant la correction.
+
 Pour un champ autonome, fournissez vous-même son nom accessible. Utilisez `asChild` uniquement avec
 un seul enfant focusable et compatible avec un champ de saisie ; Ark fusionne les propriétés de
 `Input` et de `Field`, la classe et la `ref` dans ce nœud DOM.

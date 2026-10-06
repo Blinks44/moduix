@@ -23,8 +23,8 @@ export default function NonModalLightboxDemo() {
       <Lightbox modal={false}>
         <LightboxTrigger class={styles.button}>Open non-modal lightbox</LightboxTrigger>
         <LightboxPositioner>
-          <LightboxCloseIcon />
           <LightboxContent aria-label={image.alt}>
+            <LightboxCloseIcon />
             <LightboxImage src={image.src} alt={image.alt} />
           </LightboxContent>
         </LightboxPositioner>

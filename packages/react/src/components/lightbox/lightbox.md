@@ -43,7 +43,7 @@ interaction. `LightboxGallery` is a layout and styling boundary for a composed `
 not own image data or slide state. `LightboxBind` is a zero-render behavior part for CMS or
 third-party markup that cannot render `LightboxTrigger` directly. It requires a selector for a
 semantic button or link, uses the surrounding Dialog context, and leaves all overlay markup
-consumer-owned. `LightboxHeader`, `LightboxBody`, and `LightboxFooter` are plain
+consumer-owned. `LightboxHeader`, `LightboxBody`, and `LightboxFooter` are
 layout helpers for captions, metadata, or actions around the media surface.
 
 ## Anatomy and exported parts
@@ -55,8 +55,8 @@ Lightbox
 └─ Overlay subtree (automatically portalled)
    ├─ LightboxBackdrop
    └─ LightboxPositioner
-      ├─ LightboxCloseTrigger or LightboxCloseIcon
       └─ LightboxContent
+         ├─ LightboxCloseTrigger or LightboxCloseIcon
          ├─ LightboxHeader (moduix)
          │  ├─ LightboxTitle
          │  └─ LightboxDescription
@@ -103,8 +103,8 @@ export function LightboxDemo() {
       </LightboxTrigger>
       <LightboxBackdrop />
       <LightboxPositioner>
-        <LightboxCloseIcon />
         <LightboxContent>
+          <LightboxCloseIcon />
           <LightboxBody>
             <LightboxImage src={fullSize} alt="Mountain ridge at sunset" />
           </LightboxBody>
@@ -118,9 +118,7 @@ export function LightboxDemo() {
 Use `asChild` with one semantic child. An image alone is not an interactive trigger; wrap it in a
 button. Use `LightboxRootProvider` instead of `Lightbox` when state comes from
 `useLightbox()`. Read child state with `useLightboxContext()`; both APIs are available from
-`@moduix/react` as direct top-level hooks. When the close control should stay pinned to the viewport corner, render
-`LightboxCloseIcon` as a sibling of `LightboxContent` inside `LightboxPositioner` so it does
-not inherit content transforms.
+`@moduix/react` as direct top-level hooks. Render `LightboxCloseIcon` inside `LightboxContent`, outside `LightboxBody`, so it stays in Ark's accessibility tree and focus trap. Content fades while Body owns scale/translate motion; the fixed close control stays pinned to the viewport.
 
 For a known image collection, render `Carousel` inside `LightboxGallery`. Keep the current
 page controlled and update it from `LightboxTrigger value` through
@@ -190,8 +188,7 @@ can tune or remove the selected-state lift without replacing the thumbnail selec
 
 Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-lightbox-*` content-motion
 variables remain the more specific override. Backdrop motion remains separate.
-React CSS Modules and Tailwind share foundation keyframes: content enters/exits at scale `0.82`
-over `220ms` by default. CSS-specific motion overrides and Ark Presence timing are preserved.
+CSS Modules and Tailwind share foundation keyframes: Content fades, and a direct Body child enters/exits at scale `0.82` over `220ms` by default. CSS-specific motion overrides and Ark Presence timing are preserved.
 
 When `prefers-reduced-motion: reduce` is active, backdrop and content animations run for 1ms. This
 keeps Ark's exit lifecycle intact while avoiding visible motion.
@@ -214,7 +211,7 @@ ratio, viewport height, gap, track background, and thumbnail sizing/state.
   image registry, render callbacks, or translated Carousel API.
 - `LightboxBind` is narrow zero-render sugar for binding image selection to CMS or external DOM.
   Consumers keep ownership of image state and the complete overlay composition.
-- `LightboxHeader`, `LightboxBody`, and `LightboxFooter` provide only layout and stable slots.
+- `LightboxHeader`, `LightboxBody`, and `LightboxFooter` provide layout and stable slots. A direct `LightboxBody` child also owns the media's scale/translate motion.
 - `useLightbox` and `useLightboxContext` are direct Ark hook re-exports for the normal advanced
   state path; they do not alter callback detail objects or dialog state behavior.
 - Structured image data and slide state stay consumer-owned.
@@ -238,6 +235,8 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-10-05: Moved the close control inside Content for accessibility and focus trapping; scale/translate motion now belongs to Body, keeping the close icon viewport-fixed.
 
 - 2026-10-03: Fixed the React external-image binding fallback when `currentSrc` is empty;
   explicit empty `data-lightbox-src` overrides still exclude an image.

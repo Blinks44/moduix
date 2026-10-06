@@ -55,8 +55,8 @@ const activeImage = ref<LightboxImageSelectDetails | null>(null);
     />
     <LightboxBackdrop />
     <LightboxPositioner>
-      <LightboxCloseIcon />
       <LightboxContent :aria-label="activeImage?.alt ?? 'Image preview'">
+        <LightboxCloseIcon />
         <LightboxImage v-if="activeImage" :src="activeImage.src" :alt="activeImage.alt ?? ''" />
       </LightboxContent>
     </LightboxPositioner>

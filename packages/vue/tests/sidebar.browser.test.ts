@@ -538,7 +538,7 @@ test('controls CSS-length sizes, emits resize details once, and enables collapse
   await expect.element(toggle).toHaveAttribute('aria-expanded', 'true');
 });
 
-// Ark Vue 5.39.2 / Zag Splitter 1.43.3 omit the first programmatic collapse notification.
+// Zag Splitter omits the first programmatic collapse notification (chakra-ui/zag#3371).
 // Keep the direct Ark reproduction until the upstream size-notification map is initialized correctly.
 test.skip('emits collapse on the first controlled transition in direct Ark', async () => {
   const NativeToggle = defineComponent({

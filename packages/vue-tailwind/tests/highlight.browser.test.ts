@@ -10,8 +10,7 @@ test('exports a flat root without compound aliases', () => {
   expect(Highlight).not.toHaveProperty('Root');
 });
 
-// Ark Vue 5.39.2 drops attrs on its fragment. Re-enable after the upstream fix.
-test.skip('renders matched text as styled marks without a wrapper', () => {
+test('renders matched text as styled marks without a wrapper', () => {
   const { container } = render({
     components: { Highlight },
     template: `
@@ -128,7 +127,7 @@ test('preserves Ark case-insensitive and exact Latin matching', async () => {
     .toEqual(['box', 'box']);
 });
 
-test.skip('forwards mark attrs and native listeners to every matched segment', async () => {
+test('forwards mark attrs and native listeners to every matched segment', async () => {
   let clicks = 0;
   render({
     components: { Highlight },
@@ -161,7 +160,7 @@ test.skip('forwards mark attrs and native listeners to every matched segment', a
 
 // Blocked by the same upstream fragment attr-forwarding defect.
 
-test.skip('lets consumer utilities replace conflicting defaults', async () => {
+test('lets consumer utilities replace conflicting defaults', async () => {
   render({
     components: { Highlight },
     template: `
@@ -201,8 +200,7 @@ test.skip('lets consumer utilities replace conflicting defaults', async () => {
   await expect.element(page.getByTestId('highlight')).toHaveCSS('font-weight', '700');
 });
 
-// Re-enable with the existing Ark fragment attribute-forwarding fix.
-test.skip('hydrates highlight without replacing hosts or IDs', async () => {
+test('hydrates highlight without replacing hosts or IDs', async () => {
   const host = document.createElement('div');
   host.innerHTML = await renderToString(createSSRApp(SsrHighlight));
   document.body.append(host);

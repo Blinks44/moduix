@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import { TourRoot as ArkTourRoot } from '@ark-ui/vue/tour';
-import type {
-  TourFocusOutsideEvent,
-  TourInteractOutsideEvent,
-  TourPointerDownOutsideEvent,
-  TourRootProps,
-  TourStepDetails,
-} from '@ark-ui/vue/tour';
+import type { TourRootEmits, TourRootProps } from '@ark-ui/vue/tour';
 import { useAttrs } from 'vue';
 import type { PortalRef } from '../../internal/overlayPortal/context';
 import OverlayPortalProvider from '../../internal/overlayPortal/OverlayPortalProvider.vue';
@@ -21,29 +15,7 @@ export interface Props extends /* @vue-ignore */ TourRootProps {
   unmountOnExit?: TourRootProps['unmountOnExit'];
 }
 
-export interface TourStatusChangeDetails {
-  status: 'idle' | 'started' | 'skipped' | 'completed' | 'dismissed' | 'not-found';
-  stepId: string | null;
-  stepIndex: number;
-}
-
-export interface TourStepChangeDetails {
-  stepId: string | null;
-  stepIndex: number;
-  totalSteps: number;
-  complete: boolean;
-  progress: number;
-}
-
-export interface Emits {
-  exitComplete: [];
-  focusOutside: [event: TourFocusOutsideEvent];
-  interactOutside: [event: TourInteractOutsideEvent];
-  pointerDownOutside: [event: TourPointerDownOutsideEvent];
-  statusChange: [details: TourStatusChangeDetails];
-  stepChange: [details: TourStepChangeDetails];
-  stepsChange: [details: { steps: TourStepDetails[] }];
-}
+export interface Emits extends /* @vue-ignore */ TourRootEmits {}
 
 const {
   lazyMount = true,

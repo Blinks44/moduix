@@ -8,7 +8,7 @@ import styles from '@/components/examples/field/field-native-select.module.css';
   <Field :class="styles.root" required>
     <FieldLabel>Priority</FieldLabel>
     <NativeSelect name="priority">
-      <option value="" disabled>Select priority</option>
+      <option value="" disabled selected>Select priority</option>
       <option value="low">Low</option>
       <option value="normal">Normal</option>
       <option value="high">High</option>

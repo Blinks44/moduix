@@ -72,8 +72,7 @@ test('keeps Ark semantics and form values', async () => {
     setup() {
       return { collection: fruits, item: fruits.items[0], rootRef };
     },
-    template:
-      '<form><Combobox ref="rootRef" :collection="collection" default-open :default-value="[&quot;apple&quot;]" name="fruit"><ComboboxLabel>Fruit</ComboboxLabel><ComboboxControl><ComboboxInput /><ComboboxTrigger aria-label="Open fruits" /></ComboboxControl><ComboboxPositioner><ComboboxContent><ComboboxList><ComboboxOption :item="item">Apple</ComboboxOption></ComboboxList></ComboboxContent></ComboboxPositioner></Combobox></form>',
+    template: `<form><Combobox ref="rootRef" :collection="collection" default-open :default-value="['apple']" name="fruit"><ComboboxLabel>Fruit</ComboboxLabel><ComboboxControl><ComboboxInput /><ComboboxTrigger aria-label="Open fruits" /></ComboboxControl><ComboboxPositioner><ComboboxContent><ComboboxList><ComboboxOption :item="item">Apple</ComboboxOption></ComboboxList></ComboboxContent></ComboboxPositioner></Combobox></form>`,
   });
 
   const { container } = render(Harness);
@@ -111,8 +110,7 @@ test('supports controlled input v-model updates', async () => {
       const inputValue = ref('mango');
       return { collection: fruits, inputValue };
     },
-    template:
-      '<div><button type="button" @click="inputValue = &quot;apple&quot;">Set apple</button><Combobox :collection="collection" v-model:input-value="inputValue" :portalled="false"><ComboboxLabel>Controlled fruit</ComboboxLabel><ComboboxControl><ComboboxInput /><ComboboxClearTrigger /></ComboboxControl><ComboboxPositioner><ComboboxContent><ComboboxList><ComboboxOption v-for="item in collection.items" :key="item.value" :item="item">{{ item.label }}</ComboboxOption></ComboboxList></ComboboxContent></ComboboxPositioner></Combobox></div>',
+    template: `<div><button type="button" @click="inputValue = 'apple'">Set apple</button><Combobox :collection="collection" v-model:input-value="inputValue" :portalled="false"><ComboboxLabel>Controlled fruit</ComboboxLabel><ComboboxControl><ComboboxInput /><ComboboxClearTrigger /></ComboboxControl><ComboboxPositioner><ComboboxContent><ComboboxList><ComboboxOption v-for="item in collection.items" :key="item.value" :item="item">{{ item.label }}</ComboboxOption></ComboboxList></ComboboxContent></ComboboxPositioner></Combobox></div>`,
   });
 
   render(Harness);

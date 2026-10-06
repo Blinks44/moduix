@@ -52,8 +52,8 @@ const selectImage = ({ value }: { value: string | null }) => {
     </div>
     <LightboxBackdrop />
     <LightboxPositioner>
-      <LightboxCloseIcon />
       <LightboxContent :aria-label="activeImage.alt">
+        <LightboxCloseIcon />
         <LightboxImage :src="activeImage.src" :alt="activeImage.alt" />
       </LightboxContent>
     </LightboxPositioner>

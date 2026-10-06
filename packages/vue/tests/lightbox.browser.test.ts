@@ -200,16 +200,18 @@ test('lazily mounts, closes a click-to-close image, and restores focus', async (
     .toBeFocused();
 });
 
-test('closes from its accessible close icon and restores focus to its trigger', async () => {
+test('keeps its close icon accessible and viewport-fixed, then restores trigger focus', async () => {
   render({
     components: lightboxComponents,
     template: `
       <Lightbox :portalled="false">
         <LightboxTrigger>Open preview</LightboxTrigger>
         <LightboxPositioner>
-          <LightboxCloseIcon />
           <LightboxContent aria-label="Image preview">
-            <LightboxImage src="/full-size.jpg" alt="Mountain ridge" />
+            <LightboxCloseIcon />
+            <LightboxBody style="width: 240px; height: 160px">
+              <LightboxImage src="/full-size.jpg" alt="Mountain ridge" />
+            </LightboxBody>
           </LightboxContent>
         </LightboxPositioner>
       </Lightbox>
@@ -217,13 +219,23 @@ test('closes from its accessible close icon and restores focus to its trigger', 
   });
 
   await page.getByRole('button', { name: 'Open preview', exact: true }).click();
+  const closeIcon = page.getByRole('button', { name: 'Close image', exact: true });
+  await expect.element(closeIcon).toBeFocused();
+  await expect.element(closeIcon).toBeVisible();
+  const dialog = screen.getByRole('dialog', { name: 'Image preview' });
+  const button = screen.getByRole('button', { name: 'Close image' });
+  expect(dialog.contains(button)).toBe(true);
+  expect(getComputedStyle(dialog).scale).toBe('none');
+  expect(getComputedStyle(dialog).translate).toBe('none');
+  const rect = button.getBoundingClientRect();
+  expect(rect.top).toBeCloseTo(16);
+  expect(window.innerWidth - rect.right).toBeCloseTo(16);
   await expect
-    .element(page.getByRole('dialog', { name: 'Image preview', exact: true }))
-    .toBeFocused();
-  await expect
-    .element(page.getByRole('button', { name: 'Close image', exact: true }))
-    .toBeVisible();
-  await page.getByRole('button', { name: 'Close image', exact: true }).click();
+    .element(page.locator('[data-slot="lightbox-body"]'))
+    .toHaveCSS('animation-name', 'moduix-lightbox-body-in');
+  await closeIcon.press('Tab');
+  await expect.element(closeIcon).toBeFocused();
+  await closeIcon.click();
 
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
   await expect
@@ -288,8 +300,8 @@ test('forwards refs through native parts and keeps asChild composition native', 
         <LightboxTrigger ref="trigger">Open preview</LightboxTrigger>
         <LightboxBackdrop ref="backdrop" />
         <LightboxPositioner ref="positioner">
-          <LightboxCloseIcon ref="closeIcon" />
           <LightboxContent ref="content" aria-label="Image preview">
+            <LightboxCloseIcon ref="closeIcon" />
             <LightboxHeader ref="header">
               <LightboxTitle ref="title">Preview</LightboxTitle>
               <LightboxDescription ref="description">Description</LightboxDescription>

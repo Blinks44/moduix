@@ -8,4 +8,5 @@ test('renders the public field anatomy on the server', async () => {
   expect(html).toContain('data-slot="field-root"');
   expect(html).toContain('data-slot="field-label"');
   expect(html).toContain('data-slot="field-input"');
+  expect(html).toContain('value="Initial name"');
 });

@@ -1,26 +1,22 @@
 <script setup lang="ts">
 import { FieldSelect as ArkFieldSelect } from '@ark-ui/vue/field';
+import type { FieldSelectProps } from '@ark-ui/vue/field';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
-import type { HTMLAttributes, SelectHTMLAttributes } from 'vue';
+import type { HTMLAttributes } from 'vue';
 import styles from './Field.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type FieldSelectValue = string | undefined;
-
-export interface Props extends /* @vue-ignore */ Omit<SelectHTMLAttributes, 'value'> {
+export interface Props extends /* @vue-ignore */ FieldSelectProps {
   class?: HTMLAttributes['class'];
-  asChild?: boolean;
-  defaultValue?: FieldSelectValue;
-  modelValue?: FieldSelectValue;
 }
 
 export interface Emits {
-  'update:modelValue': [value: FieldSelectValue];
+  'update:modelValue': [value: FieldSelectProps['modelValue']];
 }
 
-const { asChild = false, class: className, defaultValue, modelValue } = defineProps<Props>();
+const { class: className } = defineProps<Props>();
 defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
@@ -28,14 +24,7 @@ const attrs = useAttrs();
 </script>
 
 <template>
-  <ArkFieldSelect
-    v-bind="attrs"
-    :as-child="asChild"
-    :class="clsx(styles.control, className)"
-    :default-value="defaultValue"
-    :model-value="modelValue"
-    data-slot="field-select"
-  >
+  <ArkFieldSelect v-bind="attrs" :class="clsx(styles.control, className)" data-slot="field-select">
     <slot />
   </ArkFieldSelect>
 </template>

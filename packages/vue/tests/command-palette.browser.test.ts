@@ -160,8 +160,7 @@ test('clears the search without losing focus', async () => {
     .toBeFocused();
 });
 
-// Ark Vue 5.39.2 does not emit Combobox `select` details for this interaction.
-test.skip('forwards selection details and respects closeOnSelect', async () => {
+test('forwards selection details and respects closeOnSelect', async () => {
   const onSelect = rs.fn();
   const Harness = defineComponent({
     components: commandPaletteComponents,
@@ -267,45 +266,45 @@ test('forwards a RootProvider exit event once', async () => {
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
 });
 
-// Verify the wrapper boundary; the real Ark select-emit gap remains covered by skipped tests.
-test('handles select once and reacts to closeOnSelect changes', async () => {
+test('handles native selection once and reacts to closeOnSelect changes', async () => {
   const closeOnSelect = ref(false);
   const onSelect = rs.fn();
-  const details = { itemValue: 'settings', value: ['settings'] };
-  const ComboboxStub = defineComponent({
-    emits: ['select'],
-    setup() {
-      return { details };
-    },
-    template: '<button @click="$emit(\'select\', details)">Emit selection</button>',
+  const collection = createListCollection({
+    items: [...commands.items, { label: 'Open files', value: 'files' }],
   });
-
   render(
     defineComponent({
       components: commandPaletteComponents,
-      setup() {
-        return { collection: commands, closeOnSelect, onSelect };
-      },
+      setup: () => ({ collection, closeOnSelect, onSelect }),
       template: `
         <CommandPalette default-open :portalled="false" aria-label="Selection events">
           <CommandPalettePanel>
-            <CommandPaletteCombobox :collection="collection" :close-on-select="closeOnSelect" @select="onSelect" />
+            <CommandPaletteCombobox :collection="collection" :close-on-select="closeOnSelect" @select="onSelect">
+              <CommandPaletteSearch />
+              <CommandPaletteList>
+                <CommandPaletteItem v-for="item in collection.items" :key="item.value" :item="item">{{ item.label }}</CommandPaletteItem>
+              </CommandPaletteList>
+            </CommandPaletteCombobox>
           </CommandPalettePanel>
         </CommandPalette>
       `,
     }),
-    { global: { stubs: { 'combobox-root': ComboboxStub } } },
   );
 
-  await page.getByRole('button', { name: 'Emit selection', exact: true }).click();
+  await page.getByRole('option', { name: 'Open settings', exact: true }).click();
   expect(onSelect).toHaveBeenCalledTimes(1);
-  expect(onSelect).toHaveBeenLastCalledWith(details);
+  expect(onSelect).toHaveBeenLastCalledWith(
+    expect.objectContaining({ itemValue: 'settings', value: ['settings'] }),
+  );
   await expect.element(page.getByRole('dialog')).toBeVisible();
 
   closeOnSelect.value = true;
   await nextTick();
-  await page.getByRole('button', { name: 'Emit selection', exact: true }).click();
+  await page.getByRole('option', { name: 'Open files', exact: true }).click();
   expect(onSelect).toHaveBeenCalledTimes(2);
+  expect(onSelect).toHaveBeenLastCalledWith(
+    expect.objectContaining({ itemValue: 'files', value: ['files'] }),
+  );
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
 });
 

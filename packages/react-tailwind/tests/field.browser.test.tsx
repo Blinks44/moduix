@@ -78,7 +78,9 @@ test('wires labels, descriptions, errors, and field state to a native control', 
   await expect.element(inputLocator).toBeDisabled();
   await expect.element(inputLocator).toHaveAttribute('aria-invalid', 'true');
   expect(input.getAttribute('aria-describedby')).toContain(helperText.id);
-  await expect.element(inputLocator).toHaveAttribute('aria-errormessage', errorText.id);
+  await expect
+    .poll(() => input.getAttribute('aria-describedby')?.split(' '))
+    .toEqual(expect.arrayContaining([helperText.id, errorText.id]));
   await expect.element(inputLocator).toHaveAttribute('required');
   await expect.element(inputLocator).toHaveAttribute('readonly');
   await expect.element(page.getByText('Email', { exact: true })).toHaveAttribute('for', input.id);

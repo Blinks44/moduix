@@ -33,6 +33,7 @@ const frameworkOptions = [
         :key="option.value"
         :value="option.value"
         :disabled="option.disabled"
+        :selected="option.value === ''"
       >
         {{ option.label }}
       </option>

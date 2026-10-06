@@ -151,6 +151,9 @@ Field (optional wrapper)
 используйте `value` и нативный `onChange` в React и Solid или `v-model` во Vue, передавая значение
 через примитив состояния выбранного фреймворка.
 
+Во Vue привязывайте нативное DOM-свойство как `:defaultValue="initialValue"`, а не `default-value`.
+При использовании `v-model` сбрасывайте связанное состояние в обработчике сброса формы: нативный сброс не вызывает событие ввода.
+
 Оборачивайте `Textarea` в `Field`, `FieldLabel`, `FieldHelperText` и `FieldErrorText`, когда
 нужны метка, пояснение или валидация. Если `Textarea` находится вне `Field`, задайте ему доступное
 имя через нативный `<label>` или `aria-label`.

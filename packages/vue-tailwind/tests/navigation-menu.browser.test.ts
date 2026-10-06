@@ -158,7 +158,7 @@ test('supports controlled v-model:value state', async () => {
     `,
   });
 
-  await page.getByRole('button', { name: 'Products', exact: true }).click();
+  await page.getByRole('button', { name: 'Products', exact: true }).press('Enter');
   await expect.element(page.getByTestId('controlled-value')).toContainText('products');
 
   await page.getByRole('button', { name: 'Docs', exact: true }).press('Enter');

@@ -261,8 +261,7 @@ Place `TreeViewNodeCheckbox` in both branch controls and leaf items. Its default
 the checked and indeterminate states.
 
 Vue uses the default slot for the checked icon and the named `indeterminate` and `fallback`
-slots for the mixed and unchecked states. In Ark Vue 5.39.2, the declared `indeterminate` and
-`fallback` props are ignored; use the native slots to customize these states.
+slots for the mixed and unchecked states. These states are customized through slots, not props.
 
 <ExampleFrame variant="component">
   <CheckboxTreeView />

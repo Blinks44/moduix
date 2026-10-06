@@ -64,8 +64,8 @@ function LightboxSurface(props: { src: string; alt: string }) {
     <>
       <LightboxBackdrop />
       <LightboxPositioner>
-        <LightboxCloseIcon />
         <LightboxContent aria-label={props.alt}>
+          <LightboxCloseIcon />
           <LightboxBody>
             <LightboxImage src={props.src} alt={props.alt} />
           </LightboxBody>
@@ -80,8 +80,8 @@ function ClickToCloseLightboxSurface(props: { src: string; alt: string }) {
     <>
       <LightboxBackdrop />
       <LightboxPositioner>
-        <LightboxCloseIcon />
         <LightboxContent aria-label={props.alt}>
+          <LightboxCloseIcon />
           <LightboxBody>
             <LightboxImage src={props.src} alt={props.alt} closeOnClick />
           </LightboxBody>
@@ -179,8 +179,8 @@ export const RootProviderAndContext: Story = {
         <LightboxRootProvider value={lightbox}>
           <LightboxBackdrop />
           <LightboxPositioner>
-            <LightboxCloseIcon />
             <LightboxContent aria-label={images[2].alt}>
+              <LightboxCloseIcon />
               <LightboxHeader>
                 <LightboxTitle>{images[2].alt}</LightboxTitle>
                 <LightboxDescription>State comes from useLightbox.</LightboxDescription>
@@ -226,8 +226,8 @@ export const BoundContent: Story = {
           />
           <LightboxBackdrop />
           <LightboxPositioner>
-            <LightboxCloseIcon />
             <LightboxContent aria-label={activeImage()?.alt ?? 'Image preview'}>
+              <LightboxCloseIcon />
               <LightboxBody>
                 {activeImage() ? (
                   <LightboxImage src={activeImage()!.src} alt={activeImage()!.alt ?? ''} />
@@ -267,35 +267,37 @@ export const GalleryFromServerData: Story = {
         </div>
         <LightboxBackdrop />
         <LightboxPositioner>
-          <LightboxCloseIcon />
           <LightboxContent aria-label={activeImage().alt}>
-            <LightboxGallery>
-              <Carousel
-                aria-label="Server-driven image carousel"
-                page={activeIndex()}
-                onPageChange={(details) => setActiveIndex(details.page)}
-                slideCount={images.length}
-              >
-                <CarouselControl>
-                  <CarouselPrevTrigger />
-                  <CarouselItemGroup>
+            <LightboxCloseIcon />
+            <LightboxBody>
+              <LightboxGallery>
+                <Carousel
+                  aria-label="Server-driven image carousel"
+                  page={activeIndex()}
+                  onPageChange={(details) => setActiveIndex(details.page)}
+                  slideCount={images.length}
+                >
+                  <CarouselControl>
+                    <CarouselPrevTrigger />
+                    <CarouselItemGroup>
+                      {images.map((image, index) => (
+                        <CarouselItem index={index}>
+                          <img src={image.src} alt={image.alt} />
+                        </CarouselItem>
+                      ))}
+                    </CarouselItemGroup>
+                    <CarouselNextTrigger />
+                  </CarouselControl>
+                  <CarouselIndicatorGroup>
                     {images.map((image, index) => (
-                      <CarouselItem index={index}>
-                        <img src={image.src} alt={image.alt} />
-                      </CarouselItem>
+                      <CarouselIndicator index={index}>
+                        <img src={image.src} alt="" />
+                      </CarouselIndicator>
                     ))}
-                  </CarouselItemGroup>
-                  <CarouselNextTrigger />
-                </CarouselControl>
-                <CarouselIndicatorGroup>
-                  {images.map((image, index) => (
-                    <CarouselIndicator index={index}>
-                      <img src={image.src} alt="" />
-                    </CarouselIndicator>
-                  ))}
-                </CarouselIndicatorGroup>
-              </Carousel>
-            </LightboxGallery>
+                  </CarouselIndicatorGroup>
+                </Carousel>
+              </LightboxGallery>
+            </LightboxBody>
           </LightboxContent>
         </LightboxPositioner>
       </Lightbox>
@@ -318,8 +320,8 @@ export const CustomStyling: Story = {
       <LightboxTrigger class={textTriggerClass}>Open styled lightbox</LightboxTrigger>
       <LightboxBackdrop class="bg-slate-900/70" />
       <LightboxPositioner>
-        <LightboxCloseIcon class="rounded-md bg-muted [@media(hover:hover)]:hover:bg-accent" />
         <LightboxContent class="max-h-[72dvh] max-w-[72vw]" aria-label={images[1].alt}>
+          <LightboxCloseIcon class="rounded-md bg-muted [@media(hover:hover)]:hover:bg-accent" />
           <LightboxBody>
             <LightboxImage src={images[1].src} alt={images[1].alt} />
           </LightboxBody>

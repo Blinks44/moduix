@@ -152,7 +152,6 @@ test('preserves native form ownership', async () => {
       <form aria-label="Project form" id="project-form" />
       <Textarea
         aria-label="Summary"
-        default-value="Draft"
         form="project-form"
         name="summary"
       />
@@ -167,16 +166,14 @@ test('preserves native form ownership', async () => {
   expect(new FormData(form).get('summary')).toBe('Published');
 });
 
-// Ark Vue 5.39.2 applies default-value initially but does not preserve it as the
-// native defaultValue property, so form.reset() cannot restore the initial value.
-test.skip('restores the native textarea default value on reset', async () => {
+test('restores the native textarea default value on reset', async () => {
   render({
     components: fieldComponents,
     template: `
       <form aria-label="Project form" id="project-form" />
       <Textarea
         aria-label="Summary"
-        default-value="Draft"
+        :defaultValue="'Draft'"
         form="project-form"
         name="summary"
       />

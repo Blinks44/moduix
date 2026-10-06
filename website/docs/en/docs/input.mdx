@@ -154,6 +154,10 @@ Use `Field` as the owner of the label, helper or error text, generated ids, and 
 `onChange(event)` for controlled React state, `v-model` for controlled Vue state, or `defaultValue`
 for an uncontrolled input. It does not manage validation, focus, or keyboard navigation.
 
+In Vue, initialize the input through `v-model` and reset the bound state in the form's reset handler:
+native reset does not emit an input event. Ark currently clears the native `defaultValue` when no
+model is supplied, so use `v-model` for initial values until that upstream behavior is fixed.
+
 For a standalone control, provide its accessible name yourself. Use `asChild` only with one
 focusable, input-compatible child; Ark merges the `Input` and `Field` props, class, and ref into
 that DOM node.

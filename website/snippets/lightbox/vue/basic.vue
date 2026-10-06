@@ -28,8 +28,8 @@ const image = {
     </LightboxTrigger>
     <LightboxBackdrop />
     <LightboxPositioner>
-      <LightboxCloseIcon />
       <LightboxContent :aria-label="image.alt">
+        <LightboxCloseIcon />
         <LightboxBody>
           <LightboxImage :src="image.src" :alt="image.alt" />
         </LightboxBody>

@@ -436,21 +436,17 @@
     "@rstest/browser": "catalog:",
     "@rstest/core": "catalog:",
     "@tanstack/charts": "catalog:",
-    "@testing-library/dom": "catalog:",
-    "@testing-library/jest-dom": "catalog:",
-    "@testing-library/user-event": "catalog:",
     "@testing-library/vue": "catalog:",
     "@types/node": "catalog:",
     "@vue/language-core": "catalog:",
     "@vue/server-renderer": "catalog:",
-    "happy-dom": "catalog:",
     "typescript": "~6.0.3",
     "unplugin-dts": "catalog:",
     "vue": "catalog:",
     "vue-tsc": "catalog:"
   },
   "peerDependencies": {
-    "@ark-ui/vue": "^5.37.2",
+    "@ark-ui/vue": "^5.39.3",
     "@tanstack/charts": "^0.16.0",
     "vue": "^3.5.0"
   },

@@ -188,8 +188,7 @@ test('keeps RootProvider, Context, and useQrCodeContext on the Vue surface', asy
   expect(screen.getByText('Hook: https://chakra-ui.com')?.isConnected).toBe(true);
 });
 
-// Ark Vue 5.39.2 does not pass its emit function to useQrCode from QrCodeRoot.
-test.skip('forwards context value changes through Vue events', async () => {
+test('forwards context value changes through Vue events', async () => {
   const values: string[] = [];
   render({
     components: qrCodeComponents,

@@ -23,7 +23,6 @@ import SsrEditable from './fixtures/SsrEditable.vue';
 const editableComponents = {
   Editable,
   EditableArea,
-  EditableContext,
   EditableControls,
   EditableInput,
   EditableLabel,
@@ -178,7 +177,6 @@ test('keeps disabled triggers unavailable and read-only values unchanged', async
   render({
     components: editableComponents,
     template: `
-      <>
         <Editable disabled default-value="Disabled value">
           <EditableLabel>Disabled name</EditableLabel>
           <EditableArea><EditableInput /><EditablePreview /></EditableArea>
@@ -189,7 +187,6 @@ test('keeps disabled triggers unavailable and read-only values unchanged', async
           <EditableArea><EditableInput /><EditablePreview /></EditableArea>
           <EditableControls />
         </Editable>
-      </>
     `,
   });
 
@@ -375,7 +372,7 @@ test('forwards refs on ordinary parts and exposes context state', async () => {
     template: '<output>{{ editable.value }}:{{ String(editable.editing) }}</output>',
   });
   const Harness = defineComponent({
-    components: { ...editableComponents, Status },
+    components: { ...editableComponents, EditableContext, Status },
     setup() {
       return { inputRef, rootRef };
     },

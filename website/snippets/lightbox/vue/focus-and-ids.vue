@@ -40,8 +40,8 @@ const handleOpenChange = ({ open }: { open: boolean }) => {
     <LightboxTrigger :class="styles.button">Open focus-managed lightbox</LightboxTrigger>
     <LightboxBackdrop />
     <LightboxPositioner>
-      <LightboxCloseIcon :id="closeId" />
       <LightboxContent>
+        <LightboxCloseIcon :id="closeId" />
         <LightboxTitle :class="styles.status">{{ image.alt }}</LightboxTitle>
         <LightboxImage :src="image.src" :alt="image.alt" />
       </LightboxContent>

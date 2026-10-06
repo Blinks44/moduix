@@ -11,6 +11,7 @@ import {
 import {
   LightboxTrigger,
   LightboxBackdrop,
+  LightboxBody,
   LightboxPositioner,
   LightboxContent,
   LightboxCloseIcon,
@@ -66,36 +67,38 @@ export default function GalleryLightboxDemo() {
 
       <LightboxBackdrop />
       <LightboxPositioner>
-        <LightboxCloseIcon />
         <LightboxContent aria-label={activeImage.alt}>
-          <LightboxGallery>
-            <Carousel
-              aria-label="Server-driven image carousel"
-              page={activeIndex}
-              onPageChange={(details) => setActiveIndex(details.page)}
-              slideCount={images.length}
-            >
-              <CarouselControl>
-                <CarouselPrevTrigger />
-                <CarouselItemGroup>
-                  {images.map((image, index) => (
-                    <CarouselItem key={image.id} index={index}>
-                      <img src={image.src} alt={image.alt} />
-                    </CarouselItem>
-                  ))}
-                </CarouselItemGroup>
-                <CarouselNextTrigger />
-              </CarouselControl>
+          <LightboxCloseIcon />
+          <LightboxBody>
+            <LightboxGallery>
+              <Carousel
+                aria-label="Server-driven image carousel"
+                page={activeIndex}
+                onPageChange={(details) => setActiveIndex(details.page)}
+                slideCount={images.length}
+              >
+                <CarouselControl>
+                  <CarouselPrevTrigger />
+                  <CarouselItemGroup>
+                    {images.map((image, index) => (
+                      <CarouselItem key={image.id} index={index}>
+                        <img src={image.src} alt={image.alt} />
+                      </CarouselItem>
+                    ))}
+                  </CarouselItemGroup>
+                  <CarouselNextTrigger />
+                </CarouselControl>
 
-              <CarouselIndicatorGroup>
-                {images.map((image, index) => (
-                  <CarouselIndicator key={image.id} index={index}>
-                    <img src={image.thumbnail} alt="" />
-                  </CarouselIndicator>
-                ))}
-              </CarouselIndicatorGroup>
-            </Carousel>
-          </LightboxGallery>
+                <CarouselIndicatorGroup>
+                  {images.map((image, index) => (
+                    <CarouselIndicator key={image.id} index={index}>
+                      <img src={image.thumbnail} alt="" />
+                    </CarouselIndicator>
+                  ))}
+                </CarouselIndicatorGroup>
+              </Carousel>
+            </LightboxGallery>
+          </LightboxBody>
         </LightboxContent>
       </LightboxPositioner>
     </Lightbox>

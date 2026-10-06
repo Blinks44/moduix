@@ -18,7 +18,16 @@ const attrs = useAttrs();
 </script>
 
 <template>
-  <ark.div v-bind="attrs" :class="cn('grid gap-3', className)" data-slot="lightbox-body">
+  <ark.div
+    v-bind="attrs"
+    :class="
+      cn(
+        'grid gap-3 group-data-[state]/lightbox:[animation:inherit] group-data-[state=closed]/lightbox:[animation-name:moduix-lightbox-body-out] group-data-[state=open]/lightbox:[animation-name:moduix-lightbox-body-in]',
+        className,
+      )
+    "
+    data-slot="lightbox-body"
+  >
     <slot />
   </ark.div>
 </template>

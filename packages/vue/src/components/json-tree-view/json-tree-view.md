@@ -29,18 +29,12 @@ Ark owns data inspection, generated tree nodes, WAI-ARIA tree semantics, keyboar
 focus, asynchronous loading, and controlled or uncontrolled state. moduix does not transform the data or add a
 parallel state model.
 
-In `@ark-ui/vue@5.39.2`, the root forwards ordinary TreeView event listeners, such as
-`expandedChange`, through attrs. Its declaration does not expose those emits, and Vue filters
-`v-model` listeners because the root declares model props without corresponding emits. The
-controlled selection reproduction therefore never updates its parent model.
+The root forwards TreeView detail events and supports native controlled values through
+`v-model:expanded-value`, `v-model:selected-value`, `v-model:checked-value`, and
+`v-model:focused-value`. Replacing `data` updates generated nodes; `useJsonTreeView` tracks
+reactive data and preview options without remounting or local callback emulation.
 
-Ark's root snapshots data, preview options, and other TreeView props during setup. The exported
-`useJsonTreeView` hook likewise snapshots its reactive input before creating the computed machine
-props. Replacing data or preview options does not update the tree. These are production blockers,
-confirmed by direct Ark and moduix tests in both tracks. Keep the failing assertions as upstream
-skips and re-enable them after fixes; do not add local state, remount keys, or callback emulation.
-
-The built-in `indentGuide` prop also renders no guides in this Ark version: Tree always supplies
+The built-in `indentGuide` prop still renders no guides in Ark Vue 5.39.3: Tree always supplies
 an empty named slot and suppresses Node's prop-based fallback. A consumer-provided `#indentGuide`
 slot is forwarded correctly. Both behaviors have direct test coverage; do not manufacture guides
 locally to repair the upstream fallback.
@@ -66,5 +60,7 @@ compatibility wrappers, or a second state layer.
 
 ## Local changelog
 
+- 2026-10-06: Ark 5.39.3 fixes reactive inputs and model listeners; the corresponding regression
+  tests are enabled in both styling tracks. The built-in indentation-guide limitation remains.
 - 2026-10-02: Reviewed native slots, provider refs/listeners, and hydration stability; recorded
   upstream reactive-input and model-listener blockers with direct Ark reproductions.

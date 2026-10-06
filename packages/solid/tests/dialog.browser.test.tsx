@@ -15,6 +15,10 @@ import {
   DialogRootProvider,
   DialogTitle,
   DialogTrigger,
+  Popover,
+  PopoverContent,
+  PopoverPositioner,
+  PopoverTrigger,
   useDialog,
 } from '../src';
 
@@ -28,6 +32,50 @@ function DialogParts(props: { children?: JSX.Element }) {
     </DialogPositioner>
   );
 }
+
+// Ark Solid 5.39.3 also leaves the nested Portal host aria-hidden; re-enable after the upstream fix.
+test.skip('keeps nested dialogs accessible and restores parent focus after Escape', async () => {
+  render(() => (
+    <Popover portalled>
+      <PopoverTrigger>Open popover</PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <Dialog>
+            <DialogTrigger>Open parent</DialogTrigger>
+            <DialogPositioner>
+              <DialogContent>
+                <DialogTitle>Parent dialog</DialogTitle>
+                <Dialog>
+                  <DialogTrigger>Open nested</DialogTrigger>
+                  <DialogPositioner>
+                    <DialogContent>
+                      <DialogTitle>Nested dialog</DialogTitle>
+                    </DialogContent>
+                  </DialogPositioner>
+                </Dialog>
+              </DialogContent>
+            </DialogPositioner>
+          </Dialog>
+        </PopoverContent>
+      </PopoverPositioner>
+    </Popover>
+  ));
+
+  await page.getByRole('button', { name: 'Open popover' }).click();
+  await page.getByRole('button', { name: 'Open parent' }).click();
+  await expect.element(page.getByRole('dialog', { name: 'Parent dialog' })).toBeVisible();
+  const nestedTrigger = page.getByRole('button', { name: 'Open nested' });
+  await nestedTrigger.click();
+  const nested = page.getByRole('dialog', { name: 'Nested dialog' });
+  await expect.element(nested).toBeFocused();
+  await nested.press('Escape');
+  await expect.element(nested).toHaveCount(0);
+  await expect.element(nestedTrigger).toBeFocused();
+  await expect.element(page.getByRole('dialog', { name: 'Parent dialog' })).toBeVisible();
+  await nestedTrigger.press('Escape');
+  await expect.element(page.getByRole('dialog', { name: 'Parent dialog' })).toHaveCount(0);
+  await expect.element(page.getByRole('button', { name: 'Open parent' })).toBeFocused();
+});
 
 test('passes dynamic children through CloseIcon and keeps the default icon and close action', async () => {
   const [custom, setCustom] = createSignal(false);

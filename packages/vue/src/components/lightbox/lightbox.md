@@ -29,6 +29,13 @@ Responsive sources, explicit overrides, empty-currentSrc fallback and SSR/hydrat
 Visual parts accept class and expose data-slot / Ark attributes. Tailwind uses utility overrides.
 Keep semantic external triggers and an accessible dialog title or aria-label.
 
+Render LightboxCloseIcon inside LightboxContent, outside LightboxBody, so it stays in Ark's
+accessibility tree and focus trap. Content fades while its direct Body child owns scale/translate
+motion; the fixed close control stays pinned to the viewport. Both styling tracks use the same
+foundation keyframes and preserve reduced-motion exit cleanup.
+
 ## Local changelog
+
+- 2026-10-05: Kept the close control inside Content and moved scale/translate motion to Body.
 
 - 2026-10-03: Bind falls back to src when currentSrc is empty.

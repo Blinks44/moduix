@@ -31,8 +31,8 @@ export default function LightboxStateDemo() {
       <LightboxRootProvider value={lightbox}>
         <LightboxBackdrop />
         <LightboxPositioner>
-          <LightboxCloseIcon />
           <LightboxContent aria-label={image.alt}>
+            <LightboxCloseIcon />
             <LightboxImage src={image.src} alt={image.alt} />
             <LightboxStatus />
           </LightboxContent>

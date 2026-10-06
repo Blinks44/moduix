@@ -202,8 +202,7 @@ test('hydrates without replacing server hosts or ids and still handles keyboard 
   }
 });
 
-// Existing Ark Vue root-name regression; re-enable after the upstream fix.
-test.skip('forwards the root aria-label to the thumb in client and server renders', async () => {
+test('forwards the root aria-label to the thumb in client and server renders', async () => {
   render(TestAngleSliderRootLabel);
   await expect.element(page.getByRole('slider', { name: 'Rotation' })).toHaveCount(1);
   const host = document.createElement('div');

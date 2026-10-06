@@ -24,8 +24,8 @@ const open = ref(false);
     <LightboxTrigger :class="styles.button">Open controlled lightbox</LightboxTrigger>
     <LightboxBackdrop />
     <LightboxPositioner>
-      <LightboxCloseIcon />
       <LightboxContent :aria-label="image.alt">
+        <LightboxCloseIcon />
         <LightboxImage :src="image.src" :alt="image.alt" />
       </LightboxContent>
     </LightboxPositioner>

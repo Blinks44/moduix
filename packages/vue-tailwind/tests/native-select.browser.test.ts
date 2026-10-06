@@ -173,30 +173,6 @@ test('preserves native form submission and reset behavior', async () => {
     .toHaveValue('react');
 });
 
-// Ark Vue 5.39.2 declares native defaultValue but drops it in FieldSelect.
-test.skip('preserves native default values and reset behavior', async () => {
-  render({
-    components,
-    template: `
-      <form aria-label="Project settings">
-        <NativeSelect default-value="normal" name="priority" aria-label="Priority">
-          <option value="low">Low</option>
-          <option value="normal">Normal</option>
-        </NativeSelect>
-      </form>
-    `,
-  });
-
-  const form = screen.getByRole('form', { name: 'Project settings' }) as HTMLFormElement;
-
-  const combobox = page.getByRole('combobox', { name: 'Priority', exact: true });
-  await expect.element(combobox).toHaveValue('normal');
-  await combobox.selectOption('low');
-  form.reset();
-
-  await expect.element(combobox).toHaveValue('normal');
-});
-
 test('lets consumer utilities replace defaults and hides the indicator for list controls', async () => {
   render({
     components,

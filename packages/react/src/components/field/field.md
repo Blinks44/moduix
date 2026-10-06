@@ -103,7 +103,7 @@ Moduix does not implement legacy `validate`, `validationMode`, `match`, `dirty`,
 ## Accessibility and state
 
 Ark owns ids and ARIA links. `FieldLabel` points to the current control id, helper text is included
-in `aria-describedby`, and active error text is included in `aria-errormessage`. `FieldErrorText`
+in `aria-describedby`, alongside the active error text id. `FieldErrorText`
 renders only when the field is invalid, and state is exposed through `data-disabled`, `data-invalid`,
 `data-readonly`, and `data-required`.
 

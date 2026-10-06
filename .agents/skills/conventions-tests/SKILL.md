@@ -16,6 +16,10 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   focus, form submission/reset, disabled/read-only state, portals, refs, and native composition.
 - Test moduix's additions and integration boundaries, not every upstream Ark implementation detail.
   Keep upstream-related checks that protect a documented contract or a real regression.
+- Check the installed native API before copying assertions between frameworks. A React defaultValue
+  prop is not a Vue select contract; native option selected/reset behavior is. Distinguish wrapper
+  declarations from Ark declarations before attributing a failure upstream. In Vue passthrough attrs,
+  bind DOM properties with their actual camelCase names rather than hyphenated lookalike attributes.
 - Check public styling hooks and consumer overrides where they are contracts. Avoid snapshots of
   full markup, generated IDs, CSS hashes, or long class strings.
   Assert each conflicting utility is absent; a negated multi-class matcher may only mean that
@@ -27,9 +31,9 @@ follow the matching native convention skill. `component-workflow` owns adapter p
 - Target Node for pure helpers, filesystem checks, and actual server rendering; target Browser Mode
   for component behavior, layout, focus, and hydration. Browser tests use `*.browser.test.ts(x)`.
   Rendering server HTML inside a browser does not prove the component is safe without browser globals.
-- During the staged migration, keep unmigrated tests in the existing DOM project. Review scenarios
-  before moving them; do not retain duplicate DOM/browser coverage or weaken SSR checks to remove
-  happy-dom sooner.
+- The migration is complete: component tests run in Browser Mode; pure helpers, compiler checks,
+  and SSR run in Node. Do not reintroduce a DOM project, happy-dom, user-event, or jest-dom setup.
+  Add a Node project only when the package has Node tests.
 - Reuse Rslib transforms through the official adapter. Do not build a separate compiler pipeline.
 - Use each framework's installed Testing Library for rendering, prop updates, and cleanup in both
   styling adapters. Register cleanup explicitly through Rstest. Do not add a second renderer,
@@ -37,7 +41,7 @@ follow the matching native convention skill. `component-workflow` owns adapter p
 - Import shipped foundation CSS in browser setup; component CSS comes through normal source imports.
   CSS Modules setup also imports the shipped reset, matching the documented installation. Tailwind
   uses Preflight instead; do not layer the foundation reset on top of it.
-  Keep the DOM and browser projects' file sets disjoint. Move tests rather than duplicate them.
+  Keep the Node and browser projects' file sets disjoint. Move tests rather than duplicate them.
 - Tailwind browser projects use the official Rsbuild Tailwind plugin and a CSS entry scanning their
   own components/tests. Check computed CSS where layout, cascade or utility overrides matter;
   class presence alone does not prove the rendered result. Pure compiler checks stay in Node.
@@ -81,8 +85,6 @@ follow the matching native convention skill. `component-workflow` owns adapter p
   can race across parallel pages; for isolated paste-event handling, use native DataTransfer and
   ClipboardEvent when the installed browser locator API has no paste method. This checks event
   handling, not a trusted OS paste gesture; do not fake clipboardData or serialize the whole suite.
-- In DOM tests, use Testing Library's user interactions and retrying queries/assertions when needed.
-  Reserve `fireEvent` for a specific event contract that user interactions cannot express.
 - Keep fixtures local and small. Extract repeated component composition, not a configurable test DSL.
   Parameterize genuinely identical cases; keep different interaction sequences explicit.
 - Combine duplicate setup/assertions into one coherent scenario when no independent behavior is

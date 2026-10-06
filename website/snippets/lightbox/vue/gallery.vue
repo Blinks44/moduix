@@ -12,6 +12,7 @@ import {
 import {
   Lightbox,
   LightboxBackdrop,
+  LightboxBody,
   LightboxCloseIcon,
   LightboxContent,
   LightboxGallery,
@@ -65,31 +66,33 @@ const selectImage = ({ value }: { value: string | null }) => {
 
     <LightboxBackdrop />
     <LightboxPositioner>
-      <LightboxCloseIcon />
       <LightboxContent :aria-label="activeImage().alt">
-        <LightboxGallery>
-          <Carousel
-            aria-label="Server-driven image carousel"
-            :page="activeIndex"
-            :slide-count="images.length"
-            @page-change="activeIndex = $event.page"
-          >
-            <CarouselControl>
-              <CarouselPrevTrigger />
-              <CarouselItemGroup>
-                <CarouselItem v-for="(image, index) in images" :key="image.id" :index="index">
-                  <img :src="image.src" :alt="image.alt" />
-                </CarouselItem>
-              </CarouselItemGroup>
-              <CarouselNextTrigger />
-            </CarouselControl>
-            <CarouselIndicatorGroup>
-              <CarouselIndicator v-for="(image, index) in images" :key="image.id" :index="index">
-                <img :src="image.thumbnail" alt="" />
-              </CarouselIndicator>
-            </CarouselIndicatorGroup>
-          </Carousel>
-        </LightboxGallery>
+        <LightboxCloseIcon />
+        <LightboxBody>
+          <LightboxGallery>
+            <Carousel
+              aria-label="Server-driven image carousel"
+              :page="activeIndex"
+              :slide-count="images.length"
+              @page-change="activeIndex = $event.page"
+            >
+              <CarouselControl>
+                <CarouselPrevTrigger />
+                <CarouselItemGroup>
+                  <CarouselItem v-for="(image, index) in images" :key="image.id" :index="index">
+                    <img :src="image.src" :alt="image.alt" />
+                  </CarouselItem>
+                </CarouselItemGroup>
+                <CarouselNextTrigger />
+              </CarouselControl>
+              <CarouselIndicatorGroup>
+                <CarouselIndicator v-for="(image, index) in images" :key="image.id" :index="index">
+                  <img :src="image.thumbnail" alt="" />
+                </CarouselIndicator>
+              </CarouselIndicatorGroup>
+            </Carousel>
+          </LightboxGallery>
+        </LightboxBody>
       </LightboxContent>
     </LightboxPositioner>
   </Lightbox>

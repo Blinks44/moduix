@@ -17,8 +17,8 @@ presence lifecycle, CSS hooks, and callback detail objects.
   />
   <LightboxBackdrop />
   <LightboxPositioner>
-    <LightboxCloseIcon />
     <LightboxContent>
+      <LightboxCloseIcon />
       <LightboxBody>
         <LightboxImage src={fullSize} alt="Mountain ridge at sunset" />
       </LightboxBody>
@@ -79,8 +79,10 @@ defaults its accessible label to `Close image`.
 
 ## Style contract (2026-10-03)
 
-Content shares the --moduix-z-popup base and adds Ark --layer-index; surrounding parts use Ark’s mirrored --z-index. Foundation owns the content/backdrop keyframes, preserving public motion overrides, backdrop blur and reduced-motion behavior.
+Content shares the --moduix-z-popup base and adds Ark --layer-index; surrounding parts use Ark’s mirrored --z-index. Foundation owns the keyframes: Content fades while its direct Body child owns scale/translate motion. The close control stays inside Content, outside Body, preserving focus trapping and its viewport corner. Public motion overrides, backdrop blur and reduced-motion behavior remain available.
 
 ## Local changelog
+
+- 2026-10-05: Moved the close control inside Content for accessibility and focus trapping; scale/translate motion now belongs to Body, keeping the close icon viewport-fixed.
 
 - 2026-10-03: Binding falls back to `src` when `currentSrc` is empty, preserving explicit source overrides.

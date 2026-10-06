@@ -152,6 +152,9 @@ Utilisez `defaultValue` pour une zone de texte non contrôlée. Lorsque l’appl
 utilisez `value` avec le gestionnaire natif `onChange` dans React et Solid, ou `v-model` dans Vue,
 avec le mécanisme d’état du framework utilisé.
 
+Dans Vue, liez la propriété DOM native avec `:defaultValue="initialValue"`, et non `default-value`.
+Avec `v-model`, réinitialisez l’état lié dans le gestionnaire de réinitialisation du formulaire : la réinitialisation native ne déclenche pas d’événement de saisie.
+
 Placez `Textarea` dans `Field`, avec `FieldLabel`, `FieldHelperText` et `FieldErrorText`, lorsque
 le contrôle doit fournir un libellé, un texte complémentaire ou une validation. En dehors de `Field`,
 donnez-lui un nom accessible avec un `<label>` natif ou `aria-label`.

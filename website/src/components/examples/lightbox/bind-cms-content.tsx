@@ -52,8 +52,8 @@ export default function CmsLightboxDemo() {
         <LightboxBind rootRef={rootRef} selector="button" onImageSelect={setActiveImage} />
         <LightboxBackdrop />
         <LightboxPositioner>
-          <LightboxCloseIcon />
           <LightboxContent aria-label={activeImage?.alt ?? 'Image preview'}>
+            <LightboxCloseIcon />
             {activeImage ? (
               <LightboxImage src={activeImage.src} alt={activeImage.alt ?? ''} />
             ) : null}

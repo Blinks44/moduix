@@ -183,8 +183,10 @@ LightboxRootProvider
 `Lightbox` gère l’état du dialogue, tandis que `LightboxBackdrop`, `LightboxPositioner` et
 `LightboxContent` restent explicites. Les parties de la fenêtre sont rendues dans un portail par
 défaut. Utilisez `portalled={false}` pour les laisser en place ou `portalRef` pour cibler un
-conteneur. Placez `LightboxCloseIcon` à côté de `LightboxContent`, dans `LightboxPositioner`,
-lorsqu’il doit rester ancré à la fenêtre et ne pas suivre les transformations du contenu.
+conteneur. Placez `LightboxCloseIcon` dans `LightboxContent`, mais hors de `LightboxBody`, pour qu’il
+reste accessible aux lecteurs d’écran et inclus dans la zone de focus du dialogue. Content apparaît
+et disparaît en fondu ; Body change d’échelle et de position, tandis que le bouton reste ancré à la
+fenêtre. Sans Body, le contenu est animé uniquement en fondu.
 Avec `asChild`, fournissez un seul élément sémantique. En Solid, `asChild` est une fonction de rendu qui
 reçoit les props de cet élément ; en Vue, utilisez le booléen `as-child` et placez l’élément dans le slot.
 

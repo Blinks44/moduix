@@ -11,6 +11,7 @@ import {
 import {
   LightboxTrigger,
   LightboxBackdrop,
+  LightboxBody,
   LightboxPositioner,
   LightboxContent,
   LightboxCloseIcon,
@@ -72,40 +73,42 @@ export default function GalleryLightboxDemo() {
 
       <LightboxBackdrop />
       <LightboxPositioner>
-        <LightboxCloseIcon />
         <LightboxContent aria-label={activeImage().alt}>
-          <LightboxGallery>
-            <Carousel
-              aria-label="Server-driven image carousel"
-              page={activeIndex()}
-              onPageChange={(details) => setActiveIndex(details.page)}
-              slideCount={images.length}
-            >
-              <CarouselControl>
-                <CarouselPrevTrigger />
-                <CarouselItemGroup>
+          <LightboxCloseIcon />
+          <LightboxBody>
+            <LightboxGallery>
+              <Carousel
+                aria-label="Server-driven image carousel"
+                page={activeIndex()}
+                onPageChange={(details) => setActiveIndex(details.page)}
+                slideCount={images.length}
+              >
+                <CarouselControl>
+                  <CarouselPrevTrigger />
+                  <CarouselItemGroup>
+                    <For each={images}>
+                      {(image, index) => (
+                        <CarouselItem index={index()}>
+                          <img src={image.src} alt={image.alt} />
+                        </CarouselItem>
+                      )}
+                    </For>
+                  </CarouselItemGroup>
+                  <CarouselNextTrigger />
+                </CarouselControl>
+
+                <CarouselIndicatorGroup>
                   <For each={images}>
                     {(image, index) => (
-                      <CarouselItem index={index()}>
-                        <img src={image.src} alt={image.alt} />
-                      </CarouselItem>
+                      <CarouselIndicator index={index()}>
+                        <img src={image.thumbnail} alt="" />
+                      </CarouselIndicator>
                     )}
                   </For>
-                </CarouselItemGroup>
-                <CarouselNextTrigger />
-              </CarouselControl>
-
-              <CarouselIndicatorGroup>
-                <For each={images}>
-                  {(image, index) => (
-                    <CarouselIndicator index={index()}>
-                      <img src={image.thumbnail} alt="" />
-                    </CarouselIndicator>
-                  )}
-                </For>
-              </CarouselIndicatorGroup>
-            </Carousel>
-          </LightboxGallery>
+                </CarouselIndicatorGroup>
+              </Carousel>
+            </LightboxGallery>
+          </LightboxBody>
         </LightboxContent>
       </LightboxPositioner>
     </Lightbox>

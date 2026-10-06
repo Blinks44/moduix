@@ -148,8 +148,8 @@ Lightbox
 └─ Overlay subtree (automatically portalled)
    ├─ LightboxBackdrop
    └─ LightboxPositioner
-      ├─ LightboxCloseTrigger or LightboxCloseIcon
       └─ LightboxContent
+         ├─ LightboxCloseTrigger or LightboxCloseIcon
          ├─ LightboxHeader (optional)
          │  ├─ LightboxTitle
          │  └─ LightboxDescription
@@ -183,8 +183,9 @@ LightboxRootProvider
 
 `Lightbox` owns Dialog state, while `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent` stay explicit. The
 overlay parts are portalled by default. Use `portalled={false}` to keep them in place or `portalRef`
-to target a custom container. Keep `LightboxCloseIcon` beside `LightboxContent` inside `LightboxPositioner` when it should
-stay pinned to the viewport rather than follow content transforms. Use `asChild` with one semantic
+to target a custom container. Render `LightboxCloseIcon` inside `LightboxContent`, outside `LightboxBody`,
+so it remains accessible and part of the focus trap. Content fades; Body scales and translates while
+the close icon stays pinned to the viewport. Without Body, the content only fades. Use `asChild` with one semantic
 element; in Solid, `asChild` is a render function that receives the props for that element. In Vue,
 use the boolean `as-child` prop and place the semantic element in the slot.
 

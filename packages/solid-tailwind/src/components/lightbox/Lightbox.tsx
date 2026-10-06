@@ -185,7 +185,7 @@ function LightboxContent(props: ComponentProps<typeof DialogPrimitive.Content>) 
   return (
     <DialogPrimitive.Content
       class={cn(
-        'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border grid max-h-[min(80dvh,calc(100dvh-2rem))] w-fit max-w-[min(80vw,calc(100vw-2rem))] gap-3 border-0 bg-transparent outline-0 data-[state=closed]:animate-moduix-lightbox-content-out data-[state=open]:animate-moduix-lightbox-content-in motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
+        'group/lightbox relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border grid max-h-[min(80dvh,calc(100dvh-2rem))] w-fit max-w-[min(80vw,calc(100vw-2rem))] gap-3 border-0 bg-transparent outline-0 data-[state=closed]:animate-moduix-lightbox-content-out data-[state=open]:animate-moduix-lightbox-content-in motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
         local.class,
       )}
       {...others}
@@ -315,7 +315,16 @@ function LightboxHeader(props: HTMLArkProps<'div'>) {
 function LightboxBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div class={cn('grid gap-3', local.class)} {...others} data-slot="lightbox-body" />;
+  return (
+    <ark.div
+      class={cn(
+        'grid gap-3 group-data-[state]/lightbox:[animation:inherit] group-data-[state=closed]/lightbox:[animation-name:moduix-lightbox-body-out] group-data-[state=open]/lightbox:[animation-name:moduix-lightbox-body-in]',
+        local.class,
+      )}
+      {...others}
+      data-slot="lightbox-body"
+    />
+  );
 }
 
 function LightboxFooter(props: HTMLArkProps<'div'>) {

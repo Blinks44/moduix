@@ -181,6 +181,11 @@ sont responsables. Pour plusieurs contrôles natifs, entourez chacun d’un `Fie
 `target` sur la racine. Utilisez `FieldRootProvider` avec `useField()` lorsque l’état est créé en dehors
 de l’arbre rendu ; les contrôles personnalisés peuvent lire l’état via `FieldContext` ou `useFieldContext`.
 
+Dans Vue, initialisez les contrôles natifs avec `v-model` et réinitialisez les refs liées dans le
+gestionnaire de réinitialisation du formulaire. `FieldInput` et `FieldSelect` ne proposent pas la prop
+`defaultValue` de React. Ark efface actuellement les valeurs initiales natives de ces contrôles sans
+modèle ; utilisez `v-model` en attendant la correction.
+
 ## Exemples
 
 ### Checkbox
@@ -621,7 +626,7 @@ les variantes CSS Modules.
 ### Points d’accroche CSS
 
 Ark ajoute `data-disabled`, `data-invalid`, `data-readonly` et `data-required` aux parties concernées.
-`FieldErrorText` n’existe que lorsque le contexte courant du champ est invalide. L’identifiant du texte
-d’aide est inclus dans `aria-describedby` du contrôle et l’identifiant du message d’erreur actif dans
-`aria-errormessage`. Chaque partie DOM conserve également un point d’accroche stable
+`FieldErrorText` n’existe que lorsque le contexte courant du champ est invalide. Les identifiants du texte
+d’aide et du message d’erreur actif sont inclus dans `aria-describedby` du contrôle.
+Chaque partie DOM conserve également un point d’accroche stable
 `data-slot="field-*"`.

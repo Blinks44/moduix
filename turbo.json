@@ -38,6 +38,12 @@
       "dependsOn": ["^tsc:check"],
       "outputs": []
     },
+    "@moduix/react#tsc:check": {
+      "dependsOn": ["^tsc:check", "build"]
+    },
+    "@moduix/react-tailwind#tsc:check": {
+      "dependsOn": ["^tsc:check", "build"]
+    },
     "@moduix/solid#tsc:check": {
       "dependsOn": ["^tsc:check", "build"]
     },

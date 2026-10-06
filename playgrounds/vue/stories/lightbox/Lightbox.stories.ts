@@ -89,8 +89,8 @@ const LightboxSurface = defineComponent({
   template: `
     <LightboxBackdrop />
     <LightboxPositioner>
-      <LightboxCloseIcon />
       <LightboxContent :aria-label="props.alt">
+        <LightboxCloseIcon />
         <LightboxBody>
           <LightboxImage :src="props.src" :alt="props.alt" :close-on-click="props.closeOnClick" />
         </LightboxBody>
@@ -197,8 +197,8 @@ export const RootProviderAndContext: Story = {
         <LightboxRootProvider :value="lightbox">
           <LightboxBackdrop />
           <LightboxPositioner>
-            <LightboxCloseIcon />
             <LightboxContent :aria-label="images[2].alt">
+              <LightboxCloseIcon />
               <LightboxHeader>
                 <LightboxTitle>{{ images[2].alt }}</LightboxTitle>
                 <LightboxDescription>State comes from useLightbox.</LightboxDescription>
@@ -228,8 +228,8 @@ export const BoundContent: Story = {
         <LightboxBind :root-ref="() => rootRef" selector="button" :on-image-select="selectImage" />
         <LightboxBackdrop />
         <LightboxPositioner>
-          <LightboxCloseIcon />
           <LightboxContent :aria-label="activeImage?.alt ?? 'Image preview'">
+            <LightboxCloseIcon />
             <LightboxBody>
               <LightboxImage v-if="activeImage" :src="activeImage.src" :alt="activeImage.alt ?? ''" />
             </LightboxBody>
@@ -266,31 +266,33 @@ export const GalleryFromServerData: Story = {
         </div>
         <LightboxBackdrop />
         <LightboxPositioner>
-          <LightboxCloseIcon />
           <LightboxContent :aria-label="activeImage.alt">
-            <LightboxGallery>
-              <Carousel
-                aria-label="Server-driven image carousel"
-                :page="activeIndex"
-                :slide-count="images.length"
-                @page-change="activeIndex = $event.page"
-              >
-                <CarouselControl>
-                  <CarouselPrevTrigger />
-                  <CarouselItemGroup>
-                    <CarouselItem v-for="(image, index) in images" :key="image.id" :index="index">
-                      <img :src="image.src" :alt="image.alt" />
-                    </CarouselItem>
-                  </CarouselItemGroup>
-                  <CarouselNextTrigger />
-                </CarouselControl>
-                <CarouselIndicatorGroup>
-                  <CarouselIndicator v-for="(image, index) in images" :key="image.id" :index="index">
-                    <img :src="image.src" alt="" />
-                  </CarouselIndicator>
-                </CarouselIndicatorGroup>
-              </Carousel>
-            </LightboxGallery>
+            <LightboxCloseIcon />
+            <LightboxBody>
+              <LightboxGallery>
+                <Carousel
+                  aria-label="Server-driven image carousel"
+                  :page="activeIndex"
+                  :slide-count="images.length"
+                  @page-change="activeIndex = $event.page"
+                >
+                  <CarouselControl>
+                    <CarouselPrevTrigger />
+                    <CarouselItemGroup>
+                      <CarouselItem v-for="(image, index) in images" :key="image.id" :index="index">
+                        <img :src="image.src" :alt="image.alt" />
+                      </CarouselItem>
+                    </CarouselItemGroup>
+                    <CarouselNextTrigger />
+                  </CarouselControl>
+                  <CarouselIndicatorGroup>
+                    <CarouselIndicator v-for="(image, index) in images" :key="image.id" :index="index">
+                      <img :src="image.src" alt="" />
+                    </CarouselIndicator>
+                  </CarouselIndicatorGroup>
+                </Carousel>
+              </LightboxGallery>
+            </LightboxBody>
           </LightboxContent>
         </LightboxPositioner>
       </Lightbox>
@@ -322,8 +324,8 @@ export const CustomStyling: Story = {
       <LightboxTrigger :class="styles.textTrigger">Open styled lightbox</LightboxTrigger>
       <LightboxBackdrop :class="styles.customBackdrop" />
       <LightboxPositioner>
-        <LightboxCloseIcon :class="styles.customCloseIcon" />
         <LightboxContent :class="styles.customContent" :aria-label="images[1].alt">
+          <LightboxCloseIcon :class="styles.customCloseIcon" />
           <LightboxBody>
             <LightboxImage :src="images[1].src" :alt="images[1].alt" />
           </LightboxBody>

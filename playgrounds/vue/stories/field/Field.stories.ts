@@ -139,8 +139,8 @@ export const Select: Story = {
   render: renderStory(`
     <Field required>
       <FieldLabel>Priority</FieldLabel>
-      <NativeSelect name="priority" default-value="">
-        <option value="" disabled>Select priority</option>
+      <NativeSelect name="priority">
+        <option value="" disabled selected>Select priority</option>
         <option value="low">Low</option>
         <option value="normal">Normal</option>
         <option value="high">High</option>
@@ -164,7 +164,7 @@ export const ReadOnly: Story = {
   render: renderStory(`
     <Field read-only>
       <FieldLabel>Workspace key</FieldLabel>
-      <FieldInput default-value="MAPS" />
+      <FieldInput model-value="MAPS" />
       <FieldHelperText>Read-only state is propagated to the input.</FieldHelperText>
     </Field>
   `),
@@ -217,11 +217,12 @@ export const LongContent: Story = {
 };
 
 export const ItemTarget: Story = {
-  render: renderStory(`
+  render: renderStory(
+    `
     <Field target="amount">
       <FieldLabel>Amount</FieldLabel>
       <FieldItem value="currency">
-        <NativeSelect aria-label="Currency" default-value="USD">
+        <NativeSelect v-model="currency" aria-label="Currency">
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
           <option value="GBP">GBP</option>
@@ -230,7 +231,9 @@ export const ItemTarget: Story = {
       <FieldItem value="amount"><FieldInput input-mode="decimal" placeholder="0.00" /></FieldItem>
       <FieldHelperText>The root label targets the amount input.</FieldHelperText>
     </Field>
-  `),
+  `,
+    () => ({ currency: ref('USD') }),
+  ),
 };
 
 export const RootProvider: Story = {

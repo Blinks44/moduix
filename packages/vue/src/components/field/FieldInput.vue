@@ -1,23 +1,19 @@
 <script setup lang="ts">
 import { FieldInput as ArkFieldInput } from '@ark-ui/vue/field';
+import type { FieldInputProps } from '@ark-ui/vue/field';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
-import type { HTMLAttributes, InputHTMLAttributes } from 'vue';
+import type { HTMLAttributes } from 'vue';
 import styles from './Field.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type FieldInputValue = string | number | readonly string[] | undefined;
-
-export interface Props extends /* @vue-ignore */ Omit<InputHTMLAttributes, 'value'> {
+export interface Props extends /* @vue-ignore */ FieldInputProps {
   class?: HTMLAttributes['class'];
-  asChild?: boolean;
-  defaultValue?: FieldInputValue;
-  modelValue?: FieldInputValue;
 }
 
 export interface Emits {
-  'update:modelValue': [value: FieldInputValue];
+  'update:modelValue': [value: FieldInputProps['modelValue']];
 }
 
 const props = defineProps<Props>();
@@ -30,10 +26,7 @@ const attrs = useAttrs();
 <template>
   <ArkFieldInput
     v-bind="attrs"
-    :as-child="props.asChild ?? false"
     :class="clsx(styles.control, styles.input, props.class)"
-    :default-value="props.defaultValue"
-    :model-value="props.modelValue"
     data-slot="field-input"
   >
     <slot />

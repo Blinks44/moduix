@@ -15,7 +15,7 @@ import ToastTitle from './ToastTitle.vue';
 defineOptions({ inheritAttrs: false });
 
 export interface Props
-  extends /* @vue-ignore */ ToasterBaseProps, /* @vue-ignore */ HTMLAttributes {
+  extends /* @vue-ignore */ ToasterBaseProps, /* @vue-ignore */ Omit<HTMLAttributes, 'dir'> {
   asChild?: boolean;
   class?: HTMLAttributes['class'];
   portalRef?: PortalRef;

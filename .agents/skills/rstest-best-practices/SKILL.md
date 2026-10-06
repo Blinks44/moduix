@@ -43,10 +43,9 @@ Apply these rules when writing or reviewing Rstest test projects.
 ## Test environment
 
 - Use `testEnvironment: 'node'` (default) for Node.js / server-side code
-- Use `testEnvironment: 'jsdom'` or `testEnvironment: 'happy-dom'` only for simulated DOM tests;
-  they do not provide real layout, focus, or browser API behavior. In moduix this is a temporary
-  environment for unmigrated tests, following `conventions-tests`.
-- Install the selected DOM environment only while tests still consume it.
+- In moduix, use Node for pure helpers/SSR and Browser Mode for components, following
+  `conventions-tests`. The simulated DOM migration is complete; do not restore its environment
+  dependencies or setup files.
 - For real browser testing, use `@rstest/browser` with Playwright
 - Use `defineInlineProject` for named inline projects with different environments.
   Project build/setup options do not inherit from the root config; configure each project explicitly.
@@ -73,8 +72,7 @@ Apply these rules when writing or reviewing Rstest test projects.
 
 - For React: use `@rsbuild/plugin-react` plugin and `@testing-library/react` for component testing
 - For Vue: use `@rsbuild/plugin-vue` plugin and `@testing-library/vue` for component testing
-- For DOM projects, register `expect.extend(jestDomMatchers)` and native cleanup in `rstest.setup.ts`.
-  Browser setup registers native cleanup and CSS only; use the built-in browser assertions there.
+- Browser setup registers native cleanup and CSS only; use the built-in browser assertions there.
 - Add the setup file to `setupFiles` in config
 - For SSR testing, use `testEnvironment: 'node'` and the framework's server renderer. Vue SFC tests
   use `@vue/server-renderer`; declare it directly when a package imports it in tests.

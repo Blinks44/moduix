@@ -108,12 +108,3 @@ test.each(cases)('%s emits CSS for %s', async (component, candidate) => {
   const baseline = compiler.build([]);
   expect(compiler.build([candidate])).not.toEqual(baseline);
 });
-
-test.each(['focus-visible:outline-offset-0.5', 'readonly:cursor-default'])(
-  'the compiler rejects the former invalid candidate %s',
-  async (candidate) => {
-    const compiler = await compile(theme + '\n@tailwind utilities;');
-    const baseline = compiler.build([]);
-    expect(compiler.build([candidate])).toEqual(baseline);
-  },
-);

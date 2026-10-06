@@ -20,8 +20,8 @@ export default function AdvancedCustomizationLightboxDemo() {
       <LightboxTrigger className={styles.button}>Open styled lightbox</LightboxTrigger>
       <LightboxBackdrop className={styles.customBackdrop} />
       <LightboxPositioner>
-        <LightboxCloseIcon className={styles.customClose} />
         <LightboxContent className={styles.customContent} aria-label={image.alt}>
+          <LightboxCloseIcon className={styles.customClose} />
           <LightboxImage src={image.src} alt={image.alt} />
         </LightboxContent>
       </LightboxPositioner>

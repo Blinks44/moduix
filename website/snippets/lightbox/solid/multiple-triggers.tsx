@@ -59,8 +59,8 @@ export default function MultipleTriggersLightboxDemo() {
       </div>
       <LightboxBackdrop />
       <LightboxPositioner>
-        <LightboxCloseIcon />
         <LightboxContent aria-label={activeImage().alt}>
+          <LightboxCloseIcon />
           <LightboxImage src={activeImage().src} alt={activeImage().alt} />
         </LightboxContent>
       </LightboxPositioner>
