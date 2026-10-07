@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "autoplay-gallery",
   "title": "Autoplay gallery",
-  "description": "React autoplay-gallery block with Tailwind components and shared CSS Module layout.",
+  "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
   "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-autoplay-gallery.json"],
   "files": [],
   "type": "registry:block"

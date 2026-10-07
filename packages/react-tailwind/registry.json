@@ -2034,24 +2034,24 @@
     {
       "name": "login-simple",
       "type": "registry:block",
-      "title": "Login Simple",
-      "description": "React login-simple block with Tailwind components and shared CSS Module layout.",
+      "title": "Sign in",
+      "description": "Sign-in form with email, password, and a remember-me option.",
       "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-login-simple.json"],
       "files": []
     },
     {
       "name": "sidebar-dashboard",
       "type": "registry:block",
-      "title": "Sidebar Dashboard",
-      "description": "React sidebar-dashboard block with Tailwind components and shared CSS Module layout.",
+      "title": "Sidebar dashboard",
+      "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
       "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-sidebar-dashboard.json"],
       "files": []
     },
     {
       "name": "file-upload-manager",
       "type": "registry:block",
-      "title": "File Upload Manager",
-      "description": "React file-upload-manager block with Tailwind components and shared CSS Module layout.",
+      "title": "File upload",
+      "description": "File picker with drag and drop, validation, previews, and removal controls.",
       "registryDependencies": [
         "https://moduix.dev/r/blocks/react-tailwind-file-upload-manager.json"
       ],
@@ -2061,7 +2061,7 @@
       "name": "app-header",
       "type": "registry:block",
       "title": "App header",
-      "description": "React app-header block with Tailwind components and shared CSS Module layout.",
+      "description": "Responsive header with navigation, command search, and an account menu.",
       "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-app-header.json"],
       "files": []
     },
@@ -2069,7 +2069,7 @@
       "name": "sign-up",
       "type": "registry:block",
       "title": "Sign up",
-      "description": "React sign-up block with Tailwind components and shared CSS Module layout.",
+      "description": "Registration form with email, password confirmation, and terms acceptance.",
       "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-sign-up.json"],
       "files": []
     },
@@ -2077,7 +2077,7 @@
       "name": "forgot-password",
       "type": "registry:block",
       "title": "Forgot password",
-      "description": "React forgot-password block with Tailwind components and shared CSS Module layout.",
+      "description": "Email form for requesting a password reset link.",
       "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-forgot-password.json"],
       "files": []
     },
@@ -2085,7 +2085,7 @@
       "name": "reset-password",
       "type": "registry:block",
       "title": "Reset password",
-      "description": "React reset-password block with Tailwind components and shared CSS Module layout.",
+      "description": "Password reset form with a confirmation field.",
       "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-reset-password.json"],
       "files": []
     },
@@ -2093,15 +2093,15 @@
       "name": "verification-code",
       "type": "registry:block",
       "title": "Verification code",
-      "description": "React verification-code block with Tailwind components and shared CSS Module layout.",
+      "description": "Six-digit email verification form with keyboard navigation and paste support.",
       "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-verification-code.json"],
       "files": []
     },
     {
       "name": "data-table",
       "type": "registry:block",
-      "title": "Data Table",
-      "description": "React data-table block with Tailwind components and shared CSS Module layout.",
+      "title": "Data table",
+      "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
       "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-data-table.json"],
       "files": []
     },
@@ -2109,7 +2109,7 @@
       "name": "expandable-avatar-group",
       "type": "registry:block",
       "title": "Expandable avatar group",
-      "description": "React expandable-avatar-group block with Tailwind components and shared CSS Module layout.",
+      "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
       "registryDependencies": [
         "https://moduix.dev/r/blocks/react-tailwind-expandable-avatar-group.json"
       ],
@@ -2119,7 +2119,7 @@
       "name": "autoplay-gallery",
       "type": "registry:block",
       "title": "Autoplay gallery",
-      "description": "React autoplay-gallery block with Tailwind components and shared CSS Module layout.",
+      "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
       "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-autoplay-gallery.json"],
       "files": []
     },
@@ -2127,7 +2127,7 @@
       "name": "parallax-card",
       "type": "registry:block",
       "title": "Parallax card",
-      "description": "React parallax-card block with Tailwind components and shared CSS Module layout.",
+      "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
       "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-parallax-card.json"],
       "files": []
     }

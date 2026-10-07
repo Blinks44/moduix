@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "react-verification-code",
   "title": "Verification code",
-  "description": "React verification-code block with CSS Modules components and shared CSS Module layout.",
+  "description": "Six-digit email verification form with keyboard navigation and paste support.",
   "registryDependencies": [
     "https://moduix.dev/r/react/button.json",
     "https://moduix.dev/r/react/card.json",

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "react-expandable-avatar-group",
   "title": "Expandable avatar group",
-  "description": "React expandable-avatar-group block with CSS Modules components and shared CSS Module layout.",
+  "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
   "registryDependencies": [
     "https://moduix.dev/r/react/avatar.json",
     "https://moduix.dev/r/react/tooltip.json"

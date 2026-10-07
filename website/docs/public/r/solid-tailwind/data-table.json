@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "data-table",
-  "title": "Data Table",
-  "description": "Solid data-table block with Tailwind components and shared CSS Module layout.",
+  "title": "Data table",
+  "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
   "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-data-table.json"],
   "files": [],
   "type": "registry:block"

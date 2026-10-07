@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "vue-tailwind-expandable-avatar-group",
   "title": "Expandable avatar group",
-  "description": "Vue expandable-avatar-group block with Tailwind components and shared CSS Module layout.",
+  "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
   "registryDependencies": [
     "https://moduix.dev/r/vue-tailwind/avatar.json",
     "https://moduix.dev/r/vue-tailwind/tooltip.json"

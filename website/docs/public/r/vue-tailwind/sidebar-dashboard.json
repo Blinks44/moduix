@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sidebar-dashboard",
-  "title": "Sidebar Dashboard",
-  "description": "Vue sidebar-dashboard block with Tailwind components and shared CSS Module layout.",
+  "title": "Sidebar dashboard",
+  "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
   "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-sidebar-dashboard.json"],
   "files": [],
   "type": "registry:block"

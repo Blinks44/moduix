@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "vue-tailwind-sign-up",
   "title": "Sign up",
-  "description": "Vue sign-up block with Tailwind components and shared CSS Module layout.",
+  "description": "Registration form with email, password confirmation, and terms acceptance.",
   "registryDependencies": [
     "https://moduix.dev/r/vue-tailwind/button.json",
     "https://moduix.dev/r/vue-tailwind/card.json",

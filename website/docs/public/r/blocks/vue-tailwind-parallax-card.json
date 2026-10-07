@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "vue-tailwind-parallax-card",
   "title": "Parallax card",
-  "description": "Vue parallax-card block with Tailwind components and shared CSS Module layout.",
+  "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
   "registryDependencies": ["https://moduix.dev/r/vue-tailwind/card.json"],
   "files": [
     {

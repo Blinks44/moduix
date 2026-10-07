@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "vue-data-table",
-  "title": "Data Table",
-  "description": "Vue data-table block with CSS Modules components and shared CSS Module layout.",
+  "title": "Data table",
+  "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
   "dependencies": ["@lucide/vue", "@tanstack/vue-table@^9.2.4"],
   "registryDependencies": [
     "https://moduix.dev/r/vue/badge.json",

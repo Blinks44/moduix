@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "vue-sidebar-dashboard",
-  "title": "Sidebar Dashboard",
-  "description": "Vue sidebar-dashboard block with CSS Modules components and shared CSS Module layout.",
+  "title": "Sidebar dashboard",
+  "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
   "dependencies": ["@lucide/vue"],
   "registryDependencies": [
     "https://moduix.dev/r/vue/button.json",

@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "vue-tailwind-login-simple",
-  "title": "Login Simple",
-  "description": "Vue login-simple block with Tailwind components and shared CSS Module layout.",
+  "title": "Sign in",
+  "description": "Sign-in form with email, password, and a remember-me option.",
   "registryDependencies": [
     "https://moduix.dev/r/vue-tailwind/button.json",
     "https://moduix.dev/r/vue-tailwind/card.json",

@@ -13,7 +13,7 @@ Utilisez cette composition pour du contenu mis en avant qui défile automatiquem
 Elle associe `Carousel` à des diapositives voisines partiellement visibles, du texte superposé, des flèches de
 navigation et des indicateurs qui se remplissent pendant chaque intervalle de lecture automatique.
 
-L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React, Solid et Vue avec les mêmes styles.
+L’aperçu utilise React. Les onglets présentent le code React, Solid et Vue avec une feuille de style commune.
 
 
 
@@ -84,9 +84,9 @@ espacements de la galerie dans son conteneur.
 
 ## Fonctionnement
 
-La composition utilise deux blocs `CarouselContext` connectés à la même racine. Le premier lit l’API du carrousel pour
-marquer la diapositive active et afficher les boutons précédent et suivant. Le second construit les indicateurs de
-progression à partir de `api.pageSnapPoints` et marque l’indicateur courant avec `data-current`.
+React et Solid lisent l’état du carrousel via `CarouselContext` ; Vue utilise `useCarousel` avec
+`CarouselRootProvider`. Cet état identifie la diapositive active et fournit `pageSnapPoints` pour les
+indicateurs de progression. L’indicateur de la page actuelle porte l’attribut `data-current`.
 
 Chaque indicateur conserve `overflow: visible` afin que sa zone transparente `::after` agrandisse la zone de clic
 de la fine barre de progression. Le remplissage visible anime sa `width` au lieu d’utiliser `scaleX`, ce qui conserve

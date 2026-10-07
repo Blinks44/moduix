@@ -2055,24 +2055,24 @@
     {
       "name": "login-simple",
       "type": "registry:block",
-      "title": "Login Simple",
-      "description": "Solid login-simple block with Tailwind components and shared CSS Module layout.",
+      "title": "Sign in",
+      "description": "Sign-in form with email, password, and a remember-me option.",
       "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-login-simple.json"],
       "files": []
     },
     {
       "name": "sidebar-dashboard",
       "type": "registry:block",
-      "title": "Sidebar Dashboard",
-      "description": "Solid sidebar-dashboard block with Tailwind components and shared CSS Module layout.",
+      "title": "Sidebar dashboard",
+      "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
       "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-sidebar-dashboard.json"],
       "files": []
     },
     {
       "name": "file-upload-manager",
       "type": "registry:block",
-      "title": "File Upload Manager",
-      "description": "Solid file-upload-manager block with Tailwind components and shared CSS Module layout.",
+      "title": "File upload",
+      "description": "File picker with drag and drop, validation, previews, and removal controls.",
       "registryDependencies": [
         "https://moduix.dev/r/blocks/solid-tailwind-file-upload-manager.json"
       ],
@@ -2082,7 +2082,7 @@
       "name": "app-header",
       "type": "registry:block",
       "title": "App header",
-      "description": "Solid app-header block with Tailwind components and shared CSS Module layout.",
+      "description": "Responsive header with navigation, command search, and an account menu.",
       "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-app-header.json"],
       "files": []
     },
@@ -2090,7 +2090,7 @@
       "name": "sign-up",
       "type": "registry:block",
       "title": "Sign up",
-      "description": "Solid sign-up block with Tailwind components and shared CSS Module layout.",
+      "description": "Registration form with email, password confirmation, and terms acceptance.",
       "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-sign-up.json"],
       "files": []
     },
@@ -2098,7 +2098,7 @@
       "name": "forgot-password",
       "type": "registry:block",
       "title": "Forgot password",
-      "description": "Solid forgot-password block with Tailwind components and shared CSS Module layout.",
+      "description": "Email form for requesting a password reset link.",
       "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-forgot-password.json"],
       "files": []
     },
@@ -2106,7 +2106,7 @@
       "name": "reset-password",
       "type": "registry:block",
       "title": "Reset password",
-      "description": "Solid reset-password block with Tailwind components and shared CSS Module layout.",
+      "description": "Password reset form with a confirmation field.",
       "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-reset-password.json"],
       "files": []
     },
@@ -2114,15 +2114,15 @@
       "name": "verification-code",
       "type": "registry:block",
       "title": "Verification code",
-      "description": "Solid verification-code block with Tailwind components and shared CSS Module layout.",
+      "description": "Six-digit email verification form with keyboard navigation and paste support.",
       "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-verification-code.json"],
       "files": []
     },
     {
       "name": "data-table",
       "type": "registry:block",
-      "title": "Data Table",
-      "description": "Solid data-table block with Tailwind components and shared CSS Module layout.",
+      "title": "Data table",
+      "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
       "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-data-table.json"],
       "files": []
     },
@@ -2130,7 +2130,7 @@
       "name": "expandable-avatar-group",
       "type": "registry:block",
       "title": "Expandable avatar group",
-      "description": "Solid expandable-avatar-group block with Tailwind components and shared CSS Module layout.",
+      "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
       "registryDependencies": [
         "https://moduix.dev/r/blocks/solid-tailwind-expandable-avatar-group.json"
       ],
@@ -2140,7 +2140,7 @@
       "name": "autoplay-gallery",
       "type": "registry:block",
       "title": "Autoplay gallery",
-      "description": "Solid autoplay-gallery block with Tailwind components and shared CSS Module layout.",
+      "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
       "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-autoplay-gallery.json"],
       "files": []
     },
@@ -2148,7 +2148,7 @@
       "name": "parallax-card",
       "type": "registry:block",
       "title": "Parallax card",
-      "description": "Solid parallax-card block with Tailwind components and shared CSS Module layout.",
+      "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
       "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-parallax-card.json"],
       "files": []
     }

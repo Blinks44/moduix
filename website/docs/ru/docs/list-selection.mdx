@@ -163,7 +163,7 @@ import { createListCollection, useListSelection } from '@ark-ui/vue/collection';
 `initialSelectedValues` читается при создании состояния выбора. После этого меняйте состояние через
 `setSelectedValues` или другие действия. В Solid свойства состояния являются accessors, поэтому их
 нужно читать как `selection.selectedValues()` и `selection.isEmpty()`. Действия вызываются так же,
-как в React. В Vue свойства состояния — это refs: в скрипте читайте `selection.selectedValues.value`
+как в React. В Vue свойства состояния представлены ref: в скрипте читайте `selection.selectedValues.value`
 и `selection.isEmpty.value`. Действия выбора остаются методами.
 
 ### Состояние и действия

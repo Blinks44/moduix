@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "solid-data-table",
-  "title": "Data Table",
-  "description": "Solid data-table block with CSS Modules components and shared CSS Module layout.",
+  "title": "Data table",
+  "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
   "dependencies": ["@tanstack/solid-table@^9.2.4", "lucide-solid"],
   "registryDependencies": [
     "https://moduix.dev/r/solid/badge.json",

@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "login-simple",
-  "title": "Login Simple",
-  "description": "Solid login-simple block with Tailwind components and shared CSS Module layout.",
+  "title": "Sign in",
+  "description": "Sign-in form with email, password, and a remember-me option.",
   "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-login-simple.json"],
   "files": [],
   "type": "registry:block"

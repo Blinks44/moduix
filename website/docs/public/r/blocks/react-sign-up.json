@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "react-sign-up",
   "title": "Sign up",
-  "description": "React sign-up block with CSS Modules components and shared CSS Module layout.",
+  "description": "Registration form with email, password confirmation, and terms acceptance.",
   "registryDependencies": [
     "https://moduix.dev/r/react/button.json",
     "https://moduix.dev/r/react/card.json",

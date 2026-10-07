@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "react-tailwind-sign-up",
   "title": "Sign up",
-  "description": "React sign-up block with Tailwind components and shared CSS Module layout.",
+  "description": "Registration form with email, password confirmation, and terms acceptance.",
   "registryDependencies": [
     "https://moduix.dev/r/react-tailwind/button.json",
     "https://moduix.dev/r/react-tailwind/card.json",

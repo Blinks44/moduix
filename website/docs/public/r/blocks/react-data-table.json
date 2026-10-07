@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "react-data-table",
-  "title": "Data Table",
-  "description": "React data-table block with CSS Modules components and shared CSS Module layout.",
+  "title": "Data table",
+  "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
   "dependencies": ["@tanstack/react-table@^9.2.4", "lucide-react"],
   "registryDependencies": [
     "https://moduix.dev/r/react/badge.json",

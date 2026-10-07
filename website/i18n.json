@@ -501,24 +501,24 @@
     "fr": "Préréglages de thème"
   },
   "themePresetCalmDescription": {
-    "en": "The balanced moduix foundation. Quiet surfaces and a neutral rhythm.",
-    "ru": "Сбалансированная основа moduix со спокойными поверхностями и нейтральным ритмом.",
-    "fr": "Le socle moduix équilibré, avec des surfaces discrètes et un rythme neutre."
+    "en": "The default moduix theme with neutral colors and standard spacing.",
+    "ru": "Базовая тема moduix с нейтральными цветами и стандартными отступами.",
+    "fr": "Le thème moduix par défaut, avec des couleurs neutres et un espacement standard."
   },
   "themePresetDenseDescription": {
-    "en": "Compact spacing and blue structure for admin and data-heavy interfaces.",
-    "ru": "Компактные интервалы и синяя палитра для админ-панелей и интерфейсов с большим объёмом данных.",
-    "fr": "Un espacement compact et une structure bleue pour les interfaces d’administration riches en données."
+    "en": "Compact spacing and blue accents for admin interfaces and data tables.",
+    "ru": "Компактные отступы и синие акценты для панелей управления и таблиц данных.",
+    "fr": "Un espacement compact et des accents bleus pour les interfaces d’administration et les tableaux de données."
   },
   "themePresetSoftDescription": {
-    "en": "Rounded surfaces and a warmer violet accent for product workflows.",
-    "ru": "Округлые поверхности и более тёплый фиолетовый акцент для продуктовых сценариев.",
-    "fr": "Des surfaces arrondies et un accent violet plus chaleureux pour les parcours produit."
+    "en": "Rounded corners and violet accents.",
+    "ru": "Закруглённые углы и фиолетовые акценты.",
+    "fr": "Des coins arrondis et des accents violets."
   },
   "themePresetContrastDescription": {
-    "en": "Sharper borders and clearer contrast for focused, technical interfaces.",
-    "ru": "Чёткие границы и усиленный контраст для технических интерфейсов, где важна ясная иерархия.",
-    "fr": "Des bordures plus nettes et un contraste renforcé pour les interfaces techniques qui privilégient la lisibilité."
+    "en": "Stronger borders and higher contrast.",
+    "ru": "Более чёткие границы и повышенный контраст.",
+    "fr": "Des bordures plus marquées et un contraste renforcé."
   },
   "themePreviewColorModeLabel": {
     "en": "Preview color mode",

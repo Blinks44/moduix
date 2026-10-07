@@ -6,8 +6,8 @@
     {
       "name": "react-tailwind-login-simple",
       "type": "registry:block",
-      "title": "Login Simple",
-      "description": "React login-simple block with Tailwind components and shared CSS Module layout.",
+      "title": "Sign in",
+      "description": "Sign-in form with email, password, and a remember-me option.",
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/button.json",
         "https://moduix.dev/r/react-tailwind/card.json",
@@ -31,8 +31,8 @@
     {
       "name": "react-tailwind-sidebar-dashboard",
       "type": "registry:block",
-      "title": "Sidebar Dashboard",
-      "description": "React sidebar-dashboard block with Tailwind components and shared CSS Module layout.",
+      "title": "Sidebar dashboard",
+      "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
       "dependencies": ["lucide-react"],
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/button.json",
@@ -57,8 +57,8 @@
     {
       "name": "react-tailwind-file-upload-manager",
       "type": "registry:block",
-      "title": "File Upload Manager",
-      "description": "React file-upload-manager block with Tailwind components and shared CSS Module layout.",
+      "title": "File upload",
+      "description": "File picker with drag and drop, validation, previews, and removal controls.",
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/card.json",
         "https://moduix.dev/r/react-tailwind/file-upload.json"
@@ -80,7 +80,7 @@
       "name": "react-tailwind-app-header",
       "type": "registry:block",
       "title": "App header",
-      "description": "React app-header block with Tailwind components and shared CSS Module layout.",
+      "description": "Responsive header with navigation, command search, and an account menu.",
       "dependencies": ["lucide-react"],
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/avatar.json",
@@ -105,7 +105,7 @@
       "name": "react-tailwind-sign-up",
       "type": "registry:block",
       "title": "Sign up",
-      "description": "React sign-up block with Tailwind components and shared CSS Module layout.",
+      "description": "Registration form with email, password confirmation, and terms acceptance.",
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/button.json",
         "https://moduix.dev/r/react-tailwind/card.json",
@@ -130,7 +130,7 @@
       "name": "react-tailwind-forgot-password",
       "type": "registry:block",
       "title": "Forgot password",
-      "description": "React forgot-password block with Tailwind components and shared CSS Module layout.",
+      "description": "Email form for requesting a password reset link.",
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/button.json",
         "https://moduix.dev/r/react-tailwind/card.json",
@@ -154,7 +154,7 @@
       "name": "react-tailwind-reset-password",
       "type": "registry:block",
       "title": "Reset password",
-      "description": "React reset-password block with Tailwind components and shared CSS Module layout.",
+      "description": "Password reset form with a confirmation field.",
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/button.json",
         "https://moduix.dev/r/react-tailwind/card.json",
@@ -178,7 +178,7 @@
       "name": "react-tailwind-verification-code",
       "type": "registry:block",
       "title": "Verification code",
-      "description": "React verification-code block with Tailwind components and shared CSS Module layout.",
+      "description": "Six-digit email verification form with keyboard navigation and paste support.",
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/button.json",
         "https://moduix.dev/r/react-tailwind/card.json",
@@ -201,8 +201,8 @@
     {
       "name": "react-tailwind-data-table",
       "type": "registry:block",
-      "title": "Data Table",
-      "description": "React data-table block with Tailwind components and shared CSS Module layout.",
+      "title": "Data table",
+      "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
       "dependencies": ["@tanstack/react-table@^9.2.4", "lucide-react"],
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/badge.json",
@@ -229,7 +229,7 @@
       "name": "react-tailwind-expandable-avatar-group",
       "type": "registry:block",
       "title": "Expandable avatar group",
-      "description": "React expandable-avatar-group block with Tailwind components and shared CSS Module layout.",
+      "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
       "registryDependencies": [
         "https://moduix.dev/r/react-tailwind/avatar.json",
         "https://moduix.dev/r/react-tailwind/tooltip.json"
@@ -251,7 +251,7 @@
       "name": "react-tailwind-autoplay-gallery",
       "type": "registry:block",
       "title": "Autoplay gallery",
-      "description": "React autoplay-gallery block with Tailwind components and shared CSS Module layout.",
+      "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
       "registryDependencies": ["https://moduix.dev/r/react-tailwind/carousel.json"],
       "files": [
         {
@@ -270,7 +270,7 @@
       "name": "react-tailwind-parallax-card",
       "type": "registry:block",
       "title": "Parallax card",
-      "description": "React parallax-card block with Tailwind components and shared CSS Module layout.",
+      "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
       "registryDependencies": ["https://moduix.dev/r/react-tailwind/card.json"],
       "files": [
         {
@@ -288,8 +288,8 @@
     {
       "name": "react-login-simple",
       "type": "registry:block",
-      "title": "Login Simple",
-      "description": "React login-simple block with CSS Modules components and shared CSS Module layout.",
+      "title": "Sign in",
+      "description": "Sign-in form with email, password, and a remember-me option.",
       "registryDependencies": [
         "https://moduix.dev/r/react/button.json",
         "https://moduix.dev/r/react/card.json",
@@ -313,8 +313,8 @@
     {
       "name": "react-sidebar-dashboard",
       "type": "registry:block",
-      "title": "Sidebar Dashboard",
-      "description": "React sidebar-dashboard block with CSS Modules components and shared CSS Module layout.",
+      "title": "Sidebar dashboard",
+      "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
       "dependencies": ["lucide-react"],
       "registryDependencies": [
         "https://moduix.dev/r/react/button.json",
@@ -339,8 +339,8 @@
     {
       "name": "react-file-upload-manager",
       "type": "registry:block",
-      "title": "File Upload Manager",
-      "description": "React file-upload-manager block with CSS Modules components and shared CSS Module layout.",
+      "title": "File upload",
+      "description": "File picker with drag and drop, validation, previews, and removal controls.",
       "registryDependencies": [
         "https://moduix.dev/r/react/card.json",
         "https://moduix.dev/r/react/file-upload.json"
@@ -362,7 +362,7 @@
       "name": "react-app-header",
       "type": "registry:block",
       "title": "App header",
-      "description": "React app-header block with CSS Modules components and shared CSS Module layout.",
+      "description": "Responsive header with navigation, command search, and an account menu.",
       "dependencies": ["lucide-react"],
       "registryDependencies": [
         "https://moduix.dev/r/react/avatar.json",
@@ -387,7 +387,7 @@
       "name": "react-sign-up",
       "type": "registry:block",
       "title": "Sign up",
-      "description": "React sign-up block with CSS Modules components and shared CSS Module layout.",
+      "description": "Registration form with email, password confirmation, and terms acceptance.",
       "registryDependencies": [
         "https://moduix.dev/r/react/button.json",
         "https://moduix.dev/r/react/card.json",
@@ -412,7 +412,7 @@
       "name": "react-forgot-password",
       "type": "registry:block",
       "title": "Forgot password",
-      "description": "React forgot-password block with CSS Modules components and shared CSS Module layout.",
+      "description": "Email form for requesting a password reset link.",
       "registryDependencies": [
         "https://moduix.dev/r/react/button.json",
         "https://moduix.dev/r/react/card.json",
@@ -436,7 +436,7 @@
       "name": "react-reset-password",
       "type": "registry:block",
       "title": "Reset password",
-      "description": "React reset-password block with CSS Modules components and shared CSS Module layout.",
+      "description": "Password reset form with a confirmation field.",
       "registryDependencies": [
         "https://moduix.dev/r/react/button.json",
         "https://moduix.dev/r/react/card.json",
@@ -460,7 +460,7 @@
       "name": "react-verification-code",
       "type": "registry:block",
       "title": "Verification code",
-      "description": "React verification-code block with CSS Modules components and shared CSS Module layout.",
+      "description": "Six-digit email verification form with keyboard navigation and paste support.",
       "registryDependencies": [
         "https://moduix.dev/r/react/button.json",
         "https://moduix.dev/r/react/card.json",
@@ -483,8 +483,8 @@
     {
       "name": "react-data-table",
       "type": "registry:block",
-      "title": "Data Table",
-      "description": "React data-table block with CSS Modules components and shared CSS Module layout.",
+      "title": "Data table",
+      "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
       "dependencies": ["@tanstack/react-table@^9.2.4", "lucide-react"],
       "registryDependencies": [
         "https://moduix.dev/r/react/badge.json",
@@ -511,7 +511,7 @@
       "name": "react-expandable-avatar-group",
       "type": "registry:block",
       "title": "Expandable avatar group",
-      "description": "React expandable-avatar-group block with CSS Modules components and shared CSS Module layout.",
+      "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
       "registryDependencies": [
         "https://moduix.dev/r/react/avatar.json",
         "https://moduix.dev/r/react/tooltip.json"
@@ -533,7 +533,7 @@
       "name": "react-autoplay-gallery",
       "type": "registry:block",
       "title": "Autoplay gallery",
-      "description": "React autoplay-gallery block with CSS Modules components and shared CSS Module layout.",
+      "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
       "registryDependencies": ["https://moduix.dev/r/react/carousel.json"],
       "files": [
         {
@@ -552,7 +552,7 @@
       "name": "react-parallax-card",
       "type": "registry:block",
       "title": "Parallax card",
-      "description": "React parallax-card block with CSS Modules components and shared CSS Module layout.",
+      "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
       "registryDependencies": ["https://moduix.dev/r/react/card.json"],
       "files": [
         {
@@ -570,8 +570,8 @@
     {
       "name": "solid-tailwind-login-simple",
       "type": "registry:block",
-      "title": "Login Simple",
-      "description": "Solid login-simple block with Tailwind components and shared CSS Module layout.",
+      "title": "Sign in",
+      "description": "Sign-in form with email, password, and a remember-me option.",
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/button.json",
         "https://moduix.dev/r/solid-tailwind/card.json",
@@ -595,8 +595,8 @@
     {
       "name": "solid-tailwind-sidebar-dashboard",
       "type": "registry:block",
-      "title": "Sidebar Dashboard",
-      "description": "Solid sidebar-dashboard block with Tailwind components and shared CSS Module layout.",
+      "title": "Sidebar dashboard",
+      "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
       "dependencies": ["lucide-solid"],
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/button.json",
@@ -621,8 +621,8 @@
     {
       "name": "solid-tailwind-file-upload-manager",
       "type": "registry:block",
-      "title": "File Upload Manager",
-      "description": "Solid file-upload-manager block with Tailwind components and shared CSS Module layout.",
+      "title": "File upload",
+      "description": "File picker with drag and drop, validation, previews, and removal controls.",
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/card.json",
         "https://moduix.dev/r/solid-tailwind/file-upload.json"
@@ -644,7 +644,7 @@
       "name": "solid-tailwind-app-header",
       "type": "registry:block",
       "title": "App header",
-      "description": "Solid app-header block with Tailwind components and shared CSS Module layout.",
+      "description": "Responsive header with navigation, command search, and an account menu.",
       "dependencies": ["lucide-solid"],
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/avatar.json",
@@ -669,7 +669,7 @@
       "name": "solid-tailwind-sign-up",
       "type": "registry:block",
       "title": "Sign up",
-      "description": "Solid sign-up block with Tailwind components and shared CSS Module layout.",
+      "description": "Registration form with email, password confirmation, and terms acceptance.",
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/button.json",
         "https://moduix.dev/r/solid-tailwind/card.json",
@@ -694,7 +694,7 @@
       "name": "solid-tailwind-forgot-password",
       "type": "registry:block",
       "title": "Forgot password",
-      "description": "Solid forgot-password block with Tailwind components and shared CSS Module layout.",
+      "description": "Email form for requesting a password reset link.",
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/button.json",
         "https://moduix.dev/r/solid-tailwind/card.json",
@@ -718,7 +718,7 @@
       "name": "solid-tailwind-reset-password",
       "type": "registry:block",
       "title": "Reset password",
-      "description": "Solid reset-password block with Tailwind components and shared CSS Module layout.",
+      "description": "Password reset form with a confirmation field.",
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/button.json",
         "https://moduix.dev/r/solid-tailwind/card.json",
@@ -742,7 +742,7 @@
       "name": "solid-tailwind-verification-code",
       "type": "registry:block",
       "title": "Verification code",
-      "description": "Solid verification-code block with Tailwind components and shared CSS Module layout.",
+      "description": "Six-digit email verification form with keyboard navigation and paste support.",
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/button.json",
         "https://moduix.dev/r/solid-tailwind/card.json",
@@ -765,8 +765,8 @@
     {
       "name": "solid-tailwind-data-table",
       "type": "registry:block",
-      "title": "Data Table",
-      "description": "Solid data-table block with Tailwind components and shared CSS Module layout.",
+      "title": "Data table",
+      "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
       "dependencies": ["@tanstack/solid-table@^9.2.4", "lucide-solid"],
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/badge.json",
@@ -793,7 +793,7 @@
       "name": "solid-tailwind-expandable-avatar-group",
       "type": "registry:block",
       "title": "Expandable avatar group",
-      "description": "Solid expandable-avatar-group block with Tailwind components and shared CSS Module layout.",
+      "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
       "registryDependencies": [
         "https://moduix.dev/r/solid-tailwind/avatar.json",
         "https://moduix.dev/r/solid-tailwind/tooltip.json"
@@ -815,7 +815,7 @@
       "name": "solid-tailwind-autoplay-gallery",
       "type": "registry:block",
       "title": "Autoplay gallery",
-      "description": "Solid autoplay-gallery block with Tailwind components and shared CSS Module layout.",
+      "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
       "registryDependencies": ["https://moduix.dev/r/solid-tailwind/carousel.json"],
       "files": [
         {
@@ -834,7 +834,7 @@
       "name": "solid-tailwind-parallax-card",
       "type": "registry:block",
       "title": "Parallax card",
-      "description": "Solid parallax-card block with Tailwind components and shared CSS Module layout.",
+      "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
       "registryDependencies": ["https://moduix.dev/r/solid-tailwind/card.json"],
       "files": [
         {
@@ -852,8 +852,8 @@
     {
       "name": "solid-login-simple",
       "type": "registry:block",
-      "title": "Login Simple",
-      "description": "Solid login-simple block with CSS Modules components and shared CSS Module layout.",
+      "title": "Sign in",
+      "description": "Sign-in form with email, password, and a remember-me option.",
       "registryDependencies": [
         "https://moduix.dev/r/solid/button.json",
         "https://moduix.dev/r/solid/card.json",
@@ -877,8 +877,8 @@
     {
       "name": "solid-sidebar-dashboard",
       "type": "registry:block",
-      "title": "Sidebar Dashboard",
-      "description": "Solid sidebar-dashboard block with CSS Modules components and shared CSS Module layout.",
+      "title": "Sidebar dashboard",
+      "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
       "dependencies": ["lucide-solid"],
       "registryDependencies": [
         "https://moduix.dev/r/solid/button.json",
@@ -903,8 +903,8 @@
     {
       "name": "solid-file-upload-manager",
       "type": "registry:block",
-      "title": "File Upload Manager",
-      "description": "Solid file-upload-manager block with CSS Modules components and shared CSS Module layout.",
+      "title": "File upload",
+      "description": "File picker with drag and drop, validation, previews, and removal controls.",
       "registryDependencies": [
         "https://moduix.dev/r/solid/card.json",
         "https://moduix.dev/r/solid/file-upload.json"
@@ -926,7 +926,7 @@
       "name": "solid-app-header",
       "type": "registry:block",
       "title": "App header",
-      "description": "Solid app-header block with CSS Modules components and shared CSS Module layout.",
+      "description": "Responsive header with navigation, command search, and an account menu.",
       "dependencies": ["lucide-solid"],
       "registryDependencies": [
         "https://moduix.dev/r/solid/avatar.json",
@@ -951,7 +951,7 @@
       "name": "solid-sign-up",
       "type": "registry:block",
       "title": "Sign up",
-      "description": "Solid sign-up block with CSS Modules components and shared CSS Module layout.",
+      "description": "Registration form with email, password confirmation, and terms acceptance.",
       "registryDependencies": [
         "https://moduix.dev/r/solid/button.json",
         "https://moduix.dev/r/solid/card.json",
@@ -976,7 +976,7 @@
       "name": "solid-forgot-password",
       "type": "registry:block",
       "title": "Forgot password",
-      "description": "Solid forgot-password block with CSS Modules components and shared CSS Module layout.",
+      "description": "Email form for requesting a password reset link.",
       "registryDependencies": [
         "https://moduix.dev/r/solid/button.json",
         "https://moduix.dev/r/solid/card.json",
@@ -1000,7 +1000,7 @@
       "name": "solid-reset-password",
       "type": "registry:block",
       "title": "Reset password",
-      "description": "Solid reset-password block with CSS Modules components and shared CSS Module layout.",
+      "description": "Password reset form with a confirmation field.",
       "registryDependencies": [
         "https://moduix.dev/r/solid/button.json",
         "https://moduix.dev/r/solid/card.json",
@@ -1024,7 +1024,7 @@
       "name": "solid-verification-code",
       "type": "registry:block",
       "title": "Verification code",
-      "description": "Solid verification-code block with CSS Modules components and shared CSS Module layout.",
+      "description": "Six-digit email verification form with keyboard navigation and paste support.",
       "registryDependencies": [
         "https://moduix.dev/r/solid/button.json",
         "https://moduix.dev/r/solid/card.json",
@@ -1047,8 +1047,8 @@
     {
       "name": "solid-data-table",
       "type": "registry:block",
-      "title": "Data Table",
-      "description": "Solid data-table block with CSS Modules components and shared CSS Module layout.",
+      "title": "Data table",
+      "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
       "dependencies": ["@tanstack/solid-table@^9.2.4", "lucide-solid"],
       "registryDependencies": [
         "https://moduix.dev/r/solid/badge.json",
@@ -1075,7 +1075,7 @@
       "name": "solid-expandable-avatar-group",
       "type": "registry:block",
       "title": "Expandable avatar group",
-      "description": "Solid expandable-avatar-group block with CSS Modules components and shared CSS Module layout.",
+      "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
       "registryDependencies": [
         "https://moduix.dev/r/solid/avatar.json",
         "https://moduix.dev/r/solid/tooltip.json"
@@ -1097,7 +1097,7 @@
       "name": "solid-autoplay-gallery",
       "type": "registry:block",
       "title": "Autoplay gallery",
-      "description": "Solid autoplay-gallery block with CSS Modules components and shared CSS Module layout.",
+      "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
       "registryDependencies": ["https://moduix.dev/r/solid/carousel.json"],
       "files": [
         {
@@ -1116,7 +1116,7 @@
       "name": "solid-parallax-card",
       "type": "registry:block",
       "title": "Parallax card",
-      "description": "Solid parallax-card block with CSS Modules components and shared CSS Module layout.",
+      "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
       "registryDependencies": ["https://moduix.dev/r/solid/card.json"],
       "files": [
         {
@@ -1134,8 +1134,8 @@
     {
       "name": "vue-tailwind-login-simple",
       "type": "registry:block",
-      "title": "Login Simple",
-      "description": "Vue login-simple block with Tailwind components and shared CSS Module layout.",
+      "title": "Sign in",
+      "description": "Sign-in form with email, password, and a remember-me option.",
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/button.json",
         "https://moduix.dev/r/vue-tailwind/card.json",
@@ -1159,8 +1159,8 @@
     {
       "name": "vue-tailwind-sidebar-dashboard",
       "type": "registry:block",
-      "title": "Sidebar Dashboard",
-      "description": "Vue sidebar-dashboard block with Tailwind components and shared CSS Module layout.",
+      "title": "Sidebar dashboard",
+      "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
       "dependencies": ["@lucide/vue"],
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/button.json",
@@ -1185,8 +1185,8 @@
     {
       "name": "vue-tailwind-file-upload-manager",
       "type": "registry:block",
-      "title": "File Upload Manager",
-      "description": "Vue file-upload-manager block with Tailwind components and shared CSS Module layout.",
+      "title": "File upload",
+      "description": "File picker with drag and drop, validation, previews, and removal controls.",
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/card.json",
         "https://moduix.dev/r/vue-tailwind/file-upload.json"
@@ -1208,7 +1208,7 @@
       "name": "vue-tailwind-app-header",
       "type": "registry:block",
       "title": "App header",
-      "description": "Vue app-header block with Tailwind components and shared CSS Module layout.",
+      "description": "Responsive header with navigation, command search, and an account menu.",
       "dependencies": ["@lucide/vue"],
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/avatar.json",
@@ -1233,7 +1233,7 @@
       "name": "vue-tailwind-sign-up",
       "type": "registry:block",
       "title": "Sign up",
-      "description": "Vue sign-up block with Tailwind components and shared CSS Module layout.",
+      "description": "Registration form with email, password confirmation, and terms acceptance.",
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/button.json",
         "https://moduix.dev/r/vue-tailwind/card.json",
@@ -1258,7 +1258,7 @@
       "name": "vue-tailwind-forgot-password",
       "type": "registry:block",
       "title": "Forgot password",
-      "description": "Vue forgot-password block with Tailwind components and shared CSS Module layout.",
+      "description": "Email form for requesting a password reset link.",
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/button.json",
         "https://moduix.dev/r/vue-tailwind/card.json",
@@ -1282,7 +1282,7 @@
       "name": "vue-tailwind-reset-password",
       "type": "registry:block",
       "title": "Reset password",
-      "description": "Vue reset-password block with Tailwind components and shared CSS Module layout.",
+      "description": "Password reset form with a confirmation field.",
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/button.json",
         "https://moduix.dev/r/vue-tailwind/card.json",
@@ -1306,7 +1306,7 @@
       "name": "vue-tailwind-verification-code",
       "type": "registry:block",
       "title": "Verification code",
-      "description": "Vue verification-code block with Tailwind components and shared CSS Module layout.",
+      "description": "Six-digit email verification form with keyboard navigation and paste support.",
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/button.json",
         "https://moduix.dev/r/vue-tailwind/card.json",
@@ -1329,8 +1329,8 @@
     {
       "name": "vue-tailwind-data-table",
       "type": "registry:block",
-      "title": "Data Table",
-      "description": "Vue data-table block with Tailwind components and shared CSS Module layout.",
+      "title": "Data table",
+      "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
       "dependencies": ["@lucide/vue", "@tanstack/vue-table@^9.2.4"],
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/badge.json",
@@ -1357,7 +1357,7 @@
       "name": "vue-tailwind-expandable-avatar-group",
       "type": "registry:block",
       "title": "Expandable avatar group",
-      "description": "Vue expandable-avatar-group block with Tailwind components and shared CSS Module layout.",
+      "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
       "registryDependencies": [
         "https://moduix.dev/r/vue-tailwind/avatar.json",
         "https://moduix.dev/r/vue-tailwind/tooltip.json"
@@ -1379,7 +1379,7 @@
       "name": "vue-tailwind-autoplay-gallery",
       "type": "registry:block",
       "title": "Autoplay gallery",
-      "description": "Vue autoplay-gallery block with Tailwind components and shared CSS Module layout.",
+      "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
       "registryDependencies": ["https://moduix.dev/r/vue-tailwind/carousel.json"],
       "files": [
         {
@@ -1398,7 +1398,7 @@
       "name": "vue-tailwind-parallax-card",
       "type": "registry:block",
       "title": "Parallax card",
-      "description": "Vue parallax-card block with Tailwind components and shared CSS Module layout.",
+      "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
       "registryDependencies": ["https://moduix.dev/r/vue-tailwind/card.json"],
       "files": [
         {
@@ -1416,8 +1416,8 @@
     {
       "name": "vue-login-simple",
       "type": "registry:block",
-      "title": "Login Simple",
-      "description": "Vue login-simple block with CSS Modules components and shared CSS Module layout.",
+      "title": "Sign in",
+      "description": "Sign-in form with email, password, and a remember-me option.",
       "registryDependencies": [
         "https://moduix.dev/r/vue/button.json",
         "https://moduix.dev/r/vue/card.json",
@@ -1441,8 +1441,8 @@
     {
       "name": "vue-sidebar-dashboard",
       "type": "registry:block",
-      "title": "Sidebar Dashboard",
-      "description": "Vue sidebar-dashboard block with CSS Modules components and shared CSS Module layout.",
+      "title": "Sidebar dashboard",
+      "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
       "dependencies": ["@lucide/vue"],
       "registryDependencies": [
         "https://moduix.dev/r/vue/button.json",
@@ -1467,8 +1467,8 @@
     {
       "name": "vue-file-upload-manager",
       "type": "registry:block",
-      "title": "File Upload Manager",
-      "description": "Vue file-upload-manager block with CSS Modules components and shared CSS Module layout.",
+      "title": "File upload",
+      "description": "File picker with drag and drop, validation, previews, and removal controls.",
       "registryDependencies": [
         "https://moduix.dev/r/vue/card.json",
         "https://moduix.dev/r/vue/file-upload.json"
@@ -1490,7 +1490,7 @@
       "name": "vue-app-header",
       "type": "registry:block",
       "title": "App header",
-      "description": "Vue app-header block with CSS Modules components and shared CSS Module layout.",
+      "description": "Responsive header with navigation, command search, and an account menu.",
       "dependencies": ["@lucide/vue"],
       "registryDependencies": [
         "https://moduix.dev/r/vue/avatar.json",
@@ -1515,7 +1515,7 @@
       "name": "vue-sign-up",
       "type": "registry:block",
       "title": "Sign up",
-      "description": "Vue sign-up block with CSS Modules components and shared CSS Module layout.",
+      "description": "Registration form with email, password confirmation, and terms acceptance.",
       "registryDependencies": [
         "https://moduix.dev/r/vue/button.json",
         "https://moduix.dev/r/vue/card.json",
@@ -1540,7 +1540,7 @@
       "name": "vue-forgot-password",
       "type": "registry:block",
       "title": "Forgot password",
-      "description": "Vue forgot-password block with CSS Modules components and shared CSS Module layout.",
+      "description": "Email form for requesting a password reset link.",
       "registryDependencies": [
         "https://moduix.dev/r/vue/button.json",
         "https://moduix.dev/r/vue/card.json",
@@ -1564,7 +1564,7 @@
       "name": "vue-reset-password",
       "type": "registry:block",
       "title": "Reset password",
-      "description": "Vue reset-password block with CSS Modules components and shared CSS Module layout.",
+      "description": "Password reset form with a confirmation field.",
       "registryDependencies": [
         "https://moduix.dev/r/vue/button.json",
         "https://moduix.dev/r/vue/card.json",
@@ -1588,7 +1588,7 @@
       "name": "vue-verification-code",
       "type": "registry:block",
       "title": "Verification code",
-      "description": "Vue verification-code block with CSS Modules components and shared CSS Module layout.",
+      "description": "Six-digit email verification form with keyboard navigation and paste support.",
       "registryDependencies": [
         "https://moduix.dev/r/vue/button.json",
         "https://moduix.dev/r/vue/card.json",
@@ -1611,8 +1611,8 @@
     {
       "name": "vue-data-table",
       "type": "registry:block",
-      "title": "Data Table",
-      "description": "Vue data-table block with CSS Modules components and shared CSS Module layout.",
+      "title": "Data table",
+      "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
       "dependencies": ["@lucide/vue", "@tanstack/vue-table@^9.2.4"],
       "registryDependencies": [
         "https://moduix.dev/r/vue/badge.json",
@@ -1639,7 +1639,7 @@
       "name": "vue-expandable-avatar-group",
       "type": "registry:block",
       "title": "Expandable avatar group",
-      "description": "Vue expandable-avatar-group block with CSS Modules components and shared CSS Module layout.",
+      "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
       "registryDependencies": [
         "https://moduix.dev/r/vue/avatar.json",
         "https://moduix.dev/r/vue/tooltip.json"
@@ -1661,7 +1661,7 @@
       "name": "vue-autoplay-gallery",
       "type": "registry:block",
       "title": "Autoplay gallery",
-      "description": "Vue autoplay-gallery block with CSS Modules components and shared CSS Module layout.",
+      "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
       "registryDependencies": ["https://moduix.dev/r/vue/carousel.json"],
       "files": [
         {
@@ -1680,7 +1680,7 @@
       "name": "vue-parallax-card",
       "type": "registry:block",
       "title": "Parallax card",
-      "description": "Vue parallax-card block with CSS Modules components and shared CSS Module layout.",
+      "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
       "registryDependencies": ["https://moduix.dev/r/vue/card.json"],
       "files": [
         {

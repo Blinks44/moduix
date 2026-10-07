@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "solid-file-upload-manager",
-  "title": "File Upload Manager",
-  "description": "Solid file-upload-manager block with CSS Modules components and shared CSS Module layout.",
+  "title": "File upload",
+  "description": "File picker with drag and drop, validation, previews, and removal controls.",
   "registryDependencies": [
     "https://moduix.dev/r/solid/card.json",
     "https://moduix.dev/r/solid/file-upload.json"

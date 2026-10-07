@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "app-header",
   "title": "App header",
-  "description": "Vue app-header block with Tailwind components and shared CSS Module layout.",
+  "description": "Responsive header with navigation, command search, and an account menu.",
   "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-app-header.json"],
   "files": [],
   "type": "registry:block"

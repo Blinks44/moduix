@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "react-tailwind-file-upload-manager",
-  "title": "File Upload Manager",
-  "description": "React file-upload-manager block with Tailwind components and shared CSS Module layout.",
+  "title": "File upload",
+  "description": "File picker with drag and drop, validation, previews, and removal controls.",
   "registryDependencies": [
     "https://moduix.dev/r/react-tailwind/card.json",
     "https://moduix.dev/r/react-tailwind/file-upload.json"

@@ -13,7 +13,7 @@ Use this block for featured content that advances automatically while keeping na
 `Carousel` with partially visible neighbouring slides, overlaid copy, arrow controls, and indicators that fill during
 each autoplay interval.
 
-The live preview uses the React package. The source tabs show native React, Solid, and Vue implementations that share the same stylesheet.
+The preview runs React. The source tabs contain React, Solid, and Vue implementations with a shared stylesheet.
 
 
 
@@ -83,9 +83,9 @@ gallery sits within its container.
 
 ## How it works
 
-The block uses two `CarouselContext` blocks over the same root. The first reads the carousel API to mark the active
-slide and render the previous and next controls. The second builds the progress indicators from
-`api.pageSnapPoints` and marks the current indicator with `data-current`.
+React and Solid read the carousel state through `CarouselContext`; Vue uses `useCarousel` with
+`CarouselRootProvider`. The state identifies the active slide and supplies `pageSnapPoints` for the
+progress indicators. Each indicator marks the current page with `data-current`.
 
 Each indicator keeps `overflow: visible` so its transparent `::after` area can make the thin progress bar easier to
 tap. The visible fill animates its `width` instead of using `scaleX`, which keeps the inherited rounded leading edge

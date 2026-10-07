@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "solid-app-header",
   "title": "App header",
-  "description": "Solid app-header block with CSS Modules components and shared CSS Module layout.",
+  "description": "Responsive header with navigation, command search, and an account menu.",
   "dependencies": ["lucide-solid"],
   "registryDependencies": [
     "https://moduix.dev/r/solid/avatar.json",
