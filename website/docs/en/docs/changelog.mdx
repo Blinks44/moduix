@@ -21,6 +21,24 @@ import { VueReleaseHero } from '@/components/changelog/vue-release-hero';
 Vue joins React and Solid as a native moduix adapter. [`@moduix/vue`](/docs/quick-start) and
 `@moduix/vue-tailwind` provide the full component catalog with shared tokens and themes.
 
+### Breaking changes in 3.0
+
+All components now use flat named exports across React, Solid, and Vue, in both CSS Modules and
+Tailwind. This applies to npm packages and registry source. When upgrading from 2.x, update your
+imports and component names:
+
+| Before | Now |
+| --- | --- |
+| `Dialog.Root` | `Dialog` |
+| `Dialog.Trigger` | `DialogTrigger` |
+| `Dialog.Content` | `DialogContent` |
+| `Dialog.RootProvider` | `DialogRootProvider` |
+| `Dialog.Context` | `DialogContext` |
+
+The same naming pattern applies to every component family. Compound exports such as `Dialog.*`
+and duplicate root aliases such as `DialogRoot` have been removed. Hooks such as `useDialog`
+remain top-level named exports.
+
 ### Native Vue composition
 
 Use flat named exports in SFCs with `script setup`, native props, events, `v-model`, and scoped slots.

@@ -21,6 +21,24 @@ import { VueReleaseHero } from '@/components/changelog/vue-release-hero';
 Vue rejoint React et Solid comme adaptateur natif de moduix. [`@moduix/vue`](/docs/quick-start) et
 `@moduix/vue-tailwind` proposent le catalogue complet avec les mêmes tokens et thèmes.
 
+### Changements incompatibles dans la version 3.0
+
+Tous les composants utilisent désormais des exports nommés plats dans React, Solid et Vue, aussi bien
+avec CSS Modules qu’avec Tailwind. Ce changement concerne les paquets npm et les sources du registre.
+Lors de la mise à jour depuis la version 2.x, adaptez vos imports et les noms des composants :
+
+| Avant | Maintenant |
+| --- | --- |
+| `Dialog.Root` | `Dialog` |
+| `Dialog.Trigger` | `DialogTrigger` |
+| `Dialog.Content` | `DialogContent` |
+| `Dialog.RootProvider` | `DialogRootProvider` |
+| `Dialog.Context` | `DialogContext` |
+
+La même convention de nommage s’applique à toutes les familles de composants. Les exports composés
+comme `Dialog.*` et les alias du composant racine comme `DialogRoot` ont été supprimés. Les hooks
+comme `useDialog` restent disponibles sous forme d’exports nommés distincts.
+
 ### Composition Vue native
 
 Utilisez les exports nommés plats dans des SFC avec `script setup`, des props et événements natifs,

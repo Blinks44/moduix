@@ -21,6 +21,24 @@ import { VueReleaseHero } from '@/components/changelog/vue-release-hero';
 Vue стал нативным адаптером moduix наряду с React и Solid. [`@moduix/vue`](/docs/quick-start) и
 `@moduix/vue-tailwind` предоставляют полный каталог компонентов с общими токенами и темами.
 
+### Несовместимые изменения в 3.0
+
+Все компоненты теперь используют плоские именованные экспорты в React, Solid и Vue, как в CSS Modules,
+так и в Tailwind. Это касается npm-пакетов и исходников из реестра. При обновлении с 2.x замените
+импорты и имена компонентов:
+
+| Раньше | Теперь |
+| --- | --- |
+| `Dialog.Root` | `Dialog` |
+| `Dialog.Trigger` | `DialogTrigger` |
+| `Dialog.Content` | `DialogContent` |
+| `Dialog.RootProvider` | `DialogRootProvider` |
+| `Dialog.Context` | `DialogContext` |
+
+Такая схема имён действует для всех групп компонентов. Составные экспорты вида `Dialog.*`
+и дублирующие имена корневых компонентов вроде `DialogRoot` удалены. Хуки, например `useDialog`,
+по-прежнему доступны как отдельные именованные экспорты.
+
 ### Нативная композиция Vue
 
 Используйте плоские именованные экспорты в SFC с `script setup`, нативными свойствами, событиями,
