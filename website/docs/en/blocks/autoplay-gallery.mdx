@@ -88,8 +88,8 @@ React and Solid read the carousel state through `CarouselContext`; Vue uses `use
 progress indicators. Each indicator marks the current page with `data-current`.
 
 Each indicator keeps `overflow: visible` so its transparent `::after` area can make the thin progress bar easier to
-tap. The visible fill animates its `width` instead of using `scaleX`, which keeps the inherited rounded leading edge
-intact while the bar fills.
+tap. The fill is a background on the indicator itself. Animating `background-size` keeps it inside the indicator’s
+rounded outline throughout the interval.
 
 Arrow and indicator clicks call `requestAnimationFrame(api.play)`. Manual navigation pauses autoplay, so starting it on
 the next frame lets the page change finish before a fresh interval begins. Touch and horizontal wheel interaction pause

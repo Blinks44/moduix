@@ -122,6 +122,10 @@
     var(--moduix-color-muted) 90%,
     var(--moduix-color-foreground)
   );
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  color: var(--moduix-carousel-indicator-bg-current, var(--moduix-color-primary));
   opacity: 1;
 
   &[data-current] {
@@ -130,16 +134,11 @@
       var(--moduix-color-muted) 90%,
       var(--moduix-color-foreground)
     );
+    background-size: 100% 100%;
   }
 
-  &::before {
-    position: absolute;
-    inset-block: 0;
-    inset-inline-start: 0;
-    width: 0;
-    background-color: var(--moduix-carousel-indicator-bg-current, var(--moduix-color-primary));
-    border-radius: inherit;
-    content: '';
+  &:dir(rtl) {
+    background-position: right;
   }
 
   &::after {
@@ -149,22 +148,18 @@
     content: '';
   }
 
-  &[data-current]::before {
-    width: 100%;
-  }
-
-  &[data-current][data-playing]::before {
+  &[data-current][data-playing] {
     animation: autoplay-gallery-progress 3.5s linear forwards;
   }
 }
 
 @keyframes autoplay-gallery-progress {
   from {
-    width: 0;
+    background-size: 0% 100%;
   }
 
   to {
-    width: 100%;
+    background-size: 100% 100%;
   }
 }
 
@@ -204,8 +199,8 @@
     transition: none;
   }
 
-  .indicator[data-current]::before {
+  .indicator[data-current] {
     animation: none;
-    width: 100%;
+    background-size: 100% 100%;
   }
 }
