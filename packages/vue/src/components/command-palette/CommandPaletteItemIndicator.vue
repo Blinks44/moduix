@@ -4,7 +4,7 @@ import type { ComboboxItemIndicatorProps } from '@ark-ui/vue/combobox';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CheckIcon } from '@/internal/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './CommandPalette.module.css';
 
 defineOptions({ inheritAttrs: false });

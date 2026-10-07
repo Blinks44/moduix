@@ -93,7 +93,7 @@ import { Dialog } from '@/components/ui/dialog';
 | Знакомое имя shadcn | Используйте в moduix | Что изменить |
 | --- | --- | --- |
 | Accordion | [`Accordion`](/docs/accordion) | Используйте именованные части, например `AccordionItem` и `AccordionItemContent`. |
-| Alert Dialog | [`Dialog`](/docs/dialog) | Для критического подтверждения укажите `role="alertdialog"` на `DialogContent`. |
+| Alert Dialog | [`Dialog`](/docs/dialog) | Для критического подтверждения укажите `role="alertdialog"` на `Dialog`. |
 | Avatar | [`Avatar`](/docs/avatar) | Поместите резервное содержимое и изображение в `AvatarFallback` и `AvatarImage`. |
 | Breadcrumb | [`Breadcrumbs`](/docs/breadcrumbs) | Название семейства стоит во множественном числе; сохраните семантические ссылки и отметку текущей страницы. |
 | Calendar | [`DatePicker`](/docs/date-picker) или [`DateInput`](/docs/date-input) | Выберите `DatePicker` для календаря, а `DateInput`, если нужны только редактируемые сегменты даты. |
@@ -102,12 +102,13 @@ import { Dialog } from '@/components/ui/dialog';
 | Combobox | [`Combobox`](/docs/combobox) | Создайте коллекцию Ark и задайте значения элементов, если элементы представлены объектами. |
 | Command | [`CommandPalette`](/docs/command-palette) | Используйте компонент для команд, а не общий псевдоним списка. |
 | Context Menu | [`MenuContextTrigger`](/docs/menu) | Оставьте семейство `Menu` и используйте его контекстный триггер. |
-| Data Table | [`Table`](/docs/table) и [рецепт Data Table](/recipes/data-table) | Сортировку, фильтрацию и серверное состояние оставьте в коде приложения. |
+| Data Table | [`Table`](/docs/table) и [блок Data Table](/blocks/data-table) | Сортировку, фильтрацию и серверное состояние оставьте в коде приложения. |
 | Date Picker | [`DatePicker`](/docs/date-picker) | Используйте составное семейство для ввода даты и календаря. |
 | Dropdown Menu | [`Menu`](/docs/menu) | Соберите обычный вариант через `MenuTrigger`. |
 | Form | [`Field`](/docs/field) и [`Fieldset`](/docs/fieldset) | Используйте их для структуры полей, а валидацию и отправку оставьте библиотеке форм или приложению. |
 | Hover Card | [`HoverCard`](/docs/hover-card) | Проверьте на странице компонента явные части для позиционирования и закрытия. |
 | Input OTP | [`PinInput`](/docs/pin-input) | Сохраните его настройку для нативных форм и SSR. |
+| Navigation Menu | [`NavigationMenu`](/docs/navigation-menu) | Соберите триггер, содержимое и при необходимости общую область отображения из именованных частей. |
 | Progress | [`ProgressLinear`](/docs/progress-linear) или [`ProgressCircular`](/docs/progress-circular) | Явно выберите нужный вид индикатора. |
 | Resizable | [`Splitter`](/docs/splitter) | Задайте панелям стабильные id и храните состояние раскладки явно. |
 | Select | [`Select`](/docs/select) | Используйте коллекцию Ark, а не произвольный массив объектов option. |
@@ -118,8 +119,8 @@ import { Dialog } from '@/components/ui/dialog';
 | Toggle Group | [`ToggleGroup`](/docs/toggle-group) | Используйте значения элементов и состояние группы из контракта Ark. |
 | Tooltip | [`Tooltip`](/docs/tooltip) | Явно задайте триггер и содержимое, которое рендерится через портал. |
 
-Для Navigation Menu и Menubar не нужно искать обязательную замену один к одному. Выберите
-`Sidebar`, `Menu`, `Breadcrumbs` или обычные ссылки в зависимости от нужного взаимодействия.
+Отдельного компонента Menubar нет. `Menu` — всплывающее меню, а не готовая замена панели меню
+с её клавиатурным управлением. Если оно вам нужно, оставьте существующий Menubar.
 
 ## Адаптируйте импорты
 
@@ -261,7 +262,7 @@ Ark. Для элементов-объектов задайте через `itemT
 1. Подключите базовые стили moduix и разместите импорт раньше собственных переопределений.
 2. Начните с компонентов с небольшим числом зависимостей: `Button`, `Badge`, `Avatar` и `Separator`.
 3. Переносите всплывающие и коллекционные компоненты по одному семейству, включая части портала и обработчики состояния.
-4. Используйте [рецепт](/recipes), только если описанный в нём сценарий экрана подходит вашему продукту.
+4. Используйте [блок](/blocks), только если описанный в нём сценарий экрана подходит вашему продукту.
 5. Проверьте клавиатурное управление, возврат фокуса, подписи и важные ARIA-роли, затем удалите старые исходники и стили компонента.
 
 Прикладная логика должна оставаться в приложении. Подписи, сообщения валидации, права доступа,

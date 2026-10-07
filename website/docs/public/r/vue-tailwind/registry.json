@@ -5512,6 +5512,104 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "login-simple",
+      "type": "registry:block",
+      "title": "Login Simple",
+      "description": "Vue login-simple block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-login-simple.json"],
+      "files": []
+    },
+    {
+      "name": "sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar Dashboard",
+      "description": "Vue sidebar-dashboard block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-sidebar-dashboard.json"],
+      "files": []
+    },
+    {
+      "name": "file-upload-manager",
+      "type": "registry:block",
+      "title": "File Upload Manager",
+      "description": "Vue file-upload-manager block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-file-upload-manager.json"],
+      "files": []
+    },
+    {
+      "name": "app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "Vue app-header block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-app-header.json"],
+      "files": []
+    },
+    {
+      "name": "sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "Vue sign-up block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-sign-up.json"],
+      "files": []
+    },
+    {
+      "name": "forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "Vue forgot-password block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-forgot-password.json"],
+      "files": []
+    },
+    {
+      "name": "reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "Vue reset-password block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-reset-password.json"],
+      "files": []
+    },
+    {
+      "name": "verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "Vue verification-code block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-verification-code.json"],
+      "files": []
+    },
+    {
+      "name": "data-table",
+      "type": "registry:block",
+      "title": "Data Table",
+      "description": "Vue data-table block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-data-table.json"],
+      "files": []
+    },
+    {
+      "name": "expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "Vue expandable-avatar-group block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/blocks/vue-tailwind-expandable-avatar-group.json"
+      ],
+      "files": []
+    },
+    {
+      "name": "autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "Vue autoplay-gallery block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-autoplay-gallery.json"],
+      "files": []
+    },
+    {
+      "name": "parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "Vue parallax-card block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-parallax-card.json"],
+      "files": []
     }
   ]
 }

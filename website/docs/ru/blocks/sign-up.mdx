@@ -1,0 +1,121 @@
+---
+title: Регистрация
+description: Готовая к копированию форма регистрации, собранная из компонентов moduix.
+---
+
+import { SignUp } from '@/components/blocks/sign-up/sign-up';
+import signUpSolid from '../../../snippets/blocks/solid/sign-up.tsx?raw';
+import signUpVue from '../../../snippets/blocks/vue/sign-up.vue?raw';
+import signUpRouteReact from '../../../snippets/blocks/react/sign-up-route.tsx?raw';
+import signUpRouteSolid from '../../../snippets/blocks/solid/sign-up-route.tsx?raw';
+import signUpRouteVue from '../../../snippets/blocks/vue/sign-up-route.vue?raw';
+
+# Регистрация
+
+Используйте этот блок как основу для экрана регистрации. В нём сочетаются `Card`, `Field`, `Input`,
+`Checkbox` и `Button`. Браузер проверяет заполнение обязательных полей, формат адреса электронной почты и
+наличие согласия с условиями. Блок не содержит интеграции с сервисом аутентификации и не сравнивает два
+пароля, поэтому добавьте эту логику в обработчик `onSubmit`.
+
+Живое превью использует React-пакет. Во вкладках исходников приведены нативные реализации для React, Solid и Vue с общими стилями.
+
+
+
+<ExampleFrame variant="block" clientOnly>
+  <PreviewFrame maxWidth="sm">
+  <SignUp onSubmit={(event) => event.preventDefault()} />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/blocks/sign-up/sign-up.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={signUpSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signUpVue} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/blocks/sign-up/sign-up-form.module.css"
+
+```
+</div>
+
+</ExampleCode>
+
+## Установка
+
+<BlockInstall name="sign-up" />
+
+## Добавьте блок в маршрут
+
+Импортируйте `SignUp` из установленного блока. Браузер проверяет нативные ограничения до вызова
+`onSubmit`. В обработчике сравните два пароля
+и отправьте данные формы на сервер регистрации.
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
+  ]}
+>
+  <Tab value="react">
+
+<CodeBlockRuntime lang="tsx" code={signUpRouteReact} />
+
+  </Tab>
+  <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={signUpRouteSolid} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signUpRouteVue} />
+
+  </Tab>
+</Tabs>
+
+У полей есть имена `name`, `email`, `password`, `confirm-password` и `terms`, поэтому по этим ключам
+их значения можно получить из `FormData`. Замените `/api/sign-up` и путь импорта на значения из своего
+приложения.
+
+## Перед запуском
+
+Исходный код блока намеренно оставлен небольшим. Добавьте в него поведение и отображение ошибок,
+которые нужны вашему приложению:
+
+- Показывайте требования к паролю и при необходимости добавьте к скопированным полям ограничения
+  `minLength` или `pattern`. Те же правила обязательно проверяйте на сервере.
+- На время запроса блокируйте повторную отправку формы. Если запрос завершился ошибкой, сохраняйте
+  введённые значения, чтобы пользователь мог исправить их и повторить попытку.
+- Показывайте ошибку сервера рядом с соответствующим полем. Ошибки сети и непредвиденные сбои выводите
+  на уровне формы в элементе с `role="alert"` и оставляйте возможность повторить запрос.
+- Замените `/terms`, `/privacy` и `/sign-in` маршрутами своего приложения.
+- После успешной регистрации выполните следующий шаг сценария: авторизуйте пользователя, попросите его
+  подтвердить адрес электронной почты или перенаправьте на страницу подтверждения.

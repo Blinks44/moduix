@@ -64,6 +64,7 @@ FileUpload | FileUploadRootProvider
 - `FileUploadItemPreviewIcon` -> `data-slot="file-upload-item-preview-icon"`
 - `FileUploadItemName` -> `data-slot="file-upload-item-name"`
 - `FileUploadItemMetadata` -> `data-slot="file-upload-item-metadata"`; renders file type and `FileUploadItemSizeText`
+  The type label is the uppercase filename extension, or the MIME type / `FILE` when there is no extension.
 - `FileUploadItemSizeText` -> `data-slot="file-upload-item-size-text"`
 - `FileUploadItemDeleteTrigger` -> `data-slot="file-upload-item-delete-trigger"`
 - `FileUploadClearTrigger` -> `data-slot="file-upload-clear-trigger"`

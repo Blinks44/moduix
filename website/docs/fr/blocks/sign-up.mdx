@@ -1,0 +1,123 @@
+---
+title: Inscription
+description: Un formulaire d’inscription prêt à copier, construit avec les composants moduix.
+---
+
+import { SignUp } from '@/components/blocks/sign-up/sign-up';
+import signUpSolid from '../../../snippets/blocks/solid/sign-up.tsx?raw';
+import signUpVue from '../../../snippets/blocks/vue/sign-up.vue?raw';
+import signUpRouteReact from '../../../snippets/blocks/react/sign-up-route.tsx?raw';
+import signUpRouteSolid from '../../../snippets/blocks/solid/sign-up-route.tsx?raw';
+import signUpRouteVue from '../../../snippets/blocks/vue/sign-up-route.vue?raw';
+
+# Inscription
+
+Utilisez cette composition comme point de départ pour un écran d’inscription. Elle associe `Card`, `Field`,
+`Input`, `Checkbox` et `Button`, et confie au navigateur la validation des champs obligatoires, du format
+de l’adresse e-mail et de l’acceptation des conditions. La composition ne se connecte à aucun service
+d’authentification et ne compare pas les deux mots de passe : ajoutez cette logique dans le gestionnaire
+`onSubmit`.
+
+L’aperçu interactif utilise le paquet React. Les onglets de code présentent des implémentations natives pour React, Solid et Vue avec les mêmes styles.
+
+
+
+<ExampleFrame variant="block" clientOnly>
+  <PreviewFrame maxWidth="sm">
+  <SignUp onSubmit={(event) => event.preventDefault()} />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/blocks/sign-up/sign-up.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={signUpSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signUpVue} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/blocks/sign-up/sign-up-form.module.css"
+
+```
+</div>
+
+</ExampleCode>
+
+## Installation
+
+<BlockInstall name="sign-up" />
+
+## Ajouter la composition à une route
+
+Importez `SignUp` depuis le bloc installé. Le navigateur vérifie les contraintes natives avant
+d’appeler `onSubmit`. Utilisez ce
+gestionnaire pour comparer les deux mots de passe et envoyer les données à votre serveur d’inscription.
+
+<Tabs
+  groupId="framework"
+  values={[
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
+  ]}
+>
+  <Tab value="react">
+
+<CodeBlockRuntime lang="tsx" code={signUpRouteReact} />
+
+  </Tab>
+  <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={signUpRouteSolid} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={signUpRouteVue} />
+
+  </Tab>
+</Tabs>
+
+Les champs portent les noms `name`, `email`, `password`, `confirm-password` et `terms`, qui sont donc
+les clés disponibles dans `FormData`. Remplacez `/api/sign-up` et le chemin d’importation par ceux de
+votre application.
+
+## Avant la mise en production
+
+Le code source copié reste volontairement minimal. Ajoutez le comportement et l’affichage des erreurs
+nécessaires à votre application :
+
+- Affichez clairement les exigences liées au mot de passe et ajoutez, si nécessaire, des contraintes comme
+  `minLength` ou `pattern` aux champs copiés. Appliquez les mêmes règles côté serveur.
+- Désactivez le bouton d’envoi pendant la requête. En cas d’échec, conservez les valeurs saisies pour permettre à
+  l’utilisateur de les corriger et de réessayer.
+- Affichez l’erreur renvoyée par le serveur à côté du champ concerné. Affichez les erreurs réseau ou
+  inattendues au niveau du formulaire dans un élément doté de `role="alert"` et laissez la possibilité de
+  réessayer.
+- Remplacez `/terms`, `/privacy` et `/sign-in` par les routes de votre application.
+- Après une inscription réussie, enchaînez avec l’étape prévue par votre parcours : connectez l’utilisateur,
+  demandez la vérification de l’adresse e-mail ou redirigez vers une page de confirmation.

@@ -78,8 +78,10 @@ export default function Page() {
 }
 ```
 
-Les composants interactifs importés directement depuis le paquet doivent être rendus dans un composant
-marqué avec `'use client'`. Les composants générés par le registre portent la directive là où c’est nécessaire.
+Les modules moduix qui nécessitent une logique côté client portent la directive `'use client'`,
+dans le paquet comme dans le code du registre. Un Server Component peut les utiliser avec des props
+sérialisables. Votre propre composant doit définir une frontière client s’il leur transmet des
+gestionnaires d’événements ou des fonctions de rendu.
 
 Les Server Components peuvent afficher le balisage environnant et utiliser `ContinueButton`. Transmettez uniquement
 des données sérialisables à un composant client. Les gestionnaires d’événements et les autres fonctions ne peuvent pas

@@ -2,8 +2,8 @@
 import { TourRoot as ArkTourRoot } from '@ark-ui/vue/tour';
 import type { TourRootEmits, TourRootProps } from '@ark-ui/vue/tour';
 import { useAttrs } from 'vue';
-import type { PortalRef } from '../../internal/overlayPortal/context';
-import OverlayPortalProvider from '../../internal/overlayPortal/OverlayPortalProvider.vue';
+import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
+import OverlayPortalProvider from '@/lib/moduix/overlayPortal/OverlayPortalProvider.vue';
 
 defineOptions({ inheritAttrs: false });
 

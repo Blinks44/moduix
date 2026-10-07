@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "verification-code",
+  "title": "Verification code",
+  "description": "React verification-code block with Tailwind components and shared CSS Module layout.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-verification-code.json"],
+  "files": [],
+  "type": "registry:block"
+}

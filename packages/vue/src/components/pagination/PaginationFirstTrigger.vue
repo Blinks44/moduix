@@ -4,7 +4,7 @@ import type { PaginationFirstTriggerProps } from '@ark-ui/vue/pagination';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronLeftIcon } from '@/internal/icons/ui/Icons';
+import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Pagination.module.css';
 
 defineOptions({ inheritAttrs: false });

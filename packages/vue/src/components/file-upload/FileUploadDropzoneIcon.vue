@@ -4,7 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { UploadIcon } from '@/internal/icons/ui/Icons';
+import { UploadIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './FileUpload.module.css';
 
 defineOptions({ inheritAttrs: false });

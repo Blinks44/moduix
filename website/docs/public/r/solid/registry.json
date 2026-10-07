@@ -61,6 +61,11 @@
       "dependencies": ["lucide-solid"],
       "files": [
         {
+          "path": "src/internal/icons/ui/index.ts",
+          "target": "@lib/moduix/icons/ui/index.ts",
+          "type": "registry:lib"
+        },
+        {
           "path": "src/internal/icons/ui/Icons.tsx",
           "target": "@lib/moduix/icons/ui/Icons.tsx",
           "type": "registry:lib"
@@ -2437,6 +2442,102 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "login-simple",
+      "type": "registry:block",
+      "title": "Login Simple",
+      "description": "Solid login-simple block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/solid-login-simple.json"],
+      "files": []
+    },
+    {
+      "name": "sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar Dashboard",
+      "description": "Solid sidebar-dashboard block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/solid-sidebar-dashboard.json"],
+      "files": []
+    },
+    {
+      "name": "file-upload-manager",
+      "type": "registry:block",
+      "title": "File Upload Manager",
+      "description": "Solid file-upload-manager block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/solid-file-upload-manager.json"],
+      "files": []
+    },
+    {
+      "name": "app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "Solid app-header block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/solid-app-header.json"],
+      "files": []
+    },
+    {
+      "name": "sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "Solid sign-up block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/solid-sign-up.json"],
+      "files": []
+    },
+    {
+      "name": "forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "Solid forgot-password block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/solid-forgot-password.json"],
+      "files": []
+    },
+    {
+      "name": "reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "Solid reset-password block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/solid-reset-password.json"],
+      "files": []
+    },
+    {
+      "name": "verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "Solid verification-code block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/solid-verification-code.json"],
+      "files": []
+    },
+    {
+      "name": "data-table",
+      "type": "registry:block",
+      "title": "Data Table",
+      "description": "Solid data-table block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/solid-data-table.json"],
+      "files": []
+    },
+    {
+      "name": "expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "Solid expandable-avatar-group block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/solid-expandable-avatar-group.json"],
+      "files": []
+    },
+    {
+      "name": "autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "Solid autoplay-gallery block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/solid-autoplay-gallery.json"],
+      "files": []
+    },
+    {
+      "name": "parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "Solid parallax-card block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/solid-parallax-card.json"],
+      "files": []
     }
   ]
 }

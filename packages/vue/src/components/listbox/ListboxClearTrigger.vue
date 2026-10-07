@@ -3,8 +3,8 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CloseIcon } from '@/internal/icons/ui/Icons';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import CloseButton from '../close-button/CloseButton.vue';
 import styles from './Listbox.module.css';
 

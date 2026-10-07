@@ -4,7 +4,7 @@ import type { DatePickerNextTriggerProps } from '@ark-ui/vue/date-picker';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronRightIcon } from '@/internal/icons/ui/Icons';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './DatePicker.module.css';
 
 defineOptions({ inheritAttrs: false });

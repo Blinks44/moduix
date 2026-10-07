@@ -3,8 +3,8 @@ import { FileUploadItemDeleteTrigger as ArkFileUploadItemDeleteTrigger } from '@
 import type { FileUploadItemDeleteTriggerProps } from '@ark-ui/vue/file-upload';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { TrashIcon } from '@/internal/icons/ui/Icons';
 import { cn } from '@/lib/moduix/cn';
+import { TrashIcon } from '@/lib/moduix/icons/ui/Icons';
 
 defineOptions({ inheritAttrs: false });
 export interface Props extends /* @vue-ignore */ FileUploadItemDeleteTriggerProps {

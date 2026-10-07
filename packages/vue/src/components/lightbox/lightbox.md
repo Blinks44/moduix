@@ -17,6 +17,7 @@ LightboxBind binds a semantic button/link selected inside rootRef or rootSelecto
 rootRef accepts an element, ref or getter; onImageSelect receives src, optional alt and the image element.
 Source precedence is data-lightbox-src, nonempty currentSrc, then src.
 An explicitly empty data-lightbox-src excludes the image instead of falling back.
+Native clicks already cancelled with event.preventDefault() do not select an image or open the dialog.
 
 ## Preservation notes
 

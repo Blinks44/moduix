@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "vue-tailwind-sign-up",
+  "title": "Sign up",
+  "description": "Vue sign-up block with Tailwind components and shared CSS Module layout.",
+  "registryDependencies": [
+    "https://moduix.dev/r/vue-tailwind/button.json",
+    "https://moduix.dev/r/vue-tailwind/card.json",
+    "https://moduix.dev/r/vue-tailwind/checkbox.json",
+    "https://moduix.dev/r/vue-tailwind/field.json",
+    "https://moduix.dev/r/vue-tailwind/input.json"
+  ],
+  "files": [
+    {
+      "path": "snippets/blocks/vue/sign-up.vue",
+      "content": "<script setup lang=\"ts\">\nimport { Button } from '@/components/ui/button';\nimport {\n  Card,\n  CardBody,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from '@/components/ui/card';\nimport {\n  Checkbox,\n  CheckboxControl,\n  CheckboxHiddenInput,\n  CheckboxLabel,\n} from '@/components/ui/checkbox';\nimport { Field, FieldLabel } from '@/components/ui/field';\nimport { Input } from '@/components/ui/input';\nimport styles from './sign-up-form.module.css';\n\nconst emit = defineEmits<{ submit: [event: Event] }>();\n</script>\n\n<template>\n  <Card :class=\"styles.root\">\n    <CardHeader :class=\"styles.header\">\n      <CardTitle>Create your account</CardTitle>\n      <CardDescription>Start building with moduix in minutes.</CardDescription>\n    </CardHeader>\n\n    <CardBody>\n      <form :class=\"styles.stack\" @submit=\"emit('submit', $event)\">\n        <Field required>\n          <FieldLabel>Full name</FieldLabel>\n          <Input name=\"name\" autocomplete=\"name\" placeholder=\"Alex Morgan\" />\n        </Field>\n\n        <Field required>\n          <FieldLabel>Email address</FieldLabel>\n          <Input name=\"email\" type=\"email\" autocomplete=\"email\" placeholder=\"you@example.com\" />\n        </Field>\n\n        <Field required>\n          <FieldLabel>Password</FieldLabel>\n          <Input name=\"password\" type=\"password\" autocomplete=\"new-password\" />\n        </Field>\n\n        <Field required>\n          <FieldLabel>Confirm password</FieldLabel>\n          <Input name=\"confirm-password\" type=\"password\" autocomplete=\"new-password\" />\n        </Field>\n\n        <Checkbox name=\"terms\" required>\n          <CheckboxHiddenInput />\n          <CheckboxControl />\n          <CheckboxLabel>\n            I agree to the\n            <a :class=\"styles.link\" href=\"/terms\"> Terms of service </a>\n            and\n            <a :class=\"styles.link\" href=\"/privacy\"> Privacy policy </a>\n            .\n          </CheckboxLabel>\n        </Checkbox>\n\n        <Button type=\"submit\" :class=\"styles.submit\"> Create account </Button>\n      </form>\n    </CardBody>\n\n    <CardFooter :class=\"styles.footer\">\n      <p>\n        Already have an account?\n        <a :class=\"styles.link\" href=\"/sign-in\"> Sign in </a>\n      </p>\n    </CardFooter>\n  </Card>\n</template>",
+      "type": "registry:component",
+      "target": "@components/blocks/sign-up/sign-up.vue"
+    },
+    {
+      "path": "src/components/blocks/sign-up/sign-up-form.module.css",
+      "content": ".root {\n  width: min(100%, 26rem);\n}\n\n.header {\n  display: flex;\n  flex-direction: column;\n  gap: var(--moduix-spacing-2);\n  text-align: center;\n}\n\n.stack {\n  display: grid;\n  gap: var(--moduix-spacing-4);\n}\n\n.link {\n  color: var(--moduix-color-primary);\n  font-size: var(--moduix-text-sm);\n  font-weight: var(--moduix-weight-medium);\n  text-underline-offset: 0.2em;\n\n  &:hover {\n    color: var(--moduix-color-foreground);\n    text-decoration: underline;\n  }\n\n  &:focus-visible {\n    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);\n    outline-offset: var(--moduix-border-width-sm);\n    border-radius: var(--moduix-radius-xs);\n  }\n}\n\n.submit {\n  width: 100%;\n}\n\n.footer {\n  justify-content: center;\n  text-align: center;\n}\n\n.footer p {\n  margin: 0;\n  color: var(--moduix-color-muted-foreground);\n  font-size: var(--moduix-text-sm);\n}",
+      "type": "registry:file",
+      "target": "@components/blocks/sign-up/sign-up-form.module.css"
+    }
+  ],
+  "type": "registry:block"
+}

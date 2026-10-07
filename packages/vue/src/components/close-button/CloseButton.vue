@@ -4,7 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CloseIcon } from '@/internal/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './CloseButton.module.css';
 
 defineOptions({ inheritAttrs: false });

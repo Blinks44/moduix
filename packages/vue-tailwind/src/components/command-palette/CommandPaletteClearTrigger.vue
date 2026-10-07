@@ -6,8 +6,8 @@ import {
 import type { ComboboxClearTriggerProps } from '@ark-ui/vue/combobox';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CloseIcon } from '@/internal/icons/ui/Icons';
 import { cn } from '@/lib/moduix/cn';
+import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 
 defineOptions({ inheritAttrs: false });
 

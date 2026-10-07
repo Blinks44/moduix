@@ -5,9 +5,9 @@ import { useFieldContext } from '@ark-ui/vue/field';
 import { useFieldsetContext } from '@ark-ui/vue/fieldset';
 import { computed, provide, unref, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import type { PortalRef } from '@/internal/overlayPortal/context';
-import { OverlayPortalContextKey } from '@/internal/overlayPortal/context';
 import { cn } from '@/lib/moduix/cn';
+import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
+import { OverlayPortalContextKey } from '@/lib/moduix/overlayPortal/context';
 
 defineOptions({ inheritAttrs: false });
 

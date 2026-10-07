@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "app-header",
+  "title": "App header",
+  "description": "Solid app-header block with CSS Modules components and shared CSS Module layout.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/solid-app-header.json"],
+  "files": [],
+  "type": "registry:block"
+}

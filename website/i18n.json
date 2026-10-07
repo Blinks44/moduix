@@ -105,10 +105,10 @@
     "ru": "Компоненты",
     "fr": "Composants"
   },
-  "navRecipes": {
-    "en": "Recipes",
-    "ru": "Рецепты",
-    "fr": "Recettes"
+  "navBlocks": {
+    "en": "Blocks",
+    "ru": "Блоки",
+    "fr": "Blocs"
   },
   "navGitHub": {
     "en": "GitHub",
@@ -200,15 +200,15 @@
     "ru": "Практические рекомендации по стилям, композиции, анимации, RTL и обновлениям.",
     "fr": "Des conseils pratiques sur les styles, la composition, les animations, le RTL et les mises à jour."
   },
-  "homeAreaRecipes": {
-    "en": "Recipes",
-    "ru": "Рецепты",
-    "fr": "Recettes"
+  "homeAreaBlocks": {
+    "en": "Blocks",
+    "ru": "Блоки",
+    "fr": "Blocs"
   },
-  "homeAreaRecipesDescription": {
-    "en": "Examples of forms, navigation, tables, and galleries to copy into your app.",
-    "ru": "Примеры форм, навигации, таблиц и галерей, которые можно скопировать в приложение.",
-    "fr": "Des exemples de formulaires, de navigation, de tableaux et de galeries à copier dans votre application."
+  "homeAreaBlocksDescription": {
+    "en": "Forms, navigation, tables, and galleries you can install into your app.",
+    "ru": "Формы, навигация, таблицы и галереи, которые можно установить в приложение.",
+    "fr": "Des formulaires, de la navigation, des tableaux et des galeries à installer dans votre application."
   },
   "homeCompositionInPractice": {
     "en": "Composition in practice",
@@ -225,10 +225,10 @@
     "ru": "Попробуйте формы, таблицы и навигацию из компонентов moduix, затем скопируйте исходный код в приложение.",
     "fr": "Essayez les formulaires, les tableaux et la navigation construits avec moduix, puis copiez le code dans votre application."
   },
-  "homeExploreRecipes": {
-    "en": "Explore all recipes",
-    "ru": "Открыть все рецепты",
-    "fr": "Voir toutes les recettes"
+  "homeExploreBlocks": {
+    "en": "Explore all blocks",
+    "ru": "Открыть все блоки",
+    "fr": "Voir tous les blocs"
   },
   "homeWorkspaceDesignSystem": {
     "en": "Design system",
@@ -455,35 +455,25 @@
     "ru": "Открыть",
     "fr": "Ouvrir"
   },
-  "shadcnInstallComponent": {
-    "en": "To add this component to your project source instead of node_modules, install it from the hosted moduix registry:",
-    "ru": "Чтобы добавить этот компонент в исходный код проекта, а не устанавливать его из node_modules, используйте размещённый реестр moduix:",
-    "fr": "Pour ajouter ce composant au code source de votre projet plutôt que dans node_modules, installez-le depuis le registre moduix hébergé :"
+  "blockInstallDescription": {
+    "en": "Run one command to add the block source, styles, and required components to your project. Choose the framework and component styling track:",
+    "ru": "Одна команда добавит в проект исходники блока, стили и нужные компоненты. Выберите фреймворк и вариант стилизации компонентов:",
+    "fr": "Une seule commande ajoute le code du bloc, ses styles et les composants nécessaires à votre projet. Choisissez le framework et les styles des composants :"
   },
-  "shadcnInstallRecipe": {
-    "en": "To add this recipe to your project source instead of node_modules, install it from the hosted moduix registry:",
-    "ru": "Чтобы добавить этот рецепт в исходный код проекта, а не устанавливать его из node_modules, используйте размещённый реестр moduix:",
-    "fr": "Pour ajouter cette recette au code source de votre projet plutôt que dans node_modules, installez-la depuis le registre moduix hébergé :"
+  "blockInstallStyles": {
+    "en": "Both tracks use the same CSS Module for the block layout. Tailwind selects utility-based UI components; it does not convert the block layout into utilities.",
+    "ru": "В обоих вариантах раскладка блока использует общий CSS Module. Вариант Tailwind устанавливает UI-компоненты на utility-классах, но не переводит в них стили самого блока.",
+    "fr": "Les deux variantes utilisent le même CSS Module pour la mise en page du bloc. La variante Tailwind installe des composants UI utilisant les classes utilitaires, sans convertir les styles du bloc."
   },
-  "shadcnImportHint": {
-    "en": "The examples below use package imports. With the shadcn CLI, use the local import path shown below instead.",
-    "ru": "В примерах ниже используются импорты из пакета. При установке через shadcn CLI используйте вместо них локальный путь импорта из примера ниже.",
-    "fr": "Les exemples ci-dessous utilisent les imports du paquet. Avec la CLI shadcn, utilisez plutôt le chemin d’import local indiqué ci-dessous."
+  "blockInstallSetup": {
+    "en": "Complete Quick Start registry setup first. Files are installed under your configured components directory in blocks/<name>. Import the block into your screen; routes and API calls stay in your application.",
+    "ru": "Сначала настройте registry по руководству Quick Start. Файлы появятся в настроенной папке компонентов, в blocks/<name>. Импортируйте блок на свою страницу; маршруты и обращения к API остаются в вашем приложении.",
+    "fr": "Configurez d’abord le registre en suivant le guide de démarrage. Les fichiers sont ajoutés dans blocks/<name>, sous votre dossier de composants configuré. Importez le bloc dans votre page ; les routes et les appels API restent dans votre application."
   },
-  "shadcnCopyComponent": {
-    "en": "Copy this component and its CSS from the tabs above, then add the moduix components it uses:",
-    "ru": "Скопируйте этот компонент и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:",
-    "fr": "Copiez ce composant et son CSS depuis les onglets ci-dessus, puis ajoutez les composants moduix qu'il utilise :"
-  },
-  "shadcnCopyRecipe": {
-    "en": "Copy this recipe and its CSS from the tabs above, then add the moduix components it uses:",
-    "ru": "Скопируйте этот рецепт и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:",
-    "fr": "Copiez cette recette et son CSS depuis les onglets ci-dessus, puis ajoutez les composants moduix qu'elle utilise :"
-  },
-  "shadcnExampleRequires": {
-    "en": "Install the example's additional dependencies:",
-    "ru": "Установите дополнительные зависимости примера:",
-    "fr": "Installez les dépendances supplémentaires de l'exemple :"
+  "blockQuickStart": {
+    "en": "Registry setup",
+    "ru": "Настройка registry",
+    "fr": "Configurer le registre"
   },
   "cssProperty": {
     "en": "Property",
@@ -1396,8 +1386,8 @@
     "fr": "Page suivante"
   },
   "vueReleaseHeroSummary": {
-    "en": "Native Vue components, CSS Modules and Tailwind, with SFC examples, form integrations, and product recipes.",
-    "ru": "Нативные Vue-компоненты, CSS Modules и Tailwind, SFC-примеры, интеграции форм и продуктовые рецепты.",
-    "fr": "Composants Vue natifs, CSS Modules et Tailwind, exemples SFC, intégrations de formulaires et recettes produit."
+    "en": "Native Vue components, CSS Modules and Tailwind, with SFC examples, form integrations, and installable blocks.",
+    "ru": "Нативные Vue-компоненты, CSS Modules и Tailwind, SFC-примеры, интеграции форм и устанавливаемые блоки.",
+    "fr": "Composants Vue natifs, CSS Modules et Tailwind, exemples SFC, intégrations de formulaires et blocs à installer."
   }
 }

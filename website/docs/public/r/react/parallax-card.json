@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "parallax-card",
+  "title": "Parallax card",
+  "description": "React parallax-card block with CSS Modules components and shared CSS Module layout.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/react-parallax-card.json"],
+  "files": [],
+  "type": "registry:block"
+}

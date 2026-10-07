@@ -2,7 +2,7 @@
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { SearchIcon } from '@/internal/icons/ui/Icons';
+import { SearchIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Listbox.module.css';
 
 defineOptions({ inheritAttrs: false });

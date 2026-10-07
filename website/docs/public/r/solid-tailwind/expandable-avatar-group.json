@@ -1,0 +1,11 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "expandable-avatar-group",
+  "title": "Expandable avatar group",
+  "description": "Solid expandable-avatar-group block with Tailwind components and shared CSS Module layout.",
+  "registryDependencies": [
+    "https://moduix.dev/r/blocks/solid-tailwind-expandable-avatar-group.json"
+  ],
+  "files": [],
+  "type": "registry:block"
+}

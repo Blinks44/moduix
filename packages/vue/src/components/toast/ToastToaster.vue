@@ -4,7 +4,7 @@ import type { ToasterBaseProps, ToastOptions } from '@ark-ui/vue/toast';
 import { clsx } from 'clsx';
 import { computed, toValue, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import type { PortalRef } from '@/internal/overlayPortal/context';
+import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
 import styles from './Toast.module.css';
 import Toast from './Toast.vue';
 import ToastActionTrigger from './ToastActionTrigger.vue';

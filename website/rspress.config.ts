@@ -88,6 +88,13 @@ export default defineConfig({
     },
   },
   builderConfig: {
+    resolve: {
+      alias: {
+        '@/registry/react/ui': fileURLToPath(
+          new URL('../packages/react/dist/components', import.meta.url),
+        ),
+      },
+    },
     html: {
       template: fileURLToPath(new URL('./index.html', import.meta.url)),
     },

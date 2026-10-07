@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "autoplay-gallery",
+  "title": "Autoplay gallery",
+  "description": "Solid autoplay-gallery block with CSS Modules components and shared CSS Module layout.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/solid-autoplay-gallery.json"],
+  "files": [],
+  "type": "registry:block"
+}

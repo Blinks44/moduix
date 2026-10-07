@@ -2,7 +2,7 @@
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes, SVGAttributes } from 'vue';
-import { FileIcon } from '@/internal/icons/ui/Icons';
+import { FileIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './FileUpload.module.css';
 
 defineOptions({ inheritAttrs: false });

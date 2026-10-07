@@ -7,8 +7,8 @@ import type {
   DrawerTriggerValueChangeDetails,
 } from '@ark-ui/vue/drawer';
 import { computed, provide, useAttrs } from 'vue';
-import type { PortalRef } from '../../internal/overlayPortal/context';
-import OverlayPortalProvider from '../../internal/overlayPortal/OverlayPortalProvider.vue';
+import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
+import OverlayPortalProvider from '@/lib/moduix/overlayPortal/OverlayPortalProvider.vue';
 import { DrawerVariantContextKey, type DrawerVariant } from './context';
 
 defineOptions({ inheritAttrs: false });

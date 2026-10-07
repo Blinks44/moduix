@@ -6,6 +6,7 @@ import type {
   ChartTooltipBodyTarget,
   ChartValue,
 } from '@tanstack/charts';
+import { resolveChartAdapterLayout } from '@tanstack/charts/adapter';
 import { createChartRendererAdapter } from '@tanstack/charts/adapter/renderer';
 import { motion as createMotionRenderer } from '@tanstack/charts/motion';
 import type { ChartTooltipBodyRenderContext } from '@tanstack/charts/solid';
@@ -39,27 +40,19 @@ const defaultChartRenderer = createMotionRenderer<unknown, ChartValue, ChartValu
 type ChartTooltipContent = ChartTooltipBodyContext['content'];
 type ChartTooltipObjectContent = Exclude<ChartTooltipContent, string>;
 
-type ChartTooltipBodyRenderProps<
-  TDatum = unknown,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
-> = {
-  renderTooltipBody?: (
-    context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>,
-  ) => JSX.Element;
-};
-
 type ChartPlotProps<
   TDatum,
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
-> = Omit<ChartRendererHostOptions<TDatum, TXValue, TYValue>, 'onTooltipBodyChange' | 'renderer'> &
-  ChartTooltipBodyRenderProps<TDatum, TXValue, TYValue> & {
-    class?: string;
-    style?: JSX.CSSProperties;
-    motion?: boolean;
-    renderer?: ChartRenderer<NoInfer<TDatum>, NoInfer<TXValue>, NoInfer<TYValue>>;
-  };
+> = Omit<ChartRendererHostOptions<TDatum, TXValue, TYValue>, 'onTooltipBodyChange' | 'renderer'> & {
+  class?: string;
+  style?: JSX.CSSProperties;
+  motion?: boolean;
+  renderer?: ChartRenderer<NoInfer<TDatum>, NoInfer<TXValue>, NoInfer<TYValue>>;
+  renderTooltipBody?: (
+    context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>,
+  ) => JSX.Element;
+};
 
 function Chart(props: HTMLArkProps<'figure'>) {
   const [local, others] = splitProps(props, ['asChild', 'class']);
@@ -166,9 +159,9 @@ const renderDefaultTooltipBody = <
   TYValue extends ChartValue = ChartValue,
 >(
   context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>,
-) => <ModuixTooltipBody content={() => context.content} />;
+) => context.defaultBody;
 
-function ChartPrimitive<
+function ChartPlot<
   TDatum,
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
@@ -202,13 +195,14 @@ function ChartPrimitive<
       ...others,
       idPrefix: props.idPrefix ?? generatedId,
       renderer: resolvedRenderer(),
-      onTooltipBodyChange: local.renderTooltipBody ? setTooltipTarget : undefined,
+      onTooltipBodyChange: setTooltipTarget,
     };
   };
 
   const adapter = createChartRendererAdapter(getOptions());
   const initialMarkup = adapter.prerender();
   let surface!: HTMLDivElement;
+  const layout = createMemo(() => resolveChartAdapterLayout({ aspectRatio: props.aspectRatio }));
 
   createEffect(() => adapter.update(getOptions()));
   onMount(() => adapter.mount(surface));
@@ -217,25 +211,17 @@ function ChartPrimitive<
   return (
     <>
       <div
-        class={clsx('ts-chart-host', props.class)}
+        class={clsx('ts-chart-host', styles.plot, local.class)}
         style={{
           position: 'relative',
           width: props.width === undefined ? '100%' : `${props.width}px`,
           height:
             props.height === undefined
-              ? typeof props.aspectRatio === 'number' &&
-                Number.isFinite(props.aspectRatio) &&
-                props.aspectRatio > 0
-                ? undefined
-                : '320px'
+              ? layout().aspectRatio === undefined
+                ? '320px'
+                : undefined
               : `${props.height}px`,
-          'aspect-ratio':
-            props.height === undefined &&
-            typeof props.aspectRatio === 'number' &&
-            Number.isFinite(props.aspectRatio) &&
-            props.aspectRatio > 0
-              ? props.aspectRatio.toString()
-              : undefined,
+          'aspect-ratio': props.height === undefined ? layout().aspectRatio?.toString() : undefined,
           ...props.style,
         }}
       >
@@ -246,39 +232,15 @@ function ChartPrimitive<
           innerHTML={initialMarkup}
         />
       </div>
-      <Show when={props.renderTooltipBody} keyed>
-        {(render) => (
-          <Show when={tooltipTarget()} keyed>
-            {(target) => <ChartTooltipBody render={render} target={() => target} />}
-          </Show>
+      <Show when={tooltipTarget()} keyed>
+        {(target) => (
+          <ChartTooltipBody
+            render={local.renderTooltipBody ?? renderDefaultTooltipBody}
+            target={() => target}
+          />
         )}
       </Show>
     </>
-  );
-}
-
-function ChartPlot<
-  TDatum,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
->(props: ChartPlotProps<TDatum, TXValue, TYValue>) {
-  const [local, others] = splitProps(props, [
-    'class',
-    'motion',
-    'renderTooltipBody',
-    'renderer',
-    'style',
-  ]);
-
-  return (
-    <ChartPrimitive
-      {...others}
-      class={clsx(styles.plot, local.class)}
-      motion={local.motion}
-      renderTooltipBody={local.renderTooltipBody ?? renderDefaultTooltipBody}
-      renderer={local.renderer}
-      style={local.style}
-    />
   );
 }
 

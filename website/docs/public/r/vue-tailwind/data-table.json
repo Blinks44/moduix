@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "data-table",
+  "title": "Data Table",
+  "description": "Vue data-table block with Tailwind components and shared CSS Module layout.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-data-table.json"],
+  "files": [],
+  "type": "registry:block"
+}

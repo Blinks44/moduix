@@ -356,6 +356,11 @@ La CLI `shadcn` dispose ainsi des alias et de l’URL du registre pour écrire l
 source plutôt que dans un dossier `@` littéral. Le guide du framework choisi ci-dessus précise si le
 même alias doit aussi être déclaré dans le bundler et quel répertoire source utiliser.
 
+Les fichiers SFC Vue conservent leurs imports d’origine : la CLI `shadcn` ne réécrit pas les imports
+des fichiers `.vue`. Gardez les chemins `@/components/ui` et `@/lib/moduix` présentés ici. Si vous
+changez les dossiers d’installation, faites pointer ces chemins vers les dossiers choisis dans
+TypeScript et votre bundler.
+
 ### 2. Ajouter un composant
 
 <Tabs groupId="framework">

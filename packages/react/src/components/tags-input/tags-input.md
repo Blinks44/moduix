@@ -27,6 +27,9 @@ controlled and uncontrolled `value` / `inputValue`, `validate`, `delimiter`,
 
 ## Current behavior contract
 
+The React module declares a `'use client'` boundary. Server parents may pass serializable props;
+event handlers and render functions belong in a client composition.
+
 `TagsInput` is the public root. Consumers compose `TagsInputLabel`, `TagsInputControl`,
 `TagsInputInput`, `TagsInputClearTrigger`, and `TagsInputHiddenInput` explicitly.
 `TagsInputItems` renders the standard editable item tree from root context, while explicit item

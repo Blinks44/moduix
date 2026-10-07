@@ -95,7 +95,7 @@ import {
 
 export function LightboxDemo() {
   return (
-    <Lightbox aria-label="Mountain ridge at sunset">
+    <Lightbox>
       <LightboxTrigger asChild>
         <button type="button">
           <img src={thumbnail} alt="Mountain ridge at sunset" />
@@ -103,7 +103,7 @@ export function LightboxDemo() {
       </LightboxTrigger>
       <LightboxBackdrop />
       <LightboxPositioner>
-        <LightboxContent>
+        <LightboxContent aria-label="Mountain ridge at sunset">
           <LightboxCloseIcon />
           <LightboxBody>
             <LightboxImage src={fullSize} alt="Mountain ridge at sunset" />
@@ -131,7 +131,8 @@ For external markup, render `LightboxBind` inside the root, store
 `LightboxPositioner`, `LightboxContent`, `LightboxCloseIcon`, or `LightboxImage`. Use a semantic
 button or link as the matched `selector` when images must be keyboard-accessible;
 `LightboxBind` relies on the element's native click activation. It preloads the resolved full-size
-source on pointer hover or keyboard focus.
+source on pointer hover or keyboard focus. Native clicks already cancelled with
+`event.preventDefault()` do not select an image or open the dialog.
 
 Image resolution prefers `data-lightbox-src`, then a nonempty responsive `currentSrc`, then
 the image's `src`. An explicitly empty `data-lightbox-src` excludes that image from binding.

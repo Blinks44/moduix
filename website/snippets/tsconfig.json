@@ -3,7 +3,8 @@
   "compilerOptions": {
     "types": [],
     "paths": {
-      "@/components/ui/accordion": ["../../packages/vue/dist/components/accordion/index.d.ts"],
+      "@/registry/solid/ui/*": ["../../packages/solid/dist/components/*/index.d.ts"],
+      "@/components/ui/*": ["../../packages/vue/dist/components/*/index.d.ts"],
       "@/*": ["../src/*"]
     }
   },

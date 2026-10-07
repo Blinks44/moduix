@@ -96,7 +96,7 @@ pour la migration.
 | Nom shadcn habituel | Utilisez dans moduix | Adaptation à prévoir |
 | --- | --- | --- |
 | Accordion | [`Accordion`](/docs/accordion) | Utilisez les parties nommées, comme `AccordionItem` et `AccordionItemContent`. |
-| Alert Dialog | [`Dialog`](/docs/dialog) | Pour une confirmation critique, définissez `role="alertdialog"` sur `DialogContent`. |
+| Alert Dialog | [`Dialog`](/docs/dialog) | Pour une confirmation critique, définissez `role="alertdialog"` sur `Dialog`. |
 | Avatar | [`Avatar`](/docs/avatar) | Placez le contenu de repli et l’image dans `AvatarFallback` et `AvatarImage`. |
 | Breadcrumb | [`Breadcrumbs`](/docs/breadcrumbs) | Le nom de la famille est au pluriel ; conservez les liens sémantiques et l’état de la page courante. |
 | Calendar | [`DatePicker`](/docs/date-picker) ou [`DateInput`](/docs/date-input) | Utilisez `DatePicker` pour un calendrier et `DateInput` si seule la saisie de segments de date est nécessaire. |
@@ -105,12 +105,13 @@ pour la migration.
 | Combobox | [`Combobox`](/docs/combobox) | Créez une collection Ark et définissez les valeurs des éléments-objets. |
 | Command | [`CommandPalette`](/docs/command-palette) | Utilisez le composant dédié aux commandes plutôt qu’un alias de liste générique. |
 | Context Menu | [`MenuContextTrigger`](/docs/menu) | Conservez la famille `Menu` et utilisez son déclencheur contextuel. |
-| Data Table | [`Table`](/docs/table) et la [recette Data Table](/recipes/data-table) | Gardez le tri, le filtrage et l’état serveur dans le code de l’application. |
+| Data Table | [`Table`](/docs/table) et le [bloc Data Table](/blocks/data-table) | Gardez le tri, le filtrage et l’état serveur dans le code de l’application. |
 | Date Picker | [`DatePicker`](/docs/date-picker) | Utilisez la famille composée qui réunit saisie de date et calendrier. |
 | Dropdown Menu | [`Menu`](/docs/menu) | Utilisez la composition habituelle avec `MenuTrigger`. |
 | Form | [`Field`](/docs/field) et [`Fieldset`](/docs/fieldset) | Utilisez-les pour structurer les champs ; laissez la validation et la soumission à votre bibliothèque de formulaires ou à l’application. |
 | Hover Card | [`HoverCard`](/docs/hover-card) | Consultez la page du composant pour les parties explicites de positionnement et de fermeture. |
 | Input OTP | [`PinInput`](/docs/pin-input) | Conservez sa configuration pour les formulaires natifs et le SSR. |
+| Navigation Menu | [`NavigationMenu`](/docs/navigation-menu) | Composez le déclencheur, le contenu et, si nécessaire, la zone d’affichage commune avec les parties nommées. |
 | Progress | [`ProgressLinear`](/docs/progress-linear) ou [`ProgressCircular`](/docs/progress-circular) | Choisissez explicitement la forme visuelle souhaitée. |
 | Resizable | [`Splitter`](/docs/splitter) | Donnez des identifiants stables aux panneaux et gardez l’état de mise en page explicite. |
 | Select | [`Select`](/docs/select) | Utilisez une collection Ark plutôt qu’un tableau d’objets option ad hoc. |
@@ -121,8 +122,8 @@ pour la migration.
 | Toggle Group | [`ToggleGroup`](/docs/toggle-group) | Utilisez les valeurs des éléments et l’état du groupe définis par le contrat Ark. |
 | Tooltip | [`Tooltip`](/docs/tooltip) | Gardez explicites le déclencheur et le contenu rendu dans un portail. |
 
-Navigation Menu et Menubar ne nécessitent pas de remplacement forcé un pour un. Choisissez `Sidebar`,
-`Menu`, `Breadcrumbs` ou des liens ordinaires selon l’interaction attendue par votre produit.
+Il n’y a pas de composant Menubar dédié. `Menu` est un menu déroulant qui ne reproduit pas
+la navigation clavier d’une barre de menus. Conservez votre Menubar si vous avez besoin de ce comportement.
 
 ## Adaptez la forme des imports
 
@@ -265,7 +266,7 @@ cible avant de reprendre sans changement un tableau `options` ou un callback sha
 1. Ajoutez la feuille de style de base moduix et importez-la avant vos surcharges.
 2. Commencez par des composants peu couplés, comme `Button`, `Badge`, `Avatar` et `Separator`.
 3. Migrez les composants flottants et ceux fondés sur des collections, famille par famille, avec leurs parties de portail et leurs callbacks d’état.
-4. Utilisez une [recette](/recipes) uniquement si le flux de l’écran correspond à votre produit.
+4. Utilisez un [bloc](/blocks) uniquement si le flux de l’écran correspond à votre produit.
 5. Vérifiez la navigation au clavier, la restitution du focus, les labels et les rôles ARIA importants, puis supprimez l’ancien code source et les styles du composant.
 
 Les responsabilités de l’application doivent rester dans l’application. Les labels, messages de

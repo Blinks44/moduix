@@ -232,6 +232,9 @@ test('renders the compact Moduix tooltip body by default', async () => {
   await expect
     .element(page.locator('[data-slot="chart-tooltip-value"]').first())
     .toContainText('76');
+  await expect
+    .element(page.locator('[data-slot="chart-tooltip-value"]').first())
+    .toHaveCSS('text-align', 'end');
 });
 
 test('passes the Moduix default body to a custom tooltip renderer', async () => {

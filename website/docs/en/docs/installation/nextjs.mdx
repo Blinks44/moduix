@@ -77,8 +77,9 @@ export default function Page() {
 }
 ```
 
-Interactive components imported directly from the package must render inside a component marked
-with `'use client'`. Registry-generated components carry the directive where it applies.
+moduix modules that need client behavior carry their own `'use client'` directive in both package
+and registry source. A Server Component can render them with serializable props; your own component
+needs a client boundary when it supplies event handlers or render functions.
 
 Server Components can render the surrounding markup and include `ContinueButton`. Pass serializable
 data to a client component. Event handlers and other functions cannot cross the server/client boundary.

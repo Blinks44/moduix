@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sign-up",
+  "title": "Sign up",
+  "description": "Vue sign-up block with CSS Modules components and shared CSS Module layout.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/vue-sign-up.json"],
+  "files": [],
+  "type": "registry:block"
+}

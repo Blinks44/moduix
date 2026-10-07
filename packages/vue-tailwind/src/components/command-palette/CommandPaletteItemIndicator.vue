@@ -3,8 +3,8 @@ import { ComboboxItemIndicator as ArkComboboxItemIndicator } from '@ark-ui/vue/c
 import type { ComboboxItemIndicatorProps } from '@ark-ui/vue/combobox';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CheckIcon } from '@/internal/icons/ui/Icons';
 import { cn } from '@/lib/moduix/cn';
+import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
 
 defineOptions({ inheritAttrs: false });
 

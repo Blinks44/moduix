@@ -7,7 +7,7 @@ presence lifecycle, CSS hooks, and callback detail objects.
 ## Composition
 
 ```tsx
-<Lightbox aria-label="Mountain ridge at sunset">
+<Lightbox>
   <LightboxTrigger
     asChild={(props) => (
       <button {...props()} type="button">
@@ -17,7 +17,7 @@ presence lifecycle, CSS hooks, and callback detail objects.
   />
   <LightboxBackdrop />
   <LightboxPositioner>
-    <LightboxContent>
+    <LightboxContent aria-label="Mountain ridge at sunset">
       <LightboxCloseIcon />
       <LightboxBody>
         <LightboxImage src={fullSize} alt="Mountain ridge at sunset" />
@@ -68,6 +68,7 @@ and the source `HTMLImageElement`.
 
 The image URL uses `data-lightbox-src` first, then a nonempty `currentSrc`, then `src`.
 An explicitly empty `data-lightbox-src` excludes the image rather than falling back.
+Native clicks already cancelled with `event.preventDefault()` do not select an image or open the dialog.
 
 ## Solid composition notes
 

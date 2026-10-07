@@ -4,7 +4,7 @@ import type { MenuPositionerProps } from '@ark-ui/vue/menu';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import OverlayPortal from '../../internal/overlayPortal/OverlayPortal.vue';
+import OverlayPortal from '@/lib/moduix/overlayPortal/OverlayPortal.vue';
 import styles from './Menu.module.css';
 
 defineOptions({ inheritAttrs: false });

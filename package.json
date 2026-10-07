@@ -43,10 +43,10 @@
     "publish:solid-tailwind": "pnpm run build:solid-tailwind && pnpm run check:package:solid-tailwind && pnpm --filter @moduix/solid-tailwind publish",
     "publish:vue": "pnpm run build:vue && pnpm run check:package:vue && pnpm --filter @moduix/vue publish",
     "publish:vue-tailwind": "pnpm run build:vue-tailwind && pnpm run check:package:vue-tailwind && pnpm --filter @moduix/vue-tailwind publish",
-    "registry:build": "for p in packages/*; do [ -f \"$p/registry.json\" ] || continue; (cd \"$p\" && shadcn build registry.json --output \"../../website/docs/public/r/${p#packages/}\") || exit 1; done",
-    "registry:clean": "for p in packages/*; do [ -f \"$p/registry.json\" ] || continue; rm -rf \"website/docs/public/r/${p#packages/}\" || exit 1; done",
+    "registry:build": "for p in packages/*; do [ -f \"$p/registry.json\" ] || continue; (cd \"$p\" && shadcn build registry.json --output \"../../website/docs/public/r/${p#packages/}\") || exit 1; done && (cd website && shadcn build registry.json --output docs/public/r/blocks)",
+    "registry:clean": "rm -rf website/docs/public/r",
     "registry:format": "oxfmt website/docs/public/r",
-    "registry:validate": "for p in packages/*; do [ -f \"$p/registry.json\" ] || continue; (cd \"$p\" && shadcn registry validate registry.json) || exit 1; done",
+    "registry:validate": "for p in packages/*; do [ -f \"$p/registry.json\" ] || continue; (cd \"$p\" && shadcn registry validate registry.json) || exit 1; done && (cd website && shadcn registry validate registry.json)",
     "test": "turbo run test",
     "tsc:check": "turbo run tsc:check"
   },

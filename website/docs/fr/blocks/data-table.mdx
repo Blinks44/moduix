@@ -1,0 +1,404 @@
+---
+title: Tableau de données
+description: Créez des tableaux triables, filtrables et paginés avec moduix Table et TanStack Table v9.
+---
+
+import { DataTable } from '@/components/blocks/data-table';
+import DataTableBasic from '@/components/blocks/data-table/basic';
+import InteractiveDataTable from '@/components/blocks/data-table/sorting-filtering-and-pagination';
+import dataTableSolid from '../../../snippets/blocks/solid/data-table.tsx?raw';
+import dataTableCatalogSolid from '../../../snippets/blocks/solid/data-table-component-catalog.tsx?raw';
+import dataTableVue from '../../../snippets/blocks/vue/data-table.vue?raw';
+import dataTableControlsVue from '../../../snippets/blocks/vue/data-table-controls.vue?raw';
+import dataTableBasicSolid from '../../../snippets/blocks/solid/data-table-basic.tsx?raw';
+import dataTableBasicVue from '../../../snippets/blocks/vue/data-table-basic.vue?raw';
+
+# Tableau de données
+
+`Data Table` est un modèle de composition, et non un composant exporté par moduix. Utilisez les parties
+sémantiques et stylées de `Table` pour le balisage, puis TanStack Table v9 pour gérer l’état et les interactions
+de la grille. Gardez les enregistrements et l’état du tableau dans l’écran ou la fonctionnalité qui les utilise,
+surtout si cet état alimente une route ou une requête serveur. Les colonnes,
+filtres, actions de ligne et contrats côté serveur varient selon le produit : gardez donc cette logique au
+plus près de la fonctionnalité concernée.
+
+La composition complète ci-dessous reprend le tableau interactif de la page d’accueil. Elle montre la recherche,
+le tri, la visibilité des colonnes, la sélection des lignes, les actions et la pagination. Copiez le code,
+puis remplacez les enregistrements et les actions d’exemple par les données de votre produit.
+
+## Commencez par le cas simple
+
+| Besoin                                           | Point de départ                                                                  |
+| ------------------------------------------------ | -------------------------------------------------------------------------------- |
+| Tableau en lecture seule                         | Le composant sémantique [Table](/docs/table)                                     |
+| Tri ou filtrage local sur un petit jeu de données | `Table` et le modèle de lignes TanStack adapté                                 |
+| Tri, filtrage ou pagination côté serveur         | État de requête contrôlé et options manuelles de TanStack ci-dessous             |
+| Lignes virtualisées                               | N’ajoutez la virtualisation qu’après avoir mesuré un vrai problème de performances |
+
+N’utilisez que les contrôles nécessaires. Retirez la sélection, la visibilité des colonnes, les actions ou
+la pagination si ces fonctions ne sont pas utiles aux utilisateurs.
+
+Les aperçus interactifs utilisent le paquet React. Les onglets de code présentent des implémentations natives de TanStack Table v9 pour React, Solid et Vue.
+
+
+
+<ExampleFrame variant="block" clientOnly>
+  <DataTable />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/blocks/data-table.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dataTableCatalogSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dataTableVue} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/blocks/data-table.module.css"
+
+```
+</div>
+
+</ExampleCode>
+
+## Installation
+
+<BlockInstall name="data-table" />
+
+## Configuration
+
+Installez TanStack Table dans l’application ou la fonctionnalité qui gère la logique de la grille de données :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+<PackageManagerTabs command="install @tanstack/react-table@^9.2.4" />
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+<PackageManagerTabs command="install @tanstack/solid-table@^9.2.4" />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @tanstack/vue-table@^9.2.4" />
+
+  </Tab>
+</Tabs>
+
+`Table` est disponible dans le paquet `@moduix/<framework>/table` correspondant. TanStack Table n’y est volontairement pas inclus : les
+applications qui n’ont besoin que d’un tableau sémantique ne chargent donc pas de logique de grille inutile.
+
+## Exemple de base
+
+Déclarez l’ensemble des fonctionnalités avec `tableFeatures()` et définissez des entrées
+`ColumnDef<typeof features, Payment>` typées. React crée l’instance avec `useTable` et utilise
+`flexRender`; Solid utilise `createTable` et `table.FlexRender`; Vue utilise `useTable` et le composant
+`FlexRender` avec `:header` ou `:cell`. Dans chaque adaptateur, insérez les groupes d’en-têtes et les
+cellules visibles dans l’anatomie de tableau moduix.
+
+L’exemple affiche les colonnes et les cellules visibles : il enregistre donc `columnVisibilityFeature`.
+N’ajoutez les autres fonctionnalités que lorsque le tableau en a besoin.
+
+<ExampleFrame variant="block">
+  <PreviewFrame maxWidth="lg">
+    <DataTableBasic />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/blocks/data-table/basic.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dataTableBasicSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dataTableBasicVue} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/blocks/data-table/payment-table.module.css"
+
+```
+</div>
+
+</ExampleCode>
+
+Conservez les colonnes près du type de données de la fonctionnalité. C’est l’endroit naturel pour le
+formatage, l’alignement numérique, les actions de ligne et les filtres propres au métier.
+
+## Références stables
+
+Gardez des références stables pour `features`, les données et `columns` pendant la vie du tableau.
+React et Solid déclarent les données statiques en dehors des composants ; Vue les déclare une fois dans
+`<script setup>`. Avec React, mémorisez les tableaux dérivés au lieu de transmettre une
+nouvelle référence à `useTable` à chaque rendu. Avec Solid, exposez les données variables à `createTable` par
+le getter réactif `data`. Avec Vue, passez directement une `ref` ou une valeur `computed` comme `data`,
+pas un instantané `data.value`. Consultez la
+[FAQ](https://tanstack.com/table/latest/docs/faq) de TanStack pour plus de détails.
+
+## Largeur des colonnes
+
+Utilisez `TableColumnGroup` et `TableColumn htmlWidth` pour les colonnes dont la largeur doit rester stable.
+Combinez-les avec `table-layout: fixed` sur la racine du tableau. La colonne restante occupe l’espace
+disponible, tandis qu’une icône de tri qui change ne redimensionne pas sa colonne.
+
+## Contrôles du tableau
+
+Ajoutez uniquement les fonctionnalités et modèles de lignes TanStack dont le tableau a besoin. L’exemple
+interactif conserve le tri, les filtres de colonnes et la sélection dans l’état natif du framework. Il filtre la
+colonne d’e-mail, utilise les identifiants de paiement stables avec `getRowId` et affiche cinq lignes par page.
+
+Importez les fonctions intégrées de filtrage et de tri utilisées par le tableau, puis enregistrez-les dans
+`tableFeatures()`. Les fonctions inutilisées restent ainsi en dehors du bundle. La composition enregistre
+`includesString`, `alphanumeric` et `text`, plutôt qu’un registre complet.
+
+<ExampleFrame variant="block">
+  <InteractiveDataTable />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/blocks/data-table/sorting-filtering-and-pagination.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dataTableSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dataTableControlsVue} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/blocks/data-table/payment-table.module.css"
+
+```
+</div>
+
+</ExampleCode>
+
+Pour un en-tête triable, affichez un vrai bouton dans `TableColumnHeader`. L’exemple utilise des icônes
+Lucide de taille uniforme et définit `aria-sort="none" | "ascending" | "descending"` sur les en-têtes
+triables. La colonne de sélection utilise `Checkbox` de moduix et son état indéterminé intégré pour la page
+courante. Lorsqu’aucune ligne ne correspond, utilisez `TableEmpty` avec
+`colSpan={table.getVisibleLeafColumns().length}`.
+
+## Données côté serveur
+
+Lorsque l’API filtre, trie ou pagine les enregistrements, conservez ces paramètres dans l’état de requête de
+la fonctionnalité. Transmettez la page renvoyée par l’API à TanStack Table et désactivez les transformations
+correspondantes côté client. Cette configuration remplace les modèles de lignes côté client de l’exemple
+interactif :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+```tsx
+const features = tableFeatures({
+  columnFilteringFeature,
+  rowPaginationFeature,
+  rowSortingFeature,
+});
+
+const table = useTable({
+  features,
+  data: response.rows,
+  columns,
+  manualFiltering: true,
+  manualPagination: true,
+  manualSorting: true,
+  rowCount: response.rowCount,
+  onColumnFiltersChange: setColumnFilters,
+  onPaginationChange: setPagination,
+  onSortingChange: setSorting,
+  state: { columnFilters, pagination, sorting },
+});
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```ts
+const features = tableFeatures({
+  columnFilteringFeature,
+  rowPaginationFeature,
+  rowSortingFeature,
+});
+
+const table = createTable({
+  features,
+  get data() { return response().rows; },
+  columns,
+  manualFiltering: true,
+  manualPagination: true,
+  manualSorting: true,
+  get rowCount() { return response().rowCount; },
+  onColumnFiltersChange: setColumnFilters,
+  onPaginationChange: setPagination,
+  onSortingChange: setSorting,
+  get state() {
+    return { columnFilters: columnFilters(), pagination: pagination(), sorting: sorting() };
+  },
+});
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import { computed } from 'vue';
+
+const features = tableFeatures({
+  columnFilteringFeature,
+  rowPaginationFeature,
+  rowSortingFeature,
+});
+
+const table = useTable({
+  features,
+  data: computed(() => response.value.rows),
+  columns,
+  manualFiltering: true,
+  manualPagination: true,
+  manualSorting: true,
+  rowCount: computed(() => response.value.rowCount),
+  onColumnFiltersChange: (next) => {
+    columnFilters.value = typeof next === 'function' ? next(columnFilters.value) : next;
+  },
+  onPaginationChange: (next) => {
+    pagination.value = typeof next === 'function' ? next(pagination.value) : next;
+  },
+  onSortingChange: (next) => {
+    sorting.value = typeof next === 'function' ? next(sorting.value) : next;
+  },
+  state: computed(() => ({
+    columnFilters: columnFilters.value,
+    pagination: pagination.value,
+    sorting: sorting.value,
+  })),
+});
+```
+
+  </Tab>
+</Tabs>
+
+Pour un comportement géré par le serveur, n’ajoutez pas les modèles `filteredRowModel`, `sortedRowModel` ou
+`paginatedRowModel` correspondants à `features` : TanStack suppose que `response.rows` reflète déjà la requête.
+Utilisez `pageCount` plutôt que `rowCount` lorsque l’API fournit le nombre de pages. `manualPagination`
+désactive également la réinitialisation habituelle de la page. Réinitialisez donc
+`pagination.pageIndex` à `0` lorsque le filtre ou le tri côté serveur change, sinon l’API peut renvoyer une
+page vide. Consultez les guides TanStack sur le [filtrage](https://tanstack.com/table/latest/docs/guide/global-filtering),
+le [tri](https://tanstack.com/table/latest/docs/guide/sorting) et la
+[pagination](https://tanstack.com/table/latest/docs/guide/pagination) pour la couche de requête.
+
+Affichez l’état de la requête près du tableau, et non dans des cellules sans rapport :
+
+| État de la requête | Résultat recommandé |
+| ------------------ | ------------------- |
+| Chargement initial | Gardez les en-têtes de colonnes visibles et affichez une ligne de chargement avec une étiquette ou un squelette. |
+| Nouvelle requête   | Conservez les lignes actuelles, indiquez que la barre d’outils est occupée et empêchez les requêtes en double. |
+| Résultat vide      | Précisez s’il n’existe aucun enregistrement ou si les filtres ont supprimé toutes les correspondances. |
+| Erreur             | Gardez les contrôles de requête accessibles et proposez de réessayer la même requête. |
+
+## Ajouter des fonctionnalités
+
+TanStack Table ne fournit pas d’interface utilisateur ni de mise en page pour ces fonctionnalités. Choisissez
+l’état et les modèles de lignes nécessaires à cette vue de données, au lieu d’activer toutes les fonctionnalités
+d’une grille par défaut.
+
+| Besoin                   | À ajouter à ce tableau |
+| ------------------------ | ---------------------- |
+| Actions de ligne         | Affichez un `Menu` dans une colonne d’actions et gardez les gestionnaires dans la fonctionnalité concernée. |
+| Sélection de lignes      | Contrôlez `rowSelection`, configurez `getRowId` avec un identifiant d’enregistrement durable et affichez les contrôles moduix `Checkbox` dans une colonne de sélection. |
+| Visibilité des colonnes  | Contrôlez `columnVisibility` et exposez `column.toggleVisibility()` via un `Menu`. |
+| Données côté serveur     | Conservez l’état de requête dans la route ou la couche de données. Utilisez `manualFiltering`, `manualSorting` et `manualPagination` uniquement pour les transformations gérées par l’API, puis transmettez les lignes avec `rowCount` ou `pageCount`. |
+| Grands volumes de données | N’ajoutez la virtualisation au corps du tableau qu’après l’avoir mesurée ; conservez la sémantique native de `table`, `thead`, `tbody`, `tr`, `th` et `td`. |
+
+Le [guide des modèles de lignes](https://tanstack.com/table/latest/docs/guide/row-models) de TanStack Table
+présente les transformations disponibles côté client. Le [guide de sélection des lignes](https://tanstack.com/table/latest/docs/guide/row-selection)
+explique l’état de sélection contrôlé et la sélection au niveau de la page. L’[adaptateur React](https://tanstack.com/table/latest/docs/framework/react/react-table)
+documente `useTable`. La page moduix [Table](/docs/table) décrit la structure rendue et ses hooks de style.
+
+Avec `manualPagination`, conservez l’état `rowSelection` complet pour les actions portant sur plusieurs pages.
+Les modèles de lignes sélectionnées de TanStack ne peuvent renvoyer que les enregistrements actuellement fournis
+au tableau, même lorsque l’état de sélection contient aussi des identifiants provenant d’autres pages.
+
+## Réutilisation
+
+Si le même tableau produit apparaît à plusieurs endroits, extrayez ses colonnes, sa barre d’outils ou ses
+contrôles de pagination dans des composants locaux à la fonctionnalité. Gardez une API propre au produit.
+`PaymentsTable` est plus facile à maintenir qu’un composant `DataTable` généraliste qui tente d’anticiper
+chaque filtre, réponse serveur, action ou règle de sélection.
+
+## Accessibilité
+
+Conservez les éléments natifs du tableau dans le rendu. Utilisez `TableColumnHeader` pour les en-têtes,
+`TableCell` pour les données et un `TableCaption` court lorsque le titre voisin n’identifie pas les données.
+Les contrôles interactifs dans les cellules nécessitent des noms accessibles descriptifs et les en-têtes triables
+doivent exposer leur direction actuelle via `aria-sort`. Le champ de filtrage et les contrôles de sélection de
+l’exemple interactif ont des noms accessibles explicites, au lieu de dépendre du texte indicatif ou d’une icône.

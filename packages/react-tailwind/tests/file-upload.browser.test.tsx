@@ -23,6 +23,7 @@ import {
 
 const file = new File(['moduix'], 'moduix.txt', { type: 'text/plain' });
 const imageWithoutMimeType = new File(['moduix'], 'moduix.png');
+
 const image = new File(
   [
     '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="24"><rect width="32" height="24" fill="red"/></svg>',
@@ -30,6 +31,23 @@ const image = new File(
   'photo.svg',
   { type: 'image/svg+xml' },
 );
+
+test('uses MIME type or FILE for filenames without an extension', async () => {
+  const files = [
+    new File(['readme'], 'README', { type: 'text/plain' }),
+    new File(['license'], 'LICENSE'),
+  ];
+  render(
+    <FileUpload defaultAcceptedFiles={files} maxFiles={2}>
+      <FileUploadItemGroup>
+        <FileUploadItems />
+      </FileUploadItemGroup>
+    </FileUpload>,
+  );
+  const metadata = page.locator('[data-slot="file-upload-item-metadata"]');
+  await expect.element(metadata.nth(0)).toContainText('text/plain');
+  await expect.element(metadata.nth(1)).toContainText('FILE');
+});
 
 test('focuses the dropzone and clears accepted files through the named action', async () => {
   render(

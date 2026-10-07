@@ -2,7 +2,7 @@
 import type { TooltipRootEmits, TooltipRootProps } from '@ark-ui/vue/tooltip';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import type { PortalRef } from '@/internal/overlayPortal/context';
+import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
 import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '../tooltip';
 import { useSidebar } from './context';
 

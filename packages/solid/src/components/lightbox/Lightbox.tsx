@@ -316,6 +316,8 @@ function LightboxBind(props: LightboxBindProps) {
     }
 
     const handleClick = (event: MouseEvent) => {
+      if (event.defaultPrevented) return;
+
       const nextImage = resolveImage(event.target, selector, rootNode);
       if (!nextImage) {
         return;

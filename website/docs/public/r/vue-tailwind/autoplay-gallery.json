@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "autoplay-gallery",
+  "title": "Autoplay gallery",
+  "description": "Vue autoplay-gallery block with Tailwind components and shared CSS Module layout.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-autoplay-gallery.json"],
+  "files": [],
+  "type": "registry:block"
+}

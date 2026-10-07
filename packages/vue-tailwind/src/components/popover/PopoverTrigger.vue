@@ -3,7 +3,7 @@ import { PopoverTrigger as ArkPopoverTrigger } from '@ark-ui/vue/popover';
 import type { PopoverTriggerProps } from '@ark-ui/vue/popover';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '../../internal/cn';
+import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 

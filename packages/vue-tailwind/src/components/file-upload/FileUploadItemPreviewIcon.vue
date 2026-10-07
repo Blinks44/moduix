@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useAttrs } from 'vue';
 import type { HTMLAttributes, SVGAttributes } from 'vue';
-import { FileIcon } from '@/internal/icons/ui/Icons';
 import { cn } from '@/lib/moduix/cn';
+import { FileIcon } from '@/lib/moduix/icons/ui/Icons';
 
 defineOptions({ inheritAttrs: false });
 export interface Props extends /* @vue-ignore */ SVGAttributes {

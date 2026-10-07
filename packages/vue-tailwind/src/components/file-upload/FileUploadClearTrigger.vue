@@ -3,8 +3,8 @@ import { FileUploadClearTrigger as ArkFileUploadClearTrigger } from '@ark-ui/vue
 import type { FileUploadClearTriggerProps } from '@ark-ui/vue/file-upload';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CloseIcon } from '@/internal/icons/ui/Icons';
 import { cn } from '@/lib/moduix/cn';
+import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import CloseButton from '../close-button/CloseButton.vue';
 
 defineOptions({ inheritAttrs: false });

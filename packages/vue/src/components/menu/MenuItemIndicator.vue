@@ -4,7 +4,7 @@ import type { MenuItemIndicatorProps } from '@ark-ui/vue/menu';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CheckIcon } from '@/internal/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Menu.module.css';
 
 defineOptions({ inheritAttrs: false });

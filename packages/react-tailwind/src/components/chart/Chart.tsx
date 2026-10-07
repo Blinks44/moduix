@@ -112,7 +112,7 @@ const renderDefaultTooltipBody = ({ content }: ChartTooltipBodyRenderContext) =>
               </span>
               <span
                 data-slot="chart-tooltip-value"
-                className="text-right font-semibold whitespace-nowrap text-popover-foreground tabular-nums"
+                className="text-end font-semibold whitespace-nowrap text-popover-foreground tabular-nums"
               >
                 {row.value}
               </span>

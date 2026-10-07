@@ -4,7 +4,7 @@ import type { FileUploadItemDeleteTriggerProps } from '@ark-ui/vue/file-upload';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { TrashIcon } from '@/internal/icons/ui/Icons';
+import { TrashIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './FileUpload.module.css';
 
 defineOptions({ inheritAttrs: false });

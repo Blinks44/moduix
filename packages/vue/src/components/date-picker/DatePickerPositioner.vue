@@ -4,7 +4,7 @@ import type { DatePickerPositionerProps } from '@ark-ui/vue/date-picker';
 import { clsx } from 'clsx';
 import type { HTMLAttributes } from 'vue';
 import { useAttrs } from 'vue';
-import OverlayPortal from '@/internal/overlayPortal/OverlayPortal.vue';
+import OverlayPortal from '@/lib/moduix/overlayPortal/OverlayPortal.vue';
 import styles from './DatePicker.module.css';
 
 defineOptions({ inheritAttrs: false });

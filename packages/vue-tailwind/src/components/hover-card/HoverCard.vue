@@ -2,8 +2,8 @@
 import { HoverCardRoot as ArkHoverCardRoot } from '@ark-ui/vue/hover-card';
 import type { HoverCardRootEmits, HoverCardRootProps } from '@ark-ui/vue/hover-card';
 import { useAttrs } from 'vue';
-import type { PortalRef } from '../../internal/overlayPortal/context';
-import OverlayPortalProvider from '../../internal/overlayPortal/OverlayPortalProvider.vue';
+import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
+import OverlayPortalProvider from '@/lib/moduix/overlayPortal/OverlayPortalProvider.vue';
 
 defineOptions({ inheritAttrs: false });
 

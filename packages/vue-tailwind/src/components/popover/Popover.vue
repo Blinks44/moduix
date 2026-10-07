@@ -2,8 +2,8 @@
 import { PopoverRoot as ArkPopoverRoot } from '@ark-ui/vue/popover';
 import type { PopoverRootEmits, PopoverRootProps } from '@ark-ui/vue/popover';
 import { useAttrs } from 'vue';
-import type { PortalRef } from '../../internal/overlayPortal/context';
-import OverlayPortalProvider from '../../internal/overlayPortal/OverlayPortalProvider.vue';
+import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
+import OverlayPortalProvider from '@/lib/moduix/overlayPortal/OverlayPortalProvider.vue';
 
 defineOptions({ inheritAttrs: false });
 

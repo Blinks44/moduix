@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "data-table",
+  "title": "Data Table",
+  "description": "Solid data-table block with CSS Modules components and shared CSS Module layout.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/solid-data-table.json"],
+  "files": [],
+  "type": "registry:block"
+}

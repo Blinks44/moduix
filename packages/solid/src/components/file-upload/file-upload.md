@@ -55,6 +55,7 @@ Ordinary refs are forwarded to rendered Ark parts. Ark Solid does not forward re
 The `FileUploadItems` convenience part renders image previews for `image/*` files and a generic file icon
 for other files, including files whose filename looks like an image but has no image MIME type.
 Use explicit `FileUploadContext` composition for rejected files or MIME-specific previews.
+Metadata shows the uppercase filename extension, or the MIME type / `FILE` when there is no extension.
 
 ## Local changelog
 

@@ -4,7 +4,7 @@ import type { ComboboxTriggerProps } from '@ark-ui/vue/combobox';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronUpDownIcon } from '@/internal/icons/ui/Icons';
+import { ChevronUpDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Combobox.module.css';
 
 defineOptions({ inheritAttrs: false });

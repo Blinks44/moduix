@@ -18,7 +18,7 @@ const { class: className, file } = defineProps<Props>();
 const attrs = useAttrs();
 
 const getFileTypeLabel = (file: File) => {
-  const extension = file.name.split('.').pop();
+  const extension = file.name.includes('.') ? file.name.split('.').pop() : undefined;
   return extension ? extension.toUpperCase() : file.type || 'FILE';
 };
 </script>

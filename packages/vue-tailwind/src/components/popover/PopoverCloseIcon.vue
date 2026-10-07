@@ -3,7 +3,7 @@ import { PopoverCloseTrigger as ArkPopoverCloseTrigger } from '@ark-ui/vue/popov
 import type { PopoverCloseTriggerProps } from '@ark-ui/vue/popover';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '../../internal/cn';
+import { cn } from '@/lib/moduix/cn';
 import CloseButton from '../close-button/CloseButton.vue';
 
 defineOptions({ inheritAttrs: false });

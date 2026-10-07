@@ -1,0 +1,1699 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "moduix-blocks",
+  "homepage": "https://moduix.dev/blocks",
+  "items": [
+    {
+      "name": "react-tailwind-login-simple",
+      "type": "registry:block",
+      "title": "Login Simple",
+      "description": "React login-simple block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/checkbox.json",
+        "https://moduix.dev/r/react-tailwind/field.json",
+        "https://moduix.dev/r/react-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/login-simple/login-simple.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/login-simple/login-simple.tsx"
+        },
+        {
+          "path": "src/components/blocks/login-simple/login-simple-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/login-simple/login-simple-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar Dashboard",
+      "description": "React sidebar-dashboard block with Tailwind components and shared CSS Module layout.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/collapsible.json",
+        "https://moduix.dev/r/react-tailwind/menu.json",
+        "https://moduix.dev/r/react-tailwind/sidebar.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/sidebar-dashboard.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.tsx"
+        },
+        {
+          "path": "src/components/blocks/sidebar-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-file-upload-manager",
+      "type": "registry:block",
+      "title": "File Upload Manager",
+      "description": "React file-upload-manager block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/file-upload.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/file-upload-manager.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.tsx"
+        },
+        {
+          "path": "src/components/blocks/file-upload-manager.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "React app-header block with Tailwind components and shared CSS Module layout.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/avatar.json",
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/command-palette.json",
+        "https://moduix.dev/r/react-tailwind/menu.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/app-header.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/app-header/app-header.tsx"
+        },
+        {
+          "path": "src/components/blocks/app-header.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-header/app-header.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "React sign-up block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/checkbox.json",
+        "https://moduix.dev/r/react-tailwind/field.json",
+        "https://moduix.dev/r/react-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/sign-up/sign-up.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/sign-up/sign-up.tsx"
+        },
+        {
+          "path": "src/components/blocks/sign-up/sign-up-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sign-up/sign-up-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "React forgot-password block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/field.json",
+        "https://moduix.dev/r/react-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/forgot-password/forgot-password.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/forgot-password/forgot-password.tsx"
+        },
+        {
+          "path": "src/components/blocks/forgot-password/forgot-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/forgot-password/forgot-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "React reset-password block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/field.json",
+        "https://moduix.dev/r/react-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/reset-password/reset-password.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/reset-password/reset-password.tsx"
+        },
+        {
+          "path": "src/components/blocks/reset-password/reset-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/reset-password/reset-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "React verification-code block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/card.json",
+        "https://moduix.dev/r/react-tailwind/field.json",
+        "https://moduix.dev/r/react-tailwind/pin-input.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/verification-code/verification-code.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/verification-code/verification-code.tsx"
+        },
+        {
+          "path": "src/components/blocks/verification-code/verification-code-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/verification-code/verification-code-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-data-table",
+      "type": "registry:block",
+      "title": "Data Table",
+      "description": "React data-table block with Tailwind components and shared CSS Module layout.",
+      "dependencies": ["@tanstack/react-table@^9.2.4", "lucide-react"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/badge.json",
+        "https://moduix.dev/r/react-tailwind/button.json",
+        "https://moduix.dev/r/react-tailwind/checkbox.json",
+        "https://moduix.dev/r/react-tailwind/input-group.json",
+        "https://moduix.dev/r/react-tailwind/menu.json",
+        "https://moduix.dev/r/react-tailwind/table.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/data-table.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/data-table/data-table.tsx"
+        },
+        {
+          "path": "src/components/blocks/data-table.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/data-table/data-table.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "React expandable-avatar-group block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react-tailwind/avatar.json",
+        "https://moduix.dev/r/react-tailwind/tooltip.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/expandable-avatar-group.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.tsx"
+        },
+        {
+          "path": "src/components/blocks/expandable-avatar-group.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "React autoplay-gallery block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/react-tailwind/carousel.json"],
+      "files": [
+        {
+          "path": "src/components/blocks/autoplay-gallery.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.tsx"
+        },
+        {
+          "path": "src/components/blocks/autoplay-gallery.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-tailwind-parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "React parallax-card block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/react-tailwind/card.json"],
+      "files": [
+        {
+          "path": "src/components/blocks/parallax-card.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/parallax-card/parallax-card.tsx"
+        },
+        {
+          "path": "src/components/blocks/parallax-card.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/parallax-card/parallax-card.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-login-simple",
+      "type": "registry:block",
+      "title": "Login Simple",
+      "description": "React login-simple block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/checkbox.json",
+        "https://moduix.dev/r/react/field.json",
+        "https://moduix.dev/r/react/input.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/login-simple/login-simple.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/login-simple/login-simple.tsx"
+        },
+        {
+          "path": "src/components/blocks/login-simple/login-simple-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/login-simple/login-simple-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar Dashboard",
+      "description": "React sidebar-dashboard block with CSS Modules components and shared CSS Module layout.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/collapsible.json",
+        "https://moduix.dev/r/react/menu.json",
+        "https://moduix.dev/r/react/sidebar.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/sidebar-dashboard.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.tsx"
+        },
+        {
+          "path": "src/components/blocks/sidebar-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-file-upload-manager",
+      "type": "registry:block",
+      "title": "File Upload Manager",
+      "description": "React file-upload-manager block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/file-upload.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/file-upload-manager.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.tsx"
+        },
+        {
+          "path": "src/components/blocks/file-upload-manager.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "React app-header block with CSS Modules components and shared CSS Module layout.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react/avatar.json",
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/command-palette.json",
+        "https://moduix.dev/r/react/menu.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/app-header.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/app-header/app-header.tsx"
+        },
+        {
+          "path": "src/components/blocks/app-header.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-header/app-header.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "React sign-up block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/checkbox.json",
+        "https://moduix.dev/r/react/field.json",
+        "https://moduix.dev/r/react/input.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/sign-up/sign-up.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/sign-up/sign-up.tsx"
+        },
+        {
+          "path": "src/components/blocks/sign-up/sign-up-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sign-up/sign-up-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "React forgot-password block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/field.json",
+        "https://moduix.dev/r/react/input.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/forgot-password/forgot-password.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/forgot-password/forgot-password.tsx"
+        },
+        {
+          "path": "src/components/blocks/forgot-password/forgot-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/forgot-password/forgot-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "React reset-password block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/field.json",
+        "https://moduix.dev/r/react/input.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/reset-password/reset-password.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/reset-password/reset-password.tsx"
+        },
+        {
+          "path": "src/components/blocks/reset-password/reset-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/reset-password/reset-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "React verification-code block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/card.json",
+        "https://moduix.dev/r/react/field.json",
+        "https://moduix.dev/r/react/pin-input.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/verification-code/verification-code.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/verification-code/verification-code.tsx"
+        },
+        {
+          "path": "src/components/blocks/verification-code/verification-code-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/verification-code/verification-code-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-data-table",
+      "type": "registry:block",
+      "title": "Data Table",
+      "description": "React data-table block with CSS Modules components and shared CSS Module layout.",
+      "dependencies": ["@tanstack/react-table@^9.2.4", "lucide-react"],
+      "registryDependencies": [
+        "https://moduix.dev/r/react/badge.json",
+        "https://moduix.dev/r/react/button.json",
+        "https://moduix.dev/r/react/checkbox.json",
+        "https://moduix.dev/r/react/input-group.json",
+        "https://moduix.dev/r/react/menu.json",
+        "https://moduix.dev/r/react/table.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/data-table.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/data-table/data-table.tsx"
+        },
+        {
+          "path": "src/components/blocks/data-table.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/data-table/data-table.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "React expandable-avatar-group block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/react/avatar.json",
+        "https://moduix.dev/r/react/tooltip.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/expandable-avatar-group.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.tsx"
+        },
+        {
+          "path": "src/components/blocks/expandable-avatar-group.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "React autoplay-gallery block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/react/carousel.json"],
+      "files": [
+        {
+          "path": "src/components/blocks/autoplay-gallery.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.tsx"
+        },
+        {
+          "path": "src/components/blocks/autoplay-gallery.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.module.css"
+        }
+      ]
+    },
+    {
+      "name": "react-parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "React parallax-card block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/react/card.json"],
+      "files": [
+        {
+          "path": "src/components/blocks/parallax-card.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/parallax-card/parallax-card.tsx"
+        },
+        {
+          "path": "src/components/blocks/parallax-card.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/parallax-card/parallax-card.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-login-simple",
+      "type": "registry:block",
+      "title": "Login Simple",
+      "description": "Solid login-simple block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/checkbox.json",
+        "https://moduix.dev/r/solid-tailwind/field.json",
+        "https://moduix.dev/r/solid-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/login-simple.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/login-simple/login-simple.tsx"
+        },
+        {
+          "path": "src/components/blocks/login-simple/login-simple-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/login-simple/login-simple-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar Dashboard",
+      "description": "Solid sidebar-dashboard block with Tailwind components and shared CSS Module layout.",
+      "dependencies": ["lucide-solid"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/collapsible.json",
+        "https://moduix.dev/r/solid-tailwind/menu.json",
+        "https://moduix.dev/r/solid-tailwind/sidebar.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/sidebar-dashboard.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.tsx"
+        },
+        {
+          "path": "src/components/blocks/sidebar-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-file-upload-manager",
+      "type": "registry:block",
+      "title": "File Upload Manager",
+      "description": "Solid file-upload-manager block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/file-upload.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/file-upload-manager.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.tsx"
+        },
+        {
+          "path": "src/components/blocks/file-upload-manager.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "Solid app-header block with Tailwind components and shared CSS Module layout.",
+      "dependencies": ["lucide-solid"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/avatar.json",
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/command-palette.json",
+        "https://moduix.dev/r/solid-tailwind/menu.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/app-header.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/app-header/app-header.tsx"
+        },
+        {
+          "path": "src/components/blocks/app-header.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-header/app-header.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "Solid sign-up block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/checkbox.json",
+        "https://moduix.dev/r/solid-tailwind/field.json",
+        "https://moduix.dev/r/solid-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/sign-up.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/sign-up/sign-up.tsx"
+        },
+        {
+          "path": "src/components/blocks/sign-up/sign-up-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sign-up/sign-up-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "Solid forgot-password block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/field.json",
+        "https://moduix.dev/r/solid-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/forgot-password.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/forgot-password/forgot-password.tsx"
+        },
+        {
+          "path": "src/components/blocks/forgot-password/forgot-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/forgot-password/forgot-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "Solid reset-password block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/field.json",
+        "https://moduix.dev/r/solid-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/reset-password.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/reset-password/reset-password.tsx"
+        },
+        {
+          "path": "src/components/blocks/reset-password/reset-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/reset-password/reset-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "Solid verification-code block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/card.json",
+        "https://moduix.dev/r/solid-tailwind/field.json",
+        "https://moduix.dev/r/solid-tailwind/pin-input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/verification-code.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/verification-code/verification-code.tsx"
+        },
+        {
+          "path": "src/components/blocks/verification-code/verification-code-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/verification-code/verification-code-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-data-table",
+      "type": "registry:block",
+      "title": "Data Table",
+      "description": "Solid data-table block with Tailwind components and shared CSS Module layout.",
+      "dependencies": ["@tanstack/solid-table@^9.2.4", "lucide-solid"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/badge.json",
+        "https://moduix.dev/r/solid-tailwind/button.json",
+        "https://moduix.dev/r/solid-tailwind/checkbox.json",
+        "https://moduix.dev/r/solid-tailwind/input-group.json",
+        "https://moduix.dev/r/solid-tailwind/menu.json",
+        "https://moduix.dev/r/solid-tailwind/table.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/data-table-component-catalog.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/data-table/data-table.tsx"
+        },
+        {
+          "path": "src/components/blocks/data-table.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/data-table/data-table.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "Solid expandable-avatar-group block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid-tailwind/avatar.json",
+        "https://moduix.dev/r/solid-tailwind/tooltip.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/expandable-avatar-group.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.tsx"
+        },
+        {
+          "path": "src/components/blocks/expandable-avatar-group.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "Solid autoplay-gallery block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/solid-tailwind/carousel.json"],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/autoplay-gallery.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.tsx"
+        },
+        {
+          "path": "src/components/blocks/autoplay-gallery.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-tailwind-parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "Solid parallax-card block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/solid-tailwind/card.json"],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/parallax-card.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/parallax-card/parallax-card.tsx"
+        },
+        {
+          "path": "src/components/blocks/parallax-card.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/parallax-card/parallax-card.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-login-simple",
+      "type": "registry:block",
+      "title": "Login Simple",
+      "description": "Solid login-simple block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/checkbox.json",
+        "https://moduix.dev/r/solid/field.json",
+        "https://moduix.dev/r/solid/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/login-simple.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/login-simple/login-simple.tsx"
+        },
+        {
+          "path": "src/components/blocks/login-simple/login-simple-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/login-simple/login-simple-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar Dashboard",
+      "description": "Solid sidebar-dashboard block with CSS Modules components and shared CSS Module layout.",
+      "dependencies": ["lucide-solid"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/collapsible.json",
+        "https://moduix.dev/r/solid/menu.json",
+        "https://moduix.dev/r/solid/sidebar.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/sidebar-dashboard.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.tsx"
+        },
+        {
+          "path": "src/components/blocks/sidebar-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-file-upload-manager",
+      "type": "registry:block",
+      "title": "File Upload Manager",
+      "description": "Solid file-upload-manager block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/file-upload.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/file-upload-manager.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.tsx"
+        },
+        {
+          "path": "src/components/blocks/file-upload-manager.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "Solid app-header block with CSS Modules components and shared CSS Module layout.",
+      "dependencies": ["lucide-solid"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/avatar.json",
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/command-palette.json",
+        "https://moduix.dev/r/solid/menu.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/app-header.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/app-header/app-header.tsx"
+        },
+        {
+          "path": "src/components/blocks/app-header.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-header/app-header.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "Solid sign-up block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/checkbox.json",
+        "https://moduix.dev/r/solid/field.json",
+        "https://moduix.dev/r/solid/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/sign-up.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/sign-up/sign-up.tsx"
+        },
+        {
+          "path": "src/components/blocks/sign-up/sign-up-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sign-up/sign-up-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "Solid forgot-password block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/field.json",
+        "https://moduix.dev/r/solid/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/forgot-password.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/forgot-password/forgot-password.tsx"
+        },
+        {
+          "path": "src/components/blocks/forgot-password/forgot-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/forgot-password/forgot-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "Solid reset-password block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/field.json",
+        "https://moduix.dev/r/solid/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/reset-password.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/reset-password/reset-password.tsx"
+        },
+        {
+          "path": "src/components/blocks/reset-password/reset-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/reset-password/reset-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "Solid verification-code block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/card.json",
+        "https://moduix.dev/r/solid/field.json",
+        "https://moduix.dev/r/solid/pin-input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/verification-code.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/verification-code/verification-code.tsx"
+        },
+        {
+          "path": "src/components/blocks/verification-code/verification-code-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/verification-code/verification-code-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-data-table",
+      "type": "registry:block",
+      "title": "Data Table",
+      "description": "Solid data-table block with CSS Modules components and shared CSS Module layout.",
+      "dependencies": ["@tanstack/solid-table@^9.2.4", "lucide-solid"],
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/badge.json",
+        "https://moduix.dev/r/solid/button.json",
+        "https://moduix.dev/r/solid/checkbox.json",
+        "https://moduix.dev/r/solid/input-group.json",
+        "https://moduix.dev/r/solid/menu.json",
+        "https://moduix.dev/r/solid/table.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/data-table-component-catalog.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/data-table/data-table.tsx"
+        },
+        {
+          "path": "src/components/blocks/data-table.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/data-table/data-table.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "Solid expandable-avatar-group block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/solid/avatar.json",
+        "https://moduix.dev/r/solid/tooltip.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/expandable-avatar-group.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.tsx"
+        },
+        {
+          "path": "src/components/blocks/expandable-avatar-group.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "Solid autoplay-gallery block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/solid/carousel.json"],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/autoplay-gallery.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.tsx"
+        },
+        {
+          "path": "src/components/blocks/autoplay-gallery.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.module.css"
+        }
+      ]
+    },
+    {
+      "name": "solid-parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "Solid parallax-card block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/solid/card.json"],
+      "files": [
+        {
+          "path": "snippets/blocks/solid/parallax-card.tsx",
+          "type": "registry:component",
+          "target": "@components/blocks/parallax-card/parallax-card.tsx"
+        },
+        {
+          "path": "src/components/blocks/parallax-card.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/parallax-card/parallax-card.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-login-simple",
+      "type": "registry:block",
+      "title": "Login Simple",
+      "description": "Vue login-simple block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/checkbox.json",
+        "https://moduix.dev/r/vue-tailwind/field.json",
+        "https://moduix.dev/r/vue-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/login-simple.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/login-simple/login-simple.vue"
+        },
+        {
+          "path": "src/components/blocks/login-simple/login-simple-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/login-simple/login-simple-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar Dashboard",
+      "description": "Vue sidebar-dashboard block with Tailwind components and shared CSS Module layout.",
+      "dependencies": ["@lucide/vue"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/collapsible.json",
+        "https://moduix.dev/r/vue-tailwind/menu.json",
+        "https://moduix.dev/r/vue-tailwind/sidebar.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/sidebar-dashboard.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.vue"
+        },
+        {
+          "path": "src/components/blocks/sidebar-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-file-upload-manager",
+      "type": "registry:block",
+      "title": "File Upload Manager",
+      "description": "Vue file-upload-manager block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/file-upload.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/file-upload-manager.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.vue"
+        },
+        {
+          "path": "src/components/blocks/file-upload-manager.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "Vue app-header block with Tailwind components and shared CSS Module layout.",
+      "dependencies": ["@lucide/vue"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/avatar.json",
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/command-palette.json",
+        "https://moduix.dev/r/vue-tailwind/menu.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/app-header.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/app-header/app-header.vue"
+        },
+        {
+          "path": "src/components/blocks/app-header.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-header/app-header.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "Vue sign-up block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/checkbox.json",
+        "https://moduix.dev/r/vue-tailwind/field.json",
+        "https://moduix.dev/r/vue-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/sign-up.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/sign-up/sign-up.vue"
+        },
+        {
+          "path": "src/components/blocks/sign-up/sign-up-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sign-up/sign-up-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "Vue forgot-password block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/field.json",
+        "https://moduix.dev/r/vue-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/forgot-password.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/forgot-password/forgot-password.vue"
+        },
+        {
+          "path": "src/components/blocks/forgot-password/forgot-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/forgot-password/forgot-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "Vue reset-password block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/field.json",
+        "https://moduix.dev/r/vue-tailwind/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/reset-password.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/reset-password/reset-password.vue"
+        },
+        {
+          "path": "src/components/blocks/reset-password/reset-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/reset-password/reset-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "Vue verification-code block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/card.json",
+        "https://moduix.dev/r/vue-tailwind/field.json",
+        "https://moduix.dev/r/vue-tailwind/pin-input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/verification-code.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/verification-code/verification-code.vue"
+        },
+        {
+          "path": "src/components/blocks/verification-code/verification-code-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/verification-code/verification-code-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-data-table",
+      "type": "registry:block",
+      "title": "Data Table",
+      "description": "Vue data-table block with Tailwind components and shared CSS Module layout.",
+      "dependencies": ["@lucide/vue", "@tanstack/vue-table@^9.2.4"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/badge.json",
+        "https://moduix.dev/r/vue-tailwind/button.json",
+        "https://moduix.dev/r/vue-tailwind/checkbox.json",
+        "https://moduix.dev/r/vue-tailwind/input-group.json",
+        "https://moduix.dev/r/vue-tailwind/menu.json",
+        "https://moduix.dev/r/vue-tailwind/table.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/data-table.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/data-table/data-table.vue"
+        },
+        {
+          "path": "src/components/blocks/data-table.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/data-table/data-table.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "Vue expandable-avatar-group block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue-tailwind/avatar.json",
+        "https://moduix.dev/r/vue-tailwind/tooltip.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/expandable-avatar-group.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.vue"
+        },
+        {
+          "path": "src/components/blocks/expandable-avatar-group.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "Vue autoplay-gallery block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/vue-tailwind/carousel.json"],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/autoplay-gallery.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.vue"
+        },
+        {
+          "path": "src/components/blocks/autoplay-gallery.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-tailwind-parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "Vue parallax-card block with Tailwind components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/vue-tailwind/card.json"],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/parallax-card.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/parallax-card/parallax-card.vue"
+        },
+        {
+          "path": "src/components/blocks/parallax-card.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/parallax-card/parallax-card.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-login-simple",
+      "type": "registry:block",
+      "title": "Login Simple",
+      "description": "Vue login-simple block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/checkbox.json",
+        "https://moduix.dev/r/vue/field.json",
+        "https://moduix.dev/r/vue/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/login-simple.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/login-simple/login-simple.vue"
+        },
+        {
+          "path": "src/components/blocks/login-simple/login-simple-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/login-simple/login-simple-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar Dashboard",
+      "description": "Vue sidebar-dashboard block with CSS Modules components and shared CSS Module layout.",
+      "dependencies": ["@lucide/vue"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/collapsible.json",
+        "https://moduix.dev/r/vue/menu.json",
+        "https://moduix.dev/r/vue/sidebar.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/sidebar-dashboard.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.vue"
+        },
+        {
+          "path": "src/components/blocks/sidebar-dashboard.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sidebar-dashboard/sidebar-dashboard.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-file-upload-manager",
+      "type": "registry:block",
+      "title": "File Upload Manager",
+      "description": "Vue file-upload-manager block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/file-upload.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/file-upload-manager.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.vue"
+        },
+        {
+          "path": "src/components/blocks/file-upload-manager.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/file-upload-manager/file-upload-manager.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "Vue app-header block with CSS Modules components and shared CSS Module layout.",
+      "dependencies": ["@lucide/vue"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/avatar.json",
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/command-palette.json",
+        "https://moduix.dev/r/vue/menu.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/app-header.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/app-header/app-header.vue"
+        },
+        {
+          "path": "src/components/blocks/app-header.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/app-header/app-header.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "Vue sign-up block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/checkbox.json",
+        "https://moduix.dev/r/vue/field.json",
+        "https://moduix.dev/r/vue/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/sign-up.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/sign-up/sign-up.vue"
+        },
+        {
+          "path": "src/components/blocks/sign-up/sign-up-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/sign-up/sign-up-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "Vue forgot-password block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/field.json",
+        "https://moduix.dev/r/vue/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/forgot-password.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/forgot-password/forgot-password.vue"
+        },
+        {
+          "path": "src/components/blocks/forgot-password/forgot-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/forgot-password/forgot-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "Vue reset-password block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/field.json",
+        "https://moduix.dev/r/vue/input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/reset-password.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/reset-password/reset-password.vue"
+        },
+        {
+          "path": "src/components/blocks/reset-password/reset-password-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/reset-password/reset-password-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "Vue verification-code block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/card.json",
+        "https://moduix.dev/r/vue/field.json",
+        "https://moduix.dev/r/vue/pin-input.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/verification-code.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/verification-code/verification-code.vue"
+        },
+        {
+          "path": "src/components/blocks/verification-code/verification-code-form.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/verification-code/verification-code-form.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-data-table",
+      "type": "registry:block",
+      "title": "Data Table",
+      "description": "Vue data-table block with CSS Modules components and shared CSS Module layout.",
+      "dependencies": ["@lucide/vue", "@tanstack/vue-table@^9.2.4"],
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/badge.json",
+        "https://moduix.dev/r/vue/button.json",
+        "https://moduix.dev/r/vue/checkbox.json",
+        "https://moduix.dev/r/vue/input-group.json",
+        "https://moduix.dev/r/vue/menu.json",
+        "https://moduix.dev/r/vue/table.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/data-table.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/data-table/data-table.vue"
+        },
+        {
+          "path": "src/components/blocks/data-table.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/data-table/data-table.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "Vue expandable-avatar-group block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": [
+        "https://moduix.dev/r/vue/avatar.json",
+        "https://moduix.dev/r/vue/tooltip.json"
+      ],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/expandable-avatar-group.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.vue"
+        },
+        {
+          "path": "src/components/blocks/expandable-avatar-group.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "Vue autoplay-gallery block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/vue/carousel.json"],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/autoplay-gallery.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.vue"
+        },
+        {
+          "path": "src/components/blocks/autoplay-gallery.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/autoplay-gallery/autoplay-gallery.module.css"
+        }
+      ]
+    },
+    {
+      "name": "vue-parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "Vue parallax-card block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/vue/card.json"],
+      "files": [
+        {
+          "path": "snippets/blocks/vue/parallax-card.vue",
+          "type": "registry:component",
+          "target": "@components/blocks/parallax-card/parallax-card.vue"
+        },
+        {
+          "path": "src/components/blocks/parallax-card.module.css",
+          "type": "registry:file",
+          "target": "@components/blocks/parallax-card/parallax-card.module.css"
+        }
+      ]
+    }
+  ]
+}

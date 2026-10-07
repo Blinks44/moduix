@@ -46,9 +46,9 @@ import {
   Wrench,
 } from 'lucide-react';
 import { useState } from 'react';
+import { DataTable } from '@/components/blocks/data-table';
+import { SidebarDashboard } from '@/components/blocks/sidebar-dashboard';
 import { FrameworkSupport } from '@/components/home/framework-support';
-import { DataTable } from '@/components/recipes/data-table';
-import { SidebarDashboard } from '@/components/recipes/sidebar-dashboard';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Home.module.css';
 
@@ -61,7 +61,7 @@ export function Home() {
   const utilitiesPath = useLocalizedPath('/docs/utilities');
   const formsPath = useLocalizedPath('/docs/forms');
   const guidesPath = useLocalizedPath('/docs/styling');
-  const recipesPath = useLocalizedPath('/recipes');
+  const blocksPath = useLocalizedPath('/blocks');
   const documentationAreas = [
     {
       title: t('homeAreaComponents'),
@@ -94,9 +94,9 @@ export function Home() {
       icon: BookOpen,
     },
     {
-      title: t('homeAreaRecipes'),
-      description: t('homeAreaRecipesDescription'),
-      href: recipesPath,
+      title: t('homeAreaBlocks'),
+      description: t('homeAreaBlocksDescription'),
+      href: blocksPath,
       icon: Boxes,
     },
   ];
@@ -170,8 +170,8 @@ export function Home() {
             <h2 id="component-table-title">{t('homeComponentsTogether')}</h2>
             <p>{t('homeCompositionDescription')}</p>
           </div>
-          <Link href={recipesPath} className={styles.tableLink}>
-            {t('homeExploreRecipes')}
+          <Link href={blocksPath} className={styles.tableLink}>
+            {t('homeExploreBlocks')}
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>

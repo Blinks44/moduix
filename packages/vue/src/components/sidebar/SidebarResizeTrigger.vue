@@ -4,7 +4,7 @@ import type { SplitterResizeTriggerProps } from '@ark-ui/vue/splitter';
 import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '../../internal/a11yLabels';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import splitterStyles from '../splitter/Splitter.module.css';
 import SplitterResizeTriggerIndicator from '../splitter/SplitterResizeTriggerIndicator.vue';
 import { useSidebarConfig } from './context';

@@ -6,9 +6,9 @@ import type {
 } from '@ark-ui/vue/date-picker';
 import { provide, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import type { PortalRef } from '@/internal/overlayPortal/context';
-import { OverlayPortalContextKey } from '@/internal/overlayPortal/context';
 import { cn } from '@/lib/moduix/cn';
+import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
+import { OverlayPortalContextKey } from '@/lib/moduix/overlayPortal/context';
 
 defineOptions({ inheritAttrs: false });
 

@@ -7,8 +7,8 @@ import type {
 import { clsx } from 'clsx';
 import { provide, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import type { PortalRef } from '@/internal/overlayPortal/context';
-import { OverlayPortalContextKey } from '@/internal/overlayPortal/context';
+import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
+import { OverlayPortalContextKey } from '@/lib/moduix/overlayPortal/context';
 import styles from './DatePicker.module.css';
 
 defineOptions({ inheritAttrs: false });

@@ -4,8 +4,8 @@ import type { FileUploadClearTriggerProps } from '@ark-ui/vue/file-upload';
 import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CloseIcon } from '@/internal/icons/ui/Icons';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import CloseButton from '../close-button/CloseButton.vue';
 import styles from './FileUpload.module.css';
 

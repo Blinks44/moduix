@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "file-upload-manager",
+  "title": "File Upload Manager",
+  "description": "React file-upload-manager block with CSS Modules components and shared CSS Module layout.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/react-file-upload-manager.json"],
+  "files": [],
+  "type": "registry:block"
+}

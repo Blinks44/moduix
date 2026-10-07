@@ -4,8 +4,8 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { a11yLabels } from '../../internal/a11yLabels';
-import { ChevronLeftIcon } from '../../internal/icons/ui/Icons';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
 import { useSidebar, useSidebarConfig } from './context';
 import styles from './Sidebar.module.css';
 

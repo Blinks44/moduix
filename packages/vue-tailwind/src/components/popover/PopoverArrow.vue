@@ -3,7 +3,7 @@ import { PopoverArrow as ArkPopoverArrow } from '@ark-ui/vue/popover';
 import type { PopoverArrowProps } from '@ark-ui/vue/popover';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '../../internal/cn';
+import { cn } from '@/lib/moduix/cn';
 import PopoverArrowTip from './PopoverArrowTip.vue';
 
 defineOptions({ inheritAttrs: false });

@@ -5,7 +5,7 @@ import {
   CollapsibleTrigger,
 } from '@moduix/react/collapsible';
 import { useI18n } from '@rspress/core/runtime';
-import { CodeBlockRuntime, Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
+import { Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
 import { ArrowUpRight, Code2, Layers3 } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
@@ -40,68 +40,39 @@ function PrimitiveReference({ href }: { href: string }) {
   );
 }
 
-function ShadcnInstall({
-  packageName,
-  itemKind = 'component',
-  copiedSource = false,
-  dependencies = [],
-  solidDependencies = [],
-  vueDependencies = [],
-  frameworks = false,
-}: {
-  packageName: string | string[];
-  itemKind?: 'component' | 'recipe';
-  copiedSource?: boolean;
-  dependencies?: string[];
-  solidDependencies?: string[];
-  vueDependencies?: string[];
-  frameworks?: boolean;
-}) {
-  const packageNames = Array.isArray(packageName) ? packageName : [packageName];
+function BlockInstall({ name }: { name: string }) {
   const t = useI18n<typeof import('i18n')>();
-  const installMessage =
-    itemKind === 'recipe' ? t('shadcnInstallRecipe') : t('shadcnInstallComponent');
-  const copyMessage = itemKind === 'recipe' ? t('shadcnCopyRecipe') : t('shadcnCopyComponent');
-
-  const renderInstall = (framework: 'react' | 'solid' | 'vue', extraDependencies: string[]) => (
-    <div className={styles.install}>
-      <p>{copiedSource ? copyMessage : installMessage}</p>
-      <PackageManagerTabs
-        command={`shadcn@latest add ${packageNames.map((name) => `@moduix-${framework}/${name}`).join(' ')}`}
-        dlx
-      />
-      <p>{t('shadcnImportHint')}</p>
-      <CodeBlockRuntime
-        lang={framework === 'vue' ? 'ts' : 'tsx'}
-        code={`// Package
-// import { Component } from '@moduix/${framework}/<component>';
-
-// shadcn
-import { Component } from '@/components/ui/<component>';`}
-      />
-      {extraDependencies.length > 0 ? (
-        <>
-          <p>{t('shadcnExampleRequires')}</p>
-          <PackageManagerTabs command={`install ${extraDependencies.join(' ')}`} />
-        </>
-      ) : null}
-    </div>
-  );
-
-  if (!frameworks) return renderInstall('react', dependencies);
+  const quickStartPath = useLocalizedPath('/docs/quick-start');
 
   return (
-    <Tabs groupId="framework">
-      <Tab label="React" value="react">
-        {renderInstall('react', dependencies)}
-      </Tab>
-      <Tab label="Solid" value="solid">
-        {renderInstall('solid', solidDependencies)}
-      </Tab>
-      <Tab label="Vue" value="vue">
-        {renderInstall('vue', vueDependencies)}
-      </Tab>
-    </Tabs>
+    <div className={styles.install}>
+      <p>{t('blockInstallDescription')}</p>
+      <Tabs groupId="framework">
+        {(['react', 'solid', 'vue'] as const).map((framework) => (
+          <Tab
+            label={framework === 'react' ? 'React' : framework === 'solid' ? 'Solid' : 'Vue'}
+            value={framework}
+            key={framework}
+          >
+            <ShadcnInstallOptions
+              options={[
+                {
+                  label: 'CSS Modules',
+                  command: `shadcn@latest add @moduix-${framework}/${name}`,
+                },
+                {
+                  label: 'Tailwind CSS',
+                  command: `shadcn@latest add @moduix-${framework}-tailwind/${name}`,
+                },
+              ]}
+            />
+          </Tab>
+        ))}
+      </Tabs>
+      <p>{t('blockInstallStyles')}</p>
+      <p>{t('blockInstallSetup')}</p>
+      <Link href={quickStartPath}>{t('blockQuickStart')}</Link>
+    </div>
   );
 }
 
@@ -308,7 +279,7 @@ export {
   PreviewFrame,
   PreviewMeta,
   PrimitiveReference,
-  ShadcnInstall,
+  BlockInstall,
   ShadcnInstallOptions,
   StyleTrackCard,
   StyleTrackCards,

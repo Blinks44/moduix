@@ -1,0 +1,47 @@
+.root {
+  display: grid;
+  inline-size: 100%;
+  gap: var(--moduix-spacing-4);
+
+  & [data-slot='table-row'][data-selected] {
+    background-color: var(--moduix-color-muted);
+  }
+}
+
+.table {
+  min-inline-size: 32rem;
+  table-layout: fixed;
+}
+
+.interactiveTable {
+  min-inline-size: 38rem;
+  table-layout: fixed;
+}
+
+.toolbar,
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--moduix-spacing-3);
+
+  & > span {
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+  }
+}
+
+.toolbar > input {
+  max-inline-size: 18rem;
+}
+
+.pagination > div {
+  display: flex;
+  align-items: center;
+  gap: var(--moduix-spacing-3);
+}
+
+.selectionColumn {
+  text-align: center;
+}

@@ -42,6 +42,12 @@ test('opens from a semantic Bind selector', async () => {
   }
 
   render(<BoundLightbox />);
+  screen.getByRole('button').addEventListener('click', (event) => event.preventDefault(), {
+    once: true,
+  });
+  await page.getByRole('button').click();
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
+
   await page.getByRole('button').click();
 
   await expect

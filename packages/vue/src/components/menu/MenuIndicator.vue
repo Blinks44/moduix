@@ -4,7 +4,7 @@ import type { MenuIndicatorProps } from '@ark-ui/vue/menu';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronDownIcon } from '@/internal/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Menu.module.css';
 
 defineOptions({ inheritAttrs: false });

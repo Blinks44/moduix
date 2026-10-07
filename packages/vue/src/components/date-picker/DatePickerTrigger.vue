@@ -4,7 +4,7 @@ import type { DatePickerTriggerProps } from '@ark-ui/vue/date-picker';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CalendarIcon } from '@/internal/icons/ui/Icons';
+import { CalendarIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './DatePicker.module.css';
 
 defineOptions({ inheritAttrs: false });

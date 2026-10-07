@@ -2,7 +2,7 @@
 import type { MenuRootEmits, MenuRootProps } from '@ark-ui/vue/menu';
 import { provide, useAttrs, type HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import type { PortalRef } from '../../internal/overlayPortal/context';
+import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
 import { Menu } from '../menu';
 import { SplitButtonContextKey, type SplitButtonSize, type SplitButtonVariant } from './context';
 

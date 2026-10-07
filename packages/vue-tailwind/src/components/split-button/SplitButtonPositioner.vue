@@ -2,7 +2,7 @@
 import { MenuPositioner as ArkMenuPositioner, type MenuPositionerProps } from '@ark-ui/vue/menu';
 import { useAttrs, type HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import OverlayPortal from '../../internal/overlayPortal/OverlayPortal.vue';
+import OverlayPortal from '@/lib/moduix/overlayPortal/OverlayPortal.vue';
 import { menuPositionerVariants } from '../menu/Menu.variants';
 
 defineOptions({ inheritAttrs: false });

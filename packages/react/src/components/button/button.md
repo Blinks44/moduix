@@ -23,6 +23,9 @@ composition.
 
 ## Current behavior contract
 
+The React module declares a `'use client'` boundary. Server parents may pass serializable props;
+event handlers and render functions belong in a client composition.
+
 - Exposes the root directly as the single `Button` value under the shared flat API.
 - Supports Ark factory root props such as `asChild`, `className`, `style`, event handlers, and
   native button attributes.

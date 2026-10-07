@@ -149,7 +149,7 @@ const renderModuixTooltipBody = (content: ChartTooltipContent | string): VNodeCh
                   {
                     'data-slot': 'chart-tooltip-value',
                     class:
-                      'text-right font-semibold whitespace-nowrap text-popover-foreground tabular-nums',
+                      'text-end font-semibold whitespace-nowrap text-popover-foreground tabular-nums',
                   },
                   row.value,
                 ),

@@ -4,8 +4,8 @@ import type { PopoverPositionerProps } from '@ark-ui/vue/popover';
 import { useForwardExpose } from '@ark-ui/vue/utils';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '../../internal/cn';
-import OverlayPortal from '../../internal/overlayPortal/OverlayPortal.vue';
+import { cn } from '@/lib/moduix/cn';
+import OverlayPortal from '@/lib/moduix/overlayPortal/OverlayPortal.vue';
 
 defineOptions({ inheritAttrs: false });
 

@@ -4,7 +4,7 @@ import type { DatePickerViewTriggerProps } from '@ark-ui/vue/date-picker';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronDownIcon } from '@/internal/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './DatePicker.module.css';
 import DatePickerRangeText from './DatePickerRangeText.vue';
 

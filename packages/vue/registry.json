@@ -5800,6 +5800,102 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "login-simple",
+      "type": "registry:block",
+      "title": "Login Simple",
+      "description": "Vue login-simple block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-login-simple.json"],
+      "files": []
+    },
+    {
+      "name": "sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar Dashboard",
+      "description": "Vue sidebar-dashboard block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-sidebar-dashboard.json"],
+      "files": []
+    },
+    {
+      "name": "file-upload-manager",
+      "type": "registry:block",
+      "title": "File Upload Manager",
+      "description": "Vue file-upload-manager block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-file-upload-manager.json"],
+      "files": []
+    },
+    {
+      "name": "app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "Vue app-header block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-app-header.json"],
+      "files": []
+    },
+    {
+      "name": "sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "Vue sign-up block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-sign-up.json"],
+      "files": []
+    },
+    {
+      "name": "forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "Vue forgot-password block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-forgot-password.json"],
+      "files": []
+    },
+    {
+      "name": "reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "Vue reset-password block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-reset-password.json"],
+      "files": []
+    },
+    {
+      "name": "verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "Vue verification-code block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-verification-code.json"],
+      "files": []
+    },
+    {
+      "name": "data-table",
+      "type": "registry:block",
+      "title": "Data Table",
+      "description": "Vue data-table block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-data-table.json"],
+      "files": []
+    },
+    {
+      "name": "expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "Vue expandable-avatar-group block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-expandable-avatar-group.json"],
+      "files": []
+    },
+    {
+      "name": "autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "Vue autoplay-gallery block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-autoplay-gallery.json"],
+      "files": []
+    },
+    {
+      "name": "parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "Vue parallax-card block with CSS Modules components and shared CSS Module layout.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/vue-parallax-card.json"],
+      "files": []
     }
   ]
 }

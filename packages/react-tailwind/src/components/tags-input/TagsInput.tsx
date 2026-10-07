@@ -1,3 +1,5 @@
+'use client';
+
 import {
   TagsInput as TagsInputPrimitive,
   useTagsInput,

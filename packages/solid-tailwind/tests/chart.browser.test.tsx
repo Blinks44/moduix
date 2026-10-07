@@ -180,23 +180,56 @@ test('renders the compact Moduix tooltip body by default', async () => {
   await expect
     .element(page.locator('[data-slot="chart-tooltip-value"]').first())
     .toContainText('76');
+  await expect
+    .element(page.locator('[data-slot="chart-tooltip-value"]').first())
+    .toHaveCSS('text-align', 'end');
 });
 
-test('passes TanStack’s native default body to a custom tooltip renderer', async () => {
+test('passes the Moduix default body to a reactive custom tooltip renderer', async () => {
+  const [custom, setCustom] = createSignal(false);
   render(() => (
     <ChartPlot
       ariaLabel="Monthly revenue"
       definition={{} as never}
-      renderTooltipBody={(tooltip) => <div data-testid="custom-tooltip">{tooltip.defaultBody}</div>}
+      renderTooltipBody={
+        custom()
+          ? (tooltip) => <div data-testid="custom-tooltip">{tooltip.defaultBody}</div>
+          : undefined
+      }
     />
   ));
 
+  await expect.element(page.locator('[data-slot="chart-tooltip-rows"]')).toBeAttached();
+  setCustom(true);
   await expect.element(page.getByTestId('custom-tooltip')).toBeAttached();
   expect(
     screen
       .getByTestId('custom-tooltip')!
       .contains(document.querySelector('[data-slot="chart-tooltip-rows"]')),
   ).toBe(true);
+  setCustom(false);
+  await expect.element(page.getByTestId('custom-tooltip')).toHaveCount(0);
+  await expect.element(page.locator('[data-slot="chart-tooltip-rows"]')).toBeAttached();
+});
+
+test('updates aspect ratio and falls back to the default height for an invalid ratio', async () => {
+  const [ratio, setRatio] = createSignal(2);
+  render(() => (
+    <ChartPlot
+      ariaLabel="Responsive chart"
+      definition={{} as never}
+      width={640}
+      aspectRatio={ratio()}
+    />
+  ));
+  const host = page.locator('.ts-chart-host');
+  await expect.element(host).toHaveCSS('aspect-ratio', '2 / 1');
+  await expect.element(host).toHaveCSS('height', '320px');
+  setRatio(4);
+  await expect.element(host).toHaveCSS('height', '160px');
+  setRatio(0);
+  await expect.element(host).toHaveCSS('aspect-ratio', 'auto');
+  await expect.element(host).toHaveCSS('height', '320px');
 });
 
 test('renders composition parts with semantic defaults and stable hooks', async () => {

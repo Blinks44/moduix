@@ -4,7 +4,7 @@ import type { SignaturePadClearTriggerProps } from '@ark-ui/vue/signature-pad';
 import { clsx } from 'clsx';
 import { computed, inject, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { RotateCcwIcon } from '@/internal/icons/ui/Icons';
+import { RotateCcwIcon } from '@/lib/moduix/icons/ui/Icons';
 import CloseButton from '../close-button/CloseButton.vue';
 import { signaturePadReadOnlyKey } from './context';
 import styles from './SignaturePad.module.css';

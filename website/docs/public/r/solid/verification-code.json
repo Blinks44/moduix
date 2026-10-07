@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "verification-code",
+  "title": "Verification code",
+  "description": "Solid verification-code block with CSS Modules components and shared CSS Module layout.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/solid-verification-code.json"],
+  "files": [],
+  "type": "registry:block"
+}

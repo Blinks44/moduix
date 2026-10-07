@@ -4,3 +4,12 @@
 /docs/form /docs/forms 301
 /docs/radio /docs/radio-group 301
 /docs/stepper /docs/steps 301
+/recipes /blocks 301
+/recipes/ /blocks 301
+/recipes/* /blocks/:splat 301
+/ru/recipes /ru/blocks 301
+/ru/recipes/ /ru/blocks 301
+/ru/recipes/* /ru/blocks/:splat 301
+/fr/recipes /fr/blocks 301
+/fr/recipes/ /fr/blocks 301
+/fr/recipes/* /fr/blocks/:splat 301

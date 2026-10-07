@@ -7,7 +7,7 @@ import type { ComboboxClearTriggerProps } from '@ark-ui/vue/combobox';
 import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CloseIcon } from '@/internal/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import closeButtonStyles from '../close-button/CloseButton.module.css';
 import styles from './CommandPalette.module.css';
 

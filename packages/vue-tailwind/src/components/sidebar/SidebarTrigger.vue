@@ -3,8 +3,8 @@ import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronLeftIcon } from '@/internal/icons/ui/Icons';
 import { cn } from '@/lib/moduix/cn';
+import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
 import { useSidebar, useSidebarConfig } from './context';
 
 defineOptions({ inheritAttrs: false });

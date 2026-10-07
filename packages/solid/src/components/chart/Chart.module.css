@@ -143,7 +143,7 @@
     color: var(--moduix-color-popover-foreground);
     font-weight: var(--moduix-weight-semibold);
     font-variant-numeric: tabular-nums;
-    text-align: right;
+    text-align: end;
     white-space: nowrap;
   }
 }

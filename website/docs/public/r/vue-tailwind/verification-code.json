@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "verification-code",
+  "title": "Verification code",
+  "description": "Vue verification-code block with Tailwind components and shared CSS Module layout.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-verification-code.json"],
+  "files": [],
+  "type": "registry:block"
+}

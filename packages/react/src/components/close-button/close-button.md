@@ -25,6 +25,9 @@ model through `@ark-ui/react/factory`:
 
 ## Current behavior contract
 
+The React module declares a `'use client'` boundary. Server parents may pass serializable props;
+event handlers and render functions belong in a client composition.
+
 - `CloseButton` is the root component and only public component value.
 - The default DOM node is `button`.
 - `type` defaults to `button` for the native root.

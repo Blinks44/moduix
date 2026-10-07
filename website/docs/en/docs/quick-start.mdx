@@ -354,6 +354,10 @@ This gives the `shadcn` CLI the aliases and registry URL it needs to place gener
 source tree instead of a literal `@` directory. The matching framework guide above explains whether
 the alias also belongs in the bundler config and which source root to use.
 
+Vue SFC files keep their authored imports: the `shadcn` CLI does not rewrite `.vue` imports.
+Keep the standard `@/components/ui` and `@/lib/moduix` paths shown here. If you customize the
+installation directories, map those paths to the chosen directories in TypeScript and your bundler.
+
 ### 2. Add a component
 
 <Tabs groupId="framework">

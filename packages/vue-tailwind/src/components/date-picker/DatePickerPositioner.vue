@@ -3,8 +3,8 @@ import { DatePickerPositioner as ArkDatePickerPositioner } from '@ark-ui/vue/dat
 import type { DatePickerPositionerProps } from '@ark-ui/vue/date-picker';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import OverlayPortal from '@/internal/overlayPortal/OverlayPortal.vue';
 import { cn } from '@/lib/moduix/cn';
+import OverlayPortal from '@/lib/moduix/overlayPortal/OverlayPortal.vue';
 
 defineOptions({ inheritAttrs: false });
 

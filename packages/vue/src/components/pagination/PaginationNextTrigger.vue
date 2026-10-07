@@ -4,7 +4,7 @@ import type { PaginationNextTriggerProps } from '@ark-ui/vue/pagination';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronRightIcon } from '@/internal/icons/ui/Icons';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Pagination.module.css';
 
 defineOptions({ inheritAttrs: false });

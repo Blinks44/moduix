@@ -21,6 +21,9 @@ many items map to one page.
 
 ## Current behavior contract
 
+The React module declares a `'use client'` boundary. Server parents may pass serializable props;
+event handlers and render functions belong in a client composition.
+
 Use `Pagination` as the root:
 
 ```tsx

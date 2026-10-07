@@ -94,7 +94,7 @@ migration.
 | Familiar shadcn name | Use in moduix | What to change |
 | --- | --- | --- |
 | Accordion | [`Accordion`](/docs/accordion) | Import flat parts such as `AccordionItem` and `AccordionItemContent`. |
-| Alert Dialog | [`Dialog`](/docs/dialog) | Set `role="alertdialog"` on `DialogContent` for a critical confirmation flow. |
+| Alert Dialog | [`Dialog`](/docs/dialog) | Set `role="alertdialog"` on `Dialog` for a critical confirmation flow. |
 | Avatar | [`Avatar`](/docs/avatar) | Put fallback content and the image in `AvatarFallback` and `AvatarImage`. |
 | Breadcrumb | [`Breadcrumbs`](/docs/breadcrumbs) | The family name is plural; keep semantic links and the current-page state. |
 | Calendar | [`DatePicker`](/docs/date-picker) or [`DateInput`](/docs/date-input) | Use `DatePicker` for a calendar and `DateInput` when users only need editable date segments. |
@@ -103,12 +103,13 @@ migration.
 | Combobox | [`Combobox`](/docs/combobox) | Create an Ark collection and define item values for object-based items. |
 | Command | [`CommandPalette`](/docs/command-palette) | Use the command-oriented component instead of a generic list alias. |
 | Context Menu | [`MenuContextTrigger`](/docs/menu) | Keep the same `Menu` family and use its context trigger. |
-| Data Table | [`Table`](/docs/table) plus the [Data Table recipe](/recipes/data-table) | Keep sorting, filtering, and server state in application code. |
+| Data Table | [`Table`](/docs/table) plus the [Data Table block](/blocks/data-table) | Keep sorting, filtering, and server state in application code. |
 | Date Picker | [`DatePicker`](/docs/date-picker) | Use the composed date input and calendar family. |
 | Dropdown Menu | [`Menu`](/docs/menu) | Use the regular `MenuTrigger` composition. |
 | Form | [`Field`](/docs/field) and [`Fieldset`](/docs/fieldset) | Use them for field structure; keep validation and submission in your form library or application. |
 | Hover Card | [`HoverCard`](/docs/hover-card) | Check the target page for the explicit positioning and lifecycle parts. |
 | Input OTP | [`PinInput`](/docs/pin-input) | Preserve its native form and SSR setup. |
+| Navigation Menu | [`NavigationMenu`](/docs/navigation-menu) | Compose its trigger, content, and optional shared viewport from the named parts. |
 | Progress | [`ProgressLinear`](/docs/progress-linear) or [`ProgressCircular`](/docs/progress-circular) | Choose the visual form explicitly. |
 | Resizable | [`Splitter`](/docs/splitter) | Give panels stable ids and keep layout state explicit. |
 | Select | [`Select`](/docs/select) | Use an Ark collection instead of an ad hoc array of option objects. |
@@ -119,8 +120,8 @@ migration.
 | Toggle Group | [`ToggleGroup`](/docs/toggle-group) | Use item values and group state from the Ark contract. |
 | Tooltip | [`Tooltip`](/docs/tooltip) | Keep the trigger and portalled content explicit. |
 
-Navigation Menu and Menubar do not need forced one-to-one replacements. Choose `Sidebar`, `Menu`,
-`Breadcrumbs`, or ordinary links based on the interaction your product needs.
+There is no dedicated Menubar component. `Menu` is a popup menu, not a drop-in replacement for a
+menubar's keyboard behavior; keep your existing menubar when that interaction is required.
 
 ## Adapt the import shape
 
@@ -262,7 +263,7 @@ For object items, define how an item becomes its visible string and stable value
 1. Add the moduix foundation stylesheet and keep it before your application overrides.
 2. Start with low-dependency components such as `Button`, `Badge`, `Avatar`, and `Separator`.
 3. Move overlays and collection components one family at a time, including their portal parts and state callbacks.
-4. Use a [recipe](/recipes) only when its screen-level flow matches your product.
+4. Use a [block](/blocks) only when its screen-level flow matches your product.
 5. Verify keyboard behavior, focus restoration, labels, and critical roles, then remove the old component source and styles.
 
 Keep application responsibilities in the application. Labels, validation messages, permissions,

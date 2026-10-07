@@ -15,7 +15,7 @@ This skill owns documentation content and source-to-locale consistency. It does 
 2. The corresponding default-language page (currently English) and the affected locale pages. Use `rspress-localization` for the translation itself.
 3. The shipped component API, its local markdown, and its existing examples when the page documents a component.
 
-Read [the page-type contract](references/page-types.md) when creating or substantially restructuring a page. It records the shared structure for component, utility, collection, form, guide, and recipe pages and is the place to add future page types after they are deliberately standardized.
+Read [the page-type contract](references/page-types.md) when creating or substantially restructuring a page. It records the shared structure for component, utility, collection, form, guide, and block pages and is the place to add future page types after they are deliberately standardized.
 
 When adding or synchronizing a supported runtime across overview, setup, migration, theme, token,
 or component-index pages, read [the framework-support contract](references/framework-support.md).
@@ -122,6 +122,11 @@ Read [preview rules](references/previews.md) whenever adding or changing a previ
   commands so the instructions work consistently across npm, pnpm, Yarn, and Bun.
 - Never edit `website/docs/public/r` by hand. Run `pnpm run build:registry` and keep generated output
   for every shipped package registry affected by the source change.
+- `website/registry.json` owns installable blocks at `/r/blocks`. Blocks reuse native source per
+  framework and a shared layout CSS Module across styling tracks; their registry dependencies
+  select the matching UI primitives. Use the existing shadcn build, not a separate generator.
+- The shadcn CLI does not rewrite Vue SFC imports. Authored SFCs use `@/components/ui/*` for
+  installed primitives and `@/lib/moduix/*` for internals; preserve these aliases in Vue setup.
 
 ## Local development
 
