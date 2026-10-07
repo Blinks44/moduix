@@ -116,9 +116,9 @@
     "fr": "GitHub"
   },
   "homeReleaseBadge": {
-    "en": "New: Vue support",
-    "ru": "Новое: поддержка Vue",
-    "fr": "Nouveau : prise en charge de Vue"
+    "en": "New: Vue and installable blocks",
+    "ru": "Новое: Vue и установка блоков",
+    "fr": "Nouveau : Vue et blocs installables"
   },
   "homeLead": {
     "en": "React, Solid, and Vue components built on <a href='https://ark-ui.com/'>Ark UI</a>. Style them with CSS Modules or <a href='https://tailwindcss.com/'>Tailwind</a>, and install them as packages or copy their source with the <a href='https://ui.shadcn.com/'>shadcn</a> registry.",
@@ -134,6 +134,11 @@
     "en": "Get started",
     "ru": "Начать работу",
     "fr": "Démarrer"
+  },
+  "docViewAsMarkdown": {
+    "en": "View as Markdown",
+    "ru": "Открыть в формате Markdown",
+    "fr": "Voir au format Markdown"
   },
   "homeDocumentationEyebrow": {
     "en": "Documentation",
@@ -156,9 +161,9 @@
     "fr": "Composants"
   },
   "homeAreaComponentsDescription": {
-    "en": "Styled building blocks with accessible behavior and explicit composition.",
-    "ru": "Стилизованные блоки с доступным поведением и явной композицией.",
-    "fr": "Des blocs stylisés au comportement accessible et à la composition explicite."
+    "en": "Browse components, try examples, and copy the code for your framework.",
+    "ru": "Выберите компонент, попробуйте примеры и скопируйте код для своего фреймворка.",
+    "fr": "Parcourez les composants, essayez les exemples et copiez le code pour votre framework."
   },
   "homeAreaCollections": {
     "en": "Ark Collections",

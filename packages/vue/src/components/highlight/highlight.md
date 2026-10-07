@@ -93,14 +93,13 @@ the adapter applies them to every matched mark.
 
 ## Differences from upstream
 
-The installed `@ark-ui/vue@5.39.2` `Highlight` SFC renders the correct fragment anatomy but does
-not forward fallthrough attrs, classes, styles, or listeners to its mark nodes, despite the official
-Highlight documentation promising class customization in Vue. The styling and attribute contract
-above is therefore blocked in both Vue tracks. The adapter stays a direct primitive wrapper;
-do not replace the primitive with locally rendered marks. Production readiness requires an upstream
-fix. Tests retain the intended assertions and a direct Ark reproduction as explicit upstream skips.
+Ark Vue 5.39.3 forwards fallthrough attributes, classes, styles, and listeners to each matched
+`<mark>`. Both styling tracks use the direct primitive wrapper, and their browser tests cover
+attribute forwarding and clicks on multiple matched segments.
 
 ## Local changelog
 
+- 2026-10-07: Removed the outdated attribute-forwarding warning after checking Ark 5.39.3 and
+  the passing regression tests in both styling tracks.
 - 2026-10-02: Reviewed the migration, removed the local mark-rendering workaround, and recorded
   the upstream attribute-forwarding production blocker.

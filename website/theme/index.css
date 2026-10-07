@@ -408,6 +408,19 @@ body .rp-doc {
   :root {
     --rp-content-padding-x: 16px;
   }
+
+  .rp-doc .rp-llms-container {
+    position: relative;
+  }
+
+  .rp-doc .rp-llms-view-options__trigger {
+    position: static;
+  }
+
+  .rp-doc .rp-llms-view-options__menu {
+    max-inline-size: 100%;
+    white-space: normal;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

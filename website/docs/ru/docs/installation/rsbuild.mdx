@@ -14,14 +14,12 @@ description: Подключение moduix к Rsbuild на React, Solid или V
 - **Стилизация:** CSS Modules или Tailwind CSS v4.
 - **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
 
-Сначала выполните общую [настройку пакета](/docs/quick-start#установить-как-пакет) или
-[настройку shadcn](/docs/quick-start#установить-через-shadcn-cli) для выбранного варианта стилей. Ниже
-показаны импорты пакетов на CSS Modules; точки входа Rsbuild и обработка алиасов TypeScript не меняются
-при выборе соответствующего Tailwind-пакета или реестра.
+Выбор пакета и настройка реестра описаны в Быстром старте: [пакеты](/docs/quick-start#установить-как-пакет)
+и [shadcn CLI](/docs/quick-start#установить-через-shadcn-cli).
 
-Показанная ниже настройка пакета использует CSS Modules и включает reset moduix. Если вместо них используются
-команды Tailwind-реестра, оставьте настроенную в приложении глобальную таблицу стилей из
-[Быстрого старта](/docs/quick-start#установить-как-пакет).
+Примеры ниже используют CSS Modules и reset moduix. Если в приложении уже есть подходящий reset,
+не импортируйте его повторно. Для Tailwind установите соответствующий пакет с суффиксом `-tailwind`
+и в той же точке входа подключите файл стилей приложения, настроенный по Quick Start.
 
 ## Установка из пакета
 
@@ -38,7 +36,7 @@ import '@moduix/react/style.css';
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/react/button';
 
-export function App() {
+export default function App() {
   return <Button>Continue</Button>;
 }
 ```
@@ -56,7 +54,7 @@ import '@moduix/solid/style.css';
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/solid/button';
 
-export function App() {
+export default function App() {
   return <Button>Continue</Button>;
 }
 ```
@@ -124,6 +122,11 @@ Rsbuild автоматически читает `compilerOptions.paths`. Доб�
 ```tsx title="src/index.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
+
+Импорт стилей выше относится к CSS Modules. Для Tailwind подключите сгенерированные базовые стили
+в существующем файле Tailwind по [Quick Start](/docs/quick-start#установить-через-shadcn-cli),
+а сам файл импортируйте в той же точке входа. Замените импорт компонента из пакета
+на `@/components/ui/button`.
 
 ## Проверка
 

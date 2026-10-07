@@ -29,6 +29,18 @@ The `@moduix-vue` and `@moduix-vue-tailwind` registries copy authored Vue source
 [Quick Start](/docs/quick-start), [form integrations](/docs/forms), and [blocks](/blocks) now include
 Vue alongside React and Solid in all three documentation languages. Component pages document genuine
 Ark adapter differences and version-specific upstream limitations. Svelte remains planned.
+
+### Installable blocks
+
+The former recipes are now [blocks](/blocks) that you can install through the shadcn registry.
+All 12 blocks include React, Solid, and Vue source, a layout stylesheet, and the required UI components.
+Choose CSS Modules or Tailwind for the components; both tracks use the same CSS Module for the block layout.
+
+After [registry setup](/docs/quick-start), add a block with one command:
+
+<PackageManagerTabs command="shadcn@latest add @moduix-react/login-simple" dlx />
+
+See each block’s installation section for the matching Solid, Vue, and Tailwind commands.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>

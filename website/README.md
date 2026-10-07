@@ -10,11 +10,14 @@ framework; live previews run React. Svelte support is planned.
 Run commands from the monorepo root:
 
 ```bash
-pnpm --filter moduix-docs dev
+pnpm run dev:docs
 pnpm run build:docs
 pnpm run tsc:check --filter moduix-docs
 pnpm run deploy:docs
 ```
+
+`dev:docs` also watches the React package used by live previews. Stop the development workflow
+before running a production build or the root type checks, which may rebuild package output.
 
 Rspress writes the production site to `website/doc_build`. The deploy command publishes that
 directory as Cloudflare Workers Static Assets.

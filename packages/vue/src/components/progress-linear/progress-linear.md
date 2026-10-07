@@ -101,10 +101,9 @@ Use `class` and native Vue slots. Use `v-model` when the parent owns the current
 that ref from the controlling source. Template refs on wrapper instances resolve to Ark's forwarded
 host element.
 
-The installed Ark Vue 5.39.2 `ProgressRoot` declaration includes `valueChange` and
-`update:modelValue`, but its runtime currently does not pass the component emit function into
-`useProgress`. Do not add a local state layer or event reimplementation to compensate; keep the
-wrapper on the direct Ark primitive until the upstream implementation is corrected.
+Ark Vue 5.39.3 passes the component emit function into `useProgress`, which emits `valueChange`
+and `update:modelValue`. Keep the wrapper on the direct Ark primitive without a local state layer
+or event reimplementation.
 
 ## Differences from upstream
 

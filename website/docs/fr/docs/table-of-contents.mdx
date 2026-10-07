@@ -1,6 +1,6 @@
 ---
 title: Table of Contents
-component: table-of-contents
+component: toc
 description: Synchronisez un sommaire accessible avec la section consultée.
 ---
 
@@ -164,11 +164,10 @@ Solid, transmettez cet enfant avec la fonction de rendu attendue par `asChild`. 
 lien ; ne rendez pas les deux dans la même liste.
 
 :::warning Limites des bibliothèques sous-jacentes
-Avec Ark UI Vue 5.39.2 et Zag 1.43.3, une modification de `activeIds` contrôlé renvoie les anciens
-ID dans `activeChange`. Réinjecter ces valeurs dans l’état ne met donc pas à jour la section active.
-Le suivi non contrôlé reste disponible. De plus, `TocNav` dans Ark réutilise l’ID de la racine,
-ce qui crée des ID dupliqués lorsque les deux parties sont rendues. Ces erreurs doivent être
-corrigées dans les bibliothèques sous-jacentes avant que ce composant soit prêt pour la production.
+Avec Ark UI Vue 5.39.3 et Zag 1.45.0, une modification de `activeIds` contrôlé renvoie les ID
+demandés dans `activeChange`. `TocNav` réutilise encore l’ID de la racine lorsque les deux parties
+sont rendues, ce qui crée des ID dupliqués. Cette limite est suivie dans
+[Ark #4187](https://github.com/chakra-ui/ark/issues/4187).
 :::
 
 ## Exemples

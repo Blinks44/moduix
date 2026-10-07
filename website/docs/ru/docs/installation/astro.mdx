@@ -15,15 +15,12 @@ description: Подключение компонентов moduix для React, 
 - **Стилизация:** CSS Modules или Tailwind CSS v4.
 - **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
 
-Эта страница посвящена расположению файлов и гидратации островов в Astro. Сначала выполните общую
-[настройку пакета](/docs/quick-start#установить-как-пакет) или
-[настройку shadcn](/docs/quick-start#установить-через-shadcn-cli) для выбранного варианта стилей. Ниже
-показаны импорты пакета на CSS Modules; точки входа Astro и правила `client:*` не меняются при выборе
-соответствующего Tailwind-пакета или реестра.
+Выбор пакета и настройка реестра описаны в Быстром старте: [пакеты](/docs/quick-start#установить-как-пакет)
+и [shadcn CLI](/docs/quick-start#установить-через-shadcn-cli).
 
-Показанная ниже настройка пакета использует CSS Modules и включает reset moduix. Если вместо них используются
-команды Tailwind-реестра, оставьте настроенную в приложении глобальную таблицу стилей из
-[Быстрого старта](/docs/quick-start#установить-как-пакет).
+Примеры ниже используют CSS Modules и reset moduix. Если в приложении уже есть подходящий reset,
+не импортируйте его повторно. Для Tailwind установите соответствующий пакет с суффиксом `-tailwind`
+и в той же точке входа подключите файл стилей приложения, настроенный по Quick Start.
 
 ## Установка из пакета
 
@@ -141,10 +138,13 @@ import { Button } from '@moduix/vue/button';
 
 ```astro title="src/pages/index.astro"
 ---
+import Layout from '../layouts/Layout.astro';
 import { ContinueButton } from '../components/ContinueButton';
 ---
 
-<ContinueButton client:load />
+<Layout>
+  <ContinueButton client:load />
+</Layout>
 ```
 
   </Tab>
@@ -152,10 +152,13 @@ import { ContinueButton } from '../components/ContinueButton';
 
 ```astro title="src/pages/index.astro"
 ---
+import Layout from '../layouts/Layout.astro';
 import ContinueButton from '../components/ContinueButton.vue';
 ---
 
-<ContinueButton client:load />
+<Layout>
+  <ContinueButton client:load />
+</Layout>
 ```
 
   </Tab>
@@ -169,8 +172,7 @@ import ContinueButton from '../components/ContinueButton.vue';
 ## Установка через shadcn CLI
 
 Выполните [первоначальную настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli), задайте
-алиас `@/*` для `src/*` в `tsconfig.json` и импортируйте `@/lib/moduix/styles/style.css` в общем
-макете. Затем добавьте компонент для выбранного фреймворка:
+алиас `@/*` для `src/*` в `tsconfig.json`, затем добавьте компонент для выбранного фреймворка:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -190,9 +192,10 @@ import ContinueButton from '../components/ContinueButton.vue';
   </Tab>
 </Tabs>
 
-Импортируйте сгенерированный компонент непосредственно в файл `.astro`, а уже затем добавьте
-директиву `client:*`. Astro разрешает клиентские директивы только для компонентов, импортированных
-прямо в страницу.
+Для CSS Modules импортируйте `@/lib/moduix/styles/style.css` из `src/layouts/Layout.astro`;
+подключите reset по Quick Start. Для Tailwind добавьте сгенерированные базовые стили в файл
+Tailwind и импортируйте этот файл из layout. В компоненте-обёртке замените импорт Button
+на `@/components/ui/button`; саму обёртку по-прежнему импортируйте непосредственно в страницу Astro.
 
 ## Проверка
 

@@ -9,22 +9,18 @@ This guide assumes an existing Astro project with its official React, Solid, or 
 configured. Components render as static HTML by default; add a `client:*` directive when they need
 to become interactive in the browser.
 
-
 ## Choose your setup
 
 - **Runtime:** React, Solid, or Vue with the matching official Astro integration.
 - **Styling:** CSS Modules or Tailwind CSS v4.
 - **Distribution:** a package or source copied with the shadcn CLI.
 
-This page focuses on Astro-specific file placement and island hydration. Complete the shared
-[package setup](/docs/quick-start#install-as-a-package) or
-[shadcn setup](/docs/quick-start#install-with-the-shadcn-cli) for your styling track first. The
-examples below use CSS Modules package imports; the Astro entry points and `client:*` rules are the
-same with the matching Tailwind package or registry.
+Quick Start covers [package choices](/docs/quick-start#install-as-a-package) and
+[shadcn configuration](/docs/quick-start#install-with-the-shadcn-cli).
 
-The package setup below uses CSS Modules and includes the moduix reset. If you use the Tailwind
-registry commands instead, keep the global stylesheet from
-[Quick Start](/docs/quick-start#install-as-a-package) configured in your application.
+The examples below use CSS Modules with the moduix reset. Omit the reset if your app already
+provides an equivalent one. For Tailwind, install the matching `-tailwind` package and import your
+application’s Tailwind stylesheet at the same entry point, using the setup from Quick Start.
 
 ## Install as a package
 
@@ -142,10 +138,13 @@ Import it directly into an Astro page and add a client directive:
 
 ```astro title="src/pages/index.astro"
 ---
+import Layout from '../layouts/Layout.astro';
 import { ContinueButton } from '../components/ContinueButton';
 ---
 
-<ContinueButton client:load />
+<Layout>
+  <ContinueButton client:load />
+</Layout>
 ```
 
   </Tab>
@@ -153,10 +152,13 @@ import { ContinueButton } from '../components/ContinueButton';
 
 ```astro title="src/pages/index.astro"
 ---
+import Layout from '../layouts/Layout.astro';
 import ContinueButton from '../components/ContinueButton.vue';
 ---
 
-<ContinueButton client:load />
+<Layout>
+  <ContinueButton client:load />
+</Layout>
 ```
 
   </Tab>
@@ -170,7 +172,7 @@ wait, and `client:visible` for components below the fold. Interactive components
 ## Install with the shadcn CLI
 
 Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli), map `@/*` to `src/*`
-in `tsconfig.json`, and import `@/lib/moduix/styles/style.css` from the shared layout. Then add the
+in `tsconfig.json`, then add the
 component for your runtime:
 
 <Tabs groupId="framework">
@@ -206,9 +208,10 @@ component for your runtime:
   </Tab>
 </Tabs>
 
-Import the generated component directly into the `.astro` file before applying a `client:*`
-directive. Astro only accepts client directives on framework components imported directly into the
-page.
+For CSS Modules, import `@/lib/moduix/styles/style.css` from `src/layouts/Layout.astro`; keep
+the reset configured as shown in Quick Start. For Tailwind, load the generated foundation from your
+Tailwind stylesheet and import that stylesheet from the layout. Change the framework wrapper’s
+Button import to `@/components/ui/button`, and keep the wrapper directly imported by the Astro page.
 
 ## Verify
 

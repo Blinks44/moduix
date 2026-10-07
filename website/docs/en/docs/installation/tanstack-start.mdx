@@ -9,21 +9,18 @@ This guide assumes an existing TanStack Start app configured for React or Solid.
 with Vite or Rsbuild, renders the route tree on the server, and hydrates it in the browser; moduix
 does not require a `use client` directive in the standard setup.
 
-
 ## Choose your setup
 
 - **Runtime:** React or Solid with the matching TanStack Start adapter.
 - **Styling:** CSS Modules or Tailwind CSS v4.
 - **Distribution:** a package or source copied with the shadcn CLI.
 
-Complete the shared [package setup](/docs/quick-start#install-as-a-package) or
-[shadcn setup](/docs/quick-start#install-with-the-shadcn-cli) for your styling track first. This page
-uses CSS Modules package imports; root-route placement, aliases, SSR, and hydration checks stay the
-same with the matching Tailwind package or registry.
+Quick Start covers [package choices](/docs/quick-start#install-as-a-package) and
+[shadcn configuration](/docs/quick-start#install-with-the-shadcn-cli).
 
-The package setup below uses CSS Modules and includes the moduix reset. If you use the Tailwind
-registry commands instead, keep the global stylesheet from
-[Quick Start](/docs/quick-start#install-as-a-package) configured in your application.
+The examples below use CSS Modules with the moduix reset. Omit the reset if your app already
+provides an equivalent one. For Tailwind, install the matching `-tailwind` package and import your
+application’s Tailwind stylesheet at the same entry point, using the setup from Quick Start.
 
 ## Install as a package
 
@@ -149,6 +146,11 @@ Replace the package stylesheet with the generated stylesheet in the root route:
 ```tsx title="src/routes/__root.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
+
+The stylesheet import above is for CSS Modules. For Tailwind, load the generated foundation from
+your existing Tailwind stylesheet as shown in [Quick Start](/docs/quick-start#install-with-the-shadcn-cli),
+and import that application stylesheet at the same entry point. Use the generated component import
+`@/components/ui/button` in place of the package import.
 
 ## Verify
 

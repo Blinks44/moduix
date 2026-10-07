@@ -54,7 +54,7 @@ import styles from './Home.module.css';
 
 export function Home() {
   const t = useI18n<typeof import('i18n')>();
-  const docsPath = useLocalizedPath('/docs/');
+  const quickStartPath = useLocalizedPath('/docs/quick-start');
   const changelogPath = useLocalizedPath('/docs/changelog');
   const componentsPath = useLocalizedPath('/docs/components');
   const collectionsPath = useLocalizedPath('/docs/collections');
@@ -116,7 +116,7 @@ export function Home() {
           <FrameworkSupport />
           <p className={styles.frameworkStatus}>{t('homeFrameworkStatus')}</p>
           <div className={styles.actions}>
-            <Link href={docsPath} className={styles.primary}>
+            <Link href={quickStartPath} className={styles.primary}>
               {t('homeGetStarted')}
               <ArrowRight size={18} aria-hidden="true" />
             </Link>

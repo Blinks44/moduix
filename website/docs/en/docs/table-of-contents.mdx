@@ -1,6 +1,6 @@
 ---
 title: Table of Contents
-component: table-of-contents
+component: toc
 description: Keep an accessible table of contents in sync with the section a reader is viewing.
 ---
 
@@ -162,10 +162,9 @@ Choose either `TocIndicator` for an active-range marker or `TocRail` for per-lin
 not render both in the same list.
 
 :::warning Upstream limitations
-With Ark UI Vue 5.39.2 and Zag 1.43.3, controlled `activeIds` changes report the previous IDs in
-`activeChange`, so writing that payload back cannot update the active section. Uncontrolled
-tracking remains available. Ark's `TocNav` also reuses the root ID, producing duplicate IDs when
-both parts render. These upstream issues must be resolved before this component is production-ready.
+Controlled `activeIds` changes report the requested IDs in `activeChange` with Ark UI Vue 5.39.3
+and Zag 1.45.0. `TocNav` still reuses the root ID when both parts render, producing duplicate IDs.
+This remaining limitation is tracked in [Ark #4187](https://github.com/chakra-ui/ark/issues/4187).
 :::
 
 ## Examples

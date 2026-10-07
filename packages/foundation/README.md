@@ -35,6 +35,6 @@ Presets override only their declared tokens: a nested preset still inherits unsp
 from its parent. Portals inherit from their DOM container, not the framework component tree;
 use the component's `portalRef` when an overlay must remain in a local CSS scope.
 
-Lightbox, CommandPalette, and Drawer in every shipped adapter now consume foundation keyframes. CSS Modules retain
+Lightbox, CommandPalette, and Drawer in every shipped adapter consume foundation keyframes. CSS Modules retain
 their public motion overrides; Tailwind uses the matching named animation utilities. Drawer
 motion reads its content's island offset and bleed, without replacing Ark's swipe/snap transforms.

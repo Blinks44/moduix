@@ -1072,6 +1072,9 @@ importers:
       '@internationalized/date':
         specifier: 'catalog:'
         version: 3.12.4
+      '@mdx-js/react':
+        specifier: ^3.1.1
+        version: 3.1.1(@types/react@19.3.0)(react@19.3.0)
       '@moduix/react':
         specifier: workspace:*
         version: link:../packages/react

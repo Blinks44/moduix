@@ -35,8 +35,8 @@ A searchable command dialog with an optional global keyboard shortcut.
   `$el`. Dialog roots are providers, not DOM hosts.
 - Keep the root mounted while changing open state. Preserve Escape dismissal, focus restoration,
   portal placement, and SSR-safe shortcut registration.
-- Installed Ark Vue 5.39.2 does not emit `select` for the existing item-click interaction.
-  Wrapper-boundary tests do not resolve that upstream limitation; do not invent a local workaround.
+- Ark Vue 5.39.3 emits `select` for item clicks. Both styling tracks test selection details,
+  a single callback per click, and reactive changes to `closeOnSelect`.
 
 ## Styling and accessibility
 

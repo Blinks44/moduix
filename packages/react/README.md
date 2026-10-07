@@ -6,58 +6,39 @@
 
 # @moduix/react
 
-React components built on [Ark UI](https://ark-ui.com/), with accessible behavior, explicit
-composition, and CSS Modules styling.
+React components built on [Ark UI](https://ark-ui.com/), styled with CSS Modules.
+Compose components from flat named parts using native React props and events.
 
-moduix adds CSS Modules and shared design tokens to Ark UI primitives. Components
-are composed from named parts, styled with regular CSS, and customizable through CSS custom
-properties, `className`, stable `data-slot` hooks, and Ark state attributes.
-
-[Documentation](https://moduix.dev/) ·
 [Quick start](https://moduix.dev/docs/quick-start) ·
 [Components](https://moduix.dev/docs/components) ·
-[Tokens](https://moduix.dev/docs/tokens)
+[Styling](https://moduix.dev/docs/styling)
 
 ## Install
 
-Install the package and its Ark UI peer dependency:
+Start from an existing application using React 18 or 19.
+
+Install moduix and its matching Ark UI peer dependency:
 
 ```bash
 pnpm add @moduix/react @ark-ui/react
 ```
 
-`react`, `react-dom`, and `@ark-ui/react` are peer dependencies. moduix supports React 18 and 19.
-
-The optional `Chart` component also requires its TanStack peer dependency:
-
-```bash
-pnpm add @tanstack/charts
-```
-
-Import components from their subpaths, such as `@moduix/react/accordion`. The package has no
-root export. Only Chart requires `@tanstack/charts`.
+Import components from subpaths such as `@moduix/react/accordion`; there is no package-root
+export. Only the optional Chart integration requires an additional peer: `pnpm add @tanstack/charts`.
 
 ## Add styles
 
-Import the shared foundation stylesheet once in your application entry point:
-
-```tsx
-import '@moduix/react/style.css';
-```
-
-It provides the shared tokens and base layer styles. Component imports carry their own CSS Modules,
-so their styles follow the components that use them.
-
-The reset is optional. Import it first when you choose to use it:
+Import the reset and foundation once in your application entry point:
 
 ```tsx
 import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
-## Use components
+If your application already provides an equivalent reset, omit `reset.css`. The foundation supplies
+shared tokens and base styles; component imports load their own CSS Modules.
 
-Import component subpaths and compose their flat named parts:
+## Use a component
 
 ```tsx
 import {
@@ -88,61 +69,36 @@ export function Example() {
 }
 ```
 
-The family name is the root component. Every additional part is a separate family-prefixed export.
+The family name is the root component. Each additional part is a separate family-prefixed export.
+The setup is working when the trigger is styled and the panel opens with keyboard and pointer input.
 
 ## Customize
 
-CSS Modules keep the package defaults locally scoped while leaving clear extension points for your
-application:
+Use `className` on the root or a named part, stable `data-slot` hooks, and Ark state attributes
+for application styles. Override shared CSS tokens or component variables for more focused changes.
 
-- use `className` on a root or named part for local CSS;
-- use stable moduix `data-slot` hooks and Ark state attributes for structural or state-specific
-  selectors;
-- override public CSS custom properties at the theme, semantic, or component layer.
+The optional presets are `dense`, `soft`, and `contrast`. See
+[Themes](https://moduix.dev/docs/themes) for imports and activation, and
+[Tokens](https://moduix.dev/docs/tokens) for available CSS properties.
 
-For example, set product-level theme primitives in your own stylesheet:
+## Own the source
 
-```css
-:root {
-  --moduix-primary: oklch(0.5 0.17 285);
-  --moduix-radius: 0.875rem;
-}
-```
-
-See [Tokens](https://moduix.dev/docs/tokens) and [Themes](https://moduix.dev/docs/themes) for the
-token hierarchy and component-specific variables.
-
-## Optional presets
-
-Import one preset after `style.css` and enable it on the document root:
-
-```tsx
-import '@moduix/react/style.css';
-import '@moduix/react/presets/soft.css';
-```
-
-```html
-<html data-moduix-theme="soft"></html>
-```
-
-The available presets are `dense`, `soft`, and `contrast`.
-
-## Prefer to own the source?
-
-The shadcn registry copies the component source and styles into your project. Set up `components.json` with the [Quick start](https://moduix.dev/docs/quick-start), then add
-the components you need:
+Configure `components.json` and aliases with the
+[registry setup](https://moduix.dev/docs/quick-start#install-with-the-shadcn-cli), then add a component:
 
 ```bash
-pnpm dlx shadcn@latest add @moduix-react/button @moduix-react/dialog
+pnpm dlx shadcn@latest add @moduix-react/accordion
 ```
 
-Generated files include the component source, CSS Modules, and required supporting files. Their
-destination paths are controlled by your `components.json` aliases.
+The CLI copies native React source, styles, and dependencies into your project. Follow Quick Start
+to connect the generated foundation stylesheet. The same namespace also installs
+[blocks](https://moduix.dev/blocks), for example `@moduix-react/login-simple`.
 
 ## Compatibility
 
-The package is ESM-only and ships modern JavaScript targeting ES2023. Consume it through a modern
-application bundler configured for the browsers your application supports.
+The package is ESM-only and ships JavaScript targeting ES2023. Use an application bundler that
+supports package CSS imports. See the [framework guides](https://moduix.dev/docs/quick-start#choose-your-framework)
+for entry files, aliases, and SSR integration.
 
 ## Links
 
@@ -150,19 +106,6 @@ application bundler configured for the browsers your application supports.
 - [npm package](https://www.npmjs.com/package/@moduix/react)
 - [Source repository](https://github.com/Blinks44/moduix)
 - [Issues](https://github.com/Blinks44/moduix/issues)
-
-## Acknowledgements
-
-moduix is possible because of the work and ideas of these projects:
-
-- [Ark UI](https://ark-ui.com/) for interaction primitives.
-- [Chakra UI](https://chakra-ui.com/) for component composition and styling patterns.
-- [shadcn/ui](https://ui.shadcn.com/) for source distribution through registries.
-- [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
-  adapted by the optional reset.
-- [Rstack](https://rstack.rs/) for its Rust-based ecosystem: Rspress for documentation, Rslib for
-  library builds, and Rstest for tests.
-- [VoidZero](https://voidzero.dev/) for the JavaScript tooling used throughout the workspace.
 
 ## License
 

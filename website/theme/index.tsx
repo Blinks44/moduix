@@ -1,9 +1,11 @@
+import { MDXProvider } from '@mdx-js/react';
 import {
   addLeadingSlash,
   addTrailingSlash,
   useDark,
   useFrontmatter,
   useHead,
+  useI18n,
   useLang,
   usePage,
   useSite,
@@ -20,12 +22,14 @@ import {
   LlmsViewOptions,
   type LlmsViewOptionsItem,
   PackageManagerTabs,
+  type RootProps,
   SvgWrapper,
   Tab,
   Tabs,
   useMdUrl,
 } from '@rspress/core/theme-original';
-import { useEffect, type ComponentProps, type FC } from 'react';
+import { clsx } from 'clsx';
+import { useEffect, type ComponentProps } from 'react';
 import './index.css';
 import {
   Card,
@@ -78,6 +82,7 @@ function SocialMetadata() {
 }
 
 function DocActions() {
+  const t = useI18n<typeof import('i18n')>();
   const { frontmatter } = useFrontmatter();
   const { pathname: markdownPath } = useMdUrl();
   const component =
@@ -87,13 +92,20 @@ function DocActions() {
 
   const viewOptions: LlmsViewOptionsItem[] = component
     ? [
-        {
-          title: 'Open in GitHub',
-          href: `https://github.com/blinks44/moduix/tree/main/packages/react/src/components/${component}`,
+        ...[
+          ['react', 'React · CSS Modules'],
+          ['react-tailwind', 'React · Tailwind'],
+          ['solid', 'Solid · CSS Modules'],
+          ['solid-tailwind', 'Solid · Tailwind'],
+          ['vue', 'Vue · CSS Modules'],
+          ['vue-tailwind', 'Vue · Tailwind'],
+        ].map(([packageName, title]) => ({
+          title,
+          href: `https://github.com/blinks44/moduix/tree/main/packages/${packageName}/src/components/${component}`,
           icon: <SvgWrapper icon={IconGithub} />,
-        },
+        })),
         {
-          title: 'View as Markdown',
+          title: t('docViewAsMarkdown'),
           href: markdownPath,
           icon: <SvgWrapper icon={IconFile} />,
         },
@@ -115,10 +127,7 @@ function DocTitle({ className, children, ...props }: ComponentProps<'h1'>) {
 
   return (
     <>
-      <h1
-        className={['rp-toc-include', 'moduix-doc-title', className].filter(Boolean).join(' ')}
-        {...props}
-      >
+      <h1 className={clsx('rp-toc-include', 'moduix-doc-title', className)} {...props}>
         {children} <Tag tag={frontmatter.tag} />
       </h1>
       <DocDescription />
@@ -186,7 +195,6 @@ const mdxComponents = {
   ExampleCode,
   ExampleFrame,
   PreviewFrame,
-  h1: DocTitle,
   PackageManagerTabs,
   PrimitiveReference,
   BlockInstall,
@@ -197,16 +205,16 @@ const mdxComponents = {
   Tabs,
 };
 
+export function Root({ children }: RootProps) {
+  return <MDXProvider components={mdxComponents}>{children}</MDXProvider>;
+}
+
 export function Layout() {
-  // Named MDX components receive their required props from MDX, while Rspress types this slot as FC<{}>.
   return (
     <>
       <SocialMetadata />
       <SynchronizeModuixColorScheme />
-      <OriginalLayout
-        components={mdxComponents as unknown as Record<string, FC>}
-        navTitle={<ModuixNavTitle />}
-      />
+      <OriginalLayout components={{ h1: DocTitle }} navTitle={<ModuixNavTitle />} />
       <div id="__rspress_modal_container" />
     </>
   );

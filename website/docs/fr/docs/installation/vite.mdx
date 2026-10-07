@@ -14,14 +14,13 @@ Vue, Vue + TypeScript, Solid ou Solid + TypeScript.
 - **Styles :** CSS Modules ou Tailwind CSS v4.
 - **Distribution :** paquet ou code source copié avec la CLI shadcn.
 
-Commencez par la [configuration du paquet](/docs/quick-start#installer-le-paquet) ou la
-[configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune à votre approche de
-style. Les exemples utilisent les imports des paquets CSS Modules ; les points d’entrée Vite et la
-configuration des alias restent identiques avec le paquet ou le registre Tailwind correspondant.
+Le guide de démarrage rapide détaille le [choix du paquet](/docs/quick-start#installer-le-paquet) et
+la [configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn).
 
-La configuration du paquet ci-dessous utilise CSS Modules et inclut la réinitialisation de moduix. Si vous
-utilisez plutôt les commandes du registre Tailwind, conservez la feuille de styles globale configurée dans le
-[Démarrage rapide](/docs/quick-start#installer-le-paquet).
+Les exemples ci-dessous utilisent CSS Modules et la réinitialisation moduix. Omettez cette dernière
+si l’application possède déjà un équivalent. Pour Tailwind, installez le paquet correspondant avec
+le suffixe `-tailwind` et importez la feuille de styles Tailwind de l’application au même point
+d’entrée, après l’avoir configurée selon le guide de démarrage rapide.
 
 ## Installation par paquet
 
@@ -38,7 +37,7 @@ import '@moduix/react/style.css';
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/react/button';
 
-export function App() {
+export default function App() {
   return <Button>Continue</Button>;
 }
 ```
@@ -56,7 +55,7 @@ import '@moduix/solid/style.css';
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/solid/button';
 
-export function App() {
+export default function App() {
   return <Button>Continue</Button>;
 }
 ```
@@ -100,26 +99,21 @@ configuration entre `tsconfig.json` et un fichier propre à l’application. Ajo
 }
 ```
 
-Reprenez ces valeurs dans `compilerOptions` de `tsconfig.app.json`, puis ajoutez à Vite l’alias adapté
-au framework. Comme l’exemple importe `node:url`, installez les types Node.js s’ils ne sont pas déjà
-présents :
-
-<PackageManagerTabs command="install -D @types/node" />
+Ajoutez le même `paths` dans `tsconfig.app.json` pour la vérification des types de l’application.
+Avec Vite 8 ou une version ultérieure, activez la résolution native des chemins TypeScript dans
+la configuration existante. Conservez le plugin du framework et les autres paramètres :
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
 ```ts title="vite.config.ts"
-import { fileURLToPath, URL } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+    tsconfigPaths: true,
   },
 });
 ```
@@ -130,16 +124,13 @@ export default defineConfig({
   <Tab label="Solid" value="solid">
 
 ```ts title="vite.config.ts"
-import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
 
 export default defineConfig({
   plugins: [solid()],
   resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+    tsconfigPaths: true,
   },
 });
 ```
@@ -150,16 +141,13 @@ export default defineConfig({
   <Tab label="Vue" value="vue">
 
 ```ts title="vite.config.ts"
-import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
   plugins: [vue()],
   resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+    tsconfigPaths: true,
   },
 });
 ```
@@ -168,6 +156,10 @@ export default defineConfig({
 
   </Tab>
 </Tabs>
+
+Pour Vue, conservez `src/**/*.vue` dans `include` de la configuration de l’application afin que
+Vite associe les SFC à leurs chemins TypeScript. Avec Vite 7 ou une version antérieure, utilisez
+un [`resolve.alias`](https://vite.dev/config/shared-options#resolve-alias) explicite.
 
 Dans le point d’entrée du framework, importez la feuille de styles générée à la place de celle du
 paquet ; n’importez pas les deux :
@@ -195,6 +187,11 @@ import '@/lib/moduix/styles/style.css';
 
   </Tab>
 </Tabs>
+
+L’import de styles ci-dessus concerne CSS Modules. Pour Tailwind, chargez les styles de base générés
+dans votre feuille Tailwind existante selon le [guide de démarrage rapide](/docs/quick-start#installer-avec-la-cli-shadcn),
+puis importez cette feuille au même point d’entrée. Remplacez l’import du composant depuis le paquet
+par `@/components/ui/button`.
 
 ## Vérification
 

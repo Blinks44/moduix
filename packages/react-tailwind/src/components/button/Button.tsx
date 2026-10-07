@@ -79,18 +79,15 @@ const Button = forwardRef<
   ref,
 ) {
   const isDisabled = disabled || loading || ariaDisabled === true || ariaDisabled === 'true';
-  const nativeDisabled = asChild ? undefined : isDisabled;
-  const resolvedAriaBusy = loading ? true : ariaBusy;
-  const resolvedAriaDisabled = isDisabled ? true : ariaDisabled;
 
   return (
     <ark.button
       ref={ref}
       asChild={asChild}
       type={asChild ? type : (type ?? 'button')}
-      disabled={nativeDisabled}
-      aria-busy={resolvedAriaBusy}
-      aria-disabled={resolvedAriaDisabled}
+      disabled={asChild ? undefined : isDisabled}
+      aria-busy={loading ? true : ariaBusy}
+      aria-disabled={isDisabled ? true : ariaDisabled}
       {...props}
       onClickCapture={(event) => {
         if (isDisabled) {

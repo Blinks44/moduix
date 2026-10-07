@@ -121,9 +121,8 @@ export function ToastExample() {
 - Ark live-region behavior, grouping, pausing, focus hotkey, dismiss lifecycle, and status changes
   remain intact.
 - The default Ark hotkey is `["altKey", "KeyT"]`; configure it through `createToaster({ hotkey })`.
-- A custom accessible group label through the `label` group prop is typed on `ToastToaster` but is not
-  forwarded to the group machine in `@ark-ui/react@5.39.2`; the live-region label stays
-  `"Notifications, <placement> (<hotkey>)"` until upstream chakra-ui/ark#4045 ships in a release.
+- `ToastToaster` forwards its `label` prop to Ark's group props in `@ark-ui/react@5.39.3`.
+  The accessible group name includes that label, the placement, and the focus hotkey.
 - `ToastCloseTrigger` remains a button and receives a default accessible label. If `asChild` is
   used, the custom child must keep an accessible name and button semantics.
 - `ToastActionTrigger` remains a button wired to `toast.action.onClick`. If `asChild` is used, the

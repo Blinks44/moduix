@@ -6,36 +6,30 @@
 
 # @moduix/vue-tailwind
 
-Vue components built on [Ark UI](https://ark-ui.com/), with accessible behavior, explicit
-composition, and Tailwind CSS v4 utility styling.
+Vue components built on [Ark UI](https://ark-ui.com/), styled with Tailwind CSS v4.
+Compose components from flat named parts using native Vue props and events.
 
-[Documentation](https://moduix.dev/) ·
 [Quick start](https://moduix.dev/docs/quick-start) ·
-[Components](https://moduix.dev/docs/components)
+[Components](https://moduix.dev/docs/components) ·
+[Styling](https://moduix.dev/docs/styling)
 
 ## Install
 
-Install the package and its Ark UI peer dependency in an existing Vue application:
+Start from an existing application using Vue 3.5 or later in the 3.x line.
+Tailwind CSS v4 must already be configured in the application.
+
+Install moduix and its matching Ark UI peer dependency:
 
 ```bash
 pnpm add @moduix/vue-tailwind @ark-ui/vue
 ```
 
-Vue 3.5 and later 3.x releases and `@ark-ui/vue` are peer dependencies.
-This track assumes Tailwind CSS v4 is already configured in your application.
-The optional `Chart` component also requires `@tanstack/charts`:
-
-```bash
-pnpm add @tanstack/charts
-```
-
-Import components from their subpaths, such as `@moduix/vue-tailwind/accordion`. The package has no
-root export. Only Chart requires `@tanstack/charts`.
+Import components from subpaths such as `@moduix/vue-tailwind/accordion`; there is no package-root
+export. Only the optional Chart integration requires an additional peer: `pnpm add @tanstack/charts`.
 
 ## Add styles
 
-Import the foundation before Tailwind in your application stylesheet and scan the compiled
-component directory:
+In your global stylesheet, load the foundation before Tailwind and register the package's utilities:
 
 ```css
 @import '@moduix/vue-tailwind/style.css';
@@ -44,12 +38,11 @@ component directory:
 @source '../node_modules/@moduix/vue-tailwind/dist/components';
 ```
 
-Resolve `@source` relative to this stylesheet. Tailwind Preflight supplies the reset.
-Import the stylesheet once in your application entry point.
+Import this stylesheet once in your application entry point. Resolve `@source` relative to the
+stylesheet; the example assumes `src/styles.css`. Tailwind ignores `node_modules` by default.
+Keep Tailwind Preflight enabled and do not add the moduix reset.
 
-## Use components
-
-Import component subpaths and compose the flat named parts in a Vue SFC:
+## Use a component
 
 ```vue
 <script setup lang="ts">
@@ -80,51 +73,44 @@ import {
 </template>
 ```
 
-The family name is the root component. Additional parts use the family prefix, and hooks such as
-`useAccordion` stay top-level. Use native Vue `class`, props, events, scoped slots, and reactive
-state. Component pages document supported models and any upstream framework differences.
-
-The npm package includes compiled ESM and Vue declarations; consumers do not need to compile
-library SFC source.
+The family name is the root component. Each additional part is a separate family-prefixed export.
+The setup is working when the trigger is styled and the panel opens with keyboard and pointer input.
 
 ## Customize
 
-Pass utility classes through `class` on roots and named parts. Consumer classes are merged last.
-The shared foundation provides semantic colors, spacing, typography, and motion. Tailwind styling
-uses utilities rather than the CSS Modules component-variable API.
+Pass utility classes through `class` on the root or a named part. Classes are merged with
+`tailwind-merge`, so `p-0` can replace the default padding. Override shared CSS tokens to change
+colors, spacing, typography, or motion.
 
-Import an optional preset after the foundation and activate it on your document root:
-
-```css
-@import '@moduix/vue-tailwind/presets/soft.css';
-```
-
-```html
-<html data-moduix-theme="soft"></html>
-```
-
-See [Styling](https://moduix.dev/docs/styling), [Tokens](https://moduix.dev/docs/tokens), and
-[Themes](https://moduix.dev/docs/themes).
+The optional presets are `dense`, `soft`, and `contrast`. See
+[Themes](https://moduix.dev/docs/themes) for imports and activation, and
+[Tokens](https://moduix.dev/docs/tokens) for available CSS properties.
 
 ## Own the source
 
-Configure `components.json` with the [Quick start](https://moduix.dev/docs/quick-start), then add
-native Vue source through the matching registry:
+Configure `components.json` and aliases with the
+[registry setup](https://moduix.dev/docs/quick-start#install-with-the-shadcn-cli), then add a component:
 
 ```bash
 pnpm dlx shadcn@latest add @moduix-vue-tailwind/accordion
 ```
 
-Registry items contain authored Vue SFCs and their supporting files. Keep `rsc: false` in Vue
-applications and resolve the configured aliases in TypeScript and your bundler.
+The CLI copies native Vue source, styles, and dependencies into your project. Follow Quick Start
+to connect the generated foundation stylesheet. The same namespace also installs
+[blocks](https://moduix.dev/blocks), for example `@moduix-vue-tailwind/login-simple`.
 
-## Development
+## Compatibility
 
-```bash
-pnpm --filter @moduix/vue-tailwind build
-pnpm --filter @moduix/vue-tailwind test
-pnpm --filter @moduix/vue-tailwind tsc:check
-```
+The package is ESM-only and ships JavaScript targeting ES2023. Use an application bundler that
+supports package CSS imports. See the [framework guides](https://moduix.dev/docs/quick-start#choose-your-framework)
+for entry files, aliases, and SSR integration.
+
+## Links
+
+- [Documentation](https://moduix.dev/)
+- [npm package](https://www.npmjs.com/package/@moduix/vue-tailwind)
+- [Source repository](https://github.com/Blinks44/moduix)
+- [Issues](https://github.com/Blinks44/moduix/issues)
 
 ## License
 

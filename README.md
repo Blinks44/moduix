@@ -17,6 +17,7 @@ source into your application with the shadcn registry to edit it directly.
 [Documentation](https://moduix.dev/) ·
 [Quick start](https://moduix.dev/docs/quick-start) ·
 [Components](https://moduix.dev/docs/components) ·
+[Blocks](https://moduix.dev/blocks) ·
 [Packages](#current-packages)
 
 ## Current packages
@@ -31,23 +32,17 @@ source into your application with the shadcn registry to edit it directly.
 
 - **Ark-backed behavior.** Dialogs, menus, inputs, and other complex interactions keep Ark UI's
   keyboard support, state management, form behavior, and accessibility semantics.
+- **The same component names across frameworks.** React, Solid, and Vue use flat exports such as
+  `Dialog`, `DialogTrigger`, and `DialogContent`, with framework-native props and events.
 - **Two styling paths.** Choose CSS Modules for ordinary, locally scoped component styles, or
   Tailwind CSS v4 for utility-first composition and overrides. Neither path adds a styling runtime.
-- **Composable APIs.** Components expose the useful parts of their anatomy without hiding the
-  primitive structure needed for product-specific UI.
-- **A predictable styling contract.** Shared tokens, `className` / `class`, stable `data-slot` hooks, and Ark
-  state attributes give application CSS clear extension points.
 - **Two ownership models.** Keep dependencies package-managed or copy component source into your
   application through the shadcn registry.
 
 ## Get started
 
-The example below uses the React CSS Modules package. Choose the shipped framework, styling track,
-and ownership model that matches your application in the [Quick start](https://moduix.dev/docs/quick-start).
-For Tailwind CSS v4, use [`@moduix/react-tailwind`](packages/react-tailwind/README.md) or
-[`@moduix/solid-tailwind`](packages/solid-tailwind/README.md), or
-[`@moduix/vue-tailwind`](packages/vue-tailwind/README.md); their README files include the
-required stylesheet import order and `@source` configuration.
+The example below uses React with CSS Modules. [Quick start](https://moduix.dev/docs/quick-start)
+covers every shipped framework, both styling tracks, and package or registry installation.
 
 ### Use the published package
 
@@ -57,52 +52,26 @@ Install moduix and its Ark UI peer dependency:
 pnpm add @moduix/react @ark-ui/react
 ```
 
-Import the shared foundation stylesheet once in your application entry point:
-
-```tsx
-import '@moduix/react/style.css';
-```
-
-The reset is optional. If you use it, import it before the foundation stylesheet:
+Import the reset and foundation once in your application entry point. If your application already
+provides an equivalent reset, omit `reset.css`:
 
 ```tsx
 import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
-Import components from their subpaths. There is no package-root import. The optional Chart component
-requires `@tanstack/charts`; other components do not need it.
+Import a component from its subpath:
 
 ```tsx
-import {
-  Accordion,
-  AccordionItem,
-  AccordionItemBody,
-  AccordionItemContent,
-  AccordionItemIndicator,
-  AccordionItemTrigger,
-} from '@moduix/react/accordion';
+import { Button } from '@moduix/react/button';
 
 export function Example() {
-  return (
-    <Accordion defaultValue={['first']}>
-      <AccordionItem value="first">
-        <AccordionItemTrigger>
-          What is moduix?
-          <AccordionItemIndicator />
-        </AccordionItemTrigger>
-        <AccordionItemContent>
-          <AccordionItemBody>
-            A component library built on accessible Ark UI primitives.
-          </AccordionItemBody>
-        </AccordionItemContent>
-      </AccordionItem>
-    </Accordion>
-  );
+  return <Button>Continue</Button>;
 }
 ```
 
-The family name is the root component. Every additional part is a separate family-prefixed export.
+There is no package-root export. Only the optional Chart integration requires `@tanstack/charts`.
+The [package README](packages/react/README.md) shows how to compose a component from named parts.
 
 ### Own the source with the registry
 
@@ -118,32 +87,26 @@ The generated source includes the component, its CSS Module, and any required su
 The registry preserves the same component contracts and design tokens as the published package. Your
 `components.json` aliases determine the destination paths.
 
+The registry also installs [blocks](https://moduix.dev/blocks), including sign-in forms, a sidebar
+dashboard, and a data table. Each block includes its source, a shared layout CSS Module, and the
+required UI components. After the same registry setup, install a block with one command:
+
+```bash
+pnpm dlx shadcn@latest add @moduix-react/login-simple
+```
+
+Choose the matching framework and styling namespace, such as `@moduix-vue-tailwind/login-simple`.
+Tailwind blocks use Tailwind UI components and the same layout CSS Module.
+
 ## Styling and theming
 
-The CSS Modules packages bundle component styles with their component imports. `style.css` supplies
-the shared tokens and base layer styles, while each component keeps its own CSS Module. Start with
-the built-in appearance, then customize it:
+Pass `className` (React) or `class` (Solid and Vue) to a root or named part. CSS Modules packages
+support ordinary CSS and component variables; Tailwind packages merge utility overrides with
+`tailwind-merge`. Both tracks share the same design tokens and optional presets: `dense`, `soft`,
+and `contrast`.
 
-- pass `className` (React) or `class` (Solid and Vue) to a root or named part for application CSS;
-- target stable moduix `data-slot` hooks or Ark state attributes for state-specific rules;
-- override public CSS custom properties at the appropriate theme, semantic, or component layer.
-
-You can also add an optional preset after `style.css` and activate it on the document root:
-
-```tsx
-import '@moduix/react/style.css';
-import '@moduix/react/presets/soft.css';
-```
-
-```html
-<html data-moduix-theme="soft"></html>
-```
-
-The available presets are `dense`, `soft`, and `contrast`. See [Themes](https://moduix.dev/docs/themes)
-and [Tokens](https://moduix.dev/docs/tokens) for the complete customization model.
-
-Tailwind packages keep the same component contracts but use native utility classes and
-consumer-class overrides. Their package README files describe the corresponding stylesheet setup.
+See [Styling](https://moduix.dev/docs/styling), [Themes](https://moduix.dev/docs/themes), and
+[Tokens](https://moduix.dev/docs/tokens) for customization.
 
 ## Repository
 
@@ -155,7 +118,8 @@ consumer-class overrides. Their package README files describe the corresponding 
 | `playgrounds/<framework>*`      | Adapter playgrounds used for parity checks.                              |
 | `website`                       | Documentation site, runnable examples, and generated registry artifacts. |
 
-Install dependencies and run the documentation site locally:
+Use Node.js 24 or later and the pnpm version pinned in `package.json`. Install dependencies and
+run the documentation site locally:
 
 ```bash
 pnpm install

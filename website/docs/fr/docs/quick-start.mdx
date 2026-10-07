@@ -61,9 +61,8 @@ Solid et Vue sont disponibles avec les deux approches de style. CSS Modules néc
 de moduix, soit une réinitialisation équivalente fournie par l’application, tandis que Tailwind utilise
 Preflight. Svelte est prévu.
 
-Les exemples utilisent les sous-chemins des composants pour isoler les intégrations facultatives.
-Le point d’entrée racine réexporte aussi Chart : installez son peer `@tanstack/charts` si vous
-l’importez, car le bundler peut résoudre cette intégration même si vous n’utilisez qu’un autre composant.
+Importez les composants depuis leurs sous-chemins, par exemple `@moduix/react/accordion` : le paquet
+n’a pas d’export racine. Seule l’intégration Chart nécessite le peer supplémentaire `@tanstack/charts`.
 
 | Framework | CSS Modules | Tailwind CSS |
 | --- | --- | --- |
@@ -119,42 +118,7 @@ donc pas de copie supplémentaire.
 
 #### 2. Ajouter les styles
 
-Importez une seule fois le fichier de styles de base requis dans le point d’entrée de votre application :
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-```tsx
-import '@moduix/react/style.css';
-```
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-```tsx
-import '@moduix/solid/style.css';
-```
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-```ts
-import '@moduix/vue/style.css';
-```
-
-  </Tab>
-</Tabs>
-
-Ce fichier définit les tokens partagés et la couche de base dont dépendent les styles des composants. Les styles propres
-à chaque composant sont ensuite chargés avec le composant importé. Ainsi, `style.css` reste limité au socle global et
-les styles des composants inutilisés peuvent rester hors du bundle.
-
-Tous les tokens de design moduix utilisent l'espace de noms `--moduix-*`. Votre projet peut conserver ses propres noms
-de tokens et les associer sélectivement dans un fichier de styles chargé après `style.css` ; consultez
-[Tokens](/docs/tokens).
-
-Les composants CSS Modules nécessitent une réinitialisation globale. Importez celle de moduix avant le
-fichier principal :
+Importez une seule fois la réinitialisation et les styles de base au point d’entrée de l’application :
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -183,11 +147,9 @@ import '@moduix/vue/style.css';
   </Tab>
 </Tabs>
 
-Si votre application possède déjà sa propre réinitialisation correcte, utilisez-la à la place de celle
-de moduix.
-
-Pour une base visuelle prête à l’emploi, importez l’un des préréglages facultatifs après `style.css` ; consultez
-[Thèmes](/docs/themes).
+Si l’application possède déjà une réinitialisation équivalente, omettez `reset.css`. Le fichier de base
+fournit les tokens et les styles partagés ; les CSS Modules sont chargés avec les composants. Consultez
+[Tokens](/docs/tokens) et [Thèmes](/docs/themes) pour les personnalisations et les préréglages.
 
 #### 3. Utiliser un composant
 
@@ -244,7 +206,7 @@ les styles des composants sous forme de classes utilitaires. Tailwind Preflight 
 
 #### 2. Ajouter les styles
 
-Importez les fondations générées avant Tailwind et limitez `@source` au dossier des composants du paquet :
+Importez les styles de base avant Tailwind et limitez `@source` au dossier des composants du paquet :
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -278,6 +240,8 @@ Importez les fondations générées avant Tailwind et limitez `@source` au dossi
 
   </Tab>
 </Tabs>
+
+L’exemple suppose un fichier `src/styles.css`. Importez-le une seule fois au point d’entrée de l’application.
 
 Résolvez `@source` par rapport à votre feuille de styles et limitez-le au répertoire
 `dist/components` du paquet. N’ajoutez pas le reset de moduix : Tailwind Preflight le remplace.
@@ -335,9 +299,11 @@ L’exemple Tailwind suppose que le point d’entrée Tailwind CSS v4 de l’app
 feuille de styles globale se trouve ailleurs. Les registres CSS Modules n’ont pas besoin de Tailwind ;
 leur configuration conserve les valeurs vides exigées par le schéma shadcn.
 
-`rsc` ne concerne que les éléments React du registre. Conservez `false` avec Solid et dans une
-application React classique. Dans une application React Server Components, définissez `true` : la
-CLI ajoute alors `use client` aux composants client du registre.
+`rsc` concerne les composants React du registre. Conservez `false` pour Solid, Vue et les applications
+React classiques. Avec React Server Components, définissez `true` pour conserver les directives
+`'use client'` présentes dans le code source. La CLI ne déduit pas les frontières client : ajoutez
+la directive à vos composants s’ils utilisent un état, des effets, des API du navigateur ou des
+gestionnaires d’événements.
 
 Assurez-vous que votre projet résout l'alias `@/*` vers son répertoire source. Une structure classique avec `src`
 utilise l'entrée `paths` suivante, résolue par rapport à `tsconfig.json` :

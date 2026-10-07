@@ -6,51 +6,39 @@
 
 # @moduix/vue
 
-Vue components built on [Ark UI](https://ark-ui.com/), with accessible behavior, explicit
-composition, and CSS Modules styling.
+Vue components built on [Ark UI](https://ark-ui.com/), styled with CSS Modules.
+Compose components from flat named parts using native Vue props and events.
 
-[Documentation](https://moduix.dev/) ·
 [Quick start](https://moduix.dev/docs/quick-start) ·
-[Components](https://moduix.dev/docs/components)
+[Components](https://moduix.dev/docs/components) ·
+[Styling](https://moduix.dev/docs/styling)
 
 ## Install
 
-Install the package and its Ark UI peer dependency in an existing Vue application:
+Start from an existing application using Vue 3.5 or later in the 3.x line.
+
+Install moduix and its matching Ark UI peer dependency:
 
 ```bash
 pnpm add @moduix/vue @ark-ui/vue
 ```
 
-Vue 3.5 and later 3.x releases and `@ark-ui/vue` are peer dependencies.
-
-The optional `Chart` component also requires `@tanstack/charts`:
-
-```bash
-pnpm add @tanstack/charts
-```
-
-Import components from their subpaths, such as `@moduix/vue/accordion`. The package has no
-root export. Only Chart requires `@tanstack/charts`.
+Import components from subpaths such as `@moduix/vue/accordion`; there is no package-root
+export. Only the optional Chart integration requires an additional peer: `pnpm add @tanstack/charts`.
 
 ## Add styles
 
-Import the shared foundation once in your application entry point:
-
-```ts
-import '@moduix/vue/style.css';
-```
-
-Component imports carry their own CSS Modules. If your application needs the moduix reset,
-import it before the foundation:
+Import the reset and foundation once in your application entry point:
 
 ```ts
 import '@moduix/vue/reset.css';
 import '@moduix/vue/style.css';
 ```
 
-## Use components
+If your application already provides an equivalent reset, omit `reset.css`. The foundation supplies
+shared tokens and base styles; component imports load their own CSS Modules.
 
-Import component subpaths and compose the flat named parts in a Vue SFC:
+## Use a component
 
 ```vue
 <script setup lang="ts">
@@ -81,51 +69,43 @@ import {
 </template>
 ```
 
-The family name is the root component. Additional parts use the family prefix, and hooks such as
-`useAccordion` stay top-level. Use native Vue `class`, props, events, scoped slots, and reactive
-state. Component pages document supported models and any upstream framework differences.
-
-The npm package includes compiled ESM and Vue declarations; consumers do not need to compile
-library SFC source.
+The family name is the root component. Each additional part is a separate family-prefixed export.
+The setup is working when the trigger is styled and the panel opens with keyboard and pointer input.
 
 ## Customize
 
-Use `class` on roots and named parts, stable `data-slot` hooks, Ark state attributes, and public
-CSS custom properties. Shared `--moduix-*` tokens control the system; component variables tune
-individual families.
+Use `class` on the root or a named part, stable `data-slot` hooks, and Ark state attributes
+for application styles. Override shared CSS tokens or component variables for more focused changes.
 
-Import an optional preset after the foundation and activate it on your document root:
-
-```ts
-import '@moduix/vue/presets/soft.css';
-```
-
-```html
-<html data-moduix-theme="soft"></html>
-```
-
-See [Styling](https://moduix.dev/docs/styling), [Tokens](https://moduix.dev/docs/tokens), and
-[Themes](https://moduix.dev/docs/themes).
+The optional presets are `dense`, `soft`, and `contrast`. See
+[Themes](https://moduix.dev/docs/themes) for imports and activation, and
+[Tokens](https://moduix.dev/docs/tokens) for available CSS properties.
 
 ## Own the source
 
-Configure `components.json` with the [Quick start](https://moduix.dev/docs/quick-start), then add
-native Vue source through the matching registry:
+Configure `components.json` and aliases with the
+[registry setup](https://moduix.dev/docs/quick-start#install-with-the-shadcn-cli), then add a component:
 
 ```bash
 pnpm dlx shadcn@latest add @moduix-vue/accordion
 ```
 
-Registry items contain authored Vue SFCs and their supporting files. Keep `rsc: false` in Vue
-applications and resolve the configured aliases in TypeScript and your bundler.
+The CLI copies native Vue source, styles, and dependencies into your project. Follow Quick Start
+to connect the generated foundation stylesheet. The same namespace also installs
+[blocks](https://moduix.dev/blocks), for example `@moduix-vue/login-simple`.
 
-## Development
+## Compatibility
 
-```bash
-pnpm --filter @moduix/vue build
-pnpm --filter @moduix/vue test
-pnpm --filter @moduix/vue tsc:check
-```
+The package is ESM-only and ships JavaScript targeting ES2023. Use an application bundler that
+supports package CSS imports. See the [framework guides](https://moduix.dev/docs/quick-start#choose-your-framework)
+for entry files, aliases, and SSR integration.
+
+## Links
+
+- [Documentation](https://moduix.dev/)
+- [npm package](https://www.npmjs.com/package/@moduix/vue)
+- [Source repository](https://github.com/Blinks44/moduix)
+- [Issues](https://github.com/Blinks44/moduix/issues)
 
 ## License
 

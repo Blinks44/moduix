@@ -58,9 +58,8 @@ Choose a framework-native package and registry namespace. The React, Solid, and 
 available in both styling tracks. CSS Modules requires either the moduix reset or an equivalent reset
 from your application, while Tailwind uses Preflight. Svelte is planned.
 
-The examples use component subpath imports to keep optional integrations separate. The root package
-barrel also re-exports Chart: install its `@tanstack/charts` peer if you import the barrel, because
-a bundler may resolve that integration even when you only use another component.
+Import components from subpaths such as `@moduix/react/accordion`; there is no package-root
+export. Only the optional Chart integration requires the `@tanstack/charts` peer dependency.
 
 | Runtime | CSS Modules | Tailwind CSS |
 | ------- | ----------- | ------------ |
@@ -117,41 +116,7 @@ not ship duplicate framework or primitive runtimes.
 
 #### 2. Add styles
 
-Import the required foundation stylesheet once in your application entry point:
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-```tsx
-import '@moduix/react/style.css';
-```
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-```tsx
-import '@moduix/solid/style.css';
-```
-
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-```ts
-import '@moduix/vue/style.css';
-```
-
-  </Tab>
-</Tabs>
-
-This stylesheet is required. It provides the shared design tokens and base layer styles that
-component CSS depends on. Component styles are still loaded alongside the components you import.
-This keeps `style.css` focused on the global foundation, while unused component CSS can stay out
-of the consuming bundle.
-
-All moduix design tokens use the `--moduix-*` namespace. Your project can keep its own token names
-and selectively map them in a stylesheet that loads after `style.css`; see [Tokens](/docs/tokens).
-
-CSS Modules components require a global reset. Import the moduix reset before the main stylesheet:
+Import the reset and foundation once in your application entry point:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -180,10 +145,9 @@ import '@moduix/vue/style.css';
   </Tab>
 </Tabs>
 
-If your application already has its own correct reset, use it instead of the moduix reset.
-
-For a curated visual starting point, import one optional preset after `style.css`; see
-[Themes](/docs/themes).
+If your application already provides an equivalent reset, omit `reset.css`. The foundation supplies
+shared tokens and base styles; component imports load their own CSS Modules. For token overrides
+and optional presets, see [Tokens](/docs/tokens) and [Themes](/docs/themes).
 
 #### 3. Use a component
 
@@ -240,7 +204,7 @@ to remain visible as utilities. Tailwind Preflight supplies the reset.
 
 #### 2. Add styles
 
-Import the generated foundation before Tailwind and point `@source` at the package's component
+Import the foundation before Tailwind and point `@source` at the package's component
 directory:
 
 <Tabs groupId="framework">
@@ -275,6 +239,8 @@ directory:
 
   </Tab>
 </Tabs>
+
+The example assumes `src/styles.css`. Import this stylesheet once in your application entry point.
 
 Resolve `@source` relative to this stylesheet and keep it limited to `dist/components`. Do not add
 the moduix reset: Tailwind Preflight already provides it.
@@ -333,9 +299,9 @@ stylesheet lives elsewhere. The CSS Modules registries do not require Tailwind; 
 uses the empty values required by the shadcn schema.
 
 `rsc` applies to React registry items. Keep it `false` for Solid, Vue, and ordinary React applications.
-Set it to `true` in a React Server Components application; the CLI then adds `use client` to client
-components from the registry. Add the directive yourself to React wrappers when they own state,
-effects, or event handlers.
+Set it to `true` in a React Server Components application to preserve the authored `'use client'`
+directives. The CLI does not infer client boundaries; add the directive to your own wrappers when
+they use state, effects, browser APIs, or event handlers.
 
 Make sure your project resolves the `@/*` alias to its source directory. A typical `src` layout uses
 the following `paths` entry, resolved relative to `tsconfig.json`:
