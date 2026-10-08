@@ -1,6 +1,9 @@
 .root {
-  width: min(100%, 64rem);
-  height: 38rem;
+  --moduix-sidebar-width: min(100%, 64rem);
+  --moduix-sidebar-height: 38rem;
+
+  width: var(--moduix-sidebar-width);
+  height: var(--moduix-sidebar-height);
   min-height: 30rem;
   border-radius: var(--moduix-radius-lg);
   box-shadow: var(--moduix-shadow-sm);
