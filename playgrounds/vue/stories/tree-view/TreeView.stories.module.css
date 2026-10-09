@@ -1,0 +1,12 @@
+.root {
+  width: 100%;
+  max-width: 22rem;
+}
+
+.text {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "expandable-avatar-group",
+  "title": "Expandable avatar group",
+  "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/vue-expandable-avatar-group.json"],
+  "files": [],
+  "type": "registry:block"
+}

@@ -10,10 +10,10 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import styles from './Fieldset.module.css';
 
-const FieldsetRoot = forwardRef<
+const Fieldset = forwardRef<
   ComponentRef<typeof FieldsetPrimitive.Root>,
   ComponentProps<typeof FieldsetPrimitive.Root>
->(function FieldsetRoot({ className, ...props }, ref) {
+>(function Fieldset({ className, ...props }, ref) {
   return (
     <FieldsetPrimitive.Root
       ref={ref}
@@ -80,13 +80,15 @@ const FieldsetErrorText = forwardRef<
   );
 });
 
-const Fieldset = Object.assign(FieldsetRoot, {
-  Root: FieldsetRoot,
-  RootProvider: FieldsetRootProvider,
-  Context: FieldsetPrimitive.Context,
-  Legend: FieldsetLegend,
-  HelperText: FieldsetHelperText,
-  ErrorText: FieldsetErrorText,
-});
+const FieldsetContext = FieldsetPrimitive.Context;
 
-export { Fieldset, useFieldset, useFieldsetContext };
+export {
+  Fieldset,
+  FieldsetContext,
+  FieldsetErrorText,
+  FieldsetHelperText,
+  FieldsetLegend,
+  FieldsetRootProvider,
+  useFieldset,
+  useFieldsetContext,
+};

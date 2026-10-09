@@ -22,7 +22,7 @@ type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
     children?: ComponentProps<typeof ToasterPrimitive>['children'];
   };
 
-function Toaster(props: ToasterProps) {
+function ToastToaster(props: ToasterProps) {
   const [local, others] = splitProps(props, ['children', 'class', 'portalRef', 'portalled']);
 
   return (
@@ -44,16 +44,16 @@ function DefaultToast(props: { toast: Accessor<ToastOptions> }) {
   const actionLabel = () => props.toast().action?.label;
 
   return (
-    <ToastRoot>
+    <Toast>
       {props.toast().title != null ? <ToastTitle /> : null}
       {props.toast().description != null ? <ToastDescription /> : null}
       {hasAction() ? <ToastActionTrigger>{actionLabel()}</ToastActionTrigger> : null}
       {props.toast().closable !== false ? <ToastCloseTrigger /> : null}
-    </ToastRoot>
+    </Toast>
   );
 }
 
-function ToastRoot(props: ComponentProps<typeof ToastPrimitive.Root>) {
+function Toast(props: ComponentProps<typeof ToastPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -130,15 +130,14 @@ function ToastCloseTrigger(props: ComponentProps<typeof ToastPrimitive.CloseTrig
     'children',
     'class',
   ]);
-  const resolvedChildren = resolveChildren(() => local.children);
-  const ariaLabel =
+  const ariaLabel = () =>
     local['aria-label'] === undefined ? DEFAULT_CLOSE_TRIGGER_LABEL : local['aria-label'];
 
   if (local.asChild) {
     return (
       <ToastPrimitive.CloseTrigger
         asChild={local.asChild}
-        aria-label={ariaLabel}
+        aria-label={ariaLabel()}
         aria-labelledby={local['aria-labelledby']}
         class={local.class}
         {...others}
@@ -152,17 +151,17 @@ function ToastCloseTrigger(props: ComponentProps<typeof ToastPrimitive.CloseTrig
   return (
     <ToastPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="toast-close-trigger"
-          aria-label={ariaLabel}
+          aria-label={ariaLabel()}
           aria-labelledby={local['aria-labelledby']}
           class={cn('absolute end-2 top-2', local.class)}
         >
-          {resolvedChildren()}
-        </CloseButton.Root>
+          {local.children}
+        </CloseButton>
       )}
-      aria-label={ariaLabel}
+      aria-label={ariaLabel()}
       aria-labelledby={local['aria-labelledby']}
       {...others}
       data-slot="toast-close-trigger"
@@ -170,14 +169,16 @@ function ToastCloseTrigger(props: ComponentProps<typeof ToastPrimitive.CloseTrig
   );
 }
 
-const Toast = Object.assign(ToastRoot, {
-  Root: ToastRoot,
-  Context: ToastPrimitive.Context,
-  Title: ToastTitle,
-  Description: ToastDescription,
-  ActionTrigger: ToastActionTrigger,
-  CloseTrigger: ToastCloseTrigger,
-  Toaster,
-});
+const ToastContext = ToastPrimitive.Context;
 
-export { Toast, Toaster, createToaster, useToastContext };
+export {
+  Toast,
+  ToastActionTrigger,
+  ToastCloseTrigger,
+  ToastContext,
+  ToastDescription,
+  ToastTitle,
+  ToastToaster,
+  createToaster,
+  useToastContext,
+};

@@ -13,10 +13,10 @@ import { cn } from '@/lib/moduix/cn';
 import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 
-const FileUploadRoot = forwardRef<
+const FileUpload = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.Root>,
   ComponentProps<typeof FileUploadPrimitive.Root>
->(function FileUploadRoot({ className, ...props }, ref) {
+>(function FileUpload({ className, ...props }, ref) {
   return (
     <FileUploadPrimitive.Root
       ref={ref}
@@ -133,7 +133,7 @@ const FileUploadItem = forwardRef<
     <FileUploadPrimitive.Item
       ref={ref}
       className={cn(
-        'group/item box-border grid min-h-control-md shrink-0 grow basis-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 rounded-md border border-border bg-background px-3 py-2 text-foreground has-[[data-slot=file-upload-item-preview-image]]:min-h-0 has-[[data-slot=file-upload-item-preview-image]]:max-w-40 has-[[data-slot=file-upload-item-preview-image]]:grow-0 has-[[data-slot=file-upload-item-preview-image]]:grid-cols-[minmax(0,1fr)_auto] has-[[data-slot=file-upload-item-preview-image]]:grid-rows-[auto_auto_auto] has-[[data-slot=file-upload-item-preview-image]]:items-start has-[[data-slot=file-upload-item-preview]]:min-h-control-xl has-[[data-slot=file-upload-item-preview]]:grid-cols-[auto_minmax(0,1fr)_auto] has-[[data-slot=file-upload-item-preview]]:py-2 data-disabled:opacity-50 data-[type=rejected]:border-destructive',
+        'group/item box-border grid min-h-control-md shrink-0 grow basis-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 rounded-md border border-border bg-background px-3 py-2 text-foreground has-[[data-slot=file-upload-item-preview-image]]:min-h-0 has-[[data-slot=file-upload-item-preview-image]]:max-w-40 has-[[data-slot=file-upload-item-preview-image]]:grow-0 has-[[data-slot=file-upload-item-preview-image]]:grid-rows-[auto_auto_auto] has-[[data-slot=file-upload-item-preview-image]]:items-start has-[[data-slot=file-upload-item-preview]]:not-has-[[data-slot=file-upload-item-preview-image]]:min-h-control-xl has-[[data-slot=file-upload-item-preview]]:not-has-[[data-slot=file-upload-item-preview-image]]:grid-cols-[auto_minmax(0,1fr)_auto] data-disabled:opacity-50 data-[type=rejected]:border-destructive',
         className,
       )}
       {...props}
@@ -150,7 +150,7 @@ const FileUploadItemPreview = forwardRef<
     <FileUploadPrimitive.ItemPreview
       ref={ref}
       className={cn(
-        'col-start-1 row-span-2 row-start-1 inline-flex size-10 items-center justify-center overflow-hidden rounded-sm bg-muted text-muted-foreground group-has-[[data-slot=file-upload-item-preview-image]]/item:col-span-2 group-has-[[data-slot=file-upload-item-preview-image]]/item:aspect-square group-has-[[data-slot=file-upload-item-preview-image]]/item:h-auto group-has-[[data-slot=file-upload-item-preview-image]]/item:w-full',
+        'col-start-1 row-start-1 inline-flex size-10 items-center justify-center overflow-hidden rounded-sm bg-muted text-muted-foreground group-not-has-[[data-slot=file-upload-item-preview-image]]/item:row-[1/span_2] group-has-[[data-slot=file-upload-item-preview-image]]/item:col-span-full group-has-[[data-slot=file-upload-item-preview-image]]/item:aspect-square group-has-[[data-slot=file-upload-item-preview-image]]/item:h-auto group-has-[[data-slot=file-upload-item-preview-image]]/item:w-full',
         className,
       )}
       {...props}
@@ -173,18 +173,21 @@ const FileUploadItemPreviewImage = forwardRef<
   );
 });
 
-function FileUploadItemPreviewIcon({ className, ...props }: ComponentProps<'svg'>) {
-  return (
-    <FileIcon
-      className={cn('size-4', className)}
-      {...props}
-      data-slot="file-upload-item-preview-icon"
-    />
-  );
-}
+const FileUploadItemPreviewIcon = forwardRef<SVGSVGElement, ComponentProps<'svg'>>(
+  function FileUploadItemPreviewIcon({ className, ...props }, ref) {
+    return (
+      <FileIcon
+        ref={ref}
+        className={cn('size-4', className)}
+        {...props}
+        data-slot="file-upload-item-preview-icon"
+      />
+    );
+  },
+);
 
 function getFileTypeLabel(file: File) {
-  const extension = file.name.split('.').pop();
+  const extension = file.name.includes('.') ? file.name.split('.').pop() : undefined;
 
   return extension ? extension.toUpperCase() : file.type || 'FILE';
 }
@@ -201,7 +204,7 @@ const FileUploadItemName = forwardRef<
     <FileUploadPrimitive.ItemName
       ref={ref}
       className={cn(
-        'col-start-1 line-clamp-1 min-w-0 text-sm leading-5 font-medium group-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-1 group-has-[[data-slot=file-upload-item-preview-image]]/item:row-start-2 group-has-[[data-slot=file-upload-item-preview-image]]/item:self-end group-has-[[data-slot=file-upload-item-preview]]/item:col-start-2',
+        'col-start-1 line-clamp-1 min-w-0 text-sm leading-5 font-medium group-has-[[data-slot=file-upload-item-preview-image]]/item:row-start-2 group-has-[[data-slot=file-upload-item-preview-image]]/item:self-end group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-2',
         className,
       )}
       {...props}
@@ -232,7 +235,7 @@ function FileUploadItemMetadata({
   return (
     <ark.div
       className={cn(
-        "col-start-1 flex items-center gap-1 text-xs leading-4 text-muted-foreground group-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-1 group-has-[[data-slot=file-upload-item-preview-image]]/item:row-start-3 group-has-[[data-slot=file-upload-item-preview]]/item:col-start-2 [&>[data-slot='file-upload-item-size-text']::before]:me-1 [&>[data-slot='file-upload-item-size-text']::before]:content-['·']",
+        "col-start-1 flex items-center gap-1 text-xs leading-4 text-muted-foreground group-has-[[data-slot=file-upload-item-preview-image]]/item:row-start-3 group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-2 [&>[data-slot='file-upload-item-size-text']::before]:me-1 [&>[data-slot='file-upload-item-size-text']::before]:content-['·']",
         className,
       )}
       {...props}
@@ -252,7 +255,7 @@ const FileUploadItemDeleteTrigger = forwardRef<
     <FileUploadPrimitive.ItemDeleteTrigger
       ref={ref}
       className={cn(
-        'col-start-2 row-start-1 box-border inline-flex size-control-sm shrink-0 cursor-pointer appearance-none items-center justify-center justify-self-end rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out group-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-2 group-has-[[data-slot=file-upload-item-preview-image]]/item:row-start-2 group-has-[[data-slot=file-upload-item-preview-image]]/item:self-center group-has-[[data-slot=file-upload-item-preview]]/item:col-start-3 group-has-[[data-slot=file-upload-item-preview]]/item:row-span-2 group-has-[[data-slot=file-upload-item-preview]]/item:row-start-1 group-has-[[data-slot=file-upload-item-size-text]]/item:row-span-2 group-has-[[data-slot=file-upload-item-size-text]]/item:row-start-1 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-readonly:pointer-events-none data-readonly:cursor-default data-readonly:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):hover]:text-foreground',
+        'col-start-2 row-start-1 box-border inline-flex size-control-xs shrink-0 cursor-pointer appearance-none items-center justify-center justify-self-end rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out group-has-[[data-slot=file-upload-item-preview-image]]/item:row-[2/span_2] group-has-[[data-slot=file-upload-item-preview-image]]/item:self-center group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-3 group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:row-[1/span_2] group-has-[[data-slot=file-upload-item-size-text]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:row-[1/span_2] focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-readonly:pointer-events-none data-readonly:cursor-default data-readonly:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):hover]:text-foreground',
         className,
       )}
       {...props}
@@ -294,8 +297,8 @@ const FileUploadClearTrigger = forwardRef<
 ) {
   const clearLabel = ariaLabel ?? (ariaLabelledBy == null ? 'Clear files' : undefined);
   const triggerClassName = cn(
-    'size-control-sm self-start rounded-sm bg-transparent text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring data-readonly:pointer-events-none data-readonly:opacity-50 [&>svg]:size-4',
-    children != null && 'w-auto gap-2 px-2 text-sm leading-5',
+    `size-control-xs self-start rounded-sm bg-transparent text-muted-foreground focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-readonly:pointer-events-none data-readonly:opacity-50 [&>svg:not([class*='size-'])]:size-4`,
+    children != null && 'size-control-sm w-auto gap-2 px-2 text-sm leading-5',
     className,
   );
 
@@ -312,34 +315,37 @@ const FileUploadClearTrigger = forwardRef<
       {asChild ? (
         children
       ) : (
-        <CloseButton.Root aria-label={clearLabel} aria-labelledby={ariaLabelledBy}>
+        <CloseButton aria-label={clearLabel} aria-labelledby={ariaLabelledBy}>
           {children ?? <CloseIcon />}
-        </CloseButton.Root>
+        </CloseButton>
       )}
     </FileUploadPrimitive.ClearTrigger>
   );
 });
 
-const FileUpload = Object.assign(FileUploadRoot, {
-  Root: FileUploadRoot,
-  RootProvider: FileUploadRootProvider,
-  Context: FileUploadPrimitive.Context,
-  HiddenInput: FileUploadPrimitive.HiddenInput,
-  Label: FileUploadLabel,
-  Dropzone: FileUploadDropzone,
-  DropzoneIcon: FileUploadDropzoneIcon,
-  Trigger: FileUploadTrigger,
-  ItemGroup: FileUploadItemGroup,
-  Item: FileUploadItem,
-  Items: FileUploadItems,
-  ItemPreview: FileUploadItemPreview,
-  ItemPreviewImage: FileUploadItemPreviewImage,
-  ItemPreviewIcon: FileUploadItemPreviewIcon,
-  ItemName: FileUploadItemName,
-  ItemMetadata: FileUploadItemMetadata,
-  ItemSizeText: FileUploadItemSizeText,
-  ItemDeleteTrigger: FileUploadItemDeleteTrigger,
-  ClearTrigger: FileUploadClearTrigger,
-});
+const FileUploadContext = FileUploadPrimitive.Context;
+const FileUploadHiddenInput = FileUploadPrimitive.HiddenInput;
 
-export { FileUpload, useFileUpload, useFileUploadContext };
+export {
+  FileUpload,
+  FileUploadClearTrigger,
+  FileUploadContext,
+  FileUploadDropzone,
+  FileUploadDropzoneIcon,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemMetadata,
+  FileUploadItemName,
+  FileUploadItems,
+  FileUploadItemPreview,
+  FileUploadItemPreviewIcon,
+  FileUploadItemPreviewImage,
+  FileUploadItemSizeText,
+  FileUploadLabel,
+  FileUploadRootProvider,
+  FileUploadTrigger,
+  useFileUpload,
+  useFileUploadContext,
+};

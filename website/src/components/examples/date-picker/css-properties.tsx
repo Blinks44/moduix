@@ -1,7 +1,7 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const datePickerOverrideCssProperties: CssPropertyInput[] = [
+export const datePickerOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-date-picker-action-bg', 'transparent', 'Controls action background.'],
   [
     '--moduix-date-picker-action-bg-hover',
@@ -73,7 +73,7 @@ const datePickerOverrideCssProperties: CssPropertyInput[] = [
     'Controls popup text color.',
   ],
   ['--moduix-date-picker-content-max-width', 'calc(100vw - 2rem)', 'Controls popup maximum width.'],
-  ['--moduix-date-picker-content-min-width', '18.75rem', 'Controls popup minimum width.'],
+  ['--moduix-date-picker-content-min-width', '20rem', 'Controls popup minimum width.'],
   ['--moduix-date-picker-content-padding', 'var(--moduix-spacing-3)', 'Controls popup padding.'],
   [
     '--moduix-date-picker-content-radius',
@@ -81,7 +81,7 @@ const datePickerOverrideCssProperties: CssPropertyInput[] = [
     'Controls popup corner radius.',
   ],
   ['--moduix-date-picker-content-shadow', 'var(--moduix-shadow-lg)', 'Controls popup shadow.'],
-  ['--moduix-date-picker-content-width', '18.75rem', 'Controls default popup width.'],
+  ['--moduix-date-picker-content-width', '20rem', 'Controls default popup width.'],
   ['--moduix-date-picker-control-height', 'var(--moduix-size-md)', 'Controls input height.'],
   [
     '--moduix-date-picker-disabled-opacity',

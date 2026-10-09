@@ -6,111 +6,95 @@
 
 # @moduix/solid
 
-Solid components built on [Ark UI](https://ark-ui.com/), with accessible behavior, explicit
-composition, and CSS Modules styling.
+Solid components built on [Ark UI](https://ark-ui.com/), styled with CSS Modules.
+Compose components from flat named parts using native Solid props and events.
 
-moduix gives Ark UI primitives a coherent visual system without adding a styling runtime. Components
-are composed from named parts and customizable through CSS custom properties, `class`, stable
-`data-slot` hooks, and Ark state attributes.
-
-[Documentation](https://moduix.dev/) ·
+[Quick start](https://moduix.dev/docs/quick-start) ·
 [Components](https://moduix.dev/docs/components) ·
-[Tokens](https://moduix.dev/docs/tokens)
+[Styling](https://moduix.dev/docs/styling)
 
 ## Install
 
-Install the package and its Ark UI peer dependency in an existing Solid project:
+Start from an existing application using Solid 1.9 or later in the 1.x line.
+
+Install moduix and its matching Ark UI peer dependency:
 
 ```bash
 pnpm add @moduix/solid @ark-ui/solid
 ```
 
-`solid-js` and `@ark-ui/solid` are peer dependencies. moduix supports Solid 1.9 and later 1.x releases.
-
-The optional `Chart` component also requires its TanStack peer dependency:
-
-```bash
-pnpm add @tanstack/charts
-```
+Import components from subpaths such as `@moduix/solid/accordion`; there is no package-root
+export. Only the optional Chart integration requires an additional peer: `pnpm add @tanstack/charts`.
 
 ## Add styles
 
-Import the shared foundation stylesheet once in your application entry point:
-
-```tsx
-import '@moduix/solid/style.css';
-```
-
-It provides the shared tokens and base layer styles. Component imports carry their own CSS Modules,
-so their styles follow the components that use them.
-
-The reset is optional. Import it first when you choose to use it:
+Import the reset and foundation once in your application entry point:
 
 ```tsx
 import '@moduix/solid/reset.css';
 import '@moduix/solid/style.css';
 ```
 
-## Use components
+If your application already provides an equivalent reset, omit `reset.css`. The foundation supplies
+shared tokens and base styles; component imports load their own CSS Modules.
 
-Import component subpaths and compose their named parts:
+## Use a component
 
 ```tsx
-import { Accordion } from '@moduix/solid/accordion';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemTrigger,
+} from '@moduix/solid/accordion';
 
 export function Example() {
   return (
     <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>What is moduix?</Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          A component library built on accessible Ark UI primitives.
-        </Accordion.ItemContent>
-      </Accordion.Item>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>
+          <AccordionItemBody>
+            A component library built on accessible Ark UI primitives.
+          </AccordionItemBody>
+        </AccordionItemContent>
+      </AccordionItem>
     </Accordion>
   );
 }
 ```
 
+The family name is the root component. Each additional part is a separate family-prefixed export.
+The setup is working when the trigger is styled and the panel opens with keyboard and pointer input.
+
 ## Customize
 
-Use `class` on roots and named parts for local styles, or override public CSS custom properties at
-the theme, semantic, or component layer:
+Use `class` on the root or a named part, stable `data-slot` hooks, and Ark state attributes
+for application styles. Override shared CSS tokens or component variables for more focused changes.
 
-```css
-:root {
-  --moduix-primary: oklch(0.5 0.17 285);
-  --moduix-radius: 0.875rem;
-}
-```
+The optional presets are `dense`, `soft`, and `contrast`. See
+[Themes](https://moduix.dev/docs/themes) for imports and activation, and
+[Tokens](https://moduix.dev/docs/tokens) for available CSS properties.
 
-## Optional presets
+## Own the source
 
-Import one preset after `style.css` and enable it on the document root:
-
-```tsx
-import '@moduix/solid/style.css';
-import '@moduix/solid/presets/soft.css';
-```
-
-```html
-<html data-moduix-theme="soft"></html>
-```
-
-The available presets are `dense`, `soft`, and `contrast`.
-
-## Prefer to own the source?
-
-The hosted shadcn-compatible registry provides the same component contracts in source form:
+Configure `components.json` and aliases with the
+[registry setup](https://moduix.dev/docs/quick-start#install-with-the-shadcn-cli), then add a component:
 
 ```bash
 pnpm dlx shadcn@latest add @moduix-solid/accordion
 ```
 
+The CLI copies native Solid source, styles, and dependencies into your project. Follow Quick Start
+to connect the generated foundation stylesheet. The same namespace also installs
+[blocks](https://moduix.dev/blocks), for example `@moduix-solid/login-simple`.
+
 ## Compatibility
 
-The package is ESM-only and ships modern JavaScript targeting ES2023. Consume it through a modern
-application bundler configured for the browsers your application supports.
+The package is ESM-only and ships JavaScript targeting ES2023. Use an application bundler that
+supports package CSS imports. See the [framework guides](https://moduix.dev/docs/quick-start#choose-your-framework)
+for entry files, aliases, and SSR integration.
 
 ## Links
 

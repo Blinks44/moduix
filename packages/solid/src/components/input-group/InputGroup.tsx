@@ -1,9 +1,12 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
-import type { Accessor, ComponentProps } from 'solid-js';
+import type { ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
+import { CloseButton } from '../close-button';
 import { Input } from '../input';
 import styles from './InputGroup.module.css';
 
@@ -15,17 +18,15 @@ type InputGroupDataProps = {
   'data-slot'?: string;
 };
 
-type InputGroupRootProps = HTMLArkProps<'div'> &
+type InputGroupProps = HTMLArkProps<'div'> &
   InputGroupDataProps & {
     size?: InputGroupSize;
     'data-size'?: string;
   };
 
-const defaultInputGroupSize: InputGroupSize = 'md';
-const defaultInputGroupSizeAccessor: Accessor<InputGroupSize> = () => defaultInputGroupSize;
-const InputGroupSizeContext = createContext(defaultInputGroupSizeAccessor);
+const InputGroupSizeContext = createContext((): InputGroupSize => 'md');
 
-function InputGroupRoot(props: InputGroupRootProps) {
+function InputGroup(props: InputGroupProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -38,7 +39,7 @@ function InputGroupRoot(props: InputGroupRootProps) {
   ]);
 
   return (
-    <InputGroupSizeContext.Provider value={() => local.size ?? defaultInputGroupSize}>
+    <InputGroupSizeContext.Provider value={() => local.size ?? 'md'}>
       <ark.div
         asChild={local.asChild}
         {...others}
@@ -56,7 +57,7 @@ function InputGroupRoot(props: InputGroupRootProps) {
 
 function InputGroupInput(props: ComponentProps<typeof Input>) {
   const [local, others] = splitProps(props, ['class', 'size']);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
 
   return (
     <Input {...others} class={clsx(styles.input, local.class)} size={local.size ?? groupSize()} />
@@ -107,7 +108,7 @@ function InputGroupText(props: HTMLArkProps<'span'> & InputGroupDataProps) {
 
 function InputGroupButton(props: ComponentProps<typeof Button>) {
   const [local, others] = splitProps(props, ['class', 'size', 'type', 'variant']);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
 
   return (
     <Button
@@ -121,12 +122,43 @@ function InputGroupButton(props: ComponentProps<typeof Button>) {
   );
 }
 
-const InputGroup = Object.assign(InputGroupRoot, {
-  Root: InputGroupRoot,
-  Input: InputGroupInput,
-  Addon: InputGroupAddon,
-  Text: InputGroupText,
-  Button: InputGroupButton,
-});
+function InputGroupClearTrigger(
+  props: ComponentProps<typeof CloseButton> & { size?: InputGroupSize },
+) {
+  const [local, others] = splitProps(props, [
+    'class',
+    'children',
+    'size',
+    'type',
+    'aria-label',
+    'aria-labelledby',
+  ]);
+  const groupSize = useContext(InputGroupSizeContext);
+  return (
+    <CloseButton
+      {...others}
+      data-scope="input-group"
+      data-part="clear-trigger"
+      data-slot="input-group-clear-trigger"
+      data-size={local.size ?? groupSize()}
+      class={clsx(styles.clearTrigger, local.class)}
+      type={local.type ?? 'button'}
+      aria-label={
+        local['aria-label'] ??
+        (local['aria-labelledby'] == null ? a11yLabels.clearInput : undefined)
+      }
+      aria-labelledby={local['aria-labelledby']}
+    >
+      {local.children ?? <CloseIcon />}
+    </CloseButton>
+  );
+}
 
-export { InputGroup };
+export {
+  InputGroup,
+  InputGroupClearTrigger,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+};

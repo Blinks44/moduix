@@ -1,4 +1,11 @@
-import { HoverCard, useHoverCard } from '@moduix/solid/hover-card';
+import {
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardRootProvider,
+  HoverCardTrigger,
+  useHoverCard,
+} from '@moduix/solid/hover-card';
 import styles from '@/components/examples/hover-card/hover-card-root-provider.module.css';
 
 export default function RootProviderHoverCard() {
@@ -6,11 +13,11 @@ export default function RootProviderHoverCard() {
 
   return (
     <>
-      <HoverCard.RootProvider value={hoverCard}>
-        <HoverCard.Trigger class={styles.trigger}>3 unread updates</HoverCard.Trigger>
-        <HoverCard.Positioner>
-          <HoverCard.Content>
-            <HoverCard.Body>
+      <HoverCardRootProvider value={hoverCard}>
+        <HoverCardTrigger class={styles.trigger}>3 unread updates</HoverCardTrigger>
+        <HoverCardPositioner>
+          <HoverCardContent>
+            <HoverCardBody>
               <div class={styles.preview}>
                 <img
                   alt="Sunlit workspace with a laptop and plants"
@@ -24,10 +31,10 @@ export default function RootProviderHoverCard() {
                   </p>
                 </div>
               </div>
-            </HoverCard.Body>
-          </HoverCard.Content>
-        </HoverCard.Positioner>
-      </HoverCard.RootProvider>
+            </HoverCardBody>
+          </HoverCardContent>
+        </HoverCardPositioner>
+      </HoverCardRootProvider>
       <output>Open: {hoverCard().open ? 'yes' : 'no'}</output>
     </>
   );

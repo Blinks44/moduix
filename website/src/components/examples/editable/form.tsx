@@ -1,5 +1,12 @@
 import { Button } from '@moduix/react/button';
-import { Editable } from '@moduix/react/editable';
+import {
+  Editable,
+  EditableArea,
+  EditableControls,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+} from '@moduix/react/editable';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/editable/editable-form.module.css';
@@ -16,12 +23,12 @@ export default function EditableFormDemo() {
       className={styles.root}
     >
       <Editable defaultValue="Layer name" name="title">
-        <Editable.Label>Layer name</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Controls />
+        <EditableLabel>Layer name</EditableLabel>
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
       </Editable>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

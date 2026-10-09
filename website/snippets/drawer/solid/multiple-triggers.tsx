@@ -1,7 +1,18 @@
 import { type DrawerTriggerValueChangeDetails } from '@ark-ui/solid/drawer';
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Drawer } from '@moduix/solid/drawer';
+import { Card, CardBody } from '@moduix/solid/card';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/solid/drawer';
 import { For, Show, createSignal } from 'solid-js';
 import styles from '@/components/examples/drawer/drawer-multiple-triggers.module.css';
 
@@ -34,7 +45,7 @@ export default function MultipleTriggersDrawerDemo() {
       <div class={styles.triggers}>
         <For each={users}>
           {(user) => (
-            <Drawer.Trigger
+            <DrawerTrigger
               value={user.id}
               asChild={(props) => (
                 <Button {...props()} variant="outline">
@@ -45,25 +56,25 @@ export default function MultipleTriggersDrawerDemo() {
           )}
         </For>
       </div>
-      <Drawer.Backdrop />
-      <Drawer.Positioner>
-        <Drawer.Content>
-          <Drawer.Header>
-            <Drawer.Title>Edit user</Drawer.Title>
-            <Drawer.CloseIcon />
-            <Drawer.Description>{activeUser()?.email}</Drawer.Description>
-          </Drawer.Header>
+      <DrawerBackdrop />
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>Edit user</DrawerTitle>
+            <DrawerCloseIcon />
+            <DrawerDescription>{activeUser()?.email}</DrawerDescription>
+          </DrawerHeader>
           <Show when={activeUser()}>
             {(user) => (
-              <Drawer.Body class={styles.body}>
+              <DrawerBody class={styles.body}>
                 <Card size="sm" class={styles.card}>
-                  <Card.Body>Selected: {user().name}</Card.Body>
+                  <CardBody>Selected: {user().name}</CardBody>
                 </Card>
-              </Drawer.Body>
+              </DrawerBody>
             )}
           </Show>
-        </Drawer.Content>
-      </Drawer.Positioner>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   );
 }

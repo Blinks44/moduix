@@ -1,5 +1,11 @@
 import { Button } from '@moduix/react/button';
-import { Empty } from '@moduix/react/empty';
+import {
+  Empty,
+  EmptyActions,
+  EmptyContent,
+  EmptyDescription,
+  EmptyTitle,
+} from '@moduix/react/empty';
 import styles from '@/components/examples/empty/empty-without-icon.module.css';
 
 const emptyState = {
@@ -10,13 +16,13 @@ const emptyState = {
 export default function SearchResultsEmptyState() {
   return (
     <Empty className={styles.root}>
-      <Empty.Content>
-        <Empty.Title>{emptyState.title}</Empty.Title>
-        <Empty.Description>{emptyState.description}</Empty.Description>
-      </Empty.Content>
-      <Empty.Actions>
+      <EmptyContent>
+        <EmptyTitle>{emptyState.title}</EmptyTitle>
+        <EmptyDescription>{emptyState.description}</EmptyDescription>
+      </EmptyContent>
+      <EmptyActions>
         <Button variant="outline">{emptyState.action}</Button>
-      </Empty.Actions>
+      </EmptyActions>
     </Empty>
   );
 }

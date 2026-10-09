@@ -1,5 +1,18 @@
 import { Button } from '@moduix/react/button';
-import { FloatingPanel } from '@moduix/react/floating-panel';
+import {
+  FloatingPanel,
+  FloatingPanelTrigger,
+  FloatingPanelPositioner,
+  FloatingPanelContent,
+  FloatingPanelDragTrigger,
+  FloatingPanelHeader,
+  FloatingPanelTitle,
+  FloatingPanelControl,
+  FloatingPanelCloseIcon,
+  FloatingPanelBody,
+  FloatingPanelResizeTriggerGroup,
+  FloatingPanelDragIndicator,
+} from '@moduix/react/floating-panel';
 
 export default function EscapeDismissFloatingPanelDemo() {
   return (
@@ -9,28 +22,28 @@ export default function EscapeDismissFloatingPanelDemo() {
         height: 260,
       }}
     >
-      <FloatingPanel.Trigger asChild>
+      <FloatingPanelTrigger asChild>
         <Button>Open panel</Button>
-      </FloatingPanel.Trigger>
-      <FloatingPanel.Positioner>
-        <FloatingPanel.Content autoFocus>
-          <FloatingPanel.DragTrigger>
-            <FloatingPanel.Header>
-              <FloatingPanel.Title>
-                <FloatingPanel.DragIndicator />
+      </FloatingPanelTrigger>
+      <FloatingPanelPositioner>
+        <FloatingPanelContent autoFocus>
+          <FloatingPanelDragTrigger>
+            <FloatingPanelHeader>
+              <FloatingPanelTitle>
+                <FloatingPanelDragIndicator />
                 Escape dismiss
-              </FloatingPanel.Title>
-              <FloatingPanel.Control>
-                <FloatingPanel.CloseIcon />
-              </FloatingPanel.Control>
-            </FloatingPanel.Header>
-          </FloatingPanel.DragTrigger>
-          <FloatingPanel.Body>
+              </FloatingPanelTitle>
+              <FloatingPanelControl>
+                <FloatingPanelCloseIcon />
+              </FloatingPanelControl>
+            </FloatingPanelHeader>
+          </FloatingPanelDragTrigger>
+          <FloatingPanelBody>
             The content receives focus on open, so Escape dismisses this topmost panel immediately.
-          </FloatingPanel.Body>
-          <FloatingPanel.ResizeTriggerGroup />
-        </FloatingPanel.Content>
-      </FloatingPanel.Positioner>
+          </FloatingPanelBody>
+          <FloatingPanelResizeTriggerGroup />
+        </FloatingPanelContent>
+      </FloatingPanelPositioner>
     </FloatingPanel>
   );
 }

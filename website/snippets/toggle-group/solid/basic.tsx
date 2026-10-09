@@ -1,4 +1,4 @@
-import { ToggleGroup } from '@moduix/solid/toggle-group';
+import { ToggleGroup, ToggleGroupItem } from '@moduix/solid/toggle-group';
 
 const alignmentItems = [
   {
@@ -19,7 +19,7 @@ export default function ToggleGroupDemo() {
   return (
     <ToggleGroup defaultValue={['left']} aria-label="Text alignment">
       {alignmentItems.map((item) => (
-        <ToggleGroup.Item value={item.value}>{item.label}</ToggleGroup.Item>
+        <ToggleGroupItem value={item.value}>{item.label}</ToggleGroupItem>
       ))}
     </ToggleGroup>
   );

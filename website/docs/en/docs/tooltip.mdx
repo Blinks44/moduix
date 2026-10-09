@@ -27,6 +27,18 @@ import tooltipSolidPositioning from '../../../snippets/tooltip/solid/positioning
 import tooltipSolidRootProvider from '../../../snippets/tooltip/solid/root-provider.tsx?raw';
 import tooltipSolidWithArrow from '../../../snippets/tooltip/solid/with-arrow.tsx?raw';
 import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/within-fixed-containers.tsx?raw';
+import tooltipVueAdvancedCustomization from '../../../snippets/tooltip/vue/advanced-customization.vue?raw';
+import tooltipVueBasic from '../../../snippets/tooltip/vue/basic.vue?raw';
+import tooltipVueContext from '../../../snippets/tooltip/vue/context.vue?raw';
+import tooltipVueContextPart from '../../../snippets/tooltip/vue/TooltipStateContent.vue?raw';
+import tooltipVueControlled from '../../../snippets/tooltip/vue/controlled.vue?raw';
+import tooltipVueDelay from '../../../snippets/tooltip/vue/delay.vue?raw';
+import tooltipVueDisabledTrigger from '../../../snippets/tooltip/vue/disabled-trigger.vue?raw';
+import tooltipVueMultipleTriggers from '../../../snippets/tooltip/vue/multiple-triggers.vue?raw';
+import tooltipVuePositioning from '../../../snippets/tooltip/vue/positioning.vue?raw';
+import tooltipVueRootProvider from '../../../snippets/tooltip/vue/root-provider.vue?raw';
+import tooltipVueWithArrow from '../../../snippets/tooltip/vue/with-arrow.vue?raw';
+import tooltipVueWithinFixedContainers from '../../../snippets/tooltip/vue/within-fixed-containers.vue?raw';
 
 ## API Reference
 
@@ -43,8 +55,8 @@ Use `Tooltip` for short, non-essential information that appears on hover or focu
 ## Basic
 
 
-Use `Tooltip.Trigger` for the element that opens the tooltip and `Tooltip.Body` for its content.
-`Tooltip.Body` combines `Tooltip.Positioner` and `Tooltip.Content`. Give the trigger an accessible
+Use `TooltipTrigger` for the element that opens the tooltip and `TooltipBody` for its content.
+`TooltipBody` combines `TooltipPositioner` and `TooltipContent`. Give the trigger an accessible
 name of its own. Tooltip content is supplemental and does not replace visible text or an
 `aria-label`.
 
@@ -59,6 +71,7 @@ name of its own. Tooltip content is supplemental and does not replace visible te
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -71,6 +84,11 @@ name of its own. Tooltip content is supplemental and does not replace visible te
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueBasic} />
 
     </Tab>
   </Tabs>
@@ -103,57 +121,73 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tooltip' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tooltip' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 ```text
-Tooltip / Tooltip.Root
-├─ Tooltip.Trigger
+Tooltip
+├─ TooltipTrigger
 └─ Overlay subtree (automatically rendered in a portal)
-   └─ Tooltip.Positioner
-      └─ Tooltip.Content
+   └─ TooltipPositioner
+      └─ TooltipContent
          └─ content
 ```
 
-Add `Tooltip.Arrow` as the first child of the content when the popup should point to its trigger.
-`Tooltip.Arrow` renders `Tooltip.ArrowTip` by default.
+Add `TooltipArrow` as the first child of the content when the popup should point to its trigger.
+`TooltipArrow` renders `TooltipArrowTip` by default.
 
 ```text
-Tooltip / Tooltip.Root
-├─ Tooltip.Trigger
+Tooltip
+├─ TooltipTrigger
 └─ Overlay subtree (automatically rendered in a portal)
-   └─ Tooltip.Positioner
-      └─ Tooltip.Content
-         ├─ Tooltip.Arrow
-         │  └─ Tooltip.ArrowTip
+   └─ TooltipPositioner
+      └─ TooltipContent
+         ├─ TooltipArrow
+         │  └─ TooltipArrowTip
          └─ content
 ```
 
 | Part | Role |
 | --- | --- |
-| `Tooltip` / `Tooltip.Root` | Owns tooltip state, opening and closing, delays, positioning, and lifecycle. |
-| `Tooltip.RootProvider` | Renders a tooltip from a `useTooltip()` state object created outside the tree. |
-| `Tooltip.Context` | Exposes current tooltip state through a render prop for custom descendants. |
-| `Tooltip.Body` | Convenience wrapper that renders `Tooltip.Positioner` and `Tooltip.Content` together. |
-| `Tooltip.Trigger` | Interactive element that opens the tooltip on hover or focus. |
-| `Tooltip.DisabledTrigger` | Focusable wrapper for one disabled native control that still needs an explanation. |
-| `Tooltip.Positioner` | Positions the content and exposes Ark positioning variables. |
-| `Tooltip.Content` | Visible tooltip surface. |
-| `Tooltip.Arrow` | Optional positioned arrow wrapper that renders `Tooltip.ArrowTip` by default. |
-| `Tooltip.ArrowTip` | Arrow tip element. |
+| `Tooltip` | Owns tooltip state, opening and closing, delays, positioning, and lifecycle. |
+| `TooltipRootProvider` | Renders a tooltip from a `useTooltip()` state object created outside the tree. |
+| `TooltipContext` | Exposes current tooltip state through a render prop or a Vue scoped slot for custom descendants. |
+| `TooltipBody` | Convenience wrapper that renders `TooltipPositioner` and `TooltipContent` together. |
+| `TooltipTrigger` | Interactive element that opens the tooltip on hover or focus. |
+| `TooltipDisabledTrigger` | Focusable wrapper for one disabled native control that still needs an explanation. |
+| `TooltipPositioner` | Positions the content and exposes Ark positioning variables. |
+| `TooltipContent` | Visible tooltip surface. |
+| `TooltipArrow` | Optional positioned arrow wrapper that renders `TooltipArrowTip` by default. |
+| `TooltipArrowTip` | Arrow tip element. |
 
 ## Composition
 
-Use `Tooltip.Body` for the standard `Trigger` plus content composition. It combines
-`Tooltip.Positioner` and `Tooltip.Content`; use those parts explicitly when they need independent
+Use `TooltipBody` for the standard `Trigger` plus content composition. It combines
+`TooltipPositioner` and `TooltipContent`; use those parts explicitly when they need independent
 styling or structure. The root owns state, so use `defaultOpen` for an uncontrolled tooltip or
 `open` with `onOpenChange(details)` when another part of the application owns it. Use
-`Tooltip.RootProvider` with `useTooltip()` when the store is created outside the rendered tree, and
-use `Tooltip.Context` or `useTooltipContext()` when a descendant needs that state. `asChild` requires
-one focusable child; Solid uses a render function. `Tooltip.DisabledTrigger` is for one disabled
+`TooltipRootProvider` with `useTooltip()` when the store is created outside the rendered tree, and
+use `TooltipContext` or `useTooltipContext()` when a descendant needs that state. `asChild` requires
+one focusable child; Solid uses a render function. `TooltipDisabledTrigger` is for one disabled
 native control. Portalling is enabled by default, so set `portalled={false}` or pass `portalRef`
-only when the tooltip must stay within a specific DOM boundary.
+only when the tooltip must stay within a specific DOM boundary. In Vue, use `v-model:open` for
+controlled state and Vue event names such as `@open-change`.
+
+Content mounts on first open and unmounts after its exit animation by default. Set
+`unmountOnExit` to `false` to retain it after the first open; set `lazyMount` to `false` as well
+for eager rendering. In Vue, bind these options as `:unmount-on-exit="false"` and
+`:lazy-mount="false"`.
 
 ## Examples
 
@@ -172,6 +206,7 @@ Use `useTooltipContext()` inside a descendant that needs the current tooltip sta
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -184,6 +219,13 @@ Use `useTooltipContext()` inside a descendant that needs the current tooltip sta
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueContext} />
+
+<CodeBlockRuntime lang="vue" code={tooltipVueContextPart} title="TooltipStateContent.vue" />
 
     </Tab>
   </Tabs>
@@ -206,6 +248,7 @@ Control whether the tooltip is open with `open` and `onOpenChange(details)`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -218,6 +261,11 @@ Control whether the tooltip is open with `open` and `onOpenChange(details)`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueControlled} />
 
     </Tab>
   </Tabs>
@@ -240,6 +288,7 @@ Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -254,6 +303,11 @@ Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
 <CodeBlockRuntime lang="tsx" code={tooltipSolidDelay} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueDelay} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -261,7 +315,7 @@ Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
 
 ### Disabled Trigger
 
-Use `Tooltip.DisabledTrigger` when a disabled native control still needs a short explanation. It
+Use `TooltipDisabledTrigger` when a disabled native control still needs a short explanation. It
 keeps a focusable wrapper around the disabled child without changing its disabled state.
 
 <ExampleFrame variant="component">
@@ -275,6 +329,7 @@ keeps a focusable wrapper around the disabled child without changing its disable
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -287,6 +342,11 @@ keeps a focusable wrapper around the disabled child without changing its disable
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidDisabledTrigger} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueDisabledTrigger} />
 
     </Tab>
   </Tabs>
@@ -310,6 +370,7 @@ several triggers.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -322,6 +383,11 @@ several triggers.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -349,6 +415,7 @@ Pass Ark positioning options to `Tooltip`, including placement and offset values
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -363,6 +430,11 @@ Pass Ark positioning options to `Tooltip`, including placement and offset values
 <CodeBlockRuntime lang="tsx" code={tooltipSolidPositioning} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVuePositioning} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -375,7 +447,7 @@ Pass Ark positioning options to `Tooltip`, including placement and offset values
 
 ### Root Provider
 
-Use `useTooltip()` with `Tooltip.RootProvider` when the tooltip state is created outside the
+Use `useTooltip()` with `TooltipRootProvider` when the tooltip state is created outside the
 rendered tooltip tree.
 
 <ExampleFrame variant="component">
@@ -389,6 +461,7 @@ rendered tooltip tree.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -403,6 +476,11 @@ rendered tooltip tree.
 <CodeBlockRuntime lang="tsx" code={tooltipSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueRootProvider} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -410,9 +488,9 @@ rendered tooltip tree.
 
 ### With Arrow
 
-Add `Tooltip.Arrow` as the first child of the tooltip content when it needs a visual pointer. With
-`Tooltip.Body`, place it directly inside `Tooltip.Body`; the wrapper supplies the default
-`Tooltip.ArrowTip`.
+Add `TooltipArrow` as the first child of the tooltip content when it needs a visual pointer. With
+`TooltipBody`, place it directly inside `TooltipBody`; the wrapper supplies the default
+`TooltipArrowTip`.
 
 <ExampleFrame variant="component">
   <TooltipWithArrow />
@@ -425,6 +503,7 @@ Add `Tooltip.Arrow` as the first child of the tooltip content when it needs a vi
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -437,6 +516,11 @@ Add `Tooltip.Arrow` as the first child of the tooltip content when it needs a vi
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidWithArrow} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueWithArrow} />
 
     </Tab>
   </Tabs>
@@ -461,6 +545,7 @@ checking the tooltip's alignment.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -475,6 +560,11 @@ checking the tooltip's alignment.
 <CodeBlockRuntime lang="tsx" code={tooltipSolidWithinFixedContainers} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueWithinFixedContainers} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -487,7 +577,7 @@ checking the tooltip's alignment.
 
 ### Advanced Customization
 
-Use the explicit `Tooltip.Positioner` and `Tooltip.Content` parts when they need independent
+Use the explicit `TooltipPositioner` and `TooltipContent` parts when they need independent
 composition or styling.
 
 <ExampleFrame variant="component">
@@ -501,6 +591,7 @@ composition or styling.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -515,6 +606,11 @@ composition or styling.
 <CodeBlockRuntime lang="tsx" code={tooltipSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -522,7 +618,7 @@ composition or styling.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. For state-based
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-state`, `data-placement`, and `data-side`, together
 with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer classes; the
 CSS variables below customize the CSS Modules variants.
@@ -543,13 +639,13 @@ CSS variables below customize the CSS Modules variants.
 
 ### Styling hooks
 
-- `Tooltip.Body` does not create a DOM node. When using the explicit composition, style
-  `Tooltip.Positioner` and `Tooltip.Content` separately.
-- `Tooltip.Trigger` controls trigger chrome, hover and open feedback, and focus styling.
-- `Tooltip.DisabledTrigger` controls the disabled-control wrapper and its direct disabled child.
-- `Tooltip.Positioner` controls floating layout constraints.
-- `Tooltip.Content` controls the popup surface.
-- `Tooltip.Arrow` and `Tooltip.ArrowTip` control the arrow size, background, and stroke.
+- `TooltipBody` does not create a DOM node. When using the explicit composition, style
+  `TooltipPositioner` and `TooltipContent` separately.
+- `TooltipTrigger` controls trigger chrome, hover and open feedback, and focus styling.
+- `TooltipDisabledTrigger` controls the disabled-control wrapper and its direct disabled child.
+- `TooltipPositioner` controls floating layout constraints.
+- `TooltipContent` controls the popup surface.
+- `TooltipArrow` and `TooltipArrowTip` control the arrow size, background, and stroke.
 
 The main public hooks are `data-slot="tooltip-trigger"`, `data-slot="tooltip-positioner"`,
 `data-slot="tooltip-content"`, `data-slot="tooltip-disabled-trigger"`,

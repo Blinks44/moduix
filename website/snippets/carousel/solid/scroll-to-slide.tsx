@@ -1,5 +1,14 @@
 import { Button } from '@moduix/solid/button';
-import { Carousel } from '@moduix/solid/carousel';
+import {
+  Carousel,
+  CarouselContext,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/solid/carousel';
 import { For } from 'solid-js';
 import styles from '@/components/examples/carousel/carousel-scroll-to-slide.module.css';
 
@@ -34,24 +43,24 @@ const slides = [
 export default function ScrollToCarousel() {
   return (
     <Carousel class={styles.root} aria-label="Scroll to gallery" slideCount={slides.length}>
-      <Carousel.ItemGroup class={styles.itemGroup} aria-label="Scroll to gallery">
+      <CarouselItemGroup class={styles.itemGroup} aria-label="Scroll to gallery">
         <For each={slides}>
           {(slide, index) => (
-            <Carousel.Item index={index()}>
+            <CarouselItem index={index()}>
               <img class={styles.image} src={slide.src} alt={slide.alt} />
-            </Carousel.Item>
+            </CarouselItem>
           )}
         </For>
-      </Carousel.ItemGroup>
+      </CarouselItemGroup>
 
-      <Carousel.Control class={styles.control}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
+      <CarouselControl class={styles.control}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
 
-      <Carousel.Indicators />
+      <CarouselIndicators />
 
-      <Carousel.Context>
+      <CarouselContext>
         {(api) => (
           <div style={{ 'margin-inline': 'auto' }}>
             <Button size="sm" variant="outline" onClick={() => api().scrollToIndex(3)}>
@@ -59,7 +68,7 @@ export default function ScrollToCarousel() {
             </Button>
           </div>
         )}
-      </Carousel.Context>
+      </CarouselContext>
     </Carousel>
   );
 }

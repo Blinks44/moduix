@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "react-tailwind-verification-code",
+  "title": "Verification code",
+  "description": "Six-digit email verification form with keyboard navigation and paste support.",
+  "registryDependencies": [
+    "https://moduix.dev/r/react-tailwind/button.json",
+    "https://moduix.dev/r/react-tailwind/card.json",
+    "https://moduix.dev/r/react-tailwind/field.json",
+    "https://moduix.dev/r/react-tailwind/pin-input.json"
+  ],
+  "files": [
+    {
+      "path": "src/components/blocks/verification-code/verification-code.tsx",
+      "content": "'use client';\n\nimport type { FormEventHandler } from 'react';\nimport { useState } from 'react';\nimport { Button } from '@/registry/react/ui/button';\nimport {\n  Card,\n  CardBody,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from '@/registry/react/ui/card';\nimport { Field, FieldErrorText } from '@/registry/react/ui/field';\nimport {\n  PinInput,\n  PinInputHiddenInput,\n  PinInputLabel,\n  PinInputControl,\n  PinInputInputs,\n} from '@/registry/react/ui/pin-input';\nimport styles from './verification-code-form.module.css';\n\nexport function VerificationCode({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {\n  const [invalid, setInvalid] = useState(false);\n\n  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {\n    const code = new FormData(event.currentTarget).get('code');\n    const isComplete = typeof code === 'string' && code.length === 6;\n\n    setInvalid(!isComplete);\n\n    if (!isComplete) {\n      event.preventDefault();\n      return;\n    }\n\n    onSubmit?.(event);\n  };\n\n  return (\n    <Card className={styles.root}>\n      <CardHeader className={styles.header}>\n        <CardTitle>Verify your email</CardTitle>\n        <CardDescription>Enter the 6-digit code from your email.</CardDescription>\n      </CardHeader>\n\n      <CardBody>\n        <form className={styles.stack} noValidate onSubmit={handleSubmit}>\n          <Field className={styles.field} invalid={invalid} required>\n            <PinInput\n              className={styles.code}\n              count={6}\n              name=\"code\"\n              otp\n              onValueChange={() => setInvalid(false)}\n            >\n              <PinInputLabel>Verification code</PinInputLabel>\n              <PinInputHiddenInput />\n              <PinInputControl>\n                <PinInputInputs />\n              </PinInputControl>\n            </PinInput>\n            {invalid ? (\n              <FieldErrorText>Enter all six digits before verifying.</FieldErrorText>\n            ) : null}\n          </Field>\n\n          <Button type=\"submit\" className={styles.submit}>\n            Verify email\n          </Button>\n        </form>\n      </CardBody>\n\n      <CardFooter className={styles.footer}>\n        <p>\n          Wrong email?{' '}\n          <a className={styles.link} href=\"/sign-in\">\n            Use a different one\n          </a>\n        </p>\n      </CardFooter>\n    </Card>\n  );\n}",
+      "type": "registry:component",
+      "target": "@components/blocks/verification-code/verification-code.tsx"
+    },
+    {
+      "path": "src/components/blocks/verification-code/verification-code-form.module.css",
+      "content": ".root {\n  width: min(100%, 26rem);\n}\n\n.header {\n  display: flex;\n  flex-direction: column;\n  gap: var(--moduix-spacing-2);\n  text-align: center;\n}\n\n.stack {\n  display: grid;\n  gap: var(--moduix-spacing-4);\n}\n\n.field {\n  align-items: center;\n}\n\n.code[data-slot='pin-input-root'] {\n  --moduix-pin-input-root-gap: var(--moduix-spacing-2);\n  align-items: center;\n  width: 100%;\n}\n\n.link {\n  color: var(--moduix-color-primary);\n  font-size: var(--moduix-text-sm);\n  font-weight: var(--moduix-weight-medium);\n  text-underline-offset: 0.2em;\n\n  &:hover {\n    color: var(--moduix-color-foreground);\n    text-decoration: underline;\n  }\n\n  &:focus-visible {\n    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);\n    outline-offset: var(--moduix-border-width-sm);\n    border-radius: var(--moduix-radius-xs);\n  }\n}\n\n.submit {\n  width: 100%;\n}\n\n.footer {\n  justify-content: center;\n  text-align: center;\n}\n\n.footer p {\n  margin: 0;\n  color: var(--moduix-color-muted-foreground);\n  font-size: var(--moduix-text-sm);\n}",
+      "type": "registry:file",
+      "target": "@components/blocks/verification-code/verification-code-form.module.css"
+    }
+  ],
+  "type": "registry:block"
+}

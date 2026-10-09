@@ -1,5 +1,12 @@
 import { Button } from '@moduix/solid/button';
-import { Toast, Toaster, createToaster } from '@moduix/solid/toast';
+import {
+  Toast,
+  ToastCloseTrigger,
+  ToastDescription,
+  ToastTitle,
+  ToastToaster,
+  createToaster,
+} from '@moduix/solid/toast';
 import styles from '@/components/examples/toast/toast-custom-composition.module.css';
 
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
@@ -7,20 +14,20 @@ const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 
 export default function ToastCustomComposition() {
   return (
     <div class={styles.root}>
-      <Toaster toaster={toaster}>
+      <ToastToaster toaster={toaster}>
         {() => (
-          <Toast.Root class={styles.toast}>
+          <Toast class={styles.toast}>
             <div class={styles.content}>
               <span aria-hidden="true">ⓘ</span>
               <div>
-                <Toast.Title />
-                <Toast.Description />
+                <ToastTitle />
+                <ToastDescription />
               </div>
             </div>
-            <Toast.CloseTrigger aria-label="Close custom toast">×</Toast.CloseTrigger>
-          </Toast.Root>
+            <ToastCloseTrigger aria-label="Close custom toast">×</ToastCloseTrigger>
+          </Toast>
         )}
-      </Toaster>
+      </ToastToaster>
       <Button
         onClick={() =>
           toaster.success({

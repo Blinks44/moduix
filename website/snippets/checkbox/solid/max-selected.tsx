@@ -1,4 +1,10 @@
-import { Checkbox } from '@moduix/solid/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
 import { For } from 'solid-js';
 
 const options = [
@@ -10,16 +16,16 @@ const options = [
 
 export default function CheckboxMaxSelectedDemo() {
   return (
-    <Checkbox.Group defaultValue={['react', 'solid']} maxSelectedValues={2} name="frameworks">
+    <CheckboxGroup defaultValue={['react', 'solid']} maxSelectedValues={2} name="frameworks">
       <For each={options}>
         {(option) => (
           <Checkbox value={option.value}>
-            <Checkbox.Control />
-            <Checkbox.Label>{option.label}</Checkbox.Label>
-            <Checkbox.HiddenInput />
+            <CheckboxControl />
+            <CheckboxLabel>{option.label}</CheckboxLabel>
+            <CheckboxHiddenInput />
           </Checkbox>
         )}
       </For>
-    </Checkbox.Group>
+    </CheckboxGroup>
   );
 }

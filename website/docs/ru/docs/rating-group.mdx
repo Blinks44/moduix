@@ -1,7 +1,7 @@
 ---
 title: Rating Group
 component: rating-group
-description: Компонент для выбора оценки в виде набора звёзд на основе примитива rating-group из Ark UI.
+description: Компонент для выбора оценки в виде набора звёзд на основе примитива rating-group из Ark UI для React, Solid и Vue.
 ---
 
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
@@ -23,19 +23,30 @@ import ratingGroupSolidField from '../../../snippets/rating-group/solid/field.ts
 import ratingGroupSolidForms from '../../../snippets/rating-group/solid/forms.tsx?raw';
 import ratingGroupSolidHalfRating from '../../../snippets/rating-group/solid/half-rating.tsx?raw';
 import ratingGroupSolidSizes from '../../../snippets/rating-group/solid/sizes.tsx?raw';
-
-Используйте `RatingGroup`, когда пользователю нужно выбрать числовую оценку в ряду звёзд или других повторяющихся значков.
+import ratingGroupVueAdvancedCustomization from '../../../snippets/rating-group/vue/advanced-customization.vue?raw';
+import ratingGroupVueBasic from '../../../snippets/rating-group/vue/basic.vue?raw';
+import ratingGroupVueControlled from '../../../snippets/rating-group/vue/controlled.vue?raw';
+import ratingGroupVueCustomIcon from '../../../snippets/rating-group/vue/custom-icon.vue?raw';
+import ratingGroupVueDisabledAndReadonly from '../../../snippets/rating-group/vue/disabled-and-readonly.vue?raw';
+import ratingGroupVueField from '../../../snippets/rating-group/vue/field.vue?raw';
+import ratingGroupVueForms from '../../../snippets/rating-group/vue/forms.vue?raw';
+import ratingGroupVueHalfRating from '../../../snippets/rating-group/vue/half-rating.vue?raw';
+import ratingGroupVueSizes from '../../../snippets/rating-group/vue/sizes.vue?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/rating-group" />
 
+## Выбор подходящего компонента
+
+Используйте `RatingGroup`, когда пользователю нужно выбрать числовую оценку в ряду звёзд или других повторяющихся значков.
+
 ## Базовый пример
 
 
-Используйте `RatingGroup` как корневой компонент и добавьте `RatingGroup.Label`,
-`RatingGroup.Control` и `RatingGroup.Items` для стандартного рейтинга со звёздами. Если значение
-должно отправляться нативной формой, явно добавьте `RatingGroup.HiddenInput`.
+Используйте `RatingGroup` как корневой компонент и добавьте `RatingGroupLabel`,
+`RatingGroupControl` и `RatingGroupItems` для стандартного рейтинга со звёздами. Если значение
+должно отправляться нативной формой, явно добавьте `RatingGroupHiddenInput`.
 
 <ExampleFrame variant="component">
   <RatingGroupBasic />
@@ -45,7 +56,7 @@ import ratingGroupSolidSizes from '../../../snippets/rating-group/solid/sizes.ts
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -57,6 +68,11 @@ import ratingGroupSolidSizes from '../../../snippets/rating-group/solid/sizes.ts
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueBasic} />
 
     </Tab>
   </Tabs>
@@ -89,58 +105,69 @@ import ratingGroupSolidSizes from '../../../snippets/rating-group/solid/sizes.ts
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/rating-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/rating-group' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-RatingGroup / RatingGroup.Root
-├─ RatingGroup.Label
-└─ RatingGroup.Control
-   ├─ RatingGroup.Items
-   │  └─ RatingGroup.Item[index]
-   │     └─ RatingGroup.ItemIndicator
-   ├─ RatingGroup.Context
-   │  └─ RatingGroup.Item[index]
-   │     └─ RatingGroup.ItemIndicator
-   └─ RatingGroup.HiddenInput (явно)
+RatingGroup
+├─ RatingGroupLabel
+└─ RatingGroupControl
+   ├─ RatingGroupItems
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   ├─ RatingGroupContext
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   └─ RatingGroupHiddenInput (явно)
 
-RatingGroup.RootProvider
+RatingGroupRootProvider
 └─ то же дерево частей, подключённое к состоянию moduix из useRatingGroup()
 ```
 
 | Часть                               | Назначение                                                        |
 | ---------------------------------- | ----------------------------------------------------------------- |
-| `RatingGroup` / `RatingGroup.Root` | Хранит состояние оценки, управляет клавиатурной навигацией, фокусом и интеграцией с формами. |
-| `RatingGroup.HiddenInput`          | Нативное поле Ark, которое нужно добавить явно.                  |
-| `RatingGroup.RootProvider`          | Подключает части к состоянию, созданному с помощью `useRatingGroup()`. |
-| `RatingGroup.Context`               | Даёт доступ к текущему состоянию корня через render prop.        |
-| `RatingGroup.ItemContext`           | Даёт доступ к текущему состоянию элемента через render prop.     |
-| `RatingGroup.Label`                 | Доступная подпись группы рейтинга.                                |
-| `RatingGroup.Control`               | Объединяет интерактивные элементы рейтинга.                       |
-| `RatingGroup.Items`                 | Создаёт элемент для каждого значения и добавляет звезду по умолчанию. |
-| `RatingGroup.Item`                  | Один выбираемый элемент рейтинга, которому нужен числовой `index`. |
-| `RatingGroup.ItemIndicator`         | Стандартный визуальный индикатор moduix для элемента.             |
+| `RatingGroup`                    | Хранит состояние оценки, управляет клавиатурной навигацией, фокусом и интеграцией с формами. |
+| `RatingGroupHiddenInput`          | Нативное поле Ark, которое нужно добавить явно.                  |
+| `RatingGroupRootProvider`          | Подключает части к состоянию, созданному с помощью `useRatingGroup()`. |
+| `RatingGroupContext`               | Даёт доступ к текущему состоянию корня через render prop.        |
+| `RatingGroupItemContext`           | Даёт доступ к текущему состоянию элемента через render prop.     |
+| `RatingGroupLabel`                 | Доступная подпись группы рейтинга.                                |
+| `RatingGroupControl`               | Объединяет интерактивные элементы рейтинга.                       |
+| `RatingGroupItems`                 | Создаёт элемент для каждого значения и добавляет звезду по умолчанию. |
+| `RatingGroupItem`                  | Один выбираемый элемент рейтинга, которому нужен числовой `index`. |
+| `RatingGroupItemIndicator`         | Стандартный визуальный индикатор moduix для элемента.             |
 
 ## Композиция
 
-Используйте `RatingGroup.Items` для стандартного дерева элементов, создаваемого автоматически. Чтобы
-заменить повторяющийся значок, передайте свой `RatingGroup.ItemIndicator` дочерним элементом. После
-`Items` компонент не добавляет `RatingGroup.HiddenInput` автоматически, поэтому разместите его явно
-внутри корневого компонента или `RatingGroup.RootProvider`; задайте `name` на корне, если значение
+Используйте `RatingGroupItems` для стандартного дерева элементов, создаваемого автоматически. Чтобы
+заменить повторяющийся значок, передайте свой `RatingGroupItemIndicator` дочерним элементом. После
+`Items` компонент не добавляет `RatingGroupHiddenInput` автоматически, поэтому разместите его явно
+внутри корневого компонента или `RatingGroupRootProvider`; задайте `name` на корне, если значение
 должно отправляться нативной формой.
 
-Для собственного дерева элементов используйте `RatingGroup.Context` вместе с `RatingGroup.Item`.
-Если хранилище нужно создать вне дерева, используйте `RatingGroup.RootProvider` и
-`useRatingGroup()`. В React состояние читается как объект, а в Solid реактивное состояние доступно
-через возвращаемую функцию.
+Для собственного дерева элементов используйте `RatingGroupContext` вместе с `RatingGroupItem`.
+Если хранилище нужно создать вне дерева, используйте `RatingGroupRootProvider` и
+`useRatingGroup()`. В React состояние доступно как объект. В Solid вызывайте возвращаемую функцию, а в Vue читайте
+реактивное состояние непосредственно в шаблоне.
 
 ## Примеры
 
 ### Управляемое состояние
 
-Используйте `value` вместе с `useState` в React или `createSignal` в Solid, когда оценка зависит от
-другого состояния, влияет на соседний интерфейс или должна сбрасываться родителем.
+Используйте `value` вместе с `useState` в React, `createSignal` в Solid или `ref` и `v-model` в Vue,
+когда оценка зависит от другого состояния, влияет на соседний интерфейс или должна сбрасываться
+родителем.
 
 <ExampleFrame variant="component">
   <RatingGroupControlled />
@@ -150,7 +177,7 @@ RatingGroup.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -162,6 +189,11 @@ RatingGroup.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueControlled} />
 
     </Tab>
   </Tabs>
@@ -176,7 +208,7 @@ RatingGroup.RootProvider
 
 ### Пользовательский значок
 
-Передайте свой `RatingGroup.ItemIndicator` дочерним элементом `RatingGroup.Items`, если всем
+Передайте свой `RatingGroupItemIndicator` дочерним элементом `RatingGroupItems`, если всем
 элементам нужен один и тот же значок. Индикатор сохраняет атрибуты состояния Ark `data-highlighted`
 и `data-half`, которые можно использовать для стилизации.
 
@@ -188,7 +220,7 @@ RatingGroup.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -200,6 +232,11 @@ RatingGroup.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidCustomIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueCustomIcon} />
 
     </Tab>
   </Tabs>
@@ -225,7 +262,7 @@ RatingGroup.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -237,6 +274,11 @@ RatingGroup.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidDisabledAndReadonly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueDisabledAndReadonly} />
 
     </Tab>
   </Tabs>
@@ -252,7 +294,7 @@ RatingGroup.RootProvider
 ### Field
 
 Оберните рейтинг в `Field`, если текст подсказки или валидации должен быть связан с его
-`RatingGroup.HiddenInput`. Ark наследует от поля свойства `disabled`, `readOnly` и `required`, а
+`RatingGroupHiddenInput`. Ark наследует от поля свойства `disabled`, `readOnly` и `required`, а
 состояние валидации по-прежнему принадлежит `Field` и коду приложения.
 
 <ExampleFrame variant="component">
@@ -263,7 +305,7 @@ RatingGroup.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -275,6 +317,11 @@ RatingGroup.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueField} />
 
     </Tab>
   </Tabs>
@@ -289,7 +336,7 @@ RatingGroup.RootProvider
 
 ### Формы
 
-Передайте `name` и явно добавьте `RatingGroup.HiddenInput`, если выбранная оценка должна попасть в
+Передайте `name` и явно добавьте `RatingGroupHiddenInput`, если выбранная оценка должна попасть в
 `FormData`.
 
 <ExampleFrame variant="component">
@@ -300,7 +347,7 @@ RatingGroup.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -312,6 +359,11 @@ RatingGroup.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidForms} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueForms} />
 
     </Tab>
   </Tabs>
@@ -336,7 +388,7 @@ RatingGroup.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -348,6 +400,11 @@ RatingGroup.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidHalfRating} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueHalfRating} />
 
     </Tab>
   </Tabs>
@@ -368,7 +425,7 @@ RatingGroup.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -380,6 +437,11 @@ RatingGroup.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueSizes} />
 
     </Tab>
   </Tabs>
@@ -394,8 +456,8 @@ RatingGroup.RootProvider
 
 ### Расширенная композиция
 
-Используйте `RatingGroup.RootProvider` вместе с `useRatingGroup()`, если состояние рейтинга нужно
-создать вне дерева. Используйте `RatingGroup.Context`, когда `RatingGroup.Items` недостаточно и
+Используйте `RatingGroupRootProvider` вместе с `useRatingGroup()`, если состояние рейтинга нужно
+создать вне дерева. Используйте `RatingGroupContext`, когда `RatingGroupItems` недостаточно и
 нужно вывести каждый элемент самостоятельно.
 
 <ExampleFrame variant="component">
@@ -406,7 +468,7 @@ RatingGroup.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -418,6 +480,11 @@ RatingGroup.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -432,7 +499,7 @@ RatingGroup.RootProvider
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
 стилей. Ark также предоставляет атрибуты `data-scope="rating-group"` и `data-part`. Для стилей по состоянию используйте атрибуты данных, например `data-disabled`,
 `data-readonly`, `data-checked`, `data-highlighted` и `data-half`, вместе с хуками `data-slot` moduix.
 Варианты Tailwind используют нативные utility-классы и классы потребителя, а варианты CSS Modules

@@ -1,4 +1,15 @@
-import { Carousel } from '@moduix/solid/carousel';
+import {
+  Carousel,
+  CarouselAutoplayIndicator,
+  CarouselAutoplayTrigger,
+  CarouselContext,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/solid/carousel';
 import { For } from 'solid-js';
 import styles from '@/components/examples/carousel/carousel-autoplay.module.css';
 
@@ -39,38 +50,38 @@ export default function AutoplayCarousel() {
       loop
       slideCount={slides.length}
     >
-      <Carousel.Context>
+      <CarouselContext>
         {(api) => (
           <>
-            <Carousel.ItemGroup
+            <CarouselItemGroup
               class={styles.itemGroup}
               onFocus={() => api().pause()}
               onPointerEnter={() => api().pause()}
             >
               <For each={slides}>
                 {(slide, index) => (
-                  <Carousel.Item index={index()}>
+                  <CarouselItem index={index()}>
                     <img class={styles.image} src={slide.src} alt={slide.alt} />
-                  </Carousel.Item>
+                  </CarouselItem>
                 )}
               </For>
-            </Carousel.ItemGroup>
+            </CarouselItemGroup>
 
-            <Carousel.Control
+            <CarouselControl
               class={styles.control}
               onFocus={() => api().pause()}
               onPointerEnter={() => api().pause()}
             >
-              <Carousel.AutoplayTrigger>
-                <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
-              </Carousel.AutoplayTrigger>
-              <Carousel.PrevTrigger />
-              <Carousel.Indicators />
-              <Carousel.NextTrigger />
-            </Carousel.Control>
+              <CarouselAutoplayTrigger>
+                <CarouselAutoplayIndicator fallback="Play">Pause</CarouselAutoplayIndicator>
+              </CarouselAutoplayTrigger>
+              <CarouselPrevTrigger />
+              <CarouselIndicators />
+              <CarouselNextTrigger />
+            </CarouselControl>
           </>
         )}
-      </Carousel.Context>
+      </CarouselContext>
     </Carousel>
   );
 }

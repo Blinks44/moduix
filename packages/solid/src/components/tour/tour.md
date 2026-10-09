@@ -10,34 +10,35 @@ state, and CSS hooks.
 const tour = useTour({ steps });
 
 <Tour tour={tour}>
-  <Tour.Backdrop />
-  <Tour.Spotlight />
-  <Tour.Positioner>
-    <Tour.Content>
-      <Tour.CloseIcon />
-      <Tour.Body>
-        <Tour.Title />
-        <Tour.Description />
-        <Tour.ProgressText />
-      </Tour.Body>
-      <Tour.Control>
-        <Tour.ActionList />
-      </Tour.Control>
-    </Tour.Content>
-  </Tour.Positioner>
+  <TourBackdrop />
+  <TourSpotlight />
+  <TourPositioner>
+    <TourContent>
+      <TourCloseIcon />
+      <TourBody>
+        <TourTitle />
+        <TourDescription />
+        <TourProgressText />
+      </TourBody>
+      <TourControl>
+        <TourActionList />
+      </TourControl>
+    </TourContent>
+  </TourPositioner>
 </Tour>;
 ```
 
-`Tour` and `Tour.Root` are equivalent roots. `Backdrop`, `Spotlight`, and `Positioner` are
-portalled by default; use `portalled={false}` or `portalRef` on the root to control overlay
+`Tour` is the root. `TourBackdrop`, `TourSpotlight`, and `TourPositioner` are portalled by
+default; use `portalled={false}` or `portalRef` on the root to control overlay
 placement. `lazyMount` and `unmountOnExit` default to `true`.
 
 ## API surface
 
-The adapter exports `Tour`, `useTour`, `useTourContext`, `waitForElement`, `waitForElementValue`,
-`waitForEvent`, and `waitForPromise`. `Tour` exposes `Root`, `Context`, `Backdrop`, `Spotlight`,
-`Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `ProgressText`, `Body`,
-`CloseTrigger`, `CloseIcon`, `Control`, `Actions`, `ActionList`, and `ActionTrigger`.
+The adapter exports `Tour`, `TourContext`, `TourBackdrop`, `TourSpotlight`, `TourPositioner`,
+`TourContent`, `TourArrow`, `TourArrowTip`, `TourTitle`, `TourDescription`, `TourProgressText`,
+`TourBody`, `TourCloseTrigger`, `TourCloseIcon`, `TourControl`, `TourActions`, `TourActionList`,
+`TourActionTrigger`, `useTour`, `useTourContext`, `waitForElement`, `waitForElementValue`,
+`waitForEvent`, and `waitForPromise`.
 
 `Tour` requires the accessor returned by `useTour`:
 
@@ -60,8 +61,8 @@ const tour = useTour({
 ```
 
 Ark owns step state, focus management, dismissal, keyboard navigation, IDs, state attributes,
-positioning, and runtime CSS variables. Callback handlers receive Ark detail objects. `ActionList`
-maps the current step actions to styled `ActionTrigger` parts while preserving duplicate labels and
+positioning, and runtime CSS variables. Callback handlers receive Ark detail objects. `TourActionList`
+maps the current step actions to styled `TourActionTrigger` parts while preserving duplicate labels and
 Ark disabled state.
 
 ## Solid composition notes
@@ -69,8 +70,8 @@ Ark disabled state.
 Ark Solid uses render-function `asChild`:
 `asChild={(props) => <button {...props()} type="button" />}`. Its factory does not forward refs
 through `asChild`, so ordinary refs and custom-host composition are supported as separate native
-paths. `Tour.CloseIcon` composes `CloseButton.Root` through the same native render-function
+paths. `TourCloseIcon` composes `CloseButton` through the same native render-function
 contract and defaults its accessible label to `Close tour`.
 
-`Tour.Arrow` renders `Tour.ArrowTip` when no child is supplied. `Tour.Body` is a scroll-safe layout
-helper, and `Tour.Actions` remains available for custom action composition.
+`TourArrow` renders `TourArrowTip` when no child is supplied. `TourBody` is a scroll-safe layout
+helper, and `TourActions` remains available for custom action composition.

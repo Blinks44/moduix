@@ -1,0 +1,77 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress-circular",
+  "title": "ProgressCircular",
+  "description": "moduix Vue Tailwind ProgressCircular component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/progress-circular/ProgressCircular.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ProgressRoot as ArkProgressRoot } from '@ark-ui/vue/progress';\nimport type { ProgressRootEmits, ProgressRootProps } from '@ark-ui/vue/progress';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ProgressRootProps {\n  class?: HTMLAttributes['class'];\n}\n\nexport interface Emits extends /* @vue-ignore */ ProgressRootEmits {}\n\nconst { class: className } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkProgressRoot\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'inline-grid w-max max-w-full min-w-0 justify-items-center gap-2 text-foreground',\n        className,\n      )\n    \"\n    data-slot=\"progress-circular-root\"\n  >\n    <slot />\n  </ArkProgressRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/progress-circular/ProgressCircular.vue"
+    },
+    {
+      "path": "src/components/progress-circular/ProgressCircularRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ProgressRootProvider as ArkProgressRootProvider } from '@ark-ui/vue/progress';\nimport type { ProgressRootProviderProps } from '@ark-ui/vue/progress';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ProgressRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: ProgressRootProviderProps['value'];\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkProgressRootProvider\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'inline-grid w-max max-w-full min-w-0 justify-items-center gap-2 text-foreground',\n        className,\n      )\n    \"\n    :value=\"value\"\n    data-slot=\"progress-circular-root-provider\"\n  >\n    <slot />\n  </ArkProgressRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/progress-circular/ProgressCircularRootProvider.vue"
+    },
+    {
+      "path": "src/components/progress-circular/ProgressCircularContext.vue",
+      "content": "<script setup lang=\"ts\">\nimport {\n  ProgressContext as ArkProgressContext,\n  type UseProgressContext,\n} from '@ark-ui/vue/progress';\nimport type { UnwrapRef } from 'vue';\n\ndefineSlots<{ default: (context: UnwrapRef<UseProgressContext>) => unknown }>();\n</script>\n\n<template>\n  <ArkProgressContext v-slot=\"context\">\n    <slot v-bind=\"context\" />\n  </ArkProgressContext>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/progress-circular/ProgressCircularContext.vue"
+    },
+    {
+      "path": "src/components/progress-circular/ProgressCircularLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ProgressLabel as ArkProgressLabel } from '@ark-ui/vue/progress';\nimport type { ProgressLabelProps } from '@ark-ui/vue/progress';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ProgressLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkProgressLabel\n    v-bind=\"attrs\"\n    :class=\"cn('max-w-full min-w-0 text-center text-sm font-regular wrap-anywhere', className)\"\n    data-slot=\"progress-circular-label\"\n  >\n    <slot />\n  </ArkProgressLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/progress-circular/ProgressCircularLabel.vue"
+    },
+    {
+      "path": "src/components/progress-circular/ProgressCircularRing.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { ProgressCircleProps } from '@ark-ui/vue/progress';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport ProgressCircularCircle from './ProgressCircularCircle.vue';\nimport ProgressCircularCircleRange from './ProgressCircularCircleRange.vue';\nimport ProgressCircularCircleTrack from './ProgressCircularCircleTrack.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ Omit<ProgressCircleProps, 'asChild'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ProgressCircularCircle v-bind=\"attrs\" :class=\"className\">\n    <ProgressCircularCircleTrack />\n    <ProgressCircularCircleRange />\n  </ProgressCircularCircle>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/progress-circular/ProgressCircularRing.vue"
+    },
+    {
+      "path": "src/components/progress-circular/ProgressCircularCircle.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ProgressCircle as ArkProgressCircle } from '@ark-ui/vue/progress';\nimport type { ProgressCircleProps } from '@ark-ui/vue/progress';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ProgressCircleProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkProgressCircle\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'block overflow-visible [--size:var(--spacing-control-xl)] [--thickness:0.4rem]',\n        className,\n      )\n    \"\n    data-slot=\"progress-circular-circle\"\n  >\n    <slot />\n  </ArkProgressCircle>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/progress-circular/ProgressCircularCircle.vue"
+    },
+    {
+      "path": "src/components/progress-circular/ProgressCircularCircleTrack.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ProgressCircleTrack as ArkProgressCircleTrack } from '@ark-ui/vue/progress';\nimport type { ProgressCircleTrackProps } from '@ark-ui/vue/progress';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ProgressCircleTrackProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkProgressCircleTrack\n    v-bind=\"attrs\"\n    :class=\"cn('stroke-muted', className)\"\n    data-slot=\"progress-circular-circle-track\"\n  >\n    <slot />\n  </ArkProgressCircleTrack>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/progress-circular/ProgressCircularCircleTrack.vue"
+    },
+    {
+      "path": "src/components/progress-circular/ProgressCircularCircleRange.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ProgressCircleRange as ArkProgressCircleRange } from '@ark-ui/vue/progress';\nimport type { ProgressCircleRangeProps } from '@ark-ui/vue/progress';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ProgressCircleRangeProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkProgressCircleRange\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'origin-center stroke-primary transition-[stroke-dashoffset] duration-200 ease-in-out [stroke-linecap:round] [transform-box:fill-box] data-[state=indeterminate]:animate-moduix-progress-circular-indeterminate data-[state=indeterminate]:[stroke-dasharray:1_200] motion-reduce:transition-none motion-reduce:data-[state=indeterminate]:animate-none motion-reduce:data-[state=indeterminate]:[stroke-dasharray:20_200]',\n        className,\n      )\n    \"\n    data-slot=\"progress-circular-circle-range\"\n  >\n    <slot />\n  </ArkProgressCircleRange>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/progress-circular/ProgressCircularCircleRange.vue"
+    },
+    {
+      "path": "src/components/progress-circular/ProgressCircularValueText.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ProgressValueText as ArkProgressValueText } from '@ark-ui/vue/progress';\nimport type { ProgressValueTextProps } from '@ark-ui/vue/progress';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ProgressValueTextProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkProgressValueText\n    v-bind=\"attrs\"\n    :class=\"cn('max-w-full min-w-0 text-center text-sm font-medium wrap-anywhere', className)\"\n    data-slot=\"progress-circular-value-text\"\n  >\n    <template v-if=\"$slots.default\" #default><slot /></template>\n  </ArkProgressValueText>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/progress-circular/ProgressCircularValueText.vue"
+    },
+    {
+      "path": "src/components/progress-circular/ProgressCircularView.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ProgressView as ArkProgressView } from '@ark-ui/vue/progress';\nimport type { ProgressViewProps } from '@ark-ui/vue/progress';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ProgressViewProps {\n  class?: HTMLAttributes['class'];\n  state: ProgressViewProps['state'];\n}\n\nconst { class: className, state } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkProgressView\n    v-bind=\"attrs\"\n    :class=\"cn('contents', className)\"\n    :state=\"state\"\n    data-slot=\"progress-circular-view\"\n  >\n    <slot />\n  </ArkProgressView>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/progress-circular/ProgressCircularView.vue"
+    },
+    {
+      "path": "src/components/progress-circular/index.ts",
+      "content": "import { useProgress, useProgressContext } from '@ark-ui/vue/progress';\nimport ProgressCircular from './ProgressCircular.vue';\nimport ProgressCircularCircle from './ProgressCircularCircle.vue';\nimport ProgressCircularCircleRange from './ProgressCircularCircleRange.vue';\nimport ProgressCircularCircleTrack from './ProgressCircularCircleTrack.vue';\nimport ProgressCircularContext from './ProgressCircularContext.vue';\nimport ProgressCircularLabel from './ProgressCircularLabel.vue';\nimport ProgressCircularRing from './ProgressCircularRing.vue';\nimport ProgressCircularRootProvider from './ProgressCircularRootProvider.vue';\nimport ProgressCircularValueText from './ProgressCircularValueText.vue';\nimport ProgressCircularView from './ProgressCircularView.vue';\n\nexport {\n  ProgressCircular,\n  ProgressCircularCircle,\n  ProgressCircularCircleRange,\n  ProgressCircularCircleTrack,\n  ProgressCircularContext,\n  ProgressCircularLabel,\n  ProgressCircularRing,\n  ProgressCircularRootProvider,\n  ProgressCircularValueText,\n  ProgressCircularView,\n  useProgress,\n  useProgressContext,\n};\n\nexport type {\n  ProgressCircleBaseProps,\n  ProgressCircleProps,\n  ProgressCircleRangeBaseProps,\n  ProgressCircleRangeProps,\n  ProgressCircleTrackBaseProps,\n  ProgressCircleTrackProps,\n  ProgressContextProps,\n  ProgressLabelBaseProps,\n  ProgressLabelProps,\n  ProgressRootBaseProps,\n  ProgressRootEmits,\n  ProgressRootProps,\n  ProgressRootProviderBaseProps,\n  ProgressRootProviderProps,\n  ProgressValueChangeDetails,\n  ProgressValueTextBaseProps,\n  ProgressValueTextProps,\n  ProgressValueTranslationDetails,\n  ProgressViewBaseProps,\n  ProgressViewProps,\n  UseProgressContext,\n  UseProgressProps,\n  UseProgressReturn,\n} from '@ark-ui/vue/progress';",
+      "type": "registry:component",
+      "target": "@components/ui/progress-circular/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

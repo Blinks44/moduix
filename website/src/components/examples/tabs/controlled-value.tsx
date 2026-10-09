@@ -1,4 +1,4 @@
-import { Tabs } from '@moduix/react/tabs';
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/react/tabs';
 import { useState } from 'react';
 
 const items = [
@@ -25,19 +25,19 @@ export default function ControlledTabsDemo() {
   const [value, setValue] = useState('projects');
   return (
     <Tabs value={value} onValueChange={(details) => setValue(details.value)}>
-      <Tabs.List>
+      <TabsList>
         {items.map((item) => (
-          <Tabs.Trigger key={item.value} value={item.value}>
+          <TabsTrigger key={item.value} value={item.value}>
             {item.title}
-          </Tabs.Trigger>
+          </TabsTrigger>
         ))}
-        <Tabs.Indicator />
-      </Tabs.List>
+        <TabsIndicator />
+      </TabsList>
 
       {items.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
+        <TabsContent key={item.value} value={item.value}>
           {item.content}
-        </Tabs.Content>
+        </TabsContent>
       ))}
     </Tabs>
   );

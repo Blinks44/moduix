@@ -1,4 +1,4 @@
-import { Field } from '@moduix/solid/field';
+import { Field, FieldLabel } from '@moduix/solid/field';
 import { Textarea } from '@moduix/solid/textarea';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/textarea/textarea-controlled.module.css';
@@ -8,7 +8,7 @@ export default function TextareaControlledDemo() {
 
   return (
     <Field class={styles.root}>
-      <Field.Label>Feedback</Field.Label>
+      <FieldLabel>Feedback</FieldLabel>
       <Textarea
         value={value()}
         onChange={(event) => setValue(event.currentTarget.value)}

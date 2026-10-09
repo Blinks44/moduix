@@ -1,0 +1,75 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip",
+  "title": "Tooltip",
+  "description": "moduix Vue Tailwind Tooltip component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/overlay-portal"
+  ],
+  "files": [
+    {
+      "path": "src/components/tooltip/Tooltip.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TooltipRoot as ArkTooltipRoot } from '@ark-ui/vue/tooltip';\nimport type { TooltipRootEmits, TooltipRootProps } from '@ark-ui/vue/tooltip';\nimport { useAttrs } from 'vue';\nimport type { PortalRef } from '@/lib/moduix/overlayPortal/context';\nimport OverlayPortalProvider from '@/lib/moduix/overlayPortal/OverlayPortalProvider.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TooltipRootProps {\n  lazyMount?: TooltipRootProps['lazyMount'];\n  portalRef?: PortalRef;\n  portalled?: boolean;\n  unmountOnExit?: TooltipRootProps['unmountOnExit'];\n}\n\nexport interface Emits extends /* @vue-ignore */ TooltipRootEmits {}\n\nconst {\n  lazyMount = true,\n  portalRef,\n  portalled = true,\n  unmountOnExit = true,\n} = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <OverlayPortalProvider :portalled=\"portalled\" :portal-ref=\"portalRef\">\n    <ArkTooltipRoot v-bind=\"attrs\" :lazy-mount=\"lazyMount\" :unmount-on-exit=\"unmountOnExit\">\n      <slot />\n    </ArkTooltipRoot>\n  </OverlayPortalProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tooltip/Tooltip.vue"
+    },
+    {
+      "path": "src/components/tooltip/TooltipRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TooltipRootProvider as ArkTooltipRootProvider } from '@ark-ui/vue/tooltip';\nimport type { TooltipRootProviderEmits, TooltipRootProviderProps } from '@ark-ui/vue/tooltip';\nimport { useAttrs } from 'vue';\nimport type { PortalRef } from '@/lib/moduix/overlayPortal/context';\nimport OverlayPortalProvider from '@/lib/moduix/overlayPortal/OverlayPortalProvider.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TooltipRootProviderProps {\n  lazyMount?: TooltipRootProviderProps['lazyMount'];\n  portalRef?: PortalRef;\n  portalled?: boolean;\n  unmountOnExit?: TooltipRootProviderProps['unmountOnExit'];\n  value: TooltipRootProviderProps['value'];\n}\n\nexport interface Emits extends /* @vue-ignore */ TooltipRootProviderEmits {}\n\nconst {\n  lazyMount = true,\n  portalRef,\n  portalled = true,\n  unmountOnExit = true,\n  value,\n} = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <OverlayPortalProvider :portalled=\"portalled\" :portal-ref=\"portalRef\">\n    <ArkTooltipRootProvider\n      v-bind=\"attrs\"\n      :lazy-mount=\"lazyMount\"\n      :unmount-on-exit=\"unmountOnExit\"\n      :value=\"value\"\n    >\n      <slot />\n    </ArkTooltipRootProvider>\n  </OverlayPortalProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tooltip/TooltipRootProvider.vue"
+    },
+    {
+      "path": "src/components/tooltip/TooltipTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TooltipTrigger as ArkTooltipTrigger } from '@ark-ui/vue/tooltip';\nimport type { TooltipTriggerProps } from '@ark-ui/vue/tooltip';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TooltipTriggerProps {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTooltipTrigger\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :class=\"\n      cn(\n        !asChild &&\n          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-sm leading-5 text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:bg-accent motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',\n        className,\n      )\n    \"\n    data-slot=\"tooltip-trigger\"\n  >\n    <slot />\n  </ArkTooltipTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tooltip/TooltipTrigger.vue"
+    },
+    {
+      "path": "src/components/tooltip/TooltipDisabledTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TooltipTrigger as ArkTooltipTrigger } from '@ark-ui/vue/tooltip';\nimport { useForwardExpose } from '@ark-ui/vue/utils';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLAttributes {\n  class?: HTMLAttributes['class'];\n  tabindex?: HTMLAttributes['tabindex'];\n}\n\nconst { class: className, tabindex = 0 } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst { forwardRef } = useForwardExpose();\n</script>\n\n<template>\n  <ArkTooltipTrigger :ref=\"forwardRef\" as-child>\n    <span\n      v-bind=\"attrs\"\n      :tabindex=\"tabindex\"\n      :class=\"\n        cn(\n          'inline-flex cursor-not-allowed [&>:disabled]:pointer-events-none [&>[data-disabled]]:pointer-events-none',\n          className,\n        )\n      \"\n      data-slot=\"tooltip-disabled-trigger\"\n    >\n      <slot />\n    </span>\n  </ArkTooltipTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tooltip/TooltipDisabledTrigger.vue"
+    },
+    {
+      "path": "src/components/tooltip/TooltipPositioner.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TooltipPositioner as ArkTooltipPositioner } from '@ark-ui/vue/tooltip';\nimport type { TooltipPositionerProps } from '@ark-ui/vue/tooltip';\nimport { useForwardExpose } from '@ark-ui/vue/utils';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport OverlayPortal from '@/lib/moduix/overlayPortal/OverlayPortal.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TooltipPositionerProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst { forwardRef } = useForwardExpose();\n</script>\n\n<template>\n  <OverlayPortal>\n    <ArkTooltipPositioner\n      :ref=\"forwardRef\"\n      v-bind=\"attrs\"\n      :class=\"\n        cn(\n          'z-[var(--z-index,var(--moduix-z-popup))] max-h-[var(--available-height)] max-w-[var(--available-width)] outline-0',\n          className,\n        )\n      \"\n      data-slot=\"tooltip-positioner\"\n    >\n      <slot />\n    </ArkTooltipPositioner>\n  </OverlayPortal>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tooltip/TooltipPositioner.vue"
+    },
+    {
+      "path": "src/components/tooltip/TooltipContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TooltipContent as ArkTooltipContent } from '@ark-ui/vue/tooltip';\nimport type { TooltipContentProps } from '@ark-ui/vue/tooltip';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TooltipContentProps {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTooltipContent\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :class=\"\n      cn(\n        'relative z-60 max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(20rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-md border border-border bg-popover px-2 py-1 text-center text-sm leading-5 wrap-anywhere text-popover-foreground shadow-md data-instant:animate-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',\n        className,\n      )\n    \"\n    data-slot=\"tooltip-content\"\n  >\n    <slot />\n  </ArkTooltipContent>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tooltip/TooltipContent.vue"
+    },
+    {
+      "path": "src/components/tooltip/TooltipBody.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { TooltipContentProps } from '@ark-ui/vue/tooltip';\nimport { useForwardExpose } from '@ark-ui/vue/utils';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport TooltipContent from './TooltipContent.vue';\nimport TooltipPositioner from './TooltipPositioner.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TooltipContentProps {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst { forwardRef } = useForwardExpose();\n</script>\n\n<template>\n  <TooltipPositioner>\n    <TooltipContent :ref=\"forwardRef\" v-bind=\"attrs\" :as-child=\"asChild\" :class=\"className\">\n      <slot />\n    </TooltipContent>\n  </TooltipPositioner>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tooltip/TooltipBody.vue"
+    },
+    {
+      "path": "src/components/tooltip/TooltipArrow.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TooltipArrow as ArkTooltipArrow } from '@ark-ui/vue/tooltip';\nimport type { TooltipArrowProps } from '@ark-ui/vue/tooltip';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport TooltipArrowTip from './TooltipArrowTip.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TooltipArrowProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTooltipArrow\n    v-bind=\"attrs\"\n    :class=\"\n      cn('[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]', className)\n    \"\n    data-slot=\"tooltip-arrow\"\n  >\n    <slot v-if=\"$slots.default\" />\n    <TooltipArrowTip v-else />\n  </ArkTooltipArrow>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tooltip/TooltipArrow.vue"
+    },
+    {
+      "path": "src/components/tooltip/TooltipArrowTip.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TooltipArrowTip as ArkTooltipArrowTip } from '@ark-ui/vue/tooltip';\nimport type { TooltipArrowTipProps } from '@ark-ui/vue/tooltip';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TooltipArrowTipProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTooltipArrowTip\n    v-bind=\"attrs\"\n    :class=\"cn('border-t border-l border-border', className)\"\n    data-slot=\"tooltip-arrow-tip\"\n  >\n    <slot />\n  </ArkTooltipArrowTip>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/tooltip/TooltipArrowTip.vue"
+    },
+    {
+      "path": "src/components/tooltip/index.ts",
+      "content": "import { TooltipContext, useTooltip, useTooltipContext } from '@ark-ui/vue/tooltip';\nimport Tooltip from './Tooltip.vue';\nimport TooltipArrow from './TooltipArrow.vue';\nimport TooltipArrowTip from './TooltipArrowTip.vue';\nimport TooltipBody from './TooltipBody.vue';\nimport TooltipContent from './TooltipContent.vue';\nimport TooltipDisabledTrigger from './TooltipDisabledTrigger.vue';\nimport TooltipPositioner from './TooltipPositioner.vue';\nimport TooltipRootProvider from './TooltipRootProvider.vue';\nimport TooltipTrigger from './TooltipTrigger.vue';\n\nexport {\n  Tooltip,\n  TooltipArrow,\n  TooltipArrowTip,\n  TooltipBody,\n  TooltipContext,\n  TooltipContent,\n  TooltipDisabledTrigger,\n  TooltipPositioner,\n  TooltipRootProvider,\n  TooltipTrigger,\n  useTooltip,\n  useTooltipContext,\n};\n\nexport type {\n  TooltipArrowProps,\n  TooltipArrowTipProps,\n  TooltipContentProps,\n  TooltipContextProps,\n  TooltipOpenChangeDetails,\n  TooltipPositionerProps,\n  TooltipRootEmits,\n  TooltipRootProviderEmits,\n  TooltipTriggerProps,\n  TooltipTriggerValueChangeDetails,\n  UseTooltipContext,\n  UseTooltipProps,\n  UseTooltipReturn,\n} from '@ark-ui/vue/tooltip';\n\nexport type { Props as TooltipRootProps } from './Tooltip.vue';\nexport type { Props as TooltipRootProviderProps } from './TooltipRootProvider.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/tooltip/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

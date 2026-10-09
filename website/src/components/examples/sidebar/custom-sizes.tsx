@@ -1,59 +1,81 @@
-import { Menu } from '@moduix/react/menu';
-import { Sidebar } from '@moduix/react/sidebar';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/react/menu';
+import {
+  Sidebar,
+  SidebarPanel,
+  SidebarInset,
+  SidebarResizeTrigger,
+  SidebarTrigger,
+  SidebarLabel,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarNavigationList,
+  SidebarNavigationItem,
+  SidebarNavigationButton,
+} from '@moduix/react/sidebar';
 import { BarChart3, FileText, FolderOpen, Gauge, MessageSquare, Settings } from 'lucide-react';
 import styles from '@/components/examples/sidebar/sidebar-custom-sizes.module.css';
 
 export default function SizedSidebar() {
   return (
     <Sidebar defaultSize={['14rem']} className={styles.root}>
-      <Sidebar.Panel>
-        <Sidebar.Header>
+      <SidebarPanel>
+        <SidebarHeader>
           <strong data-sidebar-icon>M</strong>
-          <Sidebar.Label>Moduix</Sidebar.Label>
-        </Sidebar.Header>
-        <Sidebar.Content>
-          <Sidebar.Group>
-            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton active>
+          <SidebarLabel>Moduix</SidebarLabel>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton active>
                   <Gauge />
-                  <Sidebar.Label>Overview</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton>
+                  <SidebarLabel>Overview</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton>
                   <FolderOpen />
-                  <Sidebar.Label>Projects</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton>
+                  <SidebarLabel>Projects</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton>
                   <FileText />
-                  <Sidebar.Label>Documents</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
-          <Sidebar.Group>
-            <Sidebar.GroupLabel>Insights</Sidebar.GroupLabel>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton>
+                  <SidebarLabel>Documents</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+          <SidebarGroup>
+            <SidebarGroupLabel>Insights</SidebarGroupLabel>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton>
                   <BarChart3 />
-                  <Sidebar.Label>Analytics</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton>
+                  <SidebarLabel>Analytics</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton>
                   <MessageSquare />
-                  <Sidebar.Label>Messages</Sidebar.Label>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
-        </Sidebar.Content>
-        <Sidebar.Footer>
+                  <SidebarLabel>Messages</SidebarLabel>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter>
           <Menu
             positioning={{
               placement: 'right-end',
@@ -61,33 +83,33 @@ export default function SizedSidebar() {
               flip: false,
             }}
           >
-            <Menu.Trigger asChild>
-              <Sidebar.NavigationButton>
+            <MenuTrigger asChild>
+              <SidebarNavigationButton>
                 <Settings />
-                <Sidebar.Label>Settings</Sidebar.Label>
-              </Sidebar.NavigationButton>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content>
-                <Menu.Viewport>
-                  <Menu.Item value="workspace">Workspace settings</Menu.Item>
-                  <Menu.Item value="members">Manage members</Menu.Item>
-                  <Menu.Item value="billing">Billing</Menu.Item>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                <SidebarLabel>Settings</SidebarLabel>
+              </SidebarNavigationButton>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent>
+                <MenuViewport>
+                  <MenuItem value="workspace">Workspace settings</MenuItem>
+                  <MenuItem value="members">Manage members</MenuItem>
+                  <MenuItem value="billing">Billing</MenuItem>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
-        </Sidebar.Footer>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+        </SidebarFooter>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <header className={styles.header}>Dashboard</header>
         <main className={styles.content}>
           <strong>Resizable workspace</strong>
           <section className={styles.card}>Resize the sidebar between 3rem and 18rem.</section>
         </main>
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   );
 }

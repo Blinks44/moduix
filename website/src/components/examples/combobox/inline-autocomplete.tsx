@@ -1,6 +1,18 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox } from '@moduix/react/combobox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/react/combobox';
 import styles from '@/components/examples/combobox/component-inline-autocomplete.module.css';
 
 const seaCreatures = [
@@ -25,24 +37,24 @@ export default function InlineAutocompleteComboboxDemo() {
       inputBehavior="autocomplete"
       onInputValueChange={(details) => filter(details.inputValue)}
     >
-      <Combobox.Label>Sea creature</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. Dolphin" />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content className={styles.content}>
-          <Combobox.Empty>No creatures found.</Combobox.Empty>
-          <Combobox.List>
+      <ComboboxLabel>Sea creature</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="e.g. Dolphin" />
+        <ComboboxClearTrigger aria-label="Clear selection" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent className={styles.content}>
+          <ComboboxEmpty>No creatures found.</ComboboxEmpty>
+          <ComboboxList>
             {collection.items.map((item) => (
-              <Combobox.Option key={item.value} item={item}>
+              <ComboboxOption key={item.value} item={item}>
                 {item.label}
-              </Combobox.Option>
+              </ComboboxOption>
             ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

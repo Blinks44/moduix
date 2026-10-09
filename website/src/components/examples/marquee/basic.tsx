@@ -1,4 +1,4 @@
-import { Marquee } from '@moduix/react/marquee';
+import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/react/marquee';
 import styles from '@/components/examples/marquee/marquee-basic.module.css';
 
 const partners = [
@@ -31,16 +31,16 @@ const partners = [
 export default function MarqueeDemo() {
   return (
     <Marquee aria-label="Partner logos" className={styles.root}>
-      <Marquee.Viewport>
-        <Marquee.Content>
+      <MarqueeViewport>
+        <MarqueeContent>
           {partners.map((item) => (
-            <Marquee.Item key={item.name} className={styles.item}>
+            <MarqueeItem key={item.name} className={styles.item}>
               <span>{item.mark}</span>
               <span>{item.name}</span>
-            </Marquee.Item>
+            </MarqueeItem>
           ))}
-        </Marquee.Content>
-      </Marquee.Viewport>
+        </MarqueeContent>
+      </MarqueeViewport>
     </Marquee>
   );
 }

@@ -1,8 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Checkbox } from '@/components/checkbox';
-import { Field } from '@/components/field';
-import { Fieldset, useFieldset } from '@/components/fieldset/Fieldset';
-import { RadioGroup } from '@/components/radio-group';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+} from '@/components/checkbox';
+import { Field, FieldInput, FieldLabel } from '@/components/field';
+import {
+  Fieldset,
+  FieldsetErrorText,
+  FieldsetHelperText,
+  FieldsetLegend,
+  FieldsetRootProvider,
+  useFieldset,
+} from '@/components/fieldset/Fieldset';
+import {
+  RadioGroup,
+  RadioGroupItem,
+  RadioGroupItemControl,
+  RadioGroupItemHiddenInput,
+  RadioGroupItemText,
+} from '@/components/radio-group';
 import styles from './Fieldset.stories.module.css';
 
 const meta = {
@@ -21,16 +40,16 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
     <Fieldset>
-      <Fieldset.Legend>Billing details</Fieldset.Legend>
-      <Field.Root>
-        <Field.Label>Company</Field.Label>
-        <Field.Input placeholder="Enter company name" />
-      </Field.Root>
-      <Field.Root>
-        <Field.Label>Tax ID</Field.Label>
-        <Field.Input placeholder="Enter tax ID" />
-      </Field.Root>
-      <Fieldset.HelperText>Use the legal details shown on your invoice.</Fieldset.HelperText>
+      <FieldsetLegend>Billing details</FieldsetLegend>
+      <Field>
+        <FieldLabel>Company</FieldLabel>
+        <FieldInput placeholder="Enter company name" />
+      </Field>
+      <Field>
+        <FieldLabel>Tax ID</FieldLabel>
+        <FieldInput placeholder="Enter tax ID" />
+      </Field>
+      <FieldsetHelperText>Use the legal details shown on your invoice.</FieldsetHelperText>
     </Fieldset>
   ),
 };
@@ -38,12 +57,12 @@ export const Default: Story = {
 export const Invalid: Story = {
   render: () => (
     <Fieldset invalid>
-      <Fieldset.Legend>Contact details</Fieldset.Legend>
-      <Field.Root invalid>
-        <Field.Label>Email</Field.Label>
-        <Field.Input type="email" defaultValue="invalid-address" />
-      </Field.Root>
-      <Fieldset.ErrorText>Enter a valid email address.</Fieldset.ErrorText>
+      <FieldsetLegend>Contact details</FieldsetLegend>
+      <Field invalid>
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput type="email" defaultValue="invalid-address" />
+      </Field>
+      <FieldsetErrorText>Enter a valid email address.</FieldsetErrorText>
     </Fieldset>
   ),
 };
@@ -51,15 +70,15 @@ export const Invalid: Story = {
 export const Disabled: Story = {
   render: () => (
     <Fieldset disabled>
-      <Fieldset.Legend>Disabled account details</Fieldset.Legend>
-      <Field.Root>
-        <Field.Label>Email</Field.Label>
-        <Field.Input defaultValue="team@example.com" />
-      </Field.Root>
-      <Field.Root>
-        <Field.Label>Phone</Field.Label>
-        <Field.Input defaultValue="+1 (555) 123-45-67" />
-      </Field.Root>
+      <FieldsetLegend>Disabled account details</FieldsetLegend>
+      <Field>
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput defaultValue="team@example.com" />
+      </Field>
+      <Field>
+        <FieldLabel>Phone</FieldLabel>
+        <FieldInput defaultValue="+1 (555) 123-45-67" />
+      </Field>
     </Fieldset>
   ),
 };
@@ -67,21 +86,21 @@ export const Disabled: Story = {
 export const WithCheckbox: Story = {
   render: () => (
     <Fieldset>
-      <Fieldset.Legend>Email preferences</Fieldset.Legend>
-      <Checkbox.Root defaultChecked>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
-        <Checkbox.Label>Product updates</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox.Root>
-      <Checkbox.Root>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
-        <Checkbox.Label>Marketing emails</Checkbox.Label>
-        <Checkbox.HiddenInput />
-      </Checkbox.Root>
+      <FieldsetLegend>Email preferences</FieldsetLegend>
+      <Checkbox defaultChecked>
+        <CheckboxControl>
+          <CheckboxIndicator />
+        </CheckboxControl>
+        <CheckboxLabel>Product updates</CheckboxLabel>
+        <CheckboxHiddenInput />
+      </Checkbox>
+      <Checkbox>
+        <CheckboxControl>
+          <CheckboxIndicator />
+        </CheckboxControl>
+        <CheckboxLabel>Marketing emails</CheckboxLabel>
+        <CheckboxHiddenInput />
+      </Checkbox>
     </Fieldset>
   ),
 };
@@ -89,17 +108,17 @@ export const WithCheckbox: Story = {
 export const WithRadioGroup: Story = {
   render: () => (
     <Fieldset>
-      <Fieldset.Legend>Storage type</Fieldset.Legend>
+      <FieldsetLegend>Storage type</FieldsetLegend>
       <RadioGroup defaultValue="ssd">
         {['ssd', 'hdd'].map((value) => (
-          <RadioGroup.Item key={value} value={value}>
-            <RadioGroup.ItemControl />
-            <RadioGroup.ItemText>{value.toUpperCase()}</RadioGroup.ItemText>
-            <RadioGroup.ItemHiddenInput />
-          </RadioGroup.Item>
+          <RadioGroupItem key={value} value={value}>
+            <RadioGroupItemControl />
+            <RadioGroupItemText>{value.toUpperCase()}</RadioGroupItemText>
+            <RadioGroupItemHiddenInput />
+          </RadioGroupItem>
         ))}
       </RadioGroup>
-      <Fieldset.HelperText>Choose the primary storage medium.</Fieldset.HelperText>
+      <FieldsetHelperText>Choose the primary storage medium.</FieldsetHelperText>
     </Fieldset>
   ),
 };
@@ -107,19 +126,19 @@ export const WithRadioGroup: Story = {
 export const LongContent: Story = {
   render: () => (
     <Fieldset invalid>
-      <Fieldset.Legend>
+      <FieldsetLegend>
         International tax residency and withholding election for non-resident account holders
-      </Fieldset.Legend>
-      <Field.Root invalid>
-        <Field.Label>Tax identification number</Field.Label>
-        <Field.Input />
-      </Field.Root>
-      <Fieldset.HelperText>
+      </FieldsetLegend>
+      <Field invalid>
+        <FieldLabel>Tax identification number</FieldLabel>
+        <FieldInput />
+      </Field>
+      <FieldsetHelperText>
         Enter the tax identification number issued by your country of tax residence.
-      </Fieldset.HelperText>
-      <Fieldset.ErrorText>
+      </FieldsetHelperText>
+      <FieldsetErrorText>
         A tax identification number is required before you can continue.
-      </Fieldset.ErrorText>
+      </FieldsetErrorText>
     </Fieldset>
   ),
 };
@@ -128,14 +147,14 @@ function RootProviderDemo() {
   const fieldset = useFieldset({ invalid: true });
 
   return (
-    <Fieldset.RootProvider value={fieldset}>
-      <Fieldset.Legend>External state</Fieldset.Legend>
-      <Field.Root invalid>
-        <Field.Label>Project name</Field.Label>
-        <Field.Input defaultValue="" />
-      </Field.Root>
-      <Fieldset.ErrorText>A project name is required.</Fieldset.ErrorText>
-    </Fieldset.RootProvider>
+    <FieldsetRootProvider value={fieldset}>
+      <FieldsetLegend>External state</FieldsetLegend>
+      <Field invalid>
+        <FieldLabel>Project name</FieldLabel>
+        <FieldInput defaultValue="" />
+      </Field>
+      <FieldsetErrorText>A project name is required.</FieldsetErrorText>
+    </FieldsetRootProvider>
   );
 }
 
@@ -146,14 +165,14 @@ export const RootProvider: Story = {
 export const CustomStyles: Story = {
   render: () => (
     <Fieldset className={styles.customFieldset}>
-      <Fieldset.Legend className={styles.customLegend}>Styled fieldset</Fieldset.Legend>
-      <Field.Root className={styles.customField}>
-        <Field.Label className={styles.customLabel}>Project name</Field.Label>
-        <Field.Input placeholder="Maps Platform" className={styles.customControl} />
-      </Field.Root>
-      <Fieldset.HelperText className={styles.customHelper}>
+      <FieldsetLegend className={styles.customLegend}>Styled fieldset</FieldsetLegend>
+      <Field className={styles.customField}>
+        <FieldLabel className={styles.customLabel}>Project name</FieldLabel>
+        <FieldInput placeholder="Maps Platform" className={styles.customControl} />
+      </Field>
+      <FieldsetHelperText className={styles.customHelper}>
         Visible to project members.
-      </Fieldset.HelperText>
+      </FieldsetHelperText>
     </Fieldset>
   ),
 };

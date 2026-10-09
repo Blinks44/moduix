@@ -6,111 +6,102 @@
 
 # @moduix/solid-tailwind
 
-Solid components built on [Ark UI](https://ark-ui.com/) and styled with Tailwind CSS v4. The package
-ships the same component subpaths and Ark-shaped contracts as `@moduix/solid`, while keeping utility
-classes available for consumer overrides.
+Solid components built on [Ark UI](https://ark-ui.com/), styled with Tailwind CSS v4.
+Compose components from flat named parts using native Solid props and events.
 
-[Documentation](https://moduix.dev/) ·
 [Quick start](https://moduix.dev/docs/quick-start) ·
 [Components](https://moduix.dev/docs/components) ·
 [Styling](https://moduix.dev/docs/styling)
 
 ## Install
 
-In an existing Solid project configured with Tailwind CSS v4, install the package and its Ark UI
-peer dependency:
+Start from an existing application using Solid 1.9 or later in the 1.x line.
+Tailwind CSS v4 must already be configured in the application.
+
+Install moduix and its matching Ark UI peer dependency:
 
 ```bash
 pnpm add @moduix/solid-tailwind @ark-ui/solid
 ```
 
-`solid-js`, `tailwindcss`, and `@ark-ui/solid` remain peer dependencies.
-
-The optional `Chart` component also requires `@tanstack/charts`:
-
-```bash
-pnpm add @tanstack/charts
-```
+Import components from subpaths such as `@moduix/solid-tailwind/accordion`; there is no package-root
+export. Only the optional Chart integration requires an additional peer: `pnpm add @tanstack/charts`.
 
 ## Add styles
 
-Import the moduix stylesheet before Tailwind. Register the package as an explicit source because Tailwind ignores dependencies by default:
+In your global stylesheet, load the foundation before Tailwind and register the package's utilities:
 
 ```css
 @import '@moduix/solid-tailwind/style.css';
 @import 'tailwindcss';
 
-/* Resolve this path relative to this stylesheet. */
 @source '../node_modules/@moduix/solid-tailwind/dist/components';
 ```
 
-Keep `style.css` before the Tailwind import. It provides the foundation tokens and shared keyframes, and establishes the cascade-layer order so Tailwind utilities, including consumer overrides, are applied after the moduix token and component layers. Tailwind Preflight is the reset for this package; do not add the `@moduix/solid` reset alongside it.
+Import this stylesheet once in your application entry point. Resolve `@source` relative to the
+stylesheet; the example assumes `src/styles.css`. Tailwind ignores `node_modules` by default.
+Keep Tailwind Preflight enabled and do not add the moduix reset.
 
-In a monorepo, point `@source` at the installed package or at `packages/solid-tailwind/src/components` when consuming workspace source directly.
-
-## Use Accordion
+## Use a component
 
 ```tsx
-import { Accordion } from '@moduix/solid-tailwind/accordion';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemIndicator,
+  AccordionItemTrigger,
+} from '@moduix/solid-tailwind/accordion';
 
 export function Example() {
   return (
     <Accordion defaultValue={['first']}>
-      <Accordion.Item value="first">
-        <Accordion.ItemTrigger>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>
           First item
-          <Accordion.ItemIndicator />
-        </Accordion.ItemTrigger>
-        <Accordion.ItemContent>
-          <Accordion.ItemBody>First content</Accordion.ItemBody>
-        </Accordion.ItemContent>
-      </Accordion.Item>
+          <AccordionItemIndicator />
+        </AccordionItemTrigger>
+        <AccordionItemContent>
+          <AccordionItemBody>First content</AccordionItemBody>
+        </AccordionItemContent>
+      </AccordionItem>
     </Accordion>
   );
 }
 ```
 
-Consumer `class` values are merged after defaults with `tailwind-merge`, so utilities such as `p-0` override the component's default padding.
+The family name is the root component. Each additional part is a separate family-prefixed export.
+The setup is working when the trigger is styled and the panel opens with keyboard and pointer input.
 
-## Use Button
+## Customize
 
-```tsx
-import { Button } from '@moduix/solid-tailwind/button';
+Pass utility classes through `class` on the root or a named part. Classes are merged with
+`tailwind-merge`, so `p-0` can replace the default padding. Override shared CSS tokens to change
+colors, spacing, typography, or motion.
 
-export function Example() {
-  return <Button variant="outline">Save changes</Button>;
-}
-```
+The optional presets are `dense`, `soft`, and `contrast`. See
+[Themes](https://moduix.dev/docs/themes) for imports and activation, and
+[Tokens](https://moduix.dev/docs/tokens) for available CSS properties.
 
-## shadcn registry
+## Own the source
 
-Configure the namespace and add the component with the standard CLI:
-
-```json
-{
-  "registries": {
-    "@moduix-solid-tailwind": "https://moduix.dev/r/solid-tailwind/{name}.json"
-  }
-}
-```
+Configure `components.json` and aliases with the
+[registry setup](https://moduix.dev/docs/quick-start#install-with-the-shadcn-cli), then add a component:
 
 ```bash
 pnpm dlx shadcn@latest add @moduix-solid-tailwind/accordion
 ```
 
-The registry installs the same foundation stylesheet locally as `@/lib/moduix/styles/style.css`. Import it once before Tailwind in your application stylesheet:
-
-```css
-@import './lib/moduix/styles/style.css';
-@import 'tailwindcss';
-```
-
-No `@source` directive is required for the registry installation because the component source is copied into the application.
+The CLI copies native Solid source, styles, and dependencies into your project. Follow Quick Start
+to connect the generated foundation stylesheet. The same namespace also installs
+[blocks](https://moduix.dev/blocks), for example `@moduix-solid-tailwind/login-simple`.
 
 ## Compatibility
 
-The package is ESM-only and ships modern JavaScript targeting ES2023. Consume it through a modern
-application bundler configured for the browsers your application supports.
+The package is ESM-only and ships JavaScript targeting ES2023. Use an application bundler that
+supports package CSS imports. See the [framework guides](https://moduix.dev/docs/quick-start#choose-your-framework)
+for entry files, aliases, and SSR integration.
 
 ## Links
 
@@ -118,12 +109,6 @@ application bundler configured for the browsers your application supports.
 - [npm package](https://www.npmjs.com/package/@moduix/solid-tailwind)
 - [Source repository](https://github.com/Blinks44/moduix)
 - [Issues](https://github.com/Blinks44/moduix/issues)
-
-## Acknowledgements
-
-moduix builds on [Ark UI](https://ark-ui.com/) for accessible primitives,
-[Tailwind CSS](https://tailwindcss.com/) for utility styling, and ideas from
-[Chakra UI](https://chakra-ui.com/) and [shadcn/ui](https://ui.shadcn.com/).
 
 ## License
 

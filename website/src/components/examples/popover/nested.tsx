@@ -1,20 +1,31 @@
 import { Button } from '@moduix/react/button';
-import { Popover } from '@moduix/react/popover';
+import {
+  Popover,
+  PopoverBody,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@moduix/react/popover';
 import styles from '@/components/examples/popover/popover-nested.module.css';
 
 export default function NestedPopoverDemo() {
   return (
     <Popover>
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>Open settings</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Header>
-            <Popover.Title>Settings</Popover.Title>
-            <Popover.Description>Nested popovers keep independent state.</Popover.Description>
-          </Popover.Header>
-          <Popover.Body className={styles.body}>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverHeader>
+            <PopoverTitle>Settings</PopoverTitle>
+            <PopoverDescription>Nested popovers keep independent state.</PopoverDescription>
+          </PopoverHeader>
+          <PopoverBody className={styles.body}>
             <Popover
               portalled={false}
               positioning={{
@@ -22,26 +33,26 @@ export default function NestedPopoverDemo() {
                 gutter: 8,
               }}
             >
-              <Popover.Trigger asChild>
+              <PopoverTrigger asChild>
                 <Button>Advanced</Button>
-              </Popover.Trigger>
-              <Popover.Positioner>
-                <Popover.Content>
-                  <Popover.Header>
-                    <Popover.Title>Advanced settings</Popover.Title>
-                    <Popover.Description>
+              </PopoverTrigger>
+              <PopoverPositioner>
+                <PopoverContent>
+                  <PopoverHeader>
+                    <PopoverTitle>Advanced settings</PopoverTitle>
+                    <PopoverDescription>
                       This content belongs to the nested popover.
-                    </Popover.Description>
-                  </Popover.Header>
-                  <Popover.Footer>
-                    <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-                  </Popover.Footer>
-                </Popover.Content>
-              </Popover.Positioner>
+                    </PopoverDescription>
+                  </PopoverHeader>
+                  <PopoverFooter>
+                    <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+                  </PopoverFooter>
+                </PopoverContent>
+              </PopoverPositioner>
             </Popover>
-          </Popover.Body>
-        </Popover.Content>
-      </Popover.Positioner>
+          </PopoverBody>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

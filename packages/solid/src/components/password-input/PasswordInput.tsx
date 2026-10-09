@@ -6,10 +6,11 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
+import { toPropDefaultValue } from '@/lib/moduix/defaultValue';
 import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './PasswordInput.module.css';
 
-function PasswordInputRoot(props: ComponentProps<typeof PasswordInputPrimitive.Root>) {
+function PasswordInput(props: ComponentProps<typeof PasswordInputPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -70,7 +71,7 @@ function PasswordInputInput(props: PasswordInputInputProps) {
     <PasswordInputPrimitive.Input
       asChild={local.asChild}
       {...others}
-      {...{ 'prop:defaultValue': local.defaultValue }}
+      {...toPropDefaultValue(local.defaultValue)}
       data-slot="password-input-input"
       class={clsx(styles.input, local.class)}
     />
@@ -123,16 +124,18 @@ function PasswordInputField(props: PasswordInputFieldProps) {
   );
 }
 
-const PasswordInput = Object.assign(PasswordInputRoot, {
-  Root: PasswordInputRoot,
-  RootProvider: PasswordInputRootProvider,
-  Context: PasswordInputPrimitive.Context,
-  Label: PasswordInputLabel,
-  Control: PasswordInputControl,
-  Field: PasswordInputField,
-  Input: PasswordInputInput,
-  VisibilityTrigger: PasswordInputVisibilityTrigger,
-  Indicator: PasswordInputIndicator,
-});
+const PasswordInputContext = PasswordInputPrimitive.Context;
 
-export { PasswordInput, usePasswordInput, usePasswordInputContext };
+export {
+  PasswordInput,
+  PasswordInputContext,
+  PasswordInputControl,
+  PasswordInputField,
+  PasswordInputIndicator,
+  PasswordInputInput,
+  PasswordInputLabel,
+  PasswordInputRootProvider,
+  PasswordInputVisibilityTrigger,
+  usePasswordInput,
+  usePasswordInputContext,
+};

@@ -48,23 +48,24 @@ function withTooltipStyles<
   return { ...definition, tooltip: styledTooltip };
 }
 
-const ChartRoot = forwardRef<ComponentRef<typeof ark.figure>, HTMLArkProps<'figure'>>(
-  function ChartRoot({ className, ...props }, ref) {
-    return (
-      <ark.figure
-        ref={ref}
-        className={cn(
-          'grid w-full min-w-0 gap-5 rounded-lg border border-border bg-card p-5 text-card-foreground shadow-sm',
-          className,
-        )}
-        {...props}
-        data-scope="chart"
-        data-part="root"
-        data-slot="chart-root"
-      />
-    );
-  },
-);
+const Chart = forwardRef<ComponentRef<typeof ark.figure>, HTMLArkProps<'figure'>>(function Chart(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <ark.figure
+      ref={ref}
+      className={cn(
+        'grid w-full min-w-0 gap-5 rounded-lg border border-border bg-card p-5 text-card-foreground shadow-sm',
+        className,
+      )}
+      {...props}
+      data-scope="chart"
+      data-part="root"
+      data-slot="chart-root"
+    />
+  );
+});
 
 const renderDefaultTooltipBody = ({ content }: ChartTooltipBodyRenderContext) => {
   if (typeof content === 'string') {
@@ -111,7 +112,7 @@ const renderDefaultTooltipBody = ({ content }: ChartTooltipBodyRenderContext) =>
               </span>
               <span
                 data-slot="chart-tooltip-value"
-                className="text-right font-semibold whitespace-nowrap text-popover-foreground tabular-nums"
+                className="text-end font-semibold whitespace-nowrap text-popover-foreground tabular-nums"
               >
                 {row.value}
               </span>
@@ -145,7 +146,7 @@ const ChartPlot = function ChartPlot<
       renderer={renderer ?? (motion ? defaultChartRenderer : svgChartRenderer)}
       renderTooltipBody={renderTooltipBody ?? renderDefaultTooltipBody}
       className={cn(
-        '[&_.ts-chart:focus-visible]:outline-offset-0.5 min-w-0 text-muted-foreground [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-ring',
+        'min-w-0 text-muted-foreground [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-offset-2 [&_.ts-chart:focus-visible]:outline-ring',
         className,
       )}
     />
@@ -244,14 +245,12 @@ const ChartLegendItem = forwardRef<
   );
 });
 
-const Chart = Object.assign(ChartRoot, {
-  Root: ChartRoot,
-  Plot: ChartPlot,
-  Header: ChartHeader,
-  Title: ChartTitle,
-  Description: ChartDescription,
-  Legend: ChartLegend,
-  LegendItem: ChartLegendItem,
-});
-
-export { Chart };
+export {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+};

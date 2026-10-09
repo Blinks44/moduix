@@ -11,14 +11,17 @@ import { RotateCcwIcon } from '@/lib/moduix/icons/ui/Icons';
 import { CloseButton } from '../close-button';
 
 const SignaturePadReadOnlyContext = createContext<Accessor<boolean>>(() => false);
-const signaturePadReadOnly = Symbol();
 
 type SignaturePadApi = ReturnType<typeof useSignaturePadPrimitive> & {
-  [signaturePadReadOnly]: Accessor<boolean>;
+  readOnly: Accessor<boolean>;
 };
+type SignaturePadRootProviderProps = Omit<
+  ComponentProps<typeof SignaturePadPrimitive.RootProvider>,
+  'value'
+> & { value: ReturnType<typeof useSignaturePadPrimitive> & { readOnly?: Accessor<boolean> } };
 type SignaturePadHookProps = Parameters<typeof useSignaturePadPrimitive>[0];
 
-function SignaturePadRoot(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
+function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
   const field = useFieldContext();
 
@@ -41,19 +44,11 @@ function SignaturePadRoot(props: ComponentProps<typeof SignaturePadPrimitive.Roo
   );
 }
 
-function SignaturePadRootProvider(
-  props: ComponentProps<typeof SignaturePadPrimitive.RootProvider>,
-) {
+function SignaturePadRootProvider(props: SignaturePadRootProviderProps) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
-    <SignaturePadReadOnlyContext.Provider
-      value={() => {
-        const signaturePad = others.value as Partial<SignaturePadApi>;
-
-        return signaturePad[signaturePadReadOnly]?.() ?? false;
-      }}
-    >
+    <SignaturePadReadOnlyContext.Provider value={() => props.value.readOnly?.() ?? false}>
       <SignaturePadPrimitive.RootProvider
         asChild={local.asChild}
         class={cn(
@@ -137,7 +132,7 @@ function SignaturePadClearTrigger(
   const resolvedChildren = children(() => local.children);
   const readOnly = useContext(SignaturePadReadOnlyContext);
   const isDisabled = () => (readOnly() || local.disabled ? true : undefined);
-  const triggerClass = cn('absolute end-2 top-2 border-0', local.class);
+  const triggerClass = () => cn('absolute end-2 top-2 border-0', local.class);
 
   if (local.asChild) {
     return (
@@ -145,7 +140,7 @@ function SignaturePadClearTrigger(
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        class={triggerClass}
+        class={triggerClass()}
         {...others}
         data-slot="signature-pad-clear-trigger"
         disabled={isDisabled()}
@@ -161,21 +156,21 @@ function SignaturePadClearTrigger(
         const resolvedProps = triggerProps();
 
         return (
-          <CloseButton.Root
+          <CloseButton
             {...resolvedProps}
             aria-label={local['aria-label']}
             aria-labelledby={local['aria-labelledby']}
             class={cn(
               resolvedProps.class,
-              'size-control-md rounded-sm bg-transparent text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground',
+              `size-control-xs rounded-sm bg-transparent text-muted-foreground focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground`,
               local.class,
             )}
           >
             {resolvedChildren() ?? <RotateCcwIcon class="size-4" aria-hidden="true" />}
-          </CloseButton.Root>
+          </CloseButton>
         );
       }}
-      class={triggerClass}
+      class={triggerClass()}
       {...others}
       data-slot="signature-pad-clear-trigger"
       disabled={isDisabled()}
@@ -200,31 +195,31 @@ function SignaturePadCanvas(props: SignaturePadCanvasProps) {
   );
 }
 
-const SignaturePad = Object.assign(SignaturePadRoot, {
-  Root: SignaturePadRoot,
-  RootProvider: SignaturePadRootProvider,
-  Context: SignaturePadPrimitive.Context,
-  HiddenInput: SignaturePadPrimitive.HiddenInput,
-  Label: SignaturePadLabel,
-  Control: SignaturePadControl,
-  Canvas: SignaturePadCanvas,
-  Segment: SignaturePadSegment,
-  Guide: SignaturePadGuide,
-  ClearTrigger: SignaturePadClearTrigger,
-});
-
-function useSignaturePad(props?: SignaturePadHookProps) {
+function useSignaturePad(props?: SignaturePadHookProps): SignaturePadApi {
   const field = useFieldContext();
   const signaturePad = useSignaturePadPrimitive(props);
-  const api: SignaturePadApi = Object.assign(signaturePad, {
-    [signaturePadReadOnly]: () => {
+  return Object.assign(signaturePad, {
+    readOnly: () => {
       const machineProps = typeof props === 'function' ? props() : props;
-
       return machineProps?.readOnly ?? field?.().readOnly ?? false;
     },
   });
-
-  return api;
 }
 
-export { SignaturePad, useSignaturePad, useSignaturePadContext };
+const SignaturePadContext = SignaturePadPrimitive.Context;
+const SignaturePadHiddenInput = SignaturePadPrimitive.HiddenInput;
+
+export {
+  SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadClearTrigger,
+  SignaturePadContext,
+  SignaturePadControl,
+  SignaturePadGuide,
+  SignaturePadHiddenInput,
+  SignaturePadLabel,
+  SignaturePadRootProvider,
+  SignaturePadSegment,
+  useSignaturePad,
+  useSignaturePadContext,
+};

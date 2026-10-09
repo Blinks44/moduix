@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "title": "Separator",
+  "description": "moduix Vue Tailwind Separator component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/separator/Separator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { cva } from 'class-variance-authority';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ntype SeparatorOrientation = 'horizontal' | 'vertical';\ntype SeparatorSize = 'xs' | 'sm' | 'md' | 'lg';\ntype SeparatorVariant = 'solid' | 'dashed' | 'dotted';\n\nconst separatorVariants = cva('block shrink-0 m-0 border-border', {\n  variants: {\n    orientation: {\n      horizontal: 'h-0 w-full',\n      vertical: 'h-[1em] w-0',\n    },\n    size: {\n      xs: '',\n      sm: '',\n      md: '',\n      lg: '',\n    },\n    variant: {\n      solid: 'border-solid',\n      dashed: 'border-dashed',\n      dotted: 'border-dotted',\n    },\n  },\n  compoundVariants: [\n    { orientation: 'horizontal', size: 'xs', class: 'border-t-[0.5px]' },\n    { orientation: 'horizontal', size: 'sm', class: 'border-t' },\n    { orientation: 'horizontal', size: 'md', class: 'border-t-2' },\n    { orientation: 'horizontal', size: 'lg', class: 'border-t-[3px]' },\n    { orientation: 'vertical', size: 'xs', class: 'border-s-[0.5px]' },\n    { orientation: 'vertical', size: 'sm', class: 'border-s' },\n    { orientation: 'vertical', size: 'md', class: 'border-s-2' },\n    { orientation: 'vertical', size: 'lg', class: 'border-s-[3px]' },\n  ],\n  defaultVariants: {\n    orientation: 'horizontal',\n    size: 'sm',\n    variant: 'solid',\n  },\n});\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n  orientation?: SeparatorOrientation;\n  role?: HTMLAttributes['role'];\n  size?: SeparatorSize;\n  variant?: SeparatorVariant;\n}\n\nconst {\n  class: className,\n  orientation = 'horizontal',\n  role,\n  size = 'sm',\n  variant = 'solid',\n} = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst resolvedRole = computed(() => role ?? 'separator');\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    :class=\"cn(separatorVariants({ orientation, size, variant }), className)\"\n    :role=\"resolvedRole\"\n    :aria-orientation=\"resolvedRole === 'separator' ? orientation : undefined\"\n    data-scope=\"separator\"\n    data-part=\"root\"\n    data-slot=\"separator-root\"\n    :data-orientation=\"orientation\"\n    :data-size=\"size\"\n    :data-variant=\"variant\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/separator/Separator.vue"
+    },
+    {
+      "path": "src/components/separator/index.ts",
+      "content": "import Separator from './Separator.vue';\n\nexport { Separator };",
+      "type": "registry:component",
+      "target": "@components/ui/separator/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

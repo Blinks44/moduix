@@ -69,7 +69,8 @@ Read [the component-page contract](component-pages.md) for the full structure. I
 7. `Examples`
 8. `Styling`, when the public styling contract is meaningful
 
-Accordion is the current structural reference. It is not the source of truth for which frameworks or styling variants ship.
+Accordion is the current structural reference. It is not the source of truth for public value
+naming, which is flat, or for which frameworks and styling variants ship.
 
 ## Utility pages
 
@@ -155,23 +156,23 @@ Do not add framework tabs to CSS, HTML, commands, or conceptual prose that is ge
 
 Animations is the reference for a system styling guide, Composition Patterns for API ownership, RTL for environment setup, and Update and migration for distribution workflows. These references establish information flow, not identical headings.
 
-## Recipe pages
+## Block pages
 
-Recipes are application-owned compositions assembled from shipped components. They demonstrate a complete product pattern, but they are not new components exported by moduix.
+Blocks are application-owned compositions installed through the shadcn registry. They demonstrate a complete product pattern, but they are not new components exported by moduix.
 
 Use this structure:
 
-1. state the product outcome, when the recipe fits, and the boundary between the copied composition and application-owned logic;
+1. state the product outcome, when the block fits, and the boundary between the installed composition and application-owned logic;
 2. show one complete live preview before the source;
-3. provide native source for every shipped framework that supports the recipe in `groupId="framework"` tabs, followed by shared styles outside those tabs;
-4. provide the registry installation and any extra dependencies through `ShadcnInstall`, `ShadcnInstallOptions`, or `PackageManagerTabs` without hardcoded package-manager commands;
+3. provide native source for every shipped framework that supports the block in `groupId="framework"` tabs, followed by shared styles outside those tabs;
+4. provide complete block installation through `BlockInstall`; its manifest includes the source, stylesheet, UI registry dependencies, and any additional packages;
 5. explain the smallest integration step for routes, data, authentication, uploads, or other product logic owned by the application;
-6. finish with only the customization, responsive, accessibility, motion, and production-state guidance that is specific to the recipe.
+6. finish with only the customization, responsive, accessibility, motion, and production-state guidance that is specific to the block.
 
 Label the documentation runtime honestly: `ExampleFrame` currently renders the React source, while the source tabs contain native implementations for the other supported shipped frameworks. Keep one framework-neutral stylesheet when the visual contract is shared. Do not place styles, fixtures, or conceptual prose inside framework tabs.
 
-Use `ExampleFrame variant="recipe"` for the preview. A recipe may use the full documentation canvas when its layout, spatial relationships, or responsive shell are part of the lesson. Wrap narrow flows such as authentication forms in `<PreviewFrame maxWidth="sm">`; keep that width consistent across locales.
+Use `ExampleFrame variant="block"` for the preview. A block may use the full documentation canvas when its layout, spatial relationships, or responsive shell are part of the lesson. Wrap narrow flows such as authentication forms in `<PreviewFrame maxWidth="sm">`; keep that width consistent across locales.
 
 Keep framework availability truthful. When an essential third-party dependency supports only one shipped framework, state the limitation near the beginning, show only the real implementation, and point other frameworks to the closest shipped or framework-neutral path. Do not create fictional parity by transliterating framework-specific hooks or types.
 
-Recipes is the overview reference. App Header and Sign in are the current references for a full-width application composition and a narrow product flow. Data Table is the reference for a multi-framework third-party integration with framework-specific packages and runtime APIs.
+Blocks is the overview reference. App Header and Sign in are the current references for a full-width application composition and a narrow product flow. Data Table is the reference for a multi-framework third-party integration with framework-specific packages and runtime APIs.

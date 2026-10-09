@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  Switch as SwitchPrimitive,
-  SwitchContext,
-  useSwitch,
-  useSwitchContext,
-} from '@ark-ui/react/switch';
+import { Switch as SwitchPrimitive, useSwitch, useSwitchContext } from '@ark-ui/react/switch';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
@@ -16,8 +11,8 @@ type SwitchRootProviderProps = ComponentProps<typeof SwitchPrimitive.RootProvide
   size?: SwitchSize;
 };
 
-const SwitchRoot = forwardRef<ComponentRef<typeof SwitchPrimitive.Root>, SwitchRootProps>(
-  function SwitchRoot({ className, size = 'md', ...props }, ref) {
+const Switch = forwardRef<ComponentRef<typeof SwitchPrimitive.Root>, SwitchRootProps>(
+  function Switch({ className, size = 'md', ...props }, ref) {
     return (
       <SwitchPrimitive.Root
         ref={ref}
@@ -59,7 +54,7 @@ const SwitchControl = forwardRef<
     <SwitchPrimitive.Control
       ref={ref}
       className={cn(
-        "[@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]:bg-accent relative inline-flex h-control-xs w-11 shrink-0 items-center rounded-full border border-border bg-muted p-0.5 leading-none outline-0 transition-[background-color,border-color,opacity] duration-200 ease-in-out select-none group-data-[size=lg]/switch:h-7 group-data-[size=lg]/switch:w-13 group-data-[size=sm]/switch:h-5 group-data-[size=sm]/switch:w-9 group-data-[size=xl]/switch:h-control-sm group-data-[size=xl]/switch:w-15 group-data-[size=xs]/switch:h-4 group-data-[size=xs]/switch:w-7 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:data-invalid:border-destructive motion-reduce:transition-none",
+        "relative inline-flex h-[var(--switch-height)] w-11 shrink-0 items-center rounded-full border border-border bg-muted p-0.5 leading-none outline-0 transition-[background-color,border-color,opacity] duration-200 ease-in-out select-none [--switch-height:var(--moduix-size-xs)] [--switch-thumb-size:calc(var(--switch-height)-var(--moduix-spacing-0-5)*2-2px)] group-data-[size=lg]/switch:w-13 group-data-[size=lg]/switch:[--switch-height:1.75rem] group-data-[size=sm]/switch:w-9 group-data-[size=sm]/switch:[--switch-height:1.25rem] group-data-[size=xl]/switch:w-15 group-data-[size=xl]/switch:[--switch-height:var(--moduix-size-sm)] group-data-[size=xs]/switch:w-7 group-data-[size=xs]/switch:[--switch-height:1rem] data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:data-invalid:border-destructive motion-reduce:transition-none [@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]]:bg-accent",
         className,
       )}
       {...props}
@@ -78,7 +73,7 @@ const SwitchThumb = forwardRef<
     <SwitchPrimitive.Thumb
       ref={ref}
       className={cn(
-        'inline-flex size-5 translate-x-0 items-center justify-center rounded-full border-transparent bg-background text-muted shadow-sm transition-[translate,background-color,color] duration-200 ease-in-out group-data-[size=lg]/switch:size-control-xs group-data-[size=sm]/switch:size-4 group-data-[size=xl]/switch:size-7 group-data-[size=xs]/switch:size-3 data-[state=checked]:translate-x-[18px] data-[state=checked]:bg-primary-foreground data-[state=checked]:text-primary group-data-[size=lg]/switch:data-[state=checked]:translate-x-[22px] group-data-[size=sm]/switch:data-[state=checked]:translate-x-[14px] group-data-[size=xl]/switch:data-[state=checked]:translate-x-[26px] group-data-[size=xs]/switch:data-[state=checked]:translate-x-[10px] motion-reduce:transition-none rtl:data-[state=checked]:-translate-x-[18px] group-data-[size=lg]/switch:rtl:data-[state=checked]:-translate-x-[22px] group-data-[size=sm]/switch:rtl:data-[state=checked]:-translate-x-[14px] group-data-[size=xl]/switch:rtl:data-[state=checked]:-translate-x-[26px] group-data-[size=xs]/switch:rtl:data-[state=checked]:-translate-x-[10px] [&>svg]:block [&>svg]:size-[65%] [&>svg]:shrink-0',
+        'absolute start-0.5 top-1/2 inline-flex size-[var(--switch-thumb-size)] shrink-0 translate-x-0 -translate-y-1/2 items-center justify-center rounded-full border-transparent bg-background text-muted shadow-sm transition-[inset-inline-start,translate,background-color,color] duration-200 ease-in-out data-[state=checked]:start-[calc(100%-var(--moduix-spacing-0-5))] data-[state=checked]:-translate-x-full data-[state=checked]:bg-primary-foreground data-[state=checked]:text-primary motion-reduce:transition-none [&:dir(rtl)]:data-[state=checked]:translate-x-full [&>svg]:block [&>svg]:size-[65%] [&>svg]:shrink-0',
         className,
       )}
       {...props}
@@ -101,15 +96,18 @@ const SwitchLabel = forwardRef<
   );
 });
 
-const Switch = Object.assign(SwitchRoot, {
-  Root: SwitchRoot,
-  RootProvider: SwitchRootProvider,
-  HiddenInput: SwitchPrimitive.HiddenInput,
-  Control: SwitchControl,
-  Thumb: SwitchThumb,
-  Label: SwitchLabel,
-  Context: SwitchContext,
-});
+const SwitchContext = SwitchPrimitive.Context;
+const SwitchHiddenInput = SwitchPrimitive.HiddenInput;
 
-export { Switch, useSwitch, useSwitchContext };
+export {
+  Switch,
+  SwitchContext,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+  SwitchRootProvider,
+  SwitchThumb,
+  useSwitch,
+  useSwitchContext,
+};
 export type { SwitchRootProps, SwitchRootProviderProps, SwitchSize };

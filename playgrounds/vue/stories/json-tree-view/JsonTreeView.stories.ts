@@ -1,0 +1,56 @@
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import { defineComponent } from 'vue';
+import { JsonTreeView, JsonTreeViewTree } from '@/components/json-tree-view';
+
+const release = {
+  build: {
+    branch: 'main',
+    commit: '0f4c9d7',
+    status: 'ready',
+  },
+  package: {
+    dependencies: ['@ark-ui/vue', '@moduix/vue'],
+    name: '@moduix/vue',
+    version: '2.3.0',
+  },
+};
+
+const meta = {
+  title: 'Utilities/JsonTreeView',
+  component: JsonTreeView,
+  args: {
+    data: release,
+    defaultExpandedDepth: 2,
+  },
+  render: (args) =>
+    defineComponent({
+      components: { JsonTreeView, JsonTreeViewTree },
+      setup() {
+        return { args };
+      },
+      template: `
+        <JsonTreeView v-bind="args">
+          <JsonTreeViewTree />
+        </JsonTreeView>
+      `,
+    }),
+} satisfies Meta<typeof JsonTreeView>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = {};
+
+export const CompactPreviews: Story = {
+  args: {
+    collapseStringsAfterLength: 28,
+    data: {
+      environment: 'production',
+      releaseNotes:
+        'This release makes long JSON values easier to inspect without expanding every property first.',
+      reviewers: ['Avery', 'Jordan', 'Morgan', 'Sam', 'Taylor'],
+    },
+    defaultExpandedDepth: 1,
+    maxPreviewItems: 3,
+  },
+};

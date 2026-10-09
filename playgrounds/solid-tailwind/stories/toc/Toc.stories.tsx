@@ -1,5 +1,17 @@
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Toc, useToc } from '@/components/toc/Toc';
+import {
+  Toc,
+  TocContent,
+  TocIndicator,
+  TocItem,
+  TocLink,
+  TocList,
+  TocNav,
+  TocRail,
+  TocRootProvider,
+  TocTitle,
+  useToc,
+} from '@/components/toc/Toc';
 
 const items = [
   { value: 'toc-story-introduction', depth: 2, label: 'Introduction' },
@@ -23,7 +35,7 @@ function TocExample(props: { withRail?: boolean }) {
 
   return (
     <Toc items={items} scrollEl={() => scrollRef}>
-      <Toc.Content>
+      <TocContent>
         <div
           ref={(element) => (scrollRef = element)}
           aria-label="Scrollable document preview"
@@ -39,28 +51,28 @@ function TocExample(props: { withRail?: boolean }) {
             </section>
           ))}
         </div>
-      </Toc.Content>
+      </TocContent>
 
-      <Toc.Nav>
-        <Toc.Title>On this page</Toc.Title>
-        <Toc.List>
-          {!props.withRail && <Toc.Indicator />}
+      <TocNav>
+        <TocTitle>On this page</TocTitle>
+        <TocList>
+          {!props.withRail && <TocIndicator />}
           {items.map((item, index) => (
-            <Toc.Item item={item}>
-              <Toc.Link href={`#${item.value}`}>
+            <TocItem item={item}>
+              <TocLink href={`#${item.value}`}>
                 {props.withRail && (
-                  <Toc.Rail
+                  <TocRail
                     depth={item.depth}
                     previousDepth={items[index - 1]?.depth}
                     nextDepth={items[index + 1]?.depth}
                   />
                 )}
                 {item.label}
-              </Toc.Link>
-            </Toc.Item>
+              </TocLink>
+            </TocItem>
           ))}
-        </Toc.List>
-      </Toc.Nav>
+        </TocList>
+      </TocNav>
     </Toc>
   );
 }
@@ -95,7 +107,7 @@ export const LeftPlacement: Story = {
 
     return (
       <Toc items={items} scrollEl={() => scrollRef}>
-        <Toc.Content>
+        <TocContent>
           <div
             ref={(element) => (scrollRef = element)}
             aria-label="Scrollable document preview"
@@ -111,18 +123,18 @@ export const LeftPlacement: Story = {
               </section>
             ))}
           </div>
-        </Toc.Content>
-        <Toc.Nav placement="left">
-          <Toc.Title>On this page</Toc.Title>
-          <Toc.List>
-            <Toc.Indicator />
+        </TocContent>
+        <TocNav placement="left">
+          <TocTitle>On this page</TocTitle>
+          <TocList>
+            <TocIndicator />
             {items.map((item) => (
-              <Toc.Item item={item}>
-                <Toc.Link href={`#${item.value}`}>{item.label}</Toc.Link>
-              </Toc.Item>
+              <TocItem item={item}>
+                <TocLink href={`#${item.value}`}>{item.label}</TocLink>
+              </TocItem>
             ))}
-          </Toc.List>
-        </Toc.Nav>
+          </TocList>
+        </TocNav>
       </Toc>
     );
   },
@@ -138,8 +150,8 @@ export const RootProvider: Story = {
     });
 
     return (
-      <Toc.RootProvider value={toc}>
-        <Toc.Content>
+      <TocRootProvider value={toc}>
+        <TocContent>
           <div
             ref={(element) => (scrollRef = element)}
             aria-label="Scrollable document preview"
@@ -155,19 +167,19 @@ export const RootProvider: Story = {
               </section>
             ))}
           </div>
-        </Toc.Content>
-        <Toc.Nav>
-          <Toc.Title>On this page</Toc.Title>
-          <Toc.List>
-            <Toc.Indicator />
+        </TocContent>
+        <TocNav>
+          <TocTitle>On this page</TocTitle>
+          <TocList>
+            <TocIndicator />
             {items.map((item) => (
-              <Toc.Item item={item}>
-                <Toc.Link href={`#${item.value}`}>{item.label}</Toc.Link>
-              </Toc.Item>
+              <TocItem item={item}>
+                <TocLink href={`#${item.value}`}>{item.label}</TocLink>
+              </TocItem>
             ))}
-          </Toc.List>
-        </Toc.Nav>
-      </Toc.RootProvider>
+          </TocList>
+        </TocNav>
+      </TocRootProvider>
     );
   },
 };

@@ -1,12 +1,47 @@
 import { createListCollection, useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Checkbox } from '@moduix/solid/checkbox';
-import { Combobox } from '@moduix/solid/combobox';
-import { Field } from '@moduix/solid/field';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/solid/card';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/solid/combobox';
+import { Field, FieldErrorText, FieldLabel, FieldRequiredIndicator } from '@moduix/solid/field';
 import { Input } from '@moduix/solid/input';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/solid/select';
 import { Textarea } from '@moduix/solid/textarea';
 import { createForm } from '@tanstack/solid-form';
 import { For } from 'solid-js';
@@ -70,12 +105,12 @@ export default function ProjectForm() {
       }}
     >
       <Card>
-        <Card.Header>
-          <Card.Title>Create project</Card.Title>
-          <Card.Description>Share the details your team needs to get started.</Card.Description>
-        </Card.Header>
+        <CardHeader>
+          <CardTitle>Create project</CardTitle>
+          <CardDescription>Share the details your team needs to get started.</CardDescription>
+        </CardHeader>
 
-        <Card.Body class={styles.fields}>
+        <CardBody class={styles.fields}>
           <form.Field
             name="name"
             validators={{
@@ -84,17 +119,17 @@ export default function ProjectForm() {
           >
             {(field) => (
               <Field invalid={!field().state.meta.isValid} required>
-                <Field.Label>
+                <FieldLabel>
                   Project name
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Input
                   name={field().name}
                   value={field().state.value}
                   onInput={(event) => field().handleChange(event.currentTarget.value)}
                   onBlur={field().handleBlur}
                 />
-                <Field.ErrorText>{field().state.meta.errors.join(', ')}</Field.ErrorText>
+                <FieldErrorText>{field().state.meta.errors.join(', ')}</FieldErrorText>
               </Field>
             )}
           </form.Field>
@@ -107,10 +142,10 @@ export default function ProjectForm() {
           >
             {(field) => (
               <Field invalid={!field().state.meta.isValid} required>
-                <Field.Label>
+                <FieldLabel>
                   Team
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Select
                   collection={teams}
                   name={field().name}
@@ -118,27 +153,27 @@ export default function ProjectForm() {
                   onValueChange={(details) => field().handleChange(details.value[0] ?? '')}
                   onInteractOutside={field().handleBlur}
                 >
-                  <Select.Control>
-                    <Select.Trigger>
-                      <Select.ValueText placeholder="Choose a team" />
-                    </Select.Trigger>
-                    <Select.Indicator />
-                  </Select.Control>
-                  <Select.Positioner>
-                    <Select.Content>
+                  <SelectControl>
+                    <SelectTrigger>
+                      <SelectValueText placeholder="Choose a team" />
+                    </SelectTrigger>
+                    <SelectIndicator />
+                  </SelectControl>
+                  <SelectPositioner>
+                    <SelectContent>
                       <For each={teams.items}>
                         {(item) => (
-                          <Select.Item item={item}>
-                            <Select.ItemText>{item.label}</Select.ItemText>
-                            <Select.ItemIndicator />
-                          </Select.Item>
+                          <SelectItem item={item}>
+                            <SelectItemText>{item.label}</SelectItemText>
+                            <SelectItemIndicator />
+                          </SelectItem>
                         )}
                       </For>
-                    </Select.Content>
-                  </Select.Positioner>
-                  <Select.HiddenSelect />
+                    </SelectContent>
+                  </SelectPositioner>
+                  <SelectHiddenSelect />
                 </Select>
-                <Field.ErrorText>{field().state.meta.errors.join(', ')}</Field.ErrorText>
+                <FieldErrorText>{field().state.meta.errors.join(', ')}</FieldErrorText>
               </Field>
             )}
           </form.Field>
@@ -151,10 +186,10 @@ export default function ProjectForm() {
           >
             {(field) => (
               <Field invalid={!field().state.meta.isValid} required>
-                <Field.Label>
+                <FieldLabel>
                   Reviewer
-                  <Field.RequiredIndicator />
-                </Field.Label>
+                  <FieldRequiredIndicator />
+                </FieldLabel>
                 <Combobox
                   collection={collection()}
                   name={field().name}
@@ -162,23 +197,23 @@ export default function ProjectForm() {
                   onValueChange={(details) => field().handleChange(details.value[0] ?? '')}
                   onInputValueChange={(details) => filter(details.inputValue)}
                 >
-                  <Combobox.Control>
-                    <Combobox.Input onBlur={field().handleBlur} placeholder="Search people" />
-                    <Combobox.ClearTrigger aria-label="Clear reviewer" />
-                    <Combobox.Trigger aria-label="Open reviewers" />
-                  </Combobox.Control>
-                  <Combobox.Positioner>
-                    <Combobox.Content>
-                      <Combobox.Empty>No reviewers found.</Combobox.Empty>
-                      <Combobox.List>
+                  <ComboboxControl>
+                    <ComboboxInput onBlur={field().handleBlur} placeholder="Search people" />
+                    <ComboboxClearTrigger aria-label="Clear reviewer" />
+                    <ComboboxTrigger aria-label="Open reviewers" />
+                  </ComboboxControl>
+                  <ComboboxPositioner>
+                    <ComboboxContent>
+                      <ComboboxEmpty>No reviewers found.</ComboboxEmpty>
+                      <ComboboxList>
                         <For each={collection().items}>
-                          {(item) => <Combobox.Option item={item}>{item.label}</Combobox.Option>}
+                          {(item) => <ComboboxOption item={item}>{item.label}</ComboboxOption>}
                         </For>
-                      </Combobox.List>
-                    </Combobox.Content>
-                  </Combobox.Positioner>
+                      </ComboboxList>
+                    </ComboboxContent>
+                  </ComboboxPositioner>
                 </Combobox>
-                <Field.ErrorText>{field().state.meta.errors.join(', ')}</Field.ErrorText>
+                <FieldErrorText>{field().state.meta.errors.join(', ')}</FieldErrorText>
               </Field>
             )}
           </form.Field>
@@ -186,7 +221,7 @@ export default function ProjectForm() {
           <form.Field name="summary">
             {(field) => (
               <Field>
-                <Field.Label>Summary</Field.Label>
+                <FieldLabel>Summary</FieldLabel>
                 <Textarea
                   name={field().name}
                   value={field().state.value}
@@ -207,15 +242,15 @@ export default function ProjectForm() {
                 onCheckedChange={(details) => field().handleChange(details.checked === true)}
                 onBlur={field().handleBlur}
               >
-                <Checkbox.Control />
-                <Checkbox.Label>Send status notifications</Checkbox.Label>
-                <Checkbox.HiddenInput />
+                <CheckboxControl />
+                <CheckboxLabel>Send status notifications</CheckboxLabel>
+                <CheckboxHiddenInput />
               </Checkbox>
             )}
           </form.Field>
-        </Card.Body>
+        </CardBody>
 
-        <Card.Footer>
+        <CardFooter>
           <form.Subscribe
             selector={(state) => ({
               canSubmit: state.canSubmit,
@@ -233,7 +268,7 @@ export default function ProjectForm() {
               </Button>
             )}
           </form.Subscribe>
-        </Card.Footer>
+        </CardFooter>
       </Card>
     </form>
   );

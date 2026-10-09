@@ -1,5 +1,14 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog } from '@moduix/solid/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContent,
+  DialogDescription,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/solid/dialog';
 import { createSignal } from 'solid-js';
 
 const users = [
@@ -30,7 +39,7 @@ export default function MultipleTriggersDialogDemo() {
       }}
     >
       {users.map((user) => (
-        <Dialog.Trigger
+        <DialogTrigger
           value={user.id}
           asChild={(props) => (
             <Button {...props()} variant="outline">
@@ -39,14 +48,14 @@ export default function MultipleTriggersDialogDemo() {
           )}
         />
       ))}
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Edit user</Dialog.Title>
-          <Dialog.Description>{activeUser()?.email}</Dialog.Description>
-          <Dialog.CloseIcon />
-        </Dialog.Content>
-      </Dialog.Positioner>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Edit user</DialogTitle>
+          <DialogDescription>{activeUser()?.email}</DialogDescription>
+          <DialogCloseIcon />
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

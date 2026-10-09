@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
 import styles from './Separator.module.css';
 
-type SeparatorRootProps = HTMLArkProps<'span'> & {
+type SeparatorProps = HTMLArkProps<'span'> & {
   orientation?: 'horizontal' | 'vertical';
   size?: 'xs' | 'sm' | 'md' | 'lg';
   variant?: 'solid' | 'dashed' | 'dotted';
@@ -16,7 +16,7 @@ type SeparatorRootProps = HTMLArkProps<'span'> & {
   'data-variant'?: string;
 };
 
-function SeparatorRoot(props: SeparatorRootProps) {
+function Separator(props: SeparatorProps) {
   const [local, others] = splitProps(props, [
     'aria-orientation',
     'asChild',
@@ -51,9 +51,5 @@ function SeparatorRoot(props: SeparatorRootProps) {
     />
   );
 }
-
-const Separator = Object.assign(SeparatorRoot, {
-  Root: SeparatorRoot,
-});
 
 export { Separator };

@@ -1,25 +1,35 @@
 import { Button } from '@moduix/react/button';
-import { Popover } from '@moduix/react/popover';
+import {
+  Popover,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@moduix/react/popover';
 
 export default function CloseBehaviorPopoverDemo() {
   return (
     <Popover closeOnEscape={false} closeOnInteractOutside={false}>
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>Open persistent popover</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Header>
-            <Popover.Title>Explicit close</Popover.Title>
-            <Popover.Description>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverHeader>
+            <PopoverTitle>Explicit close</PopoverTitle>
+            <PopoverDescription>
               Escape and outside interactions do not dismiss this popover.
-            </Popover.Description>
-          </Popover.Header>
-          <Popover.Footer>
-            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-          </Popover.Footer>
-        </Popover.Content>
-      </Popover.Positioner>
+            </PopoverDescription>
+          </PopoverHeader>
+          <PopoverFooter>
+            <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+          </PopoverFooter>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

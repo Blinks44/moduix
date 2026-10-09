@@ -1,4 +1,12 @@
-import { Accordion, useAccordion } from '@moduix/solid/accordion';
+import {
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemIndicator,
+  AccordionItemTrigger,
+  AccordionRootProvider,
+  useAccordion,
+} from '@moduix/solid/accordion';
 import styles from '@/components/examples/accordion/accordion-root-provider.module.css';
 
 const items = [
@@ -25,19 +33,19 @@ export default function RootProviderAccordionDemo() {
 
   return (
     <>
-      <Accordion.RootProvider class={styles.root} value={accordion}>
+      <AccordionRootProvider class={styles.root} value={accordion}>
         {items.map((item) => (
-          <Accordion.Item value={item.value}>
-            <Accordion.ItemTrigger>
+          <AccordionItem value={item.value}>
+            <AccordionItemTrigger>
               {item.title}
-              <Accordion.ItemIndicator />
-            </Accordion.ItemTrigger>
-            <Accordion.ItemContent>
-              <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
-            </Accordion.ItemContent>
-          </Accordion.Item>
+              <AccordionItemIndicator />
+            </AccordionItemTrigger>
+            <AccordionItemContent>
+              <AccordionItemBody>{item.description}</AccordionItemBody>
+            </AccordionItemContent>
+          </AccordionItem>
         ))}
-      </Accordion.RootProvider>
+      </AccordionRootProvider>
       <output>Open sections: {accordion().value.join(', ')}</output>
     </>
   );

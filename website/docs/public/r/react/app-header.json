@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "app-header",
+  "title": "App header",
+  "description": "Responsive header with navigation, command search, and an account menu.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/react-app-header.json"],
+  "files": [],
+  "type": "registry:block"
+}

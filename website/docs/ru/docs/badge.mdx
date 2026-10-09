@@ -19,6 +19,13 @@ import badgeSolidLongLabels from '../../../snippets/badge/solid/long-labels.tsx?
 import badgeSolidVariants from '../../../snippets/badge/solid/variants.tsx?raw';
 import badgeSolidWithDot from '../../../snippets/badge/solid/with-dot.tsx?raw';
 import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw';
+import badgeVueBasic from '../../../snippets/badge/vue/basic.vue?raw';
+import badgeVueCustomStyling from '../../../snippets/badge/vue/custom-styling.vue?raw';
+import badgeVueLink from '../../../snippets/badge/vue/link.vue?raw';
+import badgeVueLongLabels from '../../../snippets/badge/vue/long-labels.vue?raw';
+import badgeVueVariants from '../../../snippets/badge/vue/variants.vue?raw';
+import badgeVueWithDot from '../../../snippets/badge/vue/with-dot.vue?raw';
+import badgeVueWithIcon from '../../../snippets/badge/vue/with-icon.vue?raw';
 
 ## Справочник API
 
@@ -35,12 +42,14 @@ import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw'
 - Выбирайте **`Badge`** для коротких метаданных: статуса, категории, версии или количества.
 - Выбирайте **`Tag`** для выбранных значений, фильтров, назначений или меток, которые относятся к текущему состоянию интерфейса.
 
+Экспорты Vue доступны из `@moduix/vue/badge` для CSS Modules и `@moduix/vue-tailwind/badge` для Tailwind CSS.
+
 ## Базовый пример
 
 
 Начните с обычного `<Badge>`. По умолчанию компонент отображается как `span` и не добавляет интерактивного
 поведения. Укажите `variant`, чтобы выбрать `default`, `secondary`, `destructive`, `outline`, `ghost` или `link`,
-и добавляйте `Badge.Dot`, только если статусу нужен визуальный индикатор.
+и добавляйте `BadgeDot`, только если статусу нужен визуальный индикатор.
 
 <ExampleFrame variant="component">
   <BadgeBasic />
@@ -53,6 +62,7 @@ import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw'
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -65,6 +75,11 @@ import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw'
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -97,33 +112,45 @@ import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw'
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/badge' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/badge' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
-Запись `Badge` - это сокращённая форма `Badge.Root`. У компонента небольшой публичный API, состоящий только
-из видимых частей.
+`Badge` - корневой компонент семейства. Публичный API небольшой и включает только
+видимые части.
 
 ```text
-Badge / Badge.Root
-├─ Badge.Label (необязательно; используйте явно для усечения)
-├─ Badge.Dot (необязательно)
+Badge
+├─ BadgeLabel (необязательно; используйте явно для усечения)
+├─ BadgeDot (необязательно)
 └─ svg-иконка (необязательно)
 ```
 
-| Часть                  | Назначение                                                                              |
-| ---------------------- | --------------------------------------------------------------------------------------- |
-| `Badge` / `Badge.Root` | Корневая часть. Отвечает за вариант, границу и отступы.                                |
-| `Badge.Label`          | Явная часть с текстом. Позволяет обрезать составную подпись.                             |
-| `Badge.Dot`            | Декоративная часть. Рисует круглый индикатор, который наследует цвет текста.             |
+| Часть      | Назначение                                                                              |
+| ---------- | --------------------------------------------------------------------------------------- |
+| `Badge`    | Корневая часть. Отвечает за вариант, границу и отступы.                                |
+| `BadgeLabel` | Явная часть с текстом. Позволяет обрезать составную подпись.                           |
+| `BadgeDot` | Декоративная часть. Рисует круглый индикатор, который наследует цвет текста.             |
 
 ## Композиция
 
 `Badge` отображает данные и не владеет состоянием. Обычный дочерний текст остаётся без изменений;
-используйте `Badge.Label` явно, если подпись нужно усечь в ограниченном пространстве или объединить с
-`Badge.Dot` либо иконкой. Для семантической ссылки или кнопки в React передайте в `asChild` ровно один
+используйте `BadgeLabel` явно, если подпись нужно усечь в ограниченном пространстве или объединить с
+`BadgeDot` либо иконкой. Для семантической ссылки или кнопки в React передайте в `asChild` ровно один
 дочерний элемент. В Solid передайте в `asChild` функцию рендера - созданный элемент сохранит нативную
-семантику. `Badge.Root` - вариант `Badge` с явным пространством имён.
+семантику.
+
+В Vue поместите ровно один дочерний элемент в слот по умолчанию при использовании `as-child`; он сохранит нативную семантику.
 
 ## Примеры
 
@@ -143,6 +170,7 @@ Badge / Badge.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -155,6 +183,11 @@ Badge / Badge.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidCustomStyling} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueCustomStyling} />
 
     </Tab>
   </Tabs>
@@ -183,6 +216,7 @@ Badge / Badge.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -197,6 +231,11 @@ Badge / Badge.Root
 <CodeBlockRuntime lang="tsx" code={badgeSolidLink} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueLink} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -204,7 +243,7 @@ Badge / Badge.Root
 
 ### Длинные подписи
 
-Оберните длинное значение в `Badge.Label`, чтобы усечь его внутри ограниченного по ширине бейджа. Добавьте
+Оберните длинное значение в `BadgeLabel`, чтобы усечь его внутри ограниченного по ширине бейджа. Добавьте
 `title`, чтобы полное значение можно было увидеть при наведении курсора. На сенсорных устройствах выбирайте
 подпись, которая помещается в доступное пространство.
 
@@ -219,6 +258,7 @@ Badge / Badge.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -231,6 +271,11 @@ Badge / Badge.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidLongLabels} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueLongLabels} />
 
     </Tab>
   </Tabs>
@@ -258,6 +303,7 @@ Badge / Badge.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -272,6 +318,11 @@ Badge / Badge.Root
 <CodeBlockRuntime lang="tsx" code={badgeSolidVariants} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueVariants} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -284,7 +335,7 @@ Badge / Badge.Root
 
 ### С точкой
 
-Добавляйте `Badge.Dot`, когда рядом с подписью нужен визуально связанный индикатор статуса. Смысл статуса должен
+Добавляйте `BadgeDot`, когда рядом с подписью нужен визуально связанный индикатор статуса. Смысл статуса должен
 оставаться в видимом тексте, потому что точка декоративна.
 
 <ExampleFrame variant="component">
@@ -298,6 +349,7 @@ Badge / Badge.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -310,6 +362,11 @@ Badge / Badge.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidWithDot} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueWithDot} />
 
     </Tab>
   </Tabs>
@@ -337,6 +394,7 @@ Badge / Badge.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -349,6 +407,11 @@ Badge / Badge.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={badgeSolidWithIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueWithIcon} />
 
     </Tab>
   </Tabs>
@@ -370,8 +433,8 @@ Badge / Badge.Root
 для отдельного бейджа. Таблица CSS-переменных относится к пакетам с CSS Modules; в пакетах Tailwind используются
 обычные утилитарные классы и классы приложения.
 
-Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid. Стабильные
-хуки `data-slot` и атрибуты данных Ark общие для обоих подходов.
+Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue. Стабильные
+хуки `data-slot` и атрибуты данных Ark общие для всех подходов.
 
 ### CSS-свойства
 
@@ -380,8 +443,8 @@ Badge / Badge.Root
 ### Хуки стилизации
 
 - `data-slot="badge-root"`, `data-slot="badge-label"` и `data-slot="badge-dot"` - стабильные селекторы экспортируемых частей.
-- `Badge.Root` также предоставляет `data-scope="badge"` и `data-part="root"`. `Badge.Label` и `Badge.Dot` предоставляют `data-part="label"` и `data-part="dot"`.
-- `Badge.Root` записывает выбранный вариант в `data-variant`.
-- Фокусируемые элементы, созданные через `Badge asChild` или `Badge.Root asChild`, получают стандартное кольцо фокуса. Корневые ссылки также получают стили наведения и курсор-указатель; оформление взаимодействия кнопок остаётся ответственностью приложения.
+- `Badge` также предоставляет `data-scope="badge"` и `data-part="root"`. `BadgeLabel` и `BadgeDot` предоставляют `data-part="label"` и `data-part="dot"`.
+- `Badge` записывает выбранный вариант в `data-variant`.
+- Фокусируемые элементы, созданные через `Badge asChild`, получают стандартное кольцо фокуса. Корневые ссылки также получают стили наведения и курсор-указатель; оформление взаимодействия кнопок остаётся ответственностью приложения.
 - Дочерние `svg`-иконки наследуют `currentColor`, не получают события указателя и используют `--moduix-badge-icon-size`.
 - У Badge нет отдельного примитива или машины поведения Ark, поэтому он не предоставляет управляемые Ark-состояния и runtime CSS-переменные.

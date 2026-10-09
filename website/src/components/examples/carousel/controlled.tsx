@@ -1,4 +1,12 @@
-import { Carousel } from '@moduix/react/carousel';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/react/carousel';
 import { useState } from 'react';
 import styles from '@/components/examples/carousel/carousel-controlled.module.css';
 
@@ -41,18 +49,18 @@ export default function ControlledCarousel() {
       page={page}
       onPageChange={(details) => setPage(details.page)}
     >
-      <Carousel.ItemGroup className={styles.itemGroup} aria-label="Controlled gallery">
+      <CarouselItemGroup className={styles.itemGroup} aria-label="Controlled gallery">
         {slides.map((slide, index) => (
-          <Carousel.Item key={slide.id} index={index}>
+          <CarouselItem key={slide.id} index={index}>
             <img className={styles.image} src={slide.src} alt={slide.alt} />
-          </Carousel.Item>
+          </CarouselItem>
         ))}
-      </Carousel.ItemGroup>
-      <Carousel.Control className={styles.control}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-      <Carousel.Indicators />
+      </CarouselItemGroup>
+      <CarouselControl className={styles.control}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
+      <CarouselIndicators />
     </Carousel>
   );
 }

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pin-input",
+  "title": "PinInput",
+  "description": "moduix Vue PinInput component.",
+  "dependencies": ["@ark-ui/vue", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+  "files": [
+    {
+      "path": "src/components/pin-input/PinInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PinInputRoot as ArkPinInputRoot } from '@ark-ui/vue/pin-input';\nimport type { PinInputRootEmits, PinInputRootProps } from '@ark-ui/vue/pin-input';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './PinInput.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PinInputRootProps {\n  class?: HTMLAttributes['class'];\n  placeholder?: PinInputRootProps['placeholder'];\n}\n\nexport interface Emits extends /* @vue-ignore */ PinInputRootEmits {}\n\nconst { class: className, placeholder = '' } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPinInputRoot\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.root, className)\"\n    :placeholder=\"placeholder\"\n    data-slot=\"pin-input-root\"\n  >\n    <slot />\n  </ArkPinInputRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/pin-input/PinInput.vue"
+    },
+    {
+      "path": "src/components/pin-input/PinInputRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PinInputRootProvider as ArkPinInputRootProvider } from '@ark-ui/vue/pin-input';\nimport type { PinInputRootProviderProps } from '@ark-ui/vue/pin-input';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './PinInput.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PinInputRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: PinInputRootProviderProps['value'];\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPinInputRootProvider\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.root, className)\"\n    :value=\"value\"\n    data-slot=\"pin-input-root-provider\"\n  >\n    <slot />\n  </ArkPinInputRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/pin-input/PinInputRootProvider.vue"
+    },
+    {
+      "path": "src/components/pin-input/PinInputLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PinInputLabel as ArkPinInputLabel } from '@ark-ui/vue/pin-input';\nimport type { PinInputLabelProps } from '@ark-ui/vue/pin-input';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './PinInput.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PinInputLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPinInputLabel\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.label, className)\"\n    data-slot=\"pin-input-label\"\n  >\n    <slot />\n  </ArkPinInputLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/pin-input/PinInputLabel.vue"
+    },
+    {
+      "path": "src/components/pin-input/PinInputControl.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PinInputControl as ArkPinInputControl } from '@ark-ui/vue/pin-input';\nimport type { PinInputControlProps } from '@ark-ui/vue/pin-input';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './PinInput.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PinInputControlProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPinInputControl\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.control, className)\"\n    data-slot=\"pin-input-control\"\n  >\n    <slot />\n  </ArkPinInputControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/pin-input/PinInputControl.vue"
+    },
+    {
+      "path": "src/components/pin-input/PinInputInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PinInputInput as ArkPinInputInput } from '@ark-ui/vue/pin-input';\nimport type { PinInputInputProps } from '@ark-ui/vue/pin-input';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './PinInput.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PinInputInputProps {\n  class?: HTMLAttributes['class'];\n  index: number;\n}\n\nconst props = defineProps<Props>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPinInputInput\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.input, props.class)\"\n    :index=\"props.index\"\n    data-slot=\"pin-input-input\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/pin-input/PinInputInput.vue"
+    },
+    {
+      "path": "src/components/pin-input/PinInputInputs.vue",
+      "content": "<script setup lang=\"ts\">\nimport { usePinInputContext } from '@ark-ui/vue/pin-input';\nimport type { HTMLAttributes } from 'vue';\nimport PinInputInput from './PinInputInput.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\n\nconst pinInput = usePinInputContext();\n</script>\n\n<template>\n  <PinInputInput v-for=\"index in pinInput.items\" :key=\"index\" :class=\"className\" :index=\"index\" />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/pin-input/PinInputInputs.vue"
+    },
+    {
+      "path": "src/components/pin-input/PinInputSeparator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { SeparatorMarkIcon } from '@/lib/moduix/icons/ui/Icons';\nimport styles from './PinInput.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLAttributes {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <span\n    aria-hidden=\"true\"\n    role=\"presentation\"\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.separator, className)\"\n    data-slot=\"pin-input-separator\"\n  >\n    <slot><SeparatorMarkIcon /></slot>\n  </span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/pin-input/PinInputSeparator.vue"
+    },
+    {
+      "path": "src/components/pin-input/PinInput.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    display: inline-flex;\n    flex-direction: column;\n    align-items: flex-start;\n    gap: var(--moduix-pin-input-root-gap, var(--moduix-spacing-2));\n    width: var(--moduix-pin-input-width, auto);\n    max-width: var(--moduix-pin-input-max-width, none);\n\n    &[data-disabled] {\n      opacity: var(--moduix-pin-input-disabled-opacity, var(--moduix-opacity-disabled));\n    }\n  }\n\n  .label {\n    color: var(--moduix-pin-input-label-color, var(--moduix-color-foreground));\n    font-size: var(--moduix-pin-input-label-font-size, var(--moduix-text-sm));\n    font-weight: var(--moduix-pin-input-label-font-weight, var(--moduix-weight-medium));\n    line-height: var(--moduix-pin-input-label-line-height, var(--moduix-line-height-text-sm));\n  }\n\n  .control {\n    display: inline-flex;\n    align-items: center;\n    gap: var(--moduix-pin-input-gap, var(--moduix-spacing-2));\n  }\n\n  .input {\n    box-sizing: border-box;\n    flex: none;\n    width: var(\n      --moduix-pin-input-input-width,\n      var(--moduix-pin-input-input-size, var(--moduix-size-md))\n    );\n    height: var(\n      --moduix-pin-input-input-height,\n      var(--moduix-pin-input-input-size, var(--moduix-size-md))\n    );\n    margin: 0;\n    border: var(--moduix-pin-input-border-width, var(--moduix-border-width-sm)) solid\n      var(--moduix-pin-input-border-color, var(--moduix-color-border));\n    border-radius: var(--moduix-pin-input-radius, var(--moduix-radius-md));\n    padding-block: var(--moduix-pin-input-input-padding-y, 0);\n    padding-inline: var(--moduix-pin-input-input-padding-x, 0);\n    background-color: var(--moduix-pin-input-bg, var(--moduix-color-background));\n    color: var(--moduix-pin-input-color, var(--moduix-color-foreground));\n    font: inherit;\n    font-size: var(--moduix-pin-input-font-size, var(--moduix-text-lg));\n    font-weight: var(--moduix-pin-input-font-weight, var(--moduix-weight-medium));\n    line-height: var(--moduix-pin-input-line-height, var(--moduix-line-height-text-lg));\n    text-align: center;\n    font-variant-numeric: tabular-nums;\n    outline: var(\n        --moduix-pin-input-focus-ring-width,\n        var(\n          --moduix-pin-input-border-width,\n          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))\n        )\n      )\n      solid transparent;\n    outline-offset: var(\n      --moduix-pin-input-focus-ring-offset,\n      var(--moduix-focus-ring-inset-offset)\n    );\n    transition:\n      border-color var(--moduix-pin-input-transition, var(--moduix-transition-default)),\n      outline-color var(--moduix-pin-input-transition, var(--moduix-transition-default)),\n      background-color var(--moduix-pin-input-transition, var(--moduix-transition-default));\n\n    &::placeholder {\n      color: var(--moduix-pin-input-placeholder-color, var(--moduix-color-muted-foreground));\n    }\n\n    &:focus-visible {\n      outline-color: var(--moduix-pin-input-focus-ring-color, var(--moduix-color-ring));\n    }\n\n    &[data-complete] {\n      border-color: var(\n        --moduix-pin-input-border-color-complete,\n        var(--moduix-pin-input-border-color, var(--moduix-color-border))\n      );\n    }\n\n    &[data-invalid] {\n      border-color: var(--moduix-pin-input-border-color-invalid, var(--moduix-color-destructive));\n\n      &:focus-visible {\n        outline-color: var(\n          --moduix-pin-input-border-color-invalid,\n          var(--moduix-color-destructive)\n        );\n      }\n    }\n\n    &[data-disabled] {\n      pointer-events: none;\n    }\n  }\n\n  .separator {\n    display: inline-flex;\n    flex: none;\n    align-items: center;\n    justify-content: center;\n    width: var(\n      --moduix-pin-input-separator-width,\n      var(--moduix-pin-input-separator-size, var(--moduix-spacing-4))\n    );\n    height: var(\n      --moduix-pin-input-separator-height,\n      var(--moduix-pin-input-separator-size, var(--moduix-spacing-4))\n    );\n    color: var(--moduix-pin-input-separator-color, var(--moduix-color-muted-foreground));\n    line-height: 1;\n    pointer-events: none;\n\n    & > svg {\n      width: 100%;\n      height: 100%;\n      flex: none;\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/pin-input/PinInput.module.css"
+    },
+    {
+      "path": "src/components/pin-input/usePinInput.ts",
+      "content": "import { usePinInput as usePinInputPrimitive } from '@ark-ui/vue/pin-input';\nimport type { UsePinInputProps, UsePinInputReturn } from '@ark-ui/vue/pin-input';\nimport { computed, toValue } from 'vue';\nimport type { MaybeRef } from 'vue';\n\nconst usePinInput = (\n  props: MaybeRef<UsePinInputProps> = {},\n  emit?: Parameters<typeof usePinInputPrimitive>[1],\n): UsePinInputReturn =>\n  usePinInputPrimitive(\n    computed(() => ({\n      placeholder: '',\n      ...toValue(props),\n    })),\n    emit,\n  );\n\nexport default usePinInput;",
+      "type": "registry:file",
+      "target": "@components/ui/pin-input/usePinInput.ts"
+    },
+    {
+      "path": "src/components/pin-input/index.ts",
+      "content": "import { PinInputContext, PinInputHiddenInput, usePinInputContext } from '@ark-ui/vue/pin-input';\nimport PinInput from './PinInput.vue';\nimport PinInputControl from './PinInputControl.vue';\nimport PinInputInput from './PinInputInput.vue';\nimport PinInputInputs from './PinInputInputs.vue';\nimport PinInputLabel from './PinInputLabel.vue';\nimport PinInputRootProvider from './PinInputRootProvider.vue';\nimport PinInputSeparator from './PinInputSeparator.vue';\nimport usePinInput from './usePinInput';\n\nexport {\n  PinInput,\n  PinInputContext,\n  PinInputControl,\n  PinInputHiddenInput,\n  PinInputInput,\n  PinInputInputs,\n  PinInputLabel,\n  PinInputRootProvider,\n  PinInputSeparator,\n  usePinInput,\n  usePinInputContext,\n};\n\nexport type {\n  PinInputContextProps,\n  PinInputControlBaseProps,\n  PinInputControlProps,\n  PinInputHiddenInputBaseProps,\n  PinInputHiddenInputProps,\n  PinInputInputBaseProps,\n  PinInputInputProps,\n  PinInputLabelBaseProps,\n  PinInputLabelProps,\n  PinInputRootBaseProps,\n  PinInputRootEmits,\n  PinInputRootProps,\n  PinInputRootProviderBaseProps,\n  PinInputRootProviderProps,\n  PinInputValueChangeDetails,\n  PinInputValueInvalidDetails,\n  UsePinInputContext,\n  UsePinInputProps,\n  UsePinInputReturn,\n} from '@ark-ui/vue/pin-input';\n\nexport type { Emits as PinInputEmits } from './PinInput.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/pin-input/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

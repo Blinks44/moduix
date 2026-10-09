@@ -1,0 +1,16 @@
+.content {
+  display: grid;
+  height: 26rem;
+  gap: var(--moduix-spacing-3);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+}
+
+.section {
+  padding: var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+}

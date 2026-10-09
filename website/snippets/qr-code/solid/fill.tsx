@@ -1,4 +1,4 @@
-import { QrCode } from '@moduix/solid/qr-code';
+import { QrCode, QrCodeFrame, QrCodePattern } from '@moduix/solid/qr-code';
 
 const fills = [
   { label: 'Primary', color: 'var(--moduix-color-primary)' },
@@ -10,13 +10,13 @@ export default function FillQrCodeDemo() {
     <>
       {fills.map((fill) => (
         <QrCode defaultValue="https://moduix.dev/docs/qr-code">
-          <QrCode.Frame
+          <QrCodeFrame
             style={`color: ${fill.color}`}
             role="img"
             aria-label={`${fill.label} QR code`}
           >
-            <QrCode.Pattern />
-          </QrCode.Frame>
+            <QrCodePattern />
+          </QrCodeFrame>
         </QrCode>
       ))}
     </>

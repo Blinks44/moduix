@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Field } from '@/components/field/Field';
+import { Field, FieldErrorText, FieldHelperText, FieldLabel } from '@/components/field/Field';
 import { Input } from '@/components/input/Input';
 
 const meta = {
@@ -22,8 +22,8 @@ const fieldClassName = 'w-64';
 export const Basic: Story = {
   render: () => (
     <Field className={fieldClassName}>
-      <Field.Label>Name</Field.Label>
-      <Field.HelperText>Used in your public workspace profile.</Field.HelperText>
+      <FieldLabel>Name</FieldLabel>
+      <FieldHelperText>Used in your public workspace profile.</FieldHelperText>
       <Input placeholder="Enter your name" />
     </Field>
   ),
@@ -35,7 +35,7 @@ export const Controlled: Story = {
 
     return (
       <Field className={fieldClassName}>
-        <Field.Label>Username</Field.Label>
+        <FieldLabel>Username</FieldLabel>
         <Input
           value={value}
           onChange={(event) => setValue(event.currentTarget.value)}
@@ -61,7 +61,7 @@ export const Sizes: Story = {
 export const NativeAttributes: Story = {
   render: () => (
     <Field className={fieldClassName}>
-      <Field.Label>Security code</Field.Label>
+      <FieldLabel>Security code</FieldLabel>
       <Input
         htmlSize={8}
         inputMode="numeric"
@@ -78,9 +78,9 @@ export const NativeAttributes: Story = {
 export const File: Story = {
   render: () => (
     <Field className={fieldClassName}>
-      <Field.Label>Attachment</Field.Label>
+      <FieldLabel>Attachment</FieldLabel>
       <Input accept=".pdf,.png" type="file" />
-      <Field.HelperText>Choose a PDF or PNG file.</Field.HelperText>
+      <FieldHelperText>Choose a PDF or PNG file.</FieldHelperText>
     </Field>
   ),
 };
@@ -88,7 +88,7 @@ export const File: Story = {
 export const AsChild: Story = {
   render: () => (
     <Field className={fieldClassName}>
-      <Field.Label>Repository</Field.Label>
+      <FieldLabel>Repository</FieldLabel>
       <Input asChild>
         <input name="repository" placeholder="owner/project" />
       </Input>
@@ -108,9 +108,9 @@ export const DisabledAndReadOnly: Story = {
 export const WithFieldValidation: Story = {
   render: () => (
     <Field className={fieldClassName} invalid>
-      <Field.Label>Email</Field.Label>
+      <FieldLabel>Email</FieldLabel>
       <Input type="email" placeholder="name@example.com" />
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>
   ),
 };
@@ -118,7 +118,7 @@ export const WithFieldValidation: Story = {
 export const CustomStyles: Story = {
   render: () => (
     <Field className={fieldClassName}>
-      <Field.Label>Project key</Field.Label>
+      <FieldLabel>Project key</FieldLabel>
       <Input
         placeholder="MAPS"
         className="border-primary/40 bg-primary/5 tracking-normal text-primary uppercase placeholder:normal-case focus-visible:outline-primary"

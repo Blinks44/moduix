@@ -1,13 +1,17 @@
 ---
 title: Locale
-description: Provide locale and text direction to Ark formatters and locale-aware content in React or Solid.
+description: Provide locale and text direction to Ark formatters and locale-aware content in React, Solid, or Vue.
 ---
 
 import LocaleBasic from '@/components/examples/locale/basic.tsx';
 import LocaleContext from '@/components/examples/locale/context.tsx';
 import localeSolidBasic from '../../../snippets/locale/solid/basic.tsx?raw';
+import localeVueBasic from '../../../snippets/locale/vue/basic.vue?raw';
 import localeSolidContext from '../../../snippets/locale/solid/context.tsx?raw';
+import localeVueContext from '../../../snippets/locale/vue/context.vue?raw';
+import localeVueContextHelper from '../../../snippets/locale/vue/LocaleSection.vue?raw';
 import localeSolidDocument from '../../../snippets/locale/solid/document.tsx?raw';
+import localeVueDocument from '../../../snippets/locale/vue/document.vue?raw';
 
 `LocaleProvider` supplies a locale and its text direction to a subtree. Ark formatters and locale-aware content use
 that context.
@@ -16,33 +20,41 @@ that context.
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/locale" />
 
-Import the utility from the matching Ark UI package:
+Import the utility from the matching moduix package, which re-exports the Ark UI locale provider:
 
 <Tabs
   groupId="framework"
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
   <Tab value="react">
 
 ```tsx
-import { LocaleProvider, useLocaleContext } from '@ark-ui/react/locale';
+import { LocaleProvider, useLocaleContext } from '@moduix/react/locale';
 ```
 
   </Tab>
   <Tab value="solid">
 
 ```tsx
-import { LocaleProvider, useLocaleContext } from '@ark-ui/solid/locale';
+import { LocaleProvider, useLocaleContext } from '@moduix/solid/locale';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { LocaleProvider, useLocaleContext } from '@moduix/vue/locale';
 ```
 
   </Tab>
 </Tabs>
 
-`Format.Number`, `Format.Time`, and other `Format` utilities remain imports from `@ark-ui/react` or `@ark-ui/solid`.
+`Format.Number`, `Format.Time`, and other `Format` utilities remain imports from `@ark-ui/react`, `@ark-ui/solid`, or `@ark-ui/vue`.
 
 ## Set a locale
 
@@ -62,6 +74,7 @@ the same context.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -76,6 +89,11 @@ the same context.
 <CodeBlockRuntime lang="tsx" code={localeSolidBasic} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={localeVueBasic} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
@@ -86,7 +104,7 @@ the same context.
 
 `useLocaleContext` returns `locale` and `dir` from the nearest provider. Use them when custom content must follow the
 same language and direction as locale-aware components. React reads the values directly; Solid reads them from an
-accessor.
+accessor. Vue returns a computed ref: use `.value` in setup code; templates unwrap it automatically.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -101,6 +119,7 @@ accessor.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -113,6 +132,13 @@ accessor.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={localeSolidContext} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={localeVueContext} title="context.vue" />
+
+<CodeBlockRuntime lang="vue" code={localeVueContextHelper} title="LocaleSection.vue" />
 
     </Tab>
   </Tabs>
@@ -130,6 +156,7 @@ attributes. Set both on the document root when the whole application uses one di
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -142,6 +169,11 @@ attributes. Set both on the document root when the whole application uses one di
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={localeSolidDocument} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={localeVueDocument} />
 
     </Tab>
   </Tabs>

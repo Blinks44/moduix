@@ -3,6 +3,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Breadcrumbs.module.css';
 
@@ -17,12 +18,12 @@ type BreadcrumbsPathProps = Omit<HTMLArkProps<'ol'>, 'asChild' | 'children'> & {
   separator?: JSX.Element;
 };
 
-function BreadcrumbsRoot(props: HTMLArkProps<'nav'>) {
+function Breadcrumbs(props: HTMLArkProps<'nav'>) {
   const [local, others] = splitProps(props, ['aria-label', 'class']);
 
   return (
     <ark.nav
-      aria-label={local['aria-label'] === undefined ? 'Breadcrumb' : local['aria-label']}
+      aria-label={local['aria-label'] === undefined ? a11yLabels.breadcrumb : local['aria-label']}
       {...others}
       data-slot="breadcrumbs-root"
       class={clsx(styles.root, local.class)}
@@ -117,15 +118,13 @@ function BreadcrumbsEllipsis(props: HTMLArkProps<'span'>) {
   );
 }
 
-const Breadcrumbs = Object.assign(BreadcrumbsRoot, {
-  Root: BreadcrumbsRoot,
-  List: BreadcrumbsList,
-  Item: BreadcrumbsItem,
-  Link: BreadcrumbsLink,
-  Path: BreadcrumbsPath,
-  Page: BreadcrumbsPage,
-  Separator: BreadcrumbsSeparator,
-  Ellipsis: BreadcrumbsEllipsis,
-});
-
-export { Breadcrumbs };
+export {
+  Breadcrumbs,
+  BreadcrumbsEllipsis,
+  BreadcrumbsItem,
+  BreadcrumbsLink,
+  BreadcrumbsList,
+  BreadcrumbsPage,
+  BreadcrumbsPath,
+  BreadcrumbsSeparator,
+};

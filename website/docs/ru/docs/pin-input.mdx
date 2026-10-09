@@ -23,6 +23,15 @@ import pinInputSolidMasking from '../../../snippets/pin-input/solid/masking.tsx?
 import pinInputSolidOtpMode from '../../../snippets/pin-input/solid/otp-mode.tsx?raw';
 import pinInputSolidPlaceholder from '../../../snippets/pin-input/solid/placeholder.tsx?raw';
 import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-provider.tsx?raw';
+import pinInputVueBasic from '../../../snippets/pin-input/vue/basic.vue?raw';
+import pinInputVueBlurOnComplete from '../../../snippets/pin-input/vue/blur-on-complete.vue?raw';
+import pinInputVueChangeEvents from '../../../snippets/pin-input/vue/change-events.vue?raw';
+import pinInputVueField from '../../../snippets/pin-input/vue/field.vue?raw';
+import pinInputVueGroupedLayout from '../../../snippets/pin-input/vue/grouped-layout.vue?raw';
+import pinInputVueMasking from '../../../snippets/pin-input/vue/masking.vue?raw';
+import pinInputVueOtpMode from '../../../snippets/pin-input/vue/otp-mode.vue?raw';
+import pinInputVuePlaceholder from '../../../snippets/pin-input/vue/placeholder.vue?raw';
+import pinInputVueRootProvider from '../../../snippets/pin-input/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -33,15 +42,13 @@ import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-pr
 Используйте `PinInput`, если короткий код фиксированной длины нужно вводить по одному символу в отдельных ячейках.
 
 - Выбирайте **`PinInput`** для одноразовых кодов, PIN-кодов, резервных кодов и кодов приглашений.
-- Выбирайте **`Input`**, когда достаточно одного обычного текстового поля.
+- Выбирайте **`PinInputInput`**, когда достаточно одного обычного текстового поля.
 - Выбирайте **`PasswordInput`**, когда значение представляет собой одну секретную строку с переключателем видимости.
 
 ## Базовый пример
 
-Интерактивное  Настройку пакета и выбор способа стилизации см. в [Quick Start](/docs/quick-start).
-
-Используйте `PinInput` как корневой компонент и явно задайте `count`. Добавьте `Label` для доступного имени,
-поместите `Inputs` внутрь `Control` и явно добавьте `HiddenInput`, если значение должно участвовать в работе
+Используйте `PinInput` как корневой компонент и явно задайте `count`. Добавьте `PinInputLabel` для доступного имени,
+поместите `PinInputInputs` внутрь `PinInputControl` и явно добавьте `PinInputHiddenInput`, если значение должно участвовать в работе
 нативной формы.
 
 <ExampleFrame variant="component">
@@ -55,6 +62,7 @@ import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-pr
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -67,6 +75,11 @@ import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-pr
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,48 +112,63 @@ import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-pr
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pin-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pin-input' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-PinInput / PinInput.Root
-├─ PinInput.Label
-├─ PinInput.Control
-│  ├─ PinInput.Input[index=0]
-│  ├─ PinInput.Input[index=1]
-│  └─ PinInput.Input[index=2]
-└─ PinInput.HiddenInput (явно)
+PinInput
+├─ PinInputLabel
+├─ PinInputControl
+│  ├─ PinInputInput[index=0]
+│  ├─ PinInputInput[index=1]
+│  └─ PinInputInput[index=2]
+└─ PinInputHiddenInput (явно)
 
-PinInput.RootProvider
+PinInputRootProvider
 └─ то же дерево частей, связанное с состоянием usePinInput()
 ```
 
 | Часть | Назначение |
 | --- | --- |
-| `PinInput` / `PinInput.Root` | Управляет количеством ячеек, состоянием значения, проверкой и параметрами формы. |
-| `PinInput.HiddenInput` | Нативное поле Ark, которое нужно добавлять явно. |
-| `PinInput.RootProvider` | Подключает части к состоянию, созданному через `usePinInput()`. |
-| `PinInput.Context` | Передаёт текущее состояние корневого компонента потомкам через render prop. |
-| `PinInput.Label` | Задаёт подпись для группы PIN-кода или кода подтверждения. |
-| `PinInput.Control` | Контейнер видимых ячеек с индексами. |
-| `PinInput.Input` | Одна видимая ячейка для символа. Передайте индекс, начиная с нуля. |
-| `PinInput.Inputs` | Создаёт по одному `Input` с индексом для каждой ячейки контекста Ark. |
-| `PinInput.Separator` | Декоративный вспомогательный компонент moduix для группировки, а не часть примитива Ark. |
-| `usePinInput` | Создаёт состояние для `PinInput.RootProvider`. |
+| `PinInput` | Управляет количеством ячеек, состоянием значения, проверкой и параметрами формы. |
+| `PinInputHiddenInput` | Нативное поле Ark, которое нужно добавлять явно. |
+| `PinInputRootProvider` | Подключает части к состоянию, созданному через `usePinInput()`. |
+| `PinInputContext` | Передаёт текущее состояние корневого компонента потомкам через render prop. |
+| `PinInputLabel` | Задаёт подпись для группы PIN-кода или кода подтверждения. |
+| `PinInputControl` | Контейнер видимых ячеек с индексами. |
+| `PinInputInput` | Одна видимая ячейка для символа. Передайте индекс, начиная с нуля. |
+| `PinInputInputs` | Создаёт по одному `PinInputInput` с индексом для каждой ячейки контекста Ark. |
+| `PinInputSeparator` | Декоративный вспомогательный компонент moduix для группировки, а не часть примитива Ark. |
+| `usePinInput` | Создаёт состояние для `PinInputRootProvider`. |
 | `usePinInputContext` | Читает текущее состояние Pin Input внутри дерева компонента. |
 
 ## Композиция
 
-Явно добавьте `PinInput.HiddenInput` внутрь `PinInput` или `PinInput.RootProvider`, если значение должно
+Явно добавьте `PinInputHiddenInput` внутрь `PinInput` или `PinInputRootProvider`, если значение должно
 отправляться с нативной формой и сбрасываться вместе с ней. Задайте корню `name`, а `form` используйте, если
 форма находится вне дерева компонента.
 
-`PinInput.Inputs` создаёт по одной индексированной ячейке для каждого элемента контекста Ark. Используйте явные
-части `Input` с непрерывными индексами от нуля и `Separator`, если код нужно разделить на группы. Значения
-представлены массивом строк. Используйте `RootProvider` с `usePinInput`, когда состоянием или императивными
-методами нужно управлять за пределами дерева компонентов. В React передаётся объект состояния, а в Solid
-реактивный accessor.
+`PinInputInputs` создаёт по одной индексированной ячейке для каждого элемента контекста Ark. Используйте явные
+части `PinInputInput` с непрерывными индексами от нуля и `PinInputSeparator`, если код нужно разделить на группы. Значения
+представлены массивом строк. Используйте `PinInputRootProvider` с `usePinInput`, когда состоянием или императивными
+методами нужно управлять за пределами дерева компонентов. В React передаётся объект состояния. В Solid вызывайте реактивную функцию доступа, а в Vue читайте
+состояние непосредственно в шаблоне.
+
+Ark управляет переводом фокуса, распределением вставленного текста, редактированием с клавиатуры и
+автозаполнением одноразовых кодов; добавьте `PinInputLabel`, чтобы у группы было доступное имя.
+`PinInputSeparator` по умолчанию декоративный и получает `aria-hidden` и `role="presentation"`, поэтому
+содержательный текст размещайте вне него.
 
 ## Примеры
 
@@ -156,7 +184,7 @@ PinInput.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -168,6 +196,11 @@ PinInput.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidBlurOnComplete} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueBlurOnComplete} />
 
     </Tab>
   </Tabs>
@@ -187,7 +220,7 @@ PinInput.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -199,6 +232,11 @@ PinInput.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidChangeEvents} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueChangeEvents} />
 
     </Tab>
   </Tabs>
@@ -224,7 +262,7 @@ PinInput.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -236,6 +274,11 @@ PinInput.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueField} />
 
     </Tab>
   </Tabs>
@@ -250,7 +293,7 @@ PinInput.RootProvider
 
 ### Сгруппированная раскладка
 
-Используйте явные части `Input` с `Separator`, если разделитель должен разделить код на группы. Индексы должны
+Используйте явные части `PinInputInput` с `PinInputSeparator`, если разделитель должен разделить код на группы. Индексы должны
 идти непрерывно во всей композиции.
 
 <ExampleFrame variant="component">
@@ -261,7 +304,7 @@ PinInput.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -273,6 +316,11 @@ PinInput.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidGroupedLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueGroupedLayout} />
 
     </Tab>
   </Tabs>
@@ -292,7 +340,7 @@ PinInput.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -304,6 +352,11 @@ PinInput.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidMasking} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueMasking} />
 
     </Tab>
   </Tabs>
@@ -324,7 +377,7 @@ PinInput.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -336,6 +389,11 @@ PinInput.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={pinInputSolidOtpMode} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueOtpMode} />
 
     </Tab>
   </Tabs>
@@ -356,7 +414,7 @@ PinInput.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -370,15 +428,20 @@ PinInput.RootProvider
 <CodeBlockRuntime lang="tsx" code={pinInputSolidPlaceholder} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVuePlaceholder} />
+
+    </Tab>
   </Tabs>
 </div>
 
 </ExampleCode>
 
-### Расширенная настройка
+### Root Provider
 
-Используйте `usePinInput` с `RootProvider`, когда состоянием и императивными методами нужно управлять за пределами
-дерева компонентов. В этом примере `Inputs` заменён явными частями `Input` с индексами.
+Используйте `usePinInput` с `PinInputRootProvider`, когда состоянием и императивными методами нужно управлять за пределами
+дерева компонентов. В этом примере `PinInputInputs` заменён явными частями `PinInputInput` с индексами.
 
 <ExampleFrame variant="component">
   <PinInputRootProvider />
@@ -388,7 +451,7 @@ PinInput.RootProvider
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -402,6 +465,11 @@ PinInput.RootProvider
 <CodeBlockRuntime lang="tsx" code={pinInputSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueRootProvider} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -411,14 +479,6 @@ PinInput.RootProvider
 </div>
 
 </ExampleCode>
-
-## Доступность
-
-Ark управляет переводом фокуса, распределением вставленного текста, редактированием с клавиатуры, данными формы
-и автозаполнением одноразовых кодов. Добавьте `Label`, чтобы у группы было доступное имя.
-
-`PinInput.Separator` по умолчанию является декоративным и получает `aria-hidden` и `role="presentation"`. Не
-размещайте внутри него содержательный текст.
 
 ## Стилизация
 
@@ -441,11 +501,11 @@ Ark управляет переводом фокуса, распределени
 
 ### Хуки стилизации
 
-- Корневой элемент и `RootProvider` имеют `data-slot="pin-input-root"` и `data-slot="pin-input-root-provider"`.
-- `Label`, `Control` и `Input` имеют `data-slot="pin-input-label"`, `data-slot="pin-input-control"` и
+- Корневой элемент и `PinInputRootProvider` имеют `data-slot="pin-input-root"` и `data-slot="pin-input-root-provider"`.
+- `PinInputLabel`, `PinInputControl` и `PinInputInput` имеют `data-slot="pin-input-label"`, `data-slot="pin-input-control"` и
   `data-slot="pin-input-input"`.
 - Части Ark используют `data-scope="pin-input"` и `data-part="root" | "label" | "control" | "input"`.
 - Для стилей состояния корня используются `data-disabled`, `data-invalid`, `data-complete` и `data-readonly`.
 - Для стилей состояния ячейки используются `data-disabled`, `data-invalid`, `data-complete`, `data-filled` и
   `data-index`.
-- `PinInput.Separator` имеет `data-slot="pin-input-separator"` и по умолчанию является декоративным.
+- `PinInputSeparator` имеет `data-slot="pin-input-separator"` и по умолчанию является декоративным.

@@ -151,6 +151,24 @@
     var(--moduix-transition-default);
   --animate-moduix-collapsible-closed-partial: moduix-collapsible-content-closed-partial
     var(--moduix-transition-default);
+  --animate-moduix-lightbox-backdrop-in: moduix-lightbox-backdrop-in
+    var(--moduix-transition-default);
+  --animate-moduix-lightbox-backdrop-out: moduix-lightbox-backdrop-out
+    var(--moduix-transition-default);
+  --animate-moduix-lightbox-content-in: moduix-lightbox-content-in
+    var(--moduix-popup-motion-duration, 220ms) var(--moduix-popup-motion-easing, ease);
+  --animate-moduix-lightbox-content-out: moduix-lightbox-content-out
+    var(--moduix-popup-motion-duration, 220ms) var(--moduix-popup-motion-easing, ease);
+  --animate-moduix-command-palette-backdrop-in: moduix-command-palette-backdrop-in
+    var(--moduix-transition-default);
+  --animate-moduix-command-palette-backdrop-out: moduix-command-palette-backdrop-out
+    var(--moduix-transition-default) forwards;
+  --animate-moduix-command-palette-content-in: moduix-command-palette-content-in
+    var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+    var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+  --animate-moduix-command-palette-content-out: moduix-command-palette-content-out
+    var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+    var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
   --animate-moduix-menu-open: moduix-menu-content-open var(--moduix-transition-default);
   --animate-moduix-menu-closed: moduix-menu-content-closed var(--moduix-transition-default);
   --animate-moduix-navigation-menu-content-from-start: moduix-navigation-menu-content-from-start

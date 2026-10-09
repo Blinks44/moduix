@@ -29,23 +29,22 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Setup pnpm and Node.js
-        uses: pnpm/setup@v1
+        uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3
         with:
-          runtime: node@24
           cache: true
-          install: false
+          require-lockfile: true
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
+      # Publishing authenticates through npm trusted publishing (OIDC). Every published
+      # package must list this repository and workflow as a trusted publisher in its npm
+      # settings; NPM_CONFIG_PROVENANCE additionally attaches a provenance attestation.
       - name: Create release PR or publish packages
-        uses: changesets/action@v2
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           version-script: pnpm run changeset:version
@@ -54,3 +53,5 @@ jobs:
           pr-title: 'chore(release): version packages'
           create-github-releases: true
           push-git-tags: true
+        env:
+          NPM_CONFIG_PROVENANCE: true

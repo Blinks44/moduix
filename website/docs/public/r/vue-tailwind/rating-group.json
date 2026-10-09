@@ -1,0 +1,63 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rating-group",
+  "title": "RatingGroup",
+  "description": "moduix Vue Tailwind RatingGroup component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons"
+  ],
+  "files": [
+    {
+      "path": "src/components/rating-group/RatingGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { RatingGroupRoot as ArkRatingGroupRoot } from '@ark-ui/vue/rating-group';\nimport type {\n  RatingGroupRootEmits,\n  RatingGroupRootProps as ArkRatingGroupRootProps,\n} from '@ark-ui/vue/rating-group';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport type RatingGroupSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n\nexport interface RatingGroupRootProps extends /* @vue-ignore */ ArkRatingGroupRootProps {\n  class?: HTMLAttributes['class'];\n  size?: RatingGroupSize;\n}\n\nexport interface Emits extends /* @vue-ignore */ RatingGroupRootEmits {}\n\nconst { class: className, size = 'md' } = defineProps<RatingGroupRootProps>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass = 'group/rating-group inline-flex flex-col gap-1 text-muted-foreground';\n</script>\n\n<template>\n  <ArkRatingGroupRoot\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    :data-size=\"size\"\n    data-slot=\"rating-group-root\"\n  >\n    <slot />\n  </ArkRatingGroupRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/rating-group/RatingGroup.vue"
+    },
+    {
+      "path": "src/components/rating-group/RatingGroupRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { RatingGroupRootProvider as ArkRatingGroupRootProvider } from '@ark-ui/vue/rating-group';\nimport type { RatingGroupRootProviderProps as ArkRatingGroupRootProviderProps } from '@ark-ui/vue/rating-group';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport type { RatingGroupSize } from './RatingGroup.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface RatingGroupRootProviderProps\n  extends /* @vue-ignore */ ArkRatingGroupRootProviderProps {\n  class?: HTMLAttributes['class'];\n  size?: RatingGroupSize;\n  value: ArkRatingGroupRootProviderProps['value'];\n}\n\nconst { class: className, size = 'md', value } = defineProps<RatingGroupRootProviderProps>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass = 'group/rating-group inline-flex flex-col gap-1 text-muted-foreground';\n</script>\n\n<template>\n  <ArkRatingGroupRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    :data-size=\"size\"\n    :value=\"value\"\n    data-slot=\"rating-group-root-provider\"\n  >\n    <slot />\n  </ArkRatingGroupRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/rating-group/RatingGroupRootProvider.vue"
+    },
+    {
+      "path": "src/components/rating-group/RatingGroupLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { RatingGroupLabel as ArkRatingGroupLabel } from '@ark-ui/vue/rating-group';\nimport type { RatingGroupLabelProps } from '@ark-ui/vue/rating-group';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ RatingGroupLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkRatingGroupLabel\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'text-sm leading-5 font-semibold text-foreground select-none data-disabled:opacity-50',\n        className,\n      )\n    \"\n    data-slot=\"rating-group-label\"\n  >\n    <slot />\n  </ArkRatingGroupLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/rating-group/RatingGroupLabel.vue"
+    },
+    {
+      "path": "src/components/rating-group/RatingGroupControl.vue",
+      "content": "<script setup lang=\"ts\">\nimport { RatingGroupControl as ArkRatingGroupControl } from '@ark-ui/vue/rating-group';\nimport type { RatingGroupControlProps } from '@ark-ui/vue/rating-group';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ RatingGroupControlProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkRatingGroupControl\n    v-bind=\"attrs\"\n    :class=\"cn('inline-flex items-center gap-1 data-disabled:opacity-50', className)\"\n    data-slot=\"rating-group-control\"\n  >\n    <slot />\n  </ArkRatingGroupControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/rating-group/RatingGroupControl.vue"
+    },
+    {
+      "path": "src/components/rating-group/RatingGroupItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { RatingGroupItem as ArkRatingGroupItem } from '@ark-ui/vue/rating-group';\nimport type { RatingGroupItemProps } from '@ark-ui/vue/rating-group';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ RatingGroupItemProps {\n  class?: HTMLAttributes['class'];\n  index: RatingGroupItemProps['index'];\n}\n\nconst { class: className, index } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkRatingGroupItem\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'inline-flex cursor-pointer items-center justify-center rounded-sm leading-none text-inherit outline-1 -outline-offset-1 outline-transparent transition-[color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-readonly:cursor-default motion-reduce:transition-none',\n        className,\n      )\n    \"\n    :index=\"index\"\n    data-slot=\"rating-group-item\"\n  >\n    <slot />\n  </ArkRatingGroupItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/rating-group/RatingGroupItem.vue"
+    },
+    {
+      "path": "src/components/rating-group/RatingGroupItemIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { useRatingGroupItemContext } from '@ark-ui/vue/rating-group';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { RatingStarIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface RatingGroupItemIndicatorProps extends /* @vue-ignore */ HTMLAttributes {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<RatingGroupItemIndicatorProps>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst item = useRatingGroupItemContext();\n</script>\n\n<template>\n  <span\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'relative inline-flex size-5 items-center justify-center text-primary group-data-[size=lg]/rating-group:size-6 group-data-[size=sm]/rating-group:size-4 group-data-[size=xl]/rating-group:size-7 group-data-[size=xs]/rating-group:size-3.5 [&>svg]:size-full [&>svg]:flex-none [&>svg]:transition-[color,fill,stroke,clip-path] [&>svg]:duration-200 [&>svg]:ease-in-out motion-reduce:[&>svg]:transition-none',\n        className,\n      )\n    \"\n    :data-half=\"item.half ? '' : undefined\"\n    :data-highlighted=\"item.highlighted ? '' : undefined\"\n    data-slot=\"rating-group-item-indicator\"\n  >\n    <slot>\n      <RatingStarIcon\n        class=\"absolute inset-0 size-full flex-none fill-transparent stroke-current text-muted-foreground\"\n        data-slot=\"rating-group-item-indicator-bg\"\n      />\n      <RatingStarIcon\n        :class=\"\n          cn(\n            'absolute inset-0 size-full flex-none fill-current stroke-current text-primary [clip-path:inset(0_0_0_0)]',\n            item.half && '[clip-path:inset(0_50%_0_0)] rtl:[clip-path:inset(0_0_0_50%)]',\n            !item.highlighted && '[clip-path:inset(0_100%_0_0)]',\n          )\n        \"\n        data-slot=\"rating-group-item-indicator-fg\"\n      />\n    </slot>\n  </span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/rating-group/RatingGroupItemIndicator.vue"
+    },
+    {
+      "path": "src/components/rating-group/RatingGroupItems.vue",
+      "content": "<script setup lang=\"ts\">\nimport { RatingGroupContext as ArkRatingGroupContext } from '@ark-ui/vue/rating-group';\nimport RatingGroupItem from './RatingGroupItem.vue';\nimport RatingGroupItemIndicator from './RatingGroupItemIndicator.vue';\n\ndefineSlots<{ default?: () => unknown }>();\n</script>\n\n<template>\n  <ArkRatingGroupContext v-slot=\"ratingGroup\">\n    <RatingGroupItem v-for=\"item in ratingGroup.items\" :key=\"item\" :index=\"item\">\n      <slot>\n        <RatingGroupItemIndicator />\n      </slot>\n    </RatingGroupItem>\n  </ArkRatingGroupContext>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/rating-group/RatingGroupItems.vue"
+    },
+    {
+      "path": "src/components/rating-group/index.ts",
+      "content": "import {\n  RatingGroupContext,\n  RatingGroupHiddenInput,\n  RatingGroupItemContext,\n  useRatingGroup,\n  useRatingGroupContext,\n  useRatingGroupItemContext,\n} from '@ark-ui/vue/rating-group';\nimport RatingGroup from './RatingGroup.vue';\nimport RatingGroupControl from './RatingGroupControl.vue';\nimport RatingGroupItem from './RatingGroupItem.vue';\nimport RatingGroupItemIndicator from './RatingGroupItemIndicator.vue';\nimport RatingGroupItems from './RatingGroupItems.vue';\nimport RatingGroupLabel from './RatingGroupLabel.vue';\nimport RatingGroupRootProvider from './RatingGroupRootProvider.vue';\n\nexport {\n  RatingGroup,\n  RatingGroupContext,\n  RatingGroupControl,\n  RatingGroupHiddenInput,\n  RatingGroupItem,\n  RatingGroupItemContext,\n  RatingGroupItemIndicator,\n  RatingGroupItems,\n  RatingGroupLabel,\n  RatingGroupRootProvider,\n  useRatingGroup,\n  useRatingGroupContext,\n  useRatingGroupItemContext,\n};\n\nexport type {\n  RatingGroupContextProps,\n  RatingGroupControlBaseProps,\n  RatingGroupControlProps,\n  RatingGroupHiddenInputBaseProps,\n  RatingGroupHiddenInputProps,\n  RatingGroupHoverChangeDetails,\n  RatingGroupItemBaseProps,\n  RatingGroupItemContextProps,\n  RatingGroupItemProps,\n  RatingGroupLabelBaseProps,\n  RatingGroupLabelProps,\n  RatingGroupRootBaseProps,\n  RatingGroupRootEmits,\n  RatingGroupRootProviderBaseProps,\n  RatingGroupValueChangeDetails,\n  UseRatingGroupContext,\n  UseRatingGroupItemContext,\n  UseRatingGroupProps,\n  UseRatingGroupReturn,\n} from '@ark-ui/vue/rating-group';\n\nexport type { RatingGroupRootProps, RatingGroupSize } from './RatingGroup.vue';\nexport type { RatingGroupRootProviderProps } from './RatingGroupRootProvider.vue';\nexport type { RatingGroupItemIndicatorProps } from './RatingGroupItemIndicator.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/rating-group/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

@@ -2,7 +2,32 @@ import { createSignal, splitProps } from 'solid-js';
 import type { ComponentProps, JSX } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
-import { Menu, useMenu } from '@/components/menu/Menu';
+import {
+  Menu,
+  useMenu,
+  MenuRootProvider,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuArrow,
+  MenuItem,
+  MenuTriggerItem,
+  MenuTriggerItemIcon,
+  MenuSeparator,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuRadioItemGroup,
+  MenuRadioItem,
+  MenuCheckboxItem,
+  MenuItemIndicator,
+  MenuItemText,
+  MenuItemTextContent,
+  MenuItemTextIcon,
+  MenuItemTextLabel,
+  MenuItemShortcut,
+} from '@/components/menu/Menu';
 import styles from './Menu.stories.module.css';
 
 const accessibilityProps = { 'aria-hidden': 'true', focusable: 'false' } as const;
@@ -56,11 +81,11 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function MenuButtonTrigger(props: ComponentProps<typeof Menu.Trigger>) {
+function MenuButtonTrigger(props: ComponentProps<typeof MenuTrigger>) {
   const [local, others] = splitProps(props, ['children']);
 
   return (
-    <Menu.Trigger
+    <MenuTrigger
       {...others}
       asChild={(triggerProps) => <Button {...triggerProps()}>{local.children}</Button>}
     />
@@ -69,11 +94,11 @@ function MenuButtonTrigger(props: ComponentProps<typeof Menu.Trigger>) {
 
 function DefaultPositionedContent(props: { children?: JSX.Element }) {
   return (
-    <Menu.Positioner>
-      <Menu.Content>
-        <Menu.Viewport>{props.children}</Menu.Viewport>
-      </Menu.Content>
-    </Menu.Positioner>
+    <MenuPositioner>
+      <MenuContent>
+        <MenuViewport>{props.children}</MenuViewport>
+      </MenuContent>
+    </MenuPositioner>
   );
 }
 
@@ -82,18 +107,18 @@ export const Basic: Story = {
     <Menu>
       <MenuButtonTrigger>
         Song
-        <Menu.Indicator />
+        <MenuIndicator />
       </MenuButtonTrigger>
       <DefaultPositionedContent>
-        <Menu.Item value="add-library">Add to Library</Menu.Item>
-        <Menu.Item value="add-playlist">Add to Playlist</Menu.Item>
-        <Menu.Separator />
-        <Menu.Item value="play-next">Play Next</Menu.Item>
-        <Menu.Item value="play-last">Play Last</Menu.Item>
-        <Menu.Separator />
-        <Menu.Item value="share" disabled>
+        <MenuItem value="add-library">Add to Library</MenuItem>
+        <MenuItem value="add-playlist">Add to Playlist</MenuItem>
+        <MenuSeparator />
+        <MenuItem value="play-next">Play Next</MenuItem>
+        <MenuItem value="play-last">Play Last</MenuItem>
+        <MenuSeparator />
+        <MenuItem value="share" disabled>
           Share
-        </Menu.Item>
+        </MenuItem>
       </DefaultPositionedContent>
     </Menu>
   ),
@@ -108,15 +133,15 @@ export const Controlled: Story = {
         <Button onClick={() => setOpen((value) => !value)}>Toggle</Button>
         <MenuButtonTrigger>
           Actions
-          <Menu.Indicator />
+          <MenuIndicator />
         </MenuButtonTrigger>
         <DefaultPositionedContent>
-          <Menu.Item value="edit">Edit</Menu.Item>
-          <Menu.Item value="duplicate">Duplicate</Menu.Item>
-          <Menu.Item value="archive">Archive</Menu.Item>
-          <Menu.Item value="delete" tone="destructive">
+          <MenuItem value="edit">Edit</MenuItem>
+          <MenuItem value="duplicate">Duplicate</MenuItem>
+          <MenuItem value="archive">Archive</MenuItem>
+          <MenuItem value="delete" tone="destructive">
             Delete
-          </Menu.Item>
+          </MenuItem>
         </DefaultPositionedContent>
       </Menu>
     );
@@ -128,21 +153,21 @@ export const RootProvider: Story = {
     const menu = useMenu();
 
     return (
-      <Menu.RootProvider value={menu}>
+      <MenuRootProvider value={menu}>
         <Button onClick={() => menu.api().setHighlightedValue('copy')}>Highlight Copy</Button>
         <MenuButtonTrigger>
           Edit
-          <Menu.Indicator />
+          <MenuIndicator />
         </MenuButtonTrigger>
         <DefaultPositionedContent>
-          <Menu.Item value="cut">Cut</Menu.Item>
-          <Menu.Item value="copy">Copy</Menu.Item>
-          <Menu.Item value="paste">Paste</Menu.Item>
-          <Menu.Item value="delete" tone="destructive">
+          <MenuItem value="cut">Cut</MenuItem>
+          <MenuItem value="copy">Copy</MenuItem>
+          <MenuItem value="paste">Paste</MenuItem>
+          <MenuItem value="delete" tone="destructive">
             Delete
-          </Menu.Item>
+          </MenuItem>
         </DefaultPositionedContent>
-      </Menu.RootProvider>
+      </MenuRootProvider>
     );
   },
 };
@@ -158,57 +183,57 @@ export const WithGroupsAndControls: Story = {
       <Menu>
         <MenuButtonTrigger>
           View
-          <Menu.Indicator />
+          <MenuIndicator />
         </MenuButtonTrigger>
         <DefaultPositionedContent>
-          <Menu.ItemGroup>
-            <Menu.ItemGroupLabel>Sort</Menu.ItemGroupLabel>
-            <Menu.RadioItemGroup
+          <MenuItemGroup>
+            <MenuItemGroupLabel>Sort</MenuItemGroupLabel>
+            <MenuRadioItemGroup
               value={sortBy()}
               onValueChange={(details) => setSortBy(details.value)}
             >
-              <Menu.RadioItem value="date">
-                <Menu.ItemIndicator />
-                <Menu.ItemText>Date</Menu.ItemText>
-              </Menu.RadioItem>
-              <Menu.RadioItem value="name">
-                <Menu.ItemIndicator />
-                <Menu.ItemText>Name</Menu.ItemText>
-              </Menu.RadioItem>
-              <Menu.RadioItem value="type">
-                <Menu.ItemIndicator />
-                <Menu.ItemText>Type</Menu.ItemText>
-              </Menu.RadioItem>
-            </Menu.RadioItemGroup>
-          </Menu.ItemGroup>
-          <Menu.Separator />
-          <Menu.ItemGroup>
-            <Menu.ItemGroupLabel>Workspace</Menu.ItemGroupLabel>
-            <Menu.CheckboxItem
+              <MenuRadioItem value="date">
+                <MenuItemIndicator />
+                <MenuItemText>Date</MenuItemText>
+              </MenuRadioItem>
+              <MenuRadioItem value="name">
+                <MenuItemIndicator />
+                <MenuItemText>Name</MenuItemText>
+              </MenuRadioItem>
+              <MenuRadioItem value="type">
+                <MenuItemIndicator />
+                <MenuItemText>Type</MenuItemText>
+              </MenuRadioItem>
+            </MenuRadioItemGroup>
+          </MenuItemGroup>
+          <MenuSeparator />
+          <MenuItemGroup>
+            <MenuItemGroupLabel>Workspace</MenuItemGroupLabel>
+            <MenuCheckboxItem
               checked={showMinimap()}
               value="minimap"
               onCheckedChange={(checked) => setShowMinimap(checked)}
             >
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Minimap</Menu.ItemText>
-            </Menu.CheckboxItem>
-            <Menu.CheckboxItem
+              <MenuItemIndicator />
+              <MenuItemText>Minimap</MenuItemText>
+            </MenuCheckboxItem>
+            <MenuCheckboxItem
               checked={showSearch()}
               value="search"
               onCheckedChange={(checked) => setShowSearch(checked)}
             >
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Search</Menu.ItemText>
-            </Menu.CheckboxItem>
-            <Menu.CheckboxItem
+              <MenuItemIndicator />
+              <MenuItemText>Search</MenuItemText>
+            </MenuCheckboxItem>
+            <MenuCheckboxItem
               checked={showSidebar()}
               value="sidebar"
               onCheckedChange={(checked) => setShowSidebar(checked)}
             >
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Sidebar</Menu.ItemText>
-            </Menu.CheckboxItem>
-          </Menu.ItemGroup>
+              <MenuItemIndicator />
+              <MenuItemText>Sidebar</MenuItemText>
+            </MenuCheckboxItem>
+          </MenuItemGroup>
         </DefaultPositionedContent>
       </Menu>
     );
@@ -220,22 +245,22 @@ export const WithShortcuts: Story = {
     <Menu>
       <MenuButtonTrigger>
         Edit
-        <Menu.Indicator />
+        <MenuIndicator />
       </MenuButtonTrigger>
       <DefaultPositionedContent>
-        <Menu.Item value="copy">
+        <MenuItem value="copy">
           Copy
-          <Menu.ItemShortcut>Ctrl+C</Menu.ItemShortcut>
-        </Menu.Item>
-        <Menu.Item value="paste">
+          <MenuItemShortcut>Ctrl+C</MenuItemShortcut>
+        </MenuItem>
+        <MenuItem value="paste">
           Paste
-          <Menu.ItemShortcut>Ctrl+V</Menu.ItemShortcut>
-        </Menu.Item>
-        <Menu.Separator />
-        <Menu.Item value="rename">
+          <MenuItemShortcut>Ctrl+V</MenuItemShortcut>
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem value="rename">
           Rename
-          <Menu.ItemShortcut>F2</Menu.ItemShortcut>
-        </Menu.Item>
+          <MenuItemShortcut>F2</MenuItemShortcut>
+        </MenuItem>
       </DefaultPositionedContent>
     </Menu>
   ),
@@ -250,41 +275,41 @@ export const IndicatorRightWithIcon: Story = {
       <Menu>
         <MenuButtonTrigger>
           View
-          <Menu.Indicator />
+          <MenuIndicator />
         </MenuButtonTrigger>
         <DefaultPositionedContent>
-          <Menu.CheckboxItem
+          <MenuCheckboxItem
             checked={showMinimap()}
             value="minimap"
             onCheckedChange={(checked) => setShowMinimap(checked)}
             indicator="end"
           >
-            <Menu.ItemText>
-              <Menu.ItemTextContent>
-                <Menu.ItemTextIcon>
+            <MenuItemText>
+              <MenuItemTextContent>
+                <MenuItemTextIcon>
                   <InfoIcon />
-                </Menu.ItemTextIcon>
-                <Menu.ItemTextLabel>Minimap</Menu.ItemTextLabel>
-              </Menu.ItemTextContent>
-            </Menu.ItemText>
-            <Menu.ItemIndicator />
-          </Menu.CheckboxItem>
-          <Menu.CheckboxItem
+                </MenuItemTextIcon>
+                <MenuItemTextLabel>Minimap</MenuItemTextLabel>
+              </MenuItemTextContent>
+            </MenuItemText>
+            <MenuItemIndicator />
+          </MenuCheckboxItem>
+          <MenuCheckboxItem
             checked={showSearch()}
             value="search"
             onCheckedChange={(checked) => setShowSearch(checked)}
             indicator="end"
           >
-            <Menu.ItemText>
-              <Menu.ItemTextContent>
-                <Menu.ItemTextIcon>
+            <MenuItemText>
+              <MenuItemTextContent>
+                <MenuItemTextIcon>
                   <MapIcon />
-                </Menu.ItemTextIcon>
-                <Menu.ItemTextLabel>Search</Menu.ItemTextLabel>
-              </Menu.ItemTextContent>
-            </Menu.ItemText>
-            <Menu.ItemIndicator />
-          </Menu.CheckboxItem>
+                </MenuItemTextIcon>
+                <MenuItemTextLabel>Search</MenuItemTextLabel>
+              </MenuItemTextContent>
+            </MenuItemText>
+            <MenuItemIndicator />
+          </MenuCheckboxItem>
         </DefaultPositionedContent>
       </Menu>
     );
@@ -296,30 +321,30 @@ export const Nested: Story = {
     <Menu>
       <MenuButtonTrigger>
         Song
-        <Menu.Indicator />
+        <MenuIndicator />
       </MenuButtonTrigger>
       <DefaultPositionedContent>
-        <Menu.Item value="add-library">Add to Library</Menu.Item>
+        <MenuItem value="add-library">Add to Library</MenuItem>
         <Menu>
-          <Menu.TriggerItem>
+          <MenuTriggerItem>
             Add to Playlist
-            <Menu.TriggerItemIcon />
-          </Menu.TriggerItem>
-          <Menu.Positioner>
-            <Menu.Content>
-              <Menu.Viewport>
-                <Menu.Item value="get-up">Get Up!</Menu.Item>
-                <Menu.Item value="inside-out">Inside Out</Menu.Item>
-                <Menu.Item value="night-beats">Night Beats</Menu.Item>
-                <Menu.Separator />
-                <Menu.Item value="new-playlist">New Playlist...</Menu.Item>
-              </Menu.Viewport>
-            </Menu.Content>
-          </Menu.Positioner>
+            <MenuTriggerItemIcon />
+          </MenuTriggerItem>
+          <MenuPositioner>
+            <MenuContent>
+              <MenuViewport>
+                <MenuItem value="get-up">Get Up!</MenuItem>
+                <MenuItem value="inside-out">Inside Out</MenuItem>
+                <MenuItem value="night-beats">Night Beats</MenuItem>
+                <MenuSeparator />
+                <MenuItem value="new-playlist">New Playlist...</MenuItem>
+              </MenuViewport>
+            </MenuContent>
+          </MenuPositioner>
         </Menu>
-        <Menu.Separator />
-        <Menu.Item value="favorite">Favorite</Menu.Item>
-        <Menu.Item value="share">Share</Menu.Item>
+        <MenuSeparator />
+        <MenuItem value="favorite">Favorite</MenuItem>
+        <MenuItem value="share">Share</MenuItem>
       </DefaultPositionedContent>
     </Menu>
   ),
@@ -330,19 +355,19 @@ export const WithArrow: Story = {
     <Menu positioning={{ placement: 'right-start', gutter: 12 }}>
       <MenuButtonTrigger>
         Export
-        <Menu.Indicator />
+        <MenuIndicator />
       </MenuButtonTrigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Arrow />
-          <Menu.Viewport>
-            <Menu.Item value="png">Export PNG</Menu.Item>
-            <Menu.Item value="pdf">Export PDF</Menu.Item>
-            <Menu.Separator />
-            <Menu.Item value="copy-link">Copy share link</Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuArrow />
+          <MenuViewport>
+            <MenuItem value="png">Export PNG</MenuItem>
+            <MenuItem value="pdf">Export PDF</MenuItem>
+            <MenuSeparator />
+            <MenuItem value="copy-link">Copy share link</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   ),
 };
@@ -352,18 +377,18 @@ export const CustomStyling: Story = {
     <Menu positioning={{ placement: 'right-start', gutter: 12 }}>
       <MenuButtonTrigger>
         Export
-        <Menu.Indicator />
+        <MenuIndicator />
       </MenuButtonTrigger>
-      <Menu.Positioner>
-        <Menu.Content class={styles.customPopup}>
-          <Menu.Viewport>
-            <Menu.Item value="png">Export PNG</Menu.Item>
-            <Menu.Item value="pdf">Export PDF</Menu.Item>
-            <Menu.Separator />
-            <Menu.Item value="copy-link">Copy share link</Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      <MenuPositioner>
+        <MenuContent class={styles.customPopup}>
+          <MenuViewport>
+            <MenuItem value="png">Export PNG</MenuItem>
+            <MenuItem value="pdf">Export PDF</MenuItem>
+            <MenuSeparator />
+            <MenuItem value="copy-link">Copy share link</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   ),
 };
@@ -374,20 +399,20 @@ export const LinkItems: Story = {
     <Menu>
       <MenuButtonTrigger>
         Navigate
-        <Menu.Indicator />
+        <MenuIndicator />
       </MenuButtonTrigger>
       <DefaultPositionedContent>
-        <Menu.Item value="projects" asChild={(props) => <a {...props()} href="#projects" />}>
+        <MenuItem value="projects" asChild={(props) => <a {...props()} href="#projects" />}>
           Projects
-        </Menu.Item>
-        <Menu.Item value="teams" asChild={(props) => <a {...props()} href="#teams" />}>
+        </MenuItem>
+        <MenuItem value="teams" asChild={(props) => <a {...props()} href="#teams" />}>
           Teams
-        </Menu.Item>
-        <Menu.Item value="billing" asChild={(props) => <a {...props()} href="#billing" />}>
+        </MenuItem>
+        <MenuItem value="billing" asChild={(props) => <a {...props()} href="#billing" />}>
           Billing
-        </Menu.Item>
-        <Menu.Separator />
-        <Menu.Item value="copy-link">Copy Link</Menu.Item>
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem value="copy-link">Copy Link</MenuItem>
       </DefaultPositionedContent>
     </Menu>
   ),

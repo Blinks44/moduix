@@ -974,6 +974,8 @@
       "description": "moduix React Tailwind InputGroup component.",
       "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": [
+        "@moduix-react-tailwind/icons",
+        "@moduix-react-tailwind/close-button",
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
         "@moduix-react-tailwind/button",
@@ -1139,6 +1141,11 @@
         {
           "path": "src/components/menu/Menu.tsx",
           "target": "@components/ui/menu/Menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/menu/Menu.variants.ts",
+          "target": "@components/ui/menu/Menu.variants.ts",
           "type": "registry:component"
         },
         {
@@ -1761,6 +1768,11 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/toggle/Toggle.variants.ts",
+          "target": "@components/ui/toggle/Toggle.variants.ts",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/toggle/index.ts",
           "target": "@components/ui/toggle/index.ts",
           "type": "registry:component"
@@ -2018,6 +2030,106 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "login-simple",
+      "type": "registry:block",
+      "title": "Sign in",
+      "description": "Sign-in form with email, password, and a remember-me option.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-login-simple.json"],
+      "files": []
+    },
+    {
+      "name": "sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar dashboard",
+      "description": "Dashboard with a resizable sidebar, nested navigation, and a workspace menu.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-sidebar-dashboard.json"],
+      "files": []
+    },
+    {
+      "name": "file-upload-manager",
+      "type": "registry:block",
+      "title": "File upload",
+      "description": "File picker with drag and drop, validation, previews, and removal controls.",
+      "registryDependencies": [
+        "https://moduix.dev/r/blocks/react-tailwind-file-upload-manager.json"
+      ],
+      "files": []
+    },
+    {
+      "name": "app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "Responsive header with navigation, command search, and an account menu.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-app-header.json"],
+      "files": []
+    },
+    {
+      "name": "sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "Registration form with email, password confirmation, and terms acceptance.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-sign-up.json"],
+      "files": []
+    },
+    {
+      "name": "forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "Email form for requesting a password reset link.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-forgot-password.json"],
+      "files": []
+    },
+    {
+      "name": "reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "Password reset form with a confirmation field.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-reset-password.json"],
+      "files": []
+    },
+    {
+      "name": "verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "Six-digit email verification form with keyboard navigation and paste support.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-verification-code.json"],
+      "files": []
+    },
+    {
+      "name": "data-table",
+      "type": "registry:block",
+      "title": "Data table",
+      "description": "Payments table with search, sorting, column visibility, selection, and pagination.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-data-table.json"],
+      "files": []
+    },
+    {
+      "name": "expandable-avatar-group",
+      "type": "registry:block",
+      "title": "Expandable avatar group",
+      "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
+      "registryDependencies": [
+        "https://moduix.dev/r/blocks/react-tailwind-expandable-avatar-group.json"
+      ],
+      "files": []
+    },
+    {
+      "name": "autoplay-gallery",
+      "type": "registry:block",
+      "title": "Autoplay gallery",
+      "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-autoplay-gallery.json"],
+      "files": []
+    },
+    {
+      "name": "parallax-card",
+      "type": "registry:block",
+      "title": "Parallax card",
+      "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
+      "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-parallax-card.json"],
+      "files": []
     }
   ]
 }

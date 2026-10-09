@@ -1,3 +1,5 @@
+export { LocaleProvider, useLocaleContext } from '@ark-ui/solid/locale';
+
 export * from './components/accordion/index.js';
 export * from './components/alert/index.js';
 export * from './components/angle-slider/index.js';

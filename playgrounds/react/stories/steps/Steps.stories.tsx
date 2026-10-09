@@ -1,6 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Steps } from '@/components/steps/Steps';
+import {
+  Steps,
+  StepsCompletedContent,
+  StepsContent,
+  StepsIndicator,
+  StepsItem,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsProgress,
+  StepsRootProvider,
+  StepsSeparator,
+  StepsTrigger,
+  useSteps,
+} from '@/components/steps/Steps';
 
 const items = [
   {
@@ -23,19 +37,19 @@ const actionsStyle = {
   gap: 'var(--moduix-spacing-2)',
 } as const;
 
-function StepsList() {
+function StepsNavigation() {
   return (
-    <Steps.List>
+    <StepsList>
       {items.map((item, index) => (
-        <Steps.Item key={item.title} index={index}>
-          <Steps.Trigger>
-            <Steps.Indicator />
+        <StepsItem key={item.title} index={index}>
+          <StepsTrigger>
+            <StepsIndicator />
             <span>{item.title}</span>
-          </Steps.Trigger>
-          <Steps.Separator />
-        </Steps.Item>
+          </StepsTrigger>
+          <StepsSeparator />
+        </StepsItem>
       ))}
-    </Steps.List>
+    </StepsList>
   );
 }
 
@@ -43,11 +57,11 @@ function StepsPanels() {
   return (
     <>
       {items.map((item, index) => (
-        <Steps.Content key={item.title} index={index}>
+        <StepsContent key={item.title} index={index}>
           {item.title} - {item.description}
-        </Steps.Content>
+        </StepsContent>
       ))}
-      <Steps.CompletedContent>Steps complete. The workspace is ready.</Steps.CompletedContent>
+      <StepsCompletedContent>Steps complete. The workspace is ready.</StepsCompletedContent>
     </>
   );
 }
@@ -55,8 +69,8 @@ function StepsPanels() {
 function StepsActions() {
   return (
     <div style={actionsStyle}>
-      <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-      <Steps.NextTrigger>Next</Steps.NextTrigger>
+      <StepsPrevTrigger>Back</StepsPrevTrigger>
+      <StepsNextTrigger>Next</StepsNextTrigger>
     </div>
   );
 }
@@ -77,7 +91,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
     <Steps count={items.length}>
-      <StepsList />
+      <StepsNavigation />
       <StepsPanels />
       <StepsActions />
     </Steps>
@@ -98,7 +112,7 @@ export const Controlled: Story = {
             setStep(details.step);
           }}
         >
-          <StepsList />
+          <StepsNavigation />
           <StepsPanels />
           <StepsActions />
         </Steps>
@@ -109,16 +123,16 @@ export const Controlled: Story = {
 
 export const RootProvider: Story = {
   render: function RootProviderStory() {
-    const steps = Steps.useSteps({ count: items.length });
+    const steps = useSteps({ count: items.length });
 
     return (
       <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
         <output>Current step: {steps.value + 1}</output>
-        <Steps.RootProvider value={steps}>
-          <StepsList />
+        <StepsRootProvider value={steps}>
+          <StepsNavigation />
           <StepsPanels />
           <StepsActions />
-        </Steps.RootProvider>
+        </StepsRootProvider>
       </div>
     );
   },
@@ -148,7 +162,7 @@ export const Validation: Story = {
             setMessage(`Step ${details.step + 1} must be valid before moving ${details.action}.`);
           }}
         >
-          <StepsList />
+          <StepsNavigation />
           <StepsPanels />
           <StepsActions />
         </Steps>
@@ -161,7 +175,7 @@ export const Validation: Story = {
 export const Vertical: Story = {
   render: () => (
     <Steps count={items.length} defaultStep={1} orientation="vertical">
-      <StepsList />
+      <StepsNavigation />
       <StepsPanels />
       <StepsActions />
     </Steps>
@@ -171,19 +185,19 @@ export const Vertical: Story = {
 export const LinkComposition: Story = {
   render: () => (
     <Steps count={items.length} defaultStep={1} linear={false}>
-      <Steps.List>
+      <StepsList>
         {items.map((item, index) => (
-          <Steps.Item key={item.title} index={index}>
-            <Steps.Trigger asChild>
+          <StepsItem key={item.title} index={index}>
+            <StepsTrigger asChild>
               <a href={`#step-${index + 1}`}>
-                <Steps.Indicator />
+                <StepsIndicator />
                 <span>{item.title}</span>
               </a>
-            </Steps.Trigger>
-            <Steps.Separator />
-          </Steps.Item>
+            </StepsTrigger>
+            <StepsSeparator />
+          </StepsItem>
         ))}
-      </Steps.List>
+      </StepsList>
       <StepsPanels />
       <StepsActions />
     </Steps>
@@ -193,8 +207,8 @@ export const LinkComposition: Story = {
 export const Progress: Story = {
   render: () => (
     <Steps count={items.length} defaultStep={1}>
-      <Steps.Progress />
-      <StepsList />
+      <StepsProgress />
+      <StepsNavigation />
       <StepsPanels />
       <StepsActions />
     </Steps>

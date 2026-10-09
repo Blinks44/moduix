@@ -1,0 +1,47 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "title": "Avatar",
+  "description": "moduix Vue Avatar component.",
+  "dependencies": ["@ark-ui/vue", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation"],
+  "files": [
+    {
+      "path": "src/components/avatar/Avatar.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AvatarRoot as ArkAvatarRoot } from '@ark-ui/vue/avatar';\nimport type { AvatarRootEmits, AvatarRootProps } from '@ark-ui/vue/avatar';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Avatar.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\ntype AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n\nexport interface Props extends /* @vue-ignore */ AvatarRootProps {\n  class?: HTMLAttributes['class'];\n  size?: AvatarSize;\n}\n\nexport interface Emits extends /* @vue-ignore */ AvatarRootEmits {}\n\nconst { class: className, size } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkAvatarRoot\n    :data-size=\"size\"\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.root, className)\"\n    data-slot=\"avatar-root\"\n  >\n    <slot />\n  </ArkAvatarRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/avatar/Avatar.vue"
+    },
+    {
+      "path": "src/components/avatar/AvatarRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AvatarRootProvider as ArkAvatarRootProvider } from '@ark-ui/vue/avatar';\nimport type { AvatarRootProviderProps } from '@ark-ui/vue/avatar';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Avatar.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\ntype AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n\nexport interface Props extends /* @vue-ignore */ AvatarRootProviderProps {\n  class?: HTMLAttributes['class'];\n  size?: AvatarSize;\n  value: AvatarRootProviderProps['value'];\n}\n\nconst { class: className, size, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkAvatarRootProvider\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.root, className)\"\n    :data-size=\"size\"\n    :value=\"value\"\n    data-slot=\"avatar-root-provider\"\n  >\n    <slot />\n  </ArkAvatarRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/avatar/AvatarRootProvider.vue"
+    },
+    {
+      "path": "src/components/avatar/AvatarFallback.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AvatarFallback as ArkAvatarFallback } from '@ark-ui/vue/avatar';\nimport type { AvatarFallbackProps } from '@ark-ui/vue/avatar';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Avatar.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ AvatarFallbackProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkAvatarFallback\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.fallback, className)\"\n    data-slot=\"avatar-fallback\"\n  >\n    <slot />\n  </ArkAvatarFallback>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/avatar/AvatarFallback.vue"
+    },
+    {
+      "path": "src/components/avatar/AvatarImage.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AvatarImage as ArkAvatarImage } from '@ark-ui/vue/avatar';\nimport type { AvatarImageProps } from '@ark-ui/vue/avatar';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Avatar.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ AvatarImageProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkAvatarImage v-bind=\"attrs\" :class=\"clsx(styles.image, className)\" data-slot=\"avatar-image\">\n    <slot />\n  </ArkAvatarImage>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/avatar/AvatarImage.vue"
+    },
+    {
+      "path": "src/components/avatar/Avatar.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    box-sizing: border-box;\n    display: inline-flex;\n    width: var(--moduix-avatar-size, var(--moduix-size-md));\n    height: var(--moduix-avatar-size, var(--moduix-size-md));\n    flex-shrink: 0;\n    align-items: center;\n    justify-content: center;\n    overflow: hidden;\n    position: relative;\n    border-radius: var(--moduix-avatar-radius, var(--moduix-radius-full));\n    background-color: var(--moduix-avatar-bg, var(--moduix-color-muted));\n    color: var(--moduix-avatar-color, var(--moduix-color-foreground));\n    font-size: var(--moduix-avatar-font-size, var(--moduix-text-md));\n    font-weight: var(--moduix-avatar-font-weight, var(--moduix-weight-medium));\n    line-height: var(--moduix-avatar-line-height, var(--moduix-line-height-text-md));\n    user-select: none;\n    vertical-align: middle;\n\n    &:where([data-size='xs']) {\n      --moduix-avatar-size: var(--moduix-size-xs);\n      --moduix-avatar-font-size: var(--moduix-text-xs);\n      --moduix-avatar-line-height: var(--moduix-line-height-text-xs);\n    }\n\n    &:where([data-size='sm']) {\n      --moduix-avatar-size: var(--moduix-size-sm);\n      --moduix-avatar-font-size: var(--moduix-text-sm);\n      --moduix-avatar-line-height: var(--moduix-line-height-text-sm);\n    }\n\n    &:where([data-size='lg']) {\n      --moduix-avatar-size: var(--moduix-size-lg);\n      --moduix-avatar-font-size: var(--moduix-text-lg);\n      --moduix-avatar-line-height: var(--moduix-line-height-text-lg);\n    }\n\n    &:where([data-size='xl']) {\n      --moduix-avatar-size: var(--moduix-size-xl);\n      --moduix-avatar-font-size: var(--moduix-text-lg);\n      --moduix-avatar-line-height: var(--moduix-line-height-text-lg);\n    }\n  }\n\n  .image {\n    display: block;\n    width: 100%;\n    height: 100%;\n    object-fit: var(--moduix-avatar-image-object-fit, cover);\n    object-position: var(--moduix-avatar-image-object-position, center);\n    border-radius: inherit;\n\n    &[data-state='hidden'] {\n      display: none;\n    }\n  }\n\n  .fallback {\n    box-sizing: border-box;\n    display: inline-flex;\n    width: 100%;\n    height: 100%;\n    align-items: center;\n    justify-content: center;\n    padding: var(--moduix-avatar-fallback-padding, 0);\n    background-color: var(\n      --moduix-avatar-fallback-bg,\n      var(--moduix-avatar-bg, var(--moduix-color-muted))\n    );\n    color: var(--moduix-avatar-fallback-color, inherit);\n    border-radius: inherit;\n    line-height: inherit;\n\n    &[data-state='hidden'] {\n      display: none;\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/avatar/Avatar.module.css"
+    },
+    {
+      "path": "src/components/avatar/index.ts",
+      "content": "import { AvatarContext, useAvatar, useAvatarContext } from '@ark-ui/vue/avatar';\nimport Avatar from './Avatar.vue';\nimport AvatarFallback from './AvatarFallback.vue';\nimport AvatarImage from './AvatarImage.vue';\nimport AvatarRootProvider from './AvatarRootProvider.vue';\n\nexport {\n  Avatar,\n  AvatarContext,\n  AvatarFallback,\n  AvatarImage,\n  AvatarRootProvider,\n  useAvatar,\n  useAvatarContext,\n};\n\nexport type {\n  AvatarContextProps,\n  AvatarFallbackProps,\n  AvatarImageProps,\n  AvatarRootEmits,\n  AvatarRootProps,\n  AvatarRootProviderProps,\n  AvatarStatusChangeDetails,\n  UseAvatarContext,\n  UseAvatarProps,\n  UseAvatarReturn,\n} from '@ark-ui/vue/avatar';",
+      "type": "registry:component",
+      "target": "@components/ui/avatar/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

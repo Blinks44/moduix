@@ -17,11 +17,17 @@ import textareaSolidControlled from '../../../snippets/textarea/solid/controlled
 import textareaSolidDisabledAndReadonly from '../../../snippets/textarea/solid/disabled-and-readonly.tsx?raw';
 import textareaSolidFieldValidation from '../../../snippets/textarea/solid/field-validation.tsx?raw';
 import textareaSolidNativeAttributes from '../../../snippets/textarea/solid/native-attributes.tsx?raw';
+import textareaVueAutoResize from '../../../snippets/textarea/vue/auto-resize.vue?raw';
+import textareaVueBasic from '../../../snippets/textarea/vue/basic.vue?raw';
+import textareaVueControlled from '../../../snippets/textarea/vue/controlled.vue?raw';
+import textareaVueDisabledAndReadonly from '../../../snippets/textarea/vue/disabled-and-readonly.vue?raw';
+import textareaVueFieldValidation from '../../../snippets/textarea/vue/field-validation.vue?raw';
+import textareaVueNativeAttributes from '../../../snippets/textarea/vue/native-attributes.vue?raw';
 
 ## API Reference
 
 Ark UI does not ship a dedicated `Textarea` primitive. moduix builds this component on
-[Ark's `Field.Textarea`](https://ark-ui.com/docs/components/field), preserving the native
+[Ark's `FieldTextarea`](https://ark-ui.com/docs/components/field), preserving the native
 `textarea` API, `autoresize`, ref forwarding, `asChild`, and Field state inheritance.
 
 ## Choosing the right component
@@ -40,7 +46,6 @@ Use `Textarea` for plain text that can span multiple lines and should behave lik
 Place `Textarea` inside `Field` when the control needs an accessible label or supporting text. This
 is the recommended setup for comments, notes, issue descriptions, and similar content.
 
-
 <ExampleFrame variant="component">
   <TextareaBasic />
 </ExampleFrame>
@@ -52,12 +57,14 @@ is the recommended setup for comments, notes, issue descriptions, and similar co
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/basic.tsx"
+
 ```
 
     </Tab>
@@ -66,12 +73,20 @@ is the recommended setup for comments, notes, issue descriptions, and similar co
 <CodeBlockRuntime lang="tsx" code={textareaSolidBasic} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueBasic} />
+
+    </Tab>
+
   </Tabs>
 
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-basic.module.css"
+
 ```
+
 </div>
 
 </ExampleCode>
@@ -101,6 +116,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/textarea' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/textarea' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -121,10 +146,14 @@ hidden inputs, or a label or character-counter API.
 
 ## Composition
 
-Use `defaultValue` for an uncontrolled textarea. Use `value` with native `onChange` when the
-application owns the content, using the matching framework's state primitive.
+Use `defaultValue` for an uncontrolled textarea. Use `value` with native `onChange` in React and
+Solid, or `v-model` in Vue, when the application owns the content, using the matching framework's
+state primitive.
 
-Wrap `Textarea` with `Field`, `Field.Label`, `Field.HelperText`, and `Field.ErrorText` when the
+In Vue, bind the native DOM property as `:defaultValue="initialValue"`, not `default-value`.
+With `v-model`, reset the bound state in the form's reset handler: native reset does not emit an input event.
+
+Wrap `Textarea` with `Field`, `FieldLabel`, `FieldHelperText`, and `FieldErrorText` when the
 control needs a label, supporting text, or validation. Outside `Field`, provide an accessible name
 with a native `<label>` or `aria-label`.
 
@@ -150,12 +179,14 @@ this option is enabled.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/auto-resize.tsx"
+
 ```
 
     </Tab>
@@ -164,12 +195,20 @@ this option is enabled.
 <CodeBlockRuntime lang="tsx" code={textareaSolidAutoResize} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueAutoResize} />
+
+    </Tab>
+
   </Tabs>
 
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-auto-resize.module.css"
+
 ```
+
 </div>
 
 </ExampleCode>
@@ -189,12 +228,14 @@ Use `value` and native `onChange` when application state should control the cont
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/controlled.tsx"
+
 ```
 
     </Tab>
@@ -203,12 +244,20 @@ Use `value` and native `onChange` when application state should control the cont
 <CodeBlockRuntime lang="tsx" code={textareaSolidControlled} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueControlled} />
+
+    </Tab>
+
   </Tabs>
 
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-controlled.module.css"
+
 ```
+
 </div>
 
 </ExampleCode>
@@ -229,12 +278,14 @@ and select the value but must not edit it.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/disabled-and-readonly.tsx"
+
 ```
 
     </Tab>
@@ -243,12 +294,20 @@ and select the value but must not edit it.
 <CodeBlockRuntime lang="tsx" code={textareaSolidDisabledAndReadonly} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueDisabledAndReadonly} />
+
+    </Tab>
+
   </Tabs>
 
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-disabled-and-readonly.module.css"
+
 ```
+
 </div>
 
 </ExampleCode>
@@ -269,12 +328,14 @@ its error text.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/field-validation.tsx"
+
 ```
 
     </Tab>
@@ -283,12 +344,20 @@ its error text.
 <CodeBlockRuntime lang="tsx" code={textareaSolidFieldValidation} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueFieldValidation} />
+
+    </Tab>
+
   </Tabs>
 
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-field-validation.module.css"
+
 ```
+
 </div>
 
 </ExampleCode>
@@ -309,12 +378,14 @@ example also submits the form and reads the current value from `FormData`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/textarea/native-attributes.tsx"
+
 ```
 
     </Tab>
@@ -323,19 +394,27 @@ example also submits the form and reads the current value from `FormData`.
 <CodeBlockRuntime lang="tsx" code={textareaSolidNativeAttributes} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueNativeAttributes} />
+
+    </Tab>
+
   </Tabs>
 
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-native-attributes.module.css"
+
 ```
+
 </div>
 
 </ExampleCode>
 
 ## Styling
 
-Style the control with `className` in React or `class` in Solid, together with
+Style the control with `className` in React or `class` in Solid and Vue, together with
 `data-slot="textarea-root"`. Tailwind variants use native utility and consumer classes. The public
 `--moduix-textarea-*` variables below apply to the CSS Modules variants.
 

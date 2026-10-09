@@ -1,4 +1,12 @@
-import { Slider } from '@moduix/solid/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderMarker,
+  SliderMarkerGroup,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+} from '@moduix/solid/slider';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/slider/slider-vertical-with-marks.module.css';
 
@@ -15,17 +23,17 @@ export default function VerticalMarksSliderDemo() {
         value={value()}
         onValueChange={(details) => setValue(details.value)}
       >
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
-        <Slider.MarkerGroup>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumbs />
+        </SliderControl>
+        <SliderMarkerGroup>
           {marks.map((mark) => (
-            <Slider.Marker value={mark}>{mark}</Slider.Marker>
+            <SliderMarker value={mark}>{mark}</SliderMarker>
           ))}
-        </Slider.MarkerGroup>
+        </SliderMarkerGroup>
       </Slider>
       <output>Output: {value().join(', ')}</output>
     </div>

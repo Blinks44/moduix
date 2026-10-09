@@ -14,7 +14,7 @@
     --_moduix-toc-indicator-top: var(--top);
     --_moduix-toc-indicator-height: var(--height);
 
-    @media (max-width: 48rem) {
+    @media (width < 48rem) {
       grid-template-columns: minmax(0, 1fr);
     }
   }
@@ -54,7 +54,9 @@
         var(--moduix-table-of-contents-nav-width, 16rem)
       ) minmax(0, 1fr);
 
-    @media (max-width: 48rem) {
+    @media (width < 48rem) {
+      grid-template-columns: minmax(0, 1fr);
+
       .content:has(~ .nav[data-placement='left']),
       .nav[data-placement='left'] {
         grid-column: auto;

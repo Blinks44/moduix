@@ -1,1 +1,1 @@
-export { Skeleton } from './Skeleton.js';
+export * from './Skeleton.js';

@@ -19,6 +19,13 @@ import stepsSolidProgress from '../../../snippets/steps/solid/progress.tsx?raw';
 import stepsSolidRootProvider from '../../../snippets/steps/solid/root-provider.tsx?raw';
 import stepsSolidVertical from '../../../snippets/steps/solid/vertical.tsx?raw';
 import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-composition.tsx?raw';
+import stepsVueBasic from '../../../snippets/steps/vue/basic.vue?raw';
+import stepsVueControlled from '../../../snippets/steps/vue/controlled.vue?raw';
+import stepsVueValidation from '../../../snippets/steps/vue/validation.vue?raw';
+import stepsVueProgress from '../../../snippets/steps/vue/progress.vue?raw';
+import stepsVueRootProvider from '../../../snippets/steps/vue/root-provider.vue?raw';
+import stepsVueVertical from '../../../snippets/steps/vue/vertical.vue?raw';
+import stepsVueCustomComposition from '../../../snippets/steps/vue/custom-composition.vue?raw';
 
 ## Справочник API
 
@@ -26,16 +33,18 @@ import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-co
 
 ## Базовый пример
 
-Пример ниже использует
-
-Используйте `Steps` с параметром `count`, списком `Steps.List`, содержащим по одному
-`Steps.Item` для каждого шага, соответствующими панелями `Steps.Content` и встроенными кнопками
+Используйте `Steps` с параметром `count`, списком `StepsList`, содержащим по одному
+`StepsItem` для каждого шага, соответствующими панелями `StepsContent` и встроенными кнопками
 перехода назад и вперёд. Индексы шагов начинаются с нуля. Например, `count={3}` использует
 индексы `0`, `1` и `2`. Когда значение шага достигает `count`, показывается
-`Steps.CompletedContent`.
+`StepsCompletedContent`.
 
-Экспорт `Steps` является корневым компонентом. Используйте `Steps.Root`, если хотите явно указать
-имя корневой части.
+Экспорт `Steps` является корневым компонентом. Используйте `StepsRootProvider` вместе с `useSteps()`,
+если состояние нужно создать вне дерева отрисованных частей.
+
+React, Solid и Vue используют одинаковые плоские имена значений. В Vue связывайте управляемое
+состояние через `v-model:step`, а хранилище `useSteps()` передавайте в `StepsRootProvider`, если
+оно создаётся вне дерева отрисованных частей.
 
 <ExampleFrame variant="component">
   <StepsBasic />
@@ -48,6 +57,7 @@ import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-co
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -60,6 +70,11 @@ import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-co
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueBasic} />
 
     </Tab>
   </Tabs>
@@ -97,52 +112,65 @@ import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-co
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/steps' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/steps' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
 Steps
-├─ Steps.Progress (optional)
-├─ Steps.List
-│  └─ Steps.Item[index]
-│     ├─ Steps.Trigger
-│     │  └─ Steps.Indicator
-│     └─ Steps.Separator
-├─ Steps.Content[index]
-├─ Steps.CompletedContent
-├─ Steps.PrevTrigger
-└─ Steps.NextTrigger
+├─ StepsProgress (optional)
+├─ StepsList
+│  └─ StepsItem[index]
+│     ├─ StepsTrigger
+│     │  └─ StepsIndicator
+│     └─ StepsSeparator
+├─ StepsContent[index]
+├─ StepsCompletedContent
+├─ StepsPrevTrigger
+└─ StepsNextTrigger
 
-Steps.RootProvider
-└─ same part tree connected to a Steps.useSteps() store
+StepsRootProvider
+└─ same part tree connected to a useSteps() store
 ```
 
 | Часть                              | Назначение                                                                         |
 | ---------------------------------- | ---------------------------------------------------------------------------------- |
-| `Steps` / `Steps.Root`             | Корневая машина состояния шагов, ориентации, навигации, валидации и идентификаторов. |
-| `Steps.RootProvider`               | Подключает части к состоянию, созданному через `Steps.useSteps()`.                 |
-| `Steps.Progress`                   | Необязательная полоса прогресса на основе корневой переменной Ark `--percent`.     |
-| `Steps.List`                       | Список вкладок с триггерами шагов.                                                  |
-| `Steps.Item`                       | Шаг с обязательным индексом `index`, отсчитываемым от нуля.                        |
-| `Steps.Trigger`                    | Триггер вкладки; поддерживает `asChild` для семантических элементов.              |
-| `Steps.Indicator`                  | Маркер шага, по умолчанию с номером или иконкой галочки.                            |
-| `Steps.Separator`                  | Декоративный соединитель между шагами.                                              |
-| `Steps.Content`                    | Панель содержимого шага, связанная с `index`.                                       |
-| `Steps.CompletedContent`           | Панель, показываемая, когда текущее значение шага равно `count`.                    |
-| `Steps.PrevTrigger` / `NextTrigger` | Кнопки, связанные с действиями Ark для перехода назад и вперёд.                    |
+| `Steps`                            | Корневая машина состояния шагов, ориентации, навигации, валидации и идентификаторов. |
+| `StepsRootProvider`                | Подключает части к состоянию, созданному через `useSteps()`.                       |
+| `StepsProgress`                    | Необязательная полоса прогресса на основе корневой переменной Ark `--percent`.     |
+| `StepsList`                        | Список вкладок с триггерами шагов.                                                  |
+| `StepsItem`                        | Шаг с обязательным индексом `index`, отсчитываемым от нуля.                        |
+| `StepsTrigger`                     | Триггер вкладки; поддерживает `asChild` для семантических элементов.               |
+| `StepsIndicator`                   | Маркер шага, по умолчанию с номером или иконкой галочки.                            |
+| `StepsSeparator`                   | Декоративный соединитель между шагами.                                              |
+| `StepsContent`                     | Панель содержимого шага, связанная с `index`.                                       |
+| `StepsCompletedContent`            | Панель, показываемая, когда текущее значение шага равно `count`.                    |
+| `StepsPrevTrigger` / `StepsNextTrigger` | Кнопки, связанные с действиями Ark для перехода назад и вперёд.               |
 
 ## Композиция
 
-Используйте `Steps` или `Steps.Root` как владельца состояния. У каждого `Steps.Item` и
-соответствующего `Steps.Content` должен быть одинаковый индекс `index`, отсчитываемый от нуля;
+Используйте `Steps` как владельца состояния. У каждого `StepsItem` и
+соответствующего `StepsContent` должен быть одинаковый индекс `index`, отсчитываемый от нуля;
 `count` задаёт общее количество шагов, а его значение обозначает завершение. Используйте
-`Steps.RootProvider` только с хранилищем от `Steps.useSteps()`, когда состояние нужно создать вне
+`StepsRootProvider` только с хранилищем от `useSteps()`, когда состояние нужно создать вне
 дерева частей. Не используйте корневой компонент и provider для одного и того же хранилища.
 
-`Steps.Trigger`, `Steps.PrevTrigger` и `Steps.NextTrigger` поддерживают `asChild`. Передайте один
+Для низкоуровневого чтения состояния используйте `useStepsContext` и `useStepsItemContext` или
+плоские значения контекста `StepsContext` и `StepsItemContext`.
+
+`StepsTrigger`, `StepsPrevTrigger` и `StepsNextTrigger` поддерживают `asChild`. Передайте один
 семантический дочерний элемент, если контрол должен отображаться как ссылка, роутерная ссылка или
-кнопка дизайн-системы. Если у `Steps.Indicator` нет дочерних элементов, он выводит номер шага или
+кнопка дизайн-системы. Если у `StepsIndicator` нет дочерних элементов, он выводит номер шага или
 общую иконку галочки для завершённого шага; передайте содержимое, чтобы управлять маркером вручную.
 
 ## Примеры
@@ -163,6 +191,7 @@ Steps.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -175,6 +204,11 @@ Steps.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueControlled} />
 
     </Tab>
   </Tabs>
@@ -203,6 +237,7 @@ Steps.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -217,6 +252,11 @@ Steps.RootProvider
 <CodeBlockRuntime lang="tsx" code={stepsSolidValidation} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueValidation} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -229,7 +269,7 @@ Steps.RootProvider
 
 ### Прогресс
 
-Добавьте `Steps.Progress`, если нужно показать полосу прогресса рядом со списком шагов. Добавьте
+Добавьте `StepsProgress`, если нужно показать полосу прогресса рядом со списком шагов. Добавьте
 собственный доступный статус, если прогресс должен быть озвучен вспомогательными технологиями.
 
 <ExampleFrame variant="component">
@@ -243,6 +283,7 @@ Steps.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -257,6 +298,11 @@ Steps.RootProvider
 <CodeBlockRuntime lang="tsx" code={stepsSolidProgress} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueProgress} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -269,8 +315,8 @@ Steps.RootProvider
 
 ### RootProvider
 
-Создайте состояние через `Steps.useSteps()` вне дерева отрисованных частей и передайте его в
-`Steps.RootProvider`, если внешние контролы должны работать с тем же состоянием.
+Создайте состояние через `useSteps()` вне дерева отрисованных частей и передайте его в
+`StepsRootProvider`, если внешние контролы должны работать с тем же состоянием.
 
 <ExampleFrame variant="component">
   <StepsRootProvider />
@@ -283,6 +329,7 @@ Steps.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -295,6 +342,11 @@ Steps.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -323,6 +375,7 @@ Steps.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -335,6 +388,11 @@ Steps.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={stepsSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueVertical} />
 
     </Tab>
   </Tabs>
@@ -364,6 +422,7 @@ Steps.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -378,6 +437,11 @@ Steps.RootProvider
 <CodeBlockRuntime lang="tsx" code={stepsSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={stepsVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -390,7 +454,7 @@ Steps.RootProvider
 
 ## Стилизация
 
-Стилизуйте `Steps` через `className` в React или `class` в Solid, атрибуты Ark `data-scope="steps"`
+Стилизуйте `Steps` через `className` в React или `class` в Solid и Vue, атрибуты Ark `data-scope="steps"`
 и `data-part`, атрибуты состояния Ark, хуки moduix `data-slot` и публичные CSS-переменные
 `--moduix-steps-*`, перечисленные ниже.
 
@@ -412,12 +476,12 @@ Steps.RootProvider
 
 Доступные публичные хуки:
 
-- `className` в React или `class` в Solid у `Steps`, `Steps.RootProvider`, `Steps.List`, `Steps.Item`, `Steps.Trigger`, `Steps.Indicator`, `Steps.Separator`, `Steps.Content`, `Steps.CompletedContent`, `Steps.PrevTrigger`, `Steps.NextTrigger` и `Steps.Progress`
+- `className` в React или `class` в Solid и Vue у `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger` и `StepsProgress`
 - `data-slot="steps-root"`, `steps-root-provider`, `steps-list`, `steps-item`, `steps-trigger`, `steps-indicator`, `steps-separator`, `steps-content`, `steps-completed-content`, `steps-prev-trigger`, `steps-next-trigger` и `steps-progress`
 - Значения `data-scope="steps"` и `data-part` от Ark для каждой примитивной части
 - `data-orientation="horizontal" | "vertical"` у корня, списка, шага, триггера, содержимого и разделителя
 - `data-current`, `data-complete` и `data-incomplete` на поверхностях состояния индикатора, разделителя и триггера
-- `data-skippable` у `Steps.Item`, когда шаг помечен как пропускаемый
+- `data-skippable` у `StepsItem`, когда шаг помечен как пропускаемый
 - `data-state="open" | "closed"` у триггеров и панелей содержимого
-- `data-complete` у `Steps.Progress`
-- Переменная Ark `--percent` у корня, используемая `Steps.Progress`
+- `data-complete` у `StepsProgress`
+- Переменная Ark `--percent` у корня, используемая `StepsProgress`

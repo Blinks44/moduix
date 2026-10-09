@@ -12,72 +12,74 @@ and provides shared disabled state to compatible descendants.
 
 ## Upstream model to preserve
 
-- Preserve Ark UI `Root`, `RootProvider`, `Legend`, `HelperText`, and `ErrorText`.
+- Preserve Ark UI `Root`, `RootProvider`, `Legend`, `HelperText`, and `ErrorText` through the flat
+  moduix names `Fieldset`, `FieldsetRootProvider`, `FieldsetLegend`, `FieldsetHelperText`, and
+  `FieldsetErrorText`.
 - Preserve Ark IDs, refs, and root state without remapping.
 - Keep the native `fieldset` and `legend` semantics.
 
 ## Current behavior contract
 
-- `Fieldset` and `Fieldset.Root` are the same styled Ark root.
+- `Fieldset` is the styled Ark root.
 - `disabled`, `invalid`, and `id` pass directly to Ark.
 - `useFieldset` is re-exported from `@moduix/react` for the supported `RootProvider` path.
-- `Fieldset.Context` and `useFieldsetContext` are re-exported for descendants that read fieldset
+- `FieldsetContext` and `useFieldsetContext` are re-exported for descendants that read fieldset
   state.
-- `Fieldset.ErrorText` renders only while the root is invalid.
-- `Fieldset.HelperText` and active error text are connected through `aria-describedby`.
+- `FieldsetErrorText` renders only while the root is invalid.
+- `FieldsetHelperText` and active error text are connected through `aria-describedby`.
 - legacy `render`, callback class names, flat part aliases, and compatibility adapters are removed.
 
 ## Anatomy and exported parts
 
 ```text
-Fieldset.Root | Fieldset.RootProvider
-├─ Fieldset.Legend
+Fieldset | FieldsetRootProvider
+├─ FieldsetLegend
 ├─ grouped controls
-├─ Fieldset.HelperText (optional)
-└─ Fieldset.ErrorText (optional)
+├─ FieldsetHelperText (optional)
+└─ FieldsetErrorText (optional)
 ```
 
-| Part                    | `data-slot`              | Element/role                       |
-| ----------------------- | ------------------------ | ---------------------------------- |
-| `Fieldset.Root`         | `fieldset-root`          | Native `fieldset`; owns state.     |
-| `Fieldset.RootProvider` | `fieldset-root-provider` | Native `fieldset`; external state. |
-| `Fieldset.Legend`       | `fieldset-legend`        | Native `legend`.                   |
-| `Fieldset.HelperText`   | `fieldset-helper-text`   | Descriptive `span`.                |
-| `Fieldset.ErrorText`    | `fieldset-error-text`    | Conditional polite-live `span`.    |
+| Part                   | `data-slot`              | Element/role                       |
+| ---------------------- | ------------------------ | ---------------------------------- |
+| `Fieldset`             | `fieldset-root`          | Native `fieldset`; owns state.     |
+| `FieldsetRootProvider` | `fieldset-root-provider` | Native `fieldset`; external state. |
+| `FieldsetLegend`       | `fieldset-legend`        | Native `legend`.                   |
+| `FieldsetHelperText`   | `fieldset-helper-text`   | Descriptive `span`.                |
+| `FieldsetErrorText`    | `fieldset-error-text`    | Conditional polite-live `span`.    |
 
-`Fieldset.Context` and `useFieldsetContext` expose the state returned by `useFieldset`; they do not
+`FieldsetContext` and `useFieldsetContext` expose the state returned by `useFieldset`; they do not
 render an additional DOM part.
 
 ## Composition
 
 ```tsx
 import { Field } from '@moduix/react/field';
-import { Fieldset } from '@moduix/react/fieldset';
+import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/react/fieldset';
 
 export function ContactDetails() {
   return (
     <Fieldset>
-      <Fieldset.Legend>Contact details</Fieldset.Legend>
+      <FieldsetLegend>Contact details</FieldsetLegend>
       <Field>
-        <Field.Label>Email</Field.Label>
-        <Field.Input type="email" />
+        <FieldLabel>Email</FieldLabel>
+        <FieldInput type="email" />
       </Field>
-      <Fieldset.HelperText>Use an address you check regularly.</Fieldset.HelperText>
+      <FieldsetHelperText>Use an address you check regularly.</FieldsetHelperText>
     </Fieldset>
   );
 }
 ```
 
 Use `asChild` with one semantic child when replacing a part's host. Use `useFieldset` from
-`@moduix/react` with `Fieldset.RootProvider`; use `Fieldset.Context` or `useFieldsetContext` in a
-descendant that reads its state. Do not render `Fieldset.Root` around the same state instance.
+`@moduix/react` with `FieldsetRootProvider`; use `FieldsetContext` or `useFieldsetContext` in a
+descendant that reads its state. Do not render `Fieldset` around the same state instance.
 
 ## Upstream feature coverage
 
 - Basic grouped fields and native controls are supported.
 - Ark `Field`, checkbox, radio-group, and select compositions work as nested controls.
-- Root Provider is exposed through moduix `useFieldset` and `Fieldset.RootProvider`.
-- `Fieldset.Context` and `useFieldsetContext` are available from `@moduix/react` for Ark-shaped
+- Root Provider is exposed through moduix `useFieldset` and `FieldsetRootProvider`.
+- `FieldsetContext` and `useFieldsetContext` are available from `@moduix/react` for Ark-shaped
   state reads.
 - `id`, `disabled`, `invalid`, refs, and `asChild` are passed through unchanged.
 
@@ -94,7 +96,7 @@ descendant that reads its state. Do not render `Fieldset.Root` around the same s
   components when individual controls need invalid styling or ARIA state.
 - Fieldset has no value and therefore no `HiddenInput`, controlled value, callback, or keyboard
   navigation contract of its own.
-- `Fieldset.Context` accepts a render function; `useFieldsetContext` returns the same context in a
+- `FieldsetContext` accepts a render function; `useFieldsetContext` returns the same context in a
   descendant.
 
 ## Defaults and styling
@@ -107,7 +109,7 @@ and helper/error text typography and color.
 ## Intentional sugar and differences from upstream
 
 - moduix supplies CSS Module defaults, design-token fallbacks, CSS variables, and `data-slot`.
-- The short `<Fieldset>` form is equivalent to `<Fieldset.Root>`.
+- The root is exposed as the flat `<Fieldset>` component.
 - No Chakra-only content wrapper or legacy flat aliases are added.
 
 ## Agent notes
@@ -116,7 +118,7 @@ and helper/error text typography and color.
   with Ark's fieldset state contract.
 - Keep `ErrorText` conditional; do not duplicate its visibility logic.
 - Do not restore `render`; Ark composition uses `asChild`.
-- Keep docs examples on the namespace API.
+- Keep docs examples on the flat API.
 
 ## Local changelog
 

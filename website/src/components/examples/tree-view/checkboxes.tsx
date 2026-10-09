@@ -1,4 +1,17 @@
 import {
+  TreeViewTree,
+  TreeViewLabel,
+  TreeViewItemText,
+  TreeViewItem,
+  TreeViewBranchIndentGuide,
+  TreeViewBranchContent,
+  TreeViewBranchText,
+  TreeViewNodeCheckboxIndicator,
+  TreeViewNodeCheckbox,
+  TreeViewBranchIndicator,
+  TreeViewBranchControl,
+  TreeViewBranch,
+  TreeViewNode,
   TreeView,
   createTreeCollection,
   type TreeViewNodeProviderProps,
@@ -37,19 +50,19 @@ const collection = createTreeCollection<FileNode>({
 
 function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeView.Node node={node} indexPath={indexPath}>
+    <TreeViewNode node={node} indexPath={indexPath}>
       {({ node: currentNode, indexPath: currentIndexPath, state }) =>
         state.isBranch ? (
-          <TreeView.Branch>
-            <TreeView.BranchControl>
-              <TreeView.BranchIndicator />
-              <TreeView.NodeCheckbox>
-                <TreeView.NodeCheckboxIndicator />
-              </TreeView.NodeCheckbox>
-              <TreeView.BranchText>{currentNode.name}</TreeView.BranchText>
-            </TreeView.BranchControl>
-            <TreeView.BranchContent>
-              <TreeView.BranchIndentGuide />
+          <TreeViewBranch>
+            <TreeViewBranchControl>
+              <TreeViewBranchIndicator />
+              <TreeViewNodeCheckbox>
+                <TreeViewNodeCheckboxIndicator />
+              </TreeViewNodeCheckbox>
+              <TreeViewBranchText>{currentNode.name}</TreeViewBranchText>
+            </TreeViewBranchControl>
+            <TreeViewBranchContent>
+              <TreeViewBranchIndentGuide />
               {currentNode.children?.map((child, index) => (
                 <FileTreeNode
                   key={child.id}
@@ -57,18 +70,18 @@ function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) 
                   indexPath={[...currentIndexPath, index]}
                 />
               ))}
-            </TreeView.BranchContent>
-          </TreeView.Branch>
+            </TreeViewBranchContent>
+          </TreeViewBranch>
         ) : (
-          <TreeView.Item>
-            <TreeView.NodeCheckbox>
-              <TreeView.NodeCheckboxIndicator />
-            </TreeView.NodeCheckbox>
-            <TreeView.ItemText>{currentNode.name}</TreeView.ItemText>
-          </TreeView.Item>
+          <TreeViewItem>
+            <TreeViewNodeCheckbox>
+              <TreeViewNodeCheckboxIndicator />
+            </TreeViewNodeCheckbox>
+            <TreeViewItemText>{currentNode.name}</TreeViewItemText>
+          </TreeViewItem>
         )
       }
-    </TreeView.Node>
+    </TreeViewNode>
   );
 }
 
@@ -79,12 +92,12 @@ export default function CheckboxTreeViewDemo() {
       defaultCheckedValue={['src/App.tsx', 'config/vite.ts']}
       defaultExpandedValue={['src']}
     >
-      <TreeView.Label>Checked files</TreeView.Label>
-      <TreeView.Tree>
+      <TreeViewLabel>Checked files</TreeViewLabel>
+      <TreeViewTree>
         {collection.rootNode.children?.map((node, index) => (
           <FileTreeNode key={node.id} node={node} indexPath={[index]} />
         ))}
-      </TreeView.Tree>
+      </TreeViewTree>
     </TreeView>
   );
 }

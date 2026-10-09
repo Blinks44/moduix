@@ -1,0 +1,39 @@
+.root {
+  display: grid;
+  gap: var(--moduix-spacing-2);
+}
+
+.label {
+  font-size: var(--moduix-text-sm);
+}
+
+.control {
+  position: relative;
+  display: flex;
+  height: var(--moduix-spacing-5);
+  align-items: center;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  height: var(--moduix-spacing-1);
+  border-radius: var(--moduix-radius-full);
+  background: var(--moduix-color-muted);
+}
+
+.range {
+  position: absolute;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--moduix-color-primary);
+}
+
+.thumb {
+  width: var(--moduix-spacing-4);
+  height: var(--moduix-spacing-4);
+  border: var(--moduix-border-width-md) solid var(--moduix-color-primary);
+  border-radius: var(--moduix-radius-full);
+  background: var(--moduix-color-background);
+  outline: none;
+}

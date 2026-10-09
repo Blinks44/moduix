@@ -1,4 +1,10 @@
-import { Slider } from '@moduix/solid/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+} from '@moduix/solid/slider';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/slider/slider-vertical.module.css';
 
@@ -13,12 +19,12 @@ export default function VerticalSliderDemo() {
         value={value()}
         onValueChange={(details) => setValue(details.value)}
       >
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumbs />
-        </Slider.Control>
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumbs />
+        </SliderControl>
       </Slider>
       <output>Output: {value().join(', ')}</output>
     </div>

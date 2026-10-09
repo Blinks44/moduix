@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/textarea/index.ts",
-      "content": "export { Textarea } from './Textarea.js';",
+      "content": "export * from './Textarea.js';",
       "type": "registry:component",
       "target": "@components/ui/textarea/index.ts"
     }

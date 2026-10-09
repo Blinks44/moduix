@@ -1,1 +1,1 @@
-export { NumberInput, useNumberInput, useNumberInputContext } from './NumberInput.js';
+export * from './NumberInput.js';

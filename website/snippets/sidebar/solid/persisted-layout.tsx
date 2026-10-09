@@ -1,5 +1,20 @@
 import { Button } from '@moduix/solid/button';
-import { Sidebar } from '@moduix/solid/sidebar';
+import {
+  Sidebar,
+  SidebarPanel,
+  SidebarInset,
+  SidebarResizeTrigger,
+  SidebarTrigger,
+  SidebarLabel,
+  SidebarHeader,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarNavigationList,
+  SidebarNavigationItem,
+  SidebarTooltip,
+  SidebarNavigationButton,
+} from '@moduix/solid/sidebar';
 import { FileText, Gauge } from 'lucide-solid';
 import { onMount, type ComponentProps, createSignal } from 'solid-js';
 import styles from '@/components/examples/sidebar/sidebar-persisted-layout.module.css';
@@ -40,53 +55,53 @@ export default function PersistedSidebar() {
       onResize={(details) => setSize(details.size)}
       onResizeEnd={(details) => window.localStorage.setItem(storageKey, details.size.join('|'))}
     >
-      <Sidebar.Panel>
-        <Sidebar.Header>
+      <SidebarPanel>
+        <SidebarHeader>
           <strong data-sidebar-icon>M</strong>
-          <Sidebar.Label>Moduix</Sidebar.Label>
-        </Sidebar.Header>
-        <Sidebar.Content>
-          <Sidebar.Group>
-            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.Tooltip content="Overview">
+          <SidebarLabel>Moduix</SidebarLabel>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarTooltip content="Overview">
                   {(props) => (
-                    <Sidebar.NavigationButton
+                    <SidebarNavigationButton
                       {...props()}
                       active
                       asChild={(buttonProps) => (
                         <a {...buttonProps()} href="/overview">
                           <Gauge />
-                          <Sidebar.Label>Overview</Sidebar.Label>
+                          <SidebarLabel>Overview</SidebarLabel>
                         </a>
                       )}
                     />
                   )}
-                </Sidebar.Tooltip>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.Tooltip content="Documents">
+                </SidebarTooltip>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarTooltip content="Documents">
                   {(props) => (
-                    <Sidebar.NavigationButton
+                    <SidebarNavigationButton
                       {...props()}
                       asChild={(buttonProps) => (
                         <a {...buttonProps()} href="/documents">
                           <FileText />
-                          <Sidebar.Label>Documents</Sidebar.Label>
+                          <SidebarLabel>Documents</SidebarLabel>
                         </a>
                       )}
                     />
                   )}
-                </Sidebar.Tooltip>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
-        </Sidebar.Content>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+                </SidebarTooltip>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+        </SidebarContent>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <header class={styles.header}>
           Dashboard
           <Button variant="outline" size="sm" onClick={handleReset}>
@@ -99,7 +114,7 @@ export default function PersistedSidebar() {
             Resize the sidebar and reload to restore the saved width.
           </section>
         </main>
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   );
 }

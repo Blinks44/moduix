@@ -17,6 +17,7 @@ import {
   OverlayPortalProvider,
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
+import { menuContentVariants, menuPositionerVariants } from './Menu.variants';
 
 type MenuIndicatorPosition = 'start' | 'end' | 'none';
 type MenuItemTone = 'default' | 'destructive';
@@ -55,15 +56,7 @@ const menuItemStyles = cva(
   },
 );
 
-const menuPositionerVariants = cva(
-  'z-[var(--z-index)] w-[var(--positioner-width,auto)] max-w-[var(--available-width)] outline-0',
-);
-
-const menuContentVariants = cva(
-  'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-w-[min(20rem,var(--available-width,100vw))] min-w-[min(max(var(--reference-width,0px),12rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col overflow-visible rounded-md bg-popover py-1 text-popover-foreground shadow-lg outline-1 outline-border [--arrow-background:var(--color-popover)] [--arrow-size:0.625rem] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
-);
-
-function MenuRoot({
+function Menu({
   lazyMount = true,
   portalled,
   portalRef,
@@ -110,20 +103,23 @@ const MenuTrigger = forwardRef<
   );
 });
 
-function MenuTriggerIcon({ className, children, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      className={cn(
-        'inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full',
-        className,
-      )}
-      {...props}
-      data-slot="menu-trigger-icon"
-    >
-      {children ?? <ChevronDownIcon />}
-    </span>
-  );
-}
+const MenuTriggerIcon = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
+  function MenuTriggerIcon({ className, children, ...props }, ref) {
+    return (
+      <span
+        ref={ref}
+        className={cn(
+          'inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full',
+          className,
+        )}
+        {...props}
+        data-slot="menu-trigger-icon"
+      >
+        {children ?? <ChevronDownIcon />}
+      </span>
+    );
+  },
+);
 
 const MenuIndicator = forwardRef<
   ComponentRef<typeof MenuPrimitive.Indicator>,
@@ -275,17 +271,23 @@ const MenuTriggerItem = forwardRef<
   );
 });
 
-function MenuTriggerItemIcon({ className, children, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      className={cn('inline-flex size-3.5 shrink-0 rtl:-scale-x-100 [&_svg]:size-full', className)}
-      {...props}
-      data-slot="menu-trigger-item-icon"
-    >
-      {children ?? <ChevronRightIcon />}
-    </span>
-  );
-}
+const MenuTriggerItemIcon = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
+  function MenuTriggerItemIcon({ className, children, ...props }, ref) {
+    return (
+      <span
+        ref={ref}
+        className={cn(
+          'inline-flex size-3.5 shrink-0 rtl:-scale-x-100 [&_svg]:size-full',
+          className,
+        )}
+        {...props}
+        data-slot="menu-trigger-item-icon"
+      >
+        {children ?? <ChevronRightIcon />}
+      </span>
+    );
+  },
+);
 
 const MenuSeparator = forwardRef<
   ComponentRef<typeof MenuPrimitive.Separator>,
@@ -463,41 +465,38 @@ const MenuItemShortcut = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<
   },
 );
 
-const Menu = Object.assign(MenuRoot, {
-  Root: MenuRoot,
-  RootProvider: MenuRootProvider,
-  Context: MenuPrimitive.Context,
-  Trigger: MenuTrigger,
-  TriggerIcon: MenuTriggerIcon,
-  Indicator: MenuIndicator,
-  ContextTrigger: MenuContextTrigger,
-  Positioner: MenuPositioner,
-  Content: MenuContent,
-  Viewport: MenuViewport,
-  Arrow: MenuArrow,
-  ArrowTip: MenuArrowTip,
-  Item: MenuItem,
-  TriggerItem: MenuTriggerItem,
-  TriggerItemIcon: MenuTriggerItemIcon,
-  Separator: MenuSeparator,
-  ItemGroup: MenuItemGroup,
-  ItemGroupLabel: MenuItemGroupLabel,
-  RadioItemGroup: MenuRadioItemGroup,
-  RadioItem: MenuRadioItem,
-  CheckboxItem: MenuCheckboxItem,
-  ItemIndicator: MenuItemIndicator,
-  ItemText: MenuItemText,
-  ItemTextContent: MenuItemTextContent,
-  ItemTextIcon: MenuItemTextIcon,
-  ItemTextLabel: MenuItemTextLabel,
-  ItemShortcut: MenuItemShortcut,
-  ItemContext: MenuPrimitive.ItemContext,
-});
+const MenuContext = MenuPrimitive.Context;
+const MenuItemContext = MenuPrimitive.ItemContext;
 
 export {
   Menu,
-  menuContentVariants,
-  menuPositionerVariants,
+  MenuArrow,
+  MenuArrowTip,
+  MenuCheckboxItem,
+  MenuContext,
+  MenuContextTrigger,
+  MenuContent,
+  MenuIndicator,
+  MenuItem,
+  MenuItemContext,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuItemIndicator,
+  MenuItemShortcut,
+  MenuItemText,
+  MenuItemTextContent,
+  MenuItemTextIcon,
+  MenuItemTextLabel,
+  MenuPositioner,
+  MenuRadioItem,
+  MenuRadioItemGroup,
+  MenuRootProvider,
+  MenuSeparator,
+  MenuTrigger,
+  MenuTriggerIcon,
+  MenuTriggerItem,
+  MenuTriggerItemIcon,
+  MenuViewport,
   useMenu,
   useMenuContext,
   useMenuItemContext,

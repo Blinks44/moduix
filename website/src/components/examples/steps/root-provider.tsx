@@ -1,4 +1,16 @@
-import { Steps } from '@moduix/react/steps';
+import {
+  StepsCompletedContent,
+  StepsContent,
+  StepsIndicator,
+  StepsItem,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsRootProvider,
+  StepsSeparator,
+  StepsTrigger,
+  useSteps,
+} from '@moduix/react/steps';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/steps/steps-root-provider.module.css';
 
@@ -18,40 +30,40 @@ const items = [
 ];
 
 export default function RootProviderStepsDemo() {
-  const steps = Steps.useSteps({
+  const steps = useSteps({
     count: items.length,
   });
   return (
     <div className={styles.container}>
-      <Steps.RootProvider className={styles.root} value={steps}>
-        <Steps.List>
+      <StepsRootProvider className={styles.root} value={steps}>
+        <StepsList>
           {items.map((item, index) => (
-            <Steps.Item key={item.title} index={index}>
-              <Steps.Trigger>
-                <Steps.Indicator />
+            <StepsItem key={item.title} index={index}>
+              <StepsTrigger>
+                <StepsIndicator />
                 <span className={styles.label}>
                   <strong>{item.title}</strong>
                   <small className={styles.description}>{item.description}</small>
                 </span>
-              </Steps.Trigger>
-              <Steps.Separator />
-            </Steps.Item>
+              </StepsTrigger>
+              <StepsSeparator />
+            </StepsItem>
           ))}
-        </Steps.List>
+        </StepsList>
 
         {items.map((item, index) => (
-          <Steps.Content key={item.title} index={index}>
+          <StepsContent key={item.title} index={index}>
             {item.title} - {item.description}
-          </Steps.Content>
+          </StepsContent>
         ))}
 
-        <Steps.CompletedContent>Steps complete. The workspace is ready.</Steps.CompletedContent>
+        <StepsCompletedContent>Steps complete. The workspace is ready.</StepsCompletedContent>
 
         <div className={styles.actions}>
-          <Steps.PrevTrigger>Back</Steps.PrevTrigger>
-          <Steps.NextTrigger>Next</Steps.NextTrigger>
+          <StepsPrevTrigger>Back</StepsPrevTrigger>
+          <StepsNextTrigger>Next</StepsNextTrigger>
         </div>
-      </Steps.RootProvider>
+      </StepsRootProvider>
       <PreviewMeta>
         <output>Current step: {steps.value + 1}</output>
       </PreviewMeta>

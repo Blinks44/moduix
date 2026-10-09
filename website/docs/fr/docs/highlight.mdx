@@ -1,6 +1,7 @@
 ---
 title: Highlight
-description: Mettez en évidence des mots et des expressions dans un texte existant avec des éléments mark natifs et les styles moduix.
+description: Mettez en évidence des mots et des expressions dans un texte existant avec des éléments mark natifs et les styles moduix dans React, Solid ou Vue.
+component: highlight
 ---
 
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
@@ -16,6 +17,12 @@ import highlightSolidExactMatch from '../../../snippets/highlight/solid/exact-ma
 import highlightSolidIgnoreCase from '../../../snippets/highlight/solid/ignore-case.tsx?raw';
 import highlightSolidMatchAll from '../../../snippets/highlight/solid/match-all.tsx?raw';
 import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/multiple-queries.tsx?raw';
+import highlightVueBasic from '../../../snippets/highlight/vue/basic.vue?raw';
+import highlightVueDynamicQuery from '../../../snippets/highlight/vue/dynamic-query.vue?raw';
+import highlightVueExactMatch from '../../../snippets/highlight/vue/exact-match.vue?raw';
+import highlightVueIgnoreCase from '../../../snippets/highlight/vue/ignore-case.vue?raw';
+import highlightVueMatchAll from '../../../snippets/highlight/vue/match-all.vue?raw';
+import highlightVueMultipleQueries from '../../../snippets/highlight/vue/multiple-queries.vue?raw';
 
 ## Référence de l’API
 
@@ -48,6 +55,7 @@ texte.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -60,6 +68,11 @@ texte.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueBasic} />
 
     </Tab>
   </Tabs>
@@ -91,6 +104,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/highlight' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/highlight' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -100,20 +123,19 @@ supplémentaire. Chaque segment correspondant devient un élément natif `<mark>
 sans correspondance reste du texte ordinaire dans le flux environnant.
 
 ```text
-Highlight / Highlight.Root
+Highlight
 └─ segments correspondants rendus dans des éléments <mark> successifs
 ```
 
 | Partie                         | Rôle                                                                  |
 | ------------------------------ | --------------------------------------------------------------------- |
-| `Highlight` / `Highlight.Root` | Applique les styles moduix à chaque correspondance du texte fourni.   |
+| `Highlight` | Applique les styles moduix à chaque correspondance du texte fourni.   |
 
 ## Composition
 
 `Highlight` est sans état et ne crée pas de conteneur de mise en page. Placez-le dans un conteneur
 de texte existant comme `Text`, un titre, un élément de liste ou une cellule de tableau. Contrôlez
-`query` depuis le composant parent lorsque la recherche change et utilisez la forme `Highlight.Root`
-seulement si elle rend la composition plus claire. Un tableau de chaînes exige que `matchAll` reste
+`query` depuis le composant parent lorsque la recherche change. Un tableau de chaînes exige que `matchAll` reste
 à `true` ; si chaque correspondance doit utiliser un élément différent ou un comportement interactif,
 construisez cette structure dans votre propre composant.
 
@@ -135,6 +157,7 @@ recherche ou un filtrage du texte affiché.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -147,6 +170,11 @@ recherche ou un filtrage du texte affiché.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidDynamicQuery} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueDynamicQuery} />
 
     </Tab>
   </Tabs>
@@ -176,6 +204,7 @@ certaines autres écritures comme des mots entiers.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -188,6 +217,11 @@ certaines autres écritures comme des mots entiers.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidExactMatch} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueExactMatch} />
 
     </Tab>
   </Tabs>
@@ -214,6 +248,7 @@ Activez `ignoreCase` lorsque la casse du texte source ne doit pas influencer le 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -226,6 +261,11 @@ Activez `ignoreCase` lorsque la casse du texte source ne doit pas influencer le 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidIgnoreCase} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueIgnoreCase} />
 
     </Tab>
   </Tabs>
@@ -247,6 +287,7 @@ Activez `matchAll` pour mettre en évidence chaque occurrence au lieu de la prem
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -259,6 +300,11 @@ Activez `matchAll` pour mettre en évidence chaque occurrence au lieu de la prem
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidMatchAll} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueMatchAll} />
 
     </Tab>
   </Tabs>
@@ -287,6 +333,7 @@ erreur.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -301,6 +348,11 @@ erreur.
 <CodeBlockRuntime lang="tsx" code={highlightSolidMultipleQueries} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueMultipleQueries} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
@@ -308,9 +360,9 @@ erreur.
 ## Styles
 
 Les segments correspondants reçoivent les styles `<mark>` par défaut de moduix. Utilisez `className`
-dans React ou `class` dans Solid pour une modification locale. Les variantes CSS Modules exposent
-également les variables `--moduix-highlight-*` ; pour Tailwind, utilisez des classes utilitaires ou
-les classes du consommateur.
+dans React ou `class` dans Solid et Vue pour une modification locale. Les variantes CSS Modules
+exposent également les variables `--moduix-highlight-*` ; pour Tailwind, utilisez des classes
+utilitaires ou les classes du consommateur.
 
 ### Propriétés CSS
 

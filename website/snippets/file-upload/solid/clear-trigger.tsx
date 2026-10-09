@@ -1,4 +1,15 @@
-import { FileUpload } from '@moduix/solid/file-upload';
+import {
+  FileUpload,
+  FileUploadClearTrigger,
+  FileUploadContext,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/solid/file-upload';
 import { For } from 'solid-js';
 import styles from '@/components/examples/file-upload/file-upload-clear-trigger.module.css';
 
@@ -7,26 +18,26 @@ const maxFiles = 3;
 export default function ClearTriggerFileUploadDemo() {
   return (
     <FileUpload class={styles.root} maxFiles={maxFiles}>
-      <FileUpload.Label>Attachments</FileUpload.Label>
+      <FileUploadLabel>Attachments</FileUploadLabel>
       <div class={styles.actions}>
-        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-        <FileUpload.ClearTrigger>Clear files</FileUpload.ClearTrigger>
+        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadClearTrigger>Clear files</FileUploadClearTrigger>
       </div>
-      <FileUpload.ItemGroup>
-        <FileUpload.Context>
+      <FileUploadItemGroup>
+        <FileUploadContext>
           {(fileUpload) => (
             <For each={fileUpload().acceptedFiles}>
               {(file) => (
-                <FileUpload.Item file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                </FileUpload.Item>
+                <FileUploadItem file={file}>
+                  <FileUploadItemName />
+                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                </FileUploadItem>
               )}
             </For>
           )}
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
     </FileUpload>
   );
 }

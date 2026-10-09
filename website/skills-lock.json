@@ -18,12 +18,6 @@
       "sourceType": "github",
       "skillPath": "skills/rspress-description-generator/SKILL.md",
       "computedHash": "ca2693ca055d1b4e5903bdfacab522f46ca0e13cbc5db59e6c9589fdc8efc6ad"
-    },
-    "rspress-docs-generator": {
-      "source": "rstackjs/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/rspress-docs-generator/SKILL.md",
-      "computedHash": "29ab486fd64614aa2a5380d4eb2aecaa21a2f6d5c012d77e4dfffde42ecaa08f"
     }
   }
 }

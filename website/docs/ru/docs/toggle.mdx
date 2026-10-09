@@ -23,11 +23,20 @@ import toggleSolidIcons from '../../../snippets/toggle/solid/icons.tsx?raw';
 import toggleSolidIndicator from '../../../snippets/toggle/solid/indicator.tsx?raw';
 import toggleSolidSizes from '../../../snippets/toggle/solid/sizes.tsx?raw';
 import toggleSolidVariants from '../../../snippets/toggle/solid/variants.tsx?raw';
+import toggleVueAdvancedCustomization from '../../../snippets/toggle/vue/advanced-customization.vue?raw';
+import toggleVueAsChild from '../../../snippets/toggle/vue/aschild.vue?raw';
+import toggleVueBasic from '../../../snippets/toggle/vue/basic.vue?raw';
+import toggleVueControlled from '../../../snippets/toggle/vue/controlled.vue?raw';
+import toggleVueDisabled from '../../../snippets/toggle/vue/disabled.vue?raw';
+import toggleVueIcons from '../../../snippets/toggle/vue/icons.vue?raw';
+import toggleVueIndicator from '../../../snippets/toggle/vue/indicator.vue?raw';
+import toggleVueSizes from '../../../snippets/toggle/vue/sizes.vue?raw';
+import toggleVueVariants from '../../../snippets/toggle/vue/variants.vue?raw';
 
 ## Справочник API
 
 `Toggle` оборачивает примитив Toggle из Ark UI и добавляет визуальные свойства moduix для вариантов и размеров.
-Импортируйте его из `@moduix/react/toggle` или `@moduix/solid/toggle`.
+Импортируйте его из `@moduix/react/toggle`, `@moduix/solid/toggle` или `@moduix/vue/toggle`.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toggle" />
 
@@ -43,8 +52,7 @@ import toggleSolidVariants from '../../../snippets/toggle/solid/variants.tsx?raw
 ## Базовый пример
 
 
-Используйте `Toggle` в обычном случае. Это сокращённая форма `Toggle.Root`, сохраняющая поведение Ark
-для состояния нажатия.
+Используйте `Toggle` в обычном случае, сохраняя поведение Ark для состояния нажатия.
 
 <ExampleFrame variant="component">
   <ToggleBasic />
@@ -57,6 +65,7 @@ import toggleSolidVariants from '../../../snippets/toggle/solid/variants.tsx?raw
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -69,6 +78,11 @@ import toggleSolidVariants from '../../../snippets/toggle/solid/variants.tsx?raw
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueBasic} />
 
     </Tab>
   </Tabs>
@@ -100,31 +114,45 @@ import toggleSolidVariants from '../../../snippets/toggle/solid/variants.tsx?raw
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/toggle' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/toggle' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Toggle / Toggle.Root
-└─ Toggle.Indicator (необязательно)
+Toggle
+└─ ToggleIndicator (необязательно)
 
-Toggle.Context (читает состояние, но не создаёт часть DOM)
+ToggleContext (читает состояние, но не создаёт часть DOM)
 ```
 
 | Часть | Назначение |
 | ----- | ---------- |
-| `Toggle` / `Toggle.Root` | Корневая часть, которая управляет состоянием нажатия, фокусом, отключением и композицией через `asChild`. |
-| `Toggle.Indicator` | Необязательная часть, которая показывает содержимое в нажатом состоянии и `fallback`, когда кнопка не нажата. |
-| `Toggle.Context` | Читает состояние ближайшего `Toggle` для пользовательских потомков, но не создаёт часть DOM. |
+| `Toggle` | Корневая часть, которая управляет состоянием нажатия, фокусом, отключением и композицией через `asChild`. |
+| `ToggleIndicator` | Необязательная часть, которая показывает содержимое в нажатом состоянии и `fallback`, когда кнопка не нажата. |
+| `ToggleContext` | Читает состояние ближайшего `Toggle` для пользовательских потомков, но не создаёт часть DOM. |
 
 ## Композиция
 
-`Toggle` является сокращённой формой `Toggle.Root`. Используйте `defaultPressed` для неконтролируемого
-состояния или передавайте `pressed` вместе с `onPressedChange`, если значение хранится в состоянии приложения.
-Используйте `Toggle.Indicator`, когда содержимое кнопки меняется вместе с состоянием нажатия. Для пользовательских
-потомков, которым нужно это состояние, используйте `Toggle.Context` или `useToggleContext()` из соответствующего
+Используйте `defaultPressed` для неконтролируемого состояния или передавайте `pressed` вместе с
+`onPressedChange`, если значение хранится в состоянии приложения. Используйте `ToggleIndicator`, когда содержимое
+кнопки меняется вместе с состоянием нажатия. Для пользовательских потомков, которым нужно это состояние,
+используйте `ToggleContext` или `useToggleContext()` из соответствующего
 пакета. Используйте `asChild`, если другая кнопка должна стать носителем поведения `Toggle`. В Solid `asChild` принимает
-render-функцию, а в React один потомок, совместимый с кнопкой.
+функцию рендера. В React передавайте один дочерний элемент, совместимый с кнопкой, а в Vue помещайте
+такой элемент в слот по умолчанию.
+В Vue используйте `v-model:pressed` для управляемого значения, именованный слот `fallback` с `ToggleIndicator` и слот
+`ToggleContext`, если пользовательскому потомку нужно текущее состояние. Событие `@pressed-change`
+передаёт новое булево значение, если вы хотите обработать изменение без привязки через `v-model:pressed`.
 
 ## Примеры
 
@@ -144,6 +172,7 @@ render-функцию, а в React один потомок, совместимы
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -156,6 +185,11 @@ render-функцию, а в React один потомок, совместимы
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidAsChild} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueAsChild} />
 
     </Tab>
   </Tabs>
@@ -177,6 +211,7 @@ render-функцию, а в React один потомок, совместимы
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -189,6 +224,11 @@ render-функцию, а в React один потомок, совместимы
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueControlled} />
 
     </Tab>
   </Tabs>
@@ -215,6 +255,7 @@ render-функцию, а в React один потомок, совместимы
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -227,6 +268,11 @@ render-функцию, а в React один потомок, совместимы
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -254,6 +300,7 @@ render-функцию, а в React один потомок, совместимы
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -268,6 +315,11 @@ render-функцию, а в React один потомок, совместимы
 <CodeBlockRuntime lang="tsx" code={toggleSolidIcons} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueIcons} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -279,7 +331,7 @@ render-функцию, а в React один потомок, совместимы
 
 ### Индикатор
 
-Используйте `Toggle.Indicator`, если в нажатом и ненажатом состояниях нужно показывать разное встроенное содержимое.
+Используйте `ToggleIndicator`, если в нажатом и ненажатом состояниях нужно показывать разное встроенное содержимое.
 
 <ExampleFrame variant="component">
   <ToggleIndicator />
@@ -292,6 +344,7 @@ render-функцию, а в React один потомок, совместимы
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -304,6 +357,11 @@ render-функцию, а в React один потомок, совместимы
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidIndicator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueIndicator} />
 
     </Tab>
   </Tabs>
@@ -325,6 +383,7 @@ render-функцию, а в React один потомок, совместимы
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -337,6 +396,11 @@ render-функцию, а в React один потомок, совместимы
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={toggleSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueSizes} />
 
     </Tab>
   </Tabs>
@@ -363,6 +427,7 @@ render-функцию, а в React один потомок, совместимы
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -377,6 +442,11 @@ render-функцию, а в React один потомок, совместимы
 <CodeBlockRuntime lang="tsx" code={toggleSolidVariants} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueVariants} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -388,8 +458,8 @@ render-функцию, а в React один потомок, совместимы
 
 ### Расширенная настройка
 
-Используйте контекстный хук, если пользовательскому потомку нужно состояние нажатия, но менять содержимое кнопки
-через `Toggle.Indicator` не требуется.
+Используйте контекстный хук или слот с параметрами, если пользовательскому потомку нужно состояние нажатия, но менять содержимое кнопки
+через `ToggleIndicator` не требуется.
 
 <ExampleFrame variant="component">
   <ToggleAdvancedCustomization />
@@ -402,6 +472,7 @@ render-функцию, а в React один потомок, совместимы
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -416,13 +487,18 @@ render-функцию, а в React один потомок, совместимы
 <CodeBlockRuntime lang="tsx" code={toggleSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={toggleVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid для структурных стилей экспортируемых частей. Варианты Tailwind
+Используйте `className` в React или `class` в Solid и Vue для структурных стилей экспортируемых частей. Варианты Tailwind
 используют нативные утилиты и классы потребителя. Варианты с CSS Modules дополнительно предоставляют токены
 `--moduix-toggle-*` для вариантов, размеров, кольца фокуса, отступов и размера иконок.
 
@@ -446,5 +522,5 @@ render-функцию, а в React один потомок, совместимы
 - Селекторы частей Ark UI: `data-scope="toggle"` и `data-part="root" | "indicator"`.
 - Состояния Ark UI: `data-state="on" | "off"`, `data-pressed` и `data-disabled`.
 - Селекторы moduix: `data-variant` и `data-size`, включая `icon-sm`, `icon-md` и `icon-lg`.
-- Прямые дочерние иконки и иконки внутри `Toggle.Indicator` получают размер через
+- Прямые дочерние иконки и иконки внутри `ToggleIndicator` получают размер через
   `--moduix-toggle-icon-size` в варианте с CSS Modules.

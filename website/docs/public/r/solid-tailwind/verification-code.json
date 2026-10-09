@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "verification-code",
+  "title": "Verification code",
+  "description": "Six-digit email verification form with keyboard navigation and paste support.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/solid-tailwind-verification-code.json"],
+  "files": [],
+  "type": "registry:block"
+}

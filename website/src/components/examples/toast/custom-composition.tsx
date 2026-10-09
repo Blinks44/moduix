@@ -1,5 +1,12 @@
 import { Button } from '@moduix/react/button';
-import { Toast, Toaster, createToaster } from '@moduix/react/toast';
+import {
+  Toast,
+  ToastCloseTrigger,
+  ToastDescription,
+  ToastTitle,
+  ToastToaster,
+  createToaster,
+} from '@moduix/react/toast';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/toast/toast-custom-composition.module.css';
@@ -11,20 +18,20 @@ export default function App() {
 
   return (
     <div className={styles.root}>
-      <Toaster toaster={toaster}>
+      <ToastToaster toaster={toaster}>
         {(toast) => (
           <Toast key={toast.id} className={styles.toast}>
             <div className={styles.content}>
               <span aria-hidden="true">ⓘ</span>
               <div>
-                <Toast.Title />
-                <Toast.Description />
+                <ToastTitle />
+                <ToastDescription />
               </div>
             </div>
-            <Toast.CloseTrigger aria-label="Close custom toast">×</Toast.CloseTrigger>
+            <ToastCloseTrigger aria-label="Close custom toast">×</ToastCloseTrigger>
           </Toast>
         )}
-      </Toaster>
+      </ToastToaster>
       <PreviewMeta>
         <output>Last event: {event}</output>
         <Button

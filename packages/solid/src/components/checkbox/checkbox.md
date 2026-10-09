@@ -1,39 +1,43 @@
 # Checkbox (Solid)
 
-`Checkbox` is the moduix Solid wrapper around Ark UI Checkbox. It preserves the React wrapper's
-compound anatomy, state attributes, native form behavior, default indicators, and `size` styling
-hook.
+`Checkbox` is the moduix Solid wrapper around Ark UI Checkbox. It preserves the React wrapper's flat
+part surface, state attributes, native form behavior, default indicators, and `size` styling hook.
 
 ## Composition
 
 ```tsx
-import { Checkbox } from '@moduix/solid/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
 
 export function CheckboxDemo() {
   return (
-    <Checkbox.Root defaultChecked>
-      <Checkbox.Control />
-      <Checkbox.Label>Enable notifications</Checkbox.Label>
-      <Checkbox.HiddenInput />
-    </Checkbox.Root>
+    <Checkbox defaultChecked>
+      <CheckboxControl />
+      <CheckboxLabel>Enable notifications</CheckboxLabel>
+      <CheckboxHiddenInput />
+    </Checkbox>
   );
 }
 ```
 
-Compose `Checkbox.HiddenInput` explicitly inside `Root` or `RootProvider`. `Control` renders the default
-checked and indeterminate indicators when it has no children, and `Indicator` renders the moduix
-check or indeterminate icon when its children are omitted.
+Compose `CheckboxHiddenInput` explicitly inside the root or `CheckboxRootProvider`. `CheckboxControl`
+renders the default checked and indeterminate indicators when it has no children, and
+`CheckboxIndicator` renders the moduix check or indeterminate icon when its children are omitted.
 
 ## Ark Solid behavior
 
 Solid uses a render-function `asChild` prop:
 
 ```tsx
-<Checkbox.Root asChild={(props) => <label {...props()} />}>
-  <Checkbox.Control />
-  <Checkbox.Label>Accept terms</Checkbox.Label>
-  <Checkbox.HiddenInput />
-</Checkbox.Root>
+<Checkbox asChild={(props) => <label {...props()} />}>
+  <CheckboxControl />
+  <CheckboxLabel>Accept terms</CheckboxLabel>
+  <CheckboxHiddenInput />
+</Checkbox>
 ```
 
 The installed Ark Solid primitive does not forward `ref` through `asChild`; ordinary refs and
@@ -41,6 +45,7 @@ custom-host composition are therefore supported as separate native paths. The So
 Ark's accessor-based API, so provider state is passed as `value={checkbox}` and read as
 `checkbox().checked`.
 
-The public parts are `Root`, `RootProvider`, `Control`, `Indicator`, `Label`, and `Group`. The
-barrel also re-exports `useCheckbox`, `useCheckboxContext`, `useCheckboxGroup`, and
-`useCheckboxGroupContext`.
+The public flat parts are `Checkbox` (root), `CheckboxRootProvider`, `CheckboxContext`,
+`CheckboxHiddenInput`, `CheckboxControl`, `CheckboxIndicator`, `CheckboxLabel`, and
+`CheckboxGroup`. The barrel also re-exports `useCheckbox`, `useCheckboxContext`, `useCheckboxGroup`,
+and `useCheckboxGroupContext`.

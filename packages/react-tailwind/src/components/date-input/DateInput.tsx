@@ -10,10 +10,10 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const DateInputRoot = forwardRef<
+const DateInput = forwardRef<
   ComponentRef<typeof DateInputPrimitive.Root>,
   ComponentProps<typeof DateInputPrimitive.Root>
->(function DateInputRoot({ className, ...props }, ref) {
+>(function DateInput({ className, ...props }, ref) {
   return (
     <DateInputPrimitive.Root
       ref={ref}
@@ -66,7 +66,7 @@ const DateInputControl = forwardRef<
     <DateInputPrimitive.Control
       ref={ref}
       className={cn(
-        'box-border inline-flex min-h-control-md w-full items-center rounded-md border border-border bg-background px-3 py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:focus-within:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none',
+        'box-border inline-flex min-h-control-md w-full items-center gap-1 rounded-md border border-border bg-background px-3 py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:focus-within:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none',
         className,
       )}
       {...props}
@@ -119,35 +119,41 @@ const DateInputSegments = forwardRef<
   );
 });
 
-function DateInputSeparator({
-  className,
-  'aria-hidden': ariaHidden = true,
-  role = 'presentation',
-  ...props
-}: ComponentProps<'span'>) {
-  return (
-    <span
-      aria-hidden={ariaHidden}
-      role={role}
-      className={cn('text-muted-foreground select-none', className)}
-      {...props}
-      data-slot="date-input-separator"
-    />
-  );
-}
+const DateInputSeparator = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
+  function DateInputSeparator(
+    { className, 'aria-hidden': ariaHidden = true, role = 'presentation', ...props },
+    ref,
+  ) {
+    return (
+      <span
+        ref={ref}
+        aria-hidden={ariaHidden}
+        role={role}
+        className={cn('text-muted-foreground select-none', className)}
+        {...props}
+        data-slot="date-input-separator"
+      />
+    );
+  },
+);
 
-const DateInput = Object.assign(DateInputRoot, {
-  Root: DateInputRoot,
-  RootProvider: DateInputRootProvider,
-  HiddenInput: DateInputPrimitive.HiddenInput,
-  Label: DateInputLabel,
-  Control: DateInputControl,
-  SegmentGroup: DateInputSegmentGroup,
-  Segment: DateInputSegment,
-  Segments: DateInputSegments,
-  Separator: DateInputSeparator,
-  Context: DateInputPrimitive.Context,
-  SegmentContext: DateInputPrimitive.SegmentContext,
-});
+const DateInputHiddenInput = DateInputPrimitive.HiddenInput;
+const DateInputContext = DateInputPrimitive.Context;
+const DateInputSegmentContext = DateInputPrimitive.SegmentContext;
 
-export { DateInput, type DateInputDateValue, useDateInput, useDateInputContext };
+export {
+  DateInput,
+  DateInputContext,
+  DateInputControl,
+  DateInputHiddenInput,
+  DateInputLabel,
+  DateInputRootProvider,
+  DateInputSegment,
+  DateInputSegmentContext,
+  DateInputSegmentGroup,
+  DateInputSegments,
+  DateInputSeparator,
+  type DateInputDateValue,
+  useDateInput,
+  useDateInputContext,
+};

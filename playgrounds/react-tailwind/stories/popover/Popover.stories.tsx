@@ -1,7 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 import { Button } from '@/components/button';
-import { Popover, usePopover, usePopoverContext } from '@/components/popover/Popover';
+import {
+  Popover,
+  PopoverAnchor,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseIcon,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverPositioner,
+  PopoverRootProvider,
+  PopoverTitle,
+  PopoverTrigger,
+  usePopover,
+  usePopoverContext,
+} from '@/components/popover/Popover';
 
 const stackClass = 'grid justify-items-center gap-3';
 const triggerGroupClass = 'flex flex-wrap justify-center gap-2';
@@ -62,32 +79,32 @@ function PopoverSurface({
   arrow?: boolean;
 }) {
   return (
-    <Popover.Positioner>
-      <Popover.Content>
-        {arrow ? <Popover.Arrow /> : null}
-        <Popover.Header>
-          <Popover.Title>{title}</Popover.Title>
-          <Popover.Description>{description}</Popover.Description>
-        </Popover.Header>
-        <Popover.Footer>
-          <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-        </Popover.Footer>
-      </Popover.Content>
-    </Popover.Positioner>
+    <PopoverPositioner>
+      <PopoverContent>
+        {arrow ? <PopoverArrow /> : null}
+        <PopoverHeader>
+          <PopoverTitle>{title}</PopoverTitle>
+          <PopoverDescription>{description}</PopoverDescription>
+        </PopoverHeader>
+        <PopoverFooter>
+          <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+        </PopoverFooter>
+      </PopoverContent>
+    </PopoverPositioner>
   );
 }
 
 export const Basic: Story = {
   render: () => (
     <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>
           <span className={triggerContentClass}>
             <BellIcon className={iconClass} />
             Notifications
           </span>
         </Button>
-      </Popover.Trigger>
+      </PopoverTrigger>
       <PopoverSurface title="Notifications" description="You are all caught up. Good job!" />
     </Popover>
   ),
@@ -101,9 +118,9 @@ export const Controlled: Story = {
       <div className={stackClass}>
         <span>Popover is {open ? 'open' : 'closed'}</span>
         <Popover open={open} onOpenChange={(details) => setOpen(details.open)}>
-          <Popover.Trigger asChild>
+          <PopoverTrigger asChild>
             <Button>Open controlled popover</Button>
-          </Popover.Trigger>
+          </PopoverTrigger>
           <PopoverSurface
             title="Publish changes?"
             description="This action will make your latest updates visible to all users."
@@ -125,15 +142,15 @@ export const RootProvider: Story = {
         <Button variant="outline" onClick={() => popover.setOpen(!popover.open)}>
           Toggle externally
         </Button>
-        <Popover.RootProvider value={popover}>
-          <Popover.Trigger asChild>
+        <PopoverRootProvider value={popover}>
+          <PopoverTrigger asChild>
             <Button>Open from trigger</Button>
-          </Popover.Trigger>
+          </PopoverTrigger>
           <PopoverSurface
             title="External state"
             description="The usePopover hook owns this popover state."
           />
-        </Popover.RootProvider>
+        </PopoverRootProvider>
       </div>
     );
   },
@@ -148,23 +165,23 @@ export const Context: Story = {
 
     return (
       <Popover positioning={{ gutter: 8 }}>
-        <Popover.Trigger asChild>
+        <PopoverTrigger asChild>
           <Button>Open context example</Button>
-        </Popover.Trigger>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Header>
-              <Popover.Title>Context state</Popover.Title>
-              <Popover.Description>
+        </PopoverTrigger>
+        <PopoverPositioner>
+          <PopoverContent>
+            <PopoverHeader>
+              <PopoverTitle>Context state</PopoverTitle>
+              <PopoverDescription>
                 Read the popover state from a descendant without prop drilling.
-              </Popover.Description>
-            </Popover.Header>
-            <Popover.Footer>
+              </PopoverDescription>
+            </PopoverHeader>
+            <PopoverFooter>
               <PopoverState />
-              <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-            </Popover.Footer>
-          </Popover.Content>
-        </Popover.Positioner>
+              <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+            </PopoverFooter>
+          </PopoverContent>
+        </PopoverPositioner>
       </Popover>
     );
   },
@@ -174,9 +191,9 @@ export const WithArrow: Story = {
   name: 'With Arrow',
   render: () => (
     <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>Open with arrow</Button>
-      </Popover.Trigger>
+      </PopoverTrigger>
       <PopoverSurface
         arrow
         title="With arrow"
@@ -189,9 +206,9 @@ export const WithArrow: Story = {
 export const Positioning: Story = {
   render: () => (
     <Popover positioning={{ placement: 'left', gutter: 12 }}>
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>Open on the left</Button>
-      </Popover.Trigger>
+      </PopoverTrigger>
       <PopoverSurface
         title="Left placement"
         description="Placement and offsets belong to Root.positioning."
@@ -204,9 +221,9 @@ export const LazyMount: Story = {
   name: 'Lazy Mount',
   render: () => (
     <Popover lazyMount unmountOnExit positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>Open lazy popover</Button>
-      </Popover.Trigger>
+      </PopoverTrigger>
       <PopoverSurface
         title="Lazy mounted"
         description="This content mounts on open and unmounts after exit."
@@ -219,9 +236,9 @@ export const CloseBehavior: Story = {
   name: 'Close Behavior',
   render: () => (
     <Popover closeOnEscape={false} closeOnInteractOutside={false}>
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>Open persistent popover</Button>
-      </Popover.Trigger>
+      </PopoverTrigger>
       <PopoverSurface
         title="Explicit close"
         description="Escape and outside interactions do not dismiss this popover."
@@ -233,29 +250,29 @@ export const CloseBehavior: Story = {
 export const Modal: Story = {
   render: () => (
     <Popover modal initialFocusEl={() => document.querySelector('#popover-email')}>
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>Invite teammates</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.CloseIcon />
-          <Popover.Header>
-            <Popover.Title>Invite teammates</Popover.Title>
-            <Popover.Description>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverCloseIcon />
+          <PopoverHeader>
+            <PopoverTitle>Invite teammates</PopoverTitle>
+            <PopoverDescription>
               Focus is trapped inside this modal popover until dismissed.
-            </Popover.Description>
-          </Popover.Header>
-          <Popover.Body>
+            </PopoverDescription>
+          </PopoverHeader>
+          <PopoverBody>
             <label className={fieldClass}>
               <span>Email</span>
               <input id="popover-email" className={inputClass} />
             </label>
-          </Popover.Body>
-          <Popover.Footer>
-            <Popover.CloseTrigger>Done</Popover.CloseTrigger>
-          </Popover.Footer>
-        </Popover.Content>
-      </Popover.Positioner>
+          </PopoverBody>
+          <PopoverFooter>
+            <PopoverCloseTrigger>Done</PopoverCloseTrigger>
+          </PopoverFooter>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   ),
 };
@@ -264,12 +281,12 @@ export const Anchor: Story = {
   render: () => (
     <Popover positioning={{ gutter: 8 }}>
       <div className={stackClass}>
-        <Popover.Anchor asChild>
+        <PopoverAnchor asChild>
           <input className={inputClass} placeholder="Popover anchor" />
-        </Popover.Anchor>
-        <Popover.Trigger asChild>
+        </PopoverAnchor>
+        <PopoverTrigger asChild>
           <Button>Open below the input</Button>
-        </Popover.Trigger>
+        </PopoverTrigger>
       </div>
       <PopoverSurface
         title="Custom anchor"
@@ -283,17 +300,17 @@ export const SameWidth: Story = {
   name: 'Same Width',
   render: () => (
     <Popover positioning={{ sameWidth: true, gutter: 8 }}>
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button className={wideTriggerClass}>Match this trigger width</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Title>Matched width</Popover.Title>
-          <Popover.Description>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverTitle>Matched width</PopoverTitle>
+          <PopoverDescription>
             The content uses Ark&apos;s reference width measurement.
-          </Popover.Description>
-        </Popover.Content>
-      </Popover.Positioner>
+          </PopoverDescription>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   ),
 };
@@ -314,19 +331,19 @@ export const MultipleTriggers: Story = {
       >
         <div className={triggerGroupClass}>
           {popoverActions.map((item) => (
-            <Popover.Trigger key={item.id} value={item.id}>
+            <PopoverTrigger key={item.id} value={item.id}>
               {item.label}
-            </Popover.Trigger>
+            </PopoverTrigger>
           ))}
         </div>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Title>{activeItem?.label ?? 'Select an action'}</Popover.Title>
-            <Popover.Description>
+        <PopoverPositioner>
+          <PopoverContent>
+            <PopoverTitle>{activeItem?.label ?? 'Select an action'}</PopoverTitle>
+            <PopoverDescription>
               {activeItem?.detail ?? 'Choose one of the actions.'}
-            </Popover.Description>
-          </Popover.Content>
-        </Popover.Positioner>
+            </PopoverDescription>
+          </PopoverContent>
+        </PopoverPositioner>
       </Popover>
     );
   },
@@ -335,28 +352,28 @@ export const MultipleTriggers: Story = {
 export const Nested: Story = {
   render: () => (
     <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button>Open settings</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Header>
-            <Popover.Title>Settings</Popover.Title>
-            <Popover.Description>Nested popovers keep independent state.</Popover.Description>
-          </Popover.Header>
-          <Popover.Body className={nestedBodyClass}>
+      </PopoverTrigger>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverHeader>
+            <PopoverTitle>Settings</PopoverTitle>
+            <PopoverDescription>Nested popovers keep independent state.</PopoverDescription>
+          </PopoverHeader>
+          <PopoverBody className={nestedBodyClass}>
             <Popover portalled={false} positioning={{ placement: 'right', gutter: 8 }}>
-              <Popover.Trigger asChild>
+              <PopoverTrigger asChild>
                 <Button variant="outline">Advanced</Button>
-              </Popover.Trigger>
+              </PopoverTrigger>
               <PopoverSurface
                 title="Advanced settings"
                 description="This content belongs to the nested popover."
               />
             </Popover>
-          </Popover.Body>
-        </Popover.Content>
-      </Popover.Positioner>
+          </PopoverBody>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   ),
 };

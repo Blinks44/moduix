@@ -1,4 +1,4 @@
-import { Avatar } from '@moduix/react/avatar';
+import { Avatar, AvatarFallback } from '@moduix/react/avatar';
 import styles from '@/components/examples/avatar/avatar-sizes-and-fallback-only.module.css';
 
 const avatarSizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
@@ -8,7 +8,7 @@ export default function AvatarSizesDemo() {
     <div className={styles.root}>
       {avatarSizes.map((size) => (
         <Avatar key={size} size={size}>
-          <Avatar.Fallback>{size.toUpperCase()}</Avatar.Fallback>
+          <AvatarFallback>{size.toUpperCase()}</AvatarFallback>
         </Avatar>
       ))}
     </div>

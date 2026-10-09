@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Skeleton } from '@/components/skeleton/Skeleton';
+import { Skeleton } from '@/components/skeleton';
 import { Stack } from '@/components/stack';
 import styles from './Skeleton.stories.module.css';
 

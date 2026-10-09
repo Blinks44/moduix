@@ -1,6 +1,11 @@
-import { Collapsible } from '@moduix/react/collapsible';
+import {
+  Collapsible,
+  CollapsibleBody,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@moduix/react/collapsible';
 import { useI18n } from '@rspress/core/runtime';
-import { CodeBlockRuntime, Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
+import { Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
 import { ArrowUpRight, Code2, Layers3 } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
@@ -35,63 +40,39 @@ function PrimitiveReference({ href }: { href: string }) {
   );
 }
 
-function ShadcnInstall({
-  packageName,
-  itemKind = 'component',
-  copiedSource = false,
-  dependencies = [],
-  solidDependencies = [],
-  frameworks = false,
-}: {
-  packageName: string | string[];
-  itemKind?: 'component' | 'recipe';
-  copiedSource?: boolean;
-  dependencies?: string[];
-  solidDependencies?: string[];
-  frameworks?: boolean;
-}) {
-  const packageNames = Array.isArray(packageName) ? packageName : [packageName];
+function BlockInstall({ name }: { name: string }) {
   const t = useI18n<typeof import('i18n')>();
-  const installMessage =
-    itemKind === 'recipe' ? t('shadcnInstallRecipe') : t('shadcnInstallComponent');
-  const copyMessage = itemKind === 'recipe' ? t('shadcnCopyRecipe') : t('shadcnCopyComponent');
-
-  const renderInstall = (framework: 'react' | 'solid', extraDependencies: string[]) => (
-    <div className={styles.install}>
-      <p>{copiedSource ? copyMessage : installMessage}</p>
-      <PackageManagerTabs
-        command={`shadcn@latest add ${packageNames.map((name) => `@moduix-${framework}/${name}`).join(' ')}`}
-        dlx
-      />
-      <p>{t('shadcnImportHint')}</p>
-      <CodeBlockRuntime
-        lang="tsx"
-        code={`// Package
-// import { Component } from '@moduix/${framework}/<component>';
-
-// shadcn
-import { Component } from '@/components/ui/<component>';`}
-      />
-      {extraDependencies.length > 0 ? (
-        <>
-          <p>{t('shadcnExampleRequires')}</p>
-          <PackageManagerTabs command={`install ${extraDependencies.join(' ')}`} />
-        </>
-      ) : null}
-    </div>
-  );
-
-  if (!frameworks) return renderInstall('react', dependencies);
+  const quickStartPath = useLocalizedPath('/docs/quick-start');
 
   return (
-    <Tabs groupId="framework">
-      <Tab label="React" value="react">
-        {renderInstall('react', dependencies)}
-      </Tab>
-      <Tab label="Solid" value="solid">
-        {renderInstall('solid', solidDependencies)}
-      </Tab>
-    </Tabs>
+    <div className={styles.install}>
+      <p>{t('blockInstallDescription')}</p>
+      <Tabs groupId="framework">
+        {(['react', 'solid', 'vue'] as const).map((framework) => (
+          <Tab
+            label={framework === 'react' ? 'React' : framework === 'solid' ? 'Solid' : 'Vue'}
+            value={framework}
+            key={framework}
+          >
+            <ShadcnInstallOptions
+              options={[
+                {
+                  label: 'CSS Modules',
+                  command: `shadcn@latest add @moduix-${framework}/${name}`,
+                },
+                {
+                  label: 'Tailwind CSS',
+                  command: `shadcn@latest add @moduix-${framework}-tailwind/${name}`,
+                },
+              ]}
+            />
+          </Tab>
+        ))}
+      </Tabs>
+      <p>{t('blockInstallStyles')}</p>
+      <p>{t('blockInstallSetup')}</p>
+      <Link href={quickStartPath}>{t('blockQuickStart')}</Link>
+    </div>
   );
 }
 
@@ -123,20 +104,12 @@ function CssLogo({ className }: { className: string }) {
 
 function TailwindLogo({ className }: { className: string }) {
   return (
-    <svg className={className} fill="none" viewBox="0 0 54 33">
-      <g clipPath="url(#a)">
-        <path
-          fill="#38bdf8"
-          fillRule="evenodd"
-          d="M27 0c-7.2 0-11.7 3.6-13.5 10.8 2.7-3.6 5.85-4.95 9.45-4.05 2.054.513 3.522 2.004 5.147 3.653C30.744 13.09 33.808 16.2 40.5 16.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C36.756 3.11 33.692 0 27 0zM13.5 16.2C6.3 16.2 1.8 19.8 0 27c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 29.29 20.308 32.4 27 32.4c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C23.256 19.31 20.192 16.2 13.5 16.2z"
-          clipRule="evenodd"
-        />
-      </g>
-      <defs>
-        <clipPath id="a">
-          <path fill="#fff" d="M0 0h54v32.4H0z" />
-        </clipPath>
-      </defs>
+    <svg className={className} fill="none" viewBox="0 0 54 33" aria-hidden="true" focusable="false">
+      <path
+        fill="#38bdf8"
+        fillRule="evenodd"
+        d="M27 0c-7.2 0-11.7 3.6-13.5 10.8 2.7-3.6 5.85-4.95 9.45-4.05 2.054.513 3.522 2.004 5.147 3.653C30.744 13.09 33.808 16.2 40.5 16.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C36.756 3.11 33.692 0 27 0zM13.5 16.2C6.3 16.2 1.8 19.8 0 27c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 29.29 20.308 32.4 27 32.4c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C23.256 19.31 20.192 16.2 13.5 16.2z"
+      />
     </svg>
   );
 }
@@ -272,7 +245,7 @@ function ExampleCode({ children }: { children: ReactNode }) {
 
   return (
     <Collapsible className={styles.exampleCode}>
-      <Collapsible.Trigger asChild>
+      <CollapsibleTrigger asChild>
         <button
           aria-label={t('showCode')}
           className={styles.exampleCodeTrigger}
@@ -281,10 +254,10 @@ function ExampleCode({ children }: { children: ReactNode }) {
         >
           <Code2 aria-hidden="true" />
         </button>
-      </Collapsible.Trigger>
-      <Collapsible.Content className={styles.exampleCodeContent}>
-        <Collapsible.Body className={styles.exampleCodeBody}>{children}</Collapsible.Body>
-      </Collapsible.Content>
+      </CollapsibleTrigger>
+      <CollapsibleContent className={styles.exampleCodeContent}>
+        <CollapsibleBody className={styles.exampleCodeBody}>{children}</CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   );
 }
@@ -298,7 +271,7 @@ export {
   PreviewFrame,
   PreviewMeta,
   PrimitiveReference,
-  ShadcnInstall,
+  BlockInstall,
   ShadcnInstallOptions,
   StyleTrackCard,
   StyleTrackCards,

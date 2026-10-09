@@ -1,4 +1,10 @@
-import { Checkbox } from '@moduix/react/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
 
 const options = [
   { value: 'email', label: 'Email updates' },
@@ -8,14 +14,14 @@ const options = [
 
 export default function CheckboxGroupDemo() {
   return (
-    <Checkbox.Group defaultValue={['email']} name="notifications">
+    <CheckboxGroup defaultValue={['email']} name="notifications">
       {options.map((option) => (
         <Checkbox key={option.value} value={option.value}>
-          <Checkbox.Control />
-          <Checkbox.Label>{option.label}</Checkbox.Label>
-          <Checkbox.HiddenInput />
+          <CheckboxControl />
+          <CheckboxLabel>{option.label}</CheckboxLabel>
+          <CheckboxHiddenInput />
         </Checkbox>
       ))}
-    </Checkbox.Group>
+    </CheckboxGroup>
   );
 }

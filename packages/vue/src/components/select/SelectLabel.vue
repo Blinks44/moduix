@@ -1,0 +1,25 @@
+<script setup lang="ts">
+import { SelectLabel as ArkSelectLabel } from '@ark-ui/vue/select';
+import type { SelectLabelProps } from '@ark-ui/vue/select';
+import { clsx } from 'clsx';
+import { useAttrs } from 'vue';
+import type { HTMLAttributes } from 'vue';
+import styles from './Select.module.css';
+
+defineOptions({ inheritAttrs: false });
+
+export interface Props extends /* @vue-ignore */ SelectLabelProps {
+  class?: HTMLAttributes['class'];
+}
+
+const { class: className } = defineProps<Props>();
+defineSlots<{ default?: () => unknown }>();
+
+const attrs = useAttrs();
+</script>
+
+<template>
+  <ArkSelectLabel v-bind="attrs" :class="clsx(styles.label, className)" data-slot="select-label">
+    <slot />
+  </ArkSelectLabel>
+</template>

@@ -24,13 +24,15 @@ description: Обновление пакетов Moduix и слияние изм
 | --- | --- | --- |
 | React | `@moduix/react` | `@moduix/react-tailwind` |
 | Solid | `@moduix/solid` | `@moduix/solid-tailwind` |
+| Vue | `@moduix/vue` | `@moduix/vue-tailwind` |
 
-Не обновляйте похожий адаптер, который приложение не использует. Пока порты продолжаются, каталог
-Tailwind-пакетов может быть меньше каталога CSS Modules.
+Не обновляйте похожий адаптер, который приложение не использует. React, Solid и Vue предоставляют
+одинаковый каталог компонентов в вариантах CSS Modules и Tailwind.
 
 ## Обновите пакеты
 
-Перед сменой версий прочитайте [Changelog](/docs/changelog), затем используйте package manager,
+Перед сменой версий просмотрите [Что нового](/docs/changelog) и версии в
+[релизах на GitHub](https://github.com/Blinks44/moduix/releases), затем используйте package manager,
 который уже выбран в приложении.
 
 <Tabs groupId="styling">
@@ -47,6 +49,11 @@ Tailwind-пакетов может быть меньше каталога CSS Mo
 <PackageManagerTabs command="install @moduix/solid@latest @ark-ui/solid@latest" />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue@latest @ark-ui/vue@latest" />
+
+  </Tab>
 </Tabs>
 
   </Tab>
@@ -61,6 +68,11 @@ Tailwind-пакетов может быть меньше каталога CSS Mo
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="install @moduix/solid-tailwind@latest @ark-ui/solid@latest" />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue-tailwind@latest @ark-ui/vue@latest" />
 
   </Tab>
 </Tabs>
@@ -80,8 +92,10 @@ Ark UI является peer-зависимостью. Перед мажорны
 | --- | --- | --- |
 | React | `@moduix-react` | `@moduix-react-tailwind` |
 | Solid | `@moduix-solid` | `@moduix-solid-tailwind` |
+| Vue | `@moduix-vue` | `@moduix-vue-tailwind` |
 
-Сначала просмотрите компонент, не изменяя локальные файлы:
+Сначала просмотрите компонент, не изменяя локальные файлы: `view` выводит исходный элемент реестра,
+а `add --dry-run` и `add --diff` показывают, что именно запишет обновление:
 
 <PackageManagerTabs command="shadcn@latest view @moduix-react/button" dlx />
 
@@ -121,3 +135,9 @@ import '@/lib/moduix/styles/style.css';
 - Проверьте компоненты и сценарии, названные в Changelog.
 - При необходимости проверьте клавиатуру, возврат фокуса, порталы и сокращенную анимацию.
 - Перед выпуском сопоставьте локальные изменения реестра с полным upstream diff.
+
+## Связанные материалы
+
+- [Что нового](/docs/changelog)
+- [Быстрый старт](/docs/quick-start)
+- [Стилизация](/docs/styling)

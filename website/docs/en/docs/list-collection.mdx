@@ -6,7 +6,9 @@ description: Create, query, filter, and update array-backed collections for Sele
 import ListCollectionBasic from '@/components/examples/list-collection/basic.tsx';
 import ListCollectionFiltering from '@/components/examples/listbox/standalone-filter-input.tsx';
 import listCollectionSolidBasic from '../../../snippets/select/solid/basic.tsx?raw';
+import listCollectionVueBasic from '../../../snippets/select/vue/basic.vue?raw';
 import listCollectionSolidFiltering from '../../../snippets/listbox/solid/standalone-filter-input.tsx?raw';
+import listCollectionVueFiltering from '../../../snippets/listbox/vue/standalone-filter-input.vue?raw';
 
 # List Collection
 
@@ -27,6 +29,7 @@ collection helpers from the Ark UI entry point for your framework:
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -44,6 +47,13 @@ import { createListCollection, useListCollection } from '@ark-ui/solid/collectio
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { createListCollection, useListCollection } from '@ark-ui/vue/collection';
+```
+
+  </Tab>
 </Tabs>
 
 ## Basic
@@ -52,7 +62,7 @@ Use `createListCollection` for a collection whose items are known when the modul
 uses `label`, `value`, and `disabled` by default. Pass the collection to an Ark-based component and
 render its items from `collection.items`.
 
-The preview uses React with the CSS Modules styling track. The tabs contain native React and Solid
+The preview uses React with the CSS Modules styling track. The tabs contain native React, Solid, and Vue
 source for the same example. Solid source is shown as code because the documentation preview runs
 in React.
 
@@ -69,6 +79,7 @@ in React.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -83,6 +94,11 @@ in React.
 <CodeBlockRuntime lang="tsx" code={listCollectionSolidBasic} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listCollectionVueBasic} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
@@ -90,7 +106,7 @@ in React.
 Keep a static collection outside the component. When items come from props, state, or a request,
 create the collection again only when the source items change. The dynamic hook below is the
 convenient option when filtering or updates belong to framework state.
-In React, use `useMemo`; in Solid, use `createMemo` when the source items are reactive.
+In React, use `useMemo`; in Solid, use `createMemo`; in Vue, use `computed` when the source items are reactive.
 
 ## Custom item shapes
 
@@ -173,7 +189,8 @@ const nextValue = collection.search('p', {
 ```
 
 Keep `searchState` for the lifetime of the interaction. In React, `useRef` is a convenient place for
-it. In Solid, keep the same object in the component scope or another stable store.
+it. In Solid, keep the same object in the component scope or another stable store. In Vue, create it
+once in `<script setup>`.
 
 ## Dynamic collections
 
@@ -197,6 +214,7 @@ input owns filtering, and render an empty state when no items match.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -211,6 +229,11 @@ input owns filtering, and render an empty state when no items match.
 <CodeBlockRuntime lang="tsx" code={listCollectionSolidFiltering} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listCollectionVueFiltering} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -222,6 +245,7 @@ input owns filtering, and render an empty state when no items match.
 
 In React, `collection` is a `ListCollection`. In Solid, it is an accessor, so use
 `collection()` when passing it to a component or reading `collection().items` in a `<For>` loop.
+In Vue, it is a ref: use `collection.value` in script or the unwrapped `collection` in templates.
 The hook exposes `filter`, `set`, `reset`, `clear`, `insert`, `insertBefore`, `insertAfter`,
 `remove`, `move`, `moveBefore`, `moveAfter`, `reorder`, `append`, `prepend`, `update`, and `upsert`.
 

@@ -1,6 +1,13 @@
 import { useFormatHotkey, useHotkey } from '@ark-ui/solid';
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/solid/card';
 import { Kbd } from '@moduix/solid/kbd';
 import { Stack } from '@moduix/solid/stack';
 import { createSignal } from 'solid-js';
@@ -22,24 +29,24 @@ export default function HotkeysBasicDemo() {
 
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>Draft</Card.Title>
-        <Card.Description>Save your changes without leaving the keyboard.</Card.Description>
-      </Card.Header>
-      <Card.Body>
+      <CardHeader>
+        <CardTitle>Draft</CardTitle>
+        <CardDescription>Save your changes without leaving the keyboard.</CardDescription>
+      </CardHeader>
+      <CardBody>
         <Stack align="center" direction="row" justify="space-between">
           <span>Save draft</span>
           <Kbd>{formatHotkey('mod+S')}</Kbd>
         </Stack>
-      </Card.Body>
-      <Card.Footer>
+      </CardBody>
+      <CardFooter>
         <Stack align="center" direction="row" justify="space-between">
           <output aria-live="polite">{status()}</output>
           <Button onClick={saveDraft} type="button">
             Save draft
           </Button>
         </Stack>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   );
 }

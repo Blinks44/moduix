@@ -1,5 +1,11 @@
 import { Button } from '@moduix/solid/button';
-import { HoverCard } from '@moduix/solid/hover-card';
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/solid/hover-card';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/hover-card/hover-card-controlled.module.css';
 
@@ -9,10 +15,10 @@ export default function ControlledHoverCard() {
   return (
     <>
       <HoverCard open={open()} onOpenChange={(details) => setOpen(details.open)}>
-        <HoverCard.Trigger class={styles.trigger}>@sarah_chen</HoverCard.Trigger>
-        <HoverCard.Positioner>
-          <HoverCard.Content>
-            <HoverCard.Body>
+        <HoverCardTrigger class={styles.trigger}>@sarah_chen</HoverCardTrigger>
+        <HoverCardPositioner>
+          <HoverCardContent>
+            <HoverCardBody>
               <div class={styles.preview}>
                 <img
                   alt="Sunlit workspace with a laptop and plants"
@@ -26,9 +32,9 @@ export default function ControlledHoverCard() {
                   </p>
                 </div>
               </div>
-            </HoverCard.Body>
-          </HoverCard.Content>
-        </HoverCard.Positioner>
+            </HoverCardBody>
+          </HoverCardContent>
+        </HoverCardPositioner>
       </HoverCard>
       <div>
         <output>Open: {open() ? 'yes' : 'no'}</output>

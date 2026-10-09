@@ -8,7 +8,7 @@ import type { ComponentProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui/Icons';
 
-function NumberInputRoot(props: ComponentProps<typeof NumberInputPrimitive.Root>) {
+function NumberInput(props: ComponentProps<typeof NumberInputPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'value']);
 
   return (
@@ -167,18 +167,20 @@ function NumberInputField(props: NumberInputFieldProps) {
   );
 }
 
-const NumberInput = Object.assign(NumberInputRoot, {
-  Root: NumberInputRoot,
-  RootProvider: NumberInputRootProvider,
-  Context: NumberInputPrimitive.Context,
-  Label: NumberInputLabel,
-  Scrubber: NumberInputScrubber,
-  Control: NumberInputControl,
-  Field: NumberInputField,
-  DecrementTrigger: NumberInputDecrementTrigger,
-  Input: NumberInputInput,
-  IncrementTrigger: NumberInputIncrementTrigger,
-  ValueText: NumberInputValueText,
-});
+const NumberInputContext = NumberInputPrimitive.Context;
 
-export { NumberInput, useNumberInput, useNumberInputContext };
+export {
+  NumberInput,
+  NumberInputContext,
+  NumberInputControl,
+  NumberInputDecrementTrigger,
+  NumberInputField,
+  NumberInputIncrementTrigger,
+  NumberInputInput,
+  NumberInputLabel,
+  NumberInputRootProvider,
+  NumberInputScrubber,
+  NumberInputValueText,
+  useNumberInput,
+  useNumberInputContext,
+};

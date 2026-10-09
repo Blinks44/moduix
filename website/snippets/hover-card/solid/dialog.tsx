@@ -1,6 +1,20 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog } from '@moduix/solid/dialog';
-import { HoverCard } from '@moduix/solid/hover-card';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogContent,
+  DialogHeader,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/solid/dialog';
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/solid/hover-card';
 import styles from '@/components/examples/hover-card/hover-card-dialog.module.css';
 
 export default function DialogHoverCard() {
@@ -8,20 +22,20 @@ export default function DialogHoverCard() {
 
   return (
     <Dialog initialFocusEl={() => titleRef}>
-      <Dialog.Trigger asChild={(props) => <Button {...props()}>View profile</Button>} />
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title ref={(element) => (titleRef = element)} tabIndex={-1}>
+      <DialogTrigger asChild={(props) => <Button {...props()}>View profile</Button>} />
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle ref={(element) => (titleRef = element)} tabIndex={-1}>
               Team member
-            </Dialog.Title>
-          </Dialog.Header>
+            </DialogTitle>
+          </DialogHeader>
           <HoverCard portalled={false}>
-            <HoverCard.Trigger class={styles.trigger}>@sarah_chen</HoverCard.Trigger>
-            <HoverCard.Positioner>
-              <HoverCard.Content>
-                <HoverCard.Body>
+            <HoverCardTrigger class={styles.trigger}>@sarah_chen</HoverCardTrigger>
+            <HoverCardPositioner>
+              <HoverCardContent>
+                <HoverCardBody>
                   <div class={styles.preview}>
                     <img
                       alt="Sunlit workspace with a laptop and plants"
@@ -35,12 +49,12 @@ export default function DialogHoverCard() {
                       </p>
                     </div>
                   </div>
-                </HoverCard.Body>
-              </HoverCard.Content>
-            </HoverCard.Positioner>
+                </HoverCardBody>
+              </HoverCardContent>
+            </HoverCardPositioner>
           </HoverCard>
-        </Dialog.Content>
-      </Dialog.Positioner>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

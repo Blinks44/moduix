@@ -1,0 +1,110 @@
+// Internal test barrel. The package intentionally exposes component subpaths only.
+
+export * from './components/simple-grid';
+export * from './components/text';
+export * from './components/typeset';
+export * from './components/accordion';
+export * from './components/tree-view';
+export * from './components/json-tree-view';
+export * from './components/toggle';
+export {
+  ToggleGroup,
+  ToggleGroupContext,
+  ToggleGroupItem,
+  ToggleGroupRootProvider,
+  useToggleGroup,
+  useToggleGroupContext,
+} from './components/toggle-group';
+export type {
+  ToggleGroupContextProps,
+  ToggleGroupItemBaseProps,
+  ToggleGroupItemProps,
+  ToggleGroupRootBaseProps,
+  ToggleGroupRootEmits,
+  ToggleGroupRootProps,
+  ToggleGroupRootProviderBaseProps,
+  ToggleGroupRootProviderProps,
+  ToggleGroupValueChangeDetails,
+  UseToggleGroupContext,
+  UseToggleGroupProps,
+  UseToggleGroupReturn,
+} from './components/toggle-group';
+export * from './components/toc';
+export * from './components/qr-code';
+export * from './components/pin-input';
+export * from './components/navigation-menu';
+export * from './components/marquee';
+export * from './components/lightbox';
+export * from './components/list';
+export * from './components/listbox';
+export * from './components/image-cropper';
+export * from './components/image';
+export * from './components/hover-card';
+export * from './components/popover';
+export * from './components/floating-panel';
+export * from './components/heading';
+export * from './components/highlight';
+export * from './components/empty';
+export * from './components/date-picker';
+export * from './components/date-input';
+export * from './components/switch';
+export * from './components/select';
+export * from './components/native-select';
+export * from './components/number-input';
+export * from './components/pagination';
+export * from './components/password-input';
+export * from './components/rating-group';
+export * from './components/collapsible';
+export * from './components/dialog';
+export * from './components/editable';
+export * from './components/drawer';
+export * from './components/field';
+export * from './components/alert';
+export * from './components/angle-slider';
+export * from './components/slider';
+export * from './components/separator';
+export * from './components/aspect-ratio';
+export * from './components/avatar';
+export * from './components/badge';
+export * from './components/breadcrumbs';
+export * from './components/button';
+export * from './components/kbd';
+export * from './components/input';
+export * from './components/input-group';
+export * from './components/textarea';
+export * from './components/card';
+export * from './components/carousel';
+export * from './components/bleed';
+export * from './components/checkbox';
+export * from './components/radio-group';
+export * from './components/segment-group';
+export * from './components/fieldset';
+export * from './components/clipboard';
+export * from './components/chart';
+export * from './components/color-picker';
+export * from './components/combobox';
+export * from './components/command-palette';
+export * from './components/tags-input';
+export * from './components/tag';
+export * from './components/container';
+export * from './components/scroll-area';
+export * from './components/menu';
+export * from './components/close-button';
+export * from './components/file-upload';
+export * from './components/stack';
+export * from './components/spinner';
+export * from './components/splitter';
+export * from './components/sidebar';
+export * from './components/progress-linear';
+export * from './components/progress-circular';
+export * from './components/signature-pad';
+export * from './components/skeleton';
+export * from './components/split-button';
+export * from './components/steps';
+export * from './components/swap';
+export * from './components/table';
+export * from './components/tabs';
+export * from './components/timer';
+export * from './components/tour';
+export * from './components/tooltip';
+export * from './components/toast';

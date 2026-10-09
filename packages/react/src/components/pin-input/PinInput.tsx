@@ -12,10 +12,10 @@ import { forwardRef } from 'react';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 import styles from './PinInput.module.css';
 
-const PinInputRoot = forwardRef<
+const PinInput = forwardRef<
   ComponentRef<typeof PinInputPrimitive.Root>,
   ComponentProps<typeof PinInputPrimitive.Root>
->(function PinInputRoot({ className, count, placeholder = '', ...props }, ref) {
+>(function PinInput({ className, count, placeholder = '', ...props }, ref) {
   return (
     <PinInputPrimitive.Root
       ref={ref}
@@ -90,40 +90,43 @@ function PinInputInputs({ className }: { className?: string }) {
   return items.map((index) => <PinInputInput key={index} index={index} className={className} />);
 }
 
-function PinInputSeparator({
-  className,
-  'aria-hidden': ariaHidden = true,
-  role = 'presentation',
-  children,
-  ...props
-}: ComponentProps<'span'>) {
-  return (
-    <span
-      aria-hidden={ariaHidden}
-      role={role}
-      className={clsx(styles.separator, className)}
-      {...props}
-      data-slot="pin-input-separator"
-    >
-      {children ?? <SeparatorMarkIcon />}
-    </span>
-  );
-}
+const PinInputSeparator = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
+  function PinInputSeparator(
+    { className, 'aria-hidden': ariaHidden = true, role = 'presentation', children, ...props },
+    ref,
+  ) {
+    return (
+      <span
+        ref={ref}
+        aria-hidden={ariaHidden}
+        role={role}
+        className={clsx(styles.separator, className)}
+        {...props}
+        data-slot="pin-input-separator"
+      >
+        {children ?? <SeparatorMarkIcon />}
+      </span>
+    );
+  },
+);
 
 function usePinInput(props: UsePinInputProps = {}) {
   return usePinInputPrimitive({ placeholder: '', ...props });
 }
 
-const PinInput = Object.assign(PinInputRoot, {
-  Root: PinInputRoot,
-  RootProvider: PinInputRootProvider,
-  Context: PinInputPrimitive.Context,
-  HiddenInput: PinInputPrimitive.HiddenInput,
-  Label: PinInputLabel,
-  Control: PinInputControl,
-  Input: PinInputInput,
-  Inputs: PinInputInputs,
-  Separator: PinInputSeparator,
-});
+const PinInputContext = PinInputPrimitive.Context;
+const PinInputHiddenInput = PinInputPrimitive.HiddenInput;
 
-export { PinInput, usePinInput, usePinInputContext };
+export {
+  PinInput,
+  PinInputContext,
+  PinInputControl,
+  PinInputHiddenInput,
+  PinInputInput,
+  PinInputInputs,
+  PinInputLabel,
+  PinInputRootProvider,
+  PinInputSeparator,
+  usePinInput,
+  usePinInputContext,
+};

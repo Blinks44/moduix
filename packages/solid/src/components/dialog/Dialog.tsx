@@ -3,7 +3,8 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
-import { children, splitProps } from 'solid-js';
+import { splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -12,14 +13,12 @@ import {
 import { CloseButton } from '../close-button';
 import styles from './Dialog.module.css';
 
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close dialog';
-
 type DialogRootProps = ComponentProps<typeof DialogPrimitive.Root> & OverlayPortalProps;
 type DialogRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
   OverlayPortalProps;
 type DialogCloseIconProps = Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>;
 
-function DialogRoot(props: DialogRootProps) {
+function Dialog(props: DialogRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -155,20 +154,19 @@ function DialogCloseTrigger(props: ComponentProps<typeof DialogPrimitive.CloseTr
 
 function DialogCloseIcon(props: DialogCloseIconProps) {
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
-  const resolvedChildren = children(() => local.children);
 
   return (
     <DialogPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="dialog-close-icon"
-          aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
+          aria-label={local['aria-label'] ?? a11yLabels.closeDialog}
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >
-          {resolvedChildren()}
-        </CloseButton.Root>
+          {local.children}
+        </CloseButton>
       )}
       {...others}
     />
@@ -193,22 +191,24 @@ function DialogFooter(props: HTMLArkProps<'div'>) {
   return <ark.div class={clsx(styles.footer, local.class)} {...others} data-slot="dialog-footer" />;
 }
 
-const Dialog = Object.assign(DialogRoot, {
-  Root: DialogRoot,
-  RootProvider: DialogRootProvider,
-  Context: DialogPrimitive.Context,
-  Trigger: DialogTrigger,
-  Backdrop: DialogBackdrop,
-  Positioner: DialogPositioner,
-  Content: DialogContent,
-  Title: DialogTitle,
-  Description: DialogDescription,
-  CloseTrigger: DialogCloseTrigger,
-  CloseIcon: DialogCloseIcon,
-  Header: DialogHeader,
-  Body: DialogBody,
-  Footer: DialogFooter,
-});
+const DialogContext = DialogPrimitive.Context;
 
-export { Dialog, useDialog, useDialogContext };
+export {
+  Dialog,
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseIcon,
+  DialogCloseTrigger,
+  DialogContext,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogPositioner,
+  DialogRootProvider,
+  DialogTitle,
+  DialogTrigger,
+  useDialog,
+  useDialogContext,
+};
 export type { DialogRootProps, DialogRootProviderProps };

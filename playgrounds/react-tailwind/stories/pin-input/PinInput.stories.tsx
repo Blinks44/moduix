@@ -1,7 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useId, useState } from 'react';
-import { Field } from '@/components/field';
-import { PinInput, usePinInput } from '@/components/pin-input/PinInput';
+import { Field, FieldErrorText } from '@/components/field';
+import {
+  PinInput,
+  PinInputControl,
+  PinInputHiddenInput,
+  PinInputInput,
+  PinInputInputs,
+  PinInputLabel,
+  PinInputRootProvider,
+  PinInputSeparator,
+  usePinInput,
+} from '@/components/pin-input/PinInput';
 
 const PIN_COUNT = 6;
 
@@ -24,11 +34,11 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <PinInput count={PIN_COUNT}>
-      <PinInput.Label>Verification code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
-      <PinInput.HiddenInput />
+      <PinInputLabel>Verification code</PinInputLabel>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
+      <PinInputHiddenInput />
     </PinInput>
   ),
 };
@@ -47,10 +57,10 @@ export const Alphanumeric: Story = {
             setValue(details.value);
           }}
         >
-          <PinInput.Label>Recovery code</PinInput.Label>
-          <PinInput.Control>
-            <PinInput.Inputs />
-          </PinInput.Control>
+          <PinInputLabel>Recovery code</PinInputLabel>
+          <PinInputControl>
+            <PinInputInputs />
+          </PinInputControl>
         </PinInput>
         <p className="m-0 text-xs leading-4 text-muted-foreground">
           Current value: {value.join('') || 'empty'}
@@ -63,16 +73,16 @@ export const Alphanumeric: Story = {
 export const GroupedLayout: Story = {
   render: () => (
     <PinInput count={PIN_COUNT}>
-      <PinInput.Label>Auth code</PinInput.Label>
-      <PinInput.Control>
+      <PinInputLabel>Auth code</PinInputLabel>
+      <PinInputControl>
         {[0, 1, 2].map((index) => (
-          <PinInput.Input key={index} index={index} />
+          <PinInputInput key={index} index={index} />
         ))}
-        <PinInput.Separator />
+        <PinInputSeparator />
         {[3, 4, 5].map((index) => (
-          <PinInput.Input key={index} index={index} />
+          <PinInputInput key={index} index={index} />
         ))}
-      </PinInput.Control>
+      </PinInputControl>
     </PinInput>
   ),
 };
@@ -80,11 +90,11 @@ export const GroupedLayout: Story = {
 export const Placeholder: Story = {
   render: () => (
     <PinInput count={PIN_COUNT} placeholder="*">
-      <PinInput.Label>Verification code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
-      <PinInput.HiddenInput />
+      <PinInputLabel>Verification code</PinInputLabel>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
+      <PinInputHiddenInput />
     </PinInput>
   ),
 };
@@ -92,10 +102,10 @@ export const Placeholder: Story = {
 export const Masked: Story = {
   render: () => (
     <PinInput count={4} mask>
-      <PinInput.Label>PIN</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
+      <PinInputLabel>PIN</PinInputLabel>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
     </PinInput>
   ),
 };
@@ -103,11 +113,11 @@ export const Masked: Story = {
 export const OtpMode: Story = {
   render: () => (
     <PinInput count={PIN_COUNT} otp name="verificationCode">
-      <PinInput.Label>One-time code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
-      <PinInput.HiddenInput />
+      <PinInputLabel>One-time code</PinInputLabel>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
+      <PinInputHiddenInput />
     </PinInput>
   ),
 };
@@ -115,10 +125,10 @@ export const OtpMode: Story = {
 export const BlurOnComplete: Story = {
   render: () => (
     <PinInput count={PIN_COUNT} blurOnComplete>
-      <PinInput.Label>Verification code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
+      <PinInputLabel>Verification code</PinInputLabel>
+      <PinInputControl>
+        <PinInputInputs />
+      </PinInputControl>
     </PinInput>
   ),
 };
@@ -127,12 +137,12 @@ export const WithFieldValidation: Story = {
   render: () => (
     <Field invalid required>
       <PinInput count={PIN_COUNT}>
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
+        <PinInputLabel>Verification code</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
       </PinInput>
-      <Field.ErrorText>Please enter the verification code.</Field.ErrorText>
+      <FieldErrorText>Please enter the verification code.</FieldErrorText>
     </Field>
   ),
 };
@@ -150,10 +160,10 @@ export const InvalidValue: Story = {
             setInvalidValue(details.value);
           }}
         >
-          <PinInput.Label>Invite code</PinInput.Label>
-          <PinInput.Control>
-            <PinInput.Inputs />
-          </PinInput.Control>
+          <PinInputLabel>Invite code</PinInputLabel>
+          <PinInputControl>
+            <PinInputInputs />
+          </PinInputControl>
         </PinInput>
         <p className="m-0 text-xs leading-4 text-muted-foreground">
           Last rejected character: {invalidValue || 'none'}
@@ -170,12 +180,12 @@ export const RootProvider: Story = {
 
     return (
       <div className="grid items-start gap-3">
-        <PinInput.RootProvider value={pinInput}>
-          <PinInput.Label>Verification code</PinInput.Label>
-          <PinInput.Control>
-            <PinInput.Inputs />
-          </PinInput.Control>
-        </PinInput.RootProvider>
+        <PinInputRootProvider value={pinInput}>
+          <PinInputLabel>Verification code</PinInputLabel>
+          <PinInputControl>
+            <PinInputInputs />
+          </PinInputControl>
+        </PinInputRootProvider>
         <button type="button" onClick={pinInput.clearValue}>
           Clear value
         </button>
@@ -187,16 +197,16 @@ export const RootProvider: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <PinInput count={PIN_COUNT}>
-      <PinInput.Label>Styled code</PinInput.Label>
-      <PinInput.Control>
+      <PinInputLabel>Styled code</PinInputLabel>
+      <PinInputControl>
         {[0, 1, 2].map((index) => (
-          <PinInput.Input key={index} index={index} className="size-12 bg-muted text-xl" />
+          <PinInputInput key={index} index={index} className="size-12 bg-muted text-xl" />
         ))}
-        <PinInput.Separator className="size-6 text-primary" />
+        <PinInputSeparator className="size-6 text-primary" />
         {[3, 4, 5].map((index) => (
-          <PinInput.Input key={index} index={index} className="size-12 bg-muted text-xl" />
+          <PinInputInput key={index} index={index} className="size-12 bg-muted text-xl" />
         ))}
-      </PinInput.Control>
+      </PinInputControl>
     </PinInput>
   ),
 };

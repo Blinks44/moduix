@@ -1,6 +1,15 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Input } from '@moduix/react/input';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 import { useState } from 'react';
 import styles from '@/components/examples/select/select-dynamic-items.module.css';
 
@@ -64,18 +73,18 @@ export default function SelectDynamicItemsDemo() {
         placeholder="Filter fruits"
       />
       <Select collection={collection}>
-        <Select.Label>Choose fruit</Select.Label>
-        <Select.Field placeholder="Select an option" clearLabel="Clear selection" />
-        <Select.Positioner>
-          <Select.Content>
+        <SelectLabel>Choose fruit</SelectLabel>
+        <SelectField placeholder="Select an option" clearLabel="Clear selection" />
+        <SelectPositioner>
+          <SelectContent>
             {collection.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+              <SelectItem key={item.value} item={item}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             ))}
-          </Select.Content>
-        </Select.Positioner>
+          </SelectContent>
+        </SelectPositioner>
       </Select>
     </div>
   );

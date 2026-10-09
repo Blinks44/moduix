@@ -1,0 +1,224 @@
+@layer moduix.components {
+  .root {
+    position: relative;
+    box-sizing: border-box;
+    width: var(--moduix-scroll-area-width, 100%);
+    height: var(--moduix-scroll-area-height, 100%);
+    min-width: 0;
+    min-height: 0;
+    color: var(--moduix-scroll-area-color, var(--moduix-color-foreground));
+  }
+
+  .viewport {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    border-radius: var(--moduix-scroll-area-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-scroll-area-bg, transparent);
+    outline: 0;
+    scrollbar-width: none;
+    --_scroll-area-block-fade-mask: linear-gradient(
+      to bottom,
+      transparent 0,
+      black
+        min(
+          var(
+            --moduix-scroll-area-fade-start-size,
+            var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10))
+          ),
+          var(--scroll-area-overflow-y-start, 0px)
+        ),
+      black
+        calc(
+          100% -
+            min(
+              var(
+                --moduix-scroll-area-fade-end-size,
+                var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10))
+              ),
+              var(--scroll-area-overflow-y-end, 0px)
+            )
+        ),
+      transparent 100%
+    );
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .root[data-fade] & {
+      mask-image: var(--_scroll-area-block-fade-mask);
+      mask-repeat: no-repeat;
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-scroll-area-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+        solid var(--moduix-scroll-area-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(
+        --moduix-scroll-area-focus-ring-offset,
+        var(--moduix-focus-ring-inset-offset)
+      );
+    }
+  }
+
+  .content {
+    box-sizing: border-box;
+    display: block;
+    padding: var(--moduix-scroll-area-content-padding, 0);
+  }
+
+  .scrollbar {
+    --_scroll-area-scrollbar-margin: var(
+      --moduix-scroll-area-scrollbar-margin,
+      var(--moduix-spacing-1)
+    );
+    --_scroll-area-scrollbar-hit-area-size: var(
+      --moduix-scroll-area-scrollbar-hit-area-size,
+      var(--moduix-spacing-5)
+    );
+
+    position: absolute;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    padding: var(--moduix-scroll-area-scrollbar-padding, 0);
+    border-radius: var(--moduix-scroll-area-scrollbar-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-scroll-area-scrollbar-bg, transparent);
+    opacity: var(--moduix-scroll-area-scrollbar-hidden-opacity, 0);
+    pointer-events: none;
+    user-select: none;
+    touch-action: none;
+    transition:
+      opacity var(--moduix-scroll-area-transition, var(--moduix-transition-default)),
+      width var(--moduix-scroll-area-thumb-hover-transition, var(--moduix-transition-fast)),
+      height var(--moduix-scroll-area-thumb-hover-transition, var(--moduix-transition-fast));
+
+    &::before {
+      content: '';
+      position: absolute;
+    }
+
+    &[data-orientation='vertical'] {
+      top: 0;
+      inset-inline-end: 0;
+      bottom: var(--corner-height, 0px);
+      width: var(--moduix-scroll-area-scrollbar-size, var(--moduix-spacing-1));
+      margin-block: var(--_scroll-area-scrollbar-margin);
+      margin-inline-end: var(--_scroll-area-scrollbar-margin);
+
+      &::before {
+        width: var(--_scroll-area-scrollbar-hit-area-size);
+        height: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      &:not([data-overflow-y]) {
+        display: none;
+      }
+
+      &:hover,
+      &[data-dragging] {
+        width: calc(
+          var(--moduix-scroll-area-scrollbar-size, var(--moduix-spacing-1)) +
+            var(--moduix-scroll-area-thumb-hover-increase, 2px)
+        );
+      }
+    }
+
+    &[data-orientation='horizontal'] {
+      inset-inline-start: 0;
+      inset-inline-end: var(--corner-width, 0px);
+      bottom: 0;
+      height: var(--moduix-scroll-area-scrollbar-size, var(--moduix-spacing-1));
+      flex-direction: column;
+      margin-inline: var(--_scroll-area-scrollbar-margin);
+      margin-block-end: var(--_scroll-area-scrollbar-margin);
+
+      &::before {
+        width: 100%;
+        height: var(--_scroll-area-scrollbar-hit-area-size);
+        left: 0;
+        right: 0;
+        bottom: 50%;
+        transform: translateY(50%);
+      }
+
+      &:not([data-overflow-x]) {
+        display: none;
+      }
+
+      &:hover,
+      &[data-dragging] {
+        height: calc(
+          var(--moduix-scroll-area-scrollbar-size, var(--moduix-spacing-1)) +
+            var(--moduix-scroll-area-thumb-hover-increase, 2px)
+        );
+      }
+    }
+
+    &[data-hover],
+    &[data-scrolling] {
+      opacity: var(--moduix-scroll-area-scrollbar-visible-opacity, 1);
+      pointer-events: auto;
+    }
+
+    &[data-scrolling] {
+      transition-duration: 0ms;
+    }
+
+    .root[data-variant='always'] & {
+      opacity: var(--moduix-scroll-area-scrollbar-visible-opacity, 1);
+      pointer-events: auto;
+    }
+  }
+
+  .thumb {
+    box-sizing: border-box;
+    border-radius: var(--moduix-scroll-area-thumb-radius, var(--moduix-radius-full));
+    background-color: var(--moduix-scroll-area-thumb-bg, var(--moduix-color-border));
+
+    &[data-orientation='vertical'] {
+      width: 100%;
+      min-height: var(--moduix-scroll-area-thumb-min-size, var(--moduix-size-xs));
+    }
+
+    &[data-orientation='horizontal'] {
+      height: 100%;
+      min-width: var(--moduix-scroll-area-thumb-min-size, var(--moduix-size-xs));
+    }
+  }
+
+  .corner {
+    box-sizing: border-box;
+    background-color: var(
+      --moduix-scroll-area-corner-bg,
+      var(--moduix-scroll-area-scrollbar-bg, transparent)
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scrollbar {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .root[data-fade] .viewport {
+      mask-image: none;
+    }
+
+    .viewport:focus-visible {
+      outline-color: Highlight;
+    }
+
+    .thumb {
+      background-color: ButtonText;
+    }
+  }
+}

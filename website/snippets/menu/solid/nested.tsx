@@ -1,39 +1,49 @@
 import { Button } from '@moduix/solid/button';
-import { Menu } from '@moduix/solid/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuTriggerItem,
+  MenuTriggerItemIcon,
+} from '@moduix/solid/menu';
 import styles from '@/components/examples/menu/menu-nested.module.css';
 
 export default function NestedMenuDemo() {
   return (
     <Menu>
-      <Menu.Trigger asChild={(props) => <Button {...props()} />}>
+      <MenuTrigger asChild={(props) => <Button {...props()} />}>
         File
-        <Menu.Indicator />
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content class={styles.content}>
-          <Menu.Viewport>
-            <Menu.Item value="open">Open...</Menu.Item>
-            <Menu.Item value="save">Save</Menu.Item>
+        <MenuIndicator />
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent class={styles.content}>
+          <MenuViewport>
+            <MenuItem value="open">Open...</MenuItem>
+            <MenuItem value="save">Save</MenuItem>
             <Menu>
-              <Menu.TriggerItem>
+              <MenuTriggerItem>
                 Share
-                <Menu.TriggerItemIcon />
-              </Menu.TriggerItem>
-              <Menu.Positioner>
-                <Menu.Content class={styles.content}>
-                  <Menu.Viewport>
-                    <Menu.Item value="email">Email</Menu.Item>
-                    <Menu.Item value="message">Message</Menu.Item>
-                    <Menu.Item value="copy-link">Copy Link</Menu.Item>
-                    <Menu.Item value="invite">Invite people</Menu.Item>
-                  </Menu.Viewport>
-                </Menu.Content>
-              </Menu.Positioner>
+                <MenuTriggerItemIcon />
+              </MenuTriggerItem>
+              <MenuPositioner>
+                <MenuContent class={styles.content}>
+                  <MenuViewport>
+                    <MenuItem value="email">Email</MenuItem>
+                    <MenuItem value="message">Message</MenuItem>
+                    <MenuItem value="copy-link">Copy Link</MenuItem>
+                    <MenuItem value="invite">Invite people</MenuItem>
+                  </MenuViewport>
+                </MenuContent>
+              </MenuPositioner>
             </Menu>
-            <Menu.Item value="print">Print</Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            <MenuItem value="print">Print</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

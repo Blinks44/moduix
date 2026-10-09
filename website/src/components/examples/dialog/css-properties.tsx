@@ -1,7 +1,7 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const dialogOverrideCssProperties: CssPropertyInput[] = [
+export const dialogOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-dialog-backdrop-bg',
     'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
@@ -37,7 +37,7 @@ const dialogOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-dialog-focus-ring-color, var(--moduix-color-ring))',
     'Close icon focus ring color.',
   ],
-  ['--moduix-dialog-close-icon-glyph-size', 'var(--moduix-spacing-3)', 'Close icon glyph size.'],
+  ['--moduix-dialog-close-icon-glyph-size', 'var(--moduix-spacing-4)', 'Close icon glyph size.'],
   ['--moduix-dialog-color', 'var(--moduix-color-popover-foreground)', 'Content text color.'],
   [
     '--moduix-dialog-close-icon-inset-block-start',

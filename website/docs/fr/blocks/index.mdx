@@ -1,0 +1,134 @@
+---
+title: Blocs d’interface
+description: Installez des blocs d’interface React, Solid et Vue avec leur code source, leurs styles et leurs dépendances.
+---
+
+import { Card, Cards } from '@/components/mdx/Components';
+import {
+  AppHeaderCardPreview,
+  AutoplayGalleryCardPreview,
+  DataTableCardPreview,
+  ExpandableAvatarGroupCardPreview,
+  FileUploadManagerCardPreview,
+  ForgotPasswordCardPreview,
+  LoginSimpleCardPreview,
+  ParallaxCardCardPreview,
+  ResetPasswordCardPreview,
+  SidebarDashboardCardPreview,
+  SignUpCardPreview,
+  VerificationCodeCardPreview,
+} from '@/components/blocks/block-card-previews';
+
+# Blocs
+
+Les blocs sont des compositions à intégrer dans votre application pour des interfaces et des parcours
+courants. Consultez l’aperçu et le code, puis installez le bloc avec une seule commande shadcn.
+Le registre ajoute le bloc, son CSS, les composants UI nécessaires et les dépendances supplémentaires.
+
+Chaque bloc dispose de code natif React, Solid et Vue. Choisissez des composants UI CSS Modules
+ou Tailwind à l’installation ; la mise en page du bloc utilise le même CSS Module dans les deux
+variantes. Les aperçus utilisent React avec CSS Modules. Les routes, les appels API,
+l’authentification et vos données restent dans votre application.
+
+## Structure de l’application
+
+<Cards>
+  <Card
+    title="En-tête d’application"
+    description="Un en-tête d’application responsive avec navigation principale, espace de travail actif, recherche et actions liées au compte."
+    href="/blocks/app-header"
+    preview={<AppHeaderCardPreview />}
+  />
+  <Card
+    title="Tableau de bord avec navigation latérale"
+    description="Une structure d’application pour ordinateur, avec navigation redimensionnable, éléments imbriqués et menu d’espace de travail."
+    href="/blocks/sidebar-dashboard"
+    preview={<SidebarDashboardCardPreview />}
+  />
+</Cards>
+
+L’en-tête peut être placé au-dessus de la barre latérale lorsque le produit a besoin d’une navigation
+globale et d’une navigation propre à une section.
+
+## Authentification
+
+<Cards>
+  <Card
+    title="Connexion"
+    description="Connexion par e-mail et mot de passe. Branchez l’authentification, l’état de chargement et les erreurs du serveur."
+    href="/blocks/login-simple"
+    preview={<LoginSimpleCardPreview />}
+  />
+  <Card
+    title="Inscription"
+    description="Création d’un compte avec acceptation des conditions. Ajoutez les vérifications et une page de confirmation."
+    href="/blocks/sign-up"
+    preview={<SignUpCardPreview />}
+  />
+  <Card
+    title="Mot de passe oublié"
+    description="Envoi d’un e-mail de réinitialisation sans révéler si un compte existe."
+    href="/blocks/forgot-password"
+    preview={<ForgotPasswordCardPreview />}
+  />
+  <Card
+    title="Réinitialisation du mot de passe"
+    description="Définition d’un nouveau mot de passe après vérification du jeton par le serveur."
+    href="/blocks/reset-password"
+    preview={<ResetPasswordCardPreview />}
+  />
+  <Card
+    title="Code de vérification"
+    description="Saisissez un code à six chiffres avec remplissage automatique sur mobile. Connectez la vérification et le renvoi du code à votre serveur."
+    href="/blocks/verification-code"
+    preview={<VerificationCodeCardPreview />}
+  />
+</Cards>
+
+## Données et fichiers
+
+<Cards>
+  <Card
+    title="Tableau de données"
+    description="Tri, filtrage, sélection et pagination avec TanStack Table. Ajoutez uniquement les états nécessaires à votre produit."
+    href="/blocks/data-table"
+    preview={<DataTableCardPreview />}
+  />
+  <Card
+    title="Téléversement de fichiers"
+    description="Sélection et validation locales des fichiers. Branchez le téléversement, la progression, les nouvelles tentatives et les erreurs du serveur."
+    href="/blocks/file-upload-manager"
+    preview={<FileUploadManagerCardPreview />}
+  />
+</Cards>
+
+## Personnes
+
+Ces compositions aident à représenter les personnes et les éléments d’identité dans des listes compactes. Pour une
+équipe plus détaillée ou une liste plus longue, préférez une liste de personnes dédiée.
+
+<Cards>
+  <Card
+    title="Groupe d’avatars extensible"
+    description="Une liste d’équipe compacte avec libellés, adaptée aux petits groupes. Pour une grande équipe, utilisez une liste de personnes distincte."
+    href="/blocks/expandable-avatar-group"
+    preview={<ExpandableAvatarGroupCardPreview />}
+  />
+</Cards>
+
+## Contenu visuel
+
+<Cards>
+  <Card
+    title="Galerie à lecture automatique"
+    description="Un carrousel à lecture automatique avec diapositives voisines partiellement visibles, texte superposé, navigation par flèches et indicateurs de progression."
+    href="/blocks/autoplay-gallery"
+    preview={<AutoplayGalleryCardPreview />}
+  />
+  <Card
+    title="Carte avec parallaxe"
+    description="Une carte à image plein cadre avec une légère inclinaison 3D qui suit le pointeur."
+    href="/blocks/parallax-card"
+    preview={<ParallaxCardCardPreview />}
+  />
+</Cards>

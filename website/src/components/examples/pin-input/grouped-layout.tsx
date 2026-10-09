@@ -1,18 +1,24 @@
-import { PinInput } from '@moduix/react/pin-input';
+import {
+  PinInput,
+  PinInputLabel,
+  PinInputControl,
+  PinInputInput,
+  PinInputSeparator,
+} from '@moduix/react/pin-input';
 
 export default function GroupedPinInput() {
   return (
     <PinInput count={6}>
-      <PinInput.Label>Auth code</PinInput.Label>
-      <PinInput.Control>
+      <PinInputLabel>Auth code</PinInputLabel>
+      <PinInputControl>
         {[0, 1, 2].map((index) => (
-          <PinInput.Input key={index} index={index} />
+          <PinInputInput key={index} index={index} />
         ))}
-        <PinInput.Separator />
+        <PinInputSeparator />
         {[3, 4, 5].map((index) => (
-          <PinInput.Input key={index} index={index} />
+          <PinInputInput key={index} index={index} />
         ))}
-      </PinInput.Control>
+      </PinInputControl>
     </PinInput>
   );
 }

@@ -281,8 +281,10 @@
   .content {
     box-sizing: border-box;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
-    width: min(var(--moduix-date-picker-content-width, 18.75rem), var(--available-width));
-    min-width: min(var(--moduix-date-picker-content-min-width, 18.75rem), var(--available-width));
+    max-height: min(var(--available-height, 100dvh), calc(100dvh - 2rem));
+    overflow: auto;
+    width: min(var(--moduix-date-picker-content-width, 20rem), var(--available-width));
+    min-width: min(var(--moduix-date-picker-content-min-width, 20rem), var(--available-width));
     max-width: min(
       var(--moduix-date-picker-content-max-width, calc(100vw - 2rem)),
       var(--available-width)
@@ -325,7 +327,8 @@
   }
 
   .content[data-inline] {
-    min-width: var(--moduix-date-picker-inline-content-min-width, 18rem);
+    min-width: min(var(--moduix-date-picker-inline-content-min-width, 18rem), 100%);
+    max-width: 100%;
     box-shadow: var(--moduix-date-picker-inline-content-shadow, none);
   }
 
@@ -505,19 +508,61 @@
     }
   }
 
+  .selectControl {
+    position: relative;
+    display: grid;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
   .select {
     box-sizing: border-box;
     flex: 1 1 0;
-    width: 100%;
+    width: var(--moduix-date-picker-select-width, var(--moduix-select-width, 100%));
+    max-width: var(--moduix-date-picker-select-max-width, var(--moduix-select-max-width, 100%));
     min-width: 0;
-    min-height: var(--moduix-date-picker-select-height, var(--moduix-size-sm));
+    height: var(
+      --moduix-date-picker-select-height,
+      var(--moduix-select-control-height, var(--moduix-size-sm))
+    );
     border: var(--moduix-date-picker-select-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-date-picker-select-border-color, var(--moduix-color-border));
-    border-radius: var(--moduix-date-picker-select-radius, var(--moduix-radius-sm));
+      var(
+        --moduix-date-picker-select-border-color,
+        var(--moduix-select-border-color, var(--moduix-color-border))
+      );
+    border-radius: var(
+      --moduix-date-picker-select-radius,
+      var(--moduix-select-radius, var(--moduix-radius-md))
+    );
     padding-block: var(--moduix-date-picker-select-padding-y, var(--moduix-spacing-1));
-    padding-inline: var(--moduix-date-picker-select-padding-x, var(--moduix-spacing-2));
-    background-color: var(--moduix-date-picker-select-bg, var(--moduix-color-background));
-    color: var(--moduix-date-picker-select-color, var(--moduix-color-foreground));
+    padding-inline-start: var(
+      --moduix-date-picker-select-padding-x-start,
+      var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5))
+    );
+    padding-inline-end: calc(
+      var(
+          --moduix-date-picker-select-action-offset-right,
+          var(--moduix-select-action-offset-right, var(--moduix-spacing-2))
+        ) +
+        var(
+          --moduix-date-picker-select-action-size,
+          var(--moduix-select-action-size, var(--moduix-size-xs))
+        ) +
+        var(
+          --moduix-date-picker-select-padding-x-start,
+          var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5))
+        )
+    );
+    appearance: none;
+    background-color: var(
+      --moduix-date-picker-select-bg,
+      var(--moduix-select-bg, var(--moduix-color-background))
+    );
+    color: var(
+      --moduix-date-picker-select-color,
+      var(--moduix-select-color, var(--moduix-color-foreground))
+    );
     font: inherit;
     font-size: var(--moduix-date-picker-select-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-date-picker-select-line-height, var(--moduix-line-height-text-sm));
@@ -537,12 +582,117 @@
     transition:
       background-color var(--moduix-date-picker-transition, var(--moduix-transition-default)),
       border-color var(--moduix-date-picker-transition, var(--moduix-transition-default)),
-      outline-color var(--moduix-date-picker-transition, var(--moduix-transition-default));
+      outline-color var(--moduix-date-picker-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-date-picker-transition, var(--moduix-transition-default));
 
-    &:focus {
+    &:focus-visible {
       border-color: var(--moduix-date-picker-focus-ring-color, var(--moduix-color-ring));
       outline-color: var(--moduix-date-picker-focus-ring-color, var(--moduix-color-ring));
     }
+
+    &:is([data-invalid], [aria-invalid='true']) {
+      border-color: var(--moduix-date-picker-invalid-color, var(--moduix-color-destructive));
+      outline-color: var(--moduix-date-picker-invalid-color, var(--moduix-color-destructive));
+    }
+
+    &:is([data-disabled], :disabled) {
+      pointer-events: none;
+      opacity: var(--moduix-date-picker-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+
+    &:is([multiple], [size]:not([size='0'], [size='1'])) {
+      height: auto;
+      padding-block: var(--moduix-spacing-2);
+      padding-inline: var(
+        --moduix-date-picker-select-padding-x-start,
+        var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5))
+      );
+      appearance: auto;
+    }
+
+    @media (forced-colors: active) {
+      padding-inline-end: var(
+        --moduix-date-picker-select-padding-x-start,
+        var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5))
+      );
+      appearance: auto;
+    }
+  }
+
+  .selectIndicator {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(
+      --moduix-date-picker-select-action-offset-right,
+      var(--moduix-select-action-offset-right, var(--moduix-spacing-2))
+    );
+    display: inline-flex;
+    width: var(
+      --moduix-date-picker-select-action-size,
+      var(--moduix-select-action-size, var(--moduix-size-xs))
+    );
+    height: var(
+      --moduix-date-picker-select-action-size,
+      var(--moduix-select-action-size, var(--moduix-size-xs))
+    );
+    align-items: center;
+    justify-content: center;
+    border-radius: var(
+      --moduix-date-picker-select-action-radius,
+      var(--moduix-select-action-radius, var(--moduix-radius-sm))
+    );
+    background: var(
+      --moduix-date-picker-select-action-bg,
+      var(--moduix-select-action-bg, transparent)
+    );
+    color: var(
+      --moduix-date-picker-select-icon-color,
+      var(--moduix-select-icon-color, var(--moduix-color-muted-foreground))
+    );
+    line-height: 0;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition:
+      background-color var(--moduix-date-picker-transition, var(--moduix-transition-default)),
+      color var(--moduix-date-picker-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-date-picker-transition, var(--moduix-transition-default));
+
+    & > svg {
+      display: block;
+      width: var(
+        --moduix-date-picker-select-icon-size,
+        var(--moduix-select-icon-size, var(--moduix-spacing-4))
+      );
+      height: var(
+        --moduix-date-picker-select-icon-size,
+        var(--moduix-select-icon-size, var(--moduix-spacing-4))
+      );
+    }
+
+    @media (forced-colors: active) {
+      display: none;
+    }
+  }
+
+  .select:is([data-disabled], :disabled) + .selectIndicator {
+    opacity: var(--moduix-date-picker-disabled-opacity, var(--moduix-opacity-disabled));
+  }
+
+  .select:not(:disabled, [data-disabled]):hover + .selectIndicator {
+    @media (hover: hover) {
+      background-color: var(
+        --moduix-date-picker-select-action-bg-hover,
+        var(--moduix-select-action-bg-hover, var(--moduix-color-muted))
+      );
+      color: var(
+        --moduix-date-picker-select-action-color-hover,
+        var(--moduix-select-action-color-hover, var(--moduix-color-foreground))
+      );
+    }
+  }
+
+  .select:is([multiple], [size]:not([size='0'], [size='1'])) + .selectIndicator {
+    display: none;
   }
 
   .presetTrigger {

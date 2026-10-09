@@ -1,7 +1,20 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field';
-import { NumberInput, useNumberInput } from '@/components/number-input/NumberInput';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
+import {
+  NumberInput,
+  NumberInputContext,
+  NumberInputControl,
+  NumberInputDecrementTrigger,
+  NumberInputField,
+  NumberInputIncrementTrigger,
+  NumberInputInput,
+  NumberInputLabel,
+  NumberInputRootProvider,
+  NumberInputScrubber,
+  NumberInputValueText,
+  useNumberInput,
+} from '@/components/number-input/NumberInput';
 import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui/Icons';
 import storyStyles from './NumberInput.stories.module.css';
 
@@ -21,8 +34,8 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <NumberInput defaultValue="100">
-      <NumberInput.Label>Amount</NumberInput.Label>
-      <NumberInput.Field />
+      <NumberInputLabel>Amount</NumberInputLabel>
+      <NumberInputField />
     </NumberInput>
   ),
 };
@@ -34,8 +47,8 @@ export const Controlled: Story = {
     return (
       <div class={storyStyles.stack}>
         <NumberInput value={value()} onValueChange={(details) => setValue(details.value)}>
-          <NumberInput.Label>Controlled value</NumberInput.Label>
-          <NumberInput.Field />
+          <NumberInputLabel>Controlled value</NumberInputLabel>
+          <NumberInputField />
         </NumberInput>
         <span class={storyStyles.hint}>Current value: {value() || 'empty'}</span>
       </div>
@@ -46,8 +59,8 @@ export const Controlled: Story = {
 export const MinMaxAndStep: Story = {
   render: () => (
     <NumberInput defaultValue="10" min={0} max={20} step={2}>
-      <NumberInput.Label>Quantity (0-20, step 2)</NumberInput.Label>
-      <NumberInput.Field />
+      <NumberInputLabel>Quantity (0-20, step 2)</NumberInputLabel>
+      <NumberInputField />
     </NumberInput>
   ),
 };
@@ -59,8 +72,8 @@ export const FractionDigits: Story = {
       step={0.25}
       formatOptions={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
     >
-      <NumberInput.Label>Hours</NumberInput.Label>
-      <NumberInput.Field />
+      <NumberInputLabel>Hours</NumberInputLabel>
+      <NumberInputField />
     </NumberInput>
   ),
 };
@@ -68,9 +81,9 @@ export const FractionDigits: Story = {
 export const Scrubber: Story = {
   render: () => (
     <NumberInput defaultValue="250">
-      <NumberInput.Label>Adjust value</NumberInput.Label>
-      <NumberInput.Scrubber>Drag left or right to adjust</NumberInput.Scrubber>
-      <NumberInput.Field />
+      <NumberInputLabel>Adjust value</NumberInputLabel>
+      <NumberInputScrubber>Drag left or right to adjust</NumberInputScrubber>
+      <NumberInputField />
     </NumberInput>
   ),
 };
@@ -78,8 +91,8 @@ export const Scrubber: Story = {
 export const MouseWheel: Story = {
   render: () => (
     <NumberInput defaultValue="5" allowMouseWheel>
-      <NumberInput.Label>Mouse wheel enabled</NumberInput.Label>
-      <NumberInput.Field />
+      <NumberInputLabel>Mouse wheel enabled</NumberInputLabel>
+      <NumberInputField />
     </NumberInput>
   ),
 };
@@ -92,8 +105,8 @@ export const Formatted: Story = {
       step={50}
       formatOptions={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }}
     >
-      <NumberInput.Label>Price</NumberInput.Label>
-      <NumberInput.Field />
+      <NumberInputLabel>Price</NumberInputLabel>
+      <NumberInputField />
     </NumberInput>
   ),
 };
@@ -102,11 +115,11 @@ export const WithFieldValidation: Story = {
   render: () => (
     <Field invalid>
       <NumberInput min={1} max={10} required>
-        <NumberInput.Label>Items</NumberInput.Label>
-        <NumberInput.Field />
+        <NumberInputLabel>Items</NumberInputLabel>
+        <NumberInputField />
       </NumberInput>
-      <Field.HelperText>Choose between 1 and 10 items.</Field.HelperText>
-      <Field.ErrorText>Value should be between 1 and 10.</Field.ErrorText>
+      <FieldHelperText>Choose between 1 and 10 items.</FieldHelperText>
+      <FieldErrorText>Value should be between 1 and 10.</FieldErrorText>
     </Field>
   ),
 };
@@ -115,12 +128,12 @@ export const DisabledAndReadOnly: Story = {
   render: () => (
     <div class={storyStyles.stack}>
       <NumberInput defaultValue="4" disabled>
-        <NumberInput.Label>Disabled quantity</NumberInput.Label>
-        <NumberInput.Field />
+        <NumberInputLabel>Disabled quantity</NumberInputLabel>
+        <NumberInputField />
       </NumberInput>
       <NumberInput defaultValue="8" readOnly>
-        <NumberInput.Label>Read-only quantity</NumberInput.Label>
-        <NumberInput.Field />
+        <NumberInputLabel>Read-only quantity</NumberInputLabel>
+        <NumberInputField />
       </NumberInput>
     </div>
   ),
@@ -129,9 +142,9 @@ export const DisabledAndReadOnly: Story = {
 export const ValueText: Story = {
   render: () => (
     <NumberInput defaultValue="42">
-      <NumberInput.Label>Value preview</NumberInput.Label>
-      <NumberInput.Field />
-      <NumberInput.ValueText />
+      <NumberInputLabel>Value preview</NumberInputLabel>
+      <NumberInputField />
+      <NumberInputValueText />
     </NumberInput>
   ),
 };
@@ -142,10 +155,10 @@ export const RootProvider: Story = {
 
     return (
       <div class={storyStyles.stack}>
-        <NumberInput.RootProvider value={numberInput}>
-          <NumberInput.Label>Guests</NumberInput.Label>
-          <NumberInput.Field />
-        </NumberInput.RootProvider>
+        <NumberInputRootProvider value={numberInput}>
+          <NumberInputLabel>Guests</NumberInputLabel>
+          <NumberInputField />
+        </NumberInputRootProvider>
         <button type="button" onClick={() => numberInput().setToMax()}>
           Set to max
         </button>
@@ -160,16 +173,16 @@ export const CustomIcons: Story = {
       defaultValue="8"
       translations={{ decrementLabel: 'Decrease floors', incrementLabel: 'Increase floors' }}
     >
-      <NumberInput.Label>Floors</NumberInput.Label>
-      <NumberInput.Control>
-        <NumberInput.DecrementTrigger class={storyStyles.customButton}>
+      <NumberInputLabel>Floors</NumberInputLabel>
+      <NumberInputControl>
+        <NumberInputDecrementTrigger class={storyStyles.customButton}>
           <ChevronDownIcon />
-        </NumberInput.DecrementTrigger>
-        <NumberInput.Input class={storyStyles.customInput} />
-        <NumberInput.IncrementTrigger class={storyStyles.customButton}>
+        </NumberInputDecrementTrigger>
+        <NumberInputInput class={storyStyles.customInput} />
+        <NumberInputIncrementTrigger class={storyStyles.customButton}>
           <ChevronUpIcon />
-        </NumberInput.IncrementTrigger>
-      </NumberInput.Control>
+        </NumberInputIncrementTrigger>
+      </NumberInputControl>
     </NumberInput>
   ),
 };
@@ -177,11 +190,11 @@ export const CustomIcons: Story = {
 export const Context: Story = {
   render: () => (
     <NumberInput defaultValue="42">
-      <NumberInput.Label>Amount</NumberInput.Label>
-      <NumberInput.Field />
-      <NumberInput.Context>
+      <NumberInputLabel>Amount</NumberInputLabel>
+      <NumberInputField />
+      <NumberInputContext>
         {(context) => <output>Numeric value: {context().valueAsNumber}</output>}
-      </NumberInput.Context>
+      </NumberInputContext>
     </NumberInput>
   ),
 };

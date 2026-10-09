@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "heading",
+  "title": "Heading",
+  "description": "moduix Vue Tailwind Heading component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/heading/Heading.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { cva } from 'class-variance-authority';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ntype HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';\ntype HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';\ntype HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';\n\nconst defaultSizes: Record<HeadingElement, HeadingSize> = {\n  h1: '2xl',\n  h2: 'xl',\n  h3: 'lg',\n  h4: 'md',\n  h5: 'sm',\n  h6: 'xs',\n};\n\nconst headingVariants = cva('m-0 text-foreground tracking-normal text-balance wrap-anywhere', {\n  variants: {\n    size: {\n      xs: 'text-sm',\n      sm: 'text-md',\n      md: 'text-lg',\n      lg: 'text-xl',\n      xl: 'text-2xl',\n      '2xl': 'text-3xl',\n    },\n    weight: {\n      regular: 'font-regular',\n      medium: 'font-medium',\n      semibold: 'font-semibold',\n      bold: 'font-bold',\n    },\n  },\n});\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'h1'> {\n  as?: HeadingElement;\n  class?: HTMLAttributes['class'];\n  size?: HeadingSize;\n  weight?: HeadingWeight;\n}\n\nconst { as: elementName, class: className, size, weight = 'semibold' } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst headingClass = computed(() =>\n  cn(headingVariants({ size: size ?? defaultSizes[elementName ?? 'h1'], weight }), className),\n);\n</script>\n\n<template>\n  <component\n    :is=\"ark[elementName ?? 'h1']\"\n    v-bind=\"attrs\"\n    :class=\"headingClass\"\n    data-scope=\"heading\"\n    data-part=\"root\"\n    data-slot=\"heading-root\"\n    :data-size=\"size\"\n    :data-weight=\"weight\"\n  >\n    <slot />\n  </component>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/heading/Heading.vue"
+    },
+    {
+      "path": "src/components/heading/index.ts",
+      "content": "import Heading from './Heading.vue';\n\nexport { Heading };",
+      "type": "registry:component",
+      "target": "@components/ui/heading/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

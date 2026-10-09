@@ -9,8 +9,8 @@ You are an expert in JavaScript, Rspack, Rsbuild, Rslib, and library development
 - `pnpm --filter @moduix/react test` - Run tests
 - `pnpm --filter @moduix/react test:watch` - Run tests in watch mode
 
-Component contract changes must also be checked against existing counterparts in `packages/solid`,
-`packages/react-tailwind`, and `packages/solid-tailwind` through the root `component-workflow` skill.
+Use the root `component-workflow` skill to check and synchronize component contract changes
+across every shipped framework and styling counterpart.
 
 ## Docs
 
@@ -23,7 +23,7 @@ Component contract changes must also be checked against existing counterparts in
 
 ### Storybook
 
-- Stories live in the four framework/styling playgrounds under `playgrounds/`.
+- Stories live in the framework/styling playgrounds under `playgrounds/`.
 - Run `pnpm run dev:playgrounds` from the repository root to start all playgrounds.
 - Run `pnpm --filter @moduix/playground-react build:storybook` or
   the matching Solid or Tailwind filter to build one playground.

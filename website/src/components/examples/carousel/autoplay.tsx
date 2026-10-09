@@ -1,4 +1,15 @@
-import { Carousel } from '@moduix/react/carousel';
+import {
+  Carousel,
+  CarouselAutoplayIndicator,
+  CarouselAutoplayTrigger,
+  CarouselContext,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/react/carousel';
 import styles from '@/components/examples/carousel/carousel-autoplay.module.css';
 
 const slides = [
@@ -38,36 +49,36 @@ export default function AutoplayCarousel() {
       loop
       slideCount={slides.length}
     >
-      <Carousel.Context>
+      <CarouselContext>
         {(api) => (
           <>
-            <Carousel.ItemGroup
+            <CarouselItemGroup
               className={styles.itemGroup}
               onFocus={() => api.pause()}
               onPointerEnter={() => api.pause()}
             >
               {slides.map((slide, index) => (
-                <Carousel.Item key={slide.id} index={index}>
+                <CarouselItem key={slide.id} index={index}>
                   <img className={styles.image} src={slide.src} alt={slide.alt} />
-                </Carousel.Item>
+                </CarouselItem>
               ))}
-            </Carousel.ItemGroup>
+            </CarouselItemGroup>
 
-            <Carousel.Control
+            <CarouselControl
               className={styles.control}
               onFocus={() => api.pause()}
               onPointerEnter={() => api.pause()}
             >
-              <Carousel.AutoplayTrigger>
-                <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
-              </Carousel.AutoplayTrigger>
-              <Carousel.PrevTrigger />
-              <Carousel.Indicators />
-              <Carousel.NextTrigger />
-            </Carousel.Control>
+              <CarouselAutoplayTrigger>
+                <CarouselAutoplayIndicator fallback="Play">Pause</CarouselAutoplayIndicator>
+              </CarouselAutoplayTrigger>
+              <CarouselPrevTrigger />
+              <CarouselIndicators />
+              <CarouselNextTrigger />
+            </CarouselControl>
           </>
         )}
-      </Carousel.Context>
+      </CarouselContext>
     </Carousel>
   );
 }

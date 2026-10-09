@@ -1,7 +1,7 @@
 ---
 title: Drawer
 component: drawer
-description: Доступная панель от края экрана для навигации, форм, нижних панелей, точек привязки и сценариев со свайпами в React и Solid.
+description: Доступная панель от края экрана для навигации, форм, нижних панелей, точек привязки и сценариев со свайпами в React, Solid и Vue.
 ---
 
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
@@ -33,6 +33,20 @@ import drawerSolidRootProvider from '../../../snippets/drawer/solid/root-provide
 import drawerSolidScrollable from '../../../snippets/drawer/solid/scrollable.tsx?raw';
 import drawerSolidSnapPoints from '../../../snippets/drawer/solid/snap-points.tsx?raw';
 import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-direction.tsx?raw';
+import drawerVueAdvancedCustomization from '../../../snippets/drawer/vue/advanced-customization.vue?raw';
+import drawerVueBasic from '../../../snippets/drawer/vue/basic.vue?raw';
+import drawerVueControlled from '../../../snippets/drawer/vue/controlled.vue?raw';
+import drawerVueDragControls from '../../../snippets/drawer/vue/drag-controls.vue?raw';
+import drawerVueFloatingGrabber from '../../../snippets/drawer/vue/floating-grabber.vue?raw';
+import drawerVueIndentBackground from '../../../snippets/drawer/vue/indent-background.vue?raw';
+import drawerVueIsland from '../../../snippets/drawer/vue/island.vue?raw';
+import drawerVueMultipleTriggers from '../../../snippets/drawer/vue/multiple-triggers.vue?raw';
+import drawerVueNested from '../../../snippets/drawer/vue/nested.vue?raw';
+import drawerVueNonModal from '../../../snippets/drawer/vue/non-modal.vue?raw';
+import drawerVueRootProvider from '../../../snippets/drawer/vue/root-provider.vue?raw';
+import drawerVueScrollable from '../../../snippets/drawer/vue/scrollable.vue?raw';
+import drawerVueSnapPoints from '../../../snippets/drawer/vue/snap-points.vue?raw';
+import drawerVueSwipeDirection from '../../../snippets/drawer/vue/swipe-direction.vue?raw';
 
 ## Справочник API
 
@@ -49,8 +63,8 @@ import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-dire
 
 
 Соберите панель из структурных частей Ark. В этом примере она открывается на компактной точке
-привязки, а затем её можно перетащить на полную высоту. `Drawer.Content` отвечает за интерактивную
-поверхность, `Drawer.Positioner` размещает её, а `Drawer.Backdrop` добавляет модальный фон.
+привязки, а затем её можно перетащить на полную высоту. `DrawerContent` отвечает за интерактивную
+поверхность, `DrawerPositioner` размещает её, а `DrawerBackdrop` добавляет модальный фон.
 
 <ExampleFrame variant="component">
   <DrawerBasic />
@@ -63,6 +77,7 @@ import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-dire
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -75,6 +90,11 @@ import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-dire
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -112,65 +132,76 @@ import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-dire
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/drawer' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/drawer' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Drawer / Drawer.Root
-├─ Drawer.Trigger
-├─ Drawer.SwipeArea (необязательно)
-├─ Drawer.Backdrop
-└─ Drawer.Positioner
-   └─ Drawer.Content
-      ├─ Drawer.Grabber
-      │  └─ Drawer.GrabberIndicator
-      ├─ Drawer.Header (необязательный помощник для компоновки)
-      │  ├─ Drawer.Title
-      │  ├─ Drawer.Description
-      │  └─ Drawer.CloseIcon (необязательный помощник)
-      ├─ Drawer.Body (необязательный помощник для компоновки)
-      └─ Drawer.Footer (необязательный помощник для компоновки)
+Drawer
+├─ DrawerTrigger
+├─ DrawerSwipeArea (необязательно)
+├─ DrawerBackdrop
+└─ DrawerPositioner
+   └─ DrawerContent
+      ├─ DrawerGrabber
+      │  └─ DrawerGrabberIndicator
+      ├─ DrawerHeader (необязательный помощник для компоновки)
+      │  ├─ DrawerTitle
+      │  ├─ DrawerDescription
+      │  └─ DrawerCloseIcon (необязательный помощник)
+      ├─ DrawerBody (необязательный помощник для компоновки)
+      └─ DrawerFooter (необязательный помощник для компоновки)
 
-Drawer.RootProvider
+DrawerRootProvider
 └─ то же дерево частей, подключённое к хранилищу useDrawer()
 ```
 
 | Часть | Назначение |
 | --- | --- |
-| `Drawer` / `Drawer.Root` | Корневая часть, которая хранит состояние открытия, точки привязки и поведение свайпа. |
-| `Drawer.RootProvider` | Подключает части к состоянию, созданному через `useDrawer()`. |
-| `Drawer.Trigger` | Открывает панель. |
-| `Drawer.SwipeArea` | Необязательная область у края экрана, открывающая панель свайпом. |
-| `Drawer.Backdrop` | Модальный фон. |
-| `Drawer.Positioner` | Размещает содержимое панели. |
-| `Drawer.Content` | Интерактивная поверхность панели. |
-| `Drawer.Grabber` | Контейнер ручки для перетаскивания. |
-| `Drawer.GrabberIndicator` | Визуальный индикатор внутри ручки. |
-| `Drawer.Title` | Доступное имя панели. |
-| `Drawer.Description` | Доступное описание панели. |
-| `Drawer.CloseTrigger` | Закрывает панель. |
-| `Drawer.CloseIcon` | Кнопка закрытия moduix, собранная из `CloseTrigger`. |
-| `Drawer.Stack` | Координирует вложенные панели и поверхности с отступом. |
-| `Drawer.Indent` | Поверхность, которая отодвигается при открытии панели из стека. |
-| `Drawer.IndentBackground` | Фон за поверхностью с отступом. |
-| `Drawer.Header`, `Drawer.Body`, `Drawer.Footer` | Необязательные помощники для компоновки без собственного состояния. |
+| `Drawer` | Корневая часть, которая хранит состояние открытия, точки привязки и поведение свайпа. |
+| `DrawerRootProvider` | Подключает части к состоянию, созданному через `useDrawer()`. |
+| `DrawerTrigger` | Открывает панель. |
+| `DrawerSwipeArea` | Необязательная область у края экрана, открывающая панель свайпом. |
+| `DrawerBackdrop` | Модальный фон. |
+| `DrawerPositioner` | Размещает содержимое панели. |
+| `DrawerContent` | Интерактивная поверхность панели. |
+| `DrawerGrabber` | Контейнер ручки для перетаскивания. |
+| `DrawerGrabberIndicator` | Визуальный индикатор внутри ручки. |
+| `DrawerTitle` | Доступное имя панели. |
+| `DrawerDescription` | Доступное описание панели. |
+| `DrawerCloseTrigger` | Закрывает панель. |
+| `DrawerCloseIcon` | Кнопка закрытия moduix, собранная из `DrawerCloseTrigger`. |
+| `DrawerStack` | Координирует вложенные панели и поверхности с отступом. |
+| `DrawerIndent` | Поверхность, которая отодвигается при открытии панели из стека. |
+| `DrawerIndentBackground` | Фон за поверхностью с отступом. |
+| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Необязательные помощники для компоновки без собственного состояния. |
 
 ## Композиция
 
-По умолчанию `Drawer` хранит состояние сам и рендерит `Backdrop` и `Positioner` через портал.
+По умолчанию `Drawer` хранит состояние сам и рендерит `DrawerBackdrop` и `DrawerPositioner` через портал.
 Оставляйте эти структурные части явными. Укажите `portalled={false}`, чтобы отрисовать их внутри
 текущего дерева, или передайте `portalRef` для собственного контейнера.
 
 Если состояние нужно создать за пределами дерева панели, создайте одно хранилище через `useDrawer()`
-и передайте его в один `Drawer.RootProvider`. Не используйте для этого же хранилища `Drawer` или
-`Drawer.Root`. Для вложенных панелей создавайте отдельные хранилища и деревья `RootProvider`, чтобы
+и передайте его в один `DrawerRootProvider`. Не используйте для этого же хранилища `Drawer`.
+Для вложенных панелей создавайте отдельные хранилища и деревья `DrawerRootProvider`, чтобы
 каждая панель сохраняла собственное состояние открытия и фокуса.
 
-Поместите поверхности, которые должны двигаться вместе, в `Drawer.Stack`, а затем объедините
-`Drawer.IndentBackground` и `Drawer.Indent`. Для собственного элемента триггера или закрытия
-используйте `asChild`: в React передаётся один доступный для фокуса дочерний элемент, а в Solid
-рендер-функция должна передать ему `props()`. Обработчики Ark получают объект деталей, например
+Поместите поверхности, которые должны двигаться вместе, в `DrawerStack`, а затем объедините
+`DrawerIndentBackground` и `DrawerIndent`. Для собственного элемента триггера или закрытия
+используйте `asChild`: в React передаётся один доступный для фокуса дочерний элемент, в Solid
+рендер-функция должна передать ему `props()`, а во Vue используется атрибут `as-child` с одним
+дочерним элементом. Обработчики Ark получают объект деталей, например
 `details.open`, `details.snapPoint` и `details.value`.
 
 ## Примеры
@@ -185,7 +216,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/controlled.tsx"
@@ -195,6 +226,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueControlled} />
 
     </Tab>
   </Tabs>
@@ -209,7 +245,7 @@ Drawer.RootProvider
 ### Управление перетаскиванием
 
 Добавьте `data-no-drag` на интерактивные области, которые не должны запускать перетаскивание.
-Укажите `draggable={false}` на `Drawer.Content`, если панель должна двигаться только за ручку.
+Укажите `draggable={false}` на `DrawerContent`, если панель должна двигаться только за ручку.
 
 <ExampleFrame variant="component">
   <DrawerDragControls />
@@ -217,7 +253,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/drag-controls.tsx"
@@ -227,6 +263,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidDragControls} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueDragControls} />
 
     </Tab>
   </Tabs>
@@ -240,7 +281,7 @@ Drawer.RootProvider
 
 ### Плавающая ручка
 
-Разместите `Drawer.Grabber` над поверхностью, если ручка должна выглядеть отдельным элементом.
+Разместите `DrawerGrabber` над поверхностью, если ручка должна выглядеть отдельным элементом.
 В этом примере между ручкой и краем панели оставлено 10px.
 
 <ExampleFrame variant="component">
@@ -249,7 +290,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/floating-grabber.tsx"
@@ -259,6 +300,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidFloatingGrabber} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueFloatingGrabber} />
 
     </Tab>
   </Tabs>
@@ -272,8 +318,8 @@ Drawer.RootProvider
 
 ### Фон с отступом
 
-`Drawer.Stack` использует состояние стека и прогресс свайпа Ark, чтобы перемещать
-`IndentBackground` и `Indent` вместе.
+`DrawerStack` использует состояние стека и прогресс свайпа Ark, чтобы перемещать
+`DrawerIndentBackground` и `DrawerIndent` вместе.
 
 <ExampleFrame variant="component">
   <DrawerIndentBackground />
@@ -281,7 +327,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/indent-background.tsx"
@@ -291,6 +337,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidIndentBackground} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueIndentBackground} />
 
     </Tab>
   </Tabs>
@@ -304,7 +355,7 @@ Drawer.RootProvider
 
 ### Островная панель
 
-Укажите `variant="island"` на `Drawer.Content`, если компактная панель должна располагаться с
+Укажите `variant="island"` на `DrawerContent`, если компактная панель должна располагаться с
 отступом внутри окна, а не визуально выходить за край, откуда она открывается.
 
 <ExampleFrame variant="component">
@@ -313,7 +364,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/island.tsx"
@@ -323,6 +374,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidIsland} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueIsland} />
 
     </Tab>
   </Tabs>
@@ -345,7 +401,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/multiple-triggers.tsx"
@@ -355,6 +411,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -369,7 +430,7 @@ Drawer.RootProvider
 ### Вложенные панели
 
 Используйте отдельные экземпляры Ark `useDrawer` и отдельные деревья moduix
-`Drawer.RootProvider` для вложенных панелей. Тогда каждая панель сохраняет собственное состояние
+`DrawerRootProvider` для вложенных панелей. Тогда каждая панель сохраняет собственное состояние
 открытия и жизненный цикл фокуса.
 
 <ExampleFrame variant="component">
@@ -378,7 +439,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/nested.tsx"
@@ -388,6 +449,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidNested} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueNested} />
 
     </Tab>
   </Tabs>
@@ -410,7 +476,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/non-modal.tsx"
@@ -420,6 +486,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidNonModal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueNonModal} />
 
     </Tab>
   </Tabs>
@@ -442,7 +513,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/root-provider.tsx"
@@ -452,6 +523,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -465,7 +541,7 @@ Drawer.RootProvider
 
 ### Прокручиваемое содержимое
 
-Поместите длинный контент в `Drawer.Body`. Используйте `ScrollArea`, если панели нужен отдельный
+Поместите длинный контент в `DrawerBody`. Используйте `ScrollArea`, если панели нужен отдельный
 контейнер прокрутки, а ручка и заголовок должны оставаться на месте.
 
 <ExampleFrame variant="component">
@@ -474,7 +550,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/scrollable.tsx"
@@ -484,6 +560,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidScrollable} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueScrollable} />
 
     </Tab>
   </Tabs>
@@ -506,7 +587,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/snap-points.tsx"
@@ -516,6 +597,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidSnapPoints} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueSnapPoints} />
 
     </Tab>
   </Tabs>
@@ -538,7 +624,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/swipe-direction.tsx"
@@ -548,6 +634,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidSwipeDirection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueSwipeDirection} />
 
     </Tab>
   </Tabs>
@@ -561,7 +652,7 @@ Drawer.RootProvider
 
 ### Расширенная настройка
 
-Не используйте необязательные помощники `Header`, `Body`, `Footer` и `CloseIcon`, если собственной
+Не используйте необязательные помощники `DrawerHeader`, `DrawerBody`, `DrawerFooter` и `DrawerCloseIcon`, если собственной
 разметке нужен полный низкоуровневый набор частей Drawer.
 
 <ExampleFrame variant="component">
@@ -570,7 +661,7 @@ Drawer.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/advanced-customization.tsx"
@@ -580,6 +671,11 @@ Drawer.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -593,7 +689,7 @@ Drawer.RootProvider
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
 стилей. Для стилей по состоянию предпочитайте атрибуты данных Ark, например `data-state`,
 `data-swipe-direction` и `data-dragging`, вместе с селекторами moduix `data-slot`. Варианты Tailwind
 используют нативные utility-классы и классы потребителя, а приведённые ниже переменные настраивают
@@ -601,17 +697,7 @@ Drawer.RootProvider
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DrawerDocs.DrawerCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties} />
 
 ### Хуки стилизации
 
@@ -619,7 +705,7 @@ Drawer.RootProvider
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
   `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
   `drawer-indent-background`, `drawer-header`, `drawer-body` и `drawer-footer`.
-- `Drawer.Content` записывает `data-variant="island"`, когда включено островное представление.
+- `DrawerContent` записывает `data-variant="island"`, когда включено островное представление.
 - хуки частей Ark: `data-scope="drawer"` вместе с `data-part`.
 - хуки состояния: `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
   `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,

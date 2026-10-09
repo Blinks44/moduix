@@ -156,6 +156,10 @@
     color: var(--moduix-color-muted-foreground);
   }
 
+  .root :where([data-kind='colon']) {
+    margin-inline-end: var(--moduix-spacing-0-5);
+  }
+
   .root :where([data-kind='brace']) {
     font-weight: var(--moduix-weight-medium);
   }

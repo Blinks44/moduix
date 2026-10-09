@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "vue-tailwind-verification-code",
+  "title": "Verification code",
+  "description": "Six-digit email verification form with keyboard navigation and paste support.",
+  "registryDependencies": [
+    "https://moduix.dev/r/vue-tailwind/button.json",
+    "https://moduix.dev/r/vue-tailwind/card.json",
+    "https://moduix.dev/r/vue-tailwind/field.json",
+    "https://moduix.dev/r/vue-tailwind/pin-input.json"
+  ],
+  "files": [
+    {
+      "path": "snippets/blocks/vue/verification-code.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ref } from 'vue';\nimport { Button } from '@/components/ui/button';\nimport {\n  Card,\n  CardBody,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from '@/components/ui/card';\nimport { Field, FieldErrorText } from '@/components/ui/field';\nimport {\n  PinInput,\n  PinInputControl,\n  PinInputHiddenInput,\n  PinInputInputs,\n  PinInputLabel,\n} from '@/components/ui/pin-input';\nimport styles from './verification-code-form.module.css';\n\nconst emit = defineEmits<{ submit: [event: Event] }>();\nconst invalid = ref(false);\nconst handleSubmit = (event: Event) => {\n  if (!(event.currentTarget instanceof HTMLFormElement)) return;\n  const code = new FormData(event.currentTarget).get('code');\n  invalid.value = typeof code !== 'string' || code.length !== 6;\n  if (invalid.value) {\n    event.preventDefault();\n    return;\n  }\n  emit('submit', event);\n};\n</script>\n\n<template>\n  <Card :class=\"styles.root\">\n    <CardHeader :class=\"styles.header\">\n      <CardTitle>Verify your email</CardTitle>\n      <CardDescription>Enter the 6-digit code from your email.</CardDescription>\n    </CardHeader>\n    <CardBody>\n      <form :class=\"styles.stack\" novalidate @submit=\"handleSubmit\">\n        <Field :class=\"styles.field\" :invalid=\"invalid\" required>\n          <PinInput :class=\"styles.code\" :count=\"6\" name=\"code\" otp @value-change=\"invalid = false\">\n            <PinInputLabel>Verification code</PinInputLabel>\n            <PinInputHiddenInput />\n            <PinInputControl><PinInputInputs /></PinInputControl>\n          </PinInput>\n          <FieldErrorText v-if=\"invalid\">Enter all six digits before verifying.</FieldErrorText>\n        </Field>\n        <Button type=\"submit\" :class=\"styles.submit\">Verify email</Button>\n      </form>\n    </CardBody>\n    <CardFooter :class=\"styles.footer\">\n      <p>Wrong email? <a :class=\"styles.link\" href=\"/sign-in\">Use a different one</a></p>\n    </CardFooter>\n  </Card>\n</template>",
+      "type": "registry:component",
+      "target": "@components/blocks/verification-code/verification-code.vue"
+    },
+    {
+      "path": "src/components/blocks/verification-code/verification-code-form.module.css",
+      "content": ".root {\n  width: min(100%, 26rem);\n}\n\n.header {\n  display: flex;\n  flex-direction: column;\n  gap: var(--moduix-spacing-2);\n  text-align: center;\n}\n\n.stack {\n  display: grid;\n  gap: var(--moduix-spacing-4);\n}\n\n.field {\n  align-items: center;\n}\n\n.code[data-slot='pin-input-root'] {\n  --moduix-pin-input-root-gap: var(--moduix-spacing-2);\n  align-items: center;\n  width: 100%;\n}\n\n.link {\n  color: var(--moduix-color-primary);\n  font-size: var(--moduix-text-sm);\n  font-weight: var(--moduix-weight-medium);\n  text-underline-offset: 0.2em;\n\n  &:hover {\n    color: var(--moduix-color-foreground);\n    text-decoration: underline;\n  }\n\n  &:focus-visible {\n    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);\n    outline-offset: var(--moduix-border-width-sm);\n    border-radius: var(--moduix-radius-xs);\n  }\n}\n\n.submit {\n  width: 100%;\n}\n\n.footer {\n  justify-content: center;\n  text-align: center;\n}\n\n.footer p {\n  margin: 0;\n  color: var(--moduix-color-muted-foreground);\n  font-size: var(--moduix-text-sm);\n}",
+      "type": "registry:file",
+      "target": "@components/blocks/verification-code/verification-code-form.module.css"
+    }
+  ],
+  "type": "registry:block"
+}

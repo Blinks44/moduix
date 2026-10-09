@@ -5,6 +5,7 @@ description: Удерживайте фокус при навигации с кл
 
 import FocusTrapBasic from '@/components/examples/focus-trap/basic.tsx';
 import focusTrapSolidCssModules from '../../../snippets/focus-trap/solid/css-modules.tsx?raw';
+import focusTrapVueCssModules from '../../../snippets/focus-trap/vue/css-modules.vue?raw';
 
 `FocusTrap` удерживает фокус при навигации с клавиатуры внутри пользовательской интерактивной области до завершения сценария.
 
@@ -19,6 +20,7 @@ import focusTrapSolidCssModules from '../../../snippets/focus-trap/solid/css-mod
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -36,6 +38,13 @@ import { FocusTrap } from '@ark-ui/solid/focus-trap';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { FocusTrap } from '@ark-ui/vue/focus-trap';
+```
+
+  </Tab>
 </Tabs>
 
 Для модального окна используйте `Dialog`, а для модальной панели, прикреплённой к краю экрана, `Drawer`. Эти компоненты
@@ -46,7 +55,7 @@ import { FocusTrap } from '@ark-ui/solid/focus-trap';
 Оставьте ловушку смонтированной и переключайте `disabled` при начале и завершении сценария. В примере `initialFocus`
 переводит фокус на **Review details**, `isReviewing` синхронизируется через `onDeactivate`, а после отключения ловушки
 фокус возвращается на **Start review**. В интерактивном примере через `PreviewMeta` показано, активна ли ловушка. Вкладки
-с исходным кодом показывают одинаковое поведение с нативными примерами для React и Solid.
+с исходным кодом показывают одинаковое поведение с нативными примерами для React, Solid и Vue.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -60,6 +69,7 @@ import { FocusTrap } from '@ark-ui/solid/focus-trap';
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -72,6 +82,11 @@ import { FocusTrap } from '@ark-ui/solid/focus-trap';
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={focusTrapSolidCssModules} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={focusTrapVueCssModules} />
 
   </Tab>
 </Tabs>

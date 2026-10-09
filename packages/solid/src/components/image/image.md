@@ -1,8 +1,8 @@
 # Image (Solid)
 
-`Image` is a native Solid wrapper around `@unpic/core`. It preserves the React component's
+`Image` is a native Solid wrapper around `@unpic/solid`. It preserves the React component's
 responsive `srcset` and `sizes` generation, CDN detection, layout modes, priority, background,
-native image attributes, and `Image.Source` picture composition without a React runtime.
+native image attributes, and `ImageSource` picture composition without a React runtime.
 
 ## Composition
 
@@ -22,11 +22,16 @@ export function HeroImage() {
 }
 ```
 
-Use `Image.Source` inside a native `<picture>` and place `Image` last as the fallback image.
-`Image` and `Image.Root` are the same component. The Solid API uses native `class` and
+Use `ImageSource` inside a native `<picture>` and place `Image` last as the fallback image.
+`Image` is the root component. The Solid API uses native `class` and
 `fetchpriority` attribute names.
 
 The wrapper adds `data-slot="image-root"` and
-`border-radius: var(--moduix-image-radius, var(--moduix-radius-md))`; `Image.Source` adds
-`data-slot="image-source"`. Solid uses `@unpic/core` directly because Unpic does not publish a
-Solid adapter.
+`border-radius: var(--moduix-image-radius, var(--moduix-radius-md))`; `ImageSource` adds
+`data-slot="image-source"`. The CSS Modules adapter uses Unpic's native Solid components;
+the Tailwind adapter uses the same `@unpic/core` transforms on native `img`/`source` hosts.
+
+Native loading defaults apply to every URL, including local paths: `loading="lazy"` and
+`decoding="async"`. With `priority`, the defaults are `loading="eager"` and
+`fetchpriority="high"`, with no default `decoding`. Explicit native attributes take precedence.
+URL transformations and layout styles remain owned by Unpic and require a supported provider.

@@ -7,7 +7,7 @@ import { CloseButton } from '../close-button';
 
 type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
 type TagSize = 'sm' | 'md';
-type TagRootProps = HTMLArkProps<'span'> & {
+type TagProps = HTMLArkProps<'span'> & {
   variant?: TagVariant;
   size?: TagSize;
 };
@@ -39,7 +39,7 @@ const tagVariants = cva(
   },
 );
 
-function TagRoot(props: TagRootProps) {
+function Tag(props: TagProps) {
   const [local, others] = splitProps(props, ['asChild', 'class', 'size', 'variant']);
 
   return (
@@ -118,7 +118,7 @@ function TagCloseTrigger(props: TagCloseTriggerProps) {
   const resolvedChildren = resolveChildren(() => local.children);
 
   return (
-    <CloseButton.Root
+    <CloseButton
       asChild={local.asChild}
       {...others}
       data-scope="tag"
@@ -132,21 +132,13 @@ function TagCloseTrigger(props: TagCloseTriggerProps) {
       }
       aria-labelledby={local['aria-labelledby']}
       class={cn(
-        'size-4 rounded-full bg-transparent p-0 text-inherit focus-visible:outline-1 focus-visible:outline-offset-0 [&>svg]:size-2.5 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/12 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit',
+        'size-4 rounded-full bg-transparent p-0 text-inherit focus-visible:outline-1 focus-visible:outline-offset-0 [&>svg]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/12 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit',
         local.class,
       )}
     >
-      {local.children}
-    </CloseButton.Root>
+      {resolvedChildren()}
+    </CloseButton>
   );
 }
 
-const Tag = Object.assign(TagRoot, {
-  Root: TagRoot,
-  Label: TagLabel,
-  StartElement: TagStartElement,
-  EndElement: TagEndElement,
-  CloseTrigger: TagCloseTrigger,
-});
-
-export { Tag };
+export { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement };

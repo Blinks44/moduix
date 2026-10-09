@@ -8,10 +8,10 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import styles from './ProgressLinear.module.css';
 
-const ProgressLinearRoot = forwardRef<
+const ProgressLinear = forwardRef<
   ComponentRef<typeof ProgressPrimitive.Root>,
   ComponentProps<typeof ProgressPrimitive.Root>
->(function ProgressLinearRoot({ className, ...props }, ref) {
+>(function ProgressLinear({ className, ...props }, ref) {
   return (
     <ProgressPrimitive.Root
       ref={ref}
@@ -106,17 +106,17 @@ const ProgressLinearView = forwardRef<
   );
 });
 
-const ProgressLinear = Object.assign(ProgressLinearRoot, {
-  Root: ProgressLinearRoot,
-  RootProvider: ProgressLinearRootProvider,
-  Context: ProgressPrimitive.Context,
-  Label: ProgressLinearLabel,
-  ValueText: ProgressLinearValueText,
-  Track: ProgressLinearTrack,
-  Range: ProgressLinearRange,
-  View: ProgressLinearView,
+const ProgressLinearContext = ProgressPrimitive.Context;
+
+export {
+  ProgressLinear,
+  ProgressLinearContext,
+  ProgressLinearLabel,
+  ProgressLinearRange,
+  ProgressLinearRootProvider,
+  ProgressLinearTrack,
+  ProgressLinearValueText,
+  ProgressLinearView,
   useProgress,
   useProgressContext,
-});
-
-export { ProgressLinear };
+};

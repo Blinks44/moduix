@@ -1,7 +1,7 @@
 ---
 title: Date Input
 component: date-input
-description: Доступное сегментированное поле для ввода дат в React и Solid с CSS Modules или Tailwind, поддержкой локали и нативных форм.
+description: Доступное сегментированное поле для ввода дат в React, Solid и Vue с CSS Modules или Tailwind, поддержкой локали и нативных форм.
 ---
 
 import * as DateInputDocs from '@/components/examples/date-input/css-properties';
@@ -31,6 +31,19 @@ import dateInputSolidRange from '../../../snippets/date-input/solid/range.tsx?ra
 import dateInputSolidRightToLeft from '../../../snippets/date-input/solid/right-to-left.tsx?raw';
 import dateInputSolidRootProvider from '../../../snippets/date-input/solid/root-provider.tsx?raw';
 import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only.tsx?raw';
+import dateInputVueAdvancedCustomization from '../../../snippets/date-input/vue/advanced-customization.vue?raw';
+import dateInputVueBasic from '../../../snippets/date-input/vue/basic.vue?raw';
+import dateInputVueControlled from '../../../snippets/date-input/vue/controlled.vue?raw';
+import dateInputVueDisabledAndReadOnly from '../../../snippets/date-input/vue/disabled-and-read-only.vue?raw';
+import dateInputVueFieldState from '../../../snippets/date-input/vue/field-state.vue?raw';
+import dateInputVueGranularity from '../../../snippets/date-input/vue/granularity.vue?raw';
+import dateInputVueLeadingZeros from '../../../snippets/date-input/vue/leading-zeros.vue?raw';
+import dateInputVueLocale from '../../../snippets/date-input/vue/locale.vue?raw';
+import dateInputVueMinMaxAndUnavailableDates from '../../../snippets/date-input/vue/min-max-and-unavailable-dates.vue?raw';
+import dateInputVueRange from '../../../snippets/date-input/vue/range.vue?raw';
+import dateInputVueRightToLeft from '../../../snippets/date-input/vue/right-to-left.vue?raw';
+import dateInputVueRootProvider from '../../../snippets/date-input/vue/root-provider.vue?raw';
+import dateInputVueTimeOnly from '../../../snippets/date-input/vue/time-only.vue?raw';
 
 ## Справочник API
 
@@ -46,7 +59,7 @@ import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only
 ## Базовый пример
 
 `DateInput` отображает сегменты даты с учётом локали, которые можно редактировать с клавиатуры. Поместите
-`DateInput.Segments` внутрь `DateInput.Control` для стандартной композиции. Preview на этой странице
+`DateInputSegments` внутрь `DateInputControl` для стандартной композиции.
 
 <ExampleFrame variant="component">
   <DateInputBasic />
@@ -59,6 +72,7 @@ import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -71,6 +85,11 @@ import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dateInputSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dateInputVueBasic} />
 
     </Tab>
   </Tabs>
@@ -108,53 +127,64 @@ import dateInputSolidTimeOnly from '../../../snippets/date-input/solid/time-only
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/date-input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/date-input' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-DateInput / DateInput.Root
-├─ DateInput.Label
-├─ DateInput.Control
-│  ├─ DateInput.Segments
-│  └─ DateInput.Separator (необязательно, для диапазонов)
-└─ DateInput.HiddenInput[index] (явно, по одному на отправляемую дату)
+DateInput
+├─ DateInputLabel
+├─ DateInputControl
+│  ├─ DateInputSegments
+│  └─ DateInputSeparator (необязательно, для диапазонов)
+└─ DateInputHiddenInput[index] (явно, по одному на отправляемую дату)
 
 Расширенная настройка:
 
-DateInput.SegmentGroup
-└─ DateInput.SegmentContext
-   └─ DateInput.Segment
+DateInputSegmentGroup
+└─ DateInputSegmentContext
+   └─ DateInputSegment
 
-DateInput.RootProvider
+DateInputRootProvider
 └─ то же дерево частей, подключённое к состоянию из useDateInput()
 ```
 
 | Часть | Назначение |
 | ---- | ---- |
-| `DateInput` / `DateInput.Root` | Отвечает за значения дат, форматирование с учётом локали, фокус сегментов и валидацию. |
-| `DateInput.HiddenInput` | Нативное поле Ark, которое для отправки формы нужно добавить явно. |
-| `DateInput.RootProvider` | Подключает части к состоянию из `useDateInput()`. |
-| `DateInput.Label` | Подпись поля даты, доступная вспомогательным технологиям. |
-| `DateInput.Control` | Визуальная рамка вокруг одной или нескольких групп сегментов. |
-| `DateInput.SegmentGroup` | Объединяет сегменты для одного индекса даты. |
-| `DateInput.Segment` | Редактируемый или фиксированный сегмент, предоставляемый Ark UI. |
-| `DateInput.Segments` | Отображает одну группу сегментов с учётом локали для обычного сценария. |
-| `DateInput.Separator` | Текстовый разделитель между группами диапазона. |
-| `DateInput.Context` | Даёт доступ к текущему состоянию поля без собственной разметки. |
-| `DateInput.SegmentContext` | Помогает отображать сегменты с учётом локали. |
+| `DateInput` | Отвечает за значения дат, форматирование с учётом локали, фокус сегментов и валидацию. |
+| `DateInputHiddenInput` | Нативное поле Ark, которое для отправки формы нужно добавить явно. |
+| `DateInputRootProvider` | Подключает части к состоянию из `useDateInput()`. |
+| `DateInputLabel` | Подпись поля даты, доступная вспомогательным технологиям. |
+| `DateInputControl` | Визуальная рамка вокруг одной или нескольких групп сегментов. |
+| `DateInputSegmentGroup` | Объединяет сегменты для одного индекса даты. |
+| `DateInputSegment` | Редактируемый или фиксированный сегмент, предоставляемый Ark UI. |
+| `DateInputSegments` | Отображает одну группу сегментов с учётом локали для обычного сценария. |
+| `DateInputSeparator` | Текстовый разделитель между группами диапазона. |
+| `DateInputContext` | Даёт доступ к текущему состоянию поля без собственной разметки. |
+| `DateInputSegmentContext` | Помогает отображать сегменты с учётом локали. |
 
 ## Композиция
 
-Для обычного поля используйте `DateInput` с `DateInput.Control` и `DateInput.Segments`. Оставьте состояние
+Для обычного поля используйте `DateInput` с `DateInputControl` и `DateInputSegments`. Оставьте состояние
 неконтролируемым через `defaultValue`, управляйте им через `value` и `onValueChange(details)` или создайте
-его с помощью `useDateInput()` и подключите части через `DateInput.RootProvider`. Значения имеют форму
+его с помощью `useDateInput()` и подключите части через `DateInputRootProvider`. В Vue для управляемого
+значения используйте `v-model`. Значения имеют форму
 `DateInputDateValue[]` из `@internationalized/date`, а не строк.
 
-`DateInput.HiddenInput` нужно добавлять явно: корневой компонент не создаёт нативные поля. Добавьте по одному
+`DateInputHiddenInput` нужно добавлять явно: корневой компонент не создаёт нативные поля. Добавьте по одному
 скрытому полю на каждую отправляемую дату, а для диапазона используйте соответствующие значения `index`.
-Используйте `DateInput.SegmentGroup`, `DateInput.SegmentContext` и `DateInput.Segment` только тогда, когда
-стандартного отображения `DateInput.Segments` недостаточно.
+Используйте `DateInputSegmentGroup`, `DateInputSegmentContext` и `DateInputSegment` только тогда, когда
+стандартного отображения `DateInputSegments` недостаточно.
 
 ## Примеры
 
@@ -168,7 +198,7 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/controlled.tsx"
@@ -177,6 +207,9 @@ DateInput.RootProvider
     </Tab>
     <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={dateInputSolidControlled} />
+   </Tab>
+    <Tab value="vue">
+<CodeBlockRuntime lang="vue" code={dateInputVueControlled} />
     </Tab>
   </Tabs>
 
@@ -199,7 +232,7 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/disabled-and-read-only.tsx"
@@ -208,6 +241,9 @@ DateInput.RootProvider
     </Tab>
     <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={dateInputSolidDisabledAndReadOnly} />
+   </Tab>
+    <Tab value="vue">
+<CodeBlockRuntime lang="vue" code={dateInputVueDisabledAndReadOnly} />
     </Tab>
   </Tabs>
 
@@ -230,7 +266,7 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/field-state.tsx"
@@ -239,6 +275,9 @@ DateInput.RootProvider
     </Tab>
     <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={dateInputSolidFieldState} />
+   </Tab>
+    <Tab value="vue">
+<CodeBlockRuntime lang="vue" code={dateInputVueFieldState} />
     </Tab>
   </Tabs>
 
@@ -260,7 +299,7 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/granularity.tsx"
@@ -269,6 +308,9 @@ DateInput.RootProvider
     </Tab>
     <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={dateInputSolidGranularity} />
+   </Tab>
+    <Tab value="vue">
+<CodeBlockRuntime lang="vue" code={dateInputVueGranularity} />
     </Tab>
   </Tabs>
 
@@ -290,7 +332,7 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/leading-zeros.tsx"
@@ -299,6 +341,9 @@ DateInput.RootProvider
     </Tab>
     <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={dateInputSolidLeadingZeros} />
+   </Tab>
+    <Tab value="vue">
+<CodeBlockRuntime lang="vue" code={dateInputVueLeadingZeros} />
     </Tab>
   </Tabs>
 
@@ -321,7 +366,7 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/locale.tsx"
@@ -330,6 +375,9 @@ DateInput.RootProvider
     </Tab>
     <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={dateInputSolidLocale} />
+   </Tab>
+    <Tab value="vue">
+<CodeBlockRuntime lang="vue" code={dateInputVueLocale} />
     </Tab>
   </Tabs>
 
@@ -352,7 +400,7 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/min-max-and-unavailable-dates.tsx"
@@ -361,6 +409,9 @@ DateInput.RootProvider
     </Tab>
     <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={dateInputSolidMinMaxAndUnavailableDates} />
+   </Tab>
+    <Tab value="vue">
+<CodeBlockRuntime lang="vue" code={dateInputVueMinMaxAndUnavailableDates} />
     </Tab>
   </Tabs>
 
@@ -375,7 +426,7 @@ DateInput.RootProvider
 ### Диапазон
 
 Используйте `selectionMode="range"`, передайте `index` каждой группе сегментов и добавьте соответствующие
-индексированные `DateInput.HiddenInput`, если значения отправляются вместе с формой.
+индексированные `DateInputHiddenInput`, если значения отправляются вместе с формой.
 
 <ExampleFrame variant="component">
   <DateInputRange />
@@ -383,7 +434,7 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/range.tsx"
@@ -392,6 +443,9 @@ DateInput.RootProvider
     </Tab>
     <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={dateInputSolidRange} />
+   </Tab>
+    <Tab value="vue">
+<CodeBlockRuntime lang="vue" code={dateInputVueRange} />
     </Tab>
   </Tabs>
 
@@ -413,7 +467,7 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/right-to-left.tsx"
@@ -422,6 +476,9 @@ DateInput.RootProvider
     </Tab>
     <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={dateInputSolidRightToLeft} />
+   </Tab>
+    <Tab value="vue">
+<CodeBlockRuntime lang="vue" code={dateInputVueRightToLeft} />
     </Tab>
   </Tabs>
 
@@ -435,7 +492,7 @@ DateInput.RootProvider
 
 ### Root Provider
 
-Используйте `useDateInput()` из `@moduix/react` или `@moduix/solid` вместе с `DateInput.RootProvider`, когда
+Используйте `useDateInput()` из `@moduix/react`, `@moduix/solid` или `@moduix/vue` вместе с `DateInputRootProvider`, когда
 методы управления состоянием нужны за пределами дерева корневого компонента.
 
 <ExampleFrame variant="component">
@@ -444,7 +501,7 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/root-provider.tsx"
@@ -453,6 +510,9 @@ DateInput.RootProvider
     </Tab>
     <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={dateInputSolidRootProvider} />
+   </Tab>
+    <Tab value="vue">
+<CodeBlockRuntime lang="vue" code={dateInputVueRootProvider} />
     </Tab>
   </Tabs>
 
@@ -475,7 +535,7 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/time-only.tsx"
@@ -484,6 +544,9 @@ DateInput.RootProvider
     </Tab>
     <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={dateInputSolidTimeOnly} />
+   </Tab>
+    <Tab value="vue">
+<CodeBlockRuntime lang="vue" code={dateInputVueTimeOnly} />
     </Tab>
   </Tabs>
 
@@ -498,7 +561,7 @@ DateInput.RootProvider
 ### Расширенная настройка
 
 Используйте полную композицию сегментов, если отображение должно зависеть от данных сегмента Ark UI.
-Для стандартного отображения остаётся `DateInput.Segments`.
+Для стандартного отображения остаётся `DateInputSegments`.
 
 <ExampleFrame variant="component">
   <DateInputAdvancedCustomization />
@@ -506,7 +569,7 @@ DateInput.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/date-input/advanced-customization.tsx"
@@ -515,6 +578,9 @@ DateInput.RootProvider
     </Tab>
     <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={dateInputSolidAdvancedCustomization} />
+   </Tab>
+    <Tab value="vue">
+<CodeBlockRuntime lang="vue" code={dateInputVueAdvancedCustomization} />
     </Tab>
   </Tabs>
 
@@ -528,7 +594,7 @@ DateInput.RootProvider
 
 ## Стилизация
 
-В React используйте `className`, а в Solid `class` на экспортируемых частях для структурных стилей. Варианты
+В React используйте `className`, а в Solid и Vue `class` на экспортируемых частях для структурных стилей. Варианты
 Tailwind используют обычные utility-классы и классы потребителя. Варианты CSS Modules также предоставляют
 перечисленные ниже переменные компонентов. Атрибуты данных и хуки `data-slot` общие для обоих вариантов.
 

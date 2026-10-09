@@ -1,4 +1,14 @@
-import { FileUpload, useFileUpload } from '@moduix/solid/file-upload';
+import {
+  useFileUpload,
+  FileUploadContext,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadLabel,
+  FileUploadRootProvider,
+} from '@moduix/solid/file-upload';
 import { Textarea } from '@moduix/solid/textarea';
 import { For } from 'solid-js';
 import styles from '@/components/examples/file-upload/file-upload-root-provider-and-paste.module.css';
@@ -13,27 +23,27 @@ export default function RootProviderPasteUploadDemo() {
   });
 
   return (
-    <FileUpload.RootProvider class={styles.root} value={fileUpload}>
-      <FileUpload.Label>Images</FileUpload.Label>
+    <FileUploadRootProvider class={styles.root} value={fileUpload}>
+      <FileUploadLabel>Images</FileUploadLabel>
       <Textarea
         placeholder="Paste an image here"
         onPaste={(event) => fileUpload().setClipboardFiles(event.clipboardData)}
       />
-      <FileUpload.ItemGroup>
-        <FileUpload.Context>
+      <FileUploadItemGroup>
+        <FileUploadContext>
           {(context) => (
             <For each={context().acceptedFiles}>
               {(file) => (
-                <FileUpload.Item file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                </FileUpload.Item>
+                <FileUploadItem file={file}>
+                  <FileUploadItemName />
+                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                </FileUploadItem>
               )}
             </For>
           )}
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
-    </FileUpload.RootProvider>
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
+    </FileUploadRootProvider>
   );
 }

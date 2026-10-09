@@ -7,10 +7,10 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const ProgressLinearRoot = forwardRef<
+const ProgressLinear = forwardRef<
   ComponentRef<typeof ProgressPrimitive.Root>,
   ComponentProps<typeof ProgressPrimitive.Root>
->(function ProgressLinearRoot({ className, ...props }, ref) {
+>(function ProgressLinear({ className, ...props }, ref) {
   return (
     <ProgressPrimitive.Root
       ref={ref}
@@ -100,7 +100,7 @@ const ProgressLinearRange = forwardRef<
     <ProgressPrimitive.Range
       ref={ref}
       className={cn(
-        'block h-full rounded-[inherit] bg-primary transition-[width,height] duration-200 ease-in-out data-[orientation=vertical]:w-full data-[state=indeterminate]:w-[35%] data-[state=indeterminate]:animate-moduix-progress-linear-indeterminate data-[state=indeterminate]:data-[orientation=vertical]:h-[35%] data-[state=indeterminate]:data-[orientation=vertical]:animate-moduix-progress-linear-indeterminate-vertical motion-reduce:data-[state=indeterminate]:translate-x-0 motion-reduce:data-[state=indeterminate]:translate-y-0 motion-reduce:data-[state=indeterminate]:animate-none rtl:data-[state=indeterminate]:data-[orientation=horizontal]:[animation-direction:reverse]',
+        'block h-full rounded-[inherit] bg-primary transition-[width,height] duration-200 ease-in-out data-[orientation=vertical]:w-full data-[state=indeterminate]:w-[35%] data-[state=indeterminate]:animate-moduix-progress-linear-indeterminate data-[state=indeterminate]:data-[orientation=vertical]:h-[35%] data-[state=indeterminate]:data-[orientation=vertical]:animate-moduix-progress-linear-indeterminate-vertical motion-reduce:data-[state=indeterminate]:translate-x-0 motion-reduce:data-[state=indeterminate]:translate-y-0 motion-reduce:data-[state=indeterminate]:animate-none [&:dir(rtl)]:data-[state=indeterminate]:data-[orientation=horizontal]:[animation-direction:reverse]',
         className,
       )}
       {...props}
@@ -123,17 +123,17 @@ const ProgressLinearView = forwardRef<
   );
 });
 
-const ProgressLinear = Object.assign(ProgressLinearRoot, {
-  Root: ProgressLinearRoot,
-  RootProvider: ProgressLinearRootProvider,
-  Context: ProgressPrimitive.Context,
-  Label: ProgressLinearLabel,
-  ValueText: ProgressLinearValueText,
-  Track: ProgressLinearTrack,
-  Range: ProgressLinearRange,
-  View: ProgressLinearView,
+const ProgressLinearContext = ProgressPrimitive.Context;
+
+export {
+  ProgressLinear,
+  ProgressLinearContext,
+  ProgressLinearLabel,
+  ProgressLinearRange,
+  ProgressLinearRootProvider,
+  ProgressLinearTrack,
+  ProgressLinearValueText,
+  ProgressLinearView,
   useProgress,
   useProgressContext,
-});
-
-export { ProgressLinear };
+};

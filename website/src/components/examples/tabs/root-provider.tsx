@@ -1,4 +1,4 @@
-import { Tabs, useTabs } from '@moduix/react/tabs';
+import { TabsContent, TabsList, TabsRootProvider, TabsTrigger, useTabs } from '@moduix/react/tabs';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/tabs/tabs-root-provider.module.css';
 
@@ -28,21 +28,21 @@ export default function RootProviderTabsDemo() {
   });
   return (
     <div className={styles.root}>
-      <Tabs.RootProvider value={tabs}>
-        <Tabs.List>
+      <TabsRootProvider value={tabs}>
+        <TabsList>
           {items.map((item) => (
-            <Tabs.Trigger key={item.value} value={item.value}>
+            <TabsTrigger key={item.value} value={item.value}>
               {item.title}
-            </Tabs.Trigger>
+            </TabsTrigger>
           ))}
-        </Tabs.List>
+        </TabsList>
 
         {items.map((item) => (
-          <Tabs.Content key={item.value} value={item.value}>
+          <TabsContent key={item.value} value={item.value}>
             {item.content}
-          </Tabs.Content>
+          </TabsContent>
         ))}
-      </Tabs.RootProvider>
+      </TabsRootProvider>
       <PreviewMeta>
         <output>Selected: {tabs.value ?? 'none'}</output>
       </PreviewMeta>

@@ -1,16 +1,20 @@
 ---
 title: Frame
-description: Рендерите содержимое React или Solid в изолированном iframe с помощью Frame из Ark UI.
+description: Рендерите содержимое React, Solid или Vue в изолированном iframe с помощью Frame из Ark UI.
 ---
 
 import FrameBasic from '@/components/examples/frame/basic.tsx';
 import FrameSizing from '@/components/examples/frame/sizing.tsx';
 import frameSolidBasic from '../../../snippets/frame/solid/basic.tsx?raw';
+import frameVueBasic from '../../../snippets/frame/vue/basic.vue?raw';
 import frameSolidSizing from '../../../snippets/frame/solid/sizing.tsx?raw';
+import frameVueSizing from '../../../snippets/frame/vue/sizing.vue?raw';
 import frameSolidLifecycle from '../../../snippets/frame/solid/lifecycle.tsx?raw';
+import frameVueLifecycle from '../../../snippets/frame/vue/lifecycle.vue?raw';
 import frameSolidStaticDocument from '../../../snippets/frame/solid/static-document.tsx?raw';
+import frameVueStaticDocument from '../../../snippets/frame/vue/static-document.vue?raw';
 
-`Frame` рендерит содержимое React или Solid в отдельном документе iframe.
+`Frame` рендерит содержимое React, Solid или Vue в отдельном документе iframe.
 
 ## Справочник API
 
@@ -23,6 +27,7 @@ import frameSolidStaticDocument from '../../../snippets/frame/solid/static-docum
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -37,6 +42,13 @@ import { Frame } from '@ark-ui/react';
 
 ```tsx
 import { Frame } from '@ark-ui/solid';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { Frame } from '@ark-ui/vue';
 ```
 
   </Tab>
@@ -61,6 +73,7 @@ import { Frame } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -73,6 +86,11 @@ import { Frame } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={frameSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={frameVueBasic} />
 
     </Tab>
   </Tabs>
@@ -101,6 +119,7 @@ import { Frame } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -113,6 +132,11 @@ import { Frame } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={frameSolidSizing} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={frameVueSizing} />
 
     </Tab>
   </Tabs>
@@ -133,6 +157,7 @@ import { Frame } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -147,13 +172,18 @@ import { Frame } from '@ark-ui/solid';
 <CodeBlockRuntime lang="tsx" code={frameSolidLifecycle} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={frameVueLifecycle} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ## Статические HTML-документы
 
-Используйте `srcDoc` в React или `srcdoc` в Solid, когда iframe должен начинаться с готового HTML-документа, а не с
+Используйте `srcDoc` в React или `srcdoc` в Solid и Vue, когда iframe должен начинаться с готового HTML-документа, а не с
 элементов, отрендеренных фреймворком. Это нативные варианты записи одного и того же атрибута iframe в каждом фреймворке.
 
 Для недоверенного HTML задайте нативный атрибут `sandbox` и оставьте только необходимые содержимому разрешения. Не
@@ -166,6 +196,7 @@ import { Frame } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -178,6 +209,11 @@ import { Frame } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={frameSolidStaticDocument} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={frameVueStaticDocument} />
 
     </Tab>
   </Tabs>

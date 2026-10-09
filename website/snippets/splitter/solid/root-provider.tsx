@@ -1,5 +1,10 @@
 import { Button } from '@moduix/solid/button';
-import { Splitter, useSplitter } from '@moduix/solid/splitter';
+import {
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterRootProvider,
+  useSplitter,
+} from '@moduix/solid/splitter';
 import styles from '@/components/examples/splitter/splitter-root-provider.module.css';
 
 const panels = [
@@ -21,15 +26,15 @@ export default function RootProviderSplitterDemo() {
 
   return (
     <div class={styles.stack}>
-      <Splitter.RootProvider value={splitter} class={styles.root}>
-        <Splitter.Panel id="a" class={styles.panel}>
+      <SplitterRootProvider value={splitter} class={styles.root}>
+        <SplitterPanel id="a" class={styles.panel}>
           A
-        </Splitter.Panel>
-        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
-        <Splitter.Panel id="b" class={styles.panel}>
+        </SplitterPanel>
+        <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
+        <SplitterPanel id="b" class={styles.panel}>
           B
-        </Splitter.Panel>
-      </Splitter.RootProvider>
+        </SplitterPanel>
+      </SplitterRootProvider>
       <output class={styles.status}>Sizes: {splitter().getSizes().join(' / ')}</output>
       <div class={styles.toolbar}>
         <Button onClick={() => splitter().resetSizes()}>Reset</Button>

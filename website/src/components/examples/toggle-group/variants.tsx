@@ -1,4 +1,4 @@
-import { ToggleGroup } from '@moduix/react/toggle-group';
+import { ToggleGroup, ToggleGroupItem } from '@moduix/react/toggle-group';
 import styles from '@/components/examples/toggle-group/toggle-group-variants.module.css';
 
 const items = [
@@ -21,23 +21,23 @@ export default function ToggleGroupVariantsDemo() {
     <div className={styles.stack}>
       <ToggleGroup defaultValue={['one']} aria-label="Default variant">
         {items.map((item) => (
-          <ToggleGroup.Item key={item.value} value={item.value}>
+          <ToggleGroupItem key={item.value} value={item.value}>
             {item.label}
-          </ToggleGroup.Item>
+          </ToggleGroupItem>
         ))}
       </ToggleGroup>
       <ToggleGroup defaultValue={['one']} aria-label="Outline variant" variant="outline">
         {items.map((item) => (
-          <ToggleGroup.Item key={item.value} value={item.value}>
+          <ToggleGroupItem key={item.value} value={item.value}>
             {item.label}
-          </ToggleGroup.Item>
+          </ToggleGroupItem>
         ))}
       </ToggleGroup>
       <ToggleGroup defaultValue={['one']} aria-label="Ghost variant" variant="ghost">
         {items.map((item) => (
-          <ToggleGroup.Item key={item.value} value={item.value}>
+          <ToggleGroupItem key={item.value} value={item.value}>
             {item.label}
-          </ToggleGroup.Item>
+          </ToggleGroupItem>
         ))}
       </ToggleGroup>
     </div>

@@ -1,5 +1,10 @@
 import { Button } from '@moduix/react/button';
-import { NumberInput, useNumberInput } from '@moduix/react/number-input';
+import {
+  NumberInputField,
+  NumberInputLabel,
+  NumberInputRootProvider,
+  useNumberInput,
+} from '@moduix/react/number-input';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/number-input/number-input-root-provider.module.css';
 
@@ -11,10 +16,10 @@ export default function RootProviderNumberInputDemo() {
   });
   return (
     <div className={styles.root}>
-      <NumberInput.RootProvider value={numberInput}>
-        <NumberInput.Label>Guests</NumberInput.Label>
-        <NumberInput.Field />
-      </NumberInput.RootProvider>
+      <NumberInputRootProvider value={numberInput}>
+        <NumberInputLabel>Guests</NumberInputLabel>
+        <NumberInputField />
+      </NumberInputRootProvider>
       <PreviewMeta>
         <output>Value: {numberInput.value}</output>
         <Button type="button" size="sm" variant="outline" onClick={() => numberInput.setToMin()}>

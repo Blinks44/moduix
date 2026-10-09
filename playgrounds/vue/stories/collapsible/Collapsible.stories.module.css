@@ -1,0 +1,71 @@
+@layer moduix.storybook {
+  .root {
+    width: 16rem;
+  }
+
+  .keysList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-spacing-1);
+    margin: 0;
+    padding-inline-start: 0;
+  }
+
+  .status {
+    margin-top: var(--moduix-spacing-2);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
+  }
+
+  .providerLayout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .customRoot {
+    width: 16rem;
+    color: var(--moduix-color-foreground);
+  }
+
+  .customTrigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--moduix-spacing-2);
+    width: 100%;
+    padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-muted);
+    color: var(--moduix-color-foreground);
+  }
+
+  @media (hover: hover) {
+    .customTrigger:hover {
+      background-color: var(--moduix-color-accent);
+    }
+  }
+
+  .customIndicator {
+    --moduix-collapsible-indicator-open-transform: rotate(180deg);
+
+    color: var(--moduix-color-primary);
+  }
+
+  .triggerLabel {
+    min-width: 0;
+  }
+
+  .customContent {
+    color: var(--moduix-color-muted-foreground);
+  }
+
+  .customContentBody {
+    margin-top: var(--moduix-spacing-1);
+    --moduix-collapsible-body-padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-muted);
+  }
+}

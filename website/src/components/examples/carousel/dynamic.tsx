@@ -1,5 +1,13 @@
 import { Button } from '@moduix/react/button';
-import { Carousel } from '@moduix/react/carousel';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/react/carousel';
 import { Plus as PlusIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -60,18 +68,18 @@ export default function DynamicSlidesCarousel() {
         page={page}
         onPageChange={(details) => setPage(details.page)}
       >
-        <Carousel.ItemGroup className={styles.itemGroup} aria-label="Dynamic gallery">
+        <CarouselItemGroup className={styles.itemGroup} aria-label="Dynamic gallery">
           {visibleSlides.map((slide, index) => (
-            <Carousel.Item key={slide.id} index={index}>
+            <CarouselItem key={slide.id} index={index}>
               <img className={styles.image} src={slide.src} alt={slide.alt} />
-            </Carousel.Item>
+            </CarouselItem>
           ))}
-        </Carousel.ItemGroup>
-        <Carousel.Control className={styles.control}>
-          <Carousel.PrevTrigger />
-          <Carousel.Indicators />
-          <Carousel.NextTrigger />
-        </Carousel.Control>
+        </CarouselItemGroup>
+        <CarouselControl className={styles.control}>
+          <CarouselPrevTrigger />
+          <CarouselIndicators />
+          <CarouselNextTrigger />
+        </CarouselControl>
       </Carousel>
 
       <PreviewMeta>

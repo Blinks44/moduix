@@ -1,7 +1,8 @@
 import { Field as FieldPrimitive } from '@ark-ui/solid/field';
 import type { FieldTextareaProps } from '@ark-ui/solid/field';
 import { clsx } from 'clsx';
-import { createEffect, splitProps } from 'solid-js';
+import { splitProps } from 'solid-js';
+import { applyDefaultValue, toPropDefaultValue } from '@/lib/moduix/defaultValue';
 import styles from './Textarea.module.css';
 
 type TextareaProps = FieldTextareaProps & {
@@ -22,17 +23,11 @@ function Textarea(props: TextareaProps) {
     'data-slot',
     'ref',
   ]);
-  let textareaRef: HTMLTextAreaElement | undefined;
-
-  createEffect(() => {
-    if (textareaRef) textareaRef.defaultValue = String(local.defaultValue ?? '');
-  });
-
   return (
     <FieldPrimitive.Textarea
       asChild={local.asChild}
       {...others}
-      {...(local.asChild ? { 'prop:defaultValue': local.defaultValue } : {})}
+      {...(local.asChild ? toPropDefaultValue(local.defaultValue) : {})}
       data-scope="field"
       data-part="textarea"
       data-slot="textarea-root"
@@ -40,7 +35,7 @@ function Textarea(props: TextareaProps) {
       class={clsx(styles.root, local.class)}
       autoresize={local.autoresize}
       ref={(element) => {
-        textareaRef = element;
+        applyDefaultValue(element, () => local.defaultValue);
         if (typeof local.ref === 'function') local.ref(element);
       }}
     />

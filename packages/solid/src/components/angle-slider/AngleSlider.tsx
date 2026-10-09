@@ -6,9 +6,10 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
 import { For, splitProps } from 'solid-js';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import styles from './AngleSlider.module.css';
 
-function AngleSliderRoot(props: ComponentProps<typeof AngleSliderPrimitive.Root>) {
+function AngleSlider(props: ComponentProps<typeof AngleSliderPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -36,12 +37,11 @@ function AngleSliderLabel(props: ComponentProps<typeof AngleSliderPrimitive.Labe
 }
 
 function AngleSliderRootProvider(props: ComponentProps<typeof AngleSliderPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'value']);
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
     <AngleSliderPrimitive.RootProvider
       asChild={local.asChild}
-      value={local.value}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="angle-slider-root-provider"
@@ -59,7 +59,7 @@ function AngleSliderControl(props: ComponentProps<typeof AngleSliderPrimitive.Co
       class={clsx(styles.control, local.class)}
       {...others}
       onPointerDown={(event) => {
-        (local.onPointerDown as ((event: PointerEvent) => void) | undefined)?.(event);
+        callEventHandler(local.onPointerDown, event);
 
         if (event.defaultPrevented || event.button !== 0) return;
         if (event.currentTarget.matches('[data-disabled], [data-readonly]')) return;
@@ -158,19 +158,22 @@ function AngleSliderValueText(props: ComponentProps<typeof AngleSliderPrimitive.
   );
 }
 
-const AngleSlider = Object.assign(AngleSliderRoot, {
-  Root: AngleSliderRoot,
-  RootProvider: AngleSliderRootProvider,
-  Context: AngleSliderPrimitive.Context,
-  HiddenInput: AngleSliderPrimitive.HiddenInput,
-  Label: AngleSliderLabel,
-  Control: AngleSliderControl,
-  Dial: AngleSliderDial,
-  Thumb: AngleSliderThumb,
-  MarkerGroup: AngleSliderMarkerGroup,
-  Marker: AngleSliderMarker,
-  Marks: AngleSliderMarks,
-  ValueText: AngleSliderValueText,
-});
+const AngleSliderContext = AngleSliderPrimitive.Context;
+const AngleSliderHiddenInput = AngleSliderPrimitive.HiddenInput;
 
-export { AngleSlider, useAngleSlider, useAngleSliderContext };
+export {
+  AngleSlider,
+  AngleSliderContext,
+  AngleSliderControl,
+  AngleSliderDial,
+  AngleSliderHiddenInput,
+  AngleSliderLabel,
+  AngleSliderMarker,
+  AngleSliderMarkerGroup,
+  AngleSliderMarks,
+  AngleSliderRootProvider,
+  AngleSliderThumb,
+  AngleSliderValueText,
+  useAngleSlider,
+  useAngleSliderContext,
+};

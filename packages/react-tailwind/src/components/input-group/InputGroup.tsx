@@ -11,7 +11,9 @@ import {
   type ComponentRef,
 } from 'react';
 import { cn } from '@/internal/cn';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
+import { CloseButton } from '../close-button';
 import { Input } from '../input';
 
 type InputGroupSize = NonNullable<ComponentProps<typeof Input>['size']>;
@@ -25,7 +27,7 @@ const inputGroupSizeVariants = {
 };
 
 const inputGroupRootVariants = cva(
-  'flex w-full max-w-none items-stretch overflow-hidden rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring has-[[data-slot=input-root][data-invalid]]:border-destructive has-[[data-slot=input-root][data-invalid]]:focus-within:outline-destructive has-[[data-slot=input-root][aria-invalid=true]]:border-destructive has-[[data-slot=input-root][aria-invalid=true]]:focus-within:outline-destructive has-[[data-slot=input-root][data-disabled]]:opacity-50 has-[[data-slot=input-root]:disabled]:opacity-50 motion-reduce:transition-none',
+  'flex w-full max-w-none items-stretch overflow-hidden rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring has-[[data-slot=input-root][data-invalid]]:border-destructive has-[[data-slot=input-root][data-invalid]]:focus-within:outline-destructive has-[[data-slot=input-root][aria-invalid=true]]:border-destructive has-[[data-slot=input-root][aria-invalid=true]]:focus-within:outline-destructive has-[[data-slot=input-root][data-disabled]]:opacity-50 has-[[data-slot=input-root]:disabled]:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 motion-reduce:transition-none',
   {
     variants: {
       size: {
@@ -80,14 +82,22 @@ const inputGroupTextVariants = cva(
 
 const inputGroupButtonClass = 'h-auto self-stretch rounded-none border-0';
 
+const inputGroupClearTriggerVariants = cva(
+  'me-2 size-control-xs self-center focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none',
+  {
+    variants: { size: { xs: 'size-5', sm: '', md: '', lg: '', xl: '' } },
+    defaultVariants: { size: 'md' },
+  },
+);
+
 const InputGroupSizeContext = createContext<InputGroupSize>('md');
 
-const InputGroupRoot = forwardRef<
+const InputGroup = forwardRef<
   HTMLDivElement,
   HTMLArkProps<'div'> & {
     size?: InputGroupSize;
   }
->(function InputGroupRoot({ children, className, size = 'md', ...props }, ref) {
+>(function InputGroup({ children, className, size = 'md', ...props }, ref) {
   return (
     <InputGroupSizeContext.Provider value={size}>
       <ark.div
@@ -179,12 +189,45 @@ const InputGroupButton = forwardRef<HTMLButtonElement, ComponentProps<typeof But
   },
 );
 
-const InputGroup = Object.assign(InputGroupRoot, {
-  Root: InputGroupRoot,
-  Input: InputGroupInput,
-  Addon: InputGroupAddon,
-  Text: InputGroupText,
-  Button: InputGroupButton,
+const InputGroupClearTrigger = forwardRef<
+  HTMLButtonElement,
+  ComponentProps<typeof CloseButton> & { size?: InputGroupSize }
+>(function InputGroupClearTrigger(
+  {
+    className,
+    children,
+    size,
+    type = 'button',
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
+  const groupSize = useContext(InputGroupSizeContext);
+  return (
+    <CloseButton
+      ref={ref}
+      {...props}
+      data-scope="input-group"
+      data-part="clear-trigger"
+      data-slot="input-group-clear-trigger"
+      data-size={size ?? groupSize}
+      className={cn(inputGroupClearTriggerVariants({ size: size ?? groupSize }), className)}
+      type={type}
+      aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear input' : undefined)}
+      aria-labelledby={ariaLabelledBy}
+    >
+      {children ?? <CloseIcon className="size-4 shrink-0" />}
+    </CloseButton>
+  );
 });
 
-export { InputGroup };
+export {
+  InputGroup,
+  InputGroupClearTrigger,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+};

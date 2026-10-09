@@ -11,10 +11,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 
-const CollapsibleRoot = forwardRef<
+const Collapsible = forwardRef<
   ComponentRef<typeof CollapsiblePrimitive.Root>,
   ComponentProps<typeof CollapsiblePrimitive.Root>
->(function CollapsibleRoot({ className, ...props }, ref) {
+>(function Collapsible({ className, ...props }, ref) {
   return (
     <CollapsiblePrimitive.Root
       ref={ref}
@@ -113,14 +113,16 @@ const CollapsibleBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'d
   },
 );
 
-const Collapsible = Object.assign(CollapsibleRoot, {
-  Root: CollapsibleRoot,
-  RootProvider: CollapsibleRootProvider,
-  Context: CollapsiblePrimitive.Context,
-  Trigger: CollapsibleTrigger,
-  Indicator: CollapsibleIndicator,
-  Content: CollapsibleContent,
-  Body: CollapsibleBody,
-});
+const CollapsibleContext = CollapsiblePrimitive.Context;
 
-export { Collapsible, useCollapsible, useCollapsibleContext };
+export {
+  Collapsible,
+  CollapsibleBody,
+  CollapsibleContent,
+  CollapsibleContext,
+  CollapsibleIndicator,
+  CollapsibleRootProvider,
+  CollapsibleTrigger,
+  useCollapsible,
+  useCollapsibleContext,
+};

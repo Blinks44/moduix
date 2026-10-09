@@ -9,6 +9,7 @@ import LucideMinusIcon from 'lucide-solid/icons/minus';
 import LucidePlusIcon from 'lucide-solid/icons/plus';
 import LucideCloseIcon from 'lucide-solid/icons/x';
 import type { JSX } from 'solid-js';
+import { splitProps } from 'solid-js';
 
 type IconProps = JSX.SvgSVGAttributes<SVGSVGElement>;
 const accessibilityProps = { 'aria-hidden': 'true', focusable: 'false' } as const;
@@ -125,6 +126,44 @@ export function SeparatorMarkIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 16 4" fill="none" {...accessibilityProps} {...props}>
       <path d="M1 2h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    </svg>
+  );
+}
+
+export function ScrubCursorIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 25 14" fill="black" stroke="white" {...accessibilityProps} {...props}>
+      <path d="M19.5 5.5H6.5V2L1 7l5.5 5v-3.5h13V12L25 7l-5.5-5z" />
+    </svg>
+  );
+}
+
+type PopupArrowIconProps = IconProps & {
+  fillClassName?: string;
+  outerStrokeClassName?: string;
+  innerStrokeClassName?: string;
+};
+
+export function PopupArrowIcon(props: PopupArrowIconProps) {
+  const [local, others] = splitProps(props, [
+    'fillClassName',
+    'outerStrokeClassName',
+    'innerStrokeClassName',
+  ]);
+  return (
+    <svg viewBox="0 0 20 10" fill="none" {...accessibilityProps} {...others}>
+      <path
+        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
+        class={local.fillClassName}
+      />
+      <path
+        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
+        class={local.outerStrokeClassName}
+      />
+      <path
+        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
+        class={local.innerStrokeClassName}
+      />
     </svg>
   );
 }

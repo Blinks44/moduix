@@ -1,5 +1,13 @@
 import { Button } from '@moduix/react/button';
-import { Dialog, useDialog } from '@moduix/react/dialog';
+import {
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContent,
+  DialogPositioner,
+  DialogRootProvider,
+  DialogTitle,
+  useDialog,
+} from '@moduix/react/dialog';
 import styles from '@/components/examples/dialog/dialog-nested.module.css';
 
 export default function NestedDialogDemo() {
@@ -8,26 +16,26 @@ export default function NestedDialogDemo() {
   return (
     <>
       <Button onClick={() => parent.setOpen(true)}>Open parent</Button>
-      <Dialog.RootProvider value={parent}>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Parent dialog</Dialog.Title>
+      <DialogRootProvider value={parent}>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Parent dialog</DialogTitle>
             <Button className={styles.openNestedButton} onClick={() => child.setOpen(true)}>
               Open nested
             </Button>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Dialog.RootProvider>
-      <Dialog.RootProvider value={child}>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Nested dialog</Dialog.Title>
-            <Dialog.CloseIcon />
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Dialog.RootProvider>
+          </DialogContent>
+        </DialogPositioner>
+      </DialogRootProvider>
+      <DialogRootProvider value={child}>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Nested dialog</DialogTitle>
+            <DialogCloseIcon />
+          </DialogContent>
+        </DialogPositioner>
+      </DialogRootProvider>
     </>
   );
 }

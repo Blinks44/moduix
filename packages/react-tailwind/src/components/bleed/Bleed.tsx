@@ -33,13 +33,13 @@ const bleedVariants = cva('', {
   },
 });
 
-const BleedRoot = forwardRef<
+const Bleed = forwardRef<
   HTMLElement,
   HTMLArkProps<'div'> & {
     inline?: BleedInline;
     block?: BleedAmount;
   }
->(function BleedRoot({ inline = 'full', block = 'none', className, ...props }, ref) {
+>(function Bleed({ inline = 'full', block = 'none', className, ...props }, ref) {
   return (
     <ark.div
       ref={ref as ForwardedRef<HTMLDivElement>}
@@ -52,10 +52,6 @@ const BleedRoot = forwardRef<
       className={cn(bleedVariants({ inline, block }), className)}
     />
   );
-});
-
-const Bleed = Object.assign(BleedRoot, {
-  Root: BleedRoot,
 });
 
 export { Bleed };

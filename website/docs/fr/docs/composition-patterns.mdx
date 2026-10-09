@@ -5,9 +5,13 @@ description: Composez les parties Moduix dans tous les frameworks sans masquer l
 
 import reactAsChild from '../../../snippets/composition-patterns/react/as-child.tsx?raw';
 import solidAsChild from '../../../snippets/composition-patterns/solid/as-child.tsx?raw';
+import VueAsChild from '../../../snippets/composition-patterns/vue/as-child.vue?raw';
 import reactExternalState from '../../../snippets/composition-patterns/react/external-state.tsx?raw';
 import solidExternalState from '../../../snippets/composition-patterns/solid/external-state.tsx?raw';
+import VueExternalState from '../../../snippets/composition-patterns/vue/external-state.vue?raw';
 import solidProductDialog from '../../../snippets/composition-patterns/solid/product-dialog.tsx?raw';
+import VueProductDialog from '../../../snippets/composition-patterns/vue/product-dialog.vue?raw';
+import VueProductDialogHelper from '../../../snippets/composition-patterns/vue/product-dialog.ts?raw';
 
 # Patrons de composition
 
@@ -25,7 +29,7 @@ ci-dessous ne séparent que les mécanismes propres au framework.
 | Comportement standard | Parties Moduix fournies |
 | Imports locaux du produit | Réexportations directes |
 | Règle visuelle ou structurelle répétée | Wrapper ciblé autour de la partie responsable |
-| État hors de l’arbre rendu | `use<Component>()` avec `RootProvider` |
+| État hors de l’arbre rendu | `use<Component>()` avec `<Family>RootProvider` |
 
 Choisissez le niveau le plus simple qui couvre le besoin répété. Une classe ou un callback isolé ne
 justifie pas une nouvelle API.
@@ -37,24 +41,25 @@ structurelles visibles pour préserver la responsabilité du placement, du défi
 styles.
 
 ```text
-Dialog / Dialog.Root
-├─ Dialog.Trigger
+Dialog
+├─ DialogTrigger
 └─ Overlay subtree, automatically portalled
-   ├─ Dialog.Backdrop
-   └─ Dialog.Positioner
-      └─ Dialog.Content
-         ├─ Dialog.Title
-         ├─ Dialog.Description
-         └─ Dialog.CloseTrigger
+   ├─ DialogBackdrop
+   └─ DialogPositioner
+      └─ DialogContent
+         ├─ DialogTitle
+         ├─ DialogDescription
+         └─ DialogCloseTrigger
 ```
 
 Utilisez `portalled={false}` pour un rendu en ligne et `portalRef` pour un conteneur personnalisé si
-le composant les prend en charge. `RootProvider` sert uniquement à un état créé hors de l’arbre rendu.
+le composant les prend en charge. `DialogRootProvider` sert uniquement à un état créé hors de l’arbre rendu.
 
 ## Composer un élément sémantique
 
 Utilisez `asChild` lorsque l’élément existant doit rester le nœud DOM. React reçoit un enfant unique.
-Solid reçoit une fonction de rendu qui transmet les propriétés d’Ark à l’élément retourné.
+Solid reçoit une fonction de rendu qui transmet les propriétés d’Ark à l’élément retourné. Vue utilise
+`as-child` avec exactement un élément ou composant dans le slot par défaut.
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -65,6 +70,11 @@ Solid reçoit une fonction de rendu qui transmet les propriétés d’Ark à l�
   <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidAsChild} />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueAsChild} />
 
   </Tab>
 </Tabs>
@@ -80,22 +90,27 @@ Une réexportation stabilise l’import du produit sans modifier le comportement
   <Tab label="React" value="react">
 
 ```tsx
-import { Dialog as ModuixDialog } from '@moduix/react/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/react/dialog';
 
-export const Dialog = ModuixDialog;
-export const DialogTrigger = ModuixDialog.Trigger;
-export const DialogContent = ModuixDialog.Content;
+export { Dialog, DialogTrigger, DialogContent };
 ```
 
   </Tab>
   <Tab label="Solid" value="solid">
 
 ```tsx
-import { Dialog as ModuixDialog } from '@moduix/solid/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/solid/dialog';
 
-export const Dialog = ModuixDialog;
-export const DialogTrigger = ModuixDialog.Trigger;
-export const DialogContent = ModuixDialog.Content;
+export { Dialog, DialogTrigger, DialogContent };
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import { Dialog, DialogContent, DialogTrigger } from '@moduix/vue/dialog';
+
+export { Dialog, DialogTrigger, DialogContent };
 ```
 
   </Tab>
@@ -105,7 +120,7 @@ Le passage entre les imports du package et le code du registre reste alors simpl
 
 ## Ajouter un contrat produit
 
-N’enveloppez que la partie responsable de la décision. Ici, `Dialog.Content` ajoute `tone` et le
+N’enveloppez que la partie responsable de la décision. Ici, `DialogContent` ajoute `tone` et le
 traduit en variables publiques de Dialog sans modifier le reste de l’arbre.
 
 <div className="docs-reference">
@@ -120,6 +135,13 @@ traduit en variables publiques de Dialog sans modifier le reste de l’arbre.
     <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidProductDialog} />
+
+    </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueProductDialog} title="product-dialog.vue" />
+
+<CodeBlockRuntime lang="ts" code={VueProductDialogHelper} title="product-dialog.ts" />
 
     </Tab>
     <Tab label="Styles" value="styles">
@@ -138,8 +160,8 @@ convient pas.
 
 ## Déplacer l’état avec sa responsabilité
 
-Utilisez `Context` pour une lecture ponctuelle dans l’arbre et `useDialogContext()` dans un descendant
-réutilisable. Créez l’état avec `useDialog()` et reliez-le à `Dialog.RootProvider` uniquement lorsque
+Utilisez `DialogContext` pour une lecture ponctuelle dans l’arbre et `useDialogContext()` dans un descendant
+réutilisable. Créez l’état avec `useDialog()` et reliez-le à `DialogRootProvider` uniquement lorsque
 des contrôles extérieurs au Dialog en ont besoin.
 
 <Tabs groupId="framework">
@@ -153,11 +175,16 @@ des contrôles extérieurs au Dialog en ont besoin.
 <CodeBlockRuntime lang="tsx" code={solidExternalState} />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueExternalState} />
+
+  </Tab>
 </Tabs>
 
 ## Vérifier la frontière
 
-- Gardez les parties fournies tant que le produit n’introduit pas de règle répétée.
+- Gardez `DialogBackdrop`, `DialogPositioner`, `DialogContent` et les autres parties portant du sens visibles.
 - Réexportez l’API avant de créer un wrapper.
 - Transmettez les propriétés, classes et références d’origine.
 - N’ajoutez une propriété publique que pour une décision répétée du produit.

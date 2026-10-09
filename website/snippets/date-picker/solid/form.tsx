@@ -1,6 +1,14 @@
 import { parseDate } from '@ark-ui/solid/date-picker';
 import { Button } from '@moduix/solid/button';
-import { DatePicker } from '@moduix/solid/date-picker';
+import {
+  DatePicker,
+  DatePickerLabel,
+  DatePickerField,
+  DatePickerPositioner,
+  DatePickerContent,
+  DatePickerView,
+  DatePickerDayTable,
+} from '@moduix/solid/date-picker';
 import { createSignal } from 'solid-js';
 
 export default function DatePickerFormDemo() {
@@ -19,15 +27,15 @@ export default function DatePickerFormDemo() {
         minView="day"
         name="delivery-date"
       >
-        <DatePicker.Label>Delivery date</DatePicker.Label>
-        <DatePicker.Field />
-        <DatePicker.Positioner>
-          <DatePicker.Content>
-            <DatePicker.View view="day">
-              <DatePicker.DayTable />
-            </DatePicker.View>
-          </DatePicker.Content>
-        </DatePicker.Positioner>
+        <DatePickerLabel>Delivery date</DatePickerLabel>
+        <DatePickerField />
+        <DatePickerPositioner>
+          <DatePickerContent>
+            <DatePickerView view="day">
+              <DatePickerDayTable />
+            </DatePickerView>
+          </DatePickerContent>
+        </DatePickerPositioner>
       </DatePicker>
       <output>Submitted: {submitted()}</output>
       <Button type="submit" size="sm">

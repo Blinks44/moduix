@@ -1,4 +1,4 @@
-import { ToggleGroup } from '@moduix/react/toggle-group';
+import { ToggleGroup, ToggleGroupItem } from '@moduix/react/toggle-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/toggle-group/toggle-group-controlled.module.css';
@@ -28,9 +28,9 @@ export default function ControlledToggleGroupDemo() {
         aria-label="Text alignment"
       >
         {alignmentItems.map((item) => (
-          <ToggleGroup.Item key={item.value} value={item.value}>
+          <ToggleGroupItem key={item.value} value={item.value}>
             {item.label}
-          </ToggleGroup.Item>
+          </ToggleGroupItem>
         ))}
       </ToggleGroup>
       <PreviewMeta>

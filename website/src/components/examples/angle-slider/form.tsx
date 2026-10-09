@@ -1,4 +1,10 @@
-import { AngleSlider } from '@moduix/react/angle-slider';
+import {
+  AngleSlider,
+  AngleSliderDial,
+  AngleSliderHiddenInput,
+  AngleSliderLabel,
+  AngleSliderMarks,
+} from '@moduix/react/angle-slider';
 import { Button } from '@moduix/react/button';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
@@ -18,11 +24,11 @@ export default function AngleSliderFormDemo() {
   return (
     <form className={styles.layout} onSubmit={handleSubmit}>
       <AngleSlider defaultValue={135} aria-label="Rotation" name="rotation" className={styles.root}>
-        <AngleSlider.Label>Rotation</AngleSlider.Label>
-        <AngleSlider.Dial>
-          <AngleSlider.Marks values={markerValues} />
-        </AngleSlider.Dial>
-        <AngleSlider.HiddenInput />
+        <AngleSliderLabel>Rotation</AngleSliderLabel>
+        <AngleSliderDial>
+          <AngleSliderMarks values={markerValues} />
+        </AngleSliderDial>
+        <AngleSliderHiddenInput />
       </AngleSlider>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

@@ -13,6 +13,10 @@ import swapSolidAnimationPresets from '../../../snippets/swap/solid/animation-pr
 import swapSolidBasic from '../../../snippets/swap/solid/basic.tsx?raw';
 import swapSolidCustomAnimation from '../../../snippets/swap/solid/custom-animation.tsx?raw';
 import swapSolidRootProvider from '../../../snippets/swap/solid/root-provider.tsx?raw';
+import swapVueAnimationPresets from '../../../snippets/swap/vue/animation-presets.vue?raw';
+import swapVueBasic from '../../../snippets/swap/vue/basic.vue?raw';
+import swapVueCustomAnimation from '../../../snippets/swap/vue/custom-animation.vue?raw';
+import swapVueRootProvider from '../../../snippets/swap/vue/root-provider.vue?raw';
 
 ## API Reference
 
@@ -36,6 +40,7 @@ changes after an action. Pass the current boolean to `swap`: `false` shows the `
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -48,6 +53,11 @@ changes after an action. Pass the current boolean to `swap`: `false` shows the `
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={swapSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={swapVueBasic} />
 
     </Tab>
   </Tabs>
@@ -80,24 +90,34 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/swap' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/swap' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 ```text
-Swap / Swap.Root
-├─ Swap.Indicator type="off"
-└─ Swap.Indicator type="on"
+Swap
+├─ SwapIndicator type="off"
+└─ SwapIndicator type="on"
 
-Swap.RootProvider
-└─ same indicator tree connected to a Swap.useSwap() store
+SwapRootProvider
+└─ same indicator tree connected to a useSwap() store
 ```
 
 | Part                 | Role                                                               |
 | -------------------- | ------------------------------------------------------------------ |
-| `Swap` / `Swap.Root` | Supplies the `swap` state and stacks both visual states.           |
-| `Swap.RootProvider`  | Connects the parts to state created with `Swap.useSwap()`.         |
-| `Swap.Indicator`     | Renders the `on` or `off` state selected by its `type` prop.        |
+| `Swap` | Supplies the `swap` state and stacks both visual states.           |
+| `SwapRootProvider`  | Connects the parts to state created with `useSwap()`.         |
+| `SwapIndicator`     | Renders the `on` or `off` state selected by its `type` prop.        |
 
 ## Composition
 
@@ -109,7 +129,7 @@ instance.
 `Swap` uses the `scale` animation by default. Pass `fade`, `scale`, `rotate`, or `flip` to `animation`,
 or pass a custom name and define its CSS with the root's `data-animation` and the indicators' Ark
 `data-state` attributes. When state must be created outside the rendered tree, pass
-`Swap.useSwap()` to `Swap.RootProvider` and do not render another root for the same store. With
+`useSwap()` to `SwapRootProvider` and do not render another root for the same store. With
 `asChild`, provide exactly one semantic child.
 
 ## Examples
@@ -130,6 +150,7 @@ and recipe controls are shown below the demo.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -142,6 +163,11 @@ and recipe controls are shown below the demo.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={swapSolidAnimationPresets} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={swapVueAnimationPresets} />
 
     </Tab>
   </Tabs>
@@ -171,6 +197,7 @@ exit animations and include a reduced-motion fallback.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -185,6 +212,11 @@ exit animations and include a reduced-motion fallback.
 <CodeBlockRuntime lang="tsx" code={swapSolidCustomAnimation} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={swapVueCustomAnimation} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -197,7 +229,7 @@ exit animations and include a reduced-motion fallback.
 
 ### Root Provider
 
-Create the Swap state separately with `Swap.useSwap()`, then pass it to `Swap.RootProvider` through
+Create the Swap state separately with `useSwap()`, then pass it to `SwapRootProvider` through
 the `value` prop. This example also uses `asChild`, so the semantic button becomes the rendered Swap
 root.
 
@@ -212,6 +244,7 @@ root.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -224,6 +257,11 @@ root.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={swapSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={swapVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -249,7 +287,7 @@ no-ops in both tracks, so change these properties through the `style` prop (for 
 
 In the Tailwind variants the flip recipe applies `data-[animation=flip]:[perspective:24rem]` on the
 root, which out-specifies a plain consumer `perspective` utility, so repeat that documented variant
-(for example `data-[animation=flip]:[perspective:32rem]`) to override it — the CSS Modules track
+(for example `data-[animation=flip]:[perspective:32rem]`) to override it - the CSS Modules track
 instead exposes `--moduix-swap-flip-perspective`.
 
 ### CSS Properties
@@ -258,11 +296,11 @@ instead exposes `--moduix-swap-flip-perspective`.
 
 ### Styling hooks
 
-- `Swap.Root` uses `data-slot="swap-root"`.
-- `Swap.RootProvider` uses `data-slot="swap-root-provider"`.
-- `Swap.Indicator` uses `data-slot="swap-indicator"`.
-- `animation` is exposed as `data-animation` on `Swap` and `Swap.RootProvider`.
-- Built-in recipes target only direct `Swap.Indicator` children of their root.
+- `Swap` uses `data-slot="swap-root"`.
+- `SwapRootProvider` uses `data-slot="swap-root-provider"`.
+- `SwapIndicator` uses `data-slot="swap-indicator"`.
+- `animation` is exposed as `data-animation` on `Swap` and `SwapRootProvider`.
+- Built-in recipes target only direct `SwapIndicator` children of their root.
 - Ark adds `data-scope="swap"` and `data-part="root" | "indicator"`.
 - Ark adds `data-state="open" | "closed"` to indicators. moduix uses those attributes for its
   built-in animations and for custom recipes.

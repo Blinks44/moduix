@@ -1,5 +1,17 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItemGroup,
+  SelectItemGroupLabel,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/react/select';
 
 const fruits = createListCollection({
   items: [
@@ -21,22 +33,22 @@ const fruits = createListCollection({
 export default function SelectDemo() {
   return (
     <Select collection={fruits}>
-      <Select.Label>Choose fruit</Select.Label>
-      <Select.Field placeholder="Select an option" clearLabel="Clear selection" />
-      <Select.Positioner>
-        <Select.Content>
-          <Select.ItemGroup>
-            <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+      <SelectLabel>Choose fruit</SelectLabel>
+      <SelectField placeholder="Select an option" clearLabel="Clear selection" />
+      <SelectPositioner>
+        <SelectContent>
+          <SelectItemGroup>
+            <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
             {fruits.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+              <SelectItem key={item.value} item={item}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             ))}
-          </Select.ItemGroup>
-        </Select.Content>
-      </Select.Positioner>
-      <Select.HiddenSelect />
+          </SelectItemGroup>
+        </SelectContent>
+      </SelectPositioner>
+      <SelectHiddenSelect />
     </Select>
   );
 }

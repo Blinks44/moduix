@@ -1,5 +1,10 @@
-import { Field } from '@moduix/react/field';
-import { InputGroup } from '@moduix/react/input-group';
+import { Field, FieldLabel } from '@moduix/react/field';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+} from '@moduix/react/input-group';
 import styles from '@/components/examples/input-group/input-group-prefix-and-suffix.module.css';
 
 const currency = {
@@ -10,11 +15,11 @@ const currency = {
 export default function BudgetInputGroupDemo() {
   return (
     <Field className={styles.root}>
-      <Field.Label>Monthly budget</Field.Label>
+      <FieldLabel>Monthly budget</FieldLabel>
       <InputGroup>
-        <InputGroup.Addon>{currency.symbol}</InputGroup.Addon>
-        <InputGroup.Input inputMode="decimal" placeholder="2500" />
-        <InputGroup.Text>{currency.code}</InputGroup.Text>
+        <InputGroupAddon>{currency.symbol}</InputGroupAddon>
+        <InputGroupInput inputMode="decimal" placeholder="2500" />
+        <InputGroupText>{currency.code}</InputGroupText>
       </InputGroup>
     </Field>
   );

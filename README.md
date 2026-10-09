@@ -3,20 +3,21 @@
 [![npm](https://img.shields.io/npm/v/@moduix/react?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![CI](https://github.com/Blinks44/moduix/actions/workflows/verify.yml/badge.svg)](https://github.com/Blinks44/moduix/actions/workflows/verify.yml)
 
 # moduix
 
-Product-minded, multi-framework components built on [Ark UI](https://ark-ui.com/), with accessible
-behavior, explicit composition, and first-class CSS Modules and Tailwind styling tracks. React and
-Solid adapters ship today; Vue and Svelte adapters are planned.
+Components for React, Solid, and Vue built on [Ark UI](https://ark-ui.com/), styled with CSS Modules
+or Tailwind CSS. Ark UI handles keyboard interaction, focus, and accessibility semantics.
+Svelte support is planned.
 
-moduix combines Ark UI primitives with considered defaults and a shadcn-inspired ownership model.
-Use the published package when you want managed updates, or add the component source
-to your application through the hosted shadcn registry when you want to own it.
+Install a published package to receive updates through your package manager, or copy component
+source into your application with the shadcn registry to edit it directly.
 
 [Documentation](https://moduix.dev/) ·
 [Quick start](https://moduix.dev/docs/quick-start) ·
 [Components](https://moduix.dev/docs/components) ·
+[Blocks](https://moduix.dev/blocks) ·
 [Packages](#current-packages)
 
 ## Current packages
@@ -25,29 +26,23 @@ to your application through the hosted shadcn registry when you want to own it.
 | ------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | React   | [`@moduix/react`](https://www.npmjs.com/package/@moduix/react) | [`@moduix/react-tailwind`](https://www.npmjs.com/package/@moduix/react-tailwind) |
 | Solid   | [`@moduix/solid`](https://www.npmjs.com/package/@moduix/solid) | [`@moduix/solid-tailwind`](https://www.npmjs.com/package/@moduix/solid-tailwind) |
-
-The package matrix grows with shipped adapters. Shared workflows and documentation are structured so Vue and Svelte can join without redefining the library around today's runtimes.
+| Vue     | [`@moduix/vue`](https://www.npmjs.com/package/@moduix/vue)     | [`@moduix/vue-tailwind`](https://www.npmjs.com/package/@moduix/vue-tailwind)     |
 
 ## Why moduix
 
 - **Ark-backed behavior.** Dialogs, menus, inputs, and other complex interactions keep Ark UI's
   keyboard support, state management, form behavior, and accessibility semantics.
+- **The same component names across frameworks.** React, Solid, and Vue use flat exports such as
+  `Dialog`, `DialogTrigger`, and `DialogContent`, with framework-native props and events.
 - **Two styling paths.** Choose CSS Modules for ordinary, locally scoped component styles, or
   Tailwind CSS v4 for utility-first composition and overrides. Neither path adds a styling runtime.
-- **Composable APIs.** Components expose the useful parts of their anatomy without hiding the
-  primitive structure needed for product-specific UI.
-- **A predictable styling contract.** Shared tokens, `className`, stable `data-slot` hooks, and Ark
-  state attributes give application CSS clear extension points.
 - **Two ownership models.** Keep dependencies package-managed or copy component source into your
   application through the shadcn registry.
 
 ## Get started
 
-The example below uses the React CSS Modules package. Choose the shipped framework, styling track,
-and ownership model that matches your application in the [Quick start](https://moduix.dev/docs/quick-start).
-For Tailwind CSS v4, use [`@moduix/react-tailwind`](packages/react-tailwind/README.md) or
-[`@moduix/solid-tailwind`](packages/solid-tailwind/README.md); their README files include the
-required stylesheet import order and `@source` configuration.
+The example below uses React with CSS Modules. [Quick start](https://moduix.dev/docs/quick-start)
+covers every shipped framework, both styling tracks, and package or registry installation.
 
 ### Use the published package
 
@@ -57,52 +52,26 @@ Install moduix and its Ark UI peer dependency:
 pnpm add @moduix/react @ark-ui/react
 ```
 
-Import the shared foundation stylesheet once in your application entry point:
-
-```tsx
-import '@moduix/react/style.css';
-```
-
-The reset is optional. If you use it, import it before the foundation stylesheet:
+Import the reset and foundation once in your application entry point. If your application already
+provides an equivalent reset, omit `reset.css`:
 
 ```tsx
 import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
-Then import component subpaths and compose the parts you need:
+Import a component from its subpath:
 
 ```tsx
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
 
 export function Example() {
-  return (
-    <Dialog>
-      <Dialog.Trigger asChild>
-        <Button>Open settings</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Project settings</Dialog.Title>
-            <Dialog.Description>Update how this workspace behaves.</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.CloseTrigger asChild>
-              <Button variant="outline">Done</Button>
-            </Dialog.CloseTrigger>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
-  );
+  return <Button>Continue</Button>;
 }
 ```
 
-`Dialog` is the recommended root component. `Dialog.Root` remains available when an explicit
-namespace is useful, such as in anatomy documentation or a local abstraction.
+There is no package-root export. Only the optional Chart integration requires `@tanstack/charts`.
+The [package README](packages/react/README.md) shows how to compose a component from named parts.
 
 ### Own the source with the registry
 
@@ -118,32 +87,26 @@ The generated source includes the component, its CSS Module, and any required su
 The registry preserves the same component contracts and design tokens as the published package. Your
 `components.json` aliases determine the destination paths.
 
+The registry also installs [blocks](https://moduix.dev/blocks), including sign-in forms, a sidebar
+dashboard, and a data table. Each block includes its source, a shared layout CSS Module, and the
+required UI components. After the same registry setup, install a block with one command:
+
+```bash
+pnpm dlx shadcn@latest add @moduix-react/login-simple
+```
+
+Choose the matching framework and styling namespace, such as `@moduix-vue-tailwind/login-simple`.
+Tailwind blocks use Tailwind UI components and the same layout CSS Module.
+
 ## Styling and theming
 
-The CSS Modules packages bundle component styles with their component imports. `style.css` supplies
-the shared tokens and base layer styles, while each component keeps its own CSS Module. Start with
-the built-in appearance, then customize deliberately:
+Pass `className` (React) or `class` (Solid and Vue) to a root or named part. CSS Modules packages
+support ordinary CSS and component variables; Tailwind packages merge utility overrides with
+`tailwind-merge`. Both tracks share the same design tokens and optional presets: `dense`, `soft`,
+and `contrast`.
 
-- pass `className` to a root or named part for application-owned selectors;
-- target stable moduix `data-slot` hooks or Ark state attributes for state-specific rules;
-- override public CSS custom properties at the appropriate theme, semantic, or component layer.
-
-You can also add an optional preset after `style.css` and activate it on the document root:
-
-```tsx
-import '@moduix/react/style.css';
-import '@moduix/react/presets/soft.css';
-```
-
-```html
-<html data-moduix-theme="soft"></html>
-```
-
-The available presets are `dense`, `soft`, and `contrast`. See [Themes](https://moduix.dev/docs/themes)
-and [Tokens](https://moduix.dev/docs/tokens) for the complete customization model.
-
-Tailwind packages keep the same component contracts but use native utility classes and
-consumer-class overrides. Their package README files describe the corresponding stylesheet setup.
+See [Styling](https://moduix.dev/docs/styling), [Themes](https://moduix.dev/docs/themes), and
+[Tokens](https://moduix.dev/docs/tokens) for customization.
 
 ## Repository
 
@@ -155,7 +118,8 @@ consumer-class overrides. Their package README files describe the corresponding 
 | `playgrounds/<framework>*`      | Adapter playgrounds used for parity checks.                              |
 | `website`                       | Documentation site, runnable examples, and generated registry artifacts. |
 
-Install dependencies and run the documentation site locally:
+Use Node.js 24 or later and the pnpm version pinned in `package.json`. Install dependencies and
+run the documentation site locally:
 
 ```bash
 pnpm install
@@ -167,7 +131,6 @@ Before opening a pull request, run the repository checks:
 ```bash
 pnpm run fmt:fix
 pnpm run lint:check
-pnpm run build:packages
 pnpm run tsc:check
 ```
 
@@ -179,18 +142,16 @@ Contributions are welcome, especially focused component improvements, accessibil
 reports, and documentation corrections. Keep public component behavior, local component notes,
 documentation, and registry output synchronized when a public contract changes.
 
-See [AGENTS.md](./AGENTS.md) for repository conventions.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full workflow, and [AGENTS.md](./AGENTS.md) for
+repository conventions. Security issues go through [SECURITY.md](./SECURITY.md).
 
 ## Acknowledgements
 
 moduix is possible because of the work and ideas of these projects:
 
-- [Ark UI](https://ark-ui.com/) for the accessible, state-machine-backed primitives that define the
-  behavioral foundation.
-- [Chakra UI](https://chakra-ui.com/) for Ark-aligned composition ergonomics and design-system
-  craft.
-- [shadcn/ui](https://ui.shadcn.com/) for open-code distribution, beautiful defaults, and a
-  documentation style centered on practical ownership.
+- [Ark UI](https://ark-ui.com/) for interaction primitives.
+- [Chakra UI](https://chakra-ui.com/) for component composition and styling patterns.
+- [shadcn/ui](https://ui.shadcn.com/) for source distribution through registries.
 - [Lucide](https://lucide.dev/) for the open-source icon set used throughout the component library.
 - [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
   adapted by the optional reset.

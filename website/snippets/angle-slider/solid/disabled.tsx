@@ -1,4 +1,10 @@
-import { AngleSlider } from '@moduix/solid/angle-slider';
+import {
+  AngleSlider,
+  AngleSliderDial,
+  AngleSliderHiddenInput,
+  AngleSliderLabel,
+  AngleSliderMarks,
+} from '@moduix/solid/angle-slider';
 import styles from '@/components/examples/angle-slider/angle-slider-disabled.module.css';
 
 const initialValue = 45;
@@ -12,11 +18,11 @@ export default function DisabledAngleSliderDemo() {
       aria-label="Disabled rotation"
       class={styles.root}
     >
-      <AngleSlider.Label>Rotation</AngleSlider.Label>
-      <AngleSlider.Dial>
-        <AngleSlider.Marks values={markerValues} />
-      </AngleSlider.Dial>
-      <AngleSlider.HiddenInput />
+      <AngleSliderLabel>Rotation</AngleSliderLabel>
+      <AngleSliderDial>
+        <AngleSliderMarks values={markerValues} />
+      </AngleSliderDial>
+      <AngleSliderHiddenInput />
     </AngleSlider>
   );
 }

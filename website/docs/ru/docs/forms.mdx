@@ -6,6 +6,7 @@ description: Создавайте доступные формы с компон�
 import { Card, Cards } from '@/components/mdx/Components';
 import NativeForm from '@/components/examples/forms/native-form.tsx';
 import nativeFormSolid from '../../../snippets/forms/solid/native-form.tsx?raw';
+import nativeFormVue from '../../../snippets/forms/vue/native-form.vue?raw';
 
 # Формы
 
@@ -19,19 +20,19 @@ Moduix предоставляет доступные поля, элементы 
   <Card title="Нативная форма" description="Браузерная валидация, FormData и нативный сброс для небольшой формы." href="/docs/forms#нативная-форма" />
   <Card title="Formisch" description="Схемы Valibot и нативные адаптеры для поддерживаемых фреймворков." href="/docs/formisch" />
   <Card title="React Hook Form" description="Нативные поля и управляемые составные компоненты в React." href="/docs/react-hook-form" />
-  <Card title="TanStack Form" description="Типизированное управляемое состояние в React или Solid." href="/docs/tanstack-form" />
+  <Card title="TanStack Form" description="Типизированное управляемое состояние в React, Solid или Vue." href="/docs/tanstack-form" />
 </Cards>
 
 ## Поддержка фреймворков
 
-| Подход          | React | Solid | Когда использовать                                 |
-| --------------- | ----- | ----- | -------------------------------------------------- |
-| Нативная форма  | Да    | Да    | Небольшие формы с браузерной валидацией.           |
-| Formisch        | Да    | Да    | Схемы Valibot и компактное реактивное состояние.   |
-| React Hook Form | Да    | Нет   | React-формы с упором на неуправляемые поля.        |
-| TanStack Form   | Да    | Да    | Явное управляемое состояние и типизация сценариев. |
+| Подход          | React | Solid | Vue | Когда использовать                                 |
+| --------------- | ----- | ----- | ----- | -------------------------------------------------- |
+| Нативная форма  | Да    | Да    | Да | Небольшие формы с браузерной валидацией.           |
+| Formisch        | Да    | Да    | Да | Схемы Valibot и компактное реактивное состояние.   |
+| React Hook Form | Да    | Нет   | Нет | React-формы с упором на неуправляемые поля.        |
+| TanStack Form   | Да    | Да    | Да | Явное управляемое состояние и типизация сценариев. |
 
-React Hook Form намеренно документируется только для React. В Solid используйте нативную форму,
+React Hook Form намеренно документируется только для React. В Solid и Vue используйте нативную форму,
 Formisch или TanStack Form, а не слой совместимости для React-хуков.
 
 ## Основные правила
@@ -70,7 +71,7 @@ Formisch или TanStack Form, а не слой совместимости дл�
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/forms/native-form.tsx"
@@ -80,6 +81,11 @@ Formisch или TanStack Form, а не слой совместимости дл�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeFormSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeFormVue} />
 
     </Tab>
   </Tabs>
@@ -95,18 +101,18 @@ Formisch или TanStack Form, а не слой совместимости дл�
 
 Сохраняйте нативные ограничения, если проверкой управляет браузер. Если ошибки показывает
 библиотека, добавьте `noValidate`, передайте результат в `Field invalid` и выводите понятный
-`Field.ErrorText` после запуска выбранного сценария валидации.
+`FieldErrorText` после запуска выбранного сценария валидации.
 
 Нативный сброс восстанавливает неуправляемые элементы. Для управляемых полей вызывайте API сброса
 библиотеки, чтобы ее состояние и значения Moduix оставались синхронизированы. При ошибке переводите
-фокус на настоящий элемент: `Input`, `Textarea`, `Select.Trigger` или `Combobox.Input`.
+фокус на настоящий элемент: `Input`, `Textarea`, `SelectTrigger` или `ComboboxInput`.
 
 ## Отправка и серверные ошибки
 
 Явно показывайте готовность, отправку, ошибку и успех. На время асинхронного запроса блокируйте
 повторную отправку, а после ошибки сохраняйте введенные значения и возможность повторить запрос.
 
-Ошибку конкретного значения связывайте с `Field.ErrorText`, а общую ошибку запроса выводите через
+Ошибку конкретного значения связывайте с `FieldErrorText`, а общую ошибку запроса выводите через
 `role="alert"`. Для повторяющихся полей используйте стабильные идентификаторы. Всегда повторно
 нормализуйте и проверяйте данные на сервере. Подробнее о поведении Ark читайте в
 [руководстве Ark UI по формам](https://ark-ui.com/docs/guides/forms).

@@ -1,7 +1,23 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox, useCombobox } from '@moduix/react/combobox';
-import { TagsInput, useTagsInput } from '@moduix/react/tags-input';
+import {
+  useCombobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxRootProvider,
+} from '@moduix/react/combobox';
+import {
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+} from '@moduix/react/tags-input';
 import { useId } from 'react';
 import styles from '@/components/examples/tags-input/tags-input-with-combobox.module.css';
 
@@ -43,27 +59,27 @@ export default function ComboboxTagsInput() {
     },
   });
   return (
-    <Combobox.RootProvider className={styles.root} value={combobox}>
-      <TagsInput.RootProvider value={tagsInput}>
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <Combobox.Input asChild>
-            <TagsInput.Input placeholder="Add framework" />
-          </Combobox.Input>
-          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-        </TagsInput.Control>
-      </TagsInput.RootProvider>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.Empty>No frameworks found.</Combobox.Empty>
+    <ComboboxRootProvider className={styles.root} value={combobox}>
+      <TagsInputRootProvider value={tagsInput}>
+        <TagsInputLabel>Frameworks</TagsInputLabel>
+        <TagsInputControl>
+          <TagsInputItems />
+          <ComboboxInput asChild>
+            <TagsInputInput placeholder="Add framework" />
+          </ComboboxInput>
+          <TagsInputClearTrigger aria-label="Clear frameworks" />
+        </TagsInputControl>
+      </TagsInputRootProvider>
+      <ComboboxPositioner>
+        <ComboboxContent>
+          <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
           {collection.items.map((item) => (
-            <Combobox.Option key={item} item={item}>
+            <ComboboxOption key={item} item={item}>
               {item}
-            </Combobox.Option>
+            </ComboboxOption>
           ))}
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.RootProvider>
+        </ComboboxContent>
+      </ComboboxPositioner>
+    </ComboboxRootProvider>
   );
 }

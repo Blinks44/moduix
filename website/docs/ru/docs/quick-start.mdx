@@ -1,6 +1,6 @@
 ---
 title: Быстрый старт
-description: Выберите React или Solid, CSS Modules или Tailwind, затем установите moduix как пакет или добавьте исходный код через shadcn CLI.
+description: Выберите React, Solid или Vue, CSS Modules или Tailwind, затем установите moduix как пакет или добавьте исходный код через shadcn CLI.
 ---
 
 import { FrameworkGrid } from '@/components/docs/framework-grid';
@@ -9,9 +9,12 @@ import componentsCssModules from '../../../snippets/quick-start/components-css-m
 import componentsTailwind from '../../../snippets/quick-start/components-tailwind.json?raw';
 import reactCssModules from '../../../snippets/quick-start/react-css-modules.tsx?raw';
 import reactTailwind from '../../../snippets/quick-start/react-tailwind.tsx?raw';
+import shadcnAccordionVue from '../../../snippets/quick-start/shadcn-accordion-vue.vue?raw';
 import shadcnAccordion from '../../../snippets/quick-start/shadcn-accordion.tsx?raw';
 import solidCssModules from '../../../snippets/quick-start/solid-css-modules.tsx?raw';
+import VueCssModules from '../../../snippets/quick-start/vue-css-modules.vue?raw';
 import solidTailwind from '../../../snippets/quick-start/solid-tailwind.tsx?raw';
+import VueTailwind from '../../../snippets/quick-start/vue-tailwind.vue?raw';
 
 # Быстрый старт
 
@@ -24,7 +27,7 @@ moduix можно использовать в приложении двумя р
 контракты и систему токенов. Выбирайте исходя из того, где должен находиться исходный код и как вы
 планируете его обновлять.
 
-Начинайте с существующего приложения на React или Solid. Для Tailwind-пакета или реестра в проекте
+Начинайте с существующего приложения на React, Solid или Vue. Для Tailwind-пакета или реестра в проекте
 уже должен быть настроен Tailwind CSS v4.
 
 ## Выберите, где будет храниться исходный код
@@ -43,7 +46,8 @@ moduix можно использовать в приложении двумя р
 </Cards>
 
 Для начала выберите React 18 или 19 с `@ark-ui/react` либо Solid 1.9 или более новую версию 1.x с
-`@ark-ui/solid`. Фреймворк или сборщик должен уметь импортировать CSS из установленных пакетов. Если окружение этого требует,
+`@ark-ui/solid` либо Vue 3.5 или более новую версию 3.x с `@ark-ui/vue`. Фреймворк или сборщик должен
+уметь импортировать CSS из установленных пакетов. Если окружение этого требует,
 размещайте интерактивные компоненты в клиентской границе.
 
 За доступность отвечают все участники: Ark UI реализует поведение примитивов, moduix задаёт контракты обёрток и
@@ -52,18 +56,23 @@ moduix можно использовать в приложении двумя р
 
 ## Выберите фреймворк
 
-Выберите нативные для фреймворка пакет и пространство имён реестра. Каталоги компонентов для React и
-Solid доступны в обоих вариантах стилизации. Для CSS Modules необходим reset moduix или эквивалентный
-reset приложения, а Tailwind использует Preflight. Адаптеры Vue и Svelte запланированы, но пока недоступны для установки.
+Выберите нативные для фреймворка пакет и пространство имён реестра. Каталоги компонентов для React,
+Solid и Vue доступны в обоих вариантах стилизации. Для CSS Modules необходим reset moduix или эквивалентный
+reset приложения, а Tailwind использует Preflight.
+Svelte запланирован.
+
+Импортируйте компоненты по отдельным путям, например `@moduix/react/accordion`: корневого экспорта
+у пакета нет. Дополнительная peer-зависимость `@tanstack/charts` нужна только для Chart.
 
 | Среда | CSS Modules | Tailwind CSS |
 | --- | --- | --- |
 | React | `@moduix/react` / `@moduix-react` | `@moduix/react-tailwind` / `@moduix-react-tailwind` |
 | Solid | `@moduix/solid` / `@moduix-solid` | `@moduix/solid-tailwind` / `@moduix-solid-tailwind` |
+| Vue | `@moduix/vue` / `@moduix-vue` | `@moduix/vue-tailwind` / `@moduix-vue-tailwind` |
 
-В каждой инструкции ниже указаны поддерживаемые фреймворки. Astro, Rsbuild, TanStack Start и Vite
-описаны для React и Solid; у SolidStart есть отдельная страница, а Next.js и React Router остаются
-вариантами только для React.
+В каждой инструкции ниже указаны поддерживаемые фреймворки. Astro, Rsbuild и Vite описаны для React,
+Solid и Vue. Nuxt использует Vue. TanStack Start поддерживает React и Solid; у SolidStart есть
+отдельная страница, а Next.js и React Router остаются вариантами только для React.
 
 <FrameworkGrid />
 
@@ -96,6 +105,11 @@ reset приложения, а Tailwind использует Preflight. Адап
 <PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
+
+  </Tab>
 </Tabs>
 
 Среда выполнения и соответствующий пакет Ark UI остаются в приложении, поэтому moduix не добавляет
@@ -103,32 +117,7 @@ reset приложения, а Tailwind использует Preflight. Адап
 
 #### 2. Добавьте стили
 
-Один раз импортируйте обязательный базовый файл стилей в точке входа приложения:
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
-```tsx
-import '@moduix/react/style.css';
-```
-
-  </Tab>
-  <Tab label="Solid" value="solid">
-
-```tsx
-import '@moduix/solid/style.css';
-```
-
-  </Tab>
-</Tabs>
-
-Этот файл задаёт общие дизайн-токены и базовый слой, от которого зависят стили компонентов. Стили конкретных
-компонентов подключаются вместе с самими компонентами.
-
-Все дизайн-токены moduix используют пространство имён `--moduix-*`. В проекте можно сохранить собственные имена
-токенов и выборочно сопоставить их в файле стилей, который загружается после `style.css`; см. [Токены](/docs/tokens).
-
-Компонентам с CSS Modules необходим глобальный reset. Импортируйте reset moduix перед основным файлом:
+Один раз импортируйте reset и базовые стили в точке входа приложения:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -147,13 +136,19 @@ import '@moduix/solid/style.css';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import '@moduix/vue/reset.css';
+import '@moduix/vue/style.css';
+```
+
+  </Tab>
 </Tabs>
 
-Если в приложении уже есть корректный собственный reset, используйте его вместо reset moduix.
-
-Так `style.css` отвечает только за глобальную основу, а стили неиспользуемых компонентов не попадут в бандл.
-
-Если нужна готовая визуальная основа, импортируйте один из необязательных пресетов после `style.css`; см. [Темы](/docs/themes).
+Если в приложении уже есть подходящий reset, не импортируйте `reset.css`. Базовый файл задаёт
+общие токены и стили; CSS Modules подключаются вместе с компонентами. Настройка токенов и
+необязательных пресетов описана на страницах [Токены](/docs/tokens) и [Темы](/docs/themes).
 
 #### 3. Используйте компонент
 
@@ -168,6 +163,11 @@ Accordion доступен в каждом выпущенном фреймвор
   <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidCssModules} />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueCssModules} />
 
   </Tab>
 </Tabs>
@@ -194,11 +194,16 @@ Accordion доступен в каждом выпущенном фреймвор
 <PackageManagerTabs command="install @moduix/solid-tailwind @ark-ui/solid" />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue-tailwind @ark-ui/vue" />
+
+  </Tab>
 </Tabs>
 
 #### 2. Добавьте стили
 
-Импортируйте сгенерированную основу перед Tailwind и укажите в `@source` каталог компонентов пакета:
+Импортируйте базовые стили перед Tailwind и укажите в `@source` каталог компонентов пакета:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -221,7 +226,19 @@ Accordion доступен в каждом выпущенном фреймвор
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```css title="styles.css"
+@import '@moduix/vue-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/vue-tailwind/dist/components';
+```
+
+  </Tab>
 </Tabs>
+
+Пример предполагает файл `src/styles.css`. Один раз импортируйте его в точке входа приложения.
 
 Путь `@source` разрешается относительно файла стилей и должен охватывать только каталог
 `dist/components` выбранного пакета. Не добавляйте reset moduix: его роль выполняет Tailwind Preflight.
@@ -237,6 +254,11 @@ Accordion доступен в каждом выпущенном фреймвор
   <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidTailwind} />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueTailwind} />
 
   </Tab>
 </Tabs>
@@ -272,9 +294,10 @@ Accordion доступен в каждом выпущенном фреймвор
 глобальные стили проекта лежат в другом месте. Реестрам CSS Modules Tailwind не нужен, поэтому в их
 конфигурации используются пустые значения, обязательные для схемы shadcn.
 
-`rsc` относится только к элементам React-реестра. Оставьте `false` для Solid и обычных
-React-приложений. В приложении с React Server Components установите `true`: тогда CLI добавит
-`use client` к клиентским компонентам из реестра.
+`rsc` относится к React-компонентам реестра. Оставьте `false` для Solid, Vue и обычных React-приложений.
+В приложении с React Server Components установите `true`, чтобы сохранить директивы `'use client'`
+из исходников. CLI не определяет клиентские границы: добавьте директиву в свою обёртку, если она
+использует состояние, эффекты, браузерные API или обработчики событий.
 
 Проверьте, что проект разрешает алиас `@/*` к каталогу с исходным кодом. Типичная структура с `src` использует
 следующую запись `paths`, которая разрешается относительно `tsconfig.json`:
@@ -292,6 +315,10 @@ React-приложений. В приложении с React Server Components �
 Благодаря этому `shadcn` CLI использует алиасы и URL реестра, чтобы поместить сгенерированные файлы в каталог исходного
 кода, а не в буквальную папку `@`. В руководстве для выбранного фреймворка выше указано, нужен ли этот алиас также
 в конфигурации сборщика и какую корневую папку исходного кода выбрать.
+
+Vue SFC сохраняют исходные импорты: CLI `shadcn` не переписывает импорты в `.vue`.
+Оставьте показанные здесь пути `@/components/ui` и `@/lib/moduix`. Если меняете папки установки,
+настройте разрешение этих путей в TypeScript и сборщике так, чтобы они указывали на выбранные папки.
 
 ### 2. Добавьте компонент
 
@@ -312,6 +339,16 @@ React-приложений. В приложении с React Server Components �
   options={[
     { label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/accordion' },
     { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/accordion' },
+  ]}
+/>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/accordion' },
   ]}
 />
 
@@ -350,6 +387,11 @@ import '@/lib/moduix/styles/style.css';
 <PackageManagerTabs command="shadcn@latest add @moduix-solid/reset" dlx />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-vue/reset" dlx />
+
+  </Tab>
 </Tabs>
 
 Затем импортируйте его перед основным файлом:
@@ -384,7 +426,11 @@ import '@/lib/moduix/styles/style.css';
 Accordion доступен в каждом опубликованном фреймворке и варианте стилизации, поэтому с него удобно
 начать проверку:
 
-<CodeBlockRuntime lang="tsx" code={shadcnAccordion} />
+<Tabs groupId="framework">
+  <Tab label="React" value="react"><CodeBlockRuntime lang="tsx" code={shadcnAccordion} /></Tab>
+  <Tab label="Solid" value="solid"><CodeBlockRuntime lang="tsx" code={shadcnAccordion} /></Tab>
+  <Tab label="Vue" value="vue"><CodeBlockRuntime lang="vue" code={shadcnAccordionVue} /></Tab>
+</Tabs>
 
 Большинство компонентов собрано из именованных частей. Такая структура сохраняет доступное поведение и позволяет
 управлять разметкой, компоновкой и стилями в приложении.
@@ -425,28 +471,15 @@ body {
 
 ## Стилизация
 
-moduix совместим с подходом к стилям, который уже используется в проекте:
-
-- Обычный CSS с глобальными селекторами, каскадными слоями и CSS-переменными.
-- CSS Modules с React-свойством `className` или Solid-свойством `class` и классами слотов компонентов.
-- Утилитарные классы Tailwind CSS для компоновки и точечных изменений.
-- CSS-in-JS-библиотеки, которые добавляют классы или передают стили через собственные обёртки.
-
-В вариантах с CSS Modules стандартная плотность задаётся через `--moduix-size-md: 36px` для основных
-элементов управления и `--moduix-size-sm: 32px` для строк всплывающих списков. Изменение этих токенов
-обновляет связанные компоненты одновременно. В Tailwind-вариантах размеры задаются утилитами и
-переопределяются пользовательскими классами.
-
-На страницах компонентов перечислены общие точки настройки стилей и публичные переменные, доступные
-в CSS Modules. Tailwind-варианты используют семантические утилиты и пользовательские классы, а не
-повторяют эти компонентные переменные. Полная иерархия описана в [Токенах](/docs/tokens), а
-настройка движения описана в [Анимациях](/docs/animations).
+Пользовательские классы, переменные компонентов, токены и отладка каскада описаны в отдельном руководстве
+[Стилизация](/docs/styling). Иерархия токенов описана в разделе [Токены](/docs/tokens), а примеры анимации приведены
+в разделе [Анимации](/docs/animations).
 
 ## Устранение неполадок
 
 | Проблема | Что проверить |
 | --- | --- |
-| Компоненты отображаются без стилей | Проверьте порядок импортов для выбранного способа стилизации. |
+| Компоненты отображаются без стилей | Убедитесь, что базовый файл стилей импортируется в точке входа приложения и загружается до стилей компонентов; см. [Стилизация](/docs/styling). |
 | Скрытое содержимое компонентов остаётся видимым | С CSS Modules проверьте, что загружен reset moduix или собственный reset приложения. Для варианта с Tailwind не отключайте Preflight. |
 | Сборщик не находит импорт созданного компонента | Проверьте алиас `@/*` в TypeScript и сборщике, затем `components.json`. |
 | Всплывающий элемент отображается под содержимым страницы | Добавьте `isolation: isolate` корневому элементу приложения и избегайте несвязанных глобальных значений `z-index`. |

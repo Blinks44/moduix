@@ -1,24 +1,33 @@
-import { Editable } from '@moduix/react/editable';
+import {
+  Editable,
+  EditableArea,
+  EditableContext,
+  EditableControl,
+  EditableEditTrigger,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+} from '@moduix/react/editable';
 
 export default function AdvancedEditableCustomizationDemo() {
   return (
     <Editable defaultValue="Service area">
-      <Editable.Label>Name</Editable.Label>
-      <Editable.Area>
-        <Editable.Input />
-        <Editable.Preview />
-      </Editable.Area>
-      <Editable.Context>
+      <EditableLabel>Name</EditableLabel>
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableContext>
         {(editable) =>
           editable.editing ? (
             <span>Enter to save, Esc to cancel.</span>
           ) : (
-            <Editable.Control>
-              <Editable.EditTrigger />
-            </Editable.Control>
+            <EditableControl>
+              <EditableEditTrigger />
+            </EditableControl>
           )
         }
-      </Editable.Context>
+      </EditableContext>
     </Editable>
   );
 }

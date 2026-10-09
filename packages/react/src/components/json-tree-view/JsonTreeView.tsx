@@ -10,10 +10,10 @@ import { forwardRef } from 'react';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './JsonTreeView.module.css';
 
-const JsonTreeViewRoot = forwardRef<
+const JsonTreeView = forwardRef<
   ComponentRef<typeof JsonTreeViewPrimitive.Root>,
   ComponentProps<typeof JsonTreeViewPrimitive.Root>
->(function JsonTreeViewRoot({ className, ...props }, ref) {
+>(function JsonTreeView({ className, ...props }, ref) {
   return (
     <JsonTreeViewPrimitive.Root
       ref={ref}
@@ -53,13 +53,7 @@ const JsonTreeViewTree = forwardRef<
   );
 });
 
-const JsonTreeView = Object.assign(JsonTreeViewRoot, {
-  Root: JsonTreeViewRoot,
-  RootProvider: JsonTreeViewRootProvider,
-  Tree: JsonTreeViewTree,
-});
-
-export { JsonTreeView, useJsonTreeView };
+export { JsonTreeView, JsonTreeViewRootProvider, JsonTreeViewTree, useJsonTreeView };
 export type {
   JsonTreeViewRootProps,
   JsonTreeViewRootProviderProps,

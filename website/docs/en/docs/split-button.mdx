@@ -24,6 +24,16 @@ import splitButtonSolidSizes from '../../../snippets/split-button/solid/sizes.ts
 import splitButtonSolidVariants from '../../../snippets/split-button/solid/variants.tsx?raw';
 import splitButtonSolidWithIcons from '../../../snippets/split-button/solid/with-icons.tsx?raw';
 
+import splitButtonVueBasic from '../../../snippets/split-button/vue/basic.vue?raw';
+import splitButtonVueControlledMenuState from '../../../snippets/split-button/vue/controlled-menu-state.vue?raw';
+import splitButtonVueDisabledAction from '../../../snippets/split-button/vue/disabled-action.vue?raw';
+import splitButtonVueLinkAction from '../../../snippets/split-button/vue/link-action.vue?raw';
+import splitButtonVueMenuComposition from '../../../snippets/split-button/vue/menu-composition.vue?raw';
+import splitButtonVuePositioning from '../../../snippets/split-button/vue/positioning.vue?raw';
+import splitButtonVueSizes from '../../../snippets/split-button/vue/sizes.vue?raw';
+import splitButtonVueVariants from '../../../snippets/split-button/vue/variants.vue?raw';
+import splitButtonVueWithIcons from '../../../snippets/split-button/vue/with-icons.vue?raw';
+
 ## API Reference
 
 Ark UI does not provide a dedicated split-button primitive. moduix composes this component from the
@@ -38,8 +48,8 @@ Use `Button` for a single action. Use `Menu` when the available actions are peer
 ## Basic
 
 
-Use the short `<SplitButton>` form, which is equivalent to `<SplitButton.Root>`, and keep the menu structure explicit
-with `SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner`, and `SplitButton.Content`.
+Use `<SplitButton>` as the root and keep the menu structure explicit
+with `SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner`, and `SplitButtonContent`.
 The primary action follows the same `onClick` contract as `Button`.
 
 <ExampleFrame variant="component">
@@ -53,6 +63,7 @@ The primary action follows the same `onClick` contract as `Button`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -65,6 +76,11 @@ The primary action follows the same `onClick` contract as `Button`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueBasic} />
 
     </Tab>
   </Tabs>
@@ -102,42 +118,56 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/split-button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/split-button' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 ```text
-SplitButton / SplitButton.Root
-├─ SplitButton.Action
-├─ SplitButton.Trigger
+SplitButton
+├─ SplitButtonAction
+├─ SplitButtonTrigger
 └─ Popup subtree (automatically portalled)
-   └─ SplitButton.Positioner
-      └─ SplitButton.Content
-         ├─ Menu.Item
-         ├─ Menu.Separator
+   └─ SplitButtonPositioner
+      └─ SplitButtonContent
+         ├─ MenuItem
+         ├─ MenuSeparator
          └─ other shared Menu parts
 ```
 
 | Part                               | Role                                                                  |
 | ---------------------------------- | --------------------------------------------------------------------- |
-| `SplitButton` / `SplitButton.Root` | Root that owns menu state and the semantic group around both buttons. |
-| `SplitButton.Action`               | Primary Button action.                                                |
-| `SplitButton.Trigger`              | Ark Menu trigger rendered as a moduix Button with a chevron by default. |
-| `SplitButton.Positioner`           | Positions the Ark Menu popup.                                         |
-| `SplitButton.Content`              | Ark Menu content surface for shared `Menu.*` parts.                   |
+| `SplitButton`                     | Root that owns menu state and the semantic group around both buttons. |
+| `SplitButtonAction`               | Primary Button action.                                                |
+| `SplitButtonTrigger`              | Ark Menu trigger rendered as a moduix Button with a chevron by default. |
+| `SplitButtonPositioner`           | Positions the Ark Menu popup.                                         |
+| `SplitButtonContent`              | Ark Menu content surface for shared `MenuItem` and `MenuItemGroup` parts. |
 
 ## Composition
 
-`SplitButton` combines one primary `Action` with a `Trigger`; keep the popup tree explicit as
-`Positioner` → `Content` and place shared `Menu.*` rows inside `Content`. The positioner is portalled automatically;
+`SplitButton` combines one primary `SplitButtonAction` with a `SplitButtonTrigger`; keep the popup tree explicit as
+`SplitButtonPositioner` → `SplitButtonContent` and place shared `MenuItem` rows inside `SplitButtonContent`. The positioner is portalled automatically;
 use `portalled={false}` or `portalRef` only when the popup must use a different container. Root `size` and `variant`
 provide the defaults for both button parts. The root renders a semantic `role="group"`; provide `aria-label` or
 `aria-labelledby` when the surrounding context does not already identify the group.
 
 Menu state is internal by default. Pass `open` with `onOpenChange(details)` when another part of the application
 owns the open state. For advanced state access, use the shared `Menu` API instead of adding a split-button-specific
-state wrapper. Use `Action asChild` for a link; custom trigger content goes through `Trigger` `children` so Ark's
+state wrapper. Use `SplitButtonAction asChild` for a link; custom trigger content goes through `SplitButtonTrigger` `children` so Ark's
 menu trigger and the moduix Button remain on one element.
+
+In Vue, listen with `@click` on the action, use `@open-change` or `v-model:open` for menu state, and pass trigger content through its default slot.
+
+`SplitButtonPositioner` wraps a portal, so its Vue component ref's `$el` points to the portal anchor. The positioned element carries `data-slot="split-button-positioner"`.
 
 ## Examples
 
@@ -157,6 +187,7 @@ component.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -169,6 +200,11 @@ component.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidControlledMenuState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueControlledMenuState} />
 
     </Tab>
   </Tabs>
@@ -191,6 +227,7 @@ Disable the primary action while keeping the alternate-actions menu available wh
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -205,6 +242,11 @@ Disable the primary action while keeping the alternate-actions menu available wh
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidDisabledAction} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueDisabledAction} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -212,7 +254,7 @@ Disable the primary action while keeping the alternate-actions menu available wh
 
 ### Link Action
 
-Use `asChild` on `SplitButton.Action` when the primary action should render as a link.
+Use `asChild` on `SplitButtonAction` when the primary action should render as a link.
 
 <ExampleFrame variant="component">
   <SplitButtonLinkAction />
@@ -225,6 +267,7 @@ Use `asChild` on `SplitButton.Action` when the primary action should render as a
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -237,6 +280,11 @@ Use `asChild` on `SplitButton.Action` when the primary action should render as a
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidLinkAction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueLinkAction} />
 
     </Tab>
   </Tabs>
@@ -259,6 +307,7 @@ Configure popup placement with the Ark `positioning` root prop while keeping the
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -271,6 +320,11 @@ Configure popup placement with the Ark `positioning` root prop while keeping the
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidPositioning} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVuePositioning} />
 
     </Tab>
   </Tabs>
@@ -293,6 +347,7 @@ Use the root `size` when both sides should scale together.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -305,6 +360,11 @@ Use the root `size` when both sides should scale together.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueSizes} />
 
     </Tab>
   </Tabs>
@@ -332,6 +392,7 @@ Use the root `variant` when both buttons should share the same visual style.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -344,6 +405,11 @@ Use the root `variant` when both buttons should share the same visual style.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueVariants} />
 
     </Tab>
   </Tabs>
@@ -371,6 +437,7 @@ Add an icon to the primary action when it clarifies the default action without r
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -385,6 +452,11 @@ Add an icon to the primary action when it clarifies the default action without r
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidWithIcons} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueWithIcons} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -392,7 +464,7 @@ Add an icon to the primary action when it clarifies the default action without r
 
 ### Advanced Customization
 
-Use shared `Menu.*` parts inside `SplitButton.Content` when alternate actions need groups, separators, or grouped
+Use `MenuItemGroup`, `MenuItemGroupLabel`, `MenuItem`, and `MenuSeparator` inside `SplitButtonContent` when alternate actions need groups, separators, or grouped
 rows.
 
 <ExampleFrame variant="component">
@@ -406,6 +478,7 @@ rows.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -420,6 +493,11 @@ rows.
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidMenuComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueMenuComposition} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -427,7 +505,7 @@ rows.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind variants use native
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind variants use native
 utilities and consumer classes; the CSS variables below customize the CSS Modules variants. Data attributes and
 `data-slot` hooks are shared by both styling tracks.
 
@@ -446,6 +524,6 @@ trigger padding use the `--moduix-split-button-separator-*` and `--moduix-split-
 - `data-slot="split-button-trigger"` targets the menu trigger.
 - `data-slot="split-button-positioner"` targets the Ark Menu positioner.
 - `data-slot="split-button-content"` targets the Ark Menu content surface.
-- `SplitButton.Trigger` carries Ark Menu state attributes such as `aria-expanded`, `aria-controls`, and `data-state`.
-- `SplitButton.Content` carries Ark Menu attributes such as `data-state`, `data-side`, `data-placement`, `data-nested`,
+- `SplitButtonTrigger` carries Ark Menu state attributes such as `aria-expanded`, `aria-controls`, and `data-state`.
+- `SplitButtonContent` carries Ark Menu attributes such as `data-state`, `data-side`, `data-placement`, `data-nested`,
   and `data-has-nested`.

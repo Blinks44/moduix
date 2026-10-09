@@ -1,7 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
-import { Breadcrumbs } from '@/components/breadcrumbs/Breadcrumbs';
-import { Menu } from '@/components/menu/Menu';
+import {
+  Breadcrumbs,
+  BreadcrumbsEllipsis,
+  BreadcrumbsItem,
+  BreadcrumbsLink,
+  BreadcrumbsList,
+  BreadcrumbsPage,
+  BreadcrumbsPath,
+  BreadcrumbsSeparator,
+} from '@/components/breadcrumbs/Breadcrumbs';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@/components/menu/Menu';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 
 const defaultLinks = [
@@ -30,7 +46,7 @@ const collapsedMenuTriggerStyle = {
 function DefaultBreadcrumbs() {
   return (
     <Breadcrumbs>
-      <Breadcrumbs.Path links={defaultLinks} page={defaultPage} />
+      <BreadcrumbsPath links={defaultLinks} page={defaultPage} />
     </Breadcrumbs>
   );
 }
@@ -55,48 +71,48 @@ export const Default: Story = {
 export const Collapsed: Story = {
   render: () => (
     <Breadcrumbs>
-      <Breadcrumbs.List>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="#">Home</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
+      <BreadcrumbsList>
+        <BreadcrumbsItem>
+          <BreadcrumbsLink href="#">Home</BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
           <Menu positioning={{ placement: 'bottom-start' }}>
-            <Menu.Trigger asChild>
+            <MenuTrigger asChild>
               <button
                 type="button"
                 aria-label="Show hidden path items"
                 style={collapsedMenuTriggerStyle}
               >
-                <Breadcrumbs.Ellipsis />
+                <BreadcrumbsEllipsis />
               </button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content style={collapsedMenuContentStyle}>
-                <Menu.Viewport>
-                  <Menu.Item value="engineering" asChild>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent style={collapsedMenuContentStyle}>
+                <MenuViewport>
+                  <MenuItem value="engineering" asChild>
                     <a href="#">Engineering</a>
-                  </Menu.Item>
-                  <Menu.Item value="backend" asChild>
+                  </MenuItem>
+                  <MenuItem value="backend" asChild>
                     <a href="#">Backend</a>
-                  </Menu.Item>
-                  <Menu.Item value="golang" asChild>
+                  </MenuItem>
+                  <MenuItem value="golang" asChild>
                     <a href="#">Golang</a>
-                  </Menu.Item>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                  </MenuItem>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="#">Vacancies</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsLink href="#">Vacancies</BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+        </BreadcrumbsItem>
+      </BreadcrumbsList>
     </Breadcrumbs>
   ),
 };
@@ -104,7 +120,7 @@ export const Collapsed: Story = {
 export const CustomSeparator: Story = {
   render: () => (
     <Breadcrumbs>
-      <Breadcrumbs.Path
+      <BreadcrumbsPath
         links={defaultLinks}
         page={defaultPage}
         separator={<SeparatorMarkIcon style={{ width: '0.75rem', height: '0.25rem' }} />}
@@ -116,7 +132,7 @@ export const CustomSeparator: Story = {
 export const RightToLeft: Story = {
   render: () => (
     <Breadcrumbs dir="rtl" aria-label="مسار التنقل">
-      <Breadcrumbs.Path
+      <BreadcrumbsPath
         links={[
           { href: '#', label: 'الرئيسية' },
           { href: '#', label: 'الوظائف' },
@@ -130,27 +146,27 @@ export const RightToLeft: Story = {
 export const FrameworkLink: Story = {
   render: () => (
     <Breadcrumbs>
-      <Breadcrumbs.List>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link asChild>
+      <BreadcrumbsList>
+        <BreadcrumbsItem>
+          <BreadcrumbsLink asChild>
             <a href="#home" data-framework-link>
               Home
             </a>
-          </Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link asChild>
+          </BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsLink asChild>
             <a href="#vacancies" data-framework-link>
               Vacancies
             </a>
-          </Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+          </BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+        </BreadcrumbsItem>
+      </BreadcrumbsList>
     </Breadcrumbs>
   ),
 };
@@ -158,7 +174,7 @@ export const FrameworkLink: Story = {
 export const LongCurrentLabel: Story = {
   render: () => (
     <Breadcrumbs>
-      <Breadcrumbs.Path
+      <BreadcrumbsPath
         links={[
           { href: '#', label: 'Home' },
           { href: '#', label: 'Vacancies' },
@@ -172,34 +188,34 @@ export const LongCurrentLabel: Story = {
 export const AdvancedCustomization: Story = {
   render: () => (
     <Breadcrumbs>
-      <Breadcrumbs.List>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link asChild>
+      <BreadcrumbsList>
+        <BreadcrumbsItem>
+          <BreadcrumbsLink asChild>
             <a href="#home" data-framework-link>
               Home
             </a>
-          </Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link asChild>
+          </BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsLink asChild>
             <a href="#engineering" data-framework-link>
               Engineering
             </a>
-          </Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator>
+          </BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator>
           <SeparatorMarkIcon style={{ width: '0.75rem', height: '0.25rem' }} />
-        </Breadcrumbs.Separator>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>
+        </BreadcrumbsSeparator>
+        <BreadcrumbsItem>
+          <BreadcrumbsPage>
             <span title="Go lang developer to production team with cross-functional ownership and platform support">
               Go lang developer to production team with cross-functional ownership and platform
               support
             </span>
-          </Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+          </BreadcrumbsPage>
+        </BreadcrumbsItem>
+      </BreadcrumbsList>
     </Breadcrumbs>
   ),
 };

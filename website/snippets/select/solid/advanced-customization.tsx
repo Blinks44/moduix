@@ -1,5 +1,20 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectClearTrigger,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItemGroup,
+  SelectItemGroupLabel,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/solid/select';
 import { For } from 'solid-js';
 
 const fruits = createListCollection({
@@ -13,29 +28,29 @@ const fruits = createListCollection({
 export default function AdvancedCustomizationSelectDemo() {
   return (
     <Select collection={fruits}>
-      <Select.Label>Choose fruit</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select an option" />
-        </Select.Trigger>
-        <Select.ClearTrigger aria-label="Clear selection" />
-        <Select.Indicator />
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content>
-          <Select.ItemGroup>
-            <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+      <SelectLabel>Choose fruit</SelectLabel>
+      <SelectControl>
+        <SelectTrigger>
+          <SelectValueText placeholder="Select an option" />
+        </SelectTrigger>
+        <SelectClearTrigger aria-label="Clear selection" />
+        <SelectIndicator />
+      </SelectControl>
+      <SelectPositioner>
+        <SelectContent>
+          <SelectItemGroup>
+            <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
             <For each={fruits.items}>
               {(item) => (
-                <Select.Item item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
+                <SelectItem item={item}>
+                  <SelectItemText>{item.label}</SelectItemText>
+                  <SelectItemIndicator />
+                </SelectItem>
               )}
             </For>
-          </Select.ItemGroup>
-        </Select.Content>
-      </Select.Positioner>
+          </SelectItemGroup>
+        </SelectContent>
+      </SelectPositioner>
     </Select>
   );
 }

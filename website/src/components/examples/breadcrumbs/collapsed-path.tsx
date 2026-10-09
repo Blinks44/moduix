@@ -1,5 +1,20 @@
-import { Breadcrumbs } from '@moduix/react/breadcrumbs';
-import { Menu } from '@moduix/react/menu';
+import {
+  Breadcrumbs,
+  BreadcrumbsEllipsis,
+  BreadcrumbsItem,
+  BreadcrumbsLink,
+  BreadcrumbsList,
+  BreadcrumbsPage,
+  BreadcrumbsSeparator,
+} from '@moduix/react/breadcrumbs';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/react/menu';
 import styles from '@/components/examples/breadcrumbs/breadcrumbs-collapsed-path.module.css';
 
 const collapsedItems = [
@@ -11,40 +26,40 @@ const collapsedItems = [
 export default function BreadcrumbsCollapsedDemo() {
   return (
     <Breadcrumbs>
-      <Breadcrumbs.List>
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
+      <BreadcrumbsList>
+        <BreadcrumbsItem>
+          <BreadcrumbsLink href="/">Home</BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
           <Menu positioning={{ placement: 'bottom-start' }}>
-            <Menu.Trigger asChild>
+            <MenuTrigger asChild>
               <button type="button" aria-label="Show hidden path items" className={styles.trigger}>
-                <Breadcrumbs.Ellipsis />
+                <BreadcrumbsEllipsis />
               </button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content className={styles.content}>
-                <Menu.Viewport>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent className={styles.content}>
+                <MenuViewport>
                   {collapsedItems.map((item) => (
-                    <Menu.Item key={item.href} value={item.href} asChild>
+                    <MenuItem key={item.href} value={item.href} asChild>
                       <a href={item.href}>{item.label}</a>
-                    </Menu.Item>
+                    </MenuItem>
                   ))}
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsLink href="/docs/breadcrumbs">Breadcrumbs</BreadcrumbsLink>
+        </BreadcrumbsItem>
+        <BreadcrumbsSeparator />
+        <BreadcrumbsItem>
+          <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+        </BreadcrumbsItem>
+      </BreadcrumbsList>
     </Breadcrumbs>
   );
 }

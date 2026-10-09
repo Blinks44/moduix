@@ -1,6 +1,15 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { InputGroup } from '@moduix/solid/input-group';
-import { Select } from '@moduix/solid/select';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/solid/input-group';
+import {
+  Select,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/solid/select';
 import { Search as SearchIcon } from 'lucide-solid';
 import { createEffect, createMemo, createSignal, For, Show } from 'solid-js';
 import styles from '@/components/examples/select/select-search-in-popup.module.css';
@@ -52,16 +61,16 @@ export default function SelectSearchInPopupDemo() {
         if (target instanceof Node && popupRef?.contains(target)) event.preventDefault();
       }}
     >
-      <Select.Label>Choose fruit</Select.Label>
-      <Select.Field placeholder="Search or select a fruit" clearLabel="Clear selection" />
-      <Select.Positioner>
+      <SelectLabel>Choose fruit</SelectLabel>
+      <SelectField placeholder="Search or select a fruit" clearLabel="Clear selection" />
+      <SelectPositioner>
         <div ref={(element) => (popupRef = element)} class={styles.popup}>
           <div class={styles.popupHeader}>
             <InputGroup>
-              <InputGroup.Addon>
+              <InputGroupAddon>
                 <SearchIcon aria-hidden />
-              </InputGroup.Addon>
-              <InputGroup.Input
+              </InputGroupAddon>
+              <InputGroupInput
                 aria-label="Filter fruits"
                 ref={(element) => (inputRef = element)}
                 value={query()}
@@ -70,7 +79,7 @@ export default function SelectSearchInPopupDemo() {
               />
             </InputGroup>
           </div>
-          <Select.Content class={styles.popupContent}>
+          <SelectContent class={styles.popupContent}>
             <Show
               when={collection().items.length > 0}
               fallback={
@@ -81,16 +90,16 @@ export default function SelectSearchInPopupDemo() {
             >
               <For each={collection().items}>
                 {(item) => (
-                  <Select.Item item={item}>
-                    <Select.ItemText>{item.label}</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
+                  <SelectItem item={item}>
+                    <SelectItemText>{item.label}</SelectItemText>
+                    <SelectItemIndicator />
+                  </SelectItem>
                 )}
               </For>
             </Show>
-          </Select.Content>
+          </SelectContent>
         </div>
-      </Select.Positioner>
+      </SelectPositioner>
     </Select>
   );
 }

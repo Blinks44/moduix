@@ -5,6 +5,7 @@ import { Popover as PopoverPrimitive, usePopover, usePopoverContext } from '@ark
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -13,14 +14,12 @@ import {
 import { CloseButton } from '../close-button';
 import styles from './Popover.module.css';
 
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close popover';
-
 export type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
 export type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> & {
   portalRef?: OverlayPortalProps['portalRef'];
 };
 
-function PopoverRoot({
+function Popover({
   lazyMount = true,
   modal,
   portalled,
@@ -209,22 +208,22 @@ const PopoverCloseTrigger = forwardRef<
 });
 
 const PopoverCloseIcon = forwardRef<
-  ComponentRef<typeof CloseButton.Root>,
+  ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof PopoverPrimitive.CloseTrigger>, 'asChild'>
 >(function PopoverCloseIcon(
-  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+  { className, children, 'aria-label': ariaLabel = a11yLabels.closePopover, ...props },
   ref,
 ) {
   return (
     <PopoverPrimitive.CloseTrigger asChild {...props}>
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         data-slot="popover-close-icon"
         aria-label={ariaLabel}
         className={clsx(styles.closeIcon, className)}
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     </PopoverPrimitive.CloseTrigger>
   );
 });
@@ -268,24 +267,26 @@ const PopoverFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
   },
 );
 
-const Popover = Object.assign(PopoverRoot, {
-  Root: PopoverRoot,
-  RootProvider: PopoverRootProvider,
-  Context: PopoverPrimitive.Context,
-  Anchor: PopoverAnchor,
-  Trigger: PopoverTrigger,
-  Indicator: PopoverIndicator,
-  Positioner: PopoverPositioner,
-  Content: PopoverContent,
-  Arrow: PopoverArrow,
-  ArrowTip: PopoverArrowTip,
-  Title: PopoverTitle,
-  Description: PopoverDescription,
-  CloseTrigger: PopoverCloseTrigger,
-  CloseIcon: PopoverCloseIcon,
-  Header: PopoverHeader,
-  Body: PopoverBody,
-  Footer: PopoverFooter,
-});
+const PopoverContext = PopoverPrimitive.Context;
 
-export { Popover, usePopover, usePopoverContext };
+export {
+  Popover,
+  PopoverAnchor,
+  PopoverArrow,
+  PopoverArrowTip,
+  PopoverBody,
+  PopoverCloseIcon,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverContext,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverIndicator,
+  PopoverPositioner,
+  PopoverRootProvider,
+  PopoverTitle,
+  PopoverTrigger,
+  usePopover,
+  usePopoverContext,
+};

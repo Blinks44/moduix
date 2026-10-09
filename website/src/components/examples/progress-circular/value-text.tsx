@@ -1,4 +1,10 @@
-import { ProgressCircular } from '@moduix/react/progress-circular';
+import {
+  ProgressCircular,
+  ProgressCircularContext,
+  ProgressCircularLabel,
+  ProgressCircularRing,
+  ProgressCircularValueText,
+} from '@moduix/react/progress-circular';
 
 export default function ValueTextProgressCircularDemo() {
   return (
@@ -10,13 +16,13 @@ export default function ValueTextProgressCircularDemo() {
         },
       }}
     >
-      <ProgressCircular.Label>Migration</ProgressCircular.Label>
-      <ProgressCircular.Ring />
-      <ProgressCircular.Context>
+      <ProgressCircularLabel>Migration</ProgressCircularLabel>
+      <ProgressCircularRing />
+      <ProgressCircularContext>
         {(progress) => (
-          <ProgressCircular.ValueText>{progress.valueAsString}</ProgressCircular.ValueText>
+          <ProgressCircularValueText>{progress.valueAsString}</ProgressCircularValueText>
         )}
-      </ProgressCircular.Context>
+      </ProgressCircularContext>
     </ProgressCircular>
   );
 }

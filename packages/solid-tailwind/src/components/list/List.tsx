@@ -1,7 +1,9 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
-import { Show, splitProps } from 'solid-js';
+import type { ValidComponent } from 'solid-js';
+import { splitProps } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import { cn } from '@/lib/moduix/cn';
 
 type ListMarker = 'disc' | 'decimal' | 'none';
@@ -90,18 +92,7 @@ const listVariants = cva('flex flex-col font-regular tracking-normal list-outsid
   },
 });
 
-function ListRoot(props: ListRootProps) {
-  return (
-    <Show
-      when={props.as === 'ol'}
-      fallback={<UnorderedListRoot {...(props as Extract<ListRootProps, { as?: 'ul' }>)} />}
-    >
-      <OrderedListRoot {...(props as Extract<ListRootProps, { as: 'ol' }>)} />
-    </Show>
-  );
-}
-
-function OrderedListRoot(props: Extract<ListRootProps, { as: 'ol' }>) {
+function List(props: ListRootProps) {
   const [local, others] = splitProps(props, [
     'as',
     'asChild',
@@ -119,71 +110,26 @@ function OrderedListRoot(props: Extract<ListRootProps, { as: 'ol' }>) {
     'data-size',
     'data-tone',
   ]);
-  const marker = local.marker ?? 'auto';
+  const marker = () => local.marker ?? 'auto';
 
   return (
-    <ark.ol
+    <Dynamic
+      component={(local.as === 'ol' ? ark.ol : ark.ul) as ValidComponent}
       asChild={local.asChild}
       {...others}
-      role={local.role ?? (marker === 'none' ? 'list' : undefined)}
+      role={local.role ?? (marker() === 'none' ? 'list' : undefined)}
       data-scope="list"
       data-part="root"
       data-slot="list-root"
       data-gap={local.gap ?? 'sm'}
-      data-marker={marker}
+      data-marker={marker()}
       data-size={local.size ?? 'md'}
       data-tone={local.tone ?? 'default'}
       class={cn(
         listVariants({
-          as: 'ol',
+          as: local.as ?? 'ul',
           gap: local.gap ?? 'sm',
-          marker,
-          size: local.size ?? 'md',
-          tone: local.tone ?? 'default',
-        }),
-        local.class,
-      )}
-    />
-  );
-}
-
-function UnorderedListRoot(props: Extract<ListRootProps, { as?: 'ul' }>) {
-  const [local, others] = splitProps(props, [
-    'as',
-    'asChild',
-    'class',
-    'gap',
-    'marker',
-    'role',
-    'size',
-    'tone',
-    'data-scope',
-    'data-part',
-    'data-slot',
-    'data-gap',
-    'data-marker',
-    'data-size',
-    'data-tone',
-  ]);
-  const marker = local.marker ?? 'auto';
-
-  return (
-    <ark.ul
-      asChild={local.asChild}
-      {...others}
-      role={local.role ?? (marker === 'none' ? 'list' : undefined)}
-      data-scope="list"
-      data-part="root"
-      data-slot="list-root"
-      data-gap={local.gap ?? 'sm'}
-      data-marker={marker}
-      data-size={local.size ?? 'md'}
-      data-tone={local.tone ?? 'default'}
-      class={cn(
-        listVariants({
-          as: 'ul',
-          gap: local.gap ?? 'sm',
-          marker,
+          marker: marker(),
           size: local.size ?? 'md',
           tone: local.tone ?? 'default',
         }),
@@ -214,9 +160,4 @@ function ListItem(props: HTMLArkProps<'li'> & ListDataProps) {
   );
 }
 
-const List = Object.assign(ListRoot, {
-  Root: ListRoot,
-  Item: ListItem,
-});
-
-export { List };
+export { List, ListItem };

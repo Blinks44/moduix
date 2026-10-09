@@ -1,4 +1,4 @@
-import { Avatar } from '@moduix/solid/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/solid/avatar';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/avatar/avatar-events.module.css';
 
@@ -11,8 +11,8 @@ export default function AvatarStatusDemo() {
   return (
     <div class={styles.root}>
       <Avatar onStatusChange={(details) => setStatus(details.status)}>
-        <Avatar.Fallback>AT</Avatar.Fallback>
-        <Avatar.Image src={avatarImage} alt="Alex T." />
+        <AvatarFallback>AT</AvatarFallback>
+        <AvatarImage src={avatarImage} alt="Alex T." />
       </Avatar>
       <output>Status: {status()}</output>
     </div>

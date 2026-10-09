@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sign-up",
+  "title": "Sign up",
+  "description": "Registration form with email, password confirmation, and terms acceptance.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/react-sign-up.json"],
+  "files": [],
+  "type": "registry:block"
+}

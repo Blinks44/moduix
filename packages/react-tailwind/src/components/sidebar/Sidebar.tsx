@@ -9,21 +9,28 @@ import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import { Input } from '../input';
 import { Separator } from '../separator';
-import { Splitter, type SplitterPanelData, useSplitterContext } from '../splitter';
-import { Tooltip } from '../tooltip';
+import {
+  Splitter,
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterResizeTriggerIndicator,
+  useSplitterContext,
+  type SplitterPanelData,
+} from '../splitter';
+import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '../tooltip';
 
 type SidebarSide = 'left' | 'right';
 type SidebarConfig = {
   panelId: string;
   side: SidebarSide;
 };
-type SidebarRootProps = Omit<ComponentProps<typeof Splitter.Root>, 'orientation' | 'panels'> & {
+type SidebarRootProps = Omit<ComponentProps<typeof Splitter>, 'orientation' | 'panels'> & {
   panelId?: string;
   side?: SidebarSide;
 };
-type SidebarPanelProps = Omit<ComponentProps<typeof Splitter.Panel>, 'id'>;
-type SidebarResizeTriggerProps = Omit<ComponentProps<typeof Splitter.ResizeTrigger>, 'id'>;
-type SidebarDefaultSize = ComponentProps<typeof Splitter.Root>['defaultSize'];
+type SidebarPanelProps = Omit<ComponentProps<typeof SplitterPanel>, 'id'>;
+type SidebarResizeTriggerProps = Omit<ComponentProps<typeof SplitterResizeTrigger>, 'id'>;
+type SidebarDefaultSize = ComponentProps<typeof Splitter>['defaultSize'];
 
 const sidebarPanel = {
   id: 'sidebar',
@@ -69,8 +76,8 @@ function toggleSidebarPanel(splitter: ReturnType<typeof useSplitterContext>, pan
   splitter.collapsePanel(panelId);
 }
 
-const SidebarRoot = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, SidebarRootProps>(
-  function SidebarRoot(
+const Sidebar = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, SidebarRootProps>(
+  function Sidebar(
     { className, defaultSize, panelId = 'sidebar', side = 'left', style, ...props },
     ref,
   ) {
@@ -162,7 +169,7 @@ const SidebarResizeTrigger = forwardRef<
   ref,
 ) {
   const { panelId, side } = useContext(SidebarConfigContext);
-  const id: NonNullable<ComponentProps<typeof Splitter.ResizeTrigger>['id']> =
+  const id: NonNullable<ComponentProps<typeof SplitterResizeTrigger>['id']> =
     side === 'left' ? `${panelId}:content` : `content:${panelId}`;
 
   return (
@@ -180,7 +187,7 @@ const SidebarResizeTrigger = forwardRef<
         className,
       )}
     >
-      {children === undefined && !asChild ? <Splitter.ResizeTriggerIndicator /> : children}
+      {children === undefined && !asChild ? <SplitterResizeTriggerIndicator /> : children}
     </SplitterPrimitive.ResizeTrigger>
   );
 });
@@ -216,7 +223,7 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         aria-expanded={!collapsed}
         className={cn(
           'relative z-4 -mx-3.5 inline-flex size-7 flex-none translate-y-10 cursor-pointer items-center justify-center rounded-full border border-border bg-background p-0 text-muted-foreground shadow-sm outline-0 transition-[background-color,color,box-shadow] duration-200 ease-in-out',
-          'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 motion-reduce:transition-none',
+          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 motion-reduce:transition-none',
           '[&>svg]:size-4 [&>svg]:transition-transform [&>svg]:duration-200 [&>svg]:ease-in-out data-[side=left]:data-[state=collapsed]:[&>svg]:rotate-180 data-[side=right]:data-[state=expanded]:[&>svg]:rotate-180',
           'hover:bg-accent hover:text-accent-foreground',
           className,
@@ -406,7 +413,7 @@ const SidebarGroupAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>
         ref={ref}
         type={type}
         className={cn(
-          'focus-visible:outline-offset-0.5 me-2 inline-flex size-control-xs flex-none cursor-pointer items-center justify-center rounded-md p-0 text-muted-foreground outline-0 transition-colors duration-200 ease-in-out hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring motion-reduce:transition-none @max-[7rem]:hidden [&>svg]:size-4',
+          'me-2 inline-flex size-control-xs flex-none cursor-pointer items-center justify-center rounded-md p-0 text-muted-foreground outline-0 transition-colors duration-200 ease-in-out hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none @max-[7rem]:hidden [&>svg]:size-4',
           className,
         )}
         {...props}
@@ -471,8 +478,8 @@ const SidebarNavigationButton = forwardRef<
       type={type}
       aria-current={ariaCurrent ?? (active ? 'page' : undefined)}
       className={cn(
-        'flex w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 py-1 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-colors duration-200 ease-in-out has-[+_[data-slot=sidebar-navigation-badge]]:pe-10 @max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2',
-        'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
+        'flex w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 py-1 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-colors duration-200 ease-in-out group-data-[state=expanded]/sidebar-panel:@min-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-10',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
         'group-data-[state=collapsed]/sidebar-panel:mx-auto group-data-[state=collapsed]/sidebar-panel:min-h-control-md group-data-[state=collapsed]/sidebar-panel:w-control-md group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:bg-transparent group-data-[state=collapsed]/sidebar-panel:px-0 group-data-[state=collapsed]/sidebar-panel:hover:bg-transparent',
         '[&>[data-sidebar-icon]]:shrink-0 [&>span:last-child]:min-w-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
         '[&>[data-scope=select][data-part=indicator]]:ms-auto @max-[7rem]:[&>[data-scope=select][data-part=indicator]]:hidden',
@@ -559,7 +566,7 @@ const SidebarNavigationSubButton = forwardRef<
       aria-current={ariaCurrent ?? (active ? 'page' : undefined)}
       className={cn(
         'flex min-h-control-sm w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-[background-color,border-color,color,box-shadow] duration-200 ease-in-out has-[+_[data-slot=sidebar-navigation-badge]]:pe-10 @max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2',
-        'focus-visible:outline-offset-0.5 focus-visible:outline-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-accent data-active:font-medium data-active:text-accent-foreground motion-reduce:transition-none [&:not(:disabled):not([aria-disabled=true])]:hover:bg-accent [&:not(:disabled):not([aria-disabled=true])]:hover:text-accent-foreground',
         '[&>[data-sidebar-icon]]:shrink-0 [&>span:last-child]:min-w-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
         className,
       )}
@@ -586,8 +593,8 @@ const SidebarTooltip = function SidebarTooltip({
   positioning,
   ...props
 }: Omit<ComponentProps<typeof Tooltip>, 'children' | 'disabled' | 'positioning'> & {
-  children: ComponentProps<typeof Tooltip.Trigger>['children'];
-  content: ComponentProps<typeof Tooltip.Content>['children'];
+  children: ComponentProps<typeof TooltipTrigger>['children'];
+  content: ComponentProps<typeof TooltipContent>['children'];
   positioning?: ComponentProps<typeof Tooltip>['positioning'];
 }) {
   const { collapsed, side } = useSidebar();
@@ -600,18 +607,18 @@ const SidebarTooltip = function SidebarTooltip({
       disabled={!collapsed}
       positioning={{ placement: side === 'left' ? 'right' : 'left', gutter: 8, ...positioning }}
     >
-      <Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <Tooltip.Content>{content}</Tooltip.Content>
-      </Tooltip.Positioner>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>{content}</TooltipContent>
+      </TooltipPositioner>
     </Tooltip>
   );
 };
 
-const SidebarInput = forwardRef<ComponentRef<typeof Input.Root>, ComponentProps<typeof Input.Root>>(
+const SidebarInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<typeof Input>>(
   function SidebarInput({ className, ...props }, ref) {
     return (
-      <Input.Root
+      <Input
         ref={ref}
         className={cn('w-full group-data-[state=collapsed]/sidebar-panel:hidden', className)}
         {...props}
@@ -621,38 +628,37 @@ const SidebarInput = forwardRef<ComponentRef<typeof Input.Root>, ComponentProps<
 );
 
 const SidebarSeparator = forwardRef<
-  ComponentRef<typeof Separator.Root>,
-  ComponentProps<typeof Separator.Root>
+  ComponentRef<typeof Separator>,
+  ComponentProps<typeof Separator>
 >(function SidebarSeparator({ className, ...props }, ref) {
-  return <Separator.Root ref={ref} className={cn('border-border', className)} {...props} />;
+  return <Separator ref={ref} className={cn('border-border', className)} {...props} />;
 });
 
-const Sidebar = Object.assign(SidebarRoot, {
-  Root: SidebarRoot,
-  Panel: SidebarPanel,
-  Inset: SidebarInset,
-  ResizeTrigger: SidebarResizeTrigger,
-  Trigger: SidebarTrigger,
-  Label: SidebarLabel,
-  Input: SidebarInput,
-  Header: SidebarHeader,
-  Content: SidebarContent,
-  ExpandedContent: SidebarExpandedContent,
-  CollapsedContent: SidebarCollapsedContent,
-  Footer: SidebarFooter,
-  Separator: SidebarSeparator,
-  Group: SidebarGroup,
-  GroupHeader: SidebarGroupHeader,
-  GroupLabel: SidebarGroupLabel,
-  GroupAction: SidebarGroupAction,
-  NavigationList: SidebarNavigationList,
-  NavigationItem: SidebarNavigationItem,
-  Tooltip: SidebarTooltip,
-  NavigationButton: SidebarNavigationButton,
-  NavigationBadge: SidebarNavigationBadge,
-  NavigationSubList: SidebarNavigationSubList,
-  NavigationSubItem: SidebarNavigationSubItem,
-  NavigationSubButton: SidebarNavigationSubButton,
-});
-
-export { Sidebar, useSidebar };
+export {
+  Sidebar,
+  SidebarCollapsedContent,
+  SidebarContent,
+  SidebarExpandedContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupHeader,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInput,
+  SidebarInset,
+  SidebarLabel,
+  SidebarNavigationBadge,
+  SidebarNavigationButton,
+  SidebarNavigationItem,
+  SidebarNavigationList,
+  SidebarNavigationSubButton,
+  SidebarNavigationSubItem,
+  SidebarNavigationSubList,
+  SidebarPanel,
+  SidebarResizeTrigger,
+  SidebarSeparator,
+  SidebarTooltip,
+  SidebarTrigger,
+  useSidebar,
+};

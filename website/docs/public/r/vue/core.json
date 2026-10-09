@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "core",
+  "title": "moduix core",
+  "description": "Runtime styles and utilities required by moduix registry components.",
+  "registryDependencies": ["https://moduix.dev/r/foundation/core.json"],
+  "docs": "Required: import the installed style.css once in your app entry. The optional reset is a separate registry item and must be imported before style.css.",
+  "type": "registry:item"
+}

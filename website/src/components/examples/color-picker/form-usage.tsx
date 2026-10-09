@@ -1,5 +1,16 @@
 import { Button } from '@moduix/react/button';
-import { ColorPicker, parseColor } from '@moduix/react/color-picker';
+import {
+  ColorPicker,
+  parseColor,
+  ColorPickerHiddenInput,
+  ColorPickerLabel,
+  ColorPickerControl,
+  ColorPickerTrigger,
+  ColorPickerPositioner,
+  ColorPickerContent,
+  ColorPickerArea,
+  ColorPickerChannelInput,
+} from '@moduix/react/color-picker';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -15,17 +26,17 @@ export default function FormUsageColorPickerDemo() {
   return (
     <form onSubmit={handleSubmit}>
       <ColorPicker name="accent" defaultValue={parseColor('#eb5e41')}>
-        <ColorPicker.Label>Color</ColorPicker.Label>
-        <ColorPicker.Control>
-          <ColorPicker.ChannelInput channel="hex" />
-          <ColorPicker.Trigger aria-label="Open color picker" />
-        </ColorPicker.Control>
-        <ColorPicker.Positioner>
-          <ColorPicker.Content>
-            <ColorPicker.Area />
-          </ColorPicker.Content>
-        </ColorPicker.Positioner>
-        <ColorPicker.HiddenInput />
+        <ColorPickerLabel>Color</ColorPickerLabel>
+        <ColorPickerControl>
+          <ColorPickerChannelInput channel="hex" />
+          <ColorPickerTrigger aria-label="Open color picker" />
+        </ColorPickerControl>
+        <ColorPickerPositioner>
+          <ColorPickerContent>
+            <ColorPickerArea />
+          </ColorPickerContent>
+        </ColorPickerPositioner>
+        <ColorPickerHiddenInput />
       </ColorPicker>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

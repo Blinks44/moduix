@@ -12,7 +12,7 @@ export const kbdOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-kbd-group-separator-color',
     'var(--moduix-color-muted-foreground)',
-    'Controls text separator color inside Kbd.Group.',
+    'Controls text separator color inside KbdGroup.',
   ],
   ['--moduix-kbd-height', 'var(--moduix-size-xs)', 'Controls key height.'],
   ['--moduix-kbd-line-height', 'var(--moduix-line-height-text-xs)', 'Controls key line-height.'],

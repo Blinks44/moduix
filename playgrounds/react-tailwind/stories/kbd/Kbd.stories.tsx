@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Kbd } from '@/components/kbd/Kbd';
+import { Kbd, KbdGroup } from '@/components/kbd/Kbd';
 
 const meta = {
   title: 'Components/Kbd',
-  component: Kbd.Root,
+  component: Kbd,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
@@ -11,7 +11,7 @@ const meta = {
   args: {
     children: 'Esc',
   },
-} satisfies Meta<typeof Kbd.Root>;
+} satisfies Meta<typeof Kbd>;
 
 export default meta;
 
@@ -28,16 +28,16 @@ const denseClass = 'min-h-5 min-w-5 px-1';
 
 export const Basic: Story = {
   render: () => (
-    <Kbd.Group aria-label="Command K">
+    <KbdGroup aria-label="Command K">
       <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   ),
 };
 
 export const SingleKey: Story = {};
 
 export const RootPart: Story = {
-  render: () => <Kbd.Root>Enter</Kbd.Root>,
+  render: () => <Kbd>Enter</Kbd>,
 };
 
 export const AsChild: Story = {
@@ -50,11 +50,11 @@ export const AsChild: Story = {
 
 export const GroupAsChild: Story = {
   render: () => (
-    <Kbd.Group asChild aria-label="Command K">
+    <KbdGroup asChild aria-label="Command K">
       <span>
         <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
       </span>
-    </Kbd.Group>
+    </KbdGroup>
   ),
 };
 
@@ -62,15 +62,15 @@ export const ShortcutList: Story = {
   render: () => (
     <div className={columnClass}>
       <div className={shortcutRowClass}>
-        <Kbd.Group aria-label="Command K">
+        <KbdGroup aria-label="Command K">
           <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
-        </Kbd.Group>
+        </KbdGroup>
         Open command menu
       </div>
       <div className={shortcutRowClass}>
-        <Kbd.Group aria-label="Shift question mark">
+        <KbdGroup aria-label="Shift question mark">
           <Kbd>Shift</Kbd>+<Kbd>?</Kbd>
-        </Kbd.Group>
+        </KbdGroup>
         Show shortcuts
       </div>
       <div className={shortcutRowClass}>
@@ -93,8 +93,8 @@ export const Dense: Story = {
 
 export const CustomStyling: Story = {
   render: () => (
-    <Kbd.Group aria-label="Command K" className={customGroupClass}>
+    <KbdGroup aria-label="Command K" className={customGroupClass}>
       <Kbd className={customKbdClass}>Cmd</Kbd>+<Kbd className={customKbdClass}>K</Kbd>
-    </Kbd.Group>
+    </KbdGroup>
   ),
 };

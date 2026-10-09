@@ -1,4 +1,10 @@
-import { Collapsible } from '@moduix/react/collapsible';
+import {
+  Collapsible,
+  CollapsibleBody,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@moduix/react/collapsible';
 import styles from '@/components/examples/collapsible/collapsible-default-open.module.css';
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
@@ -6,19 +12,19 @@ const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-s
 export default function DefaultOpenCollapsibleDemo() {
   return (
     <Collapsible className={styles.root} defaultOpen>
-      <Collapsible.Trigger>
+      <CollapsibleTrigger>
         Recovery keys
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
+        <CollapsibleIndicator />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <CollapsibleBody>
           <ul className={styles.keysList}>
             {recoveryKeys.map((key) => (
               <li key={key}>{key}</li>
             ))}
           </ul>
-        </Collapsible.Body>
-      </Collapsible.Content>
+        </CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   );
 }

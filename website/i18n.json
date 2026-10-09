@@ -1,75 +1,99 @@
 {
   "languagesText": {
-    "fr": "Langues"
+    "fr": "Langues",
+    "ru": "Языки"
   },
   "themeText": {
-    "fr": "Thème"
+    "fr": "Thème",
+    "ru": "Тема"
   },
   "versionsText": {
-    "fr": "Versions"
+    "fr": "Versions",
+    "ru": "Версии"
   },
   "menuTitle": {
-    "fr": "Menu"
+    "fr": "Menu",
+    "ru": "Меню"
   },
   "scrollToTopText": {
-    "fr": "Retour en haut"
+    "fr": "Retour en haut",
+    "ru": "Наверх"
   },
   "lastUpdatedAuthorText": {
-    "fr": "par"
+    "fr": "par",
+    "ru": "автор"
   },
   "prevPageText": {
-    "fr": "Page précédente"
+    "fr": "Page précédente",
+    "ru": "Предыдущая страница"
   },
   "sourceCodeText": {
-    "fr": "Code source"
+    "fr": "Code source",
+    "ru": "Исходный код"
   },
   "searchPlaceholderText": {
-    "fr": "Rechercher"
+    "fr": "Rechercher",
+    "ru": "Поиск"
   },
   "searchPanelCancelText": {
-    "fr": "Annuler"
+    "fr": "Annuler",
+    "ru": "Отмена"
   },
   "searchNoResultsText": {
-    "fr": "Aucun résultat correspondant"
+    "fr": "Aucun résultat correspondant",
+    "ru": "Совпадений не найдено"
   },
   "searchSuggestedQueryText": {
-    "fr": "Essayez d’autres mots-clés"
+    "fr": "Essayez d’autres mots-clés",
+    "ru": "Попробуйте другие ключевые слова"
   },
   "overview.filterNameText": {
-    "fr": "Filtrer"
+    "fr": "Filtrer",
+    "ru": "Фильтр"
   },
   "overview.filterPlaceholderText": {
-    "fr": "Rechercher dans l’API"
+    "fr": "Rechercher dans l’API",
+    "ru": "Поиск по API"
   },
   "overview.filterNoResultText": {
-    "fr": "Aucune API correspondante trouvée"
+    "fr": "Aucune API correspondante trouvée",
+    "ru": "Подходящее API не найдено"
   },
   "openInText": {
-    "fr": "Ouvrir dans {{name}}"
+    "fr": "Ouvrir dans {{name}}",
+    "ru": "Открыть в {{name}}"
   },
   "codeButtonGroupCopyButtonText": {
-    "fr": "Copier le code"
+    "fr": "Copier le code",
+    "ru": "Копировать код"
   },
   "codeButtonGroupWrapButtonText": {
-    "fr": "Activer ou désactiver le retour à la ligne du code"
+    "fr": "Activer ou désactiver le retour à la ligne du code",
+    "ru": "Переключить перенос строк кода"
   },
   "notFoundText": {
-    "fr": "PAGE INTROUVABLE"
+    "fr": "PAGE INTROUVABLE",
+    "ru": "СТРАНИЦА НЕ НАЙДЕНА"
   },
   "takeMeHomeText": {
-    "fr": "Retour à l’accueil"
+    "fr": "Retour à l’accueil",
+    "ru": "На главную"
   },
   "promptCopyText": {
-    "fr": "Copier le prompt"
+    "fr": "Copier le prompt",
+    "ru": "Копировать промпт"
   },
   "promptCopiedText": {
-    "fr": "Copié"
+    "fr": "Copié",
+    "ru": "Скопировано"
   },
   "promptExpandText": {
-    "fr": "Développer"
+    "fr": "Développer",
+    "ru": "Развернуть"
   },
   "promptCollapseText": {
-    "fr": "Réduire"
+    "fr": "Réduire",
+    "ru": "Свернуть"
   },
   "navDocs": {
     "en": "Docs",
@@ -81,10 +105,10 @@
     "ru": "Компоненты",
     "fr": "Composants"
   },
-  "navRecipes": {
-    "en": "Recipes",
-    "ru": "Рецепты",
-    "fr": "Recettes"
+  "navBlocks": {
+    "en": "Blocks",
+    "ru": "Блоки",
+    "fr": "Blocs"
   },
   "navGitHub": {
     "en": "GitHub",
@@ -92,39 +116,44 @@
     "fr": "GitHub"
   },
   "homeReleaseBadge": {
-    "en": "New: Tailwind CSS support",
-    "ru": "Новое: поддержка Tailwind CSS",
-    "fr": "Nouveau : prise en charge de Tailwind CSS"
+    "en": "New: Vue and installable blocks",
+    "ru": "Новое: Vue и установка блоков",
+    "fr": "Nouveau : Vue et blocs installables"
   },
   "homeLead": {
-    "en": "A multi-framework component system built on <a href='https://ark-ui.com/'>Ark UI</a>, with <a href='https://ui.shadcn.com/'>shadcn</a>-compatible registries. React and Solid ship with native APIs, accessible behavior, considered defaults, and matching CSS Modules and <a href='https://tailwindcss.com/'>Tailwind</a> styling tracks.",
-    "ru": "Мультифреймворковая система компонентов на базе <a href='https://ark-ui.com/'>Ark UI</a> с реестрами, совместимыми с <a href='https://ui.shadcn.com/'>shadcn</a>. React и Solid уже доступны с нативными API, доступным поведением, продуманными настройками и равноправными вариантами на CSS Modules и <a href='https://tailwindcss.com/'>Tailwind</a>.",
-    "fr": "Un système de composants multi-framework fondé sur <a href='https://ark-ui.com/'>Ark UI</a>, dont les registres sont compatibles avec <a href='https://ui.shadcn.com/'>shadcn</a>. React et Solid proposent des API natives, un comportement accessible, des valeurs par défaut soignées et deux approches équivalentes avec CSS Modules et <a href='https://tailwindcss.com/'>Tailwind</a>."
+    "en": "React, Solid, and Vue components built on <a href='https://ark-ui.com/'>Ark UI</a>. Style them with CSS Modules or <a href='https://tailwindcss.com/'>Tailwind</a>, and install them as packages or copy their source with the <a href='https://ui.shadcn.com/'>shadcn</a> registry.",
+    "ru": "Компоненты для React, Solid и Vue на базе <a href='https://ark-ui.com/'>Ark UI</a>. Выберите CSS Modules или <a href='https://tailwindcss.com/'>Tailwind</a>. Установите пакет или скопируйте исходный код через реестр <a href='https://ui.shadcn.com/'>shadcn</a>.",
+    "fr": "Des composants React, Solid et Vue basés sur <a href='https://ark-ui.com/'>Ark UI</a>. Choisissez CSS Modules ou <a href='https://tailwindcss.com/'>Tailwind</a>, puis installez un paquet ou copiez le code source via le registre <a href='https://ui.shadcn.com/'>shadcn</a>."
   },
   "homeFrameworkStatus": {
-    "en": "React and Solid are available today. Vue and Svelte are planned.",
-    "ru": "React и Solid доступны сейчас. Vue и Svelte запланированы.",
-    "fr": "React et Solid sont disponibles dès maintenant. Vue et Svelte sont prévus."
+    "en": "React, Solid, and Vue are available today. Svelte is planned.",
+    "ru": "React, Solid и Vue доступны сейчас. Svelte запланирован.",
+    "fr": "React, Solid et Vue sont disponibles dès maintenant. Svelte est prévu."
   },
   "homeGetStarted": {
     "en": "Get started",
     "ru": "Начать работу",
     "fr": "Démarrer"
   },
+  "docViewAsMarkdown": {
+    "en": "View as Markdown",
+    "ru": "Открыть в формате Markdown",
+    "fr": "Voir au format Markdown"
+  },
   "homeDocumentationEyebrow": {
-    "en": "One system, clear paths",
-    "ru": "Одна система, понятные разделы",
-    "fr": "Un seul système, des parcours clairs"
+    "en": "Documentation",
+    "ru": "Документация",
+    "fr": "Documentation"
   },
   "homeDocumentationTitle": {
-    "en": "From primitives to product patterns.",
-    "ru": "От примитивов до продуктовых сценариев",
-    "fr": "Des primitives aux scénarios produit"
+    "en": "Components, guides, and examples",
+    "ru": "Компоненты, руководства и примеры",
+    "fr": "Composants, guides et exemples"
   },
   "homeDocumentationDescription": {
-    "en": "Use the layer you need. Each section follows a consistent structure and shows native React and Solid source where the runtime matters.",
-    "ru": "Выберите нужный уровень. Все разделы построены единообразно и показывают нативный код для React и Solid там, где важен фреймворк.",
-    "fr": "Choisissez le niveau dont vous avez besoin. Chaque section suit une structure cohérente et présente du code natif React et Solid lorsque le framework compte."
+    "en": "Browse component APIs, setup guides, and examples for React, Solid, and Vue.",
+    "ru": "Здесь собраны API компонентов, инструкции по настройке и примеры для React, Solid и Vue.",
+    "fr": "Consultez les API des composants, les guides de configuration et les exemples pour React, Solid et Vue."
   },
   "homeAreaComponents": {
     "en": "Components",
@@ -132,9 +161,9 @@
     "fr": "Composants"
   },
   "homeAreaComponentsDescription": {
-    "en": "Styled building blocks with accessible behavior and explicit composition.",
-    "ru": "Стилизованные блоки с доступным поведением и явной композицией.",
-    "fr": "Des blocs stylisés au comportement accessible et à la composition explicite."
+    "en": "Browse components, try examples, and copy the code for your framework.",
+    "ru": "Выберите компонент, попробуйте примеры и скопируйте код для своего фреймворка.",
+    "fr": "Parcourez les composants, essayez les exemples et copiez le code pour votre framework."
   },
   "homeAreaCollections": {
     "en": "Ark Collections",
@@ -152,9 +181,9 @@
     "fr": "Ark Utilities"
   },
   "homeAreaUtilitiesDescription": {
-    "en": "Focused helpers for rendering, focus, formatting, locale, and presence.",
-    "ru": "Точечные инструменты для рендеринга, фокуса, форматирования, локали и присутствия.",
-    "fr": "Des outils ciblés pour le rendu, le focus, le formatage, la locale et la présence."
+    "en": "Ark helpers for rendering, focus, formatting, locale, and mount transitions.",
+    "ru": "Инструменты Ark для рендеринга, фокуса, форматирования, локали и анимации появления и скрытия.",
+    "fr": "Des outils Ark pour le rendu, le focus, le formatage, la locale et les transitions de montage."
   },
   "homeAreaForms": {
     "en": "Forms",
@@ -176,15 +205,15 @@
     "ru": "Практические рекомендации по стилям, композиции, анимации, RTL и обновлениям.",
     "fr": "Des conseils pratiques sur les styles, la composition, les animations, le RTL et les mises à jour."
   },
-  "homeAreaRecipes": {
-    "en": "Recipes",
-    "ru": "Рецепты",
-    "fr": "Recettes"
+  "homeAreaBlocks": {
+    "en": "Blocks",
+    "ru": "Блоки",
+    "fr": "Blocs"
   },
-  "homeAreaRecipesDescription": {
-    "en": "Complete product patterns with copyable React and Solid implementations.",
-    "ru": "Готовые продуктовые сценарии с копируемыми реализациями для React и Solid.",
-    "fr": "Des scénarios produit complets avec des implémentations React et Solid prêtes à copier."
+  "homeAreaBlocksDescription": {
+    "en": "Forms, navigation, tables, and galleries you can install into your app.",
+    "ru": "Формы, навигация, таблицы и галереи, которые можно установить в приложение.",
+    "fr": "Des formulaires, de la navigation, des tableaux et des galeries à installer dans votre application."
   },
   "homeCompositionInPractice": {
     "en": "Composition in practice",
@@ -197,14 +226,14 @@
     "fr": "Des composants qui s’assemblent naturellement"
   },
   "homeCompositionDescription": {
-    "en": "Explore complete product patterns built from moduix components. Each composition stays easy to copy, customize, and replace.",
-    "ru": "Посмотрите готовые продуктовые сценарии, собранные из компонентов moduix. Каждую композицию легко скопировать, настроить и заменить.",
-    "fr": "Découvrez des scénarios produit complets construits avec les composants moduix. Chaque composition reste facile à copier, personnaliser et remplacer."
+    "en": "Try forms, tables, and navigation built from moduix components, then copy the source into your app.",
+    "ru": "Попробуйте формы, таблицы и навигацию из компонентов moduix, затем скопируйте исходный код в приложение.",
+    "fr": "Essayez les formulaires, les tableaux et la navigation construits avec moduix, puis copiez le code dans votre application."
   },
-  "homeExploreRecipes": {
-    "en": "Explore all recipes",
-    "ru": "Открыть все рецепты",
-    "fr": "Voir toutes les recettes"
+  "homeExploreBlocks": {
+    "en": "Explore all blocks",
+    "ru": "Открыть все блоки",
+    "fr": "Voir tous les blocs"
   },
   "homeWorkspaceDesignSystem": {
     "en": "Design system",
@@ -242,9 +271,9 @@
     "fr": "Contrôles de publication"
   },
   "homeFastActions": {
-    "en": "Fast actions with real states",
-    "ru": "Быстрые действия и актуальные состояния",
-    "fr": "Actions rapides et états à jour"
+    "en": "Buttons and their variants",
+    "ru": "Кнопки и их варианты",
+    "fr": "Boutons et variantes"
   },
   "homePublishUpdate": {
     "en": "Publish update",
@@ -327,9 +356,9 @@
     "fr": "Ouvrez une modale ici"
   },
   "homeDialogPreviewDescription": {
-    "en": "The preview is compact, but the interaction is real and uses the shipped Dialog API.",
-    "ru": "Предпросмотр компактный, но взаимодействие работает по-настоящему через API Dialog из библиотеки.",
-    "fr": "L’aperçu reste compact, mais l’interaction est réelle et utilise l’API Dialog fournie par la bibliothèque."
+    "en": "Open the dialog to try keyboard navigation and focus management.",
+    "ru": "Откройте диалог, чтобы проверить навигацию с клавиатуры и управление фокусом.",
+    "fr": "Ouvrez la boîte de dialogue pour tester la navigation au clavier et la gestion du focus."
   },
   "homeReviewChanges": {
     "en": "Review changes",
@@ -431,35 +460,25 @@
     "ru": "Открыть",
     "fr": "Ouvrir"
   },
-  "shadcnInstallComponent": {
-    "en": "To add this component to your project source instead of node_modules, install it from the hosted moduix registry:",
-    "ru": "Чтобы добавить этот компонент в исходный код проекта, а не устанавливать его из node_modules, используйте размещённый реестр moduix:",
-    "fr": "Pour ajouter ce composant au code source de votre projet plutôt que dans node_modules, installez-le depuis le registre moduix hébergé :"
+  "blockInstallDescription": {
+    "en": "Run one command to add the block source, styles, and required components to your project. Choose the framework and component styling track:",
+    "ru": "Одна команда добавит в проект исходники блока, стили и нужные компоненты. Выберите фреймворк и вариант стилизации компонентов:",
+    "fr": "Une seule commande ajoute le code du bloc, ses styles et les composants nécessaires à votre projet. Choisissez le framework et les styles des composants :"
   },
-  "shadcnInstallRecipe": {
-    "en": "To add this recipe to your project source instead of node_modules, install it from the hosted moduix registry:",
-    "ru": "Чтобы добавить этот рецепт в исходный код проекта, а не устанавливать его из node_modules, используйте размещённый реестр moduix:",
-    "fr": "Pour ajouter cette recette au code source de votre projet plutôt que dans node_modules, installez-la depuis le registre moduix hébergé :"
+  "blockInstallStyles": {
+    "en": "Both tracks use the same CSS Module for the block layout. Tailwind selects utility-based UI components; it does not convert the block layout into utilities.",
+    "ru": "В обоих вариантах раскладка блока использует общий CSS Module. Вариант Tailwind устанавливает UI-компоненты на utility-классах, но не переводит в них стили самого блока.",
+    "fr": "Les deux variantes utilisent le même CSS Module pour la mise en page du bloc. La variante Tailwind installe des composants UI utilisant les classes utilitaires, sans convertir les styles du bloc."
   },
-  "shadcnImportHint": {
-    "en": "The examples below use package imports. With the shadcn CLI, use the local import path shown below instead.",
-    "ru": "В примерах ниже используются импорты из пакета. При установке через shadcn CLI используйте вместо них локальный путь импорта из примера ниже.",
-    "fr": "Les exemples ci-dessous utilisent les imports du paquet. Avec la CLI shadcn, utilisez plutôt le chemin d’import local indiqué ci-dessous."
+  "blockInstallSetup": {
+    "en": "Complete Quick Start registry setup first. Files are installed under your configured components directory in blocks/<name>. Import the block into your screen; routes and API calls stay in your application.",
+    "ru": "Сначала настройте registry по руководству Quick Start. Файлы появятся в настроенной папке компонентов, в blocks/<name>. Импортируйте блок на свою страницу; маршруты и обращения к API остаются в вашем приложении.",
+    "fr": "Configurez d’abord le registre en suivant le guide de démarrage. Les fichiers sont ajoutés dans blocks/<name>, sous votre dossier de composants configuré. Importez le bloc dans votre page ; les routes et les appels API restent dans votre application."
   },
-  "shadcnCopyComponent": {
-    "en": "Copy this component and its CSS from the tabs above, then add the moduix components it uses:",
-    "ru": "Скопируйте этот компонент и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:",
-    "fr": "Copiez ce composant et son CSS depuis les onglets ci-dessus, puis ajoutez les composants moduix qu'il utilise :"
-  },
-  "shadcnCopyRecipe": {
-    "en": "Copy this recipe and its CSS from the tabs above, then add the moduix components it uses:",
-    "ru": "Скопируйте этот рецепт и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:",
-    "fr": "Copiez cette recette et son CSS depuis les onglets ci-dessus, puis ajoutez les composants moduix qu'elle utilise :"
-  },
-  "shadcnExampleRequires": {
-    "en": "Install the example's additional dependencies:",
-    "ru": "Установите дополнительные зависимости примера:",
-    "fr": "Installez les dépendances supplémentaires de l'exemple :"
+  "blockQuickStart": {
+    "en": "Registry setup",
+    "ru": "Настройка registry",
+    "fr": "Configurer le registre"
   },
   "cssProperty": {
     "en": "Property",
@@ -487,24 +506,24 @@
     "fr": "Préréglages de thème"
   },
   "themePresetCalmDescription": {
-    "en": "The balanced moduix foundation. Quiet surfaces and a neutral rhythm.",
-    "ru": "Сбалансированная основа moduix со спокойными поверхностями и нейтральным ритмом.",
-    "fr": "Le socle moduix équilibré, avec des surfaces discrètes et un rythme neutre."
+    "en": "The default moduix theme with neutral colors and standard spacing.",
+    "ru": "Базовая тема moduix с нейтральными цветами и стандартными отступами.",
+    "fr": "Le thème moduix par défaut, avec des couleurs neutres et un espacement standard."
   },
   "themePresetDenseDescription": {
-    "en": "Compact spacing and blue structure for admin and data-heavy interfaces.",
-    "ru": "Компактные интервалы и синяя палитра для админ-панелей и интерфейсов с большим объёмом данных.",
-    "fr": "Un espacement compact et une structure bleue pour les interfaces d’administration riches en données."
+    "en": "Compact spacing and blue accents for admin interfaces and data tables.",
+    "ru": "Компактные отступы и синие акценты для панелей управления и таблиц данных.",
+    "fr": "Un espacement compact et des accents bleus pour les interfaces d’administration et les tableaux de données."
   },
   "themePresetSoftDescription": {
-    "en": "Rounded surfaces and a warmer violet accent for product workflows.",
-    "ru": "Округлые поверхности и более тёплый фиолетовый акцент для продуктовых сценариев.",
-    "fr": "Des surfaces arrondies et un accent violet plus chaleureux pour les parcours produit."
+    "en": "Rounded corners and violet accents.",
+    "ru": "Закруглённые углы и фиолетовые акценты.",
+    "fr": "Des coins arrondis et des accents violets."
   },
   "themePresetContrastDescription": {
-    "en": "Sharper borders and clearer contrast for focused, technical interfaces.",
-    "ru": "Чёткие границы и усиленный контраст для технических интерфейсов, где важна ясная иерархия.",
-    "fr": "Des bordures plus nettes et un contraste renforcé pour les interfaces techniques qui privilégient la lisibilité."
+    "en": "Stronger borders and higher contrast.",
+    "ru": "Более чёткие границы и повышенный контраст.",
+    "fr": "Des bordures plus marquées et un contraste renforcé."
   },
   "themePreviewColorModeLabel": {
     "en": "Preview color mode",
@@ -1082,9 +1101,9 @@
     "fr": "Styles"
   },
   "ownershipLayersOwnership": {
-    "en": "Ownership",
-    "ru": "Контроль",
-    "fr": "Contrôle"
+    "en": "Installation",
+    "ru": "Установка",
+    "fr": "Installation"
   },
   "ownershipLayersStyling": {
     "en": "CSS Modules or Tailwind + tokens",
@@ -1097,19 +1116,19 @@
     "fr": "Paquet ou code source"
   },
   "ownershipLayersEyebrow": {
-    "en": "Design-system contract",
-    "ru": "Контракт дизайн-системы",
-    "fr": "Contrat du système de design"
+    "en": "How moduix works",
+    "ru": "Как устроен moduix",
+    "fr": "Comment fonctionne moduix"
   },
   "ownershipLayersTitle": {
-    "en": "One system, three clear layers",
-    "ru": "Одна система, три понятных слоя",
-    "fr": "Un système, trois couches claires"
+    "en": "Behavior, styles, and installation",
+    "ru": "Поведение, стили и установка",
+    "fr": "Comportement, styles et installation"
   },
   "ownershipLayersSummary": {
-    "en": "Ark UI owns interaction behavior, moduix supplies framework-native React and Solid components with shared tokens, and your application owns the final theme and composition.",
-    "ru": "Ark UI отвечает за поведение, moduix предоставляет нативные компоненты для React и Solid с общими токенами, а приложение управляет итоговой темой и композицией.",
-    "fr": "Ark UI gère le comportement, moduix fournit des composants natifs pour React et Solid avec des tokens partagés, et l’application garde la main sur le thème et la composition finaux."
+    "en": "Ark UI handles keyboard interaction and focus. moduix adds styles and shared tokens. You choose the theme and compose the parts in your application.",
+    "ru": "Ark UI отвечает за управление с клавиатуры и фокус. moduix добавляет стили и общие токены. Вы выбираете тему и собираете компоненты из отдельных частей в своём приложении.",
+    "fr": "Ark UI gère les interactions au clavier et le focus. moduix ajoute les styles et les tokens partagés. Vous choisissez le thème et assemblez les parties dans votre application."
   },
   "ownershipLayersTokenFirstStyling": {
     "en": "Token-first styling",
@@ -1122,9 +1141,9 @@
     "fr": "personnalisable par thème"
   },
   "ownershipLayersNote": {
-    "en": "Global semantic tokens establish the visual language; shared family tokens keep related controls aligned; component variables remain available for deliberate exceptions.",
-    "ru": "Глобальные семантические токены задают визуальный язык. Общие токены семейства удерживают связанные элементы управления в одной системе. Переменные компонентов позволяют сделать осознанное исключение.",
-    "fr": "Les tokens sémantiques globaux définissent le langage visuel. Les tokens de famille partagés gardent les contrôles associés cohérents. Les variables de composant permettent des exceptions ciblées."
+    "en": "Semantic tokens set shared colors and sizes. Family tokens apply to related controls. CSS Modules also provide variables for individual components.",
+    "ru": "Семантические токены задают общие цвета и размеры. Токены семейства применяются к связанным элементам управления. В CSS Modules также есть переменные для отдельных компонентов.",
+    "fr": "Les tokens sémantiques définissent les couleurs et les dimensions communes. Les tokens de famille s’appliquent aux contrôles associés. CSS Modules fournit aussi des variables propres à chaque composant."
   },
   "chartHeroDate": {
     "en": "August 20, 2026",
@@ -1172,9 +1191,9 @@
     "fr": "20 septembre 2026"
   },
   "tailwindReleaseHeroSummary": {
-    "en": "The full moduix catalog is now available with Tailwind CSS for React and Solid.",
-    "ru": "Полный каталог moduix теперь доступен с Tailwind CSS для React и Solid.",
-    "fr": "Le catalogue complet de moduix est désormais disponible avec Tailwind CSS pour React et Solid."
+    "en": "The full moduix catalog is now available with Tailwind CSS for React, Solid, and Vue.",
+    "ru": "Полный каталог moduix теперь доступен с Tailwind CSS для React, Solid и Vue.",
+    "fr": "Le catalogue complet de moduix est désormais disponible avec Tailwind CSS pour React, Solid et Vue."
   },
   "chartHeroSummary": {
     "en": "A figure wrapper for TanStack Charts with accessible defaults from moduix.",
@@ -1277,14 +1296,19 @@
     "fr": "Les valeurs par défaut de l’arrière-plan, des fenêtres contextuelles et de leurs animations sont partagées par les familles de superpositions ; chaque composant peut ensuite appliquer ses tokens locaux."
   },
   "frameworkAstroDescription": {
-    "en": "Interactive React and Solid islands.",
-    "ru": "Интерактивные острова на React и Solid.",
-    "fr": "Îlots interactifs en React et Solid."
+    "en": "Interactive React, Solid, and Vue islands.",
+    "ru": "Интерактивные острова на React, Solid и Vue.",
+    "fr": "Îlots interactifs en React, Solid et Vue."
   },
   "frameworkNextDescription": {
     "en": "App Router and React Server Components.",
     "ru": "App Router и React Server Components.",
     "fr": "App Router et React Server Components."
+  },
+  "frameworkNuxtDescription": {
+    "en": "Vue apps with server rendering and hydration.",
+    "ru": "Vue-приложения с серверным рендерингом и гидратацией.",
+    "fr": "Applications Vue avec rendu serveur et hydratation."
   },
   "frameworkReactRouterDescription": {
     "en": "Framework mode and data mode apps.",
@@ -1292,9 +1316,9 @@
     "fr": "Applications en mode framework ou en mode data."
   },
   "frameworkRsbuildDescription": {
-    "en": "React and Solid apps powered by Rspack.",
-    "ru": "React- и Solid-приложения на базе Rspack.",
-    "fr": "Applications React et Solid basées sur Rspack."
+    "en": "React, Solid, and Vue apps powered by Rspack.",
+    "ru": "Приложения на React, Solid и Vue на базе Rspack.",
+    "fr": "Applications React, Solid et Vue basées sur Rspack."
   },
   "frameworkTanStackStartDescription": {
     "en": "Full-stack React and Solid with TanStack Router.",
@@ -1307,9 +1331,9 @@
     "fr": "Le framework full-stack pour Solid."
   },
   "frameworkViteDescription": {
-    "en": "React and Solid apps and SPAs.",
-    "ru": "React- и Solid-приложения, включая SPA.",
-    "fr": "Applications React et Solid, y compris les SPA."
+    "en": "React, Solid, and Vue apps and SPAs.",
+    "ru": "Приложения на React, Solid и Vue, включая SPA.",
+    "fr": "Applications React, Solid et Vue, y compris les SPA."
   },
   "frameworkSupportGroupLabel": {
     "en": "Framework support",
@@ -1331,10 +1355,10 @@
     "ru": "Запланировано",
     "fr": "Prévu"
   },
-  "frameworkSupportInProgress": {
-    "en": "In progress",
-    "ru": "В разработке",
-    "fr": "En cours"
+  "frameworkVueAvailable": {
+    "en": "Vue is available",
+    "ru": "Vue доступен",
+    "fr": "Vue est disponible"
   },
   "copyMarkdownText": {
     "en": "Copy Markdown",
@@ -1365,5 +1389,10 @@
     "en": "Next page",
     "ru": "Следующая страница",
     "fr": "Page suivante"
+  },
+  "vueReleaseHeroSummary": {
+    "en": "Native Vue components, CSS Modules and Tailwind, with SFC examples, form integrations, and installable blocks.",
+    "ru": "Нативные Vue-компоненты, CSS Modules и Tailwind, SFC-примеры, интеграции форм и устанавливаемые блоки.",
+    "fr": "Composants Vue natifs, CSS Modules et Tailwind, exemples SFC, intégrations de formulaires et blocs à installer."
   }
 }

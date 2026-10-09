@@ -1,5 +1,11 @@
 import { CalendarDate } from '@internationalized/date';
-import { DateInput, type DateInputDateValue } from '@moduix/react/date-input';
+import {
+  DateInput,
+  DateInputControl,
+  DateInputLabel,
+  DateInputSegments,
+  type DateInputDateValue,
+} from '@moduix/react/date-input';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/date-input/date-input-controlled.module.css';
@@ -13,10 +19,10 @@ export default function ControlledDateInputDemo() {
         value={value}
         onValueChange={(details) => setValue(details.value)}
       >
-        <DateInput.Label>Controlled date</DateInput.Label>
-        <DateInput.Control>
-          <DateInput.Segments />
-        </DateInput.Control>
+        <DateInputLabel>Controlled date</DateInputLabel>
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
       </DateInput>
       <PreviewMeta>
         <output>Selected: {value[0]?.toString() ?? 'empty'}</output>

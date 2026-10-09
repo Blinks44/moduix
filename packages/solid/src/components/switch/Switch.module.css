@@ -25,6 +25,11 @@
     align-items: center;
     width: var(--_switch-width, 2.75rem);
     height: var(--_switch-height, var(--moduix-size-xs));
+    --_switch-thumb-size-default: calc(
+      var(--_switch-height, var(--moduix-size-xs)) -
+        var(--moduix-switch-padding, var(--moduix-spacing-0-5)) * 2 -
+        var(--moduix-switch-border-width, var(--moduix-border-width-sm)) * 2
+    );
     --_switch-thumb-translate-default: calc(
       var(--_switch-width, 2.75rem) - var(--_switch-thumb-size, var(--moduix-spacing-5)) -
         (var(--moduix-switch-padding, var(--moduix-spacing-0-5)) * 2) -
@@ -78,34 +83,35 @@
   .root[data-size='xs'] .control {
     --_switch-width: var(--moduix-switch-width-xs, 1.75rem);
     --_switch-height: var(--moduix-switch-height-xs, 1rem);
-    --_switch-thumb-size: var(--moduix-switch-thumb-size-xs, var(--moduix-spacing-3));
+    --_switch-thumb-size: var(--moduix-switch-thumb-size-xs, var(--_switch-thumb-size-default));
   }
 
   .root[data-size='sm'] .control {
     --_switch-width: var(--moduix-switch-width-sm, 2.25rem);
     --_switch-height: var(--moduix-switch-height-sm, 1.25rem);
-    --_switch-thumb-size: var(--moduix-switch-thumb-size-sm, var(--moduix-spacing-4));
+    --_switch-thumb-size: var(--moduix-switch-thumb-size-sm, var(--_switch-thumb-size-default));
   }
 
   .root[data-size='md'] .control {
     --_switch-width: var(--moduix-switch-width-md, 2.75rem);
     --_switch-height: var(--moduix-switch-height-md, var(--moduix-size-xs));
-    --_switch-thumb-size: var(--moduix-switch-thumb-size-md, var(--moduix-spacing-5));
+    --_switch-thumb-size: var(--moduix-switch-thumb-size-md, var(--_switch-thumb-size-default));
   }
 
   .root[data-size='lg'] .control {
     --_switch-width: var(--moduix-switch-width-lg, 3.25rem);
     --_switch-height: var(--moduix-switch-height-lg, 1.75rem);
-    --_switch-thumb-size: var(--moduix-switch-thumb-size-lg, var(--moduix-size-xs));
+    --_switch-thumb-size: var(--moduix-switch-thumb-size-lg, var(--_switch-thumb-size-default));
   }
 
   .root[data-size='xl'] .control {
     --_switch-width: var(--moduix-switch-width-xl, 3.75rem);
     --_switch-height: var(--moduix-switch-height-xl, var(--moduix-size-sm));
-    --_switch-thumb-size: var(--moduix-switch-thumb-size-xl, var(--moduix-spacing-7));
+    --_switch-thumb-size: var(--moduix-switch-thumb-size-xl, var(--_switch-thumb-size-default));
   }
 
   .thumb {
+    flex: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;

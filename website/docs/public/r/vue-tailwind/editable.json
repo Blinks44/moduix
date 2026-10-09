@@ -1,0 +1,87 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "editable",
+  "title": "Editable",
+  "description": "moduix Vue Tailwind Editable component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons"
+  ],
+  "files": [
+    {
+      "path": "src/components/editable/Editable.vue",
+      "content": "<script setup lang=\"ts\">\nimport { EditableRoot as ArkEditableRoot } from '@ark-ui/vue/editable';\nimport type { EditableRootEmits, EditableRootProps } from '@ark-ui/vue/editable';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ EditableRootProps {\n  activationMode?: EditableRootProps['activationMode'];\n  class?: HTMLAttributes['class'];\n}\n\nexport interface Emits extends /* @vue-ignore */ EditableRootEmits {}\n\nconst { activationMode = 'dblclick', class: className } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass =\n  'box-border inline-grid max-w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-1 text-foreground has-[[data-disabled]]:opacity-50';\n</script>\n\n<template>\n  <ArkEditableRoot\n    v-bind=\"attrs\"\n    :activation-mode=\"activationMode\"\n    :class=\"cn(rootClass, className)\"\n    data-slot=\"editable-root\"\n  >\n    <slot />\n  </ArkEditableRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/editable/Editable.vue"
+    },
+    {
+      "path": "src/components/editable/EditableRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { EditableRootProvider as ArkEditableRootProvider } from '@ark-ui/vue/editable';\nimport type { EditableRootProviderProps } from '@ark-ui/vue/editable';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ EditableRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: EditableRootProviderProps['value'];\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass =\n  'box-border inline-grid max-w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-1 text-foreground has-[[data-disabled]]:opacity-50';\n</script>\n\n<template>\n  <ArkEditableRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    :value=\"value\"\n    data-slot=\"editable-root-provider\"\n  >\n    <slot />\n  </ArkEditableRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/editable/EditableRootProvider.vue"
+    },
+    {
+      "path": "src/components/editable/EditableLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { EditableLabel as ArkEditableLabel } from '@ark-ui/vue/editable';\nimport type { EditableLabelProps } from '@ark-ui/vue/editable';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ EditableLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkEditableLabel\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'col-span-full inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-invalid:text-destructive',\n        className,\n      )\n    \"\n    data-slot=\"editable-label\"\n  >\n    <slot />\n  </ArkEditableLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/editable/EditableLabel.vue"
+    },
+    {
+      "path": "src/components/editable/EditableArea.vue",
+      "content": "<script setup lang=\"ts\">\nimport { EditableArea as ArkEditableArea } from '@ark-ui/vue/editable';\nimport type { EditableAreaProps } from '@ark-ui/vue/editable';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ EditableAreaProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst areaClass =\n  'col-start-1 box-border inline-flex min-h-control-md w-full min-w-0 items-center rounded-md border border-border bg-background px-3.5 py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out has-[[aria-invalid=true]]:border-destructive has-[[data-invalid]]:border-destructive data-disabled:pointer-events-none data-focus:outline-ring data-focus:has-[[aria-invalid=true]]:outline-destructive data-focus:has-[[data-invalid]]:outline-destructive motion-reduce:transition-none';\n</script>\n\n<template>\n  <ArkEditableArea v-bind=\"attrs\" :class=\"cn(areaClass, className)\" data-slot=\"editable-area\">\n    <slot />\n  </ArkEditableArea>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/editable/EditableArea.vue"
+    },
+    {
+      "path": "src/components/editable/EditableInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { EditableInput as ArkEditableInput } from '@ark-ui/vue/editable';\nimport type { EditableInputProps } from '@ark-ui/vue/editable';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ EditableInputProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst props = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkEditableInput\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'box-border block w-full min-w-0 appearance-none bg-transparent text-md leading-6 text-inherit outline-0 placeholder:text-muted-foreground [&:is(textarea)]:min-h-24 [&:is(textarea)]:resize-y',\n        props.class,\n      )\n    \"\n    data-slot=\"editable-input\"\n  >\n    <slot />\n  </ArkEditableInput>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/editable/EditableInput.vue"
+    },
+    {
+      "path": "src/components/editable/EditablePreview.vue",
+      "content": "<script setup lang=\"ts\">\nimport { EditablePreview as ArkEditablePreview } from '@ark-ui/vue/editable';\nimport type { EditablePreviewProps } from '@ark-ui/vue/editable';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ EditablePreviewProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkEditablePreview\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'box-border block min-h-[1lh] w-full min-w-0 cursor-text bg-transparent text-md leading-6 text-inherit outline-0 aria-readonly:cursor-default data-disabled:cursor-default data-readonly:cursor-default data-[placeholder-shown]:text-muted-foreground',\n        className,\n      )\n    \"\n    data-slot=\"editable-preview\"\n  >\n    <slot />\n  </ArkEditablePreview>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/editable/EditablePreview.vue"
+    },
+    {
+      "path": "src/components/editable/EditableControl.vue",
+      "content": "<script setup lang=\"ts\">\nimport { EditableControl as ArkEditableControl } from '@ark-ui/vue/editable';\nimport type { EditableControlProps } from '@ark-ui/vue/editable';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ EditableControlProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkEditableControl\n    v-bind=\"attrs\"\n    :class=\"cn('col-start-2 inline-flex items-center gap-1 self-center', className)\"\n    data-slot=\"editable-control\"\n  >\n    <slot />\n  </ArkEditableControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/editable/EditableControl.vue"
+    },
+    {
+      "path": "src/components/editable/EditableControls.vue",
+      "content": "<script setup lang=\"ts\">\nimport { useEditableContext } from '@ark-ui/vue/editable';\nimport type { EditableControlProps } from '@ark-ui/vue/editable';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport EditableCancelTrigger from './EditableCancelTrigger.vue';\nimport EditableControl from './EditableControl.vue';\nimport EditableEditTrigger from './EditableEditTrigger.vue';\nimport EditableSubmitTrigger from './EditableSubmitTrigger.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ Omit<EditableControlProps, 'asChild'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\nconst editable = useEditableContext();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <EditableControl v-bind=\"attrs\" :class=\"className\">\n    <template v-if=\"editable.editing\">\n      <EditableSubmitTrigger />\n      <EditableCancelTrigger />\n    </template>\n    <EditableEditTrigger v-else />\n  </EditableControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/editable/EditableControls.vue"
+    },
+    {
+      "path": "src/components/editable/EditableEditTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { EditableEditTrigger as ArkEditableEditTrigger } from '@ark-ui/vue/editable';\nimport type { EditableEditTriggerProps } from '@ark-ui/vue/editable';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { PencilIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ EditableEditTriggerProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst triggerClass =\n  'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent';\n</script>\n\n<template>\n  <ArkEditableEditTrigger\n    v-bind=\"attrs\"\n    :class=\"cn(triggerClass, className)\"\n    data-slot=\"editable-edit-trigger\"\n  >\n    <slot><PencilIcon /></slot>\n  </ArkEditableEditTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/editable/EditableEditTrigger.vue"
+    },
+    {
+      "path": "src/components/editable/EditableSubmitTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { EditableSubmitTrigger as ArkEditableSubmitTrigger } from '@ark-ui/vue/editable';\nimport type { EditableSubmitTriggerProps } from '@ark-ui/vue/editable';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { CheckIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ EditableSubmitTriggerProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst triggerClass =\n  'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent';\n</script>\n\n<template>\n  <ArkEditableSubmitTrigger\n    v-bind=\"attrs\"\n    :class=\"cn(triggerClass, className)\"\n    data-slot=\"editable-submit-trigger\"\n  >\n    <slot><CheckIcon /></slot>\n  </ArkEditableSubmitTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/editable/EditableSubmitTrigger.vue"
+    },
+    {
+      "path": "src/components/editable/EditableCancelTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { EditableCancelTrigger as ArkEditableCancelTrigger } from '@ark-ui/vue/editable';\nimport type { EditableCancelTriggerProps } from '@ark-ui/vue/editable';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { CloseIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ EditableCancelTriggerProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst triggerClass =\n  'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent';\n</script>\n\n<template>\n  <ArkEditableCancelTrigger\n    v-bind=\"attrs\"\n    :class=\"cn(triggerClass, className)\"\n    data-slot=\"editable-cancel-trigger\"\n  >\n    <slot><CloseIcon /></slot>\n  </ArkEditableCancelTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/editable/EditableCancelTrigger.vue"
+    },
+    {
+      "path": "src/components/editable/index.ts",
+      "content": "import { EditableContext, useEditable, useEditableContext } from '@ark-ui/vue/editable';\nimport Editable from './Editable.vue';\nimport EditableArea from './EditableArea.vue';\nimport EditableCancelTrigger from './EditableCancelTrigger.vue';\nimport EditableControl from './EditableControl.vue';\nimport EditableControls from './EditableControls.vue';\nimport EditableEditTrigger from './EditableEditTrigger.vue';\nimport EditableInput from './EditableInput.vue';\nimport EditableLabel from './EditableLabel.vue';\nimport EditablePreview from './EditablePreview.vue';\nimport EditableRootProvider from './EditableRootProvider.vue';\nimport EditableSubmitTrigger from './EditableSubmitTrigger.vue';\n\nexport {\n  Editable,\n  EditableArea,\n  EditableCancelTrigger,\n  EditableContext,\n  EditableControl,\n  EditableControls,\n  EditableEditTrigger,\n  EditableInput,\n  EditableLabel,\n  EditablePreview,\n  EditableRootProvider,\n  EditableSubmitTrigger,\n  useEditable,\n  useEditableContext,\n};\n\nexport type {\n  EditableAreaProps,\n  EditableCancelTriggerProps,\n  EditableContextProps,\n  EditableControlProps,\n  EditableEditChangeDetails,\n  EditableEditTriggerProps,\n  EditableFocusOutsideEvent,\n  EditableInputProps,\n  EditableInteractOutsideEvent,\n  EditableLabelProps,\n  EditablePointerDownOutsideEvent,\n  EditablePreviewProps,\n  EditableRootEmits,\n  EditableRootProps,\n  EditableRootProviderProps,\n  EditableSubmitTriggerProps,\n  EditableValueChangeDetails,\n  UseEditableContext,\n  UseEditableProps,\n  UseEditableReturn,\n} from '@ark-ui/vue/editable';",
+      "type": "registry:component",
+      "target": "@components/ui/editable/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

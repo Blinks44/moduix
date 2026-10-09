@@ -45,7 +45,7 @@ const separatorVariants = cva('block shrink-0 m-0 border-border', {
   },
 });
 
-const SeparatorRoot = forwardRef<HTMLSpanElement, SeparatorProps>(function SeparatorRoot(
+const Separator = forwardRef<HTMLSpanElement, SeparatorProps>(function Separator(
   {
     asChild,
     className,
@@ -76,10 +76,6 @@ const SeparatorRoot = forwardRef<HTMLSpanElement, SeparatorProps>(function Separ
       className={cn(separatorVariants({ orientation, size, variant }), className)}
     />
   );
-});
-
-const Separator = Object.assign(SeparatorRoot, {
-  Root: SeparatorRoot,
 });
 
 export { Separator };

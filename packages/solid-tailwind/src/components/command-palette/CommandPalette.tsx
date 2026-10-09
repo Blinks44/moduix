@@ -1,7 +1,6 @@
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
-  type ComboboxRootComponent,
   type ComboboxRootProps,
 } from '@ark-ui/solid/combobox';
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/solid/dialog';
@@ -10,6 +9,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { isHotKey } from '@ark-ui/solid/hotkeys';
 import type { ComponentProps } from 'solid-js';
 import { children, createEffect, onCleanup, splitProps } from 'solid-js';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
@@ -18,19 +18,19 @@ import {
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
 import { Kbd } from '../kbd';
-import { ScrollArea } from '../scroll-area';
+import { ScrollArea, ScrollAreaContent, ScrollAreaViewport } from '../scroll-area';
 
 const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
 const DEFAULT_SEARCH_INPUT_LABEL = 'Search commands';
 
-type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> & {
+type CommandPaletteProps = ComponentProps<typeof DialogPrimitive.Root> & {
   shortcut?: false | string;
 } & OverlayPortalProps;
 
 type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
   OverlayPortalProps;
 
-function CommandPaletteRoot(props: CommandPaletteRootProps) {
+function CommandPalette(props: CommandPaletteProps) {
   const [local, others] = splitProps(props, [
     'children',
     'shortcut',
@@ -136,7 +136,7 @@ function CommandPaletteBackdrop(props: ComponentProps<typeof DialogPrimitive.Bac
     <OverlayPortal>
       <DialogPrimitive.Backdrop
         class={cn(
-          'fixed inset-0 z-[calc(40+var(--layer-index,0))] bg-overlay backdrop-blur-[4px] data-[state=closed]:animate-[moduix-fade-out_200ms_ease-in-out_forwards] data-[state=open]:animate-[moduix-fade-in_200ms_ease-in-out] motion-reduce:animate-none',
+          'fixed inset-0 z-[calc(var(--z-index,var(--moduix-z-popup))-1)] bg-overlay backdrop-blur-[4px] data-[state=closed]:animate-moduix-command-palette-backdrop-out data-[state=open]:animate-moduix-command-palette-backdrop-in motion-reduce:animate-none',
           local.class,
         )}
         {...others}
@@ -153,7 +153,7 @@ function CommandPalettePositioner(props: ComponentProps<typeof DialogPrimitive.P
     <OverlayPortal>
       <DialogPrimitive.Positioner
         class={cn(
-          'fixed inset-0 z-[calc(50+var(--layer-index,0))] grid items-start justify-items-center overflow-hidden overscroll-contain px-4 pt-[10dvh] pb-4',
+          'fixed inset-0 z-[var(--z-index,var(--moduix-z-popup))] grid items-start justify-items-center overflow-hidden overscroll-contain px-4 pt-[10dvh] pb-4',
           local.class,
         )}
         {...others}
@@ -169,7 +169,7 @@ function CommandPaletteContent(props: ComponentProps<typeof DialogPrimitive.Cont
   return (
     <DialogPrimitive.Content
       class={cn(
-        'flex max-h-[min(34rem,calc(100dvh-5rem))] w-[min(37.5rem,calc(100vw-2rem))] origin-top flex-col overflow-hidden rounded-lg border border-border/84 bg-popover bg-linear-to-b from-white/4 to-transparent text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',
+        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-h-[min(34rem,calc(100dvh-5rem))] w-[min(37.5rem,calc(100vw-2rem))] origin-top flex-col overflow-hidden rounded-lg border border-border/84 bg-popover bg-linear-to-b from-white/4 to-transparent text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-command-palette-content-out data-[state=open]:animate-moduix-command-palette-content-in motion-reduce:animate-none',
         local.class,
       )}
       {...others}
@@ -243,9 +243,7 @@ function CommandPaletteBody(props: HTMLArkProps<'div'>) {
 
 type CommandPaletteComboboxProps<T extends CollectionItem> = ComboboxRootProps<T>;
 
-const CommandPaletteCombobox = function CommandPaletteCombobox<T extends CollectionItem>(
-  props: CommandPaletteComboboxProps<T>,
-) {
+function CommandPaletteCombobox<T extends CollectionItem>(props: CommandPaletteComboboxProps<T>) {
   const [local, others] = splitProps(props, [
     'children',
     'class',
@@ -280,7 +278,7 @@ const CommandPaletteCombobox = function CommandPaletteCombobox<T extends Collect
       {local.children}
     </ComboboxPrimitive.Root>
   );
-} as ComboboxRootComponent;
+}
 
 function CommandPaletteControl(props: ComponentProps<typeof ComboboxPrimitive.Control>) {
   const [local, others] = splitProps(props, ['class']);
@@ -356,18 +354,19 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
           }
           aria-labelledby={local['aria-labelledby']}
           class={cn(
-            'inline-flex size-6 shrink-0 cursor-pointer appearance-none items-center justify-center rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity,translate,scale] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-3 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent [@media(hover:hover)]:hover:text-popover-foreground',
+            'inline-flex size-control-xs shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm bg-transparent text-muted-foreground transition-[background-color,color,opacity,translate,scale] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-foreground',
             local.class,
           )}
           onClick={(event) => {
-            (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
+            callEventHandler(local.onClick, event);
 
             if (!event.defaultPrevented) {
+              event.preventDefault();
               combobox().setInputValue('');
             }
           }}
           onPointerDown={(event) => {
-            (local.onPointerDown as ((event: PointerEvent) => void) | undefined)?.(event);
+            callEventHandler(local.onPointerDown, event);
 
             if (event.button === 0) {
               event.preventDefault();
@@ -393,14 +392,14 @@ function CommandPaletteList(props: ComponentProps<typeof ComboboxPrimitive.Conte
       data-slot="command-palette-list"
     >
       <ScrollArea data-slot="command-palette-scroll-area" class="h-auto min-h-0 flex-1">
-        <ScrollArea.Viewport data-slot="command-palette-scroll-viewport" class="scroll-py-2">
-          <ScrollArea.Content
+        <ScrollAreaViewport data-slot="command-palette-scroll-viewport" class="scroll-py-2">
+          <ScrollAreaContent
             data-slot="command-palette-scroll-content"
             class="min-h-full px-3 py-3 group-data-[empty]/list:p-0"
           >
             {local.children}
-          </ScrollArea.Content>
-        </ScrollArea.Viewport>
+          </ScrollAreaContent>
+        </ScrollAreaViewport>
       </ScrollArea>
     </ComboboxPrimitive.Content>
   );
@@ -582,11 +581,11 @@ function CommandPaletteFooter(props: HTMLArkProps<'div'>) {
   );
 }
 
-function CommandPaletteKbd(props: ComponentProps<typeof Kbd.Root>) {
+function CommandPaletteKbd(props: ComponentProps<typeof Kbd>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <Kbd.Root
+    <Kbd
       class={cn(
         'min-h-5 min-w-5 rounded-sm px-1 text-xs leading-4 text-muted-foreground',
         local.class,
@@ -597,37 +596,35 @@ function CommandPaletteKbd(props: ComponentProps<typeof Kbd.Root>) {
   );
 }
 
-const CommandPalette = Object.assign(CommandPaletteRoot, {
-  Root: CommandPaletteRoot,
-  RootProvider: CommandPaletteRootProvider,
-  Trigger: CommandPaletteTrigger,
-  Backdrop: CommandPaletteBackdrop,
-  Positioner: CommandPalettePositioner,
-  Content: CommandPaletteContent,
-  Panel: CommandPalettePanel,
-  Title: CommandPaletteTitle,
-  Description: CommandPaletteDescription,
-  Header: CommandPaletteHeader,
-  Body: CommandPaletteBody,
-  Combobox: CommandPaletteCombobox,
-  Control: CommandPaletteControl,
-  Input: CommandPaletteInput,
-  Search: CommandPaletteSearch,
-  ClearTrigger: CommandPaletteClearTrigger,
-  List: CommandPaletteList,
-  Empty: CommandPaletteEmpty,
-  ItemGroup: CommandPaletteItemGroup,
-  ItemGroupLabel: CommandPaletteItemGroupLabel,
-  Item: CommandPaletteItem,
-  ItemText: CommandPaletteItemText,
-  ItemIndicator: CommandPaletteItemIndicator,
-  ItemIcon: CommandPaletteItemIcon,
-  ItemLabel: CommandPaletteItemLabel,
-  ItemDescription: CommandPaletteItemDescription,
-  ItemMeta: CommandPaletteItemMeta,
-  Separator: CommandPaletteSeparator,
-  Footer: CommandPaletteFooter,
-  Kbd: CommandPaletteKbd,
-});
-
-export { CommandPalette };
+export {
+  CommandPalette,
+  CommandPaletteBackdrop,
+  CommandPaletteBody,
+  CommandPaletteClearTrigger,
+  CommandPaletteCombobox,
+  CommandPaletteContent,
+  CommandPaletteControl,
+  CommandPaletteDescription,
+  CommandPaletteEmpty,
+  CommandPaletteFooter,
+  CommandPaletteHeader,
+  CommandPaletteInput,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemIndicator,
+  CommandPaletteItemLabel,
+  CommandPaletteItemMeta,
+  CommandPaletteItemText,
+  CommandPaletteKbd,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPalettePositioner,
+  CommandPaletteRootProvider,
+  CommandPaletteSearch,
+  CommandPaletteSeparator,
+  CommandPaletteTitle,
+  CommandPaletteTrigger,
+};

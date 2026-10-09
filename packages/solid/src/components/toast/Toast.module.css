@@ -176,7 +176,7 @@
     inset-block-start: var(--moduix-toast-close-offset-top, var(--moduix-spacing-2));
     inset-inline-end: var(--moduix-toast-close-offset-right, var(--moduix-spacing-2));
     --moduix-close-button-size: var(--moduix-toast-close-size, var(--moduix-spacing-7));
-    --moduix-close-button-icon-size: var(--moduix-toast-close-icon-size, var(--moduix-spacing-3));
+    --moduix-close-button-icon-size: var(--moduix-toast-close-icon-size, var(--moduix-spacing-4));
     --moduix-close-button-radius: var(--moduix-toast-close-radius, var(--moduix-radius-sm));
     --moduix-close-button-bg: var(--moduix-toast-close-bg, transparent);
     --moduix-close-button-bg-hover: var(--moduix-toast-close-bg-hover, var(--moduix-color-muted));

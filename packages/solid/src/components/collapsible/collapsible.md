@@ -1,7 +1,11 @@
 # Collapsible (Solid)
 
-`Collapsible` preserves the React component's compound anatomy, default indicator, `Body` layout
-wrapper, Ark state, context hooks, partial-collapse measurements, and CSS-variable contract.
+`Collapsible` preserves the React component's flat anatomy, default indicator, `CollapsibleBody`
+layout wrapper, Ark state, context hooks, partial-collapse measurements, and CSS-variable contract.
+
+The public values are `Collapsible`, `CollapsibleRootProvider`, `CollapsibleContext`,
+`CollapsibleTrigger`, `CollapsibleIndicator`, `CollapsibleContent`, and `CollapsibleBody`. Hooks
+remain top-level exports: `useCollapsible` and `useCollapsibleContext`.
 
 ## Ark Solid composition
 

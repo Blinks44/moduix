@@ -1,6 +1,19 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox } from '@moduix/react/combobox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItemGroup,
+  ComboboxItemGroupLabel,
+  ComboboxLabel,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/react/combobox';
 import styles from '@/components/examples/combobox/component-custom-objects-and-grouping.module.css';
 
 const countries = [
@@ -28,27 +41,27 @@ export default function GroupedComboboxDemo() {
 
   return (
     <Combobox collection={collection} onInputValueChange={(details) => filter(details.inputValue)}>
-      <Combobox.Label>Country</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. Canada" />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content className={styles.content}>
-          <Combobox.Empty>No countries found.</Combobox.Empty>
+      <ComboboxLabel>Country</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="e.g. Canada" />
+        <ComboboxClearTrigger aria-label="Clear selection" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent className={styles.content}>
+          <ComboboxEmpty>No countries found.</ComboboxEmpty>
           {collection.group().map(([continent, items]) => (
-            <Combobox.ItemGroup key={continent}>
-              <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
+            <ComboboxItemGroup key={continent}>
+              <ComboboxItemGroupLabel>{continent}</ComboboxItemGroupLabel>
               {items.map((item) => (
-                <Combobox.Option key={item.code} item={item}>
+                <ComboboxOption key={item.code} item={item}>
                   {item.country}
-                </Combobox.Option>
+                </ComboboxOption>
               ))}
-            </Combobox.ItemGroup>
+            </ComboboxItemGroup>
           ))}
-        </Combobox.Content>
-      </Combobox.Positioner>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

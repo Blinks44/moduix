@@ -1,4 +1,4 @@
-import { Field } from '@moduix/react/field';
+import { Field, FieldLabel } from '@moduix/react/field';
 import { Textarea } from '@moduix/react/textarea';
 import { useState } from 'react';
 import styles from '@/components/examples/textarea/textarea-controlled.module.css';
@@ -8,7 +8,7 @@ export default function TextareaControlledDemo() {
 
   return (
     <Field className={styles.root}>
-      <Field.Label>Feedback</Field.Label>
+      <FieldLabel>Feedback</FieldLabel>
       <Textarea
         value={value}
         onChange={(event) => setValue(event.currentTarget.value)}

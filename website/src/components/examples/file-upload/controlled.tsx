@@ -1,4 +1,14 @@
-import { FileUpload } from '@moduix/react/file-upload';
+import {
+  FileUpload,
+  FileUploadContext,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/react/file-upload';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/file-upload/file-upload-controlled.module.css';
@@ -17,21 +27,21 @@ export default function ControlledFileUploadDemo() {
         acceptedFiles={files}
         onFileChange={(details) => setFiles(details.acceptedFiles)}
       >
-        <FileUpload.Label>Attachments</FileUpload.Label>
-        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
+        <FileUploadLabel>Attachments</FileUploadLabel>
+        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadItemGroup>
+          <FileUploadContext>
             {({ acceptedFiles }) =>
               acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                </FileUpload.Item>
+                <FileUploadItem key={file.name} file={file}>
+                  <FileUploadItemName />
+                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                </FileUploadItem>
               ))
             }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
+          </FileUploadContext>
+        </FileUploadItemGroup>
+        <FileUploadHiddenInput />
       </FileUpload>
       <PreviewMeta>
         <output>Selected: {files.length}</output>

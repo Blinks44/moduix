@@ -1,4 +1,10 @@
-import { Checkbox } from '@moduix/solid/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
 import { createSignal, For } from 'solid-js';
 
 const options = [
@@ -11,16 +17,16 @@ export default function CheckboxControlledGroupDemo() {
   const [value, setValue] = createSignal<string[]>(['push']);
 
   return (
-    <Checkbox.Group value={value} onValueChange={setValue} name="notifications">
+    <CheckboxGroup value={value} onValueChange={setValue} name="notifications">
       <For each={options}>
         {(option) => (
           <Checkbox value={option.value}>
-            <Checkbox.Control />
-            <Checkbox.Label>{option.label}</Checkbox.Label>
-            <Checkbox.HiddenInput />
+            <CheckboxControl />
+            <CheckboxLabel>{option.label}</CheckboxLabel>
+            <CheckboxHiddenInput />
           </Checkbox>
         )}
       </For>
-    </Checkbox.Group>
+    </CheckboxGroup>
   );
 }

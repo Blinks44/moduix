@@ -15,6 +15,8 @@
 | Solid   | CSS Modules | `@moduix-solid`          | `https://moduix.dev/r/solid/registry.json`          |
 | React   | Tailwind    | `@moduix-react-tailwind` | `https://moduix.dev/r/react-tailwind/registry.json` |
 | Solid   | Tailwind    | `@moduix-solid-tailwind` | `https://moduix.dev/r/solid-tailwind/registry.json` |
+| Vue     | CSS Modules | `@moduix-vue`            | `https://moduix.dev/r/vue/registry.json`            |
+| Vue     | Tailwind    | `@moduix-vue-tailwind`   | `https://moduix.dev/r/vue-tailwind/registry.json`   |
 
 Inspect `https://moduix.dev/r/<track>/<item>.json` when the raw registry item is useful. Do not
 silently fall back to a different framework or styling track when an item is unavailable.

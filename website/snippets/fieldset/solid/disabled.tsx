@@ -1,21 +1,21 @@
-import { Field } from '@moduix/solid/field';
-import { Fieldset } from '@moduix/solid/fieldset';
+import { Field, FieldLabel } from '@moduix/solid/field';
+import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/solid/fieldset';
 import { Input } from '@moduix/solid/input';
 import styles from '@/components/examples/fieldset/fieldset-disabled.module.css';
 
 export default function DisabledFieldset() {
   return (
     <Fieldset class={styles.root} disabled>
-      <Fieldset.Legend>Shipping address</Fieldset.Legend>
-      <Fieldset.HelperText>
+      <FieldsetLegend>Shipping address</FieldsetLegend>
+      <FieldsetHelperText>
         Your address cannot be changed after order confirmation.
-      </Fieldset.HelperText>
+      </FieldsetHelperText>
       <Field>
-        <Field.Label>Street</Field.Label>
+        <FieldLabel>Street</FieldLabel>
         <Input value="123 Main St" />
       </Field>
       <Field>
-        <Field.Label>City</Field.Label>
+        <FieldLabel>City</FieldLabel>
         <Input value="San Francisco" />
       </Field>
     </Fieldset>

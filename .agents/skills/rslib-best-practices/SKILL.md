@@ -36,11 +36,23 @@ Apply these rules when writing or reviewing Rslib library projects.
 - For Solid packages, preserve the established dual output: compiled ESM for general bundlers and
   `.jsx` under the `solid` export condition for Solid-aware SSR. Give Rslib outputs stable ids and
   point Rstest at the compiled id; do not invent a custom transform pipeline.
+- For Vue packages, use the Vue plugin to compile authored `.vue` SFCs to ESM for npm consumers and
+  emit declarations that preserve `.vue.d.ts` filenames and barrel references. Keep source `.vue`
+  files in registry artifacts rather than making npm consumers compile package internals. Verify a
+  clean build, the package `files` and `exports` maps, emitted import specifiers, and a consumer type
+  fixture before treating the package as publishable.
+- Vue package types target TypeScript's `bundler` resolution, which understands `.vue.d.ts` barrel
+  references. ATTW's Node16 resolver does not model those references and reports
+  `internal-resolution-error` even when its bundler result is green. The Vue-only package checks may
+  ignore that one Node16 rule, but must still show a green bundler result and pass a real Vue
+  consumer fixture. Do not apply this exception to React, Solid, or unrelated ATTW failures.
 
 ## Declaration files
 
 - Prefer to enable declaration file generation with `lib.dts: true` or detailed configurations
-- For faster type generation, enable `lib.dts.tsgo` experimental feature with `@typescript/native-preview` installed
+- For faster type generation, enable the experimental `lib.dts.tsgo` path only in packages whose
+  framework declaration tooling supports the native TypeScript build. Do not enable it for the Vue
+  packages while their `vue-tsc` and SFC declaration pipeline require JavaScript TypeScript.
 
 ## Dependencies
 

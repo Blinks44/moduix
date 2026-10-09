@@ -1,8 +1,30 @@
+import { pluginTailwindcss } from '@rsbuild/plugin-tailwindcss';
 import { withRslibConfig } from '@rstest/adapter-rslib';
-import { defineConfig } from '@rstest/core';
+import { defineConfig, defineInlineProject } from '@rstest/core';
 
 export default defineConfig({
-  extends: withRslibConfig(),
-  setupFiles: ['./rstest.setup.ts'],
-  testEnvironment: 'happy-dom',
+  projects: [
+    defineInlineProject({
+      name: 'node',
+      extends: withRslibConfig(),
+      testEnvironment: 'node',
+      include: ['tests/**/*.test.{ts,tsx}'],
+      exclude: ['tests/**/*.browser.test.{ts,tsx}'],
+    }),
+    defineInlineProject({
+      name: 'browser',
+      extends: withRslibConfig(),
+      plugins: [pluginTailwindcss()],
+      setupFiles: ['./rstest.browser.setup.ts'],
+      testEnvironment: 'node',
+      include: ['tests/**/*.browser.test.{ts,tsx}'],
+      browser: {
+        enabled: true,
+        provider: 'playwright',
+        headless: true,
+        port: 0,
+        providerOptions: { context: { permissions: ['clipboard-read', 'clipboard-write'] } },
+      },
+    }),
+  ],
 });

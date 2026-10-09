@@ -2,6 +2,9 @@
 
 ## Upstream reference
 
+- TanStack Charts 1.0.0 published types and release-source docs:
+  https://github.com/TanStack/charts/tree/v1.0.0/docs (accessed 2026-10-06)
+
 - TanStack Charts React chart reference: https://tanstack.com/charts/latest/docs/framework/react/reference/chart
   (accessed 2026-08-18)
 - TanStack Charts focus and interaction: https://tanstack.com/charts/latest/docs/reference/focus-and-interaction
@@ -24,21 +27,21 @@ React host.
 
 ## Public contract
 
-`Chart` and `Chart.Root` are the same Ark factory root. They render a `figure` and accept native
+`Chart` is the Ark factory root. It renders a `figure` and accepts native
 props, `asChild`, `className`, `style`, and an `HTMLElement` ref.
 
-`Chart.Plot` accepts the TanStack `RendererChartProps` contract from
+`ChartPlot` accepts the TanStack `RendererChartProps` contract from
 `@tanstack/charts/react/tooltip`, except that `renderer` is optional. It defaults to the Moduix
 `motion()` preset. Set `motion={false}` to use TanStack's static SVG renderer; an explicit
 `renderer` always takes precedence. Definitions, responsiveness, accessibility props, and callbacks
 pass through unchanged, including TanStack's optional `renderTooltipBody`.
 
-By default, `Chart.Plot` uses a compact Moduix tooltip layout, so rows without a swatch do not
+By default, `ChartPlot` uses a compact Moduix tooltip layout, so rows without a swatch do not
 reserve an empty column. When you provide `renderTooltipBody`, its `defaultBody` remains native to
 TanStack.
 
-`Chart.Header` renders `figcaption`. `Chart.Title`, `Chart.Description`, `Chart.Legend`, and
-`Chart.LegendItem` provide the standard figure context. `Chart.LegendItem` accepts an optional
+`ChartHeader` renders `figcaption`. `ChartTitle`, `ChartDescription`, `ChartLegend`, and
+`ChartLegendItem` provide the standard figure context. `ChartLegendItem` accepts an optional
 `color` for its indicator.
 
 ## Preservation notes
@@ -54,13 +57,13 @@ TanStack.
   portalling, and dismissal. Interactive content renders only while pinned.
 - The internal focusable SVG keeps TanStack keyboard navigation and receives the moduix focus ring.
   Do not disable `focusRing` unless the definition provides replacement focus geometry.
-- `@tanstack/charts` is an optional peer dependency. The current moduix peer range is `^0.16.0`,
-  and its React adapter requires React 19.
+- `@tanstack/charts` is an optional peer dependency. The current moduix peer range is `^1.0.0`,
+  and its React adapter supports React 18 and 19.
 
 ## Styling and accessibility
 
 The root and presentational parts expose stable `data-scope="chart"`, `data-part`, and `data-slot`
-hooks. `className` and `style` on `Chart.Plot` apply to the outer TanStack host. moduix maps its
+hooks. `className` and `style` on `ChartPlot` apply to the outer TanStack host. moduix maps its
 tooltip shell variables to TanStack's official `--ts-chart-tooltip-*` contract. The compact default
 body exposes `chart-tooltip-body`, `chart-tooltip-title`, `chart-tooltip-rows`,
 `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`, `chart-tooltip-value`, and
@@ -73,8 +76,8 @@ description do not fully explain the data. The root is a `figure` and its header
 
 ## Differences from upstream
 
-- Chakra uses `Chart.Root` around a Recharts tree; moduix keeps that root naming while
-  `Chart.Plot` mounts a complete TanStack definition.
+- Chakra uses a chart root around a Recharts tree; moduix exposes the flat `Chart` root while
+  `ChartPlot` mounts a complete TanStack definition.
 - shadcn keeps its chart engine unwrapped and adds tooltip and legend presentation. moduix follows
   the same boundary without adding a label/color config that duplicates TanStack color scales.
 - Ark `Tooltip` is not used because TanStack already owns the plot focus anchor and tooltip

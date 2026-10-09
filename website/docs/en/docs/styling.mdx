@@ -5,6 +5,7 @@ description: Choose the right styling layer for Moduix components across framewo
 
 import { ProjectChecklist } from '@/components/examples/styling/project-checklist';
 import solidProjectChecklist from '../../../snippets/styling/solid/project-checklist.tsx?raw';
+import VueProjectChecklist from '../../../snippets/styling/vue/project-checklist.vue?raw';
 
 # Styling
 
@@ -17,10 +18,10 @@ This guide assumes the matching package and stylesheet are already configured th
 
 ## Choose a styling track
 
-| Track | React | Solid | Best fit |
-| --- | --- | --- | --- |
-| CSS Modules | `@moduix/react` | `@moduix/solid` | Shipped component styles with token and local-class overrides |
-| Tailwind CSS | `@moduix/react-tailwind` | `@moduix/solid-tailwind` | Utility-backed components in an existing Tailwind v4 application |
+| Track | React | Solid | Vue | Best fit |
+| --- | --- | --- | --- | --- |
+| CSS Modules | `@moduix/react` | `@moduix/solid` | `@moduix/vue` | Shipped component styles with token and local-class overrides |
+| Tailwind CSS | `@moduix/react-tailwind` | `@moduix/solid-tailwind` | `@moduix/vue-tailwind` | Utility-backed components in an existing Tailwind v4 application |
 
 CSS Modules and Tailwind are equal distribution paths, not layers to combine on the same component.
 Use the package that matches both your framework and styling track.
@@ -44,7 +45,7 @@ Apply the consumer class to the part that owns the visual change. Combine it wit
 such as `data-state` or `data-disabled` for stateful styles. Do not depend on generated class names or
 DOM order.
 
-The preview uses React because the documentation application runs React. The Solid source below uses
+The preview uses React because the documentation application runs React. The Solid and Vue sources below use
 the same stylesheet and native `class` props.
 
 <ExampleFrame variant="component">
@@ -65,6 +66,11 @@ the same stylesheet and native `class` props.
     <Tab label="Solid" value="solid">
 
 <CodeBlockRuntime lang="tsx" code={solidProjectChecklist} />
+
+    </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueProjectChecklist} />
 
     </Tab>
     <Tab label="Styles" value="styles">
@@ -97,11 +103,11 @@ hatch:
 Prefer a direct consumer class whenever the part is available. Put classes or local variables on
 portalled parts themselves, or scope them to the portal container.
 
-## Use Panda CSS
+## Style with Panda CSS
 
 Panda CSS can generate consumer classes for every supported framework. Its token names come from your Panda
 theme, not from Moduix. Generate class strings once, then attach them to exported parts with
-`className` in React or `class` in Solid.
+`className` in React or `class` in Solid or Vue.
 
 ```ts
 import { css } from '../styled-system/css';
@@ -116,7 +122,7 @@ const trigger = css({
 });
 ```
 
-## Use Tailwind CSS
+## Style with Tailwind CSS
 
 Tailwind packages already contain the component's default utility-backed styling. Add consumer
 utilities to the exact part you want to change. The component API remains native to each framework:
@@ -125,13 +131,13 @@ utilities to the exact part you want to change. The component API remains native
   <Tab label="React" value="react">
 
 ```tsx
-import { Accordion } from '@moduix/react-tailwind/accordion';
+import { Accordion, AccordionItem, AccordionItemTrigger, AccordionItemContent } from '@moduix/react-tailwind/accordion';
 
 <Accordion collapsible>
-  <Accordion.Item value="shipping" className="rounded-lg border data-[state=open]:border-blue-500">
-    <Accordion.ItemTrigger className="px-4">Shipping</Accordion.ItemTrigger>
-    <Accordion.ItemContent className="px-4">Usually 2 to 4 days.</Accordion.ItemContent>
-  </Accordion.Item>
+  <AccordionItem value="shipping" className="rounded-lg border data-[state=open]:border-blue-500">
+    <AccordionItemTrigger className="px-4">Shipping</AccordionItemTrigger>
+    <AccordionItemContent className="px-4">Usually 2 to 4 days.</AccordionItemContent>
+  </AccordionItem>
 </Accordion>;
 ```
 
@@ -139,14 +145,32 @@ import { Accordion } from '@moduix/react-tailwind/accordion';
   <Tab label="Solid" value="solid">
 
 ```tsx
-import { Accordion } from '@moduix/solid-tailwind/accordion';
+import { Accordion, AccordionItem, AccordionItemTrigger, AccordionItemContent } from '@moduix/solid-tailwind/accordion';
 
 <Accordion collapsible>
-  <Accordion.Item value="shipping" class="rounded-lg border data-[state=open]:border-blue-500">
-    <Accordion.ItemTrigger class="px-4">Shipping</Accordion.ItemTrigger>
-    <Accordion.ItemContent class="px-4">Usually 2 to 4 days.</Accordion.ItemContent>
-  </Accordion.Item>
+  <AccordionItem value="shipping" class="rounded-lg border data-[state=open]:border-blue-500">
+    <AccordionItemTrigger class="px-4">Shipping</AccordionItemTrigger>
+    <AccordionItemContent class="px-4">Usually 2 to 4 days.</AccordionItemContent>
+  </AccordionItem>
 </Accordion>;
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```vue
+<script setup lang="ts">
+import { Accordion, AccordionItem, AccordionItemTrigger, AccordionItemContent } from '@moduix/vue-tailwind/accordion';
+</script>
+
+<template>
+  <Accordion collapsible>
+    <AccordionItem value="shipping" class="rounded-lg border data-[state=open]:border-blue-500">
+      <AccordionItemTrigger class="px-4">Shipping</AccordionItemTrigger>
+      <AccordionItemContent class="px-4">Usually 2 to 4 days.</AccordionItemContent>
+    </AccordionItem>
+  </Accordion>
+</template>
 ```
 
   </Tab>

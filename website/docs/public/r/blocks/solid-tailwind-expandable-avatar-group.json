@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "solid-tailwind-expandable-avatar-group",
+  "title": "Expandable avatar group",
+  "description": "Overlapping avatars that expand on hover or focus, with a tooltip for each person.",
+  "registryDependencies": [
+    "https://moduix.dev/r/solid-tailwind/avatar.json",
+    "https://moduix.dev/r/solid-tailwind/tooltip.json"
+  ],
+  "files": [
+    {
+      "path": "snippets/blocks/solid/expandable-avatar-group.tsx",
+      "content": "import { For } from 'solid-js';\nimport { Avatar, AvatarFallback, AvatarImage } from '@/registry/solid/ui/avatar';\nimport { Tooltip, TooltipBody, TooltipTrigger } from '@/registry/solid/ui/tooltip';\nimport styles from './expandable-avatar-group.module.css';\n\nconst members = [\n  {\n    name: 'Lena Ortiz',\n    role: 'Product designer',\n    image:\n      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=128&h=128&q=80',\n  },\n  {\n    name: 'Amir Patel',\n    role: 'Frontend engineer',\n    image:\n      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=128&h=128&q=80',\n  },\n  {\n    name: 'Mika Chen',\n    role: 'Design engineer',\n    image:\n      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=128&h=128&q=80',\n  },\n  {\n    name: 'Noah Williams',\n    role: 'Product manager',\n    image:\n      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=128&h=128&q=80',\n  },\n  {\n    name: 'Sofia Rossi',\n    role: 'Brand designer',\n    image:\n      'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=128&h=128&q=80',\n  },\n  {\n    name: 'Elliot Park',\n    role: 'Researcher',\n    image:\n      'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=128&h=128&q=80',\n  },\n  {\n    name: 'Zoe Martin',\n    role: 'Content designer',\n    image:\n      'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=128&h=128&q=80',\n  },\n];\n\nexport function ExpandableAvatarGroup() {\n  return (\n    <div class={styles.group} role=\"group\" aria-label=\"Project team\">\n      <For each={members}>\n        {(member) => (\n          <Tooltip positioning={{ placement: 'top', gutter: 10 }} openDelay={120}>\n            <TooltipTrigger\n              asChild={(props) => (\n                <button\n                  {...props()}\n                  class={styles.member}\n                  type=\"button\"\n                  aria-label={`${member.name}, ${member.role}`}\n                />\n              )}\n            >\n              <Avatar size=\"lg\">\n                <AvatarImage src={member.image} alt=\"\" />\n                <AvatarFallback>{member.name.slice(0, 1)}</AvatarFallback>\n              </Avatar>\n            </TooltipTrigger>\n            <TooltipBody class={styles.tooltip}>\n              <strong>{member.name}</strong>\n              <span>{member.role}</span>\n            </TooltipBody>\n          </Tooltip>\n        )}\n      </For>\n    </div>\n  );\n}",
+      "type": "registry:component",
+      "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.tsx"
+    },
+    {
+      "path": "src/components/blocks/expandable-avatar-group.module.css",
+      "content": ".group {\n  display: inline-flex;\n  align-items: center;\n  padding: var(--moduix-spacing-3);\n}\n\n.member {\n  display: grid;\n  position: relative;\n  place-items: center;\n  margin: 0;\n  padding: 0;\n  border: 2px solid var(--moduix-color-card);\n  border-radius: var(--moduix-radius-full);\n  background: transparent;\n  cursor: pointer;\n  transition:\n    margin-inline-start 220ms cubic-bezier(0.2, 0.8, 0.2, 1),\n    transform 180ms ease,\n    box-shadow 180ms ease;\n\n  &:not(:first-child) {\n    margin-inline-start: calc(-1 * var(--moduix-spacing-3));\n  }\n\n  &:hover,\n  &:focus-visible {\n    z-index: 1;\n    box-shadow: 0 0 0 3px var(--moduix-color-background);\n    outline: none;\n    transform: translateY(calc(-1 * var(--moduix-spacing-1))) scale(1.08);\n  }\n}\n\n.member:is(:hover, :focus-visible) ~ .member {\n  transform: translateX(var(--moduix-spacing-3));\n}\n\n.member:has(~ .member:is(:hover, :focus-visible)) {\n  transform: translateX(calc(-1 * var(--moduix-spacing-3)));\n}\n\n.tooltip {\n  display: grid;\n  gap: 0.125rem;\n\n  strong {\n    font-weight: var(--moduix-weight-semibold);\n  }\n\n  span {\n    color: var(--moduix-color-muted-foreground);\n    font-size: var(--moduix-text-xs);\n  }\n}\n\n@media (prefers-reduced-motion: reduce) {\n  .member {\n    transition: none;\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/blocks/expandable-avatar-group/expandable-avatar-group.module.css"
+    }
+  ],
+  "type": "registry:block"
+}

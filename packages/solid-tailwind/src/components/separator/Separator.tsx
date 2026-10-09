@@ -4,7 +4,7 @@ import { cva } from 'class-variance-authority';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-type SeparatorRootProps = HTMLArkProps<'span'> & {
+type SeparatorProps = HTMLArkProps<'span'> & {
   orientation?: 'horizontal' | 'vertical';
   size?: 'xs' | 'sm' | 'md' | 'lg';
   variant?: 'solid' | 'dashed' | 'dotted';
@@ -51,7 +51,7 @@ const separatorVariants = cva('block shrink-0 m-0 border-border', {
   },
 });
 
-function SeparatorRoot(props: SeparatorRootProps) {
+function Separator(props: SeparatorProps) {
   const [local, others] = splitProps(props, [
     'aria-orientation',
     'asChild',
@@ -91,9 +91,5 @@ function SeparatorRoot(props: SeparatorRootProps) {
     />
   );
 }
-
-const Separator = Object.assign(SeparatorRoot, {
-  Root: SeparatorRoot,
-});
 
 export { Separator };

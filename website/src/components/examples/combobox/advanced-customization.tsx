@@ -1,6 +1,18 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox } from '@moduix/react/combobox';
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxItemText,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/react/combobox';
 import styles from '@/components/examples/combobox/component-advanced-customization.module.css';
 
 const developerResources = [
@@ -36,25 +48,25 @@ export default function AdvancedCustomizationComboboxDemo() {
       selectionBehavior="preserve"
       onInputValueChange={(details) => filter(details.inputValue)}
     >
-      <Combobox.Label>Developer resources</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. GitHub" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content className={styles.content}>
-          <Combobox.List>
+      <ComboboxLabel>Developer resources</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="e.g. GitHub" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent className={styles.content}>
+          <ComboboxList>
             {collection.items.map((item) => (
-              <Combobox.Item key={item.value} item={item} asChild>
+              <ComboboxItem key={item.value} item={item} asChild>
                 <a href={item.href} target="_blank" rel="noreferrer">
-                  <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                  <Combobox.ItemIndicator />
+                  <ComboboxItemText>{item.label}</ComboboxItemText>
+                  <ComboboxItemIndicator />
                 </a>
-              </Combobox.Item>
+              </ComboboxItem>
             ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

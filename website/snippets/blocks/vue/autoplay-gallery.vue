@@ -1,0 +1,111 @@
+<script setup lang="ts">
+import { onMounted, onBeforeUnmount } from 'vue';
+import {
+  CarouselRootProvider,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+  useCarousel,
+} from '@/components/ui/carousel';
+import styles from './autoplay-gallery.module.css';
+const slides = [
+  {
+    id: 'workspaces',
+    category: 'Workspaces',
+    title: 'Workspaces for teams',
+    description: 'Private offices and shared desks with meeting rooms and Wi-Fi.',
+    src: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=85',
+    alt: 'A bright office with tables, chairs, and plants.',
+  },
+  {
+    id: 'outdoors',
+    category: 'Outdoors',
+    title: 'Mountain trails',
+    description: 'Day hikes and weekend routes through the mountains.',
+    src: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85',
+    alt: 'Snow-covered mountains under a clear sky.',
+  },
+  {
+    id: 'wellbeing',
+    category: 'Wellbeing',
+    title: 'Spa appointments',
+    description: 'Book a massage or a treatment at a local spa.',
+    src: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1600&q=85',
+    alt: 'A lotion bottle, rolled towels, and pink flowers.',
+  },
+  {
+    id: 'community',
+    category: 'Community',
+    title: 'Local events',
+    description: 'Find outdoor concerts, meetups, and other events nearby.',
+    src: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1600&q=85',
+    alt: 'People gathered on a patio under string lights.',
+  },
+];
+
+const carousel = useCarousel({
+  autoplay: { delay: 3500 },
+  loop: true,
+  slideCount: slides.length,
+  slidesPerPage: 1.12,
+  padding: 'var(--autoplay-gallery-padding, var(--moduix-spacing-8))',
+  spacing: 'var(--autoplay-gallery-spacing, var(--moduix-spacing-4))',
+});
+const handleVisibilityChange = () => {
+  if (document.visibilityState === 'visible') carousel.value.play();
+};
+const resumeAutoplay = () => requestAnimationFrame(() => carousel.value.play());
+const handleWheel = (event: WheelEvent) => {
+  if (event.deltaX !== 0) carousel.value.pause();
+};
+onMounted(() => document.addEventListener('visibilitychange', handleVisibilityChange));
+onBeforeUnmount(() => document.removeEventListener('visibilitychange', handleVisibilityChange));
+</script>
+<template>
+  <CarouselRootProvider :value="carousel" aria-label="Featured experiences" :class="styles.gallery">
+    <div :class="styles.viewport">
+      <CarouselItemGroup
+        :class="styles.itemGroup"
+        @touchstart="carousel.pause()"
+        @wheel="handleWheel"
+      >
+        <CarouselItem
+          v-for="(slide, index) in slides"
+          :key="slide.id"
+          :class="styles.item"
+          :data-active="carousel.page === index ? '' : undefined"
+          :index="index"
+          snap-align="center"
+        >
+          <img :class="styles.image" :src="slide.src" :alt="slide.alt" />
+          <div :class="styles.copy">
+            <span :class="styles.category">{{ slide.category }}</span>
+            <h2 :class="styles.title">{{ slide.title }}</h2>
+            <p :class="styles.description">{{ slide.description }}</p>
+          </div>
+        </CarouselItem>
+      </CarouselItemGroup>
+      <CarouselControl :class="styles.control"
+        ><CarouselPrevTrigger
+          :class="styles.prevTrigger"
+          @click="resumeAutoplay" /><CarouselNextTrigger
+          :class="styles.nextTrigger"
+          @click="resumeAutoplay"
+      /></CarouselControl>
+    </div>
+    <CarouselIndicatorGroup :class="styles.indicatorGroup">
+      <CarouselIndicator
+        v-for="(_, index) in carousel.pageSnapPoints"
+        :key="index"
+        :class="styles.indicator"
+        :data-playing="carousel.isPlaying ? '' : undefined"
+        :index="index"
+        @click="resumeAutoplay"
+      />
+    </CarouselIndicatorGroup>
+  </CarouselRootProvider>
+</template>

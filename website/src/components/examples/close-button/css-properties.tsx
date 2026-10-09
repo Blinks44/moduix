@@ -33,7 +33,7 @@ export const closeButtonOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-focus-ring-width, var(--moduix-border-width-md))',
     'Controls focus ring width.',
   ],
-  ['--moduix-close-button-icon-size', 'var(--moduix-spacing-3)', 'Controls nested SVG icon size.'],
+  ['--moduix-close-button-icon-size', 'var(--moduix-spacing-4)', 'Controls nested SVG icon size.'],
   [
     '--moduix-close-button-radius',
     'var(--moduix-radius-sm)',

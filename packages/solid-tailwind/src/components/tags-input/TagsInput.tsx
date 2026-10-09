@@ -4,22 +4,24 @@ import {
   useTagsInputContext,
   useTagsInputItemContext,
 } from '@ark-ui/solid/tags-input';
+import { cva } from 'class-variance-authority';
 import { children, For, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import { CloseButton } from '../close-button';
 
-function TagsInputRoot(props: ComponentProps<typeof TagsInputPrimitive.Root>) {
+const tagsInputRootVariants = cva(
+  'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
+);
+
+function TagsInput(props: ComponentProps<typeof TagsInputPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
     <TagsInputPrimitive.Root
       asChild={local.asChild}
-      class={cn(
-        'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50',
-        local.class,
-      )}
+      class={cn(tagsInputRootVariants(), local.class)}
       {...others}
       data-slot="tags-input-root"
     >
@@ -34,10 +36,7 @@ function TagsInputRootProvider(props: ComponentProps<typeof TagsInputPrimitive.R
   return (
     <TagsInputPrimitive.RootProvider
       asChild={local.asChild}
-      class={cn(
-        'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50',
-        local.class,
-      )}
+      class={cn(tagsInputRootVariants(), local.class)}
       {...others}
       data-slot="tags-input-root-provider"
     >
@@ -52,7 +51,7 @@ function TagsInputLabel(props: ComponentProps<typeof TagsInputPrimitive.Label>) 
   return (
     <TagsInputPrimitive.Label
       class={cn(
-        'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-disabled:opacity-50',
+        'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-disabled:opacity-50 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
         local.class,
       )}
       {...others}
@@ -94,7 +93,7 @@ function TagsInputItemPreview(props: ComponentProps<typeof TagsInputPrimitive.It
   return (
     <TagsInputPrimitive.ItemPreview
       class={cn(
-        'inline-flex min-h-control-xs max-w-full min-w-0 items-center gap-1 rounded-full border border-transparent bg-secondary px-2 py-0.5 text-xs leading-4 font-medium text-secondary-foreground transition-[border-color,background-color,color,box-shadow] duration-200 ease-in-out data-disabled:opacity-50 data-highlighted:ring-1 data-highlighted:ring-ring motion-reduce:transition-none',
+        'inline-flex min-h-control-xs max-w-full min-w-0 items-center gap-1 rounded-full border border-transparent bg-secondary px-2 py-0.5 text-xs leading-4 font-medium text-secondary-foreground transition-[border-color,background-color,color,box-shadow] duration-200 ease-in-out data-disabled:opacity-50 data-highlighted:ring-1 data-highlighted:ring-ring motion-reduce:transition-none [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
         local.class,
       )}
       {...others}
@@ -124,7 +123,7 @@ function TagsInputItemDeleteTrigger(
   return (
     <TagsInputPrimitive.ItemDeleteTrigger
       class={cn(
-        'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,color,opacity,box-shadow] duration-200 ease-in-out group-data-readonly:hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-2.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-current/12',
+        'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,color,opacity,box-shadow] duration-200 ease-in-out group-data-readonly:hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100 [@media(hover:hover)]:hover:bg-current/12',
         local.class,
       )}
       {...others}
@@ -174,7 +173,6 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
     'class',
   ]);
   const tagsInput = useTagsInputContext();
-  const resolvedChildren = children(() => local.children);
   const clearTriggerLabel = () => tagsInput().getClearTriggerProps()['aria-label'];
 
   if (local.asChild) {
@@ -195,7 +193,7 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
   return (
     <TagsInputPrimitive.ClearTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           aria-label={local['aria-label'] ?? clearTriggerLabel()}
           aria-labelledby={local['aria-labelledby']}
@@ -203,11 +201,11 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
           data-scope="tags-input"
           data-slot="tags-input-clear-trigger"
         >
-          {resolvedChildren()}
-        </CloseButton.Root>
+          {local.children}
+        </CloseButton>
       )}
       class={cn(
-        'ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 data-readonly:hidden motion-reduce:transition-none [&>svg]:size-3',
+        `ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 focus-visible:outline-offset-1 data-readonly:hidden motion-reduce:transition-none [&>svg:not([class*='size-'])]:size-4`,
         local.class,
       )}
       {...others}
@@ -217,6 +215,8 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
 }
 
 const TagsInputContext = TagsInputPrimitive.Context;
+const TagsInputHiddenInput = TagsInputPrimitive.HiddenInput;
+const TagsInputItemContext = TagsInputPrimitive.ItemContext;
 
 function TagsInputItems() {
   return (
@@ -238,22 +238,23 @@ function TagsInputItems() {
   );
 }
 
-const TagsInput = Object.assign(TagsInputRoot, {
-  Root: TagsInputRoot,
-  RootProvider: TagsInputRootProvider,
-  HiddenInput: TagsInputPrimitive.HiddenInput,
-  Label: TagsInputLabel,
-  Control: TagsInputControl,
-  Item: TagsInputItem,
-  ItemContext: TagsInputPrimitive.ItemContext,
-  ItemPreview: TagsInputItemPreview,
-  ItemText: TagsInputItemText,
-  ItemDeleteTrigger: TagsInputItemDeleteTrigger,
-  ItemInput: TagsInputItemInput,
-  Input: TagsInputInput,
-  ClearTrigger: TagsInputClearTrigger,
-  Context: TagsInputContext,
-  Items: TagsInputItems,
-});
-
-export { TagsInput, useTagsInput, useTagsInputContext, useTagsInputItemContext };
+export {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputContext,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItem,
+  TagsInputItemContext,
+  TagsInputItemDeleteTrigger,
+  TagsInputItemInput,
+  TagsInputItemPreview,
+  TagsInputItemText,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+  useTagsInputContext,
+  useTagsInputItemContext,
+};

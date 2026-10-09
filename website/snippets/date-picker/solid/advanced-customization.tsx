@@ -1,117 +1,139 @@
 import { parseDate } from '@ark-ui/solid/date-picker';
-import { DatePicker } from '@moduix/solid/date-picker';
+import {
+  DatePicker,
+  DatePickerContext,
+  DatePickerLabel,
+  DatePickerControl,
+  DatePickerInput,
+  DatePickerTrigger,
+  DatePickerClearTrigger,
+  DatePickerPositioner,
+  DatePickerContent,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerPrevTrigger,
+  DatePickerNextTrigger,
+  DatePickerViewTrigger,
+  DatePickerTable,
+  DatePickerTableHead,
+  DatePickerTableBody,
+  DatePickerTableRow,
+  DatePickerTableHeader,
+  DatePickerTableCell,
+  DatePickerTableCellTrigger,
+} from '@moduix/solid/date-picker';
 import { For } from 'solid-js';
 
 export default function AdvancedCustomizationDatePickerDemo() {
   return (
     <DatePicker defaultValue={[parseDate('2026-06-22')]}>
-      <DatePicker.Label>Advanced date</DatePicker.Label>
-      <DatePicker.Control>
-        <DatePicker.Input placeholder="Select date" />
-        <DatePicker.ClearTrigger aria-label="Clear date" />
-        <DatePicker.Trigger aria-label="Open calendar" />
-      </DatePicker.Control>
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePicker.View view="day">
-            <DatePicker.ViewControl>
-              <DatePicker.PrevTrigger />
-              <DatePicker.ViewTrigger />
-              <DatePicker.NextTrigger />
-            </DatePicker.ViewControl>
-            <DatePicker.Context>
+      <DatePickerLabel>Advanced date</DatePickerLabel>
+      <DatePickerControl>
+        <DatePickerInput placeholder="Select date" />
+        <DatePickerClearTrigger aria-label="Clear date" />
+        <DatePickerTrigger aria-label="Open calendar" />
+      </DatePickerControl>
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerView view="day">
+            <DatePickerViewControl>
+              <DatePickerPrevTrigger />
+              <DatePickerViewTrigger />
+              <DatePickerNextTrigger />
+            </DatePickerViewControl>
+            <DatePickerContext>
               {(datePicker) => (
-                <DatePicker.Table>
-                  <DatePicker.TableHead>
-                    <DatePicker.TableRow>
+                <DatePickerTable>
+                  <DatePickerTableHead>
+                    <DatePickerTableRow>
                       <For each={datePicker().weekDays}>
                         {(weekDay) => (
-                          <DatePicker.TableHeader>{weekDay.short}</DatePicker.TableHeader>
+                          <DatePickerTableHeader>{weekDay.short}</DatePickerTableHeader>
                         )}
                       </For>
-                    </DatePicker.TableRow>
-                  </DatePicker.TableHead>
-                  <DatePicker.TableBody>
+                    </DatePickerTableRow>
+                  </DatePickerTableHead>
+                  <DatePickerTableBody>
                     <For each={datePicker().weeks}>
                       {(week) => (
-                        <DatePicker.TableRow>
+                        <DatePickerTableRow>
                           <For each={week}>
                             {(day) => (
-                              <DatePicker.TableCell value={day}>
-                                <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>
-                              </DatePicker.TableCell>
+                              <DatePickerTableCell value={day}>
+                                <DatePickerTableCellTrigger>{day.day}</DatePickerTableCellTrigger>
+                              </DatePickerTableCell>
                             )}
                           </For>
-                        </DatePicker.TableRow>
+                        </DatePickerTableRow>
                       )}
                     </For>
-                  </DatePicker.TableBody>
-                </DatePicker.Table>
+                  </DatePickerTableBody>
+                </DatePickerTable>
               )}
-            </DatePicker.Context>
-          </DatePicker.View>
-          <DatePicker.View view="month">
-            <DatePicker.Context>
+            </DatePickerContext>
+          </DatePickerView>
+          <DatePickerView view="month">
+            <DatePickerContext>
               {(datePicker) => (
                 <>
-                  <DatePicker.ViewControl>
-                    <DatePicker.PrevTrigger />
-                    <DatePicker.ViewTrigger />
-                    <DatePicker.NextTrigger />
-                  </DatePicker.ViewControl>
-                  <DatePicker.Table columns={4}>
-                    <DatePicker.TableBody>
+                  <DatePickerViewControl>
+                    <DatePickerPrevTrigger />
+                    <DatePickerViewTrigger />
+                    <DatePickerNextTrigger />
+                  </DatePickerViewControl>
+                  <DatePickerTable columns={4}>
+                    <DatePickerTableBody>
                       {datePicker()
                         .getMonthsGrid({ columns: 4, format: 'short' })
                         .map((months) => (
-                          <DatePicker.TableRow>
+                          <DatePickerTableRow>
                             {months.map((month) => (
-                              <DatePicker.TableCell value={month.value}>
-                                <DatePicker.TableCellTrigger>
+                              <DatePickerTableCell value={month.value}>
+                                <DatePickerTableCellTrigger>
                                   {month.label}
-                                </DatePicker.TableCellTrigger>
-                              </DatePicker.TableCell>
+                                </DatePickerTableCellTrigger>
+                              </DatePickerTableCell>
                             ))}
-                          </DatePicker.TableRow>
+                          </DatePickerTableRow>
                         ))}
-                    </DatePicker.TableBody>
-                  </DatePicker.Table>
+                    </DatePickerTableBody>
+                  </DatePickerTable>
                 </>
               )}
-            </DatePicker.Context>
-          </DatePicker.View>
-          <DatePicker.View view="year">
-            <DatePicker.Context>
+            </DatePickerContext>
+          </DatePickerView>
+          <DatePickerView view="year">
+            <DatePickerContext>
               {(datePicker) => (
                 <>
-                  <DatePicker.ViewControl>
-                    <DatePicker.PrevTrigger />
-                    <DatePicker.ViewTrigger />
-                    <DatePicker.NextTrigger />
-                  </DatePicker.ViewControl>
-                  <DatePicker.Table columns={4}>
-                    <DatePicker.TableBody>
+                  <DatePickerViewControl>
+                    <DatePickerPrevTrigger />
+                    <DatePickerViewTrigger />
+                    <DatePickerNextTrigger />
+                  </DatePickerViewControl>
+                  <DatePickerTable columns={4}>
+                    <DatePickerTableBody>
                       {datePicker()
                         .getYearsGrid({ columns: 4 })
                         .map((years) => (
-                          <DatePicker.TableRow>
+                          <DatePickerTableRow>
                             {years.map((year) => (
-                              <DatePicker.TableCell value={year.value} disabled={year.disabled}>
-                                <DatePicker.TableCellTrigger>
+                              <DatePickerTableCell value={year.value} disabled={year.disabled}>
+                                <DatePickerTableCellTrigger>
                                   {year.label}
-                                </DatePicker.TableCellTrigger>
-                              </DatePicker.TableCell>
+                                </DatePickerTableCellTrigger>
+                              </DatePickerTableCell>
                             ))}
-                          </DatePicker.TableRow>
+                          </DatePickerTableRow>
                         ))}
-                    </DatePicker.TableBody>
-                  </DatePicker.Table>
+                    </DatePickerTableBody>
+                  </DatePickerTable>
                 </>
               )}
-            </DatePicker.Context>
-          </DatePicker.View>
-        </DatePicker.Content>
-      </DatePicker.Positioner>
+            </DatePickerContext>
+          </DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
     </DatePicker>
   );
 }

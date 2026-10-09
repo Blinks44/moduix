@@ -21,6 +21,14 @@ import progressCircularSolidMinMax from '../../../snippets/progress-circular/sol
 import progressCircularSolidRootProvider from '../../../snippets/progress-circular/solid/root-provider.tsx?raw';
 import progressCircularSolidStateViews from '../../../snippets/progress-circular/solid/state-views.tsx?raw';
 import progressCircularSolidValueText from '../../../snippets/progress-circular/solid/value-text.tsx?raw';
+import progressCircularVueBasic from '../../../snippets/progress-circular/vue/basic.vue?raw';
+import progressCircularVueCircleParts from '../../../snippets/progress-circular/vue/circle-parts.vue?raw';
+import progressCircularVueControlled from '../../../snippets/progress-circular/vue/controlled.vue?raw';
+import progressCircularVueIndeterminate from '../../../snippets/progress-circular/vue/indeterminate.vue?raw';
+import progressCircularVueMinMax from '../../../snippets/progress-circular/vue/min-max.vue?raw';
+import progressCircularVueRootProvider from '../../../snippets/progress-circular/vue/root-provider.vue?raw';
+import progressCircularVueStateViews from '../../../snippets/progress-circular/vue/state-views.vue?raw';
+import progressCircularVueValueText from '../../../snippets/progress-circular/vue/value-text.vue?raw';
 
 ## Référence de l’API
 
@@ -35,9 +43,9 @@ lorsque la progression se compare plus facilement sur une barre horizontale.
 ## Exemple de base
 
 
-Utilisez `ProgressCircular.Ring` pour afficher le cercle SVG standard, sa piste et son arc de
-progression. Ajoutez `ProgressCircular.ValueText` pour afficher la valeur actuelle. L’exemple place
-ce texte au centre du cercle grâce à un conteneur externe. Donnez à `Ring` un `aria-label` qui
+Utilisez `ProgressCircularRing` pour afficher le cercle SVG standard, sa piste et son arc de
+progression. Ajoutez `ProgressCircularValueText` pour afficher la valeur actuelle. L’exemple place
+ce texte au centre du cercle grâce à un conteneur externe. Donnez à `ProgressCircularRing` un `aria-label` qui
 identifie la tâche et correspond au libellé visible.
 
 <ExampleFrame variant="component">
@@ -51,6 +59,7 @@ identifie la tâche et correspond au libellé visible.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -63,6 +72,11 @@ identifie la tâche et correspond au libellé visible.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueBasic} />
 
     </Tab>
   </Tabs>
@@ -100,50 +114,60 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-circular' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-circular' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-ProgressCircular / ProgressCircular.Root
-├─ ProgressCircular.Label
-├─ ProgressCircular.Circle
-│  ├─ ProgressCircular.CircleTrack
-│  └─ ProgressCircular.CircleRange
-├─ ProgressCircular.Ring
-│  └─ fixed Circle, CircleTrack, and CircleRange subtree
-├─ ProgressCircular.ValueText
-└─ ProgressCircular.View
+ProgressCircular
+├─ ProgressCircularLabel
+├─ ProgressCircularCircle
+│  ├─ ProgressCircularCircleTrack
+│  └─ ProgressCircularCircleRange
+├─ ProgressCircularRing
+│  └─ fixed ProgressCircularCircle, ProgressCircularCircleTrack, and ProgressCircularCircleRange subtree
+├─ ProgressCircularValueText
+└─ ProgressCircularView
 
-ProgressCircular.RootProvider
-└─ same part tree connected to ProgressCircular.useProgress()
+ProgressCircularRootProvider
+└─ same part tree connected to useProgress()
 ```
 
 | Partie                                        | Rôle                                                                                |
 | --------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `ProgressCircular` / `ProgressCircular.Root`  | Gère l’état de progression, le formatage et les identifiants générés.               |
-| `ProgressCircular.RootProvider`               | Relie les parties à l’état créé par `ProgressCircular.useProgress()`.               |
-| `ProgressCircular.Context`                    | Expose l’état courant via une fonction de rendu.                                     |
-| `ProgressCircular.Label`                      | Fournit le contexte visible de l’indicateur de progression.                         |
-| `ProgressCircular.Ring`                       | Partie pratique qui rend le cercle, la piste et l’arc par défaut.                   |
-| `ProgressCircular.Circle`                     | Élément SVG auquel Ark ajoute le rôle et les attributs ARIA de valeur.              |
-| `ProgressCircular.CircleTrack`                | Cercle d’arrière-plan.                                                              |
-| `ProgressCircular.CircleRange`                | Arc au premier plan qui reflète la progression actuelle ou l’état indéterminé.      |
-| `ProgressCircular.ValueText`                  | Affiche la valeur formatée et annonce les mises à jour.                             |
-| `ProgressCircular.View`                       | Rend du contenu pour les états `indeterminate`, `loading` ou `complete`.            |
+| `ProgressCircular`  | Gère l’état de progression, le formatage et les identifiants générés.               |
+| `ProgressCircularRootProvider`               | Relie les parties à l’état créé par `useProgress()`.               |
+| `ProgressCircularContext`                    | Expose l’état courant via une fonction de rendu.                                     |
+| `ProgressCircularLabel`                      | Fournit le contexte visible de l’indicateur de progression.                         |
+| `ProgressCircularRing`                       | Partie pratique qui rend le cercle, la piste et l’arc par défaut.                   |
+| `ProgressCircularCircle`                     | Élément SVG auquel Ark ajoute le rôle et les attributs ARIA de valeur.              |
+| `ProgressCircularCircleTrack`                | Cercle d’arrière-plan.                                                              |
+| `ProgressCircularCircleRange`                | Arc au premier plan qui reflète la progression actuelle ou l’état indéterminé.      |
+| `ProgressCircularValueText`                  | Affiche la valeur formatée et annonce les mises à jour.                             |
+| `ProgressCircularView`                       | Rend du contenu pour les états `indeterminate`, `loading` ou `complete`.            |
 
 ## Composition
 
-`ProgressCircular` est le raccourci de `ProgressCircular.Root`. Utilisez `ProgressCircular.Ring`
-lorsque le cercle standard suffit : il combine `Circle`, `CircleTrack` et `CircleRange`, mais ne
-rend pas et ne centre pas `ValueText`. Gardez la composition du libellé, du cercle et du texte de
+Utilisez `ProgressCircularRing`
+lorsque le cercle standard suffit : il combine `ProgressCircularCircle`, `ProgressCircularCircleTrack` et `ProgressCircularCircleRange`, mais ne
+rend pas et ne centre pas `ProgressCircularValueText`. Gardez la composition du libellé, du cercle et du texte de
 valeur explicite lorsque la valeur doit apparaître au centre.
 
 Utilisez `defaultValue` lorsque le composant possède l’état de progression. Utilisez `value` avec
 `onValueChange(details)` lorsque l’application le possède. Définissez `defaultValue={null}` ou
 `value={null}` pour une progression indéterminée. Lorsque l’état doit être créé en dehors de l’arbre
-rendu, créez-le avec `ProgressCircular.useProgress()` et passez le store à
-`ProgressCircular.RootProvider` au lieu de rendre une autre racine pour le même store.
+rendu, créez-le avec `useProgress()` et passez le store à
+`ProgressCircularRootProvider` au lieu de rendre une autre racine pour le même store.
 
 ## Exemples
 
@@ -163,6 +187,7 @@ un autre contrôle ou une tâche externe.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -175,6 +200,11 @@ un autre contrôle ou une tâche externe.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueControlled} />
 
     </Tab>
   </Tabs>
@@ -203,6 +233,7 @@ progression ne peut pas encore être mesurée.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -215,6 +246,11 @@ progression ne peut pas encore être mesurée.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidIndeterminate} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueIndeterminate} />
 
     </Tab>
   </Tabs>
@@ -243,6 +279,7 @@ Utilisez `min` et `max` pour représenter des valeurs dans une plage autre que l
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -257,6 +294,11 @@ Utilisez `min` et `max` pour représenter des valeurs dans une plage autre que l
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidMinMax} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueMinMax} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -269,8 +311,8 @@ Utilisez `min` et `max` pour représenter des valeurs dans une plage autre que l
 
 ### Texte de la valeur
 
-Utilisez `Context` avec `translations.value(details)` lorsque le texte visible de la valeur doit
-être formulé pour une tâche précise. Rendez `progress.valueAsString` comme enfant de `ValueText`
+Utilisez `ProgressCircularContext` avec `translations.value(details)` lorsque le texte visible de la valeur doit
+être formulé pour une tâche précise. Rendez `progress.valueAsString` comme enfant de `ProgressCircularValueText`
 afin que le texte visible corresponde à la chaîne de valeur accessible.
 
 <ExampleFrame variant="component">
@@ -284,6 +326,7 @@ afin que le texte visible corresponde à la chaîne de valeur accessible.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -298,6 +341,11 @@ afin que le texte visible corresponde à la chaîne de valeur accessible.
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidValueText} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueValueText} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -305,9 +353,9 @@ afin que le texte visible corresponde à la chaîne de valeur accessible.
 
 ### Personnalisation avancée
 
-Utilisez les parties individuelles du cercle à la place de `ProgressCircular.Ring` lorsque
+Utilisez les parties individuelles du cercle à la place de `ProgressCircularRing` lorsque
 l’arborescence SVG ou la gestion de l’état doit être personnalisée. Seule la composition directe
-permet de donner à `CircleTrack` et `CircleRange` leurs propres classes, comme dans cet exemple.
+permet de donner à `ProgressCircularCircleTrack` et `ProgressCircularCircleRange` leurs propres classes, comme dans cet exemple.
 
 <ExampleFrame variant="component">
   <CirclePartsProgressCircular />
@@ -320,6 +368,7 @@ permet de donner à `CircleTrack` et `CircleRange` leurs propres classes, comme 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -334,6 +383,11 @@ permet de donner à `CircleTrack` et `CircleRange` leurs propres classes, comme 
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidCircleParts} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueCircleParts} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -344,9 +398,9 @@ permet de donner à `CircleTrack` et `CircleRange` leurs propres classes, comme 
 
 </ExampleCode>
 
-#### RootProvider
+### Root Provider
 
-Créez le store avec `ProgressCircular.useProgress()` et passez-le à `RootProvider` lorsqu’un autre
+Créez le store avec `useProgress()` et passez-le à `ProgressCircularRootProvider` lorsqu’un autre
 composant doit lire ou mettre à jour la progression en dehors de l’arbre rendu.
 
 <ExampleFrame variant="component">
@@ -360,6 +414,7 @@ composant doit lire ou mettre à jour la progression en dehors de l’arbre rend
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -374,6 +429,11 @@ composant doit lire ou mettre à jour la progression en dehors de l’arbre rend
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueRootProvider} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -384,9 +444,9 @@ composant doit lire ou mettre à jour la progression en dehors de l’arbre rend
 
 </ExampleCode>
 
-#### Vues d’état
+### Vues d’état
 
-Utilisez `ProgressCircular.View` lorsque le texte ou l’interface d’accompagnement doit changer avec
+Utilisez `ProgressCircularView` lorsque le texte ou l’interface d’accompagnement doit changer avec
 l’état de progression Ark.
 
 <ExampleFrame variant="component">
@@ -400,6 +460,7 @@ l’état de progression Ark.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -414,6 +475,11 @@ l’état de progression Ark.
 <CodeBlockRuntime lang="tsx" code={progressCircularSolidStateViews} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressCircularVueStateViews} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -426,7 +492,7 @@ l’état de progression Ark.
 
 ## Styles
 
-Utilisez `className` en React et `class` en Solid sur les parties exportées pour la structure et
+Utilisez `className` en React et `class` en Solid et Vue sur les parties exportées pour la structure et
 l’apparence. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du
 consommateur. Les variantes CSS Modules exposent les variables CSS ci-dessous. Pour les styles liés
 à l’état, utilisez les attributs de données Ark, les variables SVG Ark et les points d’accroche
@@ -458,8 +524,8 @@ statique visible.
   `data-slot="progress-circular-label"`, `data-slot="progress-circular-circle"`,
   `data-slot="progress-circular-circle-track"`, `data-slot="progress-circular-circle-range"`,
   `data-slot="progress-circular-value-text"` et `data-slot="progress-circular-view"`.
-- `ProgressCircular.Ring` utilise les mêmes `data-slot`, `className`, ref et variables de taille et
-  d’épaisseur `--moduix-progress-circular-*` que `ProgressCircular.Circle`.
+- `ProgressCircularRing` utilise les mêmes `data-slot`, `className`/`class`, ref et variables de taille et
+  d’épaisseur `--moduix-progress-circular-*` que `ProgressCircularCircle`.
 - Attributs Ark : `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`,
   `data-orientation`, `data-value` et `data-max`.
 - Variables SVG Ark du cercle : `--size`, `--thickness`, `--radius`, `--circumference`, `--percent`

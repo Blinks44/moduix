@@ -1,9 +1,9 @@
 import { Highlight as HighlightPrimitive } from '@ark-ui/react/highlight';
 import { clsx } from 'clsx';
-import type { ComponentProps } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 import styles from './Highlight.module.css';
 
-function HighlightRoot({ className, ...props }: ComponentProps<typeof HighlightPrimitive>) {
+function Highlight({ className, ...props }: ComponentPropsWithoutRef<typeof HighlightPrimitive>) {
   return (
     <HighlightPrimitive
       className={clsx(styles.root, className)}
@@ -14,9 +14,5 @@ function HighlightRoot({ className, ...props }: ComponentProps<typeof HighlightP
     />
   );
 }
-
-const Highlight = Object.assign(HighlightRoot, {
-  Root: HighlightRoot,
-});
 
 export { Highlight };

@@ -5,6 +5,7 @@ description: Configure document direction, Ark locale context, portals, and logi
 
 import reactSection from '../../../snippets/rtl/react/section.tsx?raw';
 import solidSection from '../../../snippets/rtl/solid/section.tsx?raw';
+import VueSection from '../../../snippets/rtl/vue/section.vue?raw';
 
 # Right-to-left (RTL)
 
@@ -41,6 +42,19 @@ import { LocaleProvider } from '@moduix/solid/locale';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```vue
+<script setup lang="ts">
+import { LocaleProvider } from '@moduix/vue/locale';
+</script>
+
+<template>
+  <LocaleProvider locale="ar-EG"><slot /></LocaleProvider>
+</template>
+```
+
+  </Tab>
 </Tabs>
 
 `LocaleProvider` derives Ark's direction from the locale, but it does not change native document
@@ -63,11 +77,17 @@ components with `LocaleProvider`.
 <CodeBlockRuntime lang="tsx" code={solidSection} />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<CodeBlockRuntime lang="vue" code={VueSection} />
+
+  </Tab>
+
 </Tabs>
 
-The collection comes from the matching Ark UI adapter. Select, Button, and LocaleProvider come from
-the matching Moduix adapter. Components read direction from the locale context and do not need a
-separate RTL prop.
+The example builds its collection with `createListCollection` from `@ark-ui/react/collection` or
+`@ark-ui/solid/collection`, `@ark-ui/vue/collection`. Select, Button, and LocaleProvider come from the matching Moduix
+adapter. Components read direction from the locale context and do not need a separate RTL prop.
 
 ## Handle portals and mixed direction
 

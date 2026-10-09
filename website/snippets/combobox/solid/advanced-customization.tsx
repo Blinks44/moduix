@@ -1,6 +1,18 @@
 import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
-import { Combobox } from '@moduix/solid/combobox';
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxItemText,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/solid/combobox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/combobox/component-advanced-customization.module.css';
 
@@ -25,30 +37,30 @@ export default function AdvancedCustomizationComboboxDemo() {
       selectionBehavior="preserve"
       onInputValueChange={(details) => filter(details.inputValue)}
     >
-      <Combobox.Label>Developer resources</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. GitHub" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content class={styles.content}>
-          <Combobox.List>
+      <ComboboxLabel>Developer resources</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="e.g. GitHub" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent class={styles.content}>
+          <ComboboxList>
             <For each={collection().items}>
               {(item) => (
-                <Combobox.Item
+                <ComboboxItem
                   item={item}
                   asChild={(props) => (
                     <a {...props()} href={item.href} target="_blank" rel="noreferrer">
-                      <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                      <Combobox.ItemIndicator />
+                      <ComboboxItemText>{item.label}</ComboboxItemText>
+                      <ComboboxItemIndicator />
                     </a>
                   )}
                 />
               )}
             </For>
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

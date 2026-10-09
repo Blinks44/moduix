@@ -1,6 +1,20 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { Button } from '@moduix/solid/button';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectClearTrigger,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/solid/select';
 import { createSignal, For } from 'solid-js';
 import styles from '@/components/examples/select/select-form-usage.module.css';
 
@@ -24,27 +38,27 @@ export default function SelectFormUsageDemo() {
   return (
     <form class={styles.root} onSubmit={handleSubmit}>
       <Select collection={themes} name="theme" required>
-        <Select.Label>Theme</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select theme" />
-          </Select.Trigger>
-          <Select.Indicator />
-          <Select.ClearTrigger aria-label="Clear selection" />
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
+        <SelectLabel>Theme</SelectLabel>
+        <SelectControl>
+          <SelectTrigger>
+            <SelectValueText placeholder="Select theme" />
+          </SelectTrigger>
+          <SelectIndicator />
+          <SelectClearTrigger aria-label="Clear selection" />
+        </SelectControl>
+        <SelectPositioner>
+          <SelectContent>
             <For each={themes.items}>
               {(item) => (
-                <Select.Item item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
+                <SelectItem item={item}>
+                  <SelectItemText>{item.label}</SelectItemText>
+                  <SelectItemIndicator />
+                </SelectItem>
               )}
             </For>
-          </Select.Content>
-        </Select.Positioner>
-        <Select.HiddenSelect />
+          </SelectContent>
+        </SelectPositioner>
+        <SelectHiddenSelect />
       </Select>
       <div>
         <output>Submitted: {submitted()}</output>

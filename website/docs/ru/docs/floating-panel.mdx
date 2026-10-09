@@ -27,6 +27,17 @@ import floatingPanelSolidControlledSize from '../../../snippets/floating-panel/s
 import floatingPanelSolidEscapeDismiss from '../../../snippets/floating-panel/solid/escape-dismiss.tsx?raw';
 import floatingPanelSolidLazyMount from '../../../snippets/floating-panel/solid/lazy-mount.tsx?raw';
 import floatingPanelSolidRootProvider from '../../../snippets/floating-panel/solid/root-provider.tsx?raw';
+import floatingPanelVueAdvancedCustomization from '../../../snippets/floating-panel/vue/advanced-customization.vue?raw';
+import floatingPanelVueAnchorPosition from '../../../snippets/floating-panel/vue/anchor-position.vue?raw';
+import floatingPanelVueBasic from '../../../snippets/floating-panel/vue/basic.vue?raw';
+import floatingPanelVueBoundary from '../../../snippets/floating-panel/vue/boundary.vue?raw';
+import floatingPanelVueContext from '../../../snippets/floating-panel/vue/context.vue?raw';
+import floatingPanelVueControlledOpen from '../../../snippets/floating-panel/vue/controlled-open.vue?raw';
+import floatingPanelVueControlledPosition from '../../../snippets/floating-panel/vue/controlled-position.vue?raw';
+import floatingPanelVueControlledSize from '../../../snippets/floating-panel/vue/controlled-size.vue?raw';
+import floatingPanelVueEscapeDismiss from '../../../snippets/floating-panel/vue/escape-dismiss.vue?raw';
+import floatingPanelVueLazyMount from '../../../snippets/floating-panel/vue/lazy-mount.vue?raw';
+import floatingPanelVueRootProvider from '../../../snippets/floating-panel/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -41,9 +52,12 @@ import floatingPanelSolidRootProvider from '../../../snippets/floating-panel/sol
 ## Базовый пример
 
 
-Явно соберите части Ark UI. `FloatingPanel.Positioner` применяет рассчитанные Ark значения позиции
-и размера, а `FloatingPanel.Content` представляет видимую поверхность окна. Заголовок становится
-областью перетаскивания, а `ResizeTriggerGroup` добавляет ручки изменения размера по краям панели.
+Явно соберите части Ark UI. `FloatingPanelPositioner` применяет рассчитанные Ark значения позиции
+и размера, а `FloatingPanelContent` представляет видимую поверхность окна. Заголовок становится
+областью перетаскивания, а `FloatingPanelResizeTriggerGroup` добавляет ручки изменения размера по краям панели.
+
+React, Solid и Vue используют одинаковые плоские имена компонентов. В Vue части компонента
+соединяются через слоты, а для управляемых состояний открытия, позиции или размера используется `v-model`.
 
 <ExampleFrame variant="component">
   <FloatingPanelBasic />
@@ -56,6 +70,7 @@ import floatingPanelSolidRootProvider from '../../../snippets/floating-panel/sol
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +83,12 @@ import floatingPanelSolidRootProvider from '../../../snippets/floating-panel/sol
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidBasic} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,63 +120,72 @@ import floatingPanelSolidRootProvider from '../../../snippets/floating-panel/sol
 />
 
   </Tab>
+
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/floating-panel' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/floating-panel' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
-## Анатомия
-
 ```text
-FloatingPanel / FloatingPanel.Root
-├─ FloatingPanel.Trigger
+FloatingPanel
+├─ FloatingPanelTrigger
 └─ Дерево оверлея (автоматически помещается в портал)
-   └─ FloatingPanel.Positioner
-      └─ FloatingPanel.Content
-         ├─ FloatingPanel.DragTrigger
-         │  └─ FloatingPanel.Header
-         │     ├─ FloatingPanel.Title
-         │     │  └─ FloatingPanel.DragIndicator (необязательно)
-         │     └─ FloatingPanel.Control
-         │        ├─ FloatingPanel.StageTrigger
-         │        └─ FloatingPanel.CloseTrigger / CloseIcon
-         ├─ FloatingPanel.Body
-         ├─ FloatingPanel.Footer
-         └─ FloatingPanel.ResizeTrigger / ResizeTriggerGroup
+   └─ FloatingPanelPositioner
+      └─ FloatingPanelContent
+         ├─ FloatingPanelDragTrigger
+         │  └─ FloatingPanelHeader
+         │     ├─ FloatingPanelTitle
+         │     │  └─ FloatingPanelDragIndicator (необязательно)
+         │     └─ FloatingPanelControl
+         │        ├─ FloatingPanelStageTrigger
+         │        └─ FloatingPanelCloseTrigger / FloatingPanelCloseIcon
+         ├─ FloatingPanelBody
+         ├─ FloatingPanelFooter
+         └─ FloatingPanelResizeTrigger / FloatingPanelResizeTriggerGroup
 ```
 
 | Часть                                      | Назначение                                                               |
 | ------------------------------------------ | ------------------------------------------------------------------------ |
-| `FloatingPanel` / `FloatingPanel.Root`     | Управляет состоянием открытия, позицией, размером, перетаскиванием и режимом окна. |
-| `FloatingPanel.Trigger`                    | Открывает панель или переключает её состояние.                           |
-| `FloatingPanel.Positioner`                 | Применяет рассчитанные Ark значения позиции, размера, трансформации и z-index. |
-| `FloatingPanel.Content`                    | Видимая поверхность плавающего окна.                                    |
-| `FloatingPanel.DragTrigger`                | Задаёт область, за которую можно перетаскивать панель, обычно заголовок.   |
-| `FloatingPanel.Header`                     | Часть Ark для заголовка и обёртка области перетаскивания.                 |
-| `FloatingPanel.Title`                      | Задаёт доступное имя панели.                                             |
-| `FloatingPanel.Control`                    | Группирует кнопки смены режима и закрытия.                               |
-| `FloatingPanel.StageTrigger`               | Переключает режимы `default`, `minimized` и `maximized`.                  |
-| `FloatingPanel.CloseTrigger` / `CloseIcon` | Закрывает панель.                                                        |
-| `FloatingPanel.Body`                       | Основная область содержимого с прокруткой.                               |
-| `FloatingPanel.Footer`                     | Необязательная нижняя область для действий или статуса.                  |
-| `FloatingPanel.ResizeTrigger`              | Ручка изменения размера для одной оси Ark.                              |
-| `FloatingPanel.ResizeTriggerGroup`         | Выводит все или выбранные ручки изменения размера.                       |
-| `FloatingPanel.RootProvider`               | Подключает части к состоянию из `FloatingPanel.useFloatingPanel()`.       |
+| `FloatingPanel`                           | Управляет состоянием открытия, позицией, размером, перетаскиванием и режимом окна. |
+| `FloatingPanelTrigger`                    | Открывает панель или переключает её состояние.                           |
+| `FloatingPanelPositioner`                 | Применяет рассчитанные Ark значения позиции, размера, трансформации и z-index. |
+| `FloatingPanelContent`                    | Видимая поверхность плавающего окна.                                    |
+| `FloatingPanelDragTrigger`                | Задаёт область, за которую можно перетаскивать панель, обычно заголовок.   |
+| `FloatingPanelHeader`                     | Часть Ark для заголовка и обёртка области перетаскивания.                 |
+| `FloatingPanelTitle`                      | Задаёт доступное имя панели.                                             |
+| `FloatingPanelControl`                    | Группирует кнопки смены режима и закрытия.                               |
+| `FloatingPanelStageTrigger`               | Переключает режимы `default`, `minimized` и `maximized`.                  |
+| `FloatingPanelCloseTrigger` / `FloatingPanelCloseIcon` | Закрывает панель.                                             |
+| `FloatingPanelBody`                       | Основная область содержимого с прокруткой.                               |
+| `FloatingPanelFooter`                     | Необязательная нижняя область для действий или статуса.                  |
+| `FloatingPanelResizeTrigger`              | Ручка изменения размера для одной оси Ark.                              |
+| `FloatingPanelResizeTriggerGroup`         | Выводит все или выбранные ручки изменения размера.                       |
+| `FloatingPanelRootProvider`               | Подключает части к состоянию из `useFloatingPanel()`.       |
 
-`FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, `FloatingPanel.Footer` и
-`FloatingPanel.ResizeTriggerGroup` являются вспомогательными частями moduix. Они дополняют
+`FloatingPanelDragIndicator`, `FloatingPanelCloseIcon`, `FloatingPanelFooter` и
+`FloatingPanelResizeTriggerGroup` являются вспомогательными частями moduix. Они дополняют
 структурные части Ark UI, но не заменяют их.
 
 ## Композиция
 
-Используйте `FloatingPanel` для локального состояния. Оставьте `Positioner` и `Content` явными,
-оберните заголовок в `DragTrigger` и добавьте `Title` для доступного имени. `Positioner` по умолчанию
+Используйте `FloatingPanel` для локального состояния. Оставьте `FloatingPanelPositioner` и `FloatingPanelContent` явными,
+оберните заголовок в `FloatingPanelDragTrigger` и добавьте `FloatingPanelTitle` для доступного имени. `FloatingPanelPositioner` по умолчанию
 выводится через портал. Установите `portalled={false}` или передайте `portalRef`, если панель должна
 находиться в другом контейнере.
 
 Если состояние должно находиться за пределами дерева панели, создайте его через
-`FloatingPanel.useFloatingPanel()` и передайте в `RootProvider`. Не используйте `FloatingPanel` и
-`RootProvider` для одного экземпляра состояния. `position` и `size` управляются независимо. Используйте
-`ResizeTriggerGroup axes` или отдельные `ResizeTrigger`, только если стандартный набор ручек не подходит.
-Для `asChild` передавайте один семантически подходящий дочерний элемент; в Solid используется форма
-с render-функцией.
+`useFloatingPanel()` и передайте в `FloatingPanelRootProvider`. Не используйте `FloatingPanel` и
+`FloatingPanelRootProvider` для одного экземпляра состояния. `position` и `size` управляются независимо. Используйте
+`FloatingPanelResizeTriggerGroup axes` или отдельные `FloatingPanelResizeTrigger`, только если стандартный набор ручек не подходит.
+Для `asChild` передавайте один семантически подходящий дочерний элемент. В Vue поместите дочерний элемент
+в слот, а в Solid передайте функцию рендера.
 
 ## Примеры
 
@@ -169,7 +199,7 @@ FloatingPanel / FloatingPanel.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/anchor-position.tsx"
@@ -179,6 +209,12 @@ FloatingPanel / FloatingPanel.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidAnchorPosition} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueAnchorPosition} />
 
     </Tab>
   </Tabs>
@@ -196,7 +232,7 @@ FloatingPanel / FloatingPanel.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/boundary.tsx"
@@ -206,6 +242,12 @@ FloatingPanel / FloatingPanel.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidBoundary} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueBoundary} />
 
     </Tab>
   </Tabs>
@@ -219,8 +261,9 @@ FloatingPanel / FloatingPanel.Root
 
 ### Контекст
 
-Используйте `FloatingPanel.Context` или `useFloatingPanelContext`, чтобы читать состояние и методы
-панели внутри дерева компонентов. В Solid значение контекста является accessor-функцией.
+Используйте `FloatingPanelContext` или `useFloatingPanelContext`, чтобы читать состояние и методы
+панели внутри дерева компонентов. Vue получает значение контекста через scoped slot, а Solid
+предоставляет его как accessor-функцию.
 
 <ExampleFrame variant="component">
   <FloatingPanelContext />
@@ -228,7 +271,7 @@ FloatingPanel / FloatingPanel.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/context.tsx"
@@ -238,6 +281,12 @@ FloatingPanel / FloatingPanel.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidContext} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueContext} />
 
     </Tab>
   </Tabs>
@@ -254,7 +303,7 @@ FloatingPanel / FloatingPanel.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/controlled-open.tsx"
@@ -264,6 +313,12 @@ FloatingPanel / FloatingPanel.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidControlledOpen} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueControlledOpen} />
 
     </Tab>
   </Tabs>
@@ -280,7 +335,7 @@ FloatingPanel / FloatingPanel.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/controlled-position.tsx"
@@ -290,6 +345,12 @@ FloatingPanel / FloatingPanel.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidControlledPosition} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueControlledPosition} />
 
     </Tab>
   </Tabs>
@@ -306,7 +367,7 @@ FloatingPanel / FloatingPanel.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/controlled-size.tsx"
@@ -318,13 +379,19 @@ FloatingPanel / FloatingPanel.Root
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidControlledSize} />
 
     </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueControlledSize} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ### Закрытие по Escape
 
-`closeOnEscape` включён по умолчанию. Добавьте `autoFocus` к `Content`, чтобы Escape работал сразу
+`closeOnEscape` включён по умолчанию. Добавьте `autoFocus` к `FloatingPanelContent`, чтобы Escape работал сразу
 после открытия немодальной панели.
 
 <ExampleFrame variant="component">
@@ -333,7 +400,7 @@ FloatingPanel / FloatingPanel.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/escape-dismiss.tsx"
@@ -343,6 +410,12 @@ FloatingPanel / FloatingPanel.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidEscapeDismiss} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueEscapeDismiss} />
 
     </Tab>
   </Tabs>
@@ -360,7 +433,7 @@ FloatingPanel / FloatingPanel.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/lazy-mount.tsx"
@@ -372,13 +445,19 @@ FloatingPanel / FloatingPanel.Root
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidLazyMount} />
 
     </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueLazyMount} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
-### RootProvider
+### FloatingPanelRootProvider
 
-Используйте `FloatingPanel.useFloatingPanel` вместе с `RootProvider`, если элементам управления за
+Используйте `useFloatingPanel` вместе с `FloatingPanelRootProvider`, если элементам управления за
 пределами дерева панели нужны методы `minimize`, `maximize` и `setOpen`. В Solid состояние хранилища
 читается через accessor-функцию.
 
@@ -388,7 +467,7 @@ FloatingPanel / FloatingPanel.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/root-provider.tsx"
@@ -400,13 +479,19 @@ FloatingPanel / FloatingPanel.Root
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidRootProvider} />
 
     </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueRootProvider} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
 
 ### Расширенная настройка
 
-Используйте отдельные части `ResizeTrigger`, если каждой оси изменения размера нужны свои положение
+Используйте отдельные части `FloatingPanelResizeTrigger`, если каждой оси изменения размера нужны свои положение
 или стили.
 
 <ExampleFrame variant="component">
@@ -415,7 +500,7 @@ FloatingPanel / FloatingPanel.Root
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/floating-panel/advanced-customization.tsx"
@@ -425,6 +510,12 @@ FloatingPanel / FloatingPanel.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={floatingPanelSolidAdvancedCustomization} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={floatingPanelVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -456,7 +547,7 @@ FloatingPanel / FloatingPanel.Root
 `data-dragging`, `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`,
 `data-maximized`, `data-staged` и `data-axis` для стилизации состояния соответствующих частей.
 
-`Positioner` предоставляет `--width`, `--height`, `--x`, `--y`, `--reference-width`,
+`FloatingPanelPositioner` предоставляет `--width`, `--height`, `--x`, `--y`, `--reference-width`,
 `--reference-height`, `--available-width`, `--available-height`, `--z-index` и `--transform-origin`.
 Для размеров и трансформаций используйте переменные Ark, обновляемые во время работы, а не дублируйте измерения
 в коде приложения.

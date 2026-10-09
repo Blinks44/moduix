@@ -1,0 +1,53 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "qr-code",
+  "title": "QR Code",
+  "description": "moduix Vue Tailwind QR Code component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/qr-code/QrCode.vue",
+      "content": "<script setup lang=\"ts\">\nimport { QrCodeRoot as ArkQrCodeRoot } from '@ark-ui/vue/qr-code';\nimport type { QrCodeRootProps } from '@ark-ui/vue/qr-code';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ QrCodeRootProps {\n  class?: HTMLAttributes['class'];\n}\n\nexport interface Emits {\n  valueChange: [details: { value: string }];\n  'update:modelValue': [value: string];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineEmits</* @vue-ignore */ Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkQrCodeRoot\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'relative box-border inline-flex w-32 max-w-full flex-col items-center gap-3 text-foreground',\n        className,\n      )\n    \"\n    data-slot=\"qr-code-root\"\n  >\n    <slot />\n  </ArkQrCodeRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/qr-code/QrCode.vue"
+    },
+    {
+      "path": "src/components/qr-code/QrCodeRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { QrCodeRootProvider as ArkQrCodeRootProvider } from '@ark-ui/vue/qr-code';\nimport type { QrCodeRootProviderProps } from '@ark-ui/vue/qr-code';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ QrCodeRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: QrCodeRootProviderProps['value'];\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkQrCodeRootProvider\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'relative box-border inline-flex w-32 max-w-full flex-col items-center gap-3 text-foreground',\n        className,\n      )\n    \"\n    :value=\"value\"\n    data-slot=\"qr-code-root-provider\"\n  >\n    <slot />\n  </ArkQrCodeRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/qr-code/QrCodeRootProvider.vue"
+    },
+    {
+      "path": "src/components/qr-code/QrCodeFrame.vue",
+      "content": "<script setup lang=\"ts\">\nimport { QrCodeFrame as ArkQrCodeFrame } from '@ark-ui/vue/qr-code';\nimport type { QrCodeFrameProps } from '@ark-ui/vue/qr-code';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ QrCodeFrameProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkQrCodeFrame\n    v-bind=\"attrs\"\n    :class=\"cn('box-border aspect-square h-auto w-full fill-current text-inherit', className)\"\n    data-slot=\"qr-code-frame\"\n  >\n    <slot />\n  </ArkQrCodeFrame>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/qr-code/QrCodeFrame.vue"
+    },
+    {
+      "path": "src/components/qr-code/QrCodePattern.vue",
+      "content": "<script setup lang=\"ts\">\nimport { QrCodePattern as ArkQrCodePattern } from '@ark-ui/vue/qr-code';\nimport type { QrCodePatternProps } from '@ark-ui/vue/qr-code';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ QrCodePatternProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkQrCodePattern\n    v-bind=\"attrs\"\n    :class=\"cn('fill-inherit', className)\"\n    data-slot=\"qr-code-pattern\"\n  >\n    <slot />\n  </ArkQrCodePattern>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/qr-code/QrCodePattern.vue"
+    },
+    {
+      "path": "src/components/qr-code/QrCodeOverlay.vue",
+      "content": "<script setup lang=\"ts\">\nimport { QrCodeOverlay as ArkQrCodeOverlay } from '@ark-ui/vue/qr-code';\nimport type { QrCodeOverlayProps } from '@ark-ui/vue/qr-code';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ QrCodeOverlayProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkQrCodeOverlay\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'box-border inline-flex size-control-lg items-center justify-center rounded-sm bg-background p-1 text-foreground [&_img]:size-full [&_img]:object-contain [&_svg]:size-full [&_svg]:object-contain',\n        className,\n      )\n    \"\n    data-slot=\"qr-code-overlay\"\n  >\n    <slot />\n  </ArkQrCodeOverlay>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/qr-code/QrCodeOverlay.vue"
+    },
+    {
+      "path": "src/components/qr-code/QrCodeDownloadTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { QrCodeDownloadTrigger as ArkQrCodeDownloadTrigger } from '@ark-ui/vue/qr-code';\nimport type { QrCodeDownloadTriggerProps } from '@ark-ui/vue/qr-code';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ QrCodeDownloadTriggerProps {\n  class?: HTMLAttributes['class'];\n  fileName: QrCodeDownloadTriggerProps['fileName'];\n  mimeType: QrCodeDownloadTriggerProps['mimeType'];\n}\n\nconst { class: className, fileName, mimeType } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkQrCodeDownloadTrigger\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'box-border inline-flex min-h-control-md cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm font-medium whitespace-nowrap text-foreground transition-[border-color,background-color,color,opacity,box-shadow] duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled):not([data-disabled])]:opacity-[0.94] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent',\n        className,\n      )\n    \"\n    :file-name=\"fileName\"\n    :mime-type=\"mimeType\"\n    data-slot=\"qr-code-download-trigger\"\n  >\n    <slot />\n  </ArkQrCodeDownloadTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/qr-code/QrCodeDownloadTrigger.vue"
+    },
+    {
+      "path": "src/components/qr-code/index.ts",
+      "content": "import { QrCodeContext, useQrCode, useQrCodeContext } from '@ark-ui/vue/qr-code';\nimport QrCode from './QrCode.vue';\nimport QrCodeDownloadTrigger from './QrCodeDownloadTrigger.vue';\nimport QrCodeFrame from './QrCodeFrame.vue';\nimport QrCodeOverlay from './QrCodeOverlay.vue';\nimport QrCodePattern from './QrCodePattern.vue';\nimport QrCodeRootProvider from './QrCodeRootProvider.vue';\n\nexport {\n  QrCode,\n  QrCodeContext,\n  QrCodeDownloadTrigger,\n  QrCodeFrame,\n  QrCodeOverlay,\n  QrCodePattern,\n  QrCodeRootProvider,\n  useQrCode,\n  useQrCodeContext,\n};\n\nexport type {\n  QrCodeContextProps,\n  QrCodeDownloadTriggerBaseProps,\n  QrCodeDownloadTriggerProps,\n  QrCodeFrameBaseProps,\n  QrCodeFrameProps,\n  QrCodeGenerateOptions,\n  QrCodeGenerateResult,\n  QrCodeOverlayBaseProps,\n  QrCodeOverlayProps,\n  QrCodePatternBaseProps,\n  QrCodePatternProps,\n  QrCodeRootBaseProps,\n  QrCodeRootEmits,\n  QrCodeRootProps,\n  QrCodeRootProviderBaseProps,\n  QrCodeRootProviderProps,\n  UseQrCodeContext,\n  UseQrCodeProps,\n  UseQrCodeReturn,\n} from '@ark-ui/vue/qr-code';",
+      "type": "registry:component",
+      "target": "@components/ui/qr-code/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

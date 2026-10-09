@@ -1,5 +1,16 @@
 import { Button } from '@moduix/react/button';
-import { Popover, usePopover } from '@moduix/react/popover';
+import {
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverPositioner,
+  PopoverRootProvider,
+  PopoverTitle,
+  PopoverTrigger,
+  usePopover,
+} from '@moduix/react/popover';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/popover/popover-root-provider.module.css';
 
@@ -12,24 +23,22 @@ export default function RootProviderDemo() {
   });
   return (
     <div className={styles.root}>
-      <Popover.RootProvider value={popover}>
-        <Popover.Trigger asChild>
+      <PopoverRootProvider value={popover}>
+        <PopoverTrigger asChild>
           <Button>Open from trigger</Button>
-        </Popover.Trigger>
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Header>
-              <Popover.Title>External state</Popover.Title>
-              <Popover.Description>
-                The usePopover hook owns this popover state.
-              </Popover.Description>
-            </Popover.Header>
-            <Popover.Footer>
-              <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-            </Popover.Footer>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Popover.RootProvider>
+        </PopoverTrigger>
+        <PopoverPositioner>
+          <PopoverContent>
+            <PopoverHeader>
+              <PopoverTitle>External state</PopoverTitle>
+              <PopoverDescription>The usePopover hook owns this popover state.</PopoverDescription>
+            </PopoverHeader>
+            <PopoverFooter>
+              <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+            </PopoverFooter>
+          </PopoverContent>
+        </PopoverPositioner>
+      </PopoverRootProvider>
       <PreviewMeta>
         <output>Open: {popover.open ? 'yes' : 'no'}</output>
         <Button size="sm" onClick={() => popover.setOpen(!popover.open)}>

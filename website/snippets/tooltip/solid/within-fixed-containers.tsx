@@ -1,4 +1,4 @@
-import { Tooltip } from '@moduix/solid/tooltip';
+import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/solid/tooltip';
 import styles from '@/components/examples/tooltip/component-within-fixed-containers.module.css';
 
 export default function WithinFixedTooltipDemo() {
@@ -12,8 +12,8 @@ export default function WithinFixedTooltipDemo() {
               strategy: 'fixed',
             }}
           >
-            <Tooltip.Trigger>Focus, then scroll</Tooltip.Trigger>
-            <Tooltip.Body>Stays anchored while this panel scrolls.</Tooltip.Body>
+            <TooltipTrigger>Focus, then scroll</TooltipTrigger>
+            <TooltipBody>Stays anchored while this panel scrolls.</TooltipBody>
           </Tooltip>
         </div>
         <p class={styles.end}>End of scroll area</p>

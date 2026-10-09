@@ -1,5 +1,10 @@
-import { Checkbox } from '@moduix/react/checkbox';
-import { Fieldset } from '@moduix/react/fieldset';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
+import { Fieldset, FieldsetLegend } from '@moduix/react/fieldset';
 import styles from '@/components/examples/fieldset/fieldset-checkbox.module.css';
 
 const preferences = [
@@ -15,12 +20,12 @@ const preferences = [
 export default function EmailPreferences() {
   return (
     <Fieldset className={styles.root}>
-      <Fieldset.Legend>Email preferences</Fieldset.Legend>
+      <FieldsetLegend>Email preferences</FieldsetLegend>
       {preferences.map((preference) => (
         <Checkbox key={preference.value} value={preference.value}>
-          <Checkbox.Control />
-          <Checkbox.Label>{preference.label}</Checkbox.Label>
-          <Checkbox.HiddenInput />
+          <CheckboxControl />
+          <CheckboxLabel>{preference.label}</CheckboxLabel>
+          <CheckboxHiddenInput />
         </Checkbox>
       ))}
     </Fieldset>

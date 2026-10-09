@@ -5,7 +5,7 @@ import type { ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-type TableRootProps = HTMLArkProps<'table'> & {
+type TableProps = HTMLArkProps<'table'> & {
   interactive?: boolean;
   showColumnBorder?: boolean;
   size?: 'sm' | 'md' | 'lg';
@@ -37,7 +37,7 @@ type TableEmptyProps = HTMLArkProps<'td'> & {
 };
 
 const tableVariants = cva(
-  'group/table isolate w-full border-collapse border-spacing-0 text-left text-foreground',
+  'group/table isolate w-full border-collapse border-spacing-0 text-start text-foreground',
   {
     variants: {
       size: {
@@ -57,7 +57,7 @@ const tableVariants = cva(
   },
 );
 
-const TableRoot = forwardRef<ComponentRef<typeof ark.table>, TableRootProps>(function TableRoot(
+const Table = forwardRef<ComponentRef<typeof ark.table>, TableProps>(function Table(
   {
     asChild,
     className,
@@ -116,7 +116,7 @@ const TableCaption = forwardRef<ComponentRef<typeof ark.caption>, TableCaptionPr
         ref={ref}
         asChild={asChild}
         className={cn(
-          'px-4 text-left text-sm leading-5 text-pretty text-muted-foreground group-data-[size=lg]/table:px-5 group-data-[size=sm]/table:px-3 data-[side=bottom]:caption-bottom data-[side=bottom]:pt-3 data-[side=bottom]:pb-2 data-[side=top]:caption-top data-[side=top]:pt-2 data-[side=top]:pb-3',
+          'px-4 text-start text-sm leading-5 text-pretty text-muted-foreground group-data-[size=lg]/table:px-5 group-data-[size=sm]/table:px-3 data-[side=bottom]:caption-bottom data-[side=bottom]:pt-3 data-[side=bottom]:pb-2 data-[side=top]:caption-top data-[side=top]:pt-2 data-[side=top]:pb-3',
           className,
         )}
         {...props}
@@ -224,7 +224,7 @@ const TableRow = forwardRef<ComponentRef<typeof ark.tr>, TableRowProps>(function
       ref={ref}
       asChild={asChild}
       className={cn(
-        'transition-colors duration-200 ease-in-out group-data-[slot=table-body]/table-body:border-b group-data-[slot=table-body]/table-body:border-border group-data-[slot=table-header]/table-header:border-b group-data-[slot=table-header]/table-header:border-border group-data-[slot=table-body]/table-body:last:border-b-0 motion-reduce:transition-none group-data-[interactive]/table:group-data-[slot=table-body]/table-body:[&:not([data-empty])]:focus-within:bg-muted group-data-[interactive]/table:group-data-[slot=table-body]/table-body:[&:not([data-empty])]:hover:bg-muted group-data-[striped]/table:group-data-[slot=table-body]/table-body:[&:nth-child(even):not([data-empty])]:bg-muted/35',
+        'transition-colors duration-200 ease-in-out group-data-[slot=table-body]/table-body:border-b group-data-[slot=table-body]/table-body:border-border group-data-[slot=table-header]/table-header:border-b group-data-[slot=table-header]/table-header:border-border group-data-[slot=table-body]/table-body:last:border-b-0 motion-reduce:transition-none group-data-[interactive]/table:group-data-[slot=table-body]/table-body:[&:not([data-empty])]:focus-within:bg-muted group-data-[interactive]/table:group-data-[slot=table-body]/table-body:[&:not([data-empty])]:hover:bg-muted group-data-[striped]/table:group-data-[slot=table-body]/table-body:[&:nth-child(even):not([data-empty]):not(:hover):not(:focus-within)]:bg-muted/35',
         className,
       )}
       {...props}
@@ -242,7 +242,7 @@ const TableColumnHeader = forwardRef<ComponentRef<typeof ark.th>, TableColumnHea
         ref={ref}
         asChild={asChild}
         className={cn(
-          'relative z-0 px-4 py-3 text-left align-middle font-medium whitespace-nowrap text-muted-foreground group-data-[size=lg]/table:px-5 group-data-[size=lg]/table:py-4 group-data-[size=sm]/table:px-3 group-data-[size=sm]/table:py-2 group-data-[sticky-header]/table:data-[sticky]:z-4 data-[sticky=end]:sticky data-[sticky=end]:end-0 data-[sticky=end]:z-2 data-[sticky=end]:bg-card data-[sticky=start]:sticky data-[sticky=start]:start-0 data-[sticky=start]:z-2 data-[sticky=start]:bg-card group-data-[show-column-border]/table:[&:not(:last-child)]:border-e group-data-[show-column-border]/table:[&:not(:last-child)]:border-border',
+          'relative z-0 px-4 py-3 text-start align-middle font-medium whitespace-nowrap text-muted-foreground group-data-[size=lg]/table:px-5 group-data-[size=lg]/table:py-4 group-data-[size=sm]/table:px-3 group-data-[size=sm]/table:py-2 group-data-[sticky-header]/table:data-[sticky]:z-4 data-[sticky=end]:sticky data-[sticky=end]:end-0 data-[sticky=end]:z-2 data-[sticky=end]:bg-card data-[sticky=start]:sticky data-[sticky=start]:start-0 data-[sticky=start]:z-2 data-[sticky=start]:bg-card group-data-[show-column-border]/table:[&:not(:last-child)]:border-e group-data-[show-column-border]/table:[&:not(:last-child)]:border-border',
           numeric && 'text-end tabular-nums',
           className,
         )}
@@ -310,19 +310,17 @@ const TableEmpty = forwardRef<ComponentRef<typeof ark.td>, TableEmptyProps>(func
   );
 });
 
-const Table = Object.assign(TableRoot, {
-  Root: TableRoot,
-  ScrollArea: TableScrollArea,
-  Caption: TableCaption,
-  ColumnGroup: TableColumnGroup,
-  Column: TableColumn,
-  Header: TableHeader,
-  Body: TableBody,
-  Footer: TableFooter,
-  Row: TableRow,
-  ColumnHeader: TableColumnHeader,
-  Cell: TableCell,
-  Empty: TableEmpty,
-});
-
-export { Table };
+export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableColumnHeader,
+  TableEmpty,
+  TableFooter,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+};

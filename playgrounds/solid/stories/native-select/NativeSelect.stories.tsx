@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText, FieldHelperText, FieldLabel } from '@/components/field';
 import { NativeSelect } from '@/components/native-select/NativeSelect';
 
 const meta = {
@@ -91,8 +91,8 @@ export const Grouping: Story = {
 
 export const Invalid: Story = {
   render: () => (
-    <Field.Root invalid>
-      <Field.Label>Framework</Field.Label>
+    <Field invalid>
+      <FieldLabel>Framework</FieldLabel>
       <NativeSelect name="framework">
         <option value="" disabled>
           Choose framework
@@ -100,8 +100,8 @@ export const Invalid: Story = {
         <option value="react">React</option>
         <option value="vue">Vue</option>
       </NativeSelect>
-      <Field.ErrorText>Choose a framework.</Field.ErrorText>
-    </Field.Root>
+      <FieldErrorText>Choose a framework.</FieldErrorText>
+    </Field>
   ),
 };
 
@@ -117,8 +117,8 @@ export const Multiple: Story = {
 
 export const WithField: Story = {
   render: () => (
-    <Field.Root required>
-      <Field.Label>Framework</Field.Label>
+    <Field required>
+      <FieldLabel>Framework</FieldLabel>
       <NativeSelect name="framework">
         <option value="" disabled>
           Choose framework
@@ -127,7 +127,7 @@ export const WithField: Story = {
         <option value="vue">Vue</option>
         <option value="svelte">Svelte</option>
       </NativeSelect>
-      <Field.HelperText>Select the framework used by this project.</Field.HelperText>
-    </Field.Root>
+      <FieldHelperText>Select the framework used by this project.</FieldHelperText>
+    </Field>
   ),
 };

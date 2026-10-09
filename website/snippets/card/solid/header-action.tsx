@@ -1,5 +1,12 @@
 import { Badge } from '@moduix/solid/badge';
-import { Card } from '@moduix/solid/card';
+import {
+  Card,
+  CardAction,
+  CardBody,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@moduix/solid/card';
 import styles from '@/components/examples/card/card-header-action.module.css';
 
 const incident = {
@@ -12,14 +19,14 @@ const incident = {
 export default function CardActionDemo() {
   return (
     <Card class={styles.root}>
-      <Card.Header>
-        <Card.Title>{incident.title}</Card.Title>
-        <Card.Description>{incident.description}</Card.Description>
-        <Card.Action class={styles.action}>
+      <CardHeader>
+        <CardTitle>{incident.title}</CardTitle>
+        <CardDescription>{incident.description}</CardDescription>
+        <CardAction class={styles.action}>
           <Badge variant="secondary">{incident.status}</Badge>
-        </Card.Action>
-      </Card.Header>
-      <Card.Body>{incident.summary}</Card.Body>
+        </CardAction>
+      </CardHeader>
+      <CardBody>{incident.summary}</CardBody>
     </Card>
   );
 }

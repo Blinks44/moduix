@@ -10,9 +10,9 @@
     "activeMatch": "^/docs/components/?$"
   },
   {
-    "text": "navRecipes",
-    "link": "/recipes",
-    "activeMatch": "^/recipes(?:/|$)"
+    "text": "navBlocks",
+    "link": "/blocks",
+    "activeMatch": "^/blocks(?:/|$)"
   },
   {
     "text": "navGitHub",

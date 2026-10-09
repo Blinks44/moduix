@@ -1,6 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Pagination } from '@/components/pagination/Pagination';
+import {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationFirstTrigger,
+  PaginationItem,
+  PaginationItems,
+  PaginationLastTrigger,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationRootProvider,
+  usePagination,
+} from '@/components/pagination/Pagination';
 
 type PaginationStoryArgs = {
   count?: number;
@@ -22,32 +34,32 @@ function PaginationPreview({
       pageSize={pageSize}
       siblingCount={siblingCount}
     >
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
     </Pagination>
   );
 }
 
 function CustomPaginationItems() {
   return (
-    <Pagination.Context>
+    <PaginationContext>
       {(pagination) =>
         pagination.pages.map((page, index) =>
           page.type === 'page' ? (
-            <Pagination.Item
+            <PaginationItem
               key={page.value}
               {...page}
               className="rounded-sm data-selected:border-primary data-selected:bg-primary data-selected:text-primary-foreground"
             >
               {page.value}
-            </Pagination.Item>
+            </PaginationItem>
           ) : (
-            <Pagination.Ellipsis key={`ellipsis-${index}`} index={index} className="rounded-sm" />
+            <PaginationEllipsis key={`ellipsis-${index}`} index={index} className="rounded-sm" />
           ),
         )
       }
-    </Pagination.Context>
+    </PaginationContext>
   );
 }
 
@@ -108,9 +120,9 @@ export const Controlled: Story = {
         pageSize={10}
         onPageChange={(details) => setPage(details.page)}
       >
-        <Pagination.PrevTrigger />
-        <Pagination.Items />
-        <Pagination.NextTrigger />
+        <PaginationPrevTrigger />
+        <PaginationItems />
+        <PaginationNextTrigger />
       </Pagination>
     );
   },
@@ -125,25 +137,25 @@ export const Link: Story = {
       type="link"
       getPageUrl={(details) => `?page=${details.page}`}
     >
-      <Pagination.PrevTrigger asChild>
+      <PaginationPrevTrigger asChild>
         <a>Previous</a>
-      </Pagination.PrevTrigger>
-      <Pagination.Context>
+      </PaginationPrevTrigger>
+      <PaginationContext>
         {(pagination) =>
           pagination.pages.map((page, index) =>
             page.type === 'page' ? (
-              <Pagination.Item key={page.value} asChild {...page}>
+              <PaginationItem key={page.value} asChild {...page}>
                 <a>{page.value}</a>
-              </Pagination.Item>
+              </PaginationItem>
             ) : (
-              <Pagination.Ellipsis key={`ellipsis-${index}`} index={index} />
+              <PaginationEllipsis key={`ellipsis-${index}`} index={index} />
             ),
           )
         }
-      </Pagination.Context>
-      <Pagination.NextTrigger asChild>
+      </PaginationContext>
+      <PaginationNextTrigger asChild>
         <a>Next</a>
-      </Pagination.NextTrigger>
+      </PaginationNextTrigger>
     </Pagination>
   ),
 };
@@ -151,11 +163,11 @@ export const Link: Story = {
 export const WithEdges: Story = {
   render: () => (
     <Pagination count={400} pageSize={20} siblingCount={2}>
-      <Pagination.FirstTrigger />
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
-      <Pagination.LastTrigger />
+      <PaginationFirstTrigger />
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
+      <PaginationLastTrigger />
     </Pagination>
   ),
 };
@@ -163,27 +175,27 @@ export const WithEdges: Story = {
 export const RightToLeft: Story = {
   render: () => (
     <Pagination dir="rtl" count={200} defaultPage={5} pageSize={10} siblingCount={1}>
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
+      <PaginationPrevTrigger />
+      <PaginationItems />
+      <PaginationNextTrigger />
     </Pagination>
   ),
 };
 
 export const RootProvider: Story = {
   render: () => {
-    const pagination = Pagination.usePagination({ count: 200, pageSize: 10, siblingCount: 2 });
+    const pagination = usePagination({ count: 200, pageSize: 10, siblingCount: 2 });
 
     return (
       <div className="grid justify-items-center gap-3">
         <button type="button" onClick={() => pagination.goToNextPage()}>
           Next page
         </button>
-        <Pagination.RootProvider value={pagination}>
-          <Pagination.PrevTrigger />
-          <Pagination.Items />
-          <Pagination.NextTrigger />
-        </Pagination.RootProvider>
+        <PaginationRootProvider value={pagination}>
+          <PaginationPrevTrigger />
+          <PaginationItems />
+          <PaginationNextTrigger />
+        </PaginationRootProvider>
       </div>
     );
   },
@@ -192,9 +204,9 @@ export const RootProvider: Story = {
 export const CustomStyles: Story = {
   render: () => (
     <Pagination count={200} defaultPage={5} pageSize={10}>
-      <Pagination.PrevTrigger className="rounded-sm" />
+      <PaginationPrevTrigger className="rounded-sm" />
       <CustomPaginationItems />
-      <Pagination.NextTrigger className="rounded-sm" />
+      <PaginationNextTrigger className="rounded-sm" />
     </Pagination>
   ),
 };

@@ -1,4 +1,4 @@
-import { QrCode } from '@moduix/solid/qr-code';
+import { QrCode, QrCodeFrame, QrCodeOverlay, QrCodePattern } from '@moduix/solid/qr-code';
 
 export default function OverlayQrCodeDemo() {
   return (
@@ -8,10 +8,10 @@ export default function OverlayQrCodeDemo() {
         ecc: 'H',
       }}
     >
-      <QrCode.Frame>
-        <QrCode.Pattern />
-      </QrCode.Frame>
-      <QrCode.Overlay>MX</QrCode.Overlay>
+      <QrCodeFrame>
+        <QrCodePattern />
+      </QrCodeFrame>
+      <QrCodeOverlay>MX</QrCodeOverlay>
     </QrCode>
   );
 }

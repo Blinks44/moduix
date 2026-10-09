@@ -1,1 +1,1 @@
-export { NativeSelect } from './NativeSelect.js';
+export * from './NativeSelect.js';

@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { Toaster, createToaster } from '@moduix/solid/toast';
+import { ToastToaster, createToaster } from '@moduix/solid/toast';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/toast/toast-update.module.css';
 
@@ -10,7 +10,7 @@ export default function ToastUpdate() {
 
   return (
     <div class={styles.root}>
-      <Toaster toaster={toaster} />
+      <ToastToaster toaster={toaster} />
       <Button
         onClick={() =>
           setToastId(

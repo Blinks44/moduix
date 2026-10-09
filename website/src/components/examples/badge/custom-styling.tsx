@@ -1,4 +1,4 @@
-import { Badge } from '@moduix/react/badge';
+import { Badge, BadgeDot, BadgeLabel } from '@moduix/react/badge';
 import styles from '@/components/examples/badge/badge-custom-styling.module.css';
 
 export default function BadgeCustomStylingDemo() {
@@ -8,8 +8,8 @@ export default function BadgeCustomStylingDemo() {
       <Badge>Default</Badge>
       <Badge className={styles.large}>Large</Badge>
       <Badge className={styles.priority}>
-        <Badge.Dot />
-        <Badge.Label>Priority</Badge.Label>
+        <BadgeDot />
+        <BadgeLabel>Priority</BadgeLabel>
       </Badge>
     </div>
   );

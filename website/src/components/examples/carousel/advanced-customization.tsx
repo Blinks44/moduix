@@ -1,5 +1,15 @@
 import { Button } from '@moduix/react/button';
-import { Carousel } from '@moduix/react/carousel';
+import {
+  Carousel,
+  CarouselContext,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/react/carousel';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/carousel/carousel-advanced-customization.module.css';
 
@@ -40,26 +50,26 @@ export default function AdvancedCustomizationCarousel() {
       slidesPerPage={2}
       spacing="var(--moduix-spacing-3)"
     >
-      <Carousel.ItemGroup className={styles.itemGroup} aria-label="Advanced customization gallery">
+      <CarouselItemGroup className={styles.itemGroup} aria-label="Advanced customization gallery">
         {slides.map((slide, index) => (
-          <Carousel.Item key={slide.id} index={index}>
+          <CarouselItem key={slide.id} index={index}>
             <img className={styles.image} src={slide.src} alt={slide.alt} />
-          </Carousel.Item>
+          </CarouselItem>
         ))}
-      </Carousel.ItemGroup>
+      </CarouselItemGroup>
 
-      <Carousel.Context>
+      <CarouselContext>
         {(api) => (
           <>
-            <Carousel.Control className={styles.control}>
-              <Carousel.PrevTrigger />
-              <Carousel.IndicatorGroup>
+            <CarouselControl className={styles.control}>
+              <CarouselPrevTrigger />
+              <CarouselIndicatorGroup>
                 {api.pageSnapPoints.map((_, index) => (
-                  <Carousel.Indicator key={index} index={index} />
+                  <CarouselIndicator key={index} index={index} />
                 ))}
-              </Carousel.IndicatorGroup>
-              <Carousel.NextTrigger />
-            </Carousel.Control>
+              </CarouselIndicatorGroup>
+              <CarouselNextTrigger />
+            </CarouselControl>
 
             <PreviewMeta style={{ marginInline: 'auto' }}>
               <Button
@@ -74,7 +84,7 @@ export default function AdvancedCustomizationCarousel() {
             </PreviewMeta>
           </>
         )}
-      </Carousel.Context>
+      </CarouselContext>
     </Carousel>
   );
 }

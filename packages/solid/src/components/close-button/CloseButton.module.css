@@ -1,5 +1,5 @@
 @layer moduix.components {
-  .root {
+  :where(.root) {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -24,8 +24,8 @@
 
     & > svg {
       flex-shrink: 0;
-      width: var(--moduix-close-button-icon-size, var(--moduix-spacing-3));
-      height: var(--moduix-close-button-icon-size, var(--moduix-spacing-3));
+      width: var(--moduix-close-button-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-close-button-icon-size, var(--moduix-spacing-4));
     }
 
     @media (hover: hover) {

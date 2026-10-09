@@ -10,10 +10,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 
-const CarouselRoot = forwardRef<
+const Carousel = forwardRef<
   ComponentRef<typeof CarouselPrimitive.Root>,
   ComponentProps<typeof CarouselPrimitive.Root>
->(function CarouselRoot({ className, ...props }, ref) {
+>(function Carousel({ className, ...props }, ref) {
   return (
     <CarouselPrimitive.Root
       ref={ref}
@@ -100,7 +100,7 @@ const CarouselPrevTrigger = forwardRef<
     <CarouselPrimitive.PrevTrigger
       ref={ref}
       className={cn(
-        'focus-visible:outline-offset-0.5 inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-ring data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-ring [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
+        'inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-ring data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-ring [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
         className,
       )}
       {...props}
@@ -123,7 +123,7 @@ const CarouselNextTrigger = forwardRef<
     <CarouselPrimitive.NextTrigger
       ref={ref}
       className={cn(
-        'focus-visible:outline-offset-0.5 inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-ring data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-ring [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
+        'inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-ring data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-ring [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
         className,
       )}
       {...props}
@@ -163,7 +163,7 @@ const CarouselIndicator = forwardRef<
     <CarouselPrimitive.Indicator
       ref={ref}
       className={cn(
-        'focus-visible:outline-offset-0.5 size-2 cursor-pointer rounded-full border-0 bg-muted p-0 opacity-90 transition-[width,height,background-color,opacity] duration-150 focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-current:w-6 data-current:bg-primary data-current:opacity-100 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-not-allowed data-readonly:opacity-50 data-[orientation=vertical]:data-current:h-6 data-[orientation=vertical]:data-current:w-2 motion-reduce:transition-none forced-colors:bg-[ButtonText] forced-colors:data-current:bg-[Highlight] [&:not(:disabled):not([data-disabled]):not([data-readonly]):not([data-current]):hover]:bg-muted-foreground',
+        'size-2 cursor-pointer rounded-full border-0 bg-muted p-0 opacity-90 transition-[width,height,background-color,opacity] duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-current:w-6 data-current:bg-primary data-current:opacity-100 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-not-allowed data-readonly:opacity-50 data-[orientation=vertical]:data-current:h-6 data-[orientation=vertical]:data-current:w-2 motion-reduce:transition-none forced-colors:bg-[ButtonText] forced-colors:data-current:bg-[Highlight] [&:not(:disabled):not([data-disabled]):not([data-readonly]):not([data-current]):hover]:bg-muted-foreground',
         className,
       )}
       {...props}
@@ -199,7 +199,7 @@ const CarouselAutoplayTrigger = forwardRef<
     <CarouselPrimitive.AutoplayTrigger
       ref={ref}
       className={cn(
-        'focus-visible:outline-offset-0.5 inline-flex size-control-md min-w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-ring data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-ring [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
+        'inline-flex size-control-md min-w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-ring data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-ring [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
         className,
       )}
       {...props}
@@ -240,21 +240,23 @@ const CarouselProgressText = forwardRef<
   );
 });
 
-const Carousel = Object.assign(CarouselRoot, {
-  Root: CarouselRoot,
-  RootProvider: CarouselRootProvider,
-  Context: CarouselPrimitive.Context,
-  Control: CarouselControl,
-  ItemGroup: CarouselItemGroup,
-  Item: CarouselItem,
-  PrevTrigger: CarouselPrevTrigger,
-  NextTrigger: CarouselNextTrigger,
-  IndicatorGroup: CarouselIndicatorGroup,
-  Indicator: CarouselIndicator,
-  Indicators: CarouselIndicators,
-  AutoplayTrigger: CarouselAutoplayTrigger,
-  AutoplayIndicator: CarouselAutoplayIndicator,
-  ProgressText: CarouselProgressText,
-});
+const CarouselContext = CarouselPrimitive.Context;
 
-export { Carousel, useCarousel, useCarouselContext };
+export {
+  Carousel,
+  CarouselAutoplayIndicator,
+  CarouselAutoplayTrigger,
+  CarouselContext,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+  CarouselProgressText,
+  CarouselRootProvider,
+  useCarousel,
+  useCarouselContext,
+};

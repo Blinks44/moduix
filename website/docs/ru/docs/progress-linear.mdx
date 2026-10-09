@@ -23,6 +23,15 @@ import progressLinearSolidStateViews from '../../../snippets/progress-linear/sol
 import progressLinearSolidValueText from '../../../snippets/progress-linear/solid/value-text.tsx?raw';
 import progressLinearSolidVertical from '../../../snippets/progress-linear/solid/vertical.tsx?raw';
 import progressLinearSolidRootProvider from '../../../snippets/progress-linear/solid/root-provider.tsx?raw';
+import progressLinearVueBasic from '../../../snippets/progress-linear/vue/basic.vue?raw';
+import progressLinearVueControlled from '../../../snippets/progress-linear/vue/controlled.vue?raw';
+import progressLinearVueIndeterminate from '../../../snippets/progress-linear/vue/indeterminate.vue?raw';
+import progressLinearVueInitialValue from '../../../snippets/progress-linear/vue/initial-value.vue?raw';
+import progressLinearVueMinMax from '../../../snippets/progress-linear/vue/min-max.vue?raw';
+import progressLinearVueStateViews from '../../../snippets/progress-linear/vue/state-views.vue?raw';
+import progressLinearVueValueText from '../../../snippets/progress-linear/vue/value-text.vue?raw';
+import progressLinearVueVertical from '../../../snippets/progress-linear/vue/vertical.vue?raw';
+import progressLinearVueRootProvider from '../../../snippets/progress-linear/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -37,8 +46,9 @@ import progressLinearSolidRootProvider from '../../../snippets/progress-linear/s
 ## Базовый пример
 
 
-Соберите индикатор из явных частей `Label`, `ValueText`, `Track` и `Range`. Задайте для `Track`
+Соберите индикатор из явных частей `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack` и `ProgressLinearRange`. Задайте для `ProgressLinearTrack`
 доступное имя, которое описывает задачу.
+React, Solid и Vue используют одинаковые плоские имена частей; во Vue применяются нативные `class`, слоты и `v-model`, когда они нужны.
 
 <ExampleFrame variant="component">
   <ProgressLinearBasic />
@@ -51,6 +61,7 @@ import progressLinearSolidRootProvider from '../../../snippets/progress-linear/s
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -63,6 +74,11 @@ import progressLinearSolidRootProvider from '../../../snippets/progress-linear/s
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueBasic} />
 
     </Tab>
   </Tabs>
@@ -95,42 +111,53 @@ import progressLinearSolidRootProvider from '../../../snippets/progress-linear/s
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-linear' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-linear' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-ProgressLinear / ProgressLinear.Root
-├─ ProgressLinear.Label
-├─ ProgressLinear.ValueText
-├─ ProgressLinear.Track
-│  └─ ProgressLinear.Range
-└─ ProgressLinear.View
+ProgressLinear
+├─ ProgressLinearLabel
+├─ ProgressLinearValueText
+├─ ProgressLinearTrack
+│  └─ ProgressLinearRange
+└─ ProgressLinearView
 
-ProgressLinear.RootProvider
-└─ та же структура частей, подключённая к ProgressLinear.useProgress()
+ProgressLinearRootProvider
+└─ та же структура частей, подключённая к useProgress()
 ```
 
 | Часть                                      | Назначение                                                                    |
 | ------------------------------------------ | ----------------------------------------------------------------------------- |
-| `ProgressLinear` / `ProgressLinear.Root`   | Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства. |
-| `ProgressLinear.RootProvider`              | Подключает части к хранилищу, которое возвращает `ProgressLinear.useProgress()`. |
-| `ProgressLinear.Context`                   | Передаёт текущее состояние прогресса функции, переданной как дочерний элемент. |
-| `ProgressLinear.Label`                     | Видимая подпись задачи. Она автоматически не становится доступным именем `Track`. |
-| `ProgressLinear.ValueText`                 | Показывает отформатированный процент и сообщает об изменениях. Через `Context` можно вывести свой текст. |
-| `ProgressLinear.Track`                     | Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.       |
-| `ProgressLinear.Range`                     | Заполненная часть, отражающая текущий прогресс.                               |
-| `ProgressLinear.View`                      | Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса. |
+| `ProgressLinear`   | Хранит состояние прогресса и передаёт Ark форматирование, идентификаторы и другие свойства. |
+| `ProgressLinearRootProvider`              | Подключает части к хранилищу, которое возвращает `useProgress()`. |
+| `ProgressLinearContext`                   | Передаёт текущее состояние прогресса функции, переданной как дочерний элемент. |
+| `ProgressLinearLabel`                     | Видимая подпись задачи. Она автоматически не становится доступным именем `ProgressLinearTrack`. |
+| `ProgressLinearValueText`                 | Показывает отформатированный процент и сообщает об изменениях. Через `ProgressLinearContext` можно вывести свой текст. |
+| `ProgressLinearTrack`                     | Основа полосы прогресса. Ark добавляет ей роль и ARIA-атрибуты значения.       |
+| `ProgressLinearRange`                     | Заполненная часть, отражающая текущий прогресс.                               |
+| `ProgressLinearView`                      | Показывает содержимое, только когда его `state` совпадает с текущим состоянием прогресса. |
 
 ## Композиция
 
 Используйте `defaultValue` для неуправляемого прогресса. В управляемом режиме передайте `value` и
 `onValueChange(details)`, если приложение хранит текущее значение. Используйте `defaultValue={null}`
 или `value={null}`, когда прогресс неизвестен. Если состояние создано через
-`ProgressLinear.useProgress()`, отрисовывайте части внутри `ProgressLinear.RootProvider`, а не внутри
-`ProgressLinear` или `ProgressLinear.Root`. Используйте `ProgressLinear.View` для содержимого,
-зависящего от состояния, а `ProgressLinear.Context` для собственного текста, которому нужно текущее
+`useProgress()`, отрисовывайте части внутри `ProgressLinearRootProvider`, а не внутри
+`ProgressLinear`. Используйте `ProgressLinearView` для содержимого,
+зависящего от состояния, а `ProgressLinearContext` для собственного текста, которому нужно текущее
 состояние.
+Во Vue для того же управляемого значения используйте `v-model`.
 
 ## Примеры
 
@@ -150,6 +177,7 @@ ProgressLinear.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -162,6 +190,11 @@ ProgressLinear.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueControlled} />
 
     </Tab>
   </Tabs>
@@ -185,6 +218,7 @@ ProgressLinear.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -197,6 +231,11 @@ ProgressLinear.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidIndeterminate} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueIndeterminate} />
 
     </Tab>
   </Tabs>
@@ -219,6 +258,7 @@ ProgressLinear.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -231,6 +271,11 @@ ProgressLinear.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidInitialValue} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueInitialValue} />
 
     </Tab>
   </Tabs>
@@ -254,6 +299,7 @@ ProgressLinear.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -268,6 +314,11 @@ ProgressLinear.RootProvider
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidMinMax} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueMinMax} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -275,7 +326,7 @@ ProgressLinear.RootProvider
 
 ### Представления состояния
 
-Используйте `ProgressLinear.View`, если вспомогательный текст или интерфейс должен меняться вместе
+Используйте `ProgressLinearView`, если вспомогательный текст или интерфейс должен меняться вместе
 с состоянием прогресса Ark.
 
 <ExampleFrame variant="component">
@@ -289,6 +340,7 @@ ProgressLinear.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -303,6 +355,11 @@ ProgressLinear.RootProvider
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidStateViews} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueStateViews} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -310,7 +367,7 @@ ProgressLinear.RootProvider
 
 ### Текст значения
 
-Используйте `ProgressLinear.Context` с `translations.value(details)`, если отображаемому значению
+Используйте `ProgressLinearContext` с `translations.value(details)`, если отображаемому значению
 нужна формулировка, связанная с конкретной задачей.
 
 <ExampleFrame variant="component">
@@ -324,6 +381,7 @@ ProgressLinear.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -336,6 +394,11 @@ ProgressLinear.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidValueText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueValueText} />
 
     </Tab>
   </Tabs>
@@ -360,6 +423,7 @@ ProgressLinear.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -374,6 +438,11 @@ ProgressLinear.RootProvider
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidVertical} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueVertical} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -381,8 +450,8 @@ ProgressLinear.RootProvider
 
 ### Расширенная настройка
 
-Создайте состояние прогресса с помощью `ProgressLinear.useProgress()` в родительском компоненте,
-а затем подключите его к частям через `ProgressLinear.RootProvider`.
+Создайте состояние прогресса с помощью `useProgress()` в родительском компоненте,
+а затем подключите его к частям через `ProgressLinearRootProvider`.
 
 <ExampleFrame variant="component">
   <ProgressLinearRootProvider />
@@ -395,6 +464,7 @@ ProgressLinear.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -409,6 +479,11 @@ ProgressLinear.RootProvider
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueRootProvider} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -416,7 +491,7 @@ ProgressLinear.RootProvider
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на экспортируемых частях для структурной
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурной
 стилизации. Для стилей, зависящих от состояния, используйте атрибуты данных Ark и хуки `data-slot`
 moduix. Варианты Tailwind используют нативные утилиты и классы потребителя, а переменные ниже
 настраивают варианты CSS Modules.
@@ -435,8 +510,8 @@ moduix. Варианты Tailwind используют нативные утил
   >
     <Tab>
       <ProgressLinearDocs.ProgressLinearCssPropertiesPanel />
-    </Tab>
-  </Tabs>
+  </Tab>
+</Tabs>
 </div>
 
 ### Хуки стилизации

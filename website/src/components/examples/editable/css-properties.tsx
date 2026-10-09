@@ -1,7 +1,7 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const editableOverrideCssProperties: CssPropertyInput[] = [
+export const editableOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-editable-area-height',
     'var(--moduix-size-md)',
@@ -80,7 +80,7 @@ const editableOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-editable-max-width', '100%', 'Controls root max width.'],
   [
     '--moduix-editable-padding-x',
-    'var(--moduix-spacing-3-5)',
+    'var(--moduix-spacing-4)',
     'Controls horizontal surface padding.',
   ],
   ['--moduix-editable-padding-y', 'var(--moduix-spacing-1)', 'Controls vertical surface padding.'],

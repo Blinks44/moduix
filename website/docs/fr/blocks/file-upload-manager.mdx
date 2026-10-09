@@ -1,0 +1,93 @@
+---
+title: Téléversement de fichiers
+description: Une interface de pièces jointes avec glisser-déposer, validation, aperçu et suppression des fichiers.
+---
+
+import { FileUploadManager } from '@/components/blocks/file-upload-manager';
+import fileUploadManagerSolid from '../../../snippets/blocks/solid/file-upload-manager.tsx?raw';
+import fileUploadManagerVue from '../../../snippets/blocks/vue/file-upload-manager.vue?raw';
+
+# Téléversement de fichiers
+
+Utilisez cette composition lorsqu’un formulaire ou un parcours doit permettre d’ajouter et de vérifier des pièces jointes.
+L’exemple accepte les fichiers PDF, DOC, DOCX, PNG et JPG jusqu’à 10 Mo, affiche jusqu’à cinq fichiers acceptés et
+permet de supprimer un fichier ou de vider toute la liste. Les fichiers rejetés restent visibles avec leur message
+de validation.
+
+La composition gère uniquement la sélection et la liste locale. Elle n’envoie pas les fichiers au serveur et ne suit pas
+leur progression. Reliez `onFileChange` à votre formulaire ou à votre requête de téléversement dans la fonctionnalité
+qui gère ces données.
+
+L’aperçu utilise React. Les onglets présentent le code React, Solid et Vue avec une feuille de style commune.
+
+
+
+<ExampleFrame variant="block" clientOnly>
+  <FileUploadManager />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/blocks/file-upload-manager.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={fileUploadManagerSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fileUploadManagerVue} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/blocks/file-upload-manager.module.css"
+
+```
+</div>
+
+</ExampleCode>
+
+## Installation
+
+<BlockInstall name="file-upload-manager" />
+
+La commande installe le bloc, ses styles et les composants `card` et `file-upload` ensemble.
+
+## Connecter une requête de téléversement
+
+`FileUpload` conserve les fichiers sélectionnés dans son état local. Si votre formulaire ou votre requête de
+téléversement a besoin de la sélection actuelle, ajoutez `onFileChange(details)` à la racine et transmettez
+`details.acceptedFiles` à votre gestionnaire de formulaire ou de téléversement. Conservez l’état de progression et
+l’état final près de la requête réelle au lieu de les simuler dans la composition.
+
+La validation dans le navigateur accélère le retour d’erreur, mais elle ne remplace pas la validation côté serveur.
+Le serveur doit à nouveau vérifier le type, la taille, le contenu et les autorisations. Traitez chaque `File` sélectionné
+comme une donnée non fiable.
+
+| État | À montrer à l’utilisateur |
+| ---- | ------------------------ |
+| Sélectionné | Le nom et la taille du fichier, une action de suppression et un envoi explicite du fichier ou du formulaire. |
+| En cours | La progression lorsqu’elle est connue, un statut d’attente et la désactivation des soumissions en double. |
+| Échec | Le message du serveur lorsqu’il peut être affiché sans risque, ainsi que des actions pour réessayer et supprimer. |
+| Terminé | Un état de réussite stable avec l’identifiant du fichier stocké par le serveur. |
+
+Si le téléversement démarre dès la sélection, attribuez à chaque requête un identifiant généré par l’application. Une
+nouvelle tentative pourra ainsi mettre à jour la même ligne, et la suppression d’un fichier n’annulera pas les autres.

@@ -64,7 +64,7 @@ function resolveImage(
     return null;
   }
 
-  const src = imageNode.dataset.lightboxSrc ?? imageNode.currentSrc ?? imageNode.src;
+  const src = imageNode.dataset.lightboxSrc ?? (imageNode.currentSrc || imageNode.src);
   if (!src) {
     return null;
   }
@@ -76,7 +76,7 @@ function resolveImage(
   };
 }
 
-function LightboxRoot({
+function Lightbox({
   lazyMount = true,
   portalled,
   portalRef,
@@ -134,7 +134,7 @@ const LightboxBackdrop = forwardRef<
       <DialogPrimitive.Backdrop
         ref={ref}
         className={cn(
-          'fixed inset-0 z-[calc(40+var(--layer-index,0))] min-h-dvh bg-overlay backdrop-blur-xs data-[state=closed]:animate-[moduix-fade-out_200ms_ease-in-out_forwards] data-[state=open]:animate-[moduix-fade-in_200ms_ease-in-out] motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
+          'fixed inset-0 z-[calc(var(--z-index,var(--moduix-z-popup))-1)] min-h-dvh bg-overlay backdrop-blur-xs data-[state=closed]:animate-moduix-lightbox-backdrop-out data-[state=open]:animate-moduix-lightbox-backdrop-in motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
           className,
         )}
         {...props}
@@ -153,7 +153,7 @@ const LightboxPositioner = forwardRef<
       <DialogPrimitive.Positioner
         ref={ref}
         className={cn(
-          'fixed inset-0 z-[calc(50+var(--layer-index,0))] box-border grid place-items-center overflow-auto overscroll-contain p-4',
+          'fixed inset-0 z-[var(--z-index,var(--moduix-z-popup))] box-border grid place-items-center overflow-auto overscroll-contain p-4',
           className,
         )}
         {...props}
@@ -171,7 +171,7 @@ const LightboxContent = forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'relative box-border grid max-h-[min(80dvh,calc(100dvh-2rem))] w-fit max-w-[min(80vw,calc(100vw-2rem))] gap-3 border-0 bg-transparent outline-0 data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
+        'group/lightbox relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border grid max-h-[min(80dvh,calc(100dvh-2rem))] w-fit max-w-[min(80vw,calc(100vw-2rem))] gap-3 border-0 bg-transparent outline-0 data-[state=closed]:animate-moduix-lightbox-content-out data-[state=open]:animate-moduix-lightbox-content-in motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
         className,
       )}
       {...props}
@@ -223,7 +223,7 @@ const LightboxCloseTrigger = forwardRef<
 });
 
 const LightboxCloseIcon = forwardRef<
-  ComponentRef<typeof CloseButton.Root>,
+  ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>
 >(function LightboxCloseIcon(
   { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_LABEL, ...props },
@@ -233,18 +233,18 @@ const LightboxCloseIcon = forwardRef<
 
   return (
     <DialogPrimitive.CloseTrigger asChild {...props}>
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         data-slot="lightbox-close-icon"
         data-state={dialog.open ? 'open' : 'closed'}
         aria-label={ariaLabel}
         className={cn(
-          'pointer-events-none invisible fixed end-4 top-4 z-[calc(51+var(--layer-index,0))] size-8 rounded-sm border-0 bg-background p-0 text-foreground opacity-0 transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring data-[state=open]:pointer-events-auto data-[state=open]:visible data-[state=open]:opacity-100 motion-reduce:transition-none [&>svg]:size-3.5 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted',
+          'pointer-events-none invisible fixed end-4 top-4 z-[calc(var(--moduix-z-popup)+var(--layer-index,0)+1)] size-8 rounded-sm border-0 bg-background p-0 text-foreground opacity-0 transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring data-[state=open]:pointer-events-auto data-[state=open]:visible data-[state=open]:opacity-100 motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted',
           className,
         )}
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     </DialogPrimitive.CloseTrigger>
   );
 });
@@ -313,7 +313,10 @@ const LightboxBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
     return (
       <ark.div
         ref={ref}
-        className={cn('grid gap-3', className)}
+        className={cn(
+          'grid gap-3 group-data-[state]/lightbox:[animation:inherit] group-data-[state=closed]/lightbox:[animation-name:moduix-lightbox-body-out] group-data-[state=open]/lightbox:[animation-name:moduix-lightbox-body-in]',
+          className,
+        )}
         {...props}
         data-slot="lightbox-body"
       />
@@ -348,6 +351,8 @@ function LightboxBind({ onImageSelect, selector, rootRef, rootSelector }: Lightb
     }
 
     const handleClick = (event: MouseEvent) => {
+      if (event.defaultPrevented) return;
+
       const nextImage = resolveImage(event.target, selector, rootNode);
       if (!nextImage) {
         return;
@@ -388,32 +393,23 @@ function LightboxBind({ onImageSelect, selector, rootRef, rootSelector }: Lightb
   return null;
 }
 
-const Lightbox = Object.assign(LightboxRoot, {
-  Root: LightboxRoot,
-  RootProvider: LightboxRootProvider,
-  Trigger: LightboxTrigger,
-  Backdrop: LightboxBackdrop,
-  Positioner: LightboxPositioner,
-  Content: LightboxContent,
-  Title: LightboxTitle,
-  Description: LightboxDescription,
-  CloseTrigger: LightboxCloseTrigger,
-  CloseIcon: LightboxCloseIcon,
-  Header: LightboxHeader,
-  Body: LightboxBody,
-  Footer: LightboxFooter,
-  Image: LightboxImage,
-  Gallery: LightboxGallery,
-  Bind: LightboxBind,
-  useLightbox: useDialog,
-  useLightboxContext: useDialogContext,
-});
-
 export {
   Lightbox,
-  LightboxBind,
-  LightboxGallery,
+  LightboxRootProvider,
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxTitle,
+  LightboxDescription,
+  LightboxCloseTrigger,
+  LightboxCloseIcon,
+  LightboxHeader,
+  LightboxBody,
+  LightboxFooter,
   LightboxImage,
+  LightboxGallery,
+  LightboxBind,
   useDialog as useLightbox,
   useDialogContext as useLightboxContext,
 };

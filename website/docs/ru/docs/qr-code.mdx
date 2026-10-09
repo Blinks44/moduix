@@ -21,6 +21,14 @@ import qrCodeSolidFill from '../../../snippets/qr-code/solid/fill.tsx?raw';
 import qrCodeSolidInput from '../../../snippets/qr-code/solid/input.tsx?raw';
 import qrCodeSolidOverlay from '../../../snippets/qr-code/solid/overlay.tsx?raw';
 import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provider.tsx?raw';
+import qrCodeVueBasic from '../../../snippets/qr-code/vue/basic.vue?raw';
+import qrCodeVueControlled from '../../../snippets/qr-code/vue/controlled.vue?raw';
+import qrCodeVueDownload from '../../../snippets/qr-code/vue/download.vue?raw';
+import qrCodeVueErrorCorrection from '../../../snippets/qr-code/vue/error-correction.vue?raw';
+import qrCodeVueFill from '../../../snippets/qr-code/vue/fill.vue?raw';
+import qrCodeVueInput from '../../../snippets/qr-code/vue/input.vue?raw';
+import qrCodeVueOverlay from '../../../snippets/qr-code/vue/overlay.vue?raw';
+import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -30,8 +38,8 @@ import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provid
 
 
 Используйте `QrCode` в обычном сценарии. Передайте содержимое для кодирования через `defaultValue`,
-затем явно отрисуйте `QrCode.Frame` и `QrCode.Pattern`, чтобы показать созданный SVG. Если QR-код
-передаёт информацию, задайте для `QrCode.Frame` доступное имя.
+затем явно отрисуйте `QrCodeFrame` и `QrCodePattern`, чтобы показать созданный SVG. Если QR-код
+передаёт информацию, задайте для `QrCodeFrame` доступное имя.
 
 <ExampleFrame variant="component">
   <QrCodeBasic />
@@ -44,6 +52,7 @@ import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provid
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -56,6 +65,11 @@ import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provid
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -88,40 +102,50 @@ import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provid
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/qr-code' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/qr-code' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-QrCode / QrCode.Root
-├─ QrCode.Frame
-│  └─ QrCode.Pattern
-├─ QrCode.Overlay
-└─ QrCode.DownloadTrigger
+QrCode
+├─ QrCodeFrame
+│  └─ QrCodePattern
+├─ QrCodeOverlay
+└─ QrCodeDownloadTrigger
 
-QrCode.RootProvider
+QrCodeRootProvider
 └─ то же дерево частей, подключённое к хранилищу useQrCode()
 ```
 
 | Part                     | Назначение                                                            |
 | ------------------------ | --------------------------------------------------------------------- |
-| `QrCode` / `QrCode.Root` | Хранит кодируемое значение и параметры генерации, предоставляет состояние QR-кода. |
-| `QrCode.RootProvider`    | Подключает части к состоянию, созданному через `useQrCode()`.          |
-| `QrCode.Frame`           | SVG-элемент, содержащий созданный QR-код.                              |
-| `QrCode.Pattern`         | SVG-путь, который рисует модули QR-кода.                               |
-| `QrCode.Overlay`         | Содержимое, отображаемое по центру QR-кода.                            |
-| `QrCode.DownloadTrigger` | Кнопка для скачивания текущего QR-кода как изображения.                |
+| `QrCode`                | Хранит кодируемое значение и параметры генерации, предоставляет состояние QR-кода. |
+| `QrCodeRootProvider`    | Подключает части к состоянию, созданному через `useQrCode()`.          |
+| `QrCodeFrame`           | SVG-элемент, содержащий созданный QR-код.                              |
+| `QrCodePattern`         | SVG-путь, который рисует модули QR-кода.                               |
+| `QrCodeOverlay`         | Содержимое, отображаемое по центру QR-кода.                            |
+| `QrCodeDownloadTrigger` | Кнопка для скачивания текущего QR-кода как изображения.                |
 
 ## Композиция
 
 Используйте `defaultValue` для неконтролируемого QR-кода. Если значение хранится в состоянии
 приложения, передайте `value` и `onValueChange(details)`, а новое значение читайте из
 `details.value`. Создайте состояние через `useQrCode()` из соответствующего фреймворку пакета и
-передайте его в `QrCode.RootProvider`, если состояние должно использоваться за пределами дерева
-QR-кода. Не создавайте для одного хранилища одновременно `QrCode` и `QrCode.RootProvider`.
+передайте его в `QrCodeRootProvider`, если состояние должно использоваться за пределами дерева
+QR-кода. Не создавайте для одного хранилища одновременно `QrCode` и `QrCodeRootProvider`.
 
-Используйте `QrCode.Context` или `useQrCodeContext()`, когда потомку нужен текущий API QR-кода.
-Добавляйте `QrCode.Overlay` только при достаточном уровне коррекции ошибок для закрытой области и
+Используйте `QrCodeContext` или `useQrCodeContext()`, когда потомку нужен текущий API QR-кода.
+Добавляйте `QrCodeOverlay` только при достаточном уровне коррекции ошибок для закрытой области и
 проверяйте итоговый код сканерами, которыми пользуются ваши пользователи.
 
 ## Примеры
@@ -142,6 +166,7 @@ QR-кода. Не создавайте для одного хранилища о
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -156,6 +181,11 @@ QR-кода. Не создавайте для одного хранилища о
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidControlled} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueControlled} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -168,7 +198,7 @@ QR-кода. Не создавайте для одного хранилища о
 
 ### Скачивание
 
-Добавьте `QrCode.DownloadTrigger`, если пользователям нужно сохранить QR-код как изображение.
+Добавьте `QrCodeDownloadTrigger`, если пользователям нужно сохранить QR-код как изображение.
 Укажите в триггере и `fileName`, и `mimeType`.
 
 <ExampleFrame variant="component">
@@ -182,6 +212,7 @@ QR-кода. Не создавайте для одного хранилища о
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -194,6 +225,11 @@ QR-кода. Не создавайте для одного хранилища о
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidDownload} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueDownload} />
 
     </Tab>
   </Tabs>
@@ -223,6 +259,7 @@ QR-кода. Не создавайте для одного хранилища о
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -235,6 +272,11 @@ QR-кода. Не создавайте для одного хранилища о
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidErrorCorrection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueErrorCorrection} />
 
     </Tab>
   </Tabs>
@@ -263,6 +305,7 @@ QR-кода. Не создавайте для одного хранилища о
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -275,6 +318,11 @@ QR-кода. Не создавайте для одного хранилища о
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidFill} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueFill} />
 
     </Tab>
   </Tabs>
@@ -303,6 +351,7 @@ QR-кода. Не создавайте для одного хранилища о
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -317,6 +366,11 @@ QR-кода. Не создавайте для одного хранилища о
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidInput} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueInput} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -329,7 +383,7 @@ QR-кода. Не создавайте для одного хранилища о
 
 ### Наложение
 
-Используйте `QrCode.Overlay` для компактного логотипа или текстовой отметки. Задайте высокий
+Используйте `QrCodeOverlay` для компактного логотипа или текстовой отметки. Задайте высокий
 уровень коррекции ошибок и оставьте наложение достаточно маленьким, чтобы сканеры продолжали
 распознавать код.
 
@@ -344,6 +398,7 @@ QR-кода. Не создавайте для одного хранилища о
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -356,6 +411,11 @@ QR-кода. Не создавайте для одного хранилища о
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidOverlay} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueOverlay} />
 
     </Tab>
   </Tabs>
@@ -371,7 +431,7 @@ QR-кода. Не создавайте для одного хранилища о
 ### Root Provider
 
 Создайте состояние QR-кода через `useQrCode()`, если его нужно разделить с контролами за пределами
-дерева QR-кода, затем передайте состояние в `QrCode.RootProvider`.
+дерева QR-кода, затем передайте состояние в `QrCodeRootProvider`.
 
 <ExampleFrame variant="component">
   <RootProviderQrCode />
@@ -384,6 +444,7 @@ QR-кода. Не создавайте для одного хранилища о
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -398,6 +459,11 @@ QR-кода. Не создавайте для одного хранилища о
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueRootProvider} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -405,7 +471,7 @@ QR-кода. Не создавайте для одного хранилища о
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных
 стилей. Варианты Tailwind используют нативные утилиты и классы потребителя, а переменные ниже
 настраивают варианты CSS Modules. Атрибуты данных и хуки `data-slot` общие для обоих вариантов
 стилизации.

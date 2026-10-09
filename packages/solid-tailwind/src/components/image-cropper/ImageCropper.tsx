@@ -7,7 +7,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-function ImageCropperRoot(props: ComponentProps<typeof ImageCropperPrimitive.Root>) {
+function ImageCropper(props: ComponentProps<typeof ImageCropperPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -105,7 +105,7 @@ function ImageCropperHandle(props: ComponentProps<typeof ImageCropperPrimitive.H
   return (
     <ImageCropperPrimitive.Handle
       class={cn(
-        'absolute z-1 box-border size-3 rounded-xs border border-white/88 bg-white/96 shadow-[0_1px_3px_rgb(15_23_42_/_18%)] transition-[border-color,background-color,box-shadow,opacity] duration-200 ease-in-out data-disabled:hidden data-[position=e]:!h-full data-[position=e]:!w-[0.2rem] data-[position=e]:rounded-full data-[position=e]:border-0 data-[position=n]:!h-[0.2rem] data-[position=n]:!w-full data-[position=n]:rounded-full data-[position=n]:border-0 data-[position=ne]:z-2 data-[position=nw]:z-2 data-[position=s]:!h-[0.2rem] data-[position=s]:!w-full data-[position=s]:rounded-full data-[position=s]:border-0 data-[position=se]:z-2 data-[position=sw]:z-2 data-[position=w]:!h-full data-[position=w]:!w-[0.2rem] data-[position=w]:rounded-full data-[position=w]:border-0 motion-reduce:transition-none',
+        'absolute z-1 box-border size-3 rounded-xs border border-white/88 bg-white/96 shadow-[0_1px_3px_rgb(15_23_42_/_18%)] transition-[border-color,background-color,box-shadow,opacity] duration-200 ease-in-out data-disabled:hidden data-[position=e]:!w-[0.2rem] data-[position=e]:rounded-full data-[position=e]:border-0 data-[position=n]:!h-[0.2rem] data-[position=n]:rounded-full data-[position=n]:border-0 data-[position=ne]:z-2 data-[position=nw]:z-2 data-[position=s]:!h-[0.2rem] data-[position=s]:rounded-full data-[position=s]:border-0 data-[position=se]:z-2 data-[position=sw]:z-2 data-[position=w]:!w-[0.2rem] data-[position=w]:rounded-full data-[position=w]:border-0 motion-reduce:transition-none',
         local.class,
       )}
       {...others}
@@ -140,24 +140,27 @@ function ImageCropperCropArea(props: ImageCropperCropAreaProps) {
     <ImageCropperSelection class={local.class} {...others}>
       <ImageCropperGrid axis="horizontal" class={local.gridClassName} />
       <ImageCropperGrid axis="vertical" class={local.gridClassName} />
-      {ImageCropperPrimitive.handles.map((position) => (
+      {ImageCropperHandles.map((position) => (
         <ImageCropperHandle position={position} class={local.handleClassName} />
       ))}
     </ImageCropperSelection>
   );
 }
 
-const ImageCropper = Object.assign(ImageCropperRoot, {
-  Root: ImageCropperRoot,
-  RootProvider: ImageCropperRootProvider,
-  Context: ImageCropperPrimitive.Context,
-  Viewport: ImageCropperViewport,
-  Image: ImageCropperImage,
-  Selection: ImageCropperSelection,
-  Grid: ImageCropperGrid,
-  Handle: ImageCropperHandle,
-  CropArea: ImageCropperCropArea,
-  handles: ImageCropperPrimitive.handles,
-});
+const ImageCropperContext = ImageCropperPrimitive.Context;
+const ImageCropperHandles = ImageCropperPrimitive.handles;
 
-export { ImageCropper, useImageCropper, useImageCropperContext };
+export {
+  ImageCropper,
+  ImageCropperContext,
+  ImageCropperCropArea,
+  ImageCropperGrid,
+  ImageCropperHandle,
+  ImageCropperHandles,
+  ImageCropperImage,
+  ImageCropperRootProvider,
+  ImageCropperSelection,
+  ImageCropperViewport,
+  useImageCropper,
+  useImageCropperContext,
+};

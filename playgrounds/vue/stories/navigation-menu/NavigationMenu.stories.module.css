@@ -1,0 +1,10 @@
+.stack {
+  display: grid;
+  inline-size: 30rem;
+  gap: var(--moduix-spacing-3);
+
+  & output {
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+  }
+}

@@ -17,6 +17,12 @@ import typesetSolidMarkdownExtensions from '../../../snippets/typeset/solid/mark
 import typesetSolidReadingRhythm from '../../../snippets/typeset/solid/reading-rhythm.tsx?raw';
 import typesetSolidScrollableTable from '../../../snippets/typeset/solid/scrollable-table.tsx?raw';
 import typesetSolidStreamingContent from '../../../snippets/typeset/solid/streaming-content.tsx?raw';
+import typesetVueBasic from '../../../snippets/typeset/vue/basic.vue?raw';
+import typesetVueExcludedSubtree from '../../../snippets/typeset/vue/excluded-subtree.vue?raw';
+import typesetVueMarkdownExtensions from '../../../snippets/typeset/vue/markdown-extensions.vue?raw';
+import typesetVueReadingRhythm from '../../../snippets/typeset/vue/reading-rhythm.vue?raw';
+import typesetVueScrollableTable from '../../../snippets/typeset/vue/scrollable-table.vue?raw';
+import typesetVueStreamingContent from '../../../snippets/typeset/vue/streaming-content.vue?raw';
 
 ## Référence de l’API
 
@@ -26,16 +32,19 @@ texte. Ces choix restent du ressort de l’application.
 
 moduix construit `Typeset` avec la
 [factory d’Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory). `Typeset` et
-`Typeset.Scroll` acceptent donc les attributs natifs d’un `div`, les refs et la composition via
+`TypesetScroll` acceptent donc les attributs natifs d’un `div`, les refs et la composition via
 `asChild`.
+
+Dans Vue, utilisez l’attribut natif `tabindex` pour modifier l’ordre de tabulation de la zone de
+défilement. L’élément rendu est accessible via `$el` sur la ref du composant.
 
 Le contrat CSS-first de Typeset suit l’approche présentée dans
 [shadcn/typeset](https://ui.shadcn.com/docs/typeset). Comme dans cette référence, trois variables
 contrôlent le rythme, tandis que le rendu du contenu et sa largeur restent à la charge de
-l’application ; moduix ajoute des composants natifs pour React et Solid ainsi que `Typeset.Scroll`.
+l’application ; moduix ajoute des composants natifs pour React, Solid et Vue ainsi que
+`TypesetScroll`.
 
 ## Exemple de base
-
 
 Placez le HTML déjà produit par votre moteur de rendu dans `<Typeset>`. Utilisez `asChild` seulement
 lorsque le conteneur extérieur doit être un élément sémantique, comme `article` ou `section`. Gardez
@@ -53,6 +62,7 @@ classes utilitaires.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -65,6 +75,11 @@ classes utilitaires.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueBasic} />
 
     </Tab>
   </Tabs>
@@ -96,31 +111,41 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/typeset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/typeset' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-Typeset / Typeset.Root
-└─ Typeset.Scroll (facultatif)
+Typeset
+└─ TypesetScroll (facultatif)
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Typeset` / `Typeset.Root` | Conteneur racine qui applique les styles aux descendants sémantiques. |
-| `Typeset.Scroll` | Zone de défilement horizontal focusable pour un bloc rendu large. |
+| `Typeset` | Conteneur racine qui applique les styles aux descendants sémantiques. |
+| `TypesetScroll` | Zone de défilement horizontal focusable pour un bloc rendu large. |
 
 ## Composition
 
 `Typeset` ne gère aucun état, n’analyse ni ne filtre le contenu et n’en définit pas la largeur.
 Gardez les éléments sémantiques rendus dans la racine, utilisez `asChild` lorsque celle-ci doit être
-un `article` ou une `section`, et composez `Typeset.Scroll` autour d’un bloc large qui doit défiler
-plutôt que se comprimer. Gardez `Typeset.Scroll` à l’intérieur d’une limite `Typeset` ou
-`Typeset.Root` : le défilement horizontal, les espacements de flux et l’élargissement des tableaux
+un `article` ou une `section`, et composez `TypesetScroll` autour d’un bloc large qui doit défiler
+plutôt que se comprimer. Gardez `TypesetScroll` à l’intérieur d’une limite `Typeset` : le défilement
+horizontal, les espacements de flux et l’élargissement des tableaux
 du bloc enveloppé proviennent des règles d’éléments Typeset. Ajoutez `.not-typeset` ou
 `data-not-typeset` à un sous-arbre appartenant à l’application lorsqu’il doit conserver sa propre
 mise en forme. Une zone de défilement destinée aux utilisateurs doit avoir un nom accessible ;
-`Typeset.Scroll` peut recevoir le focus au clavier par défaut.
+`TypesetScroll` peut recevoir le focus au clavier par défaut.
 
 ## Exemples
 
@@ -141,6 +166,7 @@ compris une racine `Typeset` imbriquée.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -153,6 +179,11 @@ compris une racine `Typeset` imbriquée.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidExcludedSubtree} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueExcludedSubtree} />
 
     </Tab>
   </Tabs>
@@ -180,6 +211,7 @@ utilisent les mêmes tokens et espacements entre blocs que les principaux élém
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -192,6 +224,11 @@ utilisent les mêmes tokens et espacements entre blocs que les principaux élém
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidMarkdownExtensions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueMarkdownExtensions} />
 
     </Tab>
   </Tabs>
@@ -214,6 +251,7 @@ sans ajouter de propriétés au composant.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -228,6 +266,11 @@ sans ajouter de propriétés au composant.
 <CodeBlockRuntime lang="tsx" code={typesetSolidReadingRhythm} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueReadingRhythm} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -239,7 +282,7 @@ sans ajouter de propriétés au composant.
 
 ### Tableau défilant
 
-Placez une table créée par votre moteur de rendu dans `Typeset.Scroll` lorsqu’elle doit conserver sa
+Placez une table créée par votre moteur de rendu dans `TypesetScroll` lorsqu’elle doit conserver sa
 largeur et défiler dans un conteneur étroit. Donnez à la zone de défilement un nom accessible qui
 identifie la table qu’elle contient.
 
@@ -254,6 +297,7 @@ identifie la table qu’elle contient.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -266,6 +310,11 @@ identifie la table qu’elle contient.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidScrollableTable} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueScrollableTable} />
 
     </Tab>
   </Tabs>
@@ -293,6 +342,7 @@ espacement, ainsi le contenu déjà affiché reste en place à mesure que le flu
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -305,6 +355,11 @@ espacement, ainsi le contenu déjà affiché reste en place à mesure que le flu
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={typesetSolidStreamingContent} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={typesetVueStreamingContent} />
 
     </Tab>
   </Tabs>
@@ -339,9 +394,10 @@ viennent du thème moduix actif. Les règles des éléments se trouvent dans la 
 `:where()` peu spécifiques, donc le CSS ordinaire de l’application peut remplacer certains éléments
 sans `!important`.
 
-Utilisez `className` dans React et `class` dans Solid pour les styles structurels des parties
-exportées. Les variantes Tailwind livrent le même CSS Module avec une fusion de classes via `cn`
-plutôt que des utilitaires ; les six variables CSS personnalisent donc les deux variantes.
+Utilisez `className` dans React et `class` dans Solid et Vue pour les styles structurels des
+parties exportées. Les variantes Tailwind conservent le même contrat CSS-first des éléments et
+fusionnent les classes avec `cn`, en plaçant la classe du consommateur en dernier ; les six variables
+CSS personnalisent donc les deux variantes.
 
 ### Points d’accroche CSS
 

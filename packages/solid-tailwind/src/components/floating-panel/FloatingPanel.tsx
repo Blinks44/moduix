@@ -41,7 +41,7 @@ type FloatingPanelCloseIconProps = Omit<
   'asChild'
 >;
 
-function FloatingPanelRoot(props: FloatingPanelRootProps) {
+function FloatingPanel(props: FloatingPanelRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'closeOnEscape',
@@ -210,7 +210,7 @@ function FloatingPanelStageTrigger(
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'box-border inline-flex size-control-sm cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent',
+          'box-border inline-flex size-control-sm cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none [font:inherit] focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent',
         local.class,
       )}
       stage={local.stage}
@@ -235,7 +235,7 @@ function FloatingPanelCloseTrigger(
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'box-border inline-flex size-control-sm cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent',
+          'box-border inline-flex size-control-sm cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none [font:inherit] focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent',
         local.class,
       )}
       {...others}
@@ -246,23 +246,22 @@ function FloatingPanelCloseTrigger(
 
 function FloatingPanelCloseIcon(props: FloatingPanelCloseIconProps) {
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
-  const resolvedChildren = children(() => local.children);
 
   return (
     <FloatingPanelPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="floating-panel-close-icon"
           aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
           aria-labelledby={local['aria-labelledby']}
           class={cn(
-            'box-border inline-flex size-control-sm cursor-pointer items-center justify-center rounded-sm border border-border bg-background p-0 text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent',
+            'box-border inline-flex size-control-sm cursor-pointer items-center justify-center rounded-sm border border-border bg-background p-0 text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none [font:inherit] focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent',
             local.class,
           )}
         >
-          {resolvedChildren()}
-        </CloseButton.Root>
+          {local.children}
+        </CloseButton>
       )}
       {...others}
     />
@@ -300,7 +299,7 @@ function FloatingPanelFooter(props: HTMLArkProps<'div'>) {
         )['data-minimized']
       }
       class={cn(
-        'flex flex-none items-center justify-end gap-2 border-t border-border px-3 py-2 text-xs text-muted-foreground data-minimized:hidden',
+        'flex flex-none items-center justify-end gap-2 border-t border-border px-3 py-1 text-xs text-muted-foreground data-minimized:hidden',
         local.class,
       )}
     />
@@ -353,51 +352,29 @@ function FloatingPanelDragIndicator(props: ComponentProps<'span'>) {
   );
 }
 
-type FloatingPanelComponent = typeof FloatingPanelRoot & {
-  Context: typeof FloatingPanelPrimitive.Context;
-  Root: typeof FloatingPanelRoot;
-  RootProvider: typeof FloatingPanelRootProvider;
-  Trigger: typeof FloatingPanelTrigger;
-  Positioner: typeof FloatingPanelPositioner;
-  Content: typeof FloatingPanelContent;
-  DragTrigger: typeof FloatingPanelDragTrigger;
-  Header: typeof FloatingPanelHeader;
-  Title: typeof FloatingPanelTitle;
-  Control: typeof FloatingPanelControl;
-  StageTrigger: typeof FloatingPanelStageTrigger;
-  CloseTrigger: typeof FloatingPanelCloseTrigger;
-  CloseIcon: typeof FloatingPanelCloseIcon;
-  Body: typeof FloatingPanelBody;
-  Footer: typeof FloatingPanelFooter;
-  ResizeTrigger: typeof FloatingPanelResizeTrigger;
-  ResizeTriggerGroup: typeof FloatingPanelResizeTriggerGroup;
-  DragIndicator: typeof FloatingPanelDragIndicator;
-  useFloatingPanel: typeof useFloatingPanel;
-  useFloatingPanelContext: typeof useFloatingPanelContext;
-};
+const FloatingPanelContext = FloatingPanelPrimitive.Context;
 
-const FloatingPanel: FloatingPanelComponent = Object.assign(FloatingPanelRoot, {
-  Context: FloatingPanelPrimitive.Context,
-  Root: FloatingPanelRoot,
-  RootProvider: FloatingPanelRootProvider,
-  Trigger: FloatingPanelTrigger,
-  Positioner: FloatingPanelPositioner,
-  Content: FloatingPanelContent,
-  DragTrigger: FloatingPanelDragTrigger,
-  Header: FloatingPanelHeader,
-  Title: FloatingPanelTitle,
-  Control: FloatingPanelControl,
-  StageTrigger: FloatingPanelStageTrigger,
-  CloseTrigger: FloatingPanelCloseTrigger,
-  CloseIcon: FloatingPanelCloseIcon,
-  Body: FloatingPanelBody,
-  Footer: FloatingPanelFooter,
-  ResizeTrigger: FloatingPanelResizeTrigger,
-  ResizeTriggerGroup: FloatingPanelResizeTriggerGroup,
-  DragIndicator: FloatingPanelDragIndicator,
+export {
+  FloatingPanel,
+  FloatingPanelContext,
+  FloatingPanelRootProvider,
+  FloatingPanelTrigger,
+  FloatingPanelPositioner,
+  FloatingPanelContent,
+  FloatingPanelDragTrigger,
+  FloatingPanelHeader,
+  FloatingPanelTitle,
+  FloatingPanelControl,
+  FloatingPanelStageTrigger,
+  FloatingPanelCloseTrigger,
+  FloatingPanelCloseIcon,
+  FloatingPanelBody,
+  FloatingPanelFooter,
+  FloatingPanelResizeTrigger,
+  FloatingPanelResizeTriggerGroup,
+  FloatingPanelDragIndicator,
+  resizeTriggerAxes,
   useFloatingPanel,
   useFloatingPanelContext,
-});
-
-export { FloatingPanel, resizeTriggerAxes, useFloatingPanel, useFloatingPanelContext };
+};
 export type { FloatingPanelRootProps, FloatingPanelRootProviderProps };

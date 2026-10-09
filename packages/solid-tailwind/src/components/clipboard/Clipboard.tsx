@@ -8,7 +8,7 @@ import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui/Icons';
 
-function ClipboardRoot(props: ComponentProps<typeof ClipboardPrimitive.Root>) {
+function Clipboard(props: ComponentProps<typeof ClipboardPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -77,7 +77,7 @@ function ClipboardTrigger(props: ComponentProps<typeof ClipboardPrimitive.Trigge
   return (
     <ClipboardPrimitive.Trigger
       class={cn(
-        'box-border inline-flex min-h-control-md shrink-0 cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled):not([data-disabled])]:opacity-[0.94] motion-safe:[&:active:not(:disabled):not([data-disabled])]:translate-y-px motion-safe:[&:active:not(:disabled):not([data-disabled])]:scale-[0.985] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent',
+        'box-border inline-flex min-h-control-md shrink-0 cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled):not([data-disabled])]:opacity-[0.94] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent',
         local.class,
       )}
       {...others}
@@ -132,48 +132,18 @@ function ClipboardValueText(props: ComponentProps<typeof ClipboardPrimitive.Valu
   );
 }
 
-function ClipboardCopyText(props: ComponentProps<typeof ClipboardPrimitive.Indicator>) {
-  const [local, others] = splitProps(props, ['children', 'class', 'copied']);
-  const resolvedChildren = children(() => local.children);
+const ClipboardContext = ClipboardPrimitive.Context;
 
-  return (
-    <ClipboardPrimitive.Indicator
-      class={cn('inline-flex shrink-0 items-center justify-center', local.class)}
-      copied={local.copied === undefined ? 'Copied' : local.copied}
-      {...others}
-      data-slot="clipboard-copy-text"
-    >
-      {resolvedChildren() === undefined ? 'Copy' : resolvedChildren()}
-    </ClipboardPrimitive.Indicator>
-  );
-}
-
-type ClipboardComponent = typeof ClipboardRoot & {
-  Root: typeof ClipboardRoot;
-  RootProvider: typeof ClipboardRootProvider;
-  Context: typeof ClipboardPrimitive.Context;
-  Label: typeof ClipboardLabel;
-  Control: typeof ClipboardControl;
-  Input: typeof ClipboardInput;
-  Trigger: typeof ClipboardTrigger;
-  Indicator: typeof ClipboardIndicator;
-  CopyText: typeof ClipboardCopyText;
-  ValueText: typeof ClipboardValueText;
-  useClipboard: typeof useClipboard;
-};
-
-const Clipboard: ClipboardComponent = Object.assign(ClipboardRoot, {
-  Root: ClipboardRoot,
-  RootProvider: ClipboardRootProvider,
-  Context: ClipboardPrimitive.Context,
-  Label: ClipboardLabel,
-  Control: ClipboardControl,
-  Input: ClipboardInput,
-  Trigger: ClipboardTrigger,
-  Indicator: ClipboardIndicator,
-  CopyText: ClipboardCopyText,
-  ValueText: ClipboardValueText,
+export {
+  Clipboard,
+  ClipboardContext,
+  ClipboardControl,
+  ClipboardIndicator,
+  ClipboardInput,
+  ClipboardLabel,
+  ClipboardRootProvider,
+  ClipboardTrigger,
+  ClipboardValueText,
   useClipboard,
-});
-
-export { Clipboard, useClipboard, useClipboardContext };
+  useClipboardContext,
+};

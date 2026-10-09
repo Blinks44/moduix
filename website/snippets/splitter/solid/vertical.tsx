@@ -1,4 +1,4 @@
-import { Splitter } from '@moduix/solid/splitter';
+import { Splitter, SplitterPanel, SplitterResizeTrigger } from '@moduix/solid/splitter';
 import styles from '@/components/examples/splitter/splitter-vertical.module.css';
 
 const panels = [
@@ -15,13 +15,13 @@ const panels = [
 export default function VerticalSplitterDemo() {
   return (
     <Splitter orientation="vertical" panels={panels} defaultSize={[45, 55]} class={styles.root}>
-      <Splitter.Panel id="a" class={styles.panel}>
+      <SplitterPanel id="a" class={styles.panel}>
         Top
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
-      <Splitter.Panel id="b" class={styles.panel}>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
+      <SplitterPanel id="b" class={styles.panel}>
         Bottom
-      </Splitter.Panel>
+      </SplitterPanel>
     </Splitter>
   );
 }

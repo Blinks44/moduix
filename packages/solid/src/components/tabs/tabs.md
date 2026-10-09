@@ -5,29 +5,37 @@ exclusive content panels.
 
 ## Public contract
 
-`Tabs` is the short root form and is equivalent to `Tabs.Root`. Compose the Ark parts explicitly:
+`Tabs` is the root component. Compose the Ark parts explicitly:
 
 ```tsx
-import { Tabs } from '@moduix/solid/tabs';
+import {
+  Tabs,
+  TabsContent,
+  TabsIndicator,
+  TabsList,
+  TabsRootProvider,
+  TabsTrigger,
+} from '@moduix/solid/tabs';
 
 export function Example() {
   return (
     <Tabs defaultValue="account">
-      <Tabs.List>
-        <Tabs.Trigger value="account">Account</Tabs.Trigger>
-        <Tabs.Trigger value="password">Password</Tabs.Trigger>
-        <Tabs.Indicator />
-      </Tabs.List>
-      <Tabs.Content value="account">Account settings</Tabs.Content>
-      <Tabs.Content value="password">Password settings</Tabs.Content>
+      <TabsList>
+        <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsIndicator />
+      </TabsList>
+      <TabsContent value="account">Account settings</TabsContent>
+      <TabsContent value="password">Password settings</TabsContent>
     </Tabs>
   );
 }
 ```
 
-The namespace exposes `Root`, `RootProvider`, `Context`, `List`, `Trigger`, `Indicator`, and
-`Content`, together with `useTabs` and `useTabsContext`. `RootProvider` accepts the accessor
-returned by `useTabs()`; read context values as `tabs().value`.
+The flat API exposes `TabsRootProvider`, `TabsContext`, `TabsList`, `TabsTrigger`,
+`TabsIndicator`, and `TabsContent`, together with `useTabs` and `useTabsContext`.
+`TabsRootProvider` accepts the accessor returned by `useTabs()`; read context values as
+`tabs().value`.
 
 ## Behavior and composition
 
@@ -38,7 +46,7 @@ navigation, ARIA relationships, disabled triggers, `activationMode`, `orientatio
 Use Solid's render-function form of `asChild` for custom trigger hosts:
 
 ```tsx
-<Tabs.Trigger
+<TabsTrigger
   value="account"
   asChild={(props) => (
     <a {...props()} href="#account">
@@ -48,32 +56,33 @@ Use Solid's render-function form of `asChild` for custom trigger hosts:
 />
 ```
 
-Use `Tabs.RootProvider` when state is created outside the tree:
+Use `TabsRootProvider` when state is created outside the tree:
 
 ```tsx
 const tabs = useTabs({ defaultValue: 'account' });
 
-<Tabs.RootProvider value={tabs}>
-  {/* the same Tabs.List, Tabs.Trigger, Tabs.Indicator, and Tabs.Content parts */}
-</Tabs.RootProvider>;
+<TabsRootProvider value={tabs}>
+  {/* the same TabsList, TabsTrigger, TabsIndicator, and TabsContent parts */}
+</TabsRootProvider>;
 ```
 
 `variant="default"` uses the filled indicator treatment. `variant="line"` uses an underline for
-horizontal tabs; vertical tabs intentionally keep the filled treatment. `Tabs.RootProvider` resolves
+horizontal tabs; vertical tabs intentionally keep the filled treatment. `TabsRootProvider` resolves
 this vertical fallback from the Ark `data-orientation` root DOM hook exposed by the `useTabs()` state;
-if upstream ever drops the attribute, the regression tests catch it. `Tabs.List` does not
+if upstream ever drops the attribute, the regression tests catch it. `TabsList` does not
 render an indicator automatically.
 
 ## Anatomy and styling hooks
 
-| Part                 | `data-slot`          |
-| -------------------- | -------------------- |
-| `Tabs` / `Tabs.Root` | `tabs-root`          |
-| `Tabs.RootProvider`  | `tabs-root-provider` |
-| `Tabs.List`          | `tabs-list`          |
-| `Tabs.Trigger`       | `tabs-trigger`       |
-| `Tabs.Indicator`     | `tabs-indicator`     |
-| `Tabs.Content`       | `tabs-content`       |
+| Part               | `data-slot`          |
+| ------------------ | -------------------- |
+| `Tabs`             | `tabs-root`          |
+| `TabsRootProvider` | `tabs-root-provider` |
+| `TabsContext`      | -                    |
+| `TabsList`         | `tabs-list`          |
+| `TabsTrigger`      | `tabs-trigger`       |
+| `TabsIndicator`    | `tabs-indicator`     |
+| `TabsContent`      | `tabs-content`       |
 
 Every visual part accepts `class` and keeps the corresponding Ark `data-scope`, `data-part`,
 orientation, selected, disabled, and focus attributes. The CSS Module preserves the React

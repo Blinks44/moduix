@@ -1,8 +1,15 @@
 # Input (Solid)
 
-`Input` is the native Solid wrapper around Ark UI's `Field.Input`. It preserves the React
-component's visual sizes, `htmlSize`, data hooks, native input props, field state, and
-`Input.Root` namespace alias.
+`Input` is the native Solid wrapper around Ark UI's `FieldInput`. It preserves the React
+component's visual sizes, `htmlSize`, data hooks, native input props, and field state.
+
+## Defaults and styling
+
+`Input size="md"` matches the default `FieldInput` appearance. Both use Ark FieldInput directly;
+`Input` owns visual sizes, `htmlSize`, and `--moduix-input-*`, while `FieldInput` keeps the
+native numeric `size` and `--moduix-field-control-*`. A disabled moduix Field or FieldRootProvider
+owns the whole field’s opacity; the input is not dimmed a second time. Standalone disabled inputs
+retain their own disabled opacity.
 
 ## Solid composition
 

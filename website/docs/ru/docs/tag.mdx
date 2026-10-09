@@ -19,6 +19,13 @@ import tagSolidOverflow from '../../../snippets/tag/solid/overflow.tsx?raw';
 import tagSolidRenderAsButton from '../../../snippets/tag/solid/render-as-button.tsx?raw';
 import tagSolidSizes from '../../../snippets/tag/solid/sizes.tsx?raw';
 import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
+import tagVueBasic from '../../../snippets/tag/vue/basic.vue?raw';
+import tagVueClosable from '../../../snippets/tag/vue/closable.vue?raw';
+import tagVueIcon from '../../../snippets/tag/vue/icon.vue?raw';
+import tagVueOverflow from '../../../snippets/tag/vue/overflow.vue?raw';
+import tagVueRenderAsButton from '../../../snippets/tag/vue/render-as-button.vue?raw';
+import tagVueSizes from '../../../snippets/tag/vue/sizes.vue?raw';
+import tagVueVariants from '../../../snippets/tag/vue/variants.vue?raw';
 
 ## Справочник API
 
@@ -38,7 +45,7 @@ import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
 ## Базовый пример
 
 Начните с корневого `Tag`
-и `Tag.Label`. Добавляйте остальные части, только если метке нужны значок, дополнительное
+и `TagLabel`. Добавляйте остальные части, только если метке нужны значок, дополнительное
 содержимое или встроенное действие удаления.
 
 <ExampleFrame variant="component">
@@ -52,6 +59,7 @@ import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -64,6 +72,11 @@ import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueBasic} />
 
     </Tab>
   </Tabs>
@@ -95,37 +108,47 @@ import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tag' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tag' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
-Корневой элемент также доступен как `Tag.Root`. Краткая форма `<Tag>` и `<Tag.Root>` эквивалентны.
+Используйте `Tag` как корневой элемент.
 
 ```text
-Tag / Tag.Root
-├─ Tag.StartElement (необязательно)
-├─ Tag.Label
-└─ Tag.EndElement (необязательно)
-   └─ Tag.CloseTrigger (необязательно)
+Tag
+├─ TagStartElement (необязательно)
+├─ TagLabel
+└─ TagEndElement (необязательно)
+   └─ TagCloseTrigger (необязательно)
 ```
 
 | Часть              | Роль                                                                                     |
 | ------------------ | ---------------------------------------------------------------------------------------- |
-| `Tag` / `Tag.Root` | Корневой элемент. Задаёт разметку метки, границу, размер, вариант и композицию через `asChild`. |
-| `Tag.Label`        | Обёртка видимого значения и граница обрезки.                                             |
-| `Tag.StartElement` | Необязательная область слева для значка, аватара или индикатора состояния.                |
-| `Tag.EndElement`   | Необязательная область справа для значка или действия.                                   |
-| `Tag.CloseTrigger` | Необязательная кнопка для удаления метки.                                                |
+| `Tag`              | Корневой элемент. Задаёт разметку метки, границу, размер, вариант и композицию через `asChild`. |
+| `TagLabel`        | Обёртка видимого значения и граница обрезки.                                             |
+| `TagStartElement` | Необязательная область слева для значка, аватара или индикатора состояния.                |
+| `TagEndElement`   | Необязательная область справа для значка или действия.                                   |
+| `TagCloseTrigger` | Необязательная кнопка для удаления метки.                                                |
 
 ## Композиция
 
 `Tag` отвечает только за отображение и не хранит выбранные или удалённые значения. Храните список
-в родительском компоненте, изменяйте его из `Tag.CloseTrigger` и размещайте этот триггер внутри
-`Tag.EndElement`.
+в родительском компоненте, изменяйте его из `TagCloseTrigger` и размещайте этот триггер внутри
+`TagEndElement`.
 
 Используйте `asChild`, только когда корневой элемент или триггер удаления должен заменить элемент
 по умолчанию. Единственный дочерний элемент становится DOM-узлом и должен задавать нужную
-семантику. В частности, `Tag.CloseTrigger asChild` требует явного элемента управления закрытием
+семантику. В частности, `TagCloseTrigger asChild` требует явного элемента управления закрытием
 и доступного имени.
 
 ## Примеры
@@ -146,6 +169,7 @@ Tag / Tag.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -160,6 +184,11 @@ Tag / Tag.Root
 <CodeBlockRuntime lang="tsx" code={tagSolidClosable} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueClosable} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -171,7 +200,7 @@ Tag / Tag.Root
 
 ### Со значком
 
-Используйте `Tag.StartElement` и `Tag.EndElement` для значков и действий. Так `Tag.Label` остаётся
+Используйте `TagStartElement` и `TagEndElement` для значков и действий. Так `TagLabel` остаётся
 границей обрезки, а размер действия не зависит от текста.
 
 <ExampleFrame variant="component">
@@ -185,6 +214,7 @@ Tag / Tag.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -199,6 +229,11 @@ Tag / Tag.Root
 <CodeBlockRuntime lang="tsx" code={tagSolidIcon} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueIcon} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -211,7 +246,7 @@ Tag / Tag.Root
 ### Переполнение
 
 Ограничьте ширину корневого элемента, если длинное значение должно помещаться в узкой области.
-`Tag.Label` становится границей обрезки и показывает многоточие. Добавьте `title`, если полное
+`TagLabel` становится границей обрезки и показывает многоточие. Добавьте `title`, если полное
 значение должно оставаться доступным для просмотра.
 
 <ExampleFrame variant="component">
@@ -225,6 +260,7 @@ Tag / Tag.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -237,6 +273,11 @@ Tag / Tag.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidOverflow} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueOverflow} />
 
     </Tab>
   </Tabs>
@@ -264,6 +305,7 @@ Tag / Tag.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -276,6 +318,11 @@ Tag / Tag.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueSizes} />
 
     </Tab>
   </Tabs>
@@ -302,6 +349,7 @@ Tag / Tag.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -314,6 +362,11 @@ Tag / Tag.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueVariants} />
 
     </Tab>
   </Tabs>
@@ -342,6 +395,7 @@ Tag / Tag.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -356,6 +410,11 @@ Tag / Tag.Root
 <CodeBlockRuntime lang="tsx" code={tagSolidRenderAsButton} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueRenderAsButton} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -368,8 +427,8 @@ Tag / Tag.Root
 ## Стилизация
 
 Начните со встроенного варианта. В CSS Modules можно изменять публичные переменные или переопределять
-экспортированные части через `className` в React и `class` в Solid. В Tailwind используйте нативные
-классы Tailwind на экспортированных частях. Атрибуты данных и хуки `data-slot` общие для обоих вариантов.
+экспортированные части через `className` в React или `class` в Solid и Vue. В Tailwind используйте нативные
+классы Tailwind на экспортированных частях. Атрибуты данных и хуки `data-slot` общие для всех трёх вариантов.
 
 ### CSS-переменные
 
@@ -390,4 +449,4 @@ Tag / Tag.Root
 - Экспортированные части создают `data-scope="tag"` и `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"`.
 - `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"` и `data-slot="tag-close-trigger"` являются стабильными селекторами moduix.
 - `Tag` записывает выбранные размер и вариант в `data-size` и `data-variant`.
-- `Tag.CloseTrigger` создаёт `data-disabled` для отключённых состояний или `aria-disabled` и наследует цвет метки.
+- `TagCloseTrigger` создаёт `data-disabled` для отключённых состояний или `aria-disabled` и наследует цвет метки.

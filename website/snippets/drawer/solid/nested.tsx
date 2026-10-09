@@ -1,6 +1,21 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Drawer, useDrawer } from '@moduix/solid/drawer';
+import { Card, CardBody } from '@moduix/solid/card';
+import {
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerRootProvider,
+  DrawerTitle,
+  useDrawer,
+} from '@moduix/solid/drawer';
 import { For } from 'solid-js';
 import styles from '@/components/examples/drawer/drawer-nested.module.css';
 
@@ -20,62 +35,62 @@ export default function NestedDrawerDemo() {
   return (
     <div>
       <Button onClick={() => accountDrawer().setOpen(true)}>Open account drawer</Button>
-      <Drawer.RootProvider value={accountDrawer}>
-        <Drawer.Backdrop />
-        <Drawer.Positioner>
-          <Drawer.Content>
-            <Drawer.Grabber>
-              <Drawer.GrabberIndicator />
-            </Drawer.Grabber>
-            <Drawer.Header>
-              <Drawer.Title>Account</Drawer.Title>
-              <Drawer.CloseIcon />
-              <Drawer.Description>Review account preferences.</Drawer.Description>
-            </Drawer.Header>
-            <Drawer.Body class={styles.body}>
+      <DrawerRootProvider value={accountDrawer}>
+        <DrawerBackdrop />
+        <DrawerPositioner>
+          <DrawerContent>
+            <DrawerGrabber>
+              <DrawerGrabberIndicator />
+            </DrawerGrabber>
+            <DrawerHeader>
+              <DrawerTitle>Account</DrawerTitle>
+              <DrawerCloseIcon />
+              <DrawerDescription>Review account preferences.</DrawerDescription>
+            </DrawerHeader>
+            <DrawerBody class={styles.body}>
               <Card size="sm" class={styles.card}>
-                <Card.Body>
+                <CardBody>
                   <Button variant="outline" onClick={() => securityDrawer().setOpen(true)}>
                     Security settings
                   </Button>
-                </Card.Body>
+                </CardBody>
               </Card>
-            </Drawer.Body>
-          </Drawer.Content>
-        </Drawer.Positioner>
-      </Drawer.RootProvider>
-      <Drawer.RootProvider value={securityDrawer}>
-        <Drawer.Positioner>
-          <Drawer.Content>
-            <Drawer.Grabber>
-              <Drawer.GrabberIndicator />
-            </Drawer.Grabber>
-            <Drawer.Header>
-              <Drawer.Title>Security</Drawer.Title>
-              <Drawer.CloseIcon />
-              <Drawer.Description>Nested drawers keep their own focus state.</Drawer.Description>
-            </Drawer.Header>
-            <Drawer.Body class={styles.body}>
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerPositioner>
+      </DrawerRootProvider>
+      <DrawerRootProvider value={securityDrawer}>
+        <DrawerPositioner>
+          <DrawerContent>
+            <DrawerGrabber>
+              <DrawerGrabberIndicator />
+            </DrawerGrabber>
+            <DrawerHeader>
+              <DrawerTitle>Security</DrawerTitle>
+              <DrawerCloseIcon />
+              <DrawerDescription>Nested drawers keep their own focus state.</DrawerDescription>
+            </DrawerHeader>
+            <DrawerBody class={styles.body}>
               <Card size="sm" class={styles.card}>
-                <Card.Body>
+                <CardBody>
                   <ul>
                     <For each={items}>{(item) => <li>{item}</li>}</For>
                   </ul>
-                </Card.Body>
+                </CardBody>
               </Card>
-            </Drawer.Body>
-            <Drawer.Footer>
-              <Drawer.CloseTrigger
+            </DrawerBody>
+            <DrawerFooter>
+              <DrawerCloseTrigger
                 asChild={(props) => (
                   <Button {...props()} variant="outline">
                     Done
                   </Button>
                 )}
               />
-            </Drawer.Footer>
-          </Drawer.Content>
-        </Drawer.Positioner>
-      </Drawer.RootProvider>
+            </DrawerFooter>
+          </DrawerContent>
+        </DrawerPositioner>
+      </DrawerRootProvider>
     </div>
   );
 }

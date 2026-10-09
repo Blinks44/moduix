@@ -1,6 +1,18 @@
 import type { TourStepDetails } from '@ark-ui/react/tour';
 import { Button } from '@moduix/react/button';
-import { Tour, useTour } from '@moduix/react/tour';
+import {
+  Tour,
+  TourBackdrop,
+  TourPositioner,
+  TourContent,
+  TourTitle,
+  TourDescription,
+  TourBody,
+  TourCloseIcon,
+  TourControl,
+  TourActionList,
+  useTour,
+} from '@moduix/react/tour';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/tour/tour-events.module.css';
@@ -39,19 +51,19 @@ export default function TourEventsDemo() {
   return (
     <div className={styles.root}>
       <Tour tour={tour} lazyMount unmountOnExit>
-        <Tour.Backdrop />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.CloseIcon />
-            <Tour.Body>
-              <Tour.Title />
-              <Tour.Description />
-            </Tour.Body>
-            <Tour.Control>
-              <Tour.ActionList />
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+        <TourBackdrop />
+        <TourPositioner>
+          <TourContent>
+            <TourCloseIcon />
+            <TourBody>
+              <TourTitle />
+              <TourDescription />
+            </TourBody>
+            <TourControl>
+              <TourActionList />
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
 
       <PreviewMeta>

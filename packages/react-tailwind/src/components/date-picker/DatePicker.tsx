@@ -27,7 +27,10 @@ import { CloseButton } from '../close-button';
 type DatePickerRootProps = ComponentProps<typeof DatePickerPrimitive.Root> & OverlayPortalProps;
 type DatePickerRootProviderProps = ComponentProps<typeof DatePickerPrimitive.RootProvider> &
   OverlayPortalProps;
-type DatePickerFieldProps = ComponentProps<typeof DatePickerPrimitive.Control> & {
+type DatePickerFieldProps = Omit<
+  ComponentProps<typeof DatePickerPrimitive.Control>,
+  'asChild' | 'children'
+> & {
   clearLabel?: string;
   clearTriggerProps?: ComponentProps<typeof DatePickerPrimitive.ClearTrigger>;
   inputProps?: ComponentProps<typeof DatePickerPrimitive.Input>;
@@ -35,7 +38,10 @@ type DatePickerFieldProps = ComponentProps<typeof DatePickerPrimitive.Control> &
   triggerLabel?: string;
   triggerProps?: ComponentProps<typeof DatePickerPrimitive.Trigger>;
 };
-type DatePickerRangeFieldProps = ComponentProps<typeof DatePickerPrimitive.Control> & {
+type DatePickerRangeFieldProps = Omit<
+  ComponentProps<typeof DatePickerPrimitive.Control>,
+  'asChild' | 'children'
+> & {
   clearLabel?: string;
   clearTriggerProps?: ComponentProps<typeof DatePickerPrimitive.ClearTrigger>;
   endInputProps?: ComponentProps<typeof DatePickerPrimitive.Input>;
@@ -46,53 +52,55 @@ type DatePickerRangeFieldProps = ComponentProps<typeof DatePickerPrimitive.Contr
   triggerProps?: ComponentProps<typeof DatePickerPrimitive.Trigger>;
 };
 type DatePickerOffset = ReturnType<UseDatePickerReturn['getOffset']>;
-type DatePickerDayTableProps = ComponentProps<typeof DatePickerPrimitive.Table> & {
+type DatePickerDayTableProps = Omit<
+  ComponentProps<typeof DatePickerPrimitive.Table>,
+  'asChild' | 'children'
+> & {
   offset?: DatePickerOffset;
   showHeader?: boolean;
   showWeekNumbers?: boolean;
 };
 
-const DatePickerRoot = forwardRef<
-  ComponentRef<typeof DatePickerPrimitive.Root>,
-  DatePickerRootProps
->(function DatePickerRoot(
-  {
-    className,
-    disabled,
-    invalid,
-    lazyMount = true,
-    portalled,
-    portalRef,
-    readOnly,
-    required,
-    unmountOnExit = true,
-    ...props
-  },
-  ref,
-) {
-  const field = useFieldContext();
-  const fieldset = useFieldsetContext();
+const DatePicker = forwardRef<ComponentRef<typeof DatePickerPrimitive.Root>, DatePickerRootProps>(
+  function DatePicker(
+    {
+      className,
+      disabled,
+      invalid,
+      lazyMount = true,
+      portalled,
+      portalRef,
+      readOnly,
+      required,
+      unmountOnExit = true,
+      ...props
+    },
+    ref,
+  ) {
+    const field = useFieldContext();
+    const fieldset = useFieldsetContext();
 
-  return (
-    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DatePickerPrimitive.Root
-        ref={ref}
-        className={cn(
-          "group/date-picker inline-flex w-75 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index='1']]:w-96 data-disabled:opacity-50 data-readonly:opacity-50",
-          className,
-        )}
-        disabled={disabled ?? field?.disabled ?? fieldset?.disabled}
-        invalid={invalid ?? field?.invalid ?? fieldset?.invalid}
-        lazyMount={lazyMount}
-        readOnly={readOnly ?? field?.readOnly}
-        required={required ?? field?.required}
-        unmountOnExit={unmountOnExit}
-        {...props}
-        data-slot="date-picker-root"
-      />
-    </OverlayPortalProvider>
-  );
-});
+    return (
+      <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+        <DatePickerPrimitive.Root
+          ref={ref}
+          className={cn(
+            "group/date-picker inline-flex w-75 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index='1']]:w-96 data-disabled:opacity-50 data-readonly:opacity-50",
+            className,
+          )}
+          disabled={disabled ?? field?.disabled ?? fieldset?.disabled}
+          invalid={invalid ?? field?.invalid ?? fieldset?.invalid}
+          lazyMount={lazyMount}
+          readOnly={readOnly ?? field?.readOnly}
+          required={required ?? field?.required}
+          unmountOnExit={unmountOnExit}
+          {...props}
+          data-slot="date-picker-root"
+        />
+      </OverlayPortalProvider>
+    );
+  },
+);
 
 const DatePickerRootProvider = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.RootProvider>,
@@ -160,20 +168,10 @@ const DatePickerField = forwardRef<
   ref,
 ) {
   return (
-    <DatePickerControl ref={ref} {...props}>
-      <DatePickerInput
-        {...(placeholder === undefined ? {} : { placeholder })}
-        {...inputProps}
-        index={0}
-      />
-      <DatePickerClearTrigger
-        {...(clearLabel === undefined ? {} : { 'aria-label': clearLabel })}
-        {...clearTriggerProps}
-      />
-      <DatePickerTrigger
-        {...(triggerLabel === undefined ? {} : { 'aria-label': triggerLabel })}
-        {...triggerProps}
-      />
+    <DatePickerControl ref={ref} {...props} asChild={false}>
+      <DatePickerInput placeholder={placeholder} {...inputProps} index={0} />
+      <DatePickerClearTrigger aria-label={clearLabel} {...clearTriggerProps} />
+      <DatePickerTrigger aria-label={triggerLabel} {...triggerProps} />
     </DatePickerControl>
   );
 });
@@ -196,25 +194,11 @@ const DatePickerRangeField = forwardRef<
   ref,
 ) {
   return (
-    <DatePickerControl ref={ref} {...props}>
-      <DatePickerInput
-        {...(startPlaceholder === undefined ? {} : { placeholder: startPlaceholder })}
-        {...startInputProps}
-        index={0}
-      />
-      <DatePickerInput
-        {...(endPlaceholder === undefined ? {} : { placeholder: endPlaceholder })}
-        {...endInputProps}
-        index={1}
-      />
-      <DatePickerClearTrigger
-        {...(clearLabel === undefined ? {} : { 'aria-label': clearLabel })}
-        {...clearTriggerProps}
-      />
-      <DatePickerTrigger
-        {...(triggerLabel === undefined ? {} : { 'aria-label': triggerLabel })}
-        {...triggerProps}
-      />
+    <DatePickerControl ref={ref} {...props} asChild={false}>
+      <DatePickerInput placeholder={startPlaceholder} {...startInputProps} index={0} />
+      <DatePickerInput placeholder={endPlaceholder} {...endInputProps} index={1} />
+      <DatePickerClearTrigger aria-label={clearLabel} {...clearTriggerProps} />
+      <DatePickerTrigger aria-label={triggerLabel} {...triggerProps} />
     </DatePickerControl>
   );
 });
@@ -227,7 +211,7 @@ const DatePickerInput = forwardRef<
     <DatePickerPrimitive.Input
       ref={ref}
       className={cn(
-        "readonly:cursor-default h-control-md w-full min-w-30 flex-1 rounded-md border border-border bg-background ps-3.5 pe-17 text-md leading-6 text-current outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out group-has-[input[data-index='1']]/date-picker:pe-3.5 group-data-focus/date-picker-control:border-ring group-data-focus/date-picker-control:outline-ring placeholder:text-muted-foreground focus:border-ring focus:outline-ring disabled:cursor-default aria-invalid:border-destructive aria-invalid:outline-destructive data-disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-readonly:cursor-default data-[index='1']:pe-17 motion-reduce:transition-none",
+        "h-control-md w-full min-w-30 flex-1 rounded-md border border-border bg-background ps-3.5 pe-17 text-md leading-6 text-current outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out group-has-[input[data-index='1']]/date-picker:pe-3.5 group-data-focus/date-picker-control:border-ring group-data-focus/date-picker-control:outline-ring placeholder:text-muted-foreground read-only:cursor-default focus:border-ring focus:outline-ring disabled:cursor-default aria-invalid:border-destructive aria-invalid:outline-destructive data-disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-readonly:cursor-default data-[index='1']:pe-17 motion-reduce:transition-none",
         'py-1',
         className,
       )}
@@ -280,21 +264,24 @@ const DatePickerClearTrigger = forwardRef<
         'absolute end-[2.125rem] top-1/2 inline-flex size-control-xs shrink-0 -translate-y-1/2 cursor-pointer items-center justify-center rounded-sm bg-transparent p-0 leading-none text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 data-disabled:cursor-default data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:text-foreground',
         className,
       )}
-      {...(asChild && ariaLabel !== undefined ? { 'aria-label': ariaLabel } : {})}
-      {...(asChild && ariaLabelledBy !== undefined ? { 'aria-labelledby': ariaLabelledBy } : {})}
+      aria-label={asChild ? ariaLabel : undefined}
+      aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
       data-slot="date-picker-clear-trigger"
     >
       {asChild ? (
         children
       ) : (
-        <CloseButton.Root
-          {...(ariaLabel === undefined ? {} : { 'aria-label': ariaLabel })}
-          {...(ariaLabelledBy === undefined ? {} : { 'aria-labelledby': ariaLabelledBy })}
-          className={cn('size-control-xs [&>svg]:size-4', className)}
+        <CloseButton
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+          className={cn(
+            'size-control-xs focus-visible:outline-1 focus-visible:-outline-offset-1 [&>svg]:size-4',
+            className,
+          )}
         >
           {children}
-        </CloseButton.Root>
+        </CloseButton>
       )}
     </DatePickerPrimitive.ClearTrigger>
   );
@@ -324,7 +311,7 @@ const DatePickerContent = forwardRef<
     <DatePickerPrimitive.Content
       ref={ref}
       className={cn(
-        'z-[calc(60+var(--layer-index,0))] w-75 max-w-[min(calc(100vw-2rem),var(--available-width))] min-w-[min(18.75rem,var(--available-width))] origin-[var(--transform-origin)] rounded-md border border-border bg-popover p-3 text-popover-foreground shadow-lg outline-0 data-inline:min-w-72 data-inline:shadow-none data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
+        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(var(--available-height,100dvh),calc(100dvh-2rem))] w-80 max-w-[min(calc(100vw-2rem),var(--available-width))] min-w-[min(20rem,var(--available-width))] origin-[var(--transform-origin)] overflow-auto rounded-md border border-border bg-popover p-3 text-popover-foreground shadow-lg outline-0 data-inline:max-w-full data-inline:min-w-[min(18rem,100%)] data-inline:shadow-none data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
         className,
       )}
       {...props}
@@ -599,7 +586,7 @@ const DatePickerDayTable = forwardRef<
               <DatePickerNextTrigger />
             </DatePickerViewControl>
           ) : null}
-          <DatePickerTable ref={ref} {...props}>
+          <DatePickerTable ref={ref} {...props} asChild={false}>
             <DatePickerTableHead>
               <DatePickerTableRow>
                 {showWeekNumbers ? <DatePickerWeekNumberHeaderCell /> : null}
@@ -640,34 +627,68 @@ const DatePickerDayTable = forwardRef<
 const DatePickerMonthSelect = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.MonthSelect>,
   ComponentProps<typeof DatePickerPrimitive.MonthSelect>
->(function DatePickerMonthSelect({ className, ...props }, ref) {
+>(function DatePickerMonthSelect({ className, multiple, size, ...props }, ref) {
+  const isList = multiple || (size !== undefined && size > 1);
+
   return (
-    <DatePickerPrimitive.MonthSelect
-      ref={ref}
-      className={cn(
-        'min-h-control-sm w-full min-w-0 flex-1 cursor-pointer rounded-sm border border-border bg-background px-2 py-1 text-sm leading-5 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring motion-reduce:transition-none',
-        className,
-      )}
-      {...props}
-      data-slot="date-picker-month-select"
-    />
+    <span
+      className="relative grid w-full max-w-full min-w-0"
+      data-slot="date-picker-month-select-control"
+    >
+      <DatePickerPrimitive.MonthSelect
+        ref={ref}
+        {...props}
+        multiple={multiple}
+        size={size}
+        className={cn(
+          'peer/date-picker-select box-border h-control-sm w-full max-w-full min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background py-1 ps-3.5 pe-[calc(var(--moduix-spacing-2)+var(--moduix-size-xs)+var(--moduix-spacing-3-5))] [font-family:inherit] [font-size:var(--moduix-date-picker-select-font-size,var(--moduix-text-sm))] [line-height:var(--moduix-date-picker-select-line-height,var(--moduix-line-height-text-sm))] text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color,opacity] duration-200 ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:outline-destructive aria-invalid:focus-visible:outline-destructive data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none forced-colors:appearance-auto forced-colors:pe-3',
+          isList && 'h-auto appearance-auto px-3.5 py-2',
+          className,
+        )}
+        data-slot="date-picker-month-select"
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute end-2 top-1/2 inline-flex size-6 -translate-y-1/2 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-disabled/date-picker-select:opacity-50 peer-data-disabled/date-picker-select:opacity-50 motion-reduce:transition-none forced-colors:hidden [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:peer-[:not([disabled]):not([data-disabled]):hover]/date-picker-select:bg-muted [@media(hover:hover)]:peer-[:not([disabled]):not([data-disabled]):hover]/date-picker-select:text-foreground"
+        data-slot="date-picker-month-select-indicator"
+      >
+        <ChevronDownIcon />
+      </span>
+    </span>
   );
 });
 
 const DatePickerYearSelect = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.YearSelect>,
   ComponentProps<typeof DatePickerPrimitive.YearSelect>
->(function DatePickerYearSelect({ className, ...props }, ref) {
+>(function DatePickerYearSelect({ className, multiple, size, ...props }, ref) {
+  const isList = multiple || (size !== undefined && size > 1);
+
   return (
-    <DatePickerPrimitive.YearSelect
-      ref={ref}
-      className={cn(
-        'min-h-control-sm w-full min-w-0 flex-1 cursor-pointer rounded-sm border border-border bg-background px-2 py-1 text-sm leading-5 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring motion-reduce:transition-none',
-        className,
-      )}
-      {...props}
-      data-slot="date-picker-year-select"
-    />
+    <span
+      className="relative grid w-full max-w-full min-w-0"
+      data-slot="date-picker-year-select-control"
+    >
+      <DatePickerPrimitive.YearSelect
+        ref={ref}
+        {...props}
+        multiple={multiple}
+        size={size}
+        className={cn(
+          'peer/date-picker-select box-border h-control-sm w-full max-w-full min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background py-1 ps-3.5 pe-[calc(var(--moduix-spacing-2)+var(--moduix-size-xs)+var(--moduix-spacing-3-5))] [font-family:inherit] [font-size:var(--moduix-date-picker-select-font-size,var(--moduix-text-sm))] [line-height:var(--moduix-date-picker-select-line-height,var(--moduix-line-height-text-sm))] text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color,opacity] duration-200 ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:outline-destructive aria-invalid:focus-visible:outline-destructive data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none forced-colors:appearance-auto forced-colors:pe-3',
+          isList && 'h-auto appearance-auto px-3.5 py-2',
+          className,
+        )}
+        data-slot="date-picker-year-select"
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute end-2 top-1/2 inline-flex size-6 -translate-y-1/2 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-disabled/date-picker-select:opacity-50 peer-data-disabled/date-picker-select:opacity-50 motion-reduce:transition-none forced-colors:hidden [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:peer-[:not([disabled]):not([data-disabled]):hover]/date-picker-select:bg-muted [@media(hover:hover)]:peer-[:not([disabled]):not([data-disabled]):hover]/date-picker-select:text-foreground"
+        data-slot="date-picker-year-select-indicator"
+      >
+        <ChevronDownIcon />
+      </span>
+    </span>
   );
 });
 
@@ -704,42 +725,44 @@ const DatePickerValueText = forwardRef<
   );
 });
 
-const DatePicker = Object.assign(DatePickerRoot, {
-  Root: DatePickerRoot,
-  RootProvider: DatePickerRootProvider,
-  Context: DatePickerPrimitive.Context,
-  Label: DatePickerLabel,
-  Control: DatePickerControl,
-  Field: DatePickerField,
-  RangeField: DatePickerRangeField,
-  Input: DatePickerInput,
-  Trigger: DatePickerTrigger,
-  ClearTrigger: DatePickerClearTrigger,
-  Positioner: DatePickerPositioner,
-  Content: DatePickerContent,
-  View: DatePickerView,
-  ViewControl: DatePickerViewControl,
-  PrevTrigger: DatePickerPrevTrigger,
-  NextTrigger: DatePickerNextTrigger,
-  ViewTrigger: DatePickerViewTrigger,
-  RangeText: DatePickerRangeText,
-  ValueText: DatePickerValueText,
-  Table: DatePickerTable,
-  TableHead: DatePickerTableHead,
-  TableBody: DatePickerTableBody,
-  TableRow: DatePickerTableRow,
-  TableHeader: DatePickerTableHeader,
-  TableCell: DatePickerTableCell,
-  TableCellTrigger: DatePickerTableCellTrigger,
-  DayTable: DatePickerDayTable,
-  WeekNumberHeaderCell: DatePickerWeekNumberHeaderCell,
-  WeekNumberCell: DatePickerWeekNumberCell,
-  MonthSelect: DatePickerMonthSelect,
-  YearSelect: DatePickerYearSelect,
-  PresetTrigger: DatePickerPresetTrigger,
-});
+const DatePickerContext = DatePickerPrimitive.Context;
 
-export { DatePicker, useDatePicker, useDatePickerContext };
+export {
+  DatePicker,
+  DatePickerClearTrigger,
+  DatePickerContext,
+  DatePickerContent,
+  DatePickerControl,
+  DatePickerDayTable,
+  DatePickerField,
+  DatePickerInput,
+  DatePickerLabel,
+  DatePickerMonthSelect,
+  DatePickerNextTrigger,
+  DatePickerPositioner,
+  DatePickerPresetTrigger,
+  DatePickerPrevTrigger,
+  DatePickerRangeField,
+  DatePickerRangeText,
+  DatePickerRootProvider,
+  DatePickerTable,
+  DatePickerTableBody,
+  DatePickerTableCell,
+  DatePickerTableCellTrigger,
+  DatePickerTableHead,
+  DatePickerTableHeader,
+  DatePickerTableRow,
+  DatePickerTrigger,
+  DatePickerValueText,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerViewTrigger,
+  DatePickerWeekNumberCell,
+  DatePickerWeekNumberHeaderCell,
+  DatePickerYearSelect,
+  useDatePicker,
+  useDatePickerContext,
+};
 export type {
   DatePickerDayTableProps,
   DatePickerFieldProps,

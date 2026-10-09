@@ -1,4 +1,11 @@
-import { Pagination } from '@moduix/react/pagination';
+import {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+} from '@moduix/react/pagination';
 import styles from '@/components/examples/pagination/pagination-link.module.css';
 
 export default function LinkPaginationDemo() {
@@ -11,25 +18,25 @@ export default function LinkPaginationDemo() {
       type="link"
       getPageUrl={(details) => `?page=${details.page}`}
     >
-      <Pagination.PrevTrigger asChild>
+      <PaginationPrevTrigger asChild>
         <a>Previous</a>
-      </Pagination.PrevTrigger>
-      <Pagination.Context>
+      </PaginationPrevTrigger>
+      <PaginationContext>
         {(pagination) =>
           pagination.pages.map((page, index) =>
             page.type === 'page' ? (
-              <Pagination.Item key={index} asChild {...page}>
+              <PaginationItem key={index} asChild {...page}>
                 <a>{page.value}</a>
-              </Pagination.Item>
+              </PaginationItem>
             ) : (
-              <Pagination.Ellipsis key={index} index={index} />
+              <PaginationEllipsis key={index} index={index} />
             ),
           )
         }
-      </Pagination.Context>
-      <Pagination.NextTrigger asChild>
+      </PaginationContext>
+      <PaginationNextTrigger asChild>
         <a>Next</a>
-      </Pagination.NextTrigger>
+      </PaginationNextTrigger>
     </Pagination>
   );
 }

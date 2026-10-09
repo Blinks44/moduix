@@ -18,15 +18,17 @@ lightboxes, and similar closeable surfaces.
 Ark UI does not ship a dedicated close-button primitive. The component follows the Ark factory
 model through `@ark-ui/react/factory`:
 
-- one explicit root part exposed as `CloseButton` and `CloseButton.Root`;
+- one explicit root part exposed as `CloseButton`;
 - native button props and ref forwarding;
 - DOM ownership composition through `asChild`;
 - Ark-style `data-scope`, `data-part`, and state hooks.
 
 ## Current behavior contract
 
-- `CloseButton` is the short root form.
-- `CloseButton.Root` is the equivalent Ark-aligned namespace form.
+The React module declares a `'use client'` boundary. Server parents may pass serializable props;
+event handlers and render functions belong in a client composition.
+
+- `CloseButton` is the root component and only public component value.
 - The default DOM node is `button`.
 - `type` defaults to `button` for the native root.
 - Omitting `children` renders the moduix `CloseIcon`.
@@ -51,14 +53,14 @@ model through `@ark-ui/react/factory`:
 ## Anatomy and exported parts
 
 ```text
-CloseButton / CloseButton.Root
+CloseButton
 └─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
    └─ CloseIcon (default) | custom children
 ```
 
-| Part                               | `data-slot`         | Notes                                 |
-| ---------------------------------- | ------------------- | ------------------------------------- |
-| `CloseButton` / `CloseButton.Root` | `close-button-root` | Single icon-only interactive surface. |
+| Part          | `data-slot`         | Notes                                 |
+| ------------- | ------------------- | ------------------------------------- |
+| `CloseButton` | `close-button-root` | Single icon-only interactive surface. |
 
 ## Composition
 
@@ -126,7 +128,7 @@ Public CSS variables:
 | `--moduix-close-button-focus-ring-color`  | `var(--moduix-color-ring)`                                      |
 | `--moduix-close-button-focus-ring-offset` | `var(--moduix-focus-ring-offset)`                               |
 | `--moduix-close-button-focus-ring-width`  | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))` |
-| `--moduix-close-button-icon-size`         | `var(--moduix-spacing-3)`                                       |
+| `--moduix-close-button-icon-size`         | `var(--moduix-spacing-4)`                                       |
 | `--moduix-close-button-radius`            | `var(--moduix-radius-sm)`                                       |
 | `--moduix-close-button-size`              | `var(--moduix-spacing-7)`                                       |
 | `--moduix-close-button-transition`        | `var(--moduix-transition-default)`                              |
@@ -135,8 +137,7 @@ Public CSS variables:
 
 - moduix adds the default close glyph, accessible-name fallback, visual tokens, and square
   icon-button styling.
-- The component exposes `CloseButton` as the short root form and `CloseButton.Root` as the
-  equivalent Ark-aligned namespace form.
+- The component exposes `CloseButton` as its only public component value.
 - The root defaults to safe non-submit behavior without forwarding that default through `asChild`.
 
 ## Agent notes
@@ -149,6 +150,8 @@ Public CSS variables:
 - Do not reintroduce legacy render props.
 
 ## Local changelog
+
+- 2026-10-02: Standardized close and clear glyphs at 16px, matching InputGroup across CSS Modules and Tailwind. Button dimensions remain context-specific.
 
 - 2026-09-09: Removed active `translate` and `scale` press feedback so composed close controls do
   not shift or resize on click.
@@ -166,11 +169,10 @@ Public CSS variables:
 
 - 2026-07-09: Made the stable data hooks authoritative so consumer props cannot replace the
   component's styling contract.
-- 2026-06-24: Restored the short root `CloseButton` API and kept `CloseButton.Root` as the
-  equivalent namespace form.
+- 2026-06-24: Restored the flat `CloseButton` API as the only public root value.
 - 2026-06-24: Simplified close-button CSS to style the normalized `data-disabled`
   state only and aligned public docs examples with the root API.
-- 2026-06-18: Migrated to `@ark-ui/react/factory`, introduced the explicit
-  `CloseButton.Root` part and Ark data hooks, added `asChild`, and removed the legacy button
+- 2026-06-18: Migrated to `@ark-ui/react/factory`, introduced the explicit Ark factory root and
+  data hooks, added `asChild`, and removed the legacy button
   contract and callable alias.
 - 2026-06-18: Aligned `aria-disabled` with disabled behavior by suppressing root click activation.

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ComponentProps } from 'react';
-import { Toggle, useToggleContext } from '@/components/toggle/Toggle';
+import { Toggle, ToggleIndicator, useToggleContext } from '@/components/toggle/Toggle';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
 import { BellIcon, StarIcon } from '../../icons/demo';
 import storyStyles from './Toggle.stories.module.css';
@@ -134,9 +134,9 @@ export const Indicator: Story = {
   render: () => {
     return (
       <Toggle aria-label="Favorite" size="icon-md" variant="outline">
-        <Toggle.Indicator fallback={<StarIcon />}>
+        <ToggleIndicator fallback={<StarIcon />}>
           <CheckIcon />
-        </Toggle.Indicator>
+        </ToggleIndicator>
       </Toggle>
     );
   },

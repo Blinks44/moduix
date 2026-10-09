@@ -1,4 +1,4 @@
-import { Tabs, useTabs } from '@moduix/solid/tabs';
+import { TabsContent, TabsList, TabsRootProvider, TabsTrigger, useTabs } from '@moduix/solid/tabs';
 import styles from '@/components/examples/tabs/tabs-root-provider.module.css';
 
 const items = [
@@ -26,17 +26,17 @@ export default function RootProviderTabsDemo() {
 
   return (
     <div class={styles.root}>
-      <Tabs.RootProvider value={tabs}>
-        <Tabs.List>
+      <TabsRootProvider value={tabs}>
+        <TabsList>
           {items.map((item) => (
-            <Tabs.Trigger value={item.value}>{item.title}</Tabs.Trigger>
+            <TabsTrigger value={item.value}>{item.title}</TabsTrigger>
           ))}
-        </Tabs.List>
+        </TabsList>
 
         {items.map((item) => (
-          <Tabs.Content value={item.value}>{item.content}</Tabs.Content>
+          <TabsContent value={item.value}>{item.content}</TabsContent>
         ))}
-      </Tabs.RootProvider>
+      </TabsRootProvider>
       <output>Selected: {tabs().value ?? 'none'}</output>
     </div>
   );

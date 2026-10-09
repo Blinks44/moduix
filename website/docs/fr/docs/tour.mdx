@@ -15,6 +15,11 @@ import tourSolidBasic from '../../../snippets/tour/solid/basic.tsx?raw';
 import tourSolidEvents from '../../../snippets/tour/solid/events.tsx?raw';
 import tourSolidWaitForInput from '../../../snippets/tour/solid/wait-for-input.tsx?raw';
 import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw';
+import tourVueAdvancedCustomization from '../../../snippets/tour/vue/advanced-customization.vue?raw';
+import tourVueBasic from '../../../snippets/tour/vue/basic.vue?raw';
+import tourVueEvents from '../../../snippets/tour/vue/events.vue?raw';
+import tourVueWaitForInput from '../../../snippets/tour/vue/wait-for-input.vue?raw';
+import tourVueWithArrow from '../../../snippets/tour/vue/with-arrow.vue?raw';
 
 ## Référence de l’API
 
@@ -25,7 +30,7 @@ import tourSolidWithArrow from '../../../snippets/tour/solid/with-arrow.tsx?raw'
 
 Créez l’état du tour avec `useTour`, définissez les étapes, puis transmettez l’objet renvoyé à `Tour`. L’exemple
 commence par une boîte de dialogue, passe à une infobulle ancrée à un contrôle de la page, puis se termine par une
-étape flottante. Gardez les parties explicites pour pouvoir adapter la composition si nécessaire. `Tour.Body` permet à
+étape flottante. Gardez les parties explicites pour pouvoir adapter la composition si nécessaire. `TourBody` permet à
 un texte long de défiler dans le panneau.
 
 <ExampleFrame variant="component">
@@ -39,6 +44,7 @@ un texte long de défiler dans le panneau.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -51,6 +57,11 @@ un texte long de défiler dans le panneau.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueBasic} />
 
     </Tab>
   </Tabs>
@@ -88,50 +99,64 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tour' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tour' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-Tour / Tour.Root
+Tour
 └─ Éléments superposés (rendus dans un portail par défaut)
-   ├─ Tour.Backdrop
-   ├─ Tour.Spotlight
-   └─ Tour.Positioner
-      └─ Tour.Content
-         ├─ Tour.Arrow
-         ├─ Tour.CloseIcon / Tour.CloseTrigger
-         ├─ Tour.Body
-         │  ├─ Tour.Title
-         │  ├─ Tour.Description
-         │  └─ Tour.ProgressText
-         └─ Tour.Control
-            ├─ Tour.ActionList
-            └─ Tour.Actions
-               └─ Tour.ActionTrigger[action]
+   ├─ TourBackdrop
+   ├─ TourSpotlight
+   └─ TourPositioner
+      └─ TourContent
+         ├─ TourArrow
+         ├─ TourCloseIcon / TourCloseTrigger
+         ├─ TourBody
+         │  ├─ TourTitle
+         │  ├─ TourDescription
+         │  └─ TourProgressText
+         └─ TourControl
+            ├─ TourActionList
+            └─ TourActions
+               └─ TourActionTrigger[action]
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Tour` / `Tour.Root` | Composant racine associé à l’objet renvoyé par `useTour`. |
-| `Tour.Backdrop` / `Tour.Spotlight` | Voile d’arrière-plan facultatif et mise en évidence de la cible active. |
-| `Tour.Positioner` / `Tour.Content` | Positionnent et affichent la boîte de dialogue `alertdialog` d’Ark. |
-| `Tour.Arrow` | Affiche par défaut l’`ArrowTip` de moduix pour les étapes de type infobulle. |
-| `Tour.CloseIcon` / `Tour.CloseTrigger` | Contrôle de fermeture accessible par défaut ou balisage personnalisé. |
-| `Tour.Body` | Conteneur moduix défilant pour le titre, la description et le texte de progression. |
-| `Tour.Control` / `Tour.ActionList` | Rangée d’actions recommandée et actions de l’étape en cours. |
-| `Tour.Actions` / `Tour.ActionTrigger` | Interface d’actions personnalisée qui conserve chaque objet d’action Ark. |
+| `Tour` | Composant racine associé à l’objet renvoyé par `useTour`. |
+| `TourBackdrop` / `TourSpotlight` | Voile d’arrière-plan facultatif et mise en évidence de la cible active. |
+| `TourPositioner` / `TourContent` | Positionnent et affichent la boîte de dialogue `alertdialog` d’Ark. |
+| `TourArrow` | Affiche par défaut `TourArrowTip` de moduix pour les étapes de type infobulle. |
+| `TourCloseIcon` / `TourCloseTrigger` | Contrôle de fermeture accessible par défaut ou balisage personnalisé. |
+| `TourBody` | Conteneur moduix défilant pour le titre, la description et le texte de progression. |
+| `TourControl` / `TourActionList` | Rangée d’actions recommandée et actions de l’étape en cours. |
+| `TourActions` / `TourActionTrigger` | Interface d’actions personnalisée qui conserve chaque objet d’action Ark. |
 
 ## Composition
 
 Créez l’état avec `useTour` et transmettez-le à `Tour`. En Solid, la valeur renvoyée est un accessor : appelez donc
-`tour()` pour utiliser des méthodes comme `start()` et `next()`. Gardez les parties structurelles explicites et
-incluez `Title` et `Description` pour donner un nom et une description accessibles à `alertdialog`. `Backdrop`,
-`Spotlight` et `Positioner` sont rendus dans un portail par défaut ; utilisez `portalled={false}` ou `portalRef` seulement
-si la couche doit rester dans le balisage ou rejoindre un conteneur précis. Utilisez `ActionList` pour les actions
-déclarées dans `steps`, ou remplacez-le par `Actions` et `ActionTrigger asChild` lorsque chaque action demande son
+`tour()` pour utiliser des méthodes comme `start()` et `next()`. Avec Vue, la valeur renvoyée est une référence (`ref`) : sa valeur est
+directement accessible dans les templates, tandis que le script appelle les méthodes via `tour.value`. Gardez les parties structurelles explicites et
+incluez `TourTitle` et `TourDescription` pour donner un nom et une description accessibles à `alertdialog`. `TourBackdrop`,
+`TourSpotlight` et `TourPositioner` sont rendus dans un portail par défaut ; utilisez `portalled={false}` ou `portalRef` seulement
+si la couche doit rester dans le balisage ou rejoindre un conteneur précis. Utilisez `TourActionList` pour les actions
+déclarées dans `steps`, ou remplacez-le par `TourActions` et `TourActionTrigger asChild` lorsque chaque action demande son
 propre balisage. `lazyMount` et `unmountOnExit` valent `true` par défaut ; transmettez des callbacks à `useTour` si une
 autre partie de l’interface ou votre outil d’analyse doit réagir aux changements d’étape ou de statut.
+Avec Vue, configurez les callbacks d’état, comme `onStepChange` et `onStatusChange`, dans `useTour` ;
+l’événement `@exit-complete` sur `Tour` signale la fin de l’animation de sortie. Ark Vue déclare actuellement
+d’autres événements sur la racine, mais ne les émet pas pour un objet d’état créé en dehors de celle-ci.
 
 ## Exemples
 
@@ -152,6 +177,7 @@ enregistrer des données d’analyse. Lancez le tour, cliquez sur Next puis sur 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -164,6 +190,11 @@ enregistrer des données d’analyse. Lancez le tour, cliquez sur Next puis sur 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidEvents} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueEvents} />
 
     </Tab>
   </Tabs>
@@ -180,7 +211,7 @@ enregistrer des données d’analyse. Lancez le tour, cliquez sur Next puis sur 
 
 Appelez `tour.next()` depuis le gestionnaire du champ lorsque la valeur contient deux caractères. Pour des étapes qui
 dépendent d’une condition asynchrone, `waitForElement`, `waitForElementValue`, `waitForEvent` et `waitForPromise` sont
-aussi exportés depuis `@moduix/react/tour` et `@moduix/solid/tour`.
+aussi exportés depuis `@moduix/react/tour`, `@moduix/solid/tour` et `@moduix/vue/tour`.
 
 <ExampleFrame variant="component">
   <TourWaitForInput />
@@ -193,6 +224,7 @@ aussi exportés depuis `@moduix/react/tour` et `@moduix/solid/tour`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -207,6 +239,11 @@ aussi exportés depuis `@moduix/react/tour` et `@moduix/solid/tour`.
 <CodeBlockRuntime lang="tsx" code={tourSolidWaitForInput} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueWaitForInput} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -219,7 +256,7 @@ aussi exportés depuis `@moduix/react/tour` et `@moduix/solid/tour`.
 
 ### Avec une flèche
 
-Ajoutez `Tour.Arrow` à une étape de type infobulle lorsqu’elle doit pointer visuellement vers sa cible, puis activez
+Ajoutez `TourArrow` à une étape de type infobulle lorsqu’elle doit pointer visuellement vers sa cible, puis activez
 l’option `arrow` de l’étape pour qu’Ark positionne la flèche.
 
 <ExampleFrame variant="component">
@@ -233,6 +270,7 @@ l’option `arrow` de l’étape pour qu’Ark positionne la flèche.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -247,6 +285,11 @@ l’option `arrow` de l’étape pour qu’Ark positionne la flèche.
 <CodeBlockRuntime lang="tsx" code={tourSolidWithArrow} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueWithArrow} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -259,8 +302,8 @@ l’option `arrow` de l’étape pour qu’Ark positionne la flèche.
 
 ### Personnalisation avancée
 
-Remplacez `Tour.ActionList` lorsque chaque action demande son propre balisage. L’exemple utilise des enfants
-`Button` personnalisés pour Continue, Back et Skip tour. Chaque `Tour.ActionTrigger` reçoit toujours l’objet d’action
+Remplacez `TourActionList` lorsque chaque action demande son propre balisage. L’exemple utilise des enfants
+`Button` personnalisés pour Continue, Back et Skip tour. Chaque `TourActionTrigger` reçoit toujours l’objet d’action
 Ark d’origine : la navigation, la fermeture et l’état désactivé restent donc actifs.
 
 <ExampleFrame variant="component">
@@ -274,6 +317,7 @@ Ark d’origine : la navigation, la fermeture et l’état désactivé restent d
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -286,6 +330,11 @@ Ark d’origine : la navigation, la fermeture et l’état désactivé restent d
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tourSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tourVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -321,6 +370,6 @@ Ark d’origine : la navigation, la fermeture et l’état désactivé restent d
 Utilisez les attributs `data-slot` de moduix, comme `tour-content`, `tour-body` et `tour-action-trigger`, pour le style
 local. Ark fournit aussi `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`,
 `data-step` et `data-disabled`, ainsi que des variables d’exécution comme `--tour-layer`, `--tour-z-index`,
-`--available-width`, `--available-height`, `--transform-origin` et les variables de la flèche. Passez `className` à
-`Tour.ActionList` pour styliser chaque déclencheur généré. La feuille de style raccourcit les animations de la couche et
+`--available-width`, `--available-height`, `--transform-origin` et les variables de la flèche. Passez `className` (ou `class` avec Vue) à
+`TourActionList` pour styliser chaque déclencheur généré. La feuille de style raccourcit les animations de la couche et
 supprime les transitions des boutons d’action lorsque l’utilisateur préfère réduire les animations.

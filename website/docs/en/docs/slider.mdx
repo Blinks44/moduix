@@ -1,7 +1,7 @@
 ---
 title: Slider
 component: slider
-description: A control for selecting one value or a range of values within defined bounds.
+description: Build an accessible slider in React, Solid, or Vue for selecting one value or a range within defined bounds.
 ---
 
 import * as SliderDocs from '@/components/examples/slider/css-properties';
@@ -47,6 +47,28 @@ import sliderSolidThumbOverlap from '../../../snippets/slider/solid/thumb-overla
 import sliderSolidVertical from '../../../snippets/slider/solid/vertical.tsx?raw';
 import sliderSolidVerticalWithMarks from '../../../snippets/slider/solid/vertical-with-marks.tsx?raw';
 import sliderSolidAdvancedCustomization from '../../../snippets/slider/solid/advanced-customization.tsx?raw';
+import sliderVueBasic from '../../../snippets/slider/vue/basic.vue?raw';
+import sliderVueCenterOrigin from '../../../snippets/slider/vue/center-origin.vue?raw';
+import sliderVueChangeEvents from '../../../snippets/slider/vue/change-events.vue?raw';
+import sliderVueContext from '../../../snippets/slider/vue/context.vue?raw';
+import sliderVueContextPart from '../../../snippets/slider/vue/SliderStatus.vue?raw';
+import sliderVueControlled from '../../../snippets/slider/vue/controlled.vue?raw';
+import sliderVueDisabled from '../../../snippets/slider/vue/disabled.vue?raw';
+import sliderVueDraggingIndicator from '../../../snippets/slider/vue/dragging-indicator.vue?raw';
+import sliderVueForm from '../../../snippets/slider/vue/form.vue?raw';
+import sliderVueInvalid from '../../../snippets/slider/vue/invalid.vue?raw';
+import sliderVueMarks from '../../../snippets/slider/vue/marks.vue?raw';
+import sliderVueMinAndMax from '../../../snippets/slider/vue/min-and-max.vue?raw';
+import sliderVueRange from '../../../snippets/slider/vue/range.vue?raw';
+import sliderVueReadOnly from '../../../snippets/slider/vue/read-only.vue?raw';
+import sliderVueRootProvider from '../../../snippets/slider/vue/root-provider.vue?raw';
+import sliderVueStep from '../../../snippets/slider/vue/step.vue?raw';
+import sliderVueThumbAlignment from '../../../snippets/slider/vue/thumb-alignment.vue?raw';
+import sliderVueThumbCollision from '../../../snippets/slider/vue/thumb-collision.vue?raw';
+import sliderVueThumbOverlap from '../../../snippets/slider/vue/thumb-overlap.vue?raw';
+import sliderVueVertical from '../../../snippets/slider/vue/vertical.vue?raw';
+import sliderVueVerticalWithMarks from '../../../snippets/slider/vue/vertical-with-marks.vue?raw';
+import sliderVueAdvancedCustomization from '../../../snippets/slider/vue/advanced-customization.vue?raw';
 
 ## API Reference
 
@@ -65,8 +87,8 @@ keyboard.
 ## Basic
 
 
-`Slider.Thumbs` renders one thumb with a native input per value. For custom thumb content, compose
-`Slider.Thumb` explicitly and nest `Slider.HiddenInput` inside it.
+`SliderThumbs` renders one thumb with a native input per value. For custom thumb content, compose
+`SliderThumb` explicitly and nest `SliderHiddenInput` inside it.
 
 <ExampleFrame variant="component">
   <SliderBasic />
@@ -79,6 +101,7 @@ keyboard.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -91,6 +114,11 @@ keyboard.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueBasic} />
 
     </Tab>
   </Tabs>
@@ -128,51 +156,62 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/slider' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 ```text
-Slider / Slider.Root
-├─ Slider.Label
-├─ Slider.ValueText
-├─ Slider.Control
-│  ├─ Slider.Track
-│  │  └─ Slider.Range
-│  └─ Slider.Thumb[index]
-│     ├─ Slider.DraggingIndicator
-│     └─ Slider.HiddenInput
-└─ Slider.MarkerGroup
-   └─ Slider.Marker[value]
+Slider
+├─ SliderLabel
+├─ SliderValueText
+├─ SliderControl
+│  ├─ SliderTrack
+│  │  └─ SliderRange
+│  └─ SliderThumb[index]
+│     ├─ SliderDraggingIndicator
+│     └─ SliderHiddenInput
+└─ SliderMarkerGroup
+   └─ SliderMarker[value]
 ```
 
 | Part                                   | Role                                                        |
 | -------------------------------------- | ----------------------------------------------------------- |
-| `Slider` / `Slider.Root`               | Styled Ark root for controlled and uncontrolled state.       |
-| `Slider.HiddenInput` | Native Ark form control; compose explicitly as described below. |
-| `Slider.RootProvider`                  | Root connected to an externally created `useSlider` state.  |
-| `Slider.Label`                         | Visible label for the slider group.                          |
-| `Slider.ValueText`                     | Current value text generated by Ark.                         |
-| `Slider.Control`                       | Pointer interaction area.                                    |
-| `Slider.Track`                         | Full visual track.                                           |
-| `Slider.Range`                         | Filled portion from the configured origin to the value.      |
-| `Slider.Thumb`                         | Focusable slider thumb.                                      |
-| `Slider.Thumbs`                        | moduix helper that renders one thumb per value.              |
-| `Slider.MarkerGroup` / `Slider.Marker` | Optional group of tick marks and individual marks.           |
-| `Slider.DraggingIndicator`             | Optional value bubble shown while dragging.                  |
+| `Slider`               | Styled Ark root for controlled and uncontrolled state.       |
+| `SliderHiddenInput` | Native Ark form control; compose explicitly as described below. |
+| `SliderRootProvider`                  | Root connected to an externally created `useSlider` state.  |
+| `SliderLabel`                         | Visible label for the slider group.                          |
+| `SliderValueText`                     | Current value text generated by Ark.                         |
+| `SliderControl`                       | Pointer interaction area.                                    |
+| `SliderTrack`                         | Full visual track.                                           |
+| `SliderRange`                         | Filled portion from the configured origin to the value.      |
+| `SliderThumb`                         | Focusable slider thumb.                                      |
+| `SliderThumbs`                        | moduix helper that renders one thumb per value.              |
+| `SliderMarkerGroup` / `SliderMarker` | Optional group of tick marks and individual marks.           |
+| `SliderDraggingIndicator`             | Optional value bubble shown while dragging.                  |
 
 ## Composition
 
-Use `Slider.Thumbs` for the standard one-thumb-per-value composition; it also renders one
-`Slider.HiddenInput` per thumb. When a thumb needs custom children, an accessible name, or a
-specific order, compose `Slider.Thumb` explicitly and place one `Slider.HiddenInput` inside it.
+Use `SliderThumbs` for the standard one-thumb-per-value composition; it also renders one
+`SliderHiddenInput` per thumb. When a thumb needs custom children, an accessible name, or a
+specific order, compose `SliderThumb` explicitly and place one `SliderHiddenInput` inside it.
 Set `name` on the root for form submission.
 
-For controlled state, store `details.value` from `onValueChange` or `onValueChangeEnd`. Use
-`useSliderContext` inside descendants to read state. If state must live outside the rendered
-tree, create it with `useSlider` and pass it to `Slider.RootProvider`; do not render another
-root for the same store. React reads the store as an object, while Solid reads it through the
-returned accessor. `Slider` is an alias for `Slider.Root`.
+For controlled state, store `details.value` from `onValueChange` or `onValueChangeEnd`; in Vue,
+bind `v-model` to a ref for the same controlled contract. Use `useSliderContext` inside descendants
+to read state. If state must live outside the rendered tree, create it with `useSlider` and pass it
+to `SliderRootProvider`; do not render another root for the same store. React reads the store as an
+object, Solid reads it through the returned accessor, and Vue exposes the reactive store directly in
+the template.
 
 ## Examples
 
@@ -192,6 +231,7 @@ around zero.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -206,6 +246,11 @@ around zero.
 <CodeBlockRuntime lang="tsx" code={sliderSolidCenterOrigin} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueCenterOrigin} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -218,8 +263,8 @@ around zero.
 
 ### Change Events
 
-Use `onValueChange` for updates during interaction and `onValueChangeEnd` when the drag or keyboard
-interaction ends.
+Use `onValueChange` (or Vue's `value-change` event) for updates during interaction and
+`onValueChangeEnd` (or `value-change-end`) when the drag or keyboard interaction ends.
 
 <ExampleFrame variant="component">
   <SliderChangeEvents />
@@ -232,6 +277,7 @@ interaction ends.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -244,6 +290,11 @@ interaction ends.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidChangeEvents} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueChangeEvents} />
 
     </Tab>
   </Tabs>
@@ -272,6 +323,7 @@ Use moduix `useSliderContext` inside a child component when it needs to read sli
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -286,6 +338,13 @@ Use moduix `useSliderContext` inside a child component when it needs to read sli
 <CodeBlockRuntime lang="tsx" code={sliderSolidContext} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueContext} />
+
+<CodeBlockRuntime lang="vue" code={sliderVueContextPart} title="SliderStatus.vue" />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -293,7 +352,8 @@ Use moduix `useSliderContext` inside a child component when it needs to read sli
 
 ### Controlled
 
-Control the slider from React state by storing the array from Ark's `details.value`.
+Control the slider from framework state by storing Ark's `details.value`; in Vue, bind `v-model` to
+a ref for the same controlled contract.
 
 <ExampleFrame variant="component">
   <SliderControlled />
@@ -306,6 +366,7 @@ Control the slider from React state by storing the array from Ark's `details.val
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -318,6 +379,11 @@ Control the slider from React state by storing the array from Ark's `details.val
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueControlled} />
 
     </Tab>
   </Tabs>
@@ -345,6 +411,7 @@ Use `disabled` to keep the value visible while preventing interaction.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -359,6 +426,11 @@ Use `disabled` to keep the value visible while preventing interaction.
 <CodeBlockRuntime lang="tsx" code={sliderSolidDisabled} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueDisabled} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -371,7 +443,7 @@ Use `disabled` to keep the value visible while preventing interaction.
 
 ### Dragging Indicator
 
-Place `Slider.DraggingIndicator` inside a thumb to show its active value while dragging.
+Place `SliderDraggingIndicator` inside a thumb to show its active value while dragging.
 
 <ExampleFrame variant="component">
   <SliderDraggingIndicator />
@@ -384,6 +456,7 @@ Place `Slider.DraggingIndicator` inside a thumb to show its active value while d
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -398,6 +471,11 @@ Place `Slider.DraggingIndicator` inside a thumb to show its active value while d
 <CodeBlockRuntime lang="tsx" code={sliderSolidDraggingIndicator} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueDraggingIndicator} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -406,7 +484,7 @@ Place `Slider.DraggingIndicator` inside a thumb to show its active value while d
 
 ### Form
 
-Set `name` and nest `Slider.HiddenInput` inside each explicit thumb to submit the current value.
+Set `name` and nest `SliderHiddenInput` inside each explicit thumb to submit the current value.
 
 <ExampleFrame variant="component">
   <SliderForm />
@@ -419,6 +497,7 @@ Set `name` and nest `Slider.HiddenInput` inside each explicit thumb to submit th
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -431,6 +510,11 @@ Set `name` and nest `Slider.HiddenInput` inside each explicit thumb to submit th
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueForm} />
 
     </Tab>
   </Tabs>
@@ -459,6 +543,7 @@ invalid state while remaining interactive.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -473,6 +558,11 @@ invalid state while remaining interactive.
 <CodeBlockRuntime lang="tsx" code={sliderSolidInvalid} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueInvalid} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -485,7 +575,7 @@ invalid state while remaining interactive.
 
 ### Marks
 
-Use `Slider.MarkerGroup` and `Slider.Marker` to render tick marks. Ark marks expose
+Use `SliderMarkerGroup` and `SliderMarker` to render tick marks. Ark marks expose
 `data-state="under-value | at-value | over-value"`, which you can use for styling.
 
 <ExampleFrame variant="component">
@@ -499,6 +589,7 @@ Use `Slider.MarkerGroup` and `Slider.Marker` to render tick marks. Ark marks exp
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -511,6 +602,11 @@ Use `Slider.MarkerGroup` and `Slider.Marker` to render tick marks. Ark marks exp
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidMarks} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueMarks} />
 
     </Tab>
   </Tabs>
@@ -538,6 +634,7 @@ Use `min` and `max` when the slider's range does not start at `0` or end at `100
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -552,6 +649,11 @@ Use `min` and `max` when the slider's range does not start at `0` or end at `100
 <CodeBlockRuntime lang="tsx" code={sliderSolidMinAndMax} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueMinAndMax} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -559,7 +661,7 @@ Use `min` and `max` when the slider's range does not start at `0` or end at `100
 
 ### Range
 
-Pass an array with one value per thumb. `Slider.Thumbs` creates the matching thumbs and their native
+Pass an array with one value per thumb. `SliderThumbs` creates the matching thumbs and their native
 form inputs.
 
 <ExampleFrame variant="component">
@@ -573,6 +675,7 @@ form inputs.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -585,6 +688,11 @@ form inputs.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidRange} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueRange} />
 
     </Tab>
   </Tabs>
@@ -608,6 +716,7 @@ default cursor in this state so the slider does not look interactive.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -622,6 +731,11 @@ default cursor in this state so the slider does not look interactive.
 <CodeBlockRuntime lang="tsx" code={sliderSolidReadOnly} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueReadOnly} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -634,8 +748,8 @@ default cursor in this state so the slider does not look interactive.
 
 ### Root Provider
 
-Use moduix `useSlider` with `Slider.RootProvider` when state needs to be created outside the tree
-that renders the slider parts. Render the parts under `RootProvider`; do not render a second root
+Use moduix `useSlider` with `SliderRootProvider` when state needs to be created outside the tree
+that renders the slider parts. Render the parts under `SliderRootProvider`; do not render a second root
 for the same slider state.
 
 <ExampleFrame variant="component">
@@ -649,6 +763,7 @@ for the same slider state.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -661,6 +776,11 @@ for the same slider state.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -688,6 +808,7 @@ Use `step` for fractional or finer-grained increments.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -700,6 +821,11 @@ Use `step` for fractional or finer-grained increments.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidStep} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueStep} />
 
     </Tab>
   </Tabs>
@@ -727,6 +853,7 @@ Use `thumbAlignment="center"` when the thumb should extend beyond the track edge
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -739,6 +866,11 @@ Use `thumbAlignment="center"` when the thumb should extend beyond the track edge
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidThumbAlignment} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueThumbAlignment} />
 
     </Tab>
   </Tabs>
@@ -768,6 +900,7 @@ their positions.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -780,6 +913,11 @@ their positions.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidThumbCollision} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueThumbCollision} />
 
     </Tab>
   </Tabs>
@@ -808,6 +946,7 @@ Use `minStepsBetweenThumbs` to keep a minimum gap between range thumbs. The gap 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -820,6 +959,11 @@ Use `minStepsBetweenThumbs` to keep a minimum gap between range thumbs. The gap 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidThumbOverlap} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueThumbOverlap} />
 
     </Tab>
   </Tabs>
@@ -847,6 +991,7 @@ Set `orientation="vertical"` and give the root an explicit height.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -859,6 +1004,11 @@ Set `orientation="vertical"` and give the root an explicit height.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sliderSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueVertical} />
 
     </Tab>
   </Tabs>
@@ -886,6 +1036,7 @@ Marks stay aligned with the track in vertical orientation and expose the same ma
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -900,6 +1051,11 @@ Marks stay aligned with the track in vertical orientation and expose the same ma
 <CodeBlockRuntime lang="tsx" code={sliderSolidVerticalWithMarks} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueVerticalWithMarks} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -912,7 +1068,7 @@ Marks stay aligned with the track in vertical orientation and expose the same ma
 
 ### Advanced Customization
 
-Use explicit `Slider.Thumb` parts instead of `Slider.Thumbs` when individual thumbs need custom
+Use explicit `SliderThumb` parts instead of `SliderThumbs` when individual thumbs need custom
 children, accessible names, or a specific order.
 
 <ExampleFrame variant="component">
@@ -926,6 +1082,7 @@ children, accessible names, or a specific order.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -940,6 +1097,11 @@ children, accessible names, or a specific order.
 <CodeBlockRuntime lang="tsx" code={sliderSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sliderVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -952,8 +1114,8 @@ children, accessible names, or a specific order.
 
 ## Styling
 
-Customize `Slider` with `className`, Ark attributes, stable `data-slot="slider-*"` hooks, Ark CSS
-variables, and the public moduix CSS variables below.
+Customize `Slider` with `className` (or Vue's `class`), Ark attributes, stable
+`data-slot="slider-*"` hooks, Ark CSS variables, and the public moduix CSS variables below.
 
 ### CSS Properties
 

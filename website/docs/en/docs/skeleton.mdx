@@ -1,7 +1,7 @@
 ---
 title: Skeleton
 component: skeleton
-description: A loading placeholder for text, cards, media, and custom page sections in React and Solid.
+description: A loading placeholder for text, cards, media, and custom page sections in React, Solid, and Vue.
 ---
 
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
@@ -19,6 +19,13 @@ import skeletonSolidLoadedContent from '../../../snippets/skeleton/solid/loaded-
 import skeletonSolidMediaObject from '../../../snippets/skeleton/solid/media-object.tsx?raw';
 import skeletonSolidResponsiveLayout from '../../../snippets/skeleton/solid/responsive-layout.tsx?raw';
 import skeletonSolidVariants from '../../../snippets/skeleton/solid/variants.tsx?raw';
+import skeletonVueBasic from '../../../snippets/skeleton/vue/basic.vue?raw';
+import skeletonVueCard from '../../../snippets/skeleton/vue/card.vue?raw';
+import skeletonVueCustomHost from '../../../snippets/skeleton/vue/custom-host.vue?raw';
+import skeletonVueLoadedContent from '../../../snippets/skeleton/vue/loaded-content.vue?raw';
+import skeletonVueMediaObject from '../../../snippets/skeleton/vue/media-object.vue?raw';
+import skeletonVueResponsiveLayout from '../../../snippets/skeleton/vue/responsive-layout.vue?raw';
+import skeletonVueVariants from '../../../snippets/skeleton/vue/variants.vue?raw';
 
 ## API Reference
 
@@ -45,6 +52,7 @@ choosing a styling track.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -57,6 +65,11 @@ choosing a styling track.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueBasic} />
 
     </Tab>
   </Tabs>
@@ -94,6 +107,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/skeleton' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/skeleton' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -101,24 +124,24 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 `Skeleton` is a single visual part. Keep layout in the surrounding markup.
 
 ```text
-Skeleton.Root
+Skeleton
 └─ children (optional, shown when loading={false})
 ```
 
 | Part                         | Role                                                                                        |
 | ---------------------------- | ------------------------------------------------------------------------------------------- |
-| `Skeleton` / `Skeleton.Root` | Placeholder block. Renders an Ark factory element and accepts `asChild` when you need a different semantic root element. |
+| `Skeleton` | Placeholder block. Renders an Ark factory element and accepts `asChild` when you need a different semantic root element. |
 
 ## Composition
 
 `Skeleton` does not own loading state. The data or page region that owns the request passes `loading` and should
-carry `aria-busy`; the placeholder itself is decorative. Set `loading={false}` to reveal children through the
+carry `aria-busy`; the placeholder itself is decorative. Set `loading={false}` (`:loading="false"` in Vue) to reveal children through the
 same root element.
 
 `Skeleton` is a single visual part, so compose cards, media rows, and responsive layouts with your own wrapper.
-`Stack` is exported from every package, so the examples below could use it in both tracks; the Tailwind
-examples simply use native flex and grid utilities. Use `asChild`
-only when a different semantic root is required; Solid passes a render function to `asChild`.
+`Stack` is available in both styling tracks; Tailwind layouts can also use native flex and grid utilities.
+Use `asChild` only when a different semantic root is required. Solid passes a render function to
+`asChild`; Vue uses `as-child` with a single semantic element in the default slot.
 
 ## Examples
 
@@ -137,6 +160,7 @@ Use a larger block and shorter text lines to reserve the card layout while conte
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -149,6 +173,11 @@ Use a larger block and shorter text lines to reserve the card layout while conte
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidCard} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueCard} />
 
     </Tab>
   </Tabs>
@@ -176,6 +205,7 @@ Use `loading` to keep the same root element in place while switching from the pl
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -188,6 +218,11 @@ Use `loading` to keep the same root element in place while switching from the pl
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidLoadedContent} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueLoadedContent} />
 
     </Tab>
   </Tabs>
@@ -215,6 +250,7 @@ Use `boxSize` with a full radius for an avatar placeholder, then place text line
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -227,6 +263,11 @@ Use `boxSize` with a full radius for an avatar placeholder, then place text line
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidMediaObject} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueMediaObject} />
 
     </Tab>
   </Tabs>
@@ -254,6 +295,7 @@ Keep responsive layout logic in the wrapper while each `Skeleton` remains a visu
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -266,6 +308,11 @@ Keep responsive layout logic in the wrapper while each `Skeleton` remains a visu
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidResponsiveLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueResponsiveLayout} />
 
     </Tab>
   </Tabs>
@@ -293,6 +340,7 @@ Use `variant` to choose between pulse and static placeholder rendering.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -305,6 +353,11 @@ Use `variant` to choose between pulse and static placeholder rendering.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueVariants} />
 
     </Tab>
   </Tabs>
@@ -332,6 +385,7 @@ Use `asChild` when a semantic element such as `section` should become the DOM ro
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -346,6 +400,11 @@ Use `asChild` when a semantic element such as `section` should become the DOM ro
 <CodeBlockRuntime lang="tsx" code={skeletonSolidCustomHost} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueCustomHost} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -358,7 +417,7 @@ Use `asChild` when a semantic element such as `section` should become the DOM ro
 
 ## Styling
 
-Use `className` in React or `class` in Solid for structural styles and consumer utility classes. Tailwind
+Use `className` in React or `class` in Solid or Vue for structural styles and consumer utility classes. Tailwind
 variants use native utilities and consumer classes; CSS Modules variants expose the variables below. State
 attributes and `data-slot` hooks are shared by both styling tracks.
 

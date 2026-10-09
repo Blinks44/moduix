@@ -1,22 +1,32 @@
 import { Button } from '@moduix/react/button';
-import { Dialog } from '@moduix/react/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/react/dialog';
 
 export default function DialogDemo() {
   return (
     <Dialog>
-      <Dialog.Trigger asChild>
+      <DialogTrigger asChild>
         <Button>View notifications</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Notifications</Dialog.Title>
-            <Dialog.CloseIcon />
-            <Dialog.Description>You are all caught up. Good job!</Dialog.Description>
-          </Dialog.Header>
-        </Dialog.Content>
-      </Dialog.Positioner>
+      </DialogTrigger>
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Notifications</DialogTitle>
+            <DialogCloseIcon />
+            <DialogDescription>You are all caught up. Good job!</DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

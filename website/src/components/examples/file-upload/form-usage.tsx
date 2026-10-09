@@ -1,5 +1,15 @@
 import { Button } from '@moduix/react/button';
-import { FileUpload } from '@moduix/react/file-upload';
+import {
+  FileUpload,
+  FileUploadContext,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/react/file-upload';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/file-upload/file-upload-form-usage.module.css';
@@ -18,21 +28,21 @@ export default function FileUploadFormDemo() {
       }}
     >
       <FileUpload className={styles.root} name={name} maxFiles={maxFiles}>
-        <FileUpload.Label>Project assets</FileUpload.Label>
-        <FileUpload.HiddenInput />
-        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
+        <FileUploadLabel>Project assets</FileUploadLabel>
+        <FileUploadHiddenInput />
+        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadItemGroup>
+          <FileUploadContext>
             {({ acceptedFiles }) =>
               acceptedFiles.map((file) => (
-                <FileUpload.Item key={file.name} file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                </FileUpload.Item>
+                <FileUploadItem key={file.name} file={file}>
+                  <FileUploadItemName />
+                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                </FileUploadItem>
               ))
             }
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
+          </FileUploadContext>
+        </FileUploadItemGroup>
       </FileUpload>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

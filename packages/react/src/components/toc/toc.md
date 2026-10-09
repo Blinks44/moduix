@@ -11,11 +11,11 @@
 
 ## Public contract
 
-`Toc` is the short form of `Toc.Root`. It preserves Ark's `Content`, `Nav`, `Title`, `List`, `Item`, `Link`, `Indicator`, `RootProvider`, and `Context` parts. Moduix adds `Rail`, an optional SVG helper for visualising depth transitions.
+`Toc` is the root of the flat public API. It preserves Ark's `Content`, `Nav`, `Title`, `List`, `Item`, `Link`, `Indicator`, `RootProvider`, and `Context` parts under the names `TocContent`, `TocNav`, `TocTitle`, `TocList`, `TocItem`, `TocLink`, `TocIndicator`, `TocRootProvider`, and `TocContext`. Moduix adds `TocRail`, an optional SVG helper for visualising depth transitions.
 
-Each root receives an `items` array with heading `value` and `depth`. Render matching heading IDs in `Toc.Content`, then pass the same item to `Toc.Item` and link to `#${item.value}` with `Toc.Link`.
+The root receives an `items` array with heading `value` and `depth`. Render matching heading IDs in `TocContent`, then pass the same item to `TocItem` and link to `#${item.value}` with `TocLink`.
 
-`useToc()` creates an external store for `RootProvider`. Both the root and hook default `autoScroll` to `false`; opt in only after confirming that automatically revealing an active navigation item cannot scroll an ancestor container.
+`useToc()` creates an external store for `TocRootProvider`. Both the root and hook default `autoScroll` to `false`; opt in only after confirming that automatically revealing an active navigation item cannot scroll an ancestor container.
 
 ## Preservation notes
 

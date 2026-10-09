@@ -1,5 +1,12 @@
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@moduix/react/card';
 import { Input } from '@moduix/react/input';
 import styles from '@/components/examples/card/card-within-form.module.css';
 
@@ -16,24 +23,24 @@ export default function CardFormDemo() {
   return (
     <Card className={styles.root} asChild>
       <form>
-        <Card.Header>
-          <Card.Title>{copy.title}</Card.Title>
-          <Card.Description>{copy.description}</Card.Description>
-        </Card.Header>
-        <Card.Body className={styles.body}>
+        <CardHeader>
+          <CardTitle>{copy.title}</CardTitle>
+          <CardDescription>{copy.description}</CardDescription>
+        </CardHeader>
+        <CardBody className={styles.body}>
           {fields.map((field) => (
             <label className={styles.field} key={field.name}>
               {field.label}
               <Input name={field.name} />
             </label>
           ))}
-        </Card.Body>
-        <Card.Footer>
+        </CardBody>
+        <CardFooter>
           <Button type="reset" variant="outline">
             Cancel
           </Button>
           <Button type="submit">Create account</Button>
-        </Card.Footer>
+        </CardFooter>
       </form>
     </Card>
   );

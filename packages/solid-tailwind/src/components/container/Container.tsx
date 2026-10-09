@@ -47,7 +47,7 @@ const containerVariants = cva('w-full min-w-0 mx-auto', {
   },
 });
 
-type ContainerRootProps = HTMLArkProps<'div'> & {
+type ContainerProps = HTMLArkProps<'div'> & {
   size?: ContainerSize;
   gutter?: ContainerGutter;
   'data-scope'?: string;
@@ -57,7 +57,7 @@ type ContainerRootProps = HTMLArkProps<'div'> & {
   'data-gutter'?: string;
 };
 
-function ContainerRoot(props: ContainerRootProps) {
+function Container(props: ContainerProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -69,8 +69,8 @@ function ContainerRoot(props: ContainerRootProps) {
     'data-size',
     'data-gutter',
   ]);
-  const size = local.size ?? 'lg';
-  const gutter = local.gutter ?? 'md';
+  const size = () => local.size ?? 'lg';
+  const gutter = () => local.gutter ?? 'md';
 
   return (
     <ark.div
@@ -79,15 +79,11 @@ function ContainerRoot(props: ContainerRootProps) {
       data-scope="container"
       data-part="root"
       data-slot="container-root"
-      data-size={size}
-      data-gutter={gutter}
-      class={cn(containerVariants({ size, gutter }), local.class)}
+      data-size={size()}
+      data-gutter={gutter()}
+      class={cn(containerVariants({ size: size(), gutter: gutter() }), local.class)}
     />
   );
 }
-
-const Container = Object.assign(ContainerRoot, {
-  Root: ContainerRoot,
-});
 
 export { Container };

@@ -1,5 +1,13 @@
 import { Button } from '@moduix/solid/button';
-import { Carousel } from '@moduix/solid/carousel';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/solid/carousel';
 import { createSignal, For } from 'solid-js';
 import styles from '@/components/examples/carousel/carousel-dynamic.module.css';
 
@@ -58,20 +66,20 @@ export default function DynamicSlidesCarousel() {
         page={page()}
         onPageChange={(details) => setPage(details.page)}
       >
-        <Carousel.ItemGroup class={styles.itemGroup} aria-label="Dynamic gallery">
+        <CarouselItemGroup class={styles.itemGroup} aria-label="Dynamic gallery">
           <For each={visibleSlides()}>
             {(slide, index) => (
-              <Carousel.Item index={index()}>
+              <CarouselItem index={index()}>
                 <img class={styles.image} src={slide.src} alt={slide.alt} />
-              </Carousel.Item>
+              </CarouselItem>
             )}
           </For>
-        </Carousel.ItemGroup>
-        <Carousel.Control class={styles.control}>
-          <Carousel.PrevTrigger />
-          <Carousel.Indicators />
-          <Carousel.NextTrigger />
-        </Carousel.Control>
+        </CarouselItemGroup>
+        <CarouselControl class={styles.control}>
+          <CarouselPrevTrigger />
+          <CarouselIndicators />
+          <CarouselNextTrigger />
+        </CarouselControl>
       </Carousel>
 
       <div>

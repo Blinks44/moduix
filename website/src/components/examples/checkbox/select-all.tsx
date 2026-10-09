@@ -1,4 +1,10 @@
-import { Checkbox } from '@moduix/react/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
 import { useState } from 'react';
 import styles from '@/components/examples/checkbox/checkbox-select-all.module.css';
 
@@ -20,19 +26,19 @@ export default function CheckboxSelectAllDemo() {
         checked={indeterminate ? 'indeterminate' : allSelected}
         onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
       >
-        <Checkbox.Control />
-        <Checkbox.Label>Select all</Checkbox.Label>
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxLabel>Select all</CheckboxLabel>
+        <CheckboxHiddenInput />
       </Checkbox>
-      <Checkbox.Group value={value} onValueChange={setValue} name="frameworks">
+      <CheckboxGroup value={value} onValueChange={setValue} name="frameworks">
         {options.map((option) => (
           <Checkbox key={option.value} value={option.value}>
-            <Checkbox.Control />
-            <Checkbox.Label>{option.label}</Checkbox.Label>
-            <Checkbox.HiddenInput />
+            <CheckboxControl />
+            <CheckboxLabel>{option.label}</CheckboxLabel>
+            <CheckboxHiddenInput />
           </Checkbox>
         ))}
-      </Checkbox.Group>
+      </CheckboxGroup>
     </div>
   );
 }

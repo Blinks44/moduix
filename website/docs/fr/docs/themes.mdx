@@ -22,10 +22,10 @@ Tous les adaptateurs publiés utilisent les mêmes fichiers de thème et le mêm
 
 | Préréglage | Contrôle principal / ligne de liste contextuelle | Bon point de départ pour                                                             |
 | ---------- | ------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| Calm       | 36px / 32px                         | La plupart des interfaces produit : rythme neutre et surfaces discrètes.            |
-| Dense      | 34px / 30px                         | Les outils d’administration riches en données, où chaque information compte.        |
-| Soft       | 40px / 34px                         | Les parcours spacieux ou tactiles, avec des surfaces arrondies et un accent plus chaleureux. |
-| Contrast   | 36px / 32px                         | Les interfaces qui ont besoin de bordures nettes et d’une séparation claire du focus. |
+| Calm       | 36px / 32px                         | Les écrans d’application avec des couleurs neutres et un espacement standard. |
+| Dense      | 34px / 30px                         | Les interfaces d’administration et les tableaux de données avec un espacement compact et des accents bleus. |
+| Soft       | 40px / 34px                         | Les interfaces avec de grands contrôles, des coins arrondis et des accents violets. |
+| Contrast   | 36px / 32px                         | Les interfaces avec des bordures et des indicateurs de focus plus marqués. |
 
 Les valeurs du tableau correspondent à la hauteur par défaut du contrôle principal et des lignes de
 liste contextuelle de chaque préréglage. Utilisez l’aperçu pour comparer la densité, les surfaces et
@@ -107,6 +107,31 @@ import '@moduix/solid/presets/soft.css';
 @import 'tailwindcss';
 
 @source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
+```ts
+import '@moduix/vue/style.css';
+import '@moduix/vue/presets/soft.css';
+```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/vue-tailwind/style.css';
+@import '@moduix/vue-tailwind/presets/soft.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/vue-tailwind/dist/components';
 ```
 
   </StyleTrackCard>
@@ -231,6 +256,31 @@ import './brand.css';
 @import 'tailwindcss';
 
 @source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
+```ts
+import '@moduix/vue/style.css';
+import './brand.css';
+```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/vue-tailwind/style.css';
+@import './brand.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/vue-tailwind/dist/components';
 ```
 
   </StyleTrackCard>

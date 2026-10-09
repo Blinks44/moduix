@@ -6,8 +6,9 @@ import {
 } from '@ark-ui/solid/drawer';
 import { ark, type HTMLArkProps } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
-import type { ComponentProps } from 'solid-js';
-import { children as resolveChildren, createContext, splitProps, useContext } from 'solid-js';
+import type { Accessor, ComponentProps } from 'solid-js';
+import { createContext, splitProps, useContext } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -16,9 +17,8 @@ import {
 import { CloseButton } from '../close-button';
 import styles from './Drawer.module.css';
 
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';
 type DrawerVariant = 'island';
-const DrawerVariantContext = createContext<DrawerVariant>();
+const DrawerVariantContext = createContext<Accessor<DrawerVariant | undefined>>();
 
 type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> &
   OverlayPortalProps & { variant?: DrawerVariant };
@@ -29,7 +29,9 @@ type DrawerContentProps = ComponentProps<typeof DrawerPrimitive.Content> & {
 };
 type DrawerCloseIconProps = Omit<ComponentProps<typeof DrawerPrimitive.CloseTrigger>, 'asChild'>;
 
-function DrawerRoot(props: DrawerRootProps) {
+const DrawerStack = DrawerPrimitive.Stack;
+
+function Drawer(props: DrawerRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -44,7 +46,7 @@ function DrawerRoot(props: DrawerRootProps) {
 
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
-      <DrawerVariantContext.Provider value={local.variant}>
+      <DrawerVariantContext.Provider value={() => local.variant}>
         <DrawerPrimitive.Root
           lazyMount={local.lazyMount ?? true}
           unmountOnExit={local.unmountOnExit ?? true}
@@ -138,7 +140,7 @@ function DrawerContent(props: DrawerContentProps) {
       class={clsx(styles.content, local.class)}
       draggable={local.draggable ?? true}
       {...others}
-      data-variant={local.variant ?? rootVariant}
+      data-variant={local.variant ?? rootVariant?.()}
       data-slot="drawer-content"
     />
   );
@@ -207,23 +209,22 @@ function DrawerCloseTrigger(props: ComponentProps<typeof DrawerPrimitive.CloseTr
 
 function DrawerCloseIcon(props: DrawerCloseIconProps) {
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
-  const resolvedChildren = resolveChildren(() => local.children);
 
   return (
     <DrawerPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="drawer-close-icon"
           aria-label={
             local['aria-label'] ??
-            (local['aria-labelledby'] == null ? DEFAULT_CLOSE_BUTTON_LABEL : undefined)
+            (local['aria-labelledby'] == null ? a11yLabels.closeDrawer : undefined)
           }
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >
-          {resolvedChildren()}
-        </CloseButton.Root>
+          {local.children}
+        </CloseButton>
       )}
       {...others}
     />
@@ -284,27 +285,30 @@ function DrawerFooter(props: HTMLArkProps<'div'>) {
   return <ark.div class={clsx(styles.footer, local.class)} {...others} data-slot="drawer-footer" />;
 }
 
-const Drawer = Object.assign(DrawerRoot, {
-  Root: DrawerRoot,
-  RootProvider: DrawerRootProvider,
-  Context: DrawerPrimitive.Context,
-  Stack: DrawerPrimitive.Stack,
-  Trigger: DrawerTrigger,
-  Backdrop: DrawerBackdrop,
-  Positioner: DrawerPositioner,
-  Content: DrawerContent,
-  Grabber: DrawerGrabber,
-  GrabberIndicator: DrawerGrabberIndicator,
-  Title: DrawerTitle,
-  Description: DrawerDescription,
-  CloseTrigger: DrawerCloseTrigger,
-  CloseIcon: DrawerCloseIcon,
-  SwipeArea: DrawerSwipeArea,
-  Indent: DrawerIndent,
-  IndentBackground: DrawerIndentBackground,
-  Header: DrawerHeader,
-  Body: DrawerBody,
-  Footer: DrawerFooter,
-});
+const DrawerContext = DrawerPrimitive.Context;
 
-export { Drawer, useDrawer, useDrawerContext, useDrawerStackContext };
+export {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerCloseTrigger,
+  DrawerContext,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerIndent,
+  DrawerIndentBackground,
+  DrawerPositioner,
+  DrawerRootProvider,
+  DrawerStack,
+  DrawerSwipeArea,
+  DrawerTitle,
+  DrawerTrigger,
+  useDrawer,
+  useDrawerContext,
+  useDrawerStackContext,
+};

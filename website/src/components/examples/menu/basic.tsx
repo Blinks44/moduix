@@ -1,5 +1,13 @@
 import { Button } from '@moduix/react/button';
-import { Menu } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/react/menu';
 import styles from '@/components/examples/menu/menu-basic.module.css';
 
 const fileItems = [
@@ -24,23 +32,23 @@ const fileItems = [
 export default function MenuDemo() {
   return (
     <Menu>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button>
           File
-          <Menu.Indicator />
+          <MenuIndicator />
         </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content className={styles.content}>
-          <Menu.Viewport>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent className={styles.content}>
+          <MenuViewport>
             {fileItems.map((item) => (
-              <Menu.Item key={item.value} value={item.value}>
+              <MenuItem key={item.value} value={item.value}>
                 {item.label}
-              </Menu.Item>
+              </MenuItem>
             ))}
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

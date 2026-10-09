@@ -1,6 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { HoverCard, useHoverCard } from '@/components/hover-card/HoverCard';
+import {
+  HoverCard,
+  HoverCardArrow,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardContext,
+  HoverCardPositioner,
+  HoverCardRootProvider,
+  HoverCardTrigger,
+  useHoverCard,
+} from '@/components/hover-card/HoverCard';
 import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
 
 const meta = {
@@ -74,14 +84,14 @@ function HoverCardSurface({
   withArrow?: boolean;
 }) {
   return (
-    <HoverCard.Positioner>
-      <HoverCard.Content>
-        {withArrow ? <HoverCard.Arrow /> : null}
-        <HoverCard.Body>
+    <HoverCardPositioner>
+      <HoverCardContent>
+        {withArrow ? <HoverCardArrow /> : null}
+        <HoverCardBody>
           <ProfileCard profile={profile} />
-        </HoverCard.Body>
-      </HoverCard.Content>
-    </HoverCard.Positioner>
+        </HoverCardBody>
+      </HoverCardContent>
+    </HoverCardPositioner>
   );
 }
 
@@ -90,11 +100,11 @@ export const Basic: Story = {
     <HoverCard>
       <p className={paragraphClass}>
         Liked by{' '}
-        <HoverCard.Trigger asChild>
+        <HoverCardTrigger asChild>
           <a className={profileLinkClass} href="#profile">
             @sarah_chen
           </a>
-        </HoverCard.Trigger>{' '}
+        </HoverCardTrigger>{' '}
         and 3 others
       </p>
       <HoverCardSurface profile={profiles[0]} />
@@ -108,11 +118,11 @@ export const WithArrow: Story = {
     <HoverCard>
       <p className={paragraphClass}>
         Liked by{' '}
-        <HoverCard.Trigger asChild>
+        <HoverCardTrigger asChild>
           <a className={profileLinkClass} href="#profile">
             @sarah_chen
           </a>
-        </HoverCard.Trigger>{' '}
+        </HoverCardTrigger>{' '}
         and 3 others
       </p>
       <HoverCardSurface profile={profiles[0]} withArrow />
@@ -132,11 +142,11 @@ export const Controlled: Story = {
         <HoverCard open={open} onOpenChange={(details) => setOpen(details.open)}>
           <p className={paragraphClass}>
             Liked by{' '}
-            <HoverCard.Trigger asChild>
+            <HoverCardTrigger asChild>
               <a className={profileLinkClass} href="#profile">
                 @sarah_chen
               </a>
-            </HoverCard.Trigger>{' '}
+            </HoverCardTrigger>{' '}
             and 3 others
           </p>
           <HoverCardSurface profile={profiles[0]} />
@@ -154,18 +164,18 @@ export const RootProvider: Story = {
     return (
       <div className={stackClass}>
         <output>Open: {String(hoverCard.open)}</output>
-        <HoverCard.RootProvider value={hoverCard}>
+        <HoverCardRootProvider value={hoverCard}>
           <p className={paragraphClass}>
             Liked by{' '}
-            <HoverCard.Trigger asChild>
+            <HoverCardTrigger asChild>
               <a className={profileLinkClass} href="#profile">
                 @sarah_chen
               </a>
-            </HoverCard.Trigger>{' '}
+            </HoverCardTrigger>{' '}
             and 3 others
           </p>
           <HoverCardSurface profile={profiles[0]} />
-        </HoverCard.RootProvider>
+        </HoverCardRootProvider>
       </div>
     );
   },
@@ -176,11 +186,11 @@ export const Delay: Story = {
     <HoverCard openDelay={200} closeDelay={500}>
       <p className={paragraphClass}>
         Liked by{' '}
-        <HoverCard.Trigger asChild>
+        <HoverCardTrigger asChild>
           <a className={profileLinkClass} href="#profile">
             @sarah_chen
           </a>
-        </HoverCard.Trigger>{' '}
+        </HoverCardTrigger>{' '}
         and 3 others
       </p>
       <HoverCardSurface profile={profiles[0]} />
@@ -193,11 +203,11 @@ export const Positioning: Story = {
     <HoverCard positioning={{ placement: 'right', gutter: 12 }}>
       <p className={paragraphClass}>
         Liked by{' '}
-        <HoverCard.Trigger asChild>
+        <HoverCardTrigger asChild>
           <a className={profileLinkClass} href="#profile">
             @sarah_chen
           </a>
-        </HoverCard.Trigger>{' '}
+        </HoverCardTrigger>{' '}
         and 3 others
       </p>
       <HoverCardSurface profile={profiles[0]} />
@@ -208,19 +218,19 @@ export const Positioning: Story = {
 export const Context: Story = {
   render: () => (
     <HoverCard>
-      <HoverCard.Context>
+      <HoverCardContext>
         {(context) => (
           <p className={paragraphClass}>
             Liked by{' '}
-            <HoverCard.Trigger asChild>
+            <HoverCardTrigger asChild>
               <a className={profileLinkClass} href="#profile">
                 @sarah_chen {context.open ? <ChevronUpIcon /> : <ChevronDownIcon />}
               </a>
-            </HoverCard.Trigger>{' '}
+            </HoverCardTrigger>{' '}
             and 3 others
           </p>
         )}
-      </HoverCard.Context>
+      </HoverCardContext>
       <HoverCardSurface profile={profiles[0]} />
     </HoverCard>
   ),
@@ -231,11 +241,11 @@ export const Disabled: Story = {
     <HoverCard disabled>
       <p className={paragraphClass}>
         Liked by{' '}
-        <HoverCard.Trigger asChild>
+        <HoverCardTrigger asChild>
           <a className={profileLinkClass} href="#profile">
             @sarah_chen
           </a>
-        </HoverCard.Trigger>{' '}
+        </HoverCardTrigger>{' '}
         and 3 others
       </p>
       <HoverCardSurface profile={profiles[0]} />
@@ -258,11 +268,11 @@ export const MultipleTriggers: Story = {
           Reviewed by{' '}
           {profiles.map((profile, index) => (
             <span key={profile.id}>
-              <HoverCard.Trigger value={profile.id} asChild>
+              <HoverCardTrigger value={profile.id} asChild>
                 <a className={profileLinkClass} href={`#${profile.id}`}>
                   {profile.username}
                 </a>
-              </HoverCard.Trigger>
+              </HoverCardTrigger>
               {index < profiles.length - 2 ? ', ' : null}
               {index === profiles.length - 2 ? ', and ' : null}
             </span>

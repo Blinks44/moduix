@@ -1,5 +1,5 @@
 import { Button } from '@moduix/solid/button';
-import { NumberInput } from '@moduix/solid/number-input';
+import { NumberInput, NumberInputField, NumberInputLabel } from '@moduix/solid/number-input';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/number-input/number-input-form-submission.module.css';
 
@@ -15,8 +15,8 @@ export default function NumberInputFormSubmissionDemo() {
       }}
     >
       <NumberInput defaultValue="42" name="quantity">
-        <NumberInput.Label>Quantity</NumberInput.Label>
-        <NumberInput.Field />
+        <NumberInputLabel>Quantity</NumberInputLabel>
+        <NumberInputField />
       </NumberInput>
       <output>Submitted: {submittedValue()}</output>
       <Button type="submit" size="sm">

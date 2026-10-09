@@ -1,0 +1,1 @@
+export { default as SimpleGrid } from './SimpleGrid.vue';

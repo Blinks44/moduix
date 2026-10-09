@@ -1,5 +1,18 @@
 import { Button } from '@moduix/solid/button';
-import { FloatingPanel } from '@moduix/solid/floating-panel';
+import {
+  FloatingPanel,
+  FloatingPanelTrigger,
+  FloatingPanelPositioner,
+  FloatingPanelContent,
+  FloatingPanelDragTrigger,
+  FloatingPanelHeader,
+  FloatingPanelTitle,
+  FloatingPanelControl,
+  FloatingPanelCloseIcon,
+  FloatingPanelBody,
+  FloatingPanelResizeTriggerGroup,
+  FloatingPanelDragIndicator,
+} from '@moduix/solid/floating-panel';
 import styles from '@/components/examples/floating-panel/floating-panel-boundary.module.css';
 
 export default function BoundaryFloatingPanelDemo() {
@@ -16,28 +29,28 @@ export default function BoundaryFloatingPanelDemo() {
           y: (boundaryRect?.y ?? 0) + 16,
         })}
       >
-        <FloatingPanel.Trigger
+        <FloatingPanelTrigger
           asChild={(props) => <Button {...props()}>Open constrained panel</Button>}
         />
-        <FloatingPanel.Positioner>
-          <FloatingPanel.Content>
-            <FloatingPanel.DragTrigger>
-              <FloatingPanel.Header>
-                <FloatingPanel.Title>
-                  <FloatingPanel.DragIndicator />
+        <FloatingPanelPositioner>
+          <FloatingPanelContent>
+            <FloatingPanelDragTrigger>
+              <FloatingPanelHeader>
+                <FloatingPanelTitle>
+                  <FloatingPanelDragIndicator />
                   Boundary
-                </FloatingPanel.Title>
-                <FloatingPanel.Control>
-                  <FloatingPanel.CloseIcon />
-                </FloatingPanel.Control>
-              </FloatingPanel.Header>
-            </FloatingPanel.DragTrigger>
-            <FloatingPanel.Body>
+                </FloatingPanelTitle>
+                <FloatingPanelControl>
+                  <FloatingPanelCloseIcon />
+                </FloatingPanelControl>
+              </FloatingPanelHeader>
+            </FloatingPanelDragTrigger>
+            <FloatingPanelBody>
               This panel stays inside the dashed boundary while you drag it.
-            </FloatingPanel.Body>
-            <FloatingPanel.ResizeTriggerGroup />
-          </FloatingPanel.Content>
-        </FloatingPanel.Positioner>
+            </FloatingPanelBody>
+            <FloatingPanelResizeTriggerGroup />
+          </FloatingPanelContent>
+        </FloatingPanelPositioner>
       </FloatingPanel>
     </div>
   );

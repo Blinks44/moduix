@@ -1,7 +1,7 @@
 # Table (Solid)
 
 `Table` preserves the React component's semantic table parts, visual props, stable data hooks,
-CSS-variable contract, `Table.Empty` sugar, and namespace-first API.
+CSS-variable contract, `TableEmpty` sugar, and flat public API.
 
 ## Ark Solid composition
 
@@ -12,13 +12,14 @@ native paths. The Solid tests cover them independently.
 
 ## Contract parity
 
-- `Table` is the root shorthand and is equivalent to `Table.Root`.
-- `Table.ScrollArea`, `Caption`, `ColumnGroup`, `Column`, `Header`, `Body`, `Footer`, `Row`,
-  `ColumnHeader`, and `Cell` render their matching native elements.
-- `Table.Empty` renders a full empty row with a required `colSpan`; its `asChild` replaces only the
+- `Table` is the root component and renders a native `<table>` by default.
+- `TableScrollArea`, `TableCaption`, `TableColumnGroup`, `TableColumn`, `TableHeader`, `TableBody`,
+  `TableFooter`, `TableRow`, `TableColumnHeader`, and `TableCell` render their matching native
+  elements.
+- `TableEmpty` renders a full empty row with a required `colSpan`; its `asChild` replaces only the
   generated cell.
 - Root props are `interactive`, `showColumnBorder`, `size`, `stickyHeader`, `striped`, and
-  `variant`. `Column.htmlWidth` maps to the native `width` attribute, and headers/cells support
+  `variant`. `TableColumn.htmlWidth` maps to the native `width` attribute, and headers/cells support
   `numeric` alignment.
 - The component owns no sorting, filtering, selection, pagination, virtualization, or row-action
   state.

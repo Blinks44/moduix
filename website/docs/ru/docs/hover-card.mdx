@@ -25,6 +25,16 @@ import hoverCardSolidMultipleTriggers from '../../../snippets/hover-card/solid/m
 import hoverCardSolidPositioning from '../../../snippets/hover-card/solid/positioning.tsx?raw';
 import hoverCardSolidRootProvider from '../../../snippets/hover-card/solid/root-provider.tsx?raw';
 import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arrow.tsx?raw';
+import hoverCardVueBasic from '../../../snippets/hover-card/vue/basic.vue?raw';
+import hoverCardVueContext from '../../../snippets/hover-card/vue/context.vue?raw';
+import hoverCardVueControlled from '../../../snippets/hover-card/vue/controlled.vue?raw';
+import hoverCardVueDelay from '../../../snippets/hover-card/vue/delay.vue?raw';
+import hoverCardVueDialog from '../../../snippets/hover-card/vue/dialog.vue?raw';
+import hoverCardVueDisabled from '../../../snippets/hover-card/vue/disabled.vue?raw';
+import hoverCardVueMultipleTriggers from '../../../snippets/hover-card/vue/multiple-triggers.vue?raw';
+import hoverCardVuePositioning from '../../../snippets/hover-card/vue/positioning.vue?raw';
+import hoverCardVueRootProvider from '../../../snippets/hover-card/vue/root-provider.vue?raw';
+import hoverCardVueWithArrow from '../../../snippets/hover-card/vue/with-arrow.vue?raw';
 
 ## Справочник API
 
@@ -39,10 +49,10 @@ import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arr
 ## Базовый пример
 
 
-Соберите карточку из явных частей Ark. `HoverCard.Trigger` открывает карточку, а
-`HoverCard.Positioner` и `HoverCard.Content` задают её всплывающее содержимое. В базовой
-композиции стрелка не используется. Поместите содержимое в `HoverCard.Body`, если оно может
-превысить доступную высоту: оно будет прокручиваться, а `HoverCard.Content` останется
+Соберите карточку из явных частей Ark. `HoverCardTrigger` открывает карточку, а
+`HoverCardPositioner` и `HoverCardContent` задают её всплывающее содержимое. В базовой
+композиции стрелка не используется. Поместите содержимое в `HoverCardBody`, если оно может
+превысить доступную высоту: оно будет прокручиваться, а `HoverCardContent` останется
 необрезанным для дополнительной стрелки.
 
 <ExampleFrame variant="component">
@@ -56,6 +66,7 @@ import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arr
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +79,11 @@ import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arr
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueBasic} />
 
     </Tab>
   </Tabs>
@@ -105,49 +121,60 @@ import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arr
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/hover-card' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/hover-card' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-HoverCard / HoverCard.Root
-├─ HoverCard.Trigger
+HoverCard
+├─ HoverCardTrigger
 └─ Всплывающий слой (автоматически выводится через портал)
-   └─ HoverCard.Positioner
-      └─ HoverCard.Content
-         ├─ HoverCard.Arrow
-         │  └─ HoverCard.ArrowTip
-         └─ HoverCard.Body
+   └─ HoverCardPositioner
+      └─ HoverCardContent
+         ├─ HoverCardArrow
+         │  └─ HoverCardArrowTip
+         └─ HoverCardBody
             └─ содержимое
 
-HoverCard.RootProvider
+HoverCardRootProvider
 └─ то же дерево частей, связанное с состоянием moduix useHoverCard()
 ```
 
 | Часть                          | Назначение                                                                    |
 | ------------------------------ | ----------------------------------------------------------------------------- |
-| `HoverCard` / `HoverCard.Root` | Управляет состоянием, жизненным циклом, задержками, позиционированием, идентификаторами и взаимодействием за пределами карточки. |
-| `HoverCard.RootProvider`       | Подключает части к состоянию, созданному через `useHoverCard()`.              |
-| `HoverCard.Context`            | Передаёт потомкам текущее состояние через render prop.                       |
-| `HoverCard.Trigger`            | Интерактивный элемент, открывающий карточку при наведении или фокусе. Используйте `asChild`, чтобы передать роль триггера ссылке или другому семантическому элементу. |
-| `HoverCard.Positioner`         | Позиционирует всплывающий слой и предоставляет CSS-переменные Ark.           |
-| `HoverCard.Content`            | Видимая область карточки, которая закрывается при взаимодействии за её пределами. |
-| `HoverCard.Arrow`              | Необязательная обёртка позиционируемой стрелки, по умолчанию выводящая `HoverCard.ArrowTip`. |
-| `HoverCard.ArrowTip`           | Наконечник стрелки, оформляемый с помощью переменных Ark.                     |
-| `HoverCard.Body`               | Необязательная прокручиваемая область содержимого для ограниченных предпросмотров. |
+| `HoverCard`                 | Управляет состоянием, жизненным циклом, задержками, позиционированием, идентификаторами и взаимодействием за пределами карточки. |
+| `HoverCardRootProvider`       | Подключает части к состоянию, созданному через `useHoverCard()`.              |
+| `HoverCardContext`            | Передаёт потомкам текущее состояние через render prop.                       |
+| `HoverCardTrigger`            | Интерактивный элемент, открывающий карточку при наведении или фокусе. Используйте `asChild`, чтобы передать роль триггера ссылке или другому семантическому элементу. |
+| `HoverCardPositioner`         | Позиционирует всплывающий слой и предоставляет CSS-переменные Ark.           |
+| `HoverCardContent`            | Видимая область карточки, которая закрывается при взаимодействии за её пределами. |
+| `HoverCardArrow`              | Необязательная обёртка позиционируемой стрелки, по умолчанию выводящая `HoverCardArrowTip`. |
+| `HoverCardArrowTip`           | Наконечник стрелки, оформляемый с помощью переменных Ark.                     |
+| `HoverCardBody`               | Необязательная прокручиваемая область содержимого для ограниченных предпросмотров. |
 
-`HoverCard` - короткая форма корневого компонента, а `HoverCard.Root` - её алиас в пространстве
-имён. В коде приложения используйте короткую форму.
+`HoverCard` - единственное публичное имя корневого компонента. Используйте его вместе с частями
+с префиксом семейства в коде приложения.
 
 ## Композиция
 
-`HoverCard` управляет состоянием и по умолчанию выводит `HoverCard.Positioner` через портал.
+`HoverCard` управляет состоянием и по умолчанию выводит `HoverCardPositioner` через портал.
 Передайте `portalled={false}` внутри другого слоя или укажите `portalRef` для собственного
-контейнера. Используйте `HoverCard.RootProvider` с `useHoverCard()`, если состояние должно жить
-за пределами дерева карточки: React читает его как объект, а Solid через accessor.
+контейнера. Используйте `HoverCardRootProvider` с `useHoverCard()`, если состояние должно жить
+за пределами дерева карточки: React читает его как объект, Solid через accessor, а Vue напрямую
+предоставляет реактивное состояние шаблону.
 
-Оставляйте `HoverCard.Arrow` внутри `HoverCard.Content`, а длинный предпросмотр помещайте в
-`HoverCard.Body`: `Content` сохраняет видимость стрелки, а `Body` становится областью прокрутки.
+Оставляйте `HoverCardArrow` внутри `HoverCardContent`, а длинный предпросмотр помещайте в
+`HoverCardBody`: `Content` сохраняет видимость стрелки, а `Body` становится областью прокрутки.
 Используйте `asChild` с одним фокусируемым потомком, если триггером должна быть ссылка или другой
 семантический элемент. Если несколько триггеров используют одно содержимое, задайте каждому
 `value` и обновляйте внешнее содержимое через `onTriggerValueChange(details)`.
@@ -156,7 +183,7 @@ HoverCard.RootProvider
 
 ### Контекст
 
-Используйте `HoverCard.Context`, чтобы читать состояние внутри дерева карточки, не меняя его
+Используйте `HoverCardContext`, чтобы читать состояние внутри дерева карточки, не меняя его
 видимую структуру.
 
 <ExampleFrame variant="component">
@@ -170,6 +197,7 @@ HoverCard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -182,6 +210,11 @@ HoverCard.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueContext} />
 
     </Tab>
   </Tabs>
@@ -209,6 +242,7 @@ HoverCard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -221,6 +255,11 @@ HoverCard.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueControlled} />
 
     </Tab>
   </Tabs>
@@ -248,6 +287,7 @@ HoverCard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -260,6 +300,11 @@ HoverCard.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidDelay} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueDelay} />
 
     </Tab>
   </Tabs>
@@ -290,6 +335,7 @@ HoverCard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -302,6 +348,11 @@ HoverCard.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidDialog} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueDialog} />
 
     </Tab>
   </Tabs>
@@ -330,6 +381,7 @@ HoverCard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -342,6 +394,11 @@ HoverCard.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -370,6 +427,7 @@ HoverCard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -382,6 +440,11 @@ HoverCard.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -409,6 +472,7 @@ HoverCard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -423,6 +487,11 @@ HoverCard.RootProvider
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidPositioning} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVuePositioning} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -435,7 +504,7 @@ HoverCard.RootProvider
 
 ### Root Provider
 
-Используйте `useHoverCard()` с `HoverCard.RootProvider`, когда элементам управления или другим
+Используйте `useHoverCard()` с `HoverCardRootProvider`, когда элементам управления или другим
 частям интерфейса за пределами дерева карточки нужно читать её состояние или изменять его.
 
 <ExampleFrame variant="component">
@@ -449,6 +518,7 @@ HoverCard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -463,6 +533,11 @@ HoverCard.RootProvider
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueRootProvider} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -475,9 +550,9 @@ HoverCard.RootProvider
 
 ### Со стрелкой
 
-Добавьте `HoverCard.Arrow` внутрь `HoverCard.Content`, если нужно визуально связать всплывающее
-окно с триггером. Обёртка по умолчанию выводит `HoverCard.ArrowTip`; помещайте предпросмотр в
-`HoverCard.Body`, чтобы стрелка оставалась частью поверхности с границей, а содержимое могло
+Добавьте `HoverCardArrow` внутрь `HoverCardContent`, если нужно визуально связать всплывающее
+окно с триггером. Обёртка по умолчанию выводит `HoverCardArrowTip`; помещайте предпросмотр в
+`HoverCardBody`, чтобы стрелка оставалась частью поверхности с границей, а содержимое могло
 прокручиваться.
 
 <ExampleFrame variant="component">
@@ -491,6 +566,7 @@ HoverCard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -505,6 +581,11 @@ HoverCard.RootProvider
 <CodeBlockRuntime lang="tsx" code={hoverCardSolidWithArrow} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hoverCardVueWithArrow} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -517,7 +598,7 @@ HoverCard.RootProvider
 
 ## Стилизация
 
-Для структурных стилей используйте `className` в React или `class` в Solid на экспортируемых
+Для структурных стилей используйте `className` в React или `class` в Solid и Vue на экспортируемых
 частях. Варианты Tailwind используют нативные utility-классы и классы потребителя, а переменные
 ниже настраивают варианты CSS Modules. Атрибуты состояния и хуки `data-slot` общие для обоих
 вариантов стилизации.
@@ -539,13 +620,13 @@ HoverCard.RootProvider
 ### Точки для стилизации
 
 Moduix добавляет атрибуты `data-slot="hover-card-*"` к триггеру, позиционеру, содержимому, стрелке,
-наконечнику стрелки и области содержимого. `HoverCard` и `HoverCard.RootProvider` только
+наконечнику стрелки и области содержимого. `HoverCard` и `HoverCardRootProvider` только
 предоставляют состояние и не создают DOM-элементы, поэтому у них нет собственных точек стилизации.
 Ark добавляет к своим частям `data-scope="hover-card"`
 и `data-part`. Для стилизации с учётом состояния используйте `data-state="open|closed"`,
 `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` и `data-has-nested`.
 
-`HoverCard.Positioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`,
-`--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `HoverCard.Content`
-предоставляет `--layer-index` и `--nested-layer-count`. `HoverCard.Arrow` предоставляет
+`HoverCardPositioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`,
+`--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `HoverCardContent`
+предоставляет `--layer-index` и `--nested-layer-count`. `HoverCardArrow` предоставляет
 `--arrow-size`, `--arrow-size-half`, `--arrow-background` и `--arrow-offset`.

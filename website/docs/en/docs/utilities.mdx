@@ -12,7 +12,7 @@ interaction you need, start with that component instead.
 
 The guides below cover direct Ark UI utilities and moduix components built on the same primitives. Ark UI utilities
 provide framework-specific behavior and do not choose a styling system. `Highlight`, `JsonTreeView`, and `Swap` wrap
-the corresponding Ark UI primitives and add moduix composition and styling. They are available in React and Solid
+the corresponding Ark UI primitives and add moduix composition and styling. They are available in React, Solid, and Vue
 packages for both styling tracks.
 
 ## Ark UI utilities
@@ -79,7 +79,7 @@ Import these utilities from the matching Ark UI package or subpath. Their guides
 
 ## Moduix components built on Ark UI
 
-These components keep the same public behavior across React and Solid packages for both styling tracks. CSS Modules
+These components keep the same flat public API across React, Solid, and Vue packages for both styling tracks. CSS Modules
 packages ship component styles. Tailwind packages use native utility classes and allow consumer class overrides.
 
 <Cards>
@@ -103,7 +103,8 @@ packages ship component styles. Tailwind packages use native utility classes and
 ## Locale context
 
 `Locale` provides locale and text direction to Ark UI formatters and locale-aware components. It is framework context,
-not a styled component: use `@moduix/react/locale` in React or `@moduix/solid/locale` in Solid. Package and stylesheet
+not a styled component: use `@moduix/react/locale` in React, `@moduix/solid/locale` in Solid, or
+`@moduix/vue/locale` in Vue. Package and stylesheet
 setup is covered in [Quick Start](/docs/quick-start).
 
 <Cards>

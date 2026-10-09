@@ -1,0 +1,66 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "split-button",
+  "title": "SplitButton",
+  "description": "moduix Vue SplitButton component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/button",
+    "@moduix-vue-tailwind/menu",
+    "@moduix-vue-tailwind/icons",
+    "@moduix-vue-tailwind/overlay-portal",
+    "@moduix-vue-tailwind/cn"
+  ],
+  "files": [
+    {
+      "path": "src/components/split-button/SplitButton.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { MenuRootEmits, MenuRootProps } from '@ark-ui/vue/menu';\nimport { provide, useAttrs, type HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport type { PortalRef } from '@/lib/moduix/overlayPortal/context';\nimport { Menu } from '../menu';\nimport { SplitButtonContextKey, type SplitButtonSize, type SplitButtonVariant } from './context';\n\ndefineOptions({ inheritAttrs: false });\ninterface Props extends /* @vue-ignore */ MenuRootProps {\n  ariaLabel?: string;\n  ariaLabelledby?: string;\n  class?: HTMLAttributes['class'];\n  positioning?: MenuRootProps['positioning'];\n  portalled?: boolean;\n  portalRef?: PortalRef;\n  size?: SplitButtonSize;\n  variant?: SplitButtonVariant;\n}\ninterface Emits extends /* @vue-ignore */ MenuRootEmits {}\nconst {\n  ariaLabel,\n  ariaLabelledby,\n  class: className,\n  positioning,\n  portalled = true,\n  portalRef,\n  size = 'md',\n  variant = 'default',\n} = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\nprovide(SplitButtonContextKey, { size: () => size, variant: () => variant });\n</script>\n\n<template>\n  <div\n    role=\"group\"\n    :aria-label=\"ariaLabel\"\n    :aria-labelledby=\"ariaLabelledby\"\n    data-scope=\"split-button\"\n    data-part=\"root\"\n    data-slot=\"split-button-root\"\n    :class=\"cn('inline-flex items-stretch', className)\"\n  >\n    <Menu\n      v-bind=\"attrs\"\n      :portalled=\"portalled\"\n      :portal-ref=\"portalRef\"\n      :positioning=\"{ placement: 'bottom-end', gutter: 4, ...positioning }\"\n    >\n      <slot />\n    </Menu>\n  </div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/split-button/SplitButton.vue"
+    },
+    {
+      "path": "src/components/split-button/SplitButtonAction.vue",
+      "content": "<script setup lang=\"ts\">\nimport { useAttrs, type HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { Button } from '../button';\nimport type { Props as ButtonProps } from '../button/Button.vue';\nimport { useSplitButtonContext, type SplitButtonSize, type SplitButtonVariant } from './context';\n\ndefineOptions({ inheritAttrs: false });\ninterface Props extends /* @vue-ignore */ Omit<ButtonProps, 'size' | 'variant'> {\n  class?: HTMLAttributes['class'];\n  size?: SplitButtonSize;\n  variant?: SplitButtonVariant;\n}\nconst { class: className, size, variant } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\nconst context = useSplitButtonContext('SplitButtonAction');\nconst pressResetClass = \"motion-safe:[&:not([data-variant='link']):active]:[translate:none]\";\n</script>\n\n<template>\n  <Button\n    v-bind=\"attrs\"\n    :size=\"size ?? context.size()\"\n    :variant=\"variant ?? context.variant()\"\n    :class=\"cn('rounded-e-none', pressResetClass, className)\"\n    data-slot=\"split-button-action\"\n  >\n    <slot />\n  </Button>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/split-button/SplitButtonAction.vue"
+    },
+    {
+      "path": "src/components/split-button/SplitButtonTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuTrigger as ArkMenuTrigger, type MenuTriggerProps } from '@ark-ui/vue/menu';\nimport { useAttrs, type HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';\nimport { Button } from '../button';\nimport { useSplitButtonContext, type SplitButtonSize, type SplitButtonVariant } from './context';\nimport { splitButtonTriggerVariants } from './SplitButton.variants';\n\ndefineOptions({ inheritAttrs: false });\ninterface Props extends /* @vue-ignore */ Omit<MenuTriggerProps, 'asChild'> {\n  class?: HTMLAttributes['class'];\n  size?: SplitButtonSize;\n  variant?: SplitButtonVariant;\n}\nconst { class: className, size, variant } = defineProps<Props>();\nconst slots = defineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\nconst context = useSplitButtonContext('SplitButtonTrigger');\n</script>\n\n<template>\n  <ArkMenuTrigger\n    :aria-label=\"slots.default ? undefined : 'More actions'\"\n    v-bind=\"attrs\"\n    as-child\n    data-slot=\"split-button-trigger\"\n  >\n    <Button\n      :size=\"size ?? context.size()\"\n      :variant=\"variant ?? context.variant()\"\n      :class=\"\n        cn(\n          splitButtonTriggerVariants({\n            size: size ?? context.size(),\n            variant: variant ?? context.variant(),\n          }),\n          className,\n        )\n      \"\n      data-slot=\"split-button-trigger\"\n    >\n      <slot><ChevronDownIcon /></slot>\n    </Button>\n  </ArkMenuTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/split-button/SplitButtonTrigger.vue"
+    },
+    {
+      "path": "src/components/split-button/SplitButtonPositioner.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuPositioner as ArkMenuPositioner, type MenuPositionerProps } from '@ark-ui/vue/menu';\nimport { useAttrs, type HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport OverlayPortal from '@/lib/moduix/overlayPortal/OverlayPortal.vue';\nimport { menuPositionerVariants } from '../menu/Menu.variants';\n\ndefineOptions({ inheritAttrs: false });\ninterface Props extends /* @vue-ignore */ MenuPositionerProps {\n  class?: HTMLAttributes['class'];\n}\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <OverlayPortal>\n    <ArkMenuPositioner\n      v-bind=\"attrs\"\n      :class=\"cn(menuPositionerVariants(), className)\"\n      data-slot=\"split-button-positioner\"\n    >\n      <slot />\n    </ArkMenuPositioner>\n  </OverlayPortal>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/split-button/SplitButtonPositioner.vue"
+    },
+    {
+      "path": "src/components/split-button/SplitButtonContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { MenuContent as ArkMenuContent, type MenuContentProps } from '@ark-ui/vue/menu';\nimport { useAttrs, type HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { MenuViewport } from '../menu';\nimport { menuContentVariants } from '../menu/Menu.variants';\n\ndefineOptions({ inheritAttrs: false });\ninterface Props extends /* @vue-ignore */ MenuContentProps {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\nconst { asChild, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkMenuContent\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :class=\"cn(menuContentVariants(), className)\"\n    data-slot=\"split-button-content\"\n  >\n    <slot v-if=\"asChild\" />\n    <MenuViewport v-else><slot /></MenuViewport>\n  </ArkMenuContent>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/split-button/SplitButtonContent.vue"
+    },
+    {
+      "path": "src/components/split-button/context.ts",
+      "content": "import { inject, type InjectionKey } from 'vue';\nimport type { Props as ButtonProps } from '../button/Button.vue';\n\nexport type SplitButtonSize = Exclude<\n  NonNullable<ButtonProps['size']>,\n  'icon-sm' | 'icon-md' | 'icon-lg'\n>;\nexport type SplitButtonVariant = Exclude<NonNullable<ButtonProps['variant']>, 'link'>;\ntype SplitButtonContextValue = { size: () => SplitButtonSize; variant: () => SplitButtonVariant };\nexport const SplitButtonContextKey: InjectionKey<SplitButtonContextValue> =\n  Symbol('SplitButtonContext');\nexport const useSplitButtonContext = (componentName: string) => {\n  const context = inject(SplitButtonContextKey);\n  if (!context) throw new Error(`${componentName} must be used within SplitButton.`);\n  return context;\n};",
+      "type": "registry:component",
+      "target": "@components/ui/split-button/context.ts"
+    },
+    {
+      "path": "src/components/split-button/index.ts",
+      "content": "export { default as SplitButton } from './SplitButton.vue';\nexport { default as SplitButtonAction } from './SplitButtonAction.vue';\nexport { default as SplitButtonTrigger } from './SplitButtonTrigger.vue';\nexport { default as SplitButtonPositioner } from './SplitButtonPositioner.vue';\nexport { default as SplitButtonContent } from './SplitButtonContent.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/split-button/index.ts"
+    },
+    {
+      "path": "src/components/split-button/SplitButton.variants.ts",
+      "content": "import { cva } from 'class-variance-authority';\n\nexport const splitButtonTriggerVariants = cva(\n  \"relative min-w-0 ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)] rounded-s-none motion-safe:[&:not([data-variant='link']):active]:[translate:none] before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-['']\",\n  {\n    variants: {\n      size: {\n        xs: 'px-2',\n        sm: 'px-2.5',\n        md: 'px-3',\n        lg: 'px-3.5',\n        xl: 'px-4',\n      },\n      variant: {\n        default: '',\n        outline: 'before:opacity-0',\n        secondary: '',\n        destructive: '',\n        'destructive-outline': 'before:opacity-0',\n        ghost: '',\n      },\n    },\n    defaultVariants: {\n      size: 'md',\n      variant: 'default',\n    },\n  },\n);",
+      "type": "registry:component",
+      "target": "@components/ui/split-button/SplitButton.variants.ts"
+    }
+  ],
+  "type": "registry:item"
+}

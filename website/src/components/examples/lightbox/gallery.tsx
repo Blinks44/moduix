@@ -1,5 +1,23 @@
-import { Carousel } from '@moduix/react/carousel';
-import { Lightbox } from '@moduix/react/lightbox';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/react/carousel';
+import {
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxBody,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxGallery,
+  Lightbox,
+} from '@moduix/react/lightbox';
 import { useState } from 'react';
 import styles from '@/components/examples/lightbox/lightbox-gallery.module.css';
 
@@ -39,48 +57,50 @@ export default function GalleryLightboxDemo() {
     >
       <div className={styles.gallery}>
         {images.map((image) => (
-          <Lightbox.Trigger key={image.id} value={image.id} asChild>
+          <LightboxTrigger key={image.id} value={image.id} asChild>
             <button type="button" className={styles.galleryTrigger}>
               <img src={image.thumbnail} alt={image.alt} />
             </button>
-          </Lightbox.Trigger>
+          </LightboxTrigger>
         ))}
       </div>
 
-      <Lightbox.Backdrop />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon />
-        <Lightbox.Content aria-label={activeImage.alt}>
-          <Lightbox.Gallery>
-            <Carousel
-              aria-label="Server-driven image carousel"
-              page={activeIndex}
-              onPageChange={(details) => setActiveIndex(details.page)}
-              slideCount={images.length}
-            >
-              <Carousel.Control>
-                <Carousel.PrevTrigger />
-                <Carousel.ItemGroup>
-                  {images.map((image, index) => (
-                    <Carousel.Item key={image.id} index={index}>
-                      <img src={image.src} alt={image.alt} />
-                    </Carousel.Item>
-                  ))}
-                </Carousel.ItemGroup>
-                <Carousel.NextTrigger />
-              </Carousel.Control>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxContent aria-label={activeImage.alt}>
+          <LightboxCloseIcon />
+          <LightboxBody>
+            <LightboxGallery>
+              <Carousel
+                aria-label="Server-driven image carousel"
+                page={activeIndex}
+                onPageChange={(details) => setActiveIndex(details.page)}
+                slideCount={images.length}
+              >
+                <CarouselControl>
+                  <CarouselPrevTrigger />
+                  <CarouselItemGroup>
+                    {images.map((image, index) => (
+                      <CarouselItem key={image.id} index={index}>
+                        <img src={image.src} alt={image.alt} />
+                      </CarouselItem>
+                    ))}
+                  </CarouselItemGroup>
+                  <CarouselNextTrigger />
+                </CarouselControl>
 
-              <Carousel.IndicatorGroup>
-                {images.map((image, index) => (
-                  <Carousel.Indicator key={image.id} index={index}>
-                    <img src={image.thumbnail} alt="" />
-                  </Carousel.Indicator>
-                ))}
-              </Carousel.IndicatorGroup>
-            </Carousel>
-          </Lightbox.Gallery>
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+                <CarouselIndicatorGroup>
+                  {images.map((image, index) => (
+                    <CarouselIndicator key={image.id} index={index}>
+                      <img src={image.thumbnail} alt="" />
+                    </CarouselIndicator>
+                  ))}
+                </CarouselIndicatorGroup>
+              </Carousel>
+            </LightboxGallery>
+          </LightboxBody>
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>
   );
 }

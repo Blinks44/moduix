@@ -1,5 +1,12 @@
 import { Button } from '@moduix/react/button';
-import { Empty } from '@moduix/react/empty';
+import {
+  Empty,
+  EmptyActions,
+  EmptyContent,
+  EmptyDescription,
+  EmptyIcon,
+  EmptyTitle,
+} from '@moduix/react/empty';
 import { Computer as ComputerIcon } from 'lucide-react';
 import styles from '@/components/examples/empty/empty-basic.module.css';
 
@@ -12,17 +19,17 @@ const emptyState = {
 export default function EmptyDemo() {
   return (
     <Empty className={styles.root}>
-      <Empty.Icon>
+      <EmptyIcon>
         <ComputerIcon aria-hidden />
-      </Empty.Icon>
-      <Empty.Content>
-        <Empty.Title>{emptyState.title}</Empty.Title>
-        <Empty.Description>{emptyState.description}</Empty.Description>
-      </Empty.Content>
-      <Empty.Actions>
+      </EmptyIcon>
+      <EmptyContent>
+        <EmptyTitle>{emptyState.title}</EmptyTitle>
+        <EmptyDescription>{emptyState.description}</EmptyDescription>
+      </EmptyContent>
+      <EmptyActions>
         <Button>{emptyState.primaryAction}</Button>
         <Button variant="outline">{emptyState.secondaryAction}</Button>
-      </Empty.Actions>
+      </EmptyActions>
     </Empty>
   );
 }

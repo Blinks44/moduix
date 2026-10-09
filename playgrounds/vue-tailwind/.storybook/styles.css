@@ -1,0 +1,8 @@
+@import '../../../packages/foundation/src/styles/style.css';
+@import 'tailwindcss';
+@import '../../../packages/foundation/src/presets/contrast.css';
+@import '../../../packages/foundation/src/presets/dense.css';
+@import '../../../packages/foundation/src/presets/soft.css';
+
+@source '../../../packages/vue-tailwind/src/components';
+@source '../stories';

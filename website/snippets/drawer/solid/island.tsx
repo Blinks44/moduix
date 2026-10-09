@@ -1,36 +1,49 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Drawer } from '@moduix/solid/drawer';
+import { Card, CardBody } from '@moduix/solid/card';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/solid/drawer';
 import styles from '@/components/examples/drawer/drawer-island.module.css';
 
 export default function IslandDrawerDemo() {
   return (
     <Drawer swipeDirection="end">
-      <Drawer.Trigger asChild={(props) => <Button {...props()}>Open island drawer</Button>} />
-      <Drawer.Backdrop />
-      <Drawer.Positioner>
-        <Drawer.Content variant="island">
-          <Drawer.Header>
-            <Drawer.Title>Quick actions</Drawer.Title>
-            <Drawer.CloseIcon />
-            <Drawer.Description>This drawer floats inside the viewport edge.</Drawer.Description>
-          </Drawer.Header>
-          <Drawer.Body class={styles.body}>
+      <DrawerTrigger asChild={(props) => <Button {...props()}>Open island drawer</Button>} />
+      <DrawerBackdrop />
+      <DrawerPositioner>
+        <DrawerContent variant="island">
+          <DrawerHeader>
+            <DrawerTitle>Quick actions</DrawerTitle>
+            <DrawerCloseIcon />
+            <DrawerDescription>This drawer floats inside the viewport edge.</DrawerDescription>
+          </DrawerHeader>
+          <DrawerBody class={styles.body}>
             <Card size="sm" class={styles.card}>
-              <Card.Body>Choose an action without leaving your current context.</Card.Body>
+              <CardBody>Choose an action without leaving your current context.</CardBody>
             </Card>
-          </Drawer.Body>
-          <Drawer.Footer>
-            <Drawer.CloseTrigger
+          </DrawerBody>
+          <DrawerFooter>
+            <DrawerCloseTrigger
               asChild={(props) => (
                 <Button {...props()} variant="outline">
                   Done
                 </Button>
               )}
             />
-          </Drawer.Footer>
-        </Drawer.Content>
-      </Drawer.Positioner>
+          </DrawerFooter>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   );
 }

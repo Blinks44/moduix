@@ -19,6 +19,19 @@ import treeViewSolidControlledSelection from '../../../snippets/tree-view/solid/
 import treeViewSolidFileIcons from '../../../snippets/tree-view/solid/file-icons.tsx?raw';
 import treeViewSolidLinks from '../../../snippets/tree-view/solid/links.tsx?raw';
 import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-provider.tsx?raw';
+import treeViewVueAsyncLoading from '../../../snippets/tree-view/vue/async-loading.vue?raw';
+import treeViewVueAsyncLoadingNode from '../../../snippets/tree-view/vue/AsyncLoadingTreeNode.vue?raw';
+import treeViewVueBasic from '../../../snippets/tree-view/vue/basic.vue?raw';
+import treeViewVueBasicNode from '../../../snippets/tree-view/vue/BasicTreeNode.vue?raw';
+import treeViewVueCheckboxes from '../../../snippets/tree-view/vue/checkboxes.vue?raw';
+import treeViewVueCheckboxesNode from '../../../snippets/tree-view/vue/CheckboxesTreeNode.vue?raw';
+import treeViewVueControlledSelection from '../../../snippets/tree-view/vue/controlled-selection.vue?raw';
+import treeViewVueFileIcons from '../../../snippets/tree-view/vue/file-icons.vue?raw';
+import treeViewVueFileIconsNode from '../../../snippets/tree-view/vue/FileIconsTreeNode.vue?raw';
+import treeViewVueLinks from '../../../snippets/tree-view/vue/links.vue?raw';
+import treeViewVueLinksNode from '../../../snippets/tree-view/vue/LinksTreeNode.vue?raw';
+import treeViewVueRootProvider from '../../../snippets/tree-view/vue/root-provider.vue?raw';
+import treeViewVueRootProviderNode from '../../../snippets/tree-view/vue/RootProviderTreeNode.vue?raw';
 
 ## API Reference
 
@@ -28,8 +41,10 @@ import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-pr
 
 
 Create the data collection with `createTreeCollection`, then pass it to `TreeView`.
-`TreeView.Node` gives each recursive render callback the current `node`, `indexPath`, and `state`, so
+`TreeViewNode` gives each recursive render callback the current `node`, `indexPath`, and `state`, so
 you can render a branch or a leaf while keeping the part structure explicit.
+
+React, Solid, and Vue use the same flat TreeView names; the examples below keep each framework's native composition.
 
 <ExampleFrame variant="component">
   <TreeViewBasic />
@@ -42,6 +57,7 @@ you can render a branch or a leaf while keeping the part structure explicit.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -54,6 +70,13 @@ you can render a branch or a leaf while keeping the part structure explicit.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueBasic} />
+
+<CodeBlockRuntime lang="vue" code={treeViewVueBasicNode} title="BasicTreeNode.vue" />
 
     </Tab>
   </Tabs>
@@ -86,54 +109,69 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tree-view' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tree-view' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 ```text
-TreeView / TreeView.Root
-├─ TreeView.Label
-└─ TreeView.Tree
-   └─ TreeView.Node or TreeView.NodeProvider
-      ├─ TreeView.Branch
-      │  ├─ TreeView.BranchControl
-      │  │  ├─ TreeView.BranchIndicator
-      │  │  └─ TreeView.BranchText
-      │  ├─ TreeView.BranchTrigger (optional, dedicated trigger)
-      │  └─ TreeView.BranchContent
-      │     ├─ TreeView.BranchIndentGuide
+TreeView
+├─ TreeViewLabel
+└─ TreeViewTree
+   └─ TreeViewNode or TreeViewNodeProvider
+      ├─ TreeViewBranch
+      │  ├─ TreeViewBranchControl
+      │  │  ├─ TreeViewBranchIndicator
+      │  │  └─ TreeViewBranchText
+      │  ├─ TreeViewBranchTrigger (optional, dedicated trigger)
+      │  └─ TreeViewBranchContent
+      │     ├─ TreeViewBranchIndentGuide
       │     └─ nested nodes
-      └─ TreeView.Item
-         └─ TreeView.ItemText
+      └─ TreeViewItem
+         └─ TreeViewItemText
 ```
 
 | Part                             | Role                                                                  |
 | -------------------------------- | --------------------------------------------------------------------- |
-| `TreeView` / `TreeView.Root`     | Stores the collection and manages expansion, selection, focus, checking, and renaming. |
-| `TreeView.RootProvider`          | Connects tree parts to an instance returned by `useTreeView`.        |
-| `TreeView.Label`                 | Gives the tree an accessible name.                                    |
-| `TreeView.Tree`                  | Renders the ARIA tree container.                                      |
-| `TreeView.Node`                  | A convenience provider that exposes `{ node, indexPath, state }`.    |
-| `TreeView.NodeProvider`          | The low-level Ark context boundary for custom composition.           |
-| `TreeView.Branch*`               | An expandable node, its control, indicator, text, and child content. |
-| `TreeView.Item*`                 | A leaf node and its optional selected-state indicator.               |
-| `TreeView.NodeCheckbox*`         | The checkbox control and its checked or indeterminate indicator.     |
-| `TreeView.NodeRenameInput`       | The inline input shown while a node is being renamed.                |
+| `TreeView`                  | Stores the collection and manages expansion, selection, focus, checking, and renaming. |
+| `TreeViewRootProvider`          | Connects tree parts to an instance returned by `useTreeView`.        |
+| `TreeViewLabel`                 | Gives the tree an accessible name.                                    |
+| `TreeViewTree`                  | Renders the ARIA tree container.                                      |
+| `TreeViewNode`                  | A convenience provider that exposes `{ node, indexPath, state }`.    |
+| `TreeViewNodeProvider`          | The low-level Ark context boundary for custom composition.           |
+| `TreeViewBranch*`               | An expandable node, its control, indicator, text, and child content. |
+| `TreeViewItem*`                 | A leaf node and its optional selected-state indicator.               |
+| `TreeViewNodeCheckbox*`         | The checkbox control and its checked or indeterminate indicator.     |
+| `TreeViewNodeRenameInput`       | The inline input shown while a node is being renamed.                |
 
 ## Composition
 
-Use `TreeView.Node` for recursive renderers. It supplies `node`, `indexPath`, and the current node
-`state` while you choose the `Branch` or `Item` parts. If a custom recursive component needs direct
-node context, use `TreeView.NodeProvider` instead of wrapping `Node`. When controls outside the tree
-own its state, create it with `useTreeView` and pass it to `TreeView.RootProvider`; do not render a
-second root for the same store. If a branch has a separate `BranchTrigger`, set `role="none"` on
-`BranchControl`.
+Use `TreeViewNode` for recursive renderers. It supplies `node`, `indexPath`, and the current node
+`state` while you choose the `TreeViewBranch` or `TreeViewItem` parts. If a custom recursive component needs direct
+node context, use `TreeViewNodeProvider` directly. When controls outside the tree
+own its state, create it with `useTreeView` and pass it to `TreeViewRootProvider`; do not render a
+second root for the same store. If a branch has a separate `TreeViewBranchTrigger`, set `role="none"` on
+`TreeViewBranchControl`.
+
+In Vue, `TreeViewNode` exposes its render data through a scoped default slot. Control values with
+`v-model:expanded-value`, `v-model:selected-value`, `v-model:checked-value`, and
+`v-model:focused-value`; events such as `@selection-change` keep Ark's detail objects. Keep a
+replaceable collection in a `shallowRef` so Vue preserves its class instance.
 
 ## Examples
 
 ### Links
 
-Use `asChild` on `TreeView.Item` when a leaf should be one semantic element, such as a link. The
+Use `asChild` on `TreeViewItem` when a leaf should be one semantic element, such as a link. The
 child must accept the Ark props so focus and keyboard behavior stay intact.
 
 <ExampleFrame variant="component">
@@ -147,6 +185,7 @@ child must accept the Ark props so focus and keyboard behavior stay intact.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -159,6 +198,13 @@ child must accept the Ark props so focus and keyboard behavior stay intact.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidLinks} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueLinks} />
+
+<CodeBlockRuntime lang="vue" code={treeViewVueLinksNode} title="LinksTreeNode.vue" />
 
     </Tab>
   </Tabs>
@@ -182,6 +228,7 @@ For a branch with a known `childrenCount`, load its children with `loadChildren`
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -196,6 +243,13 @@ For a branch with a known `childrenCount`, load its children with `loadChildren`
 <CodeBlockRuntime lang="tsx" code={treeViewSolidAsyncLoading} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueAsyncLoading} />
+
+<CodeBlockRuntime lang="vue" code={treeViewVueAsyncLoadingNode} title="AsyncLoadingTreeNode.vue" />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -203,8 +257,11 @@ For a branch with a known `childrenCount`, load its children with `loadChildren`
 
 ### Checkbox tree
 
-Place `NodeCheckbox` in both branch controls and leaf items. Its default indicator already covers
+Place `TreeViewNodeCheckbox` in both branch controls and leaf items. Its default indicator already covers
 the checked and indeterminate states.
+
+Vue uses the default slot for the checked icon and the named `indeterminate` and `fallback`
+slots for the mixed and unchecked states. These states are customized through slots, not props.
 
 <ExampleFrame variant="component">
   <CheckboxTreeView />
@@ -217,6 +274,7 @@ the checked and indeterminate states.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -231,6 +289,13 @@ the checked and indeterminate states.
 <CodeBlockRuntime lang="tsx" code={treeViewSolidCheckboxes} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueCheckboxes} />
+
+<CodeBlockRuntime lang="vue" code={treeViewVueCheckboxesNode} title="CheckboxesTreeNode.vue" />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -238,7 +303,7 @@ the checked and indeterminate states.
 
 ### File icons
 
-Put decorative file and folder icons inside `BranchText` and `ItemText`. Keep `BranchIndicator`
+Put decorative file and folder icons inside `TreeViewBranchText` and `TreeViewItemText`. Keep `TreeViewBranchIndicator`
 separate so it remains the only expand and collapse affordance.
 
 <ExampleFrame variant="component">
@@ -252,6 +317,7 @@ separate so it remains the only expand and collapse affordance.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -264,6 +330,13 @@ separate so it remains the only expand and collapse affordance.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidFileIcons} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueFileIcons} />
+
+<CodeBlockRuntime lang="vue" code={treeViewVueFileIconsNode} title="FileIconsTreeNode.vue" />
 
     </Tab>
   </Tabs>
@@ -287,6 +360,7 @@ extend a selection range. The example keeps the selected values in application s
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -299,6 +373,11 @@ extend a selection range. The example keeps the selected values in application s
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={treeViewSolidControlledSelection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueControlledSelection} />
 
     </Tab>
   </Tabs>
@@ -314,7 +393,7 @@ extend a selection range. The example keeps the selected values in application s
 ### Root provider
 
 Create tree state with `useTreeView` when controls outside the tree need methods such as `expand()`
-or `collapse()`. Pass that state to `RootProvider` instead of rendering a second `TreeView.Root`.
+or `collapse()`. Pass that state to `TreeViewRootProvider` instead of rendering a second `TreeView`.
 
 <ExampleFrame variant="component">
   <RootProviderTreeView />
@@ -327,6 +406,7 @@ or `collapse()`. Pass that state to `RootProvider` instead of rendering a second
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -341,6 +421,13 @@ or `collapse()`. Pass that state to `RootProvider` instead of rendering a second
 <CodeBlockRuntime lang="tsx" code={treeViewSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={treeViewVueRootProvider} />
+
+<CodeBlockRuntime lang="vue" code={treeViewVueRootProviderNode} title="RootProviderTreeNode.vue" />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -353,7 +440,7 @@ or `collapse()`. Pass that state to `RootProvider` instead of rendering a second
 
 ## Styling
 
-Use `className` in React or `class` in Solid on any exported part for structural styling. Branch
+Use `className` in React, `class` in Solid, or `class` in Vue on any exported part for structural styling. Branch
 parts expose `data-state="open|closed"`; checkbox parts expose
 `data-state="checked|unchecked|indeterminate"`; and node parts expose `data-focus`, `data-selected`,
 `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path`, and `data-value`. The

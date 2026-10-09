@@ -1,7 +1,7 @@
 ---
 title: Skeleton
 component: skeleton
-description: Заполнитель для текста, карточек, медиа и разделов страницы во время загрузки в React и Solid.
+description: Заполнитель для текста, карточек, медиа и разделов страницы во время загрузки в React, Solid и Vue.
 ---
 
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
@@ -19,6 +19,13 @@ import skeletonSolidLoadedContent from '../../../snippets/skeleton/solid/loaded-
 import skeletonSolidMediaObject from '../../../snippets/skeleton/solid/media-object.tsx?raw';
 import skeletonSolidResponsiveLayout from '../../../snippets/skeleton/solid/responsive-layout.tsx?raw';
 import skeletonSolidVariants from '../../../snippets/skeleton/solid/variants.tsx?raw';
+import skeletonVueBasic from '../../../snippets/skeleton/vue/basic.vue?raw';
+import skeletonVueCard from '../../../snippets/skeleton/vue/card.vue?raw';
+import skeletonVueCustomHost from '../../../snippets/skeleton/vue/custom-host.vue?raw';
+import skeletonVueLoadedContent from '../../../snippets/skeleton/vue/loaded-content.vue?raw';
+import skeletonVueMediaObject from '../../../snippets/skeleton/vue/media-object.vue?raw';
+import skeletonVueResponsiveLayout from '../../../snippets/skeleton/vue/responsive-layout.vue?raw';
+import skeletonVueVariants from '../../../snippets/skeleton/vue/variants.vue?raw';
 
 ## Справочник API
 
@@ -45,6 +52,7 @@ import skeletonSolidVariants from '../../../snippets/skeleton/solid/variants.tsx
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -57,6 +65,11 @@ import skeletonSolidVariants from '../../../snippets/skeleton/solid/variants.tsx
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueBasic} />
 
     </Tab>
   </Tabs>
@@ -94,6 +107,16 @@ import skeletonSolidVariants from '../../../snippets/skeleton/solid/variants.tsx
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/skeleton' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/skeleton' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -101,25 +124,25 @@ import skeletonSolidVariants from '../../../snippets/skeleton/solid/variants.tsx
 `Skeleton` состоит из одной визуальной части. Компоновку задаёт окружающая разметка.
 
 ```text
-Skeleton.Root
+Skeleton
 └─ children (необязательно, отображаются при loading={false})
 ```
 
 | Часть                        | Назначение                                                                                  |
 | ---------------------------- | ------------------------------------------------------------------------------------------- |
-| `Skeleton` / `Skeleton.Root` | Блок-заполнитель. По умолчанию рендерит элемент фабрики Ark; с `asChild` корневым можно сделать другой семантический элемент. |
+| `Skeleton` | Блок-заполнитель. По умолчанию рендерит элемент фабрики Ark; с `asChild` корневым можно сделать другой семантический элемент. |
 
 ## Композиция
 
 `Skeleton` не управляет состоянием загрузки. Область данных или страницы, которая владеет запросом, передаёт
 `loading` и должна получать `aria-busy`; сам заполнитель служит только для оформления. Установите
-`loading={false}`, чтобы показать дочерние элементы в том же корневом элементе.
+`loading={false}` (в Vue используйте `:loading="false"`), чтобы показать дочерние элементы в том же корневом элементе.
 
 `Skeleton` состоит из одной визуальной части, поэтому карточки, медиаобъекты и адаптивные раскладки следует
-собирать в собственной обёртке. `Stack` экспортируется из каждого пакета, поэтому примеры ниже могли бы
-использовать его в обоих треках; примеры Tailwind просто используют нативные классы-утилиты flex и grid.
-Используйте `asChild`, только если нужен другой семантический корневой
-элемент; в Solid в `asChild` передаётся функция рендера.
+собирать в своей обёртке. `Stack` доступен в обоих вариантах стилизации; в Tailwind также можно использовать
+нативные классы-утилиты flex и grid. Используйте `asChild`, только если нужен другой семантический корневой
+элемент. В Solid в `asChild` передаётся функция рендера, а во Vue используется `as-child`
+с одним семантическим элементом в слоте по умолчанию.
 
 ## Примеры
 
@@ -138,6 +161,7 @@ Skeleton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -150,6 +174,11 @@ Skeleton.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidCard} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueCard} />
 
     </Tab>
   </Tabs>
@@ -177,6 +206,7 @@ Skeleton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -189,6 +219,11 @@ Skeleton.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidLoadedContent} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueLoadedContent} />
 
     </Tab>
   </Tabs>
@@ -216,6 +251,7 @@ Skeleton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -228,6 +264,11 @@ Skeleton.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidMediaObject} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueMediaObject} />
 
     </Tab>
   </Tabs>
@@ -255,6 +296,7 @@ Skeleton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -267,6 +309,11 @@ Skeleton.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidResponsiveLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueResponsiveLayout} />
 
     </Tab>
   </Tabs>
@@ -294,6 +341,7 @@ Skeleton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -306,6 +354,11 @@ Skeleton.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={skeletonSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueVariants} />
 
     </Tab>
   </Tabs>
@@ -333,6 +386,7 @@ Skeleton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -347,6 +401,11 @@ Skeleton.Root
 <CodeBlockRuntime lang="tsx" code={skeletonSolidCustomHost} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={skeletonVueCustomHost} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -359,8 +418,8 @@ Skeleton.Root
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid для структурных стилей и классов-утилит приложения.
-Варианты Tailwind используют нативные utility-классы и классы приложения, а варианты с CSS Modules предоставляют
+Используйте `className` в React или `class` в Solid и Vue для структурных стилей и классов-утилит приложения.
+Варианты Tailwind используют нативные классы-утилиты и классы приложения, а варианты с CSS Modules предоставляют
 переменные ниже. Атрибуты состояния и хуки `data-slot` общие для обоих способов стилизации.
 
 ### CSS-переменные

@@ -24,6 +24,16 @@ import splitButtonSolidSizes from '../../../snippets/split-button/solid/sizes.ts
 import splitButtonSolidVariants from '../../../snippets/split-button/solid/variants.tsx?raw';
 import splitButtonSolidWithIcons from '../../../snippets/split-button/solid/with-icons.tsx?raw';
 
+import splitButtonVueBasic from '../../../snippets/split-button/vue/basic.vue?raw';
+import splitButtonVueControlledMenuState from '../../../snippets/split-button/vue/controlled-menu-state.vue?raw';
+import splitButtonVueDisabledAction from '../../../snippets/split-button/vue/disabled-action.vue?raw';
+import splitButtonVueLinkAction from '../../../snippets/split-button/vue/link-action.vue?raw';
+import splitButtonVueMenuComposition from '../../../snippets/split-button/vue/menu-composition.vue?raw';
+import splitButtonVuePositioning from '../../../snippets/split-button/vue/positioning.vue?raw';
+import splitButtonVueSizes from '../../../snippets/split-button/vue/sizes.vue?raw';
+import splitButtonVueVariants from '../../../snippets/split-button/vue/variants.vue?raw';
+import splitButtonVueWithIcons from '../../../snippets/split-button/vue/with-icons.vue?raw';
+
 ## Справочник API
 
 В Ark UI нет отдельного примитива split button. moduix собирает этот компонент с помощью
@@ -38,8 +48,8 @@ import splitButtonSolidWithIcons from '../../../snippets/split-button/solid/with
 ## Базовый пример
 
 
-Используйте короткую запись `<SplitButton>`, эквивалентную `<SplitButton.Root>`, и оставляйте структуру меню явной:
-`SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner` и `SplitButton.Content`.
+Используйте `<SplitButton>` как корневой компонент и оставляйте структуру меню явной:
+`SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner` и `SplitButtonContent`.
 Основное действие использует тот же контракт `onClick`, что и `Button`.
 
 <ExampleFrame variant="component">
@@ -53,6 +63,7 @@ import splitButtonSolidWithIcons from '../../../snippets/split-button/solid/with
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -65,6 +76,11 @@ import splitButtonSolidWithIcons from '../../../snippets/split-button/solid/with
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueBasic} />
 
     </Tab>
   </Tabs>
@@ -102,34 +118,44 @@ import splitButtonSolidWithIcons from '../../../snippets/split-button/solid/with
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/split-button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/split-button' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-SplitButton / SplitButton.Root
-├─ SplitButton.Action
-├─ SplitButton.Trigger
+SplitButton
+├─ SplitButtonAction
+├─ SplitButtonTrigger
 └─ Ветка всплывающего меню (по умолчанию в портале)
-   └─ SplitButton.Positioner
-      └─ SplitButton.Content
-         ├─ Menu.Item
-         ├─ Menu.Separator
+   └─ SplitButtonPositioner
+      └─ SplitButtonContent
+         ├─ MenuItem
+         ├─ MenuSeparator
          └─ другие общие части Menu
 ```
 
 | Часть                             | Назначение                                                               |
 | -------------------------------- | ------------------------------------------------------------------------ |
-| `SplitButton` / `SplitButton.Root` | Корень, управляющий состоянием меню и семантической группой двух кнопок. |
-| `SplitButton.Action`             | Основное действие `Button`.                                             |
-| `SplitButton.Trigger`            | Триггер Ark Menu в виде кнопки moduix; по умолчанию показывает шеврон.  |
-| `SplitButton.Positioner`         | Размещает всплывающее меню Ark.                                          |
-| `SplitButton.Content`            | Поверхность содержимого Ark Menu для общих частей `Menu.*`.              |
+| `SplitButton`                    | Корень, управляющий состоянием меню и семантической группой двух кнопок. |
+| `SplitButtonAction`             | Основное действие `Button`.                                             |
+| `SplitButtonTrigger`            | Триггер Ark Menu в виде кнопки moduix; по умолчанию показывает шеврон.  |
+| `SplitButtonPositioner`         | Размещает всплывающее меню Ark.                                          |
+| `SplitButtonContent`            | Поверхность содержимого Ark Menu для общих частей `MenuItem` и `MenuItemGroup`.              |
 
 ## Композиция
 
-`SplitButton` объединяет основное действие `Action` и `Trigger`. Оставляйте дерево всплывающего меню явным:
-`Positioner` → `Content`, а общие части `Menu.*` размещайте внутри `Content`. Позиционер автоматически
+`SplitButton` объединяет основное действие `SplitButtonAction` и `SplitButtonTrigger`. Оставляйте дерево всплывающего меню явным:
+`SplitButtonPositioner` → `SplitButtonContent`, а общие части `MenuItem` и `MenuItemGroup` размещайте внутри `SplitButtonContent`. Позиционер автоматически
 рендерится в портале; используйте `portalled={false}` или `portalRef`, только если меню должно находиться
 в другом контейнере. Корневые `size` и `variant` задают значения по умолчанию для обеих кнопок. Корень
 рендерит семантический `role="group"`; задайте `aria-label` или `aria-labelledby`, если окружающий
@@ -137,8 +163,12 @@ SplitButton / SplitButton.Root
 
 По умолчанию состоянием меню управляет сам компонент. Передайте `open` и `onOpenChange(details)`, если состояние
 должно принадлежать другой части приложения. Для расширенного доступа к состоянию используйте общий API `Menu`,
-а не добавляйте отдельную обёртку состояния для split button. Используйте `Action asChild` для ссылки; собственное
+а не добавляйте отдельную обёртку состояния для split button. Используйте `SplitButtonAction asChild` для ссылки; собственное
 содержимое триггера передавайте через `children`, чтобы триггер меню Ark и кнопка moduix оставались одним элементом.
+
+В Vue используйте `@click` для основного действия, `@open-change` или `v-model:open` для состояния меню и стандартный слот для содержимого триггера.
+
+`SplitButtonPositioner` оборачивает портал, поэтому `$el` его ссылки на компонент Vue указывает на узел-якорь портала. Сам позиционируемый элемент имеет атрибут `data-slot="split-button-positioner"`.
 
 ## Примеры
 
@@ -158,6 +188,7 @@ SplitButton / SplitButton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -170,6 +201,11 @@ SplitButton / SplitButton.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidControlledMenuState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueControlledMenuState} />
 
     </Tab>
   </Tabs>
@@ -192,6 +228,7 @@ SplitButton / SplitButton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -206,6 +243,11 @@ SplitButton / SplitButton.Root
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidDisabledAction} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueDisabledAction} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -213,7 +255,7 @@ SplitButton / SplitButton.Root
 
 ### Действие-ссылка
 
-Используйте `asChild` на `SplitButton.Action`, если основное действие должно быть ссылкой.
+Используйте `asChild` на `SplitButtonAction`, если основное действие должно быть ссылкой.
 
 <ExampleFrame variant="component">
   <SplitButtonLinkAction />
@@ -226,6 +268,7 @@ SplitButton / SplitButton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -238,6 +281,11 @@ SplitButton / SplitButton.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidLinkAction} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueLinkAction} />
 
     </Tab>
   </Tabs>
@@ -261,6 +309,7 @@ SplitButton / SplitButton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -273,6 +322,11 @@ SplitButton / SplitButton.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidPositioning} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVuePositioning} />
 
     </Tab>
   </Tabs>
@@ -295,6 +349,7 @@ SplitButton / SplitButton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -307,6 +362,11 @@ SplitButton / SplitButton.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueSizes} />
 
     </Tab>
   </Tabs>
@@ -334,6 +394,7 @@ SplitButton / SplitButton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -346,6 +407,11 @@ SplitButton / SplitButton.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueVariants} />
 
     </Tab>
   </Tabs>
@@ -373,6 +439,7 @@ SplitButton / SplitButton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -387,6 +454,11 @@ SplitButton / SplitButton.Root
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidWithIcons} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueWithIcons} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -394,7 +466,7 @@ SplitButton / SplitButton.Root
 
 ### Расширенная настройка
 
-Используйте общие части `Menu.*` внутри `SplitButton.Content`, если дополнительным действиям нужны группы,
+Используйте `MenuItemGroup`, `MenuItemGroupLabel`, `MenuItem` и `MenuSeparator` внутри `SplitButtonContent`, если дополнительным действиям нужны группы,
 разделители или сгруппированные пункты.
 
 <ExampleFrame variant="component">
@@ -408,6 +480,7 @@ SplitButton / SplitButton.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -422,6 +495,11 @@ SplitButton / SplitButton.Root
 <CodeBlockRuntime lang="tsx" code={splitButtonSolidMenuComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={splitButtonVueMenuComposition} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -429,7 +507,7 @@ SplitButton / SplitButton.Root
 
 ## Стилизация
 
-Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid. Варианты на
+Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue. Варианты на
 Tailwind настраиваются обычными утилитами и пользовательскими классами; перечисленные ниже переменные относятся
 к вариантам с CSS Modules. Атрибуты данных и хуки `data-slot` общие для обоих способов стилизации.
 
@@ -449,6 +527,6 @@ Tailwind настраиваются обычными утилитами и по�
 - `data-slot="split-button-trigger"` выбирает триггер меню.
 - `data-slot="split-button-positioner"` выбирает позиционер Ark Menu.
 - `data-slot="split-button-content"` выбирает поверхность содержимого Ark Menu.
-- `SplitButton.Trigger` получает атрибуты состояния Ark Menu, включая `aria-expanded`, `aria-controls` и `data-state`.
-- `SplitButton.Content` получает атрибуты Ark Menu, включая `data-state`, `data-side`, `data-placement`,
+- `SplitButtonTrigger` получает атрибуты состояния Ark Menu, включая `aria-expanded`, `aria-controls` и `data-state`.
+- `SplitButtonContent` получает атрибуты Ark Menu, включая `data-state`, `data-side`, `data-placement`,
   `data-nested` и `data-has-nested`.

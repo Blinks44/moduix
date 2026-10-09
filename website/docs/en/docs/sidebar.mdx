@@ -21,6 +21,14 @@ import sidebarSolidNestedNavigationAndAccountMenu from '../../../snippets/sideba
 import sidebarSolidPersistedLayout from '../../../snippets/sidebar/solid/persisted-layout.tsx?raw';
 import sidebarSolidRightSidebar from '../../../snippets/sidebar/solid/right-sidebar.tsx?raw';
 import sidebarSolidWorkspaceSelect from '../../../snippets/sidebar/solid/workspace-select.tsx?raw';
+import sidebarVueBasic from '../../../snippets/sidebar/vue/basic.vue?raw';
+import sidebarVueCustomScrollArea from '../../../snippets/sidebar/vue/custom-scroll-area.vue?raw';
+import sidebarVueCustomSizes from '../../../snippets/sidebar/vue/custom-sizes.vue?raw';
+import sidebarVueNestedNavigation from '../../../snippets/sidebar/vue/nested-navigation.vue?raw';
+import sidebarVueNestedNavigationAndAccountMenu from '../../../snippets/sidebar/vue/nested-navigation-and-account-menu.vue?raw';
+import sidebarVuePersistedLayout from '../../../snippets/sidebar/vue/persisted-layout.vue?raw';
+import sidebarVueRightSidebar from '../../../snippets/sidebar/vue/right-sidebar.vue?raw';
+import sidebarVueWorkspaceSelect from '../../../snippets/sidebar/vue/workspace-select.vue?raw';
 
 ## API Reference
 
@@ -43,7 +51,7 @@ contract.
 
 Compose the navigation panel, resize handle, and main content panel as direct children of the root.
 The default ids and constraints cover the usual left-sidebar layout. Wrap icon-only navigation
-buttons in `Sidebar.Tooltip` so their labels remain available after collapse.
+buttons in `SidebarTooltip` so their labels remain available after collapse.
 
 <ExampleFrame variant="component">
   <SidebarBasic />
@@ -53,7 +61,7 @@ buttons in `Sidebar.Tooltip` so their labels remain available after collapse.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -65,6 +73,11 @@ buttons in `Sidebar.Tooltip` so their labels remain available after collapse.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueBasic} />
 
     </Tab>
   </Tabs>
@@ -102,78 +115,95 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/sidebar' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/sidebar' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 ```text
-Sidebar / Sidebar.Root
-├─ Sidebar.Panel[id="sidebar"]
-│  ├─ Sidebar.Header
-│  │  ├─ Sidebar.Label
-│  │  └─ Sidebar.Input
-│  ├─ Sidebar.Content
-│  │  └─ Sidebar.Group
-│  │     ├─ Sidebar.GroupHeader
-│  │     │  ├─ Sidebar.GroupLabel
-│  │     │  └─ Sidebar.GroupAction
-│  │     └─ Sidebar.NavigationList
-│  │        └─ Sidebar.NavigationItem
-│  │           ├─ Sidebar.NavigationButton
-│  │           ├─ Sidebar.NavigationBadge (optional)
-│  │           ├─ Sidebar.ExpandedContent
-│  │           ├─ Sidebar.CollapsedContent
-│  │           └─ Sidebar.NavigationSubList
-│  │              └─ Sidebar.NavigationSubItem
-│  │                 ├─ Sidebar.NavigationSubButton
-│  │                 └─ Sidebar.NavigationBadge (optional)
-│  └─ Sidebar.Footer
-│     └─ Sidebar.Separator
-├─ Sidebar.ResizeTrigger
-├─ Sidebar.Trigger
-└─ Sidebar.Inset[id="content"]
+Sidebar
+├─ SidebarPanel[id="sidebar"]
+│  ├─ SidebarHeader
+│  │  ├─ SidebarLabel
+│  │  └─ SidebarInput
+│  ├─ SidebarContent
+│  │  └─ SidebarGroup
+│  │     ├─ SidebarGroupHeader
+│  │     │  ├─ SidebarGroupLabel
+│  │     │  └─ SidebarGroupAction
+│  │     └─ SidebarNavigationList
+│  │        └─ SidebarNavigationItem
+│  │           ├─ SidebarNavigationButton
+│  │           ├─ SidebarNavigationBadge (optional)
+│  │           ├─ SidebarExpandedContent
+│  │           ├─ SidebarCollapsedContent
+│  │           └─ SidebarNavigationSubList
+│  │              └─ SidebarNavigationSubItem
+│  │                 ├─ SidebarNavigationSubButton
+│  │                 └─ SidebarNavigationBadge (optional)
+│  └─ SidebarFooter
+│     └─ SidebarSeparator
+├─ SidebarResizeTrigger
+├─ SidebarTrigger
+└─ SidebarInset[id="content"]
 ```
 
 | Part | Role |
 | --- | --- |
-| `Sidebar` / `Sidebar.Root` | Ark Splitter root with defaults for a two-panel sidebar. |
-| `Sidebar.Panel` | Collapsible navigation panel; its default id is `"sidebar"`. |
-| `Sidebar.Inset` | Main content panel; its default id is `"content"`. |
-| `Sidebar.ResizeTrigger` | Accessible handle line for pointer and keyboard resizing; it renders the shared `Splitter.ResizeTriggerIndicator` by default, and custom children replace it. |
-| `Sidebar.Trigger` | Side-aware control for collapsing and expanding the panel. |
-| `Sidebar.Header` | Non-scrolling top region. |
-| `Sidebar.Content` | Scrolling middle region. |
-| `Sidebar.Footer` | Non-scrolling bottom region. |
-| `Sidebar.Group` | Semantic navigation section. |
-| `Sidebar.NavigationButton` | Button or `asChild` link with active and size states. |
-| `Sidebar.NavigationBadge` | Optional counter beside a simple navigation button or sub-button. |
-| `Sidebar.ExpandedContent` | Content shown while the panel is expanded. |
-| `Sidebar.CollapsedContent` | Content shown while the panel is collapsed. |
-| `Sidebar.Tooltip` | Collapsed-only label helper with side-aware placement. |
-| `Sidebar.NavigationSubList` | Nested navigation list. |
+| `Sidebar` | Ark Splitter root with defaults for a two-panel sidebar. |
+| `SidebarPanel` | Collapsible navigation panel; its default id is `"sidebar"`. |
+| `SidebarInset` | Main content panel; its default id is `"content"`. |
+| `SidebarResizeTrigger` | Accessible handle line for pointer and keyboard resizing; it renders the shared `SplitterResizeTriggerIndicator` by default, and custom children replace it. |
+| `SidebarTrigger` | Side-aware control for collapsing and expanding the panel. |
+| `SidebarHeader` | Non-scrolling top region. |
+| `SidebarContent` | Scrolling middle region. |
+| `SidebarFooter` | Non-scrolling bottom region. |
+| `SidebarGroup` | Semantic navigation section. |
+| `SidebarNavigationButton` | Button or `asChild` link with active and size states. |
+| `SidebarNavigationBadge` | Optional counter beside a simple navigation button or sub-button. |
+| `SidebarExpandedContent` | Content shown while the panel is expanded. |
+| `SidebarCollapsedContent` | Content shown while the panel is collapsed. |
+| `SidebarTooltip` | Collapsed-only label helper with side-aware placement. |
+| `SidebarNavigationSubList` | Nested navigation list. |
 
 ## Composition
 
 `Sidebar` owns the Splitter layout state, while nested `Collapsible`, popup `Menu`, and
-`Sidebar.Tooltip` instances own their own state. Keep `Panel`, `ResizeTrigger`, `Trigger`, and
-`Inset` as direct children in visual order: `Panel` first for a left sidebar, and `Inset` first for
-a right sidebar. `ExpandedContent` and `CollapsedContent` only switch which composition is visible;
+`SidebarTooltip` instances own their own state. Keep `SidebarPanel`, `SidebarResizeTrigger`, `SidebarTrigger`, and
+`SidebarInset` as direct children in visual order: `SidebarPanel` first for a left sidebar, and `SidebarInset` first for
+a right sidebar. `SidebarExpandedContent` and `SidebarCollapsedContent` only switch which composition is visible;
 use them to pair inline `Collapsible` links with a collapsed `Menu` without moving state into
 Sidebar. For a persisted width, control `size`, update it from `onResize(details)`, and save it from
 `onResizeEnd(details)`. In Solid, `asChild` uses a render function that receives the merged props.
-Place `NavigationBadge` after a simple `NavigationButton` or `NavigationSubButton`; it reserves
+In Vue, use `as-child` with a single element in the default slot and a template ref to access the component instance.
+For controlled sizes, use `v-model:size` or handle `@resize`; persist the final value with `@resize-end`.
+Place `SidebarNavigationBadge` after a simple `SidebarNavigationButton` or `SidebarNavigationSubButton`; it reserves
 trailing space for the counter and hides with the other trailing affordances in the compact rail.
 
 `useSidebar()` from the matching framework package exposes the sidebar state as `collapsed`, `side`,
 and `state`, plus a `toggleSidebar()` callback. In Solid these are accessors read as
-`collapsed()` and friends. It reads the Splitter context created by `Sidebar`/`Sidebar.Root`, so
+`collapsed()` and friends. It reads the Splitter context created by `Sidebar`, so
 use it only inside the sidebar tree.
+In Vue, the state values are refs: read `collapsed.value`, `side.value`, and `state.value`
+in script; templates unwrap them automatically.
+
+With Ark Vue 5.39.3 / Zag 1.45.0, the first controlled collapse can update `size` without
+emitting `@collapse`. The model and `useSidebar().collapsed` still reflect the new state.
 
 ## Examples
 
 ### Nested Navigation
 
-Use `ExpandedContent` for inline nested links and `CollapsedContent` for the same links in a popup
+Use `SidebarExpandedContent` for inline nested links and `SidebarCollapsedContent` for the same links in a popup
 menu. Both branches remain application-owned compositions.
 
 <ExampleFrame variant="component">
@@ -182,7 +212,7 @@ menu. Both branches remain application-owned compositions.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/nested-navigation.tsx"
@@ -192,6 +222,11 @@ menu. Both branches remain application-owned compositions.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidNestedNavigation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueNestedNavigation} />
 
     </Tab>
   </Tabs>
@@ -206,7 +241,7 @@ menu. Both branches remain application-owned compositions.
 
 ### Custom Scroll Area
 
-Native scrolling is the default. Put `ScrollArea` inside `Sidebar.Content` when the sidebar needs a
+Native scrolling is the default. Put `ScrollArea` inside `SidebarContent` when the sidebar needs a
 styled scrollbar or edge fade, and make its viewport the only scroll container.
 
 <ExampleFrame variant="component">
@@ -215,7 +250,7 @@ styled scrollbar or edge fade, and make its viewport the only scroll container.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/custom-scroll-area.tsx"
@@ -225,6 +260,11 @@ styled scrollbar or edge fade, and make its viewport the only scroll container.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidCustomScrollArea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueCustomScrollArea} />
 
     </Tab>
   </Tabs>
@@ -248,7 +288,7 @@ the final value from `onResizeEnd(details)`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/persisted-layout.tsx"
@@ -258,6 +298,11 @@ the final value from `onResizeEnd(details)`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidPersistedLayout} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVuePersistedLayout} />
 
     </Tab>
   </Tabs>
@@ -281,7 +326,7 @@ inside one application shell. Each nested primitive keeps its own state and focu
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/nested-navigation-and-account-menu.tsx"
@@ -291,6 +336,11 @@ inside one application shell. Each nested primitive keeps its own state and focu
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidNestedNavigationAndAccountMenu} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueNestedNavigationAndAccountMenu} />
 
     </Tab>
   </Tabs>
@@ -305,7 +355,7 @@ inside one application shell. Each nested primitive keeps its own state and focu
 
 ### Right Sidebar
 
-Pass `side="right"` and render `Inset`, `Trigger`, `ResizeTrigger`, and `Panel` in that order.
+Pass `side="right"` and render `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger`, and `SidebarPanel` in that order.
 Sidebar adjusts panel setup, trigger ids, placement, and chevron direction automatically.
 
 <ExampleFrame variant="component">
@@ -314,7 +364,7 @@ Sidebar adjusts panel setup, trigger ids, placement, and chevron direction autom
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/right-sidebar.tsx"
@@ -324,6 +374,11 @@ Sidebar adjusts panel setup, trigger ids, placement, and chevron direction autom
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidRightSidebar} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueRightSidebar} />
 
     </Tab>
   </Tabs>
@@ -338,8 +393,8 @@ Sidebar adjusts panel setup, trigger ids, placement, and chevron direction autom
 
 ### Workspace Select
 
-Use `Select.Trigger asChild` with `Sidebar.NavigationButton`. Keep the selected value in
-`Sidebar.Label`, keep `Select.Indicator` as a direct child of the trigger, and mark a compact
+Use `SelectTrigger asChild` with `SidebarNavigationButton`. Keep the selected value in
+`SidebarLabel`, keep `SelectIndicator` as a direct child of the trigger, and mark a compact
 visual anchor with `data-sidebar-icon`.
 
 <ExampleFrame variant="component">
@@ -348,7 +403,7 @@ visual anchor with `data-sidebar-icon`.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/workspace-select.tsx"
@@ -358,6 +413,11 @@ visual anchor with `data-sidebar-icon`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidWorkspaceSelect} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueWorkspaceSelect} />
 
     </Tab>
   </Tabs>
@@ -381,7 +441,7 @@ a different starting point.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/sidebar/custom-sizes.tsx"
@@ -391,6 +451,11 @@ a different starting point.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={sidebarSolidCustomSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarVueCustomSizes} />
 
     </Tab>
   </Tabs>
@@ -405,10 +470,10 @@ a different starting point.
 
 ## Styling
 
-Every semantic part accepts `className` in React and `class` in Solid and exposes a stable
-`data-slot="sidebar-*"` hook. `Sidebar.Panel` adds `data-state="expanded"` or `"collapsed"`, and
-layout parts expose `data-side`. `NavigationButton` and `NavigationSubButton` expose
-`data-active`; `NavigationButton` also exposes `data-size`.
+Every semantic part accepts `className` in React and `class` in Solid and Vue and exposes a stable
+`data-slot="sidebar-*"` hook. `SidebarPanel` adds `data-state="expanded"` or `"collapsed"`, and
+layout parts expose `data-side`. `SidebarNavigationButton` and `SidebarNavigationSubButton` expose
+`data-active`; `SidebarNavigationButton` also exposes `data-size`.
 
 When collapsed, labels and group labels leave the visual layout while remaining available to
 assistive technology. Nested lists, inputs, actions, badges, and indicators are hidden to keep the
@@ -435,7 +500,7 @@ dimensions, colors, and the trigger offset.
 
 ### Styling hooks
 
-Sidebar shell parts also expose `data-scope="sidebar"` and `data-part`. `Sidebar.Input` and
-`Sidebar.Separator` retain the scopes of their underlying primitives, while Ark-backed layout parts
+Sidebar shell parts also expose `data-scope="sidebar"` and `data-part`. `SidebarInput` and
+`SidebarSeparator` retain the scopes of their underlying primitives, while Ark-backed layout parts
 retain Splitter state attributes such as `data-focus`, `data-dragging`, `data-disabled`, and
 `data-orientation`.

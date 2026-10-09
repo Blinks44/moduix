@@ -1,29 +1,27 @@
 ---
 title: Astro
-description: Intégrez les composants moduix React ou Solid à Astro par paquet ou avec shadcn, avec les styles, les alias et les directives client.
+description: Intégrez les composants moduix React, Solid ou Vue à Astro par paquet ou avec shadcn, avec les styles, les alias et les directives client.
 ---
 
 # Astro
 
-Ce guide part d’un projet Astro existant dans lequel l’intégration officielle de React ou de Solid
+Ce guide part d’un projet Astro existant dans lequel l’intégration officielle de React, Solid ou Vue
 est déjà configurée. Par défaut, Astro produit du HTML statique ; ajoutez une directive `client:*`
 lorsqu’un composant doit devenir interactif dans le navigateur.
 
 ## Choisir votre configuration
 
-- **Framework :** React ou Solid avec l’intégration Astro officielle correspondante.
+- **Framework :** React, Solid ou Vue avec l’intégration Astro officielle correspondante.
 - **Styles :** CSS Modules ou Tailwind CSS v4.
 - **Distribution :** paquet ou code source copié avec la CLI shadcn.
 
-Cette page se concentre sur l’emplacement des fichiers et l’hydratation des îlots dans Astro.
-Commencez par la [configuration du paquet](/docs/quick-start#installer-le-paquet) ou la
-[configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune à votre approche de
-style. Les exemples ci-dessous utilisent les imports du paquet CSS Modules ; les points d’entrée Astro
-et les règles `client:*` restent identiques avec le paquet ou le registre Tailwind correspondant.
+Le guide de démarrage rapide détaille le [choix du paquet](/docs/quick-start#installer-le-paquet) et
+la [configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn).
 
-Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent
-CSS Modules. Utilisez la réinitialisation de moduix présentée ci-dessous ou une réinitialisation correcte de votre application.
-Avec Tailwind, conservez la feuille globale configurée dans le Démarrage rapide.
+Les exemples ci-dessous utilisent CSS Modules et la réinitialisation moduix. Omettez cette dernière
+si l’application possède déjà un équivalent. Pour Tailwind, installez le paquet correspondant avec
+le suffixe `-tailwind` et importez la feuille de styles Tailwind de l’application au même point
+d’entrée, après l’avoir configurée selon le guide de démarrage rapide.
 
 ## Installation par paquet
 
@@ -38,6 +36,11 @@ Installez le paquet adapté au framework ainsi que la dépendance Ark UI corresp
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
 
   </Tab>
 </Tabs>
@@ -73,6 +76,20 @@ import '@moduix/solid/style.css';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```astro title="src/layouts/Layout.astro"
+---
+import '@moduix/vue/reset.css';
+import '@moduix/vue/style.css';
+---
+
+<html lang="en">
+  <body><slot /></body>
+</html>
+```
+
+  </Tab>
 </Tabs>
 
 Créez ensuite un composant dans le framework choisi :
@@ -100,17 +117,53 @@ export function ContinueButton() {
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```vue title="src/components/ContinueButton.vue"
+<script setup lang="ts">
+import { Button } from '@moduix/vue/button';
+</script>
+
+<template>
+  <Button>Continue</Button>
+</template>
+```
+
+  </Tab>
 </Tabs>
 
 Importez-le directement dans une page Astro et ajoutez une directive client :
 
+<Tabs groupId="framework">
+  <Tab label="React / Solid" value="react-solid">
+
 ```astro title="src/pages/index.astro"
 ---
+import Layout from '../layouts/Layout.astro';
 import { ContinueButton } from '../components/ContinueButton';
 ---
 
-<ContinueButton client:load />
+<Layout>
+  <ContinueButton client:load />
+</Layout>
 ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```astro title="src/pages/index.astro"
+---
+import Layout from '../layouts/Layout.astro';
+import ContinueButton from '../components/ContinueButton.vue';
+---
+
+<Layout>
+  <ContinueButton client:load />
+</Layout>
+```
+
+  </Tab>
+</Tabs>
 
 Sans directive `client:*`, Astro envoie du HTML statique sans le JavaScript client du composant.
 Utilisez `client:load` pour un contrôle visible immédiatement, `client:idle` si l’interaction peut
@@ -120,9 +173,7 @@ comme `Dialog`, `Menu` et `Select` ont besoin d’une directive client.
 ## Installation avec la CLI shadcn
 
 Effectuez la [configuration initiale de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn),
-faites pointer `@/*` vers `src/*` dans `tsconfig.json`, puis importez
-`@/lib/moduix/styles/style.css` dans la mise en page partagée. Ajoutez ensuite le composant adapté au
-framework :
+faites pointer `@/*` vers `src/*` dans `tsconfig.json`, puis ajoutez le composant adapté au framework :
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -135,11 +186,18 @@ framework :
 <ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' }]} />
+
+  </Tab>
 </Tabs>
 
-Importez le composant généré directement dans le fichier `.astro` avant de lui appliquer une
-directive `client:*`. Astro n’accepte ces directives que sur les composants de framework importés
-directement dans la page.
+Pour CSS Modules, importez `@/lib/moduix/styles/style.css` depuis `src/layouts/Layout.astro`
+et configurez la réinitialisation selon le guide de démarrage rapide. Pour Tailwind, chargez les
+styles de base générés dans la feuille Tailwind et importez cette feuille depuis le layout. Dans le
+composant de votre framework, remplacez l’import de Button par `@/components/ui/button` ; gardez
+ce composant directement importé dans la page Astro.
 
 ## Vérification
 
@@ -148,4 +206,4 @@ une fois la directive client exécutée.
 
 Consultez le guide Astro sur les [composants de framework](https://docs.astro.build/en/guides/framework-components/),
 ainsi que les intégrations officielles pour [React](https://docs.astro.build/en/guides/integrations-guide/react/)
-et [Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/).
+et [Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/) / [Vue](https://docs.astro.build/en/guides/integrations-guide/vue/).

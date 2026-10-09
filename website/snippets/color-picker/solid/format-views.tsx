@@ -1,4 +1,12 @@
-import { ColorPicker, parseColor } from '@moduix/solid/color-picker';
+import {
+  ColorPicker,
+  parseColor,
+  ColorPickerLabel,
+  ColorPickerArea,
+  ColorPickerChannelInput,
+  ColorPickerFormatSelect,
+  ColorPickerView,
+} from '@moduix/solid/color-picker';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/color-picker/color-picker-format-views.module.css';
 
@@ -13,30 +21,30 @@ export default function FormatColorPickerDemo() {
       onFormatChange={(details) => setFormat(details.format)}
     >
       <div class={styles.valueRow}>
-        <ColorPicker.Label>Format</ColorPicker.Label>
-        <ColorPicker.FormatSelect aria-label="Color format" />
+        <ColorPickerLabel>Format</ColorPickerLabel>
+        <ColorPickerFormatSelect aria-label="Color format" />
       </div>
-      <ColorPicker.Area />
-      <ColorPicker.View format="rgba">
+      <ColorPickerArea />
+      <ColorPickerView format="rgba">
         <div class={styles.inputRow}>
-          <ColorPicker.ChannelInput channel="hex" />
-          <ColorPicker.ChannelInput channel="alpha" />
+          <ColorPickerChannelInput channel="hex" />
+          <ColorPickerChannelInput channel="alpha" />
         </div>
-      </ColorPicker.View>
-      <ColorPicker.View format="hsla">
+      </ColorPickerView>
+      <ColorPickerView format="hsla">
         <div class={styles.inputRow}>
-          <ColorPicker.ChannelInput channel="hue" />
-          <ColorPicker.ChannelInput channel="saturation" />
-          <ColorPicker.ChannelInput channel="lightness" />
+          <ColorPickerChannelInput channel="hue" />
+          <ColorPickerChannelInput channel="saturation" />
+          <ColorPickerChannelInput channel="lightness" />
         </div>
-      </ColorPicker.View>
-      <ColorPicker.View format="hsba">
+      </ColorPickerView>
+      <ColorPickerView format="hsba">
         <div class={styles.inputRow}>
-          <ColorPicker.ChannelInput channel="hue" />
-          <ColorPicker.ChannelInput channel="saturation" />
-          <ColorPicker.ChannelInput channel="brightness" />
+          <ColorPickerChannelInput channel="hue" />
+          <ColorPickerChannelInput channel="saturation" />
+          <ColorPickerChannelInput channel="brightness" />
         </div>
-      </ColorPicker.View>
+      </ColorPickerView>
     </ColorPicker>
   );
 }

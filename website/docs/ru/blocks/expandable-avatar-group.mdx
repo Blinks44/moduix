@@ -1,0 +1,96 @@
+---
+title: Раскрывающаяся группа аватаров
+description: Компактная группа перекрывающихся аватаров, которая раздвигается при наведении или фокусе с клавиатуры и показывает подсказку для каждого участника.
+---
+
+import { ExpandableAvatarGroup } from '@/components/blocks/expandable-avatar-group';
+import expandableAvatarGroupSolid from '../../../snippets/blocks/solid/expandable-avatar-group.tsx?raw';
+import expandableAvatarGroupVue from '../../../snippets/blocks/vue/expandable-avatar-group.vue?raw';
+
+# Раскрывающаяся группа аватаров
+
+Используйте этот блок для небольшой команды, когда место ограничено, но пользователям всё равно
+нужно легко различать участников. Наведите указатель на аватар или переведите на него фокус, чтобы
+раздвинуть группу и увидеть имя и роль участника.
+
+Этот блок можно скопировать в приложение. Это не компонент `ExpandableAvatarGroup`, экспортируемый
+moduix, а композиция на основе `Avatar` и `Tooltip`. Установите блок вместе с зависимостями,
+затем замените демонстрационных участников данными из приложения.
+
+Превью работает на React. Во вкладках приведён код для React, Solid и Vue с общей таблицей стилей.
+
+
+
+<ExampleFrame variant="block" clientOnly>
+  <PreviewFrame maxWidth="sm">
+  <ExpandableAvatarGroup />
+  </PreviewFrame>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/blocks/expandable-avatar-group.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={expandableAvatarGroupSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={expandableAvatarGroupVue} />
+
+    </Tab>
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/blocks/expandable-avatar-group.module.css"
+
+```
+</div>
+
+</ExampleCode>
+
+## Установка
+
+<BlockInstall name="expandable-avatar-group" />
+
+## Настройка блока
+
+Замените демонстрационный массив `members` данными из приложения и сохраняйте стабильный порядок
+участников. Для каждого участника указывайте URL изображения из приложения.
+`AvatarFallback` показывает инициалы, пока изображение загружается или недоступно. Части композиции описаны
+в документации [Avatar](/docs/avatar) и [Tooltip](/docs/tooltip).
+
+Каждый участник в блоке представлен нативной кнопкой. `TooltipTrigger asChild` позволяет подсказке
+использовать эту кнопку без дополнительной обёртки, а `TooltipBody` показывает имя и роль участника.
+В `aria-label` кнопки указаны оба значения, потому что у изображения задано `alt=""`, а подсказка
+дополняет доступное имя, но не заменяет его. Текст подсказки должен быть коротким и необязательным
+для понимания интерфейса.
+
+Если нажатие на участника должно открывать страницу или выполнять действие, подключите это поведение
+к кнопке или замените её подходящим семантическим элементом. Не убирайте доступное имя.
+
+Используйте `role="group"` с понятной подписью для группы. Для большой команды показывайте только
+нескольких первых участников и добавляйте кнопку `+N`, которая открывает полный список с поиском.
+
+Вся анимация выполняется средствами CSS. Активная кнопка слегка приподнимается, а остальные кнопки
+раздвигаются, освобождая для неё место. Правило `prefers-reduced-motion: reduce` в примере отключает
+плавные переходы, но само перемещение выполняется сразу. Если политика доступности в приложении требует
+полностью убрать это перемещение, задайте `transform: none` для состояний наведения и фокуса в этом
+медиазапросе.

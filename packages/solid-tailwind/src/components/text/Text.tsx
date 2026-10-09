@@ -72,7 +72,7 @@ const textVariants = cva('tracking-normal wrap-anywhere', {
   },
 });
 
-function TextRoot(props: TextProps) {
+function Text(props: TextProps) {
   const [local, others] = splitProps(props, [
     'as',
     'asChild',
@@ -140,9 +140,5 @@ function TextRoot(props: TextProps) {
     />
   );
 }
-
-const Text = Object.assign(TextRoot, {
-  Root: TextRoot,
-});
 
 export { Text };

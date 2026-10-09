@@ -1,0 +1,198 @@
+@layer moduix.components {
+  .trigger {
+    --_hover-card-trigger-current-color: var(
+      --moduix-hover-card-trigger-color,
+      var(--moduix-color-primary)
+    );
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moduix-hover-card-trigger-gap, var(--moduix-spacing-1));
+    outline: 0;
+    color: var(--_hover-card-trigger-current-color);
+    font: inherit;
+    text-decoration-line: underline;
+    text-decoration-thickness: var(--moduix-hover-card-trigger-decoration-thickness, 1px);
+    text-decoration-color: var(
+      --moduix-hover-card-trigger-decoration-color,
+      color-mix(in oklab, var(--_hover-card-trigger-current-color), transparent 40%)
+    );
+    text-underline-offset: var(--moduix-hover-card-trigger-underline-offset, 2px);
+    cursor: pointer;
+    transition:
+      color var(--moduix-hover-card-transition, var(--moduix-duration-fast)),
+      text-decoration-color var(--moduix-hover-card-transition, var(--moduix-duration-fast));
+
+    @media (hover: hover) {
+      &:hover {
+        text-decoration-color: var(
+          --moduix-hover-card-trigger-decoration-color-hover,
+          var(--_hover-card-trigger-current-color)
+        );
+      }
+    }
+
+    &[data-state='open'] {
+      text-decoration-color: var(
+        --moduix-hover-card-trigger-decoration-color-open,
+        var(--_hover-card-trigger-current-color)
+      );
+    }
+
+    &:focus-visible {
+      border-radius: var(--moduix-hover-card-trigger-focus-radius, var(--moduix-radius-xs));
+      outline: var(
+          --moduix-hover-card-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-hover-card-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(
+        --moduix-hover-card-trigger-focus-offset,
+        var(--moduix-focus-ring-offset)
+      );
+      text-decoration-line: none;
+    }
+
+    &:is([data-disabled], [disabled]) {
+      pointer-events: none;
+      opacity: var(--moduix-hover-card-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  .positioner {
+    z-index: var(--z-index, var(--moduix-z-popup));
+    max-width: var(--available-width);
+    outline: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
+    box-sizing: border-box;
+    width: var(--moduix-hover-card-width, auto);
+    height: var(--moduix-hover-card-height, auto);
+    min-width: min(var(--moduix-hover-card-min-width, 14rem), var(--available-width));
+    max-width: min(var(--moduix-hover-card-max-width, 24rem), var(--available-width));
+    max-height: min(var(--moduix-hover-card-max-height, 24rem), var(--available-height, 100dvh));
+    overflow: visible;
+    overflow-wrap: anywhere;
+    padding: var(--moduix-hover-card-padding-y, var(--moduix-spacing-2))
+      var(--moduix-hover-card-padding-x, var(--moduix-spacing-2));
+    border: var(--moduix-hover-card-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-hover-card-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-hover-card-radius, var(--moduix-radius-lg));
+    background-color: var(--moduix-hover-card-bg, var(--moduix-color-popover));
+    color: var(--moduix-hover-card-color, var(--moduix-color-popover-foreground));
+    outline: 0;
+    box-shadow: var(--moduix-hover-card-shadow, var(--moduix-shadow-lg));
+    transform-origin: var(--transform-origin);
+
+    &:has(> .body) {
+      display: flex;
+      flex-direction: column;
+
+      > .body {
+        min-block-size: 0;
+        overflow: auto;
+      }
+    }
+
+    &[data-state='open'] {
+      animation: hover-card-enter
+        var(
+          --moduix-hover-card-transition,
+          var(--moduix-popup-motion-duration, var(--moduix-duration-fast))
+            var(--moduix-popup-motion-easing, ease)
+        )
+        both;
+    }
+
+    &[data-state='closed'] {
+      animation: hover-card-exit
+        var(
+          --moduix-hover-card-transition,
+          var(--moduix-popup-motion-duration, var(--moduix-duration-fast))
+            var(--moduix-popup-motion-easing, ease)
+        )
+        both;
+    }
+  }
+
+  .arrow {
+    --arrow-size: var(--moduix-hover-card-arrow-size, var(--moduix-spacing-2-5));
+    --arrow-background: var(--moduix-hover-card-bg, var(--moduix-color-popover));
+    --arrow-shadow-color: var(
+      --moduix-hover-card-arrow-stroke-color,
+      var(--moduix-hover-card-border-color, var(--moduix-color-border))
+    );
+  }
+
+  .body {
+    min-block-size: 0;
+  }
+
+  .arrowTip {
+    border-top: var(--moduix-hover-card-border-width, var(--moduix-border-width-sm)) solid
+      var(
+        --moduix-hover-card-arrow-stroke-color,
+        var(--moduix-hover-card-border-color, var(--moduix-color-border))
+      );
+    border-left: var(--moduix-hover-card-border-width, var(--moduix-border-width-sm)) solid
+      var(
+        --moduix-hover-card-arrow-stroke-color,
+        var(--moduix-hover-card-border-color, var(--moduix-color-border))
+      );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trigger {
+      transition: none;
+    }
+
+    .content {
+      animation: none;
+    }
+  }
+
+  @keyframes hover-card-enter {
+    from {
+      opacity: var(
+        --moduix-hover-card-content-starting-opacity,
+        var(--moduix-popup-motion-starting-opacity, 0)
+      );
+      translate: var(
+          --moduix-hover-card-content-starting-translate-x,
+          var(--moduix-popup-motion-starting-translate-x, 0)
+        )
+        var(
+          --moduix-hover-card-content-starting-translate-y,
+          var(--moduix-popup-motion-starting-translate-y, 0)
+        );
+      scale: var(
+        --moduix-hover-card-content-starting-scale,
+        var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup))
+      );
+    }
+  }
+
+  @keyframes hover-card-exit {
+    to {
+      opacity: var(
+        --moduix-hover-card-content-ending-opacity,
+        var(--moduix-popup-motion-ending-opacity, 0)
+      );
+      translate: var(
+          --moduix-hover-card-content-ending-translate-x,
+          var(--moduix-popup-motion-ending-translate-x, 0)
+        )
+        var(
+          --moduix-hover-card-content-ending-translate-y,
+          var(--moduix-popup-motion-ending-translate-y, 0)
+        );
+      scale: var(
+        --moduix-hover-card-content-ending-scale,
+        var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup))
+      );
+    }
+  }
+}

@@ -6,8 +6,8 @@ import { cn } from '@/lib/moduix/cn';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { OverlayPortal } from '@/lib/moduix/overlayPortal';
 import { Button } from '../button';
-import { Menu } from '../menu';
-import { menuContentVariants, menuPositionerVariants } from '../menu/Menu';
+import { Menu, MenuViewport } from '../menu';
+import { menuContentVariants, menuPositionerVariants } from '../menu/Menu.variants';
 
 type ButtonProps = ComponentProps<typeof Button>;
 type SplitButtonVariant = Exclude<NonNullable<ButtonProps['variant']>, 'link'>;
@@ -18,7 +18,7 @@ type SplitButtonContextValue = {
   variant: Accessor<SplitButtonVariant>;
 };
 
-type SplitButtonRootProps = Omit<ComponentProps<typeof Menu.Root>, 'children'> & {
+type SplitButtonProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
   'aria-label'?: string;
   'aria-labelledby'?: string;
   children?: JSX.Element;
@@ -47,7 +47,7 @@ type SplitButtonContentProps = ComponentProps<typeof MenuPrimitive.Content>;
 type SplitButtonPositionerProps = ComponentProps<typeof MenuPrimitive.Positioner>;
 
 const splitButtonTriggerVariants = cva(
-  "relative min-w-0 -ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)] rounded-s-none before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-['']",
+  "relative min-w-0 ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)] rounded-s-none motion-safe:[&:not([data-variant='link']):active]:[translate:none] before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-['']",
   {
     variants: {
       size: {
@@ -79,13 +79,13 @@ function useSplitButtonContext(componentName: string) {
   const context = useContext(SplitButtonContext);
 
   if (!context) {
-    throw new Error(`${componentName} must be used within SplitButton.Root.`);
+    throw new Error(`${componentName} must be used within SplitButton.`);
   }
 
   return context;
 }
 
-function SplitButtonRoot(props: SplitButtonRootProps) {
+function SplitButton(props: SplitButtonProps) {
   const [local, others] = splitProps(props, [
     'aria-label',
     'aria-labelledby',
@@ -105,7 +105,7 @@ function SplitButtonRoot(props: SplitButtonRootProps) {
         variant: () => local.variant ?? 'default',
       }}
     >
-      <Menu.Root
+      <Menu
         onSelect={local.onSelect}
         positioning={{ placement: 'bottom-end', gutter: 4, ...local.positioning }}
         {...others}
@@ -122,14 +122,14 @@ function SplitButtonRoot(props: SplitButtonRootProps) {
         >
           {local.children}
         </div>
-      </Menu.Root>
+      </Menu>
     </SplitButtonContext.Provider>
   );
 }
 
 function SplitButtonAction(props: SplitButtonActionProps) {
   const [local, others] = splitProps(props, ['class', 'size', 'variant']);
-  const context = useSplitButtonContext('SplitButton.Action');
+  const context = useSplitButtonContext('SplitButtonAction');
 
   return (
     <Button
@@ -137,7 +137,10 @@ function SplitButtonAction(props: SplitButtonActionProps) {
       data-slot="split-button-action"
       size={local.size ?? context.size()}
       variant={local.variant ?? context.variant()}
-      class={cn('rounded-e-none', local.class)}
+      class={cn(
+        "rounded-e-none motion-safe:[&:not([data-variant='link']):active]:[translate:none]",
+        local.class,
+      )}
     />
   );
 }
@@ -151,7 +154,7 @@ function SplitButtonTrigger(props: SplitButtonTriggerProps) {
     'size',
     'variant',
   ]);
-  const context = useSplitButtonContext('SplitButton.Trigger');
+  const context = useSplitButtonContext('SplitButtonTrigger');
   const resolvedChildren = children(() => local.children);
   const resolvedSize = () => local.size ?? context.size();
   const resolvedVariant = () => local.variant ?? context.variant();
@@ -211,25 +214,15 @@ function SplitButtonContent(props: SplitButtonContentProps) {
       data-slot="split-button-content"
       class={cn(menuContentVariants(), local.class)}
     >
-      {local.asChild ? local.children : <Menu.Viewport>{local.children}</Menu.Viewport>}
+      {local.asChild ? local.children : <MenuViewport>{local.children}</MenuViewport>}
     </MenuPrimitive.Content>
   );
 }
 
-type SplitButtonComponent = typeof SplitButtonRoot & {
-  Root: typeof SplitButtonRoot;
-  Action: typeof SplitButtonAction;
-  Trigger: typeof SplitButtonTrigger;
-  Positioner: typeof SplitButtonPositioner;
-  Content: typeof SplitButtonContent;
+export {
+  SplitButton,
+  SplitButtonAction,
+  SplitButtonContent,
+  SplitButtonPositioner,
+  SplitButtonTrigger,
 };
-
-const SplitButton: SplitButtonComponent = Object.assign(SplitButtonRoot, {
-  Root: SplitButtonRoot,
-  Action: SplitButtonAction,
-  Trigger: SplitButtonTrigger,
-  Positioner: SplitButtonPositioner,
-  Content: SplitButtonContent,
-});
-
-export { SplitButton };

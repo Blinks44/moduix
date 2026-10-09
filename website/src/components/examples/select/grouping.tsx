@@ -1,5 +1,16 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItemGroup,
+  SelectItemGroupLabel,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 
 const produce = createListCollection({
   items: [
@@ -40,23 +51,23 @@ const produce = createListCollection({
 export default function SelectGroupingDemo() {
   return (
     <Select collection={produce}>
-      <Select.Label>Choose produce</Select.Label>
-      <Select.Field placeholder="Select item" clearLabel="Clear selection" />
-      <Select.Positioner>
-        <Select.Content>
+      <SelectLabel>Choose produce</SelectLabel>
+      <SelectField placeholder="Select item" clearLabel="Clear selection" />
+      <SelectPositioner>
+        <SelectContent>
           {produce.group().map(([type, group]) => (
-            <Select.ItemGroup key={type}>
-              <Select.ItemGroupLabel>{type}</Select.ItemGroupLabel>
+            <SelectItemGroup key={type}>
+              <SelectItemGroupLabel>{type}</SelectItemGroupLabel>
               {group.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
+                <SelectItem key={item.value} item={item}>
+                  <SelectItemText>{item.label}</SelectItemText>
+                  <SelectItemIndicator />
+                </SelectItem>
               ))}
-            </Select.ItemGroup>
+            </SelectItemGroup>
           ))}
-        </Select.Content>
-      </Select.Positioner>
+        </SelectContent>
+      </SelectPositioner>
     </Select>
   );
 }

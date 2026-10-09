@@ -1,7 +1,7 @@
 import type { ComponentProps, JSX } from 'solid-js';
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Toggle, useToggleContext } from '@/components/toggle/Toggle';
+import { Toggle, ToggleIndicator, useToggleContext } from '@/components/toggle/Toggle';
 import { CheckIcon } from '@/internal/icons/ui/Icons';
 
 type IconProps = JSX.SvgSVGAttributes<SVGSVGElement>;
@@ -154,9 +154,9 @@ export const Controlled: Story = {
 export const Indicator: Story = {
   render: () => (
     <Toggle aria-label="Favorite" size="icon-md" variant="outline">
-      <Toggle.Indicator fallback={<StarIcon />}>
+      <ToggleIndicator fallback={<StarIcon />}>
         <CheckIcon />
-      </Toggle.Indicator>
+      </ToggleIndicator>
     </Toggle>
   ),
 };

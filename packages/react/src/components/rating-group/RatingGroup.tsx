@@ -24,10 +24,10 @@ type RatingGroupRootProviderProps = ComponentProps<typeof RatingGroupPrimitive.R
 
 type RatingGroupItemIndicatorProps = ComponentProps<'span'>;
 
-const RatingGroupRoot = forwardRef<
+const RatingGroup = forwardRef<
   ComponentRef<typeof RatingGroupPrimitive.Root>,
   RatingGroupRootProps
->(function RatingGroupRoot({ className, size = 'md', ...props }, ref) {
+>(function RatingGroup({ className, size = 'md', ...props }, ref) {
   return (
     <RatingGroupPrimitive.Root
       ref={ref}
@@ -122,34 +122,37 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
 
 function RatingGroupItems({ children }: { children?: ReactNode }) {
   return (
-    <>
-      <RatingGroupPrimitive.Context>
-        {({ items }) =>
-          items.map((item) => (
-            <RatingGroupItem key={item} index={item}>
-              {children ?? <RatingGroupItemIndicator />}
-            </RatingGroupItem>
-          ))
-        }
-      </RatingGroupPrimitive.Context>
-    </>
+    <RatingGroupPrimitive.Context>
+      {({ items }) =>
+        items.map((item) => (
+          <RatingGroupItem key={item} index={item}>
+            {children ?? <RatingGroupItemIndicator />}
+          </RatingGroupItem>
+        ))
+      }
+    </RatingGroupPrimitive.Context>
   );
 }
 
-const RatingGroup = Object.assign(RatingGroupRoot, {
-  Root: RatingGroupRoot,
-  RootProvider: RatingGroupRootProvider,
-  Context: RatingGroupPrimitive.Context,
-  HiddenInput: RatingGroupPrimitive.HiddenInput,
-  Label: RatingGroupLabel,
-  Control: RatingGroupControl,
-  Item: RatingGroupItem,
-  ItemContext: RatingGroupPrimitive.ItemContext,
-  ItemIndicator: RatingGroupItemIndicator,
-  Items: RatingGroupItems,
-});
+const RatingGroupContext = RatingGroupPrimitive.Context;
+const RatingGroupHiddenInput = RatingGroupPrimitive.HiddenInput;
+const RatingGroupItemContext = RatingGroupPrimitive.ItemContext;
 
-export { RatingGroup, useRatingGroup, useRatingGroupContext, useRatingGroupItemContext };
+export {
+  RatingGroup,
+  RatingGroupContext,
+  RatingGroupControl,
+  RatingGroupHiddenInput,
+  RatingGroupItem,
+  RatingGroupItemContext,
+  RatingGroupItemIndicator,
+  RatingGroupItems,
+  RatingGroupLabel,
+  RatingGroupRootProvider,
+  useRatingGroup,
+  useRatingGroupContext,
+  useRatingGroupItemContext,
+};
 export type {
   RatingGroupItemIndicatorProps,
   RatingGroupRootProps,

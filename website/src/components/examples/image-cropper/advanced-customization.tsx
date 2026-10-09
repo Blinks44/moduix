@@ -1,4 +1,12 @@
-import { ImageCropper } from '@moduix/react/image-cropper';
+import {
+  ImageCropper,
+  ImageCropperGrid,
+  ImageCropperHandle,
+  ImageCropperHandles,
+  ImageCropperImage,
+  ImageCropperSelection,
+  ImageCropperViewport,
+} from '@moduix/react/image-cropper';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -6,16 +14,16 @@ const sampleImage =
 export default function AdvancedCustomizationImageCropperDemo() {
   return (
     <ImageCropper aria-label="Image cropper">
-      <ImageCropper.Viewport>
-        <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
-        <ImageCropper.Selection>
-          <ImageCropper.Grid axis="horizontal" />
-          <ImageCropper.Grid axis="vertical" />
-          {ImageCropper.handles.map((position) => (
-            <ImageCropper.Handle key={position} position={position} />
+      <ImageCropperViewport>
+        <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
+        <ImageCropperSelection>
+          <ImageCropperGrid axis="horizontal" />
+          <ImageCropperGrid axis="vertical" />
+          {ImageCropperHandles.map((position) => (
+            <ImageCropperHandle key={position} position={position} />
           ))}
-        </ImageCropper.Selection>
-      </ImageCropper.Viewport>
+        </ImageCropperSelection>
+      </ImageCropperViewport>
     </ImageCropper>
   );
 }

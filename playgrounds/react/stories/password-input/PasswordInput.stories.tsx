@@ -1,7 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Field } from '@/components/field';
-import { PasswordInput, usePasswordInput } from '@/components/password-input/PasswordInput';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
+import {
+  PasswordInput,
+  PasswordInputControl,
+  PasswordInputField,
+  PasswordInputIndicator,
+  PasswordInputInput,
+  PasswordInputLabel,
+  PasswordInputRootProvider,
+  PasswordInputVisibilityTrigger,
+  usePasswordInput,
+} from '@/components/password-input/PasswordInput';
 import styles from './PasswordInput.stories.module.css';
 
 const meta = {
@@ -20,8 +30,8 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <PasswordInput>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>
   ),
 };
@@ -29,13 +39,13 @@ export const Basic: Story = {
 export const Autocomplete: Story = {
   render: () => (
     <PasswordInput autoComplete="new-password" name="new-password">
-      <PasswordInput.Label>New password</PasswordInput.Label>
-      <PasswordInput.Control>
-        <PasswordInput.Input placeholder="Create a password" />
-        <PasswordInput.VisibilityTrigger>
-          <PasswordInput.Indicator />
-        </PasswordInput.VisibilityTrigger>
-      </PasswordInput.Control>
+      <PasswordInputLabel>New password</PasswordInputLabel>
+      <PasswordInputControl>
+        <PasswordInputInput placeholder="Create a password" />
+        <PasswordInputVisibilityTrigger>
+          <PasswordInputIndicator />
+        </PasswordInputVisibilityTrigger>
+      </PasswordInputControl>
     </PasswordInput>
   ),
 };
@@ -49,13 +59,13 @@ export const ControlledVisibility: Story = {
         visible={visible}
         onVisibilityChange={(details) => setVisible(details.visible)}
       >
-        <PasswordInput.Label>Password is {visible ? 'visible' : 'hidden'}</PasswordInput.Label>
-        <PasswordInput.Control>
-          <PasswordInput.Input placeholder="Toggle visibility" />
-          <PasswordInput.VisibilityTrigger>
-            <PasswordInput.Indicator />
-          </PasswordInput.VisibilityTrigger>
-        </PasswordInput.Control>
+        <PasswordInputLabel>Password is {visible ? 'visible' : 'hidden'}</PasswordInputLabel>
+        <PasswordInputControl>
+          <PasswordInputInput placeholder="Toggle visibility" />
+          <PasswordInputVisibilityTrigger>
+            <PasswordInputIndicator />
+          </PasswordInputVisibilityTrigger>
+        </PasswordInputControl>
       </PasswordInput>
     );
   },
@@ -65,16 +75,16 @@ export const WithField: Story = {
   render: () => (
     <Field invalid>
       <PasswordInput required>
-        <PasswordInput.Label>Password</PasswordInput.Label>
-        <PasswordInput.Control>
-          <PasswordInput.Input placeholder="Enter your password" />
-          <PasswordInput.VisibilityTrigger>
-            <PasswordInput.Indicator />
-          </PasswordInput.VisibilityTrigger>
-        </PasswordInput.Control>
+        <PasswordInputLabel>Password</PasswordInputLabel>
+        <PasswordInputControl>
+          <PasswordInputInput placeholder="Enter your password" />
+          <PasswordInputVisibilityTrigger>
+            <PasswordInputIndicator />
+          </PasswordInputVisibilityTrigger>
+        </PasswordInputControl>
       </PasswordInput>
-      <Field.HelperText>Use at least 8 characters.</Field.HelperText>
-      <Field.ErrorText>Password is required.</Field.ErrorText>
+      <FieldHelperText>Use at least 8 characters.</FieldHelperText>
+      <FieldErrorText>Password is required.</FieldErrorText>
     </Field>
   ),
 };
@@ -82,13 +92,13 @@ export const WithField: Story = {
 export const IgnorePasswordManager: Story = {
   render: () => (
     <PasswordInput ignorePasswordManagers>
-      <PasswordInput.Label>API key</PasswordInput.Label>
-      <PasswordInput.Control>
-        <PasswordInput.Input defaultValue="spd_1234567890" />
-        <PasswordInput.VisibilityTrigger>
-          <PasswordInput.Indicator />
-        </PasswordInput.VisibilityTrigger>
-      </PasswordInput.Control>
+      <PasswordInputLabel>API key</PasswordInputLabel>
+      <PasswordInputControl>
+        <PasswordInputInput defaultValue="spd_1234567890" />
+        <PasswordInputVisibilityTrigger>
+          <PasswordInputIndicator />
+        </PasswordInputVisibilityTrigger>
+      </PasswordInputControl>
     </PasswordInput>
   ),
 };
@@ -96,8 +106,8 @@ export const IgnorePasswordManager: Story = {
 export const Disabled: Story = {
   render: () => (
     <PasswordInput disabled>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>
   ),
 };
@@ -105,8 +115,8 @@ export const Disabled: Story = {
 export const ReadOnly: Story = {
   render: () => (
     <PasswordInput readOnly>
-      <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Field />
+      <PasswordInputLabel>Password</PasswordInputLabel>
+      <PasswordInputField />
     </PasswordInput>
   ),
 };
@@ -120,15 +130,15 @@ export const RootProvider: Story = {
         <output className={styles.output}>
           password input is {passwordInput.visible ? 'visible' : 'hidden'}
         </output>
-        <PasswordInput.RootProvider value={passwordInput}>
-          <PasswordInput.Label>Password</PasswordInput.Label>
-          <PasswordInput.Control>
-            <PasswordInput.Input placeholder="Managed outside the tree" />
-            <PasswordInput.VisibilityTrigger>
-              <PasswordInput.Indicator />
-            </PasswordInput.VisibilityTrigger>
-          </PasswordInput.Control>
-        </PasswordInput.RootProvider>
+        <PasswordInputRootProvider value={passwordInput}>
+          <PasswordInputLabel>Password</PasswordInputLabel>
+          <PasswordInputControl>
+            <PasswordInputInput placeholder="Managed outside the tree" />
+            <PasswordInputVisibilityTrigger>
+              <PasswordInputIndicator />
+            </PasswordInputVisibilityTrigger>
+          </PasswordInputControl>
+        </PasswordInputRootProvider>
       </div>
     );
   },
@@ -141,17 +151,17 @@ export const StrengthMeter: Story = {
 
     return (
       <PasswordInput>
-        <PasswordInput.Label>Password</PasswordInput.Label>
-        <PasswordInput.Control>
-          <PasswordInput.Input
+        <PasswordInputLabel>Password</PasswordInputLabel>
+        <PasswordInputControl>
+          <PasswordInputInput
             value={password}
             onChange={(event) => setPassword(event.currentTarget.value)}
             placeholder="Enter your password"
           />
-          <PasswordInput.VisibilityTrigger>
-            <PasswordInput.Indicator />
-          </PasswordInput.VisibilityTrigger>
-        </PasswordInput.Control>
+          <PasswordInputVisibilityTrigger>
+            <PasswordInputIndicator />
+          </PasswordInputVisibilityTrigger>
+        </PasswordInputControl>
         {strength ? (
           <div className={styles.strengthMeter}>
             <div className={styles.strengthBar}>

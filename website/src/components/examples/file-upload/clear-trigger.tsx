@@ -1,28 +1,39 @@
-import { FileUpload } from '@moduix/react/file-upload';
+import {
+  FileUpload,
+  FileUploadClearTrigger,
+  FileUploadContext,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/react/file-upload';
 import styles from '@/components/examples/file-upload/file-upload-clear-trigger.module.css';
 
 const maxFiles = 3;
 export default function ClearTriggerFileUploadDemo() {
   return (
     <FileUpload className={styles.root} maxFiles={maxFiles}>
-      <FileUpload.Label>Attachments</FileUpload.Label>
+      <FileUploadLabel>Attachments</FileUploadLabel>
       <div className={styles.actions}>
-        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-        <FileUpload.ClearTrigger>Clear files</FileUpload.ClearTrigger>
+        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadClearTrigger>Clear files</FileUploadClearTrigger>
       </div>
-      <FileUpload.ItemGroup>
-        <FileUpload.Context>
+      <FileUploadItemGroup>
+        <FileUploadContext>
           {({ acceptedFiles }) =>
             acceptedFiles.map((file) => (
-              <FileUpload.Item key={file.name} file={file}>
-                <FileUpload.ItemName />
-                <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-              </FileUpload.Item>
+              <FileUploadItem key={file.name} file={file}>
+                <FileUploadItemName />
+                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+              </FileUploadItem>
             ))
           }
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
     </FileUpload>
   );
 }

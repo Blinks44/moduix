@@ -1,7 +1,7 @@
 ---
 title: Input
 component: input
-description: Стилизованный однострочный `<input>` на основе Field.Input из Ark UI с нативными событиями и стилями moduix.
+description: Стилизованный однострочный `<input>` на основе FieldInput из Ark UI с нативными событиями и стилями moduix.
 ---
 
 import * as InputDocs from '@/components/examples/input/css-properties';
@@ -23,10 +23,19 @@ import inputSolidNativeAttributes from '../../../snippets/input/solid/native-att
 import inputSolidSizes from '../../../snippets/input/solid/sizes.tsx?raw';
 import inputSolidStandalone from '../../../snippets/input/solid/standalone-input.tsx?raw';
 import inputSolidStates from '../../../snippets/input/solid/disabled-and-readonly.tsx?raw';
+import inputVueAsChild from '../../../snippets/input/vue/as-child.vue?raw';
+import inputVueBasic from '../../../snippets/input/vue/basic.vue?raw';
+import inputVueControlled from '../../../snippets/input/vue/controlled.vue?raw';
+import inputVueFieldState from '../../../snippets/input/vue/field-state.vue?raw';
+import inputVueFile from '../../../snippets/input/vue/file-input.vue?raw';
+import inputVueNativeAttributes from '../../../snippets/input/vue/native-attributes.vue?raw';
+import inputVueSizes from '../../../snippets/input/vue/sizes.vue?raw';
+import inputVueStandalone from '../../../snippets/input/vue/standalone-input.vue?raw';
+import inputVueStates from '../../../snippets/input/vue/disabled-and-readonly.vue?raw';
 
 ## Справочник API
 
-Компонент `Input` основан на стилизованном [`Field.Input` из Ark UI](https://ark-ui.com/docs/components/field). Он следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и [передаче ref](https://ark-ui.com/docs/guides/ref). Компонент отрисовывает нативный однострочный `<input>` и сохраняет стандартное поведение браузера в формах и нативный API событий каждого фреймворка.
+Компонент `Input` основан на стилизованном [`FieldInput` из Ark UI](https://ark-ui.com/docs/components/field). Он следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и [передаче ref](https://ark-ui.com/docs/guides/ref). Компонент отрисовывает нативный однострочный `<input>` и сохраняет стандартное поведение браузера в формах и нативный API событий каждого фреймворка.
 
 Используйте `Field`, если полю нужны метка, поясняющий текст или сообщение об ошибке, автоматически
 созданные идентификаторы или общее состояние.
@@ -56,6 +65,7 @@ import inputSolidStates from '../../../snippets/input/solid/disabled-and-readonl
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +78,11 @@ import inputSolidStates from '../../../snippets/input/solid/disabled-and-readonl
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueBasic} />
 
     </Tab>
   </Tabs>
@@ -105,29 +120,40 @@ import inputSolidStates from '../../../snippets/input/solid/disabled-and-readonl
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/input' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/input' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
 Field (необязательная оболочка)
-└─ Input / Input.Root
+└─ Input
 ```
 
 | Часть                   | Назначение                                                                  |
 | ----------------------- | --------------------------------------------------------------------------- |
-| `Input` / `Input.Root` | Стилизованная версия `Field.Input` из Ark UI, которая отрисовывает нативный однострочный `<input>`. |
-
-`Input.Root` и `Input` ссылаются на один и тот же компонент и отрисовывают одинаковый элемент
-управления.
+| `Input`                 | Стилизованная версия `FieldInput` из Ark UI, которая отрисовывает нативный однострочный `<input>`. |
 
 ## Композиция
 
 `Field` владеет меткой, поясняющим текстом или сообщением об ошибке, автоматически созданными
 идентификаторами и общим состоянием `disabled`, `invalid`, `required` или `readOnly`. `Input` остаётся
-нативным элементом: в React управляемом поле используйте `value` и `onChange(event)`, а в
-неуправляемом - `defaultValue`. Компонент не управляет валидацией, фокусом или навигацией с
-клавиатуры.
+нативным элементом: в управляемом поле React используйте `value` и `onChange(event)`, а в Vue
+используйте `v-model`. Для неуправляемого поля в React задайте `defaultValue`. Компонент не управляет валидацией, фокусом
+или навигацией с клавиатуры.
+
+Во Vue задавайте начальное значение через `v-model` и сбрасывайте связанное состояние в обработчике
+сброса формы: нативный сброс не вызывает событие ввода. Сейчас Ark очищает нативный `defaultValue`,
+если модель не задана, поэтому до исправления используйте `v-model` для начальных значений.
 
 Для автономного поля задайте доступное имя самостоятельно. Используйте `asChild` только с одним
 фокусируемым элементом, совместимым с полем ввода: Ark объединит в этом DOM-узле свойства `Input` и
@@ -138,8 +164,9 @@ Field (необязательная оболочка)
 ### Управляемое значение
 
 Используйте этот вариант, когда внешняя логика должна управлять текущим значением. В React читайте
-новое значение из нативного события `onChange(event)`, а в Solid используйте `onInput`. Передавайте
-текущее значение обратно через `value`.
+новое значение из нативного события `onChange(event)`, в Solid используйте `onInput`, а в Vue используйте
+`v-model`. Передавайте текущее значение обратно через `value`, если фреймворк использует отдельные
+привязки для события и значения.
 
 <ExampleFrame variant="component">
   <InputControlled />
@@ -152,6 +179,7 @@ Field (необязательная оболочка)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -164,6 +192,11 @@ Field (необязательная оболочка)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueControlled} />
 
     </Tab>
   </Tabs>
@@ -194,6 +227,7 @@ Field (необязательная оболочка)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -206,6 +240,11 @@ Field (необязательная оболочка)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidStates} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueStates} />
 
     </Tab>
   </Tabs>
@@ -234,6 +273,7 @@ Field (необязательная оболочка)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -246,6 +286,11 @@ Field (необязательная оболочка)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidFieldState} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueFieldState} />
 
     </Tab>
   </Tabs>
@@ -275,6 +320,7 @@ Field (необязательная оболочка)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -287,6 +333,11 @@ Field (необязательная оболочка)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidFile} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueFile} />
 
     </Tab>
   </Tabs>
@@ -303,7 +354,7 @@ Field (необязательная оболочка)
 
 Используйте нативные атрибуты для управления поведением браузера: валидацией, режимом ввода,
 автозаполнением и отправкой формы. Задавайте `htmlSize` для ширины в символах, а `size` для
-изменения визуального размера в React и Solid.
+изменения визуального размера в React, Solid и Vue.
 
 <ExampleFrame variant="component">
   <InputNativeAttributes />
@@ -316,6 +367,7 @@ Field (необязательная оболочка)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -328,6 +380,11 @@ Field (необязательная оболочка)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidNativeAttributes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueNativeAttributes} />
 
     </Tab>
   </Tabs>
@@ -356,6 +413,7 @@ Field (необязательная оболочка)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -368,6 +426,11 @@ Field (необязательная оболочка)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueSizes} />
 
     </Tab>
   </Tabs>
@@ -398,6 +461,7 @@ Field (необязательная оболочка)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -410,6 +474,11 @@ Field (необязательная оболочка)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={inputSolidStandalone} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueStandalone} />
 
     </Tab>
   </Tabs>
@@ -439,6 +508,7 @@ Field (необязательная оболочка)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -453,6 +523,11 @@ Field (необязательная оболочка)
 <CodeBlockRuntime lang="tsx" code={inputSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -465,7 +540,12 @@ Field (необязательная оболочка)
 
 ## Стилизация
 
-Используйте `className` в React и `class` в Solid, чтобы стилизовать `Input`. Варианты с CSS Modules
+`Input size="md"` и `FieldInput` имеют одинаковое оформление по умолчанию. Оба получают контекст
+`Field`; `Input` добавляет визуальные размеры и `htmlSize`, а `FieldInput` сохраняет нативный
+числовой `size`. Внутри отключённого moduix `Field` или `FieldRootProvider` прозрачность
+применяется один раз, на корневом элементе.
+
+Используйте `className` в React и `class` в Solid и Vue, чтобы стилизовать `Input`. Варианты с CSS Modules
 поддерживают переменные ниже, а варианты на Tailwind используют нативные utility-классы и классы
 потребителя. Для стилей состояний используйте общие data-атрибуты и нативные селекторы состояния.
 

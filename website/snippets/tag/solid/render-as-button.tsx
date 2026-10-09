@@ -1,11 +1,11 @@
-import { Tag } from '@moduix/solid/tag';
+import { Tag, TagLabel } from '@moduix/solid/tag';
 
 export default function TagAsChildDemo() {
   return (
     <Tag
       asChild={(props) => (
         <button {...props()} type="button">
-          <Tag.Label>Open filter</Tag.Label>
+          <TagLabel>Open filter</TagLabel>
         </button>
       )}
       variant="outline"

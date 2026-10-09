@@ -1,7 +1,7 @@
 ---
 title: Clipboard
 component: clipboard
-description: Доступный Clipboard для React и Solid с установкой через пакет или shadcn CLI.
+description: Доступный Clipboard для React, Solid и Vue с установкой через пакет или shadcn CLI.
 ---
 
 import AsChildClipboardDemo from '@/components/examples/clipboard/as-child.tsx';
@@ -23,23 +23,36 @@ import clipboardSolidDisabled from '../../../snippets/clipboard/solid/disabled.t
 import clipboardSolidRootProvider from '../../../snippets/clipboard/solid/root-provider.tsx?raw';
 import clipboardSolidTimeout from '../../../snippets/clipboard/solid/timeout.tsx?raw';
 import clipboardSolidValueText from '../../../snippets/clipboard/solid/value-text.tsx?raw';
-
-Используйте `Clipboard`, когда пользователю нужно скопировать текст. В зависимости от выбранных
-частей значение можно редактировать, оставить только для чтения или вывести как обычный текст.
+import clipboardVueAsChild from '../../../snippets/clipboard/vue/as-child.vue?raw';
+import clipboardVueBasic from '../../../snippets/clipboard/vue/basic.vue?raw';
+import clipboardVueContext from '../../../snippets/clipboard/vue/context.vue?raw';
+import clipboardVueCopyStatus from '../../../snippets/clipboard/vue/copy-status.vue?raw';
+import clipboardVueCustomCopyText from '../../../snippets/clipboard/vue/custom-copy-text.vue?raw';
+import clipboardVueDisabled from '../../../snippets/clipboard/vue/disabled.vue?raw';
+import clipboardVueRootProvider from '../../../snippets/clipboard/vue/root-provider.vue?raw';
+import clipboardVueTimeout from '../../../snippets/clipboard/vue/timeout.vue?raw';
+import clipboardVueValueText from '../../../snippets/clipboard/vue/value-text.vue?raw';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/clipboard" />
 
+## Выбор подходящего компонента
+
+Используйте `Clipboard`, когда пользователю нужно скопировать текст. В зависимости от выбранных
+частей значение можно показать в поле только для чтения или вывести как обычный текст.
+
 ## Базовый пример
 
-Интерактивное  Настройку пакета и выбор варианта стилизации см. в
-[Quick Start](/docs/quick-start).
+Используйте `Clipboard` как корневой компонент. Внутри `ClipboardControl` разместите одну
+поверхность значения - `ClipboardInput` или `ClipboardValueText` - и `ClipboardTrigger`.
+`ClipboardLabel` необязателен. Внутри триггера можно разместить `ClipboardIndicator`. В React и
+Solid его `children` и `copied` принимают текст и иконки, а в Vue для этого используются обычный
+слот и именованный слот `copied`.
 
-Используйте `Clipboard` как корневой компонент. Внутри `Clipboard.Control` разместите одну
-поверхность значения - `Clipboard.Input` или `Clipboard.ValueText` - и `Clipboard.Trigger`.
-`Clipboard.Label` необязателен. Внутри триггера можно разместить `Clipboard.Indicator`,
-`Clipboard.CopyText` или обе части.
+React, Solid и Vue используют одинаковые плоские имена. Импортируйте `Clipboard` как корневой
+компонент, а каждую дополнительную часть - напрямую, например `ClipboardInput` и
+`ClipboardTrigger`. Эти имена одинаково работают в npm-пакетах и исходниках shadcn-реестра.
 
 <ExampleFrame variant="component">
   <ClipboardBasic />
@@ -52,6 +65,7 @@ import clipboardSolidValueText from '../../../snippets/clipboard/solid/value-tex
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -64,6 +78,11 @@ import clipboardSolidValueText from '../../../snippets/clipboard/solid/value-tex
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clipboardSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueBasic} />
 
     </Tab>
   </Tabs>
@@ -101,58 +120,68 @@ import clipboardSolidValueText from '../../../snippets/clipboard/solid/value-tex
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/clipboard' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/clipboard' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Clipboard | Clipboard.RootProvider
-├─ Clipboard.Label (необязательно)
-├─ Clipboard.Control
-│  ├─ Clipboard.Input или Clipboard.ValueText
-│  └─ Clipboard.Trigger
-│     ├─ Clipboard.Indicator (необязательно)
-│     └─ Clipboard.CopyText (необязательно)
+Clipboard | ClipboardRootProvider
+├─ ClipboardLabel (необязательно)
+├─ ClipboardControl
+│  ├─ ClipboardInput или ClipboardValueText
+│  └─ ClipboardTrigger
+│     └─ ClipboardIndicator (необязательно)
 ```
 
 | Часть | Назначение |
 | --- | --- |
 | `Clipboard` | Хранит значение и управляет временным состоянием после копирования. |
-| `Clipboard.RootProvider` | Связывает части с состоянием, созданным через `Clipboard.useClipboard()`. |
-| `Clipboard.Label` | Задаёт доступную подпись для значения. |
-| `Clipboard.Control` | Объединяет отображение значения и кнопку копирования. |
-| `Clipboard.Input` | Показывает значение в поле. Поле можно редактировать, если не указать `readOnly`. |
-| `Clipboard.Trigger` | Копирует текущее значение при активации. По умолчанию отображается как кнопка. |
-| `Clipboard.Indicator` | Показывает разное содержимое до и после копирования. |
-| `Clipboard.CopyText` | Текстовый вариант такого индикатора. По умолчанию это `Copy` и `Copied`. |
-| `Clipboard.ValueText` | Выводит значение как текст, когда поле ввода не подходит. |
+| `ClipboardRootProvider` | Связывает части с состоянием, созданным через `useClipboard()`. |
+| `ClipboardLabel` | Задаёт доступную подпись для значения. |
+| `ClipboardControl` | Объединяет отображение значения и кнопку копирования. |
+| `ClipboardInput` | Показывает значение в поле только для чтения. Для изменения используйте контролируемое состояние или `ClipboardContext.setValue()`. |
+| `ClipboardTrigger` | Копирует текущее значение при активации. По умолчанию отображается как кнопка. |
+| `ClipboardIndicator` | Показывает разное содержимое до и после копирования. По умолчанию это иконки копирования и подтверждения; в React и Solid передайте `copied="Copied"` и `children`, а в Vue используйте соответствующие слоты. |
+| `ClipboardValueText` | Выводит значение как текст, когда поле ввода не подходит. |
 
 ## Композиция
 
-`Clipboard` владеет значением и состоянием после копирования. Внутри `Control` размещайте одну
-поверхность значения (`Input` или `ValueText`) и `Trigger`; `Indicator` и `CopyText` необязательны и
-могут использоваться вместе внутри триггера. Они следуют одному состоянию копирования, а moduix
-подставляет стандартные иконки копирования и подтверждения, а также подписи `Copy` и `Copied`, если
-содержимое не задано.
+`Clipboard` владеет значением и состоянием после копирования. Внутри `ClipboardControl` размещайте
+одну поверхность значения (`ClipboardInput` или `ClipboardValueText`) и `ClipboardTrigger`;
+`ClipboardIndicator` необязателен внутри триггера. Он следует состоянию копирования, а moduix
+подставляет стандартные иконки копирования и подтверждения, если содержимое не задано. Для
+текстовых подписей в React и Solid передайте `copied="Copied"` и `children`, а в Vue используйте
+обычный и именованный слот `copied`.
 
 Используйте `defaultValue` для неконтролируемого значения. Если значение принадлежит другой части
 приложения или интерфейсу нужно реагировать на копирование, используйте `value` вместе с
 `onValueChange(details)` и `onStatusChange(details)`; `timeout` задаёт длительность состояния после
 копирования.
 
-Используйте `Clipboard.useClipboard()` вместе с `Clipboard.RootProvider`, только если состояние
+Используйте `useClipboard()` вместе с `ClipboardRootProvider`, только если состояние
 нужно создать или разделить вне отрисовываемого дерева. Вложенные компоненты могут читать его через
-`Clipboard.Context` или `useClipboardContext()`. В Solid `useClipboard()` возвращает функцию доступа:
+`ClipboardContext` или `useClipboardContext()`. В Solid `useClipboard()` возвращает функцию доступа:
 передайте её как `value={clipboard}` и читайте состояние как `clipboard().copied` или
-`clipboard().value`. У корневого компонента нет состояния `disabled`: передайте нативное свойство
-`disabled` и `Clipboard.Input`, и `Clipboard.Trigger`. Используйте `asChild` для этих частей только
+`clipboard().value`. В Vue `useClipboard()` сразу возвращает реактивное состояние: передайте его
+как `:value="clipboard"` и читайте `clipboard.copied` или `clipboard.value`. У корневого компонента нет состояния `disabled`: передайте нативное свойство
+`disabled` и `ClipboardInput`, и `ClipboardTrigger`. Используйте `asChild` для этих частей только
 если другой семантический элемент должен отрисовать узел DOM.
 
 ## Примеры
 
 ### Контекст
 
-Читайте состояние буфера обмена из вложенного контента через `Clipboard.Context` или используйте
+Читайте состояние буфера обмена из вложенного контента через `ClipboardContext` или используйте
 `useClipboardContext()` во вложенном компоненте. Контекст предоставляет `copied`, `value`, `setValue`
 и `copy`.
 
@@ -167,6 +196,7 @@ Clipboard | Clipboard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -179,6 +209,11 @@ Clipboard | Clipboard.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clipboardSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueContext} />
 
     </Tab>
   </Tabs>
@@ -207,6 +242,7 @@ Clipboard | Clipboard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -221,6 +257,11 @@ Clipboard | Clipboard.RootProvider
 <CodeBlockRuntime lang="tsx" code={clipboardSolidCopyStatus} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueCopyStatus} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -233,7 +274,7 @@ Clipboard | Clipboard.RootProvider
 
 ### Свой текст копирования
 
-Передайте собственное содержимое или значение `copied` в `Clipboard.CopyText`, если кнопке нужны
+Передайте собственное содержимое или значение `copied` в `ClipboardIndicator`, если кнопке нужны
 подписи, соответствующие вашему продукту.
 
 <ExampleFrame variant="component">
@@ -247,6 +288,7 @@ Clipboard | Clipboard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -259,6 +301,11 @@ Clipboard | Clipboard.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clipboardSolidCustomCopyText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueCustomCopyText} />
 
     </Tab>
   </Tabs>
@@ -287,6 +334,7 @@ Clipboard | Clipboard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -301,6 +349,11 @@ Clipboard | Clipboard.RootProvider
 <CodeBlockRuntime lang="tsx" code={clipboardSolidDisabled} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueDisabled} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -313,8 +366,8 @@ Clipboard | Clipboard.RootProvider
 
 ### Root Provider
 
-Создайте состояние с помощью `Clipboard.useClipboard()` и передайте его в
-`Clipboard.RootProvider`, если состояние нужно разделить между компонентами или создать отдельно от
+Создайте состояние с помощью `useClipboard()` и передайте его в
+`ClipboardRootProvider`, если состояние нужно разделить между компонентами или создать отдельно от
 дерева компонентов.
 
 <ExampleFrame variant="component">
@@ -328,6 +381,7 @@ Clipboard | Clipboard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -340,6 +394,11 @@ Clipboard | Clipboard.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clipboardSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -368,6 +427,7 @@ Clipboard | Clipboard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -382,6 +442,11 @@ Clipboard | Clipboard.RootProvider
 <CodeBlockRuntime lang="tsx" code={clipboardSolidTimeout} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueTimeout} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -394,7 +459,7 @@ Clipboard | Clipboard.RootProvider
 
 ### Текст значения
 
-Используйте `Clipboard.ValueText`, если значение должно отображаться как текст, а не внутри поля
+Используйте `ClipboardValueText`, если значение должно отображаться как текст, а не внутри поля
 ввода.
 
 <ExampleFrame variant="component">
@@ -408,6 +473,7 @@ Clipboard | Clipboard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -420,6 +486,11 @@ Clipboard | Clipboard.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clipboardSolidValueText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueValueText} />
 
     </Tab>
   </Tabs>
@@ -448,6 +519,7 @@ Clipboard | Clipboard.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -462,6 +534,11 @@ Clipboard | Clipboard.RootProvider
 <CodeBlockRuntime lang="tsx" code={clipboardSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -474,7 +551,7 @@ Clipboard | Clipboard.RootProvider
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на экспортируемых частях для структурных стилей.
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных стилей.
 Варианты Tailwind используют стандартные утилиты и классы потребителя, а варианты CSS Modules -
 приведённые ниже CSS-переменные. Для стилей состояния после копирования используйте атрибут Ark
 `data-copied` вместе с хуками moduix `data-slot`.
@@ -486,16 +563,15 @@ Clipboard | Clipboard.RootProvider
 ### Хуки стилизации
 
 - `Clipboard` -> `data-slot="clipboard-root"`
-- `Clipboard.RootProvider` -> `data-slot="clipboard-root-provider"`
-- `Clipboard.Label` -> `data-slot="clipboard-label"`
-- `Clipboard.Control` -> `data-slot="clipboard-control"`
-- `Clipboard.Input` -> `data-slot="clipboard-input"`
-- `Clipboard.Trigger` -> `data-slot="clipboard-trigger"`
-- `Clipboard.Indicator` -> `data-slot="clipboard-indicator"`
-- `Clipboard.CopyText` -> `data-slot="clipboard-copy-text"`
-- `Clipboard.ValueText` -> `data-slot="clipboard-value-text"`
-- Пока активно состояние копирования, Ark добавляет `data-copied` к `Root`, `Label`, `Control`,
-  `Input` и `Trigger`.
-- Ark добавляет `data-readonly` к `Clipboard.Input`, когда поле доступно только для чтения.
-- `Clipboard.Indicator` добавляет `data-slot="clipboard-indicator-idle-icon"` и
+- `ClipboardRootProvider` -> `data-slot="clipboard-root-provider"`
+- `ClipboardLabel` -> `data-slot="clipboard-label"`
+- `ClipboardControl` -> `data-slot="clipboard-control"`
+- `ClipboardInput` -> `data-slot="clipboard-input"`
+- `ClipboardTrigger` -> `data-slot="clipboard-trigger"`
+- `ClipboardIndicator` -> `data-slot="clipboard-indicator"`
+- `ClipboardValueText` -> `data-slot="clipboard-value-text"`
+- Пока активно состояние копирования, Ark добавляет `data-copied` к `Clipboard`, `ClipboardLabel`,
+  `ClipboardControl`, `ClipboardInput` и `ClipboardTrigger`.
+- Ark добавляет `data-readonly` к `ClipboardInput`, когда поле доступно только для чтения.
+- `ClipboardIndicator` добавляет `data-slot="clipboard-indicator-idle-icon"` и
   `data-slot="clipboard-indicator-copied-icon"` к стандартным узлам иконок.

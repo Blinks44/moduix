@@ -1,5 +1,15 @@
 import { Button } from '@moduix/solid/button';
-import { FileUpload } from '@moduix/solid/file-upload';
+import {
+  FileUpload,
+  FileUploadContext,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/solid/file-upload';
 import { createSignal, For } from 'solid-js';
 import styles from '@/components/examples/file-upload/file-upload-form-usage.module.css';
 
@@ -17,23 +27,23 @@ export default function FileUploadFormDemo() {
   return (
     <form class={styles.stack} onSubmit={handleSubmit}>
       <FileUpload class={styles.root} name={name} maxFiles={maxFiles}>
-        <FileUpload.Label>Project assets</FileUpload.Label>
-        <FileUpload.HiddenInput />
-        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-        <FileUpload.ItemGroup>
-          <FileUpload.Context>
+        <FileUploadLabel>Project assets</FileUploadLabel>
+        <FileUploadHiddenInput />
+        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadItemGroup>
+          <FileUploadContext>
             {(fileUpload) => (
               <For each={fileUpload().acceptedFiles}>
                 {(file) => (
-                  <FileUpload.Item file={file}>
-                    <FileUpload.ItemName />
-                    <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                  </FileUpload.Item>
+                  <FileUploadItem file={file}>
+                    <FileUploadItemName />
+                    <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                  </FileUploadItem>
                 )}
               </For>
             )}
-          </FileUpload.Context>
-        </FileUpload.ItemGroup>
+          </FileUploadContext>
+        </FileUploadItemGroup>
       </FileUpload>
       <div>
         <output>Submitted: {submitted()}</output>

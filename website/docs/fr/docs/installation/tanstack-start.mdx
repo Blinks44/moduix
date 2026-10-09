@@ -15,15 +15,13 @@ dans une configuration standard, moduix ne nécessite pas de directive `use clie
 - **Styles :** CSS Modules ou Tailwind CSS v4.
 - **Distribution :** paquet ou code source copié avec la CLI shadcn.
 
-Commencez par la [configuration du paquet](/docs/quick-start#installer-le-paquet) ou la
-[configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune à votre approche de
-style. Les exemples utilisent les imports des paquets CSS Modules ; l’emplacement de la route racine,
-les alias, le SSR et les vérifications d’hydratation restent identiques avec le paquet ou le registre
-Tailwind correspondant.
+Le guide de démarrage rapide détaille le [choix du paquet](/docs/quick-start#installer-le-paquet) et
+la [configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn).
 
-Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent
-CSS Modules. Utilisez la réinitialisation de moduix présentée ci-dessous ou une réinitialisation correcte de votre application.
-Avec Tailwind, conservez la feuille globale configurée dans le Démarrage rapide.
+Les exemples ci-dessous utilisent CSS Modules et la réinitialisation moduix. Omettez cette dernière
+si l’application possède déjà un équivalent. Pour Tailwind, installez le paquet correspondant avec
+le suffixe `-tailwind` et importez la feuille de styles Tailwind de l’application au même point
+d’entrée, après l’avoir configurée selon le guide de démarrage rapide.
 
 ## Installation par paquet
 
@@ -117,7 +115,10 @@ Si le projet ne fait pas déjà pointer `@/*` vers `src/*`, ajoutez cet alias au
 ```
 
 Le même alias doit être accessible au bundler. Rsbuild reprend directement les chemins TypeScript ;
-avec Vite, suivez le guide de TanStack Start consacré aux alias. Ajoutez ensuite le composant :
+avec Vite, suivez le guide de TanStack Start consacré aux alias de chemins pour
+[React](https://tanstack.com/start/latest/docs/framework/react/guide/path-aliases) ou
+[Solid](https://tanstack.com/start/latest/docs/framework/solid/guide/path-aliases). Ajoutez ensuite le
+composant :
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -137,6 +138,11 @@ Dans la route racine, remplacez la feuille de styles du paquet par le fichier g�
 ```tsx title="src/routes/__root.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
+
+L’import de styles ci-dessus concerne CSS Modules. Pour Tailwind, chargez les styles de base générés
+dans votre feuille Tailwind existante selon le [guide de démarrage rapide](/docs/quick-start#installer-avec-la-cli-shadcn),
+puis importez cette feuille au même point d’entrée. Remplacez l’import du composant depuis le paquet
+par `@/components/ui/button`.
 
 ## Vérification
 

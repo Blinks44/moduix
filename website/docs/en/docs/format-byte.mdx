@@ -1,13 +1,16 @@
 ---
 title: Format Byte
-description: Format byte values as readable sizes in React and Solid with Ark UI, including decimal or binary units and locale-aware output.
+description: Format byte values as readable sizes in React, Solid, and Vue with Ark UI, including decimal or binary units and locale-aware output.
 ---
 
 import FormatByteBasic from '@/components/examples/format-byte/basic.tsx';
 import FormatByteUnitSystem from '@/components/examples/format-byte/unit-system.tsx';
 import formatByteSolidBasic from '../../../snippets/format-byte/solid/basic.tsx?raw';
+import formatByteVueBasic from '../../../snippets/format-byte/vue/basic.vue?raw';
 import formatByteSolidUnitSystem from '../../../snippets/format-byte/solid/unit-system.tsx?raw';
+import formatByteVueUnitSystem from '../../../snippets/format-byte/vue/unit-system.vue?raw';
 import formatByteSolidLocale from '../../../snippets/format-byte/solid/locale.tsx?raw';
+import formatByteVueLocale from '../../../snippets/format-byte/vue/locale.vue?raw';
 
 `Format.Byte` formats a byte count as readable text. Import it from the Ark package for your framework.
 
@@ -22,6 +25,7 @@ Import `Format` from the matching Ark UI package:
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -39,6 +43,13 @@ import { Format } from '@ark-ui/solid';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { Format } from '@ark-ui/vue';
+```
+
+  </Tab>
 </Tabs>
 
 ## Basic
@@ -47,8 +58,8 @@ Pass the number of bytes to `value`. `Format.Byte` renders only the formatted te
 another element that explains what the value represents. The examples use a paragraph for one value and a definition
 list when several values need a shared context.
 
-The preview uses the React source because the documentation app is React-based. The Solid tab contains the native
-Solid source for the same output and API.
+The preview uses React because the documentation app is React-based. The Solid and Vue tabs contain
+native source for the same output and API.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -63,6 +74,7 @@ Solid source for the same output and API.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -75,6 +87,11 @@ Solid source for the same output and API.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatByteSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatByteVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +116,7 @@ system deliberately when the product distinguishes advertised disk capacity from
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -111,6 +129,11 @@ system deliberately when the product distinguishes advertised disk capacity from
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatByteSolidUnitSystem} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatByteVueUnitSystem} />
 
     </Tab>
   </Tabs>
@@ -127,6 +150,7 @@ localized part of the interface with the provider from the matching Ark UI packa
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -139,6 +163,11 @@ localized part of the interface with the provider from the matching Ark UI packa
   <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatByteSolidLocale} />
+
+  </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatByteVueLocale} />
 
   </Tab>
 </Tabs>

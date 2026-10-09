@@ -4,8 +4,8 @@
 `repeat(<count>, minmax(0, 1fr))`, `minChildWidth` produces
 `repeat(auto-fit, minmax(min(100%, <width>), 1fr))` and takes priority over `columns`, `gap`,
 `rowGap`, and `columnGap` accept CSS lengths with numeric values as pixels, invalid numeric
-`columns`/`minChildWidth` values throw the same messages, and `SimpleGrid.Root` references the same
-root. See `packages/react/src/components/simple-grid/simple-grid.md` for the shared behavior
+`columns`/`minChildWidth` values throw the same messages, and `SimpleGrid` is the only root
+component export. See `packages/react/src/components/simple-grid/simple-grid.md` for the shared behavior
 contract, styling hooks, and upstream references.
 
 Solid-specific mechanics:

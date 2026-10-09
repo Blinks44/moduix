@@ -1,6 +1,6 @@
 import { Presence } from '@ark-ui/react/presence';
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
+import { Card, CardBody, CardDescription, CardHeader, CardTitle } from '@moduix/react/card';
 import { Stack } from '@moduix/react/stack';
 import { useState } from 'react';
 import styles from '@/components/examples/presence/presence-mount-on-demand.module.css';
@@ -21,11 +21,11 @@ export default function PresenceMountOnDemandDemo() {
 
       <Presence className={styles.panel} lazyMount present={present} unmountOnExit>
         <Card className={styles.card}>
-          <Card.Header>
-            <Card.Title>New workspace update</Card.Title>
-            <Card.Description>The panel mounts only while it is needed.</Card.Description>
-          </Card.Header>
-          <Card.Body>Publish the update when the release notes are ready for your team.</Card.Body>
+          <CardHeader>
+            <CardTitle>New workspace update</CardTitle>
+            <CardDescription>The panel mounts only while it is needed.</CardDescription>
+          </CardHeader>
+          <CardBody>Publish the update when the release notes are ready for your team.</CardBody>
         </Card>
       </Presence>
     </Stack>

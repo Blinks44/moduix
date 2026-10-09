@@ -18,7 +18,7 @@ type HoverCardRootProps = ComponentProps<typeof HoverCardPrimitive.Root> & Overl
 type HoverCardRootProviderProps = ComponentProps<typeof HoverCardPrimitive.RootProvider> &
   OverlayPortalProps;
 
-function HoverCardRoot(props: HoverCardRootProps) {
+function HoverCard(props: HoverCardRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -154,17 +154,19 @@ function HoverCardBody(props: HTMLArkProps<'div'>) {
   );
 }
 
-const HoverCard = Object.assign(HoverCardRoot, {
-  Root: HoverCardRoot,
-  RootProvider: HoverCardRootProvider,
-  Trigger: HoverCardTrigger,
-  Positioner: HoverCardPositioner,
-  Content: HoverCardContent,
-  Arrow: HoverCardArrow,
-  ArrowTip: HoverCardArrowTip,
-  Body: HoverCardBody,
-  Context: HoverCardPrimitive.Context,
-});
+const HoverCardContext = HoverCardPrimitive.Context;
 
-export { HoverCard, useHoverCard, useHoverCardContext };
+export {
+  HoverCard,
+  HoverCardArrow,
+  HoverCardArrowTip,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardContext,
+  HoverCardPositioner,
+  HoverCardRootProvider,
+  HoverCardTrigger,
+  useHoverCard,
+  useHoverCardContext,
+};
 export type { HoverCardRootProps, HoverCardRootProviderProps };

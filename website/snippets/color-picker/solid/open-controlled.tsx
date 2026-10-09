@@ -1,5 +1,15 @@
 import { Button } from '@moduix/solid/button';
-import { ColorPicker, parseColor } from '@moduix/solid/color-picker';
+import {
+  ColorPicker,
+  parseColor,
+  ColorPickerLabel,
+  ColorPickerControl,
+  ColorPickerTrigger,
+  ColorPickerPositioner,
+  ColorPickerContent,
+  ColorPickerArea,
+  ColorPickerChannelInput,
+} from '@moduix/solid/color-picker';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/color-picker/color-picker-open-controlled.module.css';
 
@@ -13,16 +23,16 @@ export default function OpenControlledColorPickerDemo() {
         open={open()}
         onOpenChange={(details) => setOpen(details.open)}
       >
-        <ColorPicker.Label>Open controlled</ColorPicker.Label>
-        <ColorPicker.Control>
-          <ColorPicker.ChannelInput channel="hex" />
-          <ColorPicker.Trigger aria-label="Open color picker" />
-        </ColorPicker.Control>
-        <ColorPicker.Positioner>
-          <ColorPicker.Content>
-            <ColorPicker.Area />
-          </ColorPicker.Content>
-        </ColorPicker.Positioner>
+        <ColorPickerLabel>Open controlled</ColorPickerLabel>
+        <ColorPickerControl>
+          <ColorPickerChannelInput channel="hex" />
+          <ColorPickerTrigger aria-label="Open color picker" />
+        </ColorPickerControl>
+        <ColorPickerPositioner>
+          <ColorPickerContent>
+            <ColorPickerArea />
+          </ColorPickerContent>
+        </ColorPickerPositioner>
       </ColorPicker>
       <output>Open: {String(open())}</output>
       <Button type="button" size="sm" onClick={() => setOpen((current) => !current)}>

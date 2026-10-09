@@ -1,4 +1,10 @@
-import { Clipboard } from '@moduix/solid/clipboard';
+import {
+  Clipboard,
+  ClipboardControl,
+  ClipboardIndicator,
+  ClipboardTrigger,
+  ClipboardValueText,
+} from '@moduix/solid/clipboard';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/clipboard/component-copy-status.module.css';
 
@@ -16,12 +22,12 @@ export default function ClipboardStatusDemo() {
           }
         }}
       >
-        <Clipboard.Control>
-          <Clipboard.Trigger>
-            <Clipboard.Indicator />
-            <Clipboard.ValueText />
-          </Clipboard.Trigger>
-        </Clipboard.Control>
+        <ClipboardControl>
+          <ClipboardTrigger>
+            <ClipboardIndicator />
+            <ClipboardValueText />
+          </ClipboardTrigger>
+        </ClipboardControl>
       </Clipboard>
       <output>Copied {copyCount()} times</output>
     </div>

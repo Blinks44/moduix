@@ -1,0 +1,38 @@
+@layer moduix.components {
+  .root {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--moduix-skeleton-border-radius, var(--moduix-radius-md));
+
+    &[data-state='loading'] {
+      height: var(--moduix-skeleton-height, var(--moduix-spacing-4));
+      animation: var(--moduix-skeleton-animation, var(--moduix-animation-pulse));
+      background: var(
+        --moduix-skeleton-bg,
+        color-mix(
+          in oklab,
+          var(--moduix-color-muted-foreground) 18%,
+          var(--moduix-color-background)
+        )
+      );
+      color: transparent;
+      pointer-events: none;
+      user-select: none;
+
+      &::before,
+      &::after,
+      & * {
+        visibility: hidden;
+      }
+
+      &[data-variant='none'] {
+        animation: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+  }
+}

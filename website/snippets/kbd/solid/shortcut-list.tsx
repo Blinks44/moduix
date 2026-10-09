@@ -1,4 +1,4 @@
-import { Kbd } from '@moduix/solid/kbd';
+import { Kbd, KbdGroup } from '@moduix/solid/kbd';
 import { For } from 'solid-js';
 import styles from '@/components/examples/kbd/kbd-shortcut-list.module.css';
 
@@ -26,7 +26,7 @@ export default function KbdShortcutListDemo() {
       <For each={shortcuts}>
         {(shortcut) => (
           <div class={styles.row}>
-            <Kbd.Group aria-label={shortcut.label}>
+            <KbdGroup aria-label={shortcut.label}>
               <For each={shortcut.keys}>
                 {(key, index) => (
                   <>
@@ -35,7 +35,7 @@ export default function KbdShortcutListDemo() {
                   </>
                 )}
               </For>
-            </Kbd.Group>
+            </KbdGroup>
             {shortcut.description}
           </div>
         )}

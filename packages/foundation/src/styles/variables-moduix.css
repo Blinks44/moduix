@@ -330,7 +330,7 @@
   --moduix-button-size-md: initial; /* var(--moduix-size-md) */
   --moduix-button-size-lg: initial; /* var(--moduix-size-lg) */
   --moduix-button-size-xl: initial; /* var(--moduix-size-xl) */
-  --moduix-button-transition: initial; /* var(--moduix-transition-default) */
+  --moduix-button-transition: initial; /* var(--moduix-transition-fast), 150ms ease-in-out */
 
   /* Card */
   --moduix-card-action-gap: initial; /* var(--moduix-spacing-2) */
@@ -442,7 +442,7 @@
   --moduix-checkbox-size-xl: initial; /* var(--moduix-spacing-7) */
   --moduix-checkbox-transition: initial; /* var(--moduix-transition-default) */
 
-  /* Checkbox.Group */
+  /* CheckboxGroup */
   --moduix-checkbox-group-color: initial; /* var(--moduix-color-foreground) */
   --moduix-checkbox-group-gap: initial; /* var(--moduix-spacing-2) */
 
@@ -495,7 +495,7 @@
   --moduix-clipboard-value-text-line-height: initial; /* inherit */
   --moduix-clipboard-transition: initial; /* var(--moduix-transition-default) */
 
-  /* CloseButton.Root */
+  /* CloseButton */
   --moduix-close-button-bg: initial; /* transparent */
   --moduix-close-button-bg-hover: initial; /* var(--moduix-color-muted) */
   --moduix-close-button-color: initial; /* var(--moduix-color-muted-foreground) */
@@ -504,7 +504,7 @@
   --moduix-close-button-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-close-button-focus-ring-offset: initial; /* var(--moduix-focus-ring-offset) */
   --moduix-close-button-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
-  --moduix-close-button-icon-size: initial; /* var(--moduix-spacing-3) */
+  --moduix-close-button-icon-size: initial; /* var(--moduix-spacing-4) */
   --moduix-close-button-radius: initial; /* var(--moduix-radius-sm) */
   --moduix-close-button-size: initial; /* var(--moduix-spacing-7) */
   --moduix-close-button-transition: initial; /* var(--moduix-transition-default) */
@@ -715,9 +715,9 @@
   --moduix-command-palette-bg: initial; /* var(--moduix-color-popover) */
   --moduix-command-palette-border-color: initial; /* color-mix(in oklab, var(--moduix-color-border) 84%, transparent) */
   --moduix-command-palette-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-command-palette-clear-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-command-palette-clear-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-command-palette-clear-size: initial; /* var(--moduix-size-sm) */
+  --moduix-command-palette-clear-bg-hover: initial; /* var(--moduix-color-muted) */
+  --moduix-command-palette-clear-radius: initial; /* var(--moduix-radius-sm) */
+  --moduix-command-palette-clear-size: initial; /* var(--moduix-size-xs) */
   --moduix-command-palette-color: initial; /* var(--moduix-color-popover-foreground) */
   --moduix-command-palette-content-ending-opacity: initial; /* 0 */
   --moduix-command-palette-content-ending-scale: initial; /* var(--moduix-scale-popup) */
@@ -905,11 +905,11 @@
   --moduix-date-picker-content-closed-scale: initial; /* var(--moduix-scale-popup) */
   --moduix-date-picker-content-color: initial; /* var(--moduix-color-popover-foreground) */
   --moduix-date-picker-content-max-width: initial; /* calc(100vw - 2rem) */
-  --moduix-date-picker-content-min-width: initial; /* 18.75rem */
+  --moduix-date-picker-content-min-width: initial; /* 20rem */
   --moduix-date-picker-content-padding: initial; /* var(--moduix-spacing-3) */
   --moduix-date-picker-content-radius: initial; /* var(--moduix-radius-md) */
   --moduix-date-picker-content-shadow: initial; /* var(--moduix-shadow-lg) */
-  --moduix-date-picker-content-width: initial; /* 18.75rem */
+  --moduix-date-picker-content-width: initial; /* 20rem */
   --moduix-date-picker-control-height: initial; /* var(--moduix-size-md) */
   --moduix-date-picker-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-date-picker-focus-ring-color: initial; /* var(--moduix-color-ring) */
@@ -1011,7 +1011,7 @@
   --moduix-dialog-close-icon-color: initial; /* var(--moduix-dialog-muted-color) */
   --moduix-dialog-close-icon-color-hover: initial; /* var(--moduix-dialog-close-icon-color, var(--moduix-dialog-color)) */
   --moduix-dialog-close-icon-focus-ring-color: initial; /* var(--moduix-dialog-focus-ring-color, var(--moduix-color-ring)) */
-  --moduix-dialog-close-icon-glyph-size: initial; /* var(--moduix-spacing-3) */
+  --moduix-dialog-close-icon-glyph-size: initial; /* var(--moduix-spacing-4) */
   --moduix-dialog-close-icon-inset-block-start: initial; /* var(--moduix-spacing-4) */
   --moduix-dialog-close-icon-inset-inline-end: initial; /* var(--moduix-spacing-4) */
   --moduix-dialog-close-icon-radius: initial; /* var(--moduix-radius-md) */
@@ -1077,7 +1077,7 @@
   --moduix-drawer-close-icon-color: initial; /* var(--moduix-drawer-description-color, var(--moduix-color-muted-foreground)) */
   --moduix-drawer-close-icon-color-hover: initial; /* var(--moduix-drawer-color, var(--moduix-color-popover-foreground)) */
   --moduix-drawer-close-icon-focus-ring-color: initial; /* var(--moduix-drawer-focus-ring-color, var(--moduix-color-ring)) */
-  --moduix-drawer-close-icon-glyph-size: initial; /* var(--moduix-spacing-3) */
+  --moduix-drawer-close-icon-glyph-size: initial; /* var(--moduix-spacing-4) */
   --moduix-drawer-close-icon-radius: initial; /* var(--moduix-radius-md) */
   --moduix-drawer-close-icon-size: initial; /* var(--moduix-spacing-7) */
   --moduix-drawer-control-bg: initial; /* var(--moduix-color-background) */
@@ -1200,7 +1200,7 @@
   --moduix-editable-trigger-border-style: initial; /* solid */
   --moduix-editable-trigger-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-editable-trigger-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-editable-trigger-icon-size: initial; /* var(--moduix-spacing-3-5) */
+  --moduix-editable-trigger-icon-size: initial; /* var(--moduix-spacing-4) */
   --moduix-editable-trigger-radius: initial; /* var(--moduix-radius-sm) */
   --moduix-editable-trigger-size: initial; /* var(--moduix-editable-area-height, var(--moduix-size-md)) */
   --moduix-editable-width: initial; /* auto */
@@ -1212,7 +1212,7 @@
   --moduix-file-upload-action-color-hover: initial; /* var(--moduix-color-foreground) */
   --moduix-file-upload-action-icon-size: initial; /* var(--moduix-spacing-4) */
   --moduix-file-upload-action-radius: initial; /* var(--moduix-radius-sm) */
-  --moduix-file-upload-action-size: initial; /* var(--moduix-size-sm) */
+  --moduix-file-upload-action-size: initial; /* var(--moduix-size-xs); text clear trigger: var(--moduix-size-sm) */
   --moduix-file-upload-clear-trigger-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-file-upload-clear-trigger-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-file-upload-clear-trigger-gap: initial; /* var(--moduix-spacing-2) */
@@ -1389,7 +1389,7 @@
   --moduix-floating-panel-footer-justify: initial; /* flex-end */
   --moduix-floating-panel-footer-line-height: initial; /* var(--moduix-line-height-text-xs) */
   --moduix-floating-panel-footer-padding-x: initial; /* var(--moduix-spacing-3) */
-  --moduix-floating-panel-footer-padding-y: initial; /* var(--moduix-spacing-2) */
+  --moduix-floating-panel-footer-padding-y: initial; /* var(--moduix-spacing-1) */
   --moduix-floating-panel-header-bg: initial; /* var(--moduix-color-muted) */
   --moduix-floating-panel-header-border-color: initial; /* var(--moduix-floating-panel-border-color, var(--moduix-color-border)) */
   --moduix-floating-panel-header-border-width: initial; /* var(--moduix-border-width-sm) */
@@ -1640,7 +1640,7 @@
   --moduix-lightbox-close-icon-color: initial; /* var(--moduix-color-foreground) */
   --moduix-lightbox-close-icon-color-hover: initial; /* var(--moduix-color-foreground) */
   --moduix-lightbox-close-icon-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-lightbox-close-icon-glyph-size: initial; /* var(--moduix-spacing-3-5) */
+  --moduix-lightbox-close-icon-glyph-size: initial; /* var(--moduix-spacing-4) */
   --moduix-lightbox-close-icon-inset-block-start: initial; /* var(--moduix-spacing-4) */
   --moduix-lightbox-close-icon-inset-inline-end: initial; /* var(--moduix-spacing-4) */
   --moduix-lightbox-close-icon-radius: initial; /* var(--moduix-radius-sm) */
@@ -2129,7 +2129,7 @@
   --moduix-popover-close-icon-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-popover-close-icon-color-hover: initial; /* var(--moduix-popover-color, var(--moduix-color-popover-foreground)) */
   --moduix-popover-close-icon-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-popover-close-icon-glyph-size: initial; /* var(--moduix-spacing-3-5) */
+  --moduix-popover-close-icon-glyph-size: initial; /* var(--moduix-spacing-4) */
   --moduix-popover-close-icon-offset: initial; /* var(--moduix-spacing-3) */
   --moduix-popover-close-icon-radius: initial; /* var(--moduix-radius-sm) */
   --moduix-popover-close-icon-size: initial; /* var(--moduix-spacing-7) */
@@ -2165,7 +2165,7 @@
   --moduix-popover-title-font-size: initial; /* var(--moduix-text-md) */
   --moduix-popover-title-font-weight: initial; /* var(--moduix-weight-semibold) */
   --moduix-popover-title-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-popover-transition: initial; /* var(--moduix-duration-fast); content animation only — trigger transitions default to var(--moduix-transition-default) */
+  --moduix-popover-transition: initial; /* var(--moduix-duration-fast); content animation only - trigger transitions default to var(--moduix-transition-default) */
   --moduix-popover-width: initial; /* auto */
 
   /* HoverCard */
@@ -2432,18 +2432,18 @@
   --moduix-signature-pad-border-color: initial; /* var(--moduix-color-border) */
   --moduix-signature-pad-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-signature-pad-clear-trigger-bg: initial; /* transparent */
-  --moduix-signature-pad-clear-trigger-bg-hover: initial; /* var(--moduix-color-accent) */
+  --moduix-signature-pad-clear-trigger-bg-hover: initial; /* var(--moduix-color-muted) */
   --moduix-signature-pad-clear-trigger-border-color: initial; /* transparent */
   --moduix-signature-pad-clear-trigger-border-width: initial; /* 0 */
   --moduix-signature-pad-clear-trigger-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-signature-pad-clear-trigger-color-hover: initial; /* var(--moduix-color-foreground) */
   --moduix-signature-pad-clear-trigger-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-signature-pad-clear-trigger-focus-ring-offset: initial; /* var(--moduix-spacing-1) */
-  --moduix-signature-pad-clear-trigger-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
+  --moduix-signature-pad-clear-trigger-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
+  --moduix-signature-pad-clear-trigger-focus-ring-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-signature-pad-clear-trigger-icon-size: initial; /* var(--moduix-spacing-4) */
   --moduix-signature-pad-clear-trigger-offset: initial; /* var(--moduix-spacing-2) */
   --moduix-signature-pad-clear-trigger-radius: initial; /* var(--moduix-radius-sm) */
-  --moduix-signature-pad-clear-trigger-size: initial; /* var(--moduix-size-md) */
+  --moduix-signature-pad-clear-trigger-size: initial; /* var(--moduix-size-xs) */
   --moduix-signature-pad-color: initial; /* var(--moduix-color-foreground) */
   --moduix-signature-pad-control-height: initial; /* var(--moduix-signature-pad-height, 10rem) */
   --moduix-signature-pad-control-min-height: initial; /* var(--moduix-signature-pad-control-height, var(--moduix-signature-pad-height, 10rem)) */
@@ -2872,11 +2872,11 @@
   --moduix-switch-thumb-icon-size: initial; /* 65% */
   --moduix-switch-thumb-radius: initial; /* var(--moduix-radius-full) */
   --moduix-switch-thumb-shadow: initial; /* var(--moduix-shadow-sm) */
-  --moduix-switch-thumb-size-xs: initial; /* var(--moduix-spacing-3) */
-  --moduix-switch-thumb-size-sm: initial; /* var(--moduix-spacing-4) */
-  --moduix-switch-thumb-size-md: initial; /* var(--moduix-spacing-5) */
-  --moduix-switch-thumb-size-lg: initial; /* var(--moduix-size-xs) */
-  --moduix-switch-thumb-size-xl: initial; /* var(--moduix-spacing-7) */
+  --moduix-switch-thumb-size-xs: initial; /* Track height minus twice its padding and border width */
+  --moduix-switch-thumb-size-sm: initial; /* Track height minus twice its padding and border width */
+  --moduix-switch-thumb-size-md: initial; /* Track height minus twice its padding and border width */
+  --moduix-switch-thumb-size-lg: initial; /* Track height minus twice its padding and border width */
+  --moduix-switch-thumb-size-xl: initial; /* Track height minus twice its padding and border width */
   --moduix-switch-thumb-transition: initial; /* var(--moduix-switch-transition, var(--moduix-transition-default)) */
   --moduix-switch-thumb-translate: initial; /* size-dependent control width minus thumb size and borders */
   --moduix-switch-transition: initial; /* var(--moduix-transition-default) */
@@ -2937,7 +2937,7 @@
   --moduix-tag-close-trigger-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-tag-close-trigger-focus-ring-offset: initial; /* 0 */
   --moduix-tag-close-trigger-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
-  --moduix-tag-close-trigger-icon-size: initial; /* var(--moduix-spacing-2-5) */
+  --moduix-tag-close-trigger-icon-size: initial; /* var(--moduix-spacing-3) */
   --moduix-tag-close-trigger-radius: initial; /* var(--moduix-radius-full) */
   --moduix-tag-close-trigger-size: initial; /* var(--moduix-spacing-4) */
   --moduix-tag-transition: initial; /* var(--moduix-transition-default) */
@@ -2950,7 +2950,7 @@
   --moduix-tags-input-clear-trigger-bg-hover: initial; /* var(--moduix-color-muted) */
   --moduix-tags-input-clear-trigger-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-tags-input-clear-trigger-color-hover: initial; /* var(--moduix-color-foreground) */
-  --moduix-tags-input-clear-trigger-icon-size: initial; /* var(--moduix-spacing-3) */
+  --moduix-tags-input-clear-trigger-icon-size: initial; /* var(--moduix-spacing-4) */
   --moduix-tags-input-clear-trigger-radius: initial; /* var(--moduix-radius-sm) */
   --moduix-tags-input-clear-trigger-size: initial; /* var(--moduix-size-xs) */
   --moduix-tags-input-color: initial; /* var(--moduix-input-color, var(--moduix-color-foreground)) */
@@ -3002,7 +3002,7 @@
   --moduix-tags-input-trigger-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-tags-input-trigger-focus-ring-offset: initial; /* var(--moduix-focus-ring-offset) */
   --moduix-tags-input-trigger-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
-  --moduix-tags-input-trigger-icon-size: initial; /* var(--moduix-spacing-2-5) */
+  --moduix-tags-input-trigger-icon-size: initial; /* var(--moduix-spacing-3) */
   --moduix-tags-input-trigger-radius: initial; /* var(--moduix-radius-full) */
   --moduix-tags-input-trigger-size: initial; /* var(--moduix-spacing-4) */
   --moduix-tags-input-width: initial; /* 100% */
@@ -3299,7 +3299,7 @@
   --moduix-toast-close-color-hover: initial; /* var(--moduix-color-foreground) */
   --moduix-toast-close-focus-ring-offset: initial; /* var(--moduix-focus-ring-offset) */
   --moduix-toast-close-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
-  --moduix-toast-close-icon-size: initial; /* var(--moduix-spacing-3) */
+  --moduix-toast-close-icon-size: initial; /* var(--moduix-spacing-4) */
   --moduix-toast-close-offset-right: initial; /* var(--moduix-spacing-2) */
   --moduix-toast-close-offset-top: initial; /* var(--moduix-spacing-2) */
   --moduix-toast-close-radius: initial; /* var(--moduix-radius-sm) */
@@ -3418,7 +3418,7 @@
   --moduix-tour-close-trigger-bg-hover: initial; /* var(--moduix-color-accent) */
   --moduix-tour-close-trigger-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-tour-close-trigger-color-hover: initial; /* var(--moduix-tour-color, var(--moduix-color-popover-foreground)) */
-  --moduix-tour-close-trigger-icon-size: initial; /* var(--moduix-spacing-3) */
+  --moduix-tour-close-trigger-icon-size: initial; /* var(--moduix-spacing-4) */
   --moduix-tour-close-trigger-offset: initial; /* var(--moduix-spacing-4) */
   --moduix-tour-close-trigger-radius: initial; /* var(--moduix-radius-md) */
   --moduix-tour-close-trigger-size: initial; /* var(--moduix-spacing-7) */

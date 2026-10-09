@@ -1,11 +1,16 @@
-import { NumberInput } from '@moduix/solid/number-input';
+import {
+  NumberInput,
+  NumberInputField,
+  NumberInputLabel,
+  NumberInputValueText,
+} from '@moduix/solid/number-input';
 
 export default function ValueTextNumberInputDemo() {
   return (
     <NumberInput defaultValue="42">
-      <NumberInput.Label>Value preview</NumberInput.Label>
-      <NumberInput.Field />
-      <NumberInput.ValueText />
+      <NumberInputLabel>Value preview</NumberInputLabel>
+      <NumberInputField />
+      <NumberInputValueText />
     </NumberInput>
   );
 }

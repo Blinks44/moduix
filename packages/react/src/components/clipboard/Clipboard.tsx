@@ -11,10 +11,10 @@ import { forwardRef } from 'react';
 import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui';
 import styles from './Clipboard.module.css';
 
-const ClipboardRoot = forwardRef<
+const Clipboard = forwardRef<
   ComponentRef<typeof ClipboardPrimitive.Root>,
   ComponentProps<typeof ClipboardPrimitive.Root>
->(function ClipboardRoot({ className, ...props }, ref) {
+>(function Clipboard({ className, ...props }, ref) {
   return (
     <ClipboardPrimitive.Root
       ref={ref}
@@ -140,35 +140,18 @@ const ClipboardValueText = forwardRef<
   );
 });
 
-const ClipboardCopyText = forwardRef<
-  ComponentRef<typeof ClipboardPrimitive.Indicator>,
-  ComponentProps<typeof ClipboardPrimitive.Indicator>
->(function ClipboardCopyText({ className, copied = 'Copied', children = 'Copy', ...props }, ref) {
-  return (
-    <ClipboardPrimitive.Indicator
-      ref={ref}
-      className={clsx(styles.indicator, className)}
-      copied={copied}
-      {...props}
-      data-slot="clipboard-copy-text"
-    >
-      {children}
-    </ClipboardPrimitive.Indicator>
-  );
-});
+const ClipboardContext = ClipboardPrimitive.Context;
 
-const Clipboard = Object.assign(ClipboardRoot, {
-  Root: ClipboardRoot,
-  RootProvider: ClipboardRootProvider,
-  Context: ClipboardPrimitive.Context,
-  Label: ClipboardLabel,
-  Control: ClipboardControl,
-  Input: ClipboardInput,
-  Trigger: ClipboardTrigger,
-  Indicator: ClipboardIndicator,
-  CopyText: ClipboardCopyText,
-  ValueText: ClipboardValueText,
+export {
+  Clipboard,
+  ClipboardContext,
+  ClipboardControl,
+  ClipboardIndicator,
+  ClipboardInput,
+  ClipboardLabel,
+  ClipboardRootProvider,
+  ClipboardTrigger,
+  ClipboardValueText,
   useClipboard,
-});
-
-export { Clipboard, useClipboard, useClipboardContext };
+  useClipboardContext,
+};

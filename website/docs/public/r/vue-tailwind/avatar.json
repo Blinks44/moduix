@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "title": "Avatar",
+  "description": "moduix Vue Tailwind Avatar component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/avatar/Avatar.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AvatarRoot as ArkAvatarRoot } from '@ark-ui/vue/avatar';\nimport type { AvatarRootEmits, AvatarRootProps } from '@ark-ui/vue/avatar';\nimport { cva } from 'class-variance-authority';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ntype AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n\nconst avatarVariants = cva(\n  'relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted align-middle font-medium text-foreground select-none',\n  {\n    variants: {\n      size: {\n        xs: 'size-control-xs text-xs',\n        sm: 'size-control-sm text-sm',\n        md: 'size-control-md text-md',\n        lg: 'size-control-lg text-lg',\n        xl: 'size-control-xl text-lg',\n      },\n    },\n    defaultVariants: {\n      size: 'md',\n    },\n  },\n);\n\nexport interface Props extends /* @vue-ignore */ AvatarRootProps {\n  class?: HTMLAttributes['class'];\n  size?: AvatarSize;\n}\n\nexport interface Emits extends /* @vue-ignore */ AvatarRootEmits {}\n\nconst { class: className, size } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkAvatarRoot\n    :data-size=\"size\"\n    v-bind=\"attrs\"\n    :class=\"cn(avatarVariants({ size }), className)\"\n    data-slot=\"avatar-root\"\n  >\n    <slot />\n  </ArkAvatarRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/avatar/Avatar.vue"
+    },
+    {
+      "path": "src/components/avatar/AvatarRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AvatarRootProvider as ArkAvatarRootProvider } from '@ark-ui/vue/avatar';\nimport type { AvatarRootProviderProps } from '@ark-ui/vue/avatar';\nimport { cva } from 'class-variance-authority';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\ntype AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n\nconst avatarVariants = cva(\n  'relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted align-middle font-medium text-foreground select-none',\n  {\n    variants: {\n      size: {\n        xs: 'size-control-xs text-xs',\n        sm: 'size-control-sm text-sm',\n        md: 'size-control-md text-md',\n        lg: 'size-control-lg text-lg',\n        xl: 'size-control-xl text-lg',\n      },\n    },\n    defaultVariants: {\n      size: 'md',\n    },\n  },\n);\n\nexport interface Props extends /* @vue-ignore */ AvatarRootProviderProps {\n  class?: HTMLAttributes['class'];\n  size?: AvatarSize;\n  value: AvatarRootProviderProps['value'];\n}\n\nconst { class: className, size, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkAvatarRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(avatarVariants({ size }), className)\"\n    :data-size=\"size\"\n    :value=\"value\"\n    data-slot=\"avatar-root-provider\"\n  >\n    <slot />\n  </ArkAvatarRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/avatar/AvatarRootProvider.vue"
+    },
+    {
+      "path": "src/components/avatar/AvatarFallback.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AvatarFallback as ArkAvatarFallback } from '@ark-ui/vue/avatar';\nimport type { AvatarFallbackProps } from '@ark-ui/vue/avatar';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ AvatarFallbackProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkAvatarFallback\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'inline-flex size-full items-center justify-center rounded-[inherit] bg-[inherit] data-[state=hidden]:hidden',\n        className,\n      )\n    \"\n    data-slot=\"avatar-fallback\"\n  >\n    <slot />\n  </ArkAvatarFallback>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/avatar/AvatarFallback.vue"
+    },
+    {
+      "path": "src/components/avatar/AvatarImage.vue",
+      "content": "<script setup lang=\"ts\">\nimport { AvatarImage as ArkAvatarImage } from '@ark-ui/vue/avatar';\nimport type { AvatarImageProps } from '@ark-ui/vue/avatar';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ AvatarImageProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkAvatarImage\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'block size-full rounded-[inherit] object-cover object-center data-[state=hidden]:hidden',\n        className,\n      )\n    \"\n    data-slot=\"avatar-image\"\n  >\n    <slot />\n  </ArkAvatarImage>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/avatar/AvatarImage.vue"
+    },
+    {
+      "path": "src/components/avatar/index.ts",
+      "content": "import { AvatarContext, useAvatar, useAvatarContext } from '@ark-ui/vue/avatar';\nimport Avatar from './Avatar.vue';\nimport AvatarFallback from './AvatarFallback.vue';\nimport AvatarImage from './AvatarImage.vue';\nimport AvatarRootProvider from './AvatarRootProvider.vue';\n\nexport {\n  Avatar,\n  AvatarContext,\n  AvatarFallback,\n  AvatarImage,\n  AvatarRootProvider,\n  useAvatar,\n  useAvatarContext,\n};\n\nexport type {\n  AvatarContextProps,\n  AvatarFallbackProps,\n  AvatarImageProps,\n  AvatarRootEmits,\n  AvatarRootProps,\n  AvatarRootProviderProps,\n  AvatarStatusChangeDetails,\n  UseAvatarContext,\n  UseAvatarProps,\n  UseAvatarReturn,\n} from '@ark-ui/vue/avatar';",
+      "type": "registry:component",
+      "target": "@components/ui/avatar/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

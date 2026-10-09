@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Swap } from '@moduix/react/swap';
+import { Swap, SwapIndicator } from '@moduix/react/swap';
 import { Check as CheckIcon, Download as DownloadIcon } from 'lucide-react';
 import { useState } from 'react';
 
@@ -12,12 +12,12 @@ export default function SwapBasicDemo() {
       onClick={() => setDownloaded((value) => !value)}
     >
       <Swap swap={downloaded}>
-        <Swap.Indicator aria-hidden="true" type="off">
+        <SwapIndicator aria-hidden="true" type="off">
           <DownloadIcon />
-        </Swap.Indicator>
-        <Swap.Indicator aria-hidden="true" type="on">
+        </SwapIndicator>
+        <SwapIndicator aria-hidden="true" type="on">
           <CheckIcon />
-        </Swap.Indicator>
+        </SwapIndicator>
       </Swap>
     </Button>
   );

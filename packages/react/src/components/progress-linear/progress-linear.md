@@ -14,70 +14,76 @@ Reviewed against these sources on 2026-08-12.
 
 ## Upstream model to preserve
 
-The wrapper follows Ark UI's linear `@ark-ui/react/progress` anatomy: `Root`, optional `Label`,
-optional `ValueText`, `Track`, `Range`, `View`, and `RootProvider`.
+The wrapper follows Ark UI's linear `@ark-ui/react/progress` anatomy: `Root`, optional `ProgressLinearLabel`,
+optional `ProgressLinearValueText`, `ProgressLinearTrack`, `ProgressLinearRange`, `ProgressLinearView`, and `ProgressLinearRootProvider`.
 
 Preserve Ark root props, controlled and uncontrolled value behavior, `onValueChange(details)`,
 `translations.value(details)`, `ids`, `asChild`, orientation, state strings, ARIA generated on
-`Track`, and Ark `data-scope` / `data-part` / `data-state` / `data-orientation` attributes.
+`ProgressLinearTrack`, and Ark `data-scope` / `data-part` / `data-state` / `data-orientation` attributes.
 
 ## Current behavior contract
 
-`ProgressLinear` is the same part as `ProgressLinear.Root`. It does not auto-render label, value
+`ProgressLinear` is the styled root component. It does not auto-render label, value
 text, track, or range. Consumers compose the Ark-shaped part tree explicitly.
 
 `defaultValue` sets uncontrolled progress. `value` plus `onValueChange(details)` controls progress.
 `defaultValue={null}` or `value={null}` renders indeterminate progress. `min`, `max`,
 `formatOptions`, `locale`, `translations`, `ids`, and `orientation` pass through to Ark.
 
-`ProgressLinear.RootProvider` is preserved for externally owned Ark progress state. Create that
-state with `ProgressLinear.useProgress()`. `ProgressLinear.Context` and
-`ProgressLinear.useProgressContext()` expose state below a root/provider without a direct Ark
+`ProgressLinearRootProvider` is preserved for externally owned Ark progress state. Create that
+state with `useProgress()`. `ProgressLinearContext` and
+`useProgressContext()` expose state below a root/provider without a direct Ark
 import.
 
 ## Anatomy and exported parts
 
 ```text
-ProgressLinear / ProgressLinear.Root
-├─ ProgressLinear.Label
-├─ ProgressLinear.ValueText
-├─ ProgressLinear.Track
-│  └─ ProgressLinear.Range
-└─ ProgressLinear.View
+ProgressLinear
+├─ ProgressLinearLabel
+├─ ProgressLinearValueText
+├─ ProgressLinearTrack
+│  └─ ProgressLinearRange
+└─ ProgressLinearView
 
-ProgressLinear.RootProvider
-└─ same part tree connected to ProgressLinear.useProgress()
+ProgressLinearRootProvider
+└─ same part tree connected to useProgress()
 ```
 
-- `ProgressLinear` / `ProgressLinear.Root`: `data-slot="progress-linear-root"`; owns Ark state,
+- `ProgressLinear`: `data-slot="progress-linear-root"`; owns Ark state,
   ids, formatting, `data-value`, `data-max`, `data-state`, and `data-orientation`.
-- `ProgressLinear.RootProvider`: `data-slot="progress-linear-root-provider"`; connects parts to
-  an external `ProgressLinear.useProgress()` store.
-- `ProgressLinear.Context`: render-prop access to the current progress state.
-- `ProgressLinear.useProgressContext()`: hook access to state below a root/provider.
-- `ProgressLinear.Label`: `data-slot="progress-linear-label"`; visible label.
-- `ProgressLinear.ValueText`: `data-slot="progress-linear-value-text"`; formatted value text with
+- `ProgressLinearRootProvider`: `data-slot="progress-linear-root-provider"`; connects parts to
+  an external `useProgress()` store.
+- `ProgressLinearContext`: render-prop access to the current progress state.
+- `useProgressContext()`: hook access to state below a root/provider.
+- `ProgressLinearLabel`: `data-slot="progress-linear-label"`; visible label.
+- `ProgressLinearValueText`: `data-slot="progress-linear-value-text"`; formatted value text with
   Ark live-region behavior.
-- `ProgressLinear.Track`: `data-slot="progress-linear-track"`; linear progressbar surface with
+- `ProgressLinearTrack`: `data-slot="progress-linear-track"`; linear progressbar surface with
   role and ARIA value attributes from Ark.
-- `ProgressLinear.Range`: `data-slot="progress-linear-range"`; filled range using Ark inline
+- `ProgressLinearRange`: `data-slot="progress-linear-range"`; filled range using Ark inline
   width or height and `data-state`.
-- `ProgressLinear.View`: `data-slot="progress-linear-view"`; conditional content for Ark progress
+- `ProgressLinearView`: `data-slot="progress-linear-view"`; conditional content for Ark progress
   states.
 
 ## Composition
 
 ```tsx
-import { ProgressLinear } from '@moduix/react/progress-linear';
+import {
+  ProgressLinear,
+  ProgressLinearLabel,
+  ProgressLinearValueText,
+  ProgressLinearTrack,
+  ProgressLinearRange,
+} from '@moduix/react/progress-linear';
 
 export function ExportProgress() {
   return (
     <ProgressLinear defaultValue={24}>
-      <ProgressLinear.Label>Export data</ProgressLinear.Label>
-      <ProgressLinear.ValueText />
-      <ProgressLinear.Track aria-label="Export data">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearLabel>Export data</ProgressLinearLabel>
+      <ProgressLinearValueText />
+      <ProgressLinearTrack aria-label="Export data">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   );
 }
@@ -90,7 +96,7 @@ default `12rem` height does not fit the layout.
 
 The wrapper exposes the linear Ark examples and guide topics: basic progress, `min`/`max`,
 indeterminate progress with `null`, custom `translations.value(details)`, vertical orientation,
-`RootProvider`, and `View`.
+`ProgressLinearRootProvider`, and `ProgressLinearView`.
 
 Circular Ark parts (`Circle`, `CircleTrack`, and `CircleRange`) are intentionally not exported
 here. Use `ProgressCircular` for the SVG progress anatomy.
@@ -98,12 +104,12 @@ here. Use `ProgressCircular` for the SVG progress anatomy.
 ## Accessibility and state
 
 Ark writes `role="progressbar"`, `aria-valuemin`, `aria-valuemax`, `aria-valuenow`, and accessible
-value text to `ProgressLinear.Track`. `ProgressLinear.Label` is visual text; pass `aria-label` or
-`aria-labelledby` to `ProgressLinear.Track` to give the progressbar a task-specific accessible name.
+value text to `ProgressLinearTrack`. `ProgressLinearLabel` is visual text; pass `aria-label` or
+`aria-labelledby` to `ProgressLinearTrack` to give the progressbar a task-specific accessible name.
 
-`ProgressLinear.ValueText` uses Ark formatting and live-region behavior. `translations.value(details)`
+`ProgressLinearValueText` uses Ark formatting and live-region behavior. `translations.value(details)`
 creates `state.valueAsString` but does not replace the default visible percentage. Render that string
-inside `ValueText` through `ProgressLinear.Context` when custom visible wording is needed. Progress is
+inside `ProgressLinearValueText` through `ProgressLinearContext` when custom visible wording is needed. Progress is
 informational and has no keyboard interaction or focus management.
 
 Ark state attributes are preserved: root has `data-scope="progress"`, `data-part="root"`,
@@ -132,7 +138,7 @@ focused while preserving Ark's underlying `Progress` API.
 
 The old Base UI names and props are not preserved: `Progress`, `ProgressRoot`, `ProgressLabel`,
 `ProgressValue`, `ProgressTrack`, `ProgressIndicator`, `format`, and `getAriaValueText` were
-replaced by Ark parts, `formatOptions`, `translations.value(details)`, and `Context` for custom
+replaced by Ark parts, `formatOptions`, `translations.value(details)`, and `ProgressLinearContext` for custom
 visible value text.
 
 ## Release comparison (2026-08-12)
@@ -146,28 +152,29 @@ visible value text.
 ## Agent notes
 
 Do not add hidden structural wrappers for label, value text, track, or range. Do not remap Ark
-callback detail objects or replace `RootProvider` with a local state layer. Keep normal
-state/provider examples on the `ProgressLinear` namespace; direct Ark imports are only an advanced
+callback detail objects or replace `ProgressLinearRootProvider` with a local state layer. Keep normal
+state/provider examples on the flat `ProgressLinear` and `ProgressLinearRootProvider` exports; direct Ark imports are only an advanced
 escape hatch. When changing styling hooks or CSS variables, update docs examples, this file,
 `variables-moduix.css`, and the registry output.
 
 ## Local changelog
 
 - 2026-08-12: Added an indeterminate range color token, corrected the custom value-text examples to
-  use Ark state through `Context`, documented the release comparison, and covered custom bounds plus
+  use Ark state through `ProgressLinearContext`, documented the release comparison, and covered custom bounds plus
   accessible value text in tests.
 - 2026-07-29: Made the default layout safe in narrow containers, centered the vertical track, and
   made horizontal indeterminate motion and value-text alignment RTL-aware. Documented that an
-  accessible task name belongs on `Track`, not the visual label alone.
+  accessible task name belongs on `ProgressLinearTrack`, not the visual label alone.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-12: Exposed `Context`, `useProgress()`, and `useProgressContext()` on the
-  `ProgressLinear` namespace so normal provider/state composition stays on moduix without a
-  duplicate named hook export.
-- 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider`, removed
+- 2026-07-12: Exposed `ProgressLinearContext`, `useProgress()`, and `useProgressContext()` as
+  direct exports so normal provider/state composition stays on moduix without a duplicate named
+  hook export.
+- 2026-07-03: Simplified the public surface to match `Combobox`: kept `ProgressLinearRootProvider`, removed
   moduix re-exports of Ark hooks, context, and duplicate types, and updated docs to point advanced
   state usage to direct Ark imports.
 - 2026-06-26: Audited the Ark migration, aligned local docs to the required structure, added
   documented vertical orientation styling, and removed stale story CSS.
-- Added `ProgressLinear` as an Ark UI linear progress wrapper with RootProvider, Context, hook
-  exports, and `--moduix-progress-linear-*` styling tokens.
+- Added `ProgressLinear` as an Ark UI linear progress wrapper with
+  `ProgressLinearRootProvider`, `ProgressLinearContext`, hook exports, and
+  `--moduix-progress-linear-*` styling tokens.
 - Split progress into dedicated `ProgressLinear` and `ProgressCircular` public components.

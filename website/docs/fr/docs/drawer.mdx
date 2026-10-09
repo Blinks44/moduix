@@ -1,7 +1,7 @@
 ---
 title: Drawer
 component: drawer
-description: Un panneau accessible qui glisse depuis le bord de l'écran pour la navigation, les formulaires, les panneaux bas, les points d'ancrage et les interactions par balayage dans React et Solid.
+description: Un panneau accessible qui glisse depuis le bord de l'écran pour la navigation, les formulaires, les panneaux bas, les points d'ancrage et les interactions par balayage dans React, Solid et Vue.
 ---
 
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
@@ -33,6 +33,20 @@ import drawerSolidRootProvider from '../../../snippets/drawer/solid/root-provide
 import drawerSolidScrollable from '../../../snippets/drawer/solid/scrollable.tsx?raw';
 import drawerSolidSnapPoints from '../../../snippets/drawer/solid/snap-points.tsx?raw';
 import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-direction.tsx?raw';
+import drawerVueAdvancedCustomization from '../../../snippets/drawer/vue/advanced-customization.vue?raw';
+import drawerVueBasic from '../../../snippets/drawer/vue/basic.vue?raw';
+import drawerVueControlled from '../../../snippets/drawer/vue/controlled.vue?raw';
+import drawerVueDragControls from '../../../snippets/drawer/vue/drag-controls.vue?raw';
+import drawerVueFloatingGrabber from '../../../snippets/drawer/vue/floating-grabber.vue?raw';
+import drawerVueIndentBackground from '../../../snippets/drawer/vue/indent-background.vue?raw';
+import drawerVueIsland from '../../../snippets/drawer/vue/island.vue?raw';
+import drawerVueMultipleTriggers from '../../../snippets/drawer/vue/multiple-triggers.vue?raw';
+import drawerVueNested from '../../../snippets/drawer/vue/nested.vue?raw';
+import drawerVueNonModal from '../../../snippets/drawer/vue/non-modal.vue?raw';
+import drawerVueRootProvider from '../../../snippets/drawer/vue/root-provider.vue?raw';
+import drawerVueScrollable from '../../../snippets/drawer/vue/scrollable.vue?raw';
+import drawerVueSnapPoints from '../../../snippets/drawer/vue/snap-points.vue?raw';
+import drawerVueSwipeDirection from '../../../snippets/drawer/vue/swipe-direction.vue?raw';
 
 ## Référence de l’API
 
@@ -49,8 +63,8 @@ centrée qui n'a pas besoin d'être déplacée.
 
 
 Composez le panneau avec les parties structurelles d'Ark. Cet exemple s'ouvre sur un point d'ancrage
-compact, puis peut être déplacé jusqu'à sa hauteur maximale. `Drawer.Content` est la surface
-interactive, `Drawer.Positioner` la positionne et `Drawer.Backdrop` fournit le calque modal.
+compact, puis peut être déplacé jusqu'à sa hauteur maximale. `DrawerContent` est la surface
+interactive, `DrawerPositioner` la positionne et `DrawerBackdrop` fournit le calque modal.
 
 <ExampleFrame variant="component">
   <DrawerBasic />
@@ -63,6 +77,7 @@ interactive, `Drawer.Positioner` la positionne et `Drawer.Backdrop` fournit le c
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -75,6 +90,11 @@ interactive, `Drawer.Positioner` la positionne et `Drawer.Backdrop` fournit le c
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -112,65 +132,76 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/drawer' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/drawer' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-Drawer / Drawer.Root
-├─ Drawer.Trigger
-├─ Drawer.SwipeArea (facultatif)
-├─ Drawer.Backdrop
-└─ Drawer.Positioner
-   └─ Drawer.Content
-      ├─ Drawer.Grabber
-      │  └─ Drawer.GrabberIndicator
-      ├─ Drawer.Header (aide de mise en page facultative)
-      │  ├─ Drawer.Title
-      │  ├─ Drawer.Description
-      │  └─ Drawer.CloseIcon (aide facultative)
-      ├─ Drawer.Body (aide de mise en page facultative)
-      └─ Drawer.Footer (aide de mise en page facultative)
+Drawer
+├─ DrawerTrigger
+├─ DrawerSwipeArea (facultatif)
+├─ DrawerBackdrop
+└─ DrawerPositioner
+   └─ DrawerContent
+      ├─ DrawerGrabber
+      │  └─ DrawerGrabberIndicator
+      ├─ DrawerHeader (aide de mise en page facultative)
+      │  ├─ DrawerTitle
+      │  ├─ DrawerDescription
+      │  └─ DrawerCloseIcon (aide facultative)
+      ├─ DrawerBody (aide de mise en page facultative)
+      └─ DrawerFooter (aide de mise en page facultative)
 
-Drawer.RootProvider
+DrawerRootProvider
 └─ même arborescence de parties connectée à un store useDrawer()
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Drawer` / `Drawer.Root` | Partie racine qui gère l'état d'ouverture, les points d'ancrage et le balayage. |
-| `Drawer.RootProvider` | Connecte les parties à l'état créé avec `useDrawer()`. |
-| `Drawer.Trigger` | Ouvre le panneau. |
-| `Drawer.SwipeArea` | Zone facultative au bord de l'écran qui ouvre le panneau par balayage. |
-| `Drawer.Backdrop` | Calque modal. |
-| `Drawer.Positioner` | Positionne le contenu du panneau. |
-| `Drawer.Content` | Surface interactive du panneau. |
-| `Drawer.Grabber` | Conteneur de la poignée de déplacement. |
-| `Drawer.GrabberIndicator` | Indicateur visuel dans la poignée. |
-| `Drawer.Title` | Nom accessible du panneau. |
-| `Drawer.Description` | Description accessible du panneau. |
-| `Drawer.CloseTrigger` | Ferme le panneau. |
-| `Drawer.CloseIcon` | Contrôle de fermeture moduix composé avec `CloseTrigger`. |
-| `Drawer.Stack` | Coordonne les panneaux imbriqués et les surfaces décalées. |
-| `Drawer.Indent` | Surface qui recule lorsqu'un panneau empilé s'ouvre. |
-| `Drawer.IndentBackground` | Arrière-plan derrière une surface décalée. |
-| `Drawer.Header`, `Drawer.Body`, `Drawer.Footer` | Aides de mise en page facultatives sans état propre. |
+| `Drawer` | Partie racine qui gère l'état d'ouverture, les points d'ancrage et le balayage. |
+| `DrawerRootProvider` | Connecte les parties à l'état créé avec `useDrawer()`. |
+| `DrawerTrigger` | Ouvre le panneau. |
+| `DrawerSwipeArea` | Zone facultative au bord de l'écran qui ouvre le panneau par balayage. |
+| `DrawerBackdrop` | Calque modal. |
+| `DrawerPositioner` | Positionne le contenu du panneau. |
+| `DrawerContent` | Surface interactive du panneau. |
+| `DrawerGrabber` | Conteneur de la poignée de déplacement. |
+| `DrawerGrabberIndicator` | Indicateur visuel dans la poignée. |
+| `DrawerTitle` | Nom accessible du panneau. |
+| `DrawerDescription` | Description accessible du panneau. |
+| `DrawerCloseTrigger` | Ferme le panneau. |
+| `DrawerCloseIcon` | Contrôle de fermeture moduix composé avec `DrawerCloseTrigger`. |
+| `DrawerStack` | Coordonne les panneaux imbriqués et les surfaces décalées. |
+| `DrawerIndent` | Surface qui recule lorsqu'un panneau empilé s'ouvre. |
+| `DrawerIndentBackground` | Arrière-plan derrière une surface décalée. |
+| `DrawerHeader`, `DrawerBody`, `DrawerFooter` | Aides de mise en page facultatives sans état propre. |
 
 ## Composition
 
-Par défaut, `Drawer` gère son état et rend `Backdrop` et `Positioner` dans un portail. Gardez ces
+Par défaut, `Drawer` gère son état et rend `DrawerBackdrop` et `DrawerPositioner` dans un portail. Gardez ces
 parties structurelles explicites. Définissez `portalled={false}` pour les rendre dans l'arborescence
 actuelle, ou transmettez `portalRef` pour utiliser un conteneur personnalisé.
 
 Lorsque l'état doit être créé en dehors de l'arborescence du panneau, créez un store avec
-`useDrawer()` et transmettez-le à un seul `Drawer.RootProvider`. Ne rendez pas `Drawer` ou
-`Drawer.Root` pour ce même store. Les panneaux imbriqués utilisent des stores et des arborescences
-`RootProvider` distincts afin de conserver leur propre état d'ouverture et de focus.
+`useDrawer()` et transmettez-le à un seul `DrawerRootProvider`. Ne rendez pas `Drawer` pour ce même
+store. Les panneaux imbriqués utilisent des stores et des arborescences
+`DrawerRootProvider` distincts afin de conserver leur propre état d'ouverture et de focus.
 
-Regroupez dans `Drawer.Stack` les surfaces qui doivent se déplacer ensemble, puis associez
-`Drawer.IndentBackground` et `Drawer.Indent`. Utilisez `asChild` pour un hôte personnalisé du trigger
-ou de la fermeture : React reçoit un seul enfant pouvant recevoir le focus, tandis que Solid utilise
-une fonction de rendu qui diffuse `props()` sur l'enfant. Les callbacks Ark reçoivent des objets de
+Regroupez dans `DrawerStack` les surfaces qui doivent se déplacer ensemble, puis associez
+`DrawerIndentBackground` et `DrawerIndent`. Utilisez `asChild` pour un hôte personnalisé du trigger
+ou de la fermeture : React reçoit un seul enfant pouvant recevoir le focus, Solid utilise
+une fonction de rendu qui diffuse `props()` sur l'enfant, et Vue utilise l'attribut `as-child`
+avec un seul élément enfant. Les callbacks Ark reçoivent des objets de
 détails, comme `details.open`, `details.snapPoint` et `details.value`.
 
 ## Exemples
@@ -185,7 +216,7 @@ Lisez `details.open` dans le callback Ark. Le callback reçoit un objet de déta
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/controlled.tsx"
@@ -195,6 +226,11 @@ Lisez `details.open` dans le callback Ark. Le callback reçoit un objet de déta
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueControlled} />
 
     </Tab>
   </Tabs>
@@ -209,7 +245,7 @@ Lisez `details.open` dans le callback Ark. Le callback reçoit un objet de déta
 ### Contrôles du déplacement
 
 Ajoutez `data-no-drag` aux zones interactives qui ne doivent pas lancer un déplacement. Définissez
-`draggable={false}` sur `Drawer.Content` si le panneau doit se déplacer uniquement depuis la poignée.
+`draggable={false}` sur `DrawerContent` si le panneau doit se déplacer uniquement depuis la poignée.
 
 <ExampleFrame variant="component">
   <DrawerDragControls />
@@ -217,7 +253,7 @@ Ajoutez `data-no-drag` aux zones interactives qui ne doivent pas lancer un dépl
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/drag-controls.tsx"
@@ -227,6 +263,11 @@ Ajoutez `data-no-drag` aux zones interactives qui ne doivent pas lancer un dépl
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidDragControls} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueDragControls} />
 
     </Tab>
   </Tabs>
@@ -240,7 +281,7 @@ Ajoutez `data-no-drag` aux zones interactives qui ne doivent pas lancer un dépl
 
 ### Poignée flottante
 
-Placez `Drawer.Grabber` au-dessus de la surface lorsque la poignée doit apparaître comme un contrôle
+Placez `DrawerGrabber` au-dessus de la surface lorsque la poignée doit apparaître comme un contrôle
 distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et le bord du panneau.
 
 <ExampleFrame variant="component">
@@ -249,7 +290,7 @@ distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/floating-grabber.tsx"
@@ -259,6 +300,11 @@ distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidFloatingGrabber} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueFloatingGrabber} />
 
     </Tab>
   </Tabs>
@@ -272,8 +318,8 @@ distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et 
 
 ### Arrière-plan décalé
 
-`Drawer.Stack` utilise l'état de la pile et la progression du balayage d'Ark pour déplacer
-`IndentBackground` et `Indent` ensemble.
+`DrawerStack` utilise l'état de la pile et la progression du balayage d'Ark pour déplacer
+`DrawerIndentBackground` et `DrawerIndent` ensemble.
 
 <ExampleFrame variant="component">
   <DrawerIndentBackground />
@@ -281,7 +327,7 @@ distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/indent-background.tsx"
@@ -291,6 +337,11 @@ distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidIndentBackground} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueIndentBackground} />
 
     </Tab>
   </Tabs>
@@ -304,7 +355,7 @@ distinct. Le style de cet exemple laisse un espace de 10px entre la poignée et 
 
 ### Îlot
 
-Définissez `variant="island"` sur `Drawer.Content` lorsqu'un panneau compact doit rester à
+Définissez `variant="island"` sur `DrawerContent` lorsqu'un panneau compact doit rester à
 l'intérieur de la fenêtre avec un retrait, plutôt que de dépasser visuellement du bord d'ouverture.
 
 <ExampleFrame variant="component">
@@ -313,7 +364,7 @@ l'intérieur de la fenêtre avec un retrait, plutôt que de dépasser visuelleme
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/island.tsx"
@@ -323,6 +374,11 @@ l'intérieur de la fenêtre avec un retrait, plutôt que de dépasser visuelleme
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidIsland} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueIsland} />
 
     </Tab>
   </Tabs>
@@ -345,7 +401,7 @@ indique quel trigger est actif.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/multiple-triggers.tsx"
@@ -355,6 +411,11 @@ indique quel trigger est actif.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -368,7 +429,7 @@ indique quel trigger est actif.
 
 ### Panneaux imbriqués
 
-Utilisez des instances Ark `useDrawer` et des arborescences moduix `Drawer.RootProvider` distinctes
+Utilisez des instances Ark `useDrawer` et des arborescences moduix `DrawerRootProvider` distinctes
 pour les panneaux imbriqués. Chaque panneau conserve ainsi son propre état d'ouverture et son cycle
 de vie du focus.
 
@@ -378,7 +439,7 @@ de vie du focus.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/nested.tsx"
@@ -388,6 +449,11 @@ de vie du focus.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidNested} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueNested} />
 
     </Tab>
   </Tabs>
@@ -410,7 +476,7 @@ Cet exemple garde le déplacement sur la poignée et confie le contenu long à `
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/non-modal.tsx"
@@ -420,6 +486,11 @@ Cet exemple garde le déplacement sur la poignée et confie le contenu long à `
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidNonModal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueNonModal} />
 
     </Tab>
   </Tabs>
@@ -442,7 +513,7 @@ doivent l'ouvrir ou modifier ses points d'ancrage.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/root-provider.tsx"
@@ -452,6 +523,11 @@ doivent l'ouvrir ou modifier ses points d'ancrage.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -465,7 +541,7 @@ doivent l'ouvrir ou modifier ses points d'ancrage.
 
 ### Contenu défilant
 
-Placez le contenu long dans `Drawer.Body`. Utilisez `ScrollArea` lorsque le panneau doit disposer
+Placez le contenu long dans `DrawerBody`. Utilisez `ScrollArea` lorsque le panneau doit disposer
 d'une zone de défilement dédiée tandis que la poignée et l'en-tête restent fixes.
 
 <ExampleFrame variant="component">
@@ -474,7 +550,7 @@ d'une zone de défilement dédiée tandis que la poignée et l'en-tête restent 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/scrollable.tsx"
@@ -484,6 +560,11 @@ d'une zone de défilement dédiée tandis que la poignée et l'en-tête restent 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidScrollable} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueScrollable} />
 
     </Tab>
   </Tabs>
@@ -506,7 +587,7 @@ Définissez des positions intermédiaires sur la racine et choisissez la positio
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/snap-points.tsx"
@@ -516,6 +597,11 @@ Définissez des positions intermédiaires sur la racine et choisissez la positio
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidSnapPoints} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueSnapPoints} />
 
     </Tab>
   </Tabs>
@@ -538,7 +624,7 @@ fonctionne en LTR et en RTL. Utilisez `up` pour un panneau supérieur et `down` 
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/swipe-direction.tsx"
@@ -548,6 +634,11 @@ fonctionne en LTR et en RTL. Utilisez `up` pour un panneau supérieur et `down` 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidSwipeDirection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueSwipeDirection} />
 
     </Tab>
   </Tabs>
@@ -561,7 +652,7 @@ fonctionne en LTR et en RTL. Utilisez `up` pour un panneau supérieur et `down` 
 
 ### Personnalisation avancée
 
-Omettez les aides facultatives `Header`, `Body`, `Footer` et `CloseIcon` lorsqu'une mise en page
+Omettez les aides facultatives `DrawerHeader`, `DrawerBody`, `DrawerFooter` et `DrawerCloseIcon` lorsqu'une mise en page
 personnalisée a besoin de toute l'anatomie bas niveau de Drawer.
 
 <ExampleFrame variant="component">
@@ -570,7 +661,7 @@ personnalisée a besoin de toute l'anatomie bas niveau de Drawer.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/drawer/advanced-customization.tsx"
@@ -580,6 +671,11 @@ personnalisée a besoin de toute l'anatomie bas niveau de Drawer.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={drawerSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -593,7 +689,7 @@ personnalisée a besoin de toute l'anatomie bas niveau de Drawer.
 
 ## Styles
 
-Utilisez `className` dans React ou `class` dans Solid sur les parties exportées pour les styles
+Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées pour les styles
 structurels. Pour les styles liés à l'état, préférez les attributs de données d'Ark tels que
 `data-state`, `data-swipe-direction` et `data-dragging`, avec les sélecteurs `data-slot` de moduix.
 Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les
@@ -602,17 +698,7 @@ variables ci-dessous personnalisent les variantes CSS Modules. Les attributs de 
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DrawerDocs.DrawerCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DrawerDocs.drawerOverrideCssProperties} />
 
 ### Points d’accroche CSS
 
@@ -620,7 +706,7 @@ variables ci-dessous personnalisent les variantes CSS Modules. Les attributs de 
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
   `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
   `drawer-indent-background`, `drawer-header`, `drawer-body` et `drawer-footer`.
-- `Drawer.Content` écrit `data-variant="island"` lorsque sa présentation en îlot est active.
+- `DrawerContent` écrit `data-variant="island"` lorsque sa présentation en îlot est active.
 - hooks des parties Ark : `data-scope="drawer"` avec `data-part`.
 - hooks d'état : `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
   `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,

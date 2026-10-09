@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import styles from './Empty.module.css';
 
-const EmptyRoot = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function EmptyRoot(
+const Empty = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Empty(
   { className, ...props },
   ref,
 ) {
@@ -100,13 +100,4 @@ const EmptyActions = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Em
   );
 });
 
-const Empty = Object.assign(EmptyRoot, {
-  Root: EmptyRoot,
-  Icon: EmptyIcon,
-  Content: EmptyContent,
-  Title: EmptyTitle,
-  Description: EmptyDescription,
-  Actions: EmptyActions,
-});
-
-export { Empty };
+export { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle };

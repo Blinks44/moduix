@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Tabs, useTabs } from '@/components/tabs/Tabs';
+import {
+  Tabs,
+  TabsContent,
+  TabsIndicator,
+  TabsList,
+  TabsRootProvider,
+  TabsTrigger,
+  useTabs,
+} from '@/components/tabs/Tabs';
 
 const meta = {
   title: 'Components/Tabs',
@@ -114,18 +122,18 @@ function MapIcon() {
 function TabsStoryContent() {
   return (
     <>
-      <Tabs.List>
+      <TabsList>
         {tabItems.map((item) => (
-          <Tabs.Trigger key={item.value} value={item.value}>
+          <TabsTrigger key={item.value} value={item.value}>
             {item.title}
-          </Tabs.Trigger>
+          </TabsTrigger>
         ))}
-        <Tabs.Indicator />
-      </Tabs.List>
+        <TabsIndicator />
+      </TabsList>
       {tabItems.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
+        <TabsContent key={item.value} value={item.value}>
           <p className={panelTextClassName}>{item.content}</p>
-        </Tabs.Content>
+        </TabsContent>
       ))}
     </>
   );
@@ -174,18 +182,18 @@ export const ManualActivation: Story = {
 export const Indicator: Story = {
   render: () => (
     <Tabs defaultValue="overview" className={demoRootClassName}>
-      <Tabs.List>
+      <TabsList>
         {tabItems.map((item) => (
-          <Tabs.Trigger key={item.value} value={item.value}>
+          <TabsTrigger key={item.value} value={item.value}>
             {item.title}
-          </Tabs.Trigger>
+          </TabsTrigger>
         ))}
-        <Tabs.Indicator />
-      </Tabs.List>
+        <TabsIndicator />
+      </TabsList>
       {tabItems.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
+        <TabsContent key={item.value} value={item.value}>
           <p className={panelTextClassName}>{item.content}</p>
-        </Tabs.Content>
+        </TabsContent>
       ))}
     </Tabs>
   ),
@@ -202,19 +210,19 @@ export const Line: Story = {
 export const Links: Story = {
   render: () => (
     <Tabs defaultValue="overview" className={demoRootClassName}>
-      <Tabs.List>
+      <TabsList>
         {tabItems.map((item) => (
-          <Tabs.Trigger key={item.value} value={item.value} asChild>
+          <TabsTrigger key={item.value} value={item.value} asChild>
             <a href={`#${item.value}`}>{item.title}</a>
-          </Tabs.Trigger>
+          </TabsTrigger>
         ))}
-      </Tabs.List>
+      </TabsList>
       {tabItems.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
+        <TabsContent key={item.value} value={item.value}>
           <p id={item.value} className={panelTextClassName}>
             {item.content}
           </p>
-        </Tabs.Content>
+        </TabsContent>
       ))}
     </Tabs>
   ),
@@ -223,24 +231,24 @@ export const Links: Story = {
 export const WithIcons: Story = {
   render: () => (
     <Tabs defaultValue="overview" className={demoRootClassName}>
-      <Tabs.List>
-        <Tabs.Trigger value="overview">
+      <TabsList>
+        <TabsTrigger value="overview">
           <HandshakeIcon />
           <span>Overview</span>
-        </Tabs.Trigger>
-        <Tabs.Trigger value="projects">
+        </TabsTrigger>
+        <TabsTrigger value="projects">
           <PresentIcon />
           <span>Projects</span>
-        </Tabs.Trigger>
-        <Tabs.Trigger value="account">
+        </TabsTrigger>
+        <TabsTrigger value="account">
           <MapIcon />
           <span>Account</span>
-        </Tabs.Trigger>
-      </Tabs.List>
+        </TabsTrigger>
+      </TabsList>
       {tabItems.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
+        <TabsContent key={item.value} value={item.value}>
           <p className={panelTextClassName}>{item.content}</p>
-        </Tabs.Content>
+        </TabsContent>
       ))}
     </Tabs>
   ),
@@ -249,17 +257,17 @@ export const WithIcons: Story = {
 export const DisabledTab: Story = {
   render: () => (
     <Tabs defaultValue="overview" className={demoRootClassName}>
-      <Tabs.List>
-        <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
-        <Tabs.Trigger value="projects" disabled>
+      <TabsList>
+        <TabsTrigger value="overview">Overview</TabsTrigger>
+        <TabsTrigger value="projects" disabled>
           Projects
-        </Tabs.Trigger>
-        <Tabs.Trigger value="account">Account</Tabs.Trigger>
-      </Tabs.List>
+        </TabsTrigger>
+        <TabsTrigger value="account">Account</TabsTrigger>
+      </TabsList>
       {tabItems.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
+        <TabsContent key={item.value} value={item.value}>
           <p className={panelTextClassName}>{item.content}</p>
-        </Tabs.Content>
+        </TabsContent>
       ))}
     </Tabs>
   ),
@@ -280,9 +288,9 @@ export const RootProvider: Story = {
     return (
       <div className="grid gap-3">
         <output className="text-sm leading-5 text-muted-foreground">selected: {tabs.value}</output>
-        <Tabs.RootProvider value={tabs} className={demoRootClassName}>
+        <TabsRootProvider value={tabs} className={demoRootClassName}>
           <TabsStoryContent />
-        </Tabs.RootProvider>
+        </TabsRootProvider>
       </div>
     );
   },
@@ -293,9 +301,9 @@ export const RootProviderVertical: Story = {
     const tabs = useTabs({ defaultValue: 'overview', orientation: 'vertical' });
 
     return (
-      <Tabs.RootProvider value={tabs} variant="line" className={demoRootClassName}>
+      <TabsRootProvider value={tabs} variant="line" className={demoRootClassName}>
         <TabsStoryContent />
-      </Tabs.RootProvider>
+      </TabsRootProvider>
     );
   },
 };
@@ -306,29 +314,29 @@ export const CustomStyling: Story = {
       defaultValue="name"
       className="w-88 flex-row items-center justify-between gap-4 min-[32rem]:w-128"
     >
-      <Tabs.List className="shrink-0 rounded-none border-0 bg-transparent p-0">
-        <Tabs.Trigger value="name" className="rounded-sm">
+      <TabsList className="shrink-0 rounded-none border-0 bg-transparent p-0">
+        <TabsTrigger value="name" className="rounded-sm">
           Name
-        </Tabs.Trigger>
-        <Tabs.Trigger value="email" className="rounded-sm">
+        </TabsTrigger>
+        <TabsTrigger value="email" className="rounded-sm">
           Email
-        </Tabs.Trigger>
-        <Tabs.Indicator className="top-auto bottom-0 h-0.5 [translate:none] rounded-full bg-foreground" />
-      </Tabs.List>
-      <Tabs.Content value="name" className="min-w-0 flex-1 border-0 bg-transparent p-0">
+        </TabsTrigger>
+        <TabsIndicator className="top-auto bottom-0 h-0.5 [translate:none] rounded-full bg-foreground" />
+      </TabsList>
+      <TabsContent value="name" className="min-w-0 flex-1 border-0 bg-transparent p-0">
         <input
           className="box-border h-9 w-full rounded-sm border border-border bg-background px-2 text-sm text-foreground"
           placeholder="Full name"
           aria-label="Full name"
         />
-      </Tabs.Content>
-      <Tabs.Content value="email" className="min-w-0 flex-1 border-0 bg-transparent p-0">
+      </TabsContent>
+      <TabsContent value="email" className="min-w-0 flex-1 border-0 bg-transparent p-0">
         <input
           className="box-border h-9 w-full rounded-sm border border-border bg-background px-2 text-sm text-foreground"
           placeholder="Email"
           aria-label="Email"
         />
-      </Tabs.Content>
+      </TabsContent>
     </Tabs>
   ),
 };

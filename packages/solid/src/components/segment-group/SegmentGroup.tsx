@@ -5,10 +5,11 @@ import {
   useSegmentGroup as useSegmentGroupPrimitive,
   useSegmentGroupContext,
   useSegmentGroupItemContext,
+  type UseSegmentGroupProps,
 } from '@ark-ui/solid/segment-group';
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
-import { For, splitProps } from 'solid-js';
+import { For, mergeProps, splitProps } from 'solid-js';
 import styles from './SegmentGroup.module.css';
 
 type SegmentGroupMachineProps = NonNullable<Parameters<typeof useSegmentGroupPrimitive>[0]>;
@@ -29,63 +30,52 @@ function useSegmentGroup(props?: SegmentGroupMachineProps) {
   return useSegmentGroupPrimitive(() => {
     const machineProps = typeof props === 'function' ? props() : props;
 
-    return omitUndefined({
-      orientation: 'horizontal',
-      disabled: field?.()?.disabled ?? fieldset?.()?.disabled,
-      invalid: field?.()?.invalid ?? fieldset?.()?.invalid,
-      readOnly: field?.()?.readOnly,
-      required: field?.()?.required,
-      ...omitUndefined(machineProps ?? {}),
-    });
+    return omitUndefined(
+      mergeProps(
+        {
+          orientation: 'horizontal',
+          disabled: field?.()?.disabled ?? fieldset?.()?.disabled,
+          invalid: field?.()?.invalid ?? fieldset?.()?.invalid,
+          readOnly: field?.()?.readOnly,
+          required: field?.()?.required,
+        } satisfies UseSegmentGroupProps,
+        machineProps ?? {},
+      ),
+    );
   });
 }
 
-function SegmentGroupRoot(props: ComponentProps<typeof SegmentGroupPrimitive.Root>) {
+function SegmentGroup(props: ComponentProps<typeof SegmentGroupPrimitive.Root>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
     'class',
-    'defaultValue',
     'disabled',
-    'form',
-    'id',
-    'ids',
     'invalid',
-    'name',
-    'onValueChange',
     'orientation',
     'readOnly',
     'required',
-    'value',
   ]);
 
-  const segmentGroup = useSegmentGroup(() =>
-    omitUndefined({
-      defaultValue: local.defaultValue,
-      disabled: local.disabled,
-      form: local.form,
-      id: local.id,
-      ids: local.ids,
-      invalid: local.invalid,
-      name: local.name,
-      onValueChange: local.onValueChange,
-      orientation: local.orientation ?? 'horizontal',
-      readOnly: local.readOnly,
-      required: local.required,
-      value: local.value,
-    }),
-  );
+  const field = useFieldContext();
+  const fieldset = useFieldsetContext();
 
   return (
-    <SegmentGroupPrimitive.RootProvider
+    <SegmentGroupPrimitive.Root
       asChild={local.asChild}
-      value={segmentGroup}
       class={clsx(styles.root, local.class)}
-      {...others}
+      {...omitUndefined({
+        ...others,
+        orientation: local.orientation ?? 'horizontal',
+        disabled: local.disabled ?? field?.()?.disabled ?? fieldset?.()?.disabled,
+        invalid: local.invalid ?? field?.()?.invalid ?? fieldset?.()?.invalid,
+        readOnly: local.readOnly ?? field?.()?.readOnly,
+        required: local.required ?? field?.()?.required,
+      })}
       data-slot="segment-group-root"
     >
       {local.children}
-    </SegmentGroupPrimitive.RootProvider>
+    </SegmentGroupPrimitive.Root>
   );
 }
 
@@ -185,18 +175,23 @@ function SegmentGroupItems(props: { items: readonly SegmentGroupOption[] }) {
   );
 }
 
-const SegmentGroup = Object.assign(SegmentGroupRoot, {
-  Root: SegmentGroupRoot,
-  RootProvider: SegmentGroupRootProvider,
-  Context: SegmentGroupPrimitive.Context,
-  ItemContext: SegmentGroupPrimitive.ItemContext,
-  Label: SegmentGroupLabel,
-  Item: SegmentGroupItem,
-  ItemHiddenInput: SegmentGroupPrimitive.ItemHiddenInput,
-  ItemControl: SegmentGroupItemControl,
-  ItemText: SegmentGroupItemText,
-  Indicator: SegmentGroupIndicator,
-  Items: SegmentGroupItems,
-});
+const SegmentGroupContext = SegmentGroupPrimitive.Context;
+const SegmentGroupItemContext = SegmentGroupPrimitive.ItemContext;
+const SegmentGroupItemHiddenInput = SegmentGroupPrimitive.ItemHiddenInput;
 
-export { SegmentGroup, useSegmentGroup, useSegmentGroupContext, useSegmentGroupItemContext };
+export {
+  SegmentGroup,
+  SegmentGroupContext,
+  SegmentGroupIndicator,
+  SegmentGroupItem,
+  SegmentGroupItemContext,
+  SegmentGroupItemControl,
+  SegmentGroupItemHiddenInput,
+  SegmentGroupItems,
+  SegmentGroupItemText,
+  SegmentGroupLabel,
+  SegmentGroupRootProvider,
+  useSegmentGroup,
+  useSegmentGroupContext,
+  useSegmentGroupItemContext,
+};

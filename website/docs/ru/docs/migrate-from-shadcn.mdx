@@ -5,6 +5,9 @@ description: "Перенесите приложение с shadcn на moduix п
 
 # Переход с shadcn на moduix
 
+import vueAccordion from '../../../snippets/quick-start/vue-css-modules.vue?raw';
+import vueControlledAccordion from '../../../snippets/migrate-from-shadcn/vue/controlled-accordion.vue?raw';
+
 Если приложение уже использует shadcn, переход на moduix можно выполнять по одному компоненту.
 Пока вы переносите отдельные экраны или семейства компонентов, обе библиотеки могут работать
 рядом.
@@ -19,7 +22,7 @@ description: "Перенесите приложение с shadcn на moduix п
 
 | Способ установки moduix | Подходит, если | Как приходят обновления |
 | --- | --- | --- |
-| npm-пакет | Компоненты должны оставаться зависимостью, а импорты идти из `@moduix/react/*` или `@moduix/solid/*`. | Обновляйте пакет через пакетный менеджер. |
+| npm-пакет | Компоненты должны оставаться зависимостью, а импорты идти из `@moduix/react/*`, `@moduix/solid/*` или `@moduix/vue/*`. | Обновляйте пакет через пакетный менеджер. |
 | Реестр, совместимый с shadcn | Вы хотите хранить исходники в приложении, просматривать их и менять напрямую. | Проверяйте и объединяйте каждое обновление реестра вручную. |
 
 Полная настройка описана в [Быстром старте](/docs/quick-start). Если в проекте уже настроены CLI
@@ -45,6 +48,13 @@ import { Dialog } from '@moduix/solid/dialog';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import { Dialog } from '@moduix/vue/dialog';
+```
+
+  </Tab>
 </Tabs>
 
 При установке с исходниками сначала выполните [настройку CLI shadcn](/docs/quick-start#установить-через-shadcn-cli),
@@ -59,6 +69,11 @@ import { Dialog } from '@moduix/solid/dialog';
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="shadcn@latest add @moduix-solid/dialog" dlx />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-vue/dialog" dlx />
 
   </Tab>
 </Tabs>
@@ -77,34 +92,35 @@ import { Dialog } from '@/components/ui/dialog';
 
 | Знакомое имя shadcn | Используйте в moduix | Что изменить |
 | --- | --- | --- |
-| Accordion | `Accordion` | Используйте именованные части, например `Accordion.Item` и `Accordion.ItemContent`. |
-| Alert Dialog | `Dialog` | Для критического подтверждения укажите `role="alertdialog"` на `Dialog.Content`. |
-| Avatar | `Avatar` | Поместите резервное содержимое и изображение в `Avatar.Fallback` и `Avatar.Image`. |
-| Breadcrumb | `Breadcrumbs` | Название семейства стоит во множественном числе; сохраните семантические ссылки и отметку текущей страницы. |
-| Calendar | `DatePicker` или `DateInput` | Выберите `DatePicker` для календаря, а `DateInput`, если нужны только редактируемые сегменты даты. |
-| Carousel | `Carousel` | Соберите управление, индикаторы и группу элементов из именованных частей. |
-| Collapsible | `Collapsible` | В `onOpenChange(details)` читайте `details.open`, а не принимайте boolean. |
-| Combobox | `Combobox` | Создайте коллекцию Ark и задайте значения элементов, если элементы представлены объектами. |
-| Command | `CommandPalette` | Используйте компонент для команд, а не общий псевдоним списка. |
-| Context Menu | `Menu.ContextTrigger` | Оставьте семейство `Menu` и используйте его контекстный триггер. |
-| Data Table | `Table` и рецепт Data Table | Сортировку, фильтрацию и серверное состояние оставьте в коде приложения. |
-| Date Picker | `DatePicker` | Используйте составное семейство для ввода даты и календаря. |
-| Dropdown Menu | `Menu` | Соберите обычный вариант через `Menu.Trigger`. |
-| Form | `Field` и `Fieldset` | Используйте их для структуры полей, а валидацию и отправку оставьте библиотеке форм или приложению. |
-| Hover Card | `HoverCard` | Проверьте на странице компонента явные части для позиционирования и закрытия. |
-| Input OTP | `PinInput` | Сохраните его настройку для нативных форм и SSR. |
-| Progress | `ProgressLinear` или `ProgressCircular` | Явно выберите нужный вид индикатора. |
-| Resizable | `Splitter` | Задайте панелям стабильные id и храните состояние раскладки явно. |
-| Select | `Select` | Используйте коллекцию Ark, а не произвольный массив объектов option. |
-| Sheet | `Drawer` | Используйте компонент боковой панели с жизненным циклом, согласованным с Dialog. |
-| Sidebar | `Sidebar` | Оставьте структуру продуктовой и адаптивной навигации в приложении. |
-| Sonner / Toast | `Toast` и `Toaster` | Текст уведомлений и момент их показа должны контролироваться приложением. |
-| Tabs | `Tabs` | Соберите то же взаимодействие из именованных составных частей. |
-| Toggle Group | `ToggleGroup` | Используйте значения элементов и состояние группы из контракта Ark. |
-| Tooltip | `Tooltip` | Явно задайте триггер и содержимое, которое рендерится через портал. |
+| Accordion | [`Accordion`](/docs/accordion) | Используйте именованные части, например `AccordionItem` и `AccordionItemContent`. |
+| Alert Dialog | [`Dialog`](/docs/dialog) | Для критического подтверждения укажите `role="alertdialog"` на `Dialog`. |
+| Avatar | [`Avatar`](/docs/avatar) | Поместите резервное содержимое и изображение в `AvatarFallback` и `AvatarImage`. |
+| Breadcrumb | [`Breadcrumbs`](/docs/breadcrumbs) | Название семейства стоит во множественном числе; сохраните семантические ссылки и отметку текущей страницы. |
+| Calendar | [`DatePicker`](/docs/date-picker) или [`DateInput`](/docs/date-input) | Выберите `DatePicker` для календаря, а `DateInput`, если нужны только редактируемые сегменты даты. |
+| Carousel | [`Carousel`](/docs/carousel) | Соберите управление, индикаторы и группу элементов из именованных частей. |
+| Collapsible | [`Collapsible`](/docs/collapsible) | В `onOpenChange(details)` читайте `details.open`, а не принимайте boolean. |
+| Combobox | [`Combobox`](/docs/combobox) | Создайте коллекцию Ark и задайте значения элементов, если элементы представлены объектами. |
+| Command | [`CommandPalette`](/docs/command-palette) | Используйте компонент для команд, а не общий псевдоним списка. |
+| Context Menu | [`MenuContextTrigger`](/docs/menu) | Оставьте семейство `Menu` и используйте его контекстный триггер. |
+| Data Table | [`Table`](/docs/table) и [блок Data Table](/blocks/data-table) | Сортировку, фильтрацию и серверное состояние оставьте в коде приложения. |
+| Date Picker | [`DatePicker`](/docs/date-picker) | Используйте составное семейство для ввода даты и календаря. |
+| Dropdown Menu | [`Menu`](/docs/menu) | Соберите обычный вариант через `MenuTrigger`. |
+| Form | [`Field`](/docs/field) и [`Fieldset`](/docs/fieldset) | Используйте их для структуры полей, а валидацию и отправку оставьте библиотеке форм или приложению. |
+| Hover Card | [`HoverCard`](/docs/hover-card) | Проверьте на странице компонента явные части для позиционирования и закрытия. |
+| Input OTP | [`PinInput`](/docs/pin-input) | Сохраните его настройку для нативных форм и SSR. |
+| Navigation Menu | [`NavigationMenu`](/docs/navigation-menu) | Соберите триггер, содержимое и при необходимости общую область отображения из именованных частей. |
+| Progress | [`ProgressLinear`](/docs/progress-linear) или [`ProgressCircular`](/docs/progress-circular) | Явно выберите нужный вид индикатора. |
+| Resizable | [`Splitter`](/docs/splitter) | Задайте панелям стабильные id и храните состояние раскладки явно. |
+| Select | [`Select`](/docs/select) | Используйте коллекцию Ark, а не произвольный массив объектов option. |
+| Sheet | [`Drawer`](/docs/drawer) | Используйте компонент боковой панели с жизненным циклом, согласованным с Dialog. |
+| Sidebar | [`Sidebar`](/docs/sidebar) | Оставьте структуру продуктовой и адаптивной навигации в приложении. |
+| Sonner / Toast | [`Toast`](/docs/toast) и [`Toaster`](/docs/toast) | Текст уведомлений и момент их показа должны контролироваться приложением. |
+| Tabs | [`Tabs`](/docs/tabs) | Используйте плоские части `TabsList` и `TabsTrigger` для того же взаимодействия. |
+| Toggle Group | [`ToggleGroup`](/docs/toggle-group) | Используйте значения элементов и состояние группы из контракта Ark. |
+| Tooltip | [`Tooltip`](/docs/tooltip) | Явно задайте триггер и содержимое, которое рендерится через портал. |
 
-Для Navigation Menu и Menubar не нужно искать обязательную замену один к одному. Выберите
-`Sidebar`, `Menu`, `Breadcrumbs` или обычные ссылки в зависимости от нужного взаимодействия.
+Отдельного компонента Menubar нет. `Menu` представляет всплывающее меню, а не готовую замену панели меню
+с её клавиатурным управлением. Если оно вам нужно, оставьте существующий Menubar.
 
 ## Адаптируйте импорты
 
@@ -114,63 +130,41 @@ import { Dialog } from '@/components/ui/dialog';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 ```
 
-В moduix всё семейство собрано под одним пространством имён:
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+В moduix все фреймворки используют одинаковые плоские экспорты с префиксом семейства:
 
 ```tsx
-import { Dialog } from '@moduix/react/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/react/accordion';
 
-export function ProjectSettingsDialog() {
+export function FrequentlyAskedQuestions() {
   return (
-    <Dialog>
-      <Dialog.Trigger>Open settings</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion defaultValue={['first']}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+В Solid меняется только путь импорта:
 
 ```tsx
-import { Dialog } from '@moduix/solid/dialog';
-
-export function ProjectSettingsDialog() {
-  return (
-    <Dialog>
-      <Dialog.Trigger>Open settings</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
-  );
-}
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 ```
 
-  </Tab>
-</Tabs>
+Vue использует нативные SFC с `script setup`, свойствами в template и `v-model` для управляемого состояния.
+
+<CodeBlockRuntime lang="vue" code={vueAccordion} />
 
 При установке с исходниками сохраните композицию и замените только путь импорта:
 
 ```tsx
-import { Dialog } from '@/components/ui/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@/components/ui/accordion';
 ```
 
-Явные части `Backdrop`, `Positioner` и `Content` показывают, кто отвечает за портал,
-позиционирование и поверхность диалога. Их можно настраивать независимо.
+Имя семейства обозначает корневой компонент. Каждое дополнительное значение экспортируется отдельно
+с префиксом семейства, без объекта-пространства имён и обращения через точку.
 
 ## Сохраните привычный подход к стилям
 
@@ -191,6 +185,13 @@ import '@moduix/react/style.css';
 
 ```tsx
 import '@moduix/solid/style.css';
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import '@moduix/vue/style.css';
 ```
 
   </Tab>
@@ -221,58 +222,35 @@ React- или Solid-пакет там, где нужный компонент у
 Обработчики Ark получают объект `details`. Доставайте нужное значение из него, а не переносите
 колбэк shadcn, который ожидает позиционный аргумент:
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
 ```tsx
 import { useState } from 'react';
-import { Dialog } from '@moduix/react/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/react/accordion';
 
-export function ControlledDialog() {
-  const [open, setOpen] = useState(false);
+export function ControlledAccordion() {
+  const [value, setValue] = useState<string[]>([]);
 
   return (
-    <Dialog open={open} onOpenChange={(details) => setOpen(details.open)}>
-      <Dialog.Trigger>Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion value={value} onValueChange={(details) => setValue(details.value)}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+В Solid `useState` заменяется на `createSignal` из `solid-js`, значение сигнала читается как `value()`,
+а импорты меняются соответствующим образом:
 
 ```tsx
 import { createSignal } from 'solid-js';
-import { Dialog } from '@moduix/solid/dialog';
-
-export function ControlledDialog() {
-  const [open, setOpen] = createSignal(false);
-
-  return (
-    <Dialog open={open()} onOpenChange={(details) => setOpen(details.open)}>
-      <Dialog.Trigger>Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
-  );
-}
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 ```
 
-  </Tab>
-</Tabs>
+Vue использует нативные SFC с `script setup`, свойствами в template и `v-model` для управляемого состояния.
+
+<CodeBlockRuntime lang="vue" code={vueControlledAccordion} />
 
 Компоненты с коллекциями, например `Combobox` и `Select`, используют явное состояние коллекции
 Ark. Для элементов-объектов задайте через `itemToString` и `itemToValue`, как получить видимый
@@ -284,7 +262,7 @@ Ark. Для элементов-объектов задайте через `itemT
 1. Подключите базовые стили moduix и разместите импорт раньше собственных переопределений.
 2. Начните с компонентов с небольшим числом зависимостей: `Button`, `Badge`, `Avatar` и `Separator`.
 3. Переносите всплывающие и коллекционные компоненты по одному семейству, включая части портала и обработчики состояния.
-4. Используйте [рецепт](/recipes), только если описанный в нём сценарий экрана подходит вашему продукту.
+4. Используйте [блок](/blocks), только если описанный в нём сценарий экрана подходит вашему продукту.
 5. Проверьте клавиатурное управление, возврат фокуса, подписи и важные ARIA-роли, затем удалите старые исходники и стили компонента.
 
 Прикладная логика должна оставаться в приложении. Подписи, сообщения валидации, права доступа,

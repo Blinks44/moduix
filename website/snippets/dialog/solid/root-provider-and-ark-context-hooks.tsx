@@ -1,5 +1,15 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog, useDialog } from '@moduix/solid/dialog';
+import {
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContext,
+  DialogContent,
+  DialogDescription,
+  DialogPositioner,
+  DialogRootProvider,
+  DialogTitle,
+  useDialog,
+} from '@moduix/solid/dialog';
 
 export default function DialogStateDemo() {
   const dialog = useDialog();
@@ -9,20 +19,20 @@ export default function DialogStateDemo() {
       <Button onClick={() => dialog().setOpen(true)}>
         Dialog is {dialog().open ? 'open' : 'closed'}
       </Button>
-      <Dialog.RootProvider value={dialog}>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Status</Dialog.Title>
-            <Dialog.Description>
-              <Dialog.Context>
+      <DialogRootProvider value={dialog}>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Status</DialogTitle>
+            <DialogDescription>
+              <DialogContext>
                 {(dialog) => <>Dialog is {dialog().open ? 'open' : 'closed'}</>}
-              </Dialog.Context>
-            </Dialog.Description>
-            <Dialog.CloseIcon />
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Dialog.RootProvider>
+              </DialogContext>
+            </DialogDescription>
+            <DialogCloseIcon />
+          </DialogContent>
+        </DialogPositioner>
+      </DialogRootProvider>
     </>
   );
 }

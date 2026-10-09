@@ -5,7 +5,7 @@ import type { JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-type ButtonRootProps = HTMLArkProps<'button'> & {
+type ButtonProps = HTMLArkProps<'button'> & {
   loading?: boolean;
   variant?:
     | 'default'
@@ -23,7 +23,7 @@ type ButtonRootProps = HTMLArkProps<'button'> & {
 };
 
 const buttonVariants = cva(
-  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border text-sm font-medium no-underline outline-0 appearance-none transition-[background-color,border-color,color,opacity,transform] duration-200 ease-in-out select-none whitespace-nowrap data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-loading:cursor-progress motion-reduce:transition-none motion-safe:[&:not([data-variant='link']):active]:translate-y-px focus-visible:-outline-offset-1 focus-visible:outline-2 focus-visible:outline-ring [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0",
+  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border text-sm font-medium no-underline outline-0 appearance-none transition-[background-color,border-color,color,opacity,transform,translate] duration-150 ease-in-out select-none whitespace-nowrap data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-loading:cursor-progress motion-reduce:transition-none motion-safe:[&[data-slot='button-root']:not([data-variant='link']):not([aria-haspopup]):active]:translate-y-px focus-visible:-outline-offset-1 focus-visible:outline-2 focus-visible:outline-ring [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -58,12 +58,12 @@ const buttonVariants = cva(
 );
 
 const ArkButton = ark.button as (
-  props: ButtonRootProps & {
+  props: ButtonProps & {
     'oncapture:click'?: (event: MouseEvent) => void;
   },
 ) => JSX.Element;
 
-function ButtonRoot(props: ButtonRootProps) {
+function Button(props: ButtonProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -115,9 +115,5 @@ function ButtonRoot(props: ButtonRootProps) {
     />
   );
 }
-
-const Button = Object.assign(ButtonRoot, {
-  Root: ButtonRoot,
-});
 
 export { Button };

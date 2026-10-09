@@ -8,7 +8,7 @@ import { children, For, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 
-function PaginationRoot(props: ComponentProps<typeof PaginationPrimitive.Root>) {
+function Pagination(props: ComponentProps<typeof PaginationPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -105,7 +105,7 @@ function PaginationPrevTrigger(props: ComponentProps<typeof PaginationPrimitive.
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
         (local.children == null || local.children === false) &&
-          'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
+          'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         local.class,
       )}
       {...others}
@@ -129,7 +129,7 @@ function PaginationNextTrigger(props: ComponentProps<typeof PaginationPrimitive.
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
         (local.children == null || local.children === false) &&
-          'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
+          'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         local.class,
       )}
       {...others}
@@ -153,7 +153,7 @@ function PaginationFirstTrigger(props: ComponentProps<typeof PaginationPrimitive
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
         (local.children == null || local.children === false) &&
-          'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
+          'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         local.class,
       )}
       {...others}
@@ -177,7 +177,7 @@ function PaginationLastTrigger(props: ComponentProps<typeof PaginationPrimitive.
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
         (local.children == null || local.children === false) &&
-          'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
+          'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         local.class,
       )}
       {...others}
@@ -208,34 +208,17 @@ function PaginationItems() {
   );
 }
 
-type PaginationComponent = typeof PaginationRoot & {
-  Root: typeof PaginationRoot;
-  RootProvider: typeof PaginationRootProvider;
-  Item: typeof PaginationItem;
-  Ellipsis: typeof PaginationEllipsis;
-  PrevTrigger: typeof PaginationPrevTrigger;
-  NextTrigger: typeof PaginationNextTrigger;
-  FirstTrigger: typeof PaginationFirstTrigger;
-  LastTrigger: typeof PaginationLastTrigger;
-  Context: typeof PaginationContext;
-  Items: typeof PaginationItems;
-  usePagination: typeof usePagination;
-  usePaginationContext: typeof usePaginationContext;
-};
-
-const Pagination: PaginationComponent = Object.assign(PaginationRoot, {
-  Root: PaginationRoot,
-  RootProvider: PaginationRootProvider,
-  Item: PaginationItem,
-  Ellipsis: PaginationEllipsis,
-  PrevTrigger: PaginationPrevTrigger,
-  NextTrigger: PaginationNextTrigger,
-  FirstTrigger: PaginationFirstTrigger,
-  LastTrigger: PaginationLastTrigger,
-  Context: PaginationContext,
-  Items: PaginationItems,
+export {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationFirstTrigger,
+  PaginationItem,
+  PaginationItems,
+  PaginationLastTrigger,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationRootProvider,
   usePagination,
   usePaginationContext,
-});
-
-export { Pagination, usePagination, usePaginationContext };
+};

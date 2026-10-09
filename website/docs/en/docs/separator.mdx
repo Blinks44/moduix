@@ -1,7 +1,7 @@
 ---
 title: Separator
 component: separator
-description: Separates related content or groups with an accessible horizontal or vertical line.
+description: Build accessible horizontal or vertical separators in React, Solid, or Vue.
 ---
 
 import * as SeparatorDocs from '@/components/examples/separator/css-properties';
@@ -17,6 +17,12 @@ import separatorSolidSizes from '../../../snippets/separator/solid/sizes.tsx?raw
 import separatorSolidVariants from '../../../snippets/separator/solid/variants.tsx?raw';
 import separatorSolidVertical from '../../../snippets/separator/solid/vertical.tsx?raw';
 import separatorSolidAsChild from '../../../snippets/separator/solid/as-child.tsx?raw';
+import separatorVueBasic from '../../../snippets/separator/vue/basic.vue?raw';
+import separatorVueDecorative from '../../../snippets/separator/vue/decorative.vue?raw';
+import separatorVueSizes from '../../../snippets/separator/vue/sizes.vue?raw';
+import separatorVueVariants from '../../../snippets/separator/vue/variants.vue?raw';
+import separatorVueVertical from '../../../snippets/separator/vue/vertical.vue?raw';
+import separatorVueAsChild from '../../../snippets/separator/vue/as-child.vue?raw';
 
 ## API Reference
 
@@ -46,6 +52,7 @@ Use `Separator` to make the boundary between related sections visible. The defau
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -58,6 +65,11 @@ Use `Separator` to make the boundary between related sections visible. The defau
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={separatorSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={separatorVueBasic} />
 
     </Tab>
   </Tabs>
@@ -95,6 +107,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/separator' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/separator' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -102,20 +124,20 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 `Separator` exposes one root part.
 
 ```text
-Separator / Separator.Root
+Separator
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
 ```
 
-| Part                               | Role                                                                       |
-| ---------------------------------- | -------------------------------------------------------------------------- |
-| `Separator` / `Separator.Root` | Root divider element. Sets orientation, accessibility metadata, and style. |
+| Part        | Role                                                                       |
+| ----------- | -------------------------------------------------------------------------- |
+| `Separator` | Root divider element. Sets orientation, accessibility metadata, and style. |
 
 ## Composition
 
 `Separator` is a root-only component, so it does not own state or require a provider. Use
-`<Separator />` for the usual divider; it is the same root as `<Separator.Root />`. When another
-element must host the divider, use `asChild` with one child that accepts the merged role, ARIA,
-`data-*`, class, and ref props. React passes the child element directly, while Solid uses
+`<Separator />` for the usual divider. When another element must host the divider, use `asChild`
+with one child that accepts the merged role, ARIA,
+`data-*`, class, and ref props. React and Vue pass the child element directly, while Solid uses
 `asChild={(props) => <hr {...props()} />}`.
 
 ## Examples
@@ -136,6 +158,7 @@ assistive technology.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -148,6 +171,11 @@ assistive technology.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={separatorSolidDecorative} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={separatorVueDecorative} />
 
     </Tab>
   </Tabs>
@@ -175,6 +203,7 @@ Use `size` to choose the separator thickness, then override it with CSS properti
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -187,6 +216,11 @@ Use `size` to choose the separator thickness, then override it with CSS properti
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={separatorSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={separatorVueSizes} />
 
     </Tab>
   </Tabs>
@@ -214,6 +248,7 @@ Use `variant` to choose a solid, dashed, or dotted line.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -226,6 +261,11 @@ Use `variant` to choose a solid, dashed, or dotted line.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={separatorSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={separatorVueVariants} />
 
     </Tab>
   </Tabs>
@@ -253,6 +293,7 @@ Use `orientation="vertical"` for inline groups such as navigation links.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -265,6 +306,11 @@ Use `orientation="vertical"` for inline groups such as navigation links.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={separatorSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={separatorVueVertical} />
 
     </Tab>
   </Tabs>
@@ -293,6 +339,7 @@ forwarded ref. Otherwise, use `<Separator />` directly.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -307,6 +354,11 @@ forwarded ref. Otherwise, use `<Separator />` directly.
 <CodeBlockRuntime lang="tsx" code={separatorSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={separatorVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -319,7 +371,7 @@ forwarded ref. Otherwise, use `<Separator />` directly.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on the root. Tailwind variants use native utility
+Use `className` in React or `class` in Solid and Vue on the root. Tailwind variants use native utility
 classes and consumer classes; the CSS properties below customize the CSS Modules variants. Data
 attributes and `data-slot` hooks are shared by both styling tracks.
 

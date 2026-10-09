@@ -1,4 +1,4 @@
-import { Badge } from '@moduix/solid/badge';
+import { Badge, BadgeLabel } from '@moduix/solid/badge';
 import styles from '@/components/examples/badge/badge-long-labels.module.css';
 
 const label = 'Ready for stakeholder review after legal approval for production release';
@@ -6,7 +6,7 @@ const label = 'Ready for stakeholder review after legal approval for production 
 export default function BadgeTruncatedDemo() {
   return (
     <Badge class={styles.root} title={label}>
-      <Badge.Label class={styles.label}>{label}</Badge.Label>
+      <BadgeLabel class={styles.label}>{label}</BadgeLabel>
     </Badge>
   );
 }

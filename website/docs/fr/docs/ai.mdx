@@ -35,7 +35,10 @@ Installez uniquement le Skill `moduix` depuis le dépôt :
 
 <PackageManagerTabs command="skills add https://github.com/Blinks44/moduix --skill moduix" dlx />
 
-Exécutez la commande dans le projet où l'agent utilisera moduix. Si l'agent prend en charge l'appel explicite des skills, utilisez `$moduix` pour les tâches moduix.
+Exécutez la commande dans le projet où l'agent utilisera moduix. Si la CLI échoue, installez le skill
+manuellement en copiant `skills/moduix/SKILL.md` depuis le [dépôt moduix](https://github.com/Blinks44/moduix)
+vers le dossier de skills de votre agent. Certains agents permettent d'invoquer un skill explicitement,
+par exemple via son handle `$moduix`.
 
 ## Indiquer comment moduix est intégré
 
@@ -50,8 +53,10 @@ Choisissez le package et le registry qui correspondent au projet :
 | --- | --- | --- |
 | React avec CSS Modules | `@moduix/react/<component>` | `@moduix-react/<name>` |
 | Solid avec CSS Modules | `@moduix/solid/<component>` | `@moduix-solid/<name>` |
+| Vue avec CSS Modules | `@moduix/vue/<component>` | `@moduix-vue/<name>` |
 | React avec Tailwind CSS | `@moduix/react-tailwind/<component>` | `@moduix-react-tailwind/<name>` |
 | Solid avec Tailwind CSS | `@moduix/solid-tailwind/<component>` | `@moduix-solid-tailwind/<name>` |
+| Vue avec Tailwind CSS | `@moduix/vue-tailwind/<component>` | `@moduix-vue-tailwind/<name>` |
 
 Consultez le [Quick Start](./quick-start) pour installer les packages et configurer les registries. Ne demandez pas à l'assistant de copier le code d'un registry dans un projet géré par package sans vouloir changer de modèle de propriété.
 

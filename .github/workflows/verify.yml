@@ -14,46 +14,23 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  format:
-    name: Format
+  format-and-lint:
+    name: Format and lint
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Setup pnpm and Node.js
-        uses: pnpm/setup@v1
+        uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3
         with:
-          runtime: node@24
           cache: true
-          install: false
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          require-lockfile: true
 
       - name: Check formatting
         run: pnpm run fmt:check
-
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup pnpm and Node.js
-        uses: pnpm/setup@v1
-        with:
-          runtime: node@24
-          cache: true
-          install: false
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
 
       - name: Check lint
         run: pnpm run lint:check
@@ -65,17 +42,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Setup pnpm and Node.js
-        uses: pnpm/setup@v1
+        uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3
         with:
-          runtime: node@24
           cache: true
-          install: false
+          require-lockfile: true
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps --only-shell chromium
 
       - name: Run tests
         run: pnpm run test
@@ -87,17 +63,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Setup pnpm and Node.js
-        uses: pnpm/setup@v1
+        uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3
         with:
-          runtime: node@24
           cache: true
-          install: false
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          require-lockfile: true
 
       - name: Check TypeScript
         run: pnpm run tsc:check
@@ -109,29 +81,48 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Setup pnpm and Node.js
-        uses: pnpm/setup@v1
+        uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3
         with:
-          runtime: node@24
           cache: true
-          install: false
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          require-lockfile: true
 
       - name: Build public packages
         run: pnpm run build:packages
-
-      - name: Build docs
-        run: pnpm run build:docs
 
       - name: Build registry
         run: pnpm run build:registry
 
       - name: Check generated registry
-        run: git diff --exit-code -- website/docs/public/r
+        run: |
+          if [ -n "$(git status --porcelain -- website/docs/public/r)" ]; then
+            git status --short -- website/docs/public/r
+            echo "::error::Regenerate and commit registry artifacts."
+            exit 1
+          fi
+
+      - name: Build docs
+        run: pnpm run build:docs
 
       - name: Check public package contracts
         run: pnpm run check:packages
+
+  storybook:
+    name: Storybook smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Setup pnpm and Node.js
+        uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3
+        with:
+          cache: true
+          require-lockfile: true
+
+      - name: Build shipped playground storybooks
+        run: pnpm --filter './playgrounds/*' run build:storybook

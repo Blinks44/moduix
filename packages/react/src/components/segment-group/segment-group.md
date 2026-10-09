@@ -14,18 +14,19 @@ visual.
 
 The component follows Ark UI React `@ark-ui/react/segment-group`, which is backed by Zag
 `radio-group` behavior for segmented controls. Keep the Ark anatomy, single-value state, callback
-detail objects, `RootProvider`, `asChild` behavior, measured `Indicator`, and native form input
-integration intact. `Items` includes each input; direct item composition is explicit.
+detail objects, `SegmentGroupRootProvider`, `asChild` behavior, measured `SegmentGroupIndicator`,
+and native form input integration intact. `SegmentGroupItems` includes each input; direct item
+composition is explicit.
 
 ### Release review sources
 
 Reviewed on 2026-08-12:
 
 - Ark UI: https://ark-ui.com/docs/components/segment-group - required correctness: radio-group
-  semantics, roving focus, arrow-key selection, `RootProvider`, measured indicator, and native
+  semantics, roving focus, arrow-key selection, `SegmentGroupRootProvider`, measured indicator, and native
   input lifecycle.
 - Chakra UI: https://chakra-ui.com/docs/components/segmented-control - consumer ergonomics:
-  `Items` is the appropriate concise path for standard item lists.
+  `SegmentGroupItems` is the appropriate concise path for standard item lists.
 - shadcn/ui: https://ui.shadcn.com/docs/components/base/toggle-group - consumer expectation:
   keep the default composition concise and make orientation and disabled states discoverable.
 
@@ -35,45 +36,46 @@ surface without improving correctness or composability for this component.
 
 ## Current behavior contract
 
-`SegmentGroup` is the short root form and is equivalent to `SegmentGroup.Root`. The public parts
-are thin Ark wrappers that add moduix CSS Modules and stable `data-slot` values. `SegmentGroup.Items`
-is a fixed convenience renderer for standard `{ value, label, disabled? }` segment lists.
+`SegmentGroup` is the root component. The public parts are thin Ark wrappers that add moduix CSS
+Modules and stable `data-slot` values. `SegmentGroupItems` is a fixed convenience renderer for
+standard `{ value, label, disabled? }` segment lists.
 
-`SegmentGroup.Root` forwards Ark props such as `value`, `defaultValue`,
+`SegmentGroup` forwards Ark props such as `value`, `defaultValue`,
 `onValueChange(details)`, `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`,
 `required`, `ids`, and `asChild`. Consumers should read `details.value`; do not unpack or remap
 the callback in the wrapper.
 
-moduix defaults `orientation` to `horizontal` on `SegmentGroup.Root`. Explicit
+moduix defaults `orientation` to `horizontal` on `SegmentGroup`. Explicit
 `orientation="vertical"` still preserves Ark vertical keyboard navigation and layout.
 
 ## Anatomy and exported parts
 
 ```tsx
-<SegmentGroup.Root>
-  <SegmentGroup.Indicator />
-  <SegmentGroup.Item>
-    <SegmentGroup.ItemText />
-    <SegmentGroup.ItemControl />
-  </SegmentGroup.Item>
-</SegmentGroup.Root>
+<SegmentGroup>
+  <SegmentGroupIndicator />
+  <SegmentGroupItem>
+    <SegmentGroupItemText />
+    <SegmentGroupItemControl />
+  </SegmentGroupItem>
+</SegmentGroup>
 ```
 
-| Part                        | `data-slot`                   | Notes                                      |
-| --------------------------- | ----------------------------- | ------------------------------------------ |
-| `SegmentGroup` / `Root`     | `segment-group-root`          | Ark root, value state, orientation, forms. |
-| `SegmentGroup.RootProvider` | `segment-group-root-provider` | Uses state from `useSegmentGroup`.         |
-| `SegmentGroup.Context`      | -                             | Advanced render-prop access to root state. |
-| `SegmentGroup.ItemContext`  | -                             | Advanced render-prop access to item state. |
-| `SegmentGroup.Label`        | `segment-group-label`         | Optional Ark group label.                  |
-| `SegmentGroup.Items`        | -                             | Renders standard text items.               |
-| `SegmentGroup.Item`         | `segment-group-item`          | Ark item, renders a `label` by default.    |
-| `SegmentGroup.ItemControl`  | `segment-group-item-control`  | Hidden visual control part for Ark state.  |
-| `SegmentGroup.ItemText`     | `segment-group-item-text`     | Visible item text.                         |
-| `SegmentGroup.Indicator`    | `segment-group-indicator`     | Measured active-item highlight.            |
+| Part                          | `data-slot`                   | Notes                                       |
+| ----------------------------- | ----------------------------- | ------------------------------------------- |
+| `SegmentGroup`                | `segment-group-root`          | Ark root, value state, orientation, forms.  |
+| `SegmentGroupRootProvider`    | `segment-group-root-provider` | Uses state from `useSegmentGroup`.          |
+| `SegmentGroupContext`         | -                             | Advanced render-prop access to root state.  |
+| `SegmentGroupItemContext`     | -                             | Advanced render-prop access to item state.  |
+| `SegmentGroupLabel`           | `segment-group-label`         | Optional Ark group label.                   |
+| `SegmentGroupItems`           | -                             | Renders standard text items.                |
+| `SegmentGroupItem`            | `segment-group-item`          | Ark item, renders a `label` by default.     |
+| `SegmentGroupItemControl`     | `segment-group-item-control`  | Hidden visual control part for Ark state.   |
+| `SegmentGroupItemText`        | `segment-group-item-text`     | Visible item text.                          |
+| `SegmentGroupItemHiddenInput` | -                             | Native input for form submission and reset. |
+| `SegmentGroupIndicator`       | `segment-group-indicator`     | Measured active-item highlight.             |
 
 Import `useSegmentGroup`, `useSegmentGroupContext`, and `useSegmentGroupItemContext` from
-`@moduix/react` when an advanced state workflow needs `RootProvider` or current Ark state.
+`@moduix/react` when an advanced state workflow needs `SegmentGroupRootProvider` or current Ark state.
 
 ## Composition
 
@@ -92,27 +94,29 @@ const frameworks = [
 export function SegmentGroupDemo() {
   return (
     <SegmentGroup aria-label="Framework" defaultValue="React">
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={frameworks} />
+      <SegmentGroupIndicator />
+      <SegmentGroupItems items={frameworks} />
     </SegmentGroup>
   );
 }
 ```
 
-Use `SegmentGroup.RootProvider` with moduix `useSegmentGroup` when state must be controlled from
-outside the rendered tree. Do not render `Root` and `RootProvider` for the same state instance.
-`ItemHiddenInput` is public and explicit for direct item composition. `SegmentGroup.Items` includes it
-in its fixed convenience tree.
+Use `SegmentGroupRootProvider` with moduix `useSegmentGroup` when state must be controlled from
+outside the rendered tree. Do not render `SegmentGroup` and `SegmentGroupRootProvider` for the same
+state instance. `SegmentGroupItemHiddenInput` is public and explicit for direct item composition.
+`SegmentGroupItems` includes it in its fixed convenience tree.
 
 ## Upstream feature coverage
 
 - Basic, controlled, root provider, disabled item, vertical orientation, indicator, programmatic
   value control, form usage, and focus control are supported through the same Ark parts and props.
-- `asChild` is supported on Ark parts. `SegmentGroup.Item` renders a `label` by default; when
+- `asChild` is supported on Ark parts. `SegmentGroupItem` renders a `label` by default; when
   `asChild` is used, the direct child must still be a semantic `label`.
-- `Items` includes a native input for every item; direct `Item` composition requires `ItemHiddenInput`.
-- `ids` is forwarded from `Root`/`RootProvider` for explicit accessibility composition.
-- `Indicator` preserves Ark CSS variables: `--left`, `--top`, `--width`, and `--height`.
+- `SegmentGroupItems` includes a native input for every item; direct `SegmentGroupItem` composition
+  requires `SegmentGroupItemHiddenInput`.
+- `ids` is forwarded from `SegmentGroup` and `SegmentGroupRootProvider` for explicit accessibility
+  composition.
+- `SegmentGroupIndicator` preserves Ark CSS variables: `--left`, `--top`, `--width`, and `--height`.
 - `Field` state propagates through Ark for `disabled`, `invalid`, `required`, and `readOnly`.
   `Fieldset` provides shared `disabled` and `invalid` state.
 
@@ -124,15 +128,16 @@ Preserve Ark data attributes such as `data-scope="segment-group"`, `data-part`, 
 `data-orientation`, `data-disabled`, `data-invalid`, `data-required`, `data-active`, and
 `data-focus-visible`.
 
-`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText`, and `Indicator` forward refs
-to their public Ark DOM parts. The native input is not a separate public ref target.
+`SegmentGroup`, `SegmentGroupRootProvider`, `SegmentGroupLabel`, `SegmentGroupItem`,
+`SegmentGroupItemControl`, `SegmentGroupItemText`, and `SegmentGroupIndicator` forward refs to their
+public Ark DOM parts. The native input is not a separate public ref target.
 
-`SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext`, and
+`SegmentGroupContext`, `SegmentGroupItemContext`, `useSegmentGroupContext`, and
 `useSegmentGroupItemContext` are exported from `@moduix/react` for advanced state-driven markup.
 
 ## Defaults and styling
 
-The CSS uses Ark state attributes, Ark measurement variables on `Indicator`, and public
+The CSS uses Ark state attributes, Ark measurement variables on `SegmentGroupIndicator`, and public
 `--moduix-segment-group-*` variables. Public selectors should target the exported part class,
 `data-slot`, or Ark attributes.
 
@@ -146,16 +151,19 @@ The indicator keeps Ark in charge of measurement and transition lifecycle. Custo
 `--transition-duration` and `--transition-timing-function` runtime variables.
 
 The root lays items out horizontally by default at both the component and hook level. Set
-`orientation="vertical"` for vertical arrow navigation and vertical layout. `ItemControl` is
+`orientation="vertical"` for vertical arrow navigation and vertical layout. `SegmentGroupItemControl` is
 rendered but visually hidden because the segmented-control affordance comes from the active
-`Indicator` and checked item text color.
+`SegmentGroupIndicator` and checked item text color.
 
 ## Intentional sugar and differences from upstream
 
-- The short root export `<SegmentGroup>` is equivalent to `<SegmentGroup.Root>`.
+- The family root export `<SegmentGroup>` is the styled Ark root.
 - The wrapper adds only moduix styling defaults and `data-slot` hooks.
-- `SegmentGroup.Items` renders the fixed standard item tree: `Item`, `ItemText`, `ItemControl`, and `ItemHiddenInput`. Use `Item` directly with an explicit `ItemHiddenInput` for custom markup or per-item styling.
-- `useSegmentGroup` is re-exported from moduix for the documented `RootProvider` workflow.
+- `SegmentGroupItems` renders the fixed standard item tree: `SegmentGroupItem`,
+  `SegmentGroupItemText`, `SegmentGroupItemControl`, and `SegmentGroupItemHiddenInput`. Use
+  `SegmentGroupItem` directly with an explicit `SegmentGroupItemHiddenInput` for custom markup or
+  per-item styling.
+- `useSegmentGroup` is re-exported from moduix for the documented `SegmentGroupRootProvider` workflow.
 - Horizontal orientation is a moduix default because this component is visually a segmented
   control. Ark/Zag behavior remains available through explicit `orientation`.
 - No local `size`, `variant`, callback alias, or selection state layer is added.
@@ -163,14 +171,14 @@ rendered but visually hidden because the segmented-control affordance comes from
 ## Agent notes
 
 - Keep behavior delegated to Ark. Do not add local selection state or callback remapping.
-- Keep `RootProvider`, context parts, and moduix hook exports aligned.
-- Keep examples with `SegmentGroup.Indicator` before items when the active highlight should render.
+- Keep `SegmentGroupRootProvider`, context parts, and moduix hook exports aligned.
+- Keep examples with `SegmentGroupIndicator` before items when the active highlight should render.
 - When changing public slots or variables, sync stories, local docs, app docs, registry metadata,
   and generated registry output in the same task.
 
 ## Local changelog
 
-- 2026-09-04: Exposed Ark `ItemHiddenInput`; custom item trees now compose it explicitly.
+- 2026-09-04: Exposed Ark `SegmentGroupItemHiddenInput`; custom item trees now compose it explicitly.
 - 2026-08-12: Prevented root and item disabled opacity from compounding, expanded regression
   coverage for native radio semantics, wrapper refs, disabled state, and read-only native
   inputs, and re-checked Ark, Chakra, and shadcn guidance.
@@ -181,9 +189,9 @@ rendered but visually hidden because the segmented-control affordance comes from
 - 2026-07-30: Clarified the native-input contract, Field/Fieldset integration, and the
   moduix-owned context exports.
 
-- 2026-07-11: Added `SegmentGroup.Items` for standard segment lists and re-exported
-  `useSegmentGroup` for the documented `RootProvider` workflow.
-- 2026-07-03: Removed duplicate Ark type aliases from the moduix surface. `RootProvider`, context
+- 2026-07-11: Added `SegmentGroupItems` for standard segment lists and re-exported
+  `useSegmentGroup` for the documented `SegmentGroupRootProvider` workflow.
+- 2026-07-03: Removed duplicate Ark type aliases from the moduix surface. `SegmentGroupRootProvider`, context
   parts, and state hooks remain available for Ark-shaped advanced composition.
 - 2026-06-22: Added Ark UI `segment-group` wrapper with namespace parts, provider/context hooks,
   CSS Modules styling, local documentation, docs examples, and registry metadata.

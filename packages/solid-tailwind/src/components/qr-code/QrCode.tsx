@@ -3,7 +3,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-function QrCodeRoot(props: ComponentProps<typeof QrCodePrimitive.Root>) {
+function QrCode(props: ComponentProps<typeof QrCodePrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -92,7 +92,7 @@ function QrCodeDownloadTrigger(props: ComponentProps<typeof QrCodePrimitive.Down
     <QrCodePrimitive.DownloadTrigger
       asChild={local.asChild}
       class={cn(
-        'box-border inline-flex min-h-control-md cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm font-medium whitespace-nowrap text-foreground transition-[border-color,background-color,color,opacity,box-shadow,transform] duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled):not([data-disabled])]:opacity-[0.94] motion-safe:[&:active:not(:disabled):not([data-disabled])]:translate-y-px motion-safe:[&:active:not(:disabled):not([data-disabled])]:scale-[0.985] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent',
+        'box-border inline-flex min-h-control-md cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm font-medium whitespace-nowrap text-foreground transition-[border-color,background-color,color,opacity,box-shadow] duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled):not([data-disabled])]:opacity-[0.94] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent',
         local.class,
       )}
       {...others}
@@ -103,24 +103,16 @@ function QrCodeDownloadTrigger(props: ComponentProps<typeof QrCodePrimitive.Down
   );
 }
 
-type QrCodeComponent = typeof QrCodeRoot & {
-  Root: typeof QrCodeRoot;
-  RootProvider: typeof QrCodeRootProvider;
-  Context: typeof QrCodePrimitive.Context;
-  Frame: typeof QrCodeFrame;
-  Pattern: typeof QrCodePattern;
-  Overlay: typeof QrCodeOverlay;
-  DownloadTrigger: typeof QrCodeDownloadTrigger;
+const QrCodeContext = QrCodePrimitive.Context;
+
+export {
+  QrCode,
+  QrCodeContext,
+  QrCodeDownloadTrigger,
+  QrCodeFrame,
+  QrCodeOverlay,
+  QrCodePattern,
+  QrCodeRootProvider,
+  useQrCode,
+  useQrCodeContext,
 };
-
-const QrCode: QrCodeComponent = Object.assign(QrCodeRoot, {
-  Root: QrCodeRoot,
-  RootProvider: QrCodeRootProvider,
-  Context: QrCodePrimitive.Context,
-  Frame: QrCodeFrame,
-  Pattern: QrCodePattern,
-  Overlay: QrCodeOverlay,
-  DownloadTrigger: QrCodeDownloadTrigger,
-});
-
-export { QrCode, useQrCode, useQrCodeContext };

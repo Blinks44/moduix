@@ -1,24 +1,35 @@
 import { Button } from '@moduix/solid/button';
-import { Popover } from '@moduix/solid/popover';
+import {
+  Popover,
+  PopoverArrow,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@moduix/solid/popover';
 
 export default function PopoverWithArrowDemo() {
   return (
     <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild={(props) => <Button {...props()}>Open with arrow</Button>} />
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Arrow />
-          <Popover.Header>
-            <Popover.Title>With arrow</Popover.Title>
-            <Popover.Description>
+      <PopoverTrigger asChild={(props) => <Button {...props()}>Open with arrow</Button>} />
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverArrow />
+          <PopoverHeader>
+            <PopoverTitle>With arrow</PopoverTitle>
+            <PopoverDescription>
               Arrow and ArrowTip use Ark positioning variables.
-            </Popover.Description>
-          </Popover.Header>
-          <Popover.Footer>
-            <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-          </Popover.Footer>
-        </Popover.Content>
-      </Popover.Positioner>
+            </PopoverDescription>
+          </PopoverHeader>
+          <PopoverFooter>
+            <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+          </PopoverFooter>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

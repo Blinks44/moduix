@@ -1,5 +1,6 @@
 'use client';
 
+import { Portal } from '@ark-ui/react/portal';
 import {
   Toast as ToastPrimitive,
   Toaster as ToasterPrimitive,
@@ -10,11 +11,7 @@ import type { ToastOptions } from '@ark-ui/react/toast';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
-import {
-  OverlayPortal,
-  OverlayPortalProvider,
-  type OverlayPortalProps,
-} from '@/lib/moduix/overlayPortal';
+import type { OverlayPortalProps } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 
 const DEFAULT_CLOSE_TRIGGER_LABEL = 'Close toast';
@@ -24,13 +21,10 @@ type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
     children?: ComponentProps<typeof ToasterPrimitive>['children'];
   };
 
-const Toaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(function Toaster(
-  { className, portalled, portalRef, ...props },
-  ref,
-) {
-  return (
-    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <OverlayPortal>
+const ToastToaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(
+  function ToastToaster({ className, portalled = true, portalRef, ...props }, ref) {
+    return (
+      <Portal disabled={!portalled} container={portalRef}>
         <ToasterPrimitive
           ref={ref}
           className={cn('max-[40rem]:w-full', className)}
@@ -39,26 +33,26 @@ const Toaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(
         >
           {props.children ?? ((toast) => <DefaultToast toast={toast} />)}
         </ToasterPrimitive>
-      </OverlayPortal>
-    </OverlayPortalProvider>
-  );
-});
+      </Portal>
+    );
+  },
+);
 
 function DefaultToast({ toast }: { toast: ToastOptions }) {
   return (
-    <ToastRoot key={toast.id}>
+    <Toast key={toast.id}>
       {toast.title != null ? <ToastTitle /> : null}
       {toast.description != null ? <ToastDescription /> : null}
       {toast.action ? <ToastActionTrigger>{toast.action.label}</ToastActionTrigger> : null}
       {toast.closable !== false ? <ToastCloseTrigger /> : null}
-    </ToastRoot>
+    </Toast>
   );
 }
 
-const ToastRoot = forwardRef<
+const Toast = forwardRef<
   ComponentRef<typeof ToastPrimitive.Root>,
   ComponentProps<typeof ToastPrimitive.Root>
->(function ToastRoot({ className, ...props }, ref) {
+>(function Toast({ className, ...props }, ref) {
   return (
     <ToastPrimitive.Root
       ref={ref}
@@ -156,7 +150,7 @@ const ToastCloseTrigger = forwardRef<
 
   return (
     <ToastPrimitive.CloseTrigger asChild>
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         aria-label={ariaLabel}
         className={cn('absolute end-2 top-2', className)}
@@ -164,19 +158,21 @@ const ToastCloseTrigger = forwardRef<
         data-slot="toast-close-trigger"
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     </ToastPrimitive.CloseTrigger>
   );
 });
 
-const Toast = Object.assign(ToastRoot, {
-  Root: ToastRoot,
-  Context: ToastPrimitive.Context,
-  Title: ToastTitle,
-  Description: ToastDescription,
-  ActionTrigger: ToastActionTrigger,
-  CloseTrigger: ToastCloseTrigger,
-  Toaster,
-});
+const ToastContext = ToastPrimitive.Context;
 
-export { Toast, Toaster, createToaster, useToastContext };
+export {
+  Toast,
+  ToastActionTrigger,
+  ToastCloseTrigger,
+  ToastContext,
+  ToastDescription,
+  ToastTitle,
+  ToastToaster,
+  createToaster,
+  useToastContext,
+};

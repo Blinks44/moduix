@@ -1,6 +1,13 @@
 import { createMemo, createSignal, type JSX } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Avatar, useAvatar, useAvatarContext } from '@/components/avatar/Avatar';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  AvatarRootProvider,
+  useAvatar,
+  useAvatarContext,
+} from '@/components/avatar/Avatar';
 
 const meta = {
   title: 'Components/Avatar',
@@ -47,8 +54,8 @@ function StatusChangeAvatar() {
   return (
     <div class="inline-flex items-center gap-3">
       <Avatar onStatusChange={(details) => setStatus(details.status)}>
-        <Avatar.Fallback>AT</Avatar.Fallback>
-        <Avatar.Image src={imageUrl} alt="Alex T." />
+        <AvatarFallback>AT</AvatarFallback>
+        <AvatarImage src={imageUrl} alt="Alex T." />
       </Avatar>
       <span class="text-sm text-muted-foreground">status: {status()}</span>
     </div>
@@ -64,10 +71,10 @@ function RootProviderAvatar() {
       <button type="button" onClick={() => setCount((value) => value + 1)}>
         Change avatar
       </button>
-      <Avatar.RootProvider value={avatar}>
-        <Avatar.Fallback>AT</Avatar.Fallback>
-        <Avatar.Image src={`${imageUrl}&seed=${count()}`} alt="Alex T." />
-      </Avatar.RootProvider>
+      <AvatarRootProvider value={avatar}>
+        <AvatarFallback>AT</AvatarFallback>
+        <AvatarImage src={`${imageUrl}&seed=${count()}`} alt="Alex T." />
+      </AvatarRootProvider>
     </div>
   );
 }
@@ -99,8 +106,8 @@ function ComputerIcon(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
 export const Basic: Story = {
   render: () => (
     <Avatar>
-      <Avatar.Fallback>AT</Avatar.Fallback>
-      <Avatar.Image src={imageUrl} alt="Alex T." />
+      <AvatarFallback>AT</AvatarFallback>
+      <AvatarImage src={imageUrl} alt="Alex T." />
     </Avatar>
   ),
 };
@@ -109,19 +116,19 @@ export const FallbackOnly: Story = {
   render: () => (
     <div class="flex items-center gap-4">
       <Avatar size="xs">
-        <Avatar.Fallback>XS</Avatar.Fallback>
+        <AvatarFallback>XS</AvatarFallback>
       </Avatar>
       <Avatar size="sm">
-        <Avatar.Fallback>SM</Avatar.Fallback>
+        <AvatarFallback>SM</AvatarFallback>
       </Avatar>
       <Avatar>
-        <Avatar.Fallback>MD</Avatar.Fallback>
+        <AvatarFallback>MD</AvatarFallback>
       </Avatar>
       <Avatar size="lg">
-        <Avatar.Fallback>LG</Avatar.Fallback>
+        <AvatarFallback>LG</AvatarFallback>
       </Avatar>
       <Avatar size="xl">
-        <Avatar.Fallback>XL</Avatar.Fallback>
+        <AvatarFallback>XL</AvatarFallback>
       </Avatar>
     </div>
   ),
@@ -132,8 +139,8 @@ export const AsChildComposition: Story = {
     <Avatar
       asChild={(props) => (
         <a {...props()} href="mailto:alex@example.com" aria-label="Email Alex T.">
-          <Avatar.Fallback class="bg-primary text-primary-foreground">AT</Avatar.Fallback>
-          <Avatar.Image class="object-[50%_35%]" src={imageUrl} alt="" />
+          <AvatarFallback class="bg-primary text-primary-foreground">AT</AvatarFallback>
+          <AvatarImage class="object-[50%_35%]" src={imageUrl} alt="" />
         </a>
       )}
       size="xl"
@@ -153,7 +160,7 @@ export const RootProvider: Story = {
 export const CustomImage: Story = {
   render: () => (
     <Avatar>
-      <Avatar.Fallback>AT</Avatar.Fallback>
+      <AvatarFallback>AT</AvatarFallback>
       <AvatarCustomImage src={customImageUrl} alt="Alex T." />
     </Avatar>
   ),
@@ -162,8 +169,8 @@ export const CustomImage: Story = {
 export const ImageError: Story = {
   render: () => (
     <Avatar>
-      <Avatar.Fallback>NA</Avatar.Fallback>
-      <Avatar.Image src="https://example.com/does-not-exist.png" alt="Broken image example" />
+      <AvatarFallback>NA</AvatarFallback>
+      <AvatarImage src="https://example.com/does-not-exist.png" alt="Broken image example" />
     </Avatar>
   ),
 };
@@ -171,9 +178,9 @@ export const ImageError: Story = {
 export const FallbackIcon: Story = {
   render: () => (
     <Avatar size="lg" class="bg-accent">
-      <Avatar.Fallback class="text-accent-foreground">
+      <AvatarFallback class="text-accent-foreground">
         <ComputerIcon class="size-[55%]" />
-      </Avatar.Fallback>
+      </AvatarFallback>
     </Avatar>
   ),
 };

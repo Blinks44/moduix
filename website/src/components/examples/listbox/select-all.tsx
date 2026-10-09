@@ -1,6 +1,14 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
-import { Listbox, useListboxContext } from '@moduix/react/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+  useListboxContext,
+} from '@moduix/react/listbox';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/listbox/listbox-select-all.module.css';
 
@@ -54,15 +62,15 @@ function SelectAllMeta() {
 export default function SelectAllListboxDemo() {
   return (
     <Listbox collection={days} className={styles.root} selectionMode="multiple">
-      <Listbox.Label>Select days</Listbox.Label>
-      <Listbox.Content>
+      <ListboxLabel>Select days</ListboxLabel>
+      <ListboxContent>
         {days.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-      </Listbox.Content>
+      </ListboxContent>
       <SelectAllMeta />
     </Listbox>
   );

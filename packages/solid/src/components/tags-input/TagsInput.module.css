@@ -19,6 +19,16 @@
           var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled))
         )
       );
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
     }
   }
 
@@ -290,8 +300,8 @@
       box-shadow var(--moduix-tags-input-transition, var(--moduix-transition-default));
 
     & > svg {
-      width: var(--moduix-tags-input-trigger-icon-size, var(--moduix-spacing-2-5));
-      height: var(--moduix-tags-input-trigger-icon-size, var(--moduix-spacing-2-5));
+      width: var(--moduix-tags-input-trigger-icon-size, var(--moduix-spacing-3));
+      height: var(--moduix-tags-input-trigger-icon-size, var(--moduix-spacing-3));
       flex: none;
       pointer-events: none;
     }
@@ -326,7 +336,7 @@
     --moduix-close-button-size: var(--moduix-tags-input-clear-trigger-size, var(--moduix-size-xs));
     --moduix-close-button-icon-size: var(
       --moduix-tags-input-clear-trigger-icon-size,
-      var(--moduix-spacing-3)
+      var(--moduix-spacing-4)
     );
     --moduix-close-button-radius: var(
       --moduix-tags-input-clear-trigger-radius,
@@ -355,7 +365,7 @@
     );
     --moduix-close-button-focus-ring-offset: var(
       --moduix-tags-input-trigger-focus-ring-offset,
-      var(--moduix-focus-ring-offset)
+      var(--moduix-border-width-sm)
     );
     --moduix-close-button-disabled-opacity: var(
       --moduix-tags-input-disabled-opacity,
@@ -369,5 +379,9 @@
     &[data-readonly] {
       display: none;
     }
+  }
+
+  .root[data-disabled] :is(.label, .itemPreview, .itemDeleteTrigger, .clearTrigger) {
+    opacity: 1;
   }
 }

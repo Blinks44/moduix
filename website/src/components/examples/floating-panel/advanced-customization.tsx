@@ -1,5 +1,17 @@
 import { Button } from '@moduix/react/button';
-import { FloatingPanel } from '@moduix/react/floating-panel';
+import {
+  FloatingPanel,
+  FloatingPanelTrigger,
+  FloatingPanelPositioner,
+  FloatingPanelContent,
+  FloatingPanelDragTrigger,
+  FloatingPanelHeader,
+  FloatingPanelTitle,
+  FloatingPanelControl,
+  FloatingPanelCloseIcon,
+  FloatingPanelBody,
+  FloatingPanelResizeTrigger,
+} from '@moduix/react/floating-panel';
 
 export default function AdvancedCustomizationFloatingPanelDemo() {
   return (
@@ -9,27 +21,27 @@ export default function AdvancedCustomizationFloatingPanelDemo() {
         height: 260,
       }}
     >
-      <FloatingPanel.Trigger asChild>
+      <FloatingPanelTrigger asChild>
         <Button>Open custom panel</Button>
-      </FloatingPanel.Trigger>
-      <FloatingPanel.Positioner>
-        <FloatingPanel.Content>
-          <FloatingPanel.DragTrigger>
-            <FloatingPanel.Header>
-              <FloatingPanel.Title>Custom resize handles</FloatingPanel.Title>
-              <FloatingPanel.Control>
-                <FloatingPanel.CloseIcon />
-              </FloatingPanel.Control>
-            </FloatingPanel.Header>
-          </FloatingPanel.DragTrigger>
-          <FloatingPanel.Body>
+      </FloatingPanelTrigger>
+      <FloatingPanelPositioner>
+        <FloatingPanelContent>
+          <FloatingPanelDragTrigger>
+            <FloatingPanelHeader>
+              <FloatingPanelTitle>Custom resize handles</FloatingPanelTitle>
+              <FloatingPanelControl>
+                <FloatingPanelCloseIcon />
+              </FloatingPanelControl>
+            </FloatingPanelHeader>
+          </FloatingPanelDragTrigger>
+          <FloatingPanelBody>
             Only the right, bottom, and bottom-right handles are rendered in this composition.
-          </FloatingPanel.Body>
-          <FloatingPanel.ResizeTrigger axis="e" />
-          <FloatingPanel.ResizeTrigger axis="s" />
-          <FloatingPanel.ResizeTrigger axis="se" />
-        </FloatingPanel.Content>
-      </FloatingPanel.Positioner>
+          </FloatingPanelBody>
+          <FloatingPanelResizeTrigger axis="e" />
+          <FloatingPanelResizeTrigger axis="s" />
+          <FloatingPanelResizeTrigger axis="se" />
+        </FloatingPanelContent>
+      </FloatingPanelPositioner>
     </FloatingPanel>
   );
 }

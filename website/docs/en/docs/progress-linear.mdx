@@ -23,6 +23,15 @@ import progressLinearSolidStateViews from '../../../snippets/progress-linear/sol
 import progressLinearSolidValueText from '../../../snippets/progress-linear/solid/value-text.tsx?raw';
 import progressLinearSolidVertical from '../../../snippets/progress-linear/solid/vertical.tsx?raw';
 import progressLinearSolidRootProvider from '../../../snippets/progress-linear/solid/root-provider.tsx?raw';
+import progressLinearVueBasic from '../../../snippets/progress-linear/vue/basic.vue?raw';
+import progressLinearVueControlled from '../../../snippets/progress-linear/vue/controlled.vue?raw';
+import progressLinearVueIndeterminate from '../../../snippets/progress-linear/vue/indeterminate.vue?raw';
+import progressLinearVueInitialValue from '../../../snippets/progress-linear/vue/initial-value.vue?raw';
+import progressLinearVueMinMax from '../../../snippets/progress-linear/vue/min-max.vue?raw';
+import progressLinearVueStateViews from '../../../snippets/progress-linear/vue/state-views.vue?raw';
+import progressLinearVueValueText from '../../../snippets/progress-linear/vue/value-text.vue?raw';
+import progressLinearVueVertical from '../../../snippets/progress-linear/vue/vertical.vue?raw';
+import progressLinearVueRootProvider from '../../../snippets/progress-linear/vue/root-provider.vue?raw';
 
 ## API Reference
 
@@ -36,8 +45,9 @@ compact status indicator in a card, toolbar, or other space-constrained surface.
 ## Basic
 
 
-Compose the progress bar from the explicit `Label`, `ValueText`, `Track`, and `Range` parts. Give
-`Track` an accessible name that describes the task.
+Compose the progress bar from the explicit `ProgressLinearLabel`, `ProgressLinearValueText`, `ProgressLinearTrack`, and `ProgressLinearRange` parts. Give
+`ProgressLinearTrack` an accessible name that describes the task.
+React, Solid, and Vue expose the same flat part names; Vue uses native `class`, slots, and `v-model` where applicable.
 
 <ExampleFrame variant="component">
   <ProgressLinearBasic />
@@ -50,6 +60,7 @@ Compose the progress bar from the explicit `Label`, `ValueText`, `Track`, and `R
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -62,6 +73,11 @@ Compose the progress bar from the explicit `Label`, `ValueText`, `Track`, and `R
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueBasic} />
 
     </Tab>
   </Tabs>
@@ -94,41 +110,52 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/progress-linear' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/progress-linear' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 ```text
-ProgressLinear / ProgressLinear.Root
-├─ ProgressLinear.Label
-├─ ProgressLinear.ValueText
-├─ ProgressLinear.Track
-│  └─ ProgressLinear.Range
-└─ ProgressLinear.View
+ProgressLinear
+├─ ProgressLinearLabel
+├─ ProgressLinearValueText
+├─ ProgressLinearTrack
+│  └─ ProgressLinearRange
+└─ ProgressLinearView
 
-ProgressLinear.RootProvider
-└─ the same part tree connected to ProgressLinear.useProgress()
+ProgressLinearRootProvider
+└─ the same part tree connected to useProgress()
 ```
 
 | Part                                     | Role                                                                       |
 | ---------------------------------------- | -------------------------------------------------------------------------- |
-| `ProgressLinear` / `ProgressLinear.Root` | Owns progress state and passes formatting, IDs, and other props to Ark.    |
-| `ProgressLinear.RootProvider`             | Connects parts to the store returned by `ProgressLinear.useProgress()`.    |
-| `ProgressLinear.Context`                 | Provides the current progress state to a render prop.                     |
-| `ProgressLinear.Label`                   | Visible task label. It is not automatically used as `Track`'s accessible name. |
-| `ProgressLinear.ValueText`                | Displays the formatted percentage and announces changes. Use `Context` for custom text. |
-| `ProgressLinear.Track`                   | Progressbar surface. Ark adds the role and ARIA value attributes.         |
-| `ProgressLinear.Range`                   | Filled portion that reflects the current progress.                        |
-| `ProgressLinear.View`                    | Shows content only when its `state` matches the current progress state.   |
+| `ProgressLinear` | Owns progress state and passes formatting, IDs, and other props to Ark.    |
+| `ProgressLinearRootProvider`             | Connects parts to the store returned by `useProgress()`.    |
+| `ProgressLinearContext`                 | Provides the current progress state to a render prop.                     |
+| `ProgressLinearLabel`                   | Visible task label. It is not automatically used as `ProgressLinearTrack`'s accessible name. |
+| `ProgressLinearValueText`                | Displays the formatted percentage and announces changes. Use `ProgressLinearContext` for custom text. |
+| `ProgressLinearTrack`                   | Progressbar surface. Ark adds the role and ARIA value attributes.         |
+| `ProgressLinearRange`                   | Filled portion that reflects the current progress.                        |
+| `ProgressLinearView`                    | Shows content only when its `state` matches the current progress state.   |
 
 ## Composition
 
 Use `defaultValue` for uncontrolled progress. Use `value` with `onValueChange(details)` when your
 application owns the current value, and use `defaultValue={null}` or `value={null}` when progress is
-unknown. If state is created with `ProgressLinear.useProgress()`, render the parts inside
-`ProgressLinear.RootProvider` instead of `ProgressLinear` or `ProgressLinear.Root`. Use
-`ProgressLinear.View` for state-specific content and `ProgressLinear.Context` when custom visible text
+unknown. If state is created with `useProgress()`, render the parts inside
+`ProgressLinearRootProvider` instead of `ProgressLinear`. Use
+`ProgressLinearView` for state-specific content and `ProgressLinearContext` when custom visible text
 needs the current state.
+In Vue, use `v-model` for the same controlled value.
 
 ## Examples
 
@@ -147,6 +174,7 @@ Keep `value` in state when progress needs to stay in sync with another control o
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -159,6 +187,11 @@ Keep `value` in state when progress needs to stay in sync with another control o
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueControlled} />
 
     </Tab>
   </Tabs>
@@ -182,6 +215,7 @@ measured yet.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -194,6 +228,11 @@ measured yet.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidIndeterminate} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueIndeterminate} />
 
     </Tab>
   </Tabs>
@@ -216,6 +255,7 @@ Use `defaultValue` to set the initial value for uncontrolled progress.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -228,6 +268,11 @@ Use `defaultValue` to set the initial value for uncontrolled progress.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidInitialValue} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueInitialValue} />
 
     </Tab>
   </Tabs>
@@ -250,6 +295,7 @@ Use `min` and `max` when the progress range is different from the default range 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -264,6 +310,11 @@ Use `min` and `max` when the progress range is different from the default range 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidMinMax} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueMinMax} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -271,7 +322,7 @@ Use `min` and `max` when the progress range is different from the default range 
 
 ### State Views
 
-Use `ProgressLinear.View` when supporting text or UI should change with the Ark progress state.
+Use `ProgressLinearView` when supporting text or UI should change with the Ark progress state.
 
 <ExampleFrame variant="component">
   <ProgressLinearStateViews />
@@ -284,6 +335,7 @@ Use `ProgressLinear.View` when supporting text or UI should change with the Ark 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -298,6 +350,11 @@ Use `ProgressLinear.View` when supporting text or UI should change with the Ark 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidStateViews} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueStateViews} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -305,7 +362,7 @@ Use `ProgressLinear.View` when supporting text or UI should change with the Ark 
 
 ### Value Text
 
-Use `ProgressLinear.Context` with `translations.value(details)` when visible value text needs
+Use `ProgressLinearContext` with `translations.value(details)` when visible value text needs
 task-specific wording.
 
 <ExampleFrame variant="component">
@@ -319,6 +376,7 @@ task-specific wording.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -331,6 +389,11 @@ task-specific wording.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidValueText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueValueText} />
 
     </Tab>
   </Tabs>
@@ -355,6 +418,7 @@ different height.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -369,6 +433,11 @@ different height.
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidVertical} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueVertical} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -376,8 +445,8 @@ different height.
 
 ### Advanced Customization
 
-Create the progress state with `ProgressLinear.useProgress()` in a parent component, then connect it
-to the rendered parts with `ProgressLinear.RootProvider`.
+Create the progress state with `useProgress()` in a parent component, then connect it
+to the rendered parts with `ProgressLinearRootProvider`.
 
 <ExampleFrame variant="component">
   <ProgressLinearRootProvider />
@@ -390,6 +459,7 @@ to the rendered parts with `ProgressLinear.RootProvider`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -404,6 +474,11 @@ to the rendered parts with `ProgressLinear.RootProvider`.
 <CodeBlockRuntime lang="tsx" code={progressLinearSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={progressLinearVueRootProvider} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -411,7 +486,7 @@ to the rendered parts with `ProgressLinear.RootProvider`.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styling. For state-based
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styling. For state-based
 styles, use Ark data attributes and moduix `data-slot` hooks. Tailwind variants use native utilities
 and consumer classes; the variables below customize the CSS Modules variants.
 

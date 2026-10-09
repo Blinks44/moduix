@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "file-upload-manager",
+  "title": "File upload",
+  "description": "File picker with drag and drop, validation, previews, and removal controls.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-file-upload-manager.json"],
+  "files": [],
+  "type": "registry:block"
+}

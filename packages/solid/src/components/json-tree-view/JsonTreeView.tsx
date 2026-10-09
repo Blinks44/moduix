@@ -12,7 +12,7 @@ import { splitProps } from 'solid-js';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './JsonTreeView.module.css';
 
-function JsonTreeViewRoot(props: JsonTreeViewRootProps) {
+function JsonTreeView(props: JsonTreeViewRootProps) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -55,13 +55,7 @@ function JsonTreeViewTree(props: JsonTreeViewTreeProps) {
   );
 }
 
-const JsonTreeView = Object.assign(JsonTreeViewRoot, {
-  Root: JsonTreeViewRoot,
-  RootProvider: JsonTreeViewRootProvider,
-  Tree: JsonTreeViewTree,
-});
-
-export { JsonTreeView, useJsonTreeView };
+export { JsonTreeView, JsonTreeViewRootProvider, JsonTreeViewTree, useJsonTreeView };
 export type {
   JsonTreeViewRootProps,
   JsonTreeViewRootProviderProps,

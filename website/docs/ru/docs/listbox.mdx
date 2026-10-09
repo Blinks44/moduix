@@ -31,6 +31,20 @@ import listboxSolidRootProvider from '../../../snippets/listbox/solid/root-provi
 import listboxSolidSelectAll from '../../../snippets/listbox/solid/select-all.tsx?raw';
 import listboxSolidStandaloneFilterInput from '../../../snippets/listbox/solid/standalone-filter-input.tsx?raw';
 import listboxSolidValueText from '../../../snippets/listbox/solid/value-text.tsx?raw';
+import listboxVueBasic from '../../../snippets/listbox/vue/basic.vue?raw';
+import listboxVueControlled from '../../../snippets/listbox/vue/controlled.vue?raw';
+import listboxVueDisabledItem from '../../../snippets/listbox/vue/disabled-item.vue?raw';
+import listboxVueExtendedSelection from '../../../snippets/listbox/vue/extended-selection.vue?raw';
+import listboxVueFiltering from '../../../snippets/listbox/vue/filtering.vue?raw';
+import listboxVueGrid from '../../../snippets/listbox/vue/grid.vue?raw';
+import listboxVueGrouping from '../../../snippets/listbox/vue/grouping.vue?raw';
+import listboxVueHorizontal from '../../../snippets/listbox/vue/horizontal.vue?raw';
+import listboxVueMultiple from '../../../snippets/listbox/vue/multiple.vue?raw';
+import listboxVueRootProvider from '../../../snippets/listbox/vue/root-provider.vue?raw';
+import listboxVueSelectAll from '../../../snippets/listbox/vue/select-all.vue?raw';
+import listboxVueSelectAllPart from '../../../snippets/listbox/vue/SelectAllMeta.vue?raw';
+import listboxVueStandaloneFilterInput from '../../../snippets/listbox/vue/standalone-filter-input.vue?raw';
+import listboxVueValueText from '../../../snippets/listbox/vue/value-text.vue?raw';
 
 ## Справочник API
 
@@ -47,8 +61,8 @@ import listboxSolidValueText from '../../../snippets/listbox/solid/value-text.ts
 
 Интерактивный
 
-Передайте `collection`, отрисуйте `Listbox.Content` и передайте каждый элемент коллекции в
-`Listbox.Item` через `item`. Добавьте `Listbox.ItemIndicator`, если строки должны показывать
+Передайте `collection`, отрисуйте `ListboxContent` и передайте каждый элемент коллекции в
+`ListboxItem` через `item`. Добавьте `ListboxItemIndicator`, если строки должны показывать
 выбранное состояние.
 
 <ExampleFrame variant="component">
@@ -62,6 +76,7 @@ import listboxSolidValueText from '../../../snippets/listbox/solid/value-text.ts
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -74,6 +89,11 @@ import listboxSolidValueText from '../../../snippets/listbox/solid/value-text.ts
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueBasic} />
 
     </Tab>
   </Tabs>
@@ -111,67 +131,77 @@ import listboxSolidValueText from '../../../snippets/listbox/solid/value-text.ts
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/listbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/listbox' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Listbox / Listbox.Root
-├─ Listbox.Label
-├─ Listbox.Filter
-│  ├─ Listbox.Input
-│  └─ Listbox.ClearTrigger
-├─ Listbox.Content
-│  ├─ Listbox.Empty
-│  ├─ Listbox.ItemGroup
-│  │  ├─ Listbox.ItemGroupLabel
-│  │  └─ Listbox.Item[item]
-│  │     ├─ Listbox.ItemText
-│  │     └─ Listbox.ItemIndicator
-│  └─ Listbox.Item[item]
-│     ├─ Listbox.ItemText
-│     │  └─ Listbox.ItemTextContent (необязательно)
-│     │     ├─ Listbox.ItemTextIcon (необязательно)
-│     │     └─ Listbox.ItemTextLabel (необязательно)
-│     └─ Listbox.ItemIndicator
-└─ Listbox.ValueText
+Listbox
+├─ ListboxLabel
+├─ ListboxFilter
+│  ├─ ListboxInput
+│  └─ ListboxClearTrigger
+├─ ListboxContent
+│  ├─ ListboxEmpty
+│  ├─ ListboxItemGroup
+│  │  ├─ ListboxItemGroupLabel
+│  │  └─ ListboxItem[item]
+│  │     ├─ ListboxItemText
+│  │     └─ ListboxItemIndicator
+│  └─ ListboxItem[item]
+│     ├─ ListboxItemText
+│     │  └─ ListboxItemTextContent (необязательно)
+│     │     ├─ ListboxItemTextIcon (необязательно)
+│     │     └─ ListboxItemTextLabel (необязательно)
+│     └─ ListboxItemIndicator
+└─ ListboxValueText
 
-Listbox.RootProvider
+ListboxRootProvider
 └─ то же дерево элементов, подключённое к состоянию из useListbox()
 ```
 
 | Часть                      | Назначение                                                                                   |
 | -------------------------- | -------------------------------------------------------------------------------------------- |
-| `Listbox` / `Listbox.Root` | Управляет коллекцией, выбранными значениями, подсвеченным элементом и режимом выбора.        |
-| `Listbox.RootProvider`     | Отрисовывает дерево listbox из состояния, возвращённого `useListbox`.                        |
-| `Listbox.Label`            | Подпись, задающая listbox доступное имя.                                                      |
-| `Listbox.Filter`           | Визуальная обёртка для поля фильтра с иконкой поиска по умолчанию. Размещайте перед `Listbox.Content`. |
-| `Listbox.Input`            | Поле фильтра, обычно размещаемое внутри `Filter`.                                            |
-| `Listbox.ClearTrigger`     | Кнопка сброса запроса фильтра с иконкой закрытия по умолчанию.                               |
-| `Listbox.Content`          | Фокусируемый контейнер listbox, управляющий навигацией с клавиатуры.                          |
-| `Listbox.Empty`            | Содержимое, отображаемое, когда после фильтрации не осталось элементов.                       |
-| `Listbox.ItemGroup`        | Обёртка для связанных элементов коллекции.                                                   |
-| `Listbox.ItemGroupLabel`   | Подпись группы элементов коллекции.                                                          |
-| `Listbox.Item`             | Выбираемый элемент. Передайте его элемент коллекции через `item`.                            |
-| `Listbox.ItemText`         | Текст для отображения и доступности.                                                         |
-| `Listbox.ItemTextContent`  | Необязательная обёртка для размещения иконки и текста внутри `ItemText`.                     |
-| `Listbox.ItemTextIcon`     | Необязательная обёртка для иконки внутри `ItemTextContent`.                                 |
-| `Listbox.ItemTextLabel`    | Обёртка текста внутри `ItemTextContent`, которая позволяет обрезать длинные подписи без нарушения разметки. |
-| `Listbox.ItemIndicator`    | Индикатор выбора с иконкой галочки moduix по умолчанию.                                      |
-| `Listbox.ValueText`        | Сводка выбранных значений.                                                                   |
+| `Listbox` | Управляет коллекцией, выбранными значениями, подсвеченным элементом и режимом выбора.        |
+| `ListboxRootProvider`     | Отрисовывает дерево listbox из состояния, возвращённого `useListbox`.                        |
+| `ListboxLabel`            | Подпись, задающая listbox доступное имя.                                                      |
+| `ListboxFilter`           | Визуальная обёртка для поля фильтра с иконкой поиска по умолчанию. Размещайте перед `ListboxContent`. |
+| `ListboxInput`            | Поле фильтра, обычно размещаемое внутри `ListboxFilter`.                                            |
+| `ListboxClearTrigger`     | Кнопка сброса запроса фильтра с иконкой закрытия по умолчанию.                               |
+| `ListboxContent`          | Фокусируемый контейнер listbox, управляющий навигацией с клавиатуры.                          |
+| `ListboxEmpty`            | Содержимое, отображаемое, когда после фильтрации не осталось элементов.                       |
+| `ListboxItemGroup`        | Обёртка для связанных элементов коллекции.                                                   |
+| `ListboxItemGroupLabel`   | Подпись группы элементов коллекции.                                                          |
+| `ListboxItem`             | Выбираемый элемент. Передайте его элемент коллекции через `item`.                            |
+| `ListboxItemText`         | Текст для отображения и доступности.                                                         |
+| `ListboxItemTextContent`  | Необязательная обёртка для размещения иконки и текста внутри `ListboxItemText`.                     |
+| `ListboxItemTextIcon`     | Необязательная обёртка для иконки внутри `ListboxItemTextContent`.                                 |
+| `ListboxItemTextLabel`    | Обёртка текста внутри `ListboxItemTextContent`, которая позволяет обрезать длинные подписи без нарушения разметки. |
+| `ListboxItemIndicator`    | Индикатор выбора с иконкой галочки moduix по умолчанию.                                      |
+| `ListboxValueText`        | Сводка выбранных значений.                                                                   |
 
 ## Композиция
 
 Используйте `defaultValue` для неконтролируемого выбора. Если выбранными значениями управляет другая
 часть приложения, передайте `value` и обновляйте его из `onValueChange(details.value)`. Для
 фильтрации задайте `typeahead={false}`, храните запрос в состоянии приложения и вызывайте функцию
-`filter`, возвращённую `useListCollection`, из обработчика поля. `Listbox.Filter` отвечает только за объединённый внешний
+`filter`, возвращённую `useListCollection`, из обработчика поля. `ListboxFilter` отвечает только за объединённый внешний
 вид поля поиска, поэтому обработчик очистки должен сбрасывать и запрос, и фильтр коллекции.
 
-Используйте `useListbox` из пакета выбранного фреймворка вместе с `Listbox.RootProvider`, если
-хранилище нужно создать вне отрисовываемого дерева. Передайте полученное хранилище в `RootProvider`
-и не добавляйте для него `Listbox` или `Listbox.Root`. `Listbox.Input` можно отрисовать напрямую,
-если фильтру нужен отдельный контейнер, а `Listbox.ValueText` можно разместить после `Content`,
+Используйте `useListbox` из пакета выбранного фреймворка вместе с `ListboxRootProvider`, если
+хранилище нужно создать вне отрисовываемого дерева. Передайте полученное хранилище в `ListboxRootProvider`
+и не добавляйте для него второй `Listbox`. `ListboxInput` можно отрисовать напрямую,
+если фильтру нужен отдельный контейнер, а `ListboxValueText` можно разместить после `ListboxContent`,
 чтобы показывать сводку выбранных значений.
 
 ## Примеры
@@ -186,7 +216,7 @@ Listbox.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/controlled.tsx"
@@ -196,6 +226,11 @@ Listbox.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueControlled} />
 
     </Tab>
   </Tabs>
@@ -218,7 +253,7 @@ Listbox.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/disabled-item.tsx"
@@ -228,6 +263,11 @@ Listbox.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidDisabledItem} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueDisabledItem} />
 
     </Tab>
   </Tabs>
@@ -250,7 +290,7 @@ Listbox.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/extended-selection.tsx"
@@ -260,6 +300,11 @@ Listbox.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidExtendedSelection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueExtendedSelection} />
 
     </Tab>
   </Tabs>
@@ -274,8 +319,8 @@ Listbox.RootProvider
 
 ### Фильтрация
 
-Используйте `Listbox.Filter` вместе с `useListCollection`. Он добавляет иконку поиска и объединяет
-поле с `Content`; отключите typeahead, когда текст вводится в поле поиска.
+Используйте `ListboxFilter` вместе с `useListCollection`. Он добавляет иконку поиска и объединяет
+поле с `ListboxContent`; отключите typeahead, когда текст вводится в поле поиска.
 
 <ExampleFrame variant="component">
   <ListboxFiltering />
@@ -283,7 +328,7 @@ Listbox.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/filtering.tsx"
@@ -293,6 +338,11 @@ Listbox.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidFiltering} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueFiltering} />
 
     </Tab>
   </Tabs>
@@ -308,7 +358,7 @@ Listbox.RootProvider
 ### Сетка
 
 Передайте коллекцию, созданную через `createGridCollection`, чтобы включить навигацию по сетке с
-клавиатуры. Ark добавляет `data-layout="grid"` и CSS-переменную `--column-count` в `Content`.
+клавиатуры. Ark добавляет `data-layout="grid"` и CSS-переменную `--column-count` в `ListboxContent`.
 
 <ExampleFrame variant="component">
   <ListboxGrid />
@@ -316,7 +366,7 @@ Listbox.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/grid.tsx"
@@ -326,6 +376,11 @@ Listbox.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidGrid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueGrid} />
 
     </Tab>
   </Tabs>
@@ -340,7 +395,7 @@ Listbox.RootProvider
 
 ### Группировка
 
-Задайте `groupBy` при создании коллекции и отрисуйте `ItemGroup` с `ItemGroupLabel`.
+Задайте `groupBy` при создании коллекции и отрисуйте `ListboxItemGroup` с `ListboxItemGroupLabel`.
 
 <ExampleFrame variant="component">
   <ListboxGrouping />
@@ -348,7 +403,7 @@ Listbox.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/grouping.tsx"
@@ -358,6 +413,11 @@ Listbox.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidGrouping} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueGrouping} />
 
     </Tab>
   </Tabs>
@@ -381,7 +441,7 @@ Listbox.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/horizontal.tsx"
@@ -391,6 +451,11 @@ Listbox.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidHorizontal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueHorizontal} />
 
     </Tab>
   </Tabs>
@@ -413,7 +478,7 @@ Listbox.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/multiple.tsx"
@@ -423,6 +488,11 @@ Listbox.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidMultiple} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueMultiple} />
 
     </Tab>
   </Tabs>
@@ -437,7 +507,7 @@ Listbox.RootProvider
 
 ### Root Provider
 
-Используйте `useListbox()` из пакета выбранного фреймворка вместе с `Listbox.RootProvider`, если
+Используйте `useListbox()` из пакета выбранного фреймворка вместе с `ListboxRootProvider`, если
 внешним элементам управления нужен прямой доступ к хранилищу listbox.
 
 <ExampleFrame variant="component">
@@ -446,7 +516,7 @@ Listbox.RootProvider
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/root-provider.tsx"
@@ -456,6 +526,11 @@ Listbox.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -479,7 +554,7 @@ listbox.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/select-all.tsx"
@@ -489,6 +564,13 @@ listbox.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidSelectAll} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueSelectAll} />
+
+<CodeBlockRuntime lang="vue" code={listboxVueSelectAllPart} title="SelectAllMeta.vue" />
 
     </Tab>
   </Tabs>
@@ -503,7 +585,7 @@ listbox.
 
 ### Отдельное поле фильтра
 
-Отрисуйте `Listbox.Input` напрямую, если поле фильтра и результаты должны оставаться отдельными
+Отрисуйте `ListboxInput` напрямую, если поле фильтра и результаты должны оставаться отдельными
 поверхностями.
 
 <ExampleFrame variant="component">
@@ -512,7 +594,7 @@ listbox.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/standalone-filter-input.tsx"
@@ -522,6 +604,11 @@ listbox.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidStandaloneFilterInput} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueStandaloneFilterInput} />
 
     </Tab>
   </Tabs>
@@ -536,7 +623,7 @@ listbox.
 
 ### Текст выбранного значения
 
-Отрисуйте `Listbox.ValueText`, если сводка выбранных значений должна оставаться видимой рядом со
+Отрисуйте `ListboxValueText`, если сводка выбранных значений должна оставаться видимой рядом со
 списком.
 
 <ExampleFrame variant="component">
@@ -545,7 +632,7 @@ listbox.
 
 <ExampleCode>
 <div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
     <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/listbox/value-text.tsx"
@@ -555,6 +642,11 @@ listbox.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listboxSolidValueText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listboxVueValueText} />
 
     </Tab>
   </Tabs>
@@ -569,7 +661,7 @@ listbox.
 
 ## Стилизация
 
-Стилизуйте Listbox через `className` в React или `class` в Solid на экспортируемых частях. Варианты
+Стилизуйте Listbox через `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты
 Tailwind используют нативные utility-классы и классы потребителя, а варианты с CSS Modules используют
 публичные CSS-переменные `--moduix-listbox-*`.
 

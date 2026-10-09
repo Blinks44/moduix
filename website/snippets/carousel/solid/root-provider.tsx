@@ -1,4 +1,13 @@
-import { Carousel, useCarousel } from '@moduix/solid/carousel';
+import {
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+  CarouselRootProvider,
+  useCarousel,
+} from '@moduix/solid/carousel';
 import { For } from 'solid-js';
 import styles from '@/components/examples/carousel/carousel-root-provider.module.css';
 
@@ -34,21 +43,21 @@ export default function RootProviderCarousel() {
   const carousel = useCarousel({ slideCount: slides.length });
 
   return (
-    <Carousel.RootProvider class={styles.root} aria-label="Root provider gallery" value={carousel}>
-      <Carousel.ItemGroup class={styles.itemGroup} aria-label="Root provider gallery">
+    <CarouselRootProvider class={styles.root} aria-label="Root provider gallery" value={carousel}>
+      <CarouselItemGroup class={styles.itemGroup} aria-label="Root provider gallery">
         <For each={slides}>
           {(slide, index) => (
-            <Carousel.Item index={index()}>
+            <CarouselItem index={index()}>
               <img class={styles.image} src={slide.src} alt={slide.alt} />
-            </Carousel.Item>
+            </CarouselItem>
           )}
         </For>
-      </Carousel.ItemGroup>
-      <Carousel.Control class={styles.control}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-      <Carousel.Indicators />
-    </Carousel.RootProvider>
+      </CarouselItemGroup>
+      <CarouselControl class={styles.control}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
+      <CarouselIndicators />
+    </CarouselRootProvider>
   );
 }

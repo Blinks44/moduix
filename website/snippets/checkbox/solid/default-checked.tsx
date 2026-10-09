@@ -1,11 +1,16 @@
-import { Checkbox } from '@moduix/solid/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
 
 export default function CheckboxDefaultCheckedDemo() {
   return (
     <Checkbox defaultChecked>
-      <Checkbox.Control />
-      <Checkbox.Label>Enable notifications</Checkbox.Label>
-      <Checkbox.HiddenInput />
+      <CheckboxControl />
+      <CheckboxLabel>Enable notifications</CheckboxLabel>
+      <CheckboxHiddenInput />
     </Checkbox>
   );
 }

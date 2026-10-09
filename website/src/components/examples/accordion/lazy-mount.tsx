@@ -1,4 +1,11 @@
-import { Accordion } from '@moduix/react/accordion';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemBody,
+  AccordionItemContent,
+  AccordionItemIndicator,
+  AccordionItemTrigger,
+} from '@moduix/react/accordion';
 import styles from '@/components/examples/accordion/accordion-lazy-mount.module.css';
 
 const items = [
@@ -24,15 +31,15 @@ export default function LazyMountAccordionDemo() {
   return (
     <Accordion className={styles.root} lazyMount unmountOnExit>
       {items.map((item) => (
-        <Accordion.Item key={item.value} value={item.value}>
-          <Accordion.ItemTrigger>
+        <AccordionItem key={item.value} value={item.value}>
+          <AccordionItemTrigger>
             {item.title}
-            <Accordion.ItemIndicator />
-          </Accordion.ItemTrigger>
-          <Accordion.ItemContent>
-            <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
-          </Accordion.ItemContent>
-        </Accordion.Item>
+            <AccordionItemIndicator />
+          </AccordionItemTrigger>
+          <AccordionItemContent>
+            <AccordionItemBody>{item.description}</AccordionItemBody>
+          </AccordionItemContent>
+        </AccordionItem>
       ))}
     </Accordion>
   );

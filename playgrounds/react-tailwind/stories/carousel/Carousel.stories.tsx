@@ -2,7 +2,23 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
 import { Button } from '@/components/button/Button';
-import { Carousel, useCarousel } from '@/components/carousel/Carousel';
+import {
+  Carousel,
+  CarouselAutoplayIndicator,
+  CarouselAutoplayTrigger,
+  CarouselContext,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+  CarouselProgressText,
+  CarouselRootProvider,
+  useCarousel,
+} from '@/components/carousel/Carousel';
 import { cn } from '@/lib/moduix/cn';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 
@@ -99,9 +115,9 @@ type Story = StoryObj<typeof meta>;
 
 function Slides({ className }: { className?: string }) {
   return slides.map((slide, index) => (
-    <Carousel.Item key={slide.id} index={index}>
+    <CarouselItem key={slide.id} index={index}>
       <ImageSlide src={slide.image} alt={slide.alt} className={className} />
-    </Carousel.Item>
+    </CarouselItem>
   ));
 }
 
@@ -114,15 +130,15 @@ export const Basic: Story = {
       className={carouselClass}
       spacing="1em"
     >
-      <Carousel.ItemGroup aria-label="Basic image carousel">
+      <CarouselItemGroup aria-label="Basic image carousel">
         <Slides />
-      </Carousel.ItemGroup>
-      <Carousel.Control className={controlsClass}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-      <Carousel.Indicators />
-      <Carousel.ProgressText />
+      </CarouselItemGroup>
+      <CarouselControl className={controlsClass}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
+      <CarouselIndicators />
+      <CarouselProgressText />
     </Carousel>
   ),
 };
@@ -141,15 +157,15 @@ export const Controlled: Story = {
         className={carouselClass}
         spacing="1em"
       >
-        <Carousel.ItemGroup aria-label="Controlled image carousel">
+        <CarouselItemGroup aria-label="Controlled image carousel">
           <Slides />
-        </Carousel.ItemGroup>
-        <Carousel.Control className={controlsClass}>
-          <Carousel.PrevTrigger />
-          <Carousel.NextTrigger />
-        </Carousel.Control>
+        </CarouselItemGroup>
+        <CarouselControl className={controlsClass}>
+          <CarouselPrevTrigger />
+          <CarouselNextTrigger />
+        </CarouselControl>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <Carousel.Indicators />
+          <CarouselIndicators />
           <output className={statusClass}>Page {page + 1}</output>
         </div>
       </Carousel>
@@ -174,18 +190,18 @@ export const DynamicSlides: Story = {
           className={carouselClass}
           spacing="1em"
         >
-          <Carousel.ItemGroup aria-label="Dynamic image carousel">
+          <CarouselItemGroup aria-label="Dynamic image carousel">
             {visibleSlides.map((slide, index) => (
-              <Carousel.Item key={slide.id} index={index}>
+              <CarouselItem key={slide.id} index={index}>
                 <ImageSlide src={slide.image} alt={slide.alt} />
-              </Carousel.Item>
+              </CarouselItem>
             ))}
-          </Carousel.ItemGroup>
-          <Carousel.Control>
-            <Carousel.PrevTrigger />
-            <Carousel.Indicators />
-            <Carousel.NextTrigger />
-          </Carousel.Control>
+          </CarouselItemGroup>
+          <CarouselControl>
+            <CarouselPrevTrigger />
+            <CarouselIndicators />
+            <CarouselNextTrigger />
+          </CarouselControl>
         </Carousel>
         <Button
           onClick={() => setCount((currentCount) => Math.min(slides.length, currentCount + 1))}
@@ -211,30 +227,30 @@ export const PauseOnHover: Story = {
       className={carouselClass}
       spacing="1em"
     >
-      <Carousel.Context>
+      <CarouselContext>
         {(api) => (
           <>
             <p className={statusClass}>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</p>
-            <Carousel.ItemGroup
+            <CarouselItemGroup
               onFocus={() => api.pause()}
               onPointerEnter={() => api.pause()}
               onPointerLeave={() => api.play()}
             >
               <Slides />
-            </Carousel.ItemGroup>
-            <Carousel.Control
+            </CarouselItemGroup>
+            <CarouselControl
               onFocus={() => api.pause()}
               onPointerEnter={() => api.pause()}
               onPointerLeave={() => api.play()}
             >
-              <Carousel.AutoplayTrigger>
-                <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
-              </Carousel.AutoplayTrigger>
-              <Carousel.Indicators />
-            </Carousel.Control>
+              <CarouselAutoplayTrigger>
+                <CarouselAutoplayIndicator fallback="Play">Pause</CarouselAutoplayIndicator>
+              </CarouselAutoplayTrigger>
+              <CarouselIndicators />
+            </CarouselControl>
           </>
         )}
-      </Carousel.Context>
+      </CarouselContext>
     </Carousel>
   ),
 };
@@ -247,20 +263,20 @@ export const RootProvider: Story = {
     return (
       <div className="grid justify-items-start gap-3">
         <output className={statusClass}>Page {carousel.page + 1}</output>
-        <Carousel.RootProvider
+        <CarouselRootProvider
           aria-label="Root provider image carousel"
           value={carousel}
           className={carouselClass}
         >
-          <Carousel.ItemGroup aria-label="Root provider image carousel">
+          <CarouselItemGroup aria-label="Root provider image carousel">
             <Slides />
-          </Carousel.ItemGroup>
-          <Carousel.Control className={controlsClass}>
-            <Carousel.PrevTrigger />
-            <Carousel.NextTrigger />
-          </Carousel.Control>
-          <Carousel.Indicators />
-        </Carousel.RootProvider>
+          </CarouselItemGroup>
+          <CarouselControl className={controlsClass}>
+            <CarouselPrevTrigger />
+            <CarouselNextTrigger />
+          </CarouselControl>
+          <CarouselIndicators />
+        </CarouselRootProvider>
       </div>
     );
   },
@@ -275,7 +291,7 @@ export const ScrollTo: Story = {
       className={carouselClass}
       spacing="1em"
     >
-      <Carousel.Context>
+      <CarouselContext>
         {(api) => (
           <div className="flex items-center justify-between gap-3">
             <Button onClick={() => api.scrollToIndex(3)} variant="outline">
@@ -283,15 +299,15 @@ export const ScrollTo: Story = {
             </Button>
           </div>
         )}
-      </Carousel.Context>
-      <Carousel.ItemGroup aria-label="Scroll to image carousel">
+      </CarouselContext>
+      <CarouselItemGroup aria-label="Scroll to image carousel">
         <Slides />
-      </Carousel.ItemGroup>
-      <Carousel.Control className={controlsClass}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-      <Carousel.Indicators />
+      </CarouselItemGroup>
+      <CarouselControl className={controlsClass}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
+      <CarouselIndicators />
     </Carousel>
   ),
 };
@@ -306,14 +322,14 @@ export const SlidesPerPage: Story = {
       spacing="1em"
       className={wideCarouselClass}
     >
-      <Carousel.Control className={controlsClass}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-      <Carousel.ItemGroup aria-label="Two-up image carousel">
+      <CarouselControl className={controlsClass}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
+      <CarouselItemGroup aria-label="Two-up image carousel">
         <Slides className={shortImageClass} />
-      </Carousel.ItemGroup>
-      <Carousel.Indicators />
+      </CarouselItemGroup>
+      <CarouselIndicators />
     </Carousel>
   ),
 };
@@ -329,14 +345,14 @@ export const Spacing: Story = {
       className={wideCarouselClass}
     >
       <p className={statusClass}>spacing=&quot;1em&quot;</p>
-      <Carousel.ItemGroup aria-label="Spaced image carousel">
+      <CarouselItemGroup aria-label="Spaced image carousel">
         <Slides className={shortImageClass} />
-      </Carousel.ItemGroup>
-      <Carousel.Control>
-        <Carousel.PrevTrigger />
-        <Carousel.Indicators />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
+      </CarouselItemGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger />
+        <CarouselIndicators />
+        <CarouselNextTrigger />
+      </CarouselControl>
     </Carousel>
   ),
 };
@@ -350,24 +366,24 @@ export const ThumbnailIndicator: Story = {
       className={carouselClass}
       spacing="1em"
     >
-      <Carousel.ItemGroup aria-label="Image carousel with thumbnail indicators">
+      <CarouselItemGroup aria-label="Image carousel with thumbnail indicators">
         <Slides />
-      </Carousel.ItemGroup>
-      <Carousel.Control className={controlsClass}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-      <Carousel.IndicatorGroup className="flex-wrap">
+      </CarouselItemGroup>
+      <CarouselControl className={controlsClass}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
+      <CarouselIndicatorGroup className="flex-wrap">
         {slides.map((slide, index) => (
-          <Carousel.Indicator
+          <CarouselIndicator
             key={slide.id}
             index={index}
             className="h-12 w-20 overflow-hidden rounded-lg border border-transparent bg-transparent p-0 opacity-65 transition-[border-color,opacity,transform] hover:opacity-90 data-current:h-12 data-current:w-20 data-current:-translate-y-px data-current:border-primary data-current:bg-transparent data-current:opacity-100"
           >
             <img src={slide.image} alt={slide.alt} className="block size-full object-cover" />
-          </Carousel.Indicator>
+          </CarouselIndicator>
         ))}
-      </Carousel.IndicatorGroup>
+      </CarouselIndicatorGroup>
     </Carousel>
   ),
 };
@@ -383,23 +399,23 @@ export const VariableSize: Story = {
       slideCount={variableSlides.length}
       className={carouselClass}
     >
-      <Carousel.Control className={controlsClass}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-      <Carousel.ItemGroup aria-label="Variable image carousel">
+      <CarouselControl className={controlsClass}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
+      <CarouselItemGroup aria-label="Variable image carousel">
         {variableSlides.map((slide, index) => (
-          <Carousel.Item key={slide.id} index={index} snapAlign="center">
+          <CarouselItem key={slide.id} index={index} snapAlign="center">
             <ImageSlide
               src={slide.image}
               alt={slide.alt}
               className={shortImageClass}
               style={{ width: slide.width }}
             />
-          </Carousel.Item>
+          </CarouselItem>
         ))}
-      </Carousel.ItemGroup>
-      <Carousel.Indicators />
+      </CarouselItemGroup>
+      <CarouselIndicators />
     </Carousel>
   ),
 };
@@ -415,31 +431,31 @@ export const Autoplay: Story = {
       className={carouselClass}
       spacing="1em"
     >
-      <Carousel.Context>
+      <CarouselContext>
         {(api) => (
           <>
-            <Carousel.ItemGroup
+            <CarouselItemGroup
               aria-label="Autoplay image carousel"
               onFocus={() => api.pause()}
               onPointerEnter={() => api.pause()}
             >
               <Slides />
-            </Carousel.ItemGroup>
-            <Carousel.Control
+            </CarouselItemGroup>
+            <CarouselControl
               className={controlsClass}
               onFocus={() => api.pause()}
               onPointerEnter={() => api.pause()}
             >
-              <Carousel.AutoplayTrigger>
-                <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
-              </Carousel.AutoplayTrigger>
-              <Carousel.PrevTrigger />
-              <Carousel.Indicators />
-              <Carousel.NextTrigger />
-            </Carousel.Control>
+              <CarouselAutoplayTrigger>
+                <CarouselAutoplayIndicator fallback="Play">Pause</CarouselAutoplayIndicator>
+              </CarouselAutoplayTrigger>
+              <CarouselPrevTrigger />
+              <CarouselIndicators />
+              <CarouselNextTrigger />
+            </CarouselControl>
           </>
         )}
-      </Carousel.Context>
+      </CarouselContext>
     </Carousel>
   ),
 };
@@ -454,15 +470,15 @@ export const Loop: Story = {
       className={carouselClass}
       spacing="1em"
     >
-      <Carousel.ItemGroup aria-label="Looping image carousel">
+      <CarouselItemGroup aria-label="Looping image carousel">
         <Slides />
-      </Carousel.ItemGroup>
-      <Carousel.Control className={controlsClass}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-      <Carousel.Indicators />
-      <Carousel.ProgressText />
+      </CarouselItemGroup>
+      <CarouselControl className={controlsClass}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
+      <CarouselIndicators />
+      <CarouselProgressText />
     </Carousel>
   ),
 };
@@ -477,15 +493,15 @@ export const MouseDrag: Story = {
       className={carouselClass}
       spacing="1em"
     >
-      <Carousel.ItemGroup aria-label="Mouse draggable image carousel">
+      <CarouselItemGroup aria-label="Mouse draggable image carousel">
         <Slides />
-      </Carousel.ItemGroup>
-      <Carousel.Control className={controlsClass}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-      <Carousel.Indicators />
-      <Carousel.ProgressText />
+      </CarouselItemGroup>
+      <CarouselControl className={controlsClass}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
+      <CarouselIndicators />
+      <CarouselProgressText />
     </Carousel>
   ),
 };
@@ -500,15 +516,15 @@ export const Rtl: Story = {
       className={carouselClass}
       spacing="1em"
     >
-      <Carousel.ItemGroup aria-label="Right-to-left image carousel">
+      <CarouselItemGroup aria-label="Right-to-left image carousel">
         <Slides />
-      </Carousel.ItemGroup>
-      <Carousel.Control className={controlsClass}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-      <Carousel.Indicators />
-      <Carousel.ProgressText />
+      </CarouselItemGroup>
+      <CarouselControl className={controlsClass}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
+      <CarouselIndicators />
+      <CarouselProgressText />
     </Carousel>
   ),
 };
@@ -523,14 +539,14 @@ export const Vertical: Story = {
       className="w-full max-w-152 data-[orientation=vertical]:h-112"
       spacing="1em"
     >
-      <Carousel.ItemGroup aria-label="Vertical image carousel">
+      <CarouselItemGroup aria-label="Vertical image carousel">
         <Slides className="h-full" />
-      </Carousel.ItemGroup>
-      <Carousel.Control>
-        <Carousel.PrevTrigger />
-        <Carousel.Indicators />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
+      </CarouselItemGroup>
+      <CarouselControl>
+        <CarouselPrevTrigger />
+        <CarouselIndicators />
+        <CarouselNextTrigger />
+      </CarouselControl>
     </Carousel>
   ),
 };

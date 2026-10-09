@@ -1,7 +1,10 @@
 :root {
   --moduix-radius: 0.625rem;
   --moduix-radius-none: 0;
+}
 
+:root,
+:where([data-moduix-theme], [data-moduix-color-scheme]) {
   --moduix-radius-xs: calc(var(--moduix-radius) * 0.4);
   --moduix-radius-sm: calc(var(--moduix-radius) * 0.6);
   --moduix-radius-md: calc(var(--moduix-radius) * 0.8);

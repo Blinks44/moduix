@@ -1,4 +1,12 @@
-import { Timer, useTimer } from '@moduix/solid/timer';
+import {
+  TimerRootProvider,
+  TimerArea,
+  TimerItem,
+  TimerSeparator,
+  TimerControl,
+  TimerActionTrigger,
+  useTimer,
+} from '@moduix/solid/timer';
 import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-solid';
 import styles from '@/components/examples/timer/timer-root-provider.module.css';
 
@@ -9,35 +17,35 @@ export default function RootProviderTimerDemo() {
 
   return (
     <>
-      <Timer.RootProvider value={timer}>
-        <Timer.Area>
+      <TimerRootProvider value={timer}>
+        <TimerArea>
           <span class={styles.itemGroup}>
-            <Timer.Item type="hours" />
+            <TimerItem type="hours" />
             <span class={styles.itemLabel}>hours</span>
           </span>
-          <Timer.Separator>:</Timer.Separator>
+          <TimerSeparator>:</TimerSeparator>
           <span class={styles.itemGroup}>
-            <Timer.Item type="minutes" />
+            <TimerItem type="minutes" />
             <span class={styles.itemLabel}>minutes</span>
           </span>
-          <Timer.Separator>:</Timer.Separator>
+          <TimerSeparator>:</TimerSeparator>
           <span class={styles.itemGroup}>
-            <Timer.Item type="seconds" />
+            <TimerItem type="seconds" />
             <span class={styles.itemLabel}>seconds</span>
           </span>
-        </Timer.Area>
-        <Timer.Control>
-          <Timer.ActionTrigger action="start">
+        </TimerArea>
+        <TimerControl>
+          <TimerActionTrigger action="start">
             <PlayIcon /> Start
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="pause">
+          </TimerActionTrigger>
+          <TimerActionTrigger action="pause">
             <PauseIcon /> Pause
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="reset">
+          </TimerActionTrigger>
+          <TimerActionTrigger action="reset">
             <RotateCcwIcon /> Reset
-          </Timer.ActionTrigger>
-        </Timer.Control>
-      </Timer.RootProvider>
+          </TimerActionTrigger>
+        </TimerControl>
+      </TimerRootProvider>
       <output>Progress: {(timer().progressPercent * 100).toFixed(0)}%</output>
     </>
   );

@@ -32,7 +32,7 @@ type MenuRadioItemProps = ComponentProps<typeof MenuPrimitive.RadioItem> & {
 type MenuRootProps = ComponentProps<typeof MenuPrimitive.Root> & OverlayPortalProps;
 type MenuRootProviderProps = ComponentProps<typeof MenuPrimitive.RootProvider> & OverlayPortalProps;
 
-function MenuRoot({
+function Menu({
   lazyMount = true,
   portalled,
   portalRef,
@@ -75,13 +75,20 @@ const MenuTrigger = forwardRef<
   );
 });
 
-function MenuTriggerIcon({ className, children, ...props }: ComponentProps<'span'>) {
-  return (
-    <span className={clsx(styles.triggerIcon, className)} {...props} data-slot="menu-trigger-icon">
-      {children ?? <ChevronDownIcon className={styles.iconSvg} />}
-    </span>
-  );
-}
+const MenuTriggerIcon = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
+  function MenuTriggerIcon({ className, children, ...props }, ref) {
+    return (
+      <span
+        ref={ref}
+        className={clsx(styles.triggerIcon, className)}
+        {...props}
+        data-slot="menu-trigger-icon"
+      >
+        {children ?? <ChevronDownIcon className={styles.iconSvg} />}
+      </span>
+    );
+  },
+);
 
 const MenuIndicator = forwardRef<
   ComponentRef<typeof MenuPrimitive.Indicator>,
@@ -222,17 +229,20 @@ const MenuTriggerItem = forwardRef<
   );
 });
 
-function MenuTriggerItemIcon({ className, children, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      className={clsx(styles.triggerItemIcon, className)}
-      {...props}
-      data-slot="menu-trigger-item-icon"
-    >
-      {children ?? <ChevronRightIcon className={styles.iconSvg} />}
-    </span>
-  );
-}
+const MenuTriggerItemIcon = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
+  function MenuTriggerItemIcon({ className, children, ...props }, ref) {
+    return (
+      <span
+        ref={ref}
+        className={clsx(styles.triggerItemIcon, className)}
+        {...props}
+        data-slot="menu-trigger-item-icon"
+      >
+        {children ?? <ChevronRightIcon className={styles.iconSvg} />}
+      </span>
+    );
+  },
+);
 
 const MenuSeparator = forwardRef<
   ComponentRef<typeof MenuPrimitive.Separator>,
@@ -401,35 +411,39 @@ const MenuItemShortcut = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<
   },
 );
 
-const Menu = Object.assign(MenuRoot, {
-  Root: MenuRoot,
-  RootProvider: MenuRootProvider,
-  Context: MenuPrimitive.Context,
-  Trigger: MenuTrigger,
-  TriggerIcon: MenuTriggerIcon,
-  Indicator: MenuIndicator,
-  ContextTrigger: MenuContextTrigger,
-  Positioner: MenuPositioner,
-  Content: MenuContent,
-  Viewport: MenuViewport,
-  Arrow: MenuArrow,
-  ArrowTip: MenuArrowTip,
-  Item: MenuItem,
-  TriggerItem: MenuTriggerItem,
-  TriggerItemIcon: MenuTriggerItemIcon,
-  Separator: MenuSeparator,
-  ItemGroup: MenuItemGroup,
-  ItemGroupLabel: MenuItemGroupLabel,
-  RadioItemGroup: MenuRadioItemGroup,
-  RadioItem: MenuRadioItem,
-  CheckboxItem: MenuCheckboxItem,
-  ItemIndicator: MenuItemIndicator,
-  ItemText: MenuItemText,
-  ItemTextContent: MenuItemTextContent,
-  ItemTextIcon: MenuItemTextIcon,
-  ItemTextLabel: MenuItemTextLabel,
-  ItemShortcut: MenuItemShortcut,
-  ItemContext: MenuPrimitive.ItemContext,
-});
+const MenuContext = MenuPrimitive.Context;
+const MenuItemContext = MenuPrimitive.ItemContext;
 
-export { Menu, useMenu, useMenuContext, useMenuItemContext };
+export {
+  Menu,
+  MenuArrow,
+  MenuArrowTip,
+  MenuCheckboxItem,
+  MenuContext,
+  MenuContextTrigger,
+  MenuContent,
+  MenuIndicator,
+  MenuItem,
+  MenuItemContext,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuItemIndicator,
+  MenuItemShortcut,
+  MenuItemText,
+  MenuItemTextContent,
+  MenuItemTextIcon,
+  MenuItemTextLabel,
+  MenuPositioner,
+  MenuRadioItem,
+  MenuRadioItemGroup,
+  MenuRootProvider,
+  MenuSeparator,
+  MenuTrigger,
+  MenuTriggerIcon,
+  MenuTriggerItem,
+  MenuTriggerItemIcon,
+  MenuViewport,
+  useMenu,
+  useMenuContext,
+  useMenuItemContext,
+};

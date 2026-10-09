@@ -1,5 +1,15 @@
 import { Button } from '@moduix/solid/button';
-import { Popover } from '@moduix/solid/popover';
+import {
+  Popover,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@moduix/solid/popover';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/popover/popover-controlled.module.css';
 
@@ -9,22 +19,22 @@ export default function ControlledPopoverDemo() {
   return (
     <div class={styles.root}>
       <Popover open={open()} onOpenChange={(details) => setOpen(details.open)}>
-        <Popover.Trigger
+        <PopoverTrigger
           asChild={(props) => <Button {...props()}>Open controlled popover</Button>}
         />
-        <Popover.Positioner>
-          <Popover.Content>
-            <Popover.Header>
-              <Popover.Title>Publish changes?</Popover.Title>
-              <Popover.Description>
+        <PopoverPositioner>
+          <PopoverContent>
+            <PopoverHeader>
+              <PopoverTitle>Publish changes?</PopoverTitle>
+              <PopoverDescription>
                 This action will make your latest updates visible to all users.
-              </Popover.Description>
-            </Popover.Header>
-            <Popover.Footer>
-              <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-            </Popover.Footer>
-          </Popover.Content>
-        </Popover.Positioner>
+              </PopoverDescription>
+            </PopoverHeader>
+            <PopoverFooter>
+              <PopoverCloseTrigger>Close</PopoverCloseTrigger>
+            </PopoverFooter>
+          </PopoverContent>
+        </PopoverPositioner>
       </Popover>
       <output>Open: {open() ? 'yes' : 'no'}</output>
     </div>

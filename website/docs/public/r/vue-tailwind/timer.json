@@ -1,0 +1,65 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "timer",
+  "title": "Timer",
+  "description": "moduix Vue Tailwind Timer component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/timer/Timer.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TimerRoot as ArkTimerRoot } from '@ark-ui/vue/timer';\nimport type { TimerRootProps, UseTimerReturn } from '@ark-ui/vue/timer';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TimerRootProps {\n  class?: HTMLAttributes['class'];\n}\n\nexport interface TimerTickDetails {\n  value: number;\n  time: UseTimerReturn['value']['time'];\n  formattedTime: UseTimerReturn['value']['formattedTime'];\n}\n\nexport interface Emits {\n  complete: [];\n  tick: [details: TimerTickDetails];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineEmits</* @vue-ignore */ Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTimerRoot\n    v-bind=\"attrs\"\n    :class=\"cn('inline-grid w-max max-w-full place-items-center gap-3 text-foreground', className)\"\n    data-slot=\"timer-root\"\n  >\n    <slot />\n  </ArkTimerRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/timer/Timer.vue"
+    },
+    {
+      "path": "src/components/timer/TimerRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TimerRootProvider as ArkTimerRootProvider } from '@ark-ui/vue/timer';\nimport type { TimerRootProviderProps } from '@ark-ui/vue/timer';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TimerRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: TimerRootProviderProps['value'];\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTimerRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn('inline-grid w-max max-w-full place-items-center gap-3 text-foreground', className)\"\n    :value=\"value\"\n    data-slot=\"timer-root-provider\"\n  >\n    <slot />\n  </ArkTimerRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/timer/TimerRootProvider.vue"
+    },
+    {
+      "path": "src/components/timer/TimerArea.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TimerArea as ArkTimerArea } from '@ark-ui/vue/timer';\nimport type { TimerAreaProps } from '@ark-ui/vue/timer';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TimerAreaProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTimerArea\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'inline-flex max-w-full min-w-0 flex-wrap items-baseline justify-center gap-1 text-2xl leading-5 font-semibold tracking-normal tabular-nums',\n        className,\n      )\n    \"\n    data-slot=\"timer-area\"\n  >\n    <slot />\n  </ArkTimerArea>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/timer/TimerArea.vue"
+    },
+    {
+      "path": "src/components/timer/TimerItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TimerItem as ArkTimerItem } from '@ark-ui/vue/timer';\nimport type { TimerItemProps } from '@ark-ui/vue/timer';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TimerItemProps {\n  class?: HTMLAttributes['class'];\n  type: TimerItemProps['type'];\n}\n\nconst { class: className, type } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTimerItem\n    v-bind=\"attrs\"\n    :class=\"cn('min-w-[2ch] text-center', className)\"\n    :type=\"type\"\n    data-slot=\"timer-item\"\n  >\n    <template v-if=\"$slots.default\" #default>\n      <slot />\n    </template>\n  </ArkTimerItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/timer/TimerItem.vue"
+    },
+    {
+      "path": "src/components/timer/TimerSeparator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TimerSeparator as ArkTimerSeparator } from '@ark-ui/vue/timer';\nimport type { TimerSeparatorProps } from '@ark-ui/vue/timer';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TimerSeparatorProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTimerSeparator\n    v-bind=\"attrs\"\n    :class=\"cn('text-muted-foreground', className)\"\n    data-slot=\"timer-separator\"\n  >\n    <slot />\n  </ArkTimerSeparator>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/timer/TimerSeparator.vue"
+    },
+    {
+      "path": "src/components/timer/TimerControl.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TimerControl as ArkTimerControl } from '@ark-ui/vue/timer';\nimport type { TimerControlProps } from '@ark-ui/vue/timer';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TimerControlProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTimerControl\n    v-bind=\"attrs\"\n    :class=\"cn('inline-flex flex-wrap items-center gap-2', className)\"\n    data-slot=\"timer-control\"\n  >\n    <slot />\n  </ArkTimerControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/timer/TimerControl.vue"
+    },
+    {
+      "path": "src/components/timer/TimerActionTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TimerActionTrigger as ArkTimerActionTrigger } from '@ark-ui/vue/timer';\nimport type { TimerActionTriggerProps } from '@ark-ui/vue/timer';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TimerActionTriggerProps {\n  action: TimerActionTriggerProps['action'];\n  class?: HTMLAttributes['class'];\n}\n\nconst { action, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst actionTriggerClass =\n  'inline-flex min-h-control-md cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition-[background-color,border-color,color,opacity,box-shadow] duration-200 ease-in-out focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:cursor-default aria-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent';\n</script>\n\n<template>\n  <ArkTimerActionTrigger\n    v-bind=\"attrs\"\n    :action=\"action\"\n    :class=\"cn(actionTriggerClass, className)\"\n    data-slot=\"timer-action-trigger\"\n  >\n    <slot />\n  </ArkTimerActionTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/timer/TimerActionTrigger.vue"
+    },
+    {
+      "path": "src/components/timer/TimerSegments.vue",
+      "content": "<script setup lang=\"ts\">\nimport type { TimerAreaProps, TimerItemProps } from '@ark-ui/vue/timer';\nimport { defineComponent, useAttrs } from 'vue';\nimport type { HTMLAttributes, VNodeChild } from 'vue';\nimport TimerArea from './TimerArea.vue';\nimport TimerItem from './TimerItem.vue';\nimport TimerSeparator from './TimerSeparator.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ Omit<TimerAreaProps, 'asChild' | 'children'> {\n  class?: HTMLAttributes['class'];\n  separator?: VNodeChild;\n  types?: TimerItemProps['type'][];\n}\n\nconst {\n  class: className,\n  separator = ':',\n  types = ['hours', 'minutes', 'seconds'] as TimerItemProps['type'][],\n} = defineProps<Props>();\ndefineSlots<{ default?: never }>();\n\nconst VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => props.value, {\n  props: ['value'],\n});\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <TimerArea v-bind=\"attrs\" :class=\"className\">\n    <template v-for=\"(type, index) in types\" :key=\"`${type}-${index}`\">\n      <TimerItem :type=\"type\" />\n      <TimerSeparator v-if=\"index < types.length - 1\">\n        <VNodeOutlet :value=\"separator\" />\n      </TimerSeparator>\n    </template>\n  </TimerArea>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/timer/TimerSegments.vue"
+    },
+    {
+      "path": "src/components/timer/index.ts",
+      "content": "import { TimerContext, useTimer, useTimerContext } from '@ark-ui/vue/timer';\nimport Timer from './Timer.vue';\nimport TimerActionTrigger from './TimerActionTrigger.vue';\nimport TimerArea from './TimerArea.vue';\nimport TimerControl from './TimerControl.vue';\nimport TimerItem from './TimerItem.vue';\nimport TimerRootProvider from './TimerRootProvider.vue';\nimport TimerSegments from './TimerSegments.vue';\nimport TimerSeparator from './TimerSeparator.vue';\n\nexport {\n  Timer,\n  TimerActionTrigger,\n  TimerArea,\n  TimerContext,\n  TimerControl,\n  TimerItem,\n  TimerRootProvider,\n  TimerSegments,\n  TimerSeparator,\n  useTimer,\n  useTimerContext,\n};\n\nexport type { Props as TimerSegmentsProps } from './TimerSegments.vue';\nexport type { TimerTickDetails } from './Timer.vue';\n\nexport type {\n  TimerActionTriggerBaseProps,\n  TimerActionTriggerProps,\n  TimerAreaBaseProps,\n  TimerAreaProps,\n  TimerContextProps,\n  TimerControlBaseProps,\n  TimerControlProps,\n  TimerItemBaseProps,\n  TimerItemProps,\n  TimerRootEmits,\n  TimerRootProps,\n  TimerRootProviderBaseProps,\n  TimerRootProviderProps,\n  TimerSeparatorBaseProps,\n  TimerSeparatorProps,\n  UseTimerContext,\n  UseTimerProps,\n  UseTimerReturn,\n} from '@ark-ui/vue/timer';",
+      "type": "registry:component",
+      "target": "@components/ui/timer/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

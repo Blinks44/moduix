@@ -13,10 +13,14 @@ import imageSolidArtDirection from '../../../snippets/image/solid/art-direction.
 import imageSolidBasic from '../../../snippets/image/solid/basic.tsx?raw';
 import imageSolidFixed from '../../../snippets/image/solid/fixed.tsx?raw';
 import imageSolidFullWidth from '../../../snippets/image/solid/full-width.tsx?raw';
+import imageVueArtDirection from '../../../snippets/image/vue/art-direction.vue?raw';
+import imageVueBasic from '../../../snippets/image/vue/basic.vue?raw';
+import imageVueFixed from '../../../snippets/image/vue/fixed.vue?raw';
+import imageVueFullWidth from '../../../snippets/image/vue/full-width.vue?raw';
 
 ## Справочник API
 
-Компонент `Image` в moduix представляет собой лёгкую обёртку над компонентом `<img>` из [Unpic React](https://unpic.pics/img/react/).
+Компонент `Image` в moduix представляет собой лёгкую обёртку над нативным `<img>` и API [Unpic](https://unpic.pics/img/).
 В Ark UI нет отдельного примитива для изображений. Поэтому `Image` использует нативную композицию `<img>` и `<picture>`
 вместо части Ark UI. Подробнее о модели нативных элементов рассказывает [руководство Ark по композиции](https://ark-ui.com/docs/guides/composition).
 
@@ -30,6 +34,11 @@ import imageSolidFullWidth from '../../../snippets/image/solid/full-width.tsx?ra
 адаптивные атрибуты `srcset` и `sizes`. Для остальных URL Unpic сохраняет исходный адрес без изменений.
 Браузер заранее резервирует место под изображение до его загрузки.
 
+Изображения по умолчанию используют `loading="lazy"` и `decoding="async"`, в том числе
+локальные файлы и URL без поддерживаемого CDN. Для главного изображения на первом экране
+укажите `priority`: он задаёт `loading="eager"` и `fetchpriority="high"`, не устанавливая
+`decoding`. Явно заданные нативные атрибуты имеют преимущество перед этими значениями.
+
 <ExampleFrame variant="component">
   <ImageBasic />
 </ExampleFrame>
@@ -41,6 +50,7 @@ import imageSolidFullWidth from '../../../snippets/image/solid/full-width.tsx?ra
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -53,6 +63,11 @@ import imageSolidFullWidth from '../../../snippets/image/solid/full-width.tsx?ra
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageVueBasic} />
 
     </Tab>
   </Tabs>
@@ -85,27 +100,37 @@ import imageSolidFullWidth from '../../../snippets/image/solid/full-width.tsx?ra
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Image / Image.Root
+Image
 └─ img
 
 picture (native)
-├─ Image.Source
-└─ Image / Image.Root
+├─ ImageSource
+└─ Image
 ```
 
 | Часть                  | Роль                                                                   |
 | ---------------------- | ---------------------------------------------------------------------- |
-| `Image` / `Image.Root` | Адаптивный нативный элемент `<img>`; Unpic генерирует `srcset`, `sizes` и стили. |
-| `Image.Source`         | Адаптивный `<source>` для нативного элемента `<picture>`.              |
+| `Image`                | Адаптивный нативный элемент `<img>`; Unpic генерирует `srcset`, `sizes` и стили. |
+| `ImageSource`          | Адаптивный `<source>` для нативного элемента `<picture>`.                       |
 
 ## Композиция
 
-`Image` является корневым компонентом и может использоваться напрямую. Используйте `Image.Source`
+`Image` является корневым компонентом и может использоваться напрямую. Используйте `ImageSource`
 только внутри нативного `<picture>` и оставляйте `Image` последним, чтобы он оставался запасным
 изображением, если браузер не выбрал источник. Для выбора формата поставьте источник с `type`
 перед эквивалентным источником без `type`: браузер выберет первый поддерживаемый формат.
@@ -114,10 +139,10 @@ picture (native)
 
 ### Адаптивное кадрирование
 
-Используйте `Image.Source`, чтобы на больших экранах показывать широкий план офиса, а на маленьких
+Используйте `ImageSource`, чтобы на больших экранах показывать широкий план офиса, а на маленьких
 экранах использовать изображение в портретной ориентации. Первый источник для больших экранов
 запрашивает AVIF, а следующий служит запасным вариантом для браузеров без поддержки AVIF.
-`Image.Source` должен находиться внутри нативного `<picture>`.
+`ImageSource` должен находиться внутри нативного `<picture>`.
 
 <ExampleFrame variant="component">
   <ImageArtDirection />
@@ -130,6 +155,7 @@ picture (native)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -142,6 +168,11 @@ picture (native)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageSolidArtDirection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageVueArtDirection} />
 
     </Tab>
   </Tabs>
@@ -171,6 +202,7 @@ picture (native)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -183,6 +215,11 @@ picture (native)
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageSolidFixed} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageVueFixed} />
 
     </Tab>
   </Tabs>
@@ -206,6 +243,7 @@ picture (native)
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -220,6 +258,11 @@ picture (native)
 <CodeBlockRuntime lang="tsx" code={imageSolidFullWidth} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageVueFullWidth} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -227,7 +270,7 @@ picture (native)
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid на `Image` и `Image.Source` для локальной
+Используйте `className` в React или `class` в Solid и Vue на `Image` и `ImageSource` для локальной
 стилизации. Варианты Tailwind используют нативные утилиты и классы потребителя. Переменная
 `--moduix-image-radius` настраивает варианты с CSS Modules, а хуки `data-slot` общие для обоих
 вариантов стилизации.
@@ -240,4 +283,4 @@ picture (native)
 
 - `data-slot="image-root"` позволяет выбрать отрисованный `<img>` в CSS.
 - `data-slot="image-source"` позволяет выбрать узел `<source>` внутри нативного `<picture>`.
-- `className` в React и `class` в Solid являются рекомендуемым способом локальной стилизации.
+- `className` в React и `class` в Solid и Vue являются рекомендуемым способом локальной стилизации.

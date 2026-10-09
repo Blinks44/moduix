@@ -1,17 +1,17 @@
-import { Field } from '@moduix/react/field';
-import { RadioGroup } from '@moduix/react/radio-group';
+import { Field, FieldErrorText, FieldHelperText, FieldLabel } from '@moduix/react/field';
+import { RadioGroup, RadioGroupOption } from '@moduix/react/radio-group';
 import styles from '@/components/examples/radio-group/radio-group-with-field.module.css';
 
 export default function RadioGroupFieldDemo() {
   return (
-    <Field.Root invalid className={styles.field}>
-      <Field.Label>Account type</Field.Label>
+    <Field invalid className={styles.field}>
+      <FieldLabel>Account type</FieldLabel>
       <RadioGroup invalid required name="account-type">
-        <RadioGroup.Option value="personal">Personal account</RadioGroup.Option>
-        <RadioGroup.Option value="team">Team account</RadioGroup.Option>
+        <RadioGroupOption value="personal">Personal account</RadioGroupOption>
+        <RadioGroupOption value="team">Team account</RadioGroupOption>
       </RadioGroup>
-      <Field.HelperText>Choose the default account context for new projects.</Field.HelperText>
-      <Field.ErrorText>Choose an account type.</Field.ErrorText>
-    </Field.Root>
+      <FieldHelperText>Choose the default account context for new projects.</FieldHelperText>
+      <FieldErrorText>Choose an account type.</FieldErrorText>
+    </Field>
   );
 }

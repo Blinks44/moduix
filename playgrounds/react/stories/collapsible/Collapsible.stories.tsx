@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Collapsible, useCollapsible } from '@/components/collapsible/Collapsible';
+import {
+  Collapsible,
+  CollapsibleBody,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleRootProvider,
+  CollapsibleTrigger,
+  useCollapsible,
+} from '@/components/collapsible/Collapsible';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import styles from './Collapsible.stories.module.css';
 
@@ -32,15 +40,15 @@ function RecoveryKeys() {
 export const Basic: Story = {
   render: () => (
     <Collapsible className={styles.root}>
-      <Collapsible.Trigger>
+      <CollapsibleTrigger>
         Recovery keys
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
+        <CollapsibleIndicator />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <CollapsibleBody>
           <RecoveryKeys />
-        </Collapsible.Body>
-      </Collapsible.Content>
+        </CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   ),
 };
@@ -48,15 +56,15 @@ export const Basic: Story = {
 export const DefaultOpen: Story = {
   render: () => (
     <Collapsible defaultOpen className={styles.root}>
-      <Collapsible.Trigger>
+      <CollapsibleTrigger>
         Recovery keys
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
+        <CollapsibleIndicator />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <CollapsibleBody>
           <RecoveryKeys />
-        </Collapsible.Body>
-      </Collapsible.Content>
+        </CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   ),
 };
@@ -71,15 +79,15 @@ export const Controlled: Story = {
         onOpenChange={(details) => setOpen(details.open)}
         className={styles.root}
       >
-        <Collapsible.Trigger>
+        <CollapsibleTrigger>
           Recovery keys
-          <Collapsible.Indicator />
-        </Collapsible.Trigger>
-        <Collapsible.Content>
-          <Collapsible.Body>
+          <CollapsibleIndicator />
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <CollapsibleBody>
             <RecoveryKeys />
-          </Collapsible.Body>
-        </Collapsible.Content>
+          </CollapsibleBody>
+        </CollapsibleContent>
         <div className={styles.status}>Current state: {open ? 'open' : 'closed'}</div>
       </Collapsible>
     );
@@ -89,15 +97,15 @@ export const Controlled: Story = {
 export const Disabled: Story = {
   render: () => (
     <Collapsible disabled className={styles.root}>
-      <Collapsible.Trigger>
+      <CollapsibleTrigger>
         Recovery keys
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
+        <CollapsibleIndicator />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <CollapsibleBody>
           <RecoveryKeys />
-        </Collapsible.Body>
-      </Collapsible.Content>
+        </CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   ),
 };
@@ -105,15 +113,15 @@ export const Disabled: Story = {
 export const LazyMount: Story = {
   render: () => (
     <Collapsible lazyMount unmountOnExit className={styles.root}>
-      <Collapsible.Trigger>
+      <CollapsibleTrigger>
         Recovery keys
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
+        <CollapsibleIndicator />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <CollapsibleBody>
           <RecoveryKeys />
-        </Collapsible.Body>
-      </Collapsible.Content>
+        </CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   ),
 };
@@ -121,15 +129,15 @@ export const LazyMount: Story = {
 export const PartialCollapse: Story = {
   render: () => (
     <Collapsible collapsedHeight="3rem" className={styles.root}>
-      <Collapsible.Trigger>
+      <CollapsibleTrigger>
         Recovery keys
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
+        <CollapsibleIndicator />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <CollapsibleBody>
           <RecoveryKeys />
-        </Collapsible.Body>
-      </Collapsible.Content>
+        </CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   ),
 };
@@ -137,15 +145,13 @@ export const PartialCollapse: Story = {
 export const PartialWidth: Story = {
   render: () => (
     <Collapsible collapsedWidth="8rem" className={styles.root} style={{ width: '18rem' }}>
-      <Collapsible.Trigger>
+      <CollapsibleTrigger>
         Read details
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
-          Additional account-recovery details stay partly visible.
-        </Collapsible.Body>
-      </Collapsible.Content>
+        <CollapsibleIndicator />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <CollapsibleBody>Additional account-recovery details stay partly visible.</CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   ),
 };
@@ -157,17 +163,17 @@ export const RootProvider: Story = {
     return (
       <div className={styles.providerLayout}>
         <output>Current state: {collapsible.open ? 'open' : 'closed'}</output>
-        <Collapsible.RootProvider value={collapsible} className={styles.root}>
-          <Collapsible.Trigger>
+        <CollapsibleRootProvider value={collapsible} className={styles.root}>
+          <CollapsibleTrigger>
             Recovery keys
-            <Collapsible.Indicator />
-          </Collapsible.Trigger>
-          <Collapsible.Content>
-            <Collapsible.Body>
+            <CollapsibleIndicator />
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <CollapsibleBody>
               <RecoveryKeys />
-            </Collapsible.Body>
-          </Collapsible.Content>
-        </Collapsible.RootProvider>
+            </CollapsibleBody>
+          </CollapsibleContent>
+        </CollapsibleRootProvider>
       </div>
     );
   },
@@ -176,19 +182,19 @@ export const RootProvider: Story = {
 export const CustomComposition: Story = {
   render: () => (
     <Collapsible className={styles.customRoot}>
-      <Collapsible.Trigger asChild>
+      <CollapsibleTrigger asChild>
         <button type="button" className={styles.customTrigger}>
           <span className={styles.triggerLabel}>Styled recovery keys</span>
-          <Collapsible.Indicator className={styles.customIndicator}>
+          <CollapsibleIndicator className={styles.customIndicator}>
             <ChevronDownIcon />
-          </Collapsible.Indicator>
+          </CollapsibleIndicator>
         </button>
-      </Collapsible.Trigger>
-      <Collapsible.Content className={styles.customContent}>
-        <Collapsible.Body className={styles.customContentBody}>
+      </CollapsibleTrigger>
+      <CollapsibleContent className={styles.customContent}>
+        <CollapsibleBody className={styles.customContentBody}>
           <RecoveryKeys />
-        </Collapsible.Body>
-      </Collapsible.Content>
+        </CollapsibleBody>
+      </CollapsibleContent>
     </Collapsible>
   ),
 };

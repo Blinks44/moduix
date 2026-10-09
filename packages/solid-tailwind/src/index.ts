@@ -82,7 +82,14 @@ export * from './components/textarea';
 export * from './components/toast';
 export * from './components/toc';
 export * from './components/toggle';
-export { ToggleGroup, useToggleGroup, useToggleGroupContext } from './components/toggle-group';
+export {
+  ToggleGroup,
+  ToggleGroupContext,
+  ToggleGroupItem,
+  ToggleGroupRootProvider,
+  useToggleGroup,
+  useToggleGroupContext,
+} from './components/toggle-group';
 export * from './components/tooltip';
 export * from './components/tour';
 export * from './components/tree-view';

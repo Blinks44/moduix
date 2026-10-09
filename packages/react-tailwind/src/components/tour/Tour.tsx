@@ -25,7 +25,7 @@ const DEFAULT_CLOSE_BUTTON_LABEL = 'Close tour';
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
 type TourCloseIconProps = Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>;
 
-function TourRoot({
+function Tour({
   lazyMount = true,
   portalled,
   portalRef,
@@ -120,7 +120,10 @@ const TourArrow = forwardRef<
   return (
     <TourPrimitive.Arrow
       ref={ref}
-      className={cn('!size-2.5', className)}
+      className={cn(
+        '[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]',
+        className,
+      )}
       {...props}
       data-slot="tour-arrow"
     >
@@ -209,7 +212,7 @@ const TourCloseTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'absolute end-4 top-4 inline-flex size-7 cursor-pointer items-center justify-center rounded-md leading-none text-muted-foreground outline-0 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring [&>svg]:size-3 [@media(hover:hover)]:hover:bg-accent [@media(hover:hover)]:hover:text-popover-foreground',
+          'absolute end-4 top-4 inline-flex size-7 cursor-pointer items-center justify-center rounded-md leading-none text-muted-foreground outline-0 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent [@media(hover:hover)]:hover:text-popover-foreground',
         className,
       )}
       {...props}
@@ -218,24 +221,24 @@ const TourCloseTrigger = forwardRef<
   );
 });
 
-const TourCloseIcon = forwardRef<ComponentRef<typeof CloseButton.Root>, TourCloseIconProps>(
+const TourCloseIcon = forwardRef<ComponentRef<typeof CloseButton>, TourCloseIconProps>(
   function TourCloseIcon(
     { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
     ref,
   ) {
     return (
       <TourPrimitive.CloseTrigger asChild {...props}>
-        <CloseButton.Root
+        <CloseButton
           ref={ref}
           data-slot="tour-close-icon"
           aria-label={ariaLabel}
           className={cn(
-            'absolute end-4 top-4 size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+            'absolute end-4 top-4 size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
             className,
           )}
         >
           {children}
-        </CloseButton.Root>
+        </CloseButton>
       </TourPrimitive.CloseTrigger>
     );
   },
@@ -292,29 +295,27 @@ function TourActionList({ className }: { className?: string }) {
   );
 }
 
-const Tour = Object.assign(TourRoot, {
-  Root: TourRoot,
-  Context: TourPrimitive.Context,
-  Backdrop: TourBackdrop,
-  Spotlight: TourSpotlight,
-  Positioner: TourPositioner,
-  Content: TourContent,
-  Arrow: TourArrow,
-  ArrowTip: TourArrowTip,
-  Title: TourTitle,
-  Description: TourDescription,
-  ProgressText: TourProgressText,
-  Body: TourBody,
-  CloseTrigger: TourCloseTrigger,
-  CloseIcon: TourCloseIcon,
-  Control: TourControl,
-  Actions: TourActions,
-  ActionList: TourActionList,
-  ActionTrigger: TourActionTrigger,
-});
+const TourContext = TourPrimitive.Context;
 
 export {
   Tour,
+  TourActionList,
+  TourActionTrigger,
+  TourActions,
+  TourArrow,
+  TourArrowTip,
+  TourBackdrop,
+  TourBody,
+  TourCloseIcon,
+  TourCloseTrigger,
+  TourContent,
+  TourContext,
+  TourControl,
+  TourDescription,
+  TourPositioner,
+  TourProgressText,
+  TourSpotlight,
+  TourTitle,
   useTour,
   useTourContext,
   waitForElement,

@@ -1,4 +1,9 @@
-import { ImageCropper } from '@moduix/solid/image-cropper';
+import {
+  ImageCropper,
+  ImageCropperCropArea,
+  ImageCropperImage,
+  ImageCropperViewport,
+} from '@moduix/solid/image-cropper';
 import { createSignal } from 'solid-js';
 
 const sampleImage =
@@ -15,10 +20,10 @@ export default function EventsImageCropperDemo() {
         onCropChange={(details) => setCrop(details.crop)}
         onZoomChange={(details) => setZoom(details.zoom)}
       >
-        <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
-          <ImageCropper.CropArea />
-        </ImageCropper.Viewport>
+        <ImageCropperViewport>
+          <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
+          <ImageCropperCropArea />
+        </ImageCropperViewport>
       </ImageCropper>
       <output>
         Zoom: {zoom().toFixed(2)}x, crop: {Math.round(crop().x)}, {Math.round(crop().y)},{' '}

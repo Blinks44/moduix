@@ -2,7 +2,25 @@ import { createListCollection } from '@ark-ui/react/collection';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps, ReactNode } from 'react';
 import { useState } from 'react';
-import { Select } from '@/components/select/Select';
+import {
+  Select,
+  SelectField,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectLabel,
+  SelectItemGroup,
+  SelectItemGroupLabel,
+  SelectContext,
+  useSelect,
+  SelectRootProvider,
+  SelectHiddenSelect,
+  SelectItemTextContent,
+  SelectItemTextIcon,
+  SelectItemTextLabel,
+} from '@/components/select/Select';
 import { ChevronDownIcon } from '@/internal/icons/ui/Icons';
 
 interface OptionItem {
@@ -89,23 +107,23 @@ const stackClassName = 'flex flex-col gap-2';
 const stateClassName = 'text-sm text-muted-foreground';
 
 function SelectFieldView({ placeholder = 'Select an option' }: { placeholder?: string }) {
-  return <Select.Field placeholder={placeholder} clearLabel="Clear selection" />;
+  return <SelectField placeholder={placeholder} clearLabel="Clear selection" />;
 }
 
 function FruitItems() {
   return fruits.items.map((item) => (
-    <Select.Item key={item.value} item={item}>
-      <Select.ItemText>{item.label}</Select.ItemText>
-      <Select.ItemIndicator />
-    </Select.Item>
+    <SelectItem key={item.value} item={item}>
+      <SelectItemText>{item.label}</SelectItemText>
+      <SelectItemIndicator />
+    </SelectItem>
   ));
 }
 
 function SelectPopupContent({ children }: { children: ReactNode }) {
   return (
-    <Select.Positioner>
-      <Select.Content>{children}</Select.Content>
-    </Select.Positioner>
+    <SelectPositioner>
+      <SelectContent>{children}</SelectContent>
+    </SelectPositioner>
   );
 }
 
@@ -124,13 +142,13 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <Select collection={fruits}>
-      <Select.Label>Choose fruit</Select.Label>
+      <SelectLabel>Choose fruit</SelectLabel>
       <SelectFieldView />
       <SelectPopupContent>
-        <Select.ItemGroup>
-          <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+        <SelectItemGroup>
+          <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
           <FruitItems />
-        </Select.ItemGroup>
+        </SelectItemGroup>
       </SelectPopupContent>
     </Select>
   ),
@@ -139,13 +157,13 @@ export const Basic: Story = {
 export const CustomFieldIndicator: Story = {
   render: () => (
     <Select collection={fruits}>
-      <Select.Label>Choose fruit</Select.Label>
-      <Select.Field placeholder="Select an option" indicator={<ChevronDownIcon />} />
+      <SelectLabel>Choose fruit</SelectLabel>
+      <SelectField placeholder="Select an option" indicator={<ChevronDownIcon />} />
       <SelectPopupContent>
-        <Select.ItemGroup>
-          <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+        <SelectItemGroup>
+          <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
           <FruitItems />
-        </Select.ItemGroup>
+        </SelectItemGroup>
       </SelectPopupContent>
     </Select>
   ),
@@ -154,19 +172,19 @@ export const CustomFieldIndicator: Story = {
 export const Grouped: Story = {
   render: () => (
     <Select collection={produce}>
-      <Select.Label>Choose produce</Select.Label>
+      <SelectLabel>Choose produce</SelectLabel>
       <SelectFieldView placeholder="Select item" />
       <SelectPopupContent>
         {produce.group().map(([type, group]) => (
-          <Select.ItemGroup key={type}>
-            <Select.ItemGroupLabel>{type}</Select.ItemGroupLabel>
+          <SelectItemGroup key={type}>
+            <SelectItemGroupLabel>{type}</SelectItemGroupLabel>
             {group.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+              <SelectItem key={item.value} item={item}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             ))}
-          </Select.ItemGroup>
+          </SelectItemGroup>
         ))}
       </SelectPopupContent>
     </Select>
@@ -176,18 +194,18 @@ export const Grouped: Story = {
 export const Multiple: Story = {
   render: () => (
     <Select collection={languages} multiple defaultValue={['javascript', 'typescript']}>
-      <Select.Label>Languages</Select.Label>
+      <SelectLabel>Languages</SelectLabel>
       <SelectFieldView placeholder="Select languages" />
       <SelectPopupContent>
-        <Select.ItemGroup>
-          <Select.ItemGroupLabel>Languages</Select.ItemGroupLabel>
+        <SelectItemGroup>
+          <SelectItemGroupLabel>Languages</SelectItemGroupLabel>
           {languages.items.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
+            <SelectItem key={item.value} item={item}>
+              <SelectItemText>{item.label}</SelectItemText>
+              <SelectItemIndicator />
+            </SelectItem>
           ))}
-        </Select.ItemGroup>
+        </SelectItemGroup>
       </SelectPopupContent>
     </Select>
   ),
@@ -204,18 +222,18 @@ export const Controlled: Story = {
           value={value}
           onValueChange={(details) => setValue(details.value)}
         >
-          <Select.Label>Theme</Select.Label>
+          <SelectLabel>Theme</SelectLabel>
           <SelectFieldView placeholder="Select theme" />
           <SelectPopupContent>
-            <Select.ItemGroup>
-              <Select.ItemGroupLabel>Theme</Select.ItemGroupLabel>
+            <SelectItemGroup>
+              <SelectItemGroupLabel>Theme</SelectItemGroupLabel>
               {themeOptions.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
+                <SelectItem key={item.value} item={item}>
+                  <SelectItemText>{item.label}</SelectItemText>
+                  <SelectItemIndicator />
+                </SelectItem>
               ))}
-            </Select.ItemGroup>
+            </SelectItemGroup>
           </SelectPopupContent>
         </Select>
         <span className={stateClassName}>Current value: {value[0] ?? 'none'}</span>
@@ -227,14 +245,14 @@ export const Controlled: Story = {
 export const ClearTrigger: Story = {
   render: () => (
     <Select collection={themeOptions} defaultValue={['system']} deselectable>
-      <Select.Label>Theme</Select.Label>
+      <SelectLabel>Theme</SelectLabel>
       <SelectFieldView placeholder="Select theme" />
       <SelectPopupContent>
         {themeOptions.items.map((item) => (
-          <Select.Item key={item.value} item={item}>
-            <Select.ItemText>{item.label}</Select.ItemText>
-            <Select.ItemIndicator />
-          </Select.Item>
+          <SelectItem key={item.value} item={item}>
+            <SelectItemText>{item.label}</SelectItemText>
+            <SelectItemIndicator />
+          </SelectItem>
         ))}
       </SelectPopupContent>
     </Select>
@@ -244,7 +262,7 @@ export const ClearTrigger: Story = {
 export const Disabled: Story = {
   render: () => (
     <Select collection={fruits} defaultValue={['apple']} disabled>
-      <Select.Label>Unavailable fruit</Select.Label>
+      <SelectLabel>Unavailable fruit</SelectLabel>
       <SelectFieldView />
       <SelectPopupContent>
         <FruitItems />
@@ -256,7 +274,7 @@ export const Disabled: Story = {
 export const Invalid: Story = {
   render: () => (
     <Select collection={fruits} invalid>
-      <Select.Label>Required fruit</Select.Label>
+      <SelectLabel>Required fruit</SelectLabel>
       <SelectFieldView />
       <SelectPopupContent>
         <FruitItems />
@@ -268,14 +286,14 @@ export const Invalid: Story = {
 export const LongContent: Story = {
   render: () => (
     <Select collection={longLabels} defaultValue={['long-label']} positioning={{ sameWidth: true }}>
-      <Select.Label>Delivery preference with a long label</Select.Label>
+      <SelectLabel>Delivery preference with a long label</SelectLabel>
       <SelectFieldView />
       <SelectPopupContent>
         {longLabels.items.map((item) => (
-          <Select.Item key={item.value} item={item}>
-            <Select.ItemText>{item.label}</Select.ItemText>
-            <Select.ItemIndicator />
-          </Select.Item>
+          <SelectItem key={item.value} item={item}>
+            <SelectItemText>{item.label}</SelectItemText>
+            <SelectItemIndicator />
+          </SelectItem>
         ))}
       </SelectPopupContent>
     </Select>
@@ -285,13 +303,13 @@ export const LongContent: Story = {
 export const LazyMount: Story = {
   render: () => (
     <Select collection={fruits} lazyMount unmountOnExit>
-      <Select.Label>Choose fruit</Select.Label>
+      <SelectLabel>Choose fruit</SelectLabel>
       <SelectFieldView />
       <SelectPopupContent>
-        <Select.ItemGroup>
-          <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+        <SelectItemGroup>
+          <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
           <FruitItems />
-        </Select.ItemGroup>
+        </SelectItemGroup>
       </SelectPopupContent>
     </Select>
   ),
@@ -300,16 +318,16 @@ export const LazyMount: Story = {
 export const Context: Story = {
   render: () => (
     <Select collection={fruits} defaultValue={['apple']}>
-      <Select.Label>Choose fruit</Select.Label>
+      <SelectLabel>Choose fruit</SelectLabel>
       <SelectFieldView />
-      <Select.Context>
+      <SelectContext>
         {(select) => <span className={stateClassName}>Selected: {select.valueAsString}</span>}
-      </Select.Context>
+      </SelectContext>
       <SelectPopupContent>
-        <Select.ItemGroup>
-          <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+        <SelectItemGroup>
+          <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
           <FruitItems />
-        </Select.ItemGroup>
+        </SelectItemGroup>
       </SelectPopupContent>
     </Select>
   ),
@@ -317,21 +335,21 @@ export const Context: Story = {
 
 export const RootProvider: Story = {
   render: () => {
-    const select = Select.useSelect({ collection: fruits, defaultValue: ['banana'] });
+    const select = useSelect({ collection: fruits, defaultValue: ['banana'] });
 
     return (
       <div className={stackClassName}>
         <span className={stateClassName}>Selected: {select.valueAsString}</span>
-        <Select.RootProvider value={select}>
-          <Select.Label>Choose fruit</Select.Label>
+        <SelectRootProvider value={select}>
+          <SelectLabel>Choose fruit</SelectLabel>
           <SelectFieldView />
           <SelectPopupContent>
-            <Select.ItemGroup>
-              <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+            <SelectItemGroup>
+              <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
               <FruitItems />
-            </Select.ItemGroup>
+            </SelectItemGroup>
           </SelectPopupContent>
-        </Select.RootProvider>
+        </SelectRootProvider>
       </div>
     );
   },
@@ -340,15 +358,15 @@ export const RootProvider: Story = {
 export const NativeFormControl: Story = {
   render: () => (
     <Select collection={fruits} defaultValue={['apple']} name="fruit">
-      <Select.Label>Choose fruit</Select.Label>
+      <SelectLabel>Choose fruit</SelectLabel>
       <SelectFieldView />
       <SelectPopupContent>
-        <Select.ItemGroup>
-          <Select.ItemGroupLabel>Fruits</Select.ItemGroupLabel>
+        <SelectItemGroup>
+          <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
           <FruitItems />
-        </Select.ItemGroup>
+        </SelectItemGroup>
       </SelectPopupContent>
-      <Select.HiddenSelect />
+      <SelectHiddenSelect />
     </Select>
   ),
 };
@@ -356,21 +374,21 @@ export const NativeFormControl: Story = {
 export const CustomItemLayout: Story = {
   render: () => (
     <Select collection={fruits}>
-      <Select.Label>Choose fruit</Select.Label>
+      <SelectLabel>Choose fruit</SelectLabel>
       <SelectFieldView />
       <SelectPopupContent>
         {fruits.items.map((item) => (
-          <Select.Item key={item.value} item={item}>
-            <Select.ItemText>
-              <Select.ItemTextContent>
-                <Select.ItemTextIcon>
+          <SelectItem key={item.value} item={item}>
+            <SelectItemText>
+              <SelectItemTextContent>
+                <SelectItemTextIcon>
                   <InfoIcon />
-                </Select.ItemTextIcon>
-                <Select.ItemTextLabel>{item.label}</Select.ItemTextLabel>
-              </Select.ItemTextContent>
-            </Select.ItemText>
-            <Select.ItemIndicator />
-          </Select.Item>
+                </SelectItemTextIcon>
+                <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
+              </SelectItemTextContent>
+            </SelectItemText>
+            <SelectItemIndicator />
+          </SelectItem>
         ))}
       </SelectPopupContent>
     </Select>

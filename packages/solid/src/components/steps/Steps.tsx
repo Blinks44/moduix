@@ -10,7 +10,7 @@ import { children, splitProps } from 'solid-js';
 import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Steps.module.css';
 
-function StepsRoot(props: ComponentProps<typeof StepsPrimitive.Root>) {
+function Steps(props: ComponentProps<typeof StepsPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -158,22 +158,25 @@ function StepsProgress(props: ComponentProps<typeof StepsPrimitive.Progress>) {
   );
 }
 
-const Steps = Object.assign(StepsRoot, {
-  Root: StepsRoot,
-  RootProvider: StepsRootProvider,
-  Context: StepsPrimitive.Context,
-  ItemContext: StepsPrimitive.ItemContext,
-  List: StepsList,
-  Item: StepsItem,
-  Trigger: StepsTrigger,
-  Indicator: StepsIndicator,
-  Separator: StepsSeparator,
-  Content: StepsContent,
-  CompletedContent: StepsCompletedContent,
-  PrevTrigger: StepsPrevTrigger,
-  NextTrigger: StepsNextTrigger,
-  Progress: StepsProgress,
-  useSteps,
-});
+const StepsContext = StepsPrimitive.Context;
+const StepsItemContext = StepsPrimitive.ItemContext;
 
-export { Steps, useSteps, useStepsContext, useStepsItemContext };
+export {
+  Steps,
+  StepsCompletedContent,
+  StepsContext,
+  StepsContent,
+  StepsIndicator,
+  StepsItem,
+  StepsItemContext,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsProgress,
+  StepsRootProvider,
+  StepsSeparator,
+  StepsTrigger,
+  useSteps,
+  useStepsContext,
+  useStepsItemContext,
+};

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "autoplay-gallery",
+  "title": "Autoplay gallery",
+  "description": "Image carousel with autoplay, navigation arrows, and progress indicators.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/vue-autoplay-gallery.json"],
+  "files": [],
+  "type": "registry:block"
+}

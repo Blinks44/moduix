@@ -6,11 +6,11 @@ import { splitProps } from 'solid-js';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './NativeSelect.module.css';
 
-type NativeSelectRootProps = FieldSelectProps & {
+type NativeSelectProps = FieldSelectProps & {
   controlProps?: JSX.HTMLAttributes<HTMLSpanElement>;
 };
 
-function NativeSelectRoot(props: NativeSelectRootProps) {
+function NativeSelect(props: NativeSelectProps) {
   const [local, others] = splitProps(props, ['asChild', 'class', 'controlProps']);
 
   return (
@@ -41,9 +41,5 @@ function NativeSelectRoot(props: NativeSelectRootProps) {
     </span>
   );
 }
-
-const NativeSelect = Object.assign(NativeSelectRoot, {
-  Root: NativeSelectRoot,
-});
 
 export { NativeSelect };

@@ -1,4 +1,17 @@
-import { FileUpload } from '@moduix/solid/file-upload';
+import {
+  FileUpload,
+  FileUploadContext,
+  FileUploadDropzone,
+  FileUploadDropzoneIcon,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadItemSizeText,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/solid/file-upload';
 import { For } from 'solid-js';
 import styles from '@/components/examples/file-upload/file-upload-rejected-files.module.css';
 
@@ -9,46 +22,46 @@ const maxFileSize = 120_000;
 export default function RejectedFilesUploadDemo() {
   return (
     <FileUpload class={styles.root} accept={accept} maxFiles={maxFiles} maxFileSize={maxFileSize}>
-      <FileUpload.Label>Images</FileUpload.Label>
-      <FileUpload.Dropzone disableClick>
-        <FileUpload.DropzoneIcon />
+      <FileUploadLabel>Images</FileUploadLabel>
+      <FileUploadDropzone disableClick>
+        <FileUploadDropzoneIcon />
         <div class={styles.dropzoneContent}>
           <span class={styles.dropzoneTitle}>Drop image files here</span>
           <span class={styles.dropzoneDescription}>PNG or JPEG, up to 120 KB</span>
-          <FileUpload.Trigger>Select images</FileUpload.Trigger>
+          <FileUploadTrigger>Select images</FileUploadTrigger>
         </div>
-      </FileUpload.Dropzone>
-      <FileUpload.ItemGroup>
-        <FileUpload.Context>
+      </FileUploadDropzone>
+      <FileUploadItemGroup>
+        <FileUploadContext>
           {(fileUpload) => (
             <For each={fileUpload().acceptedFiles}>
               {(file) => (
-                <FileUpload.Item file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemSizeText />
-                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                </FileUpload.Item>
+                <FileUploadItem file={file}>
+                  <FileUploadItemName />
+                  <FileUploadItemSizeText />
+                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                </FileUploadItem>
               )}
             </For>
           )}
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.ItemGroup type="rejected">
-        <FileUpload.Context>
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadItemGroup type="rejected">
+        <FileUploadContext>
           {(fileUpload) => (
             <For each={fileUpload().rejectedFiles}>
               {({ file, errors }) => (
-                <FileUpload.Item file={file}>
-                  <FileUpload.ItemName />
+                <FileUploadItem file={file}>
+                  <FileUploadItemName />
                   <p class={styles.error}>{errors.join(', ')}</p>
-                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                </FileUpload.Item>
+                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                </FileUploadItem>
               )}
             </For>
           )}
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
     </FileUpload>
   );
 }

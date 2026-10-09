@@ -1,4 +1,5 @@
 import { Field as FieldPrimitive, useField, useFieldContext } from '@ark-ui/solid/field';
+import { cva } from 'class-variance-authority';
 import type { ComponentProps } from 'solid-js';
 import type { JSX } from 'solid-js';
 import { createEffect, splitProps } from 'solid-js';
@@ -18,11 +19,15 @@ type FieldSelectPrimitiveProps = ComponentProps<typeof FieldPrimitive.Select> & 
   'prop:defaultValue'?: FieldSelectProps['defaultValue'];
 };
 
+const fieldRootVariants = cva(
+  'flex w-full max-w-none flex-col items-start gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
+);
+
 const FieldSelectPrimitive = FieldPrimitive.Select as (
   props: FieldSelectPrimitiveProps,
 ) => JSX.Element;
 
-function FieldRoot(props: ComponentProps<typeof FieldPrimitive.Root>) {
+function Field(props: ComponentProps<typeof FieldPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
@@ -30,10 +35,7 @@ function FieldRoot(props: ComponentProps<typeof FieldPrimitive.Root>) {
       asChild={local.asChild}
       {...others}
       data-slot="field-root"
-      class={cn(
-        'flex w-full max-w-none flex-col items-start gap-1 text-foreground data-disabled:opacity-50',
-        local.class,
-      )}
+      class={cn(fieldRootVariants(), local.class)}
     />
   );
 }
@@ -46,10 +48,7 @@ function FieldRootProvider(props: ComponentProps<typeof FieldPrimitive.RootProvi
       asChild={local.asChild}
       {...others}
       data-slot="field-root-provider"
-      class={cn(
-        'flex w-full max-w-none flex-col items-start gap-1 text-foreground data-disabled:opacity-50',
-        local.class,
-      )}
+      class={cn(fieldRootVariants(), local.class)}
     />
   );
 }
@@ -97,7 +96,7 @@ function FieldInput(props: FieldInputProps) {
       {...(local.asChild ? { 'prop:defaultValue': local.defaultValue } : {})}
       data-slot="field-input"
       class={cn(
-        'min-h-control-md w-full rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none data-disabled:pointer-events-none data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',
+        'min-h-control-md w-full max-w-none rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out file:me-3 file:cursor-pointer file:rounded-md file:border file:border-primary file:bg-primary file:px-2 file:py-0.5 file:font-medium file:text-primary-foreground file:transition-colors file:duration-200 file:ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none [:is([data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 [@media(hover:hover)]:file:hover:bg-foreground [[data-slot=field-root-provider][data-disabled]_&]:opacity-100 [[data-slot=field-root][data-disabled]_&]:opacity-100 [[data-slot=input-group-root]:has([data-slot=input-root]:is([data-disabled],:disabled))_&]:opacity-100',
         local.class,
       )}
       ref={(element) => {
@@ -147,7 +146,7 @@ function FieldSelect(props: FieldSelectProps) {
       (Array.isArray(defaultValue) ? defaultValue : [defaultValue]).map((value) => String(value)),
     );
 
-    for (const option of Array.from(selectRef.options)) {
+    for (const option of selectRef.options) {
       const selected = values.has(option.value);
       option.selected = selected;
       option.defaultSelected = selected;
@@ -211,18 +210,20 @@ function FieldRequiredIndicator(props: ComponentProps<typeof FieldPrimitive.Requ
   );
 }
 
-const Field = Object.assign(FieldRoot, {
-  Root: FieldRoot,
-  RootProvider: FieldRootProvider,
-  Item: FieldItem,
-  Label: FieldLabel,
-  Input: FieldInput,
-  Textarea: FieldTextarea,
-  Select: FieldSelect,
-  HelperText: FieldHelperText,
-  ErrorText: FieldErrorText,
-  RequiredIndicator: FieldRequiredIndicator,
-  Context: FieldPrimitive.Context,
-});
+const FieldContext = FieldPrimitive.Context;
 
-export { Field, useField, useFieldContext };
+export {
+  Field,
+  FieldContext,
+  FieldErrorText,
+  FieldHelperText,
+  FieldInput,
+  FieldItem,
+  FieldLabel,
+  FieldRequiredIndicator,
+  FieldRootProvider,
+  FieldSelect,
+  FieldTextarea,
+  useField,
+  useFieldContext,
+};

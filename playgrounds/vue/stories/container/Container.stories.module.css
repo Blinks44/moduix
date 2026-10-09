@@ -1,0 +1,45 @@
+.stack {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: var(--moduix-spacing-4);
+  padding-block: var(--moduix-spacing-4);
+}
+
+.container {
+  padding-block: var(--moduix-spacing-4);
+  border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+  background:
+    linear-gradient(90deg, rgb(0 0 0 / 0.05) 0 1px, transparent 1px) 0 0 / 4rem 100%,
+    var(--moduix-color-muted);
+
+  & > * {
+    max-width: 42rem;
+  }
+
+  & > p {
+    margin: 0;
+    font-family: var(--moduix-text-font-family, inherit);
+    font-size: var(--moduix-text-font-size-md, var(--moduix-text-md));
+    font-weight: var(--moduix-text-font-weight-regular, var(--moduix-weight-regular));
+    line-height: var(--moduix-text-line-height-md, var(--moduix-line-height-text-md));
+    letter-spacing: var(--moduix-text-letter-spacing, 0);
+    color: var(--moduix-text-default-color, var(--moduix-color-foreground));
+    text-align: start;
+    overflow-wrap: anywhere;
+
+    & > strong {
+      font-weight: var(--moduix-text-font-weight-semibold, var(--moduix-weight-semibold));
+    }
+  }
+}
+
+.muted {
+  color: var(--moduix-color-muted-foreground);
+}
+
+.bleedSurface {
+  padding: var(--moduix-spacing-4);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  background-color: var(--moduix-color-background);
+}

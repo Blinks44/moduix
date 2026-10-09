@@ -16,6 +16,11 @@ import bleedSolidBlockBleed from '../../../snippets/bleed/solid/block-bleed.tsx?
 import bleedSolidCustomStyling from '../../../snippets/bleed/solid/custom-styling.tsx?raw';
 import bleedSolidInlineAmounts from '../../../snippets/bleed/solid/inline-amounts.tsx?raw';
 import bleedSolidSemanticElement from '../../../snippets/bleed/solid/semantic-element.tsx?raw';
+import bleedVueBasic from '../../../snippets/bleed/vue/basic.vue?raw';
+import bleedVueBlockBleed from '../../../snippets/bleed/vue/block-bleed.vue?raw';
+import bleedVueCustomStyling from '../../../snippets/bleed/vue/custom-styling.vue?raw';
+import bleedVueInlineAmounts from '../../../snippets/bleed/vue/inline-amounts.vue?raw';
+import bleedVueSemanticElement from '../../../snippets/bleed/vue/semantic-element.vue?raw';
 
 ## Référence de l’API
 
@@ -29,7 +34,9 @@ l’intérieur lorsque seul un bloc média, un arrière-plan, un séparateur ou 
 conteneur.
 
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/bleed` pour Solid.
+Importez `Bleed` depuis le sous-chemin qui correspond au framework et au style choisi. Pour CSS Modules, utilisez
+`@moduix/react/bleed`, `@moduix/solid/bleed` ou `@moduix/vue/bleed`. Pour Tailwind, utilisez
+`@moduix/react-tailwind/bleed`, `@moduix/solid-tailwind/bleed` ou `@moduix/vue-tailwind/bleed`.
 ## Exemple de base
 
 La valeur par défaut `inline="full"` permet à un bloc média, une bannière ou un élément décoratif de section
@@ -47,6 +54,7 @@ d’atteindre les bords de la fenêtre tout en restant dans le flux normal du do
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -59,6 +67,11 @@ d’atteindre les bords de la fenêtre tout en restant dans le flux normal du do
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueBasic} />
 
     </Tab>
   </Tabs>
@@ -96,6 +109,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/bleed' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/bleed' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -104,19 +127,18 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ligne et/ou l’axe de bloc, sans ajouter d’enveloppe interne.
 
 ```text
-Bleed.Root
+Bleed
 └─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
    └─ children
 ```
 
-| Partie                 | Rôle                                                                    |
-| ---------------------- | ----------------------------------------------------------------------- |
-| `Bleed` / `Bleed.Root` | Composant racine qui permet au contenu de dépasser sur les axes en ligne et de bloc. |
-| `Bleed`                | Forme courte de `Bleed.Root`, utilisable directement comme composant.   |
+| Partie | Rôle                                                                                 |
+| ------ | ------------------------------------------------------------------------------------ |
+| `Bleed` | Composant racine qui permet au contenu de dépasser sur les axes en ligne et de bloc. |
 
 ## Composition
 
-`Bleed` est un composant de présentation sans état. Il ne possède qu’une partie racine ; `Bleed.Root` est un alias de `Bleed`. Les valeurs par défaut sont `inline="full"`, `block="none"` et `asChild={false}`. Lorsque `asChild` doit confier la racine rendue à un élément sémantique, fournissez exactement un enfant capable de recevoir les propriétés DOM et une ref en React, ou utilisez la fonction de rendu Solid. Les refs React ciblent la racine ou l’enfant rendu ; la forme Solid ne transmet pas la ref du composant à l’hôte personnalisé.
+`Bleed` est un composant de présentation sans état. Il ne possède qu’une partie racine ; il n’y a donc aucune partie enfant à coordonner. Les valeurs par défaut sont `inline="full"`, `block="none"` et `asChild={false}`. Lorsque `asChild` doit confier la racine rendue à un élément sémantique, fournissez exactement un enfant capable de recevoir les propriétés DOM et une ref en React, ou utilisez la fonction de rendu Solid. Les refs React ciblent la racine ou l’enfant rendu ; la forme Solid ne transmet pas la ref du composant à l’hôte personnalisé. Dans Vue, `asChild` transmet la racine à un unique enfant sémantique via la fabrique Ark. La ref du composant donne accès à l’élément rendu avec `$el`.
 
 Combinez `inline` et `block` lorsqu’une surface doit dépasser les marges internes sur les deux axes logiques. `inline="full"` est relatif à la fenêtre d’affichage ; dans une enveloppe imbriquée, il peut donc être nécessaire de redéfinir localement `--moduix-bleed-inline-full` et `--moduix-bleed-inline-full-size`.
 ## Exemples
@@ -136,6 +158,7 @@ Ajoutez `block` lorsque la surface doit dépasser l’espacement intérieur du c
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -148,6 +171,11 @@ Ajoutez `block` lorsque la surface doit dépasser l’espacement intérieur du c
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidBlockBleed} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueBlockBleed} />
 
     </Tab>
   </Tabs>
@@ -176,6 +204,7 @@ doit s’adapter à sa propre zone de contenu plutôt qu’à la fenêtre.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -188,6 +217,11 @@ doit s’adapter à sa propre zone de contenu plutôt qu’à la fenêtre.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidCustomStyling} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueCustomStyling} />
 
     </Tab>
   </Tabs>
@@ -216,6 +250,7 @@ Utilisez `inline` pour contrôler le dépassement du contenu sur l’axe en lign
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -228,6 +263,11 @@ Utilisez `inline` pour contrôler le dépassement du contenu sur l’axe en lign
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={bleedSolidInlineAmounts} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueInlineAmounts} />
 
     </Tab>
   </Tabs>
@@ -256,6 +296,7 @@ Utilisez `asChild` lorsque le contenu doit utiliser un élément sémantique plu
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -270,6 +311,11 @@ Utilisez `asChild` lorsque le contenu doit utiliser un élément sémantique plu
 <CodeBlockRuntime lang="tsx" code={bleedSolidSemanticElement} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={bleedVueSemanticElement} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -282,8 +328,10 @@ Utilisez `asChild` lorsque le contenu doit utiliser un élément sémantique plu
 
 ## Styles
 
-`Bleed` expose des variables CSS et des attributs de données stables sur son élément racine. Utilisez les variables pour
-ajuster son extension et `className` pour styliser la surface elle-même.
+`Bleed` expose des variables CSS et des attributs de données stables sur son élément racine. Utilisez `className` en
+React ou `class` en Solid et Vue pour styliser la surface. Tailwind s’appuie sur ses utilitaires natifs et les classes
+fournies par l’application ; les variables ci-dessous concernent CSS Modules. Les ancêtres avec `overflow: hidden`
+ou `overflow: clip` peuvent couper le débordement.
 
 ### Propriétés CSS
 

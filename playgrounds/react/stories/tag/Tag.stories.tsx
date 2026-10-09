@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Tag } from '@/components/tag/Tag';
+import {
+  Tag,
+  TagCloseTrigger,
+  TagEndElement,
+  TagLabel,
+  TagStartElement,
+} from '@/components/tag/Tag';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
 import styles from './Tag.stories.module.css';
 
@@ -39,7 +45,7 @@ export const Variants: Story = {
       <div className={styles.row}>
         {variants.map((variant) => (
           <Tag key={variant} variant={variant}>
-            <Tag.Label>{variant}</Tag.Label>
+            <TagLabel>{variant}</TagLabel>
           </Tag>
         ))}
       </div>
@@ -52,10 +58,10 @@ export const Sizes: Story = {
     return (
       <div className={styles.row}>
         <Tag size="sm">
-          <Tag.Label>Compact</Tag.Label>
+          <TagLabel>Compact</TagLabel>
         </Tag>
         <Tag size="md">
-          <Tag.Label>Default</Tag.Label>
+          <TagLabel>Default</TagLabel>
         </Tag>
       </div>
     );
@@ -70,16 +76,16 @@ export const Removable: Story = {
       <div className={styles.row}>
         {tags.map((tag) => (
           <Tag key={tag.label} variant={tag.variant}>
-            <Tag.Label>{tag.label}</Tag.Label>
-            <Tag.EndElement>
-              <Tag.CloseTrigger
+            <TagLabel>{tag.label}</TagLabel>
+            <TagEndElement>
+              <TagCloseTrigger
                 disabled={tag.disabled}
                 aria-label={`Remove ${tag.label} tag`}
                 onClick={() => {
                   setTags((tags) => tags.filter((item) => item.label !== tag.label));
                 }}
               />
-            </Tag.EndElement>
+            </TagEndElement>
           </Tag>
         ))}
       </div>
@@ -92,19 +98,19 @@ export const WithLeadingIcon: Story = {
     return (
       <div className={styles.row}>
         <Tag>
-          <Tag.StartElement>
+          <TagStartElement>
             <CheckIcon />
-          </Tag.StartElement>
-          <Tag.Label>Selected</Tag.Label>
+          </TagStartElement>
+          <TagLabel>Selected</TagLabel>
         </Tag>
         <Tag variant="outline">
-          <Tag.StartElement>
+          <TagStartElement>
             <CheckIcon />
-          </Tag.StartElement>
-          <Tag.Label>Deployed</Tag.Label>
-          <Tag.EndElement>
-            <Tag.CloseTrigger aria-label="Remove deployed tag" />
-          </Tag.EndElement>
+          </TagStartElement>
+          <TagLabel>Deployed</TagLabel>
+          <TagEndElement>
+            <TagCloseTrigger aria-label="Remove deployed tag" />
+          </TagEndElement>
         </Tag>
       </div>
     );
@@ -115,12 +121,12 @@ export const TruncatedLabel: Story = {
   render: () => {
     return (
       <Tag className={styles.constrained}>
-        <Tag.Label title="Ready for stakeholder review after legal approval">
+        <TagLabel title="Ready for stakeholder review after legal approval">
           Ready for stakeholder review after legal approval
-        </Tag.Label>
-        <Tag.EndElement>
-          <Tag.CloseTrigger aria-label="Remove long tag" />
-        </Tag.EndElement>
+        </TagLabel>
+        <TagEndElement>
+          <TagCloseTrigger aria-label="Remove long tag" />
+        </TagEndElement>
       </Tag>
     );
   },
@@ -131,7 +137,7 @@ export const RenderAsButton: Story = {
     return (
       <Tag asChild variant="outline">
         <button className={styles.buttonTag} type="button">
-          <Tag.Label>Open filter</Tag.Label>
+          <TagLabel>Open filter</TagLabel>
         </button>
       </Tag>
     );
@@ -143,16 +149,16 @@ export const CustomStyling: Story = {
     return (
       <div className={styles.row}>
         <Tag className={styles.customSoft}>
-          <Tag.StartElement>
+          <TagStartElement>
             <CheckIcon />
-          </Tag.StartElement>
-          <Tag.Label>Priority</Tag.Label>
-          <Tag.EndElement>
-            <Tag.CloseTrigger aria-label="Remove priority tag" />
-          </Tag.EndElement>
+          </TagStartElement>
+          <TagLabel>Priority</TagLabel>
+          <TagEndElement>
+            <TagCloseTrigger aria-label="Remove priority tag" />
+          </TagEndElement>
         </Tag>
         <Tag className={styles.customOutline} variant="outline">
-          <Tag.Label>Customer-facing</Tag.Label>
+          <TagLabel>Customer-facing</TagLabel>
         </Tag>
       </div>
     );

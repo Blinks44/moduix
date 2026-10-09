@@ -8,7 +8,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-function DateInputRoot(props: ComponentProps<typeof DateInputPrimitive.Root>) {
+function DateInput(props: ComponentProps<typeof DateInputPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -62,7 +62,7 @@ function DateInputControl(props: ComponentProps<typeof DateInputPrimitive.Contro
   return (
     <DateInputPrimitive.Control
       class={cn(
-        'box-border inline-flex min-h-control-md w-full items-center rounded-md border border-border bg-background px-3 py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:focus-within:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none',
+        'box-border inline-flex min-h-control-md w-full items-center gap-1 rounded-md border border-border bg-background px-3 py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:focus-within:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none',
         local.class,
       )}
       {...others}
@@ -127,18 +127,23 @@ function DateInputSeparator(props: ComponentProps<'span'>) {
   );
 }
 
-const DateInput = Object.assign(DateInputRoot, {
-  Root: DateInputRoot,
-  RootProvider: DateInputRootProvider,
-  HiddenInput: DateInputPrimitive.HiddenInput,
-  Label: DateInputLabel,
-  Control: DateInputControl,
-  SegmentGroup: DateInputSegmentGroup,
-  Segment: DateInputSegment,
-  Segments: DateInputSegments,
-  Separator: DateInputSeparator,
-  Context: DateInputPrimitive.Context,
-  SegmentContext: DateInputPrimitive.SegmentContext,
-});
+const DateInputHiddenInput = DateInputPrimitive.HiddenInput;
+const DateInputContext = DateInputPrimitive.Context;
+const DateInputSegmentContext = DateInputPrimitive.SegmentContext;
 
-export { DateInput, type DateInputDateValue, useDateInput, useDateInputContext };
+export {
+  DateInput,
+  DateInputContext,
+  DateInputControl,
+  DateInputHiddenInput,
+  DateInputLabel,
+  DateInputRootProvider,
+  DateInputSegment,
+  DateInputSegmentContext,
+  DateInputSegmentGroup,
+  DateInputSegments,
+  DateInputSeparator,
+  type DateInputDateValue,
+  useDateInput,
+  useDateInputContext,
+};

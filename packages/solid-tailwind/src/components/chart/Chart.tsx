@@ -7,8 +7,10 @@ import type {
   ChartValue,
   DomChartDefinition,
 } from '@tanstack/charts';
+import { resolveChartAdapterLayout } from '@tanstack/charts/adapter';
 import { createChartRendererAdapter } from '@tanstack/charts/adapter/renderer';
 import { motion as createMotionRenderer } from '@tanstack/charts/motion';
+import type { ChartTooltipBodyRenderContext } from '@tanstack/charts/solid';
 import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
 import {
   For,
@@ -64,37 +66,21 @@ function withTooltipStyles<
 type ChartTooltipContent = ChartTooltipBodyContext['content'];
 type ChartTooltipObjectContent = Exclude<ChartTooltipContent, string>;
 
-type ChartTooltipBodyRenderContext<
-  TDatum = unknown,
+type ChartPlotProps<
+  TDatum,
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
-> = ChartTooltipBodyContext<TDatum, TXValue, TYValue> & {
-  defaultBody: JSX.Element;
-};
-
-type ChartTooltipBodyRenderProps<
-  TDatum = unknown,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
-> = {
+> = Omit<ChartRendererHostOptions<TDatum, TXValue, TYValue>, 'onTooltipBodyChange' | 'renderer'> & {
+  class?: string;
+  style?: JSX.CSSProperties;
+  motion?: boolean;
+  renderer?: ChartRenderer<NoInfer<TDatum>, NoInfer<TXValue>, NoInfer<TYValue>>;
   renderTooltipBody?: (
     context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>,
   ) => JSX.Element;
 };
 
-type ChartPlotProps<
-  TDatum,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
-> = Omit<ChartRendererHostOptions<TDatum, TXValue, TYValue>, 'onTooltipBodyChange' | 'renderer'> &
-  ChartTooltipBodyRenderProps<TDatum, TXValue, TYValue> & {
-    class?: string;
-    style?: JSX.CSSProperties;
-    motion?: boolean;
-    renderer?: ChartRenderer<NoInfer<TDatum>, NoInfer<TXValue>, NoInfer<TYValue>>;
-  };
-
-function ChartRoot(props: HTMLArkProps<'figure'>) {
+function Chart(props: HTMLArkProps<'figure'>) {
   const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
@@ -153,7 +139,7 @@ function ModuixTooltipObjectContent(props: { content: Accessor<ChartTooltipObjec
                 </span>
                 <span
                   data-slot="chart-tooltip-value"
-                  class="text-right font-semibold whitespace-nowrap text-popover-foreground tabular-nums"
+                  class="text-end font-semibold whitespace-nowrap text-popover-foreground tabular-nums"
                 >
                   {row.value}
                 </span>
@@ -179,89 +165,6 @@ function ModuixTooltipBody(props: { content: Accessor<ChartTooltipContent> }) {
   );
 }
 
-function TanStackTooltipSwatch(props: { color: string }) {
-  return (
-    <span
-      aria-hidden="true"
-      class="ts-chart-tooltip__swatch"
-      style={{
-        display: 'block',
-        width: '0.55rem',
-        height: '0.55rem',
-        'border-radius': '0.15rem',
-        'box-shadow': 'inset 0 0 0 1px rgb(0 0 0/.12)',
-        background: props.color,
-      }}
-    />
-  );
-}
-
-function TanStackTooltipObjectContent(props: { content: Accessor<ChartTooltipObjectContent> }) {
-  return (
-    <>
-      <Show when={props.content().title}>
-        <div
-          class="ts-chart-tooltip__title"
-          style={{
-            display: 'flex',
-            'align-items': 'center',
-            gap: '0.4rem',
-            'font-weight': 650,
-            'margin-bottom': props.content().rows.length ? '0.3rem' : 0,
-          }}
-        >
-          <Show when={props.content().color}>
-            <TanStackTooltipSwatch color={props.content().color!} />
-          </Show>
-          {props.content().title}
-        </div>
-      </Show>
-      <Show when={props.content().rows.length}>
-        <div class="ts-chart-tooltip__rows" aria-hidden="true">
-          <For each={props.content().rows}>
-            {(row) => (
-              <div
-                class="ts-chart-tooltip__row"
-                style={{
-                  display: 'grid',
-                  'grid-template-columns': '0.55rem minmax(0,1fr) auto',
-                  'align-items': 'center',
-                  'column-gap': '0.4rem',
-                }}
-              >
-                {row.color ? <TanStackTooltipSwatch color={row.color} /> : <span />}
-                <span>{row.label}</span>
-                <span
-                  style={{
-                    'text-align': 'right',
-                    'font-variant-numeric': 'tabular-nums',
-                    'white-space': 'nowrap',
-                  }}
-                >
-                  {row.value}
-                </span>
-              </div>
-            )}
-          </For>
-        </div>
-      </Show>
-    </>
-  );
-}
-
-function TanStackTooltipBody(props: { content: Accessor<ChartTooltipContent> }) {
-  return (
-    <>
-      <Show when={typeof props.content() === 'string'}>{props.content() as string}</Show>
-      <Show when={typeof props.content() !== 'string'}>
-        <TanStackTooltipObjectContent
-          content={() => props.content() as ChartTooltipObjectContent}
-        />
-      </Show>
-    </>
-  );
-}
-
 function ChartTooltipBody<TDatum, TXValue extends ChartValue, TYValue extends ChartValue>(props: {
   render: (context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>) => JSX.Element;
   target: Accessor<ChartTooltipBodyTarget<TDatum, TXValue, TYValue>>;
@@ -273,7 +176,7 @@ function ChartTooltipBody<TDatum, TXValue extends ChartValue, TYValue extends Ch
     get content() {
       return props.target().content;
     },
-    defaultBody: <TanStackTooltipBody content={() => props.target().content} />,
+    defaultBody: <ModuixTooltipBody content={() => props.target().content} />,
     get pinned() {
       return props.target().pinned;
     },
@@ -291,9 +194,9 @@ const renderDefaultTooltipBody = <
   TYValue extends ChartValue = ChartValue,
 >(
   context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>,
-) => <ModuixTooltipBody content={() => context.content} />;
+) => context.defaultBody;
 
-function ChartPrimitive<
+function ChartPlot<
   TDatum,
   TXValue extends ChartValue = ChartValue,
   TYValue extends ChartValue = ChartValue,
@@ -314,28 +217,28 @@ function ChartPrimitive<
     TYValue
   > | null>(null);
 
-  const getOptions = () => {
-    const {
-      class: _class,
-      motion: _motion,
-      renderTooltipBody,
-      renderer: _renderer,
-      style: _style,
-      ...others
-    } = props;
+  const [local, others] = splitProps(props, [
+    'class',
+    'motion',
+    'renderTooltipBody',
+    'renderer',
+    'style',
+  ]);
 
+  const getOptions = () => {
     return {
       ...others,
       definition: withTooltipStyles(props.definition),
       idPrefix: props.idPrefix ?? generatedId,
       renderer: resolvedRenderer(),
-      onTooltipBodyChange: renderTooltipBody ? setTooltipTarget : undefined,
+      onTooltipBodyChange: setTooltipTarget,
     };
   };
 
   const adapter = createChartRendererAdapter(getOptions());
   const initialMarkup = adapter.prerender();
   let surface!: HTMLDivElement;
+  const layout = createMemo(() => resolveChartAdapterLayout({ aspectRatio: props.aspectRatio }));
 
   createEffect(() => adapter.update(getOptions()));
   onMount(() => adapter.mount(surface));
@@ -344,25 +247,20 @@ function ChartPrimitive<
   return (
     <>
       <div
-        class={cn('ts-chart-host', props.class)}
+        class={cn(
+          'ts-chart-host min-w-0 text-muted-foreground [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-offset-2 [&_.ts-chart:focus-visible]:outline-ring',
+          local.class,
+        )}
         style={{
           position: 'relative',
           width: props.width === undefined ? '100%' : `${props.width}px`,
           height:
             props.height === undefined
-              ? typeof props.aspectRatio === 'number' &&
-                Number.isFinite(props.aspectRatio) &&
-                props.aspectRatio > 0
-                ? undefined
-                : '320px'
+              ? layout().aspectRatio === undefined
+                ? '320px'
+                : undefined
               : `${props.height}px`,
-          'aspect-ratio':
-            props.height === undefined &&
-            typeof props.aspectRatio === 'number' &&
-            Number.isFinite(props.aspectRatio) &&
-            props.aspectRatio > 0
-              ? props.aspectRatio.toString()
-              : undefined,
+          'aspect-ratio': props.height === undefined ? layout().aspectRatio?.toString() : undefined,
           ...props.style,
         }}
       >
@@ -373,42 +271,15 @@ function ChartPrimitive<
           innerHTML={initialMarkup}
         />
       </div>
-      <Show when={props.renderTooltipBody} keyed>
-        {(render) => (
-          <Show when={tooltipTarget()} keyed>
-            {(target) => <ChartTooltipBody render={render} target={() => target} />}
-          </Show>
+      <Show when={tooltipTarget()} keyed>
+        {(target) => (
+          <ChartTooltipBody
+            render={local.renderTooltipBody ?? renderDefaultTooltipBody}
+            target={() => target}
+          />
         )}
       </Show>
     </>
-  );
-}
-
-function ChartPlot<
-  TDatum,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
->(props: ChartPlotProps<TDatum, TXValue, TYValue>) {
-  const [local, others] = splitProps(props, [
-    'class',
-    'motion',
-    'renderTooltipBody',
-    'renderer',
-    'style',
-  ]);
-
-  return (
-    <ChartPrimitive
-      {...others}
-      class={cn(
-        '[&_.ts-chart:focus-visible]:outline-offset-0.5 min-w-0 text-muted-foreground [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-ring',
-        local.class,
-      )}
-      motion={local.motion}
-      renderTooltipBody={local.renderTooltipBody ?? renderDefaultTooltipBody}
-      renderer={local.renderer}
-      style={local.style}
-    />
   );
 }
 
@@ -501,14 +372,12 @@ function ChartLegendItem(props: HTMLArkProps<'li'> & { color?: string }) {
   );
 }
 
-const Chart = Object.assign(ChartRoot, {
-  Root: ChartRoot,
-  Plot: ChartPlot,
-  Header: ChartHeader,
-  Title: ChartTitle,
-  Description: ChartDescription,
-  Legend: ChartLegend,
-  LegendItem: ChartLegendItem,
-});
-
-export { Chart };
+export {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+};

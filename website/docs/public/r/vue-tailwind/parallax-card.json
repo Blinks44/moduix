@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "parallax-card",
+  "title": "Parallax card",
+  "description": "Image card with a pointer-driven tilt effect and reduced-motion support.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/vue-tailwind-parallax-card.json"],
+  "files": [],
+  "type": "registry:block"
+}

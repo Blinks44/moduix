@@ -1,12 +1,14 @@
 ---
 title: Hotkeys
-description: Enregistrez des raccourcis clavier adaptés à la plateforme, des séquences et des métadonnées de commandes dans une application React ou Solid.
+description: Enregistrez des raccourcis clavier adaptés à la plateforme, des séquences et des métadonnées de commandes dans une application React, Solid ou Vue.
 ---
 
 import HotkeysBasicDemo from '@/components/examples/hotkeys/basic.tsx';
 import HotkeysSequencesDemo from '@/components/examples/hotkeys/sequences.tsx';
 import hotkeysSolidBasic from '../../../snippets/hotkeys/solid/basic.tsx?raw';
+import hotkeysVueBasic from '../../../snippets/hotkeys/vue/basic.vue?raw';
 import hotkeysSolidSequences from '../../../snippets/hotkeys/solid/sequences.tsx?raw';
+import hotkeysVueSequences from '../../../snippets/hotkeys/vue/sequences.vue?raw';
 
 `Hotkeys` est l'utilitaire d'Ark UI qui enregistre des commandes clavier. Il écoute un document ou une
 autre cible, tandis que votre application garde la responsabilité de l'action et des contrôles
@@ -23,6 +25,7 @@ L'API est disponible depuis le point d'entrée racine du package Ark UI correspo
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -37,6 +40,13 @@ import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
 
 ```tsx
 import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/solid';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/vue';
 ```
 
   </Tab>
@@ -61,6 +71,7 @@ déclaration fonctionne donc sur toutes les plateformes.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -73,6 +84,11 @@ déclaration fonctionne donc sur toutes les plateformes.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hotkeysSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hotkeysVueBasic} />
 
     </Tab>
   </Tabs>
@@ -107,6 +123,7 @@ Séparez les étapes d'une séquence avec `>`. Le délai d'attente par défaut e
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -119,6 +136,11 @@ Séparez les étapes d'une séquence avec `>`. Le délai d'attente par défaut e
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={hotkeysSolidSequences} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={hotkeysVueSequences} />
 
     </Tab>
   </Tabs>
@@ -172,6 +194,8 @@ enregistrer une commande :
 Dans Solid, les valeurs renvoyées par ces hooks sont des accessors : lisez-les avec `registrations()`,
 `pressedKeys()`, `isPressed()` ou `platform()`. React renvoie directement la valeur courante. Un
 raccourci enregistré peut être conservé avec `stop`, abandonné avec `cancel` ou supprimé avec `clear`.
+Dans Vue, l’état des hooks est une ref : lisez `.value` dans le script ; les refs de premier niveau
+sont déballées automatiquement dans les templates.
 
 Hotkeys gère l'enregistrement, la correspondance, le formatage, les portées et l'enregistrement des
 raccourcis. Les effets, la navigation, la persistance, l'interface de la palette, la gestion du focus

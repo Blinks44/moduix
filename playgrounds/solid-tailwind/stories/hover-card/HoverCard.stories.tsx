@@ -1,7 +1,17 @@
 import type { ComponentProps } from 'solid-js';
 import { For, createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { HoverCard, useHoverCard } from '@/components/hover-card/HoverCard';
+import {
+  HoverCard,
+  HoverCardArrow,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardContext,
+  HoverCardPositioner,
+  HoverCardRootProvider,
+  HoverCardTrigger,
+  useHoverCard,
+} from '@/components/hover-card/HoverCard';
 import { ChevronDownIcon, ChevronUpIcon } from '@/internal/icons/ui/Icons';
 
 const meta = {
@@ -69,18 +79,18 @@ function ProfileCard(props: { profile: Profile }) {
 
 function HoverCardSurface(props: { profile: Profile; withArrow?: boolean }) {
   return (
-    <HoverCard.Positioner>
-      <HoverCard.Content>
-        {props.withArrow ? <HoverCard.Arrow /> : null}
-        <HoverCard.Body>
+    <HoverCardPositioner>
+      <HoverCardContent>
+        {props.withArrow ? <HoverCardArrow /> : null}
+        <HoverCardBody>
           <ProfileCard profile={props.profile} />
-        </HoverCard.Body>
-      </HoverCard.Content>
-    </HoverCard.Positioner>
+        </HoverCardBody>
+      </HoverCardContent>
+    </HoverCardPositioner>
   );
 }
 
-type HoverCardTriggerProps = ComponentProps<typeof HoverCard.Trigger>;
+type HoverCardTriggerProps = ComponentProps<typeof HoverCardTrigger>;
 type HoverCardTriggerAsChild = NonNullable<HoverCardTriggerProps['asChild']>;
 
 const profileTrigger =
@@ -95,7 +105,7 @@ export const Basic: Story = {
   render: () => (
     <HoverCard>
       <p class={paragraphClass}>
-        Liked by <HoverCard.Trigger asChild={profileTrigger(profiles[0])} /> and 3 others
+        Liked by <HoverCardTrigger asChild={profileTrigger(profiles[0])} /> and 3 others
       </p>
       <HoverCardSurface profile={profiles[0]} />
     </HoverCard>
@@ -107,7 +117,7 @@ export const WithArrow: Story = {
   render: () => (
     <HoverCard>
       <p class={paragraphClass}>
-        Liked by <HoverCard.Trigger asChild={profileTrigger(profiles[0])} /> and 3 others
+        Liked by <HoverCardTrigger asChild={profileTrigger(profiles[0])} /> and 3 others
       </p>
       <HoverCardSurface profile={profiles[0]} withArrow />
     </HoverCard>
@@ -125,7 +135,7 @@ export const Controlled: Story = {
         </button>
         <HoverCard open={open()} onOpenChange={(details) => setOpen(details.open)}>
           <p class={paragraphClass}>
-            Liked by <HoverCard.Trigger asChild={profileTrigger(profiles[0])} /> and 3 others
+            Liked by <HoverCardTrigger asChild={profileTrigger(profiles[0])} /> and 3 others
           </p>
           <HoverCardSurface profile={profiles[0]} />
         </HoverCard>
@@ -142,12 +152,12 @@ export const RootProvider: Story = {
     return (
       <div class={stackClass}>
         <output>Open: {String(hoverCard().open)}</output>
-        <HoverCard.RootProvider value={hoverCard}>
+        <HoverCardRootProvider value={hoverCard}>
           <p class={paragraphClass}>
-            Liked by <HoverCard.Trigger asChild={profileTrigger(profiles[0])} /> and 3 others
+            Liked by <HoverCardTrigger asChild={profileTrigger(profiles[0])} /> and 3 others
           </p>
           <HoverCardSurface profile={profiles[0]} />
-        </HoverCard.RootProvider>
+        </HoverCardRootProvider>
       </div>
     );
   },
@@ -157,7 +167,7 @@ export const Delay: Story = {
   render: () => (
     <HoverCard openDelay={200} closeDelay={500}>
       <p class={paragraphClass}>
-        Liked by <HoverCard.Trigger asChild={profileTrigger(profiles[0])} /> and 3 others
+        Liked by <HoverCardTrigger asChild={profileTrigger(profiles[0])} /> and 3 others
       </p>
       <HoverCardSurface profile={profiles[0]} />
     </HoverCard>
@@ -168,7 +178,7 @@ export const Positioning: Story = {
   render: () => (
     <HoverCard positioning={{ placement: 'right', gutter: 12 }}>
       <p class={paragraphClass}>
-        Liked by <HoverCard.Trigger asChild={profileTrigger(profiles[0])} /> and 3 others
+        Liked by <HoverCardTrigger asChild={profileTrigger(profiles[0])} /> and 3 others
       </p>
       <HoverCardSurface profile={profiles[0]} />
     </HoverCard>
@@ -178,11 +188,11 @@ export const Positioning: Story = {
 export const Context: Story = {
   render: () => (
     <HoverCard>
-      <HoverCard.Context>
+      <HoverCardContext>
         {(context) => (
           <p class={paragraphClass}>
             Liked by{' '}
-            <HoverCard.Trigger
+            <HoverCardTrigger
               asChild={(triggerProps) => (
                 <a {...triggerProps()} class={profileLinkClass} href="#profile">
                   @sarah_chen {context().open ? <ChevronUpIcon /> : <ChevronDownIcon />}
@@ -192,7 +202,7 @@ export const Context: Story = {
             and 3 others
           </p>
         )}
-      </HoverCard.Context>
+      </HoverCardContext>
       <HoverCardSurface profile={profiles[0]} />
     </HoverCard>
   ),
@@ -202,7 +212,7 @@ export const Disabled: Story = {
   render: () => (
     <HoverCard disabled>
       <p class={paragraphClass}>
-        Liked by <HoverCard.Trigger asChild={profileTrigger(profiles[0])} /> and 3 others
+        Liked by <HoverCardTrigger asChild={profileTrigger(profiles[0])} /> and 3 others
       </p>
       <HoverCardSurface profile={profiles[0]} />
     </HoverCard>
@@ -225,7 +235,7 @@ export const MultipleTriggers: Story = {
           <For each={profiles}>
             {(profile, index) => (
               <>
-                <HoverCard.Trigger
+                <HoverCardTrigger
                   value={profile.id}
                   asChild={(triggerProps) => (
                     <a {...triggerProps()} class={profileLinkClass} href={`#${profile.id}`}>

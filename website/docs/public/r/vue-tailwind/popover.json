@@ -1,0 +1,124 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover",
+  "title": "Popover",
+  "description": "moduix Vue Tailwind Popover component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/close-button",
+    "@moduix-vue-tailwind/overlay-portal"
+  ],
+  "files": [
+    {
+      "path": "src/components/popover/Popover.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverRoot as ArkPopoverRoot } from '@ark-ui/vue/popover';\nimport type { PopoverRootEmits, PopoverRootProps } from '@ark-ui/vue/popover';\nimport { useAttrs } from 'vue';\nimport type { PortalRef } from '@/lib/moduix/overlayPortal/context';\nimport OverlayPortalProvider from '@/lib/moduix/overlayPortal/OverlayPortalProvider.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PopoverRootProps {\n  lazyMount?: boolean;\n  modal?: boolean;\n  portalRef?: PortalRef;\n  portalled?: boolean;\n  unmountOnExit?: boolean;\n}\n\nexport interface Emits extends /* @vue-ignore */ PopoverRootEmits {}\n\nconst {\n  lazyMount = true,\n  modal = false,\n  portalRef,\n  portalled = true,\n  unmountOnExit = true,\n} = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst resolvedPortalled = modal || portalled;\n</script>\n\n<template>\n  <OverlayPortalProvider :portalled=\"resolvedPortalled\" :portal-ref=\"portalRef\">\n    <ArkPopoverRoot\n      v-bind=\"attrs\"\n      :lazy-mount=\"lazyMount\"\n      :modal=\"modal\"\n      :portalled=\"resolvedPortalled\"\n      :unmount-on-exit=\"unmountOnExit\"\n    >\n      <slot />\n    </ArkPopoverRoot>\n  </OverlayPortalProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/Popover.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverRootProvider as ArkPopoverRootProvider } from '@ark-ui/vue/popover';\nimport type { PopoverRootProviderEmits, PopoverRootProviderProps } from '@ark-ui/vue/popover';\nimport { useAttrs } from 'vue';\nimport type { PortalRef } from '@/lib/moduix/overlayPortal/context';\nimport OverlayPortalProvider from '@/lib/moduix/overlayPortal/OverlayPortalProvider.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PopoverRootProviderProps {\n  lazyMount?: boolean;\n  portalRef?: PortalRef;\n  unmountOnExit?: boolean;\n  value: PopoverRootProviderProps['value'];\n}\n\nexport interface Emits extends /* @vue-ignore */ PopoverRootProviderEmits {}\n\nconst { lazyMount = true, portalRef, unmountOnExit = true, value } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <OverlayPortalProvider :portalled=\"value.portalled\" :portal-ref=\"portalRef\">\n    <ArkPopoverRootProvider\n      v-bind=\"attrs\"\n      :lazy-mount=\"lazyMount\"\n      :unmount-on-exit=\"unmountOnExit\"\n      :value=\"value\"\n    >\n      <slot />\n    </ArkPopoverRootProvider>\n  </OverlayPortalProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverRootProvider.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverAnchor.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverAnchor as ArkPopoverAnchor } from '@ark-ui/vue/popover';\nimport type { PopoverAnchorProps } from '@ark-ui/vue/popover';\nimport { useAttrs } from 'vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PopoverAnchorProps {}\n\ndefineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPopoverAnchor v-bind=\"attrs\" data-slot=\"popover-anchor\">\n    <slot />\n  </ArkPopoverAnchor>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverAnchor.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverArrow.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverArrow as ArkPopoverArrow } from '@ark-ui/vue/popover';\nimport type { PopoverArrowProps } from '@ark-ui/vue/popover';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport PopoverArrowTip from './PopoverArrowTip.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PopoverArrowProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPopoverArrow\n    v-bind=\"attrs\"\n    :class=\"\n      cn('[--arrow-background:var(--color-popover)] [--arrow-size:var(--spacing-2_5)]', className)\n    \"\n    data-slot=\"popover-arrow\"\n  >\n    <PopoverArrowTip v-if=\"!$slots.default\" />\n    <slot v-else />\n  </ArkPopoverArrow>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverArrow.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverArrowTip.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverArrowTip as ArkPopoverArrowTip } from '@ark-ui/vue/popover';\nimport type { PopoverArrowTipProps } from '@ark-ui/vue/popover';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PopoverArrowTipProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPopoverArrowTip\n    v-bind=\"attrs\"\n    :class=\"cn('border-t border-l border-border', className)\"\n    data-slot=\"popover-arrow-tip\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverArrowTip.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverBody.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark, type HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.div v-bind=\"attrs\" :class=\"cn('min-h-0', className)\" data-slot=\"popover-body\">\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverBody.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverCloseIcon.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverCloseTrigger as ArkPopoverCloseTrigger } from '@ark-ui/vue/popover';\nimport type { PopoverCloseTriggerProps } from '@ark-ui/vue/popover';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport CloseButton from '../close-button/CloseButton.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ Omit<PopoverCloseTriggerProps, 'asChild'> {\n  ariaLabel?: string;\n  class?: HTMLAttributes['class'];\n}\n\nconst { ariaLabel, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPopoverCloseTrigger v-bind=\"attrs\" as-child>\n    <CloseButton\n      :aria-label=\"ariaLabel ?? 'Close popover'\"\n      :class=\"\n        cn(\n          'absolute end-3 top-3 size-7 rounded-sm bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',\n          className,\n        )\n      \"\n      data-slot=\"popover-close-icon\"\n    >\n      <slot v-if=\"$slots.default\" />\n    </CloseButton>\n  </ArkPopoverCloseTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverCloseIcon.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverCloseTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverCloseTrigger as ArkPopoverCloseTrigger } from '@ark-ui/vue/popover';\nimport type { PopoverCloseTriggerProps } from '@ark-ui/vue/popover';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PopoverCloseTriggerProps {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPopoverCloseTrigger\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :class=\"\n      cn(\n        !asChild &&\n          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',\n        className,\n      )\n    \"\n    data-slot=\"popover-close-trigger\"\n  >\n    <slot />\n  </ArkPopoverCloseTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverCloseTrigger.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverContent as ArkPopoverContent } from '@ark-ui/vue/popover';\nimport type { PopoverContentProps } from '@ark-ui/vue/popover';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PopoverContentProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPopoverContent\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'group/popover-content relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(28rem,var(--available-width))] min-w-[min(16rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-md bg-popover p-4 wrap-anywhere text-popover-foreground shadow-lg outline-1 outline-border has-[>[data-slot=popover-body]]:flex has-[>[data-slot=popover-body]]:flex-col data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none has-[>[data-slot=popover-body]]:[&>[data-slot=popover-body]]:overflow-auto',\n        className,\n      )\n    \"\n    data-slot=\"popover-content\"\n  >\n    <slot />\n  </ArkPopoverContent>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverContent.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverContext.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverContext as ArkPopoverContext, type UsePopoverContext } from '@ark-ui/vue/popover';\nimport type { UnwrapRef } from 'vue';\n\ndefineSlots<{ default: (popover: UnwrapRef<UsePopoverContext>) => unknown }>();\n</script>\n\n<template>\n  <ArkPopoverContext v-slot=\"popover\">\n    <slot v-bind=\"popover\" />\n  </ArkPopoverContext>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverContext.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverDescription.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverDescription as ArkPopoverDescription } from '@ark-ui/vue/popover';\nimport type { PopoverDescriptionProps } from '@ark-ui/vue/popover';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PopoverDescriptionProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPopoverDescription\n    v-bind=\"attrs\"\n    :class=\"cn('text-sm text-muted-foreground', className)\"\n    data-slot=\"popover-description\"\n  >\n    <slot />\n  </ArkPopoverDescription>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverDescription.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverFooter.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark, type HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"cn('mt-3 flex items-center justify-end gap-2', className)\"\n    data-slot=\"popover-footer\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverFooter.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverHeader.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark, type HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"\n      cn('grid gap-1 group-has-[[data-slot=popover-close-icon]]/popover-content:pe-10', className)\n    \"\n    data-slot=\"popover-header\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverHeader.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverIndicator as ArkPopoverIndicator } from '@ark-ui/vue/popover';\nimport type { PopoverIndicatorProps } from '@ark-ui/vue/popover';\nimport { useAttrs } from 'vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PopoverIndicatorProps {}\n\ndefineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPopoverIndicator v-bind=\"attrs\" data-slot=\"popover-indicator\">\n    <slot />\n  </ArkPopoverIndicator>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverIndicator.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverPositioner.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverPositioner as ArkPopoverPositioner } from '@ark-ui/vue/popover';\nimport type { PopoverPositionerProps } from '@ark-ui/vue/popover';\nimport { useForwardExpose } from '@ark-ui/vue/utils';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport OverlayPortal from '@/lib/moduix/overlayPortal/OverlayPortal.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PopoverPositionerProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst { forwardRef } = useForwardExpose();\n</script>\n\n<template>\n  <OverlayPortal>\n    <ArkPopoverPositioner\n      :ref=\"forwardRef\"\n      v-bind=\"attrs\"\n      :class=\"\n        cn(\n          'z-[var(--z-index,var(--moduix-z-popup))] max-w-[var(--available-width)] outline-0',\n          className,\n        )\n      \"\n      data-slot=\"popover-positioner\"\n    >\n      <slot />\n    </ArkPopoverPositioner>\n  </OverlayPortal>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverPositioner.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverTitle.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverTitle as ArkPopoverTitle } from '@ark-ui/vue/popover';\nimport type { PopoverTitleProps } from '@ark-ui/vue/popover';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PopoverTitleProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPopoverTitle\n    v-bind=\"attrs\"\n    :class=\"cn('text-md font-semibold text-popover-foreground', className)\"\n    data-slot=\"popover-title\"\n  >\n    <slot />\n  </ArkPopoverTitle>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverTitle.vue"
+    },
+    {
+      "path": "src/components/popover/PopoverTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { PopoverTrigger as ArkPopoverTrigger } from '@ark-ui/vue/popover';\nimport type { PopoverTriggerProps } from '@ark-ui/vue/popover';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ PopoverTriggerProps {\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkPopoverTrigger\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :class=\"\n      cn(\n        !asChild &&\n          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',\n        className,\n      )\n    \"\n    data-slot=\"popover-trigger\"\n  >\n    <slot />\n  </ArkPopoverTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/popover/PopoverTrigger.vue"
+    },
+    {
+      "path": "src/components/popover/index.ts",
+      "content": "import { usePopover, usePopoverContext } from '@ark-ui/vue/popover';\nimport Popover from './Popover.vue';\nimport PopoverAnchor from './PopoverAnchor.vue';\nimport PopoverArrow from './PopoverArrow.vue';\nimport PopoverArrowTip from './PopoverArrowTip.vue';\nimport PopoverBody from './PopoverBody.vue';\nimport PopoverCloseIcon from './PopoverCloseIcon.vue';\nimport PopoverCloseTrigger from './PopoverCloseTrigger.vue';\nimport PopoverContent from './PopoverContent.vue';\nimport PopoverContext from './PopoverContext.vue';\nimport PopoverDescription from './PopoverDescription.vue';\nimport PopoverFooter from './PopoverFooter.vue';\nimport PopoverHeader from './PopoverHeader.vue';\nimport PopoverIndicator from './PopoverIndicator.vue';\nimport PopoverPositioner from './PopoverPositioner.vue';\nimport PopoverRootProvider from './PopoverRootProvider.vue';\nimport PopoverTitle from './PopoverTitle.vue';\nimport PopoverTrigger from './PopoverTrigger.vue';\n\nexport {\n  Popover,\n  PopoverAnchor,\n  PopoverArrow,\n  PopoverArrowTip,\n  PopoverBody,\n  PopoverCloseIcon,\n  PopoverCloseTrigger,\n  PopoverContent,\n  PopoverContext,\n  PopoverDescription,\n  PopoverFooter,\n  PopoverHeader,\n  PopoverIndicator,\n  PopoverPositioner,\n  PopoverRootProvider,\n  PopoverTitle,\n  PopoverTrigger,\n  usePopover,\n  usePopoverContext,\n};\n\nexport type {\n  PopoverAnchorBaseProps,\n  PopoverAnchorProps,\n  PopoverArrowBaseProps,\n  PopoverArrowProps,\n  PopoverArrowTipBaseProps,\n  PopoverArrowTipProps,\n  PopoverCloseTriggerBaseProps,\n  PopoverCloseTriggerProps,\n  PopoverContentBaseProps,\n  PopoverContentProps,\n  PopoverContextProps,\n  PopoverDescriptionBaseProps,\n  PopoverDescriptionProps,\n  PopoverFocusOutsideEvent,\n  PopoverIndicatorBaseProps,\n  PopoverIndicatorProps,\n  PopoverInteractOutsideEvent,\n  PopoverOpenChangeDetails,\n  PopoverPointerDownOutsideEvent,\n  PopoverPositionerBaseProps,\n  PopoverPositionerProps,\n  PopoverRootBaseProps,\n  PopoverRootEmits,\n  PopoverRootProps,\n  PopoverRootProviderBaseProps,\n  PopoverRootProviderEmits,\n  PopoverRootProviderProps,\n  PopoverTitleBaseProps,\n  PopoverTitleProps,\n  PopoverTriggerBaseProps,\n  PopoverTriggerProps,\n  PopoverTriggerValueChangeDetails,\n  UsePopoverContext,\n  UsePopoverProps,\n  UsePopoverReturn,\n} from '@ark-ui/vue/popover';",
+      "type": "registry:component",
+      "target": "@components/ui/popover/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

@@ -54,7 +54,7 @@
 
   .backdrop {
     position: fixed;
-    z-index: calc(var(--moduix-z-backdrop) + var(--layer-index, 0));
+    z-index: calc(var(--z-index, var(--moduix-z-popup)) - 1);
     inset: 0;
     min-height: 100dvh;
     background-color: var(
@@ -77,7 +77,7 @@
   .positioner {
     box-sizing: border-box;
     position: fixed;
-    z-index: calc(var(--moduix-z-modal) + var(--layer-index, 0));
+    z-index: var(--z-index, var(--moduix-z-popup));
     inset: 0;
     display: grid;
     place-items: center;
@@ -88,6 +88,7 @@
   }
 
   .content {
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     box-sizing: border-box;
     position: relative;
     width: min(
@@ -248,7 +249,7 @@
     );
     --moduix-close-button-icon-size: var(
       --moduix-dialog-close-icon-glyph-size,
-      var(--moduix-spacing-3)
+      var(--moduix-spacing-4)
     );
     position: absolute;
     z-index: 2;

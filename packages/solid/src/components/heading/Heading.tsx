@@ -17,7 +17,7 @@ const elements = {
 type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type HeadingRootProps = HTMLArkProps<'h1'> & {
+type HeadingProps = HTMLArkProps<'h1'> & {
   as?: HeadingElement;
   size?: HeadingSize;
   weight?: HeadingWeight;
@@ -28,7 +28,7 @@ type HeadingRootProps = HTMLArkProps<'h1'> & {
   'data-weight'?: string;
 };
 
-function HeadingRoot(props: HeadingRootProps) {
+function Heading(props: HeadingProps) {
   const [local, others] = splitProps(props, [
     'as',
     'asChild',
@@ -41,11 +41,10 @@ function HeadingRoot(props: HeadingRootProps) {
     'data-size',
     'data-weight',
   ]);
-  const Element = () => elements[local.as ?? 'h1'] as typeof ark.h1;
 
   return (
     <Dynamic
-      component={Element()}
+      component={elements[local.as ?? 'h1']}
       asChild={local.asChild}
       {...others}
       data-scope="heading"
@@ -57,9 +56,5 @@ function HeadingRoot(props: HeadingRootProps) {
     />
   );
 }
-
-const Heading = Object.assign(HeadingRoot, {
-  Root: HeadingRoot,
-});
 
 export { Heading };

@@ -3,7 +3,7 @@ import type { ComponentProps, JSX } from 'solid-js';
 import { Index, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-function TimerRoot(props: ComponentProps<typeof TimerPrimitive.Root>) {
+function Timer(props: ComponentProps<typeof TimerPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -131,16 +131,19 @@ function TimerSegments(props: TimerSegmentsProps) {
   );
 }
 
-const Timer = Object.assign(TimerRoot, {
-  Root: TimerRoot,
-  RootProvider: TimerRootProvider,
-  Area: TimerArea,
-  Item: TimerItem,
-  Separator: TimerSeparator,
-  Control: TimerControl,
-  ActionTrigger: TimerActionTrigger,
-  Context: TimerPrimitive.Context,
-  Segments: TimerSegments,
-});
+const TimerContext = TimerPrimitive.Context;
 
-export { Timer, type TimerSegmentsProps, useTimer, useTimerContext };
+export {
+  Timer,
+  TimerActionTrigger,
+  TimerArea,
+  TimerContext,
+  TimerControl,
+  TimerItem,
+  TimerRootProvider,
+  TimerSegments,
+  TimerSeparator,
+  type TimerSegmentsProps,
+  useTimer,
+  useTimerContext,
+};

@@ -12,42 +12,47 @@ This wrapper follows Ark UI's Navigation Menu documentation and React source:
 
 ## Public contract
 
-`NavigationMenu` is the short root form. `NavigationMenu.Root` is an alias; `RootProvider` connects a
-state store made with `useNavigationMenu()`.
+`NavigationMenu` is the only public root. `NavigationMenuRootProvider` connects a state store made
+with `useNavigationMenu()`.
 
 ```tsx
 <NavigationMenu>
-  <NavigationMenu.List>
-    <NavigationMenu.Item value="products">
-      <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
-      <NavigationMenu.Content>
-        <NavigationMenu.Link href="/products">All products</NavigationMenu.Link>
-      </NavigationMenu.Content>
-    </NavigationMenu.Item>
-  </NavigationMenu.List>
+  <NavigationMenuList>
+    <NavigationMenuItem value="products">
+      <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <NavigationMenuLink href="/products">All products</NavigationMenuLink>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  </NavigationMenuList>
 </NavigationMenu>
 ```
 
-The public parts are `Root`, `RootProvider`, `Context`, `List`, `Item`, `Trigger`, `Content`, `Link`,
-`Indicator`, `ItemIndicator`, `Arrow`, `ViewportPositioner`, and `Viewport`. All visible parts accept
-`className` and expose stable `data-slot="navigation-menu-*"` hooks.
+The public parts are `NavigationMenuRootProvider`, `NavigationMenuContext`, `NavigationMenuList`,
+`NavigationMenuItem`, `NavigationMenuTrigger`, `NavigationMenuContent`, `NavigationMenuLink`,
+`NavigationMenuIndicator`, `NavigationMenuItemIndicator`, `NavigationMenuArrow`,
+`NavigationMenuViewportPositioner`, and `NavigationMenuViewport`. All visible parts accept `className`
+and expose stable `data-slot="navigation-menu-*"` hooks.
 
 ## Preservation notes
 
 Ark owns controlled and uncontrolled `value`, `defaultValue`, `onValueChange(details)`, hover and click
 delays, roving focus, `orientation`, `ids`, `asChild`, lazy mount behavior, and ARIA relationships. Keep
-the callback detail object unchanged. `Trigger` requires an enclosing `Item`; `Item`, `Trigger`, and
-`Content` connect through the item's `value`.
+the callback detail object unchanged. `NavigationMenuTrigger` requires an enclosing `NavigationMenuItem`;
+`NavigationMenuItem`, `NavigationMenuTrigger`, and `NavigationMenuContent` connect through the item's
+`value`.
 
-`Viewport` is opt-in. Render it inside `ViewportPositioner`; Ark then moves matching `Content` nodes into
-the viewport while keeping their item relationships intact. An optional `Indicator` belongs inside `List`.
-Use its `Arrow` only with a shared viewport, following Ark's viewport composition. `ViewportPositioner`
+`NavigationMenuViewport` is opt-in. Render it inside `NavigationMenuViewportPositioner`; Ark then moves
+matching `NavigationMenuContent` nodes into the viewport while keeping their item relationships intact.
+An optional `NavigationMenuIndicator` belongs inside `NavigationMenuList`. Use its
+`NavigationMenuArrow` only with a shared viewport, following Ark's viewport composition.
+`NavigationMenuViewportPositioner`
 accepts Ark's `align` prop (`"start" | "center" | "end"`, default `"center"`) to align the shared viewport.
-`Content` preserves its
+`NavigationMenuContent` preserves its
 children unchanged. The recommended basic composition does not render an arrow.
 Navigation menu panels intentionally stay in the root instead of using `OverlayPortal`: Ark measures trigger,
 indicator, and viewport coordinates in that shared local coordinate system.
-Use `RootProvider` with `useNavigationMenu()`
+Use `NavigationMenuRootProvider` with `useNavigationMenu()`
 only when the state store must be created outside the rendered tree.
 
 ## Styling and accessibility

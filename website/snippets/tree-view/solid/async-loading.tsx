@@ -1,4 +1,15 @@
 import {
+  TreeViewTree,
+  TreeViewLabel,
+  TreeViewBranchIndentGuide,
+  TreeViewBranchContent,
+  TreeViewBranchText,
+  TreeViewBranchIndicator,
+  TreeViewBranchControl,
+  TreeViewBranch,
+  TreeViewItemText,
+  TreeViewItem,
+  TreeViewNode,
   TreeView,
   createTreeCollection,
   type TreeViewLoadChildrenDetails,
@@ -47,35 +58,35 @@ function loadChildren({ valuePath }: TreeViewLoadChildrenDetails<FileNode>) {
 
 function FileTreeNode(props: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeView.Node node={props.node} indexPath={props.indexPath}>
+    <TreeViewNode node={props.node} indexPath={props.indexPath}>
       {({ node: currentNode, indexPath: currentIndexPath, state }) => (
         <Show
           when={state().isBranch}
           fallback={
-            <TreeView.Item>
-              <TreeView.ItemText>{currentNode.name}</TreeView.ItemText>
-            </TreeView.Item>
+            <TreeViewItem>
+              <TreeViewItemText>{currentNode.name}</TreeViewItemText>
+            </TreeViewItem>
           }
         >
-          <TreeView.Branch>
-            <TreeView.BranchControl>
-              <TreeView.BranchIndicator />
-              <TreeView.BranchText>
+          <TreeViewBranch>
+            <TreeViewBranchControl>
+              <TreeViewBranchIndicator />
+              <TreeViewBranchText>
                 {state().loading ? 'Loading…' : currentNode.name}
-              </TreeView.BranchText>
-            </TreeView.BranchControl>
-            <TreeView.BranchContent>
-              <TreeView.BranchIndentGuide />
+              </TreeViewBranchText>
+            </TreeViewBranchControl>
+            <TreeViewBranchContent>
+              <TreeViewBranchIndentGuide />
               <For each={currentNode.children ?? []}>
                 {(child, index) => (
                   <FileTreeNode node={child} indexPath={[...currentIndexPath, index()]} />
                 )}
               </For>
-            </TreeView.BranchContent>
-          </TreeView.Branch>
+            </TreeViewBranchContent>
+          </TreeViewBranch>
         </Show>
       )}
-    </TreeView.Node>
+    </TreeViewNode>
   );
 }
 
@@ -88,12 +99,12 @@ export default function AsyncTreeViewDemo() {
       loadChildren={loadChildren}
       onLoadChildrenComplete={(details) => setCollection(details.collection)}
     >
-      <TreeView.Label>Lazy folders</TreeView.Label>
-      <TreeView.Tree>
+      <TreeViewLabel>Lazy folders</TreeViewLabel>
+      <TreeViewTree>
         <For each={collection().rootNode.children ?? []}>
           {(node, index) => <FileTreeNode node={node} indexPath={[index()]} />}
         </For>
-      </TreeView.Tree>
+      </TreeViewTree>
     </TreeView>
   );
 }

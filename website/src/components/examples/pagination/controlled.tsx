@@ -1,4 +1,9 @@
-import { Pagination } from '@moduix/react/pagination';
+import {
+  Pagination,
+  PaginationItems,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+} from '@moduix/react/pagination';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/pagination/pagination-controlled.module.css';
@@ -15,9 +20,9 @@ export default function ControlledPaginationDemo() {
         siblingCount={2}
         onPageChange={(details) => setPage(details.page)}
       >
-        <Pagination.PrevTrigger />
-        <Pagination.Items />
-        <Pagination.NextTrigger />
+        <PaginationPrevTrigger />
+        <PaginationItems />
+        <PaginationNextTrigger />
       </Pagination>
       <PreviewMeta>
         <output>Current page: {page}</output>

@@ -1,5 +1,12 @@
-import { Field } from '@moduix/react/field';
-import { PasswordInput } from '@moduix/react/password-input';
+import { Field, FieldErrorText } from '@moduix/react/field';
+import {
+  PasswordInput,
+  PasswordInputControl,
+  PasswordInputIndicator,
+  PasswordInputInput,
+  PasswordInputLabel,
+  PasswordInputVisibilityTrigger,
+} from '@moduix/react/password-input';
 import { useState } from 'react';
 import styles from '@/components/examples/password-input/password-input-with-validation.module.css';
 
@@ -10,19 +17,19 @@ export default function PasswordInputValidationDemo() {
   return (
     <Field className={styles.root} invalid={invalid}>
       <PasswordInput>
-        <PasswordInput.Label>Password (min 8 characters)</PasswordInput.Label>
-        <PasswordInput.Control>
-          <PasswordInput.Input
+        <PasswordInputLabel>Password (min 8 characters)</PasswordInputLabel>
+        <PasswordInputControl>
+          <PasswordInputInput
             value={password}
             onChange={(event) => setPassword(event.currentTarget.value)}
             placeholder="Enter your password"
           />
-          <PasswordInput.VisibilityTrigger>
-            <PasswordInput.Indicator />
-          </PasswordInput.VisibilityTrigger>
-        </PasswordInput.Control>
+          <PasswordInputVisibilityTrigger>
+            <PasswordInputIndicator />
+          </PasswordInputVisibilityTrigger>
+        </PasswordInputControl>
       </PasswordInput>
-      <Field.ErrorText>Password must be at least 8 characters.</Field.ErrorText>
+      <FieldErrorText>Password must be at least 8 characters.</FieldErrorText>
     </Field>
   );
 }

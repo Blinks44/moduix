@@ -1,4 +1,4 @@
-import { Breadcrumbs } from '@moduix/react/breadcrumbs';
+import { Breadcrumbs, BreadcrumbsPath } from '@moduix/react/breadcrumbs';
 const links = [
   { href: '/', label: 'Home' },
   { href: '/docs/breadcrumbs', label: 'Breadcrumbs' },
@@ -7,7 +7,7 @@ const links = [
 export default function BreadcrumbsDemo() {
   return (
     <Breadcrumbs>
-      <Breadcrumbs.Path links={links} page="Go Developer" />
+      <BreadcrumbsPath links={links} page="Go Developer" />
     </Breadcrumbs>
   );
 }

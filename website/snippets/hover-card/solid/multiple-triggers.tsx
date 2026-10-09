@@ -1,4 +1,10 @@
-import { HoverCard } from '@moduix/solid/hover-card';
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/solid/hover-card';
 import { createSignal, For } from 'solid-js';
 import styles from '@/components/examples/hover-card/hover-card-multiple-triggers.module.css';
 
@@ -31,17 +37,17 @@ export default function MultipleTriggersHoverCard() {
         <For each={profiles}>
           {(profile, index) => (
             <span>
-              <HoverCard.Trigger value={profile.id} class={styles.trigger}>
+              <HoverCardTrigger value={profile.id} class={styles.trigger}>
                 {profile.username}
-              </HoverCard.Trigger>
+              </HoverCardTrigger>
               {index() < profiles.length - 1 ? ' and ' : null}
             </span>
           )}
         </For>
       </p>
-      <HoverCard.Positioner>
-        <HoverCard.Content>
-          <HoverCard.Body>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <HoverCardBody>
             <div class={styles.preview}>
               <img
                 alt="Sunlit workspace with a laptop and plants"
@@ -53,9 +59,9 @@ export default function MultipleTriggersHoverCard() {
                 <p class={styles.description}>{activeProfile().description}</p>
               </div>
             </div>
-          </HoverCard.Body>
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+          </HoverCardBody>
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>
   );
 }

@@ -2,7 +2,23 @@ import type { TourStepDetails } from '@ark-ui/react/tour';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Button } from '@/components/button';
-import { Tour, useTour, waitForEvent } from '@/components/tour/Tour';
+import {
+  Tour,
+  TourBackdrop,
+  TourSpotlight,
+  TourPositioner,
+  TourContent,
+  TourArrow,
+  TourTitle,
+  TourDescription,
+  TourProgressText,
+  TourBody,
+  TourCloseIcon,
+  TourControl,
+  TourActionList,
+  useTour,
+  waitForEvent,
+} from '@/components/tour/Tour';
 import storyStyles from './Tour.stories.module.css';
 
 const meta = {
@@ -94,22 +110,22 @@ function TourOverlay({
 }) {
   return (
     <Tour tour={tour} lazyMount unmountOnExit>
-      <Tour.Backdrop />
-      <Tour.Spotlight />
-      <Tour.Positioner>
-        <Tour.Content>
-          {withArrow ? <Tour.Arrow /> : null}
-          <Tour.CloseIcon />
-          <Tour.Body>
-            <Tour.Title />
-            <Tour.Description />
-            <Tour.ProgressText />
-          </Tour.Body>
-          <Tour.Control>
-            <Tour.ActionList />
-          </Tour.Control>
-        </Tour.Content>
-      </Tour.Positioner>
+      <TourBackdrop />
+      <TourSpotlight />
+      <TourPositioner>
+        <TourContent>
+          {withArrow ? <TourArrow /> : null}
+          <TourCloseIcon />
+          <TourBody>
+            <TourTitle />
+            <TourDescription />
+            <TourProgressText />
+          </TourBody>
+          <TourControl>
+            <TourActionList />
+          </TourControl>
+        </TourContent>
+      </TourPositioner>
     </Tour>
   );
 }
@@ -180,24 +196,24 @@ export const Progress: Story = {
           Upload
         </Button>
         <Tour tour={tour} lazyMount unmountOnExit>
-          <Tour.Backdrop />
-          <Tour.Spotlight />
-          <Tour.Positioner>
-            <Tour.Content>
-              <Tour.CloseIcon />
-              <Tour.Title />
-              <Tour.Description />
+          <TourBackdrop />
+          <TourSpotlight />
+          <TourPositioner>
+            <TourContent>
+              <TourCloseIcon />
+              <TourTitle />
+              <TourDescription />
               <div className={storyStyles.progressTrack}>
                 <div
                   className={storyStyles.progressFill}
                   style={{ width: `${tour.getProgressPercent()}%` }}
                 />
               </div>
-              <Tour.Control>
-                <Tour.ActionList />
-              </Tour.Control>
-            </Tour.Content>
-          </Tour.Positioner>
+              <TourControl>
+                <TourActionList />
+              </TourControl>
+            </TourContent>
+          </TourPositioner>
         </Tour>
       </div>
     );

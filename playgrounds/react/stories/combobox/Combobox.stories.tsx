@@ -2,7 +2,24 @@ import { createListCollection, useListCollection } from '@ark-ui/react/collectio
 import { useFilter } from '@ark-ui/react/locale';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useMemo, useState } from 'react';
-import { Combobox, useCombobox } from '@/components/combobox/Combobox';
+import {
+  Combobox,
+  useCombobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItemGroup,
+  ComboboxItemGroupLabel,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxRootProvider,
+  ComboboxStatus,
+  ComboboxTrigger,
+} from '@/components/combobox/Combobox';
 import styles from './Combobox.stories.module.css';
 
 const meta = {
@@ -30,18 +47,18 @@ const fruits = [
 
 function ComboboxPopup({ items }: { items: Array<{ label: string; value: string }> }) {
   return (
-    <Combobox.Positioner>
-      <Combobox.Content>
-        <Combobox.Empty>No options found.</Combobox.Empty>
-        <Combobox.List>
+    <ComboboxPositioner>
+      <ComboboxContent>
+        <ComboboxEmpty>No options found.</ComboboxEmpty>
+        <ComboboxList>
           {items.map((item) => (
-            <Combobox.Option key={item.value} item={item}>
+            <ComboboxOption key={item.value} item={item}>
               {item.label}
-            </Combobox.Option>
+            </ComboboxOption>
           ))}
-        </Combobox.List>
-      </Combobox.Content>
-    </Combobox.Positioner>
+        </ComboboxList>
+      </ComboboxContent>
+    </ComboboxPositioner>
   );
 }
 
@@ -50,18 +67,15 @@ function BasicStory() {
   const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });
 
   return (
-    <Combobox.Root
-      collection={collection}
-      onInputValueChange={(details) => filter(details.inputValue)}
-    >
-      <Combobox.Label>Choose fruit</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. Mango" />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
+    <Combobox collection={collection} onInputValueChange={(details) => filter(details.inputValue)}>
+      <ComboboxLabel>Choose fruit</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="e.g. Mango" />
+        <ComboboxClearTrigger aria-label="Clear selection" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
       <ComboboxPopup items={collection.items} />
-    </Combobox.Root>
+    </Combobox>
   );
 }
 
@@ -71,20 +85,20 @@ function ControlledStory() {
   const [value, setValue] = useState<string[]>(['mango']);
 
   return (
-    <Combobox.Root
+    <Combobox
       collection={collection}
       value={value}
       onInputValueChange={(details) => filter(details.inputValue)}
       onValueChange={(details) => setValue(details.value)}
     >
-      <Combobox.Label>Choose fruit</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
+      <ComboboxLabel>Choose fruit</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput />
+        <ComboboxClearTrigger aria-label="Clear selection" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
       <ComboboxPopup items={collection.items} />
-    </Combobox.Root>
+    </Combobox>
   );
 }
 
@@ -104,32 +118,29 @@ function GroupedStory() {
   });
 
   return (
-    <Combobox.Root
-      collection={collection}
-      onInputValueChange={(details) => filter(details.inputValue)}
-    >
-      <Combobox.Label>Country</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. Canada" />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.Empty>No countries found.</Combobox.Empty>
+    <Combobox collection={collection} onInputValueChange={(details) => filter(details.inputValue)}>
+      <ComboboxLabel>Country</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="e.g. Canada" />
+        <ComboboxClearTrigger aria-label="Clear selection" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent>
+          <ComboboxEmpty>No countries found.</ComboboxEmpty>
           {collection.group().map(([continent, items]) => (
-            <Combobox.ItemGroup key={continent}>
-              <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
+            <ComboboxItemGroup key={continent}>
+              <ComboboxItemGroupLabel>{continent}</ComboboxItemGroupLabel>
               {items.map((item) => (
-                <Combobox.Option key={item.value} item={item}>
+                <ComboboxOption key={item.value} item={item}>
                   {item.label}
-                </Combobox.Option>
+                </ComboboxOption>
               ))}
-            </Combobox.ItemGroup>
+            </ComboboxItemGroup>
           ))}
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.Root>
+        </ComboboxContent>
+      </ComboboxPositioner>
+    </Combobox>
   );
 }
 
@@ -140,14 +151,14 @@ function MultipleStory() {
   const selectedItems = fruits.filter((item) => value.includes(item.value));
 
   return (
-    <Combobox.Root
+    <Combobox
       collection={collection}
       value={value}
       onValueChange={(details) => setValue(details.value)}
       onInputValueChange={(details) => filter(details.inputValue)}
       multiple
     >
-      <Combobox.Label>Fruits</Combobox.Label>
+      <ComboboxLabel>Fruits</ComboboxLabel>
       <div className={styles.tags}>
         {selectedItems.length === 0 ? (
           <span className={styles.tagPlaceholder}>None selected</span>
@@ -158,12 +169,12 @@ function MultipleStory() {
           </span>
         ))}
       </div>
-      <Combobox.Control>
-        <Combobox.Input placeholder="Search fruits" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
+      <ComboboxControl>
+        <ComboboxInput placeholder="Search fruits" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
       <ComboboxPopup items={collection.items} />
-    </Combobox.Root>
+    </Combobox>
   );
 }
 
@@ -193,32 +204,32 @@ function AsyncSearchStory() {
   const collection = useMemo(() => createListCollection({ items }), [items]);
 
   return (
-    <Combobox.Root
+    <Combobox
       collection={collection}
       inputValue={inputValue}
       onInputValueChange={(details) => setInputValue(details.inputValue)}
     >
-      <Combobox.Label>Async-style search</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="Start typing" />
-        <Combobox.ClearTrigger aria-label="Clear search" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          {!inputValue ? <Combobox.Status>Start typing to search…</Combobox.Status> : null}
-          {loading ? <Combobox.Status>Searching…</Combobox.Status> : null}
-          {!loading && inputValue ? <Combobox.Empty>No options found.</Combobox.Empty> : null}
-          <Combobox.List>
+      <ComboboxLabel>Async-style search</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="Start typing" />
+        <ComboboxClearTrigger aria-label="Clear search" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent>
+          {!inputValue ? <ComboboxStatus>Start typing to search…</ComboboxStatus> : null}
+          {loading ? <ComboboxStatus>Searching…</ComboboxStatus> : null}
+          {!loading && inputValue ? <ComboboxEmpty>No options found.</ComboboxEmpty> : null}
+          <ComboboxList>
             {collection.items.map((item) => (
-              <Combobox.Option key={item.value} item={item}>
+              <ComboboxOption key={item.value} item={item}>
                 {item.label}
-              </Combobox.Option>
+              </ComboboxOption>
             ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.Root>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
+    </Combobox>
   );
 }
 
@@ -238,15 +249,15 @@ function RootProviderStory() {
       <button type="button" onClick={() => combobox.focus()}>
         Focus combobox
       </button>
-      <Combobox.RootProvider value={combobox}>
-        <Combobox.Label>Job title</Combobox.Label>
-        <Combobox.Control>
-          <Combobox.Input />
-          <Combobox.ClearTrigger aria-label="Clear selection" />
-          <Combobox.Trigger aria-label="Open options" />
-        </Combobox.Control>
+      <ComboboxRootProvider value={combobox}>
+        <ComboboxLabel>Job title</ComboboxLabel>
+        <ComboboxControl>
+          <ComboboxInput />
+          <ComboboxClearTrigger aria-label="Clear selection" />
+          <ComboboxTrigger aria-label="Open options" />
+        </ComboboxControl>
         <ComboboxPopup items={jobTitles.items} />
-      </Combobox.RootProvider>
+      </ComboboxRootProvider>
     </div>
   );
 }

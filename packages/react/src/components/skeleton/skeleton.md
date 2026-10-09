@@ -22,7 +22,7 @@ revealed with `loading={false}`, and `variant` supports `pulse` and `none`.
 
 ## Current behavior contract
 
-- `Skeleton` renders `Skeleton.Root`; the short root form and namespaced root are equivalent.
+- `Skeleton` is the public root value and renders an `ark.div` by default.
 - The root is an `ark.div` by default and forwards refs to that element.
 - `asChild` is supported by the Ark factory path. The child must be a single semantic element.
 - `loading` defaults to `true`. Loading roots get `aria-hidden`, `data-state="loading"`, and
@@ -38,15 +38,15 @@ revealed with `loading={false}`, and `variant` supports `pulse` and `none`.
 ## Anatomy and exported parts
 
 ```text
-Skeleton.Root
+Skeleton
 └─ children (optional, visible when loading={false})
 ```
 
-| Part                | Stable hooks                                                                            | Notes                                       |
-| ------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------- |
-| `Skeleton` / `Root` | `data-scope="skeleton"`, `data-part="root"`, `data-slot="skeleton-root"`                | Short root form and namespace are the same. |
-| Loading root state  | `data-state="loading"`, `data-loading`, `data-variant="pulse"` or `data-variant="none"` | Placeholder surface is decorative.          |
-| Loaded root state   | `data-state="loaded"`, `data-variant="pulse"` or `data-variant="none"`                  | Children render through the same host.      |
+| Part               | Stable hooks                                                                            | Notes                                              |
+| ------------------ | --------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `Skeleton`         | `data-scope="skeleton"`, `data-part="root"`, `data-slot="skeleton-root"`                | The single visual root and public component value. |
+| Loading root state | `data-state="loading"`, `data-loading`, `data-variant="pulse"` or `data-variant="none"` | Placeholder surface is decorative.                 |
+| Loaded root state  | `data-state="loaded"`, `data-variant="pulse"` or `data-variant="none"`                  | Children render through the same host.             |
 
 ## Composition
 
@@ -102,7 +102,7 @@ export function LoadedProfile() {
 - While loading, the root is decorative and gets `aria-hidden` unless the consumer explicitly passes a
   different `aria-hidden` value.
 - The component has no keyboard behavior, focus management, controlled state, callbacks,
-  `Field.Root`, `Fieldset.Root`, `HiddenInput`, `ids`, context hooks, or `RootProvider`.
+  `Field`, `Fieldset`, `HiddenInput`, `ids`, context hooks, or `RootProvider`.
 - Keep real loading announcements in adjacent content when a status needs to be exposed to assistive
   technologies. Put `aria-busy` on the region that owns the loading state, not on the decorative
   placeholder.
@@ -152,12 +152,12 @@ Public CSS variables:
 - 2026-07-30: Made root styling hooks invariant, hid nested loading content and pseudo-elements,
   and synchronized accessibility and preview guidance.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-03: Stopped exporting `SkeletonRootProps` and `SkeletonVariant`; keep the public surface
+- 2026-07-03: Stopped exporting dedicated props and variant types; keep the public surface
   on the component itself and preserve the same runtime behavior.
 - 2026-06-27: Audited the Ark factory migration, simplified loading-state CSS, fixed the anatomy
   hook table, and synchronized docs example data with rendered examples.
-- 2026-06-20: Migrated `Skeleton` to an Ark-style factory wrapper, added `Skeleton.Root`,
-  `asChild`, `loading`, `variant`, `boxSize`, and `borderRadius`, removed legacy
+- 2026-06-20: Migrated `Skeleton` to an Ark-style factory wrapper, added `asChild`, `loading`,
+  `variant`, `boxSize`, and `borderRadius`, removed legacy
   `animated`/`shape`/`radius`/`size`, and synchronized stories/docs/styling hooks.
 - 2026-06-03: Rewrote the local documentation around the actual moduix `Skeleton` wrapper,
   including the real prop contract, styling API, animation behavior, accessibility guidance, and

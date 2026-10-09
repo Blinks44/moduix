@@ -7,68 +7,83 @@ presence lifecycle, CSS hooks, and callback detail objects.
 ## Composition
 
 ```tsx
-<Lightbox aria-label="Mountain ridge at sunset">
-  <Lightbox.Trigger
+<Lightbox>
+  <LightboxTrigger
     asChild={(props) => (
       <button {...props()} type="button">
         <img src={thumbnail} alt="Mountain ridge at sunset" />
       </button>
     )}
   />
-  <Lightbox.Backdrop />
-  <Lightbox.Positioner>
-    <Lightbox.CloseIcon />
-    <Lightbox.Content>
-      <Lightbox.Body>
-        <Lightbox.Image src={fullSize} alt="Mountain ridge at sunset" />
-      </Lightbox.Body>
-    </Lightbox.Content>
-  </Lightbox.Positioner>
+  <LightboxBackdrop />
+  <LightboxPositioner>
+    <LightboxContent aria-label="Mountain ridge at sunset">
+      <LightboxCloseIcon />
+      <LightboxBody>
+        <LightboxImage src={fullSize} alt="Mountain ridge at sunset" />
+      </LightboxBody>
+    </LightboxContent>
+  </LightboxPositioner>
 </Lightbox>
 ```
 
-`Lightbox` and `Lightbox.Root` are equivalent roots. `Backdrop` and `Positioner` are portalled by
+`Lightbox` is the root component. `LightboxBackdrop` and `LightboxPositioner` are portalled by
 default; use `portalled={false}` or `portalRef` on the root to control overlay placement.
 `lazyMount` and `unmountOnExit` default to `true`.
 
 ## API surface
 
-The adapter exports `Lightbox`, `LightboxBind`, `LightboxGallery`, `LightboxImage`,
-`useLightbox`, and `useLightboxContext`. `Lightbox` exposes `Root`, `RootProvider`, `Trigger`,
-`Backdrop`, `Positioner`, `Content`, `Title`, `Description`, `CloseTrigger`, `CloseIcon`,
-`Header`, `Body`, `Footer`, `Image`, `Gallery`, and `Bind`.
+The adapter exports `Lightbox`, `LightboxRootProvider`, `LightboxTrigger`, `LightboxBackdrop`,
+`LightboxPositioner`, `LightboxContent`, `LightboxTitle`, `LightboxDescription`,
+`LightboxCloseTrigger`, `LightboxCloseIcon`, `LightboxHeader`, `LightboxBody`, `LightboxFooter`,
+`LightboxImage`, `LightboxGallery`, `LightboxBind`, `useLightbox`, and `useLightboxContext`.
 
-`Lightbox.RootProvider` receives the accessor returned by `useLightbox()`:
+`LightboxRootProvider` receives the accessor returned by `useLightbox()`:
 
 ```tsx
 const lightbox = useLightbox();
 
-<Lightbox.RootProvider value={lightbox}>
-  <Lightbox.Positioner>
-    <Lightbox.Content>
-      <Lightbox.Title>Image preview</Lightbox.Title>
-    </Lightbox.Content>
-  </Lightbox.Positioner>
-</Lightbox.RootProvider>;
+<LightboxRootProvider value={lightbox}>
+  <LightboxPositioner>
+    <LightboxContent>
+      <LightboxTitle>Image preview</LightboxTitle>
+    </LightboxContent>
+  </LightboxPositioner>
+</LightboxRootProvider>;
 ```
 
 Ark owns open state, focus management, dismissal, IDs, state attributes, and runtime CSS
 variables. Callback handlers receive Ark detail objects, including `details.open` and
 `details.value`.
 
-`Lightbox.Image` is a styled native image. `closeOnClick` closes the dialog after the consumer
+`LightboxImage` is a styled native image. `closeOnClick` closes the dialog after the consumer
 click handler unless that handler calls `event.preventDefault()`.
+Solid callbacks and bound `[handler, data]` pairs are both supported.
 
-`Lightbox.Gallery` is a layout boundary for composing `Carousel`; it does not own image data or
-slide state. `Lightbox.Bind` renders no DOM and binds a semantic button or link selected by
+`LightboxGallery` is a layout boundary for composing `Carousel`; it does not own image data or
+slide state. `LightboxBind` renders no DOM and binds a semantic button or link selected by
 `selector` inside `rootRef` or `rootSelector`. In Solid, `rootRef` can be an element or an
 accessor such as `rootRef={() => rootElement}`. `onImageSelect` receives `src`, optional `alt`,
 and the source `HTMLImageElement`.
+
+The image URL uses `data-lightbox-src` first, then a nonempty `currentSrc`, then `src`.
+An explicitly empty `data-lightbox-src` excludes the image rather than falling back.
+Native clicks already cancelled with `event.preventDefault()` do not select an image or open the dialog.
 
 ## Solid composition notes
 
 Ark Solid uses a render-function `asChild` prop:
 `asChild={(props) => <button {...props()} type="button" />}`. Its native composition does not
 forward refs through `asChild`, so ordinary refs and custom-host composition are supported as
-separate paths. `Lightbox.CloseIcon` composes `CloseButton.Root` through this native contract and
+separate paths. `LightboxCloseIcon` composes `CloseButton` through this native contract and
 defaults its accessible label to `Close image`.
+
+## Style contract (2026-10-03)
+
+Content shares the --moduix-z-popup base and adds Ark --layer-index; surrounding parts use Ark’s mirrored --z-index. Foundation owns the keyframes: Content fades while its direct Body child owns scale/translate motion. The close control stays inside Content, outside Body, preserving focus trapping and its viewport corner. Public motion overrides, backdrop blur and reduced-motion behavior remain available.
+
+## Local changelog
+
+- 2026-10-05: Moved the close control inside Content for accessibility and focus trapping; scale/translate motion now belongs to Body, keeping the close icon viewport-fixed.
+
+- 2026-10-03: Binding falls back to `src` when `currentSrc` is empty, preserving explicit source overrides.

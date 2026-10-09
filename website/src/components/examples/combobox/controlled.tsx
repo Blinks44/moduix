@@ -1,6 +1,18 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox } from '@moduix/react/combobox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/react/combobox';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/combobox/component-controlled.module.css';
@@ -28,24 +40,24 @@ export default function ControlledComboboxDemo() {
         onInputValueChange={(details) => filter(details.inputValue)}
         onValueChange={(details) => setValue(details.value)}
       >
-        <Combobox.Label>Choose fruit</Combobox.Label>
-        <Combobox.Control>
-          <Combobox.Input />
-          <Combobox.ClearTrigger aria-label="Clear selection" />
-          <Combobox.Trigger aria-label="Open options" />
-        </Combobox.Control>
-        <Combobox.Positioner>
-          <Combobox.Content className={styles.content}>
-            <Combobox.Empty>No fruits found.</Combobox.Empty>
-            <Combobox.List>
+        <ComboboxLabel>Choose fruit</ComboboxLabel>
+        <ComboboxControl>
+          <ComboboxInput />
+          <ComboboxClearTrigger aria-label="Clear selection" />
+          <ComboboxTrigger aria-label="Open options" />
+        </ComboboxControl>
+        <ComboboxPositioner>
+          <ComboboxContent className={styles.content}>
+            <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+            <ComboboxList>
               {collection.items.map((item) => (
-                <Combobox.Option key={item.value} item={item}>
+                <ComboboxOption key={item.value} item={item}>
                   {item.label}
-                </Combobox.Option>
+                </ComboboxOption>
               ))}
-            </Combobox.List>
-          </Combobox.Content>
-        </Combobox.Positioner>
+            </ComboboxList>
+          </ComboboxContent>
+        </ComboboxPositioner>
       </Combobox>
       <PreviewMeta>
         <output>Selected: {value[0] ?? 'none'}</output>

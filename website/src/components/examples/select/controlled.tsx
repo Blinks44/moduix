@@ -1,5 +1,18 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectClearTrigger,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 import { useState } from 'react';
 
 const themes = createListCollection({
@@ -24,24 +37,24 @@ export default function SelectControlledDemo() {
 
   return (
     <Select collection={themes} value={value} onValueChange={(details) => setValue(details.value)}>
-      <Select.Label>Theme</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select theme" />
-        </Select.Trigger>
-        <Select.Indicator />
-        <Select.ClearTrigger aria-label="Clear selection" />
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content>
+      <SelectLabel>Theme</SelectLabel>
+      <SelectControl>
+        <SelectTrigger>
+          <SelectValueText placeholder="Select theme" />
+        </SelectTrigger>
+        <SelectIndicator />
+        <SelectClearTrigger aria-label="Clear selection" />
+      </SelectControl>
+      <SelectPositioner>
+        <SelectContent>
           {themes.items.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
+            <SelectItem key={item.value} item={item}>
+              <SelectItemText>{item.label}</SelectItemText>
+              <SelectItemIndicator />
+            </SelectItem>
           ))}
-        </Select.Content>
-      </Select.Positioner>
+        </SelectContent>
+      </SelectPositioner>
     </Select>
   );
 }

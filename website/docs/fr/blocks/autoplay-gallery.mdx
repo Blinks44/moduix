@@ -1,0 +1,114 @@
+---
+title: Galerie à lecture automatique
+description: Une composition de galerie à lecture automatique avec Carousel, texte superposé, navigation par flèches et indicateurs de progression.
+---
+
+import { AutoplayGallery } from '@/components/blocks/autoplay-gallery';
+import autoplayGallerySolid from '../../../snippets/blocks/solid/autoplay-gallery.tsx?raw';
+import autoplayGalleryVue from '../../../snippets/blocks/vue/autoplay-gallery.vue?raw';
+
+# Galerie à lecture automatique
+
+Utilisez cette composition pour du contenu mis en avant qui défile automatiquement tout en restant facile à parcourir.
+Elle associe `Carousel` à des diapositives voisines partiellement visibles, du texte superposé, des flèches de
+navigation et des indicateurs qui se remplissent pendant chaque intervalle de lecture automatique.
+
+L’aperçu utilise React. Les onglets présentent le code React, Solid et Vue avec une feuille de style commune.
+
+
+
+<ExampleFrame variant="block" clientOnly>
+  <AutoplayGallery />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/blocks/autoplay-gallery.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={autoplayGallerySolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={autoplayGalleryVue} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/blocks/autoplay-gallery.module.css"
+
+```
+</div>
+
+</ExampleCode>
+
+## Installation
+
+<BlockInstall name="autoplay-gallery" />
+
+La commande installe la galerie, ses styles et `Carousel`. Remplacez le contenu de démonstration par le vôtre.
+
+## Utiliser la composition dans votre application
+
+Le fichier copié est prêt à être adapté :
+
+- Remplacez les données de `slides` par vos images, libellés, titres, descriptions et textes alternatifs. Gardez un
+  `id` stable pour chaque diapositive et maintenez `slideCount` synchronisé avec `slides.length`.
+- Modifiez `aria-label` afin de décrire le rôle de votre carrousel, et non le contenu de la démonstration.
+- Gardez `autoplay.delay` et la durée de l’animation de progression synchronisés. Cette composition utilise `3500`
+  millisecondes et une animation CSS de `3.5s`, de sorte que l’indicateur se remplisse au moment où la diapositive
+  suivante apparaît.
+- Remplacez les URL Unsplash avant de publier la composition. Utilisez une source d’images contrôlée par votre application
+  et adaptée à vos exigences de chargement, de mise en cache et de contenu.
+
+Ajustez `slidesPerPage`, `spacing` et `padding` pour modifier la portion visible de la diapositive voisine et les
+espacements de la galerie dans son conteneur.
+
+## Fonctionnement
+
+React et Solid lisent l’état du carrousel via `CarouselContext` ; Vue utilise `useCarousel` avec
+`CarouselRootProvider`. Cet état identifie la diapositive active et fournit `pageSnapPoints` pour les
+indicateurs de progression. L’indicateur de la page actuelle porte l’attribut `data-current`.
+
+Chaque indicateur conserve `overflow: visible` afin que sa zone transparente `::after` agrandisse la zone de clic
+de la fine barre de progression. Le remplissage est dessiné en arrière-plan de l’indicateur. L’animation de
+`background-size` le maintient à l’intérieur du contour arrondi pendant tout l’intervalle.
+
+Les clics sur les flèches et les indicateurs appellent `requestAnimationFrame(api.play)`. La navigation manuelle met la
+lecture automatique en pause : le lancement au prochain cycle d’affichage laisse le changement de diapositive se terminer
+avant de lancer un nouvel intervalle. Les interactions tactiles et le défilement horizontal à la molette mettent également
+la lecture automatique en pause. Si votre produit doit la reprendre après ces interactions, ajoutez ce comportement à votre
+logique ou affichez `CarouselAutoplayTrigger`.
+
+Ark met la lecture automatique en pause lorsque le document est masqué. La composition écoute `visibilitychange` et appelle
+la méthode publique `api.play()` lorsque le document redevient visible.
+
+## Accessibilité et mouvement
+
+Donnez un nom accessible à la racine avec `aria-label` ou `aria-labelledby`. Fournissez un texte `alt` utile pour les
+images informatives. Utilisez `alt=""` pour une image décorative lorsque le texte voisin de la diapositive contient
+déjà l’information. Laissez les boutons précédent et suivant ainsi que les indicateurs accessibles, afin que personne
+ne soit obligé d’attendre le minuteur.
+
+Lorsque `prefers-reduced-motion: reduce` est actif, la composition supprime les transitions des diapositives et l’animation
+des indicateurs. Le minuteur continue toutefois de faire avancer le carrousel. Si les utilisateurs doivent pouvoir
+arrêter les changements automatiques, ajoutez `CarouselAutoplayTrigger` ou retirez la prop `autoplay`. Consultez la
+[documentation de Carousel](/docs/carousel) pour les contrôles de lecture automatique et l’API complète.

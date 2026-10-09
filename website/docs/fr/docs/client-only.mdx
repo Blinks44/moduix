@@ -5,6 +5,7 @@ description: Affichez une interface dépendante du navigateur après l’hydrata
 
 import ClientOnlyBasic from '@/components/examples/client-only/basic.tsx';
 import clientOnlySolidBasic from '../../../snippets/client-only/solid/basic.tsx?raw';
+import clientOnlyVueBasic from '../../../snippets/client-only/vue/basic.vue?raw';
 
 Utilisez `ClientOnly` lorsqu’une sous-arborescence dépendante du navigateur doit rester absente du rendu serveur, tandis
 qu’un `fallback` conserve sa place dans la mise en page.
@@ -20,6 +21,7 @@ Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -34,6 +36,13 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 
 ```tsx
 import { ClientOnly } from '@ark-ui/solid/client-only';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { ClientOnly } from '@ark-ui/vue/client-only';
 ```
 
   </Tab>
@@ -64,6 +73,7 @@ en React et en Solid qui produisent le même comportement.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -76,6 +86,11 @@ en React et en Solid qui produisent le même comportement.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clientOnlySolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clientOnlyVueBasic} />
 
     </Tab>
   </Tabs>

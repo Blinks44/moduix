@@ -1,6 +1,15 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { QrCode, useQrCode } from '@/components/qr-code/QrCode';
+import {
+  QrCode,
+  QrCodeContext,
+  QrCodeDownloadTrigger,
+  QrCodeFrame,
+  QrCodeOverlay,
+  QrCodePattern,
+  QrCodeRootProvider,
+  useQrCode,
+} from '@/components/qr-code/QrCode';
 
 const meta = {
   title: 'Components/QrCode',
@@ -20,9 +29,9 @@ type Story = StoryObj<typeof meta>;
 
 function QrCodeGraphic() {
   return (
-    <QrCode.Frame role="img" aria-label="QR code for moduix documentation">
-      <QrCode.Pattern />
-    </QrCode.Frame>
+    <QrCodeFrame role="img" aria-label="QR code for moduix documentation">
+      <QrCodePattern />
+    </QrCodeFrame>
   );
 }
 
@@ -83,10 +92,10 @@ export const Overlay: Story = {
         ecc: 'H',
       }}
     >
-      <QrCode.Frame class="text-primary">
-        <QrCode.Pattern />
-      </QrCode.Frame>
-      <QrCode.Overlay class="text-xs leading-4 font-semibold">MX</QrCode.Overlay>
+      <QrCodeFrame class="text-primary">
+        <QrCodePattern />
+      </QrCodeFrame>
+      <QrCodeOverlay class="text-xs leading-4 font-semibold">MX</QrCodeOverlay>
     </QrCode>
   ),
 };
@@ -95,9 +104,9 @@ export const Download: Story = {
   render: () => (
     <QrCode defaultValue="https://moduix.dev/docs/qr-code">
       <QrCodeGraphic />
-      <QrCode.DownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png">
+      <QrCodeDownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png">
         Download
-      </QrCode.DownloadTrigger>
+      </QrCodeDownloadTrigger>
     </QrCode>
   ),
 };
@@ -108,14 +117,14 @@ export const RootProvider: Story = {
 
     return (
       <div class="grid justify-items-center gap-3">
-        <QrCode.RootProvider value={qrCode}>
+        <QrCodeRootProvider value={qrCode}>
           <QrCodeGraphic />
-          <QrCode.Context>
+          <QrCodeContext>
             {(context) => (
               <output class="m-0 text-sm leading-5 text-muted-foreground">{context().value}</output>
             )}
-          </QrCode.Context>
-        </QrCode.RootProvider>
+          </QrCodeContext>
+        </QrCodeRootProvider>
       </div>
     );
   },

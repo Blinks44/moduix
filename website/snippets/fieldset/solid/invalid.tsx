@@ -1,22 +1,22 @@
-import { Field } from '@moduix/solid/field';
-import { Fieldset } from '@moduix/solid/fieldset';
+import { Field, FieldErrorText, FieldLabel } from '@moduix/solid/field';
+import { Fieldset, FieldsetErrorText, FieldsetLegend } from '@moduix/solid/fieldset';
 import { Input } from '@moduix/solid/input';
 import styles from '@/components/examples/fieldset/fieldset-invalid.module.css';
 
 export default function InvalidFieldset() {
   return (
     <Fieldset class={styles.root} invalid>
-      <Fieldset.Legend>Account information</Fieldset.Legend>
-      <Fieldset.ErrorText>Please fix the errors below to continue.</Fieldset.ErrorText>
+      <FieldsetLegend>Account information</FieldsetLegend>
+      <FieldsetErrorText>Please fix the errors below to continue.</FieldsetErrorText>
       <Field invalid>
-        <Field.Label>Username</Field.Label>
+        <FieldLabel>Username</FieldLabel>
         <Input value="jo" />
-        <Field.ErrorText>Username must be at least 3 characters.</Field.ErrorText>
+        <FieldErrorText>Username must be at least 3 characters.</FieldErrorText>
       </Field>
       <Field invalid>
-        <Field.Label>Email</Field.Label>
+        <FieldLabel>Email</FieldLabel>
         <Input type="email" value="invalid-email" />
-        <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+        <FieldErrorText>Enter a valid email address.</FieldErrorText>
       </Field>
     </Fieldset>
   );

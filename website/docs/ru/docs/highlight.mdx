@@ -1,6 +1,7 @@
 ---
 title: Highlight
-description: Выделяйте слова и фразы внутри существующего текста с помощью нативных элементов mark и стилей moduix.
+description: Выделяйте слова и фразы внутри существующего текста с помощью нативных элементов mark и стилей moduix в React, Solid или Vue.
+component: highlight
 ---
 
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
@@ -16,6 +17,12 @@ import highlightSolidExactMatch from '../../../snippets/highlight/solid/exact-ma
 import highlightSolidIgnoreCase from '../../../snippets/highlight/solid/ignore-case.tsx?raw';
 import highlightSolidMatchAll from '../../../snippets/highlight/solid/match-all.tsx?raw';
 import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/multiple-queries.tsx?raw';
+import highlightVueBasic from '../../../snippets/highlight/vue/basic.vue?raw';
+import highlightVueDynamicQuery from '../../../snippets/highlight/vue/dynamic-query.vue?raw';
+import highlightVueExactMatch from '../../../snippets/highlight/vue/exact-match.vue?raw';
+import highlightVueIgnoreCase from '../../../snippets/highlight/vue/ignore-case.vue?raw';
+import highlightVueMatchAll from '../../../snippets/highlight/vue/match-all.vue?raw';
+import highlightVueMultipleQueries from '../../../snippets/highlight/vue/multiple-queries.vue?raw';
 
 ## Справочник API
 
@@ -46,6 +53,7 @@ import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/mul
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -58,6 +66,11 @@ import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/mul
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueBasic} />
 
     </Tab>
   </Tabs>
@@ -89,6 +102,16 @@ import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/mul
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/highlight' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/highlight' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -98,20 +121,19 @@ import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/mul
 остаётся обычным текстом в окружающей разметке.
 
 ```text
-Highlight / Highlight.Root
+Highlight
 └─ совпавшие фрагменты в отдельных элементах <mark>
 ```
 
 | Часть                          | Назначение                                                        |
 | ------------------------------ | ----------------------------------------------------------------- |
-| `Highlight` / `Highlight.Root` | Применяет стили moduix к каждому совпадению в переданном тексте. |
+| `Highlight` | Применяет стили moduix к каждому совпадению в переданном тексте. |
 
 ## Композиция
 
 `Highlight` не хранит состояние и не создаёт обёртку для внешней разметки. Размещайте его внутри
 готового текстового контейнера, например `Text`, заголовка, элемента списка или ячейки таблицы.
-Управляйте `query` из родительского компонента, если поисковый запрос меняется. Используйте
-`Highlight.Root`, только если форма с пространством имён делает композицию понятнее. Для массива строк
+Управляйте `query` из родительского компонента, если поисковый запрос меняется. Для массива строк
 `matchAll` должен оставаться равным `true`; если каждому совпадению нужен другой элемент или
 интерактивное поведение, создайте такую разметку самостоятельно.
 
@@ -119,7 +141,7 @@ Highlight / Highlight.Root
 
 ### Динамический запрос
 
-Управляйте `query` состоянием React или Solid, чтобы выделять текущий термин во время поиска или
+Управляйте `query` состоянием React, Solid или Vue, чтобы выделять текущий термин во время поиска или
 фильтрации видимого текста.
 
 <ExampleFrame variant="component">
@@ -133,6 +155,7 @@ Highlight / Highlight.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -145,6 +168,11 @@ Highlight / Highlight.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidDynamicQuery} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueDynamicQuery} />
 
     </Tab>
   </Tabs>
@@ -174,6 +202,7 @@ Highlight / Highlight.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -186,6 +215,11 @@ Highlight / Highlight.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidExactMatch} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueExactMatch} />
 
     </Tab>
   </Tabs>
@@ -212,6 +246,7 @@ Highlight / Highlight.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -224,6 +259,11 @@ Highlight / Highlight.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidIgnoreCase} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueIgnoreCase} />
 
     </Tab>
   </Tabs>
@@ -245,6 +285,7 @@ Highlight / Highlight.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -257,6 +298,11 @@ Highlight / Highlight.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidMatchAll} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueMatchAll} />
 
     </Tab>
   </Tabs>
@@ -284,6 +330,7 @@ Highlight / Highlight.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -298,6 +345,11 @@ Highlight / Highlight.Root
 <CodeBlockRuntime lang="tsx" code={highlightSolidMultipleQueries} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueMultipleQueries} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
@@ -305,8 +357,8 @@ Highlight / Highlight.Root
 ## Стилизация
 
 Совпавшие фрагменты получают стандартные стили moduix для `<mark>`. Для локальной правки в React
-используйте `className`, а в Solid `class`. Варианты CSS Modules также предоставляют переменные
-`--moduix-highlight-*`; для Tailwind используйте utility-классы или классы потребителя.
+используйте `className`, а в Solid и Vue `class`. Варианты CSS Modules также предоставляют
+переменные `--moduix-highlight-*`; для Tailwind используйте utility-классы или классы потребителя.
 
 ### CSS-свойства
 

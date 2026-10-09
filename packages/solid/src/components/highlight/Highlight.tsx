@@ -4,13 +4,13 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import styles from './Highlight.module.css';
 
-type HighlightRootProps = ComponentProps<typeof HighlightPrimitive> & {
+type HighlightProps = ComponentProps<typeof HighlightPrimitive> & {
   'data-scope'?: string;
   'data-part'?: string;
   'data-slot'?: string;
 };
 
-function HighlightRoot(props: HighlightRootProps) {
+function Highlight(props: HighlightProps) {
   const [local, others] = splitProps(props, ['class', 'data-scope', 'data-part', 'data-slot']);
 
   return (
@@ -23,9 +23,5 @@ function HighlightRoot(props: HighlightRootProps) {
     />
   );
 }
-
-const Highlight = Object.assign(HighlightRoot, {
-  Root: HighlightRoot,
-});
 
 export { Highlight };

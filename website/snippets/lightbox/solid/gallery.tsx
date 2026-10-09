@@ -1,5 +1,23 @@
-import { Carousel } from '@moduix/solid/carousel';
-import { Lightbox } from '@moduix/solid/lightbox';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/solid/carousel';
+import {
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxBody,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxCloseIcon,
+  LightboxGallery,
+  Lightbox,
+} from '@moduix/solid/lightbox';
 import { For, createSignal } from 'solid-js';
 import styles from '@/components/examples/lightbox/lightbox-gallery.module.css';
 
@@ -41,7 +59,7 @@ export default function GalleryLightboxDemo() {
       <div class={styles.gallery}>
         <For each={images}>
           {(image) => (
-            <Lightbox.Trigger
+            <LightboxTrigger
               value={image.id}
               asChild={(props) => (
                 <button {...props()} type="button" class={styles.galleryTrigger}>
@@ -53,44 +71,46 @@ export default function GalleryLightboxDemo() {
         </For>
       </div>
 
-      <Lightbox.Backdrop />
-      <Lightbox.Positioner>
-        <Lightbox.CloseIcon />
-        <Lightbox.Content aria-label={activeImage().alt}>
-          <Lightbox.Gallery>
-            <Carousel
-              aria-label="Server-driven image carousel"
-              page={activeIndex()}
-              onPageChange={(details) => setActiveIndex(details.page)}
-              slideCount={images.length}
-            >
-              <Carousel.Control>
-                <Carousel.PrevTrigger />
-                <Carousel.ItemGroup>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxContent aria-label={activeImage().alt}>
+          <LightboxCloseIcon />
+          <LightboxBody>
+            <LightboxGallery>
+              <Carousel
+                aria-label="Server-driven image carousel"
+                page={activeIndex()}
+                onPageChange={(details) => setActiveIndex(details.page)}
+                slideCount={images.length}
+              >
+                <CarouselControl>
+                  <CarouselPrevTrigger />
+                  <CarouselItemGroup>
+                    <For each={images}>
+                      {(image, index) => (
+                        <CarouselItem index={index()}>
+                          <img src={image.src} alt={image.alt} />
+                        </CarouselItem>
+                      )}
+                    </For>
+                  </CarouselItemGroup>
+                  <CarouselNextTrigger />
+                </CarouselControl>
+
+                <CarouselIndicatorGroup>
                   <For each={images}>
                     {(image, index) => (
-                      <Carousel.Item index={index()}>
-                        <img src={image.src} alt={image.alt} />
-                      </Carousel.Item>
+                      <CarouselIndicator index={index()}>
+                        <img src={image.thumbnail} alt="" />
+                      </CarouselIndicator>
                     )}
                   </For>
-                </Carousel.ItemGroup>
-                <Carousel.NextTrigger />
-              </Carousel.Control>
-
-              <Carousel.IndicatorGroup>
-                <For each={images}>
-                  {(image, index) => (
-                    <Carousel.Indicator index={index()}>
-                      <img src={image.thumbnail} alt="" />
-                    </Carousel.Indicator>
-                  )}
-                </For>
-              </Carousel.IndicatorGroup>
-            </Carousel>
-          </Lightbox.Gallery>
-        </Lightbox.Content>
-      </Lightbox.Positioner>
+                </CarouselIndicatorGroup>
+              </Carousel>
+            </LightboxGallery>
+          </LightboxBody>
+        </LightboxContent>
+      </LightboxPositioner>
     </Lightbox>
   );
 }

@@ -1,4 +1,11 @@
-import { FileUpload } from '@moduix/solid/file-upload';
+import {
+  FileUpload,
+  FileUploadHiddenInput,
+  FileUploadItemGroup,
+  FileUploadItems,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/solid/file-upload';
 import styles from '@/components/examples/file-upload/file-upload-file-previews.module.css';
 
 const previewFiles = [
@@ -15,12 +22,12 @@ const previewFiles = [
 export default function FileUploadPreviewDemo() {
   return (
     <FileUpload class={styles.root} defaultAcceptedFiles={previewFiles} maxFiles={4}>
-      <FileUpload.Label>Project attachments</FileUpload.Label>
-      <FileUpload.Trigger>Add files</FileUpload.Trigger>
-      <FileUpload.ItemGroup>
-        <FileUpload.Items />
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
+      <FileUploadLabel>Project attachments</FileUploadLabel>
+      <FileUploadTrigger>Add files</FileUploadTrigger>
+      <FileUploadItemGroup>
+        <FileUploadItems />
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
     </FileUpload>
   );
 }

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-input",
+  "title": "DateInput",
+  "description": "moduix Vue Tailwind DateInput component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/date-input/DateInput.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DateInputRoot as ArkDateInputRoot } from '@ark-ui/vue/date-input';\nimport type {\n  DateInputDateValue,\n  DateInputFocusChangeDetails,\n  DateInputRootProps,\n  DateInputValueChangeDetails,\n} from '@ark-ui/vue/date-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ DateInputRootProps {\n  class?: HTMLAttributes['class'];\n}\n\ninterface DateInputPlaceholderChangeDetails extends DateInputValueChangeDetails {\n  placeholderValue: DateInputDateValue;\n}\n\nexport interface Emits {\n  focusChange: [details: DateInputFocusChangeDetails];\n  valueChange: [details: DateInputValueChangeDetails];\n  'update:modelValue': [value: DateInputDateValue[]];\n  placeholderChange: [details: DateInputPlaceholderChangeDetails];\n  'update:placeholderValue': [placeholderValue: DateInputDateValue];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineEmits</* @vue-ignore */ Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass =\n  'inline-flex w-full max-w-none flex-col items-start gap-1 data-disabled:opacity-50';\n</script>\n\n<template>\n  <ArkDateInputRoot v-bind=\"attrs\" :class=\"cn(rootClass, className)\" data-slot=\"date-input-root\">\n    <slot />\n  </ArkDateInputRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/date-input/DateInput.vue"
+    },
+    {
+      "path": "src/components/date-input/DateInputRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DateInputRootProvider as ArkDateInputRootProvider } from '@ark-ui/vue/date-input';\nimport type { DateInputRootProviderProps } from '@ark-ui/vue/date-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ DateInputRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: DateInputRootProviderProps['value'];\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst rootClass =\n  'inline-flex w-full max-w-none flex-col items-start gap-1 data-disabled:opacity-50';\n</script>\n\n<template>\n  <ArkDateInputRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(rootClass, className)\"\n    :value=\"value\"\n    data-slot=\"date-input-root-provider\"\n  >\n    <slot />\n  </ArkDateInputRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/date-input/DateInputRootProvider.vue"
+    },
+    {
+      "path": "src/components/date-input/DateInputLabel.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DateInputLabel as ArkDateInputLabel } from '@ark-ui/vue/date-input';\nimport type { DateInputLabelProps } from '@ark-ui/vue/date-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ DateInputLabelProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkDateInputLabel\n    v-bind=\"attrs\"\n    :class=\"cn('text-sm leading-5 font-medium text-foreground', className)\"\n    data-slot=\"date-input-label\"\n  >\n    <slot />\n  </ArkDateInputLabel>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/date-input/DateInputLabel.vue"
+    },
+    {
+      "path": "src/components/date-input/DateInputControl.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DateInputControl as ArkDateInputControl } from '@ark-ui/vue/date-input';\nimport type { DateInputControlProps } from '@ark-ui/vue/date-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ DateInputControlProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst controlClass =\n  'box-border inline-flex min-h-control-md w-full items-center gap-1 rounded-md border border-border bg-background px-3 py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:focus-within:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none';\n</script>\n\n<template>\n  <ArkDateInputControl\n    v-bind=\"attrs\"\n    :class=\"cn(controlClass, className)\"\n    data-slot=\"date-input-control\"\n  >\n    <slot />\n  </ArkDateInputControl>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/date-input/DateInputControl.vue"
+    },
+    {
+      "path": "src/components/date-input/DateInputSegmentGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DateInputSegmentGroup as ArkDateInputSegmentGroup } from '@ark-ui/vue/date-input';\nimport type { DateInputSegmentGroupProps } from '@ark-ui/vue/date-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ DateInputSegmentGroupProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkDateInputSegmentGroup\n    v-bind=\"attrs\"\n    :class=\"cn('inline-flex items-center gap-0.5 tabular-nums', className)\"\n    data-slot=\"date-input-segment-group\"\n  >\n    <slot />\n  </ArkDateInputSegmentGroup>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/date-input/DateInputSegmentGroup.vue"
+    },
+    {
+      "path": "src/components/date-input/DateInputSegment.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DateInputSegment as ArkDateInputSegment } from '@ark-ui/vue/date-input';\nimport type { DateInputSegmentProps } from '@ark-ui/vue/date-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ DateInputSegmentProps {\n  class?: HTMLAttributes['class'];\n  segment: DateInputSegmentProps['segment'];\n}\n\nconst { class: className, segment } = defineProps<Props>();\n\nconst attrs = useAttrs();\nconst segmentClass =\n  'min-w-[2ch] cursor-text rounded-sm px-1 py-0 text-center leading-6 text-current outline-0 transition-colors duration-200 ease-in-out [font:inherit] focus-visible:bg-ring/18 focus-visible:text-foreground data-disabled:cursor-default data-placeholder-shown:text-muted-foreground data-readonly:cursor-default data-[type=literal]:pointer-events-none data-[type=literal]:min-w-auto data-[type=literal]:bg-transparent data-[type=literal]:px-0 data-[type=literal]:text-muted-foreground motion-reduce:transition-none';\n</script>\n\n<template>\n  <ArkDateInputSegment\n    v-bind=\"attrs\"\n    :class=\"cn(segmentClass, className)\"\n    :segment=\"segment\"\n    data-slot=\"date-input-segment\"\n  />\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/date-input/DateInputSegment.vue"
+    },
+    {
+      "path": "src/components/date-input/DateInputSegments.vue",
+      "content": "<script setup lang=\"ts\">\nimport { DateInputSegmentContext as ArkDateInputSegmentContext } from '@ark-ui/vue/date-input';\nimport type { DateInputSegmentGroupProps } from '@ark-ui/vue/date-input';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport DateInputSegment from './DateInputSegment.vue';\nimport DateInputSegmentGroup from './DateInputSegmentGroup.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props\n  extends /* @vue-ignore */ Omit<DateInputSegmentGroupProps, 'asChild' | 'children'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <DateInputSegmentGroup v-bind=\"attrs\" :class=\"className\">\n    <ArkDateInputSegmentContext v-slot=\"segment\">\n      <DateInputSegment :segment=\"segment\" />\n    </ArkDateInputSegmentContext>\n  </DateInputSegmentGroup>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/date-input/DateInputSegments.vue"
+    },
+    {
+      "path": "src/components/date-input/DateInputSeparator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <span\n    aria-hidden=\"true\"\n    role=\"presentation\"\n    v-bind=\"attrs\"\n    :class=\"cn('text-muted-foreground select-none', className)\"\n    data-slot=\"date-input-separator\"\n  >\n    <slot />\n  </span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/date-input/DateInputSeparator.vue"
+    },
+    {
+      "path": "src/components/date-input/index.ts",
+      "content": "import {\n  DateInputContext,\n  DateInputHiddenInput,\n  DateInputSegmentContext,\n  useDateInput,\n  useDateInputContext,\n} from '@ark-ui/vue/date-input';\nimport DateInput from './DateInput.vue';\nimport DateInputControl from './DateInputControl.vue';\nimport DateInputLabel from './DateInputLabel.vue';\nimport DateInputRootProvider from './DateInputRootProvider.vue';\nimport DateInputSegment from './DateInputSegment.vue';\nimport DateInputSegmentGroup from './DateInputSegmentGroup.vue';\nimport DateInputSegments from './DateInputSegments.vue';\nimport DateInputSeparator from './DateInputSeparator.vue';\n\nexport {\n  DateInput,\n  DateInputContext,\n  DateInputControl,\n  DateInputHiddenInput,\n  DateInputLabel,\n  DateInputRootProvider,\n  DateInputSegment,\n  DateInputSegmentContext,\n  DateInputSegmentGroup,\n  DateInputSegments,\n  DateInputSeparator,\n  useDateInput,\n  useDateInputContext,\n};\n\nexport type {\n  DateInputContextProps,\n  DateInputControlBaseProps,\n  DateInputControlProps,\n  DateInputDateValue,\n  DateInputFocusChangeDetails,\n  DateInputHiddenInputBaseProps,\n  DateInputHiddenInputProps,\n  DateInputLabelBaseProps,\n  DateInputLabelProps,\n  DateInputRootBaseProps,\n  DateInputRootEmits,\n  DateInputRootProps,\n  DateInputRootProviderBaseProps,\n  DateInputRootProviderProps,\n  DateInputSegmentBaseProps,\n  DateInputSegmentContextProps,\n  DateInputSegmentGroupBaseProps,\n  DateInputSegmentGroupProps,\n  DateInputSegmentProps,\n  DateInputSelectionMode,\n  DateInputValueChangeDetails,\n  UseDateInputContext,\n  UseDateInputProps,\n  UseDateInputReturn,\n} from '@ark-ui/vue/date-input';",
+      "type": "registry:component",
+      "target": "@components/ui/date-input/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

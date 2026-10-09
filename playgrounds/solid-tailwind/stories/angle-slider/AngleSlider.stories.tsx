@@ -1,6 +1,19 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { AngleSlider, useAngleSlider } from '@/components/angle-slider/AngleSlider';
+import {
+  AngleSlider,
+  AngleSliderControl,
+  AngleSliderDial,
+  AngleSliderHiddenInput,
+  AngleSliderLabel,
+  AngleSliderMarker,
+  AngleSliderMarkerGroup,
+  AngleSliderMarks,
+  AngleSliderRootProvider,
+  AngleSliderThumb,
+  AngleSliderValueText,
+  useAngleSlider,
+} from '@/components/angle-slider/AngleSlider';
 
 const markerValues = Array.from({ length: 8 }, (_, index) => index * 45);
 
@@ -34,10 +47,10 @@ const formActionsClass = 'flex flex-wrap items-center justify-center gap-2';
 function AngleSliderMarkedParts() {
   return (
     <>
-      <AngleSlider.Dial>
-        <AngleSlider.Marks values={markerValues} />
-      </AngleSlider.Dial>
-      <AngleSlider.HiddenInput />
+      <AngleSliderDial>
+        <AngleSliderMarks values={markerValues} />
+      </AngleSliderDial>
+      <AngleSliderHiddenInput />
     </>
   );
 }
@@ -45,8 +58,8 @@ function AngleSliderMarkedParts() {
 export const Basic: Story = {
   render: () => (
     <AngleSlider defaultValue={135} aria-label="Rotation" class={demoRootClass}>
-      <AngleSlider.Dial />
-      <AngleSlider.HiddenInput />
+      <AngleSliderDial />
+      <AngleSliderHiddenInput />
     </AngleSlider>
   ),
 };
@@ -58,8 +71,8 @@ export const AsChild: Story = {
       defaultValue={135}
       aria-label="Rotation"
     >
-      <AngleSlider.Dial />
-      <AngleSlider.HiddenInput />
+      <AngleSliderDial />
+      <AngleSliderHiddenInput />
     </AngleSlider>
   ),
 };
@@ -75,7 +88,7 @@ export const Controlled: Story = {
         class={demoRootClass}
         onValueChange={(details) => setValue(details.value)}
       >
-        <AngleSlider.Label>Heading</AngleSlider.Label>
+        <AngleSliderLabel>Heading</AngleSliderLabel>
         <AngleSliderMarkedParts />
       </AngleSlider>
     );
@@ -85,7 +98,7 @@ export const Controlled: Story = {
 export const Disabled: Story = {
   render: () => (
     <AngleSlider defaultValue={45} disabled aria-label="Disabled rotation" class={demoRootClass}>
-      <AngleSlider.Label>Rotation</AngleSlider.Label>
+      <AngleSliderLabel>Rotation</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),
@@ -107,7 +120,7 @@ function FormStory() {
       onSubmit={handleSubmit}
     >
       <AngleSlider defaultValue={135} aria-label="Rotation" name="rotation" class={demoRootClass}>
-        <AngleSlider.Label>Rotation</AngleSlider.Label>
+        <AngleSliderLabel>Rotation</AngleSliderLabel>
         <AngleSliderMarkedParts />
       </AngleSlider>
       <div class={formActionsClass}>
@@ -126,7 +139,7 @@ export const Form: Story = {
 export const Invalid: Story = {
   render: () => (
     <AngleSlider defaultValue={315} invalid aria-label="Invalid heading" class={demoRootClass}>
-      <AngleSlider.Label>Heading</AngleSlider.Label>
+      <AngleSliderLabel>Heading</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),
@@ -135,7 +148,7 @@ export const Invalid: Story = {
 export const ReadOnly: Story = {
   render: () => (
     <AngleSlider defaultValue={300} readOnly aria-label="Locked angle" class={demoRootClass}>
-      <AngleSlider.Label>Locked angle</AngleSlider.Label>
+      <AngleSliderLabel>Locked angle</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),
@@ -146,10 +159,10 @@ function RootProviderStory() {
 
   return (
     <div class={providerLayoutClass}>
-      <AngleSlider.RootProvider value={angleSlider} class={demoRootClass}>
-        <AngleSlider.Label>Rotation</AngleSlider.Label>
+      <AngleSliderRootProvider value={angleSlider} class={demoRootClass}>
+        <AngleSliderLabel>Rotation</AngleSliderLabel>
         <AngleSliderMarkedParts />
-      </AngleSlider.RootProvider>
+      </AngleSliderRootProvider>
       <button type="button" class={providerButtonClass} onClick={() => angleSlider().setValue(90)}>
         Set to 90°
       </button>
@@ -164,7 +177,7 @@ export const RootProvider: Story = {
 export const Steps: Story = {
   render: () => (
     <AngleSlider defaultValue={60} step={15} aria-label="Snap angle" class={demoRootClass}>
-      <AngleSlider.Label>Snap angle</AngleSlider.Label>
+      <AngleSliderLabel>Snap angle</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),
@@ -173,7 +186,7 @@ export const Steps: Story = {
 export const WithMarks: Story = {
   render: () => (
     <AngleSlider defaultValue={135} aria-label="Rotation" class={demoRootClass}>
-      <AngleSlider.Label>Rotation</AngleSlider.Label>
+      <AngleSliderLabel>Rotation</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),
@@ -186,7 +199,7 @@ export const ContentStress: Story = {
       aria-label="Direction of the primary studio spotlight"
       class={stressRootClass}
     >
-      <AngleSlider.Label>Direction of the primary studio spotlight</AngleSlider.Label>
+      <AngleSliderLabel>Direction of the primary studio spotlight</AngleSliderLabel>
       <AngleSliderMarkedParts />
     </AngleSlider>
   ),
@@ -195,17 +208,17 @@ export const ContentStress: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <AngleSlider defaultValue={45} aria-label="Compass heading">
-      <AngleSlider.Label>Compass</AngleSlider.Label>
-      <AngleSlider.Control class={customControlClass}>
-        <AngleSlider.ValueText />
-        <AngleSlider.MarkerGroup>
+      <AngleSliderLabel>Compass</AngleSliderLabel>
+      <AngleSliderControl class={customControlClass}>
+        <AngleSliderValueText />
+        <AngleSliderMarkerGroup>
           {markerValues.map((value) => (
-            <AngleSlider.Marker value={value} class={customMarkerClass} />
+            <AngleSliderMarker value={value} class={customMarkerClass} />
           ))}
-        </AngleSlider.MarkerGroup>
-        <AngleSlider.Thumb class={customThumbClass} />
-      </AngleSlider.Control>
-      <AngleSlider.HiddenInput />
+        </AngleSliderMarkerGroup>
+        <AngleSliderThumb class={customThumbClass} />
+      </AngleSliderControl>
+      <AngleSliderHiddenInput />
     </AngleSlider>
   ),
 };

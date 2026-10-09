@@ -1,6 +1,7 @@
 ---
 title: Highlight
-description: Highlight words and phrases inside existing text with native mark elements and moduix styles.
+description: Highlight words and phrases inside existing text with native mark elements and moduix styles in React, Solid, or Vue.
+component: highlight
 ---
 
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
@@ -16,6 +17,12 @@ import highlightSolidExactMatch from '../../../snippets/highlight/solid/exact-ma
 import highlightSolidIgnoreCase from '../../../snippets/highlight/solid/ignore-case.tsx?raw';
 import highlightSolidMatchAll from '../../../snippets/highlight/solid/match-all.tsx?raw';
 import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/multiple-queries.tsx?raw';
+import highlightVueBasic from '../../../snippets/highlight/vue/basic.vue?raw';
+import highlightVueDynamicQuery from '../../../snippets/highlight/vue/dynamic-query.vue?raw';
+import highlightVueExactMatch from '../../../snippets/highlight/vue/exact-match.vue?raw';
+import highlightVueIgnoreCase from '../../../snippets/highlight/vue/ignore-case.vue?raw';
+import highlightVueMatchAll from '../../../snippets/highlight/vue/match-all.vue?raw';
+import highlightVueMultipleQueries from '../../../snippets/highlight/vue/multiple-queries.vue?raw';
 
 ## API Reference
 
@@ -30,7 +37,6 @@ renders the matched ranges, but does not add a layout wrapper of its own.
 - Choose **`Text`** when the whole string only needs typographic styling and no query-based matching.
 
 ## Basic
-
 
 Pass the complete source string through `text` and the term to find through `query`. Place
 `Highlight` inside the text component or HTML element that should provide the surrounding layout
@@ -47,6 +53,7 @@ and semantics.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -59,6 +66,11 @@ and semantics.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueBasic} />
 
     </Tab>
   </Tabs>
@@ -90,6 +102,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/highlight' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/highlight' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -99,19 +121,19 @@ range becomes a native `<mark>` element. Text that does not match stays as ordin
 surrounding flow.
 
 ```text
-Highlight / Highlight.Root
+Highlight
 └─ matched ranges rendered as repeated <mark> elements
 ```
 
 | Part                           | Role                                                                 |
 | ------------------------------ | -------------------------------------------------------------------- |
-| `Highlight` / `Highlight.Root` | Applies moduix styling to every matched range in the provided text. |
+| `Highlight` | Applies moduix styling to every matched range in the provided text. |
 
 ## Composition
 
 `Highlight` is stateless and owns no layout wrapper. Place it inside an existing text container such
 as `Text`, a heading, a list item, or a table cell. Control `query` from the parent when search input
-changes, and use `Highlight.Root` only when the namespaced form is clearer. A string-array `query`
+changes. A string-array `query`
 requires `matchAll` to remain `true`; use custom markup in your own component when each match needs a
 different element or interactive behavior.
 
@@ -133,6 +155,7 @@ visible text.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -145,6 +168,11 @@ visible text.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidDynamicQuery} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueDynamicQuery} />
 
     </Tab>
   </Tabs>
@@ -173,6 +201,7 @@ which are reliable for Latin text but do not treat Cyrillic and some other scrip
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -185,6 +214,11 @@ which are reliable for Latin text but do not treat Cyrillic and some other scrip
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidExactMatch} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueExactMatch} />
 
     </Tab>
   </Tabs>
@@ -211,6 +245,7 @@ Set `ignoreCase` when the capitalization of the source text should not affect th
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -223,6 +258,11 @@ Set `ignoreCase` when the capitalization of the source text should not affect th
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidIgnoreCase} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueIgnoreCase} />
 
     </Tab>
   </Tabs>
@@ -244,6 +284,7 @@ Set `matchAll` when every occurrence should be highlighted instead of only the f
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -256,6 +297,11 @@ Set `matchAll` when every occurrence should be highlighted instead of only the f
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={highlightSolidMatchAll} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueMatchAll} />
 
     </Tab>
   </Tabs>
@@ -283,6 +329,7 @@ Pass a string array when several terms should be highlighted in the same text. F
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -297,6 +344,11 @@ Pass a string array when several terms should be highlighted in the same text. F
 <CodeBlockRuntime lang="tsx" code={highlightSolidMultipleQueries} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={highlightVueMultipleQueries} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
@@ -304,8 +356,8 @@ Pass a string array when several terms should be highlighted in the same text. F
 ## Styling
 
 Matched ranges receive moduix's default `<mark>` styles. Use `className` in React or `class` in Solid
-for a local adjustment. CSS Modules variants also expose the `--moduix-highlight-*` variables; use
-Tailwind utilities or consumer classes for Tailwind variants.
+and Vue for a local adjustment. CSS Modules variants also expose the `--moduix-highlight-*` variables;
+use Tailwind utilities or consumer classes for Tailwind variants.
 
 ### CSS Properties
 

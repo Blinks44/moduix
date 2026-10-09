@@ -7,7 +7,7 @@ import { CloseButton } from '../close-button';
 
 type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
 type TagSize = 'sm' | 'md';
-type TagRootProps = HTMLArkProps<'span'> & {
+type TagProps = HTMLArkProps<'span'> & {
   variant?: TagVariant;
   size?: TagSize;
 };
@@ -39,7 +39,7 @@ const tagVariants = cva(
   },
 );
 
-const TagRoot = forwardRef<HTMLSpanElement, TagRootProps>(function TagRoot(
+const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
   { className, size = 'md', variant = 'default', ...props },
   ref,
 ) {
@@ -111,7 +111,7 @@ const TagEndElement = forwardRef<HTMLSpanElement, TagEndElementProps>(function T
   );
 });
 
-const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagCloseTriggerProps>(
+const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton>, TagCloseTriggerProps>(
   function TagCloseTrigger(
     {
       asChild,
@@ -124,7 +124,7 @@ const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagClo
     ref,
   ) {
     return (
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         asChild={asChild}
         {...props}
@@ -137,22 +137,14 @@ const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagClo
         }
         aria-labelledby={ariaLabelledBy}
         className={cn(
-          'size-4 rounded-full bg-transparent p-0 text-inherit focus-visible:outline-1 focus-visible:outline-offset-0 [&>svg]:size-2.5 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/12 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit',
+          'size-4 rounded-full bg-transparent p-0 text-inherit focus-visible:outline-1 focus-visible:outline-offset-0 [&>svg]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/12 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit',
           className,
         )}
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     );
   },
 );
 
-const Tag = Object.assign(TagRoot, {
-  Root: TagRoot,
-  Label: TagLabel,
-  StartElement: TagStartElement,
-  EndElement: TagEndElement,
-  CloseTrigger: TagCloseTrigger,
-});
-
-export { Tag };
+export { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement };

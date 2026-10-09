@@ -1,8 +1,21 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Field } from '@moduix/solid/field';
-import { Fieldset } from '@moduix/solid/fieldset';
+import { Field, FieldLabel } from '@moduix/solid/field';
+import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/solid/fieldset';
 import { Input } from '@moduix/solid/input';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectLabel,
+  SelectControl,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+  SelectHiddenSelect,
+} from '@moduix/solid/select';
 import { For } from 'solid-js';
 import styles from '@/components/examples/fieldset/fieldset-input-with-select.module.css';
 
@@ -30,7 +43,7 @@ const countryCodes = createListCollection({
 export default function PhoneInput() {
   return (
     <Fieldset class={styles.root}>
-      <Fieldset.Legend>Mobile number</Fieldset.Legend>
+      <FieldsetLegend>Mobile number</FieldsetLegend>
       <div class={styles.phoneInput}>
         <Select
           class={styles.countryCode}
@@ -38,33 +51,33 @@ export default function PhoneInput() {
           defaultValue={['+1']}
           name="countryCode"
         >
-          <Select.Label>Code</Select.Label>
-          <Select.Control>
-            <Select.Trigger>
-              <Select.ValueText />
-            </Select.Trigger>
-            <Select.Indicator />
-          </Select.Control>
-          <Select.Positioner>
-            <Select.Content>
+          <SelectLabel>Code</SelectLabel>
+          <SelectControl>
+            <SelectTrigger>
+              <SelectValueText />
+            </SelectTrigger>
+            <SelectIndicator />
+          </SelectControl>
+          <SelectPositioner>
+            <SelectContent>
               <For each={countryCodes.items}>
                 {(item) => (
-                  <Select.Item item={item}>
-                    <Select.ItemText>{item.label}</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
+                  <SelectItem item={item}>
+                    <SelectItemText>{item.label}</SelectItemText>
+                    <SelectItemIndicator />
+                  </SelectItem>
                 )}
               </For>
-            </Select.Content>
-          </Select.Positioner>
-          <Select.HiddenSelect />
+            </SelectContent>
+          </SelectPositioner>
+          <SelectHiddenSelect />
         </Select>
         <Field>
-          <Field.Label>Phone</Field.Label>
+          <FieldLabel>Phone</FieldLabel>
           <Input type="tel" aria-label="Phone number" />
         </Field>
       </div>
-      <Fieldset.HelperText>Include the area code.</Fieldset.HelperText>
+      <FieldsetHelperText>Include the area code.</FieldsetHelperText>
     </Fieldset>
   );
 }

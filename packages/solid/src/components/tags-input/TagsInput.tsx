@@ -11,7 +11,7 @@ import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import { CloseButton } from '../close-button';
 import styles from './TagsInput.module.css';
 
-function TagsInputRoot(props: ComponentProps<typeof TagsInputPrimitive.Root>) {
+function TagsInput(props: ComponentProps<typeof TagsInputPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -151,7 +151,6 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
     'class',
   ]);
   const tagsInput = useTagsInputContext();
-  const resolvedChildren = children(() => local.children);
   const triggerClassName = () => clsx(styles.clearTrigger, local.class);
   const clearTriggerLabel = () => tagsInput().getClearTriggerProps()['aria-label'];
 
@@ -173,7 +172,7 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
   return (
     <TagsInputPrimitive.ClearTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           aria-label={local['aria-label'] ?? clearTriggerLabel()}
           aria-labelledby={local['aria-labelledby']}
@@ -181,8 +180,8 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
           data-scope="tags-input"
           data-slot="tags-input-clear-trigger"
         >
-          {resolvedChildren()}
-        </CloseButton.Root>
+          {local.children}
+        </CloseButton>
       )}
       class={triggerClassName()}
       {...others}
@@ -192,6 +191,8 @@ function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.C
 }
 
 const TagsInputContext = TagsInputPrimitive.Context;
+const TagsInputHiddenInput = TagsInputPrimitive.HiddenInput;
+const TagsInputItemContext = TagsInputPrimitive.ItemContext;
 
 function TagsInputItems() {
   return (
@@ -213,22 +214,23 @@ function TagsInputItems() {
   );
 }
 
-const TagsInput = Object.assign(TagsInputRoot, {
-  Root: TagsInputRoot,
-  RootProvider: TagsInputRootProvider,
-  HiddenInput: TagsInputPrimitive.HiddenInput,
-  Label: TagsInputLabel,
-  Control: TagsInputControl,
-  Item: TagsInputItem,
-  ItemContext: TagsInputPrimitive.ItemContext,
-  ItemPreview: TagsInputItemPreview,
-  ItemText: TagsInputItemText,
-  ItemDeleteTrigger: TagsInputItemDeleteTrigger,
-  ItemInput: TagsInputItemInput,
-  Input: TagsInputInput,
-  ClearTrigger: TagsInputClearTrigger,
-  Context: TagsInputContext,
-  Items: TagsInputItems,
-});
-
-export { TagsInput, useTagsInput, useTagsInputContext, useTagsInputItemContext };
+export {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputContext,
+  TagsInputControl,
+  TagsInputHiddenInput,
+  TagsInputInput,
+  TagsInputItem,
+  TagsInputItemContext,
+  TagsInputItemDeleteTrigger,
+  TagsInputItemInput,
+  TagsInputItemPreview,
+  TagsInputItemText,
+  TagsInputItems,
+  TagsInputLabel,
+  TagsInputRootProvider,
+  useTagsInput,
+  useTagsInputContext,
+  useTagsInputItemContext,
+};

@@ -50,6 +50,16 @@
 
     &:has([data-slot='input-root'][data-disabled], [data-slot='input-root']:disabled) {
       opacity: var(--moduix-input-group-disabled-opacity, var(--moduix-opacity-disabled));
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
     }
 
     &:has([data-slot='input-root'][data-readonly], [data-slot='input-root']:read-only) {
@@ -223,6 +233,19 @@
 
   .text {
     background-color: transparent;
+  }
+
+  .clearTrigger {
+    --moduix-close-button-size: var(--moduix-size-xs);
+    --moduix-close-button-icon-size: var(--moduix-spacing-4);
+    --moduix-close-button-focus-ring-width: var(--moduix-border-width-sm);
+    --moduix-close-button-focus-ring-offset: var(--moduix-border-width-sm);
+    align-self: center;
+    margin-inline-end: var(--moduix-spacing-2);
+
+    &[data-size='xs'] {
+      --moduix-close-button-size: var(--moduix-spacing-5);
+    }
   }
 
   .button {

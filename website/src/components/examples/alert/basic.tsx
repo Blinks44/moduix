@@ -1,4 +1,4 @@
-import { Alert } from '@moduix/react/alert';
+import { Alert, AlertContent, AlertDescription, AlertTitle } from '@moduix/react/alert';
 
 const alert = {
   title: 'Update available',
@@ -8,10 +8,10 @@ const alert = {
 export default function AlertDemo() {
   return (
     <Alert>
-      <Alert.Content>
-        <Alert.Title>{alert.title}</Alert.Title>
-        <Alert.Description>{alert.description}</Alert.Description>
-      </Alert.Content>
+      <AlertContent>
+        <AlertTitle>{alert.title}</AlertTitle>
+        <AlertDescription>{alert.description}</AlertDescription>
+      </AlertContent>
     </Alert>
   );
 }

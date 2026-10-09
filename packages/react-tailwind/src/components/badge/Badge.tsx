@@ -7,7 +7,7 @@ import { cn } from '@/lib/moduix/cn';
 type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
 
 const badgeVariants = cva(
-  'inline-flex min-h-5 w-fit max-w-full min-w-0 items-center justify-center gap-1.5 overflow-hidden rounded-full border px-2.5 align-middle font-medium text-xs tabular-nums whitespace-nowrap no-underline select-none transition-[color,background-color,border-color,opacity] duration-200 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-0.5 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [a&]:cursor-pointer',
+  'inline-flex min-h-5 w-fit max-w-full min-w-0 items-center justify-center gap-1.5 overflow-hidden rounded-full border px-2.5 align-middle font-medium text-xs tabular-nums whitespace-nowrap no-underline select-none transition-[color,background-color,border-color,opacity] duration-200 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [a&]:cursor-pointer',
   {
     variants: {
       variant: {
@@ -48,7 +48,7 @@ const BadgeLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'
   },
 );
 
-const BadgeRoot = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function BadgeRoot(
+const Badge = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function Badge(
   { className, variant = 'default', ...props },
   ref,
 ) {
@@ -82,10 +82,4 @@ const BadgeDot = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>
   );
 });
 
-const Badge = Object.assign(BadgeRoot, {
-  Root: BadgeRoot,
-  Label: BadgeLabel,
-  Dot: BadgeDot,
-});
-
-export { Badge };
+export { Badge, BadgeDot, BadgeLabel };

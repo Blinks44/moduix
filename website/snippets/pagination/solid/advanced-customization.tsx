@@ -1,25 +1,32 @@
-import { Pagination } from '@moduix/solid/pagination';
+import {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+} from '@moduix/solid/pagination';
 import { For } from 'solid-js';
 import styles from '@/components/examples/pagination/pagination-advanced-customization.module.css';
 
 export default function AdvancedCustomizationPaginationDemo() {
   return (
     <Pagination class={styles.root} count={200} pageSize={10} siblingCount={2}>
-      <Pagination.PrevTrigger />
-      <Pagination.Context>
+      <PaginationPrevTrigger />
+      <PaginationContext>
         {(pagination) => (
           <For each={pagination().pages}>
             {(page, index) =>
               page.type === 'page' ? (
-                <Pagination.Item {...page}>Page {page.value}</Pagination.Item>
+                <PaginationItem {...page}>Page {page.value}</PaginationItem>
               ) : (
-                <Pagination.Ellipsis index={index()} />
+                <PaginationEllipsis index={index()} />
               )
             }
           </For>
         )}
-      </Pagination.Context>
-      <Pagination.NextTrigger />
+      </PaginationContext>
+      <PaginationNextTrigger />
     </Pagination>
   );
 }

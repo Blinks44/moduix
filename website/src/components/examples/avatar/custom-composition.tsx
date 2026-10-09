@@ -1,4 +1,4 @@
-import { Avatar } from '@moduix/react/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/react/avatar';
 import styles from '@/components/examples/avatar/avatar-custom-composition.module.css';
 
 const avatarImage =
@@ -8,8 +8,8 @@ export default function AvatarLinkDemo() {
   return (
     <Avatar asChild size="xl" className={styles.root}>
       <a href="mailto:alex@example.com" aria-label="Email Alex T.">
-        <Avatar.Fallback className={styles.fallback}>AT</Avatar.Fallback>
-        <Avatar.Image className={styles.image} src={avatarImage} alt="" />
+        <AvatarFallback className={styles.fallback}>AT</AvatarFallback>
+        <AvatarImage className={styles.image} src={avatarImage} alt="" />
       </a>
     </Avatar>
   );

@@ -1,8 +1,21 @@
 import { withRslibConfig } from '@rstest/adapter-rslib';
-import { defineConfig } from '@rstest/core';
+import { defineConfig, defineInlineProject } from '@rstest/core';
 
 export default defineConfig({
-  extends: withRslibConfig({ libId: 'compiled' }),
-  setupFiles: ['./rstest.setup.ts'],
-  testEnvironment: 'happy-dom',
+  projects: [
+    defineInlineProject({
+      name: 'browser',
+      extends: withRslibConfig({ libId: 'compiled' }),
+      setupFiles: ['./rstest.browser.setup.ts'],
+      testEnvironment: 'node',
+      include: ['tests/**/*.browser.test.{ts,tsx}'],
+      browser: {
+        enabled: true,
+        provider: 'playwright',
+        headless: true,
+        port: 0,
+        providerOptions: { context: { permissions: ['clipboard-read', 'clipboard-write'] } },
+      },
+    }),
+  ],
 });

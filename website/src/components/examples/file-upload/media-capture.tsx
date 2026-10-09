@@ -1,4 +1,17 @@
-import { FileUpload } from '@moduix/react/file-upload';
+import {
+  FileUpload,
+  FileUploadContext,
+  FileUploadDropzone,
+  FileUploadDropzoneIcon,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadItemSizeText,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/react/file-upload';
 import styles from '@/components/examples/file-upload/file-upload-media-capture.module.css';
 
 const capture = 'environment';
@@ -7,29 +20,29 @@ const maxFiles = 1;
 export default function MediaCaptureUploadDemo() {
   return (
     <FileUpload className={styles.root} accept={accept} capture={capture} maxFiles={maxFiles}>
-      <FileUpload.Label>Photo</FileUpload.Label>
-      <FileUpload.Dropzone disableClick>
-        <FileUpload.DropzoneIcon />
+      <FileUploadLabel>Photo</FileUploadLabel>
+      <FileUploadDropzone disableClick>
+        <FileUploadDropzoneIcon />
         <div className={styles.dropzoneContent}>
           <span className={styles.dropzoneTitle}>Drop an image or open the camera</span>
           <span className={styles.dropzoneDescription}>One image from the environment camera</span>
-          <FileUpload.Trigger>Open camera</FileUpload.Trigger>
+          <FileUploadTrigger>Open camera</FileUploadTrigger>
         </div>
-      </FileUpload.Dropzone>
-      <FileUpload.ItemGroup>
-        <FileUpload.Context>
+      </FileUploadDropzone>
+      <FileUploadItemGroup>
+        <FileUploadContext>
           {({ acceptedFiles }) =>
             acceptedFiles.map((file) => (
-              <FileUpload.Item key={file.name} file={file}>
-                <FileUpload.ItemName />
-                <FileUpload.ItemSizeText />
-                <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-              </FileUpload.Item>
+              <FileUploadItem key={file.name} file={file}>
+                <FileUploadItemName />
+                <FileUploadItemSizeText />
+                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+              </FileUploadItem>
             ))
           }
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
     </FileUpload>
   );
 }

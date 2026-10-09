@@ -23,16 +23,15 @@ factory and Chakra's Alert part contract.
 
 ## Current behavior contract
 
-- Public API is part-first: `Alert.Root`, `Alert.Indicator`, `Alert.Content`, `Alert.Title`,
-  `Alert.Description`, and `Alert.Actions`.
-- The callable `Alert` export remains the root part itself; anatomy and API notes may still refer to
-  `Alert.Root`.
-- `Alert.Root` defaults `status` to `'info'` and uses the card surface for that default status.
-- `Alert.Root` defaults `role` to `'status'`, and switches to `'alert'` when `status="error"`.
-- `Alert.Content` is required and owns the title, description, actions, and custom message content.
-- `Alert.Actions` provides a stylable wrapped action row for buttons or links inside
-  `Alert.Content`.
-- `Alert.Title` renders a `p` by default.
+- Public API is part-first: `Alert`, `AlertIndicator`, `AlertContent`, `AlertTitle`,
+  `AlertDescription`, and `AlertActions`.
+- `Alert` is the only public root value.
+- `Alert` defaults `status` to `'info'` and uses the card surface for that default status.
+- `Alert` defaults `role` to `'status'`, and switches to `'alert'` when `status="error"`.
+- `AlertContent` is required and owns the title, description, actions, and custom message content.
+- `AlertActions` provides a stylable wrapped action row for buttons or links inside
+  `AlertContent`.
+- `AlertTitle` renders a `p` by default.
 - All exported parts accept `className`.
 - All exported parts accept Ark `asChild`.
 - Refs forward to each rendered DOM part.
@@ -46,54 +45,60 @@ factory and Chakra's Alert part contract.
 ## Anatomy and exported parts
 
 ```text
-Alert / Alert.Root
-├─ Alert.Indicator (optional)
-└─ Alert.Content
-   ├─ Alert.Title
-   ├─ Alert.Description
-   ├─ Alert.Actions (optional)
+Alert
+├─ AlertIndicator (optional)
+└─ AlertContent
+   ├─ AlertTitle
+   ├─ AlertDescription
+   ├─ AlertActions (optional)
    └─ Extra custom blocks
 ```
 
 Every exported part accepts `className` and receives stable hooks:
 
-| Part                   | `data-part`   | `data-slot`         | Notes                                                            |
-| ---------------------- | ------------- | ------------------- | ---------------------------------------------------------------- |
-| `Alert` / `Alert.Root` | `root`        | `alert-root`        | Exposes `data-status` and auto role behavior.                    |
-| `Alert.Indicator`      | `indicator`   | `alert-indicator`   | Defaults to `aria-hidden="true"`.                                |
-| `Alert.Content`        | `content`     | `alert-content`     | Required content-column wrapper for message content and actions. |
-| `Alert.Title`          | `title`       | `alert-title`       | Renders `p` by default and supports `asChild`.                   |
-| `Alert.Description`    | `description` | `alert-description` | Styled description wrapper with margin resets for child blocks.  |
-| `Alert.Actions`        | `actions`     | `alert-actions`     | Optional wrapped action row with default spacing hooks.          |
+| Part               | `data-part`   | `data-slot`         | Notes                                                            |
+| ------------------ | ------------- | ------------------- | ---------------------------------------------------------------- |
+| `Alert`            | `root`        | `alert-root`        | Exposes `data-status` and auto role behavior.                    |
+| `AlertIndicator`   | `indicator`   | `alert-indicator`   | Defaults to `aria-hidden="true"`.                                |
+| `AlertContent`     | `content`     | `alert-content`     | Required content-column wrapper for message content and actions. |
+| `AlertTitle`       | `title`       | `alert-title`       | Renders `p` by default and supports `asChild`.                   |
+| `AlertDescription` | `description` | `alert-description` | Styled description wrapper with margin resets for child blocks.  |
+| `AlertActions`     | `actions`     | `alert-actions`     | Optional wrapped action row with default spacing hooks.          |
 
 ## Composition
 
 ```tsx
-import { Alert } from '@moduix/react/alert';
+import {
+  Alert,
+  AlertContent,
+  AlertDescription,
+  AlertIndicator,
+  AlertTitle,
+} from '@moduix/react/alert';
 
 export function AlertDemo() {
   return (
     <Alert status="warning">
-      <Alert.Indicator>
+      <AlertIndicator>
         <InfoIcon />
-      </Alert.Indicator>
-      <Alert.Content>
-        <Alert.Title>Storage is almost full</Alert.Title>
-        <Alert.Description>Archive old uploads or upgrade the plan.</Alert.Description>
-      </Alert.Content>
+      </AlertIndicator>
+      <AlertContent>
+        <AlertTitle>Storage is almost full</AlertTitle>
+        <AlertDescription>Archive old uploads or upgrade the plan.</AlertDescription>
+      </AlertContent>
     </Alert>
   );
 }
 ```
 
-Place all message content inside `Alert.Content`. Use `Alert.Actions` when buttons or links should
-share the default wrapped action-row layout. Use `asChild` on `Alert.Title` when the document outline needs a
+Place all message content inside `AlertContent`. Use `AlertActions` when buttons or links should
+share the default wrapped action-row layout. Use `asChild` on `AlertTitle` when the document outline needs a
 different heading element:
 
 ```tsx
-<Alert.Title asChild>
+<AlertTitle asChild>
   <h2>Billing issue</h2>
-</Alert.Title>
+</AlertTitle>
 ```
 
 ## Upstream feature coverage
@@ -104,27 +109,27 @@ different heading element:
 - `Styling`: follows Ark `data-scope` / `data-part` targeting and moduix `data-slot` hooks.
 - `Status semantics`: moduix adds a focused status surface with `info`, `success`, `warning`, and
   `error`.
-- `Action-row sugar`: moduix adds `Alert.Actions` as a thin stylable wrapper for grouped actions.
-- `Heading composition`: preserved through `Alert.Title asChild` for document outline control.
+- `Action-row sugar`: moduix adds `AlertActions` as a thin stylable wrapper for grouped actions.
+- `Heading composition`: preserved through `AlertTitle asChild` for document outline control.
 - `Variants`, `sizes`, and recipe palettes`: intentionally not exposed; moduix keeps one visual
   recipe instead of Chakra's broader styling matrix.
 - `Dismiss/action behavior`: intentionally not added; consumers compose actions inside
-  `Alert.Content` when needed.
+  `AlertContent` when needed.
 
 ## Accessibility and state
 
-- `Alert.Root` writes:
+- `Alert` writes:
   - `data-scope="alert"`
   - `data-part="root"`
   - `data-slot="alert-root"`
   - `data-status="<status>"`
-- `Alert.Indicator` writes `data-part="indicator"`, `data-slot="alert-indicator"`, and defaults to
+- `AlertIndicator` writes `data-part="indicator"`, `data-slot="alert-indicator"`, and defaults to
   `aria-hidden="true"`, so essential meaning must stay in title or description text.
-- `Alert.Content`, `Alert.Title`, and `Alert.Description` write matching `data-scope="alert"`,
+- `AlertContent`, `AlertTitle`, and `AlertDescription` write matching `data-scope="alert"`,
   `data-part`, and `data-slot` attributes.
-- `Alert.Actions` writes `data-part="actions"` and `data-slot="alert-actions"` for targeted action
+- `AlertActions` writes `data-part="actions"` and `data-slot="alert-actions"` for targeted action
   row styling.
-- `Alert.Root` defaults to `role="status"` and switches to `role="alert"` for `status="error"`.
+- `Alert` defaults to `role="status"` and switches to `role="alert"` for `status="error"`.
 - The automatic roles create live regions. Consumers should mount the root before updating its
   message when announcement is required; content present on initial page load may not be announced.
 - Consumers can override `role`; static supplementary callouts should use an appropriate non-live
@@ -135,7 +140,7 @@ different heading element:
 
 ## Defaults and styling
 
-### `Alert.Root`
+### `Alert`
 
 Extends Ark `div` props and supports `asChild`.
 
@@ -204,23 +209,26 @@ changing the others, or a component-wide variable when every status should share
   for the parts.
 - moduix keeps one visual recipe instead of Chakra's `variant`, `size`, and palette props.
 - moduix introduces the focused `status` API and automatic role defaulting for that status.
-- `Alert.Content` is required and remains the grouping surface for actions and dismiss controls; no
+- `AlertContent` is required and remains the grouping surface for actions and dismiss controls; no
   action slot or close state is built into the component.
-- `Alert.Actions` is narrow sugar for the common wrapped action row. It does not inject buttons,
+- `AlertActions` is narrow sugar for the common wrapped action row. It does not inject buttons,
   dismissal logic, positioning, or hidden layout behavior outside its own container.
 
 ## Agent notes
 
-- Use `Alert.Content` for all message content in runnable examples; keep `Alert.Root` for anatomy
-  and API explanations.
+- Use `AlertContent` for all message content in runnable examples; use `Alert` as the only root
+  value in anatomy and API explanations.
 - Do not add local dismiss, keyboard, or focus behavior to the alert wrapper; compose interactive
-  controls inside `Alert.Content`.
-- Keep `Alert.Actions` thin and stylable. Do not grow it into an action API with special button
+  controls inside `AlertContent`.
+- Keep `AlertActions` thin and stylable. Do not grow it into an action API with special button
   props or close behavior.
 
 ## Local changelog
 
-- 2026-09-06: Made `Alert.Content` required, simplifying the root layout to a single flex row and
+- 2026-09-21: Replaced the compound `Alert.*` value surface with the shared flat API. `Alert` is now
+  the only root value; every other part uses an `Alert`-prefixed named export.
+
+- 2026-09-06: Made `AlertContent` required, simplifying the root layout to a single flex row and
   removing support for direct title and description children.
 - 2026-08-14: Consolidated statuses on the card-based `info` default shared with Toast and removed
   the redundant `neutral` status and variables.
@@ -228,21 +236,21 @@ changing the others, or a component-wide variable when every status should share
   preserved component-wide overrides as the highest-priority theming path; and clarified live-region
   usage in consumer docs.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-09: Added `Alert.Actions` as narrow sugar for wrapped action rows, aligned examples on the
+- 2026-07-09: Added `AlertActions` as narrow sugar for wrapped action rows, aligned examples on the
   short `<Alert>` root form, and moved the low-level docs path under `Advanced Customization`.
-- 2026-07-06: Made `Alert.Content` optional for the simple title/description path, changed
-  `Alert.Title` to render `p` by default, and tightened the default root padding to
+- 2026-07-06: Made `AlertContent` optional for the simple title/description path, changed
+  `AlertTitle` to render `p` by default, and tightened the default root padding to
   `var(--moduix-spacing-3)`.
 - 2026-07-02: Simplified the public type surface by removing Alert prop and status aliases; preserved
   callable-root composition, all visual parts, statuses, automatic roles, refs, `asChild`, and
   styling hooks.
 - 2026-07-01: Aligned runnable examples on the short `<Alert>` root form while preserving
-  `Alert.Root` as the equivalent anatomy/API alias.
-- 2026-06: Migrated `Alert` to an Ark-style compound contract based on `Alert.Root`,
-  `Alert.Indicator`, `Alert.Content`, `Alert.Title`, and `Alert.Description`; replaced
+  `Alert` as the equivalent anatomy/API alias.
+- 2026-06: Migrated `Alert` to an Ark-style compound contract based on `Alert`,
+  `AlertIndicator`, `AlertContent`, `AlertTitle`, and `AlertDescription`; replaced
   `variant` with `status`; renamed `destructive` to `error`; and moved heading polymorphism from
   `as` to `asChild`.
 - 2026-06-18: Updated docs/examples to make every Alert preview reproducible with `Code`,
-  `Styles`, and `Data` tabs, and added a dedicated `Alert.Title asChild` example.
+  `Styles`, and `Data` tabs, and added a dedicated `AlertTitle asChild` example.
 - 2026-06-24: Added explicit Ark-style `data-scope` / `data-part` hooks and finalized local/docs
   guidance for the Ark factory implementation.

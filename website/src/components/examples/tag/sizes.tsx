@@ -1,4 +1,4 @@
-import { Tag } from '@moduix/react/tag';
+import { Tag, TagLabel } from '@moduix/react/tag';
 import styles from '@/components/examples/tag/tag-sizes.module.css';
 
 const sizes = [
@@ -17,7 +17,7 @@ export default function TagSizesDemo() {
     <div className={styles.row}>
       {sizes.map((tag) => (
         <Tag key={tag.size} size={tag.size}>
-          <Tag.Label>{tag.label}</Tag.Label>
+          <TagLabel>{tag.label}</TagLabel>
         </Tag>
       ))}
     </div>

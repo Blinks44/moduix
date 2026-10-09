@@ -1,6 +1,18 @@
 import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
-import { Combobox } from '@moduix/solid/combobox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/solid/combobox';
 import { createSignal, For } from 'solid-js';
 import styles from '@/components/examples/combobox/component-controlled.module.css';
 
@@ -27,22 +39,22 @@ export default function ControlledComboboxDemo() {
         onInputValueChange={(details) => filter(details.inputValue)}
         onValueChange={(details) => setValue(details.value)}
       >
-        <Combobox.Label>Choose fruit</Combobox.Label>
-        <Combobox.Control>
-          <Combobox.Input />
-          <Combobox.ClearTrigger aria-label="Clear selection" />
-          <Combobox.Trigger aria-label="Open options" />
-        </Combobox.Control>
-        <Combobox.Positioner>
-          <Combobox.Content class={styles.content}>
-            <Combobox.Empty>No fruits found.</Combobox.Empty>
-            <Combobox.List>
+        <ComboboxLabel>Choose fruit</ComboboxLabel>
+        <ComboboxControl>
+          <ComboboxInput />
+          <ComboboxClearTrigger aria-label="Clear selection" />
+          <ComboboxTrigger aria-label="Open options" />
+        </ComboboxControl>
+        <ComboboxPositioner>
+          <ComboboxContent class={styles.content}>
+            <ComboboxEmpty>No fruits found.</ComboboxEmpty>
+            <ComboboxList>
               <For each={collection().items}>
-                {(item) => <Combobox.Option item={item}>{item.label}</Combobox.Option>}
+                {(item) => <ComboboxOption item={item}>{item.label}</ComboboxOption>}
               </For>
-            </Combobox.List>
-          </Combobox.Content>
-        </Combobox.Positioner>
+            </ComboboxList>
+          </ComboboxContent>
+        </ComboboxPositioner>
       </Combobox>
       <output>Selected: {value()[0] ?? 'none'}</output>
     </div>

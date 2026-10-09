@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Pagination as PaginationPrimitive,
   usePagination,
@@ -8,10 +10,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 
-const PaginationRoot = forwardRef<
+const Pagination = forwardRef<
   ComponentRef<typeof PaginationPrimitive.Root>,
   ComponentProps<typeof PaginationPrimitive.Root>
->(function PaginationRoot({ className, ...props }, ref) {
+>(function Pagination({ className, ...props }, ref) {
   return (
     <PaginationPrimitive.Root
       ref={ref}
@@ -105,7 +107,8 @@ const PaginationPrevTrigger = forwardRef<
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        (children == null || children === false) && 'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
+        (children == null || children === false) &&
+          'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         className,
       )}
       {...props}
@@ -128,7 +131,8 @@ const PaginationNextTrigger = forwardRef<
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        (children == null || children === false) && 'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
+        (children == null || children === false) &&
+          'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         className,
       )}
       {...props}
@@ -151,7 +155,8 @@ const PaginationFirstTrigger = forwardRef<
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        (children == null || children === false) && 'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
+        (children == null || children === false) &&
+          'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         className,
       )}
       {...props}
@@ -174,7 +179,8 @@ const PaginationLastTrigger = forwardRef<
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        (children == null || children === false) && 'w-control-md p-0 rtl:[&_svg]:-scale-x-100',
+        (children == null || children === false) &&
+          'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         className,
       )}
       {...props}
@@ -205,19 +211,17 @@ function PaginationItems() {
   );
 }
 
-const Pagination = Object.assign(PaginationRoot, {
-  Root: PaginationRoot,
-  RootProvider: PaginationRootProvider,
-  Item: PaginationItem,
-  Ellipsis: PaginationEllipsis,
-  PrevTrigger: PaginationPrevTrigger,
-  NextTrigger: PaginationNextTrigger,
-  FirstTrigger: PaginationFirstTrigger,
-  LastTrigger: PaginationLastTrigger,
-  Context: PaginationContext,
-  Items: PaginationItems,
+export {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationFirstTrigger,
+  PaginationItem,
+  PaginationItems,
+  PaginationLastTrigger,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationRootProvider,
   usePagination,
   usePaginationContext,
-});
-
-export { Pagination, usePagination, usePaginationContext };
+};

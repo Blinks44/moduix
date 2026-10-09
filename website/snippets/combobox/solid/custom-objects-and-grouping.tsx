@@ -1,6 +1,19 @@
 import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
-import { Combobox } from '@moduix/solid/combobox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItemGroup,
+  ComboboxItemGroupLabel,
+  ComboboxLabel,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxTrigger,
+} from '@moduix/solid/combobox';
 import { For } from 'solid-js';
 import styles from '@/components/examples/combobox/component-custom-objects-and-grouping.module.css';
 
@@ -28,31 +41,31 @@ export default function GroupedComboboxDemo() {
       collection={collection()}
       onInputValueChange={(details) => filter(details.inputValue)}
     >
-      <Combobox.Label>Country</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. Canada" />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content class={styles.content}>
-          <Combobox.Empty>No countries found.</Combobox.Empty>
+      <ComboboxLabel>Country</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="e.g. Canada" />
+        <ComboboxClearTrigger aria-label="Clear selection" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent class={styles.content}>
+          <ComboboxEmpty>No countries found.</ComboboxEmpty>
           <For each={collection().group()}>
             {(group) => {
               const [continent, items] = group;
 
               return (
-                <Combobox.ItemGroup>
-                  <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
+                <ComboboxItemGroup>
+                  <ComboboxItemGroupLabel>{continent}</ComboboxItemGroupLabel>
                   <For each={items}>
-                    {(item) => <Combobox.Option item={item}>{item.country}</Combobox.Option>}
+                    {(item) => <ComboboxOption item={item}>{item.country}</ComboboxOption>}
                   </For>
-                </Combobox.ItemGroup>
+                </ComboboxItemGroup>
               );
             }}
           </For>
-        </Combobox.Content>
-      </Combobox.Positioner>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

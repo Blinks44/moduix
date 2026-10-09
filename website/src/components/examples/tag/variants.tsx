@@ -1,4 +1,4 @@
-import { Tag } from '@moduix/react/tag';
+import { Tag, TagLabel } from '@moduix/react/tag';
 import styles from '@/components/examples/tag/tag-variants.module.css';
 
 const variants = ['default', 'secondary', 'outline', 'ghost', 'destructive'] as const;
@@ -8,7 +8,7 @@ export default function TagVariantsDemo() {
     <div className={styles.row}>
       {variants.map((variant) => (
         <Tag key={variant} variant={variant}>
-          <Tag.Label>{variant}</Tag.Label>
+          <TagLabel>{variant}</TagLabel>
         </Tag>
       ))}
     </div>

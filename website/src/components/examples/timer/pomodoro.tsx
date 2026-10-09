@@ -1,4 +1,11 @@
-import { Timer } from '@moduix/react/timer';
+import {
+  Timer,
+  TimerArea,
+  TimerItem,
+  TimerSeparator,
+  TimerControl,
+  TimerActionTrigger,
+} from '@moduix/react/timer';
 import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
@@ -15,28 +22,28 @@ export default function PomodoroTimerDemo() {
         startMs={targetMs}
         onComplete={() => setMode((value) => (value === 'work' ? 'break' : 'work'))}
       >
-        <Timer.Area>
+        <TimerArea>
           <span className={styles.itemGroup}>
-            <Timer.Item type="minutes" />
+            <TimerItem type="minutes" />
             <span className={styles.itemLabel}>minutes</span>
           </span>
-          <Timer.Separator>:</Timer.Separator>
+          <TimerSeparator>:</TimerSeparator>
           <span className={styles.itemGroup}>
-            <Timer.Item type="seconds" />
+            <TimerItem type="seconds" />
             <span className={styles.itemLabel}>seconds</span>
           </span>
-        </Timer.Area>
-        <Timer.Control>
-          <Timer.ActionTrigger action="start">
+        </TimerArea>
+        <TimerControl>
+          <TimerActionTrigger action="start">
             <PlayIcon /> Start
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="pause">
+          </TimerActionTrigger>
+          <TimerActionTrigger action="pause">
             <PauseIcon /> Pause
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="reset">
+          </TimerActionTrigger>
+          <TimerActionTrigger action="reset">
             <RotateCcwIcon /> Reset
-          </Timer.ActionTrigger>
-        </Timer.Control>
+          </TimerActionTrigger>
+        </TimerControl>
       </Timer>
       <PreviewMeta>
         <output>{mode === 'work' ? 'Mode: Focus session' : 'Mode: Break session'}</output>

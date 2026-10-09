@@ -1,5 +1,18 @@
 import { createListCollection } from '@ark-ui/solid/collection';
-import { Combobox } from '@moduix/solid/combobox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxStatus,
+  ComboboxTrigger,
+} from '@moduix/solid/combobox';
 import { createEffect, createMemo, createSignal, For, onCleanup, Show } from 'solid-js';
 import styles from '@/components/examples/combobox/component-async-search.module.css';
 
@@ -48,30 +61,30 @@ export default function AsyncSearchComboboxDemo() {
         }
       }}
     >
-      <Combobox.Label>Search fruit</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="Start typing" />
-        <Combobox.ClearTrigger aria-label="Clear search" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content class={styles.content}>
+      <ComboboxLabel>Search fruit</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="Start typing" />
+        <ComboboxClearTrigger aria-label="Clear search" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent class={styles.content}>
           <Show when={!query()}>
-            <Combobox.Status>Start typing to search…</Combobox.Status>
+            <ComboboxStatus>Start typing to search…</ComboboxStatus>
           </Show>
           <Show when={loading()}>
-            <Combobox.Status>Searching…</Combobox.Status>
+            <ComboboxStatus>Searching…</ComboboxStatus>
           </Show>
           <Show when={!loading() && query()}>
-            <Combobox.Empty>No results found.</Combobox.Empty>
+            <ComboboxEmpty>No results found.</ComboboxEmpty>
           </Show>
-          <Combobox.List>
+          <ComboboxList>
             <For each={collection().items}>
-              {(item) => <Combobox.Option item={item}>{item.label}</Combobox.Option>}
+              {(item) => <ComboboxOption item={item}>{item.label}</ComboboxOption>}
             </For>
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

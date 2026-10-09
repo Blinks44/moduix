@@ -37,7 +37,7 @@ function BadgeLabel(props: BadgeLabelProps) {
   );
 }
 
-function BadgeRoot(props: BadgeRootProps) {
+function Badge(props: BadgeRootProps) {
   const [local, others] = splitProps(props, [
     'class',
     'data-scope',
@@ -80,10 +80,4 @@ function BadgeDot(props: BadgeDotProps) {
   );
 }
 
-const Badge = Object.assign(BadgeRoot, {
-  Root: BadgeRoot,
-  Label: BadgeLabel,
-  Dot: BadgeDot,
-});
-
-export { Badge };
+export { Badge, BadgeDot, BadgeLabel };

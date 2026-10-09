@@ -1,27 +1,25 @@
 ---
 title: Vite
-description: Подключение moduix к Vite на React или Solid через пакеты или shadcn, включая глобальные стили, пути TypeScript и алиасы Vite.
+description: Подключение moduix к Vite на React, Solid или Vue через пакеты или shadcn, включая глобальные стили, пути TypeScript и алиасы Vite.
 ---
 
 # Vite
 
 В этом руководстве предполагается существующее приложение, созданное из шаблона Vite для React,
-React + TypeScript, Solid или Solid + TypeScript.
+React + TypeScript, Vue, Vue + TypeScript, Solid или Solid + TypeScript.
 
 ## Выберите вариант настройки
 
-- **Среда:** React или Solid с соответствующим плагином Vite.
+- **Среда:** React, Solid или Vue с соответствующим плагином Vite.
 - **Стилизация:** CSS Modules или Tailwind CSS v4.
 - **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
 
-Сначала выполните общую [настройку пакета](/docs/quick-start#установить-как-пакет) или
-[настройку shadcn](/docs/quick-start#установить-через-shadcn-cli) для выбранного варианта стилей. Ниже
-показаны импорты пакетов на CSS Modules; точки входа Vite и настройка алиасов не меняются при выборе
-соответствующего Tailwind-пакета или реестра.
+Выбор пакета и настройка реестра описаны в Быстром старте: [пакеты](/docs/quick-start#установить-как-пакет)
+и [shadcn CLI](/docs/quick-start#установить-через-shadcn-cli).
 
-Все показанные ниже команды установки пакетов и импорты таблиц стилей относятся к CSS Modules.
-Используйте показанный ниже reset moduix или корректный собственный reset приложения. С Tailwind сохраняйте
-глобальную таблицу стилей, настроенную в Быстром старте.
+Примеры ниже используют CSS Modules и reset moduix. Если в приложении уже есть подходящий reset,
+не импортируйте его повторно. Для Tailwind установите соответствующий пакет с суффиксом `-tailwind`
+и в той же точке входа подключите файл стилей приложения, настроенный по Quick Start.
 
 ## Установка из пакета
 
@@ -38,7 +36,7 @@ import '@moduix/react/style.css';
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/react/button';
 
-export function App() {
+export default function App() {
   return <Button>Continue</Button>;
 }
 ```
@@ -56,9 +54,29 @@ import '@moduix/solid/style.css';
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/solid/button';
 
-export function App() {
+export default function App() {
   return <Button>Continue</Button>;
 }
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
+
+```ts title="src/main.ts"
+import '@moduix/vue/reset.css';
+import '@moduix/vue/style.css';
+```
+
+```vue title="src/App.vue"
+<script setup lang="ts">
+import { Button } from '@moduix/vue/button';
+</script>
+
+<template>
+  <Button>Continue</Button>
+</template>
 ```
 
   </Tab>
@@ -80,26 +98,21 @@ export function App() {
 }
 ```
 
-Добавьте те же значения `compilerOptions` в `tsconfig.app.json`, а затем настройте алиас в Vite для
-выбранного фреймворка. В примере используется `node:url`, поэтому установите типы Node.js, если их
-ещё нет в проекте:
-
-<PackageManagerTabs command="install -D @types/node" />
+Добавьте тот же `paths` в `tsconfig.app.json` для проверки типов приложения. В Vite 8 и новее
+включите встроенное разрешение путей TypeScript в существующей конфигурации. Сохраните плагин
+фреймворка и остальные настройки:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
 
 ```ts title="vite.config.ts"
-import { fileURLToPath, URL } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+    tsconfigPaths: true,
   },
 });
 ```
@@ -110,16 +123,13 @@ export default defineConfig({
   <Tab label="Solid" value="solid">
 
 ```ts title="vite.config.ts"
-import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
 
 export default defineConfig({
   plugins: [solid()],
   resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+    tsconfigPaths: true,
   },
 });
 ```
@@ -127,7 +137,28 @@ export default defineConfig({
 <ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts title="vite.config.ts"
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    tsconfigPaths: true,
+  },
+});
+```
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' }]} />
+
+  </Tab>
 </Tabs>
+
+Для Vue сохраните `src/**/*.vue` в `include` конфигурации приложения: Vite использует её,
+чтобы разрешать пути в SFC. В Vite 7 и более ранних версиях задайте явный
+[`resolve.alias`](https://vite.dev/config/shared-options#resolve-alias).
 
 Импортируйте сгенерированные основные стили из точки входа вместо стилей пакета.
 Подключать оба файла не нужно:
@@ -147,7 +178,19 @@ import '@/lib/moduix/styles/style.css';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts title="src/main.ts"
+import '@/lib/moduix/styles/style.css';
+```
+
+  </Tab>
 </Tabs>
+
+Импорт стилей выше относится к CSS Modules. Для Tailwind подключите сгенерированные базовые стили
+в существующем файле Tailwind по [Quick Start](/docs/quick-start#установить-через-shadcn-cli),
+а сам файл импортируйте в той же точке входа. Замените импорт компонента из пакета
+на `@/components/ui/button`.
 
 ## Проверка
 

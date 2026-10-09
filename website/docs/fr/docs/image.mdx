@@ -13,10 +13,14 @@ import imageSolidArtDirection from '../../../snippets/image/solid/art-direction.
 import imageSolidBasic from '../../../snippets/image/solid/basic.tsx?raw';
 import imageSolidFixed from '../../../snippets/image/solid/fixed.tsx?raw';
 import imageSolidFullWidth from '../../../snippets/image/solid/full-width.tsx?raw';
+import imageVueArtDirection from '../../../snippets/image/vue/art-direction.vue?raw';
+import imageVueBasic from '../../../snippets/image/vue/basic.vue?raw';
+import imageVueFixed from '../../../snippets/image/vue/fixed.vue?raw';
+import imageVueFullWidth from '../../../snippets/image/vue/full-width.vue?raw';
 
 ## Référence de l’API
 
-`Image` est un composant moduix léger qui s’appuie sur le composant `<img>` d’[Unpic React](https://unpic.pics/img/react/).
+`Image` est un composant moduix léger qui s’appuie sur l’élément `<img>` natif et l’API [Unpic](https://unpic.pics/img/).
 Ark UI ne propose pas de primitive dédiée aux images. `Image` utilise donc la composition native de `<img>` et de
 `<picture>` plutôt qu’une partie Ark. Consultez le [guide de composition d’Ark](https://ark-ui.com/docs/guides/composition)
 pour en savoir plus sur son modèle fondé sur les éléments natifs.
@@ -27,6 +31,11 @@ Utilisez `Image` avec l’URL d’une image provenant d’un CDN pris en charge 
 Dans le mode `layout="constrained"`, indiquez `width` et `height`. Unpic génère un `srcset` et un attribut
 `sizes` adaptés lorsqu’il reconnaît le fournisseur. Dans le cas contraire, il conserve l’URL source telle quelle.
 Le navigateur réserve l’espace nécessaire avant le chargement de l’image.
+
+Les images utilisent par défaut `loading="lazy"` et `decoding="async"`, y compris les fichiers
+locaux et les URL sans CDN pris en charge. Utilisez `priority` pour l’image principale visible
+au chargement de la page : cette prop définit `loading="eager"` et `fetchpriority="high"` sans
+fixer `decoding`. Les attributs natifs définis explicitement remplacent ces valeurs par défaut.
 
 <ExampleFrame variant="component">
   <ImageBasic />
@@ -39,6 +48,7 @@ Le navigateur réserve l’espace nécessaire avant le chargement de l’image.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -51,6 +61,11 @@ Le navigateur réserve l’espace nécessaire avant le chargement de l’image.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageVueBasic} />
 
     </Tab>
   </Tabs>
@@ -83,27 +98,37 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/image' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/image' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-Image / Image.Root
+Image
 └─ img
 
 picture (native)
-├─ Image.Source
-└─ Image / Image.Root
+├─ ImageSource
+└─ Image
 ```
 
 | Partie                 | Rôle                                                                      |
 | ---------------------- | ------------------------------------------------------------------------- |
-| `Image` / `Image.Root` | Élément `<img>` natif et adaptatif ; Unpic génère `srcset`, `sizes` et les styles. |
-| `Image.Source`         | Élément `<source>` adaptatif utilisé dans un élément natif `<picture>`.   |
+| `Image`                | Élément `<img>` natif et adaptatif ; Unpic génère `srcset`, `sizes` et les styles. |
+| `ImageSource`          | Élément `<source>` adaptatif utilisé dans un élément natif `<picture>`.          |
 
 ## Composition
 
-`Image` est la racine et peut être rendu directement. Utilisez `Image.Source` uniquement comme enfant
+`Image` est la racine et peut être rendu directement. Utilisez `ImageSource` uniquement comme enfant
 d’un élément natif `<picture>` et placez `Image` en dernier afin qu’il reste l’image de secours si
 aucune source n’est sélectionnée. Pour choisir un format, placez une source avec `type` avant une
 source équivalente sans `type` ; le navigateur retient le premier format qu’il prend en charge.
@@ -112,10 +137,10 @@ source équivalente sans `type` ; le navigateur retient le premier format qu’i
 
 ### Cadrage selon l’écran
 
-Utilisez `Image.Source` pour afficher une vue plus large d’un bureau sur les grands écrans et une image
+Utilisez `ImageSource` pour afficher une vue plus large d’un bureau sur les grands écrans et une image
 au format portrait sur les petits écrans. La première source destinée aux grands écrans demande le format
 AVIF. La suivante sert de solution de remplacement aux navigateurs qui ne prennent pas l’AVIF en charge.
-`Image.Source` doit rester dans un élément natif `<picture>`.
+`ImageSource` doit rester dans un élément natif `<picture>`.
 
 <ExampleFrame variant="component">
   <ImageArtDirection />
@@ -128,6 +153,7 @@ AVIF. La suivante sert de solution de remplacement aux navigateurs qui ne prenne
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -140,6 +166,11 @@ AVIF. La suivante sert de solution de remplacement aux navigateurs qui ne prenne
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageSolidArtDirection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageVueArtDirection} />
 
     </Tab>
   </Tabs>
@@ -169,6 +200,7 @@ pour tenir dans un conteneur plus étroit.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -181,6 +213,11 @@ pour tenir dans un conteneur plus étroit.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={imageSolidFixed} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageVueFixed} />
 
     </Tab>
   </Tabs>
@@ -204,6 +241,7 @@ la largeur de son conteneur. Indiquez `height` si la hauteur du cadrage doit res
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -218,6 +256,11 @@ la largeur de son conteneur. Indiquez `height` si la hauteur du cadrage doit res
 <CodeBlockRuntime lang="tsx" code={imageSolidFullWidth} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={imageVueFullWidth} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -225,7 +268,7 @@ la largeur de son conteneur. Indiquez `height` si la hauteur du cadrage doit res
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur `Image` et `Image.Source` pour les styles locaux.
+Utilisez `className` en React ou `class` en Solid et Vue sur `Image` et `ImageSource` pour les styles locaux.
 Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur. La variable
 `--moduix-image-radius` personnalise les variantes CSS Modules, tandis que les hooks `data-slot` sont
 partagés par les deux modes de style.
@@ -238,4 +281,4 @@ partagés par les deux modes de style.
 
 - `data-slot="image-root"` permet de sélectionner l’élément `<img>` affiché en CSS.
 - `data-slot="image-source"` permet de sélectionner le nœud `<source>` dans un élément natif `<picture>`.
-- `className` en React et `class` en Solid sont les méthodes recommandées pour appliquer des styles locaux.
+- `className` en React et `class` en Solid et Vue sont les méthodes recommandées pour appliquer des styles locaux.

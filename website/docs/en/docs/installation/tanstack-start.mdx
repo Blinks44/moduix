@@ -9,21 +9,18 @@ This guide assumes an existing TanStack Start app configured for React or Solid.
 with Vite or Rsbuild, renders the route tree on the server, and hydrates it in the browser; moduix
 does not require a `use client` directive in the standard setup.
 
-
 ## Choose your setup
 
 - **Runtime:** React or Solid with the matching TanStack Start adapter.
 - **Styling:** CSS Modules or Tailwind CSS v4.
 - **Distribution:** a package or source copied with the shadcn CLI.
 
-Complete the shared [package setup](/docs/quick-start#install-as-a-package) or
-[shadcn setup](/docs/quick-start#install-with-the-shadcn-cli) for your styling track first. This page
-uses CSS Modules package imports; root-route placement, aliases, SSR, and hydration checks stay the
-same with the matching Tailwind package or registry.
+Quick Start covers [package choices](/docs/quick-start#install-as-a-package) and
+[shadcn configuration](/docs/quick-start#install-with-the-shadcn-cli).
 
-All package commands and stylesheet imports shown below belong to CSS Modules. Use the moduix reset
-shown below or a correct reset from your application. With Tailwind, keep the global stylesheet configured in
-Quick Start instead.
+The examples below use CSS Modules with the moduix reset. Omit the reset if your app already
+provides an equivalent one. For Tailwind, install the matching `-tailwind` package and import your
+application’s Tailwind stylesheet at the same entry point, using the setup from Quick Start.
 
 ## Install as a package
 
@@ -116,7 +113,10 @@ not already map `@/*` to `src/*`, add the alias to the root `tsconfig.json`:
 ```
 
 Make the same alias available to the selected bundler. Rsbuild reads the TypeScript paths directly;
-for Vite, follow TanStack Start's path-alias guide. Then add the component:
+for Vite, follow TanStack Start's path-alias guide for
+[React](https://tanstack.com/start/latest/docs/framework/react/guide/path-aliases) or
+[Solid](https://tanstack.com/start/latest/docs/framework/solid/guide/path-aliases). Then add the
+component:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -146,6 +146,11 @@ Replace the package stylesheet with the generated stylesheet in the root route:
 ```tsx title="src/routes/__root.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
+
+The stylesheet import above is for CSS Modules. For Tailwind, load the generated foundation from
+your existing Tailwind stylesheet as shown in [Quick Start](/docs/quick-start#install-with-the-shadcn-cli),
+and import that application stylesheet at the same entry point. Use the generated component import
+`@/components/ui/button` in place of the package import.
 
 ## Verify
 

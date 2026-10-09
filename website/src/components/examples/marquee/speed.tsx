@@ -1,4 +1,4 @@
-import { Marquee } from '@moduix/react/marquee';
+import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/react/marquee';
 import styles from '@/components/examples/marquee/marquee-speed.module.css';
 
 const partners = [
@@ -32,28 +32,28 @@ export default function SpeedMarqueeDemo() {
   return (
     <div className={styles.stack}>
       <Marquee aria-label="Slow partner logos" speed={25} className={styles.root}>
-        <Marquee.Viewport>
-          <Marquee.Content>
+        <MarqueeViewport>
+          <MarqueeContent>
             {partners.map((item) => (
-              <Marquee.Item key={item.name} className={styles.item}>
+              <MarqueeItem key={item.name} className={styles.item}>
                 <span>{item.mark}</span>
                 <span>{item.name}</span>
-              </Marquee.Item>
+              </MarqueeItem>
             ))}
-          </Marquee.Content>
-        </Marquee.Viewport>
+          </MarqueeContent>
+        </MarqueeViewport>
       </Marquee>
       <Marquee aria-label="Fast partner logos" speed={100} className={styles.root}>
-        <Marquee.Viewport>
-          <Marquee.Content>
+        <MarqueeViewport>
+          <MarqueeContent>
             {partners.map((item) => (
-              <Marquee.Item key={item.name} className={styles.item}>
+              <MarqueeItem key={item.name} className={styles.item}>
                 <span>{item.mark}</span>
                 <span>{item.name}</span>
-              </Marquee.Item>
+              </MarqueeItem>
             ))}
-          </Marquee.Content>
-        </Marquee.Viewport>
+          </MarqueeContent>
+        </MarqueeViewport>
       </Marquee>
     </div>
   );

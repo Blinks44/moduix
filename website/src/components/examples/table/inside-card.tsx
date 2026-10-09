@@ -1,5 +1,13 @@
-import { Card } from '@moduix/react/card';
-import { Table } from '@moduix/react/table';
+import { Card, CardBody, CardHeader, CardTitle } from '@moduix/react/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/react/table';
 
 const projects = [
   {
@@ -25,33 +33,33 @@ const projects = [
 export default function TableInsideCardDemo() {
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>Projects</Card.Title>
-      </Card.Header>
-      <Card.Body>
-        <Table.ScrollArea>
+      <CardHeader>
+        <CardTitle>Projects</CardTitle>
+      </CardHeader>
+      <CardBody>
+        <TableScrollArea>
           <Table>
-            <Table.Header>
-              <Table.Row>
-                <Table.ColumnHeader>Project</Table.ColumnHeader>
-                <Table.ColumnHeader>Owner</Table.ColumnHeader>
-                <Table.ColumnHeader>Updated</Table.ColumnHeader>
-                <Table.ColumnHeader>Health</Table.ColumnHeader>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
+            <TableHeader>
+              <TableRow>
+                <TableColumnHeader>Project</TableColumnHeader>
+                <TableColumnHeader>Owner</TableColumnHeader>
+                <TableColumnHeader>Updated</TableColumnHeader>
+                <TableColumnHeader>Health</TableColumnHeader>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {projects.map((project) => (
-                <Table.Row key={project.name}>
-                  <Table.Cell>{project.name}</Table.Cell>
-                  <Table.Cell>{project.owner}</Table.Cell>
-                  <Table.Cell>{project.updated}</Table.Cell>
-                  <Table.Cell>{project.issues}</Table.Cell>
-                </Table.Row>
+                <TableRow key={project.name}>
+                  <TableCell>{project.name}</TableCell>
+                  <TableCell>{project.owner}</TableCell>
+                  <TableCell>{project.updated}</TableCell>
+                  <TableCell>{project.issues}</TableCell>
+                </TableRow>
               ))}
-            </Table.Body>
+            </TableBody>
           </Table>
-        </Table.ScrollArea>
-      </Card.Body>
+        </TableScrollArea>
+      </CardBody>
     </Card>
   );
 }

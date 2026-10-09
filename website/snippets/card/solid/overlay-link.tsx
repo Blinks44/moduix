@@ -1,5 +1,13 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
+import {
+  Card,
+  CardAction,
+  CardBody,
+  CardDescription,
+  CardHeader,
+  CardLink,
+  CardTitle,
+} from '@moduix/solid/card';
 import styles from '@/components/examples/card/card-overlay-link.module.css';
 
 const incident = {
@@ -12,18 +20,18 @@ const incident = {
 export default function OverlayLinkCardDemo() {
   return (
     <Card class={styles.root}>
-      <Card.Header>
-        <Card.Title>
-          <Card.Link href={incident.href}>{incident.title}</Card.Link>
-        </Card.Title>
-        <Card.Description>{incident.description}</Card.Description>
-        <Card.Action>
+      <CardHeader>
+        <CardTitle>
+          <CardLink href={incident.href}>{incident.title}</CardLink>
+        </CardTitle>
+        <CardDescription>{incident.description}</CardDescription>
+        <CardAction>
           <Button variant="outline" size="sm">
             Acknowledge
           </Button>
-        </Card.Action>
-      </Card.Header>
-      <Card.Body>{incident.summary}</Card.Body>
+        </CardAction>
+      </CardHeader>
+      <CardBody>{incident.summary}</CardBody>
     </Card>
   );
 }

@@ -26,6 +26,16 @@ import segmentGroupSolidFormSubmission from '../../../snippets/segment-group/sol
 import segmentGroupSolidInvalid from '../../../snippets/segment-group/solid/invalid.tsx?raw';
 import segmentGroupSolidRootProvider from '../../../snippets/segment-group/solid/root-provider.tsx?raw';
 import segmentGroupSolidVerticalOrientation from '../../../snippets/segment-group/solid/vertical-orientation.tsx?raw';
+import segmentGroupVueAsChild from '../../../snippets/segment-group/vue/aschild.vue?raw';
+import segmentGroupVueBasic from '../../../snippets/segment-group/vue/basic.vue?raw';
+import segmentGroupVueConditionalMount from '../../../snippets/segment-group/vue/conditional-mount.vue?raw';
+import segmentGroupVueControlled from '../../../snippets/segment-group/vue/controlled.vue?raw';
+import segmentGroupVueDisabled from '../../../snippets/segment-group/vue/disabled.vue?raw';
+import segmentGroupVueField from '../../../snippets/segment-group/vue/field.vue?raw';
+import segmentGroupVueFormSubmission from '../../../snippets/segment-group/vue/form-submission.vue?raw';
+import segmentGroupVueInvalid from '../../../snippets/segment-group/vue/invalid.vue?raw';
+import segmentGroupVueRootProvider from '../../../snippets/segment-group/vue/root-provider.vue?raw';
+import segmentGroupVueVerticalOrientation from '../../../snippets/segment-group/vue/vertical-orientation.vue?raw';
 
 ## Référence de l’API
 
@@ -44,8 +54,8 @@ même temps.
 ## Exemple de base
 
 
-Utilisez `SegmentGroup` comme racine, placez `SegmentGroup.Indicator` avant les éléments et utilisez
-`SegmentGroup.Items` lorsque chaque segment n'a besoin que d'un libellé textuel. `Items` crée pour chaque
+Utilisez `SegmentGroup` comme racine, placez `SegmentGroupIndicator` avant les éléments et utilisez
+`SegmentGroupItems` lorsque chaque segment n'a besoin que d'un libellé textuel. `SegmentGroupItems` crée pour chaque
 entrée les parties item, text et control, ainsi qu'un champ de formulaire natif synchronisé.
 
 <ExampleFrame variant="component">
@@ -59,6 +69,7 @@ entrée les parties item, text et control, ainsi qu'un champ de formulaire natif
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -71,6 +82,12 @@ entrée les parties item, text et control, ainsi qu'un champ de formulaire natif
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidBasic} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueBasic} />
 
     </Tab>
   </Tabs>
@@ -103,50 +120,62 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/segment-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/segment-group' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-SegmentGroup / SegmentGroup.Root
-├─ SegmentGroup.Label (facultatif)
-├─ SegmentGroup.Indicator
-└─ SegmentGroup.Item[value]
-   ├─ SegmentGroup.ItemText
-   ├─ SegmentGroup.ItemControl
+SegmentGroup
+├─ SegmentGroupLabel (facultatif)
+├─ SegmentGroupIndicator
+└─ SegmentGroupItem[value]
+   ├─ SegmentGroupItemText
+   ├─ SegmentGroupItemControl
    └─ champ de formulaire natif
 
-SegmentGroup.RootProvider
+SegmentGroupRootProvider
 └─ même arborescence d’éléments reliée à un store moduix useSegmentGroup()
 
-SegmentGroup.Context / SegmentGroup.ItemContext
+SegmentGroupContext / SegmentGroupItemContext
 └─ accès avancé à l’état Ark via render prop
 ```
 
 | Partie                                | Rôle                                                                  |
 | ------------------------------------- | --------------------------------------------------------------------- |
-| `SegmentGroup` / `SegmentGroup.Root`  | Gère la valeur sélectionnée, la navigation au clavier et les formulaires. |
-| `SegmentGroup.ItemHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
-| `SegmentGroup.RootProvider`            | Relie les parties à l’état créé avec `useSegmentGroup()` de moduix.   |
-| `SegmentGroup.Context`                 | Donne un accès avancé à l’état racine via render prop.                |
-| `SegmentGroup.ItemContext`             | Donne un accès avancé à l’état de l’élément courant via render prop.  |
-| `SegmentGroup.Label`                   | Libellé accessible facultatif du groupe.                              |
-| `SegmentGroup.Indicator`               | Positionne la mise en évidence de l’élément actif avec les variables CSS d’Ark. |
-| `SegmentGroup.Items`                   | Méthode recommandée pour afficher des segments textuels standard.     |
-| `SegmentGroup.Item`                    | Segment sélectionnable ; rend un `label` par défaut.                  |
-| `SegmentGroup.ItemText`                | Libellé visible du segment.                                           |
-| `SegmentGroup.ItemControl`             | Partie Ark utilisée pour l’état de l’élément, masquée par les styles moduix. |
+| `SegmentGroup`  | Gère la valeur sélectionnée, la navigation au clavier et les formulaires. |
+| `SegmentGroupItemHiddenInput` | Champ natif d’Ark ; composition explicite décrite ci-dessous. |
+| `SegmentGroupRootProvider`            | Relie les parties à l’état créé avec `useSegmentGroup()` de moduix.   |
+| `SegmentGroupContext`                 | Donne un accès avancé à l’état racine via render prop.                |
+| `SegmentGroupItemContext`             | Donne un accès avancé à l’état de l’élément courant via render prop.  |
+| `SegmentGroupLabel`                   | Libellé accessible facultatif du groupe.                              |
+| `SegmentGroupIndicator`               | Positionne la mise en évidence de l’élément actif avec les variables CSS d’Ark. |
+| `SegmentGroupItems`                   | Méthode recommandée pour afficher des segments textuels standard.     |
+| `SegmentGroupItem`                    | Segment sélectionnable ; rend un `label` par défaut.                  |
+| `SegmentGroupItemText`                | Libellé visible du segment.                                           |
+| `SegmentGroupItemControl`             | Partie Ark utilisée pour l’état de l’élément, masquée par les styles moduix. |
 
 ## Composition
 
-Pour la composition courante, utilisez `SegmentGroup` avec `SegmentGroup.Indicator` avant
-`SegmentGroup.Items`. `Items` inclut `ItemText`, `ItemControl` et exactement un
-`ItemHiddenInput` pour chaque élément. Si vous rendez `SegmentGroup.Item` directement, composez ces
-parties vous-même et conservez exactement un `ItemHiddenInput` dans chaque élément. L'enfant direct de
+Pour la composition courante, utilisez `SegmentGroup` avec `SegmentGroupIndicator` avant
+`SegmentGroupItems`. `SegmentGroupItems` inclut `SegmentGroupItemText`, `SegmentGroupItemControl` et
+exactement un `SegmentGroupItemHiddenInput` pour chaque élément. Si vous rendez `SegmentGroupItem`
+directement, composez ces parties vous-même et conservez exactement un
+`SegmentGroupItemHiddenInput` dans chaque élément. L'enfant direct de
 `asChild` doit rester un seul `label` sémantique.
 
-Utilisez `SegmentGroup.RootProvider` avec `useSegmentGroup()` lorsque l'état doit être créé en dehors
-de l'arbre rendu ou contrôlé par une autre partie de l'application. React expose le store comme un
+Utilisez `SegmentGroupRootProvider` avec `useSegmentGroup()` lorsque l'état doit être créé en dehors
+de l'arbre rendu ou contrôlé par une autre partie de l'application. React et Vue exposent le store comme un
 objet, tandis que Solid lit son état réactif à travers la fonction d'accès renvoyée.
 
 ## Exemples
@@ -167,6 +196,7 @@ géométrie des éléments utilisée par l’indicateur.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -179,6 +209,12 @@ géométrie des éléments utilisée par l’indicateur.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidConditionalMount} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueConditionalMount} />
 
     </Tab>
   </Tabs>
@@ -207,6 +243,7 @@ Conservez la valeur sélectionnée dans l’état React et mettez-la à jour ave
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -219,6 +256,12 @@ Conservez la valeur sélectionnée dans l’état React et mettez-la à jour ave
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidControlled} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueControlled} />
 
     </Tab>
   </Tabs>
@@ -248,6 +291,7 @@ l’opacité du groupe, sans la cumuler avec celle de chaque élément.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -260,6 +304,12 @@ l’opacité du groupe, sans la cumuler avec celle de chaque élément.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidDisabled} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -289,6 +339,7 @@ du champ.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -301,6 +352,12 @@ du champ.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidField} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueField} />
 
     </Tab>
   </Tabs>
@@ -316,7 +373,7 @@ du champ.
 ### Soumission du formulaire
 
 Transmettez `name` à la racine pour inclure la valeur sélectionnée dans les données du formulaire
-natif. `SegmentGroup.Items` ajoute un champ de formulaire natif à chaque élément créé.
+natif. `SegmentGroupItems` ajoute un champ de formulaire natif à chaque élément créé.
 
 <ExampleFrame variant="component">
   <SegmentGroupFormSubmission />
@@ -329,6 +386,7 @@ natif. `SegmentGroup.Items` ajoute un champ de formulaire natif à chaque élém
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -341,6 +399,12 @@ natif. `SegmentGroup.Items` ajoute un champ de formulaire natif à chaque élém
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidFormSubmission} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueFormSubmission} />
 
     </Tab>
   </Tabs>
@@ -369,6 +433,7 @@ lorsque le groupe participe à la validation native du formulaire.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -383,6 +448,12 @@ lorsque le groupe participe à la validation native du formulaire.
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidInvalid} />
 
     </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueInvalid} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -390,7 +461,7 @@ lorsque le groupe participe à la validation native du formulaire.
 
 ### Root Provider
 
-Utilisez `useSegmentGroup()` avec `RootProvider` lorsque des contrôles situés en dehors de
+Utilisez `useSegmentGroup()` avec `SegmentGroupRootProvider` lorsque des contrôles situés en dehors de
 l’arborescence des segments doivent accéder au même état.
 
 <ExampleFrame variant="component">
@@ -404,6 +475,7 @@ l’arborescence des segments doivent accéder au même état.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -416,6 +488,12 @@ l’arborescence des segments doivent accéder au même état.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidRootProvider} />
+
+    </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -444,6 +522,7 @@ une navigation verticale avec les touches fléchées.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -458,6 +537,12 @@ une navigation verticale avec les touches fléchées.
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidVerticalOrientation} />
 
     </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueVerticalOrientation} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -470,7 +555,7 @@ une navigation verticale avec les touches fléchées.
 
 ### Personnalisation avancée
 
-Utilisez `SegmentGroup.Item asChild` à la place de `SegmentGroup.Items` lorsque la disposition
+Utilisez `SegmentGroupItem asChild` à la place de `SegmentGroupItems` lorsque la disposition
 personnalisée du libellé doit posséder le nœud DOM de l’élément.
 
 <ExampleFrame variant="component">
@@ -484,6 +569,7 @@ personnalisée du libellé doit posséder le nœud DOM de l’élément.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -498,6 +584,12 @@ personnalisée du libellé doit posséder le nœud DOM de l’élément.
 <CodeBlockRuntime lang="tsx" code={segmentGroupSolidAsChild} />
 
     </Tab>
+
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={segmentGroupVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -510,7 +602,7 @@ personnalisée du libellé doit posséder le nœud DOM de l’élément.
 
 ## Styles
 
-Dans React, utilisez `className` et, dans Solid, `class` sur les parties exportées pour les styles
+Dans React, utilisez `className` et, dans Solid/Vue, `class` sur les parties exportées pour les styles
 structurels. Pour les styles fondés sur l'état, préférez les attributs Ark comme `data-state`,
 `data-disabled` et `data-orientation`, avec les sélecteurs moduix `data-slot`. Les variantes
 Tailwind utilisent des utilitaires natifs et les classes du consommateur ; les variables ci-dessous

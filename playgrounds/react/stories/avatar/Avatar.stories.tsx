@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { type ImgHTMLAttributes, useState } from 'react';
-import { Avatar, useAvatar, useAvatarContext } from '@/components/avatar/Avatar';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  AvatarRootProvider,
+  useAvatar,
+  useAvatarContext,
+} from '@/components/avatar/Avatar';
 import { ComputerIcon } from '../../icons/demo';
 import styles from './Avatar.stories.module.css';
 
@@ -40,8 +47,8 @@ function StatusChangeAvatar() {
   return (
     <div className={styles.statusStory}>
       <Avatar onStatusChange={(details) => setStatus(details.status)}>
-        <Avatar.Fallback>AT</Avatar.Fallback>
-        <Avatar.Image src={imageUrl} alt="Alex T." />
+        <AvatarFallback>AT</AvatarFallback>
+        <AvatarImage src={imageUrl} alt="Alex T." />
       </Avatar>
       <span className={styles.statusLabel}>status: {status}</span>
     </div>
@@ -57,10 +64,10 @@ function RootProviderAvatar() {
       <button type="button" onClick={() => setCount((value) => value + 1)}>
         Change avatar
       </button>
-      <Avatar.RootProvider value={avatar}>
-        <Avatar.Fallback>AT</Avatar.Fallback>
-        <Avatar.Image src={`${imageUrl}&seed=${count}`} alt="Alex T." />
-      </Avatar.RootProvider>
+      <AvatarRootProvider value={avatar}>
+        <AvatarFallback>AT</AvatarFallback>
+        <AvatarImage src={`${imageUrl}&seed=${count}`} alt="Alex T." />
+      </AvatarRootProvider>
     </div>
   );
 }
@@ -69,8 +76,8 @@ export const Basic: Story = {
   render: () => {
     return (
       <Avatar>
-        <Avatar.Fallback>AT</Avatar.Fallback>
-        <Avatar.Image src={imageUrl} alt="Alex T." />
+        <AvatarFallback>AT</AvatarFallback>
+        <AvatarImage src={imageUrl} alt="Alex T." />
       </Avatar>
     );
   },
@@ -81,19 +88,19 @@ export const FallbackOnly: Story = {
     return (
       <div className={styles.fallbackRow}>
         <Avatar size="xs">
-          <Avatar.Fallback>XS</Avatar.Fallback>
+          <AvatarFallback>XS</AvatarFallback>
         </Avatar>
         <Avatar size="sm">
-          <Avatar.Fallback>SM</Avatar.Fallback>
+          <AvatarFallback>SM</AvatarFallback>
         </Avatar>
         <Avatar>
-          <Avatar.Fallback>MD</Avatar.Fallback>
+          <AvatarFallback>MD</AvatarFallback>
         </Avatar>
         <Avatar size="lg">
-          <Avatar.Fallback>LG</Avatar.Fallback>
+          <AvatarFallback>LG</AvatarFallback>
         </Avatar>
         <Avatar size="xl">
-          <Avatar.Fallback>XL</Avatar.Fallback>
+          <AvatarFallback>XL</AvatarFallback>
         </Avatar>
       </div>
     );
@@ -105,8 +112,8 @@ export const AsChildComposition: Story = {
     return (
       <Avatar asChild size="xl" className={styles.linkAvatar}>
         <a href="mailto:alex@example.com" aria-label="Email Alex T.">
-          <Avatar.Fallback className={styles.linkAvatarFallback}>AT</Avatar.Fallback>
-          <Avatar.Image className={styles.linkAvatarImage} src={imageUrl} alt="" />
+          <AvatarFallback className={styles.linkAvatarFallback}>AT</AvatarFallback>
+          <AvatarImage className={styles.linkAvatarImage} src={imageUrl} alt="" />
         </a>
       </Avatar>
     );
@@ -125,7 +132,7 @@ export const CustomImage: Story = {
   render: () => {
     return (
       <Avatar>
-        <Avatar.Fallback>AT</Avatar.Fallback>
+        <AvatarFallback>AT</AvatarFallback>
         <AvatarCustomImage src={customImageUrl} alt="Alex T." />
       </Avatar>
     );
@@ -136,8 +143,8 @@ export const ImageError: Story = {
   render: () => {
     return (
       <Avatar>
-        <Avatar.Fallback>NA</Avatar.Fallback>
-        <Avatar.Image src="https://example.com/does-not-exist.png" alt="Broken image example" />
+        <AvatarFallback>NA</AvatarFallback>
+        <AvatarImage src="https://example.com/does-not-exist.png" alt="Broken image example" />
       </Avatar>
     );
   },
@@ -147,9 +154,9 @@ export const FallbackIcon: Story = {
   render: () => {
     return (
       <Avatar size="lg" className={styles.iconAvatar}>
-        <Avatar.Fallback>
+        <AvatarFallback>
           <ComputerIcon className={styles.iconAvatarGlyph} />
-        </Avatar.Fallback>
+        </AvatarFallback>
       </Avatar>
     );
   },

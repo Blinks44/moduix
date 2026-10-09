@@ -1,5 +1,14 @@
 import { useListCollection } from '@ark-ui/react/collection';
-import { Listbox } from '@moduix/react/listbox';
+import {
+  Listbox,
+  ListboxContent,
+  ListboxEmpty,
+  ListboxInput,
+  ListboxItem,
+  ListboxItemIndicator,
+  ListboxItemText,
+  ListboxLabel,
+} from '@moduix/react/listbox';
 import styles from '@/components/examples/listbox/listbox-standalone-filter-input.module.css';
 
 const frameworks = [
@@ -37,20 +46,20 @@ export default function StandaloneFilterInputListboxDemo() {
 
   return (
     <Listbox collection={collection} className={styles.root} typeahead={false}>
-      <Listbox.Label>Select framework</Listbox.Label>
-      <Listbox.Input
+      <ListboxLabel>Select framework</ListboxLabel>
+      <ListboxInput
         placeholder="Filter frameworks"
         onChange={(event) => filter(event.target.value)}
       />
-      <Listbox.Content>
+      <ListboxContent>
         {collection.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
+          <ListboxItem key={item.value} item={item}>
+            <ListboxItemText>{item.label}</ListboxItemText>
+            <ListboxItemIndicator />
+          </ListboxItem>
         ))}
-        <Listbox.Empty>No frameworks found</Listbox.Empty>
-      </Listbox.Content>
+        <ListboxEmpty>No frameworks found</ListboxEmpty>
+      </ListboxContent>
     </Listbox>
   );
 }

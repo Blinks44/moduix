@@ -17,6 +17,12 @@ import spinnerSolidButton from '../../../snippets/spinner/solid/button.tsx?raw';
 import spinnerSolidCustomIndicator from '../../../snippets/spinner/solid/custom-indicator.tsx?raw';
 import spinnerSolidInlineLoadingText from '../../../snippets/spinner/solid/inline-loading-text.tsx?raw';
 import spinnerSolidSizes from '../../../snippets/spinner/solid/sizes.tsx?raw';
+import spinnerVueAsChild from '../../../snippets/spinner/vue/as-child.vue?raw';
+import spinnerVueBasic from '../../../snippets/spinner/vue/basic.vue?raw';
+import spinnerVueButton from '../../../snippets/spinner/vue/button.vue?raw';
+import spinnerVueCustomIndicator from '../../../snippets/spinner/vue/custom-indicator.vue?raw';
+import spinnerVueInlineLoadingText from '../../../snippets/spinner/vue/inline-loading-text.vue?raw';
+import spinnerVueSizes from '../../../snippets/spinner/vue/sizes.vue?raw';
 
 ## Справочник API
 
@@ -38,9 +44,6 @@ Modules задайте `--moduix-spinner-animation`, чтобы вернуть �
 режимом reduced-motion.
 
 
-В большинстве случаев используйте `Spinner` как корневой элемент. `Spinner.Root` - псевдоним того же
-корня, если эту часть композиции нужно обозначить явно.
-
 <ExampleFrame variant="component">
   <SpinnerBasic />
 </ExampleFrame>
@@ -52,6 +55,7 @@ Modules задайте `--moduix-spinner-animation`, чтобы вернуть �
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -64,6 +68,11 @@ Modules задайте `--moduix-spinner-animation`, чтобы вернуть �
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -96,17 +105,27 @@ Modules задайте `--moduix-spinner-animation`, чтобы вернуть �
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/spinner' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/spinner' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 У `Spinner` есть только один публичный корневой элемент. В обычном режиме moduix сам добавляет внутреннюю
-обёртку индикатора и стандартное кольцо. Это DOM-узлы и точки привязки для CSS, а не отдельные React-компоненты.
+обёртку индикатора и стандартное кольцо. Это DOM-узлы и точки привязки для CSS, а не отдельно экспортируемые компоненты.
 Собственное содержимое через `children` заменяет кольцо, а `asChild` заменяет корневой элемент и оставляет
 разметку индикатора на дочернем элементе.
 
 ```text
-Spinner / Spinner.Root
+Spinner
 └─ root[data-scope="spinner"][data-part="root"][data-slot="spinner-root"][data-size]
    └─ indicator[data-scope="spinner"][data-part="indicator"][data-slot="spinner-indicator"]
       └─ ring[data-scope="spinner"][data-part="ring"][data-slot="spinner-ring"] (только по умолчанию)
@@ -114,7 +133,7 @@ Spinner / Spinner.Root
 
 | Часть               | Назначение                                                                                  |
 | ------------------- | ------------------------------------------------------------------------------------------- |
-| `Spinner` / `Spinner.Root` | Публичный корневой элемент. Принимает `size`, `decorative`, `asChild`, `children` и нативные свойства `span`. |
+| `Spinner`                   | Публичный корневой элемент. Принимает `size`, `decorative`, `asChild`, `children` и нативные свойства `span`. |
 | indicator                   | Внутренняя вращающаяся обёртка, которая отвечает за размер и анимацию индикатора.               |
 | ring                        | Внутреннее стандартное кольцо. Не создаётся, если передано собственное `children`.             |
 
@@ -147,6 +166,7 @@ Spinner / Spinner.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -159,6 +179,11 @@ Spinner / Spinner.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidCustomIndicator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueCustomIndicator} />
 
     </Tab>
   </Tabs>
@@ -182,6 +207,7 @@ Spinner / Spinner.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -194,6 +220,11 @@ Spinner / Spinner.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidButton} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueButton} />
 
     </Tab>
   </Tabs>
@@ -222,6 +253,7 @@ Spinner / Spinner.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -234,6 +266,11 @@ Spinner / Spinner.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidInlineLoadingText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueInlineLoadingText} />
 
     </Tab>
   </Tabs>
@@ -262,6 +299,7 @@ Spinner / Spinner.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -274,6 +312,11 @@ Spinner / Spinner.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueSizes} />
 
     </Tab>
   </Tabs>
@@ -303,6 +346,7 @@ Spinner / Spinner.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -315,6 +359,11 @@ Spinner / Spinner.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={spinnerSolidAsChild} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={spinnerVueAsChild} />
 
     </Tab>
   </Tabs>
@@ -330,7 +379,7 @@ Spinner / Spinner.Root
 
 ## Стилизация
 
-Стилизуйте `Spinner` с помощью `className` в React, `class` в Solid, селекторов Ark `data-scope` / `data-part`,
+Стилизуйте `Spinner` с помощью `className` в React, `class` в Solid и Vue, селекторов Ark `data-scope` / `data-part`,
 стабильных хуков `data-slot`, `data-size` и публичных переменных `--moduix-spinner-*`, перечисленных в CSS API.
 Эти переменные доступны в пакетах CSS Modules; пакеты Tailwind используют классы-утилиты и пользовательские классы,
 а не дублируют слой переменных CSS Modules.

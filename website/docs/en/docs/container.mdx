@@ -15,6 +15,11 @@ import containerSolidFullWidth from '../../../snippets/container/solid/full-widt
 import containerSolidGutters from '../../../snippets/container/solid/gutters.tsx?raw';
 import containerSolidSemanticElement from '../../../snippets/container/solid/semantic-element.tsx?raw';
 import containerSolidWithBleed from '../../../snippets/container/solid/with-bleed.tsx?raw';
+import containerVueBasic from '../../../snippets/container/vue/basic.vue?raw';
+import containerVueFullWidth from '../../../snippets/container/vue/full-width.vue?raw';
+import containerVueGutters from '../../../snippets/container/vue/gutters.vue?raw';
+import containerVueSemanticElement from '../../../snippets/container/vue/semantic-element.vue?raw';
+import containerVueWithBleed from '../../../snippets/container/vue/with-bleed.vue?raw';
 
 ## API Reference
 
@@ -26,8 +31,9 @@ Ark UI does not provide a dedicated `container` primitive. moduix implements `Co
 ## Basic
 
 
-Import `Container` from the matching package: `@moduix/react/container` or `@moduix/solid/container` for CSS Modules,
-and `@moduix/react-tailwind/container` or `@moduix/solid-tailwind/container` for Tailwind CSS.
+Import `Container` from the matching package: `@moduix/react/container`, `@moduix/solid/container`, or
+`@moduix/vue/container` for CSS Modules, and `@moduix/react-tailwind/container`,
+`@moduix/solid-tailwind/container`, or `@moduix/vue-tailwind/container` for Tailwind CSS.
 
 Use `Container` for a centered content column with a readable width. It adds responsive horizontal gutters and leaves
 vertical spacing to the surrounding layout.
@@ -43,6 +49,7 @@ vertical spacing to the surrounding layout.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -55,6 +62,11 @@ vertical spacing to the surrounding layout.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -92,6 +104,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/container' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/container' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -99,24 +121,25 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 `Container` renders one root element and does not add an extra wrapper.
 
 ```text
-Container / Container.Root
+Container
 └─ children
 ```
 
-| Part                           | Role                                                     |
-| ------------------------------ | -------------------------------------------------------- |
-| `Container` / `Container.Root` | Root layout element. Centers content and controls its width and horizontal padding. |
+| Part        | Role                                                     |
+| ----------- | -------------------------------------------------------- |
+| `Container` | Root layout element. Centers content and controls its width and horizontal padding. |
 
 ## Composition
 
 `Container` has no managed state and no child parts to coordinate. Use it as the root and place the page or section
-content directly inside it. `Container.Root` is an alias for the same root when that namespace form fits the rest of
-your composition.
+content directly inside it.
 
-Use `asChild` when a semantic element should own the rendered root. Pass exactly one child: React renders that child
-as the Container root, while Solid uses the render-function form `asChild={(props) => <main {...props()} />}`. In Solid,
-assign a ref to the element created inside that render function, because a ref on `Container` itself is not forwarded
-through `asChild`. Use `Bleed` inside `Container` when only one child needs to extend beyond the constrained text column.
+Use `asChild` when a semantic element should own the rendered root. Pass exactly one child: React and Vue render that
+child as the Container root, while Solid uses the render-function form
+`asChild={(props) => <main {...props()} />}`. In Solid, assign a ref to the element created inside that render
+function, because a ref on `Container` itself is not forwarded through `asChild`; in Vue, read the rendered element
+from the component ref's `$el`. Use `Bleed` inside `Container` when only one child needs to extend beyond the
+constrained text column.
 
 ## Examples
 
@@ -135,6 +158,7 @@ Use `size="full"` for a wide section that should use its parent width while keep
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -147,6 +171,11 @@ Use `size="full"` for a wide section that should use its parent width while keep
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidFullWidth} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueFullWidth} />
 
     </Tab>
   </Tabs>
@@ -174,6 +203,7 @@ Use `gutter` to choose the amount of responsive horizontal padding.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -186,6 +216,11 @@ Use `gutter` to choose the amount of responsive horizontal padding.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidGutters} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueGutters} />
 
     </Tab>
   </Tabs>
@@ -213,6 +248,7 @@ Use `asChild` when the layout wrapper should also describe document structure.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -225,6 +261,11 @@ Use `asChild` when the layout wrapper should also describe document structure.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidSemanticElement} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueSemanticElement} />
 
     </Tab>
   </Tabs>
@@ -252,6 +293,7 @@ Keep the text column constrained and let only the wider child extend beyond it.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -264,6 +306,11 @@ Keep the text column constrained and let only the wider child extend beyond it.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidWithBleed} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueWithBleed} />
 
     </Tab>
   </Tabs>
@@ -280,7 +327,8 @@ Keep the text column constrained and let only the wider child extend beyond it.
 
 For CSS Modules packages, override the CSS variables on the root when a page shell needs different width or gutter
 values. Tailwind packages use utility classes and consumer class overrides instead of these CSS variables. Use
-`className` in React or `class` in Solid for local block styles such as padding, borders, or backgrounds.
+`className` in React, `class` in Solid, or `class` in Vue for local block styles such as padding, borders, or
+backgrounds.
 
 ### CSS Properties
 
@@ -291,7 +339,7 @@ through utilities.
 
 ### Styling hooks
 
-- `Container` and `Container.Root` expose `data-slot="container-root"` on the root.
+- `Container` exposes `data-slot="container-root"` on the root.
 - `data-scope="container"` and `data-part="root"` follow Ark's styling conventions.
 - `data-size` selects the width preset: `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` selects the gutter preset: `none`, `sm`, `md`, `lg`.

@@ -27,6 +27,18 @@ import tooltipSolidPositioning from '../../../snippets/tooltip/solid/positioning
 import tooltipSolidRootProvider from '../../../snippets/tooltip/solid/root-provider.tsx?raw';
 import tooltipSolidWithArrow from '../../../snippets/tooltip/solid/with-arrow.tsx?raw';
 import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/within-fixed-containers.tsx?raw';
+import tooltipVueAdvancedCustomization from '../../../snippets/tooltip/vue/advanced-customization.vue?raw';
+import tooltipVueBasic from '../../../snippets/tooltip/vue/basic.vue?raw';
+import tooltipVueContext from '../../../snippets/tooltip/vue/context.vue?raw';
+import tooltipVueContextPart from '../../../snippets/tooltip/vue/TooltipStateContent.vue?raw';
+import tooltipVueControlled from '../../../snippets/tooltip/vue/controlled.vue?raw';
+import tooltipVueDelay from '../../../snippets/tooltip/vue/delay.vue?raw';
+import tooltipVueDisabledTrigger from '../../../snippets/tooltip/vue/disabled-trigger.vue?raw';
+import tooltipVueMultipleTriggers from '../../../snippets/tooltip/vue/multiple-triggers.vue?raw';
+import tooltipVuePositioning from '../../../snippets/tooltip/vue/positioning.vue?raw';
+import tooltipVueRootProvider from '../../../snippets/tooltip/vue/root-provider.vue?raw';
+import tooltipVueWithArrow from '../../../snippets/tooltip/vue/with-arrow.vue?raw';
+import tooltipVueWithinFixedContainers from '../../../snippets/tooltip/vue/within-fixed-containers.vue?raw';
 
 ## Référence de l’API
 
@@ -44,8 +56,8 @@ l’élément déclencheur reçoit le focus.
 ## Exemple de base
 
 
-Utilisez `Tooltip.Trigger` pour l’élément qui ouvre l’infobulle et `Tooltip.Body` pour son contenu.
-`Tooltip.Body` réunit `Tooltip.Positioner` et `Tooltip.Content`. Donnez au déclencheur son propre
+Utilisez `TooltipTrigger` pour l’élément qui ouvre l’infobulle et `TooltipBody` pour son contenu.
+`TooltipBody` réunit `TooltipPositioner` et `TooltipContent`. Donnez au déclencheur son propre
 nom accessible. Le contenu de l’infobulle est complémentaire et ne remplace ni le texte visible ni
 `aria-label`.
 
@@ -60,6 +72,7 @@ nom accessible. Le contenu de l’infobulle est complémentaire et ne remplace n
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +85,11 @@ nom accessible. Le contenu de l’infobulle est complémentaire et ne remplace n
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,58 +122,74 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tooltip' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tooltip' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-Tooltip / Tooltip.Root
-├─ Tooltip.Trigger
+Tooltip
+├─ TooltipTrigger
 └─ Sous-arbre flottant (rendu automatiquement dans un portail)
-   └─ Tooltip.Positioner
-      └─ Tooltip.Content
+   └─ TooltipPositioner
+      └─ TooltipContent
          └─ contenu
 ```
 
-Ajoutez `Tooltip.Arrow` comme premier enfant du contenu lorsque la fenêtre flottante doit pointer
-vers son élément déclencheur. `Tooltip.Arrow` rend `Tooltip.ArrowTip` par défaut.
+Ajoutez `TooltipArrow` comme premier enfant du contenu lorsque la fenêtre flottante doit pointer
+vers son élément déclencheur. `TooltipArrow` rend `TooltipArrowTip` par défaut.
 
 ```text
-Tooltip / Tooltip.Root
-├─ Tooltip.Trigger
+Tooltip
+├─ TooltipTrigger
 └─ Sous-arbre flottant (rendu automatiquement dans un portail)
-   └─ Tooltip.Positioner
-      └─ Tooltip.Content
-         ├─ Tooltip.Arrow
-         │  └─ Tooltip.ArrowTip
+   └─ TooltipPositioner
+      └─ TooltipContent
+         ├─ TooltipArrow
+         │  └─ TooltipArrowTip
          └─ contenu
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Tooltip` / `Tooltip.Root` | Gère l’état, l’ouverture et la fermeture, les délais, le positionnement et le cycle de vie de l’infobulle. |
-| `Tooltip.RootProvider` | Affiche une infobulle à partir d’un objet d’état `useTooltip()` créé en dehors de l’arbre. |
-| `Tooltip.Context` | Expose l’état courant via une fonction de rendu pour les descendants personnalisés. |
-| `Tooltip.Body` | Raccourci qui rend `Tooltip.Positioner` et `Tooltip.Content` ensemble. |
-| `Tooltip.Trigger` | Élément interactif qui ouvre l’infobulle au survol ou au focus. |
-| `Tooltip.DisabledTrigger` | Enveloppe pouvant recevoir le focus autour d’un unique contrôle natif désactivé qui nécessite une explication. |
-| `Tooltip.Positioner` | Positionne le contenu et expose les variables de positionnement d’Ark. |
-| `Tooltip.Content` | Surface visible de l’infobulle. |
-| `Tooltip.Arrow` | Enveloppe facultative de la flèche, positionnée automatiquement, qui rend `Tooltip.ArrowTip` par défaut. |
-| `Tooltip.ArrowTip` | Pointe visible de la flèche. |
+| `Tooltip` | Gère l’état, l’ouverture et la fermeture, les délais, le positionnement et le cycle de vie de l’infobulle. |
+| `TooltipRootProvider` | Affiche une infobulle à partir d’un objet d’état `useTooltip()` créé en dehors de l’arbre. |
+| `TooltipContext` | Expose l’état courant aux descendants personnalisés via une fonction de rendu ou un slot avec portée en Vue. |
+| `TooltipBody` | Raccourci qui rend `TooltipPositioner` et `TooltipContent` ensemble. |
+| `TooltipTrigger` | Élément interactif qui ouvre l’infobulle au survol ou au focus. |
+| `TooltipDisabledTrigger` | Enveloppe pouvant recevoir le focus autour d’un unique contrôle natif désactivé qui nécessite une explication. |
+| `TooltipPositioner` | Positionne le contenu et expose les variables de positionnement d’Ark. |
+| `TooltipContent` | Surface visible de l’infobulle. |
+| `TooltipArrow` | Enveloppe facultative de la flèche, positionnée automatiquement, qui rend `TooltipArrowTip` par défaut. |
+| `TooltipArrowTip` | Pointe visible de la flèche. |
 
 ## Composition
 
-Utilisez `Tooltip.Body` pour la composition standard du `Trigger` et du contenu. Il réunit
-`Tooltip.Positioner` et `Tooltip.Content` ; utilisez ces parties explicitement lorsqu’elles doivent
+Utilisez `TooltipBody` pour la composition standard du `Trigger` et du contenu. Il réunit
+`TooltipPositioner` et `TooltipContent` ; utilisez ces parties explicitement lorsqu’elles doivent
 avoir un style ou une structure indépendants. La racine possède l’état : utilisez `defaultOpen`
 pour une infobulle non contrôlée, ou `open` avec `onOpenChange(details)` lorsqu’une autre partie de
-l’application en est responsable. Utilisez `Tooltip.RootProvider` avec `useTooltip()` lorsque le
-store est créé en dehors de l’arbre rendu, et `Tooltip.Context` ou `useTooltipContext()` lorsqu’un
+l’application en est responsable. Utilisez `TooltipRootProvider` avec `useTooltip()` lorsque le
+store est créé en dehors de l’arbre rendu, et `TooltipContext` ou `useTooltipContext()` lorsqu’un
 descendant doit lire cet état. `asChild` attend un unique enfant pouvant recevoir le focus ; Solid
-utilise une fonction de rendu. `Tooltip.DisabledTrigger` est prévu pour un seul contrôle natif
+utilise une fonction de rendu. `TooltipDisabledTrigger` est prévu pour un seul contrôle natif
 désactivé. Le portail est activé par défaut : définissez `portalled={false}` ou passez `portalRef`
-uniquement lorsque l’infobulle doit rester dans une limite DOM précise.
+uniquement lorsque l’infobulle doit rester dans une limite DOM précise. En Vue, utilisez
+`v-model:open` pour l’état contrôlé et les événements Vue en kebab-case, comme `@open-change`.
+
+Par défaut, le contenu est monté à la première ouverture et retiré après l’animation de fermeture.
+Définissez `unmountOnExit` sur `false` pour le conserver après la première ouverture ;
+définissez aussi `lazyMount` sur `false` pour le monter dès le départ. En Vue, passez ces
+options avec `:unmount-on-exit="false"` et `:lazy-mount="false"`.
 
 ## Exemples
 
@@ -174,6 +208,7 @@ Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état couran
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -186,6 +221,13 @@ Utilisez `useTooltipContext()` dans un descendant qui doit lire l’état couran
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueContext} />
+
+<CodeBlockRuntime lang="vue" code={tooltipVueContextPart} title="TooltipStateContent.vue" />
 
     </Tab>
   </Tabs>
@@ -208,6 +250,7 @@ Contrôlez l’ouverture de l’infobulle avec `open` et `onOpenChange(details)`
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -220,6 +263,11 @@ Contrôlez l’ouverture de l’infobulle avec `open` et `onOpenChange(details)`
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueControlled} />
 
     </Tab>
   </Tabs>
@@ -242,6 +290,7 @@ Définissez `openDelay` et `closeDelay` sur la racine pour régler le délai au 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -256,6 +305,11 @@ Définissez `openDelay` et `closeDelay` sur la racine pour régler le délai au 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidDelay} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueDelay} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -263,7 +317,7 @@ Définissez `openDelay` et `closeDelay` sur la racine pour régler le délai au 
 
 ### Déclencheur désactivé
 
-Utilisez `Tooltip.DisabledTrigger` lorsqu’un contrôle natif désactivé nécessite toujours une courte
+Utilisez `TooltipDisabledTrigger` lorsqu’un contrôle natif désactivé nécessite toujours une courte
 explication. L’enveloppe peut recevoir le focus sans modifier l’état désactivé de l’enfant.
 
 <ExampleFrame variant="component">
@@ -277,6 +331,7 @@ explication. L’enveloppe peut recevoir le focus sans modifier l’état désac
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -289,6 +344,11 @@ explication. L’enveloppe peut recevoir le focus sans modifier l’état désac
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidDisabledTrigger} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueDisabledTrigger} />
 
     </Tab>
   </Tabs>
@@ -312,6 +372,7 @@ une seule infobulle entre plusieurs déclencheurs.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -324,6 +385,11 @@ une seule infobulle entre plusieurs déclencheurs.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -351,6 +417,7 @@ Passez les options de positionnement d’Ark à `Tooltip`, notamment le placemen
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -365,6 +432,11 @@ Passez les options de positionnement d’Ark à `Tooltip`, notamment le placemen
 <CodeBlockRuntime lang="tsx" code={tooltipSolidPositioning} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVuePositioning} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -377,7 +449,7 @@ Passez les options de positionnement d’Ark à `Tooltip`, notamment le placemen
 
 ### Root Provider
 
-Utilisez `useTooltip()` avec `Tooltip.RootProvider` lorsque l’état de l’infobulle est créé en dehors
+Utilisez `useTooltip()` avec `TooltipRootProvider` lorsque l’état de l’infobulle est créé en dehors
 de l’arbre rendu.
 
 <ExampleFrame variant="component">
@@ -391,6 +463,7 @@ de l’arbre rendu.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -405,6 +478,11 @@ de l’arbre rendu.
 <CodeBlockRuntime lang="tsx" code={tooltipSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueRootProvider} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -412,9 +490,9 @@ de l’arbre rendu.
 
 ### Avec une flèche
 
-Ajoutez `Tooltip.Arrow` comme premier enfant du contenu lorsque l’infobulle doit pointer vers son
-déclencheur. Avec `Tooltip.Body`, placez-la directement à l’intérieur de `Tooltip.Body` ;
-l’enveloppe fournit `Tooltip.ArrowTip` par défaut.
+Ajoutez `TooltipArrow` comme premier enfant du contenu lorsque l’infobulle doit pointer vers son
+déclencheur. Avec `TooltipBody`, placez-la directement à l’intérieur de `TooltipBody` ;
+l’enveloppe fournit `TooltipArrowTip` par défaut.
 
 <ExampleFrame variant="component">
   <TooltipWithArrow />
@@ -427,6 +505,7 @@ l’enveloppe fournit `Tooltip.ArrowTip` par défaut.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -439,6 +518,11 @@ l’enveloppe fournit `Tooltip.ArrowTip` par défaut.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tooltipSolidWithArrow} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueWithArrow} />
 
     </Tab>
   </Tabs>
@@ -463,6 +547,7 @@ focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alig
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -477,6 +562,11 @@ focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alig
 <CodeBlockRuntime lang="tsx" code={tooltipSolidWithinFixedContainers} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueWithinFixedContainers} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -489,7 +579,7 @@ focaliser le déclencheur, de faire défiler le panneau et de vérifier l’alig
 
 ### Personnalisation avancée
 
-Utilisez directement les parties `Tooltip.Positioner` et `Tooltip.Content` lorsqu’elles doivent
+Utilisez directement les parties `TooltipPositioner` et `TooltipContent` lorsqu’elles doivent
 avoir une composition ou une mise en forme indépendantes.
 
 <ExampleFrame variant="component">
@@ -503,6 +593,7 @@ avoir une composition ou une mise en forme indépendantes.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -517,6 +608,11 @@ avoir une composition ou une mise en forme indépendantes.
 <CodeBlockRuntime lang="tsx" code={tooltipSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tooltipVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -524,7 +620,7 @@ avoir une composition ou une mise en forme indépendantes.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur les parties exportées pour les styles
+Utilisez `className` en React, `class` en Solid et Vue sur les parties exportées pour les styles
 structurels. Pour les styles liés à l’état, préférez les attributs Ark tels que `data-state`,
 `data-placement` et `data-side`, avec les sélecteurs `data-slot` de moduix. Les variantes Tailwind
 utilisent des utilitaires natifs et les classes du consommateur ; les variables CSS ci-dessous
@@ -546,14 +642,14 @@ personnalisent les variantes CSS Modules.
 
 ### Ciblage des styles
 
-- `Tooltip.Body` ne crée aucun nœud DOM. Avec la composition explicite, stylez séparément
-  `Tooltip.Positioner` et `Tooltip.Content`.
-- `Tooltip.Trigger` contrôle l’apparence du déclencheur, les états au survol et à l’ouverture, ainsi
+- `TooltipBody` ne crée aucun nœud DOM. Avec la composition explicite, stylez séparément
+  `TooltipPositioner` et `TooltipContent`.
+- `TooltipTrigger` contrôle l’apparence du déclencheur, les états au survol et à l’ouverture, ainsi
   que le style du focus.
-- `Tooltip.DisabledTrigger` contrôle l’enveloppe du contrôle désactivé et son enfant direct désactivé.
-- `Tooltip.Positioner` contrôle les contraintes de la mise en page flottante.
-- `Tooltip.Content` contrôle la surface de la fenêtre flottante.
-- `Tooltip.Arrow` et `Tooltip.ArrowTip` contrôlent la taille, l’arrière-plan et le contour de la flèche.
+- `TooltipDisabledTrigger` contrôle l’enveloppe du contrôle désactivé et son enfant direct désactivé.
+- `TooltipPositioner` contrôle les contraintes de la mise en page flottante.
+- `TooltipContent` contrôle la surface de la fenêtre flottante.
+- `TooltipArrow` et `TooltipArrowTip` contrôlent la taille, l’arrière-plan et le contour de la flèche.
 
 Les principaux points de ciblage publics sont `data-slot="tooltip-trigger"`,
 `data-slot="tooltip-positioner"`, `data-slot="tooltip-content"`,
@@ -562,6 +658,6 @@ Les principaux points de ciblage publics sont `data-slot="tooltip-trigger"`,
 
 Ark ajoute également `data-scope="tooltip"`, `data-part`, `data-state="open" | "closed"`,
 `data-value`, `data-current`, `data-expanded`, `data-instant`, `data-placement` et `data-side` aux
-parties concernées. La partie `Tooltip.Positioner` expose notamment les variables CSS d’exécution
+parties concernées. La partie `TooltipPositioner` expose notamment les variables CSS d’exécution
 `--available-width`, `--available-height`, `--reference-width`, `--reference-height`, `--x`, `--y`,
 `--z-index` et `--transform-origin`.

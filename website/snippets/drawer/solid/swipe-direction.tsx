@@ -1,6 +1,17 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
-import { Drawer } from '@moduix/solid/drawer';
+import { Card, CardBody } from '@moduix/solid/card';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/solid/drawer';
 import styles from '@/components/examples/drawer/drawer-swipe-direction.module.css';
 
 const direction = 'end' as const;
@@ -9,41 +20,41 @@ export default function SwipeDirectionDrawerDemo() {
   return (
     <div class={styles.root}>
       <Drawer swipeDirection={direction}>
-        <Drawer.Trigger asChild={(props) => <Button {...props()}>Open right drawer</Button>} />
-        <Drawer.Backdrop />
-        <Drawer.Positioner>
-          <Drawer.Content>
-            <Drawer.Header>
-              <Drawer.Title>Details</Drawer.Title>
-              <Drawer.CloseIcon />
-              <Drawer.Description>Logical end resolves to the right in LTR.</Drawer.Description>
-            </Drawer.Header>
-            <Drawer.Body class={styles.body}>
+        <DrawerTrigger asChild={(props) => <Button {...props()}>Open right drawer</Button>} />
+        <DrawerBackdrop />
+        <DrawerPositioner>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Details</DrawerTitle>
+              <DrawerCloseIcon />
+              <DrawerDescription>Logical end resolves to the right in LTR.</DrawerDescription>
+            </DrawerHeader>
+            <DrawerBody class={styles.body}>
               <Card size="sm" class={styles.card}>
-                <Card.Body>The same logical direction resolves correctly in RTL.</Card.Body>
+                <CardBody>The same logical direction resolves correctly in RTL.</CardBody>
               </Card>
-            </Drawer.Body>
-          </Drawer.Content>
-        </Drawer.Positioner>
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerPositioner>
       </Drawer>
 
       <Drawer swipeDirection="up">
-        <Drawer.Trigger asChild={(props) => <Button {...props()}>Open top drawer</Button>} />
-        <Drawer.Backdrop />
-        <Drawer.Positioner>
-          <Drawer.Content>
-            <Drawer.Header>
-              <Drawer.Title>Top drawer</Drawer.Title>
-              <Drawer.CloseIcon />
-              <Drawer.Description>Swipe up to dismiss this drawer.</Drawer.Description>
-            </Drawer.Header>
-            <Drawer.Body class={styles.body}>
+        <DrawerTrigger asChild={(props) => <Button {...props()}>Open top drawer</Button>} />
+        <DrawerBackdrop />
+        <DrawerPositioner>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Top drawer</DrawerTitle>
+              <DrawerCloseIcon />
+              <DrawerDescription>Swipe up to dismiss this drawer.</DrawerDescription>
+            </DrawerHeader>
+            <DrawerBody class={styles.body}>
               <Card size="sm" class={styles.card}>
-                <Card.Body>Check this direction on a mobile viewport.</Card.Body>
+                <CardBody>Check this direction on a mobile viewport.</CardBody>
               </Card>
-            </Drawer.Body>
-          </Drawer.Content>
-        </Drawer.Positioner>
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerPositioner>
       </Drawer>
     </div>
   );

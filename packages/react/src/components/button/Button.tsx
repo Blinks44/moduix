@@ -1,10 +1,12 @@
+'use client';
+
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import styles from './Button.module.css';
 
-const ButtonRoot = forwardRef<
+const Button = forwardRef<
   HTMLButtonElement,
   HTMLArkProps<'button'> & {
     loading?: boolean;
@@ -21,7 +23,7 @@ const ButtonRoot = forwardRef<
     'data-part'?: string;
     'data-slot'?: string;
   }
->(function ButtonRoot(
+>(function Button(
   {
     asChild,
     className,
@@ -42,18 +44,15 @@ const ButtonRoot = forwardRef<
   ref,
 ) {
   const isDisabled = disabled || loading || ariaDisabled === true || ariaDisabled === 'true';
-  const nativeDisabled = asChild ? undefined : isDisabled;
-  const resolvedAriaBusy = loading ? true : ariaBusy;
-  const resolvedAriaDisabled = isDisabled ? true : ariaDisabled;
 
   return (
     <ark.button
       ref={ref}
       asChild={asChild}
       type={asChild ? type : (type ?? 'button')}
-      disabled={nativeDisabled}
-      aria-busy={resolvedAriaBusy}
-      aria-disabled={resolvedAriaDisabled}
+      disabled={asChild ? undefined : isDisabled}
+      aria-busy={loading ? true : ariaBusy}
+      aria-disabled={isDisabled ? true : ariaDisabled}
       {...props}
       onClickCapture={(event) => {
         if (isDisabled) {
@@ -83,10 +82,6 @@ const ButtonRoot = forwardRef<
       className={clsx(styles.root, className)}
     />
   );
-});
-
-const Button = Object.assign(ButtonRoot, {
-  Root: ButtonRoot,
 });
 
 export { Button };

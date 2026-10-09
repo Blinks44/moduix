@@ -19,7 +19,7 @@ type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvi
 };
 type PopoverCloseIconProps = Omit<ComponentProps<typeof PopoverPrimitive.CloseTrigger>, 'asChild'>;
 
-function PopoverRoot(props: PopoverRootProps) {
+function Popover(props: PopoverRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -204,23 +204,22 @@ function PopoverCloseTrigger(props: ComponentProps<typeof PopoverPrimitive.Close
 
 function PopoverCloseIcon(props: PopoverCloseIconProps) {
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
-  const resolvedChildren = children(() => local.children);
 
   return (
     <PopoverPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="popover-close-icon"
           aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
           aria-labelledby={local['aria-labelledby']}
           class={cn(
-            'absolute end-3 top-3 size-7 rounded-sm bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-3.5 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+            'absolute end-3 top-3 size-7 rounded-sm bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
             local.class,
           )}
         >
-          {resolvedChildren()}
-        </CloseButton.Root>
+          {local.children}
+        </CloseButton>
       )}
       {...others}
     />
@@ -260,25 +259,27 @@ function PopoverFooter(props: HTMLArkProps<'div'>) {
   );
 }
 
-const Popover = Object.assign(PopoverRoot, {
-  Root: PopoverRoot,
-  RootProvider: PopoverRootProvider,
-  Context: PopoverPrimitive.Context,
-  Anchor: PopoverAnchor,
-  Trigger: PopoverTrigger,
-  Indicator: PopoverIndicator,
-  Positioner: PopoverPositioner,
-  Content: PopoverContent,
-  Arrow: PopoverArrow,
-  ArrowTip: PopoverArrowTip,
-  Title: PopoverTitle,
-  Description: PopoverDescription,
-  CloseTrigger: PopoverCloseTrigger,
-  CloseIcon: PopoverCloseIcon,
-  Header: PopoverHeader,
-  Body: PopoverBody,
-  Footer: PopoverFooter,
-});
+const PopoverContext = PopoverPrimitive.Context;
 
-export { Popover, usePopover, usePopoverContext };
+export {
+  Popover,
+  PopoverAnchor,
+  PopoverArrow,
+  PopoverArrowTip,
+  PopoverBody,
+  PopoverCloseIcon,
+  PopoverCloseTrigger,
+  PopoverContent,
+  PopoverContext,
+  PopoverDescription,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverIndicator,
+  PopoverPositioner,
+  PopoverRootProvider,
+  PopoverTitle,
+  PopoverTrigger,
+  usePopover,
+  usePopoverContext,
+};
 export type { PopoverRootProps, PopoverRootProviderProps };

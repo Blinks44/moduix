@@ -1,7 +1,7 @@
 ---
 title: Heading
 component: heading
-description: Семантический компонент для заголовков с композицией на основе фабрики Ark и типографическими токенами moduix.
+description: Семантический компонент для заголовков с композицией на основе фабрики Ark и типографическими токенами moduix для React, Solid и Vue.
 ---
 
 import * as HeadingDocs from '@/components/examples/heading/css-properties';
@@ -17,6 +17,12 @@ import headingSolidSemanticLevelAndVisualSize from '../../../snippets/heading/so
 import headingSolidVisualSizes from '../../../snippets/heading/solid/visual-sizes.tsx?raw';
 import headingSolidWeights from '../../../snippets/heading/solid/weights.tsx?raw';
 import headingSolidCustomHost from '../../../snippets/heading/solid/custom-host.tsx?raw';
+import headingVueBasic from '../../../snippets/heading/vue/basic.vue?raw';
+import headingVueLevels from '../../../snippets/heading/vue/heading-levels.vue?raw';
+import headingVueSemanticLevelAndVisualSize from '../../../snippets/heading/vue/semantic-level-and-visual-size.vue?raw';
+import headingVueVisualSizes from '../../../snippets/heading/vue/visual-sizes.vue?raw';
+import headingVueWeights from '../../../snippets/heading/vue/weights.vue?raw';
+import headingVueCustomHost from '../../../snippets/heading/vue/custom-host.vue?raw';
 
 ## Справочник API
 
@@ -43,6 +49,7 @@ import headingSolidCustomHost from '../../../snippets/heading/solid/custom-host.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -55,6 +62,11 @@ import headingSolidCustomHost from '../../../snippets/heading/solid/custom-host.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={headingSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={headingVueBasic} />
 
     </Tab>
   </Tabs>
@@ -87,26 +99,36 @@ import headingSolidCustomHost from '../../../snippets/heading/solid/custom-host.
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/heading' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/heading' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
-`Heading` выводит один нативный элемент заголовка. Формы `<Heading>` и `<Heading.Root>` эквивалентны.
+`Heading` выводит один нативный элемент заголовка.
 
 ```text
-Heading / Heading.Root
+Heading
 └─ текст или встроенное содержимое
 ```
 
 | Часть                      | Назначение                                                  |
 | -------------------------- | ----------------------------------------------------------- |
-| `Heading` / `Heading.Root` | Нативный семантический заголовок со стилями типографики moduix. |
+| `Heading` | Нативный семантический заголовок со стилями типографики moduix. |
 
 ## Композиция
 
 `Heading` состоит только из корневого элемента и не управляет состоянием, поэтому ему не нужны провайдер
-или связанные части. Используйте `<Heading>` или эквивалентную форму `<Heading.Root>`, передавайте `as`
-для семантического уровня от `h1` до `h6`, а `size` задавайте отдельно, если визуальный акцент должен
+или связанные части. Используйте `<Heading>`, передавайте `as` для семантического уровня от `h1` до
+`h6`, а `size` задавайте отдельно, если визуальный акцент должен
 отличаться. Если `size` не задан, элемент выбирает визуальный размер от `2xl` для `h1` до `xs` для `h6`,
 а значение `weight` по умолчанию равно `semibold`. Используйте `asChild` только в случае, когда другой
 семантический элемент заголовка должен стать итоговым DOM-узлом.
@@ -129,6 +151,7 @@ Heading / Heading.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -141,6 +164,11 @@ Heading / Heading.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={headingSolidLevels} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={headingVueLevels} />
 
     </Tab>
   </Tabs>
@@ -164,6 +192,7 @@ Heading / Heading.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -176,6 +205,11 @@ Heading / Heading.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={headingSolidSemanticLevelAndVisualSize} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={headingVueSemanticLevelAndVisualSize} />
 
     </Tab>
   </Tabs>
@@ -198,6 +232,7 @@ Heading / Heading.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -210,6 +245,11 @@ Heading / Heading.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={headingSolidVisualSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={headingVueVisualSizes} />
 
     </Tab>
   </Tabs>
@@ -232,6 +272,7 @@ Heading / Heading.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -244,6 +285,11 @@ Heading / Heading.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={headingSolidWeights} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={headingVueWeights} />
 
     </Tab>
   </Tabs>
@@ -267,6 +313,7 @@ Heading / Heading.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -281,6 +328,11 @@ Heading / Heading.Root
 <CodeBlockRuntime lang="tsx" code={headingSolidCustomHost} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={headingVueCustomHost} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -288,7 +340,7 @@ Heading / Heading.Root
 
 ## Стилизация
 
-Стилизуйте `Heading` с помощью `className` в React или `class` в Solid, data-атрибутов корневого элемента
+Стилизуйте `Heading` с помощью `className` в React или `class` в Solid и Vue, data-атрибутов корневого элемента
 и публичных переменных `--moduix-heading-*`, перечисленных в справочнике CSS ниже. Пакеты CSS Modules
 предоставляют эти переменные, а Tailwind-пакеты используют нативные utility-классы и переопределения
 классов потребителя.

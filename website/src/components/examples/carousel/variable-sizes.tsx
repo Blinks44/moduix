@@ -1,4 +1,12 @@
-import { Carousel } from '@moduix/react/carousel';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/react/carousel';
 import styles from '@/components/examples/carousel/carousel-variable-sizes.module.css';
 
 const slides = [
@@ -38,25 +46,25 @@ export default function VariableSizeCarousel() {
       spacing="var(--moduix-spacing-3)"
       padding="var(--moduix-spacing-4)"
     >
-      <Carousel.Control className={styles.control}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
+      <CarouselControl className={styles.control}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
 
-      <Carousel.ItemGroup className={styles.itemGroup} aria-label="Variable size gallery">
+      <CarouselItemGroup className={styles.itemGroup} aria-label="Variable size gallery">
         {slides.map((slide, index) => (
-          <Carousel.Item key={slide.id} index={index} snapAlign="center">
+          <CarouselItem key={slide.id} index={index} snapAlign="center">
             <img
               className={styles.image}
               src={slide.src}
               alt={slide.alt}
               style={{ width: slide.width }}
             />
-          </Carousel.Item>
+          </CarouselItem>
         ))}
-      </Carousel.ItemGroup>
+      </CarouselItemGroup>
 
-      <Carousel.Indicators />
+      <CarouselIndicators />
     </Carousel>
   );
 }

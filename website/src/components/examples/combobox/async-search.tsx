@@ -1,5 +1,18 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Combobox } from '@moduix/react/combobox';
+import {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxStatus,
+  ComboboxTrigger,
+} from '@moduix/react/combobox';
 import { useEffect, useMemo, useState } from 'react';
 import styles from '@/components/examples/combobox/component-async-search.module.css';
 
@@ -45,26 +58,26 @@ export default function AsyncSearchComboboxDemo() {
         }
       }}
     >
-      <Combobox.Label>Search fruit</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="Start typing" />
-        <Combobox.ClearTrigger aria-label="Clear search" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content className={styles.content}>
-          {!query ? <Combobox.Status>Start typing to search…</Combobox.Status> : null}
-          {loading ? <Combobox.Status>Searching…</Combobox.Status> : null}
-          {!loading && query ? <Combobox.Empty>No results found.</Combobox.Empty> : null}
-          <Combobox.List>
+      <ComboboxLabel>Search fruit</ComboboxLabel>
+      <ComboboxControl>
+        <ComboboxInput placeholder="Start typing" />
+        <ComboboxClearTrigger aria-label="Clear search" />
+        <ComboboxTrigger aria-label="Open options" />
+      </ComboboxControl>
+      <ComboboxPositioner>
+        <ComboboxContent className={styles.content}>
+          {!query ? <ComboboxStatus>Start typing to search…</ComboboxStatus> : null}
+          {loading ? <ComboboxStatus>Searching…</ComboboxStatus> : null}
+          {!loading && query ? <ComboboxEmpty>No results found.</ComboboxEmpty> : null}
+          <ComboboxList>
             {collection.items.map((item) => (
-              <Combobox.Option key={item.value} item={item}>
+              <ComboboxOption key={item.value} item={item}>
                 {item.label}
-              </Combobox.Option>
+              </ComboboxOption>
             ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
+          </ComboboxList>
+        </ComboboxContent>
+      </ComboboxPositioner>
     </Combobox>
   );
 }

@@ -1,6 +1,21 @@
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Drawer } from '@moduix/react/drawer';
+import { Card, CardBody } from '@moduix/react/card';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/react/drawer';
 import styles from '@/components/examples/drawer/drawer-basic.module.css';
 
 const snapPoints = [0.45, 1];
@@ -13,39 +28,39 @@ const notifications = [
 export default function DrawerDemo() {
   return (
     <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-      <Drawer.Trigger asChild>
+      <DrawerTrigger asChild>
         <Button>Open drawer</Button>
-      </Drawer.Trigger>
-      <Drawer.Backdrop />
-      <Drawer.Positioner>
-        <Drawer.Content>
-          <Drawer.Grabber>
-            <Drawer.GrabberIndicator />
-          </Drawer.Grabber>
-          <Drawer.Header>
-            <Drawer.Title>Notifications</Drawer.Title>
-            <Drawer.CloseIcon />
-            <Drawer.Description>Three updates need your attention.</Drawer.Description>
-          </Drawer.Header>
-          <Drawer.Body className={styles.body}>
+      </DrawerTrigger>
+      <DrawerBackdrop />
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerGrabber>
+            <DrawerGrabberIndicator />
+          </DrawerGrabber>
+          <DrawerHeader>
+            <DrawerTitle>Notifications</DrawerTitle>
+            <DrawerCloseIcon />
+            <DrawerDescription>Three updates need your attention.</DrawerDescription>
+          </DrawerHeader>
+          <DrawerBody className={styles.body}>
             <Card size="sm" className={styles.card}>
-              <Card.Body>
+              <CardBody>
                 <ul>
                   {notifications.map((notification) => (
                     <li key={notification}>{notification}</li>
                   ))}
                 </ul>
-              </Card.Body>
+              </CardBody>
             </Card>
-          </Drawer.Body>
-          <Drawer.Footer>
+          </DrawerBody>
+          <DrawerFooter>
             <Button>View inbox</Button>
-            <Drawer.CloseTrigger asChild>
+            <DrawerCloseTrigger asChild>
               <Button variant="outline">Close</Button>
-            </Drawer.CloseTrigger>
-          </Drawer.Footer>
-        </Drawer.Content>
-      </Drawer.Positioner>
+            </DrawerCloseTrigger>
+          </DrawerFooter>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   );
 }

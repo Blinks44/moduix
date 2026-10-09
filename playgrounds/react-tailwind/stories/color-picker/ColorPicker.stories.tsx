@@ -1,6 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { ColorPicker, parseColor, useColorPicker } from '@/components/color-picker/ColorPicker';
+import {
+  ColorPicker,
+  parseColor,
+  useColorPicker,
+  ColorPickerRootProvider,
+  ColorPickerHiddenInput,
+  ColorPickerLabel,
+  ColorPickerControl,
+  ColorPickerTrigger,
+  ColorPickerPositioner,
+  ColorPickerContent,
+  ColorPickerArea,
+  ColorPickerChannelInput,
+  ColorPickerEyeDropperTrigger,
+  ColorPickerSwatchGroup,
+  ColorPickerSwatchTrigger,
+  ColorPickerTransparencyGrid,
+  ColorPickerValueSwatch,
+  ColorPickerValueText,
+  ColorPickerView,
+  ColorPickerSliders,
+} from '@/components/color-picker/ColorPicker';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316', '#dc2626', '#9333ea'];
 
@@ -28,29 +49,29 @@ function ColorPickerField({
 }) {
   return (
     <>
-      <ColorPicker.Label>Color</ColorPicker.Label>
-      <ColorPicker.Control>
-        <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.Trigger aria-label="Open color picker" className={triggerClassName} />
-      </ColorPicker.Control>
-      <ColorPicker.Positioner>
-        <ColorPicker.Content>
-          <ColorPicker.Area />
+      <ColorPickerLabel>Color</ColorPickerLabel>
+      <ColorPickerControl>
+        <ColorPickerChannelInput channel="hex" />
+        <ColorPickerTrigger aria-label="Open color picker" className={triggerClassName} />
+      </ColorPickerControl>
+      <ColorPickerPositioner>
+        <ColorPickerContent>
+          <ColorPickerArea />
           <div className="flex items-center gap-3">
-            <ColorPicker.EyeDropperTrigger
+            <ColorPickerEyeDropperTrigger
               aria-label="Pick color from screen"
               className={actionClassName}
             />
-            <ColorPicker.Sliders />
+            <ColorPickerSliders />
           </div>
-          <ColorPicker.SwatchGroup>
+          <ColorPickerSwatchGroup>
             {swatchList.map((color) => (
-              <ColorPicker.SwatchTrigger key={color} value={color} />
+              <ColorPickerSwatchTrigger key={color} value={color} />
             ))}
-          </ColorPicker.SwatchGroup>
-        </ColorPicker.Content>
-      </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
+          </ColorPickerSwatchGroup>
+        </ColorPickerContent>
+      </ColorPickerPositioner>
+      <ColorPickerHiddenInput />
     </>
   );
 }
@@ -59,20 +80,20 @@ function InlinePicker() {
   return (
     <ColorPicker className="w-[17rem]" inline defaultValue={parseColor('#2563eb')}>
       <div className="flex items-center justify-between gap-3">
-        <ColorPicker.Label>Inline color</ColorPicker.Label>
-        <ColorPicker.ValueText format="hex" />
+        <ColorPickerLabel>Inline color</ColorPickerLabel>
+        <ColorPickerValueText format="hex" />
       </div>
-      <ColorPicker.Area />
+      <ColorPickerArea />
       <div className="flex items-center gap-3">
-        <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
-        <ColorPicker.Sliders />
+        <ColorPickerEyeDropperTrigger aria-label="Pick color from screen" />
+        <ColorPickerSliders />
       </div>
-      <ColorPicker.View format="rgba">
+      <ColorPickerView format="rgba">
         <div className="flex min-w-0 gap-2">
-          <ColorPicker.ChannelInput channel="hex" />
-          <ColorPicker.ChannelInput channel="alpha" />
+          <ColorPickerChannelInput channel="hex" />
+          <ColorPickerChannelInput channel="alpha" />
         </div>
-      </ColorPicker.View>
+      </ColorPickerView>
     </ColorPicker>
   );
 }
@@ -80,27 +101,27 @@ function InlinePicker() {
 function CompactTriggerPicker() {
   return (
     <ColorPicker className="w-72" defaultValue={parseColor('#eb5e41')}>
-      <ColorPicker.Label>Color</ColorPicker.Label>
-      <ColorPicker.Control>
-        <ColorPicker.Trigger aria-label="Open color picker" data-fit-content>
+      <ColorPickerLabel>Color</ColorPickerLabel>
+      <ColorPickerControl>
+        <ColorPickerTrigger aria-label="Open color picker" data-fit-content>
           <span className="inline-flex items-center gap-2">
             <span className="relative grid size-4 shrink-0 overflow-hidden rounded-sm border border-border">
-              <ColorPicker.TransparencyGrid />
-              <ColorPicker.ValueSwatch />
+              <ColorPickerTransparencyGrid />
+              <ColorPickerValueSwatch />
             </span>
-            <ColorPicker.ValueText format="hex" />
+            <ColorPickerValueText format="hex" />
           </span>
-        </ColorPicker.Trigger>
-      </ColorPicker.Control>
-      <ColorPicker.Positioner>
-        <ColorPicker.Content>
-          <ColorPicker.Area />
+        </ColorPickerTrigger>
+      </ColorPickerControl>
+      <ColorPickerPositioner>
+        <ColorPickerContent>
+          <ColorPickerArea />
           <div className="flex items-center gap-3">
-            <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
-            <ColorPicker.Sliders />
+            <ColorPickerEyeDropperTrigger aria-label="Pick color from screen" />
+            <ColorPickerSliders />
           </div>
-        </ColorPicker.Content>
-      </ColorPicker.Positioner>
+        </ColorPickerContent>
+      </ColorPickerPositioner>
     </ColorPicker>
   );
 }
@@ -142,13 +163,13 @@ export const RootProvider: Story = {
     const colorPicker = useColorPicker({ defaultValue: parseColor('#9333ea') });
 
     return (
-      <ColorPicker.RootProvider className="w-72" value={colorPicker}>
+      <ColorPickerRootProvider className="w-72" value={colorPicker}>
         <div className="flex items-center justify-between gap-3">
-          <ColorPicker.Label>Provider color</ColorPicker.Label>
-          <ColorPicker.ValueText format="hex" />
+          <ColorPickerLabel>Provider color</ColorPickerLabel>
+          <ColorPickerValueText format="hex" />
         </div>
         <ColorPickerField />
-      </ColorPicker.RootProvider>
+      </ColorPickerRootProvider>
     );
   },
 };

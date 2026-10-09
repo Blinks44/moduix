@@ -1,17 +1,25 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog } from '@moduix/solid/dialog';
+import {
+  Dialog,
+  DialogCloseIcon,
+  DialogContent,
+  DialogDescription,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/solid/dialog';
 
 export default function NonModalDialogDemo() {
   return (
     <Dialog modal={false}>
-      <Dialog.Trigger asChild={(props) => <Button {...props()}>Open non-modal dialog</Button>} />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Non-modal dialog</Dialog.Title>
-          <Dialog.Description>The page remains interactive.</Dialog.Description>
-          <Dialog.CloseIcon />
-        </Dialog.Content>
-      </Dialog.Positioner>
+      <DialogTrigger asChild={(props) => <Button {...props()}>Open non-modal dialog</Button>} />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Non-modal dialog</DialogTitle>
+          <DialogDescription>The page remains interactive.</DialogDescription>
+          <DialogCloseIcon />
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

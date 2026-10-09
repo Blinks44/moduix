@@ -8,7 +8,7 @@ import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui/Icons';
 
-function PasswordInputRoot(props: ComponentProps<typeof PasswordInputPrimitive.Root>) {
+function PasswordInput(props: ComponentProps<typeof PasswordInputPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -140,16 +140,18 @@ function PasswordInputField(props: PasswordInputFieldProps) {
   );
 }
 
-const PasswordInput = Object.assign(PasswordInputRoot, {
-  Root: PasswordInputRoot,
-  RootProvider: PasswordInputRootProvider,
-  Context: PasswordInputPrimitive.Context,
-  Label: PasswordInputLabel,
-  Control: PasswordInputControl,
-  Field: PasswordInputField,
-  Input: PasswordInputInput,
-  VisibilityTrigger: PasswordInputVisibilityTrigger,
-  Indicator: PasswordInputIndicator,
-});
+const PasswordInputContext = PasswordInputPrimitive.Context;
 
-export { PasswordInput, usePasswordInput, usePasswordInputContext };
+export {
+  PasswordInput,
+  PasswordInputContext,
+  PasswordInputControl,
+  PasswordInputField,
+  PasswordInputIndicator,
+  PasswordInputInput,
+  PasswordInputLabel,
+  PasswordInputRootProvider,
+  PasswordInputVisibilityTrigger,
+  usePasswordInput,
+  usePasswordInputContext,
+};

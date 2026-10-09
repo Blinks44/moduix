@@ -26,6 +26,11 @@ Use this skill for JS/TS React work in this repo.
 - Keep APIs consistent across semantically similar components. If two controls solve the same kind of
   problem, prefer the same prop names, controlled/uncontrolled contracts, event names, and ref
   behavior unless there is a documented, defensible reason to differ.
+- Export component values through the shared flat contract. Name the root with the family name and
+  prefix every other part, for example `Accordion`, `AccordionItem`, `AccordionItemTrigger`, and
+  `AccordionRootProvider`. Export hooks directly as `useAccordion` and similar names. Do not use
+  `Object.assign`, static component properties, namespace objects, `Accordion.Root`, or a duplicate
+  `AccordionRoot` public alias.
 - Do not add `memo` by default.
 - Do not add `forwardRef` unless the ref is part of the real consumer API or required by the primitive.
 - When `forwardRef` is needed, type it against the real rendered contract.
@@ -38,9 +43,9 @@ Use this skill for JS/TS React work in this repo.
   call instead of intermediate class-string constants. A component-local `cva` recipe may own
   prop-driven visual variants or an identical Root/RootProvider recipe when that is clearer than
   repeated state utilities; merge the consumer class last through `cn`.
-- Keep a component's consumer-facing value exports together in one final export statement in its implementation file.
-  Import re-exported Ark hooks there and include them in that statement; keep the component-local `index.ts` as a
-  re-export-only barrel.
+- Keep a component's consumer-facing value exports together in one final export statement in its
+  implementation file. Import re-exported Ark hooks there and include them in that statement; keep
+  the component-local `index.ts` as a re-export-only barrel.
 
 ## Ark React Rules
 
@@ -56,4 +61,4 @@ Use this skill for JS/TS React work in this repo.
 - Keep `asChild` children single and semantic. If a custom child replaces a button, input, label, or link, it must
   preserve the required ARIA, keyboard, and focus behavior.
 - Use `className` in both React packages. In `packages/react-tailwind`, merge defaults and the
-  consumer class with the local `cn` helper according to `migration-css-modules-to-tailwind`.
+  consumer class last with the local `cn` helper according to `conventions-css`.

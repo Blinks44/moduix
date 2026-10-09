@@ -1,5 +1,13 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog } from '@moduix/solid/dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogCloseIcon,
+  DialogContent,
+  DialogPositioner,
+  DialogTitle,
+  DialogTrigger,
+} from '@moduix/solid/dialog';
 import { createSignal } from 'solid-js';
 
 export default function ControlledDialogDemo() {
@@ -7,14 +15,14 @@ export default function ControlledDialogDemo() {
 
   return (
     <Dialog open={open()} onOpenChange={(details) => setOpen(details.open)}>
-      <Dialog.Trigger asChild={(props) => <Button {...props()}>Open controlled dialog</Button>} />
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Publish changes?</Dialog.Title>
-          <Dialog.CloseIcon />
-        </Dialog.Content>
-      </Dialog.Positioner>
+      <DialogTrigger asChild={(props) => <Button {...props()}>Open controlled dialog</Button>} />
+      <DialogBackdrop />
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Publish changes?</DialogTitle>
+          <DialogCloseIcon />
+        </DialogContent>
+      </DialogPositioner>
     </Dialog>
   );
 }

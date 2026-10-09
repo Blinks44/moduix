@@ -1,0 +1,504 @@
+@layer moduix.components {
+  .root {
+    --moduix-splitter-width: var(--moduix-sidebar-width, 100%);
+    --moduix-splitter-height: var(--moduix-sidebar-height, 100dvh);
+    --moduix-splitter-min-height: var(--moduix-sidebar-min-height, 24rem);
+    --moduix-splitter-border-color: var(--moduix-sidebar-border-color, var(--moduix-color-border));
+    --moduix-splitter-border-width: var(
+      --moduix-sidebar-border-width,
+      var(--moduix-border-width-sm)
+    );
+    --moduix-splitter-radius: var(--moduix-sidebar-radius, 0);
+    --moduix-splitter-shadow: var(--moduix-sidebar-shadow, none);
+    --moduix-splitter-bg: var(--moduix-sidebar-inset-bg, var(--moduix-color-background));
+    --moduix-splitter-panel-padding: 0;
+    --moduix-splitter-panel-min-height: 0;
+    --moduix-splitter-resize-trigger-line-color: var(
+      --moduix-sidebar-border-color,
+      var(--moduix-color-border)
+    );
+    --moduix-splitter-resize-trigger-size: var(
+      --moduix-sidebar-resize-hit-area,
+      var(--moduix-spacing-3)
+    );
+
+    isolation: isolate;
+  }
+
+  .panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    container-type: inline-size;
+    background-color: var(--moduix-sidebar-bg, var(--moduix-color-card));
+    color: var(--moduix-sidebar-color, var(--moduix-color-card-foreground));
+    transition:
+      background-color var(--moduix-sidebar-transition, var(--moduix-transition-default)),
+      color var(--moduix-sidebar-transition, var(--moduix-transition-default));
+
+    &[data-state='collapsed'] {
+      .header,
+      .footer,
+      .group {
+        padding-inline: var(--moduix-sidebar-collapsed-padding-x, var(--moduix-spacing-1));
+      }
+
+      .header,
+      .footer {
+        justify-content: center;
+      }
+
+      .header > :only-child {
+        width: auto;
+      }
+
+      .content {
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-gutter: auto;
+        scrollbar-width: none;
+      }
+
+      .label,
+      .groupLabel {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        border: 0;
+        white-space: nowrap;
+        clip-path: inset(50%);
+      }
+
+      .menuSub {
+        display: none;
+      }
+
+      .groupAction {
+        display: none;
+      }
+
+      .input {
+        display: none;
+      }
+
+      .menuButton {
+        width: var(--moduix-sidebar-collapsed-item-size, var(--moduix-size-md));
+        min-height: var(--moduix-sidebar-collapsed-item-size, var(--moduix-size-md));
+        margin-inline: auto;
+        justify-content: center;
+        padding-inline: 0;
+        border-color: transparent;
+        background-color: transparent;
+        box-shadow: none;
+
+        @media (hover: hover) {
+          &:hover {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+  }
+
+  .inset {
+    position: relative;
+    min-width: 0;
+    overflow: auto;
+    background-color: var(--moduix-sidebar-inset-bg, var(--moduix-color-background));
+    color: var(--moduix-sidebar-inset-color, var(--moduix-color-foreground));
+  }
+
+  .resizeTrigger {
+    z-index: 2;
+  }
+
+  .trigger {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    position: relative;
+    z-index: 4;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7));
+    min-width: var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7));
+    height: var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7));
+    margin-inline: calc(var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7)) * -0.5);
+    padding: 0;
+    border: var(--moduix-sidebar-trigger-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-sidebar-trigger-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-sidebar-trigger-radius, var(--moduix-radius-full));
+    background-color: var(--moduix-sidebar-trigger-bg, var(--moduix-color-background));
+    color: var(--moduix-sidebar-muted-color, var(--moduix-color-muted-foreground));
+    appearance: none;
+    cursor: pointer;
+    translate: 0 var(--moduix-sidebar-trigger-offset-y, 40px);
+    box-shadow: var(--moduix-sidebar-trigger-shadow, var(--moduix-shadow-sm));
+    transition:
+      background-color var(--moduix-sidebar-transition, var(--moduix-transition-default)),
+      color var(--moduix-sidebar-transition, var(--moduix-transition-default)),
+      box-shadow var(--moduix-sidebar-transition, var(--moduix-transition-default));
+
+    > svg {
+      width: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
+      transition: transform var(--moduix-sidebar-transition, var(--moduix-transition-default));
+    }
+
+    &[data-side='left'][data-state='collapsed'] > svg,
+    &[data-side='right'][data-state='expanded'] > svg {
+      transform: rotate(180deg);
+    }
+
+    &:disabled,
+    &[aria-disabled='true'] {
+      opacity: var(--moduix-sidebar-disabled-opacity, var(--moduix-opacity-disabled));
+      pointer-events: none;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--moduix-sidebar-accent-bg, var(--moduix-color-accent));
+        color: var(--moduix-sidebar-accent-color, var(--moduix-color-accent-foreground));
+      }
+    }
+  }
+
+  .label,
+  .groupLabel {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .header,
+  .footer {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--moduix-sidebar-gap, var(--moduix-spacing-2));
+    padding: var(--moduix-sidebar-header-footer-padding, var(--moduix-spacing-3));
+  }
+
+  .header {
+    border-block-end: var(--moduix-sidebar-section-border-width, 0) solid
+      var(--moduix-sidebar-border-color, var(--moduix-color-border));
+
+    > :only-child {
+      width: 100%;
+    }
+  }
+
+  .footer {
+    border-block-start: var(--moduix-sidebar-section-border-width, 0) solid
+      var(--moduix-sidebar-border-color, var(--moduix-color-border));
+  }
+
+  .content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-sidebar-group-gap, var(--moduix-spacing-1));
+    padding: var(--moduix-sidebar-group-padding, var(--moduix-spacing-3));
+  }
+
+  .groupLabel {
+    flex: 1;
+    margin: 0;
+    padding-inline: var(--moduix-sidebar-group-label-padding-x, var(--moduix-spacing-2));
+    color: var(--moduix-sidebar-muted-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-sidebar-group-label-font-size, var(--moduix-text-xs));
+    font-weight: var(--moduix-sidebar-group-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-sidebar-group-label-line-height, var(--moduix-line-height-text-xs));
+    text-transform: var(--moduix-sidebar-group-label-text-transform, none);
+  }
+
+  .groupHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-sidebar-gap, var(--moduix-spacing-2));
+    min-width: 0;
+  }
+
+  .groupAction {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-sidebar-group-action-size, var(--moduix-size-xs));
+    height: var(--moduix-sidebar-group-action-size, var(--moduix-size-xs));
+    padding: 0;
+    border: 0;
+    border-radius: var(--moduix-sidebar-navigation-button-radius, var(--moduix-radius-md));
+    background-color: transparent;
+    color: var(--moduix-sidebar-muted-color, var(--moduix-color-muted-foreground));
+    appearance: none;
+    cursor: pointer;
+    margin-inline-end: var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2));
+    transition:
+      background-color var(--moduix-sidebar-transition, var(--moduix-transition-default)),
+      color var(--moduix-sidebar-transition, var(--moduix-transition-default));
+
+    > svg {
+      width: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--moduix-sidebar-accent-bg, var(--moduix-color-accent));
+        color: var(--moduix-sidebar-accent-color, var(--moduix-color-accent-foreground));
+      }
+    }
+  }
+
+  .menu,
+  .menuSub {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-sidebar-navigation-gap, var(--moduix-spacing-1));
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .menuItem,
+  .menuSubItem {
+    position: relative;
+    min-width: 0;
+  }
+
+  .menuButton:has(+ .menuBadge),
+  .menuSubButton:has(+ .menuBadge) {
+    padding-inline-end: var(--moduix-spacing-10);
+  }
+
+  .menuBadge {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: var(--moduix-spacing-2-5);
+    z-index: 1;
+    box-sizing: border-box;
+    display: inline-grid;
+    place-items: center;
+    width: var(--moduix-spacing-5);
+    height: var(--moduix-spacing-5);
+    padding: 0;
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-color-primary);
+    color: var(--moduix-color-primary-foreground);
+    font-size: 0.5625rem;
+    font-weight: var(--moduix-weight-medium);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+
+  .menuButton,
+  .menuSubButton {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border: var(--moduix-sidebar-navigation-button-border-width, 0) solid transparent;
+    border-radius: var(--moduix-sidebar-navigation-button-radius, var(--moduix-radius-md));
+    background-color: transparent;
+    color: var(--moduix-sidebar-color, var(--moduix-color-card-foreground));
+    appearance: none;
+    font: inherit;
+    text-align: start;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-sidebar-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-sidebar-transition, var(--moduix-transition-default)),
+      color var(--moduix-sidebar-transition, var(--moduix-transition-default)),
+      box-shadow var(--moduix-sidebar-transition, var(--moduix-transition-default));
+
+    > svg {
+      flex: none;
+      width: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
+    }
+
+    > [data-sidebar-icon] {
+      flex: none;
+    }
+
+    > span:last-child {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &:disabled,
+    &[aria-disabled='true'] {
+      opacity: var(--moduix-sidebar-disabled-opacity, var(--moduix-opacity-disabled));
+      pointer-events: none;
+    }
+
+    &[data-active] {
+      background-color: var(--moduix-sidebar-accent-bg, var(--moduix-color-accent));
+      color: var(--moduix-sidebar-accent-color, var(--moduix-color-accent-foreground));
+      font-weight: var(--moduix-sidebar-active-font-weight, var(--moduix-weight-medium));
+    }
+
+    @media (hover: hover) {
+      &:hover:not(:disabled, [aria-disabled='true']) {
+        background-color: var(--moduix-sidebar-accent-bg, var(--moduix-color-accent));
+        color: var(--moduix-sidebar-accent-color, var(--moduix-color-accent-foreground));
+      }
+    }
+  }
+
+  .menuButton {
+    gap: var(--moduix-sidebar-navigation-button-gap, var(--moduix-spacing-2));
+    min-height: var(--moduix-sidebar-navigation-button-height, var(--moduix-size-md));
+    padding-block: var(--moduix-sidebar-navigation-button-padding-y, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2));
+    font-size: var(--moduix-sidebar-navigation-button-font-size, var(--moduix-text-sm));
+    line-height: var(
+      --moduix-sidebar-navigation-button-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+
+    &[data-size='sm'] {
+      min-height: var(--moduix-sidebar-navigation-button-height-sm, var(--moduix-size-sm));
+      font-size: var(--moduix-sidebar-navigation-button-font-size-sm, var(--moduix-text-xs));
+    }
+
+    &[data-size='lg'] {
+      min-height: var(--moduix-sidebar-navigation-button-height-lg, var(--moduix-size-lg));
+    }
+
+    > [data-slot='collapsible-indicator'],
+    > [data-slot='menu-indicator'] {
+      margin-inline-start: auto;
+      width: var(--moduix-sidebar-navigation-indicator-size, var(--moduix-size-xs));
+      height: var(--moduix-sidebar-navigation-indicator-size, var(--moduix-size-xs));
+    }
+
+    > [data-slot='collapsible-indicator'] > svg {
+      width: var(--moduix-spacing-3);
+      height: var(--moduix-spacing-3);
+    }
+
+    > [data-slot='menu-indicator'] {
+      box-sizing: border-box;
+      width: var(--moduix-sidebar-navigation-indicator-size, var(--moduix-size-xs));
+      height: var(--moduix-sidebar-navigation-indicator-size, var(--moduix-size-xs));
+      color: var(--moduix-sidebar-muted-color, var(--moduix-color-muted-foreground));
+      line-height: 0;
+
+      > svg {
+        display: block;
+        width: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
+        height: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
+      }
+    }
+
+    > [data-scope='select'][data-part='indicator'] {
+      margin-inline-start: auto;
+    }
+  }
+
+  .trigger:focus-visible,
+  .groupAction:focus-visible,
+  .menuButton:focus-visible,
+  .menuSubButton:focus-visible {
+    outline: var(
+        --moduix-sidebar-focus-ring-width,
+        var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+      )
+      solid var(--moduix-sidebar-focus-ring-color, var(--moduix-color-ring));
+    outline-offset: var(--moduix-sidebar-focus-ring-offset, var(--moduix-focus-ring-offset));
+  }
+
+  .menuSub {
+    box-sizing: border-box;
+    width: auto;
+    margin-block-start: var(--moduix-sidebar-navigation-sub-margin-y, var(--moduix-spacing-1));
+    margin-inline-start: var(--moduix-sidebar-navigation-sub-margin-x, var(--moduix-spacing-4));
+    padding-inline-start: var(--moduix-sidebar-navigation-sub-padding-x, var(--moduix-spacing-2));
+    border-inline-start: var(
+        --moduix-sidebar-navigation-sub-border-width,
+        var(--moduix-border-width-sm)
+      )
+      solid var(--moduix-sidebar-border-color, var(--moduix-color-border));
+  }
+
+  .menuSubButton {
+    gap: var(--moduix-sidebar-navigation-sub-button-gap, var(--moduix-spacing-2));
+    min-height: var(--moduix-sidebar-navigation-sub-button-height, var(--moduix-size-sm));
+    padding-inline: var(--moduix-sidebar-navigation-sub-button-padding-x, var(--moduix-spacing-2));
+    font-size: var(--moduix-sidebar-navigation-sub-button-font-size, var(--moduix-text-sm));
+    line-height: var(
+      --moduix-sidebar-navigation-sub-button-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+  }
+
+  @container (max-width: 7rem) {
+    .groupAction,
+    .menuBadge,
+    [data-slot='collapsible-indicator'],
+    [data-slot='menu-indicator'],
+    [data-slot='select-indicator'] {
+      display: none;
+    }
+
+    .menuButton:has(+ .menuBadge) {
+      padding-inline-end: var(
+        --moduix-sidebar-navigation-button-padding-x,
+        var(--moduix-spacing-2)
+      );
+    }
+
+    .menuSubButton:has(+ .menuBadge) {
+      padding-inline-end: var(
+        --moduix-sidebar-navigation-sub-button-padding-x,
+        var(--moduix-spacing-2)
+      );
+    }
+  }
+
+  .input {
+    width: 100%;
+  }
+
+  .separator {
+    --moduix-separator-color: var(--moduix-sidebar-border-color, var(--moduix-color-border));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .panel,
+    .trigger,
+    .groupAction,
+    .menuButton,
+    .menuSubButton {
+      transition: none;
+    }
+  }
+}

@@ -39,11 +39,11 @@ type PreviewJustification = keyof typeof previewJustifications;
 function ExampleFrame({
   children,
   clientOnly = false,
-  variant = 'recipe',
+  variant = 'block',
 }: {
   children: React.ReactNode;
   clientOnly?: boolean;
-  variant?: 'component' | 'recipe';
+  variant?: 'component' | 'block';
 }) {
   if (import.meta.env.SSG_MD) return null;
 

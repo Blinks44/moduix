@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText, FieldHelperText, FieldLabel } from '@/components/field';
 import { Input } from '@/components/input/Input';
 import storyStyles from './Input.stories.module.css';
 
@@ -19,8 +19,8 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: () => (
     <Field class={storyStyles.field}>
-      <Field.Label>Name</Field.Label>
-      <Field.HelperText>Used in your public workspace profile.</Field.HelperText>
+      <FieldLabel>Name</FieldLabel>
+      <FieldHelperText>Used in your public workspace profile.</FieldHelperText>
       <Input placeholder="Enter your name" />
     </Field>
   ),
@@ -32,7 +32,7 @@ export const Controlled: Story = {
 
     return (
       <Field class={storyStyles.field}>
-        <Field.Label>Username</Field.Label>
+        <FieldLabel>Username</FieldLabel>
         <Input
           value={value()}
           onChange={(event) => setValue(event.currentTarget.value)}
@@ -58,7 +58,7 @@ export const Sizes: Story = {
 export const NativeAttributes: Story = {
   render: () => (
     <Field class={storyStyles.field}>
-      <Field.Label>Security code</Field.Label>
+      <FieldLabel>Security code</FieldLabel>
       <Input
         htmlSize={8}
         inputMode="numeric"
@@ -75,9 +75,9 @@ export const NativeAttributes: Story = {
 export const File: Story = {
   render: () => (
     <Field class={storyStyles.field}>
-      <Field.Label>Attachment</Field.Label>
+      <FieldLabel>Attachment</FieldLabel>
       <Input accept=".pdf,.png" type="file" />
-      <Field.HelperText>Choose a PDF or PNG file.</Field.HelperText>
+      <FieldHelperText>Choose a PDF or PNG file.</FieldHelperText>
     </Field>
   ),
 };
@@ -85,7 +85,7 @@ export const File: Story = {
 export const AsChild: Story = {
   render: () => (
     <Field class={storyStyles.field}>
-      <Field.Label>Repository</Field.Label>
+      <FieldLabel>Repository</FieldLabel>
       <Input
         asChild={(props) => <input {...props()} name="repository" placeholder="owner/project" />}
       />
@@ -105,9 +105,9 @@ export const DisabledAndReadOnly: Story = {
 export const WithFieldValidation: Story = {
   render: () => (
     <Field class={storyStyles.field} invalid>
-      <Field.Label>Email</Field.Label>
+      <FieldLabel>Email</FieldLabel>
       <Input type="email" placeholder="name@example.com" />
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
+      <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>
   ),
 };
@@ -115,7 +115,7 @@ export const WithFieldValidation: Story = {
 export const CustomStyles: Story = {
   render: () => (
     <Field class={storyStyles.field}>
-      <Field.Label>Project key</Field.Label>
+      <FieldLabel>Project key</FieldLabel>
       <Input placeholder="MAPS" class={storyStyles.customInput} />
     </Field>
   ),

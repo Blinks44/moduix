@@ -21,6 +21,14 @@ import textSolidSize from '../../../snippets/text/solid/size.tsx?raw';
 import textSolidTone from '../../../snippets/text/solid/tone.tsx?raw';
 import textSolidTruncation from '../../../snippets/text/solid/truncation.tsx?raw';
 import textSolidWeight from '../../../snippets/text/solid/weight.tsx?raw';
+import textVueAlignment from '../../../snippets/text/vue/alignment.vue?raw';
+import textVueBasic from '../../../snippets/text/vue/basic.vue?raw';
+import textVueCustomComposition from '../../../snippets/text/vue/custom-composition.vue?raw';
+import textVueSemantics from '../../../snippets/text/vue/semantics.vue?raw';
+import textVueSize from '../../../snippets/text/vue/size.vue?raw';
+import textVueTone from '../../../snippets/text/vue/tone.vue?raw';
+import textVueTruncation from '../../../snippets/text/vue/truncation.vue?raw';
+import textVueWeight from '../../../snippets/text/vue/weight.vue?raw';
 
 ## Справочник API
 
@@ -55,6 +63,7 @@ import textSolidWeight from '../../../snippets/text/solid/weight.tsx?raw';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -67,6 +76,11 @@ import textSolidWeight from '../../../snippets/text/solid/weight.tsx?raw';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,25 +118,35 @@ import textSolidWeight from '../../../snippets/text/solid/weight.tsx?raw';
 />
 
   </Tab>
-</Tabs>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/text' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/text' },
+  ]}
+/>
+
+  </Tab>
+  </Tabs>
 
 ## Анатомия
 
-`Text` выводит один корневой элемент с помощью фабрики Ark. Варианты `<Text>` и `<Text.Root>` делают одно и то же.
+`Text` выводит один корневой элемент с помощью фабрики Ark через плоский корневой экспорт.
 
 ```text
-Text / Text.Root
+Text
 └─ текст или встроенное содержимое
 ```
 
 | Часть                 | Назначение                                                       |
 | --------------------- | ---------------------------------------------------------------- |
-| `Text` / `Text.Root` | Типографический корневой элемент с семантическим HTML и стабильными data-атрибутами. |
+| `Text`              | Типографический корневой элемент с семантическим HTML и стабильными data-атрибутами. |
 
 ## Композиция
 
 `Text` состоит только из корневого элемента и не владеет состоянием или дочерними частями. Используйте `<Text>`
-или `<Text.Root>` для одного и того же корня, `as` для поддерживаемого семантического элемента, а `asChild` только
+для корня, `as` для поддерживаемого семантического элемента, а `asChild` только
 когда один существующий элемент должен получить свойства и `ref` текста. Усечение ограничивает только отображение,
 поэтому состояние раскрытия и управляющий элемент остаются в окружающем интерфейсе.
 
@@ -143,6 +167,7 @@ Text / Text.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -155,6 +180,11 @@ Text / Text.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidAlignment} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueAlignment} />
 
     </Tab>
   </Tabs>
@@ -182,6 +212,7 @@ Text / Text.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -194,6 +225,11 @@ Text / Text.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidSemantics} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueSemantics} />
 
     </Tab>
   </Tabs>
@@ -221,6 +257,7 @@ Text / Text.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -233,6 +270,11 @@ Text / Text.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidSize} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueSize} />
 
     </Tab>
   </Tabs>
@@ -260,6 +302,7 @@ Text / Text.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -272,6 +315,11 @@ Text / Text.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidTone} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueTone} />
 
     </Tab>
   </Tabs>
@@ -287,7 +335,7 @@ Text / Text.Root
 ### Усечение
 
 Используйте `truncate` для однострочного усечения с многоточием, а `lineClamp` для компактных многострочных превью.
-Если заданы оба свойства, действует `lineClamp` — оно переопределяет однострочное усечение. Логику раскрытия
+Если заданы оба свойства, действует `lineClamp` - оно переопределяет однострочное усечение. Логику раскрытия
 полного текста добавляйте отдельно, в окружающем интерфейсе.
 
 <ExampleFrame variant="component">
@@ -301,6 +349,7 @@ Text / Text.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -313,6 +362,11 @@ Text / Text.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidTruncation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueTruncation} />
 
     </Tab>
   </Tabs>
@@ -340,6 +394,7 @@ Text / Text.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -352,6 +407,11 @@ Text / Text.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidWeight} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueWeight} />
 
     </Tab>
   </Tabs>
@@ -380,6 +440,7 @@ Text / Text.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -394,6 +455,11 @@ Text / Text.Root
 <CodeBlockRuntime lang="tsx" code={textSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -401,7 +467,7 @@ Text / Text.Root
 
 ## Стилизация
 
-Оформляйте `Text` с помощью `className`, data-атрибутов корневого элемента и публичного CSS API. Варианты
+Оформляйте `Text` с помощью `className` в React или `class` в Solid и Vue, data-атрибутов корневого элемента и публичного CSS API. Варианты
 с CSS Modules предоставляют перечисленные ниже переменные `--moduix-text-*`, а варианты Tailwind используют
 классы-утилиты и переопределения классов на стороне приложения.
 

@@ -1,25 +1,37 @@
-import { ColorPicker, parseColor } from '@moduix/solid/color-picker';
+import {
+  ColorPicker,
+  parseColor,
+  ColorPickerLabel,
+  ColorPickerControl,
+  ColorPickerTrigger,
+  ColorPickerPositioner,
+  ColorPickerContent,
+  ColorPickerArea,
+  ColorPickerChannelInput,
+  ColorPickerSwatchGroup,
+  ColorPickerSwatchTrigger,
+} from '@moduix/solid/color-picker';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316'];
 
 export default function SwatchesColorPickerDemo() {
   return (
     <ColorPicker defaultValue={parseColor('#f97316')} closeOnSelect>
-      <ColorPicker.Label>Color</ColorPicker.Label>
-      <ColorPicker.Control>
-        <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.Trigger aria-label="Open color picker" />
-      </ColorPicker.Control>
-      <ColorPicker.Positioner>
-        <ColorPicker.Content>
-          <ColorPicker.Area />
-          <ColorPicker.SwatchGroup>
+      <ColorPickerLabel>Color</ColorPickerLabel>
+      <ColorPickerControl>
+        <ColorPickerChannelInput channel="hex" />
+        <ColorPickerTrigger aria-label="Open color picker" />
+      </ColorPickerControl>
+      <ColorPickerPositioner>
+        <ColorPickerContent>
+          <ColorPickerArea />
+          <ColorPickerSwatchGroup>
             {swatches.map((color) => (
-              <ColorPicker.SwatchTrigger value={color} />
+              <ColorPickerSwatchTrigger value={color} />
             ))}
-          </ColorPicker.SwatchGroup>
-        </ColorPicker.Content>
-      </ColorPicker.Positioner>
+          </ColorPickerSwatchGroup>
+        </ColorPickerContent>
+      </ColorPickerPositioner>
     </ColorPicker>
   );
 }

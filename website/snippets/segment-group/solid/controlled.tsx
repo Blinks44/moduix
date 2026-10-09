@@ -1,4 +1,8 @@
-import { SegmentGroup } from '@moduix/solid/segment-group';
+import {
+  SegmentGroup,
+  SegmentGroupIndicator,
+  SegmentGroupItems,
+} from '@moduix/solid/segment-group';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/segment-group/segment-group-controlled.module.css';
 
@@ -19,8 +23,8 @@ export default function ControlledSegmentGroupDemo() {
         value={value()}
         onValueChange={(details) => setValue(details.value)}
       >
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworks} />
+        <SegmentGroupIndicator />
+        <SegmentGroupItems items={frameworks} />
       </SegmentGroup>
       <output>Selected: {value() ?? 'none'}</output>
     </div>

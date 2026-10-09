@@ -1,47 +1,63 @@
-import { Sidebar } from '@moduix/react/sidebar';
+import {
+  Sidebar,
+  SidebarPanel,
+  SidebarInset,
+  SidebarResizeTrigger,
+  SidebarTrigger,
+  SidebarLabel,
+  SidebarHeader,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarNavigationList,
+  SidebarNavigationItem,
+  SidebarTooltip,
+  SidebarNavigationButton,
+  SidebarNavigationBadge,
+} from '@moduix/react/sidebar';
 import { FileText, Gauge } from 'lucide-react';
 import styles from '@/components/examples/sidebar/sidebar-basic.module.css';
 
 export default function AppSidebar() {
   return (
     <Sidebar className={styles.root}>
-      <Sidebar.Panel>
-        <Sidebar.Header>
+      <SidebarPanel>
+        <SidebarHeader>
           <strong data-sidebar-icon>M</strong>
-          <Sidebar.Label>Moduix</Sidebar.Label>
-        </Sidebar.Header>
-        <Sidebar.Content>
-          <Sidebar.Group>
-            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.Tooltip content="Overview">
-                  <Sidebar.NavigationButton asChild active>
+          <SidebarLabel>Moduix</SidebarLabel>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarTooltip content="Overview">
+                  <SidebarNavigationButton asChild active>
                     <a href="/overview">
                       <Gauge />
-                      <Sidebar.Label>Overview</Sidebar.Label>
+                      <SidebarLabel>Overview</SidebarLabel>
                     </a>
-                  </Sidebar.NavigationButton>
-                </Sidebar.Tooltip>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.Tooltip content="Documents">
-                  <Sidebar.NavigationButton asChild>
+                  </SidebarNavigationButton>
+                </SidebarTooltip>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarTooltip content="Documents">
+                  <SidebarNavigationButton asChild>
                     <a href="/documents">
                       <FileText />
-                      <Sidebar.Label>Documents</Sidebar.Label>
+                      <SidebarLabel>Documents</SidebarLabel>
                     </a>
-                  </Sidebar.NavigationButton>
-                </Sidebar.Tooltip>
-                <Sidebar.NavigationBadge>12</Sidebar.NavigationBadge>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
-        </Sidebar.Content>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+                  </SidebarNavigationButton>
+                </SidebarTooltip>
+                <SidebarNavigationBadge>12</SidebarNavigationBadge>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+        </SidebarContent>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <header className={styles.header}>Dashboard</header>
         <main className={styles.content}>
           <div>
@@ -65,7 +81,7 @@ export default function AppSidebar() {
             </section>
           </div>
         </main>
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   );
 }

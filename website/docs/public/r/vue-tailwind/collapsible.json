@@ -1,0 +1,57 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "collapsible",
+  "title": "Collapsible",
+  "description": "moduix Vue Tailwind Collapsible component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons"
+  ],
+  "files": [
+    {
+      "path": "src/components/collapsible/Collapsible.vue",
+      "content": "<script setup lang=\"ts\">\nimport { CollapsibleRoot as ArkCollapsibleRoot } from '@ark-ui/vue/collapsible';\nimport type { CollapsibleRootEmits, CollapsibleRootProps } from '@ark-ui/vue/collapsible';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ CollapsibleRootProps {\n  class?: HTMLAttributes['class'];\n}\n\nexport interface Emits extends /* @vue-ignore */ CollapsibleRootEmits {}\n\nconst { class: className } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkCollapsibleRoot\n    v-bind=\"attrs\"\n    :class=\"cn('box-border flex w-full max-w-full min-w-0 flex-col text-foreground', className)\"\n    data-slot=\"collapsible-root\"\n  >\n    <slot />\n  </ArkCollapsibleRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/collapsible/Collapsible.vue"
+    },
+    {
+      "path": "src/components/collapsible/CollapsibleRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { CollapsibleRootProvider as ArkCollapsibleRootProvider } from '@ark-ui/vue/collapsible';\nimport type { CollapsibleRootProviderProps } from '@ark-ui/vue/collapsible';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ CollapsibleRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: CollapsibleRootProviderProps['value'];\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkCollapsibleRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn('box-border flex w-full max-w-full min-w-0 flex-col text-foreground', className)\"\n    :value=\"value\"\n    data-slot=\"collapsible-root-provider\"\n  >\n    <slot />\n  </ArkCollapsibleRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/collapsible/CollapsibleRootProvider.vue"
+    },
+    {
+      "path": "src/components/collapsible/CollapsibleTrigger.vue",
+      "content": "<script setup lang=\"ts\">\nimport { CollapsibleTrigger as ArkCollapsibleTrigger } from '@ark-ui/vue/collapsible';\nimport type { CollapsibleTriggerProps } from '@ark-ui/vue/collapsible';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ CollapsibleTriggerProps {\n  asChild?: CollapsibleTriggerProps['asChild'];\n  class?: HTMLAttributes['class'];\n}\n\nconst { asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkCollapsibleTrigger\n    v-bind=\"attrs\"\n    :as-child=\"asChild\"\n    :class=\"\n      cn(\n        !asChild &&\n          'box-border flex w-full cursor-pointer items-center justify-between gap-2 bg-transparent px-0 py-1 text-start text-sm outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none',\n        className,\n      )\n    \"\n    data-slot=\"collapsible-trigger\"\n  >\n    <slot />\n  </ArkCollapsibleTrigger>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/collapsible/CollapsibleTrigger.vue"
+    },
+    {
+      "path": "src/components/collapsible/CollapsibleIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { CollapsibleIndicator as ArkCollapsibleIndicator } from '@ark-ui/vue/collapsible';\nimport type { CollapsibleIndicatorProps } from '@ark-ui/vue/collapsible';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ CollapsibleIndicatorProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkCollapsibleIndicator\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-disabled:opacity-50 data-[state=open]:rotate-180 motion-reduce:transition-none [&_svg]:size-full',\n        className,\n      )\n    \"\n    data-slot=\"collapsible-indicator\"\n  >\n    <slot><ChevronDownIcon /></slot>\n  </ArkCollapsibleIndicator>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/collapsible/CollapsibleIndicator.vue"
+    },
+    {
+      "path": "src/components/collapsible/CollapsibleContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { CollapsibleContent as ArkCollapsibleContent } from '@ark-ui/vue/collapsible';\nimport type { CollapsibleContentProps } from '@ark-ui/vue/collapsible';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ CollapsibleContentProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkCollapsibleContent\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'box-border overflow-hidden text-sm text-muted-foreground data-[state=closed]:animate-moduix-collapsible-closed data-[has-collapsed-size]:data-[state=closed]:animate-moduix-collapsible-closed-partial data-[state=open]:animate-moduix-collapsible-open data-[has-collapsed-size]:data-[state=open]:animate-moduix-collapsible-open-partial motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',\n        className,\n      )\n    \"\n    data-slot=\"collapsible-content\"\n  >\n    <slot />\n  </ArkCollapsibleContent>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/collapsible/CollapsibleContent.vue"
+    },
+    {
+      "path": "src/components/collapsible/CollapsibleBody.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.div\n    v-bind=\"attrs\"\n    :class=\"cn('grid min-w-0 gap-2', className)\"\n    data-scope=\"collapsible\"\n    data-part=\"body\"\n    data-slot=\"collapsible-body\"\n  >\n    <slot />\n  </ark.div>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/collapsible/CollapsibleBody.vue"
+    },
+    {
+      "path": "src/components/collapsible/index.ts",
+      "content": "import { CollapsibleContext, useCollapsible, useCollapsibleContext } from '@ark-ui/vue/collapsible';\nimport Collapsible from './Collapsible.vue';\nimport CollapsibleBody from './CollapsibleBody.vue';\nimport CollapsibleContent from './CollapsibleContent.vue';\nimport CollapsibleIndicator from './CollapsibleIndicator.vue';\nimport CollapsibleRootProvider from './CollapsibleRootProvider.vue';\nimport CollapsibleTrigger from './CollapsibleTrigger.vue';\n\nexport {\n  Collapsible,\n  CollapsibleBody,\n  CollapsibleContent,\n  CollapsibleContext,\n  CollapsibleIndicator,\n  CollapsibleRootProvider,\n  CollapsibleTrigger,\n  useCollapsible,\n  useCollapsibleContext,\n};\n\nexport type {\n  CollapsibleContentProps,\n  CollapsibleContextProps,\n  CollapsibleIndicatorProps,\n  CollapsibleOpenChangeDetails,\n  CollapsibleRootEmits,\n  CollapsibleRootProps,\n  CollapsibleRootProviderProps,\n  CollapsibleTriggerProps,\n  UseCollapsibleContext,\n  UseCollapsibleProps,\n  UseCollapsibleReturn,\n} from '@ark-ui/vue/collapsible';",
+      "type": "registry:component",
+      "target": "@components/ui/collapsible/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

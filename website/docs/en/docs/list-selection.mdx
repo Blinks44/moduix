@@ -6,7 +6,9 @@ description: Manage single, multiple, deselectable, and range selection in custo
 import ListSelectionBasic from '@/components/examples/list-selection/basic.tsx';
 import ListSelectionMultiple from '@/components/examples/list-selection/multiple.tsx';
 import listSelectionSolidBasic from '../../../snippets/list-selection/solid/basic.tsx?raw';
+import listSelectionVueBasic from '../../../snippets/list-selection/vue/basic.vue?raw';
 import listSelectionSolidMultiple from '../../../snippets/list-selection/solid/multiple.tsx?raw';
+import listSelectionVueMultiple from '../../../snippets/list-selection/vue/multiple.vue?raw';
 
 # List Selection
 
@@ -25,6 +27,7 @@ for the framework in your application:
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -42,6 +45,13 @@ import { createListCollection, useListSelection } from '@ark-ui/solid/collection
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { createListCollection, useListSelection } from '@ark-ui/vue/collection';
+```
+
+  </Tab>
 </Tabs>
 
 There is no `list-selection` export or registry item in `@moduix/react`, `@moduix/solid`,
@@ -51,8 +61,8 @@ be used alongside any of those packages.
 ## Basic selection
 
 The hook stores selection state. The example supplies a labelled section, native buttons with
-`aria-pressed`, and a live status message. The preview runs the React source; the Solid tab contains
-the equivalent native Solid implementation.
+`aria-pressed`, and a live status message. The preview runs the React source; the Solid and Vue tabs
+contain equivalent native implementations.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -67,6 +77,7 @@ the equivalent native Solid implementation.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -79,6 +90,11 @@ the equivalent native Solid implementation.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSelectionSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listSelectionVueBasic} />
 
     </Tab>
   </Tabs>
@@ -107,6 +123,7 @@ example also uses `isAllSelected`, `setSelectedValues`, and `clear` for a select
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -119,6 +136,11 @@ example also uses `isAllSelected`, `setSelectedValues`, and `clear` for a select
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSelectionSolidMultiple} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listSelectionVueMultiple} />
 
     </Tab>
   </Tabs>
@@ -140,7 +162,8 @@ example also uses `isAllSelected`, `setSelectedValues`, and `clear` for a select
 `initialSelectedValues` is read when the selection is created. Use `setSelectedValues` or another
 action to change the selection later. In Solid, state properties are accessors, so read them as
 `selection.selectedValues()` and `selection.isEmpty()`; action methods keep the same call shape as
-in React.
+in React. In Vue, state properties are refs: read `selection.selectedValues.value` and
+`selection.isEmpty.value` in script. Selection actions remain methods.
 
 ### State and actions
 

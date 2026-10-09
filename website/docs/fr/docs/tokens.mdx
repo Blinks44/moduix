@@ -7,7 +7,7 @@ import { TokensOverview } from '@/components/docs/tokens-overview';
 
 # Tokens
 
-Les styles de moduix reposent sur les mêmes variables CSS avec React et Solid. Commencez par les tokens de couleur sémantiques
+Les styles de moduix reposent sur les mêmes variables CSS avec React, Solid et Vue. Commencez par les tokens de couleur sémantiques
 pour les surfaces, le texte, les bordures, les anneaux de focus et les superpositions. Si votre système
 de conception a besoin d’un autre rythme visuel, ajustez l’espacement, les rayons, les tailles, la
 typographie, les animations, les ombres et les calques.
@@ -58,6 +58,29 @@ import '@moduix/solid/style.css';
 @import 'tailwindcss';
 
 @source '../node_modules/@moduix/solid-tailwind/dist/components';
+```
+
+  </StyleTrackCard>
+</StyleTrackCards>
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<StyleTrackCards>
+  <StyleTrackCard label="CSS Modules">
+
+```ts
+import '@moduix/vue/style.css';
+```
+
+  </StyleTrackCard>
+  <StyleTrackCard label="Tailwind CSS">
+
+```css
+@import '@moduix/vue-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../node_modules/@moduix/vue-tailwind/dist/components';
 ```
 
   </StyleTrackCard>

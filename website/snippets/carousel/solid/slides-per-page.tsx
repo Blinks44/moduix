@@ -1,4 +1,12 @@
-import { Carousel } from '@moduix/solid/carousel';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/solid/carousel';
 import { For } from 'solid-js';
 import styles from '@/components/examples/carousel/carousel-slides-per-page.module.css';
 
@@ -39,22 +47,22 @@ export default function SlidesPerPageCarousel() {
       slidesPerPage={2}
       spacing="var(--moduix-spacing-3)"
     >
-      <Carousel.Control class={styles.control}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
+      <CarouselControl class={styles.control}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
 
-      <Carousel.ItemGroup class={styles.itemGroup} aria-label="Two-up gallery">
+      <CarouselItemGroup class={styles.itemGroup} aria-label="Two-up gallery">
         <For each={slides}>
           {(slide, index) => (
-            <Carousel.Item index={index()}>
+            <CarouselItem index={index()}>
               <img class={styles.image} src={slide.src} alt={slide.alt} />
-            </Carousel.Item>
+            </CarouselItem>
           )}
         </For>
-      </Carousel.ItemGroup>
+      </CarouselItemGroup>
 
-      <Carousel.Indicators />
+      <CarouselIndicators />
     </Carousel>
   );
 }

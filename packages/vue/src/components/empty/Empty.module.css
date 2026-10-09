@@ -1,0 +1,94 @@
+@layer moduix.components {
+  .root {
+    box-sizing: border-box;
+    display: grid;
+    justify-items: center;
+    width: 100%;
+    min-width: 0;
+    gap: var(--moduix-empty-gap, var(--moduix-spacing-4));
+    padding: var(--moduix-empty-padding, var(--moduix-spacing-8));
+    border: var(--moduix-empty-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-empty-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-empty-radius, var(--moduix-radius-xl));
+    background-color: var(
+      --moduix-empty-bg,
+      color-mix(in oklab, var(--moduix-color-card) 92%, var(--moduix-color-muted))
+    );
+    color: var(--moduix-empty-color, var(--moduix-color-card-foreground));
+    box-shadow: var(--moduix-empty-shadow, none);
+    text-align: center;
+  }
+
+  .icon {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    padding: var(--moduix-empty-icon-padding, var(--moduix-spacing-3));
+    border-radius: var(--moduix-empty-icon-radius, var(--moduix-radius-full));
+    background-color: var(--moduix-empty-icon-bg, var(--moduix-color-muted));
+    color: var(--moduix-empty-icon-color, var(--moduix-color-muted-foreground));
+
+    &:where(svg),
+    & :where(svg) {
+      width: var(--moduix-empty-icon-size, var(--moduix-spacing-6));
+      height: var(--moduix-empty-icon-size, var(--moduix-spacing-6));
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+  }
+
+  .content {
+    display: grid;
+    min-width: 0;
+    justify-items: center;
+    gap: var(--moduix-empty-content-gap, var(--moduix-spacing-1));
+    max-width: var(--moduix-empty-content-max-width, 28rem);
+  }
+
+  .title {
+    margin: 0;
+    min-width: 0;
+    color: var(--moduix-empty-title-color, currentColor);
+    font-size: var(--moduix-empty-title-font-size, var(--moduix-text-xl));
+    font-weight: var(--moduix-empty-title-font-weight, var(--moduix-weight-semibold));
+    line-height: var(--moduix-empty-title-line-height, var(--moduix-line-height-text-xl));
+    overflow-wrap: anywhere;
+  }
+
+  .description {
+    min-width: 0;
+    color: var(--moduix-empty-description-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-empty-description-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-empty-description-line-height, var(--moduix-line-height-text-sm));
+    overflow-wrap: anywhere;
+
+    & > :first-child {
+      margin-block-start: 0;
+    }
+
+    & > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .actions {
+    display: flex;
+    min-width: 0;
+    max-width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-empty-actions-gap, var(--moduix-spacing-2));
+
+    & > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    & > :where(button, a) {
+      overflow-wrap: anywhere;
+      white-space: normal;
+    }
+  }
+}

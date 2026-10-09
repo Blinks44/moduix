@@ -15,14 +15,12 @@ Start может использовать Vite или Rsbuild, рендерит 
 - **Стилизация:** CSS Modules или Tailwind CSS v4.
 - **Поставка:** пакет или исходный код, добавленный через shadcn CLI.
 
-Сначала выполните общую [настройку пакета](/docs/quick-start#установить-как-пакет) или
-[настройку shadcn](/docs/quick-start#установить-через-shadcn-cli) для выбранного варианта стилей. Ниже
-показаны импорты пакетов на CSS Modules; расположение корневого маршрута, алиасы, SSR и проверка
-гидратации не меняются при выборе соответствующего Tailwind-пакета или реестра.
+Выбор пакета и настройка реестра описаны в Быстром старте: [пакеты](/docs/quick-start#установить-как-пакет)
+и [shadcn CLI](/docs/quick-start#установить-через-shadcn-cli).
 
-Все показанные ниже команды установки пакетов и импорты таблиц стилей относятся к CSS Modules.
-Используйте показанный ниже reset moduix или корректный собственный reset приложения. С Tailwind сохраняйте
-глобальную таблицу стилей, настроенную в Быстром старте.
+Примеры ниже используют CSS Modules и reset moduix. Если в приложении уже есть подходящий reset,
+не импортируйте его повторно. Для Tailwind установите соответствующий пакет с суффиксом `-tailwind`
+и в той же точке входа подключите файл стилей приложения, настроенный по Quick Start.
 
 ## Установка из пакета
 
@@ -115,7 +113,9 @@ function Home() {
 ```
 
 Тот же алиас должен быть доступен сборщику. Rsbuild читает пути TypeScript автоматически, а для Vite
-следуйте руководству TanStack Start по алиасам. Затем добавьте компонент:
+следуйте руководству TanStack Start по алиасам для
+[React](https://tanstack.com/start/latest/docs/framework/react/guide/path-aliases) или
+[Solid](https://tanstack.com/start/latest/docs/framework/solid/guide/path-aliases). Затем добавьте компонент:
 
 <Tabs groupId="framework">
   <Tab label="React" value="react">
@@ -135,6 +135,11 @@ function Home() {
 ```tsx title="src/routes/__root.tsx"
 import '@/lib/moduix/styles/style.css';
 ```
+
+Импорт стилей выше относится к CSS Modules. Для Tailwind подключите сгенерированные базовые стили
+в существующем файле Tailwind по [Quick Start](/docs/quick-start#установить-через-shadcn-cli),
+а сам файл импортируйте в той же точке входа. Замените импорт компонента из пакета
+на `@/components/ui/button`.
 
 ## Проверка
 

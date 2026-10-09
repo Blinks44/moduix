@@ -19,6 +19,13 @@ import fieldsetSolidField from '../../../snippets/fieldset/solid/field.tsx?raw';
 import fieldsetSolidInputWithSelect from '../../../snippets/fieldset/solid/input-with-select.tsx?raw';
 import fieldsetSolidInvalid from '../../../snippets/fieldset/solid/invalid.tsx?raw';
 import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-provider.tsx?raw';
+import fieldsetVueBasic from '../../../snippets/fieldset/vue/basic.vue?raw';
+import fieldsetVueCheckbox from '../../../snippets/fieldset/vue/checkbox.vue?raw';
+import fieldsetVueDisabled from '../../../snippets/fieldset/vue/disabled.vue?raw';
+import fieldsetVueField from '../../../snippets/fieldset/vue/field.vue?raw';
+import fieldsetVueInputWithSelect from '../../../snippets/fieldset/vue/input-with-select.vue?raw';
+import fieldsetVueInvalid from '../../../snippets/fieldset/vue/invalid.vue?raw';
+import fieldsetVueRootProvider from '../../../snippets/fieldset/vue/root-provider.vue?raw';
 
 ## Справочник API
 
@@ -32,11 +39,12 @@ import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-pro
 
 ## Базовый пример
 
-Импортируйте `Fieldset` из `@moduix/react/fieldset` или `@moduix/solid/fieldset` для CSS Modules, а для Tailwind CSS
-используйте `@moduix/react-tailwind/fieldset` или `@moduix/solid-tailwind/fieldset`.
+Импортируйте `Fieldset` из `@moduix/react/fieldset`, `@moduix/solid/fieldset` или `@moduix/vue/fieldset` для CSS Modules,
+а для Tailwind CSS используйте `@moduix/react-tailwind/fieldset`, `@moduix/solid-tailwind/fieldset` или
+`@moduix/vue-tailwind/fieldset`.
 
-Создайте группу из `Fieldset`, `Fieldset.Legend`, связанных элементов управления и, если нужно, поясняющего текста или
-сообщения об ошибке. Короткая запись `<Fieldset>` равнозначна `<Fieldset.Root>`.
+Создайте группу из `Fieldset`, `FieldsetLegend`, связанных элементов управления и, если нужно, поясняющего текста или
+сообщения об ошибке. `Fieldset` является корневым компонентом группы.
 
 <ExampleFrame variant="component">
   <FieldsetBasic />
@@ -49,6 +57,7 @@ import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-pro
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -61,6 +70,11 @@ import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-pro
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueBasic} />
 
     </Tab>
   </Tabs>
@@ -98,38 +112,48 @@ import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-pro
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/fieldset' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/fieldset' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Fieldset.Root | Fieldset.RootProvider
-├─ Fieldset.Legend
+Fieldset | FieldsetRootProvider
+├─ FieldsetLegend
 ├─ grouped controls
-├─ Fieldset.HelperText (optional)
-└─ Fieldset.ErrorText (optional)
+├─ FieldsetHelperText (optional)
+└─ FieldsetErrorText (optional)
 ```
 
 | Часть                        | Назначение                                                                                         |
 | ---------------------------- | -------------------------------------------------------------------------------------------------- |
-| `Fieldset` / `Fieldset.Root` | Создаёт состояние и добавляет в DOM нативный элемент `fieldset`.                                  |
-| `Fieldset.RootProvider`      | Добавляет в DOM нативный `fieldset` с состоянием, созданным через `useFieldset`.                   |
-| `Fieldset.Context`           | Даёт дочерним компонентам доступ к состоянию группы и не добавляет отдельный элемент в DOM.       |
-| `Fieldset.Legend`            | Нативный `legend`, задающий доступное имя группы.                                                  |
-| `Fieldset.HelperText`        | Поясняющий текст, связанный с корнем через `aria-describedby`.                                     |
-| `Fieldset.ErrorText`         | Сообщение об ошибке, объявляемое через `aria-live="polite"`; выводится только когда `invalid` равно `true`. |
+| `Fieldset`                   | Создаёт состояние и добавляет в DOM нативный элемент `fieldset`.                                  |
+| `FieldsetRootProvider`       | Добавляет в DOM нативный `fieldset` с состоянием, созданным через `useFieldset`.                   |
+| `FieldsetContext`            | Даёт дочерним компонентам доступ к состоянию группы и не добавляет отдельный элемент в DOM.       |
+| `FieldsetLegend`             | Нативный `legend`, задающий доступное имя группы.                                                  |
+| `FieldsetHelperText`         | Поясняющий текст, связанный с корнем через `aria-describedby`.                                     |
+| `FieldsetErrorText`          | Сообщение об ошибке, объявляемое через `aria-live="polite"`; выводится только когда `invalid` равно `true`. |
 
 ## Композиция
 
-Оставьте внутри корневого компонента один видимый `Fieldset.Legend`, а связанные элементы управления и их части `Field`
+Оставьте внутри корневого компонента один видимый `FieldsetLegend`, а связанные элементы управления и их части `Field`
 разместите в той же композиции. Установите `invalid` у корня для общей ошибки и у вложенных `Field`, если отдельным
 элементам управления нужно собственное состояние валидации. Отключённый fieldset передаёт состояние нативным элементам
 управления и совместимым с Ark дочерним компонентам.
 
 Используйте `useFieldset` из соответствующего пакета (`@moduix/react` или `@moduix/solid`) вместе с
-`Fieldset.RootProvider`, если состояние нужно создать вне дерева или разделить с соседними элементами управления.
-Для чтения состояния в дочернем компоненте используйте `Fieldset.Context` или `useFieldsetContext()`. Не размещайте
-`Fieldset.Root` вместе с `Fieldset.RootProvider` для одного хранилища. Чтобы заменить HTML-элемент части, используйте
+`FieldsetRootProvider`, если состояние нужно создать вне дерева или разделить с соседними элементами управления.
+Для чтения состояния в дочернем компоненте используйте `FieldsetContext` или `useFieldsetContext()`. Не размещайте
+`Fieldset` вместе с `FieldsetRootProvider` для одного хранилища. Чтобы заменить HTML-элемент части, используйте
 `asChild` с одним семантическим дочерним элементом.
 
 ## Примеры
@@ -137,7 +161,7 @@ Fieldset.Root | Fieldset.RootProvider
 ### Checkbox
 
 Используйте заголовок fieldset, чтобы задать общее имя группе связанных флажков. Добавляйте
-`Checkbox.HiddenInput` в каждый флажок, которому нужны нативный фокус, отправка и сброс формы.
+`CheckboxHiddenInput` в каждый флажок, которому нужны нативный фокус, отправка и сброс формы.
 
 <ExampleFrame variant="component">
   <FieldsetCheckbox />
@@ -150,6 +174,7 @@ Fieldset.Root | Fieldset.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -162,6 +187,11 @@ Fieldset.Root | Fieldset.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidCheckbox} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueCheckbox} />
 
     </Tab>
   </Tabs>
@@ -190,6 +220,7 @@ Fieldset.Root | Fieldset.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -202,6 +233,11 @@ Fieldset.Root | Fieldset.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidDisabled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueDisabled} />
 
     </Tab>
   </Tabs>
@@ -230,6 +266,7 @@ Fieldset.Root | Fieldset.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -242,6 +279,11 @@ Fieldset.Root | Fieldset.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueField} />
 
     </Tab>
   </Tabs>
@@ -269,6 +311,7 @@ Fieldset.Root | Fieldset.RootProvider
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -281,6 +324,11 @@ Fieldset.Root | Fieldset.RootProvider
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidInputWithSelect} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueInputWithSelect} />
 
     </Tab>
   </Tabs>
@@ -310,6 +358,7 @@ ARIA-состояние.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -324,6 +373,11 @@ ARIA-состояние.
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidInvalid} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueInvalid} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -336,7 +390,7 @@ ARIA-состояние.
 
 ### Расширенная настройка
 
-Создайте состояние fieldset вне JSX-дерева с помощью `useFieldset` и передайте его в `Fieldset.RootProvider`, если им должны
+Создайте состояние fieldset вне JSX-дерева с помощью `useFieldset` и передайте его в `FieldsetRootProvider`, если им должны
 пользоваться соседние элементы управления или повторно используемые компоненты.
 
 <ExampleFrame variant="component">
@@ -350,6 +404,7 @@ ARIA-состояние.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -362,6 +417,11 @@ ARIA-состояние.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={fieldsetSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={fieldsetVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -394,6 +454,6 @@ ARIA-состояние.
 
 Для каждой части DOM Ark добавляет атрибуты `data-scope="fieldset"` и `data-part`, соответствующие анатомии. Корневой
 компонент и заголовок получают `data-disabled` и `data-invalid`; moduix также добавляет атрибуты `data-slot="fieldset-*"`.
-Используйте `className` в React или `class` в Solid для локальных переопределений. В пакетах CSS Modules переменные
+Используйте `className` в React или `class` в Solid и Vue для локальных переопределений. В пакетах CSS Modules переменные
 `--moduix-fieldset-*` позволяют настраивать тему, а в Tailwind-пакетах для этого используются классы-утилиты и классы
 потребителя.

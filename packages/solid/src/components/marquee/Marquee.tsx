@@ -4,7 +4,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import styles from './Marquee.module.css';
 
-function MarqueeRoot(props: ComponentProps<typeof MarqueePrimitive.Root>) {
+function Marquee(props: ComponentProps<typeof MarqueePrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -76,14 +76,16 @@ function MarqueeEdge(props: ComponentProps<typeof MarqueePrimitive.Edge>) {
   );
 }
 
-const Marquee = Object.assign(MarqueeRoot, {
-  Root: MarqueeRoot,
-  RootProvider: MarqueeRootProvider,
-  Context: MarqueePrimitive.Context,
-  Viewport: MarqueeViewport,
-  Content: MarqueeContent,
-  Item: MarqueeItem,
-  Edge: MarqueeEdge,
-});
+const MarqueeContext = MarqueePrimitive.Context;
 
-export { Marquee, useMarquee, useMarqueeContext };
+export {
+  Marquee,
+  MarqueeContext,
+  MarqueeContent,
+  MarqueeEdge,
+  MarqueeItem,
+  MarqueeRootProvider,
+  MarqueeViewport,
+  useMarquee,
+  useMarqueeContext,
+};

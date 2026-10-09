@@ -1,5 +1,17 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemTextContent,
+  SelectItemTextIcon,
+  SelectItemTextLabel,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 import { Apple as AppleIcon, Banana as BananaIcon, Cherry as CherryIcon } from 'lucide-react';
 
 const fruits = createListCollection({
@@ -13,29 +25,29 @@ const fruits = createListCollection({
 export default function SelectCustomItemLayoutDemo() {
   return (
     <Select collection={fruits}>
-      <Select.Label>Choose fruit</Select.Label>
-      <Select.Field placeholder="Select an option" clearLabel="Clear selection" />
-      <Select.Positioner>
-        <Select.Content>
+      <SelectLabel>Choose fruit</SelectLabel>
+      <SelectField placeholder="Select an option" clearLabel="Clear selection" />
+      <SelectPositioner>
+        <SelectContent>
           {fruits.items.map((item) => {
             const FruitIcon = item.icon;
 
             return (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>
-                  <Select.ItemTextContent>
-                    <Select.ItemTextIcon>
+              <SelectItem key={item.value} item={item}>
+                <SelectItemText>
+                  <SelectItemTextContent>
+                    <SelectItemTextIcon>
                       <FruitIcon aria-hidden />
-                    </Select.ItemTextIcon>
-                    <Select.ItemTextLabel>{item.label}</Select.ItemTextLabel>
-                  </Select.ItemTextContent>
-                </Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+                    </SelectItemTextIcon>
+                    <SelectItemTextLabel>{item.label}</SelectItemTextLabel>
+                  </SelectItemTextContent>
+                </SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             );
           })}
-        </Select.Content>
-      </Select.Positioner>
+        </SelectContent>
+      </SelectPositioner>
     </Select>
   );
 }

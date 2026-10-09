@@ -10,10 +10,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui';
 
-const EditableRoot = forwardRef<
+const Editable = forwardRef<
   ComponentRef<typeof EditablePrimitive.Root>,
   ComponentProps<typeof EditablePrimitive.Root>
->(function EditableRoot({ activationMode = 'dblclick', className, ...props }, ref) {
+>(function Editable({ activationMode = 'dblclick', className, ...props }, ref) {
   return (
     <EditablePrimitive.Root
       ref={ref}
@@ -135,7 +135,7 @@ const EditableEditTrigger = forwardRef<
     <EditablePrimitive.EditTrigger
       ref={ref}
       className={cn(
-        'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:size-3.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
+        'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
@@ -154,7 +154,7 @@ const EditableSubmitTrigger = forwardRef<
     <EditablePrimitive.SubmitTrigger
       ref={ref}
       className={cn(
-        'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:size-3.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
+        'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
@@ -173,7 +173,7 @@ const EditableCancelTrigger = forwardRef<
     <EditablePrimitive.CancelTrigger
       ref={ref}
       className={cn(
-        'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:size-3.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
+        'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
@@ -206,19 +206,21 @@ const EditableControls = forwardRef<
   );
 });
 
-const Editable = Object.assign(EditableRoot, {
-  Root: EditableRoot,
-  RootProvider: EditableRootProvider,
-  Label: EditableLabel,
-  Area: EditableArea,
-  Input: EditableInput,
-  Preview: EditablePreview,
-  Control: EditableControl,
-  EditTrigger: EditableEditTrigger,
-  SubmitTrigger: EditableSubmitTrigger,
-  CancelTrigger: EditableCancelTrigger,
-  Controls: EditableControls,
-  Context: EditablePrimitive.Context,
-});
+const EditableContext = EditablePrimitive.Context;
 
-export { Editable, useEditable, useEditableContext };
+export {
+  Editable,
+  EditableArea,
+  EditableCancelTrigger,
+  EditableContext,
+  EditableControl,
+  EditableControls,
+  EditableEditTrigger,
+  EditableInput,
+  EditableLabel,
+  EditablePreview,
+  EditableRootProvider,
+  EditableSubmitTrigger,
+  useEditable,
+  useEditableContext,
+};

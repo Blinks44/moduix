@@ -1,9 +1,7 @@
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
-  type ComboboxRootComponent as ArkComboboxRootComponent,
   type ComboboxRootProps as ArkComboboxRootProps,
-  type ComboboxRootProviderComponent as ArkComboboxRootProviderComponent,
   type ComboboxRootProviderProps as ArkComboboxRootProviderProps,
   useCombobox,
   useComboboxContext,
@@ -13,6 +11,7 @@ import { ark, type HTMLArkProps } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
 import { children, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
   OverlayPortal,
@@ -26,7 +25,7 @@ type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & Ove
 type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProviderProps<T> &
   OverlayPortalProps;
 
-const ComboboxRoot = function ComboboxRoot<T extends CollectionItem>(props: ComboboxRootProps<T>) {
+function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -51,11 +50,9 @@ const ComboboxRoot = function ComboboxRoot<T extends CollectionItem>(props: Comb
       </ComboboxPrimitive.Root>
     </OverlayPortalProvider>
   );
-} as ArkComboboxRootComponent<OverlayPortalProps>;
+}
 
-const ComboboxRootProvider = function ComboboxRootProvider<T extends CollectionItem>(
-  props: ComboboxRootProviderProps<T>,
-) {
+function ComboboxRootProvider<T extends CollectionItem>(props: ComboboxRootProviderProps<T>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -80,7 +77,7 @@ const ComboboxRootProvider = function ComboboxRootProvider<T extends CollectionI
       </ComboboxPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
-} as ArkComboboxRootProviderComponent<OverlayPortalProps>;
+}
 
 function ComboboxLabel(props: ComponentProps<typeof ComboboxPrimitive.Label>) {
   const [local, others] = splitProps(props, ['class']);
@@ -127,8 +124,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
     'children',
     'class',
   ]);
-  const resolvedChildren = children(() => local.children);
-  const triggerClass = clsx(styles.clearTrigger, local.class);
+  const triggerClass = () => clsx(styles.clearTrigger, local.class);
 
   if (local.asChild) {
     return (
@@ -136,7 +132,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
         asChild={local.asChild}
         aria-label={local['aria-label']}
         aria-labelledby={local['aria-labelledby']}
-        class={triggerClass}
+        class={triggerClass()}
         {...others}
         data-slot="combobox-clear-trigger"
       >
@@ -151,19 +147,19 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
         const resolvedProps = triggerProps();
 
         return (
-          <CloseButton.Root
+          <CloseButton
             {...resolvedProps}
             aria-label={
               local['aria-label'] ??
-              (local['aria-labelledby'] == null ? 'Clear selection' : undefined)
+              (local['aria-labelledby'] == null ? a11yLabels.clearSelection : undefined)
             }
             aria-labelledby={local['aria-labelledby']}
           >
-            {resolvedChildren()}
-          </CloseButton.Root>
+            {local.children}
+          </CloseButton>
         );
       }}
-      class={triggerClass}
+      class={triggerClass()}
       {...others}
       data-slot="combobox-clear-trigger"
     />
@@ -327,50 +323,31 @@ function ComboboxOption(props: ComboboxOptionProps) {
   );
 }
 
-type ComboboxComponent = ArkComboboxRootComponent<OverlayPortalProps> & {
-  Root: typeof ComboboxRoot;
-  RootProvider: typeof ComboboxRootProvider;
-  Label: typeof ComboboxLabel;
-  Control: typeof ComboboxControl;
-  Input: typeof ComboboxInput;
-  ClearTrigger: typeof ComboboxClearTrigger;
-  Trigger: typeof ComboboxTrigger;
-  Positioner: typeof ComboboxPositioner;
-  Content: typeof ComboboxContent;
-  Empty: typeof ComboboxEmpty;
-  Status: typeof ComboboxStatus;
-  List: typeof ComboboxList;
-  ItemGroup: typeof ComboboxItemGroup;
-  ItemGroupLabel: typeof ComboboxItemGroupLabel;
-  Item: typeof ComboboxItem;
-  ItemText: typeof ComboboxItemText;
-  ItemIndicator: typeof ComboboxItemIndicator;
-  Option: typeof ComboboxOption;
-  Context: typeof ComboboxPrimitive.Context;
-  ItemContext: typeof ComboboxPrimitive.ItemContext;
+const ComboboxContext = ComboboxPrimitive.Context;
+const ComboboxItemContext = ComboboxPrimitive.ItemContext;
+
+export {
+  Combobox,
+  ComboboxClearTrigger,
+  ComboboxContext,
+  ComboboxContent,
+  ComboboxControl,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemContext,
+  ComboboxItemGroup,
+  ComboboxItemGroupLabel,
+  ComboboxItemIndicator,
+  ComboboxItemText,
+  ComboboxLabel,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPositioner,
+  ComboboxRootProvider,
+  ComboboxStatus,
+  ComboboxTrigger,
+  useCombobox,
+  useComboboxContext,
+  useComboboxItemContext,
 };
-
-const Combobox: ComboboxComponent = Object.assign(ComboboxRoot, {
-  Root: ComboboxRoot,
-  RootProvider: ComboboxRootProvider,
-  Label: ComboboxLabel,
-  Control: ComboboxControl,
-  Input: ComboboxInput,
-  ClearTrigger: ComboboxClearTrigger,
-  Trigger: ComboboxTrigger,
-  Positioner: ComboboxPositioner,
-  Content: ComboboxContent,
-  Empty: ComboboxEmpty,
-  Status: ComboboxStatus,
-  List: ComboboxList,
-  ItemGroup: ComboboxItemGroup,
-  ItemGroupLabel: ComboboxItemGroupLabel,
-  Item: ComboboxItem,
-  ItemText: ComboboxItemText,
-  ItemIndicator: ComboboxItemIndicator,
-  Option: ComboboxOption,
-  Context: ComboboxPrimitive.Context,
-  ItemContext: ComboboxPrimitive.ItemContext,
-});
-
-export { Combobox, useCombobox, useComboboxContext, useComboboxItemContext };

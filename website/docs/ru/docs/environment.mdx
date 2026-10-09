@@ -1,11 +1,13 @@
 ---
 title: Environment
-description: Настройте DOM-запросы Ark UI для iframe, Shadow DOM, Electron и других нестандартных окружений в React и Solid.
+description: Настройте DOM-запросы Ark UI для iframe, Shadow DOM, Electron и других нестандартных окружений в React, Solid и Vue.
 ---
 
 import EnvironmentBasic from '@/components/examples/environment/basic.tsx';
 import environmentSolidBasic from '../../../snippets/environment/solid/basic.tsx?raw';
+import environmentVueBasic from '../../../snippets/environment/vue/basic.vue?raw';
 import environmentSolidCustomRoot from '../../../snippets/environment/solid/custom-root.tsx?raw';
+import environmentVueCustomRoot from '../../../snippets/environment/vue/custom-root.vue?raw';
 
 `EnvironmentProvider` сообщает Ark UI, какой DOM-корень, `Document` и `Window` использовать для компонентов на базе Ark. Он нужен, когда дерево компонентов отображается не в основном документе страницы.
 
@@ -20,6 +22,7 @@ import environmentSolidCustomRoot from '../../../snippets/environment/solid/cust
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -34,6 +37,13 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/react/enviro
 
 ```tsx
 import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/solid/environment';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/vue/environment';
 ```
 
   </Tab>
@@ -56,6 +66,7 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/solid/enviro
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -68,6 +79,11 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/solid/enviro
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={environmentSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={environmentVueBasic} />
 
     </Tab>
   </Tabs>
@@ -90,6 +106,7 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/solid/enviro
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -102,6 +119,11 @@ import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/solid/enviro
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={environmentSolidCustomRoot} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={environmentVueCustomRoot} />
 
     </Tab>
   </Tabs>

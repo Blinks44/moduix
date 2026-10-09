@@ -2,18 +2,26 @@ import { createSignal } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
-import { Marquee, useMarquee } from '@/components/marquee/Marquee';
+import {
+  Marquee,
+  MarqueeContent,
+  MarqueeEdge,
+  MarqueeItem,
+  MarqueeRootProvider,
+  MarqueeViewport,
+  useMarquee,
+} from '@/components/marquee/Marquee';
 import { LocaleProvider } from '@/locale';
 import styles from './Marquee.stories.module.css';
 
 const meta = {
   title: 'Components/Marquee',
-  component: Marquee.Root,
+  component: Marquee,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Marquee.Root>;
+} satisfies Meta<typeof Marquee>;
 
 export default meta;
 
@@ -32,23 +40,23 @@ function MarqueeItems() {
   return (
     <>
       {partners.map((item) => (
-        <Marquee.Item class={styles.item}>
+        <MarqueeItem class={styles.item}>
           <span class={styles.mark}>{item.mark}</span>
           <span>{item.name}</span>
-        </Marquee.Item>
+        </MarqueeItem>
       ))}
     </>
   );
 }
 
-function BasicMarquee(props: ComponentProps<typeof Marquee.Root>) {
+function BasicMarquee(props: ComponentProps<typeof Marquee>) {
   return (
     <Marquee aria-label="Partner logos" class={styles.root} {...props}>
-      <Marquee.Viewport>
-        <Marquee.Content>
+      <MarqueeViewport>
+        <MarqueeContent>
           <MarqueeItems />
-        </Marquee.Content>
-      </Marquee.Viewport>
+        </MarqueeContent>
+      </MarqueeViewport>
     </Marquee>
   );
 }
@@ -66,13 +74,13 @@ function RootProviderStory() {
           Resume
         </Button>
       </div>
-      <Marquee.RootProvider value={marquee} class={styles.root}>
-        <Marquee.Viewport>
-          <Marquee.Content>
+      <MarqueeRootProvider value={marquee} class={styles.root}>
+        <MarqueeViewport>
+          <MarqueeContent>
             <MarqueeItems />
-          </Marquee.Content>
-        </Marquee.Viewport>
-      </Marquee.RootProvider>
+          </MarqueeContent>
+        </MarqueeViewport>
+      </MarqueeRootProvider>
     </div>
   );
 }
@@ -119,13 +127,13 @@ export const RTL: Story = {
   render: () => (
     <LocaleProvider locale="ar">
       <Marquee aria-label="Partner logos" class={styles.root}>
-        <Marquee.Edge side="start" />
-        <Marquee.Viewport>
-          <Marquee.Content>
+        <MarqueeEdge side="start" />
+        <MarqueeViewport>
+          <MarqueeContent>
             <MarqueeItems />
-          </Marquee.Content>
-        </Marquee.Viewport>
-        <Marquee.Edge side="end" />
+          </MarqueeContent>
+        </MarqueeViewport>
+        <MarqueeEdge side="end" />
       </Marquee>
     </LocaleProvider>
   ),
@@ -153,13 +161,13 @@ export const WithEdges: Story = {
   name: 'With Edges',
   render: () => (
     <Marquee aria-label="Partner logos" class={styles.root}>
-      <Marquee.Edge side="start" />
-      <Marquee.Viewport>
-        <Marquee.Content>
+      <MarqueeEdge side="start" />
+      <MarqueeViewport>
+        <MarqueeContent>
           <MarqueeItems />
-        </Marquee.Content>
-      </Marquee.Viewport>
-      <Marquee.Edge side="end" />
+        </MarqueeContent>
+      </MarqueeViewport>
+      <MarqueeEdge side="end" />
     </Marquee>
   ),
 };
@@ -173,13 +181,13 @@ export const CustomStyling: Story = {
   name: 'Custom Styling',
   render: () => (
     <Marquee aria-label="Partner logos" autoFill pauseOnInteraction class={styles.customRoot}>
-      <Marquee.Edge side="start" />
-      <Marquee.Viewport>
-        <Marquee.Content>
+      <MarqueeEdge side="start" />
+      <MarqueeViewport>
+        <MarqueeContent>
           <MarqueeItems />
-        </Marquee.Content>
-      </Marquee.Viewport>
-      <Marquee.Edge side="end" />
+        </MarqueeContent>
+      </MarqueeViewport>
+      <MarqueeEdge side="end" />
     </Marquee>
   ),
 };

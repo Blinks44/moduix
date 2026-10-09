@@ -1,7 +1,7 @@
 ---
 title: Combobox
 component: combobox
-description: Поле для поиска и выбора одного или нескольких значений из коллекции Ark UI в React и Solid.
+description: Поле для поиска и выбора одного или нескольких значений из коллекции Ark UI в React, Solid и Vue.
 ---
 
 import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
@@ -33,6 +33,20 @@ import comboboxSolidMultiple from '../../../snippets/combobox/solid/multiple.tsx
 import comboboxSolidRootProvider from '../../../snippets/combobox/solid/root-provider.tsx?raw';
 import comboboxSolidVirtualized from '../../../snippets/combobox/solid/virtualized.tsx?raw';
 import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
+import comboboxVueAdvancedCustomization from '../../../snippets/combobox/vue/advanced-customization.vue?raw';
+import comboboxVueAsyncSearch from '../../../snippets/combobox/vue/async-search.vue?raw';
+import comboboxVueAutoHighlight from '../../../snippets/combobox/vue/auto-highlight.vue?raw';
+import comboboxVueBasic from '../../../snippets/combobox/vue/basic.vue?raw';
+import comboboxVueControlled from '../../../snippets/combobox/vue/controlled.vue?raw';
+import comboboxVueCreatable from '../../../snippets/combobox/vue/creatable.vue?raw';
+import comboboxVueCustomObjectsAndGrouping from '../../../snippets/combobox/vue/custom-objects-and-grouping.vue?raw';
+import comboboxVueDynamic from '../../../snippets/combobox/vue/dynamic.vue?raw';
+import comboboxVueInlineAutocomplete from '../../../snippets/combobox/vue/inline-autocomplete.vue?raw';
+import comboboxVueLimitResults from '../../../snippets/combobox/vue/limit-results.vue?raw';
+import comboboxVueMultiple from '../../../snippets/combobox/vue/multiple.vue?raw';
+import comboboxVueRootProvider from '../../../snippets/combobox/vue/root-provider.vue?raw';
+import comboboxVueVirtualized from '../../../snippets/combobox/vue/virtualized.vue?raw';
+import comboboxVueWithTagsInput from '../../../snippets/combobox/vue/with-tags-input.vue?raw';
 
 ## Справочник API
 
@@ -47,8 +61,9 @@ import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-ta
 
 
 Создайте коллекцию Ark с помощью `useListCollection` и передайте её в `Combobox`. Структуру списка задайте явно.
-Для обычных вариантов используйте `Combobox.Option`, а если нужна нестандартная разметка, используйте `Combobox.Item`.
+Для обычных вариантов используйте `ComboboxOption`, а если нужна нестандартная разметка, используйте `ComboboxItem`.
 Колбэк `onInputValueChange` получает объект `details` от Ark.
+Примеры для Vue используют нативные SFC с `script setup`, refs, слотами и `v-model`, когда это предусмотрено контрактом компонента.
 
 <ExampleFrame variant="component">
   <ComboboxBasic />
@@ -61,6 +76,7 @@ import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-ta
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -73,6 +89,11 @@ import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-ta
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueBasic} />
 
     </Tab>
   </Tabs>
@@ -110,75 +131,85 @@ import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-ta
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/combobox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/combobox' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Combobox / Combobox.Root[collection]
-├─ Combobox.Label
-├─ Combobox.Control
-│  ├─ Combobox.Input
-│  ├─ Combobox.ClearTrigger
-│  └─ Combobox.Trigger
+Combobox[collection]
+├─ ComboboxLabel
+├─ ComboboxControl
+│  ├─ ComboboxInput
+│  ├─ ComboboxClearTrigger
+│  └─ ComboboxTrigger
 └─ Поддерево всплывающего списка (автоматически помещается в портал)
- └─ Combobox.Positioner
-    └─ Combobox.Content
-       ├─ Combobox.Empty
-       ├─ Combobox.Status
-       ├─ Combobox.List
-       │  ├─ Combobox.Option[item]
-       │  └─ Combobox.Item[item]
-       │     ├─ Combobox.ItemText
-       │     └─ Combobox.ItemIndicator
-       └─ Combobox.ItemGroup
-          ├─ Combobox.ItemGroupLabel
-          └─ Combobox.Item
+ └─ ComboboxPositioner
+    └─ ComboboxContent
+       ├─ ComboboxEmpty
+       ├─ ComboboxStatus
+       ├─ ComboboxList
+       │  ├─ ComboboxOption[item]
+       │  └─ ComboboxItem[item]
+       │     ├─ ComboboxItemText
+       │     └─ ComboboxItemIndicator
+       └─ ComboboxItemGroup
+          ├─ ComboboxItemGroupLabel
+          └─ ComboboxItem
 ```
 
 | Часть                        | Назначение                                                         |
 | ---------------------------- | ------------------------------------------------------------------ |
-| `Combobox` / `Combobox.Root` | Управляет состоянием Combobox, фильтрацией, подсветкой и выбранными значениями. |
-| `Combobox.Control`           | Обёртка для поля ввода и кнопок действий.                          |
-| `Combobox.Input`             | Поле, в котором пользователь ищет и выбирает вариант.              |
-| `Combobox.Trigger`           | Открывает и закрывает список вариантов.                            |
-| `Combobox.ClearTrigger`      | Очищает выбранное значение и/или текст в поле.                     |
-| `Combobox.Positioner`        | Позиционирует всплывающий список.                                  |
-| `Combobox.Content`           | Контейнер содержимого списка.                                      |
-| `Combobox.Status`            | Стилизованный контейнер для сообщений приложения о загрузке, ошибке или подсказке. |
-| `Combobox.List`              | Обёртка списка вариантов.                                          |
-| `Combobox.Option`            | Готовая строка для простого варианта, с текстом и индикатором.     |
-| `Combobox.Item`              | Выбираемая строка списка.                                          |
-| `Combobox.ItemText`          | Слот текста элемента.                                               |
-| `Combobox.ItemIndicator`     | Слот индикатора выбранного состояния.                              |
-| `Combobox.Context`           | Доступ к состоянию Combobox без добавления элементов в DOM.        |
-| `Combobox.ItemContext`       | Доступ к состоянию текущего элемента без добавления элементов в DOM. |
+| `Combobox` | Управляет состоянием Combobox, фильтрацией, подсветкой и выбранными значениями. |
+| `ComboboxControl`           | Обёртка для поля ввода и кнопок действий.                          |
+| `ComboboxInput`             | Поле, в котором пользователь ищет и выбирает вариант.              |
+| `ComboboxTrigger`           | Открывает и закрывает список вариантов.                            |
+| `ComboboxClearTrigger`      | Очищает выбранное значение и/или текст в поле.                     |
+| `ComboboxPositioner`        | Позиционирует всплывающий список.                                  |
+| `ComboboxContent`           | Контейнер содержимого списка.                                      |
+| `ComboboxStatus`            | Стилизованный контейнер для сообщений приложения о загрузке, ошибке или подсказке. |
+| `ComboboxList`              | Обёртка списка вариантов.                                          |
+| `ComboboxOption`            | Готовая строка для простого варианта, с текстом и индикатором.     |
+| `ComboboxItem`              | Выбираемая строка списка.                                          |
+| `ComboboxItemText`          | Слот текста элемента.                                               |
+| `ComboboxItemIndicator`     | Слот индикатора выбранного состояния.                              |
+| `ComboboxContext`           | Доступ к состоянию Combobox без добавления элементов в DOM.        |
+| `ComboboxItemContext`       | Доступ к состоянию текущего элемента без добавления элементов в DOM. |
 
-`Combobox.RootProvider` использует ту же стилизацию корневого компонента для состояния, созданного через `useCombobox` из moduix.
-Состояние Combobox внутри дерева можно получить через `Combobox.Context` или `useComboboxContext`, а состояние элемента - через
-`Combobox.ItemContext` или `useComboboxItemContext`.
+`ComboboxRootProvider` использует ту же стилизацию корневого компонента для состояния, созданного через `useCombobox` из moduix.
+Состояние Combobox внутри дерева можно получить через `ComboboxContext` или `useComboboxContext`, а состояние элемента - через
+`ComboboxItemContext` или `useComboboxItemContext`.
 
 ## Композиция
 
 Для статических элементов используйте `createListCollection`, а для фильтрации и обновления коллекции
 используйте `useListCollection`. Для объектов задайте `itemToString` и `itemToValue`.
 
-Корневой компонент автоматически помещает `Positioner` в портал, но `Positioner` и `Content` остаются
+`Combobox` автоматически помещает `ComboboxPositioner` в портал, но `ComboboxPositioner` и `ComboboxContent` остаются
 явными частями композиции. Укажите `portalled={false}`, чтобы оставить список в текущем дереве, или передайте
-`portalRef` для конкретного контейнера. Для простых строк используйте `Combobox.Option`, а для сложных строк
-с `asChild` используйте `Combobox.Item`.
+`portalRef` для конкретного контейнера. Для простых строк используйте `ComboboxOption`, а для сложных строк
+с `asChild` используйте `ComboboxItem`.
 
 Храните `value` в состоянии приложения, если оно нужно другим частям интерфейса. Когда состояние создаётся
-за пределами дерева, передайте `useCombobox` в `Combobox.RootProvider`. В режиме множественного выбора теги
+за пределами дерева, передайте `useCombobox` в `ComboboxRootProvider`. В режиме множественного выбора теги
 и другое представление значений принадлежат приложению; если они должны находиться в одном поле, используйте
-композицию с `TagsInput`. `Combobox.Status` также отвечает только за сообщения приложения и не управляет
+композицию с `TagsInput`. `ComboboxStatus` также отвечает только за сообщения приложения и не управляет
 состоянием загрузки или ошибки.
 
 ## Примеры
 
 ### Асинхронный поиск
 
-Заменяйте элементы коллекции результатами асинхронного запроса и показывайте `Combobox.Status`, пока запрос выполняется.
+Заменяйте элементы коллекции результатами асинхронного запроса и показывайте `ComboboxStatus`, пока запрос выполняется.
 Используйте `details.reason`, чтобы отличать пользовательский ввод от программного изменения поля. Если поле пустое,
 показывайте статус `Start typing to search…`, чтобы список не оставался пустым.
 
@@ -191,8 +222,9 @@ Combobox / Combobox.Root[collection]
   <Tabs
     groupId="framework"
     values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
+    { label: 'React', value: 'react' },
+    { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -205,6 +237,11 @@ Combobox / Combobox.Root[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidAsyncSearch} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueAsyncSearch} />
 
     </Tab>
   </Tabs>
@@ -233,6 +270,7 @@ Combobox / Combobox.Root[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -245,6 +283,11 @@ Combobox / Combobox.Root[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidAutoHighlight} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueAutoHighlight} />
 
     </Tab>
   </Tabs>
@@ -272,6 +315,7 @@ Combobox / Combobox.Root[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -284,6 +328,11 @@ Combobox / Combobox.Root[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueControlled} />
 
     </Tab>
   </Tabs>
@@ -312,6 +361,7 @@ Combobox / Combobox.Root[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -324,6 +374,11 @@ Combobox / Combobox.Root[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidCreatable} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueCreatable} />
 
     </Tab>
   </Tabs>
@@ -352,6 +407,7 @@ Combobox / Combobox.Root[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -364,6 +420,11 @@ Combobox / Combobox.Root[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidCustomObjectsAndGrouping} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueCustomObjectsAndGrouping} />
 
     </Tab>
   </Tabs>
@@ -392,6 +453,7 @@ Combobox / Combobox.Root[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -404,6 +466,11 @@ Combobox / Combobox.Root[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidDynamic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueDynamic} />
 
     </Tab>
   </Tabs>
@@ -432,6 +499,7 @@ Combobox / Combobox.Root[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -444,6 +512,11 @@ Combobox / Combobox.Root[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidInlineAutocomplete} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueInlineAutocomplete} />
 
     </Tab>
   </Tabs>
@@ -472,6 +545,7 @@ Combobox / Combobox.Root[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -484,6 +558,11 @@ Combobox / Combobox.Root[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidLimitResults} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueLimitResults} />
 
     </Tab>
   </Tabs>
@@ -512,6 +591,7 @@ Combobox / Combobox.Root[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -524,6 +604,11 @@ Combobox / Combobox.Root[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidMultiple} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueMultiple} />
 
     </Tab>
   </Tabs>
@@ -539,7 +624,7 @@ Combobox / Combobox.Root[collection]
 ### Root Provider
 
 Создавайте состояние через `useCombobox` из moduix, когда внешним элементам управления нужны императивные методы или общее
-состояние до отображения корневого компонента. `Combobox.RootProvider` сохраняет стили корня moduix и настройки портала.
+состояние до отображения корневого компонента. `ComboboxRootProvider` сохраняет стили корня moduix и настройки портала.
 
 <ExampleFrame variant="component">
   <ComboboxRootProvider />
@@ -552,6 +637,7 @@ Combobox / Combobox.Root[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -564,6 +650,11 @@ Combobox / Combobox.Root[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -579,8 +670,9 @@ Combobox / Combobox.Root[collection]
 ### Виртуализация
 
 Для больших коллекций отображайте только видимые строки с помощью TanStack Virtual. В React используйте
-`@tanstack/react-virtual`, а в Solid - `@tanstack/solid-virtual`, затем свяжите клавиатурную навигацию Ark
-с `scrollToIndexFn`. Сохраняйте `aria-setsize` и `aria-posinset` у виртуализированных строк.
+`@tanstack/react-virtual`, в Solid - `@tanstack/solid-virtual`, а в Vue - `@tanstack/vue-virtual`,
+затем свяжите клавиатурную навигацию Ark с `scrollToIndexFn`. Сохраняйте `aria-setsize` и
+`aria-posinset` у виртуализированных строк.
 
 <ExampleFrame variant="component">
   <ComboboxVirtualized />
@@ -593,6 +685,7 @@ Combobox / Combobox.Root[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -605,6 +698,11 @@ Combobox / Combobox.Root[collection]
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={comboboxSolidVirtualized} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueVirtualized} />
 
     </Tab>
   </Tabs>
@@ -633,6 +731,7 @@ Combobox / Combobox.Root[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -647,6 +746,11 @@ Combobox / Combobox.Root[collection]
 <CodeBlockRuntime lang="tsx" code={comboboxSolidWithTagsInput} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueWithTagsInput} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -655,7 +759,7 @@ Combobox / Combobox.Root[collection]
 ### Расширенная настройка
 
 Используйте полную композицию элемента, если ему нужен собственный семантический элемент или макет. В этом примере
-каждый результат отображается как ссылка через `Combobox.Item asChild`.
+каждый результат отображается как ссылка через `ComboboxItem asChild`.
 
 <ExampleFrame variant="component">
   <ComboboxAdvancedCustomization />
@@ -668,6 +772,7 @@ Combobox / Combobox.Root[collection]
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -682,6 +787,11 @@ Combobox / Combobox.Root[collection]
 <CodeBlockRuntime lang="tsx" code={comboboxSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={comboboxVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -694,7 +804,7 @@ Combobox / Combobox.Root[collection]
 
 ## Стилизация
 
-Используйте `className` в React и `class` в Solid для структурных стилей экспортируемых частей.
+Используйте `className` в React и `class` в Solid и Vue для структурных стилей экспортируемых частей.
 Варианты Tailwind используют обычные utility-классы и классы приложения, а CSS-переменные ниже настраивают
 варианты CSS Modules. Атрибуты состояния и `data-slot` общие для обоих вариантов стилизации.
 
@@ -710,7 +820,7 @@ Combobox / Combobox.Root[collection]
   `combobox-control`, `combobox-input`, `combobox-clear-trigger`, `combobox-trigger`,
   `combobox-positioner`, `combobox-content`, `combobox-empty`, `combobox-status`, `combobox-list`,
   `combobox-item-group`, `combobox-item-group-label`, `combobox-item`, `combobox-item-text` и
-  `combobox-item-indicator`. `Combobox.Option` переиспользует слоты элемента, не добавляя собственного
+  `combobox-item-indicator`. `ComboboxOption` переиспользует слоты элемента, не добавляя собственного
   отдельного хука стилизации.
 - Атрибуты состояния Ark включают `data-state="open|closed"`, `data-focus`, `data-invalid`, `data-disabled`,
   `data-highlighted`, `data-empty`, `data-placement` и `data-side`.

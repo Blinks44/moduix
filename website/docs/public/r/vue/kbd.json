@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kbd",
+  "title": "Kbd",
+  "description": "moduix Vue Kbd component.",
+  "dependencies": ["@ark-ui/vue", "clsx"],
+  "registryDependencies": ["@moduix-vue/foundation"],
+  "files": [
+    {
+      "path": "src/components/kbd/Kbd.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Kbd.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'kbd'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.kbd\n    v-bind=\"attrs\"\n    data-scope=\"kbd\"\n    data-part=\"root\"\n    data-slot=\"kbd-root\"\n    :class=\"clsx(styles.root, className)\"\n  >\n    <slot />\n  </ark.kbd>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/kbd/Kbd.vue"
+    },
+    {
+      "path": "src/components/kbd/KbdGroup.vue",
+      "content": "<script setup lang=\"ts\">\nimport { ark } from '@ark-ui/vue/factory';\nimport type { HTMLArkProps } from '@ark-ui/vue/factory';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport styles from './Kbd.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ark.span\n    v-bind=\"attrs\"\n    role=\"group\"\n    data-scope=\"kbd\"\n    data-part=\"group\"\n    data-slot=\"kbd-group\"\n    :class=\"clsx(styles.group, className)\"\n  >\n    <slot />\n  </ark.span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/kbd/KbdGroup.vue"
+    },
+    {
+      "path": "src/components/kbd/Kbd.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    box-sizing: border-box;\n    display: inline-flex;\n    flex: none;\n    min-width: var(--moduix-kbd-min-width, var(--moduix-kbd-height, var(--moduix-size-xs)));\n    max-width: 100%;\n    min-height: var(--moduix-kbd-height, var(--moduix-size-xs));\n    align-items: center;\n    justify-content: center;\n    border: var(--moduix-kbd-border-width, var(--moduix-border-width-sm)) solid\n      var(--moduix-kbd-border-color, var(--moduix-color-border));\n    border-radius: var(--moduix-kbd-radius, var(--moduix-radius-sm));\n    padding: var(--moduix-kbd-padding-y, 0) var(--moduix-kbd-padding-x, var(--moduix-spacing-2));\n    background-color: var(--moduix-kbd-bg, var(--moduix-color-muted));\n    box-shadow: var(\n      --moduix-kbd-shadow,\n      inset 0 -1px 0 color-mix(in oklab, var(--moduix-color-foreground) 12%, transparent)\n    );\n    color: var(--moduix-kbd-color, var(--moduix-color-foreground));\n    font-family: var(--moduix-kbd-font-family, var(--moduix-font-mono)), monospace;\n    font-size: var(--moduix-kbd-font-size, var(--moduix-text-xs));\n    font-weight: var(--moduix-kbd-font-weight, var(--moduix-weight-medium));\n    line-height: var(--moduix-kbd-line-height, var(--moduix-line-height-text-xs));\n    font-variant-numeric: tabular-nums;\n    text-align: center;\n    vertical-align: middle;\n    overflow-wrap: anywhere;\n    user-select: none;\n  }\n\n  .group {\n    box-sizing: border-box;\n    display: inline-flex;\n    max-width: 100%;\n    align-items: center;\n    flex-wrap: wrap;\n    gap: var(--moduix-kbd-group-gap, var(--moduix-spacing-1));\n    padding: 0;\n    border: 0;\n    background: none;\n    box-shadow: none;\n    color: var(--moduix-kbd-group-separator-color, var(--moduix-color-muted-foreground));\n    font: inherit;\n    vertical-align: middle;\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/ui/kbd/Kbd.module.css"
+    },
+    {
+      "path": "src/components/kbd/index.ts",
+      "content": "export { default as Kbd } from './Kbd.vue';\nexport { default as KbdGroup } from './KbdGroup.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/kbd/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

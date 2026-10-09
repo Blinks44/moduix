@@ -1,5 +1,11 @@
 import { Button } from '@moduix/solid/button';
-import { Checkbox } from '@moduix/solid/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/solid/checkbox';
 import { createSignal, For } from 'solid-js';
 import styles from '@/components/examples/checkbox/checkbox-group-with-form.module.css';
 
@@ -20,17 +26,17 @@ export default function CheckboxGroupWithFormDemo() {
 
   return (
     <form class={styles.root} onSubmit={handleSubmit}>
-      <Checkbox.Group defaultValue={['react']} name="framework">
+      <CheckboxGroup defaultValue={['react']} name="framework">
         <For each={options}>
           {(option) => (
             <Checkbox value={option.value}>
-              <Checkbox.Control />
-              <Checkbox.Label>{option.label}</Checkbox.Label>
-              <Checkbox.HiddenInput />
+              <CheckboxControl />
+              <CheckboxLabel>{option.label}</CheckboxLabel>
+              <CheckboxHiddenInput />
             </Checkbox>
           )}
         </For>
-      </Checkbox.Group>
+      </CheckboxGroup>
       <div>
         <output>{submitted()}</output>
         <Button type="submit" size="sm">

@@ -18,7 +18,7 @@ type CheckboxRootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootPro
   size?: CheckboxSize;
 };
 
-function CheckboxRoot(props: CheckboxRootProps) {
+function Checkbox(props: CheckboxRootProps) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
 
   return (
@@ -91,7 +91,7 @@ function CheckboxControl(props: ComponentProps<typeof CheckboxPrimitive.Control>
   return (
     <CheckboxPrimitive.Control
       class={cn(
-        "[@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]:bg-accent box-border inline-flex size-5 shrink-0 items-center justify-center rounded-xs border border-border bg-background p-0 leading-none text-primary-foreground transition-[background-color,border-color,color,opacity] duration-200 select-none group-data-[size=lg]/checkbox:size-control-xs group-data-[size=sm]/checkbox:size-4 group-data-[size=xl]/checkbox:size-7 group-data-[size=xs]/checkbox:size-3.5 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-invalid:text-destructive-foreground data-invalid:data-focus-visible:outline-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-invalid:data-[state=checked]:border-destructive data-invalid:data-[state=checked]:bg-destructive data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary data-invalid:data-[state=indeterminate]:border-destructive data-invalid:data-[state=indeterminate]:bg-destructive motion-reduce:transition-none",
+        "box-border inline-flex size-5 shrink-0 items-center justify-center rounded-xs border border-border bg-background p-0 leading-none text-primary-foreground transition-[background-color,border-color,color,opacity] duration-200 select-none group-data-[size=lg]/checkbox:size-control-xs group-data-[size=sm]/checkbox:size-4 group-data-[size=xl]/checkbox:size-7 group-data-[size=xs]/checkbox:size-3.5 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-invalid:text-destructive-foreground data-invalid:data-focus-visible:outline-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-invalid:data-[state=checked]:border-destructive data-invalid:data-[state=checked]:bg-destructive data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary data-invalid:data-[state=indeterminate]:border-destructive data-invalid:data-[state=indeterminate]:bg-destructive motion-reduce:transition-none [@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]]:bg-accent",
         local.class,
       )}
       {...others}
@@ -131,15 +131,20 @@ function CheckboxGroup(props: ComponentProps<typeof CheckboxPrimitive.Group>) {
   );
 }
 
-const Checkbox = Object.assign(CheckboxRoot, {
-  Root: CheckboxRoot,
-  RootProvider: CheckboxRootProvider,
-  Context: CheckboxPrimitive.Context,
-  HiddenInput: CheckboxPrimitive.HiddenInput,
-  Control: CheckboxControl,
-  Indicator: CheckboxIndicator,
-  Label: CheckboxLabel,
-  Group: CheckboxGroup,
-});
+const CheckboxContext = CheckboxPrimitive.Context;
+const CheckboxHiddenInput = CheckboxPrimitive.HiddenInput;
 
-export { Checkbox, useCheckbox, useCheckboxContext, useCheckboxGroup, useCheckboxGroupContext };
+export {
+  Checkbox,
+  CheckboxContext,
+  CheckboxControl,
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxIndicator,
+  CheckboxLabel,
+  CheckboxRootProvider,
+  useCheckbox,
+  useCheckboxContext,
+  useCheckboxGroup,
+  useCheckboxGroupContext,
+};

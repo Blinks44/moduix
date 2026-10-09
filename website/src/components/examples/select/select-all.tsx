@@ -1,6 +1,16 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Button } from '@moduix/react/button';
-import { Select } from '@moduix/react/select';
+import {
+  useSelect,
+  SelectRootProvider,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/select/select-select-all.module.css';
 
@@ -34,27 +44,27 @@ const languages = createListCollection({
 });
 
 export default function SelectSelectAllDemo() {
-  const select = Select.useSelect({
+  const select = useSelect({
     collection: languages,
     multiple: true,
   });
 
   return (
     <div className={styles.root}>
-      <Select.RootProvider value={select}>
-        <Select.Label>Languages</Select.Label>
-        <Select.Field placeholder="Select languages" clearLabel="Clear selection" />
-        <Select.Positioner>
-          <Select.Content>
+      <SelectRootProvider value={select}>
+        <SelectLabel>Languages</SelectLabel>
+        <SelectField placeholder="Select languages" clearLabel="Clear selection" />
+        <SelectPositioner>
+          <SelectContent>
             {languages.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
+              <SelectItem key={item.value} item={item}>
+                <SelectItemText>{item.label}</SelectItemText>
+                <SelectItemIndicator />
+              </SelectItem>
             ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.RootProvider>
+          </SelectContent>
+        </SelectPositioner>
+      </SelectRootProvider>
       <PreviewMeta>
         <output>Selected: {select.value.length}</output>
         <Button

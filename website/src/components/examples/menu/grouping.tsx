@@ -1,33 +1,44 @@
 import { Button } from '@moduix/react/button';
-import { Menu } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuSeparator,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+} from '@moduix/react/menu';
 import styles from '@/components/examples/menu/menu-grouping.module.css';
 
 export default function GroupingMenuDemo() {
   return (
     <Menu>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button>
           Edit
-          <Menu.Indicator />
+          <MenuIndicator />
         </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content className={styles.content}>
-          <Menu.Viewport>
-            <Menu.ItemGroup>
-              <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
-              <Menu.Item value="cut">Cut</Menu.Item>
-              <Menu.Item value="copy">Copy</Menu.Item>
-              <Menu.Item value="paste">Paste</Menu.Item>
-            </Menu.ItemGroup>
-            <Menu.Separator />
-            <Menu.ItemGroup>
-              <Menu.ItemGroupLabel>Selection</Menu.ItemGroupLabel>
-              <Menu.Item value="select-all">Select All</Menu.Item>
-            </Menu.ItemGroup>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent className={styles.content}>
+          <MenuViewport>
+            <MenuItemGroup>
+              <MenuItemGroupLabel>Clipboard</MenuItemGroupLabel>
+              <MenuItem value="cut">Cut</MenuItem>
+              <MenuItem value="copy">Copy</MenuItem>
+              <MenuItem value="paste">Paste</MenuItem>
+            </MenuItemGroup>
+            <MenuSeparator />
+            <MenuItemGroup>
+              <MenuItemGroupLabel>Selection</MenuItemGroupLabel>
+              <MenuItem value="select-all">Select All</MenuItem>
+            </MenuItemGroup>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

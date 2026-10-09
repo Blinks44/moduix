@@ -1,1 +1,1 @@
-export { ProgressCircular } from './ProgressCircular.js';
+export * from './ProgressCircular.js';

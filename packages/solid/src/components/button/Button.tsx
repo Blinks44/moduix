@@ -5,7 +5,7 @@ import type { JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
 import styles from './Button.module.css';
 
-type ButtonRootProps = HTMLArkProps<'button'> & {
+type ButtonProps = HTMLArkProps<'button'> & {
   loading?: boolean;
   variant?:
     | 'default'
@@ -23,12 +23,12 @@ type ButtonRootProps = HTMLArkProps<'button'> & {
 };
 
 const ArkButton = ark.button as (
-  props: ButtonRootProps & {
+  props: ButtonProps & {
     'oncapture:click'?: (event: MouseEvent) => void;
   },
 ) => JSX.Element;
 
-function ButtonRoot(props: ButtonRootProps) {
+function Button(props: ButtonProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
@@ -80,9 +80,5 @@ function ButtonRoot(props: ButtonRootProps) {
     />
   );
 }
-
-const Button = Object.assign(ButtonRoot, {
-  Root: ButtonRoot,
-});
 
 export { Button };

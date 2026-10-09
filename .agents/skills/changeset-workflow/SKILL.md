@@ -18,9 +18,12 @@ Use this skill only when the user explicitly asks to create or update a changese
 - Do not create or update a changeset unless the user asked for it or the task explicitly includes release-note work.
 - Reuse an existing pending `.changeset/*.md` file when the task is clearly updating the same unreleased change; otherwise create a new one.
 - Match the requested or implied bump level exactly. If the bump level is unclear, ask instead of guessing.
+- Before adding a bump, compare package versions, existing changelog entries, and published npm versions.
+  If the requested version is already prepared but unpublished, update its release notes instead of
+  creating another bump. An empty changeset queue does not block publishing already-versioned packages.
 - Keep summaries short, consumer-facing, and release-note shaped.
-- The public packages are `@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind`, and
-  `@moduix/solid-tailwind`. They are independently versioned; do not add `fixed` or `linked` groups.
+- Discover public adapters from `packages/*/package.json`; do not assume a fixed framework list.
+  Do not add `fixed` or `linked` groups without an explicit versioning-policy request.
 - Use one changeset for one logical change and list every public package whose shipped behavior,
   styles, types, or distribution changed. Do not create one file per package for the same change.
 - `packages/foundation` is not published directly. When a foundation change reaches npm output,

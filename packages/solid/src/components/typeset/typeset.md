@@ -7,10 +7,10 @@ implemented with the Ark Solid factory.
 
 ## Public contract
 
-- `Typeset` renders a `div` by default; `Typeset.Root` is an equivalent namespace alias.
+- `Typeset` renders a `div` by default.
 - `asChild` accepts one semantic host through an Ark Solid render function.
-- `Typeset.Scroll` renders a keyboard-focusable horizontal scroller with `tabIndex={0}` by default.
-  It is designed to live inside a `Typeset` or `Typeset.Root` boundary: the horizontal scrolling,
+- `TypesetScroll` renders a keyboard-focusable horizontal scroller with `tabIndex={0}` by default.
+  It is designed to live inside a `Typeset` boundary: the horizontal scrolling,
   flow spacing, and table widening for the wrapped block come from the Typeset element rules.
 - A scroll label through `aria-label` or `aria-labelledby` adds `role="region"` unless a role is
   explicitly provided.
@@ -42,6 +42,9 @@ media, disclosures, definition lists, and GFM footnotes using the existing modui
 The public rhythm variables are `--moduix-typeset-size`, `--moduix-typeset-leading`, and
 `--moduix-typeset-flow`; optional font variables are `--moduix-typeset-font-body`,
 `--moduix-typeset-font-heading`, and `--moduix-typeset-font-mono`.
+
+The flat public values are `Typeset` and `TypesetScroll`; there is no namespace or duplicate root
+alias.
 
 ## Upstream references
 

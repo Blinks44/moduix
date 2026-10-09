@@ -1,3 +1,5 @@
+'use client';
+
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { cva } from 'class-variance-authority';
@@ -5,7 +7,7 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
 const buttonVariants = cva(
-  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border text-sm font-medium no-underline appearance-none transition-[background-color,border-color,color,opacity,transform] duration-200 ease-in-out select-none whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-loading:cursor-progress motion-reduce:transition-none motion-safe:[&:not([data-variant='link']):active]:translate-y-px [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0",
+  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border text-sm font-medium no-underline appearance-none transition-[background-color,border-color,color,opacity,transform,translate] duration-150 ease-in-out select-none whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-loading:cursor-progress motion-reduce:transition-none motion-safe:[&[data-slot='button-root']:not([data-variant='link']):not([aria-haspopup]):active]:translate-y-px [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -39,7 +41,7 @@ const buttonVariants = cva(
   },
 );
 
-const ButtonRoot = forwardRef<
+const Button = forwardRef<
   HTMLButtonElement,
   HTMLArkProps<'button'> & {
     loading?: boolean;
@@ -56,7 +58,7 @@ const ButtonRoot = forwardRef<
     'data-part'?: string;
     'data-slot'?: string;
   }
->(function ButtonRoot(
+>(function Button(
   {
     asChild,
     className,
@@ -77,18 +79,15 @@ const ButtonRoot = forwardRef<
   ref,
 ) {
   const isDisabled = disabled || loading || ariaDisabled === true || ariaDisabled === 'true';
-  const nativeDisabled = asChild ? undefined : isDisabled;
-  const resolvedAriaBusy = loading ? true : ariaBusy;
-  const resolvedAriaDisabled = isDisabled ? true : ariaDisabled;
 
   return (
     <ark.button
       ref={ref}
       asChild={asChild}
       type={asChild ? type : (type ?? 'button')}
-      disabled={nativeDisabled}
-      aria-busy={resolvedAriaBusy}
-      aria-disabled={resolvedAriaDisabled}
+      disabled={asChild ? undefined : isDisabled}
+      aria-busy={loading ? true : ariaBusy}
+      aria-disabled={isDisabled ? true : ariaDisabled}
       {...props}
       onClickCapture={(event) => {
         if (isDisabled) {
@@ -118,10 +117,6 @@ const ButtonRoot = forwardRef<
       className={cn(buttonVariants({ variant, size }), className)}
     />
   );
-});
-
-const Button = Object.assign(ButtonRoot, {
-  Root: ButtonRoot,
 });
 
 export { Button };

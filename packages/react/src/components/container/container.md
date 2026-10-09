@@ -25,8 +25,7 @@ semantic child, forwarded refs to the rendered root, and no legacy `render` or l
 
 ## Current behavior contract
 
-- `Container` is the primary root component.
-- `Container.Root` is the same component exposed for Ark-style namespace consistency.
+- `Container` is the only public root component.
 - Root accepts Ark factory div props, including `asChild`, which requires exactly one semantic child.
 - moduix does not export dedicated `Container*` prop or variant type aliases; advanced consumers can
   derive prop types locally or import Ark factory helpers directly.
@@ -45,19 +44,19 @@ semantic child, forwarded refs to the rendered root, and no legacy `render` or l
 ## Anatomy and exported parts
 
 ```text
-Container / Container.Root
+Container
 └─ children
 ```
 
 Every exported part accepts `className` and uses the standard hooks below:
 
-| Part                           | Hook                         | Notes                                                  |
-| ------------------------------ | ---------------------------- | ------------------------------------------------------ |
-| `Container` / `Container.Root` | `data-slot="container-root"` | Root layout wrapper for width, centering, and gutters. |
-| `Container` / `Container.Root` | `data-scope="container"`     | Ark-aligned component scope.                           |
-| `Container` / `Container.Root` | `data-part="root"`           | Ark-aligned part name.                                 |
-| `Container` / `Container.Root` | `data-size`                  | Selects the max-width preset.                          |
-| `Container` / `Container.Root` | `data-gutter`                | Selects the inline gutter preset.                      |
+| Part        | Hook                         | Notes                                                  |
+| ----------- | ---------------------------- | ------------------------------------------------------ |
+| `Container` | `data-slot="container-root"` | Root layout wrapper for width, centering, and gutters. |
+| `Container` | `data-scope="container"`     | Ark-aligned component scope.                           |
+| `Container` | `data-part="root"`           | Ark-aligned part name.                                 |
+| `Container` | `data-size`                  | Selects the max-width preset.                          |
+| `Container` | `data-gutter`                | Selects the inline gutter preset.                      |
 
 ## Composition
 
@@ -88,9 +87,8 @@ export function Example() {
 }
 ```
 
-`Container` is root-only and composition-first. Prefer the short `<Container>` form. Use the
-equivalent `<Container.Root>` namespace form when consistency with multipart component anatomy is
-useful. Put headings, text, forms, media, or full section content inside it. Use `asChild` when a
+`Container` is root-only and composition-first. Put headings, text, forms, media, or full section
+content inside it. Use `asChild` when a
 semantic element such as `main`, `section`, or `article` should own the DOM node. `asChild` requires
 exactly one semantic child, and the ref then targets that child.
 
@@ -151,7 +149,6 @@ when a page shell needs different layout math.
 - There is still no upstream Ark primitive for this component; moduix keeps it as a thin factory
   wrapper rather than inventing a richer primitive surface.
 - The old `as` prop was removed in favor of Ark `asChild`.
-- moduix adds Ark-style namespace access through `Container.Root`.
 - moduix adds Ark-style `data-scope` and `data-part` hooks on the root.
 - The only built-in layout variants are `size` and `gutter`.
 - moduix intentionally keeps the TypeScript surface minimal and does not mirror local root prop or
@@ -175,13 +172,12 @@ when a page shell needs different layout math.
   documented uncapped-width composition path.
 - 2026-07-26: Restored spacing-token fallbacks for responsive gutters, documented the single-child
   `asChild` and ref contract, and made the site examples self-contained.
+- 2026-09-21: Replaced the compound root surface with the flat `Container` value and removed the
+  compatibility alias.
 - 2026-07-02: Removed redundant public `Container*` type exports and kept only the callable root
-  component surface (`Container` / `Container.Root`).
+  component surface (`Container`).
 - 2026-06-25: Re-audited `Container` as a local Ark factory primitive, protected root data/class
   hooks from consumer prop overrides, simplified the root CSS selector, aligned public docs API
   reference wording, and removed decorative docs example CSS.
-- 2026-06-18: Migrated `Container` to an Ark-aligned factory wrapper, added `Container.Root`,
-  replaced `as` with `asChild`, added Ark-style root hooks, and aligned docs/examples to the new
-  root contract.
-- 2026-06-18: Made the short `<Container>` form the recommended consumer path while retaining
-  `<Container.Root>` as an equivalent namespace alias.
+- 2026-06-18: Migrated `Container` to an Ark-aligned factory wrapper, replaced `as` with `asChild`,
+  added Ark-style root hooks, and aligned docs/examples to the root contract.

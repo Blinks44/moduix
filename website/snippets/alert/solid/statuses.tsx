@@ -1,4 +1,10 @@
-import { Alert } from '@moduix/solid/alert';
+import {
+  Alert,
+  AlertContent,
+  AlertDescription,
+  AlertIndicator,
+  AlertTitle,
+} from '@moduix/solid/alert';
 import { Check as CheckIcon, Info as InfoIcon } from 'lucide-solid';
 import { For } from 'solid-js';
 import styles from '@/components/examples/alert/alert-statuses.module.css';
@@ -11,11 +17,11 @@ export default function AlertStatusesDemo() {
       <For each={statuses}>
         {(status) => (
           <Alert status={status}>
-            <Alert.Indicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</Alert.Indicator>
-            <Alert.Content>
-              <Alert.Title>{status}</Alert.Title>
-              <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
-            </Alert.Content>
+            <AlertIndicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</AlertIndicator>
+            <AlertContent>
+              <AlertTitle>{status}</AlertTitle>
+              <AlertDescription>Use this alert for {status} feedback.</AlertDescription>
+            </AlertContent>
           </Alert>
         )}
       </For>

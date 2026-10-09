@@ -1,7 +1,30 @@
 import { useListCollection } from '@ark-ui/solid/collection';
 import { useFilter } from '@ark-ui/solid/locale';
 import { Button } from '@moduix/solid/button';
-import { CommandPalette } from '@moduix/solid/command-palette';
+import {
+  CommandPalette,
+  CommandPaletteBackdrop,
+  CommandPaletteBody,
+  CommandPaletteClearTrigger,
+  CommandPaletteCombobox,
+  CommandPaletteContent,
+  CommandPaletteControl,
+  CommandPaletteEmpty,
+  CommandPaletteHeader,
+  CommandPaletteInput,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemLabel,
+  CommandPaletteItemMeta,
+  CommandPaletteItemText,
+  CommandPaletteList,
+  CommandPalettePositioner,
+  CommandPaletteTitle,
+  CommandPaletteTrigger,
+} from '@moduix/solid/command-palette';
 import { For } from 'solid-js';
 import styles from '@/components/examples/command-palette/command-palette-advanced-customization.module.css';
 
@@ -58,57 +81,57 @@ export default function AdvancedCommandPalette() {
         }
       }}
     >
-      <CommandPalette.Trigger
+      <CommandPaletteTrigger
         asChild={(triggerProps) => <Button {...triggerProps()}>Open custom palette</Button>}
       />
-      <CommandPalette.Backdrop />
-      <CommandPalette.Positioner>
-        <CommandPalette.Content class={styles.compactPalette}>
-          <CommandPalette.Header>
-            <CommandPalette.Title>Commands</CommandPalette.Title>
-          </CommandPalette.Header>
-          <CommandPalette.Body>
-            <CommandPalette.Combobox
+      <CommandPaletteBackdrop />
+      <CommandPalettePositioner>
+        <CommandPaletteContent class={styles.compactPalette}>
+          <CommandPaletteHeader>
+            <CommandPaletteTitle>Commands</CommandPaletteTitle>
+          </CommandPaletteHeader>
+          <CommandPaletteBody>
+            <CommandPaletteCombobox
               collection={collectionState.collection()}
               onInputValueChange={(details) => collectionState.filter(details.inputValue)}
             >
-              <CommandPalette.Control>
-                <CommandPalette.Input
+              <CommandPaletteControl>
+                <CommandPaletteInput
                   aria-label="Search commands"
                   placeholder="Search commands..."
                 />
-                <CommandPalette.ClearTrigger />
-              </CommandPalette.Control>
-              <CommandPalette.List>
-                <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+                <CommandPaletteClearTrigger />
+              </CommandPaletteControl>
+              <CommandPaletteList>
+                <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
                 <For each={collectionState.collection().group()}>
                   {([section, items]) => (
-                    <CommandPalette.ItemGroup>
-                      <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+                    <CommandPaletteItemGroup>
+                      <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
                       <For each={items}>
                         {(item) => (
-                          <CommandPalette.Item item={item}>
-                            <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                            <CommandPalette.ItemText>
-                              <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                              <CommandPalette.ItemDescription>
+                          <CommandPaletteItem item={item}>
+                            <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                            <CommandPaletteItemText>
+                              <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                              <CommandPaletteItemDescription>
                                 {item.description}
-                              </CommandPalette.ItemDescription>
-                            </CommandPalette.ItemText>
+                              </CommandPaletteItemDescription>
+                            </CommandPaletteItemText>
                             {item.shortcut ? (
-                              <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+                              <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
                             ) : null}
-                          </CommandPalette.Item>
+                          </CommandPaletteItem>
                         )}
                       </For>
-                    </CommandPalette.ItemGroup>
+                    </CommandPaletteItemGroup>
                   )}
                 </For>
-              </CommandPalette.List>
-            </CommandPalette.Combobox>
-          </CommandPalette.Body>
-        </CommandPalette.Content>
-      </CommandPalette.Positioner>
+              </CommandPaletteList>
+            </CommandPaletteCombobox>
+          </CommandPaletteBody>
+        </CommandPaletteContent>
+      </CommandPalettePositioner>
     </CommandPalette>
   );
 }

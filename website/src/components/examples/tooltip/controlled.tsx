@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Tooltip } from '@moduix/react/tooltip';
+import { Tooltip, TooltipBody, TooltipTrigger } from '@moduix/react/tooltip';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 
@@ -8,8 +8,8 @@ export default function ControlledTooltipDemo() {
   return (
     <>
       <Tooltip open={open} onOpenChange={(details) => setOpen(details.open)}>
-        <Tooltip.Trigger>Controlled tooltip</Tooltip.Trigger>
-        <Tooltip.Body>Open: {String(open)}</Tooltip.Body>
+        <TooltipTrigger>Controlled tooltip</TooltipTrigger>
+        <TooltipBody>Open: {String(open)}</TooltipBody>
       </Tooltip>
       <PreviewMeta>
         <output>Open: {String(open)}</output>

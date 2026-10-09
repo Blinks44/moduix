@@ -1,5 +1,5 @@
 @layer moduix.components {
-  .root[data-scope='kbd'][data-part='root'] {
+  .root {
     box-sizing: border-box;
     display: inline-flex;
     flex: none;
@@ -29,7 +29,7 @@
     user-select: none;
   }
 
-  .group[data-scope='kbd'][data-part='group'] {
+  .group {
     box-sizing: border-box;
     display: inline-flex;
     max-width: 100%;

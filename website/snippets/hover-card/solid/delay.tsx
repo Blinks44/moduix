@@ -1,13 +1,19 @@
-import { HoverCard } from '@moduix/solid/hover-card';
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/solid/hover-card';
 import styles from '@/components/examples/hover-card/hover-card-delay.module.css';
 
 export default function DelayHoverCard() {
   return (
     <HoverCard openDelay={200} closeDelay={500}>
-      <HoverCard.Trigger class={styles.trigger}>Release notes</HoverCard.Trigger>
-      <HoverCard.Positioner>
-        <HoverCard.Content>
-          <HoverCard.Body>
+      <HoverCardTrigger class={styles.trigger}>Release notes</HoverCardTrigger>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <HoverCardBody>
             <div class={styles.preview}>
               <img
                 alt="Sunlit workspace with a laptop and plants"
@@ -21,9 +27,9 @@ export default function DelayHoverCard() {
                 </p>
               </div>
             </div>
-          </HoverCard.Body>
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+          </HoverCardBody>
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>
   );
 }

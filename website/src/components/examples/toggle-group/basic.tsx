@@ -1,4 +1,4 @@
-import { ToggleGroup } from '@moduix/react/toggle-group';
+import { ToggleGroup, ToggleGroupItem } from '@moduix/react/toggle-group';
 
 const alignmentItems = [
   {
@@ -19,9 +19,9 @@ export default function ToggleGroupDemo() {
   return (
     <ToggleGroup defaultValue={['left']} aria-label="Text alignment">
       {alignmentItems.map((item) => (
-        <ToggleGroup.Item key={item.value} value={item.value}>
+        <ToggleGroupItem key={item.value} value={item.value}>
           {item.label}
-        </ToggleGroup.Item>
+        </ToggleGroupItem>
       ))}
     </ToggleGroup>
   );

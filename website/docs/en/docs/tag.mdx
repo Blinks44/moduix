@@ -19,6 +19,13 @@ import tagSolidOverflow from '../../../snippets/tag/solid/overflow.tsx?raw';
 import tagSolidRenderAsButton from '../../../snippets/tag/solid/render-as-button.tsx?raw';
 import tagSolidSizes from '../../../snippets/tag/solid/sizes.tsx?raw';
 import tagSolidVariants from '../../../snippets/tag/solid/variants.tsx?raw';
+import tagVueBasic from '../../../snippets/tag/vue/basic.vue?raw';
+import tagVueClosable from '../../../snippets/tag/vue/closable.vue?raw';
+import tagVueIcon from '../../../snippets/tag/vue/icon.vue?raw';
+import tagVueOverflow from '../../../snippets/tag/vue/overflow.vue?raw';
+import tagVueRenderAsButton from '../../../snippets/tag/vue/render-as-button.vue?raw';
+import tagVueSizes from '../../../snippets/tag/vue/sizes.vue?raw';
+import tagVueVariants from '../../../snippets/tag/vue/variants.vue?raw';
 
 ## API Reference
 
@@ -38,7 +45,7 @@ need a local action, such as removal.
 ## Basic
 
 Start with a `Tag`
-root and `Tag.Label`. Add the other parts only when the token needs an icon, supporting content,
+root and `TagLabel`. Add the other parts only when the token needs an icon, supporting content,
 or an inline close action.
 
 <ExampleFrame variant="component">
@@ -52,6 +59,7 @@ or an inline close action.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -64,6 +72,11 @@ or an inline close action.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueBasic} />
 
     </Tab>
   </Tabs>
@@ -95,36 +108,46 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/tag' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/tag' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
-The root is also available as `Tag.Root`. The short `<Tag>` form and `<Tag.Root>` are equivalent.
+Use `Tag` as the root element.
 
 ```text
-Tag / Tag.Root
-├─ Tag.StartElement (optional)
-├─ Tag.Label
-└─ Tag.EndElement (optional)
-   └─ Tag.CloseTrigger (optional)
+Tag
+├─ TagStartElement (optional)
+├─ TagLabel
+└─ TagEndElement (optional)
+   └─ TagCloseTrigger (optional)
 ```
 
 | Part               | Role                                                                                     |
 | ------------------ | ---------------------------------------------------------------------------------------- |
-| `Tag` / `Tag.Root` | Root element. Applies the token layout, border, size, variant, and `asChild` composition. |
-| `Tag.Label`        | Visible value wrapper and truncation boundary.                                            |
-| `Tag.StartElement` | Optional leading area for an icon, avatar, or status indicator.                           |
-| `Tag.EndElement`   | Optional trailing area for an icon or action.                                              |
-| `Tag.CloseTrigger` | Optional button for removing the token.                                                   |
+| `Tag`              | Root element. Applies the token layout, border, size, variant, and `asChild` composition. |
+| `TagLabel`        | Visible value wrapper and truncation boundary.                                            |
+| `TagStartElement` | Optional leading area for an icon, avatar, or status indicator.                           |
+| `TagEndElement`   | Optional trailing area for an icon or action.                                              |
+| `TagCloseTrigger` | Optional button for removing the token.                                                   |
 
 ## Composition
 
 `Tag` is presentational and does not own selected or removed values. Keep the collection in the
-parent, update it from `Tag.CloseTrigger`, and place that trigger inside `Tag.EndElement`.
+parent, update it from `TagCloseTrigger`, and place that trigger inside `TagEndElement`.
 
 Use `asChild` only when the root or close trigger must replace its default host element. The single
 child becomes the DOM host and must provide the required semantics. In particular,
-`Tag.CloseTrigger asChild` needs an explicit close control and accessible name.
+`TagCloseTrigger asChild` needs an explicit close control and accessible name.
 
 ## Examples
 
@@ -144,6 +167,7 @@ Give each trigger a label that includes the value being removed.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -158,6 +182,11 @@ Give each trigger a label that includes the value being removed.
 <CodeBlockRuntime lang="tsx" code={tagSolidClosable} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueClosable} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -169,7 +198,7 @@ Give each trigger a label that includes the value being removed.
 
 ### Icon
 
-Use `Tag.StartElement` and `Tag.EndElement` for icons and actions so `Tag.Label` remains the
+Use `TagStartElement` and `TagEndElement` for icons and actions so `TagLabel` remains the
 truncation boundary and action sizing stays independent.
 
 <ExampleFrame variant="component">
@@ -183,6 +212,7 @@ truncation boundary and action sizing stays independent.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -197,6 +227,11 @@ truncation boundary and action sizing stays independent.
 <CodeBlockRuntime lang="tsx" code={tagSolidIcon} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueIcon} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -208,7 +243,7 @@ truncation boundary and action sizing stays independent.
 
 ### Overflow
 
-Constrain the root when long values need to fit a narrow area. `Tag.Label` becomes the truncation
+Constrain the root when long values need to fit a narrow area. `TagLabel` becomes the truncation
 boundary and shows an ellipsis; add `title` when the full value should remain discoverable.
 
 <ExampleFrame variant="component">
@@ -222,6 +257,7 @@ boundary and shows an ellipsis; add `title` when the full value should remain di
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -234,6 +270,11 @@ boundary and shows an ellipsis; add `title` when the full value should remain di
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidOverflow} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueOverflow} />
 
     </Tab>
   </Tabs>
@@ -261,6 +302,7 @@ comfortable spacing.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -273,6 +315,11 @@ comfortable spacing.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueSizes} />
 
     </Tab>
   </Tabs>
@@ -299,6 +346,7 @@ Use the built-in variants for common moduix color roles while keeping the same p
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -311,6 +359,11 @@ Use the built-in variants for common moduix color roles while keeping the same p
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={tagSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueVariants} />
 
     </Tab>
   </Tabs>
@@ -338,6 +391,7 @@ becomes the semantic and interactive host, so it must provide the behavior expec
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -352,6 +406,11 @@ becomes the semantic and interactive host, so it must provide the behavior expec
 <CodeBlockRuntime lang="tsx" code={tagSolidRenderAsButton} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tagVueRenderAsButton} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -364,8 +423,8 @@ becomes the semantic and interactive host, so it must provide the behavior expec
 ## Styling
 
 Start with a built-in variant. CSS Modules users can adjust the public variables or override an
-exported part with `className` in React or `class` in Solid. Tailwind users can use native utility
-classes on the exported parts. Data attributes and `data-slot` hooks are shared by both styling tracks.
+exported part with `className` in React or `class` in Solid and Vue. Tailwind users can use native utility
+classes on the exported parts. Data attributes and `data-slot` hooks are shared by all three framework tracks.
 
 ### CSS Variables
 
@@ -386,4 +445,4 @@ classes on the exported parts. Data attributes and `data-slot` hooks are shared 
 - Exported parts emit `data-scope="tag"` and `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"`.
 - `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"`, and `data-slot="tag-close-trigger"` are stable moduix selectors.
 - `Tag` writes the selected size and variant to `data-size` and `data-variant`.
-- `Tag.CloseTrigger` exposes `data-disabled` for disabled or `aria-disabled` states and inherits the token color.
+- `TagCloseTrigger` exposes `data-disabled` for disabled or `aria-disabled` states and inherits the token color.

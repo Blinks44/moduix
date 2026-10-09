@@ -1,5 +1,11 @@
-import { Menu } from '@moduix/solid/menu';
-import { SplitButton } from '@moduix/solid/split-button';
+import { MenuItem } from '@moduix/solid/menu';
+import {
+  SplitButton,
+  SplitButtonAction,
+  SplitButtonContent,
+  SplitButtonPositioner,
+  SplitButtonTrigger,
+} from '@moduix/solid/split-button';
 
 export default function SplitButtonPositioningDemo() {
   return (
@@ -11,14 +17,14 @@ export default function SplitButtonPositioningDemo() {
       }}
       variant="outline"
     >
-      <SplitButton.Action>Export</SplitButton.Action>
-      <SplitButton.Trigger aria-label="More export actions" />
-      <SplitButton.Positioner>
-        <SplitButton.Content>
-          <Menu.Item value="export-pdf">Export PDF</Menu.Item>
-          <Menu.Item value="export-csv">Export CSV</Menu.Item>
-        </SplitButton.Content>
-      </SplitButton.Positioner>
+      <SplitButtonAction>Export</SplitButtonAction>
+      <SplitButtonTrigger aria-label="More export actions" />
+      <SplitButtonPositioner>
+        <SplitButtonContent>
+          <MenuItem value="export-pdf">Export PDF</MenuItem>
+          <MenuItem value="export-csv">Export CSV</MenuItem>
+        </SplitButtonContent>
+      </SplitButtonPositioner>
     </SplitButton>
   );
 }

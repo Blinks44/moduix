@@ -1,4 +1,10 @@
-import { Marquee } from '@moduix/solid/marquee';
+import {
+  Marquee,
+  MarqueeContent,
+  MarqueeEdge,
+  MarqueeItem,
+  MarqueeViewport,
+} from '@moduix/solid/marquee';
 import styles from '@/components/examples/marquee/marquee-edges.module.css';
 
 const partners = [
@@ -13,18 +19,18 @@ const partners = [
 export default function EdgesMarqueeDemo() {
   return (
     <Marquee aria-label="Partner logos" class={styles.root}>
-      <Marquee.Edge side="start" />
-      <Marquee.Viewport>
-        <Marquee.Content>
+      <MarqueeEdge side="start" />
+      <MarqueeViewport>
+        <MarqueeContent>
           {partners.map((item) => (
-            <Marquee.Item class={styles.item}>
+            <MarqueeItem class={styles.item}>
               <span>{item.mark}</span>
               <span>{item.name}</span>
-            </Marquee.Item>
+            </MarqueeItem>
           ))}
-        </Marquee.Content>
-      </Marquee.Viewport>
-      <Marquee.Edge side="end" />
+        </MarqueeContent>
+      </MarqueeViewport>
+      <MarqueeEdge side="end" />
     </Marquee>
   );
 }

@@ -33,6 +33,20 @@ import popoverSolidPlacement from '../../../snippets/popover/solid/placement.tsx
 import popoverSolidRootProvider from '../../../snippets/popover/solid/root-provider.tsx?raw';
 import popoverSolidSameWidth from '../../../snippets/popover/solid/same-width.tsx?raw';
 import popoverSolidWithArrow from '../../../snippets/popover/solid/with-arrow.tsx?raw';
+import popoverVueAdvancedCustomization from '../../../snippets/popover/vue/advanced-customization.vue?raw';
+import popoverVueAnchor from '../../../snippets/popover/vue/anchor.vue?raw';
+import popoverVueBasic from '../../../snippets/popover/vue/basic.vue?raw';
+import popoverVueCloseBehavior from '../../../snippets/popover/vue/close-behavior.vue?raw';
+import popoverVueContext from '../../../snippets/popover/vue/context.vue?raw';
+import popoverVueControlled from '../../../snippets/popover/vue/controlled.vue?raw';
+import popoverVueLazyMount from '../../../snippets/popover/vue/lazy-mount.vue?raw';
+import popoverVueModal from '../../../snippets/popover/vue/modal.vue?raw';
+import popoverVueMultipleTriggers from '../../../snippets/popover/vue/multiple-triggers.vue?raw';
+import popoverVueNested from '../../../snippets/popover/vue/nested.vue?raw';
+import popoverVuePlacement from '../../../snippets/popover/vue/placement.vue?raw';
+import popoverVueRootProvider from '../../../snippets/popover/vue/root-provider.vue?raw';
+import popoverVueSameWidth from '../../../snippets/popover/vue/same-width.vue?raw';
+import popoverVueWithArrow from '../../../snippets/popover/vue/with-arrow.vue?raw';
 
 ## Справочник API
 
@@ -46,9 +60,10 @@ import popoverSolidWithArrow from '../../../snippets/popover/solid/with-arrow.ts
 
 ## Базовый пример
 
-
-Используйте части, показанные в примере, явно. Настройте позиционирование на корневом компоненте,
-а `asChild` используйте, если триггером должна быть ваша кнопка.
+Используйте `Popover` как корневой компонент, а остальные части импортируйте напрямую, например
+`PopoverTrigger` и `PopoverContent`. Эти плоские имена одинаковы в npm-пакетах и исходниках
+shadcn-реестра. Настройте позиционирование на корневом компоненте, а `asChild` используйте, если
+триггером должна быть ваша кнопка.
 
 <ExampleFrame variant="component">
   <PopoverBasic />
@@ -56,7 +71,7 @@ import popoverSolidWithArrow from '../../../snippets/popover/solid/with-arrow.ts
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/basic.tsx"
@@ -66,6 +81,7 @@ import popoverSolidWithArrow from '../../../snippets/popover/solid/with-arrow.ts
 <Tab value="solid">
 <CodeBlockRuntime lang="tsx" code={popoverSolidBasic} />
 </Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueBasic} /></Tab>
 </Tabs>
 </div>
 
@@ -92,64 +108,70 @@ import popoverSolidWithArrow from '../../../snippets/popover/solid/with-arrow.ts
   ]}
 />
   </Tab>
+  <Tab label="Vue" value="vue">
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/popover' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/popover' },
+  ]}
+/>
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Popover / Popover.Root
-├─ Popover.Anchor (необязательно)
-├─ Popover.Trigger
-│  └─ Popover.Indicator (необязательно)
+Popover
+├─ PopoverAnchor (необязательно)
+├─ PopoverTrigger
+│  └─ PopoverIndicator (необязательно)
 └─ Поддерево оверлея (автоматически переносится в портал)
-   └─ Popover.Positioner
-      └─ Popover.Content
-         ├─ Popover.Arrow
-         │  └─ Popover.ArrowTip
-         ├─ Popover.Header
-         │  ├─ Popover.Title
-         │  └─ Popover.Description
-         ├─ Popover.Body
-         ├─ Popover.Footer
-         └─ Popover.CloseTrigger / Popover.CloseIcon
+   └─ PopoverPositioner
+      └─ PopoverContent
+         ├─ PopoverArrow
+         │  └─ PopoverArrowTip
+         ├─ PopoverHeader
+         │  ├─ PopoverTitle
+         │  └─ PopoverDescription
+         ├─ PopoverBody
+         ├─ PopoverFooter
+         └─ PopoverCloseTrigger / PopoverCloseIcon
 
-Popover.RootProvider
+PopoverRootProvider
 └─ то же дерево частей, связанное с состоянием moduix из usePopover()
 
-Popover.Context
+PopoverContext
 └─ render prop с текущим состоянием всплывающего окна
 ```
 
 | Часть                         | Назначение                                                          |
 | ----------------------------- | ------------------------------------------------------------------- |
-| `Popover` / `Popover.Root`    | Управляет состоянием, открытием и закрытием, фокусом, закрытием при внешнем взаимодействии и позиционированием. |
-| `Popover.RootProvider`        | Подключает части к состоянию, созданному через `usePopover()`.      |
-| `Popover.Context`             | Передаёт потомкам текущее состояние через render prop.              |
-| `Popover.Anchor`              | Необязательный элемент, относительно которого выполняется позиционирование. |
-| `Popover.Trigger`             | Кнопка, открывающая и закрывающая окно; для триггера можно задать `value`. |
-| `Popover.Indicator`           | Необязательный индикатор состояния триггера.                        |
-| `Popover.Positioner`          | Плавающий слой с CSS-переменными Ark для позиционирования.          |
-| `Popover.Content`             | Видимая интерактивная область всплывающего окна.                    |
-| `Popover.Arrow` / `ArrowTip`  | Необязательная позиционируемая стрелка и её видимый наконечник.     |
-| `Popover.Title`               | Доступный заголовок, связанный с содержимым.                        |
-| `Popover.Description`         | Доступное описание, связанное с содержимым.                         |
-| `Popover.CloseTrigger`        | Низкоуровневый триггер, закрывающий окно.                            |
-| `Popover.CloseIcon`            | Вспомогательная часть moduix, объединяющая триггер закрытия Ark и кнопку с иконкой. |
-| `Popover.Header` / `Body`      | Вспомогательные обёртки moduix со стабильными слотами.              |
-| `Popover.Footer`               | Вспомогательная обёртка moduix для строки действий.                 |
-
-В коде приложения используйте короткую форму `Popover`. Явная форма `Popover.Root` пригодится,
-если имя корневой части помогает лучше понять композицию.
+| `Popover`    | Управляет состоянием, открытием и закрытием, фокусом, закрытием при внешнем взаимодействии и позиционированием. |
+| `PopoverRootProvider`        | Подключает части к состоянию, созданному через `usePopover()`.      |
+| `PopoverContext`             | Передаёт потомкам текущее состояние через render prop.              |
+| `PopoverAnchor`              | Необязательный элемент, относительно которого выполняется позиционирование. |
+| `PopoverTrigger`             | Кнопка, открывающая и закрывающая окно; для триггера можно задать `value`. |
+| `PopoverIndicator`           | Необязательный индикатор состояния триггера.                        |
+| `PopoverPositioner`          | Плавающий слой с CSS-переменными Ark для позиционирования.          |
+| `PopoverContent`             | Видимая интерактивная область всплывающего окна.                    |
+| `PopoverArrow` / `PopoverArrowTip`  | Необязательная позиционируемая стрелка и её видимый наконечник.     |
+| `PopoverTitle`               | Доступный заголовок, связанный с содержимым.                        |
+| `PopoverDescription`         | Доступное описание, связанное с содержимым.                         |
+| `PopoverCloseTrigger`        | Низкоуровневый триггер, закрывающий окно.                            |
+| `PopoverCloseIcon`            | Вспомогательная часть moduix, объединяющая триггер закрытия Ark и кнопку с иконкой. |
+| `PopoverHeader` / `PopoverBody`      | Вспомогательные обёртки moduix со стабильными слотами.              |
+| `PopoverFooter`               | Вспомогательная обёртка moduix для строки действий.                 |
 
 ## Композиция
 
-Оставляйте `Popover.Positioner` и `Popover.Content` явными, чтобы структуру оверлея было удобно
-стилизовать. `Positioner` по умолчанию размещается в портале. Установите `portalled={false}` для
+Оставляйте `PopoverPositioner` и `PopoverContent` явными, чтобы структуру оверлея было удобно
+стилизовать. `PopoverPositioner` по умолчанию размещается в портале. Установите `portalled={false}` для
 размещения в текущем DOM-дереве или передайте `portalRef` для собственного контейнера портала. При
-использовании `Popover.RootProvider` настройте `portalled` в `usePopover()` и передайте store
-провайдеру. Один и тот же store нельзя одновременно подключать через `Popover` или `Popover.Root`.
+использовании `PopoverRootProvider` настройте `portalled` в `usePopover()` и передайте store
+провайдеру. Один и тот же store нельзя одновременно подключать через `Popover` и
+`PopoverRootProvider`.
 
-Используйте `Anchor`, когда позиционирование должен определять другой элемент. Применяйте `asChild`
+Используйте `PopoverAnchor`, когда позиционирование должен определять другой элемент. Применяйте `asChild`
 с одним семантически подходящим дочерним элементом, если ваша разметка должна отрисовать триггер,
 якорь или триггер закрытия. Для вложенного Popover установите `portalled={false}` на корневой части,
 чтобы он оставался внутри родительского оверлея. Если несколько триггеров используют одно окно,
@@ -159,7 +181,7 @@ Popover.Context
 
 ### Якорный элемент
 
-Используйте `Anchor`, когда другой элемент должен задавать точку отсчёта для позиционирования.
+Используйте `PopoverAnchor`, когда другой элемент должен задавать точку отсчёта для позиционирования.
 
 <ExampleFrame variant="component">
   <PopoverAnchor />
@@ -167,7 +189,7 @@ Popover.Context
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/anchor.tsx"
@@ -175,6 +197,7 @@ Popover.Context
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidAnchor} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueAnchor} /></Tab>
 </Tabs>
 **Стили**
 ```css file="../../../src/components/examples/popover/popover-anchor.module.css"
@@ -192,7 +215,7 @@ Popover.Context
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/close-behavior.tsx"
@@ -200,6 +223,7 @@ Popover.Context
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidCloseBehavior} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueCloseBehavior} /></Tab>
 </Tabs>
 </div>
 
@@ -208,13 +232,13 @@ Popover.Context
 ### Контекст
 
 Используйте `usePopoverContext()` внутри потомка, которому нужно текущее состояние окна.
-`Popover.Context` подойдёт, когда для композиции удобнее render prop.
+`PopoverContext` подойдёт, когда для композиции удобнее render prop.
 
 <ExampleFrame variant="component"><PopoverContext /></ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/context.tsx"
@@ -222,6 +246,7 @@ Popover.Context
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidContext} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueContext} /></Tab>
 </Tabs>
 </div>
 
@@ -236,7 +261,7 @@ Popover.Context
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/controlled.tsx"
@@ -244,6 +269,7 @@ Popover.Context
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidControlled} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueControlled} /></Tab>
 </Tabs>
 **Стили**
 ```css file="../../../src/components/examples/popover/popover-controlled.module.css"
@@ -261,7 +287,7 @@ Popover.Context
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/lazy-mount.tsx"
@@ -269,6 +295,7 @@ Popover.Context
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidLazyMount} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueLazyMount} /></Tab>
 </Tabs>
 </div>
 
@@ -284,7 +311,7 @@ Popover.Context
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/modal.tsx"
@@ -292,6 +319,7 @@ Popover.Context
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidModal} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueModal} /></Tab>
 </Tabs>
 **Стили**
 ```css file="../../../src/components/examples/popover/popover-modal.module.css"
@@ -309,7 +337,7 @@ Popover.Context
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/multiple-triggers.tsx"
@@ -317,6 +345,7 @@ Popover.Context
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidMultipleTriggers} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueMultipleTriggers} /></Tab>
 </Tabs>
 **Стили**
 ```css file="../../../src/components/examples/popover/popover-multiple-triggers.module.css"
@@ -334,7 +363,7 @@ Popover.Context
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/nested.tsx"
@@ -342,6 +371,7 @@ Popover.Context
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidNested} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueNested} /></Tab>
 </Tabs>
 **Стили**
 ```css file="../../../src/components/examples/popover/popover-nested.module.css"
@@ -358,7 +388,7 @@ Popover.Context
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/placement.tsx"
@@ -366,6 +396,7 @@ Popover.Context
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidPlacement} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVuePlacement} /></Tab>
 </Tabs>
 </div>
 
@@ -373,14 +404,14 @@ Popover.Context
 
 ### Root Provider
 
-Используйте `usePopover()` вместе с `Popover.RootProvider`, когда внешние по отношению к дереву
+Используйте `usePopover()` вместе с `PopoverRootProvider`, когда внешние по отношению к дереву
 Popover элементы должны читать или изменять его состояние.
 
 <ExampleFrame variant="component"><PopoverRootProvider /></ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/root-provider.tsx"
@@ -388,6 +419,7 @@ Popover элементы должны читать или изменять ег�
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidRootProvider} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueRootProvider} /></Tab>
 </Tabs>
 **Стили**
 ```css file="../../../src/components/examples/popover/popover-root-provider.module.css"
@@ -404,7 +436,7 @@ Popover элементы должны читать или изменять ег�
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/same-width.tsx"
@@ -412,6 +444,7 @@ Popover элементы должны читать или изменять ег�
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidSameWidth} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueSameWidth} /></Tab>
 </Tabs>
 **Стили**
 ```css file="../../../src/components/examples/popover/popover-same-width.module.css"
@@ -422,14 +455,14 @@ Popover элементы должны читать или изменять ег�
 
 ### Со стрелкой
 
-Добавьте `Popover.Arrow`, если окно должно визуально указывать на элемент, относительно которого
-оно позиционируется. Обёртка по умолчанию выводит стилизованный moduix `ArrowTip`.
+Добавьте `PopoverArrow`, если окно должно визуально указывать на элемент, относительно которого
+оно позиционируется. Обёртка по умолчанию выводит стилизованный moduix `PopoverArrowTip`.
 
 <ExampleFrame variant="component"><PopoverWithArrow /></ExampleFrame>
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/with-arrow.tsx"
@@ -437,6 +470,7 @@ Popover элементы должны читать или изменять ег�
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidWithArrow} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueWithArrow} /></Tab>
 </Tabs>
 </div>
 
@@ -452,7 +486,7 @@ Popover элементы должны читать или изменять ег�
 
 <ExampleCode>
 <div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]} className="docs-tabs">
+<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
 <Tab value="react">
 
 ```tsx pure file="../../../src/components/examples/popover/advanced-customization.tsx"
@@ -460,6 +494,7 @@ Popover элементы должны читать или изменять ег�
 
 </Tab>
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidAdvancedCustomization} /></Tab>
+<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueAdvancedCustomization} /></Tab>
 </Tabs>
 **Стили**
 ```css file="../../../src/components/examples/popover/popover-advanced-customization.module.css"
@@ -470,7 +505,7 @@ Popover элементы должны читать или изменять ег�
 
 ## Стилизация
 
-Для структурных стилей используйте `className` в React и `class` в Solid на экспортируемых частях.
+Для структурных стилей используйте `className` в React и `class` в Solid и Vue на экспортируемых частях.
 Варианты Tailwind используют нативные utility-классы и классы потребителя. CSS-переменные ниже
 настраивают варианты CSS Modules, а атрибуты Ark и `data-slot` moduix общие для обоих вариантов.
 
@@ -490,12 +525,12 @@ Popover элементы должны читать или изменять ег�
 
 Каждая отрисованная часть принимает `className` или `class`. Части Ark сохраняют `data-scope="popover"`
 и значения `data-part`, а moduix добавляет к обёрткам стабильные `data-slot="popover-*"`. `Popover`
-и `Popover.RootProvider` предоставляют состояние, но не создают DOM-элементы. Для стилей, зависящих
+и `PopoverRootProvider` предоставляют состояние, но не создают DOM-элементы. Для стилей, зависящих
 от состояния, используйте `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`,
 `data-nested`, `data-has-nested`, `data-expanded` и `data-current` для нескольких триггеров с `value`.
 
-`Positioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`,
-`--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `Content` предоставляет
-`--layer-index` и `--nested-layer-count`, а `Arrow` предоставляет переменные измерения стрелки Ark.
+`PopoverPositioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`,
+`--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `PopoverContent` предоставляет
+`--layer-index` и `--nested-layer-count`, а `PopoverArrow` предоставляет переменные измерения стрелки Ark.
 Содержимое переносит длинные строки без пробелов и отключает анимацию, если пользователь предпочитает
 уменьшить движение.

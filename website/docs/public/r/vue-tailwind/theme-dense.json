@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme-dense",
+  "title": "Dense theme",
+  "description": "Compact moduix tokens with a structured blue palette for admin and data-heavy interfaces.",
+  "registryDependencies": ["https://moduix.dev/r/foundation/theme-dense.json"],
+  "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/dense.css'. Put data-moduix-theme=\"dense\" on the document root.",
+  "type": "registry:theme"
+}

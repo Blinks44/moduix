@@ -1,4 +1,12 @@
-import { Slider } from '@moduix/react/slider';
+import {
+  Slider,
+  SliderControl,
+  SliderLabel,
+  SliderRange,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
+} from '@moduix/react/slider';
 import { useState } from 'react';
 import styles from '@/components/examples/slider/slider-controlled.module.css';
 
@@ -7,15 +15,15 @@ export default function ControlledSliderDemo() {
   return (
     <Slider value={value} onValueChange={(details) => setValue(details.value)}>
       <div className={styles.header}>
-        <Slider.Label>Brightness</Slider.Label>
-        <Slider.ValueText />
+        <SliderLabel>Brightness</SliderLabel>
+        <SliderValueText />
       </div>
-      <Slider.Control>
-        <Slider.Track>
-          <Slider.Range />
-        </Slider.Track>
-        <Slider.Thumbs />
-      </Slider.Control>
+      <SliderControl>
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumbs />
+      </SliderControl>
     </Slider>
   );
 }

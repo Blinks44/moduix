@@ -1,8 +1,48 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Avatar } from '@moduix/react/avatar';
-import { Menu } from '@moduix/react/menu';
-import { Select } from '@moduix/react/select';
-import { Sidebar } from '@moduix/react/sidebar';
+import { Avatar, AvatarFallback } from '@moduix/react/avatar';
+import {
+  Menu,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuSeparator,
+  MenuItemText,
+  MenuItemTextContent,
+  MenuItemTextIcon,
+  MenuItemTextLabel,
+} from '@moduix/react/menu';
+import {
+  Select,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
+import {
+  Sidebar,
+  SidebarPanel,
+  SidebarInset,
+  SidebarResizeTrigger,
+  SidebarTrigger,
+  SidebarLabel,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarSeparator,
+  SidebarGroup,
+  SidebarGroupHeader,
+  SidebarGroupLabel,
+  SidebarGroupAction,
+  SidebarNavigationList,
+  SidebarNavigationItem,
+  SidebarNavigationButton,
+} from '@moduix/react/sidebar';
 import {
   BarChart3,
   Bell,
@@ -36,10 +76,10 @@ const workspaces = createListCollection({
 export default function WorkspaceSidebar() {
   return (
     <Sidebar className={styles.root}>
-      <Sidebar.Panel>
-        <Sidebar.Header>
-          <Sidebar.NavigationList>
-            <Sidebar.NavigationItem>
+      <SidebarPanel>
+        <SidebarHeader>
+          <SidebarNavigationList>
+            <SidebarNavigationItem>
               <Select
                 className={styles.workspaceSelect}
                 collection={workspaces}
@@ -50,109 +90,109 @@ export default function WorkspaceSidebar() {
                   flip: false,
                 }}
               >
-                <Select.Trigger asChild>
-                  <Sidebar.NavigationButton size="lg" aria-label="Select workspace">
+                <SelectTrigger asChild>
+                  <SidebarNavigationButton size="lg" aria-label="Select workspace">
                     <span data-sidebar-icon className={styles.workspaceMark}>
                       AC
                     </span>
-                    <Sidebar.Label className={styles.accountLabel}>
+                    <SidebarLabel className={styles.accountLabel}>
                       <strong className={styles.accountName}>
-                        <Select.ValueText placeholder="Select workspace" />
+                        <SelectValueText placeholder="Select workspace" />
                       </strong>
                       <span className={styles.accountEmail}>Workspace</span>
-                    </Sidebar.Label>
-                    <Select.Indicator />
-                  </Sidebar.NavigationButton>
-                </Select.Trigger>
-                <Select.Positioner>
-                  <Select.Content>
+                    </SidebarLabel>
+                    <SelectIndicator />
+                  </SidebarNavigationButton>
+                </SelectTrigger>
+                <SelectPositioner>
+                  <SelectContent>
                     {workspaces.items.map((workspace) => (
-                      <Select.Item key={workspace.value} item={workspace}>
-                        <Select.ItemText>{workspace.label}</Select.ItemText>
-                        <Select.ItemIndicator />
-                      </Select.Item>
+                      <SelectItem key={workspace.value} item={workspace}>
+                        <SelectItemText>{workspace.label}</SelectItemText>
+                        <SelectItemIndicator />
+                      </SelectItem>
                     ))}
-                  </Select.Content>
-                </Select.Positioner>
+                  </SelectContent>
+                </SelectPositioner>
               </Select>
-            </Sidebar.NavigationItem>
-          </Sidebar.NavigationList>
-        </Sidebar.Header>
-        <Sidebar.Content>
-          <Sidebar.Group>
-            <Sidebar.GroupHeader>
-              <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-              <Sidebar.GroupAction aria-label="Create workspace item">
+            </SidebarNavigationItem>
+          </SidebarNavigationList>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupHeader>
+              <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+              <SidebarGroupAction aria-label="Create workspace item">
                 <Plus />
-              </Sidebar.GroupAction>
-            </Sidebar.GroupHeader>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton asChild active>
+              </SidebarGroupAction>
+            </SidebarGroupHeader>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton asChild active>
                   <a href="/overview">
                     <Gauge />
-                    <Sidebar.Label>Overview</Sidebar.Label>
+                    <SidebarLabel>Overview</SidebarLabel>
                   </a>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton asChild>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton asChild>
                   <a href="/calendar">
                     <CalendarDays />
-                    <Sidebar.Label>Calendar</Sidebar.Label>
+                    <SidebarLabel>Calendar</SidebarLabel>
                   </a>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton asChild>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton asChild>
                   <a href="/team">
                     <Users />
-                    <Sidebar.Label>Team</Sidebar.Label>
+                    <SidebarLabel>Team</SidebarLabel>
                   </a>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
-          <Sidebar.Group>
-            <Sidebar.GroupLabel>Library</Sidebar.GroupLabel>
-            <Sidebar.NavigationList>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton asChild>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+          <SidebarGroup>
+            <SidebarGroupLabel>Library</SidebarGroupLabel>
+            <SidebarNavigationList>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton asChild>
                   <a href="/documents">
                     <FileText />
-                    <Sidebar.Label>Documents</Sidebar.Label>
+                    <SidebarLabel>Documents</SidebarLabel>
                   </a>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton asChild>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton asChild>
                   <a href="/analytics">
                     <BarChart3 />
-                    <Sidebar.Label>Analytics</Sidebar.Label>
+                    <SidebarLabel>Analytics</SidebarLabel>
                   </a>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton asChild>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton asChild>
                   <a href="/notifications">
                     <Bell />
-                    <Sidebar.Label>Notifications</Sidebar.Label>
+                    <SidebarLabel>Notifications</SidebarLabel>
                   </a>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-              <Sidebar.NavigationItem>
-                <Sidebar.NavigationButton asChild>
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+              <SidebarNavigationItem>
+                <SidebarNavigationButton asChild>
                   <a href="/settings">
                     <Settings />
-                    <Sidebar.Label>Settings</Sidebar.Label>
+                    <SidebarLabel>Settings</SidebarLabel>
                   </a>
-                </Sidebar.NavigationButton>
-              </Sidebar.NavigationItem>
-            </Sidebar.NavigationList>
-          </Sidebar.Group>
-        </Sidebar.Content>
-        <Sidebar.Footer className={styles.footer}>
-          <Sidebar.Separator />
+                </SidebarNavigationButton>
+              </SidebarNavigationItem>
+            </SidebarNavigationList>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter className={styles.footer}>
+          <SidebarSeparator />
           <Menu
             positioning={{
               placement: 'right-end',
@@ -160,42 +200,42 @@ export default function WorkspaceSidebar() {
               flip: false,
             }}
           >
-            <Menu.Trigger asChild>
-              <Sidebar.NavigationButton size="lg" aria-label="Open account menu">
+            <MenuTrigger asChild>
+              <SidebarNavigationButton size="lg" aria-label="Open account menu">
                 <Avatar size="sm" data-sidebar-icon>
-                  <Avatar.Fallback>AM</Avatar.Fallback>
+                  <AvatarFallback>AM</AvatarFallback>
                 </Avatar>
-                <Sidebar.Label className={styles.accountLabel}>
+                <SidebarLabel className={styles.accountLabel}>
                   <strong className={styles.accountName}>Alex Morgan</strong>
                   <span className={styles.accountEmail}>alex@acme.dev</span>
-                </Sidebar.Label>
-              </Sidebar.NavigationButton>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content>
-                <Menu.Viewport>
-                  <Menu.Item value="profile">Profile</Menu.Item>
-                  <Menu.Item value="settings">Account settings</Menu.Item>
-                  <Menu.Separator />
-                  <Menu.Item value="sign-out" tone="destructive">
-                    <Menu.ItemText>
-                      <Menu.ItemTextContent>
-                        <Menu.ItemTextIcon>
+                </SidebarLabel>
+              </SidebarNavigationButton>
+            </MenuTrigger>
+            <MenuPositioner>
+              <MenuContent>
+                <MenuViewport>
+                  <MenuItem value="profile">Profile</MenuItem>
+                  <MenuItem value="settings">Account settings</MenuItem>
+                  <MenuSeparator />
+                  <MenuItem value="sign-out" tone="destructive">
+                    <MenuItemText>
+                      <MenuItemTextContent>
+                        <MenuItemTextIcon>
                           <LogOut />
-                        </Menu.ItemTextIcon>
-                        <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
-                      </Menu.ItemTextContent>
-                    </Menu.ItemText>
-                  </Menu.Item>
-                </Menu.Viewport>
-              </Menu.Content>
-            </Menu.Positioner>
+                        </MenuItemTextIcon>
+                        <MenuItemTextLabel>Sign out</MenuItemTextLabel>
+                      </MenuItemTextContent>
+                    </MenuItemText>
+                  </MenuItem>
+                </MenuViewport>
+              </MenuContent>
+            </MenuPositioner>
           </Menu>
-        </Sidebar.Footer>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+        </SidebarFooter>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <header className={styles.header}>Dashboard</header>
         <main className={styles.content}>
           <strong>Acme Inc.</strong>
@@ -203,7 +243,7 @@ export default function WorkspaceSidebar() {
             Switch workspaces without changing the navigation shell.
           </section>
         </main>
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   );
 }

@@ -2,8 +2,10 @@ import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
-import type { ComponentProps } from 'solid-js';
-import { children, createEffect, onCleanup, splitProps } from 'solid-js';
+import type { ComponentProps, JSX } from 'solid-js';
+import { createEffect, onCleanup, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -11,8 +13,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './Lightbox.module.css';
-
-const DEFAULT_CLOSE_LABEL = 'Close image';
 
 type LightboxImageSelectDetails = {
   alt?: string;
@@ -65,7 +65,7 @@ function resolveImage(
     return null;
   }
 
-  const src = imageNode.dataset.lightboxSrc ?? imageNode.currentSrc ?? imageNode.src;
+  const src = imageNode.dataset.lightboxSrc ?? (imageNode.currentSrc || imageNode.src);
   if (!src) {
     return null;
   }
@@ -85,7 +85,7 @@ function resolveRootNode(
   return rootNode ?? (rootSelector ? document.querySelector<HTMLElement>(rootSelector) : null);
 }
 
-function LightboxRoot(props: LightboxRootProps) {
+function Lightbox(props: LightboxRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -224,21 +224,20 @@ type LightboxCloseIconProps = Omit<ComponentProps<typeof DialogPrimitive.CloseTr
 function LightboxCloseIcon(props: LightboxCloseIconProps) {
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
   const dialog = useDialogContext();
-  const resolvedChildren = children(() => local.children);
 
   return (
     <DialogPrimitive.CloseTrigger
       asChild={(triggerProps) => (
-        <CloseButton.Root
+        <CloseButton
           {...triggerProps()}
           data-slot="lightbox-close-icon"
           data-state={dialog().open ? 'open' : 'closed'}
-          aria-label={local['aria-label'] ?? DEFAULT_CLOSE_LABEL}
+          aria-label={local['aria-label'] ?? a11yLabels.closeImage}
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >
-          {resolvedChildren()}
-        </CloseButton.Root>
+          {local.children}
+        </CloseButton>
       )}
       {...others}
     />
@@ -254,8 +253,8 @@ function LightboxImage(props: LightboxImageProps) {
   ]);
   const dialog = useDialogContext();
 
-  const handleClick = (event: MouseEvent) => {
-    (local.onClick as ((event: MouseEvent) => void) | undefined)?.(event);
+  const handleClick: JSX.EventHandler<HTMLImageElement, MouseEvent> = (event) => {
+    callEventHandler(local.onClick, event);
 
     if (local.closeOnClick && !event.defaultPrevented) {
       dialog().setOpen(false);
@@ -317,6 +316,8 @@ function LightboxBind(props: LightboxBindProps) {
     }
 
     const handleClick = (event: MouseEvent) => {
+      if (event.defaultPrevented) return;
+
       const nextImage = resolveImage(event.target, selector, rootNode);
       if (!nextImage) {
         return;
@@ -357,53 +358,23 @@ function LightboxBind(props: LightboxBindProps) {
   return <></>;
 }
 
-type LightboxComponent = typeof LightboxRoot & {
-  Root: typeof LightboxRoot;
-  RootProvider: typeof LightboxRootProvider;
-  Trigger: typeof LightboxTrigger;
-  Backdrop: typeof LightboxBackdrop;
-  Positioner: typeof LightboxPositioner;
-  Content: typeof LightboxContent;
-  Title: typeof LightboxTitle;
-  Description: typeof LightboxDescription;
-  CloseTrigger: typeof LightboxCloseTrigger;
-  CloseIcon: typeof LightboxCloseIcon;
-  Header: typeof LightboxHeader;
-  Body: typeof LightboxBody;
-  Footer: typeof LightboxFooter;
-  Image: typeof LightboxImage;
-  Gallery: typeof LightboxGallery;
-  Bind: typeof LightboxBind;
-  useLightbox: typeof useDialog;
-  useLightboxContext: typeof useDialogContext;
-};
-
-const Lightbox: LightboxComponent = Object.assign(LightboxRoot, {
-  Root: LightboxRoot,
-  RootProvider: LightboxRootProvider,
-  Trigger: LightboxTrigger,
-  Backdrop: LightboxBackdrop,
-  Positioner: LightboxPositioner,
-  Content: LightboxContent,
-  Title: LightboxTitle,
-  Description: LightboxDescription,
-  CloseTrigger: LightboxCloseTrigger,
-  CloseIcon: LightboxCloseIcon,
-  Header: LightboxHeader,
-  Body: LightboxBody,
-  Footer: LightboxFooter,
-  Image: LightboxImage,
-  Gallery: LightboxGallery,
-  Bind: LightboxBind,
-  useLightbox: useDialog,
-  useLightboxContext: useDialogContext,
-});
-
 export {
   Lightbox,
-  LightboxBind,
-  LightboxGallery,
+  LightboxRootProvider,
+  LightboxTrigger,
+  LightboxBackdrop,
+  LightboxPositioner,
+  LightboxContent,
+  LightboxTitle,
+  LightboxDescription,
+  LightboxCloseTrigger,
+  LightboxCloseIcon,
+  LightboxHeader,
+  LightboxBody,
+  LightboxFooter,
   LightboxImage,
+  LightboxGallery,
+  LightboxBind,
   useDialog as useLightbox,
   useDialogContext as useLightboxContext,
 };

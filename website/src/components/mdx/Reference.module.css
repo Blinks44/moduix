@@ -20,7 +20,6 @@
 
     > * {
       align-self: center;
-      max-inline-size: min(var(--moduix-doc-preview-max-inline-size, 100%), 100%);
     }
 
     output {
@@ -75,7 +74,7 @@
 }
 
 .demoContent > * {
-  max-width: 100%;
+  max-inline-size: min(var(--moduix-doc-preview-max-inline-size, 100%), 100%);
   min-width: 0;
 }
 

@@ -1,4 +1,12 @@
-import { Chart } from '@moduix/solid/chart';
+import {
+  Chart,
+  ChartDescription,
+  ChartHeader,
+  ChartLegend,
+  ChartLegendItem,
+  ChartPlot,
+  ChartTitle,
+} from '@moduix/solid/chart';
 import { areaY, defineChart, lineY } from '@tanstack/charts';
 import { scaleLinear } from '@tanstack/charts/scales/linear';
 import { scalePoint } from '@tanstack/charts/scales/point';
@@ -52,15 +60,15 @@ const definition = defineChart({
 export default function AnimatedAreaChartDemo() {
   return (
     <Chart>
-      <Chart.Header>
-        <Chart.Title>Revenue and target</Chart.Title>
-        <Chart.Description>Marks and tooltip share the default motion renderer.</Chart.Description>
-      </Chart.Header>
-      <Chart.Plot definition={definition} height={320} ariaLabel="Monthly revenue and target" />
-      <Chart.Legend aria-label="Revenue series">
-        <Chart.LegendItem color="var(--moduix-color-chart-1)">Revenue</Chart.LegendItem>
-        <Chart.LegendItem color="var(--moduix-color-chart-2)">Target</Chart.LegendItem>
-      </Chart.Legend>
+      <ChartHeader>
+        <ChartTitle>Revenue and target</ChartTitle>
+        <ChartDescription>Marks and tooltip share the default motion renderer.</ChartDescription>
+      </ChartHeader>
+      <ChartPlot definition={definition} height={320} ariaLabel="Monthly revenue and target" />
+      <ChartLegend aria-label="Revenue series">
+        <ChartLegendItem color="var(--moduix-color-chart-1)">Revenue</ChartLegendItem>
+        <ChartLegendItem color="var(--moduix-color-chart-2)">Target</ChartLegendItem>
+      </ChartLegend>
     </Chart>
   );
 }

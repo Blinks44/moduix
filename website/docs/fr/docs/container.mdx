@@ -15,6 +15,11 @@ import containerSolidFullWidth from '../../../snippets/container/solid/full-widt
 import containerSolidGutters from '../../../snippets/container/solid/gutters.tsx?raw';
 import containerSolidSemanticElement from '../../../snippets/container/solid/semantic-element.tsx?raw';
 import containerSolidWithBleed from '../../../snippets/container/solid/with-bleed.tsx?raw';
+import containerVueBasic from '../../../snippets/container/vue/basic.vue?raw';
+import containerVueFullWidth from '../../../snippets/container/vue/full-width.vue?raw';
+import containerVueGutters from '../../../snippets/container/vue/gutters.vue?raw';
+import containerVueSemanticElement from '../../../snippets/container/vue/semantic-element.vue?raw';
+import containerVueWithBleed from '../../../snippets/container/vue/with-bleed.vue?raw';
 
 ## Référence de l’API
 
@@ -26,8 +31,9 @@ la [transmission des refs](https://ark-ui.com/docs/guides/ref).
 ## Exemple de base
 
 
-Importez `Container` depuis le package adapté : `@moduix/react/container` ou `@moduix/solid/container` pour CSS Modules,
-et `@moduix/react-tailwind/container` ou `@moduix/solid-tailwind/container` pour Tailwind CSS.
+Importez `Container` depuis le package adapté : `@moduix/react/container`, `@moduix/solid/container` ou
+`@moduix/vue/container` pour CSS Modules, et `@moduix/react-tailwind/container`,
+`@moduix/solid-tailwind/container` ou `@moduix/vue-tailwind/container` pour Tailwind CSS.
 
 Utilisez `Container` pour une colonne de contenu centrée et lisible. Le composant ajoute des espacements horizontaux
 adaptatifs et laisse les espacements verticaux à la mise en page qui l’entoure.
@@ -43,6 +49,7 @@ adaptatifs et laisse les espacements verticaux à la mise en page qui l’entour
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -55,6 +62,11 @@ adaptatifs et laisse les espacements verticaux à la mise en page qui l’entour
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -92,6 +104,16 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/container' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/container' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
@@ -99,24 +121,24 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 `Container` rend un seul élément racine et n’ajoute aucune enveloppe supplémentaire.
 
 ```text
-Container / Container.Root
+Container
 └─ enfants
 ```
 
-| Partie                         | Rôle                                                                                  |
-| ----------------------------- | ------------------------------------------------------------------------------------- |
-| `Container` / `Container.Root` | Élément racine de mise en page. Centre le contenu et gère sa largeur ainsi que ses espacements horizontaux. |
+| Partie      | Rôle                                                                                  |
+| ----------- | ------------------------------------------------------------------------------------- |
+| `Container` | Élément racine de mise en page. Centre le contenu et gère sa largeur ainsi que ses espacements horizontaux. |
 
 ## Composition
 
 `Container` ne gère aucun état et ne comporte aucune sous-partie à coordonner. Utilisez-le comme racine et placez
-directement le contenu de la page ou de la section à l’intérieur. `Container.Root` est un alias de cette même racine,
-utile lorsque cette notation s’accorde mieux avec le reste de votre composition.
+directement le contenu de la page ou de la section à l’intérieur.
 
 Utilisez `asChild` lorsqu’un élément sémantique doit devenir la racine rendue. Fournissez exactement un enfant : React
-imbrique cet élément dans `Container`, tandis que Solid utilise la forme avec fonction de rendu
-`asChild={(props) => <main {...props()} />}`. Placez `Bleed` dans `Container` lorsqu’un seul enfant doit dépasser la
-colonne de texte contrainte.
+et Vue en font la racine rendue de `Container`, tandis que Solid utilise la forme avec fonction de rendu
+`asChild={(props) => <main {...props()} />}`. En Solid, affectez la ref à l’élément créé dans cette fonction, car une
+ref sur `Container` n’est pas transmise à travers `asChild`. En Vue, l’élément rendu est accessible via `$el` sur la ref
+du composant. Placez `Bleed` dans `Container` lorsqu’un seul enfant doit dépasser la colonne de texte contrainte.
 
 ## Exemples
 
@@ -136,6 +158,7 @@ latéral adaptatif.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -148,6 +171,11 @@ latéral adaptatif.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidFullWidth} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueFullWidth} />
 
     </Tab>
   </Tabs>
@@ -175,6 +203,7 @@ Utilisez `gutter` pour choisir la taille des espacements horizontaux adaptatifs.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -187,6 +216,11 @@ Utilisez `gutter` pour choisir la taille des espacements horizontaux adaptatifs.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidGutters} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueGutters} />
 
     </Tab>
   </Tabs>
@@ -214,6 +248,7 @@ Utilisez `asChild` lorsque l’enveloppe de mise en page doit également décrir
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -226,6 +261,11 @@ Utilisez `asChild` lorsque l’enveloppe de mise en page doit également décrir
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidSemanticElement} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueSemanticElement} />
 
     </Tab>
   </Tabs>
@@ -253,6 +293,7 @@ Gardez la colonne de texte contrainte et laissez uniquement l’enfant plus larg
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -265,6 +306,11 @@ Gardez la colonne de texte contrainte et laissez uniquement l’enfant plus larg
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={containerSolidWithBleed} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={containerVueWithBleed} />
 
     </Tab>
   </Tabs>
@@ -281,7 +327,7 @@ Gardez la colonne de texte contrainte et laissez uniquement l’enfant plus larg
 
 Pour les packages CSS Modules, surchargez les variables CSS sur la racine lorsqu’une enveloppe de page a besoin d’une
 autre largeur ou de valeurs d’espacement différentes. Les packages Tailwind utilisent des utilitaires et les classes du
-consommateur à la place de ces variables. Utilisez `className` en React ou `class` en Solid pour les styles locaux du
+consommateur à la place de ces variables. Utilisez `className` en React, `class` en Solid ou `class` en Vue pour les styles locaux du
 bloc, comme le padding, les bordures ou les arrière-plans.
 
 ### Propriétés CSS
@@ -293,7 +339,7 @@ avec des utilitaires.
 
 ### Points d’accroche CSS
 
-- `Container` et `Container.Root` exposent `data-slot="container-root"` sur la racine.
+- `Container` expose `data-slot="container-root"` sur la racine.
 - `data-scope="container"` et `data-part="root"` suivent les conventions de style d’Ark.
 - `data-size` sélectionne la largeur : `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` sélectionne l’espacement latéral : `none`, `sm`, `md`, `lg`.

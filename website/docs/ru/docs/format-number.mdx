@@ -6,8 +6,11 @@ description: "Форматируйте числа с учетом локали: 
 import FormatNumberBasic from '@/components/examples/format-number/basic.tsx';
 import FormatNumberOptions from '@/components/examples/format-number/options.tsx';
 import formatNumberSolidBasic from '../../../snippets/format-number/solid/basic.tsx?raw';
+import formatNumberVueBasic from '../../../snippets/format-number/vue/basic.vue?raw';
 import formatNumberSolidLocale from '../../../snippets/format-number/solid/locale.tsx?raw';
+import formatNumberVueLocale from '../../../snippets/format-number/vue/locale.vue?raw';
 import formatNumberSolidOptions from '../../../snippets/format-number/solid/options.tsx?raw';
+import formatNumberVueOptions from '../../../snippets/format-number/vue/options.vue?raw';
 
 `Format.Number` форматирует числовое значение по правилам браузерного `Intl.NumberFormat`. Это форматтер для чтения,
 а не поле ввода.
@@ -23,6 +26,7 @@ import formatNumberSolidOptions from '../../../snippets/format-number/solid/opti
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -40,6 +44,13 @@ import { Format } from '@ark-ui/solid';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { Format } from '@ark-ui/vue';
+```
+
+  </Tab>
 </Tabs>
 
 ## Базовый пример
@@ -47,8 +58,8 @@ import { Format } from '@ark-ui/solid';
 Передайте число в `value`. Если параметры форматирования не заданы, результат зависит от активной локали.
 `Format.Number` выводит только текст, поэтому подпись и окружающую разметку нужно добавить самостоятельно.
 
-Предпросмотр использует React, потому что сайт документации работает на React. Во вкладке Solid показана нативная
-версия того же примера.
+Предпросмотр использует React, потому что сайт документации работает на React. Во вкладках Solid и
+Vue показаны нативные версии того же примера.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -63,6 +74,7 @@ import { Format } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -75,6 +87,11 @@ import { Format } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatNumberSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatNumberVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +116,7 @@ import { Format } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -111,6 +129,11 @@ import { Format } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatNumberSolidOptions} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatNumberVueOptions} />
 
     </Tab>
   </Tabs>
@@ -134,6 +157,7 @@ import { Format } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -146,6 +170,11 @@ import { Format } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatNumberSolidLocale} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatNumberVueLocale} />
 
     </Tab>
   </Tabs>

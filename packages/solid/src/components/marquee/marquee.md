@@ -6,24 +6,24 @@ This component is the moduix Solid wrapper around Ark UI Solid Marquee.
 ## Composition
 
 ```tsx
-import { Marquee } from '@moduix/solid/marquee';
+import { Marquee, MarqueeContent, MarqueeItem, MarqueeViewport } from '@moduix/solid/marquee';
 
 export function Example() {
   return (
     <Marquee aria-label="Partner logos" pauseOnInteraction>
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item>Atlas</Marquee.Item>
-          <Marquee.Item>Beacon</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem>Atlas</MarqueeItem>
+          <MarqueeItem>Beacon</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
     </Marquee>
   );
 }
 ```
 
-`Marquee` is the styled root and is equivalent to `Marquee.Root`. Consumers compose
-`Root`, `RootProvider`, `Viewport`, `Content`, `Item`, and `Edge` explicitly. Ark owns pause state,
+`Marquee` is the styled root. Consumers compose `MarqueeRootProvider`, `MarqueeViewport`,
+`MarqueeContent`, `MarqueeItem`, and `MarqueeEdge` explicitly. Ark owns pause state,
 orientation, side, auto-fill cloning, loop counts, ids, localized labels, and the imperative API.
 
 Use `autoFill` and `spacing` when the item set is shorter than the viewport. Use `side="top"` or
@@ -31,40 +31,41 @@ Use `autoFill` and `spacing` when the item set is shorter than the viewport. Use
 
 ```tsx
 <Marquee aria-label="Partner logos" autoFill spacing="2rem">
-  <Marquee.Edge side="start" />
-  <Marquee.Viewport>
-    <Marquee.Content>
-      <Marquee.Item>Atlas</Marquee.Item>
-      <Marquee.Item>Beacon</Marquee.Item>
-    </Marquee.Content>
-  </Marquee.Viewport>
-  <Marquee.Edge side="end" />
+  <MarqueeEdge side="start" />
+  <MarqueeViewport>
+    <MarqueeContent>
+      <MarqueeItem>Atlas</MarqueeItem>
+      <MarqueeItem>Beacon</MarqueeItem>
+    </MarqueeContent>
+  </MarqueeViewport>
+  <MarqueeEdge side="end" />
 </Marquee>
 ```
 
 ## Public API
 
-The package exports `Marquee`, `useMarquee`, and `useMarqueeContext`. `Marquee.Context` is available
-for advanced composition.
+The package exports `Marquee`, `MarqueeRootProvider`, `MarqueeViewport`, `MarqueeContent`,
+`MarqueeItem`, `MarqueeEdge`, `MarqueeContext`, `useMarquee`, and `useMarqueeContext` as flat
+values.
 
-| Export                     | `data-slot`             | Notes                                         |
-| -------------------------- | ----------------------- | --------------------------------------------- |
-| `Marquee` / `Marquee.Root` | `marquee-root`          | Ark root and playback state.                  |
-| `Marquee.RootProvider`     | `marquee-root-provider` | Root for an external `useMarquee()` instance. |
-| `Marquee.Viewport`         | `marquee-viewport`      | Clipping viewport.                            |
-| `Marquee.Content`          | `marquee-content`       | Animated content and cloned content host.     |
-| `Marquee.Item`             | `marquee-item`          | Individual marquee item.                      |
-| `Marquee.Edge`             | `marquee-edge`          | Optional fade overlay.                        |
-| `Marquee.Context`          | -                       | Advanced context consumer.                    |
+| Export                | `data-slot`             | Notes                                         |
+| --------------------- | ----------------------- | --------------------------------------------- |
+| `Marquee`             | `marquee-root`          | Ark root and playback state.                  |
+| `MarqueeRootProvider` | `marquee-root-provider` | Root for an external `useMarquee()` instance. |
+| `MarqueeViewport`     | `marquee-viewport`      | Clipping viewport.                            |
+| `MarqueeContent`      | `marquee-content`       | Animated content and cloned content host.     |
+| `MarqueeItem`         | `marquee-item`          | Individual marquee item.                      |
+| `MarqueeEdge`         | `marquee-edge`          | Optional fade overlay.                        |
+| `MarqueeContext`      | -                       | Advanced context consumer.                    |
 
 Supported root props include `side`, `speed`, `spacing`, `delay`, `loopCount`, `autoFill`,
 `pauseOnInteraction`, `reverse`, `defaultPaused`, `paused`, `onPauseChange`, `onLoopComplete`,
-`onComplete`, `translations`, `ids`, and `asChild`. `Marquee.Edge` requires a `side` of `start`,
+`onComplete`, `translations`, `ids`, and `asChild`. `MarqueeEdge` requires a `side` of `start`,
 `end`, `top`, or `bottom`.
 
 ## Programmatic control
 
-`useMarquee()` returns a Solid accessor. Pass it to `RootProvider` when controls need to call
+`useMarquee()` returns a Solid accessor. Pass it to `MarqueeRootProvider` when controls need to call
 `pause()`, `resume()`, `togglePause()`, or `restart()`.
 
 ```tsx
@@ -72,16 +73,16 @@ function ProviderMarquee() {
   const marquee = useMarquee({ translations: { root: 'Partner logos' } });
 
   return (
-    <Marquee.RootProvider value={marquee}>
+    <MarqueeRootProvider value={marquee}>
       <button type="button" onClick={() => marquee().pause()}>
         Pause
       </button>
-      <Marquee.Viewport>
-        <Marquee.Content>
-          <Marquee.Item>Atlas</Marquee.Item>
-        </Marquee.Content>
-      </Marquee.Viewport>
-    </Marquee.RootProvider>
+      <MarqueeViewport>
+        <MarqueeContent>
+          <MarqueeItem>Atlas</MarqueeItem>
+        </MarqueeContent>
+      </MarqueeViewport>
+    </MarqueeRootProvider>
   );
 }
 ```
@@ -112,3 +113,5 @@ Solid uses a render-function `asChild` prop:
 
 The installed Ark Solid primitive does not forward refs through an `asChild` render function.
 Ordinary refs and custom-host composition are supported as separate native paths.
+
+The old compound shape is not exported. Use the family-prefixed values shown in the table.

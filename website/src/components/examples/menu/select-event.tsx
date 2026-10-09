@@ -1,5 +1,13 @@
 import { Button } from '@moduix/react/button';
-import { Menu } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/react/menu';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/menu/menu-select-event.module.css';
@@ -10,24 +18,24 @@ export default function SelectEventMenuDemo() {
     <div>
       <div className={styles.triggerRow}>
         <Menu onSelect={(details) => setSelected(details.value)}>
-          <Menu.Trigger asChild>
+          <MenuTrigger asChild>
             <Button>
               Actions
-              <Menu.Indicator />
+              <MenuIndicator />
             </Button>
-          </Menu.Trigger>
-          <Menu.Positioner>
-            <Menu.Content className={styles.content}>
-              <Menu.Viewport>
-                <Menu.Item value="edit">Edit</Menu.Item>
-                <Menu.Item value="duplicate">Duplicate</Menu.Item>
-                <Menu.Item value="archive">Archive</Menu.Item>
-                <Menu.Item value="delete" tone="destructive">
+          </MenuTrigger>
+          <MenuPositioner>
+            <MenuContent className={styles.content}>
+              <MenuViewport>
+                <MenuItem value="edit">Edit</MenuItem>
+                <MenuItem value="duplicate">Duplicate</MenuItem>
+                <MenuItem value="archive">Archive</MenuItem>
+                <MenuItem value="delete" tone="destructive">
                   Delete
-                </Menu.Item>
-              </Menu.Viewport>
-            </Menu.Content>
-          </Menu.Positioner>
+                </MenuItem>
+              </MenuViewport>
+            </MenuContent>
+          </MenuPositioner>
         </Menu>
       </div>
       <PreviewMeta>

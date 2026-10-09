@@ -1,14 +1,17 @@
 ---
 title: Format Time
-description: Форматируйте время в заданной локали в React и Solid с помощью Ark UI Format.Time.
+description: Форматируйте время в заданной локали в React, Solid и Vue с помощью Ark UI Format.Time.
 ---
 
 import FormatTimeBasic from '@/components/examples/format-time/basic.tsx';
 import FormatTimeSecondsAndLabels from '@/components/examples/format-time/seconds-and-labels.tsx';
 import FormatTimeLocale from '@/components/examples/format-time/locale.tsx';
 import formatTimeSolidBasic from '../../../snippets/format-time/solid/basic.tsx?raw';
+import formatTimeVueBasic from '../../../snippets/format-time/vue/basic.vue?raw';
 import formatTimeSolidSecondsAndLabels from '../../../snippets/format-time/solid/seconds-and-labels.tsx?raw';
+import formatTimeVueSecondsAndLabels from '../../../snippets/format-time/vue/seconds-and-labels.vue?raw';
 import formatTimeSolidLocale from '../../../snippets/format-time/solid/locale.tsx?raw';
+import formatTimeVueLocale from '../../../snippets/format-time/vue/locale.vue?raw';
 
 `Format.Time` превращает значение времени в текст с учётом локали. Во всех выпущенных адаптерах используются одни и те же параметры.
 
@@ -23,6 +26,7 @@ import formatTimeSolidLocale from '../../../snippets/format-time/solid/locale.ts
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -37,6 +41,13 @@ import { Format } from '@ark-ui/react';
 
 ```tsx
 import { Format } from '@ark-ui/solid';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { Format } from '@ark-ui/vue';
 ```
 
   </Tab>
@@ -60,6 +71,7 @@ import { Format } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +84,11 @@ import { Format } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatTimeSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatTimeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -97,6 +114,7 @@ import { Format } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -109,6 +127,11 @@ import { Format } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatTimeSolidSecondsAndLabels} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatTimeVueSecondsAndLabels} />
 
     </Tab>
   </Tabs>
@@ -139,6 +162,7 @@ import { Format } from '@ark-ui/solid';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -151,6 +175,11 @@ import { Format } from '@ark-ui/solid';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formatTimeSolidLocale} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formatTimeVueLocale} />
 
     </Tab>
   </Tabs>

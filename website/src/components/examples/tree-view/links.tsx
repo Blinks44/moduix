@@ -1,4 +1,14 @@
 import {
+  TreeViewTree,
+  TreeViewLabel,
+  TreeViewItem,
+  TreeViewBranchIndentGuide,
+  TreeViewBranchContent,
+  TreeViewBranchText,
+  TreeViewBranchIndicator,
+  TreeViewBranchControl,
+  TreeViewBranch,
+  TreeViewNode,
   TreeView,
   createTreeCollection,
   type TreeViewNodeProviderProps,
@@ -36,16 +46,16 @@ const collection = createTreeCollection<LinkNode>({
 
 function LinkTreeNode({ node, indexPath }: TreeViewNodeProviderProps<LinkNode>) {
   return (
-    <TreeView.Node node={node} indexPath={indexPath}>
+    <TreeViewNode node={node} indexPath={indexPath}>
       {({ node: currentNode, indexPath: currentIndexPath, state }) =>
         state.isBranch ? (
-          <TreeView.Branch>
-            <TreeView.BranchControl>
-              <TreeView.BranchIndicator />
-              <TreeView.BranchText>{currentNode.name}</TreeView.BranchText>
-            </TreeView.BranchControl>
-            <TreeView.BranchContent>
-              <TreeView.BranchIndentGuide />
+          <TreeViewBranch>
+            <TreeViewBranchControl>
+              <TreeViewBranchIndicator />
+              <TreeViewBranchText>{currentNode.name}</TreeViewBranchText>
+            </TreeViewBranchControl>
+            <TreeViewBranchContent>
+              <TreeViewBranchIndentGuide />
               {currentNode.children?.map((child, index) => (
                 <LinkTreeNode
                   key={child.id}
@@ -53,27 +63,27 @@ function LinkTreeNode({ node, indexPath }: TreeViewNodeProviderProps<LinkNode>) 
                   indexPath={[...currentIndexPath, index]}
                 />
               ))}
-            </TreeView.BranchContent>
-          </TreeView.Branch>
+            </TreeViewBranchContent>
+          </TreeViewBranch>
         ) : (
-          <TreeView.Item asChild>
+          <TreeViewItem asChild>
             <a href={currentNode.href}>{currentNode.name}</a>
-          </TreeView.Item>
+          </TreeViewItem>
         )
       }
-    </TreeView.Node>
+    </TreeViewNode>
   );
 }
 
 export default function LinkedTreeViewDemo() {
   return (
     <TreeView collection={collection} defaultExpandedValue={['docs', 'docs/guides']}>
-      <TreeView.Label>Documentation</TreeView.Label>
-      <TreeView.Tree>
+      <TreeViewLabel>Documentation</TreeViewLabel>
+      <TreeViewTree>
         {collection.rootNode.children?.map((node, index) => (
           <LinkTreeNode key={node.id} node={node} indexPath={[index]} />
         ))}
-      </TreeView.Tree>
+      </TreeViewTree>
     </TreeView>
   );
 }

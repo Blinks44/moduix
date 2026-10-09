@@ -1,0 +1,273 @@
+@layer moduix.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-carousel-gap, var(--moduix-spacing-3));
+    min-width: 0;
+    width: 100%;
+  }
+
+  .root[data-orientation='vertical'] {
+    align-items: stretch;
+    flex-direction: row;
+    height: var(--moduix-carousel-height, 24rem);
+  }
+
+  .control {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-carousel-gap, var(--moduix-spacing-3));
+    min-width: 0;
+  }
+
+  .control[data-orientation='vertical'] {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .itemGroup {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
+    border-radius: var(--moduix-carousel-track-radius, var(--moduix-radius-xl));
+    outline: 0;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-carousel-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+        solid var(--moduix-carousel-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(
+        --moduix-carousel-focus-ring-offset,
+        var(--moduix-focus-ring-inset-offset)
+      );
+    }
+
+    &[data-dragging] {
+      cursor: grabbing;
+      user-select: none;
+    }
+  }
+
+  .itemGroup[data-orientation='vertical'] {
+    height: 100%;
+    overscroll-behavior-x: auto;
+    overscroll-behavior-y: contain;
+  }
+
+  .item {
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .prevTrigger,
+  .nextTrigger,
+  .autoplayTrigger {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: var(--moduix-carousel-control-size, var(--moduix-size-md));
+    height: var(--moduix-carousel-control-size, var(--moduix-size-md));
+    border: var(--moduix-border-width-sm) solid
+      var(
+        --moduix-carousel-control-border-color,
+        color-mix(in oklab, var(--moduix-color-border) 88%, black 12%)
+      );
+    border-radius: var(--moduix-radius-full);
+    background-color: var(
+      --moduix-carousel-control-bg,
+      color-mix(in oklab, var(--moduix-color-background) 92%, var(--moduix-color-card) 8%)
+    );
+    box-shadow: var(--moduix-carousel-control-shadow, var(--moduix-shadow-sm));
+    color: var(--moduix-carousel-control-color, var(--moduix-color-foreground));
+    cursor: pointer;
+    transition:
+      background-color var(--moduix-transition-fast),
+      border-color var(--moduix-transition-fast),
+      color var(--moduix-transition-fast),
+      box-shadow var(--moduix-transition-fast),
+      transform var(--moduix-transition-fast);
+
+    & svg {
+      width: var(--moduix-carousel-control-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-carousel-control-icon-size, var(--moduix-spacing-4));
+    }
+
+    &:not(:disabled, [data-disabled]):hover {
+      border-color: var(--moduix-carousel-control-border-color-hover, var(--moduix-color-ring));
+      background-color: var(--moduix-carousel-control-bg-hover, var(--moduix-color-accent));
+      box-shadow: var(--moduix-carousel-control-shadow-hover, var(--moduix-shadow-md));
+      color: var(--moduix-carousel-control-color-hover, var(--moduix-color-accent-foreground));
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-carousel-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-carousel-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-carousel-focus-ring-offset, var(--moduix-focus-ring-offset));
+    }
+
+    &:is(:disabled, [data-disabled]) {
+      cursor: not-allowed;
+      opacity: var(--moduix-opacity-disabled);
+    }
+
+    &[data-pressed] {
+      border-color: var(--moduix-carousel-control-border-color-hover, var(--moduix-color-ring));
+      background-color: var(--moduix-carousel-control-bg-hover, var(--moduix-color-accent));
+      color: var(--moduix-carousel-control-color-hover, var(--moduix-color-accent-foreground));
+    }
+  }
+
+  .defaultIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .root[data-orientation='vertical'] {
+    .defaultIcon {
+      & svg {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .root[data-orientation='horizontal'][dir='rtl'] {
+    .defaultIcon {
+      & svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .indicatorGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--moduix-carousel-indicator-gap, var(--moduix-spacing-2));
+  }
+
+  .indicatorGroup[data-orientation='vertical'] {
+    flex-direction: column;
+  }
+
+  .indicator {
+    width: var(--moduix-carousel-indicator-size, var(--moduix-spacing-2));
+    height: var(--moduix-carousel-indicator-size, var(--moduix-spacing-2));
+    padding: 0;
+    border: 0;
+    border-radius: var(--moduix-radius-full);
+    background-color: var(
+      --moduix-carousel-indicator-bg,
+      color-mix(in oklab, var(--moduix-color-muted) 84%, var(--moduix-color-background) 16%)
+    );
+    cursor: pointer;
+    opacity: 0.88;
+    transition:
+      width var(--moduix-transition-fast),
+      height var(--moduix-transition-fast),
+      background-color var(--moduix-transition-fast),
+      opacity var(--moduix-transition-fast);
+
+    &:not(:disabled, [data-disabled], [data-readonly], [data-current]):hover {
+      background-color: var(
+        --moduix-carousel-indicator-bg-hover,
+        color-mix(in oklab, var(--moduix-color-muted) 56%, var(--moduix-color-foreground) 44%)
+      );
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-carousel-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-carousel-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-carousel-focus-ring-offset, var(--moduix-focus-ring-offset));
+    }
+
+    &[data-current] {
+      width: calc(var(--moduix-carousel-indicator-size, var(--moduix-spacing-2)) * 3);
+      background-color: var(--moduix-carousel-indicator-bg-current, var(--moduix-color-primary));
+      opacity: 1;
+    }
+
+    &:is(:disabled, [data-disabled], [data-readonly]) {
+      cursor: not-allowed;
+      opacity: var(--moduix-opacity-disabled);
+    }
+  }
+
+  .indicator[data-orientation='vertical'][data-current] {
+    width: var(--moduix-carousel-indicator-size, var(--moduix-spacing-2));
+    height: calc(var(--moduix-carousel-indicator-size, var(--moduix-spacing-2)) * 3);
+  }
+
+  .autoplayTrigger {
+    --_carousel-autoplay-trigger-min-width-fallback: calc(
+      var(--moduix-size-md) + var(--moduix-spacing-3)
+    );
+
+    min-width: var(
+      --moduix-carousel-autoplay-trigger-min-width,
+      var(--_carousel-autoplay-trigger-min-width-fallback)
+    );
+  }
+
+  .autoplayIndicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--moduix-carousel-autoplay-indicator-min-width, var(--moduix-spacing-4));
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-xs);
+    text-transform: uppercase;
+  }
+
+  .progressText {
+    color: var(--moduix-carousel-progress-text-color, var(--moduix-color-muted-foreground));
+    direction: ltr;
+    font-size: var(--moduix-carousel-progress-text-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-line-height-text-sm);
+    font-variant-numeric: tabular-nums;
+    unicode-bidi: isolate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .itemGroup {
+      scroll-behavior: auto;
+    }
+
+    .prevTrigger,
+    .nextTrigger,
+    .autoplayTrigger,
+    .indicator {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .indicator {
+      background-color: ButtonText;
+    }
+
+    .indicator[data-current] {
+      background-color: Highlight;
+    }
+  }
+}

@@ -1,7 +1,14 @@
 import type { JSX } from 'solid-js';
 import { createSignal, Show } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Alert } from '@/components/alert/Alert';
+import {
+  Alert,
+  AlertActions,
+  AlertContent,
+  AlertDescription,
+  AlertIndicator,
+  AlertTitle,
+} from '@/components/alert/Alert';
 import { Button } from '@/components/button/Button';
 import styles from './Alert.stories.module.css';
 
@@ -64,21 +71,21 @@ function DismissibleCustomAlert() {
   return (
     <Show when={visible()}>
       <Alert status="warning" class={styles.customAlert}>
-        <Alert.Indicator>
+        <AlertIndicator>
           <InfoIcon />
-        </Alert.Indicator>
-        <Alert.Content>
-          <Alert.Title>Storage is almost full</Alert.Title>
-          <Alert.Description>
+        </AlertIndicator>
+        <AlertContent>
+          <AlertTitle>Storage is almost full</AlertTitle>
+          <AlertDescription>
             You are using 92% of the available storage. Archive old uploads or upgrade the plan.
-          </Alert.Description>
-          <Alert.Actions>
+          </AlertDescription>
+          <AlertActions>
             <Button size="sm">Review uploads</Button>
             <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
               Dismiss
             </Button>
-          </Alert.Actions>
-        </Alert.Content>
+          </AlertActions>
+        </AlertContent>
       </Alert>
     </Show>
   );
@@ -87,12 +94,12 @@ function DismissibleCustomAlert() {
 export const Basic: Story = {
   render: () => (
     <Alert>
-      <Alert.Content>
-        <Alert.Title>Update available</Alert.Title>
-        <Alert.Description>
+      <AlertContent>
+        <AlertTitle>Update available</AlertTitle>
+        <AlertDescription>
           Install the latest version when your workflow allows it.
-        </Alert.Description>
-      </Alert.Content>
+        </AlertDescription>
+      </AlertContent>
     </Alert>
   ),
 };
@@ -100,12 +107,12 @@ export const Basic: Story = {
 export const CustomHeading: Story = {
   render: () => (
     <Alert status="info">
-      <Alert.Content>
-        <Alert.Title asChild={(props) => <h2 {...props()}>Billing issue</h2>} />
-        <Alert.Description>
+      <AlertContent>
+        <AlertTitle asChild={(props) => <h2 {...props()}>Billing issue</h2>} />
+        <AlertDescription>
           Use asChild when the surrounding page needs a different heading level.
-        </Alert.Description>
-      </Alert.Content>
+        </AlertDescription>
+      </AlertContent>
     </Alert>
   ),
 };
@@ -113,15 +120,15 @@ export const CustomHeading: Story = {
 export const Error: Story = {
   render: () => (
     <Alert status="error">
-      <Alert.Indicator>
+      <AlertIndicator>
         <InfoIcon />
-      </Alert.Indicator>
-      <Alert.Content>
-        <Alert.Title>Payment failed</Alert.Title>
-        <Alert.Description>
+      </AlertIndicator>
+      <AlertContent>
+        <AlertTitle>Payment failed</AlertTitle>
+        <AlertDescription>
           Your payment could not be processed. Check the payment method and try again.
-        </Alert.Description>
-      </Alert.Content>
+        </AlertDescription>
+      </AlertContent>
     </Alert>
   ),
 };
@@ -131,11 +138,11 @@ export const Statuses: Story = {
     <div class={styles.stack}>
       {statuses.map((status) => (
         <Alert status={status}>
-          <Alert.Indicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</Alert.Indicator>
-          <Alert.Content>
-            <Alert.Title>{status}</Alert.Title>
-            <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
-          </Alert.Content>
+          <AlertIndicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</AlertIndicator>
+          <AlertContent>
+            <AlertTitle>{status}</AlertTitle>
+            <AlertDescription>Use this alert for {status} feedback.</AlertDescription>
+          </AlertContent>
         </Alert>
       ))}
     </div>
@@ -145,15 +152,13 @@ export const Statuses: Story = {
 export const WithIcon: Story = {
   render: () => (
     <Alert status="info">
-      <Alert.Indicator>
+      <AlertIndicator>
         <InfoIcon />
-      </Alert.Indicator>
-      <Alert.Content>
-        <Alert.Title>Workspace sync is active</Alert.Title>
-        <Alert.Description>
-          Changes are being synced across all connected devices.
-        </Alert.Description>
-      </Alert.Content>
+      </AlertIndicator>
+      <AlertContent>
+        <AlertTitle>Workspace sync is active</AlertTitle>
+        <AlertDescription>Changes are being synced across all connected devices.</AlertDescription>
+      </AlertContent>
     </Alert>
   ),
 };

@@ -1,0 +1,100 @@
+---
+title: Sidebar dashboard
+description: A copy-ready dashboard layout with a collapsible, resizable sidebar, nested navigation, and a workspace menu.
+---
+
+import { SidebarDashboard } from '@/components/blocks/sidebar-dashboard';
+import sidebarDashboardSolid from '../../../snippets/blocks/solid/sidebar-dashboard.tsx?raw';
+import sidebarDashboardVue from '../../../snippets/blocks/vue/sidebar-dashboard.vue?raw';
+
+# Sidebar dashboard
+
+Use this block as a starting point for a desktop application shell. It combines `Sidebar`,
+`Collapsible`, and `Menu` to provide resizable navigation, an expandable Projects group, and a
+workspace menu in the sidebar footer. The main area includes a small overview with metric cards so
+you can see where your application content belongs.
+
+You can resize the sidebar by dragging the divider or using the keyboard. `SidebarTrigger`
+collapses and expands the panel, while `SidebarTooltip` keeps navigation labels available when the
+sidebar is reduced to its icon rail.
+
+This is a copy-ready composition, not a `SidebarDashboard` component exported by moduix.
+Install the block, then replace the example links, labels, and dashboard data.
+
+The preview runs React. The source tabs contain React, Solid, and Vue implementations with a shared stylesheet.
+
+
+
+<ExampleFrame variant="block" clientOnly>
+  <SidebarDashboard />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/blocks/sidebar-dashboard.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={sidebarDashboardSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={sidebarDashboardVue} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/blocks/sidebar-dashboard.module.css"
+
+```
+</div>
+
+</ExampleCode>
+
+## Install
+
+<BlockInstall name="sidebar-dashboard" />
+
+## Use the block in your application
+
+Replace the `#overview`, `#website`, and other example anchors with routes from your application. If
+your router provides a link component, use it with `SidebarNavigationButton` or
+`SidebarNavigationSubButton` and the `asChild` prop so the router owns navigation. Mark the active
+destination with `aria-current="page"`. The `Sidebar` parts are covered in the
+[Sidebar docs](/docs/sidebar).
+
+Keep `SidebarTooltip` around icon navigation buttons so their labels remain available in the
+collapsed rail. Use `Collapsible` for nested navigation groups and `Menu` for workspace actions.
+Connect the `New project` button to the flow that creates a project, and replace the static metrics
+and message in the main area with data from your application.
+
+## Responsive behavior
+
+This block starts with a desktop layout. `Sidebar` does not provide a mobile drawer or choose a
+responsive navigation pattern for you. For smaller screens, compose `Drawer` or another overlay
+with the navigation model that fits your application. The example CSS only changes the metric cards
+to one column below `40rem`.
+
+## Persist the sidebar width
+
+The example uses the default sidebar size and does not save it between visits. If your application
+needs a persistent desktop width, control `Sidebar` with `size`, update it from `onResize(details)`
+during a resize, and save the settled value from `onResizeEnd(details)`. In an SSR application,
+read browser storage after hydration and keep a usable default for the first render.

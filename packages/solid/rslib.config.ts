@@ -5,7 +5,7 @@ import { defineConfig } from '@rslib/core';
 export default defineConfig({
   source: {
     entry: {
-      index: ['./src/**/*.{css,ts,tsx}', '!./src/styles/**/*', '!./src/presets/**/*'],
+      index: ['./src/**/*.{css,ts,tsx}'],
     },
     tsconfigPath: './tsconfig.build.json',
   },
@@ -73,5 +73,11 @@ export default defineConfig({
       },
     ],
     target: 'web',
+  },
+  tools: {
+    lightningcssLoader: {
+      // Language-based lowering cannot preserve nested direction overrides.
+      exclude: { dirSelector: true },
+    },
   },
 });

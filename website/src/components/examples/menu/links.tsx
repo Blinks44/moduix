@@ -1,34 +1,42 @@
 import { Button } from '@moduix/react/button';
-import { Menu } from '@moduix/react/menu';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+} from '@moduix/react/menu';
 import styles from '@/components/examples/menu/menu-links.module.css';
 
 export default function LinkItemsMenuDemo() {
   return (
     <Menu>
-      <Menu.Trigger asChild>
+      <MenuTrigger asChild>
         <Button>
           Help
-          <Menu.Indicator />
+          <MenuIndicator />
         </Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content className={styles.content}>
-          <Menu.Viewport>
-            <Menu.Item value="docs" asChild>
+      </MenuTrigger>
+      <MenuPositioner>
+        <MenuContent className={styles.content}>
+          <MenuViewport>
+            <MenuItem value="docs" asChild>
               <a href="#menu-docs">Documentation</a>
-            </Menu.Item>
-            <Menu.Item value="github" asChild>
+            </MenuItem>
+            <MenuItem value="github" asChild>
               <a href="https://github.com/Blinks44/moduix">GitHub</a>
-            </Menu.Item>
-            <Menu.Item value="changelog" asChild>
+            </MenuItem>
+            <MenuItem value="changelog" asChild>
               <a href="#menu-changelog">Changelog</a>
-            </Menu.Item>
-            <Menu.Item value="support" asChild>
+            </MenuItem>
+            <MenuItem value="support" asChild>
               <a href="#menu-support">Support</a>
-            </Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }

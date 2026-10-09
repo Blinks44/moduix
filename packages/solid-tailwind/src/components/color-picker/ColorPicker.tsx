@@ -4,6 +4,7 @@ import {
   useColorPicker,
   useColorPickerContext,
 } from '@ark-ui/solid/color-picker';
+import { cva } from 'class-variance-authority';
 import { children, type ComponentProps, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, ChevronDownIcon, PipetteIcon } from '@/lib/moduix/icons/ui/Icons';
@@ -17,10 +18,12 @@ type ColorPickerRootProps = ComponentProps<typeof ColorPickerPrimitive.Root> & O
 type ColorPickerRootProviderProps = ComponentProps<typeof ColorPickerPrimitive.RootProvider> &
   OverlayPortalProps;
 
-function ColorPickerRoot(props: ColorPickerRootProps) {
+const colorPickerRootVariants = cva(
+  'box-border flex w-64 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
+);
+
+function ColorPicker(props: ColorPickerRootProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
     'class',
     'lazyMount',
     'portalled',
@@ -31,26 +34,18 @@ function ColorPickerRoot(props: ColorPickerRootProps) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ColorPickerPrimitive.Root
-        asChild={local.asChild}
-        class={cn(
-          'box-border flex w-64 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50',
-          local.class,
-        )}
+        class={cn(colorPickerRootVariants(), local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
         data-slot="color-picker-root"
-      >
-        {local.children}
-      </ColorPickerPrimitive.Root>
+      />
     </OverlayPortalProvider>
   );
 }
 
 function ColorPickerRootProvider(props: ColorPickerRootProviderProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
     'class',
     'lazyMount',
     'portalled',
@@ -61,18 +56,12 @@ function ColorPickerRootProvider(props: ColorPickerRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ColorPickerPrimitive.RootProvider
-        asChild={local.asChild}
-        class={cn(
-          'box-border flex w-64 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50',
-          local.class,
-        )}
+        class={cn(colorPickerRootVariants(), local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
         data-slot="color-picker-root-provider"
-      >
-        {local.children}
-      </ColorPickerPrimitive.RootProvider>
+      />
     </OverlayPortalProvider>
   );
 }
@@ -97,7 +86,10 @@ function ColorPickerControl(props: ComponentProps<typeof ColorPickerPrimitive.Co
 
   return (
     <ColorPickerPrimitive.Control
-      class={cn('flex min-w-0 items-center gap-2 data-disabled:opacity-50', local.class)}
+      class={cn(
+        'flex min-w-0 items-center gap-2 data-disabled:opacity-50 [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
+        local.class,
+      )}
       {...others}
       data-slot="color-picker-control"
     />
@@ -183,7 +175,7 @@ function ColorPickerArea(props: ComponentProps<typeof ColorPickerPrimitive.Area>
           />
           <ColorPickerPrimitive.AreaThumb
             data-slot="color-picker-area-thumb"
-            class="box-border size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:ring-ring data-disabled:pointer-events-none"
+            class="box-border size-4 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:shadow-[0_0_0_4px_var(--color-ring),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] focus-visible:ring-background data-disabled:pointer-events-none"
           />
         </>
       )}
@@ -211,7 +203,7 @@ function ColorPickerAreaThumb(props: ComponentProps<typeof ColorPickerPrimitive.
   return (
     <ColorPickerPrimitive.AreaThumb
       class={cn(
-        'box-border size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:ring-ring data-disabled:pointer-events-none',
+        'box-border size-4 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:shadow-[0_0_0_4px_var(--color-ring),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] focus-visible:ring-background data-disabled:pointer-events-none',
         local.class,
       )}
       {...others}
@@ -341,7 +333,7 @@ function ColorPickerChannelInput(props: ComponentProps<typeof ColorPickerPrimiti
   return (
     <ColorPickerPrimitive.ChannelInput
       class={cn(
-        'box-border h-control-md w-full min-w-0 [appearance:textfield] rounded-md border border-border bg-background px-3 text-sm text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive data-[channel=alpha]:w-16 data-[channel=alpha]:flex-none motion-reduce:transition-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
+        'box-border h-control-md w-full min-w-0 [appearance:textfield] rounded-md border border-border bg-background px-3 text-sm text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive data-[channel=alpha]:w-16 data-[channel=alpha]:flex-none motion-reduce:transition-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
         local.class,
       )}
       {...others}
@@ -377,7 +369,7 @@ function ColorPickerFormatSelect(props: ComponentProps<typeof ColorPickerPrimiti
     <span class="group/format-select relative inline-grid w-fit max-w-full min-w-0 shrink-0">
       <ColorPickerPrimitive.FormatSelect
         class={cn(
-          'peer/format-select box-border h-control-md w-auto min-w-0 rounded-md border border-border bg-background px-3 pe-8 text-sm text-foreground uppercase outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-disabled:cursor-default data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive forced-colors:appearance-auto forced-colors:pe-3',
+          'peer/format-select box-border h-control-md w-auto min-w-0 rounded-md border border-border bg-background px-3 pe-8 text-sm text-foreground uppercase outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-disabled:cursor-default data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive forced-colors:appearance-auto forced-colors:pe-3 [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
           local.class,
         )}
         {...others}
@@ -431,7 +423,7 @@ function ColorPickerSwatchTrigger(
   return (
     <ColorPickerPrimitive.SwatchTrigger
       class={cn(
-        'group/swatch inline-flex cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 outline-0 focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-default data-disabled:opacity-50',
+        'group/swatch inline-flex cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 outline-0 focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-default data-disabled:opacity-50 [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
         local.class,
       )}
       value={local.value}
@@ -550,37 +542,41 @@ function ColorPickerView(props: ComponentProps<typeof ColorPickerPrimitive.View>
   );
 }
 
-const ColorPicker = Object.assign(ColorPickerRoot, {
-  Root: ColorPickerRoot,
-  RootProvider: ColorPickerRootProvider,
-  Context: ColorPickerPrimitive.Context,
-  HiddenInput: ColorPickerPrimitive.HiddenInput,
-  Label: ColorPickerLabel,
-  Control: ColorPickerControl,
-  Trigger: ColorPickerTrigger,
-  Positioner: ColorPickerPositioner,
-  Content: ColorPickerContent,
-  Area: ColorPickerArea,
-  AreaBackground: ColorPickerAreaBackground,
-  AreaThumb: ColorPickerAreaThumb,
-  ChannelSlider: ColorPickerChannelSlider,
-  Sliders: ColorPickerSliders,
-  ChannelSliderTrack: ColorPickerChannelSliderTrack,
-  ChannelSliderThumb: ColorPickerChannelSliderThumb,
-  ChannelSliderLabel: ColorPickerChannelSliderLabel,
-  ChannelSliderValueText: ColorPickerChannelSliderValueText,
-  ChannelInput: ColorPickerChannelInput,
-  EyeDropperTrigger: ColorPickerEyeDropperTrigger,
-  FormatSelect: ColorPickerFormatSelect,
-  FormatTrigger: ColorPickerFormatTrigger,
-  SwatchGroup: ColorPickerSwatchGroup,
-  SwatchTrigger: ColorPickerSwatchTrigger,
-  Swatch: ColorPickerSwatch,
-  SwatchIndicator: ColorPickerSwatchIndicator,
-  TransparencyGrid: ColorPickerTransparencyGrid,
-  ValueSwatch: ColorPickerValueSwatch,
-  ValueText: ColorPickerValueText,
-  View: ColorPickerView,
-});
+const ColorPickerContext = ColorPickerPrimitive.Context;
+const ColorPickerHiddenInput = ColorPickerPrimitive.HiddenInput;
 
-export { ColorPicker, parseColor, useColorPicker, useColorPickerContext };
+export {
+  ColorPicker,
+  ColorPickerArea,
+  ColorPickerAreaBackground,
+  ColorPickerAreaThumb,
+  ColorPickerChannelInput,
+  ColorPickerChannelSlider,
+  ColorPickerChannelSliderLabel,
+  ColorPickerChannelSliderThumb,
+  ColorPickerChannelSliderTrack,
+  ColorPickerChannelSliderValueText,
+  ColorPickerContext,
+  ColorPickerContent,
+  ColorPickerControl,
+  ColorPickerEyeDropperTrigger,
+  ColorPickerFormatSelect,
+  ColorPickerFormatTrigger,
+  ColorPickerHiddenInput,
+  ColorPickerLabel,
+  ColorPickerPositioner,
+  ColorPickerRootProvider,
+  ColorPickerSliders,
+  ColorPickerSwatch,
+  ColorPickerSwatchGroup,
+  ColorPickerSwatchIndicator,
+  ColorPickerSwatchTrigger,
+  ColorPickerTransparencyGrid,
+  ColorPickerTrigger,
+  ColorPickerValueSwatch,
+  ColorPickerValueText,
+  ColorPickerView,
+  parseColor,
+  useColorPicker,
+  useColorPickerContext,
+};

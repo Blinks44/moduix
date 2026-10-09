@@ -4,7 +4,7 @@ component: dialog
 description: Fenêtre modale pour les tâches ciblées comme les formulaires, les confirmations et les détails.
 ---
 
-import { DialogCssPropertiesPanel } from '@/components/examples/dialog/css-properties';
+import * as DialogDocs from '@/components/examples/dialog/css-properties';
 import DialogAdvancedCustomization from '@/components/examples/dialog/advanced-customization.tsx';
 import DialogAlertDialog from '@/components/examples/dialog/alert-dialog.tsx';
 import DialogBasic from '@/components/examples/dialog/basic.tsx';
@@ -31,6 +31,19 @@ import dialogSolidNonModal from '../../../snippets/dialog/solid/non-modal.tsx?ra
 import dialogSolidOpenFromMenu from '../../../snippets/dialog/solid/open-from-menu.tsx?raw';
 import dialogSolidOutsideScroll from '../../../snippets/dialog/solid/outside-scroll.tsx?raw';
 import dialogSolidRootProvider from '../../../snippets/dialog/solid/root-provider-and-ark-context-hooks.tsx?raw';
+import dialogVueAdvancedCustomization from '../../../snippets/dialog/vue/advanced-customization.vue?raw';
+import dialogVueAlertDialog from '../../../snippets/dialog/vue/alert-dialog.vue?raw';
+import dialogVueBasic from '../../../snippets/dialog/vue/basic.vue?raw';
+import dialogVueConfirmation from '../../../snippets/dialog/vue/confirmation.vue?raw';
+import dialogVueControlled from '../../../snippets/dialog/vue/controlled.vue?raw';
+import dialogVueInsideScroll from '../../../snippets/dialog/vue/inside-scroll.vue?raw';
+import dialogVueMountingAndFocusLifecycle from '../../../snippets/dialog/vue/mounting-and-focus-lifecycle.vue?raw';
+import dialogVueMultipleTriggers from '../../../snippets/dialog/vue/multiple-triggers.vue?raw';
+import dialogVueNested from '../../../snippets/dialog/vue/nested.vue?raw';
+import dialogVueNonModal from '../../../snippets/dialog/vue/non-modal.vue?raw';
+import dialogVueOpenFromMenu from '../../../snippets/dialog/vue/open-from-menu.vue?raw';
+import dialogVueOutsideScroll from '../../../snippets/dialog/vue/outside-scroll.vue?raw';
+import dialogVueRootProvider from '../../../snippets/dialog/vue/root-provider-and-ark-context-hooks.vue?raw';
 
 ## Référence de l’API
 
@@ -46,8 +59,8 @@ attaché au bord de la fenêtre ou pouvoir être déplacé.
 
 
 Utilisez `Dialog` comme racine et composez explicitement ses parties structurelles.
-`Dialog.Backdrop` est l’arrière-plan modal, `Dialog.Positioner` positionne le dialogue et
-`Dialog.Content` contient sa surface.
+`DialogBackdrop` est l’arrière-plan modal, `DialogPositioner` positionne le dialogue et
+`DialogContent` contient sa surface.
 
 <ExampleFrame variant="component">
   <DialogBasic />
@@ -60,7 +73,8 @@ Utilisez `Dialog` comme racine et composez explicitement ses parties structurell
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -72,6 +86,11 @@ Utilisez `Dialog` comme racine et composez explicitement ses parties structurell
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,62 +123,72 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/dialog' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/dialog' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-Dialog / Dialog.Root
-├─ Dialog.Trigger
+Dialog
+├─ DialogTrigger
 └─ Contenu superposé (rendu automatiquement dans un portail)
-   ├─ Dialog.Backdrop (facultatif)
-   └─ Dialog.Positioner
-      └─ Dialog.Content
-         ├─ Dialog.CloseTrigger ou Dialog.CloseIcon
-         ├─ Dialog.Title
-         ├─ Dialog.Description
-         ├─ Dialog.Header (aide de mise en page moduix)
-         ├─ Dialog.Body (aide de mise en page moduix)
-         └─ Dialog.Footer (aide de mise en page moduix)
+   ├─ DialogBackdrop (facultatif)
+   └─ DialogPositioner
+      └─ DialogContent
+         ├─ DialogCloseTrigger ou DialogCloseIcon
+         ├─ DialogTitle
+         ├─ DialogDescription
+         ├─ DialogHeader (aide de mise en page moduix)
+         ├─ DialogBody (aide de mise en page moduix)
+         └─ DialogFooter (aide de mise en page moduix)
 
-Dialog.RootProvider
+DialogRootProvider
 └─ même arbre de parties relié à l’état fourni par useDialog() de moduix
 
-Dialog.Context
+DialogContext
 └─ fonction de rendu qui reçoit l’état et les méthodes actuels du dialogue
 ```
 
 | Partie                    | Rôle                                                               |
 | ------------------------ | ------------------------------------------------------------------ |
-| `Dialog` / `Dialog.Root` | Gère l’état d’ouverture, le focus et la fermeture du dialogue.      |
-| `Dialog.RootProvider`    | Relie les parties à l’état créé avec `useDialog()`.                |
-| `Dialog.Trigger`         | Ouvre le dialogue.                                                   |
-| `Dialog.Backdrop`        | Couche d’arrière-plan facultative du dialogue modal.                |
-| `Dialog.Positioner`      | Positionne le contenu du dialogue.                                  |
-| `Dialog.Content`         | Contient la surface visible du dialogue.                            |
-| `Dialog.Title`           | Donne au dialogue un titre accessible.                              |
-| `Dialog.Description`     | Ajoute un texte complémentaire accessible.                          |
-| `Dialog.CloseTrigger`    | Ferme le dialogue.                                                   |
-| `Dialog.CloseIcon`       | Aide moduix qui associe un bouton de fermeture au dialogue.          |
-| `Dialog.Header`          | Aide de mise en page moduix pour l’en-tête.                         |
-| `Dialog.Body`            | Aide de mise en page moduix pour le contenu principal.              |
-| `Dialog.Footer`          | Aide de mise en page moduix pour les actions.                       |
-| `Dialog.Context`         | Rend les enfants avec l’état et les méthodes actuels du dialogue.   |
+| `Dialog` / `DialogRootProvider` | Gère l’état d’ouverture, le focus et la fermeture du dialogue.      |
+| `DialogRootProvider`    | Relie les parties à l’état créé avec `useDialog()`.                |
+| `DialogTrigger`         | Ouvre le dialogue.                                                   |
+| `DialogBackdrop`        | Couche d’arrière-plan facultative du dialogue modal.                |
+| `DialogPositioner`      | Positionne le contenu du dialogue.                                  |
+| `DialogContent`         | Contient la surface visible du dialogue.                            |
+| `DialogTitle`           | Donne au dialogue un titre accessible.                              |
+| `DialogDescription`     | Ajoute un texte complémentaire accessible.                          |
+| `DialogCloseTrigger`    | Ferme le dialogue.                                                   |
+| `DialogCloseIcon`       | Aide moduix qui associe un bouton de fermeture au dialogue.          |
+| `DialogHeader`          | Aide de mise en page moduix pour l’en-tête.                         |
+| `DialogBody`            | Aide de mise en page moduix pour le contenu principal.              |
+| `DialogFooter`          | Aide de mise en page moduix pour les actions.                       |
+| `DialogContext`         | Rend les enfants avec l’état et les méthodes actuels du dialogue.   |
 
 Importez `useDialog()` lorsque l’état doit vivre en dehors de l’arbre rendu du dialogue. Lisez-le ou
-mettez-le à jour avec `Dialog.Context` ou `useDialogContext()` depuis le paquet correspondant.
+mettez-le à jour avec `DialogContext` ou `useDialogContext()` depuis le paquet correspondant.
 
 ## Composition
 
 Par défaut, `Dialog` gère son état d’ouverture. Utilisez `open` avec `onOpenChange(details)` lorsque
 cet état appartient à une autre partie de l’application. Si l’état doit être créé en dehors de
 l’arbre du dialogue, créez un seul store avec `useDialog()` et transmettez-le à
-`Dialog.RootProvider` ; ne rendez pas une autre racine pour ce même store.
+`DialogRootProvider` ; ne rendez pas une autre racine pour ce même store.
 
-La racine place automatiquement `Dialog.Backdrop` et `Dialog.Positioner` dans un portail. Définissez
+La racine place automatiquement `DialogBackdrop` et `DialogPositioner` dans un portail. Définissez
 `portalled={false}` pour les conserver dans l’arbre courant, ou transmettez `portalRef` pour choisir
-un conteneur personnalisé. Gardez l’arbre des parties explicite et utilisez `Dialog.Header`,
-`Dialog.Body` et `Dialog.Footer` uniquement lorsque leurs aides de mise en page conviennent à la
+un conteneur personnalisé. Gardez l’arbre des parties explicite et utilisez `DialogHeader`,
+`DialogBody` et `DialogFooter` uniquement lorsque leurs aides de mise en page conviennent à la
 composition.
 
 ## Exemples
@@ -180,7 +209,8 @@ d’annulation claire et une action distincte pour confirmer la décision.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -192,6 +222,11 @@ d’annulation claire et une action distincte pour confirmer la décision.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidAlertDialog} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueAlertDialog} />
 
     </Tab>
   </Tabs>
@@ -215,7 +250,8 @@ modifications non enregistrées et demandez à l’utilisateur s’il souhaite l
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -229,6 +265,11 @@ modifications non enregistrées et demandez à l’utilisateur s’il souhaite l
 <CodeBlockRuntime lang="tsx" code={dialogSolidConfirmation} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueConfirmation} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -236,8 +277,8 @@ modifications non enregistrées et demandez à l’utilisateur s’il souhaite l
 
 ### État contrôlé
 
-Conservez `open` dans l’état React ou dans un signal Solid et lisez `details.open` dans
-`onOpenChange` pour synchroniser le dialogue avec le reste de l’application.
+Conservez `open` dans l’état React, un signal Solid ou une ref Vue, puis lisez `details.open` dans
+`onOpenChange` (ou utilisez `v-model:open`) pour synchroniser le dialogue avec le reste de l’application.
 
 <ExampleFrame variant="component">
   <DialogControlled />
@@ -250,7 +291,8 @@ Conservez `open` dans l’état React ou dans un signal Solid et lisez `details.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -262,6 +304,11 @@ Conservez `open` dans l’état React ou dans un signal Solid et lisez `details.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueControlled} />
 
     </Tab>
   </Tabs>
@@ -285,7 +332,8 @@ visibles.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -297,6 +345,11 @@ visibles.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidInsideScroll} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueInsideScroll} />
 
     </Tab>
   </Tabs>
@@ -326,7 +379,8 @@ fermeture.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -338,6 +392,11 @@ fermeture.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidMountingAndFocusLifecycle} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueMountingAndFocusLifecycle} />
 
     </Tab>
   </Tabs>
@@ -361,7 +420,8 @@ gérant `onTriggerValueChange(details)`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -373,6 +433,11 @@ gérant `onTriggerValueChange(details)`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -396,7 +461,8 @@ calques, et moduix s’appuie sur cet état pour faire reculer le parent lorsque
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -408,6 +474,11 @@ calques, et moduix s’appuie sur cet état pour faire reculer le parent lorsque
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidNested} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueNested} />
 
     </Tab>
   </Tabs>
@@ -436,7 +507,8 @@ avec la page en dehors du dialogue.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -448,6 +520,11 @@ avec la page en dehors du dialogue.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidNonModal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueNonModal} />
 
     </Tab>
   </Tabs>
@@ -471,7 +548,8 @@ confirmation.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -485,6 +563,11 @@ confirmation.
 <CodeBlockRuntime lang="tsx" code={dialogSolidOpenFromMenu} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueOpenFromMenu} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -492,7 +575,7 @@ confirmation.
 
 ### Défilement externe
 
-Laissez `Dialog.Positioner` faire défiler l’ensemble du dialogue lorsque son contenu est long et
+Laissez `DialogPositioner` faire défiler l’ensemble du dialogue lorsque son contenu est long et
 doit conserver sa hauteur naturelle.
 
 <ExampleFrame variant="component">
@@ -506,7 +589,8 @@ doit conserver sa hauteur naturelle.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -518,6 +602,11 @@ doit conserver sa hauteur naturelle.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidOutsideScroll} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueOutsideScroll} />
 
     </Tab>
   </Tabs>
@@ -533,7 +622,7 @@ doit conserver sa hauteur naturelle.
 ### Root Provider
 
 Créez l’état avec `useDialog()` lorsque les contrôles se trouvent en dehors du dialogue. Reliez-le
-avec `Dialog.RootProvider`, puis lisez-le avec `Dialog.Context` ou `useDialogContext()` dans des
+avec `DialogRootProvider`, puis lisez-le avec `DialogContext` ou `useDialogContext()` dans des
 composants réutilisables.
 
 <ExampleFrame variant="component">
@@ -547,7 +636,8 @@ composants réutilisables.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -561,6 +651,11 @@ composants réutilisables.
 <CodeBlockRuntime lang="tsx" code={dialogSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueRootProvider} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -568,8 +663,8 @@ composants réutilisables.
 
 ### Personnalisation avancée
 
-N’utilisez pas `Header`, `Body`, `Footer` ni `CloseIcon` lorsque la mise en page personnalisée doit
-contrôler directement chaque partie du dialogue Ark.
+N’utilisez pas `DialogHeader`, `DialogBody`, `DialogFooter` ni `DialogCloseIcon` lorsque la mise en
+page personnalisée doit contrôler directement chaque partie du dialogue Ark.
 
 <ExampleFrame variant="component">
   <DialogAdvancedCustomization />
@@ -582,7 +677,8 @@ contrôler directement chaque partie du dialogue Ark.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
-    ]}
+      { label: 'Vue', value: 'vue' },
+      ]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -594,6 +690,11 @@ contrôler directement chaque partie du dialogue Ark.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={dialogSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -608,7 +709,7 @@ contrôler directement chaque partie du dialogue Ark.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur les parties exportées pour appliquer les styles
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour appliquer les styles
 structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme
 `data-state` et `data-has-nested`, ainsi que les sélecteurs `data-slot` de moduix. Les variantes
 Tailwind se personnalisent avec des utilitaires et des classes supplémentaires ; les variables ci-
@@ -617,17 +718,7 @@ sont communs aux deux approches.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <DialogCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={DialogDocs.dialogOverrideCssProperties} />
 
 ### Points d’accroche CSS
 
@@ -639,5 +730,5 @@ sont communs aux deux approches.
 - Attributs d’état : `data-state="open|closed"`, `data-has-nested`, `data-nested`, `data-current`
   et `data-value`.
 - Variables d’exécution : `--layer-index` et `--nested-layer-count`.
-- `Dialog.CloseIcon` est positionné par rapport à l’angle de `Dialog.Content`, son placement ne
-  dépend donc pas de `Dialog.Header`.
+- `DialogCloseIcon` est positionné par rapport à l’angle de `DialogContent`, son placement ne
+  dépend donc pas de `DialogHeader`.

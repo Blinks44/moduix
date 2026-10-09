@@ -186,7 +186,7 @@
     --moduix-close-button-radius: var(--moduix-popover-close-icon-radius, var(--moduix-radius-sm));
     --moduix-close-button-icon-size: var(
       --moduix-popover-close-icon-glyph-size,
-      var(--moduix-spacing-3-5)
+      var(--moduix-spacing-4)
     );
     --moduix-close-button-bg: var(--moduix-popover-close-icon-bg, transparent);
     --moduix-close-button-bg-hover: var(

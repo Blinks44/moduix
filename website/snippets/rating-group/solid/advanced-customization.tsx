@@ -1,5 +1,13 @@
 import { Button } from '@moduix/solid/button';
-import { RatingGroup, useRatingGroup } from '@moduix/solid/rating-group';
+import {
+  RatingGroupContext,
+  RatingGroupControl,
+  RatingGroupItem,
+  RatingGroupItemIndicator,
+  RatingGroupLabel,
+  RatingGroupRootProvider,
+  useRatingGroup,
+} from '@moduix/solid/rating-group';
 import { For } from 'solid-js';
 import styles from '@/components/examples/rating-group/component-advanced-customization.module.css';
 
@@ -11,22 +19,22 @@ export default function AdvancedCustomizationRatingGroupDemo() {
 
   return (
     <div class={styles.stack}>
-      <RatingGroup.RootProvider value={ratingGroup}>
-        <RatingGroup.Label>Product quality</RatingGroup.Label>
-        <RatingGroup.Control>
-          <RatingGroup.Context>
+      <RatingGroupRootProvider value={ratingGroup}>
+        <RatingGroupLabel>Product quality</RatingGroupLabel>
+        <RatingGroupControl>
+          <RatingGroupContext>
             {(ratingGroup) => (
               <For each={ratingGroup().items}>
                 {(item) => (
-                  <RatingGroup.Item index={item}>
-                    <RatingGroup.ItemIndicator />
-                  </RatingGroup.Item>
+                  <RatingGroupItem index={item}>
+                    <RatingGroupItemIndicator />
+                  </RatingGroupItem>
                 )}
               </For>
             )}
-          </RatingGroup.Context>
-        </RatingGroup.Control>
-      </RatingGroup.RootProvider>
+          </RatingGroupContext>
+        </RatingGroupControl>
+      </RatingGroupRootProvider>
       <output>Current value: {ratingGroup().value}</output>
       <Button type="button" size="sm" onClick={() => ratingGroup().setValue(5)}>
         Set to 5

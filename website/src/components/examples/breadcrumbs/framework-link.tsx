@@ -1,4 +1,11 @@
-import { Breadcrumbs } from '@moduix/react/breadcrumbs';
+import {
+  Breadcrumbs,
+  BreadcrumbsItem,
+  BreadcrumbsLink,
+  BreadcrumbsList,
+  BreadcrumbsPage,
+  BreadcrumbsSeparator,
+} from '@moduix/react/breadcrumbs';
 import { Fragment, type ComponentProps } from 'react';
 import styles from '@/components/examples/breadcrumbs/breadcrumbs-framework-link.module.css';
 
@@ -15,21 +22,21 @@ function AppLink(props: ComponentProps<'a'>) {
 export default function BreadcrumbsWithAppLinkDemo() {
   return (
     <Breadcrumbs>
-      <Breadcrumbs.List>
+      <BreadcrumbsList>
         {pathItems.map((item) => (
           <Fragment key={item.href}>
-            <Breadcrumbs.Item>
-              <Breadcrumbs.Link asChild>
+            <BreadcrumbsItem>
+              <BreadcrumbsLink asChild>
                 <AppLink href={item.href}>{item.label}</AppLink>
-              </Breadcrumbs.Link>
-            </Breadcrumbs.Item>
-            <Breadcrumbs.Separator />
+              </BreadcrumbsLink>
+            </BreadcrumbsItem>
+            <BreadcrumbsSeparator />
           </Fragment>
         ))}
-        <Breadcrumbs.Item>
-          <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-        </Breadcrumbs.Item>
-      </Breadcrumbs.List>
+        <BreadcrumbsItem>
+          <BreadcrumbsPage>Go Developer</BreadcrumbsPage>
+        </BreadcrumbsItem>
+      </BreadcrumbsList>
     </Breadcrumbs>
   );
 }

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toc",
+  "title": "Table of Contents",
+  "description": "moduix Vue Tailwind Table of Contents component.",
+  "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+  "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+  "files": [
+    {
+      "path": "src/components/toc/Toc.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TocRoot as ArkTocRoot } from '@ark-ui/vue/toc';\nimport type { TocRootEmits, TocRootProps } from '@ark-ui/vue/toc';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { tocRootVariants } from './Toc.variants';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TocRootProps {\n  autoScroll?: boolean;\n  class?: HTMLAttributes['class'];\n  items: TocRootProps['items'];\n}\n\nexport interface Emits extends /* @vue-ignore */ TocRootEmits {}\n\nconst { autoScroll = false, class: className, items } = defineProps<Props>();\ndefineEmits<Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTocRoot\n    v-bind=\"attrs\"\n    :auto-scroll=\"autoScroll\"\n    :class=\"cn(tocRootVariants(), className)\"\n    :items=\"items\"\n    data-slot=\"toc-root\"\n  >\n    <slot />\n  </ArkTocRoot>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toc/Toc.vue"
+    },
+    {
+      "path": "src/components/toc/Toc.variants.ts",
+      "content": "import { cva } from 'class-variance-authority';\n\nexport const tocRootVariants = cva(\n  'group/toc box-border grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] gap-6 text-foreground has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)] max-md:grid-cols-[minmax(0,1fr)] max-md:has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(0,1fr)]',\n);",
+      "type": "registry:component",
+      "target": "@components/ui/toc/Toc.variants.ts"
+    },
+    {
+      "path": "src/components/toc/TocRootProvider.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TocRootProvider as ArkTocRootProvider } from '@ark-ui/vue/toc';\nimport type { TocRootProviderProps } from '@ark-ui/vue/toc';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { tocRootVariants } from './Toc.variants';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TocRootProviderProps {\n  class?: HTMLAttributes['class'];\n  value: TocRootProviderProps['value'];\n}\n\nconst { class: className, value } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTocRootProvider\n    v-bind=\"attrs\"\n    :class=\"cn(tocRootVariants(), className)\"\n    :value=\"value\"\n    data-slot=\"toc-root-provider\"\n  >\n    <slot />\n  </ArkTocRootProvider>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toc/TocRootProvider.vue"
+    },
+    {
+      "path": "src/components/toc/TocContent.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TocContent as ArkTocContent } from '@ark-ui/vue/toc';\nimport type { TocContentProps } from '@ark-ui/vue/toc';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TocContentProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTocContent\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'min-w-0 scroll-smooth group-has-[[data-slot=toc-nav][data-placement=left]]/toc:col-start-2 group-has-[[data-slot=toc-nav][data-placement=left]]/toc:row-start-1 motion-reduce:scroll-auto max-md:group-has-[[data-slot=toc-nav][data-placement=left]]/toc:col-auto max-md:group-has-[[data-slot=toc-nav][data-placement=left]]/toc:row-auto',\n        className,\n      )\n    \"\n    data-slot=\"toc-content\"\n  >\n    <slot />\n  </ArkTocContent>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toc/TocContent.vue"
+    },
+    {
+      "path": "src/components/toc/TocNav.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TocNav as ArkTocNav } from '@ark-ui/vue/toc';\nimport type { TocNavProps } from '@ark-ui/vue/toc';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TocNavProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTocNav\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'sticky top-4 max-h-[calc(100dvh-2rem)] min-w-0 self-start overflow-auto rounded-lg border border-border bg-card p-4 text-card-foreground data-[placement=left]:col-start-1 data-[placement=left]:row-start-1 max-md:data-[placement=left]:col-auto max-md:data-[placement=left]:row-auto',\n        className,\n      )\n    \"\n    data-slot=\"toc-nav\"\n  >\n    <slot />\n  </ArkTocNav>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toc/TocNav.vue"
+    },
+    {
+      "path": "src/components/toc/TocTitle.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TocTitle as ArkTocTitle } from '@ark-ui/vue/toc';\nimport type { TocTitleProps } from '@ark-ui/vue/toc';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TocTitleProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTocTitle\n    v-bind=\"attrs\"\n    :class=\"cn('m-0 mb-2 text-sm leading-5 font-semibold text-foreground', className)\"\n    data-slot=\"toc-title\"\n  >\n    <slot />\n  </ArkTocTitle>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toc/TocTitle.vue"
+    },
+    {
+      "path": "src/components/toc/TocList.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TocList as ArkTocList } from '@ark-ui/vue/toc';\nimport type { TocListProps } from '@ark-ui/vue/toc';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TocListProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst listClass =\n  \"relative m-0 grid list-none gap-0.5 py-0 ps-1 has-[[data-slot=toc-indicator]]:before:pointer-events-none has-[[data-slot=toc-indicator]]:before:absolute has-[[data-slot=toc-indicator]]:before:inset-y-0.5 has-[[data-slot=toc-indicator]]:before:start-0 has-[[data-slot=toc-indicator]]:before:w-0.5 has-[[data-slot=toc-indicator]]:before:rounded-full has-[[data-slot=toc-indicator]]:before:bg-border has-[[data-slot=toc-indicator]]:before:content-['']\";\n</script>\n\n<template>\n  <ArkTocList v-bind=\"attrs\" :class=\"cn(listClass, className)\" data-slot=\"toc-list\">\n    <slot />\n  </ArkTocList>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toc/TocList.vue"
+    },
+    {
+      "path": "src/components/toc/TocItem.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TocItem as ArkTocItem } from '@ark-ui/vue/toc';\nimport type { TocItemProps } from '@ark-ui/vue/toc';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TocItemProps {\n  class?: HTMLAttributes['class'];\n  item: TocItemProps['item'];\n}\n\nconst { class: className, item } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTocItem v-bind=\"attrs\" :class=\"cn('min-w-0', className)\" :item=\"item\" data-slot=\"toc-item\">\n    <slot />\n  </ArkTocItem>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toc/TocItem.vue"
+    },
+    {
+      "path": "src/components/toc/TocLink.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TocLink as ArkTocLink } from '@ark-ui/vue/toc';\nimport type { TocLinkProps } from '@ark-ui/vue/toc';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TocLinkProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTocLink\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'group/toc-link relative block min-w-0 overflow-hidden rounded-sm py-1 ps-[calc(0.875rem+max(0px,((var(--depth)-2)*0.5rem)))] pe-1 text-sm leading-5 text-ellipsis whitespace-nowrap text-muted-foreground no-underline outline-0 transition-colors duration-200 focus-visible:ring-1 focus-visible:ring-ring has-[[data-slot=toc-rail]]:overflow-visible data-active:font-medium data-active:text-foreground motion-reduce:transition-none [@media(hover:hover)]:hover:text-foreground',\n        className,\n      )\n    \"\n    data-slot=\"toc-link\"\n  >\n    <slot />\n  </ArkTocLink>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toc/TocLink.vue"
+    },
+    {
+      "path": "src/components/toc/TocIndicator.vue",
+      "content": "<script setup lang=\"ts\">\nimport { TocIndicator as ArkTocIndicator } from '@ark-ui/vue/toc';\nimport type { TocIndicatorProps } from '@ark-ui/vue/toc';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ TocIndicatorProps {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkTocIndicator\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'pointer-events-none start-0 top-[calc(var(--top)+0.125rem)] z-1 h-[calc(var(--height)-0.25rem)] w-0.5 rounded-full bg-muted-foreground opacity-70 transition-[top,height] duration-200 motion-reduce:transition-none',\n        className,\n      )\n    \"\n    data-slot=\"toc-indicator\"\n  >\n    <slot />\n  </ArkTocIndicator>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toc/TocIndicator.vue"
+    },
+    {
+      "path": "src/components/toc/TocRail.vue",
+      "content": "<script setup lang=\"ts\">\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes, StyleValue, SVGAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\n\ndefineOptions({ inheritAttrs: false });\n\nconst railBaseOffset = 0;\nconst railStep = 12;\nconst railBridge = 6;\nconst maxRailLevel = 2;\n\nconst getRailOffset = (depth: number) =>\n  railBaseOffset + Math.min(Math.max(depth - 2, 0), maxRailLevel) * railStep;\n\nexport interface Props extends /* @vue-ignore */ SVGAttributes {\n  class?: HTMLAttributes['class'];\n  depth: number;\n  nextDepth?: number;\n  previousDepth?: number;\n  style?: StyleValue;\n}\n\nconst props = defineProps<Props>();\nconst attrs = useAttrs();\n\nconst lineOffset = computed(() => getRailOffset(props.depth));\nconst previousLineOffset = computed(() => getRailOffset(props.previousDepth ?? props.depth));\nconst nextLineOffset = computed(() => getRailOffset(props.nextDepth ?? props.depth));\nconst hasTurn = computed(() => previousLineOffset.value !== lineOffset.value);\nconst width = computed(\n  () => Math.max(previousLineOffset.value, lineOffset.value, nextLineOffset.value) + 2,\n);\nconst height = computed(() =>\n  lineOffset.value === nextLineOffset.value ? 'calc(100% + 0.5rem)' : '100%',\n);\nconst railStyle = computed<StyleValue>(() => [\n  { width: `${width.value}px`, height: height.value },\n  props.style,\n]);\n</script>\n\n<template>\n  <svg\n    aria-hidden=\"true\"\n    v-bind=\"attrs\"\n    :class=\"\n      cn(\n        'pointer-events-none absolute start-0 -top-1.5 overflow-visible text-border group-data-active/toc-link:translate-y-0.5 group-data-active/toc-link:text-muted-foreground group-data-active/toc-link:opacity-70',\n        props.class,\n      )\n    \"\n    :style=\"railStyle\"\n    data-slot=\"toc-rail\"\n  >\n    <path\n      v-if=\"hasTurn\"\n      :d=\"`M ${previousLineOffset + 0.5} 0 C ${previousLineOffset + 0.5} 8 ${lineOffset + 0.5} 4 ${lineOffset + 0.5} ${railBridge * 2}`\"\n      fill=\"none\"\n      vector-effect=\"non-scaling-stroke\"\n      stroke=\"currentColor\"\n      class=\"stroke-1\"\n    />\n    <line\n      :x1=\"lineOffset + 0.5\"\n      :y1=\"hasTurn ? railBridge * 2 : railBridge\"\n      :x2=\"lineOffset + 0.5\"\n      y2=\"100%\"\n      vector-effect=\"non-scaling-stroke\"\n      stroke=\"currentColor\"\n      class=\"stroke-1\"\n    />\n  </svg>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/toc/TocRail.vue"
+    },
+    {
+      "path": "src/components/toc/useToc.ts",
+      "content": "import { useToc as useTocPrimitive } from '@ark-ui/vue/toc';\nimport type { UseTocProps, UseTocReturn } from '@ark-ui/vue/toc';\nimport { computed, toValue } from 'vue';\nimport type { MaybeRef } from 'vue';\n\nconst useToc = (\n  props: MaybeRef<UseTocProps>,\n  emits?: Parameters<typeof useTocPrimitive>[1],\n): UseTocReturn =>\n  useTocPrimitive(\n    computed(() => {\n      const resolvedProps = toValue(props);\n\n      return {\n        ...resolvedProps,\n        autoScroll: resolvedProps?.autoScroll ?? false,\n      };\n    }),\n    emits,\n  );\n\nexport default useToc;",
+      "type": "registry:component",
+      "target": "@components/ui/toc/useToc.ts"
+    },
+    {
+      "path": "src/components/toc/index.ts",
+      "content": "import { TocContext, useTocContext } from '@ark-ui/vue/toc';\nimport Toc from './Toc.vue';\nimport TocContent from './TocContent.vue';\nimport TocIndicator from './TocIndicator.vue';\nimport TocItem from './TocItem.vue';\nimport TocLink from './TocLink.vue';\nimport TocList from './TocList.vue';\nimport TocNav from './TocNav.vue';\nimport TocRail from './TocRail.vue';\nimport TocRootProvider from './TocRootProvider.vue';\nimport TocTitle from './TocTitle.vue';\nimport useToc from './useToc';\n\nexport {\n  Toc,\n  TocContent,\n  TocContext,\n  TocIndicator,\n  TocItem,\n  TocLink,\n  TocList,\n  TocNav,\n  TocRail,\n  TocRootProvider,\n  TocTitle,\n  useToc,\n  useTocContext,\n};\n\nexport type {\n  TocActiveChangeDetails,\n  TocContentBaseProps,\n  TocContentProps,\n  TocContextProps,\n  TocIndicatorBaseProps,\n  TocIndicatorProps,\n  TocItemBaseProps,\n  TocItemData,\n  TocItemProps,\n  TocLinkBaseProps,\n  TocLinkProps,\n  TocListBaseProps,\n  TocListProps,\n  TocNavBaseProps,\n  TocNavProps,\n  TocRootBaseProps,\n  TocRootEmits,\n  TocRootProps,\n  TocRootProviderBaseProps,\n  TocRootProviderProps,\n  TocTitleBaseProps,\n  TocTitleProps,\n  UseTocContext,\n  UseTocProps,\n  UseTocReturn,\n} from '@ark-ui/vue/toc';",
+      "type": "registry:component",
+      "target": "@components/ui/toc/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

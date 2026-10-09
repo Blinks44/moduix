@@ -6,9 +6,14 @@ import {
   useToc as useTocPrimitive,
   useTocContext as useTocContextPrimitive,
 } from '@ark-ui/react/toc';
+import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
+
+const tocRootVariants = cva(
+  'group/toc box-border grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] gap-6 text-foreground has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)] max-md:grid-cols-[minmax(0,1fr)] max-md:has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(0,1fr)]',
+);
 
 const railBaseOffset = 0;
 const railStep = 12;
@@ -23,18 +28,15 @@ const useToc = ({ autoScroll = false, ...props }: UseTocProps) =>
 
 const useTocContext = useTocContextPrimitive;
 
-const TocRoot = forwardRef<
+const Toc = forwardRef<
   ComponentRef<typeof TocPrimitive.Root>,
   ComponentProps<typeof TocPrimitive.Root>
->(function TocRoot({ autoScroll = false, className, ...props }, ref) {
+>(function Toc({ autoScroll = false, className, ...props }, ref) {
   return (
     <TocPrimitive.Root
       ref={ref}
       autoScroll={autoScroll}
-      className={cn(
-        'group/toc box-border grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] gap-6 text-foreground has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)] max-md:grid-cols-[minmax(0,1fr)] max-md:has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(0,1fr)]',
-        className,
-      )}
+      className={cn(tocRootVariants(), className)}
       {...props}
       data-slot="toc-root"
     />
@@ -52,10 +54,7 @@ const TocRootProvider = forwardRef<
       ref={ref}
       value={value}
       {...rootProps}
-      className={cn(
-        'group/toc box-border grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] gap-6 text-foreground has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)] max-md:grid-cols-[minmax(0,1fr)] max-md:has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(0,1fr)]',
-        className,
-      )}
+      className={cn(tocRootVariants(), className)}
       style={{ ...rootProps.style, ...style }}
       {...props}
       data-slot="toc-root-provider"
@@ -230,18 +229,20 @@ const TocRail = forwardRef<SVGSVGElement, TocRailProps>(function TocRail(
   );
 });
 
-const Toc = Object.assign(TocRoot, {
-  Root: TocRoot,
-  RootProvider: TocRootProvider,
-  Context: TocPrimitive.Context,
-  Content: TocContent,
-  Nav: TocNav,
-  Title: TocTitle,
-  List: TocList,
-  Item: TocItem,
-  Link: TocLink,
-  Indicator: TocIndicator,
-  Rail: TocRail,
-});
+const TocContext = TocPrimitive.Context;
 
-export { Toc, useToc, useTocContext };
+export {
+  Toc,
+  TocContext,
+  TocContent,
+  TocIndicator,
+  TocItem,
+  TocLink,
+  TocList,
+  TocNav,
+  TocRail,
+  TocRootProvider,
+  TocTitle,
+  useToc,
+  useTocContext,
+};

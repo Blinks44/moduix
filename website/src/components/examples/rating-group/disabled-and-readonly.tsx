@@ -1,20 +1,25 @@
-import { RatingGroup } from '@moduix/react/rating-group';
+import {
+  RatingGroup,
+  RatingGroupControl,
+  RatingGroupItems,
+  RatingGroupLabel,
+} from '@moduix/react/rating-group';
 import styles from '@/components/examples/rating-group/component-disabled-and-readonly.module.css';
 
 export default function DisabledRatingGroupDemo() {
   return (
     <div className={styles.stack}>
       <RatingGroup defaultValue={4} disabled>
-        <RatingGroup.Label>Disabled rating</RatingGroup.Label>
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
+        <RatingGroupLabel>Disabled rating</RatingGroupLabel>
+        <RatingGroupControl>
+          <RatingGroupItems />
+        </RatingGroupControl>
       </RatingGroup>
       <RatingGroup defaultValue={2} readOnly>
-        <RatingGroup.Label>Read-only rating</RatingGroup.Label>
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
+        <RatingGroupLabel>Read-only rating</RatingGroupLabel>
+        <RatingGroupControl>
+          <RatingGroupItems />
+        </RatingGroupControl>
       </RatingGroup>
     </div>
   );

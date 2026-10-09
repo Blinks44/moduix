@@ -6,12 +6,20 @@ import { Splitter as SplitterPrimitive } from '@ark-ui/react/splitter';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, MouseEvent } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import { Input } from '../input';
 import { Separator } from '../separator';
-import { Splitter, type SplitterPanelData, useSplitterContext } from '../splitter';
+import {
+  Splitter,
+  SplitterPanel,
+  SplitterResizeTrigger,
+  SplitterResizeTriggerIndicator,
+  useSplitterContext,
+  type SplitterPanelData,
+} from '../splitter';
 import splitterStyles from '../splitter/Splitter.module.css';
-import { Tooltip } from '../tooltip';
+import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '../tooltip';
 import styles from './Sidebar.module.css';
 
 type SidebarSide = 'left' | 'right';
@@ -19,13 +27,13 @@ type SidebarConfig = {
   panelId: string;
   side: SidebarSide;
 };
-type SidebarRootProps = Omit<ComponentProps<typeof Splitter.Root>, 'orientation' | 'panels'> & {
+type SidebarRootProps = Omit<ComponentProps<typeof Splitter>, 'orientation' | 'panels'> & {
   panelId?: string;
   side?: SidebarSide;
 };
-type SidebarPanelProps = Omit<ComponentProps<typeof Splitter.Panel>, 'id'>;
-type SidebarResizeTriggerProps = Omit<ComponentProps<typeof Splitter.ResizeTrigger>, 'id'>;
-type SidebarDefaultSize = ComponentProps<typeof Splitter.Root>['defaultSize'];
+type SidebarPanelProps = Omit<ComponentProps<typeof SplitterPanel>, 'id'>;
+type SidebarResizeTriggerProps = Omit<ComponentProps<typeof SplitterResizeTrigger>, 'id'>;
+type SidebarDefaultSize = ComponentProps<typeof Splitter>['defaultSize'];
 
 const sidebarPanel = {
   id: 'sidebar',
@@ -71,8 +79,8 @@ function toggleSidebarPanel(splitter: ReturnType<typeof useSplitterContext>, pan
   splitter.collapsePanel(panelId);
 }
 
-const SidebarRoot = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, SidebarRootProps>(
-  function SidebarRoot(
+const Sidebar = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, SidebarRootProps>(
+  function Sidebar(
     { className, defaultSize, panelId = 'sidebar', side = 'left', style, ...props },
     ref,
   ) {
@@ -152,11 +160,11 @@ const SidebarResizeTrigger = forwardRef<
   ComponentRef<typeof SplitterPrimitive.ResizeTrigger>,
   SidebarResizeTriggerProps
 >(function SidebarResizeTrigger(
-  { asChild, children, className, 'aria-label': ariaLabel = 'Resize sidebar', ...props },
+  { asChild, children, className, 'aria-label': ariaLabel = a11yLabels.resizeSidebar, ...props },
   ref,
 ) {
   const { panelId, side } = useContext(SidebarConfigContext);
-  const id: NonNullable<ComponentProps<typeof Splitter.ResizeTrigger>['id']> =
+  const id: NonNullable<ComponentProps<typeof SplitterResizeTrigger>['id']> =
     side === 'left' ? `${panelId}:content` : `content:${panelId}`;
 
   return (
@@ -170,7 +178,7 @@ const SidebarResizeTrigger = forwardRef<
       data-slot="sidebar-resize-trigger"
       className={clsx(splitterStyles.resizeTrigger, styles.resizeTrigger, className)}
     >
-      {children === undefined && !asChild ? <Splitter.ResizeTriggerIndicator /> : children}
+      {children === undefined && !asChild ? <SplitterResizeTriggerIndicator /> : children}
     </SplitterPrimitive.ResizeTrigger>
   );
 });
@@ -182,7 +190,7 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
       children,
       onClick,
       type = 'button',
-      'aria-label': ariaLabel = 'Toggle sidebar',
+      'aria-label': ariaLabel = a11yLabels.toggleSidebar,
       ...props
     },
     ref,
@@ -526,8 +534,8 @@ const SidebarTooltip = function SidebarTooltip({
   positioning,
   ...props
 }: Omit<ComponentProps<typeof Tooltip>, 'children' | 'disabled' | 'positioning'> & {
-  children: ComponentProps<typeof Tooltip.Trigger>['children'];
-  content: ComponentProps<typeof Tooltip.Content>['children'];
+  children: ComponentProps<typeof TooltipTrigger>['children'];
+  content: ComponentProps<typeof TooltipContent>['children'];
   positioning?: ComponentProps<typeof Tooltip>['positioning'];
 }) {
   const { collapsed, side } = useSidebar();
@@ -540,53 +548,52 @@ const SidebarTooltip = function SidebarTooltip({
       disabled={!collapsed}
       positioning={{ placement: side === 'left' ? 'right' : 'left', gutter: 8, ...positioning }}
     >
-      <Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <Tooltip.Content>{content}</Tooltip.Content>
-      </Tooltip.Positioner>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipPositioner>
+        <TooltipContent>{content}</TooltipContent>
+      </TooltipPositioner>
     </Tooltip>
   );
 };
 
-const SidebarInput = forwardRef<ComponentRef<typeof Input.Root>, ComponentProps<typeof Input.Root>>(
+const SidebarInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<typeof Input>>(
   function SidebarInput({ className, ...props }, ref) {
-    return <Input.Root ref={ref} className={clsx(styles.input, className)} {...props} />;
+    return <Input ref={ref} className={clsx(styles.input, className)} {...props} />;
   },
 );
 
 const SidebarSeparator = forwardRef<
-  ComponentRef<typeof Separator.Root>,
-  ComponentProps<typeof Separator.Root>
+  ComponentRef<typeof Separator>,
+  ComponentProps<typeof Separator>
 >(function SidebarSeparator({ className, ...props }, ref) {
-  return <Separator.Root ref={ref} className={clsx(styles.separator, className)} {...props} />;
+  return <Separator ref={ref} className={clsx(styles.separator, className)} {...props} />;
 });
 
-const Sidebar = Object.assign(SidebarRoot, {
-  Root: SidebarRoot,
-  Panel: SidebarPanel,
-  Inset: SidebarInset,
-  ResizeTrigger: SidebarResizeTrigger,
-  Trigger: SidebarTrigger,
-  Label: SidebarLabel,
-  Input: SidebarInput,
-  Header: SidebarHeader,
-  Content: SidebarContent,
-  ExpandedContent: SidebarExpandedContent,
-  CollapsedContent: SidebarCollapsedContent,
-  Footer: SidebarFooter,
-  Separator: SidebarSeparator,
-  Group: SidebarGroup,
-  GroupHeader: SidebarGroupHeader,
-  GroupLabel: SidebarGroupLabel,
-  GroupAction: SidebarGroupAction,
-  NavigationList: SidebarNavigationList,
-  NavigationItem: SidebarNavigationItem,
-  Tooltip: SidebarTooltip,
-  NavigationButton: SidebarNavigationButton,
-  NavigationBadge: SidebarNavigationBadge,
-  NavigationSubList: SidebarNavigationSubList,
-  NavigationSubItem: SidebarNavigationSubItem,
-  NavigationSubButton: SidebarNavigationSubButton,
-});
-
-export { Sidebar, useSidebar };
+export {
+  Sidebar,
+  SidebarCollapsedContent,
+  SidebarContent,
+  SidebarExpandedContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupHeader,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInput,
+  SidebarInset,
+  SidebarLabel,
+  SidebarNavigationBadge,
+  SidebarNavigationButton,
+  SidebarNavigationItem,
+  SidebarNavigationList,
+  SidebarNavigationSubButton,
+  SidebarNavigationSubItem,
+  SidebarNavigationSubList,
+  SidebarPanel,
+  SidebarResizeTrigger,
+  SidebarSeparator,
+  SidebarTooltip,
+  SidebarTrigger,
+  useSidebar,
+};

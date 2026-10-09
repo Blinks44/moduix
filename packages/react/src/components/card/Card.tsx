@@ -4,12 +4,12 @@ import { clsx } from 'clsx';
 import { forwardRef, type ComponentRef } from 'react';
 import styles from './Card.module.css';
 
-type CardRootProps = HTMLArkProps<'div'> & {
+type CardProps = HTMLArkProps<'div'> & {
   size?: 'sm' | 'md' | 'lg';
   variant?: 'elevated' | 'outline' | 'subtle';
 };
 
-const CardRoot = forwardRef<ComponentRef<typeof ark.div>, CardRootProps>(function CardRoot(
+const Card = forwardRef<ComponentRef<typeof ark.div>, CardProps>(function Card(
   { className, size = 'md', variant = 'outline', ...props },
   ref,
 ) {
@@ -166,17 +166,15 @@ const CardLink = forwardRef<ComponentRef<typeof ark.a>, HTMLArkProps<'a'>>(funct
   );
 });
 
-const Card = Object.assign(CardRoot, {
-  Root: CardRoot,
-  Header: CardHeader,
-  Body: CardBody,
-  Media: CardMedia,
-  Background: CardBackground,
-  Footer: CardFooter,
-  Title: CardTitle,
-  Description: CardDescription,
-  Action: CardAction,
-  Link: CardLink,
-});
-
-export { Card };
+export {
+  Card,
+  CardAction,
+  CardBackground,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardLink,
+  CardMedia,
+  CardTitle,
+};

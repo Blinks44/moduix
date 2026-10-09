@@ -3,7 +3,7 @@ import type { ComponentProps } from 'solid-js';
 import { Index, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-function SliderRoot(props: ComponentProps<typeof SliderPrimitive.Root>) {
+function Slider(props: ComponentProps<typeof SliderPrimitive.Root>) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -70,7 +70,7 @@ function SliderValueText(props: ComponentProps<typeof SliderPrimitive.ValueText>
   return (
     <SliderPrimitive.ValueText
       class={cn(
-        'text-right text-sm leading-5 font-normal text-foreground group-data-[orientation=vertical]:justify-self-end group-data-[orientation=vertical]:[grid-area:value]',
+        'text-end text-sm leading-5 font-normal text-foreground group-data-[orientation=vertical]:justify-self-end group-data-[orientation=vertical]:[grid-area:value]',
         local.class,
       )}
       {...others}
@@ -201,42 +201,24 @@ function SliderDraggingIndicator(props: ComponentProps<typeof SliderPrimitive.Dr
   );
 }
 
-type SliderComponent = typeof SliderRoot & {
-  Root: typeof SliderRoot;
-  RootProvider: typeof SliderRootProvider;
-  Context: typeof SliderPrimitive.Context;
-  useSlider: typeof useSlider;
-  useSliderContext: typeof useSliderContext;
-  Label: typeof SliderLabel;
-  ValueText: typeof SliderValueText;
-  Control: typeof SliderControl;
-  HiddenInput: typeof SliderPrimitive.HiddenInput;
-  Track: typeof SliderTrack;
-  Range: typeof SliderRange;
-  Thumb: typeof SliderThumb;
-  Thumbs: typeof SliderThumbs;
-  MarkerGroup: typeof SliderMarkerGroup;
-  Marker: typeof SliderMarker;
-  DraggingIndicator: typeof SliderDraggingIndicator;
-};
+const SliderContext = SliderPrimitive.Context;
+const SliderHiddenInput = SliderPrimitive.HiddenInput;
 
-const Slider: SliderComponent = Object.assign(SliderRoot, {
-  Root: SliderRoot,
-  RootProvider: SliderRootProvider,
-  Context: SliderPrimitive.Context,
+export {
+  Slider,
+  SliderContext,
+  SliderControl,
+  SliderDraggingIndicator,
+  SliderHiddenInput,
+  SliderLabel,
+  SliderMarker,
+  SliderMarkerGroup,
+  SliderRange,
+  SliderRootProvider,
+  SliderThumb,
+  SliderThumbs,
+  SliderTrack,
+  SliderValueText,
   useSlider,
   useSliderContext,
-  Label: SliderLabel,
-  ValueText: SliderValueText,
-  Control: SliderControl,
-  HiddenInput: SliderPrimitive.HiddenInput,
-  Track: SliderTrack,
-  Range: SliderRange,
-  Thumb: SliderThumb,
-  Thumbs: SliderThumbs,
-  MarkerGroup: SliderMarkerGroup,
-  Marker: SliderMarker,
-  DraggingIndicator: SliderDraggingIndicator,
-});
-
-export { Slider, useSlider, useSliderContext };
+};

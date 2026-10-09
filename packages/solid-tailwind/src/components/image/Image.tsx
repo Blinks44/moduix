@@ -22,16 +22,15 @@ type ImageSourceProps = UnpicSourceProps &
     'height' | 'media' | 'sizes' | 'src' | 'srcset' | 'type' | 'width'
   >;
 
-function ImageRoot(props: ImageProps) {
+function Image(props: ImageProps) {
   const [local, others] = splitProps(props, ['class', 'fetchpriority']);
   const imageProps = createMemo(() => {
-    const transformed = transformProps<JSX.ImgHTMLAttributes<HTMLImageElement>>({
+    return transformProps<JSX.ImgHTMLAttributes<HTMLImageElement>>({
       ...others,
+      loading: others.loading ?? (others.priority ? 'eager' : 'lazy'),
+      decoding: others.decoding ?? (others.priority ? undefined : 'async'),
+      fetchpriority: local.fetchpriority ?? (others.priority ? 'high' : undefined),
     } as ImageTransformProps);
-
-    return local.fetchpriority === undefined
-      ? transformed
-      : { ...transformed, fetchpriority: local.fetchpriority };
   });
 
   return <img {...imageProps()} data-slot="image-root" class={cn('rounded-md', local.class)} />;
@@ -46,9 +45,4 @@ function ImageSource(props: ImageSourceProps) {
   return <source {...sourceProps()} data-slot="image-source" class={local.class} />;
 }
 
-const Image = Object.assign(ImageRoot, {
-  Root: ImageRoot,
-  Source: ImageSource,
-});
-
-export { Image };
+export { Image, ImageSource };

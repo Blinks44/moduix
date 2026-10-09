@@ -1,7 +1,7 @@
 ---
 title: Angle Slider
 component: angle-slider
-description: Круговой элемент управления для выбора угла от 0 до 360 градусов в React или Solid.
+description: Круговой элемент управления для выбора угла от 0 до 360 градусов в React, Solid или Vue.
 ---
 
 import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
@@ -25,6 +25,16 @@ import angleSliderSolidReadOnly from '../../../snippets/angle-slider/solid/read-
 import angleSliderSolidRootProvider from '../../../snippets/angle-slider/solid/root-provider.tsx?raw';
 import angleSliderSolidSteps from '../../../snippets/angle-slider/solid/steps.tsx?raw';
 import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with-marks.tsx?raw';
+import angleSliderVueAdvancedCustomization from '../../../snippets/angle-slider/vue/advanced-customization.vue?raw';
+import angleSliderVueBasic from '../../../snippets/angle-slider/vue/basic.vue?raw';
+import angleSliderVueControlled from '../../../snippets/angle-slider/vue/controlled.vue?raw';
+import angleSliderVueDisabled from '../../../snippets/angle-slider/vue/disabled.vue?raw';
+import angleSliderVueForm from '../../../snippets/angle-slider/vue/form.vue?raw';
+import angleSliderVueInvalid from '../../../snippets/angle-slider/vue/invalid.vue?raw';
+import angleSliderVueReadOnly from '../../../snippets/angle-slider/vue/read-only.vue?raw';
+import angleSliderVueRootProvider from '../../../snippets/angle-slider/vue/root-provider.vue?raw';
+import angleSliderVueSteps from '../../../snippets/angle-slider/vue/steps.vue?raw';
+import angleSliderVueWithMarks from '../../../snippets/angle-slider/vue/with-marks.vue?raw';
 
 ## Справочник API
 
@@ -42,9 +52,9 @@ import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with
 ## Базовый пример
 
 
-Начните с `Dial`: он объединяет круговой трек, центрированное значение и бегунок. Трек заполняется
+Начните с `AngleSliderDial`: он объединяет круговой трек, центрированное значение и бегунок. Трек заполняется
 сверхи по мере роста угла. `AngleSlider` принимает
-один угол от 0 до 360 градусов. По возможности добавляйте видимую `Label`. Если у диска нет
+один угол от 0 до 360 градусов. По возможности добавляйте видимую `AngleSliderLabel`. Если у диска нет
 видимой подписи, добавьте `aria-label` в корневой компонент.
 
 <ExampleFrame variant="component">
@@ -58,6 +68,7 @@ import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -70,6 +81,11 @@ import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueBasic} />
 
     </Tab>
   </Tabs>
@@ -107,50 +123,61 @@ import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/angle-slider' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/angle-slider' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-AngleSlider / AngleSlider.Root
-├─ AngleSlider.Label
-├─ AngleSlider.Dial
-│  ├─ AngleSlider.ValueText
-│  └─ AngleSlider.Thumb
-├─ AngleSlider.Marks (необязательно)
-│  └─ AngleSlider.Marker[value]
-└─ AngleSlider.HiddenInput (явно)
+AngleSlider
+├─ AngleSliderLabel
+├─ AngleSliderDial
+│  ├─ AngleSliderValueText
+│  └─ AngleSliderThumb
+├─ AngleSliderMarks (необязательно)
+│  └─ AngleSliderMarker[value]
+└─ AngleSliderHiddenInput (явно)
 
-AngleSlider.RootProvider
+AngleSliderRootProvider
 └─ same part tree connected to a useAngleSlider() store
 ```
 
 | Часть                              | Назначение                                                            |
 | ---------------------------------- | --------------------------------------------------------------------- |
-| `AngleSlider` / `AngleSlider.Root` | Стилизованный корневой компонент, который хранит состояние слайдера.  |
-| `AngleSlider.RootProvider`         | Подключает части к состоянию, созданному через `useAngleSlider()`.    |
-| `AngleSlider.Label`                | Связывает видимую подпись со слайдером.                               |
-| `AngleSlider.Control`              | Задаёт круглую область для взаимодействия указателем.                 |
-| `AngleSlider.Dial`                 | Удобная композиция из `Control`, центрированной `ValueText` и `Thumb`. |
-| `AngleSlider.Thumb`                | Фокусируемый круглый бегунок, движущийся по треку в соответствии с текущим углом. |
-| `AngleSlider.MarkerGroup`          | Содержит необязательные опорные маркеры.                              |
-| `AngleSlider.Marker`               | Размещает числовой маркер вокруг диска.                               |
-| `AngleSlider.Marks`                | Создаёт маркеры по массиву `values`.                                  |
-| `AngleSlider.ValueText`             | Показывает текущее значение в градусах; `Dial` центрирует его в диске. |
-| `AngleSlider.HiddenInput`           | Нативное поле формы; добавляйте его явно для отправки значения.       |
+| `AngleSlider` | Стилизованный корневой компонент, который хранит состояние слайдера.  |
+| `AngleSliderRootProvider`         | Подключает части к состоянию, созданному через `useAngleSlider()`.    |
+| `AngleSliderLabel`                | Связывает видимую подпись со слайдером.                               |
+| `AngleSliderControl`              | Задаёт круглую область для взаимодействия указателем.                 |
+| `AngleSliderDial`                 | Удобная композиция из `Control`, центрированной `ValueText` и `Thumb`. |
+| `AngleSliderThumb`                | Фокусируемый круглый бегунок, движущийся по треку в соответствии с текущим углом. |
+| `AngleSliderMarkerGroup`          | Содержит необязательные опорные маркеры.                              |
+| `AngleSliderMarker`               | Размещает числовой маркер вокруг диска.                               |
+| `AngleSliderMarks`                | Создаёт маркеры по массиву `values`.                                  |
+| `AngleSliderValueText`             | Показывает текущее значение в градусах; `AngleSliderDial` центрирует его в диске. |
+| `AngleSliderHiddenInput`           | Нативное поле формы; добавляйте его явно для отправки значения.       |
 
 ## Композиция
 
 Используйте `defaultValue` для неконтролируемого слайдера, а `value` вместе с
 `onValueChange(details)` - когда состоянием угла управляет другая часть приложения. Используйте
-`AngleSlider.RootProvider` с `useAngleSlider()` из соответствующего пакета только тогда, когда
-store нужно создать вне дерева слайдера; не рендерите `Root` и `RootProvider` для одного состояния.
+`AngleSliderRootProvider` с `useAngleSlider()` из соответствующего пакета только тогда, когда
+store нужно создать вне дерева слайдера; не рендерите корневой компонент и `AngleSliderRootProvider`
+для одного состояния.
 В Solid состояние store читается через функцию-аксессор, например `angleSlider().value`.
 
-`Dial` и `Marks` - удобные составные компоненты. Используйте `Control` с `Thumb` или
-`MarkerGroup` с `Marker`, если нужны собственные дочерние элементы, другой порядок частей или
-индивидуальные свойства маркеров. Для нативной формы явно добавляйте `HiddenInput`. Укажите `name`
-в корневом компоненте для формы в том же дереве или `form` в `HiddenInput`, если форма находится
+`AngleSliderDial` и `AngleSliderMarks` - удобные составные компоненты. Используйте `AngleSliderControl` с `AngleSliderThumb` или
+`AngleSliderMarkerGroup` с `AngleSliderMarker`, если нужны собственные дочерние элементы, другой порядок частей или
+индивидуальные свойства маркеров. Для нативной формы явно добавляйте `AngleSliderHiddenInput`. Укажите `name`
+в корневом компоненте для формы в том же дереве или `form` в `AngleSliderHiddenInput`, если форма находится
 отдельно.
 
 ## Примеры
@@ -170,6 +197,7 @@ store нужно создать вне дерева слайдера; не ре�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -182,6 +210,11 @@ store нужно создать вне дерева слайдера; не ре�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueControlled} />
 
     </Tab>
   </Tabs>
@@ -210,6 +243,7 @@ store нужно создать вне дерева слайдера; не ре�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -224,6 +258,11 @@ store нужно создать вне дерева слайдера; не ре�
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidDisabled} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueDisabled} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -236,8 +275,8 @@ store нужно создать вне дерева слайдера; не ре�
 
 ### В форме
 
-Добавьте `AngleSlider.HiddenInput` и `name`, чтобы включить угол в нативную отправку формы. Кнопка
-Reset показывает встроенный в Ark сброс формы. Укажите `form` в `AngleSlider.HiddenInput`, если форма
+Добавьте `AngleSliderHiddenInput` и `name`, чтобы включить угол в нативную отправку формы. Кнопка
+Reset показывает встроенный в Ark сброс формы. Укажите `form` в `AngleSliderHiddenInput`, если форма
 не является предком слайдера.
 
 <ExampleFrame variant="component">
@@ -251,6 +290,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -263,6 +303,11 @@ Reset показывает встроенный в Ark сброс формы. У
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidForm} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueForm} />
 
     </Tab>
   </Tabs>
@@ -291,6 +336,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -303,6 +349,11 @@ Reset показывает встроенный в Ark сброс формы. У
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidInvalid} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueInvalid} />
 
     </Tab>
   </Tabs>
@@ -331,6 +382,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -345,6 +397,11 @@ Reset показывает встроенный в Ark сброс формы. У
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidReadOnly} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueReadOnly} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -357,7 +414,7 @@ Reset показывает встроенный в Ark сброс формы. У
 
 ### Root Provider
 
-Используйте `useAngleSlider()` из соответствующего пакета вместе с `AngleSlider.RootProvider`, если
+Используйте `useAngleSlider()` из соответствующего пакета вместе с `AngleSliderRootProvider`, если
 другому компоненту нужен прямой доступ к тому же автомату состояний. Внешнее состояние можно
 использовать для управления соседним интерфейсом.
 
@@ -372,6 +429,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -384,6 +442,11 @@ Reset показывает встроенный в Ark сброс формы. У
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -412,6 +475,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -426,6 +490,11 @@ Reset показывает встроенный в Ark сброс формы. У
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidSteps} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueSteps} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -438,9 +507,9 @@ Reset показывает встроенный в Ark сброс формы. У
 
 ### С маркерами
 
-Используйте `AngleSlider.Marks`, когда на диске нужны основные угловые отметки и не хочется
-повторять `MarkerGroup` и `Marker`. `AngleSlider.Dial` сохраняет вместе композицию `Control` и
-`Thumb`.
+Используйте `AngleSliderMarks`, когда на диске нужны основные угловые отметки и не хочется
+повторять `AngleSliderMarkerGroup` и `AngleSliderMarker`. `AngleSliderDial` сохраняет вместе композицию `AngleSliderControl` и
+`AngleSliderThumb`.
 
 <ExampleFrame variant="component">
   <AngleSliderWithMarks />
@@ -453,6 +522,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -467,6 +537,11 @@ Reset показывает встроенный в Ark сброс формы. У
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidWithMarks} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueWithMarks} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -479,7 +554,7 @@ Reset показывает встроенный в Ark сброс формы. У
 
 ### Расширенная настройка
 
-Используйте явные части вместо `AngleSlider.Dial` и `AngleSlider.Marks`, если диску нужна собственная
+Используйте явные части вместо `AngleSliderDial` и `AngleSliderMarks`, если диску нужна собственная
 композиция маркеров или дополнительные дочерние элементы внутри области управления.
 
 <ExampleFrame variant="component">
@@ -493,6 +568,7 @@ Reset показывает встроенный в Ark сброс формы. У
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -507,6 +583,11 @@ Reset показывает встроенный в Ark сброс формы. У
 <CodeBlockRuntime lang="tsx" code={angleSliderSolidAdvancedCustomization} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={angleSliderVueAdvancedCustomization} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -519,7 +600,7 @@ Reset показывает встроенный в Ark сброс формы. У
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid для структурных стилей экспортируемых частей.
+Используйте `className` в React и `class` в Solid или Vue для структурных стилей экспортируемых частей.
 Для стилей состояний предпочитайте атрибуты Ark - `data-state`, `data-disabled`, `data-invalid` и
 `data-readonly` - вместе с селекторами moduix `data-slot`. Варианты на Tailwind настраиваются
 обычными утилитами и пользовательскими классами; перечисленные ниже переменные компонента относятся
@@ -536,7 +617,7 @@ Reset показывает встроенный в Ark сброс формы. У
   `angle-slider-label`, `angle-slider-control`, `angle-slider-thumb`, `angle-slider-marker-group`,
   `angle-slider-marker` и `angle-slider-value-text`.
 - Селекторы частей Ark используют `data-scope="angle-slider"` и `data-part`.
-- `AngleSlider.Marks` создаёт те же хуки маркеров, что и явные части `MarkerGroup` и `Marker`.
+- `AngleSliderMarks` создаёт те же хуки маркеров, что и явные части `AngleSliderMarkerGroup` и `AngleSliderMarker`.
 - Для стилизации доступны переменные корня `--value` и `--angle`, а также переменные маркеров
   `--marker-value` и `--marker-display-value`.
 - При включённом предпочтении пользователя уменьшать движение анимация бегунка отключается.

@@ -1,4 +1,4 @@
-import { ToggleGroup } from '@moduix/solid/toggle-group';
+import { ToggleGroup, ToggleGroupItem } from '@moduix/solid/toggle-group';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/toggle-group/toggle-group-controlled.module.css';
 
@@ -28,7 +28,7 @@ export default function ControlledToggleGroupDemo() {
         aria-label="Text alignment"
       >
         {alignmentItems.map((item) => (
-          <ToggleGroup.Item value={item.value}>{item.label}</ToggleGroup.Item>
+          <ToggleGroupItem value={item.value}>{item.label}</ToggleGroupItem>
         ))}
       </ToggleGroup>
       <div data-preview-meta>

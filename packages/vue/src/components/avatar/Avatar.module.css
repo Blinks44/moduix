@@ -1,0 +1,79 @@
+@layer moduix.components {
+  .root {
+    box-sizing: border-box;
+    display: inline-flex;
+    width: var(--moduix-avatar-size, var(--moduix-size-md));
+    height: var(--moduix-avatar-size, var(--moduix-size-md));
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    border-radius: var(--moduix-avatar-radius, var(--moduix-radius-full));
+    background-color: var(--moduix-avatar-bg, var(--moduix-color-muted));
+    color: var(--moduix-avatar-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-avatar-font-size, var(--moduix-text-md));
+    font-weight: var(--moduix-avatar-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-avatar-line-height, var(--moduix-line-height-text-md));
+    user-select: none;
+    vertical-align: middle;
+
+    &:where([data-size='xs']) {
+      --moduix-avatar-size: var(--moduix-size-xs);
+      --moduix-avatar-font-size: var(--moduix-text-xs);
+      --moduix-avatar-line-height: var(--moduix-line-height-text-xs);
+    }
+
+    &:where([data-size='sm']) {
+      --moduix-avatar-size: var(--moduix-size-sm);
+      --moduix-avatar-font-size: var(--moduix-text-sm);
+      --moduix-avatar-line-height: var(--moduix-line-height-text-sm);
+    }
+
+    &:where([data-size='lg']) {
+      --moduix-avatar-size: var(--moduix-size-lg);
+      --moduix-avatar-font-size: var(--moduix-text-lg);
+      --moduix-avatar-line-height: var(--moduix-line-height-text-lg);
+    }
+
+    &:where([data-size='xl']) {
+      --moduix-avatar-size: var(--moduix-size-xl);
+      --moduix-avatar-font-size: var(--moduix-text-lg);
+      --moduix-avatar-line-height: var(--moduix-line-height-text-lg);
+    }
+  }
+
+  .image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: var(--moduix-avatar-image-object-fit, cover);
+    object-position: var(--moduix-avatar-image-object-position, center);
+    border-radius: inherit;
+
+    &[data-state='hidden'] {
+      display: none;
+    }
+  }
+
+  .fallback {
+    box-sizing: border-box;
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: var(--moduix-avatar-fallback-padding, 0);
+    background-color: var(
+      --moduix-avatar-fallback-bg,
+      var(--moduix-avatar-bg, var(--moduix-color-muted))
+    );
+    color: var(--moduix-avatar-fallback-color, inherit);
+    border-radius: inherit;
+    line-height: inherit;
+
+    &[data-state='hidden'] {
+      display: none;
+    }
+  }
+}

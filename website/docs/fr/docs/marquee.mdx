@@ -25,6 +25,16 @@ import marqueeSolidReverse from '../../../snippets/marquee/solid/reverse.tsx?raw
 import marqueeSolidRtl from '../../../snippets/marquee/solid/rtl.tsx?raw';
 import marqueeSolidSpeed from '../../../snippets/marquee/solid/speed.tsx?raw';
 import marqueeSolidVertical from '../../../snippets/marquee/solid/vertical.tsx?raw';
+import marqueeVueAutoFill from '../../../snippets/marquee/vue/auto-fill.vue?raw';
+import marqueeVueBasic from '../../../snippets/marquee/vue/basic.vue?raw';
+import marqueeVueEdges from '../../../snippets/marquee/vue/edges.vue?raw';
+import marqueeVueFiniteLoops from '../../../snippets/marquee/vue/finite-loops.vue?raw';
+import marqueeVuePauseOnInteraction from '../../../snippets/marquee/vue/pause-on-interaction.vue?raw';
+import marqueeVueProgrammaticControl from '../../../snippets/marquee/vue/programmatic-control.vue?raw';
+import marqueeVueReverse from '../../../snippets/marquee/vue/reverse.vue?raw';
+import marqueeVueRtl from '../../../snippets/marquee/vue/rtl.vue?raw';
+import marqueeVueSpeed from '../../../snippets/marquee/vue/speed.vue?raw';
+import marqueeVueVertical from '../../../snippets/marquee/vue/vertical.vue?raw';
 
 ## Référence de l’API
 
@@ -33,7 +43,7 @@ import marqueeSolidVertical from '../../../snippets/marquee/solid/vertical.tsx?r
 ## Exemple de base
 
 
-Utilisez la forme courte `Marquee` comme racine, puis composez explicitement `Viewport`, `Content` et `Item` à
+Utilisez la forme courte `Marquee` comme racine, puis composez explicitement `MarqueeViewport`, `MarqueeContent` et `MarqueeItem` à
 l’intérieur. Si le contenu défilant transmet une information, ajoutez un libellé avec `aria-label` ou
 `translations.root`. `Marquee` fournit le comportement et les styles d’animation nécessaires, mais ne définit ni le style
 des éléments ni celui du cadre. Dans l’exemple, le style des éléments et la largeur de la racine sont définis séparément.
@@ -49,6 +59,7 @@ des éléments ni celui du cadre. Dans l’exemple, le style des éléments et l
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -61,6 +72,11 @@ des éléments ni celui du cadre. Dans l’exemple, le style des éléments et l
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -98,41 +114,51 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/marquee' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/marquee' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-Marquee / Marquee.Root
-├─ Marquee.Edge (facultatif)
-├─ Marquee.Viewport
-│  └─ Marquee.Content
-│     └─ Marquee.Item
-└─ Marquee.Edge (facultatif)
+Marquee
+├─ MarqueeEdge (facultatif)
+├─ MarqueeViewport
+│  └─ MarqueeContent
+│     └─ MarqueeItem
+└─ MarqueeEdge (facultatif)
 
-Marquee.RootProvider
+MarqueeRootProvider
 └─ même arbre de parties, relié à l’état créé par useMarquee() de moduix
 ```
 
 | Partie                       | Rôle                                                                                              |
 | ---------------------------- | ------------------------------------------------------------------------------------------------- |
-| `Marquee` / `Marquee.Root`   | État du composant, libellés, identifiants, orientation, état de pause et variables CSS.            |
-| `Marquee.RootProvider`       | Rend l’arbre du composant à partir de l’état renvoyé par `useMarquee()`.                           |
-| `Marquee.Viewport`           | Zone d’affichage qui masque ce qui dépasse du contenu défilant.                                   |
-| `Marquee.Content`            | Conteneur du contenu animé. Ark le duplique si nécessaire.                                         |
-| `Marquee.Item`               | Élément individuel du contenu.                                                                    |
-| `Marquee.Edge`               | Dégradé facultatif qui fait disparaître le contenu au bord. `side` en choisit le côté.           |
-| `Marquee.Context`            | Accès avancé au contexte du composant `Marquee` qui l’englobe.                                   |
+| `Marquee`   | État du composant, libellés, identifiants, orientation, état de pause et variables CSS.            |
+| `MarqueeRootProvider`       | Rend l’arbre du composant à partir de l’état renvoyé par `useMarquee()`.                           |
+| `MarqueeViewport`           | Zone d’affichage qui masque ce qui dépasse du contenu défilant.                                   |
+| `MarqueeContent`            | Conteneur du contenu animé. Ark le duplique si nécessaire.                                         |
+| `MarqueeItem`               | Élément individuel du contenu.                                                                    |
+| `MarqueeEdge`               | Dégradé facultatif qui fait disparaître le contenu au bord. `side` en choisit le côté.           |
+| `MarqueeContext`            | Accès avancé au contexte du composant `Marquee` qui l’englobe.                                   |
 
 ## Composition
 
-Utilisez `Marquee` avec les parties explicites `Viewport`, `Content` et `Item`. Ajoutez `Marquee.Edge` dans la même
+Utilisez `Marquee` avec les parties explicites `MarqueeViewport`, `MarqueeContent` et `MarqueeItem`. Ajoutez `MarqueeEdge` dans la même
 racine lorsque le contenu doit se fondre dans l’arrière-plan de la page ; chaque bordure doit recevoir un `side`.
 
 Utilisez `defaultPaused` pour définir l’état initial sans contrôle externe. Si une autre partie de l’application gère
 la lecture, utilisez `paused` avec `onPauseChange(details)`. Pour des commandes situées en dehors de l’arbre, créez
-l’état avec `useMarquee()` et transmettez-le à `Marquee.RootProvider` ; ne rendez pas `Marquee` et `RootProvider` pour
-le même état. Les commandes placées dans l’arbre peuvent lire l’API courante avec `Marquee.Context` ou
+l’état avec `useMarquee()` et transmettez-le à `MarqueeRootProvider` ; ne rendez pas `Marquee` et `MarqueeRootProvider` pour
+le même état. Les commandes placées dans l’arbre peuvent lire l’API courante avec `MarqueeContext` ou
 `useMarqueeContext()`.
 
 ## Exemples
@@ -153,6 +179,7 @@ les copies du contenu.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -167,6 +194,11 @@ les copies du contenu.
 <CodeBlockRuntime lang="tsx" code={marqueeSolidAutoFill} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueAutoFill} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -179,7 +211,7 @@ les copies du contenu.
 
 ### Fondu sur les bords
 
-Ajoutez `Marquee.Edge` sur les côtés où le contenu doit se fondre dans l’arrière-plan de la page. Cette partie est
+Ajoutez `MarqueeEdge` sur les côtés où le contenu doit se fondre dans l’arrière-plan de la page. Cette partie est
 décorative et n’intercepte pas les événements de pointeur.
 
 <ExampleFrame variant="component">
@@ -193,6 +225,7 @@ décorative et n’intercepte pas les événements de pointeur.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -205,6 +238,11 @@ décorative et n’intercepte pas les événements de pointeur.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidEdges} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueEdges} />
 
     </Tab>
   </Tabs>
@@ -233,6 +271,7 @@ Définissez `loopCount` pour limiter le nombre de boucles. `onLoopComplete` est 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -245,6 +284,11 @@ Définissez `loopCount` pour limiter le nombre de boucles. `onLoopComplete` est 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidFiniteLoops} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueFiniteLoops} />
 
     </Tab>
   </Tabs>
@@ -278,6 +322,7 @@ jamais d’informations critiques uniquement dans un marquee.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -292,6 +337,11 @@ jamais d’informations critiques uniquement dans un marquee.
 <CodeBlockRuntime lang="tsx" code={marqueeSolidPauseOnInteraction} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVuePauseOnInteraction} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -304,7 +354,7 @@ jamais d’informations critiques uniquement dans un marquee.
 
 ### Root Provider
 
-Utilisez `useMarquee()` de moduix avec `Marquee.RootProvider` lorsque des commandes externes doivent mettre le
+Utilisez `useMarquee()` de moduix avec `MarqueeRootProvider` lorsque des commandes externes doivent mettre le
 défilement en pause, le reprendre ou le relancer.
 
 <ExampleFrame variant="component">
@@ -318,6 +368,7 @@ défilement en pause, le reprendre ou le relancer.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -330,6 +381,11 @@ défilement en pause, le reprendre ou le relancer.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidProgrammaticControl} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueProgrammaticControl} />
 
     </Tab>
   </Tabs>
@@ -358,6 +414,7 @@ l’orientation.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -370,6 +427,11 @@ l’orientation.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidReverse} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueReverse} />
 
     </Tab>
   </Tabs>
@@ -398,6 +460,7 @@ suivent alors la direction du texte.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -410,6 +473,11 @@ suivent alors la direction du texte.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidRtl} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueRtl} />
 
     </Tab>
   </Tabs>
@@ -437,6 +505,7 @@ Réglez le mouvement avec `speed`, exprimé en pixels par seconde. Une vitesse p
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -449,6 +518,11 @@ Réglez le mouvement avec `speed`, exprimé en pixels par seconde. Une vitesse p
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidSpeed} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueSpeed} />
 
     </Tab>
   </Tabs>
@@ -477,6 +551,7 @@ Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verti
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -489,6 +564,11 @@ Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verti
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={marqueeSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={marqueeVueVertical} />
 
     </Tab>
   </Tabs>
@@ -507,9 +587,10 @@ Marquee inclut les images clés nécessaires à l’animation du contenu. Utilis
 liés au comportement et choisissez le modèle de personnalisation de votre variante de registre :
 
 - Variantes CSS Modules : utilisez les variables `--moduix-marquee-*` pour les dimensions, la couleur, l’espacement et
-  le fondu des bords, et `className` pour la mise en page et le style des éléments. Les alias `--marquee-edge-color` et
+  le fondu des bords, et `className` (React) ou `class` (Solid et Vue) pour la mise en page et le style des éléments.
+  Les alias `--marquee-edge-color` et
   `--marquee-edge-size` restent compatibles Chakra ; les variables `--moduix-marquee-edge-*` ont priorité sur eux.
-- Variantes Tailwind : utilisez `className` (React) ou `class` (Solid) avec des utilitaires Tailwind pour les mêmes
+- Variantes Tailwind : utilisez `className` (React) ou `class` (Solid et Vue) avec des utilitaires Tailwind pour les mêmes
   aspects. Marquee n’expose aucune API de variables CSS dans les paquets Tailwind.
 
 `Marquee` est transparent par défaut et n’ajoute ni bordure, ni arrière-plan, ni marge intérieure, ni arrondi. Si vous

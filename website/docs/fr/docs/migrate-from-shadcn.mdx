@@ -5,6 +5,9 @@ description: Passez d’une application shadcn à moduix composant par composant
 
 # Migrer depuis shadcn vers moduix
 
+import vueAccordion from '../../../snippets/quick-start/vue-css-modules.vue?raw';
+import vueControlledAccordion from '../../../snippets/migrate-from-shadcn/vue/controlled-accordion.vue?raw';
+
 Si votre application utilise déjà shadcn, vous pouvez passer à moduix composant par composant. Les
 deux bibliothèques peuvent cohabiter pendant que vous remplacez certains écrans ou certaines
 familles de composants.
@@ -20,7 +23,7 @@ de framework volontaire.
 
 | Installation moduix | À privilégier si | Fonctionnement des mises à jour |
 | --- | --- | --- |
-| Paquet npm | Vous voulez que les composants restent une dépendance et utiliser des imports depuis `@moduix/react/*` ou `@moduix/solid/*`. | Mettez le paquet à jour avec votre gestionnaire de paquets. |
+| Paquet npm | Vous voulez que les composants restent une dépendance et utiliser des imports depuis `@moduix/react/*`, `@moduix/solid/*` ou `@moduix/vue/*`. | Mettez le paquet à jour avec votre gestionnaire de paquets. |
 | Registre compatible avec shadcn | Vous voulez versionner, consulter et modifier le code source des composants dans votre application. | Examinez et fusionnez vous-même chaque mise à jour du registre. |
 
 Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration complète. Si votre projet
@@ -47,6 +50,13 @@ import { Dialog } from '@moduix/solid/dialog';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import { Dialog } from '@moduix/vue/dialog';
+```
+
+  </Tab>
 </Tabs>
 
 Avec le code copié dans votre projet, terminez la [configuration du CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn),
@@ -61,6 +71,11 @@ puis ajoutez les éléments du registre un par un :
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="shadcn@latest add @moduix-solid/dialog" dlx />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="shadcn@latest add @moduix-vue/dialog" dlx />
 
   </Tab>
 </Tabs>
@@ -80,34 +95,35 @@ pour la migration.
 
 | Nom shadcn habituel | Utilisez dans moduix | Adaptation à prévoir |
 | --- | --- | --- |
-| Accordion | `Accordion` | Utilisez les parties nommées, comme `Accordion.Item` et `Accordion.ItemContent`. |
-| Alert Dialog | `Dialog` | Pour une confirmation critique, définissez `role="alertdialog"` sur `Dialog.Content`. |
-| Avatar | `Avatar` | Placez le contenu de repli et l’image dans `Avatar.Fallback` et `Avatar.Image`. |
-| Breadcrumb | `Breadcrumbs` | Le nom de la famille est au pluriel ; conservez les liens sémantiques et l’état de la page courante. |
-| Calendar | `DatePicker` ou `DateInput` | Utilisez `DatePicker` pour un calendrier et `DateInput` si seule la saisie de segments de date est nécessaire. |
-| Carousel | `Carousel` | Composez les contrôles, les indicateurs et le groupe d’éléments avec les parties nommées. |
-| Collapsible | `Collapsible` | Lisez `details.open` dans `onOpenChange(details)` au lieu d’attendre un booléen. |
-| Combobox | `Combobox` | Créez une collection Ark et définissez les valeurs des éléments-objets. |
-| Command | `CommandPalette` | Utilisez le composant dédié aux commandes plutôt qu’un alias de liste générique. |
-| Context Menu | `Menu.ContextTrigger` | Conservez la famille `Menu` et utilisez son déclencheur contextuel. |
-| Data Table | `Table` et la recette Data Table | Gardez le tri, le filtrage et l’état serveur dans le code de l’application. |
-| Date Picker | `DatePicker` | Utilisez la famille composée qui réunit saisie de date et calendrier. |
-| Dropdown Menu | `Menu` | Utilisez la composition habituelle avec `Menu.Trigger`. |
-| Form | `Field` et `Fieldset` | Utilisez-les pour structurer les champs ; laissez la validation et la soumission à votre bibliothèque de formulaires ou à l’application. |
-| Hover Card | `HoverCard` | Consultez la page du composant pour les parties explicites de positionnement et de fermeture. |
-| Input OTP | `PinInput` | Conservez sa configuration pour les formulaires natifs et le SSR. |
-| Progress | `ProgressLinear` ou `ProgressCircular` | Choisissez explicitement la forme visuelle souhaitée. |
-| Resizable | `Splitter` | Donnez des identifiants stables aux panneaux et gardez l’état de mise en page explicite. |
-| Select | `Select` | Utilisez une collection Ark plutôt qu’un tableau d’objets option ad hoc. |
-| Sheet | `Drawer` | Utilisez le composant de panneau latéral dont le cycle de vie est aligné sur celui de Dialog. |
-| Sidebar | `Sidebar` | Gardez la composition de la navigation produit et son comportement adaptatif dans l’application. |
-| Sonner / Toast | `Toast` et `Toaster` | L’application doit garder le contrôle du texte des notifications et du moment où elles apparaissent. |
-| Tabs | `Tabs` | Utilisez les parties composées nommées pour la même interaction d’onglets. |
-| Toggle Group | `ToggleGroup` | Utilisez les valeurs des éléments et l’état du groupe définis par le contrat Ark. |
-| Tooltip | `Tooltip` | Gardez explicites le déclencheur et le contenu rendu dans un portail. |
+| Accordion | [`Accordion`](/docs/accordion) | Utilisez les parties nommées, comme `AccordionItem` et `AccordionItemContent`. |
+| Alert Dialog | [`Dialog`](/docs/dialog) | Pour une confirmation critique, définissez `role="alertdialog"` sur `Dialog`. |
+| Avatar | [`Avatar`](/docs/avatar) | Placez le contenu de repli et l’image dans `AvatarFallback` et `AvatarImage`. |
+| Breadcrumb | [`Breadcrumbs`](/docs/breadcrumbs) | Le nom de la famille est au pluriel ; conservez les liens sémantiques et l’état de la page courante. |
+| Calendar | [`DatePicker`](/docs/date-picker) ou [`DateInput`](/docs/date-input) | Utilisez `DatePicker` pour un calendrier et `DateInput` si seule la saisie de segments de date est nécessaire. |
+| Carousel | [`Carousel`](/docs/carousel) | Composez les contrôles, les indicateurs et le groupe d’éléments avec les parties nommées. |
+| Collapsible | [`Collapsible`](/docs/collapsible) | Lisez `details.open` dans `onOpenChange(details)` au lieu d’attendre un booléen. |
+| Combobox | [`Combobox`](/docs/combobox) | Créez une collection Ark et définissez les valeurs des éléments-objets. |
+| Command | [`CommandPalette`](/docs/command-palette) | Utilisez le composant dédié aux commandes plutôt qu’un alias de liste générique. |
+| Context Menu | [`MenuContextTrigger`](/docs/menu) | Conservez la famille `Menu` et utilisez son déclencheur contextuel. |
+| Data Table | [`Table`](/docs/table) et le [bloc Data Table](/blocks/data-table) | Gardez le tri, le filtrage et l’état serveur dans le code de l’application. |
+| Date Picker | [`DatePicker`](/docs/date-picker) | Utilisez la famille composée qui réunit saisie de date et calendrier. |
+| Dropdown Menu | [`Menu`](/docs/menu) | Utilisez la composition habituelle avec `MenuTrigger`. |
+| Form | [`Field`](/docs/field) et [`Fieldset`](/docs/fieldset) | Utilisez-les pour structurer les champs ; laissez la validation et la soumission à votre bibliothèque de formulaires ou à l’application. |
+| Hover Card | [`HoverCard`](/docs/hover-card) | Consultez la page du composant pour les parties explicites de positionnement et de fermeture. |
+| Input OTP | [`PinInput`](/docs/pin-input) | Conservez sa configuration pour les formulaires natifs et le SSR. |
+| Navigation Menu | [`NavigationMenu`](/docs/navigation-menu) | Composez le déclencheur, le contenu et, si nécessaire, la zone d’affichage commune avec les parties nommées. |
+| Progress | [`ProgressLinear`](/docs/progress-linear) ou [`ProgressCircular`](/docs/progress-circular) | Choisissez explicitement la forme visuelle souhaitée. |
+| Resizable | [`Splitter`](/docs/splitter) | Donnez des identifiants stables aux panneaux et gardez l’état de mise en page explicite. |
+| Select | [`Select`](/docs/select) | Utilisez une collection Ark plutôt qu’un tableau d’objets option ad hoc. |
+| Sheet | [`Drawer`](/docs/drawer) | Utilisez le composant de panneau latéral dont le cycle de vie est aligné sur celui de Dialog. |
+| Sidebar | [`Sidebar`](/docs/sidebar) | Gardez la composition de la navigation produit et son comportement adaptatif dans l’application. |
+| Sonner / Toast | [`Toast`](/docs/toast) et [`Toaster`](/docs/toast) | L’application doit garder le contrôle du texte des notifications et du moment où elles apparaissent. |
+| Tabs | [`Tabs`](/docs/tabs) | Utilisez les parties plates `TabsList` et `TabsTrigger` pour la même interaction. |
+| Toggle Group | [`ToggleGroup`](/docs/toggle-group) | Utilisez les valeurs des éléments et l’état du groupe définis par le contrat Ark. |
+| Tooltip | [`Tooltip`](/docs/tooltip) | Gardez explicites le déclencheur et le contenu rendu dans un portail. |
 
-Navigation Menu et Menubar ne nécessitent pas de remplacement forcé un pour un. Choisissez `Sidebar`,
-`Menu`, `Breadcrumbs` ou des liens ordinaires selon l’interaction attendue par votre produit.
+Il n’y a pas de composant Menubar dédié. `Menu` est un menu déroulant qui ne reproduit pas
+la navigation clavier d’une barre de menus. Conservez votre Menubar si vous avez besoin de ce comportement.
 
 ## Adaptez la forme des imports
 
@@ -117,64 +133,42 @@ Dans shadcn, chaque partie est généralement exportée comme un symbole local d
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 ```
 
-moduix regroupe toute la famille sous un même espace de noms :
-
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+moduix utilise les mêmes exports plats préfixés par le nom de la famille dans chaque framework :
 
 ```tsx
-import { Dialog } from '@moduix/react/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/react/accordion';
 
-export function ProjectSettingsDialog() {
+export function FrequentlyAskedQuestions() {
   return (
-    <Dialog>
-      <Dialog.Trigger>Open settings</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion defaultValue={['first']}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Avec Solid, seul le spécificateur d’import change :
 
 ```tsx
-import { Dialog } from '@moduix/solid/dialog';
-
-export function ProjectSettingsDialog() {
-  return (
-    <Dialog>
-      <Dialog.Trigger>Open settings</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
-  );
-}
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 ```
 
-  </Tab>
-</Tabs>
+Vue utilise des SFC natifs avec `script setup`, les props du template et `v-model` pour l’état contrôlé.
+
+<CodeBlockRuntime lang="vue" code={vueAccordion} />
 
 Avec une installation qui copie le code dans le projet, gardez la composition et changez seulement
 le chemin d’import :
 
 ```tsx
-import { Dialog } from '@/components/ui/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@/components/ui/accordion';
 ```
 
-Les parties explicites `Backdrop`, `Positioner` et `Content` montrent quels éléments gèrent le
-portail, le positionnement et la surface du dialogue. Vous pouvez les personnaliser séparément.
+Le nom de la famille désigne la racine. Chaque valeur supplémentaire est exportée directement avec
+le préfixe de la famille, sans objet d’espace de noms ni accès par notation pointée.
 
 ## Conservez votre approche actuelle des styles
 
@@ -198,6 +192,13 @@ import '@moduix/solid/style.css';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```ts
+import '@moduix/vue/style.css';
+```
+
+  </Tab>
 </Tabs>
 
 Avec un registre fondé sur CSS Modules :
@@ -217,7 +218,7 @@ Personnalisez les tokens sémantiques dans votre propre CSS :
 
 Tailwind peut rester dans l’application pour la mise en page et les classes ponctuelles pendant une
 migration vers les paquets CSS Modules. Si les styles des composants doivent rester en Tailwind,
-utilisez le paquet Tailwind React ou Solid lorsque le composant y est disponible. Consultez sa page
+utilisez le paquet Tailwind React, Solid ou Vue lorsque le composant y est disponible. Consultez sa page
 pour connaître ses slots stables, ses variables CSS et ses propriétés `className` ou `class`.
 
 ## Adaptez les callbacks Ark et les collections
@@ -225,58 +226,35 @@ pour connaître ses slots stables, ses variables CSS et ses propriétés `classN
 Les callbacks Ark reçoivent un objet `details`. Lisez-y la valeur nécessaire au lieu de reprendre
 tel quel un callback shadcn qui attend un argument positionnel :
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
-
 ```tsx
 import { useState } from 'react';
-import { Dialog } from '@moduix/react/dialog';
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/react/accordion';
 
-export function ControlledDialog() {
-  const [open, setOpen] = useState(false);
+export function ControlledAccordion() {
+  const [value, setValue] = useState<string[]>([]);
 
   return (
-    <Dialog open={open} onOpenChange={(details) => setOpen(details.open)}>
-      <Dialog.Trigger>Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
+    <Accordion value={value} onValueChange={(details) => setValue(details.value)}>
+      <AccordionItem value="first">
+        <AccordionItemTrigger>What is moduix?</AccordionItemTrigger>
+        <AccordionItemContent>A multi-framework component system.</AccordionItemContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 ```
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+Avec Solid, `useState` devient `createSignal` de `solid-js`, le signal se lit avec `value()` et les
+imports changent en conséquence :
 
 ```tsx
 import { createSignal } from 'solid-js';
-import { Dialog } from '@moduix/solid/dialog';
-
-export function ControlledDialog() {
-  const [open, setOpen] = createSignal(false);
-
-  return (
-    <Dialog open={open()} onOpenChange={(details) => setOpen(details.open)}>
-      <Dialog.Trigger>Open dialog</Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
-          <Dialog.CloseTrigger>Close</Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
-  );
-}
+import { Accordion, AccordionItem, AccordionItemContent, AccordionItemTrigger } from '@moduix/solid/accordion';
 ```
 
-  </Tab>
-</Tabs>
+Vue utilise des SFC natifs avec `script setup`, les props du template et `v-model` pour l’état contrôlé.
+
+<CodeBlockRuntime lang="vue" code={vueControlledAccordion} />
 
 Les composants qui utilisent des collections, notamment `Combobox` et `Select`, s’appuient sur un
 état de collection Ark explicite. Pour des éléments-objets, définissez avec `itemToString` et
@@ -288,7 +266,7 @@ cible avant de reprendre sans changement un tableau `options` ou un callback sha
 1. Ajoutez la feuille de style de base moduix et importez-la avant vos surcharges.
 2. Commencez par des composants peu couplés, comme `Button`, `Badge`, `Avatar` et `Separator`.
 3. Migrez les composants flottants et ceux fondés sur des collections, famille par famille, avec leurs parties de portail et leurs callbacks d’état.
-4. Utilisez une [recette](/recipes) uniquement si le flux de l’écran correspond à votre produit.
+4. Utilisez un [bloc](/blocks) uniquement si le flux de l’écran correspond à votre produit.
 5. Vérifiez la navigation au clavier, la restitution du focus, les labels et les rôles ARIA importants, puis supprimez l’ancien code source et les styles du composant.
 
 Les responsabilités de l’application doivent rester dans l’application. Les labels, messages de

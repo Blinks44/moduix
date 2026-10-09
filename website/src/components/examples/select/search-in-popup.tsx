@@ -1,6 +1,15 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { InputGroup } from '@moduix/react/input-group';
-import { Select } from '@moduix/react/select';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@moduix/react/input-group';
+import {
+  Select,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 import { Search as SearchIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import styles from '@/components/examples/select/select-search-in-popup.module.css';
@@ -65,16 +74,16 @@ export default function SelectSearchInPopupDemo() {
         }
       }}
     >
-      <Select.Label>Choose fruit</Select.Label>
-      <Select.Field placeholder="Search or select a fruit" clearLabel="Clear selection" />
-      <Select.Positioner>
+      <SelectLabel>Choose fruit</SelectLabel>
+      <SelectField placeholder="Search or select a fruit" clearLabel="Clear selection" />
+      <SelectPositioner>
         <div ref={popupRef} className={styles.popup}>
           <div className={styles.popupHeader}>
             <InputGroup>
-              <InputGroup.Addon>
+              <InputGroupAddon>
                 <SearchIcon aria-hidden />
-              </InputGroup.Addon>
-              <InputGroup.Input
+              </InputGroupAddon>
+              <InputGroupInput
                 aria-label="Filter fruits"
                 ref={inputRef}
                 value={query}
@@ -83,22 +92,22 @@ export default function SelectSearchInPopupDemo() {
               />
             </InputGroup>
           </div>
-          <Select.Content className={styles.popupContent}>
+          <SelectContent className={styles.popupContent}>
             {collection.items.length ? (
               collection.items.map((item) => (
-                <Select.Item key={item.value} item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
+                <SelectItem key={item.value} item={item}>
+                  <SelectItemText>{item.label}</SelectItemText>
+                  <SelectItemIndicator />
+                </SelectItem>
               ))
             ) : (
               <div className={styles.popupEmpty} role="presentation">
                 No fruits found.
               </div>
             )}
-          </Select.Content>
+          </SelectContent>
         </div>
-      </Select.Positioner>
+      </SelectPositioner>
     </Select>
   );
 }

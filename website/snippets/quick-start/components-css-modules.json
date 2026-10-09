@@ -19,6 +19,7 @@
   },
   "registries": {
     "@moduix-react": "https://moduix.dev/r/react/{name}.json",
-    "@moduix-solid": "https://moduix.dev/r/solid/{name}.json"
+    "@moduix-solid": "https://moduix.dev/r/solid/{name}.json",
+    "@moduix-vue": "https://moduix.dev/r/vue/{name}.json"
   }
 }

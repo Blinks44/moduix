@@ -1,5 +1,11 @@
 import { Button } from '@moduix/solid/button';
-import { ImageCropper } from '@moduix/solid/image-cropper';
+import {
+  ImageCropper,
+  ImageCropperContext,
+  ImageCropperCropArea,
+  ImageCropperImage,
+  ImageCropperViewport,
+} from '@moduix/solid/image-cropper';
 import {
   FlipHorizontal as FlipHorizontalIcon,
   RotateCcw as RestartIcon,
@@ -26,7 +32,7 @@ export default function TransformImageCropperDemo() {
         onRotationChange={(details) => setRotation(details.rotation)}
         onFlipChange={(details) => setFlip(details.flip)}
       >
-        <ImageCropper.Context>
+        <ImageCropperContext>
           {(context) => (
             <div>
               <Button
@@ -79,11 +85,11 @@ export default function TransformImageCropperDemo() {
               </Button>
             </div>
           )}
-        </ImageCropper.Context>
-        <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
-          <ImageCropper.CropArea />
-        </ImageCropper.Viewport>
+        </ImageCropperContext>
+        <ImageCropperViewport>
+          <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
+          <ImageCropperCropArea />
+        </ImageCropperViewport>
       </ImageCropper>
       <output>
         Rotation: {rotation()}deg, horizontal flip: {String(flip().horizontal)}

@@ -1,4 +1,14 @@
-import { FileUpload } from '@moduix/solid/file-upload';
+import {
+  FileUpload,
+  FileUploadContext,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/solid/file-upload';
 import { For } from 'solid-js';
 import styles from '@/components/examples/file-upload/file-upload-initial-files.module.css';
 
@@ -11,23 +21,23 @@ const initialFiles = [
 export default function InitialFilesUploadDemo() {
   return (
     <FileUpload class={styles.root} defaultAcceptedFiles={initialFiles}>
-      <FileUpload.Label>Attachments</FileUpload.Label>
-      <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-      <FileUpload.ItemGroup>
-        <FileUpload.Context>
+      <FileUploadLabel>Attachments</FileUploadLabel>
+      <FileUploadTrigger>Choose files</FileUploadTrigger>
+      <FileUploadItemGroup>
+        <FileUploadContext>
           {(fileUpload) => (
             <For each={fileUpload().acceptedFiles}>
               {(file) => (
-                <FileUpload.Item file={file}>
-                  <FileUpload.ItemName />
-                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                </FileUpload.Item>
+                <FileUploadItem file={file}>
+                  <FileUploadItemName />
+                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                </FileUploadItem>
               )}
             </For>
           )}
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
     </FileUpload>
   );
 }

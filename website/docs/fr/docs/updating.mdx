@@ -25,14 +25,16 @@ Gardez le framework et la méthode de style explicites :
 | --- | --- | --- |
 | React | `@moduix/react` | `@moduix/react-tailwind` |
 | Solid | `@moduix/solid` | `@moduix/solid-tailwind` |
+| Vue | `@moduix/vue` | `@moduix/vue-tailwind` |
 
-Ne mettez pas à jour un adaptateur au nom proche que l’application n’utilise pas. Le catalogue
-Tailwind peut rester plus réduit pendant la migration des composants.
+Ne mettez pas à jour un adaptateur au nom proche que l’application n’utilise pas. React, Solid et Vue
+proposent le même catalogue de composants avec CSS Modules et Tailwind.
 
 ## Mettre les packages à jour
 
-Consultez le [Changelog](/docs/changelog) avant de changer de version, puis utilisez le gestionnaire de
-packages déjà choisi par l’application.
+Consultez [Nouveautés](/docs/changelog) pour les changements notables et les
+[releases GitHub](https://github.com/Blinks44/moduix/releases) pour les versions, puis utilisez le
+gestionnaire de packages déjà choisi par l’application.
 
 <Tabs groupId="styling">
   <Tab label="CSS Modules" value="css-modules">
@@ -46,6 +48,11 @@ packages déjà choisi par l’application.
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="install @moduix/solid@latest @ark-ui/solid@latest" />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue@latest @ark-ui/vue@latest" />
 
   </Tab>
 </Tabs>
@@ -62,6 +69,11 @@ packages déjà choisi par l’application.
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="install @moduix/solid-tailwind@latest @ark-ui/solid@latest" />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue-tailwind@latest @ark-ui/vue@latest" />
 
   </Tab>
 </Tabs>
@@ -82,8 +94,10 @@ le namespace qui correspond aux deux axes :
 | --- | --- | --- |
 | React | `@moduix-react` | `@moduix-react-tailwind` |
 | Solid | `@moduix-solid` | `@moduix-solid-tailwind` |
+| Vue | `@moduix-vue` | `@moduix-vue-tailwind` |
 
-Prévisualisez un composant avant de modifier les fichiers locaux :
+Prévisualisez un composant avant de modifier les fichiers locaux : `view` affiche l’élément amont,
+tandis que `add --dry-run` et `add --diff` montrent ce qu’une mise à jour écrirait :
 
 <PackageManagerTabs command="shadcn@latest view @moduix-react/button" dlx />
 
@@ -120,6 +134,12 @@ modifie les tokens, la densité, les couleurs ou les animations, consultez [Thè
 
 - Examinez ensemble le manifeste du package et le lockfile.
 - Lancez le formatage, le lint, le typecheck et les tests de l’application.
-- Testez les composants et interactions cités dans le Changelog.
+- Testez les composants et interactions cités dans [Nouveautés](/docs/changelog).
 - Vérifiez le clavier, le retour du focus, les portails et la réduction des animations si nécessaire.
 - Comparez les changements locaux du registre au diff amont complet avant la publication.
+
+## Ressources associées
+
+- [Nouveautés](/docs/changelog)
+- [Démarrage rapide](/docs/quick-start)
+- [Styles](/docs/styling)

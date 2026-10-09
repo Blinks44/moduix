@@ -1,1 +1,1 @@
-export { Avatar, useAvatar, useAvatarContext } from './Avatar.js';
+export * from './Avatar.js';

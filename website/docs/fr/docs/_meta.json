@@ -12,7 +12,7 @@
   {
     "type": "file",
     "name": "changelog",
-    "label": "Journal des modifications",
+    "label": "Nouveautés",
     "tag": "scroll-text"
   },
   {

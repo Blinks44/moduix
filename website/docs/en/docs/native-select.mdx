@@ -1,7 +1,7 @@
 ---
 title: Native Select
 component: native-select
-description: A styled native `<select>` for simple option lists that keeps the browser in control of selection.
+description: A styled native `<select>` for simple option lists in React, Solid, or Vue, with browser-owned selection behavior.
 ---
 
 import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
@@ -13,11 +13,15 @@ import nativeSelectSolidBasic from '../../../snippets/native-select/solid/basic.
 import nativeSelectSolidControlled from '../../../snippets/native-select/solid/controlled.tsx?raw';
 import nativeSelectSolidField from '../../../snippets/native-select/solid/field-integration.tsx?raw';
 import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/multiple-selection.tsx?raw';
+import nativeSelectVueBasic from '../../../snippets/native-select/vue/basic.vue?raw';
+import nativeSelectVueControlled from '../../../snippets/native-select/vue/controlled.vue?raw';
+import nativeSelectVueField from '../../../snippets/native-select/vue/field-integration.vue?raw';
+import nativeSelectVueMultiple from '../../../snippets/native-select/vue/multiple-selection.vue?raw';
 
 ## API Reference
 
 `NativeSelect` is a styled wrapper around Ark UI's
-[`Field.Select`](https://ark-ui.com/docs/components/field). It renders a real HTML `<select>`, so the
+[`FieldSelect`](https://ark-ui.com/docs/components/field). It renders a real HTML `<select>`, so the
 browser remains responsible for option rendering, keyboard interaction, form submission, autofill,
 validation, and reset.
 
@@ -45,6 +49,7 @@ HTML `<select>`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -57,6 +62,11 @@ HTML `<select>`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeSelectSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeSelectVueBasic} />
 
     </Tab>
   </Tabs>
@@ -89,6 +99,16 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/native-select' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/native-select' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
@@ -98,7 +118,7 @@ controls also get a decorative `ChevronDownIcon`; the indicator is hidden for `m
 `size > 1`, when the browser displays a list.
 
 ```text
-NativeSelect / NativeSelect.Root
+NativeSelect
 └─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
    ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
    │  ├─ option
@@ -109,18 +129,19 @@ NativeSelect / NativeSelect.Root
 
 | Part | Role |
 | ---- | ---- |
-| `NativeSelect` / `NativeSelect.Root` | Public root component. Renders the native `<select>` and decorative indicator. |
+| `NativeSelect` | Public root component. Renders the native `<select>` and decorative indicator. |
 
 ## Composition
 
-React builds an uncontrolled select with the native `defaultValue` prop. In Solid, pass the native
-`selected` attribute to the `<option>` that should be initially selected: a `defaultValue` prop on
-the Solid `NativeSelect` has no effect. Use `value` with `onChange` when application state owns
-the current value. Wrap `NativeSelect` in `Field.Root` when the label, supporting text, validation, or
-disabled state should be shared with the control. The `Field` parts connect that content to the native
-select while the browser still owns option selection. With `multiple` or `size > 1`, the browser owns
-the list interaction and the decorative indicator is hidden. `asChild` can replace the rendered select,
-but the child must remain one semantic HTML `<select>`.
+React builds an uncontrolled select with the native `defaultValue` prop. In Solid and Vue, pass the
+native `selected` attribute to the `<option>` that should be initially selected: a `defaultValue` prop
+on the Solid or Vue `NativeSelect` has no effect. Use `value` with `onChange` in React and Solid, or
+`v-model` in Vue, when application state owns the current value. Wrap `NativeSelect` in `Field` when
+the label, supporting text, validation, or disabled state should be shared with the control. The
+`Field` parts connect that content to the native select while the browser still owns option selection.
+With `multiple` or `size > 1`, the browser owns the list interaction and the decorative indicator is
+hidden. `asChild` can replace the rendered select, but the child must remain one semantic HTML
+`<select>`.
 
 ## Examples
 
@@ -140,6 +161,7 @@ native event and pass it back through `value`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -154,6 +176,11 @@ native event and pass it back through `value`.
 <CodeBlockRuntime lang="tsx" code={nativeSelectSolidControlled} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeSelectVueControlled} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -161,7 +188,7 @@ native event and pass it back through `value`.
 
 ### Field
 
-Use `Field.Root` when the select needs a visible label, helper text, error message, or shared field
+Use `Field` when the select needs a visible label, helper text, error message, or shared field
 state. Field connects that content to the native control.
 
 <ExampleFrame variant="component">
@@ -175,6 +202,7 @@ state. Field connects that content to the native control.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -187,6 +215,11 @@ state. Field connects that content to the native control.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeSelectSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeSelectVueField} />
 
     </Tab>
   </Tabs>
@@ -215,6 +248,7 @@ selected options and their keyboard interaction.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -227,6 +261,11 @@ selected options and their keyboard interaction.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeSelectSolidMultiple} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeSelectVueMultiple} />
 
     </Tab>
   </Tabs>
@@ -259,8 +298,8 @@ geometry use the shared 4px spacing scale.
 
 ### Styling hooks
 
-- In React use `className` on the select, and in Solid use `class`. Use `controlProps.className` or
-  `controlProps.class` for the outer wrapper `<span>`.
+- In React use `className` on the select, and in Solid or Vue use `class`. Use
+  `controlProps.className` or `controlProps.class` for the outer wrapper `<span>`.
 - Set indicator-related `--moduix-select-*` variables in `controlProps.style` when both the select and
   indicator should inherit them.
 - `data-scope="field"` and `data-part="select"` preserve the Ark Field styling contract.

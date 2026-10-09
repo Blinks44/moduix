@@ -1,6 +1,18 @@
 import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { Button } from '@moduix/solid/button';
-import { Tour, useTour } from '@moduix/solid/tour';
+import {
+  Tour,
+  TourBackdrop,
+  TourPositioner,
+  TourContent,
+  TourTitle,
+  TourDescription,
+  TourBody,
+  TourCloseIcon,
+  TourControl,
+  TourActionList,
+  useTour,
+} from '@moduix/solid/tour';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/tour/tour-events.module.css';
 
@@ -38,19 +50,19 @@ export default function TourEventsDemo() {
   return (
     <div class={styles.root}>
       <Tour tour={tour} lazyMount unmountOnExit>
-        <Tour.Backdrop />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.CloseIcon />
-            <Tour.Body>
-              <Tour.Title />
-              <Tour.Description />
-            </Tour.Body>
-            <Tour.Control>
-              <Tour.ActionList />
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+        <TourBackdrop />
+        <TourPositioner>
+          <TourContent>
+            <TourCloseIcon />
+            <TourBody>
+              <TourTitle />
+              <TourDescription />
+            </TourBody>
+            <TourControl>
+              <TourActionList />
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
 
       <output>{result()}</output>

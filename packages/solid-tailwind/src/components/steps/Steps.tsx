@@ -9,7 +9,7 @@ import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
 
-function StepsRoot(props: ComponentProps<typeof StepsPrimitive.Root>) {
+function Steps(props: ComponentProps<typeof StepsPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -75,7 +75,7 @@ function StepsTrigger(props: ComponentProps<typeof StepsPrimitive.Trigger>) {
   return (
     <StepsPrimitive.Trigger
       class={cn(
-        'group/steps-trigger relative z-1 inline-flex min-w-0 cursor-pointer items-center gap-3 rounded-md border-0 bg-transparent p-0 text-left text-inherit no-underline outline-none select-none [font:inherit] focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring data-[orientation=vertical]:items-start',
+        'group/steps-trigger relative z-1 inline-flex min-w-0 cursor-pointer items-center gap-3 rounded-md border-0 bg-transparent p-0 text-start text-inherit no-underline outline-none select-none [font:inherit] focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring data-[orientation=vertical]:items-start',
         local.class,
       )}
       {...others}
@@ -193,22 +193,25 @@ function StepsProgress(props: ComponentProps<typeof StepsPrimitive.Progress>) {
   );
 }
 
-const Steps = Object.assign(StepsRoot, {
-  Root: StepsRoot,
-  RootProvider: StepsRootProvider,
-  Context: StepsPrimitive.Context,
-  ItemContext: StepsPrimitive.ItemContext,
-  List: StepsList,
-  Item: StepsItem,
-  Trigger: StepsTrigger,
-  Indicator: StepsIndicator,
-  Separator: StepsSeparator,
-  Content: StepsContent,
-  CompletedContent: StepsCompletedContent,
-  PrevTrigger: StepsPrevTrigger,
-  NextTrigger: StepsNextTrigger,
-  Progress: StepsProgress,
-  useSteps,
-});
+const StepsContext = StepsPrimitive.Context;
+const StepsItemContext = StepsPrimitive.ItemContext;
 
-export { Steps, useSteps, useStepsContext, useStepsItemContext };
+export {
+  Steps,
+  StepsCompletedContent,
+  StepsContext,
+  StepsContent,
+  StepsIndicator,
+  StepsItem,
+  StepsItemContext,
+  StepsList,
+  StepsNextTrigger,
+  StepsPrevTrigger,
+  StepsProgress,
+  StepsRootProvider,
+  StepsSeparator,
+  StepsTrigger,
+  useSteps,
+  useStepsContext,
+  useStepsItemContext,
+};

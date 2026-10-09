@@ -1,27 +1,26 @@
 ---
 title: Rsbuild
-description: Intégrez moduix à Rsbuild avec React ou Solid par paquet ou avec shadcn, avec les styles, les alias et les imports natifs.
+description: Intégrez moduix à Rsbuild avec React, Solid ou Vue par paquet ou avec shadcn, avec les styles, les alias et les imports natifs.
 ---
 
 # Rsbuild
 
-Ce guide part d’une application Rsbuild déjà configurée pour React ou Solid. Rsbuild prend en compte
+Ce guide part d’une application Rsbuild déjà configurée pour React, Solid ou Vue. Rsbuild prend en compte
 les alias TypeScript, il est donc inutile de les répéter dans `resolve.alias` pour utiliser shadcn.
 
 ## Choisir votre configuration
 
-- **Framework :** React ou Solid avec le plugin Rsbuild correspondant.
+- **Framework :** React, Solid ou Vue avec le plugin Rsbuild correspondant.
 - **Styles :** CSS Modules ou Tailwind CSS v4.
 - **Distribution :** paquet ou code source copié avec la CLI shadcn.
 
-Commencez par la [configuration du paquet](/docs/quick-start#installer-le-paquet) ou la
-[configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) commune à votre approche de
-style. Les exemples utilisent les imports des paquets CSS Modules ; les points d’entrée Rsbuild et la
-gestion des alias TypeScript restent identiques avec le paquet ou le registre Tailwind correspondant.
+Le guide de démarrage rapide détaille le [choix du paquet](/docs/quick-start#installer-le-paquet) et
+la [configuration shadcn](/docs/quick-start#installer-avec-la-cli-shadcn).
 
-Toutes les commandes de paquet et tous les imports de feuilles de style présentés ci-dessous concernent
-CSS Modules. Utilisez la réinitialisation de moduix présentée ci-dessous ou une réinitialisation correcte de votre application.
-Avec Tailwind, conservez la feuille globale configurée dans le Démarrage rapide.
+Les exemples ci-dessous utilisent CSS Modules et la réinitialisation moduix. Omettez cette dernière
+si l’application possède déjà un équivalent. Pour Tailwind, installez le paquet correspondant avec
+le suffixe `-tailwind` et importez la feuille de styles Tailwind de l’application au même point
+d’entrée, après l’avoir configurée selon le guide de démarrage rapide.
 
 ## Installation par paquet
 
@@ -38,7 +37,7 @@ import '@moduix/react/style.css';
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/react/button';
 
-export function App() {
+export default function App() {
   return <Button>Continue</Button>;
 }
 ```
@@ -56,9 +55,29 @@ import '@moduix/solid/style.css';
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/solid/button';
 
-export function App() {
+export default function App() {
   return <Button>Continue</Button>;
 }
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
+
+```ts title="src/main.ts"
+import '@moduix/vue/reset.css';
+import '@moduix/vue/style.css';
+```
+
+```vue title="src/App.vue"
+<script setup lang="ts">
+import { Button } from '@moduix/vue/button';
+</script>
+
+<template>
+  <Button>Continue</Button>
+</template>
 ```
 
   </Tab>
@@ -93,6 +112,11 @@ framework :
 <ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-solid/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-solid-tailwind/button' }]} />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions options={[{ label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' }, { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' }]} />
+
+  </Tab>
 </Tabs>
 
 Remplacez l’import de la feuille de styles du paquet par celui du fichier généré ; n’importez pas les
@@ -102,10 +126,15 @@ deux :
 import '@/lib/moduix/styles/style.css';
 ```
 
+L’import de styles ci-dessus concerne CSS Modules. Pour Tailwind, chargez les styles de base générés
+dans votre feuille Tailwind existante selon le [guide de démarrage rapide](/docs/quick-start#installer-avec-la-cli-shadcn),
+puis importez cette feuille au même point d’entrée. Remplacez l’import du composant depuis le paquet
+par `@/components/ui/button`.
+
 ## Vérification
 
 Démarrez le serveur de développement. Le composant moduix doit être mis en forme, et TypeScript comme
 Rsbuild doivent résoudre `@/components/ui/*` après une installation depuis le registre.
 
 Consultez le guide Rsbuild pour [React](https://rsbuild.rs/guide/framework/react) ou la documentation
-officielle du [plugin Solid](https://rsbuild.rs/plugins/list/plugin-solid).
+officielle du [plugin Solid](https://rsbuild.rs/plugins/list/plugin-solid), [Vue](https://rsbuild.rs/guide/framework/vue).

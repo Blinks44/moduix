@@ -1,15 +1,15 @@
-import { RadioGroup } from '@moduix/react/radio-group';
+import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/react/radio-group';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
 export default function InitialValueDemo() {
   return (
     <RadioGroup defaultValue="Solid">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
       {frameworks.map((framework) => (
-        <RadioGroup.Option key={framework} value={framework}>
+        <RadioGroupOption key={framework} value={framework}>
           {framework}
-        </RadioGroup.Option>
+        </RadioGroupOption>
       ))}
     </RadioGroup>
   );

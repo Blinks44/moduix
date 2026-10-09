@@ -1,7 +1,7 @@
 ---
 title: Separator
 component: separator
-description: Разделяет связанные фрагменты содержимого или группы горизонтальной или вертикальной линией с семантикой для вспомогательных технологий.
+description: Доступные горизонтальные и вертикальные разделители для React, Solid и Vue.
 ---
 
 import * as SeparatorDocs from '@/components/examples/separator/css-properties';
@@ -17,6 +17,12 @@ import separatorSolidSizes from '../../../snippets/separator/solid/sizes.tsx?raw
 import separatorSolidVariants from '../../../snippets/separator/solid/variants.tsx?raw';
 import separatorSolidVertical from '../../../snippets/separator/solid/vertical.tsx?raw';
 import separatorSolidAsChild from '../../../snippets/separator/solid/as-child.tsx?raw';
+import separatorVueBasic from '../../../snippets/separator/vue/basic.vue?raw';
+import separatorVueDecorative from '../../../snippets/separator/vue/decorative.vue?raw';
+import separatorVueSizes from '../../../snippets/separator/vue/sizes.vue?raw';
+import separatorVueVariants from '../../../snippets/separator/vue/variants.vue?raw';
+import separatorVueVertical from '../../../snippets/separator/vue/vertical.vue?raw';
+import separatorVueAsChild from '../../../snippets/separator/vue/as-child.vue?raw';
 
 ## Справочник API
 
@@ -45,6 +51,7 @@ Chakra UI по компоненту Separator](https://chakra-ui.com/docs/compon
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -57,6 +64,11 @@ Chakra UI по компоненту Separator](https://chakra-ui.com/docs/compon
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={separatorSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={separatorVueBasic} />
 
     </Tab>
   </Tabs>
@@ -94,6 +106,16 @@ Chakra UI по компоненту Separator](https://chakra-ui.com/docs/compon
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/separator' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/separator' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -101,21 +123,21 @@ Chakra UI по компоненту Separator](https://chakra-ui.com/docs/compon
 У `Separator` одна корневая часть.
 
 ```text
-Separator / Separator.Root
+Separator
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
 ```
 
-| Часть                              | Назначение                                                                 |
-| ---------------------------------- | -------------------------------------------------------------------------- |
-| `Separator` / `Separator.Root` | Корневой элемент-разделитель. Задаёт ориентацию, доступность и визуальный стиль. |
+| Часть       | Назначение                                                                 |
+| ----------- | -------------------------------------------------------------------------- |
+| `Separator` | Корневой элемент-разделитель. Задаёт ориентацию, доступность и визуальный стиль. |
 
 ## Композиция
 
 `Separator` состоит только из корневого элемента, поэтому не владеет состоянием и не требует
-провайдера. Для обычного разделителя используйте `<Separator />`: это тот же корневой компонент, что
-и `<Separator.Root />`. Если разделитель должен размещаться на другом элементе, используйте
+провайдера. Для обычного разделителя используйте `<Separator />`. Если разделитель должен
+размещаться на другом элементе, используйте
 `asChild` с одним дочерним элементом, который принимает объединённые свойства `role`, ARIA,
-`data-*`, class и ref. В React дочерний элемент передаётся напрямую, а в Solid используется форма
+`data-*`, class и ref. В React и Vue дочерний элемент передаётся напрямую, а в Solid используется форма
 `asChild={(props) => <hr {...props()} />}`.
 
 ## Примеры
@@ -136,6 +158,7 @@ Separator / Separator.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -148,6 +171,11 @@ Separator / Separator.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={separatorSolidDecorative} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={separatorVueDecorative} />
 
     </Tab>
   </Tabs>
@@ -176,6 +204,7 @@ CSS-свойствами.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -188,6 +217,11 @@ CSS-свойствами.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={separatorSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={separatorVueSizes} />
 
     </Tab>
   </Tabs>
@@ -215,6 +249,7 @@ CSS-свойствами.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -227,6 +262,11 @@ CSS-свойствами.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={separatorSolidVariants} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={separatorVueVariants} />
 
     </Tab>
   </Tabs>
@@ -254,6 +294,7 @@ CSS-свойствами.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -266,6 +307,11 @@ CSS-свойствами.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={separatorSolidVertical} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={separatorVueVertical} />
 
     </Tab>
   </Tabs>
@@ -294,6 +340,7 @@ CSS-свойствами.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -308,6 +355,11 @@ CSS-свойствами.
 <CodeBlockRuntime lang="tsx" code={separatorSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={separatorVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -320,7 +372,7 @@ CSS-свойствами.
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid для корневого элемента. В вариантах с
+Используйте `className` в React или `class` в Solid и Vue для корневого элемента. В вариантах с
 Tailwind применяйте нативные utility-классы и классы потребителя, а CSS-свойства ниже относятся к
 вариантам с CSS Modules. Атрибуты данных и хуки `data-slot` общие для обоих способов стилизации.
 

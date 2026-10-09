@@ -6,7 +6,9 @@ description: Управляйте одиночным, множественным
 import ListSelectionBasic from '@/components/examples/list-selection/basic.tsx';
 import ListSelectionMultiple from '@/components/examples/list-selection/multiple.tsx';
 import listSelectionSolidBasic from '../../../snippets/list-selection/solid/basic.tsx?raw';
+import listSelectionVueBasic from '../../../snippets/list-selection/vue/basic.vue?raw';
 import listSelectionSolidMultiple from '../../../snippets/list-selection/solid/multiple.tsx?raw';
+import listSelectionVueMultiple from '../../../snippets/list-selection/vue/multiple.vue?raw';
 
 # List Selection
 
@@ -25,6 +27,7 @@ import listSelectionSolidMultiple from '../../../snippets/list-selection/solid/m
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -42,6 +45,13 @@ import { createListCollection, useListSelection } from '@ark-ui/solid/collection
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { createListCollection, useListSelection } from '@ark-ui/vue/collection';
+```
+
+  </Tab>
 </Tabs>
 
 В `@moduix/react`, `@moduix/solid`, `@moduix/react-tailwind` и `@moduix/solid-tailwind` нет экспорта
@@ -51,8 +61,8 @@ import { createListCollection, useListSelection } from '@ark-ui/solid/collection
 ## Одиночный выбор
 
 Хук хранит состояние выбора. В примере есть секция с подписью, нативные кнопки с `aria-pressed` и
-сообщение о текущем состоянии. Preview работает на React-исходнике, а вкладка Solid содержит
-эквивалентную нативную реализацию для Solid.
+сообщение о текущем состоянии. Preview работает на React-исходнике, а вкладки Solid и Vue содержат
+эквивалентные нативные реализации.
 
 <ExampleFrame variant="component">
   <PreviewFrame maxWidth="sm">
@@ -67,6 +77,7 @@ import { createListCollection, useListSelection } from '@ark-ui/solid/collection
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -79,6 +90,11 @@ import { createListCollection, useListSelection } from '@ark-ui/solid/collection
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSelectionSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listSelectionVueBasic} />
 
     </Tab>
   </Tabs>
@@ -108,6 +124,7 @@ import { createListCollection, useListSelection } from '@ark-ui/solid/collection
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -120,6 +137,11 @@ import { createListCollection, useListSelection } from '@ark-ui/solid/collection
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={listSelectionSolidMultiple} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listSelectionVueMultiple} />
 
     </Tab>
   </Tabs>
@@ -141,7 +163,8 @@ import { createListCollection, useListSelection } from '@ark-ui/solid/collection
 `initialSelectedValues` читается при создании состояния выбора. После этого меняйте состояние через
 `setSelectedValues` или другие действия. В Solid свойства состояния являются accessors, поэтому их
 нужно читать как `selection.selectedValues()` и `selection.isEmpty()`. Действия вызываются так же,
-как в React.
+как в React. В Vue свойства состояния представлены ref: в скрипте читайте `selection.selectedValues.value`
+и `selection.isEmpty.value`. Действия выбора остаются методами.
 
 ### Состояние и действия
 

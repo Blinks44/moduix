@@ -2,6 +2,17 @@ import { For, Show } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import {
   TreeView,
+  TreeViewBranch,
+  TreeViewBranchContent,
+  TreeViewBranchControl,
+  TreeViewBranchIndicator,
+  TreeViewBranchIndentGuide,
+  TreeViewBranchText,
+  TreeViewItem,
+  TreeViewItemText,
+  TreeViewLabel,
+  TreeViewNode,
+  TreeViewTree,
   createTreeCollection,
   type TreeViewNodeProviderProps,
 } from '@/components/tree-view/TreeView';
@@ -50,45 +61,45 @@ const collection = createTreeCollection<FileNode>({
 
 function FileTreeNode(props: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeView.Node node={props.node} indexPath={props.indexPath}>
+    <TreeViewNode node={props.node} indexPath={props.indexPath}>
       {(renderProps) => (
         <Show
           when={renderProps.state().isBranch}
           fallback={
-            <TreeView.Item>
-              <TreeView.ItemText>
+            <TreeViewItem>
+              <TreeViewItemText>
                 <FileIcon />
                 <span class="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
                   {renderProps.node.name}
                 </span>
-              </TreeView.ItemText>
-            </TreeView.Item>
+              </TreeViewItemText>
+            </TreeViewItem>
           }
         >
-          <TreeView.Branch>
-            <TreeView.BranchControl>
-              <TreeView.BranchIndicator />
-              <TreeView.BranchText>
+          <TreeViewBranch>
+            <TreeViewBranchControl>
+              <TreeViewBranchIndicator />
+              <TreeViewBranchText>
                 <Show when={renderProps.state().expanded} fallback={<FolderIcon />}>
                   <FolderOpenIcon />
                 </Show>
                 <span class="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
                   {renderProps.node.name}
                 </span>
-              </TreeView.BranchText>
-            </TreeView.BranchControl>
-            <TreeView.BranchContent>
-              <TreeView.BranchIndentGuide />
+              </TreeViewBranchText>
+            </TreeViewBranchControl>
+            <TreeViewBranchContent>
+              <TreeViewBranchIndentGuide />
               <For each={renderProps.node.children}>
                 {(child, index) => (
                   <FileTreeNode node={child} indexPath={[...renderProps.indexPath, index()]} />
                 )}
               </For>
-            </TreeView.BranchContent>
-          </TreeView.Branch>
+            </TreeViewBranchContent>
+          </TreeViewBranch>
         </Show>
       )}
-    </TreeView.Node>
+    </TreeViewNode>
   );
 }
 
@@ -137,12 +148,12 @@ function TreeViewDemo(props: { collection?: typeof collection }) {
       defaultExpandedValue={['src', 'configuration']}
       class="w-88"
     >
-      <TreeView.Label>Project files</TreeView.Label>
-      <TreeView.Tree>
+      <TreeViewLabel>Project files</TreeViewLabel>
+      <TreeViewTree>
         <For each={treeCollection().rootNode.children}>
           {(node, index) => <FileTreeNode node={node} indexPath={[index()]} />}
         </For>
-      </TreeView.Tree>
+      </TreeViewTree>
     </TreeView>
   );
 }

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "native-select",
+  "title": "Native Select",
+  "description": "moduix Vue Tailwind Native Select component.",
+  "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
+  "registryDependencies": [
+    "@moduix-vue-tailwind/foundation",
+    "@moduix-vue-tailwind/cn",
+    "@moduix-vue-tailwind/icons"
+  ],
+  "files": [
+    {
+      "path": "src/components/native-select/NativeSelect.vue",
+      "content": "<script setup lang=\"ts\">\nimport { FieldSelect as ArkFieldSelect } from '@ark-ui/vue/field';\nimport type { FieldSelectProps } from '@ark-ui/vue/field';\nimport { useForwardExpose } from '@ark-ui/vue/utils';\nimport { computed, useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport { ChevronDownIcon } from '@/lib/moduix/icons/ui';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ FieldSelectProps {\n  class?: HTMLAttributes['class'];\n  controlProps?: HTMLAttributes;\n  multiple?: FieldSelectProps['multiple'];\n  size?: FieldSelectProps['size'];\n}\n\nexport interface Emits {\n  'update:modelValue': [value: FieldSelectProps['modelValue']];\n}\n\nconst props = defineProps<Props>();\ndefineEmits</* @vue-ignore */ Emits>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\nconst { forwardRef } = useForwardExpose();\nconst isList = computed(\n  () => props.multiple || (props.size !== undefined && Number(props.size) > 1),\n);\nconst controlAttrs = computed(() => {\n  const { class: _class, ...rest } = props.controlProps ?? {};\n  return rest;\n});\nconst selectClass =\n  'peer/native-select box-border h-control-md w-56 max-w-full min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background ps-3 pe-11 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color,opacity] duration-200 ease-in-out [font:inherit] focus-visible:border-ring focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:outline-destructive aria-invalid:focus-visible:outline-destructive data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none forced-colors:appearance-auto forced-colors:pe-3';\nconst indicatorClass =\n  'pointer-events-none absolute end-2 top-1/2 inline-flex size-6 -translate-y-1/2 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-disabled/native-select:opacity-50 peer-data-disabled/native-select:opacity-50 motion-reduce:transition-none forced-colors:hidden [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:peer-[:not([disabled]):not([data-disabled]):hover]/native-select:bg-muted [@media(hover:hover)]:peer-[:not([disabled]):not([data-disabled]):hover]/native-select:text-foreground';\n</script>\n\n<template>\n  <span\n    v-bind=\"controlAttrs\"\n    :class=\"cn('relative inline-grid w-fit max-w-full min-w-0', props.controlProps?.class)\"\n    data-scope=\"native-select\"\n    data-part=\"control\"\n    data-slot=\"native-select-control\"\n  >\n    <ArkFieldSelect\n      :ref=\"forwardRef\"\n      v-bind=\"attrs\"\n      :multiple=\"props.multiple\"\n      :size=\"props.size\"\n      :class=\"cn(selectClass, isList && 'h-auto appearance-auto px-3 py-2', props.class)\"\n      data-scope=\"field\"\n      data-part=\"select\"\n      data-slot=\"native-select-root\"\n    >\n      <slot />\n    </ArkFieldSelect>\n    <span\n      aria-hidden=\"true\"\n      data-scope=\"native-select\"\n      data-part=\"indicator\"\n      data-slot=\"native-select-indicator\"\n      :class=\"cn(indicatorClass, isList && 'hidden')\"\n    >\n      <ChevronDownIcon />\n    </span>\n  </span>\n</template>",
+      "type": "registry:component",
+      "target": "@components/ui/native-select/NativeSelect.vue"
+    },
+    {
+      "path": "src/components/native-select/index.ts",
+      "content": "import NativeSelect from './NativeSelect.vue';\n\nexport { NativeSelect };\n\nexport type { Emits as NativeSelectEmits, Props as NativeSelectProps } from './NativeSelect.vue';",
+      "type": "registry:component",
+      "target": "@components/ui/native-select/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

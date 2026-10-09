@@ -11,8 +11,8 @@ type AvatarRootProviderProps = ComponentProps<typeof AvatarPrimitive.RootProvide
   size?: AvatarSize;
 };
 
-const AvatarRoot = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarRootProps>(
-  function AvatarRoot({ className, size, ...props }, ref) {
+const Avatar = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarRootProps>(
+  function Avatar({ className, size, ...props }, ref) {
     return (
       <AvatarPrimitive.Root
         ref={ref}
@@ -70,12 +70,14 @@ const AvatarFallback = forwardRef<
   );
 });
 
-const Avatar = Object.assign(AvatarRoot, {
-  Root: AvatarRoot,
-  RootProvider: AvatarRootProvider,
-  Context: AvatarPrimitive.Context,
-  Image: AvatarImage,
-  Fallback: AvatarFallback,
-});
+const AvatarContext = AvatarPrimitive.Context;
 
-export { Avatar, useAvatar, useAvatarContext };
+export {
+  Avatar,
+  AvatarContext,
+  AvatarFallback,
+  AvatarImage,
+  AvatarRootProvider,
+  useAvatar,
+  useAvatarContext,
+};

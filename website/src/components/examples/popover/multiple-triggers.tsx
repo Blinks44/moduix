@@ -1,4 +1,11 @@
-import { Popover } from '@moduix/react/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@moduix/react/popover';
 import { useState } from 'react';
 import styles from '@/components/examples/popover/popover-multiple-triggers.module.css';
 
@@ -30,19 +37,19 @@ export default function MultipleTriggersDemo() {
     >
       <div className={styles.root}>
         {actions.map((item) => (
-          <Popover.Trigger key={item.id} value={item.id}>
+          <PopoverTrigger key={item.id} value={item.id}>
             {item.label}
-          </Popover.Trigger>
+          </PopoverTrigger>
         ))}
       </div>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Title>{activeItem?.label ?? 'Select an action'}</Popover.Title>
-          <Popover.Description>
+      <PopoverPositioner>
+        <PopoverContent>
+          <PopoverTitle>{activeItem?.label ?? 'Select an action'}</PopoverTitle>
+          <PopoverDescription>
             {activeItem?.detail ?? 'Choose one of the actions.'}
-          </Popover.Description>
-        </Popover.Content>
-      </Popover.Positioner>
+          </PopoverDescription>
+        </PopoverContent>
+      </PopoverPositioner>
     </Popover>
   );
 }

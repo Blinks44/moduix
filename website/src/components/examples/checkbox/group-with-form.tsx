@@ -1,5 +1,11 @@
 import { Button } from '@moduix/react/button';
-import { Checkbox } from '@moduix/react/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/checkbox/checkbox-group-with-form.module.css';
@@ -23,15 +29,15 @@ export default function CheckboxGroupWithFormDemo() {
         );
       }}
     >
-      <Checkbox.Group defaultValue={['react']} name="framework">
+      <CheckboxGroup defaultValue={['react']} name="framework">
         {options.map((option) => (
           <Checkbox key={option.value} value={option.value}>
-            <Checkbox.Control />
-            <Checkbox.Label>{option.label}</Checkbox.Label>
-            <Checkbox.HiddenInput />
+            <CheckboxControl />
+            <CheckboxLabel>{option.label}</CheckboxLabel>
+            <CheckboxHiddenInput />
           </Checkbox>
         ))}
-      </Checkbox.Group>
+      </CheckboxGroup>
       <PreviewMeta>
         <output>{submitted}</output>
         <Button type="submit" size="sm">

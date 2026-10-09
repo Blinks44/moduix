@@ -16,7 +16,7 @@ type SkeletonProps = HTMLArkProps<'div'> & {
 const toCssValue = (value: number | string | undefined) =>
   typeof value === 'number' ? `${value}px` : value;
 
-const SkeletonRoot = forwardRef<HTMLDivElement, SkeletonProps>(function SkeletonRoot(
+const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(function Skeleton(
   {
     'aria-hidden': ariaHidden,
     asChild,
@@ -53,10 +53,6 @@ const SkeletonRoot = forwardRef<HTMLDivElement, SkeletonProps>(function Skeleton
       }}
     />
   );
-});
-
-const Skeleton = Object.assign(SkeletonRoot, {
-  Root: SkeletonRoot,
 });
 
 export { Skeleton };

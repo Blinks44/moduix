@@ -1,5 +1,5 @@
 import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/react/environment';
-import { Card } from '@moduix/react/card';
+import { Card, CardBody, CardDescription, CardHeader, CardTitle } from '@moduix/react/card';
 import { Stack } from '@moduix/react/stack';
 import { useEffect, useState } from 'react';
 
@@ -35,17 +35,17 @@ function EnvironmentSummary() {
 
   return (
     <Card>
-      <Card.Header>
-        <Card.Title>Resolved environment</Card.Title>
-        <Card.Description>Ark queries DOM APIs from this environment.</Card.Description>
-      </Card.Header>
-      <Card.Body>
+      <CardHeader>
+        <CardTitle>Resolved environment</CardTitle>
+        <CardDescription>Ark queries DOM APIs from this environment.</CardDescription>
+      </CardHeader>
+      <CardBody>
         <Stack gap={2}>
           <span>Root node: {details.rootNode}</span>
           <span>Document: {details.documentName}</span>
           <span>Window: {details.windowHost}</span>
         </Stack>
-      </Card.Body>
+      </CardBody>
     </Card>
   );
 }

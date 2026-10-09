@@ -1,6 +1,6 @@
 ---
-title: Journal des modifications
-description: Nouveautés et changements importants de moduix.
+title: Nouveautés
+description: Changements notables de moduix.
 ---
 
 import { LocalizationHero } from '@/components/changelog/localization-hero';
@@ -11,6 +11,57 @@ import { TableOfContentsHero } from '@/components/changelog/table-of-contents-he
 import { SolidReleaseHero } from '@/components/changelog/solid-release-hero';
 import { TailwindReleaseHero } from '@/components/changelog/tailwind-release-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+import { VueReleaseHero } from '@/components/changelog/vue-release-hero';
+
+# Nouveautés
+
+<ChangelogNewsItem>
+  <VueReleaseHero />
+
+Vue rejoint React et Solid comme adaptateur natif de moduix. [`@moduix/vue`](/docs/quick-start) et
+`@moduix/vue-tailwind` proposent le catalogue complet avec les mêmes tokens et thèmes.
+
+### Changements incompatibles dans la version 3.0
+
+Tous les composants utilisent désormais des exports nommés plats dans React, Solid et Vue, aussi bien
+avec CSS Modules qu’avec Tailwind. Ce changement concerne les paquets npm et les sources du registre.
+Lors de la mise à jour depuis la version 2.x, adaptez vos imports et les noms des composants :
+
+| Avant | Maintenant |
+| --- | --- |
+| `Dialog.Root` | `Dialog` |
+| `Dialog.Trigger` | `DialogTrigger` |
+| `Dialog.Content` | `DialogContent` |
+| `Dialog.RootProvider` | `DialogRootProvider` |
+| `Dialog.Context` | `DialogContext` |
+
+La même convention de nommage s’applique à toutes les familles de composants. Les exports composés
+comme `Dialog.*` et les alias du composant racine comme `DialogRoot` ont été supprimés. Les hooks
+comme `useDialog` restent disponibles sous forme d’exports nommés distincts.
+
+### Composition Vue native
+
+Utilisez les exports nommés plats dans des SFC avec `script setup`, des props et événements natifs,
+`v-model` et des slots de portée. Les registres `@moduix-vue` et `@moduix-vue-tailwind` copient les sources Vue dans votre application.
+
+Le [démarrage rapide](/docs/quick-start), les [intégrations de formulaires](/docs/forms) et les
+[blocs](/blocks) incluent désormais Vue aux côtés de React et Solid dans les trois langues.
+Les pages des composants décrivent les différences réelles des adaptateurs Ark et les limitations
+upstream propres à certaines versions. Svelte reste prévu.
+
+### Blocs installables
+
+Les anciennes recettes deviennent des [blocs](/blocks) installables via le registre shadcn.
+Les 12 blocs comprennent le code source React, Solid et Vue, une feuille de styles pour la mise en page et les
+composants UI nécessaires. Choisissez CSS Modules ou Tailwind pour les composants ; les deux variantes utilisent
+le même CSS Module pour la mise en page du bloc.
+
+Après la [configuration du registre](/docs/quick-start), ajoutez un bloc avec une seule commande :
+
+<PackageManagerTabs command="shadcn@latest add @moduix-react/login-simple" dlx />
+
+La section d’installation de chaque bloc indique les commandes pour Solid, Vue et Tailwind.
+</ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <TailwindReleaseHero />
@@ -51,10 +102,10 @@ Indiquez les titres à suivre pour relier chaque entrée au titre correspondant.
 
 ### Un sommaire pour les pages longues
 
-Utilisez `Toc.Content` pour la zone de lecture et `Toc.Nav` pour la liste des titres. L’entrée active
+Utilisez `TocContent` pour la zone de lecture et `TocNav` pour la liste des titres. L’entrée active
 change au fil du défilement.
 
-Utilisez `Toc.Indicator` ou `Toc.Rail` pour montrer la hiérarchie. Ajoutez `Toc.RootProvider` lorsque
+Utilisez `TocIndicator` ou `TocRail` pour montrer la hiérarchie. Ajoutez `TocRootProvider` lorsque
 des contrôles externes doivent partager l’état du sommaire.
 </ChangelogNewsItem>
 
@@ -66,11 +117,11 @@ associés. C’est utile pour la navigation principale d’un site ou d’un pro
 
 ### Des groupes de liens sans masquer les destinations
 
-Utilisez `NavigationMenu.Link` pour une destination directe. Pour un groupe de liens, associez
-`NavigationMenu.Trigger` à `NavigationMenu.Content`.
+Utilisez `NavigationMenuLink` pour une destination directe. Pour un groupe de liens, associez
+`NavigationMenuTrigger` à `NavigationMenuContent`.
 
-Ajoutez `NavigationMenu.Viewport` lorsque plusieurs panneaux doivent s’animer dans une même zone.
-Ark UI gère le clavier, le focus et l’élément ouvert. `Arrow` est facultatif.
+Ajoutez `NavigationMenuViewport` lorsque plusieurs panneaux doivent s’animer dans une même zone.
+Ark UI gère le clavier, le focus et l’élément ouvert. `NavigationMenuArrow` est facultatif.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
@@ -83,7 +134,7 @@ d’animation de moduix.
 ### Une figure cohérente pour les graphiques
 
 TanStack garde la responsabilité des marques, des échelles, des interactions et des fonctions de
-rappel. Composez le graphique avec `Chart.Header`, `Chart.Plot` et `Chart.Legend` pour obtenir une
+rappel. Composez le graphique avec `ChartHeader`, `ChartPlot` et `ChartLegend` pour obtenir une
 structure `figure` cohérente.
 
 TanStack gère aussi la navigation au clavier et le cycle de vie de l’infobulle. L’animation moduix
@@ -94,11 +145,9 @@ respecte la préférence pour la réduction des mouvements, et `motion={false}` 
   <LocalizationHero />
 
 La documentation est maintenant disponible en anglais, en français et en russe. Les pages de
-composants, les exemples et les recettes sont traduits partout.
+composants, les exemples et les blocs sont tous traduits.
 
-### La documentation en trois langues
-
-Vous pouvez lire un guide, copier un exemple et suivre une recette sans changer de langue.
+### Documentation française et russe
 
 La navigation, les métadonnées, les routes adaptées à chaque langue et les exemples copiables restent
 alignés dans les trois langues.

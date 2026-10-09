@@ -27,6 +27,17 @@ import paginationSolidPageRange from '../../../snippets/pagination/solid/page-ra
 import paginationSolidPageSizeControl from '../../../snippets/pagination/solid/page-size-control.tsx?raw';
 import paginationSolidRootProvider from '../../../snippets/pagination/solid/root-provider.tsx?raw';
 import paginationSolidWithEdges from '../../../snippets/pagination/solid/with-edges.tsx?raw';
+import paginationVueAdvancedCustomization from '../../../snippets/pagination/vue/advanced-customization.vue?raw';
+import paginationVueBasic from '../../../snippets/pagination/vue/basic.vue?raw';
+import paginationVueContext from '../../../snippets/pagination/vue/context.vue?raw';
+import paginationVueControlled from '../../../snippets/pagination/vue/controlled.vue?raw';
+import paginationVueCustomized from '../../../snippets/pagination/vue/customized.vue?raw';
+import paginationVueDataSlicing from '../../../snippets/pagination/vue/data-slicing.vue?raw';
+import paginationVueLink from '../../../snippets/pagination/vue/link.vue?raw';
+import paginationVuePageRange from '../../../snippets/pagination/vue/page-range.vue?raw';
+import paginationVuePageSizeControl from '../../../snippets/pagination/vue/page-size-control.vue?raw';
+import paginationVueRootProvider from '../../../snippets/pagination/vue/root-provider.vue?raw';
+import paginationVueWithEdges from '../../../snippets/pagination/vue/with-edges.vue?raw';
 
 ## API Reference
 
@@ -35,7 +46,7 @@ import paginationSolidWithEdges from '../../../snippets/pagination/solid/with-ed
 ## Basic
 
 
-Use `Pagination` as the root component. `Pagination.Items` renders the page buttons and ellipses for
+Use `Pagination` as the root component. `PaginationItems` renders the page buttons and ellipses for
 the current page range.
 
 <ExampleFrame variant="component">
@@ -49,6 +60,7 @@ the current page range.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -61,6 +73,11 @@ the current page range.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueBasic} />
 
     </Tab>
   </Tabs>
@@ -98,39 +115,49 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/pagination' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/pagination' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 ```text
-Pagination / Pagination.Root
-├─ Pagination.FirstTrigger (optional)
-├─ Pagination.PrevTrigger
-├─ Pagination.Items (recommended)
-├─ Pagination.Context (advanced render-prop access)
-│  ├─ Pagination.Item
-│  └─ Pagination.Ellipsis
-├─ Pagination.NextTrigger
-└─ Pagination.LastTrigger (optional)
+Pagination
+├─ PaginationFirstTrigger (optional)
+├─ PaginationPrevTrigger
+├─ PaginationItems (recommended)
+├─ PaginationContext (advanced render-prop access)
+│  ├─ PaginationItem
+│  └─ PaginationEllipsis
+├─ PaginationNextTrigger
+└─ PaginationLastTrigger (optional)
 
-Pagination.RootProvider
+PaginationRootProvider
 └─ same trigger, item, ellipsis, and context tree connected to usePagination()
 ```
 
 | Part                              | Role                                                               |
 | --------------------------------- | ------------------------------------------------------------------ |
 | `Pagination`                      | Navigation root that manages the current page and page size.       |
-| `Pagination.RootProvider`         | Connects parts to state created by `Pagination.usePagination()`.   |
-| `Pagination.Items`                | Renders the computed page items and ellipses.                      |
-| `Pagination.Context`              | Exposes root state and navigation helpers through an Ark render prop. |
-| `Pagination.usePagination`        | Creates pagination state outside the rendered tree.                |
-| `Pagination.usePaginationContext` | Reads pagination state from a descendant.                          |
-| `Pagination.Item`                 | Interactive page control. Pass a page object as its props.        |
-| `Pagination.Ellipsis`             | Non-interactive marker for a collapsed page range. Requires `index`. |
-| `Pagination.PrevTrigger`          | Moves to the previous page and disables itself on the first page.  |
-| `Pagination.NextTrigger`          | Moves to the next page and disables itself on the last page.      |
-| `Pagination.FirstTrigger`         | Moves to the first page and disables itself when already there.    |
-| `Pagination.LastTrigger`          | Moves to the last page and disables itself when already there.     |
+| `PaginationRootProvider`         | Connects parts to state created by `usePagination()`.   |
+| `PaginationItems`                | Renders the computed page items and ellipses.                      |
+| `PaginationContext`              | Exposes root state and navigation helpers through an Ark render prop. |
+| `usePagination`        | Creates pagination state outside the rendered tree.                |
+| `usePaginationContext` | Reads pagination state from a descendant.                          |
+| `PaginationItem`                 | Interactive page control. Pass a page object as its props.        |
+| `PaginationEllipsis`             | Non-interactive marker for a collapsed page range. Requires `index`. |
+| `PaginationPrevTrigger`          | Moves to the previous page and disables itself on the first page.  |
+| `PaginationNextTrigger`          | Moves to the next page and disables itself on the last page.      |
+| `PaginationFirstTrigger`         | Moves to the first page and disables itself when already there.    |
+| `PaginationLastTrigger`          | Moves to the last page and disables itself when already there.     |
 
 ## Composition
 
@@ -139,10 +166,13 @@ matching change callbacks when another part of the application owns it. Set `cou
 number of data items, not the number of pages, and pair it with a page-size prop so Ark can calculate
 `totalPages`.
 
-Use `Pagination.Items` for the standard page list. Use `Pagination.Context` when page items or
+Use `PaginationItems` for the standard page list. Use `PaginationContext` when page items or
 nearby controls need custom rendering. If state must be created outside the rendered tree, create it
-with `Pagination.usePagination()` and pass it to `Pagination.RootProvider`. For URL navigation, set
+with `usePagination()` and pass it to `PaginationRootProvider`. For URL navigation, set
 `type="link"`, provide `getPageUrl(details)`, and render semantic anchors with `asChild`.
+
+In Vue, use `v-model:page` and `v-model:page-size` for controlled state. The `pageChange` and
+`pageSizeChange` events are exposed as `@page-change` and `@page-size-change`.
 
 ## Examples
 
@@ -161,6 +191,7 @@ Pass the active page with `page` and update it in `onPageChange(details)`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -175,6 +206,11 @@ Pass the active page with `page` and update it in `onPageChange(details)`.
 <CodeBlockRuntime lang="tsx" code={paginationSolidControlled} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueControlled} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -187,7 +223,7 @@ Pass the active page with `page` and update it in `onPageChange(details)`.
 
 ### Context
 
-Use `Pagination.Context` to place custom controls next to the page list and call helpers such as
+Use `PaginationContext` to place custom controls next to the page list and call helpers such as
 `goToFirstPage()` and `goToLastPage()`.
 
 <ExampleFrame variant="component">
@@ -201,6 +237,7 @@ Use `Pagination.Context` to place custom controls next to the page list and call
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -213,6 +250,11 @@ Use `Pagination.Context` to place custom controls next to the page list and call
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueContext} />
 
     </Tab>
   </Tabs>
@@ -236,6 +278,7 @@ belongs to the current page.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -248,6 +291,11 @@ belongs to the current page.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidDataSlicing} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueDataSlicing} />
 
     </Tab>
   </Tabs>
@@ -276,6 +324,7 @@ navigate to a real URL.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -288,6 +337,11 @@ navigate to a real URL.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidLink} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueLink} />
 
     </Tab>
   </Tabs>
@@ -315,6 +369,7 @@ Use `pagination.pageRange` to show which items are visible on the current page.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -327,6 +382,11 @@ Use `pagination.pageRange` to show which items are visible on the current page.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidPageRange} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVuePageRange} />
 
     </Tab>
   </Tabs>
@@ -355,6 +415,7 @@ items per page.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -369,6 +430,11 @@ items per page.
 <CodeBlockRuntime lang="tsx" code={paginationSolidPageSizeControl} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVuePageSizeControl} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -381,7 +447,7 @@ items per page.
 
 ### Root Provider
 
-Create state with `Pagination.usePagination()` and pass it to `Pagination.RootProvider` when the
+Create state with `usePagination()` and pass it to `PaginationRootProvider` when the
 state owner lives outside the rendered pagination tree.
 
 <ExampleFrame variant="component">
@@ -395,6 +461,7 @@ state owner lives outside the rendered pagination tree.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -407,6 +474,11 @@ state owner lives outside the rendered pagination tree.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -435,6 +507,7 @@ Use `translations` to customize accessible labels. Adjust the visible page windo
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -449,6 +522,11 @@ Use `translations` to customize accessible labels. Adjust the visible page windo
 <CodeBlockRuntime lang="tsx" code={paginationSolidCustomized} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueCustomized} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -461,7 +539,7 @@ Use `translations` to customize accessible labels. Adjust the visible page windo
 
 ### First and Last Page Controls
 
-Add `Pagination.FirstTrigger` and `Pagination.LastTrigger` when users need shortcuts to the first
+Add `PaginationFirstTrigger` and `PaginationLastTrigger` when users need shortcuts to the first
 and last page.
 
 <ExampleFrame variant="component">
@@ -475,6 +553,7 @@ and last page.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -489,6 +568,11 @@ and last page.
 <CodeBlockRuntime lang="tsx" code={paginationSolidWithEdges} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueWithEdges} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -501,8 +585,8 @@ and last page.
 
 ### Advanced Customization
 
-Use `Pagination.Context` instead of `Pagination.Items` when page buttons or ellipses need custom
-content. Pass each page object to `Pagination.Item` unchanged so Ark can keep its state and
+Use `PaginationContext` instead of `PaginationItems` when page buttons or ellipses need custom
+content. Pass each page object to `PaginationItem` unchanged so Ark can keep its state and
 accessibility behavior.
 
 <ExampleFrame variant="component">
@@ -516,6 +600,7 @@ accessibility behavior.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -528,6 +613,11 @@ accessibility behavior.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={paginationSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={paginationVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -562,9 +652,9 @@ footprint, while longer labels can expand without being clipped.
 
 ### Styling hooks
 
-- `data-scope="pagination"` and `data-part="item"` on `Pagination.Item`
-- `data-scope="pagination"` and `data-part="prev-trigger"` on `Pagination.PrevTrigger`
-- `data-scope="pagination"` and `data-part="next-trigger"` on `Pagination.NextTrigger`
+- `data-scope="pagination"` and `data-part="item"` on `PaginationItem`
+- `data-scope="pagination"` and `data-part="prev-trigger"` on `PaginationPrevTrigger`
+- `data-scope="pagination"` and `data-part="next-trigger"` on `PaginationNextTrigger`
 - `data-scope="pagination"` with `data-part="first-trigger"` or `data-part="last-trigger"` on edge triggers
 - `data-selected` on the active page item
 - `data-disabled` on unavailable triggers

@@ -1,4 +1,12 @@
-import { Table } from '@moduix/solid/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumnHeader,
+  TableHeader,
+  TableRow,
+  TableScrollArea,
+} from '@moduix/solid/table';
 
 const metrics = [
   {
@@ -23,27 +31,27 @@ const metrics = [
 
 export default function TableNumericColumnsDemo() {
   return (
-    <Table.ScrollArea>
+    <TableScrollArea>
       <Table>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader>Service</Table.ColumnHeader>
-            <Table.ColumnHeader numeric>Requests</Table.ColumnHeader>
-            <Table.ColumnHeader numeric>Error rate</Table.ColumnHeader>
-            <Table.ColumnHeader numeric>Latency</Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeader>Service</TableColumnHeader>
+            <TableColumnHeader numeric>Requests</TableColumnHeader>
+            <TableColumnHeader numeric>Error rate</TableColumnHeader>
+            <TableColumnHeader numeric>Latency</TableColumnHeader>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {metrics.map((metric) => (
-            <Table.Row>
-              <Table.Cell>{metric.service}</Table.Cell>
-              <Table.Cell numeric>{metric.requests}</Table.Cell>
-              <Table.Cell numeric>{metric.errorRate}</Table.Cell>
-              <Table.Cell numeric>{metric.latency}</Table.Cell>
-            </Table.Row>
+            <TableRow>
+              <TableCell>{metric.service}</TableCell>
+              <TableCell numeric>{metric.requests}</TableCell>
+              <TableCell numeric>{metric.errorRate}</TableCell>
+              <TableCell numeric>{metric.latency}</TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
+        </TableBody>
       </Table>
-    </Table.ScrollArea>
+    </TableScrollArea>
   );
 }

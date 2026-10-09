@@ -40,18 +40,39 @@ import menuSolidRadioItems from '../../../snippets/menu/solid/radio-items.tsx?ra
 import menuSolidRootProvider from '../../../snippets/menu/solid/root-provider.tsx?raw';
 import menuSolidSelectEvent from '../../../snippets/menu/solid/select-event.tsx?raw';
 import menuSolidWithArrow from '../../../snippets/menu/solid/with-arrow.tsx?raw';
+import menuVueAdvancedCustomization from '../../../snippets/menu/vue/advanced-customization.vue?raw';
+import menuVueBasic from '../../../snippets/menu/vue/basic.vue?raw';
+import menuVueCheckboxItems from '../../../snippets/menu/vue/checkbox-items.vue?raw';
+import menuVueContext from '../../../snippets/menu/vue/context-menu.vue?raw';
+import menuVueControlled from '../../../snippets/menu/vue/controlled.vue?raw';
+import menuVueGrouping from '../../../snippets/menu/vue/grouping.vue?raw';
+import menuVueIndicatorPlacement from '../../../snippets/menu/vue/indicator-placement.vue?raw';
+import menuVueItemContext from '../../../snippets/menu/vue/item-context.vue?raw';
+import menuVueLazyMountedContext from '../../../snippets/menu/vue/lazy-mounted-context-menu.vue?raw';
+import menuVueLinks from '../../../snippets/menu/vue/links.vue?raw';
+import menuVueInDialog from '../../../snippets/menu/vue/menu-in-dialog.vue?raw';
+import menuVueMultipleTriggers from '../../../snippets/menu/vue/multiple-triggers.vue?raw';
+import menuVueNested from '../../../snippets/menu/vue/nested.vue?raw';
+import menuVueRadioItems from '../../../snippets/menu/vue/radio-items.vue?raw';
+import menuVueRootProvider from '../../../snippets/menu/vue/root-provider.vue?raw';
+import menuVueSelectEvent from '../../../snippets/menu/vue/select-event.vue?raw';
+import menuVueWithArrow from '../../../snippets/menu/vue/with-arrow.vue?raw';
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
 
+## Choisir le bon composant
 
-Les mêmes exports sont disponibles depuis `@moduix/solid/menu` pour Solid.
+Utilisez `Menu` pour des actions contextuelles dans une fenêtre contextuelle temporaire, comme des
+commandes, des liens ou un menu contextuel. Utilisez `NavigationMenu` pour une navigation de site ou
+de produit persistante, et `Dialog` pour les flux qui exigent toute l’attention de l’utilisateur.
+
 ## Exemple de base
 
 Utilisez la composition standard pour un menu ouvert par un bouton, un déclencheur personnalisé ou un déclencheur contextuel. Le composant racine gère la navigation au clavier, la recherche par saisie, le focus et la fermeture. Attribuez une valeur `value` stable à chaque élément afin de préserver la sélection et la recherche par saisie lorsque la liste change.
 
-Ne définissez pas d’`id` personnalisé sur `Menu.Item` : Ark identifie les éléments par `value`, et un `id`
+Ne définissez pas d’`id` personnalisé sur `MenuItem` : Ark identifie les éléments par `value`, et un `id`
 supplémentaire casse la recherche d’éléments, la navigation par saisie et la gestion du focus.
 
 
@@ -66,6 +87,7 @@ supplémentaire casse la recherche d’éléments, la navigation par saisie et l
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -78,6 +100,10 @@ supplémentaire casse la recherche d’éléments, la navigation par saisie et l
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidBasic} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueBasic} />
 
     </Tab>
   </Tabs>
@@ -115,67 +141,77 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/menu' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/menu' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-Menu / Menu.Root
-├─ Menu.Trigger
-│  ├─ Menu.TriggerIcon
-│  └─ Menu.Indicator
-├─ Menu.ContextTrigger
+Menu
+├─ MenuTrigger
+│  ├─ MenuTriggerIcon
+│  └─ MenuIndicator
+├─ MenuContextTrigger
 └─ Sous-arbre du calque (placé automatiquement dans un portail)
-   └─ Menu.Positioner
-      └─ Menu.Content
-         ├─ Menu.Arrow
-         │  └─ Menu.ArrowTip
-         └─ Menu.Viewport
-            ├─ Menu.Item
-            │  ├─ Menu.ItemText
-            │  │  ├─ Menu.ItemTextIcon
-            │  │  └─ Menu.ItemTextLabel
-            │  └─ Menu.ItemShortcut
-            ├─ Menu.CheckboxItem
-            │  └─ Menu.ItemIndicator
-            ├─ Menu.RadioItemGroup
-            │  └─ Menu.RadioItem
-            ├─ Menu.ItemGroup
-            │  └─ Menu.ItemGroupLabel
-            ├─ Menu.Separator
+   └─ MenuPositioner
+      └─ MenuContent
+         ├─ MenuArrow
+         │  └─ MenuArrowTip
+         └─ MenuViewport
+            ├─ MenuItem
+            │  ├─ MenuItemText
+            │  │  ├─ MenuItemTextIcon
+            │  │  └─ MenuItemTextLabel
+            │  └─ MenuItemShortcut
+            ├─ MenuCheckboxItem
+            │  └─ MenuItemIndicator
+            ├─ MenuRadioItemGroup
+            │  └─ MenuRadioItem
+            ├─ MenuItemGroup
+            │  └─ MenuItemGroupLabel
+            ├─ MenuSeparator
             └─ Menu
-               └─ Menu.TriggerItem
-                  └─ Menu.TriggerItemIcon
+               └─ MenuTriggerItem
+                  └─ MenuTriggerItemIcon
 ```
 
 | Partie | Rôle |
 | --- | --- |
-| `Menu` / `Menu.Root` | Composant racine qui gère l’ouverture, le positionnement, la recherche par saisie, le focus et la fermeture. |
-| `Menu.RootProvider` | Relie le menu à une instance d’état créée avec `useMenu`. |
-| `Menu.Trigger` | Bouton qui ouvre le menu. Utilisez `asChild` pour fournir un autre élément sémantique. |
-| `Menu.TriggerIcon` | Conteneur pour l’icône du déclencheur. Un chevron par défaut est rendu sans enfant. |
-| `Menu.Indicator` | Indicateur du déclencheur qui reflète son état, généralement affiché comme un chevron. |
-| `Menu.ContextTrigger` | Déclencheur pour les menus contextuels ouverts par clic droit ou appui prolongé. |
-| `Menu.Positioner` | Positionne le calque flottant du menu. |
-| `Menu.Content` | Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments. |
-| `Menu.Viewport` | Conteneur de défilement explicite autour de la collection d’éléments. |
-| `Menu.Arrow` / `Menu.ArrowTip` | Flèche facultative qui relie visuellement la fenêtre contextuelle à son déclencheur. |
-| `Menu.Item` | Élément de commande standard. |
-| `Menu.CheckboxItem` | Élément doté d’un état booléen indépendant. |
-| `Menu.RadioItemGroup` / `Menu.RadioItem` | Groupe et éléments permettant de choisir une seule valeur. |
-| `Menu.ItemIndicator` | Indicateur de sélection des éléments avec case à cocher et des options radio. |
-| `Menu.ItemText` et composants utilitaires de texte | Composants utilitaires pour composer le texte d’un élément avec une icône et un libellé. |
-| `Menu.ItemShortcut` | Conteneur pour un raccourci clavier ou une autre indication placée à droite. |
-| `Menu.ItemGroup` / `Menu.ItemGroupLabel` | Groupe et libellé pour des éléments associés. |
-| `Menu.Separator` | Séparateur entre des groupes d’éléments. |
-| `Menu.TriggerItem` / `Menu.TriggerItemIcon` | Élément et icône pour ouvrir un menu imbriqué. |
-| `Menu.ItemContext` | Fournit l’état de l’élément à son contenu. |
+| `Menu` | Composant racine qui gère l’ouverture, le positionnement, la recherche par saisie, le focus et la fermeture. |
+| `MenuRootProvider` | Relie le menu à une instance d’état créée avec `useMenu`. |
+| `MenuTrigger` | Bouton qui ouvre le menu. Utilisez `asChild` pour fournir un autre élément sémantique. |
+| `MenuTriggerIcon` | Conteneur pour l’icône du déclencheur. Un chevron par défaut est rendu sans enfant. |
+| `MenuIndicator` | Indicateur du déclencheur qui reflète son état, généralement affiché comme un chevron. |
+| `MenuContextTrigger` | Déclencheur pour les menus contextuels ouverts par clic droit ou appui prolongé. |
+| `MenuPositioner` | Positionne le calque flottant du menu. |
+| `MenuContent` | Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments. |
+| `MenuViewport` | Conteneur de défilement explicite autour de la collection d’éléments. |
+| `MenuArrow` / `MenuArrowTip` | Flèche facultative qui relie visuellement la fenêtre contextuelle à son déclencheur. |
+| `MenuItem` | Élément de commande standard. |
+| `MenuCheckboxItem` | Élément doté d’un état booléen indépendant. |
+| `MenuRadioItemGroup` / `MenuRadioItem` | Groupe et éléments permettant de choisir une seule valeur. |
+| `MenuItemIndicator` | Indicateur de sélection des éléments avec case à cocher et des options radio. |
+| `MenuItemText` et composants utilitaires de texte | Composants utilitaires pour composer le texte d’un élément avec une icône et un libellé. |
+| `MenuItemShortcut` | Conteneur pour un raccourci clavier ou une autre indication placée à droite. |
+| `MenuItemGroup` / `MenuItemGroupLabel` | Groupe et libellé pour des éléments associés. |
+| `MenuSeparator` | Séparateur entre des groupes d’éléments. |
+| `MenuTriggerItem` / `MenuTriggerItemIcon` | Élément et icône pour ouvrir un menu imbriqué. |
+| `MenuItemContext` | Fournit l’état de l’élément à son contenu. |
 
 ## Composition
 
-Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec la fonction de rappel correspondante. Utilisez `useMenu()` avec `Menu.RootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
+Utilisez `defaultOpen` pour un menu non contrôlé. Lorsque l’ouverture ou l’élément mis en surbrillance est géré par une autre partie de l’application, passez `open` ou `highlightedValue` avec la fonction de rappel correspondante. Utilisez `useMenu()` avec `MenuRootProvider` lorsque le store doit être créé en dehors de l’arbre rendu ; ne rendez pas une seconde racine `Menu` pour le même store.
 
-`Menu.Positioner`, `Menu.Content` et `Menu.Viewport` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un déclencheur, un élément ou l’hôte du contenu doit porter le nœud DOM. En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild`, car une ref posée sur une partie `Menu` elle-même n’est pas transmise par ce chemin de composition. Dans `Menu.Content`, entourez les éléments défilants avec `Menu.Viewport`. Conservez l’éventuel `Menu.Arrow` comme enfant direct de `Menu.Content`, à côté du viewport, afin qu’il ne soit pas rogné pendant le défilement. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
+`MenuPositioner`, `MenuContent` et `MenuViewport` sont des parties distinctes, mais le positionneur est automatiquement rendu dans un portail. Définissez `portalled={false}` dans une boîte de dialogue ou un conteneur défilant, et utilisez `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` lorsque ce conteneur peut défiler. Utilisez `asChild` avec exactement un enfant sémantique lorsqu’un déclencheur, un élément ou l’hôte du contenu doit porter le nœud DOM. En Solid, assignez la ref à l’élément créé dans la fonction de rendu `asChild`, car une ref posée sur une partie `Menu` elle-même n’est pas transmise par ce chemin de composition. Dans `MenuContent`, entourez les éléments défilants avec `MenuViewport`. Conservez l’éventuel `MenuArrow` comme enfant direct de `MenuContent`, à côté du viewport, afin qu’il ne soit pas rogné pendant le défilement. Un menu imbriqué est une autre racine `Menu` dans le contenu parent, avec ses propres parties `TriggerItem`, `Positioner` et `Content`.
 ## Exemples
 
 ### Options avec case à cocher
@@ -193,6 +229,7 @@ Utilisez ces éléments pour des options indépendantes qui peuvent être activ�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -205,6 +242,10 @@ Utilisez ces éléments pour des options indépendantes qui peuvent être activ�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidCheckboxItems} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueCheckboxItems} />
 
     </Tab>
   </Tabs>
@@ -219,7 +260,7 @@ Utilisez ces éléments pour des options indépendantes qui peuvent être activ�
 
 ### Menu contextuel
 
-Utilisez `Menu.ContextTrigger` lorsque les actions doivent apparaître après un clic droit. Sur les appareils tactiles et avec un stylet, un appui prolongé ouvre également le menu.
+Utilisez `MenuContextTrigger` lorsque les actions doivent apparaître après un clic droit. Sur les appareils tactiles et avec un stylet, un appui prolongé ouvre également le menu.
 
 <ExampleFrame variant="component">
   <MenuContext />
@@ -232,6 +273,7 @@ Utilisez `Menu.ContextTrigger` lorsque les actions doivent apparaître après un
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -244,6 +286,10 @@ Utilisez `Menu.ContextTrigger` lorsque les actions doivent apparaître après un
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidContext} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueContext} />
 
     </Tab>
   </Tabs>
@@ -271,6 +317,7 @@ Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir o
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -283,6 +330,10 @@ Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir o
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidControlled} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueControlled} />
 
     </Tab>
   </Tabs>
@@ -297,7 +348,7 @@ Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir o
 
 ### Regroupement
 
-Utilisez `Menu.ItemGroup` et `Menu.ItemGroupLabel` pour organiser les éléments associés, et `Menu.Separator` pour séparer les groupes.
+Utilisez `MenuItemGroup` et `MenuItemGroupLabel` pour organiser les éléments associés, et `MenuSeparator` pour séparer les groupes.
 
 <ExampleFrame variant="component">
   <MenuGrouping />
@@ -310,6 +361,7 @@ Utilisez `Menu.ItemGroup` et `Menu.ItemGroupLabel` pour organiser les éléments
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -322,6 +374,10 @@ Utilisez `Menu.ItemGroup` et `Menu.ItemGroupLabel` pour organiser les éléments
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidGrouping} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueGrouping} />
 
     </Tab>
   </Tabs>
@@ -349,6 +405,7 @@ Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec cas
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -361,6 +418,10 @@ Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec cas
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidIndicatorPlacement} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueIndicatorPlacement} />
 
     </Tab>
   </Tabs>
@@ -375,7 +436,7 @@ Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec cas
 
 ### Contexte de l’élément
 
-Utilisez `Menu.ItemContext` lorsque le contenu d’un élément doit réagir à son état, par exemple lorsqu’il est mis en évidence.
+Utilisez `MenuItemContext` lorsque le contenu d’un élément doit réagir à son état, par exemple lorsqu’il est mis en évidence.
 
 <ExampleFrame variant="component">
   <MenuItemContext />
@@ -388,6 +449,7 @@ Utilisez `Menu.ItemContext` lorsque le contenu d’un élément doit réagir à 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -400,6 +462,10 @@ Utilisez `Menu.ItemContext` lorsque le contenu d’un élément doit réagir à 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidItemContext} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueItemContext} />
 
     </Tab>
   </Tabs>
@@ -427,6 +493,7 @@ Par défaut, le contenu du menu contextuel est monté à la première ouverture 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -439,6 +506,10 @@ Par défaut, le contenu du menu contextuel est monté à la première ouverture 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidLazyMountedContext} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueLazyMountedContext} />
 
     </Tab>
   </Tabs>
@@ -453,7 +524,7 @@ Par défaut, le contenu du menu contextuel est monté à la première ouverture 
 
 ### Liens
 
-Utilisez `Menu.Item asChild` et faites de l’ancre l’élément de menu lui-même. Elle recevra ainsi les attributs ARIA, le comportement clavier et la gestion du focus de l’élément de menu.
+Utilisez `MenuItem asChild` et faites de l’ancre l’élément de menu lui-même. Elle recevra ainsi les attributs ARIA, le comportement clavier et la gestion du focus de l’élément de menu.
 
 <ExampleFrame variant="component">
   <MenuLinks />
@@ -466,6 +537,7 @@ Utilisez `Menu.Item asChild` et faites de l’ancre l’élément de menu lui-m�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -478,6 +550,10 @@ Utilisez `Menu.Item asChild` et faites de l’ancre l’élément de menu lui-m�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidLinks} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueLinks} />
 
     </Tab>
   </Tabs>
@@ -505,6 +581,7 @@ Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une bo
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -517,6 +594,10 @@ Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une bo
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidInDialog} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueInDialog} />
 
     </Tab>
   </Tabs>
@@ -531,7 +612,7 @@ Définissez `portalled={false}` pour garder la fenêtre contextuelle dans une bo
 
 ### Plusieurs déclencheurs
 
-Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `value` distincte à chaque `Menu.Trigger`. Le menu se repositionne par rapport au déclencheur qui l’a ouvert.
+Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `value` distincte à chaque `MenuTrigger`. Le menu se repositionne par rapport au déclencheur qui l’a ouvert.
 
 <ExampleFrame variant="component">
   <MenuMultipleTriggers />
@@ -544,6 +625,7 @@ Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `v
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -556,6 +638,10 @@ Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `v
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidMultipleTriggers} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -570,7 +656,7 @@ Partagez un même menu entre plusieurs déclencheurs en attribuant une valeur `v
 
 ### Menu imbriqué
 
-Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `Menu.TriggerItem`.
+Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `MenuTriggerItem`.
 
 <ExampleFrame variant="component">
   <MenuNested />
@@ -583,6 +669,7 @@ Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `Menu.T
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -595,6 +682,10 @@ Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `Menu.T
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidNested} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueNested} />
 
     </Tab>
   </Tabs>
@@ -609,7 +700,7 @@ Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `Menu.T
 
 ### Options à choix unique
 
-Utilisez `Menu.RadioItemGroup` lorsque l’utilisateur doit choisir une seule valeur parmi plusieurs options. Définissez `closeOnSelect={false}` si le menu doit rester ouvert pendant la sélection.
+Utilisez `MenuRadioItemGroup` lorsque l’utilisateur doit choisir une seule valeur parmi plusieurs options. Définissez `closeOnSelect={false}` si le menu doit rester ouvert pendant la sélection.
 
 <ExampleFrame variant="component">
   <MenuRadioItems />
@@ -622,6 +713,7 @@ Utilisez `Menu.RadioItemGroup` lorsque l’utilisateur doit choisir une seule va
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -634,6 +726,10 @@ Utilisez `Menu.RadioItemGroup` lorsque l’utilisateur doit choisir une seule va
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidRadioItems} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueRadioItems} />
 
     </Tab>
   </Tabs>
@@ -648,7 +744,7 @@ Utilisez `Menu.RadioItemGroup` lorsque l’utilisateur doit choisir une seule va
 
 ### Utiliser `RootProvider`
 
-Utilisez `useMenu` et `Menu.RootProvider` lorsque du code situé en dehors de l’arbre rendu doit lire ou modifier l’état du menu.
+Utilisez `useMenu` et `MenuRootProvider` lorsque du code situé en dehors de l’arbre rendu doit lire ou modifier l’état du menu.
 
 <ExampleFrame variant="component">
   <MenuRootProvider />
@@ -661,6 +757,7 @@ Utilisez `useMenu` et `Menu.RootProvider` lorsque du code situé en dehors de l�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -673,6 +770,10 @@ Utilisez `useMenu` et `Menu.RootProvider` lorsque du code situé en dehors de l�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidRootProvider} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -700,6 +801,7 @@ Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit r�
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -712,6 +814,10 @@ Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit r�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidSelectEvent} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueSelectEvent} />
 
     </Tab>
   </Tabs>
@@ -726,7 +832,7 @@ Utilisez `onSelect(details)` sur la racine lorsqu’un seul gestionnaire doit r�
 
 ### Avec flèche
 
-Ajoutez `Menu.Arrow` et `Menu.ArrowTip` directement dans `Menu.Content` lorsque la fenêtre contextuelle doit être visuellement reliée à son déclencheur.
+Ajoutez `MenuArrow` et `MenuArrowTip` directement dans `MenuContent` lorsque la fenêtre contextuelle doit être visuellement reliée à son déclencheur.
 
 <ExampleFrame variant="component">
   <MenuWithArrow />
@@ -739,6 +845,7 @@ Ajoutez `Menu.Arrow` et `Menu.ArrowTip` directement dans `Menu.Content` lorsque 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -751,6 +858,10 @@ Ajoutez `Menu.Arrow` et `Menu.ArrowTip` directement dans `Menu.Content` lorsque 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidWithArrow} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueWithArrow} />
 
     </Tab>
   </Tabs>
@@ -773,6 +884,7 @@ Utilisez les composants utilitaires pour les mises en page courantes, puis compo
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -785,6 +897,10 @@ Utilisez les composants utilitaires pour les mises en page courantes, puis compo
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={menuSolidAdvancedCustomization} />
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={menuVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -793,6 +909,8 @@ Utilisez les composants utilitaires pour les mises en page courantes, puis compo
 </ExampleCode>
 
 ## Styles
+
+Utilisez `className` dans React, ou `class` dans Solid et Vue, sur les parties exportées pour appliquer des styles structurels. Pour les styles liés à un état, privilégiez les attributs de données Ark tels que `data-state`, `data-disabled` et `data-highlighted`, avec les sélecteurs `data-slot` de moduix. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du consommateur ; les variables CSS ci-dessous personnalisent les variantes CSS Modules. Les attributs de données et les sélecteurs `data-slot` sont communs aux deux modes de style.
 
 ### Propriétés CSS
 

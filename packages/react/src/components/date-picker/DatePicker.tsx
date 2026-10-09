@@ -28,7 +28,10 @@ import styles from './DatePicker.module.css';
 type DatePickerRootProps = ComponentProps<typeof DatePickerPrimitive.Root> & OverlayPortalProps;
 type DatePickerRootProviderProps = ComponentProps<typeof DatePickerPrimitive.RootProvider> &
   OverlayPortalProps;
-type DatePickerFieldProps = ComponentProps<typeof DatePickerPrimitive.Control> & {
+type DatePickerFieldProps = Omit<
+  ComponentProps<typeof DatePickerPrimitive.Control>,
+  'asChild' | 'children'
+> & {
   clearLabel?: string;
   clearTriggerProps?: ComponentProps<typeof DatePickerPrimitive.ClearTrigger>;
   inputProps?: ComponentProps<typeof DatePickerPrimitive.Input>;
@@ -36,7 +39,10 @@ type DatePickerFieldProps = ComponentProps<typeof DatePickerPrimitive.Control> &
   triggerLabel?: string;
   triggerProps?: ComponentProps<typeof DatePickerPrimitive.Trigger>;
 };
-type DatePickerRangeFieldProps = ComponentProps<typeof DatePickerPrimitive.Control> & {
+type DatePickerRangeFieldProps = Omit<
+  ComponentProps<typeof DatePickerPrimitive.Control>,
+  'asChild' | 'children'
+> & {
   clearLabel?: string;
   clearTriggerProps?: ComponentProps<typeof DatePickerPrimitive.ClearTrigger>;
   endInputProps?: ComponentProps<typeof DatePickerPrimitive.Input>;
@@ -47,50 +53,52 @@ type DatePickerRangeFieldProps = ComponentProps<typeof DatePickerPrimitive.Contr
   triggerProps?: ComponentProps<typeof DatePickerPrimitive.Trigger>;
 };
 type DatePickerOffset = ReturnType<UseDatePickerReturn['getOffset']>;
-type DatePickerDayTableProps = ComponentProps<typeof DatePickerPrimitive.Table> & {
+type DatePickerDayTableProps = Omit<
+  ComponentProps<typeof DatePickerPrimitive.Table>,
+  'asChild' | 'children'
+> & {
   offset?: DatePickerOffset;
   showHeader?: boolean;
   showWeekNumbers?: boolean;
 };
 
-const DatePickerRoot = forwardRef<
-  ComponentRef<typeof DatePickerPrimitive.Root>,
-  DatePickerRootProps
->(function DatePickerRoot(
-  {
-    className,
-    disabled,
-    invalid,
-    lazyMount = true,
-    portalled,
-    portalRef,
-    readOnly,
-    required,
-    unmountOnExit = true,
-    ...props
-  },
-  ref,
-) {
-  const field = useFieldContext();
-  const fieldset = useFieldsetContext();
+const DatePicker = forwardRef<ComponentRef<typeof DatePickerPrimitive.Root>, DatePickerRootProps>(
+  function DatePicker(
+    {
+      className,
+      disabled,
+      invalid,
+      lazyMount = true,
+      portalled,
+      portalRef,
+      readOnly,
+      required,
+      unmountOnExit = true,
+      ...props
+    },
+    ref,
+  ) {
+    const field = useFieldContext();
+    const fieldset = useFieldsetContext();
 
-  return (
-    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DatePickerPrimitive.Root
-        ref={ref}
-        className={clsx(styles.root, className)}
-        disabled={disabled ?? field?.disabled ?? fieldset?.disabled}
-        invalid={invalid ?? field?.invalid ?? fieldset?.invalid}
-        lazyMount={lazyMount}
-        readOnly={readOnly ?? field?.readOnly}
-        required={required ?? field?.required}
-        unmountOnExit={unmountOnExit}
-        {...props}
-        data-slot="date-picker-root"
-      />
-    </OverlayPortalProvider>
-  );
-});
+    return (
+      <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+        <DatePickerPrimitive.Root
+          ref={ref}
+          className={clsx(styles.root, className)}
+          disabled={disabled ?? field?.disabled ?? fieldset?.disabled}
+          invalid={invalid ?? field?.invalid ?? fieldset?.invalid}
+          lazyMount={lazyMount}
+          readOnly={readOnly ?? field?.readOnly}
+          required={required ?? field?.required}
+          unmountOnExit={unmountOnExit}
+          {...props}
+          data-slot="date-picker-root"
+        />
+      </OverlayPortalProvider>
+    );
+  },
+);
 
 const DatePickerRootProvider = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.RootProvider>,
@@ -149,20 +157,10 @@ const DatePickerField = forwardRef<
   ref,
 ) {
   return (
-    <DatePickerControl ref={ref} {...props}>
-      <DatePickerInput
-        {...(placeholder === undefined ? {} : { placeholder })}
-        {...inputProps}
-        index={0}
-      />
-      <DatePickerClearTrigger
-        {...(clearLabel === undefined ? {} : { 'aria-label': clearLabel })}
-        {...clearTriggerProps}
-      />
-      <DatePickerTrigger
-        {...(triggerLabel === undefined ? {} : { 'aria-label': triggerLabel })}
-        {...triggerProps}
-      />
+    <DatePickerControl ref={ref} {...props} asChild={false}>
+      <DatePickerInput placeholder={placeholder} {...inputProps} index={0} />
+      <DatePickerClearTrigger aria-label={clearLabel} {...clearTriggerProps} />
+      <DatePickerTrigger aria-label={triggerLabel} {...triggerProps} />
     </DatePickerControl>
   );
 });
@@ -185,25 +183,11 @@ const DatePickerRangeField = forwardRef<
   ref,
 ) {
   return (
-    <DatePickerControl ref={ref} {...props}>
-      <DatePickerInput
-        {...(startPlaceholder === undefined ? {} : { placeholder: startPlaceholder })}
-        {...startInputProps}
-        index={0}
-      />
-      <DatePickerInput
-        {...(endPlaceholder === undefined ? {} : { placeholder: endPlaceholder })}
-        {...endInputProps}
-        index={1}
-      />
-      <DatePickerClearTrigger
-        {...(clearLabel === undefined ? {} : { 'aria-label': clearLabel })}
-        {...clearTriggerProps}
-      />
-      <DatePickerTrigger
-        {...(triggerLabel === undefined ? {} : { 'aria-label': triggerLabel })}
-        {...triggerProps}
-      />
+    <DatePickerControl ref={ref} {...props} asChild={false}>
+      <DatePickerInput placeholder={startPlaceholder} {...startInputProps} index={0} />
+      <DatePickerInput placeholder={endPlaceholder} {...endInputProps} index={1} />
+      <DatePickerClearTrigger aria-label={clearLabel} {...clearTriggerProps} />
+      <DatePickerTrigger aria-label={triggerLabel} {...triggerProps} />
     </DatePickerControl>
   );
 });
@@ -260,20 +244,17 @@ const DatePickerClearTrigger = forwardRef<
       ref={ref}
       asChild
       className={triggerClassName}
-      {...(asChild && ariaLabel !== undefined ? { 'aria-label': ariaLabel } : {})}
-      {...(asChild && ariaLabelledBy !== undefined ? { 'aria-labelledby': ariaLabelledBy } : {})}
+      aria-label={asChild ? ariaLabel : undefined}
+      aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
       data-slot="date-picker-clear-trigger"
     >
       {asChild ? (
         children
       ) : (
-        <CloseButton.Root
-          {...(ariaLabel === undefined ? {} : { 'aria-label': ariaLabel })}
-          {...(ariaLabelledBy === undefined ? {} : { 'aria-labelledby': ariaLabelledBy })}
-        >
+        <CloseButton aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
           {children}
-        </CloseButton.Root>
+        </CloseButton>
       )}
     </DatePickerPrimitive.ClearTrigger>
   );
@@ -551,7 +532,7 @@ const DatePickerDayTable = forwardRef<
               <DatePickerNextTrigger />
             </DatePickerViewControl>
           ) : null}
-          <DatePickerTable ref={ref} {...props}>
+          <DatePickerTable ref={ref} {...props} asChild={false}>
             <DatePickerTableHead>
               <DatePickerTableRow>
                 {showWeekNumbers ? <DatePickerWeekNumberHeaderCell /> : null}
@@ -592,28 +573,50 @@ const DatePickerDayTable = forwardRef<
 const DatePickerMonthSelect = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.MonthSelect>,
   ComponentProps<typeof DatePickerPrimitive.MonthSelect>
->(function DatePickerMonthSelect({ className, ...props }, ref) {
+>(function DatePickerMonthSelect({ className, multiple, size, ...props }, ref) {
   return (
-    <DatePickerPrimitive.MonthSelect
-      ref={ref}
-      className={clsx(styles.select, className)}
-      {...props}
-      data-slot="date-picker-month-select"
-    />
+    <span className={styles.selectControl} data-slot="date-picker-month-select-control">
+      <DatePickerPrimitive.MonthSelect
+        ref={ref}
+        {...props}
+        multiple={multiple}
+        size={size}
+        className={clsx(styles.select, className)}
+        data-slot="date-picker-month-select"
+      />
+      <span
+        aria-hidden="true"
+        className={styles.selectIndicator}
+        data-slot="date-picker-month-select-indicator"
+      >
+        <ChevronDownIcon />
+      </span>
+    </span>
   );
 });
 
 const DatePickerYearSelect = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.YearSelect>,
   ComponentProps<typeof DatePickerPrimitive.YearSelect>
->(function DatePickerYearSelect({ className, ...props }, ref) {
+>(function DatePickerYearSelect({ className, multiple, size, ...props }, ref) {
   return (
-    <DatePickerPrimitive.YearSelect
-      ref={ref}
-      className={clsx(styles.select, className)}
-      {...props}
-      data-slot="date-picker-year-select"
-    />
+    <span className={styles.selectControl} data-slot="date-picker-year-select-control">
+      <DatePickerPrimitive.YearSelect
+        ref={ref}
+        {...props}
+        multiple={multiple}
+        size={size}
+        className={clsx(styles.select, className)}
+        data-slot="date-picker-year-select"
+      />
+      <span
+        aria-hidden="true"
+        className={styles.selectIndicator}
+        data-slot="date-picker-year-select-indicator"
+      >
+        <ChevronDownIcon />
+      </span>
+    </span>
   );
 });
 
@@ -646,42 +649,44 @@ const DatePickerValueText = forwardRef<
   );
 });
 
-const DatePicker = Object.assign(DatePickerRoot, {
-  Root: DatePickerRoot,
-  RootProvider: DatePickerRootProvider,
-  Context: DatePickerPrimitive.Context,
-  Label: DatePickerLabel,
-  Control: DatePickerControl,
-  Field: DatePickerField,
-  RangeField: DatePickerRangeField,
-  Input: DatePickerInput,
-  Trigger: DatePickerTrigger,
-  ClearTrigger: DatePickerClearTrigger,
-  Positioner: DatePickerPositioner,
-  Content: DatePickerContent,
-  View: DatePickerView,
-  ViewControl: DatePickerViewControl,
-  PrevTrigger: DatePickerPrevTrigger,
-  NextTrigger: DatePickerNextTrigger,
-  ViewTrigger: DatePickerViewTrigger,
-  RangeText: DatePickerRangeText,
-  ValueText: DatePickerValueText,
-  Table: DatePickerTable,
-  TableHead: DatePickerTableHead,
-  TableBody: DatePickerTableBody,
-  TableRow: DatePickerTableRow,
-  TableHeader: DatePickerTableHeader,
-  TableCell: DatePickerTableCell,
-  TableCellTrigger: DatePickerTableCellTrigger,
-  DayTable: DatePickerDayTable,
-  WeekNumberHeaderCell: DatePickerWeekNumberHeaderCell,
-  WeekNumberCell: DatePickerWeekNumberCell,
-  MonthSelect: DatePickerMonthSelect,
-  YearSelect: DatePickerYearSelect,
-  PresetTrigger: DatePickerPresetTrigger,
-});
+const DatePickerContext = DatePickerPrimitive.Context;
 
-export { DatePicker, useDatePicker, useDatePickerContext };
+export {
+  DatePicker,
+  DatePickerClearTrigger,
+  DatePickerContext,
+  DatePickerContent,
+  DatePickerControl,
+  DatePickerDayTable,
+  DatePickerField,
+  DatePickerInput,
+  DatePickerLabel,
+  DatePickerMonthSelect,
+  DatePickerNextTrigger,
+  DatePickerPositioner,
+  DatePickerPresetTrigger,
+  DatePickerPrevTrigger,
+  DatePickerRangeField,
+  DatePickerRangeText,
+  DatePickerRootProvider,
+  DatePickerTable,
+  DatePickerTableBody,
+  DatePickerTableCell,
+  DatePickerTableCellTrigger,
+  DatePickerTableHead,
+  DatePickerTableHeader,
+  DatePickerTableRow,
+  DatePickerTrigger,
+  DatePickerValueText,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerViewTrigger,
+  DatePickerWeekNumberCell,
+  DatePickerWeekNumberHeaderCell,
+  DatePickerYearSelect,
+  useDatePicker,
+  useDatePickerContext,
+};
 export type {
   DatePickerDayTableProps,
   DatePickerFieldProps,

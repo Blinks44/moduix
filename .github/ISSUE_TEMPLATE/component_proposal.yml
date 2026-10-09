@@ -1,0 +1,33 @@
+name: Component proposal
+description: Propose a new component or a public API change for moduix
+labels: ['enhancement']
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user need or workflow is not covered today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed component or API
+      description: |
+        Sketch the flat public API: the family root name and the family-prefixed parts, for
+        example `Accordion`, `AccordionItem`, `AccordionItemTrigger`. Mention the upstream Ark UI
+        primitive if one exists.
+    validations:
+      required: true
+  - type: checkboxes
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: Which existing components or workarounds did you consider?
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: This should ship to every framework adapter (React, Solid, and planned adapters)
+        - label: This should also be available through the shadcn registry

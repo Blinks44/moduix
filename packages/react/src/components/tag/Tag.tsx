@@ -2,12 +2,13 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseButton } from '../close-button';
 import styles from './Tag.module.css';
 
 type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
 type TagSize = 'sm' | 'md';
-type TagRootProps = HTMLArkProps<'span'> & {
+type TagProps = HTMLArkProps<'span'> & {
   variant?: TagVariant;
   size?: TagSize;
 };
@@ -16,9 +17,7 @@ type TagStartElementProps = HTMLArkProps<'span'>;
 type TagEndElementProps = HTMLArkProps<'span'>;
 type TagCloseTriggerProps = HTMLArkProps<'button'>;
 
-const DEFAULT_CLOSE_LABEL = 'Remove tag';
-
-const TagRoot = forwardRef<HTMLSpanElement, TagRootProps>(function TagRoot(
+const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
   { className, size = 'md', variant = 'default', ...props },
   ref,
 ) {
@@ -84,7 +83,7 @@ const TagEndElement = forwardRef<HTMLSpanElement, TagEndElementProps>(function T
   );
 });
 
-const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagCloseTriggerProps>(
+const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton>, TagCloseTriggerProps>(
   function TagCloseTrigger(
     {
       asChild,
@@ -97,7 +96,7 @@ const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagClo
     ref,
   ) {
     return (
-      <CloseButton.Root
+      <CloseButton
         ref={ref}
         asChild={asChild}
         {...props}
@@ -106,23 +105,15 @@ const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton.Root>, TagClo
         data-slot="tag-close-trigger"
         aria-label={
           ariaLabel ??
-          (!asChild && children == null && ariaLabelledBy == null ? DEFAULT_CLOSE_LABEL : undefined)
+          (!asChild && children == null && ariaLabelledBy == null ? a11yLabels.closeTag : undefined)
         }
         aria-labelledby={ariaLabelledBy}
         className={clsx(styles.closeTrigger, className)}
       >
         {children}
-      </CloseButton.Root>
+      </CloseButton>
     );
   },
 );
 
-const Tag = Object.assign(TagRoot, {
-  Root: TagRoot,
-  Label: TagLabel,
-  StartElement: TagStartElement,
-  EndElement: TagEndElement,
-  CloseTrigger: TagCloseTrigger,
-});
-
-export { Tag };
+export { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement };

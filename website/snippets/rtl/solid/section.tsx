@@ -1,7 +1,17 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { Button } from '@moduix/solid/button';
 import { LocaleProvider } from '@moduix/solid/locale';
-import { Select } from '@moduix/solid/select';
+import {
+  Select,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItemGroup,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/solid/select';
 import { For } from 'solid-js';
 
 const cities = createListCollection({
@@ -16,22 +26,22 @@ export function ArabicPreferences() {
     <div dir="rtl" lang="ar">
       <LocaleProvider locale="ar-EG">
         <Select collection={cities}>
-          <Select.Label>المدينة</Select.Label>
-          <Select.Field placeholder="اختر مدينة" />
-          <Select.Positioner>
-            <Select.Content>
-              <Select.ItemGroup>
+          <SelectLabel>المدينة</SelectLabel>
+          <SelectField placeholder="اختر مدينة" />
+          <SelectPositioner>
+            <SelectContent>
+              <SelectItemGroup>
                 <For each={cities.items}>
                   {(city) => (
-                    <Select.Item item={city}>
-                      <Select.ItemText>{city.label}</Select.ItemText>
-                      <Select.ItemIndicator />
-                    </Select.Item>
+                    <SelectItem item={city}>
+                      <SelectItemText>{city.label}</SelectItemText>
+                      <SelectItemIndicator />
+                    </SelectItem>
                   )}
                 </For>
-              </Select.ItemGroup>
-            </Select.Content>
-          </Select.Positioner>
+              </SelectItemGroup>
+            </SelectContent>
+          </SelectPositioner>
         </Select>
         <Button>حفظ</Button>
       </LocaleProvider>

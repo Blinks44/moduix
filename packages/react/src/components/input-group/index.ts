@@ -1,1 +1,1 @@
-export { InputGroup } from './InputGroup.js';
+export * from './InputGroup.js';

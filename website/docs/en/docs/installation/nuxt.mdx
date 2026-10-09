@@ -1,0 +1,193 @@
+---
+title: Nuxt
+description: Integrate moduix with Nuxt 4 through Vue packages or shadcn, including global styles, Tailwind sources, aliases, SSR, and hydration.
+---
+
+import VueCssModules from '../../../../snippets/quick-start/vue-css-modules.vue?raw';
+import VueTailwind from '../../../../snippets/quick-start/vue-tailwind.vue?raw';
+import shadcnAccordionVue from '../../../../snippets/quick-start/shadcn-accordion-vue.vue?raw';
+
+# Nuxt
+
+This guide assumes an existing Nuxt 4 application with the default `app/` source directory. Nuxt
+renders Vue components on the server and hydrates them in the browser.
+
+## Choose your setup
+
+- **Runtime:** Vue 3.5 or later in the 3.x line, provided by Nuxt.
+- **Styling:** CSS Modules or Tailwind CSS v4, already configured in the application.
+- **Distribution:** a package or source copied with the shadcn CLI.
+
+Use the Vue track from the shared [package setup](/docs/quick-start#install-as-a-package) or
+[shadcn setup](/docs/quick-start#install-with-the-shadcn-cli). Nuxt uses `@moduix/vue` and
+`@moduix/vue-tailwind`, or the `@moduix-vue` and `@moduix-vue-tailwind` registry namespaces.
+
+## Install as a package
+
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
+
+Add the reset and foundation stylesheet to Nuxt's global `css` array. Add the package to
+`build.transpile` so the server build processes its component CSS imports instead of loading CSS
+directly in Node.js:
+
+```ts title="nuxt.config.ts"
+export default defineNuxtConfig({
+  css: ['@moduix/vue/reset.css', '@moduix/vue/style.css'],
+  build: {
+    transpile: ['@moduix/vue'],
+  },
+});
+```
+
+If the application already has an equivalent reset, omit `@moduix/vue/reset.css`.
+
+Import the component parts explicitly from their package subpath:
+
+<CodeBlockRuntime lang="vue" title="app/app.vue" code={VueCssModules} />
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+<PackageManagerTabs command="install @moduix/vue-tailwind @ark-ui/vue" />
+
+Keep the application's existing Tailwind CSS v4 integration and load its stylesheet globally:
+
+```ts title="nuxt.config.ts"
+export default defineNuxtConfig({
+  css: ['~/assets/css/main.css'],
+});
+```
+
+Load the moduix foundation before Tailwind and scan the installed component utilities:
+
+```css title="app/assets/css/main.css"
+@import '@moduix/vue-tailwind/style.css';
+@import 'tailwindcss';
+
+@source '../../../node_modules/@moduix/vue-tailwind/dist/components';
+```
+
+The `@source` path is relative to this stylesheet. Tailwind Preflight supplies the reset.
+
+<CodeBlockRuntime lang="vue" title="app/app.vue" code={VueTailwind} />
+
+  </Tab>
+</Tabs>
+
+Merge these settings into the existing Nuxt configuration. The Accordion example supports SSR and
+does not need a `<ClientOnly>` wrapper. Keep browser-only application code in `onMounted` or a
+client-only component.
+
+## Install with the shadcn CLI
+
+Complete the shared [shadcn setup](/docs/quick-start#install-with-the-shadcn-cli) with the Vue
+namespace for your styling track. Keep `rsc: false`; use the `shadcn` CLI shown here with the moduix
+registry, without adding a Nuxt component module.
+
+Nuxt already resolves `@` and `~` to its source directory. With Nuxt 4's default layout, both point
+to `app/`. The shadcn CLI also needs that mapping in the root `tsconfig.json`; add `compilerOptions`
+while preserving Nuxt's project references:
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./app/*"]
+    }
+  },
+  "files": [],
+  "references": [
+    { "path": "./.nuxt/tsconfig.app.json" },
+    { "path": "./.nuxt/tsconfig.server.json" },
+    { "path": "./.nuxt/tsconfig.shared.json" },
+    { "path": "./.nuxt/tsconfig.node.json" }
+  ]
+}
+```
+
+Run Nuxt's `prepare` command before the CLI if `.nuxt` has not been generated. With a custom
+`srcDir`, adjust this mapping to match it. Do not edit Nuxt's generated TypeScript configurations.
+
+For Tailwind, set `tailwind.css` to `app/assets/css/main.css` in `components.json` before adding a
+component, and keep `tailwind.config` empty for v4.
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/accordion' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/accordion' },
+  ]}
+/>
+
+The CLI places component source in `app/components/ui/accordion` and shared files in
+`app/lib/moduix`. Limit Nuxt's component auto-import scan to `.vue` files so the generated
+`index.ts` barrels do not compete with the SFCs for component names:
+
+<Tabs groupId="styling">
+  <Tab label="CSS Modules" value="css-modules">
+
+If the application needs the moduix reset, add it separately:
+
+<PackageManagerTabs command="shadcn@latest add @moduix-vue/reset" dlx />
+
+Load the generated styles instead of the package styles:
+
+```ts title="nuxt.config.ts"
+export default defineNuxtConfig({
+  components: [{ path: '~/components', extensions: ['vue'] }],
+  css: ['~/lib/moduix/styles/reset.css', '~/lib/moduix/styles/style.css'],
+});
+```
+
+Omit the reset entry when using the application's own reset. Registry source is compiled as part
+of the application, so it does not need the package's `build.transpile` entry.
+
+  </Tab>
+  <Tab label="Tailwind CSS" value="tailwind">
+
+Use the generated foundation in the application's Tailwind stylesheet:
+
+```css title="app/assets/css/main.css"
+@import '../../lib/moduix/styles/style.css';
+@import 'tailwindcss';
+```
+
+The generated components live in your application source, so the package's `@source` directive is
+not needed. Keep the existing Tailwind integration and load the stylesheet globally:
+
+```ts title="nuxt.config.ts"
+export default defineNuxtConfig({
+  components: [{ path: '~/components', extensions: ['vue'] }],
+  css: ['~/assets/css/main.css'],
+});
+```
+
+  </Tab>
+</Tabs>
+
+Preserve any additional component directories when merging the `components` setting. Import the
+flat component API explicitly from the generated barrel:
+
+<CodeBlockRuntime lang="vue" title="app/app.vue" code={shadcnAccordionVue} />
+
+For the [portal layering setup](/docs/quick-start#configure-portal-layering), Nuxt's default
+application root is `#__nuxt`. Add this rule to your global application stylesheet:
+
+```css
+#__nuxt {
+  isolation: isolate;
+}
+```
+
+## Verify
+
+Start the development server, then also build and preview the production application. The initial
+server response should include the Accordion and its styles. In the browser, it should hydrate
+without mismatches and respond to keyboard and pointer input. For the registry workflow, confirm
+that imports resolve under `app/components` and `app/lib`, with no component-name collision warnings.
+
+See Nuxt's official [styling guide](https://nuxt.com/docs/4.x/getting-started/styling),
+[TypeScript configuration](https://nuxt.com/docs/4.x/directory-structure/tsconfig), and
+[build.transpile reference](https://nuxt.com/docs/4.x/api/nuxt-config#transpile).

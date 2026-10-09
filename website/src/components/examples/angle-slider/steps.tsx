@@ -1,4 +1,10 @@
-import { AngleSlider } from '@moduix/react/angle-slider';
+import {
+  AngleSlider,
+  AngleSliderDial,
+  AngleSliderHiddenInput,
+  AngleSliderLabel,
+  AngleSliderMarks,
+} from '@moduix/react/angle-slider';
 import styles from '@/components/examples/angle-slider/angle-slider-steps.module.css';
 
 const initialValue = 60;
@@ -13,11 +19,11 @@ export default function SteppedAngleSliderDemo() {
       aria-label="Snap angle"
       className={styles.root}
     >
-      <AngleSlider.Label>15 Step</AngleSlider.Label>
-      <AngleSlider.Dial>
-        <AngleSlider.Marks values={markerValues} />
-      </AngleSlider.Dial>
-      <AngleSlider.HiddenInput />
+      <AngleSliderLabel>15 Step</AngleSliderLabel>
+      <AngleSliderDial>
+        <AngleSliderMarks values={markerValues} />
+      </AngleSliderDial>
+      <AngleSliderHiddenInput />
     </AngleSlider>
   );
 }

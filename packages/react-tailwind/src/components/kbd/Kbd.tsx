@@ -3,7 +3,7 @@ import { ark } from '@ark-ui/react/factory';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const KbdRoot = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function KbdRoot(
+const Kbd = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function Kbd(
   { className, ...props },
   ref,
 ) {
@@ -22,7 +22,7 @@ const KbdRoot = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function KbdRoot(
   );
 });
 
-const KbdGroupPart = forwardRef<HTMLElement, HTMLArkProps<'span'>>(function KbdGroupPart(
+const KbdGroup = forwardRef<HTMLElement, HTMLArkProps<'span'>>(function KbdGroup(
   { className, ...props },
   ref,
 ) {
@@ -42,9 +42,4 @@ const KbdGroupPart = forwardRef<HTMLElement, HTMLArkProps<'span'>>(function KbdG
   );
 });
 
-const Kbd = Object.assign(KbdRoot, {
-  Root: KbdRoot,
-  Group: KbdGroupPart,
-});
-
-export { Kbd };
+export { Kbd, KbdGroup };

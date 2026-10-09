@@ -1,5 +1,13 @@
 import { Button } from '@moduix/solid/button';
-import { Card } from '@moduix/solid/card';
+import {
+  Card,
+  CardBody,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardMedia,
+  CardTitle,
+} from '@moduix/solid/card';
 import styles from '@/components/examples/card/card-with-image.module.css';
 
 const product = {
@@ -14,17 +22,17 @@ const product = {
 export default function CardWithImageDemo() {
   return (
     <Card class={styles.root}>
-      <Card.Media>
+      <CardMedia>
         <img class={styles.image} src={product.image} alt={product.imageAlt} />
-      </Card.Media>
-      <Card.Header>
-        <Card.Title>{product.title}</Card.Title>
-        <Card.Description>{product.description}</Card.Description>
-      </Card.Header>
-      <Card.Body>{product.capacity}% allocated</Card.Body>
-      <Card.Footer>
+      </CardMedia>
+      <CardHeader>
+        <CardTitle>{product.title}</CardTitle>
+        <CardDescription>{product.description}</CardDescription>
+      </CardHeader>
+      <CardBody>{product.capacity}% allocated</CardBody>
+      <CardFooter>
         <Button variant="outline">Open report</Button>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   );
 }

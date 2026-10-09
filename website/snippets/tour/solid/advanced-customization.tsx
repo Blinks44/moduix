@@ -1,6 +1,21 @@
 import type { TourStepDetails } from '@ark-ui/solid/tour';
 import { Button } from '@moduix/solid/button';
-import { Tour, useTour } from '@moduix/solid/tour';
+import {
+  Tour,
+  TourBackdrop,
+  TourSpotlight,
+  TourPositioner,
+  TourContent,
+  TourTitle,
+  TourDescription,
+  TourProgressText,
+  TourBody,
+  TourCloseIcon,
+  TourControl,
+  TourActions,
+  TourActionTrigger,
+  useTour,
+} from '@moduix/solid/tour';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/tour/tour-advanced-customization.module.css';
 
@@ -39,21 +54,21 @@ export default function TourDemo() {
   return (
     <div class={styles.root}>
       <Tour tour={tour} lazyMount unmountOnExit>
-        <Tour.Backdrop />
-        <Tour.Spotlight />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.CloseIcon />
-            <Tour.Body>
-              <Tour.Title />
-              <Tour.Description />
-              <Tour.ProgressText />
-            </Tour.Body>
-            <Tour.Control>
-              <Tour.Actions>
+        <TourBackdrop />
+        <TourSpotlight />
+        <TourPositioner>
+          <TourContent>
+            <TourCloseIcon />
+            <TourBody>
+              <TourTitle />
+              <TourDescription />
+              <TourProgressText />
+            </TourBody>
+            <TourControl>
+              <TourActions>
                 {(actions) =>
                   actions().map((action) => (
-                    <Tour.ActionTrigger
+                    <TourActionTrigger
                       action={action}
                       asChild={(triggerProps) => (
                         <Button
@@ -66,10 +81,10 @@ export default function TourDemo() {
                     />
                   ))
                 }
-              </Tour.Actions>
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
+              </TourActions>
+            </TourControl>
+          </TourContent>
+        </TourPositioner>
       </Tour>
 
       <output>Tour: {status()}</output>

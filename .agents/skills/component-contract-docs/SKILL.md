@@ -6,7 +6,8 @@ description: Maintain component-local contract markdown in shipped framework pac
 # Component Contract Docs
 
 Own component-local markdown in `packages/<framework>/src/components` for shipped CSS Modules adapters.
-The current locations are `packages/react/src/components` and `packages/solid/src/components`.
+The current locations are `packages/react/src/components`, `packages/solid/src/components`, and
+`packages/vue/src/components`.
 It records the shipped moduix wrapper contract for maintainers; it is not a second public
 documentation site or a copy of upstream reference material.
 
@@ -19,6 +20,9 @@ duplicated local markdown unless they expose a genuine styling-specific contract
 ## Write the wrapper contract
 
 - Describe moduix's exported parts, defaults, composition, accessibility, styling hooks, and intentional differences from upstream.
+- Write every public value with the flat moduix name: the family-named root, family-prefixed parts,
+  and top-level hooks. Use `Accordion`, `AccordionItem`, `AccordionRootProvider`, and `useAccordion`,
+  never `Accordion.Root`, `Accordion.Item`, or `AccordionRoot`.
 - Use Ark and Chakra only to understand the model. Preserve the Ark mental model first, then explain moduix conveniences.
 - If no dedicated Ark primitive exists, say so plainly and name the exact Ark guide, factory model, or moduix-owned contract. Do not invent upstream anatomy.
 - Keep public identifiers, imports, callbacks, CSS variables, and state names exact.

@@ -11,10 +11,10 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import styles from './DateInput.module.css';
 
-const DateInputRoot = forwardRef<
+const DateInput = forwardRef<
   ComponentRef<typeof DateInputPrimitive.Root>,
   ComponentProps<typeof DateInputPrimitive.Root>
->(function DateInputRoot({ className, ...props }, ref) {
+>(function DateInput({ className, ...props }, ref) {
   return (
     <DateInputPrimitive.Root
       ref={ref}
@@ -108,35 +108,41 @@ const DateInputSegments = forwardRef<
   );
 });
 
-function DateInputSeparator({
-  className,
-  'aria-hidden': ariaHidden = true,
-  role = 'presentation',
-  ...props
-}: ComponentProps<'span'>) {
-  return (
-    <span
-      aria-hidden={ariaHidden}
-      role={role}
-      className={clsx(styles.separator, className)}
-      {...props}
-      data-slot="date-input-separator"
-    />
-  );
-}
+const DateInputSeparator = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
+  function DateInputSeparator(
+    { className, 'aria-hidden': ariaHidden = true, role = 'presentation', ...props },
+    ref,
+  ) {
+    return (
+      <span
+        ref={ref}
+        aria-hidden={ariaHidden}
+        role={role}
+        className={clsx(styles.separator, className)}
+        {...props}
+        data-slot="date-input-separator"
+      />
+    );
+  },
+);
 
-const DateInput = Object.assign(DateInputRoot, {
-  Root: DateInputRoot,
-  RootProvider: DateInputRootProvider,
-  HiddenInput: DateInputPrimitive.HiddenInput,
-  Label: DateInputLabel,
-  Control: DateInputControl,
-  SegmentGroup: DateInputSegmentGroup,
-  Segment: DateInputSegment,
-  Segments: DateInputSegments,
-  Separator: DateInputSeparator,
-  Context: DateInputPrimitive.Context,
-  SegmentContext: DateInputPrimitive.SegmentContext,
-});
+const DateInputHiddenInput = DateInputPrimitive.HiddenInput;
+const DateInputContext = DateInputPrimitive.Context;
+const DateInputSegmentContext = DateInputPrimitive.SegmentContext;
 
-export { DateInput, type DateInputDateValue, useDateInput, useDateInputContext };
+export {
+  DateInput,
+  DateInputContext,
+  DateInputControl,
+  DateInputHiddenInput,
+  DateInputLabel,
+  DateInputRootProvider,
+  DateInputSegment,
+  DateInputSegmentContext,
+  DateInputSegmentGroup,
+  DateInputSegments,
+  DateInputSeparator,
+  type DateInputDateValue,
+  useDateInput,
+  useDateInputContext,
+};

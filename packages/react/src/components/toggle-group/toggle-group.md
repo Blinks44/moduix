@@ -14,20 +14,21 @@ values.
 
 The wrapper follows Ark UI React `@ark-ui/react/toggle-group`.
 
-- The public parts are `Root`, `Item`, `RootProvider`, and `Context`.
+- The public values are `ToggleGroup`, `ToggleGroupItem`, `ToggleGroupRootProvider`, and
+  `ToggleGroupContext`.
 - `value` and `defaultValue` are `string[]` in single and multiple modes.
 - `onValueChange` receives Ark `details`; consumers read `details.value`.
-- `useToggleGroup()` creates a state instance for `ToggleGroup.RootProvider`.
+- `useToggleGroup()` creates a state instance for `ToggleGroupRootProvider`.
 - `useToggleGroupContext()` reads group state below an existing root/provider.
 - Ark owns roving focus, orientation-aware keyboard navigation, disabled state, ids, and item
   `data-state="on" | "off"`.
 
 ## Current behavior contract
 
-- `ToggleGroup` is the short root form and is equivalent to `ToggleGroup.Root`.
-- `ToggleGroup.Root` wraps `ArkToggleGroup.Root`.
-- `ToggleGroup.RootProvider` wraps `ArkToggleGroup.RootProvider`.
-- `ToggleGroup.Item` wraps `ArkToggleGroup.Item`.
+- `ToggleGroup` wraps `ArkToggleGroup.Root`.
+- `ToggleGroupRootProvider` wraps `ArkToggleGroup.RootProvider`.
+- `ToggleGroupItem` wraps `ArkToggleGroup.Item`.
+- `ToggleGroupContext` exposes `ArkToggleGroup.Context`.
 - moduix adds two visual props to root, root provider, and item:
   - `variant?: 'default' | 'outline' | 'ghost'`
   - `size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg'`
@@ -37,42 +38,42 @@ The wrapper follows Ark UI React `@ark-ui/react/toggle-group`.
 - Those styling hooks are wrapper-owned and cannot be replaced through HTML `data-*` props.
 - Items inherit the root/root-provider `variant` and `size` through a small local visual context.
   That context must not own selection, focus, disabled state, callbacks, ids, or ARIA behavior.
-- Flat `ToggleGroupItem`, legacy `render`, `nativeButton`, and raw-array `onValueChange` callback
-  compatibility are not part of this Ark-backed API.
+- Compound members, duplicate root aliases, legacy `render` and `nativeButton` props, and raw-array
+  `onValueChange` callbacks are not part of this Ark-backed API.
 - `ToggleGroupRootProps`, `ToggleGroupRootProviderProps`, `ToggleGroupItemProps`, `ToggleVariant`, and
   `ToggleSize` are exported for typed composition.
 
 ## Anatomy and exported parts
 
 ```text
-ToggleGroup / ToggleGroup.Root
-├─ ToggleGroup.Context (optional)
-└─ ToggleGroup.Item
+ToggleGroup
+├─ ToggleGroupContext (optional)
+└─ ToggleGroupItem
 
-ToggleGroup.RootProvider
-└─ ToggleGroup.Item
+ToggleGroupRootProvider
+└─ ToggleGroupItem
 ```
 
-| Part                               | data-slot                    | Purpose                                                |
-| ---------------------------------- | ---------------------------- | ------------------------------------------------------ |
-| `ToggleGroup` / `ToggleGroup.Root` | `toggle-group-root`          | Ark root with selected values, roving focus, and size. |
-| `ToggleGroup.RootProvider`         | `toggle-group-root-provider` | Ark root driven by an external `useToggleGroup` state. |
-| `ToggleGroup.Context`              | -                            | Render-prop access to current group state.             |
-| `ToggleGroup.Item`                 | `toggle-group-item`          | Ark item button styled with moduix toggle visuals.     |
+| Part                      | data-slot                    | Purpose                                                |
+| ------------------------- | ---------------------------- | ------------------------------------------------------ |
+| `ToggleGroup`             | `toggle-group-root`          | Ark root with selected values, roving focus, and size. |
+| `ToggleGroupRootProvider` | `toggle-group-root-provider` | Ark root driven by an external `useToggleGroup` state. |
+| `ToggleGroupContext`      | -                            | Render-prop access to current group state.             |
+| `ToggleGroupItem`         | `toggle-group-item`          | Ark item button styled with moduix toggle visuals.     |
 
 ## Composition
 
 Canonical usage:
 
 ```tsx
-import { ToggleGroup } from '@moduix/react/toggle-group';
+import { ToggleGroup, ToggleGroupItem } from '@moduix/react/toggle-group';
 
 export function ToggleGroupDemo() {
   return (
     <ToggleGroup defaultValue={['left']} aria-label="Text alignment">
-      <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
-      <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
-      <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
+      <ToggleGroupItem value="left">Left</ToggleGroupItem>
+      <ToggleGroupItem value="center">Center</ToggleGroupItem>
+      <ToggleGroupItem value="right">Right</ToggleGroupItem>
     </ToggleGroup>
   );
 }
@@ -81,7 +82,7 @@ export function ToggleGroupDemo() {
 Controlled usage keeps Ark callback details:
 
 ```tsx
-import { ToggleGroup } from '@moduix/react/toggle-group';
+import { ToggleGroup, ToggleGroupItem } from '@moduix/react/toggle-group';
 import { useState } from 'react';
 
 export function ControlledToggleGroupDemo() {
@@ -93,9 +94,9 @@ export function ControlledToggleGroupDemo() {
       onValueChange={(details) => setValue(details.value)}
       aria-label="View mode"
     >
-      <ToggleGroup.Item value="list">List</ToggleGroup.Item>
-      <ToggleGroup.Item value="grid">Grid</ToggleGroup.Item>
-      <ToggleGroup.Item value="map">Map</ToggleGroup.Item>
+      <ToggleGroupItem value="list">List</ToggleGroupItem>
+      <ToggleGroupItem value="grid">Grid</ToggleGroupItem>
+      <ToggleGroupItem value="map">Map</ToggleGroupItem>
     </ToggleGroup>
   );
 }
@@ -104,27 +105,31 @@ export function ControlledToggleGroupDemo() {
 Root provider usage:
 
 ```tsx
-import { ToggleGroup, useToggleGroup } from '@moduix/react/toggle-group';
+import {
+  ToggleGroupItem,
+  ToggleGroupRootProvider,
+  useToggleGroup,
+} from '@moduix/react/toggle-group';
 
 export function RootProviderToggleGroupDemo() {
   const toggleGroup = useToggleGroup({ defaultValue: ['left'] });
 
   return (
-    <ToggleGroup.RootProvider value={toggleGroup} aria-label="Text alignment">
-      <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
-      <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
-      <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
-    </ToggleGroup.RootProvider>
+    <ToggleGroupRootProvider value={toggleGroup} aria-label="Text alignment">
+      <ToggleGroupItem value="left">Left</ToggleGroupItem>
+      <ToggleGroupItem value="center">Center</ToggleGroupItem>
+      <ToggleGroupItem value="right">Right</ToggleGroupItem>
+    </ToggleGroupRootProvider>
   );
 }
 ```
 
 ## Upstream feature coverage
 
-- Basic: covered by `<ToggleGroup>` / `<ToggleGroup.Root>` with `ToggleGroup.Item` children.
+- Basic: covered by `<ToggleGroup>` with `ToggleGroupItem` children.
 - Controlled: supported with Ark `value` and `onValueChange(details)`.
 - Multiple: supported with Ark `multiple`.
-- RootProvider: supported with `ToggleGroup.RootProvider` and an Ark `useToggleGroup()` state
+- RootProvider: supported with `ToggleGroupRootProvider` and an Ark `useToggleGroup()` state
   instance.
 - Deselectable single selection: supported with Ark `deselectable`.
 - Orientation and focus: supported with Ark `orientation`, `loopFocus`, and `rovingFocus`.
@@ -188,15 +193,13 @@ export function RootProviderToggleGroupDemo() {
 
 ## Intentional sugar and differences from upstream
 
-- The short root export `<ToggleGroup>` is equivalent to `<ToggleGroup.Root>`.
 - `variant` and `size` are moduix visual sugar layered over Ark behavior.
 - Item styling reuses standalone `Toggle` visuals. Unpressed item text follows the group root
   color, so a default-variant item in a group intentionally differs from a standalone default
   `Toggle`, whose unpressed text is `secondary-foreground`.
 - Items inherit root/root-provider `variant` and `size` unless the item overrides them.
-- moduix keeps `RootProvider`, `Context`, `useToggleGroup()`, and `useToggleGroupContext()` public
-  for normal provider and state composition.
-- The legacy flat `ToggleGroupItem` export is intentionally removed. Use `ToggleGroup.Item`.
+- `ToggleGroupRootProvider`, `ToggleGroupContext`, `useToggleGroup()`, and
+  `useToggleGroupContext()` are public for normal provider and state composition.
 - The legacy `render`/`nativeButton` composition path is intentionally removed. Use Ark
   `asChild`.
 - `onValueChange={setValue}` is intentionally removed because Ark passes details, not a raw array.
@@ -207,8 +210,8 @@ export function RootProviderToggleGroupDemo() {
 - Keep the local context limited to visual `variant` and `size` inheritance.
 - Keep long horizontal groups scrollable rather than wrapping their items.
 - If Ark adds more parts, context hooks, or CSS variables, mirror and document the public surface.
-- Keep examples and stories using `ToggleGroup.Item`, not a flat item alias.
-- Keep `ToggleGroup.Item` visuals synchronized with standalone `Toggle` when token names or
+- Keep examples and stories using the flat `ToggleGroupItem` export.
+- Keep `ToggleGroupItem` visuals synchronized with standalone `Toggle` when token names or
   variants change.
 
 ## Local changelog
@@ -225,7 +228,6 @@ export function RootProviderToggleGroupDemo() {
 - 2026-06-29: Clarified Ark role, keyboard, `ids`, and context contracts; simplified CSS nesting
   and docs examples; replaced fractional group padding with the matching border-width token; added
   provider/context story coverage.
-- 2026-06-21: Migrated `ToggleGroup` to Ark UI React, replaced flat
-  `ToggleGroupItem` with `ToggleGroup.Item`, adopted Ark `onValueChange(details)`, exposed
-  `RootProvider`/`Context`/hooks/types, and updated the styling contract around Ark data
+- 2026-06-21: Migrated `ToggleGroup` to Ark UI React, adopted Ark `onValueChange(details)`,
+  exposed provider, context, hooks, and types, and updated the styling contract around Ark data
   attributes.

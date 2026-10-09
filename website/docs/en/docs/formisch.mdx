@@ -5,6 +5,7 @@ description: Connect Moduix controls to Formisch and Valibot across supported fr
 
 import ProjectForm from '@/components/examples/formisch/complete-form.tsx';
 import formischSolidCompleteForm from '../../../snippets/formisch/solid/complete-form.tsx?raw';
+import formischVueCompleteForm from '../../../snippets/formisch/vue/complete-form.vue?raw';
 
 # Formisch
 
@@ -20,6 +21,7 @@ Use the Formisch package for your framework:
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -35,6 +37,13 @@ React creates the store with `useForm` and updates compound controls with `field
 <PackageManagerTabs command="install @formisch/solid valibot" />
 
 Solid creates the store with `createForm` and updates compound controls with `field.onInput`.
+
+  </Tab>
+  <Tab value="vue">
+
+<PackageManagerTabs command="install @formisch/vue valibot" />
+
+Vue uses `useForm` and the scoped slot of `Field`. Assign compound values to `field.input`; unwrap component refs to `$el` when registering focus targets.
 
   </Tab>
 </Tabs>
@@ -62,7 +71,7 @@ point and `revalidate` for later edits. The complete example validates on submit
 on input.
 
 Pass `field.errors !== null` to `Field invalid` and render the first message with
-`Field.ErrorText`. Call Formisch `reset(form)` for controlled values; a DOM reset alone cannot replace
+`FieldErrorText`. Call Formisch `reset(form)` for controlled values; a DOM reset alone cannot replace
 the field store.
 
 ## Complete form
@@ -83,6 +92,7 @@ the same schema, behavior, Moduix composition, and stylesheet. The live preview 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -95,6 +105,11 @@ the same schema, behavior, Moduix composition, and stylesheet. The live preview 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={formischSolidCompleteForm} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={formischVueCompleteForm} />
 
     </Tab>
   </Tabs>
@@ -118,6 +133,7 @@ form-level error. Keep the current input so the user can correct and resubmit it
 ## Focus and behavior
 
 - Forward `field.props.ref`, `onFocus`, and `onBlur` to the element users actually focus.
-- In React, use `field.onChange` for compound values. In Solid, use `field.onInput`.
+- In React, use `field.onChange` for compound values. In Solid, use `field.onInput`. In Vue, update
+  `field.input` from the component's value-change details, or use `v-model` for native-value controls.
 - Keep the current value controlled so `initialInput`, `setInput`, and `reset` update the UI.
 - Do not pass an Ark details object to a native event handler from `field.props`.

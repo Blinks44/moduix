@@ -1,5 +1,5 @@
 import { Button } from '@moduix/react/button';
-import { Toaster, createToaster } from '@moduix/react/toast';
+import { ToastToaster, createToaster } from '@moduix/react/toast';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/toast/toast-placement.module.css';
@@ -23,7 +23,7 @@ export default function App() {
   return (
     <div className={styles.root}>
       {placements.map((item) => (
-        <Toaster key={item} toaster={toasters[item]} />
+        <ToastToaster key={item} toaster={toasters[item]} />
       ))}
       <PreviewMeta>
         <output>Placement: {placement}</output>

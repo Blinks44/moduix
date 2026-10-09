@@ -1,7 +1,23 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Button } from '@moduix/react/button';
-import { CommandPalette } from '@moduix/react/command-palette';
+import {
+  CommandPalette,
+  CommandPaletteCombobox,
+  CommandPaletteEmpty,
+  CommandPaletteItem,
+  CommandPaletteItemDescription,
+  CommandPaletteItemGroup,
+  CommandPaletteItemGroupLabel,
+  CommandPaletteItemIcon,
+  CommandPaletteItemLabel,
+  CommandPaletteItemMeta,
+  CommandPaletteItemText,
+  CommandPaletteList,
+  CommandPalettePanel,
+  CommandPaletteSearch,
+  CommandPaletteTrigger,
+} from '@moduix/react/command-palette';
 import { useState } from 'react';
 import { commandPaletteItems } from '@/components/examples/command-palette/command-palette-items';
 import styles from '@/components/examples/command-palette/command-palette-controlled-open-state.module.css';
@@ -29,39 +45,39 @@ export default function ControlledCommandPalette() {
         }
       }}
     >
-      <CommandPalette.Trigger asChild>
+      <CommandPaletteTrigger asChild>
         <Button>Search actions</Button>
-      </CommandPalette.Trigger>
-      <CommandPalette.Panel className={styles.compactPalette}>
-        <CommandPalette.Combobox
+      </CommandPaletteTrigger>
+      <CommandPalettePanel className={styles.compactPalette}>
+        <CommandPaletteCombobox
           collection={collection}
           onInputValueChange={(details) => filter(details.inputValue)}
         >
-          <CommandPalette.Search placeholder="Search controlled commands..." />
-          <CommandPalette.List>
-            <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
+          <CommandPaletteSearch placeholder="Search controlled commands..." />
+          <CommandPaletteList>
+            <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
             {collection.group().map(([section, items]) => (
-              <CommandPalette.ItemGroup key={section}>
-                <CommandPalette.ItemGroupLabel>{section}</CommandPalette.ItemGroupLabel>
+              <CommandPaletteItemGroup key={section}>
+                <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
                 {items.map((item) => (
-                  <CommandPalette.Item key={item.id} item={item}>
-                    <CommandPalette.ItemIcon>{item.icon}</CommandPalette.ItemIcon>
-                    <CommandPalette.ItemText>
-                      <CommandPalette.ItemLabel>{item.label}</CommandPalette.ItemLabel>
-                      <CommandPalette.ItemDescription>
+                  <CommandPaletteItem key={item.id} item={item}>
+                    <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                    <CommandPaletteItemText>
+                      <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                      <CommandPaletteItemDescription>
                         {item.description}
-                      </CommandPalette.ItemDescription>
-                    </CommandPalette.ItemText>
+                      </CommandPaletteItemDescription>
+                    </CommandPaletteItemText>
                     {item.shortcut ? (
-                      <CommandPalette.ItemMeta>{item.shortcut}</CommandPalette.ItemMeta>
+                      <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
                     ) : null}
-                  </CommandPalette.Item>
+                  </CommandPaletteItem>
                 ))}
-              </CommandPalette.ItemGroup>
+              </CommandPaletteItemGroup>
             ))}
-          </CommandPalette.List>
-        </CommandPalette.Combobox>
-      </CommandPalette.Panel>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
+      </CommandPalettePanel>
     </CommandPalette>
   );
 }

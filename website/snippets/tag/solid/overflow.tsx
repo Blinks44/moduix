@@ -1,4 +1,4 @@
-import { Tag } from '@moduix/solid/tag';
+import { Tag, TagCloseTrigger, TagEndElement, TagLabel } from '@moduix/solid/tag';
 import styles from '@/components/examples/tag/tag-overflow.module.css';
 
 const label = 'Ready for stakeholder review after legal approval';
@@ -6,10 +6,10 @@ const label = 'Ready for stakeholder review after legal approval';
 export default function TagTruncatedDemo() {
   return (
     <Tag class={styles.constrained}>
-      <Tag.Label title={label}>{label}</Tag.Label>
-      <Tag.EndElement>
-        <Tag.CloseTrigger aria-label="Remove long tag" />
-      </Tag.EndElement>
+      <TagLabel title={label}>{label}</TagLabel>
+      <TagEndElement>
+        <TagCloseTrigger aria-label="Remove long tag" />
+      </TagEndElement>
     </Tag>
   );
 }

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme-contrast",
+  "title": "Contrast theme",
+  "description": "High-clarity moduix tokens with stronger borders and focus states for technical interfaces.",
+  "registryDependencies": ["https://moduix.dev/r/foundation/theme-contrast.json"],
+  "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/contrast.css'. Put data-moduix-theme=\"contrast\" on the document root.",
+  "type": "registry:theme"
+}

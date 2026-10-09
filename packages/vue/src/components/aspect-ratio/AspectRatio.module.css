@@ -1,0 +1,10 @@
+@layer moduix.components {
+  .root {
+    --_aspect-ratio-value: 1;
+    position: relative;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--_aspect-ratio-value);
+  }
+}

@@ -6,6 +6,7 @@ description: Build accessible forms with Moduix controls, native form behavior, 
 import { Card, Cards } from '@/components/mdx/Components';
 import NativeForm from '@/components/examples/forms/native-form.tsx';
 import nativeFormSolid from '../../../snippets/forms/solid/native-form.tsx?raw';
+import nativeFormVue from '../../../snippets/forms/vue/native-form.vue?raw';
 
 # Forms
 
@@ -33,7 +34,7 @@ one.
   />
   <Card
     title="TanStack Form"
-    description="Use explicit controlled fields and typed reactive state in React or Solid."
+    description="Use explicit controlled fields and typed reactive state in React, Solid, or Vue."
     href="/docs/tanstack-form"
   />
 </Cards>
@@ -43,14 +44,14 @@ one.
 Choose a library that ships a native adapter for your framework. The documentation currently covers
 the Moduix adapters that are available today:
 
-| Approach        | React | Solid | Best fit                                      |
-| --------------- | ----- | ----- | --------------------------------------------- |
-| Native form     | Yes   | Yes   | Small forms and browser-managed validation.  |
-| Formisch        | Yes   | Yes   | Valibot schemas and compact reactive state.  |
-| React Hook Form | Yes   | No    | React forms with an uncontrolled-first API.  |
-| TanStack Form   | Yes   | Yes   | Explicit controlled state and typed workflows. |
+| Approach        | React | Solid | Vue | Best fit                                      |
+| --------------- | ----- | ----- | ----- | --------------------------------------------- |
+| Native form     | Yes   | Yes   | Yes | Small forms and browser-managed validation.  |
+| Formisch        | Yes   | Yes   | Yes | Valibot schemas and compact reactive state.  |
+| React Hook Form | Yes   | No    | No | React forms with an uncontrolled-first API.  |
+| TanStack Form   | Yes   | Yes   | Yes | Explicit controlled state and typed workflows. |
 
-React Hook Form is intentionally documented only for React. Solid applications should use a native
+React Hook Form is intentionally documented only for React. Solid and Vue applications should use a native
 form, Formisch, or TanStack Form instead of adapting a React hook through a compatibility layer.
 
 ## Core rules
@@ -94,6 +95,7 @@ parts. The live preview uses React because the documentation application runs Re
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -106,6 +108,11 @@ parts. The live preview uses React because the documentation application runs Re
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={nativeFormSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={nativeFormVue} />
 
     </Tab>
   </Tabs>
@@ -121,14 +128,14 @@ parts. The live preview uses React because the documentation application runs Re
 
 Keep native constraints such as `required`, `minLength`, `pattern`, `min`, and `max` when browser
 validation owns the flow. When a library owns visible errors, add `noValidate`, pass its result to
-`Field invalid`, and render a clear `Field.ErrorText` only after the chosen validation lifecycle has
+`Field invalid`, and render a clear `FieldErrorText` only after the chosen validation lifecycle has
 found a problem.
 
 Native `type="reset"` and `form.reset()` restore uncontrolled controls. For library-controlled
 fields, use the library's reset API so its state and the Moduix values stay synchronized.
 
-Move invalid-submit focus to the real focusable element: `Input`, `Textarea`, `Select.Trigger`, or
-`Combobox.Input`. The integration guide for each library describes whether focus is automatic or
+Move invalid-submit focus to the real focusable element: `Input`, `Textarea`, `SelectTrigger`, or
+`ComboboxInput`. The integration guide for each library describes whether focus is automatic or
 application-owned.
 
 ## Submission and server errors
@@ -137,7 +144,7 @@ Keep ready, submitting, error, and success states explicit. Prevent duplicate re
 asynchronous submission is pending, keep entered values visible after a failure, and leave a clear
 retry path.
 
-Map a server error about one value to that field's `Field.ErrorText`. Render request or permission
+Map a server error about one value to that field's `FieldErrorText`. Render request or permission
 failures that do not belong to a field as a form-level `role="alert"`. Repeated fields should use
 stable item IDs so values, focus, and errors do not move when another row is removed.
 

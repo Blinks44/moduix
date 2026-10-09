@@ -1,6 +1,16 @@
 import { createListCollection } from '@ark-ui/solid/collection';
 import { Button } from '@moduix/solid/button';
-import { Select } from '@moduix/solid/select';
+import {
+  useSelect,
+  SelectRootProvider,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/solid/select';
 import { For } from 'solid-js';
 import styles from '@/components/examples/select/select-select-all.module.css';
 
@@ -16,29 +26,29 @@ const languages = createListCollection({
 });
 
 export default function SelectSelectAllDemo() {
-  const select = Select.useSelect({
+  const select = useSelect({
     collection: languages,
     multiple: true,
   });
 
   return (
     <div class={styles.root}>
-      <Select.RootProvider value={select}>
-        <Select.Label>Languages</Select.Label>
-        <Select.Field placeholder="Select languages" clearLabel="Clear selection" />
-        <Select.Positioner>
-          <Select.Content>
+      <SelectRootProvider value={select}>
+        <SelectLabel>Languages</SelectLabel>
+        <SelectField placeholder="Select languages" clearLabel="Clear selection" />
+        <SelectPositioner>
+          <SelectContent>
             <For each={languages.items}>
               {(item) => (
-                <Select.Item item={item}>
-                  <Select.ItemText>{item.label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
+                <SelectItem item={item}>
+                  <SelectItemText>{item.label}</SelectItemText>
+                  <SelectItemIndicator />
+                </SelectItem>
               )}
             </For>
-          </Select.Content>
-        </Select.Positioner>
-      </Select.RootProvider>
+          </SelectContent>
+        </SelectPositioner>
+      </SelectRootProvider>
       <div>
         <output>Selected: {select().value.length}</output>
         <Button

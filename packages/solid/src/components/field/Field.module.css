@@ -11,6 +11,16 @@
 
     &[data-disabled] {
       opacity: var(--moduix-field-disabled-opacity, var(--moduix-opacity-disabled));
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled]
+        )
+        & {
+        opacity: 1;
+      }
     }
   }
 
@@ -89,6 +99,72 @@
     &[data-disabled],
     &:disabled {
       pointer-events: none;
+    }
+  }
+
+  .input {
+    max-width: none;
+    padding-inline: var(--moduix-field-control-padding-x, var(--moduix-spacing-3));
+    outline-offset: var(
+      --moduix-field-focus-ring-offset,
+      calc(0px - var(--moduix-field-control-border-width, var(--moduix-border-width-sm)))
+    );
+    transition:
+      border-color var(--moduix-field-control-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-field-control-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-field-control-transition, var(--moduix-transition-default));
+
+    &::file-selector-button {
+      margin-inline-end: var(--moduix-spacing-3);
+      border: var(--moduix-button-border-width, var(--moduix-border-width-sm)) solid
+        var(--moduix-button-default-border-color, var(--moduix-color-primary));
+      border-radius: var(--moduix-button-radius, var(--moduix-radius-md));
+      padding: var(--moduix-spacing-0-5) var(--moduix-spacing-2);
+      background-color: var(--moduix-button-default-bg, var(--moduix-color-primary));
+      color: var(--moduix-button-default-color, var(--moduix-color-primary-foreground));
+      font: inherit;
+      font-weight: var(--moduix-button-font-weight, var(--moduix-weight-medium));
+      line-height: inherit;
+      cursor: pointer;
+      transition: background-color
+        var(--moduix-field-control-transition, var(--moduix-transition-default));
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--moduix-button-default-bg-hover, var(--moduix-color-foreground));
+        }
+      }
+    }
+
+    &[aria-invalid='true'] {
+      border-color: var(
+        --moduix-field-control-border-color-invalid,
+        var(--moduix-color-destructive)
+      );
+
+      &:focus-visible {
+        outline-color: var(
+          --moduix-field-control-border-color-invalid,
+          var(--moduix-color-destructive)
+        );
+      }
+    }
+
+    &:is([data-disabled], :disabled) {
+      opacity: var(--moduix-field-disabled-opacity, var(--moduix-opacity-disabled));
+
+      :where(
+          [data-slot='field-root'][data-disabled],
+          [data-slot='field-root-provider'][data-disabled],
+          [data-slot='fieldset-root'][data-disabled],
+          [data-slot='fieldset-root-provider'][data-disabled],
+          [data-slot='input-group-root']:has(
+            [data-slot='input-root']:is([data-disabled], :disabled)
+          )
+        )
+        & {
+        opacity: 1;
+      }
     }
   }
 

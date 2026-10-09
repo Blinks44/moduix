@@ -1,4 +1,4 @@
-import { RadioGroup } from '@moduix/react/radio-group';
+import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/react/radio-group';
 import styles from '@/components/examples/radio-group/radio-group-orientation.module.css';
 
 const frameworks = ['React', 'Solid', 'Vue'];
@@ -6,12 +6,12 @@ const frameworks = ['React', 'Solid', 'Vue'];
 export default function RadioGroupOrientationDemo() {
   return (
     <RadioGroup orientation="horizontal" defaultValue="React">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
+      <RadioGroupLabel>Framework</RadioGroupLabel>
       <div className={styles.items}>
         {frameworks.map((framework) => (
-          <RadioGroup.Option key={framework} value={framework}>
+          <RadioGroupOption key={framework} value={framework}>
             {framework}
-          </RadioGroup.Option>
+          </RadioGroupOption>
         ))}
       </div>
     </RadioGroup>

@@ -1,0 +1,119 @@
+---
+title: En-tête d’application
+description: En-tête d’application responsive avec navigation principale, espace de travail actif, recherche et actions liées au compte.
+---
+
+import { AppHeader } from '@/components/blocks/app-header';
+import appHeaderSolid from '../../../snippets/blocks/solid/app-header.tsx?raw';
+import appHeaderVue from '../../../snippets/blocks/vue/app-header.vue?raw';
+
+# En-tête d’application
+
+Cette composition montre comment composer un en-tête d’application responsive avec `Avatar`, `Button`,
+`CommandPalette` et `Menu`. Elle réunit le lien vers le produit, l’espace de travail actif, la
+navigation principale, la recherche et les actions du compte dans une mise en page compacte.
+
+Ce bloc est une composition pour votre application, et non un composant `AppHeader` exporté par moduix.
+Il combine `CommandPalette`, `Menu` et d’autres composants moduix. Installez le bloc avec ses
+dépendances, puis remplacez la navigation et les données de compte d’exemple par les vôtres.
+
+## Contenu de la composition
+
+- Une navigation principale qui marque la destination active avec `aria-current="page"`.
+- Une `CommandPalette` qui filtre les éléments de navigation et les actions de l’espace de travail par groupe.
+- Un menu de compte avec des liens vers le profil, les paramètres de l’espace de travail et l’aide.
+- Un `Menu` distinct pour la navigation principale sur les petits écrans.
+- Des noms accessibles pour les contrôles composés uniquement d’une icône et un affichage de secours pour l’avatar.
+
+L’aperçu utilise React. Les onglets présentent le code React, Solid et Vue avec une feuille de style commune.
+
+
+
+<ExampleFrame variant="block" clientOnly>
+  <AppHeader />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/blocks/app-header.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={appHeaderSolid} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={appHeaderVue} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/blocks/app-header.module.css"
+
+```
+</div>
+
+</ExampleCode>
+
+## Installation
+
+La commande installe aussi les composants moduix et la bibliothèque d’icônes adaptée à votre framework.
+
+<BlockInstall name="app-header" />
+
+## Utiliser la composition dans votre application
+
+La démonstration utilise des ancres comme `#overview`, et la sélection d’une commande met à jour
+`window.location.hash`. L’exemple peut ainsi fonctionner sans routeur. Remplacez les ancres et le
+gestionnaire de sélection par la navigation de votre routeur.
+
+Placez la composition dans la mise en page qui gère la navigation principale et l’état du compte.
+Conservez `aria-current="page"` uniquement sur le lien correspondant à la route actuelle.
+
+## Personnalisation
+
+Remplacez les données de démonstration par vos routes, l’état de l’espace de travail et les données
+de l’utilisateur authentifié. La `CommandPalette` est décrite dans la
+[documentation de Command Palette](/docs/command-palette).
+
+| À remplacer | Par la valeur de votre application |
+| ----------- | ---------------------------------- |
+| Orbit et Acme Studio | Le lien vers l’accueil du produit et le nom de l’espace de travail actif |
+| Ancres comme `#overview` | Vos routes et la navigation du routeur lors de la sélection d’une commande |
+| Liens de navigation | Les liens du routeur avec `aria-current="page"` selon la route actuelle |
+| Commandes de recherche | Les routes et actions utiles à vos utilisateurs, regroupées de façon claire |
+| Avatar et informations du compte | Les données de l’utilisateur authentifié et une URL d’image gérée par l’application |
+| Liens du menu du compte | Les routes du profil, des paramètres, de l’aide et les autres pages utiles aux utilisateurs |
+
+Si votre routeur fournit un composant `Link`, utilisez `Button asChild` ou `MenuItem asChild` pour
+que le lien du routeur reste l’élément interactif. N’imbriquez pas un lien dans un bouton. Conservez
+`AvatarFallback` afin que le contrôle du compte reste identifiable pendant le chargement de l’image
+ou lorsqu’aucune image n’est disponible.
+
+## Comportement adaptatif
+
+Le module CSS définit trois seuils :
+
+- Sous `64rem`, l’espace de travail et son indicateur sont masqués pour laisser plus de place aux contrôles principaux.
+- Sous `48rem`, la navigation en ligne est remplacée par un bouton qui ouvre `Menu`.
+- Sous `36rem`, le nom, le rôle et la flèche du compte sont masqués, tandis que l’avatar reste visible.
+
+Adaptez ces seuils et le modèle de navigation mobile si votre application comporte davantage de liens
+ou des routes imbriquées.

@@ -1,6 +1,23 @@
 import { type DateValue } from '@ark-ui/solid/date-picker';
 import { CalendarDate } from '@internationalized/date';
-import { DatePicker } from '@moduix/solid/date-picker';
+import {
+  DatePicker,
+  DatePickerContext,
+  DatePickerLabel,
+  DatePickerField,
+  DatePickerPositioner,
+  DatePickerContent,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerPrevTrigger,
+  DatePickerNextTrigger,
+  DatePickerRangeText,
+  DatePickerTable,
+  DatePickerTableBody,
+  DatePickerTableRow,
+  DatePickerTableCell,
+  DatePickerTableCellTrigger,
+} from '@moduix/solid/date-picker';
 import { For } from 'solid-js';
 
 const format = (date: DateValue) => String(date.year);
@@ -14,42 +31,42 @@ export default function YearPickerDemo() {
       maxView="year"
       format={format}
     >
-      <DatePicker.Label>Year</DatePicker.Label>
-      <DatePicker.Field placeholder="yyyy" clearLabel="Clear year" />
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePicker.View view="year">
-            <DatePicker.ViewControl>
-              <DatePicker.PrevTrigger />
-              <DatePicker.RangeText />
-              <DatePicker.NextTrigger />
-            </DatePicker.ViewControl>
-            <DatePicker.Context>
+      <DatePickerLabel>Year</DatePickerLabel>
+      <DatePickerField placeholder="yyyy" clearLabel="Clear year" />
+      <DatePickerPositioner>
+        <DatePickerContent>
+          <DatePickerView view="year">
+            <DatePickerViewControl>
+              <DatePickerPrevTrigger />
+              <DatePickerRangeText />
+              <DatePickerNextTrigger />
+            </DatePickerViewControl>
+            <DatePickerContext>
               {(datePicker) => (
-                <DatePicker.Table columns={4}>
-                  <DatePicker.TableBody>
+                <DatePickerTable columns={4}>
+                  <DatePickerTableBody>
                     <For each={datePicker().getYearsGrid({ columns: 4 })}>
                       {(years) => (
-                        <DatePicker.TableRow>
+                        <DatePickerTableRow>
                           <For each={years}>
                             {(year) => (
-                              <DatePicker.TableCell value={year.value} disabled={year.disabled}>
-                                <DatePicker.TableCellTrigger>
+                              <DatePickerTableCell value={year.value} disabled={year.disabled}>
+                                <DatePickerTableCellTrigger>
                                   {year.label}
-                                </DatePicker.TableCellTrigger>
-                              </DatePicker.TableCell>
+                                </DatePickerTableCellTrigger>
+                              </DatePickerTableCell>
                             )}
                           </For>
-                        </DatePicker.TableRow>
+                        </DatePickerTableRow>
                       )}
                     </For>
-                  </DatePicker.TableBody>
-                </DatePicker.Table>
+                  </DatePickerTableBody>
+                </DatePickerTable>
               )}
-            </DatePicker.Context>
-          </DatePicker.View>
-        </DatePicker.Content>
-      </DatePicker.Positioner>
+            </DatePickerContext>
+          </DatePickerView>
+        </DatePickerContent>
+      </DatePickerPositioner>
     </DatePicker>
   );
 }

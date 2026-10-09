@@ -7,7 +7,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-function ProgressCircularRoot(props: ComponentProps<typeof ProgressPrimitive.Root>) {
+function ProgressCircular(props: ComponentProps<typeof ProgressPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -145,34 +145,19 @@ function ProgressCircularView(props: ComponentProps<typeof ProgressPrimitive.Vie
   );
 }
 
-type ProgressCircularComponent = typeof ProgressCircularRoot & {
-  Root: typeof ProgressCircularRoot;
-  RootProvider: typeof ProgressCircularRootProvider;
-  Context: typeof ProgressPrimitive.Context;
-  Label: typeof ProgressCircularLabel;
-  ValueText: typeof ProgressCircularValueText;
-  Circle: typeof ProgressCircularCircle;
-  CircleTrack: typeof ProgressCircularCircleTrack;
-  CircleRange: typeof ProgressCircularCircleRange;
-  Ring: typeof ProgressCircularRing;
-  View: typeof ProgressCircularView;
-  useProgress: typeof useProgress;
-  useProgressContext: typeof useProgressContext;
-};
+const ProgressCircularContext = ProgressPrimitive.Context;
 
-const ProgressCircular: ProgressCircularComponent = Object.assign(ProgressCircularRoot, {
-  Root: ProgressCircularRoot,
-  RootProvider: ProgressCircularRootProvider,
-  Context: ProgressPrimitive.Context,
-  Label: ProgressCircularLabel,
-  ValueText: ProgressCircularValueText,
-  Circle: ProgressCircularCircle,
-  CircleTrack: ProgressCircularCircleTrack,
-  CircleRange: ProgressCircularCircleRange,
-  Ring: ProgressCircularRing,
-  View: ProgressCircularView,
+export {
+  ProgressCircular,
+  ProgressCircularCircle,
+  ProgressCircularCircleRange,
+  ProgressCircularCircleTrack,
+  ProgressCircularContext,
+  ProgressCircularLabel,
+  ProgressCircularRing,
+  ProgressCircularRootProvider,
+  ProgressCircularValueText,
+  ProgressCircularView,
   useProgress,
   useProgressContext,
-});
-
-export { ProgressCircular };
+};

@@ -1,4 +1,15 @@
 import {
+  TreeViewTree,
+  TreeViewLabel,
+  TreeViewBranchIndentGuide,
+  TreeViewBranchContent,
+  TreeViewBranchText,
+  TreeViewBranchIndicator,
+  TreeViewBranchControl,
+  TreeViewBranch,
+  TreeViewItemText,
+  TreeViewItem,
+  TreeViewNode,
   TreeView,
   createTreeCollection,
   type TreeViewNodeProviderProps,
@@ -48,55 +59,55 @@ const collection = createTreeCollection<FileNode>({
 
 function FileTreeNode(props: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeView.Node node={props.node} indexPath={props.indexPath}>
+    <TreeViewNode node={props.node} indexPath={props.indexPath}>
       {({ node: currentNode, indexPath: currentIndexPath, state }) => (
         <Show
           when={state().isBranch}
           fallback={
-            <TreeView.Item>
-              <TreeView.ItemText>
+            <TreeViewItem>
+              <TreeViewItemText>
                 <FileIcon aria-hidden="true" />
                 {currentNode.name}
-              </TreeView.ItemText>
-            </TreeView.Item>
+              </TreeViewItemText>
+            </TreeViewItem>
           }
         >
-          <TreeView.Branch>
-            <TreeView.BranchControl>
-              <TreeView.BranchIndicator />
-              <TreeView.BranchText>
+          <TreeViewBranch>
+            <TreeViewBranchControl>
+              <TreeViewBranchIndicator />
+              <TreeViewBranchText>
                 {state().expanded ? (
                   <FolderOpenIcon aria-hidden="true" />
                 ) : (
                   <FolderIcon aria-hidden="true" />
                 )}
                 {currentNode.name}
-              </TreeView.BranchText>
-            </TreeView.BranchControl>
-            <TreeView.BranchContent>
-              <TreeView.BranchIndentGuide />
+              </TreeViewBranchText>
+            </TreeViewBranchControl>
+            <TreeViewBranchContent>
+              <TreeViewBranchIndentGuide />
               <For each={currentNode.children ?? []}>
                 {(child, index) => (
                   <FileTreeNode node={child} indexPath={[...currentIndexPath, index()]} />
                 )}
               </For>
-            </TreeView.BranchContent>
-          </TreeView.Branch>
+            </TreeViewBranchContent>
+          </TreeViewBranch>
         </Show>
       )}
-    </TreeView.Node>
+    </TreeViewNode>
   );
 }
 
 export default function FileIconsTreeViewDemo() {
   return (
     <TreeView collection={collection} defaultExpandedValue={['src', 'src/components']}>
-      <TreeView.Label>Project files</TreeView.Label>
-      <TreeView.Tree>
+      <TreeViewLabel>Project files</TreeViewLabel>
+      <TreeViewTree>
         <For each={collection.rootNode.children ?? []}>
           {(node, index) => <FileTreeNode node={node} indexPath={[index()]} />}
         </For>
-      </TreeView.Tree>
+      </TreeViewTree>
     </TreeView>
   );
 }

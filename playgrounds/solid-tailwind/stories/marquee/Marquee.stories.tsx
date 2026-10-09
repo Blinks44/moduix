@@ -4,17 +4,25 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
-import { Marquee, useMarquee } from '@/components/marquee/Marquee';
+import {
+  Marquee,
+  MarqueeContent,
+  MarqueeEdge,
+  MarqueeItem,
+  MarqueeRootProvider,
+  MarqueeViewport,
+  useMarquee,
+} from '@/components/marquee/Marquee';
 import { cn } from '@/lib/moduix/cn';
 
 const meta = {
   title: 'Components/Marquee',
-  component: Marquee.Root,
+  component: Marquee,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Marquee.Root>;
+} satisfies Meta<typeof Marquee>;
 
 export default meta;
 
@@ -45,25 +53,25 @@ function MarqueeItems(props: { custom?: boolean }) {
   return (
     <>
       {partners.map((item) => (
-        <Marquee.Item class={cn(itemClass, props.custom && 'border-primary/30 bg-primary/10')}>
+        <MarqueeItem class={cn(itemClass, props.custom && 'border-primary/30 bg-primary/10')}>
           <span class={markClass}>{item.mark}</span>
           <span>{item.name}</span>
-        </Marquee.Item>
+        </MarqueeItem>
       ))}
     </>
   );
 }
 
-function BasicMarquee(props: ComponentProps<typeof Marquee.Root>) {
+function BasicMarquee(props: ComponentProps<typeof Marquee>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
     <Marquee aria-label="Partner logos" class={cn(rootClass, local.class)} {...others}>
-      <Marquee.Viewport>
-        <Marquee.Content>
+      <MarqueeViewport>
+        <MarqueeContent>
           <MarqueeItems />
-        </Marquee.Content>
-      </Marquee.Viewport>
+        </MarqueeContent>
+      </MarqueeViewport>
     </Marquee>
   );
 }
@@ -81,13 +89,13 @@ function RootProviderStory() {
           Resume
         </Button>
       </div>
-      <Marquee.RootProvider value={marquee} class={rootClass}>
-        <Marquee.Viewport>
-          <Marquee.Content>
+      <MarqueeRootProvider value={marquee} class={rootClass}>
+        <MarqueeViewport>
+          <MarqueeContent>
             <MarqueeItems />
-          </Marquee.Content>
-        </Marquee.Viewport>
-      </Marquee.RootProvider>
+          </MarqueeContent>
+        </MarqueeViewport>
+      </MarqueeRootProvider>
     </div>
   );
 }
@@ -134,13 +142,13 @@ export const RTL: Story = {
   render: () => (
     <LocaleProvider locale="ar">
       <Marquee aria-label="Partner logos" class={rootClass}>
-        <Marquee.Edge side="start" />
-        <Marquee.Viewport>
-          <Marquee.Content>
+        <MarqueeEdge side="start" />
+        <MarqueeViewport>
+          <MarqueeContent>
             <MarqueeItems />
-          </Marquee.Content>
-        </Marquee.Viewport>
-        <Marquee.Edge side="end" />
+          </MarqueeContent>
+        </MarqueeViewport>
+        <MarqueeEdge side="end" />
       </Marquee>
     </LocaleProvider>
   ),
@@ -168,13 +176,13 @@ export const WithEdges: Story = {
   name: 'With Edges',
   render: () => (
     <Marquee aria-label="Partner logos" class={rootClass}>
-      <Marquee.Edge side="start" />
-      <Marquee.Viewport>
-        <Marquee.Content>
+      <MarqueeEdge side="start" />
+      <MarqueeViewport>
+        <MarqueeContent>
           <MarqueeItems />
-        </Marquee.Content>
-      </Marquee.Viewport>
-      <Marquee.Edge side="end" />
+        </MarqueeContent>
+      </MarqueeViewport>
+      <MarqueeEdge side="end" />
     </Marquee>
   ),
 };
@@ -188,13 +196,13 @@ export const CustomStyling: Story = {
   name: 'Custom Styling',
   render: () => (
     <Marquee aria-label="Partner logos" autoFill pauseOnInteraction class={customRootClass}>
-      <Marquee.Edge side="start" />
-      <Marquee.Viewport>
-        <Marquee.Content>
+      <MarqueeEdge side="start" />
+      <MarqueeViewport>
+        <MarqueeContent>
           <MarqueeItems custom />
-        </Marquee.Content>
-      </Marquee.Viewport>
-      <Marquee.Edge side="end" />
+        </MarqueeContent>
+      </MarqueeViewport>
+      <MarqueeEdge side="end" />
     </Marquee>
   ),
 };

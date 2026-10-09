@@ -1,4 +1,9 @@
-import { Checkbox } from '@moduix/react/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/checkbox/checkbox-controlled.module.css';
@@ -12,9 +17,9 @@ export default function ControlledCheckboxDemo() {
         checked={checked}
         onCheckedChange={(details) => setChecked(details.checked === true)}
       >
-        <Checkbox.Control />
-        <Checkbox.Label>{checked ? 'Enabled' : 'Disabled'}</Checkbox.Label>
-        <Checkbox.HiddenInput />
+        <CheckboxControl />
+        <CheckboxLabel>{checked ? 'Enabled' : 'Disabled'}</CheckboxLabel>
+        <CheckboxHiddenInput />
       </Checkbox>
       <PreviewMeta>
         <output>Notifications: {checked ? 'enabled' : 'disabled'}</output>

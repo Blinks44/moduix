@@ -1,4 +1,14 @@
-import { FileUpload } from '@moduix/react/file-upload';
+import {
+  FileUpload,
+  FileUploadContext,
+  FileUploadHiddenInput,
+  FileUploadItem,
+  FileUploadItemDeleteTrigger,
+  FileUploadItemGroup,
+  FileUploadItemName,
+  FileUploadLabel,
+  FileUploadTrigger,
+} from '@moduix/react/file-upload';
 import styles from '@/components/examples/file-upload/file-upload-initial-files.module.css';
 
 const initialFiles = [
@@ -9,21 +19,21 @@ const initialFiles = [
 export default function InitialFilesUploadDemo() {
   return (
     <FileUpload className={styles.root} defaultAcceptedFiles={initialFiles}>
-      <FileUpload.Label>Attachments</FileUpload.Label>
-      <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-      <FileUpload.ItemGroup>
-        <FileUpload.Context>
+      <FileUploadLabel>Attachments</FileUploadLabel>
+      <FileUploadTrigger>Choose files</FileUploadTrigger>
+      <FileUploadItemGroup>
+        <FileUploadContext>
           {({ acceptedFiles }) =>
             acceptedFiles.map((file) => (
-              <FileUpload.Item key={file.name} file={file}>
-                <FileUpload.ItemName />
-                <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-              </FileUpload.Item>
+              <FileUploadItem key={file.name} file={file}>
+                <FileUploadItemName />
+                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+              </FileUploadItem>
             ))
           }
-        </FileUpload.Context>
-      </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
+        </FileUploadContext>
+      </FileUploadItemGroup>
+      <FileUploadHiddenInput />
     </FileUpload>
   );
 }

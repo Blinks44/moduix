@@ -1,4 +1,8 @@
-import { ToggleGroup, useToggleGroup } from '@moduix/solid/toggle-group';
+import {
+  ToggleGroupItem,
+  ToggleGroupRootProvider,
+  useToggleGroup,
+} from '@moduix/solid/toggle-group';
 import styles from '@/components/examples/toggle-group/toggle-group-advanced-customization.module.css';
 
 const alignmentItems = [
@@ -23,11 +27,11 @@ export default function RootProviderToggleGroupDemo() {
 
   return (
     <div class={styles.stack}>
-      <ToggleGroup.RootProvider value={toggleGroup} aria-label="Text alignment">
+      <ToggleGroupRootProvider value={toggleGroup} aria-label="Text alignment">
         {alignmentItems.map((item) => (
-          <ToggleGroup.Item value={item.value}>{item.label}</ToggleGroup.Item>
+          <ToggleGroupItem value={item.value}>{item.label}</ToggleGroupItem>
         ))}
-      </ToggleGroup.RootProvider>
+      </ToggleGroupRootProvider>
       <div data-preview-meta>
         <output>Selected: {toggleGroup().value.join(', ') || 'empty'}</output>
       </div>

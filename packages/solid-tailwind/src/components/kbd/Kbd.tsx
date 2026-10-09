@@ -3,7 +3,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-function KbdRoot(props: HTMLArkProps<'kbd'>) {
+function Kbd(props: HTMLArkProps<'kbd'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -20,7 +20,7 @@ function KbdRoot(props: HTMLArkProps<'kbd'>) {
   );
 }
 
-function KbdGroupPart(props: HTMLArkProps<'span'>) {
+function KbdGroup(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -38,9 +38,4 @@ function KbdGroupPart(props: HTMLArkProps<'span'>) {
   );
 }
 
-const Kbd = Object.assign(KbdRoot, {
-  Root: KbdRoot,
-  Group: KbdGroupPart,
-});
-
-export { Kbd };
+export { Kbd, KbdGroup };

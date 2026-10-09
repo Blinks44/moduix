@@ -14,7 +14,7 @@
 .selects {
   display: grid;
   min-width: 0;
-  grid-template-columns: minmax(0, 1fr) minmax(4.5rem, 0.7fr);
+  grid-template-columns: minmax(7rem, 1fr) minmax(6.25rem, 1fr);
 }
 
 .nav {
@@ -24,6 +24,5 @@
 .monthSelect,
 .yearSelect {
   --moduix-select-width: 100%;
-  --moduix-select-control-height: var(--moduix-date-picker-select-height, 2rem);
   min-width: 0;
 }

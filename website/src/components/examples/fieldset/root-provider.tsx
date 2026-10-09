@@ -1,5 +1,10 @@
-import { Field } from '@moduix/react/field';
-import { Fieldset, useFieldset } from '@moduix/react/fieldset';
+import { Field, FieldLabel } from '@moduix/react/field';
+import {
+  FieldsetErrorText,
+  FieldsetLegend,
+  FieldsetRootProvider,
+  useFieldset,
+} from '@moduix/react/fieldset';
 import { Input } from '@moduix/react/input';
 import styles from '@/components/examples/fieldset/fieldset-root-provider.module.css';
 
@@ -8,13 +13,13 @@ export default function ExternalFieldsetState() {
     invalid: true,
   });
   return (
-    <Fieldset.RootProvider value={fieldset} className={styles.root}>
-      <Fieldset.Legend>Contact details</Fieldset.Legend>
+    <FieldsetRootProvider value={fieldset} className={styles.root}>
+      <FieldsetLegend>Contact details</FieldsetLegend>
       <Field invalid>
-        <Field.Label>Email</Field.Label>
+        <FieldLabel>Email</FieldLabel>
         <Input type="email" defaultValue="invalid-address" />
       </Field>
-      <Fieldset.ErrorText>Enter a valid email address.</Fieldset.ErrorText>
-    </Fieldset.RootProvider>
+      <FieldsetErrorText>Enter a valid email address.</FieldsetErrorText>
+    </FieldsetRootProvider>
   );
 }

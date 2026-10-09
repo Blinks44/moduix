@@ -1,7 +1,7 @@
 ---
 title: Clipboard
 component: clipboard
-description: Build accessible clipboards in React or Solid with package and shadcn installation options.
+description: Build accessible clipboards in React, Solid, or Vue with package and shadcn installation options.
 ---
 
 import AsChildClipboardDemo from '@/components/examples/clipboard/as-child.tsx';
@@ -23,22 +23,35 @@ import clipboardSolidDisabled from '../../../snippets/clipboard/solid/disabled.t
 import clipboardSolidRootProvider from '../../../snippets/clipboard/solid/root-provider.tsx?raw';
 import clipboardSolidTimeout from '../../../snippets/clipboard/solid/timeout.tsx?raw';
 import clipboardSolidValueText from '../../../snippets/clipboard/solid/value-text.tsx?raw';
-
-Use `Clipboard` when users need to copy a text value. The value can be editable, read-only, or
-rendered as ordinary text, depending on which parts you use.
+import clipboardVueAsChild from '../../../snippets/clipboard/vue/as-child.vue?raw';
+import clipboardVueBasic from '../../../snippets/clipboard/vue/basic.vue?raw';
+import clipboardVueContext from '../../../snippets/clipboard/vue/context.vue?raw';
+import clipboardVueCopyStatus from '../../../snippets/clipboard/vue/copy-status.vue?raw';
+import clipboardVueCustomCopyText from '../../../snippets/clipboard/vue/custom-copy-text.vue?raw';
+import clipboardVueDisabled from '../../../snippets/clipboard/vue/disabled.vue?raw';
+import clipboardVueRootProvider from '../../../snippets/clipboard/vue/root-provider.vue?raw';
+import clipboardVueTimeout from '../../../snippets/clipboard/vue/timeout.vue?raw';
+import clipboardVueValueText from '../../../snippets/clipboard/vue/value-text.vue?raw';
 
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/clipboard" />
 
+## Choosing the right component
+
+Use `Clipboard` when users need to copy a text value. The value can be rendered in a read-only
+input or as ordinary text, depending on which parts you use.
+
 ## Basic
 
-See [Quick Start](/docs/quick-start) for package setup and styling-track
-guidance.
+Use `Clipboard` as the root. Put one value surface, `ClipboardInput` or `ClipboardValueText`, and
+`ClipboardTrigger` inside `ClipboardControl`. `ClipboardLabel` is optional. The trigger can contain
+`ClipboardIndicator`, whose children and `copied` content accept text as well as icons in React and
+Solid. In Vue, use its default and named `copied` slots for the same content.
 
-Use `Clipboard` as the root. Put one value surface, `Clipboard.Input` or `Clipboard.ValueText`, and
-`Clipboard.Trigger` inside `Clipboard.Control`. `Clipboard.Label` is optional. The trigger can
-contain `Clipboard.Indicator`, `Clipboard.CopyText`, or both.
+React, Solid, and Vue use the same flat value names. Import `Clipboard` as the root and import each
+additional part directly, such as `ClipboardInput` and `ClipboardTrigger`. The same names work with
+npm packages and shadcn registry source.
 
 <ExampleFrame variant="component">
   <ClipboardBasic />
@@ -51,6 +64,7 @@ contain `Clipboard.Indicator`, `Clipboard.CopyText`, or both.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -63,6 +77,11 @@ contain `Clipboard.Indicator`, `Clipboard.CopyText`, or both.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clipboardSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueBasic} />
 
     </Tab>
   </Tabs>
@@ -100,55 +119,66 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/clipboard' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/clipboard' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 ```text
-Clipboard | Clipboard.RootProvider
-├─ Clipboard.Label (optional)
-├─ Clipboard.Control
-│  ├─ Clipboard.Input or Clipboard.ValueText
-│  └─ Clipboard.Trigger
-│     ├─ Clipboard.Indicator (optional)
-│     └─ Clipboard.CopyText (optional)
+Clipboard | ClipboardRootProvider
+├─ ClipboardLabel (optional)
+├─ ClipboardControl
+│  ├─ ClipboardInput or ClipboardValueText
+│  └─ ClipboardTrigger
+│     └─ ClipboardIndicator (optional)
 ```
 
 | Part | Role |
 | --- | --- |
 | `Clipboard` | Owns the value and the temporary copied state. |
-| `Clipboard.RootProvider` | Connects the parts to a store created with `Clipboard.useClipboard()`. |
-| `Clipboard.Label` | Provides an accessible label for the value. |
-| `Clipboard.Control` | Groups the value surface and the copy button. |
-| `Clipboard.Input` | Renders the value in an input. It is editable unless you set `readOnly`. |
-| `Clipboard.Trigger` | Copies the current value when activated. It renders a button by default. |
-| `Clipboard.Indicator` | Shows different content for the idle and copied states. |
-| `Clipboard.CopyText` | Text convenience for the same states. Its defaults are `Copy` and `Copied`. |
-| `Clipboard.ValueText` | Renders the value as text when an input is not the right surface. |
+| `ClipboardRootProvider` | Connects the parts to a store created with `useClipboard()`. |
+| `ClipboardLabel` | Provides an accessible label for the value. |
+| `ClipboardControl` | Groups the value surface and the copy button. |
+| `ClipboardInput` | Renders the value in a read-only input. Use controlled state or `ClipboardContext.setValue()` to change it. |
+| `ClipboardTrigger` | Copies the current value when activated. It renders a button by default. |
+| `ClipboardIndicator` | Shows different content for the idle and copied states. Its defaults are the copy/check icons; pass `copied="Copied"` and children in React/Solid, or use the matching Vue slots. |
+| `ClipboardValueText` | Renders the value as text when an input is not the right surface. |
 
 ## Composition
 
-`Clipboard` owns the value and copied state. Keep one value surface (`Input` or `ValueText`) and
-`Trigger` inside `Control`; `Indicator` and `CopyText` are optional and can be combined in the
-trigger. They follow the same copied state, and moduix supplies the default copy/check icons and
-`Copy`/`Copied` labels when their content is omitted.
+`Clipboard` owns the value and copied state. Keep one value surface (`ClipboardInput` or
+`ClipboardValueText`) and `ClipboardTrigger` inside `ClipboardControl`; `ClipboardIndicator` is
+optional in the trigger. It follows the same copied state, and moduix supplies the default
+copy/check icons when its content is omitted. Pass `copied="Copied"` and children for text labels
+in React and Solid; in Vue, use the default and named `copied` slots.
 
 Use `defaultValue` for an uncontrolled value. When another part of the application owns the value
 or needs to react to copying, use `value` with `onValueChange(details)` and
 `onStatusChange(details)`; `timeout` controls how long the copied state remains active.
 
-Use `Clipboard.useClipboard()` with `Clipboard.RootProvider` only when the store must be created or
-shared outside the rendered tree. Descendants can read that state through `Clipboard.Context` or
+Use `useClipboard()` with `ClipboardRootProvider` only when the store must be created or
+shared outside the rendered tree. Descendants can read that state through `ClipboardContext` or
 `useClipboardContext()`. In Solid, `useClipboard()` returns an accessor, so pass it as
-`value={clipboard}` and read state as `clipboard().copied` or `clipboard().value`. The root has no
-disabled state: pass the native `disabled` prop to both `Clipboard.Input` and `Clipboard.Trigger`.
+`value={clipboard}` and read state as `clipboard().copied` or `clipboard().value`. In Vue,
+`useClipboard()` returns the reactive store directly, so pass it with `:value="clipboard"` and read
+state as `clipboard.copied` or `clipboard.value`. The root has no disabled state: pass the native
+`disabled` prop to both `ClipboardInput` and `ClipboardTrigger`.
 Use `asChild` on those parts only when another semantic element should own the rendered DOM node.
 
 ## Examples
 
 ### Context
 
-Read clipboard state from nested content with `Clipboard.Context`, or use
+Read clipboard state from nested content with `ClipboardContext`, or use
 `useClipboardContext()` in a child component. The context exposes `copied`, `value`, `setValue`, and
 `copy`.
 
@@ -163,6 +193,7 @@ Read clipboard state from nested content with `Clipboard.Context`, or use
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -175,6 +206,11 @@ Read clipboard state from nested content with `Clipboard.Context`, or use
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clipboardSolidContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueContext} />
 
     </Tab>
   </Tabs>
@@ -203,6 +239,7 @@ The example keeps a count based on `details.copied`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -217,6 +254,11 @@ The example keeps a count based on `details.copied`.
 <CodeBlockRuntime lang="tsx" code={clipboardSolidCopyStatus} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueCopyStatus} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -229,8 +271,8 @@ The example keeps a count based on `details.copied`.
 
 ### Custom copy text
 
-Pass your own children or `copied` content to `Clipboard.CopyText` when the button needs labels that
-match your product.
+Pass your own children or `copied` content to `ClipboardIndicator` when the button needs labels
+that match your product.
 
 <ExampleFrame variant="component">
   <CustomCopyTextClipboardDemo />
@@ -243,6 +285,7 @@ match your product.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -255,6 +298,11 @@ match your product.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clipboardSolidCustomCopyText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueCustomCopyText} />
 
     </Tab>
   </Tabs>
@@ -283,6 +331,7 @@ copy it.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -297,6 +346,11 @@ copy it.
 <CodeBlockRuntime lang="tsx" code={clipboardSolidDisabled} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueDisabled} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -309,7 +363,7 @@ copy it.
 
 ### Root Provider
 
-Create the store with `Clipboard.useClipboard()` and pass it to `Clipboard.RootProvider` when state
+Create the store with `useClipboard()` and pass it to `ClipboardRootProvider` when state
 needs to be shared or created separately from the rendered component tree.
 
 <ExampleFrame variant="component">
@@ -323,6 +377,7 @@ needs to be shared or created separately from the rendered component tree.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -335,6 +390,11 @@ needs to be shared or created separately from the rendered component tree.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clipboardSolidRootProvider} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueRootProvider} />
 
     </Tab>
   </Tabs>
@@ -363,6 +423,7 @@ three seconds.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -377,6 +438,11 @@ three seconds.
 <CodeBlockRuntime lang="tsx" code={clipboardSolidTimeout} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueTimeout} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -389,7 +455,7 @@ three seconds.
 
 ### Value Text
 
-Use `Clipboard.ValueText` when the value should appear as text instead of inside an input field.
+Use `ClipboardValueText` when the value should appear as text instead of inside an input field.
 
 <ExampleFrame variant="component">
   <ValueTextClipboardDemo />
@@ -402,6 +468,7 @@ Use `Clipboard.ValueText` when the value should appear as text instead of inside
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -414,6 +481,11 @@ Use `Clipboard.ValueText` when the value should appear as text instead of inside
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={clipboardSolidValueText} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueValueText} />
 
     </Tab>
   </Tabs>
@@ -442,6 +514,7 @@ the component's state and behavior.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -456,6 +529,11 @@ the component's state and behavior.
 <CodeBlockRuntime lang="tsx" code={clipboardSolidAsChild} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={clipboardVueAsChild} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -468,7 +546,7 @@ the component's state and behavior.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes; the CSS Modules variants use the CSS variables
 below. For copied-state styles, use Ark's `data-copied` attribute together with moduix's
 `data-slot` hooks.
@@ -480,16 +558,15 @@ below. For copied-state styles, use Ark's `data-copied` attribute together with 
 ### Styling hooks
 
 - `Clipboard` -> `data-slot="clipboard-root"`
-- `Clipboard.RootProvider` -> `data-slot="clipboard-root-provider"`
-- `Clipboard.Label` -> `data-slot="clipboard-label"`
-- `Clipboard.Control` -> `data-slot="clipboard-control"`
-- `Clipboard.Input` -> `data-slot="clipboard-input"`
-- `Clipboard.Trigger` -> `data-slot="clipboard-trigger"`
-- `Clipboard.Indicator` -> `data-slot="clipboard-indicator"`
-- `Clipboard.CopyText` -> `data-slot="clipboard-copy-text"`
-- `Clipboard.ValueText` -> `data-slot="clipboard-value-text"`
-- Ark adds `data-copied` to `Root`, `Label`, `Control`, `Input`, and `Trigger` while the copied
-  state is active.
-- Ark adds `data-readonly` to `Clipboard.Input` when the input is read-only.
-- `Clipboard.Indicator` adds `data-slot="clipboard-indicator-idle-icon"` and
+- `ClipboardRootProvider` -> `data-slot="clipboard-root-provider"`
+- `ClipboardLabel` -> `data-slot="clipboard-label"`
+- `ClipboardControl` -> `data-slot="clipboard-control"`
+- `ClipboardInput` -> `data-slot="clipboard-input"`
+- `ClipboardTrigger` -> `data-slot="clipboard-trigger"`
+- `ClipboardIndicator` -> `data-slot="clipboard-indicator"`
+- `ClipboardValueText` -> `data-slot="clipboard-value-text"`
+- Ark adds `data-copied` to `Clipboard`, `ClipboardLabel`, `ClipboardControl`, `ClipboardInput`, and
+  `ClipboardTrigger` while the copied state is active.
+- Ark adds `data-readonly` to `ClipboardInput` when the input is read-only.
+- `ClipboardIndicator` adds `data-slot="clipboard-indicator-idle-icon"` and
   `data-slot="clipboard-indicator-copied-icon"` to its default icon nodes.

@@ -10,10 +10,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui';
 
-const ClipboardRoot = forwardRef<
+const Clipboard = forwardRef<
   ComponentRef<typeof ClipboardPrimitive.Root>,
   ComponentProps<typeof ClipboardPrimitive.Root>
->(function ClipboardRoot({ className, ...props }, ref) {
+>(function Clipboard({ className, ...props }, ref) {
   return (
     <ClipboardPrimitive.Root
       ref={ref}
@@ -91,7 +91,7 @@ const ClipboardTrigger = forwardRef<
     <ClipboardPrimitive.Trigger
       ref={ref}
       className={cn(
-        'box-border inline-flex min-h-control-md shrink-0 cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled):not([data-disabled])]:opacity-[0.94] motion-safe:[&:active:not(:disabled):not([data-disabled])]:translate-y-px motion-safe:[&:active:not(:disabled):not([data-disabled])]:scale-[0.985] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent',
+        'box-border inline-flex min-h-control-md shrink-0 cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled):not([data-disabled])]:opacity-[0.94] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent',
         className,
       )}
       {...props}
@@ -149,35 +149,18 @@ const ClipboardValueText = forwardRef<
   );
 });
 
-const ClipboardCopyText = forwardRef<
-  ComponentRef<typeof ClipboardPrimitive.Indicator>,
-  ComponentProps<typeof ClipboardPrimitive.Indicator>
->(function ClipboardCopyText({ className, copied = 'Copied', children = 'Copy', ...props }, ref) {
-  return (
-    <ClipboardPrimitive.Indicator
-      ref={ref}
-      className={cn('inline-flex shrink-0 items-center justify-center', className)}
-      copied={copied}
-      {...props}
-      data-slot="clipboard-copy-text"
-    >
-      {children}
-    </ClipboardPrimitive.Indicator>
-  );
-});
+const ClipboardContext = ClipboardPrimitive.Context;
 
-const Clipboard = Object.assign(ClipboardRoot, {
-  Root: ClipboardRoot,
-  RootProvider: ClipboardRootProvider,
-  Context: ClipboardPrimitive.Context,
-  Label: ClipboardLabel,
-  Control: ClipboardControl,
-  Input: ClipboardInput,
-  Trigger: ClipboardTrigger,
-  Indicator: ClipboardIndicator,
-  CopyText: ClipboardCopyText,
-  ValueText: ClipboardValueText,
+export {
+  Clipboard,
+  ClipboardContext,
+  ClipboardControl,
+  ClipboardIndicator,
+  ClipboardInput,
+  ClipboardLabel,
+  ClipboardRootProvider,
+  ClipboardTrigger,
+  ClipboardValueText,
   useClipboard,
-});
-
-export { Clipboard, useClipboard, useClipboardContext };
+  useClipboardContext,
+};

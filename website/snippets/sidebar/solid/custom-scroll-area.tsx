@@ -1,5 +1,25 @@
-import { ScrollArea } from '@moduix/solid/scroll-area';
-import { Sidebar } from '@moduix/solid/sidebar';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@moduix/solid/scroll-area';
+import {
+  Sidebar,
+  SidebarPanel,
+  SidebarInset,
+  SidebarResizeTrigger,
+  SidebarTrigger,
+  SidebarLabel,
+  SidebarHeader,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarNavigationList,
+  SidebarNavigationItem,
+  SidebarNavigationButton,
+} from '@moduix/solid/sidebar';
 import { FileText, FolderOpen, Gauge } from 'lucide-solid';
 import { For } from 'solid-js';
 import styles from '@/components/examples/sidebar/sidebar-custom-scroll-area.module.css';
@@ -22,58 +42,58 @@ const projects = [
 export default function ScrollableSidebar() {
   return (
     <Sidebar class={styles.root}>
-      <Sidebar.Panel>
-        <Sidebar.Header>
+      <SidebarPanel>
+        <SidebarHeader>
           <strong data-sidebar-icon>M</strong>
-          <Sidebar.Label>Moduix</Sidebar.Label>
-        </Sidebar.Header>
-        <Sidebar.Content class={styles.sidebarContent}>
+          <SidebarLabel>Moduix</SidebarLabel>
+        </SidebarHeader>
+        <SidebarContent class={styles.sidebarContent}>
           <ScrollArea fade>
-            <ScrollArea.Viewport>
-              <ScrollArea.Content>
-                <Sidebar.Group>
-                  <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-                  <Sidebar.NavigationList>
-                    <Sidebar.NavigationItem>
-                      <Sidebar.NavigationButton active>
+            <ScrollAreaViewport>
+              <ScrollAreaContent>
+                <SidebarGroup>
+                  <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+                  <SidebarNavigationList>
+                    <SidebarNavigationItem>
+                      <SidebarNavigationButton active>
                         <Gauge />
-                        <Sidebar.Label>Overview</Sidebar.Label>
-                      </Sidebar.NavigationButton>
-                    </Sidebar.NavigationItem>
-                    <Sidebar.NavigationItem>
-                      <Sidebar.NavigationButton>
+                        <SidebarLabel>Overview</SidebarLabel>
+                      </SidebarNavigationButton>
+                    </SidebarNavigationItem>
+                    <SidebarNavigationItem>
+                      <SidebarNavigationButton>
                         <FolderOpen />
-                        <Sidebar.Label>Projects</Sidebar.Label>
-                      </Sidebar.NavigationButton>
-                    </Sidebar.NavigationItem>
-                  </Sidebar.NavigationList>
-                </Sidebar.Group>
-                <Sidebar.Group>
-                  <Sidebar.GroupLabel>Recent projects</Sidebar.GroupLabel>
-                  <Sidebar.NavigationList>
+                        <SidebarLabel>Projects</SidebarLabel>
+                      </SidebarNavigationButton>
+                    </SidebarNavigationItem>
+                  </SidebarNavigationList>
+                </SidebarGroup>
+                <SidebarGroup>
+                  <SidebarGroupLabel>Recent projects</SidebarGroupLabel>
+                  <SidebarNavigationList>
                     <For each={projects}>
                       {(project) => (
-                        <Sidebar.NavigationItem>
-                          <Sidebar.NavigationButton>
+                        <SidebarNavigationItem>
+                          <SidebarNavigationButton>
                             <FileText />
-                            <Sidebar.Label>{project}</Sidebar.Label>
-                          </Sidebar.NavigationButton>
-                        </Sidebar.NavigationItem>
+                            <SidebarLabel>{project}</SidebarLabel>
+                          </SidebarNavigationButton>
+                        </SidebarNavigationItem>
                       )}
                     </For>
-                  </Sidebar.NavigationList>
-                </Sidebar.Group>
-              </ScrollArea.Content>
-            </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar>
-              <ScrollArea.Thumb />
-            </ScrollArea.Scrollbar>
+                  </SidebarNavigationList>
+                </SidebarGroup>
+              </ScrollAreaContent>
+            </ScrollAreaViewport>
+            <ScrollAreaScrollbar>
+              <ScrollAreaThumb />
+            </ScrollAreaScrollbar>
           </ScrollArea>
-        </Sidebar.Content>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+        </SidebarContent>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <header class={styles.header}>Project dashboard</header>
         <main class={styles.content}>
           <strong>Recent activity</strong>
@@ -84,7 +104,7 @@ export default function ScrollableSidebar() {
             </p>
           </section>
         </main>
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   );
 }

@@ -1,4 +1,4 @@
-import { Avatar } from '@moduix/solid/avatar';
+import { Avatar, AvatarFallback } from '@moduix/solid/avatar';
 import { For } from 'solid-js';
 import styles from '@/components/examples/avatar/avatar-sizes-and-fallback-only.module.css';
 
@@ -10,7 +10,7 @@ export default function AvatarSizesDemo() {
       <For each={avatarSizes}>
         {(size) => (
           <Avatar size={size}>
-            <Avatar.Fallback>{size.toUpperCase()}</Avatar.Fallback>
+            <AvatarFallback>{size.toUpperCase()}</AvatarFallback>
           </Avatar>
         )}
       </For>

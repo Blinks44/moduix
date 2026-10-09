@@ -1,6 +1,18 @@
 import { Button } from '@moduix/solid/button';
-import { Dialog, useDialog } from '@moduix/solid/dialog';
-import { Field } from '@moduix/solid/field';
+import {
+  DialogBackdrop,
+  DialogBody,
+  DialogCloseIcon,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogPositioner,
+  DialogRootProvider,
+  DialogTitle,
+  useDialog,
+} from '@moduix/solid/dialog';
+import { Field, FieldLabel } from '@moduix/solid/field';
 import { Textarea } from '@moduix/solid/textarea';
 import { createSignal } from 'solid-js';
 
@@ -28,18 +40,18 @@ export default function ConfirmationDialogDemo() {
     <>
       <Button onClick={() => setOpen(true)}>Open form</Button>
 
-      <Dialog.RootProvider value={parentDialog}>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Edit content</Dialog.Title>
-            <Dialog.CloseIcon />
-            <Dialog.Description>
+      <DialogRootProvider value={parentDialog}>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Edit content</DialogTitle>
+            <DialogCloseIcon />
+            <DialogDescription>
               Unsaved changes ask for confirmation before closing.
-            </Dialog.Description>
-            <Dialog.Body>
+            </DialogDescription>
+            <DialogBody>
               <Field>
-                <Field.Label>Content</Field.Label>
+                <FieldLabel>Content</FieldLabel>
                 <Textarea
                   value={formContent()}
                   onInput={(event) => setFormContent(event.currentTarget.value)}
@@ -47,19 +59,19 @@ export default function ConfirmationDialogDemo() {
                   rows={4}
                 />
               </Field>
-            </Dialog.Body>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Dialog.RootProvider>
+            </DialogBody>
+          </DialogContent>
+        </DialogPositioner>
+      </DialogRootProvider>
 
-      <Dialog.RootProvider value={confirmDialog}>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Discard changes?</Dialog.Title>
-            <Dialog.Description>You have unsaved changes.</Dialog.Description>
-            <Dialog.Footer>
-              <Dialog.CloseTrigger
+      <DialogRootProvider value={confirmDialog}>
+        <DialogBackdrop />
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Discard changes?</DialogTitle>
+            <DialogDescription>You have unsaved changes.</DialogDescription>
+            <DialogFooter>
+              <DialogCloseTrigger
                 asChild={(props) => (
                   <Button {...props()} variant="outline">
                     Keep editing
@@ -67,10 +79,10 @@ export default function ConfirmationDialogDemo() {
                 )}
               />
               <Button onClick={handleDiscard}>Discard</Button>
-            </Dialog.Footer>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Dialog.RootProvider>
+            </DialogFooter>
+          </DialogContent>
+        </DialogPositioner>
+      </DialogRootProvider>
     </>
   );
 }

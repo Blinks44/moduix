@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "src/components/toggle/Toggle.tsx",
-      "content": "import { Toggle as TogglePrimitive, ToggleContext, useToggleContext } from '@ark-ui/solid/toggle';\nimport { clsx } from 'clsx';\nimport type { ComponentProps } from 'solid-js';\nimport { splitProps } from 'solid-js';\nimport styles from './Toggle.module.css';\n\ntype ToggleVariant = 'default' | 'outline' | 'ghost';\ntype ToggleSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';\ntype ToggleRootProps = ComponentProps<typeof TogglePrimitive.Root> & {\n  variant?: ToggleVariant;\n  size?: ToggleSize;\n};\n\nfunction ToggleRoot(props: ToggleRootProps) {\n  const [local, others] = splitProps(props, ['asChild', 'class', 'size', 'variant']);\n\n  return (\n    <TogglePrimitive.Root\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"toggle-root\"\n      data-variant={local.variant ?? 'default'}\n      data-size={local.size ?? 'md'}\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nfunction ToggleIndicator(props: ComponentProps<typeof TogglePrimitive.Indicator>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <TogglePrimitive.Indicator\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"toggle-indicator\"\n      class={clsx(styles.indicator, local.class)}\n    />\n  );\n}\n\nconst Toggle = Object.assign(ToggleRoot, {\n  Root: ToggleRoot,\n  Indicator: ToggleIndicator,\n  Context: ToggleContext,\n});\n\nexport { Toggle, useToggleContext };\nexport type { ToggleRootProps, ToggleSize, ToggleVariant };",
+      "content": "import { Toggle as TogglePrimitive, ToggleContext, useToggleContext } from '@ark-ui/solid/toggle';\nimport { clsx } from 'clsx';\nimport type { ComponentProps } from 'solid-js';\nimport { splitProps } from 'solid-js';\nimport styles from './Toggle.module.css';\n\ntype ToggleVariant = 'default' | 'outline' | 'ghost';\ntype ToggleSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';\ntype ToggleRootProps = ComponentProps<typeof TogglePrimitive.Root> & {\n  variant?: ToggleVariant;\n  size?: ToggleSize;\n};\n\nfunction Toggle(props: ToggleRootProps) {\n  const [local, others] = splitProps(props, ['asChild', 'class', 'size', 'variant']);\n\n  return (\n    <TogglePrimitive.Root\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"toggle-root\"\n      data-variant={local.variant ?? 'default'}\n      data-size={local.size ?? 'md'}\n      class={clsx(styles.root, local.class)}\n    />\n  );\n}\n\nfunction ToggleIndicator(props: ComponentProps<typeof TogglePrimitive.Indicator>) {\n  const [local, others] = splitProps(props, ['asChild', 'class']);\n\n  return (\n    <TogglePrimitive.Indicator\n      asChild={local.asChild}\n      {...others}\n      data-slot=\"toggle-indicator\"\n      class={clsx(styles.indicator, local.class)}\n    />\n  );\n}\n\nexport { Toggle, ToggleContext, ToggleIndicator, useToggleContext };\nexport type { ToggleRootProps, ToggleSize, ToggleVariant };",
       "type": "registry:component",
       "target": "@components/ui/toggle/Toggle.tsx"
     },
@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/toggle/index.ts",
-      "content": "export { Toggle, useToggleContext } from './Toggle.js';\nexport type { ToggleRootProps, ToggleSize, ToggleVariant } from './Toggle.js';",
+      "content": "export * from './Toggle.js';",
       "type": "registry:component",
       "target": "@components/ui/toggle/index.ts"
     }

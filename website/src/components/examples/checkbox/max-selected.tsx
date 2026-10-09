@@ -1,4 +1,10 @@
-import { Checkbox } from '@moduix/react/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
 
 const options = [
   { value: 'react', label: 'React' },
@@ -9,14 +15,14 @@ const options = [
 
 export default function CheckboxMaxSelectedDemo() {
   return (
-    <Checkbox.Group defaultValue={['react', 'solid']} maxSelectedValues={2} name="frameworks">
+    <CheckboxGroup defaultValue={['react', 'solid']} maxSelectedValues={2} name="frameworks">
       {options.map((option) => (
         <Checkbox key={option.value} value={option.value}>
-          <Checkbox.Control />
-          <Checkbox.Label>{option.label}</Checkbox.Label>
-          <Checkbox.HiddenInput />
+          <CheckboxControl />
+          <CheckboxLabel>{option.label}</CheckboxLabel>
+          <CheckboxHiddenInput />
         </Checkbox>
       ))}
-    </Checkbox.Group>
+    </CheckboxGroup>
   );
 }

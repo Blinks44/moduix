@@ -10,7 +10,7 @@ import { cn } from '@/lib/moduix/cn';
 
 type ImageProps = UnpicImageProps & { style?: CSSProperties };
 
-const ImageRoot = forwardRef<HTMLImageElement, ImageProps>(function ImageRoot(
+const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
   { className, fetchPriority, fetchpriority, ...props },
   ref,
 ) {
@@ -18,7 +18,14 @@ const ImageRoot = forwardRef<HTMLImageElement, ImageProps>(function ImageRoot(
     <ImagePrimitive
       ref={ref}
       {...(props as UnpicImageProps)}
-      fetchpriority={(fetchPriority ?? fetchpriority) as 'high' | 'low' | undefined}
+      loading={props.loading ?? (props.priority ? 'eager' : 'lazy')}
+      decoding={props.decoding ?? (props.priority ? undefined : 'async')}
+      fetchpriority={
+        (fetchPriority ?? fetchpriority ?? (props.priority ? 'high' : undefined)) as
+          | 'high'
+          | 'low'
+          | undefined
+      }
       data-slot="image-root"
       className={cn('rounded-md', className)}
     />
@@ -30,14 +37,4 @@ const ImageSource: ForwardRefExoticComponent<UnpicSourceProps & RefAttributes<HT
     return <ImageSourcePrimitive ref={ref} {...props} data-slot="image-source" />;
   });
 
-type ImageComponent = typeof ImageRoot & {
-  Root: typeof ImageRoot;
-  Source: typeof ImageSource;
-};
-
-const Image: ImageComponent = Object.assign(ImageRoot, {
-  Root: ImageRoot,
-  Source: ImageSource,
-});
-
-export { Image };
+export { Image, ImageSource };

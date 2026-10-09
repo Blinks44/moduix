@@ -1,6 +1,6 @@
 import { Button } from '@moduix/solid/button';
-import { Field } from '@moduix/solid/field';
-import { Switch } from '@moduix/solid/switch';
+import { Field, FieldErrorText, FieldHelperText } from '@moduix/solid/field';
+import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/solid/switch';
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/switch/switch-form-integration.module.css';
 
@@ -23,12 +23,12 @@ export default function SwitchFormDemo() {
           required
           onCheckedChange={(details) => setChecked(details.checked)}
         >
-          <Switch.Control />
-          <Switch.Label>Product updates</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Product updates</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
-        <Field.HelperText>Choose whether to receive product updates.</Field.HelperText>
-        <Field.ErrorText>Choose a notification preference.</Field.ErrorText>
+        <FieldHelperText>Choose whether to receive product updates.</FieldHelperText>
+        <FieldErrorText>Choose a notification preference.</FieldErrorText>
       </Field>
       <div>
         <output>

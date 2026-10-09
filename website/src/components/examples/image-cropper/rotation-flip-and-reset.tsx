@@ -1,5 +1,11 @@
 import { Button } from '@moduix/react/button';
-import { ImageCropper } from '@moduix/react/image-cropper';
+import {
+  ImageCropper,
+  ImageCropperContext,
+  ImageCropperCropArea,
+  ImageCropperImage,
+  ImageCropperViewport,
+} from '@moduix/react/image-cropper';
 import {
   FlipHorizontal as FlipHorizontalIcon,
   RotateCcw as RestartIcon,
@@ -30,7 +36,7 @@ export default function TransformImageCropperDemo() {
         onRotationChange={(details) => setRotation(details.rotation)}
         onFlipChange={(details) => setFlip(details.flip)}
       >
-        <ImageCropper.Context>
+        <ImageCropperContext>
           {(context) => (
             <div className={styles.toolbar}>
               <Button
@@ -83,11 +89,11 @@ export default function TransformImageCropperDemo() {
               </Button>
             </div>
           )}
-        </ImageCropper.Context>
-        <ImageCropper.Viewport>
-          <ImageCropper.Image src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
-          <ImageCropper.CropArea />
-        </ImageCropper.Viewport>
+        </ImageCropperContext>
+        <ImageCropperViewport>
+          <ImageCropperImage src={sampleImage} alt="Landscape" crossOrigin="anonymous" />
+          <ImageCropperCropArea />
+        </ImageCropperViewport>
       </ImageCropper>
       <PreviewMeta>
         <output>

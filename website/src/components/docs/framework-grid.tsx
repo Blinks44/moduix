@@ -6,6 +6,7 @@ type Framework = {
   descriptionKey:
     | 'frameworkAstroDescription'
     | 'frameworkNextDescription'
+    | 'frameworkNuxtDescription'
     | 'frameworkReactRouterDescription'
     | 'frameworkRsbuildDescription'
     | 'frameworkSolidStartDescription'
@@ -27,6 +28,12 @@ const frameworks: readonly Framework[] = [
     descriptionKey: 'frameworkNextDescription',
     href: '/docs/installation/nextjs',
     logo: '/frameworks/nextjs.svg',
+  },
+  {
+    name: 'Nuxt',
+    descriptionKey: 'frameworkNuxtDescription',
+    href: '/docs/installation/nuxt',
+    logo: '/frameworks/nuxt.svg',
   },
   {
     name: 'React Router',

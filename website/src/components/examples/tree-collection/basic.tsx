@@ -1,4 +1,15 @@
 import {
+  TreeViewTree,
+  TreeViewLabel,
+  TreeViewItemText,
+  TreeViewItem,
+  TreeViewBranchIndentGuide,
+  TreeViewBranchContent,
+  TreeViewBranchText,
+  TreeViewBranchIndicator,
+  TreeViewBranchControl,
+  TreeViewBranch,
+  TreeViewNode,
   TreeView,
   createTreeCollection,
   type TreeViewNodeProviderProps,
@@ -44,16 +55,16 @@ const collection = createTreeCollection<FileNode>({
 
 function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeView.Node node={node} indexPath={indexPath}>
+    <TreeViewNode node={node} indexPath={indexPath}>
       {({ node: currentNode, indexPath: currentIndexPath, state }) =>
         state.isBranch ? (
-          <TreeView.Branch>
-            <TreeView.BranchControl>
-              <TreeView.BranchIndicator />
-              <TreeView.BranchText>{currentNode.label}</TreeView.BranchText>
-            </TreeView.BranchControl>
-            <TreeView.BranchContent>
-              <TreeView.BranchIndentGuide />
+          <TreeViewBranch>
+            <TreeViewBranchControl>
+              <TreeViewBranchIndicator />
+              <TreeViewBranchText>{currentNode.label}</TreeViewBranchText>
+            </TreeViewBranchControl>
+            <TreeViewBranchContent>
+              <TreeViewBranchIndentGuide />
               {currentNode.children?.map((child, index) => (
                 <FileTreeNode
                   key={child.value}
@@ -61,27 +72,27 @@ function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) 
                   indexPath={[...currentIndexPath, index]}
                 />
               ))}
-            </TreeView.BranchContent>
-          </TreeView.Branch>
+            </TreeViewBranchContent>
+          </TreeViewBranch>
         ) : (
-          <TreeView.Item>
-            <TreeView.ItemText>{currentNode.label}</TreeView.ItemText>
-          </TreeView.Item>
+          <TreeViewItem>
+            <TreeViewItemText>{currentNode.label}</TreeViewItemText>
+          </TreeViewItem>
         )
       }
-    </TreeView.Node>
+    </TreeViewNode>
   );
 }
 
 export default function TreeViewBasicDemo() {
   return (
     <TreeView collection={collection} defaultExpandedValue={['src', 'src/components']}>
-      <TreeView.Label>Project files</TreeView.Label>
-      <TreeView.Tree>
+      <TreeViewLabel>Project files</TreeViewLabel>
+      <TreeViewTree>
         {collection.rootNode.children?.map((node, index) => (
           <FileTreeNode key={node.value} node={node} indexPath={[index]} />
         ))}
-      </TreeView.Tree>
+      </TreeViewTree>
     </TreeView>
   );
 }

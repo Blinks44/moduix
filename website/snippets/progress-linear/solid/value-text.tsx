@@ -1,4 +1,11 @@
-import { ProgressLinear } from '@moduix/solid/progress-linear';
+import {
+  ProgressLinear,
+  ProgressLinearContext,
+  ProgressLinearLabel,
+  ProgressLinearValueText,
+  ProgressLinearTrack,
+  ProgressLinearRange,
+} from '@moduix/solid/progress-linear';
 
 export default function ValueTextProgressLinearDemo() {
   return (
@@ -10,13 +17,13 @@ export default function ValueTextProgressLinearDemo() {
         },
       }}
     >
-      <ProgressLinear.Label>Migration</ProgressLinear.Label>
-      <ProgressLinear.Context>
-        {(state) => <ProgressLinear.ValueText>{state().valueAsString}</ProgressLinear.ValueText>}
-      </ProgressLinear.Context>
-      <ProgressLinear.Track aria-label="Migration">
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
+      <ProgressLinearLabel>Migration</ProgressLinearLabel>
+      <ProgressLinearContext>
+        {(state) => <ProgressLinearValueText>{state().valueAsString}</ProgressLinearValueText>}
+      </ProgressLinearContext>
+      <ProgressLinearTrack aria-label="Migration">
+        <ProgressLinearRange />
+      </ProgressLinearTrack>
     </ProgressLinear>
   );
 }

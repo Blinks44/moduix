@@ -1,7 +1,9 @@
 # Textarea (Solid)
 
-`Textarea` is the native Solid wrapper around Ark UI's `Field.Textarea`. It preserves the React
+`Textarea` is the native Solid wrapper around Ark UI's `FieldTextarea`. It preserves the React
 component's native textarea props, field state, autoresize behavior, data hooks, and CSS variables.
+`Textarea` is the only public component value; no additional Textarea parts or compound API are
+exported.
 
 ## Solid composition
 

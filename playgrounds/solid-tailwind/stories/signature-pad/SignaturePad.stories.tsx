@@ -2,9 +2,17 @@ import { createSignal } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Field } from '@/components/field';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   SignaturePad,
+  SignaturePadCanvas,
+  SignaturePadClearTrigger,
+  SignaturePadControl,
+  SignaturePadGuide,
+  SignaturePadHiddenInput,
+  SignaturePadLabel,
+  SignaturePadRootProvider,
+  SignaturePadSegment,
   useSignaturePad,
   useSignaturePadContext,
 } from '@/components/signature-pad/SignaturePad';
@@ -26,18 +34,18 @@ type Story = StoryObj<typeof meta>;
 function SignaturePadFormInput() {
   const signaturePad = useSignaturePadContext();
 
-  return <SignaturePad.HiddenInput value={signaturePad().paths.join(' ')} />;
+  return <SignaturePadHiddenInput value={signaturePad().paths.join(' ')} />;
 }
 
-type SignaturePadPartsProps = ComponentProps<typeof SignaturePad.Root> & { label?: string };
+type SignaturePadPartsProps = ComponentProps<typeof SignaturePad> & { label?: string };
 
 function SignaturePadParts(props: SignaturePadPartsProps) {
   const [local, others] = splitProps(props, ['label']);
 
   return (
     <SignaturePad {...others}>
-      <SignaturePad.Label>{local.label ?? 'Sign below'}</SignaturePad.Label>
-      <SignaturePad.Canvas />
+      <SignaturePadLabel>{local.label ?? 'Sign below'}</SignaturePadLabel>
+      <SignaturePadCanvas />
     </SignaturePad>
   );
 }
@@ -86,12 +94,12 @@ export const WithField: Story = {
   render: () => (
     <Field class="w-auto items-center" invalid required>
       <SignaturePad name="signature">
-        <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Canvas />
+        <SignaturePadLabel>Sign below</SignaturePadLabel>
+        <SignaturePadCanvas />
         <SignaturePadFormInput />
       </SignaturePad>
-      <Field.HelperText>Use a pointer or touch input to sign.</Field.HelperText>
-      <Field.ErrorText>Signature is required.</Field.ErrorText>
+      <FieldHelperText>Use a pointer or touch input to sign.</FieldHelperText>
+      <FieldErrorText>Signature is required.</FieldErrorText>
     </Field>
   ),
 };
@@ -102,17 +110,17 @@ export const RootProvider: Story = {
 
     return (
       <div class="grid justify-items-center gap-4">
-        <SignaturePad.RootProvider value={signaturePad}>
-          <SignaturePad.Label>Sign below</SignaturePad.Label>
-          <SignaturePad.Control>
-            <SignaturePad.Segment class="text-primary" />
-            <SignaturePad.ClearTrigger>
+        <SignaturePadRootProvider value={signaturePad}>
+          <SignaturePadLabel>Sign below</SignaturePadLabel>
+          <SignaturePadControl>
+            <SignaturePadSegment class="text-primary" />
+            <SignaturePadClearTrigger>
               <RotateCcwIcon class="size-4" aria-hidden="true" />
-            </SignaturePad.ClearTrigger>
-            <SignaturePad.Guide class="border-primary/45" />
-          </SignaturePad.Control>
+            </SignaturePadClearTrigger>
+            <SignaturePadGuide class="border-primary/45" />
+          </SignaturePadControl>
           <SignaturePadFormInput />
-        </SignaturePad.RootProvider>
+        </SignaturePadRootProvider>
         <output class="text-sm leading-5 text-muted-foreground">
           Paths: {signaturePad().paths.length}
         </output>

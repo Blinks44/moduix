@@ -1,25 +1,32 @@
-import { HoverCard } from '@moduix/solid/hover-card';
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardContext,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/solid/hover-card';
 import { ChevronDown as ChevronDownIcon, ChevronUp as ChevronUpIcon } from 'lucide-solid';
 import styles from '@/components/examples/hover-card/hover-card-context.module.css';
 
 export default function ContextHoverCard() {
   return (
     <HoverCard>
-      <HoverCard.Context>
+      <HoverCardContext>
         {(hoverCard) => (
-          <HoverCard.Trigger class={styles.trigger}>
+          <HoverCardTrigger class={styles.trigger}>
             @sarah_chen
             {hoverCard().open ? (
               <ChevronUpIcon aria-hidden size={16} />
             ) : (
               <ChevronDownIcon aria-hidden size={16} />
             )}
-          </HoverCard.Trigger>
+          </HoverCardTrigger>
         )}
-      </HoverCard.Context>
-      <HoverCard.Positioner>
-        <HoverCard.Content>
-          <HoverCard.Body>
+      </HoverCardContext>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <HoverCardBody>
             <div class={styles.preview}>
               <img
                 alt="Sunlit workspace with a laptop and plants"
@@ -33,9 +40,9 @@ export default function ContextHoverCard() {
                 </p>
               </div>
             </div>
-          </HoverCard.Body>
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+          </HoverCardBody>
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>
   );
 }

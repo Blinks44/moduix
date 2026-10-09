@@ -1,4 +1,11 @@
-import { TagsInput } from '@moduix/solid/tags-input';
+import {
+  TagsInput,
+  TagsInputClearTrigger,
+  TagsInputControl,
+  TagsInputInput,
+  TagsInputItems,
+  TagsInputLabel,
+} from '@moduix/solid/tags-input';
 import styles from '@/components/examples/tags-input/tags-input-delimiter-and-paste.module.css';
 
 export default function DelimiterPasteTagsInput() {
@@ -9,12 +16,12 @@ export default function DelimiterPasteTagsInput() {
       delimiter={/[,;\s]/}
       addOnPaste
     >
-      <TagsInput.Label>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Comma, semicolon, or space" />
-        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-      </TagsInput.Control>
+      <TagsInputLabel>Frameworks</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputItems />
+        <TagsInputInput placeholder="Comma, semicolon, or space" />
+        <TagsInputClearTrigger aria-label="Clear frameworks" />
+      </TagsInputControl>
     </TagsInput>
   );
 }

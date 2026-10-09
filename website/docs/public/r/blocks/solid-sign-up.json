@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "solid-sign-up",
+  "title": "Sign up",
+  "description": "Registration form with email, password confirmation, and terms acceptance.",
+  "registryDependencies": [
+    "https://moduix.dev/r/solid/button.json",
+    "https://moduix.dev/r/solid/card.json",
+    "https://moduix.dev/r/solid/checkbox.json",
+    "https://moduix.dev/r/solid/field.json",
+    "https://moduix.dev/r/solid/input.json"
+  ],
+  "files": [
+    {
+      "path": "snippets/blocks/solid/sign-up.tsx",
+      "content": "import { Button } from '@/registry/solid/ui/button';\nimport {\n  Card,\n  CardBody,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from '@/registry/solid/ui/card';\nimport {\n  Checkbox,\n  CheckboxControl,\n  CheckboxHiddenInput,\n  CheckboxLabel,\n} from '@/registry/solid/ui/checkbox';\nimport { Field, FieldLabel } from '@/registry/solid/ui/field';\nimport { Input } from '@/registry/solid/ui/input';\nimport styles from './sign-up-form.module.css';\n\nexport function SignUp({ onSubmit }: { onSubmit?: (event: SubmitEvent) => void }) {\n  return (\n    <Card class={styles.root}>\n      <CardHeader class={styles.header}>\n        <CardTitle>Create your account</CardTitle>\n        <CardDescription>Start building with moduix in minutes.</CardDescription>\n      </CardHeader>\n\n      <CardBody>\n        <form class={styles.stack} onSubmit={onSubmit}>\n          <Field required>\n            <FieldLabel>Full name</FieldLabel>\n            <Input name=\"name\" autocomplete=\"name\" placeholder=\"Alex Morgan\" />\n          </Field>\n\n          <Field required>\n            <FieldLabel>Email address</FieldLabel>\n            <Input name=\"email\" type=\"email\" autocomplete=\"email\" placeholder=\"you@example.com\" />\n          </Field>\n\n          <Field required>\n            <FieldLabel>Password</FieldLabel>\n            <Input name=\"password\" type=\"password\" autocomplete=\"new-password\" />\n          </Field>\n\n          <Field required>\n            <FieldLabel>Confirm password</FieldLabel>\n            <Input name=\"confirm-password\" type=\"password\" autocomplete=\"new-password\" />\n          </Field>\n\n          <Checkbox name=\"terms\" required>\n            <CheckboxHiddenInput />\n            <CheckboxControl />\n            <CheckboxLabel>\n              I agree to the{' '}\n              <a class={styles.link} href=\"/terms\">\n                Terms of service\n              </a>{' '}\n              and{' '}\n              <a class={styles.link} href=\"/privacy\">\n                Privacy policy\n              </a>\n              .\n            </CheckboxLabel>\n          </Checkbox>\n\n          <Button type=\"submit\" class={styles.submit}>\n            Create account\n          </Button>\n        </form>\n      </CardBody>\n\n      <CardFooter class={styles.footer}>\n        <p>\n          Already have an account?{' '}\n          <a class={styles.link} href=\"/sign-in\">\n            Sign in\n          </a>\n        </p>\n      </CardFooter>\n    </Card>\n  );\n}",
+      "type": "registry:component",
+      "target": "@components/blocks/sign-up/sign-up.tsx"
+    },
+    {
+      "path": "src/components/blocks/sign-up/sign-up-form.module.css",
+      "content": ".root {\n  width: min(100%, 26rem);\n}\n\n.header {\n  display: flex;\n  flex-direction: column;\n  gap: var(--moduix-spacing-2);\n  text-align: center;\n}\n\n.stack {\n  display: grid;\n  gap: var(--moduix-spacing-4);\n}\n\n.link {\n  color: var(--moduix-color-primary);\n  font-size: var(--moduix-text-sm);\n  font-weight: var(--moduix-weight-medium);\n  text-underline-offset: 0.2em;\n\n  &:hover {\n    color: var(--moduix-color-foreground);\n    text-decoration: underline;\n  }\n\n  &:focus-visible {\n    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);\n    outline-offset: var(--moduix-border-width-sm);\n    border-radius: var(--moduix-radius-xs);\n  }\n}\n\n.submit {\n  width: 100%;\n}\n\n.footer {\n  justify-content: center;\n  text-align: center;\n}\n\n.footer p {\n  margin: 0;\n  color: var(--moduix-color-muted-foreground);\n  font-size: var(--moduix-text-sm);\n}",
+      "type": "registry:file",
+      "target": "@components/blocks/sign-up/sign-up-form.module.css"
+    }
+  ],
+  "type": "registry:block"
+}

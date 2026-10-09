@@ -5,7 +5,7 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import styles from './Typeset.module.css';
 
-const TypesetRoot = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function TypesetRoot(
+const Typeset = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function Typeset(
   { className, ...props },
   ref,
 ) {
@@ -48,9 +48,4 @@ const TypesetScroll = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function Type
   );
 });
 
-const Typeset = Object.assign(TypesetRoot, {
-  Root: TypesetRoot,
-  Scroll: TypesetScroll,
-});
-
-export { Typeset };
+export { Typeset, TypesetScroll };

@@ -21,7 +21,7 @@ export function HighlightDemo() {
 }
 ```
 
-`Highlight` and `Highlight.Root` are the same styled root. Each matched segment is a native
+`Highlight` and `Highlight` are the same styled root. Each matched segment is a native
 `<mark>` with `data-scope="highlight"`, `data-part="root"`, and `data-slot="highlight-root"`.
 Unmatched text remains plain text, and a query with no matches renders no `<mark>` elements.
 

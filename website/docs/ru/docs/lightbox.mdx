@@ -1,7 +1,7 @@
 ---
 title: Lightbox
 component: lightbox
-description: Доступный просмотр изображений и медиаконтента в React и Solid с установкой пакетом или через shadcn.
+description: Модальный просмотрщик изображений с навигацией по галерее и управляемым состоянием в React, Solid и Vue.
 ---
 
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
@@ -25,6 +25,17 @@ import lightboxSolidGallery from '../../../snippets/lightbox/solid/gallery.tsx?r
 import lightboxSolidMultipleTriggers from '../../../snippets/lightbox/solid/multiple-triggers.tsx?raw';
 import lightboxSolidNonModal from '../../../snippets/lightbox/solid/non-modal.tsx?raw';
 import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/solid/root-provider-and-context.tsx?raw';
+import lightboxVueAdvancedCustomization from '../../../snippets/lightbox/vue/advanced-customization.vue?raw';
+import lightboxVueBasic from '../../../snippets/lightbox/vue/basic.vue?raw';
+import lightboxVueBindCmsContent from '../../../snippets/lightbox/vue/bind-cms-content.vue?raw';
+import lightboxVueClickToCloseImage from '../../../snippets/lightbox/vue/click-to-close-image.vue?raw';
+import lightboxVueControlled from '../../../snippets/lightbox/vue/controlled.vue?raw';
+import lightboxVueFocusAndIds from '../../../snippets/lightbox/vue/focus-and-ids.vue?raw';
+import lightboxVueGallery from '../../../snippets/lightbox/vue/gallery.vue?raw';
+import lightboxVueMultipleTriggers from '../../../snippets/lightbox/vue/multiple-triggers.vue?raw';
+import lightboxVueNonModal from '../../../snippets/lightbox/vue/non-modal.vue?raw';
+import lightboxVueRootProviderAndContext from '../../../snippets/lightbox/vue/root-provider-and-context.vue?raw';
+import lightboxVueRootProviderAndContextPart from '../../../snippets/lightbox/vue/LightboxStatus.vue?raw';
 
 ## Справочник API
 
@@ -41,12 +52,12 @@ import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/soli
 
 - Выбирайте **`Lightbox`** для увеличенного просмотра изображений, галерей товаров и другого медиаконтента.
 - Выбирайте **`Dialog`** для обычного интерфейса приложения, например форм, действий или смешанного содержимого.
-- Поместите **`Carousel` внутрь `Lightbox.Gallery`**, если для просмотра нужны слайды и стрелки навигации.
+- Поместите **`Carousel` внутрь `LightboxGallery`**, если для просмотра нужны слайды и стрелки навигации.
 
 ## Базовый пример
 
-Явно соберите структуру диалога Ark UI из `Lightbox`, `Lightbox.Trigger`,
-`Lightbox.Backdrop`, `Lightbox.Positioner` и `Lightbox.Content`. С помощью `asChild` передайте
+Явно соберите структуру диалога Ark UI из `Lightbox`, `LightboxTrigger`,
+`LightboxBackdrop`, `LightboxPositioner` и `LightboxContent`. С помощью `asChild` передайте
 один семантический элемент, который открывает окно просмотра.
 
 <ExampleFrame variant="component">
@@ -60,6 +71,7 @@ import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/soli
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -72,6 +84,11 @@ import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/soli
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueBasic} />
 
     </Tab>
   </Tabs>
@@ -109,75 +126,88 @@ import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/soli
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/lightbox' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/lightbox' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Lightbox / Lightbox.Root
-├─ Lightbox.Trigger
-├─ Lightbox.Bind
+Lightbox
+├─ LightboxTrigger
+├─ LightboxBind
 └─ Поддерево модального окна (автоматически выводится через портал)
-   ├─ Lightbox.Backdrop
-   └─ Lightbox.Positioner
-      ├─ Lightbox.CloseTrigger или Lightbox.CloseIcon
-      └─ Lightbox.Content
-         ├─ Lightbox.Header (необязательно)
-         │  ├─ Lightbox.Title
-         │  └─ Lightbox.Description
-         ├─ Lightbox.Body
-         │  └─ Lightbox.Image
-         └─ Lightbox.Footer (необязательно)
+   ├─ LightboxBackdrop
+   └─ LightboxPositioner
+      ├─ LightboxCloseTrigger или LightboxCloseIcon
+      └─ LightboxContent
+         ├─ LightboxHeader (необязательно)
+         │  ├─ LightboxTitle
+         │  └─ LightboxDescription
+         ├─ LightboxBody
+         │  └─ LightboxImage
+         └─ LightboxFooter (необязательно)
 
-Lightbox.RootProvider
+LightboxRootProvider
 └─ то же дерево частей, связанное с useLightbox()
 ```
 
 | Часть | Назначение |
 | ---------------------------- | ------------------------------------------------------------------------------------ |
-| `Lightbox` / `Lightbox.Root` | Корневой компонент Dialog из Ark UI. Он управляет состоянием открытия, фокусом, закрытием и доступностью. |
-| `Lightbox.RootProvider` | Провайдер состояния, созданного с помощью `useLightbox()`. |
-| `Lightbox.Trigger` | Триггер Ark. С `asChild` можно передать семантическую кнопку или ссылку. |
-| `Lightbox.Backdrop` | Модальная подложка с атрибутом Ark `data-state` и переменными слоя. |
-| `Lightbox.Positioner` | Фиксированный контейнер, центрирующий содержимое модального окна. |
-| `Lightbox.Content` | Узел с содержимым диалога Ark UI. |
-| `Lightbox.Title` | Необязательный доступный заголовок. |
-| `Lightbox.Description` | Необязательное доступное описание. |
-| `Lightbox.CloseTrigger` | Низкоуровневый триггер закрытия Ark UI. |
-| `Lightbox.CloseIcon` | Упрощённый вариант, объединяющий `CloseButton.Root` с триггером закрытия Ark UI. |
-| `Lightbox.Header` / `Body` | Необязательные компоненты для размещения текста и медиа. |
-| `Lightbox.Footer` | Необязательный компонент для действий или статуса под медиа. |
-| `Lightbox.Image` | Стилизованный `<img>`, передающий ref нативного элемента `HTMLImageElement`. |
-| `Lightbox.Gallery` | Контейнер для компоновки и стилизации `Carousel`. |
-| `Lightbox.Bind` | Компонент без собственного DOM, связывающий внешнюю разметку с корнем. |
+| `Lightbox` | Корневой компонент Dialog из Ark UI. Он управляет состоянием открытия, фокусом, закрытием и доступностью. |
+| `LightboxRootProvider` | Провайдер состояния, созданного с помощью `useLightbox()`. |
+| `LightboxTrigger` | Триггер Ark. С `asChild` можно передать семантическую кнопку или ссылку. |
+| `LightboxBackdrop` | Модальная подложка с атрибутом Ark `data-state` и переменными слоя. |
+| `LightboxPositioner` | Фиксированный контейнер, центрирующий содержимое модального окна. |
+| `LightboxContent` | Узел с содержимым диалога Ark UI. |
+| `LightboxTitle` | Необязательный доступный заголовок. |
+| `LightboxDescription` | Необязательное доступное описание. |
+| `LightboxCloseTrigger` | Низкоуровневый триггер закрытия Ark UI. |
+| `LightboxCloseIcon` | Упрощённый вариант, объединяющий `CloseButton` с триггером закрытия Ark UI. |
+| `LightboxHeader` / `LightboxBody` | Необязательные компоненты для размещения текста и медиа. |
+| `LightboxFooter` | Необязательный компонент для действий или статуса под медиа. |
+| `LightboxImage` | Стилизованный `<img>`, передающий ref нативного элемента `HTMLImageElement`. |
+| `LightboxGallery` | Контейнер для компоновки и стилизации `Carousel`. |
+| `LightboxBind` | Компонент без собственного DOM, связывающий внешнюю разметку с корнем. |
 
 ## Композиция
 
-`Lightbox` управляет состоянием `Dialog`, а `Backdrop`, `Positioner` и `Content` остаются явными.
+`Lightbox` управляет состоянием `Dialog`, а `LightboxBackdrop`, `LightboxPositioner` и `LightboxContent` остаются явными.
 По умолчанию части окна выводятся через портал. Используйте `portalled={false}`, чтобы оставить их
-на месте, или `portalRef`, чтобы выбрать контейнер. Размещайте `CloseIcon` рядом с `Content` внутри
-`Positioner`, если кнопку нужно закрепить относительно окна, а не перемещать вместе с содержимым.
-Для `asChild` передавайте один семантический элемент. В Solid это render-функция, получающая его props.
+на месте, или `portalRef`, чтобы выбрать контейнер. Размещайте `LightboxCloseIcon` внутри `LightboxContent`,
+но вне `LightboxBody`, чтобы кнопка была доступна скринридерам и входила в область удержания фокуса.
+Content плавно появляется и исчезает, а Body меняет масштаб и положение; кнопка остаётся в углу окна.
+Без Body содержимое анимируется только изменением прозрачности.
+Для `asChild` передавайте один семантический элемент. В Solid это render-функция, получающая его props,
+а в Vue передавайте булево свойство `as-child` и элемент в слоте.
 
 В галереях храните выбранное изображение и страницу `Carousel` в состоянии приложения. Передавайте
-ключ изображения в `Lightbox.Trigger value` и обновляйте состояние из `onTriggerValueChange(details)`
-или callback страницы `Carousel`. Используйте `RootProvider` с `useLightbox()`, если состояние или
+ключ изображения в `LightboxTrigger value` и обновляйте состояние из `onTriggerValueChange(details)`
+или callback страницы `Carousel`. Используйте `LightboxRootProvider` с `useLightbox()`, если состояние или
 кнопка открытия находятся за пределами корня, а в дочерних компонентах читайте его через
-`useLightboxContext()`. `Bind` не выводит разметку и только выбирает изображение во внешнем DOM, поэтому
-остальные части Lightbox нужно собрать явно. `Image closeOnClick` закрывает окно после клика по изображению.
+`useLightboxContext()`. `LightboxBind` не выводит разметку и только выбирает изображение во внешнем DOM, поэтому
+остальные части Lightbox нужно собрать явно. `LightboxImage closeOnClick` закрывает окно после клика по изображению.
 
 ## Примеры
 
 ### Привязка содержимого из CMS
 
-Используйте `Lightbox.Bind`, если изображения приходят из CMS или сторонней разметки, которую нельзя
-вывести напрямую через `Lightbox.Trigger`. Укажите контейнер через `rootRef` или `rootSelector`,
-задайте `selector` и обработайте `{ src, alt, element }` в `onImageSelect`. `Bind` открывает родительский
+Используйте `LightboxBind`, если изображения приходят из CMS или сторонней разметки, которую нельзя
+вывести напрямую через `LightboxTrigger`. Укажите контейнер через `rootRef` или `rootSelector`,
+задайте `selector` и обработайте `{ src, alt, element }` в `onImageSelect`. `LightboxBind` открывает родительский
 Lightbox, но не создаёт его подложку, содержимое и элементы закрытия. Источник читается из
 `data-lightbox-src`, затем `currentSrc` и `src`, а найденное изображение заранее загружается при
 наведении указателя или фокусе с клавиатуры. В `selector` указывайте семантическую кнопку или ссылку,
 чтобы открытие работало с клавиатуры. Для структурированного массива изображений используйте
-композицию `Lightbox.Gallery + Carousel`.
+композицию `LightboxGallery + Carousel`.
 
 <ExampleFrame variant="component">
   <LightboxBindCmsContent />
@@ -190,6 +220,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -204,6 +235,11 @@ Lightbox, но не создаёт его подложку, содержимое
 <CodeBlockRuntime lang="tsx" code={lightboxSolidBindCmsContent} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueBindCmsContent} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -216,7 +252,7 @@ Lightbox, но не создаёт его подложку, содержимое
 
 ### Закрытие по клику на изображение
 
-Используйте `Lightbox.Image closeOnClick`, если клик по изображению должен закрывать окно просмотра.
+Используйте `LightboxImage closeOnClick`, если клик по изображению должен закрывать окно просмотра.
 Иконка закрытия остаётся доступной и сохраняет стандартную семантику Ark UI.
 
 <ExampleFrame variant="component">
@@ -230,6 +266,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -242,6 +279,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidClickToCloseImage} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueClickToCloseImage} />
 
     </Tab>
   </Tabs>
@@ -257,7 +299,7 @@ Lightbox, но не создаёт его подложку, содержимое
 ### Управляемое состояние
 
 Используйте callback `onOpenChange(details)` из Ark UI, если состояние Lightbox нужно синхронизировать
-с состоянием приложения на React или Solid.
+с состоянием приложения на React или Solid. Во Vue используйте `v-model:open`.
 
 <ExampleFrame variant="component">
   <LightboxControlled />
@@ -270,6 +312,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -282,6 +325,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueControlled} />
 
     </Tab>
   </Tabs>
@@ -311,6 +359,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -323,6 +372,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidFocusAndIds} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueFocusAndIds} />
 
     </Tab>
   </Tabs>
@@ -338,8 +392,8 @@ Lightbox, но не создаёт его подложку, содержимое
 ### Галерея
 
 Если CMS или API возвращает структурированный массив изображений, храните выбранное изображение и
-текущую страницу `Carousel` в состоянии React или Solid, а сам `Carousel` поместите внутрь
-`Lightbox.Gallery`. Используйте `Lightbox.Trigger.value`, чтобы выбрать начальный слайд, и
+текущую страницу `Carousel` в состоянии React, Solid или Vue, а сам `Carousel` поместите внутрь
+`LightboxGallery`. Используйте `LightboxTrigger.value`, чтобы выбрать начальный слайд, и
 синхронизируйте страницу `Carousel` во время навигации.
 
 <ExampleFrame variant="component">
@@ -353,6 +407,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -367,6 +422,11 @@ Lightbox, но не создаёт его подложку, содержимое
 <CodeBlockRuntime lang="tsx" code={lightboxSolidGallery} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueGallery} />
+
+    </Tab>
   </Tabs>
 
 **Стили**
@@ -379,7 +439,7 @@ Lightbox, но не создаёт его подложку, содержимое
 
 ### Несколько триггеров
 
-Используйте `Lightbox.Trigger.value` и `onTriggerValueChange(details)` для миниатюр галереи.
+Используйте `LightboxTrigger.value` и `onTriggerValueChange(details)` для миниатюр галереи.
 Компонент не создаёт скрытый реестр изображений.
 
 <ExampleFrame variant="component">
@@ -393,6 +453,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -405,6 +466,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidMultipleTriggers} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueMultipleTriggers} />
 
     </Tab>
   </Tabs>
@@ -420,7 +486,7 @@ Lightbox, но не создаёт его подложку, содержимое
 ### Немодальный режим
 
 Задайте `modal={false}`, если страница должна оставаться интерактивной во время просмотра. В этом
-режиме Ark отключает удержание фокуса и блокировку прокрутки. Не добавляйте `Backdrop`, чтобы
+режиме Ark отключает удержание фокуса и блокировку прокрутки. Не добавляйте `LightboxBackdrop`, чтобы
 действия на фоне оставались доступными, пока изображение открыто.
 
 <ExampleFrame variant="component">
@@ -434,6 +500,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -446,6 +513,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidNonModal} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueNonModal} />
 
     </Tab>
   </Tabs>
@@ -475,6 +547,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -487,6 +560,13 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidRootProviderAndContext} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueRootProviderAndContext} />
+
+<CodeBlockRuntime lang="vue" code={lightboxVueRootProviderAndContextPart} title="LightboxStatus.vue" />
 
     </Tab>
   </Tabs>
@@ -502,7 +582,7 @@ Lightbox, но не создаёт его подложку, содержимое
 ### Расширенная настройка
 
 Не используйте необязательные компоненты компоновки, если для медиаконтента нужны собственные классы
-слотов и переопределения токенов. `Backdrop`, `Positioner` и `Content` остаются явными.
+слотов и переопределения токенов. `LightboxBackdrop`, `LightboxPositioner` и `LightboxContent` остаются явными.
 
 <ExampleFrame variant="component">
   <LightboxAdvancedCustomization />
@@ -515,6 +595,7 @@ Lightbox, но не создаёт его подложку, содержимое
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -527,6 +608,11 @@ Lightbox, но не создаёт его подложку, содержимое
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={lightboxSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={lightboxVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -563,8 +649,8 @@ Lightbox, но не создаёт его подложку, содержимое
   и `lightbox-gallery`.
 - Атрибуты состояния и анатомии Ark: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
   `data-nested`, `data-has-nested`, `--layer-index` и `--nested-layer-count`.
-- Локальные точки настройки: `Lightbox.Image` добавляет `data-slot="lightbox-image"` и, если
-  включено закрытие по клику, `data-close-on-click`. `Lightbox.Gallery` добавляет
+- Локальные точки настройки: `LightboxImage` добавляет `data-slot="lightbox-image"` и, если
+  включено закрытие по клику, `data-close-on-click`. `LightboxGallery` добавляет
   `data-slot="lightbox-gallery"` и стилизует вложенные слоты Carousel.
 - Анимация зависит от атрибута Ark `data-state`. Используйте `present`, только если управление
   анимацией в JavaScript должно оставлять содержимое в DOM.

@@ -1,7 +1,7 @@
 ---
 title: Rating Group
 component: rating-group
-description: Contrôle de notation par étoiles fondé sur le primitif rating-group d’Ark UI.
+description: Contrôle de notation par étoiles fondé sur le primitif rating-group d’Ark UI pour React, Solid et Vue.
 ---
 
 import * as RatingGroupDocs from '@/components/examples/rating-group/css-properties';
@@ -23,18 +23,29 @@ import ratingGroupSolidField from '../../../snippets/rating-group/solid/field.ts
 import ratingGroupSolidForms from '../../../snippets/rating-group/solid/forms.tsx?raw';
 import ratingGroupSolidHalfRating from '../../../snippets/rating-group/solid/half-rating.tsx?raw';
 import ratingGroupSolidSizes from '../../../snippets/rating-group/solid/sizes.tsx?raw';
-
-Utilisez `RatingGroup` lorsque l’utilisateur doit choisir une note numérique parmi une série d’étoiles ou d’icônes répétées.
+import ratingGroupVueAdvancedCustomization from '../../../snippets/rating-group/vue/advanced-customization.vue?raw';
+import ratingGroupVueBasic from '../../../snippets/rating-group/vue/basic.vue?raw';
+import ratingGroupVueControlled from '../../../snippets/rating-group/vue/controlled.vue?raw';
+import ratingGroupVueCustomIcon from '../../../snippets/rating-group/vue/custom-icon.vue?raw';
+import ratingGroupVueDisabledAndReadonly from '../../../snippets/rating-group/vue/disabled-and-readonly.vue?raw';
+import ratingGroupVueField from '../../../snippets/rating-group/vue/field.vue?raw';
+import ratingGroupVueForms from '../../../snippets/rating-group/vue/forms.vue?raw';
+import ratingGroupVueHalfRating from '../../../snippets/rating-group/vue/half-rating.vue?raw';
+import ratingGroupVueSizes from '../../../snippets/rating-group/vue/sizes.vue?raw';
 
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/rating-group" />
 
+## Choisir le bon composant
+
+Utilisez `RatingGroup` lorsque l’utilisateur doit choisir une note numérique parmi une série d’étoiles ou d’icônes répétées.
+
 ## Exemple de base
 
 
-Utilisez `RatingGroup` comme racine et ajoutez `RatingGroup.Label`, `RatingGroup.Control` et
-`RatingGroup.Items` pour une notation standard par étoiles. Rendez `RatingGroup.HiddenInput`
+Utilisez `RatingGroup` comme racine et ajoutez `RatingGroupLabel`, `RatingGroupControl` et
+`RatingGroupItems` pour une notation standard par étoiles. Rendez `RatingGroupHiddenInput`
 explicitement lorsque la valeur doit participer à l’envoi d’un formulaire natif.
 
 <ExampleFrame variant="component">
@@ -45,7 +56,7 @@ explicitement lorsque la valeur doit participer à l’envoi d’un formulaire n
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -57,6 +68,11 @@ explicitement lorsque la valeur doit participer à l’envoi d’un formulaire n
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueBasic} />
 
     </Tab>
   </Tabs>
@@ -89,57 +105,67 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/rating-group' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/rating-group' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-RatingGroup / RatingGroup.Root
-├─ RatingGroup.Label
-└─ RatingGroup.Control
-   ├─ RatingGroup.Items
-   │  └─ RatingGroup.Item[index]
-   │     └─ RatingGroup.ItemIndicator
-   ├─ RatingGroup.Context
-   │  └─ RatingGroup.Item[index]
-   │     └─ RatingGroup.ItemIndicator
-   └─ RatingGroup.HiddenInput (explicite)
+RatingGroup
+├─ RatingGroupLabel
+└─ RatingGroupControl
+   ├─ RatingGroupItems
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   ├─ RatingGroupContext
+   │  └─ RatingGroupItem[index]
+   │     └─ RatingGroupItemIndicator
+   └─ RatingGroupHiddenInput (explicite)
 
-RatingGroup.RootProvider
+RatingGroupRootProvider
 └─ même arbre de parties relié à un état moduix créé avec useRatingGroup()
 ```
 
 | Partie                               | Rôle                                                                |
 | ------------------------------------ | ------------------------------------------------------------------- |
-| `RatingGroup` / `RatingGroup.Root`   | Gère l’état de la note, la navigation au clavier, le focus et les formulaires. |
-| `RatingGroup.HiddenInput`             | Champ natif d’Ark à composer explicitement.                         |
-| `RatingGroup.RootProvider`            | Relie les parties à l’état créé avec `useRatingGroup()`.             |
-| `RatingGroup.Context`                 | Donne accès à l’état racine actuel via une render prop.              |
-| `RatingGroup.ItemContext`             | Donne accès à l’état actuel de l’élément via une render prop.        |
-| `RatingGroup.Label`                   | Libellé accessible du groupe de notation.                            |
-| `RatingGroup.Control`                 | Regroupe les éléments interactifs de notation.                       |
-| `RatingGroup.Items`                   | Crée un élément pour chaque valeur et fournit l’étoile par défaut.   |
-| `RatingGroup.Item`                    | Élément sélectionnable qui nécessite un `index` numérique.           |
-| `RatingGroup.ItemIndicator`           | Visuel étoilé moduix par défaut pour un élément.                     |
+| `RatingGroup`                    | Gère l’état de la note, la navigation au clavier, le focus et les formulaires. |
+| `RatingGroupHiddenInput`             | Champ natif d’Ark à composer explicitement.                         |
+| `RatingGroupRootProvider`            | Relie les parties à l’état créé avec `useRatingGroup()`.             |
+| `RatingGroupContext`                 | Donne accès à l’état racine actuel via une render prop.              |
+| `RatingGroupItemContext`             | Donne accès à l’état actuel de l’élément via une render prop.        |
+| `RatingGroupLabel`                   | Libellé accessible du groupe de notation.                            |
+| `RatingGroupControl`                 | Regroupe les éléments interactifs de notation.                       |
+| `RatingGroupItems`                   | Crée un élément pour chaque valeur et fournit l’étoile par défaut.   |
+| `RatingGroupItem`                    | Élément sélectionnable qui nécessite un `index` numérique.           |
+| `RatingGroupItemIndicator`           | Visuel étoilé moduix par défaut pour un élément.                     |
 
 ## Composition
 
-Utilisez `RatingGroup.Items` pour l’arbre standard généré. Pour remplacer le visuel répété, passez un
-`RatingGroup.ItemIndicator` personnalisé comme enfant. `RatingGroup.HiddenInput` est indépendant de
-`Items`, ajoutez-le donc explicitement dans la racine ou `RatingGroup.RootProvider` ; définissez
+Utilisez `RatingGroupItems` pour l’arbre standard généré. Pour remplacer le visuel répété, passez un
+`RatingGroupItemIndicator` personnalisé comme enfant. `RatingGroupHiddenInput` est indépendant de
+`Items`, ajoutez-le donc explicitement dans la racine ou `RatingGroupRootProvider` ; définissez
 `name` sur la racine lorsque la valeur doit être envoyée par un formulaire natif.
 
-Pour un arbre d’éléments personnalisé, utilisez `RatingGroup.Context` avec `RatingGroup.Item`.
-Utilisez `RatingGroup.RootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
-de l’arbre rendu. React lit le store comme un objet, tandis que Solid lit son état réactif via la
-fonction retournée.
+Pour un arbre d’éléments personnalisé, utilisez `RatingGroupContext` avec `RatingGroupItem`.
+Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
+de l’arbre rendu. React lit le store comme un objet, Solid lit son état réactif via la fonction
+retournée, et Vue expose directement le store réactif dans le template.
 
 ## Exemples
 
 ### État contrôlé
 
-Gérez `value` avec `useState` en React ou `createSignal` en Solid lorsque la note dépend d’un autre
-état, pilote l’interface voisine ou doit être réinitialisée par le parent.
+Gérez `value` avec `useState` en React, `createSignal` en Solid, ou `ref` et `v-model` en Vue lorsque
+la note dépend d’un autre état, pilote l’interface voisine ou doit être réinitialisée par le parent.
 
 <ExampleFrame variant="component">
   <RatingGroupControlled />
@@ -149,7 +175,7 @@ Gérez `value` avec `useState` en React ou `createSignal` en Solid lorsque la no
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -161,6 +187,11 @@ Gérez `value` avec `useState` en React ou `createSignal` en Solid lorsque la no
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidControlled} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueControlled} />
 
     </Tab>
   </Tabs>
@@ -175,7 +206,7 @@ Gérez `value` avec `useState` en React ou `createSignal` en Solid lorsque la no
 
 ### Icône personnalisée
 
-Passez un `RatingGroup.ItemIndicator` personnalisé comme enfant de `RatingGroup.Items` lorsque tous
+Passez un `RatingGroupItemIndicator` personnalisé comme enfant de `RatingGroupItems` lorsque tous
 les éléments doivent utiliser la même icône. L’indicateur reçoit toujours les attributs d’état Ark
 `data-highlighted` et `data-half`, utilisables dans vos styles.
 
@@ -187,7 +218,7 @@ les éléments doivent utiliser la même icône. L’indicateur reçoit toujours
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -199,6 +230,11 @@ les éléments doivent utiliser la même icône. L’indicateur reçoit toujours
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidCustomIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueCustomIcon} />
 
     </Tab>
   </Tabs>
@@ -224,7 +260,7 @@ sans permettre sa modification.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -236,6 +272,11 @@ sans permettre sa modification.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidDisabledAndReadonly} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueDisabledAndReadonly} />
 
     </Tab>
   </Tabs>
@@ -251,7 +292,7 @@ sans permettre sa modification.
 ### Field
 
 Entourez le groupe de notation avec `Field` lorsque le texte d’aide ou de validation doit être
-associé à son `RatingGroup.HiddenInput`. Ark hérite de `Field` les propriétés `disabled`, `readOnly`
+associé à son `RatingGroupHiddenInput`. Ark hérite de `Field` les propriétés `disabled`, `readOnly`
 et `required`; l’état de validation reste géré par `Field` et le code de l’application.
 
 <ExampleFrame variant="component">
@@ -262,7 +303,7 @@ et `required`; l’état de validation reste géré par `Field` et le code de l�
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -274,6 +315,11 @@ et `required`; l’état de validation reste géré par `Field` et le code de l�
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidField} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueField} />
 
     </Tab>
   </Tabs>
@@ -288,7 +334,7 @@ et `required`; l’état de validation reste géré par `Field` et le code de l�
 
 ### Formulaires
 
-Passez `name` et rendez `RatingGroup.HiddenInput` lorsque la note sélectionnée doit être incluse dans
+Passez `name` et rendez `RatingGroupHiddenInput` lorsque la note sélectionnée doit être incluse dans
 `FormData`.
 
 <ExampleFrame variant="component">
@@ -299,7 +345,7 @@ Passez `name` et rendez `RatingGroup.HiddenInput` lorsque la note sélectionnée
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -311,6 +357,11 @@ Passez `name` et rendez `RatingGroup.HiddenInput` lorsque la note sélectionnée
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidForms} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueForms} />
 
     </Tab>
   </Tabs>
@@ -335,7 +386,7 @@ Définissez `allowHalf` pour activer la sélection et l’affichage par demi-pas
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -347,6 +398,11 @@ Définissez `allowHalf` pour activer la sélection et l’affichage par demi-pas
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidHalfRating} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueHalfRating} />
 
     </Tab>
   </Tabs>
@@ -367,7 +423,7 @@ une densité visuelle différente.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -379,6 +435,11 @@ une densité visuelle différente.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueSizes} />
 
     </Tab>
   </Tabs>
@@ -393,8 +454,8 @@ une densité visuelle différente.
 
 ### Composition avancée
 
-Utilisez `RatingGroup.RootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
-de l’arbre rendu. Utilisez `RatingGroup.Context` lorsque `RatingGroup.Items` ne suffit pas et que
+Utilisez `RatingGroupRootProvider` avec `useRatingGroup()` lorsque l’état doit être créé en dehors
+de l’arbre rendu. Utilisez `RatingGroupContext` lorsque `RatingGroupItems` ne suffit pas et que
 vous devez rendre chaque élément vous-même.
 
 <ExampleFrame variant="component">
@@ -405,7 +466,7 @@ vous devez rendre chaque élément vous-même.
 <div className="docs-reference">
   <Tabs
     groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }]}
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
     className="docs-tabs"
   >
     <Tab value="react">
@@ -417,6 +478,11 @@ vous devez rendre chaque élément vous-même.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={ratingGroupSolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={ratingGroupVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
@@ -431,7 +497,7 @@ vous devez rendre chaque élément vous-même.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid sur les parties exportées pour les styles
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles
 structurels. Ark expose aussi les attributs `data-scope="rating-group"` et `data-part`. Pour les styles liés à l’état, utilisez les attributs de données tels que
 `data-disabled`, `data-readonly`, `data-checked`, `data-highlighted` et `data-half`, avec les hooks
 `data-slot` de moduix. Les variantes Tailwind utilisent des utilitaires natifs et les classes du

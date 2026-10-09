@@ -1,4 +1,4 @@
-import { Field } from '@moduix/react/field';
+import { Field, FieldHelperText, FieldItem, FieldLabel } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import { NativeSelect } from '@moduix/react/native-select';
 import styles from '@/components/examples/field/field-item-target.module.css';
@@ -20,9 +20,9 @@ const currencyOptions = [
 export default function ItemFieldDemo() {
   return (
     <Field className={styles.root} target="amount">
-      <Field.Label>Amount</Field.Label>
+      <FieldLabel>Amount</FieldLabel>
       <div className={styles.inlineControls}>
-        <Field.Item value="currency">
+        <FieldItem value="currency">
           <NativeSelect aria-label="Currency" defaultValue="USD">
             {currencyOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -30,12 +30,12 @@ export default function ItemFieldDemo() {
               </option>
             ))}
           </NativeSelect>
-        </Field.Item>
-        <Field.Item value="amount">
+        </FieldItem>
+        <FieldItem value="amount">
           <Input inputMode="decimal" placeholder="0.00" />
-        </Field.Item>
+        </FieldItem>
       </div>
-      <Field.HelperText>The root label targets the amount input.</Field.HelperText>
+      <FieldHelperText>The root label targets the amount input.</FieldHelperText>
     </Field>
   );
 }

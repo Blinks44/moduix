@@ -1,7 +1,7 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const drawerOverrideCssProperties: CssPropertyInput[] = [
+export const drawerOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-drawer-backdrop-bg',
     'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
@@ -40,7 +40,7 @@ const drawerOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-drawer-focus-ring-color, var(--moduix-color-ring))',
     'Close icon button focus ring color.',
   ],
-  ['--moduix-drawer-close-icon-glyph-size', 'var(--moduix-spacing-3)', 'Close icon glyph size.'],
+  ['--moduix-drawer-close-icon-glyph-size', 'var(--moduix-spacing-4)', 'Close icon glyph size.'],
   ['--moduix-drawer-close-icon-radius', 'var(--moduix-radius-md)', 'Close icon button radius.'],
   ['--moduix-drawer-close-icon-size', 'var(--moduix-spacing-7)', 'Close icon button size.'],
   ['--moduix-drawer-control-bg', 'var(--moduix-color-background)', 'Default trigger background.'],

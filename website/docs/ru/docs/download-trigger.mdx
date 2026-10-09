@@ -6,7 +6,9 @@ description: Запускайте скачивание строк, Blob, File и
 import DownloadTriggerBasic from '@/components/examples/download-trigger/basic.tsx';
 import DownloadTriggerAsyncData from '@/components/examples/download-trigger/async-data.tsx';
 import downloadTriggerSolidBasic from '../../../snippets/download-trigger/solid/basic.tsx?raw';
+import downloadTriggerVueBasic from '../../../snippets/download-trigger/vue/basic.vue?raw';
 import downloadTriggerSolidAsyncData from '../../../snippets/download-trigger/solid/async-data.tsx?raw';
+import downloadTriggerVueAsyncData from '../../../snippets/download-trigger/vue/async-data.vue?raw';
 
 Используйте `DownloadTrigger` из Ark UI, чтобы превратить содержимое файла в скачивание в браузере. Если действие
 должно соответствовать остальному интерфейсу, передайте ему кнопку `Button` из moduix.
@@ -22,6 +24,7 @@ import downloadTriggerSolidAsyncData from '../../../snippets/download-trigger/so
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -39,6 +42,13 @@ import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { DownloadTrigger } from '@ark-ui/vue/download-trigger';
+```
+
+  </Tab>
 </Tabs>
 
 ## Базовый пример
@@ -46,7 +56,7 @@ import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
 Передайте готовое содержимое через `data`. Поддерживаются строка, `Blob` и `File`. Параметры `fileName` и `mimeType`
 описывают файл, который сохранит браузер.
 
-Предпросмотр использует React. Вкладки с исходным кодом содержат нативные примеры React и Solid с одинаковым
+Предпросмотр использует React. Вкладки с исходным кодом содержат нативные примеры React, Solid и Vue с одинаковым
 поведением.
 
 <ExampleFrame clientOnly variant="component">
@@ -62,6 +72,7 @@ import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -74,6 +85,11 @@ import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={downloadTriggerSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={downloadTriggerVueBasic} />
 
     </Tab>
   </Tabs>
@@ -99,6 +115,7 @@ import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -111,6 +128,11 @@ import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={downloadTriggerSolidAsyncData} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={downloadTriggerVueAsyncData} />
 
     </Tab>
   </Tabs>
@@ -133,7 +155,8 @@ import { DownloadTrigger } from '@ark-ui/solid/download-trigger';
 
 По умолчанию `DownloadTrigger` создаёт нативную кнопку. Используйте `asChild`, если кнопка moduix должна владеть
 элементом кнопки и его состояниями. В React `asChild` является булевым свойством с дочерним элементом, а в Solid
-используется функция рендера `asChild`. В обоих случаях в DOM остаётся одна доступная кнопка.
+используется функция рендера `asChild`. В Vue передайте один компонент кнопки в слот по умолчанию с
+`as-child`. Во всех случаях в DOM остаётся одна доступная кнопка.
 
-Для изображений QR-кода используйте `QrCode.DownloadTrigger` на странице [QrCode](/docs/qr-code). Он получает изображение
+Для изображений QR-кода используйте `QrCodeDownloadTrigger` на странице [QrCode](/docs/qr-code). Он получает изображение
 из ближайшего QR-кода и экспортирует его с нужными метаданными файла.

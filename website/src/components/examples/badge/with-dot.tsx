@@ -1,4 +1,4 @@
-import { Badge } from '@moduix/react/badge';
+import { Badge, BadgeDot, BadgeLabel } from '@moduix/react/badge';
 import styles from '@/components/examples/badge/badge-with-dot.module.css';
 
 const statuses = [
@@ -12,8 +12,8 @@ export default function BadgeWithDotDemo() {
     <div className={styles.root}>
       {statuses.map((status) => (
         <Badge key={status.label} variant={status.variant}>
-          <Badge.Dot />
-          <Badge.Label>{status.label}</Badge.Label>
+          <BadgeDot />
+          <BadgeLabel>{status.label}</BadgeLabel>
         </Badge>
       ))}
     </div>

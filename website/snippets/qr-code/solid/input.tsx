@@ -1,4 +1,4 @@
-import { QrCode } from '@moduix/solid/qr-code';
+import { QrCode, QrCodeFrame, QrCodePattern } from '@moduix/solid/qr-code';
 import { createSignal } from 'solid-js';
 
 export default function InputQrCodeDemo() {
@@ -12,9 +12,9 @@ export default function InputQrCodeDemo() {
         onInput={(event) => setValue(event.currentTarget.value)}
       />
       <QrCode value={value()}>
-        <QrCode.Frame role="img" aria-label="QR code for the entered content">
-          <QrCode.Pattern />
-        </QrCode.Frame>
+        <QrCodeFrame role="img" aria-label="QR code for the entered content">
+          <QrCodePattern />
+        </QrCodeFrame>
       </QrCode>
       <output>Encoded content: {value() || 'empty'}</output>
     </>

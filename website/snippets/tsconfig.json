@@ -3,8 +3,10 @@
   "compilerOptions": {
     "types": [],
     "paths": {
+      "@/registry/solid/ui/*": ["../../packages/solid/dist/components/*/index.d.ts"],
+      "@/components/ui/*": ["../../packages/vue/dist/components/*/index.d.ts"],
       "@/*": ["../src/*"]
     }
   },
-  "include": ["**/solid", "../theme/env.d.ts"]
+  "include": ["**/solid", "**/vue", "quick-start/*.vue", "vue-env.d.ts", "../theme/env.d.ts"]
 }

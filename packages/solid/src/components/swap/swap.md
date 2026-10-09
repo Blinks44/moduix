@@ -32,9 +32,9 @@ available during enter and exit animations.
 
 ## Current behavior contract
 
-- `Swap` is the callable alias of `Swap.Root`.
-- `Swap.Root`, `Swap.RootProvider`, and `Swap.Indicator` forward Ark props, refs, and `asChild`.
-- `Swap.useSwap()` creates Ark state for `Swap.RootProvider`; `useSwapContext()` reads the nearest
+- `Swap` is the callable alias of `Swap`.
+- `Swap`, `SwapRootProvider`, and `SwapIndicator` forward Ark props, refs, and `asChild`.
+- `useSwap()` creates Ark state for `SwapRootProvider`; `useSwapContext()` reads the nearest
   provider state.
 - moduix layers indicators in a 1×1 inline grid and applies the `scale` animation by default.
 - `animation` accepts the included `fade`, `scale`, `rotate`, and `flip` recipes, or a custom name
@@ -45,20 +45,20 @@ available during enter and exit animations.
 ## Anatomy and exported parts
 
 ```text
-Swap / Swap.Root
-├─ Swap.Indicator type="off"
-└─ Swap.Indicator type="on"
+Swap
+├─ SwapIndicator type="off"
+└─ SwapIndicator type="on"
 ```
 
-`Swap.RootProvider` accepts the same indicator subtree when state is created outside the tree.
+`SwapRootProvider` accepts the same indicator subtree when state is created outside the tree.
 Render both indicators as direct children of the root so they share its grid cell and their preset
 animations stay scoped to that Swap instance.
 
-| Part                 | `data-slot`          | Notes                                 |
-| -------------------- | -------------------- | ------------------------------------- |
-| `Swap` / `Swap.Root` | `swap-root`          | Ark span root and visual-state owner. |
-| `Swap.RootProvider`  | `swap-root-provider` | Ark provider-backed span root.        |
-| `Swap.Indicator`     | `swap-indicator`     | One `on` or `off` visual state.       |
+| Part               | `data-slot`          | Notes                                 |
+| ------------------ | -------------------- | ------------------------------------- |
+| `Swap` / `Swap`    | `swap-root`          | Ark span root and visual-state owner. |
+| `SwapRootProvider` | `swap-root-provider` | Ark provider-backed span root.        |
+| `SwapIndicator`    | `swap-indicator`     | One `on` or `off` visual state.       |
 
 ## Composition
 
@@ -75,12 +75,12 @@ export function UploadButton() {
       onClick={() => setUploaded(!uploaded())}
     >
       <Swap animation="rotate" swap={uploaded()}>
-        <Swap.Indicator aria-hidden="true" type="off">
+        <SwapIndicator aria-hidden="true" type="off">
           <UploadIcon />
-        </Swap.Indicator>
-        <Swap.Indicator aria-hidden="true" type="on">
+        </SwapIndicator>
+        <SwapIndicator aria-hidden="true" type="on">
           <CheckIcon />
-        </Swap.Indicator>
+        </SwapIndicator>
       </Swap>
     </Button>
   );
@@ -91,7 +91,7 @@ export function UploadButton() {
 
 - `swap`, `lazyMount`, `unmountOnExit`, and `hideMode` pass through unchanged.
 - `asChild` remains available on every Ark-rendered part.
-- `Swap.RootProvider` and `Swap.useSwap()` preserve the upstream external-state path.
+- `SwapRootProvider` and `useSwap()` preserve the upstream external-state path.
 - `useSwapContext()` is exported from the moduix barrel.
 
 ## Accessibility and state
@@ -102,7 +102,7 @@ export function UploadButton() {
   accessible name on the host control.
 - Ark adds `data-state="open" | "closed"` to each indicator; moduix does not translate it to a
   separate state class.
-- `Swap.Root` and `Swap.RootProvider` forward refs to their rendered span roots.
+- `Swap` and `SwapRootProvider` forward refs to their rendered span roots.
 - `animation` is written to `data-animation` on the root so consumer CSS can add a named recipe.
 
 ## Defaults and styling
@@ -121,7 +121,7 @@ export function UploadButton() {
   the `rotate` recipe direction; `--moduix-swap-flip-perspective`,
   `--moduix-swap-flip-enter-starting-angle`, and `--moduix-swap-flip-exit-ending-angle` control
   the 3D `flip` recipe.
-- Override `animation` on `Swap.Indicator[data-state]` for rotate or 3D flip recipes, and keep a
+- Override `animation` on `SwapIndicator[data-state]` for rotate or 3D flip recipes, and keep a
   matching `prefers-reduced-motion` fallback in that custom CSS.
 - `prefers-reduced-motion: reduce` reduces the animation duration to `1ms`.
 - For expandable controls, animate the host dimensions and place the steady icon beside a width-

@@ -1,13 +1,16 @@
 ---
 title: Presence
-description: Contrôlez le montage, le masquage, l’animation et le démontage d’un contenu géré par l’application en React ou Solid.
+description: Contrôlez le montage, le masquage, l’animation et le démontage d’un contenu géré par l’application en React, Solid ou Vue.
 ---
 
 import PresenceBasic from '@/components/examples/presence/basic.tsx';
 import PresenceMountOnDemand from '@/components/examples/presence/mount-on-demand.tsx';
 import presenceSolidBasic from '../../../snippets/presence/solid/basic.tsx?raw';
+import presenceVueBasic from '../../../snippets/presence/vue/basic.vue?raw';
 import presenceSolidExitAnimations from '../../../snippets/presence/solid/exit-animations.tsx?raw';
+import presenceVueExitAnimations from '../../../snippets/presence/vue/exit-animations.vue?raw';
 import presenceSolidMountOnDemand from '../../../snippets/presence/solid/mount-on-demand.tsx?raw';
+import presenceVueMountOnDemand from '../../../snippets/presence/vue/mount-on-demand.vue?raw';
 
 ## Référence de l’API
 
@@ -20,6 +23,7 @@ Importez l’utilitaire depuis le paquet Ark UI correspondant à votre framework
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -34,6 +38,13 @@ import { Presence } from '@ark-ui/react/presence';
 
 ```tsx
 import { Presence } from '@ark-ui/solid/presence';
+```
+
+  </Tab>
+  <Tab value="vue">
+
+```ts
+import { Presence } from '@ark-ui/vue/presence';
 ```
 
   </Tab>
@@ -61,6 +72,7 @@ racine reste montée et Ark la masque avec l’attribut `hidden` lorsque `presen
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -73,6 +85,11 @@ racine reste montée et Ark la masque avec l’attribut `hidden` lorsque `presen
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={presenceSolidBasic} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={presenceVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,6 +121,7 @@ Ajoutez `lazyMount` lorsque le contenu ne doit pas être monté avant sa premiè
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -116,6 +134,11 @@ Ajoutez `lazyMount` lorsque le contenu ne doit pas être monté avant sa premiè
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={presenceSolidMountOnDemand} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={presenceVueMountOnDemand} />
 
     </Tab>
   </Tabs>
@@ -140,6 +163,7 @@ d’une animation.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -152,6 +176,11 @@ d’une animation.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={presenceSolidExitAnimations} />
+
+    </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={presenceVueExitAnimations} />
 
     </Tab>
   </Tabs>
@@ -177,7 +206,8 @@ le changement de `present` doit s’appliquer immédiatement au lieu d’attendr
 | `immediate` | Applique immédiatement un changement de `present`, sans attendre la frame suivante. |
 | `hideMode` | React uniquement. `display-none` utilise `hidden`, tandis que `activity` suspend les effets via `Activity` de React 19. |
 
-Les options de cycle de vie et les callbacks communs ont le même sens en React et en Solid. Ark Solid n’expose pas
+Les options de cycle de vie communes ont le même sens en React, Solid et Vue. Avec Vue, utilisez
+`@enter-complete` et `@exit-complete` pour les événements de cycle de vie. Ark Solid et Vue n’exposent pas
 `hideMode` : un contenu monté mais absent est masqué avec l’attribut `hidden`.
 
 ## Composition et accessibilité
@@ -190,6 +220,7 @@ options de présence afin de préserver leur modèle d’interaction.
 Par défaut, `Presence` rend un `<div>` avec `data-scope="presence"` et `data-part="root"`. Utilisez `asChild` lorsqu’un
 élément existant doit recevoir ces props sans ajouter de conteneur. L’enfant React doit accepter la ref transmise,
 `hidden`, `data-*` et la classe. Solid utilise la forme avec fonction de rendu :
-`asChild={(props) => <article {...props()} />}`. Dans chaque adaptateur, conservez une seule racine sémantique ainsi
+`asChild={(props) => <article {...props()} />}`. Vue utilise `<Presence as-child><article>…</article></Presence>`.
+Dans chaque adaptateur, conservez une seule racine sémantique ainsi
 que son nom et son contenu accessibles. Ne remplacez pas le comportement de `hidden` par la seule opacité lorsque le
 contenu inactif doit sortir de l’arbre d’accessibilité.

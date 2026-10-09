@@ -21,7 +21,7 @@ type RatingGroupRootProviderProps = ComponentProps<typeof RatingGroupPrimitive.R
 
 type RatingGroupItemIndicatorProps = ComponentProps<'span'>;
 
-function RatingGroupRoot(props: RatingGroupRootProps) {
+function RatingGroup(props: RatingGroupRootProps) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
 
   return (
@@ -147,20 +147,25 @@ function RatingGroupItems(props: { children?: JSX.Element }) {
   );
 }
 
-const RatingGroup = Object.assign(RatingGroupRoot, {
-  Root: RatingGroupRoot,
-  RootProvider: RatingGroupRootProvider,
-  Context: RatingGroupPrimitive.Context,
-  HiddenInput: RatingGroupPrimitive.HiddenInput,
-  Label: RatingGroupLabel,
-  Control: RatingGroupControl,
-  Item: RatingGroupItem,
-  ItemContext: RatingGroupPrimitive.ItemContext,
-  ItemIndicator: RatingGroupItemIndicator,
-  Items: RatingGroupItems,
-});
+const RatingGroupContext = RatingGroupPrimitive.Context;
+const RatingGroupHiddenInput = RatingGroupPrimitive.HiddenInput;
+const RatingGroupItemContext = RatingGroupPrimitive.ItemContext;
 
-export { RatingGroup, useRatingGroup, useRatingGroupContext, useRatingGroupItemContext };
+export {
+  RatingGroup,
+  RatingGroupContext,
+  RatingGroupControl,
+  RatingGroupHiddenInput,
+  RatingGroupItem,
+  RatingGroupItemContext,
+  RatingGroupItemIndicator,
+  RatingGroupItems,
+  RatingGroupLabel,
+  RatingGroupRootProvider,
+  useRatingGroup,
+  useRatingGroupContext,
+  useRatingGroupItemContext,
+};
 export type {
   RatingGroupItemIndicatorProps,
   RatingGroupRootProps,

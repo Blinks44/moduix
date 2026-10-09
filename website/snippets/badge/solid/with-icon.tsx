@@ -1,4 +1,4 @@
-import { Badge } from '@moduix/solid/badge';
+import { Badge, BadgeLabel } from '@moduix/solid/badge';
 import { ChevronRight as ChevronRightIcon } from 'lucide-solid';
 import styles from '@/components/examples/badge/badge-with-icon.module.css';
 
@@ -12,18 +12,18 @@ export default function BadgeWithIconDemo() {
   return (
     <div class={styles.root}>
       <Badge variant="default">
-        <Badge.Label>{labels.release}</Badge.Label>
+        <BadgeLabel>{labels.release}</BadgeLabel>
         <ChevronRightIcon />
       </Badge>
       <Badge variant="secondary">
-        <Badge.Label>{labels.details}</Badge.Label>
+        <BadgeLabel>{labels.details}</BadgeLabel>
         <ChevronRightIcon />
       </Badge>
       <Badge
         variant="link"
         asChild={(props) => (
           <a {...props()} href="#styling">
-            <Badge.Label>{labels.more}</Badge.Label>
+            <BadgeLabel>{labels.more}</BadgeLabel>
             <ChevronRightIcon />
           </a>
         )}

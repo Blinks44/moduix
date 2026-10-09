@@ -9,7 +9,7 @@ import { children, For, splitProps } from 'solid-js';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Pagination.module.css';
 
-function PaginationRoot(props: ComponentProps<typeof PaginationPrimitive.Root>) {
+function Pagination(props: ComponentProps<typeof PaginationPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -177,34 +177,17 @@ function PaginationItems() {
   );
 }
 
-type PaginationComponent = typeof PaginationRoot & {
-  Root: typeof PaginationRoot;
-  RootProvider: typeof PaginationRootProvider;
-  Item: typeof PaginationItem;
-  Ellipsis: typeof PaginationEllipsis;
-  PrevTrigger: typeof PaginationPrevTrigger;
-  NextTrigger: typeof PaginationNextTrigger;
-  FirstTrigger: typeof PaginationFirstTrigger;
-  LastTrigger: typeof PaginationLastTrigger;
-  Context: typeof PaginationContext;
-  Items: typeof PaginationItems;
-  usePagination: typeof usePagination;
-  usePaginationContext: typeof usePaginationContext;
-};
-
-const Pagination: PaginationComponent = Object.assign(PaginationRoot, {
-  Root: PaginationRoot,
-  RootProvider: PaginationRootProvider,
-  Item: PaginationItem,
-  Ellipsis: PaginationEllipsis,
-  PrevTrigger: PaginationPrevTrigger,
-  NextTrigger: PaginationNextTrigger,
-  FirstTrigger: PaginationFirstTrigger,
-  LastTrigger: PaginationLastTrigger,
-  Context: PaginationContext,
-  Items: PaginationItems,
+export {
+  Pagination,
+  PaginationContext,
+  PaginationEllipsis,
+  PaginationFirstTrigger,
+  PaginationItem,
+  PaginationItems,
+  PaginationLastTrigger,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationRootProvider,
   usePagination,
   usePaginationContext,
-});
-
-export { Pagination, usePagination, usePaginationContext };
+};

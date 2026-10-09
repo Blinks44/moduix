@@ -7,7 +7,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-function ProgressLinearRoot(props: ComponentProps<typeof ProgressPrimitive.Root>) {
+function ProgressLinear(props: ComponentProps<typeof ProgressPrimitive.Root>) {
   const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
   return (
@@ -98,7 +98,7 @@ function ProgressLinearRange(props: ComponentProps<typeof ProgressPrimitive.Rang
     <ProgressPrimitive.Range
       asChild={local.asChild}
       class={cn(
-        'block h-full rounded-[inherit] bg-primary transition-[width,height] duration-200 ease-in-out data-[orientation=vertical]:w-full data-[state=indeterminate]:w-[35%] data-[state=indeterminate]:animate-moduix-progress-linear-indeterminate data-[state=indeterminate]:data-[orientation=vertical]:h-[35%] data-[state=indeterminate]:data-[orientation=vertical]:animate-moduix-progress-linear-indeterminate-vertical motion-reduce:data-[state=indeterminate]:translate-x-0 motion-reduce:data-[state=indeterminate]:translate-y-0 motion-reduce:data-[state=indeterminate]:animate-none rtl:data-[state=indeterminate]:data-[orientation=horizontal]:[animation-direction:reverse]',
+        'block h-full rounded-[inherit] bg-primary transition-[width,height] duration-200 ease-in-out data-[orientation=vertical]:w-full data-[state=indeterminate]:w-[35%] data-[state=indeterminate]:animate-moduix-progress-linear-indeterminate data-[state=indeterminate]:data-[orientation=vertical]:h-[35%] data-[state=indeterminate]:data-[orientation=vertical]:animate-moduix-progress-linear-indeterminate-vertical motion-reduce:data-[state=indeterminate]:translate-x-0 motion-reduce:data-[state=indeterminate]:translate-y-0 motion-reduce:data-[state=indeterminate]:animate-none [&:dir(rtl)]:data-[state=indeterminate]:data-[orientation=horizontal]:[animation-direction:reverse]',
         local.class,
       )}
       {...others}
@@ -120,30 +120,17 @@ function ProgressLinearView(props: ComponentProps<typeof ProgressPrimitive.View>
   );
 }
 
-type ProgressLinearComponent = typeof ProgressLinearRoot & {
-  Root: typeof ProgressLinearRoot;
-  RootProvider: typeof ProgressLinearRootProvider;
-  Context: typeof ProgressPrimitive.Context;
-  Label: typeof ProgressLinearLabel;
-  ValueText: typeof ProgressLinearValueText;
-  Track: typeof ProgressLinearTrack;
-  Range: typeof ProgressLinearRange;
-  View: typeof ProgressLinearView;
-  useProgress: typeof useProgress;
-  useProgressContext: typeof useProgressContext;
-};
+const ProgressLinearContext = ProgressPrimitive.Context;
 
-const ProgressLinear: ProgressLinearComponent = Object.assign(ProgressLinearRoot, {
-  Root: ProgressLinearRoot,
-  RootProvider: ProgressLinearRootProvider,
-  Context: ProgressPrimitive.Context,
-  Label: ProgressLinearLabel,
-  ValueText: ProgressLinearValueText,
-  Track: ProgressLinearTrack,
-  Range: ProgressLinearRange,
-  View: ProgressLinearView,
+export {
+  ProgressLinear,
+  ProgressLinearContext,
+  ProgressLinearLabel,
+  ProgressLinearRange,
+  ProgressLinearRootProvider,
+  ProgressLinearTrack,
+  ProgressLinearValueText,
+  ProgressLinearView,
   useProgress,
   useProgressContext,
-});
-
-export { ProgressLinear };
+};

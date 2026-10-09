@@ -14,18 +14,8 @@ type TooltipRootProviderProps = ComponentProps<typeof TooltipPrimitive.RootProvi
   OverlayPortalProps;
 type TooltipTriggerAsChildProps = Omit<ComponentProps<typeof TooltipPrimitive.Trigger>, 'asChild'>;
 type TooltipDisabledTriggerProps = JSX.IntrinsicElements['span'];
-type TooltipDisabledTriggerRef = TooltipDisabledTriggerProps['ref'];
 
-function assignDisabledTriggerRef(
-  ref: TooltipDisabledTriggerRef | undefined,
-  element: HTMLSpanElement,
-) {
-  if (typeof ref === 'function') {
-    ref(element);
-  }
-}
-
-function TooltipRoot(props: TooltipRootProps) {
+function Tooltip(props: TooltipRootProps) {
   const [local, others] = splitProps(props, [
     'children',
     'lazyMount',
@@ -88,25 +78,17 @@ function TooltipDisabledTrigger(props: TooltipDisabledTriggerProps) {
   return (
     <TooltipPrimitive.Trigger
       {...(others as TooltipTriggerAsChildProps)}
-      asChild={(triggerProps) => {
-        const primitiveProps = triggerProps() as JSX.IntrinsicElements['span'];
-        const primitiveRef = primitiveProps.ref;
-
-        return (
-          <span
-            {...primitiveProps}
-            ref={(element) => {
-              assignDisabledTriggerRef(primitiveRef, element);
-              assignDisabledTriggerRef(local.ref, element);
-            }}
-            data-slot="tooltip-disabled-trigger"
-            tabIndex={local.tabIndex ?? 0}
-            class={clsx(styles.disabledTrigger, local.class)}
-          >
-            {local.children}
-          </span>
-        );
-      }}
+      asChild={(triggerProps) => (
+        <span
+          {...triggerProps()}
+          ref={local.ref}
+          data-slot="tooltip-disabled-trigger"
+          tabIndex={local.tabIndex ?? 0}
+          class={clsx(styles.disabledTrigger, local.class)}
+        >
+          {local.children}
+        </span>
+      )}
     />
   );
 }
@@ -172,18 +154,20 @@ function TooltipArrowTip(props: ComponentProps<typeof TooltipPrimitive.ArrowTip>
   );
 }
 
-const Tooltip = Object.assign(TooltipRoot, {
-  Root: TooltipRoot,
-  RootProvider: TooltipRootProvider,
-  Context: TooltipPrimitive.Context,
-  Trigger: TooltipTrigger,
-  DisabledTrigger: TooltipDisabledTrigger,
-  Body: TooltipBody,
-  Positioner: TooltipPositioner,
-  Content: TooltipContent,
-  Arrow: TooltipArrow,
-  ArrowTip: TooltipArrowTip,
-});
+const TooltipContext = TooltipPrimitive.Context;
 
-export { Tooltip, useTooltip, useTooltipContext };
+export {
+  Tooltip,
+  TooltipArrow,
+  TooltipArrowTip,
+  TooltipBody,
+  TooltipContext,
+  TooltipContent,
+  TooltipDisabledTrigger,
+  TooltipPositioner,
+  TooltipRootProvider,
+  TooltipTrigger,
+  useTooltip,
+  useTooltipContext,
+};
 export type { TooltipRootProps, TooltipRootProviderProps };

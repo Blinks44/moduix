@@ -21,6 +21,14 @@ import textSolidSize from '../../../snippets/text/solid/size.tsx?raw';
 import textSolidTone from '../../../snippets/text/solid/tone.tsx?raw';
 import textSolidTruncation from '../../../snippets/text/solid/truncation.tsx?raw';
 import textSolidWeight from '../../../snippets/text/solid/weight.tsx?raw';
+import textVueAlignment from '../../../snippets/text/vue/alignment.vue?raw';
+import textVueBasic from '../../../snippets/text/vue/basic.vue?raw';
+import textVueCustomComposition from '../../../snippets/text/vue/custom-composition.vue?raw';
+import textVueSemantics from '../../../snippets/text/vue/semantics.vue?raw';
+import textVueSize from '../../../snippets/text/vue/size.vue?raw';
+import textVueTone from '../../../snippets/text/vue/tone.vue?raw';
+import textVueTruncation from '../../../snippets/text/vue/truncation.vue?raw';
+import textVueWeight from '../../../snippets/text/vue/weight.vue?raw';
 
 ## API Reference
 
@@ -55,6 +63,7 @@ element but should keep `Text`'s typography styles.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -67,6 +76,11 @@ element but should keep `Text`'s typography styles.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,25 +118,34 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
-</Tabs>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/text' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/text' },
+  ]}
+/>
+
+  </Tab>
+  </Tabs>
 
 ## Anatomy
 
-`Text` renders a single root element using Ark's factory. The short `<Text>` form and `<Text.Root>`
-are equivalent.
+`Text` renders a single root element using Ark's factory through the flat root export.
 
 ```text
-Text / Text.Root
+Text
 └─ text or inline content
 ```
 
 | Part                 | Role                                                             |
 | -------------------- | ---------------------------------------------------------------- |
-| `Text` / `Text.Root` | Typography root with semantic HTML and stable data attributes. |
+| `Text`              | Typography root with semantic HTML and stable data attributes. |
 
 ## Composition
 
-`Text` is root-only and owns no state or child parts. Use `<Text>` or `<Text.Root>` for the same root,
+`Text` is root-only and owns no state or child parts. Use `<Text>` for the root,
 `as` for a supported semantic element, and `asChild` only when one existing element should receive
 the text props and ref. Truncation only constrains rendering, so disclosure state and its control stay
 in the surrounding UI.
@@ -144,6 +167,7 @@ Use `align` when alignment belongs to the text rather than its surrounding layou
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -156,6 +180,11 @@ Use `align` when alignment belongs to the text rather than its surrounding layou
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidAlignment} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueAlignment} />
 
     </Tab>
   </Tabs>
@@ -183,6 +212,7 @@ Use `as` to choose a semantic HTML element while keeping `Text`'s typography sty
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -195,6 +225,11 @@ Use `as` to choose a semantic HTML element while keeping `Text`'s typography sty
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidSemantics} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueSemantics} />
 
     </Tab>
   </Tabs>
@@ -222,6 +257,7 @@ Use `size` to change the visual hierarchy without switching to a different typog
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -234,6 +270,11 @@ Use `size` to change the visual hierarchy without switching to a different typog
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidSize} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueSize} />
 
     </Tab>
   </Tabs>
@@ -261,6 +302,7 @@ Use `tone` to express the role of the copy without adding local color classes.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -273,6 +315,11 @@ Use `tone` to express the role of the copy without adding local color classes.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidTone} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueTone} />
 
     </Tab>
   </Tabs>
@@ -302,6 +349,7 @@ expansion or disclosure behavior in the surrounding UI.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -314,6 +362,11 @@ expansion or disclosure behavior in the surrounding UI.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidTruncation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueTruncation} />
 
     </Tab>
   </Tabs>
@@ -341,6 +394,7 @@ Use `weight` when the emphasis should stay within the same semantic element.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -353,6 +407,11 @@ Use `weight` when the emphasis should stay within the same semantic element.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidWeight} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueWeight} />
 
     </Tab>
   </Tabs>
@@ -381,6 +440,7 @@ intrinsic `as` values. The child must be a single element that accepts the forwa
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -395,6 +455,11 @@ intrinsic `as` values. The child must be a single element that accepts the forwa
 <CodeBlockRuntime lang="tsx" code={textSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -402,7 +467,7 @@ intrinsic `as` values. The child must be a single element that accepts the forwa
 
 ## Styling
 
-Style `Text` through `className`, root data attributes, and the public CSS API. CSS Modules packages
+Style `Text` through `className` in React or `class` in Solid and Vue, root data attributes, and the public CSS API. CSS Modules packages
 expose the `--moduix-text-*` variables below; Tailwind packages use utility classes and consumer
 class overrides.
 

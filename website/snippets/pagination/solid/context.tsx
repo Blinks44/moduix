@@ -1,10 +1,10 @@
 import { Button } from '@moduix/solid/button';
-import { Pagination } from '@moduix/solid/pagination';
+import { Pagination, PaginationContext } from '@moduix/solid/pagination';
 
 export default function PaginationContextDemo() {
   return (
     <Pagination count={200} pageSize={10}>
-      <Pagination.Context>
+      <PaginationContext>
         {(pagination) => (
           <div>
             <output>
@@ -24,7 +24,7 @@ export default function PaginationContextDemo() {
             </Button>
           </div>
         )}
-      </Pagination.Context>
+      </PaginationContext>
     </Pagination>
   );
 }

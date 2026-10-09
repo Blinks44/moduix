@@ -1,1 +1,1 @@
-export { Editable, useEditable, useEditableContext } from './Editable.js';
+export * from './Editable.js';

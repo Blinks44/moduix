@@ -1,4 +1,4 @@
-import { Card } from '@moduix/react/card';
+import { Card, CardBody, CardDescription, CardHeader, CardTitle } from '@moduix/react/card';
 import { SimpleGrid } from '@moduix/react/simple-grid';
 import { Text } from '@moduix/react/text';
 import styles from '@/components/examples/simple-grid/simple-grid-basic.module.css';
@@ -31,15 +31,15 @@ export default function SimpleGridDemo() {
     <SimpleGrid minChildWidth="18rem" gap="var(--moduix-spacing-4)" className={styles.root}>
       {plans.map((plan) => (
         <Card key={plan.name} size="sm">
-          <Card.Header>
-            <Card.Title>{plan.name}</Card.Title>
-            <Card.Description>{plan.description}</Card.Description>
-          </Card.Header>
-          <Card.Body>
+          <CardHeader>
+            <CardTitle>{plan.name}</CardTitle>
+            <CardDescription>{plan.description}</CardDescription>
+          </CardHeader>
+          <CardBody>
             <Text size="xl" weight="semibold">
               {plan.price}
             </Text>
-          </Card.Body>
+          </CardBody>
         </Card>
       ))}
     </SimpleGrid>

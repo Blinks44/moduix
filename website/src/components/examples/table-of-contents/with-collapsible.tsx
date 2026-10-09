@@ -1,5 +1,18 @@
-import { Collapsible } from '@moduix/react/collapsible';
-import { Toc } from '@moduix/react/toc';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@moduix/react/collapsible';
+import {
+  Toc,
+  TocContext,
+  TocContent,
+  TocIndicator,
+  TocItem,
+  TocLink,
+  TocList,
+} from '@moduix/react/toc';
 import { useRef } from 'react';
 import styles from '@/components/examples/table-of-contents/table-of-contents-with-collapsible.module.css';
 
@@ -22,37 +35,37 @@ export default function TocWithCollapsibleDemo() {
 
   return (
     <Toc className={styles.root} items={items} scrollEl={() => scrollRef.current}>
-      <Collapsible.Root className={styles.collapsibleRoot} defaultOpen>
-        <Toc.Context>
+      <Collapsible className={styles.collapsibleRoot} defaultOpen>
+        <TocContext>
           {({ activeItems }) => {
             const activeIndex = items.findIndex((item) => item.value === activeItems[0]?.value);
             const activeLabel = items[activeIndex]?.label ?? 'On this page';
 
             return (
-              <Collapsible.Trigger>
+              <CollapsibleTrigger>
                 <span className={styles.triggerContent}>
                   <ProgressRing index={activeIndex} total={items.length} />
                   <span className={styles.triggerLabel}>{activeLabel}</span>
                 </span>
-                <Collapsible.Indicator />
-              </Collapsible.Trigger>
+                <CollapsibleIndicator />
+              </CollapsibleTrigger>
             );
           }}
-        </Toc.Context>
+        </TocContext>
 
-        <Collapsible.Content>
-          <Toc.List>
-            <Toc.Indicator />
+        <CollapsibleContent>
+          <TocList>
+            <TocIndicator />
             {items.map((item) => (
-              <Toc.Item key={item.value} item={item}>
-                <Toc.Link href={`#${item.value}`}>{item.label}</Toc.Link>
-              </Toc.Item>
+              <TocItem key={item.value} item={item}>
+                <TocLink href={`#${item.value}`}>{item.label}</TocLink>
+              </TocItem>
             ))}
-          </Toc.List>
-        </Collapsible.Content>
-      </Collapsible.Root>
+          </TocList>
+        </CollapsibleContent>
+      </Collapsible>
 
-      <Toc.Content>
+      <TocContent>
         <div
           ref={scrollRef}
           aria-label="Scrollable document preview"
@@ -68,7 +81,7 @@ export default function TocWithCollapsibleDemo() {
             </section>
           ))}
         </div>
-      </Toc.Content>
+      </TocContent>
     </Toc>
   );
 }

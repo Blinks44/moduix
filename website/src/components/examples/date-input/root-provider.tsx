@@ -1,6 +1,12 @@
 import { today } from '@internationalized/date';
 import { Button } from '@moduix/react/button';
-import { DateInput, useDateInput } from '@moduix/react/date-input';
+import {
+  DateInputControl,
+  DateInputLabel,
+  DateInputRootProvider,
+  DateInputSegments,
+  useDateInput,
+} from '@moduix/react/date-input';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/date-input/date-input-root-provider.module.css';
 
@@ -11,12 +17,12 @@ export default function RootProviderDateInputDemo() {
   });
   return (
     <div className={styles.stack}>
-      <DateInput.RootProvider className={styles.root} value={dateInput}>
-        <DateInput.Label>Report date</DateInput.Label>
-        <DateInput.Control>
-          <DateInput.Segments />
-        </DateInput.Control>
-      </DateInput.RootProvider>
+      <DateInputRootProvider className={styles.root} value={dateInput}>
+        <DateInputLabel>Report date</DateInputLabel>
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
+      </DateInputRootProvider>
       <PreviewMeta>
         <output>Selected: {dateInput.value[0]?.toString() ?? 'empty'}</output>
         <Button type="button" size="sm" variant="outline" onClick={() => dateInput.clearValue()}>

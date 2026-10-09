@@ -1,4 +1,4 @@
-import { Card } from '@moduix/react/card';
+import { Card, CardBody, CardDescription, CardHeader, CardTitle } from '@moduix/react/card';
 import styles from '@/components/examples/card/card-sizes.module.css';
 
 const sizes = ['sm', 'md', 'lg'] as const;
@@ -13,11 +13,11 @@ export default function CardSizesDemo() {
     <div className={styles.root}>
       {sizes.map((size) => (
         <Card className={styles.card} key={size} size={size}>
-          <Card.Header>
-            <Card.Title>Card {size}</Card.Title>
-            <Card.Description>{descriptions[size]}</Card.Description>
-          </Card.Header>
-          <Card.Body>Shared content with size-specific density.</Card.Body>
+          <CardHeader>
+            <CardTitle>Card {size}</CardTitle>
+            <CardDescription>{descriptions[size]}</CardDescription>
+          </CardHeader>
+          <CardBody>Shared content with size-specific density.</CardBody>
         </Card>
       ))}
     </div>

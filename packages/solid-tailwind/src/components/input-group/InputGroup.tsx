@@ -1,10 +1,12 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
-import type { Accessor, ComponentProps } from 'solid-js';
+import type { ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
 import { cn } from '@/internal/cn';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
+import { CloseButton } from '../close-button';
 import { Input } from '../input';
 
 type InputGroupSize = NonNullable<ComponentProps<typeof Input>['size']>;
@@ -15,7 +17,7 @@ type InputGroupDataProps = {
   'data-slot'?: string;
 };
 
-type InputGroupRootProps = HTMLArkProps<'div'> &
+type InputGroupProps = HTMLArkProps<'div'> &
   InputGroupDataProps & {
     size?: InputGroupSize;
     'data-size'?: string;
@@ -30,7 +32,7 @@ const inputGroupSizeVariants = {
 };
 
 const inputGroupRootVariants = cva(
-  'flex w-full max-w-none items-stretch overflow-hidden rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring has-[[data-slot=input-root][data-invalid]]:border-destructive has-[[data-slot=input-root][data-invalid]]:focus-within:outline-destructive has-[[data-slot=input-root][aria-invalid=true]]:border-destructive has-[[data-slot=input-root][aria-invalid=true]]:focus-within:outline-destructive has-[[data-slot=input-root][data-disabled]]:opacity-50 has-[[data-slot=input-root]:disabled]:opacity-50 motion-reduce:transition-none',
+  'flex w-full max-w-none items-stretch overflow-hidden rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring has-[[data-slot=input-root][data-invalid]]:border-destructive has-[[data-slot=input-root][data-invalid]]:focus-within:outline-destructive has-[[data-slot=input-root][aria-invalid=true]]:border-destructive has-[[data-slot=input-root][aria-invalid=true]]:focus-within:outline-destructive has-[[data-slot=input-root][data-disabled]]:opacity-50 has-[[data-slot=input-root]:disabled]:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 motion-reduce:transition-none',
   {
     variants: {
       size: {
@@ -85,11 +87,17 @@ const inputGroupTextVariants = cva(
 
 const inputGroupButtonClass = 'h-auto self-stretch rounded-none border-0';
 
-const defaultInputGroupSize: InputGroupSize = 'md';
-const defaultInputGroupSizeAccessor: Accessor<InputGroupSize> = () => defaultInputGroupSize;
-const InputGroupSizeContext = createContext(defaultInputGroupSizeAccessor);
+const inputGroupClearTriggerVariants = cva(
+  'me-2 size-control-xs self-center focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none',
+  {
+    variants: { size: { xs: 'size-5', sm: '', md: '', lg: '', xl: '' } },
+    defaultVariants: { size: 'md' },
+  },
+);
 
-function InputGroupRoot(props: InputGroupRootProps) {
+const InputGroupSizeContext = createContext((): InputGroupSize => 'md');
+
+function InputGroup(props: InputGroupProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
@@ -102,7 +110,7 @@ function InputGroupRoot(props: InputGroupRootProps) {
   ]);
 
   return (
-    <InputGroupSizeContext.Provider value={() => local.size ?? defaultInputGroupSize}>
+    <InputGroupSizeContext.Provider value={() => local.size ?? 'md'}>
       <ark.div
         asChild={local.asChild}
         {...others}
@@ -120,7 +128,7 @@ function InputGroupRoot(props: InputGroupRootProps) {
 
 function InputGroupInput(props: ComponentProps<typeof Input>) {
   const [local, others] = splitProps(props, ['class', 'size']);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
   const inputSize = () => local.size ?? groupSize();
 
   return (
@@ -140,7 +148,7 @@ function InputGroupAddon(props: HTMLArkProps<'span'> & InputGroupDataProps) {
     'data-scope',
     'data-slot',
   ]);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
 
   return (
     <ark.span
@@ -162,7 +170,7 @@ function InputGroupText(props: HTMLArkProps<'span'> & InputGroupDataProps) {
     'data-scope',
     'data-slot',
   ]);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
 
   return (
     <ark.span
@@ -178,7 +186,7 @@ function InputGroupText(props: HTMLArkProps<'span'> & InputGroupDataProps) {
 
 function InputGroupButton(props: ComponentProps<typeof Button>) {
   const [local, others] = splitProps(props, ['class', 'size', 'type', 'variant']);
-  const groupSize = useContext(InputGroupSizeContext) ?? defaultInputGroupSizeAccessor;
+  const groupSize = useContext(InputGroupSizeContext);
   const buttonSize = () => local.size ?? groupSize();
 
   return (
@@ -193,12 +201,42 @@ function InputGroupButton(props: ComponentProps<typeof Button>) {
   );
 }
 
-const InputGroup = Object.assign(InputGroupRoot, {
-  Root: InputGroupRoot,
-  Input: InputGroupInput,
-  Addon: InputGroupAddon,
-  Text: InputGroupText,
-  Button: InputGroupButton,
-});
+function InputGroupClearTrigger(
+  props: ComponentProps<typeof CloseButton> & { size?: InputGroupSize },
+) {
+  const [local, others] = splitProps(props, [
+    'class',
+    'children',
+    'size',
+    'type',
+    'aria-label',
+    'aria-labelledby',
+  ]);
+  const groupSize = useContext(InputGroupSizeContext);
+  return (
+    <CloseButton
+      {...others}
+      data-scope="input-group"
+      data-part="clear-trigger"
+      data-slot="input-group-clear-trigger"
+      data-size={local.size ?? groupSize()}
+      class={cn(inputGroupClearTriggerVariants({ size: local.size ?? groupSize() }), local.class)}
+      type={local.type ?? 'button'}
+      aria-label={
+        local['aria-label'] ?? (local['aria-labelledby'] == null ? 'Clear input' : undefined)
+      }
+      aria-labelledby={local['aria-labelledby']}
+    >
+      {local.children ?? <CloseIcon class="size-4 shrink-0" />}
+    </CloseButton>
+  );
+}
 
-export { InputGroup };
+export {
+  InputGroup,
+  InputGroupClearTrigger,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+};

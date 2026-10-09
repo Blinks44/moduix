@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "reset",
+  "title": "moduix reset",
+  "description": "Optional CSS reset for projects that want moduix global reset rules.",
+  "registryDependencies": ["https://moduix.dev/r/foundation/reset.json"],
+  "docs": "Optional: import the installed reset.css before style.css in your app entry.",
+  "type": "registry:item"
+}

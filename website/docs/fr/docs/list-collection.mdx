@@ -6,7 +6,9 @@ description: Créez, consultez, filtrez et mettez à jour des collections basée
 import ListCollectionBasic from '@/components/examples/list-collection/basic.tsx';
 import ListCollectionFiltering from '@/components/examples/listbox/standalone-filter-input.tsx';
 import listCollectionSolidBasic from '../../../snippets/select/solid/basic.tsx?raw';
+import listCollectionVueBasic from '../../../snippets/select/vue/basic.vue?raw';
 import listCollectionSolidFiltering from '../../../snippets/listbox/solid/standalone-filter-input.tsx?raw';
+import listCollectionVueFiltering from '../../../snippets/listbox/vue/standalone-filter-input.vue?raw';
 
 # List Collection
 
@@ -28,6 +30,7 @@ Importez les utilitaires depuis le point d'entrée Ark UI correspondant à votre
   values={[
     { label: 'React', value: 'react' },
     { label: 'Solid', value: 'solid' },
+    { label: 'Vue', value: 'vue' },
   ]}
   className="docs-tabs"
 >
@@ -45,6 +48,13 @@ import { createListCollection, useListCollection } from '@ark-ui/solid/collectio
 ```
 
   </Tab>
+  <Tab value="vue">
+
+```ts
+import { createListCollection, useListCollection } from '@ark-ui/vue/collection';
+```
+
+  </Tab>
 </Tabs>
 
 ## Exemple de base
@@ -54,7 +64,7 @@ module. Par défaut, Ark utilise les propriétés `label`, `value` et `disabled`
 à un composant basé sur Ark UI et affichez ses éléments à partir de `collection.items`.
 
 L'aperçu utilise React avec la variante de styles CSS Modules. Les onglets contiennent le code natif
-React et Solid du même exemple. Le code Solid est affiché comme du code, car l'aperçu de la
+React, Solid et Vue du même exemple. Le code Solid est affiché comme du code, car l'aperçu de la
 documentation s'exécute avec React.
 
 <ExampleFrame variant="component">
@@ -70,6 +80,7 @@ documentation s'exécute avec React.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -84,6 +95,11 @@ documentation s'exécute avec React.
 <CodeBlockRuntime lang="tsx" code={listCollectionSolidBasic} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listCollectionVueBasic} />
+
+    </Tab>
   </Tabs>
 </div>
 </ExampleCode>
@@ -92,7 +108,7 @@ Conservez une collection statique en dehors du composant. Lorsque les éléments
 de l'état ou d'une requête, ne recréez la collection que lorsque les données sources changent.
 Lorsque le filtrage ou les mises à jour doivent suivre l'état du framework, utilisez le hook
 dynamique présenté ci-dessous.
-Dans React, utilisez `useMemo`; dans Solid, utilisez `createMemo` lorsque les données sources sont réactives.
+Dans React, utilisez `useMemo`; dans Solid, `createMemo`; dans Vue, `computed` lorsque les données sources sont réactives.
 
 ## Formes d'éléments personnalisées
 
@@ -177,7 +193,8 @@ const nextValue = collection.search('p', {
 ```
 
 Conservez `searchState` pendant toute l'interaction. Dans React, `useRef` est un emplacement adapté.
-Dans Solid, gardez le même objet dans le composant ou dans un autre stockage stable.
+Dans Solid, gardez le même objet dans le composant ou dans un autre stockage stable. Dans Vue,
+créez-le une fois dans `<script setup>`.
 
 ## Collections dynamiques
 
@@ -203,6 +220,7 @@ ne correspond.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -217,6 +235,11 @@ ne correspond.
 <CodeBlockRuntime lang="tsx" code={listCollectionSolidFiltering} />
 
     </Tab>
+  <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listCollectionVueFiltering} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -228,6 +251,7 @@ ne correspond.
 
 Dans React, `collection` est une `ListCollection`. Dans Solid, c'est un accessor : appelez donc
 `collection()` pour le passer à un composant ou lisez `collection().items` dans une boucle `<For>`.
+Dans Vue, c’est une ref : utilisez `collection.value` dans le script ou `collection` dans le template.
 Le hook expose `filter`, `set`, `reset`, `clear`, `insert`, `insertBefore`, `insertAfter`, `remove`,
 `move`, `moveBefore`, `moveAfter`, `reorder`, `append`, `prepend`, `update` et `upsert`.
 

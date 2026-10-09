@@ -15,6 +15,11 @@ import kbdSolidCompactDensity from '../../../snippets/kbd/solid/compact-density.
 import kbdSolidCustomElement from '../../../snippets/kbd/solid/custom-element.tsx?raw';
 import kbdSolidShortcutList from '../../../snippets/kbd/solid/shortcut-list.tsx?raw';
 import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
+import kbdVueBasic from '../../../snippets/kbd/vue/basic.vue?raw';
+import kbdVueCompactDensity from '../../../snippets/kbd/vue/compact-density.vue?raw';
+import kbdVueCustomElement from '../../../snippets/kbd/vue/custom-element.vue?raw';
+import kbdVueShortcutList from '../../../snippets/kbd/vue/shortcut-list.vue?raw';
+import kbdVueSingleKey from '../../../snippets/kbd/vue/single-key.vue?raw';
 
 ## Справочник API
 
@@ -24,7 +29,7 @@ import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
 ## Базовый пример
 
 
-Используйте `Kbd`, чтобы показать одну клавишу. Для сочетания из нескольких клавиш поместите клавиши и текстовые разделители в `Kbd.Group`.
+Используйте `Kbd`, чтобы показать одну клавишу. Для сочетания из нескольких клавиш поместите клавиши и текстовые разделители в `KbdGroup`.
 
 <ExampleFrame variant="component">
   <KbdBasic />
@@ -37,6 +42,7 @@ import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -49,6 +55,11 @@ import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={kbdSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueBasic} />
 
     </Tab>
   </Tabs>
@@ -86,6 +97,16 @@ import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/kbd' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/kbd' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
@@ -93,20 +114,20 @@ import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
 Структура сочетания проста. Знак `+` в этой схеме является обычным текстом, а не отдельной частью компонента.
 
 ```text
-Kbd.Group
-├─ Kbd / Kbd.Root
+KbdGroup
+├─ Kbd
 ├─ +
-└─ Kbd / Kbd.Root
+└─ Kbd
 ```
 
 | Часть               | Назначение                                                                  |
 | ------------------- | --------------------------------------------------------------------------- |
-| `Kbd` / `Kbd.Root`  | Корневой элемент клавиши. По умолчанию выводит элемент `<kbd>`.             |
-| `Kbd.Group`         | Строчный контейнер для связанных клавиш. По умолчанию получает роль `group`. |
+| `Kbd`              | Корневой элемент клавиши. По умолчанию выводит элемент `<kbd>`.             |
+| `KbdGroup`         | Строчный контейнер для связанных клавиш. По умолчанию получает роль `group`. |
 
 ## Композиция
 
-Используйте `Kbd` как короткую запись `Kbd.Root` для отдельной клавиши, а `Kbd.Group` для объединения связанных клавиш. Оставляйте разделители, например `+`, обычным текстом внутри группы и добавляйте `aria-label`, если визуальные символы или сокращения могут быть непонятны без контекста.
+Используйте `Kbd` для отдельной клавиши, а `KbdGroup` для объединения связанных клавиш. Оставляйте разделители, например `+`, обычным текстом внутри группы и добавляйте `aria-label`, если визуальные символы или сокращения могут быть непонятны без контекста.
 
 Kbd не хранит состояние и не обрабатывает нажатия клавиш. Используйте `asChild`, только когда другой компонент должен вывести семантический элемент `<kbd>`; передавайте ровно один дочерний элемент.
 
@@ -127,6 +148,7 @@ Kbd не хранит состояние и не обрабатывает наж
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -139,6 +161,11 @@ Kbd не хранит состояние и не обрабатывает наж
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={kbdSolidCompactDensity} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueCompactDensity} />
 
     </Tab>
   </Tabs>
@@ -166,6 +193,7 @@ Kbd не хранит состояние и не обрабатывает наж
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -180,6 +208,11 @@ Kbd не хранит состояние и не обрабатывает наж
 <CodeBlockRuntime lang="tsx" code={kbdSolidCustomElement} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueCustomElement} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -187,7 +220,7 @@ Kbd не хранит состояние и не обрабатывает наж
 
 ### Список сочетаний
 
-Объедините `Kbd.Group` с поясняющим текстом, чтобы показать список доступных сочетаний клавиш.
+Объедините `KbdGroup` с поясняющим текстом, чтобы показать список доступных сочетаний клавиш.
 
 <ExampleFrame variant="component">
   <KbdShortcutList />
@@ -200,6 +233,7 @@ Kbd не хранит состояние и не обрабатывает наж
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -212,6 +246,11 @@ Kbd не хранит состояние и не обрабатывает наж
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={kbdSolidShortcutList} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueShortcutList} />
 
     </Tab>
   </Tabs>
@@ -239,6 +278,7 @@ Kbd не хранит состояние и не обрабатывает наж
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -253,6 +293,11 @@ Kbd не хранит состояние и не обрабатывает наж
 <CodeBlockRuntime lang="tsx" code={kbdSolidSingleKey} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={kbdVueSingleKey} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -260,7 +305,7 @@ Kbd не хранит состояние и не обрабатывает наж
 
 ## Стилизация
 
-Настраивайте `Kbd` и `Kbd.Group` с помощью `className` в React или `class` в Solid, атрибутов анатомии Ark, стабильных хуков `data-slot` и публичных CSS-переменных `--moduix-kbd-*`, перечисленных ниже. Варианты Tailwind используют нативные utility-классы, а варианты CSS Modules используют переменные компонента и CSS приложения.
+Настраивайте `Kbd` и `KbdGroup` с помощью `className` в React или `class` в Solid и Vue, атрибутов анатомии Ark, стабильных хуков `data-slot` и публичных CSS-переменных `--moduix-kbd-*`, перечисленных ниже. Варианты Tailwind используют нативные utility-классы, а варианты CSS Modules используют переменные компонента и CSS приложения.
 
 ### CSS-свойства
 
@@ -271,4 +316,4 @@ Kbd не хранит состояние и не обрабатывает наж
 - `data-slot="kbd-root"` выбирает отдельный элемент клавиши
 - `data-slot="kbd-group"` выбирает строчный контейнер для сгруппированных сочетаний
 - `[data-scope="kbd"][data-part="root"]` и `[data-part="group"]` предоставляют селекторы анатомии в стиле Ark
-- Разделители в `Kbd.Group` наследуют цвет текста группы. Чтобы задать этот цвет, используйте `--moduix-kbd-group-separator-color`
+- Разделители в `KbdGroup` наследуют цвет текста группы. Чтобы задать этот цвет, используйте `--moduix-kbd-group-separator-color`

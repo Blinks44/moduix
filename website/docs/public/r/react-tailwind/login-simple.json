@@ -1,0 +1,9 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "login-simple",
+  "title": "Sign in",
+  "description": "Sign-in form with email, password, and a remember-me option.",
+  "registryDependencies": ["https://moduix.dev/r/blocks/react-tailwind-login-simple.json"],
+  "files": [],
+  "type": "registry:block"
+}

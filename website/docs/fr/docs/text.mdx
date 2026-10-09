@@ -21,6 +21,14 @@ import textSolidSize from '../../../snippets/text/solid/size.tsx?raw';
 import textSolidTone from '../../../snippets/text/solid/tone.tsx?raw';
 import textSolidTruncation from '../../../snippets/text/solid/truncation.tsx?raw';
 import textSolidWeight from '../../../snippets/text/solid/weight.tsx?raw';
+import textVueAlignment from '../../../snippets/text/vue/alignment.vue?raw';
+import textVueBasic from '../../../snippets/text/vue/basic.vue?raw';
+import textVueCustomComposition from '../../../snippets/text/vue/custom-composition.vue?raw';
+import textVueSemantics from '../../../snippets/text/vue/semantics.vue?raw';
+import textVueSize from '../../../snippets/text/vue/size.vue?raw';
+import textVueTone from '../../../snippets/text/vue/tone.vue?raw';
+import textVueTruncation from '../../../snippets/text/vue/truncation.vue?raw';
+import textVueWeight from '../../../snippets/text/vue/weight.vue?raw';
 
 ## Référence de l’API
 
@@ -55,6 +63,7 @@ sémantique tout en conservant le style typographique de `Text`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -67,6 +76,11 @@ sémantique tout en conservant le style typographique de `Text`.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueBasic} />
 
     </Tab>
   </Tabs>
@@ -104,25 +118,35 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
-</Tabs>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/text' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/text' },
+  ]}
+/>
+
+  </Tab>
+  </Tabs>
 
 ## Anatomie
 
-`Text` rend un seul élément racine avec la fabrique Ark. Les écritures `<Text>` et `<Text.Root>` sont équivalentes.
+`Text` rend un seul élément racine avec la fabrique Ark via l’export racine plat.
 
 ```text
-Text / Text.Root
+Text
 └─ texte ou contenu en ligne
 ```
 
 | Partie                | Rôle                                                                  |
 | --------------------- | --------------------------------------------------------------------- |
-| `Text` / `Text.Root` | Racine typographique avec sémantique HTML et attributs `data-*` stables. |
+| `Text`              | Racine typographique avec sémantique HTML et attributs `data-*` stables. |
 
 ## Composition
 
-`Text` se limite à un élément racine et ne possède ni état ni sous-parties. Utilisez `<Text>` ou `<Text.Root>`
-pour le même élément racine, `as` pour une balise sémantique prise en charge et `asChild` seulement lorsqu’un élément
+`Text` se limite à un élément racine et ne possède ni état ni sous-parties. Utilisez `<Text>` pour l’élément racine,
+`as` pour une balise sémantique prise en charge et `asChild` seulement lorsqu’un élément
 existant doit recevoir les propriétés et la `ref` du texte. La troncature ne fait que limiter l’affichage ; l’état et le
 contrôle du dépliage restent dans l’interface environnante.
 
@@ -143,6 +167,7 @@ Utilisez `align` lorsque l’alignement appartient au texte lui-même et non à 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -155,6 +180,11 @@ Utilisez `align` lorsque l’alignement appartient au texte lui-même et non à 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidAlignment} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueAlignment} />
 
     </Tab>
   </Tabs>
@@ -182,6 +212,7 @@ Utilisez `as` pour choisir une balise HTML sémantique tout en conservant le sty
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -194,6 +225,11 @@ Utilisez `as` pour choisir une balise HTML sémantique tout en conservant le sty
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidSemantics} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueSemantics} />
 
     </Tab>
   </Tabs>
@@ -221,6 +257,7 @@ Utilisez `size` pour modifier la hiérarchie visuelle sans changer de composant 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -233,6 +270,11 @@ Utilisez `size` pour modifier la hiérarchie visuelle sans changer de composant 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidSize} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueSize} />
 
     </Tab>
   </Tabs>
@@ -260,6 +302,7 @@ Utilisez `tone` pour indiquer le rôle du texte sans ajouter de classe de couleu
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -272,6 +315,11 @@ Utilisez `tone` pour indiquer le rôle du texte sans ajouter de classe de couleu
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidTone} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueTone} />
 
     </Tab>
   </Tabs>
@@ -301,6 +349,7 @@ pas sur la troncature sur une ligne. Ajoutez le comportement de dépliage dans l
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -313,6 +362,11 @@ pas sur la troncature sur une ligne. Ajoutez le comportement de dépliage dans l
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidTruncation} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueTruncation} />
 
     </Tab>
   </Tabs>
@@ -340,6 +394,7 @@ Utilisez `weight` lorsque l’emphase doit rester dans le même élément séman
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -352,6 +407,11 @@ Utilisez `weight` lorsque l’emphase doit rester dans le même élément séman
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={textSolidWeight} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueWeight} />
 
     </Tab>
   </Tabs>
@@ -380,6 +440,7 @@ charge par `as`. L’enfant doit être un élément unique capable d’accepter 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -394,6 +455,11 @@ charge par `as`. L’enfant doit être un élément unique capable d’accepter 
 <CodeBlockRuntime lang="tsx" code={textSolidCustomComposition} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textVueCustomComposition} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -401,7 +467,7 @@ charge par `as`. L’enfant doit être un élément unique capable d’accepter 
 
 ## Styles
 
-Personnalisez `Text` avec `className`, les attributs de données de la racine et l’API CSS publique. Les packages
+Personnalisez `Text` avec `className` en React ou `class` en Solid et Vue, les attributs de données de la racine et l’API CSS publique. Les packages
 CSS Modules exposent les variables `--moduix-text-*` ci-dessous ; les packages Tailwind utilisent des classes utilitaires
 et les remplacements de classes fournis par l’application.
 

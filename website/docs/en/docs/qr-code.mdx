@@ -21,6 +21,14 @@ import qrCodeSolidFill from '../../../snippets/qr-code/solid/fill.tsx?raw';
 import qrCodeSolidInput from '../../../snippets/qr-code/solid/input.tsx?raw';
 import qrCodeSolidOverlay from '../../../snippets/qr-code/solid/overlay.tsx?raw';
 import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provider.tsx?raw';
+import qrCodeVueBasic from '../../../snippets/qr-code/vue/basic.vue?raw';
+import qrCodeVueControlled from '../../../snippets/qr-code/vue/controlled.vue?raw';
+import qrCodeVueDownload from '../../../snippets/qr-code/vue/download.vue?raw';
+import qrCodeVueErrorCorrection from '../../../snippets/qr-code/vue/error-correction.vue?raw';
+import qrCodeVueFill from '../../../snippets/qr-code/vue/fill.vue?raw';
+import qrCodeVueInput from '../../../snippets/qr-code/vue/input.vue?raw';
+import qrCodeVueOverlay from '../../../snippets/qr-code/vue/overlay.vue?raw';
+import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.vue?raw';
 
 ## API Reference
 
@@ -30,7 +38,7 @@ import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provid
 
 
 Use `QrCode` for the usual case. Pass the content to encode with `defaultValue`, then render
-`QrCode.Frame` and `QrCode.Pattern` to display the generated SVG. Give `QrCode.Frame` an accessible
+`QrCodeFrame` and `QrCodePattern` to display the generated SVG. Give `QrCodeFrame` an accessible
 name when the QR code conveys information.
 
 <ExampleFrame variant="component">
@@ -44,6 +52,7 @@ name when the QR code conveys information.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -56,6 +65,11 @@ name when the QR code conveys information.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueBasic} />
 
     </Tab>
   </Tabs>
@@ -88,39 +102,49 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/qr-code' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/qr-code' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomy
 
 ```text
-QrCode / QrCode.Root
-├─ QrCode.Frame
-│  └─ QrCode.Pattern
-├─ QrCode.Overlay
-└─ QrCode.DownloadTrigger
+QrCode
+├─ QrCodeFrame
+│  └─ QrCodePattern
+├─ QrCodeOverlay
+└─ QrCodeDownloadTrigger
 
-QrCode.RootProvider
+QrCodeRootProvider
 └─ same part tree connected to a useQrCode() store
 ```
 
 | Part                     | Role                                                                    |
 | ------------------------ | ----------------------------------------------------------------------- |
-| `QrCode` / `QrCode.Root` | Owns the encoded value and generation options, and provides QR state.   |
-| `QrCode.RootProvider`    | Connects the parts to state created with `useQrCode()`.                 |
-| `QrCode.Frame`           | SVG element that contains the generated QR code.                       |
-| `QrCode.Pattern`         | SVG path that draws the QR modules.                                     |
-| `QrCode.Overlay`         | Centered content rendered over the QR code.                             |
-| `QrCode.DownloadTrigger` | Button that downloads the current QR code as an image.                  |
+| `QrCode`                 | Owns the encoded value and generation options, and provides QR state.   |
+| `QrCodeRootProvider`     | Connects the parts to state created with `useQrCode()`.                 |
+| `QrCodeFrame`            | SVG element that contains the generated QR code.                       |
+| `QrCodePattern`          | SVG path that draws the QR modules.                                     |
+| `QrCodeOverlay`          | Centered content rendered over the QR code.                             |
+| `QrCodeDownloadTrigger`  | Button that downloads the current QR code as an image.                  |
 
 ## Composition
 
 Use `defaultValue` for an uncontrolled QR code. When application state owns the value, use `value`
 with `onValueChange(details)` and read the new value from `details.value`. Create state with
-`useQrCode()` from the matching framework package and pass it to `QrCode.RootProvider` when it must
-be shared outside the QR tree. Do not render `QrCode` and `QrCode.RootProvider` for the same store.
+`useQrCode()` from the matching framework package and pass it to `QrCodeRootProvider` when it must
+be shared outside the QR tree. Do not render `QrCode` and `QrCodeRootProvider` for the same store.
 
-Use `QrCode.Context` or `useQrCodeContext()` when a descendant needs the current QR API. Add
-`QrCode.Overlay` only with enough error correction for the covered area, then test the final code
+Use `QrCodeContext` or `useQrCodeContext()` when a descendant needs the current QR API. Add
+`QrCodeOverlay` only with enough error correction for the covered area, then test the final code
 with the scanners your users rely on.
 
 ## Examples
@@ -141,6 +165,7 @@ state.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -155,6 +180,11 @@ state.
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidControlled} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueControlled} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -167,7 +197,7 @@ state.
 
 ### Download
 
-Add `QrCode.DownloadTrigger` when users need to save the generated code as an image. Set both
+Add `QrCodeDownloadTrigger` when users need to save the generated code as an image. Set both
 `fileName` and `mimeType` on the trigger.
 
 <ExampleFrame variant="component">
@@ -181,6 +211,7 @@ Add `QrCode.DownloadTrigger` when users need to save the generated code as an im
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -193,6 +224,11 @@ Add `QrCode.DownloadTrigger` when users need to save the generated code as an im
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidDownload} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueDownload} />
 
     </Tab>
   </Tabs>
@@ -221,6 +257,7 @@ an overlay covers part of the code or when the code may be scratched or distorte
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -233,6 +270,11 @@ an overlay covers part of the code or when the code may be scratched or distorte
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidErrorCorrection} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueErrorCorrection} />
 
     </Tab>
   </Tabs>
@@ -261,6 +303,7 @@ The QR modules use `currentColor` by default. Change the SVG fill with `style`, 
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -273,6 +316,11 @@ The QR modules use `currentColor` by default. Change the SVG fill with `style`, 
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidFill} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueFill} />
 
     </Tab>
   </Tabs>
@@ -301,6 +349,7 @@ Give the frame an accessible name that explains what the code represents.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -315,6 +364,11 @@ Give the frame an accessible name that explains what the code represents.
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidInput} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueInput} />
+
+    </Tab>
   </Tabs>
 
 **Styles**
@@ -327,7 +381,7 @@ Give the frame an accessible name that explains what the code represents.
 
 ### Overlay
 
-Use `QrCode.Overlay` for a compact logo or text mark. Set a high error-correction level and keep the
+Use `QrCodeOverlay` for a compact logo or text mark. Set a high error-correction level and keep the
 overlay small enough that scanners can still read the code.
 
 <ExampleFrame variant="component">
@@ -341,6 +395,7 @@ overlay small enough that scanners can still read the code.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -353,6 +408,11 @@ overlay small enough that scanners can still read the code.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidOverlay} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueOverlay} />
 
     </Tab>
   </Tabs>
@@ -368,7 +428,7 @@ overlay small enough that scanners can still read the code.
 ### Root Provider
 
 Create QR state with `useQrCode()` when it must be shared with controls outside the QR tree, then
-pass that state to `QrCode.RootProvider`.
+pass that state to `QrCodeRootProvider`.
 
 <ExampleFrame variant="component">
   <RootProviderQrCode />
@@ -381,6 +441,7 @@ pass that state to `QrCode.RootProvider`.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -395,6 +456,11 @@ pass that state to `QrCode.RootProvider`.
 <CodeBlockRuntime lang="tsx" code={qrCodeSolidRootProvider} />
 
     </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={qrCodeVueRootProvider} />
+
+    </Tab>
   </Tabs>
 </div>
 
@@ -402,7 +468,7 @@ pass that state to `QrCode.RootProvider`.
 
 ## Styling
 
-Use `className` in React or `class` in Solid on exported parts for structural styles. Tailwind
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes; the variables below customize the CSS Modules
 variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
 

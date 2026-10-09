@@ -1,26 +1,27 @@
 # SplitButton (Solid)
 
-`SplitButton` preserves the React component's compound anatomy, shared button defaults, menu
+`SplitButton` preserves the React component's flat anatomy, shared button defaults, menu
 behavior, accessibility hooks, and attached visual treatment.
 
 ## Ark Solid composition
 
-`SplitButton` is a local composition of the Solid `Button` and `Menu` wrappers. Use
-`SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner`, and `SplitButton.Content`
-with shared `Menu.*` items.
+`SplitButton` is a local composition of the Solid `Button` and `Menu` wrappers. Use the
+`SplitButton` root with `SplitButtonAction`, `SplitButtonTrigger`, `SplitButtonPositioner`, and
+`SplitButtonContent`, together with shared `Menu.*` items.
 
-The root is equivalent to `SplitButton.Root` and renders a semantic `role="group"`. It accepts
+The `SplitButton` root renders a semantic `role="group"`. It accepts
 `aria-label` or `aria-labelledby`, inherits Ark Menu props such as `open`, `onOpenChange`,
 `onSelect`, `closeOnSelect`, `positioning`, `lazyMount`, and `unmountOnExit`, and defaults
 positioning to `bottom-end` with a gutter of `4`.
 
-Root `size` and `variant` values provide defaults for `Action` and `Trigger`. An icon-only
-`Trigger` renders `ChevronDownIcon` and defaults its accessible name to `More actions`.
-`Positioner` remains explicitly composed and is portalled by the shared `Menu` wrapper unless
-`portalled={false}` is set.
+Root `size` and `variant` values provide defaults for `SplitButtonAction` and `SplitButtonTrigger`.
+An icon-only `SplitButtonTrigger` renders `ChevronDownIcon` and defaults its accessible name to
+`More actions`. `SplitButtonPositioner` remains explicitly composed and is portalled by the shared
+`Menu` wrapper unless `portalled={false}` is set.
 
 Ark Solid's render-function `asChild` drops refs from the props it transports to the composed
-child. Therefore both `Action` and `Trigger` forward their refs explicitly: `Trigger` applies its
+child. Therefore both `SplitButtonAction` and `SplitButtonTrigger` forward their refs explicitly:
+`SplitButtonTrigger` applies its
 `ref` to the moduix `Button` host inside the `asChild` render function, so a trigger ref matches
 the React behavior and points at the rendered button. This parity is covered by the Solid tests.
 

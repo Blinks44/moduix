@@ -1,30 +1,26 @@
 ---
 title: Astro
-description: Integrate moduix React or Solid components with Astro through packages or shadcn, including styles, aliases, and client directives.
+description: Integrate moduix React, Solid, or Vue components with Astro through packages or shadcn, including styles, aliases, and client directives.
 ---
 
 # Astro
 
-This guide assumes an existing Astro project with its official React or Solid integration already
+This guide assumes an existing Astro project with its official React, Solid, or Vue integration already
 configured. Components render as static HTML by default; add a `client:*` directive when they need
 to become interactive in the browser.
 
-
 ## Choose your setup
 
-- **Runtime:** React or Solid with the matching official Astro integration.
+- **Runtime:** React, Solid, or Vue with the matching official Astro integration.
 - **Styling:** CSS Modules or Tailwind CSS v4.
 - **Distribution:** a package or source copied with the shadcn CLI.
 
-This page focuses on Astro-specific file placement and island hydration. Complete the shared
-[package setup](/docs/quick-start#install-as-a-package) or
-[shadcn setup](/docs/quick-start#install-with-the-shadcn-cli) for your styling track first. The
-examples below use CSS Modules package imports; the Astro entry points and `client:*` rules are the
-same with the matching Tailwind package or registry.
+Quick Start covers [package choices](/docs/quick-start#install-as-a-package) and
+[shadcn configuration](/docs/quick-start#install-with-the-shadcn-cli).
 
-All package commands and stylesheet imports shown below belong to CSS Modules. Use the moduix reset
-shown below or a correct reset from your application. With Tailwind, keep the global stylesheet configured in
-Quick Start instead.
+The examples below use CSS Modules with the moduix reset. Omit the reset if your app already
+provides an equivalent one. For Tailwind, install the matching `-tailwind` package and import your
+application’s Tailwind stylesheet at the same entry point, using the setup from Quick Start.
 
 ## Install as a package
 
@@ -39,6 +35,11 @@ Install the framework-native package and its Ark UI peer dependency:
   <Tab label="Solid" value="solid">
 
 <PackageManagerTabs command="install @moduix/solid @ark-ui/solid" />
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+<PackageManagerTabs command="install @moduix/vue @ark-ui/vue" />
 
   </Tab>
 </Tabs>
@@ -74,6 +75,20 @@ import '@moduix/solid/style.css';
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```astro title="src/layouts/Layout.astro"
+---
+import '@moduix/vue/reset.css';
+import '@moduix/vue/style.css';
+---
+
+<html lang="en">
+  <body><slot /></body>
+</html>
+```
+
+  </Tab>
 </Tabs>
 
 Create a framework component:
@@ -101,17 +116,53 @@ export function ContinueButton() {
 ```
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+```vue title="src/components/ContinueButton.vue"
+<script setup lang="ts">
+import { Button } from '@moduix/vue/button';
+</script>
+
+<template>
+  <Button>Continue</Button>
+</template>
+```
+
+  </Tab>
 </Tabs>
 
 Import it directly into an Astro page and add a client directive:
 
+<Tabs groupId="framework">
+  <Tab label="React / Solid" value="react-solid">
+
 ```astro title="src/pages/index.astro"
 ---
+import Layout from '../layouts/Layout.astro';
 import { ContinueButton } from '../components/ContinueButton';
 ---
 
-<ContinueButton client:load />
+<Layout>
+  <ContinueButton client:load />
+</Layout>
 ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```astro title="src/pages/index.astro"
+---
+import Layout from '../layouts/Layout.astro';
+import ContinueButton from '../components/ContinueButton.vue';
+---
+
+<Layout>
+  <ContinueButton client:load />
+</Layout>
+```
+
+  </Tab>
+</Tabs>
 
 Without a `client:*` directive, Astro sends static HTML without the component's client-side
 JavaScript. Use `client:load` for immediately visible controls, `client:idle` when interaction can
@@ -121,7 +172,7 @@ wait, and `client:visible` for components below the fold. Interactive components
 ## Install with the shadcn CLI
 
 Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli), map `@/*` to `src/*`
-in `tsconfig.json`, and import `@/lib/moduix/styles/style.css` from the shared layout. Then add the
+in `tsconfig.json`, then add the
 component for your runtime:
 
 <Tabs groupId="framework">
@@ -145,11 +196,22 @@ component for your runtime:
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/button' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/button' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
-Import the generated component directly into the `.astro` file before applying a `client:*`
-directive. Astro only accepts client directives on framework components imported directly into the
-page.
+For CSS Modules, import `@/lib/moduix/styles/style.css` from `src/layouts/Layout.astro`; keep
+the reset configured as shown in Quick Start. For Tailwind, load the generated foundation from your
+Tailwind stylesheet and import that stylesheet from the layout. Change the framework wrapper’s
+Button import to `@/components/ui/button`, and keep the wrapper directly imported by the Astro page.
 
 ## Verify
 
@@ -158,4 +220,4 @@ directive runs.
 
 See Astro's [framework components guide](https://docs.astro.build/en/guides/framework-components/),
 plus the official [React](https://docs.astro.build/en/guides/integrations-guide/react/) and
-[Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/) integration guides.
+[Solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/) / [Vue](https://docs.astro.build/en/guides/integrations-guide/vue/) integration guides.

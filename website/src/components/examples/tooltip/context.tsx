@@ -1,17 +1,23 @@
-import { Tooltip, useTooltipContext } from '@moduix/react/tooltip';
+import {
+  Tooltip,
+  useTooltipContext,
+  TooltipContent,
+  TooltipPositioner,
+  TooltipTrigger,
+} from '@moduix/react/tooltip';
 
 function TooltipStateContent() {
   const tooltip = useTooltipContext();
-  return <Tooltip.Content>Open from context: {tooltip.open.toString()}</Tooltip.Content>;
+  return <TooltipContent>Open from context: {tooltip.open.toString()}</TooltipContent>;
 }
 
 export default function ContextTooltipDemo() {
   return (
     <Tooltip>
-      <Tooltip.Trigger>Context tooltip</Tooltip.Trigger>
-      <Tooltip.Positioner>
+      <TooltipTrigger>Context tooltip</TooltipTrigger>
+      <TooltipPositioner>
         <TooltipStateContent />
-      </Tooltip.Positioner>
+      </TooltipPositioner>
     </Tooltip>
   );
 }

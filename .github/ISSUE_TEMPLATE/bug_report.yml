@@ -1,0 +1,53 @@
+name: Bug report
+description: Report a problem with a moduix package or the documentation
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Security issues go through [private vulnerability reporting](https://github.com/Blinks44/moduix/security/advisories/new), not this template.
+  - type: dropdown
+    id: package
+    attributes:
+      label: Affected package
+      options:
+        - '@moduix/react'
+        - '@moduix/react-tailwind'
+        - '@moduix/solid'
+        - '@moduix/solid-tailwind'
+        - '@moduix/vue'
+        - '@moduix/vue-tailwind'
+        - registry (shadcn)
+        - documentation site
+        - other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      placeholder: '2.8.0'
+    validations:
+      required: true
+  - type: dropdown
+    id: styling
+    attributes:
+      label: Styling track
+      options:
+        - CSS Modules
+        - Tailwind
+    validations:
+      required: false
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: Steps or a minimal code sample that triggers the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true

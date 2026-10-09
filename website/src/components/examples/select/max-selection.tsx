@@ -1,5 +1,14 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react/select';
+import {
+  Select,
+  SelectLabel,
+  SelectField,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@moduix/react/select';
 import { useState } from 'react';
 
 const languages = [
@@ -29,18 +38,18 @@ export default function SelectMaxSelectionDemo() {
         if (details.value.length <= 3) setValue(details.value);
       }}
     >
-      <Select.Label>Languages</Select.Label>
-      <Select.Field placeholder="Select up to 3" clearLabel="Clear selection" />
-      <Select.Positioner>
-        <Select.Content>
+      <SelectLabel>Languages</SelectLabel>
+      <SelectField placeholder="Select up to 3" clearLabel="Clear selection" />
+      <SelectPositioner>
+        <SelectContent>
           {collection.items.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
+            <SelectItem key={item.value} item={item}>
+              <SelectItemText>{item.label}</SelectItemText>
+              <SelectItemIndicator />
+            </SelectItem>
           ))}
-        </Select.Content>
-      </Select.Positioner>
+        </SelectContent>
+      </SelectPositioner>
     </Select>
   );
 }

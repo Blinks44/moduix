@@ -13,6 +13,10 @@ import emptySolidAdvancedCustomization from '../../../snippets/empty/solid/advan
 import emptySolidBasic from '../../../snippets/empty/solid/basic.tsx?raw';
 import emptySolidWithoutActions from '../../../snippets/empty/solid/without-actions.tsx?raw';
 import emptySolidWithoutIcon from '../../../snippets/empty/solid/without-icon.tsx?raw';
+import emptyVueAdvancedCustomization from '../../../snippets/empty/vue/advanced-customization.vue?raw';
+import emptyVueBasic from '../../../snippets/empty/vue/basic.vue?raw';
+import emptyVueWithoutActions from '../../../snippets/empty/vue/without-actions.vue?raw';
+import emptyVueWithoutIcon from '../../../snippets/empty/vue/without-icon.vue?raw';
 
 ## Référence de l’API
 
@@ -22,14 +26,14 @@ les recommandations d’Ark pour la [composition](https://ark-ui.com/react/docs/
 les [styles](https://ark-ui.com/react/docs/guides/styling) et les
 [références](https://ark-ui.com/react/docs/guides/ref). Sa composition s’inspire également du composant
 [Empty State de Chakra UI](https://chakra-ui.com/docs/components/empty-state). Contrairement à Chakra UI,
-`moduix` expose `Empty.Icon` et `Empty.Actions` comme des parties placées directement sous la racine,
-au même niveau que `Empty.Content`. Vous pouvez ainsi les placer dans l’ordre adapté à votre écran.
+`moduix` expose `EmptyIcon` et `EmptyActions` comme des parties placées directement sous la racine,
+au même niveau que `EmptyContent`. Vous pouvez ainsi les placer dans l’ordre adapté à votre écran.
 
 ## Exemple de base
 
 
 Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez besoin. Ajoutez
-`Empty.Icon` et `Empty.Actions` uniquement si l’état vide a besoin d’un repère visuel ou d’une action claire.
+`EmptyIcon` et `EmptyActions` uniquement si l’état vide a besoin d’un repère visuel ou d’une action claire.
 
 <ExampleFrame variant="component">
   <EmptyBasic />
@@ -42,6 +46,7 @@ Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez bes
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -54,6 +59,11 @@ Commencez par `<Empty />` et ajoutez les parties du composant dont vous avez bes
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueBasic} />
 
     </Tab>
   </Tabs>
@@ -91,45 +101,56 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/empty' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/empty' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Anatomie
 
 ```text
-Empty / Empty.Root
-├─ Empty.Icon (facultatif)
-├─ Empty.Content
-│  ├─ Empty.Title
-│  └─ Empty.Description
-└─ Empty.Actions (facultatif)
+Empty
+├─ EmptyIcon (facultatif)
+├─ EmptyContent
+│  ├─ EmptyTitle
+│  └─ EmptyDescription
+└─ EmptyActions (facultatif)
 ```
 
 | Partie                 | Rôle                                                                                                   |
 | ---------------------- | ------------------------------------------------------------------------------------------------------ |
-| `Empty` / `Empty.Root` | Conteneur racine pour les espacements, la bordure, l’arrière-plan et l’alignement.                    |
-| `Empty.Icon`           | Conteneur facultatif pour une icône ou un autre petit élément visuel.                                 |
-| `Empty.Content`        | Regroupe le titre et la description avec des espacements plus compacts.                               |
-| `Empty.Title`          | Titre principal de l’état vide.                                                                       |
-| `Empty.Description`    | Contenu complémentaire sous le titre. Il peut contenir des paragraphes, des liens ou d’autres éléments de type bloc. |
-| `Empty.Actions`        | Ligne facultative d’actions qui revient à la ligne si nécessaire.                                      |
+| `Empty`               | Conteneur racine pour les espacements, la bordure, l’arrière-plan et l’alignement.                    |
+| `EmptyIcon`           | Conteneur facultatif pour une icône ou un autre petit élément visuel.                                 |
+| `EmptyContent`        | Regroupe le titre et la description avec des espacements plus compacts.                               |
+| `EmptyTitle`          | Titre principal de l’état vide.                                                                       |
+| `EmptyDescription`    | Contenu complémentaire sous le titre. Il peut contenir des paragraphes, des liens ou d’autres éléments de type bloc. |
+| `EmptyActions`        | Ligne facultative d’actions qui revient à la ligne si nécessaire.                                      |
 
 ## Composition
 
-Composez `Empty` à partir de ses parties placées directement sous la racine. `Empty.Content`
-regroupe le titre et la description, tandis que `Empty.Icon` et `Empty.Actions` sont des parties
+Composez `Empty` à partir de ses parties placées directement sous la racine. `EmptyContent`
+regroupe le titre et la description, tandis que `EmptyIcon` et `EmptyActions` sont des parties
 facultatives au même niveau. Vous pouvez les omettre ou les réorganiser selon l’écran. `Empty` est
 uniquement présentatif et ne gère ni l’état de l’application ni le comportement `aria-live`.
 
-Utilisez `asChild` sur `Empty` ou `Empty.Title` lorsque la section qui l’accueille nécessite un
+Utilisez `asChild` sur `Empty` ou `EmptyTitle` lorsque la section qui l’accueille nécessite un
 conteneur sémantique ou un autre niveau de titre. Passez un seul enfant à une partie `asChild` pour
-qu’elle puisse lui transmettre ses propriétés et sa référence. Ajoutez la région, le rôle, la gestion
-du focus ou le comportement `aria-live` nécessaires dans l’interface environnante.
+qu’elle puisse lui transmettre ses propriétés et sa référence. En Vue, la référence du composant
+expose l’élément rendu via `$el`. Ajoutez la région, le rôle, la gestion du focus ou le comportement
+`aria-live` nécessaires dans l’interface environnante.
 
 ## Exemples
 
 ### Sans actions
 
-N’ajoutez pas `Empty.Actions` lorsque l’état est informatif et ne nécessite aucune action immédiate.
+N’ajoutez pas `EmptyActions` lorsque l’état est informatif et ne nécessite aucune action immédiate.
 
 <ExampleFrame variant="component">
   <EmptyWithoutActions />
@@ -142,6 +163,7 @@ N’ajoutez pas `Empty.Actions` lorsque l’état est informatif et ne nécessit
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -154,6 +176,11 @@ N’ajoutez pas `Empty.Actions` lorsque l’état est informatif et ne nécessit
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidWithoutActions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueWithoutActions} />
 
     </Tab>
   </Tabs>
@@ -181,6 +208,7 @@ L’icône est facultative : un état vide composé uniquement de texte peut don
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -193,6 +221,11 @@ L’icône est facultative : un état vide composé uniquement de texte peut don
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidWithoutIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueWithoutIcon} />
 
     </Tab>
   </Tabs>
@@ -208,8 +241,8 @@ L’icône est facultative : un état vide composé uniquement de texte peut don
 ### Personnalisation avancée
 
 Utilisez la propriété `asChild` sur `Empty` lorsque l’état vide doit être rendu dans un conteneur
-sémantique, tel que `section`. Utilisez-la sur `Empty.Title` lorsque le titre doit avoir un autre niveau.
-Comme `Empty.Description` est rendu sous la forme d’un `div`, il peut contenir des paragraphes, des liens
+sémantique, tel que `section`. Utilisez-la sur `EmptyTitle` lorsque le titre doit avoir un autre niveau.
+Comme `EmptyDescription` est rendu sous la forme d’un `div`, il peut contenir des paragraphes, des liens
 et d’autres éléments de type bloc.
 
 <ExampleFrame variant="component">
@@ -223,6 +256,7 @@ et d’autres éléments de type bloc.
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -235,6 +269,11 @@ et d’autres éléments de type bloc.
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>

@@ -1,4 +1,4 @@
-import { ToggleGroup } from '@moduix/solid/toggle-group';
+import { ToggleGroup, ToggleGroupItem } from '@moduix/solid/toggle-group';
 import {
   AlignCenter as AlignCenterIcon,
   AlignLeft as AlignLeftIcon,
@@ -8,15 +8,15 @@ import {
 export default function IconToggleGroupDemo() {
   return (
     <ToggleGroup defaultValue={['left']} aria-label="Text alignment" size="icon-md">
-      <ToggleGroup.Item value="left" aria-label="Align left">
+      <ToggleGroupItem value="left" aria-label="Align left">
         <AlignLeftIcon />
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="center" aria-label="Align center">
+      </ToggleGroupItem>
+      <ToggleGroupItem value="center" aria-label="Align center">
         <AlignCenterIcon />
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="right" aria-label="Align right">
+      </ToggleGroupItem>
+      <ToggleGroupItem value="right" aria-label="Align right">
         <AlignRightIcon />
-      </ToggleGroup.Item>
+      </ToggleGroupItem>
     </ToggleGroup>
   );
 }

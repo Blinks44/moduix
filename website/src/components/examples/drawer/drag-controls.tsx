@@ -1,39 +1,52 @@
 import { Button } from '@moduix/react/button';
-import { Card } from '@moduix/react/card';
-import { Drawer } from '@moduix/react/drawer';
+import { Card, CardBody } from '@moduix/react/card';
+import {
+  Drawer,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseIcon,
+  DrawerContent,
+  DrawerDescription,
+  DrawerGrabber,
+  DrawerGrabberIndicator,
+  DrawerHeader,
+  DrawerPositioner,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@moduix/react/drawer';
 import styles from '@/components/examples/drawer/drawer-drag-controls.module.css';
 
 const snapPoints = [0.18, 1];
 export default function DragControlsDrawerDemo() {
   return (
     <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-      <Drawer.Trigger asChild>
+      <DrawerTrigger asChild>
         <Button>Open drawer</Button>
-      </Drawer.Trigger>
-      <Drawer.Backdrop />
-      <Drawer.Positioner>
-        <Drawer.Content>
-          <Drawer.Grabber>
-            <Drawer.GrabberIndicator />
-          </Drawer.Grabber>
-          <Drawer.Header>
-            <Drawer.Title>Drag controls</Drawer.Title>
-            <Drawer.CloseIcon />
-            <Drawer.Description>
+      </DrawerTrigger>
+      <DrawerBackdrop />
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerGrabber>
+            <DrawerGrabberIndicator />
+          </DrawerGrabber>
+          <DrawerHeader>
+            <DrawerTitle>Drag controls</DrawerTitle>
+            <DrawerCloseIcon />
+            <DrawerDescription>
               Content dragging is enabled; the interactive region does not start a drag.
-            </Drawer.Description>
-          </Drawer.Header>
-          <Drawer.Body className={styles.body}>
+            </DrawerDescription>
+          </DrawerHeader>
+          <DrawerBody className={styles.body}>
             <Card size="sm" className={styles.card}>
-              <Card.Body>
+              <CardBody>
                 <Button data-no-drag variant="outline">
                   Interactive no-drag region
                 </Button>
-              </Card.Body>
+              </CardBody>
             </Card>
-          </Drawer.Body>
-        </Drawer.Content>
-      </Drawer.Positioner>
+          </DrawerBody>
+        </DrawerContent>
+      </DrawerPositioner>
     </Drawer>
   );
 }

@@ -1,16 +1,22 @@
-import { HoverCard } from '@moduix/solid/hover-card';
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/solid/hover-card';
 import styles from '@/components/examples/hover-card/hover-card-basic.module.css';
 
 export default function BasicHoverCard() {
   return (
     <HoverCard>
       <p>
-        Liked by <HoverCard.Trigger class={styles.trigger}>@sarah_chen</HoverCard.Trigger> and 3
+        Liked by <HoverCardTrigger class={styles.trigger}>@sarah_chen</HoverCardTrigger> and 3
         others
       </p>
-      <HoverCard.Positioner>
-        <HoverCard.Content>
-          <HoverCard.Body>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <HoverCardBody>
             <div class={styles.preview}>
               <img
                 alt="Sunlit workspace with a laptop and plants"
@@ -24,9 +30,9 @@ export default function BasicHoverCard() {
                 </p>
               </div>
             </div>
-          </HoverCard.Body>
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+          </HoverCardBody>
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>
   );
 }

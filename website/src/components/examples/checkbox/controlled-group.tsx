@@ -1,4 +1,10 @@
-import { Checkbox } from '@moduix/react/checkbox';
+import {
+  Checkbox,
+  CheckboxControl,
+  CheckboxGroup,
+  CheckboxHiddenInput,
+  CheckboxLabel,
+} from '@moduix/react/checkbox';
 import { useState } from 'react';
 
 const options = [
@@ -11,14 +17,14 @@ export default function CheckboxControlledGroupDemo() {
   const [value, setValue] = useState(['push'] as string[]);
 
   return (
-    <Checkbox.Group value={value} onValueChange={setValue} name="notifications">
+    <CheckboxGroup value={value} onValueChange={setValue} name="notifications">
       {options.map((option) => (
         <Checkbox key={option.value} value={option.value}>
-          <Checkbox.Control />
-          <Checkbox.Label>{option.label}</Checkbox.Label>
-          <Checkbox.HiddenInput />
+          <CheckboxControl />
+          <CheckboxLabel>{option.label}</CheckboxLabel>
+          <CheckboxHiddenInput />
         </Checkbox>
       ))}
-    </Checkbox.Group>
+    </CheckboxGroup>
   );
 }

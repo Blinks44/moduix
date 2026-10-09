@@ -31,7 +31,7 @@ export const badgeCssProperties: CssPropertyInput[] = [
     'var(--moduix-color-destructive-foreground)',
     'Controls destructive badge text and icon color.',
   ],
-  ['--moduix-badge-dot-size', 'var(--moduix-spacing-1-5)', 'Controls Badge.Dot size.'],
+  ['--moduix-badge-dot-size', 'var(--moduix-spacing-1-5)', 'Controls BadgeDot size.'],
   ['--moduix-badge-font-size', 'var(--moduix-text-xs)', 'Controls badge font size.'],
   ['--moduix-badge-font-weight', 'var(--moduix-weight-medium)', 'Controls badge font weight.'],
   ['--moduix-badge-focus-ring-color', 'var(--moduix-color-ring)', 'Controls focus ring color.'],

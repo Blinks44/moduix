@@ -1,4 +1,4 @@
-import { Splitter } from '@moduix/solid/splitter';
+import { Splitter, SplitterPanel, SplitterResizeTrigger } from '@moduix/solid/splitter';
 import styles from '@/components/examples/splitter/splitter-multiple-panels.module.css';
 
 const panels = [
@@ -19,17 +19,17 @@ const panels = [
 export default function MultiplePanelsSplitterDemo() {
   return (
     <Splitter panels={panels} defaultSize={[25, 45, 30]} class={styles.root}>
-      <Splitter.Panel id="a" class={styles.panel}>
+      <SplitterPanel id="a" class={styles.panel}>
         A
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels A and B" />
-      <Splitter.Panel id="b" class={styles.panel}>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="a:b" aria-label="Resize panels A and B" />
+      <SplitterPanel id="b" class={styles.panel}>
         B
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="b:c" aria-label="Resize panels B and C" />
-      <Splitter.Panel id="c" class={styles.panel}>
+      </SplitterPanel>
+      <SplitterResizeTrigger id="b:c" aria-label="Resize panels B and C" />
+      <SplitterPanel id="c" class={styles.panel}>
         C
-      </Splitter.Panel>
+      </SplitterPanel>
     </Splitter>
   );
 }

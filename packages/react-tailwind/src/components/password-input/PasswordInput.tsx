@@ -8,10 +8,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui';
 
-const PasswordInputRoot = forwardRef<
+const PasswordInput = forwardRef<
   ComponentRef<typeof PasswordInputPrimitive.Root>,
   ComponentProps<typeof PasswordInputPrimitive.Root>
->(function PasswordInputRoot({ className, ...props }, ref) {
+>(function PasswordInput({ className, ...props }, ref) {
   return (
     <PasswordInputPrimitive.Root
       ref={ref}
@@ -149,16 +149,18 @@ const PasswordInputField = forwardRef<
   );
 });
 
-const PasswordInput = Object.assign(PasswordInputRoot, {
-  Root: PasswordInputRoot,
-  RootProvider: PasswordInputRootProvider,
-  Context: PasswordInputPrimitive.Context,
-  Label: PasswordInputLabel,
-  Control: PasswordInputControl,
-  Field: PasswordInputField,
-  Input: PasswordInputInput,
-  VisibilityTrigger: PasswordInputVisibilityTrigger,
-  Indicator: PasswordInputIndicator,
-});
+const PasswordInputContext = PasswordInputPrimitive.Context;
 
-export { PasswordInput, usePasswordInput, usePasswordInputContext };
+export {
+  PasswordInput,
+  PasswordInputContext,
+  PasswordInputControl,
+  PasswordInputField,
+  PasswordInputIndicator,
+  PasswordInputInput,
+  PasswordInputLabel,
+  PasswordInputRootProvider,
+  PasswordInputVisibilityTrigger,
+  usePasswordInput,
+  usePasswordInputContext,
+};

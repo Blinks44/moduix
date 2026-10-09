@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Image } from '@/components/image/Image';
+import { Image, ImageSource } from '@/components/image/Image';
 
 const mountainImage = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4';
 const architectureImage = 'https://images.unsplash.com/photo-1497366754035-f200968a6e72';
@@ -25,6 +25,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {};
+
+export const WithoutCdn: Story = {
+  args: {
+    src: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520"%3E%3Crect width="800" height="520" fill="%2387ceeb"/%3E%3Ccircle cx="400" cy="260" r="100" fill="%23ffd700"/%3E%3C/svg%3E',
+    alt: 'Sun illustration without an image CDN',
+  },
+};
 
 export const Fixed: Story = {
   render: () => (
@@ -68,7 +75,7 @@ export const Unstyled: Story = {
 
 export const FullWidth: Story = {
   render: () => (
-    <div class="w-full max-w-[46rem]">
+    <div class="w-[min(46rem,calc(100vw-var(--moduix-spacing-8)))]">
       <Image
         src={architectureImage}
         alt="Sunlit modern office interior"
@@ -82,14 +89,14 @@ export const FullWidth: Story = {
 export const ArtDirection: Story = {
   render: () => (
     <picture class="block w-full max-w-lg">
-      <Image.Source
+      <ImageSource
         media="(min-width: 48rem)"
         type="image/avif"
         src={architectureImage}
         width={800}
         height={520}
       />
-      <Image.Source media="(min-width: 48rem)" src={architectureImage} width={800} height={520} />
+      <ImageSource media="(min-width: 48rem)" src={architectureImage} width={800} height={520} />
       <Image src={portraitImage} alt="Team member in a sunlit workspace" width={800} height={520} />
     </picture>
   ),

@@ -1,32 +1,39 @@
-import { Timer } from '@moduix/react/timer';
+import {
+  Timer,
+  TimerArea,
+  TimerItem,
+  TimerSeparator,
+  TimerControl,
+  TimerActionTrigger,
+} from '@moduix/react/timer';
 import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 import styles from '@/components/examples/timer/timer-interval.module.css';
 
 export default function IntervalTimerDemo() {
   return (
     <Timer interval={100} targetMs={60 * 1000}>
-      <Timer.Area>
+      <TimerArea>
         <span className={styles.itemGroup}>
-          <Timer.Item type="seconds" />
+          <TimerItem type="seconds" />
           <span className={styles.itemLabel}>seconds</span>
         </span>
-        <Timer.Separator>.</Timer.Separator>
+        <TimerSeparator>.</TimerSeparator>
         <span className={styles.itemGroup}>
-          <Timer.Item type="milliseconds" />
+          <TimerItem type="milliseconds" />
           <span className={styles.itemLabel}>ms</span>
         </span>
-      </Timer.Area>
-      <Timer.Control>
-        <Timer.ActionTrigger action="start">
+      </TimerArea>
+      <TimerControl>
+        <TimerActionTrigger action="start">
           <PlayIcon /> Start
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger action="pause">
+        </TimerActionTrigger>
+        <TimerActionTrigger action="pause">
           <PauseIcon /> Pause
-        </Timer.ActionTrigger>
-        <Timer.ActionTrigger action="reset">
+        </TimerActionTrigger>
+        <TimerActionTrigger action="reset">
           <RotateCcwIcon /> Reset
-        </Timer.ActionTrigger>
-      </Timer.Control>
+        </TimerActionTrigger>
+      </TimerControl>
     </Timer>
   );
 }

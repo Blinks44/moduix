@@ -1,4 +1,13 @@
-import { Carousel } from '@moduix/react/carousel';
+import {
+  Carousel,
+  CarouselControl,
+  CarouselIndicator,
+  CarouselIndicatorGroup,
+  CarouselItem,
+  CarouselItemGroup,
+  CarouselNextTrigger,
+  CarouselPrevTrigger,
+} from '@moduix/react/carousel';
 import styles from '@/components/examples/carousel/carousel-thumbnail-indicators.module.css';
 
 const slides = [
@@ -36,26 +45,26 @@ export default function ThumbnailIndicatorCarousel() {
       aria-label="Gallery with thumbnails"
       slideCount={slides.length}
     >
-      <Carousel.ItemGroup className={styles.itemGroup} aria-label="Gallery with thumbnails">
+      <CarouselItemGroup className={styles.itemGroup} aria-label="Gallery with thumbnails">
         {slides.map((slide, index) => (
-          <Carousel.Item key={slide.id} index={index}>
+          <CarouselItem key={slide.id} index={index}>
             <img className={styles.image} src={slide.src} alt={slide.alt} />
-          </Carousel.Item>
+          </CarouselItem>
         ))}
-      </Carousel.ItemGroup>
+      </CarouselItemGroup>
 
-      <Carousel.Control className={styles.control}>
-        <Carousel.PrevTrigger />
-        <Carousel.NextTrigger />
-      </Carousel.Control>
+      <CarouselControl className={styles.control}>
+        <CarouselPrevTrigger />
+        <CarouselNextTrigger />
+      </CarouselControl>
 
-      <Carousel.IndicatorGroup className={styles.thumbnailGroup}>
+      <CarouselIndicatorGroup className={styles.thumbnailGroup}>
         {slides.map((slide, index) => (
-          <Carousel.Indicator key={slide.id} className={styles.thumbnailIndicator} index={index}>
+          <CarouselIndicator key={slide.id} className={styles.thumbnailIndicator} index={index}>
             <img className={styles.thumbnailImage} src={slide.src} alt={slide.alt} />
-          </Carousel.Indicator>
+          </CarouselIndicator>
         ))}
-      </Carousel.IndicatorGroup>
+      </CarouselIndicatorGroup>
     </Carousel>
   );
 }

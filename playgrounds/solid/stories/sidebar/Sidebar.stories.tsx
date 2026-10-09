@@ -2,13 +2,76 @@ import { createListCollection } from '@ark-ui/solid/collection';
 import type { ComponentProps } from 'solid-js';
 import { createSignal, onMount } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { Avatar } from '@/components/avatar/Avatar';
+import { Avatar, AvatarFallback } from '@/components/avatar/Avatar';
 import { Button } from '@/components/button/Button';
-import { Collapsible } from '@/components/collapsible/Collapsible';
-import { Menu } from '@/components/menu/Menu';
-import { ScrollArea } from '@/components/scroll-area/ScrollArea';
-import { Select } from '@/components/select/Select';
-import { Sidebar, useSidebar } from '@/components/sidebar/Sidebar';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from '@/components/collapsible/Collapsible';
+import {
+  Menu,
+  MenuTrigger,
+  MenuIndicator,
+  MenuPositioner,
+  MenuContent,
+  MenuViewport,
+  MenuItem,
+  MenuSeparator,
+  MenuItemGroup,
+  MenuItemGroupLabel,
+  MenuItemText,
+  MenuItemTextContent,
+  MenuItemTextIcon,
+  MenuItemTextLabel,
+} from '@/components/menu/Menu';
+import {
+  ScrollArea,
+  ScrollAreaContent,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from '@/components/scroll-area/ScrollArea';
+import {
+  Select,
+  SelectTrigger,
+  SelectValueText,
+  SelectIndicator,
+  SelectPositioner,
+  SelectContent,
+  SelectItem,
+  SelectItemText,
+  SelectItemIndicator,
+} from '@/components/select/Select';
+import {
+  Sidebar,
+  useSidebar,
+  SidebarPanel,
+  SidebarInset,
+  SidebarResizeTrigger,
+  SidebarTrigger,
+  SidebarLabel,
+  SidebarInput,
+  SidebarHeader,
+  SidebarContent,
+  SidebarExpandedContent,
+  SidebarCollapsedContent,
+  SidebarFooter,
+  SidebarSeparator,
+  SidebarGroup,
+  SidebarGroupHeader,
+  SidebarGroupLabel,
+  SidebarGroupAction,
+  SidebarNavigationList,
+  SidebarNavigationItem,
+  SidebarTooltip,
+  SidebarNavigationButton,
+  SidebarNavigationBadge,
+  SidebarNavigationSubList,
+  SidebarNavigationSubItem,
+  SidebarNavigationSubButton,
+} from '@/components/sidebar/Sidebar';
 import {
   ChevronUpDownIcon,
   FileIcon,
@@ -41,7 +104,7 @@ const workspaces = createListCollection({
   ],
 });
 
-type SidebarSize = NonNullable<ComponentProps<typeof Sidebar.Root>['size']>;
+type SidebarSize = NonNullable<ComponentProps<typeof Sidebar>['size']>;
 
 const persistedSidebarStorageKey = 'moduix-storybook-sidebar-size';
 
@@ -69,9 +132,9 @@ function WorkspaceSelect() {
       defaultValue={['acme']}
       positioning={{ placement: 'right-start', gutter: 8, flip: false }}
     >
-      <Select.Trigger
+      <SelectTrigger
         asChild={(props) => (
-          <Sidebar.NavigationButton
+          <SidebarNavigationButton
             {...props()}
             size="lg"
             aria-label="Select workspace"
@@ -80,26 +143,26 @@ function WorkspaceSelect() {
             <span class={styles.workspaceMark} data-sidebar-icon>
               AC
             </span>
-            <Sidebar.Label class={styles.accountMeta}>
+            <SidebarLabel class={styles.accountMeta}>
               <strong>
-                <Select.ValueText placeholder="Select workspace" />
+                <SelectValueText placeholder="Select workspace" />
               </strong>
               <span>Workspace</span>
-            </Sidebar.Label>
-            <Select.Indicator />
-          </Sidebar.NavigationButton>
+            </SidebarLabel>
+            <SelectIndicator />
+          </SidebarNavigationButton>
         )}
       />
-      <Select.Positioner>
-        <Select.Content>
+      <SelectPositioner>
+        <SelectContent>
           {workspaces.items.map((workspace) => (
-            <Select.Item item={workspace}>
-              <Select.ItemText>{workspace.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
+            <SelectItem item={workspace}>
+              <SelectItemText>{workspace.label}</SelectItemText>
+              <SelectItemIndicator />
+            </SelectItem>
           ))}
-        </Select.Content>
-      </Select.Positioner>
+        </SelectContent>
+      </SelectPositioner>
     </Select>
   );
 }
@@ -107,9 +170,9 @@ function WorkspaceSelect() {
 function AccountMenu() {
   return (
     <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
-      <Menu.Trigger
+      <MenuTrigger
         asChild={(props) => (
-          <Sidebar.NavigationButton
+          <SidebarNavigationButton
             {...props()}
             size="lg"
             aria-label="Open account menu"
@@ -117,58 +180,58 @@ function AccountMenu() {
             class={styles.accountButton}
           >
             <Avatar size="sm" data-sidebar-icon>
-              <Avatar.Fallback>AM</Avatar.Fallback>
+              <AvatarFallback>AM</AvatarFallback>
             </Avatar>
-            <Sidebar.Label class={styles.accountMeta}>
+            <SidebarLabel class={styles.accountMeta}>
               <strong>Alex Morgan</strong>
               <span>alex@acme.dev</span>
-            </Sidebar.Label>
-            <Menu.Indicator>
+            </SidebarLabel>
+            <MenuIndicator>
               <ChevronUpDownIcon />
-            </Menu.Indicator>
-          </Sidebar.NavigationButton>
+            </MenuIndicator>
+          </SidebarNavigationButton>
         )}
       />
-      <Menu.Positioner>
-        <Menu.Content class={styles.accountMenu}>
-          <Menu.Viewport>
-            <Menu.ItemGroup>
-              <Menu.ItemGroupLabel>Acme Inc.</Menu.ItemGroupLabel>
-              <Menu.Item value="profile">
-                <Menu.ItemText>
-                  <Menu.ItemTextContent>
-                    <Menu.ItemTextIcon>
+      <MenuPositioner>
+        <MenuContent class={styles.accountMenu}>
+          <MenuViewport>
+            <MenuItemGroup>
+              <MenuItemGroupLabel>Acme Inc.</MenuItemGroupLabel>
+              <MenuItem value="profile">
+                <MenuItemText>
+                  <MenuItemTextContent>
+                    <MenuItemTextIcon>
                       <PencilIcon />
-                    </Menu.ItemTextIcon>
-                    <Menu.ItemTextLabel>Profile</Menu.ItemTextLabel>
-                  </Menu.ItemTextContent>
-                </Menu.ItemText>
-              </Menu.Item>
-              <Menu.Item value="settings">
-                <Menu.ItemText>
-                  <Menu.ItemTextContent>
-                    <Menu.ItemTextIcon>
+                    </MenuItemTextIcon>
+                    <MenuItemTextLabel>Profile</MenuItemTextLabel>
+                  </MenuItemTextContent>
+                </MenuItemText>
+              </MenuItem>
+              <MenuItem value="settings">
+                <MenuItemText>
+                  <MenuItemTextContent>
+                    <MenuItemTextIcon>
                       <RestartIcon />
-                    </Menu.ItemTextIcon>
-                    <Menu.ItemTextLabel>Settings</Menu.ItemTextLabel>
-                  </Menu.ItemTextContent>
-                </Menu.ItemText>
-              </Menu.Item>
-            </Menu.ItemGroup>
-            <Menu.Separator />
-            <Menu.Item value="sign-out" tone="destructive">
-              <Menu.ItemText>
-                <Menu.ItemTextContent>
-                  <Menu.ItemTextIcon>
+                    </MenuItemTextIcon>
+                    <MenuItemTextLabel>Settings</MenuItemTextLabel>
+                  </MenuItemTextContent>
+                </MenuItemText>
+              </MenuItem>
+            </MenuItemGroup>
+            <MenuSeparator />
+            <MenuItem value="sign-out" tone="destructive">
+              <MenuItemText>
+                <MenuItemTextContent>
+                  <MenuItemTextIcon>
                     <TrashIcon />
-                  </Menu.ItemTextIcon>
-                  <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
-                </Menu.ItemTextContent>
-              </Menu.ItemText>
-            </Menu.Item>
-          </Menu.Viewport>
-        </Menu.Content>
-      </Menu.Positioner>
+                  </MenuItemTextIcon>
+                  <MenuItemTextLabel>Sign out</MenuItemTextLabel>
+                </MenuItemTextContent>
+              </MenuItemText>
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
     </Menu>
   );
 }
@@ -178,93 +241,93 @@ function SidebarNavigation() {
 
   return (
     <>
-      <Sidebar.Header>
+      <SidebarHeader>
         <div class={styles.headerStack} style={{ width: sidebar.collapsed() ? 'auto' : undefined }}>
           <div class={styles.brand}>
             <span class={styles.brandMark} data-sidebar-icon>
               M
             </span>
-            <Sidebar.Label>Moduix</Sidebar.Label>
+            <SidebarLabel>Moduix</SidebarLabel>
           </div>
-          <Sidebar.Input aria-label="Search workspace" placeholder="Search" size="sm" />
+          <SidebarInput aria-label="Search workspace" placeholder="Search" size="sm" />
         </div>
-      </Sidebar.Header>
-      <Sidebar.Content>
-        <Sidebar.Group>
-          <Sidebar.GroupHeader>
-            <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.GroupAction aria-label="Create workspace item" title="Create workspace item">
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupHeader>
+            <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+            <SidebarGroupAction aria-label="Create workspace item" title="Create workspace item">
               <PlusIcon />
-            </Sidebar.GroupAction>
-          </Sidebar.GroupHeader>
-          <Sidebar.NavigationList>
-            <Sidebar.NavigationItem>
-              <Sidebar.Tooltip content="Overview">
+            </SidebarGroupAction>
+          </SidebarGroupHeader>
+          <SidebarNavigationList>
+            <SidebarNavigationItem>
+              <SidebarTooltip content="Overview">
                 {(props) => (
-                  <Sidebar.NavigationButton
+                  <SidebarNavigationButton
                     {...props()}
                     active
                     asChild={(buttonProps) => (
                       <a {...buttonProps()} href="#overview">
                         <FolderIcon />
-                        <Sidebar.Label>Overview</Sidebar.Label>
+                        <SidebarLabel>Overview</SidebarLabel>
                       </a>
                     )}
                   />
                 )}
-              </Sidebar.Tooltip>
-              <Sidebar.NavigationBadge>12</Sidebar.NavigationBadge>
-            </Sidebar.NavigationItem>
-            <Sidebar.NavigationItem>
-              <Sidebar.ExpandedContent>
+              </SidebarTooltip>
+              <SidebarNavigationBadge>12</SidebarNavigationBadge>
+            </SidebarNavigationItem>
+            <SidebarNavigationItem>
+              <SidebarExpandedContent>
                 <Collapsible defaultOpen class={styles.collapsible}>
-                  <Sidebar.Tooltip content="Projects">
+                  <SidebarTooltip content="Projects">
                     {(tooltipProps) => (
-                      <Collapsible.Trigger
+                      <CollapsibleTrigger
                         asChild={(triggerProps) => (
-                          <Sidebar.NavigationButton {...tooltipProps()} {...triggerProps()}>
+                          <SidebarNavigationButton {...tooltipProps()} {...triggerProps()}>
                             <FolderIcon />
-                            <Sidebar.Label>Projects</Sidebar.Label>
-                            <Collapsible.Indicator />
-                          </Sidebar.NavigationButton>
+                            <SidebarLabel>Projects</SidebarLabel>
+                            <CollapsibleIndicator />
+                          </SidebarNavigationButton>
                         )}
                       />
                     )}
-                  </Sidebar.Tooltip>
-                  <Collapsible.Content>
-                    <Sidebar.NavigationSubList>
-                      <Sidebar.NavigationSubItem>
-                        <Sidebar.NavigationSubButton href="#website">
+                  </SidebarTooltip>
+                  <CollapsibleContent>
+                    <SidebarNavigationSubList>
+                      <SidebarNavigationSubItem>
+                        <SidebarNavigationSubButton href="#website">
                           Website
-                        </Sidebar.NavigationSubButton>
-                        <Sidebar.NavigationBadge>3</Sidebar.NavigationBadge>
-                      </Sidebar.NavigationSubItem>
-                      <Sidebar.NavigationSubItem>
-                        <Sidebar.NavigationSubButton href="#mobile">
+                        </SidebarNavigationSubButton>
+                        <SidebarNavigationBadge>3</SidebarNavigationBadge>
+                      </SidebarNavigationSubItem>
+                      <SidebarNavigationSubItem>
+                        <SidebarNavigationSubButton href="#mobile">
                           Mobile app
-                        </Sidebar.NavigationSubButton>
-                      </Sidebar.NavigationSubItem>
-                    </Sidebar.NavigationSubList>
-                  </Collapsible.Content>
+                        </SidebarNavigationSubButton>
+                      </SidebarNavigationSubItem>
+                    </SidebarNavigationSubList>
+                  </CollapsibleContent>
                 </Collapsible>
-              </Sidebar.ExpandedContent>
-              <Sidebar.CollapsedContent>
+              </SidebarExpandedContent>
+              <SidebarCollapsedContent>
                 <Menu positioning={{ placement: 'right-start', gutter: 8, flip: false }}>
-                  <Menu.Trigger
+                  <MenuTrigger
                     asChild={(props) => (
-                      <Sidebar.NavigationButton
+                      <SidebarNavigationButton
                         {...props()}
                         aria-label="Open projects"
                         title="Projects"
                       >
                         <FolderIcon />
-                      </Sidebar.NavigationButton>
+                      </SidebarNavigationButton>
                     )}
                   />
-                  <Menu.Positioner>
-                    <Menu.Content>
-                      <Menu.Viewport>
-                        <Menu.Item
+                  <MenuPositioner>
+                    <MenuContent>
+                      <MenuViewport>
+                        <MenuItem
                           value="website"
                           asChild={(props) => (
                             <a {...props()} href="#website">
@@ -272,7 +335,7 @@ function SidebarNavigation() {
                             </a>
                           )}
                         />
-                        <Menu.Item
+                        <MenuItem
                           value="mobile"
                           asChild={(props) => (
                             <a {...props()} href="#mobile">
@@ -280,41 +343,41 @@ function SidebarNavigation() {
                             </a>
                           )}
                         />
-                      </Menu.Viewport>
-                    </Menu.Content>
-                  </Menu.Positioner>
+                      </MenuViewport>
+                    </MenuContent>
+                  </MenuPositioner>
                 </Menu>
-              </Sidebar.CollapsedContent>
-            </Sidebar.NavigationItem>
-            <Sidebar.NavigationItem>
-              <Sidebar.Tooltip content="Documents">
+              </SidebarCollapsedContent>
+            </SidebarNavigationItem>
+            <SidebarNavigationItem>
+              <SidebarTooltip content="Documents">
                 {(props) => (
-                  <Sidebar.NavigationButton
+                  <SidebarNavigationButton
                     {...props()}
                     asChild={(buttonProps) => (
                       <a {...buttonProps()} href="#documents">
                         <FileIcon />
-                        <Sidebar.Label>Documents</Sidebar.Label>
+                        <SidebarLabel>Documents</SidebarLabel>
                       </a>
                     )}
                   />
                 )}
-              </Sidebar.Tooltip>
-            </Sidebar.NavigationItem>
-          </Sidebar.NavigationList>
-        </Sidebar.Group>
-      </Sidebar.Content>
-      <Sidebar.Footer class={styles.footerStack}>
-        <Sidebar.Separator />
-        <Sidebar.NavigationList>
-          <Sidebar.NavigationItem>
+              </SidebarTooltip>
+            </SidebarNavigationItem>
+          </SidebarNavigationList>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter class={styles.footerStack}>
+        <SidebarSeparator />
+        <SidebarNavigationList>
+          <SidebarNavigationItem>
             <WorkspaceSelect />
-          </Sidebar.NavigationItem>
-          <Sidebar.NavigationItem>
+          </SidebarNavigationItem>
+          <SidebarNavigationItem>
             <AccountMenu />
-          </Sidebar.NavigationItem>
-        </Sidebar.NavigationList>
-      </Sidebar.Footer>
+          </SidebarNavigationItem>
+        </SidebarNavigationList>
+      </SidebarFooter>
     </>
   );
 }
@@ -382,14 +445,14 @@ function PersistedSidebarLayout() {
       }}
       class={styles.demo}
     >
-      <Sidebar.Panel>
+      <SidebarPanel>
         <SidebarNavigation />
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <PersistedSidebarMain size={size()} onReset={handleReset} />
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   );
 }
@@ -397,32 +460,32 @@ function PersistedSidebarLayout() {
 function ScrollAreaNavigation() {
   return (
     <>
-      <Sidebar.Group>
-        <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-        <Sidebar.NavigationList>
-          <Sidebar.NavigationItem>
-            <Sidebar.NavigationButton active>
+      <SidebarGroup>
+        <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+        <SidebarNavigationList>
+          <SidebarNavigationItem>
+            <SidebarNavigationButton active>
               <FolderOpenIcon />
-              <Sidebar.Label>Overview</Sidebar.Label>
-            </Sidebar.NavigationButton>
-          </Sidebar.NavigationItem>
-          <Sidebar.NavigationItem>
-            <Sidebar.NavigationButton>
+              <SidebarLabel>Overview</SidebarLabel>
+            </SidebarNavigationButton>
+          </SidebarNavigationItem>
+          <SidebarNavigationItem>
+            <SidebarNavigationButton>
               <FolderIcon />
-              <Sidebar.Label>Projects</Sidebar.Label>
-            </Sidebar.NavigationButton>
-          </Sidebar.NavigationItem>
-          <Sidebar.NavigationItem>
-            <Sidebar.NavigationButton>
+              <SidebarLabel>Projects</SidebarLabel>
+            </SidebarNavigationButton>
+          </SidebarNavigationItem>
+          <SidebarNavigationItem>
+            <SidebarNavigationButton>
               <FileIcon />
-              <Sidebar.Label>Documents</Sidebar.Label>
-            </Sidebar.NavigationButton>
-          </Sidebar.NavigationItem>
-        </Sidebar.NavigationList>
-      </Sidebar.Group>
-      <Sidebar.Group>
-        <Sidebar.GroupLabel>Recent projects</Sidebar.GroupLabel>
-        <Sidebar.NavigationList>
+              <SidebarLabel>Documents</SidebarLabel>
+            </SidebarNavigationButton>
+          </SidebarNavigationItem>
+        </SidebarNavigationList>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel>Recent projects</SidebarGroupLabel>
+        <SidebarNavigationList>
           {[
             'Website',
             'Mobile app',
@@ -437,15 +500,15 @@ function ScrollAreaNavigation() {
             'Experiments',
             'Archive',
           ].map((project) => (
-            <Sidebar.NavigationItem>
-              <Sidebar.NavigationButton>
+            <SidebarNavigationItem>
+              <SidebarNavigationButton>
                 <FileIcon />
-                <Sidebar.Label>{project}</Sidebar.Label>
-              </Sidebar.NavigationButton>
-            </Sidebar.NavigationItem>
+                <SidebarLabel>{project}</SidebarLabel>
+              </SidebarNavigationButton>
+            </SidebarNavigationItem>
           ))}
-        </Sidebar.NavigationList>
-      </Sidebar.Group>
+        </SidebarNavigationList>
+      </SidebarGroup>
     </>
   );
 }
@@ -453,14 +516,14 @@ function ScrollAreaNavigation() {
 export const Basic: Story = {
   render: (args) => (
     <Sidebar {...args} class={styles.demo}>
-      <Sidebar.Panel>
+      <SidebarPanel>
         <SidebarNavigation />
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <SidebarMain />
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   ),
 };
@@ -468,14 +531,14 @@ export const Basic: Story = {
 export const RightSide: Story = {
   render: () => (
     <Sidebar side="right" class={styles.demo}>
-      <Sidebar.Inset>
+      <SidebarInset>
         <SidebarMain />
-      </Sidebar.Inset>
-      <Sidebar.Trigger />
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Panel>
+      </SidebarInset>
+      <SidebarTrigger />
+      <SidebarResizeTrigger />
+      <SidebarPanel>
         <SidebarNavigation />
-      </Sidebar.Panel>
+      </SidebarPanel>
     </Sidebar>
   ),
 };
@@ -483,14 +546,14 @@ export const RightSide: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <Sidebar class={`${styles.demo} ${styles.custom}`}>
-      <Sidebar.Panel>
+      <SidebarPanel>
         <SidebarNavigation />
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <SidebarMain />
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   ),
 };
@@ -498,14 +561,14 @@ export const CustomStyling: Story = {
 export const CustomSizes: Story = {
   render: () => (
     <Sidebar defaultSize={['14rem']} class={styles.demo}>
-      <Sidebar.Panel>
+      <SidebarPanel>
         <SidebarNavigation />
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <SidebarMain />
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   ),
 };
@@ -513,14 +576,14 @@ export const CustomSizes: Story = {
 export const CustomPanelId: Story = {
   render: () => (
     <Sidebar panelId="navigation" class={styles.demo}>
-      <Sidebar.Panel>
+      <SidebarPanel>
         <SidebarNavigation />
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <SidebarMain />
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   ),
 };
@@ -528,40 +591,40 @@ export const CustomPanelId: Story = {
 export const WithScrollArea: Story = {
   render: () => (
     <Sidebar class={styles.demo}>
-      <Sidebar.Panel>
-        <Sidebar.Header>
+      <SidebarPanel>
+        <SidebarHeader>
           <div class={styles.brand}>
             <span class={styles.brandMark} data-sidebar-icon>
               M
             </span>
-            <Sidebar.Label>Moduix</Sidebar.Label>
+            <SidebarLabel>Moduix</SidebarLabel>
           </div>
-        </Sidebar.Header>
-        <Sidebar.Content class={styles.scrollAreaContent}>
+        </SidebarHeader>
+        <SidebarContent class={styles.scrollAreaContent}>
           <ScrollArea fade class={styles.sidebarScrollArea}>
-            <ScrollArea.Viewport>
-              <ScrollArea.Content>
+            <ScrollAreaViewport>
+              <ScrollAreaContent>
                 <ScrollAreaNavigation />
-              </ScrollArea.Content>
-            </ScrollArea.Viewport>
-            <ScrollArea.Scrollbar>
-              <ScrollArea.Thumb />
-            </ScrollArea.Scrollbar>
+              </ScrollAreaContent>
+            </ScrollAreaViewport>
+            <ScrollAreaScrollbar>
+              <ScrollAreaThumb />
+            </ScrollAreaScrollbar>
           </ScrollArea>
-        </Sidebar.Content>
-        <Sidebar.Footer>
-          <Sidebar.NavigationList>
-            <Sidebar.NavigationItem>
+        </SidebarContent>
+        <SidebarFooter>
+          <SidebarNavigationList>
+            <SidebarNavigationItem>
               <AccountMenu />
-            </Sidebar.NavigationItem>
-          </Sidebar.NavigationList>
-        </Sidebar.Footer>
-      </Sidebar.Panel>
-      <Sidebar.ResizeTrigger />
-      <Sidebar.Trigger />
-      <Sidebar.Inset>
+            </SidebarNavigationItem>
+          </SidebarNavigationList>
+        </SidebarFooter>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset>
         <SidebarMain />
-      </Sidebar.Inset>
+      </SidebarInset>
     </Sidebar>
   ),
 };

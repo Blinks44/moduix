@@ -1,4 +1,4 @@
-import { NumberInput } from '@moduix/react/number-input';
+import { NumberInput, NumberInputField, NumberInputLabel } from '@moduix/react/number-input';
 
 export default function FractionDigitsNumberInputDemo() {
   return (
@@ -10,8 +10,8 @@ export default function FractionDigitsNumberInputDemo() {
         maximumFractionDigits: 2,
       }}
     >
-      <NumberInput.Label>Hours</NumberInput.Label>
-      <NumberInput.Field />
+      <NumberInputLabel>Hours</NumberInputLabel>
+      <NumberInputField />
     </NumberInput>
   );
 }

@@ -1,7 +1,7 @@
 import { createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import { Button } from '@/components/button/Button';
-import { Swap } from '@/components/swap/Swap';
+import { Swap, SwapIndicator, SwapRootProvider, useSwap } from '@/components/swap/Swap';
 import { CheckIcon, PauseIcon, PlayIcon, UploadIcon } from '@/internal/icons/ui/Icons';
 import styles from './Swap.stories.module.css';
 
@@ -30,12 +30,12 @@ export const Icons: Story = {
         onClick={() => setUploaded((value) => !value)}
       >
         <Swap swap={uploaded()}>
-          <Swap.Indicator aria-hidden="true" type="off">
+          <SwapIndicator aria-hidden="true" type="off">
             <UploadIcon />
-          </Swap.Indicator>
-          <Swap.Indicator aria-hidden="true" type="on">
+          </SwapIndicator>
+          <SwapIndicator aria-hidden="true" type="on">
             <CheckIcon />
-          </Swap.Indicator>
+          </SwapIndicator>
         </Swap>
       </Button>
     );
@@ -54,14 +54,14 @@ export const ButtonFeedback: Story = {
         onClick={() => setPlaying((value) => !value)}
       >
         <Swap swap={playing()} class={styles.feedbackSwap}>
-          <Swap.Indicator aria-hidden="true" type="off" class={styles.compactIndicator}>
+          <SwapIndicator aria-hidden="true" type="off" class={styles.compactIndicator}>
             <PlayIcon />
             Play
-          </Swap.Indicator>
-          <Swap.Indicator aria-hidden="true" type="on" class={styles.compactIndicator}>
+          </SwapIndicator>
+          <SwapIndicator aria-hidden="true" type="on" class={styles.compactIndicator}>
             <PauseIcon />
             Pause
-          </Swap.Indicator>
+          </SwapIndicator>
         </Swap>
       </Button>
     );
@@ -80,12 +80,12 @@ export const AnimationPresets: Story = {
             onClick={() => setSwapped((value) => !value)}
           >
             <Swap animation={animation} swap={swapped()}>
-              <Swap.Indicator aria-hidden="true" type="off">
+              <SwapIndicator aria-hidden="true" type="off">
                 <UploadIcon />
-              </Swap.Indicator>
-              <Swap.Indicator aria-hidden="true" type="on">
+              </SwapIndicator>
+              <SwapIndicator aria-hidden="true" type="on">
                 <CheckIcon />
-              </Swap.Indicator>
+              </SwapIndicator>
             </Swap>
           </Button>
         ))}
@@ -97,11 +97,11 @@ export const AnimationPresets: Story = {
 export const RootProvider: Story = {
   render: () => {
     const [swapped, setSwapped] = createSignal(false);
-    const swap = Swap.useSwap(() => ({ swap: swapped() }));
+    const swap = useSwap(() => ({ swap: swapped() }));
 
     return (
       <div class={styles.provider}>
-        <Swap.RootProvider
+        <SwapRootProvider
           asChild={(props) => (
             <Button
               {...props()}
@@ -111,13 +111,13 @@ export const RootProvider: Story = {
           )}
           value={swap}
         >
-          <Swap.Indicator aria-hidden="true" type="off">
+          <SwapIndicator aria-hidden="true" type="off">
             <UploadIcon />
-          </Swap.Indicator>
-          <Swap.Indicator aria-hidden="true" type="on">
+          </SwapIndicator>
+          <SwapIndicator aria-hidden="true" type="on">
             <CheckIcon />
-          </Swap.Indicator>
-        </Swap.RootProvider>
+          </SwapIndicator>
+        </SwapRootProvider>
         <output>Visible: {swapped() ? 'Uploaded' : 'Upload'}</output>
       </div>
     );
@@ -144,10 +144,10 @@ export const ExpandableButton: Story = {
         <span class={styles.compactContent}>
           <UploadIcon aria-hidden="true" />
           <Swap swap={expanded()} class={styles.compactLabel}>
-            <Swap.Indicator aria-hidden="true" type="off" />
-            <Swap.Indicator aria-hidden="true" type="on">
+            <SwapIndicator aria-hidden="true" type="off" />
+            <SwapIndicator aria-hidden="true" type="on">
               Download
-            </Swap.Indicator>
+            </SwapIndicator>
           </Swap>
         </span>
       </Button>

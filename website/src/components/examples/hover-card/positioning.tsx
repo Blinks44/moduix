@@ -1,13 +1,19 @@
-import { HoverCard } from '@moduix/react/hover-card';
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/react/hover-card';
 import styles from '@/components/examples/hover-card/hover-card-positioning.module.css';
 
 export default function PositioningHoverCard() {
   return (
     <HoverCard positioning={{ placement: 'right', gutter: 12 }}>
-      <HoverCard.Trigger className={styles.trigger}>Atlas workspace</HoverCard.Trigger>
-      <HoverCard.Positioner>
-        <HoverCard.Content>
-          <HoverCard.Body>
+      <HoverCardTrigger className={styles.trigger}>Atlas workspace</HoverCardTrigger>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <HoverCardBody>
             <div className={styles.preview}>
               <img
                 alt="Sunlit workspace with a laptop and plants"
@@ -21,9 +27,9 @@ export default function PositioningHoverCard() {
                 </p>
               </div>
             </div>
-          </HoverCard.Body>
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+          </HoverCardBody>
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>
   );
 }

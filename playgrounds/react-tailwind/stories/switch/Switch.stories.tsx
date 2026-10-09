@@ -1,8 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ComponentProps } from 'react';
 import { Button } from '@/components/button';
-import { Field } from '@/components/field';
-import { Switch, useSwitch, useSwitchContext } from '@/components/switch/Switch';
+import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
+import {
+  Switch,
+  SwitchControl,
+  SwitchHiddenInput,
+  SwitchLabel,
+  SwitchRootProvider,
+  SwitchThumb,
+  useSwitch,
+  useSwitchContext,
+} from '@/components/switch/Switch';
 
 const meta = {
   title: 'Components/Switch',
@@ -40,16 +49,16 @@ function PowerIcon(props: ComponentProps<'svg'>) {
 function SwitchContextLabel() {
   const switchApi = useSwitchContext();
 
-  return <Switch.Label>Feature is {switchApi.checked ? 'enabled' : 'disabled'}</Switch.Label>;
+  return <SwitchLabel>Feature is {switchApi.checked ? 'enabled' : 'disabled'}</SwitchLabel>;
 }
 
 export const Basic: Story = {
   render: () => {
     return (
       <Switch defaultChecked>
-        <Switch.Control />
-        <Switch.Label>Enable notifications</Switch.Label>
-        <Switch.HiddenInput />
+        <SwitchControl />
+        <SwitchLabel>Enable notifications</SwitchLabel>
+        <SwitchHiddenInput />
       </Switch>
     );
   },
@@ -60,29 +69,29 @@ export const Sizes: Story = {
     return (
       <div className={stackClass}>
         <Switch size="xs" defaultChecked>
-          <Switch.Control />
-          <Switch.Label>Extra-small</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Extra-small</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
         <Switch size="sm" defaultChecked>
-          <Switch.Control />
-          <Switch.Label>Small</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Small</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
         <Switch size="md" defaultChecked>
-          <Switch.Control />
-          <Switch.Label>Medium</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Medium</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
         <Switch size="lg" defaultChecked>
-          <Switch.Control />
-          <Switch.Label>Large</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Large</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
         <Switch size="xl" defaultChecked>
-          <Switch.Control />
-          <Switch.Label>Extra-large</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Extra-large</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
       </div>
     );
@@ -94,14 +103,14 @@ export const Disabled: Story = {
     return (
       <div className={stackClass}>
         <Switch disabled>
-          <Switch.Control />
-          <Switch.Label>Enable dark mode</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Enable dark mode</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
         <Switch defaultChecked disabled>
-          <Switch.Control />
-          <Switch.Label>Keep me signed in</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Keep me signed in</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
       </div>
     );
@@ -115,9 +124,9 @@ export const Controlled: Story = {
     return (
       <div className={stackClass}>
         <Switch checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
-          <Switch.Control />
-          <Switch.Label>{checked ? 'On' : 'Off'}</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>{checked ? 'On' : 'Off'}</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
         <span className={hintClass}>Current value: {String(checked)}</span>
       </div>
@@ -130,14 +139,14 @@ export const ReadOnly: Story = {
     return (
       <div className={stackClass}>
         <Switch readOnly>
-          <Switch.Control />
-          <Switch.Label>Managed by policy</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Managed by policy</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
         <Switch defaultChecked readOnly>
-          <Switch.Control />
-          <Switch.Label>Always on</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Always on</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
       </div>
     );
@@ -148,13 +157,13 @@ export const CustomIcon: Story = {
   render: () => {
     return (
       <Switch defaultChecked>
-        <Switch.Control>
-          <Switch.Thumb className={customIconThumbClass}>
+        <SwitchControl>
+          <SwitchThumb className={customIconThumbClass}>
             <PowerIcon />
-          </Switch.Thumb>
-        </Switch.Control>
-        <Switch.Label>Use custom thumb icon</Switch.Label>
-        <Switch.HiddenInput />
+          </SwitchThumb>
+        </SwitchControl>
+        <SwitchLabel>Use custom thumb icon</SwitchLabel>
+        <SwitchHiddenInput />
       </Switch>
     );
   },
@@ -164,9 +173,9 @@ export const Context: Story = {
   render: () => {
     return (
       <Switch defaultChecked>
-        <Switch.Control />
+        <SwitchControl />
         <SwitchContextLabel />
-        <Switch.HiddenInput />
+        <SwitchHiddenInput />
       </Switch>
     );
   },
@@ -181,11 +190,11 @@ export const RootProvider: Story = {
         <Button variant="outline" onClick={() => switchApi.toggleChecked()}>
           Toggle externally
         </Button>
-        <Switch.RootProvider value={switchApi}>
-          <Switch.Control />
-          <Switch.Label>External state owner</Switch.Label>
-          <Switch.HiddenInput />
-        </Switch.RootProvider>
+        <SwitchRootProvider value={switchApi}>
+          <SwitchControl />
+          <SwitchLabel>External state owner</SwitchLabel>
+          <SwitchHiddenInput />
+        </SwitchRootProvider>
       </div>
     );
   },
@@ -196,9 +205,9 @@ export const AsChild: Story = {
     return (
       <Switch asChild defaultChecked>
         <label className={siblingRowClass}>
-          <Switch.Control />
+          <SwitchControl />
           <span className={labelClass}>Enable reminders</span>
-          <Switch.HiddenInput />
+          <SwitchHiddenInput />
         </label>
       </Switch>
     );
@@ -218,9 +227,9 @@ export const NativeForm: Story = {
         onReset={() => setSubmitted('Nothing submitted')}
       >
         <Switch name="notifications" defaultChecked>
-          <Switch.Control />
-          <Switch.Label>Notifications</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Notifications</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
         <Button type="submit">Submit</Button>
         <Button type="reset" variant="outline">
@@ -237,12 +246,12 @@ export const FormIntegration: Story = {
     return (
       <Field invalid>
         <Switch name="notifications" required>
-          <Switch.Control />
-          <Switch.Label>Notifications</Switch.Label>
-          <Switch.HiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Notifications</SwitchLabel>
+          <SwitchHiddenInput />
         </Switch>
-        <Field.HelperText>Used for product and account updates.</Field.HelperText>
-        <Field.ErrorText>Notification preference is required.</Field.ErrorText>
+        <FieldHelperText>Used for product and account updates.</FieldHelperText>
+        <FieldErrorText>Notification preference is required.</FieldErrorText>
       </Field>
     );
   },

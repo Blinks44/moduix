@@ -54,4 +54,11 @@
   .trigger[data-size='xl'] {
     padding-inline: var(--moduix-split-button-trigger-padding-x-xl, var(--moduix-spacing-4));
   }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .action:active:not([data-variant='link']),
+    .trigger:active:not([data-variant='link']) {
+      transform: none;
+    }
+  }
 }

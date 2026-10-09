@@ -15,7 +15,7 @@ styling tokens.
 
 ## Public contract
 
-- `Heading` is the primary root component; `Heading.Root` is an equivalent namespace alias.
+- `Heading` is the only public component value.
 - The root renders `h1` by default and accepts `as="h1"` through `as="h6"` for semantic changes.
 - `size` controls visual scale independently from the semantic level.
 - `weight` defaults to `semibold`.
@@ -70,6 +70,6 @@ level mapping, and `overflow-wrap: anywhere` behavior apply.
 
 ## Differences from upstream
 
-- moduix adds `size`, `weight`, `as`, stable data hooks, and the `Heading.Root` alias.
+- moduix adds `size`, `weight`, `as`, and stable data hooks.
 - Solid uses `class` and `asChild={(props) => ...}` rather than React `className` and child syntax.
 - The removed `HeadingLevel` type and public React helper type aliases are not preserved.

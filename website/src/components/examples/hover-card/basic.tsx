@@ -1,16 +1,22 @@
-import { HoverCard } from '@moduix/react/hover-card';
+import {
+  HoverCard,
+  HoverCardBody,
+  HoverCardContent,
+  HoverCardPositioner,
+  HoverCardTrigger,
+} from '@moduix/react/hover-card';
 import styles from '@/components/examples/hover-card/hover-card-basic.module.css';
 
 export default function BasicHoverCard() {
   return (
     <HoverCard>
       <p>
-        Liked by <HoverCard.Trigger className={styles.trigger}>@sarah_chen</HoverCard.Trigger> and 3
+        Liked by <HoverCardTrigger className={styles.trigger}>@sarah_chen</HoverCardTrigger> and 3
         others
       </p>
-      <HoverCard.Positioner>
-        <HoverCard.Content>
-          <HoverCard.Body>
+      <HoverCardPositioner>
+        <HoverCardContent>
+          <HoverCardBody>
             <div className={styles.preview}>
               <img
                 alt="Sunlit workspace with a laptop and plants"
@@ -24,9 +30,9 @@ export default function BasicHoverCard() {
                 </p>
               </div>
             </div>
-          </HoverCard.Body>
-        </HoverCard.Content>
-      </HoverCard.Positioner>
+          </HoverCardBody>
+        </HoverCardContent>
+      </HoverCardPositioner>
     </HoverCard>
   );
 }

@@ -54,7 +54,7 @@ const lightboxOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-color-ring)',
     'Customizes lightbox close icon focus ring color.',
   ],
-  ['--moduix-lightbox-close-icon-glyph-size', 'var(--moduix-spacing-3-5)', 'Close glyph size.'],
+  ['--moduix-lightbox-close-icon-glyph-size', 'var(--moduix-spacing-4)', 'Close glyph size.'],
   [
     '--moduix-lightbox-close-icon-inset-block-start',
     'var(--moduix-spacing-4)',

@@ -1,4 +1,4 @@
-import { Tag } from '@moduix/solid/tag';
+import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '@moduix/solid/tag';
 import { Check as CheckIcon } from 'lucide-solid';
 import styles from '@/components/examples/tag/tag-icon.module.css';
 
@@ -20,14 +20,14 @@ export default function TagWithIconDemo() {
     <div class={styles.row}>
       {tags.map((tag) => (
         <Tag variant={tag.variant}>
-          <Tag.StartElement>
+          <TagStartElement>
             <CheckIcon />
-          </Tag.StartElement>
-          <Tag.Label>{tag.label}</Tag.Label>
+          </TagStartElement>
+          <TagLabel>{tag.label}</TagLabel>
           {tag.removable ? (
-            <Tag.EndElement>
-              <Tag.CloseTrigger aria-label={`Remove ${tag.label} tag`} />
-            </Tag.EndElement>
+            <TagEndElement>
+              <TagCloseTrigger aria-label={`Remove ${tag.label} tag`} />
+            </TagEndElement>
           ) : null}
         </Tag>
       ))}

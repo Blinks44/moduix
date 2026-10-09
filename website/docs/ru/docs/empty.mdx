@@ -13,6 +13,10 @@ import emptySolidAdvancedCustomization from '../../../snippets/empty/solid/advan
 import emptySolidBasic from '../../../snippets/empty/solid/basic.tsx?raw';
 import emptySolidWithoutActions from '../../../snippets/empty/solid/without-actions.tsx?raw';
 import emptySolidWithoutIcon from '../../../snippets/empty/solid/without-icon.tsx?raw';
+import emptyVueAdvancedCustomization from '../../../snippets/empty/vue/advanced-customization.vue?raw';
+import emptyVueBasic from '../../../snippets/empty/vue/basic.vue?raw';
+import emptyVueWithoutActions from '../../../snippets/empty/vue/without-actions.vue?raw';
+import emptyVueWithoutIcon from '../../../snippets/empty/vue/without-icon.vue?raw';
 
 ## Справочник API
 
@@ -21,14 +25,14 @@ import emptySolidWithoutIcon from '../../../snippets/empty/solid/without-icon.ts
 Ark по [композиции](https://ark-ui.com/react/docs/guides/composition),
 [стилизации](https://ark-ui.com/react/docs/guides/styling) и [работе с ref](https://ark-ui.com/react/docs/guides/ref).
 Структура компонента также опирается на [Empty State в Chakra UI](https://chakra-ui.com/docs/components/empty-state).
-В отличие от Chakra UI, `moduix` предоставляет `Empty.Icon` и `Empty.Actions` как части, размещаемые
-непосредственно в корневом компоненте рядом с `Empty.Content`. Поэтому их можно располагать в нужном
+В отличие от Chakra UI, `moduix` предоставляет `EmptyIcon` и `EmptyActions` как части, размещаемые
+непосредственно в корневом компоненте рядом с `EmptyContent`. Поэтому их можно располагать в нужном
 для экрана порядке.
 
 ## Базовый пример
 
 
-Начните с `<Empty />` и добавьте нужные части компонента. Добавляйте `Empty.Icon` и `Empty.Actions`
+Начните с `<Empty />` и добавьте нужные части компонента. Добавляйте `EmptyIcon` и `EmptyActions`
 только если к пустому состоянию нужна визуальная подсказка или понятное действие.
 
 <ExampleFrame variant="component">
@@ -42,6 +46,7 @@ Ark по [композиции](https://ark-ui.com/react/docs/guides/composition
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -54,6 +59,11 @@ Ark по [композиции](https://ark-ui.com/react/docs/guides/composition
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidBasic} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueBasic} />
 
     </Tab>
   </Tabs>
@@ -91,46 +101,56 @@ Ark по [композиции](https://ark-ui.com/react/docs/guides/composition
 />
 
   </Tab>
+  <Tab label="Vue" value="vue">
+
+<ShadcnInstallOptions
+  options={[
+    { label: 'CSS Modules', command: 'shadcn@latest add @moduix-vue/empty' },
+    { label: 'Tailwind CSS', command: 'shadcn@latest add @moduix-vue-tailwind/empty' },
+  ]}
+/>
+
+  </Tab>
 </Tabs>
 
 ## Анатомия
 
 ```text
-Empty / Empty.Root
-├─ Empty.Icon (необязательно)
-├─ Empty.Content
-│  ├─ Empty.Title
-│  └─ Empty.Description
-└─ Empty.Actions (необязательно)
+Empty
+├─ EmptyIcon (необязательно)
+├─ EmptyContent
+│  ├─ EmptyTitle
+│  └─ EmptyDescription
+└─ EmptyActions (необязательно)
 ```
 
 | Часть                  | Назначение                                                                            |
 | ---------------------- | ------------------------------------------------------------------------------------- |
-| `Empty` / `Empty.Root` | Корневой контейнер с отступами, границей, фоном и выравниванием.                       |
-| `Empty.Icon`           | Необязательный контейнер для иконки или другого небольшого визуального элемента.      |
-| `Empty.Content`        | Объединяет заголовок и описание с небольшими расстояниями между ними.                 |
-| `Empty.Title`          | Основной заголовок пустого состояния.                                                 |
-| `Empty.Description`    | Дополнительное содержимое под заголовком. Может включать абзацы, ссылки и другую блочную разметку. |
-| `Empty.Actions`        | Необязательный ряд действий. Элементы переносятся, если не помещаются в одну строку.    |
+| `Empty`               | Корневой контейнер с отступами, границей, фоном и выравниванием.                       |
+| `EmptyIcon`           | Необязательный контейнер для иконки или другого небольшого визуального элемента.      |
+| `EmptyContent`        | Объединяет заголовок и описание с небольшими расстояниями между ними.                 |
+| `EmptyTitle`          | Основной заголовок пустого состояния.                                                 |
+| `EmptyDescription`    | Дополнительное содержимое под заголовком. Может включать абзацы, ссылки и другую блочную разметку. |
+| `EmptyActions`        | Необязательный ряд действий. Элементы переносятся, если не помещаются в одну строку.    |
 
 ## Композиция
 
 Собирайте `Empty` из частей, расположенных непосредственно внутри корневого компонента.
-`Empty.Content` объединяет заголовок и описание, а `Empty.Icon` и `Empty.Actions` являются
+`EmptyContent` объединяет заголовок и описание, а `EmptyIcon` и `EmptyActions` являются
 необязательными соседними частями. Их можно опустить или переставить в соответствии с экраном.
 `Empty` отвечает только за представление и не управляет состоянием приложения или поведением
 `aria-live`.
 
-Используйте `asChild` у `Empty` или `Empty.Title`, если разделу нужен семантический контейнер или
+Используйте `asChild` у `Empty` или `EmptyTitle`, если разделу нужен семантический контейнер или
 другой уровень заголовка. Передавайте ровно один дочерний элемент, чтобы часть могла передать ему
-свои свойства и `ref`. Нужную роль, область, управление фокусом или `aria-live` добавляйте в
-окружающем интерфейсе.
+свои свойства и `ref`. В Vue ref компонента предоставляет отрисованный host через `$el`. Нужную
+роль, область, управление фокусом или `aria-live` добавляйте в окружающем интерфейсе.
 
 ## Примеры
 
 ### Без действий
 
-Не добавляйте `Empty.Actions`, если состояние носит информационный характер и не требует немедленного действия.
+Не добавляйте `EmptyActions`, если состояние носит информационный характер и не требует немедленного действия.
 
 <ExampleFrame variant="component">
   <EmptyWithoutActions />
@@ -143,6 +163,7 @@ Empty / Empty.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -155,6 +176,11 @@ Empty / Empty.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidWithoutActions} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueWithoutActions} />
 
     </Tab>
   </Tabs>
@@ -182,6 +208,7 @@ Empty / Empty.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -194,6 +221,11 @@ Empty / Empty.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidWithoutIcon} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueWithoutIcon} />
 
     </Tab>
   </Tabs>
@@ -210,7 +242,7 @@ Empty / Empty.Root
 
 Используйте свойство `asChild` у `Empty`, если пустое состояние должно отрисовываться семантическим
 контейнером, например `section`. Если нужен другой уровень заголовка, используйте `asChild` у
-`Empty.Title`. Компонент рендерит `Empty.Description` как `div`, поэтому в нём можно размещать абзацы,
+`EmptyTitle`. Компонент рендерит `EmptyDescription` как `div`, поэтому в нём можно размещать абзацы,
 ссылки и другую блочную разметку.
 
 <ExampleFrame variant="component">
@@ -224,6 +256,7 @@ Empty / Empty.Root
     values={[
       { label: 'React', value: 'react' },
       { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
     ]}
     className="docs-tabs"
   >
@@ -236,6 +269,11 @@ Empty / Empty.Root
     <Tab value="solid">
 
 <CodeBlockRuntime lang="tsx" code={emptySolidAdvancedCustomization} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={emptyVueAdvancedCustomization} />
 
     </Tab>
   </Tabs>
