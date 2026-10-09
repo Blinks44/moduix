@@ -18,7 +18,7 @@
     "@vitejs/plugin-vue": "catalog:",
     "d3-shape": "catalog:",
     "storybook": "catalog:",
-    "typescript": "~6.0.3",
+    "typescript": "~7.0.2",
     "vite": "catalog:",
     "vue": "catalog:",
     "vue-tsc": "catalog:"
