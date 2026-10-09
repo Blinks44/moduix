@@ -440,7 +440,7 @@
     "@types/node": "catalog:",
     "@vue/language-core": "catalog:",
     "@vue/server-renderer": "catalog:",
-    "typescript": "~6.0.3",
+    "typescript": "~7.0.2",
     "unplugin-dts": "catalog:",
     "vue": "catalog:",
     "vue-tsc": "catalog:"

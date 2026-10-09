@@ -52,7 +52,7 @@
     "@types/react-dom": "catalog:",
     "lucide-solid": "catalog:",
     "solid-js": "catalog:",
-    "typescript": "~6.0.3",
+    "typescript": "~7.0.2",
     "vue": "catalog:",
     "vue-tsc": "catalog:",
     "wrangler": "^4.131.2"

@@ -62,7 +62,7 @@
     "publint": "^0.3.24",
     "shadcn": "^4.21.0",
     "turbo": "^2.10.13",
-    "typescript": "~6.0.3"
+    "typescript": "~7.0.2"
   },
   "devEngines": {
     "runtime": {
