@@ -19,14 +19,14 @@
     "@rspress/core": "^2.0.23",
     "@tanstack/charts": "catalog:",
     "@tanstack/react-form": "^1.33.5",
-    "@tanstack/react-table": "^9.2.4",
+    "@tanstack/react-table": "^9.2.6",
     "@tanstack/react-virtual": "^3.14.13",
     "clsx": "catalog:",
     "d3-shape": "catalog:",
     "lucide-react": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-hook-form": "^7.88.0",
+    "react-hook-form": "^7.89.0",
     "valibot": "^1.5.0"
   },
   "devDependencies": {
@@ -41,10 +41,10 @@
     "@rspress/plugin-preview": "^2.0.23",
     "@rspress/plugin-sitemap": "^2.0.23",
     "@tanstack/solid-form": "^1.33.5",
-    "@tanstack/solid-table": "^9.2.4",
+    "@tanstack/solid-table": "^9.2.6",
     "@tanstack/solid-virtual": "^3.13.40",
     "@tanstack/vue-form": "^1.33.5",
-    "@tanstack/vue-table": "^9.2.4",
+    "@tanstack/vue-table": "^9.2.6",
     "@tanstack/vue-virtual": "^3.13.39",
     "@types/d3-shape": "catalog:",
     "@types/node": "catalog:",
@@ -55,6 +55,6 @@
     "typescript": "~6.0.3",
     "vue": "catalog:",
     "vue-tsc": "catalog:",
-    "wrangler": "^4.131.2"
+    "wrangler": "^4.147.0"
   }
 }

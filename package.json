@@ -53,15 +53,15 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
     "@changesets/cli": "^3.0.3",
-    "@vue/language-server": "^3.3.11",
+    "@vue/language-server": "^3.3.12",
     "husky": "^9.1.7",
-    "lint-staged": "^17.5.1",
-    "oxfmt": "^0.68.0",
-    "oxlint": "^1.83.0",
+    "lint-staged": "^17.6.0",
+    "oxfmt": "^0.72.0",
+    "oxlint": "^1.87.0",
     "playwright": "catalog:",
-    "publint": "^0.3.24",
-    "shadcn": "^4.21.0",
-    "turbo": "^2.10.13",
+    "publint": "^0.3.25",
+    "shadcn": "^4.21.3",
+    "turbo": "^2.11.7",
     "typescript": "~6.0.3"
   },
   "devEngines": {
