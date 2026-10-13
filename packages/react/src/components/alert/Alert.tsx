@@ -11,22 +11,19 @@ type AlertProps = HTMLArkProps<'div'> & {
 };
 
 const Alert = forwardRef<ComponentRef<typeof ark.div>, AlertProps>(function Alert(
-  { children, className, role, status = 'info', ...props },
+  { className, status = 'info', ...props },
   ref,
 ) {
   return (
     <ark.div
       ref={ref}
-      role={role}
       className={clsx(styles.root, className)}
       {...props}
       data-scope="alert"
       data-part="root"
       data-status={status}
       data-slot="alert-root"
-    >
-      {children}
-    </ark.div>
+    />
   );
 });
 

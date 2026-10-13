@@ -41,8 +41,11 @@ Upstream docs:
 - The lightest recommended composition is `Dial`, which already shows the value in the dial center;
   add `Label` and `Marks` only when that behavior is needed. Add `AngleSliderHiddenInput`
   explicitly for native form behavior.
-- `AngleSliderContext` and `useAngleSliderContext()` are exported from moduix; Ark type aliases
-  remain direct imports from `@ark-ui/react/angle-slider`.
+- `AngleSliderContext` and `useAngleSliderContext()` are exported from moduix, together with the
+  Ark types `AngleSliderRootProps`, `UseAngleSliderProps`, and `UseAngleSliderReturn`; other Ark
+  type aliases remain direct imports from `@ark-ui/react/angle-slider`.
+- `AngleSliderValueText` renders the value with a degree sign (`135°`) by default; Ark's own default
+  is `135deg`. Children replace the default text.
 
 ## Anatomy and exported parts
 
@@ -88,7 +91,7 @@ const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
 
 export function RotationAngleSlider() {
   return (
-    <AngleSlider defaultValue={135} aria-label="Rotation" name="rotation">
+    <AngleSlider defaultValue={135}>
       <AngleSliderLabel>Rotation</AngleSliderLabel>
       <AngleSliderDial>
         <AngleSliderMarks values={markerValues} />
@@ -122,8 +125,8 @@ per-marker props, custom ordering, or no centered value text.
   form submission; set `form` on `HiddenInput` for an external form owner. Ark owns reset synchronization.
 - `disabled`, `invalid`, and `readOnly` are Ark root props. The wrapper does not add a separate
   moduix form-state adapter.
-- `AngleSliderRootProvider` is the moduix-owned advanced state path; `useAngleSlider()` is
-  re-exported for the same flow, while uncommon context utilities remain direct Ark imports.
+- `AngleSliderRootProvider` is the moduix-owned advanced state path; `useAngleSlider()`,
+  `AngleSliderContext`, and `useAngleSliderContext()` are re-exported for the same flow.
 - `asChild` is available on Ark DOM parts and requires one compatible child. For the root and
   `AngleSliderRootProvider`, use a container that can contain the explicitly composed hidden input
   and slider parts. `Dial` and `Marks` do not accept `asChild` because each renders a fixed
@@ -143,14 +146,21 @@ per-marker props, custom ordering, or no centered value text.
   a circle thumb riding the ring centerline, mirroring the linear `Slider` thumb contract; the
   centered value text; and marker, focus, disabled, read-only, and invalid visuals.
 - The dial geometry is driven by the Ark root variables `--angle` and `--value`; no extra JS is
-  used for the fill or the thumb position.
+  used for the fill or the thumb position. The thumb follows `--angle`, which Ark mirrors in RTL;
+  the fill is sized from `--value` and flipped horizontally on `Control[dir='rtl']`, so it always
+  grows from the top toward the thumb.
+- `AngleSliderValueText` is centered over the dial only inside `AngleSliderControl`; outside the
+  control it stays in normal flow. CSS Modules and Tailwind behave the same.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
 - Public `--moduix-angle-slider-*` variables are registered in `packages/foundation/src/styles/variables-moduix.css`.
 - Focus styling follows `Thumb:focus-visible` and mirrors the linear `Slider` thumb: ring-colored
   border plus the shared inset focus ring on the thumb only; the control adds no second indicator.
   Invalid, disabled, read-only, and marker styling use Ark state attributes rather than legacy
   classes or wrapper state.
-- Hover and active track coloring applies only to interactive controls. While the dial is pressed,
+- The dial is `9rem` wide by default (`--moduix-angle-slider-size`; `w-36` in Tailwind). The thumb
+  is wider than the ring, so it overhangs the dial by half the difference (4px by default); leave
+  that room when the dial sits against a clipping container.
+- The track keeps its color on hover and press. While the dial is pressed,
   the thumb mirrors the linear `Slider` dragging look through the native `:active` control state
   (Zag exposes no `data-dragging` attribute on the angle slider thumb); the ring disappears on
   release because the press focus was suppressed with `focusVisible: false`. Keyboard focus still
@@ -171,8 +181,8 @@ per-marker props, custom ordering, or no centered value text.
 - Explicit `Control`, `Thumb`, `MarkerGroup`, and `Marker` composition remains supported and is
   still the escape hatch for custom dial rendering.
 - moduix keeps `AngleSliderRootProvider`, `AngleSliderContext`, and re-exports `useAngleSlider()`
-  and `useAngleSliderContext()` for the normal provider and context flows. Ark type aliases remain
-  direct imports from `@ark-ui/react/angle-slider`.
+  and `useAngleSliderContext()` for the normal provider and context flows. The root and hook types are
+  re-exported as well.
 - No legacy aliases, positional callback adapters, custom state context, or `render` prop remain.
 
 ## Agent notes
@@ -190,6 +200,13 @@ per-marker props, custom ordering, or no centered value text.
 
 ## Local changelog
 
+- 2026-10-13: Fixed the RTL fill direction (the arc now follows the mirrored thumb) and made the
+  Tailwind `AngleSliderValueText` centered only inside the control like CSS Modules. The default
+  dial size is now `9rem` and the value text reads `135°` instead of `135deg`. Removed 8 CSS
+  variables: the track hover and active colors (they never changed the default look), label and
+  value-text font weight and line height, `thumb-radius`, and `invalid-indicator-bg` (use
+  `--moduix-angle-slider-invalid-color`). React and Solid re-export the root and hook types like
+  Vue. Docs examples add `AngleSliderHiddenInput` only in the form example.
 - 2026-09-21: Migrated the public surface to the flat component API: the root is exported as
   `AngleSlider`, parts as `AngleSlider<Part>` values, and hooks stay top-level `use*` exports; the
   compound `AngleSlider.*` namespace was removed without compatibility aliases.
@@ -201,25 +218,19 @@ per-marker props, custom ordering, or no centered value text.
   the control-level focus ring and dial shadow variables. Added a `:active` dragging ring and the
   `preventDefault` + `focusVisible: false` press focus so the ring clears on mouse release like the
   linear slider.
+- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed root child mutation and custom reset
+  handling.
 - 2026-08-31: Removed the unused `Dial.thumbClassName` configuration prop; use explicit
   `Control` and `Thumb` composition to style the thumb.
 - 2026-08-08: Added external `form` ownership and native reset synchronization, completed
   asChild/ref/read-only regression coverage, made invalid indicator theming accurate, and added
   interactive ring plus reduced-motion styling.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed root child mutation and custom reset handling.
-- 2026-07-13: Ark `HiddenInput` was internalized at this point in the wrapper history.
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through
+  foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-09: Added `AngleSliderDial`, re-exported `useAngleSlider()` for the normal
   `RootProvider` path, documented `invalid`, and moved the full explicit dial composition into
   advanced examples.
-- 2026-07-07: Added `AngleSliderMarks`, shifted docs and stories to a lighter default composition,
-  and made `HiddenInput` form-specific in recommended examples.
-- 2026-07-02: Removed duplicate Ark type exports, the context part, and state hooks from the moduix
-  surface. Kept `RootProvider`, the callable root, every styled visual part, and form behavior.
-- 2026-06-24: Removed stale control focus styling, kept read-only thumbs pointer-focusable,
-  exported the full Ark part prop type surface, and fixed the RootProvider docs snippet.
-- 2026-06-18: Completed Ark UI parity by exposing `RootProvider`, `Context`, state hooks and types;
-  added focus/read-only state styling; expanded stories and docs to all current Ark React examples;
-  and standardized every docs preview with `Code`, `Styles`, and `Data`.
+- 2026-07-07: Added `AngleSliderMarks` and shifted docs and stories to a lighter default
+  composition.
 - 2026-06-17: Added the initial Ark UI wrapper, circular styles, theme tokens, stories, docs, and
   registry export.

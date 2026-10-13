@@ -19,8 +19,8 @@
       var(--moduix-angle-slider-color, var(--moduix-color-foreground))
     );
     font-size: var(--moduix-angle-slider-label-font-size, var(--moduix-text-sm));
-    font-weight: var(--moduix-angle-slider-label-font-weight, var(--moduix-weight-medium));
-    line-height: var(--moduix-angle-slider-label-line-height, var(--moduix-line-height-text-sm));
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
     text-align: center;
   }
 
@@ -29,7 +29,6 @@
       --moduix-angle-slider-indicator-bg,
       var(--moduix-color-primary)
     );
-    --_angle-slider-track-color: var(--moduix-angle-slider-track-bg, var(--moduix-color-muted));
     --_angle-slider-thumb-border-color: var(
       --moduix-angle-slider-thumb-border-color,
       var(--moduix-color-border)
@@ -37,7 +36,7 @@
 
     position: relative;
     box-sizing: border-box;
-    width: var(--moduix-angle-slider-size, 8rem);
+    width: var(--moduix-angle-slider-size, 9rem);
     min-width: 0;
     aspect-ratio: 1;
     border-radius: var(--moduix-radius-full);
@@ -51,15 +50,21 @@
       border-radius: inherit;
       background: conic-gradient(
         from 0deg,
-        var(--_angle-slider-fill-color) var(--angle, 0deg),
-        var(--_angle-slider-track-color) var(--angle, 0deg)
+        var(--_angle-slider-fill-color) calc(var(--value, 0) * 1deg),
+        var(--moduix-angle-slider-track-bg, var(--moduix-color-muted)) calc(var(--value, 0) * 1deg)
       );
+      /* The 1px ramp anti-aliases the inner edge of the ring. */
       mask: radial-gradient(
         closest-side,
         transparent calc(100% - var(--moduix-angle-slider-ring-thickness, 0.5rem) - 1px),
         #000 calc(100% - var(--moduix-angle-slider-ring-thickness, 0.5rem))
       );
       content: '';
+    }
+
+    /* Ark mirrors the thumb in RTL, so the fill has to grow counter-clockwise. */
+    &[dir='rtl']::before {
+      scale: -1 1;
     }
 
     &::after {
@@ -75,22 +80,6 @@
       content: '';
     }
 
-    @media (hover: hover) {
-      &:not([data-disabled], [data-readonly]):hover::before {
-        --_angle-slider-track-color: var(
-          --moduix-angle-slider-track-bg-hover,
-          var(--moduix-angle-slider-track-bg, var(--moduix-color-muted))
-        );
-      }
-    }
-
-    &:not([data-disabled], [data-readonly]):active::before {
-      --_angle-slider-track-color: var(
-        --moduix-angle-slider-track-bg-active,
-        var(--moduix-angle-slider-track-bg, var(--moduix-color-muted))
-      );
-    }
-
     &:active:not([data-disabled], [data-readonly]) .thumb::before {
       border-color: var(--moduix-angle-slider-focus-ring-color, var(--moduix-color-ring));
       box-shadow:
@@ -101,12 +90,12 @@
 
     &[data-invalid] {
       --_angle-slider-fill-color: var(
-        --moduix-angle-slider-invalid-indicator-bg,
-        var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive))
+        --moduix-angle-slider-invalid-color,
+        var(--moduix-color-destructive)
       );
       --_angle-slider-thumb-border-color: var(
-        --moduix-angle-slider-invalid-indicator-bg,
-        var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive))
+        --moduix-angle-slider-invalid-color,
+        var(--moduix-color-destructive)
       );
     }
 
@@ -133,7 +122,7 @@
       height: var(--moduix-angle-slider-thumb-size, var(--moduix-spacing-4));
       border: var(--moduix-angle-slider-thumb-border-width, var(--moduix-border-width-sm)) solid
         var(--_angle-slider-thumb-border-color);
-      border-radius: var(--moduix-angle-slider-thumb-radius, var(--moduix-radius-full));
+      border-radius: var(--moduix-radius-full);
       background: var(--moduix-angle-slider-thumb-bg, var(--moduix-color-background));
       box-shadow: var(--moduix-angle-slider-thumb-shadow, var(--moduix-shadow-sm));
       transform: translate(-50%, -50%);
@@ -193,12 +182,9 @@
       var(--moduix-angle-slider-color, var(--moduix-color-foreground))
     );
     font-size: var(--moduix-angle-slider-value-text-font-size, var(--moduix-text-lg));
-    font-weight: var(--moduix-angle-slider-value-text-font-weight, var(--moduix-weight-medium));
+    font-weight: var(--moduix-weight-medium);
     font-variant-numeric: tabular-nums;
-    line-height: var(
-      --moduix-angle-slider-value-text-line-height,
-      var(--moduix-line-height-text-lg)
-    );
+    line-height: var(--moduix-line-height-text-lg);
     text-align: center;
   }
 

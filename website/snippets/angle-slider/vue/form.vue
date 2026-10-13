@@ -20,7 +20,7 @@ const handleSubmit = (event: SubmitEvent) => {
 
 <template>
   <form :class="styles.layout" @submit.prevent="handleSubmit">
-    <AngleSlider :default-value="135" aria-label="Rotation" name="rotation" :class="styles.root">
+    <AngleSlider :default-value="135" name="rotation">
       <AngleSliderLabel>Rotation</AngleSliderLabel>
       <AngleSliderDial>
         <AngleSliderMarks :values="markerValues" />

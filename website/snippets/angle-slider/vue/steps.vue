@@ -2,7 +2,6 @@
 import {
   AngleSlider,
   AngleSliderDial,
-  AngleSliderHiddenInput,
   AngleSliderLabel,
   AngleSliderMarks,
 } from '@moduix/vue/angle-slider';
@@ -14,16 +13,10 @@ const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
 </script>
 
 <template>
-  <AngleSlider
-    :default-value="initialValue"
-    :step="step"
-    aria-label="Snap angle"
-    :class="styles.root"
-  >
+  <AngleSlider :default-value="initialValue" :step="step" :class="styles.root">
     <AngleSliderLabel>15 Step</AngleSliderLabel>
     <AngleSliderDial>
       <AngleSliderMarks :values="markerValues" />
     </AngleSliderDial>
-    <AngleSliderHiddenInput />
   </AngleSlider>
 </template>

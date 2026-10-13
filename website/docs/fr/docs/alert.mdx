@@ -31,12 +31,15 @@ Ark UI ne fournit pas de primitive `alert` dédiée. moduix construit `Alert` av
 d’Ark, en suivant les recommandations d’Ark en matière de [composition](https://ark-ui.com/docs/guides/composition), de
 [styles](https://ark-ui.com/docs/guides/styling) et de [gestion des refs](https://ark-ui.com/docs/guides/ref).
 
-Importez `Alert` depuis `@moduix/react/alert`. `Alert` est la partie racine, et les autres parties
+Importez `Alert` depuis `@moduix/react/alert`, `@moduix/solid/alert` ou `@moduix/vue/alert`. `Alert` est la partie racine, et les autres parties
 publiques sont `AlertIndicator`, `AlertContent`, `AlertTitle`,
 `AlertDescription` et `AlertActions`.
 
-Chaque partie accepte les propriétés usuelles de l’élément qu’elle rend, notamment `className` et
-`asChild`, et transmet la ref à l’élément rendu.
+Chaque partie accepte les propriétés usuelles de l’élément qu’elle rend, notamment `className`/`class` et
+`asChild`, et transmet la ref à l’élément rendu. `status` vaut `info` par défaut et ne contrôle que le
+style visuel. Ajoutez `role="status"` ou `role="alert"` lorsqu’un message ajouté ou mis à jour
+dynamiquement doit constituer une région live. `AlertIndicator` est masqué aux technologies
+d’assistance : l’essentiel du message doit donc figurer dans le titre ou la description.
 
 ## Choisir le bon composant
 
@@ -203,8 +206,8 @@ des titres de la page.
 
 ### Erreur
 
-Définissez `status="error"` lorsque le message doit être annoncé avec une priorité élevée et bénéficier
-d’un accent visuel plus marqué.
+Définissez `status="error"` pour un accent visuel plus marqué. Ajoutez `role="alert"` uniquement
+lorsque le message doit être annoncé de façon assertive.
 
 <ExampleFrame variant="component">
   <AlertError />
@@ -290,7 +293,8 @@ d’erreur. Ajoutez `AlertIndicator` avec l’icône de votre choix lorsque ce r
 
 ### Avec icône
 
-Placez une icône moduix ou un SVG personnalisé dans `AlertIndicator`.
+Placez une icône moduix ou un SVG personnalisé dans `AlertIndicator`. Une classe de taille sur l’icône
+remplace la taille par défaut.
 
 <ExampleFrame variant="component">
   <AlertWithIcon />

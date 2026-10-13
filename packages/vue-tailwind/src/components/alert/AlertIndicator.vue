@@ -23,7 +23,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'mt-0.5 inline-flex size-4 shrink-0 items-center justify-center text-muted-foreground group-data-[status=error]/alert:text-destructive group-data-[status=success]/alert:text-success group-data-[status=warning]/alert:text-warning [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+        'mt-0.5 inline-flex size-4 shrink-0 items-center justify-center text-(color:--alert-indicator-color) [&_svg]:pointer-events-none [&_svg]:shrink-0 [:where(&_svg)]:size-4',
         className,
       )
     "

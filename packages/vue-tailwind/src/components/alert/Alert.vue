@@ -15,13 +15,13 @@ const alertVariants = cva(
   {
     variants: {
       status: {
-        info: 'border-border',
+        info: 'border-border [--alert-indicator-color:var(--color-muted-foreground)]',
         success:
-          'border-success/34 bg-[color-mix(in_oklab,var(--color-success)_10%,var(--color-background))] text-foreground',
+          'border-success/34 bg-[color-mix(in_oklab,var(--color-success)_10%,var(--color-background))] text-foreground [--alert-indicator-color:var(--color-success)]',
         warning:
-          'border-warning/38 bg-[color-mix(in_oklab,var(--color-warning)_13%,var(--color-background))] text-foreground',
+          'border-warning/38 bg-[color-mix(in_oklab,var(--color-warning)_13%,var(--color-background))] text-foreground [--alert-indicator-color:var(--color-warning)]',
         error:
-          'border-destructive/35 bg-[color-mix(in_oklab,var(--color-destructive)_9%,var(--color-background))] text-foreground',
+          'border-destructive/35 bg-[color-mix(in_oklab,var(--color-destructive)_9%,var(--color-background))] text-foreground [--alert-indicator-color:var(--color-destructive)]',
       },
     },
     defaultVariants: {

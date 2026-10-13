@@ -145,7 +145,7 @@ Alert
 
 | Part               | Role                                                               | `data-part`   |
 | ------------------ | ------------------------------------------------------------------ | ------------- |
-| `Alert`            | Root element. Applies status styles and automatic live-region semantics. | `root`        |
+| `Alert`            | Root element. Applies status styles.                               | `root`        |
 | `AlertIndicator`   | Optional visual cue. Child SVG icons receive a consistent size.   | `indicator`   |
 | `AlertContent`     | Required column wrapper for message content and actions.           | `content`     |
 | `AlertTitle`       | Alert title. Renders a `p` by default.                              | `title`       |
@@ -294,7 +294,8 @@ Use the four statuses to distinguish informational, successful, warning, and err
 
 ### With Icon
 
-Place a moduix icon or custom SVG inside `AlertIndicator`.
+Place a moduix icon or custom SVG inside `AlertIndicator`. A size class on the icon overrides the
+default icon size.
 
 <ExampleFrame variant="component">
   <AlertWithIcon />

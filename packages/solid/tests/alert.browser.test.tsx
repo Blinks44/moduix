@@ -92,3 +92,42 @@ test('forwards refs and data hooks for ordinary rendered parts', async () => {
   expect(descriptionRef?.getAttribute('data-slot')).toBe('alert-description');
   expect(actionsRef?.getAttribute('data-slot')).toBe('alert-actions');
 });
+
+test('does not add a live-region role by default', async () => {
+  render(() => (
+    <Alert status="error" data-testid="plain-alert">
+      <AlertContent>
+        <AlertTitle>Payment failed</AlertTitle>
+      </AlertContent>
+    </Alert>
+  ));
+
+  await expect.element(page.getByTestId('plain-alert')).toHaveAttribute('data-status', 'error');
+  expect(screen.getByTestId('plain-alert').hasAttribute('role')).toBe(false);
+});
+
+test('applies status styles from the CSS module', async () => {
+  render(() => (
+    <>
+      <Alert data-testid="info">
+        <AlertContent>
+          <AlertTitle data-testid="title">Update available</AlertTitle>
+          <AlertDescription data-testid="description">Install the latest version.</AlertDescription>
+        </AlertContent>
+      </Alert>
+      <Alert status="error" data-testid="error" />
+    </>
+  ));
+
+  await expect.element(page.getByTestId('info')).toHaveCSS('display', 'flex');
+  const info = getComputedStyle(screen.getByTestId('info'));
+  const error = getComputedStyle(screen.getByTestId('error'));
+
+  expect(info.borderTopWidth).toBe('1px');
+  expect(error.borderTopColor).not.toBe(info.borderTopColor);
+  expect(error.backgroundColor).not.toBe(info.backgroundColor);
+  expect(getComputedStyle(screen.getByTestId('description')).color).not.toBe(
+    getComputedStyle(screen.getByTestId('title')).color,
+  );
+  expect(getComputedStyle(screen.getByTestId('title')).color).toBe(info.color);
+});

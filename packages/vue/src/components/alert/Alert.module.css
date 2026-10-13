@@ -7,17 +7,11 @@
     min-width: 0;
     gap: var(--moduix-alert-gap, var(--moduix-spacing-3));
     border: var(--moduix-alert-border-width, var(--moduix-border-width-sm)) solid
-      var(
-        --moduix-alert-border-color,
-        var(--_alert-border-color-default, var(--moduix-color-border))
-      );
+      var(--moduix-alert-border-color, var(--_alert-border-color-default));
     border-radius: var(--moduix-alert-radius, var(--moduix-radius-lg));
     padding: var(--moduix-alert-padding, var(--moduix-spacing-3));
-    background-color: var(--moduix-alert-bg, var(--_alert-bg-default, var(--moduix-color-card)));
-    color: var(
-      --moduix-alert-color,
-      var(--_alert-color-default, var(--moduix-color-card-foreground))
-    );
+    background-color: var(--moduix-alert-bg, var(--_alert-bg-default));
+    color: var(--moduix-alert-color, var(--_alert-color-default));
     box-shadow: var(--moduix-alert-shadow, none);
     --_alert-bg-default: var(--moduix-alert-info-bg, var(--moduix-color-card));
     --_alert-border-color-default: var(
@@ -83,6 +77,7 @@
     display: inline-flex;
     width: var(--moduix-alert-indicator-size, var(--moduix-spacing-4));
     height: var(--moduix-alert-indicator-size, var(--moduix-spacing-4));
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
     color: var(--moduix-alert-indicator-color, var(--_alert-indicator-color-default, currentColor));
@@ -106,7 +101,7 @@
   .title {
     margin: 0;
     min-width: 0;
-    color: var(--moduix-alert-title-color, var(--moduix-alert-color, var(--_alert-color-default)));
+    color: var(--moduix-alert-title-color, inherit);
     font-size: var(--moduix-alert-title-font-size, var(--moduix-text-sm));
     font-weight: var(--moduix-alert-title-font-weight, var(--moduix-weight-semibold));
     line-height: var(--moduix-alert-title-line-height, var(--moduix-line-height-text-sm));
@@ -125,7 +120,7 @@
     }
 
     & > :last-child {
-      margin-bottom: 0;
+      margin-block-end: 0;
     }
   }
 

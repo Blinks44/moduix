@@ -1,3 +1,4 @@
+import { LocaleProvider } from '@ark-ui/react/locale';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
@@ -10,6 +11,7 @@ import {
   AngleSliderMarks,
   AngleSliderRootProvider,
   AngleSliderThumb,
+  AngleSliderValueText,
   useAngleSlider,
 } from '../src';
 
@@ -183,4 +185,62 @@ test('focuses synchronously unless pointerdown is prevented, disabled, or read-o
       states[index] === 'default',
     );
   }
+});
+
+test('grows the fill toward the mirrored thumb in RTL', async () => {
+  const { container } = render(
+    <LocaleProvider locale="ar">
+      <AngleSlider defaultValue={90} aria-label="Rotation">
+        <AngleSliderDial />
+      </AngleSlider>
+    </LocaleProvider>,
+  );
+  await expect.element(page.getByRole('slider', { name: 'Rotation' })).toHaveCount(1);
+  const control = container.querySelector('[data-slot="angle-slider-control"]')!;
+  const track = getComputedStyle(control, '::before');
+
+  expect(getComputedStyle(container.querySelector('[role="slider"]')!).rotate).toBe('270deg');
+  expect(track.backgroundImage).toContain('90deg');
+  expect(track.scale.startsWith('-1')).toBe(true);
+});
+
+test('centers the value text only inside the control', async () => {
+  const { container } = render(
+    <AngleSlider defaultValue={45} aria-label="Rotation">
+      <AngleSliderControl>
+        <AngleSliderValueText />
+        <AngleSliderThumb />
+      </AngleSliderControl>
+      <AngleSliderValueText />
+    </AngleSlider>,
+  );
+  await expect.element(page.locator('[data-slot="angle-slider-value-text"]')).toHaveCount(2);
+  const [inside, outside] = container.querySelectorAll('[data-slot="angle-slider-value-text"]');
+
+  expect(getComputedStyle(inside).position).toBe('absolute');
+  expect(getComputedStyle(outside).position).toBe('static');
+});
+
+test('shows the value with a degree sign at the default dial size', async () => {
+  const { container } = render(
+    <>
+      <AngleSlider defaultValue={45} aria-label="Rotation">
+        <AngleSliderDial />
+      </AngleSlider>
+      <AngleSlider defaultValue={45} aria-label="Custom rotation">
+        <AngleSliderControl>
+          <AngleSliderValueText>North-east</AngleSliderValueText>
+          <AngleSliderThumb />
+        </AngleSliderControl>
+      </AngleSlider>
+    </>,
+  );
+  await expect.element(page.locator('[data-slot="angle-slider-value-text"]')).toHaveCount(2);
+  const [value, customValue] = container.querySelectorAll('[data-slot="angle-slider-value-text"]');
+  const control = container.querySelector<HTMLElement>('[data-slot="angle-slider-control"]')!;
+
+  expect(value.textContent).toBe('45°');
+  expect(customValue.textContent).toBe('North-east');
+  expect(control.offsetWidth).toBe(144);
+  expect(control.offsetHeight).toBe(144);
 });

@@ -107,11 +107,7 @@ export const alertCssProperties: CssPropertyInput[] = [
     'oklch(0.627 0.194 149.214)',
     'Shared success palette token used by the success status.',
   ],
-  [
-    '--moduix-alert-title-color',
-    'var(--moduix-alert-color, selected status foreground)',
-    'Controls title text color.',
-  ],
+  ['--moduix-alert-title-color', 'inherit', 'Controls title text color.'],
   ['--moduix-alert-title-font-size', 'var(--moduix-text-sm)', 'Controls title font size.'],
   [
     '--moduix-alert-title-font-weight',

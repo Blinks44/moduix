@@ -147,14 +147,17 @@ function AngleSliderDial(props: AngleSliderDialProps) {
 }
 
 function AngleSliderValueText(props: ComponentProps<typeof AngleSliderPrimitive.ValueText>) {
-  const [local, others] = splitProps(props, ['class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
+  const angleSlider = useAngleSliderContext();
 
   return (
     <AngleSliderPrimitive.ValueText
       class={clsx(styles.valueText, local.class)}
       {...others}
       data-slot="angle-slider-value-text"
-    />
+    >
+      {local.children ?? `${angleSlider().value}°`}
+    </AngleSliderPrimitive.ValueText>
   );
 }
 
@@ -177,3 +180,8 @@ export {
   useAngleSlider,
   useAngleSliderContext,
 };
+export type {
+  AngleSliderRootProps,
+  UseAngleSliderProps,
+  UseAngleSliderReturn,
+} from '@ark-ui/solid/angle-slider';

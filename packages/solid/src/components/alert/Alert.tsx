@@ -11,11 +11,10 @@ type AlertProps = HTMLArkProps<'div'> & {
 };
 
 function Alert(props: AlertProps) {
-  const [local, others] = splitProps(props, ['class', 'role', 'status']);
+  const [local, others] = splitProps(props, ['class', 'status']);
 
   return (
     <ark.div
-      role={local.role}
       class={clsx(styles.root, local.class)}
       {...others}
       data-scope="alert"

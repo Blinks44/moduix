@@ -5,13 +5,19 @@ keyboard behavior, native form participation, and explicit `HiddenInput` composi
 surface follows the shared flat API: `AngleSlider`, `AngleSliderLabel`, `AngleSliderControl`,
 `AngleSliderDial`, `AngleSliderThumb`, `AngleSliderMarkerGroup`, `AngleSliderMarker`,
 `AngleSliderMarks`, `AngleSliderValueText`, `AngleSliderRootProvider`, `AngleSliderContext`,
-`AngleSliderHiddenInput`, `useAngleSlider()`, and `useAngleSliderContext()`.
+`AngleSliderHiddenInput`, `useAngleSlider()`, and `useAngleSliderContext()`, plus the Ark types
+`AngleSliderRootProps`, `UseAngleSliderProps`, and `UseAngleSliderReturn`.
 
 ## Design and pointer focus contract
 
 - The dial is a circular track: a `conic-gradient` fill from the top masked to the ring band, a
   rounded start cap, a circle thumb riding the ring centerline, and the centered value text
   (`AngleSliderDial` renders `Control`, the centered `ValueText`, and `Thumb`).
+- The fill is sized from Ark's `--value` and flipped on `Control[dir='rtl']`, so it follows the
+  thumb that Ark mirrors in RTL. `AngleSliderValueText` is centered only inside
+  `AngleSliderControl`; outside the control it stays in normal flow. It renders the value with a
+  degree sign (`135°`) unless children are passed.
+- The dial is `9rem` wide by default (`--moduix-angle-slider-size`; `w-36` in Tailwind).
 - `AngleSliderControl` focuses the thumb synchronously on a left pointer down with
   `focus({ preventScroll: true, focusVisible: false })` after `event.preventDefault()`, so the
   pointer interaction and its release state stay free of the keyboard focus ring; the deferred Ark

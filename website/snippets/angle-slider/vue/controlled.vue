@@ -2,7 +2,6 @@
 import {
   AngleSlider,
   AngleSliderDial,
-  AngleSliderHiddenInput,
   AngleSliderLabel,
   AngleSliderMarks,
 } from '@moduix/vue/angle-slider';
@@ -14,11 +13,10 @@ const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
 </script>
 
 <template>
-  <AngleSlider v-model="value" aria-label="Heading" :class="styles.root">
+  <AngleSlider v-model="value" :class="styles.root">
     <AngleSliderLabel>Heading</AngleSliderLabel>
     <AngleSliderDial>
       <AngleSliderMarks :values="markerValues" />
     </AngleSliderDial>
-    <AngleSliderHiddenInput />
   </AngleSlider>
 </template>
