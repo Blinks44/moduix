@@ -1,5 +1,13 @@
 # @moduix/react-tailwind
 
+## 3.0.1
+
+### Patch Changes
+
+### Toast
+
+- 32dafc1: Fix mobile viewport overflow by centering top and bottom placements up to 40rem
+
 ## 3.0.0
 
 ### Major Changes
