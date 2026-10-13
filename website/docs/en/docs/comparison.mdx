@@ -1,0 +1,53 @@
+---
+title: moduix vs shadcn/ui, Park UI, and Chakra UI
+description: Compare moduix with shadcn/ui, Park UI, and Chakra UI by framework support, primitives, styling, and installation, and see when each one is the better choice.
+---
+
+# moduix vs shadcn/ui, Park UI, and Chakra UI
+
+All four libraries give you styled, accessible components. They differ in which frameworks they
+support, which primitives handle behavior, how styles are written, and how the code reaches your
+application. This page was checked in October 2026; see each project's documentation for its current
+state.
+
+## At a glance
+
+| | moduix | [shadcn/ui](https://ui.shadcn.com/) | [Park UI](https://park-ui.com/) | [Chakra UI](https://chakra-ui.com/) |
+| --- | --- | --- | --- | --- |
+| Frameworks | React, Solid, Vue | React; community ports for other frameworks | React, Solid | React |
+| Behavior | Ark UI | Radix UI or Base UI | Ark UI | Zag.js, the state machines behind Ark UI |
+| Styling | CSS Modules or Tailwind CSS v4 | Tailwind CSS | Panda CSS | Emotion at runtime |
+| Installation | npm package or shadcn CLI registry | shadcn CLI | Copy source into your project | npm package |
+| Styling runtime | None | None | None | Emotion |
+
+## Choose moduix when
+
+- **Several applications use different frameworks.** React, Solid, and Vue get the same component
+  names, parts, tokens, and styles, so one design system covers all of them.
+- **You want shadcn-style source ownership without being tied to one styling system.** The same
+  components ship with plain CSS Modules or Tailwind CSS v4, from one token system.
+- **You want to choose ownership per project.** Install from npm to receive updates, or copy the source
+  with the shadcn CLI when you need to edit it.
+- **You need Ark UI's larger catalog with styles included.** Date picker, color picker, combobox, tree
+  view, tags input, and other complex components are ready to use.
+
+## Choose something else when
+
+- **You use React and Tailwind CSS and want the largest ecosystem.** shadcn/ui has far more themes,
+  community registries, tutorials, and examples.
+- **Your project already uses Panda CSS.** Park UI is built for it.
+- **You prefer style props and a runtime theme object in React.** Chakra UI is designed around that
+  model.
+- **You need a large community and many maintainers.** moduix is a young project with a smaller
+  community than these libraries.
+
+## Moving from shadcn/ui
+
+moduix can live next to existing shadcn/ui components while you replace them one at a time. See
+[Migrate from shadcn](/docs/migrate-from-shadcn).
+
+## Related
+
+- [Quick start](/docs/quick-start)
+- [Components](/docs/components)
+- [Update and migration](/docs/updating#versioning-and-stability)

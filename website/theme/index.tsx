@@ -75,7 +75,9 @@ function SocialMetadata() {
       ? pageTitle
       : component
         ? t('seoComponentTitle').replace('{name}', pageTitle)
-        : `${pageTitle} - ${site.title}`;
+        : pageTitle.includes(site.title)
+          ? pageTitle
+          : `${pageTitle} - ${site.title}`;
   const description = page.description || site.description;
 
   // Rspress sets a generic "<page> - <site>" title; raise priority so search engines

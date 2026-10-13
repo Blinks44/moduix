@@ -138,6 +138,14 @@ pnpm run tsc:check
 
 Run `pnpm run build:registry` after changing files shipped by the registry.
 
+## Versioning
+
+moduix follows semantic versioning. The 3.x API is stable: breaking changes ship only in major
+versions, each with a migration guide, and deprecated APIs stay available until the next major. See
+[Versioning and stability](https://moduix.dev/docs/updating#versioning-and-stability).
+
+Comparing options? See [moduix vs shadcn/ui, Park UI, and Chakra UI](https://moduix.dev/docs/comparison).
+
 ## Contributing
 
 Contributions are welcome, especially focused component improvements, accessibility fixes, bug

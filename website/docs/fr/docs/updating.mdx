@@ -17,6 +17,23 @@ l’application.
 Pour migrer une application shadcn existante, commencez par
 [Migrer depuis shadcn](/docs/migrate-from-shadcn).
 
+## Versions et stabilité
+
+moduix suit le [versionnage sémantique](https://semver.org/lang/fr/). L’API 3.x, avec des exports nommés
+à plat comme `Dialog`, `DialogTrigger` et `DialogContent`, constitue le contrat public stable pour chaque
+framework et chaque adaptateur de style.
+
+| Version | Ce qui peut changer | Ce que vous devez faire |
+| --- | --- | --- |
+| Correctif | Corrections de bugs, d’accessibilité et de documentation. | Mettre à jour. |
+| Mineure | Nouveaux composants, parties, props, tokens et blocs. Le code existant continue de fonctionner. | Mettre à jour et lire les [Nouveautés](/docs/changelog). |
+| Majeure | Composants, parties, props ou tokens renommés ou supprimés. | Suivre la section de migration des [Nouveautés](/docs/changelog). |
+
+Les changements incompatibles ne sont publiés que dans les versions majeures, et chaque version majeure
+comprend une section de migration. Les API dépréciées restent disponibles jusqu’à la version majeure
+suivante et sont signalées dans la documentation et le changelog. Les changements de la plage Ark UI
+prise en charge figurent dans les notes de version.
+
 ## Identifier l’adaptateur installé
 
 Gardez le framework et la méthode de style explicites :

@@ -16,6 +16,22 @@ registry consumers review and merge source changes into their application.
 If you are moving an existing shadcn application to Moduix, start with
 [Migrate from shadcn](/docs/migrate-from-shadcn).
 
+## Versioning and stability
+
+moduix follows [semantic versioning](https://semver.org/). The 3.x API, with flat named exports such
+as `Dialog`, `DialogTrigger`, and `DialogContent`, is the stable public contract for every framework
+and styling adapter.
+
+| Release | What can change | What you need to do |
+| --- | --- | --- |
+| Patch | Bug fixes, accessibility fixes, and documentation. | Update. |
+| Minor | New components, parts, props, tokens, and blocks. Existing code keeps working. | Update and read [What's new](/docs/changelog). |
+| Major | Renamed or removed components, parts, props, or tokens. | Follow the migration section in [What's new](/docs/changelog). |
+
+Breaking changes ship only in major versions, and every major version includes a migration section.
+Deprecated APIs stay available until the next major version and are marked in the documentation and
+the changelog. Changes to the supported Ark UI range are listed in the release notes.
+
 ## Identify the installed adapter
 
 Keep framework and styling choices explicit:
