@@ -4,10 +4,10 @@ import { pluginSitemap } from '@rspress/plugin-sitemap';
 import { fileURLToPath } from 'node:url';
 
 const siteOrigin = 'https://moduix.dev';
-const brandName = 'Moduix';
-const defaultTitle = `${brandName} - Multi-framework Component System Built on Ark UI`;
+const brandName = 'moduix';
+const defaultTitle = brandName;
 const defaultDescription =
-  'React, Solid, and Vue components built on Ark UI, with CSS Modules or Tailwind styles and installation through npm packages or the shadcn registry.';
+  'Accessible React, Solid, and Vue components built on Ark UI. One API across frameworks, styled with CSS Modules or Tailwind CSS. Install from npm or copy the source with the shadcn CLI.';
 const locales = [
   {
     lang: 'en',
@@ -18,16 +18,16 @@ const locales = [
   {
     lang: 'fr',
     label: 'Français',
-    title: `${brandName} - système de composants multi-framework fondé sur Ark UI`,
+    title: brandName,
     description:
-      'Composants React, Solid et Vue basés sur Ark UI, avec des styles CSS Modules ou Tailwind, disponibles en paquets npm ou via le registre shadcn.',
+      'Composants React, Solid et Vue accessibles basés sur Ark UI. Une même API pour chaque framework, avec des styles CSS Modules ou Tailwind CSS. Installation via npm ou copie du code avec la CLI shadcn.',
   },
   {
     lang: 'ru',
     label: 'Русский',
-    title: `${brandName} - мультифреймворковая система компонентов на базе Ark UI`,
+    title: brandName,
     description:
-      'Компоненты для React, Solid и Vue на базе Ark UI со стилями CSS Modules или Tailwind. Установка через npm-пакеты или реестр shadcn.',
+      'Доступные компоненты для React, Solid и Vue на базе Ark UI. Один API во всех фреймворках, стили на CSS Modules или Tailwind CSS. Установка из npm или копирование исходников через CLI shadcn.',
   },
 ];
 const socialImage = `${siteOrigin}/banner.png`;

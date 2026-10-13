@@ -120,10 +120,15 @@
     "ru": "Новое: Vue и установка блоков",
     "fr": "Nouveau : Vue et blocs installables"
   },
+  "homeTitle": {
+    "en": "Accessible UI components for React, Solid, and Vue",
+    "ru": "Доступные UI-компоненты для React, Solid и Vue",
+    "fr": "Composants UI accessibles pour React, Solid et Vue"
+  },
   "homeLead": {
-    "en": "React, Solid, and Vue components built on <a href='https://ark-ui.com/'>Ark UI</a>. Style them with CSS Modules or <a href='https://tailwindcss.com/'>Tailwind</a>, and install them as packages or copy their source with the <a href='https://ui.shadcn.com/'>shadcn</a> registry.",
-    "ru": "Компоненты для React, Solid и Vue на базе <a href='https://ark-ui.com/'>Ark UI</a>. Выберите CSS Modules или <a href='https://tailwindcss.com/'>Tailwind</a>. Установите пакет или скопируйте исходный код через реестр <a href='https://ui.shadcn.com/'>shadcn</a>.",
-    "fr": "Des composants React, Solid et Vue basés sur <a href='https://ark-ui.com/'>Ark UI</a>. Choisissez CSS Modules ou <a href='https://tailwindcss.com/'>Tailwind</a>, puis installez un paquet ou copiez le code source via le registre <a href='https://ui.shadcn.com/'>shadcn</a>."
+    "en": "80+ components and ready-made blocks built on <a href='https://ark-ui.com/'>Ark UI</a>. Use the same API in every framework, style it with CSS Modules or <a href='https://tailwindcss.com/'>Tailwind CSS</a>, and install from npm or copy the source with the <a href='https://ui.shadcn.com/'>shadcn</a> CLI.",
+    "ru": "Более 80 компонентов и готовые блоки на базе <a href='https://ark-ui.com/'>Ark UI</a>. Один API во всех фреймворках, стили на CSS Modules или <a href='https://tailwindcss.com/'>Tailwind CSS</a>, установка из npm или копирование исходников через CLI <a href='https://ui.shadcn.com/'>shadcn</a>.",
+    "fr": "Plus de 80 composants et des blocs prêts à l'emploi basés sur <a href='https://ark-ui.com/'>Ark UI</a>. La même API dans chaque framework, des styles en CSS Modules ou <a href='https://tailwindcss.com/'>Tailwind CSS</a>, et une installation depuis npm ou par copie du code source avec la CLI <a href='https://ui.shadcn.com/'>shadcn</a>."
   },
   "homeFrameworkStatus": {
     "en": "React, Solid, and Vue are available today. Svelte is planned.",
@@ -1394,5 +1399,15 @@
     "en": "Native Vue components, CSS Modules and Tailwind, with SFC examples, form integrations, and installable blocks.",
     "ru": "Нативные Vue-компоненты, CSS Modules и Tailwind, SFC-примеры, интеграции форм и устанавливаемые блоки.",
     "fr": "Composants Vue natifs, CSS Modules et Tailwind, exemples SFC, intégrations de formulaires et blocs à installer."
+  },
+  "seoHomeTitle": {
+    "en": "moduix - Accessible UI components for React, Solid, and Vue",
+    "ru": "moduix - доступные UI-компоненты для React, Solid и Vue",
+    "fr": "moduix - composants UI accessibles pour React, Solid et Vue"
+  },
+  "seoComponentTitle": {
+    "en": "{name} component for React, Solid, and Vue | moduix",
+    "ru": "{name}: компонент для React, Solid и Vue | moduix",
+    "fr": "Composant {name} pour React, Solid et Vue | moduix"
   }
 }

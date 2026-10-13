@@ -29,6 +29,12 @@
   },
   {
     "type": "file",
+    "name": "comparison",
+    "label": "Comparer",
+    "tag": "list-checks"
+  },
+  {
+    "type": "file",
     "name": "themes",
     "label": "Thèmes",
     "tag": "palette"

@@ -27,6 +27,12 @@
   },
   {
     "type": "file",
+    "name": "comparison",
+    "label": "Compare libraries",
+    "tag": "list-checks"
+  },
+  {
+    "type": "file",
     "name": "themes",
     "tag": "palette"
   },
