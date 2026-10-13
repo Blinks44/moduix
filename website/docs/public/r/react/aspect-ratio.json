@@ -8,13 +8,13 @@
   "files": [
     {
       "path": "src/components/aspect-ratio/AspectRatio.tsx",
-      "content": "import type { HTMLArkProps } from '@ark-ui/react/factory';\nimport { ark } from '@ark-ui/react/factory';\nimport { clsx } from 'clsx';\nimport { forwardRef, type ComponentRef, type CSSProperties } from 'react';\nimport styles from './AspectRatio.module.css';\n\ntype AspectRatioProps = HTMLArkProps<'div'> & {\n  ratio: number;\n};\n\nconst AspectRatio = forwardRef<ComponentRef<typeof ark.div>, AspectRatioProps>(function AspectRatio(\n  { ratio, className, style, ...props },\n  ref,\n) {\n  if (!Number.isFinite(ratio) || ratio <= 0) {\n    throw new RangeError('AspectRatio `ratio` must be a finite number greater than zero.');\n  }\n\n  return (\n    <ark.div\n      {...props}\n      ref={ref}\n      data-scope=\"aspect-ratio\"\n      data-part=\"root\"\n      data-slot=\"aspect-ratio-root\"\n      className={clsx(styles.root, className)}\n      style={{ ...style, '--_aspect-ratio-value': ratio } as CSSProperties}\n    />\n  );\n});\n\nexport { AspectRatio };",
+      "content": "import type { HTMLArkProps } from '@ark-ui/react/factory';\nimport { ark } from '@ark-ui/react/factory';\nimport { clsx } from 'clsx';\nimport { forwardRef, type ComponentRef, type CSSProperties } from 'react';\nimport styles from './AspectRatio.module.css';\n\ntype AspectRatioProps = HTMLArkProps<'div'> & {\n  ratio?: number | undefined;\n};\n\nconst AspectRatio = forwardRef<ComponentRef<typeof ark.div>, AspectRatioProps>(function AspectRatio(\n  { ratio = 1, className, style, ...props },\n  ref,\n) {\n  return (\n    <ark.div\n      {...props}\n      ref={ref}\n      data-scope=\"aspect-ratio\"\n      data-part=\"root\"\n      data-slot=\"aspect-ratio-root\"\n      className={clsx(styles.root, className)}\n      style={{ ...style, '--_aspect-ratio-value': toAspectRatioValue(ratio) } as CSSProperties}\n    />\n  );\n});\n\n// Invalid ratios, such as `0 / 0` before media metadata loads, fall back to a square frame.\nfunction toAspectRatioValue(ratio: number) {\n  return Number.isFinite(ratio) && ratio > 0 ? ratio : 1;\n}\n\nexport { AspectRatio };",
       "type": "registry:component",
       "target": "@components/ui/aspect-ratio/AspectRatio.tsx"
     },
     {
       "path": "src/components/aspect-ratio/AspectRatio.module.css",
-      "content": "@layer moduix.components {\n  .root {\n    --_aspect-ratio-value: 1;\n    position: relative;\n    box-sizing: border-box;\n    display: block;\n    width: 100%;\n    aspect-ratio: var(--_aspect-ratio-value);\n  }\n}",
+      "content": "@layer moduix.components {\n  .root {\n    position: relative;\n    box-sizing: border-box;\n    display: block;\n    width: 100%;\n    min-height: 0;\n    aspect-ratio: var(--_aspect-ratio-value);\n  }\n}",
       "type": "registry:file",
       "target": "@components/ui/aspect-ratio/AspectRatio.module.css"
     },

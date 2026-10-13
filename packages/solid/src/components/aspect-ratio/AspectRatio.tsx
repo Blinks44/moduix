@@ -6,7 +6,7 @@ import { splitProps } from 'solid-js';
 import styles from './AspectRatio.module.css';
 
 type AspectRatioProps = HTMLArkProps<'div'> & {
-  ratio: number;
+  ratio?: number | undefined;
   'data-scope'?: string;
   'data-part'?: string;
   'data-slot'?: string;
@@ -14,7 +14,6 @@ type AspectRatioProps = HTMLArkProps<'div'> & {
 
 function AspectRatio(props: AspectRatioProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'class',
     'ratio',
     'style',
@@ -23,11 +22,7 @@ function AspectRatio(props: AspectRatioProps) {
     'data-slot',
   ]);
   const aspectRatioStyle = (): JSX.CSSProperties | string => {
-    const ratio = local.ratio;
-
-    if (!Number.isFinite(ratio) || ratio <= 0) {
-      throw new RangeError('AspectRatio `ratio` must be a finite number greater than zero.');
-    }
+    const ratio = toAspectRatioValue(local.ratio);
 
     if (typeof local.style === 'string') {
       return `${local.style};--_aspect-ratio-value:${ratio}`;
@@ -38,7 +33,6 @@ function AspectRatio(props: AspectRatioProps) {
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="aspect-ratio"
       data-part="root"
@@ -47,6 +41,11 @@ function AspectRatio(props: AspectRatioProps) {
       style={aspectRatioStyle()}
     />
   );
+}
+
+// Invalid ratios, such as `0 / 0` before media metadata loads, fall back to a square frame.
+function toAspectRatioValue(ratio = 1) {
+  return Number.isFinite(ratio) && ratio > 0 ? ratio : 1;
 }
 
 export { AspectRatio };

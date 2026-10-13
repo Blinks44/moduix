@@ -76,10 +76,25 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   );
 });
 
-test('rejects invalid ratios', () => {
-  for (const ratio of [0, -1, Number.NaN, Number.POSITIVE_INFINITY]) {
-    expect(() => render(<AspectRatio ratio={ratio} />)).toThrow(
-      'AspectRatio `ratio` must be a finite number greater than zero.',
+test('keeps the ratio when content is taller than the frame', () => {
+  const { getByTestId } = render(
+    <AspectRatio ratio={2} data-testid="frame" style={{ width: '320px' }}>
+      <div style={{ height: '400px' }} />
+    </AspectRatio>,
+  );
+
+  expect(getByTestId('frame').offsetHeight).toBe(160);
+});
+
+test('falls back to a square frame when the ratio is missing or invalid', () => {
+  for (const ratio of [undefined, 0, -1, Number.NaN, Number.POSITIVE_INFINITY]) {
+    const { getByTestId, unmount } = render(
+      <AspectRatio ratio={ratio} data-testid="frame" style={{ width: '320px' }} />,
     );
+    const frame = getByTestId('frame');
+
+    expect(frame.style.getPropertyValue('--_aspect-ratio-value')).toBe('1');
+    expect(frame.offsetHeight).toBe(320);
+    unmount();
   }
 });

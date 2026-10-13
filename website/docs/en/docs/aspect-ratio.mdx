@@ -37,8 +37,8 @@ Import `AspectRatio` from the matching runtime and styling package: `@moduix/rea
 
 
 Use `AspectRatio` as the root for a responsive frame. It fills the width of its containing block by default.
-Add `width` or `max-width` to the root when the frame needs a different size, then pass a finite, positive
-number to `ratio`.
+Add `width` or `max-width` to the root when the frame needs a different size, then pass the width-to-height
+ratio to `ratio`. It defaults to `1`; a missing or invalid value (zero, negative, `NaN`) falls back to `1`.
 
 `AspectRatio` owns only the ratio layout. Size and style its children explicitly-for example, apply full width,
 full height, and `object-fit` to an image. Put clipping and border radius on the root when the composition needs
@@ -338,4 +338,5 @@ component props into its only child element.
 - Put width, max-width, and layout styles on the root. Override `aspect-ratio` in your own CSS when the frame
   needs a different ratio at a particular breakpoint.
 - The component does not style its children. Apply media sizing and `object-fit` directly to the child.
-- Add `overflow: hidden` and a border radius to the root only when the composition needs clipping.
+- Content taller than the frame does not stretch it; it overflows. Add `overflow: hidden` and a border radius to
+  the root when the composition needs clipping.

@@ -37,7 +37,8 @@ et `@moduix/vue/aspect-ratio`. Pour Tailwind, utilisez respectivement `@moduix/r
 
 Utilisez `AspectRatio` comme racine du cadre adaptatif. Par défaut, il occupe toute la largeur disponible dans
 son conteneur parent. Ajoutez `width` ou `max-width` à la racine si le cadre doit avoir une autre largeur, puis
-transmettez à `ratio` un nombre fini strictement positif.
+transmettez à `ratio` le rapport largeur/hauteur. Sa valeur par défaut est `1` ; une valeur absente ou invalide
+(zéro, négative, `NaN`) revient aussi à `1`.
 
 `AspectRatio` ne gère que le rapport des dimensions. Dimensionnez et stylisez explicitement ses enfants : appliquez
 par exemple une largeur et une hauteur complètes ainsi que `object-fit` à une image. Ajoutez le masquage des
@@ -333,4 +334,5 @@ propriétés du composant à son unique enfant.
 - Placez les styles de largeur, de largeur maximale et de mise en page sur la racine. Si le rapport doit changer
   selon la largeur de l’écran, redéfinissez `aspect-ratio` dans votre CSS.
 - Le composant ne style pas ses enfants. Appliquez directement au média sa taille et son `object-fit`.
-- Ajoutez `overflow: hidden` et un rayon à la racine uniquement lorsque la composition doit rogner son contenu.
+- Un contenu plus haut que le cadre ne l’agrandit pas : il déborde. Ajoutez `overflow: hidden` et un rayon à la
+  racine lorsque la composition doit rogner son contenu.
