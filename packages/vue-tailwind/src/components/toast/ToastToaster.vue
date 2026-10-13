@@ -34,7 +34,12 @@ const portalTarget = computed(() => toValue(portalRef) ?? 'body');
     <ArkToaster
       v-bind="attrs"
       :as-child="asChild"
-      :class="cn('max-[40rem]:w-full', className)"
+      :class="
+        cn(
+          '[@media(max-width:40rem)]:w-[calc(100vw-env(safe-area-inset-left,0px)-env(safe-area-inset-right,0px)-var(--viewport-offset-left)-var(--viewport-offset-right))]',
+          className,
+        )
+      "
       :toaster="toaster"
       data-slot="toast-toaster"
     >

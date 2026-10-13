@@ -177,8 +177,13 @@ without selectors or affecting other toast types:
 
 The CSS keeps Ark `data-scope` and `data-part` attributes intact, styles state through root
 `data-state` and `data-type`, and consumes Ark runtime variables. Moduix `data-slot` hooks are
-layered on top for stable consumer selectors. On viewports up to `40rem`, the group spans the
-viewport and roots use Ark's `--gap` variable for safe inline spacing.
+layered on top for stable consumer selectors.
+
+On viewports up to and including `40rem`, every `top-*` placement is centered at the top and
+every `bottom-*` placement is centered at the bottom. Toasts keep their default `20rem` width
+and shrink to fit between Ark's `offsets` and horizontal safe-area insets on narrower screens.
+The vertical placement, stack animations, and `gap` between toasts remain Ark-owned; `gap` does
+not control viewport padding. Above `40rem`, the configured corner or center placement applies.
 
 ## Intentional sugar and differences from upstream
 
@@ -206,6 +211,9 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
   `Toast`.
 
 ## Local changelog
+
+- 2026-10-11: Fixed mobile viewport overflow across all placements; centered toasts through the
+  inclusive 40rem breakpoint retain their 20rem width and shrink within offsets and safe-area insets.
 
 - 2026-08-14: Aligned card-based info, success, warning, and error surfaces with Alert; protected
   long toast content from overflow; and covered action dismissal plus inline rendering.

@@ -204,13 +204,16 @@
 
   @media (max-width: 40rem) {
     .toaster {
-      width: 100%;
+      width: calc(
+        100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) -
+          var(--viewport-offset-left) - var(--viewport-offset-right)
+      );
     }
 
     .root {
       inset-inline: 0;
-      width: calc(100% - (var(--gap) * 2));
-      max-width: none;
+      margin-inline: auto;
+      max-width: 100%;
     }
   }
 }
