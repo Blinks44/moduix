@@ -1,8 +1,9 @@
 {
   "name": "@moduix/react",
   "version": "3.0.0",
-  "description": "React implementation of the moduix component system, built on Ark UI primitives.",
+  "description": "Accessible React UI components built on Ark UI and styled with CSS Modules. 80+ components with the same API for Solid and Vue.",
   "keywords": [
+    "a11y",
     "accessible",
     "ark-ui",
     "component-library",
@@ -11,8 +12,12 @@
     "design-system",
     "headless",
     "react",
+    "react-components",
+    "shadcn",
+    "shadcn-ui",
     "typescript",
-    "ui"
+    "ui",
+    "ui-components"
   ],
   "homepage": "https://moduix.dev/",
   "bugs": {

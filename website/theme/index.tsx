@@ -61,22 +61,36 @@ function CodeBlockRuntime(props: ComponentProps<typeof OriginalCodeBlockRuntime>
 }
 
 function SocialMetadata() {
+  const t = useI18n<typeof import('i18n')>();
   const { frontmatter } = useFrontmatter();
   const { page } = usePage();
   const { site } = useSite();
   const pageTitle = typeof frontmatter.title === 'string' ? frontmatter.title : page.title;
-  const title =
-    page.routePath === '/' || page.pageType === 'home' || !pageTitle
-      ? site.title
-      : `${pageTitle} - ${site.title}`;
+  const component =
+    typeof frontmatter.component === 'string' ? frontmatter.component.trim() : undefined;
+  const isCustomPage = frontmatter.pageType === 'custom' || page.pageType === 'custom';
+  const title = !pageTitle
+    ? site.title
+    : isCustomPage
+      ? pageTitle
+      : component
+        ? t('seoComponentTitle').replace('{name}', pageTitle)
+        : `${pageTitle} - ${site.title}`;
   const description = page.description || site.description;
 
-  useHead({
-    meta: [
-      { name: 'twitter:title', content: title },
-      ...(description ? [{ name: 'twitter:description', content: description }] : []),
-    ],
-  });
+  // Rspress sets a generic "<page> - <site>" title; raise priority so search engines
+  // see the framework-specific title for component pages and the full home title.
+  useHead(
+    {
+      title,
+      meta: [
+        { property: 'og:title', content: title },
+        { name: 'twitter:title', content: title },
+        ...(description ? [{ name: 'twitter:description', content: description }] : []),
+      ],
+    },
+    { tagPriority: 'high' },
+  );
 
   return null;
 }
