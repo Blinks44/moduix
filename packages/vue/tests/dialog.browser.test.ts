@@ -5,6 +5,7 @@ import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
+  Button,
   Dialog,
   DialogBackdrop,
   DialogBody,
@@ -298,4 +299,73 @@ test('keeps close-icon labels, attrs and fallback content reactive', async () =>
   await expect.element(button.locator('svg')).toHaveCount(0);
   custom.value = false;
   await expect.element(button.locator('svg')).toBeAttached();
+});
+test('mounts the content lazily and unmounts it after closing by default', async () => {
+  const Harness = defineComponent({
+    components: dialogComponents,
+    template:
+      '<Dialog><DialogTrigger>Open dialog</DialogTrigger><DialogPositioner><DialogContent><DialogTitle>Preferences</DialogTitle></DialogContent></DialogPositioner></Dialog>',
+  });
+  render(Harness);
+
+  const content = page.locator('[data-slot="dialog-content"]');
+  await expect.element(content).toHaveCount(0);
+  await page.getByRole('button', { name: 'Open dialog' }).click();
+  await expect.element(content).toHaveCount(1);
+  await page.getByRole('dialog').press('Escape');
+  await expect.element(content).toHaveCount(0);
+});
+
+test('keeps tall content inside the dialog surface and scrolls the positioner', async () => {
+  const Harness = defineComponent({
+    components: dialogComponents,
+    template:
+      '<Dialog default-open :portalled="false"><DialogPositioner><DialogContent><DialogTitle>Preferences</DialogTitle><div style="height: 200vh">Tall content</div><p data-testid="last-line">Last line</p></DialogContent></DialogPositioner></Dialog>',
+  });
+  render(Harness);
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  const positioner = document.querySelector<HTMLElement>('[data-slot="dialog-positioner"]')!;
+  const content = document.querySelector('[role="dialog"]')!.getBoundingClientRect();
+  const lastLine = document.querySelector('[data-testid="last-line"]')!.getBoundingClientRect();
+
+  expect(content.top).toBeGreaterThanOrEqual(0);
+  expect(lastLine.bottom).toBeLessThanOrEqual(content.bottom + 1);
+  expect(positioner.scrollHeight).toBeGreaterThan(positioner.clientHeight);
+});
+
+test('keeps a long title clear of the close icon', async () => {
+  const Harness = defineComponent({
+    components: dialogComponents,
+    setup: () => ({ title: 'A very long dialog title that wraps '.repeat(4) }),
+    template:
+      '<Dialog default-open :portalled="false"><DialogPositioner><DialogContent><DialogHeader><DialogTitle>{{ title }}</DialogTitle><DialogCloseIcon /><DialogDescription>Description</DialogDescription></DialogHeader></DialogContent></DialogPositioner></Dialog>',
+  });
+  render(Harness);
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  const title = document.querySelector<HTMLElement>('[data-slot="dialog-title"]')!;
+  const icon = document.querySelector('[data-slot="dialog-close-icon"]')!.getBoundingClientRect();
+  const titleTextEnd =
+    title.getBoundingClientRect().right - parseFloat(getComputedStyle(title).paddingInlineEnd);
+
+  expect(titleTextEnd).toBeLessThanOrEqual(icon.left + 1);
+});
+
+test('wraps footer actions that do not fit on one line', async () => {
+  const Harness = defineComponent({
+    components: { ...dialogComponents, Button },
+    template:
+      '<Dialog default-open :portalled="false"><DialogPositioner><DialogContent style="width: 18rem"><DialogTitle>Unsaved changes</DialogTitle><DialogFooter><Button>Discard changes</Button><Button>Keep editing</Button><Button>Save and close</Button></DialogFooter></DialogContent></DialogPositioner></Dialog>',
+  });
+  render(Harness);
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  const footer = document.querySelector('[data-slot="dialog-footer"]')!.getBoundingClientRect();
+
+  for (const button of document.querySelectorAll('[data-slot="dialog-footer"] > *')) {
+    const rect = button.getBoundingClientRect();
+    expect(rect.left).toBeGreaterThanOrEqual(footer.left - 1);
+    expect(rect.right).toBeLessThanOrEqual(footer.right + 1);
+  }
 });

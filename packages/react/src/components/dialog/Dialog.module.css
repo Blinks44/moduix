@@ -80,7 +80,8 @@
     z-index: var(--z-index, var(--moduix-z-popup));
     inset: 0;
     display: grid;
-    place-items: center;
+    /* Safe centering keeps the top of tall content reachable while the positioner scrolls. */
+    place-items: safe center;
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-gutter: stable both-edges;
@@ -96,7 +97,6 @@
       var(--moduix-dialog-max-width, calc(100vw - var(--moduix-spacing-8, 2rem)))
     );
     max-width: 100%;
-    max-height: calc(100dvh - var(--moduix-spacing-8, 2rem));
     padding: var(--moduix-dialog-padding, var(--moduix-spacing-6));
     border: var(--moduix-dialog-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-dialog-border-color, var(--moduix-color-border));
@@ -190,6 +190,19 @@
 
   .title {
     margin: 0;
+
+    /* Keep long titles clear of the absolutely positioned close icon. */
+    [data-slot='dialog-content']:has([data-slot='dialog-close-icon']) & {
+      padding-inline-end: max(
+        0px,
+        calc(
+          var(--moduix-dialog-close-icon-size, var(--moduix-spacing-7)) +
+            var(--moduix-dialog-close-icon-inset-inline-end, var(--moduix-spacing-4)) -
+            var(--moduix-dialog-padding, var(--moduix-spacing-6)) + var(--moduix-spacing-2)
+        )
+      );
+    }
+
     color: var(
       --moduix-dialog-title-color,
       var(--moduix-dialog-color, var(--moduix-color-popover-foreground))
@@ -219,6 +232,7 @@
 
   .footer {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
     gap: var(--moduix-dialog-footer-gap, var(--moduix-spacing-2));
     margin-block-start: var(--moduix-dialog-footer-margin-top, var(--moduix-spacing-6));

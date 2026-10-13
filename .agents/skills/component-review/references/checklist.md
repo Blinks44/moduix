@@ -31,10 +31,16 @@ counterpart by meaning:
   keyframes `animate-moduix-menu-*` instead of the dialog ones with `--moduix-popup-motion-*`.)
 - Reduced motion uses one strategy (Accordion and Dialog CSS Modules shorten to 1ms so Ark presence
   still sees `animationend`; Dialog Tailwind uses `motion-reduce:animate-none`).
+- Reduced motion in Tailwind: `motion-reduce:animate-none` or `motion-reduce:[animation-duration:1ms]`
+  lose to `data-[state=open]:animate-*` because the data-state selector is more specific (check
+  with `scripts/tw-css.mjs`). Reduced motion actually works only when the animation duration comes
+  from foundation tokens (`--moduix-duration-*` drop to 0.01ms under reduced motion). Hard-coded
+  durations such as `animate-[moduix-fade-in_200ms_ease-in-out]` therefore ignore reduced motion
+  (Dialog Tailwind backdrop before the fix).
 - Hover: CSS Modules wrap hover in `@media (hover: hover)`. Tailwind arbitrary variants such as
   `[&:not([data-disabled]):hover]:` do **not** get that media query (the built-in `hover:` does), so
-  hover sticks after a tap on touch devices. Prefer `not-data-disabled:hover:`. A manual
-  `[@media(hover:hover)]:hover:` is redundant with v4 `hover:`.
+  hover sticks after a tap on touch devices. Use the library pattern
+  `[@media(hover:hover)]:[&:not([data-disabled]):hover]:` (Accordion Tailwind trigger before the fix).
 - Keyframes defined both in the CSS Module and in `foundation/animations.css`: two sources of truth.
 
 ## Wrapper code

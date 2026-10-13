@@ -131,7 +131,8 @@ export function AccordionExample() {
 
 ## Defaults and styling
 
-Primary CSS variables:
+Primary CSS variables (the full list of 33 lives in
+`packages/foundation/src/styles/variables-moduix.css`):
 
 | Variable                                      | Default                                |
 | --------------------------------------------- | -------------------------------------- |
@@ -172,31 +173,18 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-10-13: Tailwind hover styles on `AccordionItemTrigger` now apply only on hover-capable
+  devices, matching the CSS Modules contract.
 - 2026-09-21: Replaced the compound `Accordion.*` value surface with the shared flat API across
   React, Solid, and Vue. `Accordion` is now the only root value; every other part uses an
   `Accordion`-prefixed named export.
 - 2026-08-07: Added direction-safe trigger alignment and reduced-motion handling, expanded regression
-  coverage for semantics, refs, `asChild`, provider/context composition, and keyboard endpoints, and
-  aligned stories and public docs with the callable root.
-- 2026-07-24: Documented the short `Accordion` root form, corrected context export guidance, and
-  added the pressed trigger background token.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-06: Added `AccordionItemBody` as a thin inner spacing wrapper, moved default panel spacing
-  into the component CSS contract, and migrated stories/docs away from ad-hoc content wrapper divs.
-- 2026-07-09: Re-exported `useAccordion()` from moduix for the recommended `RootProvider` flow,
-  reordered docs examples, and documented `AccordionItemBody` as a moduix-owned styling hook.
-- 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix
-  surface. Kept `RootProvider`, the callable root, every styled visual part, the default indicator,
-  and horizontal-layout sugar.
-- 2026-06-17: Migrated wrapper internals from legacy Accordion to Ark UI Accordion, adopted Ark part
-  naming (`ItemTrigger`, `ItemIndicator`, `ItemContent`), and moved styling/state hooks to Ark
-  data attributes and `--height`-based content animation.
-- 2026-06-17: Removed flat named exports (`AccordionRoot`, `AccordionItem`, `AccordionItemTrigger`,
-  `AccordionItemIndicator`, `AccordionItemContent`) to keep the public API Ark-shaped (`Accordion.*` only),
-  and removed legacy `--moduix-accordion-panel-*` theme tokens that were no longer used.
-- 2026-06-18: Exposed Ark `RootProvider`, `Context`, `ItemContext`, `useAccordion()`,
-  `useAccordionContext()`, and `useAccordionItemContext()` through the moduix wrapper and updated
-  docs examples to cover the full upstream Ark Accordion example set.
-- 2026-06-24: Added horizontal orientation layout, opposite-side trigger text rotation, and
-  `--width`-based content animation, documented horizontal CSS variables, removed duplicate docs
-  example code, and added the upstream nested Slider composition example.
+  coverage for semantics, refs, `asChild`, provider/context composition, and keyboard endpoints.
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through
+  foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-09: Re-exported `useAccordion()` from moduix for the recommended `RootProvider` flow.
+- 2026-07-06: Added `AccordionItemBody` as a thin inner spacing wrapper.
+- 2026-06-24: Added horizontal orientation layout and `--width`-based content animation.
+- 2026-06-17: Migrated wrapper internals to Ark UI Accordion and Ark part naming.
+
+Earlier entries described intermediate API shapes that no longer exist; see git history.

@@ -1,18 +1,22 @@
 ---
 name: component-review
-description: Temporary. Read-only quality review of one moduix component across every shipped adapter (CSS Modules and Tailwind for each framework), compared with Ark UI, Chakra UI, and shadcn. Use when asked to review or audit a single component.
+description: Temporary. Quality review of one moduix component across every shipped adapter (CSS Modules and Tailwind for each framework), compared with Ark UI, Chakra UI, and shadcn, with an optional fix mode for objective findings. Use when asked to review, audit, or review-and-fix a single component.
 ---
 
 # Component Review (temporary)
 
-Review **one** component family across every shipped adapter and write a report. This skill is
-read-only: do not edit source, styles, tests, docs, registries, or configs. Fixes happen in a
-separate task after the maintainer picks what to do.
+Review **one** component family across every shipped adapter and write a report. Two modes:
+
+- **review** (default): read-only. Do not edit source, styles, tests, docs, registries, or configs.
+- **fix**: when the request says to fix, correct, or apply ("отревьюй и поправь"). Write the report
+  first, then apply only the objective findings described in [Fix mode](#fix-mode). Everything
+  else stays in the report for the maintainer to decide.
 
 Temporary: delete this skill when the component review round is finished.
 
 ## Input
 
+- Mode: `review` unless the request asks for fixes.
 - Component slug, for example `accordion`. If none is given, ask for one; do not review several
   components in one run.
 - Report language: the language the maintainer used in the request (Russian by default).
@@ -31,6 +35,8 @@ and tone, and reuse its "Library-wide" section instead of rediscovering the same
    with correct line counts, CSS Modules byte parity, Tailwind class-string parity across
    frameworks (all quote styles, Vue templates included), hard-coded user-facing labels, browser
    test titles per adapter, and which adapters have `<slug>.md`. Paste its key facts into the report.
+   `scripts/tw-css.mjs '<class>' ...` prints the CSS Tailwind emits for a class with the moduix
+   theme; use it whenever a finding depends on a media query, selector, or specificity.
 2. **Read every source file in full**, all adapters. Do not sample one adapter and infer the rest.
    Imports through `@/lib/moduix/*` resolve to `packages/<adapter>/src/internal/*` (see the
    package `tsconfig.json`); read the shared internals the component uses (portals, close button,
@@ -109,3 +115,60 @@ variants/sizes/placement, scrolling, animation, mount defaults, theming, narrow 
 
 <ordered list, bugs first>
 ```
+
+## Fix mode
+
+Run the whole review first and write the report. Then sort every finding into one of two groups and
+record the group in the report.
+
+**Fix now** (objective, no public contract change):
+
+- bugs: behavior or layout that is wrong today with default usage;
+- parity drift between adapters or between CSS Modules and Tailwind (hard-coded values where a
+  token exists, different animations, different reduced-motion strategy, several sources for the
+  same label);
+- stale or contradicting component-local docs (`<slug>.md`) and missing tests for behavior the
+  wrapper already promises (changed Ark defaults, classes, slots).
+
+Before fixing a "drift" finding, check whether the library does the same thing everywhere
+(`grep -rho '<utility>' packages/<adapter>/src/components | sort | uniq -c`). A pattern used in
+dozens of components (Tailwind `opacity-50`, Tailwind packages without `a11yLabels`) is a
+library-wide convention: do not change it in one component; list it under "Library-wide". When
+fixing a real drift, copy the library's existing pattern (for example
+`[@media(hover:hover)]:[&:not([data-disabled]):hover]:` in Tailwind) instead of inventing one.
+
+**Needs a decision** (leave in the report under "Ждёт решения"):
+
+- removing or renaming public parts, props, exports, or CSS variables;
+- changing default visuals (icons, fills, sizes, motion) beyond fixing a defect;
+- new features (variants, sizes, new parts);
+- anything listed under "Library-wide".
+
+If a fix needs a decision to be done well, apply the smallest correct fix and note the better
+option under "Ждёт решения".
+
+How to apply fixes:
+
+1. Follow `component-workflow`, the matching `conventions-*` skills, `conventions-css`, and
+   `conventions-tests`. Change every affected adapter in the same run; never fix one adapter only.
+2. Keep public names, CSS variables, and defaults intact unless the fix itself is the default (for
+   example removing a `max-height` that makes content spill).
+3. Add or adjust tests in every adapter for each bug fixed, assertion-for-assertion by behavior.
+   Prove each new test is meaningful: stash the source changes (`git stash push -- packages/*/src
+packages/foundation`), run the tests, confirm they fail, then `git stash pop`. A test that passes
+   on the old code does not cover the bug; redesign it (Dialog: a footer test with fixed-width
+   buttons passed on old code because flex items shrink; real labels exposed the overflow).
+   Layout bugs are testable in browser mode with `getBoundingClientRect()`; allow 1px for subpixel
+   rounding. A CSS-only fix that a browser test cannot observe (hover media, reduced motion) is
+   verified with `scripts/tw-css.mjs` or by reading the CSS, and the report says so.
+   Framework test idioms differ: Solid `asChild` takes a render function, so use a plain trigger in
+   Solid tests.
+4. Update `<slug>.md`, the docs page, `variables-moduix.css`, and stories only where the fixed
+   behavior is described there. Do not edit `website/docs/public/r` by hand.
+5. Validate from the repository root: `pnpm run fmt:fix`, `pnpm run lint:check`,
+   `pnpm run tsc:check`, focused tests for the component in every changed package (for example
+   `pnpm --filter @moduix/<adapter> test <slug>`), and `pnpm run build:registry` if
+   registry-shipped sources changed. Re-run `scripts/parity.mjs <slug>` and confirm parity holds.
+6. Do not commit. Leave the changes in the working tree for the maintainer.
+7. Add an "Исправлено" section to the report: each fix with files and the check that proves it, and
+   the validation results. In the chat, list what was fixed and what waits for a decision.

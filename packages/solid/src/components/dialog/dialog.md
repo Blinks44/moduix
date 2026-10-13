@@ -65,3 +65,9 @@ contract and defaults its accessible label to `Close dialog`.
 ## Style contract (2026-10-03)
 
 Content shares the --moduix-z-popup base and adds Ark --layer-index. Positioner and backdrop use Ark’s mirrored --z-index; the backdrop sits one level below. Customize stacking on content.
+
+## Layout contract (2026-10-13)
+
+The positioner centers content with `place-items: safe center` and scrolls when content is taller
+than the viewport; content has no `max-height`. `DialogTitle` reserves inline-end space when
+`DialogCloseIcon` is present, and `DialogFooter` wraps actions that do not fit on one line.

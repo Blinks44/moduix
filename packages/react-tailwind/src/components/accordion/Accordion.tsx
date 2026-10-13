@@ -13,6 +13,9 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 
+const rootClass =
+  'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row';
+
 const Accordion = forwardRef<
   ComponentRef<typeof AccordionPrimitive.Root>,
   ComponentProps<typeof AccordionPrimitive.Root>
@@ -20,10 +23,7 @@ const Accordion = forwardRef<
   return (
     <AccordionPrimitive.Root
       ref={ref}
-      className={cn(
-        'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="accordion-root"
     />
@@ -37,10 +37,7 @@ const AccordionRootProvider = forwardRef<
   return (
     <AccordionPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="accordion-root-provider"
     />
@@ -72,7 +69,7 @@ const AccordionItemTrigger = forwardRef<
     <AccordionPrimitive.ItemTrigger
       ref={ref}
       className={cn(
-        'flex w-full cursor-pointer items-center justify-between gap-4 bg-muted px-3 py-2 text-start text-md outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] motion-reduce:transition-none [&:not([data-disabled]):active]:bg-accent [&:not([data-disabled]):hover]:bg-accent',
+        'flex w-full cursor-pointer items-center justify-between gap-4 bg-muted px-3 py-2 text-start text-md outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] motion-reduce:transition-none [&:not([data-disabled]):active]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent',
         className,
       )}
       {...props}

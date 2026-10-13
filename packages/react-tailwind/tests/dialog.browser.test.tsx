@@ -344,3 +344,90 @@ test('applies Tailwind defaults and lets consumer utilities win', async () => {
     .element(page.getByRole('button', { name: 'Close dialog' }))
     .toHaveCSS('width', '32px');
 });
+test('mounts the content lazily and unmounts it after closing by default', async () => {
+  render(
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open dialog</Button>
+      </DialogTrigger>
+      <DialogParts />
+    </Dialog>,
+  );
+
+  const content = page.locator('[data-slot="dialog-content"]');
+  await expect.element(content).toHaveCount(0);
+  await page.getByRole('button', { name: 'Open dialog' }).click();
+  await expect.element(content).toHaveCount(1);
+  await page.getByRole('dialog').press('Escape');
+  await expect.element(content).toHaveCount(0);
+});
+
+test('keeps tall content inside the dialog surface and scrolls the positioner', async () => {
+  render(
+    <Dialog defaultOpen portalled={false}>
+      <DialogParts>
+        <div style={{ height: '200vh' }}>Tall content</div>
+        <p data-testid="last-line">Last line</p>
+      </DialogParts>
+    </Dialog>,
+  );
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  const positioner = document.querySelector<HTMLElement>('[data-slot="dialog-positioner"]')!;
+  const content = document.querySelector('[role="dialog"]')!.getBoundingClientRect();
+  const lastLine = document.querySelector('[data-testid="last-line"]')!.getBoundingClientRect();
+
+  expect(content.top).toBeGreaterThanOrEqual(0);
+  expect(lastLine.bottom).toBeLessThanOrEqual(content.bottom + 1);
+  expect(positioner.scrollHeight).toBeGreaterThan(positioner.clientHeight);
+});
+
+test('keeps a long title clear of the close icon', async () => {
+  render(
+    <Dialog defaultOpen portalled={false}>
+      <DialogPositioner>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{'A very long dialog title that wraps '.repeat(4)}</DialogTitle>
+            <DialogCloseIcon />
+            <DialogDescription>Description</DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </DialogPositioner>
+    </Dialog>,
+  );
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  const title = document.querySelector<HTMLElement>('[data-slot="dialog-title"]')!;
+  const icon = document.querySelector('[data-slot="dialog-close-icon"]')!.getBoundingClientRect();
+  const titleTextEnd =
+    title.getBoundingClientRect().right - parseFloat(getComputedStyle(title).paddingInlineEnd);
+
+  expect(titleTextEnd).toBeLessThanOrEqual(icon.left + 1);
+});
+
+test('wraps footer actions that do not fit on one line', async () => {
+  render(
+    <Dialog defaultOpen portalled={false}>
+      <DialogPositioner>
+        <DialogContent style={{ width: '18rem' }}>
+          <DialogTitle>Unsaved changes</DialogTitle>
+          <DialogFooter>
+            <Button>Discard changes</Button>
+            <Button>Keep editing</Button>
+            <Button>Save and close</Button>
+          </DialogFooter>
+        </DialogContent>
+      </DialogPositioner>
+    </Dialog>,
+  );
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  const footer = document.querySelector('[data-slot="dialog-footer"]')!.getBoundingClientRect();
+
+  for (const button of document.querySelectorAll('[data-slot="dialog-footer"] > *')) {
+    const rect = button.getBoundingClientRect();
+    expect(rect.left).toBeGreaterThanOrEqual(footer.left - 1);
+    expect(rect.right).toBeLessThanOrEqual(footer.right + 1);
+  }
+});

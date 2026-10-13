@@ -151,6 +151,12 @@ Dismissible overlays share the `--moduix-z-popup` base. Content adds Ark's `--la
 Ark mirrors its computed `--z-index` onto the positioner and backdrop, which sits one level below.
 Set custom stacking on content, not an independent positioner/backdrop layer.
 
+`DialogPositioner` centers content with `place-items: safe center` and scrolls when content is
+taller than the viewport, so the top of tall content stays reachable; `DialogContent` has no
+`max-height`. For an internal scroll region, give a child a fixed height (see the inside-scroll
+example). When `DialogCloseIcon` is present, `DialogTitle` reserves inline-end space for it.
+`DialogFooter` wraps its actions when they do not fit on one line.
+
 Open and close animations use Ark `data-state="open|closed"`. Nested scaling uses
 `--nested-layer-count` and transitions through `--moduix-dialog-nested-transition`. Like `Drawer`, nested
 dialogs animate the parent `Content` with CSS `scale` and `translate` individual transform
@@ -188,6 +194,10 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-10-13: Tall content now grows the surface and scrolls the positioner instead of spilling
+  past a fixed `max-height`; long titles keep clear of `DialogCloseIcon`; footer actions wrap on
+  narrow screens; Tailwind variants use the same token-driven dialog keyframes as CSS Modules.
 
 - 2026-10-02: Aligned content, positioner, and backdrop stacking with Ark layer indices and its mirrored z-index.
 
