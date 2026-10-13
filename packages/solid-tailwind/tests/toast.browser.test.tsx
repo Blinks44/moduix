@@ -209,3 +209,62 @@ test.each([false, true])(
     expect(screen.getByRole('button', { name: 'Close toast' })).toBe(trigger);
   },
 );
+
+const responsivePlacements = [
+  'top-start',
+  'top',
+  'top-end',
+  'bottom-start',
+  'bottom',
+  'bottom-end',
+] as const;
+
+test.each(
+  responsivePlacements.flatMap((placement) =>
+    (['ltr', 'rtl'] as const).map((dir) => ({ placement, dir })),
+  ),
+)(
+  'keeps $placement toasts inside the viewport in $dir at the mobile breakpoint',
+  async ({ placement, dir }) => {
+    const toaster = createToaster({ placement, duration: Infinity, offsets: '24px', gap: 48 });
+    const view = render(() => <ToastToaster toaster={toaster} dir={dir} />);
+    // Copy the mounted group into a real viewport to test its responsive CSS.
+    const frame = document.createElement('iframe');
+    frame.style.cssText = 'width:320px;height:800px;border:0';
+    document.body.append(frame);
+    try {
+      toaster.create({ title: 'Responsive notification' });
+      await expect
+        .element(page.locator('[data-slot="toast-root"]'))
+        .toHaveAttribute('data-mounted', '');
+      const frameDocument = frame.contentDocument!;
+      const style = frameDocument.createElement('style');
+      style.textContent = [...document.styleSheets]
+        .flatMap((sheet) => [...sheet.cssRules].map((rule) => rule.cssText))
+        .join('\n');
+      frameDocument.head.append(style);
+      const source = screen
+        .getByText('Responsive notification')
+        .closest('[data-slot="toast-toaster"]')!;
+      frameDocument.body.append(source.cloneNode(true));
+      const root = frameDocument.querySelector('[data-slot="toast-root"]')!;
+      for (const width of [320, 500, 640, 641, 640]) {
+        frame.style.width = `${width}px`;
+        const toastWidth = width <= 640 ? Math.min(320, width - 48) : 320;
+        await expect.poll(() => root.getBoundingClientRect().width).toBeCloseTo(toastWidth, 0);
+        if (width <= 640) {
+          expect(root.getBoundingClientRect().left).toBeCloseTo((width - toastWidth) / 2, 0);
+          expect(root.getBoundingClientRect().right).toBeCloseTo((width + toastWidth) / 2, 0);
+        }
+        expect(
+          placement.startsWith('top')
+            ? root.getBoundingClientRect().top
+            : frame.contentWindow!.innerHeight - root.getBoundingClientRect().bottom,
+        ).toBeCloseTo(24, 0);
+      }
+    } finally {
+      view.unmount();
+      frame.remove();
+    }
+  },
+);

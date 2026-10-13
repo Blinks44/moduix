@@ -395,9 +395,20 @@
   letter-spacing: 0;
 }
 
-.lead {
+.tagline {
   max-width: 38rem;
   margin: 1.5rem 0 0;
+  color: var(--rp-c-text-1);
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 38rem;
+  margin: 1rem 0 0;
   color: color-mix(in oklab, var(--rp-c-text-2) 82%, var(--rp-c-text-1));
   font-size: 1rem;
   line-height: 1.6;

@@ -1,15 +1,22 @@
 {
   "name": "@moduix/solid-tailwind",
   "version": "3.0.0",
-  "description": "Tailwind CSS implementation of the moduix Solid component system, built on Ark UI primitives.",
+  "description": "Accessible Solid UI components built on Ark UI and styled with Tailwind CSS v4. 80+ components with the same API for React and Vue.",
   "keywords": [
+    "a11y",
     "accessible",
     "ark-ui",
     "component-library",
+    "shadcn",
+    "shadcn-ui",
     "solid",
+    "solid-components",
+    "tailwind",
+    "tailwind-components",
     "tailwindcss",
     "typescript",
-    "ui"
+    "ui",
+    "ui-components"
   ],
   "homepage": "https://moduix.dev/",
   "bugs": {

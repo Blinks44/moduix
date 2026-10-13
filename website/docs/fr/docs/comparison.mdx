@@ -1,0 +1,53 @@
+---
+title: moduix face à shadcn/ui, Park UI et Chakra UI
+description: Comparez moduix avec shadcn/ui, Park UI et Chakra UI selon les frameworks, les primitives, les styles et l’installation, et voyez quand choisir chacun.
+---
+
+# moduix face à shadcn/ui, Park UI et Chakra UI
+
+Ces quatre bibliothèques fournissent des composants stylisés et accessibles. Elles diffèrent par les
+frameworks pris en charge, les primitives qui gèrent le comportement, la façon d’écrire les styles et
+la manière dont le code arrive dans votre application. Cette page a été vérifiée en octobre 2026 ;
+consultez la documentation de chaque projet pour son état actuel.
+
+## En bref
+
+| | moduix | [shadcn/ui](https://ui.shadcn.com/) | [Park UI](https://park-ui.com/) | [Chakra UI](https://chakra-ui.com/) |
+| --- | --- | --- | --- | --- |
+| Frameworks | React, Solid, Vue | React ; portages communautaires pour d’autres frameworks | React, Solid | React |
+| Comportement | Ark UI | Radix UI ou Base UI | Ark UI | Zag.js, les machines à états d’Ark UI |
+| Styles | CSS Modules ou Tailwind CSS v4 | Tailwind CSS | Panda CSS | Emotion à l’exécution |
+| Installation | Paquet npm ou registre pour la CLI shadcn | CLI shadcn | Copie du code source dans le projet | Paquet npm |
+| Runtime de styles | Aucun | Aucun | Aucun | Emotion |
+
+## Choisir moduix quand
+
+- **Plusieurs applications utilisent des frameworks différents.** React, Solid et Vue partagent les
+  mêmes noms de composants, parties, tokens et styles : un seul design system les couvre tous.
+- **Vous voulez posséder le code source comme avec shadcn, sans dépendre d’un seul système de styles.**
+  Les mêmes composants existent en CSS Modules et en Tailwind CSS v4, avec un système de tokens commun.
+- **Vous voulez choisir le mode de possession par projet.** Installez le paquet npm pour recevoir les
+  mises à jour, ou copiez le code source avec la CLI shadcn pour le modifier.
+- **Vous avez besoin du large catalogue d’Ark UI avec des styles inclus.** Date picker, color picker,
+  combobox, tree view, tags input et d’autres composants complexes sont prêts à l’emploi.
+
+## Choisir autre chose quand
+
+- **Vous utilisez React et Tailwind CSS et voulez le plus grand écosystème.** shadcn/ui propose bien plus
+  de thèmes, de registres communautaires, de tutoriels et d’exemples.
+- **Votre projet utilise déjà Panda CSS.** Park UI est conçu pour lui.
+- **Vous préférez les style props et un objet de thème à l’exécution en React.** Chakra UI repose sur ce
+  modèle.
+- **Vous avez besoin d’une grande communauté et de nombreux mainteneurs.** moduix est un projet jeune,
+  avec une communauté plus petite que ces bibliothèques.
+
+## Migrer depuis shadcn/ui
+
+moduix peut cohabiter avec des composants shadcn/ui existants pendant que vous les remplacez un par un.
+Voir [Migration depuis shadcn](/docs/migrate-from-shadcn).
+
+## Ressources associées
+
+- [Démarrage rapide](/docs/quick-start)
+- [Composants](/docs/components)
+- [Mise à jour et migration](/docs/updating#versions-et-stabilité)

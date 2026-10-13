@@ -109,8 +109,9 @@ export function Home() {
             <span className={styles.releaseDot} aria-hidden="true" />
             {t('homeReleaseBadge')}
           </Link>
-          <h1 id="home-title" className={styles.title}>
-            moduix
+          <p className={styles.title}>moduix</p>
+          <h1 id="home-title" className={styles.tagline}>
+            {t('homeTitle')}
           </h1>
           <p className={styles.lead} dangerouslySetInnerHTML={{ __html: t('homeLead') }} />
           <FrameworkSupport />

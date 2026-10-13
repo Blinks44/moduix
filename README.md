@@ -7,9 +7,11 @@
 
 # moduix
 
-Components for React, Solid, and Vue built on [Ark UI](https://ark-ui.com/), styled with CSS Modules
-or Tailwind CSS. Ark UI handles keyboard interaction, focus, and accessibility semantics.
-Svelte support is planned.
+**Accessible UI components for React, Solid, and Vue.** 80+ components and ready-made blocks built
+on [Ark UI](https://ark-ui.com/), with the same API in every framework. Style them with CSS Modules
+or Tailwind CSS v4, and install from npm or copy the source into your app with the shadcn CLI.
+
+Ark UI handles keyboard interaction, focus, and accessibility semantics. Svelte support is planned.
 
 Install a published package to receive updates through your package manager, or copy component
 source into your application with the shadcn registry to edit it directly.
@@ -135,6 +137,14 @@ pnpm run tsc:check
 ```
 
 Run `pnpm run build:registry` after changing files shipped by the registry.
+
+## Versioning
+
+moduix follows semantic versioning. The 3.x API is stable: breaking changes ship only in major
+versions, each with a migration guide, and deprecated APIs stay available until the next major. See
+[Versioning and stability](https://moduix.dev/docs/updating#versioning-and-stability).
+
+Comparing options? See [moduix vs shadcn/ui, Park UI, and Chakra UI](https://moduix.dev/docs/comparison).
 
 ## Contributing
 

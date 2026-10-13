@@ -26,3 +26,16 @@ Existing skipped direct-Ark Toast/Toaster asChild regressions remain upstream li
 
 Parts accept class and expose data-slot / Ark state attributes. Tailwind uses utility overrides.
 Ark owns live-region semantics and toast lifecycle.
+
+## Responsive layout
+
+On viewports up to and including `40rem`, every `top-*` placement is centered at the top and
+every `bottom-*` placement is centered at the bottom. Toasts keep their default `20rem` width
+and shrink to fit between Ark's `offsets` and horizontal safe-area insets on narrower screens.
+The vertical placement, stack animations, and `gap` between toasts remain Ark-owned; `gap` does
+not control viewport padding. Above `40rem`, the configured corner or center placement applies.
+
+## Local changelog
+
+- 2026-10-11: Fixed mobile viewport overflow across all placements; centered toasts through the
+  inclusive 40rem breakpoint retain their 20rem width and shrink within offsets and safe-area insets.
