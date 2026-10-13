@@ -272,3 +272,41 @@ test('keeps provider and root and item context composition connected', async () 
     true,
   );
 });
+
+test('wraps triggers in headings with a transparent trigger and a turning chevron', async () => {
+  render(
+    <Accordion collapsible defaultValue={['first']}>
+      <AccordionItem value="first">
+        <h3>
+          <AccordionItemTrigger>
+            First item
+            <AccordionItemIndicator />
+          </AccordionItemTrigger>
+        </h3>
+        <AccordionItemContent>
+          <AccordionItemBody>First content</AccordionItemBody>
+        </AccordionItemContent>
+      </AccordionItem>
+    </Accordion>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'First item' });
+  const heading = screen.getByRole('heading', { level: 3, name: 'First item' });
+  const indicator = trigger.querySelector<HTMLElement>('[data-slot="accordion-item-indicator"]')!;
+
+  // CSS Modules turn the icon with `transform`, Tailwind with the `rotate` property.
+  const turn = () => {
+    const style = getComputedStyle(indicator);
+    return style.rotate === 'none' ? style.transform : style.rotate;
+  };
+
+  expect(trigger.parentElement).toBe(heading);
+  expect(getComputedStyle(heading).marginBlockStart).toBe('0px');
+  expect(getComputedStyle(trigger).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+  await expect.poll(turn).toMatch(/^(180deg|matrix\(-1, [^,]+, [^,]+, -1, 0, 0\))$/);
+
+  const triggerLocator = page.getByRole('button', { name: 'First item', exact: true });
+  await triggerLocator.click();
+  await expect.element(triggerLocator).toHaveAttribute('aria-expanded', 'false');
+  await expect.poll(turn).toMatch(/^(none|0deg)$/);
+});

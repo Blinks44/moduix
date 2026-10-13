@@ -11,7 +11,7 @@ import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { PlusIcon } from '@/lib/moduix/icons/ui';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import styles from './Accordion.module.css';
 
 const Accordion = forwardRef<
@@ -81,7 +81,7 @@ const AccordionItemIndicator = forwardRef<
       {...props}
       data-slot="accordion-item-indicator"
     >
-      {children ?? <PlusIcon />}
+      {children ?? <ChevronDownIcon />}
     </AccordionPrimitive.ItemIndicator>
   );
 });
@@ -132,3 +132,19 @@ export {
   useAccordionContext,
   useAccordionItemContext,
 };
+export type {
+  AccordionContextProps,
+  AccordionFocusChangeDetails,
+  AccordionItemContentProps,
+  AccordionItemContextProps,
+  AccordionItemIndicatorProps,
+  AccordionItemProps,
+  AccordionItemTriggerProps,
+  AccordionRootProps,
+  AccordionRootProviderProps,
+  AccordionValueChangeDetails,
+  UseAccordionContext,
+  UseAccordionItemContext,
+  UseAccordionProps,
+  UseAccordionReturn,
+} from '@ark-ui/react/accordion';

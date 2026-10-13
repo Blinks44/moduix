@@ -26,7 +26,7 @@ placement, runtime state, and CSS hooks.
 </Dialog>
 ```
 
-`Dialog` and `Dialog` are equivalent roots. `Backdrop` and `Positioner` are portalled by
+`Backdrop` and `Positioner` are portalled by
 default; use `portalled={false}` or `portalRef` on the root to control overlay placement.
 `lazyMount` and `unmountOnExit` default to `true`.
 
@@ -71,3 +71,14 @@ Content shares the --moduix-z-popup base and adds Ark --layer-index. Positioner 
 The positioner centers content with `place-items: safe center` and scrolls when content is taller
 than the viewport; content has no `max-height`. `DialogTitle` reserves inline-end space when
 `DialogCloseIcon` is present, and `DialogFooter` wraps actions that do not fit on one line.
+
+## Content props (2026-10-13)
+
+`DialogContent` accepts `size` (`sm`, `md`, `lg`, `xl`, `full`; default `md`), `placement`
+(`center`, `top`, `bottom`; default `center`), and `scrollBehavior` (`outside`, `inside`; default
+`outside`). They render as `data-size`, `data-placement`, and `data-scroll-behavior`, and their
+types are exported as `DialogSize`, `DialogPlacement`, and `DialogScrollBehavior`. `inside` caps
+the content at the viewport height and scrolls `DialogBody`.
+
+Native `DialogTrigger` and `DialogCloseTrigger` buttons are unstyled; use `asChild` with `Button`.
+`DialogBody` inherits the content color; only `DialogDescription` is muted.

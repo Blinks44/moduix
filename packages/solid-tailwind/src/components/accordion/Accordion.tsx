@@ -9,7 +9,7 @@ import { ark } from '@ark-ui/solid/factory';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
-import { PlusIcon } from '@/lib/moduix/icons/ui';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 
 const rootClass =
   'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row';
@@ -59,7 +59,7 @@ function AccordionItemTrigger(props: ComponentProps<typeof AccordionPrimitive.It
   return (
     <AccordionPrimitive.ItemTrigger
       class={cn(
-        'flex w-full cursor-pointer items-center justify-between gap-4 bg-muted px-3 py-2 text-start text-md outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] motion-reduce:transition-none [&:not([data-disabled]):active]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent',
+        'flex w-full cursor-pointer items-center justify-between gap-4 bg-transparent px-3 py-2 text-start text-md outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] motion-reduce:transition-none [&:not([data-disabled]):active]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted',
         local.class,
       )}
       {...others}
@@ -75,13 +75,13 @@ function AccordionItemIndicator(props: ComponentProps<typeof AccordionPrimitive.
   return (
     <AccordionPrimitive.ItemIndicator
       class={cn(
-        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-[state=open]:scale-110 data-[state=open]:rotate-45 motion-reduce:transition-none [&_svg]:size-full',
+        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-[state=open]:rotate-180 motion-reduce:transition-none [&_svg]:size-full',
         local.class,
       )}
       {...others}
       data-slot="accordion-item-indicator"
     >
-      {resolvedChildren() ?? <PlusIcon />}
+      {resolvedChildren() ?? <ChevronDownIcon />}
     </AccordionPrimitive.ItemIndicator>
   );
 }
@@ -132,3 +132,19 @@ export {
   useAccordionContext,
   useAccordionItemContext,
 };
+export type {
+  AccordionContextProps,
+  AccordionFocusChangeDetails,
+  AccordionItemContentProps,
+  AccordionItemContextProps,
+  AccordionItemIndicatorProps,
+  AccordionItemProps,
+  AccordionItemTriggerProps,
+  AccordionRootProps,
+  AccordionRootProviderProps,
+  AccordionValueChangeDetails,
+  UseAccordionContext,
+  UseAccordionItemContext,
+  UseAccordionProps,
+  UseAccordionReturn,
+} from '@ark-ui/solid/accordion';

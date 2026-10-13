@@ -35,7 +35,8 @@
         "@moduix-vue-tailwind/menu",
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/overlay-portal",
-        "@moduix-vue-tailwind/cn"
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels"
       ],
       "files": [
         {
@@ -600,6 +601,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/overlay-portal"
       ],
@@ -1172,6 +1174,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/icons"
       ],
@@ -1337,6 +1340,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/overlay-portal"
       ],
@@ -1606,6 +1610,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/overlay-portal"
       ],
@@ -1766,6 +1771,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/overlay-portal"
@@ -1951,6 +1957,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/close-button"
       ],
@@ -2372,7 +2379,8 @@
         "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/close-button",
-        "@moduix-vue-tailwind/overlay-portal"
+        "@moduix-vue-tailwind/overlay-portal",
+        "@moduix-vue-tailwind/a11y-labels"
       ],
       "files": [
         {
@@ -2790,6 +2798,7 @@
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/button",
         "@moduix-vue-tailwind/input"
       ],
@@ -2897,7 +2906,8 @@
         "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/close-button",
-        "@moduix-vue-tailwind/overlay-portal"
+        "@moduix-vue-tailwind/overlay-portal",
+        "@moduix-vue-tailwind/a11y-labels"
       ],
       "files": [
         {
@@ -3019,7 +3029,8 @@
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/kbd",
         "@moduix-vue-tailwind/overlay-portal",
-        "@moduix-vue-tailwind/scroll-area"
+        "@moduix-vue-tailwind/scroll-area",
+        "@moduix-vue-tailwind/a11y-labels"
       ],
       "files": [
         {
@@ -3188,6 +3199,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/foundation"
       ],
       "files": [
@@ -3441,6 +3453,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/overlay-portal"
       ],
@@ -3532,7 +3545,8 @@
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/close-button",
-        "@moduix-vue-tailwind/overlay-portal"
+        "@moduix-vue-tailwind/overlay-portal",
+        "@moduix-vue-tailwind/a11y-labels"
       ],
       "files": [
         {
@@ -4570,7 +4584,11 @@
       "title": "Spinner",
       "description": "moduix Vue Tailwind Spinner component.",
       "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels"
+      ],
       "files": [
         {
           "path": "src/components/spinner/Spinner.vue",
@@ -4653,6 +4671,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/input",
         "@moduix-vue-tailwind/separator",
@@ -5279,6 +5298,20 @@
       ]
     },
     {
+      "name": "a11y-labels",
+      "type": "registry:item",
+      "title": "moduix a11y labels",
+      "description": "Internal accessible label defaults required only by registry components that render text fallbacks.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/internal/a11yLabels.ts",
+          "target": "@lib/moduix/a11yLabels.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "icons",
       "type": "registry:item",
       "title": "moduix icons",
@@ -5358,6 +5391,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/overlay-portal"
       ],

@@ -122,3 +122,10 @@ For Chakra UI v3 and shadcn record: parts in a typical usage, built-in versus ex
 default icon and its animation, semantic wrappers, variants, sizes, placement, scrolling mode,
 motion presets, mount defaults, behavior on narrow screens, theming mechanism. State what moduix
 should adopt, and what it should deliberately not adopt and why.
+
+## Before removing anything
+
+- Variable families documented on a shared docs page (for example "Animations" → local exceptions)
+  are a library mechanism, not component bloat.
+- The same pattern in sibling components (native trigger styles in Dialog, Drawer, Popover) means
+  a removal in one component creates a new inconsistency; report it.

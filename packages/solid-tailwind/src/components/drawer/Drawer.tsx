@@ -8,6 +8,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import type { Accessor, ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import {
   OverlayPortal,
@@ -16,7 +17,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';
 type DrawerVariant = 'island';
 const DrawerVariantContext = createContext<Accessor<DrawerVariant | undefined>>();
 
@@ -241,7 +241,7 @@ function DrawerCloseIcon(props: DrawerCloseIconProps) {
           data-slot="drawer-close-icon"
           aria-label={
             local['aria-label'] ??
-            (local['aria-labelledby'] == null ? DEFAULT_CLOSE_BUTTON_LABEL : undefined)
+            (local['aria-labelledby'] == null ? a11yLabels.closeDrawer : undefined)
           }
           aria-labelledby={local['aria-labelledby']}
           class={cn(

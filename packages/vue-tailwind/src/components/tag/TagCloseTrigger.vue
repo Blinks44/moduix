@@ -2,6 +2,7 @@
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import CloseButton from '../close-button/CloseButton.vue';
 
@@ -25,7 +26,8 @@ const attrs = useAttrs();
     v-bind="attrs"
     :as-child="asChild"
     :aria-label="
-      ariaLabel ?? (!asChild && !slots.default && ariaLabelledby == null ? 'Remove tag' : undefined)
+      ariaLabel ??
+      (!asChild && !slots.default && ariaLabelledby == null ? a11yLabels.closeTag : undefined)
     "
     :aria-labelledby="ariaLabelledby"
     data-scope="tag"

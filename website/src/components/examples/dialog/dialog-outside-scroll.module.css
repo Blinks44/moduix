@@ -1,9 +1,4 @@
-.positioner {
-  place-items: start center;
-}
-
 .content {
-  max-height: none;
   margin-block: var(--moduix-spacing-8);
 }
 

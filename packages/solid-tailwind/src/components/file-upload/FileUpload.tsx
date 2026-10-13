@@ -7,6 +7,7 @@ import {
 } from '@ark-ui/solid/file-upload';
 import { For, children as resolveChildren, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui/Icons';
 import { CloseButton } from '../close-button';
@@ -280,7 +281,7 @@ function FileUploadClearTrigger(props: ComponentProps<typeof FileUploadPrimitive
   ]);
   const resolvedChildren = resolveChildren(() => local.children);
   const clearLabel = () =>
-    local['aria-label'] ?? (local['aria-labelledby'] == null ? 'Clear files' : undefined);
+    local['aria-label'] ?? (local['aria-labelledby'] == null ? a11yLabels.clearFiles : undefined);
   const triggerClass = () =>
     cn(
       `size-control-xs self-start rounded-sm bg-transparent text-muted-foreground focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-readonly:pointer-events-none data-readonly:opacity-50 [&>svg:not([class*='size-'])]:size-4`,

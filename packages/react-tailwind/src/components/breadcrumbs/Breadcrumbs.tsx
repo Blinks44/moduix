@@ -4,6 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import type { ComponentRef, ReactNode } from 'react';
 import { Fragment, forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 
@@ -19,7 +20,10 @@ type BreadcrumbsPathProps = Omit<HTMLArkProps<'ol'>, 'asChild' | 'children'> & {
 };
 
 const Breadcrumbs = forwardRef<ComponentRef<typeof ark.nav>, HTMLArkProps<'nav'>>(
-  function Breadcrumbs({ className, 'aria-label': ariaLabel = 'Breadcrumb', ...props }, ref) {
+  function Breadcrumbs(
+    { className, 'aria-label': ariaLabel = a11yLabels.breadcrumb, ...props },
+    ref,
+  ) {
     return (
       <ark.nav
         ref={ref}

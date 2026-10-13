@@ -2,6 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
 import { children, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 
 type TableDataProps = {
@@ -394,7 +395,7 @@ function TableEmpty(props: TableEmptyProps) {
           local.class,
         )}
       >
-        {resolvedChildren() ?? 'No results.'}
+        {resolvedChildren() ?? a11yLabels.noResults}
       </ark.td>
     </ark.tr>
   );

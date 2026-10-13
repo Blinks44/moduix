@@ -3,7 +3,6 @@ import { DialogCloseTrigger as ArkDialogCloseTrigger } from '@ark-ui/vue/dialog'
 import type { DialogCloseTriggerProps } from '@ark-ui/vue/dialog';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
@@ -21,13 +20,7 @@ const attrs = useAttrs();
   <ArkDialogCloseTrigger
     v-bind="attrs"
     :as-child="asChild"
-    :class="
-      cn(
-        !asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
-        className,
-      )
-    "
+    :class="className"
     data-slot="dialog-close-trigger"
   >
     <slot />

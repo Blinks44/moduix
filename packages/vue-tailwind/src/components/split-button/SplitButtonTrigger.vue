@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { MenuTrigger as ArkMenuTrigger, type MenuTriggerProps } from '@ark-ui/vue/menu';
 import { useAttrs, type HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import { Button } from '../button';
@@ -21,7 +22,7 @@ const context = useSplitButtonContext('SplitButtonTrigger');
 
 <template>
   <ArkMenuTrigger
-    :aria-label="slots.default ? undefined : 'More actions'"
+    :aria-label="slots.default ? undefined : a11yLabels.moreActions"
     v-bind="attrs"
     as-child
     data-slot="split-button-trigger"

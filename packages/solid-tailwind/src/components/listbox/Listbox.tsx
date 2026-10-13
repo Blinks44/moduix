@@ -11,6 +11,7 @@ import {
 import { cva } from 'class-variance-authority';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, SearchIcon } from '@/lib/moduix/icons/ui/Icons';
 import { CloseButton } from '../close-button';
@@ -98,7 +99,7 @@ function ListboxClearTrigger(props: HTMLArkProps<'button'>) {
         local.class,
       )}
       type={local.type ?? 'button'}
-      aria-label={local['aria-label'] ?? 'Clear search'}
+      aria-label={local['aria-label'] ?? a11yLabels.clearSearch}
       {...others}
       data-slot="listbox-clear-trigger"
     >

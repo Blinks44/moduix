@@ -4,6 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Spinner.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -43,7 +44,9 @@ const attrs = useAttrs();
     :data-size="size"
     :role="decorative && !asChild ? 'presentation' : decorative ? undefined : 'status'"
     :aria-hidden="decorative && !asChild ? true : undefined"
-    :aria-label="decorative ? undefined : (ariaLabel ?? (ariaLabelledby ? undefined : 'Loading'))"
+    :aria-label="
+      decorative ? undefined : (ariaLabel ?? (ariaLabelledby ? undefined : a11yLabels.loading))
+    "
     :aria-labelledby="decorative ? undefined : ariaLabelledby"
     :class="clsx(styles.root, className)"
   >

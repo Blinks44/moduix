@@ -2,6 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
 import { children as resolveChildren, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseButton } from '../close-button';
 
@@ -127,7 +128,7 @@ function TagCloseTrigger(props: TagCloseTriggerProps) {
       aria-label={
         local['aria-label'] ??
         (!local.asChild && resolvedChildren() == null && local['aria-labelledby'] == null
-          ? 'Remove tag'
+          ? a11yLabels.closeTag
           : undefined)
       }
       aria-labelledby={local['aria-labelledby']}

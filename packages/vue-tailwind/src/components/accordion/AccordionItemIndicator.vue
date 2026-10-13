@@ -4,7 +4,7 @@ import type { AccordionItemIndicatorProps } from '@ark-ui/vue/accordion';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import { PlusIcon } from '@/lib/moduix/icons/ui';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 
 defineOptions({ inheritAttrs: false });
 
@@ -17,7 +17,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const itemIndicatorClass =
-  'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-[state=open]:scale-110 data-[state=open]:rotate-45 motion-reduce:transition-none [&_svg]:size-full';
+  'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-[state=open]:rotate-180 motion-reduce:transition-none [&_svg]:size-full';
 </script>
 
 <template>
@@ -26,6 +26,6 @@ const itemIndicatorClass =
     :class="cn(itemIndicatorClass, className)"
     data-slot="accordion-item-indicator"
   >
-    <slot><PlusIcon /></slot>
+    <slot><ChevronDownIcon /></slot>
   </ArkAccordionItemIndicator>
 </template>

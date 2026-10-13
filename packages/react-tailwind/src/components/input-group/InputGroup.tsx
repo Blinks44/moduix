@@ -11,6 +11,7 @@ import {
   type ComponentRef,
 } from 'react';
 import { cn } from '@/internal/cn';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { CloseButton } from '../close-button';
@@ -215,7 +216,7 @@ const InputGroupClearTrigger = forwardRef<
       data-size={size ?? groupSize}
       className={cn(inputGroupClearTriggerVariants({ size: size ?? groupSize }), className)}
       type={type}
-      aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear input' : undefined)}
+      aria-label={ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.clearInput : undefined)}
       aria-labelledby={ariaLabelledBy}
     >
       {children ?? <CloseIcon className="size-4 shrink-0" />}

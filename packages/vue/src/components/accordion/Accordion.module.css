@@ -1,65 +1,17 @@
 @layer moduix.components {
-  @keyframes accordion-item-content-open {
-    from {
-      height: 0;
-      opacity: var(--moduix-accordion-item-content-closed-opacity, 0.01);
-    }
-
-    to {
-      height: var(--height);
-      opacity: var(--moduix-accordion-item-content-open-opacity, 1);
-    }
-  }
-
-  @keyframes accordion-item-content-closed {
-    from {
-      height: var(--height);
-      opacity: var(--moduix-accordion-item-content-open-opacity, 1);
-    }
-
-    to {
-      height: 0;
-      opacity: var(--moduix-accordion-item-content-closed-opacity, 0.01);
-    }
-  }
-
-  @keyframes accordion-item-content-open-horizontal {
-    from {
-      width: 0;
-      opacity: var(--moduix-accordion-item-content-closed-opacity, 0.01);
-    }
-
-    to {
-      width: var(--width);
-      opacity: var(--moduix-accordion-item-content-open-opacity, 1);
-    }
-  }
-
-  @keyframes accordion-item-content-closed-horizontal {
-    from {
-      width: var(--width);
-      opacity: var(--moduix-accordion-item-content-open-opacity, 1);
-    }
-
-    to {
-      width: 0;
-      opacity: var(--moduix-accordion-item-content-closed-opacity, 0.01);
-    }
-  }
-
   .root {
     box-sizing: border-box;
     display: flex;
-    width: var(--moduix-accordion-width, 100%);
-    max-width: var(--moduix-accordion-max-width, 100%);
+    width: 100%;
+    max-width: 100%;
     min-width: 0;
     flex-direction: column;
     color: var(--moduix-accordion-color, var(--moduix-color-foreground));
 
     &[data-orientation='horizontal'] {
-      width: var(--moduix-accordion-horizontal-width, auto);
-      height: var(--moduix-accordion-horizontal-height, 20rem);
-      max-height: var(--moduix-accordion-horizontal-max-height, 100%);
+      width: auto;
+      height: 20rem;
+      max-height: 100%;
       flex-direction: row;
     }
   }
@@ -93,11 +45,11 @@
     padding-block: var(--moduix-accordion-trigger-padding-y, var(--moduix-spacing-2));
     padding-inline: var(--moduix-accordion-trigger-padding-x, var(--moduix-spacing-3));
     border: 0;
-    background-color: var(--moduix-accordion-trigger-bg, var(--moduix-color-muted));
+    background-color: var(--moduix-accordion-trigger-bg, transparent);
     color: inherit;
     font: inherit;
     font-size: var(--moduix-accordion-trigger-font-size, var(--moduix-text-md));
-    line-height: var(--moduix-accordion-trigger-line-height, var(--moduix-line-height-text-md));
+    line-height: var(--moduix-line-height-text-md);
     text-align: start;
     user-select: none;
     outline: 0;
@@ -109,15 +61,12 @@
     &:not(:is([disabled], [data-disabled])) {
       @media (hover: hover) {
         &:hover {
-          background-color: var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-accent));
+          background-color: var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-muted));
         }
       }
 
       &:active {
-        background-color: var(
-          --moduix-accordion-trigger-bg-active,
-          var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-accent))
-        );
+        background-color: var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-muted));
       }
     }
 
@@ -140,7 +89,7 @@
     }
 
     &[data-orientation='horizontal'] {
-      width: var(--moduix-accordion-horizontal-trigger-width, 2.5rem);
+      width: 2.5rem;
       height: 100%;
       justify-content: center;
       writing-mode: sideways-lr;
@@ -155,7 +104,7 @@
     width: var(--moduix-accordion-icon-size, var(--moduix-spacing-3));
     height: var(--moduix-accordion-icon-size, var(--moduix-spacing-3));
     flex-shrink: 0;
-    transition: transform var(--moduix-accordion-icon-transition, var(--moduix-transition-default));
+    transition: transform var(--moduix-transition-default);
 
     & svg {
       width: 100%;
@@ -163,7 +112,7 @@
     }
 
     &[data-state='open'] {
-      transform: var(--moduix-accordion-icon-open-transform, rotate(45deg) scale(1.1));
+      transform: var(--moduix-accordion-icon-open-transform, rotate(180deg));
     }
   }
 
@@ -172,37 +121,32 @@
     overflow: hidden;
     color: var(--moduix-accordion-item-content-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-accordion-item-content-font-size, var(--moduix-text-md));
-    line-height: var(
-      --moduix-accordion-item-content-line-height,
-      var(--moduix-line-height-text-md)
-    );
+    line-height: var(--moduix-line-height-text-md);
 
     &[hidden]:not([hidden='until-found']) {
       display: none;
     }
 
     &[data-state='open'][data-orientation='vertical'] {
-      animation: accordion-item-content-open
-        var(--moduix-accordion-item-content-transition, var(--moduix-transition-default));
+      animation: global(moduix-accordion-item-content-open) var(--moduix-transition-default);
     }
 
     &[data-state='closed'][data-orientation='vertical'] {
-      animation: accordion-item-content-closed
-        var(--moduix-accordion-item-content-transition, var(--moduix-transition-default));
+      animation: global(moduix-accordion-item-content-closed) var(--moduix-transition-default);
     }
 
     &[data-state='open'][data-orientation='horizontal'] {
-      animation: accordion-item-content-open-horizontal
-        var(--moduix-accordion-item-content-transition, var(--moduix-transition-default));
+      animation: global(moduix-accordion-item-content-open-horizontal)
+        var(--moduix-transition-default);
     }
 
     &[data-state='closed'][data-orientation='horizontal'] {
-      animation: accordion-item-content-closed-horizontal
-        var(--moduix-accordion-item-content-transition, var(--moduix-transition-default));
+      animation: global(moduix-accordion-item-content-closed-horizontal)
+        var(--moduix-transition-default);
     }
 
     &[data-orientation='horizontal'] > * {
-      width: var(--moduix-accordion-horizontal-content-width, 16rem);
+      width: 16rem;
     }
   }
 

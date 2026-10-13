@@ -1,3 +1,4 @@
+import { Button } from '@moduix/react/button';
 import {
   DialogBackdrop,
   DialogContent,
@@ -12,7 +13,9 @@ export function DialogFromExternalState() {
 
   return (
     <DialogRootProvider value={dialog}>
-      <DialogTrigger>Open dialog</DialogTrigger>
+      <DialogTrigger asChild>
+        <Button>Open dialog</Button>
+      </DialogTrigger>
       <DialogBackdrop />
       <DialogPositioner>
         <DialogContent>State is owned by useDialog().</DialogContent>

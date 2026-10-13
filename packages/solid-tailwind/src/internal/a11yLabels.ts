@@ -1,0 +1,23 @@
+// Default accessible labels for interactive fallbacks. Consumers override via aria-label/children.
+export const a11yLabels = {
+  breadcrumb: 'Breadcrumb',
+  clearInput: 'Clear input',
+  clearFiles: 'Clear files',
+  clearSearch: 'Clear search',
+  clearSelection: 'Clear selection',
+  close: 'Close',
+  closeDialog: 'Close dialog',
+  closeDrawer: 'Close drawer',
+  closeImage: 'Close image',
+  closePanel: 'Close panel',
+  closePopover: 'Close popover',
+  closeTag: 'Remove tag',
+  closeToast: 'Close toast',
+  closeTour: 'Close tour',
+  loading: 'Loading',
+  moreActions: 'More actions',
+  noResults: 'No results.',
+  resizeSidebar: 'Resize sidebar',
+  searchCommands: 'Search commands',
+  toggleSidebar: 'Toggle sidebar',
+} as const;

@@ -3,6 +3,7 @@ import { ark } from '@ark-ui/react/factory';
 import { cva } from 'class-variance-authority';
 import type { ComponentRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 
 type TableProps = HTMLArkProps<'table'> & {
@@ -279,7 +280,7 @@ const TableCell = forwardRef<ComponentRef<typeof ark.td>, TableCellProps>(functi
 });
 
 const TableEmpty = forwardRef<ComponentRef<typeof ark.td>, TableEmptyProps>(function TableEmpty(
-  { asChild, children = 'No results.', className, colSpan, ...props },
+  { asChild, children = a11yLabels.noResults, className, colSpan, ...props },
   ref,
 ) {
   return (

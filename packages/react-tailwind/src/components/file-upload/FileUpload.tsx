@@ -9,6 +9,7 @@ import {
 } from '@ark-ui/react/file-upload';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
@@ -295,7 +296,7 @@ const FileUploadClearTrigger = forwardRef<
   },
   ref,
 ) {
-  const clearLabel = ariaLabel ?? (ariaLabelledBy == null ? 'Clear files' : undefined);
+  const clearLabel = ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.clearFiles : undefined);
   const triggerClassName = cn(
     `size-control-xs self-start rounded-sm bg-transparent text-muted-foreground focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-readonly:pointer-events-none data-readonly:opacity-50 [&>svg:not([class*='size-'])]:size-4`,
     children != null && 'size-control-sm w-auto gap-2 px-2 text-sm leading-5',

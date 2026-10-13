@@ -4,6 +4,7 @@ import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { Popover as PopoverPrimitive, usePopover, usePopoverContext } from '@ark-ui/react/popover';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import {
   OverlayPortal,
@@ -11,8 +12,6 @@ import {
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
-
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close popover';
 
 export type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
 export type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> & {
@@ -228,7 +227,7 @@ const PopoverCloseIcon = forwardRef<
   ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof PopoverPrimitive.CloseTrigger>, 'asChild'>
 >(function PopoverCloseIcon(
-  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+  { className, children, 'aria-label': ariaLabel = a11yLabels.closePopover, ...props },
   ref,
 ) {
   return (

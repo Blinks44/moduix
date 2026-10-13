@@ -4,6 +4,7 @@ import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/
 import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import {
   OverlayPortal,
@@ -12,8 +13,17 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close dialog';
-
+type DialogSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
+type DialogPlacement = 'center' | 'top' | 'bottom';
+type DialogScrollBehavior = 'outside' | 'inside';
+type DialogContentProps = ComponentProps<typeof DialogPrimitive.Content> & {
+  /** Width preset. `full` covers the viewport. */
+  size?: DialogSize;
+  /** Vertical position inside the positioner. */
+  placement?: DialogPlacement;
+  /** `outside` scrolls the positioner; `inside` caps the content and scrolls `DialogBody`. */
+  scrollBehavior?: DialogScrollBehavior;
+};
 type DialogRootProps = ComponentProps<typeof DialogPrimitive.Root> & OverlayPortalProps;
 type DialogRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
   OverlayPortalProps;
@@ -53,20 +63,8 @@ function DialogRootProvider({
 const DialogTrigger = forwardRef<
   ComponentRef<typeof DialogPrimitive.Trigger>,
   ComponentProps<typeof DialogPrimitive.Trigger>
->(function DialogTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <DialogPrimitive.Trigger
-      ref={ref}
-      asChild={asChild}
-      className={cn(
-        !asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
-        className,
-      )}
-      {...props}
-      data-slot="dialog-trigger"
-    />
-  );
+>(function DialogTrigger(props, ref) {
+  return <DialogPrimitive.Trigger ref={ref} {...props} data-slot="dialog-trigger" />;
 });
 
 const DialogBackdrop = forwardRef<
@@ -97,7 +95,7 @@ const DialogPositioner = forwardRef<
       <DialogPrimitive.Positioner
         ref={ref}
         className={cn(
-          'fixed inset-0 z-[var(--z-index,var(--moduix-z-popup))] grid [scrollbar-gutter:stable_both-edges] place-items-center-safe overflow-y-auto overscroll-contain p-4',
+          'fixed inset-0 z-[var(--z-index,var(--moduix-z-popup))] grid [scrollbar-gutter:stable_both-edges] place-items-center-safe overflow-y-auto overscroll-contain p-4 has-[>[data-slot=dialog-content][data-size=full]]:p-0',
           className,
         )}
         {...props}
@@ -107,22 +105,27 @@ const DialogPositioner = forwardRef<
   );
 });
 
-const DialogContent = forwardRef<
-  ComponentRef<typeof DialogPrimitive.Content>,
-  ComponentProps<typeof DialogPrimitive.Content>
->(function DialogContent({ className, ...props }, ref) {
-  return (
-    <DialogPrimitive.Content
-      ref={ref}
-      className={cn(
-        "relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] w-[min(28rem,calc(100vw-2rem))] max-w-full origin-top rounded-lg border border-border bg-popover p-6 text-popover-foreground shadow-lg outline-0 transition-[scale,translate] duration-200 ease-in-out after:pointer-events-none after:absolute after:inset-0 after:z-1 after:rounded-[inherit] after:bg-black/5 after:opacity-0 after:transition-opacity after:duration-200 after:ease-in-out after:content-[''] data-[has-nested]:[translate:0_calc(2.5rem*var(--nested-layer-count,0))] data-[has-nested]:[scale:calc(1-0.05*var(--nested-layer-count,0))] data-[has-nested]:after:opacity-100 data-[state=closed]:animate-moduix-dialog-content-out data-[state=open]:animate-moduix-dialog-content-in motion-reduce:transition-none motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms] [&:has([data-slot=dialog-close-icon])_[data-slot=dialog-title]]:pe-7",
-        className,
-      )}
-      {...props}
-      data-slot="dialog-content"
-    />
-  );
-});
+const DialogContent = forwardRef<ComponentRef<typeof DialogPrimitive.Content>, DialogContentProps>(
+  function DialogContent(
+    { className, placement = 'center', scrollBehavior = 'outside', size = 'md', ...props },
+    ref,
+  ) {
+    return (
+      <DialogPrimitive.Content
+        ref={ref}
+        className={cn(
+          "relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] w-[min(28rem,calc(100vw-2rem))] max-w-full origin-top rounded-lg border border-border bg-popover p-6 text-popover-foreground shadow-lg outline-0 transition-[scale,translate] duration-200 ease-in-out after:pointer-events-none after:absolute after:inset-0 after:z-1 after:rounded-[inherit] after:bg-black/5 after:opacity-0 after:transition-opacity after:duration-200 after:ease-in-out after:content-[''] data-[has-nested]:[translate:0_calc(2.5rem*var(--nested-layer-count,0))] data-[has-nested]:[scale:calc(1-0.05*var(--nested-layer-count,0))] data-[has-nested]:after:opacity-100 data-[placement=bottom]:self-end data-[placement=top]:self-start data-[scroll-behavior=inside]:flex data-[scroll-behavior=inside]:max-h-[calc(100dvh-2rem)] data-[scroll-behavior=inside]:flex-col data-[size=full]:min-h-full data-[size=full]:w-full data-[size=full]:max-w-none data-[size=full]:rounded-none data-[size=full]:border-0 data-[size=full]:data-[scroll-behavior=inside]:max-h-dvh data-[size=lg]:w-[min(32rem,calc(100vw-2rem))] data-[size=sm]:w-[min(24rem,calc(100vw-2rem))] data-[size=xl]:w-[min(36rem,calc(100vw-2rem))] data-[state=closed]:animate-moduix-dialog-content-out data-[state=open]:animate-moduix-dialog-content-in motion-reduce:transition-none motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms] [&:has([data-slot=dialog-close-icon])_[data-slot=dialog-title]]:pe-7 data-[scroll-behavior=inside]:[&>[data-slot=dialog-body]]:min-h-0 data-[scroll-behavior=inside]:[&>[data-slot=dialog-body]]:flex-auto data-[scroll-behavior=inside]:[&>[data-slot=dialog-body]]:overflow-y-auto",
+          className,
+        )}
+        {...props}
+        data-size={size}
+        data-placement={placement}
+        data-scroll-behavior={scrollBehavior}
+        data-slot="dialog-content"
+      />
+    );
+  },
+);
 
 const DialogTitle = forwardRef<
   ComponentRef<typeof DialogPrimitive.Title>,
@@ -155,27 +158,15 @@ const DialogDescription = forwardRef<
 const DialogCloseTrigger = forwardRef<
   ComponentRef<typeof DialogPrimitive.CloseTrigger>,
   ComponentProps<typeof DialogPrimitive.CloseTrigger>
->(function DialogCloseTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <DialogPrimitive.CloseTrigger
-      ref={ref}
-      asChild={asChild}
-      className={cn(
-        !asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
-        className,
-      )}
-      {...props}
-      data-slot="dialog-close-trigger"
-    />
-  );
+>(function DialogCloseTrigger(props, ref) {
+  return <DialogPrimitive.CloseTrigger ref={ref} {...props} data-slot="dialog-close-trigger" />;
 });
 
 const DialogCloseIcon = forwardRef<
   ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>
 >(function DialogCloseIcon(
-  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+  { className, children, 'aria-label': ariaLabel = a11yLabels.closeDialog, ...props },
   ref,
 ) {
   return (
@@ -216,7 +207,7 @@ const DialogBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
     return (
       <ark.div
         ref={ref}
-        className={cn('mt-4 text-md text-muted-foreground', className)}
+        className={cn('mt-4 text-md', className)}
         {...props}
         data-slot="dialog-body"
       />
@@ -257,4 +248,11 @@ export {
   useDialog,
   useDialogContext,
 };
-export type { DialogRootProps, DialogRootProviderProps };
+export type {
+  DialogContentProps,
+  DialogPlacement,
+  DialogRootProps,
+  DialogRootProviderProps,
+  DialogScrollBehavior,
+  DialogSize,
+};

@@ -2477,7 +2477,8 @@
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
         "@moduix-vue/close-button",
-        "@moduix-vue/overlay-portal"
+        "@moduix-vue/overlay-portal",
+        "@moduix-vue/a11y-labels"
       ],
       "files": [
         {
@@ -3034,7 +3035,8 @@
         "@moduix-vue/foundation",
         "@moduix-vue/icons",
         "@moduix-vue/close-button",
-        "@moduix-vue/overlay-portal"
+        "@moduix-vue/overlay-portal",
+        "@moduix-vue/a11y-labels"
       ],
       "files": [
         {
@@ -3161,7 +3163,8 @@
         "@moduix-vue/close-button",
         "@moduix-vue/kbd",
         "@moduix-vue/overlay-portal",
-        "@moduix-vue/scroll-area"
+        "@moduix-vue/scroll-area",
+        "@moduix-vue/a11y-labels"
       ],
       "files": [
         {
@@ -3697,7 +3700,8 @@
       "registryDependencies": [
         "@moduix-vue/close-button",
         "@moduix-vue/foundation",
-        "@moduix-vue/overlay-portal"
+        "@moduix-vue/overlay-portal",
+        "@moduix-vue/a11y-labels"
       ],
       "files": [
         {
@@ -4801,7 +4805,7 @@
       "title": "Spinner",
       "description": "moduix Vue Spinner component.",
       "dependencies": ["@ark-ui/vue", "clsx"],
-      "registryDependencies": ["@moduix-vue/foundation"],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/a11y-labels"],
       "files": [
         {
           "path": "src/components/spinner/Spinner.vue",

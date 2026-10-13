@@ -18,6 +18,7 @@ import DialogNonModal from '@/components/examples/dialog/non-modal.tsx';
 import DialogOpenFromMenu from '@/components/examples/dialog/open-from-menu.tsx';
 import DialogOutsideScroll from '@/components/examples/dialog/outside-scroll.tsx';
 import DialogRootProvider from '@/components/examples/dialog/root-provider-and-ark-context-hooks.tsx';
+import DialogSizes from '@/components/examples/dialog/sizes.tsx';
 import dialogSolidAdvancedCustomization from '../../../snippets/dialog/solid/advanced-customization.tsx?raw';
 import dialogSolidAlertDialog from '../../../snippets/dialog/solid/alert-dialog.tsx?raw';
 import dialogSolidBasic from '../../../snippets/dialog/solid/basic.tsx?raw';
@@ -31,6 +32,7 @@ import dialogSolidNonModal from '../../../snippets/dialog/solid/non-modal.tsx?ra
 import dialogSolidOpenFromMenu from '../../../snippets/dialog/solid/open-from-menu.tsx?raw';
 import dialogSolidOutsideScroll from '../../../snippets/dialog/solid/outside-scroll.tsx?raw';
 import dialogSolidRootProvider from '../../../snippets/dialog/solid/root-provider-and-ark-context-hooks.tsx?raw';
+import dialogSolidSizes from '../../../snippets/dialog/solid/sizes.tsx?raw';
 import dialogVueAdvancedCustomization from '../../../snippets/dialog/vue/advanced-customization.vue?raw';
 import dialogVueAlertDialog from '../../../snippets/dialog/vue/alert-dialog.vue?raw';
 import dialogVueBasic from '../../../snippets/dialog/vue/basic.vue?raw';
@@ -44,6 +46,7 @@ import dialogVueNonModal from '../../../snippets/dialog/vue/non-modal.vue?raw';
 import dialogVueOpenFromMenu from '../../../snippets/dialog/vue/open-from-menu.vue?raw';
 import dialogVueOutsideScroll from '../../../snippets/dialog/vue/outside-scroll.vue?raw';
 import dialogVueRootProvider from '../../../snippets/dialog/vue/root-provider-and-ark-context-hooks.vue?raw';
+import dialogVueSizes from '../../../snippets/dialog/vue/sizes.vue?raw';
 
 ## Справочник API
 
@@ -319,7 +322,8 @@ DialogContext
 ### Прокрутка содержимого
 
 Сделайте прокручиваемым только основное содержимое, если заголовок и действия должны оставаться
-видимыми.
+видимыми. `scrollBehavior="inside"` у `DialogContent` прокручивает `DialogBody` без дополнительных
+стилей; `ScrollArea` с фиксированной высотой, как в этом примере, тоже подходит.
 
 <ExampleFrame variant="component">
   <DialogInsideScroll />
@@ -575,7 +579,8 @@ moduix использует это состояние, чтобы отодвин
 ### Прокрутка позиционера
 
 Позвольте `DialogPositioner` прокручивать весь диалог, если длинное содержимое должно сохранять
-естественную высоту.
+естественную высоту. Это `scrollBehavior` по умолчанию; `placement="top"` начинает диалог от верхнего
+края экрана.
 
 <ExampleFrame variant="component">
   <DialogOutsideScroll />
@@ -656,6 +661,53 @@ moduix использует это состояние, чтобы отодвин
 
     </Tab>
   </Tabs>
+</div>
+
+</ExampleCode>
+
+### Размеры
+
+Задайте `size` у `DialogContent`: `sm`, `md` (по умолчанию), `lg`, `xl` или `full`. `placement="top"`
+и `placement="bottom"` смещают окно от центра, а `scrollBehavior="inside"` ограничивает диалог высотой
+экрана и прокручивает `DialogBody` вместо позиционера.
+
+<ExampleFrame variant="component">
+  <DialogSizes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/dialog/dialog-sizes.module.css"
+```
 </div>
 
 </ExampleCode>

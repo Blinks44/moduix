@@ -18,6 +18,7 @@ import DialogNonModal from '@/components/examples/dialog/non-modal.tsx';
 import DialogOpenFromMenu from '@/components/examples/dialog/open-from-menu.tsx';
 import DialogOutsideScroll from '@/components/examples/dialog/outside-scroll.tsx';
 import DialogRootProvider from '@/components/examples/dialog/root-provider-and-ark-context-hooks.tsx';
+import DialogSizes from '@/components/examples/dialog/sizes.tsx';
 import dialogSolidAdvancedCustomization from '../../../snippets/dialog/solid/advanced-customization.tsx?raw';
 import dialogSolidAlertDialog from '../../../snippets/dialog/solid/alert-dialog.tsx?raw';
 import dialogSolidBasic from '../../../snippets/dialog/solid/basic.tsx?raw';
@@ -31,6 +32,7 @@ import dialogSolidNonModal from '../../../snippets/dialog/solid/non-modal.tsx?ra
 import dialogSolidOpenFromMenu from '../../../snippets/dialog/solid/open-from-menu.tsx?raw';
 import dialogSolidOutsideScroll from '../../../snippets/dialog/solid/outside-scroll.tsx?raw';
 import dialogSolidRootProvider from '../../../snippets/dialog/solid/root-provider-and-ark-context-hooks.tsx?raw';
+import dialogSolidSizes from '../../../snippets/dialog/solid/sizes.tsx?raw';
 import dialogVueAdvancedCustomization from '../../../snippets/dialog/vue/advanced-customization.vue?raw';
 import dialogVueAlertDialog from '../../../snippets/dialog/vue/alert-dialog.vue?raw';
 import dialogVueBasic from '../../../snippets/dialog/vue/basic.vue?raw';
@@ -44,6 +46,7 @@ import dialogVueNonModal from '../../../snippets/dialog/vue/non-modal.vue?raw';
 import dialogVueOpenFromMenu from '../../../snippets/dialog/vue/open-from-menu.vue?raw';
 import dialogVueOutsideScroll from '../../../snippets/dialog/vue/outside-scroll.vue?raw';
 import dialogVueRootProvider from '../../../snippets/dialog/vue/root-provider-and-ark-context-hooks.vue?raw';
+import dialogVueSizes from '../../../snippets/dialog/vue/sizes.vue?raw';
 
 ## Référence de l’API
 
@@ -319,7 +322,8 @@ Conservez `open` dans l’état React, un signal Solid ou une ref Vue, puis lise
 ### Défilement interne
 
 Rendez uniquement le contenu principal défilable lorsque le titre et les actions doivent rester
-visibles.
+visibles. `scrollBehavior="inside"` sur `DialogContent` fait défiler `DialogBody` sans style
+supplémentaire ; une `ScrollArea` de hauteur fixe, comme dans cet exemple, convient aussi.
 
 <ExampleFrame variant="component">
   <DialogInsideScroll />
@@ -576,7 +580,8 @@ confirmation.
 ### Défilement externe
 
 Laissez `DialogPositioner` faire défiler l’ensemble du dialogue lorsque son contenu est long et
-doit conserver sa hauteur naturelle.
+doit conserver sa hauteur naturelle. C’est le `scrollBehavior` par défaut ; `placement="top"` place
+le dialogue en haut de l’écran.
 
 <ExampleFrame variant="component">
   <DialogOutsideScroll />
@@ -657,6 +662,53 @@ composants réutilisables.
 
     </Tab>
   </Tabs>
+</div>
+
+</ExampleCode>
+
+### Tailles
+
+Définissez `size` sur `DialogContent` : `sm`, `md` (par défaut), `lg`, `xl` ou `full`. Utilisez
+`placement="top"` ou `placement="bottom"` pour éloigner la surface du centre, et
+`scrollBehavior="inside"` pour limiter le dialogue à la hauteur de l’écran et faire défiler `DialogBody`.
+
+<ExampleFrame variant="component">
+  <DialogSizes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/dialog/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={dialogSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={dialogVueSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/dialog/dialog-sizes.module.css"
+```
 </div>
 
 </ExampleCode>

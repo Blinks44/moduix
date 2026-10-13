@@ -9,6 +9,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { isHotKey } from '@ark-ui/solid/hotkeys';
 import type { ComponentProps } from 'solid-js';
 import { children, createEffect, onCleanup, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui/Icons';
@@ -19,9 +20,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { Kbd } from '../kbd';
 import { ScrollArea, ScrollAreaContent, ScrollAreaViewport } from '../scroll-area';
-
-const DEFAULT_CLEAR_TRIGGER_LABEL = 'Clear search';
-const DEFAULT_SEARCH_INPUT_LABEL = 'Search commands';
 
 type CommandPaletteProps = ComponentProps<typeof DialogPrimitive.Root> & {
   shortcut?: false | string;
@@ -318,7 +316,7 @@ function CommandPaletteSearch(props: ComponentProps<typeof ComboboxPrimitive.Inp
       <CommandPaletteInput
         aria-label={
           local['aria-label'] ??
-          (local['aria-labelledby'] == null ? DEFAULT_SEARCH_INPUT_LABEL : undefined)
+          (local['aria-labelledby'] == null ? a11yLabels.searchCommands : undefined)
         }
         aria-labelledby={local['aria-labelledby']}
         {...others}
@@ -349,7 +347,7 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
           aria-label={
             local['aria-label'] ??
             (!local.asChild && local.children == null && local['aria-labelledby'] == null
-              ? DEFAULT_CLEAR_TRIGGER_LABEL
+              ? a11yLabels.clearSearch
               : undefined)
           }
           aria-labelledby={local['aria-labelledby']}

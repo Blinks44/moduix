@@ -9,7 +9,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { PlusIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Accordion.module.css';
 
 function Accordion(props: ComponentProps<typeof AccordionPrimitive.Root>) {
@@ -70,7 +70,7 @@ function AccordionItemIndicator(props: ComponentProps<typeof AccordionPrimitive.
       {...others}
       data-slot="accordion-item-indicator"
     >
-      {resolvedChildren() ?? <PlusIcon />}
+      {resolvedChildren() ?? <ChevronDownIcon />}
     </AccordionPrimitive.ItemIndicator>
   );
 }
@@ -118,3 +118,19 @@ export {
   useAccordionContext,
   useAccordionItemContext,
 };
+export type {
+  AccordionContextProps,
+  AccordionFocusChangeDetails,
+  AccordionItemContentProps,
+  AccordionItemContextProps,
+  AccordionItemIndicatorProps,
+  AccordionItemProps,
+  AccordionItemTriggerProps,
+  AccordionRootProps,
+  AccordionRootProviderProps,
+  AccordionValueChangeDetails,
+  UseAccordionContext,
+  UseAccordionItemContext,
+  UseAccordionProps,
+  UseAccordionReturn,
+} from '@ark-ui/solid/accordion';

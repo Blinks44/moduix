@@ -131,6 +131,10 @@
   }
 }
 
+/*
+ * Accordion panels fade to 0.01 rather than 0, as in Ark UI's reference styles.
+ * Shared by the CSS Modules and Tailwind accordions.
+ */
 @keyframes moduix-accordion-item-content-open {
   from {
     height: 0;

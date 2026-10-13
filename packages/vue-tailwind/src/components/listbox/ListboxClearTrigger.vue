@@ -2,6 +2,7 @@
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import CloseButton from '../close-button/CloseButton.vue';
@@ -23,7 +24,7 @@ const attrs = useAttrs();
 <template>
   <CloseButton
     v-bind="attrs"
-    :aria-label="props.ariaLabel ?? 'Clear search'"
+    :aria-label="props.ariaLabel ?? a11yLabels.clearSearch"
     :class="
       cn(
         'absolute end-3 top-1/2 size-control-xs -translate-y-1/2 rounded-sm bg-transparent text-muted-foreground [&>svg]:size-4 [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-foreground',

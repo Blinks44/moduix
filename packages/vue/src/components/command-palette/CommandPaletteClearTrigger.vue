@@ -7,6 +7,7 @@ import type { ComboboxClearTriggerProps } from '@ark-ui/vue/combobox';
 import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import closeButtonStyles from '../close-button/CloseButton.module.css';
 import styles from './CommandPalette.module.css';
@@ -46,7 +47,9 @@ const handlePointerDown = (event: PointerEvent) => {
     :as-child="asChild"
     :aria-label="
       ariaLabel ??
-      (!asChild && $slots.default == null && ariaLabelledby == null ? 'Clear search' : undefined)
+      (!asChild && $slots.default == null && ariaLabelledby == null
+        ? a11yLabels.clearSearch
+        : undefined)
     "
     :aria-labelledby="ariaLabelledby"
     :class="clsx(closeButtonStyles.root, styles.clearTrigger, className)"

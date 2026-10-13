@@ -14,6 +14,17 @@ import {
 import { CloseButton } from '../close-button';
 import styles from './Dialog.module.css';
 
+type DialogSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
+type DialogPlacement = 'center' | 'top' | 'bottom';
+type DialogScrollBehavior = 'outside' | 'inside';
+type DialogContentProps = ComponentProps<typeof DialogPrimitive.Content> & {
+  /** Width preset. `full` covers the viewport. */
+  size?: DialogSize;
+  /** Vertical position inside the positioner. */
+  placement?: DialogPlacement;
+  /** `outside` scrolls the positioner; `inside` caps the content and scrolls `DialogBody`. */
+  scrollBehavior?: DialogScrollBehavior;
+};
 type DialogRootProps = ComponentProps<typeof DialogPrimitive.Root> & OverlayPortalProps;
 type DialogRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
   OverlayPortalProps;
@@ -53,16 +64,8 @@ function DialogRootProvider({
 const DialogTrigger = forwardRef<
   ComponentRef<typeof DialogPrimitive.Trigger>,
   ComponentProps<typeof DialogPrimitive.Trigger>
->(function DialogTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <DialogPrimitive.Trigger
-      ref={ref}
-      asChild={asChild}
-      className={clsx(!asChild && styles.trigger, className)}
-      {...props}
-      data-slot="dialog-trigger"
-    />
-  );
+>(function DialogTrigger(props, ref) {
+  return <DialogPrimitive.Trigger ref={ref} {...props} data-slot="dialog-trigger" />;
 });
 
 const DialogBackdrop = forwardRef<
@@ -97,19 +100,24 @@ const DialogPositioner = forwardRef<
   );
 });
 
-const DialogContent = forwardRef<
-  ComponentRef<typeof DialogPrimitive.Content>,
-  ComponentProps<typeof DialogPrimitive.Content>
->(function DialogContent({ className, ...props }, ref) {
-  return (
-    <DialogPrimitive.Content
-      ref={ref}
-      className={clsx(styles.content, className)}
-      {...props}
-      data-slot="dialog-content"
-    />
-  );
-});
+const DialogContent = forwardRef<ComponentRef<typeof DialogPrimitive.Content>, DialogContentProps>(
+  function DialogContent(
+    { className, placement = 'center', scrollBehavior = 'outside', size = 'md', ...props },
+    ref,
+  ) {
+    return (
+      <DialogPrimitive.Content
+        ref={ref}
+        className={clsx(styles.content, className)}
+        {...props}
+        data-size={size}
+        data-placement={placement}
+        data-scroll-behavior={scrollBehavior}
+        data-slot="dialog-content"
+      />
+    );
+  },
+);
 
 const DialogTitle = forwardRef<
   ComponentRef<typeof DialogPrimitive.Title>,
@@ -142,16 +150,8 @@ const DialogDescription = forwardRef<
 const DialogCloseTrigger = forwardRef<
   ComponentRef<typeof DialogPrimitive.CloseTrigger>,
   ComponentProps<typeof DialogPrimitive.CloseTrigger>
->(function DialogCloseTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <DialogPrimitive.CloseTrigger
-      ref={ref}
-      asChild={asChild}
-      className={clsx(!asChild && styles.closeTrigger, className)}
-      {...props}
-      data-slot="dialog-close-trigger"
-    />
-  );
+>(function DialogCloseTrigger(props, ref) {
+  return <DialogPrimitive.CloseTrigger ref={ref} {...props} data-slot="dialog-close-trigger" />;
 });
 
 const DialogCloseIcon = forwardRef<
@@ -234,4 +234,11 @@ export {
   useDialog,
   useDialogContext,
 };
-export type { DialogRootProps, DialogRootProviderProps };
+export type {
+  DialogContentProps,
+  DialogPlacement,
+  DialogRootProps,
+  DialogRootProviderProps,
+  DialogScrollBehavior,
+  DialogSize,
+};

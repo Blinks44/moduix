@@ -10,11 +10,10 @@ import {
 import type { ToastOptions } from '@ark-ui/react/toast';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import type { OverlayPortalProps } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
-
-const DEFAULT_CLOSE_TRIGGER_LABEL = 'Close toast';
 
 type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
   OverlayPortalProps & {
@@ -133,7 +132,7 @@ const ToastCloseTrigger = forwardRef<
   ComponentRef<typeof ToastPrimitive.CloseTrigger>,
   ComponentProps<typeof ToastPrimitive.CloseTrigger>
 >(function ToastCloseTrigger(
-  { asChild, className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_TRIGGER_LABEL, ...props },
+  { asChild, className, children, 'aria-label': ariaLabel = a11yLabels.closeToast, ...props },
   ref,
 ) {
   if (asChild) {

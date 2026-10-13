@@ -3,10 +3,9 @@ import { DialogCloseTrigger as ArkDialogCloseTrigger, useDialogContext } from '@
 import type { DialogCloseTriggerProps } from '@ark-ui/vue/dialog';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import CloseButton from '../close-button/CloseButton.vue';
-
-const DEFAULT_CLOSE_LABEL = 'Close image';
 
 defineOptions({ inheritAttrs: false });
 
@@ -27,7 +26,7 @@ const closeState = computed(() => (dialog.value.open ? 'open' : 'closed'));
 <template>
   <ArkDialogCloseTrigger v-bind="attrs" as-child>
     <CloseButton
-      :aria-label="ariaLabel ?? DEFAULT_CLOSE_LABEL"
+      :aria-label="ariaLabel ?? a11yLabels.closeImage"
       :aria-labelledby="ariaLabelledby"
       :class="
         cn(

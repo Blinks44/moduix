@@ -3,6 +3,7 @@ import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
 import { useSidebar, useSidebarConfig } from './context';
@@ -21,7 +22,7 @@ const { side } = useSidebarConfig();
 const sidebar = useSidebar();
 const collapsed = sidebar.collapsed;
 const ariaLabel = computed(() =>
-  typeof attrs['aria-label'] === 'string' ? attrs['aria-label'] : 'Toggle sidebar',
+  typeof attrs['aria-label'] === 'string' ? attrs['aria-label'] : a11yLabels.toggleSidebar,
 );
 const handleClick = (event: MouseEvent) => {
   emit('click', event);

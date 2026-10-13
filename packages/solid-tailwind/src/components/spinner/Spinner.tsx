@@ -2,6 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
 import { splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 
 type SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -42,7 +43,7 @@ function Spinner(props: SpinnerProps) {
   const accessibleLabel = () =>
     decorative()
       ? undefined
-      : (local['aria-label'] ?? (local['aria-labelledby'] ? undefined : 'Loading'));
+      : (local['aria-label'] ?? (local['aria-labelledby'] ? undefined : a11yLabels.loading));
 
   return (
     <ark.span

@@ -172,3 +172,35 @@ packages/foundation`), run the tests, confirm they fail, then `git stash pop`. A
 6. Do not commit. Leave the changes in the working tree for the maintainer.
 7. Add an "Исправлено" section to the report: each fix with files and the check that proves it, and
    the validation results. In the chat, list what was fixed and what waits for a decision.
+
+### Applying "Needs a decision" items
+
+When the maintainer approves the "Ждёт решения" list ("сделай всё, что предлагаешь"), apply it in a
+second round on top of the first and add an "Исправлено, раунд 2" section. Extra rules for that round:
+
+- Before removing a CSS variable family, search the docs pages for it (`grep -rn '<prefix>'
+website/docs`). A family documented as a library mechanism (Dialog `--moduix-dialog-content-*`
+  in "Animations" → "Add a local exception", shared with Popover, Select, Navigation Menu) stays;
+  report it as a library-wide question instead.
+- Before removing a pattern from one component, grep sibling components for the same pattern
+  (Dialog native trigger styles also exist in Drawer and Popover) and report the new inconsistency.
+- Mark each change that alters default visuals or removes public API as **breaking** or **меняет
+  внешний вид** in the report.
+- New props follow the library pattern: a prop with a default, mirrored as `data-<prop>`, styled
+  with `&[data-<prop>='…']` in CSS Modules and `data-[<prop>=…]:` in Tailwind, types exported as in
+  `Switch` (`SwitchSize`). Private per-variant values use `--_<component>-*` custom properties.
+- Removing a variable updates `variables-moduix.css`, `website/src/components/examples/<slug>/
+css-properties.tsx`, `<slug>.md`, and every docs language (`website/docs/{en,ru,fr}`).
+- A shared internal file new to a package (for example `a11yLabels.ts` in Tailwind packages) also
+  needs a registry item and `registryDependencies` on every item that imports it; then
+  `build:registry`.
+- After many-component edits run the full test suite of every changed package, not only `<slug>`.
+
+Browser-test pitfalls seen in round 2:
+
+- `@rstest/browser` locators have no `.element()`; read DOM nodes with `document.querySelector`.
+- `element.click()` does not toggle an Ark accordion trigger; use `await locator.click()`.
+- `getBoundingClientRect()` includes transforms: a parent dialog scales when a nested dialog opens.
+  Use `offsetWidth`/`offsetHeight` for layout sizes.
+- Tailwind v4 `rotate-*` sets the `rotate` property, CSS Modules usually set `transform`; check
+  both when asserting a turned icon.

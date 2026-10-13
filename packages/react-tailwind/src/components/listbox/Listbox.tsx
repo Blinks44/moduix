@@ -15,6 +15,7 @@ import {
 import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
@@ -107,7 +108,13 @@ const ListboxFilter = forwardRef<HTMLDivElement, ComponentProps<'div'>>(function
 
 const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkProps<'button'>>(
   function ListboxClearTrigger(
-    { 'aria-label': ariaLabel = 'Clear search', className, children, type = 'button', ...props },
+    {
+      'aria-label': ariaLabel = a11yLabels.clearSearch,
+      className,
+      children,
+      type = 'button',
+      ...props
+    },
     ref,
   ) {
     return (

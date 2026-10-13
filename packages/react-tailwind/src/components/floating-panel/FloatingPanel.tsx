@@ -9,6 +9,7 @@ import {
 } from '@ark-ui/react/floating-panel';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { GripIcon, MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui';
 import {
@@ -18,7 +19,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close panel';
 const resizeTriggerAxes = [
   'n',
   'e',
@@ -243,7 +243,7 @@ const FloatingPanelCloseIcon = forwardRef<
   ComponentRef<typeof CloseButton>,
   Omit<ComponentProps<typeof FloatingPanelPrimitive.CloseTrigger>, 'asChild'>
 >(function FloatingPanelCloseIcon(
-  { className, children, 'aria-label': ariaLabel = DEFAULT_CLOSE_BUTTON_LABEL, ...props },
+  { className, children, 'aria-label': ariaLabel = a11yLabels.closePanel, ...props },
   ref,
 ) {
   return (

@@ -49,7 +49,8 @@ import accordionVueWithSlider from '../../../snippets/accordion/vue/with-slider.
 Используйте `Accordion` как корневой компонент и задайте каждому элементу стабильное значение
 `value`. Поместите интерактивный заголовок в триггер элемента, панель в часть содержимого, а её
 внутреннее содержимое в тело элемента. Индикатор состояния необязателен и по умолчанию отображает
-иконку плюса moduix.
+шеврон, который поворачивается при открытии. Оборачивайте каждый триггер в заголовок (в примерах
+`h3`), чтобы пользователи скринридеров могли переходить между разделами.
 
 React, Solid и Vue используют одинаковые плоские имена. Импортируйте `Accordion` как корневой
 компонент, а каждую дополнительную часть отдельно, например `AccordionItem` и
@@ -138,9 +139,10 @@ React, Solid и Vue используют одинаковые плоские и�
 ```text
 Accordion
 └─ AccordionItem[value]
- ├─ AccordionItemTrigger
- │  ├─ label
- │  └─ AccordionItemIndicator (необязательно)
+ ├─ h3 (рекомендуемый заголовок)
+ │  └─ AccordionItemTrigger
+ │     ├─ label
+ │     └─ AccordionItemIndicator (необязательно)
  └─ AccordionItemContent
     └─ AccordionItemBody
        └─ content
@@ -155,7 +157,7 @@ AccordionRootProvider
 | `AccordionRootProvider`  | Подключает части к состоянию, созданному с помощью `useAccordion()`.                |
 | `AccordionItem`          | Сворачиваемый элемент с обязательным стабильным значением `value`.                 |
 | `AccordionItemTrigger`   | Кнопка, открывающая и закрывающая элемент.                                          |
-| `AccordionItemIndicator` | Необязательный индикатор. Без содержимого moduix показывает иконку плюса.           |
+| `AccordionItemIndicator` | Необязательный индикатор. Без содержимого moduix показывает шеврон.           |
 | `AccordionItemContent`   | Раскрывающаяся панель с анимацией на основе измерений размера Ark.                  |
 | `AccordionItemBody`      | Внутренняя обёртка moduix с отступами панели по умолчанию.                          |
 

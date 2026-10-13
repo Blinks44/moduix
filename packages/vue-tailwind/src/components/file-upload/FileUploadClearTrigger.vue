@@ -3,6 +3,7 @@ import { FileUploadClearTrigger as ArkFileUploadClearTrigger } from '@ark-ui/vue
 import type { FileUploadClearTriggerProps } from '@ark-ui/vue/file-upload';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import CloseButton from '../close-button/CloseButton.vue';
@@ -18,7 +19,7 @@ const { ariaLabel, ariaLabelledby, asChild = false, class: className } = defineP
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const clearLabel = computed(
-  () => ariaLabel ?? (ariaLabelledby == null ? 'Clear files' : undefined),
+  () => ariaLabel ?? (ariaLabelledby == null ? a11yLabels.clearFiles : undefined),
 );
 </script>
 <template>

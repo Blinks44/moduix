@@ -48,6 +48,20 @@
       ]
     },
     {
+      "name": "a11y-labels",
+      "type": "registry:item",
+      "title": "moduix a11y labels",
+      "description": "Internal accessible label defaults required only by registry components that render text fallbacks.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/internal/a11yLabels.ts",
+          "target": "@lib/moduix/a11yLabels.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "event-handlers",
       "type": "registry:item",
       "title": "moduix Solid event handlers",
@@ -249,6 +263,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/icons"
       ],
       "files": [
@@ -361,6 +376,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/event-handlers"
       ],
@@ -410,6 +426,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/close-button",
         "@moduix-solid-tailwind/overlay-portal"
@@ -507,6 +524,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/close-button",
         "@moduix-solid-tailwind/overlay-portal"
       ],
@@ -532,6 +550,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/close-button",
         "@moduix-solid-tailwind/overlay-portal"
       ],
@@ -557,6 +576,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/close-button",
         "@moduix-solid-tailwind/overlay-portal",
         "@moduix-solid-tailwind/event-handlers"
@@ -583,6 +603,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/close-button"
       ],
@@ -736,6 +757,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/close-button"
       ],
@@ -761,6 +783,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/close-button",
         "@moduix-solid-tailwind/overlay-portal"
@@ -997,6 +1020,7 @@
         "@moduix-solid-tailwind/close-button",
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/button",
         "@moduix-solid-tailwind/input"
       ],
@@ -1066,6 +1090,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/kbd",
         "@moduix-solid-tailwind/overlay-portal",
@@ -1248,6 +1273,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/input",
         "@moduix-solid-tailwind/separator",
@@ -1369,6 +1395,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/close-button",
         "@moduix-solid-tailwind/overlay-portal"
       ],
@@ -1418,6 +1445,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/close-button",
         "@moduix-solid-tailwind/overlay-portal"
@@ -1566,7 +1594,11 @@
       "title": "Spinner",
       "description": "moduix Solid Tailwind Spinner component.",
       "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels"
+      ],
       "files": [
         {
           "path": "src/components/spinner/Spinner.tsx",
@@ -1589,6 +1621,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/button",
         "@moduix-solid-tailwind/icons",
         "@moduix-solid-tailwind/menu",
@@ -1717,7 +1750,11 @@
       "title": "Table",
       "description": "moduix Solid Tailwind Table component.",
       "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-solid-tailwind/foundation",
+        "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels"
+      ],
       "files": [
         {
           "path": "src/components/table/Table.tsx",
@@ -1760,6 +1797,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/close-button"
       ],
       "files": [
@@ -1893,6 +1931,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/close-button",
         "@moduix-solid-tailwind/overlay-portal"
       ],
@@ -2011,6 +2050,7 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
+        "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/close-button",
         "@moduix-solid-tailwind/overlay-portal"
       ],

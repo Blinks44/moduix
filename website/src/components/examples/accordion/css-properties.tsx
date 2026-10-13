@@ -23,33 +23,11 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'Controls trigger focus ring outline width.',
   ],
   [
-    '--moduix-accordion-horizontal-content-width',
-    '16rem',
-    'Controls the inner content width for horizontal accordions.',
-  ],
-  ['--moduix-accordion-horizontal-height', '20rem', 'Controls horizontal accordion height.'],
-  [
-    '--moduix-accordion-horizontal-max-height',
-    '100%',
-    'Controls horizontal accordion maximum height.',
-  ],
-  [
-    '--moduix-accordion-horizontal-trigger-width',
-    '2.5rem',
-    'Controls trigger width in horizontal orientation.',
-  ],
-  ['--moduix-accordion-horizontal-width', 'auto', 'Controls horizontal accordion width.'],
-  [
     '--moduix-accordion-icon-open-transform',
-    'rotate(45deg) scale(1.1)',
+    'rotate(180deg)',
     'Controls indicator transform when the item is open.',
   ],
   ['--moduix-accordion-icon-size', 'var(--moduix-spacing-3)', 'Controls indicator icon size.'],
-  [
-    '--moduix-accordion-icon-transition',
-    'var(--moduix-transition-default)',
-    'Controls indicator transition.',
-  ],
   [
     '--moduix-accordion-item-border-color',
     'var(--moduix-color-border)',
@@ -71,11 +49,6 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'Controls item body padding.',
   ],
   [
-    '--moduix-accordion-item-content-closed-opacity',
-    '0.01',
-    'Controls content opacity at the closed end of the animation.',
-  ],
-  [
     '--moduix-accordion-item-content-color',
     'var(--moduix-color-muted-foreground)',
     'Controls item content text color.',
@@ -85,36 +58,11 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-text-md)',
     'Controls item content font size.',
   ],
-  [
-    '--moduix-accordion-item-content-line-height',
-    'var(--moduix-line-height-text-md)',
-    'Controls item content line height.',
-  ],
-  [
-    '--moduix-accordion-item-content-open-opacity',
-    '1',
-    'Controls content opacity at the open end of the animation.',
-  ],
-  [
-    '--moduix-accordion-item-content-transition',
-    'var(--moduix-transition-default)',
-    'Controls item content open and close animation timing.',
-  ],
-  ['--moduix-accordion-max-width', '100%', 'Controls the maximum accordion width.'],
-  [
-    '--moduix-accordion-trigger-bg',
-    'var(--moduix-color-muted)',
-    'Controls trigger background color.',
-  ],
-  [
-    '--moduix-accordion-trigger-bg-active',
-    'var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-accent))',
-    'Controls trigger background color while pressed.',
-  ],
+  ['--moduix-accordion-trigger-bg', 'transparent', 'Controls trigger background color.'],
   [
     '--moduix-accordion-trigger-bg-hover',
-    'var(--moduix-color-accent)',
-    'Controls trigger background color on hover.',
+    'var(--moduix-color-muted)',
+    'Controls trigger background color on hover and while pressed.',
   ],
   [
     '--moduix-accordion-trigger-font-size',
@@ -127,11 +75,6 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'Controls spacing between trigger content and indicator.',
   ],
   [
-    '--moduix-accordion-trigger-line-height',
-    'var(--moduix-line-height-text-md)',
-    'Controls trigger text line height.',
-  ],
-  [
     '--moduix-accordion-trigger-padding-x',
     'var(--moduix-spacing-3)',
     'Controls trigger horizontal padding.',
@@ -141,5 +84,4 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-spacing-2)',
     'Controls trigger vertical padding.',
   ],
-  ['--moduix-accordion-width', '100%', 'Controls the default accordion width.'],
 ];

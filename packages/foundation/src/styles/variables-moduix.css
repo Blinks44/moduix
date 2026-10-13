@@ -67,34 +67,20 @@
   --moduix-accordion-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-accordion-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
   --moduix-accordion-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
-  --moduix-accordion-horizontal-content-width: initial; /* 16rem */
-  --moduix-accordion-horizontal-height: initial; /* 20rem */
-  --moduix-accordion-horizontal-max-height: initial; /* 100% */
-  --moduix-accordion-horizontal-trigger-width: initial; /* 2.5rem */
-  --moduix-accordion-horizontal-width: initial; /* auto */
-  --moduix-accordion-icon-open-transform: initial; /* rotate(45deg) scale(1.1) */
+  --moduix-accordion-icon-open-transform: initial; /* rotate(180deg) */
   --moduix-accordion-icon-size: initial; /* var(--moduix-spacing-3) */
-  --moduix-accordion-icon-transition: initial; /* var(--moduix-transition-default) */
   --moduix-accordion-item-border-color: initial; /* var(--moduix-color-border) */
   --moduix-accordion-item-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-accordion-item-body-gap: initial; /* var(--moduix-spacing-3) */
   --moduix-accordion-item-body-padding: initial; /* var(--moduix-spacing-3) */
-  --moduix-accordion-item-content-closed-opacity: initial; /* 0.01 */
   --moduix-accordion-item-content-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-accordion-item-content-font-size: initial; /* var(--moduix-text-md) */
-  --moduix-accordion-item-content-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-accordion-item-content-open-opacity: initial; /* 1 */
-  --moduix-accordion-item-content-transition: initial; /* var(--moduix-transition-default) */
-  --moduix-accordion-max-width: initial; /* 100% */
-  --moduix-accordion-trigger-bg: initial; /* var(--moduix-color-muted) */
-  --moduix-accordion-trigger-bg-active: initial; /* var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-accent)) */
-  --moduix-accordion-trigger-bg-hover: initial; /* var(--moduix-color-accent) */
+  --moduix-accordion-trigger-bg: initial; /* transparent */
+  --moduix-accordion-trigger-bg-hover: initial; /* var(--moduix-color-muted) */
   --moduix-accordion-trigger-font-size: initial; /* var(--moduix-text-md) */
   --moduix-accordion-trigger-gap: initial; /* var(--moduix-spacing-4) */
-  --moduix-accordion-trigger-line-height: initial; /* var(--moduix-line-height-text-md) */
   --moduix-accordion-trigger-padding-x: initial; /* var(--moduix-spacing-3) */
   --moduix-accordion-trigger-padding-y: initial; /* var(--moduix-spacing-2) */
-  --moduix-accordion-width: initial; /* 100% */
   /* AngleSlider */
   --moduix-angle-slider-color: initial; /* var(--moduix-color-foreground) */
   --moduix-angle-slider-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
@@ -1006,42 +992,22 @@
   --moduix-dialog-bg: initial; /* var(--moduix-color-popover) */
   --moduix-dialog-border-color: initial; /* var(--moduix-color-border) */
   --moduix-dialog-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-dialog-close-icon-bg: initial; /* transparent */
-  --moduix-dialog-close-icon-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-dialog-close-icon-color: initial; /* var(--moduix-dialog-muted-color) */
-  --moduix-dialog-close-icon-color-hover: initial; /* var(--moduix-dialog-close-icon-color, var(--moduix-dialog-color)) */
-  --moduix-dialog-close-icon-focus-ring-color: initial; /* var(--moduix-dialog-focus-ring-color, var(--moduix-color-ring)) */
-  --moduix-dialog-close-icon-glyph-size: initial; /* var(--moduix-spacing-4) */
+  --moduix-dialog-body-margin-top: initial; /* var(--moduix-spacing-4) */
   --moduix-dialog-close-icon-inset-block-start: initial; /* var(--moduix-spacing-4) */
   --moduix-dialog-close-icon-inset-inline-end: initial; /* var(--moduix-spacing-4) */
-  --moduix-dialog-close-icon-radius: initial; /* var(--moduix-radius-md) */
   --moduix-dialog-close-icon-size: initial; /* var(--moduix-spacing-7) */
   --moduix-dialog-color: initial; /* var(--moduix-color-popover-foreground) */
   --moduix-dialog-content-ending-opacity: initial; /* 0 */
   --moduix-dialog-content-ending-scale: initial; /* var(--moduix-scale-popup) */
   --moduix-dialog-content-ending-translate-x: initial; /* 0 */
   --moduix-dialog-content-ending-translate-y: initial; /* 0 */
-  --moduix-dialog-content-margin: initial; /* var(--moduix-spacing-4) 0 0 */
   --moduix-dialog-content-starting-opacity: initial; /* 0 */
   --moduix-dialog-content-starting-scale: initial; /* var(--moduix-scale-popup) */
   --moduix-dialog-content-starting-translate-x: initial; /* 0 */
   --moduix-dialog-content-starting-translate-y: initial; /* 0 */
-  --moduix-dialog-control-bg: initial; /* var(--moduix-color-background) */
-  --moduix-dialog-control-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-dialog-control-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-dialog-control-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-dialog-control-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-dialog-control-font-size: initial; /* var(--moduix-text-md) */
-  --moduix-dialog-control-height: initial; /* var(--moduix-size-md) */
-  --moduix-dialog-control-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-dialog-control-padding-x: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-dialog-control-padding-y: initial; /* var(--moduix-spacing-1) */
-  --moduix-dialog-control-radius: initial; /* var(--moduix-radius-md) */
   --moduix-dialog-description-color: initial; /* var(--moduix-dialog-muted-color) */
   --moduix-dialog-description-font-size: initial; /* var(--moduix-text-md) */
   --moduix-dialog-description-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-dialog-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-dialog-focus-ring-width: initial; /* var(--moduix-dialog-control-border-width, var(--moduix-border-width-sm)) */
   --moduix-dialog-footer-gap: initial; /* var(--moduix-spacing-2) */
   --moduix-dialog-footer-margin-top: initial; /* var(--moduix-spacing-6) */
   --moduix-dialog-header-gap: initial; /* var(--moduix-spacing-1) */
@@ -1060,7 +1026,7 @@
   --moduix-dialog-title-font-weight: initial; /* var(--moduix-weight-semibold) */
   --moduix-dialog-title-line-height: initial; /* var(--moduix-line-height-text-lg) */
   --moduix-dialog-transition: initial; /* var(--moduix-transition-default) */
-  --moduix-dialog-width: initial; /* 28rem */
+  --moduix-dialog-width: initial; /* 28rem; DialogContent size sets 24rem, 32rem, or 36rem */
 
   /* Drawer */
   --moduix-drawer-backdrop-bg: initial; /* var(--moduix-backdrop-bg, var(--moduix-color-overlay)) */

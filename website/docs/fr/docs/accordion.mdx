@@ -48,7 +48,8 @@ et le même état. Pour une seule section indépendante, préférez `Collapsible
 Utilisez `Accordion` comme racine et attribuez un identifiant `value` stable à chaque élément.
 Placez le libellé interactif dans le déclencheur, le panneau dans la partie de contenu, puis son
 contenu interne dans le corps de l'élément. L'indicateur est facultatif et affiche par défaut
-l'icône plus de moduix.
+un chevron qui pivote à l'ouverture. Placez chaque déclencheur dans un titre (`h3` dans les
+exemples) pour que les lecteurs d'écran puissent passer d'une section à l'autre.
 
 React, Solid et Vue utilisent les mêmes noms plats. Importez `Accordion` comme racine et chaque
 partie supplémentaire directement, par exemple `AccordionItem` et `AccordionItemTrigger`. Les mêmes
@@ -137,9 +138,10 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ```text
 Accordion
 └─ AccordionItem[value]
- ├─ AccordionItemTrigger
- │  ├─ label
- │  └─ AccordionItemIndicator (facultatif)
+ ├─ h3 (titre recommandé)
+ │  └─ AccordionItemTrigger
+ │     ├─ label
+ │     └─ AccordionItemIndicator (facultatif)
  └─ AccordionItemContent
     └─ AccordionItemBody
        └─ content
@@ -154,7 +156,7 @@ AccordionRootProvider
 | `AccordionRootProvider`  | Fournit aux parties l'état créé avec `useAccordion()`.                                        |
 | `AccordionItem`          | Élément repliable avec une valeur `value` obligatoire et stable.                             |
 | `AccordionItemTrigger`   | Bouton qui ouvre ou ferme l'élément.                                                          |
-| `AccordionItemIndicator` | Indicateur facultatif. Affiche l'icône plus de moduix sans contenu enfant.                    |
+| `AccordionItemIndicator` | Indicateur facultatif. Affiche un chevron sans contenu enfant.                    |
 | `AccordionItemContent`   | Panneau repliable qui utilise l'animation fondée sur les mesures de taille d'Ark.             |
 | `AccordionItemBody`      | Conteneur interne moduix qui fournit l'espacement par défaut du panneau.                      |
 

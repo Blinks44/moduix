@@ -8,7 +8,8 @@
     "@moduix-vue-tailwind/foundation",
     "@moduix-vue-tailwind/cn",
     "@moduix-vue-tailwind/close-button",
-    "@moduix-vue-tailwind/overlay-portal"
+    "@moduix-vue-tailwind/overlay-portal",
+    "@moduix-vue-tailwind/a11y-labels"
   ],
   "files": [
     {
@@ -79,7 +80,7 @@
     },
     {
       "path": "src/components/drawer/DrawerCloseIcon.vue",
-      "content": "<script setup lang=\"ts\">\nimport { DrawerCloseTrigger as ArkDrawerCloseTrigger } from '@ark-ui/vue/drawer';\nimport type { DrawerCloseTriggerProps } from '@ark-ui/vue/drawer';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { cn } from '@/lib/moduix/cn';\nimport CloseButton from '../close-button/CloseButton.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ Omit<DrawerCloseTriggerProps, 'asChild'> {\n  ariaLabel?: string;\n  class?: HTMLAttributes['class'];\n}\n\nconst { ariaLabel, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\nconst closeIconClass =\n  'size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground';\n</script>\n\n<template>\n  <ArkDrawerCloseTrigger v-bind=\"attrs\" as-child>\n    <CloseButton\n      :aria-label=\"ariaLabel ?? 'Close drawer'\"\n      :class=\"cn(closeIconClass, className)\"\n      data-slot=\"drawer-close-icon\"\n    >\n      <slot v-if=\"$slots.default\" />\n    </CloseButton>\n  </ArkDrawerCloseTrigger>\n</template>",
+      "content": "<script setup lang=\"ts\">\nimport { DrawerCloseTrigger as ArkDrawerCloseTrigger } from '@ark-ui/vue/drawer';\nimport type { DrawerCloseTriggerProps } from '@ark-ui/vue/drawer';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { a11yLabels } from '@/lib/moduix/a11yLabels';\nimport { cn } from '@/lib/moduix/cn';\nimport CloseButton from '../close-button/CloseButton.vue';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ Omit<DrawerCloseTriggerProps, 'asChild'> {\n  ariaLabel?: string;\n  class?: HTMLAttributes['class'];\n}\n\nconst { ariaLabel, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\nconst attrs = useAttrs();\nconst closeIconClass =\n  'size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground';\n</script>\n\n<template>\n  <ArkDrawerCloseTrigger v-bind=\"attrs\" as-child>\n    <CloseButton\n      :aria-label=\"ariaLabel ?? a11yLabels.closeDrawer\"\n      :class=\"cn(closeIconClass, className)\"\n      data-slot=\"drawer-close-icon\"\n    >\n      <slot v-if=\"$slots.default\" />\n    </CloseButton>\n  </ArkDrawerCloseTrigger>\n</template>",
       "type": "registry:component",
       "target": "@components/ui/drawer/DrawerCloseIcon.vue"
     },

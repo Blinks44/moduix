@@ -32,6 +32,19 @@ state, focus targets, modal behavior, presence options, dismissal callbacks, `id
 `onOpenChange` keeps the Ark callback shape: `(details) => void`, with the current state in
 `details.open`. `modal` is boolean; the legacy `"trap-focus"` mode is not supported.
 
+`DialogContent` adds three moduix props, each mirrored as a data attribute:
+
+| Prop             | Values                                   | Default     | Attribute              |
+| ---------------- | ---------------------------------------- | ----------- | ---------------------- |
+| `size`           | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'`      | `data-size`            |
+| `placement`      | `'center' \| 'top' \| 'bottom'`          | `'center'`  | `data-placement`       |
+| `scrollBehavior` | `'outside' \| 'inside'`                  | `'outside'` | `data-scroll-behavior` |
+
+Sizes set widths of 24rem, 28rem, 32rem, and 36rem; `full` covers the viewport and removes the
+positioner padding, border, and radius. `outside` scrolls the positioner; `inside` caps the content
+at the viewport height and scrolls `DialogBody`. The types are exported as `DialogSize`,
+`DialogPlacement`, and `DialogScrollBehavior`.
+
 ## Anatomy and exported parts
 
 ```text
@@ -139,13 +152,16 @@ rendered `CloseButton`.
 
 ## Defaults and styling
 
-Default dialog and close controls use `--moduix-size-md` with `--moduix-spacing-1` block padding.
+Native `DialogTrigger` and `DialogCloseTrigger` buttons are unstyled. Compose them with `asChild`
+and `Button`, as every example does.
 
 Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-dialog-*` content-motion
 variables remain the more specific override. Backdrop motion remains separate.
 
-Moduix supplies visual defaults for native trigger/close buttons, backdrop, centered positioner,
-content surface, typography, layout helpers, motion, and close icon.
+Moduix supplies visual defaults for the backdrop, centered positioner, content surface, typography,
+layout helpers, motion, and close icon. `DialogDescription` is muted; `DialogBody` inherits the
+content color. The close icon is a `CloseButton`; restyle it with `--moduix-close-button-*` variables
+or a class, and move it with `--moduix-dialog-close-icon-size` and the two inset variables.
 
 Dismissible overlays share the `--moduix-z-popup` base. Content adds Ark's `--layer-index`;
 Ark mirrors its computed `--z-index` onto the positioner and backdrop, which sits one level below.
@@ -153,8 +169,8 @@ Set custom stacking on content, not an independent positioner/backdrop layer.
 
 `DialogPositioner` centers content with `place-items: safe center` and scrolls when content is
 taller than the viewport, so the top of tall content stays reachable; `DialogContent` has no
-`max-height`. For an internal scroll region, give a child a fixed height (see the inside-scroll
-example). When `DialogCloseIcon` is present, `DialogTitle` reserves inline-end space for it.
+`max-height` unless `scrollBehavior="inside"` is set. For a custom scroll region, give a child a
+fixed height (see the inside-scroll example). When `DialogCloseIcon` is present, `DialogTitle` reserves inline-end space for it.
 `DialogFooter` wraps its actions when they do not fit on one line.
 
 Open and close animations use Ark `data-state="open|closed"`. Nested scaling uses
@@ -176,8 +192,9 @@ while Ark keeps its presence lifecycle intact. Public `--moduix-dialog-*` tokens
 - moduix exports Ark's `useDialog` and `useDialogContext` hooks alongside `Dialog`, and includes
   `DialogContext`, so provider and context workflows stay on the moduix public surface. Direct Ark
   imports remain escape hatches.
-- `DialogTrigger` and `DialogCloseTrigger` receive moduix button styling only when they render
-  their native button. `asChild` leaves the child component's visual styling in control.
+- `DialogTrigger` and `DialogCloseTrigger` add no styles; use `asChild` with `Button`.
+- `DialogContent` adds `size`, `placement`, and `scrollBehavior` presets, following Chakra UI's
+  dialog options.
 - Legacy exports were removed: `createDialogHandle`, `DialogPortal`, `DialogViewport`,
   `DialogPopup`, flat part aliases, hidden `DialogContent` overlay composition, `render`, `handle`,
   and payload APIs.
@@ -195,6 +212,11 @@ content after the first open; set both props to `false` only when eager initial 
 
 ## Local changelog
 
+- 2026-10-13: Added `size`, `placement`, and `scrollBehavior` to `DialogContent`. Removed native
+  trigger styling and its 11 `--moduix-dialog-control-*` variables, the dialog focus-ring variables,
+  and the close-icon variables that only forwarded to `CloseButton`. `DialogBody` now inherits the
+  content color, and `--moduix-dialog-content-margin` became `--moduix-dialog-body-margin-top`. CSS
+  Modules use the shared foundation dialog keyframes.
 - 2026-10-13: Tall content now grows the surface and scrolls the positioner instead of spilling
   past a fixed `max-height`; long titles keep clear of `DialogCloseIcon`; footer actions wrap on
   narrow screens; Tailwind variants use the same token-driven dialog keyframes as CSS Modules.

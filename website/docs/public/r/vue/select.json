@@ -8,7 +8,8 @@
     "@moduix-vue/foundation",
     "@moduix-vue/icons",
     "@moduix-vue/close-button",
-    "@moduix-vue/overlay-portal"
+    "@moduix-vue/overlay-portal",
+    "@moduix-vue/a11y-labels"
   ],
   "files": [
     {
@@ -55,7 +56,7 @@
     },
     {
       "path": "src/components/select/SelectClearTrigger.vue",
-      "content": "<script setup lang=\"ts\">\nimport { SelectClearTrigger as ArkSelectClearTrigger } from '@ark-ui/vue/select';\nimport type { SelectClearTriggerProps } from '@ark-ui/vue/select';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport CloseButton from '../close-button/CloseButton.vue';\nimport styles from './Select.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectClearTriggerProps {\n  ariaLabel?: string;\n  ariaLabelledby?: string;\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { ariaLabel, ariaLabelledby, asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectClearTrigger\n    v-if=\"asChild\"\n    v-bind=\"attrs\"\n    as-child\n    :aria-label=\"ariaLabel\"\n    :aria-labelledby=\"ariaLabelledby\"\n    :class=\"clsx(styles.clearTrigger, className)\"\n    data-slot=\"select-clear-trigger\"\n  >\n    <slot />\n  </ArkSelectClearTrigger>\n  <ArkSelectClearTrigger\n    v-else\n    v-bind=\"attrs\"\n    as-child\n    :class=\"clsx(styles.clearTrigger, className)\"\n    data-slot=\"select-clear-trigger\"\n  >\n    <CloseButton\n      :aria-label=\"ariaLabel ?? (ariaLabelledby == null ? 'Clear selection' : undefined)\"\n      :aria-labelledby=\"ariaLabelledby\"\n    >\n      <slot />\n    </CloseButton>\n  </ArkSelectClearTrigger>\n</template>",
+      "content": "<script setup lang=\"ts\">\nimport { SelectClearTrigger as ArkSelectClearTrigger } from '@ark-ui/vue/select';\nimport type { SelectClearTriggerProps } from '@ark-ui/vue/select';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { a11yLabels } from '@/lib/moduix/a11yLabels';\nimport CloseButton from '../close-button/CloseButton.vue';\nimport styles from './Select.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ SelectClearTriggerProps {\n  ariaLabel?: string;\n  ariaLabelledby?: string;\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { ariaLabel, ariaLabelledby, asChild = false, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkSelectClearTrigger\n    v-if=\"asChild\"\n    v-bind=\"attrs\"\n    as-child\n    :aria-label=\"ariaLabel\"\n    :aria-labelledby=\"ariaLabelledby\"\n    :class=\"clsx(styles.clearTrigger, className)\"\n    data-slot=\"select-clear-trigger\"\n  >\n    <slot />\n  </ArkSelectClearTrigger>\n  <ArkSelectClearTrigger\n    v-else\n    v-bind=\"attrs\"\n    as-child\n    :class=\"clsx(styles.clearTrigger, className)\"\n    data-slot=\"select-clear-trigger\"\n  >\n    <CloseButton\n      :aria-label=\"ariaLabel ?? (ariaLabelledby == null ? a11yLabels.clearSelection : undefined)\"\n      :aria-labelledby=\"ariaLabelledby\"\n    >\n      <slot />\n    </CloseButton>\n  </ArkSelectClearTrigger>\n</template>",
       "type": "registry:component",
       "target": "@components/ui/select/SelectClearTrigger.vue"
     },

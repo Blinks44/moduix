@@ -47,7 +47,8 @@ Use `Accordion` when several related sections should share keyboard navigation a
 
 Use `Accordion` as the root and give every item a stable `value`. Put the interactive label in the
 item trigger, the panel in the item content, and the panel's inner content in the item body. The
-item indicator is optional and defaults to the moduix plus icon.
+item indicator is optional and defaults to a chevron that turns when the item opens. Wrap each
+trigger in a heading (`h3` in the examples) so screen reader users can jump between sections.
 
 React, Solid, and Vue use the same flat value names. Import `Accordion` as the root and import each
 additional part directly, such as `AccordionItem` and `AccordionItemTrigger`. The same names work
@@ -136,9 +137,10 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ```text
 Accordion
 └─ AccordionItem[value]
- ├─ AccordionItemTrigger
- │  ├─ label
- │  └─ AccordionItemIndicator (optional)
+ ├─ h3 (recommended heading)
+ │  └─ AccordionItemTrigger
+ │     ├─ label
+ │     └─ AccordionItemIndicator (optional)
  └─ AccordionItemContent
     └─ AccordionItemBody
        └─ content
@@ -153,7 +155,7 @@ AccordionRootProvider
 | `AccordionRootProvider`  | Connects the parts to state created with `useAccordion()`.                                |
 | `AccordionItem`          | A collapsible item with a required, stable `value`.                                       |
 | `AccordionItemTrigger`   | The button that opens or closes the item.                                                 |
-| `AccordionItemIndicator` | Optional state indicator. Defaults to the moduix plus icon when no children are provided. |
+| `AccordionItemIndicator` | Optional state indicator. Defaults to a chevron when no children are provided. |
 | `AccordionItemContent`   | The collapsible panel, with Ark's size-animation behavior.                                |
 | `AccordionItemBody`      | The moduix inner wrapper that provides default panel spacing.                             |
 

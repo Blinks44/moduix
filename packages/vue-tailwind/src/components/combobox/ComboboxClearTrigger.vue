@@ -3,6 +3,7 @@ import { ComboboxClearTrigger as ArkComboboxClearTrigger } from '@ark-ui/vue/com
 import type { ComboboxClearTriggerProps } from '@ark-ui/vue/combobox';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import CloseButton from '../close-button/CloseButton.vue';
 
@@ -43,7 +44,7 @@ const triggerClass =
     data-slot="combobox-clear-trigger"
   >
     <CloseButton
-      :aria-label="ariaLabel ?? (ariaLabelledby == null ? 'Clear selection' : undefined)"
+      :aria-label="ariaLabel ?? (ariaLabelledby == null ? a11yLabels.clearSelection : undefined)"
       :aria-labelledby="ariaLabelledby"
     >
       <slot />

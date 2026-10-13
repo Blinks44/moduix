@@ -205,9 +205,9 @@ test('applies consumer classes after CSS Module defaults', () => {
       '<Dialog default-open :portalled="false"><DialogTrigger class="consumer-trigger">Open dialog</DialogTrigger><DialogBackdrop /><DialogPositioner><DialogContent class="consumer-content"><DialogHeader><DialogTitle>Preferences</DialogTitle><DialogCloseIcon class="consumer-close" /><DialogDescription>Description</DialogDescription></DialogHeader><DialogBody class="consumer-body">Body</DialogBody><DialogFooter class="consumer-footer">Footer</DialogFooter></DialogContent></DialogPositioner></Dialog>',
   });
   render(Harness);
-  expect(Array.from(document.querySelector('[data-slot="dialog-trigger"]')!.classList)).toEqual(
-    expect.arrayContaining(['consumer-trigger', styles.trigger]),
-  );
+  expect(Array.from(document.querySelector('[data-slot="dialog-trigger"]')!.classList)).toEqual([
+    'consumer-trigger',
+  ]);
   expect(Array.from(document.querySelector('[role="dialog"]')!.classList)).toEqual(
     expect.arrayContaining(['consumer-content', styles.content]),
   );
@@ -368,4 +368,125 @@ test('wraps footer actions that do not fit on one line', async () => {
     expect(rect.left).toBeGreaterThanOrEqual(footer.left - 1);
     expect(rect.right).toBeLessThanOrEqual(footer.right + 1);
   }
+});
+
+test('keeps the body in the content color and mutes only the description', async () => {
+  render(
+    defineComponent({
+      components: { ...dialogComponents, Button },
+      template: `
+          <Dialog default-open :portalled="false">
+            <DialogPositioner>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Preferences</DialogTitle>
+                  <DialogDescription>Description</DialogDescription>
+                </DialogHeader>
+                <DialogBody>Body</DialogBody>
+              </DialogContent>
+            </DialogPositioner>
+          </Dialog>
+      `,
+    }),
+  );
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  const content = document.querySelector<HTMLElement>('[data-slot="dialog-content"]')!;
+  const body = document.querySelector<HTMLElement>('[data-slot="dialog-body"]')!;
+  const description = document.querySelector<HTMLElement>('[data-slot="dialog-description"]')!;
+
+  expect(content.dataset.size).toBe('md');
+  expect(content.dataset.placement).toBe('center');
+  expect(content.dataset.scrollBehavior).toBe('outside');
+  expect(getComputedStyle(body).color).toBe(getComputedStyle(content).color);
+  expect(getComputedStyle(description).color).not.toBe(getComputedStyle(content).color);
+});
+
+test('applies width presets from the size prop', async () => {
+  render(
+    defineComponent({
+      components: { ...dialogComponents, Button },
+      template: `
+            <Dialog default-open :portalled="false">
+              <DialogPositioner>
+                <DialogContent size="sm" data-testid="sm">
+                  <DialogTitle>Small</DialogTitle>
+                </DialogContent>
+              </DialogPositioner>
+            </Dialog>
+            <Dialog default-open :portalled="false">
+              <DialogPositioner data-testid="full-positioner">
+                <DialogContent size="full" data-testid="full">
+                  <DialogTitle>Full</DialogTitle>
+                </DialogContent>
+              </DialogPositioner>
+            </Dialog>
+      `,
+    }),
+  );
+
+  await expect.element(page.getByTestId('sm')).toBeVisible();
+  // offsetWidth ignores the scale Ark applies to a dialog that has a nested dialog open.
+  const small = document.querySelector<HTMLElement>('[data-testid="sm"]')!;
+  const full = document.querySelector<HTMLElement>('[data-testid="full"]')!;
+  const fullPositioner = document.querySelector<HTMLElement>('[data-testid="full-positioner"]')!;
+
+  expect(Math.abs(small.offsetWidth - Math.min(384, window.innerWidth - 32))).toBeLessThanOrEqual(
+    1,
+  );
+  expect(Math.abs(full.offsetWidth - fullPositioner.clientWidth)).toBeLessThanOrEqual(1);
+  expect(full.offsetHeight).toBeGreaterThanOrEqual(fullPositioner.clientHeight - 1);
+});
+
+test('places the content at the top and scrolls the body inside', async () => {
+  render(
+    defineComponent({
+      components: { ...dialogComponents, Button },
+      template: `
+          <Dialog default-open :portalled="false">
+            <DialogPositioner>
+              <DialogContent placement="top" scroll-behavior="inside">
+                <DialogTitle>Terms</DialogTitle>
+                <DialogBody>
+                  <div style="height: 200vh">Tall content</div>
+                </DialogBody>
+                <DialogFooter>
+                  <Button>Accept</Button>
+                </DialogFooter>
+              </DialogContent>
+            </DialogPositioner>
+          </Dialog>
+      `,
+    }),
+  );
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  const positioner = document.querySelector<HTMLElement>('[data-slot="dialog-positioner"]')!;
+  const body = document.querySelector<HTMLElement>('[data-slot="dialog-body"]')!;
+  const content = document.querySelector('[role="dialog"]')!.getBoundingClientRect();
+  const footer = document.querySelector('[data-slot="dialog-footer"]')!.getBoundingClientRect();
+
+  expect(
+    Math.abs(content.top - parseFloat(getComputedStyle(positioner).paddingTop)),
+  ).toBeLessThanOrEqual(1);
+  expect(content.bottom).toBeLessThanOrEqual(window.innerHeight + 1);
+  expect(footer.bottom).toBeLessThanOrEqual(content.bottom + 1);
+  expect(body.scrollHeight).toBeGreaterThan(body.clientHeight);
+  expect(positioner.scrollHeight).toBeLessThanOrEqual(positioner.clientHeight + 1);
+});
+
+test('leaves a native trigger unstyled', async () => {
+  render(
+    defineComponent({
+      components: { ...dialogComponents, Button },
+      template: `
+          <Dialog :portalled="false">
+            <DialogTrigger>Open dialog</DialogTrigger>
+          </Dialog>
+      `,
+    }),
+  );
+
+  await expect.element(page.getByRole('button', { name: 'Open dialog' })).toBeVisible();
+  expect(document.querySelector('[data-slot="dialog-trigger"]')!.className).toBe('');
 });

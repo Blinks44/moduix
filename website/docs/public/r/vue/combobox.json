@@ -8,7 +8,8 @@
     "@moduix-vue/foundation",
     "@moduix-vue/icons",
     "@moduix-vue/close-button",
-    "@moduix-vue/overlay-portal"
+    "@moduix-vue/overlay-portal",
+    "@moduix-vue/a11y-labels"
   ],
   "files": [
     {
@@ -43,7 +44,7 @@
     },
     {
       "path": "src/components/combobox/ComboboxClearTrigger.vue",
-      "content": "<script setup lang=\"ts\">\nimport { ComboboxClearTrigger as ArkComboboxClearTrigger } from '@ark-ui/vue/combobox';\nimport type { ComboboxClearTriggerProps } from '@ark-ui/vue/combobox';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport CloseButton from '../close-button/CloseButton.vue';\nimport styles from './Combobox.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ComboboxClearTriggerProps {\n  ariaLabel?: string;\n  ariaLabelledby?: string;\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { ariaLabel, ariaLabelledby, asChild, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkComboboxClearTrigger\n    v-if=\"asChild\"\n    v-bind=\"attrs\"\n    as-child\n    :aria-label=\"ariaLabel\"\n    :aria-labelledby=\"ariaLabelledby\"\n    :class=\"clsx(styles.clearTrigger, className)\"\n    data-slot=\"combobox-clear-trigger\"\n  >\n    <slot />\n  </ArkComboboxClearTrigger>\n  <ArkComboboxClearTrigger\n    v-else\n    v-bind=\"attrs\"\n    as-child\n    :class=\"clsx(styles.clearTrigger, className)\"\n    data-slot=\"combobox-clear-trigger\"\n  >\n    <CloseButton\n      :aria-label=\"ariaLabel ?? (ariaLabelledby == null ? 'Clear selection' : undefined)\"\n      :aria-labelledby=\"ariaLabelledby\"\n    >\n      <slot />\n    </CloseButton>\n  </ArkComboboxClearTrigger>\n</template>",
+      "content": "<script setup lang=\"ts\">\nimport { ComboboxClearTrigger as ArkComboboxClearTrigger } from '@ark-ui/vue/combobox';\nimport type { ComboboxClearTriggerProps } from '@ark-ui/vue/combobox';\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { a11yLabels } from '@/lib/moduix/a11yLabels';\nimport CloseButton from '../close-button/CloseButton.vue';\nimport styles from './Combobox.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props extends /* @vue-ignore */ ComboboxClearTriggerProps {\n  ariaLabel?: string;\n  ariaLabelledby?: string;\n  asChild?: boolean;\n  class?: HTMLAttributes['class'];\n}\n\nconst { ariaLabel, ariaLabelledby, asChild, class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <ArkComboboxClearTrigger\n    v-if=\"asChild\"\n    v-bind=\"attrs\"\n    as-child\n    :aria-label=\"ariaLabel\"\n    :aria-labelledby=\"ariaLabelledby\"\n    :class=\"clsx(styles.clearTrigger, className)\"\n    data-slot=\"combobox-clear-trigger\"\n  >\n    <slot />\n  </ArkComboboxClearTrigger>\n  <ArkComboboxClearTrigger\n    v-else\n    v-bind=\"attrs\"\n    as-child\n    :class=\"clsx(styles.clearTrigger, className)\"\n    data-slot=\"combobox-clear-trigger\"\n  >\n    <CloseButton\n      :aria-label=\"ariaLabel ?? (ariaLabelledby == null ? a11yLabels.clearSelection : undefined)\"\n      :aria-labelledby=\"ariaLabelledby\"\n    >\n      <slot />\n    </CloseButton>\n  </ArkComboboxClearTrigger>\n</template>",
       "type": "registry:component",
       "target": "@components/ui/combobox/ComboboxClearTrigger.vue"
     },

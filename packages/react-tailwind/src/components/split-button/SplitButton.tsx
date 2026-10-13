@@ -4,6 +4,7 @@ import { Menu as MenuPrimitive } from '@ark-ui/react/menu';
 import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { OverlayPortal } from '@/lib/moduix/overlayPortal';
@@ -150,7 +151,7 @@ const SplitButtonTrigger = forwardRef<
     <MenuPrimitive.Trigger
       ref={ref}
       asChild
-      aria-label={isIconOnly ? (ariaLabel ?? 'More actions') : ariaLabel}
+      aria-label={isIconOnly ? (ariaLabel ?? a11yLabels.moreActions) : ariaLabel}
       className={cn(
         splitButtonTriggerVariants({ size: resolvedSize, variant: resolvedVariant }),
         className,

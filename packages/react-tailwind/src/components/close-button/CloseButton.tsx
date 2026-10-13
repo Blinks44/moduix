@@ -3,6 +3,7 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { forwardRef, type ComponentRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 
@@ -73,7 +74,7 @@ const CloseButton = forwardRef<ComponentRef<typeof ark.button>, CloseButtonProps
           className,
         )}
         aria-disabled={resolvedAriaDisabled}
-        aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Close' : undefined)}
+        aria-label={ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.close : undefined)}
         aria-labelledby={ariaLabelledBy}
         onClickCapture={handleClickCapture}
         onClick={handleClick}

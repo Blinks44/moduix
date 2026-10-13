@@ -4,6 +4,7 @@ import { cva } from 'class-variance-authority';
 import type { ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
 import { cn } from '@/internal/cn';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { CloseButton } from '../close-button';
@@ -223,7 +224,8 @@ function InputGroupClearTrigger(
       class={cn(inputGroupClearTriggerVariants({ size: local.size ?? groupSize() }), local.class)}
       type={local.type ?? 'button'}
       aria-label={
-        local['aria-label'] ?? (local['aria-labelledby'] == null ? 'Clear input' : undefined)
+        local['aria-label'] ??
+        (local['aria-labelledby'] == null ? a11yLabels.clearInput : undefined)
       }
       aria-labelledby={local['aria-labelledby']}
     >

@@ -4,7 +4,7 @@ import type { AccordionItemIndicatorProps } from '@ark-ui/vue/accordion';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { PlusIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Accordion.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -25,6 +25,6 @@ const attrs = useAttrs();
     :class="clsx(styles.itemIndicator, className)"
     data-slot="accordion-item-indicator"
   >
-    <slot><PlusIcon /></slot>
+    <slot><ChevronDownIcon /></slot>
   </ArkAccordionItemIndicator>
 </template>

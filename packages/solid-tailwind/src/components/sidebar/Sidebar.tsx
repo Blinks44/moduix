@@ -3,6 +3,7 @@ import { ark } from '@ark-ui/solid/factory';
 import { Splitter as SplitterPrimitive } from '@ark-ui/solid/splitter';
 import type { Accessor, ComponentProps, JSX } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
@@ -174,7 +175,7 @@ function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
       {...others}
       asChild={local.asChild}
       id={id()}
-      aria-label={local['aria-label'] ?? 'Resize sidebar'}
+      aria-label={local['aria-label'] ?? a11yLabels.resizeSidebar}
       data-side={config.side()}
       data-slot="sidebar-resize-trigger"
       class={cn(
@@ -215,7 +216,7 @@ function SidebarTrigger(props: SidebarTriggerProps) {
     <ark.button
       asChild={local.asChild}
       type={local.type ?? 'button'}
-      aria-label={local['aria-label'] ?? 'Toggle sidebar'}
+      aria-label={local['aria-label'] ?? a11yLabels.toggleSidebar}
       aria-expanded={!collapsed()}
       class={cn(
         'relative z-4 -mx-3.5 inline-flex size-7 flex-none translate-y-10 cursor-pointer items-center justify-center rounded-full border border-border bg-background p-0 text-muted-foreground shadow-sm outline-0 transition-[background-color,color,box-shadow] duration-200 ease-in-out',

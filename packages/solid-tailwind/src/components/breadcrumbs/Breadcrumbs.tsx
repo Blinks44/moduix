@@ -2,6 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import type { JSX } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 
@@ -21,7 +22,7 @@ function Breadcrumbs(props: HTMLArkProps<'nav'>) {
 
   return (
     <ark.nav
-      aria-label={local['aria-label'] === undefined ? 'Breadcrumb' : local['aria-label']}
+      aria-label={local['aria-label'] === undefined ? a11yLabels.breadcrumb : local['aria-label']}
       {...others}
       data-slot="breadcrumbs-root"
       class={cn('max-w-full text-sm text-muted-foreground', local.class)}

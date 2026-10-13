@@ -5,6 +5,7 @@ import { ark } from '@ark-ui/react/factory';
 import { Splitter as SplitterPrimitive } from '@ark-ui/react/splitter';
 import type { ComponentProps, ComponentRef, MouseEvent } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import { Input } from '../input';
@@ -165,7 +166,7 @@ const SidebarResizeTrigger = forwardRef<
   ComponentRef<typeof SplitterPrimitive.ResizeTrigger>,
   SidebarResizeTriggerProps
 >(function SidebarResizeTrigger(
-  { asChild, children, className, 'aria-label': ariaLabel = 'Resize sidebar', ...props },
+  { asChild, children, className, 'aria-label': ariaLabel = a11yLabels.resizeSidebar, ...props },
   ref,
 ) {
   const { panelId, side } = useContext(SidebarConfigContext);
@@ -199,7 +200,7 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
       children,
       onClick,
       type = 'button',
-      'aria-label': ariaLabel = 'Toggle sidebar',
+      'aria-label': ariaLabel = a11yLabels.toggleSidebar,
       ...props
     },
     ref,

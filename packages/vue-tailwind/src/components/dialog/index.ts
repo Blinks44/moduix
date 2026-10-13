@@ -55,3 +55,5 @@ export type {
   UseDialogProps,
   UseDialogReturn,
 } from '@ark-ui/vue/dialog';
+
+export type { DialogPlacement, DialogScrollBehavior, DialogSize } from './DialogContent.vue';

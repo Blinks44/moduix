@@ -20,24 +20,7 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-dialog-bg', 'var(--moduix-color-popover)', 'Content background.'],
   ['--moduix-dialog-border-color', 'var(--moduix-color-border)', 'Content border color.'],
   ['--moduix-dialog-border-width', 'var(--moduix-border-width-sm)', 'Content border width.'],
-  ['--moduix-dialog-close-icon-bg', 'transparent', 'Close icon background.'],
-  [
-    '--moduix-dialog-close-icon-bg-hover',
-    'var(--moduix-color-accent)',
-    'Close icon hover background.',
-  ],
-  ['--moduix-dialog-close-icon-color', 'var(--moduix-dialog-muted-color)', 'Close icon color.'],
-  [
-    '--moduix-dialog-close-icon-color-hover',
-    'var(--moduix-dialog-close-icon-color, var(--moduix-dialog-color))',
-    'Close icon hover color.',
-  ],
-  [
-    '--moduix-dialog-close-icon-focus-ring-color',
-    'var(--moduix-dialog-focus-ring-color, var(--moduix-color-ring))',
-    'Close icon focus ring color.',
-  ],
-  ['--moduix-dialog-close-icon-glyph-size', 'var(--moduix-spacing-4)', 'Close icon glyph size.'],
+  ['--moduix-dialog-body-margin-top', 'var(--moduix-spacing-4)', 'Space above the body.'],
   ['--moduix-dialog-color', 'var(--moduix-color-popover-foreground)', 'Content text color.'],
   [
     '--moduix-dialog-close-icon-inset-block-start',
@@ -49,11 +32,9 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-spacing-4)',
     'Close icon inset from the inline end edge.',
   ],
-  ['--moduix-dialog-close-icon-radius', 'var(--moduix-radius-md)', 'Close icon border radius.'],
   ['--moduix-dialog-close-icon-size', 'var(--moduix-spacing-7)', 'Close icon control size.'],
   ['--moduix-dialog-content-ending-translate-x', '0', 'Closing animation horizontal offset.'],
   ['--moduix-dialog-content-ending-translate-y', '0', 'Closing animation vertical offset.'],
-  ['--moduix-dialog-content-margin', 'var(--moduix-spacing-4) 0 0', 'Body margin.'],
   ['--moduix-dialog-content-starting-opacity', '0', 'Opening animation start opacity.'],
   ['--moduix-dialog-content-ending-opacity', '0', 'Closing animation end opacity.'],
   [
@@ -68,65 +49,12 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--moduix-dialog-content-starting-translate-x', '0', 'Opening animation horizontal offset.'],
   ['--moduix-dialog-content-starting-translate-y', '0', 'Opening animation vertical offset.'],
-  ['--moduix-dialog-control-bg', 'var(--moduix-color-background)', 'Native trigger background.'],
-  [
-    '--moduix-dialog-control-bg-hover',
-    'var(--moduix-color-accent)',
-    'Native trigger hover background.',
-  ],
-  [
-    '--moduix-dialog-control-border-color',
-    'var(--moduix-color-border)',
-    'Native trigger border color.',
-  ],
-  [
-    '--moduix-dialog-control-border-width',
-    'var(--moduix-border-width-sm)',
-    'Native trigger border width.',
-  ],
-  ['--moduix-dialog-control-color', 'var(--moduix-color-foreground)', 'Native trigger text color.'],
-  ['--moduix-dialog-control-font-size', 'var(--moduix-text-md)', 'Native trigger font size.'],
-  ['--moduix-dialog-control-height', 'var(--moduix-size-md)', 'Native trigger minimum height.'],
-  [
-    '--moduix-dialog-control-line-height',
-    'var(--moduix-line-height-text-md)',
-    'Native trigger line height.',
-  ],
-  [
-    '--moduix-dialog-control-padding-x',
-    'var(--moduix-spacing-3-5)',
-    'Native trigger horizontal padding.',
-  ],
-  [
-    '--moduix-dialog-control-padding-y',
-    'var(--moduix-spacing-1)',
-    'Native trigger vertical padding.',
-  ],
-  ['--moduix-dialog-control-radius', 'var(--moduix-radius-md)', 'Native trigger border radius.'],
-  [
-    '--moduix-dialog-description-color',
-    'var(--moduix-dialog-muted-color)',
-    'Description and body color.',
-  ],
-  [
-    '--moduix-dialog-description-font-size',
-    'var(--moduix-text-md)',
-    'Description and body font size.',
-  ],
+  ['--moduix-dialog-description-color', 'var(--moduix-dialog-muted-color)', 'Description color.'],
+  ['--moduix-dialog-description-font-size', 'var(--moduix-text-md)', 'Description font size.'],
   [
     '--moduix-dialog-description-line-height',
     'var(--moduix-line-height-text-md)',
-    'Description and body line height.',
-  ],
-  [
-    '--moduix-dialog-focus-ring-color',
-    'var(--moduix-color-ring)',
-    'Native control focus ring color.',
-  ],
-  [
-    '--moduix-dialog-focus-ring-width',
-    'var(--moduix-dialog-control-border-width, var(--moduix-border-width-sm))',
-    'Native control focus ring width.',
+    'Description line height.',
   ],
   ['--moduix-dialog-footer-gap', 'var(--moduix-spacing-2)', 'Footer action gap.'],
   ['--moduix-dialog-footer-margin-top', 'var(--moduix-spacing-6)', 'Footer top margin.'],
@@ -158,7 +86,7 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-dialog-title-font-weight', 'var(--moduix-weight-semibold)', 'Title font weight.'],
   ['--moduix-dialog-title-line-height', 'var(--moduix-line-height-text-lg)', 'Title line height.'],
   ['--moduix-dialog-transition', 'var(--moduix-transition-default)', 'Content animation timing.'],
-  ['--moduix-dialog-width', '28rem', 'Content width.'],
+  ['--moduix-dialog-width', '28rem', 'Content width. Overrides the width from the `size` prop.'],
 ];
 
 export function DialogCssPropertiesPanel() {

@@ -1,57 +1,4 @@
 @layer moduix.components {
-  .trigger,
-  .closeTrigger {
-    box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: var(--moduix-dialog-control-height, var(--moduix-size-md));
-    margin: 0;
-    padding: var(--moduix-dialog-control-padding-y, var(--moduix-spacing-1))
-      var(--moduix-dialog-control-padding-x, var(--moduix-spacing-3-5));
-    border: var(--moduix-dialog-control-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-dialog-control-border-color, var(--moduix-color-border));
-    border-radius: var(--moduix-dialog-control-radius, var(--moduix-radius-md));
-    background-color: var(--moduix-dialog-control-bg, var(--moduix-color-background));
-    color: var(--moduix-dialog-control-color, var(--moduix-color-foreground));
-    font: inherit;
-    font-size: var(--moduix-dialog-control-font-size, var(--moduix-text-md));
-    line-height: var(--moduix-dialog-control-line-height, var(--moduix-line-height-text-md));
-    cursor: pointer;
-    user-select: none;
-    transition:
-      background-color var(--moduix-transition-default),
-      border-color var(--moduix-transition-default),
-      color var(--moduix-transition-default);
-
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(--moduix-dialog-control-bg-hover, var(--moduix-color-accent));
-      }
-    }
-
-    &:focus-visible {
-      outline: var(
-          --moduix-dialog-focus-ring-width,
-          var(--moduix-dialog-control-border-width, var(--moduix-border-width-sm))
-        )
-        solid var(--moduix-dialog-focus-ring-color, var(--moduix-color-ring));
-      outline-offset: calc(
-        var(
-            --moduix-dialog-focus-ring-width,
-            var(--moduix-dialog-control-border-width, var(--moduix-border-width-sm))
-          ) *
-          -1
-      );
-    }
-
-    &[data-disabled],
-    &[disabled] {
-      pointer-events: none;
-      opacity: var(--moduix-opacity-disabled);
-    }
-  }
-
   .backdrop {
     position: fixed;
     z-index: calc(var(--z-index, var(--moduix-z-popup)) - 1);
@@ -64,13 +11,13 @@
     backdrop-filter: var(--moduix-backdrop-filter, blur(var(--moduix-dialog-backdrop-blur, 4px)));
 
     &[data-state='open'] {
-      animation: dialog-backdrop-in
+      animation: global(moduix-dialog-backdrop-in)
         var(--moduix-dialog-backdrop-transition, var(--moduix-transition-default));
     }
 
     &[data-state='closed'] {
-      animation: dialog-backdrop-out
-        var(--moduix-dialog-backdrop-transition, var(--moduix-transition-default));
+      animation: global(moduix-dialog-backdrop-out)
+        var(--moduix-dialog-backdrop-transition, var(--moduix-transition-default)) forwards;
     }
   }
 
@@ -86,14 +33,19 @@
     overscroll-behavior: contain;
     scrollbar-gutter: stable both-edges;
     padding: var(--moduix-dialog-positioner-padding, var(--moduix-spacing-4));
+
+    &:has(> [data-slot='dialog-content'][data-size='full']) {
+      padding: 0;
+    }
   }
 
   .content {
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     box-sizing: border-box;
     position: relative;
+    --_dialog-width: 28rem;
     width: min(
-      var(--moduix-dialog-width, 28rem),
+      var(--moduix-dialog-width, var(--_dialog-width)),
       var(--moduix-dialog-max-width, calc(100vw - var(--moduix-spacing-8, 2rem)))
     );
     max-width: 100%;
@@ -136,6 +88,53 @@
         );
     }
 
+    &[data-size='sm'] {
+      --_dialog-width: 24rem;
+    }
+
+    &[data-size='lg'] {
+      --_dialog-width: 32rem;
+    }
+
+    &[data-size='xl'] {
+      --_dialog-width: 36rem;
+    }
+
+    &[data-size='full'] {
+      width: 100%;
+      max-width: none;
+      min-height: 100%;
+      border-width: 0;
+      border-radius: 0;
+    }
+
+    &[data-placement='top'] {
+      align-self: start;
+    }
+
+    &[data-placement='bottom'] {
+      align-self: end;
+    }
+
+    /* Inside scrolling caps the surface at the viewport and scrolls the body instead. */
+    &[data-scroll-behavior='inside'] {
+      display: flex;
+      flex-direction: column;
+      max-height: calc(
+        100dvh - 2 * var(--moduix-dialog-positioner-padding, var(--moduix-spacing-4))
+      );
+
+      & > [data-slot='dialog-body'] {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+      }
+    }
+
+    &[data-size='full'][data-scroll-behavior='inside'] {
+      max-height: 100dvh;
+    }
+
     &[data-has-nested] {
       scale: calc(1 - var(--moduix-dialog-nested-scale-step, 0.05) * var(--nested-layer-count, 0));
       translate: 0
@@ -150,7 +149,7 @@
     }
 
     &[data-state='open'] {
-      animation: dialog-content-in
+      animation: global(moduix-dialog-content-in)
         var(
           --moduix-dialog-transition,
           var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
@@ -159,12 +158,13 @@
     }
 
     &[data-state='closed'] {
-      animation: dialog-content-out
+      animation: global(moduix-dialog-content-out)
         var(
           --moduix-dialog-transition,
           var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
             var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
-        );
+        )
+        forwards;
     }
   }
 
@@ -212,8 +212,8 @@
     line-height: var(--moduix-dialog-title-line-height, var(--moduix-line-height-text-lg));
   }
 
-  .description,
-  .body {
+  .description {
+    margin: 0;
     color: var(
       --moduix-dialog-description-color,
       var(--moduix-dialog-muted-color, var(--moduix-color-muted-foreground))
@@ -222,12 +222,11 @@
     line-height: var(--moduix-dialog-description-line-height, var(--moduix-line-height-text-md));
   }
 
-  .description {
-    margin: 0;
-  }
-
+  /* The body inherits the content color; only the description is muted. */
   .body {
-    margin: var(--moduix-dialog-content-margin, var(--moduix-spacing-4) 0 0);
+    margin-block-start: var(--moduix-dialog-body-margin-top, var(--moduix-spacing-4));
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
   }
 
   .footer {
@@ -240,91 +239,16 @@
 
   .closeIcon {
     --moduix-close-button-size: var(--moduix-dialog-close-icon-size, var(--moduix-spacing-7));
-    --moduix-close-button-radius: var(--moduix-dialog-close-icon-radius, var(--moduix-radius-md));
-    --moduix-close-button-color: var(
-      --moduix-dialog-close-icon-color,
-      var(--moduix-dialog-muted-color, var(--moduix-color-muted-foreground))
-    );
+    --moduix-close-button-radius: var(--moduix-radius-md);
     --moduix-close-button-color-hover: var(
-      --moduix-dialog-close-icon-color-hover,
-      var(
-        --moduix-dialog-close-icon-color,
-        var(--moduix-dialog-color, var(--moduix-color-popover-foreground))
-      )
+      --moduix-dialog-color,
+      var(--moduix-color-popover-foreground)
     );
-    --moduix-close-button-bg: var(--moduix-dialog-close-icon-bg, transparent);
-    --moduix-close-button-bg-hover: var(
-      --moduix-dialog-close-icon-bg-hover,
-      var(--moduix-color-accent)
-    );
-    --moduix-close-button-focus-ring-color: var(
-      --moduix-dialog-close-icon-focus-ring-color,
-      var(--moduix-dialog-focus-ring-color, var(--moduix-color-ring))
-    );
-    --moduix-close-button-icon-size: var(
-      --moduix-dialog-close-icon-glyph-size,
-      var(--moduix-spacing-4)
-    );
+    --moduix-close-button-bg-hover: var(--moduix-color-accent);
     position: absolute;
     z-index: 2;
     inset-block-start: var(--moduix-dialog-close-icon-inset-block-start, var(--moduix-spacing-4));
     inset-inline-end: var(--moduix-dialog-close-icon-inset-inline-end, var(--moduix-spacing-4));
-  }
-
-  @keyframes dialog-backdrop-in {
-    from {
-      opacity: var(--moduix-dialog-backdrop-starting-opacity, 0);
-      backdrop-filter: var(--moduix-dialog-backdrop-starting-blur, none);
-    }
-  }
-
-  @keyframes dialog-backdrop-out {
-    to {
-      opacity: var(--moduix-dialog-backdrop-ending-opacity, 0);
-      backdrop-filter: var(--moduix-dialog-backdrop-ending-blur, none);
-    }
-  }
-
-  @keyframes dialog-content-in {
-    from {
-      opacity: var(
-        --moduix-dialog-content-starting-opacity,
-        var(--moduix-popup-motion-starting-opacity, 0)
-      );
-      translate: var(
-          --moduix-dialog-content-starting-translate-x,
-          var(--moduix-popup-motion-starting-translate-x, 0)
-        )
-        var(
-          --moduix-dialog-content-starting-translate-y,
-          var(--moduix-popup-motion-starting-translate-y, 0)
-        );
-      scale: var(
-        --moduix-dialog-content-starting-scale,
-        var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup))
-      );
-    }
-  }
-
-  @keyframes dialog-content-out {
-    to {
-      opacity: var(
-        --moduix-dialog-content-ending-opacity,
-        var(--moduix-popup-motion-ending-opacity, 0)
-      );
-      translate: var(
-          --moduix-dialog-content-ending-translate-x,
-          var(--moduix-popup-motion-ending-translate-x, 0)
-        )
-        var(
-          --moduix-dialog-content-ending-translate-y,
-          var(--moduix-popup-motion-ending-translate-y, 0)
-        );
-      scale: var(
-        --moduix-dialog-content-ending-scale,
-        var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup))
-      );
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

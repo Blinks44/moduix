@@ -2,6 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { cva } from 'class-variance-authority';
 import { forwardRef, type ComponentRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseButton } from '../close-button';
 
@@ -133,7 +134,7 @@ const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton>, TagCloseTri
         data-slot="tag-close-trigger"
         aria-label={
           ariaLabel ??
-          (!asChild && children == null && ariaLabelledBy == null ? 'Remove tag' : undefined)
+          (!asChild && children == null && ariaLabelledBy == null ? a11yLabels.closeTag : undefined)
         }
         aria-labelledby={ariaLabelledBy}
         className={cn(

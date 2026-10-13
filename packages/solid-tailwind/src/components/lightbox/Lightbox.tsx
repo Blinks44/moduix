@@ -3,6 +3,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import type { ComponentProps, JSX } from 'solid-js';
 import { createEffect, onCleanup, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { cn } from '@/lib/moduix/cn';
 import {
@@ -11,8 +12,6 @@ import {
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
-
-const DEFAULT_CLOSE_LABEL = 'Close image';
 
 type LightboxImageSelectDetails = {
   alt?: string;
@@ -244,7 +243,7 @@ function LightboxCloseIcon(props: LightboxCloseIconProps) {
           {...triggerProps()}
           data-slot="lightbox-close-icon"
           data-state={dialog().open ? 'open' : 'closed'}
-          aria-label={local['aria-label'] ?? DEFAULT_CLOSE_LABEL}
+          aria-label={local['aria-label'] ?? a11yLabels.closeImage}
           aria-labelledby={local['aria-labelledby']}
           class={cn(
             'pointer-events-none invisible fixed end-4 top-4 z-[calc(var(--moduix-z-popup)+var(--layer-index,0)+1)] size-8 rounded-sm border-0 bg-background p-0 text-foreground opacity-0 transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring data-[state=open]:pointer-events-auto data-[state=open]:visible data-[state=open]:opacity-100 motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted',

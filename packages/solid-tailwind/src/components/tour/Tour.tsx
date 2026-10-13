@@ -10,6 +10,7 @@ import {
 } from '@ark-ui/solid/tour';
 import type { ComponentProps } from 'solid-js';
 import { For, children, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import {
   OverlayPortal,
@@ -17,8 +18,6 @@ import {
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
-
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close tour';
 
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
 type TourCloseIconProps = Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>;
@@ -215,7 +214,7 @@ function TourCloseIcon(props: TourCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="tour-close-icon"
-          aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
+          aria-label={local['aria-label'] ?? a11yLabels.closeTour}
           aria-labelledby={local['aria-labelledby']}
           class={cn(
             'absolute end-4 top-4 size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
