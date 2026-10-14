@@ -4,7 +4,6 @@ import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { children as resolveChildren, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './CloseButton.module.css';
 
@@ -35,16 +34,17 @@ function CloseButton(props: CloseButtonProps) {
     'data-scope',
     'data-slot',
     'disabled',
-    'onClick',
     'onClickCapture',
     'type',
   ]);
   const resolvedChildren = resolveChildren(() => local.children);
+  // A parent Ark part that composes CloseButton through asChild passes its own data-disabled.
   const isDisabled = () =>
     local.disabled ||
     local['aria-disabled'] === true ||
     local['aria-disabled'] === 'true' ||
     local['data-disabled'] !== undefined;
+  // Stopping capture also keeps the click from reaching delegated onClick handlers.
   const handleClickCapture = (event: MouseEvent) => {
     if (isDisabled()) {
       event.preventDefault();
@@ -53,15 +53,6 @@ function CloseButton(props: CloseButtonProps) {
     }
 
     local.onClickCapture?.(event);
-  };
-  const handleClick: JSX.EventHandler<HTMLButtonElement, MouseEvent> = (event) => {
-    if (isDisabled()) {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
-
-    callEventHandler(local.onClick, event);
   };
 
   return (
@@ -73,7 +64,7 @@ function CloseButton(props: CloseButtonProps) {
       data-scope={local['data-scope'] ?? 'close-button'}
       data-part={local['data-part'] ?? 'root'}
       data-slot={local['data-slot'] ?? 'close-button-root'}
-      data-disabled={local['data-disabled'] ?? (isDisabled() ? '' : undefined)}
+      data-disabled={isDisabled() ? (local['data-disabled'] ?? '') : undefined}
       class={clsx(styles.root, local.class)}
       aria-disabled={local.asChild && local.disabled ? true : local['aria-disabled']}
       aria-label={
@@ -81,7 +72,6 @@ function CloseButton(props: CloseButtonProps) {
       }
       aria-labelledby={local['aria-labelledby']}
       oncapture:click={handleClickCapture}
-      onClick={handleClick}
     >
       {local.asChild ? undefined : resolvedChildren() || <CloseIcon />}
     </ArkButton>
@@ -89,3 +79,4 @@ function CloseButton(props: CloseButtonProps) {
 }
 
 export { CloseButton };
+export type { CloseButtonProps };

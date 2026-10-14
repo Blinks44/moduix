@@ -241,11 +241,10 @@
   --moduix-close-button-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-close-button-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-close-button-focus-ring-offset: initial; /* var(--moduix-focus-ring-offset) */
-  --moduix-close-button-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
+  --moduix-close-button-focus-ring-width: initial; /* var(--moduix-focus-ring-width) */
   --moduix-close-button-icon-size: initial; /* var(--moduix-spacing-4) */
   --moduix-close-button-radius: initial; /* var(--moduix-radius-sm) */
   --moduix-close-button-size: initial; /* var(--moduix-spacing-7) */
-  --moduix-close-button-transition: initial; /* var(--moduix-transition-default) */
 
   /* Collapsible */
   --moduix-collapsible-body-gap: initial; /* var(--moduix-spacing-2) */

@@ -15,7 +15,7 @@ test('renders an accessible native button with safe defaults and a forwarded ref
   expect(ref.current).toBe(button);
   await expect.element(page.getByTestId('close-button')).toHaveAttribute('type', 'button');
   expect(screen.getByRole('button', { name: 'Close' })).toBe(button);
-  expect([...icon!.classList]).toEqual(expect.arrayContaining(['size-4', 'shrink-0']));
+  expect(getComputedStyle(icon!)).toMatchObject({ width: '16px', height: '16px', flexShrink: '0' });
   expect([...button!.classList]).toEqual(
     expect.arrayContaining(['size-7', 'rounded-sm', 'bg-transparent', 'text-muted-foreground']),
   );
