@@ -9,7 +9,6 @@ import {
   ColorPickerContent,
   ColorPickerArea,
   ColorPickerEyeDropperTrigger,
-  ColorPickerTransparencyGrid,
   ColorPickerValueSwatch,
   ColorPickerValueText,
   ColorPickerSliders,
@@ -22,13 +21,8 @@ import styles from '@/components/examples/color-picker/color-picker-compact-trig
     <ColorPickerLabel>Color</ColorPickerLabel>
     <ColorPickerControl>
       <ColorPickerTrigger aria-label="Open color picker" data-fit-content>
-        <span :class="styles.triggerValue">
-          <span :class="styles.triggerValueSwatch">
-            <ColorPickerTransparencyGrid />
-            <ColorPickerValueSwatch />
-          </span>
-          <ColorPickerValueText format="hex" />
-        </span>
+        <ColorPickerValueSwatch />
+        <ColorPickerValueText format="hex" />
       </ColorPickerTrigger>
     </ColorPickerControl>
     <ColorPickerPositioner>

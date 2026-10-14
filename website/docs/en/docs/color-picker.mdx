@@ -159,7 +159,6 @@ ColorPicker
 ├─ ColorPickerControl
 │  ├─ ColorPickerChannelInput[channel]
 │  └─ ColorPickerTrigger
-│     ├─ ColorPickerTransparencyGrid
 │     └─ ColorPickerValueSwatch
 ├─ Overlay subtree (automatically portalled)
 │  └─ ColorPickerPositioner
@@ -194,7 +193,7 @@ ColorPicker
 | `ColorPickerAreaBackground` | Background layer that captures pointer input for the color area. |
 | `ColorPickerEyeDropperTrigger` | Samples a color from the screen; rendered only where the browser supports the EyeDropper API. |
 | `ColorPickerChannelSlider`        | One-dimensional channel control for hue, alpha, or other channels.     |
-| `ColorPickerTransparencyGrid` | Checkerboard backdrop that makes alpha visible behind a trigger or channel slider. |
+| `ColorPickerTransparencyGrid` | Checkerboard backdrop that makes alpha visible behind a channel slider track. Swatches draw their own checkerboard. |
 | `ColorPickerSliders`              | Styled hue and alpha slider pair.                                      |
 | `ColorPickerChannelInput`         | Text or numeric input for a specific color channel.                    |
 | `ColorPickerSwatchTrigger`        | Selectable preset color button.                                        |
@@ -923,7 +922,7 @@ Use explicit parts and children when the default composition needs a different v
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native utilities and consumer classes; CSS Modules variants use the public `--moduix-color-picker-*` CSS variables shown below. Both styling tracks expose stable `data-slot="color-picker-*"` hooks and Ark `data-scope` / `data-part` attributes.
+Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native utilities and consumer classes; CSS Modules variants expose a short list of `--moduix-color-picker-*` variables for sizes that several parts or default children share; colors, spacing, and typography follow foundation tokens, so change them with a class on the part. Both styling tracks expose stable `data-slot="color-picker-*"` hooks and Ark `data-scope` / `data-part` attributes.
 ### CSS Properties
 
 <CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />

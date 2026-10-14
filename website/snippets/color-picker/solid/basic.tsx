@@ -24,6 +24,7 @@ export default function ColorPickerDemo() {
       <ColorPickerLabel>Color</ColorPickerLabel>
       <ColorPickerControl>
         <ColorPickerChannelInput channel="hex" />
+        <ColorPickerChannelInput channel="alpha" />
         <ColorPickerTrigger aria-label="Open color picker" />
       </ColorPickerControl>
       <ColorPickerPositioner>

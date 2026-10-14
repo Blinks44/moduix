@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import {
-  ColorPickerArea as ArkColorPickerArea,
-  ColorPickerAreaBackground as ArkColorPickerAreaBackground,
-  ColorPickerAreaThumb as ArkColorPickerAreaThumb,
-} from '@ark-ui/vue/color-picker';
+import { ColorPickerArea as ArkColorPickerArea } from '@ark-ui/vue/color-picker';
 import type { ColorPickerAreaProps } from '@ark-ui/vue/color-picker';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './ColorPicker.module.css';
+import ColorPickerAreaBackground from './ColorPickerAreaBackground.vue';
+import ColorPickerAreaThumb from './ColorPickerAreaThumb.vue';
 
 defineOptions({ inheritAttrs: false });
 
@@ -29,11 +27,8 @@ const attrs = useAttrs();
     data-slot="color-picker-area"
   >
     <slot>
-      <ArkColorPickerAreaBackground
-        data-slot="color-picker-area-background"
-        :class="styles.areaBackground"
-      />
-      <ArkColorPickerAreaThumb data-slot="color-picker-area-thumb" :class="styles.thumb" />
+      <ColorPickerAreaBackground />
+      <ColorPickerAreaThumb />
     </slot>
   </ArkColorPickerArea>
 </template>

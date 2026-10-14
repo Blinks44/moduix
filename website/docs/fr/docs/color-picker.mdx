@@ -160,7 +160,6 @@ ColorPicker
 ├─ ColorPickerControl
 │  ├─ ColorPickerChannelInput[channel]
 │  └─ ColorPickerTrigger
-│     ├─ ColorPickerTransparencyGrid
 │     └─ ColorPickerValueSwatch
 ├─ Sous-arbre de la fenêtre contextuelle (rendu par défaut via un portail)
 │  └─ ColorPickerPositioner
@@ -195,7 +194,7 @@ ColorPicker
 | `ColorPickerAreaBackground` | Couche d’arrière-plan qui capte la saisie du pointeur pour la zone de couleur. |
 | `ColorPickerEyeDropperTrigger` | Prélève une couleur à l’écran ; rendu uniquement lorsque le navigateur prend en charge l’API EyeDropper. |
 | `ColorPickerChannelSlider` | Contrôle unidimensionnel de la teinte, du canal alpha ou d’un autre canal. |
-| `ColorPickerTransparencyGrid` | Fond en damier qui rend l’alpha visible derrière un bouton d’ouverture ou un curseur de canal. |
+| `ColorPickerTransparencyGrid` | Fond en damier qui rend l’alpha visible derrière la piste d’un curseur de canal. Les échantillons dessinent leur propre damier. |
 | `ColorPickerSliders` | Paire intégrée de curseurs pour la teinte et le canal alpha. |
 | `ColorPickerChannelInput` | Champ texte ou numérique pour un canal de couleur donné. |
 | `ColorPickerSwatchTrigger` | Bouton de sélection d’une couleur prédéfinie. |
@@ -926,7 +925,7 @@ visuelle est nécessaire.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes Tailwind utilisent les utilitaires natifs et les classes de votre application; les variantes CSS Modules utilisent les variables CSS publiques `--moduix-color-picker-*` présentées ci-dessous. Les deux versions exposent les hooks stables `data-slot="color-picker-*"` et les attributs Ark `data-scope` / `data-part`.
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes Tailwind utilisent les utilitaires natifs et les classes de votre application; les variantes CSS Modules exposent quelques variables `--moduix-color-picker-*` pour les tailles partagées par plusieurs parties ou par les enfants par défaut; les couleurs, espacements et typographies suivent les tokens de la fondation, modifiez-les avec une classe sur la partie. Les deux versions exposent les hooks stables `data-slot="color-picker-*"` et les attributs Ark `data-scope` / `data-part`.
 ### Propriétés CSS
 
 <CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />

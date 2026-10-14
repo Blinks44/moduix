@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import {
-  ColorPickerArea as ArkColorPickerArea,
-  ColorPickerAreaBackground as ArkColorPickerAreaBackground,
-  ColorPickerAreaThumb as ArkColorPickerAreaThumb,
-} from '@ark-ui/vue/color-picker';
+import { ColorPickerArea as ArkColorPickerArea } from '@ark-ui/vue/color-picker';
 import type { ColorPickerAreaProps } from '@ark-ui/vue/color-picker';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import ColorPickerAreaBackground from './ColorPickerAreaBackground.vue';
+import ColorPickerAreaThumb from './ColorPickerAreaThumb.vue';
 
 defineOptions({ inheritAttrs: false });
 
@@ -26,21 +24,15 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'relative box-border h-40 w-full touch-none overflow-hidden rounded-md shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)] select-none data-disabled:cursor-default data-readonly:cursor-default',
+        'box-border h-40 w-full overflow-hidden rounded-md shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)] select-none',
         className,
       )
     "
     data-slot="color-picker-area"
   >
     <slot>
-      <ArkColorPickerAreaBackground
-        data-slot="color-picker-area-background"
-        class="size-full rounded-[inherit]"
-      />
-      <ArkColorPickerAreaThumb
-        data-slot="color-picker-area-thumb"
-        class="box-border size-4 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:shadow-[0_0_0_4px_var(--color-ring),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] focus-visible:ring-background data-disabled:pointer-events-none"
-      />
+      <ColorPickerAreaBackground />
+      <ColorPickerAreaThumb />
     </slot>
   </ArkColorPickerArea>
 </template>

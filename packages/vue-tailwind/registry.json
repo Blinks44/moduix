@@ -4906,7 +4906,7 @@
       "type": "registry:item",
       "title": "ColorPicker",
       "description": "moduix Vue Tailwind ColorPicker component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",

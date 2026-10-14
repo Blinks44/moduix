@@ -160,7 +160,6 @@ ColorPicker
 ├─ ColorPickerControl
 │  ├─ ColorPickerChannelInput[channel]
 │  └─ ColorPickerTrigger
-│     ├─ ColorPickerTransparencyGrid
 │     └─ ColorPickerValueSwatch
 ├─ Ветка всплывающего окна (по умолчанию выводится через портал)
 │  └─ ColorPickerPositioner
@@ -195,7 +194,7 @@ ColorPicker
 | `ColorPickerAreaBackground` | Фоновый слой, который обрабатывает ввод указателя в области выбора цвета. |
 | `ColorPickerEyeDropperTrigger` | Пипетка для снятия цвета с экрана; отображается только там, где браузер поддерживает EyeDropper API. |
 | `ColorPickerChannelSlider` | Одномерный регулятор для оттенка, альфа-канала или другого канала. |
-| `ColorPickerTransparencyGrid` | Шахматный фон, который делает альфа-канал видимым за кнопкой открытия или слайдером канала. |
+| `ColorPickerTransparencyGrid` | Шахматный фон, который делает альфа-канал видимым за дорожкой слайдера канала. Свотчи рисуют шахматку сами. |
 | `ColorPickerSliders` | Готовая пара слайдеров для оттенка и альфа-канала. |
 | `ColorPickerChannelInput` | Текстовое или числовое поле для отдельного канала цвета. |
 | `ColorPickerSwatchTrigger` | Кнопка выбора готового цвета. |
@@ -925,7 +924,7 @@ ColorPicker через этот путь композиции не пробра�
 
 ## Стилизация
 
-Используйте `className` в React и `class` в Solid и Vue для экспортируемых частей. Варианты Tailwind используют классы-утилиты и классы приложения, а варианты CSS Modules настраиваются через публичные CSS-переменные `--moduix-color-picker-*`, указанные ниже. Обе стилистические версии предоставляют стабильные хуки `data-slot="color-picker-*"` и атрибуты Ark `data-scope` / `data-part`.
+Используйте `className` в React и `class` в Solid и Vue для экспортируемых частей. Варианты Tailwind используют классы-утилиты и классы приложения, а варианты CSS Modules дают короткий список переменных `--moduix-color-picker-*` для размеров, общих для нескольких частей или дочерних элементов по умолчанию; цвета, отступы и типографика берутся из токенов foundation, их меняют классом на нужной части. Обе стилистические версии предоставляют стабильные хуки `data-slot="color-picker-*"` и атрибуты Ark `data-scope` / `data-part`.
 ### CSS-свойства
 
 <CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />

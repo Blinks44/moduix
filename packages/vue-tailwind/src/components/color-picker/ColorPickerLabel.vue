@@ -20,9 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkColorPickerLabel
     v-bind="attrs"
-    :class="
-      cn('inline-flex items-center text-sm font-medium text-foreground select-none', className)
-    "
+    :class="cn('inline-flex items-center text-sm font-medium select-none', className)"
     data-slot="color-picker-label"
   >
     <slot />

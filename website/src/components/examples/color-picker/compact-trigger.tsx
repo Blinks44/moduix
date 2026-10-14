@@ -8,7 +8,6 @@ import {
   ColorPickerContent,
   ColorPickerArea,
   ColorPickerEyeDropperTrigger,
-  ColorPickerTransparencyGrid,
   ColorPickerValueSwatch,
   ColorPickerValueText,
   ColorPickerSliders,
@@ -21,13 +20,8 @@ export default function CompactTriggerColorPickerDemo() {
       <ColorPickerLabel>Color</ColorPickerLabel>
       <ColorPickerControl>
         <ColorPickerTrigger aria-label="Open color picker" data-fit-content>
-          <span className={styles.triggerValue}>
-            <span className={styles.triggerValueSwatch}>
-              <ColorPickerTransparencyGrid />
-              <ColorPickerValueSwatch />
-            </span>
-            <ColorPickerValueText format="hex" />
-          </span>
+          <ColorPickerValueSwatch />
+          <ColorPickerValueText format="hex" />
         </ColorPickerTrigger>
       </ColorPickerControl>
       <ColorPickerPositioner>

@@ -25,6 +25,7 @@ const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316'];
     <ColorPickerLabel>Color</ColorPickerLabel>
     <ColorPickerControl>
       <ColorPickerChannelInput channel="hex" />
+      <ColorPickerChannelInput channel="alpha" />
       <ColorPickerTrigger aria-label="Open color picker" />
     </ColorPickerControl>
     <ColorPickerPositioner>
