@@ -4,8 +4,13 @@ import { clsx } from 'clsx';
 import { forwardRef, type ComponentRef } from 'react';
 import styles from './Badge.module.css';
 
+type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
+
+type BadgeSize = 'sm' | 'md' | 'lg';
+
 type BadgeRootProps = HTMLArkProps<'span'> & {
-  variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
+  variant?: BadgeVariant;
+  size?: BadgeSize;
 };
 
 const BadgeLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
@@ -24,7 +29,7 @@ const BadgeLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'
 );
 
 const Badge = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function Badge(
-  { className, variant = 'default', ...props },
+  { className, size = 'md', variant = 'default', ...props },
   ref,
 ) {
   return (
@@ -34,6 +39,7 @@ const Badge = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function
       data-scope="badge"
       data-part="root"
       data-slot="badge-root"
+      data-size={size}
       data-variant={variant}
       className={clsx(styles.root, className)}
     />
@@ -58,3 +64,4 @@ const BadgeDot = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>
 });
 
 export { Badge, BadgeDot, BadgeLabel };
+export type { BadgeRootProps, BadgeSize, BadgeVariant };

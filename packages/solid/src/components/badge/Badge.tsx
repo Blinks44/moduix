@@ -4,27 +4,17 @@ import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
 import styles from './Badge.module.css';
 
-type BadgeDataProps = {
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
+type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
+
+type BadgeSize = 'sm' | 'md' | 'lg';
+
+type BadgeRootProps = HTMLArkProps<'span'> & {
+  variant?: BadgeVariant;
+  size?: BadgeSize;
 };
 
-type BadgeRootProps = HTMLArkProps<'span'> &
-  BadgeDataProps & {
-    variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
-    'data-variant'?: string;
-  };
-
-type BadgeLabelProps = HTMLArkProps<'span'> & BadgeDataProps;
-
-type BadgeDotProps = HTMLArkProps<'span'> &
-  BadgeDataProps & {
-    'aria-hidden'?: boolean | 'true' | 'false';
-  };
-
-function BadgeLabel(props: BadgeLabelProps) {
-  const [local, others] = splitProps(props, ['class', 'data-scope', 'data-part', 'data-slot']);
+function BadgeLabel(props: HTMLArkProps<'span'>) {
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.span
@@ -38,14 +28,7 @@ function BadgeLabel(props: BadgeLabelProps) {
 }
 
 function Badge(props: BadgeRootProps) {
-  const [local, others] = splitProps(props, [
-    'class',
-    'data-scope',
-    'data-part',
-    'data-slot',
-    'data-variant',
-    'variant',
-  ]);
+  const [local, others] = splitProps(props, ['class', 'size', 'variant']);
 
   return (
     <ark.span
@@ -53,20 +36,15 @@ function Badge(props: BadgeRootProps) {
       data-scope="badge"
       data-part="root"
       data-slot="badge-root"
+      data-size={local.size ?? 'md'}
       data-variant={local.variant ?? 'default'}
       class={clsx(styles.root, local.class)}
     />
   );
 }
 
-function BadgeDot(props: BadgeDotProps) {
-  const [local, others] = splitProps(props, [
-    'aria-hidden',
-    'class',
-    'data-scope',
-    'data-part',
-    'data-slot',
-  ]);
+function BadgeDot(props: HTMLArkProps<'span'>) {
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.span
@@ -81,3 +59,4 @@ function BadgeDot(props: BadgeDotProps) {
 }
 
 export { Badge, BadgeDot, BadgeLabel };
+export type { BadgeRootProps, BadgeSize, BadgeVariant };

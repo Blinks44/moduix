@@ -19,8 +19,6 @@ const rowClass = 'flex flex-wrap items-center gap-2';
 const constrainedClass = 'max-w-56';
 const customBadgeClass =
   'min-h-6 rounded-sm border-primary/35 bg-[color-mix(in_oklab,var(--color-primary)_20%,var(--color-background))] px-3 text-primary';
-const smallBadgeClass = 'min-h-4 px-2';
-const largeBadgeClass = 'min-h-8 px-4 text-sm [&>svg]:size-4';
 
 const variants = [
   'default',
@@ -122,9 +120,9 @@ export const TruncatedLabel: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <div className={rowClass}>
-      <Badge className={smallBadgeClass}>Small</Badge>
+      <Badge size="sm">Small</Badge>
       <Badge>Default</Badge>
-      <Badge className={largeBadgeClass}>Large</Badge>
+      <Badge size="lg">Large</Badge>
       <Badge className={customBadgeClass}>
         <BadgeDot className="size-2" />
         <BadgeLabel>Priority</BadgeLabel>

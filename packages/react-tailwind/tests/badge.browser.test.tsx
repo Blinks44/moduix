@@ -114,3 +114,29 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   }
   await expect.element(page.getByTestId('badge')).toHaveCSS('padding', '0px');
 });
+
+test('defaults to the md size and lets link badges ignore the size height', async () => {
+  render(
+    <>
+      <Badge data-testid="sm" size="sm">
+        Small
+      </Badge>
+      <Badge data-testid="md">Medium</Badge>
+      <Badge data-testid="lg" size="lg">
+        Large
+      </Badge>
+      <Badge data-testid="link" size="lg" variant="link">
+        Link
+      </Badge>
+    </>,
+  );
+
+  await expect.element(page.getByTestId('md')).toHaveCount(1);
+  const height = (id: string) => screen.getByTestId(id).offsetHeight;
+
+  expect(screen.getByTestId('md').getAttribute('data-size')).toBe('md');
+  expect(screen.getByTestId('lg').getAttribute('data-size')).toBe('lg');
+  expect([height('sm'), height('md'), height('lg')]).toEqual([16, 20, 24]);
+  const link = getComputedStyle(screen.getByTestId('link'));
+  expect([link.minHeight, link.paddingInlineStart]).toEqual(['0px', '0px']);
+});

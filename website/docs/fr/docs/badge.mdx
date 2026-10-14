@@ -9,6 +9,7 @@ import BadgeBasic from '@/components/examples/badge/basic.tsx';
 import BadgeCustomStyling from '@/components/examples/badge/custom-styling.tsx';
 import BadgeLink from '@/components/examples/badge/link.tsx';
 import BadgeLongLabels from '@/components/examples/badge/long-labels.tsx';
+import BadgeSizes from '@/components/examples/badge/sizes.tsx';
 import BadgeVariants from '@/components/examples/badge/variants.tsx';
 import BadgeWithDot from '@/components/examples/badge/with-dot.tsx';
 import BadgeWithIcon from '@/components/examples/badge/with-icon.tsx';
@@ -17,6 +18,7 @@ import badgeSolidBasic from '../../../snippets/badge/solid/basic.tsx?raw';
 import badgeSolidCustomStyling from '../../../snippets/badge/solid/custom-styling.tsx?raw';
 import badgeSolidLink from '../../../snippets/badge/solid/link.tsx?raw';
 import badgeSolidLongLabels from '../../../snippets/badge/solid/long-labels.tsx?raw';
+import badgeSolidSizes from '../../../snippets/badge/solid/sizes.tsx?raw';
 import badgeSolidVariants from '../../../snippets/badge/solid/variants.tsx?raw';
 import badgeSolidWithDot from '../../../snippets/badge/solid/with-dot.tsx?raw';
 import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw';
@@ -24,6 +26,7 @@ import badgeVueBasic from '../../../snippets/badge/vue/basic.vue?raw';
 import badgeVueCustomStyling from '../../../snippets/badge/vue/custom-styling.vue?raw';
 import badgeVueLink from '../../../snippets/badge/vue/link.vue?raw';
 import badgeVueLongLabels from '../../../snippets/badge/vue/long-labels.vue?raw';
+import badgeVueSizes from '../../../snippets/badge/vue/sizes.vue?raw';
 import badgeVueVariants from '../../../snippets/badge/vue/variants.vue?raw';
 import badgeVueWithDot from '../../../snippets/badge/vue/with-dot.vue?raw';
 import badgeVueWithIcon from '../../../snippets/badge/vue/with-icon.vue?raw';
@@ -47,7 +50,8 @@ Les exports Vue sont disponibles depuis `@moduix/vue/badge` pour CSS Modules et 
 ## Exemple de base
 
 Commencez par un `<Badge>` simple. Par défaut, le composant rend un `span` de présentation. Définissez `variant` pour
-choisir un style intégré et ajoutez `BadgeDot` uniquement lorsqu’un statut a besoin d’un indicateur visuel.
+choisir un style intégré, `size` pour choisir `sm`, `md` ou `lg`, et ajoutez `BadgeDot` uniquement lorsqu’un statut
+a besoin d’un indicateur visuel.
 
 
 <ExampleFrame variant="component">
@@ -280,6 +284,51 @@ rendre le libellé complet visible au survol. Dans les interfaces tactiles, choi
 
 </ExampleCode>
 
+### Tailles
+
+Définissez `size` sur `sm`, `md` ou `lg`. La valeur par défaut est `md`.
+
+<ExampleFrame variant="component">
+  <BadgeSizes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/badge/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={badgeSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={badgeVueSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/badge/badge-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
+
 ### Variantes
 
 Utilisez les variantes intégrées pour les styles courants.
@@ -418,11 +467,10 @@ Placez une icône SVG enfant directe à côté du libellé lorsque les métadonn
 
 ## Styles
 
-Commencez avec une variante intégrée. Pour une modification ponctuelle de taille ou de style, définissez les variables
-`--moduix-badge-*` publiques sur le badge via une classe ou un style en ligne. Utilisez les variables
-`--moduix-badge-<variant>-*` pour personnaliser une variante dans toute l’application. Les variables générales
-`--moduix-badge-bg`, `--moduix-badge-border-color` et `--moduix-badge-color` remplacent les valeurs propres à la variante
-pour un badge donné.
+Commencez avec une variante et une taille intégrées. Pour une modification ponctuelle, définissez les
+variables `--moduix-badge-*` publiques sur le badge via une classe ou un style en ligne. Pour personnaliser
+une variante dans toute l’application, définissez les mêmes variables sur
+`[data-slot='badge-root'][data-variant='<variant>']`.
 
 Ces variables CSS s’appliquent aux packages CSS Modules ; les packages Tailwind utilisent des utilitaires natifs et les classes du consommateur. Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les hooks `data-slot` et les attributs Ark sont communs aux deux approches de style et aux trois frameworks.
 
@@ -434,7 +482,7 @@ Ces variables CSS s’appliquent aux packages CSS Modules ; les packages Tailwin
 
 - `data-slot="badge-root"`, `data-slot="badge-label"` et `data-slot="badge-dot"` sont des sélecteurs stables pour cibler les parties exportées en CSS.
 - `Badge` expose également `data-scope="badge"` et `data-part="root"`. `BadgeLabel` et `BadgeDot` exposent `data-part="label"` et `data-part="dot"`.
-- `Badge` indique la variante sélectionnée dans l’attribut `data-variant`.
+- `Badge` indique la variante sélectionnée dans l’attribut `data-variant` et la taille dans `data-size`.
 - Les hôtes focalisables rendus avec `Badge asChild` reçoivent le style de focus visible. Les racines de type lien reçoivent aussi le survol de la variante et le curseur pointeur ; les styles propres aux boutons restent gérés par l’application.
 - Les icônes `svg` placées directement comme enfants héritent de `currentColor`, ne capturent pas les événements du pointeur et utilisent `--moduix-badge-icon-size`.
 - `Badge` ne dispose ni d’une primitive Ark dédiée ni d’une machine de comportement ; il n’expose donc aucun état géré par Ark ni aucune variable CSS d’exécution.

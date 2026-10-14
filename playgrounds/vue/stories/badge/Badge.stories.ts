@@ -108,9 +108,9 @@ export const TruncatedLabel: Story = {
 export const CustomStyling: Story = {
   render: renderStory(`
     <div :class="styles.row">
-      <Badge :class="styles.small">Small</Badge>
+      <Badge size="sm">Small</Badge>
       <Badge>Default</Badge>
-      <Badge :class="styles.large">Large</Badge>
+      <Badge size="lg">Large</Badge>
       <Badge :class="styles.customBadge">
         <BadgeDot />
         <BadgeLabel>Priority</BadgeLabel>

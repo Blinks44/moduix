@@ -23,21 +23,6 @@
   --moduix-badge-padding-x: var(--moduix-spacing-3);
 }
 
-.small {
-  --moduix-badge-height: 1rem;
-  --moduix-badge-font-size: var(--moduix-text-xs);
-  --moduix-badge-icon-size: 0.75rem;
-  --moduix-badge-line-height: var(--moduix-line-height-text-xs);
-  --moduix-badge-padding-x: 0.5rem;
-}
-
-.large {
-  --moduix-badge-height: 2rem;
-  --moduix-badge-font-size: var(--moduix-text-sm);
-  --moduix-badge-icon-size: 1rem;
-  --moduix-badge-line-height: var(--moduix-line-height-text-sm);
-  --moduix-badge-padding-x: 1rem;
-}
 .disabledButton {
   cursor: not-allowed;
   opacity: var(--moduix-opacity-disabled);
