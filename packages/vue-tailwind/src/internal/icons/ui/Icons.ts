@@ -43,7 +43,7 @@ export const CheckIcon: FunctionalComponent<IconProps> = (props) =>
   h(LucideCheckIcon, { ...accessibilityProps, strokeWidth: 3, ...props });
 
 export const CopyIcon: FunctionalComponent<IconProps> = (props) =>
-  h(LucideCopyIcon, { ...accessibilityProps, strokeWidth: 3, ...props });
+  h(LucideCopyIcon, { ...accessibilityProps, strokeWidth: 2.5, ...props });
 
 export const CloseIcon: FunctionalComponent<IconProps> = (props) =>
   h(LucideCloseIcon, { ...accessibilityProps, strokeWidth: 3, ...props });

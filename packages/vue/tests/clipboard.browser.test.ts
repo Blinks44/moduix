@@ -179,7 +179,7 @@ test('forwards refs and renders default and custom indicator slots', async () =>
     .toBeAttached();
   expect(
     document.querySelector('[data-slot="clipboard-indicator"] > svg')?.getAttribute('stroke-width'),
-  ).toBe('3');
+  ).toBe('2.5');
 
   await page.locator('[data-slot="clipboard-trigger"]').click();
 

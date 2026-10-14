@@ -47,7 +47,7 @@ export function CheckIcon(props: IconProps) {
 }
 
 export function CopyIcon(props: IconProps) {
-  return <LucideCopyIcon {...accessibilityProps} strokeWidth={3} {...props} />;
+  return <LucideCopyIcon {...accessibilityProps} strokeWidth={2.5} {...props} />;
 }
 
 export function CloseIcon(props: IconProps) {

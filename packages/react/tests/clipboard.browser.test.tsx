@@ -105,7 +105,7 @@ test('forwards refs and renders the default copy affordance', async () => {
     .toBeAttached();
   expect(
     document.querySelector('[data-slot="clipboard-indicator"] > svg')?.getAttribute('stroke-width'),
-  ).toBe('3');
+  ).toBe('2.5');
 
   await page.locator('[data-slot="clipboard-trigger"]').click();
 

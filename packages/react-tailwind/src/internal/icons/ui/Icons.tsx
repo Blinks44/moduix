@@ -50,7 +50,7 @@ export function CheckIcon(props: IconProps) {
 }
 
 export function CopyIcon(props: IconProps) {
-  return <LucideCopyIcon aria-hidden="true" focusable="false" strokeWidth={3} {...props} />;
+  return <LucideCopyIcon aria-hidden="true" focusable="false" strokeWidth={2.5} {...props} />;
 }
 
 export function CloseIcon(props: IconProps) {
