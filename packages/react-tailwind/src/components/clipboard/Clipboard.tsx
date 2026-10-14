@@ -10,6 +10,8 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui';
 
+const rootClass = 'flex w-full flex-col gap-1.5 text-foreground';
+
 const Clipboard = forwardRef<
   ComponentRef<typeof ClipboardPrimitive.Root>,
   ComponentProps<typeof ClipboardPrimitive.Root>
@@ -17,7 +19,7 @@ const Clipboard = forwardRef<
   return (
     <ClipboardPrimitive.Root
       ref={ref}
-      className={cn('flex w-full flex-col gap-1.5 text-foreground', className)}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="clipboard-root"
     />
@@ -31,7 +33,7 @@ const ClipboardRootProvider = forwardRef<
   return (
     <ClipboardPrimitive.RootProvider
       ref={ref}
-      className={cn('flex w-full flex-col gap-1.5 text-foreground', className)}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="clipboard-root-provider"
     />
@@ -69,12 +71,14 @@ const ClipboardControl = forwardRef<
 const ClipboardInput = forwardRef<
   ComponentRef<typeof ClipboardPrimitive.Input>,
   ComponentProps<typeof ClipboardPrimitive.Input>
->(function ClipboardInput({ className, ...props }, ref) {
+>(function ClipboardInput({ asChild, className, ...props }, ref) {
   return (
     <ClipboardPrimitive.Input
       ref={ref}
+      asChild={asChild}
       className={cn(
-        'box-border min-h-control-md w-full min-w-0 rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
+        !asChild &&
+          'box-border min-h-control-md w-full min-w-0 rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50',
         className,
       )}
       {...props}
@@ -86,12 +90,14 @@ const ClipboardInput = forwardRef<
 const ClipboardTrigger = forwardRef<
   ComponentRef<typeof ClipboardPrimitive.Trigger>,
   ComponentProps<typeof ClipboardPrimitive.Trigger>
->(function ClipboardTrigger({ className, ...props }, ref) {
+>(function ClipboardTrigger({ asChild, className, ...props }, ref) {
   return (
     <ClipboardPrimitive.Trigger
       ref={ref}
+      asChild={asChild}
       className={cn(
-        'box-border inline-flex min-h-control-md shrink-0 cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled):not([data-disabled])]:opacity-[0.94] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent',
+        !asChild &&
+          'box-border inline-flex min-h-control-md shrink-0 cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled)]:opacity-[0.94] [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent',
         className,
       )}
       {...props}
@@ -108,29 +114,11 @@ const ClipboardIndicator = forwardRef<
     <ClipboardPrimitive.Indicator
       ref={ref}
       className={cn('inline-flex shrink-0 items-center justify-center', className)}
-      copied={
-        copied ?? (
-          <span
-            aria-hidden="true"
-            data-slot="clipboard-indicator-copied-icon"
-            className="inline-flex shrink-0 items-center justify-center"
-          >
-            <CheckIcon />
-          </span>
-        )
-      }
+      copied={copied ?? <CheckIcon />}
       {...props}
       data-slot="clipboard-indicator"
     >
-      {children ?? (
-        <span
-          aria-hidden="true"
-          data-slot="clipboard-indicator-idle-icon"
-          className="inline-flex shrink-0 items-center justify-center"
-        >
-          <CopyIcon />
-        </span>
-      )}
+      {children ?? <CopyIcon />}
     </ClipboardPrimitive.Indicator>
   );
 });

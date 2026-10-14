@@ -501,7 +501,8 @@ Use `ClipboardValueText` when the value should appear as text instead of inside 
 ### Advanced Customization
 
 Use `asChild` to let your own input and button elements render the Clipboard parts while preserving
-the component's state and behavior.
+the component's state and behavior. With `asChild`, `ClipboardInput` and `ClipboardTrigger` drop their
+own styles, so the child component keeps its look.
 
 <ExampleFrame variant="component">
   <AsChildClipboardDemo />
@@ -567,6 +568,5 @@ below. For copied-state styles, use Ark's `data-copied` attribute together with 
 - `ClipboardValueText` -> `data-slot="clipboard-value-text"`
 - Ark adds `data-copied` to `Clipboard`, `ClipboardLabel`, `ClipboardControl`, `ClipboardInput`, and
   `ClipboardTrigger` while the copied state is active.
-- Ark adds `data-readonly` to `ClipboardInput` when the input is read-only.
-- `ClipboardIndicator` adds `data-slot="clipboard-indicator-idle-icon"` and
-  `data-slot="clipboard-indicator-copied-icon"` to its default icon nodes.
+- Ark renders `ClipboardInput` read-only and adds `data-readonly` to it.
+- `ClipboardIndicator` renders its default icon as a direct `svg` child.

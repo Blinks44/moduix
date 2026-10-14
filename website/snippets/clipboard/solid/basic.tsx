@@ -13,7 +13,7 @@ export default function ClipboardDemo() {
     <Clipboard class={styles.root} defaultValue="https://moduix.dev/docs/clipboard">
       <ClipboardLabel>Copy this link</ClipboardLabel>
       <ClipboardControl>
-        <ClipboardInput readOnly />
+        <ClipboardInput />
         <ClipboardTrigger>
           <ClipboardIndicator />
         </ClipboardTrigger>

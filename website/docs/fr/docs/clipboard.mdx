@@ -504,7 +504,8 @@ champ de saisie.
 ### Personnalisation avancée
 
 Utilisez `asChild` pour que vos propres éléments de champ et de bouton rendent les parties Clipboard,
-tout en conservant l’état et le comportement du composant.
+tout en conservant l’état et le comportement du composant. Avec `asChild`, `ClipboardInput` et
+`ClipboardTrigger` n’ajoutent pas leurs propres styles : le composant enfant garde son apparence.
 
 <ExampleFrame variant="component">
   <AsChildClipboardDemo />
@@ -570,6 +571,5 @@ utilisez l’attribut Ark `data-copied` avec les hooks `data-slot` de moduix.
 - `ClipboardValueText` -> `data-slot="clipboard-value-text"`
 - Ark ajoute `data-copied` à `Clipboard`, `ClipboardLabel`, `ClipboardControl`, `ClipboardInput` et
   `ClipboardTrigger` tant que l’état copié est actif.
-- Ark ajoute `data-readonly` à `ClipboardInput` lorsque le champ est en lecture seule.
-- `ClipboardIndicator` ajoute `data-slot="clipboard-indicator-idle-icon"` et
-  `data-slot="clipboard-indicator-copied-icon"` aux nœuds de ses icônes par défaut.
+- Ark rend `ClipboardInput` en lecture seule et lui ajoute `data-readonly`.
+- `ClipboardIndicator` rend son icône par défaut comme enfant `svg` direct.

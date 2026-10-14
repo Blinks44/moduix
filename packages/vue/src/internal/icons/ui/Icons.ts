@@ -6,6 +6,7 @@ import {
   ChevronRight as LucideChevronRightIcon,
   ChevronUp as LucideChevronUpIcon,
   ChevronsUpDown as LucideChevronUpDownIcon,
+  Copy as LucideCopyIcon,
   Minus as LucideMinusIcon,
   Pencil as LucidePencilIcon,
   Plus as LucidePlusIcon,
@@ -40,6 +41,9 @@ export const MinusIcon: FunctionalComponent<IconProps> = (props) =>
 
 export const CheckIcon: FunctionalComponent<IconProps> = (props) =>
   h(LucideCheckIcon, { ...accessibilityProps, strokeWidth: 3, ...props });
+
+export const CopyIcon: FunctionalComponent<IconProps> = (props) =>
+  h(LucideCopyIcon, { ...accessibilityProps, strokeWidth: 3, ...props });
 
 export const CloseIcon: FunctionalComponent<IconProps> = (props) =>
   h(LucideCloseIcon, { ...accessibilityProps, strokeWidth: 3, ...props });
@@ -128,7 +132,6 @@ export const SeparatorMarkIcon: FunctionalComponent<IconProps> = (props) =>
     }),
   ]);
 
-export { Copy as CopyIcon } from '@lucide/vue';
 export { Ellipsis as EllipsisIcon } from '@lucide/vue';
 export { EyeClosed as EyeClosedIcon } from '@lucide/vue';
 export { Eye as EyeIcon } from '@lucide/vue';

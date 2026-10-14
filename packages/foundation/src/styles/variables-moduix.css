@@ -223,53 +223,15 @@
   --moduix-checkbox-size: initial; /* size-specific, md: var(--moduix-spacing-5) */
 
   /* Clipboard */
-  --moduix-clipboard-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-clipboard-width: initial; /* 100% */
-  --moduix-clipboard-max-width: initial; /* none */
   --moduix-clipboard-gap: initial; /* var(--moduix-spacing-1-5) */
   --moduix-clipboard-control-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-clipboard-label-color: initial; /* currentColor */
-  --moduix-clipboard-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-clipboard-label-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-clipboard-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-clipboard-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-clipboard-input-bg: initial; /* var(--moduix-input-bg, var(--moduix-color-background)) */
-  --moduix-clipboard-input-border-color: initial; /* var(--moduix-input-border-color, var(--moduix-color-border)) */
-  --moduix-clipboard-input-border-width: initial; /* var(--moduix-input-border-width, var(--moduix-border-width-sm)) */
-  --moduix-clipboard-input-color: initial; /* var(--moduix-input-color, var(--moduix-color-foreground)) */
-  --moduix-clipboard-input-focus-ring-color: initial; /* var(--moduix-input-focus-ring-color, var(--moduix-color-ring)) */
-  --moduix-clipboard-input-focus-ring-offset: initial; /* var(--moduix-clipboard-input-border-width, var(--moduix-input-border-width, var(--moduix-border-width-sm))) */
-  --moduix-clipboard-input-focus-ring-width: initial; /* var(--moduix-input-focus-ring-width, var(--moduix-clipboard-input-border-width, var(--moduix-input-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))))) */
-  --moduix-clipboard-input-font-size: initial; /* var(--moduix-input-font-size-md, var(--moduix-text-md)) */
-  --moduix-clipboard-input-height: initial; /* var(--moduix-input-height-md, var(--moduix-size-md)) */
-  --moduix-clipboard-input-line-height: initial; /* var(--moduix-input-line-height-md, var(--moduix-line-height-text-md)) */
-  --moduix-clipboard-input-padding-x: initial; /* var(--moduix-input-padding-x-md, var(--moduix-spacing-3-5)) */
-  --moduix-clipboard-input-padding-y: initial; /* var(--moduix-input-padding-y-md, var(--moduix-spacing-1)) */
-  --moduix-clipboard-input-placeholder-color: initial; /* var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground)) */
-  --moduix-clipboard-input-radius: initial; /* var(--moduix-input-radius, var(--moduix-radius-md)) */
-  --moduix-clipboard-input-readonly-bg: initial; /* var(--moduix-input-readonly-bg, var(--moduix-clipboard-input-bg, var(--moduix-color-background))) */
-  --moduix-clipboard-input-readonly-color: initial; /* var(--moduix-input-readonly-color, var(--moduix-clipboard-input-color, var(--moduix-color-foreground))) */
+  --moduix-clipboard-height: initial; /* var(--moduix-size-md) */
+  --moduix-clipboard-radius: initial; /* var(--moduix-radius-md) */
+  --moduix-clipboard-border-color: initial; /* var(--moduix-color-border) */
+  --moduix-clipboard-input-bg: initial; /* var(--moduix-color-background) */
   --moduix-clipboard-trigger-bg: initial; /* var(--moduix-color-background) */
   --moduix-clipboard-trigger-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-clipboard-trigger-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-clipboard-trigger-border-width: initial; /* var(--moduix-button-border-width, var(--moduix-border-width-sm)) */
-  --moduix-clipboard-trigger-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-clipboard-trigger-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-clipboard-trigger-focus-ring-offset: initial; /* var(--moduix-clipboard-trigger-border-width, var(--moduix-button-border-width, var(--moduix-border-width-sm))) */
-  --moduix-clipboard-trigger-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
-  --moduix-clipboard-trigger-font-size: initial; /* var(--moduix-button-font-size, var(--moduix-text-sm)) */
-  --moduix-clipboard-trigger-font-weight: initial; /* var(--moduix-button-font-weight, var(--moduix-weight-medium)) */
-  --moduix-clipboard-trigger-gap: initial; /* var(--moduix-button-content-gap, var(--moduix-spacing-2)) */
-  --moduix-clipboard-trigger-height: initial; /* var(--moduix-size-md) */
-  --moduix-clipboard-trigger-line-height: initial; /* var(--moduix-button-line-height, var(--moduix-line-height-text-sm)) */
-  --moduix-clipboard-trigger-padding-x: initial; /* var(--moduix-spacing-4) */
-  --moduix-clipboard-trigger-radius: initial; /* var(--moduix-button-radius, var(--moduix-radius-md)) */
-  --moduix-clipboard-indicator-size: initial; /* var(--moduix-button-icon-size, var(--moduix-spacing-4)) */
-  --moduix-clipboard-value-text-color: initial; /* currentColor */
-  --moduix-clipboard-value-text-font-size: initial; /* inherit */
-  --moduix-clipboard-value-text-font-weight: initial; /* inherit */
-  --moduix-clipboard-value-text-line-height: initial; /* inherit */
-  --moduix-clipboard-transition: initial; /* var(--moduix-transition-default) */
+  --moduix-clipboard-icon-size: initial; /* var(--moduix-spacing-4) */
 
   /* CloseButton */
   --moduix-close-button-bg: initial; /* transparent */

@@ -14,7 +14,7 @@ import styles from '@/components/examples/clipboard/component-basic.module.css';
   <Clipboard :class="styles.root" default-value="https://moduix.dev/docs/clipboard">
     <ClipboardLabel>Copy this link</ClipboardLabel>
     <ClipboardControl>
-      <ClipboardInput readonly />
+      <ClipboardInput />
       <ClipboardTrigger>
         <ClipboardIndicator />
       </ClipboardTrigger>

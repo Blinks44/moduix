@@ -70,11 +70,12 @@ const ClipboardControl = forwardRef<
 const ClipboardInput = forwardRef<
   ComponentRef<typeof ClipboardPrimitive.Input>,
   ComponentProps<typeof ClipboardPrimitive.Input>
->(function ClipboardInput({ className, ...props }, ref) {
+>(function ClipboardInput({ asChild, className, ...props }, ref) {
   return (
     <ClipboardPrimitive.Input
       ref={ref}
-      className={clsx(styles.input, className)}
+      asChild={asChild}
+      className={clsx(!asChild && styles.input, className)}
       {...props}
       data-slot="clipboard-input"
     />
@@ -84,11 +85,12 @@ const ClipboardInput = forwardRef<
 const ClipboardTrigger = forwardRef<
   ComponentRef<typeof ClipboardPrimitive.Trigger>,
   ComponentProps<typeof ClipboardPrimitive.Trigger>
->(function ClipboardTrigger({ className, ...props }, ref) {
+>(function ClipboardTrigger({ asChild, className, ...props }, ref) {
   return (
     <ClipboardPrimitive.Trigger
       ref={ref}
-      className={clsx(styles.trigger, className)}
+      asChild={asChild}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
       data-slot="clipboard-trigger"
     />
@@ -103,25 +105,11 @@ const ClipboardIndicator = forwardRef<
     <ClipboardPrimitive.Indicator
       ref={ref}
       className={clsx(styles.indicator, className)}
-      copied={
-        copied ?? (
-          <span
-            aria-hidden="true"
-            data-slot="clipboard-indicator-copied-icon"
-            className={styles.icon}
-          >
-            <CheckIcon />
-          </span>
-        )
-      }
+      copied={copied ?? <CheckIcon />}
       {...props}
       data-slot="clipboard-indicator"
     >
-      {children ?? (
-        <span aria-hidden="true" data-slot="clipboard-indicator-idle-icon" className={styles.icon}>
-          <CopyIcon />
-        </span>
-      )}
+      {children ?? <CopyIcon />}
     </ClipboardPrimitive.Indicator>
   );
 });

@@ -5,6 +5,7 @@ import LucideChevronLeftIcon from 'lucide-solid/icons/chevron-left';
 import LucideChevronRightIcon from 'lucide-solid/icons/chevron-right';
 import LucideChevronUpIcon from 'lucide-solid/icons/chevron-up';
 import LucideChevronUpDownIcon from 'lucide-solid/icons/chevrons-up-down';
+import LucideCopyIcon from 'lucide-solid/icons/copy';
 import LucideMinusIcon from 'lucide-solid/icons/minus';
 import LucidePlusIcon from 'lucide-solid/icons/plus';
 import LucideCloseIcon from 'lucide-solid/icons/x';
@@ -43,6 +44,10 @@ export function MinusIcon(props: IconProps) {
 
 export function CheckIcon(props: IconProps) {
   return <LucideCheckIcon {...accessibilityProps} strokeWidth={3} {...props} />;
+}
+
+export function CopyIcon(props: IconProps) {
+  return <LucideCopyIcon {...accessibilityProps} strokeWidth={3} {...props} />;
 }
 
 export function CloseIcon(props: IconProps) {
@@ -129,7 +134,6 @@ export function SeparatorMarkIcon(props: IconProps) {
   );
 }
 
-export { default as CopyIcon } from 'lucide-solid/icons/copy';
 export { default as EllipsisIcon } from 'lucide-solid/icons/ellipsis';
 export { default as EyeClosedIcon } from 'lucide-solid/icons/eye-closed';
 export { default as EyeIcon } from 'lucide-solid/icons/eye';

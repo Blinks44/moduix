@@ -9,6 +9,7 @@ import styles from './Clipboard.module.css';
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ ClipboardInputProps {
+  asChild?: boolean;
   class?: HTMLAttributes['class'];
 }
 
@@ -21,7 +22,8 @@ const attrs = useAttrs();
 <template>
   <ArkClipboardInput
     v-bind="attrs"
-    :class="clsx(styles.input, props.class)"
+    :as-child="props.asChild"
+    :class="clsx(!props.asChild && styles.input, props.class)"
     data-slot="clipboard-input"
   >
     <slot />

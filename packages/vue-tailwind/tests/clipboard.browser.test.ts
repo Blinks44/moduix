@@ -137,6 +137,8 @@ test('keeps RootProvider and asChild composition semantic', async () => {
   await expect
     .element(page.locator('[data-slot="clipboard-trigger"]'))
     .toHaveAttribute('data-slot', 'clipboard-trigger');
+  expect(document.querySelector('[data-slot="clipboard-input"]')?.className).toBe('');
+  expect(document.querySelector('[data-slot="clipboard-trigger"]')?.className).toBe('');
 });
 
 test('forwards refs and renders default and custom indicator slots', async () => {
@@ -172,7 +174,12 @@ test('forwards refs and renders default and custom indicator slots', async () =>
   expect(rootRef.value?.$el?.getAttribute('data-slot')).toBe('clipboard-root');
   expect(inputRef.value?.$el).toBe(input);
   expect(triggerRef.value?.$el).toBe(trigger);
-  await expect.element(page.locator('[data-slot="clipboard-indicator-idle-icon"]')).toBeAttached();
+  await expect
+    .element(page.locator('[data-slot="clipboard-indicator"] > svg[class*="copy"]'))
+    .toBeAttached();
+  expect(
+    document.querySelector('[data-slot="clipboard-indicator"] > svg')?.getAttribute('stroke-width'),
+  ).toBe('3');
 
   await page.locator('[data-slot="clipboard-trigger"]').click();
 
@@ -180,9 +187,11 @@ test('forwards refs and renders default and custom indicator slots', async () =>
     .element(page.locator('[data-slot="clipboard-trigger"]'))
     .toHaveAttribute('data-copied');
   await expect.poll(() => navigator.clipboard.readText()).toBe('https://moduix.dev/docs/clipboard');
-  await expect.element(page.locator('[data-slot="clipboard-indicator-idle-icon"]')).toHaveCount(0);
   await expect
-    .element(page.locator('[data-slot="clipboard-indicator-copied-icon"]'))
+    .element(page.locator('[data-slot="clipboard-indicator"] > svg[class*="copy"]'))
+    .toHaveCount(0);
+  await expect
+    .element(page.locator('[data-slot="clipboard-indicator"] > svg[class*="check"]'))
     .toBeAttached();
   await expect.element(page.getByText('Copied!')).toBeAttached();
 });

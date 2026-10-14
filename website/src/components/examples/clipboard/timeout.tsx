@@ -13,7 +13,7 @@ export default function TimeoutClipboardDemo() {
     <Clipboard className={styles.root} defaultValue="workspace-secret" timeout={5000}>
       <ClipboardLabel>Five second copied state</ClipboardLabel>
       <ClipboardControl>
-        <ClipboardInput readOnly />
+        <ClipboardInput />
         <ClipboardTrigger>
           <ClipboardIndicator />
         </ClipboardTrigger>

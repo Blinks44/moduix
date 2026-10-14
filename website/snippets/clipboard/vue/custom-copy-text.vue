@@ -14,7 +14,7 @@ import styles from '@/components/examples/clipboard/component-custom-copy-text.m
   <Clipboard :class="styles.root" default-value="workspace-secret">
     <ClipboardLabel>Override copy labels</ClipboardLabel>
     <ClipboardControl>
-      <ClipboardInput readonly />
+      <ClipboardInput />
       <ClipboardTrigger>
         <ClipboardIndicator />
         <ClipboardIndicator>

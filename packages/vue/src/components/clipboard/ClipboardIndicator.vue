@@ -29,18 +29,10 @@ const attrs = useAttrs();
     data-slot="clipboard-indicator"
   >
     <template #copied>
-      <slot name="copied">
-        <span aria-hidden="true" data-slot="clipboard-indicator-copied-icon" :class="styles.icon">
-          <CheckIcon />
-        </span>
-      </slot>
+      <slot name="copied"><CheckIcon /></slot>
     </template>
     <template #default>
-      <slot>
-        <span aria-hidden="true" data-slot="clipboard-indicator-idle-icon" :class="styles.icon">
-          <CopyIcon />
-        </span>
-      </slot>
+      <slot><CopyIcon /></slot>
     </template>
   </ArkClipboardIndicator>
 </template>

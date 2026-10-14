@@ -506,7 +506,8 @@ Clipboard | ClipboardRootProvider
 ### Расширенная настройка
 
 Используйте `asChild`, чтобы передать свои элементы поля и кнопки для отрисовки частей Clipboard,
-сохранив состояние и поведение компонента.
+сохранив состояние и поведение компонента. С `asChild` части `ClipboardInput` и `ClipboardTrigger`
+не добавляют свои стили, и дочерний компонент сохраняет свой вид.
 
 <ExampleFrame variant="component">
   <AsChildClipboardDemo />
@@ -572,6 +573,5 @@ Clipboard | ClipboardRootProvider
 - `ClipboardValueText` -> `data-slot="clipboard-value-text"`
 - Пока активно состояние копирования, Ark добавляет `data-copied` к `Clipboard`, `ClipboardLabel`,
   `ClipboardControl`, `ClipboardInput` и `ClipboardTrigger`.
-- Ark добавляет `data-readonly` к `ClipboardInput`, когда поле доступно только для чтения.
-- `ClipboardIndicator` добавляет `data-slot="clipboard-indicator-idle-icon"` и
-  `data-slot="clipboard-indicator-copied-icon"` к стандартным узлам иконок.
+- Ark делает `ClipboardInput` доступным только для чтения и добавляет к нему `data-readonly`.
+- `ClipboardIndicator` рендерит стандартную иконку прямым дочерним `svg`.
