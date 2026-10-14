@@ -1,15 +1,12 @@
 'use client';
 
 import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
-import type { ChartValue, DomChartDefinition } from '@tanstack/charts';
+import type { ChartTooltipBodyContext, ChartValue } from '@tanstack/charts';
 import { motion as createMotionRenderer } from '@tanstack/charts/motion';
 import { RendererChart as ChartPrimitive } from '@tanstack/charts/react/tooltip';
-import type {
-  ChartTooltipBodyRenderContext,
-  RendererChartProps,
-} from '@tanstack/charts/react/tooltip';
+import type { RendererChartProps } from '@tanstack/charts/react/tooltip';
 import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
-import type { ComponentRef } from 'react';
+import type { ComponentRef, CSSProperties } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
@@ -21,32 +18,6 @@ const defaultChartRenderer = createMotionRenderer({
     mass: 0.8,
   },
 });
-
-function mergeTooltipClassName(className?: string) {
-  return cn(
-    '!rounded-md !border !border-border !bg-popover !p-3 !font-sans !text-xs !leading-4 !font-medium !text-popover-foreground !shadow-lg',
-    className,
-  );
-}
-
-function withTooltipStyles<
-  TDatum,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
->(definition: DomChartDefinition<TDatum, TXValue, TYValue>) {
-  const tooltip = definition.tooltip;
-
-  if (!tooltip) {
-    return definition;
-  }
-
-  const styledTooltip =
-    typeof tooltip === 'object' && 'use' in tooltip
-      ? { ...tooltip, className: mergeTooltipClassName(tooltip.className) }
-      : { use: tooltip, className: mergeTooltipClassName() };
-
-  return { ...definition, tooltip: styledTooltip };
-}
 
 const Chart = forwardRef<ComponentRef<typeof ark.figure>, HTMLArkProps<'figure'>>(function Chart(
   { className, ...props },
@@ -67,7 +38,7 @@ const Chart = forwardRef<ComponentRef<typeof ark.figure>, HTMLArkProps<'figure'>
   );
 });
 
-const renderDefaultTooltipBody = ({ content }: ChartTooltipBodyRenderContext) => {
+const renderDefaultTooltipBody = (content: ChartTooltipBodyContext['content']) => {
   if (typeof content === 'string') {
     return <span data-slot="chart-tooltip-text">{content}</span>;
   }
@@ -95,9 +66,10 @@ const renderDefaultTooltipBody = ({ content }: ChartTooltipBodyRenderContext) =>
           {content.rows.map((row, index) => (
             <div
               key={`${row.label}-${index}`}
+              data-active={row.active ? '' : undefined}
               data-has-swatch={row.color ? '' : undefined}
               data-slot="chart-tooltip-row"
-              className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2 data-[has-swatch]:grid-cols-[0.625rem_minmax(0,1fr)_auto]"
+              className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2 data-active:rounded-sm data-active:bg-muted data-active:ring-4 data-active:ring-muted data-[has-swatch]:grid-cols-[0.625rem_minmax(0,1fr)_auto]"
             >
               {row.color ? (
                 <span
@@ -130,7 +102,6 @@ const ChartPlot = function ChartPlot<
   TYValue extends ChartValue = ChartValue,
 >({
   className,
-  definition,
   motion = true,
   renderTooltipBody,
   renderer,
@@ -142,11 +113,13 @@ const ChartPlot = function ChartPlot<
   return (
     <ChartPrimitive
       {...props}
-      definition={withTooltipStyles(definition)}
       renderer={renderer ?? (motion ? defaultChartRenderer : svgChartRenderer)}
-      renderTooltipBody={renderTooltipBody ?? renderDefaultTooltipBody}
+      renderTooltipBody={(context) => {
+        const defaultBody = renderDefaultTooltipBody(context.content);
+        return renderTooltipBody ? renderTooltipBody({ ...context, defaultBody }) : defaultBody;
+      }}
       className={cn(
-        'min-w-0 text-muted-foreground [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-offset-2 [&_.ts-chart:focus-visible]:outline-ring',
+        'min-w-0 text-muted-foreground [--ts-chart-tooltip-background:--theme(--color-popover)] [--ts-chart-tooltip-border-radius:--theme(--radius-md)] [--ts-chart-tooltip-border:1px_solid_--theme(--color-border)] [--ts-chart-tooltip-color:--theme(--color-popover-foreground)] [--ts-chart-tooltip-font:--theme(--font-weight-medium)_--theme(--text-xs)/--theme(--text-xs--line-height)_--theme(--font-sans)] [--ts-chart-tooltip-padding:--spacing(3)] [--ts-chart-tooltip-shadow:--theme(--shadow-lg)] [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-offset-2 [&_.ts-chart:focus-visible]:outline-ring',
         className,
       )}
     />
@@ -217,31 +190,24 @@ const ChartLegend = forwardRef<ComponentRef<typeof ark.ul>, HTMLArkProps<'ul'>>(
 const ChartLegendItem = forwardRef<
   ComponentRef<typeof ark.li>,
   HTMLArkProps<'li'> & { color?: string }
->(function ChartLegendItem({ asChild, children, className, color, style, ...props }, ref) {
+>(function ChartLegendItem({ className, color, style, ...props }, ref) {
   return (
     <ark.li
       ref={ref}
-      asChild={asChild}
-      className={cn('inline-flex items-center gap-2 text-sm text-muted-foreground', className)}
-      style={style}
+      className={cn(
+        'inline-flex items-center gap-2 text-sm text-muted-foreground before:size-2.5 before:shrink-0 before:rounded-full before:bg-(--moduix-chart-legend-indicator-color,--theme(--color-muted-foreground)) before:shadow-[inset_0_0_0_1px_rgb(0_0_0_/_8%)]',
+        className,
+      )}
+      style={
+        color
+          ? ({ '--moduix-chart-legend-indicator-color': color, ...style } as CSSProperties)
+          : style
+      }
       {...props}
       data-scope="chart"
       data-part="legend-item"
       data-slot="chart-legend-item"
-    >
-      {asChild ? (
-        children
-      ) : (
-        <>
-          <span
-            aria-hidden="true"
-            className="size-2.5 shrink-0 rounded-full bg-muted-foreground shadow-[inset_0_0_0_1px_rgb(0_0_0_/_8%)]"
-            style={color ? { backgroundColor: color } : undefined}
-          />
-          {children}
-        </>
-      )}
-    </ark.li>
+    />
   );
 });
 

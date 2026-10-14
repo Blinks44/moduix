@@ -514,23 +514,22 @@ TanStack.
 
 ## Стилизация
 
-Стилизуйте `figure` через `Chart`, а хост TanStack - через `ChartPlot`. Публичные CSS-свойства
-управляют поверхностью, контуром фокуса, оболочкой подсказки и её стандартной раскладкой. Геометрию
-графика задавайте в определении TanStack через параметры графических элементов, шкалы и цветовые
-каналы.
+Стилизуйте `figure` через `Chart`, а хост TanStack - через `ChartPlot`. CSS-свойства ниже управляют
+поверхностью `Chart` и индикатором легенды. Геометрию графика задавайте в определении TanStack через
+параметры графических элементов, шкалы и цветовые каналы.
 
 Варианты на Tailwind используют обычные утилиты и пользовательские классы, а перечисленные ниже
-CSS-свойства настраивают варианты с CSS Modules. Атрибуты данных и селекторы `data-slot` общие для
-обоих подходов.
+CSS-свойства настраивают варианты с CSS Modules. Оба подхода задают переменные TanStack
+`--ts-chart-tooltip-*` на хосте `ChartPlot`, а атрибуты данных и селекторы `data-slot` у них общие.
 
-Добавьте локальный класс (`className` в React или `class` в Solid и Vue), если графику нужны локальные
-переопределения:
+Чтобы изменить оболочку подсказки, переопределите эти переменные классом на `ChartPlot` (`className`
+в React или `class` в Solid и Vue):
 
 ```css
-.sales-chart {
-  --moduix-chart-tooltip-bg: var(--moduix-color-card);
-  --moduix-chart-tooltip-font-size: var(--moduix-text-sm);
-  --moduix-chart-tooltip-line-height: var(--moduix-line-height-text-sm);
+.sales-plot {
+  --ts-chart-tooltip-background: var(--moduix-color-card);
+  --ts-chart-tooltip-font: var(--moduix-weight-medium) var(--moduix-text-sm) /
+    var(--moduix-line-height-text-sm) var(--moduix-font-sans);
 }
 ```
 
@@ -547,6 +546,7 @@ CSS-свойства настраивают варианты с CSS Modules. А�
   `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`,
   `chart-tooltip-value` и `chart-tooltip-text`.
 - Используйте `--moduix-color-chart-1` - `--moduix-color-chart-5` в цветовых шкалах TanStack.
-- Оболочка подсказки настраивается через документированные переменные `--ts-chart-tooltip-*`,
-  связанные со свойствами moduix. Для собственных CSS-селекторов используйте `tooltip.className`,
-  а для собственного содержимого - `renderTooltipBody` и нативный `defaultBody`.
+- Строки подсказки, которые TanStack помечает как `active`, получают `data-active`.
+- Оболочка подсказки читает переменные TanStack `--ts-chart-tooltip-*` с хоста `ChartPlot`. Для
+  собственных CSS-селекторов используйте `tooltip.className`, а для собственного содержимого вокруг
+  `defaultBody` от moduix - `renderTooltipBody`.

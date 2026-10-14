@@ -507,20 +507,22 @@ to a pinned tooltip.
 
 ## Styling
 
-Style the figure with `Chart` and the TanStack host with `ChartPlot`. Public CSS properties
-control the surface, focus ring, tooltip shell, and default tooltip layout. Keep chart geometry in
-the TanStack definition through mark options, scales, and color channels.
+Style the figure with `Chart` and the TanStack host with `ChartPlot`. The CSS properties below
+control the `Chart` surface and the legend indicator. Keep chart geometry in the TanStack definition
+through mark options, scales, and color channels.
 
 Tailwind variants use native utilities and consumer classes; the CSS properties below customize the
-CSS Modules variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
+CSS Modules variants. Both styling tracks set TanStack's `--ts-chart-tooltip-*` variables on the
+`ChartPlot` host, and data attributes and `data-slot` hooks are shared by both.
 
-Give the root a local class (`className` in React or `class` in Solid and Vue) when a chart needs overrides:
+To restyle the tooltip shell, override those variables with a class on `ChartPlot` (`className` in
+React or `class` in Solid and Vue):
 
 ```css
-.sales-chart {
-  --moduix-chart-tooltip-bg: var(--moduix-color-card);
-  --moduix-chart-tooltip-font-size: var(--moduix-text-sm);
-  --moduix-chart-tooltip-line-height: var(--moduix-line-height-text-sm);
+.sales-plot {
+  --ts-chart-tooltip-background: var(--moduix-color-card);
+  --ts-chart-tooltip-font: var(--moduix-weight-medium) var(--moduix-text-sm) /
+    var(--moduix-line-height-text-sm) var(--moduix-font-sans);
 }
 ```
 
@@ -537,6 +539,7 @@ Give the root a local class (`className` in React or `class` in Solid and Vue) w
   `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`, `chart-tooltip-value`, and
   `chart-tooltip-text` data slots.
 - Use `--moduix-color-chart-1` through `--moduix-color-chart-5` in TanStack color scales.
-- The tooltip shell is styled through the documented `--ts-chart-tooltip-*` variables mapped from
-  moduix properties. Use TanStack's `tooltip.className` for custom selectors, or
-  `renderTooltipBody` when you need custom content and the native `defaultBody`.
+- Tooltip rows that TanStack marks as `active` get `data-active`.
+- The tooltip shell reads TanStack's `--ts-chart-tooltip-*` variables from the `ChartPlot` host. Use
+  TanStack's `tooltip.className` for custom selectors, or `renderTooltipBody` when you need custom
+  content around the moduix `defaultBody`.

@@ -35,7 +35,7 @@ rs.mock('@tanstack/charts/react/tooltip', () => ({
         | {
             title?: string;
             color?: string;
-            rows: Array<{ label: string; value: string; color?: string }>;
+            rows: Array<{ label: string; value: string; color?: string; active?: boolean }>;
           };
       defaultBody: ReactNode;
       dismiss: () => void;
@@ -56,7 +56,7 @@ rs.mock('@tanstack/charts/react/tooltip', () => ({
           title: 'March',
           rows: [
             { label: 'Revenue', value: '76' },
-            { label: 'Target', value: '68', color: 'tomato' },
+            { label: 'Target', value: '68', color: 'tomato', active: true },
           ],
         },
         defaultBody: <span data-testid="tanstack-default-body" />,
@@ -117,6 +117,9 @@ test('renders the compact Moduix tooltip body by default', async () => {
   await expect.element(page.locator('[data-slot="chart-tooltip-title"]')).toContainText('March');
   expect(document.querySelectorAll('[data-slot="chart-tooltip-row"]')).toHaveLength(2);
   expect(document.querySelectorAll('[data-slot="chart-tooltip-swatch"]')).toHaveLength(1);
+  const tooltipRows = document.querySelectorAll('[data-slot="chart-tooltip-row"]');
+  expect(tooltipRows[0]!.hasAttribute('data-active')).toBe(false);
+  expect(tooltipRows[1]!.hasAttribute('data-active')).toBe(true);
   await expect
     .element(page.locator('[data-slot="chart-tooltip-label"]').first())
     .toContainText('Revenue');
@@ -128,7 +131,7 @@ test('renders the compact Moduix tooltip body by default', async () => {
     .toHaveCSS('text-align', 'end');
 });
 
-test('passes TanStack’s native default body to a custom tooltip renderer', async () => {
+test('passes the Moduix default body to a custom tooltip renderer', async () => {
   render(
     <ChartPlot
       ariaLabel="Monthly revenue"
@@ -138,8 +141,11 @@ test('passes TanStack’s native default body to a custom tooltip renderer', asy
   );
 
   await expect.element(page.getByTestId('custom-tooltip')).toBeAttached();
+  await expect.element(page.getByTestId('tanstack-default-body')).toHaveCount(0);
   expect(
-    screen.getByTestId('custom-tooltip')!.contains(screen.getByTestId('tanstack-default-body')),
+    screen
+      .getByTestId('custom-tooltip')!
+      .contains(document.querySelector('[data-slot="chart-tooltip-body"]')),
   ).toBe(true);
 });
 
@@ -175,11 +181,9 @@ test('renders composition parts with semantic defaults and stable hooks', async 
     expect(element.tagName).toBe(tagName.toUpperCase());
   }
 
-  expect(
-    screen
-      .getByTestId('legend-item')
-      .style.getPropertyValue('--moduix-chart-legend-indicator-color'),
-  ).toBe('tomato');
+  const indicator = getComputedStyle(screen.getByTestId('legend-item'), '::before');
+  expect(indicator.backgroundColor).toBe('rgb(255, 99, 71)');
+  expect(indicator.borderRadius).not.toBe('0px');
 });
 
 test('forwards an HTMLElement ref through an asChild root', async () => {

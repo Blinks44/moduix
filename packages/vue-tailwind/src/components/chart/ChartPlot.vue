@@ -37,11 +37,7 @@ export interface Props<
   lang="ts"
   generic="TDatum, TXValue extends ChartValue = ChartValue, TYValue extends ChartValue = ChartValue"
 >
-import type {
-  ChartTooltipBodyTarget,
-  ChartTooltipContent,
-  DomChartDefinition,
-} from '@tanstack/charts';
+import type { ChartTooltipBodyTarget, ChartTooltipContent } from '@tanstack/charts';
 import { resolveChartAdapterLayout } from '@tanstack/charts/adapter';
 import { createChartRendererAdapter } from '@tanstack/charts/adapter/renderer';
 import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
@@ -49,33 +45,7 @@ import { computed, h, onBeforeUnmount, onMounted, ref, shallowRef, useId, watch 
 import { cn } from '@/lib/moduix/cn';
 
 const plotClass =
-  'min-w-0 text-muted-foreground [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-offset-2 [&_.ts-chart:focus-visible]:outline-ring';
-
-const tooltipShellClass =
-  '!rounded-md !border !border-border !bg-popover !p-3 !font-sans !text-xs !leading-4 !font-medium !text-popover-foreground !shadow-lg';
-
-function mergeTooltipClassName(className?: string) {
-  return cn(tooltipShellClass, className);
-}
-
-function withTooltipStyles<
-  TDatum,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
->(definition: DomChartDefinition<TDatum, TXValue, TYValue>) {
-  const tooltip = definition.tooltip;
-
-  if (!tooltip) {
-    return definition;
-  }
-
-  const styledTooltip =
-    typeof tooltip === 'object' && 'use' in tooltip
-      ? { ...tooltip, className: mergeTooltipClassName(tooltip.className) }
-      : { use: tooltip, className: mergeTooltipClassName() };
-
-  return { ...definition, tooltip: styledTooltip };
-}
+  'min-w-0 text-muted-foreground [--ts-chart-tooltip-background:--theme(--color-popover)] [--ts-chart-tooltip-border-radius:--theme(--radius-md)] [--ts-chart-tooltip-border:1px_solid_--theme(--color-border)] [--ts-chart-tooltip-color:--theme(--color-popover-foreground)] [--ts-chart-tooltip-font:--theme(--font-weight-medium)_--theme(--text-xs)/--theme(--text-xs--line-height)_--theme(--font-sans)] [--ts-chart-tooltip-padding:--spacing(3)] [--ts-chart-tooltip-shadow:--theme(--shadow-lg)] [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-offset-2 [&_.ts-chart:focus-visible]:outline-ring';
 
 const {
   class: className,
@@ -83,20 +53,8 @@ const {
   motion = true,
   renderer,
   renderTooltipBody,
-  definition,
-  ariaLabel,
-  ariaDescription,
-  height,
-  aspectRatio,
-  width,
-  initialWidth,
-  tabIndex,
   idPrefix,
-  measureText,
-  onFocusChange,
-  onFocusGroupChange,
-  onSelect,
-  onRender,
+  ...hostProps
 } = defineProps<Props<TDatum, TXValue, TYValue>>();
 
 const renderTooltipSwatch = (color: string) =>
@@ -132,10 +90,11 @@ const renderModuixTooltipBody = (content: ChartTooltipContent | string): VNodeCh
               'div',
               {
                 key: `${row.label}-${index}`,
+                'data-active': row.active ? '' : undefined,
                 'data-has-swatch': row.color ? '' : undefined,
                 'data-slot': 'chart-tooltip-row',
                 class:
-                  'grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2 data-[has-swatch]:grid-cols-[0.625rem_minmax(0,1fr)_auto]',
+                  'grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2 data-active:rounded-sm data-active:bg-muted data-active:ring-4 data-active:ring-muted data-[has-swatch]:grid-cols-[0.625rem_minmax(0,1fr)_auto]',
               },
               [
                 row.color ? renderTooltipSwatch(row.color) : null,
@@ -163,7 +122,9 @@ const renderModuixTooltipBody = (content: ChartTooltipContent | string): VNodeCh
 
 const generatedIdPrefix = `ts-chart-${useId().replaceAll(/[^a-zA-Z0-9_-]/g, '')}`;
 
-const resolvedAspectRatio = computed(() => resolveChartAdapterLayout({ aspectRatio }).aspectRatio);
+const resolvedAspectRatio = computed(
+  () => resolveChartAdapterLayout({ aspectRatio: hostProps.aspectRatio }).aspectRatio,
+);
 
 const resolvedRenderer = computed(
   () =>
@@ -181,20 +142,8 @@ const setTooltipTarget = (target: ChartTooltipBodyTarget<TDatum, TXValue, TYValu
 };
 
 const hostOptions = computed<ChartRendererHostOptions<TDatum, TXValue, TYValue>>(() => ({
-  definition: withTooltipStyles(definition),
-  ariaLabel,
-  ariaDescription,
-  height,
-  aspectRatio,
-  width,
-  initialWidth,
-  tabIndex,
+  ...hostProps,
   idPrefix: idPrefix ?? generatedIdPrefix,
-  measureText,
-  onFocusChange,
-  onFocusGroupChange,
-  onSelect,
-  onRender,
   renderer: resolvedRenderer.value,
   onTooltipBodyChange: setTooltipTarget,
 }));
@@ -217,15 +166,15 @@ watch(hostOptions, (nextOptions) => adapter.update(nextOptions));
 const hostStyle = computed<StyleValue>(() => [
   {
     position: 'relative',
-    width: width === undefined ? '100%' : `${width}px`,
+    width: hostProps.width === undefined ? '100%' : `${hostProps.width}px`,
     height:
-      height === undefined
+      hostProps.height === undefined
         ? resolvedAspectRatio.value === undefined
           ? '320px'
           : undefined
-        : `${height}px`,
+        : `${hostProps.height}px`,
     aspectRatio:
-      height === undefined && resolvedAspectRatio.value !== undefined
+      hostProps.height === undefined && resolvedAspectRatio.value !== undefined
         ? resolvedAspectRatio.value.toString()
         : undefined,
   },

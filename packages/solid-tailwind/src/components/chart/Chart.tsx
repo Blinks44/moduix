@@ -5,7 +5,6 @@ import type {
   ChartTooltipBodyContext,
   ChartTooltipBodyTarget,
   ChartValue,
-  DomChartDefinition,
 } from '@tanstack/charts';
 import { resolveChartAdapterLayout } from '@tanstack/charts/adapter';
 import { createChartRendererAdapter } from '@tanstack/charts/adapter/renderer';
@@ -36,32 +35,6 @@ const defaultChartRenderer = createMotionRenderer<unknown, ChartValue, ChartValu
     mass: 0.8,
   },
 });
-
-function mergeTooltipClassName(className?: string) {
-  return cn(
-    '!rounded-md !border !border-border !bg-popover !p-3 !font-sans !text-xs !leading-4 !font-medium !text-popover-foreground !shadow-lg',
-    className,
-  );
-}
-
-function withTooltipStyles<
-  TDatum,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
->(definition: DomChartDefinition<TDatum, TXValue, TYValue>) {
-  const tooltip = definition.tooltip;
-
-  if (!tooltip) {
-    return definition;
-  }
-
-  const styledTooltip =
-    typeof tooltip === 'object' && 'use' in tooltip
-      ? { ...tooltip, className: mergeTooltipClassName(tooltip.className) }
-      : { use: tooltip, className: mergeTooltipClassName() };
-
-  return { ...definition, tooltip: styledTooltip };
-}
 
 type ChartTooltipContent = ChartTooltipBodyContext['content'];
 type ChartTooltipObjectContent = Exclude<ChartTooltipContent, string>;
@@ -121,9 +94,10 @@ function ModuixTooltipObjectContent(props: { content: Accessor<ChartTooltipObjec
           <For each={props.content().rows}>
             {(row) => (
               <div
+                data-active={row.active ? '' : undefined}
                 data-has-swatch={row.color ? '' : undefined}
                 data-slot="chart-tooltip-row"
-                class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2 data-[has-swatch]:grid-cols-[0.625rem_minmax(0,1fr)_auto]"
+                class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2 data-active:rounded-sm data-active:bg-muted data-active:ring-4 data-active:ring-muted data-[has-swatch]:grid-cols-[0.625rem_minmax(0,1fr)_auto]"
               >
                 <Show when={row.color}>
                   <span
@@ -153,14 +127,12 @@ function ModuixTooltipObjectContent(props: { content: Accessor<ChartTooltipObjec
 
 function ModuixTooltipBody(props: { content: Accessor<ChartTooltipContent> }) {
   return (
-    <>
-      <Show when={typeof props.content() === 'string'}>
-        <span data-slot="chart-tooltip-text">{props.content() as string}</span>
-      </Show>
-      <Show when={typeof props.content() !== 'string'}>
-        <ModuixTooltipObjectContent content={() => props.content() as ChartTooltipObjectContent} />
-      </Show>
-    </>
+    <Show
+      when={typeof props.content() !== 'string'}
+      fallback={<span data-slot="chart-tooltip-text">{props.content() as string}</span>}
+    >
+      <ModuixTooltipObjectContent content={() => props.content() as ChartTooltipObjectContent} />
+    </Show>
   );
 }
 
@@ -169,6 +141,9 @@ function ChartTooltipBody<TDatum, TXValue extends ChartValue, TYValue extends Ch
   target: Accessor<ChartTooltipBodyTarget<TDatum, TXValue, TYValue>>;
 }) {
   const context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue> = {
+    get primaryPoint() {
+      return props.target().primaryPoint;
+    },
     get points() {
       return props.target().points;
     },
@@ -186,14 +161,6 @@ function ChartTooltipBody<TDatum, TXValue extends ChartValue, TYValue extends Ch
 
   return <Portal mount={props.target().element}>{props.render(context)}</Portal>;
 }
-
-const renderDefaultTooltipBody = <
-  TDatum,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
->(
-  context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>,
-) => context.defaultBody;
 
 function ChartPlot<
   TDatum,
@@ -227,7 +194,6 @@ function ChartPlot<
   const getOptions = () => {
     return {
       ...others,
-      definition: withTooltipStyles(props.definition),
       idPrefix: props.idPrefix ?? generatedId,
       renderer: resolvedRenderer(),
       onTooltipBodyChange: setTooltipTarget,
@@ -247,7 +213,7 @@ function ChartPlot<
     <>
       <div
         class={cn(
-          'ts-chart-host min-w-0 text-muted-foreground [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-offset-2 [&_.ts-chart:focus-visible]:outline-ring',
+          'ts-chart-host min-w-0 text-muted-foreground [--ts-chart-tooltip-background:--theme(--color-popover)] [--ts-chart-tooltip-border-radius:--theme(--radius-md)] [--ts-chart-tooltip-border:1px_solid_--theme(--color-border)] [--ts-chart-tooltip-color:--theme(--color-popover-foreground)] [--ts-chart-tooltip-font:--theme(--font-weight-medium)_--theme(--text-xs)/--theme(--text-xs--line-height)_--theme(--font-sans)] [--ts-chart-tooltip-padding:--spacing(3)] [--ts-chart-tooltip-shadow:--theme(--shadow-lg)] [&_.ts-chart]:rounded-md [&_.ts-chart]:outline-none [&_.ts-chart:focus-visible]:outline-2 [&_.ts-chart:focus-visible]:outline-offset-2 [&_.ts-chart:focus-visible]:outline-ring',
           local.class,
         )}
         style={{
@@ -273,7 +239,7 @@ function ChartPlot<
       <Show when={tooltipTarget()} keyed>
         {(target) => (
           <ChartTooltipBody
-            render={local.renderTooltipBody ?? renderDefaultTooltipBody}
+            render={local.renderTooltipBody ?? ((context) => context.defaultBody)}
             target={() => target}
           />
         )}
@@ -339,31 +305,27 @@ function ChartLegend(props: HTMLArkProps<'ul'>) {
 }
 
 function ChartLegendItem(props: HTMLArkProps<'li'> & { color?: string }) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'color', 'style']);
+  const [local, others] = splitProps(props, ['class', 'color', 'style']);
 
   return (
     <ark.li
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="legend-item"
       data-slot="chart-legend-item"
-      class={cn('inline-flex items-center gap-2 text-sm text-muted-foreground', local.class)}
-      style={local.style}
-    >
-      {local.asChild ? (
-        local.children
-      ) : (
-        <>
-          <span
-            aria-hidden="true"
-            class="size-2.5 shrink-0 rounded-full bg-muted-foreground shadow-[inset_0_0_0_1px_rgb(0_0_0_/_8%)]"
-            style={local.color ? { 'background-color': local.color } : undefined}
-          />
-          {local.children}
-        </>
+      class={cn(
+        'inline-flex items-center gap-2 text-sm text-muted-foreground before:size-2.5 before:shrink-0 before:rounded-full before:bg-(--moduix-chart-legend-indicator-color,--theme(--color-muted-foreground)) before:shadow-[inset_0_0_0_1px_rgb(0_0_0_/_8%)]',
+        local.class,
       )}
-    </ark.li>
+      style={
+        local.color
+          ? ({
+              '--moduix-chart-legend-indicator-color': local.color,
+              ...(typeof local.style === 'object' && local.style ? local.style : {}),
+            } as JSX.CSSProperties)
+          : local.style
+      }
+    />
   );
 }
 

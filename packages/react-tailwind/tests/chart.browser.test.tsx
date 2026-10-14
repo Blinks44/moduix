@@ -37,7 +37,7 @@ rs.mock('@tanstack/charts/react/tooltip', () => ({
         | {
             title?: string;
             color?: string;
-            rows: Array<{ label: string; value: string; color?: string }>;
+            rows: Array<{ label: string; value: string; color?: string; active?: boolean }>;
           };
       defaultBody: ReactNode;
       dismiss: () => void;
@@ -59,7 +59,7 @@ rs.mock('@tanstack/charts/react/tooltip', () => ({
             title: 'March',
             rows: [
               { label: 'Revenue', value: '76' },
-              { label: 'Target', value: '68', color: 'tomato' },
+              { label: 'Target', value: '68', color: 'tomato', active: true },
             ],
           },
           defaultBody: <span data-testid="tanstack-default-body" />,
@@ -136,7 +136,7 @@ test('prefers an explicit renderer over the motion setting', async () => {
     .toHaveAttribute('data-renderer', 'custom-renderer');
 });
 
-test('styles TanStack tooltip chrome through its public class option', async () => {
+test('maps tooltip chrome to TanStack variables without rewriting the definition', async () => {
   render(
     <ChartPlot
       ariaLabel="Monthly revenue"
@@ -144,11 +144,21 @@ test('styles TanStack tooltip chrome through its public class option', async () 
     />,
   );
 
-  const tooltipClassName = screen.getByTestId('tanstack-chart').getAttribute('data-tooltip-class');
+  expect(screen.getByTestId('tanstack-chart').getAttribute('data-tooltip-class')).toBe('!bg-muted');
 
-  expect(tooltipClassName).toContain('!p-3');
-  expect(tooltipClassName).toContain('!bg-muted');
-  expect(tooltipClassName).not.toContain('!bg-popover');
+  const host = getComputedStyle(document.querySelector('.ts-chart-host')!);
+
+  for (const name of [
+    'background',
+    'border',
+    'border-radius',
+    'color',
+    'font',
+    'padding',
+    'shadow',
+  ]) {
+    expect(host.getPropertyValue(`--ts-chart-tooltip-${name}`).trim()).not.toBe('');
+  }
 });
 
 test('renders the compact Moduix tooltip body by default', async () => {
@@ -159,6 +169,9 @@ test('renders the compact Moduix tooltip body by default', async () => {
   await expect.element(page.locator('[data-slot="chart-tooltip-title"]')).toContainText('March');
   expect(document.querySelectorAll('[data-slot="chart-tooltip-row"]')).toHaveLength(2);
   expect(document.querySelectorAll('[data-slot="chart-tooltip-swatch"]')).toHaveLength(1);
+  const tooltipRows = document.querySelectorAll('[data-slot="chart-tooltip-row"]');
+  expect(tooltipRows[0]!.hasAttribute('data-active')).toBe(false);
+  expect(tooltipRows[1]!.hasAttribute('data-active')).toBe(true);
   await expect
     .element(page.locator('[data-slot="chart-tooltip-label"]').first())
     .toContainText('Revenue');
@@ -170,7 +183,7 @@ test('renders the compact Moduix tooltip body by default', async () => {
     .toHaveCSS('text-align', 'end');
 });
 
-test('passes TanStack’s native default body to a custom tooltip renderer', async () => {
+test('passes the Moduix default body to a custom tooltip renderer', async () => {
   render(
     <ChartPlot
       ariaLabel="Monthly revenue"
@@ -180,8 +193,11 @@ test('passes TanStack’s native default body to a custom tooltip renderer', asy
   );
 
   await expect.element(page.getByTestId('custom-tooltip')).toBeAttached();
+  await expect.element(page.getByTestId('tanstack-default-body')).toHaveCount(0);
   expect(
-    screen.getByTestId('custom-tooltip')!.contains(screen.getByTestId('tanstack-default-body')),
+    screen
+      .getByTestId('custom-tooltip')!
+      .contains(document.querySelector('[data-slot="chart-tooltip-body"]')),
   ).toBe(true);
 });
 
@@ -239,12 +255,9 @@ test('renders composition parts with semantic defaults and stable hooks', async 
     ]),
   );
 
-  const indicator = screen.getByTestId('legend-item').firstElementChild;
-  expect(indicator!.getAttribute('aria-hidden')).toBe('true');
-  expect([...indicator!.classList]).toEqual(
-    expect.arrayContaining(['size-2.5', 'shrink-0', 'rounded-full', 'bg-muted-foreground']),
-  );
-  expect((indicator as HTMLElement).style.backgroundColor).toBe('tomato');
+  const indicator = getComputedStyle(screen.getByTestId('legend-item'), '::before');
+  expect(indicator.backgroundColor).toBe('rgb(255, 99, 71)');
+  expect(indicator.borderRadius).not.toBe('0px');
 });
 
 test('lets consumer Tailwind classes override conflicting defaults on every public part', async () => {
