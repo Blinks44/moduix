@@ -449,6 +449,12 @@ Utilisez les variantes pour exprimer la priorité et l’intention de l’action
 
 ## Styles
 
+Commencez par une variante et une taille intégrées. Pour un ajustement ponctuel, définissez les variables
+publiques `--moduix-button-*` sur le bouton via une classe ou un style en ligne. Pour personnaliser une
+variante dans toute l’application, définissez les mêmes variables sur
+`[data-slot='button-root'][data-variant='<variant>']`. Ces variables CSS concernent les paquets CSS Modules ;
+les paquets Tailwind utilisent des utilitaires natifs et vos propres classes.
+
 Utilisez `className` en React et `class` en Solid ou Vue sur la racine pour appliquer des classes personnalisées.
 
 ### Propriétés CSS

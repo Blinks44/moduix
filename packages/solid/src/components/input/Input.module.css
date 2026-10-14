@@ -49,11 +49,11 @@
     &::file-selector-button {
       margin-inline-end: var(--moduix-spacing-3);
       border: var(--moduix-button-border-width, var(--moduix-border-width-sm)) solid
-        var(--moduix-button-default-border-color, var(--moduix-color-primary));
+        var(--moduix-color-primary);
       border-radius: var(--moduix-button-radius, var(--moduix-radius-md));
       padding: var(--moduix-spacing-0-5) var(--moduix-spacing-2);
-      background-color: var(--moduix-button-default-bg, var(--moduix-color-primary));
-      color: var(--moduix-button-default-color, var(--moduix-color-primary-foreground));
+      background-color: var(--moduix-color-primary);
+      color: var(--moduix-color-primary-foreground);
       font: inherit;
       font-weight: var(--moduix-button-font-weight, var(--moduix-weight-medium));
       line-height: inherit;
@@ -62,7 +62,7 @@
 
       @media (hover: hover) {
         &:hover {
-          background-color: var(--moduix-button-default-bg-hover, var(--moduix-color-foreground));
+          background-color: var(--moduix-color-foreground);
         }
       }
     }

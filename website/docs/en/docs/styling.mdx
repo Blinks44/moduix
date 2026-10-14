@@ -28,16 +28,153 @@ Use the package that matches both your framework and styling track.
 
 ## Choose where to make a change
 
-| Goal | Preferred surface |
-| --- | --- |
-| Adopt a complete visual direction | A curated [Theme preset](/docs/themes) |
-| Change a system-wide color, size, radius, or gap | A semantic token from [Tokens](/docs/tokens) |
-| Keep a component family aligned | A shared family token |
-| Make one CSS Modules component intentionally different | A documented component variable |
-| Style one product composition | Consumer classes on the parts that own the visuals |
+Make each change at the highest layer that owns the decision. Moving down the list affects fewer
+components and needs more code.
 
-Start with tokens for system decisions. Move to a rendered part only when the decision belongs to one
-composition.
+| Goal | Where to change it |
+| --- | --- |
+| Adopt a complete visual direction | A [theme preset](/docs/themes) |
+| Change a brand color, radius, spacing, or control size everywhere | A [semantic token](/docs/tokens) |
+| Restyle one variant, such as every outline button | [Component variables on a variant selector](#one-variant-across-the-application) |
+| Restyle components inside one area | [Component variables on a container](#one-area) |
+| Restyle one instance | [A class or inline variables](#one-instance) |
+| Add your own look, such as a brand button | [A class plus a small wrapper](#add-your-own-variant) |
+| Change layout or an inner part of one composition | [Classes on exported parts](#style-exported-parts) |
+
+## How overrides win
+
+Moduix styles live in CSS cascade layers, declared in this order:
+
+```css
+@layer theme, base, moduix.reset, moduix.tokens, moduix.base, components, moduix.components, utilities;
+```
+
+Two rules follow from it:
+
+- Your own CSS outside a layer always wins over component styles, whatever its specificity. A
+  single class is enough; you never need `!important`.
+- Tailwind utilities live in the later `utilities` layer, so they also win over component styles.
+  Tailwind packages additionally merge your `className` or `class` with `tailwind-merge`, so a
+  conflicting utility replaces the default instead of competing with it.
+
+## Customize a component
+
+Each CSS Modules component page lists its public variables under **CSS Properties**. Component
+variables are deliberately generic: Button exposes `--moduix-button-bg`, `--moduix-button-height`,
+and `--moduix-button-padding-x`, not a separate variable for every variant and size. Variant and size
+defaults stay private, and a public variable overrides them wherever you set it. The scope of the
+selector decides how far the change reaches.
+
+### One instance
+
+Set the variables in a class, or inline when the value is dynamic:
+
+```css
+.save {
+  --moduix-button-bg: var(--moduix-color-success);
+  --moduix-button-radius: var(--moduix-radius-full);
+}
+```
+
+```tsx
+<Button className={styles.save}>Save</Button>
+```
+
+### One variant across the application
+
+Target the stable `data-slot` together with the variant attribute. Load the stylesheet after
+`style.css`:
+
+```css
+[data-slot='button-root'][data-variant='outline'] {
+  --moduix-button-border-color: var(--moduix-color-primary);
+  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-color-primary) 12%, transparent);
+}
+```
+
+The same pattern works for sizes with `data-size` and for states with Ark attributes such as
+`data-disabled` or `data-state`.
+
+### One area
+
+CSS variables inherit, so values set on a container reach every matching component inside it:
+
+```css
+.toolbar {
+  --moduix-button-height: var(--moduix-size-sm);
+  --moduix-button-padding-x: var(--moduix-spacing-2-5);
+}
+```
+
+Portalled content such as a popover or a menu renders outside the container. Put those values on the
+portalled part or on `:root` instead.
+
+### Add your own variant
+
+Built-in variants cover common roles. For a product-specific look, reuse the closest variant, add a
+class with the variables you need, and wrap it in a component so the choice has one name in your
+code:
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+```tsx
+import { Button } from '@moduix/react/button';
+import { clsx } from 'clsx';
+import type { ComponentProps } from 'react';
+import styles from './brand-button.module.css';
+
+export function BrandButton({ className, ...props }: ComponentProps<typeof Button>) {
+  return <Button {...props} className={clsx(styles.brand, className)} />;
+}
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import { Button, type ButtonRootProps } from '@moduix/solid/button';
+import { clsx } from 'clsx';
+import { splitProps } from 'solid-js';
+import styles from './brand-button.module.css';
+
+export function BrandButton(props: ButtonRootProps) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return <Button {...others} class={clsx(styles.brand, local.class)} />;
+}
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```vue
+<script setup lang="ts">
+import { Button } from '@moduix/vue/button';
+import styles from './brand-button.module.css';
+</script>
+
+<template>
+  <Button :class="styles.brand"><slot /></Button>
+</template>
+```
+
+  </Tab>
+  <Tab label="Styles" value="styles">
+
+```css
+.brand {
+  --moduix-button-bg: oklch(0.55 0.2 285);
+  --moduix-button-color: white;
+}
+```
+
+  </Tab>
+</Tabs>
+
+The `default` and `destructive` variants derive their hover color from `--moduix-button-bg`, so a new
+background gets a matching hover without an extra variable. When you need full control over the
+markup, install the component through the registry and edit the copied source.
 
 ## Style exported parts
 
@@ -176,6 +313,10 @@ import { Accordion, AccordionItem, AccordionItemTrigger, AccordionItemContent } 
   </Tab>
 </Tabs>
 
+For a reusable look in a Tailwind package, put the utilities in your own wrapper component, the same
+way as [your own variant](#add-your-own-variant) above. Because of `tailwind-merge`, a utility such as
+`bg-violet-600` replaces the default background instead of fighting it.
+
 Keep Tailwind's `@source` entry for the selected package so its shipped classes are generated. See
 [Quick start](/docs/quick-start) for the complete stylesheet setup.
 
@@ -183,7 +324,8 @@ Keep Tailwind's `@source` entry for the selected package so its shipped classes 
 
 | Symptom | Check |
 | --- | --- |
-| A variable has no effect | Confirm the component documents it and the override loads after `style.css`. |
+| A variable has no effect | Confirm the component page lists it under CSS Properties and that you set it on the component or an ancestor. |
+| A class loses to component styles | Check that your stylesheet is not wrapped in an earlier `@layer`; unlayered CSS always wins. |
 | A popup ignores a wrapper-scoped value | Put the value on the portalled part, root, or portal container. |
 | A state selector never matches | Inspect the exact Ark state attribute on that part. |
 | A class reaches the root but not an inner part | Apply it to the exported part that owns the property. |
@@ -194,6 +336,7 @@ specificity.
 
 ## Related
 
-- [Quick start](/docs/quick-start)
+- [Themes](/docs/themes)
 - [Tokens](/docs/tokens)
+- [Quick start](/docs/quick-start)
 - [Composition Patterns](/docs/composition-patterns)

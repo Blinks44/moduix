@@ -65,7 +65,7 @@ test('disables custom hosts accessibly and prevents activation', async () => {
   let activationCount = 0;
 
   render(
-    <Button asChild disabled>
+    <Button asChild disabled onClick={() => activationCount++}>
       <a href="#docs" onClick={() => activationCount++}>
         Read the docs
       </a>
@@ -83,6 +83,25 @@ test('disables custom hosts accessibly and prevents activation', async () => {
   expect(link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }))).toBe(
     false,
   );
+  expect(activationCount).toBe(0);
+});
+
+test('aria-disabled prevents activation and disables a native button', async () => {
+  let activationCount = 0;
+
+  render(
+    <Button aria-disabled="true" onClick={() => activationCount++}>
+      Unavailable
+    </Button>,
+  );
+
+  const button = screen.getByRole('button', { name: 'Unavailable' });
+
+  await expect.element(page.getByRole('button', { name: 'Unavailable' })).toBeDisabled();
+  await expect
+    .element(page.getByRole('button', { name: 'Unavailable' }))
+    .toHaveAttribute('data-disabled');
+  button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
   expect(activationCount).toBe(0);
 });
 

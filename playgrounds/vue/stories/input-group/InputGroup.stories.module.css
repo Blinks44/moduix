@@ -41,7 +41,7 @@
   }
 
   .customButton {
-    --moduix-button-ghost-bg-hover: color-mix(
+    --moduix-button-bg-hover: color-mix(
       in oklab,
       var(--moduix-color-primary) 18%,
       var(--moduix-color-background)

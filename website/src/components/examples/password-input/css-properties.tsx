@@ -154,7 +154,7 @@ const passwordInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-password-input-trigger-size',
-    defaultValue: 'var(--moduix-button-size-sm, var(--moduix-size-sm))',
+    defaultValue: 'var(--moduix-size-sm)',
     description: 'Square size of the visibility trigger button.',
   },
   {

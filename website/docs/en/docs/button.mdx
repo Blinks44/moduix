@@ -452,9 +452,13 @@ Use variants to communicate an action's priority and intent.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on the root for consumer styles. CSS Modules variants expose the
-Button variables below; Tailwind variants use native utilities and consumer classes. State attributes and
-`data-slot` hooks are shared by both styling tracks.
+Start with a built-in variant and size. For a one-off change, set the public `--moduix-button-*`
+variables on the button through a class or inline style. To theme one variant across the application,
+set the same variables on `[data-slot='button-root'][data-variant='<variant>']`. These CSS variables
+apply to the CSS Modules packages; Tailwind packages use native utilities and consumer classes instead.
+
+Use `className` in React or `class` in Solid and Vue on the root. State attributes and `data-slot` hooks are
+shared by both styling tracks.
 
 ### CSS Properties
 

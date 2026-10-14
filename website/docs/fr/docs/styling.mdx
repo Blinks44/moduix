@@ -28,16 +28,156 @@ un même composant. Le package doit correspondre au framework et à la méthode 
 
 ## Choisir le niveau de modification
 
-| Objectif | Surface recommandée |
-| --- | --- |
-| Adopter une direction visuelle complète | [Preset de thème](/docs/themes) |
-| Modifier une couleur, taille, rayon ou espace dans tout le système | Token sémantique de [Tokens](/docs/tokens) |
-| Aligner une famille de composants | Token partagé de cette famille |
-| Modifier un composant CSS Modules | Variable documentée du composant |
-| Styliser une composition du produit | Classes du consommateur sur les parties responsables |
+Faites chaque modification au niveau le plus haut qui en est responsable. Plus vous descendez dans la
+liste, moins de composants sont touchés et plus il faut de code.
 
-Commencez par les tokens pour une décision globale. Descendez jusqu’à une partie rendue seulement
-lorsque le choix appartient à une composition.
+| Objectif | Où modifier |
+| --- | --- |
+| Adopter une direction visuelle complète | Un [préréglage de thème](/docs/themes) |
+| Changer partout la couleur de marque, le rayon, les espacements ou la taille des contrôles | Un [token sémantique](/docs/tokens) |
+| Restyler une variante, par exemple tous les boutons outline | [Variables du composant sur un sélecteur de variante](#une-variante-dans-toute-lapplication) |
+| Restyler les composants d’une zone | [Variables du composant sur un conteneur](#une-zone) |
+| Restyler une seule instance | [Une classe ou des variables en ligne](#une-instance) |
+| Ajouter votre propre style, par exemple un bouton de marque | [Une classe et un petit composant d’enrobage](#créer-votre-propre-variante) |
+| Modifier la disposition ou une partie interne d’une composition | [Des classes sur les parties exportées](#styliser-les-parties-exportées) |
+
+## Pourquoi vos styles l’emportent
+
+Les styles Moduix sont placés dans des couches de cascade CSS, déclarées dans cet ordre :
+
+```css
+@layer theme, base, moduix.reset, moduix.tokens, moduix.base, components, moduix.components, utilities;
+```
+
+Il en découle deux règles :
+
+- Votre CSS hors couche l’emporte toujours sur les styles des composants, quelle que soit sa
+  spécificité. Une seule classe suffit, `!important` est inutile.
+- Les utilitaires Tailwind se trouvent dans la couche `utilities`, déclarée plus tard : ils
+  l’emportent eux aussi. De plus, les packages Tailwind fusionnent votre `className` ou `class` avec
+  `tailwind-merge`, si bien qu’un utilitaire en conflit remplace celui par défaut au lieu de
+  rivaliser avec lui.
+
+## Personnaliser un composant
+
+La page de chaque composant CSS Modules liste ses variables publiques dans **Propriétés CSS**. Ces
+variables sont volontairement génériques : Button expose `--moduix-button-bg`,
+`--moduix-button-height` et `--moduix-button-padding-x`, et non une variable par variante et par
+taille. Les valeurs par défaut des variantes et des tailles restent privées, et une variable publique
+les remplace là où vous la définissez. La portée du sélecteur détermine jusqu’où va la modification.
+
+### Une instance
+
+Définissez les variables dans une classe, ou en ligne lorsque la valeur est dynamique :
+
+```css
+.save {
+  --moduix-button-bg: var(--moduix-color-success);
+  --moduix-button-radius: var(--moduix-radius-full);
+}
+```
+
+```tsx
+<Button className={styles.save}>Save</Button>
+```
+
+### Une variante dans toute l’application
+
+Ciblez le `data-slot` stable avec l’attribut de variante. Chargez cette feuille de styles après
+`style.css` :
+
+```css
+[data-slot='button-root'][data-variant='outline'] {
+  --moduix-button-border-color: var(--moduix-color-primary);
+  --moduix-button-bg-hover: color-mix(in oklab, var(--moduix-color-primary) 12%, transparent);
+}
+```
+
+Le même principe fonctionne pour les tailles avec `data-size` et pour les états avec les attributs
+Ark comme `data-disabled` ou `data-state`.
+
+### Une zone
+
+Les variables CSS sont héritées : une valeur définie sur un conteneur s’applique à tous les
+composants concernés à l’intérieur.
+
+```css
+.toolbar {
+  --moduix-button-height: var(--moduix-size-sm);
+  --moduix-button-padding-x: var(--moduix-spacing-2-5);
+}
+```
+
+Le contenu rendu dans un portail, comme un popover ou un menu, se trouve hors du conteneur. Placez
+alors ces valeurs sur la partie rendue dans le portail ou sur `:root`.
+
+### Créer votre propre variante
+
+Les variantes intégrées couvrent les rôles courants. Pour un style propre à votre produit, partez de
+la variante la plus proche, ajoutez une classe avec les variables nécessaires et enveloppez le tout
+dans un composant, afin que ce choix porte un seul nom dans votre code :
+
+<Tabs groupId="framework">
+  <Tab label="React" value="react">
+
+```tsx
+import { Button } from '@moduix/react/button';
+import { clsx } from 'clsx';
+import type { ComponentProps } from 'react';
+import styles from './brand-button.module.css';
+
+export function BrandButton({ className, ...props }: ComponentProps<typeof Button>) {
+  return <Button {...props} className={clsx(styles.brand, className)} />;
+}
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+```tsx
+import { Button, type ButtonRootProps } from '@moduix/solid/button';
+import { clsx } from 'clsx';
+import { splitProps } from 'solid-js';
+import styles from './brand-button.module.css';
+
+export function BrandButton(props: ButtonRootProps) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return <Button {...others} class={clsx(styles.brand, local.class)} />;
+}
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+```vue
+<script setup lang="ts">
+import { Button } from '@moduix/vue/button';
+import styles from './brand-button.module.css';
+</script>
+
+<template>
+  <Button :class="styles.brand"><slot /></Button>
+</template>
+```
+
+  </Tab>
+  <Tab label="Styles" value="styles">
+
+```css
+.brand {
+  --moduix-button-bg: oklch(0.55 0.2 285);
+  --moduix-button-color: white;
+}
+```
+
+  </Tab>
+</Tabs>
+
+Les variantes `default` et `destructive` calculent leur couleur de survol à partir de
+`--moduix-button-bg` : un nouveau fond obtient donc un survol assorti sans variable supplémentaire.
+Si vous avez besoin d’un contrôle total sur le balisage, installez le composant via le registre et
+modifiez la source copiée.
 
 ## Styliser les parties exportées
 
@@ -176,6 +316,11 @@ import { Accordion, AccordionItem, AccordionItemTrigger, AccordionItemContent } 
   </Tab>
 </Tabs>
 
+Pour réutiliser un style dans un package Tailwind, placez les utilitaires dans votre propre composant
+d’enrobage, comme dans [Créer votre propre variante](#créer-votre-propre-variante). Grâce à
+`tailwind-merge`, un utilitaire comme `bg-violet-600` remplace le fond par défaut au lieu de
+rivaliser avec lui.
+
 Conservez l’entrée `@source` du package choisi afin que Tailwind génère ses classes. Le
 [Démarrage rapide](/docs/quick-start) décrit la feuille de styles complète.
 
@@ -183,7 +328,8 @@ Conservez l’entrée `@source` du package choisi afin que Tailwind génère ses
 
 | Symptôme | Vérification |
 | --- | --- |
-| Une variable n’a aucun effet | Vérifiez qu’elle est documentée et que la redéfinition arrive après `style.css`. |
+| Une variable n’a aucun effet | Vérifiez qu’elle figure dans les Propriétés CSS du composant et qu’elle est définie sur le composant ou sur un ancêtre. |
+| Une classe perd face aux styles du composant | Vérifiez que votre feuille de styles n’est pas placée dans un `@layer` antérieur : le CSS hors couche l’emporte toujours. |
 | Un popup ignore la valeur d’un conteneur | Placez-la sur la partie rendue dans un portail, la racine ou le conteneur de portail. |
 | Un sélecteur d’état ne correspond jamais | Inspectez l’attribut Ark exact sur cette partie. |
 | La classe atteint la racine mais pas une partie interne | Appliquez-la à la partie exportée qui porte la propriété. |
@@ -194,6 +340,7 @@ d’augmenter la spécificité.
 
 ## Ressources associées
 
-- [Démarrage rapide](/docs/quick-start)
+- [Thèmes](/docs/themes)
 - [Tokens](/docs/tokens)
+- [Démarrage rapide](/docs/quick-start)
 - [Patrons de composition](/docs/composition-patterns)

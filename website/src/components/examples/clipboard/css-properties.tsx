@@ -117,17 +117,17 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-clipboard-trigger-bg',
-    'var(--moduix-button-outline-bg, var(--moduix-color-background))',
+    'var(--moduix-color-background)',
     'Controls trigger background color.',
   ],
   [
     '--moduix-clipboard-trigger-bg-hover',
-    'var(--moduix-button-outline-bg-hover, var(--moduix-color-accent))',
+    'var(--moduix-color-accent)',
     'Controls trigger hover background.',
   ],
   [
     '--moduix-clipboard-trigger-border-color',
-    'var(--moduix-button-outline-border-color, var(--moduix-color-border))',
+    'var(--moduix-color-border)',
     'Controls trigger border color.',
   ],
   [
@@ -137,12 +137,12 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-clipboard-trigger-color',
-    'var(--moduix-button-outline-color, var(--moduix-color-foreground))',
+    'var(--moduix-color-foreground)',
     'Controls trigger text and icon color.',
   ],
   [
     '--moduix-clipboard-trigger-focus-ring-color',
-    'var(--moduix-button-focus-ring-color, var(--moduix-color-ring))',
+    'var(--moduix-color-ring)',
     'Controls trigger focus ring color.',
   ],
   [
@@ -152,7 +152,7 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-clipboard-trigger-focus-ring-width',
-    'var(--moduix-button-focus-ring-width, var(--moduix-focus-ring-width, var(--moduix-border-width-md)))',
+    'var(--moduix-focus-ring-width, var(--moduix-border-width-md))',
     'Controls trigger focus ring width.',
   ],
   [
@@ -172,7 +172,7 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-clipboard-trigger-height',
-    'var(--moduix-button-size-md, var(--moduix-size-md))',
+    'var(--moduix-size-md)',
     'Controls trigger minimum height.',
   ],
   [
@@ -182,7 +182,7 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-clipboard-trigger-padding-x',
-    'var(--moduix-button-padding-x-md, var(--moduix-spacing-4))',
+    'var(--moduix-spacing-4)',
     'Controls trigger horizontal padding.',
   ],
   [

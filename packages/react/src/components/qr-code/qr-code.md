@@ -138,21 +138,21 @@ radius by default.
 
 Primary CSS variables:
 
-| Variable                              | Default                                                                 |
-| ------------------------------------- | ----------------------------------------------------------------------- |
-| `--moduix-qr-code-color`              | `var(--moduix-color-foreground)`                                        |
-| `--moduix-qr-code-fill`               | `currentColor`                                                          |
-| `--moduix-qr-code-gap`                | `var(--moduix-spacing-3)`                                               |
-| `--moduix-qr-code-max-width`          | `100%`                                                                  |
-| `--moduix-qr-code-size`               | `8rem` preferred root and frame width                                   |
-| `--moduix-qr-code-overlay-size`       | `var(--moduix-size-lg)`                                                 |
-| `--moduix-qr-code-overlay-padding`    | `var(--moduix-spacing-1)`                                               |
-| `--moduix-qr-code-overlay-radius`     | `var(--moduix-radius-sm)`                                               |
-| `--moduix-qr-code-overlay-bg`         | `var(--moduix-color-background)`                                        |
-| `--moduix-qr-code-overlay-color`      | `var(--moduix-color-foreground)`                                        |
-| `--moduix-qr-code-download-trigger-*` | Button token fallbacks                                                  |
-| `--moduix-qr-code-disabled-opacity`   | `var(--moduix-button-disabled-opacity, var(--moduix-opacity-disabled))` |
-| `--moduix-qr-code-transition`         | `var(--moduix-button-transition, var(--moduix-transition-default))`     |
+| Variable                              | Default                               |
+| ------------------------------------- | ------------------------------------- |
+| `--moduix-qr-code-color`              | `var(--moduix-color-foreground)`      |
+| `--moduix-qr-code-fill`               | `currentColor`                        |
+| `--moduix-qr-code-gap`                | `var(--moduix-spacing-3)`             |
+| `--moduix-qr-code-max-width`          | `100%`                                |
+| `--moduix-qr-code-size`               | `8rem` preferred root and frame width |
+| `--moduix-qr-code-overlay-size`       | `var(--moduix-size-lg)`               |
+| `--moduix-qr-code-overlay-padding`    | `var(--moduix-spacing-1)`             |
+| `--moduix-qr-code-overlay-radius`     | `var(--moduix-radius-sm)`             |
+| `--moduix-qr-code-overlay-bg`         | `var(--moduix-color-background)`      |
+| `--moduix-qr-code-overlay-color`      | `var(--moduix-color-foreground)`      |
+| `--moduix-qr-code-download-trigger-*` | Foundation token fallbacks            |
+| `--moduix-qr-code-disabled-opacity`   | `var(--moduix-opacity-disabled)`      |
+| `--moduix-qr-code-transition`         | `var(--moduix-transition-default)`    |
 
 ## Intentional sugar and differences from upstream
 

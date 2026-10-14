@@ -11,22 +11,22 @@ export const qrCodeOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-qr-code-disabled-opacity',
-    'var(--moduix-button-disabled-opacity, var(--moduix-opacity-disabled))',
+    'var(--moduix-opacity-disabled)',
     'Controls disabled trigger opacity.',
   ],
   [
     '--moduix-qr-code-download-trigger-bg',
-    'var(--moduix-button-outline-bg, var(--moduix-color-background))',
+    'var(--moduix-color-background)',
     'Controls download trigger background.',
   ],
   [
     '--moduix-qr-code-download-trigger-bg-hover',
-    'var(--moduix-button-outline-bg-hover, var(--moduix-color-accent))',
+    'var(--moduix-color-accent)',
     'Controls download trigger hover background.',
   ],
   [
     '--moduix-qr-code-download-trigger-border-color',
-    'var(--moduix-button-outline-border-color, var(--moduix-color-border))',
+    'var(--moduix-color-border)',
     'Controls download trigger border color.',
   ],
   [
@@ -36,12 +36,12 @@ export const qrCodeOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-qr-code-download-trigger-color',
-    'var(--moduix-button-outline-color, var(--moduix-color-foreground))',
+    'var(--moduix-color-foreground)',
     'Controls download trigger text color.',
   ],
   [
     '--moduix-qr-code-download-trigger-focus-ring-color',
-    'var(--moduix-button-focus-ring-color, var(--moduix-color-ring))',
+    'var(--moduix-color-ring)',
     'Controls download trigger focus ring color.',
   ],
   [
@@ -51,7 +51,7 @@ export const qrCodeOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-qr-code-download-trigger-focus-ring-width',
-    'var(--moduix-button-focus-ring-width, var(--moduix-focus-ring-width, var(--moduix-border-width-md)))',
+    'var(--moduix-focus-ring-width, var(--moduix-border-width-md))',
     'Controls download trigger focus ring width.',
   ],
   [
@@ -71,7 +71,7 @@ export const qrCodeOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-qr-code-download-trigger-height',
-    'var(--moduix-button-size-md, var(--moduix-size-md))',
+    'var(--moduix-size-md)',
     'Controls download trigger minimum height.',
   ],
   [
@@ -86,7 +86,7 @@ export const qrCodeOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-qr-code-download-trigger-padding-x',
-    'var(--moduix-button-padding-x-md, var(--moduix-spacing-4))',
+    'var(--moduix-spacing-4)',
     'Controls download trigger inline padding.',
   ],
   [
@@ -109,7 +109,7 @@ export const qrCodeOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-qr-code-size', '8rem', 'Controls the preferred frame width.'],
   [
     '--moduix-qr-code-transition',
-    'var(--moduix-button-transition, var(--moduix-transition-default))',
+    'var(--moduix-transition-default)',
     'Controls trigger transitions.',
   ],
 ];

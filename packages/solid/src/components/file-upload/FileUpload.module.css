@@ -105,35 +105,19 @@
       --moduix-file-upload-trigger-gap,
       var(--moduix-button-content-gap, var(--moduix-spacing-2))
     );
-    min-height: var(
-      --moduix-file-upload-trigger-height,
-      var(--moduix-button-size-md, var(--moduix-size-md))
-    );
+    min-height: var(--moduix-file-upload-trigger-height, var(--moduix-size-md));
     border: var(
         --moduix-file-upload-trigger-border-width,
         var(--moduix-button-border-width, var(--moduix-border-width-sm))
       )
-      solid
-      var(
-        --moduix-file-upload-trigger-border-color,
-        var(--moduix-button-default-border-color, var(--moduix-color-primary))
-      );
+      solid var(--moduix-file-upload-trigger-border-color, var(--moduix-color-primary));
     border-radius: var(
       --moduix-file-upload-trigger-radius,
       var(--moduix-button-radius, var(--moduix-radius-md))
     );
-    padding-inline: var(
-      --moduix-file-upload-trigger-padding-x,
-      var(--moduix-button-padding-x-md, var(--moduix-spacing-4))
-    );
-    background-color: var(
-      --moduix-file-upload-trigger-bg,
-      var(--moduix-button-default-bg, var(--moduix-color-primary))
-    );
-    color: var(
-      --moduix-file-upload-trigger-color,
-      var(--moduix-button-default-color, var(--moduix-color-primary-foreground))
-    );
+    padding-inline: var(--moduix-file-upload-trigger-padding-x, var(--moduix-spacing-4));
+    background-color: var(--moduix-file-upload-trigger-bg, var(--moduix-color-primary));
+    color: var(--moduix-file-upload-trigger-color, var(--moduix-color-primary-foreground));
     appearance: none;
     font: inherit;
     font-size: var(
@@ -152,32 +136,16 @@
     white-space: nowrap;
     cursor: pointer;
     transition:
-      border-color
-        var(
-          --moduix-file-upload-transition,
-          var(--moduix-button-transition, var(--moduix-transition-default))
-        ),
-      background-color
-        var(
-          --moduix-file-upload-transition,
-          var(--moduix-button-transition, var(--moduix-transition-default))
-        ),
-      color
-        var(
-          --moduix-file-upload-transition,
-          var(--moduix-button-transition, var(--moduix-transition-default))
-        ),
-      opacity
-        var(
-          --moduix-file-upload-transition,
-          var(--moduix-button-transition, var(--moduix-transition-default))
-        );
+      border-color var(--moduix-file-upload-transition, var(--moduix-transition-default)),
+      background-color var(--moduix-file-upload-transition, var(--moduix-transition-default)),
+      color var(--moduix-file-upload-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-file-upload-transition, var(--moduix-transition-default));
 
     @media (hover: hover) {
       &:hover:not(:disabled, [data-disabled], [data-readonly]) {
         background-color: var(
           --moduix-file-upload-trigger-bg-hover,
-          var(--moduix-button-default-bg-hover, var(--moduix-color-foreground))
+          var(--moduix-color-foreground)
         );
       }
     }
@@ -185,16 +153,9 @@
     &:focus-visible {
       outline: var(
           --moduix-file-upload-focus-ring-width,
-          var(
-            --moduix-button-focus-ring-width,
-            var(--moduix-focus-ring-width, var(--moduix-border-width-md))
-          )
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
         )
-        solid
-        var(
-          --moduix-file-upload-focus-ring-color,
-          var(--moduix-button-focus-ring-color, var(--moduix-color-ring))
-        );
+        solid var(--moduix-file-upload-focus-ring-color, var(--moduix-color-ring));
       outline-offset: calc(
         var(
             --moduix-file-upload-trigger-border-width,

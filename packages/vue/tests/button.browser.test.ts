@@ -323,3 +323,20 @@ test('hydrates button without replacing server hosts or ids', async () => {
     error.mockRestore();
   }
 });
+
+test('lets the public variables override variant and size defaults', () => {
+  render({
+    components: { Button },
+    template: `
+      <Button variant="outline" style="--moduix-button-bg: rgb(1, 2, 3); --moduix-button-height: 50px">Themed</Button>
+      <Button aria-label="Square" size="icon-lg" style="--moduix-button-height: 44px">×</Button>
+    `,
+  });
+
+  const themed = screen.getByRole('button', { name: 'Themed' });
+  const square = screen.getByRole('button', { name: 'Square' });
+
+  expect(getComputedStyle(themed).backgroundColor).toBe('rgb(1, 2, 3)');
+  expect(themed.offsetHeight).toBe(50);
+  expect([square.offsetWidth, square.offsetHeight]).toEqual([44, 44]);
+});

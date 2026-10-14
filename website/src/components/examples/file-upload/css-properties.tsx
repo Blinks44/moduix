@@ -301,17 +301,17 @@ const fileUploadOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-file-upload-trigger-bg',
-    'var(--moduix-button-default-bg, var(--moduix-color-primary))',
+    'var(--moduix-color-primary)',
     'Controls trigger background.',
   ],
   [
     '--moduix-file-upload-trigger-bg-hover',
-    'var(--moduix-button-default-bg-hover, var(--moduix-color-foreground))',
+    'var(--moduix-color-foreground)',
     'Controls trigger hover background.',
   ],
   [
     '--moduix-file-upload-trigger-border-color',
-    'var(--moduix-button-default-border-color, var(--moduix-color-primary))',
+    'var(--moduix-color-primary)',
     'Controls trigger border color.',
   ],
   [
@@ -321,7 +321,7 @@ const fileUploadOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-file-upload-trigger-color',
-    'var(--moduix-button-default-color, var(--moduix-color-primary-foreground))',
+    'var(--moduix-color-primary-foreground)',
     'Controls trigger text color.',
   ],
   [
@@ -339,11 +339,7 @@ const fileUploadOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-button-content-gap, var(--moduix-spacing-2))',
     'Controls trigger content gap.',
   ],
-  [
-    '--moduix-file-upload-trigger-height',
-    'var(--moduix-button-size-md, var(--moduix-size-md))',
-    'Controls trigger height.',
-  ],
+  ['--moduix-file-upload-trigger-height', 'var(--moduix-size-md)', 'Controls trigger height.'],
   [
     '--moduix-file-upload-trigger-line-height',
     'var(--moduix-button-line-height, var(--moduix-line-height-text-sm))',
@@ -351,7 +347,7 @@ const fileUploadOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-file-upload-trigger-padding-x',
-    'var(--moduix-button-padding-x-md, var(--moduix-spacing-4))',
+    'var(--moduix-spacing-4)',
     'Controls trigger horizontal padding.',
   ],
   [

@@ -564,7 +564,7 @@ export function TokensOverview() {
             <div className={styles.mapNode}>
               <span>03</span>
               <strong>{t('tokensOverviewComponentVariables')}</strong>
-              <code>--moduix-button-default-bg</code>
+              <code>--moduix-button-bg</code>
             </div>
           </div>
           <div className={styles.heroStats} aria-label={t('tokensOverviewTokenGroupsSummary')}>
