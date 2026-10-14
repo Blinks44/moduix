@@ -110,9 +110,11 @@ export function Home() {
             {t('homeReleaseBadge')}
           </Link>
           <p className={styles.title}>moduix</p>
-          <h1 id="home-title" className={styles.tagline}>
-            {t('homeTitle')}
-          </h1>
+          <h1
+            id="home-title"
+            className={styles.tagline}
+            dangerouslySetInnerHTML={{ __html: t('homeTitle') }}
+          />
           <p className={styles.lead} dangerouslySetInnerHTML={{ __html: t('homeLead') }} />
           <FrameworkSupport />
           <p className={styles.frameworkStatus}>{t('homeFrameworkStatus')}</p>

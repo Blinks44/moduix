@@ -121,14 +121,14 @@
     "fr": "Nouveau : Vue et blocs installables"
   },
   "homeTitle": {
-    "en": "Accessible UI components for React, Solid, and Vue",
-    "ru": "Доступные UI-компоненты для React, Solid и Vue",
-    "fr": "Composants UI accessibles pour React, Solid et Vue"
+    "en": "Accessible UI components for <strong>React, Solid, and&nbsp;Vue</strong>",
+    "ru": "Доступные UI-компоненты для <strong>React, Solid и&nbsp;Vue</strong>",
+    "fr": "Composants UI accessibles pour <strong>React, Solid et&nbsp;Vue</strong>"
   },
   "homeLead": {
-    "en": "80+ components and ready-made blocks built on <a href='https://ark-ui.com/'>Ark UI</a>. Use the same API in every framework, style it with CSS Modules or <a href='https://tailwindcss.com/'>Tailwind CSS</a>, and install from npm or copy the source with the <a href='https://ui.shadcn.com/'>shadcn</a> CLI.",
-    "ru": "Более 80 компонентов и готовые блоки на базе <a href='https://ark-ui.com/'>Ark UI</a>. Один API во всех фреймворках, стили на CSS Modules или <a href='https://tailwindcss.com/'>Tailwind CSS</a>, установка из npm или копирование исходников через CLI <a href='https://ui.shadcn.com/'>shadcn</a>.",
-    "fr": "Plus de 80 composants et des blocs prêts à l'emploi basés sur <a href='https://ark-ui.com/'>Ark UI</a>. La même API dans chaque framework, des styles en CSS Modules ou <a href='https://tailwindcss.com/'>Tailwind CSS</a>, et une installation depuis npm ou par copie du code source avec la CLI <a href='https://ui.shadcn.com/'>shadcn</a>."
+    "en": "80+ components and blocks on <a href='https://ark-ui.com/'>Ark UI</a>. One API in every framework, styled with CSS Modules or <a href='https://tailwindcss.com/'>Tailwind</a>, installed from npm or copied with the <a href='https://ui.shadcn.com/'>shadcn</a> CLI.",
+    "ru": "Более 80 компонентов и блоков на <a href='https://ark-ui.com/'>Ark UI</a>. Один API во всех фреймворках, стили на CSS Modules или <a href='https://tailwindcss.com/'>Tailwind</a>, установка из npm или копирование через CLI <a href='https://ui.shadcn.com/'>shadcn</a>.",
+    "fr": "Plus de 80 composants et blocs basés sur <a href='https://ark-ui.com/'>Ark UI</a>. Une même API dans chaque framework, stylée avec CSS Modules ou <a href='https://tailwindcss.com/'>Tailwind</a>, installée depuis npm ou copiée avec la CLI <a href='https://ui.shadcn.com/'>shadcn</a>."
   },
   "homeFrameworkStatus": {
     "en": "React, Solid, and Vue are available today. Svelte is planned.",
