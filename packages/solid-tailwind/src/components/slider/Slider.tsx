@@ -5,7 +5,6 @@ import { cn } from '@/lib/moduix/cn';
 
 function Slider(props: ComponentProps<typeof SliderPrimitive.Root>) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'defaultValue',
@@ -15,7 +14,6 @@ function Slider(props: ComponentProps<typeof SliderPrimitive.Root>) {
 
   return (
     <SliderPrimitive.Root
-      asChild={local.asChild}
       defaultValue={local.defaultValue}
       value={local.value}
       class={cn(
@@ -33,11 +31,10 @@ function Slider(props: ComponentProps<typeof SliderPrimitive.Root>) {
 }
 
 function SliderRootProvider(props: ComponentProps<typeof SliderPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'value']);
+  const [local, others] = splitProps(props, ['class', 'value']);
 
   return (
     <SliderPrimitive.RootProvider
-      asChild={local.asChild}
       value={local.value}
       class={cn(
         "group flex w-48 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50 data-[orientation=vertical]:grid data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:gap-x-2 data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
@@ -125,11 +122,10 @@ function SliderRange(props: ComponentProps<typeof SliderPrimitive.Range>) {
 }
 
 function SliderThumb(props: ComponentProps<typeof SliderPrimitive.Thumb>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <SliderPrimitive.Thumb
-      asChild={local.asChild}
       class={cn(
         'box-border flex size-4 shrink-0 items-center justify-center rounded-full border border-border bg-background shadow-sm outline-0 transition-[border-color,background-color,box-shadow] duration-200 ease-in-out select-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring data-disabled:pointer-events-none data-dragging:border-ring data-dragging:shadow-md data-dragging:ring-1 data-dragging:ring-ring data-invalid:border-destructive data-invalid:focus-visible:ring-destructive motion-reduce:transition-none',
         local.class,

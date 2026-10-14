@@ -10,11 +10,10 @@ import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './NumberInput.module.css';
 
 function NumberInput(props: ComponentProps<typeof NumberInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <NumberInputPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="number-input-root"
@@ -25,11 +24,10 @@ function NumberInput(props: ComponentProps<typeof NumberInputPrimitive.Root>) {
 }
 
 function NumberInputRootProvider(props: ComponentProps<typeof NumberInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <NumberInputPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="number-input-root-provider"

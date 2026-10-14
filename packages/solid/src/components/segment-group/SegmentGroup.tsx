@@ -82,11 +82,10 @@ function SegmentGroup(props: ComponentProps<typeof SegmentGroupPrimitive.Root>) 
 function SegmentGroupRootProvider(
   props: ComponentProps<typeof SegmentGroupPrimitive.RootProvider>,
 ) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <SegmentGroupPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="segment-group-root-provider"
@@ -95,11 +94,10 @@ function SegmentGroupRootProvider(
 }
 
 function SegmentGroupLabel(props: ComponentProps<typeof SegmentGroupPrimitive.Label>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <SegmentGroupPrimitive.Label
-      asChild={local.asChild}
       class={clsx(styles.label, local.class)}
       {...others}
       data-slot="segment-group-label"
@@ -108,11 +106,10 @@ function SegmentGroupLabel(props: ComponentProps<typeof SegmentGroupPrimitive.La
 }
 
 function SegmentGroupItem(props: ComponentProps<typeof SegmentGroupPrimitive.Item>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <SegmentGroupPrimitive.Item
-      asChild={local.asChild}
       class={clsx(styles.item, local.class)}
       {...others}
       data-slot="segment-group-item"
@@ -123,11 +120,10 @@ function SegmentGroupItem(props: ComponentProps<typeof SegmentGroupPrimitive.Ite
 }
 
 function SegmentGroupItemControl(props: ComponentProps<typeof SegmentGroupPrimitive.ItemControl>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <SegmentGroupPrimitive.ItemControl
-      asChild={local.asChild}
       class={clsx(styles.itemControl, local.class)}
       {...others}
       data-slot="segment-group-item-control"
@@ -136,11 +132,10 @@ function SegmentGroupItemControl(props: ComponentProps<typeof SegmentGroupPrimit
 }
 
 function SegmentGroupItemText(props: ComponentProps<typeof SegmentGroupPrimitive.ItemText>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <SegmentGroupPrimitive.ItemText
-      asChild={local.asChild}
       class={clsx(styles.itemText, local.class)}
       {...others}
       data-slot="segment-group-item-text"
@@ -149,11 +144,10 @@ function SegmentGroupItemText(props: ComponentProps<typeof SegmentGroupPrimitive
 }
 
 function SegmentGroupIndicator(props: ComponentProps<typeof SegmentGroupPrimitive.Indicator>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <SegmentGroupPrimitive.Indicator
-      asChild={local.asChild}
       class={clsx(styles.indicator, local.class)}
       {...others}
       data-slot="segment-group-indicator"

@@ -22,11 +22,10 @@ type RatingGroupRootProviderProps = ComponentProps<typeof RatingGroupPrimitive.R
 type RatingGroupItemIndicatorProps = ComponentProps<'span'>;
 
 function RatingGroup(props: RatingGroupRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <RatingGroupPrimitive.Root
-      asChild={local.asChild}
       class={cn('group/rating-group inline-flex flex-col gap-1 text-muted-foreground', local.class)}
       {...others}
       data-size={local.size ?? 'md'}
@@ -38,11 +37,10 @@ function RatingGroup(props: RatingGroupRootProps) {
 }
 
 function RatingGroupRootProvider(props: RatingGroupRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <RatingGroupPrimitive.RootProvider
-      asChild={local.asChild}
       class={cn('group/rating-group inline-flex flex-col gap-1 text-muted-foreground', local.class)}
       {...others}
       data-size={local.size ?? 'md'}

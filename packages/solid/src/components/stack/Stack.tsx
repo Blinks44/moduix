@@ -26,7 +26,6 @@ const toCssLength = (value: number | string | undefined) =>
 
 function Stack(props: StackProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'class',
     'direction',
     'gap',
@@ -73,7 +72,6 @@ function Stack(props: StackProps) {
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="stack"
       data-part="root"

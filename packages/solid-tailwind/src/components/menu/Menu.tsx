@@ -177,10 +177,9 @@ function MenuPositioner(props: ComponentProps<typeof MenuPrimitive.Positioner>) 
 }
 
 function MenuContent(props: ComponentProps<typeof MenuPrimitive.Content>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   return (
     <MenuPrimitive.Content
-      asChild={local.asChild}
       class={cn(menuContentVariants(), local.class)}
       {...others}
       data-slot="menu-content"
@@ -191,11 +190,10 @@ function MenuContent(props: ComponentProps<typeof MenuPrimitive.Content>) {
 }
 
 function MenuViewport(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       class={cn(
         'flex max-h-[min(24rem,var(--available-height,100dvh))] flex-col overflow-auto',
         local.class,

@@ -11,17 +11,10 @@ import { cn } from '@/lib/moduix/cn';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui/Icons';
 
 function PinInput(props: ComponentProps<typeof PinInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
-    'class',
-    'count',
-    'placeholder',
-  ]);
+  const [local, others] = splitProps(props, ['children', 'class', 'count', 'placeholder']);
 
   return (
     <PinInputPrimitive.Root
-      asChild={local.asChild}
       count={local.count}
       placeholder={local.placeholder ?? ''}
       class={cn(
@@ -37,11 +30,10 @@ function PinInput(props: ComponentProps<typeof PinInputPrimitive.Root>) {
 }
 
 function PinInputRootProvider(props: ComponentProps<typeof PinInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <PinInputPrimitive.RootProvider
-      asChild={local.asChild}
       class={cn(
         'inline-flex w-auto max-w-none flex-col items-start gap-2 data-disabled:opacity-50',
         local.class,

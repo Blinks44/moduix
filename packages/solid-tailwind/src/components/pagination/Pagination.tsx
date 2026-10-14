@@ -9,11 +9,10 @@ import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 
 function Pagination(props: ComponentProps<typeof PaginationPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <PaginationPrimitive.Root
-      asChild={local.asChild}
       class={cn(
         'inline-flex max-w-full items-center gap-1 overflow-x-auto text-foreground',
         local.class,
@@ -27,11 +26,10 @@ function Pagination(props: ComponentProps<typeof PaginationPrimitive.Root>) {
 }
 
 function PaginationRootProvider(props: ComponentProps<typeof PaginationPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <PaginationPrimitive.RootProvider
-      asChild={local.asChild}
       class={cn(
         'inline-flex max-w-full items-center gap-1 overflow-x-auto text-foreground',
         local.class,
@@ -45,11 +43,10 @@ function PaginationRootProvider(props: ComponentProps<typeof PaginationPrimitive
 }
 
 function PaginationItem(props: ComponentProps<typeof PaginationPrimitive.Item>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <PaginationPrimitive.Item
-      asChild={local.asChild}
       class={cn(
         'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-2 whitespace-nowrap text-foreground no-underline select-none',

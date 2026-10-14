@@ -14,11 +14,10 @@ import { CloseButton } from '../close-button';
 import styles from './FileUpload.module.css';
 
 function FileUpload(props: ComponentProps<typeof FileUploadPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <FileUploadPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="file-upload-root"
@@ -29,11 +28,10 @@ function FileUpload(props: ComponentProps<typeof FileUploadPrimitive.Root>) {
 }
 
 function FileUploadRootProvider(props: ComponentProps<typeof FileUploadPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <FileUploadPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="file-upload-root-provider"

@@ -18,55 +18,34 @@ type ListBaseProps = {
   tone?: ListTone;
 };
 
-type ListDataProps = {
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
-};
+type ListDataProps = {};
 
 type ListRootProps =
   | (HTMLArkProps<'ul'> &
       ListBaseProps &
       ListDataProps & {
         as?: 'ul';
-        'data-gap'?: string;
-        'data-marker'?: string;
-        'data-size'?: string;
-        'data-tone'?: string;
       })
   | (HTMLArkProps<'ol'> &
       ListBaseProps &
       ListDataProps & {
         as: 'ol';
-        'data-gap'?: string;
-        'data-marker'?: string;
-        'data-size'?: string;
-        'data-tone'?: string;
       });
 
 function List(props: ListRootProps) {
   const [local, others] = splitProps(props, [
     'as',
-    'asChild',
     'class',
     'gap',
     'marker',
     'role',
     'size',
     'tone',
-    'data-scope',
-    'data-part',
-    'data-slot',
-    'data-gap',
-    'data-marker',
-    'data-size',
-    'data-tone',
   ]);
 
   return (
     <Dynamic
       component={(local.as === 'ol' ? ark.ol : ark.ul) as ValidComponent}
-      asChild={local.asChild}
       {...others}
       role={local.role ?? (local.marker === 'none' ? 'list' : undefined)}
       data-scope="list"
@@ -82,17 +61,10 @@ function List(props: ListRootProps) {
 }
 
 function ListItem(props: HTMLArkProps<'li'> & ListDataProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-scope',
-    'data-part',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.li
-      asChild={local.asChild}
       {...others}
       data-scope="list"
       data-part="item"

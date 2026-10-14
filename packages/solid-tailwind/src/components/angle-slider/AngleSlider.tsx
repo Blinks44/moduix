@@ -12,11 +12,10 @@ const rootClass =
   'box-border inline-flex min-w-0 flex-col items-center gap-3 text-foreground data-disabled:opacity-50';
 
 function AngleSlider(props: ComponentProps<typeof AngleSliderPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <AngleSliderPrimitive.Root
-      asChild={local.asChild}
       class={cn(rootClass, local.class)}
       {...others}
       data-slot="angle-slider-root"
@@ -39,11 +38,10 @@ function AngleSliderLabel(props: ComponentProps<typeof AngleSliderPrimitive.Labe
 }
 
 function AngleSliderRootProvider(props: ComponentProps<typeof AngleSliderPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <AngleSliderPrimitive.RootProvider
-      asChild={local.asChild}
       class={cn(rootClass, local.class)}
       {...others}
       data-slot="angle-slider-root-provider"

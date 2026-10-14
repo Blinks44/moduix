@@ -12,11 +12,10 @@ import { CloseButton } from '../close-button';
 import styles from './TagsInput.module.css';
 
 function TagsInput(props: ComponentProps<typeof TagsInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <TagsInputPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="tags-input-root"
@@ -27,11 +26,10 @@ function TagsInput(props: ComponentProps<typeof TagsInputPrimitive.Root>) {
 }
 
 function TagsInputRootProvider(props: ComponentProps<typeof TagsInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <TagsInputPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="tags-input-root-provider"

@@ -435,18 +435,10 @@ function SidebarNavigationButton(
     size?: 'sm' | 'md' | 'lg';
   },
 ) {
-  const [local, others] = splitProps(props, [
-    'active',
-    'aria-current',
-    'asChild',
-    'class',
-    'size',
-    'type',
-  ]);
+  const [local, others] = splitProps(props, ['active', 'aria-current', 'class', 'size', 'type']);
 
   return (
     <ark.button
-      asChild={local.asChild}
       type={local.type ?? 'button'}
       aria-current={local['aria-current'] ?? (local.active ? 'page' : undefined)}
       class={cn(
@@ -525,17 +517,10 @@ function SidebarNavigationSubButton(
     active?: boolean;
   },
 ) {
-  const [local, others] = splitProps(props, [
-    'active',
-    'aria-current',
-    'asChild',
-    'children',
-    'class',
-  ]);
+  const [local, others] = splitProps(props, ['active', 'aria-current', 'children', 'class']);
 
   return (
     <ark.a
-      asChild={local.asChild}
       aria-current={local['aria-current'] ?? (local.active ? 'page' : undefined)}
       class={cn(
         'flex min-h-control-sm w-full min-w-0 cursor-pointer items-center gap-2 overflow-hidden rounded-md px-2 text-start text-sm leading-5 text-ellipsis whitespace-nowrap text-card-foreground outline-0 transition-[background-color,border-color,color,box-shadow] duration-200 ease-in-out has-[+_[data-slot=sidebar-navigation-badge]]:pe-10 @max-[7rem]:has-[+_[data-slot=sidebar-navigation-badge]]:pe-2',

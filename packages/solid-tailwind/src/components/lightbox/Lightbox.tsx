@@ -129,11 +129,10 @@ function LightboxRootProvider(props: LightboxRootProviderProps) {
 }
 
 function LightboxTrigger(props: ComponentProps<typeof DialogPrimitive.Trigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <DialogPrimitive.Trigger
-      asChild={local.asChild}
       class={cn(
         'cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
         local.class,
@@ -218,11 +217,10 @@ function LightboxDescription(props: ComponentProps<typeof DialogPrimitive.Descri
 }
 
 function LightboxCloseTrigger(props: ComponentProps<typeof DialogPrimitive.CloseTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <DialogPrimitive.CloseTrigger
-      asChild={local.asChild}
       class={local.class}
       {...others}
       data-slot="lightbox-close-trigger"

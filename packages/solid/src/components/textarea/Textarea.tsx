@@ -7,9 +7,6 @@ import styles from './Textarea.module.css';
 
 type TextareaProps = FieldTextareaProps & {
   defaultValue?: string | number | readonly string[];
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
 };
 
 function Textarea(props: TextareaProps) {
@@ -18,9 +15,6 @@ function Textarea(props: TextareaProps) {
     'autoresize',
     'class',
     'defaultValue',
-    'data-scope',
-    'data-part',
-    'data-slot',
     'ref',
   ]);
   return (

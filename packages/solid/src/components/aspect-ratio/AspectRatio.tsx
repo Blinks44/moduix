@@ -7,20 +7,10 @@ import styles from './AspectRatio.module.css';
 
 type AspectRatioProps = HTMLArkProps<'div'> & {
   ratio?: number | undefined;
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
 };
 
 function AspectRatio(props: AspectRatioProps) {
-  const [local, others] = splitProps(props, [
-    'class',
-    'ratio',
-    'style',
-    'data-scope',
-    'data-part',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class', 'ratio', 'style']);
   const aspectRatioStyle = (): JSX.CSSProperties | string => {
     const ratio = toAspectRatioValue(local.ratio);
 

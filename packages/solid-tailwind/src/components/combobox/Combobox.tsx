@@ -26,7 +26,6 @@ type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProvid
 
 function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'lazyMount',
@@ -38,7 +37,6 @@ function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ComboboxPrimitive.Root
-        asChild={local.asChild}
         class={cn(
           'box-border flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground',
           local.class,
@@ -56,7 +54,6 @@ function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
 
 function ComboboxRootProvider<T extends CollectionItem>(props: ComboboxRootProviderProps<T>) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'lazyMount',
@@ -68,7 +65,6 @@ function ComboboxRootProvider<T extends CollectionItem>(props: ComboboxRootProvi
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ComboboxPrimitive.RootProvider
-        asChild={local.asChild}
         class={cn(
           'box-border flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground',
           local.class,

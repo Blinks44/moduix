@@ -19,11 +19,10 @@ type CheckboxRootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootPro
 };
 
 function Checkbox(props: CheckboxRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <CheckboxPrimitive.Root
-      asChild={local.asChild}
       class={cn(
         'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
         local.class,
@@ -38,11 +37,10 @@ function Checkbox(props: CheckboxRootProps) {
 }
 
 function CheckboxRootProvider(props: CheckboxRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <CheckboxPrimitive.RootProvider
-      asChild={local.asChild}
       class={cn(
         'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
         local.class,

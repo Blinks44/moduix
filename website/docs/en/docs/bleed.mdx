@@ -4,7 +4,6 @@ component: bleed
 description: Layout primitive that lets selected content extend beyond a constrained container.
 ---
 
-import * as BleedDocs from '@/components/examples/bleed/css-properties';
 import BleedBasic from '@/components/examples/bleed/basic.tsx';
 import BleedBlockBleed from '@/components/examples/bleed/block-bleed.tsx';
 import BleedCustomStyling from '@/components/examples/bleed/custom-styling.tsx';
@@ -145,8 +144,8 @@ the Solid form does not forward the component ref through the custom host.
 In Vue, Ark's factory renders one semantic child for `asChild`; read a component ref's rendered host through `$el`.
 
 Combine `inline` and `block` when a surface should extend through padding on both logical axes. `inline="full"`
-is viewport-relative, so a nested shell may need local `--moduix-bleed-inline-full` and
-`--moduix-bleed-inline-full-size` overrides.
+is viewport-relative: it assumes the constrained parent is centered in the viewport. Inside a nested or off-center
+shell, use a fixed amount that matches the shell padding, or set your own margins as shown in Custom Styling.
 
 ## Examples
 
@@ -197,8 +196,8 @@ Add `block` when a surface should extend through the container's block-axis padd
 
 ### Custom Styling
 
-Override `--moduix-bleed-inline-full` and `--moduix-bleed-inline-full-size` locally when a nested shell
-should size the bleed to its own content area instead of the viewport.
+Set `margin-inline` and `inline-size` in your own class when a nested shell should size the bleed to its own
+content area instead of the viewport. moduix styles live in a cascade layer, so a plain class wins.
 
 <ExampleFrame variant="component">
   <BleedCustomStyling />
@@ -335,14 +334,14 @@ element becomes the `Bleed` root.
 
 ## Styling
 
-`Bleed` exposes CSS variables and stable data attributes on its root. Use `className` in React or `class` in
-Solid and Vue for structural styles. Tailwind variants use native utilities and consumer classes; the variables below
-customize the CSS Modules variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
+`Bleed` exposes stable data attributes on its root. Use `className` in React or `class` in Solid and Vue for
+structural styles. The fixed amounts follow the spacing tokens (`xs` to `xl` map to `--moduix-spacing-1`, `2`, `3`,
+`4`, and `6`), so presets change them together with the rest of the spacing. For a custom amount, set `margin-inline`
+or `margin-block` in your own class. Data attributes and `data-slot` hooks are shared by both styling tracks.
 Ancestors with `overflow: hidden` or `overflow: clip` can crop the bleed.
 
-### CSS Properties
-
-<CssPropertiesSection properties={BleedDocs.bleedCssProperties} />
+`inline="full"` uses `100vi`, which includes the width of a classic (non-overlay) vertical scrollbar. On such
+systems, add `overflow-x: clip` to the page root to avoid a horizontal scrollbar.
 
 ### Styling hooks
 
@@ -350,5 +349,3 @@ Ancestors with `overflow: hidden` or `overflow: clip` can crop the bleed.
 - `data-slot="bleed-root"` is the stable moduix selector on the exported root.
 - `data-inline` shows the current inline bleed mode: `none`, `xs`, `sm`, `md`, `lg`, `xl`, or `full`.
 - `data-block` shows the current block bleed mode: `none`, `xs`, `sm`, `md`, `lg`, or `xl`.
-- The public `--moduix-bleed-*` CSS API covers both scale-based bleed amounts and the viewport sizing
-  used by `inline="full"`.

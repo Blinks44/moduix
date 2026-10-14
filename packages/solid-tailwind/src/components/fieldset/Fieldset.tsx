@@ -8,11 +8,10 @@ import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
 function Fieldset(props: ComponentProps<typeof FieldsetPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <FieldsetPrimitive.Root
-      asChild={local.asChild}
       {...others}
       data-slot="fieldset-root"
       class={cn(
@@ -24,11 +23,10 @@ function Fieldset(props: ComponentProps<typeof FieldsetPrimitive.Root>) {
 }
 
 function FieldsetRootProvider(props: ComponentProps<typeof FieldsetPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <FieldsetPrimitive.RootProvider
-      asChild={local.asChild}
       {...others}
       data-slot="fieldset-root-provider"
       class={cn(
@@ -40,11 +38,10 @@ function FieldsetRootProvider(props: ComponentProps<typeof FieldsetPrimitive.Roo
 }
 
 function FieldsetLegend(props: ComponentProps<typeof FieldsetPrimitive.Legend>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <FieldsetPrimitive.Legend
-      asChild={local.asChild}
       {...others}
       data-slot="fieldset-legend"
       class={cn(
@@ -56,11 +53,10 @@ function FieldsetLegend(props: ComponentProps<typeof FieldsetPrimitive.Legend>) 
 }
 
 function FieldsetHelperText(props: ComponentProps<typeof FieldsetPrimitive.HelperText>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <FieldsetPrimitive.HelperText
-      asChild={local.asChild}
       {...others}
       data-slot="fieldset-helper-text"
       class={cn('text-sm wrap-anywhere text-muted-foreground', local.class)}
@@ -69,11 +65,10 @@ function FieldsetHelperText(props: ComponentProps<typeof FieldsetPrimitive.Helpe
 }
 
 function FieldsetErrorText(props: ComponentProps<typeof FieldsetPrimitive.ErrorText>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <FieldsetPrimitive.ErrorText
-      asChild={local.asChild}
       {...others}
       data-slot="fieldset-error-text"
       class={cn('text-sm font-medium wrap-anywhere text-destructive', local.class)}

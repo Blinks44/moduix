@@ -13,11 +13,10 @@ import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/u
 import { CloseButton } from '../close-button';
 
 function FileUpload(props: ComponentProps<typeof FileUploadPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <FileUploadPrimitive.Root
-      asChild={local.asChild}
       class={cn(
         'box-border flex w-full max-w-md flex-col items-start gap-3 text-foreground',
         local.class,
@@ -31,11 +30,10 @@ function FileUpload(props: ComponentProps<typeof FileUploadPrimitive.Root>) {
 }
 
 function FileUploadRootProvider(props: ComponentProps<typeof FileUploadPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <FileUploadPrimitive.RootProvider
-      asChild={local.asChild}
       class={cn(
         'box-border flex w-full max-w-md flex-col items-start gap-3 text-foreground',
         local.class,

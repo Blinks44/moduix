@@ -9,11 +9,10 @@ import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
 function DateInput(props: ComponentProps<typeof DateInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <DateInputPrimitive.Root
-      asChild={local.asChild}
       class={cn(
         'inline-flex w-full max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
         local.class,
@@ -27,11 +26,10 @@ function DateInput(props: ComponentProps<typeof DateInputPrimitive.Root>) {
 }
 
 function DateInputRootProvider(props: ComponentProps<typeof DateInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <DateInputPrimitive.RootProvider
-      asChild={local.asChild}
       class={cn(
         'inline-flex w-full max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
         local.class,

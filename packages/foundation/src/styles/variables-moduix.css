@@ -167,19 +167,6 @@
   --moduix-badge-padding-x: initial; /* size-specific, md: var(--moduix-spacing-2-5) */
   --moduix-badge-padding-y: initial; /* 0 */
   --moduix-badge-radius: initial; /* var(--moduix-radius-full) */
-  /* Bleed */
-  --moduix-bleed-block-xs: initial; /* var(--moduix-spacing-1) */
-  --moduix-bleed-block-sm: initial; /* var(--moduix-spacing-2) */
-  --moduix-bleed-block-md: initial; /* var(--moduix-spacing-3) */
-  --moduix-bleed-block-lg: initial; /* var(--moduix-spacing-4) */
-  --moduix-bleed-block-xl: initial; /* var(--moduix-spacing-6) */
-  --moduix-bleed-inline-full: initial; /* calc(50% - 50vi) */
-  --moduix-bleed-inline-full-size: initial; /* 100vi */
-  --moduix-bleed-inline-xs: initial; /* var(--moduix-spacing-1) */
-  --moduix-bleed-inline-sm: initial; /* var(--moduix-spacing-2) */
-  --moduix-bleed-inline-md: initial; /* var(--moduix-spacing-3) */
-  --moduix-bleed-inline-lg: initial; /* var(--moduix-spacing-4) */
-  --moduix-bleed-inline-xl: initial; /* var(--moduix-spacing-6) */
   /* Breadcrumbs */
   --moduix-breadcrumbs-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-breadcrumbs-ellipsis-color: initial; /* var(--moduix-color-muted-foreground) */

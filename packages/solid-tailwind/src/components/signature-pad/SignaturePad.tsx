@@ -22,12 +22,11 @@ type SignaturePadRootProviderProps = Omit<
 type SignaturePadHookProps = Parameters<typeof useSignaturePadPrimitive>[0];
 
 function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   const field = useFieldContext();
 
   return (
     <SignaturePadPrimitive.Root
-      asChild={local.asChild}
       class={cn(
         'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50',
         local.class,
@@ -45,12 +44,11 @@ function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) 
 }
 
 function SignaturePadRootProvider(props: SignaturePadRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <SignaturePadReadOnlyContext.Provider value={() => props.value.readOnly?.() ?? false}>
       <SignaturePadPrimitive.RootProvider
-        asChild={local.asChild}
         class={cn(
           'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50',
           local.class,

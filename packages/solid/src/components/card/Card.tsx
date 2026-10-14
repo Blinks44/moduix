@@ -10,11 +10,10 @@ type CardProps = HTMLArkProps<'div'> & {
 };
 
 function Card(props: CardProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'size', 'variant']);
+  const [local, others] = splitProps(props, ['class', 'size', 'variant']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="card"
       data-part="root"
@@ -27,11 +26,10 @@ function Card(props: CardProps) {
 }
 
 function CardHeader(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       class={clsx(styles.header, local.class)}
       {...others}
       data-scope="card"
@@ -42,11 +40,10 @@ function CardHeader(props: HTMLArkProps<'div'>) {
 }
 
 function CardBody(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       class={clsx(styles.body, local.class)}
       {...others}
       data-scope="card"
@@ -57,11 +54,10 @@ function CardBody(props: HTMLArkProps<'div'>) {
 }
 
 function CardMedia(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       class={clsx(styles.media, local.class)}
       {...others}
       data-scope="card"
@@ -72,11 +68,10 @@ function CardMedia(props: HTMLArkProps<'div'>) {
 }
 
 function CardBackground(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       class={clsx(styles.background, local.class)}
       {...others}
       data-scope="card"
@@ -87,11 +82,10 @@ function CardBackground(props: HTMLArkProps<'div'>) {
 }
 
 function CardFooter(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       class={clsx(styles.footer, local.class)}
       {...others}
       data-scope="card"
@@ -102,11 +96,10 @@ function CardFooter(props: HTMLArkProps<'div'>) {
 }
 
 function CardTitle(props: HTMLArkProps<'h3'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.h3
-      asChild={local.asChild}
       class={clsx(styles.title, local.class)}
       {...others}
       data-scope="card"
@@ -117,11 +110,10 @@ function CardTitle(props: HTMLArkProps<'h3'>) {
 }
 
 function CardDescription(props: HTMLArkProps<'p'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.p
-      asChild={local.asChild}
       class={clsx(styles.description, local.class)}
       {...others}
       data-scope="card"
@@ -132,11 +124,10 @@ function CardDescription(props: HTMLArkProps<'p'>) {
 }
 
 function CardAction(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       class={clsx(styles.action, local.class)}
       {...others}
       data-scope="card"
@@ -147,11 +138,10 @@ function CardAction(props: HTMLArkProps<'div'>) {
 }
 
 function CardLink(props: HTMLArkProps<'a'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.a
-      asChild={local.asChild}
       class={clsx(styles.link, local.class)}
       {...others}
       data-scope="card"

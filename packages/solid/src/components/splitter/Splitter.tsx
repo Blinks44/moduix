@@ -26,11 +26,10 @@ function getRootStyle(style: SplitterRootStyle): JSX.CSSProperties | string {
 }
 
 function Splitter(props: ComponentProps<typeof SplitterPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'style']);
+  const [local, others] = splitProps(props, ['class', 'style']);
 
   return (
     <SplitterPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       style={getRootStyle(local.style)}
       {...others}
@@ -40,11 +39,10 @@ function Splitter(props: ComponentProps<typeof SplitterPrimitive.Root>) {
 }
 
 function SplitterRootProvider(props: ComponentProps<typeof SplitterPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'style']);
+  const [local, others] = splitProps(props, ['class', 'style']);
 
   return (
     <SplitterPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       style={getRootStyle(local.style)}
       {...others}

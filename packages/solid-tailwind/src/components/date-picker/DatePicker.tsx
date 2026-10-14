@@ -59,7 +59,6 @@ type DatePickerDayTableProps = Omit<
 
 function DatePicker(props: DatePickerRootProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'disabled',
@@ -77,7 +76,6 @@ function DatePicker(props: DatePickerRootProps) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <DatePickerPrimitive.Root
-        asChild={local.asChild}
         class={cn(
           "group/date-picker inline-flex w-75 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index='1']]:w-96 data-disabled:opacity-50 data-readonly:opacity-50",
           local.class,
@@ -99,7 +97,6 @@ function DatePicker(props: DatePickerRootProps) {
 
 function DatePickerRootProvider(props: DatePickerRootProviderProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'lazyMount',
@@ -111,7 +108,6 @@ function DatePickerRootProvider(props: DatePickerRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <DatePickerPrimitive.RootProvider
-        asChild={local.asChild}
         class={cn(
           "group/date-picker inline-flex w-75 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index='1']]:w-96 data-disabled:opacity-50 data-readonly:opacity-50",
           local.class,

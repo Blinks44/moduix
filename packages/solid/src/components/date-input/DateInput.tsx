@@ -10,11 +10,10 @@ import { splitProps } from 'solid-js';
 import styles from './DateInput.module.css';
 
 function DateInput(props: ComponentProps<typeof DateInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <DateInputPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="date-input-root"
@@ -25,11 +24,10 @@ function DateInput(props: ComponentProps<typeof DateInputPrimitive.Root>) {
 }
 
 function DateInputRootProvider(props: ComponentProps<typeof DateInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <DateInputPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="date-input-root-provider"

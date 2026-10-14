@@ -10,7 +10,7 @@ type NativeSelectProps = FieldSelectProps & {
 };
 
 function NativeSelect(props: NativeSelectProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'controlProps']);
+  const [local, others] = splitProps(props, ['class', 'controlProps']);
   const isList = () => props.multiple || (props.size !== undefined && Number(props.size) > 1);
 
   return (
@@ -22,7 +22,6 @@ function NativeSelect(props: NativeSelectProps) {
       class={cn('relative inline-grid w-fit max-w-full min-w-0', local.controlProps?.class)}
     >
       <FieldPrimitive.Select
-        asChild={local.asChild}
         {...others}
         data-scope="field"
         data-part="select"

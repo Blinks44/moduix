@@ -1,168 +1,55 @@
 # Bleed
 
-Upstream docs:
+## Upstream reference
 
-- Ark UI: https://ark-ui.com/docs/guides/composition
-- Ark UI styling: https://ark-ui.com/docs/guides/styling
-- Ark UI refs: https://ark-ui.com/docs/guides/ref
-- Chakra UI: https://chakra-ui.com/docs/components/bleed
+Ark UI has no dedicated Bleed primitive. Moduix uses the
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows its
+[composition](https://ark-ui.com/docs/guides/composition) and
+[styling](https://ark-ui.com/docs/guides/styling) guides. The axis model comes from
+[Chakra UI Bleed](https://chakra-ui.com/docs/components/bleed).
 
 ## Purpose
 
-`Bleed` lets a child intentionally escape a constrained parent while staying in normal document
-flow. Use it for full-width media, section backgrounds, dividers, and panels inside a centered or
-padded layout.
+`Bleed` lets a child escape a constrained parent with negative margins while staying in normal
+document flow. Use it for full-width media, section backgrounds, dividers, and panels that should
+reach through container padding.
 
-Ark UI does not ship a dedicated `bleed` primitive, so Moduix implements this component as an
-Ark-aligned factory wrapper with `@ark-ui/react/factory`.
+## Public contract
 
-## Upstream model to preserve
+- `Bleed` is the single flat public value and the only root part.
+- The root renders as an Ark factory `div`, supports `asChild`, forwards its ref, and writes
+  `data-scope="bleed"`, `data-part="root"`, `data-slot="bleed-root"`, `data-inline`, and
+  `data-block`. These hooks are written after consumer props, so they cannot be replaced.
+- `inline`: `none | xs | sm | md | lg | xl | full`, default `full`.
+- `block`: `none | xs | sm | md | lg | xl`, default `none`.
+- `xs` to `xl` map to `--moduix-spacing-1`, `2`, `3`, `4`, and `6` on both axes, in CSS Modules and
+  Tailwind alike.
+- `inline="full"` sets `inline-size: 100vi` and `margin-inline: calc(50% - 50vi)`, so it reaches the
+  viewport edges when the constrained parent is centered in the viewport.
+- There are no public CSS variables. A consumer class wins over the layered defaults, so custom
+  amounts are plain `margin-inline`, `margin-block`, or `inline-size` overrides.
 
-- Uses the Ark factory composition model instead of a dedicated Ark primitive.
-- Keeps the API intentionally small: one root part with polymorphic DOM ownership through `asChild`.
-- Keeps the layout model explicit: negative inline and block margins on a single root.
-- Keeps viewport-wide sizing logical with `vi`, so the full mode follows the document's writing
-  mode instead of assuming a horizontal inline axis.
-- Uses Chakra's `inline` and `block` axis model as a secondary reference while keeping moduix's
-  token-based values and full-viewport mode.
+## Preservation notes
 
-## Current behavior contract
+- Keep `Bleed` a thin single-root layout primitive: no inner wrapper, state, ARIA, or positioning.
+- Keep `margin: 0` on the root so `asChild` hosts such as `figure` lose their user-agent margins.
+- Keep the explicit `inline-size` for `full`; without it a root that is not stretched by its
+  parent (flex `align-items: center`, inline hosts) would not reach the viewport.
+- `asChild` requires one semantic child that accepts DOM props and a ref.
 
-- Uses Ark-style root composition: `Bleed` is the exported root value.
-- The family name is the only public value; there are no other parts.
-- Root accepts Ark factory div props, including `asChild`.
-- Applies `data-scope="bleed"`, `data-part="root"`, `data-slot="bleed-root"`, `data-inline`, and
-  `data-block` on the root.
-- Applies negative inline and/or block margins with CSS Modules and `--moduix-bleed-*` variables.
-- Does not add inner wrappers, state, ARIA, keyboard handling, focus management, or lifecycle
-  behavior.
-- Preserves normal document flow; it is not positioned and does not portal content.
+## Styling and accessibility
 
-## Anatomy and exported parts
+`Bleed` owns only the margins. Consumers style the surface (background, padding, radius). Ancestors
+with `overflow: hidden` or `overflow: clip` crop the bleed. `100vi` includes a classic vertical
+scrollbar, so on systems without overlay scrollbars the page root needs `overflow-x: clip`.
+Reading and focus order follow the source order.
 
-```text
-Bleed
-└─ children
-```
+## Differences from upstream
 
-Every exported part accepts `className` and uses the standard hooks below:
-
-| Part    | Hook                     | Notes                                           |
-| ------- | ------------------------ | ----------------------------------------------- |
-| `Bleed` | `data-slot="bleed-root"` | Root layout wrapper for inline and block bleed. |
-| `Bleed` | `data-scope="bleed"`     | Ark-aligned component scope.                    |
-| `Bleed` | `data-part="root"`       | Ark-aligned part name.                          |
-| `Bleed` | `data-inline`            | Selects inline bleed behavior.                  |
-| `Bleed` | `data-block`             | Selects block bleed behavior.                   |
-
-## Composition
-
-```tsx
-import { Bleed } from '@moduix/react/bleed';
-
-<Bleed asChild>
-  <figure>
-    <img src="/hero.png" alt="Map preview" />
-    <figcaption>Full-width media inside a constrained article.</figcaption>
-  </figure>
-</Bleed>;
-```
-
-`Bleed` is composition-first: put any visual surface, media, text, or semantic content inside it.
-Use `asChild` when another element should own the rendered DOM node.
-
-## Upstream feature coverage
-
-- `Composition`: preserved through Ark factory `asChild` behavior.
-- `Styling`: follows Ark's `className`, `data-scope`, and `data-part` guidance.
-- `Refs`: the forwarded ref targets the rendered root, or the single child element with `asChild`.
-- `Dedicated primitive features`: not applicable because Ark has no dedicated `Bleed` component
-  page for this wrapper to mirror.
-- `Stateful or behavioral patterns`: intentionally unsupported; `Bleed` remains a single-root
-  layout primitive.
-- `Chakra directional props`: intentionally not exposed. moduix supports axis-level `inline` and
-  `block` modes, not `inlineStart`, `inlineEnd`, `blockStart`, or `blockEnd`.
-
-## Accessibility and state
-
-- `Bleed` has no managed state, callbacks, or ARIA behavior.
-- `asChild` requires exactly one semantic child that accepts DOM props and a ref.
-- A root ref resolves to the rendered `HTMLElement`; with `asChild`, Ark forwards it to the rendered
-  child element.
-- The root keeps stable hooks for styling and test targeting:
-  - `data-scope`
-  - `data-part`
-  - `data-slot`
-  - `data-inline`
-  - `data-block`
-- Because the root stays in normal document flow, reading order and focus order follow JSX order.
-
-## Defaults and styling
-
-| Entry       | Default | Values / Notes                               |
-| ----------- | ------- | -------------------------------------------- |
-| `inline`    | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
-| `block`     | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
-| `asChild`   | `false` | Ark factory composition                      |
-| `className` | -       | Applied to the root                          |
-
-Public CSS variables:
-
-| Variable                          | Default                   | Used by                |
-| --------------------------------- | ------------------------- | ---------------------- |
-| `--moduix-bleed-block-xs`         | `var(--moduix-spacing-1)` | `block="xs"`           |
-| `--moduix-bleed-block-sm`         | `var(--moduix-spacing-2)` | `block="sm"`           |
-| `--moduix-bleed-block-md`         | `var(--moduix-spacing-3)` | `block="md"`           |
-| `--moduix-bleed-block-lg`         | `var(--moduix-spacing-4)` | `block="lg"`           |
-| `--moduix-bleed-block-xl`         | `var(--moduix-spacing-6)` | `block="xl"`           |
-| `--moduix-bleed-inline-full`      | `calc(50% - 50vi)`        | `inline="full"` margin |
-| `--moduix-bleed-inline-full-size` | `100vi`                   | `inline="full"` width  |
-| `--moduix-bleed-inline-xs`        | `var(--moduix-spacing-1)` | `inline="xs"`          |
-| `--moduix-bleed-inline-sm`        | `var(--moduix-spacing-2)` | `inline="sm"`          |
-| `--moduix-bleed-inline-md`        | `var(--moduix-spacing-3)` | `inline="md"`          |
-| `--moduix-bleed-inline-lg`        | `var(--moduix-spacing-4)` | `inline="lg"`          |
-| `--moduix-bleed-inline-xl`        | `var(--moduix-spacing-6)` | `inline="xl"`          |
-
-## Intentional sugar and differences from upstream
-
-- There is still no upstream Ark primitive for this component; moduix keeps it as a thin factory
-  wrapper rather than inventing a richer primitive surface.
-- The old `as` prop was removed in favor of Ark `asChild`.
-- moduix adds Ark-style `data-scope` and `data-part` hooks on the root.
-- moduix defaults to token-based axis values and adds `inline="full"`; this differs from Chakra's
-  arbitrary style-value and one-sided direction props.
-
-## Agent notes
-
-- Keep `Bleed` a thin single-root layout primitive.
-- Add sugar only if it removes frequent production boilerplate without hiding the simple
-  margin-based model. The current `inline`, `block`, and Ark root props are the intended public
-  surface.
-- Keep wrapper-owned data hooks and the merged root class after consumer props so they cannot be
-  replaced accidentally.
-- If CSS variables change, update `variables-moduix.css`, docs CSS Properties, stories/examples, and this file
-  in the same task.
+Chakra accepts any spacing value and per-side props (`inlineStart`, `blockEnd`, ...). Moduix keeps a
+fixed token scale per axis, adds `inline="full"`, and defaults to it.
 
 ## Local changelog
 
-- 2026-09-21: Removed the `Bleed` namespace alias and migrated the public surface to the flat
-  value API; `Bleed` is now the only exported root value, and tests and stories use the flat form.
-- 2026-08-09: Synchronized the public full-bleed variable reference with logical viewport units and
-  expanded regression coverage for the namespace form, stable hooks, and consumer classes.
-- 2026-07-26: Made full-bleed viewport math logical for vertical writing modes, widened the
-  forwarded ref contract for `asChild`, and added focused regression coverage.
-- 2026-07-09: Re-aligned stories and public docs around the short `<Bleed>` sweet path and added a
-  nested-shell example for overriding the full-bleed CSS variables.
-- 2026-07-07: Kept `Bleed` root-only and token-based, made wrapper-owned root hooks
-  non-overridable again, and aligned stories/docs around the short `<Bleed>` path.
-- 2026-07-02: Removed the public `BleedInline`, `BleedBlock`, and `BleedRootProps` aliases while
-  preserving the callable root, `Bleed`, axis props, Ark factory composition, data attributes,
-  and all token-based bleed behavior.
-- 2026-06-24: Re-audited `Bleed` as a local Ark factory primitive, aligned the public docs API
-  reference wording, simplified docs example code, and corrected the local full-bleed CSS override
-  example to use parent-relative sizing.
-- 2026-06-18: Completed the Ark migration audit, documented factory composition, ref and
-  `asChild` constraints, Chakra-informed differences, and the preferred root-only `<Bleed />`
-  usage.
-- 2026-06-17: Migrated `Bleed` to an Ark-aligned factory wrapper, added `Bleed`, replaced
-  `as` with `asChild`, and aligned docs/examples to the new root contract.
+- 2026-10-14: Removed the 12 `--moduix-bleed-*` variables; amounts use spacing tokens directly and
+  custom amounts are class overrides.

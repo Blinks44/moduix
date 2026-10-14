@@ -8,9 +8,6 @@ type SeparatorProps = HTMLArkProps<'span'> & {
   orientation?: 'horizontal' | 'vertical';
   size?: 'xs' | 'sm' | 'md' | 'lg';
   variant?: 'solid' | 'dashed' | 'dotted';
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
   'data-orientation'?: string;
   'data-size'?: string;
   'data-variant'?: string;
@@ -54,13 +51,9 @@ const separatorVariants = cva('block shrink-0 m-0 border-border', {
 function Separator(props: SeparatorProps) {
   const [local, others] = splitProps(props, [
     'aria-orientation',
-    'asChild',
     'class',
     'data-orientation',
-    'data-part',
-    'data-scope',
     'data-size',
-    'data-slot',
     'data-variant',
     'orientation',
     'role',
@@ -74,7 +67,6 @@ function Separator(props: SeparatorProps) {
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       role={role()}
       aria-orientation={role() === 'separator' ? orientation() : undefined}

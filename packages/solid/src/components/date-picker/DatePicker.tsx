@@ -60,7 +60,6 @@ type DatePickerDayTableProps = Omit<
 
 function DatePicker(props: DatePickerRootProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'disabled',
@@ -78,7 +77,6 @@ function DatePicker(props: DatePickerRootProps) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <DatePickerPrimitive.Root
-        asChild={local.asChild}
         class={clsx(styles.root, local.class)}
         disabled={local.disabled ?? field?.()?.disabled ?? fieldset?.()?.disabled}
         invalid={local.invalid ?? field?.()?.invalid ?? fieldset?.()?.invalid}
@@ -97,7 +95,6 @@ function DatePicker(props: DatePickerRootProps) {
 
 function DatePickerRootProvider(props: DatePickerRootProviderProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'lazyMount',
@@ -109,7 +106,6 @@ function DatePickerRootProvider(props: DatePickerRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <DatePickerPrimitive.RootProvider
-        asChild={local.asChild}
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}

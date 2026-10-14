@@ -12,16 +12,11 @@ import { Input } from '../input';
 
 type InputGroupSize = NonNullable<ComponentProps<typeof Input>['size']>;
 
-type InputGroupDataProps = {
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
-};
+type InputGroupDataProps = {};
 
 type InputGroupProps = HTMLArkProps<'div'> &
   InputGroupDataProps & {
     size?: InputGroupSize;
-    'data-size'?: string;
   };
 
 const inputGroupSizeVariants = {
@@ -99,21 +94,11 @@ const inputGroupClearTriggerVariants = cva(
 const InputGroupSizeContext = createContext((): InputGroupSize => 'md');
 
 function InputGroup(props: InputGroupProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-size',
-    'data-slot',
-    'size',
-  ]);
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <InputGroupSizeContext.Provider value={() => local.size ?? 'md'}>
       <ark.div
-        asChild={local.asChild}
         {...others}
         data-scope="input-group"
         data-part="root"
@@ -142,18 +127,11 @@ function InputGroupInput(props: ComponentProps<typeof Input>) {
 }
 
 function InputGroupAddon(props: HTMLArkProps<'span'> & InputGroupDataProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class']);
   const groupSize = useContext(InputGroupSizeContext);
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       data-scope="input-group"
       data-part="addon"
@@ -164,18 +142,11 @@ function InputGroupAddon(props: HTMLArkProps<'span'> & InputGroupDataProps) {
 }
 
 function InputGroupText(props: HTMLArkProps<'span'> & InputGroupDataProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class']);
   const groupSize = useContext(InputGroupSizeContext);
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       data-scope="input-group"
       data-part="text"

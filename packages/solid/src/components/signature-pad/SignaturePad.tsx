@@ -22,12 +22,11 @@ type SignaturePadRootProviderProps = Omit<
 > & { value: ReturnType<typeof useSignaturePadPrimitive> & { readOnly?: Accessor<boolean> } };
 type SignaturePadHookProps = Parameters<typeof useSignaturePadPrimitive>[0];
 function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   const field = useFieldContext();
 
   return (
     <SignaturePadPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="signature-pad-root"
@@ -42,12 +41,11 @@ function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) 
 }
 
 function SignaturePadRootProvider(props: SignaturePadRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <SignaturePadReadOnlyContext.Provider value={() => props.value.readOnly?.() ?? false}>
       <SignaturePadPrimitive.RootProvider
-        asChild={local.asChild}
         class={clsx(styles.root, local.class)}
         {...others}
         data-slot="signature-pad-root-provider"

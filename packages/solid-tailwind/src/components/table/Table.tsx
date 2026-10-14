@@ -5,11 +5,7 @@ import { children, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 
-type TableDataProps = {
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
-};
+type TableDataProps = {};
 
 type TableProps = HTMLArkProps<'table'> &
   TableDataProps & {
@@ -80,14 +76,10 @@ const tableVariants = cva(
 
 function Table(props: TableProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'class',
     'data-interactive',
-    'data-part',
-    'data-scope',
     'data-show-column-border',
     'data-size',
-    'data-slot',
     'data-sticky-header',
     'data-striped',
     'data-variant',
@@ -103,7 +95,6 @@ function Table(props: TableProps) {
 
   return (
     <ark.table
-      asChild={local.asChild}
       {...others}
       data-scope="table"
       data-part="root"
@@ -120,17 +111,10 @@ function Table(props: TableProps) {
 }
 
 function TableScrollArea(props: TableScrollAreaProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="table"
       data-part="scroll-area"
@@ -144,20 +128,11 @@ function TableScrollArea(props: TableScrollAreaProps) {
 }
 
 function TableCaption(props: TableCaptionProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-side',
-    'data-slot',
-    'side',
-  ]);
+  const [local, others] = splitProps(props, ['class', 'data-side', 'side']);
   const side = () => local.side ?? 'bottom';
 
   return (
     <ark.caption
-      asChild={local.asChild}
       {...others}
       data-scope="table"
       data-part="caption"
@@ -172,17 +147,10 @@ function TableCaption(props: TableCaptionProps) {
 }
 
 function TableColumnGroup(props: TableColumnGroupProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.colgroup
-      asChild={local.asChild}
       {...others}
       data-scope="table"
       data-part="column-group"
@@ -193,19 +161,10 @@ function TableColumnGroup(props: TableColumnGroupProps) {
 }
 
 function TableColumn(props: TableColumnProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-    'htmlWidth',
-    'width',
-  ]);
+  const [local, others] = splitProps(props, ['class', 'htmlWidth', 'width']);
 
   return (
     <ark.col
-      asChild={local.asChild}
       {...others}
       data-scope="table"
       data-part="column"
@@ -217,17 +176,10 @@ function TableColumn(props: TableColumnProps) {
 }
 
 function TableHeader(props: TableHeaderProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.thead
-      asChild={local.asChild}
       {...others}
       data-scope="table"
       data-part="header"
@@ -241,17 +193,10 @@ function TableHeader(props: TableHeaderProps) {
 }
 
 function TableBody(props: TableBodyProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.tbody
-      asChild={local.asChild}
       {...others}
       data-scope="table"
       data-part="body"
@@ -262,17 +207,10 @@ function TableBody(props: TableBodyProps) {
 }
 
 function TableFooter(props: TableFooterProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.tfoot
-      asChild={local.asChild}
       {...others}
       data-scope="table"
       data-part="footer"
@@ -283,17 +221,10 @@ function TableFooter(props: TableFooterProps) {
 }
 
 function TableRow(props: TableRowProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.tr
-      asChild={local.asChild}
       {...others}
       data-scope="table"
       data-part="row"
@@ -307,19 +238,10 @@ function TableRow(props: TableRowProps) {
 }
 
 function TableColumnHeader(props: TableColumnHeaderProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-numeric',
-    'data-part',
-    'data-scope',
-    'data-slot',
-    'numeric',
-  ]);
+  const [local, others] = splitProps(props, ['class', 'data-numeric', 'numeric']);
 
   return (
     <ark.th
-      asChild={local.asChild}
       {...others}
       data-scope="table"
       data-part="column-header"
@@ -335,19 +257,10 @@ function TableColumnHeader(props: TableColumnHeaderProps) {
 }
 
 function TableCell(props: TableCellProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-numeric',
-    'data-part',
-    'data-scope',
-    'data-slot',
-    'numeric',
-  ]);
+  const [local, others] = splitProps(props, ['class', 'data-numeric', 'numeric']);
 
   return (
     <ark.td
-      asChild={local.asChild}
       {...others}
       data-scope="table"
       data-part="cell"
@@ -363,15 +276,7 @@ function TableCell(props: TableCellProps) {
 }
 
 function TableEmpty(props: TableEmptyProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
-    'class',
-    'colSpan',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['children', 'class', 'colSpan']);
   const resolvedChildren = children(() => local.children);
 
   return (
@@ -383,7 +288,6 @@ function TableEmpty(props: TableEmptyProps) {
       class="transition-colors duration-200 ease-in-out group-data-[slot=table-body]/table-body:border-b group-data-[slot=table-body]/table-body:border-border group-data-[slot=table-body]/table-body:last:border-b-0 motion-reduce:transition-none"
     >
       <ark.td
-        asChild={local.asChild}
         {...others}
         data-scope="table"
         data-part="empty"

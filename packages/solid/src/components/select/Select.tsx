@@ -36,7 +36,6 @@ type SelectFieldProps = Omit<
 
 function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'lazyMount',
@@ -48,7 +47,6 @@ function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <SelectPrimitive.Root
-        asChild={local.asChild}
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
@@ -63,7 +61,6 @@ function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
 
 function SelectRootProvider<T extends CollectionItem>(props: SelectRootProviderProps<T>) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'lazyMount',
@@ -75,7 +72,6 @@ function SelectRootProvider<T extends CollectionItem>(props: SelectRootProviderP
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <SelectPrimitive.RootProvider
-        asChild={local.asChild}
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}

@@ -28,11 +28,10 @@ const FieldSelectPrimitive = FieldPrimitive.Select as (
 ) => JSX.Element;
 
 function Field(props: ComponentProps<typeof FieldPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <FieldPrimitive.Root
-      asChild={local.asChild}
       {...others}
       data-slot="field-root"
       class={cn(fieldRootVariants(), local.class)}
@@ -41,11 +40,10 @@ function Field(props: ComponentProps<typeof FieldPrimitive.Root>) {
 }
 
 function FieldRootProvider(props: ComponentProps<typeof FieldPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <FieldPrimitive.RootProvider
-      asChild={local.asChild}
       {...others}
       data-slot="field-root-provider"
       class={cn(fieldRootVariants(), local.class)}
@@ -66,11 +64,10 @@ function FieldItem(props: FieldItemProps) {
 }
 
 function FieldLabel(props: ComponentProps<typeof FieldPrimitive.Label>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <FieldPrimitive.Label
-      asChild={local.asChild}
       {...others}
       data-slot="field-label"
       class={cn(
@@ -134,7 +131,7 @@ function FieldTextarea(props: FieldTextareaProps) {
 }
 
 function FieldSelect(props: FieldSelectProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'defaultValue', 'ref']);
+  const [local, others] = splitProps(props, ['class', 'defaultValue', 'ref']);
   let selectRef: HTMLSelectElement | undefined;
 
   createEffect(() => {
@@ -155,7 +152,6 @@ function FieldSelect(props: FieldSelectProps) {
 
   return (
     <FieldSelectPrimitive
-      asChild={local.asChild}
       {...others}
       prop:defaultValue={local.defaultValue}
       data-slot="field-select"
@@ -172,11 +168,10 @@ function FieldSelect(props: FieldSelectProps) {
 }
 
 function FieldHelperText(props: ComponentProps<typeof FieldPrimitive.HelperText>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <FieldPrimitive.HelperText
-      asChild={local.asChild}
       {...others}
       data-slot="field-helper-text"
       class={cn('text-sm leading-5 wrap-anywhere text-muted-foreground', local.class)}
@@ -185,11 +180,10 @@ function FieldHelperText(props: ComponentProps<typeof FieldPrimitive.HelperText>
 }
 
 function FieldErrorText(props: ComponentProps<typeof FieldPrimitive.ErrorText>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <FieldPrimitive.ErrorText
-      asChild={local.asChild}
       {...others}
       data-slot="field-error-text"
       class={cn('text-sm leading-5 font-medium wrap-anywhere text-destructive', local.class)}
@@ -198,11 +192,10 @@ function FieldErrorText(props: ComponentProps<typeof FieldPrimitive.ErrorText>) 
 }
 
 function FieldRequiredIndicator(props: ComponentProps<typeof FieldPrimitive.RequiredIndicator>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <FieldPrimitive.RequiredIndicator
-      asChild={local.asChild}
       {...others}
       data-slot="field-required-indicator"
       class={cn('text-destructive', local.class)}

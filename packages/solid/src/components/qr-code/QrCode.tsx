@@ -5,11 +5,10 @@ import { splitProps } from 'solid-js';
 import styles from './QrCode.module.css';
 
 function QrCode(props: ComponentProps<typeof QrCodePrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <QrCodePrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="qr-code-root"
@@ -20,11 +19,10 @@ function QrCode(props: ComponentProps<typeof QrCodePrimitive.Root>) {
 }
 
 function QrCodeRootProvider(props: ComponentProps<typeof QrCodePrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <QrCodePrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="qr-code-root-provider"
@@ -35,11 +33,10 @@ function QrCodeRootProvider(props: ComponentProps<typeof QrCodePrimitive.RootPro
 }
 
 function QrCodeFrame(props: ComponentProps<typeof QrCodePrimitive.Frame>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <QrCodePrimitive.Frame
-      asChild={local.asChild}
       class={clsx(styles.frame, local.class)}
       {...others}
       data-slot="qr-code-frame"
@@ -50,11 +47,10 @@ function QrCodeFrame(props: ComponentProps<typeof QrCodePrimitive.Frame>) {
 }
 
 function QrCodePattern(props: ComponentProps<typeof QrCodePrimitive.Pattern>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <QrCodePrimitive.Pattern
-      asChild={local.asChild}
       class={clsx(styles.pattern, local.class)}
       {...others}
       data-slot="qr-code-pattern"
@@ -63,11 +59,10 @@ function QrCodePattern(props: ComponentProps<typeof QrCodePrimitive.Pattern>) {
 }
 
 function QrCodeOverlay(props: ComponentProps<typeof QrCodePrimitive.Overlay>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <QrCodePrimitive.Overlay
-      asChild={local.asChild}
       class={clsx(styles.overlay, local.class)}
       {...others}
       data-slot="qr-code-overlay"
@@ -78,11 +73,10 @@ function QrCodeOverlay(props: ComponentProps<typeof QrCodePrimitive.Overlay>) {
 }
 
 function QrCodeDownloadTrigger(props: ComponentProps<typeof QrCodePrimitive.DownloadTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <QrCodePrimitive.DownloadTrigger
-      asChild={local.asChild}
       class={clsx(styles.downloadTrigger, local.class)}
       {...others}
       data-slot="qr-code-download-trigger"

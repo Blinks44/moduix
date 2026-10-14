@@ -7,25 +7,13 @@ import styles from './Input.module.css';
 type InputProps = Omit<FieldInputProps, 'size'> & {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   htmlSize?: FieldInputProps['size'];
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
 };
 
 function Input(props: InputProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'size',
-    'htmlSize',
-    'data-scope',
-    'data-part',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class', 'size', 'htmlSize']);
 
   return (
     <FieldPrimitive.Input
-      asChild={local.asChild}
       {...others}
       data-scope="field"
       data-part="input"

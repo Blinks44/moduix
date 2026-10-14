@@ -401,18 +401,10 @@ function SidebarNavigationButton(
     size?: 'sm' | 'md' | 'lg';
   },
 ) {
-  const [local, others] = splitProps(props, [
-    'active',
-    'aria-current',
-    'asChild',
-    'class',
-    'size',
-    'type',
-  ]);
+  const [local, others] = splitProps(props, ['active', 'aria-current', 'class', 'size', 'type']);
 
   return (
     <ark.button
-      asChild={local.asChild}
       type={local.type ?? 'button'}
       aria-current={local['aria-current'] ?? (local.active ? 'page' : undefined)}
       class={clsx(styles.menuButton, local.class)}
@@ -473,17 +465,10 @@ function SidebarNavigationSubButton(
     active?: boolean;
   },
 ) {
-  const [local, others] = splitProps(props, [
-    'active',
-    'aria-current',
-    'asChild',
-    'children',
-    'class',
-  ]);
+  const [local, others] = splitProps(props, ['active', 'aria-current', 'children', 'class']);
 
   return (
     <ark.a
-      asChild={local.asChild}
       aria-current={local['aria-current'] ?? (local.active ? 'page' : undefined)}
       class={clsx(styles.menuSubButton, local.class)}
       {...others}

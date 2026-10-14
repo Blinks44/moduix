@@ -9,11 +9,10 @@ import { cn } from '@/lib/moduix/cn';
 import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui/Icons';
 
 function NumberInput(props: ComponentProps<typeof NumberInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'value']);
+  const [local, others] = splitProps(props, ['children', 'class', 'value']);
 
   return (
     <NumberInputPrimitive.Root
-      asChild={local.asChild}
       value={local.value}
       class={cn(
         'group/number-input flex w-auto max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
@@ -28,11 +27,10 @@ function NumberInput(props: ComponentProps<typeof NumberInputPrimitive.Root>) {
 }
 
 function NumberInputRootProvider(props: ComponentProps<typeof NumberInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'value']);
+  const [local, others] = splitProps(props, ['children', 'class', 'value']);
 
   return (
     <NumberInputPrimitive.RootProvider
-      asChild={local.asChild}
       value={local.value}
       class={cn(
         'group/number-input flex w-auto max-w-none flex-col items-start gap-1 data-disabled:opacity-50',

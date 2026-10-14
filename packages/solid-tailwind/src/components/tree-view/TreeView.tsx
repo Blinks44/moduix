@@ -28,11 +28,10 @@ const treeViewRowVariants = cva(
 );
 
 function TreeView<T extends TreeNode>(props: TreeViewRootProps<T>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <TreeViewPrimitive.Root
-      asChild={local.asChild}
       class={cn(treeViewRootVariants(), local.class)}
       {...others}
       data-slot="tree-view-root"
@@ -43,11 +42,10 @@ function TreeView<T extends TreeNode>(props: TreeViewRootProps<T>) {
 }
 
 function TreeViewRootProvider<T extends TreeNode>(props: TreeViewRootProviderProps<T>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <TreeViewPrimitive.RootProvider
-      asChild={local.asChild}
       class={cn(treeViewRootVariants(), local.class)}
       {...others}
       data-slot="tree-view-root-provider"
@@ -254,18 +252,11 @@ type TreeViewNodeCheckboxIndicatorProps = ComponentProps<
   Omit<HTMLArkProps<'span'>, 'children'>;
 
 function TreeViewNodeCheckboxIndicator(props: TreeViewNodeCheckboxIndicatorProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
-    'class',
-    'fallback',
-    'indeterminate',
-  ]);
+  const [local, others] = splitProps(props, ['children', 'class', 'fallback', 'indeterminate']);
   const resolvedChildren = children(() => local.children);
 
   return (
     <ark.span
-      asChild={local.asChild}
       class={cn('inline-flex items-center justify-center', local.class)}
       {...others}
       data-slot="tree-view-node-checkbox-indicator"

@@ -18,11 +18,10 @@ function getRootStyle(style: ComponentProps<typeof SplitterPrimitive.Root>['styl
 }
 
 function Splitter(props: ComponentProps<typeof SplitterPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'style']);
+  const [local, others] = splitProps(props, ['class', 'style']);
 
   return (
     <SplitterPrimitive.Root
-      asChild={local.asChild}
       class={cn(
         'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize data-dragging:data-[orientation=vertical]:cursor-row-resize',
         local.class,
@@ -35,11 +34,10 @@ function Splitter(props: ComponentProps<typeof SplitterPrimitive.Root>) {
 }
 
 function SplitterRootProvider(props: ComponentProps<typeof SplitterPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'style']);
+  const [local, others] = splitProps(props, ['class', 'style']);
 
   return (
     <SplitterPrimitive.RootProvider
-      asChild={local.asChild}
       class={cn(
         'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize data-dragging:data-[orientation=vertical]:cursor-row-resize',
         local.class,

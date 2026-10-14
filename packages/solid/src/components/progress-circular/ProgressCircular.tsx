@@ -9,11 +9,10 @@ import { splitProps } from 'solid-js';
 import styles from './ProgressCircular.module.css';
 
 function ProgressCircular(props: ComponentProps<typeof ProgressPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <ProgressPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="progress-circular-root"
@@ -26,11 +25,10 @@ function ProgressCircular(props: ComponentProps<typeof ProgressPrimitive.Root>) 
 function ProgressCircularRootProvider(
   props: ComponentProps<typeof ProgressPrimitive.RootProvider>,
 ) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <ProgressPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="progress-circular-root-provider"
@@ -41,11 +39,10 @@ function ProgressCircularRootProvider(
 }
 
 function ProgressCircularLabel(props: ComponentProps<typeof ProgressPrimitive.Label>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ProgressPrimitive.Label
-      asChild={local.asChild}
       class={clsx(styles.label, local.class)}
       {...others}
       data-slot="progress-circular-label"
@@ -54,11 +51,10 @@ function ProgressCircularLabel(props: ComponentProps<typeof ProgressPrimitive.La
 }
 
 function ProgressCircularValueText(props: ComponentProps<typeof ProgressPrimitive.ValueText>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ProgressPrimitive.ValueText
-      asChild={local.asChild}
       class={clsx(styles.valueText, local.class)}
       {...others}
       data-slot="progress-circular-value-text"
@@ -67,11 +63,10 @@ function ProgressCircularValueText(props: ComponentProps<typeof ProgressPrimitiv
 }
 
 function ProgressCircularCircle(props: ComponentProps<typeof ProgressPrimitive.Circle>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <ProgressPrimitive.Circle
-      asChild={local.asChild}
       class={clsx(styles.circle, local.class)}
       {...others}
       data-slot="progress-circular-circle"
@@ -82,11 +77,10 @@ function ProgressCircularCircle(props: ComponentProps<typeof ProgressPrimitive.C
 }
 
 function ProgressCircularCircleTrack(props: ComponentProps<typeof ProgressPrimitive.CircleTrack>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ProgressPrimitive.CircleTrack
-      asChild={local.asChild}
       class={clsx(styles.circleTrack, local.class)}
       {...others}
       data-slot="progress-circular-circle-track"
@@ -95,11 +89,10 @@ function ProgressCircularCircleTrack(props: ComponentProps<typeof ProgressPrimit
 }
 
 function ProgressCircularCircleRange(props: ComponentProps<typeof ProgressPrimitive.CircleRange>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ProgressPrimitive.CircleRange
-      asChild={local.asChild}
       class={clsx(styles.circleRange, local.class)}
       {...others}
       data-slot="progress-circular-circle-range"
@@ -122,11 +115,10 @@ function ProgressCircularRing(props: ProgressCircularRingProps) {
 }
 
 function ProgressCircularView(props: ComponentProps<typeof ProgressPrimitive.View>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ProgressPrimitive.View
-      asChild={local.asChild}
       class={clsx(styles.view, local.class)}
       {...others}
       data-slot="progress-circular-view"

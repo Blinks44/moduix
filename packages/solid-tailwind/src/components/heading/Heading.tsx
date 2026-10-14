@@ -12,11 +12,7 @@ type HeadingProps = ComponentProps<typeof ark.h1> & {
   as?: HeadingElement;
   size?: HeadingSize;
   weight?: HeadingWeight;
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
   'data-size'?: string;
-  'data-weight'?: string;
 };
 
 const elements = {
@@ -57,23 +53,11 @@ const headingVariants = cva('m-0 text-foreground tracking-normal text-balance wr
 });
 
 function Heading(props: HeadingProps) {
-  const [local, others] = splitProps(props, [
-    'as',
-    'asChild',
-    'size',
-    'weight',
-    'class',
-    'data-scope',
-    'data-part',
-    'data-slot',
-    'data-size',
-    'data-weight',
-  ]);
+  const [local, others] = splitProps(props, ['as', 'size', 'weight', 'class', 'data-size']);
 
   return (
     <Dynamic
       component={elements[local.as ?? 'h1']}
-      asChild={local.asChild}
       {...others}
       data-scope="heading"
       data-part="root"

@@ -4,26 +4,15 @@ import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import styles from './Typeset.module.css';
 
-type TypesetDataProps = {
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
-};
+type TypesetDataProps = {};
 
 type TypesetProps = HTMLArkProps<'div'> & TypesetDataProps;
 
 function Typeset(props: TypesetProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-scope',
-    'data-part',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="typeset"
       data-part="root"
@@ -39,18 +28,13 @@ function TypesetScroll(props: TypesetScrollProps) {
   const [local, others] = splitProps(props, [
     'aria-label',
     'aria-labelledby',
-    'asChild',
     'class',
-    'data-scope',
-    'data-part',
-    'data-slot',
     'role',
     'tabIndex',
   ]);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       aria-label={local['aria-label']}
       aria-labelledby={local['aria-labelledby']}

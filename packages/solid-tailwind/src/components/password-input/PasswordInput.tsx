@@ -72,11 +72,10 @@ type PasswordInputInputProps = ComponentProps<typeof PasswordInputPrimitive.Inpu
 };
 
 function PasswordInputInput(props: PasswordInputInputProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'defaultValue']);
+  const [local, others] = splitProps(props, ['class', 'defaultValue']);
 
   return (
     <PasswordInputPrimitive.Input
-      asChild={local.asChild}
       {...others}
       {...{ 'prop:defaultValue': local.defaultValue }}
       data-slot="password-input-input"

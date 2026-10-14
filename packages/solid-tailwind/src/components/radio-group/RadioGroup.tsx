@@ -40,11 +40,10 @@ const radioGroupItemControlVariants = cva(
 );
 
 function RadioGroup(props: ComponentProps<typeof RadioGroupPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <RadioGroupPrimitive.Root
-      asChild={local.asChild}
       {...others}
       data-slot="radio-group-root"
       class={cn(
@@ -56,11 +55,10 @@ function RadioGroup(props: ComponentProps<typeof RadioGroupPrimitive.Root>) {
 }
 
 function RadioGroupRootProvider(props: ComponentProps<typeof RadioGroupPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <RadioGroupPrimitive.RootProvider
-      asChild={local.asChild}
       {...others}
       data-slot="radio-group-root-provider"
       class={cn(
@@ -84,11 +82,10 @@ function RadioGroupLabel(props: ComponentProps<typeof RadioGroupPrimitive.Label>
 }
 
 function RadioGroupItem(props: ComponentProps<typeof RadioGroupPrimitive.Item>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <RadioGroupPrimitive.Item
-      asChild={local.asChild}
       {...others}
       data-slot="radio-group-item"
       class={cn(

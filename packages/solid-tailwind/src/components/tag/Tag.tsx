@@ -41,11 +41,10 @@ const tagVariants = cva(
 );
 
 function Tag(props: TagProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'size', 'variant']);
+  const [local, others] = splitProps(props, ['class', 'size', 'variant']);
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       data-scope="tag"
       data-part="root"
@@ -58,11 +57,10 @@ function Tag(props: TagProps) {
 }
 
 function TagLabel(props: TagLabelProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       data-scope="tag"
       data-part="label"
@@ -73,11 +71,10 @@ function TagLabel(props: TagLabelProps) {
 }
 
 function TagStartElement(props: TagStartElementProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       data-scope="tag"
       data-part="start-element"
@@ -91,11 +88,10 @@ function TagStartElement(props: TagStartElementProps) {
 }
 
 function TagEndElement(props: TagEndElementProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       data-scope="tag"
       data-part="end-element"

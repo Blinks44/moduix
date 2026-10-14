@@ -45,8 +45,8 @@
 }
 
 .customBleed {
-  --moduix-bleed-inline-full: calc(var(--moduix-spacing-4) * -1);
-  --moduix-bleed-inline-full-size: calc(100% + var(--moduix-spacing-8));
+  margin-inline: calc(var(--moduix-spacing-4) * -1);
+  inline-size: calc(100% + var(--moduix-spacing-8));
 }
 
 .text {

@@ -28,12 +28,8 @@ type TextProps = HTMLArkProps<'p'> & {
   align?: TextAlign;
   truncate?: boolean;
   lineClamp?: number;
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
   'data-size'?: string;
   'data-weight'?: string;
-  'data-tone'?: string;
   'data-align'?: string;
   'data-truncate'?: string;
   'data-line-clamp'?: string;
@@ -42,7 +38,6 @@ type TextProps = HTMLArkProps<'p'> & {
 function Text(props: TextProps) {
   const [local, others] = splitProps(props, [
     'as',
-    'asChild',
     'size',
     'weight',
     'tone',
@@ -51,12 +46,8 @@ function Text(props: TextProps) {
     'lineClamp',
     'class',
     'style',
-    'data-scope',
-    'data-part',
-    'data-slot',
     'data-size',
     'data-weight',
-    'data-tone',
     'data-align',
     'data-truncate',
     'data-line-clamp',
@@ -80,7 +71,6 @@ function Text(props: TextProps) {
   return (
     <Dynamic
       component={Element()}
-      asChild={local.asChild}
       {...others}
       data-scope="text"
       data-part="root"

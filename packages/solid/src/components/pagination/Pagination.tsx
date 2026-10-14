@@ -10,11 +10,10 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Pagination.module.css';
 
 function Pagination(props: ComponentProps<typeof PaginationPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <PaginationPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="pagination-root"
@@ -25,11 +24,10 @@ function Pagination(props: ComponentProps<typeof PaginationPrimitive.Root>) {
 }
 
 function PaginationRootProvider(props: ComponentProps<typeof PaginationPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <PaginationPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="pagination-root-provider"
@@ -40,11 +38,10 @@ function PaginationRootProvider(props: ComponentProps<typeof PaginationPrimitive
 }
 
 function PaginationItem(props: ComponentProps<typeof PaginationPrimitive.Item>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <PaginationPrimitive.Item
-      asChild={local.asChild}
       class={clsx(styles.item, local.class)}
       {...others}
       data-slot="pagination-item"

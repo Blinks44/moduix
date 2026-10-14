@@ -19,7 +19,6 @@ const toCssValue = (value: number | string | undefined) =>
 function Skeleton(props: SkeletonProps) {
   const [local, others] = splitProps(props, [
     'aria-hidden',
-    'asChild',
     'borderRadius',
     'boxSize',
     'children',
@@ -61,7 +60,6 @@ function Skeleton(props: SkeletonProps) {
   return (
     <ark.div
       {...others}
-      asChild={local.asChild}
       data-scope="skeleton"
       data-part="root"
       data-slot="skeleton-root"

@@ -13,11 +13,10 @@ import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './JsonTreeView.module.css';
 
 function JsonTreeView(props: JsonTreeViewRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <JsonTreeViewPrimitive.Root
-      asChild={local.asChild}
       {...others}
       data-slot="json-tree-view-root"
       class={clsx(styles.root, local.class)}
@@ -28,11 +27,10 @@ function JsonTreeView(props: JsonTreeViewRootProps) {
 }
 
 function JsonTreeViewRootProvider(props: JsonTreeViewRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <JsonTreeViewPrimitive.RootProvider
-      asChild={local.asChild}
       {...others}
       data-slot="json-tree-view-root-provider"
       class={clsx(styles.root, local.class)}

@@ -6,7 +6,6 @@ import styles from './Slider.module.css';
 
 function Slider(props: ComponentProps<typeof SliderPrimitive.Root>) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'defaultValue',
@@ -16,7 +15,6 @@ function Slider(props: ComponentProps<typeof SliderPrimitive.Root>) {
 
   return (
     <SliderPrimitive.Root
-      asChild={local.asChild}
       defaultValue={local.defaultValue}
       value={local.value}
       class={clsx(styles.root, local.class)}
@@ -31,11 +29,10 @@ function Slider(props: ComponentProps<typeof SliderPrimitive.Root>) {
 }
 
 function SliderRootProvider(props: ComponentProps<typeof SliderPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'value']);
+  const [local, others] = splitProps(props, ['class', 'value']);
 
   return (
     <SliderPrimitive.RootProvider
-      asChild={local.asChild}
       value={local.value}
       class={clsx(styles.root, local.class)}
       {...others}
@@ -105,11 +102,10 @@ function SliderRange(props: ComponentProps<typeof SliderPrimitive.Range>) {
 }
 
 function SliderThumb(props: ComponentProps<typeof SliderPrimitive.Thumb>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <SliderPrimitive.Thumb
-      asChild={local.asChild}
       class={clsx(styles.thumb, local.class)}
       {...others}
       data-slot="slider-thumb"

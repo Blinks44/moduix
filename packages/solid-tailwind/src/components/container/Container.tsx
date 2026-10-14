@@ -50,22 +50,15 @@ const containerVariants = cva('w-full min-w-0 mx-auto', {
 type ContainerProps = HTMLArkProps<'div'> & {
   size?: ContainerSize;
   gutter?: ContainerGutter;
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
   'data-size'?: string;
   'data-gutter'?: string;
 };
 
 function Container(props: ContainerProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'class',
     'gutter',
     'size',
-    'data-scope',
-    'data-part',
-    'data-slot',
     'data-size',
     'data-gutter',
   ]);
@@ -74,7 +67,6 @@ function Container(props: ContainerProps) {
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="container"
       data-part="root"

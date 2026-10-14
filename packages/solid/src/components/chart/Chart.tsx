@@ -55,11 +55,10 @@ type ChartPlotProps<
 };
 
 function Chart(props: HTMLArkProps<'figure'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.figure
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="root"
@@ -245,11 +244,10 @@ function ChartPlot<
 }
 
 function ChartHeader(props: HTMLArkProps<'figcaption'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.figcaption
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="header"
@@ -260,11 +258,10 @@ function ChartHeader(props: HTMLArkProps<'figcaption'>) {
 }
 
 function ChartTitle(props: HTMLArkProps<'h3'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.h3
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="title"
@@ -275,11 +272,10 @@ function ChartTitle(props: HTMLArkProps<'h3'>) {
 }
 
 function ChartDescription(props: HTMLArkProps<'p'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.p
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="description"
@@ -290,11 +286,10 @@ function ChartDescription(props: HTMLArkProps<'p'>) {
 }
 
 function ChartLegend(props: HTMLArkProps<'ul'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.ul
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="legend"
@@ -305,11 +300,10 @@ function ChartLegend(props: HTMLArkProps<'ul'>) {
 }
 
 function ChartLegendItem(props: HTMLArkProps<'li'> & { color?: string }) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'color', 'style']);
+  const [local, others] = splitProps(props, ['class', 'color', 'style']);
 
   return (
     <ark.li
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="legend-item"

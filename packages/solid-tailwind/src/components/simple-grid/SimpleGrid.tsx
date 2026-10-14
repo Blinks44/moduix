@@ -10,9 +10,6 @@ type SimpleGridRootProps = HTMLArkProps<'div'> & {
   gap?: number | string;
   rowGap?: number | string;
   columnGap?: number | string;
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
 };
 
 function toCssLength(value: number | string): string {
@@ -21,7 +18,6 @@ function toCssLength(value: number | string): string {
 
 function SimpleGrid(props: SimpleGridRootProps) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'class',
     'columns',
     'minChildWidth',
@@ -29,9 +25,6 @@ function SimpleGrid(props: SimpleGridRootProps) {
     'rowGap',
     'columnGap',
     'style',
-    'data-scope',
-    'data-part',
-    'data-slot',
   ]);
 
   const gridStyle = (): JSX.CSSProperties | string | undefined => {
@@ -84,7 +77,6 @@ function SimpleGrid(props: SimpleGridRootProps) {
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="simple-grid"
       data-part="root"

@@ -70,12 +70,11 @@ function CarouselItem(props: ComponentProps<typeof CarouselPrimitive.Item>) {
 }
 
 function CarouselPrevTrigger(props: ComponentProps<typeof CarouselPrimitive.PrevTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   const resolvedChildren = children(() => local.children);
 
   return (
     <CarouselPrimitive.PrevTrigger
-      asChild={local.asChild}
       class={clsx(styles.prevTrigger, local.class)}
       {...others}
       data-slot="carousel-prev-trigger"
@@ -90,12 +89,11 @@ function CarouselPrevTrigger(props: ComponentProps<typeof CarouselPrimitive.Prev
 }
 
 function CarouselNextTrigger(props: ComponentProps<typeof CarouselPrimitive.NextTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   const resolvedChildren = children(() => local.children);
 
   return (
     <CarouselPrimitive.NextTrigger
-      asChild={local.asChild}
       class={clsx(styles.nextTrigger, local.class)}
       {...others}
       data-slot="carousel-next-trigger"

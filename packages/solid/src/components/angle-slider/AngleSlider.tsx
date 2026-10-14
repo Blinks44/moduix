@@ -10,11 +10,10 @@ import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import styles from './AngleSlider.module.css';
 
 function AngleSlider(props: ComponentProps<typeof AngleSliderPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <AngleSliderPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="angle-slider-root"
@@ -37,11 +36,10 @@ function AngleSliderLabel(props: ComponentProps<typeof AngleSliderPrimitive.Labe
 }
 
 function AngleSliderRootProvider(props: ComponentProps<typeof AngleSliderPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <AngleSliderPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="angle-slider-root-provider"

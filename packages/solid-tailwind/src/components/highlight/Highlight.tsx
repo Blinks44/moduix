@@ -3,14 +3,10 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-type HighlightProps = ComponentProps<typeof HighlightPrimitive> & {
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
-};
+type HighlightProps = ComponentProps<typeof HighlightPrimitive>;
 
 function Highlight(props: HighlightProps) {
-  const [local, others] = splitProps(props, ['class', 'data-scope', 'data-part', 'data-slot']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <HighlightPrimitive
