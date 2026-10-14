@@ -24,13 +24,13 @@
   }
 
   .linkAvatarFallback {
-    --moduix-avatar-fallback-bg: var(--moduix-color-primary);
-    --moduix-avatar-fallback-color: var(--moduix-color-primary-foreground);
+    background-color: var(--moduix-color-primary);
+    color: var(--moduix-color-primary-foreground);
   }
 
   .iconAvatar {
     --moduix-avatar-bg: var(--moduix-color-accent);
-    --moduix-avatar-fallback-color: var(--moduix-color-accent-foreground);
+    --moduix-avatar-color: var(--moduix-color-accent-foreground);
   }
 
   .iconAvatarGlyph {

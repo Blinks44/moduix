@@ -19,6 +19,6 @@
 }
 
 .fallback {
-  --moduix-avatar-fallback-bg: var(--moduix-color-primary);
-  --moduix-avatar-fallback-color: var(--moduix-color-primary-foreground);
+  background-color: var(--moduix-color-primary);
+  color: var(--moduix-color-primary-foreground);
 }

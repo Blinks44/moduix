@@ -148,15 +148,8 @@
   /* Avatar */
   --moduix-avatar-bg: initial; /* var(--moduix-color-muted) */
   --moduix-avatar-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-avatar-fallback-bg: initial; /* var(--moduix-avatar-bg) */
-  --moduix-avatar-fallback-color: initial; /* inherit */
-  --moduix-avatar-fallback-icon-size: initial; /* 55% */
-  --moduix-avatar-fallback-padding: initial; /* 0 */
   --moduix-avatar-font-size: initial; /* var(--moduix-text-md) */
   --moduix-avatar-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-avatar-image-object-fit: initial; /* cover */
-  --moduix-avatar-image-object-position: initial; /* center */
-  --moduix-avatar-line-height: initial; /* var(--moduix-line-height-text-md) */
   --moduix-avatar-radius: initial; /* var(--moduix-radius-full) */
   --moduix-avatar-size: initial; /* var(--moduix-size-md) */
   /* Badge */

@@ -8,6 +8,7 @@ import {
   Avatar,
   AvatarContext,
   AvatarFallback,
+  AvatarGroup,
   AvatarImage,
   AvatarRootProvider,
   useAvatar,
@@ -21,6 +22,7 @@ const avatarComponents = {
   Avatar,
   AvatarContext,
   AvatarFallback,
+  AvatarGroup,
   AvatarImage,
   AvatarRootProvider,
 };
@@ -82,6 +84,54 @@ test('merges consumer Tailwind classes after component defaults', async () => {
   await expect.element(page.locator('[data-slot="avatar-root"]')).toHaveCSS('border-radius', '0px');
   await expect.element(page.locator('[data-slot="avatar-root"]')).toHaveCSS('width', '48px');
   await expect.element(page.locator('[data-slot="avatar-root"]')).toHaveCSS('height', '48px');
+});
+
+test('defaults both roots to the md size', () => {
+  render({
+    components: avatarComponents,
+    setup: () => ({ avatar: useAvatar() }),
+    template: `
+      <Avatar data-testid="default" />
+      <Avatar data-testid="md" size="md" />
+      <Avatar data-testid="sm" size="sm" />
+      <AvatarRootProvider :value="avatar" data-testid="default-provider" />
+    `,
+  });
+
+  const root = screen.getByTestId('default');
+
+  expect(root.getAttribute('data-size')).toBe('md');
+  expect(screen.getByTestId('default-provider').getAttribute('data-size')).toBe('md');
+  expect(root.offsetWidth).toBe(screen.getByTestId('md').offsetWidth);
+  expect(root.offsetWidth).toBeGreaterThan(screen.getByTestId('sm').offsetWidth);
+  expect([...root.classList]).toEqual(expect.arrayContaining(['size-control-md', 'text-md']));
+});
+
+test('stacks AvatarGroup children with an overlap and a background ring', () => {
+  render({
+    components: avatarComponents,
+    template:
+      '<AvatarGroup data-testid="group"><Avatar data-testid="first"><AvatarFallback>A</AvatarFallback></Avatar><Avatar data-testid="second"><AvatarFallback>B</AvatarFallback></Avatar></AvatarGroup>',
+  });
+
+  const group = screen.getByTestId('group');
+  const first = screen.getByTestId('first');
+  const second = screen.getByTestId('second');
+
+  expect(group.getAttribute('data-slot')).toBe('avatar-group');
+  expect(second.getBoundingClientRect().left).toBeLessThan(first.getBoundingClientRect().right);
+  expect(getComputedStyle(first).boxShadow).not.toBe('none');
+});
+
+test('lets root children overflow while the fallback stays clipped', () => {
+  render({
+    components: avatarComponents,
+    template:
+      '<Avatar data-testid="avatar"><AvatarFallback data-testid="fallback">AT</AvatarFallback></Avatar>',
+  });
+
+  expect(getComputedStyle(screen.getByTestId('avatar')).overflow).toBe('visible');
+  expect(getComputedStyle(screen.getByTestId('fallback')).overflow).toBe('hidden');
 });
 
 test('keeps image status, fallback, scoped slots, and context reactive after real loading', async () => {

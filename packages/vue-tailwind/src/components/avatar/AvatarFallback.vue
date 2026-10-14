@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'inline-flex size-full items-center justify-center rounded-[inherit] bg-[inherit] data-[state=hidden]:hidden',
+        'inline-flex size-full items-center justify-center overflow-hidden rounded-[inherit] data-[state=hidden]:hidden',
         className,
       )
     "

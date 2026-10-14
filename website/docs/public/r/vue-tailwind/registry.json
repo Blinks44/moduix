@@ -4099,8 +4099,18 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/avatar/AvatarGroup.vue",
+          "target": "@components/ui/avatar/AvatarGroup.vue",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/avatar/AvatarImage.vue",
           "target": "@components/ui/avatar/AvatarImage.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/Avatar.variants.ts",
+          "target": "@components/ui/avatar/Avatar.variants.ts",
           "type": "registry:component"
         },
         {
