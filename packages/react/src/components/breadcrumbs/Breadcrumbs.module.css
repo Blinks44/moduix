@@ -1,6 +1,6 @@
 @layer moduix.components {
   .root {
-    max-width: var(--moduix-breadcrumbs-max-width, 100%);
+    max-width: 100%;
     color: var(--moduix-breadcrumbs-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-breadcrumbs-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-breadcrumbs-line-height, var(--moduix-line-height-text-sm));
@@ -33,39 +33,27 @@
     display: block;
     min-width: 0;
     max-width: 100%;
+    overflow: hidden;
     padding-inline: var(--moduix-breadcrumbs-item-padding-x, var(--moduix-spacing-1));
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  .link,
-  .page,
-  .ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
   .link {
-    color: var(--moduix-breadcrumbs-link-color, var(--moduix-color-muted-foreground));
-    text-decoration: var(--moduix-breadcrumbs-link-text-decoration, none);
-    text-underline-offset: var(--moduix-breadcrumbs-link-underline-offset, 0.2em);
-    border-radius: var(--moduix-breadcrumbs-link-radius, var(--moduix-radius-sm));
+    color: inherit;
+    text-decoration: none;
+    border-radius: var(--moduix-radius-sm);
     outline: none;
-    transition: color var(--moduix-breadcrumbs-link-transition, var(--moduix-transition-default));
+    transition: color var(--moduix-transition-default);
 
     @media (hover: hover) {
       &:hover {
         color: var(--moduix-breadcrumbs-link-color-hover, var(--moduix-color-foreground));
-        text-decoration: var(--moduix-breadcrumbs-link-text-decoration-hover, none);
       }
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0
-        var(
-          --moduix-breadcrumbs-focus-ring-width,
-          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-        )
-        var(--moduix-breadcrumbs-focus-ring-color, var(--moduix-color-ring));
+      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-color-ring);
     }
   }
 
@@ -77,8 +65,7 @@
   .separator {
     display: inline-flex;
     align-items: center;
-    color: var(--moduix-breadcrumbs-separator-color, var(--moduix-color-muted-foreground));
-    font-size: var(--moduix-breadcrumbs-separator-font-size, 0.875em);
+    font-size: 0.875em;
     line-height: 1;
     user-select: none;
   }
@@ -97,9 +84,37 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--moduix-breadcrumbs-ellipsis-size, var(--moduix-spacing-4));
-    min-height: var(--moduix-breadcrumbs-ellipsis-size, var(--moduix-spacing-4));
+    min-width: var(--moduix-spacing-4);
+    min-height: var(--moduix-spacing-4);
     padding-inline: var(--moduix-breadcrumbs-item-padding-x, var(--moduix-spacing-1));
-    color: var(--moduix-breadcrumbs-ellipsis-color, var(--moduix-color-muted-foreground));
+    border-radius: var(--moduix-radius-sm);
+    transition: color var(--moduix-transition-default);
+  }
+
+  .ellipsisIcon {
+    width: 1em;
+    height: 1em;
+    flex: none;
+  }
+
+  /* A native button that wraps the ellipsis, such as a collapsed-path MenuTrigger. */
+  button:has(> .ellipsis) {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
+  }
+
+  @media (hover: hover) {
+    button:hover > .ellipsis {
+      color: var(--moduix-breadcrumbs-link-color-hover, var(--moduix-color-foreground));
+    }
+  }
+
+  button:focus-visible > .ellipsis {
+    box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-color-ring);
   }
 }

@@ -7,7 +7,6 @@ import {
   BreadcrumbsSeparator,
 } from '@moduix/react/breadcrumbs';
 import { Fragment, type ComponentProps } from 'react';
-import styles from '@/components/examples/breadcrumbs/breadcrumbs-framework-link.module.css';
 
 const pathItems = [
   { href: '/', label: 'Home' },
@@ -16,7 +15,7 @@ const pathItems = [
 ] as const;
 
 function AppLink(props: ComponentProps<'a'>) {
-  return <a data-framework-link className={styles.link} {...props} />;
+  return <a data-framework-link {...props} />;
 }
 
 export default function BreadcrumbsWithAppLinkDemo() {

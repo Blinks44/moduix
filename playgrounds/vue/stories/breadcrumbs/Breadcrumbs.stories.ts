@@ -36,15 +36,6 @@ const collapsedMenuContentStyle = {
   '--moduix-menu-item-padding-y': '0.25rem',
 };
 
-const collapsedMenuTriggerStyle = {
-  minWidth: 'auto',
-  minHeight: 'auto',
-  padding: 0,
-  border: 'none',
-  background: 'transparent',
-  color: 'inherit',
-};
-
 const storyComponents = {
   Breadcrumbs,
   BreadcrumbsEllipsis,
@@ -80,7 +71,6 @@ function renderStory(template: string, setup?: () => Record<string, unknown>) {
       setup() {
         return {
           collapsedMenuContentStyle,
-          collapsedMenuTriggerStyle,
           defaultLinks,
           defaultPage,
           longCurrentLabel,
@@ -114,7 +104,6 @@ export const Collapsed: Story = {
                 <button
                   type="button"
                   aria-label="Show hidden path items"
-                  :style="collapsedMenuTriggerStyle"
                 >
                   <BreadcrumbsEllipsis />
                 </button>

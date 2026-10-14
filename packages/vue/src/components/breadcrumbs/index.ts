@@ -17,3 +17,5 @@ export {
   BreadcrumbsPath,
   BreadcrumbsSeparator,
 };
+
+export type { BreadcrumbsPathLink, Props as BreadcrumbsPathProps } from './BreadcrumbsPath.vue';

@@ -153,7 +153,8 @@ Breadcrumbs
 
 Для свёрнутой цепочки поместите `BreadcrumbsEllipsis` внутрь `MenuTrigger`, а части `Positioner`, `Content` и
 `Item asChild` меню оставьте явными. `BreadcrumbsEllipsis` отвечает только за отображение; доступная метка и
-взаимодействие принадлежат триггеру.
+взаимодействие принадлежат триггеру. Нативная `button`, которая напрямую оборачивает `BreadcrumbsEllipsis`,
+получает стили триггера (сброс, курсор-указатель, цвет при наведении и кольцо фокуса), поэтому своих стилей ей не нужно.
 
 ## Примеры
 
@@ -287,10 +288,6 @@ Breadcrumbs
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-framework-link.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -406,3 +403,5 @@ moduix.
   горизонтальный внутренний отступ `--moduix-breadcrumbs-item-padding-x`.
 - Видимые элементы `BreadcrumbsItem` могут сжиматься, чтобы цепочка помещалась в одну строку. В вариантах с CSS
   Modules последний видимый элемент остаётся главной целью усечения и использует `--moduix-breadcrumbs-item-max-width`.
+- Ссылки, разделители и многоточие наследуют цвет текста корня. Задайте `color` у `Breadcrumbs` (или
+  `--moduix-breadcrumbs-color` в вариантах с CSS Modules), чтобы перекрасить всю цепочку; текущая страница сохраняет свой цвет.

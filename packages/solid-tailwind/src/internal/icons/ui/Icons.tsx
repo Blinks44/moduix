@@ -130,6 +130,7 @@ export function SeparatorMarkIcon(props: IconProps) {
 }
 
 export { default as CopyIcon } from 'lucide-solid/icons/copy';
+export { default as EllipsisIcon } from 'lucide-solid/icons/ellipsis';
 export { default as EyeClosedIcon } from 'lucide-solid/icons/eye-closed';
 export { default as EyeIcon } from 'lucide-solid/icons/eye';
 export { default as FileIcon } from 'lucide-solid/icons/file';

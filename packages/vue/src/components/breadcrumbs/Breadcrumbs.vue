@@ -4,6 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Breadcrumbs.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -20,7 +21,7 @@ const attrs = useAttrs();
 
 <template>
   <ark.nav
-    aria-label="Breadcrumb"
+    :aria-label="a11yLabels.breadcrumb"
     v-bind="attrs"
     data-slot="breadcrumbs-root"
     :class="clsx(styles.root, className)"

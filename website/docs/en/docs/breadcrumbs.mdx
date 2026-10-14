@@ -155,7 +155,9 @@ In Solid, assign a ref to the element created inside the `asChild` render functi
 
 For collapsed paths, put `BreadcrumbsEllipsis` inside the `MenuTrigger`, then keep the menu's
 `Positioner`, `Content`, and `Item asChild` parts explicit. `BreadcrumbsEllipsis` is presentational;
-the trigger owns the accessible label and interaction.
+the trigger owns the accessible label and interaction. A native `button` that directly wraps
+`BreadcrumbsEllipsis` gets the trigger styles (reset, pointer cursor, hover color, and focus ring), so it
+needs no styles of its own.
 
 ## Examples
 
@@ -289,10 +291,6 @@ Use Ark `asChild` to render a link provided by the app's framework router.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/breadcrumbs/breadcrumbs-framework-link.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -406,3 +404,5 @@ variants. For state-based styles, prefer Ark data attributes together with modui
   `--moduix-breadcrumbs-item-padding-x` in CSS Modules variants.
 - Visible `BreadcrumbsItem` parts can shrink to keep the trail in one line. The last visible item
   remains the primary truncation target and uses `--moduix-breadcrumbs-item-max-width` in CSS Modules variants.
+- Links, separators, and the ellipsis inherit the root text color. Set `color` on `Breadcrumbs` (or
+  `--moduix-breadcrumbs-color` in CSS Modules variants) to recolor the whole trail; the current page keeps its own color.

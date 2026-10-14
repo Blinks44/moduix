@@ -8,6 +8,7 @@ export {
   ChevronRightIcon,
   ChevronUpIcon,
   ChevronUpDownIcon,
+  EllipsisIcon,
   EyeClosedIcon,
   EyeIcon,
   FileIcon,

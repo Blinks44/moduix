@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronRightIcon, EllipsisIcon } from '@/lib/moduix/icons/ui/Icons';
 import styles from './Breadcrumbs.module.css';
 
 type BreadcrumbsPathLink = {
@@ -50,7 +50,7 @@ function BreadcrumbsLink(props: HTMLArkProps<'a'>) {
 }
 
 function BreadcrumbsPage(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.span
@@ -58,9 +58,7 @@ function BreadcrumbsPage(props: HTMLArkProps<'span'>) {
       data-slot="breadcrumbs-page"
       aria-current="page"
       class={clsx(styles.page, local.class)}
-    >
-      {local.children}
-    </ark.span>
+    />
   );
 }
 
@@ -113,7 +111,7 @@ function BreadcrumbsEllipsis(props: HTMLArkProps<'span'>) {
       aria-hidden="true"
       class={clsx(styles.ellipsis, local.class)}
     >
-      {resolvedChildren() === undefined ? '...' : resolvedChildren()}
+      {resolvedChildren() ?? <EllipsisIcon class={styles.ellipsisIcon} />}
     </ark.span>
   );
 }
@@ -128,3 +126,4 @@ export {
   BreadcrumbsPath,
   BreadcrumbsSeparator,
 };
+export type { BreadcrumbsPathLink, BreadcrumbsPathProps };

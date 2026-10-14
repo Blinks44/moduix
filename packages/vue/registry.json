@@ -4351,7 +4351,11 @@
       "title": "Breadcrumbs",
       "description": "moduix Vue Breadcrumbs component.",
       "dependencies": ["@ark-ui/vue", "clsx"],
-      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
+      "registryDependencies": [
+        "@moduix-vue/a11y-labels",
+        "@moduix-vue/foundation",
+        "@moduix-vue/icons"
+      ],
       "files": [
         {
           "path": "src/components/breadcrumbs/Breadcrumbs.vue",

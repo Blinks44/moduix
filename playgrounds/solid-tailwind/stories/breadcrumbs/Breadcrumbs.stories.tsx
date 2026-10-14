@@ -34,15 +34,6 @@ const collapsedMenuContentStyle = {
   '--moduix-menu-item-padding-y': '0.25rem',
 } as JSX.CSSProperties;
 
-const collapsedMenuTriggerStyle = {
-  minWidth: 'auto',
-  minHeight: 'auto',
-  padding: 0,
-  border: 'none',
-  background: 'transparent',
-  color: 'inherit',
-} as JSX.CSSProperties;
-
 function DefaultBreadcrumbs() {
   return (
     <Breadcrumbs>
@@ -80,12 +71,7 @@ export const Collapsed: Story = {
           <Menu positioning={{ placement: 'bottom-start' }}>
             <MenuTrigger
               asChild={(props) => (
-                <button
-                  {...props()}
-                  type="button"
-                  aria-label="Show hidden path items"
-                  style={collapsedMenuTriggerStyle}
-                >
+                <button {...props()} type="button" aria-label="Show hidden path items">
                   <BreadcrumbsEllipsis />
                 </button>
               )}

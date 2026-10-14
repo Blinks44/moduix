@@ -182,6 +182,7 @@ export function PopupArrowIcon({
 
 export {
   CopyIcon,
+  EllipsisIcon,
   EyeClosedIcon,
   EyeIcon,
   FileIcon,

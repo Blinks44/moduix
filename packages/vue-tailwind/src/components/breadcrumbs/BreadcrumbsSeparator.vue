@@ -24,10 +24,7 @@ const attrs = useAttrs();
     data-slot="breadcrumbs-separator"
     aria-hidden="true"
     :class="
-      cn(
-        'inline-flex items-center text-[length:0.875em] leading-none text-muted-foreground select-none',
-        className,
-      )
+      cn('inline-flex items-center text-[length:0.875em] leading-none select-none', className)
     "
   >
     <slot><ChevronRightIcon class="size-[1em] flex-none [&:dir(rtl)]:rotate-180" /></slot>

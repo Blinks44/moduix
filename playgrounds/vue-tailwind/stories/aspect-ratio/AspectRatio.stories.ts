@@ -27,7 +27,7 @@ const roundedFrameClassName = 'rounded-xl';
 const storyComponents = { AspectRatio };
 
 function renderStory(template: string) {
-  return (args: { ratio: number }) =>
+  return (args: { ratio?: number }) =>
     defineComponent({
       components: storyComponents,
       setup() {

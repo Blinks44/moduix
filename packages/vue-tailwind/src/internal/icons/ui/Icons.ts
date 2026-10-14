@@ -129,6 +129,7 @@ export const SeparatorMarkIcon: FunctionalComponent<IconProps> = (props) =>
   ]);
 
 export { Copy as CopyIcon } from '@lucide/vue';
+export { Ellipsis as EllipsisIcon } from '@lucide/vue';
 export { EyeClosed as EyeClosedIcon } from '@lucide/vue';
 export { Eye as EyeIcon } from '@lucide/vue';
 export { File as FileIcon } from '@lucide/vue';

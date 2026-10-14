@@ -4157,6 +4157,7 @@
       "description": "moduix Vue Tailwind Breadcrumbs component.",
       "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
       "registryDependencies": [
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/icons"

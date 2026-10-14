@@ -11,7 +11,7 @@ import type { JSX } from 'solid-js';
 import styles from '@/components/examples/breadcrumbs/breadcrumbs-advanced-customization.module.css';
 
 function AppLink(props: JSX.AnchorHTMLAttributes<HTMLAnchorElement>) {
-  return <a data-framework-link class={styles.link} {...props} />;
+  return <a data-framework-link {...props} />;
 }
 
 export default function BreadcrumbsAdvancedCustomizationDemo() {
