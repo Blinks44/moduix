@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'relative z-1 col-start-2 row-span-2 row-start-1 inline-flex items-start justify-end gap-2 justify-self-end',
+        'relative z-1 col-start-2 row-span-2 row-start-1 inline-flex items-start justify-end gap-2',
         className,
       )
     "

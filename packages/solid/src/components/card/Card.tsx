@@ -4,12 +4,16 @@ import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
 import styles from './Card.module.css';
 
-type CardProps = HTMLArkProps<'div'> & {
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'elevated' | 'outline' | 'subtle';
+type CardSize = 'sm' | 'md' | 'lg';
+
+type CardVariant = 'elevated' | 'outline' | 'subtle';
+
+type CardRootProps = HTMLArkProps<'div'> & {
+  size?: CardSize;
+  variant?: CardVariant;
 };
 
-function Card(props: CardProps) {
+function Card(props: CardRootProps) {
   const [local, others] = splitProps(props, ['class', 'size', 'variant']);
 
   return (
@@ -163,3 +167,4 @@ export {
   CardMedia,
   CardTitle,
 };
+export type { CardRootProps, CardSize, CardVariant };

@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'grid min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-x-2 gap-y-1 px-6 pt-6 group-data-[size=lg]/card:px-8 group-data-[size=lg]/card:pt-8 group-data-[size=sm]/card:px-4 group-data-[size=sm]/card:pt-4',
+        'grid min-w-0 grid-cols-[minmax(0,1fr)] gap-x-2 gap-y-1 px-(--card-spacing) pt-(--card-spacing) last:pb-(--card-spacing)',
         className,
       )
     "

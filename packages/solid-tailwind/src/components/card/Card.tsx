@@ -4,15 +4,24 @@ import { cva } from 'class-variance-authority';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-type CardProps = HTMLArkProps<'div'> & {
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'elevated' | 'outline' | 'subtle';
+type CardSize = 'sm' | 'md' | 'lg';
+
+type CardVariant = 'elevated' | 'outline' | 'subtle';
+
+type CardRootProps = HTMLArkProps<'div'> & {
+  size?: CardSize;
+  variant?: CardVariant;
 };
 
 const cardRootVariants = cva(
-  'group/card relative flex w-full min-w-0 flex-col rounded-lg text-card-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring has-[>[data-slot=card-background]]:isolate [&:has(>[data-slot=card-background])>*:not([data-slot=card-background])]:z-1 [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:relative [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:z-1',
+  'group/card relative flex w-full min-w-0 flex-col rounded-lg text-card-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring has-[>[data-slot=card-background]]:isolate [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:relative [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:z-1',
   {
     variants: {
+      size: {
+        sm: '[--card-spacing:var(--moduix-spacing-4)]',
+        md: '[--card-spacing:var(--moduix-spacing-6)]',
+        lg: '[--card-spacing:var(--moduix-spacing-8)]',
+      },
       variant: {
         elevated: 'border-0 bg-card shadow-md',
         outline: 'border border-border bg-card',
@@ -20,17 +29,18 @@ const cardRootVariants = cva(
       },
     },
     defaultVariants: {
+      size: 'md',
       variant: 'outline',
     },
   },
 );
 
-function Card(props: CardProps) {
+function Card(props: CardRootProps) {
   const [local, others] = splitProps(props, ['class', 'size', 'variant']);
 
   return (
     <ark.div
-      class={cn(cardRootVariants({ variant: local.variant }), local.class)}
+      class={cn(cardRootVariants({ size: local.size, variant: local.variant }), local.class)}
       {...others}
       data-scope="card"
       data-part="root"
@@ -46,7 +56,7 @@ function CardHeader(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       class={cn(
-        'grid min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-x-2 gap-y-1 px-6 pt-6 group-data-[size=lg]/card:px-8 group-data-[size=lg]/card:pt-8 group-data-[size=sm]/card:px-4 group-data-[size=sm]/card:pt-4',
+        'grid min-w-0 grid-cols-[minmax(0,1fr)] gap-x-2 gap-y-1 px-(--card-spacing) pt-(--card-spacing) last:pb-(--card-spacing)',
         local.class,
       )}
       {...others}
@@ -62,7 +72,7 @@ function CardBody(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       class={cn(
-        'min-w-0 px-6 pt-4 pb-6 text-sm wrap-anywhere text-muted-foreground group-data-[size=lg]/card:px-8 group-data-[size=lg]/card:pb-8 group-data-[size=sm]/card:px-4 group-data-[size=sm]/card:pb-4 first:pt-6 group-data-[size=lg]/card:first:pt-8 group-data-[size=sm]/card:first:pt-4',
+        'min-w-0 px-(--card-spacing) pt-(--card-spacing) text-sm wrap-anywhere last:pb-(--card-spacing)',
         local.class,
       )}
       {...others}
@@ -94,7 +104,7 @@ function CardBackground(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       class={cn(
-        'absolute inset-0 z-0 overflow-hidden rounded-[inherit] [&>:is(img,picture,video,canvas,svg,iframe)]:size-full [&>:is(img,picture,video,canvas,svg,iframe)]:object-cover [&>picture]:block [&>picture>img]:size-full [&>picture>img]:object-cover',
+        'absolute inset-0 -z-1 overflow-hidden rounded-[inherit] [&>:is(img,picture,video,canvas,svg,iframe)]:size-full [&>:is(img,picture,video,canvas,svg,iframe)]:object-cover [&>picture]:block [&>picture>img]:size-full [&>picture>img]:object-cover',
         local.class,
       )}
       {...others}
@@ -110,7 +120,7 @@ function CardFooter(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       class={cn(
-        'flex min-w-0 flex-wrap items-center gap-2 px-6 pb-6 group-data-[size=lg]/card:px-8 group-data-[size=lg]/card:pb-8 group-data-[size=sm]/card:px-4 group-data-[size=sm]/card:pb-4',
+        'flex min-w-0 flex-wrap items-center gap-2 px-(--card-spacing) pt-(--card-spacing) last:pb-(--card-spacing)',
         local.class,
       )}
       {...others}
@@ -126,7 +136,7 @@ function CardTitle(props: HTMLArkProps<'h3'>) {
   return (
     <ark.h3
       class={cn(
-        'col-start-1 min-w-0 text-lg font-semibold wrap-anywhere group-data-[size=lg]/card:text-xl group-data-[size=sm]/card:text-md',
+        'min-w-0 text-lg font-semibold wrap-anywhere group-data-[size=lg]/card:text-xl group-data-[size=sm]/card:text-md',
         local.class,
       )}
       {...others}
@@ -141,7 +151,7 @@ function CardDescription(props: HTMLArkProps<'p'>) {
   const [local, others] = splitProps(props, ['class']);
   return (
     <ark.p
-      class={cn('col-start-1 min-w-0 text-sm wrap-anywhere text-muted-foreground', local.class)}
+      class={cn('min-w-0 text-sm wrap-anywhere text-muted-foreground', local.class)}
       {...others}
       data-scope="card"
       data-part="description"
@@ -155,7 +165,7 @@ function CardAction(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       class={cn(
-        'relative z-1 col-start-2 row-span-2 row-start-1 inline-flex items-start justify-end gap-2 justify-self-end',
+        'relative z-1 col-start-2 row-span-2 row-start-1 inline-flex items-start justify-end gap-2',
         local.class,
       )}
       {...others}
@@ -171,7 +181,7 @@ function CardLink(props: HTMLArkProps<'a'>) {
   return (
     <ark.a
       class={cn(
-        'static text-inherit no-underline after:absolute after:inset-0 after:z-0 after:rounded-lg focus-visible:outline-0 focus-visible:after:outline-2 focus-visible:after:outline-offset-1 focus-visible:after:outline-ring',
+        'text-inherit no-underline after:absolute after:inset-0 after:rounded-lg focus-visible:outline-0 focus-visible:after:outline-2 focus-visible:after:outline-offset-1 focus-visible:after:outline-ring',
         local.class,
       )}
       {...others}
@@ -194,3 +204,4 @@ export {
   CardMedia,
   CardTitle,
 };
+export type { CardRootProps, CardSize, CardVariant };

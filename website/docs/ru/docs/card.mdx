@@ -693,6 +693,8 @@ Card не управляет состоянием, колбэками, пров�
 - Стабильные хуки moduix: `data-slot="card-root"`, `card-background`, `card-media`, `card-header`, `card-body`,
   `card-footer`, `card-title`, `card-description`, `card-action` и `card-link`.
 - Корневой компонент предоставляет `data-size="sm | md | lg"` и `data-variant="elevated | outline | subtle"`.
-- Общие переопределения `--moduix-card-bg`, `--moduix-card-color`, `--moduix-card-border-*` и
-  `--moduix-card-shadow` имеют приоритет над соответствующими переменными отдельных вариантов.
+- CSS-переменные переопределяют любой вариант. Чтобы настроить один вариант во всём приложении,
+  задайте их на `[data-slot='card-root'][data-variant='<variant>']`.
+- У каждой секции одинаковый отступ сверху, у последней он есть и снизу. В Tailwind нижний отступ
+  меняется через `last:pb-*` на секции или `[--card-spacing:…]` на корне.
 - Card не имеет атрибутов интерактивного состояния, поскольку не управляет состоянием и поведением.

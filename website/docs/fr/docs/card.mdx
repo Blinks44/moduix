@@ -680,6 +680,8 @@ avec des points d’extension bas niveau.
   `card-footer`, `card-title`, `card-description`, `card-action` et `card-link`.
 - Le composant racine expose `data-size="sm | md | lg"` et
   `data-variant="elevated | outline | subtle"`.
-- Les redéfinitions globales `--moduix-card-bg`, `--moduix-card-color`, `--moduix-card-border-*` et
-  `--moduix-card-shadow` priment sur les variables correspondantes propres à chaque variante.
+- Les variables CSS s’appliquent à toutes les variantes. Pour personnaliser une variante dans toute
+  l’application, définissez-les sur `[data-slot='card-root'][data-variant='<variant>']`.
+- Chaque section a la même marge intérieure en haut, et la dernière l’a aussi en bas. Avec Tailwind,
+  modifiez cette marge basse avec `last:pb-*` sur la section ou `[--card-spacing:…]` sur la racine.
 - Card n’expose aucun attribut d’état interactif, car il ne gère ni état ni comportement.

@@ -694,6 +694,8 @@ Data attributes and `data-slot` hooks are shared by both styling tracks.
 - Stable moduix hooks are `data-slot="card-root"`, `card-background`, `card-media`, `card-header`, `card-body`,
   `card-footer`, `card-title`, `card-description`, `card-action`, and `card-link`.
 - The root exposes `data-size="sm | md | lg"` and `data-variant="elevated | outline | subtle"`.
-- Component-wide `--moduix-card-bg`, `--moduix-card-color`, `--moduix-card-border-*`, and
-  `--moduix-card-shadow` overrides take precedence over the matching variant-specific variables.
+- The CSS variables override every variant. To theme one variant across the app, set them on
+  `[data-slot='card-root'][data-variant='<variant>']`.
+- Each section has the same top inset, and the last section also gets it at the bottom. In Tailwind,
+  change that bottom inset with `last:pb-*` on the section or `[--card-spacing:…]` on the root.
 - Card has no interactive state attributes because it owns no state or behavior.

@@ -146,7 +146,7 @@ test('merges consumer utility classes last on the root and parts', async () => {
     components: cardComponents,
     template: `
       <Card class="rounded-none">
-        <CardBody class="px-2 pb-3 text-foreground">Customized body</CardBody>
+        <CardBody class="px-2 pt-3 text-foreground">Customized body</CardBody>
       </Card>
     `,
   });
@@ -157,11 +157,11 @@ test('merges consumer utility classes last on the root and parts', async () => {
 
   expect(root.classList.contains('rounded-none')).toBe(true);
   expect(root.className).not.toContain('rounded-lg');
-  expect([...body.classList]).toEqual(expect.arrayContaining(['px-2', 'pb-3', 'text-foreground']));
-  expect(body.className).not.toContain('px-6');
-  expect(body.className).not.toContain('pb-6');
+  expect([...body.classList]).toEqual(expect.arrayContaining(['px-2', 'pt-3', 'text-foreground']));
+  expect(body.className).not.toContain('px-(--card-spacing)');
+  expect(body.className).not.toContain('pt-(--card-spacing)');
   await expect.element(page.getByText('Customized body')).toHaveCSS('padding-left', '8px');
-  await expect.element(page.getByText('Customized body')).toHaveCSS('padding-bottom', '12px');
+  await expect.element(page.getByText('Customized body')).toHaveCSS('padding-top', '12px');
   expect(getComputedStyle(root).borderRadius).toBe('0px');
 });
 
@@ -265,4 +265,59 @@ test('hydrates card without replacing the server host', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
+});
+
+test('pads a lone section on both sides and spaces sections evenly', async () => {
+  render({
+    components: cardComponents,
+    template: `
+      <div>
+        <Card size="lg">
+          <CardHeader data-testid="lone-header"><CardTitle>Only a header</CardTitle></CardHeader>
+        </Card>
+        <Card>
+          <CardHeader data-testid="header"><CardTitle>Header and footer</CardTitle></CardHeader>
+          <CardFooter data-testid="footer">Updated today</CardFooter>
+        </Card>
+        <Card>
+          <CardBackground />
+          <CardBody data-testid="body">Body after a background</CardBody>
+        </Card>
+      </div>
+    `,
+  });
+
+  await expect.element(page.getByTestId('lone-header')).toHaveCSS('padding-top', '32px');
+  await expect.element(page.getByTestId('lone-header')).toHaveCSS('padding-bottom', '32px');
+  await expect.element(page.getByTestId('header')).toHaveCSS('padding-bottom', '0px');
+  await expect.element(page.getByTestId('footer')).toHaveCSS('padding-top', '24px');
+  await expect.element(page.getByTestId('footer')).toHaveCSS('padding-bottom', '24px');
+  await expect.element(page.getByTestId('body')).toHaveCSS('padding-top', '24px');
+});
+
+test('lets CardLink cover the body of a card with a background', async () => {
+  render({
+    components: cardComponents,
+    template: `
+      <Card>
+        <CardBackground><div /></CardBackground>
+        <CardHeader>
+          <CardTitle><CardLink href="#guide">Weekend guide</CardLink></CardTitle>
+        </CardHeader>
+        <CardBody data-testid="body">Three places to slow down.</CardBody>
+        <CardFooter><button type="button">Save</button></CardFooter>
+      </Card>
+    `,
+  });
+
+  await expect.element(page.getByRole('link', { name: 'Weekend guide' })).toHaveCount(1);
+  const hit = (element: Element) => {
+    const rect = element.getBoundingClientRect();
+    return document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
+  };
+
+  expect(hit(screen.getByTestId('body'))).toBe(screen.getByRole('link', { name: 'Weekend guide' }));
+  expect(hit(screen.getByRole('button', { name: 'Save' }))).toBe(
+    screen.getByRole('button', { name: 'Save' }),
+  );
 });

@@ -7,15 +7,24 @@ import type { ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-type CardProps = HTMLArkProps<'div'> & {
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'elevated' | 'outline' | 'subtle';
+type CardSize = 'sm' | 'md' | 'lg';
+
+type CardVariant = 'elevated' | 'outline' | 'subtle';
+
+type CardRootProps = HTMLArkProps<'div'> & {
+  size?: CardSize;
+  variant?: CardVariant;
 };
 
 const cardRootVariants = cva(
-  'group/card relative flex w-full min-w-0 flex-col rounded-lg text-card-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring has-[>[data-slot=card-background]]:isolate [&:has(>[data-slot=card-background])>*:not([data-slot=card-background])]:z-1 [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:relative [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:z-1',
+  'group/card relative flex w-full min-w-0 flex-col rounded-lg text-card-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring has-[>[data-slot=card-background]]:isolate [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:relative [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:z-1',
   {
     variants: {
+      size: {
+        sm: '[--card-spacing:var(--moduix-spacing-4)]',
+        md: '[--card-spacing:var(--moduix-spacing-6)]',
+        lg: '[--card-spacing:var(--moduix-spacing-8)]',
+      },
       variant: {
         elevated: 'border-0 bg-card shadow-md',
         outline: 'border border-border bg-card',
@@ -23,24 +32,25 @@ const cardRootVariants = cva(
       },
     },
     defaultVariants: {
+      size: 'md',
       variant: 'outline',
     },
   },
 );
 
-const Card = forwardRef<ComponentRef<typeof ark.div>, CardProps>(function Card(
-  { className, size, variant, ...props },
+const Card = forwardRef<ComponentRef<typeof ark.div>, CardRootProps>(function Card(
+  { className, size = 'md', variant = 'outline', ...props },
   ref,
 ) {
   return (
     <ark.div
       ref={ref}
-      className={cn(cardRootVariants({ variant }), className)}
+      className={cn(cardRootVariants({ size, variant }), className)}
       {...props}
       data-scope="card"
       data-part="root"
-      data-size={size ?? 'md'}
-      data-variant={variant ?? 'outline'}
+      data-size={size}
+      data-variant={variant}
       data-slot="card-root"
     />
   );
@@ -52,7 +62,7 @@ const CardHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
       <ark.div
         ref={ref}
         className={cn(
-          'grid min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-x-2 gap-y-1 px-6 pt-6 group-data-[size=lg]/card:px-8 group-data-[size=lg]/card:pt-8 group-data-[size=sm]/card:px-4 group-data-[size=sm]/card:pt-4',
+          'grid min-w-0 grid-cols-[minmax(0,1fr)] gap-x-2 gap-y-1 px-(--card-spacing) pt-(--card-spacing) last:pb-(--card-spacing)',
           className,
         )}
         {...props}
@@ -72,7 +82,7 @@ const CardBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(f
     <ark.div
       ref={ref}
       className={cn(
-        'min-w-0 px-6 pt-4 pb-6 text-sm wrap-anywhere text-muted-foreground group-data-[size=lg]/card:px-8 group-data-[size=lg]/card:pb-8 group-data-[size=sm]/card:px-4 group-data-[size=sm]/card:pb-4 first:pt-6 group-data-[size=lg]/card:first:pt-8 group-data-[size=sm]/card:first:pt-4',
+        'min-w-0 px-(--card-spacing) pt-(--card-spacing) text-sm wrap-anywhere last:pb-(--card-spacing)',
         className,
       )}
       {...props}
@@ -108,7 +118,7 @@ const CardBackground = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
       <ark.div
         ref={ref}
         className={cn(
-          'absolute inset-0 z-0 overflow-hidden rounded-[inherit] [&>:is(img,picture,video,canvas,svg,iframe)]:size-full [&>:is(img,picture,video,canvas,svg,iframe)]:object-cover [&>picture]:block [&>picture>img]:size-full [&>picture>img]:object-cover',
+          'absolute inset-0 -z-1 overflow-hidden rounded-[inherit] [&>:is(img,picture,video,canvas,svg,iframe)]:size-full [&>:is(img,picture,video,canvas,svg,iframe)]:object-cover [&>picture]:block [&>picture>img]:size-full [&>picture>img]:object-cover',
           className,
         )}
         {...props}
@@ -126,7 +136,7 @@ const CardFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
       <ark.div
         ref={ref}
         className={cn(
-          'flex min-w-0 flex-wrap items-center gap-2 px-6 pb-6 group-data-[size=lg]/card:px-8 group-data-[size=lg]/card:pb-8 group-data-[size=sm]/card:px-4 group-data-[size=sm]/card:pb-4',
+          'flex min-w-0 flex-wrap items-center gap-2 px-(--card-spacing) pt-(--card-spacing) last:pb-(--card-spacing)',
           className,
         )}
         {...props}
@@ -146,7 +156,7 @@ const CardTitle = forwardRef<ComponentRef<typeof ark.h3>, HTMLArkProps<'h3'>>(fu
     <ark.h3
       ref={ref}
       className={cn(
-        'col-start-1 min-w-0 text-lg font-semibold wrap-anywhere group-data-[size=lg]/card:text-xl group-data-[size=sm]/card:text-md',
+        'min-w-0 text-lg font-semibold wrap-anywhere group-data-[size=lg]/card:text-xl group-data-[size=sm]/card:text-md',
         className,
       )}
       {...props}
@@ -162,7 +172,7 @@ const CardDescription = forwardRef<ComponentRef<typeof ark.p>, HTMLArkProps<'p'>
     return (
       <ark.p
         ref={ref}
-        className={cn('col-start-1 min-w-0 text-sm wrap-anywhere text-muted-foreground', className)}
+        className={cn('min-w-0 text-sm wrap-anywhere text-muted-foreground', className)}
         {...props}
         data-scope="card"
         data-part="description"
@@ -178,7 +188,7 @@ const CardAction = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>
       <ark.div
         ref={ref}
         className={cn(
-          'relative z-1 col-start-2 row-span-2 row-start-1 inline-flex items-start justify-end gap-2 justify-self-end',
+          'relative z-1 col-start-2 row-span-2 row-start-1 inline-flex items-start justify-end gap-2',
           className,
         )}
         {...props}
@@ -198,7 +208,7 @@ const CardLink = forwardRef<ComponentRef<typeof ark.a>, HTMLArkProps<'a'>>(funct
     <ark.a
       ref={ref}
       className={cn(
-        'static text-inherit no-underline after:absolute after:inset-0 after:z-0 after:rounded-lg focus-visible:outline-0 focus-visible:after:outline-2 focus-visible:after:outline-offset-1 focus-visible:after:outline-ring',
+        'text-inherit no-underline after:absolute after:inset-0 after:rounded-lg focus-visible:outline-0 focus-visible:after:outline-2 focus-visible:after:outline-offset-1 focus-visible:after:outline-ring',
         className,
       )}
       {...props}
@@ -221,3 +231,4 @@ export {
   CardMedia,
   CardTitle,
 };
+export type { CardRootProps, CardSize, CardVariant };
