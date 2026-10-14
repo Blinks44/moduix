@@ -13,12 +13,12 @@ import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type RootProps = ComponentProps<typeof CheckboxPrimitive.Root> & { size?: CheckboxSize };
-type RootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> & {
+type CheckboxRootProps = ComponentProps<typeof CheckboxPrimitive.Root> & { size?: CheckboxSize };
+type CheckboxRootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> & {
   size?: CheckboxSize;
 };
 
-const Checkbox = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, RootProps>(
+const Checkbox = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, CheckboxRootProps>(
   function Checkbox({ className, size = 'md', ...props }, ref) {
     return (
       <CheckboxPrimitive.Root
@@ -37,7 +37,7 @@ const Checkbox = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, RootPro
 
 const CheckboxRootProvider = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.RootProvider>,
-  RootProviderProps
+  CheckboxRootProviderProps
 >(function CheckboxRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <CheckboxPrimitive.RootProvider
@@ -57,32 +57,18 @@ const CheckboxIndicator = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.Indicator>,
   ComponentProps<typeof CheckboxPrimitive.Indicator>
 >(function CheckboxIndicator({ className, children, indeterminate, ...props }, ref) {
-  const slot = indeterminate
-    ? 'checkbox-indicator-indeterminate-icon'
-    : 'checkbox-indicator-checked-icon';
-
   return (
     <CheckboxPrimitive.Indicator
       ref={ref}
       className={cn(
-        'inline-flex h-full w-full items-center justify-center text-inherit',
+        'inline-flex size-3 group-data-[size=lg]/checkbox:size-3.5 group-data-[size=sm]/checkbox:size-2.5 group-data-[size=xl]/checkbox:size-4 group-data-[size=xs]/checkbox:size-2 [&>svg]:size-full',
         className,
       )}
       indeterminate={indeterminate}
       {...props}
       data-slot="checkbox-indicator"
     >
-      {children ?? (
-        <span
-          aria-hidden="true"
-          data-slot={slot}
-          className={cn(
-            'inline-flex size-3 items-center justify-center leading-none text-inherit group-data-[size=lg]/checkbox:size-3.5 group-data-[size=sm]/checkbox:size-2.5 group-data-[size=xl]/checkbox:size-4 group-data-[size=xs]/checkbox:size-2 [&>svg]:size-full',
-          )}
-        >
-          {indeterminate ? <IndeterminateIcon /> : <CheckIcon />}
-        </span>
-      )}
+      {children ?? (indeterminate ? <IndeterminateIcon /> : <CheckIcon />)}
     </CheckboxPrimitive.Indicator>
   );
 });
@@ -95,7 +81,7 @@ const CheckboxControl = forwardRef<
     <CheckboxPrimitive.Control
       ref={ref}
       className={cn(
-        "box-border inline-flex size-5 shrink-0 items-center justify-center rounded-xs border border-border bg-background p-0 leading-none text-primary-foreground transition-[background-color,border-color,color,opacity] duration-200 select-none group-data-[size=lg]/checkbox:size-control-xs group-data-[size=sm]/checkbox:size-4 group-data-[size=xl]/checkbox:size-7 group-data-[size=xs]/checkbox:size-3.5 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-invalid:text-destructive-foreground data-invalid:data-focus-visible:outline-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-invalid:data-[state=checked]:border-destructive data-invalid:data-[state=checked]:bg-destructive data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary data-invalid:data-[state=indeterminate]:border-destructive data-invalid:data-[state=indeterminate]:bg-destructive motion-reduce:transition-none [@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]]:bg-accent",
+        "box-border inline-flex size-5 shrink-0 items-center justify-center rounded-xs border border-border bg-background text-primary-foreground transition-[background-color,border-color,color] duration-200 select-none group-data-[size=lg]/checkbox:size-control-xs group-data-[size=sm]/checkbox:size-4 group-data-[size=xl]/checkbox:size-7 group-data-[size=xs]/checkbox:size-3.5 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-invalid:text-destructive-foreground data-invalid:data-focus-visible:outline-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-invalid:data-[state=checked]:border-destructive data-invalid:data-[state=checked]:bg-destructive data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary data-invalid:data-[state=indeterminate]:border-destructive data-invalid:data-[state=indeterminate]:bg-destructive motion-reduce:transition-none [@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]]:bg-accent",
         className,
       )}
       {...props}
@@ -118,7 +104,7 @@ const CheckboxLabel = forwardRef<
   return (
     <CheckboxPrimitive.Label
       ref={ref}
-      className={cn('text-sm leading-5 font-medium text-inherit', className)}
+      className={cn('text-sm leading-5 font-medium', className)}
       {...props}
       data-slot="checkbox-label"
     />
@@ -132,7 +118,7 @@ const CheckboxGroup = forwardRef<
   return (
     <CheckboxPrimitive.Group
       ref={ref}
-      className={cn('flex flex-col gap-2 text-foreground', className)}
+      className={cn('flex flex-col gap-2', className)}
       {...props}
       data-slot="checkbox-group"
     />
@@ -156,3 +142,5 @@ export {
   useCheckboxGroup,
   useCheckboxGroupContext,
 };
+
+export type { CheckboxRootProps, CheckboxRootProviderProps, CheckboxSize };

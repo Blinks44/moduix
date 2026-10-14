@@ -52,10 +52,6 @@ function CheckboxRootProvider(props: CheckboxRootProviderProps) {
 function CheckboxIndicator(props: ComponentProps<typeof CheckboxPrimitive.Indicator>) {
   const [local, others] = splitProps(props, ['children', 'class', 'indeterminate']);
   const resolvedChildren = children(() => local.children);
-  const slot = () =>
-    local.indeterminate
-      ? 'checkbox-indicator-indeterminate-icon'
-      : 'checkbox-indicator-checked-icon';
 
   return (
     <CheckboxPrimitive.Indicator
@@ -64,11 +60,7 @@ function CheckboxIndicator(props: ComponentProps<typeof CheckboxPrimitive.Indica
       {...others}
       data-slot="checkbox-indicator"
     >
-      {resolvedChildren() ?? (
-        <span aria-hidden="true" data-slot={slot()} class={styles.icon}>
-          {local.indeterminate ? <IndeterminateIcon /> : <CheckIcon />}
-        </span>
-      )}
+      {resolvedChildren() ?? (local.indeterminate ? <IndeterminateIcon /> : <CheckIcon />)}
     </CheckboxPrimitive.Indicator>
   );
 }
@@ -134,3 +126,5 @@ export {
   useCheckboxGroup,
   useCheckboxGroupContext,
 };
+
+export type { CheckboxRootProps, CheckboxRootProviderProps, CheckboxSize };

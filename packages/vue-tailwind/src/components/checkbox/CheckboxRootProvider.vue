@@ -4,10 +4,9 @@ import type { CheckboxRootProviderProps } from '@ark-ui/vue/checkbox';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import type { CheckboxSize } from './Checkbox.vue';
 
 defineOptions({ inheritAttrs: false });
-
-type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface Props extends /* @vue-ignore */ CheckboxRootProviderProps {
   class?: HTMLAttributes['class'];

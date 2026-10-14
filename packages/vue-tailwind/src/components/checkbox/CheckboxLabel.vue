@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkCheckboxLabel
     v-bind="attrs"
-    :class="cn('text-sm leading-5 font-medium text-inherit', className)"
+    :class="cn('text-sm leading-5 font-medium', className)"
     data-slot="checkbox-label"
   >
     <slot />

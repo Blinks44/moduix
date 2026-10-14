@@ -16,6 +16,15 @@ import {
   useCheckboxContext,
 } from '../src';
 
+function visibleIconSizes() {
+  return [...document.querySelectorAll('[data-slot="checkbox-indicator"]:not([hidden]) svg')].map(
+    (icon) => {
+      const { width, height } = icon.getBoundingClientRect();
+      return [Math.round(width), Math.round(height)];
+    },
+  );
+}
+
 const checkboxComponents = {
   Checkbox,
   CheckboxControl,
@@ -63,7 +72,7 @@ test('submits through explicit Ark inputs for roots', () => {
   ]);
   const root = screen.getByText('Email notifications').parentElement!;
   const control = root.querySelector('[data-slot="checkbox-control"]')!;
-  const checkedIcon = root.querySelector('[data-slot="checkbox-indicator-checked-icon"]')!;
+  const indicator = root.querySelector('[data-slot="checkbox-indicator"]')!;
   const label = screen.getByText('Email notifications');
 
   expect([...root.classList]).toEqual(expect.arrayContaining(['inline-flex', 'gap-2']));
@@ -73,7 +82,7 @@ test('submits through explicit Ark inputs for roots', () => {
   expect([...control.classList]).toEqual(
     expect.arrayContaining(['data-[state=checked]:bg-primary']),
   );
-  expect([...checkedIcon.classList]).toEqual(expect.arrayContaining(['inline-flex', 'size-3']));
+  expect([...indicator.classList]).toEqual(expect.arrayContaining(['inline-flex', 'size-3']));
   expect([...label.classList]).toEqual(expect.arrayContaining(['text-sm', 'font-medium']));
 });
 
@@ -271,12 +280,11 @@ test('renders the default indicators and allows custom slots', async () => {
     `,
   });
   await expect.element(page.getByTestId('custom-icon')).toBeAttached();
-  await expect
-    .element(page.locator('[data-slot="checkbox-indicator-checked-icon"]'))
-    .toBeAttached();
-  await expect
-    .element(page.locator('[data-slot="checkbox-indicator-indeterminate-icon"]'))
-    .toBeAttached();
+  expect(
+    document
+      .querySelector('[data-slot="checkbox-control"]')!
+      .querySelectorAll('[data-slot="checkbox-indicator"] > svg'),
+  ).toHaveLength(2);
 });
 
 test('hydrates without replacing hosts or ids and responds to clicks', async () => {
@@ -338,3 +346,26 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
     .toHaveCSS('padding-left', '4px');
 });
 import SsrCheckbox from './fixtures/SsrCheckbox.vue';
+
+test('sizes default and custom indicator icons from the checkbox size', () => {
+  render({
+    components: checkboxComponents,
+    template: `
+      <Checkbox :default-checked="true">
+        <CheckboxControl />
+        <CheckboxLabel>Default icon</CheckboxLabel>
+      </Checkbox>
+      <Checkbox :default-checked="true" size="lg">
+        <CheckboxControl>
+          <CheckboxIndicator><svg viewBox="0 0 16 16" /></CheckboxIndicator>
+        </CheckboxControl>
+        <CheckboxLabel>Custom icon</CheckboxLabel>
+      </Checkbox>
+    `,
+  });
+
+  expect(visibleIconSizes()).toEqual([
+    [12, 12],
+    [14, 14],
+  ]);
+});

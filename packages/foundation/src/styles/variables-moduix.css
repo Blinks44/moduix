@@ -215,42 +215,12 @@
   /* Checkbox */
   --moduix-checkbox-bg: initial; /* var(--moduix-color-background) */
   --moduix-checkbox-bg-checked: initial; /* var(--moduix-color-primary) */
-  --moduix-checkbox-bg-checked-hover: initial; /* var(--moduix-checkbox-bg-checked, var(--moduix-color-primary)) */
-  --moduix-checkbox-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-checkbox-bg-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-checkbox-bg-invalid-hover: initial; /* var(--moduix-checkbox-bg-invalid, var(--moduix-color-destructive)) */
   --moduix-checkbox-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-checkbox-border-color-checked: initial; /* var(--moduix-color-primary) */
-  --moduix-checkbox-border-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-checkbox-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-checkbox-color: initial; /* var(--moduix-color-primary-foreground) */
-  --moduix-checkbox-color-invalid: initial; /* var(--moduix-color-destructive-foreground) */
-  --moduix-checkbox-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-checkbox-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-checkbox-focus-ring-color-invalid: initial; /* var(--moduix-checkbox-border-color-invalid, var(--moduix-color-destructive)) */
-  --moduix-checkbox-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
-  --moduix-checkbox-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
   --moduix-checkbox-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-checkbox-icon-size-xs: initial; /* var(--moduix-spacing-2) */
-  --moduix-checkbox-icon-size-sm: initial; /* var(--moduix-spacing-2-5) */
-  --moduix-checkbox-icon-size-md: initial; /* var(--moduix-spacing-3) */
-  --moduix-checkbox-icon-size-lg: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-checkbox-icon-size-xl: initial; /* var(--moduix-spacing-4) */
-  --moduix-checkbox-label-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-checkbox-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-checkbox-label-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-checkbox-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
+  --moduix-checkbox-icon-size: initial; /* size-specific, md: var(--moduix-spacing-3) */
   --moduix-checkbox-radius: initial; /* var(--moduix-radius-xs) */
-  --moduix-checkbox-size-xs: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-checkbox-size-sm: initial; /* var(--moduix-spacing-4) */
-  --moduix-checkbox-size-md: initial; /* var(--moduix-spacing-5) */
-  --moduix-checkbox-size-lg: initial; /* var(--moduix-size-xs) */
-  --moduix-checkbox-size-xl: initial; /* var(--moduix-spacing-7) */
-  --moduix-checkbox-transition: initial; /* var(--moduix-transition-default) */
-
-  /* CheckboxGroup */
-  --moduix-checkbox-group-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-checkbox-group-gap: initial; /* var(--moduix-spacing-2) */
+  --moduix-checkbox-size: initial; /* size-specific, md: var(--moduix-spacing-5) */
 
   /* Clipboard */
   --moduix-clipboard-color: initial; /* var(--moduix-color-foreground) */

@@ -22,23 +22,18 @@ const attrs = useAttrs();
 <template>
   <ArkCheckboxIndicator
     v-bind="attrs"
-    :class="cn('inline-flex h-full w-full items-center justify-center text-inherit', className)"
+    :class="
+      cn(
+        'inline-flex size-3 group-data-[size=lg]/checkbox:size-3.5 group-data-[size=sm]/checkbox:size-2.5 group-data-[size=xl]/checkbox:size-4 group-data-[size=xs]/checkbox:size-2 [&>svg]:size-full',
+        className,
+      )
+    "
     :indeterminate="indeterminate"
     data-slot="checkbox-indicator"
   >
     <slot>
-      <span
-        aria-hidden="true"
-        class="inline-flex size-3 items-center justify-center leading-none text-inherit group-data-[size=lg]/checkbox:size-3.5 group-data-[size=sm]/checkbox:size-2.5 group-data-[size=xl]/checkbox:size-4 group-data-[size=xs]/checkbox:size-2 [&>svg]:size-full"
-        :data-slot="
-          indeterminate
-            ? 'checkbox-indicator-indeterminate-icon'
-            : 'checkbox-indicator-checked-icon'
-        "
-      >
-        <IndeterminateIcon v-if="indeterminate" />
-        <CheckIcon v-else />
-      </span>
+      <IndeterminateIcon v-if="indeterminate" />
+      <CheckIcon v-else />
     </slot>
   </ArkCheckboxIndicator>
 </template>

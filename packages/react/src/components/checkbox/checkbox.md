@@ -32,7 +32,9 @@ selection and grouped multi-select state.
   `CheckboxRootProvider`; it is required for native interaction and form participation.
 - `CheckboxControl` renders the default checked and indeterminate indicators when `children` is
   omitted.
-- `CheckboxIndicator` renders default moduix icons when `children` are omitted.
+- `CheckboxIndicator` renders the default moduix icon when `children` are omitted. The icon is a
+  direct `svg` child; default and custom `svg` children fill the indicator, which takes the icon
+  size of the current `size`.
 - `size` defaults to `md` and writes `data-size` on the root and `CheckboxRootProvider`.
 - The barrel re-exports `useCheckbox()` and `useCheckboxGroup()` for advanced state ownership flows.
   Pair `useCheckboxGroup()` with Ark's `GroupProvider` when that escape hatch is needed.
@@ -69,20 +71,18 @@ CheckboxGroup
    └─ CheckboxHiddenInput (explicit)
 ```
 
-| Part                        | `data-slot`                             | Notes                                                |
-| --------------------------- | --------------------------------------- | ---------------------------------------------------- |
-| `Checkbox`                  | `checkbox-root`                         | Styled Ark root. Accepts Ark root props plus `size`. |
-| `CheckboxRootProvider`      | `checkbox-root-provider`                | Styled Ark provider. Accepts Ark props plus `size`.  |
-| `CheckboxControl`           | `checkbox-control`                      | Styled Ark control with state styles.                |
-| `CheckboxIndicator`         | `checkbox-indicator`                    | Defaults to moduix icons when children are omitted.  |
-| checked icon                | `checkbox-indicator-checked-icon`       | Default check icon wrapper.                          |
-| indeterminate icon          | `checkbox-indicator-indeterminate-icon` | Default indeterminate icon wrapper.                  |
-| `CheckboxLabel`             | `checkbox-label`                        | Styled Ark label.                                    |
-| `CheckboxGroup`             | `checkbox-group`                        | Styled Ark group root for shared value state.        |
-| `CheckboxContext`           | -                                       | Render-prop access to current checkbox state.        |
-| `useCheckboxContext()`      | -                                       | Hook access to current checkbox state.               |
-| `useCheckboxGroup()`        | -                                       | Creates group state for Ark `GroupProvider`.         |
-| `useCheckboxGroupContext()` | -                                       | Hook access to the nearest checkbox group state.     |
+| Part                        | `data-slot`              | Notes                                                |
+| --------------------------- | ------------------------ | ---------------------------------------------------- |
+| `Checkbox`                  | `checkbox-root`          | Styled Ark root. Accepts Ark root props plus `size`. |
+| `CheckboxRootProvider`      | `checkbox-root-provider` | Styled Ark provider. Accepts Ark props plus `size`.  |
+| `CheckboxControl`           | `checkbox-control`       | Styled Ark control with state styles.                |
+| `CheckboxIndicator`         | `checkbox-indicator`     | Defaults to moduix icons when children are omitted.  |
+| `CheckboxLabel`             | `checkbox-label`         | Styled Ark label.                                    |
+| `CheckboxGroup`             | `checkbox-group`         | Styled Ark group root for shared value state.        |
+| `CheckboxContext`           | -                        | Render-prop access to current checkbox state.        |
+| `useCheckboxContext()`      | -                        | Hook access to current checkbox state.               |
+| `useCheckboxGroup()`        | -                        | Creates group state for Ark `GroupProvider`.         |
+| `useCheckboxGroupContext()` | -                        | Hook access to the nearest checkbox group state.     |
 
 ## Composition
 
@@ -208,17 +208,15 @@ export function CheckboxProviderDemo() {
 - moduix ships styled defaults; Ark is unstyled.
 - Public CSS variables are declared in `packages/foundation/src/styles/variables-moduix.css` and
   documented in `website/docs/en/docs/checkbox.mdx`.
-- Styling uses local classes plus Ark state data attributes. No legacy state selectors are used in
-  `Checkbox.module.css`.
-- `CheckboxControl` owns visual state styles for checked, indeterminate, invalid, disabled, hover,
-  and focus-visible states.
-- Checked and invalid hover backgrounds and the invalid focus ring have independent public
-  variables with fallbacks to their broader checked, invalid, and border variables.
-- `--moduix-checkbox-group-color` cascades to nested labels unless an individual
-  `--moduix-checkbox-label-color` overrides it.
-- The root and `CheckboxRootProvider` write `data-size` so size tokens can scale the control
-  and default icon.
-- `CheckboxIndicator` default icon wrappers expose stable checked/indeterminate `data-slot` values.
+- Styling uses local classes plus Ark state data attributes.
+- `CheckboxControl` owns visual state styles for checked, indeterminate, invalid, hover, and
+  focus-visible states. Invalid, hover, focus, transition, and disabled values come from foundation
+  tokens; override them with a class over the `moduix.components` layer.
+- Public variables: `bg`, `bg-checked` (background and border of checked and indeterminate states),
+  `border-color`, `color` (checkmark), `radius`, `gap`, `size`, and `icon-size`. Per-size values
+  live in private `--_checkbox-size` and `--_checkbox-icon-size` on the root; `--moduix-checkbox-size`
+  and `--moduix-checkbox-icon-size` override them for every size.
+- The root sets the text color; labels inherit it. `CheckboxGroup` sets no color.
 
 ## Intentional sugar and differences from upstream
 
@@ -226,6 +224,7 @@ export function CheckboxProviderDemo() {
 - `CheckboxControl` renders the default checked and indeterminate indicator pair when it has no
   children.
 - `CheckboxIndicator` renders `CheckIcon` or `IndeterminateIcon` when no children are provided.
+- Types `CheckboxRootProps`, `CheckboxRootProviderProps`, and `CheckboxSize` are exported.
 - The wrapper adds stable `data-slot` hooks for moduix styling.
 - moduix keeps `CheckboxRootProvider` and re-exports `useCheckbox()` plus `useCheckboxGroup()`
   for the common external-state path.
@@ -245,40 +244,3 @@ export function CheckboxProviderDemo() {
   `useCheckbox()`, `useCheckboxContext()`, `useCheckboxGroup()`, and `useCheckboxGroupContext()`.
 - If data-slot names, CSS variables, or provider support changes, update stories, docs, local
   markdown, theme tokens, and registry artifacts in the same task.
-
-## Local changelog
-
-- 2026-09-21: Replaced the compound `Checkbox.*` value surface with the shared flat API across
-  React, React Tailwind, Solid, and Solid Tailwind. The root is the only public `Checkbox`
-  value; `CheckboxRootProvider`, `CheckboxContext`, `CheckboxHiddenInput`, `CheckboxControl`,
-  `CheckboxIndicator`, `CheckboxLabel`, and `CheckboxGroup` are flat exports, and hooks stay
-  top-level `use*` exports. Removed `Object.assign` namespace assembly and `Checkbox` and
-  other dotted aliases without compatibility shims.
-- 2026-08-09: Added read-only accessibility semantics, independent checked/invalid hover and invalid
-  focus-ring theming hooks, group label color inheritance, and release-gate coverage for refs, form
-  reset, states, and realistic content.
-- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed root child mutation.
-- 2026-07-26: Documented the shipped context and state-hook exports, hidden input, and
-  ref/keyboard contract.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-13: Native form controls were rendered automatically at this point in the wrapper history.
-
-- 2026-07-09: Re-exported `useCheckbox()` and `useCheckboxGroup()` from the moduix checkbox barrel
-  so documented provider flows stay on `@moduix/react`; reordered public docs examples for easier
-  scanning.
-- 2026-07-07: Added `CheckboxControl` default indicator sugar so common usage no longer needs
-  explicit checked and indeterminate indicator parts; updated recommended docs/examples accordingly.
-- 2026-07-02: Simplified the public checkbox surface to keep visual parts, `Group`,
-  `RootProvider`, `size`, and default indicator sugar while removing moduix re-exports for Ark
-  hooks, `Context`, `GroupProvider`, and Ark duplicate type aliases.
-- 2026-06-24: Finalized Ark migration audit by mirroring missing Ark part prop types, typing
-  `RootProvider.size`, aligning disabled/hover styles to Ark data attributes, and fixing docs form
-  examples to pass `name`.
-- 2026-06-18: Completed Ark parity audit by exposing `RootProvider`, `GroupProvider`, `Context`,
-  `useCheckbox`, `useCheckboxContext`, `useCheckboxGroup`, `useCheckboxGroupContext`, and related
-  types from the public checkbox barrel.
-- 2026-06-18: Expanded docs and stories to cover Ark standalone, provider, context, form, field,
-  group, group provider, max-selected, select-all, invalid, and fieldset patterns.
-- 2026-06-18: Migrated `Checkbox` to Ark UI, adopted the Ark namespace API
-  (`Checkbox`, `CheckboxControl`, `CheckboxIndicator`, `CheckboxLabel`,
-  the native form input, `CheckboxGroup`), and removed the standalone `CheckboxGroup` component.

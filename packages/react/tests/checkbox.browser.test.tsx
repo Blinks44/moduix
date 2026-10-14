@@ -2,6 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
 import { createRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import {
   Checkbox,
   CheckboxControl,
@@ -12,6 +13,15 @@ import {
   CheckboxRootProvider,
   useCheckbox,
 } from '../src';
+
+function visibleIconSizes() {
+  return [...document.querySelectorAll('[data-slot="checkbox-indicator"]:not([hidden]) svg')].map(
+    (icon) => {
+      const { width, height } = icon.getBoundingClientRect();
+      return [Math.round(width), Math.round(height)];
+    },
+  );
+}
 
 function ProviderCheckbox() {
   const checkbox = useCheckbox({ defaultChecked: true, name: 'provider-notifications' });
@@ -182,4 +192,44 @@ test('keeps controlled indeterminate state transitions Ark-shaped', async () => 
   await expect
     .element(page.getByRole('checkbox', { name: 'Select all', exact: true }))
     .toBeChecked();
+});
+
+test('sizes default and custom indicator icons from the checkbox size', () => {
+  render(
+    <>
+      <Checkbox defaultChecked>
+        <CheckboxControl />
+        <CheckboxLabel>Default icon</CheckboxLabel>
+      </Checkbox>
+      <Checkbox defaultChecked size="lg">
+        <CheckboxControl>
+          <CheckboxIndicator>
+            <svg viewBox="0 0 16 16" />
+          </CheckboxIndicator>
+        </CheckboxControl>
+        <CheckboxLabel>Custom icon</CheckboxLabel>
+      </Checkbox>
+      <Checkbox
+        defaultChecked
+        style={
+          {
+            '--moduix-checkbox-size': '32px',
+            '--moduix-checkbox-icon-size': '24px',
+          } as CSSProperties
+        }
+      >
+        <CheckboxControl />
+        <CheckboxLabel>Themed</CheckboxLabel>
+      </Checkbox>
+    </>,
+  );
+
+  expect(visibleIconSizes()).toEqual([
+    [12, 12],
+    [14, 14],
+    [24, 24],
+  ]);
+  expect(
+    document.querySelectorAll<HTMLElement>('[data-slot="checkbox-control"]')[2]!.offsetWidth,
+  ).toBe(32);
 });

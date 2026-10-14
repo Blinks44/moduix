@@ -24,7 +24,7 @@ const attrs = useAttrs();
 <template>
   <ArkCheckboxGroup
     v-bind="attrs"
-    :class="cn('flex flex-col gap-2 text-foreground', className)"
+    :class="cn('flex flex-col gap-2', className)"
     data-slot="checkbox-group"
   >
     <slot />

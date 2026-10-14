@@ -8,7 +8,7 @@ import styles from './Checkbox.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface Props extends /* @vue-ignore */ CheckboxRootProps {
   class?: HTMLAttributes['class'];
