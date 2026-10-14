@@ -5,7 +5,9 @@ description: Выбор подходящего уровня стилизации
 
 import { ProjectChecklist } from '@/components/examples/styling/project-checklist';
 import solidProjectChecklist from '../../../snippets/styling/solid/project-checklist.tsx?raw';
+import solidBrandButton from '../../../snippets/styling/solid/brand-button.tsx?raw';
 import VueProjectChecklist from '../../../snippets/styling/vue/project-checklist.vue?raw';
+import vueBrandButton from '../../../snippets/styling/vue/brand-button.vue?raw';
 
 # Стилизация
 
@@ -76,9 +78,7 @@ CSS Modules и Tailwind являются равноправными вариан
 }
 ```
 
-```tsx
-<Button className={styles.save}>Save</Button>
-```
+Передайте класс в `className` в React или в `class` в Solid и Vue.
 
 ### Один вариант во всём приложении
 
@@ -115,62 +115,34 @@ CSS-переменные наследуются, поэтому значения
 Встроенные варианты покрывают типовые роли. Для особого вида возьмите ближайший вариант, добавьте
 класс с нужными переменными и оберните кнопку в компонент, чтобы у решения было одно имя в коде:
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<div className="docs-reference">
+  <Tabs groupId="framework" className="docs-tabs">
+    <Tab label="React" value="react">
 
-```tsx
-import { Button } from '@moduix/react/button';
-import { clsx } from 'clsx';
-import type { ComponentProps } from 'react';
-import styles from './brand-button.module.css';
+```tsx pure file="../../../src/components/examples/styling/brand-button.tsx"
 
-export function BrandButton({ className, ...props }: ComponentProps<typeof Button>) {
-  return <Button {...props} className={clsx(styles.brand, className)} />;
-}
 ```
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+    </Tab>
+    <Tab label="Solid" value="solid">
 
-```tsx
-import { Button, type ButtonRootProps } from '@moduix/solid/button';
-import { clsx } from 'clsx';
-import { splitProps } from 'solid-js';
-import styles from './brand-button.module.css';
+<CodeBlockRuntime lang="tsx" code={solidBrandButton} />
 
-export function BrandButton(props: ButtonRootProps) {
-  const [local, others] = splitProps(props, ['class']);
+    </Tab>
+    <Tab label="Vue" value="vue">
 
-  return <Button {...others} class={clsx(styles.brand, local.class)} />;
-}
+<CodeBlockRuntime lang="vue" code={vueBrandButton} />
+
+    </Tab>
+    <Tab label="Styles" value="styles">
+
+```css file="../../../src/components/examples/styling/brand-button.module.css"
+
 ```
 
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-```vue
-<script setup lang="ts">
-import { Button } from '@moduix/vue/button';
-import styles from './brand-button.module.css';
-</script>
-
-<template>
-  <Button :class="styles.brand"><slot /></Button>
-</template>
-```
-
-  </Tab>
-  <Tab label="Styles" value="styles">
-
-```css
-.brand {
-  --moduix-button-bg: oklch(0.55 0.2 285);
-  --moduix-button-color: white;
-}
-```
-
-  </Tab>
-</Tabs>
+    </Tab>
+  </Tabs>
+</div>
 
 Варианты `default` и `destructive` вычисляют цвет при наведении из `--moduix-button-bg`, так что для
 нового фона подходящий hover получается без отдельной переменной. Если нужна полная свобода в разметке,

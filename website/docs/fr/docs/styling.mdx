@@ -5,7 +5,9 @@ description: Choisissez la bonne couche de style pour les composants Moduix dans
 
 import { ProjectChecklist } from '@/components/examples/styling/project-checklist';
 import solidProjectChecklist from '../../../snippets/styling/solid/project-checklist.tsx?raw';
+import solidBrandButton from '../../../snippets/styling/solid/brand-button.tsx?raw';
 import VueProjectChecklist from '../../../snippets/styling/vue/project-checklist.vue?raw';
+import vueBrandButton from '../../../snippets/styling/vue/brand-button.vue?raw';
 
 # Styles
 
@@ -77,9 +79,7 @@ Définissez les variables dans une classe, ou en ligne lorsque la valeur est dyn
 }
 ```
 
-```tsx
-<Button className={styles.save}>Save</Button>
-```
+Passez la classe à `className` en React ou à `class` en Solid et Vue.
 
 ### Une variante dans toute l’application
 
@@ -117,62 +117,34 @@ Les variantes intégrées couvrent les rôles courants. Pour un style propre à 
 la variante la plus proche, ajoutez une classe avec les variables nécessaires et enveloppez le tout
 dans un composant, afin que ce choix porte un seul nom dans votre code :
 
-<Tabs groupId="framework">
-  <Tab label="React" value="react">
+<div className="docs-reference">
+  <Tabs groupId="framework" className="docs-tabs">
+    <Tab label="React" value="react">
 
-```tsx
-import { Button } from '@moduix/react/button';
-import { clsx } from 'clsx';
-import type { ComponentProps } from 'react';
-import styles from './brand-button.module.css';
+```tsx pure file="../../../src/components/examples/styling/brand-button.tsx"
 
-export function BrandButton({ className, ...props }: ComponentProps<typeof Button>) {
-  return <Button {...props} className={clsx(styles.brand, className)} />;
-}
 ```
 
-  </Tab>
-  <Tab label="Solid" value="solid">
+    </Tab>
+    <Tab label="Solid" value="solid">
 
-```tsx
-import { Button, type ButtonRootProps } from '@moduix/solid/button';
-import { clsx } from 'clsx';
-import { splitProps } from 'solid-js';
-import styles from './brand-button.module.css';
+<CodeBlockRuntime lang="tsx" code={solidBrandButton} />
 
-export function BrandButton(props: ButtonRootProps) {
-  const [local, others] = splitProps(props, ['class']);
+    </Tab>
+    <Tab label="Vue" value="vue">
 
-  return <Button {...others} class={clsx(styles.brand, local.class)} />;
-}
+<CodeBlockRuntime lang="vue" code={vueBrandButton} />
+
+    </Tab>
+    <Tab label="Styles" value="styles">
+
+```css file="../../../src/components/examples/styling/brand-button.module.css"
+
 ```
 
-  </Tab>
-  <Tab label="Vue" value="vue">
-
-```vue
-<script setup lang="ts">
-import { Button } from '@moduix/vue/button';
-import styles from './brand-button.module.css';
-</script>
-
-<template>
-  <Button :class="styles.brand"><slot /></Button>
-</template>
-```
-
-  </Tab>
-  <Tab label="Styles" value="styles">
-
-```css
-.brand {
-  --moduix-button-bg: oklch(0.55 0.2 285);
-  --moduix-button-color: white;
-}
-```
-
-  </Tab>
-</Tabs>
+    </Tab>
+  </Tabs>
+</div>
 
 Les variantes `default` et `destructive` calculent leur couleur de survol à partir de
 `--moduix-button-bg` : un nouveau fond obtient donc un survol assorti sans variable supplémentaire.
