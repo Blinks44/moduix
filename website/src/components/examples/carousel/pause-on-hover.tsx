@@ -52,7 +52,6 @@ export default function PauseOnHoverCarousel() {
         {(api) => (
           <>
             <CarouselItemGroup
-              className={styles.itemGroup}
               onFocus={() => api.pause()}
               onPointerEnter={() => api.pause()}
               onPointerLeave={() => api.play()}
@@ -64,7 +63,6 @@ export default function PauseOnHoverCarousel() {
               ))}
             </CarouselItemGroup>
             <CarouselControl
-              className={styles.control}
               onFocus={() => api.pause()}
               onPointerEnter={() => api.pause()}
               onPointerLeave={() => api.play()}

@@ -47,12 +47,12 @@ const slides = [
     :slides-per-page="2"
     spacing="var(--moduix-spacing-3)"
   >
-    <CarouselControl :class="styles.control">
+    <CarouselControl>
       <CarouselPrevTrigger />
       <CarouselNextTrigger />
     </CarouselControl>
 
-    <CarouselItemGroup :class="styles.itemGroup" aria-label="Two-up gallery">
+    <CarouselItemGroup>
       <CarouselItem v-for="(slide, index) in slides" :key="slide.id" :index="index">
         <img :class="styles.image" :src="slide.src" :alt="slide.alt" />
       </CarouselItem>

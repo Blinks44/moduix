@@ -47,12 +47,12 @@ const slides = [
     spacing="var(--moduix-spacing-3)"
     padding="var(--moduix-spacing-4)"
   >
-    <CarouselControl :class="styles.control">
+    <CarouselControl>
       <CarouselPrevTrigger />
       <CarouselNextTrigger />
     </CarouselControl>
 
-    <CarouselItemGroup :class="styles.itemGroup" aria-label="Variable size gallery">
+    <CarouselItemGroup>
       <CarouselItem
         v-for="(slide, index) in slides"
         :key="slide.id"

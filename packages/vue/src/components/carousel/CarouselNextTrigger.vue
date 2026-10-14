@@ -22,11 +22,11 @@ const attrs = useAttrs();
 <template>
   <ArkCarouselNextTrigger
     v-bind="attrs"
-    :class="clsx(styles.nextTrigger, className)"
+    :class="clsx(styles.trigger, className)"
     data-slot="carousel-next-trigger"
   >
     <slot>
-      <span :class="styles.defaultIcon"><ChevronRightIcon /></span>
+      <ChevronRightIcon :class="styles.icon" />
     </slot>
   </ArkCarouselNextTrigger>
 </template>

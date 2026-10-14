@@ -42,7 +42,7 @@ const slides = [
 export default function ThumbnailIndicatorCarousel() {
   return (
     <Carousel class={styles.root} aria-label="Gallery with thumbnails" slideCount={slides.length}>
-      <CarouselItemGroup class={styles.itemGroup} aria-label="Gallery with thumbnails">
+      <CarouselItemGroup>
         <For each={slides}>
           {(slide, index) => (
             <CarouselItem index={index()}>
@@ -52,7 +52,7 @@ export default function ThumbnailIndicatorCarousel() {
         </For>
       </CarouselItemGroup>
 
-      <CarouselControl class={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselNextTrigger />
       </CarouselControl>

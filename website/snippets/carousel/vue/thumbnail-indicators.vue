@@ -42,13 +42,13 @@ const slides = [
 
 <template>
   <Carousel :class="styles.root" aria-label="Gallery with thumbnails" :slide-count="slides.length">
-    <CarouselItemGroup :class="styles.itemGroup" aria-label="Gallery with thumbnails">
+    <CarouselItemGroup>
       <CarouselItem v-for="(slide, index) in slides" :key="slide.id" :index="index">
         <img :class="styles.image" :src="slide.src" :alt="slide.alt" />
       </CarouselItem>
     </CarouselItemGroup>
 
-    <CarouselControl :class="styles.control">
+    <CarouselControl>
       <CarouselPrevTrigger />
       <CarouselNextTrigger />
     </CarouselControl>

@@ -9,14 +9,6 @@
   justify-items: center;
 }
 
-.itemGroup {
-  border-radius: var(--moduix-radius-xl);
-}
-
-.control {
-  justify-content: center;
-}
-
 .image {
   display: block;
   inline-size: 100%;

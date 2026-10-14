@@ -75,15 +75,11 @@ function CarouselPrevTrigger(props: ComponentProps<typeof CarouselPrimitive.Prev
 
   return (
     <CarouselPrimitive.PrevTrigger
-      class={clsx(styles.prevTrigger, local.class)}
+      class={clsx(styles.trigger, local.class)}
       {...others}
       data-slot="carousel-prev-trigger"
     >
-      {resolvedChildren() ?? (
-        <span class={styles.defaultIcon}>
-          <ChevronLeftIcon />
-        </span>
-      )}
+      {resolvedChildren() ?? <ChevronLeftIcon class={styles.icon} />}
     </CarouselPrimitive.PrevTrigger>
   );
 }
@@ -94,15 +90,11 @@ function CarouselNextTrigger(props: ComponentProps<typeof CarouselPrimitive.Next
 
   return (
     <CarouselPrimitive.NextTrigger
-      class={clsx(styles.nextTrigger, local.class)}
+      class={clsx(styles.trigger, local.class)}
       {...others}
       data-slot="carousel-next-trigger"
     >
-      {resolvedChildren() ?? (
-        <span class={styles.defaultIcon}>
-          <ChevronRightIcon />
-        </span>
-      )}
+      {resolvedChildren() ?? <ChevronRightIcon class={styles.icon} />}
     </CarouselPrimitive.NextTrigger>
   );
 }
@@ -159,7 +151,7 @@ function CarouselAutoplayTrigger(props: ComponentProps<typeof CarouselPrimitive.
 
   return (
     <CarouselPrimitive.AutoplayTrigger
-      class={clsx(styles.autoplayTrigger, local.class)}
+      class={clsx(styles.trigger, styles.autoplayTrigger, local.class)}
       {...others}
       data-slot="carousel-autoplay-trigger"
     />

@@ -46,7 +46,7 @@ export default function VerticalCarousel() {
       orientation="vertical"
       slideCount={slides.length}
     >
-      <CarouselItemGroup class={styles.itemGroup} aria-label="Vertical gallery">
+      <CarouselItemGroup>
         <For each={slides}>
           {(slide, index) => (
             <CarouselItem index={index()}>
@@ -56,7 +56,7 @@ export default function VerticalCarousel() {
         </For>
       </CarouselItemGroup>
 
-      <CarouselControl class={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselIndicators />
         <CarouselNextTrigger />

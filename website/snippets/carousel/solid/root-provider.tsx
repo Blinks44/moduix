@@ -44,7 +44,7 @@ export default function RootProviderCarousel() {
 
   return (
     <CarouselRootProvider class={styles.root} aria-label="Root provider gallery" value={carousel}>
-      <CarouselItemGroup class={styles.itemGroup} aria-label="Root provider gallery">
+      <CarouselItemGroup>
         <For each={slides}>
           {(slide, index) => (
             <CarouselItem index={index()}>
@@ -53,7 +53,7 @@ export default function RootProviderCarousel() {
           )}
         </For>
       </CarouselItemGroup>
-      <CarouselControl class={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselNextTrigger />
       </CarouselControl>

@@ -4,6 +4,8 @@ import { render } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import {
   Carousel,
+  CarouselAutoplayIndicator,
+  CarouselAutoplayTrigger,
   CarouselControl,
   CarouselIndicators,
   CarouselItem,
@@ -133,4 +135,103 @@ test('preserves semantic asChild hosts and styling hooks without forwarding refs
   await expect.element(previous).toBeDisabled();
   expect(root.querySelectorAll('.generated-indicator')).toHaveLength(2);
   expect(rootRef).toBeUndefined();
+});
+
+function chevronRotation(label: string) {
+  const icon = document.querySelector(
+    `[aria-label="${label}"] [data-slot="carousel-prev-trigger"] svg`,
+  );
+  return getComputedStyle(icon!).rotate;
+}
+
+test('centers controls and points default chevrons along the paging axis', async () => {
+  render(() => (
+    <>
+      {(['ltr', 'rtl'] as const).map((dir) => (
+        <Carousel aria-label={`${dir} gallery`} dir={dir} slideCount={2}>
+          <CarouselItemGroup>
+            <CarouselItem index={0}>First</CarouselItem>
+            <CarouselItem index={1}>Second</CarouselItem>
+          </CarouselItemGroup>
+          <CarouselControl>
+            <CarouselPrevTrigger />
+            <CarouselNextTrigger />
+          </CarouselControl>
+        </Carousel>
+      ))}
+      <Carousel aria-label="vertical gallery" orientation="vertical" slideCount={2}>
+        <CarouselItemGroup>
+          <CarouselItem index={0}>First</CarouselItem>
+          <CarouselItem index={1}>Second</CarouselItem>
+        </CarouselItemGroup>
+        <CarouselControl>
+          <CarouselPrevTrigger />
+          <CarouselNextTrigger>
+            <svg data-testid="custom-icon" />
+          </CarouselNextTrigger>
+        </CarouselControl>
+      </Carousel>
+    </>
+  ));
+
+  const control = document.querySelector<HTMLElement>('[data-slot="carousel-control"]')!;
+  const previous = control.querySelector<HTMLElement>('[data-slot="carousel-prev-trigger"]')!;
+  const next = control.querySelector<HTMLElement>('[data-slot="carousel-next-trigger"]')!;
+  const controlRect = control.getBoundingClientRect();
+
+  expect(previous.getBoundingClientRect().left - controlRect.left).toBeGreaterThan(1);
+  expect(
+    Math.abs(
+      previous.getBoundingClientRect().left -
+        controlRect.left -
+        (controlRect.right - next.getBoundingClientRect().right),
+    ),
+  ).toBeLessThanOrEqual(1);
+  expect(chevronRotation('ltr gallery')).toBe('none');
+  expect(chevronRotation('rtl gallery')).toBe('180deg');
+  expect(chevronRotation('vertical gallery')).toBe('90deg');
+  expect(getComputedStyle(document.querySelector('[data-testid="custom-icon"]')!).rotate).toBe(
+    'none',
+  );
+});
+
+test('grows the autoplay trigger with its label', async () => {
+  render(() => (
+    <Carousel aria-label="Autoplay gallery" slideCount={2}>
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselAutoplayTrigger>
+        <CarouselAutoplayIndicator fallback="Start slideshow">
+          Pause slideshow
+        </CarouselAutoplayIndicator>
+      </CarouselAutoplayTrigger>
+    </Carousel>
+  ));
+
+  const trigger = document.querySelector<HTMLElement>('[data-slot="carousel-autoplay-trigger"]')!;
+
+  await expect.element(page.getByText('Start slideshow')).toBeAttached();
+  expect(trigger.scrollWidth).toBeLessThanOrEqual(trigger.clientWidth);
+  expect(trigger.offsetWidth).toBeGreaterThan(trigger.offsetHeight);
+});
+
+test('keeps the active indicator narrow in vertical orientation', async () => {
+  render(() => (
+    <Carousel aria-label="Vertical gallery" orientation="vertical" slideCount={2}>
+      <CarouselItemGroup>
+        <CarouselItem index={0}>First</CarouselItem>
+        <CarouselItem index={1}>Second</CarouselItem>
+      </CarouselItemGroup>
+      <CarouselIndicators />
+    </Carousel>
+  ));
+
+  await expect
+    .element(page.getByRole('button', { name: 'Go to slide 1' }))
+    .toHaveCSS('width', '8px');
+  await expect
+    .element(page.getByRole('button', { name: 'Go to slide 1' }))
+    .toHaveCSS('height', '24px');
 });

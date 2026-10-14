@@ -31,7 +31,7 @@ const slides = [
 export default function TravelCarousel() {
   return (
     <Carousel className={styles.root} aria-label="Travel gallery" slideCount={slides.length}>
-      <CarouselItemGroup className={styles.itemGroup} aria-label="Travel gallery">
+      <CarouselItemGroup>
         {slides.map((slide, index) => (
           <CarouselItem key={slide.id} index={index}>
             <img className={styles.image} src={slide.src} alt={slide.alt} />
@@ -39,7 +39,7 @@ export default function TravelCarousel() {
         ))}
       </CarouselItemGroup>
 
-      <CarouselControl className={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselNextTrigger />
       </CarouselControl>

@@ -88,15 +88,11 @@ const CarouselPrevTrigger = forwardRef<
   return (
     <CarouselPrimitive.PrevTrigger
       ref={ref}
-      className={clsx(styles.prevTrigger, className)}
+      className={clsx(styles.trigger, className)}
       {...props}
       data-slot="carousel-prev-trigger"
     >
-      {children ?? (
-        <span className={styles.defaultIcon}>
-          <ChevronLeftIcon />
-        </span>
-      )}
+      {children ?? <ChevronLeftIcon className={styles.icon} />}
     </CarouselPrimitive.PrevTrigger>
   );
 });
@@ -108,15 +104,11 @@ const CarouselNextTrigger = forwardRef<
   return (
     <CarouselPrimitive.NextTrigger
       ref={ref}
-      className={clsx(styles.nextTrigger, className)}
+      className={clsx(styles.trigger, className)}
       {...props}
       data-slot="carousel-next-trigger"
     >
-      {children ?? (
-        <span className={styles.defaultIcon}>
-          <ChevronRightIcon />
-        </span>
-      )}
+      {children ?? <ChevronRightIcon className={styles.icon} />}
     </CarouselPrimitive.NextTrigger>
   );
 });
@@ -175,7 +167,7 @@ const CarouselAutoplayTrigger = forwardRef<
   return (
     <CarouselPrimitive.AutoplayTrigger
       ref={ref}
-      className={clsx(styles.autoplayTrigger, className)}
+      className={clsx(styles.trigger, styles.autoplayTrigger, className)}
       {...props}
       data-slot="carousel-autoplay-trigger"
     />

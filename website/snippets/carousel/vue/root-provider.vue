@@ -44,12 +44,12 @@ const carousel = useCarousel({ slideCount: slides.length });
 
 <template>
   <CarouselRootProvider :class="styles.root" aria-label="Root provider gallery" :value="carousel">
-    <CarouselItemGroup :class="styles.itemGroup" aria-label="Root provider gallery">
+    <CarouselItemGroup>
       <CarouselItem v-for="(slide, index) in slides" :key="slide.id" :index="index">
         <img :class="styles.image" :src="slide.src" :alt="slide.alt" />
       </CarouselItem>
     </CarouselItemGroup>
-    <CarouselControl :class="styles.control">
+    <CarouselControl>
       <CarouselPrevTrigger />
       <CarouselNextTrigger />
     </CarouselControl>

@@ -42,7 +42,7 @@ const slides = [
 export default function LoopCarousel() {
   return (
     <Carousel class={styles.root} aria-label="Loop gallery" loop slideCount={slides.length}>
-      <CarouselItemGroup class={styles.itemGroup} aria-label="Loop gallery">
+      <CarouselItemGroup>
         <For each={slides}>
           {(slide, index) => (
             <CarouselItem index={index()}>
@@ -52,7 +52,7 @@ export default function LoopCarousel() {
         </For>
       </CarouselItemGroup>
 
-      <CarouselControl class={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselNextTrigger />
       </CarouselControl>

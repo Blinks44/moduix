@@ -68,14 +68,14 @@ export default function DynamicSlidesCarousel() {
         page={page}
         onPageChange={(details) => setPage(details.page)}
       >
-        <CarouselItemGroup className={styles.itemGroup} aria-label="Dynamic gallery">
+        <CarouselItemGroup>
           {visibleSlides.map((slide, index) => (
             <CarouselItem key={slide.id} index={index}>
               <img className={styles.image} src={slide.src} alt={slide.alt} />
             </CarouselItem>
           ))}
         </CarouselItemGroup>
-        <CarouselControl className={styles.control}>
+        <CarouselControl>
           <CarouselPrevTrigger />
           <CarouselIndicators />
           <CarouselNextTrigger />

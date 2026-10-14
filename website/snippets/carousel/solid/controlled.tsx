@@ -49,7 +49,7 @@ export default function ControlledCarousel() {
       page={page()}
       onPageChange={(details) => setPage(details.page)}
     >
-      <CarouselItemGroup class={styles.itemGroup} aria-label="Controlled gallery">
+      <CarouselItemGroup>
         <For each={slides}>
           {(slide, index) => (
             <CarouselItem index={index()}>
@@ -58,7 +58,7 @@ export default function ControlledCarousel() {
           )}
         </For>
       </CarouselItemGroup>
-      <CarouselControl class={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselNextTrigger />
       </CarouselControl>

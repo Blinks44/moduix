@@ -10,6 +10,14 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 
+const rootClass =
+  'flex w-full min-w-0 flex-col gap-3 data-[orientation=vertical]:h-96 data-[orientation=vertical]:flex-row';
+const triggerClass =
+  'group/carousel-trigger inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,color] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground';
+// Default chevrons point along the paging axis.
+const iconClass =
+  'group-data-[orientation=vertical]/carousel-trigger:rotate-90 group-data-[orientation=horizontal]/carousel-trigger:rtl:rotate-180';
+
 const Carousel = forwardRef<
   ComponentRef<typeof CarouselPrimitive.Root>,
   ComponentProps<typeof CarouselPrimitive.Root>
@@ -17,10 +25,7 @@ const Carousel = forwardRef<
   return (
     <CarouselPrimitive.Root
       ref={ref}
-      className={cn(
-        'group/carousel flex w-full min-w-0 flex-col gap-3 data-[orientation=vertical]:h-96 data-[orientation=vertical]:flex-row data-[orientation=vertical]:items-stretch',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="carousel-root"
     />
@@ -34,10 +39,7 @@ const CarouselRootProvider = forwardRef<
   return (
     <CarouselPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'group/carousel flex w-full min-w-0 flex-col gap-3 data-[orientation=vertical]:h-96 data-[orientation=vertical]:flex-row data-[orientation=vertical]:items-stretch',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="carousel-root-provider"
     />
@@ -52,7 +54,7 @@ const CarouselControl = forwardRef<
     <CarouselPrimitive.Control
       ref={ref}
       className={cn(
-        'flex min-w-0 items-center gap-3 data-[orientation=vertical]:flex-col data-[orientation=vertical]:justify-between',
+        'flex min-w-0 items-center justify-center gap-3 data-[orientation=vertical]:flex-col data-[orientation=vertical]:justify-between',
         className,
       )}
       {...props}
@@ -69,7 +71,7 @@ const CarouselItemGroup = forwardRef<
     <CarouselPrimitive.ItemGroup
       ref={ref}
       className={cn(
-        'flex min-h-0 min-w-0 flex-1 [scrollbar-width:none] overscroll-x-contain overscroll-y-auto scroll-smooth rounded-xl outline-0 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring data-dragging:cursor-grabbing data-dragging:select-none data-[orientation=vertical]:h-full data-[orientation=vertical]:overscroll-x-auto data-[orientation=vertical]:overscroll-y-contain motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden',
+        'min-h-0 min-w-0 flex-1 rounded-xl outline-0 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring data-dragging:cursor-grabbing data-dragging:select-none data-[orientation=vertical]:h-full data-[orientation=vertical]:overscroll-y-contain',
         className,
       )}
       {...props}
@@ -85,7 +87,7 @@ const CarouselItem = forwardRef<
   return (
     <CarouselPrimitive.Item
       ref={ref}
-      className={cn('box-border min-h-0 min-w-0', className)}
+      className={cn('min-h-0 min-w-0', className)}
       {...props}
       data-slot="carousel-item"
     />
@@ -99,18 +101,11 @@ const CarouselPrevTrigger = forwardRef<
   return (
     <CarouselPrimitive.PrevTrigger
       ref={ref}
-      className={cn(
-        'inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-ring data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-ring [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
-        className,
-      )}
+      className={cn(triggerClass, 'size-control-md', className)}
       {...props}
       data-slot="carousel-prev-trigger"
     >
-      {children ?? (
-        <span className="inline-flex items-center justify-center">
-          <ChevronLeftIcon className="group-data-[orientation=vertical]/carousel:rotate-90 group-data-[orientation=horizontal]/carousel:rtl:rotate-180" />
-        </span>
-      )}
+      {children ?? <ChevronLeftIcon className={iconClass} />}
     </CarouselPrimitive.PrevTrigger>
   );
 });
@@ -122,18 +117,11 @@ const CarouselNextTrigger = forwardRef<
   return (
     <CarouselPrimitive.NextTrigger
       ref={ref}
-      className={cn(
-        'inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-ring data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-ring [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
-        className,
-      )}
+      className={cn(triggerClass, 'size-control-md', className)}
       {...props}
       data-slot="carousel-next-trigger"
     >
-      {children ?? (
-        <span className="inline-flex items-center justify-center">
-          <ChevronRightIcon className="group-data-[orientation=vertical]/carousel:rotate-90 group-data-[orientation=horizontal]/carousel:rtl:rotate-180" />
-        </span>
-      )}
+      {children ?? <ChevronRightIcon className={iconClass} />}
     </CarouselPrimitive.NextTrigger>
   );
 });
@@ -163,7 +151,7 @@ const CarouselIndicator = forwardRef<
     <CarouselPrimitive.Indicator
       ref={ref}
       className={cn(
-        'size-2 cursor-pointer rounded-full border-0 bg-muted p-0 opacity-90 transition-[width,height,background-color,opacity] duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-current:w-6 data-current:bg-primary data-current:opacity-100 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-not-allowed data-readonly:opacity-50 data-[orientation=vertical]:data-current:h-6 data-[orientation=vertical]:data-current:w-2 motion-reduce:transition-none forced-colors:bg-[ButtonText] forced-colors:data-current:bg-[Highlight] [&:not(:disabled):not([data-disabled]):not([data-readonly]):not([data-current]):hover]:bg-muted-foreground',
+        'size-2 cursor-pointer rounded-full border-0 bg-muted-foreground/50 p-0 transition-[width,height,background-color] duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-current:w-6 data-current:bg-primary data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-not-allowed data-readonly:opacity-50 data-[orientation=vertical]:data-current:h-6 data-[orientation=vertical]:data-current:w-2 motion-reduce:transition-none forced-colors:bg-[ButtonText] forced-colors:data-current:bg-[Highlight] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):not([data-current]):hover]:bg-muted-foreground',
         className,
       )}
       {...props}
@@ -198,10 +186,7 @@ const CarouselAutoplayTrigger = forwardRef<
   return (
     <CarouselPrimitive.AutoplayTrigger
       ref={ref}
-      className={cn(
-        'inline-flex size-control-md min-w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-ring data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-ring [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
-        className,
-      )}
+      className={cn(triggerClass, 'h-control-md min-w-control-md px-2', className)}
       {...props}
       data-slot="carousel-autoplay-trigger"
     />
@@ -215,10 +200,7 @@ const CarouselAutoplayIndicator = forwardRef<
   return (
     <CarouselPrimitive.AutoplayIndicator
       ref={ref}
-      className={cn(
-        'inline-flex min-w-4 items-center justify-center text-xs font-medium uppercase',
-        className,
-      )}
+      className={cn('text-xs font-medium', className)}
       {...props}
       data-slot="carousel-autoplay-indicator"
     />

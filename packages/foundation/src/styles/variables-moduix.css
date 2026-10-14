@@ -29,7 +29,7 @@
   --moduix-popup-check-gap: initial; /* var(--moduix-spacing-2) */
   --moduix-popup-check-indicator-size: initial; /* var(--moduix-spacing-3) */
   --moduix-popup-check-padding-x-start: initial; /* var(--moduix-spacing-2-5) */
-  --moduix-popup-group-label-color: initial; /* var(--moduix-color-muted-foreground) */
+  --moduix-popup-group-label-color: initial; /* color-mix(in oklab, var(--moduix-color-muted-foreground) 50%, transparent) */
   --moduix-popup-group-label-font-size: initial; /* var(--moduix-text-xs) */
   --moduix-popup-group-label-font-weight: initial; /* var(--moduix-weight-regular) */
   --moduix-popup-group-label-line-height: initial; /* var(--moduix-line-height-text-xs) */
@@ -2520,31 +2520,15 @@
   --moduix-slider-width-vertical: initial; /* max-content */
 
   /* Carousel */
-  --moduix-carousel-control-bg: initial; /* color-mix(in oklab, var(--moduix-color-background) 92%, var(--moduix-color-card) 8%) */
-  --moduix-carousel-control-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-carousel-control-border-color: initial; /* color-mix(in oklab, var(--moduix-color-border) 88%, black 12%) */
-  --moduix-carousel-control-border-color-hover: initial; /* var(--moduix-color-ring) */
-  --moduix-carousel-control-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-carousel-control-color-hover: initial; /* var(--moduix-color-accent-foreground) */
-  --moduix-carousel-control-icon-size: initial; /* var(--moduix-spacing-4) */
-  --moduix-carousel-control-shadow: initial; /* var(--moduix-shadow-sm) */
-  --moduix-carousel-control-shadow-hover: initial; /* var(--moduix-shadow-md) */
-  --moduix-carousel-control-size: initial; /* var(--moduix-size-md) */
-  --moduix-carousel-autoplay-indicator-min-width: initial; /* var(--moduix-spacing-4) */
-  --moduix-carousel-autoplay-trigger-min-width: initial; /* calc(var(--moduix-size-md) + var(--moduix-spacing-3)) */
-  --moduix-carousel-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-carousel-focus-ring-offset: initial; /* var(--moduix-focus-ring-offset) */
-  --moduix-carousel-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
   --moduix-carousel-gap: initial; /* var(--moduix-spacing-3) */
   --moduix-carousel-height: initial; /* 24rem */
-  --moduix-carousel-indicator-bg: initial; /* color-mix(in oklab, var(--moduix-color-muted) 84%, var(--moduix-color-background) 16%) */
-  --moduix-carousel-indicator-bg-current: initial; /* var(--moduix-color-primary) */
-  --moduix-carousel-indicator-bg-hover: initial; /* color-mix(in oklab, var(--moduix-color-muted) 56%, var(--moduix-color-foreground) 44%) */
-  --moduix-carousel-indicator-gap: initial; /* var(--moduix-spacing-2) */
+  --moduix-carousel-control-size: initial; /* var(--moduix-size-md) */
+  --moduix-carousel-control-bg: initial; /* var(--moduix-color-card) */
+  --moduix-carousel-control-border-color: initial; /* var(--moduix-color-border) */
+  --moduix-carousel-control-color: initial; /* var(--moduix-color-foreground) */
   --moduix-carousel-indicator-size: initial; /* var(--moduix-spacing-2) */
-  --moduix-carousel-progress-text-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-carousel-progress-text-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-carousel-track-radius: initial; /* var(--moduix-radius-xl) */
+  --moduix-carousel-indicator-bg: initial; /* var(--moduix-color-muted-foreground) */
+  --moduix-carousel-indicator-bg-current: initial; /* var(--moduix-color-primary) */
 
   /* Stack */
   --moduix-stack-direction-desktop: initial; /* column */
