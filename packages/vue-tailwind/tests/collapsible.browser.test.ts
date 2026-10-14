@@ -293,7 +293,7 @@ test('exposes component-owned Tailwind defaults on every visual part', () => {
   const body = root.querySelector('[data-slot="collapsible-body"]');
 
   expect([...root!.classList]).toEqual(
-    expect.arrayContaining(['box-border', 'flex', 'w-full', 'max-w-full', 'min-w-0', 'flex-col']),
+    expect.arrayContaining(['box-border', 'flex', 'w-full', 'min-w-0', 'flex-col']),
   );
   expect([...trigger!.classList]).toEqual(
     expect.arrayContaining([
@@ -351,4 +351,25 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   expect(content?.classList.contains('text-sm')).toBe(false);
   expect([...body!.classList]).toEqual(expect.arrayContaining(['gap-6', 'p-6']));
   expect(body?.classList.contains('gap-2')).toBe(false);
+});
+
+test('dims a disabled trigger once without fading its indicator again', async () => {
+  render({
+    components: collapsibleComponents,
+    template: `
+      <Collapsible disabled>
+        <CollapsibleTrigger>
+          Disabled details
+          <CollapsibleIndicator data-testid="disabled-indicator" />
+        </CollapsibleTrigger>
+        <CollapsibleContent>Unavailable details.</CollapsibleContent>
+      </Collapsible>
+    `,
+  });
+
+  const trigger = await screen.findByRole('button', { name: 'Disabled details' });
+  const indicator = screen.getByTestId('disabled-indicator');
+
+  expect(getComputedStyle(trigger).opacity).toBe('0.5');
+  expect(getComputedStyle(indicator).opacity).toBe('1');
 });

@@ -79,7 +79,13 @@ function CollapsibleBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <ark.div class={clsx(styles.body, local.class)} {...others} data-slot="collapsible-body" />
+    <ark.div
+      class={clsx(styles.body, local.class)}
+      {...others}
+      data-scope="collapsible"
+      data-part="body"
+      data-slot="collapsible-body"
+    />
   );
 }
 
@@ -96,3 +102,16 @@ export {
   useCollapsible,
   useCollapsibleContext,
 };
+
+export type {
+  CollapsibleContentProps,
+  CollapsibleContextProps,
+  CollapsibleIndicatorProps,
+  CollapsibleOpenChangeDetails,
+  CollapsibleRootProps,
+  CollapsibleRootProviderProps,
+  CollapsibleTriggerProps,
+  UseCollapsibleContext,
+  UseCollapsibleProps,
+  UseCollapsibleReturn,
+} from '@ark-ui/solid/collapsible';

@@ -23,7 +23,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-disabled:opacity-50 data-[state=open]:rotate-180 motion-reduce:transition-none [&_svg]:size-full',
+        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-[state=open]:rotate-180 motion-reduce:transition-none [&_svg]:size-full',
         className,
       )
     "

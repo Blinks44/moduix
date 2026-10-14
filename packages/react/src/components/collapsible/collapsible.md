@@ -136,45 +136,35 @@ Controlled callbacks keep the Ark details object:
 - `Collapsible` and `CollapsibleRootProvider` are column flex containers with `width: 100%` and
   `max-width: 100%` by default so disclosure content does not resize the component while toggling.
   Constrain width in stories or app-level layout when a compact disclosure block is desired.
-- `CollapsibleTrigger` includes moduix hover, active, focus-visible, and disabled styling.
+- `CollapsibleTrigger` is a plain text row: it inherits the root color and has focus-visible and
+  disabled styling only. Use `asChild` with your own button for a boxed trigger with a hover
+  background.
+- A disabled trigger is dimmed once; `CollapsibleIndicator` inside it is not dimmed again.
 - `CollapsibleIndicator` defaults to `ChevronDownIcon` and rotates upward on `data-state="open"`.
-- `CollapsibleContent` animates between Ark `--height` / `--width` and collapsed-size variables; put padding
-  and surfaces on `CollapsibleBody` for clean measurement.
+  Override the rotation with a class that targets `[data-state='open']`.
+- `CollapsibleContent` uses the shared foundation keyframes `moduix-collapsible-content-*` (the same
+  ones as the Tailwind packages): height and width with a fade, and without the fade when
+  `collapsedHeight` or `collapsedWidth` keeps part of the content visible. Put padding and surfaces
+  on `CollapsibleBody` for clean measurement.
 - `CollapsibleTrigger` uses logical text alignment so its label follows the document direction.
 
 Primary CSS variables:
 
-| Variable                                        | Default                                                         |
-| ----------------------------------------------- | --------------------------------------------------------------- |
-| `--moduix-collapsible-body-gap`                 | `var(--moduix-spacing-2)`                                       |
-| `--moduix-collapsible-body-padding`             | `0`                                                             |
-| `--moduix-collapsible-color`                    | `var(--moduix-color-foreground)`                                |
-| `--moduix-collapsible-width`                    | `100%`                                                          |
-| `--moduix-collapsible-max-width`                | `100%`                                                          |
-| `--moduix-collapsible-disabled-opacity`         | `var(--moduix-opacity-disabled)`                                |
-| `--moduix-collapsible-focus-ring-color`         | `var(--moduix-color-ring)`                                      |
-| `--moduix-collapsible-focus-ring-offset`        | `var(--moduix-border-width-sm)`                                 |
-| `--moduix-collapsible-focus-ring-width`         | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))` |
-| `--moduix-collapsible-indicator-open-transform` | `rotate(180deg)`                                                |
-| `--moduix-collapsible-indicator-size`           | `var(--moduix-spacing-3)`                                       |
-| `--moduix-collapsible-indicator-transition`     | `var(--moduix-transition-default)`                              |
-| `--moduix-collapsible-content-color`            | `var(--moduix-color-muted-foreground)`                          |
-| `--moduix-collapsible-content-closed-opacity`   | `0.01`                                                          |
-| `--moduix-collapsible-content-font-size`        | `var(--moduix-text-sm)`                                         |
-| `--moduix-collapsible-content-line-height`      | `var(--moduix-line-height-text-sm)`                             |
-| `--moduix-collapsible-content-open-opacity`     | `1`                                                             |
-| `--moduix-collapsible-content-transition`       | `var(--moduix-transition-default)`                              |
-| `--moduix-collapsible-trigger-bg`               | `transparent`                                                   |
-| `--moduix-collapsible-trigger-bg-active`        | trigger hover background                                        |
-| `--moduix-collapsible-trigger-bg-hover`         | trigger background                                              |
-| `--moduix-collapsible-trigger-color`            | `var(--moduix-collapsible-color)`                               |
-| `--moduix-collapsible-trigger-font-size`        | `var(--moduix-text-sm)`                                         |
-| `--moduix-collapsible-trigger-gap`              | `var(--moduix-spacing-2)`                                       |
-| `--moduix-collapsible-trigger-line-height`      | `var(--moduix-line-height-text-sm)`                             |
-| `--moduix-collapsible-trigger-padding-x`        | `0`                                                             |
-| `--moduix-collapsible-trigger-padding-y`        | `var(--moduix-spacing-1)`                                       |
-| `--moduix-collapsible-trigger-radius`           | `0`                                                             |
-| `--moduix-collapsible-trigger-transition`       | `var(--moduix-transition-default)`                              |
+| Variable                                 | Default                                |
+| ---------------------------------------- | -------------------------------------- |
+| `--moduix-collapsible-body-gap`          | `var(--moduix-spacing-2)`              |
+| `--moduix-collapsible-body-padding`      | `0`                                    |
+| `--moduix-collapsible-content-color`     | `var(--moduix-color-muted-foreground)` |
+| `--moduix-collapsible-content-font-size` | `var(--moduix-text-sm)`                |
+| `--moduix-collapsible-indicator-size`    | `var(--moduix-spacing-3)`              |
+| `--moduix-collapsible-trigger-font-size` | `var(--moduix-text-sm)`                |
+| `--moduix-collapsible-trigger-gap`       | `var(--moduix-spacing-2)`              |
+| `--moduix-collapsible-trigger-padding-x` | `0`                                    |
+| `--moduix-collapsible-trigger-padding-y` | `var(--moduix-spacing-1)`              |
+
+Other defaults (root width and color, trigger color and background, focus ring, disabled opacity,
+motion) use foundation tokens directly. Override them with a class on the part; it wins over the
+layered defaults.
 
 ## Intentional sugar and differences from upstream
 
@@ -183,7 +173,7 @@ Primary CSS variables:
 - `CollapsibleBody` supplies the recommended inner content wrapper so consumers do not need to
   hand-roll padding wrappers in every disclosure.
 - moduix re-exports Ark `useCollapsible()` and `useCollapsibleContext()` for the standard provider
-  and descendant-context composition paths, while Ark type aliases remain direct escape hatches.
+  and descendant-context composition paths, and re-exports the Ark prop and hook types, as Vue does.
 - No legacy flat exports, aliases, or converted callback signatures are retained.
 
 ## Upstream comparison (reviewed 2026-08-30)
@@ -198,8 +188,8 @@ Primary CSS variables:
 
 - Preserve Ark callback details, `asChild`, context/provider composition, render strategy, and
   partial-collapse measurements.
-- Keep `CollapsibleRootProvider`, `useCollapsible()`, and `useCollapsibleContext()` aligned with Ark. Duplicate
-  type aliases remain direct Ark escape hatches.
+- Keep `CollapsibleRootProvider`, `useCollapsible()`, `useCollapsibleContext()`, and the re-exported
+  Ark types aligned with Ark.
 - Keep `CollapsibleContent` reserved for the real Ark content part.
 - Keep spacing on `CollapsibleBody` or another inner content wrapper so `--height` animation
   remains accurate.
@@ -207,6 +197,13 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-10-14: Review cleanup. Fixed the indicator being dimmed twice inside a disabled trigger;
+  `CollapsibleBody` now has `data-scope` / `data-part` in every adapter; CSS Modules use the shared
+  foundation keyframes; Ark types are re-exported in React and Solid. Public variables went from 29
+  to 9: root width/color, trigger color/background/radius/line-height, focus ring, disabled
+  opacity, transitions, indicator rotation, and content opacity/line-height variables were removed
+  in favour of tokens and plain class overrides. The trigger no longer has a hover/active
+  background hook and keeps `color: inherit`.
 - 2026-08-10: Completed the release audit against Ark UI, Chakra UI, and shadcn/ui; added
   reduced-motion handling and regression coverage for partial-collapse accessibility and
   consumer-owned `CollapsibleTrigger asChild` refs.

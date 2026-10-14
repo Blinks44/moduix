@@ -23,7 +23,6 @@
 }
 
 .customIndicator {
-  --moduix-collapsible-indicator-open-transform: rotate(180deg);
   color: var(--moduix-color-primary);
 }
 

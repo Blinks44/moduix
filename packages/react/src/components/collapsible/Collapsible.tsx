@@ -92,6 +92,8 @@ const CollapsibleBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'d
         ref={ref}
         className={clsx(styles.body, className)}
         {...props}
+        data-scope="collapsible"
+        data-part="body"
         data-slot="collapsible-body"
       />
     );
@@ -111,3 +113,16 @@ export {
   useCollapsible,
   useCollapsibleContext,
 };
+
+export type {
+  CollapsibleContentProps,
+  CollapsibleContextProps,
+  CollapsibleIndicatorProps,
+  CollapsibleOpenChangeDetails,
+  CollapsibleRootProps,
+  CollapsibleRootProviderProps,
+  CollapsibleTriggerProps,
+  UseCollapsibleContext,
+  UseCollapsibleProps,
+  UseCollapsibleReturn,
+} from '@ark-ui/react/collapsible';

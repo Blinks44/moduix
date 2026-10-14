@@ -37,10 +37,9 @@
 }
 
 .collapsible {
-  --moduix-collapsible-width: 100%;
-  --moduix-collapsible-max-width: 100%;
-  --moduix-collapsible-color: inherit;
   --moduix-collapsible-content-color: inherit;
+
+  color: inherit;
 }
 
 .scrollAreaContent {
