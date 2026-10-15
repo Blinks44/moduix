@@ -715,3 +715,10 @@ DrawerRootProvider
   `--drawer-swipe-movement-y`, `--drawer-swipe-progress`, `--drawer-swipe-strength`,
   `--drawer-height`, `--drawer-frontmost-height`, `--nested-drawers`, `--nested-layer-count`
   и `--layer-index`.
+- `DrawerTrigger` и `DrawerCloseTrigger` не стилизованы. Соберите их через `asChild` с `Button` или
+  задайте стили нативной кнопке классом.
+- Цвета, границы, отступы и типографика берутся из токенов foundation. Чтобы изменить их для одного
+  drawer, повесьте класс на нужную часть. Подложка читает общие `--moduix-backdrop-bg` и
+  `--moduix-backdrop-filter`.
+- Высота верхнего и нижнего drawer ограничена `max-height: 80dvh`; другое значение задайте классом
+  на `DrawerContent`.

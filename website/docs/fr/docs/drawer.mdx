@@ -716,3 +716,10 @@ variables ci-dessous personnalisent les variantes CSS Modules. Les attributs de 
   `--drawer-swipe-movement-y`, `--drawer-swipe-progress`, `--drawer-swipe-strength`,
   `--drawer-height`, `--drawer-frontmost-height`, `--nested-drawers`, `--nested-layer-count`
   et `--layer-index`.
+- `DrawerTrigger` et `DrawerCloseTrigger` ne sont pas stylés. Composez-les avec `asChild` et un
+  `Button`, ou stylez le bouton natif avec une classe.
+- Les couleurs, bordures, espacements et la typographie viennent des tokens de foundation. Pour un
+  seul drawer, ajoutez une classe sur la partie. Le fond lit les variables partagées
+  `--moduix-backdrop-bg` et `--moduix-backdrop-filter`.
+- Les drawers du haut et du bas sont limités à `max-height: 80dvh` ; définissez une autre
+  `max-height` avec une classe sur `DrawerContent`.

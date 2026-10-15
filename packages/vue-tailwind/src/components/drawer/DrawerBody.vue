@@ -19,7 +19,7 @@ const attrs = useAttrs();
 <template>
   <ark.div
     v-bind="attrs"
-    :class="cn('mt-4 min-h-0 overflow-y-auto text-md leading-6 text-muted-foreground', className)"
+    :class="cn('mt-4 min-h-0 overflow-y-auto text-md', className)"
     data-slot="drawer-body"
   >
     <slot />

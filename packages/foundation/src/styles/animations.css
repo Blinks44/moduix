@@ -447,53 +447,49 @@
 
 @keyframes moduix-drawer-content-in-down {
   from {
-    transform: translate3d(0, calc(100% + var(--drawer-island-translate-distance)), 0);
+    transform: translate3d(0, calc(100% + var(--_drawer-island-offset)), 0);
   }
 }
 
 @keyframes moduix-drawer-content-out-down {
   to {
-    transform: translate3d(0, calc(100% + var(--drawer-island-translate-distance)), 0);
+    transform: translate3d(0, calc(100% + var(--_drawer-island-offset)), 0);
   }
 }
 
 @keyframes moduix-drawer-content-in-up {
   from {
-    transform: translate3d(0, calc(-100% - var(--drawer-island-translate-distance)), 0);
+    transform: translate3d(0, calc(-100% - var(--_drawer-island-offset)), 0);
   }
 }
 
 @keyframes moduix-drawer-content-out-up {
   to {
-    transform: translate3d(
-      0,
-      calc(-100% - var(--drawer-island-translate-distance) - var(--_drawer-bleed)),
-      0
-    );
+    transform: translate3d(0, calc(-100% - var(--_drawer-island-offset) - var(--_drawer-bleed)), 0);
   }
 }
 
 @keyframes moduix-drawer-content-in-left {
   from {
-    transform: translate3d(calc(-100% - var(--drawer-island-translate-distance)), 0, 0);
+    transform: translate3d(calc(-100% - var(--_drawer-island-offset)), 0, 0);
   }
 }
 
 @keyframes moduix-drawer-content-out-left {
   to {
-    transform: translate3d(calc(-100% - var(--drawer-island-translate-distance)), 0, 0);
+    transform: translate3d(calc(-100% - var(--_drawer-island-offset)), 0, 0);
   }
 }
 
 @keyframes moduix-drawer-content-in-right {
   from {
-    transform: translate3d(calc(100% + var(--drawer-island-translate-distance)), 0, 0);
+    transform: translate3d(calc(100% + var(--_drawer-island-offset)), 0, 0);
   }
 }
 
 @keyframes moduix-drawer-content-out-right {
   to {
-    transform: translate3d(calc(100% + var(--drawer-island-translate-distance)), 0, 0);
+    transform: translate3d(calc(100% + var(--_drawer-island-offset)), 0, 0);
   }
 }
 

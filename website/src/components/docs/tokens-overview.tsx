@@ -440,11 +440,6 @@ const sharedBackdropTokens = [
   ],
   ['--moduix-backdrop-filter', 'blur(4px)', 'tokensOverviewGlobalBackdropFilterFallback'],
   [
-    '--moduix-drawer-backdrop-bg',
-    'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
-    'Drawer',
-  ],
-  [
     '--moduix-lightbox-backdrop-bg',
     'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
     'Lightbox',
@@ -584,7 +579,7 @@ export function TokensOverview() {
           />
           <TokenCallout
             title={t('tokensOverviewSharedFallbacks')}
-            code="--moduix-drawer-backdrop-bg -> --moduix-backdrop-bg / --moduix-backdrop-filter"
+            code="--moduix-lightbox-backdrop-bg -> --moduix-backdrop-bg / --moduix-backdrop-filter"
             body={t('tokensOverviewCentralizedBackdrop')}
           />
           <TokenCallout

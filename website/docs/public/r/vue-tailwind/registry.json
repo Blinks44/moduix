@@ -3660,11 +3660,6 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/drawer/context.ts",
-          "target": "@components/ui/drawer/context.ts",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/drawer/index.ts",
           "target": "@components/ui/drawer/index.ts",
           "type": "registry:component"

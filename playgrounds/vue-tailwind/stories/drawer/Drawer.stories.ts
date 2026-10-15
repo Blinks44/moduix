@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, type PropType } from 'vue';
 import { Button } from '@/components/button';
 import {
   Drawer,
@@ -75,9 +75,10 @@ const DrawerSurface = defineComponent({
     title: String,
     description: String,
     draggable: { type: Boolean, default: undefined },
+    variant: String as PropType<'island'>,
   },
   template:
-    '<DrawerBackdrop /><DrawerPositioner><DrawerContent :draggable="draggable"><DrawerGrabber><DrawerGrabberIndicator /></DrawerGrabber><DrawerHeader><DrawerTitle>{{ title }}</DrawerTitle><DrawerCloseIcon /><DrawerDescription v-if="description">{{ description }}</DrawerDescription></DrawerHeader><slot /></DrawerContent></DrawerPositioner>',
+    '<DrawerBackdrop /><DrawerPositioner><DrawerContent :draggable="draggable" :variant="variant"><DrawerGrabber><DrawerGrabberIndicator /></DrawerGrabber><DrawerHeader><DrawerTitle>{{ title }}</DrawerTitle><DrawerCloseIcon /><DrawerDescription v-if="description">{{ description }}</DrawerDescription></DrawerHeader><slot /></DrawerContent></DrawerPositioner>',
 });
 const DrawerContextReadout = defineComponent({
   setup: () => ({ drawer: useDrawerContext() }),
@@ -115,7 +116,7 @@ export const SnapPoints: Story = {
 };
 export const Island: Story = {
   render: renderStory(
-    '<Drawer variant="island" swipe-direction="end"><DrawerTrigger as-child><Button>Open island drawer</Button></DrawerTrigger><DrawerSurface title="Floating drawer" description="This compact drawer stays inset from the viewport edge."><DrawerBody>Use the island variant for a detached surface.</DrawerBody></DrawerSurface></Drawer>',
+    '<Drawer swipe-direction="end"><DrawerTrigger as-child><Button>Open island drawer</Button></DrawerTrigger><DrawerSurface variant="island" title="Floating drawer" description="This compact drawer stays inset from the viewport edge."><DrawerBody>Use the island variant for a detached surface.</DrawerBody></DrawerSurface></Drawer>',
   ),
 };
 export const NonModal: Story = {

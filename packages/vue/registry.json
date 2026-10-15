@@ -3810,11 +3810,6 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/drawer/context.ts",
-          "target": "@components/ui/drawer/context.ts",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/drawer/Drawer.module.css",
           "target": "@components/ui/drawer/Drawer.module.css",
           "type": "registry:file"

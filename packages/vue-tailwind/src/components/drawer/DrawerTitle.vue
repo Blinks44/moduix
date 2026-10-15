@@ -19,7 +19,7 @@ const attrs = useAttrs();
 <template>
   <ArkDrawerTitle
     v-bind="attrs"
-    :class="cn('text-lg font-semibold text-popover-foreground', className)"
+    :class="cn('text-lg font-semibold', className)"
     data-slot="drawer-title"
   >
     <slot />

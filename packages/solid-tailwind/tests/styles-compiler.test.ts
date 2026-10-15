@@ -42,11 +42,11 @@ const cases = [
     'command-palette/CommandPalette',
     'data-[state=closed]:animate-moduix-command-palette-content-out',
   ],
-  ['drawer/Drawer', '[--drawer-island-translate-distance:0px]'],
+  ['drawer/Drawer', '[--_drawer-island-offset:0px]'],
   ['drawer/Drawer', '[--_drawer-bleed:var(--moduix-size-xl)]'],
   [
     'drawer/Drawer',
-    'data-[variant=island]:data-[swipe-direction=up]:[--drawer-island-translate-distance:max(var(--moduix-spacing-4),env(safe-area-inset-top,0px))]',
+    'data-[variant=island]:data-[swipe-direction=up]:[--_drawer-island-offset:max(var(--moduix-spacing-4),env(safe-area-inset-top,0px))]',
   ],
   ['badge/Badge', 'focus-visible:outline-offset-2'],
   ['carousel/Carousel', 'focus-visible:outline-offset-2'],

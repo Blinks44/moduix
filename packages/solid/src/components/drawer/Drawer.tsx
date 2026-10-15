@@ -6,8 +6,8 @@ import {
 } from '@ark-ui/solid/drawer';
 import { ark, type HTMLArkProps } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
-import type { Accessor, ComponentProps } from 'solid-js';
-import { createContext, splitProps, useContext } from 'solid-js';
+import type { ComponentProps } from 'solid-js';
+import { splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
@@ -18,14 +18,12 @@ import { CloseButton } from '../close-button';
 import styles from './Drawer.module.css';
 
 type DrawerVariant = 'island';
-const DrawerVariantContext = createContext<Accessor<DrawerVariant | undefined>>();
-
-type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> &
-  OverlayPortalProps & { variant?: DrawerVariant };
+type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> & OverlayPortalProps;
 type DrawerRootProviderProps = ComponentProps<typeof DrawerPrimitive.RootProvider> &
   OverlayPortalProps;
 type DrawerContentProps = ComponentProps<typeof DrawerPrimitive.Content> & {
-  variant?: 'island';
+  /** `island` insets the surface from the viewport edges and rounds every corner. */
+  variant?: DrawerVariant;
 };
 type DrawerCloseIconProps = Omit<ComponentProps<typeof DrawerPrimitive.CloseTrigger>, 'asChild'>;
 
@@ -38,32 +36,17 @@ function Drawer(props: DrawerRootProps) {
     'portalled',
     'portalRef',
     'unmountOnExit',
-    'variant',
-    'swipeDirection',
-    'snapPoints',
-    'defaultSnapPoint',
   ]);
 
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
-      <DrawerVariantContext.Provider value={() => local.variant}>
-        <DrawerPrimitive.Root
-          lazyMount={local.lazyMount ?? true}
-          unmountOnExit={local.unmountOnExit ?? true}
-          swipeDirection={local.swipeDirection}
-          snapPoints={local.snapPoints ?? (local.variant === 'island' ? [1] : undefined)}
-          defaultSnapPoint={
-            local.defaultSnapPoint !== undefined
-              ? local.defaultSnapPoint
-              : local.variant === 'island'
-                ? 1
-                : undefined
-          }
-          {...others}
-        >
-          {local.children}
-        </DrawerPrimitive.Root>
-      </DrawerVariantContext.Provider>
+      <DrawerPrimitive.Root
+        lazyMount={local.lazyMount ?? true}
+        unmountOnExit={local.unmountOnExit ?? true}
+        {...others}
+      >
+        {local.children}
+      </DrawerPrimitive.Root>
     </OverlayPortalProvider>
   );
 }
@@ -91,16 +74,7 @@ function DrawerRootProvider(props: DrawerRootProviderProps) {
 }
 
 function DrawerTrigger(props: ComponentProps<typeof DrawerPrimitive.Trigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <DrawerPrimitive.Trigger
-      asChild={local.asChild}
-      class={clsx(!local.asChild && styles.trigger, local.class)}
-      {...others}
-      data-slot="drawer-trigger"
-    />
-  );
+  return <DrawerPrimitive.Trigger {...props} data-slot="drawer-trigger" />;
 }
 
 function DrawerBackdrop(props: ComponentProps<typeof DrawerPrimitive.Backdrop>) {
@@ -133,14 +107,13 @@ function DrawerPositioner(props: ComponentProps<typeof DrawerPrimitive.Positione
 
 function DrawerContent(props: DrawerContentProps) {
   const [local, others] = splitProps(props, ['class', 'draggable', 'variant']);
-  const rootVariant = useContext(DrawerVariantContext);
 
   return (
     <DrawerPrimitive.Content
       class={clsx(styles.content, local.class)}
       draggable={local.draggable ?? true}
       {...others}
-      data-variant={local.variant ?? rootVariant?.()}
+      data-variant={local.variant}
       data-slot="drawer-content"
     />
   );
@@ -195,20 +168,11 @@ function DrawerDescription(props: ComponentProps<typeof DrawerPrimitive.Descript
 }
 
 function DrawerCloseTrigger(props: ComponentProps<typeof DrawerPrimitive.CloseTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <DrawerPrimitive.CloseTrigger
-      asChild={local.asChild}
-      class={clsx(!local.asChild && styles.closeTrigger, local.class)}
-      {...others}
-      data-slot="drawer-close-trigger"
-    />
-  );
+  return <DrawerPrimitive.CloseTrigger {...props} data-slot="drawer-close-trigger" />;
 }
 
 function DrawerCloseIcon(props: DrawerCloseIconProps) {
-  const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
+  const [local, others] = splitProps(props, ['aria-label', 'children', 'class']);
 
   return (
     <DrawerPrimitive.CloseTrigger
@@ -216,11 +180,7 @@ function DrawerCloseIcon(props: DrawerCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="drawer-close-icon"
-          aria-label={
-            local['aria-label'] ??
-            (local['aria-labelledby'] == null ? a11yLabels.closeDrawer : undefined)
-          }
-          aria-labelledby={local['aria-labelledby']}
+          aria-label={local['aria-label'] ?? a11yLabels.closeDrawer}
           class={clsx(styles.closeIcon, local.class)}
         >
           {local.children}
@@ -312,3 +272,4 @@ export {
   useDrawerContext,
   useDrawerStackContext,
 };
+export type { DrawerContentProps, DrawerRootProps, DrawerRootProviderProps, DrawerVariant };

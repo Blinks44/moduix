@@ -709,3 +709,10 @@ classes; the component variables below customize the CSS Modules variants. Data 
   `--drawer-swipe-movement-y`, `--drawer-swipe-progress`, `--drawer-swipe-strength`,
   `--drawer-height`, `--drawer-frontmost-height`, `--nested-drawers`, `--nested-layer-count`,
   and `--layer-index`.
+- `DrawerTrigger` and `DrawerCloseTrigger` are unstyled. Compose them with `asChild` and a `Button`,
+  or style the native button with a class.
+- Colors, borders, spacing, and typography come from foundation tokens. Change them for one drawer
+  with a class on the part. The backdrop reads the shared `--moduix-backdrop-bg` and
+  `--moduix-backdrop-filter`.
+- Top and bottom drawers are capped at `max-height: 80dvh`; set another `max-height` with a class on
+  `DrawerContent`.
