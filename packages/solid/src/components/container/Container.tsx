@@ -7,12 +7,12 @@ import styles from './Container.module.css';
 type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
 
-type ContainerProps = HTMLArkProps<'div'> & {
+type ContainerRootProps = HTMLArkProps<'div'> & {
   size?: ContainerSize;
   gutter?: ContainerGutter;
 };
 
-function Container(props: ContainerProps) {
+function Container(props: ContainerRootProps) {
   const [local, others] = splitProps(props, ['class', 'gutter', 'size']);
 
   return (
@@ -29,3 +29,4 @@ function Container(props: ContainerProps) {
 }
 
 export { Container };
+export type { ContainerGutter, ContainerRootProps, ContainerSize };

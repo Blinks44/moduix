@@ -6,8 +6,8 @@ import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './Container.module.css';
 
-type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
+export type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+export type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
 
 defineOptions({ inheritAttrs: false });
 
