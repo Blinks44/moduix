@@ -14,7 +14,6 @@ import {
   ComboboxTrigger,
 } from '@moduix/solid/combobox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/combobox/component-advanced-customization.module.css';
 
 const developerResources = [
   { label: 'GitHub', href: 'https://github.com', value: 'github' },
@@ -43,7 +42,7 @@ export default function AdvancedCustomizationComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent class={styles.content}>
+        <ComboboxContent>
           <ComboboxList>
             <For each={collection().items}>
               {(item) => (

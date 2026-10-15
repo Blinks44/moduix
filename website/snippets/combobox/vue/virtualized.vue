@@ -60,7 +60,7 @@ const totalSize = computed(() => virtualizer.value.getTotalSize());
       <ComboboxTrigger aria-label="Open options" @click="reset" />
     </ComboboxControl>
     <ComboboxPositioner>
-      <ComboboxContent :class="[styles.content, styles.virtualContent]">
+      <ComboboxContent :class="styles.virtualContent">
         <ComboboxEmpty>No results found.</ComboboxEmpty>
         <div ref="scrollElement" :class="styles.virtualScroller">
           <ComboboxList
@@ -73,12 +73,11 @@ const totalSize = computed(() => virtualizer.value.getTotalSize());
               :item="item"
               :aria-setsize="collection.size"
               :aria-posinset="virtualItem.index + 1"
-              :class="styles.virtualItem"
               :style="{
                 position: 'absolute',
                 top: 0,
                 left: 0,
-                width: '100%',
+                right: 0,
                 height: `${virtualItem.size}px`,
                 transform: `translateY(${virtualItem.start}px)`,
               }"

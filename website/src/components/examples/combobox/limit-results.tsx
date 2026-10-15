@@ -12,7 +12,6 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/react/combobox';
-import styles from '@/components/examples/combobox/component-limit-results.module.css';
 
 const cities = [
   'New York',
@@ -48,7 +47,7 @@ export default function LimitComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent className={styles.content}>
+        <ComboboxContent>
           <ComboboxEmpty>No cities found.</ComboboxEmpty>
           <ComboboxList>
             {collection.items.map((item) => (

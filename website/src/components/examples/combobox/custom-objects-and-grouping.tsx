@@ -14,7 +14,6 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/react/combobox';
-import styles from '@/components/examples/combobox/component-custom-objects-and-grouping.module.css';
 
 const countries = [
   { country: 'Canada', code: 'CA', continent: 'North America' },
@@ -48,7 +47,7 @@ export default function GroupedComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent className={styles.content}>
+        <ComboboxContent>
           <ComboboxEmpty>No countries found.</ComboboxEmpty>
           {collection.group().map(([continent, items]) => (
             <ComboboxItemGroup key={continent}>

@@ -13,7 +13,6 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/react/combobox';
-import styles from '@/components/examples/combobox/component-inline-autocomplete.module.css';
 
 const seaCreatures = [
   { label: 'Whale', value: 'whale' },
@@ -44,7 +43,7 @@ export default function InlineAutocompleteComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent className={styles.content}>
+        <ComboboxContent>
           <ComboboxEmpty>No creatures found.</ComboboxEmpty>
           <ComboboxList>
             {collection.items.map((item) => (

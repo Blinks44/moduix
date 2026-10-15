@@ -15,7 +15,6 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/vue/combobox';
-import styles from '@/components/examples/combobox/component-custom-objects-and-grouping.module.css';
 
 const countries = [
   { country: 'Canada', code: 'CA', continent: 'North America' },
@@ -44,7 +43,7 @@ const { collection, filter } = useListCollection({
       <ComboboxTrigger aria-label="Open options" />
     </ComboboxControl>
     <ComboboxPositioner>
-      <ComboboxContent :class="styles.content">
+      <ComboboxContent>
         <ComboboxEmpty>No countries found.</ComboboxEmpty>
         <ComboboxItemGroup v-for="[continent, items] in collection.group()" :key="continent">
           <ComboboxItemGroupLabel>{{ continent }}</ComboboxItemGroupLabel>

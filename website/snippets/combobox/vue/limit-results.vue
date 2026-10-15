@@ -13,7 +13,6 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/vue/combobox';
-import styles from '@/components/examples/combobox/component-limit-results.module.css';
 
 const cities = [
   'New York',
@@ -45,7 +44,7 @@ const { collection, filter } = useListCollection({
       <ComboboxTrigger aria-label="Open options" />
     </ComboboxControl>
     <ComboboxPositioner>
-      <ComboboxContent :class="styles.content">
+      <ComboboxContent>
         <ComboboxEmpty>No cities found.</ComboboxEmpty>
         <ComboboxList>
           <ComboboxOption v-for="item in collection.items" :key="item.value" :item="item">

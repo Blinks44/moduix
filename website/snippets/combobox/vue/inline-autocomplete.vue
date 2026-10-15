@@ -14,7 +14,6 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/vue/combobox';
-import styles from '@/components/examples/combobox/component-inline-autocomplete.module.css';
 
 const seaCreatures = [
   { label: 'Whale', value: 'whale' },
@@ -44,7 +43,7 @@ const { collection, filter } = useListCollection({
       <ComboboxTrigger aria-label="Open options" />
     </ComboboxControl>
     <ComboboxPositioner>
-      <ComboboxContent :class="styles.content">
+      <ComboboxContent>
         <ComboboxEmpty>No creatures found.</ComboboxEmpty>
         <ComboboxList>
           <ComboboxOption v-for="item in collection.items" :key="item.value" :item="item">

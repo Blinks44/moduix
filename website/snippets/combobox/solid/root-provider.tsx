@@ -13,7 +13,6 @@ import {
   ComboboxTrigger,
 } from '@moduix/solid/combobox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/combobox/component-root-provider.module.css';
 
 const jobTitles = [
   { label: 'Designer', value: 'designer' },
@@ -35,7 +34,7 @@ export default function RootProviderComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent class={styles.content}>
+        <ComboboxContent>
           <ComboboxList>
             <For each={collection.items}>
               {(item) => <ComboboxOption item={item}>{item.label}</ComboboxOption>}
