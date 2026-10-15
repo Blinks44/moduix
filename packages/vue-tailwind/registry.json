@@ -2112,6 +2112,11 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/date-picker/DatePicker.variants.ts",
+          "target": "@components/ui/date-picker/DatePicker.variants.ts",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/date-picker/DatePickerClearTrigger.vue",
           "target": "@components/ui/date-picker/DatePickerClearTrigger.vue",
           "type": "registry:component"
@@ -2154,6 +2159,11 @@
         {
           "path": "src/components/date-picker/DatePickerMonthSelect.vue",
           "target": "@components/ui/date-picker/DatePickerMonthSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerMonthTable.vue",
+          "target": "@components/ui/date-picker/DatePickerMonthTable.vue",
           "type": "registry:component"
         },
         {
@@ -2264,6 +2274,11 @@
         {
           "path": "src/components/date-picker/DatePickerYearSelect.vue",
           "target": "@components/ui/date-picker/DatePickerYearSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerYearTable.vue",
+          "target": "@components/ui/date-picker/DatePickerYearTable.vue",
           "type": "registry:component"
         },
         {

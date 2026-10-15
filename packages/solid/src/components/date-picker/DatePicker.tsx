@@ -2,7 +2,6 @@ import {
   DatePicker as DatePickerPrimitive,
   useDatePicker,
   useDatePickerContext,
-  type UseDatePickerReturn,
 } from '@ark-ui/solid/date-picker';
 import { useFieldContext } from '@ark-ui/solid/field';
 import { useFieldsetContext } from '@ark-ui/solid/fieldset';
@@ -47,16 +46,20 @@ type DatePickerRangeFieldProps = Omit<
   triggerLabel?: string;
   triggerProps?: ComponentProps<typeof DatePickerPrimitive.Trigger>;
 };
-type DatePickerApi = ReturnType<UseDatePickerReturn>;
-type DatePickerOffset = ReturnType<DatePickerApi['getOffset']>;
-type DatePickerDayTableProps = Omit<
+type DatePickerTableSugarProps = Omit<
   ComponentProps<typeof DatePickerPrimitive.Table>,
   'children'
 > & {
-  offset?: DatePickerOffset;
   showHeader?: boolean;
-  showWeekNumbers?: boolean;
 };
+type DatePickerDayTableProps = Omit<DatePickerTableSugarProps, 'columns'> & {
+  /** Shows the month this many months after the visible one, for multi-month layouts. */
+  offset?: number;
+};
+type DatePickerMonthTableProps = DatePickerTableSugarProps & {
+  format?: 'short' | 'long';
+};
+type DatePickerYearTableProps = DatePickerTableSugarProps;
 
 function DatePicker(props: DatePickerRootProps) {
   const [local, others] = splitProps(props, [
@@ -396,39 +399,15 @@ function DatePickerTable(props: ComponentProps<typeof DatePickerPrimitive.Table>
 }
 
 function DatePickerTableHead(props: ComponentProps<typeof DatePickerPrimitive.TableHead>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <DatePickerPrimitive.TableHead
-      class={local.class}
-      {...others}
-      data-slot="date-picker-table-head"
-    />
-  );
+  return <DatePickerPrimitive.TableHead {...props} data-slot="date-picker-table-head" />;
 }
 
 function DatePickerTableBody(props: ComponentProps<typeof DatePickerPrimitive.TableBody>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <DatePickerPrimitive.TableBody
-      class={local.class}
-      {...others}
-      data-slot="date-picker-table-body"
-    />
-  );
+  return <DatePickerPrimitive.TableBody {...props} data-slot="date-picker-table-body" />;
 }
 
 function DatePickerTableRow(props: ComponentProps<typeof DatePickerPrimitive.TableRow>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <DatePickerPrimitive.TableRow
-      class={local.class}
-      {...others}
-      data-slot="date-picker-table-row"
-    />
-  );
+  return <DatePickerPrimitive.TableRow {...props} data-slot="date-picker-table-row" />;
 }
 
 function DatePickerTableHeader(props: ComponentProps<typeof DatePickerPrimitive.TableHeader>) {
@@ -450,7 +429,7 @@ function DatePickerWeekNumberHeaderCell(
 
   return (
     <DatePickerPrimitive.WeekNumberHeaderCell
-      class={clsx(styles.tableHeader, styles.weekNumberCell, local.class)}
+      class={clsx(styles.tableHeader, local.class)}
       {...others}
       data-slot="date-picker-week-number-header-cell"
     />
@@ -497,67 +476,137 @@ function DatePickerTableCellTrigger(
   );
 }
 
+function DatePickerHeader() {
+  return (
+    <DatePickerViewControl>
+      <DatePickerPrevTrigger />
+      <DatePickerViewTrigger />
+      <DatePickerNextTrigger />
+    </DatePickerViewControl>
+  );
+}
+
 function DatePickerDayTable(props: DatePickerDayTableProps) {
-  const [local, others] = splitProps(props, ['offset', 'showHeader', 'showWeekNumbers']);
+  const [local, others] = splitProps(props, ['offset', 'showHeader']);
+  const datePicker = useDatePickerContext();
+  const offsetMonth = () =>
+    local.offset ? datePicker().getOffset({ months: local.offset }) : undefined;
 
   return (
-    <DatePickerPrimitive.Context>
-      {(datePicker) => (
-        <>
-          <Show when={local.showHeader ?? true}>
-            <DatePickerViewControl>
-              <DatePickerPrevTrigger />
-              <DatePickerViewTrigger />
-              <DatePickerNextTrigger />
-            </DatePickerViewControl>
-          </Show>
-          <DatePickerTable {...others}>
-            <DatePickerTableHead>
+    <>
+      <Show when={local.showHeader ?? true}>
+        <DatePickerHeader />
+      </Show>
+      <DatePickerTable {...others}>
+        <DatePickerTableHead>
+          <DatePickerTableRow>
+            <Show when={datePicker().showWeekNumbers}>
+              <DatePickerWeekNumberHeaderCell />
+            </Show>
+            <For each={datePicker().weekDays}>
+              {(weekDay) => <DatePickerTableHeader>{weekDay.short}</DatePickerTableHeader>}
+            </For>
+          </DatePickerTableRow>
+        </DatePickerTableHead>
+        <DatePickerTableBody>
+          <For each={offsetMonth()?.weeks ?? datePicker().weeks}>
+            {(week, weekIndex) => (
               <DatePickerTableRow>
-                <Show when={local.showWeekNumbers ?? false}>
-                  <DatePickerWeekNumberHeaderCell />
+                <Show when={datePicker().showWeekNumbers}>
+                  <DatePickerWeekNumberCell week={week} weekIndex={weekIndex()}>
+                    {datePicker().getWeekNumber(week)}
+                  </DatePickerWeekNumberCell>
                 </Show>
-                <For each={datePicker().weekDays}>
-                  {(weekDay) => <DatePickerTableHeader>{weekDay.short}</DatePickerTableHeader>}
+                <For each={week}>
+                  {(day) => (
+                    <DatePickerTableCell value={day} visibleRange={offsetMonth()?.visibleRange}>
+                      <DatePickerTableCellTrigger>{day.day}</DatePickerTableCellTrigger>
+                    </DatePickerTableCell>
+                  )}
                 </For>
               </DatePickerTableRow>
-            </DatePickerTableHead>
-            <DatePickerTableBody>
-              <For each={local.offset?.weeks ?? datePicker().weeks}>
-                {(week, weekIndex) => (
-                  <DatePickerTableRow>
-                    <Show when={local.showWeekNumbers ?? false}>
-                      <DatePickerWeekNumberCell week={week} weekIndex={weekIndex()}>
-                        {datePicker().getWeekNumber(week)}
-                      </DatePickerWeekNumberCell>
-                    </Show>
-                    <For each={week}>
-                      {(day) => (
-                        <DatePickerTableCell value={day} visibleRange={local.offset?.visibleRange}>
-                          <DatePickerTableCellTrigger>{day.day}</DatePickerTableCellTrigger>
-                        </DatePickerTableCell>
-                      )}
-                    </For>
-                  </DatePickerTableRow>
-                )}
-              </For>
-            </DatePickerTableBody>
-          </DatePickerTable>
-        </>
-      )}
-    </DatePickerPrimitive.Context>
+            )}
+          </For>
+        </DatePickerTableBody>
+      </DatePickerTable>
+    </>
+  );
+}
+
+function DatePickerMonthTable(props: DatePickerMonthTableProps) {
+  const [local, others] = splitProps(props, ['columns', 'format', 'showHeader']);
+  const datePicker = useDatePickerContext();
+  const columns = () => local.columns ?? 4;
+
+  return (
+    <>
+      <Show when={local.showHeader ?? true}>
+        <DatePickerHeader />
+      </Show>
+      <DatePickerTable columns={columns()} {...others}>
+        <DatePickerTableBody>
+          <For
+            each={datePicker().getMonthsGrid({
+              columns: columns(),
+              format: local.format ?? 'short',
+            })}
+          >
+            {(months) => (
+              <DatePickerTableRow>
+                <For each={months}>
+                  {(month) => (
+                    <DatePickerTableCell value={month.value}>
+                      <DatePickerTableCellTrigger>{month.label}</DatePickerTableCellTrigger>
+                    </DatePickerTableCell>
+                  )}
+                </For>
+              </DatePickerTableRow>
+            )}
+          </For>
+        </DatePickerTableBody>
+      </DatePickerTable>
+    </>
+  );
+}
+
+function DatePickerYearTable(props: DatePickerYearTableProps) {
+  const [local, others] = splitProps(props, ['columns', 'showHeader']);
+  const datePicker = useDatePickerContext();
+  const columns = () => local.columns ?? 4;
+
+  return (
+    <>
+      <Show when={local.showHeader ?? true}>
+        <DatePickerHeader />
+      </Show>
+      <DatePickerTable columns={columns()} {...others}>
+        <DatePickerTableBody>
+          <For each={datePicker().getYearsGrid({ columns: columns() })}>
+            {(years) => (
+              <DatePickerTableRow>
+                <For each={years}>
+                  {(year) => (
+                    <DatePickerTableCell value={year.value} disabled={year.disabled}>
+                      <DatePickerTableCellTrigger>{year.label}</DatePickerTableCellTrigger>
+                    </DatePickerTableCell>
+                  )}
+                </For>
+              </DatePickerTableRow>
+            )}
+          </For>
+        </DatePickerTableBody>
+      </DatePickerTable>
+    </>
   );
 }
 
 function DatePickerMonthSelect(props: ComponentProps<typeof DatePickerPrimitive.MonthSelect>) {
-  const [local, others] = splitProps(props, ['class', 'multiple', 'size']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <span class={styles.selectControl} data-slot="date-picker-month-select-control">
       <DatePickerPrimitive.MonthSelect
         {...others}
-        multiple={local.multiple}
-        size={local.size}
         class={clsx(styles.select, local.class)}
         data-slot="date-picker-month-select"
       />
@@ -573,14 +622,12 @@ function DatePickerMonthSelect(props: ComponentProps<typeof DatePickerPrimitive.
 }
 
 function DatePickerYearSelect(props: ComponentProps<typeof DatePickerPrimitive.YearSelect>) {
-  const [local, others] = splitProps(props, ['class', 'multiple', 'size']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <span class={styles.selectControl} data-slot="date-picker-year-select-control">
       <DatePickerPrimitive.YearSelect
         {...others}
-        multiple={local.multiple}
-        size={local.size}
         class={clsx(styles.select, local.class)}
         data-slot="date-picker-year-select"
       />
@@ -633,6 +680,7 @@ export {
   DatePickerInput,
   DatePickerLabel,
   DatePickerMonthSelect,
+  DatePickerMonthTable,
   DatePickerNextTrigger,
   DatePickerPositioner,
   DatePickerPresetTrigger,
@@ -655,13 +703,29 @@ export {
   DatePickerWeekNumberCell,
   DatePickerWeekNumberHeaderCell,
   DatePickerYearSelect,
+  DatePickerYearTable,
   useDatePicker,
   useDatePickerContext,
 };
 export type {
   DatePickerDayTableProps,
   DatePickerFieldProps,
+  DatePickerMonthTableProps,
   DatePickerRangeFieldProps,
   DatePickerRootProps,
   DatePickerRootProviderProps,
+  DatePickerYearTableProps,
 };
+export type {
+  DatePickerDateRangePreset,
+  DatePickerDateView,
+  DatePickerFocusChangeDetails,
+  DatePickerOpenChangeDetails,
+  DatePickerSelectionMode,
+  DatePickerValueChangeDetails,
+  DatePickerViewChangeDetails,
+  DatePickerVisibleRangeChangeDetails,
+  DateValue,
+  UseDatePickerProps,
+  UseDatePickerReturn,
+} from '@ark-ui/solid/date-picker';

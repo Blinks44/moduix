@@ -21,7 +21,7 @@ const attrs = useAttrs();
 <template>
   <ArkDatePickerWeekNumberHeaderCell
     v-bind="attrs"
-    :class="clsx(styles.tableHeader, styles.weekNumberCell, className)"
+    :class="clsx(styles.tableHeader, className)"
     data-slot="date-picker-week-number-header-cell"
   >
     <slot />

@@ -9,6 +9,7 @@ import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
 import { OverlayPortalContextKey } from '@/lib/moduix/overlayPortal/context';
+import { rootClass } from './DatePicker.variants';
 
 defineOptions({ inheritAttrs: false });
 
@@ -45,12 +46,7 @@ provide(OverlayPortalContextKey, {
 <template>
   <ArkDatePickerRootProvider
     v-bind="attrs"
-    :class="
-      cn(
-        'group/date-picker inline-flex w-75 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index=\'1\']]:w-96 data-disabled:opacity-50 data-readonly:opacity-50',
-        className,
-      )
-    "
+    :class="cn(rootClass, className)"
     :lazy-mount="lazyMount"
     :unmount-on-exit="unmountOnExit"
     :value="value"

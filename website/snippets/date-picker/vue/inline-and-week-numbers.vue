@@ -5,7 +5,9 @@ import {
   DatePickerContent,
   DatePickerDayTable,
   DatePickerLabel,
+  DatePickerMonthTable,
   DatePickerView,
+  DatePickerYearTable,
 } from '@moduix/vue/date-picker';
 </script>
 
@@ -18,7 +20,9 @@ import {
   >
     <DatePickerLabel>Available days</DatePickerLabel>
     <DatePickerContent
-      ><DatePickerView view="day"><DatePickerDayTable show-week-numbers /></DatePickerView
+      ><DatePickerView view="day"><DatePickerDayTable /></DatePickerView
+      ><DatePickerView view="month"><DatePickerMonthTable /></DatePickerView
+      ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView
     ></DatePickerContent>
   </DatePicker>
 </template>

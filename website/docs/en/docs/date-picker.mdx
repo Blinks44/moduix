@@ -77,8 +77,9 @@ import datePickerVueYearPicker from '../../../snippets/date-picker/vue/year-pick
 
 
 Use `DatePicker` as the root, `DatePickerField` for a standard field, and
-`DatePickerDayTable` for the day grid. Render `DatePickerPositioner` and `DatePickerContent` explicitly when the
-calendar should float.
+`DatePickerDayTable`, `DatePickerMonthTable`, and `DatePickerYearTable` for the calendar views. Each table
+renders its own header, so the view trigger can switch between them. Render `DatePickerPositioner` and
+`DatePickerContent` explicitly when the calendar should float.
 
 <ExampleFrame variant="component">
   <DatePickerBasic />
@@ -170,7 +171,7 @@ DatePicker
 │        │  │  ├─ DatePickerPrevTrigger
 │        │  │  ├─ DatePickerViewTrigger / DatePickerRangeText
 │        │  │  └─ DatePickerNextTrigger
-│        │  ├─ DatePickerDayTable (convenience day table)
+│        │  ├─ DatePickerDayTable / MonthTable / YearTable (convenience tables)
 │        │  └─ DatePickerTable
 │        │     ├─ DatePickerTableHead / TableBody / TableRow
 │        │     ├─ DatePickerTableHeader
@@ -207,7 +208,9 @@ DatePickerRootProvider
 | `DatePickerViewTrigger`          | Switches between calendar views.                                   |
 | `DatePickerRangeText`            | Displays the visible date range in the calendar header.            |
 | `DatePickerValueText`            | Displays selected values.                                          |
-| `DatePickerDayTable`             | Standard day-view table.                                           |
+| `DatePickerDayTable`             | Standard day-view table with its header.                           |
+| `DatePickerMonthTable`           | Standard month-view table with its header.                         |
+| `DatePickerYearTable`            | Standard year-view table with its header.                          |
 | `DatePickerTable*`               | Parts for a custom calendar grid.                                  |
 | `DatePickerWeekNumberHeaderCell` | Header cell for the week-number column.                            |
 | `DatePickerWeekNumberCell`       | Body cell for a week number.                                       |
@@ -219,7 +222,8 @@ DatePickerRootProvider
 ## Composition
 
 Use `DatePickerField` for a standard single-date field, `DatePickerRangeField` for a range, and
-`DatePickerDayTable` inside the day view. Use `DatePickerRootProvider` with `useDatePicker()`
+`DatePickerDayTable`, `DatePickerMonthTable`, and `DatePickerYearTable` inside the matching views. Pass
+`showHeader={false}` to a table when the header is composed separately. Use `DatePickerRootProvider` with `useDatePicker()`
 when state must be shared with controls outside the root tree.
 
 For a custom field or calendar grid, compose `DatePickerControl`, `DatePickerInput`,
@@ -383,7 +387,8 @@ the locale-aware placeholder and translated action labels unless you override th
 ### Inline calendar and week numbers
 
 Set `inline` when the calendar should stay in the document flow. An inline calendar renders
-`DatePickerContent` directly, without `DatePickerPositioner`.
+`DatePickerContent` directly, without `DatePickerPositioner`. Set `showWeekNumbers` on the root;
+`DatePickerDayTable` reads it and adds the week-number column.
 
 <ExampleFrame variant="component">
   <DatePickerInline />
@@ -595,7 +600,8 @@ Use `selectionMode="multiple"` and optionally cap the number of selections with
 
 ### Multiple months
 
-Set `numOfMonths` when users need to see more than one month while choosing dates.
+Set `numOfMonths` when users need to see more than one month while choosing dates. Render one
+`DatePickerDayTable` per month and pass `offset={1}` to the second one.
 
 <ExampleFrame variant="component">
   <DatePickerMultipleMonths />
@@ -849,8 +855,10 @@ Use `DatePickerRangeText` in the header because the year view has no higher view
 
 ### Advanced customization
 
-Use the full Ark composition when the calendar grid needs custom rendering. This bypasses
-`DatePickerField` and `DatePickerDayTable` while keeping the same Ark state and styled parts.
+Use the full Ark composition when the field or calendar grids need custom rendering, such as a
+class or extra content on individual cells. This example builds the control and all three views
+from the low-level parts instead of `DatePickerField` and the table sugar, while keeping the same
+Ark state and styled parts.
 
 <ExampleFrame variant="component">
   <DatePickerAdvancedCustomization />

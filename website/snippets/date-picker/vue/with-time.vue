@@ -13,8 +13,10 @@ import {
   DatePickerDayTable,
   DatePickerField,
   DatePickerLabel,
+  DatePickerMonthTable,
   DatePickerPositioner,
   DatePickerView,
+  DatePickerYearTable,
 } from '@moduix/vue/date-picker';
 import { shallowRef } from 'vue';
 
@@ -45,7 +47,9 @@ const handleDateChange = (details: { value: DatePickerValue }) => {
     <DatePickerLabel>Appointment</DatePickerLabel><DatePickerField />
     <DatePickerPositioner>
       <DatePickerContent>
-        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
+        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView
+        ><DatePickerView view="month"><DatePickerMonthTable /></DatePickerView
+        ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
       </DatePickerContent>
     </DatePickerPositioner>
   </DatePicker>

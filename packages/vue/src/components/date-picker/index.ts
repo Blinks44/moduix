@@ -9,6 +9,7 @@ import DatePickerField from './DatePickerField.vue';
 import DatePickerInput from './DatePickerInput.vue';
 import DatePickerLabel from './DatePickerLabel.vue';
 import DatePickerMonthSelect from './DatePickerMonthSelect.vue';
+import DatePickerMonthTable from './DatePickerMonthTable.vue';
 import DatePickerNextTrigger from './DatePickerNextTrigger.vue';
 import DatePickerPositioner from './DatePickerPositioner.vue';
 import DatePickerPresetTrigger from './DatePickerPresetTrigger.vue';
@@ -31,6 +32,7 @@ import DatePickerViewTrigger from './DatePickerViewTrigger.vue';
 import DatePickerWeekNumberCell from './DatePickerWeekNumberCell.vue';
 import DatePickerWeekNumberHeaderCell from './DatePickerWeekNumberHeaderCell.vue';
 import DatePickerYearSelect from './DatePickerYearSelect.vue';
+import DatePickerYearTable from './DatePickerYearTable.vue';
 
 export {
   DatePicker,
@@ -43,6 +45,7 @@ export {
   DatePickerInput,
   DatePickerLabel,
   DatePickerMonthSelect,
+  DatePickerMonthTable,
   DatePickerNextTrigger,
   DatePickerPositioner,
   DatePickerPresetTrigger,
@@ -65,6 +68,7 @@ export {
   DatePickerWeekNumberCell,
   DatePickerWeekNumberHeaderCell,
   DatePickerYearSelect,
+  DatePickerYearTable,
   useDatePicker,
   useDatePickerContext,
 };
@@ -99,11 +103,24 @@ export type {
   DatePickerWeekNumberCellProps,
   DatePickerWeekNumberHeaderCellProps,
   DatePickerYearSelectProps,
+  DatePickerDateRangePreset,
+  DatePickerDateView,
+  DatePickerFocusChangeDetails,
+  DatePickerOpenChangeDetails,
+  DatePickerSelectionMode,
+  DatePickerValueChangeDetails,
+  DatePickerViewChangeDetails,
+  DatePickerVisibleRangeChangeDetails,
+  DateValue,
+  UseDatePickerProps,
+  UseDatePickerReturn,
 } from '@ark-ui/vue/date-picker';
 
 export type { Props as DatePickerRootProps } from './DatePicker.vue';
 export type { Props as DatePickerRootProviderProps } from './DatePickerRootProvider.vue';
 export type { Props as DatePickerDayTableProps } from './DatePickerDayTable.vue';
+export type { Props as DatePickerMonthTableProps } from './DatePickerMonthTable.vue';
+export type { Props as DatePickerYearTableProps } from './DatePickerYearTable.vue';
 export type { Props as DatePickerFieldProps } from './DatePickerField.vue';
 export type { Props as DatePickerRangeFieldProps } from './DatePickerRangeField.vue';
 

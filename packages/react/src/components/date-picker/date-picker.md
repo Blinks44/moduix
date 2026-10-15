@@ -37,8 +37,9 @@ and accessible labels. Do not translate dates to strings or local callback shape
 - `DatePicker` inherits `disabled` and `invalid` from the closest Ark `Field` or `Fieldset`,
   and `readOnly` and `required` from `Field`. Values passed directly to `DatePicker` take
   precedence.
-- `DatePickerDayTable` renders the standard day-view header and table from Ark context.
-- `DatePickerField`, `DatePickerRangeField`, and `DatePickerDayTable` own their child tree and do
+- `DatePickerDayTable`, `DatePickerMonthTable`, and `DatePickerYearTable` render the standard
+  view header and table from Ark context.
+- `DatePickerField`, `DatePickerRangeField`, and the three table sugar parts own their child tree and do
   not accept `asChild` or `children`. Use the individual control, input, and table parts for custom
   composition; those parts keep Ark's `asChild` contract.
 - Multiple selection should render selected values through `DatePickerContext` instead of trying to
@@ -66,7 +67,7 @@ DatePicker
 │        │  │  ├─ DatePickerPrevTrigger
 │        │  │  ├─ DatePickerViewTrigger / DatePickerRangeText
 │        │  │  └─ DatePickerNextTrigger
-│        │  ├─ DatePickerDayTable (convenience day grid)
+│        │  ├─ DatePickerDayTable / DatePickerMonthTable / DatePickerYearTable (convenience grids)
 │        │  └─ DatePickerTable
 │        │     ├─ DatePickerTableHead
 │        │     ├─ DatePickerTableBody
@@ -103,6 +104,8 @@ DatePickerRootProvider
 | `DatePickerRangeText`            | `date-picker-range-text`              | Visible range label.                              |
 | `DatePickerValueText`            | `date-picker-value-text`              | Render-prop value text.                           |
 | `DatePickerDayTable`             | `date-picker-table`                   | Standard day-view table sugar.                    |
+| `DatePickerMonthTable`           | `date-picker-table`                   | Standard month-view table sugar.                  |
+| `DatePickerYearTable`            | `date-picker-table`                   | Standard year-view table sugar.                   |
 | `DatePickerTable*`               | `date-picker-table-*`                 | Calendar table composition.                       |
 | `DatePickerWeekNumberHeaderCell` | `date-picker-week-number-header-cell` | Week-number header cell.                          |
 | `DatePickerWeekNumberCell`       | `date-picker-week-number-cell`        | Week-number body cell.                            |
@@ -115,30 +118,23 @@ The barrel exports `DatePicker`, all `DatePicker`-prefixed parts, `DatePickerCon
 `useDatePicker`, and `useDatePickerContext`.
 
 `useDatePicker`, `useDatePickerContext`, and `DatePickerContext` are exported from moduix for
-the documented provider and custom-grid compositions. Ark utilities such as `parseDate` and Ark
-event/detail types remain direct imports from `@ark-ui/react/date-picker`.
+the documented provider and custom-grid compositions. Ark detail and hook types such as
+`DatePickerValueChangeDetails`, `DateValue`, and `UseDatePickerProps` are re-exported; Ark
+utilities such as `parseDate` remain direct imports from `@ark-ui/react/date-picker`.
 
 ## Composition
 
 ```tsx
 import {
   DatePicker,
-  DatePickerContext,
   DatePickerContent,
   DatePickerDayTable,
   DatePickerField,
   DatePickerLabel,
-  DatePickerNextTrigger,
+  DatePickerMonthTable,
   DatePickerPositioner,
-  DatePickerPrevTrigger,
-  DatePickerTable,
-  DatePickerTableBody,
-  DatePickerTableCell,
-  DatePickerTableCellTrigger,
-  DatePickerTableRow,
-  DatePickerTrigger,
   DatePickerView,
-  DatePickerViewControl,
+  DatePickerYearTable,
 } from '@moduix/react/date-picker';
 import { parseDate } from '@ark-ui/react/date-picker';
 
@@ -153,64 +149,10 @@ export function ReleaseDatePicker() {
             <DatePickerDayTable />
           </DatePickerView>
           <DatePickerView view="month">
-            <DatePickerContext>
-              {(datePicker) => (
-                <>
-                  <DatePickerViewControl>
-                    <DatePickerPrevTrigger />
-                    <DatePickerViewTrigger />
-                    <DatePickerNextTrigger />
-                  </DatePickerViewControl>
-                  <DatePickerTable columns={4}>
-                    <DatePickerTableBody>
-                      {datePicker
-                        .getMonthsGrid({ columns: 4, format: 'short' })
-                        .map((months, rowIndex) => (
-                          <DatePickerTableRow key={rowIndex}>
-                            {months.map((month) => (
-                              <DatePickerTableCell key={month.value} value={month.value}>
-                                <DatePickerTableCellTrigger>
-                                  {month.label}
-                                </DatePickerTableCellTrigger>
-                              </DatePickerTableCell>
-                            ))}
-                          </DatePickerTableRow>
-                        ))}
-                    </DatePickerTableBody>
-                  </DatePickerTable>
-                </>
-              )}
-            </DatePickerContext>
+            <DatePickerMonthTable />
           </DatePickerView>
           <DatePickerView view="year">
-            <DatePickerContext>
-              {(datePicker) => (
-                <>
-                  <DatePickerViewControl>
-                    <DatePickerPrevTrigger />
-                    <DatePickerViewTrigger />
-                    <DatePickerNextTrigger />
-                  </DatePickerViewControl>
-                  <DatePickerTable columns={4}>
-                    <DatePickerTableBody>
-                      {datePicker.getYearsGrid({ columns: 4 }).map((years, rowIndex) => (
-                        <DatePickerTableRow key={rowIndex}>
-                          {years.map((year) => (
-                            <DatePickerTableCell
-                              key={year.value}
-                              value={year.value}
-                              disabled={year.disabled}
-                            >
-                              <DatePickerTableCellTrigger>{year.label}</DatePickerTableCellTrigger>
-                            </DatePickerTableCell>
-                          ))}
-                        </DatePickerTableRow>
-                      ))}
-                    </DatePickerTableBody>
-                  </DatePickerTable>
-                </>
-              )}
-            </DatePickerContext>
+            <DatePickerYearTable />
           </DatePickerView>
         </DatePickerContent>
       </DatePickerPositioner>
@@ -219,8 +161,7 @@ export function ReleaseDatePicker() {
 }
 ```
 
-Use `DatePickerContext` to render week days, weeks, month grids, and year grids when
-`DatePickerDayTable` is not enough. Use `DatePickerRootProvider` only with state created by
+Use `DatePickerContext` with the low-level table parts when the table sugar is not enough. Use `DatePickerRootProvider` only with state created by
 moduix `useDatePicker()`; do not also render `DatePicker` for the same state instance.
 Render every view between `minView` and `maxView` whenever the composition exposes a
 `DatePickerViewTrigger`; for a single-panel picker, set both bounds to that panel.
@@ -230,13 +171,15 @@ fields use `24rem` (384px) so both inputs have enough room for their values and 
 for the field and `--moduix-date-picker-content-width` for wider popup compositions such as two visible months.
 For portalled popups, set popup sizing variables on `DatePickerContent` or another element inside
 the overlay subtree because variables on `DatePicker` do not inherit across the portal boundary.
-Each input has `--moduix-date-picker-input-min-width: 7.5rem`; range inputs use
-`--moduix-date-picker-range-input-min-width`.
+The public variables are `--moduix-date-picker-width`, `--moduix-date-picker-control-height`,
+`--moduix-date-picker-radius`, `--moduix-date-picker-content-width`, and
+`--moduix-date-picker-table-cell-size`. Everything else is a shared token or a plain `className`
+override.
 
 ## Upstream feature coverage
 
 - Basic popup picker: supported through `DatePickerLabel`, `DatePickerField`, `DatePickerPositioner`,
-  `DatePickerContent`, `DatePickerView`, and `DatePickerDayTable`. The low-level
+  `DatePickerContent`, `DatePickerView`, and the day/month/year table sugar. The low-level
   `DatePickerControl`, `DatePickerInput`, `DatePickerTrigger`, `DatePickerContext`, and table parts remain
   available for custom composition.
 - Controlled and uncontrolled state: supported with `value`, `defaultValue`, and
@@ -247,8 +190,8 @@ Each input has `--moduix-date-picker-input-min-width: 7.5rem`; range inputs use
   `onViewChange(details)`.
 - Single, range, and multiple selection: supported with `selectionMode`, indexed range inputs,
   custom multiple-value displays, `maxSelectedDates`, and range preset triggers.
-- Multiple months and week numbers: supported with `numOfMonths`, `fixedWeeks`, and
-  `showWeekNumbers`.
+- Multiple months and week numbers: supported with `numOfMonths`, `fixedWeeks`, and the root
+  `showWeekNumbers` prop; render the next month with `DatePickerDayTable offset={1}`.
 - Month-only, year-only, default-view, select-today, and date-with-time flows are supported through
   Ark view props, `DatePickerContext`, `format`, `parse`, and `CalendarDateTime` values.
 - Validation: supported with `min`, `max`, `isDateUnavailable`, `invalid`, `disabled`,
@@ -267,7 +210,7 @@ Ark wires input semantics, dialog/grid semantics, roving focus, keyboard navigat
 announcements, live-region updates, button labels, and field context integration.
 
 Ark emits `data-scope="date-picker"` and `data-part` attributes for each part. State attributes
-include `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`,
+include `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-focus` (table cells only),
 `data-selected`, `data-today`, `data-unavailable`, `data-outside-range`, `data-in-range`,
 `data-range-start`, `data-range-end`, `data-in-hover-range`, `data-hover-range-start`,
 `data-hover-range-end`, and `data-view`.
@@ -276,8 +219,7 @@ include `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-fo
 
 The text input defaults to `--moduix-size-md` with `--moduix-spacing-1` block padding. Calendar navigation, day cells, selects, view triggers, and preset triggers use `--moduix-size-sm`.
 
-Content motion falls back to the shared `--moduix-popup-motion-*` tokens. `--moduix-date-picker-transition` and
-closed-state variables remain the more specific override.
+Content motion uses the shared `--moduix-popup-motion-*` tokens.
 
 Calendar content is capped by Ark's available height and the dynamic viewport height. It scrolls
 only when necessary, keeping navigation and calendar cells reachable on short screens. Inline
@@ -291,14 +233,14 @@ The CSS also handles the Ark range input layout by making sibling `DatePickerInp
 one `DatePickerControl`, keeping each input wide enough for a date, and keeping the end input clear
 of the trigger icons.
 
-Disabled and read-only opacity is applied at the root level only. Do not duplicate the same opacity
-on `DatePickerControl`, because Ark can emit disabled/read-only state on both parts.
+Disabled opacity is applied at the root level only, and is reset inside a disabled `Field` or
+`Fieldset` so the picker is not dimmed twice. Read-only pickers are not dimmed. The calendar trigger
+does not add its own disabled opacity. Disabled day cells use opacity only; enabled outside-range
+days use the muted foreground color. Today is marked with a ring-colored border.
 
-Preset triggers use a muted surface by default through `--moduix-date-picker-preset-trigger-bg` and
-`--moduix-date-picker-preset-trigger-bg-hover`, so quick range actions read as buttons even before they
-are selected.
+Preset triggers use the muted surface by default, so quick range actions read as buttons.
 
-`DatePickerClearTrigger` maps date-picker action tokens to `CloseButton`; use `asChild` with
+`DatePickerClearTrigger` composes `CloseButton` and keeps its focus ring; use `asChild` with
 one semantic child when the clear control needs a custom host or visual treatment.
 
 The calendar and clear actions use logical inline-end positioning, so they follow RTL text flow.
@@ -313,8 +255,10 @@ The calendar and clear actions use logical inline-end positioning, so they follo
   `DatePickerClearTrigger`, and `DatePickerTrigger` for range fields, with the same Ark-provided
   localized defaults.
 - `DatePickerDayTable` renders the standard day-view header and table from Ark context. Pass
-  `showHeader={false}` when an external header is composed, `showWeekNumbers` for week-number
-  cells, and `offset` for additional visible months.
+  `showHeader={false}` when an external header is composed and `offset={1}` for the next visible
+  month. Week-number cells follow the root `showWeekNumbers` prop.
+- `DatePickerMonthTable` (`columns={4}`, `format="short"`) and `DatePickerYearTable`
+  (`columns={4}`) render the standard month and year views with the same optional header.
 - `DatePickerTrigger` renders `CalendarIcon` when children are omitted.
 - `DatePickerClearTrigger` composes Ark clearing behavior with `CloseButton` when `asChild`
   is not used, without nesting buttons.
@@ -328,8 +272,8 @@ The calendar and clear actions use logical inline-end positioning, so they follo
 
 - Keep callback details untouched: read `details.value`, `details.valueAsString`, and
   `details.view`.
-- Keep `DatePickerDayTable` narrow: it renders the standard day table only. Keep custom month/year,
-  multiple-month, and non-table layouts on Ark `DatePickerContext` plus the low-level table parts.
+- Keep the table sugar narrow: it renders the standard day, month, and year tables only. Keep
+  non-table layouts on Ark `DatePickerContext` plus the low-level table parts.
 - Keep popup structure explicit through `DatePickerPositioner` and `DatePickerContent`.
 - Keep inline examples free of `DatePickerPositioner`.
 - Keep `@internationalized/date` / Ark `parseDate()` examples because Ark values are `DateValue`
@@ -343,6 +287,10 @@ content after the first open; set both props to `false` only when eager initial 
 
 ## Local changelog
 
+- 2026-10-15: Added `DatePickerMonthTable` and `DatePickerYearTable`; `DatePickerDayTable` now
+  reads week numbers from the root and takes `offset` as a month count. Reduced public CSS variables
+  to five, fixed the invisible today marker and double dimming (disabled cells, calendar trigger,
+  disabled `Field`/`Fieldset`), stopped dimming read-only pickers, and re-exported Ark types.
 - 2026-10-03: Removed unsupported `asChild` and `children` props from the fixed React field,
   range-field, and day-table compositions; custom layouts still use the individual Ark-backed parts.
 - 2026-10-02: Constrained calendar content to available viewport height with overflow scrolling and narrowed inline minimum sizing.

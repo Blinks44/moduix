@@ -10,12 +10,13 @@ behavior, form participation, accessibility attributes, and CSS-variable contrac
 import {
   DatePicker,
   DatePickerContent,
-  DatePickerContext,
   DatePickerDayTable,
   DatePickerField,
   DatePickerLabel,
+  DatePickerMonthTable,
   DatePickerPositioner,
   DatePickerView,
+  DatePickerYearTable,
 } from '@moduix/solid/date-picker';
 import { parseDate } from '@ark-ui/solid/date-picker';
 
@@ -26,6 +27,12 @@ import { parseDate } from '@ark-ui/solid/date-picker';
     <DatePickerContent>
       <DatePickerView view="day">
         <DatePickerDayTable />
+      </DatePickerView>
+      <DatePickerView view="month">
+        <DatePickerMonthTable />
+      </DatePickerView>
+      <DatePickerView view="year">
+        <DatePickerYearTable />
       </DatePickerView>
     </DatePickerContent>
   </DatePickerPositioner>
@@ -39,12 +46,16 @@ set `portalled={false}` or pass `portalRef` to control the overlay target. `lazy
 ## API surface
 
 The barrel exports `DatePicker`, all `DatePicker`-prefixed parts, `DatePickerContext`,
-`useDatePicker`, and `useDatePickerContext`.
+`useDatePicker`, `useDatePickerContext`, and Ark detail and hook types such as
+`DatePickerValueChangeDetails`, `DateValue`, and `UseDatePickerProps`.
 
 `DatePickerField` reserves input index `0`; `DatePickerRangeField` renders inputs at indexes `0` and `1`.
-These parts and `DatePickerDayTable` own their child trees and do not accept consumer `children`.
+These parts and the `DatePickerDayTable`, `DatePickerMonthTable`, and `DatePickerYearTable`
+sugar own their child trees and do not accept consumer `children`.
 Their native Solid `asChild` callback remains supported: spread `props()` onto the replacement
 host to preserve the generated inputs, triggers, or calendar rows.
+`DatePickerDayTable` reads week numbers from the root `showWeekNumbers` prop and takes `offset`
+as a month count (`offset={1}` for a second visible month).
 Use `DatePickerControl` and `DatePickerInput` directly for a custom input layout. Ark owns date parsing, calendar
 state, keyboard navigation, min/max validation, unavailable dates, labels, form values, IDs,
 and details-object callbacks.
@@ -78,15 +89,20 @@ trigger renders `CalendarIcon`, and `DatePickerClearTrigger` composes `CloseButt
 Ark-provided accessible labels.
 
 All visual parts accept `class`. Consumer-targetable state attributes include `data-state`,
-`data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-selected`,
+`data-disabled`, `data-readonly`, `data-invalid`, `data-focus` (table cells only), `data-selected`,
 `data-today`, `data-unavailable`, `data-outside-range`, and range state attributes.
-The CSS module exposes `--moduix-date-picker-*` variables for sizing, colors, focus rings,
-actions, popup content, calendar cells, and transitions.
+The CSS module exposes five variables: `--moduix-date-picker-width`, `-control-height`, `-radius`,
+`-content-width`, and `-table-cell-size`. Disabled opacity lives on the root only and is reset
+inside a disabled `Field` or `Fieldset`; read-only pickers are not dimmed.
 
 ## Style contract (2026-10-03)
 
 Content scrolls within the smaller of Ark --available-height and 100dvh minus 2rem. Inline calendars fit their container rather than forcing an 18rem minimum width.
 
 ## Local changelog
+
+- 2026-10-15: Added `DatePickerMonthTable` and `DatePickerYearTable`, root-driven week numbers,
+  numeric `offset`, five public CSS variables, visible today marker, single disabled dimming, and
+  Ark type re-exports.
 
 - 2026-10-03: Fixed-tree sugar types exclude consumer children while preserving native Solid callback composition.

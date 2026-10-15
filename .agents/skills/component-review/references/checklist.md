@@ -113,6 +113,13 @@ Reason through these from the CSS, or render them in the playground story when y
   keeping the current contract and dropping history that git already records.
 - Examples in `website/src/components/examples/<slug>/`: which parts and props they use, which
   defaults they override (an override in every example points at a bad default).
+- Sugar versus full composition: when the component has sugar parts (`*Field`, `*DayTable`, a
+  default header, any part that renders a fixed child tree), ordinary examples use the sugar, and
+  exactly one example (usually "Advanced customization") builds the whole component from the
+  low-level parts without any sugar, in React, Solid, and Vue snippets alike. When adding or
+  extending sugar, do not shorten that example with it; if the example is missing or still uses
+  some sugar, add or complete it (DatePicker: month and year views had been switched to the new
+  table sugar, which left no manual month/year composition in the docs).
 - Registry JSON lists the right `dependencies` and `registryDependencies` (for example foundation
   animations for Tailwind keyframes).
 

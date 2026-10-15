@@ -76,8 +76,9 @@ import datePickerVueYearPicker from '../../../snippets/date-picker/vue/year-pick
 ## Базовый пример
 
 Используйте `DatePicker` как корневой компонент, `DatePickerField` для стандартного поля и
-`DatePickerDayTable` для таблицы дней. Когда календарь должен быть всплывающим, явно добавьте
-`DatePickerPositioner` и `DatePickerContent`.
+`DatePickerDayTable`, `DatePickerMonthTable` и `DatePickerYearTable` для представлений календаря.
+Каждая таблица выводит свой заголовок, поэтому переключатель представления работает сразу. Когда
+календарь должен быть всплывающим, явно добавьте `DatePickerPositioner` и `DatePickerContent`.
 
 <ExampleFrame variant="component">
   <DatePickerBasic />
@@ -169,7 +170,7 @@ DatePicker
 │        │  │  ├─ DatePickerPrevTrigger
 │        │  │  ├─ DatePickerViewTrigger / DatePickerRangeText
 │        │  │  └─ DatePickerNextTrigger
-│        │  ├─ DatePickerDayTable (готовая таблица дней)
+│        │  ├─ DatePickerDayTable / MonthTable / YearTable (готовые таблицы)
 │        │  └─ DatePickerTable
 │        │     ├─ DatePickerTableHead / TableBody / TableRow
 │        │     ├─ DatePickerTableHeader
@@ -206,7 +207,9 @@ DatePickerRootProvider
 | `DatePickerViewTrigger`          | Переключает представление календаря.                               |
 | `DatePickerRangeText`            | Показывает видимый диапазон дат в заголовке.                        |
 | `DatePickerValueText`            | Показывает выбранные значения.                                     |
-| `DatePickerDayTable`             | Готовая таблица представления дней.                                |
+| `DatePickerDayTable`             | Готовая таблица дней с заголовком.                                 |
+| `DatePickerMonthTable`           | Готовая таблица месяцев с заголовком.                              |
+| `DatePickerYearTable`            | Готовая таблица лет с заголовком.                                  |
 | `DatePickerTable*`               | Части для собственной таблицы календаря.                           |
 | `DatePickerWeekNumberHeaderCell` | Заголовок столбца с номерами недель.                               |
 | `DatePickerWeekNumberCell`       | Ячейка с номером недели.                                           |
@@ -218,7 +221,8 @@ DatePickerRootProvider
 ## Композиция
 
 Используйте `DatePickerField` для обычного поля одной даты, `DatePickerRangeField` для диапазона,
-а `DatePickerDayTable` внутри представления дней. Используйте `DatePickerRootProvider` вместе с
+а `DatePickerDayTable`, `DatePickerMonthTable` и `DatePickerYearTable` внутри соответствующих
+представлений. Передайте таблице `showHeader={false}`, если заголовок собран отдельно. Используйте `DatePickerRootProvider` вместе с
 `useDatePicker()`, когда состояние нужно разделить с элементами вне дерева корня.
 
 Для собственной раскладки поля или таблицы календаря напрямую комбинируйте `DatePickerControl`,
@@ -384,7 +388,8 @@ DatePickerRootProvider
 ### Встроенный календарь и номера недель
 
 Задайте `inline`, чтобы календарь остался в потоке документа. Встроенный календарь отображает
-`DatePickerContent` напрямую, без `DatePickerPositioner`.
+`DatePickerContent` напрямую, без `DatePickerPositioner`. Номера недель включаются свойством
+`showWeekNumbers` на корне: `DatePickerDayTable` читает его и добавляет столбец.
 
 <ExampleFrame variant="component">
   <DatePickerInline />
@@ -597,7 +602,8 @@ DatePickerRootProvider
 
 ### Несколько месяцев
 
-Задайте `numOfMonths`, когда пользователю нужно видеть несколько месяцев при выборе дат.
+Задайте `numOfMonths`, когда пользователю нужно видеть несколько месяцев при выборе дат. Выведите
+по `DatePickerDayTable` на каждый месяц и передайте второй таблице `offset={1}`.
 
 <ExampleFrame variant="component">
   <DatePickerMultipleMonths />
@@ -853,9 +859,10 @@ DatePickerRootProvider
 
 ### Расширенная настройка
 
-Используйте полную композицию Ark, когда таблице календаря нужен собственный рендеринг. Такой
-вариант не использует `DatePickerField` и `DatePickerDayTable`, но сохраняет состояние Ark и
-стилизованные части компонента.
+Используйте полную композицию Ark, когда полю или таблицам календаря нужен собственный рендеринг,
+например класс или дополнительный контент в отдельных ячейках. В примере поле и все три
+представления собраны из низкоуровневых частей вместо `DatePickerField` и готовых таблиц, при этом
+сохраняются состояние Ark и стилизованные части компонента.
 
 <ExampleFrame variant="component">
   <DatePickerAdvancedCustomization />

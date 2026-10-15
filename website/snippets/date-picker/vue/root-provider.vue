@@ -2,14 +2,16 @@
 import { today } from '@internationalized/date';
 import { Button } from '@moduix/vue/button';
 import {
-  useDatePicker,
   DatePickerContent,
   DatePickerDayTable,
   DatePickerField,
   DatePickerLabel,
+  DatePickerMonthTable,
   DatePickerPositioner,
   DatePickerRootProvider,
   DatePickerView,
+  DatePickerYearTable,
+  useDatePicker,
 } from '@moduix/vue/date-picker';
 
 const datePicker = useDatePicker({ defaultValue: [today('UTC')] });
@@ -20,7 +22,9 @@ const datePicker = useDatePicker({ defaultValue: [today('UTC')] });
     <DatePickerLabel>Report date</DatePickerLabel><DatePickerField />
     <DatePickerPositioner>
       <DatePickerContent>
-        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
+        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView
+        ><DatePickerView view="month"><DatePickerMonthTable /></DatePickerView
+        ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
       </DatePickerContent>
     </DatePickerPositioner>
   </DatePickerRootProvider>

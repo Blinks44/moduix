@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useDatePickerContext } from '@ark-ui/vue/date-picker';
-import type { DatePickerTableProps, UseDatePickerReturn } from '@ark-ui/vue/date-picker';
-import { useAttrs } from 'vue';
-import type { HTMLAttributes, UnwrapRef } from 'vue';
+import type { DatePickerTableProps } from '@ark-ui/vue/date-picker';
+import { computed, useAttrs } from 'vue';
+import type { HTMLAttributes } from 'vue';
 import DatePickerNextTrigger from './DatePickerNextTrigger.vue';
 import DatePickerPrevTrigger from './DatePickerPrevTrigger.vue';
 import DatePickerTable from './DatePickerTable.vue';
@@ -19,40 +19,33 @@ import DatePickerWeekNumberHeaderCell from './DatePickerWeekNumberHeaderCell.vue
 
 defineOptions({ inheritAttrs: false });
 
-type DatePickerApi = UnwrapRef<UseDatePickerReturn>;
-type DatePickerOffset = ReturnType<DatePickerApi['getOffset']>;
-
-export interface Props extends /* @vue-ignore */ Omit<DatePickerTableProps, 'asChild'> {
+export interface Props extends /* @vue-ignore */ Omit<DatePickerTableProps, 'asChild' | 'columns'> {
   class?: HTMLAttributes['class'];
-  offset?: DatePickerOffset;
+  /** Shows the month this many months after the visible one, for multi-month layouts. */
+  offset?: number;
   showHeader?: boolean;
-  showWeekNumbers?: boolean;
 }
 
-const {
-  class: className,
-  offset,
-  showHeader = true,
-  showWeekNumbers = false,
-} = defineProps<Props>();
+const { class: className, offset, showHeader = true } = defineProps<Props>();
 defineSlots<{}>();
 
 const attrs = useAttrs();
 const datePicker = useDatePickerContext();
+const offsetMonth = computed(() =>
+  offset ? datePicker.value.getOffset({ months: offset }) : undefined,
+);
 </script>
 
 <template>
-  <template v-if="showHeader">
-    <DatePickerViewControl>
-      <DatePickerPrevTrigger />
-      <DatePickerViewTrigger />
-      <DatePickerNextTrigger />
-    </DatePickerViewControl>
-  </template>
+  <DatePickerViewControl v-if="showHeader">
+    <DatePickerPrevTrigger />
+    <DatePickerViewTrigger />
+    <DatePickerNextTrigger />
+  </DatePickerViewControl>
   <DatePickerTable v-bind="attrs" :as-child="false" :class="className">
     <DatePickerTableHead>
       <DatePickerTableRow>
-        <DatePickerWeekNumberHeaderCell v-if="showWeekNumbers" />
+        <DatePickerWeekNumberHeaderCell v-if="datePicker.showWeekNumbers" />
         <DatePickerTableHeader
           v-for="weekDay in datePicker.weekDays"
           :key="weekDay.value.toString()"
@@ -63,17 +56,21 @@ const datePicker = useDatePickerContext();
     </DatePickerTableHead>
     <DatePickerTableBody>
       <DatePickerTableRow
-        v-for="(week, weekIndex) in offset?.weeks ?? datePicker.weeks"
+        v-for="(week, weekIndex) in offsetMonth?.weeks ?? datePicker.weeks"
         :key="week[0]?.toString()"
       >
-        <DatePickerWeekNumberCell v-if="showWeekNumbers" :week="week" :week-index="weekIndex">
+        <DatePickerWeekNumberCell
+          v-if="datePicker.showWeekNumbers"
+          :week="week"
+          :week-index="weekIndex"
+        >
           {{ datePicker.getWeekNumber(week) }}
         </DatePickerWeekNumberCell>
         <DatePickerTableCell
           v-for="day in week"
           :key="day.toString()"
           :value="day"
-          :visible-range="offset?.visibleRange"
+          :visible-range="offsetMonth?.visibleRange"
         >
           <DatePickerTableCellTrigger>{{ day.day }}</DatePickerTableCellTrigger>
         </DatePickerTableCell>

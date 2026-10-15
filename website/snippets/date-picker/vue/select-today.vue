@@ -7,8 +7,10 @@ import {
   DatePickerDayTable,
   DatePickerField,
   DatePickerLabel,
+  DatePickerMonthTable,
   DatePickerPositioner,
   DatePickerView,
+  DatePickerYearTable,
 } from '@moduix/vue/date-picker';
 </script>
 
@@ -23,9 +25,9 @@ import {
             ><Button size="sm" variant="secondary" @click="context.selectToday()"
               >Today</Button
             ></DatePickerContext
-          >
-        </DatePickerView></DatePickerContent
-      ></DatePickerPositioner
-    >
+          > </DatePickerView
+        ><DatePickerView view="month"><DatePickerMonthTable /></DatePickerView
+        ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView></DatePickerContent
+    ></DatePickerPositioner>
   </DatePicker>
 </template>

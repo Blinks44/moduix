@@ -77,8 +77,10 @@ import datePickerVueYearPicker from '../../../snippets/date-picker/vue/year-pick
 
 
 Utilisez `DatePicker` comme racine, `DatePickerField` pour un champ standard et
-`DatePickerDayTable` pour le tableau des jours. Ajoutez explicitement `DatePickerPositioner` et `DatePickerContent`
-lorsque le calendrier doit s’afficher en fenêtre contextuelle.
+`DatePickerDayTable`, `DatePickerMonthTable` et `DatePickerYearTable` pour les vues du calendrier.
+Chaque table affiche son propre en-tête, ce qui permet de passer d’une vue à l’autre. Ajoutez
+explicitement `DatePickerPositioner` et `DatePickerContent` lorsque le calendrier doit s’afficher en
+fenêtre contextuelle.
 
 <ExampleFrame variant="component">
   <DatePickerBasic />
@@ -170,7 +172,7 @@ DatePicker
 │        │  │  ├─ DatePickerPrevTrigger
 │        │  │  ├─ DatePickerViewTrigger / DatePickerRangeText
 │        │  │  └─ DatePickerNextTrigger
-│        │  ├─ DatePickerDayTable (table des jours pratique)
+│        │  ├─ DatePickerDayTable / MonthTable / YearTable (tables pratiques)
 │        │  └─ DatePickerTable
 │        │     ├─ DatePickerTableHead / TableBody / TableRow
 │        │     ├─ DatePickerTableHeader
@@ -207,7 +209,9 @@ DatePickerRootProvider
 | `DatePickerViewTrigger`          | Change de vue du calendrier.                                        |
 | `DatePickerRangeText`            | Affiche la plage visible dans l’en-tête.                            |
 | `DatePickerValueText`            | Affiche les valeurs sélectionnées.                                  |
-| `DatePickerDayTable`             | Table standard de la vue des jours.                                 |
+| `DatePickerDayTable`             | Table standard des jours avec son en-tête.                          |
+| `DatePickerMonthTable`           | Table standard des mois avec son en-tête.                           |
+| `DatePickerYearTable`            | Table standard des années avec son en-tête.                         |
 | `DatePickerTable*`               | Parties pour composer une grille personnalisée.                     |
 | `DatePickerWeekNumberHeaderCell` | En-tête de la colonne des numéros de semaine.                       |
 | `DatePickerWeekNumberCell`       | Cellule contenant un numéro de semaine.                             |
@@ -219,7 +223,8 @@ DatePickerRootProvider
 ## Composition
 
 Utilisez `DatePickerField` pour un champ de date simple, `DatePickerRangeField` pour une plage et
-`DatePickerDayTable` dans la vue des jours. Utilisez `DatePickerRootProvider` avec
+`DatePickerDayTable`, `DatePickerMonthTable` et `DatePickerYearTable` dans les vues correspondantes.
+Passez `showHeader={false}` à une table lorsque l’en-tête est composé séparément. Utilisez `DatePickerRootProvider` avec
 `useDatePicker()` lorsque l’état doit être partagé avec des contrôles situés hors de l’arbre racine.
 
 Pour personnaliser le champ ou la grille, composez directement `DatePickerControl`,
@@ -385,7 +390,8 @@ fournit le modèle de saisie localisé et les libellés d’action traduits si v
 ### Calendrier intégré et numéros de semaine
 
 Définissez `inline` pour conserver le calendrier dans le flux du document. Un calendrier intégré
-rend `DatePickerContent` directement, sans `DatePickerPositioner`.
+rend `DatePickerContent` directement, sans `DatePickerPositioner`. Définissez `showWeekNumbers` sur
+la racine : `DatePickerDayTable` le lit et ajoute la colonne des numéros de semaine.
 
 <ExampleFrame variant="component">
   <DatePickerInline />
@@ -599,6 +605,7 @@ Utilisez `selectionMode="multiple"` et limitez si nécessaire le nombre de séle
 ### Plusieurs mois
 
 Définissez `numOfMonths` lorsque les utilisateurs doivent voir plusieurs mois pendant la sélection.
+Affichez un `DatePickerDayTable` par mois et passez `offset={1}` au second.
 
 <ExampleFrame variant="component">
   <DatePickerMultipleMonths />
@@ -856,9 +863,11 @@ supérieure vers laquelle basculer.
 
 ### Personnalisation avancée
 
-Utilisez la composition Ark complète lorsque la grille du calendrier nécessite un rendu personnalisé.
-Cette approche remplace `DatePickerField` et `DatePickerDayTable`, tout en conservant le même
-état Ark et les parties stylisées.
+Utilisez la composition Ark complète lorsque le champ ou les grilles du calendrier nécessitent un
+rendu personnalisé, par exemple une classe ou un contenu supplémentaire sur certaines cellules. Cet
+exemple construit le contrôle et les trois vues à partir des parties de bas niveau au lieu de
+`DatePickerField` et des tables prêtes à l'emploi, tout en conservant le même état Ark et les
+parties stylisées.
 
 <ExampleFrame variant="component">
   <DatePickerAdvancedCustomization />

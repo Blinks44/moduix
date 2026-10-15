@@ -46,7 +46,9 @@ and tone, and reuse its "Library-wide" section instead of rediscovering the same
    [references/checklist.md](references/checklist.md#css-modules-versus-tailwind).
 4. **Check the docs examples** in `website/src/components/examples/<slug>/` (and `snippets/`) to see
    how the component is actually used. Styling or API that no example uses is a candidate for
-   removal; an example that has to override a default to work points at a bad default.
+   removal; an example that has to override a default to work points at a bad default. If the
+   component has sugar parts, one example must still build it fully from low-level parts; see
+   [references/checklist.md](references/checklist.md#docs-and-contract).
 5. **Research upstream** with the `research-upstream-libraries` skill. Docs pages often omit the
    implementation, so also read source:
    - shadcn: `https://ui.shadcn.com/r/styles/new-york-v4/<slug>.json` (full component source);

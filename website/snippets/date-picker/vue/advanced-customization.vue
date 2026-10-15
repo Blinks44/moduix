@@ -2,26 +2,26 @@
 import { parseDate } from '@ark-ui/vue/date-picker';
 import {
   DatePicker,
+  DatePickerClearTrigger,
   DatePickerContent,
   DatePickerContext,
-  DatePickerLabel,
   DatePickerControl,
   DatePickerInput,
-  DatePickerTrigger,
-  DatePickerClearTrigger,
-  DatePickerPositioner,
-  DatePickerView,
-  DatePickerViewControl,
-  DatePickerPrevTrigger,
+  DatePickerLabel,
   DatePickerNextTrigger,
-  DatePickerViewTrigger,
+  DatePickerPositioner,
+  DatePickerPrevTrigger,
   DatePickerTable,
-  DatePickerTableHead,
   DatePickerTableBody,
-  DatePickerTableHeader,
   DatePickerTableCell,
   DatePickerTableCellTrigger,
+  DatePickerTableHead,
+  DatePickerTableHeader,
   DatePickerTableRow,
+  DatePickerTrigger,
+  DatePickerView,
+  DatePickerViewControl,
+  DatePickerViewTrigger,
 } from '@moduix/vue/date-picker';
 </script>
 
@@ -53,6 +53,51 @@ import {
                   ><DatePickerTableCell v-for="day in week" :key="day.toString()" :value="day"
                     ><DatePickerTableCellTrigger>{{
                       day.day
+                    }}</DatePickerTableCellTrigger></DatePickerTableCell
+                  ></DatePickerTableRow
+                >
+              </DatePickerTableBody></DatePickerTable
+            ></DatePickerContext
+          > </DatePickerView
+        ><DatePickerView view="month">
+          <DatePickerViewControl
+            ><DatePickerPrevTrigger /><DatePickerViewTrigger /><DatePickerNextTrigger
+          /></DatePickerViewControl>
+          <DatePickerContext v-slot="context"
+            ><DatePickerTable :columns="4"
+              ><DatePickerTableBody>
+                <DatePickerTableRow
+                  v-for="months in context.getMonthsGrid({ columns: 4, format: 'short' })"
+                  :key="months[0]?.value"
+                  ><DatePickerTableCell
+                    v-for="month in months"
+                    :key="month.value"
+                    :value="month.value"
+                    ><DatePickerTableCellTrigger>{{
+                      month.label
+                    }}</DatePickerTableCellTrigger></DatePickerTableCell
+                  ></DatePickerTableRow
+                >
+              </DatePickerTableBody></DatePickerTable
+            ></DatePickerContext
+          > </DatePickerView
+        ><DatePickerView view="year">
+          <DatePickerViewControl
+            ><DatePickerPrevTrigger /><DatePickerViewTrigger /><DatePickerNextTrigger
+          /></DatePickerViewControl>
+          <DatePickerContext v-slot="context"
+            ><DatePickerTable :columns="4"
+              ><DatePickerTableBody>
+                <DatePickerTableRow
+                  v-for="years in context.getYearsGrid({ columns: 4 })"
+                  :key="years[0]?.value"
+                  ><DatePickerTableCell
+                    v-for="year in years"
+                    :key="year.value"
+                    :value="year.value"
+                    :disabled="year.disabled"
+                    ><DatePickerTableCellTrigger>{{
+                      year.label
                     }}</DatePickerTableCellTrigger></DatePickerTableCell
                   ></DatePickerTableRow
                 >
