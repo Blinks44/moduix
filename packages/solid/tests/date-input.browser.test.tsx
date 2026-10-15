@@ -11,6 +11,7 @@ import {
   DateInputSegments,
   DateInputSeparator,
   useDateInput,
+  Field,
 } from '../src';
 
 function ProviderDateInput() {
@@ -112,4 +113,62 @@ test('preserves Ark segment semantics, styling hooks, and root refs', async () =
   await expect
     .element(page.getByRole('spinbutton').nth(0))
     .toHaveAttribute('data-slot', 'date-input-segment');
+});
+
+test('sizes the root to its content and stretches the control to the root', () => {
+  render(() => (
+    <div style={{ width: '600px' }}>
+      <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]}>
+        <DateInputLabel>Release date</DateInputLabel>
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
+      </DateInput>
+    </div>
+  ));
+
+  const root = document.querySelector<HTMLElement>('[data-slot="date-input-root"]')!;
+  const control = document.querySelector<HTMLElement>('[data-slot="date-input-control"]')!;
+
+  expect(root.offsetWidth).toBeLessThan(300);
+  expect(control.offsetWidth).toBe(root.offsetWidth);
+});
+
+test('does not dim a disabled date input twice inside a disabled field', () => {
+  render(() => (
+    <Field disabled>
+      <DateInput disabled>
+        <DateInputLabel>Release date</DateInputLabel>
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
+      </DateInput>
+    </Field>
+  ));
+
+  const field = document.querySelector('[data-slot="field-root"]')!;
+  const root = document.querySelector('[data-slot="date-input-root"]')!;
+
+  expect(getComputedStyle(field).opacity).toBe('0.5');
+  expect(getComputedStyle(root).opacity).toBe('1');
+});
+
+test('shows a focused placeholder segment in the foreground color', async () => {
+  render(() => (
+    <DateInput>
+      <DateInputLabel>Release date</DateInputLabel>
+      <DateInputControl>
+        <DateInputSegments />
+      </DateInputControl>
+    </DateInput>
+  ));
+
+  await page.getByRole('spinbutton').nth(0).click();
+  await new Promise((resolve) => setTimeout(resolve, 400));
+
+  const label = document.querySelector('[data-slot="date-input-label"]')!;
+  const segment = document.querySelector('[data-slot="date-input-segment"]')!;
+
+  expect(segment.hasAttribute('data-placeholder-shown')).toBe(true);
+  expect(getComputedStyle(segment).color).toBe(getComputedStyle(label).color);
 });

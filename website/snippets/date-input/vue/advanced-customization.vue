@@ -15,7 +15,7 @@ const value = [new CalendarDate(2026, 6, 22)];
 </script>
 
 <template>
-  <DateInput :class="styles.root" name="custom-date" :default-value="value">
+  <DateInput name="custom-date" :default-value="value">
     <DateInputLabel>Custom segments</DateInputLabel>
     <DateInputHiddenInput name="custom-date" />
     <DateInputControl :class="styles.control">

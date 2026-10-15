@@ -109,15 +109,11 @@ const DateInputSegments = forwardRef<
 });
 
 const DateInputSeparator = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
-  function DateInputSeparator(
-    { className, 'aria-hidden': ariaHidden = true, role = 'presentation', ...props },
-    ref,
-  ) {
+  function DateInputSeparator({ className, ...props }, ref) {
     return (
       <span
         ref={ref}
-        aria-hidden={ariaHidden}
-        role={role}
+        aria-hidden
         className={clsx(styles.separator, className)}
         {...props}
         data-slot="date-input-separator"
@@ -146,3 +142,22 @@ export {
   useDateInput,
   useDateInputContext,
 };
+
+export type {
+  DateInputContextProps,
+  DateInputControlProps,
+  DateInputFocusChangeDetails,
+  DateInputHiddenInputProps,
+  DateInputLabelProps,
+  DateInputPlaceholderChangeDetails,
+  DateInputRootProps,
+  DateInputRootProviderProps,
+  DateInputSegmentContextProps,
+  DateInputSegmentGroupProps,
+  DateInputSegmentProps,
+  DateInputSelectionMode,
+  DateInputValueChangeDetails,
+  UseDateInputContext,
+  UseDateInputProps,
+  UseDateInputReturn,
+} from '@ark-ui/react/date-input';

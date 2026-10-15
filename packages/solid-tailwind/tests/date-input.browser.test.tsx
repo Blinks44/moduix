@@ -14,6 +14,7 @@ import {
   DateInputSegments,
   DateInputSeparator,
   useDateInput,
+  Field,
 } from '../src';
 
 function ProviderDateInput() {
@@ -135,7 +136,7 @@ test('applies native utilities to the component-owned parts', async () => {
     .toHaveCSS('flex-direction', 'column');
   await expect
     .element(page.locator('[data-slot="date-input-root"]').nth(0))
-    .toHaveCSS('max-width', 'none');
+    .toHaveCSS('max-width', '100%');
   await expect
     .element(page.locator('[data-slot="date-input-root"]').nth(0))
     .toHaveCSS('gap', '4px');
@@ -191,9 +192,7 @@ test('lets consumer utilities replace component defaults', async () => {
   const segment = container.querySelector('[data-slot="date-input-segment"]');
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-80', 'max-w-sm', 'gap-4']));
-  expect(['w-full', 'max-w-none', 'gap-1'].some((name) => root!.classList.contains(name))).toBe(
-    false,
-  );
+  expect(['max-w-full', 'gap-1'].some((name) => root!.classList.contains(name))).toBe(false);
   expect([...control!.classList]).toEqual(
     expect.arrayContaining(['w-80', 'rounded-lg', 'bg-muted', 'px-0', 'text-primary']),
   );
@@ -206,4 +205,62 @@ test('lets consumer utilities replace component defaults', async () => {
   expect(segmentGroup!.classList.contains('gap-0.5')).toBe(false);
   expect([...segment!.classList]).toEqual(expect.arrayContaining(['min-w-0', 'px-0']));
   expect(['min-w-[2ch]', 'px-1'].some((name) => segment!.classList.contains(name))).toBe(false);
+});
+
+test('sizes the root to its content and stretches the control to the root', () => {
+  render(() => (
+    <div style={{ width: '600px' }}>
+      <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]}>
+        <DateInputLabel>Release date</DateInputLabel>
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
+      </DateInput>
+    </div>
+  ));
+
+  const root = document.querySelector<HTMLElement>('[data-slot="date-input-root"]')!;
+  const control = document.querySelector<HTMLElement>('[data-slot="date-input-control"]')!;
+
+  expect(root.offsetWidth).toBeLessThan(300);
+  expect(control.offsetWidth).toBe(root.offsetWidth);
+});
+
+test('does not dim a disabled date input twice inside a disabled field', () => {
+  render(() => (
+    <Field disabled>
+      <DateInput disabled>
+        <DateInputLabel>Release date</DateInputLabel>
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
+      </DateInput>
+    </Field>
+  ));
+
+  const field = document.querySelector('[data-slot="field-root"]')!;
+  const root = document.querySelector('[data-slot="date-input-root"]')!;
+
+  expect(getComputedStyle(field).opacity).toBe('0.5');
+  expect(getComputedStyle(root).opacity).toBe('1');
+});
+
+test('shows a focused placeholder segment in the foreground color', async () => {
+  render(() => (
+    <DateInput>
+      <DateInputLabel>Release date</DateInputLabel>
+      <DateInputControl>
+        <DateInputSegments />
+      </DateInputControl>
+    </DateInput>
+  ));
+
+  await page.getByRole('spinbutton').nth(0).click();
+  await new Promise((resolve) => setTimeout(resolve, 400));
+
+  const label = document.querySelector('[data-slot="date-input-label"]')!;
+  const segment = document.querySelector('[data-slot="date-input-segment"]')!;
+
+  expect(segment.hasAttribute('data-placeholder-shown')).toBe(true);
+  expect(getComputedStyle(segment).color).toBe(getComputedStyle(label).color);
 });

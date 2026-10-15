@@ -14,7 +14,7 @@ const value = [new CalendarDate(2026, 6, 22)];
 
 <template>
   <div :class="styles.stack">
-    <DateInput :class="styles.root" disabled name="disabled-date" :default-value="value">
+    <DateInput disabled name="disabled-date" :default-value="value">
       <DateInputLabel>Disabled date</DateInputLabel>
       <DateInputHiddenInput name="disabled-date" />
       <DateInputControl>
@@ -22,7 +22,7 @@ const value = [new CalendarDate(2026, 6, 22)];
       </DateInputControl>
     </DateInput>
 
-    <DateInput :class="styles.root" read-only name="read-only-date" :default-value="value">
+    <DateInput read-only name="read-only-date" :default-value="value">
       <DateInputLabel>Read-only date</DateInputLabel>
       <DateInputHiddenInput name="read-only-date" />
       <DateInputControl>

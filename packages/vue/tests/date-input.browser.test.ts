@@ -20,6 +20,7 @@ import {
   type DateInputDateValue,
   useDateInput,
   useDateInputContext,
+  Field,
 } from '../src';
 import SsrDateInput from './fixtures/SsrDateInput.vue';
 
@@ -270,4 +271,74 @@ test('hydrates date-input without replacing server hosts or IDs and remains inte
     app.unmount();
     host.remove();
   }
+});
+
+test('sizes the root to its content and stretches the control to the root', () => {
+  render({
+    components: dateInputComponents,
+    setup() {
+      return { releaseDate: [new CalendarDate(2026, 6, 22)] };
+    },
+    template: `
+      <div style="width: 600px">
+        <DateInput :default-value="releaseDate">
+          <DateInputLabel>Release date</DateInputLabel>
+          <DateInputControl>
+            <DateInputSegments />
+          </DateInputControl>
+        </DateInput>
+      </div>
+    `,
+  });
+
+  const root = document.querySelector<HTMLElement>('[data-slot="date-input-root"]')!;
+  const control = document.querySelector<HTMLElement>('[data-slot="date-input-control"]')!;
+
+  expect(root.offsetWidth).toBeLessThan(300);
+  expect(control.offsetWidth).toBe(root.offsetWidth);
+});
+
+test('does not dim a disabled date input twice inside a disabled field', () => {
+  render({
+    components: { ...dateInputComponents, Field: Field as Component },
+    template: `
+      <Field disabled>
+        <DateInput disabled>
+          <DateInputLabel>Release date</DateInputLabel>
+          <DateInputControl>
+            <DateInputSegments />
+          </DateInputControl>
+        </DateInput>
+      </Field>
+    `,
+  });
+
+  const field = document.querySelector('[data-slot="field-root"]')!;
+  const root = document.querySelector('[data-slot="date-input-root"]')!;
+
+  expect(getComputedStyle(field).opacity).toBe('0.5');
+  expect(getComputedStyle(root).opacity).toBe('1');
+});
+
+test('shows a focused placeholder segment in the foreground color', async () => {
+  render({
+    components: dateInputComponents,
+    template: `
+      <DateInput>
+        <DateInputLabel>Release date</DateInputLabel>
+        <DateInputControl>
+          <DateInputSegments />
+        </DateInputControl>
+      </DateInput>
+    `,
+  });
+
+  await page.getByRole('spinbutton').nth(0).click();
+  await new Promise((resolve) => setTimeout(resolve, 400));
+
+  const label = document.querySelector('[data-slot="date-input-label"]')!;
+  const segment = document.querySelector('[data-slot="date-input-segment"]')!;
+
+  expect(segment.hasAttribute('data-placeholder-shown')).toBe(true);
+  expect(getComputedStyle(segment).color).toBe(getComputedStyle(label).color);
 });

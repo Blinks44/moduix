@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkDateInputSegmentGroup
     v-bind="attrs"
-    :class="cn('inline-flex items-center gap-0.5 tabular-nums', className)"
+    :class="cn('flex items-center gap-0.5 tabular-nums', className)"
     data-slot="date-input-segment-group"
   >
     <slot />

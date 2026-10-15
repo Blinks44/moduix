@@ -12,11 +12,7 @@ import styles from '@/components/examples/date-input/date-input-advanced-customi
 
 export default function CustomSegmentsDateInputDemo() {
   return (
-    <DateInput
-      class={styles.root}
-      name="custom-date"
-      defaultValue={[new CalendarDate(2026, 6, 22)]}
-    >
+    <DateInput name="custom-date" defaultValue={[new CalendarDate(2026, 6, 22)]}>
       <DateInputLabel>Custom segments</DateInputLabel>
       <DateInputHiddenInput name="custom-date" />
       <DateInputControl class={styles.control}>

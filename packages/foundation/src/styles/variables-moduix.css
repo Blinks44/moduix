@@ -289,40 +289,9 @@
   --moduix-container-max-width-xl: initial; /* 90rem */
 
   /* DateInput */
-  --moduix-date-input-bg: initial; /* var(--moduix-color-background) */
-  --moduix-date-input-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-date-input-border-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-date-input-border-style: initial; /* solid */
-  --moduix-date-input-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-date-input-color: initial; /* var(--moduix-color-foreground) */
   --moduix-date-input-control-height: initial; /* var(--moduix-size-md) */
-  --moduix-date-input-control-width: initial; /* 100% */
-  --moduix-date-input-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-date-input-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-date-input-focus-ring-offset: initial; /* var(--moduix-focus-ring-inset-offset) */
-  --moduix-date-input-focus-ring-width: initial; /* var(--moduix-date-input-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))) */
-  --moduix-date-input-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-date-input-label-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-date-input-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-date-input-label-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-date-input-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-date-input-max-width: initial; /* none */
-  --moduix-date-input-padding-x: initial; /* var(--moduix-spacing-3) */
-  --moduix-date-input-padding-y: initial; /* var(--moduix-spacing-1) */
-  --moduix-date-input-placeholder-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-date-input-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-date-input-segment-bg-focus: initial; /* color-mix(in oklab, var(--moduix-color-ring) 18%, transparent) */
-  --moduix-date-input-segment-color: initial; /* currentColor */
-  --moduix-date-input-segment-color-focus: initial; /* var(--moduix-color-foreground) */
-  --moduix-date-input-segment-gap: initial; /* var(--moduix-border-width-md) */
-  --moduix-date-input-segment-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-date-input-segment-min-width: initial; /* 2ch */
-  --moduix-date-input-segment-padding-x: initial; /* var(--moduix-spacing-1) */
-  --moduix-date-input-segment-padding-y: initial; /* 0 */
-  --moduix-date-input-segment-radius: initial; /* var(--moduix-radius-sm) */
-  --moduix-date-input-separator-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-date-input-transition: initial; /* var(--moduix-transition-default) */
-  --moduix-date-input-width: initial; /* 100% */
+  --moduix-date-input-width: initial; /* auto */
 
   /* DatePicker */
   --moduix-date-picker-action-bg: initial; /* transparent */

@@ -94,10 +94,6 @@ import dateInputVueTimeOnly from '../../../snippets/date-input/vue/time-only.vue
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -314,10 +310,6 @@ Définissez `granularity` pour ajouter les segments horaires au champ.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-granularity.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -348,10 +340,6 @@ initiaux.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-leading-zeros.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -382,10 +370,6 @@ segments doivent suivre les conventions régionales.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-locale.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -416,10 +400,6 @@ comme non valides lorsqu’elles sont en dehors des limites.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-min-max-and-unavailable-dates.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -450,10 +430,6 @@ Utilisez `selectionMode="range"`, passez `index` à chaque groupe de segments et
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-range.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -483,10 +459,6 @@ Définissez `dir="rtl"` avec une locale RTL pour conserver la direction et l’o
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-right-to-left.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -551,10 +523,6 @@ ne fait pas partie de la valeur modifiée par l’utilisateur.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-time-only.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -599,6 +567,9 @@ Utilisez `className` en React ou `class` en Solid et Vue sur les parties export�
 variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules
 exposent également les variables de composant ci-dessous. Les attributs de données et les hooks `data-slot` sont
 communs aux deux modes de style.
+
+La racine s’adapte à son contenu et le contrôle la remplit. Pour étirer le champ dans un formulaire,
+définissez `--moduix-date-input-width: 100%` en CSS Modules ou ajoutez `w-full` à la racine en Tailwind.
 
 ### Propriétés CSS
 

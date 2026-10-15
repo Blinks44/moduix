@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { DateInputRoot as ArkDateInputRoot } from '@ark-ui/vue/date-input';
-import type {
-  DateInputDateValue,
-  DateInputFocusChangeDetails,
-  DateInputRootProps,
-  DateInputValueChangeDetails,
-} from '@ark-ui/vue/date-input';
+import type { DateInputRootEmits, DateInputRootProps } from '@ark-ui/vue/date-input';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
@@ -17,20 +12,10 @@ export interface Props extends /* @vue-ignore */ DateInputRootProps {
   class?: HTMLAttributes['class'];
 }
 
-interface DateInputPlaceholderChangeDetails extends DateInputValueChangeDetails {
-  placeholderValue: DateInputDateValue;
-}
-
-export interface Emits {
-  focusChange: [details: DateInputFocusChangeDetails];
-  valueChange: [details: DateInputValueChangeDetails];
-  'update:modelValue': [value: DateInputDateValue[]];
-  placeholderChange: [details: DateInputPlaceholderChangeDetails];
-  'update:placeholderValue': [placeholderValue: DateInputDateValue];
-}
+export interface Emits extends /* @vue-ignore */ DateInputRootEmits {}
 
 const { class: className } = defineProps<Props>();
-defineEmits</* @vue-ignore */ Emits>();
+defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();

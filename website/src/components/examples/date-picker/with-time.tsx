@@ -127,7 +127,6 @@ export default function DatePickerWithTimeDemo() {
         </DatePickerPositioner>
       </DatePicker>
       <DateInput
-        className={styles.timeInput}
         formatter={timeFormatter}
         granularity="minute"
         hourCycle={24}

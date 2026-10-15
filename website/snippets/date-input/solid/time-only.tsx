@@ -5,7 +5,6 @@ import {
   DateInputLabel,
   DateInputSegments,
 } from '@moduix/solid/date-input';
-import styles from '@/components/examples/date-input/date-input-time-only.module.css';
 
 const formatter = new DateFormatter('en-US', {
   hour: '2-digit',
@@ -16,7 +15,6 @@ const formatter = new DateFormatter('en-US', {
 export default function TimeOnlyDateInputDemo() {
   return (
     <DateInput
-      class={styles.root}
       granularity="minute"
       hourCycle={24}
       formatter={formatter}

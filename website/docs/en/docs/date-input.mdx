@@ -94,10 +94,6 @@ import dateInputVueTimeOnly from '../../../snippets/date-input/vue/time-only.vue
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -362,10 +358,6 @@ Set `granularity` to include time segments in the input.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-granularity.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -407,10 +399,6 @@ Set `shouldForceLeadingZeros={false}` when numeric segments should not include l
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-leading-zeros.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -453,10 +441,6 @@ should follow regional conventions.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-locale.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -498,10 +482,6 @@ Use `min`, `max`, and `isDateUnavailable` to mark entered dates outside business
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-min-max-and-unavailable-dates.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -544,10 +524,6 @@ Use `selectionMode="range"`, pass `index` to each segment group, and add matchin
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-range.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -589,10 +565,6 @@ Set `dir="rtl"` with an RTL locale to keep the locale's segment order and direct
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-right-to-left.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -681,10 +653,6 @@ of the value users edit.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/date-input/date-input-time-only.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -740,6 +708,9 @@ Use the full segment composition when rendering needs to vary based on Ark segme
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
 variants use native utilities and consumer classes. CSS Modules variants also expose the component
 variables below. Data attributes and `data-slot` hooks are shared by both styling tracks.
+
+The root is sized to its content and the control fills it. To stretch the input in a form, set
+`--moduix-date-input-width: 100%` in CSS Modules or add `w-full` to the root in Tailwind.
 
 ### CSS Properties
 

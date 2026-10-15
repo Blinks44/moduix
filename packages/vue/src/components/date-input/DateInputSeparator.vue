@@ -19,7 +19,6 @@ const attrs = useAttrs();
 <template>
   <span
     aria-hidden="true"
-    role="presentation"
     v-bind="attrs"
     :class="clsx(styles.separator, className)"
     data-slot="date-input-separator"

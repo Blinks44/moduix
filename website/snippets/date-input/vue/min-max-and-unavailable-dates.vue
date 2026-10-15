@@ -7,7 +7,6 @@ import {
   DateInputLabel,
   DateInputSegments,
 } from '@moduix/vue/date-input';
-import styles from '@/components/examples/date-input/date-input-min-max-and-unavailable-dates.module.css';
 
 const value = [new CalendarDate(2026, 6, 24)];
 const minDate = new CalendarDate(2026, 6, 22);
@@ -18,7 +17,6 @@ const isDateUnavailable = (date: DateValue) => date.day === unavailableDay;
 
 <template>
   <DateInput
-    :class="styles.root"
     :default-value="value"
     :min="minDate"
     :max="maxDate"

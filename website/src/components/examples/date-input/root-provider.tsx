@@ -17,7 +17,7 @@ export default function RootProviderDateInputDemo() {
   });
   return (
     <div className={styles.stack}>
-      <DateInputRootProvider className={styles.root} value={dateInput}>
+      <DateInputRootProvider value={dateInput}>
         <DateInputLabel>Report date</DateInputLabel>
         <DateInputControl>
           <DateInputSegments />

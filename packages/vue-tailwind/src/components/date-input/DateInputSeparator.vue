@@ -18,7 +18,6 @@ const attrs = useAttrs();
 <template>
   <span
     aria-hidden="true"
-    role="presentation"
     v-bind="attrs"
     :class="cn('text-muted-foreground select-none', className)"
     data-slot="date-input-separator"

@@ -94,10 +94,6 @@ import dateInputVueTimeOnly from '../../../snippets/date-input/vue/time-only.vue
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/date-input/date-input-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -314,10 +310,6 @@ DateInputRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/date-input/date-input-granularity.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -347,10 +339,6 @@ DateInputRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/date-input/date-input-leading-zeros.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -381,10 +369,6 @@ DateInputRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/date-input/date-input-locale.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -415,10 +399,6 @@ DateInputRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/date-input/date-input-min-max-and-unavailable-dates.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -449,10 +429,6 @@ DateInputRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/date-input/date-input-range.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -482,10 +458,6 @@ DateInputRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/date-input/date-input-right-to-left.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -550,10 +522,6 @@ DateInputRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/date-input/date-input-time-only.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -597,6 +565,9 @@ DateInputRootProvider
 В React используйте `className`, а в Solid и Vue `class` на экспортируемых частях для структурных стилей. Варианты
 Tailwind используют обычные utility-классы и классы потребителя. Варианты CSS Modules также предоставляют
 перечисленные ниже переменные компонентов. Атрибуты данных и хуки `data-slot` общие для обоих вариантов.
+
+Корень подстраивается под содержимое, а контрол заполняет корень. Чтобы растянуть поле в форме, задайте
+`--moduix-date-input-width: 100%` в CSS Modules или добавьте корню `w-full` в Tailwind.
 
 ### CSS-свойства
 
