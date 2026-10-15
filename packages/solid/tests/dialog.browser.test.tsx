@@ -105,6 +105,22 @@ test('passes dynamic children through CloseIcon and keeps the default icon and c
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
 });
 
+test('forwards aria-labelledby and attributes from CloseIcon to the close button', async () => {
+  render(() => (
+    <Dialog defaultOpen portalled={false}>
+      <DialogParts>
+        <span id="dismiss-label">Dismiss</span>
+        <DialogCloseIcon aria-labelledby="dismiss-label" data-testid="close-icon" />
+      </DialogParts>
+    </Dialog>
+  ));
+
+  const button = page.getByTestId('close-icon');
+  await expect.element(button).toHaveAttribute('aria-labelledby', 'dismiss-label');
+  await expect.element(button).toHaveAttribute('data-slot', 'dialog-close-icon');
+  await expect.element(page.getByRole('button', { name: 'Dismiss' })).toBeVisible();
+});
+
 test('keeps page interaction available for a non-modal dialog', async () => {
   render(() => (
     <Dialog defaultOpen modal={false} portalled={false}>

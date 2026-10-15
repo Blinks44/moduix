@@ -3,21 +3,15 @@
     position: fixed;
     z-index: calc(var(--z-index, var(--moduix-z-popup)) - 1);
     inset: 0;
-    min-height: 100dvh;
-    background-color: var(
-      --moduix-dialog-backdrop-bg,
-      var(--moduix-backdrop-bg, var(--moduix-color-overlay))
-    );
-    backdrop-filter: var(--moduix-backdrop-filter, blur(var(--moduix-dialog-backdrop-blur, 4px)));
+    background-color: var(--moduix-backdrop-bg, var(--moduix-color-overlay));
+    backdrop-filter: var(--moduix-backdrop-filter, blur(4px));
 
     &[data-state='open'] {
-      animation: global(moduix-dialog-backdrop-in)
-        var(--moduix-dialog-backdrop-transition, var(--moduix-transition-default));
+      animation: global(moduix-dialog-backdrop-in) var(--moduix-transition-default);
     }
 
     &[data-state='closed'] {
-      animation: global(moduix-dialog-backdrop-out)
-        var(--moduix-dialog-backdrop-transition, var(--moduix-transition-default)) forwards;
+      animation: global(moduix-dialog-backdrop-out) var(--moduix-transition-default) forwards;
     }
   }
 
@@ -32,7 +26,7 @@
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-gutter: stable both-edges;
-    padding: var(--moduix-dialog-positioner-padding, var(--moduix-spacing-4));
+    padding: var(--moduix-spacing-4);
 
     &:has(> [data-slot='dialog-content'][data-size='full']) {
       padding: 0;
@@ -40,52 +34,38 @@
   }
 
   .content {
+    --_dialog-width: 28rem;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     box-sizing: border-box;
     position: relative;
-    --_dialog-width: 28rem;
     width: min(
       var(--moduix-dialog-width, var(--_dialog-width)),
-      var(--moduix-dialog-max-width, calc(100vw - var(--moduix-spacing-8, 2rem)))
+      calc(100vw - var(--moduix-spacing-8))
     );
     max-width: 100%;
-    padding: var(--moduix-dialog-padding, var(--moduix-spacing-6));
-    border: var(--moduix-dialog-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-dialog-border-color, var(--moduix-color-border));
-    border-radius: var(--moduix-dialog-radius, var(--moduix-radius-lg));
+    padding: var(--moduix-spacing-6);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-lg);
     outline: 0;
-    background-color: var(--moduix-dialog-bg, var(--moduix-color-popover));
-    color: var(--moduix-dialog-color, var(--moduix-color-popover-foreground));
-    box-shadow: var(--moduix-dialog-shadow, var(--moduix-shadow-lg));
+    background-color: var(--moduix-color-popover);
+    color: var(--moduix-color-popover-foreground);
+    box-shadow: var(--moduix-shadow-lg);
     transform-origin: center top;
-    scale: 1;
-    translate: 0 0;
     transition:
-      scale
-        var(
-          --moduix-dialog-nested-transition,
-          var(--moduix-dialog-transition, var(--moduix-transition-default))
-        ),
-      translate
-        var(
-          --moduix-dialog-nested-transition,
-          var(--moduix-dialog-transition, var(--moduix-transition-default))
-        );
+      scale var(--moduix-transition-default),
+      translate var(--moduix-transition-default);
 
+    /* Dims a parent dialog while a nested one is open. */
     &::after {
       content: '';
       position: absolute;
       z-index: 1;
       inset: 0;
       border-radius: inherit;
-      background-color: var(--moduix-dialog-nested-overlay-bg, rgb(0 0 0 / 0.05));
+      background-color: rgb(0 0 0 / 0.05);
       opacity: 0;
       pointer-events: none;
-      transition: opacity
-        var(
-          --moduix-dialog-nested-transition,
-          var(--moduix-dialog-transition, var(--moduix-transition-default))
-        );
+      transition: opacity var(--moduix-transition-default);
     }
 
     &[data-size='sm'] {
@@ -120,9 +100,7 @@
     &[data-scroll-behavior='inside'] {
       display: flex;
       flex-direction: column;
-      max-height: calc(
-        100dvh - 2 * var(--moduix-dialog-positioner-padding, var(--moduix-spacing-4))
-      );
+      max-height: calc(100dvh - 2 * var(--moduix-spacing-4));
 
       & > [data-slot='dialog-body'] {
         flex: 1 1 auto;
@@ -136,12 +114,8 @@
     }
 
     &[data-has-nested] {
-      scale: calc(1 - var(--moduix-dialog-nested-scale-step, 0.05) * var(--nested-layer-count, 0));
-      translate: 0
-        calc(
-          var(--moduix-dialog-nested-translate-step, var(--moduix-spacing-10)) *
-            var(--nested-layer-count, 0)
-        );
+      scale: calc(1 - 0.05 * var(--nested-layer-count, 0));
+      translate: 0 calc(var(--moduix-spacing-10) * var(--nested-layer-count, 0));
 
       &::after {
         opacity: 1;
@@ -150,81 +124,44 @@
 
     &[data-state='open'] {
       animation: global(moduix-dialog-content-in)
-        var(
-          --moduix-dialog-transition,
-          var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
-            var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
-        );
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
     }
 
     &[data-state='closed'] {
       animation: global(moduix-dialog-content-out)
-        var(
-          --moduix-dialog-transition,
-          var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
-            var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
-        )
-        forwards;
+        var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
     }
   }
 
   .header {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: start;
-    gap: var(--moduix-dialog-header-gap, var(--moduix-spacing-1));
-
-    & > [data-slot='dialog-title'] {
-      grid-column: 1;
-    }
-
-    & > [data-slot='dialog-close-trigger'] {
-      grid-column: 2;
-      justify-self: end;
-    }
-
-    & > [data-slot='dialog-description'] {
-      grid-column: 1 / -1;
-    }
+    gap: var(--moduix-spacing-1);
   }
 
   .title {
     margin: 0;
+    font-size: var(--moduix-text-lg);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-lg);
 
     /* Keep long titles clear of the absolutely positioned close icon. */
     [data-slot='dialog-content']:has([data-slot='dialog-close-icon']) & {
-      padding-inline-end: max(
-        0px,
-        calc(
-          var(--moduix-dialog-close-icon-size, var(--moduix-spacing-7)) +
-            var(--moduix-dialog-close-icon-inset-inline-end, var(--moduix-spacing-4)) -
-            var(--moduix-dialog-padding, var(--moduix-spacing-6)) + var(--moduix-spacing-2)
-        )
-      );
+      padding-inline-end: var(--moduix-spacing-7);
     }
-
-    color: var(
-      --moduix-dialog-title-color,
-      var(--moduix-dialog-color, var(--moduix-color-popover-foreground))
-    );
-    font-size: var(--moduix-dialog-title-font-size, var(--moduix-text-lg));
-    font-weight: var(--moduix-dialog-title-font-weight, var(--moduix-weight-semibold));
-    line-height: var(--moduix-dialog-title-line-height, var(--moduix-line-height-text-lg));
   }
 
   .description {
     margin: 0;
-    color: var(
-      --moduix-dialog-description-color,
-      var(--moduix-dialog-muted-color, var(--moduix-color-muted-foreground))
-    );
-    font-size: var(--moduix-dialog-description-font-size, var(--moduix-text-md));
-    line-height: var(--moduix-dialog-description-line-height, var(--moduix-line-height-text-md));
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
   }
 
   /* The body inherits the content color; only the description is muted. */
   .body {
-    margin-block-start: var(--moduix-dialog-body-margin-top, var(--moduix-spacing-4));
+    margin-block-start: var(--moduix-spacing-4);
     font-size: var(--moduix-text-md);
     line-height: var(--moduix-line-height-text-md);
   }
@@ -233,22 +170,18 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    gap: var(--moduix-dialog-footer-gap, var(--moduix-spacing-2));
-    margin-block-start: var(--moduix-dialog-footer-margin-top, var(--moduix-spacing-6));
+    gap: var(--moduix-spacing-2);
+    margin-block-start: var(--moduix-spacing-6);
   }
 
   .closeIcon {
-    --moduix-close-button-size: var(--moduix-dialog-close-icon-size, var(--moduix-spacing-7));
     --moduix-close-button-radius: var(--moduix-radius-md);
-    --moduix-close-button-color-hover: var(
-      --moduix-dialog-color,
-      var(--moduix-color-popover-foreground)
-    );
+    --moduix-close-button-color-hover: var(--moduix-color-popover-foreground);
     --moduix-close-button-bg-hover: var(--moduix-color-accent);
     position: absolute;
     z-index: 2;
-    inset-block-start: var(--moduix-dialog-close-icon-inset-block-start, var(--moduix-spacing-4));
-    inset-inline-end: var(--moduix-dialog-close-icon-inset-inline-end, var(--moduix-spacing-4));
+    inset-block-start: var(--moduix-spacing-4);
+    inset-inline-end: var(--moduix-spacing-4);
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -2,72 +2,47 @@ import { Button } from '@moduix/solid/button';
 import {
   Dialog,
   DialogBackdrop,
+  DialogBody,
   DialogCloseTrigger,
   DialogContent,
+  DialogDescription,
   DialogFooter,
+  DialogHeader,
   DialogPositioner,
   DialogTitle,
   DialogTrigger,
 } from '@moduix/solid/dialog';
-import {
-  ScrollArea,
-  ScrollAreaContent,
-  ScrollAreaCorner,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaViewport,
-} from '@moduix/solid/scroll-area';
 import styles from '@/components/examples/dialog/dialog-inside-scroll.module.css';
 
-const sections = [
-  {
-    title: 'Prepare',
-    body: 'Confirm the release branch, generated artifacts, and versioned package metadata before starting the release.',
-  },
-  {
-    title: 'Validate',
-    body: 'Run formatting, linting, builds, and type checks. Resolve every failure before publishing an artifact.',
-  },
-  {
-    title: 'Publish',
-    body: 'Publish only after every required validation succeeds and the release notes accurately describe the changes.',
-  },
-  {
-    title: 'Verify',
-    body: 'Install the published package in a clean project and verify that the documented consumer path still works.',
-  },
-  {
-    title: 'Communicate',
-    body: 'Share the release with the team, include migration notes where needed, and monitor the first consumer reports.',
-  },
+const paragraphs = [
+  'This release introduces a more resilient deployment workflow for teams that publish packages across several applications. Every release starts from a clean branch and records the exact commit, generated artifacts, and package version that will be published.',
+  'Before publishing, review the changelog with the affected teams. Describe behavior changes, migration steps, and known limitations in language that a consumer can act on without reading the implementation.',
+  'Run formatting, linting, unit tests, type checks, and production builds from the same commit. Treat a failed validation as a signal to stop the release rather than a step that can be skipped for speed.',
+  'Verify package contents before uploading them. The published archive should include declarations, runtime files, licenses, and documentation entry points while excluding local fixtures and development-only source files.',
+  'Install the candidate package in a clean consumer project. Exercise the documented imports, server-side rendering path, and one representative interaction so packaging errors are caught before a public release.',
+  'Coordinate the release window with downstream maintainers when a change affects shared tokens, visual behavior, or form semantics. A short heads-up avoids unexpected updates during active product work.',
+  'After publishing, confirm that the registry, documentation site, and package manager all expose the same version. Link the release notes to the relevant migration guidance when consumers need to take action.',
+  'Monitor the first consumer reports and error dashboards. If a regression requires a patch, create a focused follow-up release with a clear explanation instead of silently replacing the published artifact.',
 ];
 
-export default function DialogScrollDemo() {
+export default function DialogInsideScrollDemo() {
   return (
     <Dialog>
-      <DialogTrigger asChild={(props) => <Button {...props()}>Open terms</Button>} />
+      <DialogTrigger asChild={(props) => <Button {...props()}>Open release checklist</Button>} />
       <DialogBackdrop />
       <DialogPositioner>
-        <DialogContent>
-          <DialogTitle>Terms of service</DialogTitle>
-          <ScrollArea class={styles.scrollArea}>
-            <ScrollAreaViewport>
-              <ScrollAreaContent>
-                <div class={styles.content}>
-                  {sections.map((section) => (
-                    <section class={styles.section}>
-                      <h3 class={styles.heading}>{section.title}</h3>
-                      <p class={styles.paragraph}>{section.body}</p>
-                    </section>
-                  ))}
-                </div>
-              </ScrollAreaContent>
-            </ScrollAreaViewport>
-            <ScrollAreaScrollbar>
-              <ScrollAreaThumb />
-            </ScrollAreaScrollbar>
-            <ScrollAreaCorner />
-          </ScrollArea>
+        <DialogContent scrollBehavior="inside">
+          <DialogHeader>
+            <DialogTitle>Release checklist</DialogTitle>
+            <DialogDescription>
+              The header and actions stay in place while the body scrolls.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogBody class={styles.body}>
+            {paragraphs.map((paragraph) => (
+              <p class={styles.paragraph}>{paragraph}</p>
+            ))}
+          </DialogBody>
           <DialogFooter>
             <DialogCloseTrigger
               asChild={(props) => (

@@ -62,17 +62,14 @@ through `asChild`, so ordinary refs and custom-host composition are supported as
 paths. `DialogCloseIcon` composes `CloseButton` through the same native render-function
 contract and defaults its accessible label to `Close dialog`.
 
-## Style contract (2026-10-03)
+## Styling contract
 
-Content shares the --moduix-z-popup base and adds Ark --layer-index. Positioner and backdrop use Ark’s mirrored --z-index; the backdrop sits one level below. Customize stacking on content.
-
-## Layout contract (2026-10-13)
+Content shares the `--moduix-z-popup` base and adds Ark `--layer-index`. Positioner and backdrop use
+Ark's mirrored `--z-index`; the backdrop sits one level below. Customize stacking on content.
 
 The positioner centers content with `place-items: safe center` and scrolls when content is taller
 than the viewport; content has no `max-height`. `DialogTitle` reserves inline-end space when
 `DialogCloseIcon` is present, and `DialogFooter` wraps actions that do not fit on one line.
-
-## Content props (2026-10-13)
 
 `DialogContent` accepts `size` (`sm`, `md`, `lg`, `xl`, `full`; default `md`), `placement`
 (`center`, `top`, `bottom`; default `center`), and `scrollBehavior` (`outside`, `inside`; default
@@ -82,3 +79,8 @@ the content at the viewport height and scrolls `DialogBody`.
 
 Native `DialogTrigger` and `DialogCloseTrigger` buttons are unstyled; use `asChild` with `Button`.
 `DialogBody` inherits the content color; only `DialogDescription` is muted.
+
+Styles come from foundation tokens. The only public variable is `--moduix-dialog-width`; content
+motion reads the shared `--moduix-popup-motion-*` variables, and the backdrop reads
+`--moduix-backdrop-bg` and `--moduix-backdrop-filter`. See the React `dialog.md` for the full
+contract.

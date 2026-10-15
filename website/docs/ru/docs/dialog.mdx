@@ -322,8 +322,8 @@ DialogContext
 ### Прокрутка содержимого
 
 Сделайте прокручиваемым только основное содержимое, если заголовок и действия должны оставаться
-видимыми. `scrollBehavior="inside"` у `DialogContent` прокручивает `DialogBody` без дополнительных
-стилей; `ScrollArea` с фиксированной высотой, как в этом примере, тоже подходит.
+видимыми. Задайте `scrollBehavior="inside"` у `DialogContent`: диалог ограничится высотой экрана,
+а прокручиваться будет `DialogBody`.
 
 <ExampleFrame variant="component">
   <DialogInsideScroll />
@@ -782,3 +782,5 @@ moduix использует это состояние, чтобы отодвин
 - Переменные рантайма: `--layer-index` и `--nested-layer-count`.
 - `DialogCloseIcon` позиционируется относительно угла `DialogContent`, поэтому его размещение не
   зависит от `DialogHeader`.
+- Цвета, рамки, отступы и типографика берутся из токенов foundation. Для одного диалога меняйте их
+  классом на нужной части, а анимацию задавайте через `--moduix-popup-motion-*` на `DialogContent`.

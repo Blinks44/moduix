@@ -149,7 +149,7 @@ function DialogCloseTrigger(props: ComponentProps<typeof DialogPrimitive.CloseTr
 }
 
 function DialogCloseIcon(props: DialogCloseIconProps) {
-  const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
+  const [local, others] = splitProps(props, ['aria-label', 'children', 'class']);
 
   return (
     <DialogPrimitive.CloseTrigger
@@ -158,7 +158,6 @@ function DialogCloseIcon(props: DialogCloseIconProps) {
           {...triggerProps()}
           data-slot="dialog-close-icon"
           aria-label={local['aria-label'] ?? a11yLabels.closeDialog}
-          aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >
           {local.children}

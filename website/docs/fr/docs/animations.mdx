@@ -60,9 +60,11 @@ visuelle qui porte l’animation.
 | Surface | Partie | Famille de variables |
 | --- | --- | --- |
 | Popover | `PopoverContent` | `--moduix-popover-content-*` |
-| Dialog | `DialogContent` | `--moduix-dialog-content-*` |
 | Select | `SelectContent` | `--moduix-select-content-*` |
 | Navigation Menu | `NavigationMenuContent` | `--moduix-navigation-menu-content-*` |
+
+Dialog et Command Palette n’ont pas de famille propre. Définissez plutôt les variables partagées
+`--moduix-popup-motion-*` sur leur partie de contenu : les keyframes les lisent sur cet élément.
 
 Par exemple, appliquez une échelle plus douce à un seul Select :
 
@@ -75,8 +77,7 @@ Par exemple, appliquez une échelle plus douce à un seul Select :
 ```
 
 Consultez la page [Select](/docs/select) pour la liste complète de ses variables. Le Backdrop d’une
-modale possède ses propres variables de transition, d’opacité et de flou ; il n’hérite pas de l’échelle
-ni de la translation des popups.
+modale n’hérite pas de l’échelle ni de la translation des popups.
 
 ## Séparer les mouvements liés à l’état
 

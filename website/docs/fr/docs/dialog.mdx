@@ -322,8 +322,8 @@ Conservez `open` dans l’état React, un signal Solid ou une ref Vue, puis lise
 ### Défilement interne
 
 Rendez uniquement le contenu principal défilable lorsque le titre et les actions doivent rester
-visibles. `scrollBehavior="inside"` sur `DialogContent` fait défiler `DialogBody` sans style
-supplémentaire ; une `ScrollArea` de hauteur fixe, comme dans cet exemple, convient aussi.
+visibles. Définissez `scrollBehavior="inside"` sur `DialogContent` : le dialogue s’arrête à la
+hauteur de l’écran et `DialogBody` défile.
 
 <ExampleFrame variant="component">
   <DialogInsideScroll />
@@ -784,3 +784,6 @@ sont communs aux deux approches.
 - Variables d’exécution : `--layer-index` et `--nested-layer-count`.
 - `DialogCloseIcon` est positionné par rapport à l’angle de `DialogContent`, son placement ne
   dépend donc pas de `DialogHeader`.
+- Les couleurs, bordures, espacements et la typographie viennent des tokens de la fondation. Pour un
+  seul dialogue, modifiez-les avec une classe sur la partie concernée, et l’animation avec
+  `--moduix-popup-motion-*` sur `DialogContent`.

@@ -1,6 +1,9 @@
 .content {
   &[data-dialog-tone='danger'] {
-    --moduix-dialog-border-color: var(--moduix-color-destructive);
-    --moduix-dialog-title-color: var(--moduix-color-destructive);
+    border-color: var(--moduix-color-destructive);
+
+    & [data-slot='dialog-title'] {
+      color: var(--moduix-color-destructive);
+    }
   }
 }

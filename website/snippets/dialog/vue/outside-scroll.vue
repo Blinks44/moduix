@@ -32,7 +32,7 @@ const paragraphs = [
     <DialogTrigger as-child><Button>Open release notes</Button></DialogTrigger>
     <DialogBackdrop />
     <DialogPositioner>
-      <DialogContent :class="styles.content" placement="top">
+      <DialogContent placement="top">
         <DialogHeader>
           <DialogTitle>Release notes</DialogTitle>
           <DialogDescription>

@@ -134,7 +134,7 @@ const DialogTitle = forwardRef<
   return (
     <DialogPrimitive.Title
       ref={ref}
-      className={cn('text-lg font-semibold text-popover-foreground', className)}
+      className={cn('text-lg font-semibold', className)}
       {...props}
       data-slot="dialog-title"
     />
@@ -176,7 +176,7 @@ const DialogCloseIcon = forwardRef<
         data-slot="dialog-close-icon"
         aria-label={ariaLabel}
         className={cn(
-          'absolute end-4 top-4 z-2 size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+          'absolute end-4 top-4 z-2 rounded-md [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
           className,
         )}
       >
@@ -191,10 +191,7 @@ const DialogHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
     return (
       <ark.div
         ref={ref}
-        className={cn(
-          "grid grid-cols-[minmax(0,1fr)_auto] items-start gap-1 [&>[data-slot='dialog-close-trigger']]:col-start-2 [&>[data-slot='dialog-close-trigger']]:justify-self-end [&>[data-slot='dialog-description']]:col-span-2 [&>[data-slot='dialog-title']]:col-start-1",
-          className,
-        )}
+        className={cn('grid gap-1', className)}
         {...props}
         data-slot="dialog-header"
       />

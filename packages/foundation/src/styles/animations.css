@@ -353,57 +353,33 @@
 
 @keyframes moduix-dialog-backdrop-in {
   from {
-    opacity: var(--moduix-dialog-backdrop-starting-opacity, 0);
-    backdrop-filter: var(--moduix-dialog-backdrop-starting-blur, none);
+    opacity: 0;
+    backdrop-filter: none;
   }
 }
 
 @keyframes moduix-dialog-backdrop-out {
   to {
-    opacity: var(--moduix-dialog-backdrop-ending-opacity, 0);
-    backdrop-filter: var(--moduix-dialog-backdrop-ending-blur, none);
+    opacity: 0;
+    backdrop-filter: none;
   }
 }
 
 @keyframes moduix-dialog-content-in {
   from {
-    opacity: var(
-      --moduix-dialog-content-starting-opacity,
-      var(--moduix-popup-motion-starting-opacity, 0)
-    );
-    translate: var(
-        --moduix-dialog-content-starting-translate-x,
-        var(--moduix-popup-motion-starting-translate-x, 0)
-      )
-      var(
-        --moduix-dialog-content-starting-translate-y,
-        var(--moduix-popup-motion-starting-translate-y, 0)
-      );
-    scale: var(
-      --moduix-dialog-content-starting-scale,
-      var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup))
-    );
+    opacity: var(--moduix-popup-motion-starting-opacity, 0);
+    translate: var(--moduix-popup-motion-starting-translate-x, 0)
+      var(--moduix-popup-motion-starting-translate-y, 0);
+    scale: var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup));
   }
 }
 
 @keyframes moduix-dialog-content-out {
   to {
-    opacity: var(
-      --moduix-dialog-content-ending-opacity,
-      var(--moduix-popup-motion-ending-opacity, 0)
-    );
-    translate: var(
-        --moduix-dialog-content-ending-translate-x,
-        var(--moduix-popup-motion-ending-translate-x, 0)
-      )
-      var(
-        --moduix-dialog-content-ending-translate-y,
-        var(--moduix-popup-motion-ending-translate-y, 0)
-      );
-    scale: var(
-      --moduix-dialog-content-ending-scale,
-      var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup))
-    );
+    opacity: var(--moduix-popup-motion-ending-opacity, 0);
+    translate: var(--moduix-popup-motion-ending-translate-x, 0)
+      var(--moduix-popup-motion-ending-translate-y, 0);
+    scale: var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup));
   }
 }
 

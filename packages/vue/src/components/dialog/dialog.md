@@ -38,7 +38,9 @@ A styled Ark UI modal, non-modal, and alert-dialog surface with explicit anatomy
   `DialogPositioner`, `DialogContent`, `DialogTitle`, `DialogDescription`, `DialogCloseTrigger`,
   `DialogCloseIcon`, `DialogHeader`, `DialogBody`, `DialogFooter`, `useDialog`, and
   `useDialogContext`, plus Ark's dialog types and moduix `DialogSize`, `DialogPlacement`, and
-  `DialogScrollBehavior`.
+  `DialogScrollBehavior`. `DialogRootProps`, `DialogRootProviderProps`, and `DialogContentProps` are
+  the moduix props (Ark props plus `portalled`, `portalRef`, `size`, `placement`, and
+  `scrollBehavior`), as in React and Solid.
 - `Dialog` and `DialogRootProvider` default `lazyMount`, `unmountOnExit`, and `portalled` to
   `true`. `DialogBackdrop` and `DialogPositioner` portal automatically; `portalled=false` keeps
   them inline and `portalRef` chooses a target.
@@ -75,8 +77,14 @@ no `max-height` unless `scroll-behavior="inside"` is set. `DialogTitle` keeps cl
 inherits the content color. Content and backdrop animations use the shared foundation keyframes and
 shorten to 1ms under reduced motion so Ark still sees `animationend`.
 
+Styles come from foundation tokens. The only public variable is `--moduix-dialog-width`; content
+motion reads the shared `--moduix-popup-motion-*` variables, and the backdrop reads
+`--moduix-backdrop-bg` and `--moduix-backdrop-filter`.
+
 ## Local changelog
 
+- 2026-10-15: Public CSS variables went from 45 to `--moduix-dialog-width` only; `DialogHeader` is
+  a plain stack.
 - 2026-10-13: Added this file. Added `size`, `placement`, and `scroll-behavior` to `DialogContent`,
   removed native trigger styling, made `DialogBody` inherit the content color, and moved the
   `DialogCloseIcon` default label to `a11yLabels`.

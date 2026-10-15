@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 import { type ReactNode, useRef, useState } from 'react';
 import {
   Button,
+  CloseButton,
   Dialog,
   DialogBackdrop,
   DialogBody,
@@ -533,4 +534,28 @@ test('leaves a native trigger unstyled', async () => {
 
   await expect.element(page.getByRole('button', { name: 'Open dialog' })).toBeVisible();
   expect(document.querySelector('[data-slot="dialog-trigger"]')!.className).toBe('');
+});
+
+test('gives the close icon the CloseButton focus ring', async () => {
+  render(
+    <>
+      <CloseButton data-testid="reference" />
+      <Dialog defaultOpen modal={false} portalled={false}>
+        <DialogParts>
+          <DialogCloseIcon />
+        </DialogParts>
+      </Dialog>
+    </>,
+  );
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  const reference = document.querySelector<HTMLElement>('[data-testid="reference"]')!;
+  const icon = document.querySelector<HTMLElement>('[data-slot="dialog-close-icon"]')!;
+  reference.focus();
+  const expected = getComputedStyle(reference);
+  const ring = [expected.outlineWidth, expected.outlineOffset];
+  icon.focus();
+  const actual = getComputedStyle(icon);
+  expect(ring).not.toEqual(['0px', '0px']);
+  expect([actual.outlineWidth, actual.outlineOffset]).toEqual(ring);
 });

@@ -4,6 +4,7 @@ import { render } from '@solidjs/testing-library';
 import { createSignal, type JSX } from 'solid-js';
 import {
   Button,
+  CloseButton,
   Dialog,
   DialogBackdrop,
   DialogBody,
@@ -103,6 +104,22 @@ test('passes dynamic children through CloseIcon and keeps the default icon and c
   expect(button.querySelector('svg')).not.toBeNull();
   await page.getByRole('button', { name: 'Close dialog' }).click();
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
+});
+
+test('forwards aria-labelledby and attributes from CloseIcon to the close button', async () => {
+  render(() => (
+    <Dialog defaultOpen portalled={false}>
+      <DialogParts>
+        <span id="dismiss-label">Dismiss</span>
+        <DialogCloseIcon aria-labelledby="dismiss-label" data-testid="close-icon" />
+      </DialogParts>
+    </Dialog>
+  ));
+
+  const button = page.getByTestId('close-icon');
+  await expect.element(button).toHaveAttribute('aria-labelledby', 'dismiss-label');
+  await expect.element(button).toHaveAttribute('data-slot', 'dialog-close-icon');
+  await expect.element(page.getByRole('button', { name: 'Dismiss' })).toBeVisible();
 });
 
 test('keeps page interaction available for a non-modal dialog', async () => {
@@ -559,4 +576,28 @@ test('leaves a native trigger unstyled', async () => {
 
   await expect.element(page.getByRole('button', { name: 'Open dialog' })).toBeVisible();
   expect(document.querySelector('[data-slot="dialog-trigger"]')!.className).toBe('');
+});
+
+test('gives the close icon the CloseButton focus ring', async () => {
+  render(() => (
+    <>
+      <CloseButton data-testid="reference" />
+      <Dialog defaultOpen modal={false} portalled={false}>
+        <DialogParts>
+          <DialogCloseIcon />
+        </DialogParts>
+      </Dialog>
+    </>
+  ));
+
+  await expect.element(page.getByRole('dialog')).toBeVisible();
+  const reference = document.querySelector<HTMLElement>('[data-testid="reference"]')!;
+  const icon = document.querySelector<HTMLElement>('[data-slot="dialog-close-icon"]')!;
+  reference.focus();
+  const expected = getComputedStyle(reference);
+  const ring = [expected.outlineWidth, expected.outlineOffset];
+  icon.focus();
+  const actual = getComputedStyle(icon);
+  expect(ring).not.toEqual(['0px', '0px']);
+  expect([actual.outlineWidth, actual.outlineOffset]).toEqual(ring);
 });

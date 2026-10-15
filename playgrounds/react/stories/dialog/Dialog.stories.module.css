@@ -31,7 +31,7 @@
 
     p {
       margin: 0;
-      color: var(--moduix-dialog-muted-color, var(--moduix-color-muted-foreground));
+      color: var(--moduix-color-muted-foreground);
       font-size: var(--moduix-text-sm);
       line-height: var(--moduix-line-height-text-md);
     }

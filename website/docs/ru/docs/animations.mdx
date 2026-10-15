@@ -60,9 +60,11 @@ Command Palette, Lightbox, Tour, Navigation Menu, Select, Combobox, Date Picker 
 | Поверхность | Часть | Семейство переменных |
 | --- | --- | --- |
 | Popover | `PopoverContent` | `--moduix-popover-content-*` |
-| Dialog | `DialogContent` | `--moduix-dialog-content-*` |
 | Select | `SelectContent` | `--moduix-select-content-*` |
 | Navigation Menu | `NavigationMenuContent` | `--moduix-navigation-menu-content-*` |
+
+У Dialog и Command Palette отдельного семейства нет. Задайте общие переменные `--moduix-popup-motion-*`
+на их части с содержимым: keyframes читают их с этого элемента.
 
 Например, один Select можно открывать с более мягким масштабированием:
 
@@ -74,8 +76,8 @@ Command Palette, Lightbox, Tour, Navigation Menu, Select, Combobox, Date Picker 
 }
 ```
 
-Полный список переменных находится на странице [Select](/docs/select). Backdrop модальных компонентов использует
-собственные переменные перехода, прозрачности и размытия, а не масштаб и смещение popup-элементов.
+Полный список переменных находится на странице [Select](/docs/select). Backdrop модальных компонентов
+не наследует масштаб и смещение popup-элементов.
 
 ## Не смешивайте разные типы анимации
 

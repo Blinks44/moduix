@@ -60,9 +60,11 @@ owns the animation.
 | Surface | Part | Variable family |
 | --- | --- | --- |
 | Popover | `PopoverContent` | `--moduix-popover-content-*` |
-| Dialog | `DialogContent` | `--moduix-dialog-content-*` |
 | Select | `SelectContent` | `--moduix-select-content-*` |
 | Navigation Menu | `NavigationMenuContent` | `--moduix-navigation-menu-content-*` |
+
+Dialog and Command Palette have no component-level family. Set the shared `--moduix-popup-motion-*`
+variables on their content part instead; the keyframes read them from that element.
 
 For example, make one picker open with a softer scale by assigning a class to `SelectContent`:
 
@@ -74,8 +76,8 @@ For example, make one picker open with a softer scale by assigning a class to `S
 }
 ```
 
-See the [Select](/docs/select) page for its complete variable list. Modal backdrops have their own
-transition, opacity, and blur variables; they do not inherit popup scale or translation.
+See the [Select](/docs/select) page for its complete variable list. Modal backdrops do not inherit
+popup scale or translation.
 
 ## Keep state motion separate
 

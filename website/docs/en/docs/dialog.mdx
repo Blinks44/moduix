@@ -320,8 +320,8 @@ Keep `open` in React state, a Solid signal, or a Vue ref and read `details.open`
 ### Inside Scroll
 
 Make only the main content scrollable when the title and actions should remain visible. Set
-`scrollBehavior="inside"` on `DialogContent` to scroll `DialogBody` without extra styles, or use a
-`ScrollArea` with a fixed height as in this example.
+`scrollBehavior="inside"` on `DialogContent`: the dialog stops at the viewport height and
+`DialogBody` scrolls.
 
 <ExampleFrame variant="component">
   <DialogInsideScroll />
@@ -778,3 +778,5 @@ by both styling tracks.
 - Runtime variables: `--layer-index` and `--nested-layer-count`.
 - `DialogCloseIcon` is positioned against the corner of `DialogContent`, so its placement does
   not depend on `DialogHeader`.
+- Colors, borders, spacing, and typography come from foundation tokens. Change them for one dialog
+  with a class on the part, and change motion with `--moduix-popup-motion-*` on `DialogContent`.
