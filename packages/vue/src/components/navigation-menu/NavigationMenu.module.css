@@ -563,6 +563,7 @@
 
     .content[data-state],
     .content[data-motion],
+    .viewport .content[data-motion],
     .indicator[data-state],
     .viewport[data-state] {
       animation: none;

@@ -51,7 +51,7 @@ function TourBackdrop(props: ComponentProps<typeof TourPrimitive.Backdrop>) {
     <OverlayPortal>
       <TourPrimitive.Backdrop
         class={cn(
-          'z-[calc(50+var(--tour-layer,0)+var(--layer-index,0))] bg-overlay backdrop-blur-xs data-[state=closed]:animate-[moduix-fade-out_200ms_ease-in-out_forwards] data-[state=open]:animate-[moduix-fade-in_200ms_ease-in-out] motion-reduce:animate-none',
+          'z-[calc(50+var(--tour-layer,0)+var(--layer-index,0))] bg-overlay backdrop-blur-xs data-[state=closed]:animate-[moduix-fade-out_200ms_ease-in-out_forwards] data-[state=open]:animate-[moduix-fade-in_200ms_ease-in-out] motion-reduce:data-[state]:animate-none',
           local.class,
         )}
         {...others}
@@ -101,7 +101,7 @@ function TourContent(props: ComponentProps<typeof TourPrimitive.Content>) {
   return (
     <TourPrimitive.Content
       class={cn(
-        'relative z-60 flex max-h-[min(24rem,var(--available-height,100dvh))] w-80 max-w-[min(calc(100vw-2rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col gap-1 overflow-visible rounded-lg border border-border bg-popover p-5 text-popover-foreground shadow-lg outline-0 has-[>[data-slot=tour-body]]:grid has-[>[data-slot=tour-body]]:grid-rows-[minmax(0,1fr)_auto] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open data-[type=dialog]:w-[min(26rem,calc(100vw-2rem))] data-[type=floating]:w-[min(22rem,calc(100vw-2rem))] motion-reduce:animate-none',
+        'relative z-60 flex max-h-[min(24rem,var(--available-height,100dvh))] w-80 max-w-[min(calc(100vw-2rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col gap-1 overflow-visible rounded-lg border border-border bg-popover p-5 text-popover-foreground shadow-lg outline-0 has-[>[data-slot=tour-body]]:grid has-[>[data-slot=tour-body]]:grid-rows-[minmax(0,1fr)_auto] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open data-[type=dialog]:w-[min(26rem,calc(100vw-2rem))] data-[type=floating]:w-[min(22rem,calc(100vw-2rem))] motion-reduce:data-[state]:animate-none',
         local.class,
       )}
       {...others}

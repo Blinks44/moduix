@@ -150,7 +150,7 @@ function LightboxBackdrop(props: ComponentProps<typeof DialogPrimitive.Backdrop>
     <OverlayPortal>
       <DialogPrimitive.Backdrop
         class={cn(
-          'fixed inset-0 z-[calc(var(--z-index,var(--moduix-z-popup))-1)] min-h-dvh bg-overlay backdrop-blur-xs data-[state=closed]:animate-moduix-lightbox-backdrop-out data-[state=open]:animate-moduix-lightbox-backdrop-in motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
+          'fixed inset-0 z-[calc(var(--z-index,var(--moduix-z-popup))-1)] min-h-dvh bg-overlay backdrop-blur-xs data-[state=closed]:animate-moduix-lightbox-backdrop-out data-[state=open]:animate-moduix-lightbox-backdrop-in motion-reduce:data-[state]:[animation-delay:0ms] motion-reduce:data-[state]:[animation-duration:1ms]',
           local.class,
         )}
         {...others}
@@ -183,7 +183,7 @@ function LightboxContent(props: ComponentProps<typeof DialogPrimitive.Content>) 
   return (
     <DialogPrimitive.Content
       class={cn(
-        'group/lightbox relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border grid max-h-[min(80dvh,calc(100dvh-2rem))] w-fit max-w-[min(80vw,calc(100vw-2rem))] gap-3 border-0 bg-transparent outline-0 data-[state=closed]:animate-moduix-lightbox-content-out data-[state=open]:animate-moduix-lightbox-content-in motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
+        'group/lightbox relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border grid max-h-[min(80dvh,calc(100dvh-2rem))] w-fit max-w-[min(80vw,calc(100vw-2rem))] gap-3 border-0 bg-transparent outline-0 data-[state=closed]:animate-moduix-lightbox-content-out data-[state=open]:animate-moduix-lightbox-content-in motion-reduce:data-[state]:[animation-delay:0ms] motion-reduce:data-[state]:[animation-duration:1ms]',
         local.class,
       )}
       {...others}

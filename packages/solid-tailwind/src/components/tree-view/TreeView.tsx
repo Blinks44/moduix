@@ -160,7 +160,7 @@ function TreeViewBranchContent(props: ComponentProps<typeof TreeViewPrimitive.Br
   return (
     <TreeViewPrimitive.BranchContent
       class={cn(
-        'relative flex min-w-0 flex-col gap-1 overflow-hidden data-[state=closed]:animate-[moduix-collapsible-content-closed_150ms_ease-out] data-[state=open]:animate-[moduix-collapsible-content-open_150ms_ease-out] motion-reduce:animate-none',
+        'relative flex min-w-0 flex-col gap-1 overflow-hidden data-[state=closed]:animate-[moduix-collapsible-content-closed_150ms_ease-out] data-[state=open]:animate-[moduix-collapsible-content-open_150ms_ease-out] motion-reduce:data-[state]:animate-none',
         local.class,
       )}
       {...others}

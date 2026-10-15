@@ -3084,8 +3084,8 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/command-palette/CommandPaletteBody.vue",
-          "target": "@components/ui/command-palette/CommandPaletteBody.vue",
+          "path": "src/components/command-palette/CommandPaletteShortcut.vue",
+          "target": "@components/ui/command-palette/CommandPaletteShortcut.vue",
           "type": "registry:component"
         },
         {

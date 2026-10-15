@@ -440,11 +440,6 @@ const sharedBackdropTokens = [
   ],
   ['--moduix-backdrop-filter', 'blur(4px)', 'tokensOverviewGlobalBackdropFilterFallback'],
   [
-    '--moduix-command-palette-backdrop-bg',
-    'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
-    'CommandPalette',
-  ],
-  [
     '--moduix-dialog-backdrop-bg',
     'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
     'Dialog',

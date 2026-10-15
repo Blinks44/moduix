@@ -2,17 +2,18 @@ import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
   type ComboboxRootProps,
+  useComboboxContext,
 } from '@ark-ui/solid/combobox';
-import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/solid/dialog';
+import { Dialog as DialogPrimitive, useDialogContext } from '@ark-ui/solid/dialog';
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { isHotKey } from '@ark-ui/solid/hotkeys';
 import type { ComponentProps } from 'solid-js';
-import { children, createEffect, onCleanup, splitProps } from 'solid-js';
+import { children, createEffect, onCleanup, Show, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { cn } from '@/lib/moduix/cn';
-import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, CloseIcon, SearchIcon } from '@/lib/moduix/icons/ui/Icons';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -21,33 +22,23 @@ import {
 import { Kbd } from '../kbd';
 import { ScrollArea, ScrollAreaContent, ScrollAreaViewport } from '../scroll-area';
 
-type CommandPaletteProps = ComponentProps<typeof DialogPrimitive.Root> & {
+type CommandPaletteShortcutProps = {
   shortcut?: false | string;
-} & OverlayPortalProps;
+};
 
-type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
+type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> &
+  CommandPaletteShortcutProps &
   OverlayPortalProps;
 
-function CommandPalette(props: CommandPaletteProps) {
-  const [local, others] = splitProps(props, [
-    'children',
-    'shortcut',
-    'lazyMount',
-    'onExitComplete',
-    'portalled',
-    'present',
-    'portalRef',
-    'skipAnimationOnMount',
-    'unmountOnExit',
-  ]);
-  const dialog = useDialog(others);
+type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
+  CommandPaletteShortcutProps &
+  OverlayPortalProps;
+
+function CommandPaletteShortcut(props: { shortcut: string }) {
+  const dialog = useDialogContext();
 
   createEffect(() => {
-    const shortcut = local.shortcut;
-
-    if (!shortcut) {
-      return;
-    }
+    const shortcut = props.shortcut;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       const currentDialog = dialog();
@@ -72,18 +63,31 @@ function CommandPalette(props: CommandPaletteProps) {
     onCleanup(() => document.removeEventListener('keydown', handleKeyDown));
   });
 
+  return null;
+}
+
+function CommandPalette(props: CommandPaletteRootProps) {
+  const [local, others] = splitProps(props, [
+    'children',
+    'shortcut',
+    'lazyMount',
+    'portalled',
+    'portalRef',
+    'unmountOnExit',
+  ]);
+
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
-      <DialogPrimitive.RootProvider
-        value={dialog}
+      <DialogPrimitive.Root
         lazyMount={local.lazyMount ?? true}
-        onExitComplete={local.onExitComplete}
-        present={local.present}
-        skipAnimationOnMount={local.skipAnimationOnMount}
         unmountOnExit={local.unmountOnExit ?? true}
+        {...others}
       >
+        <Show when={local.shortcut}>
+          {(shortcut) => <CommandPaletteShortcut shortcut={shortcut()} />}
+        </Show>
         {local.children}
-      </DialogPrimitive.RootProvider>
+      </DialogPrimitive.Root>
     </OverlayPortalProvider>
   );
 }
@@ -91,6 +95,7 @@ function CommandPalette(props: CommandPaletteProps) {
 function CommandPaletteRootProvider(props: CommandPaletteRootProviderProps) {
   const [local, others] = splitProps(props, [
     'children',
+    'shortcut',
     'lazyMount',
     'portalled',
     'portalRef',
@@ -104,6 +109,9 @@ function CommandPaletteRootProvider(props: CommandPaletteRootProviderProps) {
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
       >
+        <Show when={local.shortcut}>
+          {(shortcut) => <CommandPaletteShortcut shortcut={shortcut()} />}
+        </Show>
         {local.children}
       </DialogPrimitive.RootProvider>
     </OverlayPortalProvider>
@@ -111,20 +119,7 @@ function CommandPaletteRootProvider(props: CommandPaletteRootProviderProps) {
 }
 
 function CommandPaletteTrigger(props: ComponentProps<typeof DialogPrimitive.Trigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <DialogPrimitive.Trigger
-      asChild={local.asChild}
-      class={cn(
-        !local.asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring [@media(hover:hover)]:hover:bg-accent',
-        local.class,
-      )}
-      {...others}
-      data-slot="command-palette-trigger"
-    />
-  );
+  return <DialogPrimitive.Trigger {...props} data-slot="command-palette-trigger" />;
 }
 
 function CommandPaletteBackdrop(props: ComponentProps<typeof DialogPrimitive.Backdrop>) {
@@ -134,7 +129,7 @@ function CommandPaletteBackdrop(props: ComponentProps<typeof DialogPrimitive.Bac
     <OverlayPortal>
       <DialogPrimitive.Backdrop
         class={cn(
-          'fixed inset-0 z-[calc(var(--z-index,var(--moduix-z-popup))-1)] bg-overlay backdrop-blur-[4px] data-[state=closed]:animate-moduix-command-palette-backdrop-out data-[state=open]:animate-moduix-command-palette-backdrop-in motion-reduce:animate-none',
+          'fixed inset-0 z-[calc(var(--z-index,var(--moduix-z-popup))-1)] bg-overlay backdrop-blur-[4px] data-[state=closed]:animate-moduix-command-palette-backdrop-out data-[state=open]:animate-moduix-command-palette-backdrop-in motion-reduce:data-[state]:[animation-delay:0ms] motion-reduce:data-[state]:[animation-duration:1ms]',
           local.class,
         )}
         {...others}
@@ -167,7 +162,7 @@ function CommandPaletteContent(props: ComponentProps<typeof DialogPrimitive.Cont
   return (
     <DialogPrimitive.Content
       class={cn(
-        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-h-[min(34rem,calc(100dvh-5rem))] w-[min(37.5rem,calc(100vw-2rem))] origin-top flex-col overflow-hidden rounded-lg border border-border/84 bg-popover bg-linear-to-b from-white/4 to-transparent text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-command-palette-content-out data-[state=open]:animate-moduix-command-palette-content-in motion-reduce:animate-none',
+        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-h-[min(34rem,calc(100dvh-5rem))] w-[37.5rem] max-w-full origin-top flex-col overflow-hidden rounded-lg border border-border bg-popover text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-command-palette-content-out data-[state=open]:animate-moduix-command-palette-content-in motion-reduce:data-[state]:[animation-delay:0ms] motion-reduce:data-[state]:[animation-duration:1ms]',
         local.class,
       )}
       {...others}
@@ -177,15 +172,11 @@ function CommandPaletteContent(props: ComponentProps<typeof DialogPrimitive.Cont
 }
 
 function CommandPalettePanel(props: ComponentProps<typeof DialogPrimitive.Content>) {
-  const [local, others] = splitProps(props, ['children']);
-
   return (
     <>
       <CommandPaletteBackdrop />
       <CommandPalettePositioner>
-        <CommandPaletteContent {...others}>
-          <CommandPaletteBody>{local.children}</CommandPaletteBody>
-        </CommandPaletteContent>
+        <CommandPaletteContent {...props} />
       </CommandPalettePositioner>
     </>
   );
@@ -196,7 +187,7 @@ function CommandPaletteTitle(props: ComponentProps<typeof DialogPrimitive.Title>
 
   return (
     <DialogPrimitive.Title
-      class={cn('text-md leading-6 font-semibold text-popover-foreground', local.class)}
+      class={cn('text-md leading-6 font-semibold', local.class)}
       {...others}
       data-slot="command-palette-title"
     />
@@ -223,18 +214,6 @@ function CommandPaletteHeader(props: HTMLArkProps<'div'>) {
       class={cn('grid gap-1 px-4 pt-4', local.class)}
       {...others}
       data-slot="command-palette-header"
-    />
-  );
-}
-
-function CommandPaletteBody(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.div
-      class={cn('flex min-h-0 flex-1 flex-col', local.class)}
-      {...others}
-      data-slot="command-palette-body"
     />
   );
 }
@@ -284,7 +263,7 @@ function CommandPaletteControl(props: ComponentProps<typeof ComboboxPrimitive.Co
   return (
     <ComboboxPrimitive.Control
       class={cn(
-        'relative mx-3 mt-3 flex min-h-control-md flex-none items-center gap-2 rounded-md border border-border bg-background px-3 py-1 text-foreground transition-[background-color,border-color] duration-200 ease-in-out has-[[aria-invalid=true]]:border-destructive has-[[data-invalid]]:border-destructive',
+        'mx-3 mt-3 flex min-h-control-md flex-none items-center gap-2 rounded-md border border-border bg-background px-3 py-1 text-foreground transition-[border-color] duration-200 ease-in-out data-invalid:border-destructive',
         local.class,
       )}
       {...others}
@@ -299,7 +278,7 @@ function CommandPaletteInput(props: ComponentProps<typeof ComboboxPrimitive.Inpu
   return (
     <ComboboxPrimitive.Input
       class={cn(
-        'h-auto w-full min-w-0 flex-1 bg-transparent text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground data-invalid:text-destructive',
+        'min-w-0 flex-1 bg-transparent text-sm leading-5 outline-0 placeholder:text-muted-foreground',
         local.class,
       )}
       {...others}
@@ -313,6 +292,10 @@ function CommandPaletteSearch(props: ComponentProps<typeof ComboboxPrimitive.Inp
 
   return (
     <CommandPaletteControl>
+      <SearchIcon
+        data-slot="command-palette-search-icon"
+        class="pointer-events-none size-4 shrink-0 text-muted-foreground"
+      />
       <CommandPaletteInput
         aria-label={
           local['aria-label'] ??
@@ -336,47 +319,44 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
     'aria-label',
     'aria-labelledby',
   ]);
+  const combobox = useComboboxContext();
   const resolvedChildren = children(() => local.children);
 
   return (
-    <ComboboxPrimitive.Context>
-      {(combobox) => (
-        <ComboboxPrimitive.ClearTrigger
-          asChild={local.asChild}
-          hidden={combobox().inputValue.length === 0}
-          aria-label={
-            local['aria-label'] ??
-            (!local.asChild && local.children == null && local['aria-labelledby'] == null
-              ? a11yLabels.clearSearch
-              : undefined)
-          }
-          aria-labelledby={local['aria-labelledby']}
-          class={cn(
-            'inline-flex size-control-xs shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm bg-transparent text-muted-foreground transition-[background-color,color,opacity,translate,scale] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-foreground',
-            local.class,
-          )}
-          onClick={(event) => {
-            callEventHandler(local.onClick, event);
-
-            if (!event.defaultPrevented) {
-              event.preventDefault();
-              combobox().setInputValue('');
-            }
-          }}
-          onPointerDown={(event) => {
-            callEventHandler(local.onPointerDown, event);
-
-            if (event.button === 0) {
-              event.preventDefault();
-            }
-          }}
-          {...others}
-          data-slot="command-palette-clear-trigger"
-        >
-          {resolvedChildren() ?? <CloseIcon />}
-        </ComboboxPrimitive.ClearTrigger>
+    <ComboboxPrimitive.ClearTrigger
+      asChild={local.asChild}
+      aria-label={
+        local['aria-label'] ??
+        (!local.asChild && local['aria-labelledby'] == null ? a11yLabels.clearSearch : undefined)
+      }
+      aria-labelledby={local['aria-labelledby']}
+      class={cn(
+        "m-0 box-border inline-flex size-control-xs shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground",
+        local.class,
       )}
-    </ComboboxPrimitive.Context>
+      {...others}
+      hidden={combobox().inputValue === ''}
+      onClick={(event) => {
+        callEventHandler(local.onClick, event);
+
+        // Clear only the query; Ark's own handler would also clear the selected value.
+        if (!event.defaultPrevented) {
+          event.preventDefault();
+          combobox().setInputValue('');
+        }
+      }}
+      onPointerDown={(event) => {
+        callEventHandler(local.onPointerDown, event);
+
+        // Ark merges only function handlers, so a bound handler would replace its focus guard.
+        if (event.button === 0) {
+          event.preventDefault();
+        }
+      }}
+      data-slot="command-palette-clear-trigger"
+    >
+      {resolvedChildren() ?? <CloseIcon />}
+    </ComboboxPrimitive.ClearTrigger>
   );
 }
 
@@ -385,16 +365,19 @@ function CommandPaletteList(props: ComponentProps<typeof ComboboxPrimitive.Conte
 
   return (
     <ComboboxPrimitive.Content
-      class={cn('group/list flex min-h-0 flex-1 overflow-hidden outline-0', local.class)}
+      class={cn('flex min-h-0 flex-1 overflow-hidden outline-0', local.class)}
       {...others}
       data-slot="command-palette-list"
     >
-      <ScrollArea data-slot="command-palette-scroll-area" class="h-auto min-h-0 flex-1">
-        <ScrollAreaViewport data-slot="command-palette-scroll-viewport" class="scroll-py-2">
-          <ScrollAreaContent
-            data-slot="command-palette-scroll-content"
-            class="min-h-full px-3 py-3 group-data-[empty]/list:p-0"
-          >
+      <ScrollArea
+        data-slot="command-palette-scroll-area"
+        class="h-auto min-h-0 flex-1 text-inherit"
+      >
+        <ScrollAreaViewport
+          data-slot="command-palette-scroll-viewport"
+          class="scroll-py-2 rounded-none"
+        >
+          <ScrollAreaContent data-slot="command-palette-scroll-content" class="min-h-full p-3">
             {local.children}
           </ScrollAreaContent>
         </ScrollAreaViewport>
@@ -408,10 +391,7 @@ function CommandPaletteEmpty(props: ComponentProps<typeof ComboboxPrimitive.Empt
 
   return (
     <ComboboxPrimitive.Empty
-      class={cn(
-        '[&:not(:empty)]:px-4 [&:not(:empty)]:py-3 [&:not(:empty)]:text-sm [&:not(:empty)]:leading-5 [&:not(:empty)]:text-muted-foreground',
-        local.class,
-      )}
+      class={cn('px-1 text-sm leading-5 text-muted-foreground', local.class)}
       {...others}
       data-slot="command-palette-empty"
     />
@@ -438,7 +418,7 @@ function CommandPaletteItemGroupLabel(
   return (
     <ComboboxPrimitive.ItemGroupLabel
       class={cn(
-        'sticky top-0 z-1 block bg-popover px-3 py-1 text-xs leading-4 font-normal text-muted-foreground',
+        'sticky top-0 z-1 bg-popover px-3 py-1 text-xs leading-4 font-normal text-muted-foreground',
         local.class,
       )}
       {...others}
@@ -453,7 +433,7 @@ function CommandPaletteItem(props: ComponentProps<typeof ComboboxPrimitive.Item>
   return (
     <ComboboxPrimitive.Item
       class={cn(
-        'relative z-0 grid min-h-control-sm cursor-default grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3 rounded-md px-3 py-1 text-sm leading-5 text-popover-foreground outline-0 select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-foreground data-[state=checked]:text-foreground',
+        'flex min-h-control-sm cursor-default items-center gap-3 rounded-md px-3 py-1 text-sm leading-5 outline-0 select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground',
         local.class,
       )}
       {...others}
@@ -467,7 +447,7 @@ function CommandPaletteItemText(props: ComponentProps<typeof ComboboxPrimitive.I
 
   return (
     <ComboboxPrimitive.ItemText
-      class={cn('grid min-w-0 gap-1', local.class)}
+      class={cn('grid min-w-0 flex-1 gap-1', local.class)}
       {...others}
       data-slot="command-palette-item-text"
     />
@@ -483,7 +463,7 @@ function CommandPaletteItemIndicator(
   return (
     <ComboboxPrimitive.ItemIndicator
       class={cn(
-        'inline-flex size-8 items-center justify-center justify-self-end rounded-md border border-transparent bg-transparent text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
+        'ms-auto inline-flex shrink-0 text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
         local.class,
       )}
       {...others}
@@ -500,7 +480,7 @@ function CommandPaletteItemIcon(props: HTMLArkProps<'span'>) {
   return (
     <ark.span
       class={cn(
-        'inline-flex size-8 items-center justify-center rounded-md border border-border bg-muted text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
+        'inline-flex size-8 shrink-0 items-center justify-center rounded-md border border-border bg-muted text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
         local.class,
       )}
       {...others}
@@ -514,7 +494,7 @@ function CommandPaletteItemLabel(props: HTMLArkProps<'span'>) {
 
   return (
     <ark.span
-      class={cn('min-w-0 overflow-hidden font-medium text-ellipsis whitespace-nowrap', local.class)}
+      class={cn('overflow-hidden font-medium text-ellipsis whitespace-nowrap', local.class)}
       {...others}
       data-slot="command-palette-item-label"
     />
@@ -527,7 +507,7 @@ function CommandPaletteItemDescription(props: HTMLArkProps<'span'>) {
   return (
     <ark.span
       class={cn(
-        'min-w-0 overflow-hidden text-xs leading-4 text-ellipsis whitespace-nowrap text-muted-foreground',
+        'overflow-hidden text-xs leading-4 text-ellipsis whitespace-nowrap text-muted-foreground',
         local.class,
       )}
       {...others}
@@ -542,7 +522,7 @@ function CommandPaletteItemMeta(props: HTMLArkProps<'span'>) {
   return (
     <ark.span
       class={cn(
-        'justify-self-end text-xs leading-4 whitespace-nowrap text-muted-foreground',
+        'ms-auto shrink-0 text-xs leading-4 whitespace-nowrap text-muted-foreground',
         local.class,
       )}
       {...others}
@@ -557,7 +537,7 @@ function CommandPaletteSeparator(props: HTMLArkProps<'div'>) {
   return (
     <ark.div
       role="separator"
-      class={cn('mx-2 my-2 h-px bg-border', local.class)}
+      class={cn('m-2 h-px bg-border', local.class)}
       {...others}
       data-slot="command-palette-separator"
     />
@@ -584,10 +564,7 @@ function CommandPaletteKbd(props: ComponentProps<typeof Kbd>) {
 
   return (
     <Kbd
-      class={cn(
-        'min-h-5 min-w-5 rounded-sm px-1 text-xs leading-4 text-muted-foreground',
-        local.class,
-      )}
+      class={cn('min-h-5 min-w-5 px-1 text-muted-foreground', local.class)}
       {...others}
       data-slot="command-palette-kbd"
     />
@@ -597,7 +574,6 @@ function CommandPaletteKbd(props: ComponentProps<typeof Kbd>) {
 export {
   CommandPalette,
   CommandPaletteBackdrop,
-  CommandPaletteBody,
   CommandPaletteClearTrigger,
   CommandPaletteCombobox,
   CommandPaletteContent,
@@ -626,3 +602,5 @@ export {
   CommandPaletteTitle,
   CommandPaletteTrigger,
 };
+
+export type { CommandPaletteRootProps, CommandPaletteRootProviderProps };

@@ -183,3 +183,27 @@ For an RTL section inside an LTR application, set `lang` and the matching `dir` 
 the context example. If users can switch between LTR and RTL locales without a page reload, update the document
 attributes together with `locale`. See [Right-to-left (RTL)](/docs/rtl) for portals, logical CSS properties, and
 directional icons.
+
+## Translate default labels
+
+`LocaleProvider` does not translate text. Icon-only controls and a few landmarks, such as close buttons, clear buttons,
+`Spinner`, and `Breadcrumbs`, fall back to English accessible names like `Close` or `Clear search`. In a non-English
+interface, replace them in one of two ways.
+
+Pass `aria-label` or `aria-labelledby` where the component is used. A provided name always replaces the default:
+
+```tsx
+<DialogCloseIcon aria-label="Закрыть" />
+<CommandPaletteSearch aria-label="Поиск команд" />
+```
+
+With source installed by shadcn, the defaults live in `@/lib/moduix/a11yLabels.ts`. Translate the values in that file
+to change every default at once:
+
+```ts
+export const a11yLabels = {
+  closeDialog: 'Закрыть',
+  clearSearch: 'Очистить поиск',
+  // ...
+} as const;
+```

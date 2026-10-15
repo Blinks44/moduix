@@ -4,6 +4,7 @@ import { useForwardExpose } from '@ark-ui/vue/utils';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { SearchIcon } from '@/lib/moduix/icons/ui/Icons';
 import CommandPaletteClearTrigger from './CommandPaletteClearTrigger.vue';
 import CommandPaletteControl from './CommandPaletteControl.vue';
 import CommandPaletteInput from './CommandPaletteInput.vue';
@@ -24,6 +25,10 @@ const { forwardRef } = useForwardExpose();
 
 <template>
   <CommandPaletteControl>
+    <SearchIcon
+      data-slot="command-palette-search-icon"
+      class="pointer-events-none size-4 shrink-0 text-muted-foreground"
+    />
     <CommandPaletteInput
       :ref="forwardRef"
       v-bind="attrs"

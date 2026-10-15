@@ -19,12 +19,7 @@ const attrs = useAttrs();
 <template>
   <ArkComboboxEmpty
     v-bind="attrs"
-    :class="
-      cn(
-        '[&:not(:empty)]:px-4 [&:not(:empty)]:py-3 [&:not(:empty)]:text-sm [&:not(:empty)]:leading-5 [&:not(:empty)]:text-muted-foreground',
-        className,
-      )
-    "
+    :class="cn('px-1 text-sm leading-5 text-muted-foreground', className)"
     data-slot="command-palette-empty"
   >
     <slot />

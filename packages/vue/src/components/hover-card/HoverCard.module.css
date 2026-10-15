@@ -149,7 +149,7 @@
       transition: none;
     }
 
-    .content {
+    .content[data-state] {
       animation: none;
     }
   }

@@ -105,7 +105,7 @@ const AccordionItemContent = forwardRef<
     <AccordionPrimitive.ItemContent
       ref={ref}
       className={cn(
-        "overflow-hidden text-md text-muted-foreground data-[state=closed]:data-[orientation=horizontal]:animate-moduix-accordion-closed-horizontal data-[state=closed]:data-[orientation=vertical]:animate-moduix-accordion-closed data-[state=open]:data-[orientation=horizontal]:animate-moduix-accordion-open-horizontal data-[state=open]:data-[orientation=vertical]:animate-moduix-accordion-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms] data-[orientation=horizontal]:[&>*]:w-64 [&[hidden]:not([hidden='until-found'])]:hidden",
+        "overflow-hidden text-md text-muted-foreground data-[state=closed]:data-[orientation=horizontal]:animate-moduix-accordion-closed-horizontal data-[state=closed]:data-[orientation=vertical]:animate-moduix-accordion-closed data-[state=open]:data-[orientation=horizontal]:animate-moduix-accordion-open-horizontal data-[state=open]:data-[orientation=vertical]:animate-moduix-accordion-open motion-reduce:data-[state]:data-[orientation]:[animation-delay:0ms] motion-reduce:data-[state]:data-[orientation]:[animation-duration:1ms] data-[orientation=horizontal]:[&>*]:w-64 [&[hidden]:not([hidden='until-found'])]:hidden",
         className,
       )}
       {...props}

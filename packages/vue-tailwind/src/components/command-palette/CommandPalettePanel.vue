@@ -4,7 +4,6 @@ import { useForwardExpose } from '@ark-ui/vue/utils';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import CommandPaletteBackdrop from './CommandPaletteBackdrop.vue';
-import CommandPaletteBody from './CommandPaletteBody.vue';
 import CommandPaletteContent from './CommandPaletteContent.vue';
 import CommandPalettePositioner from './CommandPalettePositioner.vue';
 
@@ -24,7 +23,7 @@ const { forwardRef } = useForwardExpose();
   <CommandPaletteBackdrop />
   <CommandPalettePositioner>
     <CommandPaletteContent :ref="forwardRef" v-bind="attrs" :class="className">
-      <CommandPaletteBody><slot /></CommandPaletteBody>
+      <slot />
     </CommandPaletteContent>
   </CommandPalettePositioner>
 </template>

@@ -26,7 +26,6 @@ import {
   Plus as PlusIcon,
   Star as StarIcon,
 } from 'lucide-react';
-import styles from '@/components/examples/command-palette/command-palette-basic.module.css';
 
 const commandItems = [
   {
@@ -113,7 +112,7 @@ export default function CommandPaletteDemo() {
       <CommandPaletteTrigger asChild>
         <Button>Open palette</Button>
       </CommandPaletteTrigger>
-      <CommandPalettePanel className={styles.palette}>
+      <CommandPalettePanel>
         <CommandPaletteCombobox
           collection={collection}
           onInputValueChange={(details) => filter(details.inputValue)}

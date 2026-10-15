@@ -19,7 +19,7 @@ const attrs = useAttrs();
 <template>
   <ArkComboboxItemText
     v-bind="attrs"
-    :class="cn('grid min-w-0 gap-1', className)"
+    :class="cn('grid min-w-0 flex-1 gap-1', className)"
     data-slot="command-palette-item-text"
   >
     <slot />

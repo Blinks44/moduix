@@ -118,7 +118,7 @@ const FloatingPanelContent = forwardRef<
     <FloatingPanelPrimitive.Content
       ref={ref}
       className={cn(
-        'relative box-border flex min-h-40 min-w-64 origin-[var(--transform-origin)] flex-col overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow-lg outline-0 data-behind:opacity-[0.55] data-minimized:min-h-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',
+        'relative box-border flex min-h-40 min-w-64 origin-[var(--transform-origin)] flex-col overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow-lg outline-0 data-behind:opacity-[0.55] data-minimized:min-h-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:data-[state]:animate-none',
         className,
       )}
       {...props}

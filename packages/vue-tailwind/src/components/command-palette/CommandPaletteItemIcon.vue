@@ -21,7 +21,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'inline-flex size-8 items-center justify-center rounded-md border border-border bg-muted text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
+        'inline-flex size-8 shrink-0 items-center justify-center rounded-md border border-border bg-muted text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
         className,
       )
     "

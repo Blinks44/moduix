@@ -21,7 +21,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'h-auto w-full min-w-0 flex-1 bg-transparent text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground data-invalid:text-destructive',
+        'min-w-0 flex-1 bg-transparent text-sm leading-5 outline-0 placeholder:text-muted-foreground',
         props.class,
       )
     "

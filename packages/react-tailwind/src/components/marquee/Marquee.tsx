@@ -88,7 +88,7 @@ const MarqueeContent = forwardRef<
     <MarqueePrimitive.Content
       ref={ref}
       className={cn(
-        'animate-moduix-marquee-x group-data-paused:[animation-play-state:paused] data-reverse:[animation-direction:reverse] data-[side=bottom]:animate-moduix-marquee-y data-[side=top]:animate-moduix-marquee-y motion-reduce:animate-none',
+        'animate-moduix-marquee-x group-data-paused:[animation-play-state:paused] data-reverse:[animation-direction:reverse] data-[side=bottom]:animate-moduix-marquee-y data-[side=top]:animate-moduix-marquee-y motion-reduce:data-[side]:animate-none',
         className,
       )}
       {...props}

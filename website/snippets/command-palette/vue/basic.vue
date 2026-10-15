@@ -21,7 +21,6 @@ import {
   CommandPaletteSearch,
   CommandPaletteTrigger,
 } from '@moduix/vue/command-palette';
-import styles from '@/components/examples/command-palette/command-palette-basic.module.css';
 
 const commandItems = [
   {
@@ -91,7 +90,7 @@ const handleOpenChange = (details: { open: boolean }) => {
     <CommandPaletteTrigger as-child>
       <Button>Open palette</Button>
     </CommandPaletteTrigger>
-    <CommandPalettePanel :class="styles.palette">
+    <CommandPalettePanel>
       <CommandPaletteCombobox
         :collection="collection"
         @input-value-change="filter($event.inputValue)"

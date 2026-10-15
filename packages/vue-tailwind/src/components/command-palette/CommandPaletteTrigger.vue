@@ -3,7 +3,6 @@ import { DialogTrigger as ArkDialogTrigger } from '@ark-ui/vue/dialog';
 import type { DialogTriggerProps } from '@ark-ui/vue/dialog';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
@@ -21,13 +20,7 @@ const attrs = useAttrs();
   <ArkDialogTrigger
     v-bind="attrs"
     :as-child="asChild"
-    :class="
-      cn(
-        !asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring [@media(hover:hover)]:hover:bg-accent',
-        className,
-      )
-    "
+    :class="className"
     data-slot="command-palette-trigger"
   >
     <slot />
