@@ -95,7 +95,7 @@ The control follows Input's compact `--moduix-size-md` baseline; its visibility 
 The wrapper adds moduix classes, `data-slot` hooks, default visibility icons, and
 `--moduix-password-input-*` CSS variables for visual customization. Ark does not expose component-specific
 runtime CSS variables for this primitive. Styling should target Ark attributes or stable moduix
-`data-slot` hooks. The `Input` part must stay visually in sync with `Input` and `FieldInput`: the
+`data-slot` hooks. The `Input` part must stay visually in sync with `Input`: the
 same padding, typography, invalid state, disabled opacity, and readonly surface all flow from the
 shared `--moduix-input-*` tokens unless a password-specific override is intentional. The bordered field
 shell lives on `PasswordInputControl`, so the input text area stays borderless and stops before the

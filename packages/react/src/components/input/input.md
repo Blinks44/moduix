@@ -76,7 +76,7 @@ edit, submit, and cancel controls.
 
 ## Upstream feature coverage
 
-- Field input: supported through `FieldInput`.
+- Field input: `Input` renders Ark `FieldInput` and reads the `Field` context.
 - Disabled, invalid, read-only, and required state: inherited from `Field`; disabled also
   inherits from `Fieldset`.
 - Native controlled/uncontrolled input: supported with `value`, `defaultValue`, and
@@ -101,9 +101,8 @@ edit, submit, and cancel controls.
 
 ## Defaults and styling
 
-`Input size="md"` matches the default `FieldInput` appearance. Both use Ark FieldInput directly;
-`Input` owns visual sizes, `htmlSize`, and `--moduix-input-*`, while `FieldInput` keeps the
-native numeric `size` and `--moduix-field-control-*`. A disabled moduix Field or FieldRootProvider
+`Input` owns visual sizes, `htmlSize`, and `--moduix-input-*`; moduix `Field` has no styled input of
+its own, so `Input` is the input to place inside it. A disabled moduix Field or FieldRootProvider
 owns the whole field’s opacity; the input is not dimmed a second time. Standalone disabled inputs
 retain their own disabled opacity.
 

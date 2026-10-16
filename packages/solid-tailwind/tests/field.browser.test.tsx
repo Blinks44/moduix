@@ -4,67 +4,24 @@ import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import {
   Field,
+  Fieldset,
   Input,
   useField,
   useFieldContext,
   FieldContext,
   FieldErrorText,
   FieldHelperText,
-  FieldInput,
   FieldItem,
   FieldLabel,
   FieldRequiredIndicator,
   FieldRootProvider,
-  FieldSelect,
-  FieldTextarea,
 } from '../src';
-
-test('keeps FieldInput native size distinct from Input visual size', async () => {
-  render(() => (
-    <>
-      <FieldInput aria-label="Field input" size={8} disabled aria-invalid="true" />
-      <Input aria-label="Input" size="md" htmlSize={8} disabled aria-invalid="true" />
-    </>
-  ));
-
-  const fieldInput = screen.getByRole('textbox', { name: 'Field input' });
-  const input = screen.getByRole('textbox', { name: 'Input' });
-
-  const fieldInputLocator = page.getByRole('textbox', { name: 'Field input', exact: true });
-  await expect.element(fieldInputLocator).toHaveAttribute('size', '8');
-  const inputLocator = page.getByRole('textbox', { name: 'Input', exact: true });
-  await expect.element(inputLocator).toHaveAttribute('size', '8');
-  await expect.element(fieldInputLocator).toHaveAttribute('data-slot', 'field-input');
-  await expect.element(fieldInputLocator).not.toHaveAttribute('data-size');
-  await expect.element(inputLocator).toHaveAttribute('data-size', 'md');
-  await expect.element(fieldInputLocator).toBeDisabled();
-  await expect.element(inputLocator).toBeDisabled();
-  await expect.element(fieldInputLocator).toHaveAttribute('aria-invalid', 'true');
-  await expect.element(inputLocator).toHaveAttribute('aria-invalid', 'true');
-
-  const inputClasses = new Set(input.classList);
-  inputClasses.delete('w-auto');
-  inputClasses.add('w-full');
-  expect(new Set(fieldInput.classList)).toEqual(inputClasses);
-  expect([...fieldInput.classList]).toEqual(
-    expect.arrayContaining([
-      'px-3',
-      'max-w-none',
-      'aria-invalid:border-destructive',
-      'aria-invalid:focus-visible:outline-destructive',
-      'file:bg-primary',
-      'disabled:opacity-50',
-      '[[data-slot=field-root][data-disabled]_&]:opacity-100',
-      '[[data-slot=field-root-provider][data-disabled]_&]:opacity-100',
-    ]),
-  );
-});
 
 test('wires labels, descriptions, errors, and field state to a native control', async () => {
   render(() => (
     <Field disabled id="email" invalid readOnly required>
       <FieldLabel>Email</FieldLabel>
-      <FieldInput />
+      <Input />
       <FieldHelperText>Use your work email.</FieldHelperText>
       <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>
@@ -91,7 +48,7 @@ test('renders error text only while invalid', async () => {
 
   render(() => (
     <Field invalid={invalid()}>
-      <FieldInput aria-label="Email" />
+      <Input aria-label="Email" />
       <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>
   ));
@@ -114,7 +71,7 @@ test('forwards FieldItem refs and uses target for its label wiring', async () =>
     <Field id="contact" target="email">
       <FieldItem ref={(element) => (itemRef = element)} value="email">
         <FieldLabel>Email</FieldLabel>
-        <FieldInput />
+        <Input />
       </FieldItem>
     </Field>
   ));
@@ -125,35 +82,55 @@ test('forwards FieldItem refs and uses target for its label wiring', async () =>
   await expect.element(page.getByText('Email', { exact: true })).toHaveAttribute('for', input.id);
 });
 
-test('forwards refs and styling hooks for the Ark native parts', () => {
+test('forwards refs and styling hooks for every part', () => {
   let rootRef!: HTMLDivElement;
-  let inputRef!: HTMLInputElement;
-  let textareaRef!: HTMLTextAreaElement;
-  let selectRef!: HTMLSelectElement;
+  let labelRef!: HTMLLabelElement;
+  let helperRef!: HTMLSpanElement;
+  let errorRef!: HTMLSpanElement;
+  let indicatorRef!: HTMLSpanElement;
 
   render(() => (
-    <>
-      <Field ref={(element) => (rootRef = element)}>
-        <FieldLabel>Name</FieldLabel>
-        <FieldInput ref={(element) => (inputRef = element)} />
-      </Field>
-      <Field>
-        <FieldLabel>Summary</FieldLabel>
-        <FieldTextarea ref={(element) => (textareaRef = element)} />
-      </Field>
-      <Field>
-        <FieldLabel>Priority</FieldLabel>
-        <FieldSelect ref={(element) => (selectRef = element)}>
-          <option>Normal</option>
-        </FieldSelect>
-      </Field>
-    </>
+    <Field ref={(element) => (rootRef = element)} invalid required>
+      <FieldLabel ref={(element) => (labelRef = element)}>
+        Name
+        <FieldRequiredIndicator ref={(element) => (indicatorRef = element)} />
+      </FieldLabel>
+      <Input />
+      <FieldHelperText ref={(element) => (helperRef = element)}>
+        Shown on your profile.
+      </FieldHelperText>
+      <FieldErrorText ref={(element) => (errorRef = element)}>Enter a name.</FieldErrorText>
+    </Field>
   ));
 
   expect(rootRef.getAttribute('data-slot')).toBe('field-root');
-  expect(inputRef.getAttribute('data-slot')).toBe('field-input');
-  expect(textareaRef.getAttribute('data-slot')).toBe('field-textarea');
-  expect(selectRef.getAttribute('data-slot')).toBe('field-select');
+  expect(labelRef.getAttribute('data-slot')).toBe('field-label');
+  expect(indicatorRef.getAttribute('data-slot')).toBe('field-required-indicator');
+  expect(helperRef.getAttribute('data-slot')).toBe('field-helper-text');
+  expect(errorRef.getAttribute('data-slot')).toBe('field-error-text');
+});
+
+test('dims a disabled field once, also inside a disabled Fieldset', () => {
+  render(() => (
+    <>
+      <Field disabled data-testid="disabled-field">
+        <FieldLabel>Name</FieldLabel>
+        <Input data-testid="disabled-field-input" />
+      </Field>
+      <Fieldset disabled>
+        <Field data-testid="nested-field">
+          <FieldLabel>Email</FieldLabel>
+          <Input />
+        </Field>
+      </Fieldset>
+    </>
+  ));
+
+  const opacity = (testId: string) => getComputedStyle(screen.getByTestId(testId)).opacity;
+
+  expect(opacity('disabled-field')).toBe('0.5');
+  expect(opacity('disabled-field-input')).toBe('1');
+  expect(opacity('nested-field')).toBe('1');
 });
 
 test('keeps the RootProvider composition path Ark-shaped', async () => {
@@ -163,7 +140,7 @@ test('keeps the RootProvider composition path Ark-shaped', async () => {
     return (
       <FieldRootProvider value={field}>
         <FieldLabel>Email</FieldLabel>
-        <FieldInput />
+        <Input />
         <FieldErrorText>Enter a valid email address.</FieldErrorText>
       </FieldRootProvider>
     );
@@ -207,7 +184,7 @@ test('preserves asChild composition without forwarding the ref through Ark Solid
       asChild={(props) => <section {...props()} aria-label="Email field" />}
     >
       <FieldLabel>Email</FieldLabel>
-      <FieldInput />
+      <Input />
     </Field>
   ));
 
@@ -226,7 +203,7 @@ test('keeps controlled field props reactive', async () => {
 
   render(() => (
     <Field required={required()}>
-      <FieldInput aria-label="Project key" />
+      <Input aria-label="Project key" />
       <FieldRequiredIndicator />
     </Field>
   ));
@@ -241,35 +218,6 @@ test('keeps controlled field props reactive', async () => {
     .toHaveAttribute('required');
 });
 
-test('preserves native default values and reset behavior', async () => {
-  render(() => (
-    <form aria-label="Project form">
-      <Field>
-        <FieldInput aria-label="Project key" defaultValue="MAPS" name="project" />
-      </Field>
-      <Field>
-        <FieldSelect aria-label="Priority" defaultValue="normal" name="priority">
-          <option value="low">Low</option>
-          <option value="normal">Normal</option>
-        </FieldSelect>
-      </Field>
-    </form>
-  ));
-
-  const form = screen.getByRole('form', { name: 'Project form' }) as HTMLFormElement;
-
-  const textbox = page.getByRole('textbox', { name: 'Project key', exact: true });
-  await expect.element(textbox).toHaveValue('MAPS');
-  await expect
-    .element(page.getByRole('combobox', { name: 'Priority', exact: true }))
-    .toHaveValue('normal');
-
-  await textbox.fill('MODUIX');
-  form.reset();
-
-  await expect.element(textbox).toHaveValue('MAPS');
-});
-
 test('applies native utilities to component-owned parts', async () => {
   const { container } = render(() => (
     <Field required>
@@ -278,11 +226,6 @@ test('applies native utilities to component-owned parts', async () => {
           Name
           <FieldRequiredIndicator>*</FieldRequiredIndicator>
         </FieldLabel>
-        <FieldInput />
-        <FieldTextarea />
-        <FieldSelect>
-          <option>Normal</option>
-        </FieldSelect>
         <FieldHelperText>Use your work email.</FieldHelperText>
         <FieldErrorText>Enter a valid email address.</FieldErrorText>
       </FieldItem>
@@ -290,7 +233,7 @@ test('applies native utilities to component-owned parts', async () => {
   ));
 
   expect([...container.querySelector('[data-slot="field-root"]')!.classList]).toEqual(
-    expect.arrayContaining(['flex', 'w-full', 'max-w-none', 'flex-col', 'items-start', 'gap-1']),
+    expect.arrayContaining(['flex', 'w-full', 'flex-col', 'items-start', 'gap-1']),
   );
   expect([...container.querySelector('[data-slot="field-item"]')!.classList]).toEqual(
     expect.arrayContaining(['grid', 'gap-1']),
@@ -303,30 +246,6 @@ test('applies native utilities to component-owned parts', async () => {
       'text-sm',
       'font-medium',
       'text-foreground',
-    ]),
-  );
-  expect([...container.querySelector('[data-slot="field-input"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'w-full',
-      'min-h-control-md',
-      'rounded-md',
-      'border-border',
-      'bg-background',
-      'px-3',
-      'py-1',
-      'text-md',
-    ]),
-  );
-  expect([...container.querySelector('[data-slot="field-textarea"]')!.classList]).toEqual(
-    expect.arrayContaining(['min-h-20', 'resize-y']),
-  );
-  expect([...container.querySelector('[data-slot="field-select"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'w-full',
-      'min-h-control-md',
-      'rounded-md',
-      'border-border',
-      'bg-background',
     ]),
   );
   expect([...container.querySelector('[data-slot="field-helper-text"]')!.classList]).toEqual(
@@ -342,36 +261,19 @@ test('lets consumer utilities replace component defaults', async () => {
   const { container } = render(() => (
     <Field class="w-80 max-w-sm gap-4 text-primary">
       <FieldLabel class="gap-4 text-primary">Name</FieldLabel>
-      <FieldInput class="w-80 rounded-lg bg-muted px-0 text-primary" />
     </Field>
   ));
 
   const root = container.querySelector('[data-slot="field-root"]')!;
   const label = container.querySelector('[data-slot="field-label"]')!;
-  const input = container.querySelector('[data-slot="field-input"]')!;
 
   expect([...root.classList]).toEqual(
     expect.arrayContaining(['w-80', 'max-w-sm', 'gap-4', 'text-primary']),
   );
-  expect(
-    ['w-full', 'max-w-none', 'gap-1', 'text-foreground'].some((name) =>
-      root.classList.contains(name),
-    ),
-  ).toBe(false);
+  expect(['w-full', 'gap-1', 'text-foreground'].some((name) => root.classList.contains(name))).toBe(
+    false,
+  );
   expect([...label.classList]).toEqual(expect.arrayContaining(['gap-4', 'text-primary']));
   expect(['gap-2', 'text-foreground'].some((name) => label.classList.contains(name))).toBe(false);
-  expect([...input.classList]).toEqual(
-    expect.arrayContaining(['w-80', 'rounded-lg', 'bg-muted', 'px-0', 'text-primary']),
-  );
-  expect(
-    ['w-full', 'rounded-md', 'bg-background', 'px-3'].some((name) =>
-      input.classList.contains(name),
-    ),
-  ).toBe(false);
   await expect.element(page.locator('[data-slot="field-root"]')).toHaveCSS('gap', '16px');
-  await expect.element(page.locator('[data-slot="field-input"]')).toHaveCSS('width', '320px');
-  await expect.element(page.locator('[data-slot="field-input"]')).toHaveCSS('padding-left', '0px');
-  await expect
-    .element(page.locator('[data-slot="field-input"]'))
-    .toHaveCSS('border-radius', '10px');
 });

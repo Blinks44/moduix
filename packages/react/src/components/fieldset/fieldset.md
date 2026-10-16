@@ -53,8 +53,9 @@ render an additional DOM part.
 ## Composition
 
 ```tsx
-import { Field } from '@moduix/react/field';
+import { Field, FieldLabel } from '@moduix/react/field';
 import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/react/fieldset';
+import { Input } from '@moduix/react/input';
 
 export function ContactDetails() {
   return (
@@ -62,7 +63,7 @@ export function ContactDetails() {
       <FieldsetLegend>Contact details</FieldsetLegend>
       <Field>
         <FieldLabel>Email</FieldLabel>
-        <FieldInput type="email" />
+        <Input type="email" />
       </Field>
       <FieldsetHelperText>Use an address you check regularly.</FieldsetHelperText>
     </Fieldset>

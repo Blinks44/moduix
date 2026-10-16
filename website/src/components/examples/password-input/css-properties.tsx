@@ -13,7 +13,7 @@ const passwordInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-password-input-gap',
-    defaultValue: 'var(--moduix-field-gap, var(--moduix-spacing-1))',
+    defaultValue: 'var(--moduix-spacing-1)',
     description: 'Gap between password input parts; falls back to the shared Field spacing.',
   },
   {
@@ -33,8 +33,7 @@ const passwordInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-password-input-disabled-opacity',
-    defaultValue:
-      'var(--moduix-field-disabled-opacity, var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled)))',
+    defaultValue: 'var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled))',
     description: 'Opacity applied to the disabled password input.',
   },
   {
@@ -71,27 +70,27 @@ const passwordInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-password-input-label-color',
-    defaultValue: 'var(--moduix-field-label-color, var(--moduix-color-foreground))',
+    defaultValue: 'var(--moduix-color-foreground)',
     description: 'Label text color.',
   },
   {
     name: '--moduix-password-input-label-font-size',
-    defaultValue: 'var(--moduix-field-label-font-size, var(--moduix-text-sm))',
+    defaultValue: 'var(--moduix-text-sm)',
     description: 'Label font size.',
   },
   {
     name: '--moduix-password-input-label-font-weight',
-    defaultValue: 'var(--moduix-field-label-font-weight, var(--moduix-weight-medium))',
+    defaultValue: 'var(--moduix-weight-medium)',
     description: 'Label font weight.',
   },
   {
     name: '--moduix-password-input-label-line-height',
-    defaultValue: 'var(--moduix-field-label-line-height, var(--moduix-line-height-text-sm))',
+    defaultValue: 'var(--moduix-line-height-text-sm)',
     description: 'Label line height.',
   },
   {
     name: '--moduix-password-input-label-gap',
-    defaultValue: 'var(--moduix-field-label-gap, var(--moduix-spacing-1))',
+    defaultValue: 'var(--moduix-spacing-1)',
     description: 'Gap between label content and any composed label adornments.',
   },
   {

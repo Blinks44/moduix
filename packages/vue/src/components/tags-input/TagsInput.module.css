@@ -3,7 +3,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: var(--moduix-tags-input-gap, var(--moduix-field-gap, var(--moduix-spacing-1)));
+    gap: var(--moduix-tags-input-gap, var(--moduix-spacing-1));
     width: var(--moduix-tags-input-width, 100%);
     max-width: var(--moduix-tags-input-max-width, 24rem);
     color: var(
@@ -14,10 +14,7 @@
     &[data-disabled] {
       opacity: var(
         --moduix-tags-input-disabled-opacity,
-        var(
-          --moduix-field-disabled-opacity,
-          var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled))
-        )
+        var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled))
       );
 
       :where(
@@ -35,31 +32,16 @@
   .label {
     display: inline-flex;
     align-items: center;
-    gap: var(--moduix-tags-input-label-gap, var(--moduix-field-label-gap, var(--moduix-spacing-1)));
-    color: var(
-      --moduix-tags-input-label-color,
-      var(--moduix-field-label-color, var(--moduix-color-foreground))
-    );
-    font-size: var(
-      --moduix-tags-input-label-font-size,
-      var(--moduix-field-label-font-size, var(--moduix-text-sm))
-    );
-    font-weight: var(
-      --moduix-tags-input-label-font-weight,
-      var(--moduix-field-label-font-weight, var(--moduix-weight-medium))
-    );
-    line-height: var(
-      --moduix-tags-input-label-line-height,
-      var(--moduix-field-label-line-height, var(--moduix-line-height-text-sm))
-    );
+    gap: var(--moduix-tags-input-label-gap, var(--moduix-spacing-1));
+    color: var(--moduix-tags-input-label-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-tags-input-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-tags-input-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-tags-input-label-line-height, var(--moduix-line-height-text-sm));
 
     &[data-disabled] {
       opacity: var(
         --moduix-tags-input-disabled-opacity,
-        var(
-          --moduix-field-disabled-opacity,
-          var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled))
-        )
+        var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled))
       );
     }
   }

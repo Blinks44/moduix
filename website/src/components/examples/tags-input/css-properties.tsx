@@ -78,11 +78,7 @@ const tagsInputCssProperties: CssPropertyInput[] = [
     'var(--moduix-input-focus-ring-width, var(--moduix-tags-input-border-width, var(--moduix-input-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)))))',
     'Controls focus ring width.',
   ],
-  [
-    '--moduix-tags-input-gap',
-    'var(--moduix-field-gap, var(--moduix-spacing-1))',
-    'Controls root vertical gap.',
-  ],
+  ['--moduix-tags-input-gap', 'var(--moduix-spacing-1)', 'Controls root vertical gap.'],
   [
     '--moduix-tags-input-input-font-size',
     'var(--moduix-input-font-size, var(--moduix-text-sm))',
@@ -161,29 +157,17 @@ const tagsInputCssProperties: CssPropertyInput[] = [
     'Controls tag vertical padding.',
   ],
   ['--moduix-tags-input-item-radius', 'var(--moduix-radius-full)', 'Controls tag corner radius.'],
-  [
-    '--moduix-tags-input-label-color',
-    'var(--moduix-field-label-color, var(--moduix-color-foreground))',
-    'Controls label color.',
-  ],
-  [
-    '--moduix-tags-input-label-font-size',
-    'var(--moduix-field-label-font-size, var(--moduix-text-sm))',
-    'Controls label font size.',
-  ],
+  ['--moduix-tags-input-label-color', 'var(--moduix-color-foreground)', 'Controls label color.'],
+  ['--moduix-tags-input-label-font-size', 'var(--moduix-text-sm)', 'Controls label font size.'],
   [
     '--moduix-tags-input-label-font-weight',
-    'var(--moduix-field-label-font-weight, var(--moduix-weight-medium))',
+    'var(--moduix-weight-medium)',
     'Controls label font weight.',
   ],
-  [
-    '--moduix-tags-input-label-gap',
-    'var(--moduix-field-label-gap, var(--moduix-spacing-1))',
-    'Controls label gap.',
-  ],
+  ['--moduix-tags-input-label-gap', 'var(--moduix-spacing-1)', 'Controls label gap.'],
   [
     '--moduix-tags-input-label-line-height',
-    'var(--moduix-field-label-line-height, var(--moduix-line-height-text-sm))',
+    'var(--moduix-line-height-text-sm)',
     'Controls label line height.',
   ],
   ['--moduix-tags-input-max-width', '24rem', 'Controls root max width.'],

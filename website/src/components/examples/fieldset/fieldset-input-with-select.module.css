@@ -11,5 +11,5 @@
 
 .countryCode {
   --moduix-select-width: 100%;
-  --moduix-select-root-gap: var(--moduix-field-gap, var(--moduix-spacing-1));
+  --moduix-select-root-gap: var(--moduix-spacing-1);
 }

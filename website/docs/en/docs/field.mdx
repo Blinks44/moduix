@@ -4,7 +4,6 @@ component: field
 description: Accessible form field context for React, Solid, and Vue with CSS Modules and Tailwind package options.
 ---
 
-import * as FieldDocs from '@/components/examples/field/css-properties';
 import FieldBasic from '@/components/examples/field/basic.tsx';
 import FieldCheckbox from '@/components/examples/field/checkbox.tsx';
 import FieldControlledInvalid from '@/components/examples/field/controlled-invalid.tsx';
@@ -15,8 +14,8 @@ import FieldNativeSelect from '@/components/examples/field/native-select.tsx';
 import FieldRadioGroup from '@/components/examples/field/radiogroup.tsx';
 import FieldReadOnly from '@/components/examples/field/read-only.tsx';
 import FieldRootProvider from '@/components/examples/field/root-provider.tsx';
-import FieldSelect from '@/components/examples/field/select.tsx';
-import FieldTextarea from '@/components/examples/field/textarea.tsx';
+import FieldSelectDemo from '@/components/examples/field/select.tsx';
+import FieldTextareaDemo from '@/components/examples/field/textarea.tsx';
 import fieldSolidBasic from '../../../snippets/field/solid/basic.tsx?raw';
 import fieldSolidCheckbox from '../../../snippets/field/solid/checkbox.tsx?raw';
 import fieldSolidControlledInvalid from '../../../snippets/field/solid/controlled-invalid.tsx?raw';
@@ -141,14 +140,14 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 
 ## Anatomy
 
-The public `Field` API uses flat, family-prefixed values. Use the low-level `Field*` controls for
-explicit Ark composition. For regular forms, prefer the matching moduix components such as `Input`,
-`Textarea`, or `NativeSelect`.
+The public `Field` API uses flat, family-prefixed values. `Field` does not render its own control: put
+an `Input`, `Textarea`, `NativeSelect`, or another moduix form control inside it, and the control reads
+the field context.
 
 ```text
 Field
 ├─ FieldLabel
-├─ FieldInput | FieldTextarea | FieldSelect | custom control
+├─ Input | Textarea | NativeSelect | another form control
 ├─ FieldHelperText
 ├─ FieldErrorText
 └─ FieldRequiredIndicator
@@ -163,9 +162,6 @@ FieldRootProvider
 | `FieldRootProvider`      | Root that uses a `useField()` state object created outside the tree.                          |
 | `FieldContext`           | Reads the current field state without adding an element to the DOM.                          |
 | `FieldLabel`             | Accessible label associated with the current control.                                         |
-| `FieldInput`             | Low-level native input. Use `Input` for the usual moduix-styled input.                       |
-| `FieldTextarea`          | Low-level native textarea. Use `Textarea` for the usual moduix-styled textarea.               |
-| `FieldSelect`            | Low-level native select. Use `NativeSelect` for the usual moduix-styled select.               |
 | `FieldHelperText`        | Helper text associated with the control through `aria-describedby`.                           |
 | `FieldErrorText`         | Error text rendered when the root is `invalid`.                                               |
 | `FieldRequiredIndicator` | Visual marker for a required field. Use `fallback` to replace its default marker.              |
@@ -181,7 +177,7 @@ For several native controls, wrap each one in `FieldItem value` and set the root
 can read the current state through `FieldContext` or `useFieldContext`.
 
 In Vue, initialize native controls with `v-model` and reset the bound refs in the form's reset handler.
-`FieldInput` and `FieldSelect` do not provide React's `defaultValue` prop. Ark currently clears native
+Vue `Input` and `NativeSelect` do not provide React's `defaultValue` prop. Ark currently clears native
 uncontrolled defaults on these controls; use `v-model` until that upstream behavior is fixed.
 
 ## Examples
@@ -533,7 +529,7 @@ selection UI. Because `Select` owns its state, pass `required`, `invalid`, `disa
 to `Select` when needed.
 
 <ExampleFrame variant="component">
-  <FieldSelect />
+  <FieldSelectDemo />
 </ExampleFrame>
 
 <ExampleCode>
@@ -571,7 +567,7 @@ Use `Textarea` for multi-line input while keeping the field's label, description
 connections.
 
 <ExampleFrame variant="component">
-  <FieldTextarea />
+  <FieldTextareaDemo />
 </ExampleFrame>
 
 <ExampleCode>
@@ -605,20 +601,14 @@ connections.
 
 ## Styling
 
-`FieldInput` has the same default appearance as `Input size="md"`, including the file chooser button,
-focus ring, invalid border, and disabled treatment. Its `size` remains the native numeric HTML attribute;
-use `Input` for visual size variants and `htmlSize`. In CSS Modules, `FieldInput` uses
-`--moduix-field-control-*`, while `Input` uses `--moduix-input-*`. A disabled `Field` or
-`FieldRootProvider` dims the whole field once, without dimming either input again.
+A disabled `Field` or `FieldRootProvider` dims the whole field once; the controls inside it do not dim
+again, and neither does a `Field` inside a disabled `Fieldset`.
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-disabled`, `data-invalid`, `data-readonly`, and
 `data-required`, together with moduix `data-slot` selectors. Tailwind variants use native utilities and
-consumer classes; the CSS variables below customize the CSS Modules variants.
-
-### CSS Properties
-
-<CssPropertiesSection properties={FieldDocs.fieldOverrideCssProperties} />
+consumer classes. CSS Modules variants build on foundation tokens and have no component variables: a
+class on the part overrides the layered component styles. The root fills the width of its container.
 
 ### Styling hooks
 

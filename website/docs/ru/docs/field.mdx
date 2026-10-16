@@ -4,7 +4,6 @@ component: field
 description: Доступный контекст поля формы для React, Solid и Vue с вариантами пакетов CSS Modules и Tailwind.
 ---
 
-import * as FieldDocs from '@/components/examples/field/css-properties';
 import FieldBasic from '@/components/examples/field/basic.tsx';
 import FieldCheckbox from '@/components/examples/field/checkbox.tsx';
 import FieldControlledInvalid from '@/components/examples/field/controlled-invalid.tsx';
@@ -15,8 +14,8 @@ import FieldNativeSelect from '@/components/examples/field/native-select.tsx';
 import FieldRadioGroup from '@/components/examples/field/radiogroup.tsx';
 import FieldReadOnly from '@/components/examples/field/read-only.tsx';
 import FieldRootProvider from '@/components/examples/field/root-provider.tsx';
-import FieldSelect from '@/components/examples/field/select.tsx';
-import FieldTextarea from '@/components/examples/field/textarea.tsx';
+import FieldSelectDemo from '@/components/examples/field/select.tsx';
+import FieldTextareaDemo from '@/components/examples/field/textarea.tsx';
 import fieldSolidBasic from '../../../snippets/field/solid/basic.tsx?raw';
 import fieldSolidCheckbox from '../../../snippets/field/solid/checkbox.tsx?raw';
 import fieldSolidControlledInvalid from '../../../snippets/field/solid/controlled-invalid.tsx?raw';
@@ -141,14 +140,14 @@ import fieldVueTextarea from '../../../snippets/field/vue/textarea.vue?raw';
 
 ## Анатомия
 
-Публичный API `Field` использует плоские имена с префиксом семейства. Для явной композиции Ark
-используйте низкоуровневые части `Field*`. В обычных формах лучше выбирать соответствующие компоненты
-moduix, например `Input`, `Textarea` или `NativeSelect`.
+Публичный API `Field` использует плоские имена с префиксом семейства. `Field` не рисует собственный
+элемент ввода: поместите внутрь `Input`, `Textarea`, `NativeSelect` или другой элемент формы moduix, и он
+прочитает контекст поля.
 
 ```text
 Field
 ├─ FieldLabel
-├─ FieldInput | FieldTextarea | FieldSelect | custom control
+├─ Input | Textarea | NativeSelect | another form control
 ├─ FieldHelperText
 ├─ FieldErrorText
 └─ FieldRequiredIndicator
@@ -163,9 +162,6 @@ FieldRootProvider
 | `FieldRootProvider`     | Корень, использующий состояние `useField()`, созданное вне дерева компонентов.                  |
 | `FieldContext`          | Даёт доступ к текущему состоянию поля, не добавляя элемент в DOM.                                |
 | `FieldLabel`            | Доступная метка, связанная с текущим элементом управления.                                       |
-| `FieldInput`            | Низкоуровневый нативный input. Для обычного стилизованного поля используйте `Input`.             |
-| `FieldTextarea`         | Низкоуровневая нативная текстовая область. Для обычной используйте `Textarea`.                   |
-| `FieldSelect`           | Низкоуровневый нативный select. Для обычного используйте `NativeSelect`.                         |
 | `FieldHelperText`       | Поясняющий текст, связанный с элементом через `aria-describedby`.                                |
 | `FieldErrorText`        | Текст ошибки, который рендерится при состоянии корня `invalid`.                                  |
 | `FieldRequiredIndicator` | Визуальный маркер обязательного поля. С помощью `fallback` можно заменить маркер по умолчанию.  |
@@ -182,7 +178,7 @@ FieldRootProvider
 `FieldContext` или `useFieldContext`.
 
 Во Vue задавайте начальные значения нативных элементов через `v-model` и сбрасывайте связанные refs
-в обработчике сброса формы. У `FieldInput` и `FieldSelect` нет React-подобного свойства `defaultValue`.
+в обработчике сброса формы. У Vue-компонентов `Input` и `NativeSelect` нет React-подобного свойства `defaultValue`.
 Сейчас Ark очищает нативные начальные значения этих элементов без модели; до исправления используйте `v-model`.
 
 ## Примеры
@@ -535,7 +531,7 @@ FieldRootProvider
 `disabled` или `readOnly` в `Select`, когда состояние принадлежит ему.
 
 <ExampleFrame variant="component">
-  <FieldSelect />
+  <FieldSelectDemo />
 </ExampleFrame>
 
 <ExampleCode>
@@ -572,7 +568,7 @@ FieldRootProvider
 Используйте `Textarea` для многострочного ввода, сохраняя связи поля с меткой, описанием и состоянием.
 
 <ExampleFrame variant="component">
-  <FieldTextarea />
+  <FieldTextareaDemo />
 </ExampleFrame>
 
 <ExampleCode>
@@ -606,21 +602,15 @@ FieldRootProvider
 
 ## Стилизация
 
-По умолчанию `FieldInput` выглядит так же, как `Input size="md"`: совпадают оформление кнопки выбора
-файла, кольцо фокуса, рамка ошибки и вид отключённого поля. Его `size` остаётся нативным числовым
-HTML-атрибутом; для визуальных размеров и `htmlSize` используйте `Input`. В CSS Modules `FieldInput`
-настраивается через `--moduix-field-control-*`, а для `Input` используются `--moduix-input-*`.
-Отключённый `Field` или `FieldRootProvider` приглушает всё поле один раз, без дополнительного
-приглушения самого input.
+Отключённый `Field` или `FieldRootProvider` приглушает всё поле один раз: элементы ввода внутри него
+не приглушаются повторно, как и `Field` внутри отключённого `Fieldset`.
 
 Используйте `className` в React или `class` в Solid и Vue для структурной стилизации экспортируемых частей.
 Для стилей состояний применяйте атрибуты Ark, такие как `data-disabled`, `data-invalid`, `data-readonly`
 и `data-required`, вместе с селекторами moduix `data-slot`. Варианты на Tailwind используют нативные
-утилиты и классы потребителя, а CSS Modules настраиваются с помощью переменных ниже.
-
-### CSS-свойства
-
-<CssPropertiesSection properties={FieldDocs.fieldOverrideCssProperties} />
+утилиты и классы потребителя. Варианты на CSS Modules построены на токенах foundation и не имеют
+переменных компонента: класс на части перекрывает стили компонента из слоя. Корень занимает всю ширину
+контейнера.
 
 ### Хуки стилизации
 

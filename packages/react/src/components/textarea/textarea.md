@@ -63,7 +63,7 @@ export function CommentField() {
 }
 ```
 
-Use `Field` / `Field` for accessible labels, descriptions, required state, invalid state, and read-only/disabled inheritance. Prefer `Textarea` rather than `FieldTextarea` so ordinary multiline controls share the standalone styling contract. `FieldTextarea` remains available as a lower-level Ark-shaped escape hatch.
+Use `Field` / `Field` for accessible labels, descriptions, required state, invalid state, and read-only/disabled inheritance. moduix `Field` has no styled textarea of its own; `Textarea` is the multiline control to place inside it.
 
 Use native textarea props such as `rows`, `maxLength`, `resize` styling, `value`, `defaultValue`, and `onChange` for browser behavior.
 
@@ -126,7 +126,7 @@ Public CSS variables from `variables-moduix.css`:
 ## Agent notes
 
 - Do not reintroduce the legacy `FieldControl`, `render`, `mergeProps`, `autoResize`, or `onValueChange` adapter contract.
-- Keep `Textarea` aligned with Ark `FieldTextarea`; use `FieldTextarea` as the local implementation reference.
+- Keep `Textarea` aligned with Ark `FieldTextarea`; use Ark `FieldTextarea` as the implementation reference.
 - Keep inline edit/read-only examples on `Editable`, not `Textarea`.
 - Keep stories, docs examples, `variables-moduix.css`, registry output, and this file synchronized when the public contract changes.
 

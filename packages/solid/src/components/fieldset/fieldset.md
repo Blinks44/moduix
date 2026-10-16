@@ -6,8 +6,9 @@ component's root, fieldset state, ARIA wiring, CSS variables, and `FieldsetRootP
 ## Composition
 
 ```tsx
-import { Field } from '@moduix/solid/field';
+import { Field, FieldLabel } from '@moduix/solid/field';
 import { Fieldset, FieldsetHelperText, FieldsetLegend } from '@moduix/solid/fieldset';
+import { Input } from '@moduix/solid/input';
 
 export function ContactDetails() {
   return (
@@ -15,7 +16,7 @@ export function ContactDetails() {
       <FieldsetLegend>Contact details</FieldsetLegend>
       <Field>
         <FieldLabel>Email</FieldLabel>
-        <FieldInput type="email" />
+        <Input type="email" />
       </Field>
       <FieldsetHelperText>Use an address you check regularly.</FieldsetHelperText>
     </Fieldset>

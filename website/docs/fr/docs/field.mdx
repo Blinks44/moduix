@@ -4,7 +4,6 @@ component: field
 description: Contexte de champ accessible pour React, Solid et Vue, avec des paquets CSS Modules et Tailwind.
 ---
 
-import * as FieldDocs from '@/components/examples/field/css-properties';
 import FieldBasic from '@/components/examples/field/basic.tsx';
 import FieldCheckbox from '@/components/examples/field/checkbox.tsx';
 import FieldControlledInvalid from '@/components/examples/field/controlled-invalid.tsx';
@@ -15,8 +14,8 @@ import FieldNativeSelect from '@/components/examples/field/native-select.tsx';
 import FieldRadioGroup from '@/components/examples/field/radiogroup.tsx';
 import FieldReadOnly from '@/components/examples/field/read-only.tsx';
 import FieldRootProvider from '@/components/examples/field/root-provider.tsx';
-import FieldSelect from '@/components/examples/field/select.tsx';
-import FieldTextarea from '@/components/examples/field/textarea.tsx';
+import FieldSelectDemo from '@/components/examples/field/select.tsx';
+import FieldTextareaDemo from '@/components/examples/field/textarea.tsx';
 import fieldSolidBasic from '../../../snippets/field/solid/basic.tsx?raw';
 import fieldSolidCheckbox from '../../../snippets/field/solid/checkbox.tsx?raw';
 import fieldSolidControlledInvalid from '../../../snippets/field/solid/controlled-invalid.tsx?raw';
@@ -142,14 +141,14 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 
 ## Anatomie
 
-L’API publique `Field` utilise des valeurs plates préfixées par le nom de la famille. Utilisez les
-parties bas niveau `Field*` pour une composition Ark explicite. Pour les formulaires courants, préférez
-les composants moduix correspondants, comme `Input`, `Textarea` ou `NativeSelect`.
+L’API publique `Field` utilise des valeurs plates préfixées par le nom de la famille. `Field` ne rend
+pas son propre contrôle : placez-y un `Input`, un `Textarea`, un `NativeSelect` ou un autre contrôle de
+formulaire moduix, qui lit le contexte du champ.
 
 ```text
 Field
 ├─ FieldLabel
-├─ FieldInput | FieldTextarea | FieldSelect | custom control
+├─ Input | Textarea | NativeSelect | another form control
 ├─ FieldHelperText
 ├─ FieldErrorText
 └─ FieldRequiredIndicator
@@ -164,9 +163,6 @@ FieldRootProvider
 | `FieldRootProvider`     | Racine utilisant un état `useField()` créé en dehors de l’arbre de rendu.                      |
 | `FieldContext`          | Permet de lire l’état courant du champ sans ajouter d’élément au DOM.                          |
 | `FieldLabel`            | Libellé accessible associé au contrôle courant.                                                |
-| `FieldInput`            | Champ natif de bas niveau. Pour le champ standard, préférez `Input`.                          |
-| `FieldTextarea`         | Zone de texte native de bas niveau. Pour la version standard, préférez `Textarea`.             |
-| `FieldSelect`           | Select natif de bas niveau. Pour la version standard, préférez `NativeSelect`.                 |
 | `FieldHelperText`       | Texte d’aide associé au contrôle via `aria-describedby`.                                       |
 | `FieldErrorText`        | Message d’erreur rendu lorsque la racine est dans l’état `invalid`.                           |
 | `FieldRequiredIndicator` | Marqueur visuel d’un champ obligatoire. Utilisez `fallback` pour remplacer le marqueur par défaut. |
@@ -182,7 +178,7 @@ sont responsables. Pour plusieurs contrôles natifs, entourez chacun d’un `Fie
 de l’arbre rendu ; les contrôles personnalisés peuvent lire l’état via `FieldContext` ou `useFieldContext`.
 
 Dans Vue, initialisez les contrôles natifs avec `v-model` et réinitialisez les refs liées dans le
-gestionnaire de réinitialisation du formulaire. `FieldInput` et `FieldSelect` ne proposent pas la prop
+gestionnaire de réinitialisation du formulaire. Dans Vue, `Input` et `NativeSelect` ne proposent pas la prop
 `defaultValue` de React. Ark efface actuellement les valeurs initiales natives de ces contrôles sans
 modèle ; utilisez `v-model` en attendant la correction.
 
@@ -534,7 +530,7 @@ d’options ou d’une interface de sélection personnalisée. Puisque `Select` 
 `required`, `invalid`, `disabled` ou `readOnly` à `Select` lorsque cet état lui appartient.
 
 <ExampleFrame variant="component">
-  <FieldSelect />
+  <FieldSelectDemo />
 </ExampleFrame>
 
 <ExampleCode>
@@ -572,7 +568,7 @@ Utilisez `Textarea` pour une saisie multiligne tout en conservant les liens du c
 sa description et son état.
 
 <ExampleFrame variant="component">
-  <FieldTextarea />
+  <FieldTextareaDemo />
 </ExampleFrame>
 
 <ExampleCode>
@@ -606,22 +602,15 @@ sa description et son état.
 
 ## Styles
 
-Par défaut, `FieldInput` a la même apparence que `Input size="md"`, y compris le bouton de sélection
-de fichier, l’anneau de focus, la bordure d’erreur et le rendu désactivé. Son `size` reste l’attribut
-HTML numérique natif ; utilisez `Input` pour les tailles visuelles et `htmlSize`. Avec CSS Modules,
-`FieldInput` utilise `--moduix-field-control-*`, tandis que `Input` utilise `--moduix-input-*`.
-Un `Field` ou `FieldRootProvider` désactivé atténue l’ensemble du champ une seule fois, sans
-réduire à nouveau l’opacité de l’input.
+Un `Field` ou `FieldRootProvider` désactivé atténue l’ensemble du champ une seule fois : les
+contrôles qu’il contient ne sont pas atténués à nouveau, pas plus qu’un `Field` dans un `Fieldset` désactivé.
 
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour la structure. Pour les
 styles liés à l’état, préférez les attributs de données Ark comme `data-disabled`, `data-invalid`,
 `data-readonly` et `data-required`, avec les sélecteurs `data-slot` de moduix. Les variantes Tailwind
-utilisent les utilitaires natifs et les classes du consommateur ; les variables CSS ci-dessous personnalisent
-les variantes CSS Modules.
-
-### Propriétés CSS
-
-<CssPropertiesSection properties={FieldDocs.fieldOverrideCssProperties} />
+utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules s’appuient sur
+les jetons de foundation et n’ont pas de variables de composant : une classe sur la partie remplace les
+styles du composant placés dans un calque. La racine occupe toute la largeur de son conteneur.
 
 ### Points d’accroche CSS
 

@@ -1,16 +1,14 @@
 'use client';
 
 import { Field as FieldPrimitive, useField, useFieldContext } from '@ark-ui/react/field';
-import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
 type FieldItemProps = ComponentProps<'div'> & ComponentProps<typeof FieldPrimitive.Item>;
 
-const fieldRootVariants = cva(
-  'flex w-full max-w-none flex-col items-start gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
-);
+const rootClass =
+  'flex w-full flex-col items-start gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 
 const Field = forwardRef<
   ComponentRef<typeof FieldPrimitive.Root>,
@@ -19,7 +17,7 @@ const Field = forwardRef<
   return (
     <FieldPrimitive.Root
       ref={ref}
-      className={cn(fieldRootVariants(), className)}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="field-root"
     />
@@ -33,7 +31,7 @@ const FieldRootProvider = forwardRef<
   return (
     <FieldPrimitive.RootProvider
       ref={ref}
-      className={cn(fieldRootVariants(), className)}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="field-root-provider"
     />
@@ -66,57 +64,6 @@ const FieldLabel = forwardRef<
       )}
       {...props}
       data-slot="field-label"
-    />
-  );
-});
-
-const FieldInput = forwardRef<
-  ComponentRef<typeof FieldPrimitive.Input>,
-  ComponentProps<typeof FieldPrimitive.Input>
->(function FieldInput({ className, ...props }, ref) {
-  return (
-    <FieldPrimitive.Input
-      ref={ref}
-      className={cn(
-        'min-h-control-md w-full max-w-none rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out file:me-3 file:cursor-pointer file:rounded-md file:border file:border-primary file:bg-primary file:px-2 file:py-0.5 file:font-medium file:text-primary-foreground file:transition-colors file:duration-200 file:ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none [:is([data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 [@media(hover:hover)]:file:hover:bg-foreground [[data-slot=field-root-provider][data-disabled]_&]:opacity-100 [[data-slot=field-root][data-disabled]_&]:opacity-100 [[data-slot=input-group-root]:has([data-slot=input-root]:is([data-disabled],:disabled))_&]:opacity-100',
-        className,
-      )}
-      {...props}
-      data-slot="field-input"
-    />
-  );
-});
-
-const FieldTextarea = forwardRef<
-  ComponentRef<typeof FieldPrimitive.Textarea>,
-  ComponentProps<typeof FieldPrimitive.Textarea>
->(function FieldTextarea({ className, ...props }, ref) {
-  return (
-    <FieldPrimitive.Textarea
-      ref={ref}
-      className={cn(
-        'min-h-20 w-full resize-y rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none data-disabled:pointer-events-none data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',
-        className,
-      )}
-      {...props}
-      data-slot="field-textarea"
-    />
-  );
-});
-
-const FieldSelect = forwardRef<
-  ComponentRef<typeof FieldPrimitive.Select>,
-  ComponentProps<typeof FieldPrimitive.Select>
->(function FieldSelect({ className, ...props }, ref) {
-  return (
-    <FieldPrimitive.Select
-      ref={ref}
-      className={cn(
-        'min-h-control-md w-full rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus-visible:outline-ring disabled:pointer-events-none data-disabled:pointer-events-none data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',
-        className,
-      )}
-      {...props}
-      data-slot="field-select"
     />
   );
 });
@@ -170,13 +117,23 @@ export {
   FieldContext,
   FieldErrorText,
   FieldHelperText,
-  FieldInput,
   FieldItem,
   FieldLabel,
   FieldRequiredIndicator,
   FieldRootProvider,
-  FieldSelect,
-  FieldTextarea,
   useField,
   useFieldContext,
 };
+
+export type {
+  FieldContextProps,
+  FieldErrorTextProps,
+  FieldHelperTextProps,
+  FieldLabelProps,
+  FieldRequiredIndicatorProps,
+  FieldRootProps,
+  FieldRootProviderProps,
+  UseFieldContext,
+  UseFieldProps,
+  UseFieldReturn,
+} from '@ark-ui/react/field';

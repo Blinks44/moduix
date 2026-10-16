@@ -3845,21 +3845,6 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/field/FieldInput.vue",
-          "target": "@components/ui/field/FieldInput.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/field/FieldTextarea.vue",
-          "target": "@components/ui/field/FieldTextarea.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/field/FieldSelect.vue",
-          "target": "@components/ui/field/FieldSelect.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/field/FieldHelperText.vue",
           "target": "@components/ui/field/FieldHelperText.vue",
           "type": "registry:component"

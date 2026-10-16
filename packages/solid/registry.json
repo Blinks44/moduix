@@ -755,7 +755,7 @@
       "title": "Field",
       "description": "moduix Solid Field component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/default-values", "@moduix-solid/foundation"],
+      "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
           "path": "src/components/field/Field.tsx",

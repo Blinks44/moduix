@@ -3669,7 +3669,7 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix Vue Tailwind Field component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -3695,21 +3695,6 @@
         {
           "path": "src/components/field/FieldLabel.vue",
           "target": "@components/ui/field/FieldLabel.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/field/FieldInput.vue",
-          "target": "@components/ui/field/FieldInput.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/field/FieldTextarea.vue",
-          "target": "@components/ui/field/FieldTextarea.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/field/FieldSelect.vue",
-          "target": "@components/ui/field/FieldSelect.vue",
           "type": "registry:component"
         },
         {
