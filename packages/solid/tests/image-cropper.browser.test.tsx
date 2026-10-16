@@ -1,7 +1,6 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import type { ComponentProps } from 'solid-js';
 import {
   ImageCropper,
   ImageCropperCropArea,
@@ -12,6 +11,10 @@ import {
   useImageCropper,
 } from '../src';
 import landscape from './fixtures/landscape.svg';
+
+const portrait = `data:image/svg+xml,${encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="400"></svg>',
+)}`;
 
 test('renders the recommended CropArea anatomy with moduix hooks', async () => {
   let rootRef!: HTMLDivElement;
@@ -108,25 +111,31 @@ test('supports RootProvider with the recommended CropArea anatomy', async () => 
     .toHaveAttribute('data-slot', 'image-cropper-root-provider');
 });
 
-test('does not forward unsupported CropArea composition props to Ark', async () => {
-  const unsupportedProps = {
-    asChild: () => <div />,
-    children: <div />,
-  } as unknown as ComponentProps<typeof ImageCropperCropArea>;
-
+test('keeps the image ratio inside a viewport sized by its container', async () => {
   const { container } = render(() => (
-    <ImageCropper>
-      <ImageCropperViewport>
-        <ImageCropperImage src={landscape} />
-        <ImageCropperCropArea {...unsupportedProps} />
-      </ImageCropperViewport>
-    </ImageCropper>
+    <div style={{ width: '300px' }}>
+      <ImageCropper>
+        <ImageCropperViewport>
+          <ImageCropperImage src={portrait} />
+          <ImageCropperCropArea />
+        </ImageCropperViewport>
+      </ImageCropper>
+    </div>
   ));
 
-  expect(container.querySelector('[data-slot="image-cropper-selection"]')).toBeTruthy();
-  expect(container.querySelectorAll('[data-slot="image-cropper-handle"]')).toHaveLength(
-    ImageCropperHandles.length,
-  );
+  await expect
+    .element(page.locator('[data-slot="image-cropper-image"]'))
+    .toHaveAttribute('data-ready');
+  const viewport = container.querySelector<HTMLElement>('[data-slot="image-cropper-viewport"]')!;
+  const image = container.querySelector<HTMLElement>('[data-slot="image-cropper-image"]')!;
+
+  expect(viewport.offsetWidth).toBe(300);
+  expect(Math.abs(viewport.offsetHeight - (300 * 5) / 8)).toBeLessThanOrEqual(1);
+  expect(image.offsetHeight).toBe(viewport.clientHeight);
+  expect(Math.abs(image.offsetWidth * 2 - image.offsetHeight)).toBeLessThanOrEqual(1);
+  expect(
+    Math.abs(image.offsetLeft * 2 + image.offsetWidth - viewport.clientWidth),
+  ).toBeLessThanOrEqual(1);
 });
 
 test('does not forward refs through native Ark Solid asChild composition', async () => {

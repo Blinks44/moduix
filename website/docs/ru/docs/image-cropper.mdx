@@ -4,7 +4,6 @@ component: image-cropper
 description: Компонент для кадрирования и преобразования изображений с поддержкой масштабирования, поворота и соотношения сторон.
 ---
 
-import * as ImageCropperDocs from '@/components/examples/image-cropper/css-properties';
 import imageCropperSolidAdvancedCustomization from '../../../snippets/image-cropper/solid/advanced-customization.tsx?raw';
 import imageCropperSolidAspectRatio from '../../../snippets/image-cropper/solid/aspect-ratio.tsx?raw';
 import imageCropperSolidBasic from '../../../snippets/image-cropper/solid/basic.tsx?raw';
@@ -138,7 +137,7 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 | `ImageCropperRootProvider`          | Корневой компонент, связанный с экземпляром `useImageCropper`, созданным вне дерева компонентов. |
 | `ImageCropperViewport`              | Область просмотра, в которой можно панорамировать изображение; всё за её границами скрывается. |
 | `ImageCropperImage`                 | Элемент изображения, к которому Ark применяет преобразования.                              |
-| `ImageCropperSelection`             | Фокусируемая область кадрирования и цель для управления с клавиатуры. При `fixedCropArea` она исключается из порядка перехода по Tab. |
+| `ImageCropperSelection`             | Фокусируемая область кадрирования и цель для управления с клавиатуры. При `fixedCropArea` она остаётся в фокусе, а стрелки сдвигают изображение. |
 | `ImageCropperGrid`                  | Неинтерактивная горизонтальная или вертикальная линия сетки. Требуется `axis`.              |
 | `ImageCropperHandle`                | Маркер изменения размера для позиции из `ImageCropperHandles`. Требуется `position`.       |
 | `ImageCropperCropArea`              | Готовая область кадрирования с обеими сетками и всеми маркерами изменения размера. Не принимает `children` и `asChild`. |
@@ -557,24 +556,16 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 
 ## Стилизация
 
-Для структурных стилей используйте `className` в React, `class` в Solid или `class` в Vue на экспортируемых частях.
-Варианты Tailwind используют нативные классы-утилиты и пользовательские классы, а варианты CSS Modules
-настраиваются свойствами компонента ниже. Значения `data-slot` и атрибуты состояния Ark общие для
-обоих способов стилизации.
+Корень шириной 32rem и сжимается вместе с контейнером. Область просмотра сохраняет пропорции 8:5 и
+показывает шахматный фон там, где её не закрывает изображение. Изображение сохраняет собственные
+пропорции: оно уменьшается до размеров области и остаётся по центру, поэтому кадр всегда совпадает с
+видимыми пикселями.
 
-### CSS-свойства
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <ImageCropperDocs.ImageCropperCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты Tailwind
+используют нативные утилиты и пользовательские классы. Варианты CSS Modules построены на токенах
+foundation и не имеют переменных компонента: класс на части переопределяет стили компонента из слоя,
+например другие `aspect-ratio` или `height` области просмотра. Data-атрибуты и значения `data-slot`
+общие для обоих способов стилизации.
 
 ### Селекторы для стилизации
 
@@ -588,5 +579,4 @@ import ImageCropperRotationFlipAndReset from '@/components/examples/image-croppe
 Ark записывает в корневой элемент `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`,
 `--image-zoom`, `--image-rotation`, `--image-offset-x` и `--image-offset-y`. Это значения только
 для чтения, отражающие текущее состояние и подходящие для синхронизации собственного
-интерфейса. Не переопределяйте их. Для визуальной настройки используйте описанные выше свойства
-`--moduix-image-cropper-*`.
+интерфейса. Не переопределяйте их.

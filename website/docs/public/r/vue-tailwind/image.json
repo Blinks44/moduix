@@ -20,7 +20,7 @@
     },
     {
       "path": "src/components/image/index.ts",
-      "content": "import Image from './Image.vue';\nimport ImageSource from './ImageSource.vue';\n\nexport { Image, ImageSource };\nexport type { Props as ImageRootProps } from './Image.vue';\nexport type { Props as ImageSourceProps } from './ImageSource.vue';\n",
+      "content": "import Image from './Image.vue';\nimport ImageSource from './ImageSource.vue';\n\nexport { Image, ImageSource };\nexport type { Props as ImageRootProps } from './Image.vue';\nexport type { Props as ImageSourceProps } from './ImageSource.vue';",
       "type": "registry:component",
       "target": "@components/ui/image/index.ts"
     }

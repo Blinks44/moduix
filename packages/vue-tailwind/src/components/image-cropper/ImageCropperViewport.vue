@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'box-border h-[min(20rem,62.5vw)] w-full overflow-hidden rounded-lg border border-border bg-background bg-[conic-gradient(rgb(0_0_0_/_8%)_25%,transparent_0_50%,rgb(0_0_0_/_8%)_0_75%,transparent_0)] [background-size:1rem_1rem] shadow-none data-disabled:cursor-grab',
+        'box-border aspect-[8/5] w-full rounded-lg border border-border [background:repeating-conic-gradient(var(--color-muted)_0_25%,var(--color-background)_0_50%)_0_0/1rem_1rem] data-disabled:cursor-grab',
         className,
       )
     "

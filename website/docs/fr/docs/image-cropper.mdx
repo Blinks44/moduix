@@ -4,7 +4,6 @@ component: image-cropper
 description: Composant permettant de recadrer et de transformer des images, avec prise en charge du zoom, de la rotation et du rapport d’aspect.
 ---
 
-import * as ImageCropperDocs from '@/components/examples/image-cropper/css-properties';
 import imageCropperSolidAdvancedCustomization from '../../../snippets/image-cropper/solid/advanced-customization.tsx?raw';
 import imageCropperSolidAspectRatio from '../../../snippets/image-cropper/solid/aspect-ratio.tsx?raw';
 import imageCropperSolidBasic from '../../../snippets/image-cropper/solid/basic.tsx?raw';
@@ -139,7 +138,7 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 | `ImageCropperRootProvider`          | Racine liée à une instance `useImageCropper` créée en dehors de l’arbre de composants.          |
 | `ImageCropperViewport`              | Zone d’affichage qui masque ce qui dépasse et permet de déplacer l’image.                      |
 | `ImageCropperImage`                 | Élément d’image auquel Ark applique les transformations.                                       |
-| `ImageCropperSelection`             | Zone de recadrage focalisable et cible des interactions au clavier. Avec `fixedCropArea`, elle est retirée de l’ordre de tabulation. |
+| `ImageCropperSelection`             | Zone de recadrage focalisable et cible des interactions au clavier. Avec `fixedCropArea`, elle reste focalisable et les flèches déplacent l’image. |
 | `ImageCropperGrid`                  | Ligne de guidage horizontale ou verticale, non interactive. `axis` est obligatoire.            |
 | `ImageCropperHandle`                | Poignée de redimensionnement pour une position de `ImageCropperHandles`. `position` est obligatoire. |
 | `ImageCropperCropArea`              | Zone prête à l’emploi avec les deux grilles et toutes les poignées. Elle n’accepte ni `children` ni `asChild`. |
@@ -559,24 +558,17 @@ enfants personnalisés. `ImageCropperGrid` requiert `axis` et `ImageCropperHandl
 
 ## Styles
 
-Pour les styles structurels, utilisez `className` en React, `class` en Solid ou `class` en Vue sur les parties
-exportées. Les variantes Tailwind utilisent les utilitaires natifs et les classes de l’application ;
-les variantes CSS Modules se configurent avec les propriétés du composant ci-dessous. Les hooks
-`data-slot` et les attributs d’état Ark sont communs aux deux approches.
+La racine mesure 32rem de large et se réduit avec son conteneur. La zone d’affichage garde un rapport
+8:5 et affiche un damier là où l’image ne la couvre pas. L’image garde son propre rapport : elle se
+réduit pour tenir dans la zone et reste centrée, de sorte que le recadrage correspond toujours aux
+pixels visibles.
 
-### Propriétés CSS
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <ImageCropperDocs.ImageCropperCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes
+Tailwind utilisent les utilitaires natifs et les classes de l’application. Les variantes CSS Modules
+reposent sur les tokens de foundation et n’ont pas de variables de composant : une classe sur la
+partie remplace les styles du composant placés dans une couche, par exemple un autre `aspect-ratio` ou
+une autre `height` de la zone d’affichage. Les attributs de données et les hooks `data-slot` sont
+communs aux deux approches.
 
 ### Sélecteurs de style
 
@@ -590,5 +582,4 @@ sur les parties concernées.
 Ark écrit `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoom`,
 `--image-rotation`, `--image-offset-x` et `--image-offset-y` sur la racine. Ces variables en lecture
 seule reflètent l’état courant et peuvent servir à synchroniser une interface personnalisée. Ne les
-redéfinissez pas. Utilisez les propriétés `--moduix-image-cropper-*` documentées ci-dessus pour les
-modifications visuelles.
+redéfinissez pas.

@@ -4,7 +4,6 @@ component: image-cropper
 description: A component for cropping and transforming images with zoom, rotation, and aspect-ratio controls.
 ---
 
-import * as ImageCropperDocs from '@/components/examples/image-cropper/css-properties';
 import imageCropperSolidAdvancedCustomization from '../../../snippets/image-cropper/solid/advanced-customization.tsx?raw';
 import imageCropperSolidAspectRatio from '../../../snippets/image-cropper/solid/aspect-ratio.tsx?raw';
 import imageCropperSolidBasic from '../../../snippets/image-cropper/solid/basic.tsx?raw';
@@ -138,7 +137,7 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 | `ImageCropperRootProvider`          | Root connected to a `useImageCropper` instance created outside the component tree.   |
 | `ImageCropperViewport`              | Viewport that clips overflow and provides the surface for panning the image.         |
 | `ImageCropperImage`                 | Image element that Ark transforms as the user edits the crop.                        |
-| `ImageCropperSelection`             | Focusable crop area and keyboard target. It is removed from the tab order when `fixedCropArea` is enabled. |
+| `ImageCropperSelection`             | Focusable crop area and keyboard target. With `fixedCropArea` it stays focusable and arrow keys pan the image. |
 | `ImageCropperGrid`                  | Non-interactive horizontal or vertical crop guide. Requires `axis`.                  |
 | `ImageCropperHandle`                | Resize handle for a position from `ImageCropperHandles`. Requires `position`.       |
 | `ImageCropperCropArea`              | Ready-made selection with both grids and every resize handle. It does not accept `children` or `asChild`. |
@@ -555,23 +554,15 @@ Replace `ImageCropperCropArea` with the explicit `ImageCropperSelection`, `Image
 
 ## Styling
 
-Use `className` in React, `class` in Solid, or `class` in Vue on exported parts for structural styles. Tailwind
-variants use native utilities and consumer classes; CSS Modules variants expose the component
-variables below. The `data-slot` hooks and Ark state attributes are shared by both styling tracks.
+The root is 32rem wide and shrinks with its container. The viewport keeps an 8:5 ratio and shows a
+checkerboard where the image does not cover it. The image keeps its own ratio: it shrinks to fit the
+viewport and stays centered, so the crop always matches the visible pixels.
 
-### CSS Properties
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <ImageCropperDocs.ImageCropperCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on the part overrides the layered component styles, for example a different
+viewport `aspect-ratio` or `height`. Data attributes and `data-slot` hooks are shared by both styling
+tracks.
 
 ### Styling hooks
 
@@ -584,5 +575,4 @@ on the relevant parts.
 
 Ark writes `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoom`,
 `--image-rotation`, `--image-offset-x`, and `--image-offset-y` on the root. These are read-only
-runtime values for synchronizing custom UI. Do not override them. Use the documented
-`--moduix-image-cropper-*` properties for visual customization.
+runtime values for synchronizing custom UI. Do not override them.
