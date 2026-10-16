@@ -431,7 +431,8 @@
     "@unpic/core": "catalog:",
     "@unpic/react": "catalog:",
     "clsx": "catalog:",
-    "lucide-react": "catalog:"
+    "lucide-react": "catalog:",
+    "unpic": "catalog:"
   },
   "devDependencies": {
     "@ark-ui/react": "catalog:",

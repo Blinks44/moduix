@@ -604,7 +604,8 @@
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
     "lucide-solid": "catalog:",
-    "tailwind-merge": "catalog:"
+    "tailwind-merge": "catalog:",
+    "unpic": "catalog:"
   },
   "devDependencies": {
     "@ark-ui/solid": "catalog:",

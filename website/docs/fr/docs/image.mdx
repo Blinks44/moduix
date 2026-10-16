@@ -29,7 +29,8 @@ pour en savoir plus sur son modèle fondé sur les éléments natifs.
 
 Utilisez `Image` avec l’URL d’une image provenant d’un CDN pris en charge ou avec une URL d’image classique.
 Dans le mode `layout="constrained"`, indiquez `width` et `height`. Unpic génère un `srcset` et un attribut
-`sizes` adaptés lorsqu’il reconnaît le fournisseur. Dans le cas contraire, il conserve l’URL source telle quelle.
+`sizes` adaptés lorsqu’il reconnaît le fournisseur. Dans le cas contraire, il conserve l’URL source telle quelle,
+mais applique quand même les styles de `layout`.
 Le navigateur réserve l’espace nécessaire avant le chargement de l’image.
 
 Les images utilisent par défaut `loading="lazy"` et `decoding="async"`, y compris les fichiers
@@ -132,6 +133,8 @@ picture (native)
 d’un élément natif `<picture>` et placez `Image` en dernier afin qu’il reste l’image de secours si
 aucune source n’est sélectionnée. Pour choisir un format, placez une source avec `type` avant une
 source équivalente sans `type` ; le navigateur retient le premier format qu’il prend en charge.
+`ImageSource` génère un `srcset` uniquement pour un CDN pris en charge ou un fournisseur `fallback` ; pour des
+fichiers locaux, utilisez un `<source srcset>` natif.
 
 ## Exemples
 

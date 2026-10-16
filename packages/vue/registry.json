@@ -4579,7 +4579,7 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix Vue Image component.",
-      "dependencies": ["@unpic/core", "clsx"],
+      "dependencies": ["@unpic/core", "clsx", "unpic"],
       "registryDependencies": ["@moduix-vue/foundation"],
       "files": [
         {

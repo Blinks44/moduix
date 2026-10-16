@@ -909,7 +909,7 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix React Tailwind Image component.",
-      "dependencies": ["@unpic/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@unpic/core", "@unpic/react", "clsx", "tailwind-merge", "unpic"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {

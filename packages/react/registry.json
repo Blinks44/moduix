@@ -945,7 +945,7 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix React Image component.",
-      "dependencies": ["@unpic/react", "clsx"],
+      "dependencies": ["@unpic/core", "@unpic/react", "clsx", "unpic"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [
         {

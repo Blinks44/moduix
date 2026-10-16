@@ -928,7 +928,7 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix Solid Tailwind Image component.",
-      "dependencies": ["@unpic/core", "clsx", "tailwind-merge"],
+      "dependencies": ["@unpic/core", "clsx", "tailwind-merge", "unpic"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {

@@ -423,11 +423,13 @@
     "tsc:check": "tsc --noEmit"
   },
   "dependencies": {
+    "@unpic/core": "catalog:",
     "@unpic/react": "catalog:",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
     "lucide-react": "catalog:",
-    "tailwind-merge": "catalog:"
+    "tailwind-merge": "catalog:",
+    "unpic": "catalog:"
   },
   "devDependencies": {
     "@ark-ui/react": "catalog:",

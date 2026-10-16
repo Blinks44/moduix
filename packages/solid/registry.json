@@ -910,7 +910,7 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix Solid Image component.",
-      "dependencies": ["@unpic/core", "clsx"],
+      "dependencies": ["@unpic/core", "clsx", "unpic"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {

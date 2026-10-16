@@ -429,7 +429,8 @@
   "dependencies": {
     "@lucide/vue": "catalog:",
     "@unpic/core": "catalog:",
-    "clsx": "catalog:"
+    "clsx": "catalog:",
+    "unpic": "catalog:"
   },
   "devDependencies": {
     "@ark-ui/vue": "catalog:",

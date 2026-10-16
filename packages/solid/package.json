@@ -606,9 +606,9 @@
   },
   "dependencies": {
     "@unpic/core": "catalog:",
-    "@unpic/solid": "1.0.0",
     "clsx": "catalog:",
-    "lucide-solid": "catalog:"
+    "lucide-solid": "catalog:",
+    "unpic": "catalog:"
   },
   "devDependencies": {
     "@ark-ui/solid": "catalog:",

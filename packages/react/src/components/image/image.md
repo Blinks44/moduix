@@ -28,10 +28,14 @@ composition for art direction and format sources.
 - Native loading defaults apply to every URL: `loading="lazy"` and `decoding="async"`.
   `priority` defaults to eager loading and high fetch priority without setting `decoding`;
   explicit native attributes take precedence.
-- Supported image CDN URLs are transformed automatically. URLs from other sources remain regular
-  images unless a Unpic `fallback` provider is supplied.
+- Supported image CDN URLs are transformed automatically. URLs from other sources keep their `src`
+  unless a Unpic `fallback` provider is supplied, but still receive Unpic's loading defaults and
+  layout styles through its base transform, so Unpic-only props such as `layout`, `priority`, and
+  `aspectRatio` never reach the DOM.
+- `ImageSource` generates `srcset` only for supported CDN URLs or a `fallback` provider. For local files,
+  use a native `<source srcset>`; moduix deliberately does not synthesize one.
 - moduix adds a display block, a rounded default, and invariant `data-slot` hooks. Unpic owns the
-  layout-mode width constraints for supported providers.
+  layout-mode width constraints.
 
 ## Anatomy and exported parts
 
@@ -48,6 +52,8 @@ picture (native)
 | ------------- | -------------------------- | ------------------------------------------ |
 | `Image`       | `data-slot="image-root"`   | Responsive native `<img>` element.         |
 | `ImageSource` | `data-slot="image-source"` | Responsive `<source>` for native pictures. |
+
+Types: `ImageRootProps` and `ImageSourceProps`.
 
 ## Composition
 
@@ -122,6 +128,10 @@ consumer CSS.
 - Do not add Next.js-specific behavior to this entry point.
 
 ## Local changelog
+
+- 2026-10-16: Routed URLs without a supported CDN through Unpic's base transform, which supplies
+  the loading defaults and layout styles and keeps Unpic-only props off the `<img>`; removed the
+  hand-written loading defaults and exported `ImageRootProps` and `ImageSourceProps`.
 
 - 2026-10-05: Applied native loading, decoding, and priority defaults to URLs without a CDN
   across all shipped framework and styling adapters.

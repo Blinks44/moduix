@@ -29,7 +29,8 @@ for more on its native-element model.
 
 Use `Image` with a URL from a supported image CDN or any regular image URL. For the default
 `layout="constrained"`, provide `width` and `height`. When Unpic recognizes the provider, it
-generates responsive `srcset` and `sizes` attributes. Otherwise, it keeps the source URL unchanged.
+generates responsive `srcset` and `sizes` attributes. Otherwise, it keeps the source URL unchanged
+but still applies the `layout` styles.
 The browser reserves space for the image before it loads.
 
 Images default to `loading="lazy"` and `decoding="async"`, including local files and URLs
@@ -132,6 +133,8 @@ picture (native)
 `<picture>`, and keep `Image` last so it remains the fallback when no source is selected. For
 format selection, place a typed source before an equivalent source without `type`; the browser
 chooses the first format it supports.
+`ImageSource` generates `srcset` only for a supported CDN or a `fallback` provider; for local files,
+use a native `<source srcset>` instead.
 
 ## Examples
 
