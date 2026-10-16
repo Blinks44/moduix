@@ -132,7 +132,7 @@
       color: var(--moduix-select-placeholder-color, var(--moduix-color-muted-foreground));
     }
 
-    &:not([data-placeholder-shown]) {
+    .control:has(> .clearTrigger:not([hidden])) > & {
       padding-inline-end: var(--moduix-select-trigger-padding-x-end, 4.25rem);
     }
 

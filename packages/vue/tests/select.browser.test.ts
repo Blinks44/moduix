@@ -203,6 +203,23 @@ test('preserves Ark semantics, Vue refs, anatomy, attrs, and flat exports', asyn
   await expect.element(page.locator('[data-slot="select-item-indicator"]')).toHaveCount(0);
 });
 
+test('reserves room for the clear action only when it is rendered', async () => {
+  render({
+    components: selectComponents,
+    setup: () => ({ fruits }),
+    template: `
+      <Select :collection="fruits" :default-value="['apple']"><SelectField /></Select>
+      <Select :collection="fruits" :default-value="['apple']"><SelectField clear-label="Clear fruit" /></Select>
+    `,
+  });
+
+  const [withoutClear, withClear] = [
+    ...document.querySelectorAll<HTMLElement>('[data-slot="select-trigger"]'),
+  ];
+  await expect.poll(() => getComputedStyle(withClear!).paddingInlineEnd).toBe('68px');
+  expect(getComputedStyle(withoutClear!).paddingInlineEnd).toBe('46px');
+});
+
 test('keeps the default indicator outside the trigger button', () => {
   const { container } = render(FruitSelect);
 

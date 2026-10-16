@@ -230,7 +230,11 @@ export const selectOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-transition-default)',
     'Controls interactive transition timing.',
   ],
-  ['--moduix-select-trigger-padding-x-end', '4.25rem', 'Controls trigger end padding.'],
+  [
+    '--moduix-select-trigger-padding-x-end',
+    '4.25rem',
+    'Controls trigger end padding while the clear trigger is visible.',
+  ],
   [
     '--moduix-select-trigger-padding-x-start',
     'var(--moduix-spacing-3-5)',

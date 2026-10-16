@@ -1,7 +1,8 @@
 # Fieldset (Solid)
 
-`Fieldset` is the native Solid wrapper around Ark UI's `Fieldset`. It preserves the React
-component's root, fieldset state, ARIA wiring, CSS variables, and `FieldsetRootProvider` composition.
+`Fieldset` is the native Solid wrapper around Ark UI's `Fieldset`. It keeps the React contract:
+the same parts, `data-slot` hooks, ARIA wiring, Ark type re-exports, and `FieldsetRootProvider`
+composition through `useFieldset`. CSS Modules have no `--moduix-fieldset-*` variables.
 
 ## Composition
 
@@ -23,10 +24,6 @@ export function ContactDetails() {
   );
 }
 ```
-
-The public parts are `Fieldset`, `FieldsetRootProvider`, `FieldsetContext`, `FieldsetLegend`,
-`FieldsetHelperText`, and `FieldsetErrorText`. The barrel also re-exports `useFieldset` and
-`useFieldsetContext`.
 
 Ark Solid uses a render-function `asChild` prop:
 

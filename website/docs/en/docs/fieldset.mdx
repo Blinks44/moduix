@@ -4,7 +4,6 @@ component: fieldset
 description: Group related form controls under one legend while preserving native fieldset semantics and shared state. Helper text and error messages are connected to the group so assistive technologies can announce them.
 ---
 
-import * as FieldsetDocs from '@/components/examples/fieldset/css-properties';
 import FieldsetBasic from '@/components/examples/fieldset/basic.tsx';
 import FieldsetCheckbox from '@/components/examples/fieldset/checkbox.tsx';
 import FieldsetDisabled from '@/components/examples/fieldset/disabled.tsx';
@@ -436,24 +435,16 @@ it with sibling controls or reusable descendants.
 
 ## Styling
 
-### CSS Properties
+The root resets the browser's fieldset border, margin, and padding and fills the width of its
+container. A disabled `Fieldset` dims the whole group once; `Field` and `Input` inside it do not dim
+again. `invalid` does not draw a border on the group: show the problem with `FieldsetErrorText` and
+mark the affected controls through their own `Field`.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <FieldsetDocs.FieldsetCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on the part overrides the layered component styles.
 
 ### Styling hooks
 
 Every DOM part has Ark's `data-scope="fieldset"` and a `data-part` that matches the anatomy. The root
 and legend expose `data-disabled` and `data-invalid`; moduix also adds `data-slot="fieldset-*"` hooks.
-Use `className` in React or `class` in Solid and Vue for local overrides. CSS Modules packages use the
-`--moduix-fieldset-*` variables below for theme-level customization, while Tailwind packages use
-utilities and consumer class overrides.

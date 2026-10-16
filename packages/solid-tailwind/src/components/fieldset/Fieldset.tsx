@@ -7,6 +7,8 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
+const rootClass = 'flex w-full min-w-0 flex-col gap-4 data-disabled:opacity-50';
+
 function Fieldset(props: ComponentProps<typeof FieldsetPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
@@ -14,10 +16,7 @@ function Fieldset(props: ComponentProps<typeof FieldsetPrimitive.Root>) {
     <FieldsetPrimitive.Root
       {...others}
       data-slot="fieldset-root"
-      class={cn(
-        'flex w-full max-w-none min-w-0 flex-col gap-4 border-transparent data-disabled:opacity-50 data-invalid:border-destructive',
-        local.class,
-      )}
+      class={cn(rootClass, local.class)}
     />
   );
 }
@@ -29,10 +28,7 @@ function FieldsetRootProvider(props: ComponentProps<typeof FieldsetPrimitive.Roo
     <FieldsetPrimitive.RootProvider
       {...others}
       data-slot="fieldset-root-provider"
-      class={cn(
-        'flex w-full max-w-none min-w-0 flex-col gap-4 border-transparent data-disabled:opacity-50 data-invalid:border-destructive',
-        local.class,
-      )}
+      class={cn(rootClass, local.class)}
     />
   );
 }
@@ -44,10 +40,7 @@ function FieldsetLegend(props: ComponentProps<typeof FieldsetPrimitive.Legend>) 
     <FieldsetPrimitive.Legend
       {...others}
       data-slot="fieldset-legend"
-      class={cn(
-        'inline-block max-w-full pb-3 text-lg font-semibold wrap-anywhere text-foreground',
-        local.class,
-      )}
+      class={cn('max-w-full pb-3 text-lg font-semibold wrap-anywhere text-foreground', local.class)}
     />
   );
 }
@@ -88,3 +81,15 @@ export {
   useFieldset,
   useFieldsetContext,
 };
+
+export type {
+  FieldsetContextProps,
+  FieldsetErrorTextProps,
+  FieldsetHelperTextProps,
+  FieldsetLegendProps,
+  FieldsetRootProps,
+  FieldsetRootProviderProps,
+  UseFieldsetContext,
+  UseFieldsetProps,
+  UseFieldsetReturn,
+} from '@ark-ui/solid/fieldset';

@@ -80,3 +80,15 @@ export {
   useFieldset,
   useFieldsetContext,
 };
+
+export type {
+  FieldsetContextProps,
+  FieldsetErrorTextProps,
+  FieldsetHelperTextProps,
+  FieldsetLegendProps,
+  FieldsetRootProps,
+  FieldsetRootProviderProps,
+  UseFieldsetContext,
+  UseFieldsetProps,
+  UseFieldsetReturn,
+} from '@ark-ui/solid/fieldset';

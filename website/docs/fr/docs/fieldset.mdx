@@ -4,7 +4,6 @@ component: fieldset
 description: Regroupez des contrôles de formulaire associés sous une même légende tout en conservant la sémantique native de fieldset et un état partagé. Les textes d’aide et d’erreur sont reliés au groupe pour rester accessibles aux technologies d’assistance.
 ---
 
-import * as FieldsetDocs from '@/components/examples/fieldset/css-properties';
 import FieldsetBasic from '@/components/examples/fieldset/basic.tsx';
 import FieldsetCheckbox from '@/components/examples/fieldset/checkbox.tsx';
 import FieldsetDisabled from '@/components/examples/fieldset/disabled.tsx';
@@ -437,24 +436,18 @@ des contrôles voisins ou des descendants réutilisables.
 
 ## Styles
 
-### Propriétés CSS
+La racine supprime la bordure, la marge et le remplissage que le navigateur applique à `fieldset` et occupe
+toute la largeur de son conteneur. Un `Fieldset` désactivé atténue l’ensemble du groupe une seule fois :
+les `Field` et `Input` qu’il contient ne sont pas atténués à nouveau. `invalid` ne dessine pas de bordure
+autour du groupe : signalez l’erreur avec `FieldsetErrorText` et marquez les contrôles concernés par leur
+propre `Field`.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <FieldsetDocs.FieldsetCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes Tailwind
+utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules s’appuient sur
+les jetons de foundation et n’ont pas de variables de composant : une classe sur la partie remplace les
+styles du composant placés dans un calque.
 
 ### Points d’accroche CSS
 
 Chaque partie DOM possède les attributs Ark `data-scope="fieldset"` et `data-part` correspondant à l’anatomie. La racine et
-la légende exposent `data-disabled` et `data-invalid` ; moduix ajoute également les attributs `data-slot="fieldset-*"`.
-Utilisez `className` en React ou `class` en Solid et Vue pour les ajustements locaux. Les packages CSS Modules utilisent les
-variables `--moduix-fieldset-*` pour personnaliser le thème, tandis que les packages Tailwind utilisent des classes
-utilitaires et les classes de l’application.
+la légende exposent `data-disabled` et `data-invalid` ; moduix ajoute également les attributs `data-slot="fieldset-*"`.

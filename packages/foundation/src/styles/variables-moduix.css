@@ -334,30 +334,6 @@
   /* Editable */
   --moduix-editable-area-height: initial; /* var(--moduix-size-md) */
 
-  /* Fieldset */
-  --moduix-fieldset-border-color: initial; /* transparent */
-  --moduix-fieldset-border-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-fieldset-border-style: initial; /* solid */
-  --moduix-fieldset-border-width: initial; /* 0 */
-  --moduix-fieldset-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-fieldset-error-text-color: initial; /* var(--moduix-color-destructive) */
-  --moduix-fieldset-error-text-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-fieldset-gap: initial; /* var(--moduix-spacing-4) */
-  --moduix-fieldset-helper-text-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-fieldset-legend-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-fieldset-legend-font-size: initial; /* var(--moduix-text-lg) */
-  --moduix-fieldset-legend-font-weight: initial; /* var(--moduix-weight-semibold) */
-  --moduix-fieldset-legend-line-height: initial; /* var(--moduix-line-height-text-lg) */
-  --moduix-fieldset-legend-margin: initial; /* 0 */
-  --moduix-fieldset-legend-padding: initial; /* 0 0 var(--moduix-spacing-3) */
-  --moduix-fieldset-margin: initial; /* 0 */
-  --moduix-fieldset-max-width: initial; /* none */
-  --moduix-fieldset-message-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-fieldset-message-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-fieldset-padding: initial; /* 0 */
-  --moduix-fieldset-radius: initial; /* var(--moduix-radius-none) */
-  --moduix-fieldset-width: initial; /* 100% */
-
   /* FloatingPanel */
   --moduix-floating-panel-behind-opacity: initial; /* 0.55 */
   --moduix-floating-panel-bg: initial; /* var(--moduix-color-popover) */

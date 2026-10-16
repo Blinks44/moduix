@@ -53,6 +53,22 @@ test('updates invalid state and connects legend, description, and error text', a
   await expect.element(textLocator).toHaveAttribute('aria-live', 'polite');
 });
 
+test('resets native fieldset chrome and draws no border when invalid', () => {
+  render({
+    components: fieldsetComponents,
+    template: `<Fieldset invalid><FieldsetLegend>Billing</FieldsetLegend></Fieldset>`,
+  });
+
+  const fieldset = screen.getByRole('group', { name: 'Billing' });
+  const style = getComputedStyle(fieldset);
+  expect([style.borderTopWidth, style.paddingTop, style.paddingLeft, style.marginLeft]).toEqual([
+    '0px',
+    '0px',
+    '0px',
+    '0px',
+  ]);
+});
+
 test('disables native descendants', async () => {
   render({
     components: fieldsetComponents,
@@ -163,7 +179,7 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
 
   const fieldset = screen.getByRole('group', { name: 'Styled fieldset' });
   expect([...fieldset.classList]).toEqual(expect.arrayContaining(['gap-2', 'max-w-64']));
-  expect(['gap-4', 'max-w-none'].some((name) => fieldset.classList.contains(name))).toBe(false);
+  expect(fieldset.classList.contains('gap-4')).toBe(false);
   expect([
     ...screen.getByRole('group', { name: 'Styled fieldset' }).querySelector('legend')!.classList,
   ]).toEqual(expect.arrayContaining(['text-primary']));

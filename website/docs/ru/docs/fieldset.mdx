@@ -4,7 +4,6 @@ component: fieldset
 description: Объединяйте связанные элементы формы под одним заголовком, сохраняя нативную семантику fieldset и общее состояние группы. Поясняющий текст и сообщения об ошибках связаны с группой и доступны вспомогательным технологиям.
 ---
 
-import * as FieldsetDocs from '@/components/examples/fieldset/css-properties';
 import FieldsetBasic from '@/components/examples/fieldset/basic.tsx';
 import FieldsetCheckbox from '@/components/examples/fieldset/checkbox.tsx';
 import FieldsetDisabled from '@/components/examples/fieldset/disabled.tsx';
@@ -436,24 +435,16 @@ ARIA-состояние.
 
 ## Стилизация
 
-### CSS-свойства
+Корень сбрасывает рамку, внешние и внутренние отступы, которые браузер задаёт `fieldset`, и занимает всю
+ширину контейнера. Отключённый `Fieldset` приглушает всю группу один раз: `Field` и `Input` внутри него
+не приглушаются повторно. `invalid` не рисует рамку вокруг группы: покажите ошибку через
+`FieldsetErrorText` и отметьте нужные элементы управления через их собственный `Field`.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <FieldsetDocs.FieldsetCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты на Tailwind
+используют нативные утилиты и классы потребителя. Варианты на CSS Modules построены на токенах foundation
+и не имеют переменных компонента: класс на части перекрывает стили компонента из слоя.
 
 ### Хуки стилизации
 
 Для каждой части DOM Ark добавляет атрибуты `data-scope="fieldset"` и `data-part`, соответствующие анатомии. Корневой
 компонент и заголовок получают `data-disabled` и `data-invalid`; moduix также добавляет атрибуты `data-slot="fieldset-*"`.
-Используйте `className` в React или `class` в Solid и Vue для локальных переопределений. В пакетах CSS Modules переменные
-`--moduix-fieldset-*` позволяют настраивать тему, а в Tailwind-пакетах для этого используются классы-утилиты и классы
-потребителя.

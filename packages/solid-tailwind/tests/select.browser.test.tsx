@@ -74,6 +74,25 @@ test('keeps default values and native form values Ark-shaped', async () => {
     .toBeVisible();
 });
 
+test('reserves room for the clear action only when it is rendered', async () => {
+  render(() => (
+    <>
+      <Select collection={fruits} defaultValue={['apple']}>
+        <SelectField />
+      </Select>
+      <Select collection={fruits} defaultValue={['apple']}>
+        <SelectField clearLabel="Clear fruit" />
+      </Select>
+    </>
+  ));
+
+  const [withoutClear, withClear] = [
+    ...document.querySelectorAll<HTMLElement>('[data-slot="select-trigger"]'),
+  ];
+  await expect.poll(() => getComputedStyle(withClear!).paddingInlineEnd).toBe('68px');
+  expect(getComputedStyle(withoutClear!).paddingInlineEnd).toBe('46px');
+});
+
 test('keeps the default indicator outside the trigger button', () => {
   const { container } = render(() => <FruitSelect />);
 
