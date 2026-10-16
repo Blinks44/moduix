@@ -6,9 +6,9 @@ preview, removal, native form, provider, and context contracts.
 ## Composition
 
 ```tsx
+import { Button } from '@moduix/solid/button';
 import {
   FileUpload,
-  FileUploadContext,
   FileUploadHiddenInput,
   FileUploadItemGroup,
   FileUploadItems,
@@ -20,7 +20,7 @@ export function FileUploadDemo() {
   return (
     <FileUpload maxFiles={3}>
       <FileUploadLabel>Attachments</FileUploadLabel>
-      <FileUploadTrigger>Choose files</FileUploadTrigger>
+      <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose files</Button>} />
       <FileUploadItemGroup>
         <FileUploadItems />
       </FileUploadItemGroup>
@@ -43,7 +43,7 @@ Ark Solid uses a render-function `asChild` prop:
 ```tsx
 <FileUpload asChild={(props) => <section {...props()} aria-label="Attachments" />}>
   <FileUploadLabel>Attachments</FileUploadLabel>
-  <FileUploadTrigger>Choose files</FileUploadTrigger>
+  <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose files</Button>} />
   <FileUploadHiddenInput />
 </FileUpload>
 ```
@@ -52,11 +52,12 @@ Ordinary refs are forwarded to rendered Ark parts. Ark Solid does not forward re
 `asChild`, so custom-host composition and ordinary refs are supported as separate native paths.
 `FileUploadDropzone.disableClick` remains required when a nested `FileUploadTrigger` opens the file picker.
 
-The `FileUploadItems` convenience part renders image previews for `image/*` files and a generic file icon
-for other files, including files whose filename looks like an image but has no image MIME type.
+`FileUploadTrigger` and `FileUploadClearTrigger` are unstyled; compose them with a `Button` through
+`asChild`. The default delete trigger takes its accessible name from Ark `translations.deleteFile`.
+
+The `FileUploadItems` convenience part renders image cards for `image/*` files and file rows with a
+generic icon for other files, including files whose filename looks like an image but has no image MIME type.
 Use explicit `FileUploadContext` composition for rejected files or MIME-specific previews.
 Metadata shows the uppercase filename extension, or the MIME type / `FILE` when there is no extension.
 
-## Local changelog
-
-- 2026-09-21: Replaced the compound `FileUpload.*` value surface with the shared flat API. `FileUpload` is now the only root value, and every other part uses a `FileUpload`-prefixed named export.
+The styling and disabled-state contract matches the React package; see the React `file-upload.md`.

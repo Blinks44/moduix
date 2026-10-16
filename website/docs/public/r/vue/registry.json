@@ -2028,12 +2028,7 @@
       "title": "FileUpload",
       "description": "moduix Vue FileUpload component.",
       "dependencies": ["@ark-ui/vue", "clsx"],
-      "registryDependencies": [
-        "@moduix-vue/a11y-labels",
-        "@moduix-vue/foundation",
-        "@moduix-vue/icons",
-        "@moduix-vue/close-button"
-      ],
+      "registryDependencies": ["@moduix-vue/foundation", "@moduix-vue/icons"],
       "files": [
         {
           "path": "src/components/file-upload/FileUpload.vue",

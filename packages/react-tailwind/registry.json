@@ -738,9 +738,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
-        "@moduix-react-tailwind/a11y-labels",
-        "@moduix-react-tailwind/icons",
-        "@moduix-react-tailwind/close-button"
+        "@moduix-react-tailwind/icons"
       ],
       "files": [
         {

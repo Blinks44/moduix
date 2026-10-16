@@ -805,12 +805,7 @@
       "title": "FileUpload",
       "description": "moduix Solid FileUpload component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": [
-        "@moduix-solid/a11y-labels",
-        "@moduix-solid/close-button",
-        "@moduix-solid/foundation",
-        "@moduix-solid/icons"
-      ],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
           "path": "src/components/file-upload/FileUpload.tsx",

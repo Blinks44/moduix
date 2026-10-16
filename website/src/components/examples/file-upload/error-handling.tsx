@@ -1,3 +1,4 @@
+import { Button } from '@moduix/react/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -29,14 +30,16 @@ export default function ErrorHandlingFileUploadDemo() {
         onFileAccept={() => setMessage('Files accepted')}
       >
         <FileUploadLabel>Images</FileUploadLabel>
-        <FileUploadTrigger>Select images</FileUploadTrigger>
+        <FileUploadTrigger asChild>
+          <Button>Select images</Button>
+        </FileUploadTrigger>
         <FileUploadItemGroup>
           <FileUploadContext>
             {({ acceptedFiles }) =>
               acceptedFiles.map((file) => (
                 <FileUploadItem key={file.name} file={file}>
                   <FileUploadItemName />
-                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                  <FileUploadItemDeleteTrigger />
                 </FileUploadItem>
               ))
             }
@@ -49,7 +52,7 @@ export default function ErrorHandlingFileUploadDemo() {
                 <FileUploadItem key={file.name} file={file}>
                   <FileUploadItemName />
                   <p className={styles.error}>{errors.join(', ')}</p>
-                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                  <FileUploadItemDeleteTrigger />
                 </FileUploadItem>
               ))
             }

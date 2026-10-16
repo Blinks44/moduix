@@ -9,10 +9,12 @@ import {
 } from '@ark-ui/react/file-upload';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
-import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
-import { CloseButton } from '../close-button';
+import { FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
+
+const rootClass = 'box-border flex w-full flex-col items-start gap-3 text-foreground';
+const disabledClass =
+  'data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 
 const FileUpload = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.Root>,
@@ -21,10 +23,7 @@ const FileUpload = forwardRef<
   return (
     <FileUploadPrimitive.Root
       ref={ref}
-      className={cn(
-        'box-border flex w-full max-w-md flex-col items-start gap-3 text-foreground',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="file-upload-root"
     />
@@ -38,10 +37,7 @@ const FileUploadRootProvider = forwardRef<
   return (
     <FileUploadPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'box-border flex w-full max-w-md flex-col items-start gap-3 text-foreground',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="file-upload-root-provider"
     />
@@ -55,7 +51,7 @@ const FileUploadLabel = forwardRef<
   return (
     <FileUploadPrimitive.Label
       ref={ref}
-      className={cn('text-sm font-medium text-foreground data-disabled:opacity-50', className)}
+      className={cn('text-sm leading-5 font-medium', disabledClass, className)}
       {...props}
       data-slot="file-upload-label"
     />
@@ -70,7 +66,8 @@ const FileUploadDropzone = forwardRef<
     <FileUploadPrimitive.Dropzone
       ref={ref}
       className={cn(
-        'box-border grid min-h-32 w-full place-items-center gap-3 rounded-md border border-dashed border-border bg-background p-5 text-center text-muted-foreground transition-[border-color,background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-dragging:border-primary data-dragging:bg-accent data-dragging:text-foreground data-invalid:border-destructive data-readonly:cursor-default data-readonly:opacity-50 motion-reduce:transition-none [&[role=button]:not([data-disabled],[data-readonly])]:cursor-pointer',
+        'box-border grid min-h-32 w-full place-items-center gap-3 rounded-md border border-dashed border-border bg-background p-5 text-center text-muted-foreground transition-[border-color,background-color,color] duration-200 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-dragging:border-primary data-dragging:bg-accent data-dragging:text-foreground data-invalid:border-destructive data-readonly:opacity-50 motion-reduce:transition-none [&[role=button]:not([aria-disabled])]:cursor-pointer',
+        disabledClass,
         className,
       )}
       {...props}
@@ -98,18 +95,8 @@ function FileUploadDropzoneIcon({ className, children, ...props }: HTMLArkProps<
 const FileUploadTrigger = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.Trigger>,
   ComponentProps<typeof FileUploadPrimitive.Trigger>
->(function FileUploadTrigger({ className, ...props }, ref) {
-  return (
-    <FileUploadPrimitive.Trigger
-      ref={ref}
-      className={cn(
-        'box-border inline-flex min-h-control-md cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-primary bg-primary px-4 text-sm leading-5 font-medium whitespace-nowrap text-primary-foreground transition-[border-color,background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default data-disabled:pointer-events-none data-disabled:cursor-default data-invalid:border-destructive data-readonly:pointer-events-none data-readonly:cursor-default motion-reduce:transition-none [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):hover]:bg-foreground',
-        className,
-      )}
-      {...props}
-      data-slot="file-upload-trigger"
-    />
-  );
+>(function FileUploadTrigger(props, ref) {
+  return <FileUploadPrimitive.Trigger ref={ref} {...props} data-slot="file-upload-trigger" />;
 });
 
 const FileUploadItemGroup = forwardRef<
@@ -134,7 +121,8 @@ const FileUploadItem = forwardRef<
     <FileUploadPrimitive.Item
       ref={ref}
       className={cn(
-        'group/item box-border grid min-h-control-md shrink-0 grow basis-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 rounded-md border border-border bg-background px-3 py-2 text-foreground has-[[data-slot=file-upload-item-preview-image]]:min-h-0 has-[[data-slot=file-upload-item-preview-image]]:max-w-40 has-[[data-slot=file-upload-item-preview-image]]:grow-0 has-[[data-slot=file-upload-item-preview-image]]:grid-rows-[auto_auto_auto] has-[[data-slot=file-upload-item-preview-image]]:items-start has-[[data-slot=file-upload-item-preview]]:not-has-[[data-slot=file-upload-item-preview-image]]:min-h-control-xl has-[[data-slot=file-upload-item-preview]]:not-has-[[data-slot=file-upload-item-preview-image]]:grid-cols-[auto_minmax(0,1fr)_auto] data-disabled:opacity-50 data-[type=rejected]:border-destructive',
+        "group/item box-border grid min-h-control-md shrink-0 grow basis-full grid-cols-[minmax(0,1fr)_auto] content-center items-center gap-x-3 rounded-md border border-border bg-background px-3 py-2 [grid-template-areas:'name_delete'_'meta_delete'] has-[[data-slot=file-upload-item-preview-image]]:max-w-40 has-[[data-slot=file-upload-item-preview-image]]:grow-0 has-[[data-slot=file-upload-item-preview-image]]:[grid-template-areas:'preview_preview'_'name_delete'_'meta_delete'] has-[[data-slot=file-upload-item-preview]]:not-has-[[data-slot=file-upload-item-preview-image]]:min-h-control-xl has-[[data-slot=file-upload-item-preview]]:not-has-[[data-slot=file-upload-item-preview-image]]:grid-cols-[auto_minmax(0,1fr)_auto] has-[[data-slot=file-upload-item-preview]]:not-has-[[data-slot=file-upload-item-preview-image]]:[grid-template-areas:'preview_name_delete'_'preview_meta_delete'] data-[type=rejected]:border-destructive",
+        disabledClass,
         className,
       )}
       {...props}
@@ -151,7 +139,7 @@ const FileUploadItemPreview = forwardRef<
     <FileUploadPrimitive.ItemPreview
       ref={ref}
       className={cn(
-        'col-start-1 row-start-1 inline-flex size-10 items-center justify-center overflow-hidden rounded-sm bg-muted text-muted-foreground group-not-has-[[data-slot=file-upload-item-preview-image]]/item:row-[1/span_2] group-has-[[data-slot=file-upload-item-preview-image]]/item:col-span-full group-has-[[data-slot=file-upload-item-preview-image]]/item:aspect-square group-has-[[data-slot=file-upload-item-preview-image]]/item:h-auto group-has-[[data-slot=file-upload-item-preview-image]]/item:w-full',
+        'flex size-10 items-center justify-center overflow-hidden rounded-sm bg-muted text-muted-foreground [grid-area:preview] group-has-[[data-slot=file-upload-item-preview-image]]/item:mb-1 group-has-[[data-slot=file-upload-item-preview-image]]/item:aspect-square group-has-[[data-slot=file-upload-item-preview-image]]/item:h-auto group-has-[[data-slot=file-upload-item-preview-image]]/item:w-full',
         className,
       )}
       {...props}
@@ -204,10 +192,7 @@ const FileUploadItemName = forwardRef<
   return (
     <FileUploadPrimitive.ItemName
       ref={ref}
-      className={cn(
-        'col-start-1 line-clamp-1 min-w-0 text-sm leading-5 font-medium group-has-[[data-slot=file-upload-item-preview-image]]/item:row-start-2 group-has-[[data-slot=file-upload-item-preview-image]]/item:self-end group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-2',
-        className,
-      )}
+      className={cn('truncate text-sm leading-5 font-medium [grid-area:name]', className)}
       {...props}
       data-slot="file-upload-item-name"
     />
@@ -221,7 +206,10 @@ const FileUploadItemSizeText = forwardRef<
   return (
     <FileUploadPrimitive.ItemSizeText
       ref={ref}
-      className={cn('text-xs leading-4 text-muted-foreground', className)}
+      className={cn(
+        'text-xs leading-4 text-muted-foreground [grid-area:meta] [[data-slot=file-upload-item]>&]:mt-1',
+        className,
+      )}
       {...props}
       data-slot="file-upload-item-size-text"
     />
@@ -236,7 +224,7 @@ function FileUploadItemMetadata({
   return (
     <ark.div
       className={cn(
-        "col-start-1 flex items-center gap-1 text-xs leading-4 text-muted-foreground group-has-[[data-slot=file-upload-item-preview-image]]/item:row-start-3 group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-2 [&>[data-slot='file-upload-item-size-text']::before]:me-1 [&>[data-slot='file-upload-item-size-text']::before]:content-['·']",
+        "mt-1 flex items-center gap-1 text-xs leading-4 text-muted-foreground [grid-area:meta] [&>[data-slot='file-upload-item-size-text']::before]:me-1 [&>[data-slot='file-upload-item-size-text']::before]:content-['·']",
         className,
       )}
       {...props}
@@ -256,7 +244,7 @@ const FileUploadItemDeleteTrigger = forwardRef<
     <FileUploadPrimitive.ItemDeleteTrigger
       ref={ref}
       className={cn(
-        'col-start-2 row-start-1 box-border inline-flex size-control-xs shrink-0 cursor-pointer appearance-none items-center justify-center justify-self-end rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out group-has-[[data-slot=file-upload-item-preview-image]]/item:row-[2/span_2] group-has-[[data-slot=file-upload-item-preview-image]]/item:self-center group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-3 group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:row-[1/span_2] group-has-[[data-slot=file-upload-item-size-text]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:row-[1/span_2] focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-readonly:pointer-events-none data-readonly:cursor-default data-readonly:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):hover]:text-foreground',
+        'box-border inline-flex size-control-xs cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color] duration-200 ease-in-out [grid-area:delete] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-default data-readonly:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):hover]:text-foreground',
         className,
       )}
       {...props}
@@ -277,7 +265,7 @@ function FileUploadItems() {
       </FileUploadItemPreview>
       <FileUploadItemName />
       <FileUploadItemMetadata file={file} />
-      <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+      <FileUploadItemDeleteTrigger />
     </FileUploadItem>
   ));
 }
@@ -285,42 +273,9 @@ function FileUploadItems() {
 const FileUploadClearTrigger = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.ClearTrigger>,
   ComponentProps<typeof FileUploadPrimitive.ClearTrigger>
->(function FileUploadClearTrigger(
-  {
-    asChild,
-    className,
-    children,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
-    ...props
-  },
-  ref,
-) {
-  const clearLabel = ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.clearFiles : undefined);
-  const triggerClassName = cn(
-    `size-control-xs self-start rounded-sm bg-transparent text-muted-foreground focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-readonly:pointer-events-none data-readonly:opacity-50 [&>svg:not([class*='size-'])]:size-4`,
-    children != null && 'size-control-sm w-auto gap-2 px-2 text-sm leading-5',
-    className,
-  );
-
+>(function FileUploadClearTrigger(props, ref) {
   return (
-    <FileUploadPrimitive.ClearTrigger
-      ref={ref}
-      asChild
-      className={triggerClassName}
-      aria-label={asChild ? clearLabel : undefined}
-      aria-labelledby={asChild ? ariaLabelledBy : undefined}
-      {...props}
-      data-slot="file-upload-clear-trigger"
-    >
-      {asChild ? (
-        children
-      ) : (
-        <CloseButton aria-label={clearLabel} aria-labelledby={ariaLabelledBy}>
-          {children ?? <CloseIcon />}
-        </CloseButton>
-      )}
-    </FileUploadPrimitive.ClearTrigger>
+    <FileUploadPrimitive.ClearTrigger ref={ref} {...props} data-slot="file-upload-clear-trigger" />
   );
 });
 
@@ -350,3 +305,31 @@ export {
   useFileUpload,
   useFileUploadContext,
 };
+
+export type {
+  FileUploadClearTriggerProps,
+  FileUploadContextProps,
+  FileUploadDropzoneProps,
+  FileUploadFileAcceptDetails,
+  FileUploadFileChangeDetails,
+  FileUploadFileError,
+  FileUploadFileMimeType,
+  FileUploadFileRejectDetails,
+  FileUploadFileRejection,
+  FileUploadFileValidateDetails,
+  FileUploadHiddenInputProps,
+  FileUploadItemDeleteTriggerProps,
+  FileUploadItemGroupProps,
+  FileUploadItemNameProps,
+  FileUploadItemPreviewImageProps,
+  FileUploadItemPreviewProps,
+  FileUploadItemProps,
+  FileUploadItemSizeTextProps,
+  FileUploadLabelProps,
+  FileUploadRootProps,
+  FileUploadRootProviderProps,
+  FileUploadTriggerProps,
+  UseFileUploadContext,
+  UseFileUploadProps,
+  UseFileUploadReturn,
+} from '@ark-ui/react/file-upload';

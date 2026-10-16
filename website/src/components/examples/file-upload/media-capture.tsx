@@ -1,3 +1,4 @@
+import { Button } from '@moduix/react/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -26,7 +27,9 @@ export default function MediaCaptureUploadDemo() {
         <div className={styles.dropzoneContent}>
           <span className={styles.dropzoneTitle}>Drop an image or open the camera</span>
           <span className={styles.dropzoneDescription}>One image from the environment camera</span>
-          <FileUploadTrigger>Open camera</FileUploadTrigger>
+          <FileUploadTrigger asChild>
+            <Button>Open camera</Button>
+          </FileUploadTrigger>
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>
@@ -36,7 +39,7 @@ export default function MediaCaptureUploadDemo() {
               <FileUploadItem key={file.name} file={file}>
                 <FileUploadItemName />
                 <FileUploadItemSizeText />
-                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                <FileUploadItemDeleteTrigger />
               </FileUploadItem>
             ))
           }

@@ -4,7 +4,6 @@ component: file-upload
 description: Ark UI file upload component for file selection, drag-and-drop, validation, and previews.
 ---
 
-import * as FileUploadDocs from '@/components/examples/file-upload/css-properties';
 import FileUploadAcceptedFileTypes from '@/components/examples/file-upload/accepted-file-types.tsx';
 import FileUploadAdvancedCustomization from '@/components/examples/file-upload/advanced-customization.tsx';
 import FileUploadBasic from '@/components/examples/file-upload/basic.tsx';
@@ -73,7 +72,7 @@ manage an upload flow. `Input` with `type="file"` is enough for a native chooser
 ## Basic
 
 
-Start with `FileUpload` as the root. Add a `FileUploadLabel`, then use `FileUploadTrigger` for a compact control or `FileUploadDropzone` for
+Start with `FileUpload` as the root. Add a `FileUploadLabel`, then wrap a `Button` in `FileUploadTrigger asChild` for a compact control or `FileUploadDropzone` for
 drag-and-drop. Add `FileUploadHiddenInput` explicitly to open the native picker. Put `FileUploadItems` inside
 `FileUploadItemGroup` to show accepted files. `FileUploadItems` uses an image thumbnail only when the file has an `image/*` MIME type; otherwise it uses the
 generic file preview.
@@ -188,7 +187,7 @@ FileUpload / FileUploadRootProvider
 | `FileUploadLabel`               | Accessible label for the hidden file input and upload controls.                     |
 | `FileUploadDropzone`            | Drag-and-drop target. Pass `disableClick` when it contains a nested trigger.        |
 | `FileUploadDropzoneIcon`        | Decorative upload icon for a `FileUploadDropzone`.                                            |
-| `FileUploadTrigger`             | Button that opens the native file picker.                                           |
+| `FileUploadTrigger`             | Unstyled button that opens the native file picker. Compose it with a `Button` through `asChild`.                                           |
 | `FileUploadItemGroup`           | List for accepted or rejected files.                                                 |
 | `FileUploadItems`               | Convenience component that renders image cards and file rows with previews, metadata, and delete controls. |
 | `FileUploadContext`             | Ark-compatible render-prop context for custom file rows.                             |
@@ -199,8 +198,8 @@ FileUpload / FileUploadRootProvider
 | `FileUploadItemName`            | File name text.                                                                      |
 | `FileUploadItemMetadata`        | File type and localized size. Pass it the current `file` object.                    |
 | `FileUploadItemSizeText`        | Localized file-size text.                                                            |
-| `FileUploadItemDeleteTrigger`   | Removes one file. Defaults to the moduix trash icon.                                |
-| `FileUploadClearTrigger`        | Clears selected files. Defaults to the moduix close icon.                           |
+| `FileUploadItemDeleteTrigger`   | Removes one file. Defaults to the moduix trash icon; Ark `translations.deleteFile` names it.                                |
+| `FileUploadClearTrigger`        | Unstyled button that clears accepted files; hidden while the list is empty. Compose it with a `Button` through `asChild`.                           |
 
 ## Composition
 
@@ -905,24 +904,12 @@ for each file.
 ## Styling
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind variants use native
-utilities and consumer classes; CSS Modules variants expose the variables below. Both styling tracks share Ark state
-attributes and moduix `data-slot` hooks.
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component variables:
+a class on the part overrides the layered component styles. Both styling tracks share Ark state attributes and moduix
+`data-slot` hooks.
 
-### CSS Properties
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div>
-        <FileUploadDocs.FileUploadCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+The root fills the width of its container; set `max-width` on it with a class to limit it. Items are grids with the
+named areas `preview`, `name`, `meta`, and `delete`, so a custom child without an area lands under the file name.
 
 ### Styling hooks
 

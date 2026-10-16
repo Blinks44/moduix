@@ -1,6 +1,7 @@
 import { For, createSignal } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
+import { Button } from '@/components/button';
 import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   FileUpload,
@@ -76,7 +77,7 @@ function FileUploadItemList() {
               )}
               <FileUploadItemName />
               <FileUploadItemMetadata file={file} />
-              <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+              <FileUploadItemDeleteTrigger />
             </FileUploadItem>
           )}
         </For>
@@ -89,7 +90,7 @@ function FileUploadDemo(props: ComponentProps<typeof FileUpload>) {
   return (
     <FileUpload class={simpleDemoClass} maxFiles={3} {...props}>
       <FileUploadLabel>Attachments</FileUploadLabel>
-      <FileUploadTrigger>Choose files</FileUploadTrigger>
+      <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose files</Button>} />
       <FileUploadItemGroup>
         <FileUploadItems />
       </FileUploadItemGroup>
@@ -112,7 +113,13 @@ export const Dropzone: Story = {
         <div class={dropzoneContentClass}>
           <span class={dropzoneTitleClass}>Drag and drop files here</span>
           <span class={dropzoneDescriptionClass}>or browse from your device</span>
-          <FileUploadTrigger class="mt-2">Browse files</FileUploadTrigger>
+          <FileUploadTrigger
+            asChild={(props) => (
+              <Button {...props()} class="mt-2">
+                Browse files
+              </Button>
+            )}
+          />
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>
@@ -160,7 +167,13 @@ export const RejectedFiles: Story = {
         <div class={dropzoneContentClass}>
           <span class={dropzoneTitleClass}>Drop image files here</span>
           <span class={dropzoneDescriptionClass}>PNG or JPEG, up to 120 KB</span>
-          <FileUploadTrigger class="mt-2">Select images</FileUploadTrigger>
+          <FileUploadTrigger
+            asChild={(props) => (
+              <Button {...props()} class="mt-2">
+                Select images
+              </Button>
+            )}
+          />
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>
@@ -179,7 +192,7 @@ export const RejectedFiles: Story = {
                     <FileUploadItemName />
                     <p class={errorTextClass}>{rejection.errors.join(', ')}</p>
                   </div>
-                  <FileUploadItemDeleteTrigger aria-label={`Remove ${rejection.file.name}`} />
+                  <FileUploadItemDeleteTrigger />
                 </FileUploadItem>
               )}
             </For>
@@ -196,7 +209,7 @@ export const WithField: Story = {
       <FileUpload name="attachments" maxFiles={3}>
         <FileUploadLabel>Required attachments</FileUploadLabel>
         <FileUploadHiddenInput />
-        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose files</Button>} />
         <FileUploadItemGroup>
           <FileUploadItemList />
         </FileUploadItemGroup>
@@ -220,7 +233,13 @@ export const RootProvider: Story = {
           <div class={dropzoneContentClass}>
             <span class={dropzoneTitleClass}>Drop images here</span>
             <span class={dropzoneDescriptionClass}>or browse from your device</span>
-            <FileUploadTrigger class="mt-2">Choose images</FileUploadTrigger>
+            <FileUploadTrigger
+              asChild={(props) => (
+                <Button {...props()} class="mt-2">
+                  Choose images
+                </Button>
+              )}
+            />
           </div>
         </FileUploadDropzone>
         <FileUploadItemGroup>
@@ -241,9 +260,13 @@ export const CustomStyling: Story = {
         <div class={dropzoneContentClass}>
           <span class={dropzoneTitleClass}>Drop files here</span>
           <span class={dropzoneDescriptionClass}>SVG, PNG, or PDF</span>
-          <FileUploadTrigger class="mt-2 bg-foreground text-background">
-            Browse files
-          </FileUploadTrigger>
+          <FileUploadTrigger
+            asChild={(props) => (
+              <Button {...props()} class="mt-2 bg-foreground text-background">
+                Browse files
+              </Button>
+            )}
+          />
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>

@@ -30,14 +30,16 @@ export default function FileUploadFormDemo() {
       <FileUpload className={styles.root} name={name} maxFiles={maxFiles}>
         <FileUploadLabel>Project assets</FileUploadLabel>
         <FileUploadHiddenInput />
-        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadTrigger asChild>
+          <Button>Choose files</Button>
+        </FileUploadTrigger>
         <FileUploadItemGroup>
           <FileUploadContext>
             {({ acceptedFiles }) =>
               acceptedFiles.map((file) => (
                 <FileUploadItem key={file.name} file={file}>
                   <FileUploadItemName />
-                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                  <FileUploadItemDeleteTrigger />
                 </FileUploadItem>
               ))
             }

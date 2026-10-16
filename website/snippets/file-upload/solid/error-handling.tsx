@@ -1,3 +1,4 @@
+import { Button } from '@moduix/solid/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -30,7 +31,7 @@ export default function ErrorHandlingFileUploadDemo() {
         onFileAccept={() => setMessage('Files accepted')}
       >
         <FileUploadLabel>Images</FileUploadLabel>
-        <FileUploadTrigger>Select images</FileUploadTrigger>
+        <FileUploadTrigger asChild={(props) => <Button {...props()}>Select images</Button>} />
         <FileUploadItemGroup>
           <FileUploadContext>
             {(fileUpload) => (
@@ -38,7 +39,7 @@ export default function ErrorHandlingFileUploadDemo() {
                 {(file) => (
                   <FileUploadItem file={file}>
                     <FileUploadItemName />
-                    <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                    <FileUploadItemDeleteTrigger />
                   </FileUploadItem>
                 )}
               </For>
@@ -53,7 +54,7 @@ export default function ErrorHandlingFileUploadDemo() {
                   <FileUploadItem file={file}>
                     <FileUploadItemName />
                     <p class={styles.error}>{errors.join(', ')}</p>
-                    <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                    <FileUploadItemDeleteTrigger />
                   </FileUploadItem>
                 )}
               </For>

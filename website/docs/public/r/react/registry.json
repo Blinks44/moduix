@@ -815,12 +815,7 @@
       "title": "FileUpload",
       "description": "moduix React FileUpload component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": [
-        "@moduix-react/a11y-labels",
-        "@moduix-react/close-button",
-        "@moduix-react/foundation",
-        "@moduix-react/icons"
-      ],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "src/components/file-upload/FileUpload.tsx",

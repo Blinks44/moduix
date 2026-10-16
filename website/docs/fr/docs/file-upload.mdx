@@ -4,7 +4,6 @@ component: file-upload
 description: Composant Ark UI pour sélectionner, valider et prévisualiser des fichiers, avec prise en charge du glisser-déposer.
 ---
 
-import * as FileUploadDocs from '@/components/examples/file-upload/css-properties';
 import FileUploadAcceptedFileTypes from '@/components/examples/file-upload/accepted-file-types.tsx';
 import FileUploadAdvancedCustomization from '@/components/examples/file-upload/advanced-customization.tsx';
 import FileUploadBasic from '@/components/examples/file-upload/basic.tsx';
@@ -74,7 +73,7 @@ sélecteur natif dans un formulaire simple.
 ## Exemple de base
 
 
-Commencez par utiliser `FileUpload` comme composant racine. Ajoutez un `FileUploadLabel`, puis utilisez `FileUploadTrigger` pour un contrôle
+Commencez par utiliser `FileUpload` comme composant racine. Ajoutez un `FileUploadLabel`, puis enveloppez un `Button` dans `FileUploadTrigger asChild` pour un contrôle
 compact ou `FileUploadDropzone` pour le glisser-déposer. Ajoutez explicitement `FileUploadHiddenInput` pour
 ouvrir le sélecteur natif. Placez `FileUploadItems` dans `FileUploadItemGroup` pour afficher les fichiers acceptés. `FileUploadItems` affiche une vignette uniquement lorsque le fichier
 possède un type MIME `image/*` ; les autres fichiers utilisent un aperçu générique.
@@ -189,7 +188,7 @@ FileUpload / FileUploadRootProvider
 | `FileUploadLabel` | Libellé accessible pour le champ de fichier masqué et les contrôles de téléversement. |
 | `FileUploadDropzone` | Zone de dépôt. Passez `disableClick` si elle contient un `FileUploadTrigger` imbriqué, afin de ne pas ouvrir deux fois le sélecteur. |
 | `FileUploadDropzoneIcon` | Icône de téléversement décorative pour une `FileUploadDropzone`. |
-| `FileUploadTrigger` | Bouton qui ouvre le sélecteur de fichiers natif. |
+| `FileUploadTrigger` | Bouton sans style qui ouvre le sélecteur de fichiers natif. Composez-le avec un `Button` via `asChild`. |
 | `FileUploadItemGroup` | Liste des fichiers acceptés ou rejetés. |
 | `FileUploadItems` | Composant prêt à l’emploi qui affiche des cartes pour les images et des lignes pour les autres fichiers, avec aperçu, métadonnées et suppression. |
 | `FileUploadContext` | Contexte compatible avec Ark et basé sur une fonction de rendu pour créer des lignes personnalisées. |
@@ -200,8 +199,8 @@ FileUpload / FileUploadRootProvider
 | `FileUploadItemName` | Nom du fichier. |
 | `FileUploadItemMetadata` | Type du fichier et taille formatée selon la locale. Passez-lui l’objet `file` courant. |
 | `FileUploadItemSizeText` | Taille du fichier formatée selon la locale. |
-| `FileUploadItemDeleteTrigger` | Supprime un fichier. Utilise par défaut l’icône de corbeille moduix. |
-| `FileUploadClearTrigger` | Efface les fichiers sélectionnés. Utilise par défaut l’icône de fermeture moduix. |
+| `FileUploadItemDeleteTrigger` | Supprime un fichier. Utilise par défaut l’icône de corbeille moduix ; son nom vient de `translations.deleteFile` d’Ark. |
+| `FileUploadClearTrigger` | Bouton sans style qui efface les fichiers acceptés ; masqué tant que la liste est vide. Composez-le avec un `Button` via `asChild`. |
 
 ## Composition
 
@@ -913,24 +912,12 @@ et de choisir un aperçu d’image ou un aperçu de secours pour chaque fichier.
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles structurels. Les variantes Tailwind
-utilisent les utilitaires natifs et les classes du consommateur ; les variantes CSS Modules exposent les variables ci-dessous.
+utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules reposent sur les jetons de
+foundation et n’ont pas de variables de composant : une classe sur la partie remplace les styles de la couche des composants.
 Les deux solutions de styles partagent les attributs d’état d’Ark et les hooks `data-slot` de moduix.
 
-### Propriétés CSS
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div>
-        <FileUploadDocs.FileUploadCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+La racine occupe toute la largeur de son conteneur ; limitez-la avec `max-width` dans une classe. Chaque élément est une
+grille aux zones nommées `preview`, `name`, `meta` et `delete` : un enfant personnalisé sans zone se place sous le nom du fichier.
 
 ### Points d’accroche CSS
 

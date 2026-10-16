@@ -4,7 +4,6 @@ component: file-upload
 description: Компонент Ark UI для выбора файлов, загрузки перетаскиванием, проверки и предварительного просмотра.
 ---
 
-import * as FileUploadDocs from '@/components/examples/file-upload/css-properties';
 import FileUploadAcceptedFileTypes from '@/components/examples/file-upload/accepted-file-types.tsx';
 import FileUploadAdvancedCustomization from '@/components/examples/file-upload/advanced-customization.tsx';
 import FileUploadBasic from '@/components/examples/file-upload/basic.tsx';
@@ -73,7 +72,7 @@ import fileUploadVueWithField from '../../../snippets/file-upload/vue/with-field
 
 ## Базовый пример
 
-Начните с `FileUpload` как корневого компонента. Добавьте `FileUploadLabel`, а затем используйте `FileUploadTrigger` для компактного
+Начните с `FileUpload` как корневого компонента. Добавьте `FileUploadLabel`, а затем оберните `Button` в `FileUploadTrigger asChild` для компактного
 элемента управления или `FileUploadDropzone` для загрузки перетаскиванием. Явно добавьте `FileUploadHiddenInput`, чтобы
 открывать нативное окно выбора. Поместите `FileUploadItems` в `FileUploadItemGroup`, чтобы показывать выбранные файлы. `FileUploadItems` показывает
 миниатюру только для файлов с MIME-типом `image/*`; для остальных используется универсальное превью.
@@ -188,7 +187,7 @@ FileUpload / FileUploadRootProvider
 | `FileUploadLabel`               | Доступная метка для скрытого поля выбора файлов и элементов управления загрузкой.                            |
 | `FileUploadDropzone`            | Область для перетаскивания файлов. Если внутри есть `FileUploadTrigger`, передайте `disableClick`, чтобы не открывать окно выбора дважды. |
 | `FileUploadDropzoneIcon`        | Декоративная иконка загрузки для `FileUploadDropzone`.                                                                |
-| `FileUploadTrigger`             | Кнопка, открывающая системное окно выбора файлов.                                                          |
+| `FileUploadTrigger`             | Кнопка без стилей, открывающая системное окно выбора файлов. Оберните ею `Button` через `asChild`.                                                          |
 | `FileUploadItemGroup`           | Список принятых или отклонённых файлов.                                                                    |
 | `FileUploadItems`               | Готовый вывод списка: карточки изображений и строки для остальных файлов с превью, метаданными и кнопками удаления. |
 | `FileUploadContext`             | Контекст с функцией-рендерером, совместимый с Ark, для собственных строк файлов.                            |
@@ -199,8 +198,8 @@ FileUpload / FileUploadRootProvider
 | `FileUploadItemName`            | Имя файла.                                                                                                  |
 | `FileUploadItemMetadata`        | Тип и локализованный размер файла. Передайте текущий объект `file`.                                         |
 | `FileUploadItemSizeText`        | Локализованный размер файла.                                                                                |
-| `FileUploadItemDeleteTrigger`   | Удаляет один файл. По умолчанию показывает иконку корзины moduix.                                          |
-| `FileUploadClearTrigger`        | Очищает выбранные файлы. По умолчанию показывает иконку закрытия moduix.                                   |
+| `FileUploadItemDeleteTrigger`   | Удаляет один файл. По умолчанию показывает иконку корзины moduix; подпись берётся из Ark `translations.deleteFile`.                                          |
+| `FileUploadClearTrigger`        | Кнопка без стилей, которая очищает принятые файлы; скрыта, пока список пуст. Оберните ею `Button` через `asChild`.                                   |
 
 ## Композиция
 
@@ -912,24 +911,12 @@ FileUpload / FileUploadRootProvider
 ## Стилизация
 
 Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных стилей. Варианты Tailwind
-используют нативные utility-классы и классы потребителя, а CSS Modules предоставляют переменные ниже. Оба варианта
-стилизации используют общие атрибуты состояния Ark и хуки moduix `data-slot`.
+используют нативные utility-классы и классы потребителя. CSS Modules построены на токенах foundation и не имеют
+переменных компонента: класс на части перекрывает стили из слоя компонентов. Оба варианта стилизации используют общие
+атрибуты состояния Ark и хуки moduix `data-slot`.
 
-### CSS-свойства
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div>
-        <FileUploadDocs.FileUploadCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+Корень занимает всю ширину контейнера; чтобы ограничить её, задайте `max-width` классом. Элемент файла это grid с
+именованными областями `preview`, `name`, `meta` и `delete`, поэтому дочерний элемент без области встаёт под имя файла.
 
 ### Хуки стилизации
 

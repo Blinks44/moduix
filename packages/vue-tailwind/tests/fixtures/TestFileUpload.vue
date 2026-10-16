@@ -17,7 +17,7 @@ const file = new File(['moduix'], 'moduix.txt', { type: 'text/plain' });
     <FileUploadLabel>Attachments</FileUploadLabel>
     <FileUploadDropzone><FileUploadDropzoneIcon /></FileUploadDropzone>
     <FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup>
-    <FileUploadClearTrigger />
+    <FileUploadClearTrigger>Clear files</FileUploadClearTrigger>
     <FileUploadHiddenInput />
   </FileUpload>
 </template>

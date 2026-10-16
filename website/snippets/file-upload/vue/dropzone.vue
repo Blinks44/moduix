@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   FileUpload,
   FileUploadDropzone,
@@ -20,7 +21,7 @@ const maxFiles = 5;
       <div :class="styles.dropzoneContent">
         <span :class="styles.dropzoneTitle">Drag and drop files here</span
         ><span :class="styles.dropzoneDescription">or browse from your device</span
-        ><FileUploadTrigger>Browse files</FileUploadTrigger>
+        ><FileUploadTrigger as-child><Button>Browse files</Button></FileUploadTrigger>
       </div></FileUploadDropzone
     ><FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup><FileUploadHiddenInput
   /></FileUpload>

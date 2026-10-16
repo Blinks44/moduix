@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   FileUpload,
   FileUploadHiddenInput,
@@ -22,7 +23,7 @@ const previewFiles = [
 <template>
   <FileUpload :class="styles.root" :default-accepted-files="previewFiles" :max-files="4"
     ><FileUploadLabel>Project attachments</FileUploadLabel
-    ><FileUploadTrigger>Add files</FileUploadTrigger
+    ><FileUploadTrigger as-child><Button>Add files</Button></FileUploadTrigger
     ><FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup><FileUploadHiddenInput
   /></FileUpload>
 </template>

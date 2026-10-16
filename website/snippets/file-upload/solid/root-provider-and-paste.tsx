@@ -36,7 +36,7 @@ export default function RootProviderPasteUploadDemo() {
               {(file) => (
                 <FileUploadItem file={file}>
                   <FileUploadItemName />
-                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                  <FileUploadItemDeleteTrigger />
                 </FileUploadItem>
               )}
             </For>

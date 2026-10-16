@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -25,14 +26,12 @@ const message = ref('');
     :max-file-size="maxFileSize"
     @file-reject="message = $event.files.length + ' file(s) rejected'"
     @file-accept="message = 'Files accepted'"
-    ><FileUploadLabel>Images</FileUploadLabel><FileUploadTrigger>Select images</FileUploadTrigger
+    ><FileUploadLabel>Images</FileUploadLabel
+    ><FileUploadTrigger as-child><Button>Select images</Button></FileUploadTrigger
     ><FileUploadItemGroup
       ><FileUploadContext v-slot="{ acceptedFiles }"
         ><FileUploadItem v-for="file in acceptedFiles" :key="file.name + file.size" :file="file"
-          ><FileUploadItemName /><FileUploadItemDeleteTrigger
-            :aria-label="
-              'Remove ' + file.name
-            " /></FileUploadItem></FileUploadContext></FileUploadItemGroup
+          ><FileUploadItemName /><FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
     ><FileUploadItemGroup type="rejected"
       ><FileUploadContext v-slot="{ rejectedFiles }"
         ><FileUploadItem
@@ -41,10 +40,7 @@ const message = ref('');
           :file="file"
           ><FileUploadItemName />
           <p :class="styles.error">{{ errors.join(', ') }}</p>
-          <FileUploadItemDeleteTrigger
-            :aria-label="
-              'Remove ' + file.name
-            " /></FileUploadItem></FileUploadContext></FileUploadItemGroup
+          <FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
     ><FileUploadHiddenInput /></FileUpload
   ><output>Status: {{ message || 'No files selected' }}</output>
 </template>

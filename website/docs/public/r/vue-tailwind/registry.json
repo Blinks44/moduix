@@ -1957,9 +1957,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
-        "@moduix-vue-tailwind/a11y-labels",
-        "@moduix-vue-tailwind/icons",
-        "@moduix-vue-tailwind/close-button"
+        "@moduix-vue-tailwind/icons"
       ],
       "files": [
         {

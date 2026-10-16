@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@/registry/react/ui/button';
 import { Card, CardAction, CardBody, CardDescription, CardHeader } from '@/registry/react/ui/card';
 import {
   FileUpload,
@@ -43,8 +44,10 @@ function FileUploadManager() {
               {({ acceptedFiles }) =>
                 acceptedFiles.length ? (
                   <CardAction>
-                    <FileUploadClearTrigger className={styles.clearTrigger}>
-                      Clear all
+                    <FileUploadClearTrigger asChild>
+                      <Button className={styles.clearTrigger} variant="outline" size="sm">
+                        Clear all
+                      </Button>
                     </FileUploadClearTrigger>
                   </CardAction>
                 ) : null
@@ -59,7 +62,9 @@ function FileUploadManager() {
                 <strong>Drop files here</strong>
                 <span>PDF, DOCX, PNG, or JPG up to 10 MB</span>
               </div>
-              <FileUploadTrigger className={styles.trigger}>Browse files</FileUploadTrigger>
+              <FileUploadTrigger asChild>
+                <Button className={styles.trigger}>Browse files</Button>
+              </FileUploadTrigger>
             </FileUploadDropzone>
 
             <FileUploadContext>
@@ -88,7 +93,7 @@ function FileUploadManager() {
                           <p className={styles.error} role="alert">
                             {errors.join(', ')}
                           </p>
-                          <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                          <FileUploadItemDeleteTrigger />
                         </FileUploadItem>
                       ))}
                     </FileUploadItemGroup>

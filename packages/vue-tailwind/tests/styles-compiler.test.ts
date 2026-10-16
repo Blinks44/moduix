@@ -11,30 +11,21 @@ const cases = [
     'file-upload/FileUpload',
     'has-[[data-slot=file-upload-item-preview]]:not-has-[[data-slot=file-upload-item-preview-image]]:grid-cols-[auto_minmax(0,1fr)_auto]',
   ],
+  ['file-upload/FileUpload', "[grid-template-areas:'name_delete'_'meta_delete']"],
   [
     'file-upload/FileUpload',
-    'group-not-has-[[data-slot=file-upload-item-preview-image]]/item:row-[1/span_2]',
+    "has-[[data-slot=file-upload-item-preview-image]]:[grid-template-areas:'preview_preview'_'name_delete'_'meta_delete']",
   ],
   [
     'file-upload/FileUpload',
-    'group-has-[[data-slot=file-upload-item-preview-image]]/item:col-span-full',
+    'group-has-[[data-slot=file-upload-item-preview-image]]/item:aspect-square',
   ],
+  ['file-upload/FileUpload', '[[data-slot=file-upload-item]>&]:mt-1'],
   [
     'file-upload/FileUpload',
-    'group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-2',
+    '[:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
   ],
-  [
-    'file-upload/FileUpload',
-    'group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-3',
-  ],
-  [
-    'file-upload/FileUpload',
-    'group-has-[[data-slot=file-upload-item-preview-image]]/item:row-[2/span_2]',
-  ],
-  [
-    'file-upload/FileUpload',
-    'group-has-[[data-slot=file-upload-item-size-text]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:row-[1/span_2]',
-  ],
+  ['file-upload/FileUpload', '[@media(hover:hover)]:[&:not(:disabled):hover]:bg-muted'],
   ['lightbox/Lightbox', 'data-[state=open]:animate-moduix-lightbox-content-in'],
   ['lightbox/Lightbox', 'data-[state=closed]:animate-moduix-lightbox-content-out'],
   ['command-palette/CommandPalette', 'data-[state=open]:animate-moduix-command-palette-content-in'],

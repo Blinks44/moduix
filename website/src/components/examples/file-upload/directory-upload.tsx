@@ -1,3 +1,4 @@
+import { Button } from '@moduix/react/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -17,7 +18,9 @@ export default function DirectoryUploadDemo() {
   return (
     <FileUpload className={styles.root} directory maxFiles={maxFiles}>
       <FileUploadLabel>Folder</FileUploadLabel>
-      <FileUploadTrigger>Choose folder</FileUploadTrigger>
+      <FileUploadTrigger asChild>
+        <Button>Choose folder</Button>
+      </FileUploadTrigger>
       <FileUploadItemGroup>
         <FileUploadContext>
           {({ acceptedFiles }) =>
@@ -25,7 +28,7 @@ export default function DirectoryUploadDemo() {
               <FileUploadItem key={file.name} file={file}>
                 <FileUploadItemName>{file.webkitRelativePath || file.name}</FileUploadItemName>
                 <FileUploadItemSizeText />
-                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                <FileUploadItemDeleteTrigger />
               </FileUploadItem>
             ))
           }

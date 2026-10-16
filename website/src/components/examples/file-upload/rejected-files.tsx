@@ -1,3 +1,4 @@
+import { Button } from '@moduix/react/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -31,7 +32,9 @@ export default function RejectedFilesUploadDemo() {
         <div className={styles.dropzoneContent}>
           <span className={styles.dropzoneTitle}>Drop image files here</span>
           <span className={styles.dropzoneDescription}>PNG or JPEG, up to 120 KB</span>
-          <FileUploadTrigger>Select images</FileUploadTrigger>
+          <FileUploadTrigger asChild>
+            <Button>Select images</Button>
+          </FileUploadTrigger>
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>
@@ -41,7 +44,7 @@ export default function RejectedFilesUploadDemo() {
               <FileUploadItem key={file.name} file={file}>
                 <FileUploadItemName />
                 <FileUploadItemSizeText />
-                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                <FileUploadItemDeleteTrigger />
               </FileUploadItem>
             ))
           }
@@ -54,7 +57,7 @@ export default function RejectedFilesUploadDemo() {
               <FileUploadItem key={file.name} file={file}>
                 <FileUploadItemName />
                 <p className={styles.error}>{errors.join(', ')}</p>
-                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                <FileUploadItemDeleteTrigger />
               </FileUploadItem>
             ))
           }

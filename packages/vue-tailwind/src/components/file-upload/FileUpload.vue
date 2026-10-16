@@ -17,7 +17,7 @@ const { class: className } = defineProps<Props>();
 defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
-const rootClass = 'box-border flex w-full max-w-md flex-col items-start gap-3 text-foreground';
+const rootClass = 'box-border flex w-full flex-col items-start gap-3 text-foreground';
 </script>
 
 <template>
