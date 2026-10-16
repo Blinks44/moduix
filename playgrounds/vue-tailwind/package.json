@@ -21,7 +21,7 @@
     "storybook": "catalog:",
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
-    "typescript": "~6.0.3",
+    "typescript": "~7.0.2",
     "vite": "catalog:",
     "vue": "catalog:",
     "vue-tsc": "catalog:"
