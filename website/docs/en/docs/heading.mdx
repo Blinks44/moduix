@@ -4,7 +4,6 @@ component: heading
 description: A semantic heading component with Ark factory composition and moduix typography tokens for React, Solid, and Vue.
 ---
 
-import * as HeadingDocs from '@/components/examples/heading/css-properties';
 import HeadingBasic from '@/components/examples/heading/basic.tsx';
 import HeadingLevels from '@/components/examples/heading/heading-levels.tsx';
 import SemanticLevelAndVisualSize from '@/components/examples/heading/semantic-level-and-visual-size.tsx';
@@ -129,15 +128,14 @@ Heading
 `Heading` is a root-only, stateless component, so it does not need a provider or coordinated parts.
 Use `<Heading>`, pass `as` for the semantic `h1` through `h6` level, and set `size` independently
 when visual emphasis should differ. Without an explicit `size`,
-the rendered element selects the scale from `2xl` for `h1` through `xs` for `h6`; `weight` defaults to
+`as` selects the scale from `2xl` for `h1` through `xs` for `h6`; `weight` defaults to
 `semibold`. Use `asChild` only when a custom semantic heading host must own the rendered DOM node.
 
 ## Examples
 
 ### Heading Levels
 
-Use `as` to choose `h2` through `h6`. When `size` is omitted, the visual scale follows the rendered
-heading element.
+Use `as` to choose `h2` through `h6`. When `size` is omitted, the visual scale follows `as`.
 
 <ExampleFrame variant="component">
   <HeadingLevels />
@@ -299,7 +297,8 @@ Use `weight` to choose one of the built-in font-weight presets.
 ### Advanced Customization
 
 Use `asChild` when another semantic heading element must own the rendered DOM node. For the usual
-`h1` through `h6` cases, use `as` instead.
+`h1` through `h6` cases, use `as` instead. The default size follows `as`, not the child element, so set
+`size` to match the child.
 
 <ExampleFrame variant="component">
   <CustomHostHeading />
@@ -339,29 +338,16 @@ Use `asChild` when another semantic heading element must own the rendered DOM no
 
 ## Styling
 
-Style `Heading` through `className` in React or `class` in Solid and Vue, root data attributes, and the public
-`--moduix-heading-*` variables listed in the CSS reference below. The CSS Modules packages expose
-these variables; the Tailwind packages use native utility classes and consumer class overrides.
+Use `className` in React or `class` in Solid and Vue on `Heading`. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation typography tokens and have no
+component variables: a class on the root overrides the layered component styles.
 
-### CSS Properties
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <HeadingDocs.HeadingCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
 
 ### Styling hooks
 
 - `data-scope="heading"` and `data-part="root"` identify the Ark-aligned root.
 - `data-slot="heading-root"` is the stable moduix selector.
-- `data-size` is present when `size` is explicitly set.
+- `data-size` reflects the resolved size: the explicit `size` or the default for `as`.
 - `data-weight` reflects `regular`, `medium`, `semibold`, or `bold`.
 - `Heading` owns these attributes. Matching `data-*` props cannot replace its styling contract.
 - Use `className` or `class` for consumer utility or local style overrides.

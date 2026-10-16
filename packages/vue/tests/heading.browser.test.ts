@@ -64,7 +64,7 @@ test('preserves h1 defaults, refs, and owned hooks when consumer props conflict'
   expect(heading.getAttribute('data-part')).toBe('root');
   expect(heading.getAttribute('data-slot')).toBe('heading-root');
   expect(heading.getAttribute('data-weight')).toBe('semibold');
-  expect(heading.hasAttribute('data-size')).toBe(false);
+  expect(heading.getAttribute('data-size')).toBe('2xl');
   expect('Root' in Heading).toBe(false);
   expect(getComputedStyle(heading)).toMatchObject({
     fontSize: '30px',
@@ -165,4 +165,16 @@ test('hydrates heading without replacing the server host', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
+});
+
+test('derives the default size from as, also through asChild', () => {
+  render({
+    components: { Heading },
+    template: '<Heading as="h3" as-child><h3>Composed section title</h3></Heading>',
+  });
+
+  const heading = screen.getByRole('heading', { name: 'Composed section title', level: 3 });
+
+  expect(heading.getAttribute('data-size')).toBe('lg');
+  expect(getComputedStyle(heading).fontSize).toBe('20px');
 });

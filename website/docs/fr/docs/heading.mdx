@@ -4,7 +4,6 @@ component: heading
 description: Composant sémantique pour les titres, basé sur la fabrique Ark et les tokens typographiques de moduix pour React, Solid et Vue.
 ---
 
-import * as HeadingDocs from '@/components/examples/heading/css-properties';
 import HeadingBasic from '@/components/examples/heading/basic.tsx';
 import HeadingLevels from '@/components/examples/heading/heading-levels.tsx';
 import SemanticLevelAndVisualSize from '@/components/examples/heading/semantic-level-and-visual-size.tsx';
@@ -129,7 +128,7 @@ Heading
 `Heading` est un composant sans état limité à sa racine : il n’a donc besoin ni de provider ni de parties
 coordonnées. Utilisez `<Heading>`, transmettez `as` pour choisir le niveau sémantique de `h1` à `h6`,
 et définissez `size` séparément si l’importance visuelle doit différer.
-Sans `size` explicite, l’élément rendu choisit l’échelle de `2xl` pour `h1` à `xs` pour `h6`, et `weight`
+Sans `size` explicite, `as` choisit l’échelle de `2xl` pour `h1` à `xs` pour `h6`, et `weight`
 vaut `semibold` par défaut. Utilisez `asChild` uniquement lorsqu’un autre élément sémantique de titre doit
 porter le nœud DOM rendu.
 
@@ -138,7 +137,7 @@ porter le nœud DOM rendu.
 ### Niveaux de titre
 
 Utilisez `as` pour choisir un niveau de `h2` à `h6`. Lorsque `size` n’est pas défini, la taille visuelle
-dépend de l’élément de titre rendu.
+suit `as`.
 
 <ExampleFrame variant="component">
   <HeadingLevels />
@@ -300,7 +299,8 @@ Utilisez `weight` pour choisir l’une des graisses typographiques intégrées.
 ### Personnalisation avancée
 
 Utilisez `asChild` lorsqu’un autre élément sémantique de titre doit porter le nœud DOM rendu. Pour les cas
-courants avec `h1` à `h6`, utilisez plutôt `as`.
+courants avec `h1` à `h6`, utilisez plutôt `as`. La taille par défaut suit `as` et non l’élément enfant :
+définissez donc `size` selon l’enfant.
 
 <ExampleFrame variant="component">
   <CustomHostHeading />
@@ -340,30 +340,17 @@ courants avec `h1` à `h6`, utilisez plutôt `as`.
 
 ## Styles
 
-Personnalisez `Heading` avec `className` en React ou `class` en Solid et Vue, les attributs de données de la racine
-et les variables CSS publiques `--moduix-heading-*` présentées dans la référence CSS ci-dessous. Les paquets
-CSS Modules exposent ces variables ; les paquets Tailwind utilisent des classes utilitaires natives et les
-surcharges de classes fournies par l’application.
+Utilisez `className` en React ou `class` en Solid et Vue sur `Heading`. Les variantes Tailwind utilisent
+des utilitaires natifs et les classes de l’application. Les variantes CSS Modules reposent sur les jetons
+typographiques de foundation et n’ont pas de variables de composant : une classe sur la racine remplace les
+styles du composant déclarés dans leur couche.
 
-### Propriétés CSS
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <HeadingDocs.HeadingCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
 
 ### Points d’accroche CSS
 
 - `data-scope="heading"` et `data-part="root"` identifient la racine selon les conventions d’Ark.
 - `data-slot="heading-root"` est un sélecteur moduix stable.
-- `data-size` est présent lorsque `size` est défini explicitement.
+- `data-size` indique la taille résolue : la valeur explicite de `size` ou la taille par défaut de `as`.
 - `data-weight` indique la graisse choisie : `regular`, `medium`, `semibold` ou `bold`.
 - `Heading` définit lui-même ces attributs. Les propriétés `data-*` correspondantes ne peuvent pas remplacer le contrat de style du composant.
 - Utilisez `className` ou `class` pour les classes utilitaires de l’application et les ajustements de style locaux.

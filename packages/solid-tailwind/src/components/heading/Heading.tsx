@@ -1,6 +1,6 @@
+import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
-import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { cn } from '@/lib/moduix/cn';
@@ -8,21 +8,12 @@ import { cn } from '@/lib/moduix/cn';
 type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type HeadingProps = ComponentProps<typeof ark.h1> & {
+
+type HeadingRootProps = HTMLArkProps<'h1'> & {
   as?: HeadingElement;
   size?: HeadingSize;
   weight?: HeadingWeight;
-  'data-size'?: string;
 };
-
-const elements = {
-  h1: ark.h1,
-  h2: ark.h2,
-  h3: ark.h3,
-  h4: ark.h4,
-  h5: ark.h5,
-  h6: ark.h6,
-} as const;
 
 const defaultSizes: Record<HeadingElement, HeadingSize> = {
   h1: '2xl',
@@ -52,27 +43,25 @@ const headingVariants = cva('m-0 text-foreground tracking-normal text-balance wr
   },
 });
 
-function Heading(props: HeadingProps) {
-  const [local, others] = splitProps(props, ['as', 'size', 'weight', 'class', 'data-size']);
+function Heading(props: HeadingRootProps) {
+  const [local, others] = splitProps(props, ['as', 'class', 'size', 'weight']);
+  const as = () => local.as ?? 'h1';
+  const size = () => local.size ?? defaultSizes[as()];
+  const weight = () => local.weight ?? 'semibold';
 
   return (
     <Dynamic
-      component={elements[local.as ?? 'h1']}
+      component={ark[as()]}
       {...others}
       data-scope="heading"
       data-part="root"
       data-slot="heading-root"
-      data-size={local.size}
-      data-weight={local.weight ?? 'semibold'}
-      class={cn(
-        headingVariants({
-          size: local.size ?? defaultSizes[local.as ?? 'h1'],
-          weight: local.weight ?? 'semibold',
-        }),
-        local.class,
-      )}
+      data-size={size()}
+      data-weight={weight()}
+      class={cn(headingVariants({ size: size(), weight: weight() }), local.class)}
     />
   );
 }
 
 export { Heading };
+export type { HeadingElement, HeadingRootProps, HeadingSize, HeadingWeight };

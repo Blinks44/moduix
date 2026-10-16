@@ -4,7 +4,6 @@ component: heading
 description: Семантический компонент для заголовков с композицией на основе фабрики Ark и типографическими токенами moduix для React, Solid и Vue.
 ---
 
-import * as HeadingDocs from '@/components/examples/heading/css-properties';
 import HeadingBasic from '@/components/examples/heading/basic.tsx';
 import HeadingLevels from '@/components/examples/heading/heading-levels.tsx';
 import SemanticLevelAndVisualSize from '@/components/examples/heading/semantic-level-and-visual-size.tsx';
@@ -129,7 +128,7 @@ Heading
 `Heading` состоит только из корневого элемента и не управляет состоянием, поэтому ему не нужны провайдер
 или связанные части. Используйте `<Heading>`, передавайте `as` для семантического уровня от `h1` до
 `h6`, а `size` задавайте отдельно, если визуальный акцент должен
-отличаться. Если `size` не задан, элемент выбирает визуальный размер от `2xl` для `h1` до `xs` для `h6`,
+отличаться. Если `size` не задан, `as` выбирает визуальный размер от `2xl` для `h1` до `xs` для `h6`,
 а значение `weight` по умолчанию равно `semibold`. Используйте `asChild` только в случае, когда другой
 семантический элемент заголовка должен стать итоговым DOM-узлом.
 
@@ -138,7 +137,7 @@ Heading
 ### Уровни заголовков
 
 Используйте `as`, чтобы выбрать уровень от `h2` до `h6`. Если `size` не задан, визуальный размер
-зависит от получившегося элемента заголовка.
+следует за `as`.
 
 <ExampleFrame variant="component">
   <HeadingLevels />
@@ -300,7 +299,8 @@ Heading
 ### Расширенная настройка
 
 Используйте `asChild`, если другой семантический элемент заголовка должен стать DOM-узлом. Для обычных
-случаев с `h1`-`h6` используйте `as`.
+случаев с `h1`-`h6` используйте `as`. Размер по умолчанию следует за `as`, а не за дочерним элементом,
+поэтому задайте `size` под дочерний элемент.
 
 <ExampleFrame variant="component">
   <CustomHostHeading />
@@ -340,30 +340,16 @@ Heading
 
 ## Стилизация
 
-Стилизуйте `Heading` с помощью `className` в React или `class` в Solid и Vue, data-атрибутов корневого элемента
-и публичных переменных `--moduix-heading-*`, перечисленных в справочнике CSS ниже. Пакеты CSS Modules
-предоставляют эти переменные, а Tailwind-пакеты используют нативные utility-классы и переопределения
-классов потребителя.
+Используйте `className` в React или `class` в Solid и Vue на `Heading`. Варианты на Tailwind используют
+нативные утилиты и классы потребителя. Варианты на CSS Modules построены на типографических токенах
+foundation и не имеют переменных компонента: класс на корне перекрывает стили компонента из слоя.
 
-### CSS-свойства
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <HeadingDocs.HeadingCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
 
 ### Хуки стилизации
 
 - `data-scope="heading"` и `data-part="root"` обозначают корневой элемент в соглашении Ark.
 - `data-slot="heading-root"` - стабильный селектор moduix.
-- `data-size` появляется, если `size` задан явно.
+- `data-size` содержит итоговый размер: явный `size` или размер по умолчанию для `as`.
 - `data-weight` содержит выбранное значение: `regular`, `medium`, `semibold` или `bold`.
 - `Heading` сам задаёт эти атрибуты. Одноимённые свойства `data-*` не могут заменить контракт стилизации компонента.
 - Используйте `className` или `class` для utility-классов потребителя и локальных переопределений стилей.

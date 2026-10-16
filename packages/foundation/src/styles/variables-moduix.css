@@ -334,31 +334,6 @@
   /* Editable */
   --moduix-editable-area-height: initial; /* var(--moduix-size-md) */
 
-  /* Heading */
-  --moduix-heading-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-heading-font-family: initial; /* inherit */
-  --moduix-heading-font-size: initial; /* size-dependent, var(--moduix-text-3xl) for 2xl */
-  --moduix-heading-font-size-xs: initial; /* var(--moduix-text-sm) */
-  --moduix-heading-font-size-sm: initial; /* var(--moduix-text-md) */
-  --moduix-heading-font-size-md: initial; /* var(--moduix-text-lg) */
-  --moduix-heading-font-size-lg: initial; /* var(--moduix-text-xl) */
-  --moduix-heading-font-size-xl: initial; /* var(--moduix-text-2xl) */
-  --moduix-heading-font-size-2xl: initial; /* var(--moduix-text-3xl) */
-  --moduix-heading-font-weight: initial; /* var(--moduix-weight-semibold) */
-  --moduix-heading-font-weight-bold: initial; /* var(--moduix-weight-bold) */
-  --moduix-heading-font-weight-medium: initial; /* var(--moduix-weight-medium) */
-  --moduix-heading-font-weight-regular: initial; /* var(--moduix-weight-regular) */
-  --moduix-heading-font-weight-semibold: initial; /* var(--moduix-weight-semibold) */
-  --moduix-heading-letter-spacing: initial; /* 0 */
-  --moduix-heading-line-height: initial; /* size-dependent, var(--moduix-line-height-text-3xl) for 2xl */
-  --moduix-heading-line-height-xs: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-heading-line-height-sm: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-heading-line-height-md: initial; /* var(--moduix-line-height-text-lg) */
-  --moduix-heading-line-height-lg: initial; /* var(--moduix-line-height-text-xl) */
-  --moduix-heading-line-height-xl: initial; /* var(--moduix-line-height-text-2xl) */
-  --moduix-heading-line-height-2xl: initial; /* var(--moduix-line-height-text-3xl) */
-  --moduix-heading-text-wrap: initial; /* balance */
-
   /* Highlight */
   --moduix-highlight-bg: initial; /* color-mix(in oklab, var(--moduix-color-warning) 40%, var(--moduix-color-accent)) */
   --moduix-highlight-color: initial; /* var(--moduix-color-foreground) */
