@@ -490,3 +490,16 @@ test('keeps physical side corners for a start drawer in RTL', async () => {
   await expect.element(content).toHaveCSS('border-top-right-radius', '0px');
   await expect.element(content).not.toHaveCSS('border-top-left-radius', '0px');
 });
+
+test('sets the side drawer width from size', async () => {
+  const Harness = defineComponent({
+    components: drawerComponents,
+    template:
+      '<Drawer default-open :portalled="false" swipe-direction="end"><DrawerPositioner><DrawerContent size="lg"><DrawerTitle>Preferences</DrawerTitle></DrawerContent></DrawerPositioner></Drawer>',
+  });
+  render(Harness);
+
+  const content = page.getByRole('dialog');
+  await expect.element(content).toHaveAttribute('data-size', 'lg');
+  await expect.element(content).toHaveCSS('width', '448px');
+});

@@ -12,10 +12,12 @@ import {
   EditableSubmitTrigger,
 } from '@moduix/solid/editable';
 import { Show } from 'solid-js';
+import styles from '@/components/examples/editable/editable-advanced-customization.module.css';
 
 export default function AdvancedEditableCustomizationDemo() {
   return (
     <Editable
+      class={styles.root}
       defaultValue="Service area"
       translations={{ edit: 'Rename', submit: 'Save', cancel: 'Cancel' }}
     >

@@ -12,10 +12,12 @@ import {
   EditablePreview,
   EditableSubmitTrigger,
 } from '@moduix/vue/editable';
+import styles from '@/components/examples/editable/editable-advanced-customization.module.css';
 </script>
 
 <template>
   <Editable
+    :class="styles.root"
     default-value="Service area"
     :translations="{ edit: 'Rename', submit: 'Save', cancel: 'Cancel' }"
   >

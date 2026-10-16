@@ -2,7 +2,7 @@
 
 The Solid adapter follows the React contract in `packages/react/src/components/drawer/drawer.md`:
 the same parts, slots, defaults (`lazyMount` and `unmountOnExit` are `true`), the `DrawerContent`
-`variant="island"` prop, and the single `--moduix-drawer-island-inset` variable.
+`size` and `variant="island"` props, and the single `--moduix-drawer-island-inset` variable.
 
 ## Composition
 
@@ -37,5 +37,5 @@ the same parts, slots, defaults (`lazyMount` and `unmountOnExit` are `true`), th
   Solid does not forward refs through `asChild`.
 - `DrawerContent` passes `draggable` to Ark as `true` unless the caller sets it.
 - `variant` on `DrawerContent` stays reactive; changing it does not remount open content.
-- Types `DrawerRootProps`, `DrawerRootProviderProps`, `DrawerContentProps`, and `DrawerVariant` are
-  exported.
+- Types `DrawerRootProps`, `DrawerRootProviderProps`, `DrawerContentProps`, `DrawerSize`, and
+  `DrawerVariant` are exported.

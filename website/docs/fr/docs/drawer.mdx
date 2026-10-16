@@ -17,6 +17,7 @@ import DrawerNested from '@/components/examples/drawer/nested.tsx';
 import DrawerNonModal from '@/components/examples/drawer/non-modal.tsx';
 import DrawerRootProvider from '@/components/examples/drawer/root-provider.tsx';
 import DrawerScrollable from '@/components/examples/drawer/scrollable.tsx';
+import DrawerSizes from '@/components/examples/drawer/sizes.tsx';
 import DrawerSnapPoints from '@/components/examples/drawer/snap-points.tsx';
 import DrawerSwipeDirection from '@/components/examples/drawer/swipe-direction.tsx';
 import drawerSolidAdvancedCustomization from '../../../snippets/drawer/solid/advanced-customization.tsx?raw';
@@ -31,6 +32,7 @@ import drawerSolidNested from '../../../snippets/drawer/solid/nested.tsx?raw';
 import drawerSolidNonModal from '../../../snippets/drawer/solid/non-modal.tsx?raw';
 import drawerSolidRootProvider from '../../../snippets/drawer/solid/root-provider.tsx?raw';
 import drawerSolidScrollable from '../../../snippets/drawer/solid/scrollable.tsx?raw';
+import drawerSolidSizes from '../../../snippets/drawer/solid/sizes.tsx?raw';
 import drawerSolidSnapPoints from '../../../snippets/drawer/solid/snap-points.tsx?raw';
 import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-direction.tsx?raw';
 import drawerVueAdvancedCustomization from '../../../snippets/drawer/vue/advanced-customization.vue?raw';
@@ -45,6 +47,7 @@ import drawerVueNested from '../../../snippets/drawer/vue/nested.vue?raw';
 import drawerVueNonModal from '../../../snippets/drawer/vue/non-modal.vue?raw';
 import drawerVueRootProvider from '../../../snippets/drawer/vue/root-provider.vue?raw';
 import drawerVueScrollable from '../../../snippets/drawer/vue/scrollable.vue?raw';
+import drawerVueSizes from '../../../snippets/drawer/vue/sizes.vue?raw';
 import drawerVueSnapPoints from '../../../snippets/drawer/vue/snap-points.vue?raw';
 import drawerVueSwipeDirection from '../../../snippets/drawer/vue/swipe-direction.vue?raw';
 
@@ -576,6 +579,45 @@ d'une zone de défilement dédiée tandis que la poignée et l'en-tête restent 
 </div>
 </ExampleCode>
 
+### Tailles
+
+Définissez `size` sur `DrawerContent` à `sm`, `md` (par défaut), `lg` ou `xl` pour choisir la
+largeur d'un drawer `start` ou `end` : 18rem, 22rem, 28rem ou 36rem. Sur un écran étroit, le drawer
+laisse toujours un espace du côté opposé. Les drawers du haut et du bas prennent toute la largeur,
+et leur hauteur vient des points d'ancrage.
+
+<ExampleFrame variant="component">
+  <DrawerSizes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/drawer/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={drawerSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-sizes.module.css"
+```
+</div>
+</ExampleCode>
+
 ### Points d'ancrage
 
 Définissez des positions intermédiaires sur la racine et choisissez la position initiale avec
@@ -706,7 +748,8 @@ variables ci-dessous personnalisent les variantes CSS Modules. Les attributs de 
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
   `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
   `drawer-indent-background`, `drawer-header`, `drawer-body` et `drawer-footer`.
-- `DrawerContent` écrit `data-variant="island"` lorsque sa présentation en îlot est active.
+- `DrawerContent` écrit `data-size` (par défaut `md`) et `data-variant="island"` lorsque sa
+  présentation en îlot est active.
 - hooks des parties Ark : `data-scope="drawer"` avec `data-part`.
 - hooks d'état : `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
   `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,

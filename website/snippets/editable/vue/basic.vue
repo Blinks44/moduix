@@ -7,10 +7,12 @@ import {
   EditableLabel,
   EditablePreview,
 } from '@moduix/vue/editable';
+import styles from '@/components/examples/editable/editable-basic.module.css';
 </script>
 
 <template>
   <Editable
+    :class="styles.root"
     default-value="Layer name"
     :translations="{
       input: 'Layer name',

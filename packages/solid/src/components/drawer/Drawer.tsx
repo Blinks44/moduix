@@ -18,10 +18,13 @@ import { CloseButton } from '../close-button';
 import styles from './Drawer.module.css';
 
 type DrawerVariant = 'island';
+type DrawerSize = 'sm' | 'md' | 'lg' | 'xl';
 type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> & OverlayPortalProps;
 type DrawerRootProviderProps = ComponentProps<typeof DrawerPrimitive.RootProvider> &
   OverlayPortalProps;
 type DrawerContentProps = ComponentProps<typeof DrawerPrimitive.Content> & {
+  /** Width preset for `start` and `end` drawers: 18rem, 22rem, 28rem, or 36rem. */
+  size?: DrawerSize;
   /** `island` insets the surface from the viewport edges and rounds every corner. */
   variant?: DrawerVariant;
 };
@@ -106,13 +109,14 @@ function DrawerPositioner(props: ComponentProps<typeof DrawerPrimitive.Positione
 }
 
 function DrawerContent(props: DrawerContentProps) {
-  const [local, others] = splitProps(props, ['class', 'draggable', 'variant']);
+  const [local, others] = splitProps(props, ['class', 'draggable', 'size', 'variant']);
 
   return (
     <DrawerPrimitive.Content
       class={clsx(styles.content, local.class)}
       draggable={local.draggable ?? true}
       {...others}
+      data-size={local.size ?? 'md'}
       data-variant={local.variant}
       data-slot="drawer-content"
     />
@@ -272,4 +276,10 @@ export {
   useDrawerContext,
   useDrawerStackContext,
 };
-export type { DrawerContentProps, DrawerRootProps, DrawerRootProviderProps, DrawerVariant };
+export type {
+  DrawerContentProps,
+  DrawerRootProps,
+  DrawerRootProviderProps,
+  DrawerSize,
+  DrawerVariant,
+};

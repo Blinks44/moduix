@@ -73,6 +73,8 @@
     --_drawer-bleed: var(--moduix-size-xl);
     /* Extra travel so an island fully leaves the viewport; set per direction below. */
     --_drawer-island-offset: 0px;
+    /* Side drawer width, set by `size`. */
+    --_drawer-width: 22rem;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     box-sizing: border-box;
     position: relative;
@@ -127,6 +129,18 @@
       user-select: none;
     }
 
+    &[data-size='sm'] {
+      --_drawer-width: 18rem;
+    }
+
+    &[data-size='lg'] {
+      --_drawer-width: 28rem;
+    }
+
+    &[data-size='xl'] {
+      --_drawer-width: 36rem;
+    }
+
     &[data-swipe-direction='up'] {
       transform-origin: center top;
       padding-top: calc(var(--moduix-spacing-4) + env(safe-area-inset-top, 0px));
@@ -149,7 +163,7 @@
 
     &[data-swipe-direction='left'],
     &[data-swipe-direction='right'] {
-      width: min(22rem, calc(100vw - var(--moduix-spacing-8)));
+      width: min(var(--_drawer-width), calc(100vw - var(--moduix-spacing-8)));
       max-height: none;
       padding: var(--moduix-spacing-6);
 

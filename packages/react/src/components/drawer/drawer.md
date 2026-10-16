@@ -31,12 +31,18 @@ the first open and is removed after its exit animation.
 
 `DrawerContent` adds one moduix prop, mirrored as a data attribute:
 
-| Prop      | Values     | Default     | Attribute      |
-| --------- | ---------- | ----------- | -------------- |
-| `variant` | `'island'` | `undefined` | `data-variant` |
+| Prop      | Values                         | Default     | Attribute      |
+| --------- | ------------------------------ | ----------- | -------------- |
+| `size`    | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`      | `data-size`    |
+| `variant` | `'island'`                     | `undefined` | `data-variant` |
+
+`size` sets the width of `start` and `end` drawers to 18rem, 22rem, 28rem, or 36rem, capped at
+`100vw - 2rem`. Top and bottom drawers take the full width; their height comes from snap points.
+There is no `full` size: a side drawer always leaves a gap at the opposite edge, and a class on
+`DrawerContent` covers the rare full-screen case.
 
 `island` insets the surface from the viewport by `--moduix-drawer-island-inset` (safe-area insets
-still apply), rounds every corner, and removes the overdrag bleed. The type is exported as
+still apply), rounds every corner, and removes the overdrag bleed. The types are exported as `DrawerSize` and
 `DrawerVariant`; `DrawerRootProps`, `DrawerRootProviderProps`, and `DrawerContentProps` are exported
 too.
 
@@ -153,6 +159,7 @@ State hooks: `data-state`, `data-swipe-direction` (the resolved physical directi
   accessible label to `Close drawer`. It only adds a radius and hover colors to `CloseButton`.
 - `DrawerHeader`, `DrawerBody`, and `DrawerFooter` are plain layout helpers with no state.
   `DrawerHeader` places the title and `DrawerCloseIcon` in one row and lets the description span it.
+- `DrawerContent size` follows the Dialog `size` pattern and the Chakra UI drawer sizes.
 - The "Advanced customization" docs example builds the drawer without any of these helpers.
 
 ## Agent notes

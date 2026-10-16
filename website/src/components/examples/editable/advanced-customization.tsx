@@ -11,10 +11,12 @@ import {
   EditablePreview,
   EditableSubmitTrigger,
 } from '@moduix/react/editable';
+import styles from '@/components/examples/editable/editable-advanced-customization.module.css';
 
 export default function AdvancedEditableCustomizationDemo() {
   return (
     <Editable
+      className={styles.root}
       defaultValue="Service area"
       translations={{ edit: 'Rename', submit: 'Save', cancel: 'Cancel' }}
     >

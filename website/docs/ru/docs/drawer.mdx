@@ -17,6 +17,7 @@ import DrawerNested from '@/components/examples/drawer/nested.tsx';
 import DrawerNonModal from '@/components/examples/drawer/non-modal.tsx';
 import DrawerRootProvider from '@/components/examples/drawer/root-provider.tsx';
 import DrawerScrollable from '@/components/examples/drawer/scrollable.tsx';
+import DrawerSizes from '@/components/examples/drawer/sizes.tsx';
 import DrawerSnapPoints from '@/components/examples/drawer/snap-points.tsx';
 import DrawerSwipeDirection from '@/components/examples/drawer/swipe-direction.tsx';
 import drawerSolidAdvancedCustomization from '../../../snippets/drawer/solid/advanced-customization.tsx?raw';
@@ -31,6 +32,7 @@ import drawerSolidNested from '../../../snippets/drawer/solid/nested.tsx?raw';
 import drawerSolidNonModal from '../../../snippets/drawer/solid/non-modal.tsx?raw';
 import drawerSolidRootProvider from '../../../snippets/drawer/solid/root-provider.tsx?raw';
 import drawerSolidScrollable from '../../../snippets/drawer/solid/scrollable.tsx?raw';
+import drawerSolidSizes from '../../../snippets/drawer/solid/sizes.tsx?raw';
 import drawerSolidSnapPoints from '../../../snippets/drawer/solid/snap-points.tsx?raw';
 import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-direction.tsx?raw';
 import drawerVueAdvancedCustomization from '../../../snippets/drawer/vue/advanced-customization.vue?raw';
@@ -45,6 +47,7 @@ import drawerVueNested from '../../../snippets/drawer/vue/nested.vue?raw';
 import drawerVueNonModal from '../../../snippets/drawer/vue/non-modal.vue?raw';
 import drawerVueRootProvider from '../../../snippets/drawer/vue/root-provider.vue?raw';
 import drawerVueScrollable from '../../../snippets/drawer/vue/scrollable.vue?raw';
+import drawerVueSizes from '../../../snippets/drawer/vue/sizes.vue?raw';
 import drawerVueSnapPoints from '../../../snippets/drawer/vue/snap-points.vue?raw';
 import drawerVueSwipeDirection from '../../../snippets/drawer/vue/swipe-direction.vue?raw';
 
@@ -576,6 +579,45 @@ DrawerRootProvider
 </div>
 </ExampleCode>
 
+### Размеры
+
+Задайте `size` на `DrawerContent`: `sm`, `md` (по умолчанию), `lg` или `xl`, чтобы выбрать ширину
+боковой панели `start` или `end`: 18rem, 22rem, 28rem или 36rem. На узком экране панель всё равно
+оставляет зазор у противоположного края. Верхняя и нижняя панели занимают всю ширину, а их высоту
+задают точки привязки.
+
+<ExampleFrame variant="component">
+  <DrawerSizes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/drawer/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={drawerSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={drawerVueSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/drawer/drawer-sizes.module.css"
+```
+</div>
+</ExampleCode>
+
 ### Точки привязки
 
 Задайте промежуточные позиции в корневом компоненте и выберите начальную позицию через
@@ -705,7 +747,8 @@ DrawerRootProvider
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
   `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
   `drawer-indent-background`, `drawer-header`, `drawer-body` и `drawer-footer`.
-- `DrawerContent` записывает `data-variant="island"`, когда включено островное представление.
+- `DrawerContent` записывает `data-size` (по умолчанию `md`) и `data-variant="island"`, когда
+  включено островное представление.
 - хуки частей Ark: `data-scope="drawer"` вместе с `data-part`.
 - хуки состояния: `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
   `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,

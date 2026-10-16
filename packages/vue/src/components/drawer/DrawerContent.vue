@@ -9,14 +9,17 @@ import styles from './Drawer.module.css';
 defineOptions({ inheritAttrs: false });
 
 export type DrawerVariant = 'island';
+export type DrawerSize = 'sm' | 'md' | 'lg' | 'xl';
 
 export interface Props extends /* @vue-ignore */ DrawerContentProps {
   class?: HTMLAttributes['class'];
+  /** Width preset for `start` and `end` drawers: 18rem, 22rem, 28rem, or 36rem. */
+  size?: DrawerSize;
   /** `island` insets the surface from the viewport edges and rounds every corner. */
   variant?: DrawerVariant;
 }
 
-const { class: className, variant } = defineProps<Props>();
+const { class: className, size = 'md', variant } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 </script>
@@ -25,6 +28,7 @@ const attrs = useAttrs();
   <ArkDrawerContent
     v-bind="attrs"
     :class="clsx(styles.content, className)"
+    :data-size="size"
     :data-variant="variant"
     data-slot="drawer-content"
   >
