@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
-import { useAttrs, computed, inject } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import { defaultInputGroupSize, InputGroupSizeContextKey } from './context';
+import { useInputGroupSize } from './context';
 import { inputGroupTextVariants } from './variants';
 
 defineOptions({ inheritAttrs: false });
@@ -17,10 +17,7 @@ const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const groupSize = inject(
-  InputGroupSizeContextKey,
-  computed(() => defaultInputGroupSize),
-);
+const groupSize = useInputGroupSize();
 </script>
 
 <template>

@@ -14,10 +14,10 @@ import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { CloseButton } from '../close-button';
-import { Input } from '../input';
+import { Input, type InputSize } from '../input';
 import styles from './InputGroup.module.css';
 
-type InputGroupSize = NonNullable<ComponentProps<typeof Input>['size']>;
+type InputGroupSize = InputSize;
 
 const InputGroupSizeContext = createContext<InputGroupSize>('md');
 
@@ -128,6 +128,7 @@ const InputGroupClearTrigger = forwardRef<
   ref,
 ) {
   const groupSize = useContext(InputGroupSizeContext);
+
   return (
     <CloseButton
       ref={ref}
@@ -154,3 +155,4 @@ export {
   InputGroupInput,
   InputGroupText,
 };
+export type { InputGroupSize };

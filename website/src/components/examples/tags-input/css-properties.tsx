@@ -2,19 +2,15 @@ import type { CssPropertyInput } from '../../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const tagsInputCssProperties: CssPropertyInput[] = [
-  [
-    '--moduix-tags-input-bg',
-    'var(--moduix-input-bg, var(--moduix-color-background))',
-    'Controls control background.',
-  ],
+  ['--moduix-tags-input-bg', 'var(--moduix-color-background)', 'Controls control background.'],
   [
     '--moduix-tags-input-border-color',
-    'var(--moduix-input-border-color, var(--moduix-color-border))',
+    'var(--moduix-color-border)',
     'Controls control border color.',
   ],
   [
     '--moduix-tags-input-border-width',
-    'var(--moduix-input-border-width, var(--moduix-border-width-sm))',
+    'var(--moduix-border-width-sm)',
     'Controls control border width.',
   ],
   ['--moduix-tags-input-clear-trigger-bg', 'transparent', 'Controls clear trigger background.'],
@@ -48,11 +44,7 @@ const tagsInputCssProperties: CssPropertyInput[] = [
     'var(--moduix-size-xs)',
     'Controls clear trigger size.',
   ],
-  [
-    '--moduix-tags-input-color',
-    'var(--moduix-input-color, var(--moduix-color-foreground))',
-    'Controls text color.',
-  ],
+  ['--moduix-tags-input-color', 'var(--moduix-color-foreground)', 'Controls text color.'],
   [
     '--moduix-tags-input-control-gap',
     'var(--moduix-spacing-1)',
@@ -65,29 +57,29 @@ const tagsInputCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-tags-input-focus-ring-color',
-    'var(--moduix-input-focus-ring-color, var(--moduix-color-ring))',
+    'var(--moduix-color-ring)',
     'Controls focus ring color.',
   ],
   [
     '--moduix-tags-input-focus-ring-offset',
-    'var(--moduix-input-focus-ring-offset, calc(0px - var(--moduix-tags-input-border-width, var(--moduix-input-border-width, var(--moduix-border-width-sm)))))',
+    'calc(0px - var(--moduix-tags-input-border-width, var(--moduix-border-width-sm)))',
     'Controls focus ring offset.',
   ],
   [
     '--moduix-tags-input-focus-ring-width',
-    'var(--moduix-input-focus-ring-width, var(--moduix-tags-input-border-width, var(--moduix-input-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)))))',
+    'var(--moduix-tags-input-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)))',
     'Controls focus ring width.',
   ],
   ['--moduix-tags-input-gap', 'var(--moduix-spacing-1)', 'Controls root vertical gap.'],
   [
     '--moduix-tags-input-input-font-size',
-    'var(--moduix-input-font-size, var(--moduix-text-sm))',
+    'var(--moduix-text-sm)',
     'Controls entry input font size.',
   ],
   ['--moduix-tags-input-input-height', 'var(--moduix-size-xs)', 'Controls entry input height.'],
   [
     '--moduix-tags-input-input-line-height',
-    'var(--moduix-input-line-height, var(--moduix-line-height-text-sm))',
+    'var(--moduix-line-height-text-sm)',
     'Controls entry input line height.',
   ],
   ['--moduix-tags-input-input-min-width', '7rem', 'Controls entry input minimum width.'],
@@ -98,12 +90,12 @@ const tagsInputCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-tags-input-invalid-border-color',
-    'var(--moduix-input-border-color-invalid, var(--moduix-color-destructive))',
+    'var(--moduix-color-destructive)',
     'Controls invalid border color.',
   ],
   [
     '--moduix-tags-input-invalid-focus-ring-color',
-    'var(--moduix-input-border-color-invalid, var(--moduix-color-destructive))',
+    'var(--moduix-color-destructive)',
     'Controls invalid focus ring color.',
   ],
   [
@@ -171,11 +163,7 @@ const tagsInputCssProperties: CssPropertyInput[] = [
     'Controls label line height.',
   ],
   ['--moduix-tags-input-max-width', '24rem', 'Controls root max width.'],
-  [
-    '--moduix-tags-input-min-height',
-    'var(--moduix-input-height, var(--moduix-size-md))',
-    'Controls control minimum height.',
-  ],
+  ['--moduix-tags-input-min-height', 'var(--moduix-size-md)', 'Controls control minimum height.'],
   [
     '--moduix-tags-input-padding-x',
     'var(--moduix-spacing-2)',
@@ -184,27 +172,23 @@ const tagsInputCssProperties: CssPropertyInput[] = [
   ['--moduix-tags-input-padding-y', '0.3125rem', 'Controls vertical control padding.'],
   [
     '--moduix-tags-input-placeholder-color',
-    'var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground))',
+    'var(--moduix-color-muted-foreground)',
     'Controls entry input placeholder color.',
   ],
-  [
-    '--moduix-tags-input-radius',
-    'var(--moduix-input-radius, var(--moduix-radius-md))',
-    'Controls control radius.',
-  ],
+  ['--moduix-tags-input-radius', 'var(--moduix-radius-md)', 'Controls control radius.'],
   [
     '--moduix-tags-input-readonly-bg',
-    'var(--moduix-input-readonly-bg, var(--moduix-color-background))',
+    'var(--moduix-color-background)',
     'Controls read-only control background.',
   ],
   [
     '--moduix-tags-input-readonly-color',
-    'var(--moduix-input-readonly-color, var(--moduix-color-foreground))',
+    'var(--moduix-color-foreground)',
     'Controls read-only text color.',
   ],
   [
     '--moduix-tags-input-transition',
-    'var(--moduix-input-transition, var(--moduix-transition-default))',
+    'var(--moduix-transition-default)',
     'Controls component state transitions.',
   ],
   ['--moduix-tags-input-trigger-bg', 'transparent', 'Controls item delete trigger background.'],

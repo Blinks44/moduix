@@ -541,9 +541,11 @@ focusable input element that can receive the merged props and `ref`.
 `Input` inherits the `Field` context. Its `size` prop picks a visual size; pass the native numeric
 `size` attribute as `htmlSize`. Inside a disabled moduix `Field` or `FieldRootProvider`, the root applies the disabled opacity once.
 
-Use `className` in React or `class` in Solid and Vue on `Input`. CSS Modules variants expose the
-variables below, while Tailwind variants use native utility classes and consumer classes. Use the
-shared data attributes and native state selectors when styling field state.
+Use `className` in React or `class` in Solid and Vue on `Input`. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and expose only the
+three variables below; override colors, padding, and typography with a plain class, which wins over
+the layered component styles. Use the shared data attributes and native state selectors when styling
+field state.
 
 ### CSS Properties
 

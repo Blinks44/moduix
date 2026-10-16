@@ -8,7 +8,7 @@ import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
-type InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface Props extends /* @vue-ignore */ Omit<FieldInputProps, 'size'> {
   class?: HTMLAttributes['class'];
@@ -21,7 +21,7 @@ export interface Emits {
 }
 
 const inputVariants = cva(
-  'w-full max-w-none rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 [[data-slot=input-group-root]:has([data-slot=input-root]:is([data-disabled],:disabled))_&]:opacity-100 [:is([data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:focus-visible:outline-destructive aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive motion-reduce:transition-none file:me-3 file:rounded-md file:border file:border-primary file:bg-primary file:px-2 file:py-0.5 file:font-medium file:text-primary-foreground file:transition-colors file:duration-200 file:ease-in-out file:cursor-pointer [@media(hover:hover)]:file:hover:bg-foreground [[data-slot=field-root][data-disabled]_&]:opacity-100 [[data-slot=field-root-provider][data-disabled]_&]:opacity-100',
+  'w-full min-w-0 rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 [[data-slot=input-group-root]:has([data-slot=input-root]:is([data-disabled],:disabled))_&]:opacity-100 [:is([data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:focus-visible:outline-destructive aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive motion-reduce:transition-none file:me-3 file:rounded-md file:border file:border-primary file:bg-primary file:px-2 file:py-0.5 file:font-medium file:text-primary-foreground file:transition-colors file:duration-200 file:ease-in-out file:cursor-pointer [@media(hover:hover)]:file:hover:bg-foreground [[data-slot=field-root][data-disabled]_&]:opacity-100 [[data-slot=field-root-provider][data-disabled]_&]:opacity-100',
   {
     variants: {
       size: {
@@ -49,18 +49,13 @@ const attrs = useAttrs();
   <ArkFieldInput
     v-bind="attrs"
     :class="
-      cn(
-        inputVariants({ size: props.size ?? 'md' }),
-        props.htmlSize === undefined ? undefined : 'w-auto',
-        props.class,
-      )
+      cn(inputVariants({ size: props.size }), props.htmlSize !== undefined && 'w-auto', props.class)
     "
     :size="props.htmlSize"
     data-scope="field"
     data-part="input"
     data-slot="input-root"
     :data-size="props.size ?? 'md'"
-    :data-html-size="props.htmlSize === undefined ? undefined : ''"
   >
     <slot />
   </ArkFieldInput>

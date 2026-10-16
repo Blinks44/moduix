@@ -5,10 +5,10 @@ component's visual sizes, `htmlSize`, data hooks, native input props, and field 
 
 ## Defaults and styling
 
-`Input` owns visual sizes, `htmlSize`, and `--moduix-input-*`; moduix `Field` has no styled input of
-its own, so `Input` is the input to place inside it. A disabled moduix Field or FieldRootProvider
-owns the whole field’s opacity; the input is not dimmed a second time. Standalone disabled inputs
-retain their own disabled opacity.
+Same as React: visual sizes, `htmlSize` (renders the native `size` attribute and an `auto` default
+width), three CSS Modules variables (`--moduix-input-width`, `--moduix-input-height`,
+`--moduix-input-radius`), and no second dimming inside a disabled `Field`, `Fieldset`, or
+`InputGroup`. `InputRootProps` and `InputSize` are exported.
 
 ## Solid composition
 

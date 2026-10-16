@@ -492,8 +492,10 @@ conteneur de mise en page sémantique.
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour appliquer les styles
 structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme
 `data-invalid`, `data-disabled` et `data-readonly`, ainsi que les sélecteurs `data-slot` de moduix.
-Les variantes Tailwind se personnalisent avec des utilitaires et des classes supplémentaires ; les
-variables ci-dessous concernent uniquement les variantes CSS Modules. Les attributs de données et les
+Les variantes Tailwind se personnalisent avec des utilitaires et des classes supplémentaires. Les
+variantes CSS Modules s’appuient sur les tokens de foundation et n’exposent que les trois variables
+ci-dessous ; modifiez les couleurs, les espacements et la typographie avec une simple classe sur la
+partie, qui l’emporte sur les styles en couches du composant. Les attributs de données et les
 sélecteurs `data-slot` sont communs aux deux approches.
 
 ### Propriétés CSS
@@ -509,7 +511,7 @@ sélecteurs `data-slot` sont communs aux deux approches.
 - `data-slot="input-group-clear-trigger"`
 - `data-slot="input-group-text"`
 - `data-slot="input-group-button"` sur le bouton d’action du groupe
-- les états imbriqués `data-invalid`, `aria-invalid="true"`, `data-disabled`/`:disabled` et `data-readonly`/`:read-only` sont reflétés sur la racine via `:has(...)`
+- les états imbriqués `data-invalid`, `aria-invalid="true"` et `data-disabled`/`:disabled` sont reflétés sur la racine via `:has(...)`
 
 Les hooks `data-slot`, `data-scope`, `data-part` et `data-size` gérés par le composant restent
 stables même si vous fournissez vos propres propriétés. `className` en React et `class` en Solid et Vue

@@ -330,115 +330,13 @@
   --moduix-image-radius: initial; /* var(--moduix-radius-md) */
 
   /* Input */
-  --moduix-input-bg: initial; /* var(--moduix-color-background) */
-  --moduix-input-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-input-border-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-input-border-style: initial; /* solid */
-  --moduix-input-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-input-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-input-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-input-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-input-focus-ring-offset: initial; /* calc(0px - var(--moduix-input-border-width, var(--moduix-border-width-sm))) */
-  --moduix-input-focus-ring-width: initial; /* var(--moduix-input-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))) */
-  --moduix-input-font-size: initial; /* var(--moduix-input-font-size-md, var(--moduix-text-md)) */
-  --moduix-input-font-size-xs: initial; /* var(--moduix-text-xs) */
-  --moduix-input-font-size-sm: initial; /* var(--moduix-text-sm) */
-  --moduix-input-font-size-md: initial; /* var(--moduix-text-md) */
-  --moduix-input-font-size-lg: initial; /* var(--moduix-text-lg) */
-  --moduix-input-font-size-xl: initial; /* var(--moduix-text-lg) */
-  --moduix-input-height: initial; /* var(--moduix-input-height-md, var(--moduix-size-md)) */
-  --moduix-input-height-xs: initial; /* var(--moduix-size-xs) */
-  --moduix-input-height-sm: initial; /* var(--moduix-size-sm) */
-  --moduix-input-height-md: initial; /* var(--moduix-size-md) */
-  --moduix-input-height-lg: initial; /* var(--moduix-size-lg) */
-  --moduix-input-height-xl: initial; /* var(--moduix-size-xl) */
-  --moduix-input-line-height: initial; /* var(--moduix-input-line-height-md, var(--moduix-line-height-text-md)) */
-  --moduix-input-line-height-xs: initial; /* var(--moduix-line-height-text-xs) */
-  --moduix-input-line-height-sm: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-input-line-height-md: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-input-line-height-lg: initial; /* var(--moduix-line-height-text-lg) */
-  --moduix-input-line-height-xl: initial; /* var(--moduix-line-height-text-lg) */
-  --moduix-input-max-width: initial; /* none */
-  --moduix-input-padding-x: initial; /* var(--moduix-input-padding-x-md, var(--moduix-spacing-3)) */
-  --moduix-input-padding-x-xs: initial; /* var(--moduix-spacing-2) */
-  --moduix-input-padding-x-sm: initial; /* var(--moduix-spacing-2) */
-  --moduix-input-padding-x-md: initial; /* var(--moduix-spacing-3) */
-  --moduix-input-padding-x-lg: initial; /* var(--moduix-spacing-4) */
-  --moduix-input-padding-x-xl: initial; /* var(--moduix-spacing-4) */
-  --moduix-input-padding-y: initial; /* var(--moduix-input-padding-y-md, var(--moduix-spacing-1)) */
-  --moduix-input-padding-y-xs: initial; /* var(--moduix-spacing-0-5) */
-  --moduix-input-padding-y-sm: initial; /* var(--moduix-spacing-1) */
-  --moduix-input-padding-y-md: initial; /* var(--moduix-spacing-1) */
-  --moduix-input-padding-y-lg: initial; /* var(--moduix-spacing-1) */
-  --moduix-input-padding-y-xl: initial; /* var(--moduix-spacing-2) */
-  --moduix-input-placeholder-color: initial; /* var(--moduix-color-muted-foreground) */
+  --moduix-input-height: initial; /* var(--moduix-size-md) */
   --moduix-input-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-input-readonly-bg: initial; /* var(--moduix-input-bg, var(--moduix-color-background)) */
-  --moduix-input-readonly-color: initial; /* var(--moduix-input-color, var(--moduix-color-foreground)) */
-  --moduix-input-transition: initial; /* var(--moduix-transition-default) */
-  --moduix-input-width: initial; /* 100% */
+  --moduix-input-width: initial; /* 100%; auto with htmlSize */
 
   /* InputGroup */
-  --moduix-input-group-addon-bg: initial; /* var(--moduix-color-muted) */
-  --moduix-input-group-addon-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-input-group-addon-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-input-group-addon-padding-x: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-input-group-addon-padding-x-xs: initial; /* var(--moduix-spacing-2-5) */
-  --moduix-input-group-addon-padding-x-sm: initial; /* var(--moduix-spacing-3) */
-  --moduix-input-group-addon-padding-x-md: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-input-group-addon-padding-x-lg: initial; /* var(--moduix-spacing-4) */
-  --moduix-input-group-addon-padding-x-xl: initial; /* var(--moduix-spacing-4-5) */
-  --moduix-input-group-bg: initial; /* var(--moduix-color-background) */
-  --moduix-input-group-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-input-group-border-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-input-group-border-style: initial; /* solid */
-  --moduix-input-group-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-input-group-button-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-input-group-button-focus-ring-offset: initial; /* var(--moduix-focus-ring-inset-offset) */
-  --moduix-input-group-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-input-group-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-input-group-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-input-group-focus-ring-offset: initial; /* var(--moduix-focus-ring-inset-offset) */
-  --moduix-input-group-focus-ring-width: initial; /* var(--moduix-input-group-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))) */
-  --moduix-input-group-font-size: initial; /* var(--moduix-text-md) */
-  --moduix-input-group-font-size-xs: initial; /* var(--moduix-text-xs) */
-  --moduix-input-group-font-size-sm: initial; /* var(--moduix-text-sm) */
-  --moduix-input-group-font-size-md: initial; /* var(--moduix-text-md) */
-  --moduix-input-group-font-size-lg: initial; /* var(--moduix-text-lg) */
-  --moduix-input-group-font-size-xl: initial; /* var(--moduix-text-lg) */
-  --moduix-input-group-height: initial; /* var(--moduix-input-group-height-md, var(--moduix-size-md)) */
-  --moduix-input-group-height-xs: initial; /* var(--moduix-size-xs) */
-  --moduix-input-group-height-sm: initial; /* var(--moduix-size-sm) */
-  --moduix-input-group-height-md: initial; /* var(--moduix-size-md) */
-  --moduix-input-group-height-lg: initial; /* var(--moduix-size-lg) */
-  --moduix-input-group-height-xl: initial; /* var(--moduix-size-xl) */
-  --moduix-input-group-icon-size: initial; /* var(--moduix-spacing-4) */
-  --moduix-input-group-input-padding-x: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-input-group-input-padding-x-xs: initial; /* var(--moduix-spacing-2-5) */
-  --moduix-input-group-input-padding-x-sm: initial; /* var(--moduix-spacing-3) */
-  --moduix-input-group-input-padding-x-md: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-input-group-input-padding-x-lg: initial; /* var(--moduix-spacing-4) */
-  --moduix-input-group-input-padding-x-xl: initial; /* var(--moduix-spacing-4-5) */
-  --moduix-input-group-input-padding-y: initial; /* var(--moduix-spacing-2) */
-  --moduix-input-group-input-padding-y-xs: initial; /* var(--moduix-spacing-0-5) */
-  --moduix-input-group-input-padding-y-sm: initial; /* 0.3125rem */
-  --moduix-input-group-input-padding-y-md: initial; /* var(--moduix-spacing-1) */
-  --moduix-input-group-input-padding-y-lg: initial; /* var(--moduix-spacing-1) */
-  --moduix-input-group-input-padding-y-xl: initial; /* var(--moduix-spacing-2) */
-  --moduix-input-group-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-input-group-line-height-xs: initial; /* var(--moduix-line-height-text-xs) */
-  --moduix-input-group-line-height-sm: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-input-group-line-height-md: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-input-group-line-height-lg: initial; /* var(--moduix-line-height-text-lg) */
-  --moduix-input-group-line-height-xl: initial; /* var(--moduix-line-height-text-lg) */
-  --moduix-input-group-max-width: initial; /* none */
+  --moduix-input-group-height: initial; /* var(--moduix-size-md) */
   --moduix-input-group-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-input-group-readonly-bg: initial; /* var(--moduix-input-group-bg, var(--moduix-color-background)) */
-  --moduix-input-group-readonly-border-color: initial; /* var(--moduix-input-group-border-color, var(--moduix-color-border)) */
-  --moduix-input-group-readonly-color: initial; /* var(--moduix-input-group-color, var(--moduix-color-foreground)) */
-  --moduix-input-group-separator-color: initial; /* var(--moduix-color-border) */
-  --moduix-input-group-separator-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-input-group-transition: initial; /* var(--moduix-transition-default) */
   --moduix-input-group-width: initial; /* 100% */
 
   /* Kbd */
@@ -877,30 +775,30 @@
   --moduix-pin-input-width: initial; /* auto */
 
   /* PasswordInput */
-  --moduix-password-input-bg: initial; /* var(--moduix-input-bg, var(--moduix-color-background)) */
-  --moduix-password-input-border-color: initial; /* var(--moduix-input-border-color, var(--moduix-color-border)) */
-  --moduix-password-input-color: initial; /* var(--moduix-input-color, var(--moduix-color-foreground)) */
-  --moduix-password-input-disabled-opacity: initial; /* var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled)) */
-  --moduix-password-input-focus-ring-color: initial; /* var(--moduix-input-focus-ring-color, var(--moduix-color-ring)) */
-  --moduix-password-input-font-size: initial; /* var(--moduix-input-font-size, var(--moduix-input-font-size-md, var(--moduix-text-md))) */
+  --moduix-password-input-bg: initial; /* var(--moduix-color-background) */
+  --moduix-password-input-border-color: initial; /* var(--moduix-color-border) */
+  --moduix-password-input-color: initial; /* var(--moduix-color-foreground) */
+  --moduix-password-input-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
+  --moduix-password-input-focus-ring-color: initial; /* var(--moduix-color-ring) */
+  --moduix-password-input-font-size: initial; /* var(--moduix-text-md) */
   --moduix-password-input-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-password-input-height: initial; /* var(--moduix-input-height, var(--moduix-input-height-md, var(--moduix-size-md))) */
+  --moduix-password-input-height: initial; /* var(--moduix-size-md) */
   --moduix-password-input-icon-size: initial; /* var(--moduix-button-icon-size, var(--moduix-spacing-4)) */
-  --moduix-password-input-invalid-border-color: initial; /* var(--moduix-input-border-color-invalid, var(--moduix-color-destructive)) */
-  --moduix-password-input-invalid-focus-ring-color: initial; /* var(--moduix-input-border-color-invalid, var(--moduix-color-destructive)) */
+  --moduix-password-input-invalid-border-color: initial; /* var(--moduix-color-destructive) */
+  --moduix-password-input-invalid-focus-ring-color: initial; /* var(--moduix-color-destructive) */
   --moduix-password-input-label-color: initial; /* var(--moduix-color-foreground) */
   --moduix-password-input-label-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-password-input-label-font-weight: initial; /* var(--moduix-weight-medium) */
   --moduix-password-input-label-gap: initial; /* var(--moduix-spacing-1) */
   --moduix-password-input-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-password-input-line-height: initial; /* var(--moduix-input-line-height, var(--moduix-input-line-height-md, var(--moduix-line-height-text-md))) */
+  --moduix-password-input-line-height: initial; /* var(--moduix-line-height-text-md) */
   --moduix-password-input-max-width: initial; /* none */
-  --moduix-password-input-padding-x: initial; /* var(--moduix-input-padding-x, var(--moduix-input-padding-x-md, var(--moduix-spacing-3))) */
-  --moduix-password-input-padding-y: initial; /* var(--moduix-input-padding-y, var(--moduix-input-padding-y-md, var(--moduix-spacing-1))) */
-  --moduix-password-input-placeholder-color: initial; /* var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground)) */
-  --moduix-password-input-radius: initial; /* var(--moduix-input-radius, var(--moduix-radius-md)) */
-  --moduix-password-input-readonly-bg: initial; /* var(--moduix-input-readonly-bg, var(--moduix-color-background)) */
-  --moduix-password-input-readonly-color: initial; /* var(--moduix-input-readonly-color, var(--moduix-color-foreground)) */
+  --moduix-password-input-padding-x: initial; /* var(--moduix-spacing-3) */
+  --moduix-password-input-padding-y: initial; /* var(--moduix-spacing-1) */
+  --moduix-password-input-placeholder-color: initial; /* var(--moduix-color-muted-foreground) */
+  --moduix-password-input-radius: initial; /* var(--moduix-radius-md) */
+  --moduix-password-input-readonly-bg: initial; /* var(--moduix-color-background) */
+  --moduix-password-input-readonly-color: initial; /* var(--moduix-color-foreground) */
   --moduix-password-input-trigger-bg: initial; /* transparent */
   --moduix-password-input-trigger-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-password-input-trigger-hover-bg: initial; /* var(--moduix-color-muted) */
@@ -1721,9 +1619,9 @@
   --moduix-tag-transition: initial; /* var(--moduix-transition-default) */
 
   /* TagsInput */
-  --moduix-tags-input-bg: initial; /* var(--moduix-input-bg, var(--moduix-color-background)) */
-  --moduix-tags-input-border-color: initial; /* var(--moduix-input-border-color, var(--moduix-color-border)) */
-  --moduix-tags-input-border-width: initial; /* var(--moduix-input-border-width, var(--moduix-border-width-sm)) */
+  --moduix-tags-input-bg: initial; /* var(--moduix-color-background) */
+  --moduix-tags-input-border-color: initial; /* var(--moduix-color-border) */
+  --moduix-tags-input-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-tags-input-clear-trigger-bg: initial; /* transparent */
   --moduix-tags-input-clear-trigger-bg-hover: initial; /* var(--moduix-color-muted) */
   --moduix-tags-input-clear-trigger-color: initial; /* var(--moduix-color-muted-foreground) */
@@ -1731,20 +1629,20 @@
   --moduix-tags-input-clear-trigger-icon-size: initial; /* var(--moduix-spacing-4) */
   --moduix-tags-input-clear-trigger-radius: initial; /* var(--moduix-radius-sm) */
   --moduix-tags-input-clear-trigger-size: initial; /* var(--moduix-size-xs) */
-  --moduix-tags-input-color: initial; /* var(--moduix-input-color, var(--moduix-color-foreground)) */
+  --moduix-tags-input-color: initial; /* var(--moduix-color-foreground) */
   --moduix-tags-input-control-gap: initial; /* var(--moduix-spacing-1) */
   --moduix-tags-input-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-tags-input-focus-ring-color: initial; /* var(--moduix-input-focus-ring-color, var(--moduix-color-ring)) */
-  --moduix-tags-input-focus-ring-offset: initial; /* var(--moduix-input-focus-ring-offset, calc(0px - var(--moduix-tags-input-border-width, var(--moduix-input-border-width, var(--moduix-border-width-sm))))) */
-  --moduix-tags-input-focus-ring-width: initial; /* var(--moduix-input-focus-ring-width, var(--moduix-tags-input-border-width, var(--moduix-input-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))))) */
+  --moduix-tags-input-focus-ring-color: initial; /* var(--moduix-color-ring) */
+  --moduix-tags-input-focus-ring-offset: initial; /* calc(0px - var(--moduix-tags-input-border-width, var(--moduix-border-width-sm))) */
+  --moduix-tags-input-focus-ring-width: initial; /* var(--moduix-tags-input-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))) */
   --moduix-tags-input-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-tags-input-input-font-size: initial; /* var(--moduix-input-font-size, var(--moduix-text-sm)) */
+  --moduix-tags-input-input-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-tags-input-input-height: initial; /* var(--moduix-size-xs) */
-  --moduix-tags-input-input-line-height: initial; /* var(--moduix-input-line-height, var(--moduix-line-height-text-sm)) */
+  --moduix-tags-input-input-line-height: initial; /* var(--moduix-line-height-text-sm) */
   --moduix-tags-input-input-min-width: initial; /* 7rem */
   --moduix-tags-input-input-padding-x: initial; /* var(--moduix-spacing-1) */
-  --moduix-tags-input-invalid-border-color: initial; /* var(--moduix-input-border-color-invalid, var(--moduix-color-destructive)) */
-  --moduix-tags-input-invalid-focus-ring-color: initial; /* var(--moduix-input-border-color-invalid, var(--moduix-color-destructive)) */
+  --moduix-tags-input-invalid-border-color: initial; /* var(--moduix-color-destructive) */
+  --moduix-tags-input-invalid-focus-ring-color: initial; /* var(--moduix-color-destructive) */
   --moduix-tags-input-item-bg: initial; /* var(--moduix-color-secondary) */
   --moduix-tags-input-item-border-color: initial; /* transparent */
   --moduix-tags-input-item-border-width: initial; /* var(--moduix-border-width-sm) */
@@ -1766,14 +1664,14 @@
   --moduix-tags-input-label-gap: initial; /* var(--moduix-spacing-1) */
   --moduix-tags-input-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
   --moduix-tags-input-max-width: initial; /* 24rem */
-  --moduix-tags-input-min-height: initial; /* var(--moduix-input-height, var(--moduix-size-md)) */
+  --moduix-tags-input-min-height: initial; /* var(--moduix-size-md) */
   --moduix-tags-input-padding-x: initial; /* var(--moduix-spacing-2) */
   --moduix-tags-input-padding-y: initial; /* 0.3125rem */
-  --moduix-tags-input-placeholder-color: initial; /* var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground)) */
-  --moduix-tags-input-radius: initial; /* var(--moduix-input-radius, var(--moduix-radius-md)) */
-  --moduix-tags-input-readonly-bg: initial; /* var(--moduix-input-readonly-bg, var(--moduix-color-background)) */
-  --moduix-tags-input-readonly-color: initial; /* var(--moduix-input-readonly-color, var(--moduix-color-foreground)) */
-  --moduix-tags-input-transition: initial; /* var(--moduix-input-transition, var(--moduix-transition-default)) */
+  --moduix-tags-input-placeholder-color: initial; /* var(--moduix-color-muted-foreground) */
+  --moduix-tags-input-radius: initial; /* var(--moduix-radius-md) */
+  --moduix-tags-input-readonly-bg: initial; /* var(--moduix-color-background) */
+  --moduix-tags-input-readonly-color: initial; /* var(--moduix-color-foreground) */
+  --moduix-tags-input-transition: initial; /* var(--moduix-transition-default) */
   --moduix-tags-input-trigger-bg: initial; /* transparent */
   --moduix-tags-input-trigger-bg-hover: initial; /* color-mix(in oklab, currentColor 12%, transparent) */
   --moduix-tags-input-trigger-color: initial; /* currentColor */

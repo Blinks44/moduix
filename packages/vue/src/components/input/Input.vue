@@ -8,7 +8,7 @@ import styles from './Input.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface Props extends /* @vue-ignore */ Omit<FieldInputProps, 'size'> {
   class?: HTMLAttributes['class'];
@@ -36,7 +36,6 @@ const attrs = useAttrs();
     data-part="input"
     data-slot="input-root"
     :data-size="props.size ?? 'md'"
-    :data-html-size="props.htmlSize === undefined ? undefined : ''"
   >
     <slot />
   </ArkFieldInput>

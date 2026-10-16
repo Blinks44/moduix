@@ -544,9 +544,11 @@ fusionnées et la `ref`.
 natif numérique `size` via `htmlSize`. Dans un `Field` ou `FieldRootProvider` moduix désactivé, seule la racine
 applique l’opacité de l’état désactivé.
 
-Utilisez `className` dans React ou `class` dans Solid et Vue sur `Input`. Les variantes CSS Modules
-exposent les variables ci-dessous, tandis que les variantes Tailwind utilisent les classes utilitaires
-natives et les classes du consommateur. Pour les états du champ, utilisez les attributs de données
+Utilisez `className` dans React ou `class` dans Solid et Vue sur `Input`. Les variantes Tailwind
+utilisent les classes utilitaires natives et les classes du consommateur. Les variantes CSS Modules
+reposent sur les tokens de la fondation et n’exposent que les trois variables ci-dessous ; remplacez
+les couleurs, les espacements et la typographie avec une simple classe, qui l’emporte sur les styles
+du composant placés dans une couche. Pour les états du champ, utilisez les attributs de données
 partagés et les sélecteurs d’état natifs.
 
 ### Propriétés CSS

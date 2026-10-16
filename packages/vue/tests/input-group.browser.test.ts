@@ -15,6 +15,7 @@ import {
   InputGroupText,
 } from '../src';
 import styles from '../src/components/input-group/InputGroup.module.css';
+import SsrInputGroup from './fixtures/SsrInputGroup.vue';
 
 const components = {
   Field,
@@ -343,4 +344,48 @@ test('clear trigger preserves custom labels, children, asChild hosts, refs, and 
     .toBeDisabled();
   expect(clear).toHaveBeenCalledTimes(1);
 });
-import SsrInputGroup from './fixtures/SsrInputGroup.vue';
+test('removes the Input border and background inside the group', () => {
+  render({
+    components: { InputGroup, InputGroupInput },
+    template: `<InputGroup><InputGroupInput aria-label="Grouped" /></InputGroup>`,
+  });
+
+  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Grouped' }))).toMatchObject({
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    borderTopWidth: '0px',
+    minHeight: '0px',
+  });
+});
+
+test('keeps the group height when it holds a button', () => {
+  render({
+    components: { InputGroup, InputGroupButton, InputGroupInput },
+    template: `
+      <div>
+        <InputGroup data-testid="plain"><InputGroupInput aria-label="Plain" /></InputGroup>
+        <InputGroup data-testid="with-button">
+          <InputGroupInput aria-label="With button" />
+          <InputGroupButton>Go</InputGroupButton>
+        </InputGroup>
+      </div>
+    `,
+  });
+
+  expect(screen.getByTestId('with-button').offsetHeight).toBe(
+    screen.getByTestId('plain').offsetHeight,
+  );
+});
+
+test('uses a local input size for font and inline padding', () => {
+  render({
+    components: { InputGroup, InputGroupInput },
+    template: `
+      <InputGroup size="lg"><InputGroupInput aria-label="Local size" size="xs" /></InputGroup>
+    `,
+  });
+
+  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Local size' }))).toMatchObject({
+    fontSize: '12px',
+    paddingLeft: '10px',
+  });
+});

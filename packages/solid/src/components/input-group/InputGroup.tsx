@@ -7,17 +7,14 @@ import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { CloseButton } from '../close-button';
-import { Input } from '../input';
+import { Input, type InputSize } from '../input';
 import styles from './InputGroup.module.css';
 
-type InputGroupSize = NonNullable<ComponentProps<typeof Input>['size']>;
+type InputGroupSize = InputSize;
 
-type InputGroupDataProps = {};
-
-type InputGroupProps = HTMLArkProps<'div'> &
-  InputGroupDataProps & {
-    size?: InputGroupSize;
-  };
+type InputGroupProps = HTMLArkProps<'div'> & {
+  size?: InputGroupSize;
+};
 
 const InputGroupSizeContext = createContext((): InputGroupSize => 'md');
 
@@ -49,7 +46,7 @@ function InputGroupInput(props: ComponentProps<typeof Input>) {
   );
 }
 
-function InputGroupAddon(props: HTMLArkProps<'span'> & InputGroupDataProps) {
+function InputGroupAddon(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -63,7 +60,7 @@ function InputGroupAddon(props: HTMLArkProps<'span'> & InputGroupDataProps) {
   );
 }
 
-function InputGroupText(props: HTMLArkProps<'span'> & InputGroupDataProps) {
+function InputGroupText(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -105,6 +102,7 @@ function InputGroupClearTrigger(
     'aria-labelledby',
   ]);
   const groupSize = useContext(InputGroupSizeContext);
+
   return (
     <CloseButton
       {...others}
@@ -133,3 +131,4 @@ export {
   InputGroupInput,
   InputGroupText,
 };
+export type { InputGroupSize };

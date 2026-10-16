@@ -18,39 +18,37 @@ const passwordInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-password-input-bg',
-    defaultValue: 'var(--moduix-input-bg, var(--moduix-color-background))',
+    defaultValue: 'var(--moduix-color-background)',
     description: 'Background color of the control shell.',
   },
   {
     name: '--moduix-password-input-border-color',
-    defaultValue: 'var(--moduix-input-border-color, var(--moduix-color-border))',
+    defaultValue: 'var(--moduix-color-border)',
     description: 'Border color of the control shell.',
   },
   {
     name: '--moduix-password-input-color',
-    defaultValue: 'var(--moduix-input-color, var(--moduix-color-foreground))',
+    defaultValue: 'var(--moduix-color-foreground)',
     description: 'Text color for the root, control, and input.',
   },
   {
     name: '--moduix-password-input-disabled-opacity',
-    defaultValue: 'var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled))',
+    defaultValue: 'var(--moduix-opacity-disabled)',
     description: 'Opacity applied to the disabled password input.',
   },
   {
     name: '--moduix-password-input-focus-ring-color',
-    defaultValue: 'var(--moduix-input-focus-ring-color, var(--moduix-color-ring))',
+    defaultValue: 'var(--moduix-color-ring)',
     description: 'Focus ring color for the control shell and visibility trigger.',
   },
   {
     name: '--moduix-password-input-font-size',
-    defaultValue:
-      'var(--moduix-input-font-size, var(--moduix-input-font-size-md, var(--moduix-text-md)))',
+    defaultValue: 'var(--moduix-text-md)',
     description: 'Font size of the input text.',
   },
   {
     name: '--moduix-password-input-height',
-    defaultValue:
-      'var(--moduix-input-height, var(--moduix-input-height-md, var(--moduix-size-md)))',
+    defaultValue: 'var(--moduix-size-md)',
     description: 'Minimum height of the control shell.',
   },
   {
@@ -60,12 +58,12 @@ const passwordInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-password-input-invalid-border-color',
-    defaultValue: 'var(--moduix-input-border-color-invalid, var(--moduix-color-destructive))',
+    defaultValue: 'var(--moduix-color-destructive)',
     description: 'Border color of the invalid control shell.',
   },
   {
     name: '--moduix-password-input-invalid-focus-ring-color',
-    defaultValue: 'var(--moduix-input-border-color-invalid, var(--moduix-color-destructive))',
+    defaultValue: 'var(--moduix-color-destructive)',
     description: 'Focus ring color of the invalid control shell.',
   },
   {
@@ -95,40 +93,37 @@ const passwordInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-password-input-line-height',
-    defaultValue:
-      'var(--moduix-input-line-height, var(--moduix-input-line-height-md, var(--moduix-line-height-text-md)))',
+    defaultValue: 'var(--moduix-line-height-text-md)',
     description: 'Line height of the input text.',
   },
   {
     name: '--moduix-password-input-padding-x',
-    defaultValue:
-      'var(--moduix-input-padding-x, var(--moduix-input-padding-x-md, var(--moduix-spacing-3)))',
+    defaultValue: 'var(--moduix-spacing-3)',
     description: 'Horizontal padding used by the text input inside the control shell.',
   },
   {
     name: '--moduix-password-input-padding-y',
-    defaultValue:
-      'var(--moduix-input-padding-y, var(--moduix-input-padding-y-md, var(--moduix-spacing-1)))',
+    defaultValue: 'var(--moduix-spacing-1)',
     description: 'Vertical padding used by the text input inside the control shell.',
   },
   {
     name: '--moduix-password-input-placeholder-color',
-    defaultValue: 'var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground))',
+    defaultValue: 'var(--moduix-color-muted-foreground)',
     description: 'Placeholder text color.',
   },
   {
     name: '--moduix-password-input-radius',
-    defaultValue: 'var(--moduix-input-radius, var(--moduix-radius-md))',
+    defaultValue: 'var(--moduix-radius-md)',
     description: 'Border radius of the control shell.',
   },
   {
     name: '--moduix-password-input-readonly-bg',
-    defaultValue: 'var(--moduix-input-readonly-bg, var(--moduix-color-background))',
+    defaultValue: 'var(--moduix-color-background)',
     description: 'Background color of the readonly control shell.',
   },
   {
     name: '--moduix-password-input-readonly-color',
-    defaultValue: 'var(--moduix-input-readonly-color, var(--moduix-color-foreground))',
+    defaultValue: 'var(--moduix-color-foreground)',
     description: 'Text color for readonly control and input states.',
   },
   {

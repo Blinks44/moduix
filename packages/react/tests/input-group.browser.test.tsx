@@ -180,3 +180,48 @@ test('clear trigger preserves custom labels, children, asChild hosts, refs, and 
     .toBeDisabled();
   expect(clear).toHaveBeenCalledTimes(1);
 });
+
+test('removes the Input border and background inside the group', () => {
+  render(
+    <InputGroup>
+      <InputGroupInput aria-label="Grouped" />
+    </InputGroup>,
+  );
+
+  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Grouped' }))).toMatchObject({
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    borderTopWidth: '0px',
+    minHeight: '0px',
+  });
+});
+
+test('keeps the group height when it holds a button', () => {
+  render(
+    <div>
+      <InputGroup data-testid="plain">
+        <InputGroupInput aria-label="Plain" />
+      </InputGroup>
+      <InputGroup data-testid="with-button">
+        <InputGroupInput aria-label="With button" />
+        <InputGroupButton>Go</InputGroupButton>
+      </InputGroup>
+    </div>,
+  );
+
+  expect(screen.getByTestId('with-button').offsetHeight).toBe(
+    screen.getByTestId('plain').offsetHeight,
+  );
+});
+
+test('uses a local input size for font and inline padding', () => {
+  render(
+    <InputGroup size="lg">
+      <InputGroupInput aria-label="Local size" size="xs" />
+    </InputGroup>,
+  );
+
+  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Local size' }))).toMatchObject({
+    fontSize: '12px',
+    paddingLeft: '10px',
+  });
+});

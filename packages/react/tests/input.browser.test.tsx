@@ -31,7 +31,6 @@ test('preserves native field state and component-owned styling hooks', async () 
     size: 'md',
     slot: 'input-root',
   });
-  expect(input.hasAttribute('data-html-size')).toBe(true);
   await expect.element(textbox).toHaveAttribute('size', '8');
 });
 
@@ -51,4 +50,26 @@ test('forwards the input ref and preserves asChild composition', () => {
 
   expect(inputRef.current).toBe(input);
   expect(input.getAttribute('data-slot')).toBe('input-root');
+});
+
+test('uses the native character width with htmlSize', () => {
+  render(
+    <div style={{ width: '600px' }}>
+      <Input aria-label="Full width" />
+      <Input aria-label="Four characters" htmlSize={4} />
+    </div>,
+  );
+
+  expect(screen.getByRole('textbox', { name: 'Full width' }).offsetWidth).toBe(600);
+  expect(screen.getByRole('textbox', { name: 'Four characters' }).offsetWidth).toBeLessThan(200);
+});
+
+test('shrinks below its htmlSize width in a narrow flex row', () => {
+  render(
+    <div style={{ display: 'flex', width: '80px' }}>
+      <Input aria-label="Narrow" htmlSize={20} />
+    </div>,
+  );
+
+  expect(screen.getByRole('textbox', { name: 'Narrow' }).offsetWidth).toBe(80);
 });

@@ -14,6 +14,7 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '../src';
+import SsrInputGroup from './fixtures/SsrInputGroup.vue';
 
 const components = {
   Field,
@@ -82,8 +83,9 @@ test('preserves grouped field state, owned hooks, and native refs', async () => 
     expect.arrayContaining([
       'flex',
       'w-full',
-      'max-w-none',
       'min-h-control-lg',
+      'text-lg',
+      'leading-7',
       'items-stretch',
       'overflow-hidden',
       'rounded-md',
@@ -269,8 +271,9 @@ test('applies native utilities to the component-owned parts', () => {
     expect.arrayContaining([
       'flex',
       'w-full',
-      'max-w-none',
       'min-h-control-md',
+      'text-md',
+      'leading-6',
       'items-stretch',
       'overflow-hidden',
       'rounded-md',
@@ -291,8 +294,6 @@ test('applies native utilities to the component-owned parts', () => {
       'bg-muted',
       'text-muted-foreground',
       'px-3.5',
-      'text-md',
-      'leading-6',
       'border-s',
       'border-e',
     ]),
@@ -302,7 +303,6 @@ test('applies native utilities to the component-owned parts', () => {
       'min-h-0',
       'min-w-0',
       'grow',
-      'basis-auto',
       'rounded-none',
       'border-0',
       'bg-transparent',
@@ -321,7 +321,6 @@ test('applies native utilities to the component-owned parts', () => {
       'justify-center',
       'gap-2',
       'truncate',
-      'bg-transparent',
       'text-muted-foreground',
     ]),
   );
@@ -351,8 +350,8 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
     expect.arrayContaining(['min-h-20', 'w-80', 'max-w-sm', 'rounded-lg', 'bg-muted', 'px-0']),
   );
   expect(
-    ['min-h-control-lg', 'w-full', 'max-w-none', 'rounded-md', 'bg-background', 'px-4'].some(
-      (name) => root.classList.contains(name),
+    ['min-h-control-lg', 'w-full', 'rounded-md', 'bg-background', 'px-4'].some((name) =>
+      root.classList.contains(name),
     ),
   ).toBe(false);
   expect([...addon.classList]).toEqual(
@@ -375,7 +374,6 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
     [
       'min-h-control-lg',
       'w-full',
-      'max-w-none',
       'rounded-none',
       'bg-transparent',
       'px-4',
@@ -508,4 +506,48 @@ test('clear trigger preserves custom labels, children, asChild hosts, refs, and 
     .toBeDisabled();
   expect(clear).toHaveBeenCalledTimes(1);
 });
-import SsrInputGroup from './fixtures/SsrInputGroup.vue';
+test('removes the Input border and background inside the group', () => {
+  render({
+    components: { InputGroup, InputGroupInput },
+    template: `<InputGroup><InputGroupInput aria-label="Grouped" /></InputGroup>`,
+  });
+
+  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Grouped' }))).toMatchObject({
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    borderTopWidth: '0px',
+    minHeight: '0px',
+  });
+});
+
+test('keeps the group height when it holds a button', () => {
+  render({
+    components: { InputGroup, InputGroupButton, InputGroupInput },
+    template: `
+      <div>
+        <InputGroup data-testid="plain"><InputGroupInput aria-label="Plain" /></InputGroup>
+        <InputGroup data-testid="with-button">
+          <InputGroupInput aria-label="With button" />
+          <InputGroupButton>Go</InputGroupButton>
+        </InputGroup>
+      </div>
+    `,
+  });
+
+  expect(screen.getByTestId('with-button').offsetHeight).toBe(
+    screen.getByTestId('plain').offsetHeight,
+  );
+});
+
+test('uses a local input size for font and inline padding', () => {
+  render({
+    components: { InputGroup, InputGroupInput },
+    template: `
+      <InputGroup size="lg"><InputGroupInput aria-label="Local size" size="xs" /></InputGroup>
+    `,
+  });
+
+  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Local size' }))).toMatchObject({
+    fontSize: '12px',
+    paddingLeft: '10px',
+  });
+});
