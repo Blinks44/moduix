@@ -60,29 +60,28 @@
   }
 
   .customPanel {
-    --moduix-floating-panel-bg: var(--moduix-color-primary);
-    --moduix-floating-panel-color: var(--moduix-color-primary-foreground);
-    --moduix-floating-panel-border-color: color-mix(
-      in oklab,
-      var(--moduix-color-primary),
-      black 18%
-    );
-    --moduix-floating-panel-header-bg: color-mix(in oklab, var(--moduix-color-primary), white 12%);
-    --moduix-floating-panel-control-bg: color-mix(in oklab, var(--moduix-color-primary), white 8%);
-    --moduix-floating-panel-control-bg-hover: color-mix(
-      in oklab,
-      var(--moduix-color-primary),
-      white 18%
-    );
-    --moduix-floating-panel-control-border-color: color-mix(
-      in oklab,
-      var(--moduix-color-primary),
-      white 22%
-    );
-    --moduix-floating-panel-control-color: var(--moduix-color-primary-foreground);
-    --moduix-floating-panel-drag-indicator-color: var(--moduix-color-primary-foreground);
-    --moduix-floating-panel-title-color: var(--moduix-color-primary-foreground);
-    --moduix-floating-panel-radius: var(--moduix-radius-lg);
-    --moduix-floating-panel-shadow: var(--moduix-shadow-lg);
+    border-color: color-mix(in oklab, var(--moduix-color-primary), black 18%);
+    border-radius: var(--moduix-radius-lg);
+    background-color: var(--moduix-color-primary);
+    color: var(--moduix-color-primary-foreground);
+
+    & [data-slot='floating-panel-header'] {
+      border-bottom-color: inherit;
+      background-color: color-mix(in oklab, var(--moduix-color-primary), white 12%);
+    }
+
+    & [data-slot='floating-panel-drag-indicator'] {
+      color: inherit;
+    }
+
+    & :is([data-slot='floating-panel-stage-trigger'], [data-slot='floating-panel-close-icon']) {
+      border-color: color-mix(in oklab, var(--moduix-color-primary), white 22%);
+      background-color: color-mix(in oklab, var(--moduix-color-primary), white 8%);
+      color: inherit;
+
+      &:hover {
+        background-color: color-mix(in oklab, var(--moduix-color-primary), white 18%);
+      }
+    }
   }
 }

@@ -197,3 +197,43 @@ test('renders only the requested resize handles through ResizeTriggerGroup', () 
     ),
   ).toEqual(['e', 's', 'se']);
 });
+
+test('sizes the content from Ark state without a CSS minimum', () => {
+  render(() => (
+    <FloatingPanel defaultOpen defaultSize={{ width: 160, height: 96 }} portalled={false}>
+      <FloatingPanelPositioner>
+        <FloatingPanelContent />
+      </FloatingPanelPositioner>
+    </FloatingPanel>
+  ));
+
+  const content = document.querySelector<HTMLElement>('[data-slot="floating-panel-content"]')!;
+  expect([content.offsetWidth, content.offsetHeight]).toEqual([160, 96]);
+});
+
+test('leaves the native trigger unstyled', () => {
+  render(() => (
+    <FloatingPanel portalled={false}>
+      <FloatingPanelTrigger>Open inspector</FloatingPanelTrigger>
+    </FloatingPanel>
+  ));
+
+  expect(
+    document.querySelector('[data-slot="floating-panel-trigger"]')!.getAttribute('class'),
+  ).toBeNull();
+});
+
+test('opens with the shared popup keyframes and motion variables', () => {
+  render(() => (
+    <div style={{ '--moduix-popup-motion-duration': '1234ms' }}>
+      <FloatingPanel defaultOpen defaultSize={{ width: 360, height: 260 }} portalled={false}>
+        <FloatingPanelPositioner>
+          <FloatingPanelContent />
+        </FloatingPanelPositioner>
+      </FloatingPanel>
+    </div>
+  ));
+
+  const style = getComputedStyle(document.querySelector('[data-slot="floating-panel-content"]')!);
+  expect([style.animationName, style.animationDuration]).toEqual(['moduix-popup-in', '1.234s']);
+});

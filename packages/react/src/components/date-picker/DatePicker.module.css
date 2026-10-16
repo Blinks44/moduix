@@ -1,34 +1,4 @@
 @layer moduix.components {
-  @keyframes date-picker-content-open {
-    from {
-      opacity: var(--moduix-popup-motion-starting-opacity, 0);
-      translate: var(--moduix-popup-motion-starting-translate-x, 0)
-        var(--moduix-popup-motion-starting-translate-y, 0);
-      transform: scale(var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup)));
-    }
-
-    to {
-      opacity: 1;
-      translate: 0 0;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes date-picker-content-closed {
-    from {
-      opacity: 1;
-      translate: 0 0;
-      transform: scale(1);
-    }
-
-    to {
-      opacity: var(--moduix-popup-motion-ending-opacity, 0);
-      translate: var(--moduix-popup-motion-ending-translate-x, 0)
-        var(--moduix-popup-motion-ending-translate-y, 0);
-      transform: scale(var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup)));
-    }
-  }
-
   .root {
     box-sizing: border-box;
     display: inline-flex;
@@ -228,15 +198,15 @@
     }
 
     &[data-state='open'] {
-      animation: date-picker-content-open
+      animation: global(moduix-popup-in)
         var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
         var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
     }
 
     &[data-state='closed'] {
-      animation: date-picker-content-closed
+      animation: global(moduix-popup-out)
         var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
-        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
+        var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
       pointer-events: none;
     }
 

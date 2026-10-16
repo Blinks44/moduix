@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { useState } from 'react';
 import {
   FloatingPanel,
@@ -206,21 +206,20 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   render(
     <FloatingPanel defaultOpen defaultSize={{ width: 360, height: 260 }} portalled={false}>
       <FloatingPanelPositioner>
-        <FloatingPanelContent className="min-h-0 min-w-0" />
+        <FloatingPanelContent className="rounded-none bg-muted" />
       </FloatingPanelPositioner>
     </FloatingPanel>,
   );
 
   const content = screen.getByRole('dialog');
-  expect([...content!.classList]).toEqual(expect.arrayContaining(['min-h-0', 'min-w-0']));
-  expect(['min-h-40', 'min-w-64'].some((name) => content!.classList.contains(name))).toBe(false);
+  expect([...content!.classList]).toEqual(expect.arrayContaining(['rounded-none', 'bg-muted']));
+  expect(['rounded-md', 'bg-popover'].some((name) => content!.classList.contains(name))).toBe(
+    false,
+  );
 
   await expect
     .element(page.locator('[data-slot="floating-panel-content"]'))
-    .toHaveCSS('min-height', '0px');
-  await expect
-    .element(page.locator('[data-slot="floating-panel-content"]'))
-    .toHaveCSS('min-width', '0px');
+    .toHaveCSS('border-radius', '0px');
 });
 
 test('keeps visual utilities on empty owned parts', async () => {
@@ -244,7 +243,7 @@ test('keeps visual utilities on empty owned parts', async () => {
   );
 
   expect([...screen.getByRole('dialog').classList]).toEqual(
-    expect.arrayContaining(['min-h-40', 'min-w-64', 'bg-popover', 'shadow-lg']),
+    expect.arrayContaining(['rounded-md', 'border', 'bg-popover', 'shadow-lg']),
   );
   expect([...screen.getByTestId('header').classList]).toEqual(
     expect.arrayContaining(['min-h-control-xl', 'bg-muted', 'border-b']),
@@ -264,4 +263,44 @@ test('keeps visual utilities on empty owned parts', async () => {
   expect([...screen.getByTestId('footer').classList]).toEqual(
     expect.arrayContaining(['border-t', 'px-3', 'py-1', 'text-xs']),
   );
+});
+
+test('sizes the content from Ark state without a CSS minimum', () => {
+  render(
+    <FloatingPanel defaultOpen defaultSize={{ width: 160, height: 96 }} portalled={false}>
+      <FloatingPanelPositioner>
+        <FloatingPanelContent />
+      </FloatingPanelPositioner>
+    </FloatingPanel>,
+  );
+
+  const content = document.querySelector<HTMLElement>('[data-slot="floating-panel-content"]')!;
+  expect([content.offsetWidth, content.offsetHeight]).toEqual([160, 96]);
+});
+
+test('leaves the native trigger unstyled', () => {
+  render(
+    <FloatingPanel portalled={false}>
+      <FloatingPanelTrigger>Open inspector</FloatingPanelTrigger>
+    </FloatingPanel>,
+  );
+
+  expect(
+    document.querySelector('[data-slot="floating-panel-trigger"]')!.getAttribute('class'),
+  ).toBeNull();
+});
+
+test('opens with the shared popup keyframes and motion variables', () => {
+  render(
+    <div style={{ '--moduix-popup-motion-duration': '1234ms' } as CSSProperties}>
+      <FloatingPanel defaultOpen defaultSize={{ width: 360, height: 260 }} portalled={false}>
+        <FloatingPanelPositioner>
+          <FloatingPanelContent />
+        </FloatingPanelPositioner>
+      </FloatingPanel>
+    </div>,
+  );
+
+  const style = getComputedStyle(document.querySelector('[data-slot="floating-panel-content"]')!);
+  expect([style.animationName, style.animationDuration]).toEqual(['moduix-popup-in', '1.234s']);
 });

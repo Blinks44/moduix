@@ -4,7 +4,6 @@ component: floating-panel
 description: Немодальное окно Ark UI для содержимого, которое можно перемещать, изменять в размере, сворачивать и разворачивать.
 ---
 
-import * as FloatingPanelDocs from '@/components/examples/floating-panel/css-properties';
 import FloatingPanelAdvancedCustomization from '@/components/examples/floating-panel/advanced-customization.tsx';
 import FloatingPanelAnchorPosition from '@/components/examples/floating-panel/anchor-position.tsx';
 import FloatingPanelBasic from '@/components/examples/floating-panel/basic.tsx';
@@ -524,21 +523,13 @@ FloatingPanel
 
 ## Стилизация
 
-### CSS-свойства
+`FloatingPanelTrigger` не стилизован: оборачивайте `Button` через `asChild`. Размер панели берётся из
+состояния Ark, поэтому задавайте `defaultSize`, `minSize` и `maxSize` на корне, а не CSS-размеры на
+`FloatingPanelContent`. Анимация содержимого читает общие переменные `--moduix-popup-motion-*`.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div>
-        <FloatingPanelDocs.FloatingPanelCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты на Tailwind
+используют нативные утилиты и классы потребителя. Варианты на CSS Modules построены на токенах foundation
+и не имеют переменных компонента: класс на части перекрывает стили компонента из слоя.
 
 ### Точки стилизации
 
@@ -546,8 +537,6 @@ FloatingPanel
 `data-slot="floating-panel-*"` к отрисованным обёрткам. Используйте `data-state="open|closed"`,
 `data-dragging`, `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`,
 `data-maximized`, `data-staged` и `data-axis` для стилизации состояния соответствующих частей.
+`FloatingPanelFooter` повторяет `data-minimized` содержимого.
 
-`FloatingPanelPositioner` предоставляет `--width`, `--height`, `--x`, `--y`, `--reference-width`,
-`--reference-height`, `--available-width`, `--available-height`, `--z-index` и `--transform-origin`.
-Для размеров и трансформаций используйте переменные Ark, обновляемые во время работы, а не дублируйте измерения
-в коде приложения.
+`FloatingPanelPositioner` предоставляет переменные Ark `--width`, `--height`, `--x`, `--y` и `--z-index`.

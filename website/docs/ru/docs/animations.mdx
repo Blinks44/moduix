@@ -23,8 +23,9 @@ Ark передает состояния появления и скрытия ч�
 | Tailwind CSS | Используйте анимации из Tailwind-компонента, а для исключений переопределяйте классы потребителя или код из реестра. |
 
 Переменные ниже относятся к CSS Modules-пакетам всех выпущенных фреймворков. React, Solid и Vue используют
-одинаковые имена. Tailwind-пакеты строят анимации на utility-классах и не предоставляют контракт
-локальных переменных CSS Modules.
+одинаковые имена. Содержимое popup-элементов в Tailwind анимируют утилиты `animate-moduix-popup-in` и
+`animate-moduix-popup-out`, которые читают те же общие `--moduix-popup-motion-*`; семейства переменных
+отдельных компонентов Tailwind-пакеты не предоставляют.
 
 ## Настройте общую анимацию popup-элементов
 
@@ -63,8 +64,9 @@ Command Palette, Lightbox, Tour, Navigation Menu, Select, Combobox, Date Picker 
 | Select | `SelectContent` | `--moduix-select-content-*` |
 | Navigation Menu | `NavigationMenuContent` | `--moduix-navigation-menu-content-*` |
 
-У Dialog и Command Palette отдельного семейства нет. Задайте общие переменные `--moduix-popup-motion-*`
-на их части с содержимым: keyframes читают их с этого элемента.
+У Dialog, Command Palette, Floating Panel, Combobox, Date Picker и Color Picker отдельного семейства нет.
+Задайте общие переменные `--moduix-popup-motion-*` на их части с содержимым: keyframes читают их с этого
+элемента.
 
 Например, один Select можно открывать с более мягким масштабированием:
 

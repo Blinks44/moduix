@@ -172,14 +172,12 @@
   --animate-moduix-dialog-backdrop-in: moduix-dialog-backdrop-in var(--moduix-transition-default);
   --animate-moduix-dialog-backdrop-out: moduix-dialog-backdrop-out var(--moduix-transition-default)
     forwards;
-  --animate-moduix-dialog-content-in: moduix-dialog-content-in
+  --animate-moduix-popup-in: moduix-popup-in
     var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
     var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
-  --animate-moduix-dialog-content-out: moduix-dialog-content-out
+  --animate-moduix-popup-out: moduix-popup-out
     var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
     var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
-  --animate-moduix-menu-open: moduix-menu-content-open var(--moduix-transition-default);
-  --animate-moduix-menu-closed: moduix-menu-content-closed var(--moduix-transition-default);
   --animate-moduix-navigation-menu-content-from-start: moduix-navigation-menu-content-from-start
     var(--moduix-transition-default) both;
   --animate-moduix-navigation-menu-content-from-end: moduix-navigation-menu-content-from-end

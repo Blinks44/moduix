@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { FloatingPanelTrigger as ArkFloatingPanelTrigger } from '@ark-ui/vue/floating-panel';
 import type { FloatingPanelTriggerProps } from '@ark-ui/vue/floating-panel';
-import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import styles from './FloatingPanel.module.css';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ FloatingPanelTriggerProps {
-  asChild?: FloatingPanelTriggerProps['asChild'];
+  asChild?: boolean;
   class?: HTMLAttributes['class'];
 }
 
@@ -23,7 +21,7 @@ const attrs = useAttrs();
   <ArkFloatingPanelTrigger
     v-bind="attrs"
     :as-child="asChild"
-    :class="clsx(!asChild && styles.trigger, className)"
+    :class="className"
     data-slot="floating-panel-trigger"
   >
     <slot />

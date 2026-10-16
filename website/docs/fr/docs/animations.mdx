@@ -23,8 +23,9 @@ système demande `prefers-reduced-motion`.
 | Tailwind CSS | Utilisez les animations du composant Tailwind, puis les classes du consommateur ou le code du registre pour une exception ciblée. |
 
 Les variables ci-dessous appartiennent aux packages CSS Modules de tous les frameworks publiés. React,
-Solid et Vue partagent les mêmes noms. Les packages Tailwind utilisent des classes utilitaires et ne
-promettent pas le contrat des variables locales de CSS Modules.
+Solid et Vue partagent les mêmes noms. En Tailwind, le contenu des popups utilise les utilitaires
+`animate-moduix-popup-in` et `animate-moduix-popup-out`, qui lisent les mêmes variables partagées
+`--moduix-popup-motion-*` ; les packages Tailwind ne promettent pas les familles propres aux composants.
 
 ## Définir le mouvement partagé des popups
 
@@ -63,8 +64,9 @@ visuelle qui porte l’animation.
 | Select | `SelectContent` | `--moduix-select-content-*` |
 | Navigation Menu | `NavigationMenuContent` | `--moduix-navigation-menu-content-*` |
 
-Dialog et Command Palette n’ont pas de famille propre. Définissez plutôt les variables partagées
-`--moduix-popup-motion-*` sur leur partie de contenu : les keyframes les lisent sur cet élément.
+Dialog, Command Palette, Floating Panel, Combobox, Date Picker et Color Picker n’ont pas de famille
+propre. Définissez plutôt les variables partagées `--moduix-popup-motion-*` sur leur partie de contenu :
+les keyframes les lisent sur cet élément.
 
 Par exemple, appliquez une échelle plus douce à un seul Select :
 

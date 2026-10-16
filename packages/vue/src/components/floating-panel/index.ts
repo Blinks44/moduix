@@ -48,6 +48,7 @@ export {
 
 export type {
   FloatingPanelAnchorPositionDetails,
+  FloatingPanelBodyProps,
   FloatingPanelCloseTriggerProps,
   FloatingPanelContentProps,
   FloatingPanelContextProps,
@@ -55,15 +56,14 @@ export type {
   FloatingPanelDragTriggerProps,
   FloatingPanelHeaderProps,
   FloatingPanelIntlTranslations,
+  FloatingPanelOpenChangeDetails,
   FloatingPanelPoint,
   FloatingPanelPositionChangeDetails,
   FloatingPanelPositionerProps,
   FloatingPanelResizeTriggerAxis,
   FloatingPanelResizeTriggerProps,
   FloatingPanelRootEmits,
-  FloatingPanelRootProps,
   FloatingPanelRootProviderEmits,
-  FloatingPanelRootProviderProps,
   FloatingPanelSize,
   FloatingPanelSizeChangeDetails,
   FloatingPanelStage,
@@ -75,3 +75,6 @@ export type {
   UseFloatingPanelProps,
   UseFloatingPanelReturn,
 } from '@ark-ui/vue/floating-panel';
+
+export type { Props as FloatingPanelRootProps } from './FloatingPanel.vue';
+export type { Props as FloatingPanelRootProviderProps } from './FloatingPanelRootProvider.vue';

@@ -23,8 +23,9 @@ requests `prefers-reduced-motion`.
 | Tailwind CSS | Use the motion utilities shipped by the Tailwind component, then override consumer classes or source-owned registry code for a deliberate exception. |
 
 The CSS variables below belong to the CSS Modules packages for every shipped framework. React, Solid, and
-Vue use the same variable names, so the stylesheet stays framework-neutral. Tailwind packages use
-utility-backed motion and do not promise the component-level CSS Modules variable contract.
+Vue use the same variable names, so the stylesheet stays framework-neutral. Tailwind popup content uses
+the `animate-moduix-popup-in` and `animate-moduix-popup-out` utilities, which read the same shared
+`--moduix-popup-motion-*` variables; Tailwind packages do not promise the component-level families.
 
 ## Set shared popup motion
 
@@ -63,8 +64,9 @@ owns the animation.
 | Select | `SelectContent` | `--moduix-select-content-*` |
 | Navigation Menu | `NavigationMenuContent` | `--moduix-navigation-menu-content-*` |
 
-Dialog and Command Palette have no component-level family. Set the shared `--moduix-popup-motion-*`
-variables on their content part instead; the keyframes read them from that element.
+Dialog, Command Palette, Floating Panel, Combobox, Date Picker, and Color Picker have no
+component-level family. Set the shared `--moduix-popup-motion-*` variables on their content part
+instead; the keyframes read them from that element.
 
 For example, make one picker open with a softer scale by assigning a class to `SelectContent`:
 

@@ -227,32 +227,6 @@
   }
 }
 
-@keyframes moduix-menu-content-open {
-  from {
-    opacity: 0;
-    translate: 0 0;
-    transform: scale(var(--moduix-scale-popup));
-  }
-  to {
-    opacity: 1;
-    translate: 0 0;
-    transform: scale(1);
-  }
-}
-
-@keyframes moduix-menu-content-closed {
-  from {
-    opacity: 1;
-    translate: 0 0;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    translate: 0 0;
-    transform: scale(var(--moduix-scale-popup));
-  }
-}
-
 @keyframes moduix-lightbox-backdrop-in {
   from {
     opacity: var(--moduix-lightbox-backdrop-starting-opacity, 0);
@@ -365,7 +339,8 @@
   }
 }
 
-@keyframes moduix-dialog-content-in {
+/* Shared enter and exit for popup content; read the --moduix-popup-motion-* variables. */
+@keyframes moduix-popup-in {
   from {
     opacity: var(--moduix-popup-motion-starting-opacity, 0);
     translate: var(--moduix-popup-motion-starting-translate-x, 0)
@@ -374,7 +349,7 @@
   }
 }
 
-@keyframes moduix-dialog-content-out {
+@keyframes moduix-popup-out {
   to {
     opacity: var(--moduix-popup-motion-ending-opacity, 0);
     translate: var(--moduix-popup-motion-ending-translate-x, 0)

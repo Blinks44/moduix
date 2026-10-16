@@ -299,7 +299,7 @@ export const CustomStyling: Story = {
         <Button>Open styled panel</Button>
       </FloatingPanelTrigger>
       <FloatingPanelSurface title="Custom styling" className={storyStyles.customPanel}>
-        <p>Theme variables change the visual treatment without changing Ark composition.</p>
+        <p>A class on the content restyles the panel without changing Ark composition.</p>
       </FloatingPanelSurface>
     </FloatingPanel>
   ),

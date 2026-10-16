@@ -218,7 +218,7 @@ export const CustomStyling: Story = {
   name: 'Custom Styling',
   render: renderStory(
     `
-    <FloatingPanel :default-size="{ width: 380, height: 240 }"><FloatingPanelTrigger as-child><Button>Open styled panel</Button></FloatingPanelTrigger><FloatingPanelSurface title="Custom styling" :surface-class="storyStyles.customPanel">Theme variables change the visual treatment without changing Ark composition.</FloatingPanelSurface></FloatingPanel>
+    <FloatingPanel :default-size="{ width: 380, height: 240 }"><FloatingPanelTrigger as-child><Button>Open styled panel</Button></FloatingPanelTrigger><FloatingPanelSurface title="Custom styling" :surface-class="storyStyles.customPanel">A class on the content restyles the panel without changing Ark composition.</FloatingPanelSurface></FloatingPanel>
   `,
     () => ({ storyStyles }),
   ),

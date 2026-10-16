@@ -332,6 +332,8 @@ test('mounts the content lazily and unmounts it after closing by default', async
   await expect.element(content).toHaveCount(0);
   await page.getByRole('button', { name: 'Open dialog' }).click();
   await expect.element(content).toHaveCount(1);
+  // An Escape pressed before Ark moves focus into the dialog is lost.
+  await expect.element(page.getByRole('dialog')).toBeFocused();
   await page.getByRole('dialog').press('Escape');
   await expect.element(content).toHaveCount(0);
 });

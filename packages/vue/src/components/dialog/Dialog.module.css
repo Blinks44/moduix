@@ -123,13 +123,13 @@
     }
 
     &[data-state='open'] {
-      animation: global(moduix-dialog-content-in)
+      animation: global(moduix-popup-in)
         var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
         var(--moduix-popup-motion-easing, var(--moduix-ease-in-out));
     }
 
     &[data-state='closed'] {
-      animation: global(moduix-dialog-content-out)
+      animation: global(moduix-popup-out)
         var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
         var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) forwards;
     }

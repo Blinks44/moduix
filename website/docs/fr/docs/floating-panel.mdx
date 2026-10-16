@@ -4,7 +4,6 @@ component: floating-panel
 description: Une fenêtre non modale Ark UI que l'utilisateur peut déplacer, redimensionner, réduire et agrandir.
 ---
 
-import * as FloatingPanelDocs from '@/components/examples/floating-panel/css-properties';
 import FloatingPanelAdvancedCustomization from '@/components/examples/floating-panel/advanced-customization.tsx';
 import FloatingPanelAnchorPosition from '@/components/examples/floating-panel/anchor-position.tsx';
 import FloatingPanelBasic from '@/components/examples/floating-panel/basic.tsx';
@@ -525,21 +524,15 @@ son propre emplacement ou style.
 
 ## Styles
 
-### Propriétés CSS
+`FloatingPanelTrigger` n’a pas de style : composez-le avec `asChild` et un `Button`. Le panneau prend
+sa taille dans l’état d’Ark : définissez `defaultSize`, `minSize` et `maxSize` sur la racine plutôt que
+des tailles CSS sur `FloatingPanelContent`. L’animation du contenu lit les variables partagées
+`--moduix-popup-motion-*`.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div>
-        <FloatingPanelDocs.FloatingPanelCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes Tailwind
+utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules s’appuient sur
+les jetons de foundation et n’ont pas de variables de composant : une classe sur la partie remplace les
+styles du composant définis dans la couche.
 
 ### Points d'accroche pour les styles
 
@@ -547,8 +540,6 @@ Les parties Ark UI conservent `data-scope="floating-panel"` et leurs valeurs `da
 `data-slot="floating-panel-*"` aux conteneurs rendus. Utilisez `data-state="open|closed"`, `data-dragging`,
 `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`,
 `data-staged` et `data-axis` sur les parties concernées pour appliquer des styles selon l'état.
+`FloatingPanelFooter` reprend `data-minimized` du contenu.
 
-`FloatingPanelPositioner` expose `--width`, `--height`, `--x`, `--y`, `--reference-width`, `--reference-height`,
-`--available-width`, `--available-height`, `--z-index` et `--transform-origin`. Utilisez les variables
-qu'Ark met à jour à l'exécution pour le dimensionnement et les transformations au lieu de dupliquer
-les mesures dans le code de l'application.
+`FloatingPanelPositioner` expose les variables d’Ark `--width`, `--height`, `--x`, `--y` et `--z-index`.

@@ -4,9 +4,12 @@ import {
   FloatingPanel as FloatingPanelPrimitive,
   useFloatingPanel,
   useFloatingPanelContext,
+  type FloatingPanelResizeTriggerAxis,
+  type FloatingPanelStage,
 } from '@ark-ui/solid/floating-panel';
 import type { ComponentProps } from 'solid-js';
 import { For, children, splitProps } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { GripIcon, MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui/Icons';
@@ -16,10 +19,6 @@ import {
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
-
-type FloatingPanelResizeTriggerAxis = NonNullable<
-  ComponentProps<typeof FloatingPanelPrimitive.ResizeTrigger>['axis']
->;
 
 const resizeTriggerAxes = [
   'n',
@@ -31,6 +30,15 @@ const resizeTriggerAxes = [
   'sw',
   'nw',
 ] satisfies FloatingPanelResizeTriggerAxis[];
+
+const stageIcons = {
+  default: RestoreIcon,
+  maximized: MaximizeIcon,
+  minimized: MinusIcon,
+} satisfies Record<FloatingPanelStage, unknown>;
+
+const controlButtonClass =
+  'inline-flex size-control-sm cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-0 transition-[background-color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent';
 
 type FloatingPanelRootProps = ComponentProps<typeof FloatingPanelPrimitive.Root> &
   OverlayPortalProps;
@@ -90,32 +98,13 @@ function FloatingPanelRootProvider(props: FloatingPanelRootProviderProps) {
 }
 
 function FloatingPanelTrigger(props: ComponentProps<typeof FloatingPanelPrimitive.Trigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <FloatingPanelPrimitive.Trigger
-      asChild={local.asChild}
-      class={cn(
-        !local.asChild &&
-          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-[state=open]:bg-accent motion-reduce:transition-none [@media(hover:hover)]:hover:bg-accent',
-        local.class,
-      )}
-      {...others}
-      data-slot="floating-panel-trigger"
-    />
-  );
+  return <FloatingPanelPrimitive.Trigger {...props} data-slot="floating-panel-trigger" />;
 }
 
 function FloatingPanelPositioner(props: ComponentProps<typeof FloatingPanelPrimitive.Positioner>) {
-  const [local, others] = splitProps(props, ['class']);
-
   return (
     <OverlayPortal>
-      <FloatingPanelPrimitive.Positioner
-        class={cn('z-[var(--z-index)] outline-0', local.class)}
-        {...others}
-        data-slot="floating-panel-positioner"
-      />
+      <FloatingPanelPrimitive.Positioner {...props} data-slot="floating-panel-positioner" />
     </OverlayPortal>
   );
 }
@@ -126,7 +115,7 @@ function FloatingPanelContent(props: ComponentProps<typeof FloatingPanelPrimitiv
   return (
     <FloatingPanelPrimitive.Content
       class={cn(
-        'relative box-border flex min-h-40 min-w-64 origin-[var(--transform-origin)] flex-col overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow-lg outline-0 data-behind:opacity-[0.55] data-minimized:min-h-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:data-[state]:animate-none',
+        'relative flex flex-col overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow-lg outline-0 data-behind:opacity-[0.55] data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         local.class,
       )}
       {...others}
@@ -138,15 +127,7 @@ function FloatingPanelContent(props: ComponentProps<typeof FloatingPanelPrimitiv
 function FloatingPanelDragTrigger(
   props: ComponentProps<typeof FloatingPanelPrimitive.DragTrigger>,
 ) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <FloatingPanelPrimitive.DragTrigger
-      class={cn('block', local.class)}
-      {...others}
-      data-slot="floating-panel-drag-trigger"
-    />
-  );
+  return <FloatingPanelPrimitive.DragTrigger {...props} data-slot="floating-panel-drag-trigger" />;
 }
 
 function FloatingPanelHeader(props: ComponentProps<typeof FloatingPanelPrimitive.Header>) {
@@ -155,7 +136,7 @@ function FloatingPanelHeader(props: ComponentProps<typeof FloatingPanelPrimitive
   return (
     <FloatingPanelPrimitive.Header
       class={cn(
-        'box-border flex min-h-control-xl cursor-grab items-center justify-between gap-3 border-b border-border bg-muted px-3 py-2 select-none data-[dragging]:cursor-grabbing data-[minimized]:border-b-transparent',
+        'flex min-h-control-xl cursor-grab items-center justify-between gap-3 border-b border-border bg-muted px-3 py-2 select-none data-dragging:cursor-grabbing data-minimized:border-b-transparent',
         local.class,
       )}
       {...others}
@@ -169,10 +150,7 @@ function FloatingPanelTitle(props: ComponentProps<typeof FloatingPanelPrimitive.
 
   return (
     <FloatingPanelPrimitive.Title
-      class={cn(
-        'inline-flex min-w-0 items-center gap-2 text-sm font-semibold text-popover-foreground',
-        local.class,
-      )}
+      class={cn('inline-flex min-w-0 items-center gap-2 text-sm font-semibold', local.class)}
       {...others}
       data-slot="floating-panel-title"
     />
@@ -194,33 +172,18 @@ function FloatingPanelControl(props: ComponentProps<typeof FloatingPanelPrimitiv
 function FloatingPanelStageTrigger(
   props: ComponentProps<typeof FloatingPanelPrimitive.StageTrigger>,
 ) {
-  const [local, others] = splitProps(props, [
-    'aria-label',
-    'asChild',
-    'children',
-    'class',
-    'stage',
-  ]);
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
   const resolvedChildren = children(() => local.children);
-  const shouldRenderDefaultIcon = () => local.children == null && !local.asChild;
 
   return (
     <FloatingPanelPrimitive.StageTrigger
-      aria-label={local['aria-label']}
       asChild={local.asChild}
-      class={cn(
-        !local.asChild &&
-          'box-border inline-flex size-control-sm cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none [font:inherit] focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent',
-        local.class,
-      )}
-      stage={local.stage}
+      class={cn(!local.asChild && controlButtonClass, local.class)}
       {...others}
       data-slot="floating-panel-stage-trigger"
     >
-      {resolvedChildren()}
-      {shouldRenderDefaultIcon() && local.stage === 'minimized' ? <MinusIcon /> : null}
-      {shouldRenderDefaultIcon() && local.stage === 'maximized' ? <MaximizeIcon /> : null}
-      {shouldRenderDefaultIcon() && local.stage === 'default' ? <RestoreIcon /> : null}
+      {resolvedChildren() ??
+        (local.asChild ? null : <Dynamic component={stageIcons[props.stage]} />)}
     </FloatingPanelPrimitive.StageTrigger>
   );
 }
@@ -233,11 +196,7 @@ function FloatingPanelCloseTrigger(
   return (
     <FloatingPanelPrimitive.CloseTrigger
       asChild={local.asChild}
-      class={cn(
-        !local.asChild &&
-          'box-border inline-flex size-control-sm cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none [font:inherit] focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent',
-        local.class,
-      )}
+      class={cn(!local.asChild && controlButtonClass, local.class)}
       {...others}
       data-slot="floating-panel-close-trigger"
     />
@@ -255,10 +214,7 @@ function FloatingPanelCloseIcon(props: FloatingPanelCloseIconProps) {
           data-slot="floating-panel-close-icon"
           aria-label={local['aria-label'] ?? a11yLabels.closePanel}
           aria-labelledby={local['aria-labelledby']}
-          class={cn(
-            'box-border inline-flex size-control-sm cursor-pointer items-center justify-center rounded-sm border border-border bg-background p-0 text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none [font:inherit] focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent',
-            local.class,
-          )}
+          class={cn(controlButtonClass, local.class)}
         >
           {local.children}
         </CloseButton>
@@ -273,10 +229,7 @@ function FloatingPanelBody(props: ComponentProps<typeof FloatingPanelPrimitive.B
 
   return (
     <FloatingPanelPrimitive.Body
-      class={cn(
-        'min-h-0 flex-auto overflow-auto p-4 text-sm text-popover-foreground data-minimized:hidden',
-        local.class,
-      )}
+      class={cn('min-h-0 flex-auto overflow-auto p-4 text-sm', local.class)}
       {...others}
       data-slot="floating-panel-body"
     />
@@ -314,7 +267,7 @@ function FloatingPanelResizeTrigger(
   return (
     <FloatingPanelPrimitive.ResizeTrigger
       class={cn(
-        'absolute data-disabled:pointer-events-none data-[axis=e]:inset-y-3 data-[axis=e]:-right-1 data-[axis=e]:w-2 data-[axis=n]:inset-x-3 data-[axis=n]:-top-1 data-[axis=n]:h-2 data-[axis=ne]:-top-1.5 data-[axis=ne]:-right-1.5 data-[axis=ne]:size-3 data-[axis=nw]:-top-1.5 data-[axis=nw]:-left-1.5 data-[axis=nw]:size-3 data-[axis=s]:inset-x-3 data-[axis=s]:-bottom-1 data-[axis=s]:h-2 data-[axis=se]:-right-1.5 data-[axis=se]:-bottom-1.5 data-[axis=se]:size-3 data-[axis=sw]:-bottom-1.5 data-[axis=sw]:-left-1.5 data-[axis=sw]:size-3 data-[axis=w]:inset-y-3 data-[axis=w]:-left-1 data-[axis=w]:w-2',
+        'data-disabled:pointer-events-none data-[axis=e]:w-2 data-[axis=n]:h-2 data-[axis=ne]:size-3 data-[axis=nw]:size-3 data-[axis=s]:h-2 data-[axis=se]:size-3 data-[axis=sw]:size-3 data-[axis=w]:w-2',
         local.class,
       )}
       {...others}
@@ -340,10 +293,7 @@ function FloatingPanelDragIndicator(props: ComponentProps<'span'>) {
   return (
     <span
       aria-hidden="true"
-      class={cn(
-        'inline-flex flex-none items-center justify-center text-muted-foreground [&>svg]:size-4',
-        local.class,
-      )}
+      class={cn('inline-flex flex-none text-muted-foreground [&>svg]:size-4', local.class)}
       {...others}
       data-slot="floating-panel-drag-indicator"
     >
@@ -378,3 +328,30 @@ export {
   useFloatingPanelContext,
 };
 export type { FloatingPanelRootProps, FloatingPanelRootProviderProps };
+export type {
+  FloatingPanelAnchorPositionDetails,
+  FloatingPanelBodyProps,
+  FloatingPanelCloseTriggerProps,
+  FloatingPanelContentProps,
+  FloatingPanelContextProps,
+  FloatingPanelControlProps,
+  FloatingPanelDragTriggerProps,
+  FloatingPanelHeaderProps,
+  FloatingPanelIntlTranslations,
+  FloatingPanelOpenChangeDetails,
+  FloatingPanelPoint,
+  FloatingPanelPositionChangeDetails,
+  FloatingPanelPositionerProps,
+  FloatingPanelResizeTriggerAxis,
+  FloatingPanelResizeTriggerProps,
+  FloatingPanelSize,
+  FloatingPanelSizeChangeDetails,
+  FloatingPanelStage,
+  FloatingPanelStageChangeDetails,
+  FloatingPanelStageTriggerProps,
+  FloatingPanelTitleProps,
+  FloatingPanelTriggerProps,
+  UseFloatingPanelContext,
+  UseFloatingPanelProps,
+  UseFloatingPanelReturn,
+} from '@ark-ui/solid/floating-panel';
