@@ -98,15 +98,11 @@ export const Textarea: Story = {
     <Editable
       class={storyStyles.textareaRoot}
       defaultValue="Ark UI keeps the editable state, keyboard handling, and focus lifecycle."
-      submitMode="none"
       placeholder="Enter a description"
     >
       <EditableLabel>Description</EditableLabel>
-      <EditableArea class={storyStyles.textareaArea}>
-        <EditableInput
-          asChild={(props) => <textarea {...props()} />}
-          class={storyStyles.textareaInput}
-        />
+      <EditableArea>
+        <EditableInput asChild={(props) => <textarea {...props()} />} />
         <EditablePreview class={storyStyles.textareaPreview} />
       </EditableArea>
       <EditableControls />

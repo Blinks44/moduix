@@ -10,6 +10,12 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui';
 
+const rootClass =
+  'box-border grid w-full grid-cols-[minmax(0,1fr)_auto] items-start gap-1 text-foreground has-data-autoresize:w-fit has-data-autoresize:max-w-full has-data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
+
+const triggerClass =
+  'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,outline-color] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent';
+
 const Editable = forwardRef<
   ComponentRef<typeof EditablePrimitive.Root>,
   ComponentProps<typeof EditablePrimitive.Root>
@@ -18,10 +24,7 @@ const Editable = forwardRef<
     <EditablePrimitive.Root
       ref={ref}
       activationMode={activationMode}
-      className={cn(
-        'box-border inline-grid max-w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-1 text-foreground has-[[data-disabled]]:opacity-50',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="editable-root"
     />
@@ -35,10 +38,7 @@ const EditableRootProvider = forwardRef<
   return (
     <EditablePrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'box-border inline-grid max-w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-1 text-foreground has-[[data-disabled]]:opacity-50',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="editable-root-provider"
     />
@@ -53,7 +53,7 @@ const EditableLabel = forwardRef<
     <EditablePrimitive.Label
       ref={ref}
       className={cn(
-        'col-span-full inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-invalid:text-destructive',
+        'col-span-full flex items-center gap-1 text-sm leading-5 font-medium wrap-anywhere data-invalid:text-destructive',
         className,
       )}
       {...props}
@@ -70,7 +70,7 @@ const EditableArea = forwardRef<
     <EditablePrimitive.Area
       ref={ref}
       className={cn(
-        'col-start-1 box-border inline-flex min-h-control-md w-full min-w-0 items-center rounded-md border border-border bg-background px-3.5 py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out has-[[aria-invalid=true]]:border-destructive has-[[data-invalid]]:border-destructive data-disabled:pointer-events-none data-focus:outline-ring data-focus:has-[[aria-invalid=true]]:outline-destructive data-focus:has-[[data-invalid]]:outline-destructive motion-reduce:transition-none',
+        'box-border flex min-h-control-md min-w-0 items-center rounded-md border border-border bg-background px-3.5 py-1 text-md leading-6 outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out has-focus-visible:outline-ring has-data-invalid:border-destructive has-data-invalid:has-focus-visible:outline-destructive data-disabled:pointer-events-none data-focus:outline-ring has-data-invalid:data-focus:outline-destructive motion-reduce:transition-none',
         className,
       )}
       {...props}
@@ -87,7 +87,7 @@ const EditableInput = forwardRef<
     <EditablePrimitive.Input
       ref={ref}
       className={cn(
-        'box-border block w-full min-w-0 appearance-none bg-transparent text-md leading-6 text-inherit outline-0 placeholder:text-muted-foreground [&:is(textarea)]:min-h-24 [&:is(textarea)]:resize-y',
+        'box-border w-full min-w-0 appearance-none bg-transparent text-inherit outline-0 placeholder:text-muted-foreground [&:is(textarea)]:min-h-24 [&:is(textarea)]:resize-y',
         className,
       )}
       {...props}
@@ -104,7 +104,7 @@ const EditablePreview = forwardRef<
     <EditablePrimitive.Preview
       ref={ref}
       className={cn(
-        'box-border block min-h-[1lh] w-full min-w-0 cursor-text bg-transparent text-md leading-6 text-inherit outline-0 aria-readonly:cursor-default data-disabled:cursor-default data-readonly:cursor-default data-[placeholder-shown]:text-muted-foreground',
+        'box-border w-full min-w-0 cursor-text bg-transparent wrap-anywhere whitespace-pre-wrap text-inherit outline-0 aria-readonly:cursor-default data-disabled:cursor-default data-placeholder-shown:text-muted-foreground',
         className,
       )}
       {...props}
@@ -120,7 +120,7 @@ const EditableControl = forwardRef<
   return (
     <EditablePrimitive.Control
       ref={ref}
-      className={cn('col-start-2 inline-flex items-center gap-1 self-center', className)}
+      className={cn('flex items-center gap-1', className)}
       {...props}
       data-slot="editable-control"
     />
@@ -130,14 +130,12 @@ const EditableControl = forwardRef<
 const EditableEditTrigger = forwardRef<
   ComponentRef<typeof EditablePrimitive.EditTrigger>,
   ComponentProps<typeof EditablePrimitive.EditTrigger>
->(function EditableEditTrigger({ className, children, ...props }, ref) {
+>(function EditableEditTrigger({ asChild, className, children, ...props }, ref) {
   return (
     <EditablePrimitive.EditTrigger
       ref={ref}
-      className={cn(
-        'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        className,
-      )}
+      asChild={asChild}
+      className={cn(!asChild && triggerClass, className)}
       {...props}
       data-slot="editable-edit-trigger"
     >
@@ -149,14 +147,12 @@ const EditableEditTrigger = forwardRef<
 const EditableSubmitTrigger = forwardRef<
   ComponentRef<typeof EditablePrimitive.SubmitTrigger>,
   ComponentProps<typeof EditablePrimitive.SubmitTrigger>
->(function EditableSubmitTrigger({ className, children, ...props }, ref) {
+>(function EditableSubmitTrigger({ asChild, className, children, ...props }, ref) {
   return (
     <EditablePrimitive.SubmitTrigger
       ref={ref}
-      className={cn(
-        'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        className,
-      )}
+      asChild={asChild}
+      className={cn(!asChild && triggerClass, className)}
       {...props}
       data-slot="editable-submit-trigger"
     >
@@ -168,14 +164,12 @@ const EditableSubmitTrigger = forwardRef<
 const EditableCancelTrigger = forwardRef<
   ComponentRef<typeof EditablePrimitive.CancelTrigger>,
   ComponentProps<typeof EditablePrimitive.CancelTrigger>
->(function EditableCancelTrigger({ className, children, ...props }, ref) {
+>(function EditableCancelTrigger({ asChild, className, children, ...props }, ref) {
   return (
     <EditablePrimitive.CancelTrigger
       ref={ref}
-      className={cn(
-        'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-sm border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        className,
-      )}
+      asChild={asChild}
+      className={cn(!asChild && triggerClass, className)}
       {...props}
       data-slot="editable-cancel-trigger"
     >
@@ -187,21 +181,19 @@ const EditableCancelTrigger = forwardRef<
 const EditableControls = forwardRef<
   ComponentRef<typeof EditablePrimitive.Control>,
   Omit<ComponentProps<typeof EditablePrimitive.Control>, 'asChild' | 'children'>
->(function EditableControls({ className, ...props }, ref) {
+>(function EditableControls(props, ref) {
+  const editable = useEditableContext();
+
   return (
-    <EditableControl ref={ref} className={className} {...props}>
-      <EditablePrimitive.Context>
-        {(editable) =>
-          editable.editing ? (
-            <>
-              <EditableSubmitTrigger />
-              <EditableCancelTrigger />
-            </>
-          ) : (
-            <EditableEditTrigger />
-          )
-        }
-      </EditablePrimitive.Context>
+    <EditableControl ref={ref} {...props}>
+      {editable.editing ? (
+        <>
+          <EditableSubmitTrigger />
+          <EditableCancelTrigger />
+        </>
+      ) : (
+        <EditableEditTrigger />
+      )}
     </EditableControl>
   );
 });
@@ -224,3 +216,25 @@ export {
   useEditable,
   useEditableContext,
 };
+
+export type {
+  EditableAreaProps,
+  EditableCancelTriggerProps,
+  EditableContextProps,
+  EditableControlProps,
+  EditableEditChangeDetails,
+  EditableEditTriggerProps,
+  EditableFocusOutsideEvent,
+  EditableInputProps,
+  EditableInteractOutsideEvent,
+  EditableLabelProps,
+  EditablePointerDownOutsideEvent,
+  EditablePreviewProps,
+  EditableRootProps,
+  EditableRootProviderProps,
+  EditableSubmitTriggerProps,
+  EditableValueChangeDetails,
+  UseEditableContext,
+  UseEditableProps,
+  UseEditableReturn,
+} from '@ark-ui/react/editable';

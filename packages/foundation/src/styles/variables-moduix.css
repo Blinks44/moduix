@@ -333,48 +333,6 @@
 
   /* Editable */
   --moduix-editable-area-height: initial; /* var(--moduix-size-md) */
-  --moduix-editable-area-width: initial; /* 100% */
-  --moduix-editable-bg: initial; /* var(--moduix-color-background) */
-  --moduix-editable-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-editable-border-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-editable-border-style: initial; /* solid */
-  --moduix-editable-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-editable-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-editable-control-align: initial; /* center */
-  --moduix-editable-control-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-editable-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-editable-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-editable-focus-ring-width: initial; /* var(--moduix-editable-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))) */
-  --moduix-editable-font-size: initial; /* var(--moduix-text-md) */
-  --moduix-editable-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-editable-input-width: initial; /* 100% */
-  --moduix-editable-label-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-editable-label-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-editable-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-editable-label-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-editable-label-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-editable-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-editable-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-editable-max-width: initial; /* 100% */
-  --moduix-editable-padding-x: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-editable-padding-y: initial; /* var(--moduix-spacing-1) */
-  --moduix-editable-placeholder-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-editable-preview-min-height: initial; /* 1lh */
-  --moduix-editable-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-editable-textarea-min-height: initial; /* 6rem */
-  --moduix-editable-textarea-resize: initial; /* vertical */
-  --moduix-editable-transition: initial; /* var(--moduix-transition-default) */
-  --moduix-editable-trigger-bg: initial; /* var(--moduix-color-background) */
-  --moduix-editable-trigger-bg-active: initial; /* var(--moduix-editable-trigger-bg-hover) */
-  --moduix-editable-trigger-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-editable-trigger-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-editable-trigger-border-style: initial; /* solid */
-  --moduix-editable-trigger-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-editable-trigger-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-editable-trigger-icon-size: initial; /* var(--moduix-spacing-4) */
-  --moduix-editable-trigger-radius: initial; /* var(--moduix-radius-sm) */
-  --moduix-editable-trigger-size: initial; /* var(--moduix-editable-area-height, var(--moduix-size-md)) */
-  --moduix-editable-width: initial; /* auto */
 
   /* FileUpload */
   --moduix-file-upload-action-bg: initial; /* transparent */

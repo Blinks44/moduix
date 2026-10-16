@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'col-span-full inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-invalid:text-destructive',
+        'col-span-full flex items-center gap-1 text-sm leading-5 font-medium wrap-anywhere data-invalid:text-destructive',
         className,
       )
     "

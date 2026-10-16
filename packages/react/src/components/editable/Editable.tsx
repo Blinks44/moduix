@@ -113,11 +113,12 @@ const EditableControl = forwardRef<
 const EditableEditTrigger = forwardRef<
   ComponentRef<typeof EditablePrimitive.EditTrigger>,
   ComponentProps<typeof EditablePrimitive.EditTrigger>
->(function EditableEditTrigger({ className, children, ...props }, ref) {
+>(function EditableEditTrigger({ asChild, className, children, ...props }, ref) {
   return (
     <EditablePrimitive.EditTrigger
       ref={ref}
-      className={clsx(styles.trigger, className)}
+      asChild={asChild}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
       data-slot="editable-edit-trigger"
     >
@@ -129,11 +130,12 @@ const EditableEditTrigger = forwardRef<
 const EditableSubmitTrigger = forwardRef<
   ComponentRef<typeof EditablePrimitive.SubmitTrigger>,
   ComponentProps<typeof EditablePrimitive.SubmitTrigger>
->(function EditableSubmitTrigger({ className, children, ...props }, ref) {
+>(function EditableSubmitTrigger({ asChild, className, children, ...props }, ref) {
   return (
     <EditablePrimitive.SubmitTrigger
       ref={ref}
-      className={clsx(styles.trigger, className)}
+      asChild={asChild}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
       data-slot="editable-submit-trigger"
     >
@@ -145,11 +147,12 @@ const EditableSubmitTrigger = forwardRef<
 const EditableCancelTrigger = forwardRef<
   ComponentRef<typeof EditablePrimitive.CancelTrigger>,
   ComponentProps<typeof EditablePrimitive.CancelTrigger>
->(function EditableCancelTrigger({ className, children, ...props }, ref) {
+>(function EditableCancelTrigger({ asChild, className, children, ...props }, ref) {
   return (
     <EditablePrimitive.CancelTrigger
       ref={ref}
-      className={clsx(styles.trigger, className)}
+      asChild={asChild}
+      className={clsx(!asChild && styles.trigger, className)}
       {...props}
       data-slot="editable-cancel-trigger"
     >
@@ -161,21 +164,19 @@ const EditableCancelTrigger = forwardRef<
 const EditableControls = forwardRef<
   ComponentRef<typeof EditablePrimitive.Control>,
   Omit<ComponentProps<typeof EditablePrimitive.Control>, 'asChild' | 'children'>
->(function EditableControls({ className, ...props }, ref) {
+>(function EditableControls(props, ref) {
+  const editable = useEditableContext();
+
   return (
-    <EditableControl ref={ref} className={className} {...props}>
-      <EditablePrimitive.Context>
-        {(editable) =>
-          editable.editing ? (
-            <>
-              <EditableSubmitTrigger />
-              <EditableCancelTrigger />
-            </>
-          ) : (
-            <EditableEditTrigger />
-          )
-        }
-      </EditablePrimitive.Context>
+    <EditableControl ref={ref} {...props}>
+      {editable.editing ? (
+        <>
+          <EditableSubmitTrigger />
+          <EditableCancelTrigger />
+        </>
+      ) : (
+        <EditableEditTrigger />
+      )}
     </EditableControl>
   );
 });
@@ -198,3 +199,25 @@ export {
   useEditable,
   useEditableContext,
 };
+
+export type {
+  EditableAreaProps,
+  EditableCancelTriggerProps,
+  EditableContextProps,
+  EditableControlProps,
+  EditableEditChangeDetails,
+  EditableEditTriggerProps,
+  EditableFocusOutsideEvent,
+  EditableInputProps,
+  EditableInteractOutsideEvent,
+  EditableLabelProps,
+  EditablePointerDownOutsideEvent,
+  EditablePreviewProps,
+  EditableRootProps,
+  EditableRootProviderProps,
+  EditableSubmitTriggerProps,
+  EditableValueChangeDetails,
+  UseEditableContext,
+  UseEditableProps,
+  UseEditableReturn,
+} from '@ark-ui/react/editable';

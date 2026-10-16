@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkEditableControl
     v-bind="attrs"
-    :class="cn('col-start-2 inline-flex items-center gap-1 self-center', className)"
+    :class="cn('flex items-center gap-1', className)"
     data-slot="editable-control"
   >
     <slot />

@@ -97,19 +97,18 @@ export const Controls: Story = {
 export const Textarea: Story = {
   render: () => (
     <Editable
-      className="w-full max-w-96"
+      className="max-w-96"
       defaultValue="Ark UI keeps the editable state, keyboard handling, and focus lifecycle."
-      submitMode="none"
       placeholder="Enter a description"
     >
       <EditableLabel>Description</EditableLabel>
-      <EditableArea className="items-start">
+      <EditableArea>
         <EditableInput asChild>
           <textarea />
         </EditableInput>
-        <EditablePreview className="min-h-24 whitespace-pre-wrap" />
+        <EditablePreview className="min-h-24" />
       </EditableArea>
-      <EditableControls className="self-start" />
+      <EditableControls />
       <p className={hintClassName}>Double-click to edit. Press Cmd/Ctrl + Enter to save.</p>
     </Editable>
   ),
@@ -195,7 +194,7 @@ export const CustomStyling: Story = {
   render: () => (
     <Editable defaultValue="Custom area">
       <EditableLabel>Styled editable</EditableLabel>
-      <EditableArea className="w-64 rounded-sm border-primary data-focus:outline-primary">
+      <EditableArea className="rounded-sm border-primary data-focus:outline-primary">
         <EditableInput />
         <EditablePreview />
       </EditableArea>

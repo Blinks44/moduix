@@ -95,12 +95,13 @@ function EditableControl(props: ComponentProps<typeof EditablePrimitive.Control>
 }
 
 function EditableEditTrigger(props: ComponentProps<typeof EditablePrimitive.EditTrigger>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
   const resolvedChildren = children(() => local.children);
 
   return (
     <EditablePrimitive.EditTrigger
-      class={clsx(styles.trigger, local.class)}
+      asChild={local.asChild}
+      class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
       data-slot="editable-edit-trigger"
     >
@@ -110,12 +111,13 @@ function EditableEditTrigger(props: ComponentProps<typeof EditablePrimitive.Edit
 }
 
 function EditableSubmitTrigger(props: ComponentProps<typeof EditablePrimitive.SubmitTrigger>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
   const resolvedChildren = children(() => local.children);
 
   return (
     <EditablePrimitive.SubmitTrigger
-      class={clsx(styles.trigger, local.class)}
+      asChild={local.asChild}
+      class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
       data-slot="editable-submit-trigger"
     >
@@ -125,12 +127,13 @@ function EditableSubmitTrigger(props: ComponentProps<typeof EditablePrimitive.Su
 }
 
 function EditableCancelTrigger(props: ComponentProps<typeof EditablePrimitive.CancelTrigger>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
   const resolvedChildren = children(() => local.children);
 
   return (
     <EditablePrimitive.CancelTrigger
-      class={clsx(styles.trigger, local.class)}
+      asChild={local.asChild}
+      class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
       data-slot="editable-cancel-trigger"
     >
@@ -139,24 +142,17 @@ function EditableCancelTrigger(props: ComponentProps<typeof EditablePrimitive.Ca
   );
 }
 
-type EditableControlsProps = Omit<
-  ComponentProps<typeof EditablePrimitive.Control>,
-  'asChild' | 'children'
->;
-
-function EditableControls(props: EditableControlsProps) {
-  const [local, others] = splitProps(props, ['class']);
+function EditableControls(
+  props: Omit<ComponentProps<typeof EditablePrimitive.Control>, 'asChild' | 'children'>,
+) {
+  const editable = useEditableContext();
 
   return (
-    <EditableControl class={local.class} {...others}>
-      <EditablePrimitive.Context>
-        {(editable) => (
-          <Show when={editable().editing} fallback={<EditableEditTrigger />}>
-            <EditableSubmitTrigger />
-            <EditableCancelTrigger />
-          </Show>
-        )}
-      </EditablePrimitive.Context>
+    <EditableControl {...props}>
+      <Show when={editable().editing} fallback={<EditableEditTrigger />}>
+        <EditableSubmitTrigger />
+        <EditableCancelTrigger />
+      </Show>
     </EditableControl>
   );
 }
@@ -179,3 +175,25 @@ export {
   useEditable,
   useEditableContext,
 };
+
+export type {
+  EditableAreaProps,
+  EditableCancelTriggerProps,
+  EditableContextProps,
+  EditableControlProps,
+  EditableEditChangeDetails,
+  EditableEditTriggerProps,
+  EditableFocusOutsideEvent,
+  EditableInputProps,
+  EditableInteractOutsideEvent,
+  EditableLabelProps,
+  EditablePointerDownOutsideEvent,
+  EditablePreviewProps,
+  EditableRootProps,
+  EditableRootProviderProps,
+  EditableSubmitTriggerProps,
+  EditableValueChangeDetails,
+  UseEditableContext,
+  UseEditableProps,
+  UseEditableReturn,
+} from '@ark-ui/solid/editable';

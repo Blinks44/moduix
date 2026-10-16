@@ -3,10 +3,13 @@ import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import {
+  Button,
   Editable,
   EditableArea,
   EditableContext,
+  EditableControl,
   EditableControls,
+  EditableEditTrigger,
   EditableInput,
   EditableLabel,
   EditablePreview,
@@ -308,4 +311,109 @@ test('forwards the controls ref and supports RootProvider state', async () => {
   await expect
     .element(page.getByRole('textbox', { name: 'editable input', exact: true }))
     .toBeVisible();
+});
+
+function wait(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+test('keeps its width when switching to edit mode', async () => {
+  render(
+    <div style={{ width: '480px' }}>
+      <TestEditable />
+    </div>,
+  );
+
+  const root = document.querySelector<HTMLElement>('[data-slot="editable-root"]')!;
+  const previewWidth = root.offsetWidth;
+
+  await page.getByRole('button', { name: 'edit', exact: true }).click();
+  await expect
+    .element(page.getByRole('textbox', { name: 'editable input', exact: true }))
+    .toBeVisible();
+  expect(root.offsetWidth).toBe(previewWidth);
+});
+
+test('wraps long values inside the area', () => {
+  render(
+    <div style={{ width: '200px' }}>
+      <TestEditable defaultValue={'x'.repeat(80)} />
+    </div>,
+  );
+
+  const area = document.querySelector<HTMLElement>('[data-slot="editable-area"]')!;
+  expect(area.scrollWidth).toBeLessThanOrEqual(area.clientWidth);
+});
+
+test('dims a disabled editable once, also inside a disabled Field', async () => {
+  render(
+    <>
+      <Editable disabled defaultValue="Standalone">
+        <EditableArea>
+          <EditableInput />
+          <EditablePreview />
+        </EditableArea>
+        <EditableControls />
+      </Editable>
+      <Field disabled>
+        <Editable defaultValue="In field">
+          <EditableArea>
+            <EditableInput />
+            <EditablePreview />
+          </EditableArea>
+          <EditableControls />
+        </Editable>
+      </Field>
+    </>,
+  );
+  await wait(400);
+
+  const [standalone, inField] = document.querySelectorAll<HTMLElement>(
+    '[data-slot="editable-root"]',
+  );
+  expect(getComputedStyle(standalone!).opacity).not.toBe('1');
+  expect(getComputedStyle(standalone!.querySelector('button')!).opacity).toBe('1');
+  expect(getComputedStyle(inField!).opacity).toBe('1');
+});
+
+test('leaves trigger styling to an asChild element', async () => {
+  render(
+    <Editable defaultValue="Layer name">
+      <EditableArea>
+        <EditableInput />
+        <EditablePreview />
+      </EditableArea>
+      <EditableControl>
+        <EditableEditTrigger asChild>
+          <Button>Rename layer</Button>
+        </EditableEditTrigger>
+      </EditableControl>
+    </Editable>,
+  );
+
+  const trigger = document.querySelector<HTMLElement>('[data-part="edit-trigger"]')!;
+  expect(trigger.offsetWidth).toBeGreaterThan(trigger.offsetHeight);
+
+  await page.getByRole('button', { name: 'edit', exact: true }).click();
+  await expect
+    .element(page.getByRole('textbox', { name: 'editable input', exact: true }))
+    .toBeVisible();
+});
+
+test('shows the focus ring when the preview gets keyboard focus', async () => {
+  render(
+    <>
+      <button type="button">Before</button>
+      <TestEditable />
+    </>,
+  );
+
+  const area = document.querySelector<HTMLElement>('[data-slot="editable-area"]')!;
+  const idleOutline = getComputedStyle(area).outlineColor;
+
+  await page.getByRole('button', { name: 'Before', exact: true }).press('Tab');
+  await wait(400);
+
+  expect(document.activeElement?.getAttribute('data-slot')).toBe('editable-preview');
+  expect(getComputedStyle(area).outlineColor).not.toBe(idleOutline);
 });

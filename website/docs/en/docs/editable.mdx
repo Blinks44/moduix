@@ -435,8 +435,9 @@ state instance.
 
 ### Textarea
 
-Use `EditableInput asChild` with a native `<textarea>` for multiline content. The example sets the
-textarea size and aligns the controls so the copied snippet works as-is.
+Use `EditableInput asChild` with a native `<textarea>` for multiline content. The textarea gets a
+minimum height, the preview keeps line breaks, and the controls stay at the top. Press Cmd/Ctrl +
+Enter to save; Enter inserts a new line.
 
 <ExampleFrame variant="component">
   <EditableTextarea />
@@ -470,19 +471,16 @@ textarea size and aligns the controls so the copied snippet works as-is.
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/editable/editable-textarea.module.css"
-```
 </div>
 
 </ExampleCode>
 
 ### Advanced Customization
 
-Use `EditableContext` when a custom state-dependent layout needs access to the current edit state.
-This example skips `EditableControls` and shows keyboard instructions while editing.
+This example builds what `EditableControls` does from low-level parts: `EditableContext` switches
+between `EditableEditTrigger` and the submit and cancel triggers inside `EditableControl`. With
+`asChild`, each trigger renders your own `Button` and keeps its styles; `translations` keeps the
+accessible names in line with the visible text.
 
 <ExampleFrame variant="component">
   <EditableAdvancedCustomization />
@@ -522,9 +520,14 @@ This example skips `EditableControls` and shows keyboard instructions while edit
 
 ## Styling
 
-The CSS Modules packages expose the CSS variables below. Tailwind packages use utility classes and
-consumer classes passed to `className` or `class`, with `data-slot` and Ark state attributes available
-for targeted overrides.
+Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
+variants use native utilities and consumer classes. CSS Modules variants also expose the variable
+below, which keeps the area and the square triggers the same height. Data attributes and `data-slot`
+hooks are shared by both styling tracks.
+
+The root fills the width of its container, so switching between preview and input does not shift the
+layout. With `autoResize`, the root follows the text width instead. To limit the width, set
+`max-width` on the root with a class.
 
 ### CSS Properties
 

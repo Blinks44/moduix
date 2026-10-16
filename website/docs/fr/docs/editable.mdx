@@ -439,8 +439,9 @@ Pour cette instance d’état, le provider remplace `Editable`.
 
 ### Textarea
 
-Utilisez `EditableInput asChild` avec un élément natif `<textarea>` pour le contenu multiligne.
-L’exemple fixe la taille de la textarea et aligne les commandes pour que le code copié soit utilisable tel quel.
+Utilisez `EditableInput asChild` avec un élément natif `<textarea>` pour le contenu multiligne. La
+textarea a une hauteur minimale, l’aperçu conserve les retours à la ligne et les commandes restent en
+haut. Cmd/Ctrl + Entrée enregistre ; Entrée insère une nouvelle ligne.
 
 <ExampleFrame variant="component">
   <EditableTextarea />
@@ -474,19 +475,16 @@ L’exemple fixe la taille de la textarea et aligne les commandes pour que le co
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/editable/editable-textarea.module.css"
-```
 </div>
 
 </ExampleCode>
 
 ### Personnalisation avancée
 
-Utilisez `EditableContext` lorsqu’une disposition personnalisée dépend du mode actuel. Cet exemple
-n’utilise pas `EditableControls` et affiche une indication clavier pendant la modification.
+Cet exemple reconstruit `EditableControls` à partir des parties de bas niveau : `EditableContext`
+alterne entre `EditableEditTrigger` et les déclencheurs de validation et d’annulation dans
+`EditableControl`. Avec `asChild`, chaque déclencheur rend votre propre `Button` et conserve ses
+styles ; `translations` aligne les noms accessibles sur le texte visible.
 
 <ExampleFrame variant="component">
   <EditableAdvancedCustomization />
@@ -526,9 +524,15 @@ n’utilise pas `EditableControls` et affiche une indication clavier pendant la 
 
 ## Styles
 
-Les paquets CSS Modules exposent les variables CSS ci-dessous. Les paquets Tailwind utilisent des classes
-utilitaires et les classes du consommateur passées via `className` ou `class` ; les attributs `data-slot`
-et les attributs d’état d’Ark permettent des personnalisations ciblées.
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles
+structurels. Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur.
+Les variantes CSS Modules exposent aussi la variable ci-dessous, qui garde la même hauteur pour la
+zone et les déclencheurs carrés. Les attributs de données et les points d’accroche `data-slot` sont
+partagés par les deux variantes.
+
+La racine occupe la largeur de son conteneur, si bien que le passage entre l’aperçu et la saisie ne
+décale pas la mise en page. Avec `autoResize`, la racine suit la largeur du texte. Pour limiter la
+largeur, appliquez `max-width` à la racine avec une classe.
 
 ### Propriétés CSS
 
