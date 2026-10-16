@@ -36,7 +36,7 @@ const activeProfile = ref(profiles[0]);
     <p>
       Reviewed by
       <template v-for="(profile, index) in profiles" :key="profile.id">
-        <HoverCardTrigger :value="profile.id" :class="styles.trigger">
+        <HoverCardTrigger :value="profile.id">
           {{ profile.username }}
         </HoverCardTrigger>
         <template v-if="index < profiles.length - 1"> and </template>

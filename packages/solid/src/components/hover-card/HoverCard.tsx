@@ -151,3 +151,20 @@ export {
   useHoverCardContext,
 };
 export type { HoverCardRootProps, HoverCardRootProviderProps };
+
+export type {
+  HoverCardArrowProps,
+  HoverCardArrowTipProps,
+  HoverCardContentProps,
+  HoverCardContextProps,
+  HoverCardFocusOutsideEvent,
+  HoverCardInteractOutsideEvent,
+  HoverCardOpenChangeDetails,
+  HoverCardPointerDownOutsideEvent,
+  HoverCardPositionerProps,
+  HoverCardTriggerProps,
+  HoverCardTriggerValueChangeDetails,
+  UseHoverCardContext,
+  UseHoverCardProps,
+  UseHoverCardReturn,
+} from '@ark-ui/solid/hover-card';

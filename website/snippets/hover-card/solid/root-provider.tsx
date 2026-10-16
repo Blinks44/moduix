@@ -14,7 +14,7 @@ export default function RootProviderHoverCard() {
   return (
     <>
       <HoverCardRootProvider value={hoverCard}>
-        <HoverCardTrigger class={styles.trigger}>3 unread updates</HoverCardTrigger>
+        <HoverCardTrigger>3 unread updates</HoverCardTrigger>
         <HoverCardPositioner>
           <HoverCardContent>
             <HoverCardBody>

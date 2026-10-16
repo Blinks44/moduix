@@ -11,8 +11,7 @@ export default function BasicHoverCard() {
   return (
     <HoverCard>
       <p>
-        Liked by <HoverCardTrigger class={styles.trigger}>@sarah_chen</HoverCardTrigger> and 3
-        others
+        Liked by <HoverCardTrigger>@sarah_chen</HoverCardTrigger> and 3 others
       </p>
       <HoverCardPositioner>
         <HoverCardContent>

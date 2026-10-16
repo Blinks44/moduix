@@ -32,7 +32,7 @@ const titleRef = ref<HTMLElement | null>(null);
           <DialogTitle ref="titleRef" tabindex="-1">Team member</DialogTitle>
         </DialogHeader>
         <HoverCard :portalled="false">
-          <HoverCardTrigger :class="styles.trigger">@sarah_chen</HoverCardTrigger>
+          <HoverCardTrigger>@sarah_chen</HoverCardTrigger>
           <HoverCardPositioner>
             <HoverCardContent>
               <HoverCardBody>

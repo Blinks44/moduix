@@ -4,7 +4,6 @@ component: hover-card
 description: Компонент Hover Card на базе Ark UI для дополнительных предпросмотров, открывающихся при наведении или получении фокуса.
 ---
 
-import * as HoverCardDocs from '@/components/examples/hover-card/css-properties';
 import BasicHoverCard from '@/components/examples/hover-card/basic.tsx';
 import ContextHoverCard from '@/components/examples/hover-card/context.tsx';
 import ControlledHoverCard from '@/components/examples/hover-card/controlled.tsx';
@@ -598,24 +597,15 @@ HoverCardRootProvider
 
 ## Стилизация
 
-Для структурных стилей используйте `className` в React или `class` в Solid и Vue на экспортируемых
-частях. Варианты Tailwind используют нативные utility-классы и классы потребителя, а переменные
-ниже настраивают варианты CSS Modules. Атрибуты состояния и хуки `data-slot` общие для обоих
-вариантов стилизации.
+`HoverCardTrigger` без `asChild` выглядит как встроенная ссылка основного цвета; подчёркивание
+следует `currentColor`, поэтому класс с `color` меняет оба. `HoverCardContent` шириной 14–24rem и
+высотой не больше 24rem в пределах доступного места. Анимация содержимого читает общие переменные
+`--moduix-popup-motion-*`.
 
-### CSS-свойства
-
-<div className="not-prose">
-  <Tabs
-    values={[{ label: 'Переменные CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <HoverCardDocs.HoverCardCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты Tailwind
+используют нативные utility-классы и классы потребителя. Варианты CSS Modules построены на токенах
+foundation и не имеют переменных компонента: класс на части переопределяет стили компонента из слоя.
+Атрибуты состояния и хуки `data-slot` общие для обоих вариантов стилизации.
 
 ### Точки для стилизации
 

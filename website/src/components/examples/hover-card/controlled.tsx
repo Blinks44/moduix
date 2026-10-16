@@ -16,7 +16,7 @@ export default function ControlledHoverCard() {
   return (
     <>
       <HoverCard open={open} onOpenChange={(details) => setOpen(details.open)}>
-        <HoverCardTrigger className={styles.trigger}>@sarah_chen</HoverCardTrigger>
+        <HoverCardTrigger>@sarah_chen</HoverCardTrigger>
         <HoverCardPositioner>
           <HoverCardContent>
             <HoverCardBody>

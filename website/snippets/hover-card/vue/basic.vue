@@ -11,9 +11,7 @@ import styles from '@/components/examples/hover-card/hover-card-basic.module.css
 
 <template>
   <HoverCard>
-    <p>
-      Liked by <HoverCardTrigger :class="styles.trigger">@sarah_chen</HoverCardTrigger> and 3 others
-    </p>
+    <p>Liked by <HoverCardTrigger>@sarah_chen</HoverCardTrigger> and 3 others</p>
     <HoverCardPositioner>
       <HoverCardContent>
         <HoverCardBody>

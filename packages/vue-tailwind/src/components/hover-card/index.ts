@@ -25,16 +25,16 @@ export {
 
 export type {
   HoverCardArrowProps,
+  HoverCardArrowTipProps,
   HoverCardContentProps,
+  HoverCardContextProps,
   HoverCardFocusOutsideEvent,
   HoverCardInteractOutsideEvent,
   HoverCardOpenChangeDetails,
   HoverCardPointerDownOutsideEvent,
   HoverCardPositionerProps,
   HoverCardRootEmits,
-  HoverCardRootProps,
   HoverCardRootProviderEmits,
-  HoverCardRootProviderProps,
   HoverCardTriggerProps,
   HoverCardTriggerValueChangeDetails,
   UseHoverCardContext,
@@ -43,3 +43,5 @@ export type {
 } from '@ark-ui/vue/hover-card';
 
 export type { HTMLArkProps } from '@ark-ui/vue/factory';
+export type { Props as HoverCardRootProps } from './HoverCard.vue';
+export type { Props as HoverCardRootProviderProps } from './HoverCardRootProvider.vue';

@@ -14,7 +14,7 @@ import styles from '@/components/examples/hover-card/hover-card-context.module.c
 <template>
   <HoverCard>
     <HoverCardContext v-slot="hoverCard">
-      <HoverCardTrigger :class="styles.trigger">
+      <HoverCardTrigger>
         @sarah_chen
         <ChevronUpIcon v-if="hoverCard.open" aria-hidden :size="16" />
         <ChevronDownIcon v-else aria-hidden :size="16" />

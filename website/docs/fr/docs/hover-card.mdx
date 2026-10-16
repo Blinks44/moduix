@@ -4,7 +4,6 @@ component: hover-card
 description: Composant Hover Card basé sur Ark UI qui affiche des aperçus complémentaires au survol ou lorsque le déclencheur reçoit le focus.
 ---
 
-import * as HoverCardDocs from '@/components/examples/hover-card/css-properties';
 import BasicHoverCard from '@/components/examples/hover-card/basic.tsx';
 import ContextHoverCard from '@/components/examples/hover-card/context.tsx';
 import ControlledHoverCard from '@/components/examples/hover-card/controlled.tsx';
@@ -599,24 +598,16 @@ permettant au contenu de défiler.
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles
-structurels. Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ;
-les variables ci-dessous personnalisent les variantes CSS Modules. Les attributs d’état et les hooks
-`data-slot` sont communs aux deux modes de style.
+Sans `asChild`, `HoverCardTrigger` ressemble à un lien en ligne de la couleur principale ; son
+soulignement suit `currentColor`, donc une classe `color` recolore les deux. `HoverCardContent` mesure
+de 14 à 24rem de large et au plus 24rem de haut dans l’espace disponible. L’animation du contenu lit
+les variables partagées `--moduix-popup-motion-*`.
 
-### Propriétés CSS
-
-<div className="not-prose">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <HoverCardDocs.HoverCardCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes
+Tailwind utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules
+reposent sur les jetons de foundation et n’ont pas de variables de composant : une classe sur la partie
+remplace les styles du composant en couche. Les attributs d’état et les hooks `data-slot` sont communs
+aux deux modes de style.
 
 ### Ciblage des styles
 

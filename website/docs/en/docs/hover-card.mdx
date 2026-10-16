@@ -4,7 +4,6 @@ component: hover-card
 description: An Ark UI hover card for supplementary previews opened when its trigger is hovered or focused.
 ---
 
-import * as HoverCardDocs from '@/components/examples/hover-card/css-properties';
 import BasicHoverCard from '@/components/examples/hover-card/basic.tsx';
 import ContextHoverCard from '@/components/examples/hover-card/context.tsx';
 import ControlledHoverCard from '@/components/examples/hover-card/controlled.tsx';
@@ -593,23 +592,15 @@ trigger. The wrapper renders `HoverCardArrowTip` by default; keep the preview in
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
-variants use native utilities and consumer classes; the variables below customize the CSS Modules
-variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
+`HoverCardTrigger` without `asChild` looks like an inline link in the primary color; its underline
+follows `currentColor`, so a `color` class recolors both. `HoverCardContent` is 14–24rem wide and at
+most 24rem tall within the available viewport space. Content motion reads the shared
+`--moduix-popup-motion-*` variables.
 
-### CSS Properties
-
-<div className="not-prose">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <HoverCardDocs.HoverCardCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on the part overrides the layered component styles. Data attributes and
+`data-slot` hooks are shared by both styling tracks.
 
 ### Styling hooks
 

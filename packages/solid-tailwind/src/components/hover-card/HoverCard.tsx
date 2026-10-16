@@ -70,7 +70,7 @@ function HoverCardTrigger(props: ComponentProps<typeof HoverCardPrimitive.Trigge
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'inline-flex cursor-pointer items-center gap-1 text-primary underline decoration-primary/60 decoration-1 underline-offset-2 outline-0 transition-[color,text-decoration-color] duration-150 ease-in-out focus-visible:rounded-xs focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:decoration-primary motion-reduce:transition-none [@media(hover:hover)]:hover:decoration-primary',
+          'inline-flex cursor-pointer items-center gap-1 text-primary underline decoration-current/60 decoration-1 underline-offset-2 outline-0 transition-[text-decoration-color] duration-150 ease-in-out focus-visible:rounded-xs focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-[state=open]:decoration-current motion-reduce:transition-none [@media(hover:hover)]:hover:decoration-current',
         local.class,
       )}
       {...others}
@@ -102,7 +102,7 @@ function HoverCardContent(props: ComponentProps<typeof HoverCardPrimitive.Conten
   return (
     <HoverCardPrimitive.Content
       class={cn(
-        'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(24rem,var(--available-width))] min-w-[min(14rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-lg border border-border bg-popover p-2 wrap-anywhere text-popover-foreground shadow-lg outline-0 has-[>[data-slot=hover-card-body]]:flex has-[>[data-slot=hover-card-body]]:flex-col data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none has-[>[data-slot=hover-card-body]]:[&>[data-slot=hover-card-body]]:overflow-auto',
+        'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(24rem,var(--available-width))] min-w-[min(14rem,var(--available-width))] origin-[var(--transform-origin)] rounded-lg border border-border bg-popover p-2 wrap-anywhere text-popover-foreground shadow-lg outline-0 has-[>[data-slot=hover-card-body]]:flex has-[>[data-slot=hover-card-body]]:flex-col data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         local.class,
       )}
       {...others}
@@ -144,7 +144,13 @@ function HoverCardArrowTip(props: ComponentProps<typeof HoverCardPrimitive.Arrow
 function HoverCardBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div class={cn('min-h-0', local.class)} {...others} data-slot="hover-card-body" />;
+  return (
+    <ark.div
+      class={cn('min-h-0 overflow-auto', local.class)}
+      {...others}
+      data-slot="hover-card-body"
+    />
+  );
 }
 
 const HoverCardContext = HoverCardPrimitive.Context;
@@ -163,3 +169,20 @@ export {
   useHoverCardContext,
 };
 export type { HoverCardRootProps, HoverCardRootProviderProps };
+
+export type {
+  HoverCardArrowProps,
+  HoverCardArrowTipProps,
+  HoverCardContentProps,
+  HoverCardContextProps,
+  HoverCardFocusOutsideEvent,
+  HoverCardInteractOutsideEvent,
+  HoverCardOpenChangeDetails,
+  HoverCardPointerDownOutsideEvent,
+  HoverCardPositionerProps,
+  HoverCardTriggerProps,
+  HoverCardTriggerValueChangeDetails,
+  UseHoverCardContext,
+  UseHoverCardProps,
+  UseHoverCardReturn,
+} from '@ark-ui/solid/hover-card';

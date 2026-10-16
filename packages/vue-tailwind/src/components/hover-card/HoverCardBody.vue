@@ -17,7 +17,11 @@ const attrs = useAttrs();
 </script>
 
 <template>
-  <ark.div v-bind="attrs" :class="cn('min-h-0', className)" data-slot="hover-card-body">
+  <ark.div
+    v-bind="attrs"
+    :class="cn('min-h-0 overflow-auto', className)"
+    data-slot="hover-card-body"
+  >
     <slot />
   </ark.div>
 </template>

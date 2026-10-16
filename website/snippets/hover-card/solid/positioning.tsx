@@ -10,7 +10,7 @@ import styles from '@/components/examples/hover-card/hover-card-positioning.modu
 export default function PositioningHoverCard() {
   return (
     <HoverCard positioning={{ placement: 'right', gutter: 12 }}>
-      <HoverCardTrigger class={styles.trigger}>Atlas workspace</HoverCardTrigger>
+      <HoverCardTrigger>Atlas workspace</HoverCardTrigger>
       <HoverCardPositioner>
         <HoverCardContent>
           <HoverCardBody>

@@ -36,9 +36,7 @@ export default function MultipleTriggersHoverCard() {
         Reviewed by{' '}
         {profiles.map((profile, index) => (
           <span key={profile.id}>
-            <HoverCardTrigger value={profile.id} className={styles.trigger}>
-              {profile.username}
-            </HoverCardTrigger>
+            <HoverCardTrigger value={profile.id}>{profile.username}</HoverCardTrigger>
             {index < profiles.length - 1 ? ' and ' : null}
           </span>
         ))}

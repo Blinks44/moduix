@@ -157,3 +157,20 @@ export {
   type HoverCardRootProps,
   type HoverCardRootProviderProps,
 };
+
+export type {
+  HoverCardArrowProps,
+  HoverCardArrowTipProps,
+  HoverCardContentProps,
+  HoverCardContextProps,
+  HoverCardFocusOutsideEvent,
+  HoverCardInteractOutsideEvent,
+  HoverCardOpenChangeDetails,
+  HoverCardPointerDownOutsideEvent,
+  HoverCardPositionerProps,
+  HoverCardTriggerProps,
+  HoverCardTriggerValueChangeDetails,
+  UseHoverCardContext,
+  UseHoverCardProps,
+  UseHoverCardReturn,
+} from '@ark-ui/react/hover-card';
