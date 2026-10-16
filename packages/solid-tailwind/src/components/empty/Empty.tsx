@@ -30,7 +30,7 @@ function EmptyIcon(props: HTMLArkProps<'div'>) {
       data-part="icon"
       data-slot="empty-icon"
       class={cn(
-        'inline-flex min-w-0 items-center justify-center rounded-full bg-muted p-3 text-muted-foreground [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0',
+        'inline-flex items-center justify-center rounded-full bg-muted p-3 text-muted-foreground [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0',
         local.class,
       )}
     />
@@ -60,7 +60,7 @@ function EmptyTitle(props: HTMLArkProps<'h3'>) {
       data-scope="empty"
       data-part="title"
       data-slot="empty-title"
-      class={cn('min-w-0 text-xl font-semibold wrap-anywhere', local.class)}
+      class={cn('text-xl font-semibold wrap-anywhere', local.class)}
     />
   );
 }
@@ -75,7 +75,7 @@ function EmptyDescription(props: HTMLArkProps<'div'>) {
       data-part="description"
       data-slot="empty-description"
       class={cn(
-        'min-w-0 text-sm wrap-anywhere text-muted-foreground [&>:first-child]:mt-0 [&>:last-child]:mb-0',
+        'text-sm wrap-anywhere text-muted-foreground [&>:first-child]:mt-0 [&>:last-child]:mb-0',
         local.class,
       )}
     />
@@ -92,7 +92,7 @@ function EmptyActions(props: HTMLArkProps<'div'>) {
       data-part="actions"
       data-slot="empty-actions"
       class={cn(
-        'flex max-w-full min-w-0 flex-wrap items-center justify-center gap-2 [&>*]:max-w-full [&>*]:min-w-0 [&>:is(button,a)]:wrap-anywhere [&>:is(button,a)]:whitespace-normal',
+        'flex min-w-0 flex-wrap items-center justify-center gap-2 [&>*]:max-w-full [&>*]:min-w-0 [&>:is(button,a)]:wrap-anywhere [&>:is(button,a)]:whitespace-normal',
         local.class,
       )}
     />

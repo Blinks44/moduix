@@ -307,29 +307,12 @@
   --moduix-drawer-island-inset: initial; /* var(--moduix-spacing-4); DrawerContent variant="island" */
 
   /* Empty */
-  --moduix-empty-actions-gap: initial; /* var(--moduix-spacing-2) */
   --moduix-empty-bg: initial; /* color-mix(in oklab, var(--moduix-color-card) 92%, var(--moduix-color-muted)) */
   --moduix-empty-border-color: initial; /* var(--moduix-color-border) */
   --moduix-empty-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-empty-color: initial; /* var(--moduix-color-card-foreground) */
-  --moduix-empty-content-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-empty-content-max-width: initial; /* 28rem */
-  --moduix-empty-description-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-empty-description-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-empty-description-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-empty-gap: initial; /* var(--moduix-spacing-4) */
-  --moduix-empty-icon-bg: initial; /* var(--moduix-color-muted) */
-  --moduix-empty-icon-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-empty-icon-padding: initial; /* var(--moduix-spacing-3) */
-  --moduix-empty-icon-radius: initial; /* var(--moduix-radius-full) */
-  --moduix-empty-icon-size: initial; /* var(--moduix-spacing-6) */
   --moduix-empty-padding: initial; /* var(--moduix-spacing-8) */
   --moduix-empty-radius: initial; /* var(--moduix-radius-xl) */
-  --moduix-empty-shadow: initial; /* none */
-  --moduix-empty-title-color: initial; /* currentColor */
-  --moduix-empty-title-font-size: initial; /* var(--moduix-text-xl) */
-  --moduix-empty-title-font-weight: initial; /* var(--moduix-weight-semibold) */
-  --moduix-empty-title-line-height: initial; /* var(--moduix-line-height-text-xl) */
 
   /* Editable */
   --moduix-editable-area-height: initial; /* var(--moduix-size-md) */

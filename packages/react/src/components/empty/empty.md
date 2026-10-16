@@ -2,46 +2,36 @@
 
 Upstream docs:
 
-- Ark UI: no dedicated Empty primitive; use https://ark-ui.com/react/docs/guides/composition and
-  https://ark-ui.com/react/docs/guides/styling plus https://ark-ui.com/react/docs/guides/ref
-- Chakra UI: https://chakra-ui.com/docs/components/empty-state provides an `EmptyState` reference
-  composition. Moduix intentionally keeps `EmptyIcon` as a root sibling rather than nesting it in
-  `EmptyContent`.
+- Ark UI: no dedicated Empty primitive; use https://ark-ui.com/docs/guides/composition,
+  https://ark-ui.com/docs/guides/styling, and https://ark-ui.com/docs/guides/ref
+- Chakra UI: https://chakra-ui.com/docs/components/empty-state
+- shadcn/ui: https://ui.shadcn.com/docs/components/empty
 
 ## Purpose
 
-Use `Empty` for zero-data, no-results, and first-run screens that need a short explanation plus
-optional next-step actions.
+`Empty` composes a zero-data, no-results, or first-run message with optional next-step actions.
 
 ## Upstream model to preserve
 
-Ark UI does not ship an Empty primitive. This component is a moduix-owned, Ark-aligned factory
-wrapper built with `@ark-ui/react/factory`.
-
-Preserve these Ark guide concepts:
-
-- every exported part is an `ark.*` element and accepts `asChild`;
-- `asChild` requires one semantic child that can carry the part's attributes and ref;
-- styling exposes Ark-style `data-scope="empty"` and `data-part` attributes;
-- there are no provider, context, state, callback, `ids`, `HiddenInput`, or `Field`/`Fieldset`
-  contracts to mirror because the component is presentational only.
+Ark UI does not ship an Empty primitive. moduix implements it as presentational
+`@ark-ui/react/factory` wrappers: every part is an `ark.*` element, accepts `asChild`, and forwards
+its ref. There is no provider, context, state, or callback to mirror.
 
 ## Current behavior contract
 
-- `Empty` is the callable root.
-- `EmptyIcon`, `EmptyContent`, `EmptyTitle`, `EmptyDescription`, and `EmptyActions` are flat
-  family-prefixed parts.
-- Every part forwards its ref to the rendered DOM element.
-- The package does not export dedicated `Empty*Props` aliases. Advanced typing should use Ark
-  factory intrinsic props directly, for example `HTMLArkProps<'div'>` or `HTMLArkProps<'h3'>`.
-- `EmptyTitle` renders `h3` by default. Use `asChild` with a heading element when the page outline
-  needs a different level.
-- `EmptyDescription` renders a `div`, not a `p`, so it can safely contain paragraphs, links, or
-  short block content.
-- The component does not provide built-in button props, icon props, variants, alignment flags, or
-  state logic. Those concerns stay in composition.
+- Flat parts: `Empty`, `EmptyIcon`, `EmptyContent`, `EmptyTitle`, `EmptyDescription`,
+  `EmptyActions`. No `Empty*Props` types: props are Ark factory intrinsics (`HTMLArkProps<'div'>`,
+  `HTMLArkProps<'h3'>`).
+- `EmptyTitle` renders `h3`; use `asChild` with another heading for a different level.
+- `EmptyDescription` renders a `div`, so it can contain paragraphs, links, or other block content.
+  The first child's top margin and the last child's bottom margin are reset.
+- `EmptyIcon` and `EmptyActions` are optional root-level siblings of `EmptyContent`, not nested in it.
+- Every part emits `data-scope="empty"`, `data-part`, and `data-slot="empty-*"` after the consumer
+  props, so colliding `data-*` props cannot replace them.
+- No role, live region, keyboard behavior, or focus management. The caller chooses the landmark,
+  heading level, and `aria-live` behavior.
 
-## Anatomy and exported parts
+## Anatomy
 
 ```text
 Empty
@@ -75,7 +65,7 @@ import {
 } from '@moduix/react/empty';
 import { Map as MapIcon } from 'lucide-react';
 
-export function EmptyResults() {
+export function EmptyPlaces() {
   return (
     <Empty>
       <EmptyIcon>
@@ -83,117 +73,34 @@ export function EmptyResults() {
       </EmptyIcon>
       <EmptyContent>
         <EmptyTitle>No saved places</EmptyTitle>
-        <EmptyDescription>
-          Save frequently used destinations to keep them close to your workspace.
-        </EmptyDescription>
+        <EmptyDescription>Save destinations to keep them close to your workspace.</EmptyDescription>
       </EmptyContent>
       <EmptyActions>
         <Button>Add place</Button>
-        <Button variant="outline">Import list</Button>
       </EmptyActions>
     </Empty>
   );
 }
 ```
 
-For a different heading level, use Ark factory composition:
-
-```tsx
-<EmptyTitle asChild>
-  <h2>No saved places</h2>
-</EmptyTitle>
-```
-
-## Upstream feature coverage
-
-- Ark dedicated component docs: not applicable; there is no Empty primitive or official Empty
-  examples to cover.
-- Ark factory composition: covered by every part using `ark.*` and `HTMLArkProps`.
-- Ark `asChild`: supported on every part. Consumers must pass a single semantic child.
-- Ark styling: covered by `data-scope`, `data-part`, `className`, and public `--moduix-empty-*` variables.
-- Ark state management, callbacks, context hooks, `RootProvider`, `ids`, `HiddenInput`, and form
-  context: intentionally absent because the component has no interactive state.
-
-## Accessibility and state
-
-`Empty` adds no role, ARIA state, keyboard behavior, or focus management by default. Consumers should
-choose the correct surrounding landmark, live-region behavior, and heading level for the screen.
-
-Refs point at the rendered part elements. `asChild` can replace a host element, but the child must
-remain semantic: use a heading for `EmptyTitle`, a neutral container for `EmptyDescription`, and a
-button/link wrapper only where that semantic role is intentional.
-
 ## Defaults and styling
 
-Every part accepts `className` and emits `data-scope="empty"` plus its `data-part` and `data-slot`.
-The CSS module preserves the moduix visual identity: centered grid layout, tokenized spacing, card
-surface colors, rounded icon container, and wrapping action row. Direct button and link actions can
-wrap long labels instead of overflowing a narrow surface.
+The root is a full-width centered grid on a card surface tinted with `muted`. The text block is
+capped at `28rem`. `EmptyIcon` is a round muted badge that sizes nested SVGs to
+`--moduix-spacing-6`. Long titles and descriptions break anywhere. `EmptyActions` wraps its
+children, and direct `button` / `a` children wrap long labels inside narrow surfaces.
 
-Public CSS variables:
-
-| Variable                                 | Default fallback                                                               |
-| ---------------------------------------- | ------------------------------------------------------------------------------ |
-| `--moduix-empty-actions-gap`             | `var(--moduix-spacing-2)`                                                      |
-| `--moduix-empty-bg`                      | `color-mix(in oklab, var(--moduix-color-card) 92%, var(--moduix-color-muted))` |
-| `--moduix-empty-border-color`            | `var(--moduix-color-border)`                                                   |
-| `--moduix-empty-border-width`            | `var(--moduix-border-width-sm)`                                                |
-| `--moduix-empty-color`                   | `var(--moduix-color-card-foreground)`                                          |
-| `--moduix-empty-content-gap`             | `var(--moduix-spacing-1)`                                                      |
-| `--moduix-empty-content-max-width`       | `28rem`                                                                        |
-| `--moduix-empty-description-color`       | `var(--moduix-color-muted-foreground)`                                         |
-| `--moduix-empty-description-font-size`   | `var(--moduix-text-sm)`                                                        |
-| `--moduix-empty-description-line-height` | `var(--moduix-line-height-text-sm)`                                            |
-| `--moduix-empty-gap`                     | `var(--moduix-spacing-4)`                                                      |
-| `--moduix-empty-icon-bg`                 | `var(--moduix-color-muted)`                                                    |
-| `--moduix-empty-icon-color`              | `var(--moduix-color-muted-foreground)`                                         |
-| `--moduix-empty-icon-padding`            | `var(--moduix-spacing-3)`                                                      |
-| `--moduix-empty-icon-radius`             | `var(--moduix-radius-full)`                                                    |
-| `--moduix-empty-icon-size`               | `var(--moduix-spacing-6)`                                                      |
-| `--moduix-empty-padding`                 | `var(--moduix-spacing-8)`                                                      |
-| `--moduix-empty-radius`                  | `var(--moduix-radius-xl)`                                                      |
-| `--moduix-empty-shadow`                  | `none`                                                                         |
-| `--moduix-empty-title-color`             | `currentColor`                                                                 |
-| `--moduix-empty-title-font-size`         | `var(--moduix-text-xl)`                                                        |
-| `--moduix-empty-title-font-weight`       | `var(--moduix-weight-semibold)`                                                |
-| `--moduix-empty-title-line-height`       | `var(--moduix-line-height-text-xl)`                                            |
-
-## Intentional sugar and differences from upstream
-
-- There is no upstream Ark Empty API. The flat family-prefixed API is moduix-owned and shaped like
-  other Ark-aligned factory wrappers in this package.
-- Public `Empty*Props` aliases are intentionally omitted because they only duplicate Ark factory
-  intrinsic prop types.
-- The component parts are exported directly as `EmptyIcon`, `EmptyContent`, `EmptyTitle`,
-  `EmptyDescription`, and `EmptyActions`; no namespace assembly or compatibility aliases are kept.
-- The previous `EmptyTitle as` prop was removed. Use Ark factory `asChild` instead.
-- Optional parts are omitted through normal JSX composition rather than through boolean props.
+CSS Modules expose six root-surface variables so a theme can retune every empty state at once:
+`--moduix-empty-bg`, `--moduix-empty-border-color`, `--moduix-empty-border-width`,
+`--moduix-empty-color`, `--moduix-empty-padding`, and `--moduix-empty-radius`. Everything else uses
+foundation tokens directly; a class on the part overrides the layered styles. Tailwind adapters apply
+the same values through utilities.
 
 ## Agent notes
 
-- Keep `Empty` presentational. Do not add variants, alignment flags, image-loading helpers, state
-  hooks, or built-in action props without a concrete product requirement.
-- Preserve `EmptyDescription` as a `div`; replacing it with `p` makes block content composition
-  error-prone.
-- If public `--moduix-empty-*` variables change, update `variables-moduix.css`, stories, docs examples, and the CSS
-  properties reference in the same task.
-- Registry consumers need `@ark-ui/react` because the shipped source imports
-  `@ark-ui/react/factory`.
-
-## Local changelog
-
-- 2026-08-10: Added a per-icon radius styling hook, verified `asChild` across every part, and
-  aligned the decorative-icon guidance and current Ark documentation links.
-
-- 2026-07-27: Kept direct button and link actions within narrow empty-state surfaces when labels are
-  long, added focused anatomy and `asChild` tests, and documented the presentational accessibility
-  contract in the site docs.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-09-21: Replaced the compound `Empty.*` surface with the flat API across React, Solid, and
-  Tailwind variants. `Empty` is the only root value; every part uses an `Empty`-prefixed export.
-- 2026-07-02: Removed redundant exported `Empty*Props` aliases; the public API now exposes only the
-  callable `Empty` root while typing stays on Ark factory intrinsics.
-- 2026-06-25: Audited the Ark factory migration, confirmed the TSX and CSS contracts, and aligned
-  public docs with the required local-only Ark factory API reference text.
-- 2026-06-19: Migrated `Empty` to an Ark-aligned factory wrapper with `data-scope`/`data-part`,
-  flat family-prefixed parts, forwarded refs, and `asChild` composition. Removed `EmptyTitle as`.
+- Keep `Empty` presentational. Do not add variants, alignment flags, state hooks, or built-in action
+  props without a concrete product requirement.
+- Keep `EmptyDescription` a `div`; a `p` breaks block content.
+- Do not add per-part `--moduix-empty-*` variables; a class on the part is the override path.
+- `EmptyActions` targets `> :is(button, a)` so it outranks the Button root class regardless of
+  stylesheet order.

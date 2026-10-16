@@ -288,9 +288,11 @@ et d’autres éléments de type bloc.
 
 ## Styles
 
-Personnalisez l’apparence de `Empty` avec `className`, les sélecteurs Ark fondés sur
-`data-scope="empty"` / `data-part`, les attributs `data-slot="empty-*"` stables et les variables CSS
-publiques `--moduix-empty-*` présentées ci-dessous.
+Personnalisez l’apparence de `Empty` avec `className` en React ou `class` en Solid et Vue, les
+sélecteurs Ark fondés sur `data-scope="empty"` / `data-part` et les attributs `data-slot="empty-*"`
+stables. Les paquets CSS Modules exposent les variables `--moduix-empty-*` ci-dessous pour la surface
+racine, afin qu’un thème puisse ajuster tous les états vides à la fois. Stylisez les autres parties avec
+une classe : elle l’emporte sur les styles en couche du composant.
 
 ### Propriétés CSS
 

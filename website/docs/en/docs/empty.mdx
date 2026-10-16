@@ -285,8 +285,10 @@ as `section`. Use it on `EmptyTitle` when the heading needs a different level. B
 
 ## Styling
 
-Customize `Empty` with `className`, Ark `data-scope="empty"` / `data-part` selectors, stable
-`data-slot="empty-*"` hooks, and the public `--moduix-empty-*` CSS variables shown below.
+Customize `Empty` with `className` in React or `class` in Solid and Vue, Ark `data-scope="empty"` /
+`data-part` selectors, and stable `data-slot="empty-*"` hooks. The CSS Modules packages expose the
+`--moduix-empty-*` variables below for the root surface, so a theme can retune every empty state at
+once. Style the other parts with a class: it overrides the layered component styles.
 
 ### CSS Properties
 

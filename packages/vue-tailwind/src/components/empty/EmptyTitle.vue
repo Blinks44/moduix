@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ark.h3
     v-bind="attrs"
-    :class="cn('min-w-0 text-xl font-semibold wrap-anywhere', className)"
+    :class="cn('text-xl font-semibold wrap-anywhere', className)"
     data-scope="empty"
     data-part="title"
     data-slot="empty-title"
