@@ -388,7 +388,6 @@
 
     &[data-disabled] {
       pointer-events: none;
-      color: var(--moduix-select-item-disabled-color, var(--moduix-color-muted-foreground));
       opacity: var(--moduix-select-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }

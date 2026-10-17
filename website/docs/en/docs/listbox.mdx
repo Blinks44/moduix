@@ -95,10 +95,6 @@ through `item`. Add `ListboxItemIndicator` when rows should show the selected st
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -232,10 +228,6 @@ Keep the selected string array in application state and update it from `details.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-controlled.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -269,10 +261,6 @@ Disable an individual item with its collection item's `disabled` field.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-disabled-item.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -306,10 +294,6 @@ Use `selectionMode="extended"` when users need modifier keys to select multiple 
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-extended-selection.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -344,10 +328,6 @@ with `ListboxContent`; turn off typeahead when the input handles search.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-filtering.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -382,10 +362,6 @@ Pass a collection created with `createGridCollection` to enable grid keyboard na
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-grid.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -419,10 +395,6 @@ Set `groupBy` when creating the collection and render `ListboxItemGroup` with `L
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-grouping.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -494,10 +466,6 @@ Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-multiple.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -571,10 +539,6 @@ Use `useListboxContext` inside a child component to add a button that updates th
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-select-all.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -608,10 +572,6 @@ Render `ListboxInput` directly when the filter and results should remain separat
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-standalone-filter-input.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -645,19 +605,18 @@ Render `ListboxValueText` when the selected-value summary should stay visible be
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-value-text.module.css"
-```
 </div>
 
 </ExampleCode>
 
 ## Styling
 
-Style Listbox through `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants
-use native utilities and consumer classes, while CSS Modules variants use the public
-`--moduix-listbox-*` CSS variables.
+Style Listbox through `className` in React or `class` in Solid and Vue on exported parts. Tailwind
+variants use native utilities and consumer classes. CSS Modules variants take colors, spacing, and
+typography from foundation tokens and expose only the root width and content maximum height as CSS
+variables; override other styles with a class on the part. Items, group labels, and the list padding
+also follow the shared `--moduix-popup-item-*`, `--moduix-popup-group-label-*`, and
+`--moduix-popup-list-padding-y` variables.
 
 ### CSS Properties
 

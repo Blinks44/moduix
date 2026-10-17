@@ -8,7 +8,6 @@ import {
   ListboxLabel,
 } from '@moduix/react/listbox';
 import { useState } from 'react';
-import styles from '@/components/examples/listbox/listbox-controlled.module.css';
 
 const sizes = createListCollection({
   items: [
@@ -34,12 +33,7 @@ const sizes = createListCollection({
 export default function ControlledListboxDemo() {
   const [value, setValue] = useState(['md']);
   return (
-    <Listbox
-      collection={sizes}
-      className={styles.root}
-      value={value}
-      onValueChange={(details) => setValue(details.value)}
-    >
+    <Listbox collection={sizes} value={value} onValueChange={(details) => setValue(details.value)}>
       <ListboxLabel>Select size</ListboxLabel>
       <ListboxContent>
         {sizes.items.map((item) => (

@@ -257,7 +257,6 @@
     }
 
     &[data-disabled] {
-      color: var(--moduix-color-muted-foreground);
       opacity: var(--moduix-opacity-disabled);
       pointer-events: none;
     }

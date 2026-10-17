@@ -10,7 +10,6 @@ import {
   ListboxItemText,
   ListboxLabel,
 } from '@moduix/vue/listbox';
-import styles from '@/components/examples/listbox/listbox-standalone-filter-input.module.css';
 
 const frameworks = [
   { label: 'React', value: 'react' },
@@ -28,7 +27,7 @@ const updateFilter = (event: Event) => filter((event.target as HTMLInputElement)
 </script>
 
 <template>
-  <Listbox :collection="collection" :class="styles.root" :typeahead="false">
+  <Listbox :collection="collection" :typeahead="false">
     <ListboxLabel>Select framework</ListboxLabel>
     <ListboxInput placeholder="Filter frameworks" @input="updateFilter" />
     <ListboxContent>

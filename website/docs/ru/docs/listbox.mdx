@@ -98,10 +98,6 @@ import listboxVueValueText from '../../../snippets/listbox/vue/value-text.vue?ra
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/listbox/listbox-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -235,10 +231,6 @@ ListboxRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/listbox/listbox-controlled.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -272,10 +264,6 @@ ListboxRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/listbox/listbox-disabled-item.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -309,10 +297,6 @@ ListboxRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/listbox/listbox-extended-selection.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -347,10 +331,6 @@ ListboxRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/listbox/listbox-filtering.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -385,10 +365,6 @@ ListboxRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/listbox/listbox-grid.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -422,10 +398,6 @@ ListboxRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/listbox/listbox-grouping.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -497,10 +469,6 @@ ListboxRootProvider
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/listbox/listbox-multiple.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -575,10 +543,6 @@ listbox.
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/listbox/listbox-select-all.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -613,10 +577,6 @@ listbox.
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/listbox/listbox-standalone-filter-input.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -651,19 +611,18 @@ listbox.
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/listbox/listbox-value-text.module.css"
-```
 </div>
 
 </ExampleCode>
 
 ## Стилизация
 
-Стилизуйте Listbox через `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты
-Tailwind используют нативные utility-классы и классы потребителя, а варианты с CSS Modules используют
-публичные CSS-переменные `--moduix-listbox-*`.
+Стилизуйте Listbox через `className` в React или `class` в Solid и Vue на экспортируемых частях.
+Варианты Tailwind используют нативные utility-классы и классы потребителя. Варианты с CSS Modules берут
+цвета, отступы и типографику из токенов foundation и выносят в CSS-переменные только ширину корня и
+максимальную высоту содержимого; остальное переопределяйте классом на части. Пункты, подписи групп и
+отступы списка также следуют общим переменным `--moduix-popup-item-*`, `--moduix-popup-group-label-*` и
+`--moduix-popup-list-padding-y`.
 
 ### CSS-свойства
 

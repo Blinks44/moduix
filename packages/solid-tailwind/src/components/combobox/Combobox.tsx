@@ -293,7 +293,7 @@ function ComboboxItem(props: ComponentProps<typeof ComboboxPrimitive.Item>) {
   return (
     <ComboboxPrimitive.Item
       class={cn(
-        'relative mx-1 box-border flex min-h-control-sm cursor-default items-center justify-between gap-2 rounded-sm px-3 py-1 text-sm outline-0 select-none data-disabled:pointer-events-none data-disabled:text-muted-foreground data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground',
+        'relative mx-1 box-border flex min-h-control-sm cursor-default items-center justify-between gap-2 rounded-sm px-3 py-1 text-sm outline-0 select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground',
         local.class,
       )}
       {...others}

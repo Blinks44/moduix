@@ -99,11 +99,6 @@ const treeViewOverrideCssProperties: CssPropertyInput[] = [
     'Customizes tree view item color.',
   ],
   [
-    '--moduix-tree-view-item-disabled-color',
-    'var(--moduix-color-muted-foreground)',
-    'Customizes tree view item disabled color.',
-  ],
-  [
     '--moduix-tree-view-item-font-size',
     'var(--moduix-text-sm)',
     'Customizes tree view item font size.',

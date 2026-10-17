@@ -59,7 +59,7 @@ const ListboxLabel = forwardRef<
   return (
     <ListboxPrimitive.Label
       ref={ref}
-      className={cn('text-sm leading-5 font-medium text-foreground select-none', className)}
+      className={cn('text-sm leading-5 font-medium select-none', className)}
       {...props}
       data-slot="listbox-label"
     />
@@ -74,7 +74,7 @@ const ListboxInput = forwardRef<
     <ListboxPrimitive.Input
       ref={ref}
       className={cn(
-        'm-0 box-border min-h-control-md w-full rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:ps-9 group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:pe-10 group-has-[+_[data-slot=listbox-content]]/listbox-filter:rounded-b-none group-has-[+_[data-slot=listbox-content]]/listbox-filter:border-b-0 group-has-[+_[data-slot=listbox-content]:focus-visible]/listbox-filter:border-ring placeholder:text-muted-foreground focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 in-[[data-slot=listbox-filter]]:focus-visible:border-ring in-[[data-slot=listbox-filter]]:focus-visible:outline-transparent data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none [:is([data-slot=listbox-root],[data-slot=listbox-root-provider])[data-disabled]_&]:opacity-100',
+        'm-0 box-border min-h-control-md w-full rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:ps-9 group-has-[[data-slot=listbox-filter-icon]]/listbox-filter:pe-11 group-has-[+_[data-slot=listbox-content]]/listbox-filter:rounded-b-none group-has-[+_[data-slot=listbox-content]]/listbox-filter:border-b-0 group-has-[+_[data-slot=listbox-content]:focus-visible]/listbox-filter:border-ring placeholder:text-muted-foreground focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 in-[[data-slot=listbox-filter]]:focus-visible:border-ring in-[[data-slot=listbox-filter]]:focus-visible:outline-transparent motion-reduce:transition-none [:is([data-slot=listbox-root],[data-slot=listbox-root-provider])[data-disabled]_&]:opacity-100',
         className,
       )}
       {...props}
@@ -99,7 +99,7 @@ const ListboxFilter = forwardRef<HTMLDivElement, ComponentProps<'div'>>(function
     >
       <SearchIcon
         data-slot="listbox-filter-icon"
-        className="pointer-events-none absolute start-3 top-1/2 z-1 size-4 -translate-y-1/2 text-muted-foreground"
+        className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
       />
       {children}
     </div>
@@ -108,29 +108,17 @@ const ListboxFilter = forwardRef<HTMLDivElement, ComponentProps<'div'>>(function
 
 const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkProps<'button'>>(
   function ListboxClearTrigger(
-    {
-      'aria-label': ariaLabel = a11yLabels.clearSearch,
-      className,
-      children,
-      type = 'button',
-      ...props
-    },
+    { 'aria-label': ariaLabel = a11yLabels.clearSearch, className, ...props },
     ref,
   ) {
     return (
       <CloseButton
         ref={ref}
-        type={type}
         aria-label={ariaLabel}
-        className={cn(
-          'absolute end-3 top-1/2 size-control-xs -translate-y-1/2 rounded-sm bg-transparent text-muted-foreground [&>svg]:size-4 [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-foreground',
-          className,
-        )}
+        className={cn('absolute end-3 top-1/2 size-control-xs -translate-y-1/2', className)}
         {...props}
         data-slot="listbox-clear-trigger"
-      >
-        {children}
-      </CloseButton>
+      />
     );
   },
 );
@@ -143,7 +131,7 @@ const ListboxContent = forwardRef<
     <ListboxPrimitive.Content
       ref={ref}
       className={cn(
-        'box-border flex max-h-56 min-h-0 scroll-py-1 [scrollbar-gutter:stable] flex-col overflow-x-hidden overflow-y-auto overscroll-contain rounded-md border border-border bg-background py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out peer-has-[[data-slot=listbox-input]:focus-visible]/listbox-filter:border-x-ring peer-has-[[data-slot=listbox-input]:focus-visible]/listbox-filter:border-b-ring peer-data-[slot=listbox-filter]/listbox-filter:-mt-3 peer-data-[slot=listbox-filter]/listbox-filter:rounded-t-none focus-visible:outline-ring peer-data-[slot=listbox-filter]/listbox-filter:focus-visible:border-x-ring peer-data-[slot=listbox-filter]/listbox-filter:focus-visible:border-b-ring peer-data-[slot=listbox-filter]/listbox-filter:focus-visible:outline-transparent data-[layout=grid]:grid data-[layout=grid]:grid-cols-[repeat(var(--column-count),minmax(0,1fr))] data-[layout=grid]:gap-1 data-[layout=grid]:p-2 data-[orientation=horizontal]:not-data-[layout=grid]:max-h-none data-[orientation=horizontal]:not-data-[layout=grid]:flex-row data-[orientation=horizontal]:not-data-[layout=grid]:gap-2 data-[orientation=horizontal]:not-data-[layout=grid]:overflow-x-auto data-[orientation=horizontal]:not-data-[layout=grid]:overflow-y-hidden data-[orientation=horizontal]:not-data-[layout=grid]:px-1 motion-reduce:transition-none',
+        'box-border flex max-h-56 min-h-0 scroll-py-1 [scrollbar-gutter:stable] flex-col overflow-x-hidden overflow-y-auto rounded-md border border-border bg-background py-1 outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out peer-has-[[data-slot=listbox-input]:focus-visible]/listbox-filter:border-x-ring peer-has-[[data-slot=listbox-input]:focus-visible]/listbox-filter:border-b-ring peer-data-[slot=listbox-filter]/listbox-filter:-mt-3 peer-data-[slot=listbox-filter]/listbox-filter:rounded-t-none focus-visible:outline-ring peer-data-[slot=listbox-filter]/listbox-filter:focus-visible:border-x-ring peer-data-[slot=listbox-filter]/listbox-filter:focus-visible:border-b-ring peer-data-[slot=listbox-filter]/listbox-filter:focus-visible:outline-transparent data-[layout=grid]:grid data-[layout=grid]:grid-cols-[repeat(var(--column-count),minmax(0,1fr))] data-[layout=grid]:gap-1 data-[layout=grid]:p-2 data-[orientation=horizontal]:not-data-[layout=grid]:max-h-none data-[orientation=horizontal]:not-data-[layout=grid]:flex-row data-[orientation=horizontal]:not-data-[layout=grid]:gap-2 data-[orientation=horizontal]:not-data-[layout=grid]:overflow-x-auto data-[orientation=horizontal]:not-data-[layout=grid]:overflow-y-hidden data-[orientation=horizontal]:not-data-[layout=grid]:px-1 motion-reduce:transition-none',
         className,
       )}
       {...props}
@@ -205,7 +193,7 @@ const ListboxItem = forwardRef<
     <ListboxPrimitive.Item
       ref={ref}
       className={cn(
-        'relative mx-1 box-border grid min-h-control-sm w-[calc(100%-0.5rem)] cursor-pointer grid-cols-[minmax(0,1fr)_1rem] items-center gap-2 rounded-sm bg-transparent px-3 py-1 text-sm leading-5 text-foreground outline-0 transition-[background-color,color] duration-200 ease-in-out select-none data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:text-muted-foreground data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[layout=grid]:mx-0 data-[layout=grid]:w-full data-[layout=grid]:min-w-0 data-[layout=grid]:grid-cols-1 data-[layout=grid]:justify-items-center data-[layout=grid]:text-center data-[layout=grid]:data-selected:bg-muted data-[layout=grid]:data-selected:text-foreground data-[orientation=horizontal]:not-data-[layout=grid]:w-44 data-[orientation=horizontal]:not-data-[layout=grid]:min-w-44 data-[orientation=horizontal]:not-data-[layout=grid]:items-start motion-reduce:transition-none [:is([data-slot=listbox-root],[data-slot=listbox-root-provider])[data-disabled]_&]:opacity-100 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-accent-foreground',
+        'mx-1 box-border grid min-h-control-sm cursor-pointer grid-cols-[minmax(0,1fr)_1rem] items-center gap-2 rounded-sm px-3 py-1 text-sm leading-5 outline-0 transition-[background-color,color] duration-200 ease-in-out select-none data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[layout=grid]:mx-0 data-[layout=grid]:min-w-0 data-[layout=grid]:grid-cols-1 data-[layout=grid]:justify-items-center data-[layout=grid]:text-center data-[layout=grid]:data-selected:bg-muted data-[layout=grid]:data-selected:text-foreground data-[orientation=horizontal]:not-data-[layout=grid]:w-44 data-[orientation=horizontal]:not-data-[layout=grid]:min-w-44 data-[orientation=horizontal]:not-data-[layout=grid]:items-start motion-reduce:transition-none [:is([data-slot=listbox-root],[data-slot=listbox-root-provider])[data-disabled]_&]:opacity-100 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-accent-foreground',
         className,
       )}
       {...props}
@@ -327,3 +315,31 @@ export {
   useListboxContext,
   useListboxItemContext,
 };
+
+export type {
+  CollectionItem,
+  ListboxContentProps,
+  ListboxContextProps,
+  ListboxEmptyProps,
+  ListboxHighlightChangeDetails,
+  ListboxInputProps,
+  ListboxItemContextProps,
+  ListboxItemGroupLabelProps,
+  ListboxItemGroupProps,
+  ListboxItemIndicatorProps,
+  ListboxItemProps,
+  ListboxItemTextProps,
+  ListboxLabelProps,
+  ListboxRootProps,
+  ListboxRootProviderProps,
+  ListboxScrollToIndexDetails,
+  ListboxSelectionDetails,
+  ListboxSelectionMode,
+  ListboxValueChangeDetails,
+  ListboxValueTextProps,
+  ListCollection,
+  UseListboxContext,
+  UseListboxItemContext,
+  UseListboxProps,
+  UseListboxReturn,
+} from '@ark-ui/react/listbox';

@@ -8,7 +8,6 @@ import {
   ListboxLabel,
 } from '@moduix/solid/listbox';
 import { createSignal, For } from 'solid-js';
-import styles from '@/components/examples/listbox/listbox-controlled.module.css';
 
 const sizes = createListCollection({
   items: [
@@ -25,7 +24,6 @@ export default function ControlledListboxDemo() {
   return (
     <Listbox
       collection={sizes}
-      class={styles.root}
       value={value()}
       onValueChange={(details) => setValue(details.value)}
     >

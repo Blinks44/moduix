@@ -8,7 +8,6 @@ import {
   ListboxLabel,
 } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/listbox/listbox-disabled-item.module.css';
 
 const plans = createListCollection({
   items: [
@@ -21,7 +20,7 @@ const plans = createListCollection({
 
 export default function DisabledItemListboxDemo() {
   return (
-    <Listbox collection={plans} class={styles.root}>
+    <Listbox collection={plans}>
       <ListboxLabel>Select plan</ListboxLabel>
       <ListboxContent>
         <For each={plans.items}>

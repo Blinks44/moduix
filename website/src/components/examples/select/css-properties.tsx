@@ -112,11 +112,6 @@ export const selectOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--moduix-select-item-color', 'var(--moduix-color-foreground)', 'Controls item text color.'],
   [
-    '--moduix-select-item-disabled-color',
-    'var(--moduix-color-muted-foreground)',
-    'Controls disabled item color.',
-  ],
-  [
     '--moduix-select-item-font-size',
     'var(--moduix-popup-item-font-size, var(--moduix-text-sm))',
     'Controls item font size.',

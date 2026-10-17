@@ -6,7 +6,6 @@ import {
   ListboxItemText,
   ListboxLabel,
 } from '@moduix/react/listbox';
-import styles from '@/components/examples/listbox/listbox-grid.module.css';
 
 const colors = createGridCollection({
   items: [
@@ -28,7 +27,7 @@ const colors = createGridCollection({
 
 export default function GridListboxDemo() {
   return (
-    <Listbox collection={colors} className={styles.gridRoot}>
+    <Listbox collection={colors}>
       <ListboxLabel>Pick a color</ListboxLabel>
       <ListboxContent>
         {colors.items.map((item) => (

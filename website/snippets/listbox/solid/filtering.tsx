@@ -12,7 +12,6 @@ import {
   ListboxLabel,
 } from '@moduix/solid/listbox';
 import { createSignal, For, Show } from 'solid-js';
-import styles from '@/components/examples/listbox/listbox-filtering.module.css';
 
 const frameworks = [
   { label: 'React', value: 'react' },
@@ -40,7 +39,7 @@ export default function FilteringListboxDemo() {
   };
 
   return (
-    <Listbox collection={collection()} class={styles.root} typeahead={false}>
+    <Listbox collection={collection()} typeahead={false}>
       <ListboxLabel>Select framework</ListboxLabel>
       <ListboxFilter>
         <ListboxInput

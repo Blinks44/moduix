@@ -12,7 +12,6 @@ import {
   ListboxLabel,
 } from '@moduix/react/listbox';
 import { useState } from 'react';
-import styles from '@/components/examples/listbox/listbox-filtering.module.css';
 
 const frameworks = [
   {
@@ -64,7 +63,7 @@ export default function FilteringListboxDemo() {
     filter: (itemText, filterText) => itemText.toLowerCase().includes(filterText.toLowerCase()),
   });
   return (
-    <Listbox collection={collection} className={styles.root} typeahead={false}>
+    <Listbox collection={collection} typeahead={false}>
       <ListboxLabel>Select framework</ListboxLabel>
       <ListboxFilter>
         <ListboxInput

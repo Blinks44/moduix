@@ -13,7 +13,6 @@ import {
   ListboxLabel,
 } from '@moduix/vue/listbox';
 import { ref } from 'vue';
-import styles from '@/components/examples/listbox/listbox-filtering.module.css';
 
 const frameworks = [
   { label: 'React', value: 'react' },
@@ -43,7 +42,7 @@ const clearFilter = () => {
 </script>
 
 <template>
-  <Listbox :collection="collection" :class="styles.root" :typeahead="false">
+  <Listbox :collection="collection" :typeahead="false">
     <ListboxLabel>Select framework</ListboxLabel>
     <ListboxFilter>
       <ListboxInput placeholder="Search frameworks..." :value="filterText" @input="updateFilter" />

@@ -142,7 +142,6 @@
     }
 
     &[data-disabled] {
-      color: var(--moduix-tree-view-item-disabled-color, var(--moduix-color-muted-foreground));
       cursor: default;
       opacity: var(--moduix-tree-view-disabled-opacity, var(--moduix-opacity-disabled));
     }

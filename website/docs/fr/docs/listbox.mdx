@@ -97,10 +97,6 @@ Passez une `collection`, rendez `ListboxContent` et transmettez chaque élément
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -236,10 +232,6 @@ Conservez le tableau de chaînes sélectionnées dans l’état de l’applicati
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-controlled.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -273,10 +265,6 @@ Désactivez un élément individuel avec le champ `disabled` de l’élément de
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-disabled-item.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -311,10 +299,6 @@ touches modificatrices.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-extended-selection.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -349,10 +333,6 @@ relie visuellement le filtre à `ListboxContent` ; désactivez le typeahead lors
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-filtering.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -387,10 +367,6 @@ une grille. Ark ajoute `data-layout="grid"` et la variable CSS `--column-count` 
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-grid.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -425,10 +401,6 @@ Définissez `groupBy` lors de la création de la collection et rendez `ListboxIt
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-grouping.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -500,10 +472,6 @@ Définissez `selectionMode="multiple"` pour activer plusieurs valeurs sans touch
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-multiple.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -578,10 +546,6 @@ sélection de la listbox.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-select-all.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -616,10 +580,6 @@ des surfaces distinctes.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-standalone-filter-input.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -654,10 +614,6 @@ la liste.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/listbox/listbox-value-text.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -665,8 +621,12 @@ la liste.
 ## Styles
 
 Stylisez Listbox avec `className` dans React ou `class` dans Solid et Vue sur les parties exportées. Les
-variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur, tandis que les
-variantes CSS Modules utilisent les variables CSS publiques `--moduix-listbox-*`.
+variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur. Les variantes CSS
+Modules prennent les couleurs, les espacements et la typographie dans les tokens de foundation et
+n'exposent en variables CSS que la largeur de la racine et la hauteur maximale du contenu ; surchargez
+le reste avec une classe sur la partie. Les éléments, les libellés de groupe et le padding de la liste
+suivent aussi les variables partagées `--moduix-popup-item-*`, `--moduix-popup-group-label-*` et
+`--moduix-popup-list-padding-y`.
 
 ### Propriétés CSS
 

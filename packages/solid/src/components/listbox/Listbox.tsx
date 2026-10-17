@@ -76,18 +76,15 @@ function ListboxFilter(props: ComponentProps<'div'>) {
 }
 
 function ListboxClearTrigger(props: HTMLArkProps<'button'>) {
-  const [local, others] = splitProps(props, ['aria-label', 'children', 'class', 'type']);
+  const [local, others] = splitProps(props, ['aria-label', 'class']);
 
   return (
     <CloseButton
       class={clsx(styles.clearTrigger, local.class)}
-      type={local.type ?? 'button'}
       aria-label={local['aria-label'] ?? a11yLabels.clearSearch}
       {...others}
       data-slot="listbox-clear-trigger"
-    >
-      {local.children}
-    </CloseButton>
+    />
   );
 }
 
@@ -253,3 +250,31 @@ export {
   useListboxContext,
   useListboxItemContext,
 };
+
+export type {
+  CollectionItem,
+  ListboxContentProps,
+  ListboxContextProps,
+  ListboxEmptyProps,
+  ListboxHighlightChangeDetails,
+  ListboxInputProps,
+  ListboxItemContextProps,
+  ListboxItemGroupLabelProps,
+  ListboxItemGroupProps,
+  ListboxItemIndicatorProps,
+  ListboxItemProps,
+  ListboxItemTextProps,
+  ListboxLabelProps,
+  ListboxRootProps,
+  ListboxRootProviderProps,
+  ListboxScrollToIndexDetails,
+  ListboxSelectionDetails,
+  ListboxSelectionMode,
+  ListboxValueChangeDetails,
+  ListboxValueTextProps,
+  ListCollection,
+  UseListboxContext,
+  UseListboxItemContext,
+  UseListboxProps,
+  UseListboxReturn,
+} from '@ark-ui/solid/listbox';

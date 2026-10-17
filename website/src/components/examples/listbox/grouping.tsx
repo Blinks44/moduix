@@ -9,7 +9,6 @@ import {
   ListboxItemText,
   ListboxLabel,
 } from '@moduix/react/listbox';
-import styles from '@/components/examples/listbox/listbox-grouping.module.css';
 
 const regions = createListCollection({
   items: [
@@ -64,7 +63,7 @@ const regions = createListCollection({
 
 export default function GroupedListboxDemo() {
   return (
-    <Listbox collection={regions} className={styles.root}>
+    <Listbox collection={regions}>
       <ListboxLabel>Select region</ListboxLabel>
       <ListboxContent>
         {regions.group().map(([region, items]) => (

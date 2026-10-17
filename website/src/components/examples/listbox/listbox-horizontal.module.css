@@ -1,7 +1,5 @@
-.horizontalRoot {
+.root {
   --moduix-listbox-width: min(100%, 34rem);
-  --moduix-listbox-horizontal-content-max-height: none;
-  --moduix-listbox-horizontal-item-width: 10rem;
 }
 
 .albumText {

@@ -7,7 +7,6 @@ import {
   ListboxItemText,
   ListboxLabel,
 } from '@moduix/react/listbox';
-import styles from '@/components/examples/listbox/listbox-basic.module.css';
 
 const countries = createListCollection({
   items: [
@@ -44,7 +43,7 @@ const countries = createListCollection({
 
 export default function ListboxDemo() {
   return (
-    <Listbox collection={countries} className={styles.root}>
+    <Listbox collection={countries}>
       <ListboxLabel>Select country</ListboxLabel>
       <ListboxContent>
         {countries.items.map((item) => (

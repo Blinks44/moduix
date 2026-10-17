@@ -8,7 +8,6 @@ import {
   ListboxItemText,
   ListboxLabel,
 } from '@moduix/vue/listbox';
-import styles from '@/components/examples/listbox/listbox-extended-selection.module.css';
 
 const frameworks = createListCollection({
   items: [
@@ -23,7 +22,7 @@ const frameworks = createListCollection({
 </script>
 
 <template>
-  <Listbox :collection="frameworks" :class="styles.root" selection-mode="extended">
+  <Listbox :collection="frameworks" selection-mode="extended">
     <ListboxLabel>Hold Cmd or Ctrl to select multiple</ListboxLabel>
     <ListboxContent>
       <ListboxItem v-for="item in frameworks.items" :key="item.value" :item="item">

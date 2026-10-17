@@ -23,7 +23,7 @@ const attrs = useAttrs();
     data-slot="listbox-filter"
   >
     <SearchIcon
-      class="pointer-events-none absolute start-3 top-1/2 z-1 size-4 -translate-y-1/2 text-muted-foreground"
+      class="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
       data-slot="listbox-filter-icon"
     />
     <slot />

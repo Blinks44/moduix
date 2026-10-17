@@ -39,7 +39,7 @@ export default function RootProviderListboxDemo() {
   });
   return (
     <div className={styles.stack}>
-      <ListboxRootProvider value={listbox} className={styles.root}>
+      <ListboxRootProvider value={listbox}>
         <ListboxLabel>Select priority</ListboxLabel>
         <ListboxContent>
           {priorities.items.map((item) => (

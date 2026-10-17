@@ -8,7 +8,6 @@ import {
   ListboxLabel,
 } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/listbox/listbox-basic.module.css';
 
 const countries = createListCollection({
   items: [
@@ -24,7 +23,7 @@ const countries = createListCollection({
 
 export default function ListboxDemo() {
   return (
-    <Listbox collection={countries} class={styles.root}>
+    <Listbox collection={countries}>
       <ListboxLabel>Select country</ListboxLabel>
       <ListboxContent>
         <For each={countries.items}>
