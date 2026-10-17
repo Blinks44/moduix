@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useRef, useState } from 'react';
+import { Button } from '@/components/button';
 import { Field, FieldErrorText, FieldLabel } from '@/components/field';
 import {
   InputGroup,
@@ -8,6 +9,7 @@ import {
   InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
+  InputGroupTextarea,
 } from '@/components/input-group/InputGroup';
 import storyStyles from './InputGroup.stories.module.css';
 
@@ -53,6 +55,32 @@ export const WithAction: Story = {
             placeholder="name@example.com"
           />
           <InputGroupButton disabled={!value}>Send</InputGroupButton>
+        </InputGroup>
+      </Field>
+    );
+  },
+};
+
+export const Textarea: Story = {
+  render: () => {
+    const [value, setValue] = useState('');
+
+    return (
+      <Field className={storyStyles.field}>
+        <FieldLabel>Message</FieldLabel>
+        <InputGroup>
+          <InputGroupTextarea
+            autoresize
+            placeholder="Write a reply"
+            value={value}
+            onChange={(event) => setValue(event.currentTarget.value)}
+          />
+          <InputGroupAddon align="block">
+            {value.length}/280
+            <Button className={storyStyles.send} size="sm" disabled={!value.trim()}>
+              Send
+            </Button>
+          </InputGroupAddon>
         </InputGroup>
       </Field>
     );

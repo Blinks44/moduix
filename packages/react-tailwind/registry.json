@@ -1001,7 +1001,8 @@
         "@moduix-react-tailwind/cn",
         "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/button",
-        "@moduix-react-tailwind/input"
+        "@moduix-react-tailwind/input",
+        "@moduix-react-tailwind/textarea"
       ],
       "files": [
         {

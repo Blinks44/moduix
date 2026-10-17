@@ -2925,7 +2925,8 @@
         "@moduix-vue/a11y-labels",
         "@moduix-vue/foundation",
         "@moduix-vue/button",
-        "@moduix-vue/input"
+        "@moduix-vue/input",
+        "@moduix-vue/textarea"
       ],
       "files": [
         {
@@ -2956,6 +2957,11 @@
         {
           "path": "src/components/input-group/InputGroupText.vue",
           "target": "@components/ui/input-group/InputGroupText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroupTextarea.vue",
+          "target": "@components/ui/input-group/InputGroupTextarea.vue",
           "type": "registry:component"
         },
         {

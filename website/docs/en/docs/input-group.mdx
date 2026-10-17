@@ -29,6 +29,9 @@ import inputGroupVueFieldState from '../../../snippets/input-group/vue/field-sta
 import inputGroupVuePrefixAndSuffix from '../../../snippets/input-group/vue/prefix-and-suffix.vue?raw';
 import inputGroupVueSizes from '../../../snippets/input-group/vue/sizes.vue?raw';
 import inputGroupVueWithAction from '../../../snippets/input-group/vue/with-action.vue?raw';
+import InputGroupTextarea from '@/components/examples/input-group/textarea.tsx';
+import inputGroupSolidTextarea from '../../../snippets/input-group/solid/textarea.tsx?raw';
+import inputGroupVueTextarea from '../../../snippets/input-group/vue/textarea.vue?raw';
 
 ## API Reference
 
@@ -135,7 +138,7 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 ```text
 InputGroup
 ├─ InputGroupAddon (optional)
-├─ InputGroupInput
+├─ InputGroupInput or InputGroupTextarea
 ├─ InputGroupText (optional)
 ├─ InputGroupButton (optional)
 └─ InputGroupClearTrigger (optional)
@@ -145,6 +148,7 @@ InputGroup
 | -------------------------------- | ----------------------------------------------------------- |
 | `InputGroup`                    | Passive layout wrapper with shared styling and size context. |
 | `InputGroupInput`               | Native `<input>` that owns the form value and field state.  |
+| `InputGroupTextarea`            | Native `<textarea>` for multi-line values; use it instead of `InputGroupInput`. |
 | `InputGroupAddon`               | Filled prefix or suffix.                                   |
 | `InputGroupText`                | Inline text without a fill.                                |
 | `InputGroupButton`              | Action button associated with the input.                   |
@@ -162,6 +166,12 @@ input.
 Use `InputGroupAddon` and `InputGroupText` for non-interactive inline content and `InputGroupButton` for actions. The root,
 `InputGroupAddon`, and `InputGroupText` support `asChild` with one semantic child that accepts the merged props and ref.
 Use `Editable` when the value should switch between read and edit modes.
+
+Set `align="block"` on `InputGroupAddon` or `InputGroupText` to place it as a full-width row
+above or below the control instead of beside it; its position follows the DOM order. A group with
+a block addon holds one control and only block addons, so put inline content inside the block
+addon. Use a regular `Button` there: `InputGroupButton` stretches to the full group height and is
+meant for actions beside the control.
 
 ## Examples
 
@@ -393,6 +403,53 @@ controlled and enables `Send` only after a value is entered.
 
 </ExampleCode>
 
+### Textarea
+
+Use `InputGroupTextarea` for multi-line input, such as a message composer. It renders the moduix
+`Textarea` without its border, takes the group font size and inline padding, and keeps Ark Field
+state and `autoresize`. Add a toolbar with `InputGroupAddon align="block"` and a regular `Button`.
+
+<ExampleFrame variant="component">
+  <InputGroupTextarea />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/textarea.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidTextarea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueTextarea} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input-group/input-group-textarea.module.css"
+```
+</div>
+
+</ExampleCode>
+
 ### Clear Trigger
 
 Use `InputGroupClearTrigger` for a clear action with a default close icon and accessible label.
@@ -505,6 +562,8 @@ component styles. Data attributes and `data-slot` hooks are shared by both styli
 - `data-slot="input-group-addon"`
 - `data-slot="input-group-clear-trigger"`
 - `data-slot="input-group-text"`
+- `data-align="inline" | "block"` on `InputGroupAddon` and `InputGroupText`
+- `data-slot="textarea-root"` plus Ark Field textarea state attributes on `InputGroupTextarea`
 - `data-slot="input-group-button"` on the grouped action button
 - Nested `data-invalid`, `aria-invalid="true"`, and `data-disabled`/`:disabled` states are reflected through `:has(...)` on the root
 

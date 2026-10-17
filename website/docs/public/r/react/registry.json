@@ -1052,7 +1052,8 @@
         "@moduix-react/a11y-labels",
         "@moduix-react/foundation",
         "@moduix-react/button",
-        "@moduix-react/input"
+        "@moduix-react/input",
+        "@moduix-react/textarea"
       ],
       "files": [
         {

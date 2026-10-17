@@ -70,6 +70,10 @@ Public CSS variables (CSS Modules only), all on `Kbd`:
 Typography and `KbdGroup` styles come from foundation tokens; override them with a class. Separators
 inherit the group text color. The keycap edge shadow follows the text color.
 
+A keycap never wraps its label; `KbdGroup` wraps between keycaps instead. A direct `svg` child is
+sized to `--moduix-spacing-3` with a `--moduix-spacing-1` gap; a size class on the icon
+wins (`size-*` in Tailwind).
+
 ## Agent notes
 
 - Keep the implementation factory-based and stateless.

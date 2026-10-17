@@ -19,4 +19,4 @@ The flat API is `Kbd` and `KbdGroup`. `Kbd` renders a native `<kbd>` element; `K
 
 ## Styling and accessibility
 
-`Kbd` retains native key-label semantics. `KbdGroup` defaults to `role="group"`; provide an accessible label when symbols or abbreviations need clarification. Keep the `kbd` data hooks and CSS variables.
+`Kbd` retains native key-label semantics. `KbdGroup` defaults to `role="group"`; provide an accessible label when symbols or abbreviations need clarification. Keep the `kbd` data hooks and CSS variables. A keycap never wraps its label, and a direct `svg` child is sized to the keycap text.

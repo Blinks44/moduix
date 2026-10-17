@@ -16,8 +16,15 @@ import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { CloseButton } from '../close-button';
 import { Input, type InputSize } from '../input';
+import { Textarea } from '../textarea';
 
 type InputGroupSize = InputSize;
+
+type InputGroupAddonAlign = 'inline' | 'block';
+
+type InputGroupAddonProps = HTMLArkProps<'span'> & {
+  align?: InputGroupAddonAlign;
+};
 
 const inputGroupPaddingVariants = {
   xs: 'px-2.5',
@@ -28,7 +35,7 @@ const inputGroupPaddingVariants = {
 };
 
 const inputGroupRootVariants = cva(
-  'flex w-full items-stretch overflow-hidden rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring has-[[data-slot=input-root]:is([data-invalid],[aria-invalid=true])]:border-destructive has-[[data-slot=input-root]:is([data-invalid],[aria-invalid=true])]:focus-within:outline-destructive has-[[data-slot=input-root]:is([data-disabled],:disabled)]:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 motion-reduce:transition-none',
+  'flex w-full items-stretch overflow-hidden rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out has-[>[data-align=block]]:flex-col focus-within:outline-ring has-[:is([data-slot=input-root],[data-slot=textarea-root]):is([data-invalid],[aria-invalid=true])]:border-destructive has-[:is([data-slot=input-root],[data-slot=textarea-root]):is([data-invalid],[aria-invalid=true])]:focus-within:outline-destructive has-[:is([data-slot=input-root],[data-slot=textarea-root]):is([data-disabled],:disabled)]:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 motion-reduce:transition-none',
   {
     variants: {
       size: {
@@ -54,8 +61,20 @@ const inputGroupInputVariants = cva('min-h-0 grow rounded-none border-0 bg-trans
   },
 });
 
+const inputGroupTextareaVariants = cva(
+  'min-w-0 grow resize-none rounded-none border-0 bg-transparent text-[length:inherit] leading-[inherit] outline-0 disabled:opacity-100 data-disabled:opacity-100',
+  {
+    variants: {
+      size: inputGroupPaddingVariants,
+    },
+    defaultVariants: {
+      size: 'md',
+    },
+  },
+);
+
 const inputGroupAddonVariants = cva(
-  'inline-flex min-w-0 items-center justify-center gap-2 truncate border-s border-e border-border bg-muted text-muted-foreground first:border-s-0 last:border-e-0 [&>svg]:size-4 [&>svg]:shrink-0',
+  'inline-flex min-w-0 items-center justify-center gap-2 overflow-hidden whitespace-nowrap border-s border-e border-border bg-muted text-muted-foreground first:border-s-0 last:border-e-0 [&>svg]:size-4 [&>svg]:shrink-0 data-[align=block]:justify-start data-[align=block]:border-x-0 data-[align=block]:border-y data-[align=block]:py-2 data-[align=block]:first:border-t-0 data-[align=block]:last:border-b-0',
   {
     variants: {
       size: inputGroupPaddingVariants,
@@ -67,7 +86,7 @@ const inputGroupAddonVariants = cva(
 );
 
 const inputGroupTextVariants = cva(
-  'inline-flex min-w-0 items-center justify-center gap-2 truncate text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
+  'inline-flex min-w-0 items-center justify-center gap-2 overflow-hidden whitespace-nowrap text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0 data-[align=block]:justify-start data-[align=block]:py-2',
   {
     variants: {
       size: inputGroupPaddingVariants,
@@ -124,8 +143,23 @@ const InputGroupInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<ty
   },
 );
 
-const InputGroupAddon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function InputGroupAddon(
-  { className, ...props },
+const InputGroupTextarea = forwardRef<
+  ComponentRef<typeof Textarea>,
+  ComponentProps<typeof Textarea>
+>(function InputGroupTextarea({ className, ...props }, ref) {
+  const groupSize = useContext(InputGroupSizeContext);
+
+  return (
+    <Textarea
+      ref={ref}
+      className={cn(inputGroupTextareaVariants({ size: groupSize }), className)}
+      {...props}
+    />
+  );
+});
+
+const InputGroupAddon = forwardRef<HTMLSpanElement, InputGroupAddonProps>(function InputGroupAddon(
+  { align = 'inline', className, ...props },
   ref,
 ) {
   const groupSize = useContext(InputGroupSizeContext);
@@ -137,13 +171,14 @@ const InputGroupAddon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(functi
       data-scope="input-group"
       data-part="addon"
       data-slot="input-group-addon"
+      data-align={align}
       className={cn(inputGroupAddonVariants({ size: groupSize }), className)}
     />
   );
 });
 
-const InputGroupText = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function InputGroupText(
-  { className, ...props },
+const InputGroupText = forwardRef<HTMLSpanElement, InputGroupAddonProps>(function InputGroupText(
+  { align = 'inline', className, ...props },
   ref,
 ) {
   const groupSize = useContext(InputGroupSizeContext);
@@ -155,6 +190,7 @@ const InputGroupText = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(functio
       data-scope="input-group"
       data-part="text"
       data-slot="input-group-text"
+      data-align={align}
       className={cn(inputGroupTextVariants({ size: groupSize }), className)}
     />
   );
@@ -223,5 +259,6 @@ export {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
+  InputGroupTextarea,
 };
-export type { InputGroupSize };
+export type { InputGroupAddonAlign, InputGroupSize };

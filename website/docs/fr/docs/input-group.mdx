@@ -29,6 +29,9 @@ import inputGroupVueFieldState from '../../../snippets/input-group/vue/field-sta
 import inputGroupVuePrefixAndSuffix from '../../../snippets/input-group/vue/prefix-and-suffix.vue?raw';
 import inputGroupVueSizes from '../../../snippets/input-group/vue/sizes.vue?raw';
 import inputGroupVueWithAction from '../../../snippets/input-group/vue/with-action.vue?raw';
+import InputGroupTextarea from '@/components/examples/input-group/textarea.tsx';
+import inputGroupSolidTextarea from '../../../snippets/input-group/solid/textarea.tsx?raw';
+import inputGroupVueTextarea from '../../../snippets/input-group/vue/textarea.vue?raw';
 
 ## Référence de l’API
 
@@ -135,7 +138,7 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ```text
 InputGroup
 ├─ InputGroupAddon (facultatif)
-├─ InputGroupInput
+├─ InputGroupInput ou InputGroupTextarea
 ├─ InputGroupText (facultatif)
 ├─ InputGroupButton (facultatif)
 └─ InputGroupClearTrigger (facultatif)
@@ -145,6 +148,7 @@ InputGroup
 | --------------------------------- | ---------------------------------------------------------- |
 | `InputGroup`                    | Conteneur passif avec styles et contexte de taille partagés. |
 | `InputGroupInput`               | Élément `<input>` natif qui possède la valeur et l’état du champ. |
+| `InputGroupTextarea`            | Élément `<textarea>` natif pour une valeur sur plusieurs lignes ; remplace `InputGroupInput`. |
 | `InputGroupAddon`               | Préfixe ou suffixe avec un fond.                           |
 | `InputGroupText`                | Texte intégré sans fond.                                  |
 | `InputGroupButton`              | Bouton d’action associé au champ.                         |
@@ -162,6 +166,12 @@ par défaut `type="button"` et n’héritent pas de `disabled` depuis `Field`. E
 Utilisez `InputGroupAddon` et `InputGroupText` pour du contenu intégré non interactif, et `InputGroupButton` pour les actions. La
 racine, `InputGroupAddon` et `InputGroupText` prennent en charge `asChild` avec un seul enfant sémantique qui accepte les
 props fusionnées et la ref. Utilisez `Editable` lorsque la valeur doit passer du mode lecture au mode édition.
+
+Définissez `align="block"` sur `InputGroupAddon` ou `InputGroupText` pour l’afficher comme une ligne
+pleine largeur au-dessus ou au-dessous du contrôle plutôt qu’à côté ; sa position suit l’ordre du
+DOM. Un groupe avec un addon en bloc contient un seul contrôle et uniquement des addons en bloc ;
+placez le contenu latéral dans l’addon en bloc. Utilisez-y un `Button` classique : `InputGroupButton`
+s’étire sur toute la hauteur du groupe et sert aux actions placées à côté du contrôle.
 
 ## Exemples
 
@@ -394,6 +404,54 @@ est contrôlé et `Send` ne devient disponible qu’après la saisie d’une val
 
 </ExampleCode>
 
+### Zone de texte
+
+Utilisez `InputGroupTextarea` pour une saisie sur plusieurs lignes, par exemple un champ de message.
+Il affiche le `Textarea` de moduix sans sa bordure, reprend la taille de police et la marge latérale
+du groupe, et conserve l’état Ark Field et `autoresize`. Ajoutez une barre d’actions avec
+`InputGroupAddon align="block"` et un `Button` classique.
+
+<ExampleFrame variant="component">
+  <InputGroupTextarea />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/input-group/textarea.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={inputGroupSolidTextarea} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={inputGroupVueTextarea} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/input-group/input-group-textarea.module.css"
+```
+</div>
+
+</ExampleCode>
+
 ### Bouton d’effacement
 
 Utilisez `InputGroupClearTrigger` pour afficher un bouton d’effacement avec une icône de croix
@@ -510,6 +568,8 @@ sélecteurs `data-slot` sont communs aux deux approches.
 - `data-slot="input-group-addon"`
 - `data-slot="input-group-clear-trigger"`
 - `data-slot="input-group-text"`
+- `data-align="inline" | "block"` sur `InputGroupAddon` et `InputGroupText`
+- `data-slot="textarea-root"` et les attributs d’état Ark Field du textarea sur `InputGroupTextarea`
 - `data-slot="input-group-button"` sur le bouton d’action du groupe
 - les états imbriqués `data-invalid`, `aria-invalid="true"` et `data-disabled`/`:disabled` sont reflétés sur la racine via `:has(...)`
 

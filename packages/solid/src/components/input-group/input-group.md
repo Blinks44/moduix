@@ -6,14 +6,18 @@
 - Ark UI Field: https://ark-ui.com/docs/components/field
 
 Ark UI has no InputGroup primitive. This family combines factory parts with moduix `Input`,
-`Button`, and `CloseButton`.
+`Textarea`, `Button`, and `CloseButton`.
 
 ## Public contract
 
 The flat API is `InputGroup`, `InputGroupAddon`, `InputGroupText`, `InputGroupInput`,
-`InputGroupButton`, and `InputGroupClearTrigger`, plus the `InputGroupSize` type. The root provides
+`InputGroupTextarea`, `InputGroupButton`, and `InputGroupClearTrigger`, plus the `InputGroupSize`
+and `InputGroupAddonAlign` types. The root provides
 the visual size (`md` by default) as a reactive context; the input owns value and field state. A
-local `size` on `InputGroupInput` controls its font and inline padding.
+local `size` on `InputGroupInput` controls its font and inline padding. `InputGroupTextarea`
+renders a borderless `Textarea` with the group font and padding. `align="block"` on
+`InputGroupAddon` or `InputGroupText` makes a full-width row above or below the control (DOM order
+sets the side) and switches the root to a column; use a regular `Button` inside it.
 
 `InputGroupButton` defaults to `variant="ghost"` and `type="button"` and stretches inside the group
 without making it taller. `InputGroupClearTrigger` renders `CloseButton` with a close icon,

@@ -12,6 +12,7 @@ import {
   InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
+  InputGroupTextarea,
 } from '../src';
 
 test('preserves grouped field state, owned hooks, and native refs', async () => {
@@ -195,7 +196,8 @@ test('applies native utilities to the component-owned parts', () => {
       'items-center',
       'justify-center',
       'gap-2',
-      'truncate',
+      'overflow-hidden',
+      'whitespace-nowrap',
       'bg-muted',
       'text-muted-foreground',
       'px-3.5',
@@ -225,7 +227,8 @@ test('applies native utilities to the component-owned parts', () => {
       'items-center',
       'justify-center',
       'gap-2',
-      'truncate',
+      'overflow-hidden',
+      'whitespace-nowrap',
       'text-muted-foreground',
     ]),
   );
@@ -487,5 +490,79 @@ test('uses a local input size for font and inline padding', () => {
   expect(getComputedStyle(screen.getByRole('textbox', { name: 'Local size' }))).toMatchObject({
     fontSize: '12px',
     paddingLeft: '10px',
+  });
+});
+
+test('renders a borderless textarea that follows the group size', () => {
+  let textarea: HTMLTextAreaElement | undefined;
+  render(
+    <InputGroup size="sm" data-testid="textarea-group">
+      <InputGroupTextarea
+        aria-label="Message"
+        ref={(element) => {
+          textarea = element ?? undefined;
+        }}
+      />
+    </InputGroup>,
+  );
+
+  const element = screen.getByRole('textbox', { name: 'Message' });
+  expect(textarea).toBe(element);
+  expect(element.getAttribute('data-slot')).toBe('textarea-root');
+  expect(getComputedStyle(element)).toMatchObject({
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    borderTopWidth: '0px',
+    resize: 'none',
+    fontSize: '14px',
+    paddingLeft: '12px',
+  });
+  expect(screen.getByTestId('textarea-group').offsetHeight).toBeGreaterThan(element.offsetHeight);
+});
+
+test('derives invalid and disabled group state from the textarea', () => {
+  render(
+    <div>
+      <InputGroup data-testid="plain">
+        <InputGroupTextarea aria-label="Plain" />
+      </InputGroup>
+      <InputGroup data-testid="invalid">
+        <InputGroupTextarea aria-label="Invalid" aria-invalid="true" />
+      </InputGroup>
+      <InputGroup data-testid="disabled">
+        <InputGroupTextarea aria-label="Disabled" disabled />
+      </InputGroup>
+    </div>,
+  );
+
+  expect(getComputedStyle(screen.getByTestId('invalid')).borderTopColor).not.toBe(
+    getComputedStyle(screen.getByTestId('plain')).borderTopColor,
+  );
+  expect(getComputedStyle(screen.getByTestId('disabled')).opacity).toBe('0.5');
+  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Disabled' })).opacity).toBe('1');
+});
+
+test('stacks block addons above and below the control', () => {
+  render(
+    <InputGroup data-testid="block-group">
+      <InputGroupText align="block">Prompt</InputGroupText>
+      <InputGroupTextarea aria-label="Prompt" />
+      <InputGroupAddon align="block">
+        <button type="button">Send</button>
+      </InputGroupAddon>
+    </InputGroup>,
+  );
+
+  const group = screen.getByTestId('block-group');
+  const text = screen.getByText('Prompt');
+  const addon = screen.getByRole('button', { name: 'Send' }).parentElement!;
+
+  expect(getComputedStyle(group).flexDirection).toBe('column');
+  expect(text.getAttribute('data-align')).toBe('block');
+  expect(addon.getAttribute('data-align')).toBe('block');
+  expect(addon.offsetWidth).toBe(group.clientWidth);
+  expect(getComputedStyle(addon)).toMatchObject({
+    borderTopWidth: '1px',
+    borderBottomWidth: '0px',
+    borderLeftWidth: '0px',
   });
 });

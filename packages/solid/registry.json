@@ -992,7 +992,8 @@
         "@moduix-solid/a11y-labels",
         "@moduix-solid/foundation",
         "@moduix-solid/button",
-        "@moduix-solid/input"
+        "@moduix-solid/input",
+        "@moduix-solid/textarea"
       ],
       "files": [
         {

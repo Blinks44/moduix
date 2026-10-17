@@ -7,7 +7,7 @@ import {
 } from '@ark-ui/solid/splitter';
 import type { ComponentProps, JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
-import { cn } from '@/internal/cn';
+import { cn } from '@/lib/moduix/cn';
 
 function getRootStyle(style: ComponentProps<typeof SplitterPrimitive.Root>['style']) {
   if (typeof style === 'string') {

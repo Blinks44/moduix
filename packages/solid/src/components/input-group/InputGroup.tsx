@@ -8,9 +8,16 @@ import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { CloseButton } from '../close-button';
 import { Input, type InputSize } from '../input';
+import { Textarea } from '../textarea';
 import styles from './InputGroup.module.css';
 
 type InputGroupSize = InputSize;
+
+type InputGroupAddonAlign = 'inline' | 'block';
+
+type InputGroupAddonProps = HTMLArkProps<'span'> & {
+  align?: InputGroupAddonAlign;
+};
 
 type InputGroupProps = HTMLArkProps<'div'> & {
   size?: InputGroupSize;
@@ -46,8 +53,14 @@ function InputGroupInput(props: ComponentProps<typeof Input>) {
   );
 }
 
-function InputGroupAddon(props: HTMLArkProps<'span'>) {
+function InputGroupTextarea(props: ComponentProps<typeof Textarea>) {
   const [local, others] = splitProps(props, ['class']);
+
+  return <Textarea {...others} class={clsx(styles.textarea, local.class)} />;
+}
+
+function InputGroupAddon(props: InputGroupAddonProps) {
+  const [local, others] = splitProps(props, ['align', 'class']);
 
   return (
     <ark.span
@@ -55,13 +68,14 @@ function InputGroupAddon(props: HTMLArkProps<'span'>) {
       data-scope="input-group"
       data-part="addon"
       data-slot="input-group-addon"
+      data-align={local.align ?? 'inline'}
       class={clsx(styles.addon, local.class)}
     />
   );
 }
 
-function InputGroupText(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
+function InputGroupText(props: InputGroupAddonProps) {
+  const [local, others] = splitProps(props, ['align', 'class']);
 
   return (
     <ark.span
@@ -69,6 +83,7 @@ function InputGroupText(props: HTMLArkProps<'span'>) {
       data-scope="input-group"
       data-part="text"
       data-slot="input-group-text"
+      data-align={local.align ?? 'inline'}
       class={clsx(styles.text, local.class)}
     />
   );
@@ -130,5 +145,6 @@ export {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
+  InputGroupTextarea,
 };
-export type { InputGroupSize };
+export type { InputGroupAddonAlign, InputGroupSize };

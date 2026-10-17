@@ -53,4 +53,8 @@
     color: var(--moduix-color-primary);
     font-weight: var(--moduix-weight-semibold);
   }
+
+  .send {
+    margin-inline-start: auto;
+  }
 }

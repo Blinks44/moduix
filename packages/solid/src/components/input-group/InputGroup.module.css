@@ -56,11 +56,20 @@
       outline-color var(--moduix-transition-default),
       opacity var(--moduix-transition-default);
 
+    &:has(> [data-align='block']) {
+      flex-direction: column;
+    }
+
     &:focus-within {
       outline-color: var(--moduix-color-ring);
     }
 
-    &:has([data-slot='input-root']:is([data-invalid], [aria-invalid='true'])) {
+    &:has(
+      :is([data-slot='input-root'], [data-slot='textarea-root']):is(
+        [data-invalid],
+        [aria-invalid='true']
+      )
+    ) {
       border-color: var(--moduix-color-destructive);
 
       &:focus-within {
@@ -68,7 +77,9 @@
       }
     }
 
-    &:has([data-slot='input-root']:is([data-disabled], :disabled)) {
+    &:has(
+      :is([data-slot='input-root'], [data-slot='textarea-root']):is([data-disabled], :disabled)
+    ) {
       opacity: var(--moduix-opacity-disabled);
 
       :where(
@@ -94,6 +105,24 @@
     padding-inline: var(--_input-group-padding-x);
   }
 
+  /* The slot attribute outranks the Textarea state rules, including its read-only background. */
+  .root .textarea[data-slot='textarea-root'] {
+    min-width: 0;
+    flex: 1 1 auto;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    font-size: inherit;
+    line-height: inherit;
+    outline: 0;
+    padding-inline: var(--_input-group-padding-x);
+    resize: none;
+
+    &:is([data-disabled], :disabled) {
+      opacity: 1;
+    }
+  }
+
   .addon,
   .text {
     box-sizing: border-box;
@@ -105,13 +134,17 @@
     padding-inline: var(--_input-group-padding-x);
     color: var(--moduix-color-muted-foreground);
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
 
     & > svg {
       width: var(--moduix-spacing-4);
       height: var(--moduix-spacing-4);
       flex-shrink: 0;
+    }
+
+    &[data-align='block'] {
+      justify-content: flex-start;
+      padding-block: var(--moduix-spacing-2);
     }
   }
 
@@ -125,6 +158,19 @@
 
     &:last-child {
       border-inline-end: 0;
+    }
+
+    &[data-align='block'] {
+      border-inline: 0;
+      border-block: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+
+      &:first-child {
+        border-block-start: 0;
+      }
+
+      &:last-child {
+        border-block-end: 0;
+      }
     }
   }
 

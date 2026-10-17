@@ -4,10 +4,10 @@
     display: inline-flex;
     flex: none;
     min-width: var(--moduix-kbd-height, var(--moduix-size-xs));
-    max-width: 100%;
     min-height: var(--moduix-kbd-height, var(--moduix-size-xs));
     align-items: center;
     justify-content: center;
+    gap: var(--moduix-spacing-1);
     border: var(--moduix-kbd-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-kbd-border-color, var(--moduix-color-border));
     border-radius: var(--moduix-kbd-radius, var(--moduix-radius-sm));
@@ -23,10 +23,16 @@
     font-weight: var(--moduix-weight-medium);
     line-height: var(--moduix-line-height-text-xs);
     font-variant-numeric: tabular-nums;
-    text-align: center;
+    white-space: nowrap;
     vertical-align: middle;
-    overflow-wrap: anywhere;
     user-select: none;
+
+    & > :where(svg) {
+      width: var(--moduix-spacing-3);
+      height: var(--moduix-spacing-3);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
   }
 
   .group {

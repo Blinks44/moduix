@@ -4,6 +4,8 @@ import type { InputSize } from '../input';
 
 export type InputGroupSize = InputSize;
 
+export type InputGroupAddonAlign = 'inline' | 'block';
+
 export const InputGroupSizeContextKey: InjectionKey<Readonly<Ref<InputGroupSize>>> =
   Symbol('InputGroupSize');
 

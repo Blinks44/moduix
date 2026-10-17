@@ -2813,7 +2813,8 @@
         "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/button",
-        "@moduix-vue-tailwind/input"
+        "@moduix-vue-tailwind/input",
+        "@moduix-vue-tailwind/textarea"
       ],
       "files": [
         {
@@ -2844,6 +2845,11 @@
         {
           "path": "src/components/input-group/InputGroupText.vue",
           "target": "@components/ui/input-group/InputGroupText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroupTextarea.vue",
+          "target": "@components/ui/input-group/InputGroupTextarea.vue",
           "type": "registry:component"
         },
         {

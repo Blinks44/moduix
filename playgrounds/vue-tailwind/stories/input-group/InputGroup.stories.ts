@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref } from 'vue';
 import type { Component } from 'vue';
+import { Button } from '@/components/button';
 import { Field, FieldErrorText, FieldLabel } from '@/components/field';
 import {
   InputGroup,
@@ -9,6 +10,7 @@ import {
   InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
+  InputGroupTextarea,
 } from '@/components/input-group';
 
 const meta = {
@@ -25,6 +27,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const storyComponents = {
+  Button,
   Field,
   FieldErrorText,
   FieldLabel,
@@ -34,6 +37,7 @@ const storyComponents = {
   InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
+  InputGroupTextarea,
 } as unknown as Record<string, Component>;
 
 const fieldClass = 'w-full max-w-96';
@@ -70,6 +74,24 @@ export const WithAction: Story = {
         <InputGroup>
           <InputGroupInput v-model="value" type="email" placeholder="name@example.com" />
           <InputGroupButton :disabled="!value">Send</InputGroupButton>
+        </InputGroup>
+      </Field>
+    `,
+    () => ({ value: ref('') }),
+  ),
+};
+
+export const Textarea: Story = {
+  render: renderStory(
+    `
+      <Field :class="fieldClass">
+        <FieldLabel>Message</FieldLabel>
+        <InputGroup>
+          <InputGroupTextarea v-model="value" autoresize placeholder="Write a reply" />
+          <InputGroupAddon align="block">
+            {{ value.length }}/280
+            <Button class="ms-auto" size="sm" :disabled="!value.trim()">Send</Button>
+          </InputGroupAddon>
         </InputGroup>
       </Field>
     `,

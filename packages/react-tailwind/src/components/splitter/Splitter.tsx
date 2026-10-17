@@ -9,7 +9,7 @@ import {
 } from '@ark-ui/react/splitter';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { cn } from '@/internal/cn';
+import { cn } from '@/lib/moduix/cn';
 
 const Splitter = forwardRef<
   ComponentRef<typeof SplitterPrimitive.Root>,
