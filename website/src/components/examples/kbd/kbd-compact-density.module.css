@@ -7,6 +7,5 @@
 
 .dense {
   --moduix-kbd-height: 1.25rem;
-  --moduix-kbd-min-width: 1.25rem;
   --moduix-kbd-padding-x: var(--moduix-spacing-1);
 }

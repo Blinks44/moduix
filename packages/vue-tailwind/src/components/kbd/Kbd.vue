@@ -25,7 +25,7 @@ const attrs = useAttrs();
     data-slot="kbd-root"
     :class="
       cn(
-        'box-border inline-flex min-h-control-xs max-w-full min-w-control-xs flex-none items-center justify-center rounded-sm border border-border bg-muted px-2 py-0 text-center align-middle font-mono text-xs font-medium wrap-anywhere text-foreground tabular-nums shadow-[inset_0_-1px_0_color-mix(in_oklab,currentColor_12%,transparent)] select-none',
+        'box-border inline-flex min-h-control-xs max-w-full min-w-control-xs flex-none items-center justify-center rounded-sm border border-border bg-muted px-2 text-center align-middle font-mono text-xs font-medium wrap-anywhere text-foreground tabular-nums shadow-[inset_0_-1px_0_color-mix(in_oklab,currentColor_12%,transparent)] select-none',
         className,
       )
     "

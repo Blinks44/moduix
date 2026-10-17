@@ -344,18 +344,10 @@
   --moduix-kbd-border-color: initial; /* var(--moduix-color-border) */
   --moduix-kbd-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-kbd-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-kbd-font-family: initial; /* var(--moduix-font-mono) */
-  --moduix-kbd-font-size: initial; /* var(--moduix-text-xs) */
-  --moduix-kbd-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-kbd-group-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-kbd-group-separator-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-kbd-height: initial; /* var(--moduix-size-xs) */
-  --moduix-kbd-line-height: initial; /* var(--moduix-line-height-text-xs) */
-  --moduix-kbd-min-width: initial; /* var(--moduix-kbd-height, 1.5rem) */
   --moduix-kbd-padding-x: initial; /* var(--moduix-spacing-2) */
-  --moduix-kbd-padding-y: initial; /* 0 */
   --moduix-kbd-radius: initial; /* var(--moduix-radius-sm) */
-  --moduix-kbd-shadow: initial; /* inset 0 -1px 0 color-mix(in oklab, var(--moduix-color-foreground) 12%, transparent) */
+  --moduix-kbd-shadow: initial; /* inset 0 -1px 0 color-mix(in oklab, currentColor 12%, transparent) */
 
   /* Lightbox */
   --moduix-lightbox-backdrop-bg: initial; /* var(--moduix-backdrop-bg, var(--moduix-color-overlay)) */

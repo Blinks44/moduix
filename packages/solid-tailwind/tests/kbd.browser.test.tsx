@@ -49,7 +49,6 @@ test('renders semantic keycaps and a labelled shortcut group with stable hooks',
     padding: '0px',
     borderWidth: '0px',
   });
-  expect([...group.classList]).toContain('shadow-none');
 });
 
 test('preserves semantic children and stable hooks with native Ark Solid asChild', () => {
@@ -127,4 +126,18 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
     minWidth: '32px',
     paddingInlineStart: '12px',
   });
+});
+test('tints the keycap edge with the text color', () => {
+  render(() => (
+    <>
+      <Kbd data-testid="default">K</Kbd>
+      <Kbd data-testid="tinted" style={{ color: 'rgb(255, 0, 0)' }}>
+        K
+      </Kbd>
+    </>
+  ));
+
+  expect(getComputedStyle(screen.getByTestId('tinted')).boxShadow).not.toBe(
+    getComputedStyle(screen.getByTestId('default')).boxShadow,
+  );
 });

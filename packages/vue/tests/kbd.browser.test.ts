@@ -88,3 +88,16 @@ test('preserves semantic children and refs with asChild', () => {
   expect(key.getAttribute('data-part')).toBe('root');
   expect(key.getAttribute('data-slot')).toBe('kbd-root');
 });
+test('tints the keycap edge with the text color', () => {
+  render({
+    components: kbdComponents,
+    template: `
+      <Kbd data-testid="default">K</Kbd>
+      <Kbd data-testid="tinted" style="color: rgb(255, 0, 0)">K</Kbd>
+    `,
+  });
+
+  expect(getComputedStyle(screen.getByTestId('tinted')).boxShadow).not.toBe(
+    getComputedStyle(screen.getByTestId('default')).boxShadow,
+  );
+});

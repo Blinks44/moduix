@@ -2,35 +2,21 @@
 
 ## Upstream docs
 
-Ark UI has no dedicated Kbd primitive. This component follows the official
+Ark UI has no Kbd primitive. This component follows the official
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory),
-[composition](https://ark-ui.com/docs/guides/composition),
-[styling](https://ark-ui.com/docs/guides/styling), and
+[composition](https://ark-ui.com/docs/guides/composition), and
 [ref](https://ark-ui.com/docs/guides/ref) guidance.
 
 ## Purpose
 
 `Kbd` renders static keycaps for keyboard shortcuts, command hints, and inline key labels.
 
-## Upstream model to preserve
-
-The component uses `@ark-ui/react/factory` rather than a state machine:
-
-- `Kbd` is an `ark.kbd` element; `KbdGroup` is an `ark.span` element;
-- `HTMLArkProps` provides native props and `asChild` for the rendered element;
-- refs target the rendered host element;
-- `data-scope` and `data-part` describe the local anatomy.
-
-There are no callbacks, controlled state, context, CSS runtime variables, or keyboard navigation
-because the component is static.
-
 ## Current behavior contract
 
-- `Kbd` is the root shorthand and renders a native `<kbd>` by default.
-- `KbdGroup` renders an inline `<span>` wrapper for grouped shortcuts.
-- Separators remain plain composition; the component does not inject text or extra elements.
-- Every part supports `className`, native attributes, `asChild`, and a forwarded ref.
-- Styling uses Ark anatomy attributes, stable `data-slot` hooks, and public `--moduix-kbd-*` variables.
+- `Kbd` is an `ark.kbd` element; `KbdGroup` is an `ark.span` element with `role="group"`.
+- Both parts accept native props, `className`, `asChild`, and a ref to the rendered element.
+- Separators such as `+` are plain children; the component injects no text or elements.
+- There is no state, context, callbacks, or keyboard interaction.
 
 ## Anatomy and exported parts
 
@@ -60,89 +46,33 @@ export function ShortcutHint() {
 }
 ```
 
-Use `asChild` only with one semantic child:
+## Accessibility
 
-```tsx
-<Kbd asChild>
-  <kbd title="Escape">Esc</kbd>
-</Kbd>
-```
+- `<kbd>` keeps native user-input semantics.
+- Add `aria-label` to a group when symbols or abbreviations need a clearer spoken form.
+- `asChild` consumers must keep `<kbd>` semantics and pass exactly one child.
 
-## Upstream feature coverage
+## Styling
 
-There is no Ark Kbd examples section to mirror. The relevant factory features are fully exposed:
+Public CSS variables (CSS Modules only), all on `Kbd`:
 
-- intrinsic `kbd` rendering;
-- native HTML and ARIA props;
-- `asChild` prop merging;
-- forwarded host refs;
-- Ark-style anatomy attributes.
+| Variable                    | Default                                                             |
+| --------------------------- | ------------------------------------------------------------------- |
+| `--moduix-kbd-bg`           | `var(--moduix-color-muted)`                                         |
+| `--moduix-kbd-border-color` | `var(--moduix-color-border)`                                        |
+| `--moduix-kbd-border-width` | `var(--moduix-border-width-sm)`                                     |
+| `--moduix-kbd-color`        | `var(--moduix-color-foreground)`                                    |
+| `--moduix-kbd-height`       | `var(--moduix-size-xs)`; also the minimum width                     |
+| `--moduix-kbd-padding-x`    | `var(--moduix-spacing-2)`                                           |
+| `--moduix-kbd-radius`       | `var(--moduix-radius-sm)`                                           |
+| `--moduix-kbd-shadow`       | `inset 0 -1px 0 color-mix(in oklab, currentColor 12%, transparent)` |
 
-State machines, callbacks, provider/context APIs, `ids`, `present`, `HiddenInput`, and
-`Field`/`Fieldset` integration do not apply.
-
-## Accessibility and state
-
-- `<kbd>` preserves native semantics for user-input labels.
-- `KbdGroup` renders a `<span role="group">` by default so a shortcut can have an accessible group name.
-- Add `aria-label` to a group when abbreviations or symbols need a clearer spoken form.
-- `asChild` consumers must preserve `<kbd>` semantics and provide exactly one child.
-- The component has no focus, disabled, invalid, open/closed, or controlled/uncontrolled state.
-
-## Defaults and styling
-
-Stable styling hooks:
-
-- `[data-scope="kbd"][data-part="root"]`
-- `[data-scope="kbd"][data-part="group"]`
-- `[data-slot="kbd-root"]`
-- `[data-slot="kbd-group"]`
-
-Public CSS variables:
-
-| Variable                             | Default                                                                               | Part  |
-| ------------------------------------ | ------------------------------------------------------------------------------------- | ----- |
-| `--moduix-kbd-bg`                    | `var(--moduix-color-muted)`                                                           | Root  |
-| `--moduix-kbd-border-color`          | `var(--moduix-color-border)`                                                          | Root  |
-| `--moduix-kbd-border-width`          | `var(--moduix-border-width-sm)`                                                       | Root  |
-| `--moduix-kbd-color`                 | `var(--moduix-color-foreground)`                                                      | Root  |
-| `--moduix-kbd-font-family`           | `var(--moduix-font-mono)`                                                             | Root  |
-| `--moduix-kbd-font-size`             | `var(--moduix-text-xs)`                                                               | Root  |
-| `--moduix-kbd-font-weight`           | `var(--moduix-weight-medium)`                                                         | Root  |
-| `--moduix-kbd-group-gap`             | `var(--moduix-spacing-1)`                                                             | Group |
-| `--moduix-kbd-group-separator-color` | `var(--moduix-color-muted-foreground)`                                                | Group |
-| `--moduix-kbd-height`                | `var(--moduix-size-xs)`                                                               | Root  |
-| `--moduix-kbd-line-height`           | `var(--moduix-line-height-text-xs)`                                                   | Root  |
-| `--moduix-kbd-min-width`             | `var(--moduix-kbd-height, var(--moduix-size-xs))`                                     | Root  |
-| `--moduix-kbd-padding-x`             | `var(--moduix-spacing-2)`                                                             | Root  |
-| `--moduix-kbd-padding-y`             | `0`                                                                                   | Root  |
-| `--moduix-kbd-radius`                | `var(--moduix-radius-sm)`                                                             | Root  |
-| `--moduix-kbd-shadow`                | `inset 0 -1px 0 color-mix(in oklab, var(--moduix-color-foreground) 12%, transparent)` | Root  |
-
-## Intentional sugar and differences from upstream
-
-- moduix defines the `Kbd` and `KbdGroup` anatomy because Ark UI has no Kbd primitive.
-- moduix adds visual defaults, public CSS variables, and stable `data-slot` hooks.
-- The wrapper does not re-export aliases for native `kbd` props; use Ark `HTMLArkProps<'kbd'>`
-  directly when a named local type is needed.
-- `KbdGroup` is the named group export; no compound or compatibility alias is retained.
+Typography and `KbdGroup` styles come from foundation tokens; override them with a class. Separators
+inherit the group text color. The keycap edge shadow follows the text color.
 
 ## Agent notes
 
 - Keep the implementation factory-based and stateless.
 - Do not add shortcut parsing, separator injection, or interactive behavior.
-- Keep source, stories, docs, and registry dependencies synchronized.
-
-## Local changelog
-
-- 2026-09-21: Replaced the compound `Kbd.*` value surface with the flat `Kbd` and `KbdGroup` exports across React, Solid, Tailwind, registries, stories, and docs.
-- 2026-08-11: Added the default `group` role to `KbdGroup` so its documented `aria-label` is exposed to assistive technology, corrected the default-element contract, and covered `asChild` composition for both parts.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-06-25: Reconfirmed the component as a moduix-owned Ark factory primitive, aligned the
-  no-dedicated-Ark-primitive docs text, and simplified Kbd spacing defaults to existing spacing
-  tokens.
-- 2026-07-03: Dropped redundant exported prop aliases and kept the public surface focused on the
-  explicit `Kbd` / `KbdGroup` parts.
-- 2026-06-19: Migrated the component to Ark factory primitives, added `Root`/`Group` anatomy,
-  `asChild`, forwarded refs, Ark data attributes, and removed the old standalone group export.
-- 2026-06-02: Documented the native Kbd behavior and public styling contract.
+- `CommandPaletteKbd` sizes itself through `--moduix-kbd-height`, `--moduix-kbd-padding-x`, and
+  `--moduix-kbd-color`; keep those variables while it depends on them.
