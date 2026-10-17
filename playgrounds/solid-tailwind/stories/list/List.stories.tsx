@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
-import { List, ListItem } from '@/components/list/List';
+import { List, ListIndicator, ListItem } from '@/components/list/List';
 
 const defaultItems = [
   'Use semantic list markup for grouped content.',
@@ -59,17 +59,6 @@ export const Ordered: Story = {
       <ListItem>Prepare the release notes.</ListItem>
       <ListItem>Publish the package.</ListItem>
       <ListItem>Announce the release.</ListItem>
-    </List>
-  ),
-};
-
-export const OrderedType: Story = {
-  name: 'Ordered Type',
-  render: () => (
-    <List as="ol" type="A" class={listClass}>
-      <ListItem>Draft the rollout checklist.</ListItem>
-      <ListItem>Coordinate the release window.</ListItem>
-      <ListItem>Confirm the post-release review.</ListItem>
     </List>
   ),
 };
@@ -190,5 +179,62 @@ export const CustomRootComposition: Story = {
         );
       }}
     />
+  ),
+};
+
+export const Nested: Story = {
+  render: () => (
+    <List class={listClass}>
+      <ListItem>
+        Prepare the release
+        <List as="ol">
+          <ListItem>Update the changelog.</ListItem>
+          <ListItem>Bump the package versions.</ListItem>
+        </List>
+      </ListItem>
+      <ListItem>Publish the packages.</ListItem>
+    </List>
+  ),
+};
+
+export const WithIndicator: Story = {
+  name: 'With Indicator',
+  render: () => (
+    <List marker="none" class={listClass}>
+      <ListItem>
+        <ListIndicator>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+        </ListIndicator>
+        Tests pass in every adapter.
+      </ListItem>
+      <ListItem>
+        <ListIndicator>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+        </ListIndicator>
+        Long items wrap next to the indicator instead of under it, so the text stays aligned.
+      </ListItem>
+    </List>
   ),
 };

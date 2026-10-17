@@ -5,62 +5,71 @@ import type { ForwardedRef } from 'react';
 import { forwardRef } from 'react';
 import styles from './List.module.css';
 
+type ListElement = 'ul' | 'ol';
 type ListMarker = 'disc' | 'decimal' | 'none';
 type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
 
-type ListBaseProps = {
+type ListRootProps = HTMLArkProps<'ol'> & {
+  as?: ListElement;
   marker?: ListMarker;
   gap?: ListGap;
   size?: ListSize;
   tone?: ListTone;
 };
-type ListRootProps =
-  | (HTMLArkProps<'ul'> & ListBaseProps & { as?: 'ul' })
-  | (HTMLArkProps<'ol'> & ListBaseProps & { as: 'ol' });
 
 const List = forwardRef<HTMLUListElement | HTMLOListElement, ListRootProps>(function List(
-  { as, asChild, className, gap = 'sm', marker, role, size = 'md', tone = 'default', ...props },
+  {
+    as = 'ul',
+    marker = as === 'ol' ? 'decimal' : 'disc',
+    gap = 'sm',
+    size = 'md',
+    tone = 'default',
+    role = marker === 'none' ? 'list' : undefined,
+    className,
+    ...props
+  },
   ref,
 ) {
-  const markerValue = marker ?? 'auto';
-  const rootProps = {
-    asChild,
-    role: role ?? (markerValue === 'none' ? 'list' : undefined),
-    ...props,
-    'data-scope': 'list',
-    'data-part': 'root',
-    'data-slot': 'list-root',
-    'data-gap': gap,
-    'data-marker': markerValue,
-    'data-size': size,
-    'data-tone': tone,
-    className: clsx(styles.root, className),
-  };
+  const Element = ark[as] as typeof ark.ol;
 
-  if (as === 'ol') {
-    return <ark.ol ref={ref as ForwardedRef<HTMLOListElement>} {...rootProps} />;
-  }
-
-  return <ark.ul ref={ref as ForwardedRef<HTMLUListElement>} {...rootProps} />;
-});
-
-const ListItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(function ListItem(
-  { asChild, className, ...props },
-  ref,
-) {
   return (
-    <ark.li
-      ref={ref}
-      asChild={asChild}
+    <Element
       {...props}
+      ref={ref as ForwardedRef<HTMLOListElement>}
+      role={role}
       data-scope="list"
-      data-part="item"
-      data-slot="list-item"
-      className={className}
+      data-part="root"
+      data-slot="list-root"
+      data-gap={gap}
+      data-marker={marker}
+      data-size={size}
+      data-tone={tone}
+      className={clsx(styles.root, className)}
     />
   );
 });
 
-export { List, ListItem };
+const ListItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(function ListItem(props, ref) {
+  return <ark.li {...props} ref={ref} data-scope="list" data-part="item" data-slot="list-item" />;
+});
+
+const ListIndicator = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function ListIndicator(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <ark.span
+      {...props}
+      ref={ref}
+      data-scope="list"
+      data-part="indicator"
+      data-slot="list-indicator"
+      className={clsx(styles.indicator, className)}
+    />
+  );
+});
+
+export { List, ListIndicator, ListItem };
+export type { ListElement, ListGap, ListMarker, ListRootProps, ListSize, ListTone };

@@ -4,28 +4,33 @@ component: list
 description: Семантический список с настраиваемыми отступами, типографикой, цветом и нативными маркерами.
 ---
 
-import * as ListDocs from '@/components/examples/list/css-properties';
 import ListBasic from '@/components/examples/list/basic.tsx';
 import ListCustomComposition from '@/components/examples/list/custom-composition.tsx';
 import ListMarkerless from '@/components/examples/list/markerless.tsx';
+import ListNested from '@/components/examples/list/nested.tsx';
 import ListNativeItems from '@/components/examples/list/native-items.tsx';
 import ListOrdered from '@/components/examples/list/ordered.tsx';
 import ListRootAsChild from '@/components/examples/list/root-as-child.tsx';
 import ListTone from '@/components/examples/list/tone.tsx';
+import ListWithIndicator from '@/components/examples/list/with-indicator.tsx';
 import listSolidBasic from '../../../snippets/list/solid/basic.tsx?raw';
 import listSolidCustomComposition from '../../../snippets/list/solid/custom-composition.tsx?raw';
+import listSolidNested from '../../../snippets/list/solid/nested.tsx?raw';
 import listSolidMarkerless from '../../../snippets/list/solid/markerless.tsx?raw';
 import listSolidNativeItems from '../../../snippets/list/solid/native-items.tsx?raw';
 import listSolidOrdered from '../../../snippets/list/solid/ordered.tsx?raw';
 import listSolidRootAsChild from '../../../snippets/list/solid/root-as-child.tsx?raw';
 import listSolidTone from '../../../snippets/list/solid/tone.tsx?raw';
+import listSolidWithIndicator from '../../../snippets/list/solid/with-indicator.tsx?raw';
 import listVueBasic from '../../../snippets/list/vue/basic.vue?raw';
 import listVueCustomComposition from '../../../snippets/list/vue/custom-composition.vue?raw';
+import listVueNested from '../../../snippets/list/vue/nested.vue?raw';
 import listVueMarkerless from '../../../snippets/list/vue/markerless.vue?raw';
 import listVueNativeItems from '../../../snippets/list/vue/native-items.vue?raw';
 import listVueOrdered from '../../../snippets/list/vue/ordered.vue?raw';
 import listVueRootAsChild from '../../../snippets/list/vue/root-as-child.vue?raw';
 import listVueTone from '../../../snippets/list/vue/tone.vue?raw';
+import listVueWithIndicator from '../../../snippets/list/vue/with-indicator.vue?raw';
 
 ## Справочник API
 
@@ -48,8 +53,9 @@ import listVueTone from '../../../snippets/list/vue/tone.vue?raw';
 
 `List` по умолчанию отрисовывает семантический `<ul>`. Используйте `ListItem`, если нужны стабильная часть
 элемента и её хуки стилизации, или передавайте обычные `<li>`, когда дополнительная обёртка не нужна. Корневой
-`List` управляет отступами, типографикой, цветом и маркерами. Если `marker` не задан, используются семантические
-значения по умолчанию; при необходимости передайте `disc`, `decimal` или `none` явно.
+`List` управляет отступами, типографикой, цветом и маркерами. По умолчанию `ul` получает маркеры `disc`, а `ol` —
+`decimal`; передайте `disc`, `decimal` или `none` в `marker`, чтобы задать их явно. С `asChild` передайте `marker`,
+соответствующий дочернему элементу.
 
 <ExampleFrame variant="component">
   <ListBasic />
@@ -128,12 +134,14 @@ import listVueTone from '../../../snippets/list/vue/tone.vue?raw';
 ```text
 List
 └─ ListItem | li
+   └─ ListIndicator
 ```
 
 | Часть                | Назначение                                                                                     |
 | -------------------- | ----------------------------------------------------------------------------------------------- |
 | `List`     | Семантический корень списка, который отрисовывает `ul` или `ol` и управляет маркерами, отступами, размером и цветом. |
 | `ListItem` | Необязательная часть, которая отрисовывает `li`, передаёт нативные атрибуты и ref и поддерживает `asChild`.          |
+| `ListIndicator` | Необязательный `span` в начале пункта для иконки вместо нативного маркера. |
 
 ## Композиция
 
@@ -270,7 +278,8 @@ render-функцией, а в Vue передайте один семантич�
 ### Упорядоченный список
 
 Используйте `as="ol"`, чтобы отрисовать упорядоченный список и сохранить стилизацию корневого элемента moduix.
-Нативные свойства `start`, `reversed` и `type` передаются корневому элементу упорядоченного списка.
+Нативные свойства `start` и `reversed` передаются корневому элементу упорядоченного списка. Маркеры задаёт `marker`,
+поэтому нативный атрибут `type` их не меняет; для букв или римских цифр задайте `list-style-type` классом.
 
 <ExampleFrame variant="component">
   <ListOrdered />
@@ -351,6 +360,87 @@ render-функцией, а в Vue передайте один семантич�
 </div>
 </ExampleCode>
 
+### Вложенный список
+
+Поместите вложенный `List` внутрь `ListItem`. Вложенный список начинается на один `gap` ниже текста пункта,
+используя собственный `gap`, поэтому дополнительные отступы не нужны.
+
+<ExampleFrame variant="component">
+  <ListNested />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/list/nested.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSolidNested} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueNested} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
+
+### С индикатором
+
+Используйте `ListIndicator`, чтобы показать иконку вместо нативного маркера, и задайте корню `marker="none"`.
+Пункт с индикатором становится flex-строкой: иконка получает размер `1em`, выравнивается по первой строке, а
+длинный текст переносится рядом с ней, а не под неё.
+
+<ExampleFrame variant="component">
+  <ListWithIndicator />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/list/with-indicator.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={listSolidWithIndicator} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={listVueWithIndicator} />
+
+    </Tab>
+  </Tabs>
+</div>
+</ExampleCode>
+
 ### Расширенная настройка
 
 Используйте `ListItem asChild`, когда пользовательский компонент должен сам отрисовать `<li>`. Он обязан передать
@@ -400,22 +490,8 @@ render-функцией, а в Vue передайте один семантич�
 ## Стилизация
 
 Стилизуйте `List` с помощью свойства класса (`className` в React и `class` в Solid и Vue), экспортируемых атрибутов
-`data-*` в стиле Ark, нативного `li::marker` и публичных CSS-переменных `--moduix-list-*`, перечисленных ниже.
-Ниже приведён полный список переменных публичного CSS API.
-
-### CSS-свойства
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <ListDocs.ListCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+`data-*` в стиле Ark и нативного `li::marker`. Варианты на CSS Modules построены на токенах foundation и не имеют
+переменных компонента: класс на корневом элементе переопределяет стили из слоя компонентов.
 
 ### Хуки стилизации
 
@@ -423,8 +499,9 @@ render-функцией, а в Vue передайте один семантич�
 
 - корневой элемент: `data-scope="list"`, `data-part="root"`, `data-slot="list-root"`
 - элемент: `data-scope="list"`, `data-part="item"`, `data-slot="list-item"`
+- индикатор: `data-scope="list"`, `data-part="indicator"`, `data-slot="list-indicator"`
 - `data-gap="xs" | "sm" | "md" | "lg" | "xl" | "2xl"` для стилей, связанных с отступами
-- `data-marker="auto" | "disc" | "decimal" | "none"` для стилей, связанных с маркерами
+- `data-marker="disc" | "decimal" | "none"` для стилей, связанных с маркерами
 - `data-size="xs" | "sm" | "md" | "lg" | "xl"` для стилей размера типографики
 - `data-tone="default" | "muted" | "subtle" | "primary" | "destructive"` для семантических цветов
 - нативный селектор `li::marker` для переопределения цвета или толщины маркера

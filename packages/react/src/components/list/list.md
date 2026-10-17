@@ -2,177 +2,66 @@
 
 Upstream docs:
 
-- Ark UI: no dedicated `List` component. Use the Composition, Styling, and Ref guides:
-  - https://ark-ui.com/docs/guides/composition
-  - https://ark-ui.com/docs/guides/styling
-  - https://ark-ui.com/docs/guides/ref
-- Ark UI List Collection is a data utility, not a semantic visual-list primitive:
-  https://ark-ui.com/react/docs/collections/list-collection
+- Ark UI has no List primitive; the wrapper uses the Ark factory:
+  https://ark-ui.com/docs/guides/composition
 - Chakra UI List: https://chakra-ui.com/docs/components/list
-- shadcn/ui has no dedicated List component in its public catalog:
-  https://ui.shadcn.com/llms.txt
+- shadcn/ui has no List component.
 
-Sources reviewed 2026-08-11.
+Sources reviewed 2026-10-17.
 
 ## Purpose
 
-`List` is a moduix-owned semantic list wrapper that uses Ark factory composition to style unordered and ordered lists with the moduix spacing, typography, and marker token contract.
+`List` is a thin `ark.ul` / `ark.ol` wrapper that adds design-system props (`marker`, `gap`, `size`, `tone`) to
+native list semantics. `ListItem` is a thin `ark.li` wrapper with stable data hooks.
 
-## Upstream model to preserve
+## Contract
 
-There is no dedicated Ark `List` primitive or component page. The wrapper should stay aligned with Ark's factory-based composition model:
-
-- `List` is a thin Ark factory wrapper over `ark.ul` / `ark.ol`, with `asChild` support for a
-  single replacement `<ul>` or `<ol>` host.
-- `ListItem` is a thin `ark.li` wrapper with the same `asChild` composition path for a single
-  replacement `<li>` host.
-- Styling is driven through Ark-style `data-scope`, `data-part`, state-like data attributes, and public CSS variables.
-- Ref behavior targets the rendered semantic root/item element, with the standard Ark `asChild` constraint of a single semantic child.
-
-## Upstream comparison
-
-| Source    | Useful difference                                                                         | Decision                                                                                                                                                                                                        |
-| --------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ark UI    | `createListCollection` models collection data; it does not render a semantic visual list. | **Intentional difference:** keep `List` as a native `ul`/`ol` wrapper. Selection and collection state belong to `Listbox` and other Ark primitives.                                                             |
-| Chakra UI | Exposes a compound root/item API and a marker-style convenience API.                      | **Consumer friction resolved / complexity rejected:** moduix provides a flat root/item composition, while native `li::marker` and tokens remain the styling path instead of adding a translated style-prop API. |
-| shadcn/ui | Does not publish a dedicated List component.                                              | **Intentional difference:** keep the small semantic wrapper; there is no shadcn API to mirror.                                                                                                                  |
-
-## Current behavior contract
-
-- `List` defaults to a semantic `<ul>`.
-- Ordered lists use narrow host sugar: render `<List as="ol" start={...}>` for native ordered
-  semantics and ordered-list props.
-- `asChild` remains available for custom host ownership, not for the normal `ul` / `ol` path. Its
-  child must preserve the corresponding semantic host (`ul`/`ol` for `List`, `li` for `ListItem`)
-  and forward the ref and props.
-- `ListItem` is the public item part.
-- `marker="none"` still applies `role="list"` by default for markerless semantics unless the caller passes a custom `role`.
-- Native list props remain available on the rendered host element:
-  - plain `<List>` accepts `ul` props;
-  - ordered-list props such as `start`, `reversed`, and `type` are available when `as="ol"` is used.
-- Visual behavior stays token-driven through `gap`, `size`, `tone`, native `::marker`, and the `--moduix-list-*` CSS variable contract.
-- Root spacing uses flex `gap` with a default column direction. Consumer CSS can switch the root to
-  `flex-direction: row` or wrap items without inheriting a vertical sibling margin.
-
-## Anatomy and exported parts
-
-```text
-List
-└─ ListItem | li
-```
-
-| Part       | Stable hooks                                                     | Notes                                                                  |
-| ---------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `List`     | `data-scope="list"`, `data-part="root"`, `data-slot="list-root"` | Semantic list root with marker, spacing, size, and tone styling hooks. |
-| `ListItem` | `data-scope="list"`, `data-part="item"`, `data-slot="list-item"` | Thin semantic item wrapper with optional `asChild` composition.        |
-
-## Composition
-
-Canonical unordered usage:
+- `as` is `ul` (default) or `ol`. Do not widen it; use `asChild` for a custom host that renders `ul`, `ol`, or `li`
+  and forwards props and ref.
+- `marker` defaults from `as`: `disc` for `ul`, `decimal` for `ol`. With `asChild`, pass `marker` to match the
+  child. `data-marker` always holds the resolved value.
+- The native `type` attribute of `ol` does not change markers (the component sets `list-style-type`); use a class.
+  CSS cannot map it: Chrome ignores the case-sensitive `[type='a' s]` flag and matches `type` case-insensitively.
+- `marker="none"` removes the indentation and adds `role="list"` unless the caller passes `role`, so Safari keeps
+  list semantics.
+- Defaults: `gap="sm"`, `size="md"`, `tone="default"`.
+- Spacing uses flex `gap` on a column; consumers can switch to a row or wrap. Do not restore `li + li` margins.
+- A `ul`/`ol` directly inside an item gets `margin-block-start` equal to its own gap (private `--_list-gap`), so a
+  nested `List` sits one gap below the item text.
+- `ListIndicator` is a `span` for an icon instead of the native marker; use it with `marker="none"`. An item whose
+  direct child is an indicator becomes a flex row (`li:has(> indicator)`), so long text wraps beside the icon. Icons
+  are `1em`, and the indicator is at least `1lh` tall to align with the first line. It sets no `aria-hidden`:
+  decorative icons hide themselves.
+- `data-scope`, `data-part`, `data-slot`, and the `data-*` styling hooks are set after the props spread and cannot be
+  replaced by consumer props.
+- Exported types: `ListRootProps`, `ListElement`, `ListMarker`, `ListGap`, `ListSize`, `ListTone`.
 
 ```tsx
 import { List, ListItem } from '@moduix/react/list';
 
-export function ListDemo() {
-  return (
-    <List>
-      <ListItem>Use semantic list markup for grouped content.</ListItem>
-      <ListItem>Keep spacing and typography on the library scale.</ListItem>
-      <ListItem>Style markers with CSS variables or native ::marker selectors.</ListItem>
-    </List>
-  );
-}
+<List as="ol" start={3}>
+  <ListItem>Prepare the release notes.</ListItem>
+  <ListItem>Publish the package.</ListItem>
+</List>;
 ```
 
-Canonical ordered usage:
+## Anatomy
 
-```tsx
-import { List, ListItem } from '@moduix/react/list';
+| Part            | Hooks                                                                                                                 |
+| --------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `List`          | `data-scope="list"`, `data-part="root"`, `data-slot="list-root"`, `data-marker`, `data-gap`, `data-size`, `data-tone` |
+| `ListItem`      | `data-scope="list"`, `data-part="item"`, `data-slot="list-item"`                                                      |
+| `ListIndicator` | `data-scope="list"`, `data-part="indicator"`, `data-slot="list-indicator"`                                            |
 
-export function OrderedListDemo() {
-  return (
-    <List as="ol" start={3}>
-      <ListItem>Prepare the release notes.</ListItem>
-      <ListItem>Publish the package.</ListItem>
-      <ListItem>Announce the release.</ListItem>
-    </List>
-  );
-}
-```
+Native `<li>` children work too; `ListItem` only adds the hooks and `asChild`.
 
-## Upstream feature coverage
+## Styling
 
-- Ark Composition guide:
-  - supported: `asChild` on the root and item parts;
-  - supported: semantic child replacement with a single host element;
-  - unsupported by design: there is no upstream state machine, context API, `RootProvider`, or callback detail object because no Ark primitive exists.
-- Ark Styling guide:
-  - supported: styling through `data-scope`, `data-part`, data attributes, `className`, and CSS variables;
-  - supported: native marker styling with `li::marker`.
-- Ark Ref guide:
-  - supported: refs forwarded to the rendered root/item DOM element;
-  - preserve the semantic-host requirement when using `asChild`.
-
-## Accessibility and state
-
-- Accessibility comes from native list semantics (`ul`, `ol`, `li`) rather than an Ark state machine.
-- `marker="none"` hides markers visually and keeps list semantics via the default `role="list"` fallback.
-- Keep direct `li` descendants under the rendered root. Root spacing and marker styling assume direct list items.
-- There are no Ark callbacks, controlled/uncontrolled modes, `HiddenInput`, `Field`/`Fieldset` context, or provider/context exports for this component.
-- Public styling hooks:
-  - root: `data-gap`, `data-marker`, `data-size`, `data-tone`
-  - item: `data-slot="list-item"` plus `data-scope` / `data-part`
-
-## Defaults and styling
-
-- `List` accepts `className` on the root and `ListItem` accepts `className` on the item.
-- Defaults:
-  - root host: `ul`
-  - `gap`: `sm`
-  - `size`: `md`
-  - `tone`: `default`
-  - `marker`: semantic auto mode (`disc` on `ul`, browser default ordered markers on `ol`)
-- Public CSS variables remain:
-  - color: `--moduix-list-color`, `--moduix-list-default-color`, `--moduix-list-muted-color`, `--moduix-list-subtle-color`, `--moduix-list-primary-color`, `--moduix-list-destructive-color`
-  - typography: `--moduix-list-font-family`, `--moduix-list-font-size`, `--moduix-list-font-size-*`, `--moduix-list-font-weight`, `--moduix-list-line-height`, `--moduix-list-line-height-*`, `--moduix-list-letter-spacing`
-  - spacing/markers: `--moduix-list-gap`, `--moduix-list-gap-*`, `--moduix-list-padding-x`, `--moduix-list-marker-color`, `--moduix-list-marker-font-weight`
-- The CSS module relies on the Ark-style root hooks and native `li::marker`; keep those selectors aligned with the implementation.
-- Keep item spacing on root `gap`; do not restore `li + li` margins because they use the wrong axis
-  when consumers choose a row layout.
-
-## Intentional sugar and differences from upstream
-
-- `List` is still a moduix-owned component because Ark UI does not ship a dedicated list primitive.
-- The moduix wrapper adds design-system props (`gap`, `size`, `tone`, `marker`), narrow `as="ul" | "ol"` host sugar, and a stable `ListItem` part.
-- The flat API keeps the root and item as separate `List` and `ListItem` exports.
-- The wrapper does not re-export list prop or token union aliases; consumers can infer them from
-  `List` usage or declare local unions when needed.
-- Do not expand `as` beyond `ul` / `ol`; use `asChild` for custom semantic hosts.
+CSS Modules read foundation tokens directly and have no `--moduix-list-*` variables. A class on the root overrides
+the `moduix.components` layer; style markers with `li::marker` (Tailwind: `marker:` utilities). The Tailwind variant
+uses the same spacing (`gap-1` … `gap-6`, `ps-5`) and typography utilities.
 
 ## Agent notes
 
-- Do not add a fake Ark part tree, context API, or state callbacks to mimic other Ark primitives.
-- Keep the wrapper thin: Ark factory composition, semantic DOM, styling hooks, and token mapping only.
-- Keep `data-scope="list"`, `data-part`, and `data-slot` locked after passthrough props so
-  consumers cannot accidentally remove the public styling hooks.
-- If future work needs custom non-list hosts, prefer `asChild` over widening the `as` union.
-
-## Local changelog
-
-- 2026-08-11: Corrected the documented `--moduix-list-font-family` fallback to `inherit` and added
-  regression coverage for default root data hooks and item refs; Storybook now covers all semantic
-  tone paths and representative size extremes.
-- 2026-08-05: Replaced vertical sibling margins with root flex gap so consumer row and wrapped layouts
-  keep spacing on the selected flex axis.
-- 2026-07-28: Added root `asChild` documentation, Storybook coverage, and regression tests; custom
-  semantic hosts must forward refs and props.
-- 2026-07-10: Clarified the semantic and ref-forwarding requirements for `asChild`; docs and stories
-  now reserve it for custom `ul`/`ol` or `li` components rather than ordinary styling.
-- 2026-07-03: Removed redundant exported list prop and token type aliases from the public surface.
-- 2026-06-26: Reintroduced narrow `as="ul" | "ol"` host sugar so ordered lists can use
-  `<List as="ol" start={...}>`, while keeping `asChild` as the custom-host escape hatch.
-- 2026-06-26: Finalized the Ark factory audit by simplifying marker resolution, locking the root
-  and item data hooks after passthrough props, aligning public docs with the local-only API
-  reference text, and adding the missing `@ark-ui/react` registry dependency.
-- 2026-06-19: Migrated `List` to an Ark-style factory wrapper, replaced `as="ol"` with `asChild`, and rewrote the local contract around Ark composition/styling guides.
-- 2026-06-15: Restored ordered-list markers on the default `as="ol"` path after the global reset, documented `ListItem`, formalized public styling hooks and CSS variables, and recorded the markerless accessibility + ordered-list marker preservation notes.
+- No context, provider, or state: there is no Ark machine to wrap.
+- Keep the wrapper thin: semantic host, data hooks, and token mapping only.

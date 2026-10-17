@@ -1585,6 +1585,11 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/list/ListIndicator.vue",
+          "target": "@components/ui/list/ListIndicator.vue",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/list/ListItem.vue",
           "target": "@components/ui/list/ListItem.vue",
           "type": "registry:component"

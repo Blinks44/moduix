@@ -6,63 +6,55 @@ import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 
-type ListMarker = 'disc' | 'decimal' | 'none';
-type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
+export type ListElement = 'ul' | 'ol';
+export type ListMarker = 'disc' | 'decimal' | 'none';
+export type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
 
-const listVariants = cva('flex flex-col font-regular tracking-normal list-outside break-words', {
-  variants: {
-    as: {
-      ul: null,
-      ol: null,
-    },
-    gap: {
-      xs: 'gap-space-xs',
-      sm: 'gap-space-sm',
-      md: 'gap-space-md',
-      lg: 'gap-space-lg',
-      xl: 'gap-space-xl',
-      '2xl': 'gap-space-2xl',
-    },
-    marker: {
-      auto: null,
-      disc: 'list-disc ps-5',
-      decimal: 'list-decimal ps-5',
-      none: 'list-none',
-    },
-    size: {
-      xs: 'text-xs',
-      sm: 'text-sm',
-      md: 'text-md',
-      lg: 'text-lg',
-      xl: 'text-xl',
-    },
-    tone: {
-      default: 'text-foreground',
-      muted: 'text-muted-foreground',
-      subtle: 'text-secondary-foreground',
-      primary: 'text-primary',
-      destructive: 'text-destructive',
-    },
-  },
-  compoundVariants: [
-    { as: 'ul', marker: 'auto', class: 'list-disc ps-5' },
-    { as: 'ol', marker: 'auto', class: 'list-[revert] ps-5' },
+const listVariants = cva(
+  [
+    'flex flex-col gap-(--_list-gap) ps-5 font-regular tracking-normal break-words',
+    '[&>li>:is(ul,ol)]:mt-(--_list-gap)',
+    '[&>li:has(>[data-slot=list-indicator])]:flex [&>li:has(>[data-slot=list-indicator])]:items-start',
   ],
-  defaultVariants: {
-    as: 'ul',
-    gap: 'sm',
-    marker: 'auto',
-    size: 'md',
-    tone: 'default',
+  {
+    variants: {
+      marker: {
+        disc: 'list-disc',
+        decimal: 'list-decimal',
+        none: 'list-none ps-0',
+      },
+      gap: {
+        xs: '[--_list-gap:var(--moduix-spacing-1)]',
+        sm: '[--_list-gap:var(--moduix-spacing-2)]',
+        md: '[--_list-gap:var(--moduix-spacing-3)]',
+        lg: '[--_list-gap:var(--moduix-spacing-4)]',
+        xl: '[--_list-gap:var(--moduix-spacing-5)]',
+        '2xl': '[--_list-gap:var(--moduix-spacing-6)]',
+      },
+      size: {
+        xs: 'text-xs',
+        sm: 'text-sm',
+        md: 'text-md',
+        lg: 'text-lg',
+        xl: 'text-xl',
+      },
+      tone: {
+        default: 'text-foreground',
+        muted: 'text-muted-foreground',
+        subtle: 'text-secondary-foreground',
+        primary: 'text-primary',
+        destructive: 'text-destructive',
+      },
+    },
   },
-});
+);
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'ol'> {
-  as?: 'ul' | 'ol';
+  as?: ListElement;
   class?: HTMLAttributes['class'];
   gap?: ListGap;
   marker?: ListMarker;
@@ -72,7 +64,7 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'ol'> {
 }
 
 const {
-  as: elementName,
+  as = 'ul',
   class: className,
   gap = 'sm',
   marker,
@@ -83,28 +75,15 @@ const {
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const markerValue = computed(() => marker ?? 'auto');
-const listRole = computed(() => role ?? (markerValue.value === 'none' ? 'list' : undefined));
-const rootClass = computed(() =>
-  cn(
-    listVariants({
-      as: elementName === 'ol' ? 'ol' : 'ul',
-      gap,
-      marker: markerValue.value,
-      size,
-      tone,
-    }),
-    className,
-  ),
-);
+const markerValue = computed(() => marker ?? (as === 'ol' ? 'decimal' : 'disc'));
 </script>
 
 <template>
   <component
-    :is="ark[elementName ?? 'ul']"
+    :is="ark[as]"
     v-bind="attrs"
-    :class="rootClass"
-    :role="listRole"
+    :class="cn(listVariants({ marker: markerValue, gap, size, tone }), className)"
+    :role="role ?? (markerValue === 'none' ? 'list' : undefined)"
     data-scope="list"
     data-part="root"
     data-slot="list-root"

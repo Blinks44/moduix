@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent } from 'vue';
-import { List, ListItem } from '@/components/list';
+import { List, ListIndicator, ListItem } from '@/components/list';
 
 const demoRootClass = 'w-full max-w-lg';
 const accentListClass = 'w-full max-w-lg ps-6';
@@ -46,7 +46,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const storyComponents = { AccentListItem, List, ListItem, ReleaseList };
+const storyComponents = { AccentListItem, List, ListIndicator, ListItem, ReleaseList };
 
 function renderStory(template: string) {
   return () =>
@@ -73,17 +73,6 @@ export const Ordered: Story = {
       <ListItem>Prepare the release notes.</ListItem>
       <ListItem>Publish the package.</ListItem>
       <ListItem>Announce the release.</ListItem>
-    </List>
-  `),
-};
-
-export const OrderedType: Story = {
-  name: 'Ordered Type',
-  render: renderStory(`
-    <List as="ol" type="A" :class="demoRootClass">
-      <ListItem>Draft the rollout checklist.</ListItem>
-      <ListItem>Coordinate the release window.</ListItem>
-      <ListItem>Confirm the post-release review.</ListItem>
     </List>
   `),
 };
@@ -177,6 +166,31 @@ export const CustomRootComposition: Story = {
         <ListItem>Publish the package.</ListItem>
         <ListItem>Announce the release.</ListItem>
       </ReleaseList>
+    </List>
+  `),
+};
+
+export const Nested: Story = {
+  render: renderStory(`
+    <List :class="demoRootClass">
+      <ListItem>
+        Prepare the release
+        <List as="ol">
+          <ListItem>Update the changelog.</ListItem>
+          <ListItem>Bump the package versions.</ListItem>
+        </List>
+      </ListItem>
+      <ListItem>Publish the packages.</ListItem>
+    </List>
+  `),
+};
+
+export const WithIndicator: Story = {
+  name: 'With Indicator',
+  render: renderStory(`
+    <List marker="none" :class="demoRootClass">
+      <ListItem><ListIndicator><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg></ListIndicator>Tests pass in every adapter.</ListItem>
+      <ListItem><ListIndicator><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg></ListIndicator>Long items wrap next to the indicator instead of under it, so the text stays aligned.</ListItem>
     </List>
   `),
 };

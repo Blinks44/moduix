@@ -1,86 +1,65 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
-import type { ValidComponent } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { cn } from '@/lib/moduix/cn';
 
+type ListElement = 'ul' | 'ol';
 type ListMarker = 'disc' | 'decimal' | 'none';
 type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
 
-type ListBaseProps = {
+type ListRootProps = HTMLArkProps<'ol'> & {
+  as?: ListElement;
   marker?: ListMarker;
   gap?: ListGap;
   size?: ListSize;
   tone?: ListTone;
 };
 
-type ListDataProps = {};
+const listIndicatorClass =
+  "inline-flex shrink-0 items-center justify-center min-h-lh me-2 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-[1em]";
 
-type ListRootProps =
-  | (HTMLArkProps<'ul'> &
-      ListBaseProps &
-      ListDataProps & {
-        as?: 'ul';
-        'data-marker'?: string;
-      })
-  | (HTMLArkProps<'ol'> &
-      ListBaseProps &
-      ListDataProps & {
-        as: 'ol';
-        'data-marker'?: string;
-      });
-
-const listVariants = cva('flex flex-col font-regular tracking-normal list-outside break-words', {
-  variants: {
-    as: {
-      ul: null,
-      ol: null,
-    },
-    gap: {
-      xs: 'gap-space-xs',
-      sm: 'gap-space-sm',
-      md: 'gap-space-md',
-      lg: 'gap-space-lg',
-      xl: 'gap-space-xl',
-      '2xl': 'gap-space-2xl',
-    },
-    marker: {
-      auto: null,
-      disc: 'list-disc ps-5',
-      decimal: 'list-decimal ps-5',
-      none: 'list-none',
-    },
-    size: {
-      xs: 'text-xs',
-      sm: 'text-sm',
-      md: 'text-md',
-      lg: 'text-lg',
-      xl: 'text-xl',
-    },
-    tone: {
-      default: 'text-foreground',
-      muted: 'text-muted-foreground',
-      subtle: 'text-secondary-foreground',
-      primary: 'text-primary',
-      destructive: 'text-destructive',
-    },
-  },
-  compoundVariants: [
-    { as: 'ul', marker: 'auto', class: 'list-disc ps-5' },
-    { as: 'ol', marker: 'auto', class: 'list-[revert] ps-5' },
+const listVariants = cva(
+  [
+    'flex flex-col gap-(--_list-gap) ps-5 font-regular tracking-normal break-words',
+    '[&>li>:is(ul,ol)]:mt-(--_list-gap)',
+    '[&>li:has(>[data-slot=list-indicator])]:flex [&>li:has(>[data-slot=list-indicator])]:items-start',
   ],
-  defaultVariants: {
-    as: 'ul',
-    gap: 'sm',
-    marker: 'auto',
-    size: 'md',
-    tone: 'default',
+  {
+    variants: {
+      marker: {
+        disc: 'list-disc',
+        decimal: 'list-decimal',
+        none: 'list-none ps-0',
+      },
+      gap: {
+        xs: '[--_list-gap:var(--moduix-spacing-1)]',
+        sm: '[--_list-gap:var(--moduix-spacing-2)]',
+        md: '[--_list-gap:var(--moduix-spacing-3)]',
+        lg: '[--_list-gap:var(--moduix-spacing-4)]',
+        xl: '[--_list-gap:var(--moduix-spacing-5)]',
+        '2xl': '[--_list-gap:var(--moduix-spacing-6)]',
+      },
+      size: {
+        xs: 'text-xs',
+        sm: 'text-sm',
+        md: 'text-md',
+        lg: 'text-lg',
+        xl: 'text-xl',
+      },
+      tone: {
+        default: 'text-foreground',
+        muted: 'text-muted-foreground',
+        subtle: 'text-secondary-foreground',
+        primary: 'text-primary',
+        destructive: 'text-destructive',
+      },
+    },
   },
-});
+);
 
 function List(props: ListRootProps) {
   const [local, others] = splitProps(props, [
@@ -91,48 +70,50 @@ function List(props: ListRootProps) {
     'role',
     'size',
     'tone',
-    'data-marker',
   ]);
-  const marker = () => local.marker ?? 'auto';
+  const as = () => local.as ?? 'ul';
+  const marker = () => local.marker ?? (as() === 'ol' ? 'decimal' : 'disc');
+  const gap = () => local.gap ?? 'sm';
+  const size = () => local.size ?? 'md';
+  const tone = () => local.tone ?? 'default';
 
   return (
     <Dynamic
-      component={(local.as === 'ol' ? ark.ol : ark.ul) as ValidComponent}
+      component={ark[as()]}
       {...others}
       role={local.role ?? (marker() === 'none' ? 'list' : undefined)}
       data-scope="list"
       data-part="root"
       data-slot="list-root"
-      data-gap={local.gap ?? 'sm'}
+      data-gap={gap()}
       data-marker={marker()}
-      data-size={local.size ?? 'md'}
-      data-tone={local.tone ?? 'default'}
+      data-size={size()}
+      data-tone={tone()}
       class={cn(
-        listVariants({
-          as: local.as ?? 'ul',
-          gap: local.gap ?? 'sm',
-          marker: marker(),
-          size: local.size ?? 'md',
-          tone: local.tone ?? 'default',
-        }),
+        listVariants({ marker: marker(), gap: gap(), size: size(), tone: tone() }),
         local.class,
       )}
     />
   );
 }
 
-function ListItem(props: HTMLArkProps<'li'> & ListDataProps) {
+function ListItem(props: HTMLArkProps<'li'>) {
+  return <ark.li {...props} data-scope="list" data-part="item" data-slot="list-item" />;
+}
+
+function ListIndicator(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <ark.li
+    <ark.span
       {...others}
       data-scope="list"
-      data-part="item"
-      data-slot="list-item"
-      class={local.class}
+      data-part="indicator"
+      data-slot="list-indicator"
+      class={cn(listIndicatorClass, local.class)}
     />
   );
 }
 
-export { List, ListItem };
+export { List, ListIndicator, ListItem };
+export type { ListElement, ListGap, ListMarker, ListRootProps, ListSize, ListTone };

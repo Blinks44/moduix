@@ -16,7 +16,7 @@
 
 .accentList {
   width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
-  --moduix-list-padding-x: var(--moduix-spacing-6);
+  padding-inline-start: var(--moduix-spacing-6);
 }
 
 .accentItem::marker {

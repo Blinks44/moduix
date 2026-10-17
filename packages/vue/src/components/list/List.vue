@@ -6,15 +6,16 @@ import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './List.module.css';
 
-type ListMarker = 'disc' | 'decimal' | 'none';
-type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
+export type ListElement = 'ul' | 'ol';
+export type ListMarker = 'disc' | 'decimal' | 'none';
+export type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'ol'> {
-  as?: 'ul' | 'ol';
+  as?: ListElement;
   class?: HTMLAttributes['class'];
   gap?: ListGap;
   marker?: ListMarker;
@@ -24,7 +25,7 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'ol'> {
 }
 
 const {
-  as: elementName,
+  as = 'ul',
   class: className,
   gap = 'sm',
   marker,
@@ -35,16 +36,15 @@ const {
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const markerValue = computed(() => marker ?? 'auto');
-const listRole = computed(() => role ?? (markerValue.value === 'none' ? 'list' : undefined));
+const markerValue = computed(() => marker ?? (as === 'ol' ? 'decimal' : 'disc'));
 </script>
 
 <template>
   <component
-    :is="ark[elementName ?? 'ul']"
+    :is="ark[as]"
     v-bind="attrs"
     :class="clsx(styles.root, className)"
-    :role="listRole"
+    :role="role ?? (markerValue === 'none' ? 'list' : undefined)"
     data-scope="list"
     data-part="root"
     data-slot="list-root"
