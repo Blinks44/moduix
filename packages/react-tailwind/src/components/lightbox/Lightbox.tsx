@@ -34,45 +34,25 @@ type LightboxBindProps = {
   rootSelector?: string;
 };
 
-function preloadImage(src?: string) {
-  if (!src || typeof Image === 'undefined') {
-    return;
-  }
-
-  const image = new Image();
-  image.src = src;
-}
-
 function resolveImage(
   target: EventTarget | null,
   selector: string,
   rootNode: HTMLElement,
 ): LightboxImageSelectDetails | null {
-  if (!(target instanceof Element)) {
-    return null;
-  }
-
-  const matchedNode = target.closest(selector);
+  const matchedNode = target instanceof Element ? target.closest(selector) : null;
   if (!matchedNode || !rootNode.contains(matchedNode)) {
     return null;
   }
 
   const imageNode =
     matchedNode instanceof HTMLImageElement ? matchedNode : matchedNode.querySelector('img');
-  if (!(imageNode instanceof HTMLImageElement)) {
+  if (!imageNode) {
     return null;
   }
 
+  // An explicitly empty data-lightbox-src excludes the image.
   const src = imageNode.dataset.lightboxSrc ?? (imageNode.currentSrc || imageNode.src);
-  if (!src) {
-    return null;
-  }
-
-  return {
-    src,
-    alt: imageNode.alt || undefined,
-    element: imageNode,
-  };
+  return src ? { src, alt: imageNode.alt || undefined, element: imageNode } : null;
 }
 
 function Lightbox({
@@ -133,7 +113,7 @@ const LightboxBackdrop = forwardRef<
       <DialogPrimitive.Backdrop
         ref={ref}
         className={cn(
-          'fixed inset-0 z-[calc(var(--z-index,var(--moduix-z-popup))-1)] min-h-dvh bg-overlay backdrop-blur-xs data-[state=closed]:animate-moduix-lightbox-backdrop-out data-[state=open]:animate-moduix-lightbox-backdrop-in motion-reduce:data-[state]:[animation-delay:0ms] motion-reduce:data-[state]:[animation-duration:1ms]',
+          'fixed inset-0 z-[calc(var(--z-index,var(--moduix-z-popup))-1)] bg-overlay backdrop-blur-[4px] data-[state=closed]:animate-moduix-dialog-backdrop-out data-[state=open]:animate-moduix-dialog-backdrop-in motion-reduce:data-[state]:[animation-delay:0ms] motion-reduce:data-[state]:[animation-duration:1ms]',
           className,
         )}
         {...props}
@@ -170,7 +150,7 @@ const LightboxContent = forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'group/lightbox relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border grid max-h-[min(80dvh,calc(100dvh-2rem))] w-fit max-w-[min(80vw,calc(100vw-2rem))] gap-3 border-0 bg-transparent outline-0 data-[state=closed]:animate-moduix-lightbox-content-out data-[state=open]:animate-moduix-lightbox-content-in motion-reduce:data-[state]:[animation-delay:0ms] motion-reduce:data-[state]:[animation-duration:1ms]',
+        'group/lightbox relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border grid max-h-[min(80dvh,calc(100dvh-2rem))] w-fit max-w-[min(80vw,calc(100vw-2rem))] gap-3 outline-0 data-[state=closed]:animate-moduix-lightbox-content-out data-[state=open]:animate-moduix-lightbox-content-in motion-reduce:data-[state]:[animation-delay:0ms] motion-reduce:data-[state]:[animation-duration:1ms]',
         className,
       )}
       {...props}
@@ -210,15 +190,8 @@ const LightboxDescription = forwardRef<
 const LightboxCloseTrigger = forwardRef<
   ComponentRef<typeof DialogPrimitive.CloseTrigger>,
   ComponentProps<typeof DialogPrimitive.CloseTrigger>
->(function LightboxCloseTrigger({ className, ...props }, ref) {
-  return (
-    <DialogPrimitive.CloseTrigger
-      ref={ref}
-      className={className}
-      {...props}
-      data-slot="lightbox-close-trigger"
-    />
-  );
+>(function LightboxCloseTrigger(props, ref) {
+  return <DialogPrimitive.CloseTrigger ref={ref} {...props} data-slot="lightbox-close-trigger" />;
 });
 
 const LightboxCloseIcon = forwardRef<
@@ -228,17 +201,14 @@ const LightboxCloseIcon = forwardRef<
   { className, children, 'aria-label': ariaLabel = a11yLabels.closeImage, ...props },
   ref,
 ) {
-  const dialog = useDialogContext();
-
   return (
     <DialogPrimitive.CloseTrigger asChild {...props}>
       <CloseButton
         ref={ref}
         data-slot="lightbox-close-icon"
-        data-state={dialog.open ? 'open' : 'closed'}
         aria-label={ariaLabel}
         className={cn(
-          'pointer-events-none invisible fixed end-4 top-4 z-[calc(var(--moduix-z-popup)+var(--layer-index,0)+1)] size-8 rounded-sm border-0 bg-background p-0 text-foreground opacity-0 transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring data-[state=open]:pointer-events-auto data-[state=open]:visible data-[state=open]:opacity-100 motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted',
+          'fixed end-4 top-4 z-[calc(var(--moduix-z-popup)+var(--layer-index,0)+1)] size-8 bg-background text-foreground',
           className,
         )}
       >
@@ -283,8 +253,7 @@ const LightboxGallery = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'d
       <ark.div
         ref={ref}
         className={cn(
-          '[&_[data-slot=carousel-indicator-group]]:mx-auto',
-          'max-w-[min(72rem,calc(100vw-2rem))] justify-self-center [&_[data-slot=carousel-control]]:items-center [&_[data-slot=carousel-indicator-group]]:w-fit [&_[data-slot=carousel-indicator-group]]:max-w-full [&_[data-slot=carousel-indicator-group]]:flex-wrap [&_[data-slot=carousel-indicator]:has(img)]:h-control-xl [&_[data-slot=carousel-indicator]:has(img)]:w-20 [&_[data-slot=carousel-indicator]:has(img)]:overflow-hidden [&_[data-slot=carousel-indicator]:has(img)]:rounded-md [&_[data-slot=carousel-indicator]:has(img)]:border [&_[data-slot=carousel-indicator]:has(img)]:border-transparent [&_[data-slot=carousel-indicator]:has(img)]:bg-transparent [&_[data-slot=carousel-indicator]:has(img)]:opacity-[0.65] [&_[data-slot=carousel-indicator]:has(img)]:transition [&_[data-slot=carousel-indicator]:has(img)]:duration-150 [&_[data-slot=carousel-indicator]:has(img)]:ease-in-out [&_[data-slot=carousel-indicator]:has(img)_img]:block [&_[data-slot=carousel-indicator]:has(img)_img]:size-full [&_[data-slot=carousel-indicator]:has(img)_img]:object-cover [&_[data-slot=carousel-indicator]:has(img):hover]:opacity-90 [&_[data-slot=carousel-indicator]:has(img)[data-current]]:-translate-y-px [&_[data-slot=carousel-indicator]:has(img)[data-current]]:border-primary [&_[data-slot=carousel-indicator]:has(img)[data-current]]:opacity-100 [&_[data-slot=carousel-item-group]]:aspect-[16/10] [&_[data-slot=carousel-item-group]]:max-h-[68dvh] [&_[data-slot=carousel-item-group]]:bg-black/90 [&_[data-slot=carousel-item]]:grid [&_[data-slot=carousel-item]]:h-full [&_[data-slot=carousel-item]]:place-items-center [&_[data-slot=carousel-item]_img]:block [&_[data-slot=carousel-item]_img]:size-full [&_[data-slot=carousel-item]_img]:rounded-md [&_[data-slot=carousel-item]_img]:object-contain [&_[data-slot=carousel-item]_img]:select-none [&_[data-slot=carousel-item]_video]:block [&_[data-slot=carousel-item]_video]:size-full [&_[data-slot=carousel-item]_video]:rounded-md [&_[data-slot=carousel-item]_video]:object-contain [&_[data-slot=carousel-item]_video]:select-none',
+          'max-w-[min(72rem,calc(100vw-2rem))] justify-self-center [&_[data-slot=carousel-control]]:items-center [&_[data-slot=carousel-indicator-group]]:mx-auto [&_[data-slot=carousel-indicator-group]]:w-fit [&_[data-slot=carousel-indicator-group]]:max-w-full [&_[data-slot=carousel-indicator-group]]:flex-wrap [&_[data-slot=carousel-indicator]:has(img)]:h-control-xl [&_[data-slot=carousel-indicator]:has(img)]:w-20 [&_[data-slot=carousel-indicator]:has(img)]:overflow-hidden [&_[data-slot=carousel-indicator]:has(img)]:rounded-md [&_[data-slot=carousel-indicator]:has(img)]:border [&_[data-slot=carousel-indicator]:has(img)]:border-transparent [&_[data-slot=carousel-indicator]:has(img)]:bg-transparent [&_[data-slot=carousel-indicator]:has(img)]:opacity-[0.65] [&_[data-slot=carousel-indicator]:has(img)]:transition [&_[data-slot=carousel-indicator]:has(img)]:duration-150 [&_[data-slot=carousel-indicator]:has(img)]:ease-in-out [&_[data-slot=carousel-indicator]:has(img)_img]:block [&_[data-slot=carousel-indicator]:has(img)_img]:size-full [&_[data-slot=carousel-indicator]:has(img)_img]:object-cover [&_[data-slot=carousel-indicator]:has(img)[data-current]]:-translate-y-px [&_[data-slot=carousel-indicator]:has(img)[data-current]]:border-primary [&_[data-slot=carousel-indicator]:has(img)[data-current]]:opacity-100 [&_[data-slot=carousel-item-group]]:aspect-[16/10] [&_[data-slot=carousel-item-group]]:max-h-[68dvh] [&_[data-slot=carousel-item-group]]:bg-black/90 [&_[data-slot=carousel-item]]:grid [&_[data-slot=carousel-item]]:h-full [&_[data-slot=carousel-item]]:place-items-center [&_[data-slot=carousel-item]_img]:block [&_[data-slot=carousel-item]_img]:size-full [&_[data-slot=carousel-item]_img]:rounded-md [&_[data-slot=carousel-item]_img]:object-contain [&_[data-slot=carousel-item]_img]:select-none [&_[data-slot=carousel-item]_video]:block [&_[data-slot=carousel-item]_video]:size-full [&_[data-slot=carousel-item]_video]:rounded-md [&_[data-slot=carousel-item]_video]:object-contain [&_[data-slot=carousel-item]_video]:select-none [@media(hover:hover)]:[&_[data-slot=carousel-indicator]:has(img):hover]:opacity-90',
           className,
         )}
         {...props}
@@ -339,6 +308,8 @@ const LightboxFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
   },
 );
 
+const LightboxContext = DialogPrimitive.Context;
+
 function LightboxBind({ onImageSelect, selector, rootRef, rootSelector }: LightboxBindProps) {
   const { setOpen } = useDialogContext();
 
@@ -350,42 +321,33 @@ function LightboxBind({ onImageSelect, selector, rootRef, rootSelector }: Lightb
     }
 
     const handleClick = (event: MouseEvent) => {
-      if (event.defaultPrevented) return;
-
-      const nextImage = resolveImage(event.target, selector, rootNode);
-      if (!nextImage) {
+      const image = event.defaultPrevented ? null : resolveImage(event.target, selector, rootNode);
+      if (!image) {
         return;
       }
 
-      onImageSelect(nextImage);
+      onImageSelect(image);
       setOpen(true);
     };
 
-    const preloadFromTarget = (target: EventTarget | null) => {
-      const nextImage = resolveImage(target, selector, rootNode);
-      if (!nextImage) {
-        return;
+    // Warm the cache with the full-size source on hover or keyboard focus.
+    const handlePreload = (event: Event) => {
+      const image = resolveImage(event.target, selector, rootNode);
+      if (image) {
+        const preloaded = new Image();
+        preloaded.src = image.src;
       }
-
-      preloadImage(nextImage.src);
-    };
-
-    const handlePointerEnter = (event: PointerEvent) => {
-      preloadFromTarget(event.target);
-    };
-
-    const handleFocusIn = (event: FocusEvent) => {
-      preloadFromTarget(event.target);
     };
 
     rootNode.addEventListener('click', handleClick);
-    rootNode.addEventListener('pointerenter', handlePointerEnter, true);
-    rootNode.addEventListener('focusin', handleFocusIn);
+    // pointerenter does not bubble; the capture phase sees it for every descendant.
+    rootNode.addEventListener('pointerenter', handlePreload, true);
+    rootNode.addEventListener('focusin', handlePreload);
 
     return () => {
       rootNode.removeEventListener('click', handleClick);
-      rootNode.removeEventListener('pointerenter', handlePointerEnter, true);
-      rootNode.removeEventListener('focusin', handleFocusIn);
+      rootNode.removeEventListener('pointerenter', handlePreload, true);
+      rootNode.removeEventListener('focusin', handlePreload);
     };
   }, [onImageSelect, rootRef, rootSelector, selector, setOpen]);
 
@@ -409,7 +371,14 @@ export {
   LightboxImage,
   LightboxGallery,
   LightboxBind,
+  LightboxContext,
   useDialog as useLightbox,
   useDialogContext as useLightboxContext,
 };
-export type { LightboxBindProps, LightboxImageSelectDetails };
+export type {
+  LightboxBindProps,
+  LightboxImageProps,
+  LightboxImageSelectDetails,
+  LightboxRootProps,
+  LightboxRootProviderProps,
+};

@@ -35,45 +35,25 @@ type LightboxBindProps = {
   rootSelector?: string;
 };
 
-function preloadImage(src?: string) {
-  if (!src || typeof Image === 'undefined') {
-    return;
-  }
-
-  const image = new Image();
-  image.src = src;
-}
-
 function resolveImage(
   target: EventTarget | null,
   selector: string,
   rootNode: HTMLElement,
 ): LightboxImageSelectDetails | null {
-  if (!(target instanceof Element)) {
-    return null;
-  }
-
-  const matchedNode = target.closest(selector);
+  const matchedNode = target instanceof Element ? target.closest(selector) : null;
   if (!matchedNode || !rootNode.contains(matchedNode)) {
     return null;
   }
 
   const imageNode =
     matchedNode instanceof HTMLImageElement ? matchedNode : matchedNode.querySelector('img');
-  if (!(imageNode instanceof HTMLImageElement)) {
+  if (!imageNode) {
     return null;
   }
 
+  // An explicitly empty data-lightbox-src excludes the image.
   const src = imageNode.dataset.lightboxSrc ?? (imageNode.currentSrc || imageNode.src);
-  if (!src) {
-    return null;
-  }
-
-  return {
-    src,
-    alt: imageNode.alt || undefined,
-    element: imageNode,
-  };
+  return src ? { src, alt: imageNode.alt || undefined, element: imageNode } : null;
 }
 
 function Lightbox({
@@ -199,15 +179,8 @@ const LightboxDescription = forwardRef<
 const LightboxCloseTrigger = forwardRef<
   ComponentRef<typeof DialogPrimitive.CloseTrigger>,
   ComponentProps<typeof DialogPrimitive.CloseTrigger>
->(function LightboxCloseTrigger({ className, ...props }, ref) {
-  return (
-    <DialogPrimitive.CloseTrigger
-      ref={ref}
-      className={className}
-      {...props}
-      data-slot="lightbox-close-trigger"
-    />
-  );
+>(function LightboxCloseTrigger(props, ref) {
+  return <DialogPrimitive.CloseTrigger ref={ref} {...props} data-slot="lightbox-close-trigger" />;
 });
 
 const LightboxCloseIcon = forwardRef<
@@ -217,14 +190,11 @@ const LightboxCloseIcon = forwardRef<
   { className, children, 'aria-label': ariaLabel = a11yLabels.closeImage, ...props },
   ref,
 ) {
-  const dialog = useDialogContext();
-
   return (
     <DialogPrimitive.CloseTrigger asChild {...props}>
       <CloseButton
         ref={ref}
         data-slot="lightbox-close-icon"
-        data-state={dialog.open ? 'open' : 'closed'}
         aria-label={ariaLabel}
         className={clsx(styles.closeIcon, className)}
       >
@@ -312,6 +282,8 @@ const LightboxFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'di
   },
 );
 
+const LightboxContext = DialogPrimitive.Context;
+
 function LightboxBind({ onImageSelect, selector, rootRef, rootSelector }: LightboxBindProps) {
   const { setOpen } = useDialogContext();
 
@@ -323,42 +295,33 @@ function LightboxBind({ onImageSelect, selector, rootRef, rootSelector }: Lightb
     }
 
     const handleClick = (event: MouseEvent) => {
-      if (event.defaultPrevented) return;
-
-      const nextImage = resolveImage(event.target, selector, rootNode);
-      if (!nextImage) {
+      const image = event.defaultPrevented ? null : resolveImage(event.target, selector, rootNode);
+      if (!image) {
         return;
       }
 
-      onImageSelect(nextImage);
+      onImageSelect(image);
       setOpen(true);
     };
 
-    const preloadFromTarget = (target: EventTarget | null) => {
-      const nextImage = resolveImage(target, selector, rootNode);
-      if (!nextImage) {
-        return;
+    // Warm the cache with the full-size source on hover or keyboard focus.
+    const handlePreload = (event: Event) => {
+      const image = resolveImage(event.target, selector, rootNode);
+      if (image) {
+        const preloaded = new Image();
+        preloaded.src = image.src;
       }
-
-      preloadImage(nextImage.src);
-    };
-
-    const handlePointerEnter = (event: PointerEvent) => {
-      preloadFromTarget(event.target);
-    };
-
-    const handleFocusIn = (event: FocusEvent) => {
-      preloadFromTarget(event.target);
     };
 
     rootNode.addEventListener('click', handleClick);
-    rootNode.addEventListener('pointerenter', handlePointerEnter, true);
-    rootNode.addEventListener('focusin', handleFocusIn);
+    // pointerenter does not bubble; the capture phase sees it for every descendant.
+    rootNode.addEventListener('pointerenter', handlePreload, true);
+    rootNode.addEventListener('focusin', handlePreload);
 
     return () => {
       rootNode.removeEventListener('click', handleClick);
-      rootNode.removeEventListener('pointerenter', handlePointerEnter, true);
-      rootNode.removeEventListener('focusin', handleFocusIn);
+      rootNode.removeEventListener('pointerenter', handlePreload, true);
+      rootNode.removeEventListener('focusin', handlePreload);
     };
   }, [onImageSelect, rootRef, rootSelector, selector, setOpen]);
 
@@ -382,7 +345,14 @@ export {
   LightboxImage,
   LightboxGallery,
   LightboxBind,
+  LightboxContext,
   useDialog as useLightbox,
   useDialogContext as useLightboxContext,
 };
-export type { LightboxBindProps, LightboxImageSelectDetails };
+export type {
+  LightboxBindProps,
+  LightboxImageProps,
+  LightboxImageSelectDetails,
+  LightboxRootProps,
+  LightboxRootProviderProps,
+};

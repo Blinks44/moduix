@@ -227,69 +227,32 @@
   }
 }
 
-@keyframes moduix-lightbox-backdrop-in {
-  from {
-    opacity: var(--moduix-lightbox-backdrop-starting-opacity, 0);
-    backdrop-filter: var(--moduix-lightbox-backdrop-starting-blur, none);
-  }
-}
-
-@keyframes moduix-lightbox-backdrop-out {
-  to {
-    opacity: var(--moduix-lightbox-backdrop-ending-opacity, 0);
-    backdrop-filter: var(--moduix-lightbox-backdrop-ending-blur, none);
-  }
-}
-
+/* Lightbox splits popup motion: Content fades and its Body scales, so a fixed close icon is not transformed. */
 @keyframes moduix-lightbox-content-in {
   from {
-    opacity: var(
-      --moduix-lightbox-content-starting-opacity,
-      var(--moduix-popup-motion-starting-opacity, 0)
-    );
-  }
-}
-
-@keyframes moduix-lightbox-body-in {
-  from {
-    translate: var(
-        --moduix-lightbox-content-starting-translate-x,
-        var(--moduix-popup-motion-starting-translate-x, 0)
-      )
-      var(
-        --moduix-lightbox-content-starting-translate-y,
-        var(--moduix-popup-motion-starting-translate-y, 0)
-      );
-    scale: var(
-      --moduix-lightbox-content-starting-scale,
-      var(--moduix-popup-motion-starting-scale, 0.82)
-    );
+    opacity: var(--moduix-popup-motion-starting-opacity, 0);
   }
 }
 
 @keyframes moduix-lightbox-content-out {
   to {
-    opacity: var(
-      --moduix-lightbox-content-ending-opacity,
-      var(--moduix-popup-motion-ending-opacity, 0)
-    );
+    opacity: var(--moduix-popup-motion-ending-opacity, 0);
+  }
+}
+
+@keyframes moduix-lightbox-body-in {
+  from {
+    translate: var(--moduix-popup-motion-starting-translate-x, 0)
+      var(--moduix-popup-motion-starting-translate-y, 0);
+    scale: var(--moduix-popup-motion-starting-scale, 0.82);
   }
 }
 
 @keyframes moduix-lightbox-body-out {
   to {
-    translate: var(
-        --moduix-lightbox-content-ending-translate-x,
-        var(--moduix-popup-motion-ending-translate-x, 0)
-      )
-      var(
-        --moduix-lightbox-content-ending-translate-y,
-        var(--moduix-popup-motion-ending-translate-y, 0)
-      );
-    scale: var(
-      --moduix-lightbox-content-ending-scale,
-      var(--moduix-popup-motion-ending-scale, 0.82)
-    );
+    translate: var(--moduix-popup-motion-ending-translate-x, 0)
+      var(--moduix-popup-motion-ending-translate-y, 0);
+    scale: var(--moduix-popup-motion-ending-scale, 0.82);
   }
 }
 

@@ -654,3 +654,7 @@ overrides. `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent` remai
   to keep the content mounted.
 - With `prefers-reduced-motion: reduce`, the backdrop and content use a 1ms animation so exit
   lifecycle cleanup remains intact without visible motion.
+- Colors, spacing, and typography come from foundation tokens. Change them for one lightbox with a
+  class on the part. The backdrop reads the shared `--moduix-backdrop-bg` and
+  `--moduix-backdrop-filter`, content motion reads `--moduix-popup-motion-*` on `LightboxContent`,
+  and `LightboxCloseIcon` reads the `--moduix-close-button-*` variables.

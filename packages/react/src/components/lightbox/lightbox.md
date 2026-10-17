@@ -68,6 +68,9 @@ Lightbox
 
 LightboxRootProvider
 └─ the same part tree connected to useLightbox()
+
+LightboxContext
+└─ render-prop access to the surrounding Dialog state
 ```
 
 Stable slots are `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
@@ -183,26 +186,25 @@ Dismissible overlays share the `--moduix-z-popup` base. Content adds Ark's `--la
 Ark mirrors its computed `--z-index` onto positioners and backdrops. Backdrops sit one level below
 content. Customize stacking on content rather than independently raising its surrounding parts.
 
-The current gallery thumbnail uses
-`--moduix-lightbox-gallery-thumbnail-active-translate-y` with a one-border-width upward offset, so themes
-can tune or remove the selected-state lift without replacing the thumbnail selector.
+Moduix styles a zoom cursor and focus ring on the trigger, a blurred backdrop, a centered
+positioner, transparent content, constrained image/video media, state-driven motion, and a fixed
+close icon anchored to the viewport corner.
 
-Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-lightbox-*` content-motion
-variables remain the more specific override. Backdrop motion remains separate.
-CSS Modules and Tailwind share foundation keyframes: Content fades, and a direct Body child enters/exits at scale `0.82` over `220ms` by default. CSS-specific motion overrides and Ark Presence timing are preserved.
+The CSS Modules variants keep two public variables, `--moduix-lightbox-content-max-width` (80vw)
+and `--moduix-lightbox-content-max-height` (80dvh). They cap both `LightboxContent` and
+`LightboxImage`, so one override on `LightboxContent` resizes the whole media surface. Colors,
+spacing, typography, and gallery sizing come from foundation tokens; override them with a class
+on the part.
+
+The backdrop uses the shared Dialog backdrop keyframes and reads `--moduix-backdrop-bg` and
+`--moduix-backdrop-filter`. Content fades and a direct `LightboxBody` child scales from `0.82`;
+both read the shared `--moduix-popup-motion-*` variables with the popup default of 200ms
+ease-in-out, and exits keep their last frame until unmount. The split exists because a transform on
+Content would make it the containing block of the fixed close icon. `LightboxCloseIcon` sets the
+`CloseButton` size, color, and background variables and fades together with Content.
 
 When `prefers-reduced-motion: reduce` is active, backdrop and content animations run for 1ms. This
 keeps Ark's exit lifecycle intact while avoiding visible motion.
-
-Moduix styles a zoom cursor on the trigger, a blurred backdrop, a centered positioner, transparent
-content, constrained image/video media, state-driven motion, and a fixed close icon anchored to the
-viewport corner.
-
-Public variables use Ark part names: `--moduix-lightbox-backdrop-*`, `--moduix-lightbox-positioner-padding`,
-`--moduix-lightbox-content-*`, `--moduix-lightbox-media-*`, `--moduix-lightbox-close-icon-*`,
-`--moduix-lightbox-trigger-focus-ring-*`, and
-`--moduix-lightbox-transition`. Gallery layout uses `--moduix-lightbox-gallery-*` variables for width, aspect
-ratio, viewport height, gap, track background, and thumbnail sizing/state.
 
 ## Intentional sugar and differences from upstream
 
@@ -213,8 +215,8 @@ ratio, viewport height, gap, track background, and thumbnail sizing/state.
 - `LightboxBind` is narrow zero-render sugar for binding image selection to CMS or external DOM.
   Consumers keep ownership of image state and the complete overlay composition.
 - `LightboxHeader`, `LightboxBody`, and `LightboxFooter` provide layout and stable slots. A direct `LightboxBody` child also owns the media's scale/translate motion.
-- `useLightbox` and `useLightboxContext` are direct Ark hook re-exports for the normal advanced
-  state path; they do not alter callback detail objects or dialog state behavior.
+- `useLightbox`, `useLightboxContext`, and `LightboxContext` are direct Ark re-exports for the
+  normal advanced state path; they do not alter callback detail objects or dialog state behavior.
 - Structured image data and slide state stay consumer-owned.
 - `LightboxCloseIcon` composes Ark `CloseTrigger` with the library `CloseButton` and defaults
   its label to `"Close image"`.
@@ -237,51 +239,12 @@ content after the first open; set both props to `false` only when eager initial 
 
 ## Local changelog
 
-- 2026-10-05: Moved the close control inside Content for accessibility and focus trapping; scale/translate motion now belongs to Body, keeping the close icon viewport-fixed.
-
-- 2026-10-03: Fixed the React external-image binding fallback when `currentSrc` is empty;
-  explicit empty `data-lightbox-src` overrides still exclude an image.
-- 2026-10-02: Aligned content, positioner, and backdrop stacking with Ark layer indices and its mirrored z-index.
-
-- 2026-08-11: Added a reduced-motion animation path and coverage for the accessible close icon's
-  focus restoration.
-
-- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
-
-- 2026-07-28: Required `LightboxBind.selector` so external previews always target a semantic
-  keyboard-accessible activator; made the positioner scrollable and constrained content by its
-  configured viewport padding.
-- 2026-07-28: Documented non-modal composition without `Backdrop`; it preserves interaction with
-  page content outside the lightbox.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
-- 2026-07-10: Re-exported `useLightbox` and `useLightboxContext` as direct moduix package exports
-  so `LightboxRootProvider` and context examples no longer require direct Ark imports.
-- 2026-07-05: Added a library-colored focus-visible outline to `LightboxTrigger` after focus
-  restoration and exposed `--moduix-lightbox-trigger-focus-ring-*` tokens for trigger ring overrides.
-- 2026-07-05: Changed `LightboxGallery` from a forced width to a centered max-width cap so `Lightbox + Carousel` keeps its natural centered size inside `LightboxContent`.
-- 2026-07-05: Kept `LightboxGallery` centered inside the new `Content` grid layout so `Lightbox + Carousel` stays visually centered.
-- 2026-07-05: Added `LightboxHeader`, `LightboxBody`, and `LightboxFooter`, and documented the layout-helper composition path around media content.
-- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
-- 2026-07-03: Kept `LightboxRootProvider` but removed moduix re-exports of Ark dialog hooks, contexts, and
-  renamed detail-object types; advanced state access now imports from `@ark-ui/react/dialog`.
-
-- 2026-06-19: Adopted Ark UI Dialog, adopted Ark anatomy, flat exports,
-  callbacks, provider/context hooks, data-state styling, and explicit overlay composition; removed
-  all legacy adapters and image/gallery state helpers.
-- 2026-06-19: Restored delegated CMS capture as `LightboxGallery`, using Ark dialog state under
-  the hood while keeping the base composition explicit.
-- 2026-06-25: Re-audited the Ark Dialog contract after migration, documented inherited focus,
-  presence, id, and non-modal props, converted `LightboxImage` to an Ark factory part, and
-  simplified `closeOnClick` composition.
-- 2026-06-30: Documented `Lightbox + Carousel` as the recommended pattern for structured server or
-  CMS image arrays and clarified that the then-current `LightboxGallery` helper stayed limited to
-  delegated DOM capture.
-- 2026-06-30: Reassigned `LightboxGallery` to the styled Carousel composition path and renamed the
-  delegated DOM helper to `LightboxBind`; added stable gallery sizing and thumbnail styles.
-- 2026-06-30: Replaced the layout-oriented `LightboxImage` with native `LightboxImage` and renamed
-  the external DOM helper from `LightboxBind` to user-facing `LightboxBind`.
-- 2026-06-30: Reduced `LightboxBind` to a zero-render context behavior part with
-  `onImageSelect(details)` so consumers own the full overlay composition.
-- 2026-06-30: Simplified `LightboxBind` to native click activation while retaining full-size image
-  preload on pointer hover and keyboard focus.
+- 2026-10-17: Public CSS variables went from 63 to two, `--moduix-lightbox-content-max-width` and
+  `--moduix-lightbox-content-max-height`, which now also cap `LightboxImage`. The backdrop uses the
+  Dialog backdrop keyframes and shared backdrop variables; motion uses the shared popup variables
+  with a 200ms ease-in-out default and keeps the exit frame. `LightboxCloseIcon` no longer mirrors
+  `data-state` and fades with Content. Gallery thumbnail hover is limited to hover-capable
+  pointers. Added `LightboxContext` and the `LightboxRootProps`, `LightboxRootProviderProps`, and
+  `LightboxImageProps` types.
+- 2026-10-05: Moved the close control inside Content for accessibility and focus trapping;
+  scale/translate motion belongs to Body, keeping the close icon viewport-fixed.

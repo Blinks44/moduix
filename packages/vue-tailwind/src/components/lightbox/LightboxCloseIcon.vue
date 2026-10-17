@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { DialogCloseTrigger as ArkDialogCloseTrigger, useDialogContext } from '@ark-ui/vue/dialog';
+import { DialogCloseTrigger as ArkDialogCloseTrigger } from '@ark-ui/vue/dialog';
 import type { DialogCloseTriggerProps } from '@ark-ui/vue/dialog';
-import { computed, useAttrs } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
@@ -19,8 +19,6 @@ const { ariaLabel, ariaLabelledby, class: className } = defineProps<Props>();
 const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const dialog = useDialogContext();
-const closeState = computed(() => (dialog.value.open ? 'open' : 'closed'));
 </script>
 
 <template>
@@ -30,11 +28,10 @@ const closeState = computed(() => (dialog.value.open ? 'open' : 'closed'));
       :aria-labelledby="ariaLabelledby"
       :class="
         cn(
-          'pointer-events-none invisible fixed end-4 top-4 z-[calc(var(--moduix-z-popup)+var(--layer-index,0)+1)] size-8 rounded-sm border-0 bg-background p-0 text-foreground opacity-0 transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring data-[state=open]:pointer-events-auto data-[state=open]:visible data-[state=open]:opacity-100 motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted',
+          'fixed end-4 top-4 z-[calc(var(--moduix-z-popup)+var(--layer-index,0)+1)] size-8 bg-background text-foreground',
           className,
         )
       "
-      :data-state="closeState"
       data-slot="lightbox-close-icon"
     >
       <slot v-if="slots.default" />

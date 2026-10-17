@@ -1420,6 +1420,11 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/lightbox/LightboxContext.vue",
+          "target": "@components/ui/lightbox/LightboxContext.vue",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/lightbox/LightboxTitle.vue",
           "target": "@components/ui/lightbox/LightboxTitle.vue",
           "type": "registry:component"

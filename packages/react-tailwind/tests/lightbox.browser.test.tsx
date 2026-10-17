@@ -60,7 +60,11 @@ test('opens from a semantic Bind selector', async () => {
     .element(page.getByRole('dialog', { name: 'Image preview', exact: true }))
     .toBeAttached();
   await expect
-    .element(page.getByRole('img', { name: 'Mountain ridge', exact: true }))
+    .element(
+      page
+        .getByRole('dialog', { name: 'Image preview', exact: true })
+        .getByRole('img', { name: 'Mountain ridge', exact: true }),
+    )
     .toHaveAttribute('src', '/full-size.jpg');
 });
 
@@ -147,6 +151,37 @@ test('keeps its close icon accessible and viewport-fixed, then restores trigger 
   await expect
     .element(page.getByRole('button', { name: 'Open preview', exact: true }))
     .toBeFocused();
+});
+
+test('fades the close icon with content and uses the shared dialog motion', async () => {
+  render(
+    <Lightbox defaultOpen portalled={false}>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxContent aria-label="Image preview">
+          <LightboxCloseIcon />
+          <LightboxBody>
+            <LightboxImage src="/full-size.jpg" alt="Mountain ridge" />
+          </LightboxBody>
+        </LightboxContent>
+      </LightboxPositioner>
+    </Lightbox>,
+  );
+
+  const backdrop = document.querySelector('[data-slot="lightbox-backdrop"]')!;
+  const content = document.querySelector('[data-slot="lightbox-content"]')!;
+  const closeIcon = document.querySelector('[data-slot="lightbox-close-icon"]')!;
+  expect(getComputedStyle(backdrop).animationName).toBe('moduix-dialog-backdrop-in');
+  expect(getComputedStyle(content).animationDuration).toBe('0.2s');
+  expect(closeIcon.hasAttribute('data-state')).toBe(false);
+
+  await page.getByRole('button', { name: 'Close image', exact: true }).click();
+
+  expect(content.getAttribute('data-state')).toBe('closed');
+  expect(getComputedStyle(content).animationFillMode).toBe('forwards');
+  expect(getComputedStyle(backdrop).animationFillMode).toBe('forwards');
+  expect(getComputedStyle(closeIcon).visibility).toBe('visible');
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
 });
 
 test('exposes RootProvider state through useLightboxContext', async () => {
@@ -247,7 +282,7 @@ test('applies component-owned visual utilities to every visual part', async () =
   );
 
   expect([...document.querySelector('[data-slot="lightbox-backdrop"]')!.classList]).toEqual(
-    expect.arrayContaining(['fixed', 'min-h-dvh', 'bg-overlay']),
+    expect.arrayContaining(['fixed', 'inset-0', 'bg-overlay']),
   );
   expect([...document.querySelector('[data-slot="lightbox-positioner"]')!.classList]).toEqual(
     expect.arrayContaining(['grid', 'place-items-center', 'p-4']),

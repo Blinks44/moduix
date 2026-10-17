@@ -36,7 +36,8 @@ default; use `portalled={false}` or `portalRef` on the root to control overlay p
 The adapter exports `Lightbox`, `LightboxRootProvider`, `LightboxTrigger`, `LightboxBackdrop`,
 `LightboxPositioner`, `LightboxContent`, `LightboxTitle`, `LightboxDescription`,
 `LightboxCloseTrigger`, `LightboxCloseIcon`, `LightboxHeader`, `LightboxBody`, `LightboxFooter`,
-`LightboxImage`, `LightboxGallery`, `LightboxBind`, `useLightbox`, and `useLightboxContext`.
+`LightboxImage`, `LightboxGallery`, `LightboxBind`, `LightboxContext`, `useLightbox`, and
+`useLightboxContext`.
 
 `LightboxRootProvider` receives the accessor returned by `useLightbox()`:
 
@@ -78,12 +79,18 @@ forward refs through `asChild`, so ordinary refs and custom-host composition are
 separate paths. `LightboxCloseIcon` composes `CloseButton` through this native contract and
 defaults its accessible label to `Close image`.
 
-## Style contract (2026-10-03)
+## Style contract
 
-Content shares the --moduix-z-popup base and adds Ark --layer-index; surrounding parts use Ark’s mirrored --z-index. Foundation owns the keyframes: Content fades while its direct Body child owns scale/translate motion. The close control stays inside Content, outside Body, preserving focus trapping and its viewport corner. Public motion overrides, backdrop blur and reduced-motion behavior remain available.
+Styles match the React adapter: CSS Modules keep only `--moduix-lightbox-content-max-width` and
+`--moduix-lightbox-content-max-height`, which cap both Content and `LightboxImage`. The backdrop
+uses the Dialog backdrop keyframes with `--moduix-backdrop-bg` and `--moduix-backdrop-filter`.
+Content fades while its direct Body child scales, both through `--moduix-popup-motion-*`, so the
+close control stays inside Content, outside Body, fixed to the viewport corner and in the focus
+trap. It fades with Content instead of tracking `data-state`.
 
 ## Local changelog
 
-- 2026-10-05: Moved the close control inside Content for accessibility and focus trapping; scale/translate motion now belongs to Body, keeping the close icon viewport-fixed.
-
-- 2026-10-03: Binding falls back to `src` when `currentSrc` is empty, preserving explicit source overrides.
+- 2026-10-17: Reduced the public CSS variables to the two content size caps, moved backdrop and
+  content motion onto shared variables, and added `LightboxContext` plus root and image prop types.
+- 2026-10-05: Moved the close control inside Content for accessibility and focus trapping;
+  scale/translate motion now belongs to Body, keeping the close icon viewport-fixed.

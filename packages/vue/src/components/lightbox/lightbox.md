@@ -7,7 +7,8 @@ not a dedicated upstream Lightbox primitive.
 
 ## Public contract
 
-Use Lightbox, its prefixed parts and useLightbox / useLightboxContext.
+Use Lightbox, its prefixed parts, LightboxContext and useLightbox / useLightboxContext.
+The root, provider and image prop types are the moduix ones, including portalled / portalRef.
 Backdrop and Positioner are portalled by default; the root accepts portalled / portalRef.
 LightboxImage is a styled native image; closeOnClick respects consumer preventDefault.
 Its native click event is emitted once before closing, including merged Vue listeners.
@@ -32,10 +33,14 @@ Keep semantic external triggers and an accessible dialog title or aria-label.
 
 Render LightboxCloseIcon inside LightboxContent, outside LightboxBody, so it stays in Ark's
 accessibility tree and focus trap. Content fades while its direct Body child owns scale/translate
-motion; the fixed close control stays pinned to the viewport. Both styling tracks use the same
-foundation keyframes and preserve reduced-motion exit cleanup.
+motion; the fixed close control stays pinned to the viewport and fades with Content. Both styling
+tracks use the same foundation keyframes and preserve reduced-motion exit cleanup. CSS Modules keep
+only the two content size caps, which also cap LightboxImage; the backdrop and motion read the
+shared backdrop and popup-motion variables.
 
 ## Local changelog
+
+- 2026-10-17: Kept two public CSS variables, exported LightboxContext and the moduix root types.
 
 - 2026-10-05: Kept the close control inside Content and moved scale/translate motion to Body.
 

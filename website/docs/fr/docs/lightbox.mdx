@@ -657,3 +657,8 @@ et des remplacements de tokens. `LightboxBackdrop`, `LightboxPositioner` et `Lig
   l’animation en JavaScript doit maintenir le contenu monté.
 - Avec `prefers-reduced-motion: reduce`, l’arrière-plan et le contenu utilisent une animation de 1 ms.
   Le nettoyage après la fermeture reste ainsi intact, sans mouvement visible.
+- Les couleurs, espacements et typographies viennent des tokens foundation. Pour les modifier sur une
+  seule lightbox, ajoutez une classe sur la partie concernée. L’arrière-plan lit les variables
+  partagées `--moduix-backdrop-bg` et `--moduix-backdrop-filter`, l’animation du contenu lit
+  `--moduix-popup-motion-*` sur `LightboxContent`, et `LightboxCloseIcon` lit les variables
+  `--moduix-close-button-*`.

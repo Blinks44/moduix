@@ -6,6 +6,7 @@ import LightboxBody from './LightboxBody.vue';
 import LightboxCloseIcon from './LightboxCloseIcon.vue';
 import LightboxCloseTrigger from './LightboxCloseTrigger.vue';
 import LightboxContent from './LightboxContent.vue';
+import LightboxContext from './LightboxContext.vue';
 import LightboxDescription from './LightboxDescription.vue';
 import LightboxFooter from './LightboxFooter.vue';
 import LightboxGallery from './LightboxGallery.vue';
@@ -24,6 +25,7 @@ export {
   LightboxCloseIcon,
   LightboxCloseTrigger,
   LightboxContent,
+  LightboxContext,
   LightboxDescription,
   LightboxFooter,
   LightboxGallery,
@@ -41,11 +43,11 @@ export type {
   DialogBackdropProps as LightboxBackdropProps,
   DialogCloseTriggerProps as LightboxCloseTriggerProps,
   DialogContentProps as LightboxContentProps,
+  DialogContextProps as LightboxContextProps,
   DialogDescriptionProps as LightboxDescriptionProps,
   DialogPositionerProps as LightboxPositionerProps,
   DialogRootEmits as LightboxRootEmits,
-  DialogRootProps as LightboxRootProps,
-  DialogRootProviderProps as LightboxRootProviderProps,
+  DialogRootProviderEmits as LightboxRootProviderEmits,
   DialogTitleProps as LightboxTitleProps,
   DialogTriggerProps as LightboxTriggerProps,
   UseDialogContext as UseLightboxContext,
@@ -54,3 +56,6 @@ export type {
 } from '@ark-ui/vue/dialog';
 
 export type { LightboxBindProps, LightboxImageSelectDetails } from './lightbox';
+export type { Props as LightboxRootProps } from './Lightbox.vue';
+export type { Props as LightboxRootProviderProps } from './LightboxRootProvider.vue';
+export type { Props as LightboxImageProps } from './LightboxImage.vue';
