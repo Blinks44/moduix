@@ -494,10 +494,9 @@ variants use native utility classes and consumer class overrides. CSS Modules va
 CSS variables below. For state-based styles, use Ark data attributes, Ark SVG variables, and moduix
 `data-slot` hooks.
 
-Use `--moduix-progress-circular-range-indeterminate-bg` to give indeterminate progress a different
-semantic color from determinate progress. When reduced motion is preferred, the range neither
-transitions nor spins. Use `--moduix-progress-circular-range-indeterminate-reduced-motion-dasharray`
-to keep a visible static cue.
+Indeterminate progress spins a quarter-circle arc. When reduced motion is preferred, the range
+does not transition and the arc stays still. To give indeterminate progress its own color, style
+`ProgressCircularCircleRange` with `[data-state='indeterminate']`.
 
 ### CSS Properties
 

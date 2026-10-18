@@ -8,7 +8,3 @@
 .circleContainer [data-slot='progress-circular-value-text'] {
   grid-area: 1 / 1;
 }
-
-.indeterminate {
-  --moduix-progress-circular-range-indeterminate-bg: var(--moduix-color-chart-4);
-}

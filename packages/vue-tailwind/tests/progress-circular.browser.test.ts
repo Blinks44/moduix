@@ -132,7 +132,7 @@ test('renders the circular Ark anatomy and Tailwind contract', async () => {
     part: 'root',
     slot: 'progress-circular-root',
   });
-  expect([...root!.classList]).toEqual(expect.arrayContaining(['inline-grid', 'text-foreground']));
+  expect([...root!.classList]).toEqual(expect.arrayContaining(['inline-grid', 'gap-2']));
   expect(progressbar.getAttribute('data-slot')).toBe('progress-circular-circle');
   await expect
     .element(page.getByRole('progressbar', { name: 'Export data' }))
@@ -212,6 +212,15 @@ test('renders an indeterminate circular progressbar without an ARIA value', asyn
   await expect
     .element(page.getByRole('progressbar', { name: 'Preparing report' }))
     .not.toHaveAttribute('aria-valuenow');
+
+  const arc = screen
+    .getByRole('progressbar', { name: 'Preparing report' })
+    .querySelector<SVGCircleElement>('[data-part="circle-range"]')!;
+  const arcStyle = getComputedStyle(arc);
+
+  // The indeterminate range is a spinning arc, not a dot.
+  expect(arcStyle.animationName).toBe('moduix-progress-circular-indeterminate');
+  expect(Number.parseFloat(arcStyle.strokeDasharray) / arc.getTotalLength()).toBeGreaterThan(0.2);
   expect(
     range?.classList.contains(
       'data-[state=indeterminate]:animate-moduix-progress-circular-indeterminate',

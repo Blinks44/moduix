@@ -498,11 +498,10 @@ consommateur. Les variantes CSS Modules exposent les variables CSS ci-dessous. P
 à l’état, utilisez les attributs de données Ark, les variables SVG Ark et les points d’accroche
 `data-slot` de moduix.
 
-Utilisez `--moduix-progress-circular-range-indeterminate-bg` pour donner à la progression
-indéterminée une couleur sémantique distincte. Lorsque l’utilisateur préfère réduire les animations,
-l’arc n’effectue ni transition ni rotation. Utilisez
-`--moduix-progress-circular-range-indeterminate-reduced-motion-dasharray` pour conserver un repère
-statique visible.
+La progression indéterminée fait tourner un arc d’un quart de cercle. Lorsque l’utilisateur préfère
+réduire les animations, l’arc n’effectue aucune transition et reste immobile. Pour donner à la
+progression indéterminée sa propre couleur, stylisez `ProgressCircularCircleRange` avec
+`[data-state='indeterminate']`.
 
 ### Propriétés CSS
 

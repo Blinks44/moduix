@@ -115,15 +115,7 @@ function ProgressCircularRing(props: ProgressCircularRingProps) {
 }
 
 function ProgressCircularView(props: ComponentProps<typeof ProgressPrimitive.View>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ProgressPrimitive.View
-      class={clsx(styles.view, local.class)}
-      {...others}
-      data-slot="progress-circular-view"
-    />
-  );
+  return <ProgressPrimitive.View {...props} data-slot="progress-circular-view" />;
 }
 
 const ProgressCircularContext = ProgressPrimitive.Context;
@@ -142,3 +134,19 @@ export {
   useProgress,
   useProgressContext,
 };
+export type {
+  ProgressCircleProps,
+  ProgressCircleRangeProps,
+  ProgressCircleTrackProps,
+  ProgressContextProps,
+  ProgressLabelProps,
+  ProgressRootProps,
+  ProgressRootProviderProps,
+  ProgressValueChangeDetails,
+  ProgressValueTextProps,
+  ProgressValueTranslationDetails,
+  ProgressViewProps,
+  UseProgressContext,
+  UseProgressProps,
+  UseProgressReturn,
+} from '@ark-ui/solid/progress';

@@ -16,10 +16,7 @@ const ProgressCircular = forwardRef<
   return (
     <ProgressPrimitive.Root
       ref={ref}
-      className={cn(
-        'inline-grid w-max max-w-full min-w-0 justify-items-center gap-2 text-foreground',
-        className,
-      )}
+      className={cn('inline-grid w-max max-w-full justify-items-center gap-2', className)}
       {...props}
       data-slot="progress-circular-root"
     />
@@ -33,10 +30,7 @@ const ProgressCircularRootProvider = forwardRef<
   return (
     <ProgressPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'inline-grid w-max max-w-full min-w-0 justify-items-center gap-2 text-foreground',
-        className,
-      )}
+      className={cn('inline-grid w-max max-w-full justify-items-center gap-2', className)}
       {...props}
       data-slot="progress-circular-root-provider"
     />
@@ -50,7 +44,7 @@ const ProgressCircularLabel = forwardRef<
   return (
     <ProgressPrimitive.Label
       ref={ref}
-      className={cn('max-w-full min-w-0 text-center text-sm font-regular wrap-anywhere', className)}
+      className={cn('text-center text-sm wrap-anywhere', className)}
       {...props}
       data-slot="progress-circular-label"
     />
@@ -64,7 +58,7 @@ const ProgressCircularValueText = forwardRef<
   return (
     <ProgressPrimitive.ValueText
       ref={ref}
-      className={cn('max-w-full min-w-0 text-center text-sm font-medium wrap-anywhere', className)}
+      className={cn('text-center text-sm font-medium wrap-anywhere', className)}
       {...props}
       data-slot="progress-circular-value-text"
     />
@@ -78,10 +72,7 @@ const ProgressCircularCircle = forwardRef<
   return (
     <ProgressPrimitive.Circle
       ref={ref}
-      className={cn(
-        'block overflow-visible [--size:var(--spacing-control-xl)] [--thickness:0.4rem]',
-        className,
-      )}
+      className={cn('block [--size:var(--spacing-control-xl)] [--thickness:0.4rem]', className)}
       {...props}
       data-slot="progress-circular-circle"
     />
@@ -110,7 +101,7 @@ const ProgressCircularCircleRange = forwardRef<
     <ProgressPrimitive.CircleRange
       ref={ref}
       className={cn(
-        'origin-center stroke-primary transition-[stroke-dashoffset] duration-normal ease-in-out [stroke-linecap:round] [transform-box:fill-box] data-[state=indeterminate]:animate-moduix-progress-circular-indeterminate data-[state=indeterminate]:[stroke-dasharray:1_200] motion-reduce:data-[state=indeterminate]:animate-none motion-reduce:data-[state=indeterminate]:[stroke-dasharray:20_200]',
+        'stroke-primary transition-[stroke-dashoffset] duration-normal ease-in-out [stroke-linecap:round] data-[state=indeterminate]:animate-moduix-progress-circular-indeterminate data-[state=indeterminate]:[stroke-dasharray:calc(var(--circumference)/4)_var(--circumference)] motion-reduce:data-[state=indeterminate]:animate-none',
         className,
       )}
       {...props}
@@ -139,15 +130,8 @@ const ProgressCircularRing = forwardRef<
 const ProgressCircularView = forwardRef<
   ComponentRef<typeof ProgressPrimitive.View>,
   ComponentProps<typeof ProgressPrimitive.View>
->(function ProgressCircularView({ className, ...props }, ref) {
-  return (
-    <ProgressPrimitive.View
-      ref={ref}
-      className={cn('contents', className)}
-      {...props}
-      data-slot="progress-circular-view"
-    />
-  );
+>(function ProgressCircularView(props, ref) {
+  return <ProgressPrimitive.View ref={ref} {...props} data-slot="progress-circular-view" />;
 });
 
 const ProgressCircularContext = ProgressPrimitive.Context;
@@ -166,3 +150,19 @@ export {
   useProgress,
   useProgressContext,
 };
+export type {
+  ProgressCircleProps,
+  ProgressCircleRangeProps,
+  ProgressCircleTrackProps,
+  ProgressContextProps,
+  ProgressLabelProps,
+  ProgressRootProps,
+  ProgressRootProviderProps,
+  ProgressValueChangeDetails,
+  ProgressValueTextProps,
+  ProgressValueTranslationDetails,
+  ProgressViewProps,
+  UseProgressContext,
+  UseProgressProps,
+  UseProgressReturn,
+} from '@ark-ui/react/progress';

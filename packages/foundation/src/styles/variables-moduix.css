@@ -390,27 +390,10 @@
   --moduix-pagination-item-size: initial; /* var(--moduix-size-md) */
 
   /* ProgressCircular */
-  --moduix-progress-circular-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-progress-circular-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-progress-circular-label-color: initial; /* currentColor */
-  --moduix-progress-circular-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-progress-circular-label-font-weight: initial; /* var(--moduix-weight-regular) */
-  --moduix-progress-circular-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
   --moduix-progress-circular-range-bg: initial; /* var(--moduix-color-primary) */
-  --moduix-progress-circular-range-indeterminate-animation: initial; /* progress-circular-indeterminate 1.4s linear infinite */
-  --moduix-progress-circular-range-indeterminate-bg: initial; /* var(--moduix-progress-circular-range-bg, var(--moduix-color-primary)) */
-  --moduix-progress-circular-range-indeterminate-dasharray: initial; /* 1 200 */
-  --moduix-progress-circular-range-indeterminate-reduced-motion-dasharray: initial; /* 20 200 */
-  --moduix-progress-circular-range-linecap: initial; /* round */
-  --moduix-progress-circular-range-transition: initial; /* var(--moduix-transition-default) */
-  --moduix-progress-circular-root-width: initial; /* max-content */
   --moduix-progress-circular-size: initial; /* var(--moduix-size-xl) */
   --moduix-progress-circular-thickness: initial; /* 0.4rem */
   --moduix-progress-circular-track-bg: initial; /* var(--moduix-color-muted) */
-  --moduix-progress-circular-value-text-color: initial; /* currentColor */
-  --moduix-progress-circular-value-text-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-progress-circular-value-text-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-progress-circular-value-text-line-height: initial; /* var(--moduix-line-height-text-sm) */
 
   /* ProgressLinear */
   --moduix-progress-linear-color: initial; /* var(--moduix-color-foreground) */

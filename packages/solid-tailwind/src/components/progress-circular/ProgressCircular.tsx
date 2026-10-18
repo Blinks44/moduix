@@ -12,10 +12,7 @@ function ProgressCircular(props: ComponentProps<typeof ProgressPrimitive.Root>) 
 
   return (
     <ProgressPrimitive.Root
-      class={cn(
-        'inline-grid w-max max-w-full min-w-0 justify-items-center gap-2 text-foreground',
-        local.class,
-      )}
+      class={cn('inline-grid w-max max-w-full justify-items-center gap-2', local.class)}
       {...others}
       data-slot="progress-circular-root"
     >
@@ -31,10 +28,7 @@ function ProgressCircularRootProvider(
 
   return (
     <ProgressPrimitive.RootProvider
-      class={cn(
-        'inline-grid w-max max-w-full min-w-0 justify-items-center gap-2 text-foreground',
-        local.class,
-      )}
+      class={cn('inline-grid w-max max-w-full justify-items-center gap-2', local.class)}
       {...others}
       data-slot="progress-circular-root-provider"
     >
@@ -48,7 +42,7 @@ function ProgressCircularLabel(props: ComponentProps<typeof ProgressPrimitive.La
 
   return (
     <ProgressPrimitive.Label
-      class={cn('max-w-full min-w-0 text-center text-sm font-regular wrap-anywhere', local.class)}
+      class={cn('text-center text-sm wrap-anywhere', local.class)}
       {...others}
       data-slot="progress-circular-label"
     />
@@ -60,7 +54,7 @@ function ProgressCircularValueText(props: ComponentProps<typeof ProgressPrimitiv
 
   return (
     <ProgressPrimitive.ValueText
-      class={cn('max-w-full min-w-0 text-center text-sm font-medium wrap-anywhere', local.class)}
+      class={cn('text-center text-sm font-medium wrap-anywhere', local.class)}
       {...others}
       data-slot="progress-circular-value-text"
     />
@@ -72,10 +66,7 @@ function ProgressCircularCircle(props: ComponentProps<typeof ProgressPrimitive.C
 
   return (
     <ProgressPrimitive.Circle
-      class={cn(
-        'block overflow-visible [--size:var(--spacing-control-xl)] [--thickness:0.4rem]',
-        local.class,
-      )}
+      class={cn('block [--size:var(--spacing-control-xl)] [--thickness:0.4rem]', local.class)}
       {...others}
       data-slot="progress-circular-circle"
     >
@@ -102,7 +93,7 @@ function ProgressCircularCircleRange(props: ComponentProps<typeof ProgressPrimit
   return (
     <ProgressPrimitive.CircleRange
       class={cn(
-        'origin-center stroke-primary transition-[stroke-dashoffset] duration-normal ease-in-out [stroke-linecap:round] [transform-box:fill-box] data-[state=indeterminate]:animate-moduix-progress-circular-indeterminate data-[state=indeterminate]:[stroke-dasharray:1_200] motion-reduce:data-[state=indeterminate]:animate-none motion-reduce:data-[state=indeterminate]:[stroke-dasharray:20_200]',
+        'stroke-primary transition-[stroke-dashoffset] duration-normal ease-in-out [stroke-linecap:round] data-[state=indeterminate]:animate-moduix-progress-circular-indeterminate data-[state=indeterminate]:[stroke-dasharray:calc(var(--circumference)/4)_var(--circumference)] motion-reduce:data-[state=indeterminate]:animate-none',
         local.class,
       )}
       {...others}
@@ -126,15 +117,7 @@ function ProgressCircularRing(props: ProgressCircularRingProps) {
 }
 
 function ProgressCircularView(props: ComponentProps<typeof ProgressPrimitive.View>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ProgressPrimitive.View
-      class={cn('contents', local.class)}
-      {...others}
-      data-slot="progress-circular-view"
-    />
-  );
+  return <ProgressPrimitive.View {...props} data-slot="progress-circular-view" />;
 }
 
 const ProgressCircularContext = ProgressPrimitive.Context;
@@ -153,3 +136,19 @@ export {
   useProgress,
   useProgressContext,
 };
+export type {
+  ProgressCircleProps,
+  ProgressCircleRangeProps,
+  ProgressCircleTrackProps,
+  ProgressContextProps,
+  ProgressLabelProps,
+  ProgressRootProps,
+  ProgressRootProviderProps,
+  ProgressValueChangeDetails,
+  ProgressValueTextProps,
+  ProgressValueTranslationDetails,
+  ProgressViewProps,
+  UseProgressContext,
+  UseProgressProps,
+  UseProgressReturn,
+} from '@ark-ui/solid/progress';
