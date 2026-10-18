@@ -2,17 +2,17 @@
   .root,
   .verticalRoot,
   .customRoot {
-    --moduix-marquee-width: 32rem;
+    width: 32rem;
     max-width: calc(100vw - 2rem);
   }
 
   .verticalRoot {
-    --moduix-marquee-width: 14rem;
-    --moduix-marquee-vertical-height: 18rem;
+    width: 14rem;
+    height: 18rem;
   }
 
   .customRoot {
-    --moduix-marquee-width: 34rem;
+    width: 34rem;
     --moduix-marquee-edge-size: 25%;
     --moduix-marquee-edge-color: var(--moduix-color-card);
     padding-block: var(--moduix-spacing-3);

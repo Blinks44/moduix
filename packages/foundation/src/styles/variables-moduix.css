@@ -358,13 +358,8 @@
   --moduix-listbox-width: initial; /* 16rem */
 
   /* Marquee */
-  --moduix-marquee-color: initial; /* var(--moduix-color-foreground) */
   --moduix-marquee-edge-color: initial; /* var(--moduix-color-background) */
   --moduix-marquee-edge-size: initial; /* 20% */
-  --moduix-marquee-edge-z-index: initial; /* 1 */
-  --moduix-marquee-height: initial; /* auto */
-  --moduix-marquee-vertical-height: initial; /* var(--moduix-marquee-height, 15rem) */
-  --moduix-marquee-width: initial; /* 100% */
 
   /* Menu */
   --moduix-menu-arrow-size: initial; /* var(--moduix-spacing-2-5) */

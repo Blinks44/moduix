@@ -2,7 +2,6 @@ import type { CssPropertyInput } from '../../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const marqueeCssProperties: CssPropertyInput[] = [
-  ['--moduix-marquee-color', 'var(--moduix-color-foreground)', 'Controls root text color.'],
   [
     '--marquee-delay',
     'computed from `delay` (default `0s`)',
@@ -15,22 +14,10 @@ const marqueeCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-marquee-edge-color',
-    'var(--marquee-edge-color, var(--moduix-color-background))',
-    'Controls edge fade start color; takes precedence over the Chakra-compatible alias.',
-  ],
-  [
-    '--moduix-marquee-edge-size',
-    'var(--marquee-edge-size, 20%)',
-    'Controls edge fade width or height; takes precedence over the Chakra-compatible alias.',
-  ],
-  [
-    '--marquee-edge-color',
     'var(--moduix-color-background)',
-    'Chakra-compatible alias for edge fade start color.',
+    'Controls edge fade start color.',
   ],
-  ['--marquee-edge-size', '20%', 'Chakra-compatible alias for edge fade width or height.'],
-  ['--moduix-marquee-edge-z-index', '1', 'Controls edge overlay stacking.'],
-  ['--moduix-marquee-height', 'auto', 'Controls root height for horizontal marquees.'],
+  ['--moduix-marquee-edge-size', '20%', 'Controls edge fade width or height.'],
   [
     '--marquee-loop-count',
     'computed from `loopCount` (default `0` = infinite)',
@@ -46,12 +33,6 @@ const marqueeCssProperties: CssPropertyInput[] = [
     'computed from measured content size and `side`',
     'Runtime value from Ark that drives the keyframe translate distance.',
   ],
-  [
-    '--moduix-marquee-vertical-height',
-    'var(--moduix-marquee-height, 15rem)',
-    'Controls root height for vertical marquees.',
-  ],
-  ['--moduix-marquee-width', '100%', 'Controls root width.'],
 ];
 
 const marqueeCssPropertiesReference = marqueeCssProperties.map(normalizeCssProperty);

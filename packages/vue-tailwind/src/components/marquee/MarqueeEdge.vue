@@ -17,13 +17,13 @@ const { class: className, side } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const marqueeEdgeVariants = cva('pointer-events-none z-1', {
+const marqueeEdgeVariants = cva('z-1 from-background to-transparent', {
   variants: {
     side: {
-      start: 'w-1/5 bg-linear-to-r from-background to-transparent rtl:bg-linear-to-l',
-      end: 'w-1/5 bg-linear-to-l from-background to-transparent rtl:bg-linear-to-r',
-      top: 'h-1/5 bg-linear-to-b from-background to-transparent',
-      bottom: 'h-1/5 bg-linear-to-t from-background to-transparent',
+      start: 'w-1/5 bg-linear-to-r rtl:bg-linear-to-l',
+      end: 'w-1/5 bg-linear-to-l rtl:bg-linear-to-r',
+      top: 'h-1/5 bg-linear-to-b',
+      bottom: 'h-1/5 bg-linear-to-t',
     },
   },
 });

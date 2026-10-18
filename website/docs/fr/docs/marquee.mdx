@@ -537,8 +537,9 @@ Réglez le mouvement avec `speed`, exprimé en pixels par seconde. Une vitesse p
 
 ### Orientation verticale
 
-Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verticalement. Par défaut, la racine utilise
-`--moduix-marquee-vertical-height`, ce qui donne à la zone d’affichage une hauteur stable.
+Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verticalement. Par défaut, une racine
+verticale mesure `15rem` de haut, ce qui donne à la zone d’affichage une hauteur stable ; définissez `height` avec une
+classe pour la modifier.
 
 <ExampleFrame variant="component">
   <MarqueeVertical />
@@ -586,14 +587,12 @@ Définissez `side="top"` ou `side="bottom"` pour faire défiler le contenu verti
 Marquee inclut les images clés nécessaires à l’animation du contenu. Utilisez les attributs d’état Ark pour les styles
 liés au comportement et choisissez le modèle de personnalisation de votre variante de registre :
 
-- Variantes CSS Modules : utilisez les variables `--moduix-marquee-*` pour les dimensions, la couleur, l’espacement et
-  le fondu des bords, et `className` (React) ou `class` (Solid et Vue) pour la mise en page et le style des éléments.
-  Les alias `--marquee-edge-color` et
-  `--marquee-edge-size` restent compatibles Chakra ; les variables `--moduix-marquee-edge-*` ont priorité sur eux.
+- Variantes CSS Modules : utilisez `--moduix-marquee-edge-color` et `--moduix-marquee-edge-size` pour le fondu des
+  bords, et `className` (React) ou `class` (Solid et Vue) pour les dimensions, la couleur et le style des éléments.
 - Variantes Tailwind : utilisez `className` (React) ou `class` (Solid et Vue) avec des utilitaires Tailwind pour les mêmes
   aspects. Marquee n’expose aucune API de variables CSS dans les paquets Tailwind.
 
-`Marquee` est transparent par défaut et n’ajoute ni bordure, ni arrière-plan, ni marge intérieure, ni arrondi. Si vous
+`Marquee` est transparent par défaut, hérite de la couleur du texte et n’ajoute ni bordure, ni arrière-plan, ni marge intérieure, ni arrondi. Si vous
 avez besoin d’un conteneur avec un fond ou une bordure, définissez-le dans le CSS de votre application.
 
 ### Propriétés CSS

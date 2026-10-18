@@ -536,8 +536,8 @@ Control motion with `speed`, measured in pixels per second. Lower values are eas
 
 ### Vertical
 
-Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
-`--moduix-marquee-vertical-height` by default so the viewport has a stable block size.
+Set `side="top"` or `side="bottom"` for vertical marquees. A vertical root is `15rem` tall by
+default so the viewport has a stable block size; set `height` with a class to change it.
 
 <ExampleFrame variant="component">
   <MarqueeVertical />
@@ -585,15 +585,12 @@ Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
 Marquee includes the keyframes required to animate its content. Use Ark state attributes for
 behavioral styles and pick the customization model of your registry variant:
 
-- CSS Modules variants: use `--moduix-marquee-*` variables for dimensions, color, spacing, and
-  edge fades, and `className` (React) or `class` (Solid and Vue) for layout and item styles. The
-  `--marquee-edge-color` and
-  `--marquee-edge-size` aliases stay Chakra-compatible; `--moduix-marquee-edge-*` take precedence
-  over them.
+- CSS Modules variants: use `--moduix-marquee-edge-color` and `--moduix-marquee-edge-size` for edge
+  fades, and `className` (React) or `class` (Solid and Vue) for size, color, and item styles.
 - Tailwind variants: use `className` (React) or `class` (Solid and Vue) with Tailwind utilities for the
   same aspects. Marquee exposes no CSS-variable API in Tailwind packages.
 
-`Marquee` is transparent by default and adds no border, background, padding, or radius. Add a framed
+`Marquee` is transparent by default, inherits the text color, and adds no border, background, padding, or radius. Add a framed
 surface in your own CSS when you need one.
 
 ### CSS Properties

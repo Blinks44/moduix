@@ -96,14 +96,16 @@ Ark provides `role="region"` with `aria-roledescription="marquee"`, hides cloned
 assistive technologies, and exposes a localized root label through `translations.root`. Consumers
 should pass a descriptive `aria-label` or `translations.root`.
 
-The wrapper adds CSS Modules, stable `data-slot` hooks, edge fade variables, and horizontal and
-vertical keyframe animations. It preserves Ark's `data-scope`, `data-part`, `data-state`,
+The wrapper adds CSS Modules, stable `data-slot` hooks, the `--moduix-marquee-edge-color` and
+`--moduix-marquee-edge-size` variables, a `15rem` default height for vertical marquees, and the
+foundation `moduix-marquee-x` and `moduix-marquee-y` keyframes. It preserves Ark's `data-scope`, `data-part`, `data-state`,
 `data-orientation`, `data-side`, `data-index`, `data-paused`, `data-reverse`, and `data-clone`
 attributes and the `--marquee-duration`, `--marquee-delay`, `--marquee-loop-count`,
 `--marquee-spacing`, and `--marquee-translate` variables.
 
-The root is visually neutral by default. Consumer styles control item appearance and framed
-surfaces. Reduced motion disables content animation while keeping the content available.
+The root is visually neutral by default and inherits the text color. Consumer styles control size,
+item appearance, and framed surfaces. Ark sets the root clipping, viewport size, and edge position
+and `pointer-events` inline; the CSS does not repeat them. Reduced motion disables content animation while keeping the content available.
 
 Solid uses a render-function `asChild` prop:
 

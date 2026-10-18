@@ -1,8 +1,4 @@
-import {
-  Marquee as MarqueePrimitive,
-  useMarquee as useMarqueePrimitive,
-  useMarqueeContext,
-} from '@ark-ui/react/marquee';
+import { Marquee as MarqueePrimitive, useMarquee, useMarqueeContext } from '@ark-ui/react/marquee';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -39,15 +35,8 @@ const MarqueeRootProvider = forwardRef<
 const MarqueeViewport = forwardRef<
   ComponentRef<typeof MarqueePrimitive.Viewport>,
   ComponentProps<typeof MarqueePrimitive.Viewport>
->(function MarqueeViewport({ className, ...props }, ref) {
-  return (
-    <MarqueePrimitive.Viewport
-      ref={ref}
-      className={clsx(styles.viewport, className)}
-      {...props}
-      data-slot="marquee-viewport"
-    />
-  );
+>(function MarqueeViewport(props, ref) {
+  return <MarqueePrimitive.Viewport ref={ref} {...props} data-slot="marquee-viewport" />;
 });
 
 const MarqueeContent = forwardRef<
@@ -93,7 +82,6 @@ const MarqueeEdge = forwardRef<
 });
 
 const MarqueeContext = MarqueePrimitive.Context;
-const useMarquee = useMarqueePrimitive;
 
 export {
   Marquee,
@@ -106,3 +94,24 @@ export {
   useMarquee,
   useMarqueeContext,
 };
+
+export type {
+  MarqueeContentBaseProps,
+  MarqueeContentProps,
+  MarqueeContextProps,
+  MarqueeEdgeBaseProps,
+  MarqueeEdgeProps,
+  MarqueeItemBaseProps,
+  MarqueeItemProps,
+  MarqueePauseStatusDetails,
+  MarqueeRootBaseProps,
+  MarqueeRootProps,
+  MarqueeRootProviderBaseProps,
+  MarqueeRootProviderProps,
+  MarqueeSide,
+  MarqueeViewportBaseProps,
+  MarqueeViewportProps,
+  UseMarqueeContext,
+  UseMarqueeProps,
+  UseMarqueeReturn,
+} from '@ark-ui/react/marquee';
