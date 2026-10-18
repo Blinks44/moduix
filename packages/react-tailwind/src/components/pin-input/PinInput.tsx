@@ -11,37 +11,42 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 
-const PinInput = forwardRef<
-  ComponentRef<typeof PinInputPrimitive.Root>,
-  ComponentProps<typeof PinInputPrimitive.Root>
->(function PinInput({ className, count, placeholder = '', ...props }, ref) {
-  return (
-    <PinInputPrimitive.Root
-      ref={ref}
-      className={cn(
-        'inline-flex w-auto max-w-none flex-col items-start gap-2 data-disabled:opacity-50',
-        className,
-      )}
-      count={count}
-      placeholder={placeholder}
-      {...props}
-      data-slot="pin-input-root"
-    />
-  );
-});
+type PinInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type PinInputRootProps = ComponentProps<typeof PinInputPrimitive.Root> & {
+  size?: PinInputSize;
+};
+type PinInputRootProviderProps = ComponentProps<typeof PinInputPrimitive.RootProvider> & {
+  size?: PinInputSize;
+};
+
+const rootClass =
+  'group/pin-input inline-flex flex-col items-start gap-2 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
+
+const PinInput = forwardRef<ComponentRef<typeof PinInputPrimitive.Root>, PinInputRootProps>(
+  function PinInput({ className, placeholder = '', size = 'md', ...props }, ref) {
+    return (
+      <PinInputPrimitive.Root
+        ref={ref}
+        className={cn(rootClass, className)}
+        placeholder={placeholder}
+        {...props}
+        data-size={size}
+        data-slot="pin-input-root"
+      />
+    );
+  },
+);
 
 const PinInputRootProvider = forwardRef<
   ComponentRef<typeof PinInputPrimitive.RootProvider>,
-  ComponentProps<typeof PinInputPrimitive.RootProvider>
->(function PinInputRootProvider({ className, ...props }, ref) {
+  PinInputRootProviderProps
+>(function PinInputRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <PinInputPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'inline-flex w-auto max-w-none flex-col items-start gap-2 data-disabled:opacity-50',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
+      data-size={size}
       data-slot="pin-input-root-provider"
     />
   );
@@ -54,7 +59,7 @@ const PinInputLabel = forwardRef<
   return (
     <PinInputPrimitive.Label
       ref={ref}
-      className={cn('text-sm font-medium text-foreground', className)}
+      className={cn('text-sm font-medium', className)}
       {...props}
       data-slot="pin-input-label"
     />
@@ -83,7 +88,7 @@ const PinInputInput = forwardRef<
     <PinInputPrimitive.Input
       ref={ref}
       className={cn(
-        'size-control-md flex-none rounded-md border border-border bg-background px-0 py-0 text-center text-lg font-medium text-foreground tabular-nums outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color] duration-normal ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none data-disabled:pointer-events-none data-invalid:border-destructive data-invalid:focus-visible:outline-destructive',
+        'size-control-md flex-none rounded-md border border-border bg-background p-0 text-center text-lg font-medium text-inherit tabular-nums outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-data-[size=lg]/pin-input:size-control-lg group-data-[size=lg]/pin-input:text-xl group-data-[size=sm]/pin-input:size-control-sm group-data-[size=sm]/pin-input:text-md group-data-[size=xl]/pin-input:size-control-xl group-data-[size=xl]/pin-input:text-2xl group-data-[size=xs]/pin-input:size-control-xs group-data-[size=xs]/pin-input:text-sm placeholder:text-muted-foreground focus-visible:outline-ring data-invalid:border-destructive data-invalid:focus-visible:outline-destructive',
         className,
       )}
       {...props}
@@ -99,17 +104,13 @@ function PinInputInputs({ className }: { className?: string }) {
 }
 
 const PinInputSeparator = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
-  function PinInputSeparator(
-    { className, 'aria-hidden': ariaHidden = true, role = 'presentation', children, ...props },
-    ref,
-  ) {
+  function PinInputSeparator({ className, children, ...props }, ref) {
     return (
       <span
         ref={ref}
-        aria-hidden={ariaHidden}
-        role={role}
+        aria-hidden
         className={cn(
-          'pointer-events-none inline-flex size-4 flex-none items-center justify-center leading-none text-muted-foreground [&>svg]:size-full [&>svg]:flex-none',
+          'inline-flex size-4 flex-none text-muted-foreground [&>svg]:size-full',
           className,
         )}
         {...props}
@@ -141,3 +142,17 @@ export {
   usePinInput,
   usePinInputContext,
 };
+export type {
+  PinInputContextProps,
+  PinInputControlProps,
+  PinInputHiddenInputProps,
+  PinInputInputProps,
+  PinInputLabelProps,
+  PinInputValueChangeDetails,
+  PinInputValueInvalidDetails,
+  UsePinInputContext,
+  UsePinInputProps,
+  UsePinInputReturn,
+} from '@ark-ui/react/pin-input';
+
+export type { PinInputRootProps, PinInputRootProviderProps, PinInputSize };

@@ -34,9 +34,7 @@ export type {
   PinInputLabelProps,
   PinInputRootBaseProps,
   PinInputRootEmits,
-  PinInputRootProps,
   PinInputRootProviderBaseProps,
-  PinInputRootProviderProps,
   PinInputValueChangeDetails,
   PinInputValueInvalidDetails,
   UsePinInputContext,
@@ -44,4 +42,5 @@ export type {
   UsePinInputReturn,
 } from '@ark-ui/vue/pin-input';
 
-export type { Emits as PinInputEmits } from './PinInput.vue';
+export type { PinInputSize, Props as PinInputRootProps } from './PinInput.vue';
+export type { Props as PinInputRootProviderProps } from './PinInputRootProvider.vue';

@@ -14,6 +14,7 @@ import PinInputMasking from '@/components/examples/pin-input/masking.tsx';
 import PinInputOtpMode from '@/components/examples/pin-input/otp-mode.tsx';
 import PinInputPlaceholder from '@/components/examples/pin-input/placeholder.tsx';
 import PinInputRootProvider from '@/components/examples/pin-input/root-provider.tsx';
+import PinInputSizes from '@/components/examples/pin-input/sizes.tsx';
 import pinInputSolidBasic from '../../../snippets/pin-input/solid/basic.tsx?raw';
 import pinInputSolidBlurOnComplete from '../../../snippets/pin-input/solid/blur-on-complete.tsx?raw';
 import pinInputSolidChangeEvents from '../../../snippets/pin-input/solid/change-events.tsx?raw';
@@ -23,6 +24,7 @@ import pinInputSolidMasking from '../../../snippets/pin-input/solid/masking.tsx?
 import pinInputSolidOtpMode from '../../../snippets/pin-input/solid/otp-mode.tsx?raw';
 import pinInputSolidPlaceholder from '../../../snippets/pin-input/solid/placeholder.tsx?raw';
 import pinInputSolidRootProvider from '../../../snippets/pin-input/solid/root-provider.tsx?raw';
+import pinInputSolidSizes from '../../../snippets/pin-input/solid/sizes.tsx?raw';
 import pinInputVueBasic from '../../../snippets/pin-input/vue/basic.vue?raw';
 import pinInputVueBlurOnComplete from '../../../snippets/pin-input/vue/blur-on-complete.vue?raw';
 import pinInputVueChangeEvents from '../../../snippets/pin-input/vue/change-events.vue?raw';
@@ -32,6 +34,7 @@ import pinInputVueMasking from '../../../snippets/pin-input/vue/masking.vue?raw'
 import pinInputVueOtpMode from '../../../snippets/pin-input/vue/otp-mode.vue?raw';
 import pinInputVuePlaceholder from '../../../snippets/pin-input/vue/placeholder.vue?raw';
 import pinInputVueRootProvider from '../../../snippets/pin-input/vue/root-provider.vue?raw';
+import pinInputVueSizes from '../../../snippets/pin-input/vue/sizes.vue?raw';
 
 ## Référence de l’API
 
@@ -42,7 +45,7 @@ import pinInputVueRootProvider from '../../../snippets/pin-input/vue/root-provid
 Utilisez `PinInput` lorsqu’un code court de longueur fixe doit être saisi caractère par caractère dans des cases séparées.
 
 - Choisissez **`PinInput`** pour les codes à usage unique, les codes PIN, les codes de récupération et les codes d’invitation.
-- Choisissez **`PinInputInput`** lorsqu’un seul champ de texte suffit.
+- Choisissez **`Input`** lorsqu’un seul champ de texte suffit.
 - Choisissez **`PasswordInput`** lorsque la valeur est une chaîne secrète unique avec un bouton d’affichage.
 
 ## Exemple de base
@@ -167,7 +170,7 @@ réactif, et Vue expose directement le store réactif au template.
 
 Ark gère le transfert du focus, la répartition du texte collé, la saisie au clavier et le remplissage automatique
 des codes à usage unique ; ajoutez `PinInputLabel` pour donner un nom accessible au groupe. `PinInputSeparator`
-est décoratif et rend `aria-hidden` ainsi que `role="presentation"` ; placez tout texte porteur de sens en dehors
+est décoratif et rend `aria-hidden` ; placez tout texte porteur de sens en dehors
 du séparateur.
 
 ## Exemples
@@ -479,6 +482,48 @@ de l’arbre rendu. Cet exemple remplace `PinInputInputs` par des parties `PinIn
 
 </ExampleCode>
 
+### Tailles
+
+Utilisez la prop `size` sur la racine pour aligner la taille des cases sur la hauteur des contrôles `Input`
+et `Button`. La valeur par défaut est `md` ; le texte des cases suit la taille.
+
+<ExampleFrame variant="component">
+  <PinInputSizes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/pin-input/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={pinInputSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={pinInputVueSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/pin-input/pin-input-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
+
 ## Styles
 
 ### Propriétés CSS
@@ -495,8 +540,10 @@ de l’arbre rendu. Cet exemple remplace `PinInputInputs` par des parties `PinIn
   </Tabs>
 </div>
 
-Les paquets CSS Modules exposent les variables publiques ci-dessus. Les variantes Tailwind utilisent des classes
-utilitaires natives et les remplacements de l’utilisateur via `className` ou `class`.
+Les paquets CSS Modules exposent trois variables : `--moduix-pin-input-input-size` (valable pour toutes les
+tailles), `--moduix-pin-input-gap` et `--moduix-pin-input-radius`. Les couleurs, bordures, la typographie et
+l’anneau de focus viennent des jetons de foundation ; remplacez-les avec une classe sur la partie. Les variantes
+Tailwind utilisent des classes utilitaires natives et les remplacements de l’utilisateur via `className` ou `class`.
 
 ### Points d’accroche CSS
 
@@ -508,3 +555,5 @@ utilitaires natives et les remplacements de l’utilisateur via `className` ou `
 - Les styles d’état des cases utilisent `data-disabled`, `data-invalid`, `data-complete`, `data-filled` et
   `data-index`.
 - `PinInputSeparator` expose `data-slot="pin-input-separator"` et est décoratif par défaut.
+- La racine reflète `size` dans `data-size`. Un `PinInput` désactivé dans un `Field` ou un `Fieldset` désactivé
+  n’est pas assombri une seconde fois.

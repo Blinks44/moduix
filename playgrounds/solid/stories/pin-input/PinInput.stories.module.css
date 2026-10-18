@@ -13,14 +13,17 @@
   }
 
   .customRoot {
-    --moduix-pin-input-separator-size: 1.5rem;
-    --moduix-pin-input-separator-color: var(--moduix-color-primary);
+    --moduix-pin-input-input-size: 3rem;
+    --moduix-pin-input-gap: var(--moduix-spacing-3);
+    --moduix-pin-input-radius: var(--moduix-radius-lg);
+
+    & [data-slot='pin-input-separator'] {
+      color: var(--moduix-color-primary);
+    }
   }
 
   .customInput {
-    --moduix-pin-input-input-width: 3rem;
-    --moduix-pin-input-input-height: 3rem;
-    --moduix-pin-input-font-size: var(--moduix-text-xl);
-    --moduix-pin-input-bg: var(--moduix-color-muted);
+    background-color: var(--moduix-color-muted);
+    font-size: var(--moduix-text-xl);
   }
 }

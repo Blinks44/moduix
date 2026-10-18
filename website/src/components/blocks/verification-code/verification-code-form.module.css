@@ -19,7 +19,6 @@
 }
 
 .code[data-slot='pin-input-root'] {
-  --moduix-pin-input-root-gap: var(--moduix-spacing-2);
   align-items: center;
   width: 100%;
 }

@@ -11,33 +11,38 @@ import type { ComponentProps } from 'solid-js';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 import styles from './PinInput.module.css';
 
-function PinInput(props: ComponentProps<typeof PinInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['children', 'class', 'count', 'placeholder']);
+type PinInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type PinInputRootProps = ComponentProps<typeof PinInputPrimitive.Root> & {
+  size?: PinInputSize;
+};
+type PinInputRootProviderProps = ComponentProps<typeof PinInputPrimitive.RootProvider> & {
+  size?: PinInputSize;
+};
+
+function PinInput(props: PinInputRootProps) {
+  const [local, others] = splitProps(props, ['class', 'placeholder', 'size']);
 
   return (
     <PinInputPrimitive.Root
-      count={local.count}
       placeholder={local.placeholder ?? ''}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="pin-input-root"
-    >
-      {local.children}
-    </PinInputPrimitive.Root>
+    />
   );
 }
 
-function PinInputRootProvider(props: ComponentProps<typeof PinInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+function PinInputRootProvider(props: PinInputRootProviderProps) {
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <PinInputPrimitive.RootProvider
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="pin-input-root-provider"
-    >
-      {local.children}
-    </PinInputPrimitive.RootProvider>
+    />
   );
 }
 
@@ -88,13 +93,12 @@ function PinInputInputs(props: { class?: string }) {
 }
 
 function PinInputSeparator(props: ComponentProps<'span'>) {
-  const [local, others] = splitProps(props, ['aria-hidden', 'children', 'class', 'role']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   const resolvedChildren = children(() => local.children);
 
   return (
     <span
-      aria-hidden={local['aria-hidden'] ?? true}
-      role={local.role ?? 'presentation'}
+      aria-hidden="true"
       class={clsx(styles.separator, local.class)}
       {...others}
       data-slot="pin-input-separator"
@@ -127,3 +131,17 @@ export {
   usePinInput,
   usePinInputContext,
 };
+export type {
+  PinInputContextProps,
+  PinInputControlProps,
+  PinInputHiddenInputProps,
+  PinInputInputProps,
+  PinInputLabelProps,
+  PinInputValueChangeDetails,
+  PinInputValueInvalidDetails,
+  UsePinInputContext,
+  UsePinInputProps,
+  UsePinInputReturn,
+} from '@ark-ui/solid/pin-input';
+
+export type { PinInputRootProps, PinInputRootProviderProps, PinInputSize };
