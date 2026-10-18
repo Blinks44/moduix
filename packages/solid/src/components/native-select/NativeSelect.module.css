@@ -41,7 +41,6 @@
     );
     cursor: pointer;
     transition:
-      background-color var(--moduix-select-transition, var(--moduix-transition-default)),
       border-color var(--moduix-select-transition, var(--moduix-transition-default)),
       outline-color var(--moduix-select-transition, var(--moduix-transition-default)),
       opacity var(--moduix-select-transition, var(--moduix-transition-default));
@@ -86,7 +85,6 @@
     border-radius: var(--moduix-select-action-radius, var(--moduix-radius-sm));
     background: var(--moduix-select-action-bg, transparent);
     color: var(--moduix-select-icon-color, var(--moduix-color-muted-foreground));
-    line-height: 0;
     pointer-events: none;
     transform: translateY(-50%);
     transition:
@@ -95,7 +93,6 @@
       opacity var(--moduix-select-transition, var(--moduix-transition-default));
 
     & > svg {
-      display: block;
       width: var(--moduix-select-icon-size, var(--moduix-spacing-4));
       height: var(--moduix-select-icon-size, var(--moduix-spacing-4));
     }
@@ -109,7 +106,7 @@
     opacity: var(--moduix-select-disabled-opacity, var(--moduix-opacity-disabled));
   }
 
-  .root:not(:disabled, [data-disabled]):hover + .indicator {
+  .root:hover + .indicator {
     @media (hover: hover) {
       background-color: var(--moduix-select-action-bg-hover, var(--moduix-color-muted));
       color: var(--moduix-select-action-color-hover, var(--moduix-color-foreground));
