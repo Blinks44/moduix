@@ -24,6 +24,6 @@ const attrs = useAttrs();
     :class="clsx(styles.itemIndicator, className)"
     data-slot="menu-item-indicator"
   >
-    <slot><CheckIcon :class="styles.itemIndicatorIcon" /></slot>
+    <slot><CheckIcon /></slot>
   </ArkMenuItemIndicator>
 </template>

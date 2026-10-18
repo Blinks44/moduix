@@ -8,8 +8,8 @@ import styles from './Menu.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type MenuIndicatorPosition = 'start' | 'end' | 'none';
-interface Props extends /* @vue-ignore */ MenuCheckboxItemProps {
+export type MenuIndicatorPosition = 'start' | 'end' | 'none';
+export interface Props extends /* @vue-ignore */ MenuCheckboxItemProps {
   checked: MenuCheckboxItemProps['checked'];
   class?: HTMLAttributes['class'];
   indicator?: MenuIndicatorPosition;

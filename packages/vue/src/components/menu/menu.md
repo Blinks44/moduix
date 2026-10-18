@@ -14,6 +14,11 @@ Both composition paths default portalled, lazyMount and unmountOnExit to true.
 MenuPositioner owns the portal boundary: pass portalled=false for inline content,
 or portalRef for a custom destination. These defaults apply to CSS Modules and Tailwind.
 
+MenuTrigger and MenuContextTrigger are unstyled; compose them with as-child. The index
+exports the moduix MenuRootProps, MenuRootProviderProps, MenuItemProps (tone),
+MenuCheckboxItemProps and MenuRadioItemProps (indicator) from the components, and the same
+Ark part, detail and hook types as React and Solid plus the Vue emits types.
+
 ## Preservation notes
 
 Optional locally declared Boolean props need an explicit default: Vue otherwise turns
@@ -27,9 +32,6 @@ submenu composition, Escape focus return and SSR/hydration remain Ark-shaped.
 ## Styling and accessibility
 
 Rendered parts accept class and expose data-slot plus Ark state/data attributes.
-CSS Modules uses component tokens; Tailwind uses utility/class overrides. Ark owns
-menu roles, roving focus, dismissal and keyboard navigation.
-
-## Local changelog
-
-- 2026-10-04: Align Tailwind MenuRootProvider's omitted portalled default with Menu and CSS Modules.
+CSS Modules keep three menu variables and the shared popup variables (see the React
+menu.md); Tailwind uses utility/class overrides. Ark owns menu roles, roving focus,
+dismissal and keyboard navigation.

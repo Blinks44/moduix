@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { MenuContextTrigger as ArkMenuContextTrigger } from '@ark-ui/vue/menu';
 import type { MenuContextTriggerProps } from '@ark-ui/vue/menu';
-import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import styles from './Menu.module.css';
 
 defineOptions({ inheritAttrs: false });
 
@@ -13,7 +11,7 @@ interface Props extends /* @vue-ignore */ MenuContextTriggerProps {
   class?: HTMLAttributes['class'];
 }
 
-const { asChild, class: className } = defineProps<Props>();
+const { asChild = false, class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 </script>
@@ -22,7 +20,7 @@ const attrs = useAttrs();
   <ArkMenuContextTrigger
     v-bind="attrs"
     :as-child="asChild"
-    :class="clsx(!asChild && styles.contextTrigger, className)"
+    :class="className"
     data-slot="menu-context-trigger"
   >
     <slot />

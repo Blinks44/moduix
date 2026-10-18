@@ -9,7 +9,6 @@ import {
   MenuItem,
 } from '@moduix/solid/menu';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/menu/menu-controlled.module.css';
 
 export default function ControlledMenuDemo() {
   const [open, setOpen] = createSignal(false);
@@ -22,7 +21,7 @@ export default function ControlledMenuDemo() {
           <MenuIndicator />
         </MenuTrigger>
         <MenuPositioner>
-          <MenuContent class={styles.content}>
+          <MenuContent>
             <MenuViewport>
               <MenuItem value="edit">Edit</MenuItem>
               <MenuItem value="duplicate">Duplicate</MenuItem>

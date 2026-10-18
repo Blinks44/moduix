@@ -4778,11 +4778,6 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/menu/MenuTriggerIcon.vue",
-          "target": "@components/ui/menu/MenuTriggerIcon.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/menu/MenuTriggerItem.vue",
           "target": "@components/ui/menu/MenuTriggerItem.vue",
           "type": "registry:component"

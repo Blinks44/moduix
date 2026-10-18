@@ -22,6 +22,6 @@ const attrs = useAttrs();
     :class="clsx(styles.triggerItemIcon, className)"
     data-slot="menu-trigger-item-icon"
   >
-    <slot><ChevronRightIcon :class="styles.iconSvg" /></slot>
+    <slot><ChevronRightIcon /></slot>
   </span>
 </template>

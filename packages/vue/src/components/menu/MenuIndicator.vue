@@ -24,6 +24,6 @@ const attrs = useAttrs();
     :class="clsx(styles.indicator, className)"
     data-slot="menu-indicator"
   >
-    <slot><ChevronDownIcon :class="styles.iconSvg" /></slot>
+    <slot><ChevronDownIcon /></slot>
   </ArkMenuIndicator>
 </template>

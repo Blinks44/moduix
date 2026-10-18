@@ -8,7 +8,6 @@ import {
   MenuViewport,
   MenuItem,
 } from '@moduix/solid/menu';
-import styles from '@/components/examples/menu/menu-links.module.css';
 
 export default function LinkItemsMenuDemo() {
   return (
@@ -18,7 +17,7 @@ export default function LinkItemsMenuDemo() {
         <MenuIndicator />
       </MenuTrigger>
       <MenuPositioner>
-        <MenuContent class={styles.content}>
+        <MenuContent>
           <MenuViewport>
             <MenuItem asChild={(props) => <a {...props()} href="#menu-docs" />} value="docs">
               Documentation

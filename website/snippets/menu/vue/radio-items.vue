@@ -15,7 +15,6 @@ import {
   MenuViewport,
 } from '@moduix/vue/menu';
 import { ref } from 'vue';
-import styles from '@/components/examples/menu/menu-radio-items.module.css';
 
 const sortBy = ref('date');
 </script>
@@ -26,7 +25,7 @@ const sortBy = ref('date');
       <Button>Sort <MenuIndicator /></Button>
     </MenuTrigger>
     <MenuPositioner>
-      <MenuContent :class="styles.content">
+      <MenuContent>
         <MenuViewport>
           <MenuItemGroup>
             <MenuItemGroupLabel>Sort By</MenuItemGroupLabel>

@@ -108,10 +108,6 @@ supplémentaire casse la recherche d’éléments, la navigation par saisie et l
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -158,7 +154,6 @@ Consultez le [Démarrage rapide](/docs/quick-start) pour la configuration compl�
 ```text
 Menu
 ├─ MenuTrigger
-│  ├─ MenuTriggerIcon
 │  └─ MenuIndicator
 ├─ MenuContextTrigger
 └─ Sous-arbre du calque (placé automatiquement dans un portail)
@@ -188,10 +183,9 @@ Menu
 | --- | --- |
 | `Menu` | Composant racine qui gère l’ouverture, le positionnement, la recherche par saisie, le focus et la fermeture. |
 | `MenuRootProvider` | Relie le menu à une instance d’état créée avec `useMenu`. |
-| `MenuTrigger` | Bouton qui ouvre le menu. Utilisez `asChild` pour fournir un autre élément sémantique. |
-| `MenuTriggerIcon` | Conteneur pour l’icône du déclencheur. Un chevron par défaut est rendu sans enfant. |
+| `MenuTrigger` | Bouton qui ouvre le menu. Il n’a pas de styles propres ; utilisez `asChild` avec `Button` ou un autre élément sémantique. |
 | `MenuIndicator` | Indicateur du déclencheur qui reflète son état, généralement affiché comme un chevron. |
-| `MenuContextTrigger` | Déclencheur pour les menus contextuels ouverts par clic droit ou appui prolongé. |
+| `MenuContextTrigger` | Zone sans styles qui ouvre le menu par clic droit ou appui prolongé. |
 | `MenuPositioner` | Positionne le calque flottant du menu. |
 | `MenuContent` | Surface de la fenêtre contextuelle avec le rôle `menu` et sa collection d’éléments. |
 | `MenuViewport` | Conteneur de défilement explicite autour de la collection d’éléments. |
@@ -250,10 +244,6 @@ Utilisez ces éléments pour des options indépendantes qui peuvent être activ�
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-checkbox-items.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -338,10 +328,6 @@ Contrôlez `open` avec l’état React lorsqu’un autre contrôle doit ouvrir o
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-controlled.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -382,10 +368,6 @@ Utilisez `MenuItemGroup` et `MenuItemGroupLabel` pour organiser les éléments a
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-grouping.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -426,10 +408,6 @@ Définissez `indicator="start"`, `"end"` ou `"none"` sur les éléments avec cas
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-indicator-placement.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -470,10 +448,6 @@ Utilisez `MenuItemContext` lorsque le contenu d’un élément doit réagir à s
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-item-context.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -558,10 +532,6 @@ Utilisez `MenuItem asChild` et faites de l’ancre l’élément de menu lui-mê
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-links.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -690,10 +660,6 @@ Rendez un `Menu` enfant dans le contenu du menu parent et ouvrez-le avec `MenuTr
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-nested.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -734,10 +700,6 @@ Utilisez `MenuRadioItemGroup` lorsque l’utilisateur doit choisir une seule val
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/menu/menu-radio-items.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -910,28 +872,24 @@ Utilisez les composants utilitaires pour les mises en page courantes, puis compo
 
 ## Styles
 
-Utilisez `className` dans React, ou `class` dans Solid et Vue, sur les parties exportées pour appliquer des styles structurels. Pour les styles liés à un état, privilégiez les attributs de données Ark tels que `data-state`, `data-disabled` et `data-highlighted`, avec les sélecteurs `data-slot` de moduix. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du consommateur ; les variables CSS ci-dessous personnalisent les variantes CSS Modules. Les attributs de données et les sélecteurs `data-slot` sont communs aux deux modes de style.
+Stylisez Menu avec `className` dans React ou `class` dans Solid et Vue sur les parties exportées.
+Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur. Les variantes
+CSS Modules prennent les couleurs, les espacements et la typographie dans les jetons de foundation et
+n’exposent en variables CSS que les limites de largeur du contenu et la hauteur maximale du viewport ;
+remplacez le reste avec une classe sur la partie. Les éléments, les libellés de groupe, les
+séparateurs, la marge de la liste et l’animation du popup suivent aussi les variables partagées
+`--moduix-popup-*`. `MenuTrigger` et `MenuContextTrigger` n’ont pas de styles : composez le
+déclencheur avec `asChild` et `Button`, et stylisez vous-même la zone du menu contextuel. Les
+attributs de données et les sélecteurs `data-slot` sont communs aux deux modes de style.
 
 ### Propriétés CSS
 
-<div className="not-prose docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div style={{ maxHeight: '28rem', overflow: 'auto' }}>
-        <MenuDocs.MenuCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties} />
 
 ### Points d’accroche CSS
 
 Utilisez les attributs d’état d’Ark pour styliser le menu et ses éléments :
 
 - Attributs Ark : `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`, `[data-part='content']`, `[data-part='viewport']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]` et `[data-side]`.
-- Attributs moduix : `[data-slot='menu-trigger']`, `[data-slot='menu-trigger-icon']`, `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`, `[data-slot='menu-content']`, `[data-slot='menu-viewport']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`, `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`, `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`, `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`, `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`, `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']` et `[data-indicator-position='start' | 'end' | 'none']`.
+- Attributs moduix : `[data-slot='menu-trigger']`, `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`, `[data-slot='menu-content']`, `[data-slot='menu-viewport']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`, `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`, `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`, `[data-slot='menu-radio-item-group']`, `[data-slot='menu-radio-item']`, `[data-slot='menu-checkbox-item']`, `[data-slot='menu-item-indicator']`, `[data-slot='menu-item-text']`, `[data-slot='menu-item-text-content']`, `[data-slot='menu-item-text-icon']`, `[data-slot='menu-item-text-label']`, `[data-slot='menu-item-shortcut']` et `[data-indicator-position='start' | 'end' | 'none']`.
 - Variables de positionnement : `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`, `--layer-index`, `--arrow-size` et `--arrow-background`.

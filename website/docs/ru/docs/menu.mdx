@@ -109,10 +109,6 @@ import menuVueWithArrow from '../../../snippets/menu/vue/with-arrow.vue?raw';
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/menu/menu-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -159,7 +155,6 @@ import menuVueWithArrow from '../../../snippets/menu/vue/with-arrow.vue?raw';
 ```text
 Menu
 ├─ MenuTrigger
-│  ├─ MenuTriggerIcon
 │  └─ MenuIndicator
 ├─ MenuContextTrigger
 └─ Ветка всплывающего слоя (автоматически переносится в портал)
@@ -189,10 +184,9 @@ Menu
 | --- | --- |
 | `Menu` | Корневой компонент, который управляет открытием, позиционированием, поиском по начальным символам, фокусом и закрытием меню. |
 | `MenuRootProvider` | Подключает меню к экземпляру состояния, созданному с помощью `useMenu`. |
-| `MenuTrigger` | Кнопка, открывающая меню. Используйте `asChild`, чтобы передать другой семантический элемент. |
-| `MenuTriggerIcon` | Обёртка для иконки триггера. Если потомок не передан, отображается шеврон по умолчанию. |
+| `MenuTrigger` | Кнопка, открывающая меню. Своих стилей у неё нет; используйте `asChild` с `Button` или другим семантическим элементом. |
 | `MenuIndicator` | Индикатор состояния триггера, обычно шеврон. |
-| `MenuContextTrigger` | Триггер для контекстного меню по правому клику или долгому нажатию. |
+| `MenuContextTrigger` | Область без стилей, которая открывает меню по правому клику или долгому нажатию. |
 | `MenuPositioner` | Позиционирует плавающий слой меню. |
 | `MenuContent` | Всплывающая область с ролью `menu` и коллекцией пунктов. |
 | `MenuViewport` | Явный прокручиваемый контейнер вокруг коллекции пунктов. |
@@ -257,10 +251,6 @@ render-функции `asChild`: ref на самой части `Menu` чере�
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/menu/menu-checkbox-items.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -331,10 +321,6 @@ render-функции `asChild`: ref на самой части `Menu` чере�
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/menu/menu-controlled.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -368,10 +354,6 @@ render-функции `asChild`: ref на самой части `Menu` чере�
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/menu/menu-grouping.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -405,10 +387,6 @@ render-функции `asChild`: ref на самой части `Menu` чере�
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/menu/menu-indicator-placement.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -442,10 +420,6 @@ render-функции `asChild`: ref на самой части `Menu` чере�
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/menu/menu-item-context.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -517,10 +491,6 @@ ARIA-атрибуты, клавиатурное поведение и обраб
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/menu/menu-links.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -629,10 +599,6 @@ ARIA-атрибуты, клавиатурное поведение и обраб
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/menu/menu-nested.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -666,10 +632,6 @@ ARIA-атрибуты, клавиатурное поведение и обраб
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/menu/menu-radio-items.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -814,27 +776,18 @@ ARIA-атрибуты, клавиатурное поведение и обраб
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных стилей.
-Для стилей по состоянию предпочитайте атрибуты Ark, такие как `data-state`, `data-disabled` и
-`data-highlighted`, вместе с селекторами `data-slot` moduix. Варианты Tailwind используют нативные
-утилиты и классы потребителя; CSS-переменные ниже настраивают варианты с CSS Modules. Атрибуты
-состояния и хуки `data-slot` общие для обоих вариантов стилизации.
+Стилизуйте Menu через `className` в React или `class` в Solid и Vue на экспортируемых частях.
+Варианты Tailwind используют нативные utility-классы и классы потребителя. Варианты с CSS Modules берут
+цвета, отступы и типографику из токенов foundation и выносят в CSS-переменные только ограничения ширины
+содержимого и максимальную высоту viewport; остальное переопределяйте классом на части. Пункты, подписи
+групп, разделители, отступы списка и анимация попапа также следуют общим переменным `--moduix-popup-*`.
+`MenuTrigger` и `MenuContextTrigger` не стилизованы: собирайте триггер через `asChild` и `Button`, а
+область контекстного меню оформляйте сами. Атрибуты состояния и хуки `data-slot` общие для обоих
+вариантов стилизации.
 
 ### CSS-свойства
 
-<div className="not-prose docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div style={{ maxHeight: '28rem', overflow: 'auto' }}>
-        <MenuDocs.MenuCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={MenuDocs.menuOverrideCssProperties} />
 
 ### Хуки стилизации
 
@@ -842,8 +795,7 @@ ARIA-атрибуты, клавиатурное поведение и обраб
   `[data-part='content']`, `[data-part='viewport']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`,
   `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`,
   `[data-disabled]`, `[data-placement]` и `[data-side]`.
-- Атрибуты moduix: `[data-slot='menu-trigger']`, `[data-slot='menu-trigger-icon']`,
-  `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`,
+- Атрибуты moduix: `[data-slot='menu-trigger']`, `[data-slot='menu-indicator']`, `[data-slot='menu-context-trigger']`, `[data-slot='menu-positioner']`,
   `[data-slot='menu-content']`, `[data-slot='menu-viewport']`, `[data-slot='menu-arrow']`, `[data-slot='menu-arrow-tip']`,
   `[data-slot='menu-item']`, `[data-slot='menu-trigger-item']`, `[data-slot='menu-trigger-item-icon']`,
   `[data-slot='menu-separator']`, `[data-slot='menu-item-group']`, `[data-slot='menu-item-group-label']`,

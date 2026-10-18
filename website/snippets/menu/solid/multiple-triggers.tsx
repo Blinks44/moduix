@@ -1,3 +1,4 @@
+import { Button } from '@moduix/solid/button';
 import {
   Menu,
   MenuTrigger,
@@ -20,13 +21,23 @@ export default function MultipleTriggersMenuDemo() {
     <Menu>
       <div class={styles.triggers}>
         {messages.map((message) => (
-          <MenuTrigger value={message.id} aria-label={`Open actions for ${message.sender}`}>
+          <MenuTrigger
+            value={message.id}
+            asChild={(props) => (
+              <Button
+                {...props()}
+                variant="outline"
+                size="icon-md"
+                aria-label={`Open actions for ${message.sender}`}
+              />
+            )}
+          >
             <MapIcon />
           </MenuTrigger>
         ))}
       </div>
       <MenuPositioner>
-        <MenuContent class={styles.content}>
+        <MenuContent>
           <MenuViewport>
             <MenuItem value="reply">Reply</MenuItem>
             <MenuItem value="forward">Forward</MenuItem>

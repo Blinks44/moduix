@@ -20,9 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkMenuItemIndicator
     v-bind="attrs"
-    :class="
-      cn('inline-flex size-3 items-center justify-center rounded-xs [&_svg]:size-full', className)
-    "
+    :class="cn('inline-flex size-3 items-center justify-center [&_svg]:size-full', className)"
     data-slot="menu-item-indicator"
   >
     <slot><CheckIcon /></slot>

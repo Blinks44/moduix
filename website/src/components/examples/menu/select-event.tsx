@@ -25,7 +25,7 @@ export default function SelectEventMenuDemo() {
             </Button>
           </MenuTrigger>
           <MenuPositioner>
-            <MenuContent className={styles.content}>
+            <MenuContent>
               <MenuViewport>
                 <MenuItem value="edit">Edit</MenuItem>
                 <MenuItem value="duplicate">Duplicate</MenuItem>

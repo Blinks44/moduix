@@ -30,10 +30,10 @@ const longCurrentLabel =
   'Go lang developer to production team with cross-functional ownership and platform support';
 
 const collapsedMenuContentStyle = {
-  '--moduix-menu-item-font-size': 'var(--moduix-text-xs)',
-  '--moduix-menu-item-padding-x-end': '0.5rem',
-  '--moduix-menu-item-padding-x-start': '0.5rem',
-  '--moduix-menu-item-padding-y': '0.25rem',
+  '--moduix-popup-item-font-size': 'var(--moduix-text-xs)',
+  '--moduix-popup-item-padding-x-end': '0.5rem',
+  '--moduix-popup-item-padding-x-start': '0.5rem',
+  '--moduix-popup-item-padding-y': '0.25rem',
 };
 
 const storyComponents = {

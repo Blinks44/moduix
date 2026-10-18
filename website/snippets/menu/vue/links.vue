@@ -9,7 +9,6 @@ import {
   MenuTrigger,
   MenuViewport,
 } from '@moduix/vue/menu';
-import styles from '@/components/examples/menu/menu-links.module.css';
 </script>
 
 <template>
@@ -18,7 +17,7 @@ import styles from '@/components/examples/menu/menu-links.module.css';
       <Button>Help <MenuIndicator /></Button>
     </MenuTrigger>
     <MenuPositioner>
-      <MenuContent :class="styles.content">
+      <MenuContent>
         <MenuViewport>
           <MenuItem as-child value="docs"><a href="#menu-docs">Documentation</a></MenuItem>
           <MenuItem as-child value="github"

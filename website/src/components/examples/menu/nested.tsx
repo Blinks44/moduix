@@ -10,7 +10,6 @@ import {
   MenuTriggerItem,
   MenuTriggerItemIcon,
 } from '@moduix/react/menu';
-import styles from '@/components/examples/menu/menu-nested.module.css';
 
 export default function NestedMenuDemo() {
   return (
@@ -22,7 +21,7 @@ export default function NestedMenuDemo() {
         </Button>
       </MenuTrigger>
       <MenuPositioner>
-        <MenuContent className={styles.content}>
+        <MenuContent>
           <MenuViewport>
             <MenuItem value="open">Open...</MenuItem>
             <MenuItem value="save">Save</MenuItem>
@@ -32,7 +31,7 @@ export default function NestedMenuDemo() {
                 <MenuTriggerItemIcon />
               </MenuTriggerItem>
               <MenuPositioner>
-                <MenuContent className={styles.content}>
+                <MenuContent>
                   <MenuViewport>
                     <MenuItem value="email">Email</MenuItem>
                     <MenuItem value="message">Message</MenuItem>

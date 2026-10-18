@@ -25,7 +25,7 @@ export default function RootProviderMenuDemo() {
             </Button>
           </MenuTrigger>
           <MenuPositioner>
-            <MenuContent className={styles.content}>
+            <MenuContent>
               <MenuViewport>
                 <MenuItem value="cut">Cut</MenuItem>
                 <MenuItem value="copy">Copy</MenuItem>

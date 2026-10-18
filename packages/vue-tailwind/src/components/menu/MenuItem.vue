@@ -8,8 +8,8 @@ import { menuItemStyles } from './Menu.variants';
 
 defineOptions({ inheritAttrs: false });
 
-type MenuItemTone = 'default' | 'destructive';
-interface Props extends /* @vue-ignore */ MenuItemProps {
+export type MenuItemTone = 'default' | 'destructive';
+export interface Props extends /* @vue-ignore */ MenuItemProps {
   class?: HTMLAttributes['class'];
   tone?: MenuItemTone;
   value: MenuItemProps['value'];

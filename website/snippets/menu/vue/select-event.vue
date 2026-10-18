@@ -26,7 +26,7 @@ function handleSelect(details: { value: string }) {
           <Button>Actions <MenuIndicator /></Button>
         </MenuTrigger>
         <MenuPositioner>
-          <MenuContent :class="styles.content">
+          <MenuContent>
             <MenuViewport>
               <MenuItem value="edit">Edit</MenuItem>
               <MenuItem value="duplicate">Duplicate</MenuItem>
