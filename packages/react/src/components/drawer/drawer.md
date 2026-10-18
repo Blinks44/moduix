@@ -148,8 +148,8 @@ State hooks: `data-state`, `data-swipe-direction` (the resolved physical directi
   present for the exit animation, without `!important`.
 - `DrawerSwipeArea` and the side corners use physical edges because `data-swipe-direction` is
   physical; logical utilities would flip them a second time in RTL.
-- Under `prefers-reduced-motion: reduce`, animations and transitions take 1ms so Ark still sees the
-  exit animation end.
+- Under `prefers-reduced-motion: reduce`, enter and exit animations are disabled (`animation: none`;
+  Ark presence then unmounts at once) and swipe transitions take 1ms.
 - `DrawerBody` inherits the content color; only `DrawerDescription` is muted. `DrawerFooter` wraps
   its actions on narrow screens.
 

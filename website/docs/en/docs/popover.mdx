@@ -4,7 +4,6 @@ component: popover
 description: An accessible popover for compact interactive content, anchored to a trigger or another reference element.
 ---
 
-import * as PopoverDocs from '@/components/examples/popover/css-properties';
 import PopoverAdvancedCustomization from '@/components/examples/popover/advanced-customization.tsx';
 import PopoverAnchor from '@/components/examples/popover/anchor.tsx';
 import PopoverBasic from '@/components/examples/popover/basic.tsx';
@@ -504,10 +503,6 @@ stays inside the parent overlay and participates in its layer structure.
 <Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueNested} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/popover/popover-nested.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -670,9 +665,9 @@ renders the default moduix-styled `PopoverArrowTip`.
 
 ### Advanced Customization
 
-Compose the Ark parts directly when the popover needs a compact custom header or another layout
-that does not fit the moduix helpers. The arrow is optional, so omit it when the panel does not
-need a visual pointer.
+Build the popup from the low-level parts when the moduix helpers do not fit the layout. This
+example places `PopoverTitle` and a `PopoverCloseTrigger` with `asChild` around `CloseButton` in a
+custom header, and renders `PopoverArrowTip` inside `PopoverArrow` explicitly.
 
 <ExampleFrame variant="component">
   <PopoverAdvancedCustomization />
@@ -713,28 +708,16 @@ need a visual pointer.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
-variants use native utilities and consumer classes. The CSS variables below customize the CSS
-Modules variants, while Ark data attributes and moduix `data-slot` hooks are shared by both styling
-tracks.
+`PopoverTrigger` and `PopoverCloseTrigger` without `asChild` render as outlined buttons.
+`PopoverContent` is 16–28rem wide and at most 24rem tall within the available viewport space; with a
+direct `PopoverBody` child, the body scrolls. `PopoverBody` is spaced from a preceding
+`PopoverHeader`, and `PopoverFooter` from the content above it. Content motion reads the shared
+`--moduix-popup-motion-*` variables.
 
-### CSS Properties
-
-Use the public variables below to customize the popover without replacing its structure.
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div>
-        <PopoverDocs.PopoverCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on the part overrides the layered component styles. Data attributes and
+`data-slot` hooks are shared by both styling tracks.
 
 ### Styling hooks
 

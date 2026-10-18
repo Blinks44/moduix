@@ -319,8 +319,7 @@
     .viewport .content[data-motion],
     .indicator[data-state],
     .viewport[data-state] {
-      animation-delay: 0ms;
-      animation-duration: 1ms;
+      animation: none;
     }
   }
 }

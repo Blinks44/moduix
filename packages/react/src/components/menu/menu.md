@@ -140,7 +140,7 @@ outside the tree, and never render a second root for the same store.
   trigger item with an open submenu share the accent background and text color.
 - Disabled items are muted through the text color, including destructive ones.
 - Content motion uses the foundation `moduix-popup-in` and `moduix-popup-out` keyframes; reduced
-  motion shortens the animation to 1ms so Ark presence still sees `animationend`.
+  motion disables the animation; Ark presence completes the exit at once.
 
 ## Agent notes
 

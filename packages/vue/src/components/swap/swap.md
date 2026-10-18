@@ -39,7 +39,7 @@ indicator `data-state` when skipping mount animation; transitions expose `open` 
 Ark supplies `data-scope="swap"`, part attributes, `data-swap`, and indicator `data-type`.
 moduix sets `data-animation` on the root. Consumer classes are merged last. CSS Modules use
 the shared `--moduix-swap-*` variables; Tailwind uses native utilities and consumer classes.
-Reduced motion shortens animations to 1ms without changing presence.
+Reduced motion disables the animations; Ark presence still swaps the indicators.
 
 The default hosts are spans, with no button or live-region behavior. When composing an icon or
 label inside a button, hide the visual indicators with `aria-hidden="true"` and keep the current

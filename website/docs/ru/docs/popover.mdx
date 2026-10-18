@@ -4,7 +4,6 @@ component: popover
 description: Доступное всплывающее окно для компактного интерактивного содержимого, привязанного к триггеру или другому элементу.
 ---
 
-import * as PopoverDocs from '@/components/examples/popover/css-properties';
 import PopoverAdvancedCustomization from '@/components/examples/popover/advanced-customization.tsx';
 import PopoverAnchor from '@/components/examples/popover/anchor.tsx';
 import PopoverBasic from '@/components/examples/popover/basic.tsx';
@@ -373,9 +372,6 @@ PopoverContext
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidNested} /></Tab>
 <Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueNested} /></Tab>
 </Tabs>
-**Стили**
-```css file="../../../src/components/examples/popover/popover-nested.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -478,9 +474,9 @@ Popover элементы должны читать или изменять ег�
 
 ### Расширенная настройка
 
-Составляйте части Ark напрямую, когда окну нужен компактный пользовательский заголовок или другая
-разметка, для которой не подходят вспомогательные части moduix. Стрелка необязательна, поэтому её
-можно не добавлять, если панели не нужен визуальный указатель.
+Собирайте окно из низкоуровневых частей, когда вспомогательные части moduix не подходят к разметке.
+В этом примере `PopoverTitle` и `PopoverCloseTrigger` с `asChild` вокруг `CloseButton` стоят в
+собственном заголовке, а `PopoverArrowTip` явно отрисован внутри `PopoverArrow`.
 
 <ExampleFrame variant="component"><PopoverAdvancedCustomization /></ExampleFrame>
 
@@ -505,21 +501,16 @@ Popover элементы должны читать или изменять ег�
 
 ## Стилизация
 
-Для структурных стилей используйте `className` в React и `class` в Solid и Vue на экспортируемых частях.
-Варианты Tailwind используют нативные utility-классы и классы потребителя. CSS-переменные ниже
-настраивают варианты CSS Modules, а атрибуты Ark и `data-slot` moduix общие для обоих вариантов.
+`PopoverTrigger` и `PopoverCloseTrigger` без `asChild` выглядят как кнопки с обводкой.
+`PopoverContent` шириной 16–28rem и высотой не больше 24rem в пределах доступного места; с прямым
+дочерним `PopoverBody` прокручивается тело. `PopoverBody` получает отступ после `PopoverHeader`, а
+`PopoverFooter` — от содержимого над ним. Анимация содержимого читает общие переменные
+`--moduix-popup-motion-*`.
 
-### CSS Properties
-
-Используйте публичные переменные ниже, чтобы настроить Popover без замены его структуры.
-
-<div className="docs-reference">
-  <Tabs values={[{ label: 'CSS Variables', value: 'CSS Variables' }]} className="docs-reference-tabs" contentItemClassName="docs-reference-panel">
-    <Tab value="CSS Variables">
-      <div><PopoverDocs.PopoverCssPropertiesPanel /></div>
-    </Tab>
-  </Tabs>
-</div>
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты Tailwind
+используют нативные utility-классы и классы потребителя. Варианты CSS Modules построены на токенах
+foundation и не имеют переменных компонента: класс на части переопределяет стили компонента из слоя.
+Атрибуты состояния и хуки `data-slot` общие для обоих вариантов стилизации.
 
 ### Точки стилизации
 

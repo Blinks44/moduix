@@ -135,8 +135,8 @@ the heading adds no visual change.
   `Accordion` for the same accordion instance.
 - Ark content sizing variables remain available, especially `--height` and `--width`.
 - Trigger alignment uses the logical inline start so labels remain direction-safe in RTL layouts.
-- Content and indicator transitions collapse to an effectively instant path when the user requests
-  reduced motion; the 1ms content animation preserves Ark exit lifecycle handling.
+- Content animation and indicator transition are disabled when the user requests reduced motion;
+  Ark presence completes the exit at once when the animation is `none`.
 
 ## Defaults and styling
 

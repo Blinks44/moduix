@@ -71,8 +71,8 @@ smaller, muted size. Every part has a `data-slot="command-palette-*"` hook, and 
   a foundation token or a class on the part.
 - The backdrop uses the shared `--moduix-backdrop-bg` and `--moduix-backdrop-filter`. Content motion
   uses the foundation `moduix-command-palette-*` keyframes with the shared
-  `--moduix-popup-motion-*` variables; the default offset is `-0.75rem`. Reduced motion shortens
-  both animations to 1ms so Ark presence still finishes.
+  `--moduix-popup-motion-*` variables; the default offset is `-0.75rem`. Reduced motion disables
+  both animations; Ark presence completes the exit at once.
 - Items lay out as a flex row: `CommandPaletteItemText` takes the free space and
   `CommandPaletteItemMeta` / `CommandPaletteItemIndicator` sit at the end, with or without an icon.
   Items use the shared `--moduix-popup-item-*` and `--moduix-popup-group-label-*` variables.

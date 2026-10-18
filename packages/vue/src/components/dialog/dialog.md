@@ -75,7 +75,7 @@ The positioner centers content with `place-items: safe center` and scrolls tall 
 no `max-height` unless `scroll-behavior="inside"` is set. `DialogTitle` keeps clear of
 `DialogCloseIcon`, `DialogFooter` wraps actions, `DialogDescription` is muted, and `DialogBody`
 inherits the content color. Content and backdrop animations use the shared foundation keyframes and
-shorten to 1ms under reduced motion so Ark still sees `animationend`.
+are disabled under reduced motion; Ark presence completes the exit at once.
 
 Styles come from foundation tokens. The only public variable is `--moduix-dialog-width`; content
 motion reads the shared `--moduix-popup-motion-*` variables, and the backdrop reads

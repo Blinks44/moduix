@@ -26,7 +26,7 @@ const { forwardRef } = useForwardExpose();
       v-bind="attrs"
       :class="
         cn(
-          'fixed inset-0 z-[calc(var(--z-index,var(--moduix-z-popup))-1)] bg-overlay backdrop-blur-[4px] data-[state=closed]:animate-moduix-command-palette-backdrop-out data-[state=open]:animate-moduix-command-palette-backdrop-in motion-reduce:data-[state]:[animation-delay:0ms] motion-reduce:data-[state]:[animation-duration:1ms]',
+          'fixed inset-0 z-[calc(var(--z-index,var(--moduix-z-popup))-1)] bg-overlay backdrop-blur-[4px] data-[state=closed]:animate-moduix-command-palette-backdrop-out data-[state=open]:animate-moduix-command-palette-backdrop-in motion-reduce:data-[state]:animate-none',
           className,
         )
       "

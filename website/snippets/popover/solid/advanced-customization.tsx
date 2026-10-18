@@ -1,7 +1,9 @@
-import { Button } from '@moduix/solid/button';
+import { CloseButton } from '@moduix/solid/close-button';
 import {
   Popover,
-  PopoverCloseIcon,
+  PopoverArrow,
+  PopoverArrowTip,
+  PopoverCloseTrigger,
   PopoverContent,
   PopoverDescription,
   PopoverPositioner,
@@ -13,16 +15,21 @@ import styles from '@/components/examples/popover/popover-advanced-customization
 export default function AdvancedCustomizationPopoverDemo() {
   return (
     <Popover positioning={{ gutter: 8 }}>
-      <PopoverTrigger asChild={(props) => <Button {...props()}>Open custom popover</Button>} />
+      <PopoverTrigger>Open custom popover</PopoverTrigger>
       <PopoverPositioner>
         <PopoverContent>
+          <PopoverArrow>
+            <PopoverArrowTip />
+          </PopoverArrow>
           <div class={styles.header}>
             <PopoverTitle>Custom layout</PopoverTitle>
-            <PopoverCloseIcon />
+            <PopoverCloseTrigger
+              asChild={(props) => <CloseButton {...props()} aria-label="Close popover" />}
+            />
           </div>
           <PopoverDescription>
-            Compose Ark parts directly and replace the standard arrow when the layout calls for a
-            clean anchored panel.
+            Build the popup from the low-level parts when the header, body, and footer helpers do
+            not fit the layout.
           </PopoverDescription>
         </PopoverContent>
       </PopoverPositioner>

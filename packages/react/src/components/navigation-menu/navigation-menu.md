@@ -71,7 +71,7 @@ limits as standalone content, so Ark measures the actual panel and the viewport 
 left edge, so the indicator and the horizontal viewport positioner use physical `left` placement and
 stay aligned in RTL. Content and viewport motion use the shared `moduix-popup-*` and
 `moduix-navigation-menu-content-*` foundation keyframes with `--moduix-popup-motion-*`; reduced motion
-shortens animations to 1ms. CSS Modules expose only the panel and viewport size limits as
+disables the animations. CSS Modules expose only the panel and viewport size limits as
 `--moduix-navigation-menu-*` variables; other styles come from foundation tokens.
 
 ## Differences from upstream

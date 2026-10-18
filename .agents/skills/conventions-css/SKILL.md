@@ -69,6 +69,9 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
   when the primitive provides them.
 - For mount and unmount animations, prefer CSS keyframes on `[data-state='open']` and `[data-state='closed']`.
   JavaScript animation paths should rely on Ark `present` in component code rather than CSS-only assumptions.
+- Under `prefers-reduced-motion: reduce`, disable these animations with `animation: none` on the same state
+  selectors (Tailwind: `motion-reduce:<same state variants>:animate-none`, so it wins on specificity). Ark
+  presence unmounts at once when the animation name is `none`; do not shorten durations to 1ms instead.
 - Do not translate Ark state attributes into parallel custom modifier classes unless the wrapper exposes an
   intentional local styling contract.
 - Do not override Ark-owned positioning, measurements, transforms, or runtime variables without confirming the

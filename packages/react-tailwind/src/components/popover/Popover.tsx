@@ -14,9 +14,8 @@ import {
 import { CloseButton } from '../close-button';
 
 export type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
-export type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> & {
-  portalRef?: OverlayPortalProps['portalRef'];
-};
+export type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> &
+  Pick<OverlayPortalProps, 'portalRef'>;
 
 function Popover({
   lazyMount = true,
@@ -63,15 +62,8 @@ function PopoverRootProvider({
 const PopoverAnchor = forwardRef<
   ComponentRef<typeof PopoverPrimitive.Anchor>,
   ComponentProps<typeof PopoverPrimitive.Anchor>
->(function PopoverAnchor({ className, ...props }, ref) {
-  return (
-    <PopoverPrimitive.Anchor
-      ref={ref}
-      className={className}
-      {...props}
-      data-slot="popover-anchor"
-    />
-  );
+>(function PopoverAnchor(props, ref) {
+  return <PopoverPrimitive.Anchor ref={ref} {...props} data-slot="popover-anchor" />;
 });
 
 const PopoverTrigger = forwardRef<
@@ -84,7 +76,7 @@ const PopoverTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent [@media(hover:hover)]:hover:bg-accent',
+          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
@@ -96,15 +88,8 @@ const PopoverTrigger = forwardRef<
 const PopoverIndicator = forwardRef<
   ComponentRef<typeof PopoverPrimitive.Indicator>,
   ComponentProps<typeof PopoverPrimitive.Indicator>
->(function PopoverIndicator({ className, ...props }, ref) {
-  return (
-    <PopoverPrimitive.Indicator
-      ref={ref}
-      className={className}
-      {...props}
-      data-slot="popover-indicator"
-    />
-  );
+>(function PopoverIndicator(props, ref) {
+  return <PopoverPrimitive.Indicator ref={ref} {...props} data-slot="popover-indicator" />;
 });
 
 const PopoverPositioner = forwardRef<
@@ -134,7 +119,7 @@ const PopoverContent = forwardRef<
     <PopoverPrimitive.Content
       ref={ref}
       className={cn(
-        'group/popover-content relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(28rem,var(--available-width))] min-w-[min(16rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-md bg-popover p-4 wrap-anywhere text-popover-foreground shadow-lg outline-1 outline-border has-[>[data-slot=popover-body]]:flex has-[>[data-slot=popover-body]]:flex-col data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none has-[>[data-slot=popover-body]]:[&>[data-slot=popover-body]]:overflow-auto',
+        'group/popover-content relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(28rem,var(--available-width))] min-w-[min(16rem,var(--available-width))] origin-[var(--transform-origin)] rounded-md bg-popover p-4 wrap-anywhere text-popover-foreground shadow-lg outline-1 outline-border has-[>[data-slot=popover-body]]:flex has-[>[data-slot=popover-body]]:flex-col data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         className,
       )}
       {...props}
@@ -183,7 +168,7 @@ const PopoverTitle = forwardRef<
   return (
     <PopoverPrimitive.Title
       ref={ref}
-      className={cn('text-md font-semibold text-popover-foreground', className)}
+      className={cn('text-md font-semibold', className)}
       {...props}
       data-slot="popover-title"
     />
@@ -214,7 +199,7 @@ const PopoverCloseTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 [@media(hover:hover)]:hover:bg-accent',
+          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
@@ -237,7 +222,7 @@ const PopoverCloseIcon = forwardRef<
         data-slot="popover-close-icon"
         aria-label={ariaLabel}
         className={cn(
-          'absolute end-3 top-3 size-7 rounded-sm bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+          'absolute end-3 top-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
           className,
         )}
       >
@@ -266,7 +251,12 @@ const PopoverHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div
 const PopoverBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
   function PopoverBody({ className, ...props }, ref) {
     return (
-      <ark.div ref={ref} className={cn('min-h-0', className)} {...props} data-slot="popover-body" />
+      <ark.div
+        ref={ref}
+        className={cn('min-h-0 overflow-auto [[data-slot=popover-header]+&]:mt-3', className)}
+        {...props}
+        data-slot="popover-body"
+      />
     );
   },
 );
@@ -307,3 +297,25 @@ export {
   usePopover,
   usePopoverContext,
 };
+
+export type {
+  PopoverAnchorProps,
+  PopoverArrowProps,
+  PopoverArrowTipProps,
+  PopoverCloseTriggerProps,
+  PopoverContentProps,
+  PopoverContextProps,
+  PopoverDescriptionProps,
+  PopoverFocusOutsideEvent,
+  PopoverIndicatorProps,
+  PopoverInteractOutsideEvent,
+  PopoverOpenChangeDetails,
+  PopoverPointerDownOutsideEvent,
+  PopoverPositionerProps,
+  PopoverTitleProps,
+  PopoverTriggerProps,
+  PopoverTriggerValueChangeDetails,
+  UsePopoverContext,
+  UsePopoverProps,
+  UsePopoverReturn,
+} from '@ark-ui/react/popover';

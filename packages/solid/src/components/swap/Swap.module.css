@@ -53,8 +53,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .root[data-animation] > .indicator[data-state] {
-      animation-duration: 1ms;
-      animation-delay: 0ms;
+      animation: none;
     }
   }
 

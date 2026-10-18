@@ -11,7 +11,7 @@ Upstream docs:
 | Source    | Finding                                                                                                               | Classification         | moduix decision                                                                                                        |
 | --------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | Ark UI    | `Root`, `Indicator`, controlled `swap`, Presence, `asChild`, and the provider path are the primitive contract.        | Required correctness   | Preserve the Ark anatomy and behavior unchanged.                                                                       |
-| Chakra UI | Enter and exit animation is scoped to `data-state`, and reduced motion must retain the lifecycle.                     | Consumer friction      | Supply small CSS recipes, stable styling hooks, and a `1ms` reduced-motion fallback.                                   |
+| Chakra UI | Enter and exit animation is scoped to `data-state`, and reduced motion must retain the lifecycle.                     | Consumer friction      | Supply small CSS recipes, stable styling hooks, and an `animation: none` reduced-motion fallback.                      |
 | shadcn/ui | There is no dedicated Swap primitive; its registry examples establish the expected self-contained distribution model. | Intentional difference | Do not add a Button alias or interaction state. Keep Swap composable and ship its implementation through the registry. |
 
 ## Purpose
@@ -120,7 +120,7 @@ export function UploadButton() {
   the 3D `flip` recipe.
 - Override `animation` on `SwapIndicator[data-state]` for rotate or 3D flip recipes, and keep a
   matching `prefers-reduced-motion` fallback in that custom CSS.
-- `prefers-reduced-motion: reduce` reduces the animation duration to `1ms`.
+- `prefers-reduced-motion: reduce` disables the indicator animations (`animation: none`).
 - For expandable controls, animate the host dimensions and place the steady icon beside a width-
   animated `Swap` label. Swapping an icon-only indicator with an icon-and-label indicator gives the
   two icons different centers during the crossfade.

@@ -203,8 +203,8 @@ ease-in-out, and exits keep their last frame until unmount. The split exists bec
 Content would make it the containing block of the fixed close icon. `LightboxCloseIcon` sets the
 `CloseButton` size, color, and background variables and fades together with Content.
 
-When `prefers-reduced-motion: reduce` is active, backdrop and content animations run for 1ms. This
-keeps Ark's exit lifecycle intact while avoiding visible motion.
+When `prefers-reduced-motion: reduce` is active, backdrop and content animations are disabled. Ark
+presence sees `animation: none` and completes the exit at once.
 
 ## Intentional sugar and differences from upstream
 

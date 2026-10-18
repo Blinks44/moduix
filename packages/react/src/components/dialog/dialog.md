@@ -184,7 +184,7 @@ and move the parent `Content` down with the CSS `scale` and `translate` properti
 `--nested-layer-count`, so the parent stays visibly layered behind the active dialog.
 `DialogCloseIcon` sits in the content's block-start/inline-end corner, including when it is
 composed outside `DialogHeader`. When the system requests reduced motion, backdrop and content
-animations shorten to 1ms so Ark keeps its presence lifecycle intact.
+animations are disabled; Ark presence completes the exit at once.
 
 ## Intentional sugar and differences from upstream
 

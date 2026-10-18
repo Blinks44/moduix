@@ -14,14 +14,12 @@ import { CloseButton } from '../close-button';
 import styles from './Popover.module.css';
 
 type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
-type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> & {
-  portalRef?: OverlayPortalProps['portalRef'];
-};
+type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> &
+  Pick<OverlayPortalProps, 'portalRef'>;
 type PopoverCloseIconProps = Omit<ComponentProps<typeof PopoverPrimitive.CloseTrigger>, 'asChild'>;
 
 function Popover(props: PopoverRootProps) {
   const [local, others] = splitProps(props, [
-    'children',
     'lazyMount',
     'modal',
     'portalled',
@@ -38,39 +36,28 @@ function Popover(props: PopoverRootProps) {
         portalled={resolvedPortalled()}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
-      >
-        {local.children}
-      </PopoverPrimitive.Root>
+      />
     </OverlayPortalProvider>
   );
 }
 
 function PopoverRootProvider(props: PopoverRootProviderProps) {
-  const [local, others] = splitProps(props, [
-    'children',
-    'lazyMount',
-    'portalRef',
-    'unmountOnExit',
-    'value',
-  ]);
+  const [local, others] = splitProps(props, ['lazyMount', 'portalRef', 'unmountOnExit', 'value']);
+
   return (
-    <OverlayPortalProvider portalled={props.value().portalled} portalRef={local.portalRef}>
+    <OverlayPortalProvider portalled={local.value().portalled} portalRef={local.portalRef}>
       <PopoverPrimitive.RootProvider
         value={local.value}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
-      >
-        {local.children}
-      </PopoverPrimitive.RootProvider>
+      />
     </OverlayPortalProvider>
   );
 }
 
 function PopoverAnchor(props: ComponentProps<typeof PopoverPrimitive.Anchor>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return <PopoverPrimitive.Anchor class={local.class} {...others} data-slot="popover-anchor" />;
+  return <PopoverPrimitive.Anchor {...props} data-slot="popover-anchor" />;
 }
 
 function PopoverTrigger(props: ComponentProps<typeof PopoverPrimitive.Trigger>) {
@@ -87,11 +74,7 @@ function PopoverTrigger(props: ComponentProps<typeof PopoverPrimitive.Trigger>) 
 }
 
 function PopoverIndicator(props: ComponentProps<typeof PopoverPrimitive.Indicator>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <PopoverPrimitive.Indicator class={local.class} {...others} data-slot="popover-indicator" />
-  );
+  return <PopoverPrimitive.Indicator {...props} data-slot="popover-indicator" />;
 }
 
 function PopoverPositioner(props: ComponentProps<typeof PopoverPrimitive.Positioner>) {
@@ -185,7 +168,7 @@ function PopoverCloseTrigger(props: ComponentProps<typeof PopoverPrimitive.Close
 }
 
 function PopoverCloseIcon(props: PopoverCloseIconProps) {
-  const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
+  const [local, others] = splitProps(props, ['aria-label', 'children', 'class']);
 
   return (
     <PopoverPrimitive.CloseTrigger
@@ -194,7 +177,6 @@ function PopoverCloseIcon(props: PopoverCloseIconProps) {
           {...triggerProps()}
           data-slot="popover-close-icon"
           aria-label={local['aria-label'] ?? a11yLabels.closePopover}
-          aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >
           {local.children}
@@ -251,3 +233,25 @@ export {
   usePopoverContext,
 };
 export type { PopoverRootProps, PopoverRootProviderProps };
+
+export type {
+  PopoverAnchorProps,
+  PopoverArrowProps,
+  PopoverArrowTipProps,
+  PopoverCloseTriggerProps,
+  PopoverContentProps,
+  PopoverContextProps,
+  PopoverDescriptionProps,
+  PopoverFocusOutsideEvent,
+  PopoverIndicatorProps,
+  PopoverInteractOutsideEvent,
+  PopoverOpenChangeDetails,
+  PopoverPointerDownOutsideEvent,
+  PopoverPositionerProps,
+  PopoverTitleProps,
+  PopoverTriggerProps,
+  PopoverTriggerValueChangeDetails,
+  UsePopoverContext,
+  UsePopoverProps,
+  UsePopoverReturn,
+} from '@ark-ui/solid/popover';

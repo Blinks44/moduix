@@ -174,8 +174,8 @@ The square trigger, channel inputs, format select, and adjacent action triggers 
 - `ColorPickerSwatchIndicator` follows Ark's `hidden` attribute, so it works inside any `ColorPickerSwatch`.
 - The root owns disabled opacity. Swatch triggers dim on their own when disabled and reset inside a disabled
   root; a disabled Field or Fieldset owns the outer opacity instead.
-- When `prefers-reduced-motion` is enabled, popup entry and exit animations use a 1ms duration so
-  Ark can complete its exit lifecycle without visible motion.
+- When `prefers-reduced-motion` is enabled, popup entry and exit animations are disabled; Ark
+  presence completes the exit at once.
 
 ### Public CSS variables
 

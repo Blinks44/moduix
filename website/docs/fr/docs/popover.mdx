@@ -4,7 +4,6 @@ component: popover
 description: Une fenêtre contextuelle accessible pour un contenu interactif compact, ancrée à un déclencheur ou à un autre élément de référence.
 ---
 
-import * as PopoverDocs from '@/components/examples/popover/css-properties';
 import PopoverAdvancedCustomization from '@/components/examples/popover/advanced-customization.tsx';
 import PopoverAnchor from '@/components/examples/popover/anchor.tsx';
 import PopoverBasic from '@/components/examples/popover/basic.tsx';
@@ -374,9 +373,6 @@ calques.
 <Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidNested} /></Tab>
 <Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueNested} /></Tab>
 </Tabs>
-**Styles**
-```css file="../../../src/components/examples/popover/popover-nested.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -479,9 +475,10 @@ L’enveloppe rend par défaut l’élément `PopoverArrowTip` stylisé par modu
 
 ### Personnalisation avancée
 
-Composez directement les parties Ark lorsque la fenêtre nécessite un en-tête compact personnalisé
-ou une structure qui ne correspond pas aux aides moduix. La flèche est facultative, vous pouvez
-donc l’omettre lorsque le panneau n’a pas besoin d’un repère visuel.
+Construisez la fenêtre à partir des parties de bas niveau lorsque les aides moduix ne conviennent
+pas à la mise en page. Cet exemple place `PopoverTitle` et un `PopoverCloseTrigger` avec `asChild`
+autour de `CloseButton` dans un en-tête personnalisé, et rend `PopoverArrowTip` explicitement dans
+`PopoverArrow`.
 
 <ExampleFrame variant="component"><PopoverAdvancedCustomization /></ExampleFrame>
 
@@ -506,22 +503,17 @@ donc l’omettre lorsque le panneau n’a pas besoin d’un repère visuel.
 
 ## Styles
 
-Utilisez `className` en React, ou `class` en Solid et Vue, sur les parties exportées pour les styles
-structurels. Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur.
-Les variables CSS ci-dessous personnalisent les variantes CSS Modules ; les attributs de données Ark
-et les hooks `data-slot` de moduix sont partagés par les deux pistes de style.
+Sans `asChild`, `PopoverTrigger` et `PopoverCloseTrigger` s’affichent comme des boutons à contour.
+`PopoverContent` mesure de 16 à 28rem de large et au plus 24rem de haut dans l’espace disponible ;
+avec un enfant direct `PopoverBody`, c’est le corps qui défile. `PopoverBody` est espacé d’un
+`PopoverHeader` qui le précède, et `PopoverFooter` du contenu au-dessus. L’animation du contenu lit
+les variables partagées `--moduix-popup-motion-*`.
 
-### Propriétés CSS
-
-Utilisez les variables publiques ci-dessous pour personnaliser la fenêtre sans remplacer sa structure.
-
-<div className="docs-reference">
-  <Tabs values={[{ label: 'Variables CSS', value: 'CSS Variables' }]} className="docs-reference-tabs" contentItemClassName="docs-reference-panel">
-    <Tab value="CSS Variables">
-      <div><PopoverDocs.PopoverCssPropertiesPanel /></div>
-    </Tab>
-  </Tabs>
-</div>
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes
+Tailwind utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules
+reposent sur les jetons de foundation et n’ont pas de variables de composant : une classe sur la partie
+remplace les styles du composant en couche. Les attributs d’état et les hooks `data-slot` sont communs
+aux deux modes de style.
 
 ### Ciblage des styles
 

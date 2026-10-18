@@ -29,14 +29,17 @@ counterpart by meaning:
   (dense, soft, contrast) changes the token.
 - Animations: same keyframes and the same tokens? (Dialog: Tailwind content reused the menu
   keyframes `animate-moduix-menu-*` instead of the dialog ones with `--moduix-popup-motion-*`.)
-- Reduced motion uses one strategy (Accordion and Dialog CSS Modules shorten to 1ms so Ark presence
-  still sees `animationend`; Dialog Tailwind uses `motion-reduce:animate-none`).
-- Reduced motion in Tailwind: `motion-reduce:animate-none` or `motion-reduce:[animation-duration:1ms]`
-  lose to `data-[state=open]:animate-*` because the data-state selector is more specific (check
-  with `scripts/tw-css.mjs`). Reduced motion actually works only when the animation duration comes
-  from foundation tokens (`--moduix-duration-*` drop to 0.01ms under reduced motion). Hard-coded
-  durations such as `animate-[moduix-fade-in_200ms_ease-in-out]` therefore ignore reduced motion
-  (Dialog Tailwind backdrop before the fix).
+- Reduced motion uses the library strategy: presence-driven enter/exit animations are disabled with
+  `animation: none` in CSS Modules and `motion-reduce:<same state variants>:animate-none` in
+  Tailwind. Ark presence (`@zag-js/presence`) unmounts at once when the animation name is `none`, so
+  a 1ms duration is not needed. Transitions use `transition: none` (Drawer swipe transitions keep
+  1ms).
+- Reduced motion in Tailwind: `motion-reduce:animate-none` loses to `data-[state=open]:animate-*`
+  because the data-state selector is more specific; repeat the state variants
+  (`motion-reduce:data-[state]:animate-none`) and check with `scripts/tw-css.mjs`. Without an
+  explicit rule, reduced motion works only when the duration comes from foundation tokens
+  (`--moduix-duration-*` drop to 0.01ms); hard-coded durations such as
+  `animate-[moduix-fade-in_200ms_ease-in-out]` ignore it.
 - Tailwind transitions use `duration-fast|normal|slow` (token-backed theme utilities), not numeric
   durations, and no `motion-reduce:transition-none`.
 - Hover: CSS Modules wrap hover in `@media (hover: hover)`. Tailwind arbitrary variants such as

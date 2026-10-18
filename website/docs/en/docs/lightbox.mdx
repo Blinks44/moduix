@@ -652,8 +652,8 @@ overrides. `LightboxBackdrop`, `LightboxPositioner`, and `LightboxContent` remai
   nested Carousel slots.
 - Motion is driven by Ark `data-state`; use `present` only when JavaScript animation control needs
   to keep the content mounted.
-- With `prefers-reduced-motion: reduce`, the backdrop and content use a 1ms animation so exit
-  lifecycle cleanup remains intact without visible motion.
+- With `prefers-reduced-motion: reduce`, the backdrop and content animations are disabled; the
+  lightbox still unmounts cleanly after closing.
 - Colors, spacing, and typography come from foundation tokens. Change them for one lightbox with a
   class on the part. The backdrop reads the shared `--moduix-backdrop-bg` and
   `--moduix-backdrop-filter`, content motion reads `--moduix-popup-motion-*` on `LightboxContent`,

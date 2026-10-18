@@ -13,14 +13,12 @@ import {
 import { CloseButton } from '../close-button';
 
 type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
-type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> & {
-  portalRef?: OverlayPortalProps['portalRef'];
-};
+type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> &
+  Pick<OverlayPortalProps, 'portalRef'>;
 type PopoverCloseIconProps = Omit<ComponentProps<typeof PopoverPrimitive.CloseTrigger>, 'asChild'>;
 
 function Popover(props: PopoverRootProps) {
   const [local, others] = splitProps(props, [
-    'children',
     'lazyMount',
     'modal',
     'portalled',
@@ -37,40 +35,28 @@ function Popover(props: PopoverRootProps) {
         portalled={resolvedPortalled()}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
-      >
-        {local.children}
-      </PopoverPrimitive.Root>
+      />
     </OverlayPortalProvider>
   );
 }
 
 function PopoverRootProvider(props: PopoverRootProviderProps) {
-  const [local, others] = splitProps(props, [
-    'children',
-    'lazyMount',
-    'portalRef',
-    'unmountOnExit',
-    'value',
-  ]);
+  const [local, others] = splitProps(props, ['lazyMount', 'portalRef', 'unmountOnExit', 'value']);
 
   return (
-    <OverlayPortalProvider portalled={props.value().portalled} portalRef={local.portalRef}>
+    <OverlayPortalProvider portalled={local.value().portalled} portalRef={local.portalRef}>
       <PopoverPrimitive.RootProvider
         value={local.value}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
-      >
-        {local.children}
-      </PopoverPrimitive.RootProvider>
+      />
     </OverlayPortalProvider>
   );
 }
 
 function PopoverAnchor(props: ComponentProps<typeof PopoverPrimitive.Anchor>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return <PopoverPrimitive.Anchor class={local.class} {...others} data-slot="popover-anchor" />;
+  return <PopoverPrimitive.Anchor {...props} data-slot="popover-anchor" />;
 }
 
 function PopoverTrigger(props: ComponentProps<typeof PopoverPrimitive.Trigger>) {
@@ -81,7 +67,7 @@ function PopoverTrigger(props: ComponentProps<typeof PopoverPrimitive.Trigger>) 
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent [@media(hover:hover)]:hover:bg-accent',
+          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent [@media(hover:hover)]:hover:bg-accent',
         local.class,
       )}
       {...others}
@@ -91,11 +77,7 @@ function PopoverTrigger(props: ComponentProps<typeof PopoverPrimitive.Trigger>) 
 }
 
 function PopoverIndicator(props: ComponentProps<typeof PopoverPrimitive.Indicator>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <PopoverPrimitive.Indicator class={local.class} {...others} data-slot="popover-indicator" />
-  );
+  return <PopoverPrimitive.Indicator {...props} data-slot="popover-indicator" />;
 }
 
 function PopoverPositioner(props: ComponentProps<typeof PopoverPrimitive.Positioner>) {
@@ -121,7 +103,7 @@ function PopoverContent(props: ComponentProps<typeof PopoverPrimitive.Content>) 
   return (
     <PopoverPrimitive.Content
       class={cn(
-        'group/popover-content relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(28rem,var(--available-width))] min-w-[min(16rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-md bg-popover p-4 wrap-anywhere text-popover-foreground shadow-lg outline-1 outline-border has-[>[data-slot=popover-body]]:flex has-[>[data-slot=popover-body]]:flex-col data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none has-[>[data-slot=popover-body]]:[&>[data-slot=popover-body]]:overflow-auto',
+        'group/popover-content relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(28rem,var(--available-width))] min-w-[min(16rem,var(--available-width))] origin-[var(--transform-origin)] rounded-md bg-popover p-4 wrap-anywhere text-popover-foreground shadow-lg outline-1 outline-border has-[>[data-slot=popover-body]]:flex has-[>[data-slot=popover-body]]:flex-col data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         local.class,
       )}
       {...others}
@@ -165,7 +147,7 @@ function PopoverTitle(props: ComponentProps<typeof PopoverPrimitive.Title>) {
 
   return (
     <PopoverPrimitive.Title
-      class={cn('text-md font-semibold text-popover-foreground', local.class)}
+      class={cn('text-md font-semibold', local.class)}
       {...others}
       data-slot="popover-title"
     />
@@ -192,7 +174,7 @@ function PopoverCloseTrigger(props: ComponentProps<typeof PopoverPrimitive.Close
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 [@media(hover:hover)]:hover:bg-accent',
+          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-md text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 [@media(hover:hover)]:hover:bg-accent',
         local.class,
       )}
       {...others}
@@ -202,7 +184,7 @@ function PopoverCloseTrigger(props: ComponentProps<typeof PopoverPrimitive.Close
 }
 
 function PopoverCloseIcon(props: PopoverCloseIconProps) {
-  const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
+  const [local, others] = splitProps(props, ['aria-label', 'children', 'class']);
 
   return (
     <PopoverPrimitive.CloseTrigger
@@ -211,9 +193,8 @@ function PopoverCloseIcon(props: PopoverCloseIconProps) {
           {...triggerProps()}
           data-slot="popover-close-icon"
           aria-label={local['aria-label'] ?? a11yLabels.closePopover}
-          aria-labelledby={local['aria-labelledby']}
           class={cn(
-            'absolute end-3 top-3 size-7 rounded-sm bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+            'absolute end-3 top-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
             local.class,
           )}
         >
@@ -243,7 +224,13 @@ function PopoverHeader(props: HTMLArkProps<'div'>) {
 function PopoverBody(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
-  return <ark.div class={cn('min-h-0', local.class)} {...others} data-slot="popover-body" />;
+  return (
+    <ark.div
+      class={cn('min-h-0 overflow-auto [[data-slot=popover-header]+&]:mt-3', local.class)}
+      {...others}
+      data-slot="popover-body"
+    />
+  );
 }
 
 function PopoverFooter(props: HTMLArkProps<'div'>) {
@@ -282,3 +269,25 @@ export {
   usePopoverContext,
 };
 export type { PopoverRootProps, PopoverRootProviderProps };
+
+export type {
+  PopoverAnchorProps,
+  PopoverArrowProps,
+  PopoverArrowTipProps,
+  PopoverCloseTriggerProps,
+  PopoverContentProps,
+  PopoverContextProps,
+  PopoverDescriptionProps,
+  PopoverFocusOutsideEvent,
+  PopoverIndicatorProps,
+  PopoverInteractOutsideEvent,
+  PopoverOpenChangeDetails,
+  PopoverPointerDownOutsideEvent,
+  PopoverPositionerProps,
+  PopoverTitleProps,
+  PopoverTriggerProps,
+  PopoverTriggerValueChangeDetails,
+  UsePopoverContext,
+  UsePopoverProps,
+  UsePopoverReturn,
+} from '@ark-ui/solid/popover';

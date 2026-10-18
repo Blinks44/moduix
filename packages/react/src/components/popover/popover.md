@@ -4,6 +4,9 @@ Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/popover
 - Chakra UI: https://chakra-ui.com/docs/components/popover
+- shadcn/ui: https://ui.shadcn.com/docs/components/popover
+
+Last compared: 2026-10-18.
 
 ## Purpose
 
@@ -18,22 +21,26 @@ and provider/context APIs without remapping them.
 
 ## Current behavior contract
 
-`Popover` portals `PopoverPositioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. With `PopoverRootProvider`, configure `portalled` in `usePopover`; `PopoverRootProvider` accepts `portalRef` only. The structural parts remain explicit and independently styleable.
-
-- `Popover` is the root component.
-- `PopoverContext` and `usePopoverContext` expose the current Ark state to descendants; both are
-  available from `@moduix/react`.
-- `onOpenChange` receives Ark's `{ open }` details object.
-- Floating placement is configured through `positioning` on `Popover` or `usePopover`, not on
+- `Popover` is the root component; it does not render a DOM element.
+- `PopoverPositioner` is portalled by default. Set `portalled={false}` to render it inline, or pass
+  `portalRef` to target a custom container. A `modal` popover stays portalled even with
+  `portalled={false}`.
+- `PopoverRootProvider` connects the parts to `usePopover()` state. Configure `portalled` in the
+  hook; the provider accepts only `portalRef`. Do not render `Popover` for the same state.
+- `lazyMount` and `unmountOnExit` default to `true` (Ark defaults to `false`): content is absent
+  until the first open and removed after its exit animation.
+- Positioning is configured through `positioning` on `Popover` or `usePopover`, not on
   `PopoverPositioner` or `PopoverContent`.
-- The popup tree is explicit: `PopoverPositioner > PopoverContent`; the root owns portalling.
-- `PopoverTrigger` and `PopoverCloseTrigger` receive moduix control styling only when `asChild` is not used.
-- `PopoverCloseIcon` composes `PopoverCloseTrigger` with the shared close button and pins it to the content corner.
-- `PopoverArrow` renders the styled `PopoverArrowTip` by default.
-- `PopoverHeader`, `PopoverBody`, and `PopoverFooter` are plain layout helpers. `PopoverHeader` reserves space for `PopoverCloseIcon`
-  only when that helper is present.
-- When `PopoverBody` is a direct child of `PopoverContent`, it becomes the scroll region when the popup reaches
-  its available height. Keep `PopoverArrow`, `PopoverHeader`, and `PopoverFooter` outside `PopoverBody`.
+- `PopoverTrigger` and `PopoverCloseTrigger` render outlined buttons only when `asChild` is not
+  used. While a shared popover is open, only the trigger with `data-current` is highlighted.
+- `PopoverCloseIcon` composes `PopoverCloseTrigger` with `CloseButton`, defaults its label to
+  `Close popover`, and sits in the content's top-end corner. `PopoverHeader` reserves space for it
+  whenever it is present in the content.
+- `PopoverArrow` renders `PopoverArrowTip` when it has no children.
+- `PopoverHeader`, `PopoverBody`, and `PopoverFooter` are layout helpers. `PopoverBody` is spaced
+  from a preceding `PopoverHeader` and scrolls when it is a direct child of `PopoverContent` and the
+  content reaches its height limit. Keep `PopoverArrow`, `PopoverHeader`, and `PopoverFooter`
+  outside `PopoverBody`.
 
 ## Anatomy and exported parts
 
@@ -42,39 +49,23 @@ Popover
 ├─ PopoverAnchor (optional)
 ├─ PopoverTrigger
 │  └─ PopoverIndicator (optional)
-└─ Overlay subtree (automatically portalled)
-   └─ PopoverPositioner
-      └─ PopoverContent
-         ├─ PopoverArrow
-         │  └─ PopoverArrowTip
-         ├─ PopoverHeader (moduix)
-         │  ├─ PopoverTitle
-         │  └─ PopoverDescription
-         ├─ PopoverCloseTrigger or PopoverCloseIcon
-         ├─ PopoverBody (moduix)
-         └─ PopoverFooter (moduix)
+└─ PopoverPositioner (portalled)
+   └─ PopoverContent
+      ├─ PopoverArrow
+      │  └─ PopoverArrowTip
+      ├─ PopoverCloseIcon
+      ├─ PopoverHeader
+      │  ├─ PopoverTitle
+      │  └─ PopoverDescription
+      ├─ PopoverBody
+      └─ PopoverFooter
+         └─ PopoverCloseTrigger
 ```
 
-Exported Ark-aligned state surfaces are `PopoverRootProvider`, `PopoverContext`, `usePopover`, and
-`usePopoverContext`. Every rendered wrapper has a matching `data-slot` in kebab-case; the internal
-portal transport and `PopoverContext` do not render DOM elements.
-
-| Export                | Stable slot             | Notes                                      |
-| --------------------- | ----------------------- | ------------------------------------------ |
-| `PopoverAnchor`       | `popover-anchor`        | Optional positioning reference.            |
-| `PopoverTrigger`      | `popover-trigger`       | Styled by moduix unless `asChild` is used. |
-| `PopoverIndicator`    | `popover-indicator`     | Optional trigger state indicator.          |
-| `PopoverPositioner`   | `popover-positioner`    | Ark floating positioner.                   |
-| `PopoverContent`      | `popover-content`       | Styled popup surface.                      |
-| `PopoverArrow`        | `popover-arrow`         | Renders `PopoverArrowTip` by default.      |
-| `PopoverArrowTip`     | `popover-arrow-tip`     | Visible arrow tip.                         |
-| `PopoverTitle`        | `popover-title`         | Accessible content title.                  |
-| `PopoverDescription`  | `popover-description`   | Accessible content description.            |
-| `PopoverCloseTrigger` | `popover-close-trigger` | Styled by moduix unless `asChild` is used. |
-| `PopoverCloseIcon`    | `popover-close-icon`    | Shared icon-only close button helper.      |
-| `PopoverHeader`       | `popover-header`        | Moduix layout helper.                      |
-| `PopoverBody`         | `popover-body`          | Moduix layout helper.                      |
-| `PopoverFooter`       | `popover-footer`        | Moduix action row helper.                  |
+Every rendered part has `data-slot="popover-<part>"` in kebab-case. `Popover`,
+`PopoverRootProvider`, and `PopoverContext` render no DOM. The package also exports `usePopover`,
+`usePopoverContext`, `PopoverRootProps`, `PopoverRootProviderProps`, and the Ark part prop, event,
+detail, and hook types.
 
 ## Composition
 
@@ -116,135 +107,36 @@ export function PopoverDemo() {
 }
 ```
 
-`asChild` accepts one semantic child. The child must preserve the interaction semantics required by
-the Ark part.
-
-## Upstream feature coverage
-
-- Basic explicit composition, `asChild`, controlled state, context reads through `PopoverContext`
-  or `usePopoverContext`, arrow, placement, close
-  behavior, lazy mounting, modal mode, initial focus, custom anchor, same-width positioning, dialog
-  layering, nested popovers, and multiple trigger values are supported. Nested popovers render inline
-  with `portalled={false}` to stay within their parent overlay.
-- External state uses `usePopover` with `PopoverRootProvider`; do not render `Popover` for that same
-  state instance. Configure `portalled` in `usePopover`, not on `PopoverRootProvider`.
-- `lazyMount`, `unmountOnExit`, `present`, `skipAnimationOnMount`, `ids`, `portalled`,
-  `onTriggerValueChange`, interaction callbacks, and focus callbacks pass through Ark unchanged.
-- Ark has no popover backdrop, viewport, hover trigger, detached handle, or legacy popup part.
-  Those legacy surfaces are intentionally absent.
+The docs "Advanced customization" example builds the popup without the moduix helpers:
+`PopoverCloseTrigger asChild` around `CloseButton` and an explicit `PopoverArrowTip`.
 
 ## Accessibility and state
 
-- Refs forward to the underlying Ark DOM parts. `PopoverTrigger` and `PopoverCloseTrigger` target buttons;
-  `PopoverAnchor`, `PopoverPositioner`, `PopoverContent`, `PopoverArrow`, `PopoverArrowTip`, `PopoverTitle`, `PopoverDescription`, `PopoverIndicator`,
-  `PopoverHeader`, `PopoverBody`, and `PopoverFooter` target their rendered elements.
-- Ark wires `PopoverTrigger`, `PopoverContent`, `PopoverTitle`, `PopoverDescription`, and `PopoverCloseTrigger` IDs and ARIA
-  relationships. Use `ids` when stable cross-part IDs are required.
-- `modal` is a boolean. In modal mode Ark traps focus, blocks outside interaction and scrolling, and
-  hides outside content from assistive technology.
-- `initialFocusEl` is a function returning the element to focus. `autoFocus`, `closeOnEscape`, and
-  `closeOnInteractOutside` retain Ark semantics.
-- Escape, pointer-down-outside, focus-outside, interact-outside, and dismissal callbacks receive Ark
-  event objects unchanged.
-- `PopoverContext` and `usePopoverContext` read the same state as `PopoverRootProvider`; both remain
-  available through the moduix package barrel.
-- `PopoverTrigger` exposes `data-state`, `data-placement`, `data-side`, and, when triggers have `value`,
-  `data-value` and `data-current` (plus the internal `data-ownedby` scope attribute). `PopoverContent` exposes
-  `data-state`, `data-placement`, `data-side`, `data-nested`, `data-has-nested`, and
-  `data-expanded`.
-- When multiple triggers have `value`, Ark adds `data-current` only to the trigger that opened the
-  popover; default trigger styling preserves that distinction.
-- `PopoverPositioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
-  `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`.
-- `PopoverContent` exposes `--layer-index` and `--nested-layer-count`; `PopoverArrow` exposes Ark arrow variables.
+Ark owns open state, focus management, dismissal, IDs, ARIA relationships, and positioning. In
+`modal` mode Ark traps focus, blocks outside interaction and scrolling, and hides outside content
+from assistive technology. Callbacks receive Ark detail and event objects unchanged.
+
+`PopoverTrigger` exposes `data-state`, `data-placement`, and, with `value`, `data-value` and
+`data-current`. `PopoverContent` exposes `data-state`, `data-placement`, `data-side`,
+`data-nested`, `data-has-nested`, and `data-expanded`. `PopoverPositioner` exposes
+`--reference-width`, `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`,
+`--z-index`, and `--transform-origin`; `PopoverContent` exposes `--layer-index` and
+`--nested-layer-count`.
 
 ## Defaults and styling
 
-Default popover and close controls use `--moduix-size-md` with `--moduix-spacing-1` block padding.
+Content is 16–28rem wide and at most 24rem tall, limited by `--available-width` and
+`--available-height`. It stays overflow-visible so an in-surface `PopoverArrow` is not clipped. Long
+unbroken text wraps. Content motion uses the shared `moduix-popup-in` and `moduix-popup-out`
+keyframes, which read the `--moduix-popup-motion-*` variables, and is disabled when the user
+requests reduced motion.
 
-Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-popover-*` motion variables
-remain the more specific override.
-
-The wrappers preserve Ark `data-scope` and `data-part` attributes and add stable `data-slot` hooks.
-The content uses moduix colors, spacing, radii, shadow, typography, and motion tokens.
-
-Open and closed animations target `[data-state='open']` and `[data-state='closed']`. Ark's presence
-layer keeps exit animations mounted. Use `present` only for JavaScript-controlled animation
-lifecycles.
-
-Content wraps unbroken strings to remain within the available popup width. Animations and control
-transitions respect `prefers-reduced-motion`.
-
-The public `--moduix-popover-*` variables are declared in `variables-moduix.css`. Positioner sizing relies on Ark's
-runtime available-size and reference-size variables rather than duplicate measurements.
-
-When `PopoverBody` is present, `PopoverContent` uses it as the scroll region instead of allowing long content to
-escape the available viewport. Consumers with custom content can use `Body` without introducing a
-new component API.
-
-## Intentional sugar and differences from upstream
-
-- The recommended popup composition keeps `PopoverPositioner` and `PopoverContent` explicit so
-  overlay structure matches other popup components across the library.
-- `PopoverArrow` supplies `PopoverArrowTip` when children are omitted.
-- `PopoverCloseIcon` supplies an icon-only close button without hiding `PopoverCloseTrigger`.
-- `PopoverHeader`, `PopoverBody`, and `PopoverFooter` provide only moduix layout and slots.
-- Trigger and close-trigger default visuals are omitted with `asChild`, leaving the composed child
-  responsible for its own appearance.
-- No legacy aliases, flat part exports, adapter callbacks, hidden content composition, or legacy
-  compatibility layers are retained.
+CSS Modules have no `--moduix-popover-*` variables: styles come from foundation tokens, so override
+them with a class on the part. Tailwind variants use the same tokens through theme utilities.
 
 ## Agent notes
 
 - Keep `PopoverPositioner` and `PopoverContent` explicit in public examples.
-- Keep positioning options on `Root`/`usePopover`.
+- Keep positioning options on `Popover` and `usePopover`.
 - Do not add `Backdrop`, `Popup`, `Viewport`, `openOnHover`, `render`, `handle`, or `showArrow`.
-- Mirror any future Ark provider, context, hook, part, or public type additions through the package
-  barrel unless intentionally documented otherwise.
-
-## Mount lifecycle
-
-The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
-DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
-content after the first open; set both props to `false` only when eager initial rendering is needed.
-
-## Local changelog
-
-- 2026-08-31: Kept `RootProvider` portalling aligned with its `usePopover` state; configure
-  `portalled` in the hook and pass only `portalRef` to the provider.
-
-- 2026-08-11: Kept modal popovers portalled when `portalled={false}`, added focused portal and
-  close-icon regression coverage, and made default content resilient to reduced motion and long
-  unbroken strings.
-
-- 2026-08-11: Made the recommended popup composition arrowless and kept `PopoverArrow` as an
-  explicit visual-anchor option.
-
-- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
-
-- 2026-07-29: Styled only the current valued trigger while a shared popover is open.
-
-- 2026-07-29: Documented the existing Context exports, made direct `Body` content scroll at the
-  popup height limit, and aligned runnable examples with the standalone preview contract.
-
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced default popover and close controls to `--moduix-size-md` and compacted their block padding.
-
-- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
-- 2026-07-10: Nested examples now render inline, `Header` reserves close-icon space only when needed,
-  and the public CSS-variable reference includes the `CloseIcon` styling contract.
-- 2026-07-05: Added `PopoverCloseIcon` and documented the close-icon plus layout-helper popup composition path.
-- 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider` and
-  `usePopover` and removed moduix re-exports for Ark context APIs and duplicate type aliases.
-- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
-
-- 2026-06-26: Synced public docs and stories with current Ark Popover examples for context reads,
-  lazy mounting, multiple trigger values, default props, and anatomy roles.
-- 2026-06-26: Tightened docs-workflow alignment for anatomy, ref targets, and stable `data-slot`
-  hooks.
-- 2026-06-19: Updated layering to keep Ark `--z-index` on `PopoverPositioner` and apply
-  `calc(var(--moduix-z-popup) + var(--layer-index))` on `PopoverContent` so nested popovers render above parent layers.
-- 2026-06-19: Replaced the previous implementation and legacy API with the full Ark UI React
-  contract, namespace composition, provider/context hooks, Ark state selectors, positioning
-  variables, examples, and documentation.
-- 2026-06-10: Added phase-specific popup motion variables.
+- Mirror future Ark provider, context, hook, part, or public type additions through the barrel.

@@ -655,8 +655,8 @@ et des remplacements de tokens. `LightboxBackdrop`, `LightboxPositioner` et `Lig
   styles aux slots imbriqués de Carousel.
 - L’animation dépend de l’attribut Ark `data-state`. Utilisez `present` uniquement si le contrôle de
   l’animation en JavaScript doit maintenir le contenu monté.
-- Avec `prefers-reduced-motion: reduce`, l’arrière-plan et le contenu utilisent une animation de 1 ms.
-  Le nettoyage après la fermeture reste ainsi intact, sans mouvement visible.
+- Avec `prefers-reduced-motion: reduce`, les animations de l’arrière-plan et du contenu sont
+  désactivées ; le nettoyage après la fermeture reste intact.
 - Les couleurs, espacements et typographies viennent des tokens foundation. Pour les modifier sur une
   seule lightbox, ajoutez une classe sur la partie concernée. L’arrière-plan lit les variables
   partagées `--moduix-backdrop-bg` et `--moduix-backdrop-filter`, l’animation du contenu lit
