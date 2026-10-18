@@ -10,8 +10,11 @@ import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
+export type PasswordInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 export interface Props extends /* @vue-ignore */ PasswordInputRootProps {
   class?: HTMLAttributes['class'];
+  size?: PasswordInputSize;
 }
 
 export interface PasswordInputRootEmits {
@@ -19,7 +22,7 @@ export interface PasswordInputRootEmits {
   'update:visible': [visible: boolean];
 }
 
-const { class: className } = defineProps<Props>();
+const { class: className, size = 'md' } = defineProps<Props>();
 defineEmits</* @vue-ignore */ PasswordInputRootEmits>();
 defineSlots<{ default?: () => unknown }>();
 
@@ -31,10 +34,11 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'flex w-full max-w-none flex-col gap-1 text-foreground data-disabled:opacity-50',
+        'group/password-input flex w-full flex-col gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
         className,
       )
     "
+    :data-size="size"
     data-slot="password-input-root"
   >
     <slot />

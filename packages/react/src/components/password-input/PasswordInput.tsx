@@ -11,15 +11,24 @@ import { forwardRef } from 'react';
 import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui';
 import styles from './PasswordInput.module.css';
 
+type PasswordInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type PasswordInputRootProps = ComponentProps<typeof PasswordInputPrimitive.Root> & {
+  size?: PasswordInputSize;
+};
+type PasswordInputRootProviderProps = ComponentProps<typeof PasswordInputPrimitive.RootProvider> & {
+  size?: PasswordInputSize;
+};
+
 const PasswordInput = forwardRef<
   ComponentRef<typeof PasswordInputPrimitive.Root>,
-  ComponentProps<typeof PasswordInputPrimitive.Root>
->(function PasswordInput({ className, ...props }, ref) {
+  PasswordInputRootProps
+>(function PasswordInput({ className, size = 'md', ...props }, ref) {
   return (
     <PasswordInputPrimitive.Root
       ref={ref}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="password-input-root"
     />
   );
@@ -27,13 +36,14 @@ const PasswordInput = forwardRef<
 
 const PasswordInputRootProvider = forwardRef<
   ComponentRef<typeof PasswordInputPrimitive.RootProvider>,
-  ComponentProps<typeof PasswordInputPrimitive.RootProvider>
->(function PasswordInputRootProvider({ className, ...props }, ref) {
+  PasswordInputRootProviderProps
+>(function PasswordInputRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <PasswordInputPrimitive.RootProvider
       ref={ref}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="password-input-root-provider"
     />
   );
@@ -146,3 +156,17 @@ export {
   usePasswordInput,
   usePasswordInputContext,
 };
+export type {
+  PasswordInputContextProps,
+  PasswordInputControlProps,
+  PasswordInputIndicatorProps,
+  PasswordInputInputProps,
+  PasswordInputLabelProps,
+  PasswordInputVisibilityChangeDetails,
+  PasswordInputVisibilityTriggerProps,
+  UsePasswordInputContext,
+  UsePasswordInputProps,
+  UsePasswordInputReturn,
+} from '@ark-ui/react/password-input';
+
+export type { PasswordInputRootProps, PasswordInputRootProviderProps, PasswordInputSize };

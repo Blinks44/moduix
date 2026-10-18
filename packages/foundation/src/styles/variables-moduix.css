@@ -412,38 +412,8 @@
   --moduix-pin-input-width: initial; /* auto */
 
   /* PasswordInput */
-  --moduix-password-input-bg: initial; /* var(--moduix-color-background) */
-  --moduix-password-input-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-password-input-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-password-input-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-password-input-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-password-input-font-size: initial; /* var(--moduix-text-md) */
-  --moduix-password-input-gap: initial; /* var(--moduix-spacing-1) */
   --moduix-password-input-height: initial; /* var(--moduix-size-md) */
-  --moduix-password-input-icon-size: initial; /* var(--moduix-button-icon-size, var(--moduix-spacing-4)) */
-  --moduix-password-input-invalid-border-color: initial; /* var(--moduix-color-destructive) */
-  --moduix-password-input-invalid-focus-ring-color: initial; /* var(--moduix-color-destructive) */
-  --moduix-password-input-label-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-password-input-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-password-input-label-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-password-input-label-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-password-input-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-password-input-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-password-input-max-width: initial; /* none */
-  --moduix-password-input-padding-x: initial; /* var(--moduix-spacing-3) */
-  --moduix-password-input-padding-y: initial; /* var(--moduix-spacing-1) */
-  --moduix-password-input-placeholder-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-password-input-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-password-input-readonly-bg: initial; /* var(--moduix-color-background) */
-  --moduix-password-input-readonly-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-password-input-trigger-bg: initial; /* transparent */
-  --moduix-password-input-trigger-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-password-input-trigger-hover-bg: initial; /* var(--moduix-color-muted) */
-  --moduix-password-input-trigger-hover-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-password-input-trigger-inset: initial; /* var(--moduix-spacing-2) */
-  --moduix-password-input-trigger-radius: initial; /* var(--moduix-radius-sm) */
-  --moduix-password-input-trigger-size: initial; /* var(--moduix-size-sm) */
-  --moduix-password-input-trigger-visual-padding: initial; /* var(--moduix-spacing-1) */
   --moduix-password-input-width: initial; /* 100% */
 
   /* Pagination */

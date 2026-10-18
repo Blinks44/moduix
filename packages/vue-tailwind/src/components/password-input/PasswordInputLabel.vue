@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkPasswordInputLabel
     v-bind="attrs"
-    :class="cn('inline-flex items-center gap-1 text-sm font-medium text-foreground', className)"
+    :class="cn('inline-flex items-center gap-1 text-sm font-medium', className)"
     data-slot="password-input-label"
   >
     <slot />

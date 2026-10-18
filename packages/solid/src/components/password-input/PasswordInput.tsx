@@ -10,27 +10,35 @@ import { toPropDefaultValue } from '@/lib/moduix/defaultValue';
 import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui';
 import styles from './PasswordInput.module.css';
 
-function PasswordInput(props: ComponentProps<typeof PasswordInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['class']);
+type PasswordInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type PasswordInputRootProps = ComponentProps<typeof PasswordInputPrimitive.Root> & {
+  size?: PasswordInputSize;
+};
+type PasswordInputRootProviderProps = ComponentProps<typeof PasswordInputPrimitive.RootProvider> & {
+  size?: PasswordInputSize;
+};
+
+function PasswordInput(props: PasswordInputRootProps) {
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <PasswordInputPrimitive.Root
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="password-input-root"
     />
   );
 }
 
-function PasswordInputRootProvider(
-  props: ComponentProps<typeof PasswordInputPrimitive.RootProvider>,
-) {
-  const [local, others] = splitProps(props, ['class']);
+function PasswordInputRootProvider(props: PasswordInputRootProviderProps) {
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <PasswordInputPrimitive.RootProvider
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="password-input-root-provider"
     />
   );
@@ -137,4 +145,22 @@ export {
   PasswordInputVisibilityTrigger,
   usePasswordInput,
   usePasswordInputContext,
+};
+export type {
+  PasswordInputContextProps,
+  PasswordInputControlProps,
+  PasswordInputIndicatorProps,
+  PasswordInputLabelProps,
+  PasswordInputVisibilityChangeDetails,
+  PasswordInputVisibilityTriggerProps,
+  UsePasswordInputContext,
+  UsePasswordInputProps,
+  UsePasswordInputReturn,
+} from '@ark-ui/solid/password-input';
+
+export type {
+  PasswordInputInputProps,
+  PasswordInputRootProps,
+  PasswordInputRootProviderProps,
+  PasswordInputSize,
 };

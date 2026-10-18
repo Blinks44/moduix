@@ -36,6 +36,33 @@ export const Basic: Story = {
   ),
 };
 
+export const Sizes: Story = {
+  render: () => (
+    <div className={styles.stack}>
+      <PasswordInput size="xs">
+        <PasswordInputLabel>Extra small</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+      <PasswordInput size="sm">
+        <PasswordInputLabel>Small</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+      <PasswordInput size="md">
+        <PasswordInputLabel>Medium</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+      <PasswordInput size="lg">
+        <PasswordInputLabel>Large</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+      <PasswordInput size="xl">
+        <PasswordInputLabel>Extra large</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+    </div>
+  ),
+};
+
 export const Autocomplete: Story = {
   render: () => (
     <PasswordInput autoComplete="new-password" name="new-password">
