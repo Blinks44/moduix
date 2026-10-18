@@ -274,22 +274,14 @@ animates the viewport's measured width and height.
 Use `className` in React, `class` in Solid, or `class` in Vue on exported parts for structural styles. For state-based
 styles, prefer Ark data attributes such as `data-state`, `data-current`, and `data-orientation`,
 together with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer
-classes; the variables below customize the CSS Modules variants. Data attributes and `data-slot`
-hooks are shared by both styling tracks.
+classes. CSS Modules variants take colors, spacing, and typography from foundation tokens and expose
+only the panel and viewport size limits as CSS variables; override other styles with a class on the
+part. Panel and viewport motion follow the shared `--moduix-popup-motion-*` variables. Data
+attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <NavigationMenuDocs.NavigationMenuCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties} />
 
 ### Styling hooks
 

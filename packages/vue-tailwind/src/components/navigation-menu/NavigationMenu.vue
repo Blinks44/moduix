@@ -18,8 +18,7 @@ defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const rootClass =
-  'group/navigation-menu relative box-border flex w-fit max-w-full min-w-0 justify-center text-foreground';
+const rootClass = 'relative box-border flex w-fit max-w-full min-w-0 text-foreground';
 </script>
 
 <template>

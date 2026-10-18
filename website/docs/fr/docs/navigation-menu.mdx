@@ -278,23 +278,15 @@ lors du passage d’un déclencheur à l’autre.
 Utilisez `className` dans React, `class` dans Solid ou `class` dans Vue sur les parties exportées pour les styles
 structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme `data-state`,
 `data-current` et `data-orientation`, avec les sélecteurs moduix `data-slot`. Les variantes Tailwind
-utilisent des utilitaires natifs et les classes du consommateur ; les variables ci-dessous personnalisent
-les variantes CSS Modules. Les attributs de données et les points d’accroche `data-slot` sont communs
+utilisent des utilitaires natifs et les classes du consommateur. Les variantes CSS Modules prennent les
+couleurs, les espacements et la typographie dans les jetons foundation et n’exposent en variables CSS
+que les limites de taille du panneau et du viewport ; remplacez le reste avec une classe sur la partie.
+L’animation du panneau et du viewport suit les variables partagées `--moduix-popup-motion-*`. Les attributs de données et les points d’accroche `data-slot` sont communs
 aux deux modes de style.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <NavigationMenuDocs.NavigationMenuCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties} />
 
 ### Points d’accroche CSS
 

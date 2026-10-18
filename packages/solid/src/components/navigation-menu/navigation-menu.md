@@ -63,4 +63,5 @@ All parts preserve the corresponding Ark UI Solid props and can receive a `class
 Use `useNavigationMenu()` for a controlled state object and pass it to `NavigationMenuRootProvider`. Use
 `useNavigationMenuContext()` inside `NavigationMenuContext` to read the current state.
 
-The component uses the same CSS variables and state selectors as the React implementation.
+The component re-exports the same Ark types and uses the same CSS variables, physical indicator and
+viewport placement, and state selectors as the React implementation.

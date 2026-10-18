@@ -198,3 +198,23 @@ export {
   useNavigationMenu,
   useNavigationMenuContext,
 };
+
+export type {
+  NavigationMenuArrowProps,
+  NavigationMenuContentProps,
+  NavigationMenuContextProps,
+  NavigationMenuIndicatorProps,
+  NavigationMenuItemIndicatorProps,
+  NavigationMenuItemProps,
+  NavigationMenuLinkProps,
+  NavigationMenuListProps,
+  NavigationMenuRootProps,
+  NavigationMenuRootProviderProps,
+  NavigationMenuTriggerProps,
+  NavigationMenuValueChangeDetails,
+  NavigationMenuViewportPositionerProps,
+  NavigationMenuViewportProps,
+  UseNavigationMenuContext,
+  UseNavigationMenuProps,
+  UseNavigationMenuReturn,
+} from '@ark-ui/react/navigation-menu';

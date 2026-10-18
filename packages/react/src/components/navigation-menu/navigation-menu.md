@@ -33,6 +33,8 @@ The public parts are `NavigationMenuRootProvider`, `NavigationMenuContext`, `Nav
 `NavigationMenuIndicator`, `NavigationMenuItemIndicator`, `NavigationMenuArrow`,
 `NavigationMenuViewportPositioner`, and `NavigationMenuViewport`. All visible parts accept `className`
 and expose stable `data-slot="navigation-menu-*"` hooks.
+Every adapter also re-exports the Ark part prop types, `NavigationMenuValueChangeDetails`, and the
+`useNavigationMenu` types.
 
 ## Preservation notes
 
@@ -61,12 +63,16 @@ The root renders a `nav`; the default list is horizontal and uses Ark's vertical
 Useful Ark hooks are `data-scope="navigation-menu"`, `data-part`, `data-state`, `data-current`,
 `data-disabled`, `data-orientation`, directional `data-motion` values, and Ark's `--trigger-x`,
 `--trigger-y`, `--trigger-width`, `--trigger-height`, `--viewport-x`, `--viewport-y`,
-`--viewport-width`, and `--viewport-height` runtime variables. Default styles animate measured viewport
-dimensions and incoming or outgoing content and disable motion when the user prefers reduced motion.
-The root shrink-wraps its list up to the available inline size. Viewport content keeps the same minimum
-and maximum size constraints as standalone content, so Ark measures the actual panel and the viewport
-follows that element through `--viewport-width` and `--viewport-height`. Its size, entrance, and directional
-content motion follow Zag's viewport recipe and default to the shared `--moduix-popup-motion-*` tokens.
+`--viewport-width`, and `--viewport-height` runtime variables.
+
+The root shrink-wraps its list up to the available inline size. Viewport content keeps the same size
+limits as standalone content, so Ark measures the actual panel and the viewport follows it through
+`--viewport-width` and `--viewport-height`. Ark measures `--trigger-x` and `--viewport-x` from the
+left edge, so the indicator and the horizontal viewport positioner use physical `left` placement and
+stay aligned in RTL. Content and viewport motion use the shared `moduix-popup-*` and
+`moduix-navigation-menu-content-*` foundation keyframes with `--moduix-popup-motion-*`; reduced motion
+shortens animations to 1ms. CSS Modules expose only the panel and viewport size limits as
+`--moduix-navigation-menu-*` variables; other styles come from foundation tokens.
 
 ## Differences from upstream
 

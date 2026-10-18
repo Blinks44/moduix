@@ -16,7 +16,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const listClass =
-  'group/navigation-menu-list relative m-0 box-border flex max-w-full list-none items-center gap-1 p-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch [&>[data-slot=navigation-menu-indicator]]:top-auto [&>[data-slot=navigation-menu-indicator]]:-bottom-2.5 [&>[data-slot=navigation-menu-indicator]]:z-[61]';
+  'group/navigation-menu-list m-0 box-border flex max-w-full list-none items-center gap-1 p-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch';
 </script>
 
 <template>
