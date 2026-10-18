@@ -18,7 +18,7 @@ type TagEndElementProps = HTMLArkProps<'span'>;
 type TagCloseTriggerProps = HTMLArkProps<'button'>;
 
 const tagVariants = cva(
-  'inline-flex min-h-control-xs w-fit max-w-full min-w-0 items-center gap-1.5 rounded-full border px-2 py-0.5 align-middle font-medium text-xs whitespace-nowrap transition-colors duration-200 ease-in-out motion-reduce:transition-none [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',
+  'inline-flex min-h-control-xs w-fit max-w-full min-w-0 items-center gap-1.5 rounded-full border px-2 py-0.5 align-middle font-medium text-xs whitespace-nowrap transition-colors duration-normal ease-in-out [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',
   {
     variants: {
       variant: {

@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 import type { Accessor, ComponentProps, JSX } from 'solid-js';
 import { children, createContext, splitProps, useContext } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { OverlayPortal } from '@/lib/moduix/overlayPortal';
 import { Button } from '../button';
 import { Menu, MenuViewport } from '../menu';

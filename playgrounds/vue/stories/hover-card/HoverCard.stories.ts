@@ -11,7 +11,7 @@ import {
   HoverCardTrigger,
   useHoverCard,
 } from '@/components/hover-card';
-import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
 import styles from './HoverCard.stories.module.css';
 
 const meta = {

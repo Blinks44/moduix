@@ -4,7 +4,7 @@ import { useForwardExpose } from '@ark-ui/vue/utils';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { SearchIcon } from '@/lib/moduix/icons/ui/Icons';
+import { SearchIcon } from '@/lib/moduix/icons/ui';
 import styles from './CommandPalette.module.css';
 import CommandPaletteClearTrigger from './CommandPaletteClearTrigger.vue';
 import CommandPaletteControl from './CommandPaletteControl.vue';

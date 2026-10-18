@@ -27,6 +27,10 @@ Vue use the same variable names, so the stylesheet stays framework-neutral. Tail
 the `animate-moduix-popup-in` and `animate-moduix-popup-out` utilities, which read the same shared
 `--moduix-popup-motion-*` variables; Tailwind packages do not promise the component-level families.
 
+Tailwind transitions use the `duration-fast`, `duration-normal`, and `duration-slow` utilities from the
+moduix theme. They read `--moduix-duration-*`, so a changed duration token and reduced motion apply to
+both styling tracks.
+
 ## Set shared popup motion
 
 Use `--moduix-popup-motion-*` on `:root` when supported popup content should share one duration,

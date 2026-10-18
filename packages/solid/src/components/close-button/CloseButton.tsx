@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { children as resolveChildren, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import styles from './CloseButton.module.css';
 
 type CloseButtonProps = HTMLArkProps<'button'> & {

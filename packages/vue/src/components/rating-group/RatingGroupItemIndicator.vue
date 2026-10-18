@@ -3,7 +3,7 @@ import { useRatingGroupItemContext } from '@ark-ui/vue/rating-group';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { RatingStarIcon } from '@/lib/moduix/icons/ui/Icons';
+import { RatingStarIcon } from '@/lib/moduix/icons/ui';
 import styles from './RatingGroup.module.css';
 
 defineOptions({ inheritAttrs: false });

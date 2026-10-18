@@ -8,7 +8,7 @@ import {
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
-import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type CheckboxRootProps = ComponentProps<typeof CheckboxPrimitive.Root> & {
@@ -80,7 +80,7 @@ function CheckboxControl(props: ComponentProps<typeof CheckboxPrimitive.Control>
   return (
     <CheckboxPrimitive.Control
       class={cn(
-        "box-border inline-flex size-5 shrink-0 items-center justify-center rounded-xs border border-border bg-background text-primary-foreground transition-[background-color,border-color,color] duration-200 select-none group-data-[size=lg]/checkbox:size-control-xs group-data-[size=sm]/checkbox:size-4 group-data-[size=xl]/checkbox:size-7 group-data-[size=xs]/checkbox:size-3.5 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-invalid:text-destructive-foreground data-invalid:data-focus-visible:outline-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-invalid:data-[state=checked]:border-destructive data-invalid:data-[state=checked]:bg-destructive data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary data-invalid:data-[state=indeterminate]:border-destructive data-invalid:data-[state=indeterminate]:bg-destructive motion-reduce:transition-none [@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]]:bg-accent",
+        "box-border inline-flex size-5 shrink-0 items-center justify-center rounded-xs border border-border bg-background text-primary-foreground transition-[background-color,border-color,color] duration-normal select-none group-data-[size=lg]/checkbox:size-control-xs group-data-[size=sm]/checkbox:size-4 group-data-[size=xl]/checkbox:size-7 group-data-[size=xs]/checkbox:size-3.5 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-invalid:text-destructive-foreground data-invalid:data-focus-visible:outline-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-invalid:data-[state=checked]:border-destructive data-invalid:data-[state=checked]:bg-destructive data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary data-invalid:data-[state=indeterminate]:border-destructive data-invalid:data-[state=indeterminate]:bg-destructive [@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]]:bg-accent",
         local.class,
       )}
       {...others}

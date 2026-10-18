@@ -15,7 +15,7 @@ import {
   NumberInputValueText,
   useNumberInput,
 } from '@/components/number-input/NumberInput';
-import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
 
 const meta = {
   title: 'Components/NumberInput',
@@ -63,6 +63,33 @@ export const MinMaxAndStep: Story = {
       <NumberInputLabel>Quantity (0-20, step 2)</NumberInputLabel>
       <NumberInputField />
     </NumberInput>
+  ),
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div class="grid items-start gap-3">
+      <NumberInput size="xs" defaultValue="8">
+        <NumberInputLabel>Extra small</NumberInputLabel>
+        <NumberInputField />
+      </NumberInput>
+      <NumberInput size="sm" defaultValue="8">
+        <NumberInputLabel>Small</NumberInputLabel>
+        <NumberInputField />
+      </NumberInput>
+      <NumberInput size="md" defaultValue="8">
+        <NumberInputLabel>Medium</NumberInputLabel>
+        <NumberInputField />
+      </NumberInput>
+      <NumberInput size="lg" defaultValue="8">
+        <NumberInputLabel>Large</NumberInputLabel>
+        <NumberInputField />
+      </NumberInput>
+      <NumberInput size="xl" defaultValue="8">
+        <NumberInputLabel>Extra large</NumberInputLabel>
+        <NumberInputField />
+      </NumberInput>
+    </div>
   ),
 };
 

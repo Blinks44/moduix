@@ -27,6 +27,10 @@ Solid et Vue partagent les mêmes noms. En Tailwind, le contenu des popups utili
 `animate-moduix-popup-in` et `animate-moduix-popup-out`, qui lisent les mêmes variables partagées
 `--moduix-popup-motion-*` ; les packages Tailwind ne promettent pas les familles propres aux composants.
 
+Les transitions Tailwind utilisent les utilitaires `duration-fast`, `duration-normal` et `duration-slow`
+du thème moduix. Ils lisent `--moduix-duration-*` : un jeton de durée modifié et la réduction des
+animations s’appliquent donc aux deux méthodes de style.
+
 ## Définir le mouvement partagé des popups
 
 Définissez `--moduix-popup-motion-*` sur `:root` lorsque les popups pris en charge doivent partager la

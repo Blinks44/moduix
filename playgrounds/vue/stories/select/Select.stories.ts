@@ -21,7 +21,7 @@ import {
   SelectRootProvider,
   useSelect,
 } from '@/components/select';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import styles from './Select.stories.module.css';
 
 interface OptionItem {

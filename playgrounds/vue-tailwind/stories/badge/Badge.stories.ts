@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent } from 'vue';
 import { Badge, BadgeDot, BadgeLabel } from '@/components/badge';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 
 const meta = {
   title: 'Components/Badge',

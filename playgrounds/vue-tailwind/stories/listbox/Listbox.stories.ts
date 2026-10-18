@@ -142,7 +142,7 @@ const storyComponents = { ...listboxComponents, OptionItems };
 const stackClass = 'flex flex-col items-start gap-2';
 const stateClass = 'text-sm leading-5 text-muted-foreground';
 const buttonClass =
-  'inline-flex min-h-8 cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3 text-foreground transition-colors duration-200 ease-in-out hover:bg-accent focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring';
+  'inline-flex min-h-8 cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3 text-foreground transition-colors duration-normal ease-in-out hover:bg-accent focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring';
 
 function renderStory(template: string, setup?: () => Record<string, unknown>) {
   return () =>

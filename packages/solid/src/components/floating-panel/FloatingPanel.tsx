@@ -12,7 +12,7 @@ import type { ComponentProps } from 'solid-js';
 import { For, children, splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { GripIcon, MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui/Icons';
+import { GripIcon, MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,

@@ -2,7 +2,7 @@ import type {
   FloatingPanelResizeTriggerAxis,
   FloatingPanelStage,
 } from '@ark-ui/vue/floating-panel';
-import { MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui/Icons';
+import { MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui';
 
 export const resizeTriggerAxes = [
   'n',

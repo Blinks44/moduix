@@ -3,7 +3,7 @@ import { MenuTrigger as ArkMenuTrigger, type MenuTriggerProps } from '@ark-ui/vu
 import { clsx } from 'clsx';
 import { useAttrs, type HTMLAttributes } from 'vue';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { useSplitButtonContext, type SplitButtonSize, type SplitButtonVariant } from './context';
 import styles from './SplitButton.module.css';

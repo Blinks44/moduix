@@ -5445,6 +5445,11 @@
       "dependencies": ["@lucide/vue"],
       "files": [
         {
+          "path": "src/internal/icons/ui/index.ts",
+          "target": "@lib/moduix/icons/ui/index.ts",
+          "type": "registry:lib"
+        },
+        {
           "path": "src/internal/icons/ui/Icons.ts",
           "target": "@lib/moduix/icons/ui/Icons.ts",
           "type": "registry:lib"

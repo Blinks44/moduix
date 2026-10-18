@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref } from 'vue';
 import type { Component } from 'vue';
 import { Toggle, ToggleContext, ToggleIndicator, useToggleContext } from '@/components/toggle';
-import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import styles from './Toggle.stories.module.css';
 
 const meta = {

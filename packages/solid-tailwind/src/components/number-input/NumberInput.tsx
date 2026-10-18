@@ -6,19 +6,30 @@ import {
 import { children, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
-import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui/Icons';
+import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui';
 
-function NumberInput(props: ComponentProps<typeof NumberInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['children', 'class', 'value']);
+type NumberInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type NumberInputRootProps = ComponentProps<typeof NumberInputPrimitive.Root> & {
+  size?: NumberInputSize;
+};
+type NumberInputRootProviderProps = ComponentProps<typeof NumberInputPrimitive.RootProvider> & {
+  size?: NumberInputSize;
+};
+
+const rootClass =
+  'group/number-input flex flex-col items-start gap-1 data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
+
+const triggerClass =
+  'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center border border-border bg-background p-0 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color] duration-normal ease-in-out select-none group-data-invalid/number-input:border-destructive group-data-[size=lg]/number-input:size-control-lg group-data-[size=sm]/number-input:size-control-sm group-data-[size=xl]/number-input:size-control-xl group-data-[size=xs]/number-input:size-control-xs focus-visible:z-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive active:bg-accent data-disabled:pointer-events-none data-disabled:text-muted-foreground [&>svg]:size-3.5 group-data-[size=lg]/number-input:[&>svg]:size-4 group-data-[size=sm]/number-input:[&>svg]:size-3 group-data-[size=xl]/number-input:[&>svg]:size-4 group-data-[size=xs]/number-input:[&>svg]:size-3 [@media(hover:hover)]:hover:bg-accent';
+
+function NumberInput(props: NumberInputRootProps) {
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <NumberInputPrimitive.Root
-      value={local.value}
-      class={cn(
-        'group/number-input flex w-auto max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
-        local.class,
-      )}
+      class={cn(rootClass, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="number-input-root"
     >
       {local.children}
@@ -26,17 +37,14 @@ function NumberInput(props: ComponentProps<typeof NumberInputPrimitive.Root>) {
   );
 }
 
-function NumberInputRootProvider(props: ComponentProps<typeof NumberInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['children', 'class', 'value']);
+function NumberInputRootProvider(props: NumberInputRootProviderProps) {
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <NumberInputPrimitive.RootProvider
-      value={local.value}
-      class={cn(
-        'group/number-input flex w-auto max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
-        local.class,
-      )}
+      class={cn(rootClass, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="number-input-root-provider"
     >
       {local.children}
@@ -76,7 +84,7 @@ function NumberInputControl(props: ComponentProps<typeof NumberInputPrimitive.Co
 
   return (
     <NumberInputPrimitive.Control
-      class={cn('inline-flex items-stretch', local.class)}
+      class={cn('inline-flex', local.class)}
       {...others}
       data-slot="number-input-control"
     />
@@ -91,10 +99,7 @@ function NumberInputDecrementTrigger(
 
   return (
     <NumberInputPrimitive.DecrementTrigger
-      class={cn(
-        'box-border inline-flex size-control-md min-w-control-md cursor-pointer items-center justify-center rounded-s-md border border-e-0 border-border bg-background p-0 text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none group-data-invalid/number-input:border-destructive focus-visible:z-1 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive active:bg-accent disabled:pointer-events-none data-disabled:pointer-events-none motion-reduce:transition-none [&>svg]:size-3.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        local.class,
-      )}
+      class={cn(triggerClass, 'rounded-s-md border-e-0', local.class)}
       {...others}
       data-slot="number-input-decrement-trigger"
     >
@@ -109,7 +114,7 @@ function NumberInputInput(props: ComponentProps<typeof NumberInputPrimitive.Inpu
   return (
     <NumberInputPrimitive.Input
       class={cn(
-        'h-control-md w-24 rounded-none border-x-0 border-y border-border bg-background px-3 py-1 text-center text-md leading-6 text-foreground tabular-nums outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out group-data-invalid/number-input:border-t-destructive group-data-invalid/number-input:border-b-destructive focus-visible:z-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive data-invalid:border-t-destructive data-invalid:border-b-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',
+        'h-control-md w-24 rounded-none border-x-0 border-y border-border bg-background px-3 py-1 text-center text-md leading-6 text-foreground tabular-nums outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-data-invalid/number-input:border-destructive group-data-[size=lg]/number-input:h-control-lg group-data-[size=lg]/number-input:px-4 group-data-[size=lg]/number-input:text-lg group-data-[size=lg]/number-input:leading-7 group-data-[size=sm]/number-input:h-control-sm group-data-[size=sm]/number-input:px-2 group-data-[size=sm]/number-input:text-sm group-data-[size=sm]/number-input:leading-5 group-data-[size=xl]/number-input:h-control-xl group-data-[size=xl]/number-input:px-4 group-data-[size=xl]/number-input:py-2 group-data-[size=xl]/number-input:text-lg group-data-[size=xl]/number-input:leading-7 group-data-[size=xs]/number-input:h-control-xs group-data-[size=xs]/number-input:px-2 group-data-[size=xs]/number-input:py-0.5 group-data-[size=xs]/number-input:text-xs group-data-[size=xs]/number-input:leading-4 focus-visible:z-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive',
         local.class,
       )}
       {...others}
@@ -126,10 +131,7 @@ function NumberInputIncrementTrigger(
 
   return (
     <NumberInputPrimitive.IncrementTrigger
-      class={cn(
-        'box-border inline-flex size-control-md min-w-control-md cursor-pointer items-center justify-center rounded-e-md border border-s-0 border-border bg-background p-0 text-foreground outline-0 transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none group-data-invalid/number-input:border-destructive focus-visible:z-1 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive active:bg-accent disabled:pointer-events-none data-disabled:pointer-events-none motion-reduce:transition-none [&>svg]:size-3.5 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        local.class,
-      )}
+      class={cn(triggerClass, 'rounded-e-md border-s-0', local.class)}
       {...others}
       data-slot="number-input-increment-trigger"
     >
@@ -182,3 +184,21 @@ export {
   useNumberInput,
   useNumberInputContext,
 };
+export type {
+  NumberInputContextProps,
+  NumberInputControlProps,
+  NumberInputDecrementTriggerProps,
+  NumberInputFocusChangeDetails,
+  NumberInputIncrementTriggerProps,
+  NumberInputInputProps,
+  NumberInputLabelProps,
+  NumberInputScrubberProps,
+  NumberInputValueChangeDetails,
+  NumberInputValueInvalidDetails,
+  NumberInputValueTextProps,
+  UseNumberInputContext,
+  UseNumberInputProps,
+  UseNumberInputReturn,
+} from '@ark-ui/solid/number-input';
+
+export type { NumberInputRootProps, NumberInputRootProviderProps, NumberInputSize };

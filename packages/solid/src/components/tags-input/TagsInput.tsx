@@ -7,7 +7,7 @@ import {
 import { clsx } from 'clsx';
 import { children, For, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
-import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 import styles from './TagsInput.module.css';
 

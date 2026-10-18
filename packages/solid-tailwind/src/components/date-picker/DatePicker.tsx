@@ -13,7 +13,7 @@ import {
   ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-} from '@/lib/moduix/icons/ui/Icons';
+} from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -63,12 +63,12 @@ type DatePickerYearTableProps = DatePickerTableSugarProps;
 const rootClass =
   "group/date-picker inline-flex w-75 max-w-full flex-col items-start gap-1 text-foreground has-[input[data-index='1']]:w-96 data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100";
 const actionClass =
-  'box-border inline-flex shrink-0 cursor-pointer items-center justify-center rounded-sm bg-transparent p-0 leading-none text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,color,outline-color] duration-200 ease-in-out focus-visible:outline-ring disabled:cursor-default motion-reduce:transition-none [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):hover]:text-foreground';
+  'box-border inline-flex shrink-0 cursor-pointer items-center justify-center rounded-sm bg-transparent p-0 leading-none text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,color,outline-color] duration-normal ease-in-out focus-visible:outline-ring disabled:cursor-default [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):hover]:text-foreground';
 const tableHeaderClass =
   'h-7 w-control-sm text-center text-xs leading-4 font-medium text-muted-foreground tabular-nums';
 const selectControlClass = 'relative grid min-w-0';
 const selectClass =
-  'peer/date-picker-select box-border h-control-sm w-full min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background py-1 ps-3.5 pe-[calc(var(--moduix-spacing-2)+var(--moduix-size-xs)+var(--moduix-spacing-3-5))] text-sm leading-5 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 motion-reduce:transition-none forced-colors:appearance-auto forced-colors:pe-3.5';
+  'peer/date-picker-select box-border h-control-sm w-full min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background py-1 ps-3.5 pe-[calc(var(--moduix-spacing-2)+var(--moduix-size-xs)+var(--moduix-spacing-3-5))] text-sm leading-5 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 forced-colors:appearance-auto forced-colors:pe-3.5';
 const selectIndicatorClass =
   'pointer-events-none absolute end-2 top-1/2 inline-flex size-control-xs -translate-y-1/2 items-center justify-center text-muted-foreground peer-disabled/date-picker-select:opacity-50 forced-colors:hidden [&>svg]:block [&>svg]:size-4';
 
@@ -211,7 +211,7 @@ function DatePickerInput(props: ComponentProps<typeof DatePickerPrimitive.Input>
   return (
     <DatePickerPrimitive.Input
       class={cn(
-        "box-border h-control-md w-full min-w-30 flex-1 rounded-md border border-border bg-background py-1 ps-3.5 pe-17 text-md leading-6 text-current outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out group-has-[input[data-index='1']]/date-picker:pe-3.5 placeholder:text-muted-foreground read-only:cursor-default focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-[index='1']:pe-17 motion-reduce:transition-none",
+        "box-border h-control-md w-full min-w-30 flex-1 rounded-md border border-border bg-background py-1 ps-3.5 pe-17 text-md leading-6 text-current outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out group-has-[input[data-index='1']]/date-picker:pe-3.5 placeholder:text-muted-foreground read-only:cursor-default focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-[index='1']:pe-17",
         local.class,
       )}
       {...others}
@@ -503,7 +503,7 @@ function DatePickerTableCellTrigger(
   return (
     <DatePickerPrimitive.TableCellTrigger
       class={cn(
-        'box-border inline-flex h-control-sm w-full min-w-control-sm cursor-pointer items-center justify-center rounded-sm border border-transparent bg-transparent p-0 text-sm leading-5 outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color] duration-200 ease-in-out focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-in-hover-range:bg-muted data-in-hover-range:text-foreground data-in-range:bg-muted data-in-range:text-foreground data-outside-range:not-data-disabled:text-muted-foreground data-selected:bg-primary data-selected:text-primary-foreground data-today:border-ring motion-reduce:transition-none [@media(hover:hover)]:[&:not([data-disabled]):not([data-selected]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):not([data-selected]):hover]:text-accent-foreground',
+        'box-border inline-flex h-control-sm w-full min-w-control-sm cursor-pointer items-center justify-center rounded-sm border border-transparent bg-transparent p-0 text-sm leading-5 outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color,outline-color] duration-normal ease-in-out focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-in-hover-range:bg-muted data-in-hover-range:text-foreground data-in-range:bg-muted data-in-range:text-foreground data-outside-range:not-data-disabled:text-muted-foreground data-selected:bg-primary data-selected:text-primary-foreground data-today:border-ring [@media(hover:hover)]:[&:not([data-disabled]):not([data-selected]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):not([data-selected]):hover]:text-accent-foreground',
         local.class,
       )}
       {...others}

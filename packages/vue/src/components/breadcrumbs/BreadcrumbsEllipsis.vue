@@ -4,7 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { EllipsisIcon } from '@/lib/moduix/icons/ui/Icons';
+import { EllipsisIcon } from '@/lib/moduix/icons/ui';
 import styles from './Breadcrumbs.module.css';
 
 defineOptions({ inheritAttrs: false });

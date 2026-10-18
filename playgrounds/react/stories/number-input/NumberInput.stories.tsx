@@ -65,6 +65,33 @@ export const MinMaxAndStep: Story = {
   ),
 };
 
+export const Sizes: Story = {
+  render: () => (
+    <div className={storyStyles.stack}>
+      <NumberInput size="xs" defaultValue="8">
+        <NumberInputLabel>Extra small</NumberInputLabel>
+        <NumberInputField />
+      </NumberInput>
+      <NumberInput size="sm" defaultValue="8">
+        <NumberInputLabel>Small</NumberInputLabel>
+        <NumberInputField />
+      </NumberInput>
+      <NumberInput size="md" defaultValue="8">
+        <NumberInputLabel>Medium</NumberInputLabel>
+        <NumberInputField />
+      </NumberInput>
+      <NumberInput size="lg" defaultValue="8">
+        <NumberInputLabel>Large</NumberInputLabel>
+        <NumberInputField />
+      </NumberInput>
+      <NumberInput size="xl" defaultValue="8">
+        <NumberInputLabel>Extra large</NumberInputLabel>
+        <NumberInputField />
+      </NumberInput>
+    </div>
+  ),
+};
+
 export const FractionDigits: Story = {
   render: () => (
     <NumberInput

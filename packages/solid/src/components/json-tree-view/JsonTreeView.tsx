@@ -9,7 +9,7 @@ import {
 } from '@ark-ui/solid/json-tree-view';
 import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './JsonTreeView.module.css';
 
 function JsonTreeView(props: JsonTreeViewRootProps) {

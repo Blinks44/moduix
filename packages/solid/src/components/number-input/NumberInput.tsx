@@ -6,16 +6,25 @@ import {
 import { clsx } from 'clsx';
 import { children, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
-import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui/Icons';
+import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui';
 import styles from './NumberInput.module.css';
 
-function NumberInput(props: ComponentProps<typeof NumberInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+type NumberInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type NumberInputRootProps = ComponentProps<typeof NumberInputPrimitive.Root> & {
+  size?: NumberInputSize;
+};
+type NumberInputRootProviderProps = ComponentProps<typeof NumberInputPrimitive.RootProvider> & {
+  size?: NumberInputSize;
+};
+
+function NumberInput(props: NumberInputRootProps) {
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <NumberInputPrimitive.Root
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="number-input-root"
     >
       {local.children}
@@ -23,13 +32,14 @@ function NumberInput(props: ComponentProps<typeof NumberInputPrimitive.Root>) {
   );
 }
 
-function NumberInputRootProvider(props: ComponentProps<typeof NumberInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+function NumberInputRootProvider(props: NumberInputRootProviderProps) {
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <NumberInputPrimitive.RootProvider
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="number-input-root-provider"
     >
       {local.children}
@@ -163,3 +173,21 @@ export {
   useNumberInput,
   useNumberInputContext,
 };
+export type {
+  NumberInputContextProps,
+  NumberInputControlProps,
+  NumberInputDecrementTriggerProps,
+  NumberInputFocusChangeDetails,
+  NumberInputIncrementTriggerProps,
+  NumberInputInputProps,
+  NumberInputLabelProps,
+  NumberInputScrubberProps,
+  NumberInputValueChangeDetails,
+  NumberInputValueInvalidDetails,
+  NumberInputValueTextProps,
+  UseNumberInputContext,
+  UseNumberInputProps,
+  UseNumberInputReturn,
+} from '@ark-ui/solid/number-input';
+
+export type { NumberInputRootProps, NumberInputRootProviderProps, NumberInputSize };

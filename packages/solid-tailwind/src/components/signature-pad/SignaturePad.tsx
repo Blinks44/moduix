@@ -7,7 +7,7 @@ import {
 import type { Accessor, ComponentProps } from 'solid-js';
 import { children, createContext, splitProps, useContext } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
-import { RotateCcwIcon } from '@/lib/moduix/icons/ui/Icons';
+import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 
 const SignaturePadReadOnlyContext = createContext<Accessor<boolean>>(() => false);
@@ -80,7 +80,7 @@ function SignaturePadControl(props: ComponentProps<typeof SignaturePadPrimitive.
   return (
     <SignaturePadPrimitive.Control
       class={cn(
-        'box-border h-40 min-h-40 w-full min-w-0 overflow-hidden rounded-md border border-border bg-background text-foreground shadow-sm transition-[border-color,box-shadow,opacity] duration-200 ease-in-out outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-not-allowed motion-reduce:transition-none',
+        'box-border h-40 min-h-40 w-full min-w-0 overflow-hidden rounded-md border border-border bg-background text-foreground shadow-sm transition-[border-color,box-shadow,opacity] duration-normal ease-in-out outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-not-allowed',
         local.class,
       )}
       {...others}
@@ -160,7 +160,7 @@ function SignaturePadClearTrigger(
             aria-labelledby={local['aria-labelledby']}
             class={cn(
               resolvedProps.class,
-              `size-control-xs rounded-sm bg-transparent text-muted-foreground focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground`,
+              `size-control-xs rounded-sm bg-transparent text-muted-foreground focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground`,
               local.class,
             )}
           >

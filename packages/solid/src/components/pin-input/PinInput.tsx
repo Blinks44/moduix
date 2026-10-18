@@ -8,7 +8,7 @@ import {
 import { clsx } from 'clsx';
 import { children, For, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
-import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui/Icons';
+import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 import styles from './PinInput.module.css';
 
 function PinInput(props: ComponentProps<typeof PinInputPrimitive.Root>) {

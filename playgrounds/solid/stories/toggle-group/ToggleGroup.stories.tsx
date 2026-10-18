@@ -8,7 +8,7 @@ import {
   useToggleGroup,
   useToggleGroupContext,
 } from '@/components/toggle-group/ToggleGroup';
-import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import storyStyles from './ToggleGroup.stories.module.css';
 
 type IconProps = JSX.SvgSVGAttributes<SVGSVGElement>;

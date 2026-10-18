@@ -7,7 +7,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
-import { RatingStarIcon } from '@/lib/moduix/icons/ui/Icons';
+import { RatingStarIcon } from '@/lib/moduix/icons/ui';
 import styles from './RatingGroup.module.css';
 
 type RatingGroupSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

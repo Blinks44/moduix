@@ -16,7 +16,7 @@ const { class: className, segment } = defineProps<Props>();
 
 const attrs = useAttrs();
 const segmentClass =
-  'min-w-[2ch] cursor-default rounded-sm px-1 text-center outline-0 transition-colors duration-200 ease-in-out focus-visible:bg-ring/18 focus-visible:text-foreground data-editable:cursor-text data-placeholder-shown:not-focus-visible:text-muted-foreground data-[type=literal]:min-w-auto data-[type=literal]:px-0 data-[type=literal]:text-muted-foreground motion-reduce:transition-none';
+  'min-w-[2ch] cursor-default rounded-sm px-1 text-center outline-0 transition-colors duration-normal ease-in-out focus-visible:bg-ring/18 focus-visible:text-foreground data-editable:cursor-text data-placeholder-shown:not-focus-visible:text-muted-foreground data-[type=literal]:min-w-auto data-[type=literal]:px-0 data-[type=literal]:text-muted-foreground';
 </script>
 
 <template>

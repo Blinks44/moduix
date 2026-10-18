@@ -23,7 +23,7 @@ import {
   CommandPaletteSearch,
   CommandPaletteTrigger,
 } from '@/components/command-palette';
-import { PlusIcon } from '@/lib/moduix/icons/ui/Icons';
+import { PlusIcon } from '@/lib/moduix/icons/ui';
 import styles from './CommandPalette.stories.module.css';
 
 const meta = {

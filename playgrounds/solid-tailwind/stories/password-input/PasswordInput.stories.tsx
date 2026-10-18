@@ -30,7 +30,7 @@ const stackClass = 'grid w-80 gap-2';
 const strengthMeterClass = 'mt-2 grid gap-1';
 const strengthBarClass = 'h-2 overflow-hidden rounded-full bg-muted';
 const strengthFillClass =
-  'h-full transition-[width] duration-200 ease-in-out data-[strength=weak]:w-[30%] data-[strength=weak]:bg-destructive data-[strength=medium]:w-[60%] data-[strength=medium]:bg-warning data-[strength=strong]:w-full data-[strength=strong]:bg-success';
+  'h-full transition-[width] duration-normal ease-in-out data-[strength=weak]:w-[30%] data-[strength=weak]:bg-destructive data-[strength=medium]:w-[60%] data-[strength=medium]:bg-warning data-[strength=strong]:w-full data-[strength=strong]:bg-success';
 const strengthLabelClass = 'text-xs leading-4 text-muted-foreground capitalize';
 
 export const Basic: Story = {

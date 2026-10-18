@@ -37,6 +37,8 @@ counterpart by meaning:
   from foundation tokens (`--moduix-duration-*` drop to 0.01ms under reduced motion). Hard-coded
   durations such as `animate-[moduix-fade-in_200ms_ease-in-out]` therefore ignore reduced motion
   (Dialog Tailwind backdrop before the fix).
+- Tailwind transitions use `duration-fast|normal|slow` (token-backed theme utilities), not numeric
+  durations, and no `motion-reduce:transition-none`.
 - Hover: CSS Modules wrap hover in `@media (hover: hover)`. Tailwind arbitrary variants such as
   `[&:not([data-disabled]):hover]:` do **not** get that media query (the built-in `hover:` does), so
   hover sticks after a tap on touch devices. Use the library pattern

@@ -6,7 +6,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
-import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './Pagination.module.css';
 
 function Pagination(props: ComponentProps<typeof PaginationPrimitive.Root>) {

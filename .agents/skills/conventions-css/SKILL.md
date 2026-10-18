@@ -95,6 +95,11 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - Do not add `--moduix-<component>-*` wrappers around ordinary spacing, sizing, typography, border,
   opacity, or transition utilities. Keep detailed component variables in CSS Modules where they are
   useful; Tailwind consumers override defaults through `className`/`class` and `tailwind-merge`.
+- Time transitions with the theme utilities `duration-fast`, `duration-normal`, and `duration-slow`
+  (the `--moduix-duration-*` tokens, the same ones CSS Modules use) plus `ease-in-out`; never numeric
+  `duration-150`/`duration-200`. The tokens drop to 0.01ms under reduced motion, so do not add
+  `motion-reduce:transition-none`. Register any new theme duration in every package's `cn` merge
+  configuration.
 - Keep Ark state variants next to the base utilities they modify.
 - Tailwind Preflight owns reset behavior; do not combine it with `foundation/src/styles/reset.css`.
 - Let oxfmt sort utility classes. Do not add another formatter or hand-maintained ordering scheme.

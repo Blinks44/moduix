@@ -18,7 +18,7 @@ import {
   RotateCwIcon,
   ZoomInIcon,
   ZoomOutIcon,
-} from '@/lib/moduix/icons/ui/Icons';
+} from '@/lib/moduix/icons/ui';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -26,7 +26,7 @@ const stackClassName = 'grid w-[min(32rem,calc(100vw-2rem))] gap-3';
 const toolbarClassName =
   'inline-flex w-fit flex-wrap items-center gap-1 rounded-lg border border-border bg-muted p-1';
 const buttonClassName =
-  'inline-flex min-h-8 cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent bg-transparent px-3 text-muted-foreground [font:inherit] transition-[border-color,background-color,box-shadow,color] duration-200 ease-in-out hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring';
+  'inline-flex min-h-8 cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent bg-transparent px-3 text-muted-foreground [font:inherit] transition-[border-color,background-color,box-shadow,color] duration-normal ease-in-out hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring';
 const iconButtonClassName = 'size-8 px-0 [&_svg]:size-4';
 const outputClassName = 'text-xs leading-4 text-muted-foreground';
 const previewClassName =

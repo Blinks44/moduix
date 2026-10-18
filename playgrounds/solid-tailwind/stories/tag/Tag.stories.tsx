@@ -8,7 +8,7 @@ import {
   TagLabel,
   TagStartElement,
 } from '@/components/tag/Tag';
-import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 
 const meta = {
   title: 'Components/Tag',

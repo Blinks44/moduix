@@ -372,39 +372,9 @@
   --moduix-navigation-menu-viewport-max-width: initial; /* 40rem */
 
   /* NumberInput */
-  --moduix-number-input-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-number-input-border-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-number-input-border-style: initial; /* solid */
-  --moduix-number-input-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-number-input-button-bg: initial; /* var(--moduix-color-background) */
-  --moduix-number-input-button-bg-active: initial; /* var(--moduix-number-input-button-bg-hover) */
-  --moduix-number-input-button-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-number-input-button-color: initial; /* var(--moduix-color-foreground) */
   --moduix-number-input-control-height: initial; /* var(--moduix-size-md) */
-  --moduix-number-input-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-number-input-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-number-input-focus-ring-width: initial; /* var(--moduix-number-input-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))) */
-  --moduix-number-input-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-number-input-icon-size: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-number-input-input-bg: initial; /* var(--moduix-color-background) */
-  --moduix-number-input-input-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-number-input-input-font-size: initial; /* var(--moduix-text-md) */
-  --moduix-number-input-input-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-number-input-input-padding-x: initial; /* var(--moduix-spacing-3) */
-  --moduix-number-input-input-padding-y: initial; /* var(--moduix-spacing-1) */
   --moduix-number-input-input-width: initial; /* 6rem */
-  --moduix-number-input-label-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-number-input-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-number-input-label-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-number-input-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-number-input-max-width: initial; /* none */
   --moduix-number-input-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-number-input-scrubber-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-number-input-scrubber-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-number-input-value-text-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-number-input-value-text-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-number-input-value-text-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-number-input-width: initial; /* auto */
 
   /* PinInput */
   --moduix-pin-input-bg: initial; /* var(--moduix-color-background) */

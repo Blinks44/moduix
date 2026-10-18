@@ -20,7 +20,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'min-h-0 min-w-0 flex-auto bg-transparent px-3 py-1 text-md text-foreground outline-0 transition-opacity duration-200 ease-in-out placeholder:text-muted-foreground disabled:pointer-events-none data-disabled:pointer-events-none motion-reduce:transition-none',
+        'min-h-0 min-w-0 flex-auto bg-transparent px-3 py-1 text-md text-foreground outline-0 transition-opacity duration-normal ease-in-out placeholder:text-muted-foreground disabled:pointer-events-none data-disabled:pointer-events-none',
         className,
       )
     "

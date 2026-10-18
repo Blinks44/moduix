@@ -209,7 +209,7 @@ test('applies native utilities to component-owned visual parts', () => {
       'size-5',
       'text-primary',
       '[&>svg]:transition-[color,fill,stroke,clip-path]',
-      '[&>svg]:duration-200',
+      '[&>svg]:duration-normal',
       '[&>svg]:ease-in-out',
     ]),
   );

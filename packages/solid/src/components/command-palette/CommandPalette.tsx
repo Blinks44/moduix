@@ -13,7 +13,7 @@ import type { ComponentProps } from 'solid-js';
 import { children, createEffect, onCleanup, Show, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { callEventHandler } from '@/lib/moduix/callEventHandler';
-import { CheckIcon, CloseIcon, SearchIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, CloseIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,

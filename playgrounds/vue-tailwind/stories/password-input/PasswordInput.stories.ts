@@ -158,7 +158,7 @@ export const StrengthMeter: Story = {
         </PasswordInputControl>
         <div v-if="strength" class="mt-2 grid gap-1">
           <div class="h-2 overflow-hidden rounded-full bg-muted">
-            <div class="h-full transition-[width] duration-200 ease-in-out data-[strength=weak]:w-[30%] data-[strength=weak]:bg-destructive data-[strength=medium]:w-[60%] data-[strength=medium]:bg-warning data-[strength=strong]:w-full data-[strength=strong]:bg-success" :data-strength="strength" />
+            <div class="h-full transition-[width] duration-normal ease-in-out data-[strength=weak]:w-[30%] data-[strength=weak]:bg-destructive data-[strength=medium]:w-[60%] data-[strength=medium]:bg-warning data-[strength=strong]:w-full data-[strength=strong]:bg-success" :data-strength="strength" />
           </div>
           <div class="text-xs leading-4 text-muted-foreground capitalize">{{ strength }} password</div>
         </div>

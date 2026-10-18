@@ -232,7 +232,7 @@ const TourCloseIcon = forwardRef<ComponentRef<typeof CloseButton>, TourCloseIcon
           data-slot="tour-close-icon"
           aria-label={ariaLabel}
           className={cn(
-            'absolute end-4 top-4 size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+            'absolute end-4 top-4 size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
             className,
           )}
         >
@@ -267,7 +267,7 @@ const TourActionTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          "inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 font-medium whitespace-nowrap text-foreground no-underline outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[type=close]:border-primary data-[type=close]:bg-primary data-[type=close]:text-primary-foreground data-[type=next]:border-primary data-[type=next]:bg-primary data-[type=next]:text-primary-foreground motion-reduce:transition-none [@media(hover:hover)]:[&:is([data-type='next'],[data-type='close']):not(:disabled):not([data-disabled]):hover]:border-[color-mix(in_oklab,var(--color-primary),black_12%)] [@media(hover:hover)]:[&:is([data-type='next'],[data-type='close']):not(:disabled):not([data-disabled]):hover]:bg-[color-mix(in_oklab,var(--color-primary),black_12%)] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent",
+          "inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 font-medium whitespace-nowrap text-foreground no-underline outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[type=close]:border-primary data-[type=close]:bg-primary data-[type=close]:text-primary-foreground data-[type=next]:border-primary data-[type=next]:bg-primary data-[type=next]:text-primary-foreground [@media(hover:hover)]:[&:is([data-type='next'],[data-type='close']):not(:disabled):not([data-disabled]):hover]:border-[color-mix(in_oklab,var(--color-primary),black_12%)] [@media(hover:hover)]:[&:is([data-type='next'],[data-type='close']):not(:disabled):not([data-disabled]):hover]:bg-[color-mix(in_oklab,var(--color-primary),black_12%)] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent",
         className,
       )}
       {...props}

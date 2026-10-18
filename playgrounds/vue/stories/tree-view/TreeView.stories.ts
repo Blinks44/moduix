@@ -16,7 +16,7 @@ import {
   TreeViewTree,
   createTreeCollection,
 } from '@/components/tree-view';
-import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui/Icons';
+import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui';
 import styles from './TreeView.stories.module.css';
 
 interface FileNode {

@@ -66,7 +66,7 @@ const CollapsibleIndicator = forwardRef<
     <CollapsiblePrimitive.Indicator
       ref={ref}
       className={cn(
-        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-[state=open]:rotate-180 motion-reduce:transition-none [&_svg]:size-full',
+        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-normal data-[state=open]:rotate-180 [&_svg]:size-full',
         className,
       )}
       {...props}

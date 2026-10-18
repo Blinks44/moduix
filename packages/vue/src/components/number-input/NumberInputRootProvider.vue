@@ -5,15 +5,17 @@ import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './NumberInput.module.css';
+import type { NumberInputSize } from './NumberInput.vue';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ NumberInputRootProviderProps {
   class?: HTMLAttributes['class'];
+  size?: NumberInputSize;
   value: NumberInputRootProviderProps['value'];
 }
 
-const { class: className, value } = defineProps<Props>();
+const { class: className, size = 'md', value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -23,6 +25,7 @@ const attrs = useAttrs();
   <ArkNumberInputRootProvider
     v-bind="attrs"
     :class="clsx(styles.root, className)"
+    :data-size="size"
     :value="value"
     data-slot="number-input-root-provider"
   >

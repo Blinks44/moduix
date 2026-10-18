@@ -4,7 +4,7 @@ import type { EditableSubmitTriggerProps } from '@ark-ui/vue/editable';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import styles from './Editable.module.css';
 
 defineOptions({ inheritAttrs: false });

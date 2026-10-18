@@ -22,6 +22,9 @@ const twMerge = extendTailwindMerge({
       tracking: ['text-xs', 'text-sm'],
       ease: ['standard', 'spring', 'emphasized'],
     },
+    classGroups: {
+      duration: [{ duration: ['fast', 'normal', 'slow', 'slower'] }],
+    },
   },
 });
 

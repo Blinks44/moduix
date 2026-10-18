@@ -13,7 +13,6 @@ export interface Props extends /* @vue-ignore */ NumberInputInputProps {
 }
 
 const props = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 </script>
@@ -23,7 +22,5 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="clsx(styles.input, props.class)"
     data-slot="number-input-input"
-  >
-    <slot />
-  </ArkNumberInputInput>
+  />
 </template>

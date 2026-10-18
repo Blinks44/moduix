@@ -18,7 +18,7 @@ import {
   MenuTrigger,
   MenuViewport,
 } from '@/components/menu';
-import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui/Icons';
+import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 
 const defaultLinks = [
   { href: '#', label: 'Home' },

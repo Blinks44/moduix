@@ -63,7 +63,7 @@ const DateInputControl = forwardRef<
     <DateInputPrimitive.Control
       ref={ref}
       className={cn(
-        'box-border flex min-h-control-md w-full items-center gap-1 rounded-md border border-border bg-background px-3 py-1 text-md text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none',
+        'box-border flex min-h-control-md w-full items-center gap-1 rounded-md border border-border bg-background px-3 py-1 text-md text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive',
         className,
       )}
       {...props}
@@ -94,7 +94,7 @@ const DateInputSegment = forwardRef<
     <DateInputPrimitive.Segment
       ref={ref}
       className={cn(
-        'min-w-[2ch] cursor-default rounded-sm px-1 text-center outline-0 transition-colors duration-200 ease-in-out focus-visible:bg-ring/18 focus-visible:text-foreground data-editable:cursor-text data-placeholder-shown:not-focus-visible:text-muted-foreground data-[type=literal]:min-w-auto data-[type=literal]:px-0 data-[type=literal]:text-muted-foreground motion-reduce:transition-none',
+        'min-w-[2ch] cursor-default rounded-sm px-1 text-center outline-0 transition-colors duration-normal ease-in-out focus-visible:bg-ring/18 focus-visible:text-foreground data-editable:cursor-text data-placeholder-shown:not-focus-visible:text-muted-foreground data-[type=literal]:min-w-auto data-[type=literal]:px-0 data-[type=literal]:text-muted-foreground',
         className,
       )}
       {...props}

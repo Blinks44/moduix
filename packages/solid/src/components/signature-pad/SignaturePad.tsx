@@ -7,7 +7,7 @@ import {
 import { clsx } from 'clsx';
 import type { Accessor, ComponentProps } from 'solid-js';
 import { children, createContext, splitProps, useContext } from 'solid-js';
-import { RotateCcwIcon } from '@/lib/moduix/icons/ui/Icons';
+import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 import styles from './SignaturePad.module.css';
 

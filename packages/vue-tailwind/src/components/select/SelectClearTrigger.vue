@@ -21,7 +21,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const clearClass =
-  'pointer-events-auto absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4';
+  'pointer-events-auto absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-normal ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 [&>svg]:size-4';
 </script>
 
 <template>

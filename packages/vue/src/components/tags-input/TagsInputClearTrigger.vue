@@ -5,7 +5,7 @@ import { useTagsInputContext } from '@ark-ui/vue/tags-input';
 import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import CloseButton from '../close-button/CloseButton.vue';
 import styles from './TagsInput.module.css';
 

@@ -6,7 +6,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, Show, splitProps } from 'solid-js';
-import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, CloseIcon, PencilIcon } from '@/lib/moduix/icons/ui';
 import styles from './Editable.module.css';
 
 function Editable(props: ComponentProps<typeof EditablePrimitive.Root>) {

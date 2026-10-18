@@ -6,7 +6,7 @@ import type { Accessor, ComponentProps, JSX } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { callEventHandler } from '@/lib/moduix/callEventHandler';
-import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import { Input } from '../input';
 import { Separator } from '../separator';
 import {

@@ -17,7 +17,7 @@ import {
   RotateCwIcon,
   ZoomInIcon,
   ZoomOutIcon,
-} from '@/lib/moduix/icons/ui/Icons';
+} from '@/lib/moduix/icons/ui';
 import styles from './ImageCropper.stories.module.css';
 
 const sampleImage =

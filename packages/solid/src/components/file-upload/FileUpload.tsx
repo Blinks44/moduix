@@ -8,7 +8,7 @@ import {
 import { clsx } from 'clsx';
 import { For, children as resolveChildren, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
-import { FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui/Icons';
+import { FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import styles from './FileUpload.module.css';
 
 function FileUpload(props: ComponentProps<typeof FileUploadPrimitive.Root>) {

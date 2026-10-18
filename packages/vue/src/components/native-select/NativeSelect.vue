@@ -5,7 +5,7 @@ import { useForwardExpose } from '@ark-ui/vue/utils';
 import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import styles from './NativeSelect.module.css';
 
 defineOptions({ inheritAttrs: false });

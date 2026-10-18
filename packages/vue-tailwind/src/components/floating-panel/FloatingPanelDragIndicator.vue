@@ -2,7 +2,7 @@
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import { GripIcon } from '@/lib/moduix/icons/ui/Icons';
+import { GripIcon } from '@/lib/moduix/icons/ui';
 
 defineOptions({ inheritAttrs: false });
 

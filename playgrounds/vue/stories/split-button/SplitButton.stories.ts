@@ -9,7 +9,7 @@ import {
   SplitButtonPositioner,
   SplitButtonContent,
 } from '@/components/split-button';
-import { PlusIcon } from '@/lib/moduix/icons/ui/Icons';
+import { PlusIcon } from '@/lib/moduix/icons/ui';
 import styles from './SplitButton.stories.module.css';
 
 const meta = {

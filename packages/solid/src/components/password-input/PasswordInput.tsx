@@ -7,7 +7,7 @@ import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { toPropDefaultValue } from '@/lib/moduix/defaultValue';
-import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui/Icons';
+import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui';
 import styles from './PasswordInput.module.css';
 
 function PasswordInput(props: ComponentProps<typeof PasswordInputPrimitive.Root>) {

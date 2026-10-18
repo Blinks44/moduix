@@ -82,7 +82,7 @@ import {
   PlusIcon,
   RestartIcon,
   TrashIcon,
-} from '@/lib/moduix/icons/ui/Icons';
+} from '@/lib/moduix/icons/ui';
 import styles from './Sidebar.stories.module.css';
 
 const meta = {

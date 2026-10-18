@@ -6,7 +6,7 @@ import {
 } from '@ark-ui/solid/color-picker';
 import { clsx } from 'clsx';
 import { children, type ComponentProps, splitProps } from 'solid-js';
-import { CheckIcon, ChevronDownIcon, PipetteIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, ChevronDownIcon, PipetteIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,

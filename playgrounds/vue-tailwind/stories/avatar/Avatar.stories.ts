@@ -71,7 +71,7 @@ export const FallbackOnly: Story = {
 
 export const AsChildComposition: Story = {
   render: renderStory(
-    '<Avatar as-child size="xl" class="no-underline transition-[box-shadow,transform] duration-200 ease-in-out hover:-translate-y-px hover:shadow-[0_0_0_2px_var(--color-background),0_0_0_4px_var(--color-primary)]"><a href="mailto:alex@example.com" aria-label="Email Alex T."><AvatarFallback class="bg-primary text-primary-foreground">AT</AvatarFallback><AvatarImage class="object-[50%_35%]" :src="imageUrl" alt="" /></a></Avatar>',
+    '<Avatar as-child size="xl" class="no-underline transition-[box-shadow,transform] duration-normal ease-in-out hover:-translate-y-px hover:shadow-[0_0_0_2px_var(--color-background),0_0_0_4px_var(--color-primary)]"><a href="mailto:alex@example.com" aria-label="Email Alex T."><AvatarFallback class="bg-primary text-primary-foreground">AT</AvatarFallback><AvatarImage class="object-[50%_35%]" :src="imageUrl" alt="" /></a></Avatar>',
   ),
 };
 

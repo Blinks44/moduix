@@ -2,7 +2,7 @@
 import type { SignaturePadControlProps } from '@ark-ui/vue/signature-pad';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { RotateCcwIcon } from '@/lib/moduix/icons/ui/Icons';
+import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import SignaturePadClearTrigger from './SignaturePadClearTrigger.vue';
 import SignaturePadControl from './SignaturePadControl.vue';
 import SignaturePadGuide from './SignaturePadGuide.vue';

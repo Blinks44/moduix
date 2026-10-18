@@ -8,7 +8,7 @@ import {
   type SwapAnimation,
   useSwap,
 } from '@/components/swap';
-import { CheckIcon, PauseIcon, PlayIcon, UploadIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, PauseIcon, PlayIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import styles from './Swap.stories.module.css';
 
 const meta = {

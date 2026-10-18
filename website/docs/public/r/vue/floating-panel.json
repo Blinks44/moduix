@@ -110,7 +110,7 @@
     },
     {
       "path": "src/components/floating-panel/FloatingPanelDragIndicator.vue",
-      "content": "<script setup lang=\"ts\">\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { GripIcon } from '@/lib/moduix/icons/ui/Icons';\nimport styles from './FloatingPanel.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <span\n    aria-hidden=\"true\"\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.dragIndicator, className)\"\n    data-slot=\"floating-panel-drag-indicator\"\n  >\n    <slot><GripIcon /></slot>\n  </span>\n</template>",
+      "content": "<script setup lang=\"ts\">\nimport { clsx } from 'clsx';\nimport { useAttrs } from 'vue';\nimport type { HTMLAttributes } from 'vue';\nimport { GripIcon } from '@/lib/moduix/icons/ui';\nimport styles from './FloatingPanel.module.css';\n\ndefineOptions({ inheritAttrs: false });\n\nexport interface Props {\n  class?: HTMLAttributes['class'];\n}\n\nconst { class: className } = defineProps<Props>();\ndefineSlots<{ default?: () => unknown }>();\n\nconst attrs = useAttrs();\n</script>\n\n<template>\n  <span\n    aria-hidden=\"true\"\n    v-bind=\"attrs\"\n    :class=\"clsx(styles.dragIndicator, className)\"\n    data-slot=\"floating-panel-drag-indicator\"\n  >\n    <slot><GripIcon /></slot>\n  </span>\n</template>",
       "type": "registry:component",
       "target": "@components/ui/floating-panel/FloatingPanelDragIndicator.vue"
     },
@@ -122,7 +122,7 @@
     },
     {
       "path": "src/components/floating-panel/floating-panel.types.ts",
-      "content": "import type {\n  FloatingPanelResizeTriggerAxis,\n  FloatingPanelStage,\n} from '@ark-ui/vue/floating-panel';\nimport { MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui/Icons';\n\nexport const resizeTriggerAxes = [\n  'n',\n  'e',\n  's',\n  'w',\n  'ne',\n  'se',\n  'sw',\n  'nw',\n] satisfies FloatingPanelResizeTriggerAxis[];\n\nexport const stageIcons = {\n  default: RestoreIcon,\n  maximized: MaximizeIcon,\n  minimized: MinusIcon,\n} satisfies Record<FloatingPanelStage, unknown>;",
+      "content": "import type {\n  FloatingPanelResizeTriggerAxis,\n  FloatingPanelStage,\n} from '@ark-ui/vue/floating-panel';\nimport { MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui';\n\nexport const resizeTriggerAxes = [\n  'n',\n  'e',\n  's',\n  'w',\n  'ne',\n  'se',\n  'sw',\n  'nw',\n] satisfies FloatingPanelResizeTriggerAxis[];\n\nexport const stageIcons = {\n  default: RestoreIcon,\n  maximized: MaximizeIcon,\n  minimized: MinusIcon,\n} satisfies Record<FloatingPanelStage, unknown>;",
       "type": "registry:file",
       "target": "@components/ui/floating-panel/floating-panel.types.ts"
     },

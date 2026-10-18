@@ -12,7 +12,7 @@ import type { ComponentProps, JSX } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
-import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -97,7 +97,7 @@ function ComboboxControl(props: ComponentProps<typeof ComboboxPrimitive.Control>
   return (
     <ComboboxPrimitive.Control
       class={cn(
-        'group/combobox-control relative flex w-full min-w-0 items-center rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out data-disabled:opacity-50 data-focus:border-ring data-focus:outline-ring data-invalid:border-destructive data-invalid:outline-destructive data-[state=open]:border-ring data-[state=open]:outline-ring motion-reduce:transition-none',
+        'group/combobox-control relative flex w-full min-w-0 items-center rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:opacity-50 data-focus:border-ring data-focus:outline-ring data-invalid:border-destructive data-invalid:outline-destructive data-[state=open]:border-ring data-[state=open]:outline-ring',
         local.class,
       )}
       {...others}
@@ -184,7 +184,7 @@ function ComboboxTrigger(props: ComponentProps<typeof ComboboxPrimitive.Trigger>
   return (
     <ComboboxPrimitive.Trigger
       class={cn(
-        'absolute end-2 top-1/2 m-0 box-border inline-flex size-control-xs -translate-y-1/2 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color] duration-200 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-disabled:cursor-default motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground',
+        'absolute end-2 top-1/2 m-0 box-border inline-flex size-control-xs -translate-y-1/2 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color] duration-normal ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-disabled:cursor-default [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground',
         local.class,
       )}
       {...others}

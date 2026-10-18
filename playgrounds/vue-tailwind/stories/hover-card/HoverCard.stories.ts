@@ -49,7 +49,7 @@ const paragraphClass = 'm-0 max-w-[33rem] text-md leading-6 text-foreground [&_s
 const profileLinkClass = 'inline-flex items-center gap-1';
 const stackClass = 'grid justify-items-center gap-3';
 const buttonClass =
-  'min-h-control-lg cursor-pointer rounded-md border border-border bg-background px-4 text-sm font-medium text-foreground transition-[background-color,border-color] duration-200 ease-in-out [@media(hover:hover)]:hover:bg-accent';
+  'min-h-control-lg cursor-pointer rounded-md border border-border bg-background px-4 text-sm font-medium text-foreground transition-[background-color,border-color] duration-normal ease-in-out [@media(hover:hover)]:hover:bg-accent';
 
 const ProfileCard = defineComponent({
   props: { profile: { type: Object as PropType<Profile>, required: true } },

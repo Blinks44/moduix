@@ -153,7 +153,7 @@ function DrawerGrabberIndicator(props: ComponentProps<typeof DrawerPrimitive.Gra
   return (
     <DrawerPrimitive.GrabberIndicator
       class={cn(
-        'h-1 w-12 rounded-full bg-muted-foreground opacity-[0.45] transition-opacity duration-200 ease-in-out motion-reduce:transition-none [@media(hover:hover)]:group-hover/grabber:opacity-70',
+        'h-1 w-12 rounded-full bg-muted-foreground opacity-[0.45] transition-opacity duration-normal ease-in-out [@media(hover:hover)]:group-hover/grabber:opacity-70',
         local.class,
       )}
       {...others}

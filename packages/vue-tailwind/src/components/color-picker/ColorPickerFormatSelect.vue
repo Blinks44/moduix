@@ -24,7 +24,7 @@ const attrs = useAttrs();
       v-bind="attrs"
       :class="
         cn(
-          'peer/format-select box-border h-control-md w-auto min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background px-3 pe-8 text-sm text-foreground uppercase outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive motion-reduce:transition-none forced-colors:appearance-auto forced-colors:pe-3',
+          'peer/format-select box-border h-control-md w-auto min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background px-3 pe-8 text-sm text-foreground uppercase outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive forced-colors:appearance-auto forced-colors:pe-3',
           className,
         )
       "
@@ -32,7 +32,7 @@ const attrs = useAttrs();
     />
     <span
       aria-hidden="true"
-      class="pointer-events-none absolute end-3 top-1/2 inline-flex size-4 -translate-y-1/2 rounded-sm text-muted-foreground transition-[background-color,color] duration-200 ease-in-out motion-reduce:transition-none forced-colors:hidden [&>svg]:size-full [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:bg-muted [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:text-foreground"
+      class="pointer-events-none absolute end-3 top-1/2 inline-flex size-4 -translate-y-1/2 rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out forced-colors:hidden [&>svg]:size-full [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:bg-muted [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:text-foreground"
     >
       <ChevronDownIcon />
     </span>

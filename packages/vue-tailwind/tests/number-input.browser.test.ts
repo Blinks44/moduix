@@ -178,6 +178,83 @@ test('inherits Field state for disabled, read-only, and invalid number inputs', 
   await expect.element(page.getByText('Value must be in range.')).toBeVisible();
 });
 
+test('does not dim a number input twice inside a disabled field', () => {
+  render({
+    components: numberInputComponents,
+    template: `
+      <Field disabled>
+        <NumberInput>
+          <NumberInputLabel>Items</NumberInputLabel>
+          <NumberInputField />
+        </NumberInput>
+      </Field>
+    `,
+  });
+
+  const field = document.querySelector('[data-slot="field-root"]')!;
+  const root = document.querySelector('[data-slot="number-input-root"]')!;
+
+  expect(getComputedStyle(field).opacity).toBe('0.5');
+  expect(getComputedStyle(root).opacity).toBe('1');
+});
+
+test('mutes the trigger that Ark disables at the value limit', () => {
+  render({
+    components: numberInputComponents,
+    template: `
+      <NumberInput default-value="10" :max="10">
+        <NumberInputLabel>Items</NumberInputLabel>
+        <NumberInputField />
+      </NumberInput>
+    `,
+  });
+
+  const decrement = document.querySelector('[data-slot="number-input-decrement-trigger"]')!;
+  const increment = document.querySelector('[data-slot="number-input-increment-trigger"]')!;
+
+  expect(increment.hasAttribute('data-disabled')).toBe(true);
+  expect(getComputedStyle(increment).color).not.toBe(getComputedStyle(decrement).color);
+});
+
+test('sizes the input, triggers, and icons from the root size', () => {
+  render({
+    components: numberInputComponents,
+    template: `
+      <div>
+        <NumberInput size="sm" default-value="1">
+          <NumberInputLabel>Small</NumberInputLabel>
+          <NumberInputField />
+        </NumberInput>
+        <NumberInput size="lg" default-value="1">
+          <NumberInputLabel>Large</NumberInputLabel>
+          <NumberInputField />
+        </NumberInput>
+      </div>
+    `,
+  });
+
+  const [small, large] = [...document.querySelectorAll('[data-slot="number-input-root"]')];
+  const part = (root: Element, slot: string) =>
+    root.querySelector<HTMLElement>(`[data-slot="number-input-${slot}"]`)!;
+
+  expect(small!.getAttribute('data-size')).toBe('sm');
+  expect(large!.getAttribute('data-size')).toBe('lg');
+  for (const root of [small!, large!]) {
+    const height = part(root, 'input').offsetHeight;
+    expect(part(root, 'decrement-trigger').offsetHeight).toBe(height);
+    expect(part(root, 'increment-trigger').offsetWidth).toBe(height);
+  }
+  expect(part(large!, 'input').offsetHeight).toBeGreaterThan(part(small!, 'input').offsetHeight);
+  expect(parseFloat(getComputedStyle(part(large!, 'input')).fontSize)).toBeGreaterThan(
+    parseFloat(getComputedStyle(part(small!, 'input')).fontSize),
+  );
+  expect(
+    part(large!, 'increment-trigger').querySelector('svg')!.getBoundingClientRect().width,
+  ).toBeGreaterThan(
+    part(small!, 'increment-trigger').querySelector('svg')!.getBoundingClientRect().width,
+  );
+});
+
 test('forwards Ark value-invalid details', async () => {
   const invalidDetails: Array<{ reason: string; value: string; valueAsNumber: number }> = [];
   const Harness = {
@@ -371,15 +448,7 @@ test('applies Tailwind defaults to every owned part', () => {
   const { container } = render(Harness);
 
   expect([...container.querySelector('[data-slot="number-input-root"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'group/number-input',
-      'flex',
-      'w-auto',
-      'max-w-none',
-      'flex-col',
-      'items-start',
-      'gap-1',
-    ]),
+    expect.arrayContaining(['group/number-input', 'flex', 'flex-col', 'items-start', 'gap-1']),
   );
   expect([...container.querySelector('[data-slot="number-input-label"]')!.classList]).toEqual(
     expect.arrayContaining(['text-sm', 'leading-5', 'font-medium', 'text-foreground']),
@@ -388,14 +457,14 @@ test('applies Tailwind defaults to every owned part', () => {
     expect.arrayContaining(['inline-flex', 'items-center', 'gap-2', 'cursor-ew-resize']),
   );
   expect([...container.querySelector('[data-slot="number-input-control"]')!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'items-stretch']),
+    expect.arrayContaining(['inline-flex']),
   );
   expect([
     ...container.querySelector('[data-slot="number-input-decrement-trigger"]')!.classList,
   ]).toEqual(
     expect.arrayContaining([
       'size-control-md',
-      'min-w-control-md',
+      'shrink-0',
       'rounded-s-md',
       'border-e-0',
       'bg-background',
@@ -420,7 +489,7 @@ test('applies Tailwind defaults to every owned part', () => {
   ]).toEqual(
     expect.arrayContaining([
       'size-control-md',
-      'min-w-control-md',
+      'shrink-0',
       'rounded-e-md',
       'border-s-0',
       'bg-background',
@@ -455,15 +524,13 @@ test('lets consumer Tailwind classes override component defaults', () => {
   expect([...root!.classList]).toEqual(
     expect.arrayContaining(['w-80', 'max-w-sm', 'gap-4', 'text-primary']),
   );
-  expect(['w-auto', 'max-w-none', 'gap-1'].some((name) => root?.classList.contains(name))).toBe(
-    false,
-  );
+  expect(['gap-1'].some((name) => root?.classList.contains(name))).toBe(false);
   expect([...control!.classList]).toEqual(expect.arrayContaining(['gap-4']));
   expect([...decrement!.classList]).toEqual(
     expect.arrayContaining(['size-12', 'min-w-12', 'rounded-lg', 'bg-muted', 'p-2']),
   );
   expect(
-    ['size-control-md', 'min-w-control-md', 'rounded-s-md', 'bg-background', 'p-0'].some((name) =>
+    ['size-control-md', 'rounded-s-md', 'bg-background', 'p-0'].some((name) =>
       decrement?.classList.contains(name),
     ),
   ).toBe(false);

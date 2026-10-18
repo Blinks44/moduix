@@ -153,7 +153,7 @@ export const Positioning: Story = {
             <button
               key={item}
               type="button"
-              className="min-h-8 min-w-19 cursor-pointer rounded-sm border border-border bg-background px-3 text-sm leading-5 font-medium text-foreground capitalize transition-[background-color,color] duration-200 hover:bg-accent data-[active]:bg-primary data-[active]:text-primary-foreground"
+              className="min-h-8 min-w-19 cursor-pointer rounded-sm border border-border bg-background px-3 text-sm leading-5 font-medium text-foreground capitalize transition-[background-color,color] duration-normal hover:bg-accent data-[active]:bg-primary data-[active]:text-primary-foreground"
               data-active={item === placement ? '' : undefined}
               onClick={() => setPlacement(item)}
             >

@@ -6,7 +6,7 @@ import {
 import type { ComponentProps } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
-import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 
 function Pagination(props: ComponentProps<typeof PaginationPrimitive.Root>) {
   const [local, others] = splitProps(props, ['children', 'class']);

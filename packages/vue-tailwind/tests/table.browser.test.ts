@@ -174,12 +174,7 @@ test('scopes interactive row styles to body rows', async () => {
   const bodyRow = screen.getByTestId('body-row');
   expect(body?.classList.contains('group/table-body')).toBe(true);
   expect([...bodyRow!.classList]).toEqual(
-    expect.arrayContaining([
-      'transition-colors',
-      'duration-200',
-      'ease-in-out',
-      'motion-reduce:transition-none',
-    ]),
+    expect.arrayContaining(['transition-colors', 'duration-normal', 'ease-in-out']),
   );
   expect([...bodyRow!.classList]).toEqual(
     expect.arrayContaining([

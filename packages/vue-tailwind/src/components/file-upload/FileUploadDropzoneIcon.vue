@@ -4,7 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import { UploadIcon } from '@/lib/moduix/icons/ui/Icons';
+import { UploadIcon } from '@/lib/moduix/icons/ui';
 
 defineOptions({ inheritAttrs: false });
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {

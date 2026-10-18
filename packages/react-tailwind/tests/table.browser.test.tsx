@@ -164,12 +164,7 @@ test('scopes interactive row styles to body rows', async () => {
 
   expect(body?.classList.contains('group/table-body')).toBe(true);
   expect([...bodyRow!.classList]).toEqual(
-    expect.arrayContaining([
-      'transition-colors',
-      'duration-200',
-      'ease-in-out',
-      'motion-reduce:transition-none',
-    ]),
+    expect.arrayContaining(['transition-colors', 'duration-normal', 'ease-in-out']),
   );
   expect([...bodyRow!.classList]).toEqual(
     expect.arrayContaining([
@@ -308,9 +303,7 @@ test('renders the default and custom empty states', async () => {
     expect.arrayContaining(['py-6', 'text-center', 'text-muted-foreground']),
   );
   expect(defaultEmpty.closest('tr')?.hasAttribute('data-empty')).toBe(true);
-  expect(defaultEmpty.closest('tr')?.classList.contains('motion-reduce:transition-none')).toBe(
-    true,
-  );
+  expect(defaultEmpty.closest('tr')?.classList.contains('transition-colors')).toBe(true);
   const customEmptyLocator = page.getByTestId('custom-empty');
   await expect.element(customEmptyLocator).toContainText('No invoices found.');
   expect(emptyRef.current).toBe(customEmpty);

@@ -6,7 +6,7 @@ import {
 } from '@ark-ui/solid/color-picker';
 import { children, type ComponentProps, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
-import { CheckIcon, ChevronDownIcon, PipetteIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, ChevronDownIcon, PipetteIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -99,7 +99,7 @@ function ColorPickerTrigger(props: ComponentProps<typeof ColorPickerPrimitive.Tr
   return (
     <ColorPickerPrimitive.Trigger
       class={cn(
-        'box-border grid size-control-md shrink-0 cursor-pointer place-items-center overflow-hidden rounded-md border border-border bg-background p-1 text-sm outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color] duration-200 ease-in-out select-none focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-readonly:cursor-default data-[fit-content]:inline-flex data-[fit-content]:w-auto data-[fit-content]:min-w-control-md data-[fit-content]:gap-2 data-[fit-content]:px-3 data-[state=open]:border-ring data-[state=open]:outline-ring motion-reduce:transition-none [&>[data-slot=color-picker-value-swatch]]:size-full [&>[data-slot=color-picker-value-swatch]]:rounded-[inherit] [&>[data-slot=color-picker-value-swatch]]:[grid-area:1/1/2/2] data-[fit-content]:[&>[data-slot=color-picker-value-swatch]]:size-4 data-[fit-content]:[&>[data-slot=color-picker-value-swatch]]:rounded-sm',
+        'box-border grid size-control-md shrink-0 cursor-pointer place-items-center overflow-hidden rounded-md border border-border bg-background p-1 text-sm outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color] duration-normal ease-in-out select-none focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-readonly:cursor-default data-[fit-content]:inline-flex data-[fit-content]:w-auto data-[fit-content]:min-w-control-md data-[fit-content]:gap-2 data-[fit-content]:px-3 data-[state=open]:border-ring data-[state=open]:outline-ring [&>[data-slot=color-picker-value-swatch]]:size-full [&>[data-slot=color-picker-value-swatch]]:rounded-[inherit] [&>[data-slot=color-picker-value-swatch]]:[grid-area:1/1/2/2] data-[fit-content]:[&>[data-slot=color-picker-value-swatch]]:size-4 data-[fit-content]:[&>[data-slot=color-picker-value-swatch]]:rounded-sm',
         local.class,
       )}
       {...others}
@@ -301,7 +301,7 @@ function ColorPickerChannelInput(props: ComponentProps<typeof ColorPickerPrimiti
   return (
     <ColorPickerPrimitive.ChannelInput
       class={cn(
-        'box-border h-control-md w-full min-w-0 flex-1 rounded-md border border-border bg-background px-3 text-sm text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-readonly:cursor-default data-[channel=alpha]:w-16 data-[channel=alpha]:flex-none motion-reduce:transition-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
+        'box-border h-control-md w-full min-w-0 flex-1 rounded-md border border-border bg-background px-3 text-sm text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-readonly:cursor-default data-[channel=alpha]:w-16 data-[channel=alpha]:flex-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
         local.class,
       )}
       {...others}
@@ -319,7 +319,7 @@ function ColorPickerEyeDropperTrigger(
   return (
     <ColorPickerPrimitive.EyeDropperTrigger
       class={cn(
-        'box-border inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-transparent px-2 text-sm text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,color] duration-200 ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-readonly:cursor-default motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:text-foreground',
+        'box-border inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-transparent px-2 text-sm text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-readonly:cursor-default [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:text-foreground',
         local.class,
       )}
       {...others}
@@ -337,7 +337,7 @@ function ColorPickerFormatSelect(props: ComponentProps<typeof ColorPickerPrimiti
     <span class="relative inline-grid w-fit max-w-full min-w-0 shrink-0">
       <ColorPickerPrimitive.FormatSelect
         class={cn(
-          'peer/format-select box-border h-control-md w-auto min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background px-3 pe-8 text-sm text-foreground uppercase outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive motion-reduce:transition-none forced-colors:appearance-auto forced-colors:pe-3',
+          'peer/format-select box-border h-control-md w-auto min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background px-3 pe-8 text-sm text-foreground uppercase outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive forced-colors:appearance-auto forced-colors:pe-3',
           local.class,
         )}
         {...others}
@@ -345,7 +345,7 @@ function ColorPickerFormatSelect(props: ComponentProps<typeof ColorPickerPrimiti
       />
       <span
         aria-hidden="true"
-        class="pointer-events-none absolute end-3 top-1/2 inline-flex size-4 -translate-y-1/2 rounded-sm text-muted-foreground transition-[background-color,color] duration-200 ease-in-out motion-reduce:transition-none forced-colors:hidden [&>svg]:size-full [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:bg-muted [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:text-foreground"
+        class="pointer-events-none absolute end-3 top-1/2 inline-flex size-4 -translate-y-1/2 rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out forced-colors:hidden [&>svg]:size-full [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:bg-muted [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:text-foreground"
       >
         <ChevronDownIcon />
       </span>
@@ -361,7 +361,7 @@ function ColorPickerFormatTrigger(
   return (
     <ColorPickerPrimitive.FormatTrigger
       class={cn(
-        'box-border inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-transparent px-2 text-sm text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,color] duration-200 ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-readonly:cursor-default motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:text-foreground',
+        'box-border inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-transparent px-2 text-sm text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-readonly:cursor-default [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:text-foreground',
         local.class,
       )}
       {...others}

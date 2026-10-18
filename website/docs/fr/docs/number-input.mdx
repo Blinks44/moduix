@@ -16,6 +16,7 @@ import NumberInputFormSubmission from '@/components/examples/number-input/form-s
 import NumberInputPrecision from '@/components/examples/number-input/precision.tsx';
 import NumberInputRootProvider from '@/components/examples/number-input/root-provider.tsx';
 import NumberInputScrubbing from '@/components/examples/number-input/scrubbing.tsx';
+import NumberInputSizes from '@/components/examples/number-input/sizes.tsx';
 import NumberInputValueText from '@/components/examples/number-input/value-text.tsx';
 import NumberInputCustomIcons from '@/components/examples/number-input/custom-icons.tsx';
 import numberInputSolidBasic from '../../../snippets/number-input/solid/basic.tsx?raw';
@@ -29,6 +30,7 @@ import numberInputSolidFormSubmission from '../../../snippets/number-input/solid
 import numberInputSolidPrecision from '../../../snippets/number-input/solid/precision.tsx?raw';
 import numberInputSolidRootProvider from '../../../snippets/number-input/solid/root-provider.tsx?raw';
 import numberInputSolidScrubbing from '../../../snippets/number-input/solid/scrubbing.tsx?raw';
+import numberInputSolidSizes from '../../../snippets/number-input/solid/sizes.tsx?raw';
 import numberInputSolidValueText from '../../../snippets/number-input/solid/value-text.tsx?raw';
 import numberInputSolidCustomIcons from '../../../snippets/number-input/solid/custom-icons.tsx?raw';
 import numberInputVueBasic from '../../../snippets/number-input/vue/basic.vue?raw';
@@ -42,6 +44,7 @@ import numberInputVueFormSubmission from '../../../snippets/number-input/vue/for
 import numberInputVuePrecision from '../../../snippets/number-input/vue/precision.vue?raw';
 import numberInputVueRootProvider from '../../../snippets/number-input/vue/root-provider.vue?raw';
 import numberInputVueScrubbing from '../../../snippets/number-input/vue/scrubbing.vue?raw';
+import numberInputVueSizes from '../../../snippets/number-input/vue/sizes.vue?raw';
 import numberInputVueValueText from '../../../snippets/number-input/vue/value-text.vue?raw';
 import numberInputVueCustomIcons from '../../../snippets/number-input/vue/custom-icons.vue?raw';
 
@@ -536,6 +539,43 @@ Faites glisser `NumberInputScrubber` vers la gauche ou la droite pour modifier l
 **Styles**
 
 ```css file="../../../src/components/examples/number-input/number-input-scrubbing.module.css"
+```
+</div>
+
+</ExampleCode>
+
+### Tailles
+
+La prop `size` de la racine règle la hauteur et la taille du texte, comme pour `Input`. La valeur par défaut est `md`.
+
+<ExampleFrame variant="component">
+  <NumberInputSizes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/number-input/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={numberInputSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={numberInputVueSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/number-input/number-input-sizes.module.css"
 ```
 </div>
 

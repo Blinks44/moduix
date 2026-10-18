@@ -4,7 +4,7 @@ import type { JSX } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
-import { ChevronRightIcon, EllipsisIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronRightIcon, EllipsisIcon } from '@/lib/moduix/icons/ui';
 
 type BreadcrumbsPathLink = {
   href: string;
@@ -65,7 +65,7 @@ function BreadcrumbsLink(props: HTMLArkProps<'a'>) {
       {...others}
       data-slot="breadcrumbs-link"
       class={cn(
-        'block max-w-full min-w-0 truncate rounded-sm px-1 text-inherit no-underline transition-[color] duration-200 ease-in-out outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none [@media(hover:hover)]:hover:text-foreground',
+        'block max-w-full min-w-0 truncate rounded-sm px-1 text-inherit no-underline transition-[color] duration-normal ease-in-out outline-none focus-visible:ring-1 focus-visible:ring-ring [@media(hover:hover)]:hover:text-foreground',
         local.class,
       )}
     />
@@ -138,7 +138,7 @@ function BreadcrumbsEllipsis(props: HTMLArkProps<'span'>) {
       data-slot="breadcrumbs-ellipsis"
       aria-hidden="true"
       class={cn(
-        'inline-flex min-h-4 min-w-4 items-center justify-center rounded-sm px-1 transition-[color] duration-200 ease-in-out motion-reduce:transition-none [:where(button:has(>&))]:cursor-pointer [:where(button:has(>&))]:outline-none [button:focus-visible>&]:ring-1 [button:focus-visible>&]:ring-ring [@media(hover:hover)]:[button:hover>&]:text-foreground',
+        'inline-flex min-h-4 min-w-4 items-center justify-center rounded-sm px-1 transition-[color] duration-normal ease-in-out [:where(button:has(>&))]:cursor-pointer [:where(button:has(>&))]:outline-none [button:focus-visible>&]:ring-1 [button:focus-visible>&]:ring-ring [@media(hover:hover)]:[button:hover>&]:text-foreground',
         local.class,
       )}
     >

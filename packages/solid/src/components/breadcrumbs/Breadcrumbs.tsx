@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { ChevronRightIcon, EllipsisIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronRightIcon, EllipsisIcon } from '@/lib/moduix/icons/ui';
 import styles from './Breadcrumbs.module.css';
 
 type BreadcrumbsPathLink = {

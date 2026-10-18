@@ -4,7 +4,7 @@ import type { ClipboardIndicatorProps } from '@ark-ui/vue/clipboard';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui';
 import styles from './Clipboard.module.css';
 
 defineOptions({ inheritAttrs: false });

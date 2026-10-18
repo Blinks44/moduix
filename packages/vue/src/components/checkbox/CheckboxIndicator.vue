@@ -4,7 +4,7 @@ import type { CheckboxIndicatorProps } from '@ark-ui/vue/checkbox';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import styles from './Checkbox.module.css';
 
 defineOptions({ inheritAttrs: false });

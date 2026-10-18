@@ -12,7 +12,7 @@ import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { CheckIcon, SearchIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 import styles from './Listbox.module.css';
 

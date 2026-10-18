@@ -59,7 +59,7 @@ function AccordionItemTrigger(props: ComponentProps<typeof AccordionPrimitive.It
   return (
     <AccordionPrimitive.ItemTrigger
       class={cn(
-        'flex w-full cursor-pointer items-center justify-between gap-4 bg-transparent px-3 py-2 text-start text-md outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] motion-reduce:transition-none [&:not([data-disabled]):active]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted',
+        'flex w-full cursor-pointer items-center justify-between gap-4 bg-transparent px-3 py-2 text-start text-md outline-0 transition-colors duration-normal select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] [&:not([data-disabled]):active]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted',
         local.class,
       )}
       {...others}
@@ -75,7 +75,7 @@ function AccordionItemIndicator(props: ComponentProps<typeof AccordionPrimitive.
   return (
     <AccordionPrimitive.ItemIndicator
       class={cn(
-        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-[state=open]:rotate-180 motion-reduce:transition-none [&_svg]:size-full',
+        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-normal data-[state=open]:rotate-180 [&_svg]:size-full',
         local.class,
       )}
       {...others}

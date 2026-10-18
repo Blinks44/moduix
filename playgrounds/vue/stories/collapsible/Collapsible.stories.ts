@@ -9,7 +9,7 @@ import {
   CollapsibleTrigger,
   useCollapsible,
 } from '@/components/collapsible';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import styles from './Collapsible.stories.module.css';
 
 const meta = {

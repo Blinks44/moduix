@@ -32,7 +32,7 @@ const viewItems = ['List', 'Board', 'Calendar'].map((value) => ({ value, label: 
 const stackClass = 'grid justify-items-start gap-2';
 const hintClass = 'text-xs leading-4 text-muted-foreground';
 const buttonClass =
-  'inline-flex min-h-8 cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3 text-foreground transition-[background-color,border-color] duration-200 ease-in-out hover:bg-accent focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring';
+  'inline-flex min-h-8 cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3 text-foreground transition-[background-color,border-color] duration-normal ease-in-out hover:bg-accent focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring';
 const cardItemClass =
   'group/segment-item grid min-h-18 w-36 content-center justify-items-start gap-0.5 p-3 whitespace-normal';
 const cardDescriptionClass =

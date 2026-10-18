@@ -73,7 +73,7 @@ const BreadcrumbsLink = forwardRef<ComponentRef<typeof ark.a>, HTMLArkProps<'a'>
         {...props}
         data-slot="breadcrumbs-link"
         className={cn(
-          'block max-w-full min-w-0 truncate rounded-sm px-1 text-inherit no-underline transition-[color] duration-200 ease-in-out outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none [@media(hover:hover)]:hover:text-foreground',
+          'block max-w-full min-w-0 truncate rounded-sm px-1 text-inherit no-underline transition-[color] duration-normal ease-in-out outline-none focus-visible:ring-1 focus-visible:ring-ring [@media(hover:hover)]:hover:text-foreground',
           className,
         )}
       />
@@ -146,7 +146,7 @@ const BreadcrumbsEllipsis = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
         data-slot="breadcrumbs-ellipsis"
         aria-hidden="true"
         className={cn(
-          'inline-flex min-h-4 min-w-4 items-center justify-center rounded-sm px-1 transition-[color] duration-200 ease-in-out motion-reduce:transition-none [:where(button:has(>&))]:cursor-pointer [:where(button:has(>&))]:outline-none [button:focus-visible>&]:ring-1 [button:focus-visible>&]:ring-ring [@media(hover:hover)]:[button:hover>&]:text-foreground',
+          'inline-flex min-h-4 min-w-4 items-center justify-center rounded-sm px-1 transition-[color] duration-normal ease-in-out [:where(button:has(>&))]:cursor-pointer [:where(button:has(>&))]:outline-none [button:focus-visible>&]:ring-1 [button:focus-visible>&]:ring-ring [@media(hover:hover)]:[button:hover>&]:text-foreground',
           className,
         )}
       >

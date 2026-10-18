@@ -16,7 +16,7 @@ import {
 import { clsx } from 'clsx';
 import type { Accessor, ComponentProps, JSX } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { CheckIcon, ChevronRightIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, ChevronRightIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import styles from './TreeView.module.css';
 
 function TreeView<T extends TreeNode>(props: TreeViewRootProps<T>) {

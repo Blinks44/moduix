@@ -4,7 +4,7 @@ import type { PasswordInputIndicatorProps } from '@ark-ui/vue/password-input';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui/Icons';
+import { EyeClosedIcon, EyeIcon } from '@/lib/moduix/icons/ui';
 import styles from './PasswordInput.module.css';
 
 defineOptions({ inheritAttrs: false });

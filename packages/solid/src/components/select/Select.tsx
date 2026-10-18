@@ -13,7 +13,7 @@ import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,

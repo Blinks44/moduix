@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import CloseButton from '../close-button/CloseButton.vue';
 import type { Props as CloseButtonProps } from '../close-button/CloseButton.vue';
 import { useInputGroupSize, type InputGroupSize } from './context';

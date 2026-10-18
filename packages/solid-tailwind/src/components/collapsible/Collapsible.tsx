@@ -8,7 +8,7 @@ import { ark } from '@ark-ui/solid/factory';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 
 function Collapsible(props: ComponentProps<typeof CollapsiblePrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
@@ -58,7 +58,7 @@ function CollapsibleIndicator(props: ComponentProps<typeof CollapsiblePrimitive.
   return (
     <CollapsiblePrimitive.Indicator
       class={cn(
-        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-[state=open]:rotate-180 motion-reduce:transition-none [&_svg]:size-full',
+        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-normal data-[state=open]:rotate-180 [&_svg]:size-full',
         local.class,
       )}
       {...others}

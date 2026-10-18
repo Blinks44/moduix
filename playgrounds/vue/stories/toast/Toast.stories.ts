@@ -11,7 +11,7 @@ import {
   ToastToaster,
   createToaster,
 } from '@/components/toast';
-import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import styles from './Toast.stories.module.css';
 
 const meta = {

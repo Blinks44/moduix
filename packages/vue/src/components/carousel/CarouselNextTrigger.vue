@@ -4,7 +4,7 @@ import type { CarouselNextTriggerProps } from '@ark-ui/vue/carousel';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './Carousel.module.css';
 
 defineOptions({ inheritAttrs: false });

@@ -15,7 +15,7 @@ const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const grabberIndicatorClass =
-  'h-1 w-12 rounded-full bg-muted-foreground opacity-[0.45] transition-opacity duration-200 ease-in-out motion-reduce:transition-none [@media(hover:hover)]:group-hover/grabber:opacity-70';
+  'h-1 w-12 rounded-full bg-muted-foreground opacity-[0.45] transition-opacity duration-normal ease-in-out [@media(hover:hover)]:group-hover/grabber:opacity-70';
 </script>
 
 <template>

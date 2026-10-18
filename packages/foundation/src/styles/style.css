@@ -75,6 +75,10 @@
   --shadow-sm: var(--moduix-shadow-sm);
   --shadow-md: var(--moduix-shadow-md);
   --shadow-lg: var(--moduix-shadow-lg);
+  --transition-duration-fast: var(--moduix-duration-fast);
+  --transition-duration-normal: var(--moduix-duration-normal);
+  --transition-duration-slow: var(--moduix-duration-slow);
+  --transition-duration-slower: var(--moduix-duration-slower);
   --ease-in: var(--moduix-ease-in);
   --ease-out: var(--moduix-ease-out);
   --ease-in-out: var(--moduix-ease-in-out);
