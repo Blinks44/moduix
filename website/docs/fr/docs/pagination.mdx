@@ -80,11 +80,6 @@ points de suspension correspondant à la plage courante.
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pagination/pagination-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -152,7 +147,7 @@ PaginationRootProvider
 | `usePagination`        | Crée l’état de pagination en dehors de l’arborescence rendue.                                 |
 | `usePaginationContext` | Donne accès à l’état de pagination depuis un composant descendant.                             |
 | `PaginationItem`                 | Contrôle de page interactif. Transmettez-lui l’objet de page avec `{...page}`.                 |
-| `PaginationEllipsis`             | Marqueur non interactif d’une partie masquée de la plage. `index` est obligatoire.            |
+| `PaginationEllipsis`             | Marqueur décoratif d’une partie masquée de la plage, masqué aux technologies d’assistance. `index` est obligatoire.            |
 | `PaginationPrevTrigger`          | Passe à la page précédente et se désactive sur la première page.                              |
 | `PaginationNextTrigger`          | Passe à la page suivante et se désactive sur la dernière page.                                |
 | `PaginationFirstTrigger`         | Passe à la première page et se désactive lorsqu’elle est déjà sélectionnée.                   |
@@ -341,11 +336,6 @@ naviguer vers une URL réelle.
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pagination/pagination-link.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -520,11 +510,6 @@ visible avec `siblingCount`, `boundaryCount` et les propriétés liées au nombr
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pagination/pagination-customized.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -565,11 +550,6 @@ accès rapide à la première et à la dernière page.
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pagination/pagination-with-edges.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -611,11 +591,6 @@ de suspension doivent afficher un contenu personnalisé. Transmettez chaque obje
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pagination/pagination-advanced-customization.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -626,6 +601,11 @@ moduix conserve les attributs d’état d’Ark et ajoute des attributs `data-sl
 styles. Les éléments de page utilisent des chiffres tabulaires et un espacement horizontal réduit. Les
 numéros d’un ou deux chiffres gardent ainsi leur forme carrée par défaut, tandis que les valeurs plus
 longues s’élargissent sans être tronquées.
+
+Les couleurs, bordures, arrondis et la typographie proviennent des jetons de foundation. Surchargez-les avec
+`className` dans React ou `class` dans Solid et Vue sur la partie concernée ; ciblez `[data-selected]` sur
+`PaginationItem` pour la page courante. La variable CSS ci-dessous définit la taille commune des éléments,
+des ellipses et des déclencheurs dans les variantes CSS Modules.
 
 ### Propriétés CSS
 

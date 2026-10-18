@@ -13,7 +13,6 @@ export default function ControlledPaginationDemo() {
   return (
     <div class={styles.stack}>
       <Pagination
-        class={styles.root}
         count={200}
         page={page()}
         pageSize={10}

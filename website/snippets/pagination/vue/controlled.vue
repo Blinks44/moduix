@@ -19,7 +19,6 @@ const handlePageChange = (details: PaginationPageChangeDetails) => {
   <div :class="styles.stack">
     <Pagination
       v-model:page="page"
-      :class="styles.root"
       :count="200"
       :page-size="10"
       :sibling-count="2"

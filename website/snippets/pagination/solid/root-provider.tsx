@@ -19,7 +19,7 @@ export default function RootProviderPaginationDemo() {
       <button type="button" onClick={() => pagination().goToNextPage()}>
         Next page
       </button>
-      <PaginationRootProvider class={styles.root} value={pagination}>
+      <PaginationRootProvider value={pagination}>
         <PaginationPrevTrigger />
         <PaginationItems />
         <PaginationNextTrigger />

@@ -447,29 +447,7 @@
   --moduix-password-input-width: initial; /* 100% */
 
   /* Pagination */
-  --moduix-pagination-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-pagination-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-pagination-ellipsis-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-pagination-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-pagination-focus-ring-offset: initial; /* var(--moduix-focus-ring-inset-offset) */
-  --moduix-pagination-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
-  --moduix-pagination-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-pagination-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-pagination-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-pagination-icon-size: initial; /* var(--moduix-spacing-4) */
-  --moduix-pagination-item-bg: initial; /* var(--moduix-color-background) */
-  --moduix-pagination-item-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-pagination-item-bg-selected: initial; /* var(--moduix-color-foreground) */
-  --moduix-pagination-item-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-pagination-item-border-color-selected: initial; /* var(--moduix-color-foreground) */
-  --moduix-pagination-item-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-pagination-item-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-pagination-item-color-selected: initial; /* var(--moduix-color-background) */
-  --moduix-pagination-item-padding-inline: initial; /* var(--moduix-spacing-2) */
-  --moduix-pagination-item-radius: initial; /* var(--moduix-radius-md) */
   --moduix-pagination-item-size: initial; /* var(--moduix-size-md) */
-  --moduix-pagination-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-pagination-trigger-gap: initial; /* var(--moduix-spacing-2) */
 
   /* Popover */
   --moduix-popover-arrow-size: initial; /* var(--moduix-spacing-2-5) */

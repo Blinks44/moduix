@@ -4,6 +4,7 @@ import type { PaginationEllipsisProps } from '@ark-ui/vue/pagination';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import { EllipsisIcon } from '@/lib/moduix/icons/ui';
 
 defineOptions({ inheritAttrs: false });
 
@@ -25,14 +26,15 @@ const attrs = useAttrs();
     :as-child="asChild"
     :class="
       cn(
-        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium text-muted-foreground tabular-nums select-none',
+        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium text-muted-foreground tabular-nums select-none [&_svg]:size-4 [&_svg]:shrink-0',
         className,
       )
     "
     :index="index"
     data-slot="pagination-ellipsis"
+    aria-hidden="true"
   >
     <slot v-if="$slots.default" />
-    <template v-else-if="!asChild">...</template>
+    <EllipsisIcon v-else-if="!asChild" />
   </ArkPaginationEllipsis>
 </template>

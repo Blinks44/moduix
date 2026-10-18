@@ -80,11 +80,6 @@ import paginationVueWithEdges from '../../../snippets/pagination/vue/with-edges.
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pagination/pagination-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -152,7 +147,7 @@ PaginationRootProvider
 | `usePagination`        | Создаёт состояние пагинации за пределами дерева, где отображается компонент.                      |
 | `usePaginationContext` | Даёт потомку доступ к состоянию пагинации.                                                        |
 | `PaginationItem`                 | Интерактивный элемент страницы. Принимает объект страницы в качестве свойств.                    |
-| `PaginationEllipsis`             | Неинтерактивный маркер скрытой части диапазона страниц. Требует `index`.                          |
+| `PaginationEllipsis`             | Декоративный маркер скрытой части диапазона страниц, скрыт от вспомогательных технологий. Требует `index`.                          |
 | `PaginationPrevTrigger`          | Переходит на предыдущую страницу и отключается, когда выбрана первая страница.                    |
 | `PaginationNextTrigger`          | Переходит на следующую страницу и отключается, когда выбрана последняя страница.                  |
 | `PaginationFirstTrigger`         | Переходит на первую страницу и отключается, если она уже выбрана.                                 |
@@ -341,11 +336,6 @@ PaginationRootProvider
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pagination/pagination-link.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -520,11 +510,6 @@ PaginationRootProvider
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pagination/pagination-customized.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -565,11 +550,6 @@ PaginationRootProvider
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pagination/pagination-with-edges.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -611,11 +591,6 @@ PaginationRootProvider
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/pagination/pagination-advanced-customization.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -625,6 +600,11 @@ PaginationRootProvider
 moduix сохраняет атрибуты состояния Ark и добавляет стабильные хуки `data-slot` для локальной стилизации.
 В номерах страниц используются табличные цифры и компактные горизонтальные отступы. Поэтому одно- и
 двузначные номера сохраняют квадратную форму, а более длинные значения расширяются без обрезки.
+
+Цвета, рамки, скругление и типографика берутся из токенов foundation. Переопределяйте их через `className`
+в React или `class` в Solid и Vue на нужной части; для текущей страницы используйте `[data-selected]` на
+`PaginationItem`. CSS-переменная ниже задаёт общий размер страниц, многоточий и кнопок в вариантах CSS
+Modules.
 
 ### CSS-свойства
 

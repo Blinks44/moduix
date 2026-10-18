@@ -29,18 +29,14 @@ const attrs = useAttrs();
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
         'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        !$slots.default && 'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
+        !$slots.default && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         className,
       )
     "
     data-slot="pagination-last-trigger"
   >
     <slot v-if="$slots.default" />
-    <span
-      v-else-if="!asChild"
-      class="inline-flex items-center justify-center [&_svg+svg]:-ms-2"
-      aria-hidden="true"
-    >
+    <span v-else-if="!asChild" class="inline-flex [&_svg+svg]:-ms-2" aria-hidden="true">
       <ChevronRightIcon />
       <ChevronRightIcon />
     </span>

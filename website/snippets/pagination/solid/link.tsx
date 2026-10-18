@@ -7,12 +7,10 @@ import {
   PaginationPrevTrigger,
 } from '@moduix/solid/pagination';
 import { For } from 'solid-js';
-import styles from '@/components/examples/pagination/pagination-link.module.css';
 
 export default function LinkPaginationDemo() {
   return (
     <Pagination
-      class={styles.root}
       count={200}
       pageSize={10}
       siblingCount={2}

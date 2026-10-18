@@ -18,7 +18,7 @@ const pagination = usePagination({
 <template>
   <div :class="styles.stack">
     <button type="button" @click="pagination.goToNextPage()">Next page</button>
-    <PaginationRootProvider :class="styles.root" :value="pagination">
+    <PaginationRootProvider :value="pagination">
       <PaginationPrevTrigger />
       <PaginationItems />
       <PaginationNextTrigger />

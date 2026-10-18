@@ -6,34 +6,30 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
-import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
+import { ChevronLeftIcon, ChevronRightIcon, EllipsisIcon } from '@/lib/moduix/icons/ui';
 import styles from './Pagination.module.css';
 
 function Pagination(props: ComponentProps<typeof PaginationPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <PaginationPrimitive.Root
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="pagination-root"
-    >
-      {local.children}
-    </PaginationPrimitive.Root>
+    />
   );
 }
 
 function PaginationRootProvider(props: ComponentProps<typeof PaginationPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <PaginationPrimitive.RootProvider
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="pagination-root-provider"
-    >
-      {local.children}
-    </PaginationPrimitive.RootProvider>
+    />
   );
 }
 
@@ -59,8 +55,9 @@ function PaginationEllipsis(props: ComponentProps<typeof PaginationPrimitive.Ell
       class={clsx(styles.ellipsis, local.class)}
       {...others}
       data-slot="pagination-ellipsis"
+      aria-hidden="true"
     >
-      {resolvedChildren() ?? (!local.asChild && '...')}
+      {resolvedChildren() ?? (!local.asChild && <EllipsisIcon />)}
     </PaginationPrimitive.Ellipsis>
   );
 }
@@ -81,11 +78,7 @@ function PaginationPrevTrigger(props: ComponentProps<typeof PaginationPrimitive.
   return (
     <PaginationPrimitive.PrevTrigger
       asChild={local.asChild}
-      class={clsx(
-        styles.trigger,
-        (local.children == null || local.children === false) && styles.iconTrigger,
-        local.class,
-      )}
+      class={clsx(styles.trigger, resolvedChildren() == null && styles.iconTrigger, local.class)}
       {...others}
       data-slot="pagination-prev-trigger"
     >
@@ -101,11 +94,7 @@ function PaginationNextTrigger(props: ComponentProps<typeof PaginationPrimitive.
   return (
     <PaginationPrimitive.NextTrigger
       asChild={local.asChild}
-      class={clsx(
-        styles.trigger,
-        (local.children == null || local.children === false) && styles.iconTrigger,
-        local.class,
-      )}
+      class={clsx(styles.trigger, resolvedChildren() == null && styles.iconTrigger, local.class)}
       {...others}
       data-slot="pagination-next-trigger"
     >
@@ -121,11 +110,7 @@ function PaginationFirstTrigger(props: ComponentProps<typeof PaginationPrimitive
   return (
     <PaginationPrimitive.FirstTrigger
       asChild={local.asChild}
-      class={clsx(
-        styles.trigger,
-        (local.children == null || local.children === false) && styles.iconTrigger,
-        local.class,
-      )}
+      class={clsx(styles.trigger, resolvedChildren() == null && styles.iconTrigger, local.class)}
       {...others}
       data-slot="pagination-first-trigger"
     >
@@ -141,11 +126,7 @@ function PaginationLastTrigger(props: ComponentProps<typeof PaginationPrimitive.
   return (
     <PaginationPrimitive.LastTrigger
       asChild={local.asChild}
-      class={clsx(
-        styles.trigger,
-        (local.children == null || local.children === false) && styles.iconTrigger,
-        local.class,
-      )}
+      class={clsx(styles.trigger, resolvedChildren() == null && styles.iconTrigger, local.class)}
       {...others}
       data-slot="pagination-last-trigger"
     >
@@ -188,3 +169,21 @@ export {
   usePagination,
   usePaginationContext,
 };
+export type {
+  PaginationContextProps,
+  PaginationEllipsisProps,
+  PaginationFirstTriggerProps,
+  PaginationItemLabelDetails,
+  PaginationItemProps,
+  PaginationLastTriggerProps,
+  PaginationNextTriggerProps,
+  PaginationPageChangeDetails,
+  PaginationPageSizeChangeDetails,
+  PaginationPageUrlDetails,
+  PaginationPrevTriggerProps,
+  PaginationRootProps,
+  PaginationRootProviderProps,
+  UsePaginationContext,
+  UsePaginationProps,
+  UsePaginationReturn,
+} from '@ark-ui/solid/pagination';
