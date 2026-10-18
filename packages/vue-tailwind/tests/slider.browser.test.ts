@@ -1,8 +1,8 @@
 import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
-import { render } from '@testing-library/vue';
+import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, defineComponent, ref } from 'vue';
+import { createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
   Slider,
@@ -284,7 +284,7 @@ test('uses Tailwind-owned visual defaults and lets consumer utilities win', asyn
   const marker = container.querySelector('[data-slot="slider-marker"]')!;
 
   expect([...root.classList]).toEqual(expect.arrayContaining(['group', 'w-64', 'text-foreground']));
-  expect([...root.classList]).not.toContain('w-48');
+  expect([...root.classList]).not.toContain('w-full');
   expect([...label.classList]).toContain('text-primary');
   expect([...control.classList]).toContain('min-h-6');
   expect([...control.classList]).not.toContain('min-h-5');
@@ -303,4 +303,23 @@ test('uses Tailwind-owned visual defaults and lets consumer utilities win', asyn
   await expect.element(page.locator('[data-slot="slider-track"]')).toHaveCSS('height', '6px');
   await expect.element(page.getByRole('slider', { name: 'Volume' })).toHaveCSS('width', '16px');
   expect(getComputedStyle(marker, '::before').width).toBe('4px');
+});
+
+test('fills the container width by default', async () => {
+  render({
+    components: sliderComponents,
+    template: `
+      <div style="width: 20rem">
+        <Slider :default-value="[40]" data-testid="slider-root">
+          <SliderControl>
+            <SliderTrack><SliderRange /></SliderTrack>
+            <SliderThumb :index="0" aria-label="Volume"><SliderHiddenInput /></SliderThumb>
+          </SliderControl>
+        </Slider>
+      </div>
+    `,
+  });
+  await nextTick();
+
+  expect(screen.getByTestId('slider-root').offsetWidth).toBe(320);
 });

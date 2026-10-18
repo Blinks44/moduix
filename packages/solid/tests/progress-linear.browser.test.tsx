@@ -12,6 +12,7 @@ import {
   useProgress,
   useProgressContext,
 } from '../src';
+import { LocaleProvider } from '../src/locale';
 
 test('renders the linear Ark anatomy with stable hooks and an accessible name', async () => {
   let rootRef!: HTMLDivElement;
@@ -85,6 +86,60 @@ test('renders an indeterminate linear progressbar without an ARIA value', async 
     .not.toHaveAttribute('aria-valuenow');
 });
 
+// Pauses the indeterminate animation at its first and last frame and reads the range position.
+function sweepEdges(name: string) {
+  const track = screen.getByRole('progressbar', { name });
+  const range = track.querySelector<HTMLElement>('[data-part="range"]')!;
+  const [animation] = range.getAnimations();
+  const duration = Number(animation!.effect!.getComputedTiming().duration);
+  animation!.pause();
+  const frames = [0, duration - 1].map((time) => {
+    animation!.currentTime = time;
+    return range.getBoundingClientRect();
+  });
+
+  return { track: track.getBoundingClientRect(), start: frames[0]!, end: frames[1]! };
+}
+
+test('sweeps the indeterminate range from the start edge to the end edge', () => {
+  render(() => (
+    <>
+      <ProgressLinear defaultValue={null}>
+        <ProgressLinearTrack aria-label="Sweep horizontal">
+          <ProgressLinearRange />
+        </ProgressLinearTrack>
+      </ProgressLinear>
+      <ProgressLinear defaultValue={null} orientation="vertical">
+        <ProgressLinearTrack aria-label="Sweep vertical">
+          <ProgressLinearRange />
+        </ProgressLinearTrack>
+      </ProgressLinear>
+      <LocaleProvider locale="ar">
+        <div lang="ar" dir="rtl">
+          <ProgressLinear defaultValue={null}>
+            <ProgressLinearTrack aria-label="Sweep rtl">
+              <ProgressLinearRange />
+            </ProgressLinearTrack>
+          </ProgressLinear>
+        </div>
+      </LocaleProvider>
+    </>
+  ));
+
+  const ltr = sweepEdges('Sweep horizontal');
+  expect(ltr.start.right).toBeLessThanOrEqual(ltr.track.left + 1);
+  expect(ltr.end.left).toBeGreaterThanOrEqual(ltr.track.right - 1);
+
+  const rtl = sweepEdges('Sweep rtl');
+  expect(rtl.start.left).toBeGreaterThanOrEqual(rtl.track.right - 1);
+  expect(rtl.end.right).toBeLessThanOrEqual(rtl.track.left + 1);
+
+  const vertical = sweepEdges('Sweep vertical');
+  expect(vertical.start.width).toBeCloseTo(vertical.track.width, 0);
+  expect(vertical.start.top).toBeGreaterThanOrEqual(vertical.track.bottom - 1);
+  expect(vertical.end.bottom).toBeLessThanOrEqual(vertical.track.top + 1);
+});
+
 test('preserves custom bounds and accessible value text', async () => {
   render(() => (
     <ProgressLinear
@@ -145,4 +200,18 @@ test('exposes the flat RootProvider, Context, and hook exports', async () => {
     .element(page.getByRole('progressbar', { name: 'Team rollout' }))
     .toHaveAttribute('aria-valuenow', '58');
   expect(screen.getAllByText('58')).toHaveLength(2);
+});
+
+test('fills the container width by default', () => {
+  render(() => (
+    <div style={{ width: '20rem' }}>
+      <ProgressLinear defaultValue={40} data-testid="progress-width">
+        <ProgressLinearTrack aria-label="Width">
+          <ProgressLinearRange />
+        </ProgressLinearTrack>
+      </ProgressLinear>
+    </div>
+  ));
+
+  expect(screen.getByTestId('progress-width').offsetWidth).toBe(320);
 });

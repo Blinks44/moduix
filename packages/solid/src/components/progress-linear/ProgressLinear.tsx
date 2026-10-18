@@ -81,15 +81,7 @@ function ProgressLinearRange(props: ComponentProps<typeof ProgressPrimitive.Rang
 }
 
 function ProgressLinearView(props: ComponentProps<typeof ProgressPrimitive.View>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ProgressPrimitive.View
-      class={clsx(styles.view, local.class)}
-      {...others}
-      data-slot="progress-linear-view"
-    />
-  );
+  return <ProgressPrimitive.View {...props} data-slot="progress-linear-view" />;
 }
 
 const ProgressLinearContext = ProgressPrimitive.Context;
@@ -106,3 +98,18 @@ export {
   useProgress,
   useProgressContext,
 };
+export type {
+  ProgressContextProps,
+  ProgressLabelProps,
+  ProgressRangeProps,
+  ProgressRootProps,
+  ProgressRootProviderProps,
+  ProgressTrackProps,
+  ProgressValueChangeDetails,
+  ProgressValueTextProps,
+  ProgressValueTranslationDetails,
+  ProgressViewProps,
+  UseProgressContext,
+  UseProgressProps,
+  UseProgressReturn,
+} from '@ark-ui/solid/progress';

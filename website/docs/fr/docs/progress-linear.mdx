@@ -50,7 +50,7 @@ Composez la barre de progression avec les parties explicites `ProgressLinearLabe
 `ProgressLinearRange`. Donnez à `ProgressLinearTrack` un nom accessible qui décrit la tâche.
 React, Solid et Vue exposent les mêmes noms de parties plats ; Vue utilise `class`, les slots et `v-model` lorsque le contrat le prévoit.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearBasic />
 </ExampleFrame>
 
@@ -165,7 +165,7 @@ Dans Vue, utilisez `v-model` pour la même valeur contrôlée.
 Conservez `value` dans l’état lorsque la progression doit rester synchronisée avec un autre contrôle
 ou une tâche externe.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearControlled />
 </ExampleFrame>
 
@@ -206,7 +206,7 @@ ou une tâche externe.
 Définissez `defaultValue={null}` ou `value={null}` lorsque la tâche est en cours mais que son
 achèvement ne peut pas encore être mesuré.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearIndeterminate />
 </ExampleFrame>
 
@@ -246,7 +246,7 @@ achèvement ne peut pas encore être mesuré.
 
 Utilisez `defaultValue` pour définir la valeur initiale d’une progression non contrôlée.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearInitialValue />
 </ExampleFrame>
 
@@ -287,7 +287,7 @@ Utilisez `defaultValue` pour définir la valeur initiale d’une progression non
 Utilisez `min` et `max` lorsque la plage de progression diffère de la plage par défaut, de `0` à
 `100`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearMinMax />
 </ExampleFrame>
 
@@ -328,7 +328,7 @@ Utilisez `min` et `max` lorsque la plage de progression diffère de la plage par
 Utilisez `ProgressLinearView` lorsque le texte ou l’interface d’accompagnement doit changer avec
 l’état de progression Ark.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearStateViews />
 </ExampleFrame>
 
@@ -369,7 +369,7 @@ l’état de progression Ark.
 Utilisez `ProgressLinearContext` avec `translations.value(details)` lorsque le texte visible de la
 valeur doit être formulé pour une tâche précise.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearValueText />
 </ExampleFrame>
 
@@ -409,7 +409,7 @@ valeur doit être formulé pour une tâche précise.
 
 Définissez `orientation="vertical"` lorsque la partie remplie doit progresser du bas vers le haut.
 En mode vertical, la hauteur par défaut est de `12rem`. Si votre mise en page nécessite une autre
-hauteur, redéfinissez `--moduix-progress-linear-height`.
+hauteur, définissez `height` sur la racine.
 
 <ExampleFrame variant="component">
   <ProgressLinearVertical />
@@ -452,7 +452,7 @@ hauteur, redéfinissez `--moduix-progress-linear-height`.
 Créez l’état de progression avec `useProgress()` dans un composant parent, puis
 reliez-le aux parties rendues avec `ProgressLinearRootProvider`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearRootProvider />
 </ExampleFrame>
 
@@ -495,9 +495,13 @@ structure visuelle. Pour les styles dépendants de l’état, utilisez les attri
 les points d’accroche `data-slot` de moduix. Les variantes Tailwind utilisent des utilitaires natifs et
 des classes du consommateur ; les variables ci-dessous personnalisent les variantes CSS Modules.
 
-La racine a une largeur par défaut de `12rem`. En mode vertical, sa hauteur par défaut est également
-de `12rem`. Utilisez les variables publiques `--moduix-progress-linear-*` pour adapter le composant
-à votre mise en page.
+La racine occupe toute la largeur de son conteneur. En mode vertical, elle prend la largeur de son
+contenu et une hauteur de `12rem`. Définissez `width` ou `height` sur la racine pour l'adapter à
+votre mise en page.
+`--moduix-progress-linear-track-size` règle l'épaisseur de la barre dans les deux orientations. La
+progression indéterminée fait défiler une plage de 35 % du bord de début vers le bord de fin (de droite
+à gauche en RTL) ; lorsque les animations réduites sont préférées, la plage reste immobile au bord de
+début.
 
 ### Propriétés CSS
 

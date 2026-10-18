@@ -1,6 +1,6 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import {
   Slider,
@@ -234,7 +234,7 @@ test('preserves active marker state for invalid sliders', async () => {
 
 test('uses Tailwind-owned visual defaults and lets consumer utilities win', async () => {
   const { container } = render(
-    <Slider defaultValue={[40]} className="w-full">
+    <Slider defaultValue={[40]} className="w-64">
       <SliderLabel>Volume</SliderLabel>
       <SliderControl>
         <SliderTrack>
@@ -256,8 +256,8 @@ test('uses Tailwind-owned visual defaults and lets consumer utilities win', asyn
   const thumb = container.querySelector('[data-slot="slider-thumb"]')!;
   const marker = container.querySelector('[data-slot="slider-marker"]')!;
 
-  expect([...root.classList]).toEqual(expect.arrayContaining(['group', 'w-full']));
-  expect([...root.classList]).not.toContain('w-48');
+  expect([...root.classList]).toEqual(expect.arrayContaining(['group', 'w-64']));
+  expect([...root.classList]).not.toContain('w-full');
   expect([...track.classList]).toEqual(expect.arrayContaining(['h-1.5', 'bg-muted', 'ring-1']));
   expect([...range.classList]).toEqual(expect.arrayContaining(['h-full', 'bg-primary']));
   expect([...thumb.classList]).toEqual(
@@ -269,4 +269,23 @@ test('uses Tailwind-owned visual defaults and lets consumer utilities win', asyn
   await expect.element(page.locator('[data-slot="slider-track"]')).toHaveCSS('height', '6px');
   await expect.element(page.getByRole('slider', { name: 'Volume' })).toHaveCSS('width', '16px');
   expect(getComputedStyle(marker, '::before').width).toBe('4px');
+});
+
+test('fills the container width by default', () => {
+  render(
+    <div style={{ width: '20rem' }}>
+      <Slider defaultValue={[40]} data-testid="slider-root">
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumb index={0} aria-label="Volume">
+            <SliderHiddenInput />
+          </SliderThumb>
+        </SliderControl>
+      </Slider>
+    </div>,
+  );
+
+  expect(screen.getByTestId('slider-root').offsetWidth).toBe(320);
 });

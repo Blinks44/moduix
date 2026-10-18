@@ -20,12 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkProgressValueText
     v-bind="attrs"
-    :class="
-      cn(
-        'min-w-0 justify-self-end text-end text-sm leading-5 font-normal [overflow-wrap:anywhere] text-current',
-        className,
-      )
-    "
+    :class="cn('justify-self-end text-end text-sm wrap-anywhere', className)"
     data-slot="progress-linear-value-text"
   >
     <template v-if="$slots.default" #default><slot /></template>

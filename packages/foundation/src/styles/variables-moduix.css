@@ -396,32 +396,9 @@
   --moduix-progress-circular-track-bg: initial; /* var(--moduix-color-muted) */
 
   /* ProgressLinear */
-  --moduix-progress-linear-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-progress-linear-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-progress-linear-height: initial; /* 12rem */
-  --moduix-progress-linear-label-color: initial; /* currentColor */
-  --moduix-progress-linear-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-progress-linear-label-font-weight: initial; /* var(--moduix-weight-regular) */
-  --moduix-progress-linear-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
   --moduix-progress-linear-range-bg: initial; /* var(--moduix-color-primary) */
-  --moduix-progress-linear-range-indeterminate-animation: initial; /* progress-linear-indeterminate 1.5s ease-in-out infinite */
-  --moduix-progress-linear-range-indeterminate-bg: initial; /* var(--moduix-progress-linear-range-bg, var(--moduix-color-primary)) */
-  --moduix-progress-linear-range-indeterminate-vertical-animation: initial; /* progress-linear-indeterminate-vertical 1.5s ease-in-out infinite */
-  --moduix-progress-linear-range-indeterminate-width: initial; /* 35% */
-  --moduix-progress-linear-range-radius: initial; /* inherit */
-  --moduix-progress-linear-range-transition: initial; /* var(--moduix-transition-default) */
   --moduix-progress-linear-track-bg: initial; /* var(--moduix-color-muted) */
-  --moduix-progress-linear-track-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-progress-linear-track-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-progress-linear-track-height: initial; /* 0.5rem */
-  --moduix-progress-linear-track-radius: initial; /* var(--moduix-radius-full) */
-  --moduix-progress-linear-track-width: initial; /* 0.5rem */
-  --moduix-progress-linear-value-text-color: initial; /* currentColor */
-  --moduix-progress-linear-value-text-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-progress-linear-value-text-font-weight: initial; /* var(--moduix-weight-regular) */
-  --moduix-progress-linear-value-text-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-progress-linear-vertical-width: initial; /* max-content */
-  --moduix-progress-linear-width: initial; /* 12rem */
+  --moduix-progress-linear-track-size: initial; /* var(--moduix-spacing-2) */
 
   /* QrCode */
   --moduix-qr-code-color: initial; /* var(--moduix-color-foreground) */
@@ -880,7 +857,7 @@
   --moduix-slider-value-text-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-slider-value-text-font-weight: initial; /* var(--moduix-weight-regular) */
   --moduix-slider-value-text-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-slider-width: initial; /* 12rem */
+  --moduix-slider-width: initial; /* 100% */
   --moduix-slider-width-vertical: initial; /* max-content */
 
   /* Carousel */

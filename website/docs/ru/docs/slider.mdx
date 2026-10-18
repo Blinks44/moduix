@@ -89,7 +89,7 @@ import sliderVueAdvancedCustomization from '../../../snippets/slider/vue/advance
 `SliderThumbs` создаёт по одному ползунку с нативным полем на значение. Для своего содержимого ползунка
 используйте `SliderThumb` явно и вложите в него `SliderHiddenInput`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderBasic />
 </ExampleFrame>
 
@@ -219,7 +219,7 @@ Slider
 
 Задайте `origin="center"`, если значение представляет положительное или отрицательное смещение, например баланс относительно нуля.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderCenterOrigin />
 </ExampleFrame>
 
@@ -266,7 +266,7 @@ Slider
 взаимодействия, а `onValueChangeEnd` (или `value-change-end`) - когда перетаскивание или
 взаимодействие с клавиатурой завершено.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderChangeEvents />
 </ExampleFrame>
 
@@ -312,7 +312,7 @@ Slider
 Используйте `useSliderContext` из moduix внутри дочернего компонента, если ему нужно читать состояние слайдера, например
 `value`, `dragging` или состояние фокуса.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderContext />
 </ExampleFrame>
 
@@ -355,7 +355,7 @@ Slider
 Управляйте слайдером из состояния выбранного фреймворка, сохраняя массив из `details.value`; во
 Vue для управляемого контракта можно связать `v-model` с ref.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderControlled />
 </ExampleFrame>
 
@@ -400,7 +400,7 @@ Vue для управляемого контракта можно связать
 
 Используйте `disabled`, чтобы оставить значение видимым, но отключить взаимодействие.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderDisabled />
 </ExampleFrame>
 
@@ -445,7 +445,7 @@ Vue для управляемого контракта можно связать
 
 Поместите `SliderDraggingIndicator` внутрь ползунка, чтобы показывать его текущее значение при перетаскивании.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderDraggingIndicator />
 </ExampleFrame>
 
@@ -486,7 +486,7 @@ Vue для управляемого контракта можно связать
 
 Задайте `name` и вложите `SliderHiddenInput` в каждый явный ползунок, чтобы отправлять текущее значение.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderForm />
 </ExampleFrame>
 
@@ -532,7 +532,7 @@ Vue для управляемого контракта можно связать
 Используйте `invalid`, если выбранное значение не проходит проверку. Дорожка, диапазон и ползунок получают состояние
 ошибки, но остаются интерактивными.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderInvalid />
 </ExampleFrame>
 
@@ -578,7 +578,7 @@ Vue для управляемого контракта можно связать
 Используйте `SliderMarkerGroup` и `SliderMarker`, чтобы добавить отметки на дорожку. Ark добавляет к отметкам
 `data-state="under-value | at-value | over-value"`, который можно использовать в стилях.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderMarks />
 </ExampleFrame>
 
@@ -623,7 +623,7 @@ Vue для управляемого контракта можно связать
 
 Задайте `min` и `max`, если диапазон слайдера не начинается с `0` или не заканчивается на `100`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderMinAndMax />
 </ExampleFrame>
 
@@ -664,7 +664,7 @@ Vue для управляемого контракта можно связать
 Передайте массив, содержащий по одному значению на каждый ползунок. `SliderThumbs` создаст соответствующие ползунки
 и скрытые поля ввода для формы.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderRange />
 </ExampleFrame>
 
@@ -705,7 +705,7 @@ Vue для управляемого контракта можно связать
 Используйте `readOnly`, если значение должно оставаться видимым, а ползунок - доступным для фокуса, но изменять его нельзя.
 В этом состоянии moduix использует курсор по умолчанию, поэтому слайдер не выглядит интерактивным.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderReadOnly />
 </ExampleFrame>
 
@@ -751,7 +751,7 @@ Vue для управляемого контракта можно связать
 Используйте `useSlider` из moduix с `SliderRootProvider`, если состояние нужно создать вне дерева, в котором отображаются
 части слайдера. Рендерьте эти части внутри `SliderRootProvider` и не добавляйте второй корень для того же состояния.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderRootProvider />
 </ExampleFrame>
 
@@ -796,7 +796,7 @@ Vue для управляемого контракта можно связать
 
 Используйте `step` для дробного или более точного шага.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderStep />
 </ExampleFrame>
 
@@ -841,7 +841,7 @@ Vue для управляемого контракта можно связать
 
 Используйте `thumbAlignment="center"`, если ползунок должен выходить за края дорожки.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderThumbAlignment />
 </ExampleFrame>
 
@@ -887,7 +887,7 @@ Vue для управляемого контракта можно связать
 Используйте `thumbCollisionBehavior`, чтобы задать поведение ползунков диапазона при встрече. Значение `none` (по умолчанию)
 не позволяет одному ползунку пройти дальше другого, `push` двигает второй ползунок, а `swap` меняет их местами.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderThumbCollision />
 </ExampleFrame>
 
@@ -933,7 +933,7 @@ Vue для управляемого контракта можно связать
 Используйте `minStepsBetweenThumbs`, чтобы задать минимальный зазор между ползунками диапазона. Фактический зазор равен
 `minStepsBetweenThumbs * step`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderThumbOverlap />
 </ExampleFrame>
 
@@ -1069,7 +1069,7 @@ Vue для управляемого контракта можно связать
 Используйте отдельные `SliderThumb` вместо `SliderThumbs`, если каждому ползунку нужны свои дочерние элементы, доступное
 имя или определённый порядок.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderAdvancedCustomization />
 </ExampleFrame>
 

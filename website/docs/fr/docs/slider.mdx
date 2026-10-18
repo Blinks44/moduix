@@ -88,7 +88,7 @@ Utilisez `Slider` lorsque l’utilisateur doit ajuster une valeur numérique dan
 `SliderThumbs` crée une poignée avec un champ natif par valeur. Pour personnaliser le contenu,
 composez chaque `SliderThumb` explicitement et placez `SliderHiddenInput` à l’intérieur.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderBasic />
 </ExampleFrame>
 
@@ -218,7 +218,7 @@ retourné, et Vue expose directement le store réactif dans le template.
 
 Définissez `origin="center"` lorsque la valeur représente un décalage positif ou négatif, par exemple un équilibre autour de zéro.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderCenterOrigin />
 </ExampleFrame>
 
@@ -265,7 +265,7 @@ Utilisez `onValueChange` (ou l’événement Vue `value-change`) pour mettre à 
 l’interaction et `onValueChangeEnd` (ou `value-change-end`) lorsque le glissement ou l’interaction
 au clavier est terminé.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderChangeEvents />
 </ExampleFrame>
 
@@ -311,7 +311,7 @@ au clavier est terminé.
 Utilisez `useSliderContext` de moduix dans un composant enfant lorsque celui-ci doit lire l’état du slider, par exemple
 `value`, `dragging` ou l’état du focus.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderContext />
 </ExampleFrame>
 
@@ -354,7 +354,7 @@ Utilisez `useSliderContext` de moduix dans un composant enfant lorsque celui-ci 
 Contrôlez le slider depuis l’état du framework en conservant le tableau fourni par `details.value` ;
 dans Vue, liez `v-model` à une ref pour le même contrat contrôlé.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderControlled />
 </ExampleFrame>
 
@@ -399,7 +399,7 @@ dans Vue, liez `v-model` à une ref pour le même contrat contrôlé.
 
 Utilisez `disabled` pour garder la valeur visible tout en désactivant les interactions.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderDisabled />
 </ExampleFrame>
 
@@ -444,7 +444,7 @@ Utilisez `disabled` pour garder la valeur visible tout en désactivant les inter
 
 Placez `SliderDraggingIndicator` dans une poignée pour afficher sa valeur active pendant le glissement.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderDraggingIndicator />
 </ExampleFrame>
 
@@ -485,7 +485,7 @@ Placez `SliderDraggingIndicator` dans une poignée pour afficher sa valeur activ
 
 Définissez `name` et placez `SliderHiddenInput` dans chaque poignée explicite pour envoyer la valeur actuelle.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderForm />
 </ExampleFrame>
 
@@ -531,7 +531,7 @@ Définissez `name` et placez `SliderHiddenInput` dans chaque poignée explicite 
 Utilisez `invalid` lorsque la valeur sélectionnée ne passe pas la validation. La piste, la plage et la poignée exposent
 l’état invalide tout en restant interactives.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderInvalid />
 </ExampleFrame>
 
@@ -577,7 +577,7 @@ l’état invalide tout en restant interactives.
 Utilisez `SliderMarkerGroup` et `SliderMarker` pour afficher des repères. Les repères Ark exposent
 `data-state="under-value | at-value | over-value"`, que vous pouvez utiliser pour les styles.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderMarks />
 </ExampleFrame>
 
@@ -622,7 +622,7 @@ Utilisez `SliderMarkerGroup` et `SliderMarker` pour afficher des repères. Les r
 
 Utilisez `min` et `max` lorsque l’intervalle du slider ne commence pas à `0` ou ne se termine pas à `100`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderMinAndMax />
 </ExampleFrame>
 
@@ -663,7 +663,7 @@ Utilisez `min` et `max` lorsque l’intervalle du slider ne commence pas à `0` 
 Transmettez un tableau contenant une valeur par poignée. `SliderThumbs` génère les poignées correspondantes et leurs
 champs natifs.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderRange />
 </ExampleFrame>
 
@@ -704,7 +704,7 @@ champs natifs.
 Utilisez `readOnly` lorsque la valeur doit rester visible et pouvoir recevoir le focus sans être modifiée. moduix utilise le
 curseur système par défaut dans cet état afin que le slider ne paraisse pas interactif.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderReadOnly />
 </ExampleFrame>
 
@@ -750,7 +750,7 @@ curseur système par défaut dans cet état afin que le slider ne paraisse pas i
 Utilisez `useSlider` de moduix avec `SliderRootProvider` lorsque l’état doit être créé en dehors de l’arbre qui affiche
 les parties du slider. Placez ces parties dans `SliderRootProvider` et n’utilisez pas une seconde racine pour le même état.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderRootProvider />
 </ExampleFrame>
 
@@ -795,7 +795,7 @@ les parties du slider. Placez ces parties dans `SliderRootProvider` et n’utili
 
 Utilisez `step` pour des incréments fractionnaires ou plus fins.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderStep />
 </ExampleFrame>
 
@@ -840,7 +840,7 @@ Utilisez `step` pour des incréments fractionnaires ou plus fins.
 
 Utilisez `thumbAlignment="center"` lorsque la poignée doit dépasser des extrémités de la piste.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderThumbAlignment />
 </ExampleFrame>
 
@@ -886,7 +886,7 @@ Utilisez `thumbAlignment="center"` lorsque la poignée doit dépasser des extré
 Utilisez `thumbCollisionBehavior` pour définir ce qui se passe lorsque les poignées d’une plage se rencontrent. `none`
 (par défaut) empêche une poignée de dépasser l’autre, `push` déplace l’autre poignée et `swap` échange leur position.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderThumbCollision />
 </ExampleFrame>
 
@@ -932,7 +932,7 @@ Utilisez `thumbCollisionBehavior` pour définir ce qui se passe lorsque les poig
 Utilisez `minStepsBetweenThumbs` pour imposer un écart minimal entre les poignées d’une plage. L’écart est calculé ainsi :
 `minStepsBetweenThumbs * step`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderThumbOverlap />
 </ExampleFrame>
 
@@ -1068,7 +1068,7 @@ En orientation verticale, les repères restent alignés sur la piste et exposent
 Utilisez des `SliderThumb` explicites plutôt que `SliderThumbs` lorsque chaque poignée nécessite des enfants
 personnalisés, un nom accessible ou un ordre particulier.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderAdvancedCustomization />
 </ExampleFrame>
 

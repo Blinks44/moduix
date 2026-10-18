@@ -20,9 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkProgressLabel
     v-bind="attrs"
-    :class="
-      cn('min-w-0 text-sm leading-5 font-normal [overflow-wrap:anywhere] text-current', className)
-    "
+    :class="cn('text-sm wrap-anywhere', className)"
     data-slot="progress-linear-label"
   >
     <slot />

@@ -49,7 +49,7 @@ Compose the progress bar from the explicit `ProgressLinearLabel`, `ProgressLinea
 `ProgressLinearTrack` an accessible name that describes the task.
 React, Solid, and Vue expose the same flat part names; Vue uses native `class`, slots, and `v-model` where applicable.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearBasic />
 </ExampleFrame>
 
@@ -163,7 +163,7 @@ In Vue, use `v-model` for the same controlled value.
 
 Keep `value` in state when progress needs to stay in sync with another control or an external task.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearControlled />
 </ExampleFrame>
 
@@ -204,7 +204,7 @@ Keep `value` in state when progress needs to stay in sync with another control o
 Set `defaultValue={null}` or `value={null}` when the task is running but its completion cannot be
 measured yet.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearIndeterminate />
 </ExampleFrame>
 
@@ -244,7 +244,7 @@ measured yet.
 
 Use `defaultValue` to set the initial value for uncontrolled progress.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearInitialValue />
 </ExampleFrame>
 
@@ -284,7 +284,7 @@ Use `defaultValue` to set the initial value for uncontrolled progress.
 
 Use `min` and `max` when the progress range is different from the default range of `0` to `100`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearMinMax />
 </ExampleFrame>
 
@@ -324,7 +324,7 @@ Use `min` and `max` when the progress range is different from the default range 
 
 Use `ProgressLinearView` when supporting text or UI should change with the Ark progress state.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearStateViews />
 </ExampleFrame>
 
@@ -365,7 +365,7 @@ Use `ProgressLinearView` when supporting text or UI should change with the Ark p
 Use `ProgressLinearContext` with `translations.value(details)` when visible value text needs
 task-specific wording.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearValueText />
 </ExampleFrame>
 
@@ -404,8 +404,7 @@ task-specific wording.
 ### Vertical
 
 Set `orientation="vertical"` when the range should fill from bottom to top. Vertical progress uses
-a default height of `12rem`; override `--moduix-progress-linear-height` when your layout needs a
-different height.
+a default height of `12rem`; set `height` on the root when your layout needs a different height.
 
 <ExampleFrame variant="component">
   <ProgressLinearVertical />
@@ -448,7 +447,7 @@ different height.
 Create the progress state with `useProgress()` in a parent component, then connect it
 to the rendered parts with `ProgressLinearRootProvider`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearRootProvider />
 </ExampleFrame>
 
@@ -490,8 +489,11 @@ Use `className` in React or `class` in Solid and Vue on exported parts for struc
 styles, use Ark data attributes and moduix `data-slot` hooks. Tailwind variants use native utilities
 and consumer classes; the variables below customize the CSS Modules variants.
 
-The root has a default width of `12rem`. In vertical mode, its default height is also `12rem`. Use
-the public `--moduix-progress-linear-*` variables to adapt the component to your layout.
+The root fills the width of its container. In vertical mode, it is as wide as its content and
+`12rem` tall. Set `width` or `height` on the root to fit your layout. `--moduix-progress-linear-track-size` sets the bar
+thickness in both orientations. Indeterminate progress sweeps a 35% range from the start edge to the
+end edge (right to left in RTL); when reduced motion is preferred, the range stays still at the start
+edge.
 
 ### CSS Properties
 

@@ -78,6 +78,10 @@
   min-width: 0;
 }
 
+.demoContent[data-example-width] > :not([data-preview-meta]) {
+  inline-size: min(var(--moduix-doc-example-inline-size), 100%);
+}
+
 .tableScroll {
   overflow-x: auto;
 }

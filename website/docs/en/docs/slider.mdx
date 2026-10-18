@@ -90,7 +90,7 @@ keyboard.
 `SliderThumbs` renders one thumb with a native input per value. For custom thumb content, compose
 `SliderThumb` explicitly and nest `SliderHiddenInput` inside it.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderBasic />
 </ExampleFrame>
 
@@ -220,7 +220,7 @@ the template.
 Set `origin="center"` when the value represents a positive or negative offset, such as balance
 around zero.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderCenterOrigin />
 </ExampleFrame>
 
@@ -266,7 +266,7 @@ around zero.
 Use `onValueChange` (or Vue's `value-change` event) for updates during interaction and
 `onValueChangeEnd` (or `value-change-end`) when the drag or keyboard interaction ends.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderChangeEvents />
 </ExampleFrame>
 
@@ -312,7 +312,7 @@ Use `onValueChange` (or Vue's `value-change` event) for updates during interacti
 Use moduix `useSliderContext` inside a child component when it needs to read slider state such as
 `value`, `dragging`, or focus state.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderContext />
 </ExampleFrame>
 
@@ -355,7 +355,7 @@ Use moduix `useSliderContext` inside a child component when it needs to read sli
 Control the slider from framework state by storing Ark's `details.value`; in Vue, bind `v-model` to
 a ref for the same controlled contract.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderControlled />
 </ExampleFrame>
 
@@ -400,7 +400,7 @@ a ref for the same controlled contract.
 
 Use `disabled` to keep the value visible while preventing interaction.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderDisabled />
 </ExampleFrame>
 
@@ -445,7 +445,7 @@ Use `disabled` to keep the value visible while preventing interaction.
 
 Place `SliderDraggingIndicator` inside a thumb to show its active value while dragging.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderDraggingIndicator />
 </ExampleFrame>
 
@@ -486,7 +486,7 @@ Place `SliderDraggingIndicator` inside a thumb to show its active value while dr
 
 Set `name` and nest `SliderHiddenInput` inside each explicit thumb to submit the current value.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderForm />
 </ExampleFrame>
 
@@ -532,7 +532,7 @@ Set `name` and nest `SliderHiddenInput` inside each explicit thumb to submit the
 Use `invalid` when the selected value fails validation. The track, range, and thumb expose the
 invalid state while remaining interactive.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderInvalid />
 </ExampleFrame>
 
@@ -578,7 +578,7 @@ invalid state while remaining interactive.
 Use `SliderMarkerGroup` and `SliderMarker` to render tick marks. Ark marks expose
 `data-state="under-value | at-value | over-value"`, which you can use for styling.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderMarks />
 </ExampleFrame>
 
@@ -623,7 +623,7 @@ Use `SliderMarkerGroup` and `SliderMarker` to render tick marks. Ark marks expos
 
 Use `min` and `max` when the slider's range does not start at `0` or end at `100`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderMinAndMax />
 </ExampleFrame>
 
@@ -664,7 +664,7 @@ Use `min` and `max` when the slider's range does not start at `0` or end at `100
 Pass an array with one value per thumb. `SliderThumbs` creates the matching thumbs and their native
 form inputs.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderRange />
 </ExampleFrame>
 
@@ -705,7 +705,7 @@ form inputs.
 Use `readOnly` when the value should remain visible and focusable but must not change. moduix uses a
 default cursor in this state so the slider does not look interactive.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderReadOnly />
 </ExampleFrame>
 
@@ -752,7 +752,7 @@ Use moduix `useSlider` with `SliderRootProvider` when state needs to be created 
 that renders the slider parts. Render the parts under `SliderRootProvider`; do not render a second root
 for the same slider state.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderRootProvider />
 </ExampleFrame>
 
@@ -797,7 +797,7 @@ for the same slider state.
 
 Use `step` for fractional or finer-grained increments.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderStep />
 </ExampleFrame>
 
@@ -842,7 +842,7 @@ Use `step` for fractional or finer-grained increments.
 
 Use `thumbAlignment="center"` when the thumb should extend beyond the track edges.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderThumbAlignment />
 </ExampleFrame>
 
@@ -889,7 +889,7 @@ Use `thumbCollisionBehavior` to control what happens when range thumbs meet. `no
 keeps one thumb from moving past the other, `push` moves the other thumb, and `swap` exchanges
 their positions.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderThumbCollision />
 </ExampleFrame>
 
@@ -935,7 +935,7 @@ their positions.
 Use `minStepsBetweenThumbs` to keep a minimum gap between range thumbs. The gap is calculated as
 `minStepsBetweenThumbs * step`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderThumbOverlap />
 </ExampleFrame>
 
@@ -1071,7 +1071,7 @@ Marks stay aligned with the track in vertical orientation and expose the same ma
 Use explicit `SliderThumb` parts instead of `SliderThumbs` when individual thumbs need custom
 children, accessible names, or a specific order.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <SliderAdvancedCustomization />
 </ExampleFrame>
 

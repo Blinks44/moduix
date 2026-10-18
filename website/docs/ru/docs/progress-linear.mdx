@@ -50,7 +50,7 @@ import progressLinearVueRootProvider from '../../../snippets/progress-linear/vue
 доступное имя, которое описывает задачу.
 React, Solid и Vue используют одинаковые плоские имена частей; во Vue применяются нативные `class`, слоты и `v-model`, когда они нужны.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearBasic />
 </ExampleFrame>
 
@@ -166,7 +166,7 @@ ProgressLinearRootProvider
 Храните `value` в состоянии, если прогресс должен синхронно меняться вместе с другим элементом
 управления или внешней задачей.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearControlled />
 </ExampleFrame>
 
@@ -207,7 +207,7 @@ ProgressLinearRootProvider
 Установите `defaultValue={null}` или `value={null}`, когда задача выполняется, но пока нельзя
 определить, сколько уже сделано.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearIndeterminate />
 </ExampleFrame>
 
@@ -247,7 +247,7 @@ ProgressLinearRootProvider
 
 Используйте `defaultValue`, чтобы задать начальное значение неуправляемого прогресса.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearInitialValue />
 </ExampleFrame>
 
@@ -288,7 +288,7 @@ ProgressLinearRootProvider
 Используйте `min` и `max`, если диапазон прогресса отличается от стандартного диапазона от `0` до
 `100`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearMinMax />
 </ExampleFrame>
 
@@ -329,7 +329,7 @@ ProgressLinearRootProvider
 Используйте `ProgressLinearView`, если вспомогательный текст или интерфейс должен меняться вместе
 с состоянием прогресса Ark.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearStateViews />
 </ExampleFrame>
 
@@ -370,7 +370,7 @@ ProgressLinearRootProvider
 Используйте `ProgressLinearContext` с `translations.value(details)`, если отображаемому значению
 нужна формулировка, связанная с конкретной задачей.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearValueText />
 </ExampleFrame>
 
@@ -410,7 +410,7 @@ ProgressLinearRootProvider
 
 Установите `orientation="vertical"`, когда заполненная часть должна расти снизу вверх. В
 вертикальном режиме высота по умолчанию составляет `12rem`. Если макету нужна другая высота,
-переопределите `--moduix-progress-linear-height`.
+задайте `height` на корневой части.
 
 <ExampleFrame variant="component">
   <ProgressLinearVertical />
@@ -453,7 +453,7 @@ ProgressLinearRootProvider
 Создайте состояние прогресса с помощью `useProgress()` в родительском компоненте,
 а затем подключите его к частям через `ProgressLinearRootProvider`.
 
-<ExampleFrame variant="component">
+<ExampleFrame variant="component" width="sm">
   <ProgressLinearRootProvider />
 </ExampleFrame>
 
@@ -496,9 +496,12 @@ ProgressLinearRootProvider
 moduix. Варианты Tailwind используют нативные утилиты и классы потребителя, а переменные ниже
 настраивают варианты CSS Modules.
 
-Корневая часть имеет ширину `12rem` по умолчанию. В вертикальном режиме высота также составляет
-`12rem`. Используйте публичные переменные `--moduix-progress-linear-*`, чтобы подстроить компонент
-под свой макет.
+Корневая часть по умолчанию занимает всю ширину контейнера. В вертикальном режиме она шириной по
+содержимому и высотой `12rem`. Задайте `width` или `height` на корневой части, чтобы подстроить
+компонент под макет.
+`--moduix-progress-linear-track-size` задаёт толщину полосы в обеих ориентациях. Неопределённый
+прогресс проводит диапазон шириной 35% от начального края к конечному (в RTL справа налево); при
+предпочтении уменьшенного движения диапазон стоит у начального края.
 
 ### CSS-свойства
 

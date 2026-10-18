@@ -13,7 +13,7 @@ function ProgressLinear(props: ComponentProps<typeof ProgressPrimitive.Root>) {
   return (
     <ProgressPrimitive.Root
       class={cn(
-        'box-border grid w-48 max-w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-2 text-foreground data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)]',
+        'grid w-full grid-cols-[minmax(0,1fr)_auto] gap-2 data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)]',
         local.class,
       )}
       {...others}
@@ -30,7 +30,7 @@ function ProgressLinearRootProvider(props: ComponentProps<typeof ProgressPrimiti
   return (
     <ProgressPrimitive.RootProvider
       class={cn(
-        'box-border grid w-48 max-w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-2 text-foreground data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)]',
+        'grid w-full grid-cols-[minmax(0,1fr)_auto] gap-2 data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)]',
         local.class,
       )}
       {...others}
@@ -46,10 +46,7 @@ function ProgressLinearLabel(props: ComponentProps<typeof ProgressPrimitive.Labe
 
   return (
     <ProgressPrimitive.Label
-      class={cn(
-        'min-w-0 text-sm leading-5 font-normal [overflow-wrap:anywhere] text-current',
-        local.class,
-      )}
+      class={cn('text-sm wrap-anywhere', local.class)}
       {...others}
       data-slot="progress-linear-label"
     />
@@ -61,10 +58,7 @@ function ProgressLinearValueText(props: ComponentProps<typeof ProgressPrimitive.
 
   return (
     <ProgressPrimitive.ValueText
-      class={cn(
-        'min-w-0 justify-self-end text-end text-sm leading-5 font-normal [overflow-wrap:anywhere] text-current',
-        local.class,
-      )}
+      class={cn('justify-self-end text-end text-sm wrap-anywhere', local.class)}
       {...others}
       data-slot="progress-linear-value-text"
     />
@@ -77,7 +71,7 @@ function ProgressLinearTrack(props: ComponentProps<typeof ProgressPrimitive.Trac
   return (
     <ProgressPrimitive.Track
       class={cn(
-        'col-span-full box-border block h-2 w-full overflow-hidden rounded-full bg-muted ring-1 ring-border ring-inset data-[orientation=vertical]:flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2 data-[orientation=vertical]:items-end data-[orientation=vertical]:justify-self-center',
+        'col-span-full h-2 overflow-hidden rounded-full bg-muted ring-1 ring-border ring-inset data-[orientation=vertical]:flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2 data-[orientation=vertical]:items-end data-[orientation=vertical]:justify-self-center',
         local.class,
       )}
       {...others}
@@ -92,7 +86,7 @@ function ProgressLinearRange(props: ComponentProps<typeof ProgressPrimitive.Rang
   return (
     <ProgressPrimitive.Range
       class={cn(
-        'block h-full rounded-[inherit] bg-primary transition-[width,height] duration-normal ease-in-out data-[orientation=vertical]:w-full data-[state=indeterminate]:w-[35%] data-[state=indeterminate]:animate-moduix-progress-linear-indeterminate data-[state=indeterminate]:data-[orientation=vertical]:h-[35%] data-[state=indeterminate]:data-[orientation=vertical]:animate-moduix-progress-linear-indeterminate-vertical motion-reduce:data-[state=indeterminate]:translate-x-0 motion-reduce:data-[state=indeterminate]:translate-y-0 motion-reduce:data-[state=indeterminate]:animate-none [&:dir(rtl)]:data-[state=indeterminate]:data-[orientation=horizontal]:[animation-direction:reverse]',
+        'h-full rounded-[inherit] bg-primary transition-[width,height] duration-normal ease-in-out data-[orientation=vertical]:w-full data-[state=indeterminate]:data-[orientation=horizontal]:w-[35%] data-[state=indeterminate]:data-[orientation=horizontal]:animate-moduix-progress-linear-indeterminate data-[state=indeterminate]:data-[orientation=vertical]:h-[35%] data-[state=indeterminate]:data-[orientation=vertical]:animate-moduix-progress-linear-indeterminate-vertical motion-reduce:data-[state=indeterminate]:data-[orientation]:animate-none [&:dir(rtl)]:data-[state=indeterminate]:data-[orientation=horizontal]:-scale-x-100',
         local.class,
       )}
       {...others}
@@ -102,15 +96,7 @@ function ProgressLinearRange(props: ComponentProps<typeof ProgressPrimitive.Rang
 }
 
 function ProgressLinearView(props: ComponentProps<typeof ProgressPrimitive.View>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ProgressPrimitive.View
-      class={cn('contents', local.class)}
-      {...others}
-      data-slot="progress-linear-view"
-    />
-  );
+  return <ProgressPrimitive.View {...props} data-slot="progress-linear-view" />;
 }
 
 const ProgressLinearContext = ProgressPrimitive.Context;
@@ -127,3 +113,18 @@ export {
   useProgress,
   useProgressContext,
 };
+export type {
+  ProgressContextProps,
+  ProgressLabelProps,
+  ProgressRangeProps,
+  ProgressRootProps,
+  ProgressRootProviderProps,
+  ProgressTrackProps,
+  ProgressValueChangeDetails,
+  ProgressValueTextProps,
+  ProgressValueTranslationDetails,
+  ProgressViewProps,
+  UseProgressContext,
+  UseProgressProps,
+  UseProgressReturn,
+} from '@ark-ui/solid/progress';

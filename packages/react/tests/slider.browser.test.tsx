@@ -1,6 +1,6 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import {
   Slider,
@@ -230,4 +230,23 @@ test('preserves active marker state for invalid sliders', async () => {
   await expect.element(page.locator('[data-slot="slider-root"]')).toHaveAttribute('data-invalid');
   await expect.element(activeMarker).toHaveAttribute('data-slot', 'slider-marker');
   await expect.element(activeMarker).toHaveAttribute('data-state', 'under-value');
+});
+
+test('fills the container width by default', () => {
+  render(
+    <div style={{ width: '20rem' }}>
+      <Slider defaultValue={[40]} data-testid="slider-root">
+        <SliderControl>
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumb index={0} aria-label="Volume">
+            <SliderHiddenInput />
+          </SliderThumb>
+        </SliderControl>
+      </Slider>
+    </div>,
+  );
+
+  expect(screen.getByTestId('slider-root').offsetWidth).toBe(320);
 });

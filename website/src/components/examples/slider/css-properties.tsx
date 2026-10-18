@@ -182,7 +182,7 @@ const sliderOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-line-height-text-sm)',
     'Controls value text line height.',
   ],
-  ['--moduix-slider-width', '12rem', 'Controls horizontal slider width.'],
+  ['--moduix-slider-width', '100%', 'Controls horizontal slider width.'],
   ['--moduix-slider-width-vertical', 'max-content', 'Controls vertical slider width.'],
 ];
 

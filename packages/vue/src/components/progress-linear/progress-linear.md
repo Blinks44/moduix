@@ -87,8 +87,9 @@ Vue scoped slot. `useProgressContext()` exposes the same state to setup code.
 
 ## Styling and accessibility
 
-The CSS Modules wrapper adds `progress-linear-*` `data-slot` hooks and the
-`--moduix-progress-linear-*` variables. `ProgressLinearTrack` receives `role="progressbar"` and
+The CSS Modules wrapper adds `progress-linear-*` `data-slot` hooks and three variables:
+`--moduix-progress-linear-track-size`, `--moduix-progress-linear-track-bg`, and
+`--moduix-progress-linear-range-bg`. `ProgressLinearView` is unstyled. `ProgressLinearTrack` receives `role="progressbar"` and
 its ARIA value attributes from Ark; pass `aria-label` or `aria-labelledby` because the visual
 `ProgressLinearLabel` is not automatically the accessible name.
 

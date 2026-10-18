@@ -683,7 +683,6 @@
 
 .heroProgress {
   width: 100%;
-  --moduix-progress-linear-width: 100%;
 
   :global([data-slot='progress-linear-range']) {
     background: linear-gradient(90deg, var(--rp-c-text-1), var(--moduix-home-brand));

@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'block h-full rounded-[inherit] bg-primary transition-[width,height] duration-normal ease-in-out data-[orientation=vertical]:w-full data-[state=indeterminate]:w-[35%] data-[state=indeterminate]:animate-moduix-progress-linear-indeterminate data-[state=indeterminate]:data-[orientation=vertical]:h-[35%] data-[state=indeterminate]:data-[orientation=vertical]:animate-moduix-progress-linear-indeterminate-vertical motion-reduce:data-[state=indeterminate]:translate-x-0 motion-reduce:data-[state=indeterminate]:translate-y-0 motion-reduce:data-[state=indeterminate]:animate-none [&:dir(rtl)]:data-[state=indeterminate]:data-[orientation=horizontal]:[animation-direction:reverse]',
+        'h-full rounded-[inherit] bg-primary transition-[width,height] duration-normal ease-in-out data-[orientation=vertical]:w-full data-[state=indeterminate]:data-[orientation=horizontal]:w-[35%] data-[state=indeterminate]:data-[orientation=horizontal]:animate-moduix-progress-linear-indeterminate data-[state=indeterminate]:data-[orientation=vertical]:h-[35%] data-[state=indeterminate]:data-[orientation=vertical]:animate-moduix-progress-linear-indeterminate-vertical motion-reduce:data-[state=indeterminate]:data-[orientation]:animate-none [&:dir(rtl)]:data-[state=indeterminate]:data-[orientation=horizontal]:-scale-x-100',
         className,
       )
     "

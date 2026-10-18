@@ -132,6 +132,8 @@ export function VolumeSlider() {
 
 - moduix supplies the rail, filled range, thumb, markers, dragging indicator, focus, dragging,
   disabled, invalid, and read-only visuals.
+- A horizontal root fills its container (`--moduix-slider-width`, default `100%`), like Chakra UI and
+  shadcn/ui and matching `ProgressLinear`. A vertical root is `max-content` wide and `12rem` tall.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
 - Public `--moduix-slider-*` variables are documented in the docs CSS properties table.
 - Invalid rail, range, thumb, focus ring, and active marker colors have independent public overrides:

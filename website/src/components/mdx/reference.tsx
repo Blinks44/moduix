@@ -40,14 +40,29 @@ function ExampleFrame({
   children,
   clientOnly = false,
   variant = 'block',
+  width,
 }: {
   children: React.ReactNode;
   clientOnly?: boolean;
   variant?: 'component' | 'block';
+  /** Fixed preview width for full-width components, so docs code stays free of layout styles. */
+  width?: keyof typeof previewMaxWidths;
 }) {
   if (import.meta.env.SSG_MD) return null;
 
-  const content = <div className={styles.demoContent}>{children}</div>;
+  const content = (
+    <div
+      className={styles.demoContent}
+      data-example-width={width ? '' : undefined}
+      style={
+        width
+          ? ({ '--moduix-doc-example-inline-size': previewMaxWidths[width] } as React.CSSProperties)
+          : undefined
+      }
+    >
+      {children}
+    </div>
+  );
 
   return (
     <div className={`rp-not-doc ${styles.demo} ${variant === 'component' ? styles.component : ''}`}>

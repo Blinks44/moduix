@@ -12,6 +12,7 @@ import {
   useProgress,
   useProgressContext,
 } from '../src';
+import { LocaleProvider } from '../src/locale';
 
 test('renders the linear Ark anatomy with stable hooks and an accessible name', async () => {
   let rootRef!: HTMLDivElement;
@@ -36,19 +37,17 @@ test('renders the linear Ark anatomy with stable hooks and an accessible name', 
     slot: 'progress-linear-root',
     state: 'loading',
   });
-  expect([...rootRef.classList]).toEqual(
-    expect.arrayContaining(['grid', 'w-48', 'text-foreground']),
-  );
+  expect([...rootRef.classList]).toEqual(expect.arrayContaining(['grid', 'w-full']));
   expect(progressbar.getAttribute('data-slot')).toBe('progress-linear-track');
   await expect
     .element(page.getByRole('progressbar', { name: 'Export data' }))
     .toHaveAttribute('aria-valuenow', '42');
   expect([...progressbar.classList]).toEqual(
-    expect.arrayContaining(['block', 'h-2', 'bg-muted', 'ring-1', 'ring-inset']),
+    expect.arrayContaining(['h-2', 'bg-muted', 'ring-1', 'ring-inset']),
   );
   expect(trackRef).toBe(progressbar);
   expect(range?.getAttribute('data-slot')).toBe('progress-linear-range');
-  expect([...range.classList]).toEqual(expect.arrayContaining(['block', 'h-full', 'bg-primary']));
+  expect([...range.classList]).toEqual(expect.arrayContaining(['h-full', 'bg-primary']));
   await expect.element(page.getByText('42%')).toHaveAttribute('aria-live', 'polite');
 });
 
@@ -94,10 +93,64 @@ test('renders an indeterminate linear progressbar without an ARIA value', async 
     .not.toHaveAttribute('aria-valuenow');
   expect([...range!.classList]).toEqual(
     expect.arrayContaining([
-      'data-[state=indeterminate]:w-[35%]',
-      'data-[state=indeterminate]:animate-moduix-progress-linear-indeterminate',
+      'data-[state=indeterminate]:data-[orientation=horizontal]:w-[35%]',
+      'data-[state=indeterminate]:data-[orientation=horizontal]:animate-moduix-progress-linear-indeterminate',
     ]),
   );
+});
+
+// Pauses the indeterminate animation at its first and last frame and reads the range position.
+function sweepEdges(name: string) {
+  const track = screen.getByRole('progressbar', { name });
+  const range = track.querySelector<HTMLElement>('[data-part="range"]')!;
+  const [animation] = range.getAnimations();
+  const duration = Number(animation!.effect!.getComputedTiming().duration);
+  animation!.pause();
+  const frames = [0, duration - 1].map((time) => {
+    animation!.currentTime = time;
+    return range.getBoundingClientRect();
+  });
+
+  return { track: track.getBoundingClientRect(), start: frames[0]!, end: frames[1]! };
+}
+
+test('sweeps the indeterminate range from the start edge to the end edge', () => {
+  render(() => (
+    <>
+      <ProgressLinear defaultValue={null}>
+        <ProgressLinearTrack aria-label="Sweep horizontal">
+          <ProgressLinearRange />
+        </ProgressLinearTrack>
+      </ProgressLinear>
+      <ProgressLinear defaultValue={null} orientation="vertical">
+        <ProgressLinearTrack aria-label="Sweep vertical">
+          <ProgressLinearRange />
+        </ProgressLinearTrack>
+      </ProgressLinear>
+      <LocaleProvider locale="ar">
+        <div lang="ar" dir="rtl">
+          <ProgressLinear defaultValue={null}>
+            <ProgressLinearTrack aria-label="Sweep rtl">
+              <ProgressLinearRange />
+            </ProgressLinearTrack>
+          </ProgressLinear>
+        </div>
+      </LocaleProvider>
+    </>
+  ));
+
+  const ltr = sweepEdges('Sweep horizontal');
+  expect(ltr.start.right).toBeLessThanOrEqual(ltr.track.left + 1);
+  expect(ltr.end.left).toBeGreaterThanOrEqual(ltr.track.right - 1);
+
+  const rtl = sweepEdges('Sweep rtl');
+  expect(rtl.start.left).toBeGreaterThanOrEqual(rtl.track.right - 1);
+  expect(rtl.end.right).toBeLessThanOrEqual(rtl.track.left + 1);
+
+  const vertical = sweepEdges('Sweep vertical');
+  expect(vertical.start.width).toBeCloseTo(vertical.track.width, 0);
+  expect(vertical.start.top).toBeGreaterThanOrEqual(vertical.track.bottom - 1);
+  expect(vertical.end.bottom).toBeLessThanOrEqual(vertical.track.top + 1);
 });
 
 test('preserves custom bounds and accessible value text', async () => {
@@ -177,9 +230,23 @@ test('lets consumer utilities override defaults on each styled part', () => {
   const track = screen.getByRole('progressbar', { name: 'Export data' });
   const range = track.querySelector('[data-part="range"]')!;
   expect(root.classList.contains('w-80')).toBe(true);
-  expect(root.classList.contains('w-48')).toBe(false);
+  expect(root.classList.contains('w-full')).toBe(false);
   expect(track.classList.contains('h-4')).toBe(true);
   expect(track.classList.contains('h-2')).toBe(false);
   expect(range.classList.contains('bg-accent')).toBe(true);
   expect(range.classList.contains('bg-primary')).toBe(false);
+});
+
+test('fills the container width by default', () => {
+  render(() => (
+    <div style={{ width: '20rem' }}>
+      <ProgressLinear defaultValue={40} data-testid="progress-width">
+        <ProgressLinearTrack aria-label="Width">
+          <ProgressLinearRange />
+        </ProgressLinearTrack>
+      </ProgressLinear>
+    </div>
+  ));
+
+  expect(screen.getByTestId('progress-width').offsetWidth).toBe(320);
 });

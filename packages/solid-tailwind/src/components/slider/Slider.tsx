@@ -17,7 +17,7 @@ function Slider(props: ComponentProps<typeof SliderPrimitive.Root>) {
       defaultValue={local.defaultValue}
       value={local.value}
       class={cn(
-        "group flex w-48 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50 data-[orientation=vertical]:grid data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:gap-x-2 data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
+        "group flex w-full flex-col gap-2 text-foreground data-disabled:opacity-50 data-[orientation=vertical]:grid data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:gap-x-2 data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
         local.class,
       )}
       readOnly={local.readOnly}
@@ -37,7 +37,7 @@ function SliderRootProvider(props: ComponentProps<typeof SliderPrimitive.RootPro
     <SliderPrimitive.RootProvider
       value={local.value}
       class={cn(
-        "group flex w-48 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50 data-[orientation=vertical]:grid data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:gap-x-2 data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
+        "group flex w-full flex-col gap-2 text-foreground data-disabled:opacity-50 data-[orientation=vertical]:grid data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:gap-x-2 data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
         local.class,
       )}
       {...others}

@@ -1,8 +1,8 @@
 import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
-import { render } from '@testing-library/vue';
+import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, defineComponent, ref } from 'vue';
+import { createSSRApp, defineComponent, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
   Slider,
@@ -283,4 +283,23 @@ test('applies CSS Module defaults and keeps consumer classes last', () => {
     expect(classes).toEqual(expect.arrayContaining([defaultClass, `consumer-${part}`]));
     expect(classes.at(-1)).toBe(`consumer-${part}`);
   }
+});
+
+test('fills the container width by default', async () => {
+  render({
+    components: sliderComponents,
+    template: `
+      <div style="width: 20rem">
+        <Slider :default-value="[40]" data-testid="slider-root">
+          <SliderControl>
+            <SliderTrack><SliderRange /></SliderTrack>
+            <SliderThumb :index="0" aria-label="Volume"><SliderHiddenInput /></SliderThumb>
+          </SliderControl>
+        </Slider>
+      </div>
+    `,
+  });
+  await nextTick();
+
+  expect(screen.getByTestId('slider-root').offsetWidth).toBe(320);
 });
