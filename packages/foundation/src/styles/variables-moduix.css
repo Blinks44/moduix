@@ -401,34 +401,7 @@
   --moduix-progress-linear-track-size: initial; /* var(--moduix-spacing-2) */
 
   /* QrCode */
-  --moduix-qr-code-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-qr-code-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-qr-code-download-trigger-bg: initial; /* var(--moduix-color-background) */
-  --moduix-qr-code-download-trigger-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-qr-code-download-trigger-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-qr-code-download-trigger-border-width: initial; /* var(--moduix-button-border-width, var(--moduix-border-width-sm)) */
-  --moduix-qr-code-download-trigger-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-qr-code-download-trigger-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-qr-code-download-trigger-focus-ring-offset: initial; /* var(--moduix-qr-code-download-trigger-border-width, var(--moduix-button-border-width, var(--moduix-border-width-sm))) */
-  --moduix-qr-code-download-trigger-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
-  --moduix-qr-code-download-trigger-font-size: initial; /* var(--moduix-button-font-size, var(--moduix-text-sm)) */
-  --moduix-qr-code-download-trigger-font-weight: initial; /* var(--moduix-button-font-weight, var(--moduix-weight-medium)) */
-  --moduix-qr-code-download-trigger-gap: initial; /* var(--moduix-button-content-gap, var(--moduix-spacing-2)) */
-  --moduix-qr-code-download-trigger-height: initial; /* var(--moduix-size-md) */
-  --moduix-qr-code-download-trigger-icon-size: initial; /* var(--moduix-button-icon-size, var(--moduix-spacing-4)) */
-  --moduix-qr-code-download-trigger-line-height: initial; /* var(--moduix-button-line-height, var(--moduix-line-height-text-sm)) */
-  --moduix-qr-code-download-trigger-padding-x: initial; /* var(--moduix-spacing-4) */
-  --moduix-qr-code-download-trigger-radius: initial; /* var(--moduix-button-radius, var(--moduix-radius-md)) */
-  --moduix-qr-code-fill: initial; /* currentColor */
-  --moduix-qr-code-gap: initial; /* var(--moduix-spacing-3) */
-  --moduix-qr-code-max-width: initial; /* 100% */
-  --moduix-qr-code-overlay-bg: initial; /* var(--moduix-color-background) */
-  --moduix-qr-code-overlay-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-qr-code-overlay-padding: initial; /* var(--moduix-spacing-1) */
-  --moduix-qr-code-overlay-radius: initial; /* var(--moduix-radius-sm) */
-  --moduix-qr-code-overlay-size: initial; /* var(--moduix-size-lg) */
   --moduix-qr-code-size: initial; /* 8rem */
-  --moduix-qr-code-transition: initial; /* var(--moduix-transition-default) */
 
   /* Radio */
   --moduix-radio-bg: initial; /* var(--moduix-color-background) */

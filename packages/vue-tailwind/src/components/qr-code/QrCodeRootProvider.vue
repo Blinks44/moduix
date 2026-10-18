@@ -21,12 +21,7 @@ const attrs = useAttrs();
 <template>
   <ArkQrCodeRootProvider
     v-bind="attrs"
-    :class="
-      cn(
-        'relative box-border inline-flex w-32 max-w-full flex-col items-center gap-3 text-foreground',
-        className,
-      )
-    "
+    :class="cn('inline-grid w-32 max-w-full grid-cols-1 justify-items-center gap-3', className)"
     :value="value"
     data-slot="qr-code-root-provider"
   >
