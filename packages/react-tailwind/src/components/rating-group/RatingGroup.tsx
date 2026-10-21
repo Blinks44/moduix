@@ -30,10 +30,7 @@ const RatingGroup = forwardRef<
   return (
     <RatingGroupPrimitive.Root
       ref={ref}
-      className={cn(
-        'group/rating-group inline-flex flex-col gap-1 text-muted-foreground',
-        className,
-      )}
+      className={cn('group/rating-group inline-flex flex-col gap-1', className)}
       {...props}
       data-size={size}
       data-slot="rating-group-root"
@@ -48,10 +45,7 @@ const RatingGroupRootProvider = forwardRef<
   return (
     <RatingGroupPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'group/rating-group inline-flex flex-col gap-1 text-muted-foreground',
-        className,
-      )}
+      className={cn('group/rating-group inline-flex flex-col gap-1', className)}
       {...props}
       data-size={size}
       data-slot="rating-group-root-provider"
@@ -93,15 +87,23 @@ const RatingGroupControl = forwardRef<
 const RatingGroupItem = forwardRef<
   ComponentRef<typeof RatingGroupPrimitive.Item>,
   ComponentProps<typeof RatingGroupPrimitive.Item>
->(function RatingGroupItem({ className, ...props }, ref) {
+>(function RatingGroupItem({ className, onPointerDown, ...props }, ref) {
   return (
     <RatingGroupPrimitive.Item
       ref={ref}
       className={cn(
-        'inline-flex cursor-pointer items-center justify-center rounded-sm leading-none text-inherit outline-1 -outline-offset-1 outline-transparent transition-[color,opacity] duration-normal ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-readonly:cursor-default',
+        'inline-flex cursor-pointer rounded-sm outline-1 -outline-offset-1 outline-transparent focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-readonly:cursor-default',
         className,
       )}
       {...props}
+      onPointerDown={(event) => {
+        onPointerDown?.(event);
+
+        if (event.button !== 0) return;
+        if (event.currentTarget.matches('[data-disabled], [data-readonly]')) return;
+
+        event.currentTarget.focus({ preventScroll: true, focusVisible: false });
+      }}
       data-slot="rating-group-item"
     />
   );
@@ -115,7 +117,7 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
       <span
         ref={ref}
         className={cn(
-          'relative inline-flex size-5 items-center justify-center text-primary group-data-[size=lg]/rating-group:size-6 group-data-[size=sm]/rating-group:size-4 group-data-[size=xl]/rating-group:size-7 group-data-[size=xs]/rating-group:size-3.5 [&>svg]:size-full [&>svg]:flex-none [&>svg]:transition-[color,fill,stroke,clip-path] [&>svg]:duration-normal [&>svg]:ease-in-out motion-reduce:[&>svg]:transition-none',
+          'relative inline-flex size-5 items-center justify-center text-primary group-data-[size=lg]/rating-group:size-6 group-data-[size=sm]/rating-group:size-4 group-data-[size=xl]/rating-group:size-7 group-data-[size=xs]/rating-group:size-3.5 [&>svg]:size-full [&>svg]:flex-none [&>svg]:transition-[color,fill,clip-path] [&>svg]:duration-normal [&>svg]:ease-in-out',
           className,
         )}
         {...props}
@@ -127,12 +129,12 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
           <>
             <RatingStarIcon
               data-slot="rating-group-item-indicator-bg"
-              className="absolute inset-0 size-full flex-none fill-transparent stroke-current text-muted-foreground"
+              className="absolute inset-0 fill-transparent stroke-current text-muted-foreground"
             />
             <RatingStarIcon
               data-slot="rating-group-item-indicator-fg"
               className={cn(
-                'absolute inset-0 size-full flex-none fill-current stroke-current text-primary [clip-path:inset(0_0_0_0)]',
+                'absolute inset-0 fill-current stroke-current [clip-path:inset(0)]',
                 half && '[clip-path:inset(0_50%_0_0)] rtl:[clip-path:inset(0_0_0_50%)]',
                 !highlighted && '[clip-path:inset(0_100%_0_0)]',
               )}

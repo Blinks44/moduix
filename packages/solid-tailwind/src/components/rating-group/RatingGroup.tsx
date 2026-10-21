@@ -6,6 +6,7 @@ import {
 } from '@ark-ui/solid/rating-group';
 import type { ComponentProps, JSX } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { cn } from '@/lib/moduix/cn';
 import { RatingStarIcon } from '@/lib/moduix/icons/ui';
 
@@ -22,32 +23,28 @@ type RatingGroupRootProviderProps = ComponentProps<typeof RatingGroupPrimitive.R
 type RatingGroupItemIndicatorProps = ComponentProps<'span'>;
 
 function RatingGroup(props: RatingGroupRootProps) {
-  const [local, others] = splitProps(props, ['children', 'class', 'size']);
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <RatingGroupPrimitive.Root
-      class={cn('group/rating-group inline-flex flex-col gap-1 text-muted-foreground', local.class)}
+      class={cn('group/rating-group inline-flex flex-col gap-1', local.class)}
       {...others}
       data-size={local.size ?? 'md'}
       data-slot="rating-group-root"
-    >
-      {local.children}
-    </RatingGroupPrimitive.Root>
+    />
   );
 }
 
 function RatingGroupRootProvider(props: RatingGroupRootProviderProps) {
-  const [local, others] = splitProps(props, ['children', 'class', 'size']);
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <RatingGroupPrimitive.RootProvider
-      class={cn('group/rating-group inline-flex flex-col gap-1 text-muted-foreground', local.class)}
+      class={cn('group/rating-group inline-flex flex-col gap-1', local.class)}
       {...others}
       data-size={local.size ?? 'md'}
       data-slot="rating-group-root-provider"
-    >
-      {local.children}
-    </RatingGroupPrimitive.RootProvider>
+    />
   );
 }
 
@@ -79,15 +76,23 @@ function RatingGroupControl(props: ComponentProps<typeof RatingGroupPrimitive.Co
 }
 
 function RatingGroupItem(props: ComponentProps<typeof RatingGroupPrimitive.Item>) {
-  const [local, others] = splitProps(props, ['class']);
+  const [local, others] = splitProps(props, ['class', 'onPointerDown']);
 
   return (
     <RatingGroupPrimitive.Item
       class={cn(
-        'inline-flex cursor-pointer items-center justify-center rounded-sm leading-none text-inherit outline-1 -outline-offset-1 outline-transparent transition-[color,opacity] duration-normal ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-readonly:cursor-default',
+        'inline-flex cursor-pointer rounded-sm outline-1 -outline-offset-1 outline-transparent focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-readonly:cursor-default',
         local.class,
       )}
       {...others}
+      onPointerDown={(event) => {
+        callEventHandler(local.onPointerDown, event);
+
+        if (event.button !== 0) return;
+        if (event.currentTarget.matches('[data-disabled], [data-readonly]')) return;
+
+        event.currentTarget.focus({ preventScroll: true, focusVisible: false });
+      }}
       data-slot="rating-group-item"
     />
   );
@@ -101,7 +106,7 @@ function RatingGroupItemIndicator(props: RatingGroupItemIndicatorProps) {
   return (
     <span
       class={cn(
-        'relative inline-flex size-5 items-center justify-center text-primary group-data-[size=lg]/rating-group:size-6 group-data-[size=sm]/rating-group:size-4 group-data-[size=xl]/rating-group:size-7 group-data-[size=xs]/rating-group:size-3.5 [&>svg]:size-full [&>svg]:flex-none [&>svg]:transition-[color,fill,stroke,clip-path] [&>svg]:duration-normal [&>svg]:ease-in-out motion-reduce:[&>svg]:transition-none',
+        'relative inline-flex size-5 items-center justify-center text-primary group-data-[size=lg]/rating-group:size-6 group-data-[size=sm]/rating-group:size-4 group-data-[size=xl]/rating-group:size-7 group-data-[size=xs]/rating-group:size-3.5 [&>svg]:size-full [&>svg]:flex-none [&>svg]:transition-[color,fill,clip-path] [&>svg]:duration-normal [&>svg]:ease-in-out',
         local.class,
       )}
       {...others}
@@ -113,12 +118,12 @@ function RatingGroupItemIndicator(props: RatingGroupItemIndicatorProps) {
         <>
           <RatingStarIcon
             data-slot="rating-group-item-indicator-bg"
-            class="absolute inset-0 size-full flex-none fill-transparent stroke-current text-muted-foreground"
+            class="absolute inset-0 fill-transparent stroke-current text-muted-foreground"
           />
           <RatingStarIcon
             data-slot="rating-group-item-indicator-fg"
             class={cn(
-              'absolute inset-0 size-full flex-none fill-current stroke-current text-primary [clip-path:inset(0_0_0_0)]',
+              'absolute inset-0 fill-current stroke-current [clip-path:inset(0)]',
               item().half && '[clip-path:inset(0_50%_0_0)] rtl:[clip-path:inset(0_0_0_50%)]',
               !item().highlighted && '[clip-path:inset(0_100%_0_0)]',
             )}

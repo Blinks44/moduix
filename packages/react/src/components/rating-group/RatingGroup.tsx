@@ -85,12 +85,20 @@ const RatingGroupControl = forwardRef<
 const RatingGroupItem = forwardRef<
   ComponentRef<typeof RatingGroupPrimitive.Item>,
   ComponentProps<typeof RatingGroupPrimitive.Item>
->(function RatingGroupItem({ className, ...props }, ref) {
+>(function RatingGroupItem({ className, onPointerDown, ...props }, ref) {
   return (
     <RatingGroupPrimitive.Item
       ref={ref}
       className={clsx(styles.item, className)}
       {...props}
+      onPointerDown={(event) => {
+        onPointerDown?.(event);
+
+        if (event.button !== 0) return;
+        if (event.currentTarget.matches('[data-disabled], [data-readonly]')) return;
+
+        event.currentTarget.focus({ preventScroll: true, focusVisible: false });
+      }}
       data-slot="rating-group-item"
     />
   );

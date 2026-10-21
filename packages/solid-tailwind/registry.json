@@ -1228,7 +1228,8 @@
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",
-        "@moduix-solid-tailwind/icons"
+        "@moduix-solid-tailwind/icons",
+        "@moduix-solid-tailwind/event-handlers"
       ],
       "files": [
         {

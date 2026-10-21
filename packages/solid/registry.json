@@ -1332,7 +1332,11 @@
       "title": "RatingGroup",
       "description": "moduix Solid RatingGroup component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/icons",
+        "@moduix-solid/event-handlers"
+      ],
       "files": [
         {
           "path": "src/components/rating-group/RatingGroup.tsx",

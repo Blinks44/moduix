@@ -23,7 +23,7 @@ const item = useRatingGroupItemContext();
     v-bind="attrs"
     :class="
       cn(
-        'relative inline-flex size-5 items-center justify-center text-primary group-data-[size=lg]/rating-group:size-6 group-data-[size=sm]/rating-group:size-4 group-data-[size=xl]/rating-group:size-7 group-data-[size=xs]/rating-group:size-3.5 [&>svg]:size-full [&>svg]:flex-none [&>svg]:transition-[color,fill,stroke,clip-path] [&>svg]:duration-normal [&>svg]:ease-in-out motion-reduce:[&>svg]:transition-none',
+        'relative inline-flex size-5 items-center justify-center text-primary group-data-[size=lg]/rating-group:size-6 group-data-[size=sm]/rating-group:size-4 group-data-[size=xl]/rating-group:size-7 group-data-[size=xs]/rating-group:size-3.5 [&>svg]:size-full [&>svg]:flex-none [&>svg]:transition-[color,fill,clip-path] [&>svg]:duration-normal [&>svg]:ease-in-out',
         className,
       )
     "
@@ -33,13 +33,13 @@ const item = useRatingGroupItemContext();
   >
     <slot>
       <RatingStarIcon
-        class="absolute inset-0 size-full flex-none fill-transparent stroke-current text-muted-foreground"
+        class="absolute inset-0 fill-transparent stroke-current text-muted-foreground"
         data-slot="rating-group-item-indicator-bg"
       />
       <RatingStarIcon
         :class="
           cn(
-            'absolute inset-0 size-full flex-none fill-current stroke-current text-primary [clip-path:inset(0_0_0_0)]',
+            'absolute inset-0 fill-current stroke-current [clip-path:inset(0)]',
             item.half && '[clip-path:inset(0_50%_0_0)] rtl:[clip-path:inset(0_0_0_50%)]',
             !item.highlighted && '[clip-path:inset(0_100%_0_0)]',
           )

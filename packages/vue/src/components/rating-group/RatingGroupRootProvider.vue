@@ -5,13 +5,14 @@ import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './RatingGroup.module.css';
+import type { RatingGroupSize } from './RatingGroup.vue';
 
 defineOptions({ inheritAttrs: false });
 
 export interface RatingGroupRootProviderProps
   extends /* @vue-ignore */ ArkRatingGroupRootProviderProps {
   class?: HTMLAttributes['class'];
-  size?: import('./RatingGroup.vue').RatingGroupSize;
+  size?: RatingGroupSize;
   value: ArkRatingGroupRootProviderProps['value'];
 }
 

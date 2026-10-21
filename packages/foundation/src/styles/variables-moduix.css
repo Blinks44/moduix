@@ -415,22 +415,8 @@
   /* RatingGroup */
   --moduix-rating-group-active-color: initial; /* var(--moduix-color-primary) */
   --moduix-rating-group-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-rating-group-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-rating-group-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-rating-group-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
-  --moduix-rating-group-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
   --moduix-rating-group-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-rating-group-root-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-rating-group-icon-size-xs: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-rating-group-icon-size-sm: initial; /* var(--moduix-spacing-4) */
-  --moduix-rating-group-icon-size-md: initial; /* var(--moduix-spacing-5) */
-  --moduix-rating-group-icon-size-lg: initial; /* var(--moduix-spacing-6) */
-  --moduix-rating-group-icon-size-xl: initial; /* var(--moduix-spacing-7) */
-  --moduix-rating-group-label-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-rating-group-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-rating-group-label-font-weight: initial; /* var(--moduix-weight-semibold) */
-  --moduix-rating-group-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-rating-group-transition: initial; /* var(--moduix-transition-default) */
+  --moduix-rating-group-icon-size: initial; /* size-specific, md: var(--moduix-spacing-5) */
 
   /* ScrollArea */
   --moduix-scroll-area-bg: initial; /* transparent */
