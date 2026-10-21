@@ -20,8 +20,7 @@ const { ariaLabel, ariaLabelledby, asChild = false, class: className } = defineP
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const clearClass =
-  'pointer-events-auto absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-normal ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 [&>svg]:size-4';
+const clearClass = 'absolute inset-y-0 end-[2.125rem] my-auto size-control-xs';
 </script>
 
 <template>

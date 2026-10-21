@@ -2587,8 +2587,8 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/select/SelectHiddenSelect.vue",
-          "target": "@components/ui/select/SelectHiddenSelect.vue",
+          "path": "src/components/select/SelectOption.vue",
+          "target": "@components/ui/select/SelectOption.vue",
           "type": "registry:component"
         },
         {

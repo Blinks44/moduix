@@ -112,11 +112,11 @@ Les tokens sont organisés en couches pour que les changements courants restent 
 | Primitives de thème | `--moduix-primary`, `--moduix-spacing-2`, `--moduix-size-md`, `--moduix-radius` | Définir le langage visuel d’une application ou d’un préréglage. |
 | Alias sémantiques | `--moduix-color-primary`, `--moduix-spacing-md`, `--moduix-radius-md` | Lire les valeurs calculées dans les composants et les styles applicatifs. |
 | Valeurs par défaut d’une famille | `--moduix-popup-item-min-height`, `--moduix-focus-ring-width` | Garder cohérents les contrôles associés, les lignes de liste et les états. |
-| Alias de composants | `--moduix-input-height`, `--moduix-select-item-min-height` | Créer une exception délibérée pour un composant ou une instance. |
+| Alias de composants | `--moduix-input-height`, `--moduix-select-control-height` | Créer une exception délibérée pour un composant ou une instance. |
 
 Préférez la couche la plus haute qui convient. Redéfinissez `--moduix-primary` quand la couleur de
 marque change, `--moduix-popup-item-min-height` quand toutes les surfaces de type menu doivent avoir
-une densité différente, et `--moduix-select-item-min-height` uniquement si Select doit s’en écarter.
+une densité différente, et `--moduix-select-control-height` uniquement si Select doit s’en écarter.
 
 Les alias de composants utilisent des chaînes de valeurs de repli plutôt que des valeurs dupliquées.
 Un thème peut donc redéfinir quelques primitives, tandis que la typographie, la géométrie des icônes,
@@ -198,7 +198,7 @@ plusieurs composants à la fois, jusqu’à ce qu’une variable de composant
 | <code>--moduix-focus-ring-\*</code><br /><code>--moduix-color-ring</code> | Géométrie et couleur partagées de l’anneau de focus | Boutons, champs de saisie, contrôles composites, déclencheurs de liste contextuelle |
 
 Utilisez ces tokens pour apporter un changement visuel étendu à tout le système. Utilisez les tokens
-propres à un composant, comme `--moduix-dialog-width` ou `--moduix-select-transition`, lorsqu’un
+propres à un composant, comme `--moduix-dialog-width` ou `--moduix-select-width`, lorsqu’un
 seul composant doit se distinguer.
 
 ```css

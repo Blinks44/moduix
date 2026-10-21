@@ -10,9 +10,7 @@ import {
   SelectClearTrigger,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/react/select';
 
 const fruits = createListCollection({
@@ -81,10 +79,9 @@ export default function SelectSelectOnHighlightDemo() {
       <SelectPositioner>
         <SelectContent>
           {fruits.items.map((item) => (
-            <SelectItem key={item.value} item={item}>
-              <SelectItemText>{item.label}</SelectItemText>
-              <SelectItemIndicator />
-            </SelectItem>
+            <SelectOption key={item.value} item={item}>
+              {item.label}
+            </SelectOption>
           ))}
         </SelectContent>
       </SelectPositioner>

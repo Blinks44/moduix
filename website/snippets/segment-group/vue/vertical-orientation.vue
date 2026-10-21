@@ -2,11 +2,7 @@
 import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/vue/segment-group';
 import styles from '@/components/examples/segment-group/segment-group-vertical-orientation.module.css';
 
-const views = [
-  { value: 'List', label: 'List' },
-  { value: 'Board', label: 'Board' },
-  { value: 'Calendar', label: 'Calendar' },
-];
+const views = ['List', 'Board', 'Calendar'];
 </script>
 
 <template>

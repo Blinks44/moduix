@@ -275,9 +275,10 @@ selected options and their keyboard interaction.
 
 ## Styling
 
-`NativeSelect` reuses the `--moduix-select-*` variables from the CSS Modules variants of `Select`, so
-dimensions, indicator spacing, borders, colors, radius, focus ring, disabled opacity, and transitions
-can be tuned consistently. Tailwind variants use native utility classes and consumer class overrides.
+`NativeSelect` reads the same width, height, radius, and indicator size variables as the CSS Modules
+variants of `Select`, so both selects can be resized together. Colors, borders, focus rings, and
+motion come from foundation tokens; override them with a class. Tailwind variants use native utility
+classes and consumer class overrides.
 
 ### CSS Properties
 
@@ -300,8 +301,8 @@ geometry use the shared 4px spacing scale.
 
 - In React use `className` on the select, and in Solid or Vue use `class`. Use
   `controlProps.className` or `controlProps.class` for the outer wrapper `<span>`.
-- Set indicator-related `--moduix-select-*` variables in `controlProps.style` when both the select and
-  indicator should inherit them.
+- Set `--moduix-select-action-size` in `controlProps.style` (or on an ancestor) so both the select
+  padding and the indicator follow it.
 - `data-scope="field"` and `data-part="select"` preserve the Ark Field styling contract.
 - `data-slot="native-select-root"` is the stable moduix selector for the `<select>` control.
 - `data-slot="native-select-control"` and `data-slot="native-select-indicator"` target the internal

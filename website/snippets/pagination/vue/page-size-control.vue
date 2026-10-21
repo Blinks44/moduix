@@ -12,10 +12,8 @@ import {
   SelectContent,
   SelectControl,
   SelectIndicator,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
   SelectLabel,
+  SelectOption,
   SelectPositioner,
   SelectTrigger,
   SelectValueText,
@@ -61,10 +59,9 @@ const handlePageSizeChange = (
             </SelectControl>
             <SelectPositioner>
               <SelectContent>
-                <SelectItem v-for="item in pageSizes.items" :key="item.value" :item="item">
-                  <SelectItemText>{{ item.label }}</SelectItemText>
-                  <SelectItemIndicator />
-                </SelectItem>
+                <SelectOption v-for="item in pageSizes.items" :key="item.value" :item="item">{{
+                  item.label
+                }}</SelectOption>
               </SelectContent>
             </SelectPositioner>
           </Select>

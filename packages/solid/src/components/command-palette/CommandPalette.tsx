@@ -350,17 +350,9 @@ function CommandPaletteList(props: ComponentProps<typeof ComboboxPrimitive.Conte
       {...others}
       data-slot="command-palette-list"
     >
-      <ScrollArea data-slot="command-palette-scroll-area" class={styles.scrollArea}>
-        <ScrollAreaViewport
-          data-slot="command-palette-scroll-viewport"
-          class={styles.scrollViewport}
-        >
-          <ScrollAreaContent
-            data-slot="command-palette-scroll-content"
-            class={styles.scrollContent}
-          >
-            {local.children}
-          </ScrollAreaContent>
+      <ScrollArea class={styles.scrollArea}>
+        <ScrollAreaViewport class={styles.scrollViewport}>
+          <ScrollAreaContent class={styles.scrollContent}>{local.children}</ScrollAreaContent>
         </ScrollAreaViewport>
       </ScrollArea>
     </ComboboxPrimitive.Content>

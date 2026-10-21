@@ -253,3 +253,33 @@ test('does not animate the indicator before the selection changes', async () => 
   await expect.element(page.getByTestId('indicator')).toBeVisible();
   expect(getComputedStyle(screen.getByTestId('indicator')).transitionDuration).toBe('0s');
 });
+
+test('sizes the whole group to the matching control height', () => {
+  render(
+    <>
+      {(['sm', 'md', 'lg'] as const).map((size) => (
+        <SegmentGroup key={size} size={size} defaultValue="React" data-testid={size}>
+          <SegmentGroupIndicator />
+          <SegmentGroupItems items={frameworks} />
+        </SegmentGroup>
+      ))}
+    </>,
+  );
+
+  expect(screen.getByTestId('sm').offsetHeight).toBe(32);
+  expect(screen.getByTestId('md').offsetHeight).toBe(36);
+  expect(screen.getByTestId('lg').offsetHeight).toBe(40);
+});
+
+test('renders string items with the string as value and label', async () => {
+  const { container } = render(
+    <form>
+      <SegmentGroup name="framework" defaultValue="Solid">
+        <SegmentGroupItems items={frameworks} />
+      </SegmentGroup>
+    </form>,
+  );
+
+  await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeChecked();
+  expect(new FormData(container.querySelector('form')!).get('framework')).toBe('Solid');
+});

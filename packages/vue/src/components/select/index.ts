@@ -1,11 +1,15 @@
-import { useSelect, useSelectContext, useSelectItemContext } from '@ark-ui/vue/select';
+import {
+  SelectHiddenSelect,
+  useSelect,
+  useSelectContext,
+  useSelectItemContext,
+} from '@ark-ui/vue/select';
 import Select from './Select.vue';
 import SelectClearTrigger from './SelectClearTrigger.vue';
 import SelectContent from './SelectContent.vue';
 import SelectContext from './SelectContext.vue';
 import SelectControl from './SelectControl.vue';
 import SelectField from './SelectField.vue';
-import SelectHiddenSelect from './SelectHiddenSelect.vue';
 import SelectIndicator from './SelectIndicator.vue';
 import SelectItem from './SelectItem.vue';
 import SelectItemContext from './SelectItemContext.vue';
@@ -18,6 +22,7 @@ import SelectItemTextIcon from './SelectItemTextIcon.vue';
 import SelectItemTextLabel from './SelectItemTextLabel.vue';
 import SelectLabel from './SelectLabel.vue';
 import SelectList from './SelectList.vue';
+import SelectOption from './SelectOption.vue';
 import SelectPositioner from './SelectPositioner.vue';
 import SelectRootProvider from './SelectRootProvider.vue';
 import SelectTrigger from './SelectTrigger.vue';
@@ -43,6 +48,7 @@ export {
   SelectItemTextLabel,
   SelectLabel,
   SelectList,
+  SelectOption,
   SelectPositioner,
   SelectRootProvider,
   SelectTrigger,

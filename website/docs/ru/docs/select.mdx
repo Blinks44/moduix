@@ -157,6 +157,7 @@ Select
 │        ├─ SelectList
 │        └─ SelectItemGroup
 │           ├─ SelectItemGroupLabel
+│           ├─ SelectOption[item]
 │           └─ SelectItem[item]
 │              ├─ SelectItemText
 │              │  └─ SelectItemTextContent
@@ -186,6 +187,7 @@ Select
 | `SelectItemGroup`         | Обёртка группы связанных элементов коллекции.                           |
 | `SelectItemGroupLabel`   | Подпись группы коллекции.                                                |
 | `SelectItem`              | Выбираемая строка. Передайте элемент коллекции через `item`.             |
+| `SelectOption` | Готовая строка для простых пунктов с текстом и индикатором. |
 | `SelectItemText`          | Текст для отображения и доступности.                                    |
 | `SelectItemTextContent`   | Вспомогательный компонент для разметки сложного текста элемента.        |
 | `SelectItemTextIcon`      | Обёртка для иконки в тексте элемента.                                   |
@@ -194,7 +196,7 @@ Select
 
 ## Композиция
 
-`SelectField` объединяет `SelectControl`, `SelectTrigger`, `SelectValueText` и стандартный `SelectIndicator`. Передайте `clearLabel`, чтобы добавить подписанную кнопку очистки, или используйте явные части, когда разметку триггера нужно стилизовать независимо. Оставляйте `SelectPositioner`, `SelectContent` и элементы коллекции в одном дереве Select.
+`SelectField` объединяет `SelectControl`, `SelectTrigger`, `SelectValueText` и стандартный `SelectIndicator`. Передайте `clearLabel`, чтобы добавить подписанную кнопку очистки, или используйте явные части, когда разметку триггера нужно стилизовать независимо. Оставляйте `SelectPositioner`, `SelectContent` и элементы коллекции в одном дереве Select. Для обычных строк используйте `SelectOption`: он рендерит `SelectItem` с `SelectItemText` и `SelectItemIndicator`. Передайте `indicator={false}`, чтобы скрыть галочку, или иконку, чтобы её заменить, а для строк с особой структурой используйте `SelectItem`.
 
 Явно добавьте `SelectHiddenSelect` внутрь `Select` или `SelectRootProvider`, если выбор должен участвовать в нативной отправке формы, валидации, автозаполнении или сбросе. Корневой компонент не создаёт его автоматически. `Positioner` по умолчанию размещается через портал: для рендера в обычном потоке укажите `portalled={false}`, а для собственного контейнера используйте `portalRef`.
 
@@ -807,7 +809,7 @@ Select с одним экземпляром состояния Ark.
 ### Расширенная настройка
 
 Соберите триггер, текст значения и индикатор вручную, если им нужны независимые композиция и
-стилизация. В этом случае не используйте `SelectField`.
+стилизация. В этом случае не используйте `SelectField` и `SelectOption`.
 
 <ExampleFrame variant="component">
   <SelectAdvancedCustomization />
@@ -847,7 +849,7 @@ Select с одним экземпляром состояния Ark.
 
 ## Стилизация
 
-Стилизуйте Select через `className` в React, `class` в Solid и Vue, стабильные хуки `data-slot="select-*"`, атрибуты Ark и публичные CSS-переменные `--moduix-select-*`. Варианты Tailwind используют нативные utility-классы и классы потребителя, а варианты CSS Modules используют переменные, описанные ниже.
+Стилизуйте Select через `className` в React, `class` в Solid и Vue, стабильные хуки `data-slot="select-*"` и атрибуты Ark. Варианты Tailwind используют нативные utility-классы и классы потребителя. Варианты CSS Modules оставляют пять переменных размеров, перечисленных ниже; цвета, границы, кольцо фокуса, отступы пунктов и анимация берутся из токенов foundation и общих переменных `--moduix-popup-*`, поэтому переопределяйте их классом на нужной части.
 
 ### CSS-свойства
 
@@ -858,7 +860,8 @@ Select с одним экземпляром состояния Ark.
 `SelectField` создаёт существующие слоты `select-control`, `select-trigger`, `select-value-text`,
 `select-indicator` и необязательный `select-clear-trigger`. Его свойство `indicator` передаёт
 дочерний элемент в существующий слот индикатора. Вспомогательные компоненты текста элемента
-предоставляют слоты `select-item-text-content`, `select-item-text-icon` и `select-item-text-label`.
+предоставляют слоты `select-item-text-content`, `select-item-text-icon` и `select-item-text-label`. `SelectOption` использует слоты пункта и не
+добавляет собственный хук стилизации.
 
 - Корни предоставляют `data-slot="select-root"` и `data-slot="select-root-provider"`.
 - Анатомия Ark использует `data-scope="select"` и `data-part`.

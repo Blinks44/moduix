@@ -10,11 +10,15 @@ import { For, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
 type SegmentGroupMachineProps = NonNullable<Parameters<typeof useSegmentGroupPrimitive>[0]>;
-type SegmentGroupOption = {
-  value: string;
-  label: JSX.Element;
-  disabled?: boolean;
+type SegmentGroupSize = 'sm' | 'md' | 'lg';
+type SegmentGroupRootProps = ComponentProps<typeof SegmentGroupPrimitive.Root> & {
+  size?: SegmentGroupSize;
 };
+type SegmentGroupRootProviderProps = ComponentProps<typeof SegmentGroupPrimitive.RootProvider> & {
+  size?: SegmentGroupSize;
+};
+type SegmentGroupItemOption = { value: string; label: JSX.Element; disabled?: boolean };
+type SegmentGroupItemsProps = { items: readonly (string | SegmentGroupItemOption)[] };
 
 function useSegmentGroup(props?: SegmentGroupMachineProps) {
   return useSegmentGroupPrimitive(() => {
@@ -24,34 +28,34 @@ function useSegmentGroup(props?: SegmentGroupMachineProps) {
   });
 }
 
-function SegmentGroup(props: ComponentProps<typeof SegmentGroupPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['class']);
+function SegmentGroup(props: SegmentGroupRootProps) {
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <SegmentGroupPrimitive.Root
       orientation="horizontal"
       class={cn(
-        'group/segment-group isolate box-border inline-flex max-w-full gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
+        'group/segment-group isolate box-border inline-flex max-w-full gap-1 rounded-lg border border-border bg-muted p-1 text-foreground [--_segment-group-size:var(--moduix-size-md)] data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col data-[size=lg]:[--_segment-group-size:var(--moduix-size-lg)] data-[size=sm]:[--_segment-group-size:var(--moduix-size-sm)]',
         local.class,
       )}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="segment-group-root"
     />
   );
 }
 
-function SegmentGroupRootProvider(
-  props: ComponentProps<typeof SegmentGroupPrimitive.RootProvider>,
-) {
-  const [local, others] = splitProps(props, ['class']);
+function SegmentGroupRootProvider(props: SegmentGroupRootProviderProps) {
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <SegmentGroupPrimitive.RootProvider
       class={cn(
-        'group/segment-group isolate box-border inline-flex max-w-full gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
+        'group/segment-group isolate box-border inline-flex max-w-full gap-1 rounded-lg border border-border bg-muted p-1 text-foreground [--_segment-group-size:var(--moduix-size-md)] data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col data-[size=lg]:[--_segment-group-size:var(--moduix-size-lg)] data-[size=sm]:[--_segment-group-size:var(--moduix-size-sm)]',
         local.class,
       )}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="segment-group-root-provider"
     />
   );
@@ -75,7 +79,7 @@ function SegmentGroupItem(props: ComponentProps<typeof SegmentGroupPrimitive.Ite
   return (
     <SegmentGroupPrimitive.Item
       class={cn(
-        'inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md px-3.5 text-sm leading-5 font-medium whitespace-nowrap text-muted-foreground transition-[color] duration-normal ease-in-out select-none data-disabled:cursor-default group-not-data-disabled/segment-group:data-disabled:opacity-50 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:data-focus-visible:outline-destructive data-readonly:cursor-default data-[orientation=vertical]:justify-start data-[state=checked]:text-foreground [@media(hover:hover)]:[&[data-state=unchecked]:not([data-readonly]):not([data-disabled]):hover]:text-foreground',
+        'inline-flex min-h-[calc(var(--_segment-group-size)-2*var(--moduix-spacing-1)-2*var(--moduix-border-width-sm))] cursor-pointer items-center justify-center gap-2 rounded-md px-3.5 text-sm font-medium whitespace-nowrap text-muted-foreground transition-[color] duration-normal ease-in-out select-none group-data-[size=lg]/segment-group:px-4 group-data-[size=lg]/segment-group:text-md group-data-[size=sm]/segment-group:px-3 data-disabled:cursor-default group-not-data-disabled/segment-group:data-disabled:opacity-50 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:data-focus-visible:outline-destructive data-readonly:cursor-default data-[orientation=vertical]:justify-start data-[state=checked]:text-foreground [@media(hover:hover)]:[&[data-state=unchecked]:not([data-readonly]):not([data-disabled]):hover]:text-foreground',
         local.class,
       )}
       {...others}
@@ -107,15 +111,19 @@ const SegmentGroupContext = SegmentGroupPrimitive.Context;
 const SegmentGroupItemContext = SegmentGroupPrimitive.ItemContext;
 const SegmentGroupItemHiddenInput = SegmentGroupPrimitive.ItemHiddenInput;
 
-function SegmentGroupItems(props: { items: readonly SegmentGroupOption[] }) {
+function SegmentGroupItems(props: SegmentGroupItemsProps) {
   return (
     <For each={props.items}>
-      {(item) => (
-        <SegmentGroupItem value={item.value} disabled={item.disabled}>
-          <SegmentGroupItemText>{item.label}</SegmentGroupItemText>
-          <SegmentGroupItemHiddenInput />
-        </SegmentGroupItem>
-      )}
+      {(item) => {
+        const option: SegmentGroupItemOption =
+          typeof item === 'string' ? { value: item, label: item } : item;
+        return (
+          <SegmentGroupItem value={option.value} disabled={option.disabled}>
+            <SegmentGroupItemText>{option.label}</SegmentGroupItemText>
+            <SegmentGroupItemHiddenInput />
+          </SegmentGroupItem>
+        );
+      }}
     </For>
   );
 }
@@ -134,4 +142,11 @@ export {
   useSegmentGroup,
   useSegmentGroupContext,
   useSegmentGroupItemContext,
+};
+export type {
+  SegmentGroupItemOption,
+  SegmentGroupItemsProps,
+  SegmentGroupRootProps,
+  SegmentGroupRootProviderProps,
+  SegmentGroupSize,
 };

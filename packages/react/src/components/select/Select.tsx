@@ -28,8 +28,6 @@ import styles from './Select.module.css';
 type SelectRootProps<T extends CollectionItem> = ArkSelectRootProps<T> & OverlayPortalProps;
 type SelectRootProviderProps<T extends CollectionItem> = ArkSelectRootProviderProps<T> &
   OverlayPortalProps;
-type SelectRootComponent = ArkSelectRootComponent<OverlayPortalProps>;
-type SelectRootProviderComponent = ArkSelectRootProviderComponent<OverlayPortalProps>;
 type SelectFieldProps = Omit<
   ComponentProps<typeof SelectPrimitive.Control>,
   'asChild' | 'children'
@@ -41,8 +39,6 @@ type SelectFieldProps = Omit<
 
 const Select = forwardRef(function Select<T extends CollectionItem>(
   {
-    asChild,
-    children,
     className,
     lazyMount = true,
     portalled,
@@ -57,22 +53,17 @@ const Select = forwardRef(function Select<T extends CollectionItem>(
       <SelectPrimitive.Root
         ref={ref}
         className={clsx(styles.root, className)}
-        asChild={asChild}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
         data-slot="select-root"
-      >
-        {children}
-      </SelectPrimitive.Root>
+      />
     </OverlayPortalProvider>
   );
-}) as SelectRootComponent;
+}) as ArkSelectRootComponent<OverlayPortalProps>;
 
 const SelectRootProvider = forwardRef(function SelectRootProvider<T extends CollectionItem>(
   {
-    asChild,
-    children,
     className,
     lazyMount = true,
     portalled,
@@ -87,17 +78,14 @@ const SelectRootProvider = forwardRef(function SelectRootProvider<T extends Coll
       <SelectPrimitive.RootProvider
         ref={ref}
         className={clsx(styles.root, className)}
-        asChild={asChild}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
         data-slot="select-root-provider"
-      >
-        {children}
-      </SelectPrimitive.RootProvider>
+      />
     </OverlayPortalProvider>
   );
-}) as SelectRootProviderComponent;
+}) as ArkSelectRootProviderComponent<OverlayPortalProps>;
 
 const SelectLabel = forwardRef<
   ComponentRef<typeof SelectPrimitive.Label>,
@@ -170,13 +158,11 @@ const SelectClearTrigger = forwardRef<
   },
   ref,
 ) {
-  const triggerClassName = clsx(styles.clearTrigger, className);
-
   return (
     <SelectPrimitive.ClearTrigger
       ref={ref}
       asChild
-      className={triggerClassName}
+      className={clsx(styles.clearTrigger, className)}
       aria-label={asChild ? ariaLabel : undefined}
       aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
@@ -342,6 +328,25 @@ const SelectItemIndicator = forwardRef<
   );
 });
 
+type SelectOptionProps = Omit<
+  ComponentProps<typeof SelectPrimitive.Item>,
+  'asChild' | 'children'
+> & {
+  children: ReactNode;
+  indicator?: ReactNode | false;
+};
+
+const SelectOption = forwardRef<ComponentRef<typeof SelectPrimitive.Item>, SelectOptionProps>(
+  function SelectOption({ children, indicator, ...props }, ref) {
+    return (
+      <SelectItem ref={ref} {...props}>
+        <SelectItemText>{children}</SelectItemText>
+        {indicator !== false ? <SelectItemIndicator>{indicator}</SelectItemIndicator> : null}
+      </SelectItem>
+    );
+  },
+);
+
 const SelectItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
   function SelectItemTextContent({ className, ...props }, ref) {
     return (
@@ -405,6 +410,7 @@ export {
   SelectItemTextLabel,
   SelectLabel,
   SelectList,
+  SelectOption,
   SelectPositioner,
   SelectRootProvider,
   SelectTrigger,
@@ -413,3 +419,32 @@ export {
   useSelectContext,
   useSelectItemContext,
 };
+
+export type { SelectFieldProps, SelectOptionProps, SelectRootProps, SelectRootProviderProps };
+
+export type {
+  SelectClearTriggerProps,
+  SelectContentProps,
+  SelectContextProps,
+  SelectControlProps,
+  SelectHiddenSelectProps,
+  SelectHighlightChangeDetails,
+  SelectIndicatorProps,
+  SelectItemContextProps,
+  SelectItemGroupLabelProps,
+  SelectItemGroupProps,
+  SelectItemIndicatorProps,
+  SelectItemProps,
+  SelectItemTextProps,
+  SelectLabelProps,
+  SelectListProps,
+  SelectOpenChangeDetails,
+  SelectPositionerProps,
+  SelectTriggerProps,
+  SelectValueChangeDetails,
+  SelectValueTextProps,
+  UseSelectContext,
+  UseSelectItemContext,
+  UseSelectProps,
+  UseSelectReturn,
+} from '@ark-ui/react/select';

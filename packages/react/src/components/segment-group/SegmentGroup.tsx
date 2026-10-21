@@ -12,20 +12,31 @@ import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import styles from './SegmentGroup.module.css';
 
+type SegmentGroupSize = 'sm' | 'md' | 'lg';
+type SegmentGroupRootProps = ComponentProps<typeof SegmentGroupPrimitive.Root> & {
+  size?: SegmentGroupSize;
+};
+type SegmentGroupRootProviderProps = ComponentProps<typeof SegmentGroupPrimitive.RootProvider> & {
+  size?: SegmentGroupSize;
+};
+type SegmentGroupItemOption = { value: string; label: ReactNode; disabled?: boolean };
+type SegmentGroupItemsProps = { items: readonly (string | SegmentGroupItemOption)[] };
+
 function useSegmentGroup({ orientation = 'horizontal', ...props }: UseSegmentGroupProps = {}) {
   return useSegmentGroupPrimitive({ ...props, orientation });
 }
 
 const SegmentGroup = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.Root>,
-  ComponentProps<typeof SegmentGroupPrimitive.Root>
->(function SegmentGroup({ className, orientation = 'horizontal', ...props }, ref) {
+  SegmentGroupRootProps
+>(function SegmentGroup({ className, orientation = 'horizontal', size = 'md', ...props }, ref) {
   return (
     <SegmentGroupPrimitive.Root
       ref={ref}
       className={clsx(styles.root, className)}
       {...props}
       orientation={orientation}
+      data-size={size}
       data-slot="segment-group-root"
     />
   );
@@ -33,13 +44,14 @@ const SegmentGroup = forwardRef<
 
 const SegmentGroupRootProvider = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.RootProvider>,
-  ComponentProps<typeof SegmentGroupPrimitive.RootProvider>
->(function SegmentGroupRootProvider({ className, ...props }, ref) {
+  SegmentGroupRootProviderProps
+>(function SegmentGroupRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <SegmentGroupPrimitive.RootProvider
       ref={ref}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="segment-group-root-provider"
     />
   );
@@ -100,17 +112,17 @@ const SegmentGroupContext = SegmentGroupPrimitive.Context;
 const SegmentGroupItemContext = SegmentGroupPrimitive.ItemContext;
 const SegmentGroupItemHiddenInput = SegmentGroupPrimitive.ItemHiddenInput;
 
-function SegmentGroupItems({
-  items,
-}: {
-  items: readonly { value: string; label: ReactNode; disabled?: boolean }[];
-}) {
-  return items.map(({ value, label, disabled }) => (
-    <SegmentGroupItem key={value} value={value} disabled={disabled}>
-      <SegmentGroupItemText>{label}</SegmentGroupItemText>
-      <SegmentGroupItemHiddenInput />
-    </SegmentGroupItem>
-  ));
+function SegmentGroupItems({ items }: SegmentGroupItemsProps) {
+  return items.map((item) => {
+    const option: SegmentGroupItemOption =
+      typeof item === 'string' ? { value: item, label: item } : item;
+    return (
+      <SegmentGroupItem key={option.value} value={option.value} disabled={option.disabled}>
+        <SegmentGroupItemText>{option.label}</SegmentGroupItemText>
+        <SegmentGroupItemHiddenInput />
+      </SegmentGroupItem>
+    );
+  });
 }
 
 export {
@@ -127,4 +139,11 @@ export {
   useSegmentGroup,
   useSegmentGroupContext,
   useSegmentGroupItemContext,
+};
+export type {
+  SegmentGroupItemOption,
+  SegmentGroupItemsProps,
+  SegmentGroupRootProps,
+  SegmentGroupRootProviderProps,
+  SegmentGroupSize,
 };

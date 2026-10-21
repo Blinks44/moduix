@@ -1,5 +1,8 @@
 @layer moduix.components {
   .control {
+    --_select-action-size: var(--moduix-select-action-size, var(--moduix-size-xs));
+    --_select-action-offset: var(--moduix-spacing-2);
+
     position: relative;
     display: inline-grid;
     width: fit-content;
@@ -10,65 +13,50 @@
   .root {
     box-sizing: border-box;
     width: var(--moduix-select-width, 14rem);
-    max-width: var(--moduix-select-max-width, 100%);
+    max-width: 100%;
     min-width: 0;
     height: var(--moduix-select-control-height, var(--moduix-size-md));
     margin: 0;
-    border: var(--moduix-select-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-select-border-color, var(--moduix-color-border));
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
     border-radius: var(--moduix-select-radius, var(--moduix-radius-md));
-    padding-inline-start: var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5));
-    padding-inline-end: calc(
-      var(--moduix-select-action-offset-right, var(--moduix-spacing-2)) +
-        var(--moduix-select-action-size, var(--moduix-size-xs)) +
-        var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5))
-    );
+    padding-inline: var(--moduix-spacing-3-5)
+      calc(var(--_select-action-offset) + var(--_select-action-size) + var(--moduix-spacing-3-5));
     appearance: none;
-    background-color: var(--moduix-select-bg, var(--moduix-color-background));
-    color: var(--moduix-select-color, var(--moduix-color-foreground));
+    background-color: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
     font: inherit;
-    outline: var(
-        --moduix-select-focus-ring-width,
-        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-      )
-      solid transparent;
-    outline-offset: calc(
-      var(
-          --moduix-select-focus-ring-width,
-          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-        ) *
-        -1
-    );
+    outline: var(--moduix-focus-ring-inset-width) solid transparent;
+    outline-offset: var(--moduix-focus-ring-inset-offset);
     cursor: pointer;
     transition:
-      border-color var(--moduix-select-transition, var(--moduix-transition-default)),
-      outline-color var(--moduix-select-transition, var(--moduix-transition-default)),
-      opacity var(--moduix-select-transition, var(--moduix-transition-default));
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
 
     &:focus-visible {
-      border-color: var(--moduix-select-focus-ring-color, var(--moduix-color-ring));
-      outline-color: var(--moduix-select-focus-ring-color, var(--moduix-color-ring));
+      border-color: var(--moduix-color-ring);
+      outline-color: var(--moduix-color-ring);
     }
 
     &:is([data-invalid], [aria-invalid='true']) {
-      border-color: var(--moduix-select-invalid-color, var(--moduix-color-destructive));
-      outline-color: var(--moduix-select-invalid-color, var(--moduix-color-destructive));
+      border-color: var(--moduix-color-destructive);
+      outline-color: var(--moduix-color-destructive);
     }
 
     &:is([data-disabled], :disabled) {
       pointer-events: none;
-      opacity: var(--moduix-select-disabled-opacity, var(--moduix-opacity-disabled));
+      opacity: var(--moduix-opacity-disabled);
     }
 
     &:is([multiple], [size]:not([size='0'], [size='1'])) {
       height: auto;
       padding-block: var(--moduix-spacing-2);
-      padding-inline: var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5));
+      padding-inline: var(--moduix-spacing-3-5);
       appearance: auto;
     }
 
     @media (forced-colors: active) {
-      padding-inline-end: var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5));
+      padding-inline-end: var(--moduix-spacing-3-5);
       appearance: auto;
     }
   }
@@ -76,25 +64,24 @@
   .indicator {
     position: absolute;
     top: 50%;
-    inset-inline-end: var(--moduix-select-action-offset-right, var(--moduix-spacing-2));
+    inset-inline-end: var(--_select-action-offset);
     display: inline-flex;
-    width: var(--moduix-select-action-size, var(--moduix-size-xs));
-    height: var(--moduix-select-action-size, var(--moduix-size-xs));
+    width: var(--_select-action-size);
+    height: var(--_select-action-size);
     align-items: center;
     justify-content: center;
-    border-radius: var(--moduix-select-action-radius, var(--moduix-radius-sm));
-    background: var(--moduix-select-action-bg, transparent);
-    color: var(--moduix-select-icon-color, var(--moduix-color-muted-foreground));
+    border-radius: var(--moduix-radius-sm);
+    color: var(--moduix-color-muted-foreground);
     pointer-events: none;
     transform: translateY(-50%);
     transition:
-      background-color var(--moduix-select-transition, var(--moduix-transition-default)),
-      color var(--moduix-select-transition, var(--moduix-transition-default)),
-      opacity var(--moduix-select-transition, var(--moduix-transition-default));
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
 
     & > svg {
-      width: var(--moduix-select-icon-size, var(--moduix-spacing-4));
-      height: var(--moduix-select-icon-size, var(--moduix-spacing-4));
+      width: var(--moduix-spacing-4);
+      height: var(--moduix-spacing-4);
     }
 
     @media (forced-colors: active) {
@@ -103,13 +90,13 @@
   }
 
   .root:is([data-disabled], :disabled) + .indicator {
-    opacity: var(--moduix-select-disabled-opacity, var(--moduix-opacity-disabled));
+    opacity: var(--moduix-opacity-disabled);
   }
 
   .root:hover + .indicator {
     @media (hover: hover) {
-      background-color: var(--moduix-select-action-bg-hover, var(--moduix-color-muted));
-      color: var(--moduix-select-action-color-hover, var(--moduix-color-foreground));
+      background-color: var(--moduix-color-muted);
+      color: var(--moduix-color-foreground);
     }
   }
 

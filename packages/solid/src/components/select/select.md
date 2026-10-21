@@ -10,7 +10,7 @@
 
 ## Public contract
 
-The flat API includes `Select`, `SelectRootProvider`, `SelectControl`, `SelectTrigger`, `SelectIndicator`, `SelectPositioner`, `SelectContent`, `SelectList`, `SelectItem`, `SelectItemText`, `SelectItemIndicator`, `SelectItemGroup`, `SelectItemGroupLabel`, `SelectValueText`, `SelectLabel`, `SelectHiddenSelect`, `SelectField`, `SelectClearTrigger`, `SelectContext`, `SelectItemContext`, `useSelect`, `useSelectContext`, and `useSelectItemContext`.
+The flat API includes `Select`, `SelectRootProvider`, `SelectControl`, `SelectTrigger`, `SelectIndicator`, `SelectPositioner`, `SelectContent`, `SelectList`, `SelectItem`, `SelectItemText`, `SelectItemIndicator`, `SelectItemGroup`, `SelectItemGroupLabel`, `SelectValueText`, `SelectLabel`, `SelectHiddenSelect`, `SelectField`, `SelectOption`, `SelectClearTrigger`, `SelectContext`, `SelectItemContext`, `useSelect`, `useSelectContext`, and `useSelectItemContext`.
 
 ## Preservation notes
 
@@ -18,7 +18,10 @@ Clear-trigger classes stay reactive in both default and callback `asChild` compo
 
 - Keep collection-backed items, controlled and uncontrolled value state, Ark detail callbacks, and root-provider composition.
 - The popup is portalled by default; preserve inline rendering and custom portal target options.
-- Keep `SelectField` as a narrow helper and retain explicit lower-level parts.
+- `lazyMount` and `unmountOnExit` default to `true`.
+- Part props and callback detail types are re-exported from Ark; `SelectRootProps`, `SelectRootProviderProps`, `SelectFieldProps`, and `SelectOptionProps` are moduix types.
+- See the React `select.md` for the styling contract; the CSS Module is shared byte for byte.
+- Keep `SelectField` and `SelectOption` as narrow helpers and retain explicit lower-level parts.
 
 ## Styling and accessibility
 

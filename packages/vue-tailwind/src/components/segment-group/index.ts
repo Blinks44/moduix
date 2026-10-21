@@ -48,6 +48,7 @@ export type {
 export type {
   Emits as SegmentGroupRootEmits,
   Props as SegmentGroupRootProps,
+  SegmentGroupSize,
 } from './SegmentGroup.vue';
 export type {
   SegmentGroupItemOption,

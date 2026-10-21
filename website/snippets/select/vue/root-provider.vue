@@ -5,12 +5,10 @@ import {
   useSelect,
   SelectContent,
   SelectField,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
   SelectLabel,
   SelectPositioner,
   SelectRootProvider,
+  SelectOption,
 } from '@moduix/vue/select';
 import styles from '@/components/examples/select/select-root-provider.module.css';
 
@@ -39,10 +37,11 @@ const chooseBanana = () => select.value.setValue(['banana']);
       <SelectField placeholder="Select an option" clear-label="Clear selection" />
       <SelectPositioner
         ><SelectContent
-          ><SelectItem v-for="item in fruits.items" :key="item.value" :item="item"
-            ><SelectItemText>{{ item.label }}</SelectItemText
-            ><SelectItemIndicator /></SelectItem></SelectContent
-      ></SelectPositioner>
+          ><SelectOption v-for="item in fruits.items" :key="item.value" :item="item">{{
+            item.label
+          }}</SelectOption></SelectContent
+        ></SelectPositioner
+      >
     </SelectRootProvider>
     <div>
       <output>Selected: {{ select.valueAsString || 'none' }}</output

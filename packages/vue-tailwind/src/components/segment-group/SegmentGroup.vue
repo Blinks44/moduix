@@ -8,6 +8,8 @@ import useSegmentGroup from './useSegmentGroup';
 
 defineOptions({ inheritAttrs: false });
 
+export type SegmentGroupSize = 'sm' | 'md' | 'lg';
+
 export interface Props extends /* @vue-ignore */ SegmentGroupRootProps {
   asChild?: boolean;
   class?: HTMLAttributes['class'];
@@ -22,6 +24,7 @@ export interface Props extends /* @vue-ignore */ SegmentGroupRootProps {
   orientation?: 'horizontal' | 'vertical';
   readOnly?: boolean;
   required?: boolean;
+  size?: SegmentGroupSize;
 }
 
 export interface Emits extends /* @vue-ignore */ SegmentGroupRootEmits {}
@@ -40,6 +43,7 @@ const {
   orientation = 'horizontal',
   readOnly = undefined,
   required = undefined,
+  size = 'md',
 } = defineProps<Props>();
 const emit = defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
@@ -63,7 +67,7 @@ const segmentGroup = useSegmentGroup(
   emit,
 );
 const rootClass =
-  'group/segment-group isolate box-border inline-flex max-w-full gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col';
+  'group/segment-group isolate box-border inline-flex max-w-full gap-1 rounded-lg border border-border bg-muted p-1 text-foreground [--_segment-group-size:var(--moduix-size-md)] data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col data-[size=lg]:[--_segment-group-size:var(--moduix-size-lg)] data-[size=sm]:[--_segment-group-size:var(--moduix-size-sm)]';
 </script>
 
 <template>
@@ -71,6 +75,7 @@ const rootClass =
     v-bind="attrs"
     :as-child="asChild"
     :class="cn(rootClass, className)"
+    :data-size="size"
     :value="segmentGroup"
     data-slot="segment-group-root"
   >

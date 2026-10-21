@@ -8,24 +8,9 @@ const nativeSelectCssProperties: CssProperty[] = [
     description: 'Controls the select width.',
   },
   {
-    name: '--moduix-select-max-width',
-    defaultValue: '100%',
-    description: 'Controls the maximum select width.',
-  },
-  {
     name: '--moduix-select-control-height',
     defaultValue: 'var(--moduix-size-md)',
     description: 'Controls the single-select height.',
-  },
-  {
-    name: '--moduix-select-border-width',
-    defaultValue: 'var(--moduix-border-width-sm)',
-    description: 'Controls the border width.',
-  },
-  {
-    name: '--moduix-select-border-color',
-    defaultValue: 'var(--moduix-color-border)',
-    description: 'Controls the border color.',
   },
   {
     name: '--moduix-select-radius',
@@ -33,84 +18,9 @@ const nativeSelectCssProperties: CssProperty[] = [
     description: 'Controls the border radius.',
   },
   {
-    name: '--moduix-select-trigger-padding-x-start',
-    defaultValue: 'var(--moduix-spacing-3-5)',
-    description: 'Controls text padding and spacing after the indicator.',
-  },
-  {
-    name: '--moduix-select-action-offset-right',
-    defaultValue: 'var(--moduix-spacing-2)',
-    description: 'Controls the indicator offset from the inline end.',
-  },
-  {
     name: '--moduix-select-action-size',
     defaultValue: 'var(--moduix-size-xs)',
-    description: 'Controls the indicator box size.',
-  },
-  {
-    name: '--moduix-select-action-radius',
-    defaultValue: 'var(--moduix-radius-sm)',
-    description: 'Controls the indicator corner radius.',
-  },
-  {
-    name: '--moduix-select-action-bg',
-    defaultValue: 'transparent',
-    description: 'Controls the indicator background.',
-  },
-  {
-    name: '--moduix-select-icon-color',
-    defaultValue: 'var(--moduix-color-muted-foreground)',
-    description: 'Controls the indicator color.',
-  },
-  {
-    name: '--moduix-select-icon-size',
-    defaultValue: 'var(--moduix-spacing-4)',
-    description: 'Controls the indicator icon size.',
-  },
-  {
-    name: '--moduix-select-bg',
-    defaultValue: 'var(--moduix-color-background)',
-    description: 'Controls the background.',
-  },
-  {
-    name: '--moduix-select-action-bg-hover',
-    defaultValue: 'var(--moduix-color-muted)',
-    description: 'Controls the indicator hover background.',
-  },
-  {
-    name: '--moduix-select-action-color-hover',
-    defaultValue: 'var(--moduix-color-foreground)',
-    description: 'Controls the indicator hover color.',
-  },
-  {
-    name: '--moduix-select-color',
-    defaultValue: 'var(--moduix-color-foreground)',
-    description: 'Controls the text color.',
-  },
-  {
-    name: '--moduix-select-focus-ring-width',
-    defaultValue: 'var(--moduix-border-width-sm)',
-    description: 'Controls the focus ring width.',
-  },
-  {
-    name: '--moduix-select-focus-ring-color',
-    defaultValue: 'var(--moduix-color-ring)',
-    description: 'Controls the focus border and ring color.',
-  },
-  {
-    name: '--moduix-select-invalid-color',
-    defaultValue: 'var(--moduix-color-destructive)',
-    description: 'Controls the invalid border and ring.',
-  },
-  {
-    name: '--moduix-select-disabled-opacity',
-    defaultValue: 'var(--moduix-opacity-disabled)',
-    description: 'Controls disabled opacity.',
-  },
-  {
-    name: '--moduix-select-transition',
-    defaultValue: 'var(--moduix-transition-default)',
-    description: 'Controls visual transitions.',
+    description: 'Controls the indicator box size and the text space reserved for it.',
   },
 ];
 

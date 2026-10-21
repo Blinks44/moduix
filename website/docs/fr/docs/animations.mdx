@@ -59,29 +59,21 @@ Command Palette, Lightbox, Tour, Navigation Menu, Select, Combobox, Date Picker 
 
 ## Ajouter une exception locale
 
-Les variables propres au composant ont priorité sur les valeurs partagées. Placez-les sur la partie
-visuelle qui porte l’animation.
+Les composants popup n’ont pas de variables de mouvement propres. Définissez plutôt les variables partagées
+`--moduix-popup-motion-*` sur leur partie de contenu : les keyframes les lisent sur cet élément.
 
-| Surface | Partie | Famille de variables |
-| --- | --- | --- |
-| Select | `SelectContent` | `--moduix-select-content-*` |
-
-Popover, Dialog, Command Palette, Floating Panel, Hover Card, Navigation Menu, Combobox, Date Picker et Color Picker n’ont pas de famille
-propre. Définissez plutôt les variables partagées `--moduix-popup-motion-*` sur leur partie de contenu :
-les keyframes les lisent sur cet élément.
-
-Par exemple, appliquez une échelle plus douce à un seul Select :
+Par exemple, appliquez une échelle plus douce à un seul Select en ajoutant une classe à `SelectContent` :
 
 ```css
 .softScalePicker {
-  --moduix-select-transition: 180ms cubic-bezier(0.22, 1, 0.36, 1);
-  --moduix-select-content-closed-opacity: 0;
-  --moduix-select-content-closed-scale: 0.96;
+  --moduix-popup-motion-duration: 180ms;
+  --moduix-popup-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-popup-motion-starting-scale: 0.96;
+  --moduix-popup-motion-ending-scale: 0.96;
 }
 ```
 
-Consultez la page [Select](/docs/select) pour la liste complète de ses variables. Le Backdrop d’une
-modale n’hérite pas de l’échelle ni de la translation des popups.
+Le Backdrop d’une modale n’hérite pas de l’échelle ni de la translation des popups.
 
 ## Séparer les mouvements liés à l’état
 

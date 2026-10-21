@@ -49,12 +49,11 @@ span[data-slot="native-select-control"]
 
 ## Styling
 
-- The control reads the same `--moduix-select-*` variables as `Select` (width, height, border,
-  radius, colors, focus ring, invalid color, indicator geometry, disabled opacity, transition), so
-  both selects look and theme alike.
-- Text starts at `--moduix-select-trigger-padding-x-start` (14px). The indicator sits
-  `--moduix-select-action-offset-right` from the end, and the text end padding reserves offset,
-  indicator size, and the same start padding (46px by default).
+- The control reads the same `--moduix-select-*` variables as `Select`: `width`, `control-height`,
+  `radius`, and `action-size`. Colors, borders, focus ring, disabled opacity, and motion come from
+  foundation tokens, as in `Select`.
+- Text starts 14px from the edge. The indicator sits 8px from the end, and the text end padding
+  reserves that offset, the indicator size, and 14px (46px by default).
 - `multiple` or `size > 1` makes a list: content height, platform appearance, no indicator.
 - Forced-colors mode restores the platform arrow and hides the indicator.
 - Native `size` is not a visual size prop.
@@ -62,6 +61,6 @@ span[data-slot="native-select-control"]
 ## Agent notes
 
 - Keep one `FieldSelect` without local state; do not replace `onChange(event)` with Ark details.
-- Keep the control variables aligned with `Select` until Select itself changes them.
+- Keep the control variables aligned with `Select`.
 - Tailwind decides list mode from props, not attribute selectors: a variant such as
   `[&[multiple]]:h-auto` would beat consumer classes like `h-20`, which `cn` cannot remove.

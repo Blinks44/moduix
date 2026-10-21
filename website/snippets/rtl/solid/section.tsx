@@ -8,9 +8,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectItemGroup,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/solid/select';
 import { For } from 'solid-js';
 
@@ -32,12 +30,7 @@ export function ArabicPreferences() {
             <SelectContent>
               <SelectItemGroup>
                 <For each={cities.items}>
-                  {(city) => (
-                    <SelectItem item={city}>
-                      <SelectItemText>{city.label}</SelectItemText>
-                      <SelectItemIndicator />
-                    </SelectItem>
-                  )}
+                  {(city) => <SelectOption item={city}>{city.label}</SelectOption>}
                 </For>
               </SelectItemGroup>
             </SelectContent>

@@ -17,19 +17,25 @@ Upstream docs:
 - `SegmentGroup` and the re-exported `useSegmentGroup` default `orientation` to `horizontal`; the Zag
   machine defaults to `vertical`. Explicit `orientation="vertical"` keeps Ark vertical layout and
   arrow navigation.
-- `SegmentGroupItems` renders the fixed item tree for `{ value, label, disabled? }` lists:
+- `SegmentGroup` and `SegmentGroupRootProvider` accept the moduix-only `size?: 'sm' | 'md' | 'lg'`.
+  It defaults to `md`, writes `data-size`, and makes the whole group as tall as `--moduix-size-<size>`,
+  the height of a `Button` or `Input` of the same size.
+- `SegmentGroupItems` takes strings (value and label) or `{ value, label, disabled? }` objects and
+  renders the fixed item tree:
   `SegmentGroupItem`, `SegmentGroupItemText`, and `SegmentGroupItemHiddenInput`.
 - Direct `SegmentGroupItem` composition must include `SegmentGroupItemHiddenInput`.
 - `SegmentGroupItem` renders a `label`. With `asChild`, the direct child must still be a `label`.
 - `SegmentGroupContext`, `SegmentGroupItemContext`, `SegmentGroupItemHiddenInput`,
   `useSegmentGroupContext`, and `useSegmentGroupItemContext` are Ark exports, unchanged.
+- Types `SegmentGroupRootProps`, `SegmentGroupRootProviderProps`, `SegmentGroupSize`,
+  `SegmentGroupItemOption`, and `SegmentGroupItemsProps` are exported.
 - Ark's `ItemControl` is not exported: it is a visual-only (`aria-hidden`) radio control that a
   segmented control does not draw.
 
 ## Anatomy and exported parts
 
 ```text
-SegmentGroup
+SegmentGroup[size]
 ├─ SegmentGroupLabel (optional)
 ├─ SegmentGroupIndicator
 ├─ SegmentGroupItems[items]
@@ -40,8 +46,8 @@ SegmentGroup
 
 | Part                       | `data-slot`                   | Notes                                             |
 | -------------------------- | ----------------------------- | ------------------------------------------------- |
-| `SegmentGroup`             | `segment-group-root`          | Ark root, horizontal by default.                  |
-| `SegmentGroupRootProvider` | `segment-group-root-provider` | Uses state from `useSegmentGroup()`.              |
+| `SegmentGroup`             | `segment-group-root`          | Ark root, horizontal by default; `size`.          |
+| `SegmentGroupRootProvider` | `segment-group-root-provider` | Uses state from `useSegmentGroup()`; `size`.      |
 | `SegmentGroupLabel`        | `segment-group-label`         | Optional group label.                             |
 | `SegmentGroupItems`        | -                             | Fixed item, text, and input per entry.            |
 | `SegmentGroupItem`         | `segment-group-item`          | Ark item, renders a `label`.                      |
@@ -55,6 +61,9 @@ Ark SegmentGroup reads neither `Field` nor `Fieldset`. Pass `disabled`, `invalid
 
 ## Defaults and styling
 
+- Per-size values live in private `--_segment-group-size`, `--_segment-group-item-padding-x`,
+  `--_segment-group-font-size`, and `--_segment-group-line-height` on the root; the item height is
+  the size minus the root padding and border.
 - Public variables: `bg`, `border-color`, `indicator-bg`, `item-color`, and `item-color-checked`,
   all with the `--moduix-segment-group-` prefix. Everything else comes from foundation tokens;
   override it with a class over the `moduix.components` layer.
@@ -70,3 +79,4 @@ Ark SegmentGroup reads neither `Field` nor `Fieldset`. Pass `disabled`, `invalid
 
 - Keep `SegmentGroupItems` as the only sugar and `SegmentGroupIndicator` explicit, as in Chakra.
 - Do not add Field/Fieldset inheritance back to the wrapper.
+- Keep `size` on the root and the outer height equal to `--moduix-size-<size>`.

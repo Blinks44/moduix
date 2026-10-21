@@ -156,6 +156,7 @@ Select
 │        ├─ SelectList
 │        └─ SelectItemGroup
 │           ├─ SelectItemGroupLabel
+│           ├─ SelectOption[item]
 │           └─ SelectItem[item]
 │              ├─ SelectItemText
 │              │  └─ SelectItemTextContent
@@ -185,6 +186,7 @@ Select
 | `SelectItemGroup`       | Group wrapper for related collection items.                            |
 | `SelectItemGroupLabel`  | Label for a collection group.                                          |
 | `SelectItem`            | Selectable row. Pass the collection item through `item`.               |
+| `SelectOption` | Convenience row for simple options with text and an indicator. |
 | `SelectItemText`        | Text used for display and accessibility.                               |
 | `SelectItemTextContent` | Layout helper for rich item text.                                     |
 | `SelectItemTextIcon`    | Icon wrapper for rich item text.                                      |
@@ -193,7 +195,7 @@ Select
 
 ## Composition
 
-`SelectField` is the shortcut for `SelectControl`, `SelectTrigger`, `SelectValueText`, and the default `SelectIndicator`. Add `clearLabel` for a labelled clear action, or use the explicit parts when the trigger layout needs independent styling. Keep `SelectPositioner`, `SelectContent`, and the collection items in the same Select tree.
+`SelectField` is the shortcut for `SelectControl`, `SelectTrigger`, `SelectValueText`, and the default `SelectIndicator`. Add `clearLabel` for a labelled clear action, or use the explicit parts when the trigger layout needs independent styling. Keep `SelectPositioner`, `SelectContent`, and the collection items in the same Select tree. Use `SelectOption` for ordinary rows: it renders `SelectItem` with `SelectItemText` and `SelectItemIndicator`. Pass `indicator={false}` to hide the check or an icon to replace it, and use `SelectItem` when a row needs custom structure.
 
 Add `SelectHiddenSelect` explicitly inside `Select` or `SelectRootProvider` when the selection must participate in native form submission, validation, autofill, or reset. The root does not render it automatically. `Positioner` is portalled automatically; set `portalled={false}` for inline rendering or use `portalRef` for a custom container.
 
@@ -802,7 +804,7 @@ Use `onHighlightChange(details)` when moving through options should immediately 
 
 ### Advanced Customization
 
-Bypass `SelectField` when the trigger, value text, or indicator needs independent composition and
+Bypass `SelectField` and `SelectOption` when the trigger, value text, or indicator needs independent composition and
 styling.
 
 <ExampleFrame variant="component">
@@ -843,7 +845,7 @@ styling.
 
 ## Styling
 
-Style Select with `className` in React, `class` in Solid and Vue, stable `data-slot="select-*"` hooks, Ark attributes, and public `--moduix-select-*` CSS variables. Tailwind variants use native utility classes and consumer classes; CSS Modules variants use the variables documented below.
+Style Select with `className` in React, `class` in Solid and Vue, stable `data-slot="select-*"` hooks, and Ark attributes. Tailwind variants use native utility classes and consumer classes. CSS Modules variants keep five size variables, listed below; colors, borders, focus rings, item spacing, and motion come from foundation tokens and the shared `--moduix-popup-*` variables, so override them with a class on the part.
 
 ### CSS Properties
 
@@ -854,7 +856,8 @@ Style Select with `className` in React, `class` in Solid and Vue, stable `data-s
 `SelectField` renders the existing `select-control`, `select-trigger`, `select-value-text`,
 `select-indicator`, and optional `select-clear-trigger` slots. Its `indicator` prop supplies the
 child of the existing indicator slot. Rich item text helpers expose `select-item-text-content`,
-`select-item-text-icon`, and `select-item-text-label` slots.
+`select-item-text-icon`, and `select-item-text-label` slots. `SelectOption` reuses the item slots
+instead of adding its own styling hook.
 
 - Roots expose `data-slot="select-root"` and `data-slot="select-root-provider"`.
 - Ark anatomy uses `data-scope="select"` and `data-part`.

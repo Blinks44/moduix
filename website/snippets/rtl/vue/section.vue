@@ -9,9 +9,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectItemGroup,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/vue/select';
 const cities = createListCollection({
   items: [
@@ -28,11 +26,12 @@ const cities = createListCollection({
         <SelectPositioner
           ><SelectContent
             ><SelectItemGroup>
-              <SelectItem v-for="city in cities.items" :key="city.value" :item="city">
-                <SelectItemText>{{ city.label }}</SelectItemText
-                ><SelectItemIndicator />
-              </SelectItem> </SelectItemGroup></SelectContent
-        ></SelectPositioner>
+              <SelectOption v-for="city in cities.items" :key="city.value" :item="city">{{
+                city.label
+              }}</SelectOption>
+            </SelectItemGroup></SelectContent
+          ></SelectPositioner
+        >
       </Select>
       <Button>حفظ</Button>
     </LocaleProvider>

@@ -11,10 +11,8 @@ import {
   SelectIndicator,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
   SelectHiddenSelect,
+  SelectOption,
 } from '@moduix/react/select';
 import styles from '@/components/examples/fieldset/fieldset-input-with-select.module.css';
 
@@ -59,10 +57,9 @@ export default function PhoneInput() {
           <SelectPositioner>
             <SelectContent>
               {countryCodes.items.map((item) => (
-                <SelectItem key={item.value} item={item}>
-                  <SelectItemText>{item.label}</SelectItemText>
-                  <SelectItemIndicator />
-                </SelectItem>
+                <SelectOption key={item.value} item={item}>
+                  {item.label}
+                </SelectOption>
               ))}
             </SelectContent>
           </SelectPositioner>

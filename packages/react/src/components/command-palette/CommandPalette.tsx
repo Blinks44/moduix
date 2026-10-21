@@ -354,17 +354,9 @@ const CommandPaletteList = forwardRef<
       {...props}
       data-slot="command-palette-list"
     >
-      <ScrollArea data-slot="command-palette-scroll-area" className={styles.scrollArea}>
-        <ScrollAreaViewport
-          data-slot="command-palette-scroll-viewport"
-          className={styles.scrollViewport}
-        >
-          <ScrollAreaContent
-            data-slot="command-palette-scroll-content"
-            className={styles.scrollContent}
-          >
-            {children}
-          </ScrollAreaContent>
+      <ScrollArea className={styles.scrollArea}>
+        <ScrollAreaViewport className={styles.scrollViewport}>
+          <ScrollAreaContent className={styles.scrollContent}>{children}</ScrollAreaContent>
         </ScrollAreaViewport>
       </ScrollArea>
     </ComboboxPrimitive.Content>

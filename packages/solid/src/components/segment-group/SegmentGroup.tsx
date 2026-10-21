@@ -11,11 +11,15 @@ import { For, splitProps } from 'solid-js';
 import styles from './SegmentGroup.module.css';
 
 type SegmentGroupMachineProps = NonNullable<Parameters<typeof useSegmentGroupPrimitive>[0]>;
-type SegmentGroupOption = {
-  value: string;
-  label: JSX.Element;
-  disabled?: boolean;
+type SegmentGroupSize = 'sm' | 'md' | 'lg';
+type SegmentGroupRootProps = ComponentProps<typeof SegmentGroupPrimitive.Root> & {
+  size?: SegmentGroupSize;
 };
+type SegmentGroupRootProviderProps = ComponentProps<typeof SegmentGroupPrimitive.RootProvider> & {
+  size?: SegmentGroupSize;
+};
+type SegmentGroupItemOption = { value: string; label: JSX.Element; disabled?: boolean };
+type SegmentGroupItemsProps = { items: readonly (string | SegmentGroupItemOption)[] };
 
 function useSegmentGroup(props?: SegmentGroupMachineProps) {
   return useSegmentGroupPrimitive(() => {
@@ -25,28 +29,28 @@ function useSegmentGroup(props?: SegmentGroupMachineProps) {
   });
 }
 
-function SegmentGroup(props: ComponentProps<typeof SegmentGroupPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['class']);
+function SegmentGroup(props: SegmentGroupRootProps) {
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <SegmentGroupPrimitive.Root
       orientation="horizontal"
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="segment-group-root"
     />
   );
 }
 
-function SegmentGroupRootProvider(
-  props: ComponentProps<typeof SegmentGroupPrimitive.RootProvider>,
-) {
-  const [local, others] = splitProps(props, ['class']);
+function SegmentGroupRootProvider(props: SegmentGroupRootProviderProps) {
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <SegmentGroupPrimitive.RootProvider
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="segment-group-root-provider"
     />
   );
@@ -96,15 +100,19 @@ const SegmentGroupContext = SegmentGroupPrimitive.Context;
 const SegmentGroupItemContext = SegmentGroupPrimitive.ItemContext;
 const SegmentGroupItemHiddenInput = SegmentGroupPrimitive.ItemHiddenInput;
 
-function SegmentGroupItems(props: { items: readonly SegmentGroupOption[] }) {
+function SegmentGroupItems(props: SegmentGroupItemsProps) {
   return (
     <For each={props.items}>
-      {(item) => (
-        <SegmentGroupItem value={item.value} disabled={item.disabled}>
-          <SegmentGroupItemText>{item.label}</SegmentGroupItemText>
-          <SegmentGroupItemHiddenInput />
-        </SegmentGroupItem>
-      )}
+      {(item) => {
+        const option: SegmentGroupItemOption =
+          typeof item === 'string' ? { value: item, label: item } : item;
+        return (
+          <SegmentGroupItem value={option.value} disabled={option.disabled}>
+            <SegmentGroupItemText>{option.label}</SegmentGroupItemText>
+            <SegmentGroupItemHiddenInput />
+          </SegmentGroupItem>
+        );
+      }}
     </For>
   );
 }
@@ -123,4 +131,11 @@ export {
   useSegmentGroup,
   useSegmentGroupContext,
   useSegmentGroupItemContext,
+};
+export type {
+  SegmentGroupItemOption,
+  SegmentGroupItemsProps,
+  SegmentGroupRootProps,
+  SegmentGroupRootProviderProps,
+  SegmentGroupSize,
 };

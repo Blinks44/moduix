@@ -417,4 +417,38 @@ test('keeps a consumer checked color while the checked item is hovered', async (
   await page.getByText('React', { exact: true }).hover();
   expect(getComputedStyle(item).color).toBe(checkedColor);
 });
+
+test('sizes the whole group to the matching control height', () => {
+  render({
+    components: testComponents,
+    template: `
+      <SegmentGroup v-for="size in ['sm', 'md', 'lg']" :key="size" :size="size" default-value="React" :aria-label="size" :data-testid="size">
+        <SegmentGroupIndicator />
+        <SegmentOptions />
+      </SegmentGroup>
+    `,
+  });
+
+  expect(screen.getByTestId('sm').offsetHeight).toBe(32);
+  expect(screen.getByTestId('md').offsetHeight).toBe(36);
+  expect(screen.getByTestId('lg').offsetHeight).toBe(40);
+});
+
+test('renders string items with the string as value and label', async () => {
+  render({
+    components: testComponents,
+    template: `
+      <form data-testid="form">
+        <SegmentGroup name="framework" default-value="Solid" aria-label="Framework">
+          <SegmentGroupItems :items="['React', 'Solid']" />
+        </SegmentGroup>
+      </form>
+    `,
+  });
+
+  await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeChecked();
+  expect(new FormData(screen.getByTestId('form') as HTMLFormElement).get('framework')).toBe(
+    'Solid',
+  );
+});
 import SsrSegmentGroup from './fixtures/SsrSegmentGroup.vue';

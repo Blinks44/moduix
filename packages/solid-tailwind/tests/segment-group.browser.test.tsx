@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { createSignal } from 'solid-js';
+import { createSignal, For } from 'solid-js';
 import {
   SegmentGroup,
   SegmentGroupIndicator,
@@ -305,7 +305,7 @@ test('applies native utilities to component-owned visual parts', () => {
     expect.arrayContaining(['text-sm', 'leading-5', 'font-semibold']),
   );
   expect([...item!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'min-h-control-sm', 'gap-2', 'rounded-md']),
+    expect.arrayContaining(['inline-flex', 'px-3.5', 'gap-2', 'rounded-md']),
   );
   expect([...item!.classList]).toEqual(
     expect.arrayContaining(['text-sm', 'font-medium', 'text-muted-foreground']),
@@ -429,4 +429,34 @@ test('keeps a consumer checked color while the checked item is hovered', async (
   const checkedColor = getComputedStyle(item).color;
   await page.getByText('React', { exact: true }).hover();
   expect(getComputedStyle(item).color).toBe(checkedColor);
+});
+
+test('sizes the whole group to the matching control height', () => {
+  render(() => (
+    <For each={['sm', 'md', 'lg'] as const}>
+      {(size) => (
+        <SegmentGroup size={size} defaultValue="React" data-testid={size}>
+          <SegmentGroupIndicator />
+          <SegmentGroupItems items={frameworks} />
+        </SegmentGroup>
+      )}
+    </For>
+  ));
+
+  expect(screen.getByTestId('sm').offsetHeight).toBe(32);
+  expect(screen.getByTestId('md').offsetHeight).toBe(36);
+  expect(screen.getByTestId('lg').offsetHeight).toBe(40);
+});
+
+test('renders string items with the string as value and label', async () => {
+  const { container } = render(() => (
+    <form>
+      <SegmentGroup name="framework" defaultValue="Solid">
+        <SegmentGroupItems items={frameworks} />
+      </SegmentGroup>
+    </form>
+  ));
+
+  await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeChecked();
+  expect(new FormData(container.querySelector('form')!).get('framework')).toBe('Solid');
 });

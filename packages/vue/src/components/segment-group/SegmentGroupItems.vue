@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { SegmentGroupItemHiddenInput } from '@ark-ui/vue/segment-group';
 import type { VNodeChild } from 'vue';
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import SegmentGroupItem from './SegmentGroupItem.vue';
 import SegmentGroupItemText from './SegmentGroupItemText.vue';
 
@@ -12,10 +12,13 @@ export interface SegmentGroupItemOption {
 }
 
 export interface Props {
-  items: readonly SegmentGroupItemOption[];
+  items: readonly (string | SegmentGroupItemOption)[];
 }
 
 const { items } = defineProps<Props>();
+const options = computed<SegmentGroupItemOption[]>(() =>
+  items.map((item) => (typeof item === 'string' ? { value: item, label: item } : item)),
+);
 
 const VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => props.value, {
   props: ['value'],
@@ -24,7 +27,7 @@ const VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => prop
 
 <template>
   <SegmentGroupItem
-    v-for="item in items"
+    v-for="item in options"
     :key="item.value"
     :disabled="item.disabled"
     :value="item.value"

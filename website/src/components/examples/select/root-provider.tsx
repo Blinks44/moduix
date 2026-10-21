@@ -11,9 +11,7 @@ import {
   SelectClearTrigger,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/react/select';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/select/select-root-provider.module.css';
@@ -82,10 +80,9 @@ export default function SelectRootProviderDemo() {
         <SelectPositioner>
           <SelectContent>
             {fruits.items.map((item) => (
-              <SelectItem key={item.value} item={item}>
-                <SelectItemText>{item.label}</SelectItemText>
-                <SelectItemIndicator />
-              </SelectItem>
+              <SelectOption key={item.value} item={item}>
+                {item.label}
+              </SelectOption>
             ))}
           </SelectContent>
         </SelectPositioner>

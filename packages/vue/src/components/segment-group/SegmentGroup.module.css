@@ -1,5 +1,10 @@
 @layer moduix.components {
   .root {
+    --_segment-group-size: var(--moduix-size-md);
+    --_segment-group-item-padding-x: var(--moduix-spacing-3-5);
+    --_segment-group-font-size: var(--moduix-text-sm);
+    --_segment-group-line-height: var(--moduix-line-height-text-sm);
+
     box-sizing: border-box;
     isolation: isolate;
     display: inline-flex;
@@ -11,6 +16,18 @@
     border-radius: var(--moduix-radius-lg);
     background-color: var(--moduix-segment-group-bg, var(--moduix-color-muted));
     color: var(--moduix-color-foreground);
+
+    &[data-size='sm'] {
+      --_segment-group-size: var(--moduix-size-sm);
+      --_segment-group-item-padding-x: var(--moduix-spacing-3);
+    }
+
+    &[data-size='lg'] {
+      --_segment-group-size: var(--moduix-size-lg);
+      --_segment-group-item-padding-x: var(--moduix-spacing-4);
+      --_segment-group-font-size: var(--moduix-text-md);
+      --_segment-group-line-height: var(--moduix-line-height-text-md);
+    }
 
     &[data-orientation='vertical'] {
       flex-direction: column;
@@ -40,13 +57,15 @@
     align-items: center;
     justify-content: center;
     gap: var(--moduix-spacing-2);
-    min-height: var(--moduix-size-sm);
-    padding-inline: var(--moduix-spacing-3-5);
+    min-height: calc(
+      var(--_segment-group-size) - 2 * var(--moduix-spacing-1) - 2 * var(--moduix-border-width-sm)
+    );
+    padding-inline: var(--_segment-group-item-padding-x);
     border-radius: var(--moduix-radius-md);
     color: var(--moduix-segment-group-item-color, var(--moduix-color-muted-foreground));
-    font-size: var(--moduix-text-sm);
+    font-size: var(--_segment-group-font-size);
     font-weight: var(--moduix-weight-medium);
-    line-height: var(--moduix-line-height-text-sm);
+    line-height: var(--_segment-group-line-height);
     white-space: nowrap;
     user-select: none;
     cursor: pointer;

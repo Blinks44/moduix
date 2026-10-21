@@ -36,7 +36,6 @@ type SelectFieldProps = Omit<
 
 function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
   const [local, others] = splitProps(props, [
-    'children',
     'class',
     'lazyMount',
     'portalled',
@@ -52,16 +51,13 @@ function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
         data-slot="select-root"
-      >
-        {local.children}
-      </SelectPrimitive.Root>
+      />
     </OverlayPortalProvider>
   );
 }
 
 function SelectRootProvider<T extends CollectionItem>(props: SelectRootProviderProps<T>) {
   const [local, others] = splitProps(props, [
-    'children',
     'class',
     'lazyMount',
     'portalled',
@@ -77,9 +73,7 @@ function SelectRootProvider<T extends CollectionItem>(props: SelectRootProviderP
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
         data-slot="select-root-provider"
-      >
-        {local.children}
-      </SelectPrimitive.RootProvider>
+      />
     </OverlayPortalProvider>
   );
 }
@@ -313,6 +307,25 @@ function SelectItemIndicator(props: ComponentProps<typeof SelectPrimitive.ItemIn
   );
 }
 
+type SelectOptionProps = Omit<
+  ComponentProps<typeof SelectPrimitive.Item>,
+  'asChild' | 'children'
+> & {
+  children: JSX.Element;
+  indicator?: JSX.Element | false;
+};
+
+function SelectOption(props: SelectOptionProps) {
+  const [local, others] = splitProps(props, ['children', 'indicator']);
+
+  return (
+    <SelectItem {...others}>
+      <SelectItemText>{local.children}</SelectItemText>
+      {local.indicator !== false && <SelectItemIndicator>{local.indicator}</SelectItemIndicator>}
+    </SelectItem>
+  );
+}
+
 function SelectItemTextContent(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
@@ -373,6 +386,7 @@ export {
   SelectItemTextLabel,
   SelectLabel,
   SelectList,
+  SelectOption,
   SelectPositioner,
   SelectRootProvider,
   SelectTrigger,
@@ -381,3 +395,32 @@ export {
   useSelectContext,
   useSelectItemContext,
 };
+
+export type { SelectFieldProps, SelectOptionProps, SelectRootProps, SelectRootProviderProps };
+
+export type {
+  SelectClearTriggerProps,
+  SelectContentProps,
+  SelectContextProps,
+  SelectControlProps,
+  SelectHiddenSelectProps,
+  SelectHighlightChangeDetails,
+  SelectIndicatorProps,
+  SelectItemContextProps,
+  SelectItemGroupLabelProps,
+  SelectItemGroupProps,
+  SelectItemIndicatorProps,
+  SelectItemProps,
+  SelectItemTextProps,
+  SelectLabelProps,
+  SelectListProps,
+  SelectOpenChangeDetails,
+  SelectPositionerProps,
+  SelectTriggerProps,
+  SelectValueChangeDetails,
+  SelectValueTextProps,
+  UseSelectContext,
+  UseSelectItemContext,
+  UseSelectProps,
+  UseSelectReturn,
+} from '@ark-ui/solid/select';

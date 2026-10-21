@@ -28,9 +28,7 @@ import {
   SelectIndicator,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/react/select';
 import { Switch, SwitchControl, SwitchHiddenInput, SwitchLabel } from '@moduix/react/switch';
 import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/react/tabs';
@@ -365,10 +363,9 @@ function HomeShowcase() {
               <SelectPositioner>
                 <SelectContent>
                   {workspaceCollection.items.map((item) => (
-                    <SelectItem key={item.value} item={item}>
-                      <SelectItemText>{item.label}</SelectItemText>
-                      <SelectItemIndicator />
-                    </SelectItem>
+                    <SelectOption key={item.value} item={item}>
+                      {item.label}
+                    </SelectOption>
                   ))}
                 </SelectContent>
               </SelectPositioner>

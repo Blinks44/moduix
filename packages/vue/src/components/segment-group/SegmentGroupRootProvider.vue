@@ -5,15 +5,17 @@ import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './SegmentGroup.module.css';
+import type { SegmentGroupSize } from './SegmentGroup.vue';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ SegmentGroupRootProviderProps {
   class?: HTMLAttributes['class'];
+  size?: SegmentGroupSize;
   value: SegmentGroupRootProviderProps['value'];
 }
 
-const { class: className, value } = defineProps<Props>();
+const { class: className, size = 'md', value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -23,6 +25,7 @@ const attrs = useAttrs();
   <ArkSegmentGroupRootProvider
     v-bind="attrs"
     :class="clsx(styles.root, className)"
+    :data-size="size"
     :value="value"
     data-slot="segment-group-root-provider"
   >

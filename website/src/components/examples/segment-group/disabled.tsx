@@ -5,12 +5,7 @@ import {
 } from '@moduix/react/segment-group';
 import styles from '@/components/examples/segment-group/segment-group-disabled.module.css';
 
-const frameworks = [
-  { value: 'React', label: 'React' },
-  { value: 'Solid', label: 'Solid' },
-  { value: 'Svelte', label: 'Svelte', disabled: true },
-  { value: 'Vue', label: 'Vue' },
-];
+const frameworks = ['React', 'Solid', { value: 'Svelte', label: 'Svelte', disabled: true }, 'Vue'];
 
 export default function DisabledSegmentGroupDemo() {
   return (

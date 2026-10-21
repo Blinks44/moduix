@@ -272,10 +272,10 @@ les options sélectionnées et les interactions au clavier.
 
 ## Styles
 
-`NativeSelect` réutilise les variables `--moduix-select-*` des variantes CSS Modules de `Select`. Vous pouvez ainsi régler de
-manière cohérente les dimensions, l’espacement de l’indicateur, les bordures, les couleurs, le rayon, l’anneau de focus,
-l’opacité à l’état désactivé et les transitions. Les variantes Tailwind utilisent des classes utilitaires natives et les classes
-transmises par l’utilisateur.
+`NativeSelect` lit les mêmes variables de largeur, de hauteur, de rayon et de taille d’indicateur que les variantes
+CSS Modules de `Select`, ce qui permet de redimensionner les deux sélecteurs ensemble. Les couleurs, les bordures,
+l’anneau de focus et l’animation proviennent des tokens de foundation ; remplacez-les avec une classe. Les variantes
+Tailwind utilisent des classes utilitaires natives et les classes transmises par l’utilisateur.
 
 ### Propriétés CSS
 
@@ -298,8 +298,8 @@ l’indicateur suivent l’échelle commune de 4 px.
 
 - En React, utilisez `className` sur le select et, en Solid ou en Vue, `class`. Utilisez `controlProps.className` ou
   `controlProps.class` pour le conteneur externe `<span>`.
-- Placez dans `controlProps.style` les variables `--moduix-select-*` liées à l’indicateur lorsqu’elles doivent être héritées à
-  la fois par l’élément `<select>` et par l’indicateur.
+- Définissez `--moduix-select-action-size` dans `controlProps.style` (ou sur un ancêtre) pour que l’espacement
+  du `<select>` et l’indicateur la suivent.
 - `data-scope="field"` et `data-part="select"` préservent le contrat de styles d’Ark Field.
 - `data-slot="native-select-root"` est le sélecteur moduix stable de l’élément `<select>`.
 - `data-slot="native-select-control"` et `data-slot="native-select-indicator"` ciblent le conteneur interne et l’icône.

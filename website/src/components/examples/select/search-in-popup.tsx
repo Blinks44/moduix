@@ -6,9 +6,7 @@ import {
   SelectField,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/react/select';
 import { Search as SearchIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
@@ -95,10 +93,9 @@ export default function SelectSearchInPopupDemo() {
           <SelectContent className={styles.popupContent}>
             {collection.items.length ? (
               collection.items.map((item) => (
-                <SelectItem key={item.value} item={item}>
-                  <SelectItemText>{item.label}</SelectItemText>
-                  <SelectItemIndicator />
-                </SelectItem>
+                <SelectOption key={item.value} item={item}>
+                  {item.label}
+                </SelectOption>
               ))
             ) : (
               <div className={styles.popupEmpty} role="presentation">

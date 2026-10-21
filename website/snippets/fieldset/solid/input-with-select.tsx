@@ -11,10 +11,8 @@ import {
   SelectIndicator,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
   SelectHiddenSelect,
+  SelectOption,
 } from '@moduix/solid/select';
 import { For } from 'solid-js';
 import styles from '@/components/examples/fieldset/fieldset-input-with-select.module.css';
@@ -61,12 +59,7 @@ export default function PhoneInput() {
           <SelectPositioner>
             <SelectContent>
               <For each={countryCodes.items}>
-                {(item) => (
-                  <SelectItem item={item}>
-                    <SelectItemText>{item.label}</SelectItemText>
-                    <SelectItemIndicator />
-                  </SelectItem>
-                )}
+                {(item) => <SelectOption item={item}>{item.label}</SelectOption>}
               </For>
             </SelectContent>
           </SelectPositioner>

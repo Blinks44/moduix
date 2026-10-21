@@ -157,6 +157,7 @@ Select
 │        ├─ SelectList
 │        └─ SelectItemGroup
 │           ├─ SelectItemGroupLabel
+│           ├─ SelectOption[item]
 │           └─ SelectItem[item]
 │              ├─ SelectItemText
 │              │  └─ SelectItemTextContent
@@ -186,6 +187,7 @@ Select
 | `SelectItemGroup`        | Enveloppe d’un groupe d’éléments associés de la collection.                                     |
 | `SelectItemGroupLabel`   | Libellé d’un groupe de la collection.                                                            |
 | `SelectItem`             | Ligne sélectionnable. Passez l’élément de collection avec `item`.                               |
+| `SelectOption` | Ligne prête à l’emploi pour les options simples avec texte et indicateur. |
 | `SelectItemText`         | Texte utilisé pour l’affichage et l’accessibilité.                                               |
 | `SelectItemTextContent`  | Composant de mise en page pour du texte d’élément enrichi.                                       |
 | `SelectItemTextIcon`     | Conteneur d’icône pour du texte d’élément enrichi.                                               |
@@ -194,7 +196,7 @@ Select
 
 ## Composition
 
-`SelectField` est le raccourci pour `SelectControl`, `SelectTrigger`, `SelectValueText` et l’`SelectIndicator` par défaut. Ajoutez `clearLabel` pour une action d’effacement libellée, ou utilisez les parties explicites lorsque la mise en page du déclencheur doit être stylisée indépendamment. Gardez `SelectPositioner`, `SelectContent` et les éléments de la collection dans la même arborescence Select.
+`SelectField` est le raccourci pour `SelectControl`, `SelectTrigger`, `SelectValueText` et l’`SelectIndicator` par défaut. Ajoutez `clearLabel` pour une action d’effacement libellée, ou utilisez les parties explicites lorsque la mise en page du déclencheur doit être stylisée indépendamment. Gardez `SelectPositioner`, `SelectContent` et les éléments de la collection dans la même arborescence Select. Utilisez `SelectOption` pour les lignes ordinaires : il affiche `SelectItem` avec `SelectItemText` et `SelectItemIndicator`. Passez `indicator={false}` pour masquer la coche ou une icône pour la remplacer, et utilisez `SelectItem` lorsqu’une ligne a besoin d’une structure personnalisée.
 
 Ajoutez explicitement `SelectHiddenSelect` dans `Select` ou `SelectRootProvider` lorsque la sélection doit participer à la soumission native, à la validation, au remplissage automatique ou à la réinitialisation du formulaire. La racine ne l’affiche pas automatiquement. `Positioner` est rendu dans un portail par défaut ; utilisez `portalled={false}` pour le rendre dans le flux normal ou `portalRef` pour un conteneur personnalisé.
 
@@ -807,7 +809,7 @@ immédiatement à jour la sélection.
 
 ### Personnalisation avancée
 
-N’utilisez pas `SelectField` lorsque le déclencheur, le texte de la valeur ou l’indicateur doivent
+N’utilisez pas `SelectField` ni `SelectOption` lorsque le déclencheur, le texte de la valeur ou l’indicateur doivent
 être composés et stylisés indépendamment.
 
 <ExampleFrame variant="component">
@@ -848,7 +850,7 @@ N’utilisez pas `SelectField` lorsque le déclencheur, le texte de la valeur ou
 
 ## Styles
 
-Stylisez Select avec `className` en React, `class` en Solid et Vue, les hooks stables `data-slot="select-*"`, les attributs Ark et les variables CSS publiques `--moduix-select-*`. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du consommateur ; les variantes CSS Modules utilisent les variables documentées ci-dessous.
+Stylisez Select avec `className` en React, `class` en Solid et Vue, les hooks stables `data-slot="select-*"` et les attributs Ark. Les variantes Tailwind utilisent des classes utilitaires natives et les classes du consommateur. Les variantes CSS Modules conservent cinq variables de dimensions, listées ci-dessous ; les couleurs, les bordures, l’anneau de focus, l’espacement des options et l’animation proviennent des tokens de foundation et des variables partagées `--moduix-popup-*`, donc remplacez-les avec une classe sur la partie concernée.
 
 ### Propriétés CSS
 
@@ -859,7 +861,8 @@ Stylisez Select avec `className` en React, `class` en Solid et Vue, les hooks st
 `SelectField` affiche les slots existants `select-control`, `select-trigger`, `select-value-text`,
 `select-indicator` et le slot facultatif `select-clear-trigger`. Sa propriété `indicator` fournit
 l’enfant du slot d’indicateur existant. Les composants de texte enrichi exposent les slots
-`select-item-text-content`, `select-item-text-icon` et `select-item-text-label`.
+`select-item-text-content`, `select-item-text-icon` et `select-item-text-label`. `SelectOption` réutilise les slots de l’élément
+sans ajouter son propre hook de style.
 
 - Les racines fournissent `data-slot="select-root"` et `data-slot="select-root-provider"`.
 - L’anatomie Ark utilise `data-scope="select"` et `data-part`.

@@ -3,9 +3,11 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
-import { createSSRApp, defineComponent, ref, nextTick } from 'vue';
+import { createSSRApp, defineComponent, h, ref, nextTick } from 'vue';
 import type { Component, ComponentPublicInstance } from 'vue';
 import {
+  CloseButton,
+  SelectOption,
   Field,
   Select,
   SelectClearTrigger,
@@ -218,6 +220,28 @@ test('reserves room for the clear action only when it is rendered', async () => 
   ];
   await expect.poll(() => getComputedStyle(withClear!).paddingInlineEnd).toBe('68px');
   expect(getComputedStyle(withoutClear!).paddingInlineEnd).toBe('46px');
+});
+
+test('gives the clear trigger the CloseButton focus ring', async () => {
+  render({
+    components: { ...selectComponents, CloseButton },
+    setup: () => ({ fruits }),
+    template: `
+      <CloseButton data-testid="reference" />
+      <Select :collection="fruits" :default-value="['apple']"><SelectField clear-label="Clear fruit" /></Select>
+    `,
+  });
+
+  await expect.element(page.getByRole('button', { name: 'Clear fruit' })).toBeVisible();
+  const reference = document.querySelector<HTMLElement>('[data-testid="reference"]')!;
+  const clear = document.querySelector<HTMLElement>('[data-slot="select-clear-trigger"]')!;
+  reference.focus();
+  const expected = getComputedStyle(reference);
+  const ring = [expected.outlineWidth, expected.outlineOffset];
+  clear.focus();
+  const actual = getComputedStyle(clear);
+  expect(ring).not.toEqual(['0px', '0px']);
+  expect([actual.outlineWidth, actual.outlineOffset]).toEqual(ring);
 });
 
 test('keeps the default indicator outside the trigger button', () => {
@@ -436,4 +460,42 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     app.unmount();
     host.remove();
   }
+});
+
+test('renders an option row with a replaceable indicator', async () => {
+  render({
+    components: { ...selectComponents, SelectOption },
+    setup: () => ({ fruits }),
+    template: `
+      <Select :collection="fruits" default-open :default-value="['apple']" :portalled="false">
+        <SelectPositioner><SelectContent>
+          <SelectOption :item="fruits.items[0]">Apple</SelectOption>
+          <SelectOption :item="fruits.items[1]" :indicator="false">Mango</SelectOption>
+        </SelectContent></SelectPositioner>
+      </Select>
+    `,
+  });
+
+  await expect.element(page.getByRole('option', { name: 'Apple' })).toBeVisible();
+
+  const [apple, mango] = [...document.querySelectorAll<HTMLElement>('[data-slot="select-item"]')];
+  expect(apple!.querySelector('[data-slot="select-item-text"]')!.textContent).toBe('Apple');
+  expect(apple!.querySelector('[data-slot="select-item-indicator"] svg')).not.toBeNull();
+  expect(mango!.querySelector('[data-slot="select-item-indicator"]')).toBeNull();
+  expect(document.querySelector('[data-testid="custom-indicator"]')).toBeNull();
+
+  render({
+    components: { ...selectComponents, SelectOption },
+    setup: () => ({ fruits, indicator: h('span', { 'data-testid': 'custom-indicator' }) }),
+    template: `
+      <Select :collection="fruits" default-open :default-value="['mango']" :portalled="false">
+        <SelectPositioner><SelectContent>
+          <SelectOption :item="fruits.items[1]" :indicator="indicator">Mango</SelectOption>
+        </SelectContent></SelectPositioner>
+      </Select>
+    `,
+  });
+  await expect
+    .poll(() => document.querySelector('[data-testid="custom-indicator"]'))
+    .not.toBeNull();
 });

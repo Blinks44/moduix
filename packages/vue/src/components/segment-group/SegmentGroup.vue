@@ -9,6 +9,8 @@ import useSegmentGroup from './useSegmentGroup';
 
 defineOptions({ inheritAttrs: false });
 
+export type SegmentGroupSize = 'sm' | 'md' | 'lg';
+
 export interface Props extends /* @vue-ignore */ SegmentGroupRootProps {
   asChild?: boolean;
   class?: HTMLAttributes['class'];
@@ -23,6 +25,7 @@ export interface Props extends /* @vue-ignore */ SegmentGroupRootProps {
   orientation?: 'horizontal' | 'vertical';
   readOnly?: boolean;
   required?: boolean;
+  size?: SegmentGroupSize;
 }
 
 export interface Emits extends /* @vue-ignore */ SegmentGroupRootEmits {}
@@ -41,6 +44,7 @@ const {
   orientation = 'horizontal',
   readOnly = undefined,
   required = undefined,
+  size = 'md',
 } = defineProps<Props>();
 const emit = defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
@@ -70,6 +74,7 @@ const segmentGroup = useSegmentGroup(
     v-bind="attrs"
     :as-child="asChild"
     :class="clsx(styles.root, className)"
+    :data-size="size"
     :value="segmentGroup"
     data-slot="segment-group-root"
   >

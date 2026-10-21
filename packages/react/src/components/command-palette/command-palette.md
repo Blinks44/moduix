@@ -61,8 +61,9 @@ CommandPalette
 `CommandPaletteHeader`, `CommandPaletteItemIcon`, `CommandPaletteItemLabel`,
 `CommandPaletteItemDescription`, `CommandPaletteItemMeta`, `CommandPaletteSeparator`, and
 `CommandPaletteFooter` are Ark factory leaf parts. `CommandPaletteKbd` wraps the local `Kbd` with a
-smaller, muted size. Every part has a `data-slot="command-palette-*"` hook, and the list adds
-`command-palette-scroll-area`, `-scroll-viewport`, and `-scroll-content`.
+smaller, muted size. Every part has a `data-slot="command-palette-*"` hook. The list renders a `ScrollArea` inside, so
+its scroll parts keep their own `scroll-area-root`, `scroll-area-viewport`, and
+`scroll-area-content` hooks; target them under `[data-slot='command-palette-list']`.
 
 ## Styling
 
