@@ -1,59 +1,31 @@
 'use client';
 
-import { useFieldContext } from '@ark-ui/react/field';
-import { useFieldsetContext } from '@ark-ui/react/fieldset';
 import {
   SegmentGroup as SegmentGroupPrimitive,
   useSegmentGroup as useSegmentGroupPrimitive,
   useSegmentGroupContext,
   useSegmentGroupItemContext,
+  type UseSegmentGroupProps,
 } from '@ark-ui/react/segment-group';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import styles from './SegmentGroup.module.css';
 
-type SegmentGroupMachineProps = Parameters<typeof useSegmentGroupPrimitive>[0];
-
-function omitUndefined<T extends Record<string, unknown>>(props: T) {
-  return Object.fromEntries(Object.entries(props).filter(([, value]) => value !== undefined)) as T;
-}
-
-function useSegmentGroup(props?: SegmentGroupMachineProps) {
-  const field = useFieldContext();
-  const fieldset = useFieldsetContext();
-
-  return useSegmentGroupPrimitive({
-    orientation: 'horizontal',
-    disabled: field?.disabled ?? fieldset?.disabled,
-    invalid: field?.invalid ?? fieldset?.invalid,
-    readOnly: field?.readOnly,
-    required: field?.required,
-    ...omitUndefined(props ?? {}),
-  });
+function useSegmentGroup({ orientation = 'horizontal', ...props }: UseSegmentGroupProps = {}) {
+  return useSegmentGroupPrimitive({ ...props, orientation });
 }
 
 const SegmentGroup = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.Root>,
   ComponentProps<typeof SegmentGroupPrimitive.Root>
->(function SegmentGroup(
-  { className, disabled, invalid, orientation = 'horizontal', readOnly, required, ...props },
-  ref,
-) {
-  const field = useFieldContext();
-  const fieldset = useFieldsetContext();
+>(function SegmentGroup({ className, orientation = 'horizontal', ...props }, ref) {
   return (
     <SegmentGroupPrimitive.Root
       ref={ref}
       className={clsx(styles.root, className)}
-      {...omitUndefined({
-        ...props,
-        orientation,
-        disabled: disabled ?? field?.disabled ?? fieldset?.disabled,
-        invalid: invalid ?? field?.invalid ?? fieldset?.invalid,
-        readOnly: readOnly ?? field?.readOnly,
-        required: required ?? field?.required,
-      })}
+      {...props}
+      orientation={orientation}
       data-slot="segment-group-root"
     />
   );
@@ -101,31 +73,12 @@ const SegmentGroupItem = forwardRef<
   );
 });
 
-const SegmentGroupItemControl = forwardRef<
-  ComponentRef<typeof SegmentGroupPrimitive.ItemControl>,
-  ComponentProps<typeof SegmentGroupPrimitive.ItemControl>
->(function SegmentGroupItemControl({ className, ...props }, ref) {
-  return (
-    <SegmentGroupPrimitive.ItemControl
-      ref={ref}
-      className={clsx(styles.itemControl, className)}
-      {...props}
-      data-slot="segment-group-item-control"
-    />
-  );
-});
-
 const SegmentGroupItemText = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.ItemText>,
   ComponentProps<typeof SegmentGroupPrimitive.ItemText>
->(function SegmentGroupItemText({ className, ...props }, ref) {
+>(function SegmentGroupItemText(props, ref) {
   return (
-    <SegmentGroupPrimitive.ItemText
-      ref={ref}
-      className={clsx(styles.itemText, className)}
-      {...props}
-      data-slot="segment-group-item-text"
-    />
+    <SegmentGroupPrimitive.ItemText ref={ref} {...props} data-slot="segment-group-item-text" />
   );
 });
 
@@ -143,6 +96,10 @@ const SegmentGroupIndicator = forwardRef<
   );
 });
 
+const SegmentGroupContext = SegmentGroupPrimitive.Context;
+const SegmentGroupItemContext = SegmentGroupPrimitive.ItemContext;
+const SegmentGroupItemHiddenInput = SegmentGroupPrimitive.ItemHiddenInput;
+
 function SegmentGroupItems({
   items,
 }: {
@@ -151,15 +108,10 @@ function SegmentGroupItems({
   return items.map(({ value, label, disabled }) => (
     <SegmentGroupItem key={value} value={value} disabled={disabled}>
       <SegmentGroupItemText>{label}</SegmentGroupItemText>
-      <SegmentGroupItemControl />
-      <SegmentGroupPrimitive.ItemHiddenInput />
+      <SegmentGroupItemHiddenInput />
     </SegmentGroupItem>
   ));
 }
-
-const SegmentGroupContext = SegmentGroupPrimitive.Context;
-const SegmentGroupItemContext = SegmentGroupPrimitive.ItemContext;
-const SegmentGroupItemHiddenInput = SegmentGroupPrimitive.ItemHiddenInput;
 
 export {
   SegmentGroup,
@@ -167,7 +119,6 @@ export {
   SegmentGroupIndicator,
   SegmentGroupItem,
   SegmentGroupItemContext,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItems,
   SegmentGroupItemText,

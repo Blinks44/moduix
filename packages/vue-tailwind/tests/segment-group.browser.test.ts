@@ -5,12 +5,9 @@ import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, defineComponent, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
-  Field,
-  Fieldset,
   SegmentGroup,
   SegmentGroupIndicator,
   SegmentGroupItem,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItems,
   SegmentGroupItemText,
@@ -22,12 +19,9 @@ import {
 } from '../src';
 
 const segmentGroupComponents = {
-  Field,
-  Fieldset,
   SegmentGroup,
   SegmentGroupIndicator,
   SegmentGroupItem,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItems,
   SegmentGroupItemText,
@@ -120,13 +114,13 @@ test('preserves disabled, read-only, invalid, and required states', async () => 
     components: segmentGroupComponents,
     template: `
       <SegmentGroup disabled aria-label="Disabled framework">
-        <SegmentGroupItem value="React"><SegmentGroupItemText>Disabled option</SegmentGroupItemText><SegmentGroupItemControl /><SegmentGroupItemHiddenInput /></SegmentGroupItem>
+        <SegmentGroupItem value="React"><SegmentGroupItemText>Disabled option</SegmentGroupItemText><SegmentGroupItemHiddenInput /></SegmentGroupItem>
       </SegmentGroup>
       <SegmentGroup read-only aria-label="Read-only framework">
-        <SegmentGroupItem value="React"><SegmentGroupItemText>Read-only option</SegmentGroupItemText><SegmentGroupItemControl /><SegmentGroupItemHiddenInput /></SegmentGroupItem>
+        <SegmentGroupItem value="React"><SegmentGroupItemText>Read-only option</SegmentGroupItemText><SegmentGroupItemHiddenInput /></SegmentGroupItem>
       </SegmentGroup>
       <SegmentGroup invalid required aria-label="Required framework">
-        <SegmentGroupItem value="React"><SegmentGroupItemText>Required option</SegmentGroupItemText><SegmentGroupItemControl /><SegmentGroupItemHiddenInput /></SegmentGroupItem>
+        <SegmentGroupItem value="React"><SegmentGroupItemText>Required option</SegmentGroupItemText><SegmentGroupItemHiddenInput /></SegmentGroupItem>
       </SegmentGroup>
     `,
   });
@@ -164,7 +158,7 @@ test('applies native utilities before consumer classes and forwards refs', async
         <SegmentGroupIndicator class="bg-primary" />
         <SegmentGroupItem ref="itemRef" value="React" class="data-[state=checked]:text-primary-foreground">
           <SegmentGroupItemText>React</SegmentGroupItemText>
-          <SegmentGroupItemControl /><SegmentGroupItemHiddenInput />
+          <SegmentGroupItemHiddenInput />
         </SegmentGroupItem>
       </SegmentGroup>
     `,
@@ -201,7 +195,7 @@ test('keeps as-child composition semantic and forwards item inputs', async () =>
           <SegmentGroupItem ref="itemRef" as-child value="React">
             <label data-testid="custom-item">
               <SegmentGroupItemText>React</SegmentGroupItemText>
-              <SegmentGroupItemControl /><SegmentGroupItemHiddenInput />
+              <SegmentGroupItemHiddenInput />
             </label>
           </SegmentGroupItem>
         </section>
@@ -232,14 +226,12 @@ test('keeps as-child item state and indicator geometry reactive', async () => {
         <SegmentGroupItem value="Monthly" as-child>
           <label data-testid="monthly">
             <SegmentGroupItemText>Monthly</SegmentGroupItemText>
-            <SegmentGroupItemControl />
             <SegmentGroupItemHiddenInput />
           </label>
         </SegmentGroupItem>
         <SegmentGroupItem value="Annual" as-child>
           <label data-testid="annual">
             <SegmentGroupItemText>Annual</SegmentGroupItemText>
-            <SegmentGroupItemControl />
             <SegmentGroupItemHiddenInput />
           </label>
         </SegmentGroupItem>
@@ -289,11 +281,11 @@ test('connects root and item contexts through the provider', async () => {
         <RootState /><SegmentGroupIndicator />
         <SegmentGroupItem value="React">
           <SegmentGroupItemText>React <ItemState /></SegmentGroupItemText>
-          <SegmentGroupItemControl /><SegmentGroupItemHiddenInput />
+          <SegmentGroupItemHiddenInput />
         </SegmentGroupItem>
         <SegmentGroupItem value="Solid">
           <SegmentGroupItemText>Solid</SegmentGroupItemText>
-          <SegmentGroupItemControl /><SegmentGroupItemHiddenInput />
+          <SegmentGroupItemHiddenInput />
         </SegmentGroupItem>
       </SegmentGroupRootProvider>
     `,
@@ -302,37 +294,6 @@ test('connects root and item contexts through the provider', async () => {
   await page.getByRole('button', { name: 'Select', exact: true }).click();
   await expect.element(page.getByRole('radio', { name: 'Solid', exact: true })).toBeChecked();
   await expect.element(page.getByText('unchecked')).toBeAttached();
-});
-
-test('inherits Field and Fieldset state', async () => {
-  render({
-    components: segmentGroupComponents,
-    template: `
-      <Field invalid required>
-        <SegmentGroup aria-label="Field framework">
-          <SegmentGroupItem value="React"><SegmentGroupItemText>Field option</SegmentGroupItemText><SegmentGroupItemControl /><SegmentGroupItemHiddenInput /></SegmentGroupItem>
-        </SegmentGroup>
-      </Field>
-      <Fieldset disabled invalid>
-        <SegmentGroup aria-label="Fieldset framework">
-          <SegmentGroupItem value="React"><SegmentGroupItemText>Fieldset option</SegmentGroupItemText><SegmentGroupItemControl /><SegmentGroupItemHiddenInput /></SegmentGroupItem>
-        </SegmentGroup>
-      </Fieldset>
-    `,
-  });
-
-  await expect
-    .element(page.getByRole('radiogroup', { name: 'Field framework', exact: true }))
-    .toHaveAttribute('data-invalid');
-  await expect
-    .element(page.getByRole('radiogroup', { name: 'Field framework', exact: true }))
-    .toHaveAttribute('data-required');
-  await expect
-    .element(page.getByRole('radio', { name: 'Fieldset option', exact: true }))
-    .toBeDisabled();
-  await expect
-    .element(page.getByRole('radiogroup', { name: 'Fieldset framework', exact: true }))
-    .toHaveAttribute('data-invalid');
 });
 
 test('preserves vertical orientation and native selection behavior', async () => {
@@ -379,5 +340,81 @@ test('hydrates without replacing hosts or ids and responds to selection', async 
     warn.mockRestore();
     error.mockRestore();
   }
+});
+
+test('defaults the root and the hook to horizontal orientation', async () => {
+  render({
+    components: testComponents,
+    setup() {
+      return { segmentGroup: useSegmentGroup({ defaultValue: 'React' }) };
+    },
+    template: `
+      <SegmentGroup default-value="React" aria-label="Root" data-testid="root">
+        <SegmentOptions />
+      </SegmentGroup>
+      <SegmentGroupRootProvider :value="segmentGroup" aria-label="Provider" data-testid="provider">
+        <SegmentOptions />
+      </SegmentGroupRootProvider>
+    `,
+  });
+
+  await expect.element(page.getByTestId('root')).toHaveAttribute('data-orientation', 'horizontal');
+  await expect
+    .element(page.getByTestId('provider'))
+    .toHaveAttribute('data-orientation', 'horizontal');
+});
+
+test('stretches vertical items to the group width', () => {
+  render({
+    components: testComponents,
+    template: `
+      <SegmentGroup orientation="vertical" default-value="List" aria-label="View">
+        <SegmentGroupIndicator />
+        <SegmentGroupItems :items="[
+          { value: 'List', label: 'List' },
+          { value: 'Calendar view', label: 'Calendar view' }
+        ]" />
+      </SegmentGroup>
+    `,
+  });
+
+  const [short, long] = screen
+    .getAllByRole('radio')
+    .map((radio) => radio.closest<HTMLElement>('[data-slot="segment-group-item"]')!);
+  expect(short.offsetWidth).toBe(long.offsetWidth);
+});
+
+test('does not animate the indicator before the selection changes', async () => {
+  render({
+    components: testComponents,
+    template: `
+      <SegmentGroup default-value="React" aria-label="Framework">
+        <SegmentGroupIndicator data-testid="indicator" />
+        <SegmentOptions />
+      </SegmentGroup>
+    `,
+  });
+
+  await expect.element(page.getByTestId('indicator')).toBeVisible();
+  expect(getComputedStyle(screen.getByTestId('indicator')).transitionDuration).toBe('0s');
+});
+
+test('keeps a consumer checked color while the checked item is hovered', async () => {
+  render({
+    components: segmentGroupComponents,
+    template: `
+      <SegmentGroup default-value="React" aria-label="Framework">
+        <SegmentGroupItem value="React" class="data-[state=checked]:text-destructive">
+          <SegmentGroupItemText>React</SegmentGroupItemText>
+          <SegmentGroupItemHiddenInput />
+        </SegmentGroupItem>
+      </SegmentGroup>
+    `,
+  });
+
+  const item = screen.getByRole('radio', { name: 'React' }).parentElement!;
+  const checkedColor = getComputedStyle(item).color;
+  await page.getByText('React', { exact: true }).hover();
+  expect(getComputedStyle(item).color).toBe(checkedColor);
 });
 import SsrSegmentGroup from './fixtures/SsrSegmentGroup.vue';

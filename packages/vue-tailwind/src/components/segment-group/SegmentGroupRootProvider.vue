@@ -8,23 +8,21 @@ import { cn } from '@/lib/moduix/cn';
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ SegmentGroupRootProviderProps {
-  asChild?: boolean;
   class?: HTMLAttributes['class'];
   value: SegmentGroupRootProviderProps['value'];
 }
 
-const { asChild = undefined, class: className, value } = defineProps<Props>();
+const { class: className, value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const rootClass =
-  'group/segment-group relative isolate box-border inline-flex max-w-full items-stretch gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col';
+  'group/segment-group isolate box-border inline-flex max-w-full gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col';
 </script>
 
 <template>
   <ArkSegmentGroupRootProvider
     v-bind="attrs"
-    :as-child="asChild"
     :class="cn(rootClass, className)"
     :value="value"
     data-slot="segment-group-root-provider"

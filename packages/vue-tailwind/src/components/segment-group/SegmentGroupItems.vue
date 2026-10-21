@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import { SegmentGroupItemHiddenInput } from '@ark-ui/vue/segment-group';
 import type { VNodeChild } from 'vue';
 import { defineComponent } from 'vue';
 import SegmentGroupItem from './SegmentGroupItem.vue';
-import SegmentGroupItemControl from './SegmentGroupItemControl.vue';
-import SegmentGroupItemHiddenInput from './SegmentGroupItemHiddenInput.vue';
 import SegmentGroupItemText from './SegmentGroupItemText.vue';
 
 export interface SegmentGroupItemOption {
@@ -31,7 +30,6 @@ const VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => prop
     :value="item.value"
   >
     <SegmentGroupItemText><VNodeOutlet :value="item.label" /></SegmentGroupItemText>
-    <SegmentGroupItemControl />
     <SegmentGroupItemHiddenInput />
   </SegmentGroupItem>
 </template>

@@ -16,7 +16,7 @@ const frameworks = [
 export default function FieldSegmentGroupDemo() {
   return (
     <Field className={styles.root} invalid>
-      <SegmentGroup aria-label="Framework" defaultValue="React" name="framework" required>
+      <SegmentGroup aria-label="Framework" defaultValue="React" name="framework" invalid required>
         <SegmentGroupIndicator />
         <SegmentGroupItems items={frameworks} />
       </SegmentGroup>

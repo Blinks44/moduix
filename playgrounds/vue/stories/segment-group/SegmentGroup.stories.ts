@@ -5,7 +5,6 @@ import {
   SegmentGroup,
   SegmentGroupIndicator,
   SegmentGroupItem,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItems,
   SegmentGroupItemText,
@@ -37,7 +36,6 @@ const segmentGroupComponents = {
   SegmentGroup,
   SegmentGroupIndicator,
   SegmentGroupItem,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItems,
   SegmentGroupItemText,
@@ -137,7 +135,6 @@ export const CustomStyling: Story = {
       <SegmentGroupIndicator />
       <SegmentGroupItem v-for="item in frameworks" :key="item" :value="item" :class="styles.customItem">
         <SegmentGroupItemText>{{ item }}</SegmentGroupItemText>
-        <SegmentGroupItemControl />
         <SegmentGroupItemHiddenInput />
       </SegmentGroupItem>
     </SegmentGroup>
@@ -157,7 +154,6 @@ export const AsChild: Story = {
         <label :class="styles.cardItem">
           <SegmentGroupItemText :class="styles.cardTitle">{{ item }}</SegmentGroupItemText>
           <span :class="styles.cardDescription">{{ description }}</span>
-          <SegmentGroupItemControl />
           <SegmentGroupItemHiddenInput />
         </label>
       </SegmentGroupItem>

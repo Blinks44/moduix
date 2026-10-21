@@ -2,7 +2,6 @@ import {
   SegmentGroup,
   SegmentGroupIndicator,
   SegmentGroupItem,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItemText,
 } from '@moduix/react/segment-group';
@@ -20,7 +19,6 @@ export default function SegmentGroupAsChildDemo() {
           <label className={styles.item}>
             <SegmentGroupItemText className={styles.title}>{item}</SegmentGroupItemText>
             <span className={styles.description}>{description}</span>
-            <SegmentGroupItemControl />
             <SegmentGroupItemHiddenInput />
           </label>
         </SegmentGroupItem>

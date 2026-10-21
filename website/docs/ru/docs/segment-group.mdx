@@ -57,8 +57,7 @@ import segmentGroupVueVerticalOrientation from '../../../snippets/segment-group/
 
 Используйте `SegmentGroup` как корневой компонент, разместите `SegmentGroupIndicator` перед
 элементами и выберите `SegmentGroupItems`, если каждому сегменту нужна только текстовая подпись.
-`SegmentGroupItems` создаёт для каждого элемента части item, text и control, а также одно синхронизированное
-нативное поле формы.
+`SegmentGroupItems` создаёт для каждого элемента части item и text, а также одно нативное поле формы.
 
 <ExampleFrame variant="component">
   <SegmentGroupBasic />
@@ -143,7 +142,6 @@ SegmentGroup
 ├─ SegmentGroupIndicator
 └─ SegmentGroupItem[value]
    ├─ SegmentGroupItemText
-   ├─ SegmentGroupItemControl
    └─ нативное поле формы
 
 SegmentGroupRootProvider
@@ -165,13 +163,12 @@ SegmentGroupContext / SegmentGroupItemContext
 | `SegmentGroupItems`                 | Рекомендуемый способ отрисовать стандартные текстовые сегменты.         |
 | `SegmentGroupItem`                  | Один выбираемый сегмент; по умолчанию создаёт элемент `label`.           |
 | `SegmentGroupItemText`              | Видимая подпись сегмента.                                                  |
-| `SegmentGroupItemControl`           | Часть Ark для состояния элемента; по умолчанию скрыта стилями moduix.    |
 
 ## Композиция
 
 Для обычной композиции используйте `SegmentGroup` с `SegmentGroupIndicator` перед
-`SegmentGroupItems`. `SegmentGroupItems` добавляет к каждому элементу `SegmentGroupItemText`,
-`SegmentGroupItemControl` и ровно одно `SegmentGroupItemHiddenInput`. Если вы собираете
+`SegmentGroupItems`. `SegmentGroupItems` добавляет к каждому элементу `SegmentGroupItemText`
+и ровно одно `SegmentGroupItemHiddenInput`. Если вы собираете
 `SegmentGroupItem` напрямую, добавьте эти части самостоятельно и оставьте внутри каждого элемента
 ровно одно `SegmentGroupItemHiddenInput`. Прямой дочерний элемент
 `asChild` должен оставаться одним семантическим `label`.
@@ -327,8 +324,8 @@ SegmentGroupContext / SegmentGroupItemContext
 ### Field
 
 Оберните группу в `Field`, если нативные поля должны сопровождаться поясняющим
-текстом или сообщением об ошибке. Ark наследует от поля состояния `disabled`, `invalid`, `required`
-и `readOnly`.
+текстом или сообщением об ошибке. `Field` не передаёт группе своё состояние, поэтому задайте
+`invalid`, `required`, `disabled` или `readOnly` и на `SegmentGroup`.
 
 <ExampleFrame variant="component">
   <SegmentGroupField />
@@ -617,13 +614,14 @@ utility-классы и классы потребителя, а переменн
 ### Хуки стилизации
 
 - Стабильные селекторы `data-slot`: `segment-group-root`, `segment-group-root-provider`,
-  `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
-  `segment-group-item-text` и `segment-group-item-control`.
+  `segment-group-label`, `segment-group-indicator`, `segment-group-item`
+  и `segment-group-item-text`.
 - Селекторы частей Ark: `data-scope="segment-group"` и `data-part` на корневом элементе, подписи,
-  индикаторе, элементе, тексте элемента, его control и скрытом поле.
+  индикаторе, элементе, тексте элемента и скрытом поле.
 - Селекторы состояний Ark: `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
   `data-readonly`, `data-invalid`, `data-required` и `data-focus-visible`.
 - Индикатор использует переменные Ark `--left`, `--top`, `--width` и `--height` для определения
-  размера. Для анимации используются `--transition-duration` и `--transition-timing-function`;
-  значения moduix по умолчанию задаются через `--moduix-segment-group-indicator-transition-duration`
-  и `--moduix-segment-group-indicator-transition-timing-function`.
+  размера. Для анимации используются переменные Ark `--transition-duration` и
+  `--transition-timing-function`, по умолчанию `--moduix-duration-normal` и `--moduix-ease-in-out`.
+  Задайте их классом на `SegmentGroupIndicator` (в Tailwind `[--transition-duration:300ms]`);
+  утилиты `duration-*` проигрывают инлайн-переходу, который пишет Ark.

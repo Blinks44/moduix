@@ -437,39 +437,9 @@
   /* SegmentGroup */
   --moduix-segment-group-bg: initial; /* var(--moduix-color-muted) */
   --moduix-segment-group-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-segment-group-border-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-segment-group-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-segment-group-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-segment-group-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-segment-group-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-segment-group-focus-ring-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-segment-group-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
-  --moduix-segment-group-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
-  --moduix-segment-group-gap: initial; /* var(--moduix-spacing-1) */
   --moduix-segment-group-indicator-bg: initial; /* var(--moduix-color-background) */
-  --moduix-segment-group-indicator-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-segment-group-indicator-shadow: initial; /* var(--moduix-shadow-sm) */
-  --moduix-segment-group-indicator-transition-duration: initial; /* var(--moduix-duration-normal) */
-  --moduix-segment-group-indicator-transition-timing-function: initial; /* var(--moduix-ease-in-out) */
   --moduix-segment-group-item-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-segment-group-item-color-checked: initial; /* var(--moduix-color-foreground) */
-  --moduix-segment-group-item-color-hover: initial; /* var(--moduix-color-foreground) */
-  --moduix-segment-group-item-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-segment-group-item-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-segment-group-item-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-segment-group-item-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-segment-group-item-height: initial; /* var(--moduix-size-sm) */
-  --moduix-segment-group-item-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-segment-group-item-padding-x: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-segment-group-item-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-segment-group-label-color: initial; /* var(--moduix-segment-group-color, var(--moduix-color-foreground)) */
-  --moduix-segment-group-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-segment-group-label-font-weight: initial; /* var(--moduix-weight-semibold) */
-  --moduix-segment-group-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-segment-group-max-width: initial; /* 100% */
-  --moduix-segment-group-padding: initial; /* var(--moduix-spacing-1) */
-  --moduix-segment-group-radius: initial; /* var(--moduix-radius-lg) */
-  --moduix-segment-group-transition: initial; /* var(--moduix-transition-default) */
 
   /* SignaturePad */
   --moduix-signature-pad-bg: initial; /* var(--moduix-color-background) */

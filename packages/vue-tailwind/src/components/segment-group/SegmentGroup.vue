@@ -45,6 +45,7 @@ const emit = defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+// Ark Vue SegmentGroupRoot drops `invalid` and `required`, so the root owns the machine.
 const segmentGroup = useSegmentGroup(
   computed(() => ({
     defaultValue,
@@ -62,7 +63,7 @@ const segmentGroup = useSegmentGroup(
   emit,
 );
 const rootClass =
-  'group/segment-group relative isolate box-border inline-flex max-w-full items-stretch gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col';
+  'group/segment-group isolate box-border inline-flex max-w-full gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col';
 </script>
 
 <template>

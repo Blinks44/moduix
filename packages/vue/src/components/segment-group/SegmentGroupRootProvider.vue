@@ -9,12 +9,11 @@ import styles from './SegmentGroup.module.css';
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ SegmentGroupRootProviderProps {
-  asChild?: boolean;
   class?: HTMLAttributes['class'];
   value: SegmentGroupRootProviderProps['value'];
 }
 
-const { asChild = undefined, class: className, value } = defineProps<Props>();
+const { class: className, value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -23,7 +22,6 @@ const attrs = useAttrs();
 <template>
   <ArkSegmentGroupRootProvider
     v-bind="attrs"
-    :as-child="asChild"
     :class="clsx(styles.root, className)"
     :value="value"
     data-slot="segment-group-root-provider"

@@ -55,7 +55,7 @@ Use `SegmentGroup` when users choose one value from a small set that is visible 
 
 Use `SegmentGroup` as the root, place `SegmentGroupIndicator` before the items, and use
 `SegmentGroupItems` when every segment only needs a text label. `SegmentGroupItems` creates the item,
-text, control, and one synchronized native form input for every entry.
+text, and one native form input for every entry.
 
 <ExampleFrame variant="component">
   <SegmentGroupBasic />
@@ -140,7 +140,6 @@ SegmentGroup
 ├─ SegmentGroupIndicator
 └─ SegmentGroupItem[value]
    ├─ SegmentGroupItemText
-   ├─ SegmentGroupItemControl
    └─ the native form input
 
 SegmentGroupRootProvider
@@ -156,7 +155,6 @@ SegmentGroupRootProvider
 | `SegmentGroupItem` | One selectable segment with a required `value`. |
 | `SegmentGroupItemHiddenInput` | Native Ark form control for an explicit item composition. |
 | `SegmentGroupItemText` | Visible text for a segment. |
-| `SegmentGroupItemControl` | Ark control part used for item state and hidden by moduix styles. |
 | `SegmentGroupItems` | Renderer for standard text segments with the native input included. |
 | `SegmentGroupIndicator` | Positions the active-item highlight using Ark CSS variables. |
 | `SegmentGroupLabel` | Optional accessible label for the group. |
@@ -164,7 +162,7 @@ SegmentGroupRootProvider
 ## Composition
 
 Use `SegmentGroup` with `SegmentGroupIndicator` before `SegmentGroupItems` for the usual
-composition. `SegmentGroupItems` includes `SegmentGroupItemText`, `SegmentGroupItemControl`, and
+composition. `SegmentGroupItems` includes `SegmentGroupItemText` and
 exactly one `SegmentGroupItemHiddenInput` for every item. When rendering `SegmentGroupItem` directly,
 compose those parts yourself and keep exactly one `SegmentGroupItemHiddenInput` inside each item. The direct child of
 `asChild` must remain one semantic `label`.
@@ -319,7 +317,8 @@ disable the whole group.
 ### Field
 
 Wrap the group in `Field` when its native inputs should be accompanied by helper or error text.
-Ark inherits the field's disabled, invalid, required, and read-only state.
+`Field` does not pass its state to the group, so set `invalid`, `required`, `disabled`, or `readOnly`
+on `SegmentGroup` as well.
 
 <ExampleFrame variant="component">
   <SegmentGroupField />
@@ -609,15 +608,13 @@ classes; the component variables below customize the CSS Modules variants. Data 
 
 - Stable `data-slot` selectors: `segment-group-root`, `segment-group-root-provider`,
   `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
-  `segment-group-item-text`, and `segment-group-item-control`.
+  and `segment-group-item-text`.
 - Ark part selectors: `data-scope="segment-group"` and `data-part` on the root, label, indicator,
-  item, item text, item control, and hidden input.
+  item, item text, and hidden input.
 - Ark state selectors: `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
   `data-readonly`, `data-invalid`, `data-required`, and `data-focus-visible`.
 - The indicator uses Ark runtime variables `--left`, `--top`, `--width`, and `--height` for its
-  size. Its motion uses `--transition-duration` and `--transition-timing-function`, with moduix
-  defaults mapped from `--moduix-segment-group-indicator-transition-duration` and
-  `--moduix-segment-group-indicator-transition-timing-function`. Zag writes these styles inline on
-  the indicator, so Tailwind variants must override indicator motion with important utilities
-  (`!duration-*` / `!ease-*`) or arbitrary `[--transition-duration:*]` properties; plain
-  `duration-*` utilities lose to the inline style.
+  size. Its motion uses Ark `--transition-duration` and `--transition-timing-function`, set from
+  `--moduix-duration-normal` and `--moduix-ease-in-out`. Set them with a class on
+  `SegmentGroupIndicator` (in Tailwind, `[--transition-duration:300ms]`); `duration-*` utilities lose
+  to the inline transition that Ark writes.

@@ -4,7 +4,6 @@ import {
   SegmentGroup,
   SegmentGroupIndicator,
   SegmentGroupItem,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItems,
   SegmentGroupItemText,
@@ -35,7 +34,7 @@ const buttonClassName =
 const cardItemClassName =
   'group/segment-item grid min-h-18 w-36 content-center justify-items-start gap-0.5 p-3 whitespace-normal';
 const cardDescriptionClassName =
-  'relative z-1 text-xs leading-4 text-muted-foreground group-data-[state=checked]/segment-item:text-foreground';
+  'text-xs leading-4 text-muted-foreground group-data-[state=checked]/segment-item:text-foreground';
 
 export const Basic: Story = {
   render: () => (
@@ -138,7 +137,6 @@ export const CustomStyling: Story = {
           className="data-[state=checked]:text-primary-foreground"
         >
           <SegmentGroupItemText>{item}</SegmentGroupItemText>
-          <SegmentGroupItemControl />
           <SegmentGroupItemHiddenInput />
         </SegmentGroupItem>
       ))}
@@ -158,7 +156,6 @@ export const AsChild: Story = {
           <label className={cardItemClassName}>
             <SegmentGroupItemText className="font-semibold">{item}</SegmentGroupItemText>
             <span className={cardDescriptionClassName}>{description}</span>
-            <SegmentGroupItemControl />
             <SegmentGroupItemHiddenInput />
           </label>
         </SegmentGroupItem>

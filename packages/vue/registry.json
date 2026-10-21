@@ -845,33 +845,13 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/segment-group/SegmentGroupItemControl.vue",
-          "target": "@components/ui/segment-group/SegmentGroupItemControl.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/segment-group/SegmentGroupItemText.vue",
           "target": "@components/ui/segment-group/SegmentGroupItemText.vue",
           "type": "registry:component"
         },
         {
-          "path": "src/components/segment-group/SegmentGroupItemHiddenInput.vue",
-          "target": "@components/ui/segment-group/SegmentGroupItemHiddenInput.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/segment-group/SegmentGroupIndicator.vue",
           "target": "@components/ui/segment-group/SegmentGroupIndicator.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/segment-group/SegmentGroupContext.vue",
-          "target": "@components/ui/segment-group/SegmentGroupContext.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/segment-group/SegmentGroupItemContext.vue",
-          "target": "@components/ui/segment-group/SegmentGroupItemContext.vue",
           "type": "registry:component"
         },
         {

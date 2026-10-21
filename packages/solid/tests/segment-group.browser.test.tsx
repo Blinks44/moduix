@@ -3,12 +3,9 @@ import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import {
-  Field,
-  Fieldset,
   SegmentGroup,
   SegmentGroupIndicator,
   SegmentGroupItem,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItemText,
   SegmentGroupItems,
@@ -83,7 +80,6 @@ test('keeps asChild composition semantic with an explicit item input', () => {
         value="React"
       >
         <>
-          <SegmentGroupItemControl />
           <SegmentGroupItemHiddenInput />
           <SegmentGroupItemText>React</SegmentGroupItemText>
         </>
@@ -106,7 +102,6 @@ test('keeps asChild item state reactive after selection changes', async () => {
       >
         <>
           <SegmentGroupItemText>Monthly</SegmentGroupItemText>
-          <SegmentGroupItemControl />
           <SegmentGroupItemHiddenInput />
         </>
       </SegmentGroupItem>
@@ -116,7 +111,6 @@ test('keeps asChild item state reactive after selection changes', async () => {
       >
         <>
           <SegmentGroupItemText>Annual</SegmentGroupItemText>
-          <SegmentGroupItemControl />
           <SegmentGroupItemHiddenInput />
         </>
       </SegmentGroupItem>
@@ -149,7 +143,6 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
         value="React"
       >
         <>
-          <SegmentGroupItemControl />
           <SegmentGroupItemHiddenInput />
           <SegmentGroupItemText>React</SegmentGroupItemText>
         </>
@@ -166,17 +159,14 @@ test('preserves native radio semantics and disabled items', async () => {
       <SegmentGroupIndicator />
       <SegmentGroupItem value="React">
         <SegmentGroupItemText>React</SegmentGroupItemText>
-        <SegmentGroupItemControl />
         <SegmentGroupItemHiddenInput />
       </SegmentGroupItem>
       <SegmentGroupItem value="Solid" disabled>
         <SegmentGroupItemText>Solid</SegmentGroupItemText>
-        <SegmentGroupItemControl />
         <SegmentGroupItemHiddenInput />
       </SegmentGroupItem>
       <SegmentGroupItem value="Vue">
         <SegmentGroupItemText>Vue</SegmentGroupItemText>
-        <SegmentGroupItemControl />
         <SegmentGroupItemHiddenInput />
       </SegmentGroupItem>
     </SegmentGroup>
@@ -217,7 +207,6 @@ test('forwards refs through the root, item, and indicator wrappers', () => {
       <SegmentGroupIndicator ref={(element) => (indicatorRef = element)} />
       <SegmentGroupItem ref={(element) => (itemRef = element)} value="React">
         <SegmentGroupItemText>React</SegmentGroupItemText>
-        <SegmentGroupItemControl />
         <SegmentGroupItemHiddenInput />
       </SegmentGroupItem>
     </SegmentGroup>
@@ -262,87 +251,6 @@ test('preserves controlled and provider composition paths', async () => {
   await expect.element(solidRadio).toBeChecked();
 });
 
-test('preserves hook defaults, Field inheritance, and reactive explicit overrides', async () => {
-  const [override, setOverride] = createSignal<boolean | undefined>(undefined);
-  const [orientation, setOrientation] = createSignal<'horizontal' | 'vertical' | undefined>(
-    undefined,
-  );
-
-  function Provider() {
-    const group = useSegmentGroup(() => ({
-      id: undefined,
-      orientation: orientation(),
-      disabled: override(),
-      invalid: override(),
-      readOnly: override(),
-      required: override(),
-    }));
-    return (
-      <SegmentGroupRootProvider value={group}>
-        <SegmentItems />
-      </SegmentGroupRootProvider>
-    );
-  }
-
-  render(() => (
-    <Field disabled invalid readOnly required>
-      <Provider />
-    </Field>
-  ));
-
-  const group = screen.getByRole('radiogroup');
-
-  const id = group.id;
-  expect(id).not.toBe('');
-  expect(id).not.toContain('undefined');
-  const groupLocator = page.getByRole('radiogroup');
-  await expect.element(groupLocator).toHaveAttribute('data-orientation', 'horizontal');
-  await expect.element(groupLocator).toHaveAttribute('data-invalid');
-  await expect.element(groupLocator).toHaveAttribute('aria-readonly', 'true');
-  const solidRadio = page.getByRole('radio', { name: 'Solid', exact: true });
-  await expect.element(solidRadio).toBeDisabled();
-  await expect.element(solidRadio).toHaveAttribute('required');
-
-  setOverride(false);
-  setOrientation('vertical');
-  expect(screen.getByRole('radiogroup')).toBe(group);
-  expect(group.id).toBe(id);
-  await expect.element(groupLocator).toHaveAttribute('data-orientation', 'vertical');
-  await expect.element(groupLocator).not.toHaveAttribute('data-invalid');
-  await expect.element(groupLocator).not.toHaveAttribute('aria-readonly');
-  await expect.element(solidRadio).not.toBeDisabled();
-  await expect.element(solidRadio).not.toHaveAttribute('required');
-  await page.getByText('Solid', { exact: true }).click();
-  await expect.element(solidRadio).toBeChecked();
-
-  setOverride(undefined);
-  setOrientation(undefined);
-  await expect.element(groupLocator).toHaveAttribute('data-orientation', 'horizontal');
-  await expect.element(groupLocator).toHaveAttribute('data-invalid');
-  await expect.element(groupLocator).toHaveAttribute('aria-readonly', 'true');
-  await expect.element(solidRadio).toBeDisabled();
-  await expect.element(solidRadio).toHaveAttribute('required');
-});
-
-test('inherits Fieldset disabled and invalid state', async () => {
-  render(() => (
-    <Fieldset disabled invalid>
-      <SegmentGroup defaultValue="React">
-        <SegmentGroupItem value="React">
-          <SegmentGroupItemControl data-testid="fieldset-invalid-control" />
-          <SegmentGroupItemHiddenInput />
-          <SegmentGroupItemText>React</SegmentGroupItemText>
-        </SegmentGroupItem>
-      </SegmentGroup>
-    </Fieldset>
-  ));
-
-  await expect.element(page.getByRole('radio', { name: 'React', exact: true })).toBeDisabled();
-  await expect
-    .element(page.getByTestId('fieldset-invalid-control'))
-    .toHaveAttribute('data-invalid');
-});
-
 test('preserves vertical orientation for Ark navigation', async () => {
   render(() => (
     <SegmentGroup defaultValue="React" orientation="vertical">
@@ -356,70 +264,6 @@ test('preserves vertical orientation for Ark navigation', async () => {
   expect(
     screen.getByRole('radio', { name: 'React' }).parentElement!.getAttribute('data-orientation'),
   ).toBe('vertical');
-});
-
-test('preserves defaults and generated ids when machine props are undefined', async () => {
-  render(() => (
-    <Field disabled invalid readOnly required>
-      <SegmentGroup id={undefined} orientation={undefined} disabled={undefined}>
-        <SegmentItems />
-      </SegmentGroup>
-    </Field>
-  ));
-  const group = screen.getByRole('radiogroup');
-  expect(group.id).not.toBe('');
-  expect(group.id).not.toContain('undefined');
-  const groupLocator = page.getByRole('radiogroup');
-  await expect.element(groupLocator).toHaveAttribute('data-orientation', 'horizontal');
-  await expect.element(groupLocator).toHaveAttribute('data-disabled');
-  await expect.element(groupLocator).toHaveAttribute('data-invalid');
-  await expect.element(groupLocator).toHaveAttribute('aria-readonly', 'true');
-  await expect.element(groupLocator).toHaveAttribute('data-required');
-  await expect.element(page.getByRole('radio', { name: 'React', exact: true })).toBeDisabled();
-  await expect
-    .element(page.getByRole('radio', { name: 'React', exact: true }))
-    .toHaveAttribute('required');
-  expect(
-    screen.getByRole('radio', { name: 'React' }).parentElement!.hasAttribute('data-readonly'),
-  ).toBe(true);
-  await expect
-    .element(page.locator('[data-slot="segment-group-item-control"]').nth(0))
-    .toHaveAttribute('data-invalid');
-});
-
-test('keeps state overrides and orientation reactive through the native Root', async () => {
-  const [override, setOverride] = createSignal<boolean | undefined>(undefined);
-  const [orientation, setOrientation] = createSignal<'horizontal' | 'vertical'>('horizontal');
-  render(() => (
-    <Field disabled invalid readOnly required>
-      <SegmentGroup
-        disabled={override()}
-        invalid={override()}
-        readOnly={override()}
-        required={override()}
-        orientation={orientation()}
-      >
-        <SegmentItems />
-      </SegmentGroup>
-    </Field>
-  ));
-  const solidLocator = page.getByRole('radio', { name: 'Solid', exact: true });
-  await expect.element(solidLocator).toBeDisabled();
-  setOverride(false);
-  setOrientation('vertical');
-
-  const groupLocator = page.getByRole('radiogroup');
-  await expect.element(groupLocator).not.toHaveAttribute('data-disabled');
-  await expect.element(groupLocator).not.toHaveAttribute('data-invalid');
-  await expect.element(groupLocator).not.toHaveAttribute('aria-readonly');
-  await expect.element(groupLocator).not.toHaveAttribute('data-required');
-  await expect.element(groupLocator).toHaveAttribute('data-orientation', 'vertical');
-  const solid = screen.getByRole('radio', { name: 'Solid' });
-  await expect.element(solidLocator).not.toBeDisabled();
-  await expect.element(solidLocator).not.toHaveAttribute('required');
-  expect(solid.parentElement?.hasAttribute('data-readonly')).toBe(false);
-  await page.getByText('Solid', { exact: true }).click();
-  await expect.element(solidLocator).toBeChecked();
 });
 
 test('preserves the native Root asChild host without emulating ref forwarding', async () => {
@@ -438,4 +282,57 @@ test('preserves the native Root asChild host without emulating ref forwarding', 
     .toHaveAttribute('data-slot', 'segment-group-root');
   await expect.element(page.getByRole('radio', { name: 'React', exact: true })).toBeChecked();
   expect(rootRef).toBeUndefined();
+});
+
+test('defaults the root and the hook to horizontal orientation', async () => {
+  function Provider() {
+    const segmentGroup = useSegmentGroup({ defaultValue: 'React' });
+    return (
+      <SegmentGroupRootProvider value={segmentGroup} data-testid="provider">
+        <SegmentItems />
+      </SegmentGroupRootProvider>
+    );
+  }
+
+  render(() => (
+    <>
+      <SegmentGroup defaultValue="React" orientation={undefined} data-testid="root">
+        <SegmentItems />
+      </SegmentGroup>
+      <Provider />
+    </>
+  ));
+
+  await expect.element(page.getByTestId('root')).toHaveAttribute('data-orientation', 'horizontal');
+  await expect
+    .element(page.getByTestId('provider'))
+    .toHaveAttribute('data-orientation', 'horizontal');
+});
+
+test('stretches vertical items to the group width', () => {
+  render(() => (
+    <SegmentGroup defaultValue="List" orientation="vertical">
+      <SegmentGroupIndicator />
+      <SegmentGroupItems
+        items={['List', 'Calendar view'].map((value) => ({ value, label: value }))}
+      />
+    </SegmentGroup>
+  ));
+
+  const [short, long] = screen
+    .getAllByRole('radio')
+    .map((radio) => radio.closest<HTMLElement>('[data-slot="segment-group-item"]')!);
+  expect(short.offsetWidth).toBe(long.offsetWidth);
+});
+
+test('does not animate the indicator before the selection changes', async () => {
+  render(() => (
+    <SegmentGroup defaultValue="React">
+      <SegmentGroupIndicator data-testid="indicator" />
+      <SegmentGroupItems items={frameworkItems} />
+    </SegmentGroup>
+  ));
+
+  await expect.element(page.getByTestId('indicator')).toBeVisible();
+  expect(getComputedStyle(screen.getByTestId('indicator')).transitionDuration).toBe('0s');
 });

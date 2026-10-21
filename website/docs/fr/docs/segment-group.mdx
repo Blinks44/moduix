@@ -56,7 +56,7 @@ même temps.
 
 Utilisez `SegmentGroup` comme racine, placez `SegmentGroupIndicator` avant les éléments et utilisez
 `SegmentGroupItems` lorsque chaque segment n'a besoin que d'un libellé textuel. `SegmentGroupItems` crée pour chaque
-entrée les parties item, text et control, ainsi qu'un champ de formulaire natif synchronisé.
+entrée les parties item et text, ainsi qu'un champ de formulaire natif.
 
 <ExampleFrame variant="component">
   <SegmentGroupBasic />
@@ -141,7 +141,6 @@ SegmentGroup
 ├─ SegmentGroupIndicator
 └─ SegmentGroupItem[value]
    ├─ SegmentGroupItemText
-   ├─ SegmentGroupItemControl
    └─ champ de formulaire natif
 
 SegmentGroupRootProvider
@@ -163,12 +162,11 @@ SegmentGroupContext / SegmentGroupItemContext
 | `SegmentGroupItems`                   | Méthode recommandée pour afficher des segments textuels standard.     |
 | `SegmentGroupItem`                    | Segment sélectionnable ; rend un `label` par défaut.                  |
 | `SegmentGroupItemText`                | Libellé visible du segment.                                           |
-| `SegmentGroupItemControl`             | Partie Ark utilisée pour l’état de l’élément, masquée par les styles moduix. |
 
 ## Composition
 
 Pour la composition courante, utilisez `SegmentGroup` avec `SegmentGroupIndicator` avant
-`SegmentGroupItems`. `SegmentGroupItems` inclut `SegmentGroupItemText`, `SegmentGroupItemControl` et
+`SegmentGroupItems`. `SegmentGroupItems` inclut `SegmentGroupItemText` et
 exactement un `SegmentGroupItemHiddenInput` pour chaque élément. Si vous rendez `SegmentGroupItem`
 directement, composez ces parties vous-même et conservez exactement un
 `SegmentGroupItemHiddenInput` dans chaque élément. L'enfant direct de
@@ -325,8 +323,8 @@ l’opacité du groupe, sans la cumuler avec celle de chaque élément.
 ### Field
 
 Enveloppez le groupe dans `Field` lorsque ses champs natifs doivent être accompagnés d’un texte
-d’aide ou d’un message d’erreur. Ark hérite des états `disabled`, `invalid`, `required` et `readOnly`
-du champ.
+d’aide ou d’un message d’erreur. `Field` ne transmet pas son état au groupe : définissez aussi
+`invalid`, `required`, `disabled` ou `readOnly` sur `SegmentGroup`.
 
 <ExampleFrame variant="component">
   <SegmentGroupField />
@@ -616,13 +614,15 @@ par les deux modes de style.
 ### Hooks de style
 
 - Sélecteurs `data-slot` stables : `segment-group-root`, `segment-group-root-provider`,
-  `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
-  `segment-group-item-text` et `segment-group-item-control`.
+  `segment-group-label`, `segment-group-indicator`, `segment-group-item`
+  et `segment-group-item-text`.
 - Sélecteurs des parties Ark : `data-scope="segment-group"` et `data-part` sur la racine, le libellé,
-  l'indicateur, l'élément, le texte de l'élément, son control et le champ masqué.
+  l'indicateur, l'élément, le texte de l'élément et le champ masqué.
 - Sélecteurs d'état Ark : `data-state="checked|unchecked"`, `data-orientation`, `data-disabled`,
   `data-readonly`, `data-invalid`, `data-required` et `data-focus-visible`.
 - L'indicateur utilise les variables d'exécution Ark `--left`, `--top`, `--width` et `--height` pour
-  sa taille. Son mouvement utilise `--transition-duration` et `--transition-timing-function`, avec les
-  valeurs par défaut moduix définies par `--moduix-segment-group-indicator-transition-duration` et
-  `--moduix-segment-group-indicator-transition-timing-function`.
+  sa taille. Son mouvement utilise les variables Ark `--transition-duration` et
+  `--transition-timing-function`, définies par défaut à `--moduix-duration-normal` et
+  `--moduix-ease-in-out`. Définissez-les avec une classe sur `SegmentGroupIndicator` (en Tailwind,
+  `[--transition-duration:300ms]`) ; les utilitaires `duration-*` perdent face à la transition inline
+  écrite par Ark.

@@ -13,7 +13,7 @@ const frameworks = [
 
 <template>
   <Field :class="styles.root" invalid>
-    <SegmentGroup aria-label="Framework" default-value="React" name="framework" required>
+    <SegmentGroup aria-label="Framework" default-value="React" name="framework" invalid required>
       <SegmentGroupIndicator />
       <SegmentGroupItems :items="frameworks" />
     </SegmentGroup>

@@ -1,61 +1,33 @@
 'use client';
 
-import { useFieldContext } from '@ark-ui/react/field';
-import { useFieldsetContext } from '@ark-ui/react/fieldset';
 import {
   SegmentGroup as SegmentGroupPrimitive,
   useSegmentGroup as useSegmentGroupPrimitive,
   useSegmentGroupContext,
   useSegmentGroupItemContext,
+  type UseSegmentGroupProps,
 } from '@ark-ui/react/segment-group';
 import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-type SegmentGroupMachineProps = Parameters<typeof useSegmentGroupPrimitive>[0];
-
-function omitUndefined<T extends Record<string, unknown>>(props: T) {
-  return Object.fromEntries(Object.entries(props).filter(([, value]) => value !== undefined)) as T;
-}
-
-function useSegmentGroup(props?: SegmentGroupMachineProps) {
-  const field = useFieldContext();
-  const fieldset = useFieldsetContext();
-
-  return useSegmentGroupPrimitive({
-    orientation: 'horizontal',
-    disabled: field?.disabled ?? fieldset?.disabled,
-    invalid: field?.invalid ?? fieldset?.invalid,
-    readOnly: field?.readOnly,
-    required: field?.required,
-    ...omitUndefined(props ?? {}),
-  });
+function useSegmentGroup({ orientation = 'horizontal', ...props }: UseSegmentGroupProps = {}) {
+  return useSegmentGroupPrimitive({ ...props, orientation });
 }
 
 const SegmentGroup = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.Root>,
   ComponentProps<typeof SegmentGroupPrimitive.Root>
->(function SegmentGroup(
-  { className, disabled, invalid, orientation = 'horizontal', readOnly, required, ...props },
-  ref,
-) {
-  const field = useFieldContext();
-  const fieldset = useFieldsetContext();
+>(function SegmentGroup({ className, orientation = 'horizontal', ...props }, ref) {
   return (
     <SegmentGroupPrimitive.Root
       ref={ref}
       className={cn(
-        'group/segment-group relative isolate box-border inline-flex max-w-full items-stretch gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
+        'group/segment-group isolate box-border inline-flex max-w-full gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
         className,
       )}
-      {...omitUndefined({
-        ...props,
-        orientation,
-        disabled: disabled ?? field?.disabled ?? fieldset?.disabled,
-        invalid: invalid ?? field?.invalid ?? fieldset?.invalid,
-        readOnly: readOnly ?? field?.readOnly,
-        required: required ?? field?.required,
-      })}
+      {...props}
+      orientation={orientation}
       data-slot="segment-group-root"
     />
   );
@@ -69,7 +41,7 @@ const SegmentGroupRootProvider = forwardRef<
     <SegmentGroupPrimitive.RootProvider
       ref={ref}
       className={cn(
-        'group/segment-group relative isolate box-border inline-flex max-w-full items-stretch gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
+        'group/segment-group isolate box-border inline-flex max-w-full gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
         className,
       )}
       {...props}
@@ -85,10 +57,7 @@ const SegmentGroupLabel = forwardRef<
   return (
     <SegmentGroupPrimitive.Label
       ref={ref}
-      className={cn(
-        'relative z-1 text-sm leading-5 font-semibold text-inherit select-none',
-        className,
-      )}
+      className={cn('text-sm leading-5 font-semibold', className)}
       {...props}
       data-slot="segment-group-label"
     />
@@ -103,7 +72,7 @@ const SegmentGroupItem = forwardRef<
     <SegmentGroupPrimitive.Item
       ref={ref}
       className={cn(
-        'relative z-1 box-border inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md px-3.5 text-sm leading-5 font-medium whitespace-nowrap text-muted-foreground outline-0 transition-[color,opacity] duration-normal ease-in-out select-none group-data-disabled/segment-group:!opacity-100 data-disabled:cursor-default data-disabled:opacity-50 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:data-focus-visible:outline-destructive data-readonly:cursor-default data-[orientation=vertical]:w-full data-[orientation=vertical]:justify-start data-[state=checked]:text-foreground [@media(hover:hover)]:[&:not([data-readonly]):not([data-disabled]):hover]:text-foreground',
+        'inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md px-3.5 text-sm leading-5 font-medium whitespace-nowrap text-muted-foreground transition-[color] duration-normal ease-in-out select-none data-disabled:cursor-default group-not-data-disabled/segment-group:data-disabled:opacity-50 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:data-focus-visible:outline-destructive data-readonly:cursor-default data-[orientation=vertical]:justify-start data-[state=checked]:text-foreground [@media(hover:hover)]:[&[data-state=unchecked]:not([data-readonly]):not([data-disabled]):hover]:text-foreground',
         className,
       )}
       {...props}
@@ -112,31 +81,12 @@ const SegmentGroupItem = forwardRef<
   );
 });
 
-const SegmentGroupItemControl = forwardRef<
-  ComponentRef<typeof SegmentGroupPrimitive.ItemControl>,
-  ComponentProps<typeof SegmentGroupPrimitive.ItemControl>
->(function SegmentGroupItemControl({ className, ...props }, ref) {
-  return (
-    <SegmentGroupPrimitive.ItemControl
-      ref={ref}
-      className={cn('hidden', className)}
-      {...props}
-      data-slot="segment-group-item-control"
-    />
-  );
-});
-
 const SegmentGroupItemText = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.ItemText>,
   ComponentProps<typeof SegmentGroupPrimitive.ItemText>
->(function SegmentGroupItemText({ className, ...props }, ref) {
+>(function SegmentGroupItemText(props, ref) {
   return (
-    <SegmentGroupPrimitive.ItemText
-      ref={ref}
-      className={cn('relative z-1', className)}
-      {...props}
-      data-slot="segment-group-item-text"
-    />
+    <SegmentGroupPrimitive.ItemText ref={ref} {...props} data-slot="segment-group-item-text" />
   );
 });
 
@@ -148,7 +98,7 @@ const SegmentGroupIndicator = forwardRef<
     <SegmentGroupPrimitive.Indicator
       ref={ref}
       className={cn(
-        'pointer-events-none absolute top-[var(--top)] left-[var(--left)] z-0 h-[var(--height)] w-[var(--width)] rounded-md bg-background shadow-sm !duration-200 !ease-in-out',
+        'pointer-events-none top-[var(--top)] left-[var(--left)] -z-1 h-[var(--height)] w-[var(--width)] rounded-md bg-background shadow-sm [--transition-duration:var(--moduix-duration-normal)] [--transition-timing-function:var(--moduix-ease-in-out)]',
         className,
       )}
       {...props}
@@ -156,6 +106,10 @@ const SegmentGroupIndicator = forwardRef<
     />
   );
 });
+
+const SegmentGroupContext = SegmentGroupPrimitive.Context;
+const SegmentGroupItemContext = SegmentGroupPrimitive.ItemContext;
+const SegmentGroupItemHiddenInput = SegmentGroupPrimitive.ItemHiddenInput;
 
 function SegmentGroupItems({
   items,
@@ -165,15 +119,10 @@ function SegmentGroupItems({
   return items.map(({ value, label, disabled }) => (
     <SegmentGroupItem key={value} value={value} disabled={disabled}>
       <SegmentGroupItemText>{label}</SegmentGroupItemText>
-      <SegmentGroupItemControl />
-      <SegmentGroupPrimitive.ItemHiddenInput />
+      <SegmentGroupItemHiddenInput />
     </SegmentGroupItem>
   ));
 }
-
-const SegmentGroupContext = SegmentGroupPrimitive.Context;
-const SegmentGroupItemContext = SegmentGroupPrimitive.ItemContext;
-const SegmentGroupItemHiddenInput = SegmentGroupPrimitive.ItemHiddenInput;
 
 export {
   SegmentGroup,
@@ -181,7 +130,6 @@ export {
   SegmentGroupIndicator,
   SegmentGroupItem,
   SegmentGroupItemContext,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItems,
   SegmentGroupItemText,
