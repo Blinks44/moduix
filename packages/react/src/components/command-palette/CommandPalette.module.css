@@ -151,14 +151,11 @@
     outline: 0;
   }
 
-  .scrollArea {
-    --moduix-scroll-area-radius: 0;
-    --moduix-scroll-area-height: auto;
-    --moduix-scroll-area-content-padding: var(--moduix-spacing-3);
-
-    min-height: 0;
+  /* `.list >` outranks the ScrollArea root `height: 100%`, which would not stretch in a list capped by max-height. */
+  .list > .scrollArea {
     flex: 1 1 auto;
-    color: inherit;
+    height: auto;
+    min-height: 0;
   }
 
   .scrollViewport {
@@ -167,6 +164,7 @@
 
   .scrollContent {
     min-height: 100%;
+    padding: var(--moduix-spacing-3);
   }
 
   /* The list already pads the result area; this adds the remaining inline inset. */

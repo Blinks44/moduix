@@ -46,10 +46,6 @@
   overflow: hidden;
 }
 
-.sidebarScrollArea {
-  --moduix-scroll-area-radius: 0;
-}
-
 [data-slot='sidebar-panel'][data-state='collapsed'] {
   .sidebarScrollArea [data-slot='scroll-area-scrollbar'] {
     display: none;

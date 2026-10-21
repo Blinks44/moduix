@@ -419,33 +419,9 @@
   --moduix-rating-group-icon-size: initial; /* size-specific, md: var(--moduix-spacing-5) */
 
   /* ScrollArea */
-  --moduix-scroll-area-bg: initial; /* transparent */
-  --moduix-scroll-area-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-scroll-area-content-padding: initial; /* 0 */
-  --moduix-scroll-area-corner-bg: initial; /* var(--moduix-scroll-area-scrollbar-bg, transparent) */
-  --moduix-scroll-area-fade-end-size: initial; /* var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10)) */
   --moduix-scroll-area-fade-size: initial; /* var(--moduix-spacing-10) */
-  --moduix-scroll-area-fade-start-size: initial; /* var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10)) */
-  --moduix-scroll-area-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-scroll-area-focus-ring-offset: initial; /* var(--moduix-focus-ring-inset-offset) */
-  --moduix-scroll-area-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
-  --moduix-scroll-area-height: initial; /* 100% */
-  --moduix-scroll-area-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-scroll-area-scrollbar-bg: initial; /* transparent */
-  --moduix-scroll-area-scrollbar-hidden-opacity: initial; /* 0 */
-  --moduix-scroll-area-scrollbar-hit-area-size: initial; /* var(--moduix-spacing-5) */
-  --moduix-scroll-area-scrollbar-margin: initial; /* var(--moduix-spacing-1) */
-  --moduix-scroll-area-scrollbar-padding: initial; /* 0 */
-  --moduix-scroll-area-scrollbar-radius: initial; /* var(--moduix-radius-md) */
   --moduix-scroll-area-scrollbar-size: initial; /* var(--moduix-spacing-1) */
-  --moduix-scroll-area-scrollbar-visible-opacity: initial; /* 1 */
   --moduix-scroll-area-thumb-bg: initial; /* var(--moduix-color-border) */
-  --moduix-scroll-area-thumb-hover-increase: initial; /* 2px */
-  --moduix-scroll-area-thumb-hover-transition: initial; /* var(--moduix-transition-fast) */
-  --moduix-scroll-area-thumb-min-size: initial; /* var(--moduix-size-xs) */
-  --moduix-scroll-area-thumb-radius: initial; /* var(--moduix-radius-full) */
-  --moduix-scroll-area-transition: initial; /* var(--moduix-transition-default) */
-  --moduix-scroll-area-width: initial; /* 100% */
 
   /* Separator */
   --moduix-separator-border-style: initial; /* solid */

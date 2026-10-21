@@ -20,15 +20,13 @@ export {
   useScrollAreaContext,
 };
 
-export type { ModuixScrollAreaRootProps } from './ScrollArea.vue';
-export type { ModuixScrollAreaRootProviderProps } from './ScrollAreaRootProvider.vue';
+export type { Props as ScrollAreaRootProps, ScrollAreaVariant } from './ScrollArea.vue';
+export type { Props as ScrollAreaRootProviderProps } from './ScrollAreaRootProvider.vue';
 
 export type {
   ScrollAreaContentProps,
   ScrollAreaCornerProps,
   ScrollAreaElementIds,
-  ScrollAreaRootProps,
-  ScrollAreaRootProviderProps,
   ScrollAreaScrollbarProps,
   ScrollAreaScrollToDetails,
   ScrollAreaScrollToEdge,

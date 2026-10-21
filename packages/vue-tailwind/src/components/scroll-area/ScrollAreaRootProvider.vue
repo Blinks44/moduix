@@ -4,27 +4,22 @@ import type { ScrollAreaRootProviderProps } from '@ark-ui/vue/scroll-area';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import type { ScrollAreaVariant } from './ScrollArea.vue';
 
 defineOptions({ inheritAttrs: false });
 
-export interface ModuixScrollAreaRootProviderProps
-  extends /* @vue-ignore */ ScrollAreaRootProviderProps {
+export interface Props extends /* @vue-ignore */ ScrollAreaRootProviderProps {
   class?: HTMLAttributes['class'];
   fade?: boolean;
-  variant?: 'hover' | 'always';
+  variant?: ScrollAreaVariant;
   value: ScrollAreaRootProviderProps['value'];
 }
 
-const {
-  class: className,
-  fade = false,
-  variant = 'hover',
-  value,
-} = defineProps<ModuixScrollAreaRootProviderProps>();
+const { class: className, fade = false, variant = 'hover', value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const rootClass = 'group/scroll-area relative h-full min-h-0 w-full min-w-0 text-foreground';
+const rootClass = 'group/scroll-area h-full min-h-0 w-full min-w-0';
 </script>
 
 <template>

@@ -8,16 +8,17 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import styles from './ScrollArea.module.css';
 
-type ModuixScrollAreaRootProps = ComponentProps<typeof ScrollAreaPrimitive.Root> & {
+type ScrollAreaVariant = 'hover' | 'always';
+type ScrollAreaRootProps = ComponentProps<typeof ScrollAreaPrimitive.Root> & {
   fade?: boolean;
-  variant?: 'hover' | 'always';
+  variant?: ScrollAreaVariant;
 };
-type ModuixScrollAreaRootProviderProps = ComponentProps<typeof ScrollAreaPrimitive.RootProvider> & {
+type ScrollAreaRootProviderProps = ComponentProps<typeof ScrollAreaPrimitive.RootProvider> & {
   fade?: boolean;
-  variant?: 'hover' | 'always';
+  variant?: ScrollAreaVariant;
 };
 
-function ScrollArea(props: ModuixScrollAreaRootProps) {
+function ScrollArea(props: ScrollAreaRootProps) {
   const [local, others] = splitProps(props, ['class', 'fade', 'variant']);
 
   return (
@@ -31,7 +32,7 @@ function ScrollArea(props: ModuixScrollAreaRootProps) {
   );
 }
 
-function ScrollAreaRootProvider(props: ModuixScrollAreaRootProviderProps) {
+function ScrollAreaRootProvider(props: ScrollAreaRootProviderProps) {
   const [local, others] = splitProps(props, ['class', 'fade', 'variant']);
 
   return (
@@ -58,15 +59,7 @@ function ScrollAreaViewport(props: ComponentProps<typeof ScrollAreaPrimitive.Vie
 }
 
 function ScrollAreaContent(props: ComponentProps<typeof ScrollAreaPrimitive.Content>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ScrollAreaPrimitive.Content
-      {...others}
-      data-slot="scroll-area-content"
-      class={clsx(styles.content, local.class)}
-    />
-  );
+  return <ScrollAreaPrimitive.Content {...props} data-slot="scroll-area-content" />;
 }
 
 function ScrollAreaScrollbar(props: ComponentProps<typeof ScrollAreaPrimitive.Scrollbar>) {
@@ -94,15 +87,7 @@ function ScrollAreaThumb(props: ComponentProps<typeof ScrollAreaPrimitive.Thumb>
 }
 
 function ScrollAreaCorner(props: ComponentProps<typeof ScrollAreaPrimitive.Corner>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ScrollAreaPrimitive.Corner
-      {...others}
-      data-slot="scroll-area-corner"
-      class={clsx(styles.corner, local.class)}
-    />
-  );
+  return <ScrollAreaPrimitive.Corner {...props} data-slot="scroll-area-corner" />;
 }
 
 const ScrollAreaContext = ScrollAreaPrimitive.Context;
@@ -119,4 +104,4 @@ export {
   useScrollArea,
   useScrollAreaContext,
 };
-export type { ModuixScrollAreaRootProps, ModuixScrollAreaRootProviderProps };
+export type { ScrollAreaRootProps, ScrollAreaRootProviderProps, ScrollAreaVariant };

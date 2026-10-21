@@ -7,21 +7,19 @@ import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
-export interface ModuixScrollAreaRootProps extends /* @vue-ignore */ ScrollAreaRootProps {
+export type ScrollAreaVariant = 'hover' | 'always';
+
+export interface Props extends /* @vue-ignore */ ScrollAreaRootProps {
   class?: HTMLAttributes['class'];
   fade?: boolean;
-  variant?: 'hover' | 'always';
+  variant?: ScrollAreaVariant;
 }
 
-const {
-  class: className,
-  fade = false,
-  variant = 'hover',
-} = defineProps<ModuixScrollAreaRootProps>();
+const { class: className, fade = false, variant = 'hover' } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const rootClass = 'group/scroll-area relative h-full min-h-0 w-full min-w-0 text-foreground';
+const rootClass = 'group/scroll-area h-full min-h-0 w-full min-w-0';
 </script>
 
 <template>

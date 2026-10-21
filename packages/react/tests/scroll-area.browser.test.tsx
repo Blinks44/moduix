@@ -140,3 +140,46 @@ test('preserves Ark asChild composition and forwards refs for every visible part
   expect(thumbRef.current!.getAttribute('data-slot')).toBe('scroll-area-thumb');
   expect(cornerRef.current!.getAttribute('data-slot')).toBe('scroll-area-corner');
 });
+test('inherits the container text color and the root border radius', () => {
+  render(
+    <div style={{ color: 'rgb(1, 2, 3)' }}>
+      <ScrollArea style={{ borderRadius: '12px' }}>
+        <ScrollAreaViewport>
+          <ScrollAreaContent>Inherited content</ScrollAreaContent>
+        </ScrollAreaViewport>
+      </ScrollArea>
+    </div>,
+  );
+
+  const root = document.querySelector('[data-slot="scroll-area-root"]')!;
+  const viewport = document.querySelector('[data-slot="scroll-area-viewport"]')!;
+
+  expect(getComputedStyle(root).color).toBe('rgb(1, 2, 3)');
+  expect(getComputedStyle(viewport).borderRadius).toBe('12px');
+});
+
+test('shows only the overflowing scrollbar with the always variant', async () => {
+  render(
+    <ScrollArea variant="always" style={{ width: '200px', height: '100px' }}>
+      <ScrollAreaViewport>
+        <ScrollAreaContent style={{ height: '400px' }}>Tall content</ScrollAreaContent>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar data-testid="vertical">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaScrollbar data-testid="horizontal" orientation="horizontal">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+    </ScrollArea>,
+  );
+
+  await expect.element(page.getByTestId('vertical')).toHaveAttribute('data-overflow-y');
+  await expect.element(page.getByTestId('horizontal')).not.toHaveAttribute('data-overflow-x');
+  const vertical = document.querySelector<HTMLElement>('[data-testid="vertical"]')!;
+  const horizontal = document.querySelector<HTMLElement>('[data-testid="horizontal"]')!;
+
+  expect(getComputedStyle(vertical).opacity).toBe('1');
+  expect(vertical.offsetWidth).toBe(4);
+  expect(vertical.offsetHeight).toBe(92);
+  expect(getComputedStyle(horizontal).display).toBe('none');
+});

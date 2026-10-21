@@ -10,34 +10,34 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import styles from './ScrollArea.module.css';
 
-type ModuixScrollAreaRootProps = ComponentProps<typeof ScrollAreaPrimitive.Root> & {
+type ScrollAreaVariant = 'hover' | 'always';
+type ScrollAreaRootProps = ComponentProps<typeof ScrollAreaPrimitive.Root> & {
   fade?: boolean;
-  variant?: 'hover' | 'always';
+  variant?: ScrollAreaVariant;
 };
-type ModuixScrollAreaRootProviderProps = ComponentProps<typeof ScrollAreaPrimitive.RootProvider> & {
+type ScrollAreaRootProviderProps = ComponentProps<typeof ScrollAreaPrimitive.RootProvider> & {
   fade?: boolean;
-  variant?: 'hover' | 'always';
+  variant?: ScrollAreaVariant;
 };
 
-const ScrollArea = forwardRef<
-  ComponentRef<typeof ScrollAreaPrimitive.Root>,
-  ModuixScrollAreaRootProps
->(function ScrollArea({ className, fade, variant = 'hover', ...props }, ref) {
-  return (
-    <ScrollAreaPrimitive.Root
-      ref={ref}
-      {...props}
-      data-slot="scroll-area-root"
-      data-fade={fade ? '' : undefined}
-      data-variant={variant}
-      className={clsx(styles.root, className)}
-    />
-  );
-});
+const ScrollArea = forwardRef<ComponentRef<typeof ScrollAreaPrimitive.Root>, ScrollAreaRootProps>(
+  function ScrollArea({ className, fade, variant = 'hover', ...props }, ref) {
+    return (
+      <ScrollAreaPrimitive.Root
+        ref={ref}
+        {...props}
+        data-slot="scroll-area-root"
+        data-fade={fade ? '' : undefined}
+        data-variant={variant}
+        className={clsx(styles.root, className)}
+      />
+    );
+  },
+);
 
 const ScrollAreaRootProvider = forwardRef<
   ComponentRef<typeof ScrollAreaPrimitive.RootProvider>,
-  ModuixScrollAreaRootProviderProps
+  ScrollAreaRootProviderProps
 >(function ScrollAreaRootProvider({ className, fade, variant = 'hover', ...props }, ref) {
   return (
     <ScrollAreaPrimitive.RootProvider
@@ -68,15 +68,8 @@ const ScrollAreaViewport = forwardRef<
 const ScrollAreaContent = forwardRef<
   ComponentRef<typeof ScrollAreaPrimitive.Content>,
   ComponentProps<typeof ScrollAreaPrimitive.Content>
->(function ScrollAreaContent({ className, ...props }, ref) {
-  return (
-    <ScrollAreaPrimitive.Content
-      ref={ref}
-      {...props}
-      data-slot="scroll-area-content"
-      className={clsx(styles.content, className)}
-    />
-  );
+>(function ScrollAreaContent(props, ref) {
+  return <ScrollAreaPrimitive.Content ref={ref} {...props} data-slot="scroll-area-content" />;
 });
 
 const ScrollAreaScrollbar = forwardRef<
@@ -110,15 +103,8 @@ const ScrollAreaThumb = forwardRef<
 const ScrollAreaCorner = forwardRef<
   ComponentRef<typeof ScrollAreaPrimitive.Corner>,
   ComponentProps<typeof ScrollAreaPrimitive.Corner>
->(function ScrollAreaCorner({ className, ...props }, ref) {
-  return (
-    <ScrollAreaPrimitive.Corner
-      ref={ref}
-      {...props}
-      data-slot="scroll-area-corner"
-      className={clsx(styles.corner, className)}
-    />
-  );
+>(function ScrollAreaCorner(props, ref) {
+  return <ScrollAreaPrimitive.Corner ref={ref} {...props} data-slot="scroll-area-corner" />;
 });
 
 const ScrollAreaContext = ScrollAreaPrimitive.Context;
@@ -135,4 +121,4 @@ export {
   useScrollArea,
   useScrollAreaContext,
 };
-export type { ModuixScrollAreaRootProps, ModuixScrollAreaRootProviderProps };
+export type { ScrollAreaRootProps, ScrollAreaRootProviderProps, ScrollAreaVariant };

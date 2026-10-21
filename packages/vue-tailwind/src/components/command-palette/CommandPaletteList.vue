@@ -25,11 +25,8 @@ const attrs = useAttrs();
     :class="cn('flex min-h-0 flex-1 overflow-hidden outline-0', className)"
     data-slot="command-palette-list"
   >
-    <ScrollArea data-slot="command-palette-scroll-area" class="h-auto min-h-0 flex-1 text-inherit">
-      <ScrollAreaViewport
-        data-slot="command-palette-scroll-viewport"
-        class="scroll-py-2 rounded-none"
-      >
+    <ScrollArea data-slot="command-palette-scroll-area" class="h-auto min-h-0 flex-1">
+      <ScrollAreaViewport data-slot="command-palette-scroll-viewport" class="scroll-py-2">
         <ScrollAreaContent data-slot="command-palette-scroll-content" class="min-h-full p-3">
           <slot />
         </ScrollAreaContent>
