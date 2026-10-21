@@ -9,36 +9,40 @@ import type { ComponentProps, JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
 import styles from './RadioGroup.module.css';
 
-type RadioGroupItemControlSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type RadioGroupItemControlProps = ComponentProps<typeof RadioGroupPrimitive.ItemControl> & {
-  size?: RadioGroupItemControlSize;
+type RadioGroupSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type RadioGroupRootProps = ComponentProps<typeof RadioGroupPrimitive.Root> & {
+  size?: RadioGroupSize;
+};
+type RadioGroupRootProviderProps = ComponentProps<typeof RadioGroupPrimitive.RootProvider> & {
+  size?: RadioGroupSize;
 };
 type RadioGroupOptionProps = Omit<
   ComponentProps<typeof RadioGroupPrimitive.Item>,
   'asChild' | 'children'
 > & {
   children: JSX.Element;
-  size?: RadioGroupItemControlSize;
 };
 
-function RadioGroup(props: ComponentProps<typeof RadioGroupPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['class']);
+function RadioGroup(props: RadioGroupRootProps) {
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <RadioGroupPrimitive.Root
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="radio-group-root"
       class={clsx(styles.root, local.class)}
     />
   );
 }
 
-function RadioGroupRootProvider(props: ComponentProps<typeof RadioGroupPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['class']);
+function RadioGroupRootProvider(props: RadioGroupRootProviderProps) {
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <RadioGroupPrimitive.RootProvider
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="radio-group-root-provider"
       class={clsx(styles.root, local.class)}
     />
@@ -58,39 +62,36 @@ function RadioGroupLabel(props: ComponentProps<typeof RadioGroupPrimitive.Label>
 }
 
 function RadioGroupItem(props: ComponentProps<typeof RadioGroupPrimitive.Item>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <RadioGroupPrimitive.Item
       {...others}
       data-slot="radio-group-item"
       class={clsx(styles.item, local.class)}
-    >
-      {local.children}
-    </RadioGroupPrimitive.Item>
+    />
   );
 }
 
 function RadioGroupOption(props: RadioGroupOptionProps) {
-  const [local, others] = splitProps(props, ['children', 'size']);
+  const [local, others] = splitProps(props, ['children']);
 
   return (
     <RadioGroupItem {...others}>
       <RadioGroupPrimitive.ItemHiddenInput />
-      <RadioGroupItemControl size={local.size} />
+      <RadioGroupItemControl />
       <RadioGroupItemText>{local.children}</RadioGroupItemText>
     </RadioGroupItem>
   );
 }
 
-function RadioGroupItemControl(props: RadioGroupItemControlProps) {
-  const [local, others] = splitProps(props, ['class', 'size']);
+function RadioGroupItemControl(props: ComponentProps<typeof RadioGroupPrimitive.ItemControl>) {
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <RadioGroupPrimitive.ItemControl
       {...others}
       data-slot="radio-group-item-control"
-      data-size={local.size ?? 'md'}
       class={clsx(styles.itemControl, local.class)}
     />
   );
@@ -140,4 +141,9 @@ export {
   useRadioGroupContext,
   useRadioGroupItemContext,
 };
-export type { RadioGroupItemControlProps, RadioGroupItemControlSize, RadioGroupOptionProps };
+export type {
+  RadioGroupOptionProps,
+  RadioGroupRootProps,
+  RadioGroupRootProviderProps,
+  RadioGroupSize,
+};

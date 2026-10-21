@@ -165,7 +165,7 @@ RadioGroupOption
 | `RadioGroupLabel`            | Доступная подпись группы.                                         |
 | `RadioGroupItem`             | Один вариант выбора; по умолчанию выводит `label`.                |
 | `RadioGroupOption`           | Упрощённый элемент с управлением, текстом и скрытым полем.         |
-| `RadioGroupItemControl`      | Визуальное управление радиокнопкой с поддержкой `size` из moduix. |
+| `RadioGroupItemControl`      | Визуальная радиокнопка; размер задаёт `size` на корне.            |
 | `RadioGroupItemText`         | Видимый текст варианта.                                           |
 | `RadioGroupItemHiddenInput`  | Нативное поле формы для явной композиции `RadioGroupItem`.                  |
 | `RadioGroupIndicator`        | Необязательный индикатор активного элемента с переменными Ark.    |
@@ -585,8 +585,8 @@ RadioGroupOption
 
 ### Размеры
 
-Используйте свойство `size` из moduix у `RadioGroupOption` или `RadioGroupItemControl`, если нужен другой диаметр
-радиокнопки. Поддерживаются значения `xs`, `sm`, `md`, `lg` и `xl`.
+Передайте свойство `size` из moduix в `RadioGroup` или `RadioGroupRootProvider`, чтобы изменить диаметр всех
+радиокнопок группы. Поддерживаются значения `xs`, `sm`, `md` (по умолчанию), `lg` и `xl`.
 
 <ExampleFrame variant="component">
   <RadioGroupSizes />
@@ -620,6 +620,11 @@ RadioGroupOption
 
     </Tab>
   </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/radio-group/radio-group-sizes.module.css"
+```
 </div>
 </ExampleCode>
 
@@ -776,4 +781,4 @@ RadioGroupOption
 - Переменные индикатора Ark: `--transition-property`, `--left`, `--top`, `--width` и `--height`.
 - Хуки moduix: `data-slot="radio-group-root"`, `radio-group-root-provider`,
   `radio-group-label`, `radio-group-item`, `radio-group-item-control`, `radio-group-item-text` и
-  `radio-group-indicator`.
+  `radio-group-indicator`, а также `data-size` на корне и `RadioGroupRootProvider`.

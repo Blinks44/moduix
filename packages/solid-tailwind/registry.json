@@ -1204,7 +1204,7 @@
       "type": "registry:item",
       "title": "RadioGroup",
       "description": "moduix Solid Tailwind RadioGroup component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-solid-tailwind/foundation", "@moduix-solid-tailwind/cn"],
       "files": [
         {

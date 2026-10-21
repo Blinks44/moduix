@@ -1184,7 +1184,7 @@
       "type": "registry:item",
       "title": "RadioGroup",
       "description": "moduix React Tailwind RadioGroup component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {

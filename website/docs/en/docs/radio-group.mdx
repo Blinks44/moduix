@@ -165,7 +165,7 @@ RadioGroupOption
 | `RadioGroupLabel`           | Accessible label for the group.                                 |
 | `RadioGroupItem`            | One selectable option; renders a `label` by default.            |
 | `RadioGroupOption`          | Convenience item with a control, text, and hidden input.        |
-| `RadioGroupItemControl`     | Visual radio control; supports the moduix `size` prop.          |
+| `RadioGroupItemControl`     | Visual radio control; its size comes from the root `size`.      |
 | `RadioGroupItemText`        | Visible option text.                                             |
 | `RadioGroupItemHiddenInput` | Native form control for explicit `RadioGroupItem` composition.             |
 | `RadioGroupIndicator`       | Optional active-item indicator using Ark measurement variables.  |
@@ -582,8 +582,8 @@ group tree. The example also shows how to update the selected value from outside
 
 ### Sizes
 
-Use the moduix `size` prop on `RadioGroupOption` or `RadioGroupItemControl` when the radio control needs a different
-diameter. Supported values are `xs`, `sm`, `md`, `lg`, and `xl`.
+Set the moduix `size` prop on `RadioGroup` or `RadioGroupRootProvider` to change the diameter of every radio
+control in the group. Supported values are `xs`, `sm`, `md` (default), `lg`, and `xl`.
 
 <ExampleFrame variant="component">
   <RadioGroupSizes />
@@ -617,6 +617,11 @@ diameter. Supported values are `xs`, `sm`, `md`, `lg`, and `xl`.
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/radio-group/radio-group-sizes.module.css"
+```
 </div>
 </ExampleCode>
 
@@ -772,4 +777,4 @@ classes; the component variables below customize the CSS Modules variants. Data 
 - Ark indicator variables: `--transition-property`, `--left`, `--top`, `--width`, and `--height`.
 - moduix hooks: `data-slot="radio-group-root"`, `radio-group-root-provider`,
   `radio-group-label`, `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`,
-  and `radio-group-indicator`.
+  and `radio-group-indicator`, plus `data-size` on the root and `RadioGroupRootProvider`.

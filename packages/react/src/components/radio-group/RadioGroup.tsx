@@ -11,41 +11,44 @@ import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import styles from './RadioGroup.module.css';
 
-type RadioGroupItemControlSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type RadioGroupItemControlProps = ComponentProps<typeof RadioGroupPrimitive.ItemControl> & {
-  size?: RadioGroupItemControlSize;
+type RadioGroupSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type RadioGroupRootProps = ComponentProps<typeof RadioGroupPrimitive.Root> & {
+  size?: RadioGroupSize;
+};
+type RadioGroupRootProviderProps = ComponentProps<typeof RadioGroupPrimitive.RootProvider> & {
+  size?: RadioGroupSize;
 };
 type RadioGroupOptionProps = Omit<
   ComponentProps<typeof RadioGroupPrimitive.Item>,
   'asChild' | 'children'
 > & {
   children: ReactNode;
-  size?: RadioGroupItemControlSize;
 };
 
-const RadioGroup = forwardRef<
-  ComponentRef<typeof RadioGroupPrimitive.Root>,
-  ComponentProps<typeof RadioGroupPrimitive.Root>
->(function RadioGroup({ className, ...props }, ref) {
-  return (
-    <RadioGroupPrimitive.Root
-      ref={ref}
-      className={clsx(styles.root, className)}
-      {...props}
-      data-slot="radio-group-root"
-    />
-  );
-});
+const RadioGroup = forwardRef<ComponentRef<typeof RadioGroupPrimitive.Root>, RadioGroupRootProps>(
+  function RadioGroup({ className, size = 'md', ...props }, ref) {
+    return (
+      <RadioGroupPrimitive.Root
+        ref={ref}
+        className={clsx(styles.root, className)}
+        {...props}
+        data-size={size}
+        data-slot="radio-group-root"
+      />
+    );
+  },
+);
 
 const RadioGroupRootProvider = forwardRef<
   ComponentRef<typeof RadioGroupPrimitive.RootProvider>,
-  ComponentProps<typeof RadioGroupPrimitive.RootProvider>
->(function RadioGroupRootProvider({ className, ...props }, ref) {
+  RadioGroupRootProviderProps
+>(function RadioGroupRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <RadioGroupPrimitive.RootProvider
       ref={ref}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="radio-group-root-provider"
     />
   );
@@ -82,11 +85,11 @@ const RadioGroupItem = forwardRef<
 const RadioGroupOption = forwardRef<
   ComponentRef<typeof RadioGroupPrimitive.Item>,
   RadioGroupOptionProps
->(function RadioGroupOption({ children, size, ...props }, ref) {
+>(function RadioGroupOption({ children, ...props }, ref) {
   return (
     <RadioGroupItem ref={ref} {...props}>
       <RadioGroupPrimitive.ItemHiddenInput />
-      <RadioGroupItemControl size={size} />
+      <RadioGroupItemControl />
       <RadioGroupItemText>{children}</RadioGroupItemText>
     </RadioGroupItem>
   );
@@ -94,14 +97,13 @@ const RadioGroupOption = forwardRef<
 
 const RadioGroupItemControl = forwardRef<
   ComponentRef<typeof RadioGroupPrimitive.ItemControl>,
-  RadioGroupItemControlProps
->(function RadioGroupItemControl({ className, size = 'md', ...props }, ref) {
+  ComponentProps<typeof RadioGroupPrimitive.ItemControl>
+>(function RadioGroupItemControl({ className, ...props }, ref) {
   return (
     <RadioGroupPrimitive.ItemControl
       ref={ref}
       className={clsx(styles.itemControl, className)}
       {...props}
-      data-size={size}
       data-slot="radio-group-item-control"
     />
   );
@@ -155,4 +157,9 @@ export {
   useRadioGroupContext,
   useRadioGroupItemContext,
 };
-export type { RadioGroupItemControlProps, RadioGroupItemControlSize, RadioGroupOptionProps };
+export type {
+  RadioGroupOptionProps,
+  RadioGroupRootProps,
+  RadioGroupRootProviderProps,
+  RadioGroupSize,
+};

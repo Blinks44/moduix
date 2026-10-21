@@ -129,16 +129,14 @@ export const Orientation: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <RadioGroup defaultValue="md">
-      <RadioGroupLabel>Control Size</RadioGroupLabel>
+    <div class="grid gap-4">
       {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
-        <RadioGroupItem value={size}>
-          <RadioGroupItemControl size={size} />
-          <RadioGroupItemText>{size.toUpperCase()}</RadioGroupItemText>
-          <RadioGroupItemHiddenInput />
-        </RadioGroupItem>
+        <RadioGroup size={size} defaultValue="React">
+          <RadioGroupLabel>{size.toUpperCase()}</RadioGroupLabel>
+          <RadioItems />
+        </RadioGroup>
       ))}
-    </RadioGroup>
+    </div>
   ),
 };
 

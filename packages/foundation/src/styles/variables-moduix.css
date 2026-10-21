@@ -403,48 +403,14 @@
   /* QrCode */
   --moduix-qr-code-size: initial; /* 8rem */
 
-  /* Radio */
+  /* RadioGroup */
   --moduix-radio-bg: initial; /* var(--moduix-color-background) */
   --moduix-radio-bg-checked: initial; /* var(--moduix-color-primary) */
-  --moduix-radio-bg-hover: initial; /* var(--moduix-color-accent) */
   --moduix-radio-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-radio-border-color-checked: initial; /* var(--moduix-color-primary) */
-  --moduix-radio-border-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-radio-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-radio-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-radio-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-radio-focus-ring-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-radio-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
-  --moduix-radio-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
   --moduix-radio-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-radio-indicator-border-color: initial; /* currentColor */
-  --moduix-radio-indicator-border-width: initial; /* 0 */
   --moduix-radio-indicator-color: initial; /* var(--moduix-color-primary-foreground) */
-  --moduix-radio-indicator-radius: initial; /* var(--moduix-radius-full) */
-  --moduix-radio-indicator-size-xs: initial; /* var(--moduix-spacing-1) */
-  --moduix-radio-indicator-size-sm: initial; /* var(--moduix-spacing-1-5) */
-  --moduix-radio-indicator-size-md: initial; /* var(--moduix-spacing-2) */
-  --moduix-radio-indicator-size-lg: initial; /* var(--moduix-spacing-2-5) */
-  --moduix-radio-indicator-size-xl: initial; /* var(--moduix-spacing-3) */
-  --moduix-radio-label-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-radio-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-radio-label-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-radio-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-radio-size-xs: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-radio-size-sm: initial; /* var(--moduix-spacing-4) */
-  --moduix-radio-size-md: initial; /* var(--moduix-spacing-5) */
-  --moduix-radio-size-lg: initial; /* var(--moduix-size-xs) */
-  --moduix-radio-size-xl: initial; /* var(--moduix-spacing-7) */
-  --moduix-radio-transition: initial; /* var(--moduix-transition-default) */
-
-  /* RadioGroup */
-  --moduix-radio-group-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-radio-group-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-radio-group-indicator-opacity: initial; /* 0.12 */
-  --moduix-radio-group-label-color: initial; /* var(--moduix-radio-group-color, var(--moduix-color-foreground)) */
-  --moduix-radio-group-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-radio-group-label-font-weight: initial; /* var(--moduix-weight-semibold) */
-  --moduix-radio-group-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
+  --moduix-radio-indicator-size: initial; /* size-specific, md: var(--moduix-spacing-2) */
+  --moduix-radio-size: initial; /* size-specific, md: var(--moduix-spacing-5) */
 
   /* RatingGroup */
   --moduix-rating-group-active-color: initial; /* var(--moduix-color-primary) */

@@ -1,15 +1,15 @@
 import {
+  RadioGroupContext,
+  RadioGroupItemContext,
+  RadioGroupItemHiddenInput,
   useRadioGroup,
   useRadioGroupContext,
   useRadioGroupItemContext,
 } from '@ark-ui/vue/radio-group';
 import RadioGroup from './RadioGroup.vue';
-import RadioGroupContext from './RadioGroupContext.vue';
 import RadioGroupIndicator from './RadioGroupIndicator.vue';
 import RadioGroupItem from './RadioGroupItem.vue';
-import RadioGroupItemContext from './RadioGroupItemContext.vue';
 import RadioGroupItemControl from './RadioGroupItemControl.vue';
-import RadioGroupItemHiddenInput from './RadioGroupItemHiddenInput.vue';
 import RadioGroupItemText from './RadioGroupItemText.vue';
 import RadioGroupLabel from './RadioGroupLabel.vue';
 import RadioGroupOption from './RadioGroupOption.vue';
@@ -36,13 +36,12 @@ export type {
   RadioGroupContextProps,
   RadioGroupIndicatorProps,
   RadioGroupItemContextProps,
+  RadioGroupItemControlProps,
   RadioGroupItemHiddenInputProps,
   RadioGroupItemProps,
   RadioGroupItemTextProps,
   RadioGroupLabelProps,
   RadioGroupRootEmits,
-  RadioGroupRootProps,
-  RadioGroupRootProviderProps,
   RadioGroupValueChangeDetails,
   UseRadioGroupContext,
   UseRadioGroupItemContext,
@@ -50,6 +49,6 @@ export type {
   UseRadioGroupReturn,
 } from '@ark-ui/vue/radio-group';
 
-export type { Props as RadioGroupItemControlProps } from './RadioGroupItemControl.vue';
-export type { RadioGroupItemControlSize } from './radio-group.types';
 export type { Props as RadioGroupOptionProps } from './RadioGroupOption.vue';
+export type { Props as RadioGroupRootProps, RadioGroupSize } from './RadioGroup.vue';
+export type { Props as RadioGroupRootProviderProps } from './RadioGroupRootProvider.vue';

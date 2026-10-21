@@ -2596,29 +2596,9 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/radio-group/RadioGroupItemHiddenInput.vue",
-          "target": "@components/ui/radio-group/RadioGroupItemHiddenInput.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/radio-group/RadioGroupIndicator.vue",
           "target": "@components/ui/radio-group/RadioGroupIndicator.vue",
           "type": "registry:component"
-        },
-        {
-          "path": "src/components/radio-group/RadioGroupContext.vue",
-          "target": "@components/ui/radio-group/RadioGroupContext.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/radio-group/RadioGroupItemContext.vue",
-          "target": "@components/ui/radio-group/RadioGroupItemContext.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/radio-group/radio-group.types.ts",
-          "target": "@components/ui/radio-group/radio-group.types.ts",
-          "type": "registry:file"
         },
         {
           "path": "src/components/radio-group/index.ts",

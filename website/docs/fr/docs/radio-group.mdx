@@ -165,7 +165,7 @@ RadioGroupOption
 | `RadioGroupLabel`           | Libellé accessible du groupe.                                   |
 | `RadioGroupItem`             | Une option sélectionnable ; rend un `label` par défaut.         |
 | `RadioGroupOption`           | Élément pratique avec contrôle, texte et champ masqué.           |
-| `RadioGroupItemControl`      | Contrôle radio visuel ; accepte la prop moduix `size`.           |
+| `RadioGroupItemControl`      | Contrôle radio visuel ; sa taille vient de `size` sur la racine. |
 | `RadioGroupItemText`         | Texte visible de l’option.                                      |
 | `RadioGroupItemHiddenInput`  | Champ natif pour la composition explicite de `RadioGroupItem`.             |
 | `RadioGroupIndicator`        | Indicateur facultatif de l’élément actif, mesuré par Ark.        |
@@ -585,8 +585,8 @@ l’extérieur du groupe.
 
 ### Tailles
 
-Utilisez la prop moduix `size` sur `RadioGroupOption` ou `RadioGroupItemControl` lorsque le contrôle radio doit avoir un
-diamètre différent. Les valeurs prises en charge sont `xs`, `sm`, `md`, `lg` et `xl`.
+Passez la prop moduix `size` à `RadioGroup` ou `RadioGroupRootProvider` pour changer le diamètre de tous les
+contrôles radio du groupe. Les valeurs prises en charge sont `xs`, `sm`, `md` (par défaut), `lg` et `xl`.
 
 <ExampleFrame variant="component">
   <RadioGroupSizes />
@@ -620,6 +620,11 @@ diamètre différent. Les valeurs prises en charge sont `xs`, `sm`, `md`, `lg` e
 
     </Tab>
   </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/radio-group/radio-group-sizes.module.css"
+```
 </div>
 </ExampleCode>
 
@@ -778,4 +783,4 @@ partagés par les deux approches de style.
 - Variables de l’indicateur Ark : `--transition-property`, `--left`, `--top`, `--width` et `--height`.
 - Hooks moduix : `data-slot="radio-group-root"`, `radio-group-root-provider`,
   `radio-group-label`, `radio-group-item`, `radio-group-item-control`, `radio-group-item-text` et
-  `radio-group-indicator`.
+  `radio-group-indicator`, ainsi que `data-size` sur la racine et `RadioGroupRootProvider`.

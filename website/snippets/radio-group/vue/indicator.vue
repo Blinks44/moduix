@@ -9,7 +9,7 @@ const frameworks = ['React', 'Solid', 'Vue'];
   <div :class="styles.stack">
     <div>Framework</div>
     <RadioGroup aria-label="Framework" default-value="React" :class="styles.root">
-      <RadioGroupIndicator :class="styles.indicator" />
+      <RadioGroupIndicator />
       <RadioGroupOption v-for="framework in frameworks" :key="framework" :value="framework">
         {{ framework }}
       </RadioGroupOption>

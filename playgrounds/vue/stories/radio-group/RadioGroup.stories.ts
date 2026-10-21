@@ -153,14 +153,12 @@ export const Orientation: Story = {
 
 export const Sizes: Story = {
   render: renderStory(`
-    <RadioGroup default-value="md">
-      <RadioGroupLabel>Control Size</RadioGroupLabel>
-      <RadioGroupItem v-for="size in sizes" :key="size" :value="size">
-        <RadioGroupItemControl :size="size" />
-        <RadioGroupItemText>{{ size.toUpperCase() }}</RadioGroupItemText>
-        <RadioGroupItemHiddenInput />
-      </RadioGroupItem>
-    </RadioGroup>
+    <div :class="styles.stack">
+      <RadioGroup v-for="size in sizes" :key="size" :size="size" default-value="React">
+        <RadioGroupLabel>{{ size.toUpperCase() }}</RadioGroupLabel>
+        <RadioItems />
+      </RadioGroup>
+    </div>
   `),
 };
 
