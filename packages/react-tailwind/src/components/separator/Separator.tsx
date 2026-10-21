@@ -4,10 +4,14 @@ import { cva } from 'class-variance-authority';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-type SeparatorProps = HTMLArkProps<'span'> & {
-  orientation?: 'horizontal' | 'vertical';
-  size?: 'xs' | 'sm' | 'md' | 'lg';
-  variant?: 'solid' | 'dashed' | 'dotted';
+type SeparatorOrientation = 'horizontal' | 'vertical';
+type SeparatorSize = 'xs' | 'sm' | 'md' | 'lg';
+type SeparatorVariant = 'solid' | 'dashed' | 'dotted';
+
+type SeparatorRootProps = HTMLArkProps<'span'> & {
+  orientation?: SeparatorOrientation;
+  size?: SeparatorSize;
+  variant?: SeparatorVariant;
 };
 
 const separatorVariants = cva('block shrink-0 m-0 border-border', {
@@ -38,16 +42,10 @@ const separatorVariants = cva('block shrink-0 m-0 border-border', {
     { orientation: 'vertical', size: 'md', class: 'border-s-2' },
     { orientation: 'vertical', size: 'lg', class: 'border-s-[3px]' },
   ],
-  defaultVariants: {
-    orientation: 'horizontal',
-    size: 'sm',
-    variant: 'solid',
-  },
 });
 
-const Separator = forwardRef<HTMLSpanElement, SeparatorProps>(function Separator(
+const Separator = forwardRef<HTMLSpanElement, SeparatorRootProps>(function Separator(
   {
-    asChild,
     className,
     orientation = 'horizontal',
     role,
@@ -64,7 +62,6 @@ const Separator = forwardRef<HTMLSpanElement, SeparatorProps>(function Separator
     <ark.span
       {...props}
       ref={ref}
-      asChild={asChild}
       role={resolvedRole}
       aria-orientation={resolvedRole === 'separator' ? orientation : undefined}
       data-scope="separator"
@@ -79,3 +76,4 @@ const Separator = forwardRef<HTMLSpanElement, SeparatorProps>(function Separator
 });
 
 export { Separator };
+export type { SeparatorOrientation, SeparatorRootProps, SeparatorSize, SeparatorVariant };

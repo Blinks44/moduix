@@ -1,3 +1,8 @@
-import Separator from './Separator.vue';
+export { default as Separator } from './Separator.vue';
 
-export { Separator };
+export type {
+  Props as SeparatorRootProps,
+  SeparatorOrientation,
+  SeparatorSize,
+  SeparatorVariant,
+} from './Separator.vue';

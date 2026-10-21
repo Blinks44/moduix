@@ -424,15 +424,8 @@
   --moduix-scroll-area-thumb-bg: initial; /* var(--moduix-color-border) */
 
   /* Separator */
-  --moduix-separator-border-style: initial; /* solid */
   --moduix-separator-color: initial; /* var(--moduix-color-border) */
-  --moduix-separator-length-horizontal: initial; /* 100% */
-  --moduix-separator-length-vertical: initial; /* 1em */
-  --moduix-separator-thickness: initial; /* var(--_separator-size-thickness, var(--moduix-border-width-sm)) */
-  --moduix-separator-thickness-lg: initial; /* 3px */
-  --moduix-separator-thickness-md: initial; /* var(--moduix-border-width-md) */
-  --moduix-separator-thickness-sm: initial; /* var(--moduix-border-width-sm) */
-  --moduix-separator-thickness-xs: initial; /* 0.5px */
+  --moduix-separator-thickness: initial; /* size thickness: 0.5px, var(--moduix-border-width-sm), var(--moduix-border-width-md), 3px */
 
   /* SegmentGroup */
   --moduix-segment-group-bg: initial; /* var(--moduix-color-muted) */

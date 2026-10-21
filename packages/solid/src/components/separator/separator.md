@@ -12,6 +12,7 @@ or vertical rule. It preserves the React component's single root, styling hooks,
   `data-orientation`, `data-size`, and `data-variant`.
 - The default semantic role is `separator`; `aria-orientation` follows the resolved orientation.
 - A non-separator role, such as `presentation`, omits `aria-orientation`.
+- Exported types: `SeparatorRootProps`, `SeparatorOrientation`, `SeparatorSize`, `SeparatorVariant`.
 
 ## Ark Solid composition and refs
 
@@ -26,8 +27,9 @@ ref through an `asChild` render function, so those native paths remain separate.
 
 ## Styling
 
-The CSS module is intentionally identical to the React component. Use `class`, `style`, or the
-documented CSS variables to customize the root without overriding its owned data hooks.
+The CSS module is intentionally identical to the React component. Use `class`, `style`,
+`--moduix-separator-color`, or `--moduix-separator-thickness` to customize the root without
+overriding its owned data hooks.
 
 ## Differences from React
 

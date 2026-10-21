@@ -81,3 +81,24 @@ test('supports decorative separators and semantic asChild hosts', async () => {
   expect(rootRef).toBeUndefined();
   expect(nativeRule.getAttribute('data-slot')).toBe('separator-root');
 });
+
+test('draws sizes, variants, and vertical lines as borders', async () => {
+  render(() => (
+    <div style={{ 'font-size': '20px' }}>
+      <Separator data-testid="large" size="lg" variant="dashed" />
+      <Separator data-testid="vertical" orientation="vertical" size="md" variant="dotted" />
+      <Separator data-testid="themed" style={{ '--moduix-separator-thickness': '4px' }} />
+    </div>
+  ));
+
+  await expect.element(page.getByTestId('large')).toHaveCSS('border-top-width', '3px');
+  await expect.element(page.getByTestId('large')).toHaveCSS('border-top-style', 'dashed');
+  await expect.element(page.getByTestId('large')).toHaveCSS('border-bottom-width', '0px');
+  await expect.element(page.getByTestId('vertical')).toHaveCSS('border-left-width', '2px');
+  await expect.element(page.getByTestId('vertical')).toHaveCSS('border-left-style', 'dotted');
+  await expect.element(page.getByTestId('vertical')).toHaveCSS('border-top-width', '0px');
+  const vertical = document.querySelector<HTMLElement>('[data-testid="vertical"]')!;
+  expect(vertical.offsetWidth).toBe(2);
+  expect(vertical.offsetHeight).toBe(20);
+  await expect.element(page.getByTestId('themed')).toHaveCSS('border-top-width', '4px');
+});
