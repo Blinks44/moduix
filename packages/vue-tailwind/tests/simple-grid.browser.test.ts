@@ -88,6 +88,18 @@ test('preserves native string and array style overrides', async () => {
   expect(grid.style.gap).toBe('16px');
 });
 
+test('applies a lone gap to both axes across updates', async () => {
+  const { getByTestId, rerender } = render(SimpleGrid, {
+    props: { columns: 2, gap: 12 },
+    attrs: { 'data-testid': 'grid' },
+  });
+  const grid = getByTestId('grid');
+  expect(getComputedStyle(grid)).toMatchObject({ rowGap: '12px', columnGap: '12px' });
+  await rerender({ columns: 3, gap: 12 });
+  expect(grid.style.gridTemplateColumns).toBe('repeat(3, minmax(0px, 1fr))');
+  expect(getComputedStyle(grid)).toMatchObject({ rowGap: '12px', columnGap: '12px' });
+});
+
 test('preserves semantic asChild hosts, slots, attrs, classes, listeners, and refs', async () => {
   const rootRef = ref<ComponentPublicInstance>();
   const handleClick = rs.fn();
@@ -110,27 +122,6 @@ test('preserves semantic asChild hosts, slots, attrs, classes, listeners, and re
   expect(grid.firstElementChild?.textContent).toContain('Analytics');
   await page.getByRole('list', { name: 'Projects' }).click();
   expect(handleClick).toHaveBeenCalledTimes(1);
-});
-
-test('rejects invalid column counts even when minChildWidth has priority', () => {
-  for (const columns of [0, -1, 1.5, Number.NaN, Number.POSITIVE_INFINITY]) {
-    expect(() => render(SimpleGrid, { props: { columns, minChildWidth: 240 } })).toThrow(
-      'SimpleGrid `columns` must be a finite positive integer.',
-    );
-  }
-});
-
-test('rejects invalid numeric minimum child widths', () => {
-  for (const minChildWidth of [
-    -1,
-    Number.NaN,
-    Number.NEGATIVE_INFINITY,
-    Number.POSITIVE_INFINITY,
-  ]) {
-    expect(() => render(SimpleGrid, { props: { minChildWidth } })).toThrow(
-      'SimpleGrid `minChildWidth` must be a finite non-negative number.',
-    );
-  }
 });
 
 test('lets consumer utilities override fixed defaults without duplicate classes', () => {

@@ -71,6 +71,19 @@ test('applies gaps and lets style override generated layout styles', () => {
   });
 });
 
+test('applies a lone gap to both axes across updates', async () => {
+  const [columns, setColumns] = createSignal(2);
+  render(() => <SimpleGrid columns={columns()} gap={12} data-testid="grid" />);
+  const grid = screen.getByTestId('grid');
+
+  expect(getComputedStyle(grid)).toMatchObject({ rowGap: '12px', columnGap: '12px' });
+
+  setColumns(3);
+
+  await expect.poll(() => grid.style.gridTemplateColumns).toBe('repeat(3, minmax(0px, 1fr))');
+  expect(getComputedStyle(grid)).toMatchObject({ rowGap: '12px', columnGap: '12px' });
+});
+
 test('preserves semantic children with asChild', () => {
   render(() => (
     <SimpleGrid asChild={(props) => <ul {...props()} aria-label="Projects" />} columns={2} />
@@ -118,25 +131,4 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
 
   expect(screen.getByRole('region', { name: 'Projects' }).isConnected).toBe(true);
   expect(ref).toBeUndefined();
-});
-
-test('rejects invalid column counts', () => {
-  for (const columns of [0, -1, 1.5, Number.NaN, Number.POSITIVE_INFINITY]) {
-    expect(() => render(() => <SimpleGrid columns={columns} />)).toThrow(
-      'SimpleGrid `columns` must be a finite positive integer.',
-    );
-  }
-});
-
-test('rejects invalid numeric minimum child widths', () => {
-  for (const minChildWidth of [
-    -1,
-    Number.NaN,
-    Number.NEGATIVE_INFINITY,
-    Number.POSITIVE_INFINITY,
-  ]) {
-    expect(() => render(() => <SimpleGrid minChildWidth={minChildWidth} />)).toThrow(
-      'SimpleGrid `minChildWidth` must be a finite non-negative number.',
-    );
-  }
 });

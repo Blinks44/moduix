@@ -139,9 +139,7 @@ transmettez `asChild` comme booléen ; en Vue, utilisez `as-child` avec un seul 
 par défaut ; en Solid, utilisez sa forme fonctionnelle pour renvoyer cet élément.
 Pour des zones de grille nommées, des pistes de tailles différentes ou des éléments qui
 s’étendent sur plusieurs pistes, ne transmettez aucune propriété de mise en page et définissez le
-modèle dans votre CSS ; cela fonctionne dans les variantes Tailwind, tandis que les packages CSS
-Modules imposent de redéfinir `grid-template-columns` par instance via la prop `style`, car la
-racine écrit toujours un fallback inline à une colonne.
+modèle dans votre propre classe, y compris un modèle adaptatif dans des media queries.
 
 ## Exemples
 
@@ -239,13 +237,10 @@ la racine devient un `ul` et chaque image reste dans un élément `li` direct.
 
 ## Styles
 
-`SimpleGrid` ne définit aucune variable CSS propre au composant. Ses propriétés de mise en page sont
-écrites dans les styles inline de la racine rendue. Dans les variantes Tailwind, si vous omettez
-`columns` et `minChildWidth`, `grid-template-columns` n’est pas ajouté aux styles inline : votre feuille
-de style ou les utilitaires `grid-cols-*` peuvent alors gérer le modèle. Dans les packages CSS Modules, la racine
-écrit toujours un `grid-template-columns` inline (le fallback à une colonne) et les styles inline
-l’emportent sur toute classe de l’application : transmettez donc les modèles personnalisés par
-instance via la prop `style`.
+`SimpleGrid` ne définit aucune variable CSS propre au composant. Le `display: grid` et le modèle à
+une colonne par défaut viennent de la feuille de style du composant (ou des utilitaires
+`grid grid-cols-1` dans les variantes Tailwind), vos classes peuvent donc les remplacer. Les
+propriétés de mise en page transmises sont écrites dans les styles inline de la racine rendue.
 
 Utilisez `className` en React ou `class` en Solid et en Vue pour les styles structurels. Les variantes Tailwind
 utilisent les utilitaires natifs et les classes de l’application ; les attributs de données et le hook
@@ -253,9 +248,8 @@ utilisent les utilitaires natifs et les classes de l’application ; les attribu
 
 ### Points d’accroche CSS
 
-- `className` ou `class` permet de styliser la racine rendue pour sa largeur, son positionnement et
-  son arrière-plan ; les remplacements adaptatifs de `grid-template-columns` passent par les
-  utilitaires `grid-cols-*` dans les variantes Tailwind et par `style` dans les packages CSS Modules.
+- `className` ou `class` permet de styliser la racine rendue, y compris `display` et un
+  `grid-template-columns` adaptatif lorsque les deux propriétés de mise en page sont omises.
 - `data-scope="simple-grid"` et `data-part="root"` suivent les conventions de style d’Ark.
 - `data-slot="simple-grid-root"` est le sélecteur moduix stable à utiliser dans votre CSS local.
 - `columns`, `minChildWidth`, `gap`, `rowGap` et `columnGap` écrivent des styles inline, prioritaires

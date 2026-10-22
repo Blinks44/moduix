@@ -12,8 +12,7 @@ test('renders the default single-column root with stable hooks and a forwarded r
   expect(grid.getAttribute('data-scope')).toBe('simple-grid');
   expect(grid.getAttribute('data-part')).toBe('root');
   expect(grid.getAttribute('data-slot')).toBe('simple-grid-root');
-  expect(grid.style.display).toBe('grid');
-  expect(grid.style.gridTemplateColumns).toBe('minmax(0px, 1fr)');
+  expect(grid.style.gridTemplateColumns).toBe('');
   expect(getComputedStyle(grid).display).toBe('grid');
   expect(getComputedStyle(grid).gridTemplateColumns).toBe(
     `${grid.getBoundingClientRect().width}px`,
@@ -69,6 +68,17 @@ test('applies gaps and lets style override generated layout styles', () => {
   });
 });
 
+test('applies a lone gap to both axes across updates', () => {
+  const { getByTestId, rerender } = render(<SimpleGrid columns={2} gap={12} data-testid="grid" />);
+  const grid = getByTestId('grid');
+
+  expect(getComputedStyle(grid)).toMatchObject({ rowGap: '12px', columnGap: '12px' });
+
+  rerender(<SimpleGrid columns={3} gap={12} data-testid="grid" />);
+
+  expect(getComputedStyle(grid)).toMatchObject({ rowGap: '12px', columnGap: '12px' });
+});
+
 test('preserves semantic children with asChild', () => {
   const { getByRole } = render(
     <SimpleGrid asChild columns={2}>
@@ -81,23 +91,20 @@ test('preserves semantic children with asChild', () => {
   expect(grid.style.gridTemplateColumns).toBe('repeat(2, minmax(0px, 1fr))');
 });
 
-test('rejects invalid column counts', () => {
-  for (const columns of [0, -1, 1.5, Number.NaN, Number.POSITIVE_INFINITY]) {
-    expect(() => render(<SimpleGrid columns={columns} />)).toThrow(
-      'SimpleGrid `columns` must be a finite positive integer.',
-    );
-  }
-});
+test('lets consumer classes override the default display and template', () => {
+  const sheet = document.createElement('style');
+  sheet.textContent =
+    '.consumer-grid { display: inline-grid; grid-template-columns: 100px 200px; }';
+  document.head.append(sheet);
 
-test('rejects invalid numeric minimum child widths', () => {
-  for (const minChildWidth of [
-    -1,
-    Number.NaN,
-    Number.NEGATIVE_INFINITY,
-    Number.POSITIVE_INFINITY,
-  ]) {
-    expect(() => render(<SimpleGrid minChildWidth={minChildWidth} />)).toThrow(
-      'SimpleGrid `minChildWidth` must be a finite non-negative number.',
+  try {
+    const grid = render(<SimpleGrid className="consumer-grid" data-testid="grid" />).getByTestId(
+      'grid',
     );
+
+    expect(getComputedStyle(grid).display).toBe('inline-grid');
+    expect(getComputedStyle(grid).gridTemplateColumns).toBe('100px 200px');
+  } finally {
+    sheet.remove();
   }
 });

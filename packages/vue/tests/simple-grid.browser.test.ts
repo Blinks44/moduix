@@ -20,8 +20,7 @@ test('renders the default single-column root with stable hooks and a native ref'
   expect(grid.getAttribute('data-scope')).toBe('simple-grid');
   expect(grid.getAttribute('data-part')).toBe('root');
   expect(grid.getAttribute('data-slot')).toBe('simple-grid-root');
-  expect(grid.style.display).toBe('grid');
-  expect(grid.style.gridTemplateColumns).toBe('minmax(0px, 1fr)');
+  expect(grid.style.gridTemplateColumns).toBe('');
   expect(grid.hasAttribute('role')).toBe(false);
   expect(getComputedStyle(grid).display).toBe('grid');
   expect(getComputedStyle(grid).gridTemplateColumns).toBe(
@@ -45,7 +44,7 @@ test('reactively resolves fixed and intrinsic columns, including strings and zer
   await rerender({ minChildWidth: 0 });
   expect(grid.style.gridTemplateColumns).toBe('repeat(auto-fit, minmax(min(100%, 0px), 1fr))');
   await rerender({ columns: undefined, minChildWidth: undefined });
-  expect(grid.style.gridTemplateColumns).toBe('minmax(0px, 1fr)');
+  expect(grid.style.gridTemplateColumns).toBe('');
   expect(getByTestId('grid')).toBe(grid);
   expect(getComputedStyle(grid).gridTemplateColumns).toBe('480px');
 });
@@ -88,6 +87,18 @@ test('preserves native string and array style overrides', async () => {
   expect(grid.style.gap).toBe('16px');
 });
 
+test('applies a lone gap to both axes across updates', async () => {
+  const { getByTestId, rerender } = render(SimpleGrid, {
+    props: { columns: 2, gap: 12 },
+    attrs: { 'data-testid': 'grid' },
+  });
+  const grid = getByTestId('grid');
+  expect(getComputedStyle(grid)).toMatchObject({ rowGap: '12px', columnGap: '12px' });
+  await rerender({ columns: 3, gap: 12 });
+  expect(grid.style.gridTemplateColumns).toBe('repeat(3, minmax(0px, 1fr))');
+  expect(getComputedStyle(grid)).toMatchObject({ rowGap: '12px', columnGap: '12px' });
+});
+
 test('preserves semantic asChild hosts, slots, attrs, classes, listeners, and refs', async () => {
   const rootRef = ref<ComponentPublicInstance>();
   const handleClick = rs.fn();
@@ -110,27 +121,6 @@ test('preserves semantic asChild hosts, slots, attrs, classes, listeners, and re
   expect(grid.firstElementChild?.textContent).toContain('Analytics');
   await page.getByRole('list', { name: 'Projects' }).click();
   expect(handleClick).toHaveBeenCalledTimes(1);
-});
-
-test('rejects invalid column counts even when minChildWidth has priority', () => {
-  for (const columns of [0, -1, 1.5, Number.NaN, Number.POSITIVE_INFINITY]) {
-    expect(() => render(SimpleGrid, { props: { columns, minChildWidth: 240 } })).toThrow(
-      'SimpleGrid `columns` must be a finite positive integer.',
-    );
-  }
-});
-
-test('rejects invalid numeric minimum child widths', () => {
-  for (const minChildWidth of [
-    -1,
-    Number.NaN,
-    Number.NEGATIVE_INFINITY,
-    Number.POSITIVE_INFINITY,
-  ]) {
-    expect(() => render(SimpleGrid, { props: { minChildWidth } })).toThrow(
-      'SimpleGrid `minChildWidth` must be a finite non-negative number.',
-    );
-  }
 });
 
 test('hydrates simple-grid without replacing the server host', async () => {
@@ -161,5 +151,24 @@ test('hydrates simple-grid without replacing the server host', async () => {
     host.remove();
     warn.mockRestore();
     error.mockRestore();
+  }
+});
+
+test('lets consumer classes override the default display and template', () => {
+  const sheet = document.createElement('style');
+  sheet.textContent =
+    '.consumer-grid { display: inline-grid; grid-template-columns: 100px 200px; }';
+  document.head.append(sheet);
+
+  try {
+    const grid = render(SimpleGrid, {
+      props: { class: 'consumer-grid' },
+      attrs: { 'data-testid': 'grid' },
+    }).getByTestId('grid');
+
+    expect(getComputedStyle(grid).display).toBe('inline-grid');
+    expect(getComputedStyle(grid).gridTemplateColumns).toBe('100px 200px');
+  } finally {
+    sheet.remove();
   }
 });

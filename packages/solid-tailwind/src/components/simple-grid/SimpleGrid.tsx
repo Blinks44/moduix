@@ -12,67 +12,43 @@ type SimpleGridRootProps = HTMLArkProps<'div'> & {
   columnGap?: number | string;
 };
 
-function toCssLength(value: number | string): string {
+function toCssLength(value: number | string) {
   return typeof value === 'number' ? `${value}px` : value;
 }
 
 function SimpleGrid(props: SimpleGridRootProps) {
   const [local, others] = splitProps(props, [
     'class',
+    'style',
     'columns',
     'minChildWidth',
     'gap',
     'rowGap',
     'columnGap',
-    'style',
   ]);
 
-  const gridStyle = (): JSX.CSSProperties | string | undefined => {
-    if (
-      local.columns != null &&
-      (!Number.isFinite(local.columns) || !Number.isInteger(local.columns) || local.columns <= 0)
-    ) {
-      throw new Error('SimpleGrid `columns` must be a finite positive integer.');
-    }
-
-    if (
-      typeof local.minChildWidth === 'number' &&
-      (!Number.isFinite(local.minChildWidth) || local.minChildWidth < 0)
-    ) {
-      throw new Error('SimpleGrid `minChildWidth` must be a finite non-negative number.');
-    }
-
-    let gridTemplateColumns: string | undefined;
-
-    if (local.columns != null) {
-      gridTemplateColumns = `repeat(${local.columns}, minmax(0, 1fr))`;
-    }
-
+  const style = (): JSX.CSSProperties | string => {
+    // Only set what was passed: removing an unset `row-gap` after `gap` resets part of the shorthand.
+    const layoutStyle: JSX.CSSProperties = {};
     if (local.minChildWidth != null) {
-      const width =
-        typeof local.minChildWidth === 'number' ? `${local.minChildWidth}px` : local.minChildWidth;
-      gridTemplateColumns = `repeat(auto-fit, minmax(min(100%, ${width}), 1fr))`;
+      layoutStyle['grid-template-columns'] =
+        `repeat(auto-fit, minmax(min(100%, ${toCssLength(local.minChildWidth)}), 1fr))`;
+    } else if (local.columns != null) {
+      layoutStyle['grid-template-columns'] = `repeat(${local.columns}, minmax(0, 1fr))`;
+    }
+    if (local.gap != null) layoutStyle.gap = toCssLength(local.gap);
+    if (local.rowGap != null) layoutStyle['row-gap'] = toCssLength(local.rowGap);
+    if (local.columnGap != null) layoutStyle['column-gap'] = toCssLength(local.columnGap);
+
+    if (typeof local.style !== 'string') {
+      return { ...layoutStyle, ...local.style };
     }
 
-    const generatedStyle: JSX.CSSProperties = {
-      ...(gridTemplateColumns == null ? {} : { 'grid-template-columns': gridTemplateColumns }),
-      ...(local.gap == null ? {} : { gap: toCssLength(local.gap) }),
-      ...(local.rowGap == null ? {} : { 'row-gap': toCssLength(local.rowGap) }),
-      ...(local.columnGap == null ? {} : { 'column-gap': toCssLength(local.columnGap) }),
-    };
-
-    if (typeof local.style === 'string') {
-      const generatedStyleText = Object.entries(generatedStyle)
-        .map(([property, value]) => `${property}:${value}`)
-        .join(';');
-      return `${generatedStyleText}${generatedStyleText ? ';' : ''}${local.style}`;
-    }
-
-    if (local.style == null) {
-      return generatedStyle;
-    }
-
-    return { ...generatedStyle, ...local.style };
+    // A string style keeps its native form and stays last, so it overrides the generated layout.
+    const layoutStyleText = Object.entries(layoutStyle)
+      .map(([property, value]) => `${property}:${value};`)
+      .join('');
+    return layoutStyleText + local.style;
   };
 
   return (
@@ -82,9 +58,10 @@ function SimpleGrid(props: SimpleGridRootProps) {
       data-part="root"
       data-slot="simple-grid-root"
       class={cn('grid grid-cols-1', local.class)}
-      style={gridStyle()}
+      style={style()}
     />
   );
 }
 
 export { SimpleGrid };
+export type { SimpleGridRootProps };
