@@ -610,17 +610,9 @@
   --moduix-skeleton-height: initial; /* var(--moduix-spacing-4) */
 
   /* Spinner */
-  --moduix-spinner-animation: initial; /* var(--moduix-animation-spin) */
-  --moduix-spinner-color: initial; /* currentColor */
-  --moduix-spinner-radius: initial; /* var(--moduix-radius-full) */
   --moduix-spinner-ring-border-width: initial; /* var(--moduix-border-width-md) */
   --moduix-spinner-ring-track-color: initial; /* color-mix(in oklab, currentColor 22%, transparent) */
-  --moduix-spinner-size: initial; /* var(--moduix-spinner-size-md, var(--moduix-spacing-5)) */
-  --moduix-spinner-size-xs: initial; /* var(--moduix-spacing-3) */
-  --moduix-spinner-size-sm: initial; /* var(--moduix-spacing-4) */
-  --moduix-spinner-size-md: initial; /* var(--moduix-spacing-5) */
-  --moduix-spinner-size-lg: initial; /* var(--moduix-spacing-7) */
-  --moduix-spinner-size-xl: initial; /* var(--moduix-size-md) */
+  --moduix-spinner-size: initial; /* size-specific, md: var(--moduix-spacing-5) */
 
   /* Switch */
   --moduix-switch-bg: initial; /* var(--moduix-color-muted) */

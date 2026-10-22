@@ -5,26 +5,22 @@ import { splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Spinner.module.css';
 
-type SpinnerProps = HTMLArkProps<'span'> & {
-  size?: 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+type SpinnerRootProps = HTMLArkProps<'span'> & {
+  size?: SpinnerSize;
   decorative?: boolean;
 };
 
-function Spinner(props: SpinnerProps) {
+function Spinner(props: SpinnerRootProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
     'class',
     'decorative',
     'aria-label',
-    'aria-labelledby',
     'size',
   ]);
-  const decorative = () => local.decorative ?? false;
-  const accessibleLabel = () =>
-    decorative()
-      ? undefined
-      : (local['aria-label'] ?? (local['aria-labelledby'] ? undefined : a11yLabels.loading));
 
   return (
     <ark.span
@@ -34,10 +30,12 @@ function Spinner(props: SpinnerProps) {
       data-part="root"
       data-slot="spinner-root"
       data-size={local.size ?? 'md'}
-      role={decorative() && !local.asChild ? 'presentation' : decorative() ? undefined : 'status'}
-      aria-hidden={decorative() && !local.asChild ? true : undefined}
-      aria-label={accessibleLabel()}
-      aria-labelledby={decorative() ? undefined : local['aria-labelledby']}
+      role={local.decorative ? undefined : 'status'}
+      aria-hidden={local.decorative || undefined}
+      aria-label={
+        local['aria-label'] ??
+        (local.decorative || others['aria-labelledby'] ? undefined : a11yLabels.loading)
+      }
       class={clsx(styles.root, local.class)}
     >
       <span
@@ -61,3 +59,4 @@ function Spinner(props: SpinnerProps) {
 }
 
 export { Spinner };
+export type { SpinnerRootProps, SpinnerSize };

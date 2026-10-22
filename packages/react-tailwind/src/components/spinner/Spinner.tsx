@@ -23,28 +23,23 @@ const spinnerVariants = cva('inline-flex shrink-0 items-center justify-center al
   },
 });
 
-type SpinnerProps = HTMLArkProps<'span'> & {
+type SpinnerRootProps = HTMLArkProps<'span'> & {
   size?: SpinnerSize;
   decorative?: boolean;
 };
 
-const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
+const Spinner = forwardRef<HTMLSpanElement, SpinnerRootProps>(function Spinner(
   {
+    'aria-label': ariaLabel,
     asChild,
     children,
     className,
     decorative = false,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
     size = 'md',
     ...props
   },
   ref,
 ) {
-  const accessibleLabel = decorative
-    ? undefined
-    : (ariaLabel ?? (ariaLabelledBy ? undefined : a11yLabels.loading));
-
   return (
     <ark.span
       ref={ref}
@@ -54,10 +49,11 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
       data-part="root"
       data-slot="spinner-root"
       data-size={size}
-      role={decorative && !asChild ? 'presentation' : decorative ? undefined : 'status'}
-      aria-hidden={decorative && !asChild ? true : undefined}
-      aria-label={accessibleLabel}
-      aria-labelledby={decorative ? undefined : ariaLabelledBy}
+      role={decorative ? undefined : 'status'}
+      aria-hidden={decorative || undefined}
+      aria-label={
+        ariaLabel ?? (decorative || props['aria-labelledby'] ? undefined : a11yLabels.loading)
+      }
       className={cn(spinnerVariants({ size }), className)}
     >
       {asChild ? (
@@ -67,7 +63,7 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
           data-scope="spinner"
           data-part="indicator"
           data-slot="spinner-indicator"
-          className="inline-flex size-full animate-[var(--moduix-animation-spin)] items-center justify-center motion-reduce:animate-none [&_svg]:size-full"
+          className="inline-flex size-full animate-[var(--moduix-animation-spin)] items-center justify-center [&_svg]:size-full"
           aria-hidden="true"
         >
           {children ?? (
@@ -85,3 +81,4 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
 });
 
 export { Spinner };
+export type { SpinnerRootProps, SpinnerSize };

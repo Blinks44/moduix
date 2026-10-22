@@ -68,7 +68,7 @@ test('keeps decorative default spinners out of the accessibility tree', async ()
   const spinner = screen.getByTestId('spinner');
 
   expect(spinner.getAttribute('data-size')).toBe('inherit');
-  expect(spinner.getAttribute('role')).toBe('presentation');
+  expect(spinner.hasAttribute('role')).toBe(false);
   expect(spinner.getAttribute('aria-hidden')).toBe('true');
   expect(getComputedStyle(spinner).width).toBe(getComputedStyle(spinner).fontSize);
 });
@@ -88,27 +88,25 @@ test('uses an external label instead of the default accessible name', async () =
   expect(spinner.hasAttribute('aria-label')).toBe(false);
 });
 
-test('preserves a decorative custom host and the Ark Solid ref limitation', async () => {
+test('hides a decorative custom host and keeps the Ark Solid ref limitation', async () => {
   let customRef: HTMLSpanElement | undefined;
   render(() => (
     <Spinner
       decorative
       ref={(element) => (customRef = element)}
-      asChild={(props) => (
-        <button {...props()} type="button">
-          Refresh
-        </button>
-      )}
+      asChild={(props) => <span {...props()} data-testid="spinner-host" />}
     />
   ));
 
-  await expect.element(page.getByRole('button', { name: 'Refresh' })).toHaveCount(1);
-  const button = screen.getByRole('button', { name: 'Refresh' });
+  await expect.element(page.getByTestId('spinner-host')).toHaveCount(1);
+  const host = screen.getByTestId('spinner-host');
 
   expect(customRef).toBeUndefined();
-  expect(button.hasAttribute('aria-hidden')).toBe(false);
-  expect(button.hasAttribute('role')).toBe(false);
-  expect(button.getAttribute('data-slot')).toBe('spinner-root');
+  expect(host.querySelector('[data-slot="spinner-ring"]')).toBeTruthy();
+  expect(host.getAttribute('aria-hidden')).toBe('true');
+  expect(host.hasAttribute('role')).toBe(false);
+  expect(host.hasAttribute('aria-label')).toBe(false);
+  expect(host.getAttribute('data-slot')).toBe('spinner-root');
 });
 
 test('forwards status semantics to a non-decorative asChild host', async () => {

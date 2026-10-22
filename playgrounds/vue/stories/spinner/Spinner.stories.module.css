@@ -15,7 +15,7 @@
 }
 
 .brandSpinner {
-  --moduix-spinner-color: var(--moduix-color-primary);
+  color: var(--moduix-color-primary);
   --moduix-spinner-ring-border-width: var(--moduix-border-width-lg);
   --moduix-spinner-ring-track-color: color-mix(
     in oklab,

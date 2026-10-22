@@ -9,7 +9,7 @@ import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
-type SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 const spinnerVariants = cva('inline-flex shrink-0 items-center justify-center align-middle', {
   variants: {
@@ -58,12 +58,10 @@ const attrs = useAttrs();
     data-part="root"
     data-slot="spinner-root"
     :data-size="size"
-    :role="decorative && !asChild ? 'presentation' : decorative ? undefined : 'status'"
-    :aria-hidden="decorative && !asChild ? true : undefined"
-    :aria-label="
-      decorative ? undefined : (ariaLabel ?? (ariaLabelledby ? undefined : a11yLabels.loading))
-    "
-    :aria-labelledby="decorative ? undefined : ariaLabelledby"
+    :role="decorative ? undefined : 'status'"
+    :aria-hidden="decorative || undefined"
+    :aria-label="ariaLabel ?? (decorative || ariaLabelledby ? undefined : a11yLabels.loading)"
+    :aria-labelledby="ariaLabelledby"
     :class="cn(spinnerVariants({ size }), className)"
   >
     <template v-if="asChild">
@@ -74,7 +72,7 @@ const attrs = useAttrs();
         data-scope="spinner"
         data-part="indicator"
         data-slot="spinner-indicator"
-        class="inline-flex size-full animate-[var(--moduix-animation-spin)] items-center justify-center motion-reduce:animate-none [&_svg]:size-full"
+        class="inline-flex size-full animate-[var(--moduix-animation-spin)] items-center justify-center [&_svg]:size-full"
         aria-hidden="true"
       >
         <slot>

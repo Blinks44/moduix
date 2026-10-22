@@ -38,10 +38,12 @@ import spinnerVueSizes from '../../../snippets/spinner/vue/sizes.vue?raw';
 элемента есть `role="status"` и запасное имя `aria-label="Loading"`. Это буквальная английская строка `Loading`,
 поэтому в интерфейсе на другом языке задайте локализованный `aria-label` или используйте `aria-labelledby`.
 
-При `prefers-reduced-motion: reduce` спиннер перестаёт вращаться: токен анимации spin из foundation
-преобразуется в `none`, а индикатор Tailwind добавляет `motion-reduce:animate-none`. В пакетах с CSS
-Modules задайте `--moduix-spinner-animation`, чтобы вернуть анимацию пользователям со включенным
-режимом reduced-motion.
+При `prefers-reduced-motion: reduce` спиннер перестаёт вращаться: токен foundation
+`--moduix-animation-spin` преобразуется в `none`. Чтобы оставить вращение у конкретного спиннера, задайте
+`animation` для его `[data-slot="spinner-indicator"]` в своём классе.
+
+Задайте `decorative`, когда видимый текст уже описывает загрузку: корень получает `aria-hidden="true"`, без
+`role` и запасного имени.
 
 
 <ExampleFrame variant="component">

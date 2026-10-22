@@ -41,9 +41,12 @@ blocs vides. Par défaut, le composant signale le chargement aux technologies d�
 le libellé de secours `aria-label="Loading"`. Ce libellé est la chaîne anglaise `Loading` ; dans une interface non
 anglophone, fournissez un `aria-label` localisé ou utilisez `aria-labelledby`.
 
-Avec `prefers-reduced-motion: reduce`, le spinner cesse de tourner : le token d’animation spin de la fondation
-devient `none`, et l’indicateur Tailwind ajoute `motion-reduce:animate-none`. Dans les packages CSS Modules,
-définissez `--moduix-spinner-animation` pour rétablir l’animation pour les utilisateurs avec reduced-motion.
+Avec `prefers-reduced-motion: reduce`, le spinner cesse de tourner : le token de la fondation
+`--moduix-animation-spin` devient `none`. Pour garder la rotation d’un spinner précis, définissez `animation`
+sur son `[data-slot="spinner-indicator"]` dans votre propre classe.
+
+Définissez `decorative` lorsqu’un texte visible décrit déjà le chargement : la racine reçoit alors
+`aria-hidden="true"`, sans `role` ni libellé de repli.
 
 
 <ExampleFrame variant="component">

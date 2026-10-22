@@ -1,3 +1,3 @@
-import Spinner from './Spinner.vue';
+export { default as Spinner } from './Spinner.vue';
 
-export { Spinner };
+export type { Props as SpinnerRootProps, SpinnerSize } from './Spinner.vue';
