@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { SplitterPanel as ArkSplitterPanel, useSplitterContext } from '@ark-ui/vue/splitter';
+import { SplitterPanel as ArkSplitterPanel } from '@ark-ui/vue/splitter';
 import type { SplitterPanelProps } from '@ark-ui/vue/splitter';
-import { computed, useAttrs } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import { useSidebarConfig } from './context';
+import { useSidebar, useSidebarConfig } from './context';
 
 defineOptions({ inheritAttrs: false });
 
@@ -12,12 +12,13 @@ export interface Props extends /* @vue-ignore */ Omit<SplitterPanelProps, 'id'> 
   asChild?: SplitterPanelProps['asChild'];
   class?: HTMLAttributes['class'];
 }
+
 const { asChild = false, class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
+
 const attrs = useAttrs();
-const { panelId, side } = useSidebarConfig();
-const splitter = useSplitterContext();
-const collapsed = computed(() => splitter.value.isPanelCollapsed(panelId.value));
+const { panelId } = useSidebarConfig();
+const { side, state } = useSidebar();
 </script>
 
 <template>
@@ -27,13 +28,12 @@ const collapsed = computed(() => splitter.value.isPanelCollapsed(panelId.value))
     :id="panelId"
     :class="
       cn(
-        'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none data-dragging:select-none',
-        'group/sidebar-panel @container/sidebar-panel relative flex min-h-0 min-w-0 flex-col overflow-hidden bg-card p-0 text-card-foreground transition-colors duration-normal ease-in-out',
+        'group/sidebar-panel @container/sidebar-panel relative box-border flex min-w-0 flex-col overflow-hidden bg-sidebar text-sidebar-foreground data-dragging:select-none',
         className,
       )
     "
     :data-side="side"
-    :data-state="collapsed ? 'collapsed' : 'expanded'"
+    :data-state="state"
     data-slot="sidebar-panel"
   >
     <slot />

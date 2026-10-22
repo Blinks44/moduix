@@ -6,11 +6,14 @@ import type { HTMLAttributes } from 'vue';
 import { useSidebar } from './context';
 
 defineOptions({ inheritAttrs: false });
+
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {
   class?: HTMLAttributes['class'];
 }
+
 const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
+
 const attrs = useAttrs();
 const { collapsed } = useSidebar();
 </script>

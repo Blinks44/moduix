@@ -2,6 +2,7 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
+import type { CSSProperties } from 'react';
 import {
   Select,
   Sidebar,
@@ -120,7 +121,8 @@ test('preserves active link composition for primary and nested navigation', asyn
               </SidebarNavigationSubItem>
               <SidebarNavigationSubItem>
                 <SidebarNavigationSubButton href="#very-long-item">
-                  A very long nested navigation item
+                  <svg data-testid="nested-icon" />
+                  <SidebarLabel>A very long nested navigation item</SidebarLabel>
                 </SidebarNavigationSubButton>
               </SidebarNavigationSubItem>
             </SidebarNavigationSubList>
@@ -161,7 +163,10 @@ test('preserves active link composition for primary and nested navigation', asyn
   await expect.element(page.getByTestId('nested-badge')).toContainText('3');
   await expect
     .element(page.getByText('A very long nested navigation item'))
-    .toHaveAttribute('data-slot', 'sidebar-navigation-sub-label');
+    .toHaveAttribute('data-slot', 'sidebar-label');
+  expect(
+    document.querySelector('[data-testid="nested-icon"]')?.parentElement?.getAttribute('data-slot'),
+  ).toBe('sidebar-navigation-sub-button');
 });
 
 test('preserves direct Select indicator composition in a navigation button', async () => {
@@ -191,6 +196,21 @@ test('preserves direct Select indicator composition in a navigation button', asy
   );
 
   const indicator = document.querySelector<HTMLElement>('[data-testid="select-indicator"]')!;
+  const icon = document.querySelector<HTMLElement>('[data-sidebar-icon]')!;
+  const button = indicator.parentElement!;
+
+  expect(indicator.getBoundingClientRect().left).toBeGreaterThan(
+    icon.getBoundingClientRect().right,
+  );
+  expect(
+    button.getBoundingClientRect().right - indicator.getBoundingClientRect().right,
+  ).toBeLessThan(16);
+
+  await page.getByRole('button', { name: 'Toggle sidebar' }).click();
+  await expect
+    .element(page.getByRole('button', { name: 'Toggle sidebar' }))
+    .toHaveAttribute('aria-expanded', 'false');
+  expect(getComputedStyle(indicator).display).toBe('none');
 
   expect(indicator).toBe(container.querySelector('[data-scope="select"][data-part="indicator"]'));
 });
@@ -287,7 +307,7 @@ test('uses native Tailwind defaults and merges consumer utilities last', async (
   expect([...root!.classList]).toEqual(expect.arrayContaining(['h-64', 'bg-muted']));
   expect([...root!.classList]).not.toContain('h-dvh');
   expect([...root!.classList]).not.toContain('bg-background');
-  expect([...panel!.classList]).toEqual(expect.arrayContaining(['p-6', 'bg-card']));
+  expect([...panel!.classList]).toEqual(expect.arrayContaining(['p-6', 'bg-sidebar']));
   expect([...panel!.classList]).not.toContain('p-0');
   expect([...document.querySelector('[data-slot="sidebar-navigation-button"]')!.classList]).toEqual(
     expect.arrayContaining(['p-6', 'min-h-control-md']),
@@ -307,4 +327,41 @@ test('uses native Tailwind defaults and merges consumer utilities last', async (
   await expect.element(trigger.locator('svg')).toBeVisible();
   await expect.element(trigger).toHaveCSS('width', '32px');
   await expect.element(page.locator('[data-slot="sidebar-panel"]')).toHaveCSS('padding', '24px');
+});
+test('colors the panel from sidebar tokens and keeps the active item visible when collapsed', async () => {
+  render(
+    <Sidebar
+      style={
+        {
+          '--moduix-color-sidebar': 'rgb(1, 2, 3)',
+          '--moduix-color-sidebar-accent': 'rgb(4, 5, 6)',
+        } as CSSProperties
+      }
+    >
+      <SidebarPanel data-testid="panel">
+        <SidebarNavigationList>
+          <SidebarNavigationItem>
+            <SidebarNavigationButton active style={{ transition: 'none' }}>
+              <svg />
+              <SidebarLabel>Overview</SidebarLabel>
+            </SidebarNavigationButton>
+          </SidebarNavigationItem>
+        </SidebarNavigationList>
+      </SidebarPanel>
+      <SidebarResizeTrigger />
+      <SidebarTrigger />
+      <SidebarInset />
+    </Sidebar>,
+  );
+
+  const panel = document.querySelector<HTMLElement>('[data-testid="panel"]')!;
+  const active = document.querySelector<HTMLElement>('[data-slot="sidebar-navigation-button"]')!;
+
+  expect(getComputedStyle(panel).backgroundColor).toBe('rgb(1, 2, 3)');
+  expect(getComputedStyle(active).backgroundColor).toBe('rgb(4, 5, 6)');
+
+  await page.getByRole('button', { name: 'Toggle sidebar' }).click();
+  await expect.element(page.getByTestId('panel')).toHaveAttribute('data-state', 'collapsed');
+
+  expect(getComputedStyle(active).backgroundColor).toBe('rgb(4, 5, 6)');
 });

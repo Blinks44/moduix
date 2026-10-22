@@ -6,7 +6,7 @@ import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
-import { useSidebar, useSidebarConfig } from './context';
+import { useSidebar } from './context';
 import styles from './Sidebar.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -23,18 +23,14 @@ const slots = defineSlots<{ default?: () => unknown }>();
 const emit = defineEmits<{ click: [event: MouseEvent] }>();
 
 const attrs = useAttrs();
-const { side } = useSidebarConfig();
-const sidebar = useSidebar();
-const collapsed = sidebar.collapsed;
+const { collapsed, side, state, toggleSidebar } = useSidebar();
 const ariaLabel = computed(() =>
   typeof attrs['aria-label'] === 'string' ? attrs['aria-label'] : a11yLabels.toggleSidebar,
 );
 
 const handleClick = (event: MouseEvent) => {
   emit('click', event);
-  if (event.defaultPrevented) return;
-
-  sidebar.toggleSidebar();
+  if (!event.defaultPrevented) toggleSidebar();
 };
 </script>
 
@@ -47,7 +43,7 @@ const handleClick = (event: MouseEvent) => {
     :class="clsx(styles.trigger, props.class)"
     @click="handleClick"
     :data-side="side"
-    :data-state="collapsed ? 'collapsed' : 'expanded'"
+    :data-state="state"
     data-scope="sidebar"
     data-part="trigger"
     data-slot="sidebar-trigger"

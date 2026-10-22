@@ -95,14 +95,14 @@ export function SidebarDashboard() {
                         <SidebarNavigationSubButton
                           asChild={(props) => <a {...props()} href="#website" />}
                         >
-                          Website
+                          <SidebarLabel>Website</SidebarLabel>
                         </SidebarNavigationSubButton>
                       </SidebarNavigationSubItem>
                       <SidebarNavigationSubItem>
                         <SidebarNavigationSubButton
                           asChild={(props) => <a {...props()} href="#mobile-app" />}
                         >
-                          Mobile app
+                          <SidebarLabel>Mobile app</SidebarLabel>
                         </SidebarNavigationSubButton>
                       </SidebarNavigationSubItem>
                     </SidebarNavigationSubList>

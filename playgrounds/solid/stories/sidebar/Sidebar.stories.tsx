@@ -298,13 +298,13 @@ function SidebarNavigation() {
                     <SidebarNavigationSubList>
                       <SidebarNavigationSubItem>
                         <SidebarNavigationSubButton href="#website">
-                          Website
+                          <SidebarLabel>Website</SidebarLabel>
                         </SidebarNavigationSubButton>
                         <SidebarNavigationBadge>3</SidebarNavigationBadge>
                       </SidebarNavigationSubItem>
                       <SidebarNavigationSubItem>
                         <SidebarNavigationSubButton href="#mobile">
-                          Mobile app
+                          <SidebarLabel>Mobile app</SidebarLabel>
                         </SidebarNavigationSubButton>
                       </SidebarNavigationSubItem>
                     </SidebarNavigationSubList>

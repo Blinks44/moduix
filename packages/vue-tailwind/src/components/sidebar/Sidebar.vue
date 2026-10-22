@@ -14,24 +14,24 @@ import { provideSidebarContext, type SidebarSide } from './context';
 
 type SidebarSizes = (number | string)[];
 
-const sidebarPanel = {
-  id: 'sidebar',
-  minSize: '3rem',
-  maxSize: '18rem',
-  collapsible: true,
-  collapsedSize: '3rem',
-} satisfies SplitterPanelData;
-const contentPanel = { id: 'content' } satisfies SplitterPanelData;
-const defaultPanelsBySide = {
-  left: [sidebarPanel, contentPanel],
-  right: [contentPanel, sidebarPanel],
-} satisfies Record<SidebarSide, SplitterPanelData[]>;
+const rootStyle = { width: undefined, height: undefined };
 
-function getDefaultSidebarSize(side: SidebarSide): SidebarSizes {
-  if (side === 'left') return ['16rem'];
-  const defaultSize: SidebarSizes = [];
-  defaultSize[1] = '16rem';
-  return defaultSize;
+function getPanels(side: SidebarSide, panelId: string): SplitterPanelData[] {
+  const sidebar = {
+    id: panelId,
+    minSize: '3rem',
+    maxSize: '18rem',
+    collapsible: true,
+    collapsedSize: '3rem',
+  };
+  const content = { id: 'content' };
+  return side === 'left' ? [sidebar, content] : [content, sidebar];
+}
+
+function getDefaultSize(side: SidebarSide): SidebarSizes {
+  const size: SidebarSizes = [];
+  size[side === 'left' ? 0 : 1] = '16rem';
+  return size;
 }
 
 defineOptions({ inheritAttrs: false });
@@ -48,6 +48,7 @@ export interface Props
   size?: SidebarSizes;
   style?: StyleValue;
 }
+
 export interface Emits {
   collapse: [details: SplitterExpandCollapseDetails];
   expand: [details: SplitterExpandCollapseDetails];
@@ -57,35 +58,24 @@ export interface Emits {
   'update:size': [size: SidebarSizes];
 }
 
-const props = withDefaults(defineProps<Props>(), { panelId: 'sidebar', side: 'left' });
+const props = withDefaults(defineProps<Props>(), {
+  panelId: 'sidebar',
+  side: 'left',
+});
 const emit = defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const panelId = toRef(props, 'panelId');
 const side = toRef(props, 'side');
+
 provideSidebarContext({ panelId, side });
 
-const panels = computed(() =>
-  defaultPanelsBySide[side.value].map((panel) =>
-    panel.id === 'sidebar' ? { ...panel, id: panelId.value } : panel,
-  ),
-);
-const defaultSize = computed<SidebarSizes>(
-  () => props.defaultSize ?? getDefaultSidebarSize(side.value),
-);
-const rootStyleValue = computed<StyleValue>(() => [
-  { width: undefined, height: undefined },
-  props.style,
-]);
-const rootClass = cn(
-  'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize',
-  'isolate h-dvh min-h-96 w-full min-w-0 rounded-none border border-border bg-background text-foreground shadow-none',
-);
+const panels = computed(() => getPanels(side.value, panelId.value));
 const splitter = useSplitter(
   computed(() => ({
     ...attrs,
-    defaultSize: defaultSize.value,
+    defaultSize: props.defaultSize ?? getDefaultSize(side.value),
     orientation: 'horizontal' as const,
     panels: panels.value,
     size: props.size,
@@ -98,8 +88,13 @@ const splitter = useSplitter(
   <ArkSplitterRootProvider
     v-bind="attrs"
     :value="splitter"
-    :class="cn(rootClass, props.class)"
-    :style="rootStyleValue"
+    :class="
+      cn(
+        'relative isolate box-border h-dvh min-h-96 w-full min-w-0 border border-sidebar-border bg-background text-foreground data-dragging:cursor-col-resize',
+        props.class,
+      )
+    "
+    :style="[rootStyle, props.style]"
     :data-side="side"
     data-slot="sidebar-root"
   >

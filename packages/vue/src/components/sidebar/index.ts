@@ -54,7 +54,8 @@ export {
   useSidebar,
 };
 
-export type { Props as SidebarProps } from './Sidebar.vue';
+export type { SidebarSide } from './context';
+export type { Props as SidebarRootProps } from './Sidebar.vue';
 export type { Props as SidebarCollapsedContentProps } from './SidebarCollapsedContent.vue';
 export type { Props as SidebarContentProps } from './SidebarContent.vue';
 export type { Props as SidebarExpandedContentProps } from './SidebarExpandedContent.vue';
@@ -68,7 +69,10 @@ export type { Props as SidebarInputProps } from './SidebarInput.vue';
 export type { Props as SidebarInsetProps } from './SidebarInset.vue';
 export type { Props as SidebarLabelProps } from './SidebarLabel.vue';
 export type { Props as SidebarNavigationBadgeProps } from './SidebarNavigationBadge.vue';
-export type { Props as SidebarNavigationButtonProps } from './SidebarNavigationButton.vue';
+export type {
+  Props as SidebarNavigationButtonProps,
+  SidebarNavigationButtonSize,
+} from './SidebarNavigationButton.vue';
 export type { Props as SidebarNavigationItemProps } from './SidebarNavigationItem.vue';
 export type { Props as SidebarNavigationListProps } from './SidebarNavigationList.vue';
 export type { Props as SidebarNavigationSubButtonProps } from './SidebarNavigationSubButton.vue';

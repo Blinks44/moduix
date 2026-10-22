@@ -485,8 +485,15 @@ Sidebar
 атрибутом `data-sidebar-icon`.
 
 Ширина панелей является состоянием Ark, а не визуальным CSS. Переопределяйте `defaultSize` или
-управляемый `size` для текущей ширины. Публичные переменные `--moduix-sidebar-*` отвечают за
-внутренние отступы, размеры элементов, цвета и смещение триггера.
+управляемый `size` для текущей ширины. Цвета берутся из foundation-токенов сайдбара
+(`--moduix-color-sidebar`, `--moduix-color-sidebar-foreground`, `--moduix-color-sidebar-accent`,
+`--moduix-color-sidebar-accent-foreground`, `--moduix-color-sidebar-border` и
+`--moduix-color-sidebar-ring`), поэтому темы и пресеты меняют все сайдбары сразу. У корня остаются
+`--moduix-sidebar-width`, `--moduix-sidebar-height` и `--moduix-sidebar-trigger-offset-y`; отступы,
+скругление, тень и размеры пунктов меняйте классом на нужной части.
+
+Оборачивайте текст навигации в `SidebarLabel`, в том числе внутри `SidebarNavigationSubButton`, чтобы
+длинные подписи обрезались и скрывались в свернутом режиме.
 
 ### CSS-свойства
 

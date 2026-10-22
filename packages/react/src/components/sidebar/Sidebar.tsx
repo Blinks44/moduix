@@ -4,7 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { Splitter as SplitterPrimitive } from '@ark-ui/react/splitter';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, MouseEvent } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
@@ -23,60 +23,36 @@ import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '../t
 import styles from './Sidebar.module.css';
 
 type SidebarSide = 'left' | 'right';
-type SidebarConfig = {
-  panelId: string;
-  side: SidebarSide;
-};
+type SidebarNavigationButtonSize = 'sm' | 'md' | 'lg';
 type SidebarRootProps = Omit<ComponentProps<typeof Splitter>, 'orientation' | 'panels'> & {
   panelId?: string;
   side?: SidebarSide;
 };
 type SidebarPanelProps = Omit<ComponentProps<typeof SplitterPanel>, 'id'>;
 type SidebarResizeTriggerProps = Omit<ComponentProps<typeof SplitterResizeTrigger>, 'id'>;
-type SidebarDefaultSize = ComponentProps<typeof Splitter>['defaultSize'];
+type SidebarSizes = NonNullable<SidebarRootProps['defaultSize']>;
 
-const sidebarPanel = {
-  id: 'sidebar',
-  minSize: '3rem',
-  maxSize: '18rem',
-  collapsible: true,
-  collapsedSize: '3rem',
-} satisfies SplitterPanelData;
-
-const contentPanel = { id: 'content' } satisfies SplitterPanelData;
-
-const defaultPanelsBySide = {
-  left: [sidebarPanel, contentPanel],
-  right: [contentPanel, sidebarPanel],
-} satisfies Record<SidebarSide, SplitterPanelData[]>;
-
-const SidebarConfigContext = createContext<SidebarConfig>({
+const SidebarConfigContext = createContext<{ panelId: string; side: SidebarSide }>({
   panelId: 'sidebar',
   side: 'left',
 });
 
-function getDefaultSidebarSize(side: SidebarSide): SidebarDefaultSize {
-  if (side === 'left') {
-    return ['16rem'];
-  }
-
-  const defaultSize: SidebarDefaultSize = [];
-  defaultSize[1] = '16rem';
-  return defaultSize;
+function getPanels(side: SidebarSide, panelId: string): SplitterPanelData[] {
+  const sidebar = {
+    id: panelId,
+    minSize: '3rem',
+    maxSize: '18rem',
+    collapsible: true,
+    collapsedSize: '3rem',
+  };
+  const content = { id: 'content' };
+  return side === 'left' ? [sidebar, content] : [content, sidebar];
 }
 
-function getDefaultPanels(side: SidebarSide, panelId: string) {
-  const panels = defaultPanelsBySide[side];
-  return panels.map((panel) => (panel.id === 'sidebar' ? { ...panel, id: panelId } : panel));
-}
-
-function toggleSidebarPanel(splitter: ReturnType<typeof useSplitterContext>, panelId: string) {
-  if (splitter.isPanelCollapsed(panelId)) {
-    splitter.expandPanel(panelId);
-    return;
-  }
-
-  splitter.collapsePanel(panelId);
+function getDefaultSize(side: SidebarSide): SidebarSizes {
+  const size: SidebarSizes = [];
+  size[side === 'left' ? 0 : 1] = '16rem';
+  return size;
 }
 
 const Sidebar = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, SidebarRootProps>(
@@ -89,8 +65,8 @@ const Sidebar = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, SidebarR
         <SplitterPrimitive.Root
           {...props}
           ref={ref}
-          panels={getDefaultPanels(side, panelId)}
-          defaultSize={defaultSize ?? getDefaultSidebarSize(side)}
+          panels={getPanels(side, panelId)}
+          defaultSize={defaultSize ?? getDefaultSize(side)}
           orientation="horizontal"
           data-side={side}
           data-slot="sidebar-root"
@@ -107,32 +83,34 @@ const Sidebar = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, SidebarR
 );
 
 function useSidebar() {
-  const config = useContext(SidebarConfigContext);
+  const { panelId, side } = useContext(SidebarConfigContext);
   const splitter = useSplitterContext();
-  const collapsed = splitter.isPanelCollapsed(config.panelId);
+  const collapsed = splitter.isPanelCollapsed(panelId);
 
   return {
     collapsed,
-    side: config.side,
+    side,
     state: collapsed ? 'collapsed' : 'expanded',
-    toggleSidebar: () => toggleSidebarPanel(splitter, config.panelId),
+    toggleSidebar: () => {
+      if (splitter.isPanelCollapsed(panelId)) splitter.expandPanel(panelId);
+      else splitter.collapsePanel(panelId);
+    },
   };
 }
 
 const SidebarPanel = forwardRef<ComponentRef<typeof SplitterPrimitive.Panel>, SidebarPanelProps>(
   function SidebarPanel({ className, ...props }, ref) {
-    const config = useContext(SidebarConfigContext);
-    const splitter = useSplitterContext();
-    const collapsed = splitter.isPanelCollapsed(config.panelId);
+    const { panelId } = useContext(SidebarConfigContext);
+    const { side, state } = useSidebar();
 
     return (
       <SplitterPrimitive.Panel
         {...props}
         ref={ref}
-        id={config.panelId}
-        data-side={config.side}
+        id={panelId}
+        data-side={side}
         data-slot="sidebar-panel"
-        data-state={collapsed ? 'collapsed' : 'expanded'}
+        data-state={state}
         className={clsx(splitterStyles.panel, styles.panel, className)}
       />
     );
@@ -164,15 +142,13 @@ const SidebarResizeTrigger = forwardRef<
   ref,
 ) {
   const { panelId, side } = useContext(SidebarConfigContext);
-  const id: NonNullable<ComponentProps<typeof SplitterResizeTrigger>['id']> =
-    side === 'left' ? `${panelId}:content` : `content:${panelId}`;
 
   return (
     <SplitterPrimitive.ResizeTrigger
       {...props}
       ref={ref}
       asChild={asChild}
-      id={id}
+      id={side === 'left' ? `${panelId}:content` : `content:${panelId}`}
       aria-label={ariaLabel}
       data-side={side}
       data-slot="sidebar-resize-trigger"
@@ -195,16 +171,7 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
     },
     ref,
   ) {
-    const config = useContext(SidebarConfigContext);
-    const sidebar = useSplitterContext();
-    const collapsed = sidebar.isPanelCollapsed(config.panelId);
-
-    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-      onClick?.(event);
-      if (event.defaultPrevented) return;
-
-      toggleSidebarPanel(sidebar, config.panelId);
-    };
+    const { collapsed, side, state, toggleSidebar } = useSidebar();
 
     return (
       <ark.button
@@ -213,12 +180,15 @@ const SidebarTrigger = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
         aria-label={ariaLabel}
         aria-expanded={!collapsed}
         className={clsx(styles.trigger, className)}
-        onClick={handleClick}
+        onClick={(event) => {
+          onClick?.(event);
+          if (!event.defaultPrevented) toggleSidebar();
+        }}
         {...props}
         data-scope="sidebar"
         data-part="trigger"
-        data-side={config.side}
-        data-state={collapsed ? 'collapsed' : 'expanded'}
+        data-side={side}
+        data-state={state}
         data-slot="sidebar-trigger"
       >
         {children ?? <ChevronLeftIcon />}
@@ -276,13 +246,12 @@ const SidebarContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function 
 });
 
 const SidebarExpandedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
-  function SidebarExpandedContent({ className, ...props }, ref) {
+  function SidebarExpandedContent(props, ref) {
     const { collapsed } = useSidebar();
 
     return (
       <ark.div
         ref={ref}
-        className={className}
         {...props}
         data-scope="sidebar"
         data-part="expanded-content"
@@ -294,13 +263,12 @@ const SidebarExpandedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
 );
 
 const SidebarCollapsedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
-  function SidebarCollapsedContent({ className, ...props }, ref) {
+  function SidebarCollapsedContent(props, ref) {
     const { collapsed } = useSidebar();
 
     return (
       <ark.div
         ref={ref}
-        className={className}
         {...props}
         data-scope="sidebar"
         data-part="collapsed-content"
@@ -423,7 +391,7 @@ const SidebarNavigationButton = forwardRef<
   HTMLButtonElement,
   HTMLArkProps<'button'> & {
     active?: boolean;
-    size?: 'sm' | 'md' | 'lg';
+    size?: SidebarNavigationButtonSize;
   }
 >(function SidebarNavigationButton(
   {
@@ -503,7 +471,7 @@ const SidebarNavigationSubButton = forwardRef<
     active?: boolean;
   }
 >(function SidebarNavigationSubButton(
-  { active = false, children, className, 'aria-current': ariaCurrent, ...props },
+  { active = false, className, 'aria-current': ariaCurrent, ...props },
   ref,
 ) {
   return (
@@ -516,13 +484,7 @@ const SidebarNavigationSubButton = forwardRef<
       data-part="navigation-sub-button"
       data-active={active ? '' : undefined}
       data-slot="sidebar-navigation-sub-button"
-    >
-      {typeof children === 'string' ? (
-        <span data-slot="sidebar-navigation-sub-label">{children}</span>
-      ) : (
-        children
-      )}
-    </ark.a>
+    />
   );
 });
 
@@ -597,3 +559,4 @@ export {
   SidebarTrigger,
   useSidebar,
 };
+export type { SidebarNavigationButtonSize, SidebarRootProps, SidebarSide };
