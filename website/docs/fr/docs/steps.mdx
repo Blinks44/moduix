@@ -270,8 +270,8 @@ courante ne respecte pas votre règle de validation.
 ### Progression
 
 Ajoutez `StepsProgress` lorsque le parcours doit afficher une barre de progression à côté de la
-liste des étapes. Ajoutez votre propre statut accessible si la progression doit être annoncée aux
-technologies d’assistance.
+liste des étapes. Ark l’affiche avec `role="progressbar"` et le
+pourcentage courant ; donnez-lui un `aria-label` qui nomme le parcours.
 
 <ExampleFrame variant="component">
   <StepsProgress />
@@ -458,6 +458,12 @@ ARIA, le clavier et le focus gérés par Ark.
 Stylez `Steps` avec `className` dans React ou `class` dans Solid et Vue, les attributs Ark
 `data-scope="steps"` et `data-part`, les attributs d’état Ark, les hooks moduix `data-slot` et les
 variables CSS publiques `--moduix-steps-*` listées ci-dessous.
+
+La racine occupe toute la largeur de son conteneur ; limitez-la avec `max-width` dans votre propre
+classe. Les paquets CSS Modules exposent deux variables, car le séparateur vertical est positionné à
+partir d’elles : définissez `--moduix-steps-indicator-size` et `--moduix-steps-gap` plutôt que de
+redimensionner l’indicateur ou l’espacement de la liste verticale avec une classe. Modifiez les
+couleurs, la typographie et les surfaces avec une classe sur la partie.
 
 ### Variables CSS
 

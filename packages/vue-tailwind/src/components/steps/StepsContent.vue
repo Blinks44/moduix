@@ -17,7 +17,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const contentClass =
-  "box-border grid min-h-40 min-w-0 place-items-center rounded-md bg-muted px-4 py-4 text-sm leading-5 text-foreground outline-none focus-visible:outline-1 focus-visible:-outline-offset-2 focus-visible:outline-ring data-[orientation=vertical]:flex-auto [&[hidden]:not([hidden='until-found'])]:hidden";
+  'box-border grid min-h-40 min-w-0 place-items-center rounded-md bg-muted p-4 text-sm leading-5 text-foreground outline-none focus-visible:outline-1 focus-visible:-outline-offset-2 focus-visible:outline-ring data-[orientation=vertical]:flex-auto [&[hidden]]:hidden';
 </script>
 
 <template>

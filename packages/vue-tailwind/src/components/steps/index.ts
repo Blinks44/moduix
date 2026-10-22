@@ -41,6 +41,7 @@ export {
 
 export type {
   StepChangeDetails,
+  StepInvalidDetails,
   StepsCompletedContentProps,
   StepsContentProps,
   StepsContextProps,

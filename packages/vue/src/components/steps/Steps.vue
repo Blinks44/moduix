@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { StepsRoot as ArkStepsRoot } from '@ark-ui/vue/steps';
-import type { StepChangeDetails, StepsRootProps } from '@ark-ui/vue/steps';
+import type { Steps as ArkSteps, StepsRootProps } from '@ark-ui/vue/steps';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
@@ -12,15 +12,10 @@ export interface Props extends /* @vue-ignore */ StepsRootProps {
   class?: HTMLAttributes['class'];
 }
 
-export interface Emits {
-  stepChange: [details: StepChangeDetails];
-  stepComplete: [];
-  stepInvalid: [details: { step: number; action: 'next' | 'set'; targetStep?: number }];
-  'update:step': [step: number];
-}
+export interface Emits extends /* @vue-ignore */ ArkSteps.RootEmits {}
 
 const { class: className } = defineProps<Props>();
-defineEmits</* @vue-ignore */ Emits>();
+defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();

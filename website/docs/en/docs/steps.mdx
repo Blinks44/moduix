@@ -270,7 +270,8 @@ passes your validation rule.
 ### Progress
 
 Add `StepsProgress` when the flow should show a visual progress track alongside the step list.
-Add your own accessible status if the progress needs to be announced to assistive technology.
+Ark renders it as `role="progressbar"` with the current percentage; give it an `aria-label` that
+names the flow.
 
 <ExampleFrame variant="component">
   <StepsProgress />
@@ -456,6 +457,11 @@ Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
 Style `Steps` with `className` in React or `class` in Solid and Vue, Ark's `data-scope="steps"` and
 `data-part` attributes, Ark state attributes, moduix `data-slot` hooks, and the public
 `--moduix-steps-*` CSS variables listed below.
+
+The root fills its container; limit it with `max-width` in your own class. The CSS Modules packages
+expose two variables because the vertical separator is positioned from them: set
+`--moduix-steps-indicator-size` and `--moduix-steps-gap` instead of resizing the indicator or the
+vertical list gap with a class. Change colors, typography, and surfaces with a class on the part.
 
 ### CSS variables
 
