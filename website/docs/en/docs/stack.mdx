@@ -4,7 +4,6 @@ component: stack
 description: A lightweight flex layout primitive for arranging content vertically or horizontally in React, Solid, or Vue.
 ---
 
-import * as StackDocs from '@/components/examples/stack/css-properties';
 import StackBasic from '@/components/examples/stack/basic.tsx';
 import StackFill from '@/components/examples/stack/growing-child-stack.tsx';
 import StackLoadingLayout from '@/components/examples/stack/loading-layout.tsx';
@@ -221,8 +220,9 @@ Combine `Stack` and `Skeleton` for a loading layout that only needs flex composi
 
 ### Responsive Direction
 
-Use responsive `direction` for a simple column-on-mobile, row-on-desktop layout. The desktop value starts at `640px`;
-if only one responsive value is provided, Stack uses it at both breakpoints.
+Use responsive `direction` for a simple column-on-mobile, row-on-desktop layout. The desktop value starts at `640px`.
+Responsive values are mobile-first: an omitted `mobile` value stays `column`, and an omitted `desktop` value keeps the
+mobile direction.
 
 <ExampleFrame variant="component">
   <StackResponsiveDirection />
@@ -423,32 +423,19 @@ Use `wrap="wrap"` when items should flow onto the next line.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on the root for structural styles. Tailwind variants use native utility
-classes and consumer overrides; the CSS variables below customize the CSS Modules variants. Data attributes and the
-`data-slot` hook are shared by both styling tracks.
+`Stack` does not define component-specific CSS variables. The default `display: flex` and column direction come from
+the component stylesheet (or the `flex flex-col` utilities in the Tailwind variants), so your classes can replace them,
+including a responsive `flex-direction` in your own media queries.
 
-### CSS Properties
-
-`Stack` exposes public CSS variables on its root. By default, they use `column` and `initial`; the `direction` and
-`fill` props write inline values when provided, and `style` can override them for a single instance.
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <StackDocs.StackCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue for structural styles. Tailwind variants use native utility
+classes and consumer class overrides; the data attributes and `data-slot` hook are shared by both styling tracks.
 
 ### Styling hooks
 
 - `className` or `class` styles the single root for width, padding, borders, backgrounds, and other surface concerns.
 - `data-scope="stack"` and `data-part="root"` align the wrapper with Ark styling conventions.
 - `data-slot="stack-root"` is the stable moduix selector for targeting the root in local CSS.
-- `style` is applied last, so it can override computed `gap`, `alignItems`, `justifyContent`, `flexWrap`, and any
-  `--moduix-stack-*` variables written by props.
+- `direction` and `fill` are applied through the component stylesheet or utilities, so consumer classes can override
+  them. `gap`, `align`, `justify`, and `wrap` write inline styles.
+- `style` is applied last, so it can override the inline `gap`, `alignItems`, `justifyContent`, and `flexWrap`.
 - There are no state attributes, CSS animation variables, or `slotProps` maps in the public contract.

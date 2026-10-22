@@ -4,7 +4,6 @@ component: stack
 description: Небольшой flex-компонент для вертикальной и горизонтальной раскладки в React, Solid и Vue.
 ---
 
-import * as StackDocs from '@/components/examples/stack/css-properties';
 import StackBasic from '@/components/examples/stack/basic.tsx';
 import StackFill from '@/components/examples/stack/growing-child-stack.tsx';
 import StackLoadingLayout from '@/components/examples/stack/loading-layout.tsx';
@@ -225,8 +224,8 @@ Stack
 ### Адаптивное направление
 
 Используйте адаптивный `direction`, чтобы переключать раскладку с колонки на мобильных экранах на строку на больших.
-Значение `desktop` начинает действовать с `640px`; если указать только одну часть адаптивного значения, Stack
-использует её в обоих диапазонах.
+Значение `desktop` начинает действовать с `640px`. Адаптивные значения работают по принципу mobile-first: без `mobile`
+используется `column`, а без `desktop` сохраняется мобильное направление.
 
 <ExampleFrame variant="component">
   <StackResponsiveDirection />
@@ -427,33 +426,19 @@ Stack
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на корневом элементе для структурных стилей. Варианты Tailwind
-используют нативные утилитарные классы и переопределения потребителя, а CSS-переменные ниже настраивают варианты
-CSS Modules. Атрибуты данных и хук `data-slot` общие для обоих вариантов стилизации.
+`Stack` не определяет собственных CSS-переменных. `display: flex` и направление `column` по умолчанию задаются в
+таблице стилей компонента (или утилитами `flex flex-col` в вариантах Tailwind), поэтому ваши классы могут их заменить,
+в том числе адаптивным `flex-direction` в собственных media queries.
 
-### CSS-свойства
-
-`Stack` предоставляет публичные CSS-переменные в корневом элементе. По умолчанию для них используются `column` и
-`initial`; свойства `direction` и `fill` записывают встроенные значения только при передаче, а `style` может
-переопределить их для конкретного экземпляра.
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS-переменные' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <StackDocs.StackCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Используйте `className` в React или `class` в Solid и Vue для структурных стилей. Варианты Tailwind используют нативные
+утилитарные классы и переопределения потребителя; атрибуты данных и хук `data-slot` общие для обоих вариантов стилизации.
 
 ### Хуки стилизации
 
 - `className` или `class` задаёт стили единственному корневому элементу: ширину, внутренние отступы, границы, фон и другие свойства оформления.
 - `data-scope="stack"` и `data-part="root"` соответствуют соглашениям Ark для стилизации.
 - `data-slot="stack-root"` - стабильный селектор moduix для корневого элемента в локальном CSS.
-- `style` применяется последним и может переопределить вычисляемые `gap`, `alignItems`, `justifyContent`, `flexWrap`
-  и любые переменные `--moduix-stack-*`, записанные свойствами.
+- `direction` и `fill` применяются через таблицу стилей компонента или утилиты, поэтому классы потребителя могут их
+  переопределить. `gap`, `align`, `justify` и `wrap` записываются встроенными стилями.
+- `style` применяется последним и может переопределить встроенные `gap`, `alignItems`, `justifyContent` и `flexWrap`.
 - В публичном контракте нет атрибутов состояния, CSS-переменных для анимации или объекта `slotProps`.

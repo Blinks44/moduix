@@ -7,13 +7,8 @@ import { cn } from '@/lib/moduix/cn';
 
 type StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 
-type StackProps = HTMLArkProps<'div'> & {
-  direction?:
-    | StackDirection
-    | {
-        mobile?: StackDirection;
-        desktop?: StackDirection;
-      };
+type StackRootProps = HTMLArkProps<'div'> & {
+  direction?: StackDirection | { mobile?: StackDirection; desktop?: StackDirection };
   gap?: number | string;
   align?: JSX.CSSProperties['align-items'];
   justify?: JSX.CSSProperties['justify-content'];
@@ -37,7 +32,6 @@ const stackVariants = cva('flex', {
     },
     fill: {
       true: 'flex-1',
-      false: '',
     },
   },
   defaultVariants: {
@@ -45,48 +39,43 @@ const stackVariants = cva('flex', {
   },
 });
 
-const toCssLength = (value: number | string | undefined) =>
-  typeof value === 'number' ? `${value}px` : value;
+function toCssLength(value: number | string | undefined) {
+  return typeof value === 'number' ? `${value}px` : value;
+}
 
-function Stack(props: StackProps) {
+function Stack(props: StackRootProps) {
   const [local, others] = splitProps(props, [
     'class',
+    'style',
     'direction',
     'gap',
     'align',
     'justify',
     'wrap',
     'fill',
-    'style',
   ]);
 
-  const mobileDirection = () =>
-    typeof local.direction === 'string'
-      ? local.direction
-      : (local.direction?.mobile ?? local.direction?.desktop);
-  const desktopDirection = () =>
-    typeof local.direction === 'string'
-      ? local.direction
-      : (local.direction?.desktop ?? local.direction?.mobile);
+  const responsive = () =>
+    typeof local.direction === 'string' ? { mobile: local.direction } : local.direction;
 
-  const stackStyle = (): JSX.CSSProperties | string => {
-    const generatedStyle: JSX.CSSProperties = {
+  const style = (): JSX.CSSProperties | string => {
+    const layoutStyle: JSX.CSSProperties = {
       gap: toCssLength(local.gap),
       'align-items': local.align,
       'justify-content': local.justify,
       'flex-wrap': local.wrap,
     };
 
-    if (typeof local.style === 'string') {
-      const generatedStyleText = Object.entries(generatedStyle)
-        .filter(([, value]) => value !== undefined)
-        .map(([property, value]) => `${property}:${value}`)
-        .join(';');
-
-      return `${generatedStyleText}${generatedStyleText && local.style ? ';' : ''}${local.style}`;
+    if (typeof local.style !== 'string') {
+      return { ...layoutStyle, ...local.style };
     }
 
-    return { ...generatedStyle, ...local.style };
+    // A string style keeps its native form and stays last, so it overrides the generated layout.
+    const layoutStyleText = Object.entries(layoutStyle)
+      .filter(([, value]) => value != null)
+      .map(([property, value]) => `${property}:${value};`)
+      .join('');
+    return layoutStyleText + local.style;
   };
 
   return (
@@ -97,15 +86,16 @@ function Stack(props: StackProps) {
       data-slot="stack-root"
       class={cn(
         stackVariants({
-          mobileDirection: mobileDirection(),
-          desktopDirection: desktopDirection(),
+          mobileDirection: responsive()?.mobile,
+          desktopDirection: responsive()?.desktop,
           fill: local.fill,
         }),
         local.class,
       )}
-      style={stackStyle()}
+      style={style()}
     />
   );
 }
 
 export { Stack };
+export type { StackDirection, StackRootProps };

@@ -6,12 +6,7 @@ import { computed, useAttrs } from 'vue';
 import type { CSSProperties, HTMLAttributes, StyleValue } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 
-type StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
-
-type ResponsiveDirection = {
-  mobile?: StackDirection;
-  desktop?: StackDirection;
-};
+export type StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 
 const stackVariants = cva('flex', {
   variants: {
@@ -29,7 +24,6 @@ const stackVariants = cva('flex', {
     },
     fill: {
       true: 'flex-1',
-      false: '',
     },
   },
   defaultVariants: {
@@ -40,42 +34,40 @@ const stackVariants = cva('flex', {
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {
-  align?: CSSProperties['alignItems'];
   class?: HTMLAttributes['class'];
-  direction?: StackDirection | ResponsiveDirection;
-  fill?: boolean;
-  gap?: number | string;
-  justify?: CSSProperties['justifyContent'];
   style?: StyleValue;
+  direction?: StackDirection | { mobile?: StackDirection; desktop?: StackDirection };
+  gap?: number | string;
+  align?: CSSProperties['alignItems'];
+  justify?: CSSProperties['justifyContent'];
   wrap?: CSSProperties['flexWrap'];
+  fill?: boolean;
 }
 
 const {
-  align,
   class: className,
-  direction,
-  fill = undefined,
-  gap,
-  justify,
   style,
+  direction,
+  gap,
+  align,
+  justify,
   wrap,
+  fill,
 } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
-
 const attrs = useAttrs();
 
-const stackClass = computed(() =>
-  cn(
+const stackClass = computed(() => {
+  const responsive = typeof direction === 'string' ? { mobile: direction } : direction;
+  return cn(
     stackVariants({
-      mobileDirection:
-        typeof direction === 'string' ? direction : (direction?.mobile ?? direction?.desktop),
-      desktopDirection:
-        typeof direction === 'string' ? direction : (direction?.desktop ?? direction?.mobile),
+      mobileDirection: responsive?.mobile,
+      desktopDirection: responsive?.desktop,
       fill,
     }),
     className,
-  ),
-);
+  );
+});
 
 const stackStyle = computed<StyleValue>(() => [
   {

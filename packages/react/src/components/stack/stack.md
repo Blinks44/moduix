@@ -1,191 +1,45 @@
 # Stack
 
-Upstream docs:
+## Upstream docs
 
-- Ark UI: no dedicated Stack primitive. Use the Ark composition and factory model: https://ark-ui.com/docs/guides/composition
-- Ark UI ref guidance: https://ark-ui.com/docs/guides/ref
-- Chakra UI: https://chakra-ui.com/docs/components/stack
-- shadcn/ui component catalog (no dedicated Stack): https://ui.shadcn.com/docs/components
-
-Reviewed on 2026-08-13 against Ark UI 5.38.1 and the current Chakra UI and shadcn/ui documentation.
-
-| Upstream difference                                                        | Classification         | Decision                                                                                            |
-| -------------------------------------------------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------- |
-| Ark factory `asChild`, prop merging, single-child constraint, and root ref | required correctness   | Preserve through `ark.div`, a forwarded root ref, and focused composition tests.                    |
-| Chakra direction, gap, alignment, wrapping, and responsive direction       | consumer friction      | Keep the small Ark-shaped prop set and the documented two-breakpoint direction object.              |
-| Chakra `HStack`, `VStack`, and `separator` conveniences                    | rejected complexity    | Keep explicit `direction` and ordinary `Separator` children; avoid aliases and child processing.    |
-| Chakra's default `gap: 8px`                                                | intentional difference | Keep gap opt-in so Stack remains a neutral layout primitive and consumer CSS controls defaults.     |
-| shadcn/ui has no dedicated Stack component                                 | intentional difference | Retain the moduix primitive and document its registry installation without inventing shadcn parity. |
+- Ark UI: no Stack primitive; the component uses the Ark factory and composition model:
+  https://ark-ui.com/docs/guides/composition
+- Chakra UI Stack: https://chakra-ui.com/docs/components/stack
+- shadcn/ui has no Stack component.
 
 ## Purpose
 
-`Stack` lays out children in one vertical or horizontal flex container with common spacing,
-alignment, wrapping, and grow behavior.
-
-## Upstream model to preserve
-
-Ark UI does not ship a dedicated `Stack` primitive. moduix implements `Stack` as an Ark-aligned
-factory wrapper with `@ark-ui/react/factory`.
-
-Preserve the Ark composition model: one root part, DOM ownership through `asChild`, forwarded refs
-to the root element, Ark-style `data-scope` / `data-part` attributes, and no legacy `render` or
-legacy `as` contract. Chakra's Stack recipe informs the public layout props.
+`Stack` lays out children in one flex container with direction, gap, alignment, wrapping, and a
+two-breakpoint responsive direction. It follows Chakra's `direction`, `gap`, `align`, `justify`,
+and `wrap` props without `HStack`, `VStack`, the `separator` prop, or a default gap.
 
 ## Current behavior contract
 
-- `Stack` is the root component and the only public value.
-- Root accepts Ark factory div props, including `asChild`.
-- Applies `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` on the root.
-- Always applies the local root class from `Stack.module.css`, which sets `display: flex`.
-- `direction` falls back to the `--moduix-stack-direction-*` CSS variables and then `column`. When
-  provided, it writes inline `--moduix-stack-direction-mobile` and `--moduix-stack-direction-desktop` values.
-- `fill={true}` writes inline `--moduix-stack-flex: 1 1 0%` on the root. `fill={false}` writes
-  `--moduix-stack-flex: initial`. When omitted, the root falls back to `initial`.
-- `gap`, `align`, `justify`, and `wrap` are written as inline styles only when their corresponding
-  prop is provided. When omitted, normal browser flex defaults apply.
-- `direction` accepts `row`, `row-reverse`, `column`, and `column-reverse`. Responsive
-  `direction={{ mobile, desktop }}` switches at `640px` and cross-falls back when only one side is
-  provided.
-- Use the moduix `Separator` as an ordinary child when the layout needs a visual divider.
-- The component does not add item wrappers, keyboard handling, focus management, disabled states, or
-  read-only states.
+- `Stack` is the only component export; `StackRootProps` and `StackDirection` are exported types.
+- Root accepts Ark factory div props, including `asChild`, and forwards its ref to the rendered root.
+- The stylesheet (`flex flex-col` in Tailwind) sets `display: flex` and `flex-direction: column`, so
+  consumer classes can replace both, including inside media queries.
+- `direction` accepts `row`, `row-reverse`, `column`, `column-reverse`, or `{ mobile, desktop }`.
+  The desktop value applies from `640px` (Tailwind `sm`). Responsive values are mobile-first: an
+  omitted `mobile` stays `column`, an omitted `desktop` keeps the mobile direction.
+- CSS Modules write the direction into private `--_stack-direction*` properties that every root
+  redeclares, so nested stacks never inherit a parent's direction.
+- `fill` adds a class with `flex: 1 1 0%` (`flex-1` in Tailwind) so the stack grows as a flex item.
+- `gap`, `align`, `justify`, and `wrap` write inline styles only when passed. Numbers in `gap` are
+  pixels. `style` is merged last and is the final per-instance override.
+- There are no public CSS variables, state attributes, or item wrappers.
 
-## Anatomy and exported parts
+## Anatomy
 
 ```text
 Stack
-└─ children
+└─ root (data-scope="stack" data-part="root" data-slot="stack-root")
 ```
-
-Every exported part accepts `className` and uses the standard hooks below:
-
-| Part    | Hook                     | Notes                                                |
-| ------- | ------------------------ | ---------------------------------------------------- |
-| `Stack` | `data-slot="stack-root"` | Root flex wrapper for direction, gap, and alignment. |
-| `Stack` | `data-scope="stack"`     | Ark-aligned component scope.                         |
-| `Stack` | `data-part="root"`       | Ark-aligned part name.                               |
-
-## Composition
-
-```tsx
-import { Heading } from '@moduix/react/heading';
-import { Stack } from '@moduix/react/stack';
-import { Text } from '@moduix/react/text';
-import styles from './stack.module.css';
-
-export function Example() {
-  return (
-    <Stack asChild gap={12} className={styles.panel}>
-      <section>
-        <Heading as="h2" size="md">
-          Project updates
-        </Heading>
-        <Text tone="muted">
-          Use Stack when flex direction and spacing are the main layout needs.
-        </Text>
-        <Text tone="muted">Keep more specific layout rules in local CSS.</Text>
-      </section>
-    </Stack>
-  );
-}
-```
-
-Use `<Stack>` for normal `div` output. Use `asChild` when a semantic element such as `section`,
-`article`, `nav`, or `header` should own the DOM node; the child must be a single element that
-accepts `className`, `style`, and DOM attributes.
-
-## Upstream feature coverage
-
-- Ark composition: preserved through factory `asChild` behavior.
-- Ark ref guide: the forwarded ref targets the root DOM element or the single `asChild` child.
-- Ark styling: the root exposes `data-scope`, `data-part`, and `data-slot` hooks.
-- Chakra Stack direction, gap, align, justify, and wrap patterns are supported.
-- Chakra `HStack` and `VStack` shortcut components are intentionally not exported. Use
-  `direction="row"` or the default column direction.
-- Dedicated Ark state, provider/context, callbacks, `ids`, form integration, and keyboard patterns
-  are not applicable because `Stack` is a stateless layout primitive.
-
-## Accessibility and state
-
-- `Stack` has no managed state, callbacks, or ARIA behavior.
-- Use `asChild` with semantic HTML or ARIA attributes when the wrapper itself should be meaningful to
-  assistive technology.
-- Reading order and focus order follow the JSX child order.
-- When composing a `Separator` child, mark it `aria-hidden="true"` when decorative or use semantic
-  markup when it should be announced.
-- There is no `Field` / `Fieldset` context integration, `HiddenInput`, `RootProvider`, or context
-  hook surface.
-
-## Defaults and styling
-
-| Entry       | Default         | Values / Notes                                           |
-| ----------- | --------------- | -------------------------------------------------------- |
-| `direction` | `column`        | `column`, `row`, or `{ mobile?: ..., desktop?: ... }`    |
-| `gap`       | browser default | CSS length (`number` = `px`)                             |
-| `align`     | browser default | Any valid `align-items` value                            |
-| `justify`   | browser default | Any valid `justify-content` value                        |
-| `wrap`      | browser default | Any valid `flex-wrap` value                              |
-| `fill`      | `initial`       | `true` sets `flex: 1 1 0%`; `false` sets `flex: initial` |
-| `asChild`   | `false`         | Ark factory composition                                  |
-| `className` | -               | Applied to the root                                      |
-| `style`     | -               | Applied last and can override computed inline properties |
-
-These public CSS variables live in `packages/foundation/src/styles/variables-moduix.css`. `direction` and
-`fill` write inline values for the same variables when provided, and `style` is applied last as the
-per-instance override escape hatch.
-
-| Variable                           | Source                   | Effect                                       |
-| ---------------------------------- | ------------------------ | -------------------------------------------- |
-| `--moduix-stack-direction-mobile`  | theme / `direction` prop | Mobile `flex-direction` value.               |
-| `--moduix-stack-direction-desktop` | theme / `direction` prop | Desktop `flex-direction` value from `640px`. |
-| `--moduix-stack-flex`              | theme / `fill` prop      | Root `flex` value.                           |
-
-## Intentional sugar and differences from upstream
-
-- There is no dedicated Ark Stack primitive, so `Stack` is a moduix-owned root-only wrapper rather
-  than a direct primitive namespace.
-- Legacy `as` was removed. Use Ark factory `asChild` instead.
-- `Stack` does not re-export a separate prop type surface from moduix; consumers use the component
-  directly and can derive prop types locally if they need them.
-- `Stack` does not add `HStack`, `VStack`, item wrappers, built-in divider styling, or a `separator`
-  prop. Compose the moduix `Separator` directly when needed.
-- `fill` is moduix sugar for making the stack itself grow as a flex item.
 
 ## Agent notes
 
-- Keep `Stack` a thin single-root flex primitive.
-- Preserve `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` as stable root
-  hooks.
-- Preserve the current responsive direction behavior, including the mobile/desktop cross-fallback
-  when only one side is provided.
-- Keep `Stack` free of structural child processing. Use `Separator` for the standard moduix divider
-  or consumer CSS for custom separators.
-- Do not document `align`, `justify`, or `wrap` as component-enforced defaults; they rely on browser
-  flex defaults when omitted.
-- Keep the styling contract clear: `--moduix-stack-direction-*` and `--moduix-stack-flex` are public CSS
-  variables that props can override inline, and `style` remains the per-instance override escape
-  hatch.
-
-## Local changelog
-
-- 2026-09-22: Replaced the compound root value surface with the single flat `Stack` export
-  across the React, Solid, Tailwind, stories, tests, and documentation contract.
-
-- 2026-08-13: Revalidated the release contract against current Ark, Chakra, and shadcn documentation
-  and expanded tests for namespace identity, responsive fallback, styling precedence, and `asChild`
-  prop merging.
-- 2026-07-30: Added reverse flex-direction values, aligned `asChild` refs with the actual rendered
-  element, and migrated docs previews to consumer-ready snippets.
-- 2026-07-11: Removed the `separator` prop to keep Stack a thin flex wrapper; compose the moduix
-  `Separator` directly as a child.
-- 2026-07-03: Removed the extra `StackRootProps` re-export so the public surface stays root-only.
-- 2026-06-27: Stopped writing default `--moduix-stack-*` inline variables when `direction` or `fill` are
-  omitted, so consumer CSS variables can override the built-in fallbacks.
-- 2026-06-21: Migrated `Stack` to `@ark-ui/react/factory`, added `asChild`, `data-scope="stack"`,
-  `data-part="root"`, and forwarded root refs.
-- 2026-06-21: Removed the legacy `as` contract in favor of Ark factory `asChild`.
-- 2026-06-03: Rewrote the local documentation around the real shipped `Stack` contract, including
-  the root-only composition model, responsive-direction fallback behavior, styling hooks,
-  accessibility boundaries, and instance-level CSS custom properties.
-- 2026-06-03: Preserved `data-slot="stack-root"` as a stable root hook by preventing consumer props
-  from overriding it accidentally.
+- Keep the component root-only and stateless. Compose `Separator` as an ordinary child instead of
+  adding a `separator` prop or child processing.
+- Keep the direction and `fill` defaults in the stylesheet, not in inline styles: inline styles beat
+  every consumer class, and inherited custom properties leak into nested stacks.
+- Keep `gap` opt-in, unlike Chakra's `0.5rem`, so Stack stays a neutral layout primitive.

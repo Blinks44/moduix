@@ -7,6 +7,8 @@ import type { ComponentPublicInstance } from 'vue';
 import { Stack } from '../src';
 import TestStack from './fixtures/TestStack.vue';
 
+const isDesktop = () => window.matchMedia('(min-width: 640px)').matches;
+
 test.each([false, true])(
   'updates responsive layout and removes stale styles, asChild=%s',
   async (asChild) => {
@@ -26,18 +28,16 @@ test.each([false, true])(
     const stack = screen.getByTestId('stack');
     for (const [value, mobile, desktop] of [
       ['row', 'row', 'row'],
-      [{ desktop: 'row-reverse' }, 'row-reverse', 'row-reverse'],
+      [{ desktop: 'row-reverse' }, 'column', 'row-reverse'],
       [{ mobile: 'column-reverse' }, 'column-reverse', 'column-reverse'],
       [{ mobile: 'column', desktop: 'row' }, 'column', 'row'],
       [undefined, 'column', 'column'],
     ] as const) {
       direction.value = value;
       await nextTick();
-      expect(stack.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe(mobile);
-      expect(stack.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe(desktop);
-      expect(getComputedStyle(stack).flexDirection).toBe(
-        window.matchMedia('(min-width: 640px)').matches ? (desktop ?? mobile) : mobile,
-      );
+      // The mobile branch is not rendered at the test viewport, so read the value it resolves to.
+      expect(getComputedStyle(stack).getPropertyValue('--_stack-direction')).toBe(mobile);
+      expect(getComputedStyle(stack).flexDirection).toBe(isDesktop() ? desktop : mobile);
       expect(screen.getByTestId('stack')).toBe(stack);
       expect(rootRef.value?.$el).toBe(stack);
     }
@@ -45,13 +45,13 @@ test.each([false, true])(
     fill.value = true;
     await nextTick();
     expect(stack.style.gap).toBe('0px');
-    expect(stack.style.getPropertyValue('--moduix-stack-flex')).toBe('1 1 0%');
+    expect(getComputedStyle(stack).flexGrow).toBe('1');
     gap.value = '1rem';
     fill.value = false;
     style.value = ['color:red', { gap: '2rem' }];
     await nextTick();
     expect(stack.style).toMatchObject({ color: 'red', gap: '2rem' });
-    expect(stack.style.getPropertyValue('--moduix-stack-flex')).toBe('initial');
+    expect(getComputedStyle(stack).flexGrow).toBe('0');
     style.value = undefined;
     await nextTick();
     expect(stack.style.gap).toBe('1rem');
@@ -60,7 +60,7 @@ test.each([false, true])(
     fill.value = undefined;
     await nextTick();
     expect(stack.style.gap).toBe('');
-    expect(stack.style.getPropertyValue('--moduix-stack-flex')).toBe('');
+    expect(getComputedStyle(stack).flexGrow).toBe('0');
   },
 );
 
@@ -98,9 +98,6 @@ test('writes flex props and reverse directions as root styles', () => {
 
   const stack = screen.getByTestId('stack');
 
-  expect(stack.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe('column-reverse');
-  expect(stack.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe('row-reverse');
-  expect(stack.style.getPropertyValue('--moduix-stack-flex')).toBe('1 1 0%');
   expect(stack.style).toMatchObject({
     alignItems: 'center',
     flexWrap: 'wrap',
@@ -109,9 +106,7 @@ test('writes flex props and reverse directions as root styles', () => {
   });
   expect(getComputedStyle(stack)).toMatchObject({
     display: 'flex',
-    flexDirection: window.matchMedia('(min-width: 640px)').matches
-      ? 'row-reverse'
-      : 'column-reverse',
+    flexDirection: isDesktop() ? 'row-reverse' : 'column-reverse',
     flexGrow: '1',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -120,11 +115,11 @@ test('writes flex props and reverse directions as root styles', () => {
   });
 });
 
-test('keeps the default direction on nested roots', () => {
+test('does not pass direction or fill to nested roots', () => {
   render({
     components: { Stack },
     template: `
-      <Stack direction="row" data-testid="outer">
+      <Stack direction="row" fill data-testid="outer">
         <Stack data-testid="inner" />
       </Stack>
     `,
@@ -132,9 +127,8 @@ test('keeps the default direction on nested roots', () => {
 
   const inner = screen.getByTestId('inner');
 
-  expect(inner.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe('column');
-  expect(inner.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe('column');
   expect(getComputedStyle(inner).flexDirection).toBe('column');
+  expect(getComputedStyle(inner).flexGrow).toBe('0');
 });
 
 test('leaves optional layout styles unset and lets style override layout props', () => {
@@ -156,10 +150,8 @@ test('leaves optional layout styles unset and lets style override layout props',
   const defaults = screen.getByTestId('defaults');
   const overridden = screen.getByTestId('overridden');
 
-  expect(defaults.style.getPropertyValue('--moduix-stack-direction-mobile')).toBe('column');
-  expect(defaults.style.getPropertyValue('--moduix-stack-direction-desktop')).toBe('column');
-  expect(defaults.style.getPropertyValue('--moduix-stack-flex')).toBe('');
-  expect(defaults.style.gap).toBe('');
+  expect(defaults.style.length).toBe(0);
+  expect(getComputedStyle(defaults).flex).toBe('0 1 auto');
   expect(overridden.style).toMatchObject({ flexWrap: 'nowrap', gap: '2rem' });
 });
 

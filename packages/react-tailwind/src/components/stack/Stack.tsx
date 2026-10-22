@@ -7,13 +7,8 @@ import { cn } from '@/lib/moduix/cn';
 
 type StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 
-type StackProps = HTMLArkProps<'div'> & {
-  direction?:
-    | StackDirection
-    | {
-        mobile?: StackDirection;
-        desktop?: StackDirection;
-      };
+type StackRootProps = HTMLArkProps<'div'> & {
+  direction?: StackDirection | { mobile?: StackDirection; desktop?: StackDirection };
   gap?: number | string;
   align?: CSSProperties['alignItems'];
   justify?: CSSProperties['justifyContent'];
@@ -37,7 +32,6 @@ const stackVariants = cva('flex', {
     },
     fill: {
       true: 'flex-1',
-      false: '',
     },
   },
   defaultVariants: {
@@ -45,27 +39,23 @@ const stackVariants = cva('flex', {
   },
 });
 
-const Stack = forwardRef<HTMLElement, StackProps>(function Stack(
-  { asChild, children, className, style, direction, gap, align, justify, wrap, fill, ...props },
+const Stack = forwardRef<HTMLElement, StackRootProps>(function Stack(
+  { className, style, direction, gap, align, justify, wrap, fill, ...props },
   ref,
 ) {
-  const mobileDirection =
-    typeof direction === 'string' ? direction : (direction?.mobile ?? direction?.desktop);
-  const desktopDirection =
-    typeof direction === 'string' ? direction : (direction?.desktop ?? direction?.mobile);
+  const responsive = typeof direction === 'string' ? { mobile: direction } : direction;
 
   return (
     <ark.div
       {...props}
       ref={ref as ForwardedRef<HTMLDivElement>}
-      asChild={asChild}
       data-scope="stack"
       data-part="root"
       data-slot="stack-root"
       className={cn(
         stackVariants({
-          mobileDirection,
-          desktopDirection,
+          mobileDirection: responsive?.mobile,
+          desktopDirection: responsive?.desktop,
           fill,
         }),
         className,
@@ -77,10 +67,9 @@ const Stack = forwardRef<HTMLElement, StackProps>(function Stack(
         flexWrap: wrap,
         ...style,
       }}
-    >
-      {children}
-    </ark.div>
+    />
   );
 });
 
 export { Stack };
+export type { StackDirection, StackRootProps };

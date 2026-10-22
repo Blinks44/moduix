@@ -479,11 +479,6 @@
   --moduix-carousel-indicator-bg: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-carousel-indicator-bg-current: initial; /* var(--moduix-color-primary) */
 
-  /* Stack */
-  --moduix-stack-direction-desktop: initial; /* column */
-  --moduix-stack-direction-mobile: initial; /* column */
-  --moduix-stack-flex: initial; /* initial */
-
   /* Steps */
   --moduix-steps-action-bg: initial; /* var(--moduix-color-background) */
   --moduix-steps-action-bg-hover: initial; /* var(--moduix-color-accent) */

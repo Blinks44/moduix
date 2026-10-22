@@ -1,16 +1,19 @@
 @layer moduix.components {
   .root {
+    /* Declared on every root so nested stacks do not inherit a parent's direction. */
+    --_stack-direction: column;
+    --_stack-direction-desktop: var(--_stack-direction);
     display: flex;
-    flex: var(--moduix-stack-flex, initial);
-    flex-direction: var(--moduix-stack-direction-mobile, column);
+    flex-direction: var(--_stack-direction);
+  }
+
+  .fill {
+    flex: 1 1 0%;
   }
 
   @media (min-width: 640px) {
     .root {
-      flex-direction: var(
-        --moduix-stack-direction-desktop,
-        var(--moduix-stack-direction-mobile, column)
-      );
+      flex-direction: var(--_stack-direction-desktop);
     }
   }
 }
