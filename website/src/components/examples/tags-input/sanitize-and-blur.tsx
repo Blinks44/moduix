@@ -6,12 +6,10 @@ import {
   TagsInputItems,
   TagsInputLabel,
 } from '@moduix/react/tags-input';
-import styles from '@/components/examples/tags-input/tags-input-sanitize-and-blur.module.css';
 
 export default function SanitizeBlurTagsInput() {
   return (
     <TagsInput
-      className={styles.root}
       blurBehavior="add"
       sanitizeValue={(value) => value.trim().toLowerCase()}
       defaultValue={['design']}

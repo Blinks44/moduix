@@ -6,11 +6,10 @@ import {
   TagsInputItems,
   TagsInputLabel,
 } from '@moduix/react/tags-input';
-import styles from '@/components/examples/tags-input/tags-input-disable-editing.module.css';
 
 export default function DisableEditingTagsInput() {
   return (
-    <TagsInput className={styles.root} editable={false} defaultValue={['React', 'TypeScript']}>
+    <TagsInput editable={false} defaultValue={['React', 'TypeScript']}>
       <TagsInputLabel>Frameworks</TagsInputLabel>
       <TagsInputControl>
         <TagsInputItems />

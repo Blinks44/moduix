@@ -353,3 +353,27 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     host.remove();
   }
 });
+
+test('dims a disabled root once and keeps the default clear icon', async () => {
+  render({
+    components: tagsInputComponents,
+    template: `
+      <TagsInput disabled :default-value="['React']">
+        <TagsInputLabel>Disabled frameworks</TagsInputLabel>
+        <TagsInputControl>
+          <TagsInputItems />
+          <TagsInputInput />
+          <TagsInputClearTrigger />
+        </TagsInputControl>
+      </TagsInput>
+    `,
+  });
+
+  await expect.element(page.locator('[data-slot="tags-input-root"]')).toHaveCSS('opacity', '0.5');
+  expect(document.querySelector('[data-slot="tags-input-clear-trigger"] > svg')).not.toBeNull();
+  for (const slot of ['label', 'item-preview', 'item-delete-trigger', 'clear-trigger']) {
+    await expect
+      .element(page.locator(`[data-slot="tags-input-${slot}"]`))
+      .toHaveCSS('opacity', '1');
+  }
+});

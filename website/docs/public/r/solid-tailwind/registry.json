@@ -1973,7 +1973,7 @@
       "type": "registry:item",
       "title": "TagsInput",
       "description": "moduix Solid Tailwind TagsInput component.",
-      "dependencies": ["@ark-ui/solid", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/solid", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-solid-tailwind/foundation",
         "@moduix-solid-tailwind/cn",

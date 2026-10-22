@@ -104,10 +104,6 @@ import tagsInputVueWithCombobox from '../../../snippets/combobox/vue/with-tags-i
     </Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/tags-input/tags-input-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -225,10 +221,6 @@ TagsInputRootProvider
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueAllowDuplicates} /></Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/tags-input/tags-input-allow-duplicates.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -254,10 +246,6 @@ TagsInputRootProvider
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueControlled} /></Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/tags-input/tags-input-controlled.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -312,10 +300,6 @@ TagsInputRootProvider
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueDelimiterAndPaste} /></Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/tags-input/tags-input-delimiter-and-paste.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -340,10 +324,6 @@ TagsInputRootProvider
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueDisableEditing} /></Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/tags-input/tags-input-disable-editing.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -455,10 +435,6 @@ TagsInputRootProvider
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueMaxWithOverflow} /></Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/tags-input/tags-input-max-with-overflow.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -513,10 +489,6 @@ TagsInputRootProvider
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueSanitizeAndBlur} /></Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/tags-input/tags-input-sanitize-and-blur.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -603,10 +575,6 @@ TagsInputRootProvider
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueAdvancedCustomization} /></Tab>
   </Tabs>
 
-**Стили**
-
-```css file="../../../src/components/examples/tags-input/tags-input-advanced-customization.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -632,7 +600,7 @@ TagsInputRootProvider
 - Части Ark сохраняют `data-scope="tags-input"` и значения `data-part` из анатомии.
 - Состояния можно стилизовать через `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value` и `data-highlighted`, если Ark добавляет их к части.
 - Кнопки удаления и очистки имеют стабильные `data-slot`. Для отдельного тега используется компактный значок закрытия, а очистка всех тегов использует оформление общей кнопки закрытия.
-- CSS Modules используют документированные переменные `--moduix-tags-input-*`. Варианты на Tailwind используют нативные утилиты и классы, которые задаёт потребитель.
+- CSS Modules дают три переменные: `--moduix-tags-input-width`, `--moduix-tags-input-min-height` и `--moduix-tags-input-radius`. Цвета, отступы, типографика и геометрия тегов берутся из токенов foundation; меняйте их классом на части. Варианты на Tailwind используют нативные утилиты и классы, которые задаёт потребитель.
 - В режиме только для чтения moduix скрывает поле ввода, кнопки удаления тегов и кнопку очистки, оставляя видимыми только неизменяемые значения тегов.
 
 ## Доступность

@@ -3233,7 +3233,7 @@
       "type": "registry:item",
       "title": "Tags Input",
       "description": "moduix Vue Tailwind Tags Input component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -3244,11 +3244,6 @@
         {
           "path": "src/components/tags-input/TagsInput.vue",
           "target": "@components/ui/tags-input/TagsInput.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/tags-input/TagsInput.variants.ts",
-          "target": "@components/ui/tags-input/TagsInput.variants.ts",
           "type": "registry:component"
         },
         {
@@ -3304,11 +3299,6 @@
         {
           "path": "src/components/tags-input/TagsInputClearTrigger.vue",
           "target": "@components/ui/tags-input/TagsInputClearTrigger.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/tags-input/TagsInputHiddenInput.vue",
-          "target": "@components/ui/tags-input/TagsInputHiddenInput.vue",
           "type": "registry:component"
         },
         {

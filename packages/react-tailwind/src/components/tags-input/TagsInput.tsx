@@ -6,16 +6,14 @@ import {
   useTagsInputContext,
   useTagsInputItemContext,
 } from '@ark-ui/react/tags-input';
-import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 
-const tagsInputRootVariants = cva(
-  'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
-);
+const rootClass =
+  'flex w-96 max-w-full flex-col gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 
 const TagsInput = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.Root>,
@@ -24,7 +22,7 @@ const TagsInput = forwardRef<
   return (
     <TagsInputPrimitive.Root
       ref={ref}
-      className={cn(tagsInputRootVariants(), className)}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="tags-input-root"
     />
@@ -38,7 +36,7 @@ const TagsInputRootProvider = forwardRef<
   return (
     <TagsInputPrimitive.RootProvider
       ref={ref}
-      className={cn(tagsInputRootVariants(), className)}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="tags-input-root-provider"
     />
@@ -52,10 +50,7 @@ const TagsInputLabel = forwardRef<
   return (
     <TagsInputPrimitive.Label
       ref={ref}
-      className={cn(
-        'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-disabled:opacity-50 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
-        className,
-      )}
+      className={cn('inline-flex items-center gap-1 text-sm leading-5 font-medium', className)}
       {...props}
       data-slot="tags-input-label"
     />
@@ -70,7 +65,7 @@ const TagsInputControl = forwardRef<
     <TagsInputPrimitive.Control
       ref={ref}
       className={cn(
-        'group flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-[0.3125rem] text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,opacity] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive data-readonly:bg-background data-readonly:text-foreground',
+        'group flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-[0.3125rem] outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive',
         className,
       )}
       {...props}
@@ -101,7 +96,7 @@ const TagsInputItemPreview = forwardRef<
     <TagsInputPrimitive.ItemPreview
       ref={ref}
       className={cn(
-        'inline-flex min-h-control-xs max-w-full min-w-0 items-center gap-1 rounded-full border border-transparent bg-secondary px-2 py-0.5 text-xs leading-4 font-medium text-secondary-foreground transition-[border-color,background-color,color,box-shadow] duration-normal ease-in-out data-disabled:opacity-50 data-highlighted:ring-1 data-highlighted:ring-ring [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
+        'inline-flex min-h-control-xs max-w-full min-w-0 items-center gap-1 rounded-full border border-transparent bg-secondary px-2 py-0.5 text-xs leading-4 font-medium text-secondary-foreground transition-shadow duration-normal ease-in-out data-highlighted:ring-1 data-highlighted:ring-ring',
         className,
       )}
       {...props}
@@ -132,7 +127,7 @@ const TagsInputItemDeleteTrigger = forwardRef<
     <TagsInputPrimitive.ItemDeleteTrigger
       ref={ref}
       className={cn(
-        'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,color,opacity,box-shadow] duration-normal ease-in-out group-data-readonly:hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100 [@media(hover:hover)]:hover:bg-current/12',
+        'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,box-shadow] duration-normal ease-in-out group-data-readonly:hidden focus-visible:ring-1 focus-visible:ring-ring data-disabled:pointer-events-none data-disabled:opacity-50 [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100 [@media(hover:hover)]:hover:bg-current/12',
         className,
       )}
       {...props}
@@ -151,7 +146,7 @@ const TagsInputItemInput = forwardRef<
     <TagsInputPrimitive.ItemInput
       ref={ref}
       className={cn(
-        'h-control-xs min-w-28 shrink grow-0 basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground read-only:cursor-default data-readonly:cursor-default',
+        'h-control-xs min-w-28 shrink grow-0 basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground',
         className,
       )}
       {...props}
@@ -168,7 +163,7 @@ const TagsInputInput = forwardRef<
     <TagsInputPrimitive.Input
       ref={ref}
       className={cn(
-        'h-control-xs min-w-28 shrink grow basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground read-only:cursor-default data-readonly:hidden data-readonly:cursor-default',
+        'h-control-xs min-w-28 shrink grow basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground data-readonly:hidden',
         className,
       )}
       {...props}
@@ -180,47 +175,22 @@ const TagsInputInput = forwardRef<
 const TagsInputClearTrigger = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.ClearTrigger>,
   ComponentProps<typeof TagsInputPrimitive.ClearTrigger>
->(function TagsInputClearTrigger(
-  {
-    asChild,
-    className,
-    children,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
-    ...props
-  },
-  ref,
-) {
-  const clearTriggerLabel = useTagsInputContext().getClearTriggerProps()['aria-label'];
-
+>(function TagsInputClearTrigger({ asChild, className, children, ...props }, ref) {
+  // Ark merges its label, anatomy, and state props onto the CloseButton host.
   return (
     <TagsInputPrimitive.ClearTrigger
       ref={ref}
       asChild
       className={cn(
         asChild
-          ? 'ms-auto shrink-0 self-center data-readonly:hidden'
-          : `ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 focus-visible:outline-offset-1 data-readonly:hidden [&>svg:not([class*='size-'])]:size-4`,
+          ? 'ms-auto data-readonly:hidden'
+          : 'ms-auto size-control-xs focus-visible:outline-1 focus-visible:outline-offset-1 data-readonly:hidden [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
         className,
       )}
-      aria-label={asChild ? ariaLabel : undefined}
-      aria-labelledby={asChild ? ariaLabelledBy : undefined}
       {...props}
       data-slot="tags-input-clear-trigger"
     >
-      {asChild ? (
-        children
-      ) : (
-        <CloseButton
-          aria-label={ariaLabel ?? clearTriggerLabel}
-          aria-labelledby={ariaLabelledBy}
-          data-part="clear-trigger"
-          data-scope="tags-input"
-          data-slot="tags-input-clear-trigger"
-        >
-          {children}
-        </CloseButton>
-      )}
+      {asChild ? children : <CloseButton>{children}</CloseButton>}
     </TagsInputPrimitive.ClearTrigger>
   );
 });
@@ -267,3 +237,31 @@ export {
   useTagsInputContext,
   useTagsInputItemContext,
 };
+
+export type {
+  TagsInputClearTriggerProps,
+  TagsInputContextProps,
+  TagsInputControlProps,
+  TagsInputFocusOutsideEvent,
+  TagsInputHighlightChangeDetails,
+  TagsInputHiddenInputProps,
+  TagsInputInputProps,
+  TagsInputInputValueChangeDetails,
+  TagsInputInteractOutsideEvent,
+  TagsInputItemContextProps,
+  TagsInputItemDeleteTriggerProps,
+  TagsInputItemInputProps,
+  TagsInputItemPreviewProps,
+  TagsInputItemProps,
+  TagsInputItemTextProps,
+  TagsInputLabelProps,
+  TagsInputPointerDownOutsideEvent,
+  TagsInputRootProps,
+  TagsInputRootProviderProps,
+  TagsInputValidityChangeDetails,
+  TagsInputValueChangeDetails,
+  UseTagsInputContext,
+  UseTagsInputItemContext,
+  UseTagsInputProps,
+  UseTagsInputReturn,
+} from '@ark-ui/react/tags-input';

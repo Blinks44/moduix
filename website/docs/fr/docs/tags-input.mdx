@@ -104,10 +104,6 @@ les tags doivent être envoyés avec un formulaire.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -226,10 +222,6 @@ Activez `allowDuplicates` lorsqu’une même chaîne peut apparaître plusieurs 
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueAllowDuplicates} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-allow-duplicates.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -255,10 +247,6 @@ qu’une réinitialisation programmatique est nécessaire.
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueControlled} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-controlled.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -313,10 +301,6 @@ accepte la virgule, le point-virgule et l’espace comme séparateurs.
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueDelimiterAndPaste} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-delimiter-and-paste.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -342,10 +326,6 @@ modifiables sur place.
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueDisableEditing} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-disable-editing.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -458,10 +438,6 @@ que le contrôle doit signaler un état invalide.
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueMaxWithOverflow} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-max-with-overflow.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -516,10 +492,6 @@ valeur courante lorsque le focus quitte le contrôle.
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueSanitizeAndBlur} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-sanitize-and-blur.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -606,10 +578,6 @@ l’édition sur place doit rester possible.
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueAdvancedCustomization} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-advanced-customization.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -635,7 +603,7 @@ l’édition sur place doit rester possible.
 - Les parties Ark conservent `data-scope="tags-input"` et les valeurs `data-part` de l’anatomie.
 - Les états peuvent utiliser `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value` et `data-highlighted` lorsque Ark les émet.
 - Les déclencheurs de suppression et d’effacement exposent des hooks `data-slot` stables. La suppression d’un tag utilise une petite icône ; l’effacement global reprend le style partagé du bouton de fermeture.
-- CSS Modules utilisent les variables documentées `--moduix-tags-input-*`. Les variantes Tailwind utilisent les utilitaires natifs et les classes ajoutées par le consommateur.
+- CSS Modules exposent trois variables : `--moduix-tags-input-width`, `--moduix-tags-input-min-height` et `--moduix-tags-input-radius`. Les couleurs, les espacements, la typographie et la géométrie des tags utilisent les tokens de foundation ; modifiez-les avec une classe sur la partie. Les variantes Tailwind utilisent les utilitaires natifs et les classes ajoutées par le consommateur.
 - En lecture seule, moduix masque le champ de saisie, les déclencheurs de suppression des tags et le déclencheur d’effacement, en laissant visibles uniquement les valeurs immuables.
 
 ## Accessibilité

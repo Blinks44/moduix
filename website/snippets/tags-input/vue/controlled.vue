@@ -8,13 +8,12 @@ import {
   TagsInputLabel,
 } from '@moduix/vue/tags-input';
 import { ref } from 'vue';
-import styles from '@/components/examples/tags-input/tags-input-controlled.module.css';
 
 const value = ref(['React', 'TypeScript']);
 </script>
 
 <template>
-  <TagsInput v-model="value" :class="styles.root">
+  <TagsInput v-model="value">
     <TagsInputLabel>Skills</TagsInputLabel>
     <TagsInputControl>
       <TagsInputItems />

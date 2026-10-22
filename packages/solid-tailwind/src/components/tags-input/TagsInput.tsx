@@ -4,42 +4,36 @@ import {
   useTagsInputContext,
   useTagsInputItemContext,
 } from '@ark-ui/solid/tags-input';
-import { cva } from 'class-variance-authority';
 import { children, For, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 
-const tagsInputRootVariants = cva(
-  'flex w-full max-w-96 flex-col gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
-);
+const rootClass =
+  'flex w-96 max-w-full flex-col gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 
 function TagsInput(props: ComponentProps<typeof TagsInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <TagsInputPrimitive.Root
-      class={cn(tagsInputRootVariants(), local.class)}
+      class={cn(rootClass, local.class)}
       {...others}
       data-slot="tags-input-root"
-    >
-      {local.children}
-    </TagsInputPrimitive.Root>
+    />
   );
 }
 
 function TagsInputRootProvider(props: ComponentProps<typeof TagsInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <TagsInputPrimitive.RootProvider
-      class={cn(tagsInputRootVariants(), local.class)}
+      class={cn(rootClass, local.class)}
       {...others}
       data-slot="tags-input-root-provider"
-    >
-      {local.children}
-    </TagsInputPrimitive.RootProvider>
+    />
   );
 }
 
@@ -48,10 +42,7 @@ function TagsInputLabel(props: ComponentProps<typeof TagsInputPrimitive.Label>) 
 
   return (
     <TagsInputPrimitive.Label
-      class={cn(
-        'inline-flex items-center gap-1 text-sm leading-5 font-medium text-foreground data-disabled:opacity-50 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
-        local.class,
-      )}
+      class={cn('inline-flex items-center gap-1 text-sm leading-5 font-medium', local.class)}
       {...others}
       data-slot="tags-input-label"
     />
@@ -64,7 +55,7 @@ function TagsInputControl(props: ComponentProps<typeof TagsInputPrimitive.Contro
   return (
     <TagsInputPrimitive.Control
       class={cn(
-        'group flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-[0.3125rem] text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,opacity] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive data-readonly:bg-background data-readonly:text-foreground',
+        'group flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-[0.3125rem] outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive',
         local.class,
       )}
       {...others}
@@ -91,7 +82,7 @@ function TagsInputItemPreview(props: ComponentProps<typeof TagsInputPrimitive.It
   return (
     <TagsInputPrimitive.ItemPreview
       class={cn(
-        'inline-flex min-h-control-xs max-w-full min-w-0 items-center gap-1 rounded-full border border-transparent bg-secondary px-2 py-0.5 text-xs leading-4 font-medium text-secondary-foreground transition-[border-color,background-color,color,box-shadow] duration-normal ease-in-out data-disabled:opacity-50 data-highlighted:ring-1 data-highlighted:ring-ring [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
+        'inline-flex min-h-control-xs max-w-full min-w-0 items-center gap-1 rounded-full border border-transparent bg-secondary px-2 py-0.5 text-xs leading-4 font-medium text-secondary-foreground transition-shadow duration-normal ease-in-out data-highlighted:ring-1 data-highlighted:ring-ring',
         local.class,
       )}
       {...others}
@@ -121,7 +112,7 @@ function TagsInputItemDeleteTrigger(
   return (
     <TagsInputPrimitive.ItemDeleteTrigger
       class={cn(
-        'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,color,opacity,box-shadow] duration-normal ease-in-out group-data-readonly:hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100 [@media(hover:hover)]:hover:bg-current/12',
+        'inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inherit outline-0 transition-[background-color,box-shadow] duration-normal ease-in-out group-data-readonly:hidden focus-visible:ring-1 focus-visible:ring-ring data-disabled:pointer-events-none data-disabled:opacity-50 [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100 [@media(hover:hover)]:hover:bg-current/12',
         local.class,
       )}
       {...others}
@@ -138,7 +129,7 @@ function TagsInputItemInput(props: ComponentProps<typeof TagsInputPrimitive.Item
   return (
     <TagsInputPrimitive.ItemInput
       class={cn(
-        'h-control-xs min-w-28 shrink grow-0 basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground read-only:cursor-default data-readonly:cursor-default',
+        'h-control-xs min-w-28 shrink grow-0 basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground',
         local.class,
       )}
       {...others}
@@ -153,7 +144,7 @@ function TagsInputInput(props: ComponentProps<typeof TagsInputPrimitive.Input>) 
   return (
     <TagsInputPrimitive.Input
       class={cn(
-        'h-control-xs min-w-28 shrink grow basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground read-only:cursor-default data-readonly:hidden data-readonly:cursor-default',
+        'h-control-xs min-w-28 shrink grow basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground data-readonly:hidden',
         local.class,
       )}
       {...others}
@@ -163,47 +154,19 @@ function TagsInputInput(props: ComponentProps<typeof TagsInputPrimitive.Input>) 
 }
 
 function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.ClearTrigger>) {
-  const [local, others] = splitProps(props, [
-    'aria-label',
-    'aria-labelledby',
-    'asChild',
-    'children',
-    'class',
-  ]);
-  const tagsInput = useTagsInputContext();
-  const clearTriggerLabel = () => tagsInput().getClearTriggerProps()['aria-label'];
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
-  if (local.asChild) {
-    return (
-      <TagsInputPrimitive.ClearTrigger
-        asChild={local.asChild}
-        class={cn('ms-auto shrink-0 self-center data-readonly:hidden', local.class)}
-        aria-label={local['aria-label']}
-        aria-labelledby={local['aria-labelledby']}
-        {...others}
-        data-slot="tags-input-clear-trigger"
-      >
-        {local.children}
-      </TagsInputPrimitive.ClearTrigger>
-    );
-  }
-
+  // Ark merges its label, anatomy, and state props onto the CloseButton host.
   return (
     <TagsInputPrimitive.ClearTrigger
-      asChild={(triggerProps) => (
-        <CloseButton
-          {...triggerProps()}
-          aria-label={local['aria-label'] ?? clearTriggerLabel()}
-          aria-labelledby={local['aria-labelledby']}
-          data-part="clear-trigger"
-          data-scope="tags-input"
-          data-slot="tags-input-clear-trigger"
-        >
-          {local.children}
-        </CloseButton>
-      )}
+      asChild={
+        local.asChild ??
+        ((triggerProps) => <CloseButton {...triggerProps()}>{local.children}</CloseButton>)
+      }
       class={cn(
-        `ms-auto size-control-xs shrink-0 self-center focus-visible:outline-1 focus-visible:outline-offset-1 data-readonly:hidden [&>svg:not([class*='size-'])]:size-4`,
+        local.asChild
+          ? 'ms-auto data-readonly:hidden'
+          : 'ms-auto size-control-xs focus-visible:outline-1 focus-visible:outline-offset-1 data-readonly:hidden [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
         local.class,
       )}
       {...others}
@@ -256,3 +219,31 @@ export {
   useTagsInputContext,
   useTagsInputItemContext,
 };
+
+export type {
+  TagsInputClearTriggerProps,
+  TagsInputContextProps,
+  TagsInputControlProps,
+  TagsInputFocusOutsideEvent,
+  TagsInputHighlightChangeDetails,
+  TagsInputHiddenInputProps,
+  TagsInputInputProps,
+  TagsInputInputValueChangeDetails,
+  TagsInputInteractOutsideEvent,
+  TagsInputItemContextProps,
+  TagsInputItemDeleteTriggerProps,
+  TagsInputItemInputProps,
+  TagsInputItemPreviewProps,
+  TagsInputItemProps,
+  TagsInputItemTextProps,
+  TagsInputLabelProps,
+  TagsInputPointerDownOutsideEvent,
+  TagsInputRootProps,
+  TagsInputRootProviderProps,
+  TagsInputValidityChangeDetails,
+  TagsInputValueChangeDetails,
+  UseTagsInputContext,
+  UseTagsInputItemContext,
+  UseTagsInputProps,
+  UseTagsInputReturn,
+} from '@ark-ui/solid/tags-input';

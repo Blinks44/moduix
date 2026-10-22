@@ -104,10 +104,6 @@ tags should be submitted with a form.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -225,10 +221,6 @@ Set `allowDuplicates` when the same string may appear more than once.
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueAllowDuplicates} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-allow-duplicates.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -254,10 +246,6 @@ reset it programmatically.
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueControlled} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-controlled.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -311,10 +299,6 @@ commas, semicolons, and spaces as separators.
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueDelimiterAndPaste} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-delimiter-and-paste.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -339,10 +323,6 @@ Set `editable={false}` when existing tags should remain removable but not editab
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueDisableEditing} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-disable-editing.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -454,10 +434,6 @@ an invalid state.
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueMaxWithOverflow} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-max-with-overflow.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -512,10 +488,6 @@ when focus leaves the control.
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueSanitizeAndBlur} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-sanitize-and-blur.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -599,10 +571,6 @@ tree and keep `TagsInputItemInput` in each item if inline editing is still neede
     <Tab value="vue"><CodeBlockRuntime lang="vue" code={tagsInputVueAdvancedCustomization} /></Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tags-input/tags-input-advanced-customization.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -628,7 +596,7 @@ tree and keep `TagsInputItemInput` in each item if inline editing is still neede
 - Ark parts keep `data-scope="tags-input"` and their `data-part` values from the anatomy.
 - State styling can use `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value`, and `data-highlighted` where Ark emits them.
 - Delete and clear triggers expose stable `data-slot` hooks. Item deletion uses a compact close icon; clear-all uses the shared close-button styling.
-- CSS Modules use the documented `--moduix-tags-input-*` variables. Tailwind variants use native utilities and consumer class overrides.
+- CSS Modules expose three variables: `--moduix-tags-input-width`, `--moduix-tags-input-min-height`, and `--moduix-tags-input-radius`. Colors, spacing, typography, and tag geometry use foundation tokens; change them with a class on the part. Tailwind variants use native utilities and consumer class overrides.
 - In read-only state, moduix hides the entry input, item delete triggers, and the clear trigger, leaving only immutable tag values visible.
 
 ## Accessibility

@@ -7,16 +7,10 @@ import {
   TagsInputItems,
   TagsInputLabel,
 } from '@moduix/vue/tags-input';
-import styles from '@/components/examples/tags-input/tags-input-delimiter-and-paste.module.css';
 </script>
 
 <template>
-  <TagsInput
-    :class="styles.root"
-    :default-value="['React', 'Solid', 'Vue']"
-    :delimiter="/[,;\s]/"
-    add-on-paste
-  >
+  <TagsInput :default-value="['React', 'Solid', 'Vue']" :delimiter="/[,;\s]/" add-on-paste>
     <TagsInputLabel>Frameworks</TagsInputLabel>
     <TagsInputControl>
       <TagsInputItems />

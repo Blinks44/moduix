@@ -12,7 +12,6 @@ export interface Props extends /* @vue-ignore */ TagsInputItemInputProps {
 }
 
 const props = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 </script>
@@ -22,7 +21,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'h-control-xs min-w-28 shrink grow-0 basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground read-only:cursor-default data-readonly:cursor-default',
+        'h-control-xs min-w-28 shrink grow-0 basis-28 border-0 bg-transparent px-1 text-sm leading-5 text-inherit outline-0 placeholder:text-muted-foreground',
         props.class,
       )
     "

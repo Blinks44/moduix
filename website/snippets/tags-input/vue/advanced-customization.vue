@@ -13,11 +13,10 @@ import {
   TagsInputItemText,
   TagsInputLabel,
 } from '@moduix/vue/tags-input';
-import styles from '@/components/examples/tags-input/tags-input-advanced-customization.module.css';
 </script>
 
 <template>
-  <TagsInput :class="styles.root" :default-value="['React', 'TypeScript']" name="frameworks">
+  <TagsInput :default-value="['React', 'TypeScript']" name="frameworks">
     <TagsInputLabel>Frameworks</TagsInputLabel>
     <TagsInputControl>
       <TagsInputContext v-slot="tagsInput">

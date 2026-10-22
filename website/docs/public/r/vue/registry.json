@@ -3437,11 +3437,6 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/tags-input/TagsInputHiddenInput.vue",
-          "target": "@components/ui/tags-input/TagsInputHiddenInput.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/tags-input/TagsInput.module.css",
           "target": "@components/ui/tags-input/TagsInput.module.css",
           "type": "registry:file"
