@@ -1,6 +1,5 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import type { CSSProperties } from 'react';
 import { createRef } from 'react';
 import { Text } from '../src';
 
@@ -9,14 +8,11 @@ test('renders semantic defaults and stable data hooks', () => {
     <>
       <Text
         data-testid="default"
-        data-align="end"
-        data-line-clamp=""
         data-part="custom-part"
         data-scope="custom-scope"
         data-size="xs"
         data-slot="custom-slot"
         data-tone="primary"
-        data-truncate=""
         data-weight="bold"
       >
         Body copy
@@ -80,7 +76,7 @@ test('uses only positive integer line-clamp values', () => {
 
   expect(text.hasAttribute('data-line-clamp')).toBe(true);
   expect(getComputedStyle(text).webkitLineClamp).toBe('2');
-  expect(text.style.getPropertyValue('--_text-line-clamp')).toBe('2');
+  expect(text.style.webkitLineClamp).toBe('2');
 
   rerender(<Text lineClamp={0}>Clamped copy</Text>);
   expect(text.hasAttribute('data-line-clamp')).toBe(false);
@@ -89,26 +85,32 @@ test('uses only positive integer line-clamp values', () => {
   expect(text.hasAttribute('data-line-clamp')).toBe(false);
 });
 
-test('keeps the public line-clamp variable available as an override', () => {
+test('keeps line clamp effective when truncate is also set', () => {
   render(
-    <Text lineClamp={2} style={{ '--moduix-text-line-clamp': 3 } as CSSProperties}>
-      The public CSS variable takes precedence over the prop fallback.
+    <Text truncate lineClamp={2}>
+      Clamped and truncated copy
     </Text>,
   );
 
-  expect(
-    screen
-      .getByText('The public CSS variable takes precedence over the prop fallback.')
-      .style.getPropertyValue('--_text-line-clamp'),
-  ).toBe('2');
-  expect(
-    screen
-      .getByText('The public CSS variable takes precedence over the prop fallback.')
-      .style.getPropertyValue('--moduix-text-line-clamp'),
-  ).toBe('3');
-  expect(
-    getComputedStyle(
-      screen.getByText('The public CSS variable takes precedence over the prop fallback.'),
-    ).webkitLineClamp,
-  ).toBe('3');
+  const text = screen.getByText('Clamped and truncated copy');
+
+  expect(text.hasAttribute('data-truncate')).toBe(true);
+  expect(text.hasAttribute('data-line-clamp')).toBe(true);
+  expect(getComputedStyle(text)).toMatchObject({
+    overflow: 'hidden',
+    whiteSpace: 'normal',
+    webkitLineClamp: '2',
+  });
+});
+
+test('inherits the parent alignment unless align is set', () => {
+  render(
+    <div style={{ textAlign: 'center' }}>
+      <Text>Inherited copy</Text>
+      <Text align="end">Aligned copy</Text>
+    </div>,
+  );
+
+  expect(getComputedStyle(screen.getByText('Inherited copy')).textAlign).toBe('center');
+  expect(getComputedStyle(screen.getByText('Aligned copy')).textAlign).toBe('end');
 });

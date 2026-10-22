@@ -11,17 +11,13 @@ const content = {
 
 <template>
   <div :class="styles.root">
-    <p
-      style="margin: 0; color: var(--moduix-text-muted-color, var(--moduix-color-muted-foreground))"
-    >
+    <p style="margin: 0; color: var(--moduix-color-muted-foreground)">
       {{ content.before }}
     </p>
     <Bleed inline="md" block="md" :class="styles.panel">
       <p style="margin: 0">{{ content.surface }}</p>
     </Bleed>
-    <p
-      style="margin: 0; color: var(--moduix-text-muted-color, var(--moduix-color-muted-foreground))"
-    >
+    <p style="margin: 0; color: var(--moduix-color-muted-foreground)">
       {{ content.after }}
     </p>
   </div>

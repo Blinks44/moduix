@@ -10,7 +10,7 @@ export type ListElement = 'ul' | 'ol';
 export type ListMarker = 'disc' | 'decimal' | 'none';
 export type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 export type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-export type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
+export type ListTone = 'default' | 'muted' | 'primary' | 'destructive';
 
 defineOptions({ inheritAttrs: false });
 

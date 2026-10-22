@@ -4,7 +4,6 @@ component: text
 description: Компонент для оформления обычного и встроенного текста, смысловых акцентов и усечённых превью.
 ---
 
-import * as TextDocs from '@/components/examples/text/css-properties';
 import TextAlignment from '@/components/examples/text/alignment.tsx';
 import TextBasic from '@/components/examples/text/basic.tsx';
 import TextCustomComposition from '@/components/examples/text/custom-composition.tsx';
@@ -467,23 +466,9 @@ Text
 
 ## Стилизация
 
-Оформляйте `Text` с помощью `className` в React или `class` в Solid и Vue, data-атрибутов корневого элемента и публичного CSS API. Варианты
-с CSS Modules предоставляют перечисленные ниже переменные `--moduix-text-*`, а варианты Tailwind используют
-классы-утилиты и переопределения классов на стороне приложения.
-
-### CSS-свойства
-
-<div className="not-prose docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TextDocs.TextCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Передайте `className` в React или `class` в Solid и Vue на `Text`. Варианты Tailwind используют
+утилиты и классы приложения. Варианты CSS Modules построены на типографских токенах foundation и не
+имеют собственных переменных: класс на корне переопределяет стили компонента из слоя.
 
 ### Хуки стилизации
 
@@ -491,8 +476,8 @@ Text
 - `data-slot="text-root"` - стабильный селектор moduix на корневом элементе компонента.
 - `data-size` отражает вычисленный визуальный размер: `xs`, `sm`, `md`, `lg` или `xl`.
 - `data-weight` отражает вычисленную насыщенность: `regular`, `medium`, `semibold` или `bold`.
-- `data-tone` отражает активный вариант тона: `default`, `muted`, `subtle`, `primary` или `destructive`.
-- `data-align` появляется, только когда `align` явно задан как `start`, `center`, `end`, `left`, `right` или `justify`.
+- `data-tone` отражает активный вариант тона: `default`, `muted`, `primary` или `destructive`.
+- `data-align` появляется, только когда `align` задан как `start`, `center`, `end`, `left`, `right` или `justify`. Без него `Text` наследует выравнивание контейнера.
 - `data-truncate` появляется при активном однострочном усечении с многоточием.
-- `data-line-clamp` появляется, когда `lineClamp` - положительное целое число. В этом случае `lineClamp` задаёт
-  резервное количество строк. Укажите `--moduix-text-line-clamp`, чтобы переопределить его через публичный CSS API.
+- `data-line-clamp` появляется, когда `lineClamp` - положительное целое число; количество строк задаётся
+  инлайн-стилем `-webkit-line-clamp`.

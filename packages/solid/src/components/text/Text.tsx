@@ -6,21 +6,13 @@ import { splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import styles from './Text.module.css';
 
-const elements = {
-  div: ark.div,
-  em: ark.em,
-  p: ark.p,
-  small: ark.small,
-  span: ark.span,
-  strong: ark.strong,
-} as const;
-
 type TextElement = 'p' | 'span' | 'small' | 'strong' | 'em' | 'div';
 type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type TextWeight = 'regular' | 'medium' | 'semibold' | 'bold';
-type TextTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
+type TextTone = 'default' | 'muted' | 'primary' | 'destructive';
 type TextAlign = 'start' | 'center' | 'end' | 'left' | 'right' | 'justify';
-type TextProps = HTMLArkProps<'p'> & {
+
+type TextRootProps = HTMLArkProps<'p'> & {
   as?: TextElement;
   size?: TextSize;
   weight?: TextWeight;
@@ -28,14 +20,9 @@ type TextProps = HTMLArkProps<'p'> & {
   align?: TextAlign;
   truncate?: boolean;
   lineClamp?: number;
-  'data-size'?: string;
-  'data-weight'?: string;
-  'data-align'?: string;
-  'data-truncate'?: string;
-  'data-line-clamp'?: string;
 };
 
-function Text(props: TextProps) {
+function Text(props: TextRootProps) {
   const [local, others] = splitProps(props, [
     'as',
     'size',
@@ -46,45 +33,36 @@ function Text(props: TextProps) {
     'lineClamp',
     'class',
     'style',
-    'data-size',
-    'data-weight',
-    'data-align',
-    'data-truncate',
-    'data-line-clamp',
   ]);
-  const Element = () => elements[local.as ?? 'p'] as typeof ark.p;
-  const defaultSize = () => (local.as === 'small' ? 'sm' : 'md');
-  const defaultWeight = () => (local.as === 'strong' ? 'semibold' : 'regular');
-  const resolvedLineClamp = () =>
+  const as = () => local.as ?? 'p';
+  const clamp = () =>
     Number.isInteger(local.lineClamp) && (local.lineClamp ?? 0) > 0 ? local.lineClamp : undefined;
-  const lineClampStyle = (): JSX.CSSProperties | string | undefined => {
-    const value = resolvedLineClamp();
+  const style = (): JSX.CSSProperties | string | undefined => {
+    const value = clamp();
 
     if (value === undefined) return local.style;
-    if (typeof local.style === 'string') {
-      return `${local.style};--_text-line-clamp:${value}`;
-    }
-
-    return { ...local.style, '--_text-line-clamp': value };
+    if (typeof local.style === 'string') return `${local.style};-webkit-line-clamp:${value}`;
+    return { ...local.style, '-webkit-line-clamp': value };
   };
 
   return (
     <Dynamic
-      component={Element()}
+      component={ark[as()] as typeof ark.p}
       {...others}
       data-scope="text"
       data-part="root"
       data-slot="text-root"
-      data-size={local.size ?? defaultSize()}
-      data-weight={local.weight ?? defaultWeight()}
+      data-size={local.size ?? (as() === 'small' ? 'sm' : 'md')}
+      data-weight={local.weight ?? (as() === 'strong' ? 'semibold' : 'regular')}
       data-tone={local.tone ?? 'default'}
       data-align={local.align}
       data-truncate={local.truncate ? '' : undefined}
-      data-line-clamp={resolvedLineClamp() === undefined ? undefined : ''}
+      data-line-clamp={clamp() === undefined ? undefined : ''}
       class={clsx(styles.root, local.class)}
-      style={lineClampStyle()}
+      style={style()}
     />
   );
 }
 
 export { Text };
+export type { TextAlign, TextElement, TextRootProps, TextSize, TextTone, TextWeight };

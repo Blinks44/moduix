@@ -45,7 +45,7 @@ test('renders semantic defaults and stable data hooks', () => {
   render({
     components: { Text },
     template: `
-      <Text data-testid="default" data-align="end" data-line-clamp="" data-part="custom-part" data-scope="custom-scope" data-size="xs" data-slot="custom-slot" data-tone="primary" data-truncate="" data-weight="bold">Body copy</Text>
+      <Text data-testid="default" data-part="custom-part" data-scope="custom-scope" data-size="xs" data-slot="custom-slot" data-tone="primary" data-weight="bold">Body copy</Text>
       <Text as="small" data-testid="small">Supporting copy</Text>
       <Text as="strong" data-testid="strong">Important copy</Text>
     `,
@@ -180,12 +180,12 @@ test('preserves string, object, and array styles while required clamp values win
 
 test('reacts to semantic and typography prop changes without a stale setup snapshot', async () => {
   const { rerender } = render(Text, { slots: { default: () => 'Reactive copy' } });
-  await rerender({ as: 'small', tone: 'subtle', align: 'justify', truncate: true });
+  await rerender({ as: 'small', tone: 'muted', align: 'justify', truncate: true });
   let text = screen.getByText('Reactive copy');
   expect(text.tagName).toBe('SMALL');
   expect(text.getAttribute('data-size')).toBe('sm');
   expect(text.getAttribute('data-weight')).toBe('regular');
-  expect(text.getAttribute('data-tone')).toBe('subtle');
+  expect(text.getAttribute('data-tone')).toBe('muted');
   expect(text.getAttribute('data-align')).toBe('justify');
   expect(text.hasAttribute('data-truncate')).toBe(true);
   await rerender({ as: 'strong', tone: 'destructive', align: undefined, truncate: false });
@@ -242,6 +242,20 @@ test('lets consumer utilities override typography defaults', () => {
     fontWeight: '700',
     textAlign: 'center',
   });
+});
+
+test('inherits the parent alignment unless align is set', () => {
+  render({
+    components: { Text },
+    template: `
+      <div style="text-align: center">
+        <Text>Inherited copy</Text>
+        <Text align="end">Aligned copy</Text>
+      </div>
+    `,
+  });
+  expect(getComputedStyle(screen.getByText('Inherited copy')).textAlign).toBe('center');
+  expect(getComputedStyle(screen.getByText('Aligned copy')).textAlign).toBe('end');
 });
 
 test('hydrates text without replacing the server host', async () => {

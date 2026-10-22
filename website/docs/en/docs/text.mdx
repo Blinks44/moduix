@@ -4,7 +4,6 @@ component: text
 description: A typography component for body text, inline content, semantic emphasis, and truncated previews.
 ---
 
-import * as TextDocs from '@/components/examples/text/css-properties';
 import TextAlignment from '@/components/examples/text/alignment.tsx';
 import TextBasic from '@/components/examples/text/basic.tsx';
 import TextCustomComposition from '@/components/examples/text/custom-composition.tsx';
@@ -467,23 +466,9 @@ intrinsic `as` values. The child must be a single element that accepts the forwa
 
 ## Styling
 
-Style `Text` through `className` in React or `class` in Solid and Vue, root data attributes, and the public CSS API. CSS Modules packages
-expose the `--moduix-text-*` variables below; Tailwind packages use utility classes and consumer
-class overrides.
-
-### CSS Properties
-
-<div className="not-prose docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TextDocs.TextCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on `Text`. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation typography tokens and have no
+component variables: a class on the root overrides the layered component styles.
 
 ### Styling hooks
 
@@ -491,10 +476,10 @@ class overrides.
 - `data-slot="text-root"` is the stable moduix selector on the exported root.
 - `data-size` reflects the resolved visual size: `xs`, `sm`, `md`, `lg`, or `xl`.
 - `data-weight` reflects the resolved weight preset: `regular`, `medium`, `semibold`, or `bold`.
-- `data-tone` reflects the active tone preset: `default`, `muted`, `subtle`, `primary`, or
+- `data-tone` reflects the active tone preset: `default`, `muted`, `primary`, or
   `destructive`.
-- `data-align` appears only when `align` is explicitly set to `start`, `center`, `end`, `left`,
-  `right`, or `justify`.
+- `data-align` appears only when `align` is set to `start`, `center`, `end`, `left`, `right`, or
+  `justify`. Without it, `Text` inherits the alignment of its container.
 - `data-truncate` appears when single-line ellipsis is active.
-- `data-line-clamp` appears when `lineClamp` is a positive integer. In that case, `lineClamp` sets
-  the fallback line count. Set `--moduix-text-line-clamp` to override it through the public CSS API.
+- `data-line-clamp` appears when `lineClamp` is a positive integer; the line count is set inline as
+  `-webkit-line-clamp`.

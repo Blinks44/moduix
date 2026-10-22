@@ -79,10 +79,6 @@
       color: var(--moduix-color-muted-foreground);
     }
 
-    &[data-tone='subtle'] {
-      color: var(--moduix-color-secondary-foreground);
-    }
-
     &[data-tone='primary'] {
       color: var(--moduix-color-primary);
     }

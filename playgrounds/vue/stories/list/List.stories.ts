@@ -115,7 +115,6 @@ export const Tones: Story = {
   render: renderStory(`
     <div :class="styles.stack">
       <List tone="muted"><ListItem>Muted list tone</ListItem></List>
-      <List tone="subtle"><ListItem>Subtle list tone</ListItem></List>
       <List tone="primary"><ListItem>Primary list tone</ListItem></List>
       <List tone="destructive"><ListItem>Destructive list tone</ListItem></List>
     </div>

@@ -9,7 +9,7 @@ type ListElement = 'ul' | 'ol';
 type ListMarker = 'disc' | 'decimal' | 'none';
 type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
+type ListTone = 'default' | 'muted' | 'primary' | 'destructive';
 
 type ListRootProps = HTMLArkProps<'ol'> & {
   as?: ListElement;
@@ -53,7 +53,6 @@ const listVariants = cva(
       tone: {
         default: 'text-foreground',
         muted: 'text-muted-foreground',
-        subtle: 'text-secondary-foreground',
         primary: 'text-primary',
         destructive: 'text-destructive',
       },

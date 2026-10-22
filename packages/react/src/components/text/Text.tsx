@@ -1,25 +1,17 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import type { ComponentRef, CSSProperties, Ref } from 'react';
+import type { ComponentRef, Ref } from 'react';
 import { forwardRef } from 'react';
 import styles from './Text.module.css';
-
-const elements = {
-  div: ark.div,
-  em: ark.em,
-  p: ark.p,
-  small: ark.small,
-  span: ark.span,
-  strong: ark.strong,
-} as const;
 
 type TextElement = 'p' | 'span' | 'small' | 'strong' | 'em' | 'div';
 type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type TextWeight = 'regular' | 'medium' | 'semibold' | 'bold';
-type TextTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
+type TextTone = 'default' | 'muted' | 'primary' | 'destructive';
 type TextAlign = 'start' | 'center' | 'end' | 'left' | 'right' | 'justify';
-type TextProps = HTMLArkProps<'p'> & {
+
+type TextRootProps = HTMLArkProps<'p'> & {
   as?: TextElement;
   size?: TextSize;
   weight?: TextWeight;
@@ -29,12 +21,11 @@ type TextProps = HTMLArkProps<'p'> & {
   lineClamp?: number;
 };
 
-const Text = forwardRef<HTMLElement, TextProps>(function Text(
+const Text = forwardRef<HTMLElement, TextRootProps>(function Text(
   {
-    as,
-    asChild,
-    size,
-    weight,
+    as = 'p',
+    size = as === 'small' ? 'sm' : 'md',
+    weight = as === 'strong' ? 'semibold' : 'regular',
     tone = 'default',
     align,
     truncate,
@@ -45,34 +36,27 @@ const Text = forwardRef<HTMLElement, TextProps>(function Text(
   },
   ref,
 ) {
-  const Element = elements[as ?? 'p'] as typeof ark.p;
-  const defaultSize = as === 'small' ? 'sm' : 'md';
-  const defaultWeight = as === 'strong' ? 'semibold' : 'regular';
-  const resolvedLineClamp =
-    Number.isInteger(lineClamp) && (lineClamp ?? 0) > 0 ? lineClamp : undefined;
-  const lineClampStyle =
-    resolvedLineClamp === undefined
-      ? style
-      : ({ ...style, '--_text-line-clamp': resolvedLineClamp } as CSSProperties);
+  const Element = ark[as] as typeof ark.p;
+  const clamp = Number.isInteger(lineClamp) && (lineClamp ?? 0) > 0 ? lineClamp : undefined;
 
   return (
     <Element
-      ref={ref as Ref<ComponentRef<typeof ark.p>>}
-      asChild={asChild}
       {...props}
+      ref={ref as Ref<ComponentRef<typeof ark.p>>}
       data-scope="text"
       data-part="root"
       data-slot="text-root"
-      data-size={size ?? defaultSize}
-      data-weight={weight ?? defaultWeight}
+      data-size={size}
+      data-weight={weight}
       data-tone={tone}
       data-align={align}
       data-truncate={truncate ? '' : undefined}
-      data-line-clamp={resolvedLineClamp === undefined ? undefined : ''}
+      data-line-clamp={clamp === undefined ? undefined : ''}
       className={clsx(styles.root, className)}
-      style={lineClampStyle}
+      style={clamp === undefined ? style : { ...style, WebkitLineClamp: clamp }}
     />
   );
 });
 
 export { Text };
+export type { TextAlign, TextElement, TextRootProps, TextSize, TextTone, TextWeight };

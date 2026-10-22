@@ -45,7 +45,7 @@ test('renders semantic defaults and stable data hooks', () => {
   render({
     components: { Text },
     template: `
-      <Text data-testid="default" data-align="end" data-line-clamp="" data-part="custom-part" data-scope="custom-scope" data-size="xs" data-slot="custom-slot" data-tone="primary" data-truncate="" data-weight="bold">Body copy</Text>
+      <Text data-testid="default" data-part="custom-part" data-scope="custom-scope" data-size="xs" data-slot="custom-slot" data-tone="primary" data-weight="bold">Body copy</Text>
       <Text as="small" data-testid="small">Supporting copy</Text>
       <Text as="strong" data-testid="strong">Important copy</Text>
     `,
@@ -149,22 +149,22 @@ test('uses only positive integer line-clamp values and removes stale clamp style
   const text = screen.getByText('Clamped copy');
   expect(text.hasAttribute('data-line-clamp')).toBe(true);
   expect(getComputedStyle(text).webkitLineClamp).toBe('2');
-  expect(text.style.getPropertyValue('--_text-line-clamp')).toBe('2');
+  expect(text.style.webkitLineClamp).toBe('2');
   for (const lineClamp of [0, -1, 1.5, Number.NaN, Number.POSITIVE_INFINITY, undefined]) {
     await rerender({ lineClamp });
     expect(text.hasAttribute('data-line-clamp')).toBe(false);
-    expect(text.style.getPropertyValue('--_text-line-clamp')).toBe('');
+    expect(text.style.webkitLineClamp).toBe('');
   }
   await rerender({ lineClamp: 3 });
   expect(text.hasAttribute('data-line-clamp')).toBe(true);
-  expect(text.style.getPropertyValue('--_text-line-clamp')).toBe('3');
+  expect(text.style.webkitLineClamp).toBe('3');
 });
 
 test('preserves string, object, and array styles while required clamp values win', () => {
   for (const style of [
-    'color:red;--_text-line-clamp:9',
-    { color: 'red', '--_text-line-clamp': 9 },
-    ['color:red', { '--_text-line-clamp': 9 }],
+    'color:red;-webkit-line-clamp:9',
+    { color: 'red', '-webkit-line-clamp': 9 },
+    ['color:red', { '-webkit-line-clamp': 9 }],
   ]) {
     const { unmount } = render(Text, {
       props: { lineClamp: 2, style },
@@ -172,19 +172,19 @@ test('preserves string, object, and array styles while required clamp values win
     });
     const text = screen.getByText('Copy');
     expect(text.style.color).toBe('red');
-    expect(text.style.getPropertyValue('--_text-line-clamp')).toBe('2');
+    expect(text.style.webkitLineClamp).toBe('2');
     unmount();
   }
 });
 
 test('reacts to semantic and typography prop changes without a stale setup snapshot', async () => {
   const { rerender } = render(Text, { slots: { default: () => 'Reactive copy' } });
-  await rerender({ as: 'small', tone: 'subtle', align: 'justify', truncate: true });
+  await rerender({ as: 'small', tone: 'muted', align: 'justify', truncate: true });
   let text = screen.getByText('Reactive copy');
   expect(text.tagName).toBe('SMALL');
   expect(text.getAttribute('data-size')).toBe('sm');
   expect(text.getAttribute('data-weight')).toBe('regular');
-  expect(text.getAttribute('data-tone')).toBe('subtle');
+  expect(text.getAttribute('data-tone')).toBe('muted');
   expect(text.getAttribute('data-align')).toBe('justify');
   expect(text.hasAttribute('data-truncate')).toBe(true);
   await rerender({ as: 'strong', tone: 'destructive', align: undefined, truncate: false });
@@ -197,16 +197,33 @@ test('reacts to semantic and typography prop changes without a stale setup snaps
   expect(text.hasAttribute('data-truncate')).toBe(false);
 });
 
-test('keeps the public line-clamp CSS variable available as an override', () => {
+test('keeps line clamp effective when truncate is also set', () => {
   render(Text, {
-    props: { lineClamp: 2, style: { '--moduix-text-line-clamp': 3 } },
-    slots: { default: () => 'Override copy' },
+    props: { truncate: true, lineClamp: 2 },
+    slots: { default: () => 'Clamped copy' },
   });
-  expect(screen.getByText('Override copy').style.getPropertyValue('--_text-line-clamp')).toBe('2');
-  expect(screen.getByText('Override copy').style.getPropertyValue('--moduix-text-line-clamp')).toBe(
-    '3',
-  );
-  expect(getComputedStyle(screen.getByText('Override copy')).webkitLineClamp).toBe('3');
+  const text = screen.getByText('Clamped copy');
+  expect(text.hasAttribute('data-truncate')).toBe(true);
+  expect(text.hasAttribute('data-line-clamp')).toBe(true);
+  expect(getComputedStyle(text)).toMatchObject({
+    overflow: 'hidden',
+    whiteSpace: 'normal',
+    webkitLineClamp: '2',
+  });
+});
+
+test('inherits the parent alignment unless align is set', () => {
+  render({
+    components: { Text },
+    template: `
+      <div style="text-align: center">
+        <Text>Inherited copy</Text>
+        <Text align="end">Aligned copy</Text>
+      </div>
+    `,
+  });
+  expect(getComputedStyle(screen.getByText('Inherited copy')).textAlign).toBe('center');
+  expect(getComputedStyle(screen.getByText('Aligned copy')).textAlign).toBe('end');
 });
 
 test('hydrates text without replacing the server host', async () => {
@@ -225,7 +242,7 @@ test('hydrates text without replacing the server host', async () => {
     expect([...serverRoot.classList]).toContain('hydrated-text');
     expect(instance.rootRef?.$el).toBe(serverRoot);
     expect(serverRoot.getAttribute('data-tone')).toBe('primary');
-    expect(serverRoot.style.getPropertyValue('--_text-line-clamp')).toBe('2');
+    expect(serverRoot.style.webkitLineClamp).toBe('2');
     expect(getComputedStyle(serverRoot).webkitLineClamp).toBe('2');
     expect(warn).not.toHaveBeenCalled();
     expect(error).not.toHaveBeenCalled();

@@ -4,7 +4,6 @@ component: text
 description: Un composant typographique pour le texte courant ou en ligne, l’emphase sémantique et les aperçus tronqués.
 ---
 
-import * as TextDocs from '@/components/examples/text/css-properties';
 import TextAlignment from '@/components/examples/text/alignment.tsx';
 import TextBasic from '@/components/examples/text/basic.tsx';
 import TextCustomComposition from '@/components/examples/text/custom-composition.tsx';
@@ -467,23 +466,10 @@ charge par `as`. L’enfant doit être un élément unique capable d’accepter 
 
 ## Styles
 
-Personnalisez `Text` avec `className` en React ou `class` en Solid et Vue, les attributs de données de la racine et l’API CSS publique. Les packages
-CSS Modules exposent les variables `--moduix-text-*` ci-dessous ; les packages Tailwind utilisent des classes utilitaires
-et les remplacements de classes fournis par l’application.
-
-### Propriétés CSS
-
-<div className="not-prose docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TextDocs.TextCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Utilisez `className` en React ou `class` en Solid et Vue sur `Text`. Les variantes Tailwind utilisent
+des utilitaires natifs et les classes de l’application. Les variantes CSS Modules s’appuient sur les
+jetons typographiques de la fondation et n’ont pas de variables propres : une classe sur la racine
+remplace les styles du composant.
 
 ### Points d’accroche CSS
 
@@ -491,8 +477,8 @@ et les remplacements de classes fournis par l’application.
 - `data-slot="text-root"` est le sélecteur moduix stable de la racine exportée.
 - `data-size` reflète la taille visuelle calculée : `xs`, `sm`, `md`, `lg` ou `xl`.
 - `data-weight` reflète la graisse calculée : `regular`, `medium`, `semibold` ou `bold`.
-- `data-tone` reflète la tonalité active : `default`, `muted`, `subtle`, `primary` ou `destructive`.
-- `data-align` apparaît uniquement lorsque `align` vaut explicitement `start`, `center`, `end`, `left`, `right` ou `justify`.
+- `data-tone` reflète la tonalité active : `default`, `muted`, `primary` ou `destructive`.
+- `data-align` apparaît uniquement lorsque `align` vaut `start`, `center`, `end`, `left`, `right` ou `justify`. Sans lui, `Text` hérite de l’alignement de son conteneur.
 - `data-truncate` apparaît lorsque la troncature sur une ligne avec points de suspension est active.
-- `data-line-clamp` apparaît lorsque `lineClamp` est un entier positif. Dans ce cas, `lineClamp` définit le nombre de
-  lignes utilisé par défaut. Définissez `--moduix-text-line-clamp` pour remplacer cette valeur via l’API CSS publique.
+- `data-line-clamp` apparaît lorsque `lineClamp` est un entier positif ; le nombre de lignes est défini en
+  style en ligne via `-webkit-line-clamp`.
