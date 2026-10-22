@@ -27,10 +27,8 @@ const handleReset = () => {
 <template>
   <form :class="styles.stack" @reset="handleReset" @submit.prevent="handleSubmit">
     <Slider :default-value="[40]" name="volume">
-      <div :class="styles.header">
-        <SliderLabel>Volume</SliderLabel>
-        <SliderValueText />
-      </div>
+      <SliderLabel>Volume</SliderLabel>
+      <SliderValueText />
       <SliderControl>
         <SliderTrack>
           <SliderRange />

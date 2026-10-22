@@ -8,17 +8,16 @@ import { cn } from '@/lib/moduix/cn';
 const Slider = forwardRef<
   ComponentRef<typeof SliderPrimitive.Root>,
   ComponentProps<typeof SliderPrimitive.Root>
->(function Slider({ className, readOnly, ...props }, ref) {
+>(function Slider({ className, ...props }, ref) {
   return (
     <SliderPrimitive.Root
       ref={ref}
       className={cn(
-        "group flex w-full flex-col gap-2 text-foreground data-disabled:opacity-50 data-[orientation=vertical]:grid data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:gap-x-2 data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
+        "group grid w-full grid-cols-[minmax(0,1fr)_auto] gap-2 data-disabled:opacity-50 data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
         className,
       )}
-      readOnly={readOnly}
       {...props}
-      data-readonly={readOnly ? '' : undefined}
+      data-readonly={props.readOnly ? '' : undefined}
       data-slot="slider-root"
     />
   );
@@ -32,7 +31,7 @@ const SliderRootProvider = forwardRef<
     <SliderPrimitive.RootProvider
       ref={ref}
       className={cn(
-        "group flex w-full flex-col gap-2 text-foreground data-disabled:opacity-50 data-[orientation=vertical]:grid data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:gap-x-2 data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
+        "group grid w-full grid-cols-[minmax(0,1fr)_auto] gap-2 data-disabled:opacity-50 data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
         className,
       )}
       {...props}
@@ -49,7 +48,7 @@ const SliderLabel = forwardRef<
     <SliderPrimitive.Label
       ref={ref}
       className={cn(
-        'text-sm leading-5 font-normal text-foreground select-none group-data-[orientation=vertical]:[grid-area:label]',
+        'text-sm leading-5 group-data-[orientation=vertical]:[grid-area:label]',
         className,
       )}
       {...props}
@@ -66,7 +65,7 @@ const SliderValueText = forwardRef<
     <SliderPrimitive.ValueText
       ref={ref}
       className={cn(
-        'text-end text-sm leading-5 font-normal text-foreground group-data-[orientation=vertical]:justify-self-end group-data-[orientation=vertical]:[grid-area:value]',
+        'justify-self-end text-end text-sm leading-5 group-data-[orientation=vertical]:[grid-area:value]',
         className,
       )}
       {...props}
@@ -83,7 +82,7 @@ const SliderControl = forwardRef<
     <SliderPrimitive.Control
       ref={ref}
       className={cn(
-        'relative flex min-h-5 w-full cursor-pointer touch-none items-center select-none group-data-readonly:cursor-default group-data-[orientation=vertical]:[grid-area:control] data-disabled:cursor-default data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-0 data-[orientation=vertical]:w-5 data-[orientation=vertical]:flex-col',
+        'col-span-full flex min-h-5 cursor-pointer items-center group-data-readonly:cursor-default group-data-[orientation=vertical]:[grid-area:control] data-disabled:cursor-default data-[orientation=vertical]:h-full data-[orientation=vertical]:min-h-0 data-[orientation=vertical]:w-5 data-[orientation=vertical]:flex-col',
         className,
       )}
       {...props}
@@ -100,7 +99,7 @@ const SliderTrack = forwardRef<
     <SliderPrimitive.Track
       ref={ref}
       className={cn(
-        'h-1.5 w-full flex-1 overflow-hidden rounded-full bg-muted ring-1 ring-border select-none ring-inset data-invalid:ring-destructive data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5',
+        'h-1.5 flex-1 overflow-hidden rounded-full bg-muted ring-1 ring-border ring-inset data-invalid:ring-destructive data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5',
         className,
       )}
       {...props}
@@ -134,7 +133,7 @@ const SliderThumb = forwardRef<
     <SliderPrimitive.Thumb
       ref={ref}
       className={cn(
-        'box-border flex size-4 shrink-0 items-center justify-center rounded-full border border-border bg-background shadow-sm outline-0 transition-[border-color,background-color,box-shadow] duration-normal ease-in-out select-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring data-disabled:pointer-events-none data-dragging:border-ring data-dragging:shadow-md data-dragging:ring-1 data-dragging:ring-ring data-invalid:border-destructive data-invalid:focus-visible:ring-destructive',
+        'box-border flex size-4 items-center justify-center rounded-full border border-border bg-background shadow-sm outline-0 transition-[border-color,box-shadow] duration-normal ease-in-out focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring data-dragging:border-ring data-dragging:shadow-md data-dragging:ring-1 data-dragging:ring-ring data-invalid:border-destructive data-invalid:focus-visible:ring-destructive',
         className,
       )}
       {...props}
@@ -161,7 +160,7 @@ const SliderMarkerGroup = forwardRef<
     <SliderPrimitive.MarkerGroup
       ref={ref}
       className={cn(
-        'mt-2 group-data-[orientation=vertical]:m-0 group-data-[orientation=vertical]:h-full group-data-[orientation=vertical]:[grid-area:markers]',
+        'col-span-full mt-2 min-h-4 group-data-[orientation=vertical]:m-0 group-data-[orientation=vertical]:h-full group-data-[orientation=vertical]:[grid-area:markers]',
         className,
       )}
       {...props}
@@ -178,7 +177,7 @@ const SliderMarker = forwardRef<
     <SliderPrimitive.Marker
       ref={ref}
       className={cn(
-        "text-xs leading-4 text-muted-foreground before:absolute before:start-1/2 before:-top-2 before:size-1 before:-translate-x-1/2 before:rounded-full before:bg-border before:content-[''] data-[orientation=vertical]:before:-start-2 data-[orientation=vertical]:before:top-1/2 data-[orientation=vertical]:before:-translate-y-1/2 data-[state=at-value]:before:bg-primary group-data-invalid:data-[state=at-value]:before:bg-destructive data-[state=under-value]:before:bg-primary group-data-invalid:data-[state=under-value]:before:bg-destructive",
+        "text-xs leading-4 text-muted-foreground before:absolute before:start-1/2 before:-top-2 before:-ms-0.5 before:size-1 before:rounded-full before:bg-border before:content-[''] data-[orientation=vertical]:before:-start-2 data-[orientation=vertical]:before:top-1/2 data-[orientation=vertical]:before:-mt-0.5 data-[state=at-value]:before:bg-primary group-data-invalid:data-[state=at-value]:before:bg-destructive data-[state=under-value]:before:bg-primary group-data-invalid:data-[state=under-value]:before:bg-destructive",
         className,
       )}
       {...props}
@@ -195,7 +194,7 @@ const SliderDraggingIndicator = forwardRef<
     <SliderPrimitive.DraggingIndicator
       ref={ref}
       className={cn(
-        'pointer-events-none -top-8 rounded-sm bg-foreground px-2 py-1 text-xs leading-none font-medium whitespace-nowrap text-background',
+        'pointer-events-none rounded-sm bg-foreground px-2 py-1 text-xs leading-none font-medium whitespace-nowrap text-background data-[orientation=horizontal]:bottom-full data-[orientation=horizontal]:mb-2 data-[orientation=vertical]:start-full data-[orientation=vertical]:ms-2',
         className,
       )}
       {...props}
@@ -225,3 +224,23 @@ export {
   useSlider,
   useSliderContext,
 };
+export type {
+  SliderContextProps,
+  SliderControlProps,
+  SliderDraggingIndicatorProps,
+  SliderFocusChangeDetails,
+  SliderHiddenInputProps,
+  SliderLabelProps,
+  SliderMarkerGroupProps,
+  SliderMarkerProps,
+  SliderRangeProps,
+  SliderRootProps,
+  SliderRootProviderProps,
+  SliderThumbProps,
+  SliderTrackProps,
+  SliderValueChangeDetails,
+  SliderValueTextProps,
+  UseSliderContext,
+  UseSliderProps,
+  UseSliderReturn,
+} from '@ark-ui/react/slider';

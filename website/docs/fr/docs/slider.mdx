@@ -120,11 +120,6 @@ composez chaque `SliderThumb` explicitement et placez `SliderHiddenInput` à l�
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -250,11 +245,6 @@ Définissez `origin="center"` lorsque la valeur représente un décalage positif
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-center-origin.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -386,11 +376,6 @@ dans Vue, liez `v-model` à une ref pour le même contrat contrôlé.
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-controlled.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -431,11 +416,6 @@ Utilisez `disabled` pour garder la valeur visible tout en désactivant les inter
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-disabled.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -563,11 +543,6 @@ l’état invalide tout en restant interactives.
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-invalid.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -609,11 +584,6 @@ Utilisez `SliderMarkerGroup` et `SliderMarker` pour afficher des repères. Les r
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-marks.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -736,11 +706,6 @@ curseur système par défaut dans cet état afin que le slider ne paraisse pas i
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-read-only.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -827,11 +792,6 @@ Utilisez `step` pour des incréments fractionnaires ou plus fins.
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-step.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -872,11 +832,6 @@ Utilisez `thumbAlignment="center"` lorsque la poignée doit dépasser des extré
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-thumb-alignment.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -918,11 +873,6 @@ Utilisez `thumbCollisionBehavior` pour définir ce qui se passe lorsque les poig
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-thumb-collision.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -964,11 +914,6 @@ Utilisez `minStepsBetweenThumbs` pour imposer un écart minimal entre les poign�
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-thumb-overlap.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -1100,11 +1045,6 @@ personnalisés, un nom accessible ou un ordre particulier.
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-advanced-customization.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -1141,10 +1081,11 @@ variables CSS d’exécution d’Ark sont `--slider-thumb-width`, `--slider-thum
 `--slider-range-start`, `--slider-range-end`, `--translate-x` et `--translate-y`.
 
 moduix ajoute `data-readonly` à `Slider` lorsque la propriété `readOnly` est définie. Dans l’état invalide, la piste,
-la plage sélectionnée, la poignée et les repères actifs utilisent par défaut la couleur destructive. Vous pouvez les
-redéfinir séparément avec `--moduix-slider-track-border-color-invalid`, `--moduix-slider-range-bg-invalid`,
-`--moduix-slider-thumb-border-color-invalid`, `--moduix-slider-thumb-focus-ring-color-invalid` et
-`--moduix-slider-marker-dot-bg-active-invalid`.
+la plage sélectionnée, la poignée et les repères actifs utilisent par défaut la couleur destructive.
+
+Un `Slider` horizontal place `SliderLabel` et `SliderValueText` sur une même ligne au-dessus du contrôle et occupe
+toute la largeur de son conteneur. Un `Slider` vertical mesure `12rem` de haut ; définissez `width` ou `height` sur
+la racine pour changer sa taille.
 
 L’anneau de focus par défaut de la poignée utilise `:focus-visible` pour le focus clavier et `data-dragging` d’Ark
 pendant le glissement. Il disparaît lorsque le pointeur est relâché.

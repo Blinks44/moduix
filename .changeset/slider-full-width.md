@@ -7,4 +7,4 @@
 '@moduix/vue-tailwind': minor
 ---
 
-Slider: the horizontal root now fills its container instead of defaulting to `12rem`, like Chakra UI and shadcn/ui and matching ProgressLinear. Set `--moduix-slider-width` (CSS Modules) or a width utility (Tailwind) on the root to keep a fixed size. Vertical sliders are unchanged.
+Slider: the horizontal root now fills its container instead of defaulting to `12rem`, like Chakra UI and shadcn/ui and matching ProgressLinear. Set `width` on the root to keep a fixed size. Vertical sliders are unchanged.

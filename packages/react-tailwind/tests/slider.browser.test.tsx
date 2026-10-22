@@ -1,3 +1,4 @@
+import { LocaleProvider } from '@ark-ui/react/locale';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
@@ -5,6 +6,8 @@ import { createRef } from 'react';
 import {
   Slider,
   SliderControl,
+  SliderValueText,
+  SliderDraggingIndicator,
   SliderHiddenInput,
   SliderLabel,
   SliderMarker,
@@ -288,4 +291,114 @@ test('fills the container width by default', () => {
   );
 
   expect(screen.getByTestId('slider-root').offsetWidth).toBe(320);
+});
+function rect(selector: string, root: ParentNode = document) {
+  return root.querySelector(selector)!.getBoundingClientRect();
+}
+
+function markerDotCenter(marker: Element) {
+  const dot = getComputedStyle(marker, '::before');
+  const translateX = new DOMMatrix(dot.transform === 'none' ? undefined : dot.transform).m41;
+
+  return parseFloat(dot.left) + parseFloat(dot.marginLeft) + parseFloat(dot.width) / 2 + translateX;
+}
+
+function pressThumb(thumb: Element) {
+  const box = thumb.getBoundingClientRect();
+  thumb.dispatchEvent(
+    new PointerEvent('pointerdown', {
+      bubbles: true,
+      button: 0,
+      clientX: box.left + box.width / 2,
+      clientY: box.top + box.height / 2,
+      isPrimary: true,
+      pointerId: 1,
+    }),
+  );
+}
+
+test('places label and value text on one row above the control', () => {
+  render(
+    <div style={{ width: '20rem' }}>
+      <Slider defaultValue={[40]}>
+        <SliderLabel>Volume</SliderLabel>
+        <SliderValueText />
+        <SliderParts />
+      </Slider>
+    </div>,
+  );
+
+  const root = rect('[data-slot="slider-root"]');
+  const label = rect('[data-slot="slider-label"]');
+  const valueText = rect('[data-slot="slider-value-text"]');
+  const control = rect('[data-slot="slider-control"]');
+
+  expect(valueText.top).toBe(label.top);
+  expect(Math.abs(valueText.right - root.right)).toBeLessThanOrEqual(1);
+  expect(control.top).toBeGreaterThanOrEqual(label.bottom);
+  expect(control.width).toBe(root.width);
+});
+
+test('reserves room for marker labels and centers marker dots in RTL', () => {
+  const { container } = render(
+    <LocaleProvider locale="ar">
+      <div style={{ width: '20rem' }}>
+        <Slider defaultValue={[40]}>
+          <SliderParts />
+          <SliderMarkerGroup>
+            <SliderMarker value={50}>50</SliderMarker>
+          </SliderMarkerGroup>
+        </Slider>
+        <p>After</p>
+      </div>
+    </LocaleProvider>,
+  );
+
+  const marker = container.querySelector('[data-slot="slider-marker"]')!;
+
+  expect(marker.getAttribute('dir')).toBe('rtl');
+  expect(rect('p', container).top).toBeGreaterThanOrEqual(marker.getBoundingClientRect().bottom);
+  expect(Math.abs(markerDotCenter(marker) - marker.clientWidth / 2)).toBeLessThanOrEqual(0.5);
+});
+
+test('keeps the dragging indicator next to the thumb in both orientations', async () => {
+  const { container } = render(
+    <>
+      {(['horizontal', 'vertical'] as const).map((orientation) => (
+        <Slider key={orientation} defaultValue={[40]} orientation={orientation}>
+          <SliderControl>
+            <SliderTrack>
+              <SliderRange />
+            </SliderTrack>
+            <SliderThumb index={0} aria-label={orientation}>
+              <SliderDraggingIndicator>40</SliderDraggingIndicator>
+            </SliderThumb>
+          </SliderControl>
+        </Slider>
+      ))}
+    </>,
+  );
+  const [horizontal, vertical] = container.querySelectorAll('[data-slot="slider-root"]');
+
+  pressThumb(horizontal!.querySelector('[data-slot="slider-thumb"]')!);
+  pressThumb(vertical!.querySelector('[data-slot="slider-thumb"]')!);
+  await expect
+    .poll(() => container.querySelectorAll('[data-slot="slider-dragging-indicator"]:not([hidden])'))
+    .toHaveLength(2);
+
+  const horizontalThumb = rect('[data-slot="slider-thumb"]', horizontal!);
+  const horizontalIndicator = rect('[data-slot="slider-dragging-indicator"]', horizontal!);
+  const verticalThumb = rect('[data-slot="slider-thumb"]', vertical!);
+  const verticalIndicator = rect('[data-slot="slider-dragging-indicator"]', vertical!);
+
+  expect(horizontalIndicator.bottom).toBeLessThanOrEqual(horizontalThumb.top);
+  expect(verticalIndicator.left).toBeGreaterThanOrEqual(verticalThumb.right);
+  expect(verticalIndicator.height).toBe(horizontalIndicator.height);
+  expect(
+    Math.abs(
+      verticalIndicator.top +
+        verticalIndicator.height / 2 -
+        (verticalThumb.top + verticalThumb.height / 2),
+    ),
+  ).toBeLessThanOrEqual(1);
 });

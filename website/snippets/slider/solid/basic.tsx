@@ -8,15 +8,12 @@ import {
   SliderTrack,
   SliderValueText,
 } from '@moduix/solid/slider';
-import styles from '@/components/examples/slider/slider-basic.module.css';
 
 export default function SliderDemo() {
   return (
     <Slider defaultValue={[40]}>
-      <div class={styles.header}>
-        <SliderLabel>Volume</SliderLabel>
-        <SliderValueText />
-      </div>
+      <SliderLabel>Volume</SliderLabel>
+      <SliderValueText />
       <SliderControl>
         <SliderTrack>
           <SliderRange />

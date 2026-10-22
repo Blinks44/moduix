@@ -121,11 +121,6 @@ import sliderVueAdvancedCustomization from '../../../snippets/slider/vue/advance
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-basic.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -251,11 +246,6 @@ Slider
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-center-origin.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -387,11 +377,6 @@ Vue для управляемого контракта можно связать
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-controlled.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -432,11 +417,6 @@ Vue для управляемого контракта можно связать
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-disabled.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -564,11 +544,6 @@ Vue для управляемого контракта можно связать
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-invalid.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -610,11 +585,6 @@ Vue для управляемого контракта можно связать
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-marks.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -737,11 +707,6 @@ Vue для управляемого контракта можно связать
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-read-only.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -828,11 +793,6 @@ Vue для управляемого контракта можно связать
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-step.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -873,11 +833,6 @@ Vue для управляемого контракта можно связать
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-thumb-alignment.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -919,11 +874,6 @@ Vue для управляемого контракта можно связать
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-thumb-collision.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -965,11 +915,6 @@ Vue для управляемого контракта можно связать
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-thumb-overlap.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -1101,11 +1046,6 @@ Vue для управляемого контракта можно связать
 
     </Tab>
   </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/slider/slider-advanced-customization.module.css"
-```
 </div>
 
 </ExampleCode>
@@ -1143,9 +1083,10 @@ Ark добавляет `data-scope="slider"` и `data-part` ко всем отр
 
 moduix добавляет `data-readonly` к `Slider`, когда задано свойство `readOnly`. В состоянии ошибки по умолчанию
 дорожка, выбранный диапазон, ползунок и активные отметки окрашиваются деструктивным цветом.
-Их можно переопределить по отдельности через `--moduix-slider-track-border-color-invalid`,
-`--moduix-slider-range-bg-invalid`, `--moduix-slider-thumb-border-color-invalid`,
-`--moduix-slider-thumb-focus-ring-color-invalid` и `--moduix-slider-marker-dot-bg-active-invalid`.
+
+Горизонтальный `Slider` ставит `SliderLabel` и `SliderValueText` в одну строку над элементом управления и
+занимает всю ширину контейнера. Вертикальный `Slider` имеет высоту `12rem`; чтобы изменить размер, задайте
+`width` или `height` корню.
 
 Стандартное кольцо фокуса ползунка использует `:focus-visible` при навигации с клавиатуры и `data-dragging` Ark
 во время перетаскивания. После отпускания указателя оно исчезает.

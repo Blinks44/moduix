@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'text-end text-sm leading-5 font-normal text-foreground group-data-[orientation=vertical]:justify-self-end group-data-[orientation=vertical]:[grid-area:value]',
+        'justify-self-end text-end text-sm leading-5 group-data-[orientation=vertical]:[grid-area:value]',
         className,
       )
     "

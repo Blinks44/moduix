@@ -8,15 +8,12 @@ import {
   SliderTrack,
   SliderValueText,
 } from '@moduix/vue/slider';
-import styles from '@/components/examples/slider/slider-thumb-collision.module.css';
 </script>
 
 <template>
   <Slider :default-value="[25, 60]" thumb-collision-behavior="push">
-    <div :class="styles.header">
-      <SliderLabel>Linked range</SliderLabel>
-      <SliderValueText />
-    </div>
+    <SliderLabel>Linked range</SliderLabel>
+    <SliderValueText />
     <SliderControl>
       <SliderTrack>
         <SliderRange />

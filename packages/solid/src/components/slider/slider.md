@@ -71,4 +71,5 @@ accessor-based state, so read values as `slider().value` and `slider().dragging`
 The wrapper uses the same CSS Module and `data-slot` hooks as the React component:
 `slider-root`, `slider-root-provider`, `slider-label`, `slider-value-text`, `slider-control`,
 `slider-track`, `slider-range`, `slider-thumb`, `slider-marker-group`, `slider-marker`, and
-`slider-dragging-indicator`. A horizontal root fills its container (`--moduix-slider-width`, default `100%`).
+`slider-dragging-indicator`. Layout, CSS variables, and defaults follow the React contract in
+`packages/react/src/components/slider/slider.md`.
