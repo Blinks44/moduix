@@ -201,3 +201,29 @@ test('hydrates skeleton without replacing the server host and remains reactive',
     error.mockRestore();
   }
 });
+
+test('clips overflow only while loading', async () => {
+  const loading = ref(true);
+  render({
+    components: { Skeleton },
+    setup: () => ({ loading }),
+    template: '<Skeleton data-testid="skeleton" :loading="loading" />',
+  });
+  await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'hidden');
+
+  loading.value = false;
+  await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'visible');
+});
+
+test('takes the pulse animation from the foundation token', async () => {
+  render({
+    components: { Skeleton },
+    template: `<div style="--moduix-animation-pulse: moduix-fade-in 1s">
+      <Skeleton data-testid="pulse" />
+      <Skeleton data-testid="none" variant="none" />
+    </div>`,
+  });
+
+  await expect.element(page.getByTestId('pulse')).toHaveCSS('animation-name', 'moduix-fade-in');
+  await expect.element(page.getByTestId('none')).toHaveCSS('animation-name', 'none');
+});

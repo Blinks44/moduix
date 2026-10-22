@@ -40,7 +40,6 @@ test('owns stable loading hooks even when passthrough attrs conflict', async () 
       'bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))]',
     ),
   ).toBe(true);
-  expect(skeleton.classList.contains('motion-reduce:animate-none')).toBe(true);
   expect(getComputedStyle(skeleton, '::before').visibility).toBe('hidden');
   expect(getComputedStyle(skeleton, '::after').visibility).toBe('hidden');
   await expect.element(page.getByText('Loading profile')).toHaveCSS('visibility', 'hidden');
@@ -188,13 +187,13 @@ test('updates loading, slots, dimensions, variant and aria attrs without replaci
     'before:invisible',
     'after:invisible',
     '[&_*]:invisible',
-    'animate-[moduix-pulse_2.5s_ease-in-out_infinite]',
-    'motion-reduce:animate-none',
+    'overflow-hidden',
+    'animate-[var(--moduix-animation-pulse)]',
   ]) {
     expect(skeleton.classList.contains(className)).toBe(false);
   }
   expect([...skeleton.classList]).toEqual(
-    expect.arrayContaining(['block', 'w-full', 'overflow-hidden', 'rounded-md']),
+    expect.arrayContaining(['block', 'w-full', 'rounded-md']),
   );
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('animation-name', 'none');
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('pointer-events', 'auto');
@@ -260,4 +259,30 @@ test('hydrates skeleton without replacing the server host and remains reactive',
     warn.mockRestore();
     error.mockRestore();
   }
+});
+
+test('clips overflow only while loading', async () => {
+  const loading = ref(true);
+  render({
+    components: { Skeleton },
+    setup: () => ({ loading }),
+    template: '<Skeleton data-testid="skeleton" :loading="loading" />',
+  });
+  await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'hidden');
+
+  loading.value = false;
+  await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'visible');
+});
+
+test('takes the pulse animation from the foundation token', async () => {
+  render({
+    components: { Skeleton },
+    template: `<div style="--moduix-animation-pulse: moduix-fade-in 1s">
+      <Skeleton data-testid="pulse" />
+      <Skeleton data-testid="none" variant="none" />
+    </div>`,
+  });
+
+  await expect.element(page.getByTestId('pulse')).toHaveCSS('animation-name', 'moduix-fade-in');
+  await expect.element(page.getByTestId('none')).toHaveCSS('animation-name', 'none');
 });

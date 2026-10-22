@@ -651,7 +651,6 @@
   --moduix-steps-vertical-item-min-height: initial; /* 4rem */
 
   /* Skeleton */
-  --moduix-skeleton-animation: initial; /* var(--moduix-animation-pulse) */
   --moduix-skeleton-border-radius: initial; /* var(--moduix-radius-md) */
   --moduix-skeleton-bg: initial; /* color-mix(in oklab, var(--moduix-color-muted-foreground) 18%, var(--moduix-color-background)) */
   --moduix-skeleton-height: initial; /* var(--moduix-spacing-4) */

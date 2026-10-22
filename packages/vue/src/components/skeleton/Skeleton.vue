@@ -8,10 +8,12 @@ import styles from './Skeleton.module.css';
 
 defineOptions({ inheritAttrs: false });
 
+export type SkeletonVariant = 'pulse' | 'none';
+
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {
   ariaHidden?: HTMLAttributes['aria-hidden'];
   loading?: boolean;
-  variant?: 'pulse' | 'none';
+  variant?: SkeletonVariant;
   width?: number | string;
   height?: number | string;
   boxSize?: number | string;

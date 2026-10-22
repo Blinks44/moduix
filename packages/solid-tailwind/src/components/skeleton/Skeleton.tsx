@@ -4,24 +4,24 @@ import type { JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-type SkeletonProps = HTMLArkProps<'div'> & {
+type SkeletonVariant = 'pulse' | 'none';
+
+type SkeletonRootProps = HTMLArkProps<'div'> & {
   loading?: boolean;
-  variant?: 'pulse' | 'none';
+  variant?: SkeletonVariant;
   width?: number | string;
   height?: number | string;
   boxSize?: number | string;
   borderRadius?: number | string;
 };
 
-const toCssValue = (value: number | string | undefined) =>
-  typeof value === 'number' ? `${value}px` : value;
+const toCssValue = (value: number | string) => (typeof value === 'number' ? `${value}px` : value);
 
-function Skeleton(props: SkeletonProps) {
+function Skeleton(props: SkeletonRootProps) {
   const [local, others] = splitProps(props, [
     'aria-hidden',
     'borderRadius',
     'boxSize',
-    'children',
     'class',
     'height',
     'loading',
@@ -31,30 +31,23 @@ function Skeleton(props: SkeletonProps) {
   ]);
   const loading = () => local.loading ?? true;
   const variant = () => local.variant ?? 'pulse';
-  const skeletonStyle = (): JSX.CSSProperties | string => {
-    const width = toCssValue(local.width ?? local.boxSize);
-    const height = toCssValue(local.height ?? local.boxSize);
-    const borderRadius = toCssValue(local.borderRadius);
+  const style = (): JSX.CSSProperties | string => {
+    const sizeStyle: JSX.CSSProperties = {};
+    const width = local.width ?? local.boxSize;
+    const height = local.height ?? local.boxSize;
+    if (width != null) sizeStyle.width = toCssValue(width);
+    if (height != null) sizeStyle.height = toCssValue(height);
+    if (local.borderRadius != null) sizeStyle['border-radius'] = toCssValue(local.borderRadius);
 
-    if (typeof local.style === 'string') {
-      const generatedStyle = [
-        width === undefined ? undefined : `width: ${width}`,
-        height === undefined ? undefined : `height: ${height}`,
-        borderRadius === undefined ? undefined : `border-radius: ${borderRadius}`,
-      ]
-        .filter(Boolean)
-        .join(';');
-
-      return `${generatedStyle}${generatedStyle && local.style ? ';' : ''}${local.style}`;
+    if (typeof local.style !== 'string') {
+      return { ...sizeStyle, ...local.style };
     }
 
-    const generatedStyle: JSX.CSSProperties = {
-      width,
-      height,
-      'border-radius': borderRadius,
-    };
-
-    return local.style === undefined ? generatedStyle : { ...generatedStyle, ...local.style };
+    // A string style keeps its native form and stays last, so it overrides the generated sizes.
+    const sizeStyleText = Object.entries(sizeStyle)
+      .map(([property, value]) => `${property}:${value};`)
+      .join('');
+    return sizeStyleText + local.style;
   };
 
   return (
@@ -68,22 +61,16 @@ function Skeleton(props: SkeletonProps) {
       data-variant={variant()}
       aria-hidden={local['aria-hidden'] ?? (loading() ? true : undefined)}
       class={cn(
-        'block w-full overflow-hidden rounded-md',
+        'block w-full rounded-md',
         loading() &&
-          cn(
-            'pointer-events-none h-4 bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))] text-transparent select-none before:invisible after:invisible [&_*]:invisible',
-            variant() === 'none'
-              ? 'animate-none'
-              : 'animate-[moduix-pulse_2.5s_ease-in-out_infinite]',
-            'motion-reduce:animate-none',
-          ),
+          'pointer-events-none h-4 overflow-hidden bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))] text-transparent select-none before:invisible after:invisible [&_*]:invisible',
+        loading() && variant() === 'pulse' && 'animate-[var(--moduix-animation-pulse)]',
         local.class,
       )}
-      style={skeletonStyle()}
-    >
-      {local.children}
-    </ark.div>
+      style={style()}
+    />
   );
 }
 
 export { Skeleton };
+export type { SkeletonRootProps, SkeletonVariant };

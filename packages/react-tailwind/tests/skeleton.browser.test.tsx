@@ -1,6 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
+import type { CSSProperties } from 'react';
 import { createRef } from 'react';
 import { Skeleton } from '../src';
 
@@ -42,7 +43,6 @@ test('owns stable loading hooks even when passthrough props provide conflicting 
       'bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))]',
     ),
   ).toBe(true);
-  expect(skeleton.classList.contains('motion-reduce:animate-none')).toBe(true);
   expect(getComputedStyle(skeleton, '::before').visibility).toBe('hidden');
   expect(getComputedStyle(skeleton, '::after').visibility).toBe('hidden');
   await expect.element(page.getByText('Loading profile')).toHaveCSS('visibility', 'hidden');
@@ -130,4 +130,24 @@ test('lets consumer utilities override loading defaults', async () => {
   }
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('height', '32px');
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('animation-name', 'none');
+});
+
+test('clips overflow only while loading', async () => {
+  const { rerender } = render(<Skeleton data-testid="skeleton" />);
+  await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'hidden');
+
+  rerender(<Skeleton data-testid="skeleton" loading={false} />);
+  await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'visible');
+});
+
+test('takes the pulse animation from the foundation token', async () => {
+  render(
+    <div style={{ '--moduix-animation-pulse': 'moduix-fade-in 1s' } as CSSProperties}>
+      <Skeleton data-testid="pulse" />
+      <Skeleton data-testid="none" variant="none" />
+    </div>,
+  );
+
+  await expect.element(page.getByTestId('pulse')).toHaveCSS('animation-name', 'moduix-fade-in');
+  await expect.element(page.getByTestId('none')).toHaveCSS('animation-name', 'none');
 });

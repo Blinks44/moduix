@@ -4,9 +4,11 @@ import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import styles from './Skeleton.module.css';
 
-type SkeletonProps = HTMLArkProps<'div'> & {
+type SkeletonVariant = 'pulse' | 'none';
+
+type SkeletonRootProps = HTMLArkProps<'div'> & {
   loading?: boolean;
-  variant?: 'pulse' | 'none';
+  variant?: SkeletonVariant;
   width?: number | string;
   height?: number | string;
   boxSize?: number | string;
@@ -16,10 +18,9 @@ type SkeletonProps = HTMLArkProps<'div'> & {
 const toCssValue = (value: number | string | undefined) =>
   typeof value === 'number' ? `${value}px` : value;
 
-const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(function Skeleton(
+const Skeleton = forwardRef<HTMLDivElement, SkeletonRootProps>(function Skeleton(
   {
     'aria-hidden': ariaHidden,
-    asChild,
     borderRadius,
     boxSize,
     className,
@@ -36,7 +37,6 @@ const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(function Skeleton(
     <ark.div
       {...props}
       ref={ref}
-      asChild={asChild}
       data-scope="skeleton"
       data-part="root"
       data-slot="skeleton-root"
@@ -56,3 +56,4 @@ const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(function Skeleton(
 });
 
 export { Skeleton };
+export type { SkeletonRootProps, SkeletonVariant };

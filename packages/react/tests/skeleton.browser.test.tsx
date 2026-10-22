@@ -1,6 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
+import type { CSSProperties } from 'react';
 import { createRef } from 'react';
 import { Skeleton } from '../src';
 
@@ -89,4 +90,24 @@ test('lets style override generated dimensions', async () => {
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('width', '20px');
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('height', '30px');
   await expect.element(page.getByTestId('skeleton')).toHaveCSS('border-radius', '12px');
+});
+
+test('clips overflow only while loading', async () => {
+  const { rerender } = render(<Skeleton data-testid="skeleton" />);
+  await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'hidden');
+
+  rerender(<Skeleton data-testid="skeleton" loading={false} />);
+  await expect.element(page.getByTestId('skeleton')).toHaveCSS('overflow', 'visible');
+});
+
+test('takes the pulse animation from the foundation token', async () => {
+  render(
+    <div style={{ '--moduix-animation-pulse': 'moduix-fade-in 1s' } as CSSProperties}>
+      <Skeleton data-testid="pulse" />
+      <Skeleton data-testid="none" variant="none" />
+    </div>,
+  );
+
+  await expect.element(page.getByTestId('pulse')).toHaveCSS('animation-name', 'moduix-fade-in');
+  await expect.element(page.getByTestId('none')).toHaveCSS('animation-name', 'none');
 });

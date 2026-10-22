@@ -7,10 +7,12 @@ import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
+export type SkeletonVariant = 'pulse' | 'none';
+
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {
   ariaHidden?: HTMLAttributes['aria-hidden'];
   loading?: boolean;
-  variant?: 'pulse' | 'none';
+  variant?: SkeletonVariant;
   width?: number | string;
   height?: number | string;
   boxSize?: number | string;
@@ -57,15 +59,10 @@ const skeletonStyle = computed<StyleValue>(() => [
     :data-variant="variant"
     :class="
       cn(
-        'block w-full overflow-hidden rounded-md',
+        'block w-full rounded-md',
         loading &&
-          cn(
-            'pointer-events-none h-4 bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))] text-transparent select-none before:invisible after:invisible [&_*]:invisible',
-            variant === 'none'
-              ? 'animate-none'
-              : 'animate-[moduix-pulse_2.5s_ease-in-out_infinite]',
-            'motion-reduce:animate-none',
-          ),
+          'pointer-events-none h-4 overflow-hidden bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))] text-transparent select-none before:invisible after:invisible [&_*]:invisible',
+        loading && variant === 'pulse' && 'animate-[var(--moduix-animation-pulse)]',
         className,
       )
     "

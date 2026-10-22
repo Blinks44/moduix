@@ -3,11 +3,6 @@ import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const skeletonCssProperties: CssPropertyInput[] = [
   [
-    '--moduix-skeleton-animation',
-    'var(--moduix-animation-pulse)',
-    'Controls the pulse loading animation.',
-  ],
-  [
     '--moduix-skeleton-border-radius',
     'var(--moduix-radius-md)',
     'Controls default skeleton border radius.',
