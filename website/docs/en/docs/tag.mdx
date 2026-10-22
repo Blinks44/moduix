@@ -147,7 +147,11 @@ parent, update it from `TagCloseTrigger`, and place that trigger inside `TagEndE
 
 Use `asChild` only when the root or close trigger must replace its default host element. The single
 child becomes the DOM host and must provide the required semantics. In particular,
-`TagCloseTrigger asChild` needs an explicit close control and accessible name.
+`TagCloseTrigger asChild` needs an explicit close control.
+
+`TagCloseTrigger` is named `Remove tag` unless it receives `aria-label` or `aria-labelledby`,
+including with custom children or `asChild`. When several tags are shown, pass a name that includes
+the value, such as `aria-label="Remove TypeScript tag"`.
 
 ## Examples
 
@@ -289,7 +293,8 @@ boundary and shows an ellipsis; add `title` when the full value should remain di
 ### Sizes
 
 Use `size="sm"` for dense token rows. Keep the default `md` size for standalone tokens and more
-comfortable spacing.
+comfortable spacing. Use `size="lg"` for tags next to larger text or in roomy filter bars; it is
+28px tall with 14px text.
 
 <ExampleFrame variant="component">
   <TagSizes />
@@ -378,7 +383,8 @@ Use the built-in variants for common moduix color roles while keeping the same p
 ### Advanced Customization
 
 Use `asChild` when the whole token is an action. This replaces the default `span`; the single child
-becomes the semantic and interactive host, so it must provide the behavior expected from a button or link.
+becomes the semantic and interactive host, so it must provide the behavior expected from a button or link. A `button` or `a`
+host gets a pointer cursor.
 
 <ExampleFrame variant="component">
   <TagRenderAsButton />
@@ -413,10 +419,6 @@ becomes the semantic and interactive host, so it must provide the behavior expec
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tag/tag-render-as-button.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -425,6 +427,10 @@ becomes the semantic and interactive host, so it must provide the behavior expec
 Start with a built-in variant. CSS Modules users can adjust the public variables or override an
 exported part with `className` in React or `class` in Solid and Vue. Tailwind users can use native utility
 classes on the exported parts. Data attributes and `data-slot` hooks are shared by all three framework tracks.
+
+The CSS Modules variables override the background, border, and text color of every variant. Size,
+spacing, typography, radius, and close trigger geometry use foundation tokens; change them with a
+class on the part.
 
 ### CSS Variables
 

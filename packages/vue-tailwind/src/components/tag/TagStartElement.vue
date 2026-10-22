@@ -27,7 +27,7 @@ const attrs = useAttrs();
     data-slot="tag-start-element"
     :class="
       cn(
-        'inline-flex min-w-0 shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',
+        'inline-flex shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',
         className,
       )
     "

@@ -58,6 +58,7 @@ export const Sizes: Story = {
     <div :class="styles.row">
       <Tag size="sm"><TagLabel>Compact</TagLabel></Tag>
       <Tag size="md"><TagLabel>Default</TagLabel></Tag>
+      <Tag size="lg"><TagLabel>Large</TagLabel></Tag>
     </div>
   `),
 };
@@ -118,7 +119,7 @@ export const TruncatedLabel: Story = {
 export const RenderAsButton: Story = {
   render: renderStory(`
     <Tag as-child variant="outline">
-      <button :class="styles.buttonTag" type="button"><TagLabel>Open filter</TagLabel></button>
+      <button type="button"><TagLabel>Open filter</TagLabel></button>
     </Tag>
   `),
 };

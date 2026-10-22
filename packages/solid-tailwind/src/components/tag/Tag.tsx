@@ -1,24 +1,20 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
-import { children as resolveChildren, splitProps } from 'solid-js';
+import { splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import { CloseButton } from '../close-button';
 
 type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
-type TagSize = 'sm' | 'md';
-type TagProps = HTMLArkProps<'span'> & {
+type TagSize = 'sm' | 'md' | 'lg';
+type TagRootProps = HTMLArkProps<'span'> & {
   variant?: TagVariant;
   size?: TagSize;
 };
-type TagLabelProps = HTMLArkProps<'span'>;
-type TagStartElementProps = HTMLArkProps<'span'>;
-type TagEndElementProps = HTMLArkProps<'span'>;
-type TagCloseTriggerProps = HTMLArkProps<'button'>;
 
 const tagVariants = cva(
-  'inline-flex min-h-control-xs w-fit max-w-full min-w-0 items-center gap-1.5 rounded-full border px-2 py-0.5 align-middle font-medium text-xs whitespace-nowrap transition-colors duration-normal ease-in-out [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',
+  'inline-flex min-h-control-xs w-fit max-w-full min-w-0 items-center gap-1.5 rounded-full border px-2 py-0.5 align-middle font-medium text-xs whitespace-nowrap transition-colors duration-normal ease-in-out [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [a&]:cursor-pointer [button&]:cursor-pointer',
   {
     variants: {
       variant: {
@@ -31,6 +27,7 @@ const tagVariants = cva(
       size: {
         sm: 'min-h-5 gap-1 px-1.5 py-0',
         md: '',
+        lg: 'min-h-7 px-2.5 text-sm',
       },
     },
     defaultVariants: {
@@ -40,7 +37,7 @@ const tagVariants = cva(
   },
 );
 
-function Tag(props: TagProps) {
+function Tag(props: TagRootProps) {
   const [local, others] = splitProps(props, ['class', 'size', 'variant']);
 
   return (
@@ -56,7 +53,7 @@ function Tag(props: TagProps) {
   );
 }
 
-function TagLabel(props: TagLabelProps) {
+function TagLabel(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -70,7 +67,7 @@ function TagLabel(props: TagLabelProps) {
   );
 }
 
-function TagStartElement(props: TagStartElementProps) {
+function TagStartElement(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -80,14 +77,14 @@ function TagStartElement(props: TagStartElementProps) {
       data-part="start-element"
       data-slot="tag-start-element"
       class={cn(
-        'inline-flex min-w-0 shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',
+        'inline-flex shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',
         local.class,
       )}
     />
   );
 }
 
-function TagEndElement(props: TagEndElementProps) {
+function TagEndElement(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -97,45 +94,32 @@ function TagEndElement(props: TagEndElementProps) {
       data-part="end-element"
       data-slot="tag-end-element"
       class={cn(
-        'inline-flex min-w-0 shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',
+        'inline-flex shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',
         local.class,
       )}
     />
   );
 }
 
-function TagCloseTrigger(props: TagCloseTriggerProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'aria-label',
-    'aria-labelledby',
-    'children',
-    'class',
-  ]);
-  const resolvedChildren = resolveChildren(() => local.children);
+function TagCloseTrigger(props: HTMLArkProps<'button'>) {
+  const [local, others] = splitProps(props, ['aria-label', 'class']);
 
   return (
     <CloseButton
-      asChild={local.asChild}
       {...others}
       data-scope="tag"
       data-part="close-trigger"
       data-slot="tag-close-trigger"
       aria-label={
-        local['aria-label'] ??
-        (!local.asChild && resolvedChildren() == null && local['aria-labelledby'] == null
-          ? a11yLabels.closeTag
-          : undefined)
+        local['aria-label'] ?? (others['aria-labelledby'] == null ? a11yLabels.closeTag : undefined)
       }
-      aria-labelledby={local['aria-labelledby']}
       class={cn(
-        'size-4 rounded-full bg-transparent p-0 text-inherit focus-visible:outline-1 focus-visible:outline-offset-0 [&>svg]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/12 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit',
+        "size-4 rounded-full text-inherit focus-visible:outline-1 focus-visible:outline-offset-0 [&>svg:not([class*='size-'])]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/12 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit",
         local.class,
       )}
-    >
-      {resolvedChildren()}
-    </CloseButton>
+    />
   );
 }
 
 export { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement };
+export type { TagRootProps, TagSize, TagVariant };

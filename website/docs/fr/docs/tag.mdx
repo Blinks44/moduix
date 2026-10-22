@@ -148,7 +148,11 @@ dans `TagEndElement`.
 
 Utilisez `asChild` uniquement lorsque la racine ou le trigger de suppression doit remplacer son
 élément hôte par défaut. L’enfant unique devient l’hôte DOM et doit fournir la sémantique attendue.
-En particulier, `TagCloseTrigger asChild` nécessite un contrôle de fermeture explicite et un nom accessible.
+En particulier, `TagCloseTrigger asChild` nécessite un contrôle de fermeture explicite.
+
+`TagCloseTrigger` reçoit le nom `Remove tag` sauf si `aria-label` ou `aria-labelledby` est fourni,
+y compris avec des enfants personnalisés ou `asChild`. Quand plusieurs tags sont affichés, passez un
+nom qui inclut la valeur, par exemple `aria-label="Remove TypeScript tag"`.
 
 ## Exemples
 
@@ -291,7 +295,8 @@ complète doit rester consultable.
 ### Tailles
 
 Utilisez `size="sm"` pour les rangées de tokens denses. Conservez la taille `md` par défaut pour
-les tokens autonomes et des espacements plus généreux.
+les tokens autonomes et des espacements plus généreux. Utilisez `size="lg"` à côté d’un texte plus
+grand ou dans des barres de filtres spacieuses : 28px de haut avec un texte de 14px.
 
 <ExampleFrame variant="component">
   <TagSizes />
@@ -381,7 +386,7 @@ Utilisez les variantes intégrées pour les rôles de couleur courants de moduix
 
 Utilisez `asChild` lorsque le token entier doit être une action. Cela remplace le `span` par défaut ;
 l’enfant unique devient l’hôte sémantique et interactif et doit fournir le comportement attendu d’un
-bouton ou d’un lien.
+bouton ou d’un lien. Un hôte `button` ou `a` reçoit un curseur pointeur.
 
 <ExampleFrame variant="component">
   <TagRenderAsButton />
@@ -416,10 +421,6 @@ bouton ou d’un lien.
     </Tab>
   </Tabs>
 
-**Styles**
-
-```css file="../../../src/components/examples/tag/tag-render-as-button.module.css"
-```
 </div>
 </ExampleCode>
 
@@ -429,6 +430,10 @@ Commencez par une variante intégrée. Avec CSS Modules, vous pouvez ajuster les
 ou remplacer le style d’une partie exportée avec `className` en React ou `class` en Solid et Vue. Avec
 Tailwind, utilisez les classes utilitaires natives sur les parties exportées. Les attributs de données
 et les hooks `data-slot` sont communs aux trois variantes de framework.
+
+Les variables CSS Modules remplacent le fond, la bordure et la couleur du texte de toutes les variantes.
+La taille, les espacements, la typographie, l’arrondi et la géométrie du trigger de suppression
+utilisent les tokens de foundation ; modifiez-les avec une classe sur la partie.
 
 ### Variables CSS
 

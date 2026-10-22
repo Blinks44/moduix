@@ -1,4 +1,3 @@
-import { clsx } from 'clsx';
 import { createSignal, For } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import {
@@ -28,7 +27,6 @@ type Story = StoryObj<typeof meta>;
 
 const rowClass = 'flex flex-wrap items-center gap-3';
 const constrainedClass = 'max-w-72';
-const buttonTagClass = 'appearance-none cursor-pointer';
 const customSoftClass = 'border-primary/35 bg-primary/15 text-primary';
 const customOutlineClass = 'border-foreground/20 text-primary';
 
@@ -67,6 +65,9 @@ export const Sizes: Story = {
       </Tag>
       <Tag size="md">
         <TagLabel>Default</TagLabel>
+      </Tag>
+      <Tag size="lg">
+        <TagLabel>Large</TagLabel>
       </Tag>
     </div>
   ),
@@ -139,7 +140,7 @@ export const RenderAsButton: Story = {
     <Tag
       variant="outline"
       asChild={(props) => (
-        <button {...props()} class={clsx(props().class, buttonTagClass)} type="button">
+        <button {...props()} type="button">
           <TagLabel>Open filter</TagLabel>
         </button>
       )}

@@ -1,23 +1,19 @@
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
-import { children as resolveChildren, splitProps } from 'solid-js';
+import { splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseButton } from '../close-button';
 import styles from './Tag.module.css';
 
 type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
-type TagSize = 'sm' | 'md';
-type TagProps = HTMLArkProps<'span'> & {
+type TagSize = 'sm' | 'md' | 'lg';
+type TagRootProps = HTMLArkProps<'span'> & {
   variant?: TagVariant;
   size?: TagSize;
 };
-type TagLabelProps = HTMLArkProps<'span'>;
-type TagStartElementProps = HTMLArkProps<'span'>;
-type TagEndElementProps = HTMLArkProps<'span'>;
-type TagCloseTriggerProps = HTMLArkProps<'button'>;
 
-function Tag(props: TagProps) {
+function Tag(props: TagRootProps) {
   const [local, others] = splitProps(props, ['class', 'size', 'variant']);
 
   return (
@@ -33,7 +29,7 @@ function Tag(props: TagProps) {
   );
 }
 
-function TagLabel(props: TagLabelProps) {
+function TagLabel(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -47,7 +43,7 @@ function TagLabel(props: TagLabelProps) {
   );
 }
 
-function TagStartElement(props: TagStartElementProps) {
+function TagStartElement(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -61,7 +57,7 @@ function TagStartElement(props: TagStartElementProps) {
   );
 }
 
-function TagEndElement(props: TagEndElementProps) {
+function TagEndElement(props: HTMLArkProps<'span'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -75,35 +71,22 @@ function TagEndElement(props: TagEndElementProps) {
   );
 }
 
-function TagCloseTrigger(props: TagCloseTriggerProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'aria-label',
-    'aria-labelledby',
-    'children',
-    'class',
-  ]);
-  const resolvedChildren = resolveChildren(() => local.children);
+function TagCloseTrigger(props: HTMLArkProps<'button'>) {
+  const [local, others] = splitProps(props, ['aria-label', 'class']);
 
   return (
     <CloseButton
-      asChild={local.asChild}
       {...others}
       data-scope="tag"
       data-part="close-trigger"
       data-slot="tag-close-trigger"
       aria-label={
-        local['aria-label'] ??
-        (!local.asChild && resolvedChildren() == null && local['aria-labelledby'] == null
-          ? a11yLabels.closeTag
-          : undefined)
+        local['aria-label'] ?? (others['aria-labelledby'] == null ? a11yLabels.closeTag : undefined)
       }
-      aria-labelledby={local['aria-labelledby']}
       class={clsx(styles.closeTrigger, local.class)}
-    >
-      {resolvedChildren()}
-    </CloseButton>
+    />
   );
 }
 
 export { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement };
+export type { TagRootProps, TagSize, TagVariant };

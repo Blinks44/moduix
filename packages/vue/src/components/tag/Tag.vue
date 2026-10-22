@@ -8,8 +8,8 @@ import styles from './Tag.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
-type TagSize = 'sm' | 'md';
+export type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
+export type TagSize = 'sm' | 'md' | 'lg';
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {
   asChild?: boolean;
