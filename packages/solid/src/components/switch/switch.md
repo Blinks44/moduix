@@ -41,6 +41,6 @@ Ordinary refs and custom-host composition are therefore supported as separate na
 Solid hooks expose Ark's accessor-based API, so provider state is passed as `value={switchApi}` and
 read as `switchApi().checked`.
 
-## Style contract (2026-10-03)
+## Styling
 
-The default thumb is square, does not flex-shrink and derives its size from track height minus padding and borders. Checked positioning follows effective direction, including nested opposite-dir islands. CSS Modules keep public size and translation overrides; Tailwind uses logical placement and consumer utilities.
+Styles, variables, and RTL handling match the React wrapper; see `packages/react/src/components/switch/switch.md`.

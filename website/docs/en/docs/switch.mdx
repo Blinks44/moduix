@@ -6,7 +6,6 @@ description: A composable Ark UI switch for React, Solid, or Vue that turns an i
 
 import * as SwitchDocs from '@/components/examples/switch/css-properties';
 import SwitchAdvancedCustomization from '@/components/examples/switch/advanced-customization.tsx';
-import SwitchAsChild from '@/components/examples/switch/as-child.tsx';
 import SwitchBasic from '@/components/examples/switch/basic.tsx';
 import SwitchContext from '@/components/examples/switch/context.tsx';
 import SwitchControlled from '@/components/examples/switch/controlled.tsx';
@@ -17,7 +16,6 @@ import SwitchReadOnly from '@/components/examples/switch/read-only.tsx';
 import SwitchRootProvider from '@/components/examples/switch/root-provider.tsx';
 import SwitchSizes from '@/components/examples/switch/sizes.tsx';
 import switchSolidAdvancedCustomization from '../../../snippets/switch/solid/advanced-customization.tsx?raw';
-import switchSolidAsChild from '../../../snippets/switch/solid/as-child.tsx?raw';
 import switchSolidBasic from '../../../snippets/switch/solid/basic.tsx?raw';
 import switchSolidContext from '../../../snippets/switch/solid/context.tsx?raw';
 import switchSolidControlled from '../../../snippets/switch/solid/controlled.tsx?raw';
@@ -28,7 +26,6 @@ import switchSolidReadOnly from '../../../snippets/switch/solid/read-only.tsx?ra
 import switchSolidRootProvider from '../../../snippets/switch/solid/root-provider.tsx?raw';
 import switchSolidSizes from '../../../snippets/switch/solid/sizes.tsx?raw';
 import switchVueAdvancedCustomization from '../../../snippets/switch/vue/advanced-customization.vue?raw';
-import switchVueAsChild from '../../../snippets/switch/vue/as-child.vue?raw';
 import switchVueBasic from '../../../snippets/switch/vue/basic.vue?raw';
 import switchVueContext from '../../../snippets/switch/vue/context.vue?raw';
 import switchVueControlled from '../../../snippets/switch/vue/controlled.vue?raw';
@@ -173,51 +170,6 @@ With `asChild`, provide one semantic element compatible with `label` so Ark can 
 accessible.
 
 ## Examples
-
-### asChild
-
-Use `asChild` when you need a custom root element while Ark continues to manage the switch behavior.
-
-<ExampleFrame variant="component">
-  <SwitchAsChild />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/as-child.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidAsChild} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueAsChild} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/switch/switch-as-child.module.css"
-```
-</div>
-
-</ExampleCode>
 
 ### Context
 
@@ -618,9 +570,10 @@ attributes, and the public `--moduix-switch-*` CSS variables shown below. Tailwi
 utilities and consumer classes; the variables below apply to CSS Modules, while data attributes are
 shared by both approaches.
 
-In the Tailwind variants the checked thumb translate distance is hard-coded per size. If you
-override the control width or thumb size utilities, override the matching checked `translate-x`
-utilities as well. The CSS Modules track recomputes the movement from `--_switch-width`.
+The thumb is sized and placed from the control box, so a `width` or `height` override on
+`SwitchControl` (a class in CSS Modules, `w-*` and `h-*` utilities in Tailwind) keeps it square and
+flush with both ends. Right-to-left direction comes from Ark: with an RTL [`LocaleProvider`](/docs/rtl),
+Ark writes `dir` on every part and the checked thumb moves to the inline end.
 
 ### CSS Properties
 

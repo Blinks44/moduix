@@ -95,4 +95,15 @@ export {
   useSwitch,
   useSwitchContext,
 };
+export type {
+  SwitchCheckedChangeDetails,
+  SwitchContextProps,
+  SwitchControlProps,
+  SwitchHiddenInputProps,
+  SwitchLabelProps,
+  SwitchThumbProps,
+  UseSwitchContext,
+  UseSwitchProps,
+  UseSwitchReturn,
+} from '@ark-ui/solid/switch';
 export type { SwitchRootProps, SwitchRootProviderProps, SwitchSize };

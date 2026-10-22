@@ -1,3 +1,4 @@
+import { LocaleProvider } from '@ark-ui/react/locale';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
@@ -22,6 +23,17 @@ function ProviderSwitch() {
       <SwitchLabel>Provider notifications</SwitchLabel>
     </SwitchRootProvider>
   );
+}
+
+function expectThumbGeometry(control: Element, edge: 'left' | 'right') {
+  const track = control.getBoundingClientRect();
+  const thumb = control.querySelector('[data-slot="switch-thumb"]')!.getBoundingClientRect();
+  // 1px border plus the 2px spacing-0-5 inset on each side.
+  const gap = edge === 'left' ? thumb.left - track.left : track.right - thumb.right;
+
+  expect(thumb.width).toBeCloseTo(track.height - 6, 0);
+  expect(thumb.height).toBeCloseTo(track.height - 6, 0);
+  expect(Math.abs(gap - 3)).toBeLessThanOrEqual(1);
 }
 
 test('submits through explicit Ark inputs', () => {
@@ -156,4 +168,57 @@ test('keeps controlled state and invalid styling hooks Ark-shaped', async () => 
   await expect
     .element(page.getByRole('checkbox', { name: 'Enable alerts', exact: true }))
     .toBeChecked();
+});
+
+test('places a square thumb from the control box, including size overrides and RTL', () => {
+  const { container } = render(
+    <>
+      <Switch size="sm">
+        <SwitchControl />
+        <SwitchHiddenInput />
+      </Switch>
+      <Switch defaultChecked>
+        <SwitchControl style={{ width: '64px', height: '32px' }} />
+        <SwitchHiddenInput />
+      </Switch>
+      <LocaleProvider locale="ar">
+        <Switch defaultChecked size="lg">
+          <SwitchControl />
+          <SwitchHiddenInput />
+        </Switch>
+      </LocaleProvider>
+    </>,
+  );
+
+  const [unchecked, overridden, rtl] = container.querySelectorAll('[data-slot="switch-control"]');
+
+  expectThumbGeometry(unchecked!, 'left');
+  expect(overridden!.getBoundingClientRect().width).toBe(64);
+  expectThumbGeometry(overridden!, 'right');
+  expectThumbGeometry(rtl!, 'left');
+});
+
+test('paints the focus ring of an invalid switch with the destructive color', async () => {
+  render(
+    <>
+      <button type="button">Before</button>
+      <Switch invalid>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Invalid option</SwitchLabel>
+      </Switch>
+    </>,
+  );
+
+  const before = page.getByRole('button', { name: 'Before', exact: true });
+  await before.click();
+  await before.press('Tab');
+
+  const control = document.querySelector('[data-slot="switch-control"]')!;
+  await expect
+    .element(page.locator('[data-slot="switch-control"]'))
+    .toHaveAttribute('data-focus-visible');
+  const style = getComputedStyle(control);
+  expect(style.outlineStyle).toBe('solid');
+  expect(style.outlineColor).toBe(style.borderTopColor);
 });

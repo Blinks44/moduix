@@ -24,6 +24,7 @@ export type {
   SwitchHiddenInputProps,
   SwitchLabelProps,
   SwitchRootEmits,
+  SwitchThumbProps,
   UseSwitchContext,
   UseSwitchProps,
   UseSwitchReturn,

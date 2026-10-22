@@ -14,18 +14,24 @@
 .siblingRow {
   display: flex;
   align-items: center;
-  gap: var(--moduix-switch-gap, var(--moduix-spacing-2));
+  gap: var(--moduix-spacing-2);
 }
 
 .label {
-  color: var(--moduix-switch-label-color, var(--moduix-color-foreground));
-  font-size: var(--moduix-switch-label-font-size, var(--moduix-text-sm));
-  font-weight: var(--moduix-switch-label-font-weight, var(--moduix-weight-medium));
-  line-height: var(--moduix-switch-label-line-height, var(--moduix-line-height-text-sm));
+  font-size: var(--moduix-text-sm);
+  font-weight: var(--moduix-weight-medium);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .customIconThumb {
-  --moduix-switch-thumb-color-checked: var(--moduix-color-primary);
-  --moduix-switch-thumb-color-unchecked: var(--moduix-color-muted-foreground);
-  --moduix-switch-thumb-icon-size: 0.75rem;
+  color: var(--moduix-color-muted-foreground);
+
+  &[data-state='checked'] {
+    color: var(--moduix-color-primary);
+  }
+
+  & > svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
 }

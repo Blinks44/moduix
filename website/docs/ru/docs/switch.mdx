@@ -6,7 +6,6 @@ description: Компонуемый переключатель Ark UI для н�
 
 import * as SwitchDocs from '@/components/examples/switch/css-properties';
 import SwitchAdvancedCustomization from '@/components/examples/switch/advanced-customization.tsx';
-import SwitchAsChild from '@/components/examples/switch/as-child.tsx';
 import SwitchBasic from '@/components/examples/switch/basic.tsx';
 import SwitchContext from '@/components/examples/switch/context.tsx';
 import SwitchControlled from '@/components/examples/switch/controlled.tsx';
@@ -17,7 +16,6 @@ import SwitchReadOnly from '@/components/examples/switch/read-only.tsx';
 import SwitchRootProvider from '@/components/examples/switch/root-provider.tsx';
 import SwitchSizes from '@/components/examples/switch/sizes.tsx';
 import switchSolidAdvancedCustomization from '../../../snippets/switch/solid/advanced-customization.tsx?raw';
-import switchSolidAsChild from '../../../snippets/switch/solid/as-child.tsx?raw';
 import switchSolidBasic from '../../../snippets/switch/solid/basic.tsx?raw';
 import switchSolidContext from '../../../snippets/switch/solid/context.tsx?raw';
 import switchSolidControlled from '../../../snippets/switch/solid/controlled.tsx?raw';
@@ -28,7 +26,6 @@ import switchSolidReadOnly from '../../../snippets/switch/solid/read-only.tsx?ra
 import switchSolidRootProvider from '../../../snippets/switch/solid/root-provider.tsx?raw';
 import switchSolidSizes from '../../../snippets/switch/solid/sizes.tsx?raw';
 import switchVueAdvancedCustomization from '../../../snippets/switch/vue/advanced-customization.vue?raw';
-import switchVueAsChild from '../../../snippets/switch/vue/as-child.vue?raw';
 import switchVueBasic from '../../../snippets/switch/vue/basic.vue?raw';
 import switchVueContext from '../../../snippets/switch/vue/context.vue?raw';
 import switchVueControlled from '../../../snippets/switch/vue/controlled.vue?raw';
@@ -173,51 +170,6 @@ Switch
 доступность переключателя.
 
 ## Примеры
-
-### asChild
-
-Используйте `asChild`, когда нужен пользовательский корневой элемент, а поведение переключателя по-прежнему обеспечивает Ark.
-
-<ExampleFrame variant="component">
-  <SwitchAsChild />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/as-child.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidAsChild} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueAsChild} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/switch/switch-as-child.module.css"
-```
-</div>
-
-</ExampleCode>
 
 ### Контекст
 
@@ -619,10 +571,10 @@ Switch
 обычными утилитами и пользовательскими классами. Переменные ниже относятся к CSS Modules, а атрибуты данных
 общие для обоих подходов.
 
-В вариантах Tailwind расстояние сдвига ползунка в состоянии checked жестко задано для каждого размера.
-Если вы переопределяете utility-классы ширины контрола или размера ползунка, переопределите и
-соответствующие checked-классы `translate-x`. Трек с CSS Modules пересчитывает смещение из
-`--_switch-width`.
+Ползунок получает размер и положение от бокса контрола, поэтому переопределение `width` или `height`
+у `SwitchControl` (классом в CSS Modules, утилитами `w-*` и `h-*` в Tailwind) сохраняет его квадратным
+и прижатым к обоим краям. Направление справа налево задаёт Ark: внутри RTL [`LocaleProvider`](/docs/rtl)
+Ark ставит `dir` на каждую часть, и ползунок в состоянии checked уходит к концу строки.
 
 ### CSS-свойства
 
