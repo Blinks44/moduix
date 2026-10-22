@@ -6,6 +6,7 @@ import { computed, ref, useAttrs } from 'vue';
 import type { ComponentPublicInstance, HTMLAttributes } from 'vue';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Table.module.css';
+import TableRow from './TableRow.vue';
 
 defineOptions({ inheritAttrs: false });
 
@@ -25,7 +26,7 @@ defineExpose({ $el: cellElement });
 </script>
 
 <template>
-  <ark.tr :class="styles.row" data-scope="table" data-part="row" data-empty data-slot="table-row">
+  <TableRow data-empty>
     <ark.td
       ref="cellRef"
       v-bind="attrs"
@@ -38,5 +39,5 @@ defineExpose({ $el: cellElement });
       <slot v-if="slots.default" />
       <template v-else>{{ a11yLabels.noResults }}</template>
     </ark.td>
-  </ark.tr>
+  </TableRow>
 </template>

@@ -858,7 +858,11 @@
       "title": "Table",
       "description": "moduix Vue Tailwind Table component.",
       "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels"
+      ],
       "files": [
         {
           "path": "src/components/table/Table.vue",

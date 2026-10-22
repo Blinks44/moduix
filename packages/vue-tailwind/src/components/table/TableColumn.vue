@@ -8,11 +8,9 @@ defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'col'> {
   class?: HTMLAttributes['class'];
-  htmlWidth?: string | number;
-  width?: HTMLArkProps<'col'>['width'];
 }
 
-const { class: className, htmlWidth, width } = defineProps<Props>();
+const { class: className } = defineProps<Props>();
 const slots = defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 </script>
@@ -20,7 +18,6 @@ const attrs = useAttrs();
 <template>
   <ark.col
     v-bind="attrs"
-    :width="htmlWidth ?? width"
     :class="className"
     data-scope="table"
     data-part="column"

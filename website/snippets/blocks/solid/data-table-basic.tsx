@@ -54,9 +54,9 @@ export default function DataTableDemo() {
     <TableScrollArea class={styles.root}>
       <Table class={styles.table}>
         <TableColumnGroup>
-          <TableColumn htmlWidth={128} />
+          <TableColumn width={128} />
           <TableColumn />
-          <TableColumn htmlWidth={128} />
+          <TableColumn width={128} />
         </TableColumnGroup>
         <TableHeader>
           <For each={table.getHeaderGroups()}>

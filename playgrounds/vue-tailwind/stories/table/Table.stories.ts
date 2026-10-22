@@ -199,7 +199,7 @@ export const SizesAndVariants: Story = {
   render: renderStory(`
     <div :class="stackClass">
       <TableScrollArea v-for="size in sizes" :key="size">
-        <Table :size="size" :variant="size === 'md' ? 'outline' : 'line'" :class="tableClass">
+        <Table :size="size" :class="tableClass">
           <TableCaption side="top">{{ size.toUpperCase() }} project summary</TableCaption>
           <TableHeader><TableRow><TableColumnHeader>Project</TableColumnHeader><TableColumnHeader>Owner</TableColumnHeader><TableColumnHeader numeric>Open issues</TableColumnHeader></TableRow></TableHeader>
           <TableBody>
@@ -218,7 +218,7 @@ export const ColumnGroupAndBorders: Story = {
     <div :class="showcaseClass">
       <TableScrollArea>
         <Table show-column-border :class="tableClass">
-          <TableColumnGroup><TableColumn html-width="42%" /><TableColumn html-width="28%" /><TableColumn html-width="30%" /></TableColumnGroup>
+          <TableColumnGroup><TableColumn width="42%" /><TableColumn width="28%" /><TableColumn width="30%" /></TableColumnGroup>
           <TableHeader><TableRow><TableColumnHeader>Product</TableColumnHeader><TableColumnHeader>Category</TableColumnHeader><TableColumnHeader numeric>Price</TableColumnHeader></TableRow></TableHeader>
           <TableBody>
             <TableRow><TableCell :class="emphasisClass">Laptop</TableCell><TableCell>Electronics</TableCell><TableCell numeric>$999.99</TableCell></TableRow>

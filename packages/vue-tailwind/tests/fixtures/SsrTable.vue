@@ -16,7 +16,7 @@ import {
 
 <template>
   <Table>
-    <TableColumnGroup><TableColumn html-width="50%" /><TableColumn /></TableColumnGroup>
+    <TableColumnGroup><TableColumn width="50%" /><TableColumn /></TableColumnGroup>
     <TableCaption>Invoices</TableCaption>
     <TableHeader
       ><TableRow

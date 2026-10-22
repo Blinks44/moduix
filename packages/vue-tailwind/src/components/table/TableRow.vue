@@ -15,8 +15,9 @@ const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+// Sticky cells repaint the row state over their own background through --_table-row-bg.
 const rowClass =
-  'transition-colors duration-normal ease-in-out group-data-[slot=table-body]/table-body:border-b group-data-[slot=table-body]/table-body:border-border group-data-[slot=table-header]/table-header:border-b group-data-[slot=table-header]/table-header:border-border group-data-[slot=table-body]/table-body:last:border-b-0 group-data-[interactive]/table:group-data-[slot=table-body]/table-body:[&:not([data-empty])]:focus-within:bg-muted group-data-[interactive]/table:group-data-[slot=table-body]/table-body:[&:not([data-empty])]:hover:bg-muted group-data-[striped]/table:group-data-[slot=table-body]/table-body:[&:nth-child(even):not([data-empty]):not(:hover):not(:focus-within)]:bg-muted/35';
+  'border-border bg-(--_table-row-bg) [--_table-row-bg:initial] in-data-[slot=table-body]:not-last:border-b group-data-[striped]/table:in-data-[slot=table-body]:even:not-data-empty:[--_table-row-bg:color-mix(in_oklab,var(--color-muted)_35%,transparent)] group-data-[interactive]/table:in-data-[slot=table-body]:not-data-empty:focus-within:[--_table-row-bg:var(--color-muted)] group-data-[interactive]/table:in-data-[slot=table-body]:not-data-empty:hover:[--_table-row-bg:var(--color-muted)] in-data-[slot=table-header]:border-b';
 </script>
 
 <template>

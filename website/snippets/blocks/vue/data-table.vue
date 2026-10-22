@@ -358,7 +358,7 @@ const copyIdentifier = (id: string) => navigator.clipboard.writeText(id);
           ><TableColumn
             v-for="column in table.getVisibleLeafColumns()"
             :key="column.id"
-            :html-width="widthForColumn(column.id)"
+            :width="widthForColumn(column.id)"
         /></TableColumnGroup>
         <TableHeader>
           <TableRow v-for="group in table.getHeaderGroups()" :key="group.id">

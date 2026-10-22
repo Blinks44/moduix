@@ -187,10 +187,10 @@ export default function InteractiveDataTableDemo() {
       <TableScrollArea>
         <Table interactive className={styles.interactiveTable}>
           <TableColumnGroup>
-            <TableColumn htmlWidth={48} />
-            <TableColumn htmlWidth={128} />
+            <TableColumn width={48} />
+            <TableColumn width={128} />
             <TableColumn />
-            <TableColumn htmlWidth={128} />
+            <TableColumn width={128} />
           </TableColumnGroup>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

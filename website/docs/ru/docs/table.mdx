@@ -13,7 +13,7 @@ import TableEmptyState from '@/components/examples/table/empty-state.tsx';
 import TableInsideCard from '@/components/examples/table/inside-card.tsx';
 import TableNumericColumns from '@/components/examples/table/numeric-columns.tsx';
 import TableRowActions from '@/components/examples/table/row-actions-with-menu.tsx';
-import TableSizesAndVariants from '@/components/examples/table/sizes-and-variants.tsx';
+import TableSizes from '@/components/examples/table/sizes.tsx';
 import TableStickyHeaderAndColumn from '@/components/examples/table/sticky-header-and-column.tsx';
 import TableStripedRows from '@/components/examples/table/striped-rows.tsx';
 import TableWithScrollarea from '@/components/examples/table/with-scrollarea.tsx';
@@ -25,7 +25,7 @@ import tableSolidEmptyState from '../../../snippets/table/solid/empty-state.tsx?
 import tableSolidInsideCard from '../../../snippets/table/solid/inside-card.tsx?raw';
 import tableSolidNumericColumns from '../../../snippets/table/solid/numeric-columns.tsx?raw';
 import tableSolidRowActions from '../../../snippets/table/solid/row-actions-with-menu.tsx?raw';
-import tableSolidSizesAndVariants from '../../../snippets/table/solid/sizes-and-variants.tsx?raw';
+import tableSolidSizes from '../../../snippets/table/solid/sizes.tsx?raw';
 import tableSolidStickyHeaderAndColumn from '../../../snippets/table/solid/sticky-header-and-column.tsx?raw';
 import tableSolidStripedRows from '../../../snippets/table/solid/striped-rows.tsx?raw';
 import tableSolidWithScrollarea from '../../../snippets/table/solid/with-scrollarea.tsx?raw';
@@ -37,7 +37,7 @@ import tableVueEmptyState from '../../../snippets/table/vue/empty-state.vue?raw'
 import tableVueInsideCard from '../../../snippets/table/vue/inside-card.vue?raw';
 import tableVueNumericColumns from '../../../snippets/table/vue/numeric-columns.vue?raw';
 import tableVueRowActions from '../../../snippets/table/vue/row-actions-with-menu.vue?raw';
-import tableVueSizesAndVariants from '../../../snippets/table/vue/sizes-and-variants.vue?raw';
+import tableVueSizes from '../../../snippets/table/vue/sizes.vue?raw';
 import tableVueStickyHeaderAndColumn from '../../../snippets/table/vue/sticky-header-and-column.vue?raw';
 import tableVueStripedRows from '../../../snippets/table/vue/striped-rows.vue?raw';
 import tableVueWithScrollarea from '../../../snippets/table/vue/with-scrollarea.vue?raw';
@@ -155,7 +155,7 @@ TableScrollArea (optional)
 | `Table`           | Нативный корневой элемент `table` с типографикой, разделителями и атрибутами состояния. |
 | `TableScrollArea`     | Необязательный контейнер с рамкой и горизонтальной прокруткой.             |
 | `TableColumnGroup`    | Нативный `colgroup` для задания ширины столбцов.                           |
-| `TableColumn`         | Нативный `col` с поддержкой `htmlWidth`.                                   |
+| `TableColumn`         | Нативный `col`. Ширину задаёт нативный атрибут `width`.                     |
 | `TableCaption`        | Необязательная подпись над или под таблицей; положение задаёт `side`.      |
 | `TableHeader`         | Нативный `thead` для заголовков столбцов.                                  |
 | `TableBody`           | Нативный `tbody` для строк с данными.                                      |
@@ -432,13 +432,13 @@ TableScrollArea (optional)
 
 </ExampleCode>
 
-### Размеры и варианты
+### Размеры
 
-Используйте `size` для выбора плотности, а `variant` - для оформления разделителей. Эти свойства
-меняют только внешний вид и не добавляют состояние таблицы.
+Используйте `size` для выбора плотности: он меняет отступы ячеек и размер шрифта. Чтобы добавить
+внешнюю рамку без `TableScrollArea`, передайте `Table` класс с `border`.
 
 <ExampleFrame variant="component">
-  <TableSizesAndVariants />
+  <TableSizes />
 </ExampleFrame>
 
 <ExampleCode>
@@ -454,25 +454,25 @@ TableScrollArea (optional)
   >
     <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/table/sizes-and-variants.tsx"
+```tsx pure file="../../../src/components/examples/table/sizes.tsx"
 ```
 
     </Tab>
     <Tab value="solid">
 
-<CodeBlockRuntime lang="tsx" code={tableSolidSizesAndVariants} />
+<CodeBlockRuntime lang="tsx" code={tableSolidSizes} />
 
     </Tab>
     <Tab value="vue">
 
-<CodeBlockRuntime lang="vue" code={tableVueSizesAndVariants} />
+<CodeBlockRuntime lang="vue" code={tableVueSizes} />
 
     </Tab>
   </Tabs>
 
 **Styles**
 
-```css file="../../../src/components/examples/table/table-sizes-and-variants.module.css"
+```css file="../../../src/components/examples/table/table-sizes.module.css"
 ```
 </div>
 
@@ -481,7 +481,8 @@ TableScrollArea (optional)
 ### Закрепление заголовка и столбца
 
 Используйте `stickyHeader` у корня и `data-sticky="start" | "end"` у ячеек, чтобы при прокрутке
-заголовок и важный столбец оставались видимыми.
+заголовок и важный столбец оставались видимыми. Закреплённые ячейки сохраняют цвет строки при
+чередовании, наведении и фокусе.
 
 <ExampleFrame variant="component">
   <TableStickyHeaderAndColumn />
@@ -688,6 +689,6 @@ CSS-переменные `--moduix-table-*`. Варианты Tailwind испо�
 - `data-side="top" | "bottom"` у `TableCaption` - положение подписи;
 - `data-numeric` у `TableColumnHeader` и `TableCell` - числовые столбцы;
 - `data-empty` у строки, созданной `TableEmpty`, - пустое состояние;
-- `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header` и
+- `data-size`, `data-striped`, `data-interactive`, `data-sticky-header` и
   `data-show-column-border` у `Table` - состояния корня;
 - `data-sticky="start" | "end"` у `TableColumnHeader` и `TableCell` - закреплённые столбцы.

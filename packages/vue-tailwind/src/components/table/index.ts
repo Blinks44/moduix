@@ -25,3 +25,4 @@ export {
   TableRow,
   TableScrollArea,
 };
+export type { Props as TableRootProps, TableSize } from './Table.vue';

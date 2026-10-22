@@ -157,10 +157,10 @@ export default function DataTableDemo() {
       <TableScrollArea>
         <Table interactive class={styles.interactiveTable}>
           <TableColumnGroup>
-            <TableColumn htmlWidth={48} />
-            <TableColumn htmlWidth={128} />
+            <TableColumn width={48} />
+            <TableColumn width={128} />
             <TableColumn />
-            <TableColumn htmlWidth={128} />
+            <TableColumn width={128} />
           </TableColumnGroup>
           <TableHeader>
             <For each={table.getHeaderGroups()}>

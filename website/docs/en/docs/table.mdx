@@ -13,7 +13,7 @@ import TableEmptyState from '@/components/examples/table/empty-state.tsx';
 import TableInsideCard from '@/components/examples/table/inside-card.tsx';
 import TableNumericColumns from '@/components/examples/table/numeric-columns.tsx';
 import TableRowActions from '@/components/examples/table/row-actions-with-menu.tsx';
-import TableSizesAndVariants from '@/components/examples/table/sizes-and-variants.tsx';
+import TableSizes from '@/components/examples/table/sizes.tsx';
 import TableStickyHeaderAndColumn from '@/components/examples/table/sticky-header-and-column.tsx';
 import TableStripedRows from '@/components/examples/table/striped-rows.tsx';
 import TableWithScrollarea from '@/components/examples/table/with-scrollarea.tsx';
@@ -25,7 +25,7 @@ import tableSolidEmptyState from '../../../snippets/table/solid/empty-state.tsx?
 import tableSolidInsideCard from '../../../snippets/table/solid/inside-card.tsx?raw';
 import tableSolidNumericColumns from '../../../snippets/table/solid/numeric-columns.tsx?raw';
 import tableSolidRowActions from '../../../snippets/table/solid/row-actions-with-menu.tsx?raw';
-import tableSolidSizesAndVariants from '../../../snippets/table/solid/sizes-and-variants.tsx?raw';
+import tableSolidSizes from '../../../snippets/table/solid/sizes.tsx?raw';
 import tableSolidStickyHeaderAndColumn from '../../../snippets/table/solid/sticky-header-and-column.tsx?raw';
 import tableSolidStripedRows from '../../../snippets/table/solid/striped-rows.tsx?raw';
 import tableSolidWithScrollarea from '../../../snippets/table/solid/with-scrollarea.tsx?raw';
@@ -37,7 +37,7 @@ import tableVueEmptyState from '../../../snippets/table/vue/empty-state.vue?raw'
 import tableVueInsideCard from '../../../snippets/table/vue/inside-card.vue?raw';
 import tableVueNumericColumns from '../../../snippets/table/vue/numeric-columns.vue?raw';
 import tableVueRowActions from '../../../snippets/table/vue/row-actions-with-menu.vue?raw';
-import tableVueSizesAndVariants from '../../../snippets/table/vue/sizes-and-variants.vue?raw';
+import tableVueSizes from '../../../snippets/table/vue/sizes.vue?raw';
 import tableVueStickyHeaderAndColumn from '../../../snippets/table/vue/sticky-header-and-column.vue?raw';
 import tableVueStripedRows from '../../../snippets/table/vue/striped-rows.vue?raw';
 import tableVueWithScrollarea from '../../../snippets/table/vue/with-scrollarea.vue?raw';
@@ -158,7 +158,7 @@ TableScrollArea (optional)
 | `Table`           | Native `table` root. Owns typography, dividers, and state attributes.      |
 | `TableScrollArea`     | Optional bordered container with horizontal overflow for the table.       |
 | `TableColumnGroup`    | Native `colgroup` wrapper for column width distribution.                   |
-| `TableColumn`         | Native `col` wrapper. Supports `htmlWidth`.                                |
+| `TableColumn`         | Native `col` wrapper. Use the native `width` attribute.                    |
 | `TableCaption`        | Optional table caption above or below the table via `side`.                |
 | `TableHeader`         | Native `thead` wrapper for column headers.                                 |
 | `TableBody`           | Native `tbody` wrapper for body rows.                                      |
@@ -434,13 +434,13 @@ Use the last column for row-specific actions when the dataset needs lightweight 
 
 </ExampleCode>
 
-### Sizes and Variants
+### Sizes
 
-Use `size` for density and `variant` for divider style. `Table` keeps these as visual modes on the
-native root instead of adding extra state.
+Use `size` for density. It changes cell padding and font size. For an outer border without
+`TableScrollArea`, add a border class to `Table`.
 
 <ExampleFrame variant="component">
-  <TableSizesAndVariants />
+  <TableSizes />
 </ExampleFrame>
 
 <ExampleCode>
@@ -456,25 +456,25 @@ native root instead of adding extra state.
   >
     <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/table/sizes-and-variants.tsx"
+```tsx pure file="../../../src/components/examples/table/sizes.tsx"
 ```
 
     </Tab>
     <Tab value="solid">
 
-<CodeBlockRuntime lang="tsx" code={tableSolidSizesAndVariants} />
+<CodeBlockRuntime lang="tsx" code={tableSolidSizes} />
 
     </Tab>
     <Tab value="vue">
 
-<CodeBlockRuntime lang="vue" code={tableVueSizesAndVariants} />
+<CodeBlockRuntime lang="vue" code={tableVueSizes} />
 
     </Tab>
   </Tabs>
 
 **Styles**
 
-```css file="../../../src/components/examples/table/table-sizes-and-variants.module.css"
+```css file="../../../src/components/examples/table/table-sizes.module.css"
 ```
 </div>
 
@@ -483,7 +483,8 @@ native root instead of adding extra state.
 ### Sticky Header and Column
 
 Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a horizontally or
-vertically scrolling table needs persistent context.
+vertically scrolling table needs persistent context. Sticky cells keep the striped, hover, and
+focus row colors.
 
 <ExampleFrame variant="component">
   <TableStickyHeaderAndColumn />
@@ -694,6 +695,6 @@ Use the part that owns the visual concern:
 - `data-side="top" | "bottom"` on `TableCaption` for caption placement styling
 - `data-numeric` on `TableColumnHeader` and `TableCell` for numeric-column targeting
 - `data-empty` on the row generated by `TableEmpty` for empty-row targeting
-- `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header`, and
+- `data-size`, `data-striped`, `data-interactive`, `data-sticky-header`, and
   `data-show-column-border` on `Table` for root-level state styling
 - `data-sticky="start" | "end"` on `TableColumnHeader` and `TableCell` for sticky columns

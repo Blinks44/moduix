@@ -8,7 +8,7 @@ import {
   TableRow,
   TableScrollArea,
 } from '@moduix/solid/table';
-import styles from '@/components/examples/table/table-sizes-and-variants.module.css';
+import styles from '@/components/examples/table/table-sizes.module.css';
 
 const projects = [
   {
@@ -21,12 +21,12 @@ const projects = [
   },
 ];
 
-export default function TableSizesAndVariantsDemo() {
+export default function TableSizesDemo() {
   return (
     <div class={styles.root}>
       {(['sm', 'md', 'lg'] as const).map((size) => (
         <TableScrollArea>
-          <Table size={size} variant={size === 'md' ? 'outline' : 'line'}>
+          <Table size={size}>
             <TableCaption side="top">{size.toUpperCase()} project summary</TableCaption>
             <TableHeader>
               <TableRow>

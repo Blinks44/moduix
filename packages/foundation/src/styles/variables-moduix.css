@@ -622,47 +622,12 @@
   --moduix-tags-input-width: initial; /* 100% */
 
   /* Table */
+  --moduix-table-bg: initial; /* var(--moduix-color-card) */
   --moduix-table-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-table-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-table-caption-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-table-caption-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-table-caption-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-table-caption-padding-edge: initial; /* var(--moduix-spacing-2) */
-  --moduix-table-caption-padding-x: initial; /* var(--moduix-table-cell-padding-x, var(--moduix-spacing-4)) */
-  --moduix-table-caption-padding-y: initial; /* var(--moduix-spacing-3) */
   --moduix-table-cell-padding-x: initial; /* var(--moduix-spacing-4) */
   --moduix-table-cell-padding-y: initial; /* var(--moduix-spacing-3) */
-  --moduix-table-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-table-column-border-color: initial; /* var(--moduix-table-border-color, var(--moduix-color-border)) */
-  --moduix-table-column-border-width: initial; /* var(--moduix-table-border-width, var(--moduix-border-width-sm)) */
-  --moduix-table-column-header-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-table-column-header-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-table-empty-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-table-empty-padding-y: initial; /* calc(var(--moduix-table-cell-padding-y, var(--moduix-spacing-3)) * 2) */
-  --moduix-table-font-family: initial; /* inherit */
-  --moduix-table-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-table-font-size-lg: initial; /* var(--moduix-text-md) */
-  --moduix-table-font-size-sm: initial; /* var(--moduix-text-xs) */
-  --moduix-table-footer-bg: initial; /* var(--moduix-color-muted) */
-  --moduix-table-footer-color: initial; /* var(--moduix-table-color, var(--moduix-color-foreground)) */
-  --moduix-table-footer-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-table-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-table-line-height-lg: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-table-line-height-sm: initial; /* var(--moduix-line-height-text-xs) */
-  --moduix-table-row-bg-focus: initial; /* var(--moduix-table-row-bg-hover, var(--moduix-color-muted)) */
   --moduix-table-row-bg-hover: initial; /* var(--moduix-color-muted) */
   --moduix-table-row-bg-striped: initial; /* color-mix(in oklab, var(--moduix-color-muted) 35%, transparent) */
-  --moduix-table-row-transition: initial; /* background-color var(--moduix-transition-default) */
-  --moduix-table-scroll-area-bg: initial; /* var(--moduix-color-card) */
-  --moduix-table-scroll-area-border-color: initial; /* var(--moduix-table-border-color, var(--moduix-color-border)) */
-  --moduix-table-scroll-area-border-width: initial; /* var(--moduix-table-border-width, var(--moduix-border-width-sm)) */
-  --moduix-table-scroll-area-radius: initial; /* var(--moduix-radius-lg) */
-  --moduix-table-scroll-area-shadow: initial; /* none */
-  --moduix-table-sticky-column-bg: initial; /* var(--moduix-table-scroll-area-bg, var(--moduix-color-card)) */
-  --moduix-table-sticky-column-z-index: initial; /* 2 */
-  --moduix-table-sticky-header-bg: initial; /* var(--moduix-table-scroll-area-bg, var(--moduix-color-card)) */
-  --moduix-table-sticky-header-z-index: initial; /* 3 */
-  --moduix-table-sticky-intersection-z-index: initial; /* 4 */
 
   /* TableOfContents */
   --moduix-table-of-contents-color: initial; /* var(--moduix-color-foreground) */

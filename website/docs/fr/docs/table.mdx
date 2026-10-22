@@ -13,7 +13,7 @@ import TableEmptyState from '@/components/examples/table/empty-state.tsx';
 import TableInsideCard from '@/components/examples/table/inside-card.tsx';
 import TableNumericColumns from '@/components/examples/table/numeric-columns.tsx';
 import TableRowActions from '@/components/examples/table/row-actions-with-menu.tsx';
-import TableSizesAndVariants from '@/components/examples/table/sizes-and-variants.tsx';
+import TableSizes from '@/components/examples/table/sizes.tsx';
 import TableStickyHeaderAndColumn from '@/components/examples/table/sticky-header-and-column.tsx';
 import TableStripedRows from '@/components/examples/table/striped-rows.tsx';
 import TableWithScrollarea from '@/components/examples/table/with-scrollarea.tsx';
@@ -25,7 +25,7 @@ import tableSolidEmptyState from '../../../snippets/table/solid/empty-state.tsx?
 import tableSolidInsideCard from '../../../snippets/table/solid/inside-card.tsx?raw';
 import tableSolidNumericColumns from '../../../snippets/table/solid/numeric-columns.tsx?raw';
 import tableSolidRowActions from '../../../snippets/table/solid/row-actions-with-menu.tsx?raw';
-import tableSolidSizesAndVariants from '../../../snippets/table/solid/sizes-and-variants.tsx?raw';
+import tableSolidSizes from '../../../snippets/table/solid/sizes.tsx?raw';
 import tableSolidStickyHeaderAndColumn from '../../../snippets/table/solid/sticky-header-and-column.tsx?raw';
 import tableSolidStripedRows from '../../../snippets/table/solid/striped-rows.tsx?raw';
 import tableSolidWithScrollarea from '../../../snippets/table/solid/with-scrollarea.tsx?raw';
@@ -37,7 +37,7 @@ import tableVueEmptyState from '../../../snippets/table/vue/empty-state.vue?raw'
 import tableVueInsideCard from '../../../snippets/table/vue/inside-card.vue?raw';
 import tableVueNumericColumns from '../../../snippets/table/vue/numeric-columns.vue?raw';
 import tableVueRowActions from '../../../snippets/table/vue/row-actions-with-menu.vue?raw';
-import tableVueSizesAndVariants from '../../../snippets/table/vue/sizes-and-variants.vue?raw';
+import tableVueSizes from '../../../snippets/table/vue/sizes.vue?raw';
 import tableVueStickyHeaderAndColumn from '../../../snippets/table/vue/sticky-header-and-column.vue?raw';
 import tableVueStripedRows from '../../../snippets/table/vue/striped-rows.vue?raw';
 import tableVueWithScrollarea from '../../../snippets/table/vue/with-scrollarea.vue?raw';
@@ -159,7 +159,7 @@ TableScrollArea (optional)
 | `Table`            | Racine native `table`. Gère la typographie, les séparateurs et les attributs d’état. |
 | `TableScrollArea`      | Conteneur facultatif avec bordure et défilement horizontal.                    |
 | `TableColumnGroup`     | Élément natif `colgroup` pour définir la largeur des colonnes.                 |
-| `TableColumn`          | Élément natif `col`. Accepte `htmlWidth`.                                      |
+| `TableColumn`          | Élément natif `col`. Utilisez l’attribut natif `width`.                        |
 | `TableCaption`         | Légende facultative au-dessus ou au-dessous du tableau via `side`.             |
 | `TableHeader`          | Élément natif `thead` pour les en-têtes de colonne.                             |
 | `TableBody`            | Élément natif `tbody` pour les lignes de données.                               |
@@ -437,13 +437,13 @@ secondaires. `Menu` convient à ce cas sans modifier la structure native du tabl
 
 </ExampleCode>
 
-### Tailles et variantes
+### Tailles
 
-Utilisez `size` pour la densité et `variant` pour le style des séparateurs. `Table` les conserve comme modes visuels
-sur la racine native sans ajouter d’état au tableau.
+Utilisez `size` pour la densité : il modifie l’espacement des cellules et la taille du texte. Pour une bordure
+extérieure sans `TableScrollArea`, ajoutez une classe de bordure à `Table`.
 
 <ExampleFrame variant="component">
-  <TableSizesAndVariants />
+  <TableSizes />
 </ExampleFrame>
 
 <ExampleCode>
@@ -459,25 +459,25 @@ sur la racine native sans ajouter d’état au tableau.
   >
     <Tab value="react">
 
-```tsx pure file="../../../src/components/examples/table/sizes-and-variants.tsx"
+```tsx pure file="../../../src/components/examples/table/sizes.tsx"
 ```
 
     </Tab>
     <Tab value="solid">
 
-<CodeBlockRuntime lang="tsx" code={tableSolidSizesAndVariants} />
+<CodeBlockRuntime lang="tsx" code={tableSolidSizes} />
 
     </Tab>
     <Tab value="vue">
 
-<CodeBlockRuntime lang="vue" code={tableVueSizesAndVariants} />
+<CodeBlockRuntime lang="vue" code={tableVueSizes} />
 
     </Tab>
   </Tabs>
 
 **Styles**
 
-```css file="../../../src/components/examples/table/table-sizes-and-variants.module.css"
+```css file="../../../src/components/examples/table/table-sizes.module.css"
 ```
 </div>
 
@@ -486,7 +486,8 @@ sur la racine native sans ajouter d’état au tableau.
 ### En-tête et colonne fixes
 
 Utilisez `stickyHeader` sur la racine et `data-sticky="start" | "end"` sur les cellules lorsqu’un tableau qui défile
-horizontalement ou verticalement doit conserver son en-tête ou une colonne importante à l’écran.
+horizontalement ou verticalement doit conserver son en-tête ou une colonne importante à l’écran. Les cellules fixes
+conservent la couleur de la ligne alternée, survolée ou focalisée.
 
 <ExampleFrame variant="component">
   <TableStickyHeaderAndColumn />
@@ -697,6 +698,6 @@ Utilisez la partie ou l’attribut qui contrôle l’aspect visuel concerné :
 - `data-side="top" | "bottom"` sur `TableCaption` pour styliser la position de la légende
 - `data-numeric` sur `TableColumnHeader` et `TableCell` pour cibler les colonnes numériques
 - `data-empty` sur la ligne générée par `TableEmpty` pour cibler la ligne vide
-- `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header` et
+- `data-size`, `data-striped`, `data-interactive`, `data-sticky-header` et
   `data-show-column-border` sur `Table` pour les styles d’état au niveau de la racine
 - `data-sticky="start" | "end"` sur `TableColumnHeader` et `TableCell` pour les colonnes fixes

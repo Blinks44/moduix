@@ -33,9 +33,9 @@ export default function TableColumnGroupAndBordersDemo() {
     <TableScrollArea>
       <Table showColumnBorder>
         <TableColumnGroup>
-          <TableColumn htmlWidth="42%" />
-          <TableColumn htmlWidth="28%" />
-          <TableColumn htmlWidth="30%" />
+          <TableColumn width="42%" />
+          <TableColumn width="28%" />
+          <TableColumn width="30%" />
         </TableColumnGroup>
         <TableHeader>
           <TableRow>

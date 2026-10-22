@@ -9,7 +9,7 @@ import {
   TableRow,
   TableScrollArea,
 } from '@moduix/vue/table';
-import styles from '@/components/examples/table/table-sizes-and-variants.module.css';
+import styles from '@/components/examples/table/table-sizes.module.css';
 
 const projects = [
   { name: 'Docs redesign', owner: 'Product Design' },
@@ -21,7 +21,7 @@ const sizes = ['sm', 'md', 'lg'] as const;
 <template>
   <div :class="styles.root">
     <TableScrollArea v-for="size in sizes" :key="size">
-      <Table :size="size" :variant="size === 'md' ? 'outline' : 'line'">
+      <Table :size="size">
         <TableCaption side="top">{{ size.toUpperCase() }} project summary</TableCaption>
         <TableHeader>
           <TableRow>

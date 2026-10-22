@@ -429,7 +429,7 @@ function DataTable() {
           <TableColumnGroup>
             <For each={table.getVisibleLeafColumns()}>
               {(column) => (
-                <TableColumn htmlWidth={columnWidths[column.id as keyof typeof columnWidths]} />
+                <TableColumn width={columnWidths[column.id as keyof typeof columnWidths]} />
               )}
             </For>
           </TableColumnGroup>

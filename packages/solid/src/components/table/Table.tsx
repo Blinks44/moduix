@@ -5,52 +5,34 @@ import { children, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Table.module.css';
 
-type TableDataProps = {};
+type TableSize = 'sm' | 'md' | 'lg';
+type TableRootProps = HTMLArkProps<'table'> & {
+  interactive?: boolean;
+  showColumnBorder?: boolean;
+  size?: TableSize;
+  stickyHeader?: boolean;
+  striped?: boolean;
+  'data-interactive'?: string | boolean;
+  'data-show-column-border'?: string | boolean;
+  'data-sticky-header'?: string | boolean;
+  'data-striped'?: string | boolean;
+};
+type TableCaptionProps = HTMLArkProps<'caption'> & {
+  side?: 'top' | 'bottom';
+};
+type TableColumnHeaderProps = HTMLArkProps<'th'> & {
+  numeric?: boolean;
+  'data-numeric'?: string | boolean;
+};
+type TableCellProps = HTMLArkProps<'td'> & {
+  numeric?: boolean;
+  'data-numeric'?: string | boolean;
+};
+type TableEmptyProps = HTMLArkProps<'td'> & {
+  colSpan: number;
+};
 
-type TableProps = HTMLArkProps<'table'> &
-  TableDataProps & {
-    interactive?: boolean;
-    showColumnBorder?: boolean;
-    size?: 'sm' | 'md' | 'lg';
-    stickyHeader?: boolean;
-    striped?: boolean;
-    variant?: 'line' | 'outline';
-    'data-interactive'?: string | boolean;
-    'data-show-column-border'?: string | boolean;
-    'data-sticky-header'?: string | boolean;
-    'data-striped'?: string | boolean;
-  };
-
-type TableScrollAreaProps = HTMLArkProps<'div'> & TableDataProps;
-type TableCaptionProps = HTMLArkProps<'caption'> &
-  TableDataProps & {
-    side?: 'top' | 'bottom';
-  };
-type TableColumnGroupProps = HTMLArkProps<'colgroup'> & TableDataProps;
-type TableColumnProps = HTMLArkProps<'col'> &
-  TableDataProps & {
-    htmlWidth?: string | number;
-  };
-type TableHeaderProps = HTMLArkProps<'thead'> & TableDataProps;
-type TableBodyProps = HTMLArkProps<'tbody'> & TableDataProps;
-type TableFooterProps = HTMLArkProps<'tfoot'> & TableDataProps;
-type TableRowProps = HTMLArkProps<'tr'> & TableDataProps;
-type TableColumnHeaderProps = HTMLArkProps<'th'> &
-  TableDataProps & {
-    numeric?: boolean;
-    'data-numeric'?: string | boolean;
-  };
-type TableCellProps = HTMLArkProps<'td'> &
-  TableDataProps & {
-    numeric?: boolean;
-    'data-numeric'?: string | boolean;
-  };
-type TableEmptyProps = HTMLArkProps<'td'> &
-  TableDataProps & {
-    colSpan: number;
-  };
-
-function Table(props: TableProps) {
+function Table(props: TableRootProps) {
   const [local, others] = splitProps(props, [
     'class',
     'data-interactive',
@@ -62,7 +44,6 @@ function Table(props: TableProps) {
     'size',
     'stickyHeader',
     'striped',
-    'variant',
   ]);
 
   return (
@@ -76,13 +57,12 @@ function Table(props: TableProps) {
       data-size={local.size ?? 'md'}
       data-sticky-header={local.stickyHeader || undefined}
       data-striped={local.striped || undefined}
-      data-variant={local.variant ?? 'line'}
       class={clsx(styles.root, local.class)}
     />
   );
 }
 
-function TableScrollArea(props: TableScrollAreaProps) {
+function TableScrollArea(props: HTMLArkProps<'div'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -111,36 +91,22 @@ function TableCaption(props: TableCaptionProps) {
   );
 }
 
-function TableColumnGroup(props: TableColumnGroupProps) {
-  const [local, others] = splitProps(props, ['class']);
-
+function TableColumnGroup(props: HTMLArkProps<'colgroup'>) {
   return (
     <ark.colgroup
-      {...others}
+      {...props}
       data-scope="table"
       data-part="column-group"
       data-slot="table-column-group"
-      class={local.class}
     />
   );
 }
 
-function TableColumn(props: TableColumnProps) {
-  const [local, others] = splitProps(props, ['class', 'htmlWidth', 'width']);
-
-  return (
-    <ark.col
-      {...others}
-      data-scope="table"
-      data-part="column"
-      data-slot="table-column"
-      width={local.htmlWidth ?? local.width}
-      class={local.class}
-    />
-  );
+function TableColumn(props: HTMLArkProps<'col'>) {
+  return <ark.col {...props} data-scope="table" data-part="column" data-slot="table-column" />;
 }
 
-function TableHeader(props: TableHeaderProps) {
+function TableHeader(props: HTMLArkProps<'thead'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -154,7 +120,7 @@ function TableHeader(props: TableHeaderProps) {
   );
 }
 
-function TableBody(props: TableBodyProps) {
+function TableBody(props: HTMLArkProps<'tbody'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -168,7 +134,7 @@ function TableBody(props: TableBodyProps) {
   );
 }
 
-function TableFooter(props: TableFooterProps) {
+function TableFooter(props: HTMLArkProps<'tfoot'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -182,7 +148,7 @@ function TableFooter(props: TableFooterProps) {
   );
 }
 
-function TableRow(props: TableRowProps) {
+function TableRow(props: HTMLArkProps<'tr'>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -227,22 +193,21 @@ function TableCell(props: TableCellProps) {
 }
 
 function TableEmpty(props: TableEmptyProps) {
-  const [local, others] = splitProps(props, ['children', 'class', 'colSpan']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   const resolvedChildren = children(() => local.children);
 
   return (
-    <ark.tr data-scope="table" data-part="row" data-empty data-slot="table-row" class={styles.row}>
+    <TableRow data-empty>
       <ark.td
         {...others}
         data-scope="table"
         data-part="empty"
         data-slot="table-empty"
-        colSpan={local.colSpan}
         class={clsx(styles.cell, styles.empty, local.class)}
       >
         {resolvedChildren() ?? a11yLabels.noResults}
       </ark.td>
-    </ark.tr>
+    </TableRow>
   );
 }
 
@@ -260,3 +225,4 @@ export {
   TableRow,
   TableScrollArea,
 };
+export type { TableRootProps, TableSize };
