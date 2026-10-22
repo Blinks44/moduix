@@ -24,7 +24,7 @@ type SignaturePadRootProviderProps = Omit<
 const SignaturePad = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.Root>,
   ComponentProps<typeof SignaturePadPrimitive.Root>
->(function SignaturePad({ asChild, children, className, ...props }, ref) {
+>(function SignaturePad({ className, ...props }, ref) {
   const field = useFieldContext();
   const readOnly = props.readOnly ?? field?.readOnly ?? false;
 
@@ -33,12 +33,9 @@ const SignaturePad = forwardRef<
       <SignaturePadPrimitive.Root
         ref={ref}
         className={clsx(styles.root, className)}
-        asChild={asChild}
         {...props}
         data-slot="signature-pad-root"
-      >
-        {children}
-      </SignaturePadPrimitive.Root>
+      />
     </SignaturePadReadOnlyContext.Provider>
   );
 });
@@ -46,7 +43,7 @@ const SignaturePad = forwardRef<
 const SignaturePadRootProvider = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.RootProvider>,
   SignaturePadRootProviderProps
->(function SignaturePadRootProvider({ asChild, children, className, ...props }, ref) {
+>(function SignaturePadRootProvider({ className, ...props }, ref) {
   const readOnly = props.value.readOnly ?? false;
 
   return (
@@ -54,12 +51,9 @@ const SignaturePadRootProvider = forwardRef<
       <SignaturePadPrimitive.RootProvider
         ref={ref}
         className={clsx(styles.root, className)}
-        asChild={asChild}
         {...props}
         data-slot="signature-pad-root-provider"
-      >
-        {children}
-      </SignaturePadPrimitive.RootProvider>
+      />
     </SignaturePadReadOnlyContext.Provider>
   );
 });
@@ -123,37 +117,23 @@ const SignaturePadGuide = forwardRef<
 const SignaturePadClearTrigger = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.ClearTrigger>,
   ComponentProps<typeof SignaturePadPrimitive.ClearTrigger>
->(function SignaturePadClearTrigger(
-  {
-    asChild,
-    className,
-    children,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
-    ...props
-  },
-  ref,
-) {
+>(function SignaturePadClearTrigger({ asChild, className, children, ...props }, ref) {
   const readOnly = useContext(SignaturePadReadOnlyContext);
-  const triggerClassName = clsx(styles.clearTrigger, className);
 
+  // Ark still clears read-only signatures, so moduix hides the action as it does while empty.
   return (
     <SignaturePadPrimitive.ClearTrigger
       ref={ref}
       asChild
-      className={triggerClassName}
-      aria-label={asChild ? ariaLabel : undefined}
-      aria-labelledby={asChild ? ariaLabelledBy : undefined}
+      className={clsx(styles.clearTrigger, className)}
       {...props}
       data-slot="signature-pad-clear-trigger"
-      disabled={readOnly || props.disabled}
+      hidden={readOnly || undefined}
     >
       {asChild ? (
         children
       ) : (
-        <CloseButton aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
-          {children ?? <RotateCcwIcon aria-hidden="true" />}
-        </CloseButton>
+        <CloseButton>{children ?? <RotateCcwIcon aria-hidden="true" />}</CloseButton>
       )}
     </SignaturePadPrimitive.ClearTrigger>
   );
@@ -162,13 +142,11 @@ const SignaturePadClearTrigger = forwardRef<
 const SignaturePadCanvas = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.Control>,
   Omit<ComponentProps<typeof SignaturePadPrimitive.Control>, 'asChild' | 'children'>
->(function SignaturePadCanvas({ className, ...props }, ref) {
+>(function SignaturePadCanvas(props, ref) {
   return (
-    <SignaturePadControl ref={ref} className={className} {...props}>
+    <SignaturePadControl ref={ref} {...props}>
       <SignaturePadSegment />
-      <SignaturePadClearTrigger>
-        <RotateCcwIcon aria-hidden="true" />
-      </SignaturePadClearTrigger>
+      <SignaturePadClearTrigger />
       <SignaturePadGuide />
     </SignaturePadControl>
   );

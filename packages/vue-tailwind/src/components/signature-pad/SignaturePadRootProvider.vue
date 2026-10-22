@@ -17,7 +17,7 @@ const { class: className, value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const resolvedReadOnly = computed(() => value.readOnly ?? false);
+const resolvedReadOnly = computed(() => value.readOnly);
 
 provide(signaturePadReadOnlyKey, resolvedReadOnly);
 </script>

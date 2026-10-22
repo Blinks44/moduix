@@ -23,9 +23,8 @@ defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const field = useFieldContext();
 const resolvedReadOnly = computed(() => readOnly ?? unref(field)?.readOnly);
-const readOnlyContext = computed(() => resolvedReadOnly.value ?? false);
 
-provide(signaturePadReadOnlyKey, readOnlyContext);
+provide(signaturePadReadOnlyKey, resolvedReadOnly);
 </script>
 
 <template>

@@ -57,9 +57,9 @@ function SignaturePadFormInput() {
 
 ## Read-only behavior
 
-`SignaturePadClearTrigger` is disabled when `readOnly` comes from the root, `Field`, or
-`useSignaturePad()`. This prevents data loss while leaving programmatic `clear()` available through
-the Ark state API.
+`SignaturePadClearTrigger` is hidden when `readOnly` comes from the root, `Field`, or
+`useSignaturePad()`, the same way Ark hides it while the pad is empty. Ark itself still clears
+read-only signatures; programmatic `clear()` stays available through the Ark state API.
 
 The moduix hook adds a reactive `readOnly: Accessor<boolean>` property to the native Ark
 accessor; read it as `signaturePad.readOnly()`. `SignaturePadRootProvider` also accepts an
@@ -84,7 +84,3 @@ Ordinary refs and custom-host composition are therefore supported as separate na
 read as `signaturePad().paths`. Ark owns drawing, pointer capture, SVG segment paths, ids, state
 attributes, translations, and callback detail objects. `onDrawEnd(details)` exposes
 `details.getDataUrl('image/png' | 'image/jpeg' | 'image/svg+xml', quality?)`.
-
-## Local changelog
-
-- 2026-10-03: Providers accept unmodified Ark accessors as well as accessors with optional reactive read-only metadata.
