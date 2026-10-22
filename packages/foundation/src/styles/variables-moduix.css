@@ -449,16 +449,7 @@
   --moduix-sidebar-width: initial; /* 100% */
 
   /* SplitButton */
-  --moduix-split-button-separator-color: initial; /* currentColor */
-  --moduix-split-button-separator-inset: initial; /* var(--moduix-spacing-1-5) */
-  --moduix-split-button-separator-offset: initial; /* 0 */
-  --moduix-split-button-separator-opacity: initial; /* 0.16 */
-  --moduix-split-button-separator-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-split-button-trigger-padding-x-lg: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-split-button-trigger-padding-x-md: initial; /* var(--moduix-spacing-3) */
-  --moduix-split-button-trigger-padding-x-sm: initial; /* var(--moduix-spacing-2-5) */
-  --moduix-split-button-trigger-padding-x-xl: initial; /* var(--moduix-spacing-4) */
-  --moduix-split-button-trigger-padding-x-xs: initial; /* var(--moduix-spacing-2) */
+  --moduix-split-button-separator-color: initial; /* color-mix(in srgb, currentColor 16%, transparent) */
 
   /* Splitter */
   --moduix-splitter-bg: initial; /* var(--moduix-color-card) */

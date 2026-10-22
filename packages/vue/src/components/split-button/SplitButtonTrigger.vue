@@ -9,7 +9,7 @@ import { useSplitButtonContext, type SplitButtonSize, type SplitButtonVariant } 
 import styles from './SplitButton.module.css';
 
 defineOptions({ inheritAttrs: false });
-interface Props extends /* @vue-ignore */ Omit<MenuTriggerProps, 'asChild'> {
+export interface Props extends /* @vue-ignore */ Omit<MenuTriggerProps, 'asChild'> {
   class?: HTMLAttributes['class'];
   size?: SplitButtonSize;
   variant?: SplitButtonVariant;
@@ -25,7 +25,6 @@ const context = useSplitButtonContext('SplitButtonTrigger');
     :aria-label="slots.default ? undefined : a11yLabels.moreActions"
     v-bind="attrs"
     as-child
-    data-slot="split-button-trigger"
   >
     <Button
       :size="size ?? context.size()"

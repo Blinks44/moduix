@@ -6,7 +6,7 @@ import OverlayPortal from '@/lib/moduix/overlayPortal/OverlayPortal.vue';
 import styles from '../menu/Menu.module.css';
 
 defineOptions({ inheritAttrs: false });
-interface Props extends /* @vue-ignore */ MenuPositionerProps {
+export interface Props extends /* @vue-ignore */ MenuPositionerProps {
   class?: HTMLAttributes['class'];
 }
 const { class: className } = defineProps<Props>();

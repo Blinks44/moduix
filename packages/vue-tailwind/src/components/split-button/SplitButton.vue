@@ -7,7 +7,7 @@ import { Menu } from '../menu';
 import { SplitButtonContextKey, type SplitButtonSize, type SplitButtonVariant } from './context';
 
 defineOptions({ inheritAttrs: false });
-interface Props extends /* @vue-ignore */ MenuRootProps {
+export interface Props extends /* @vue-ignore */ MenuRootProps {
   ariaLabel?: string;
   ariaLabelledby?: string;
   class?: HTMLAttributes['class'];

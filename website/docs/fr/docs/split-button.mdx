@@ -516,8 +516,9 @@ ci-dessous concernent les variantes CSS Modules. Les attributs de données et le
 aux deux modes de style.
 
 L’apparence de boutons attachés associe les styles partagés de `Button` et `Menu` aux slots propres à SplitButton.
-Le séparateur et le padding horizontal du déclencheur utilisent les variables
-`--moduix-split-button-separator-*` et `--moduix-split-button-trigger-padding-x-*`.
+Les variantes pleines dessinent un séparateur dans le `::before` du déclencheur ; les variantes outline partagent
+la bordure à la place. Utilisez `--moduix-split-button-separator-color` pour changer sa couleur, et une classe sur
+`SplitButtonTrigger` pour modifier son padding horizontal.
 
 ### Propriétés CSS
 

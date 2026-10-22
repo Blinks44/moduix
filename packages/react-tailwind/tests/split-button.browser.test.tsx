@@ -184,22 +184,13 @@ test('keeps component-owned utilities visible and lets consumers replace conflic
 
   const action = screen.getByRole('button', { name: 'Save' });
   const trigger = screen.getByRole('button', { name: 'More actions' });
-  const pressReset = "motion-safe:[&:not([data-variant='link']):active]:[translate:none]";
-  for (const utility of ['inline-flex', 'items-center', 'rounded-md', pressReset]) {
+  for (const utility of ['inline-flex', 'items-center', 'rounded-md']) {
     expect(action.classList.contains(utility)).toBe(true);
   }
   for (const utility of ['rounded-e-none', 'px-4', 'text-sm']) {
     expect(action.classList.contains(utility)).toBe(false);
   }
-  for (const utility of [
-    'relative',
-    'min-w-0',
-    'rounded-s-none',
-    'before:absolute',
-    'before:w-px',
-    pressReset,
-    'px-0',
-  ]) {
+  for (const utility of ['relative', 'rounded-s-none', 'before:absolute', 'before:w-px', 'px-0']) {
     expect(trigger.classList.contains(utility)).toBe(true);
   }
   await expect
@@ -210,4 +201,24 @@ test('keeps component-owned utilities visible and lets consumers replace conflic
     .toHaveCSS('padding-right', '0px');
   expect(trigger?.classList.contains('px-3.5')).toBe(false);
   expect(trigger?.classList.contains('px-5')).toBe(false);
+});
+
+test('draws the separator on filled variants only', () => {
+  render(
+    <div>
+      <SplitButton aria-label="Filled actions">
+        <SplitButtonAction>Save</SplitButtonAction>
+        <SplitButtonTrigger aria-label="Filled trigger" />
+      </SplitButton>
+      <SplitButton aria-label="Outline actions" variant="outline">
+        <SplitButtonAction>Save</SplitButtonAction>
+        <SplitButtonTrigger aria-label="Outline trigger" />
+      </SplitButton>
+    </div>,
+  );
+
+  const separator = (name: string) =>
+    getComputedStyle(screen.getByRole('button', { name }), '::before');
+  expect(separator('Filled trigger').display).toBe('block');
+  expect(separator('Outline trigger').display).toBe('none');
 });

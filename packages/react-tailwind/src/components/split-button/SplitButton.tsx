@@ -21,7 +21,7 @@ type SplitButtonContextValue = {
   variant: SplitButtonVariant;
 };
 
-type SplitButtonProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
+type SplitButtonRootProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
   'aria-label'?: string;
   'aria-labelledby'?: string;
   children?: ReactNode;
@@ -44,7 +44,7 @@ type SplitButtonContentProps = ComponentProps<typeof MenuPrimitive.Content>;
 type SplitButtonPositionerProps = ComponentProps<typeof MenuPrimitive.Positioner>;
 
 const splitButtonTriggerVariants = cva(
-  "relative min-w-0 ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)] rounded-s-none motion-safe:[&:not([data-variant='link']):active]:[translate:none] before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-['']",
+  "relative ms-[calc(var(--moduix-button-border-width,var(--moduix-border-width-sm))*-1)] rounded-s-none before:pointer-events-none before:absolute before:inset-y-1.5 before:start-0 before:w-px before:bg-current before:opacity-[0.16] before:content-[''] data-[variant=destructive-outline]:before:hidden data-[variant=outline]:before:hidden",
   {
     variants: {
       size: {
@@ -54,18 +54,9 @@ const splitButtonTriggerVariants = cva(
         lg: 'px-3.5',
         xl: 'px-4',
       },
-      variant: {
-        default: '',
-        outline: 'before:opacity-0',
-        secondary: '',
-        destructive: '',
-        'destructive-outline': 'before:opacity-0',
-        ghost: '',
-      },
     },
     defaultVariants: {
       size: 'md',
-      variant: 'default',
     },
   },
 );
@@ -82,7 +73,7 @@ function useSplitButtonContext(componentName: string) {
   return context;
 }
 
-const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(function SplitButton(
+const SplitButton = forwardRef<HTMLDivElement, SplitButtonRootProps>(function SplitButton(
   {
     children,
     className,
@@ -124,10 +115,7 @@ const SplitButtonAction = forwardRef<ComponentRef<typeof Button>, SplitButtonAct
         ref={ref}
         size={size ?? context.size}
         variant={variant ?? context.variant}
-        className={cn(
-          "rounded-e-none motion-safe:[&:not([data-variant='link']):active]:[translate:none]",
-          className,
-        )}
+        className={cn('rounded-e-none', className)}
         {...props}
         data-slot="split-button-action"
       />
@@ -144,7 +132,6 @@ const SplitButtonTrigger = forwardRef<
 ) {
   const context = useSplitButtonContext('SplitButtonTrigger');
   const resolvedSize = size ?? context.size;
-  const resolvedVariant = variant ?? context.variant;
   const isIconOnly = children == null;
 
   return (
@@ -152,14 +139,11 @@ const SplitButtonTrigger = forwardRef<
       ref={ref}
       asChild
       aria-label={isIconOnly ? (ariaLabel ?? a11yLabels.moreActions) : ariaLabel}
-      className={cn(
-        splitButtonTriggerVariants({ size: resolvedSize, variant: resolvedVariant }),
-        className,
-      )}
+      className={cn(splitButtonTriggerVariants({ size: resolvedSize }), className)}
       {...props}
       data-slot="split-button-trigger"
     >
-      <Button size={resolvedSize} variant={resolvedVariant}>
+      <Button size={resolvedSize} variant={variant ?? context.variant}>
         {children ?? <ChevronDownIcon />}
       </Button>
     </MenuPrimitive.Trigger>
@@ -205,4 +189,13 @@ export {
   SplitButtonContent,
   SplitButtonPositioner,
   SplitButtonTrigger,
+};
+export type {
+  SplitButtonActionProps,
+  SplitButtonContentProps,
+  SplitButtonPositionerProps,
+  SplitButtonRootProps,
+  SplitButtonSize,
+  SplitButtonTriggerProps,
+  SplitButtonVariant,
 };

@@ -27,7 +27,7 @@ type SplitButtonContextValue = {
   variant: SplitButtonVariant;
 };
 
-type SplitButtonProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
+type SplitButtonRootProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
   'aria-label'?: string;
   'aria-labelledby'?: string;
   children?: ReactNode;
@@ -61,7 +61,7 @@ function useSplitButtonContext(componentName: string) {
   return context;
 }
 
-const SplitButton = forwardRef<HTMLDivElement, SplitButtonProps>(function SplitButton(
+const SplitButton = forwardRef<HTMLDivElement, SplitButtonRootProps>(function SplitButton(
   {
     children,
     className,
@@ -176,4 +176,13 @@ export {
   SplitButtonContent,
   SplitButtonPositioner,
   SplitButtonTrigger,
+};
+export type {
+  SplitButtonActionProps,
+  SplitButtonContentProps,
+  SplitButtonPositionerProps,
+  SplitButtonRootProps,
+  SplitButtonSize,
+  SplitButtonTriggerProps,
+  SplitButtonVariant,
 };

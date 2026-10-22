@@ -509,8 +509,10 @@ Use `className` in React or `class` in Solid and Vue on exported parts for struc
 utilities and consumer classes; the CSS variables below customize the CSS Modules variants. Data attributes and
 `data-slot` hooks are shared by both styling tracks.
 
-The joined appearance comes from the shared `Button` and `Menu` styles plus SplitButton slots. The separator and
-trigger padding use the `--moduix-split-button-separator-*` and `--moduix-split-button-trigger-padding-x-*` variables.
+The joined appearance comes from the shared `Button` and `Menu` styles plus SplitButton slots. Filled variants draw a
+separator on the trigger's `::before`; outline variants share the border instead. Set
+`--moduix-split-button-separator-color` to recolor the separator, and change the trigger padding with a class on
+`SplitButtonTrigger`.
 
 ### CSS Properties
 
