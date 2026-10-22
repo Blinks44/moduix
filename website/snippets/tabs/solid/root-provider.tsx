@@ -1,4 +1,11 @@
-import { TabsContent, TabsList, TabsRootProvider, TabsTrigger, useTabs } from '@moduix/solid/tabs';
+import {
+  TabsContent,
+  TabsIndicator,
+  TabsList,
+  TabsRootProvider,
+  TabsTrigger,
+  useTabs,
+} from '@moduix/solid/tabs';
 import styles from '@/components/examples/tabs/tabs-root-provider.module.css';
 
 const items = [
@@ -31,6 +38,7 @@ export default function RootProviderTabsDemo() {
           {items.map((item) => (
             <TabsTrigger value={item.value}>{item.title}</TabsTrigger>
           ))}
+          <TabsIndicator />
         </TabsList>
 
         {items.map((item) => (

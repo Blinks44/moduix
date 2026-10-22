@@ -1,6 +1,8 @@
+import { LocaleProvider } from '@ark-ui/solid/locale';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
+import type { ComponentProps } from 'solid-js';
 import {
   Tabs,
   TabsContext,
@@ -129,7 +131,7 @@ test('uses vertical keyboard navigation and mounts inactive content lazily', asy
   const overview = screen.getByRole('tab', { name: 'Overview' });
 
   await expect.element(page.getByText('Projects content')).toHaveCount(0);
-  expect(overview.closest('[data-slot="tabs-root"]')!.getAttribute('data-variant')).toBe('default');
+  expect(overview.closest('[data-slot="tabs-root"]')!.getAttribute('data-variant')).toBe('line');
 
   await page.getByRole('tab', { name: 'Overview', exact: true }).click();
   await page.getByRole('tab', { name: 'Overview', exact: true }).press('ArrowDown');
@@ -199,7 +201,7 @@ test('preserves provider and context composition', async () => {
   await expect.element(page.getByTestId('tabs-context-render-prop')).toContainText('projects');
 });
 
-test('keeps line variant off vertical provider roots', () => {
+test('mirrors the variant on vertical provider roots', () => {
   render(() => <ProviderTabs orientation="vertical" variant="line" />);
 
   const provider = screen
@@ -208,31 +210,146 @@ test('keeps line variant off vertical provider roots', () => {
 
   expect(provider!.getAttribute('data-slot')).toBe('tabs-root-provider');
   expect(provider!.getAttribute('data-orientation')).toBe('vertical');
-  expect(provider!.getAttribute('data-variant')).toBe('default');
+  expect(provider!.getAttribute('data-variant')).toBe('line');
+});
+function expectSameBox(actual: Element, expected: Element) {
+  const a = actual.getBoundingClientRect();
+  const e = expected.getBoundingClientRect();
+  expect(Math.abs(a.left - e.left)).toBeLessThanOrEqual(1);
+  expect(Math.abs(a.top - e.top)).toBeLessThanOrEqual(1);
+  expect(Math.abs(a.width - e.width)).toBeLessThanOrEqual(1);
+  expect(Math.abs(a.height - e.height)).toBeLessThanOrEqual(1);
+}
+
+function IndicatorTabs(props: ComponentProps<typeof Tabs>) {
+  return (
+    <Tabs defaultValue="projects" {...props}>
+      <TabsList>
+        <TabsTrigger value="overview">Overview</TabsTrigger>
+        <TabsTrigger value="projects" style={{ height: '48px' }}>
+          Projects
+        </TabsTrigger>
+        <TabsIndicator />
+      </TabsList>
+    </Tabs>
+  );
+}
+
+function getIndicatorParts(root: Element) {
+  return {
+    indicator: root.querySelector('[data-slot="tabs-indicator"]')!,
+    list: root.querySelector('[data-slot="tabs-list"]')!,
+    trigger: root.querySelector('[data-slot="tabs-trigger"][data-selected]')!,
+  };
+}
+
+test('covers the selected trigger box with the indicator in both orientations', async () => {
+  const { container } = render(() => (
+    <>
+      <IndicatorTabs />
+      <IndicatorTabs orientation="vertical" />
+    </>
+  ));
+
+  for (const root of container.querySelectorAll('[data-slot="tabs-root"]')) {
+    const { indicator, trigger } = getIndicatorParts(root);
+    await expect.poll(() => indicator.getBoundingClientRect().height).toBe(48);
+    expectSameBox(indicator, trigger);
+  }
 });
 
-test('keeps owned data-variant above consumer overrides on vertical roots', () => {
-  function VerticalOverrideTabs() {
-    const tabs = useTabs({ defaultValue: 'overview', orientation: 'vertical' });
+test('draws the line indicator on the list edge in both orientations and RTL', async () => {
+  const { container } = render(() => (
+    <>
+      <IndicatorTabs variant="line" />
+      <IndicatorTabs orientation="vertical" variant="line" />
+      <LocaleProvider locale="ar">
+        <IndicatorTabs orientation="vertical" variant="line" />
+      </LocaleProvider>
+    </>
+  ));
 
-    return (
-      <>
-        <Tabs data-variant="line" defaultValue="overview" orientation="vertical">
+  const [horizontal, vertical, rtl] = [
+    ...container.querySelectorAll('[data-slot="tabs-root"]'),
+  ].map(getIndicatorParts);
+
+  await expect.poll(() => horizontal!.indicator.getBoundingClientRect().width).toBeGreaterThan(0);
+  const h = horizontal!.indicator.getBoundingClientRect();
+  expect(h.height).toBe(2);
+  expect(h.left).toBeCloseTo(horizontal!.trigger.getBoundingClientRect().left, 0);
+  expect(h.bottom).toBeCloseTo(horizontal!.list.getBoundingClientRect().bottom - 1, 0);
+
+  for (const [parts, edge] of [
+    [vertical!, 'right'],
+    [rtl!, 'left'],
+  ] as const) {
+    await expect.poll(() => parts.indicator.getBoundingClientRect().height).toBe(48);
+    const rect = parts.indicator.getBoundingClientRect();
+    const list = parts.list.getBoundingClientRect();
+    expect(rect.width).toBe(2);
+    expect(rect.top).toBeCloseTo(parts.trigger.getBoundingClientRect().top, 0);
+    expect(rect[edge]).toBeCloseTo(edge === 'right' ? list.right - 1 : list.left + 1, 0);
+  }
+});
+
+test('keeps the content radius while the panel shows its focus ring', async () => {
+  render(() => (
+    <Tabs defaultValue="overview">
+      <TabParts />
+    </Tabs>
+  ));
+
+  const content = document.querySelector('[data-slot="tabs-content"]:not([hidden])')!;
+  const radius = getComputedStyle(content).borderTopLeftRadius;
+  const trigger = page.getByRole('tab', { name: 'Overview', exact: true });
+  await trigger.click();
+  await trigger.press('Tab');
+
+  await expect.element(page.getByText('Overview content')).toBeFocused();
+  expect(getComputedStyle(content).outlineStyle).toBe('solid');
+  expect(getComputedStyle(content).borderTopLeftRadius).toBe(radius);
+  expect(radius).not.toBe('0px');
+});
+
+test('sizes the tab list to the matching control height', () => {
+  const { container } = render(() => (
+    <>
+      {(['sm', 'md', 'lg'] as const).map((size) => (
+        <Tabs defaultValue="overview" size={size}>
           <TabParts />
         </Tabs>
-        <TabsRootProvider data-variant="line" value={tabs}>
-          <TabParts />
-        </TabsRootProvider>
-      </>
-    );
+      ))}
+    </>
+  ));
+
+  const heights = [...container.querySelectorAll<HTMLElement>('[data-slot="tabs-list"]')].map(
+    (list) => list.offsetHeight,
+  );
+  expect(heights).toEqual([32, 36, 40]);
+});
+
+test('stretches horizontal triggers across the root when fitted', () => {
+  const { container } = render(() => (
+    <>
+      <Tabs defaultValue="overview" fitted style={{ width: '480px' }}>
+        <TabParts />
+      </Tabs>
+      <Tabs defaultValue="overview" fitted orientation="vertical" style={{ width: '480px' }}>
+        <TabParts />
+      </Tabs>
+    </>
+  ));
+
+  const [horizontal, vertical] = container.querySelectorAll<HTMLElement>('[data-slot="tabs-root"]');
+  const list = horizontal!.querySelector<HTMLElement>('[data-slot="tabs-list"]')!;
+  const widths = [...list.querySelectorAll<HTMLElement>('[data-slot="tabs-trigger"]')].map(
+    (trigger) => trigger.offsetWidth,
+  );
+
+  expect(horizontal!.hasAttribute('data-fitted')).toBe(true);
+  expect(list.offsetWidth).toBe(480);
+  expect(Math.max(...widths) - Math.min(...widths)).toBeLessThanOrEqual(1);
+  for (const trigger of vertical!.querySelectorAll<HTMLElement>('[data-slot="tabs-trigger"]')) {
+    expect(trigger.offsetHeight).toBe(26);
   }
-
-  render(() => <VerticalOverrideTabs />);
-
-  const [root, provider] = screen.getAllByRole('tablist').map((tablist) => tablist.parentElement);
-
-  expect(root!.getAttribute('data-orientation')).toBe('vertical');
-  expect(root!.getAttribute('data-variant')).toBe('default');
-  expect(provider!.getAttribute('data-orientation')).toBe('vertical');
-  expect(provider!.getAttribute('data-variant')).toBe('default');
 });

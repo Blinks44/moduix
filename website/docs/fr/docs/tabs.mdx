@@ -9,32 +9,38 @@ import TabsBasic from '@/components/examples/tabs/basic.tsx';
 import TabsControlledValue from '@/components/examples/tabs/controlled-value.tsx';
 import TabsCustomIcons from '@/components/examples/tabs/custom-icons.tsx';
 import TabsDisabledTab from '@/components/examples/tabs/disabled-tab.tsx';
+import TabsFitted from '@/components/examples/tabs/fitted.tsx';
 import TabsLazyMount from '@/components/examples/tabs/lazy-mount.tsx';
 import TabsLine from '@/components/examples/tabs/line.tsx';
 import TabsLinks from '@/components/examples/tabs/links.tsx';
 import TabsManualActivation from '@/components/examples/tabs/manual-activation.tsx';
 import TabsRootProvider from '@/components/examples/tabs/root-provider.tsx';
+import TabsSizes from '@/components/examples/tabs/sizes.tsx';
 import TabsVertical from '@/components/examples/tabs/vertical.tsx';
 import tabsPreviewStyles from '@/components/examples/tabs/tabs-preview.module.css';
 import tabsSolidBasic from '../../../snippets/tabs/solid/basic.tsx?raw';
 import tabsSolidControlledValue from '../../../snippets/tabs/solid/controlled-value.tsx?raw';
 import tabsSolidCustomIcons from '../../../snippets/tabs/solid/custom-icons.tsx?raw';
 import tabsSolidDisabledTab from '../../../snippets/tabs/solid/disabled-tab.tsx?raw';
+import tabsSolidFitted from '../../../snippets/tabs/solid/fitted.tsx?raw';
 import tabsSolidLazyMount from '../../../snippets/tabs/solid/lazy-mount.tsx?raw';
 import tabsSolidLine from '../../../snippets/tabs/solid/line.tsx?raw';
 import tabsSolidLinks from '../../../snippets/tabs/solid/links.tsx?raw';
 import tabsSolidManualActivation from '../../../snippets/tabs/solid/manual-activation.tsx?raw';
 import tabsSolidRootProvider from '../../../snippets/tabs/solid/root-provider.tsx?raw';
+import tabsSolidSizes from '../../../snippets/tabs/solid/sizes.tsx?raw';
 import tabsSolidVertical from '../../../snippets/tabs/solid/vertical.tsx?raw';
 import tabsVueBasic from '../../../snippets/tabs/vue/basic.vue?raw';
 import tabsVueControlledValue from '../../../snippets/tabs/vue/controlled-value.vue?raw';
 import tabsVueCustomIcons from '../../../snippets/tabs/vue/custom-icons.vue?raw';
 import tabsVueDisabledTab from '../../../snippets/tabs/vue/disabled-tab.vue?raw';
+import tabsVueFitted from '../../../snippets/tabs/vue/fitted.vue?raw';
 import tabsVueLazyMount from '../../../snippets/tabs/vue/lazy-mount.vue?raw';
 import tabsVueLine from '../../../snippets/tabs/vue/line.vue?raw';
 import tabsVueLinks from '../../../snippets/tabs/vue/links.vue?raw';
 import tabsVueManualActivation from '../../../snippets/tabs/vue/manual-activation.vue?raw';
 import tabsVueRootProvider from '../../../snippets/tabs/vue/root-provider.vue?raw';
+import tabsVueSizes from '../../../snippets/tabs/vue/sizes.vue?raw';
 import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 
 ## Référence de l’API
@@ -303,6 +309,51 @@ Désactivez un onglet qui doit rester visible, mais qui n’est pas encore dispo
 
 </ExampleCode>
 
+### Onglets étirés
+
+Ajoutez `fitted` à `Tabs` ou `TabsRootProvider` pour étirer une liste d’onglets horizontale sur toute
+la largeur de la racine et la répartir également entre les déclencheurs. Les onglets verticaux
+l’ignorent.
+
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsFitted />
+  </div>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/fitted.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidFitted} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueFitted} />
+
+    </Tab>
+  </Tabs>
+
+</div>
+
+</ExampleCode>
+
 ### Montage différé
 
 Utilisez `lazyMount` lorsque les panneaux inactifs ne doivent être montés qu’après leur sélection.
@@ -349,7 +400,8 @@ Ajoutez `unmountOnExit` pour les retirer à nouveau du DOM lorsque l’utilisate
 ### Variante ligne
 
 Utilisez `variant="line"` lorsque l’indicateur doit se placer sur le bord actif au lieu de remplir
-l’onglet sélectionné. Ce traitement est disponible pour les onglets horizontaux.
+l’onglet sélectionné. Les onglets horizontaux tracent la ligne sous la liste, les onglets verticaux
+sur le bord de la liste côté panneau.
 
 <ExampleFrame variant="component">
   <div className={tabsPreviewStyles.root}>
@@ -475,11 +527,59 @@ l’onglet sélectionné. Activez-le avec un clic, Entrée ou Espace.
 
 </ExampleCode>
 
+### Tailles
+
+Définissez `size` sur `Tabs` ou `TabsRootProvider` : `sm`, `md` (par défaut) ou `lg`. La liste
+d’onglets a alors la hauteur d’un `Button` ou d’un `Input` de même taille, comme `SegmentGroup`.
+
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsSizes />
+  </div>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tabs/tabs-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
+
 ### Vertical
 
 Utilisez `orientation="vertical"` lorsque la liste des onglets doit se trouver à côté du panneau
-actif. Les onglets verticaux utilisent l’indicateur plein, ce qui rend l’élément sélectionné facile
-à repérer.
+actif. La liste occupe jusqu’à `12rem`, et au plus 40 % de la largeur de la racine dans un conteneur
+étroit.
 
 <ExampleFrame variant="component">
   <div className={tabsPreviewStyles.root}>
@@ -596,7 +696,8 @@ Ciblez la partie qui porte la responsabilité visuelle concernée :
 - `Tabs` pour la largeur, l’espacement général, l’orientation et les remplacements liés à la variante
 - `TabsList` pour le fond, les bordures, l’habillage de la liste et l’espacement autour de l’indicateur
 - `TabsTrigger` pour la disposition du libellé, l’espacement de l’icône, les états sélectionné et désactivé, et le focus
-- `TabsIndicator` pour la couleur, la taille et les transitions de l’indicateur
+- `TabsIndicator` pour la couleur, la taille et les transitions de l’indicateur ; définissez-y les
+  variables Ark `--transition-duration` et `--transition-timing-function` pour modifier le mouvement
 - `TabsContent` pour la surface, les marges internes et le focus du panneau
 
 Les principaux points d’accroche publics sont `data-slot="tabs-root"`,

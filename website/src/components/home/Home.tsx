@@ -231,7 +231,7 @@ function HomeShowcase() {
           <TabsList className={styles.nestedTabsList}>
             <TabsTrigger value="actions">{t('homeShowcaseActions')}</TabsTrigger>
             <TabsTrigger value="status">{t('homeShowcaseStatus')}</TabsTrigger>
-            <TabsIndicator />
+            <TabsIndicator className={styles.nestedIndicator} />
           </TabsList>
 
           <TabsContent value="actions" className={styles.nestedPanel}>

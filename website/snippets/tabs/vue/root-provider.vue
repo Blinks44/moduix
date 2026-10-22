@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { TabsContent, TabsList, TabsRootProvider, TabsTrigger, useTabs } from '@moduix/vue/tabs';
+import {
+  TabsContent,
+  TabsIndicator,
+  TabsList,
+  TabsRootProvider,
+  TabsTrigger,
+  useTabs,
+} from '@moduix/vue/tabs';
 import styles from '@/components/examples/tabs/tabs-root-provider.module.css';
 
 const items = [
@@ -32,6 +39,7 @@ const tabs = useTabs({ defaultValue: 'overview' });
         <TabsTrigger v-for="item in items" :key="item.value" :value="item.value">
           {{ item.title }}
         </TabsTrigger>
+        <TabsIndicator />
       </TabsList>
       <TabsContent v-for="item in items" :key="item.value" :value="item.value">
         {{ item.content }}

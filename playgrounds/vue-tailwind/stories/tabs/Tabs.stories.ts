@@ -216,7 +216,7 @@ export const CustomStyling: Story = {
       <TabsList class="shrink-0 rounded-none border-0 bg-transparent p-0">
         <TabsTrigger value="name" class="rounded-sm">Name</TabsTrigger>
         <TabsTrigger value="email" class="rounded-sm">Email</TabsTrigger>
-        <TabsIndicator class="top-auto bottom-0 h-0.5 [translate:none] rounded-full bg-foreground" />
+        <TabsIndicator class="top-auto bottom-0 h-0.5 rounded-full bg-foreground shadow-none" />
       </TabsList>
       <TabsContent value="name" class="min-w-0 flex-1 border-0 bg-transparent p-0"><input class="box-border h-9 w-full rounded-sm border border-border bg-background px-2 text-sm text-foreground" placeholder="Full name" aria-label="Full name" /></TabsContent>
       <TabsContent value="email" class="min-w-0 flex-1 border-0 bg-transparent p-0"><input class="box-border h-9 w-full rounded-sm border border-border bg-background px-2 text-sm text-foreground" placeholder="Email" aria-label="Email" /></TabsContent>

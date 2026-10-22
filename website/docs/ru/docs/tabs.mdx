@@ -9,32 +9,38 @@ import TabsBasic from '@/components/examples/tabs/basic.tsx';
 import TabsControlledValue from '@/components/examples/tabs/controlled-value.tsx';
 import TabsCustomIcons from '@/components/examples/tabs/custom-icons.tsx';
 import TabsDisabledTab from '@/components/examples/tabs/disabled-tab.tsx';
+import TabsFitted from '@/components/examples/tabs/fitted.tsx';
 import TabsLazyMount from '@/components/examples/tabs/lazy-mount.tsx';
 import TabsLine from '@/components/examples/tabs/line.tsx';
 import TabsLinks from '@/components/examples/tabs/links.tsx';
 import TabsManualActivation from '@/components/examples/tabs/manual-activation.tsx';
 import TabsRootProvider from '@/components/examples/tabs/root-provider.tsx';
+import TabsSizes from '@/components/examples/tabs/sizes.tsx';
 import TabsVertical from '@/components/examples/tabs/vertical.tsx';
 import tabsPreviewStyles from '@/components/examples/tabs/tabs-preview.module.css';
 import tabsSolidBasic from '../../../snippets/tabs/solid/basic.tsx?raw';
 import tabsSolidControlledValue from '../../../snippets/tabs/solid/controlled-value.tsx?raw';
 import tabsSolidCustomIcons from '../../../snippets/tabs/solid/custom-icons.tsx?raw';
 import tabsSolidDisabledTab from '../../../snippets/tabs/solid/disabled-tab.tsx?raw';
+import tabsSolidFitted from '../../../snippets/tabs/solid/fitted.tsx?raw';
 import tabsSolidLazyMount from '../../../snippets/tabs/solid/lazy-mount.tsx?raw';
 import tabsSolidLine from '../../../snippets/tabs/solid/line.tsx?raw';
 import tabsSolidLinks from '../../../snippets/tabs/solid/links.tsx?raw';
 import tabsSolidManualActivation from '../../../snippets/tabs/solid/manual-activation.tsx?raw';
 import tabsSolidRootProvider from '../../../snippets/tabs/solid/root-provider.tsx?raw';
+import tabsSolidSizes from '../../../snippets/tabs/solid/sizes.tsx?raw';
 import tabsSolidVertical from '../../../snippets/tabs/solid/vertical.tsx?raw';
 import tabsVueBasic from '../../../snippets/tabs/vue/basic.vue?raw';
 import tabsVueControlledValue from '../../../snippets/tabs/vue/controlled-value.vue?raw';
 import tabsVueCustomIcons from '../../../snippets/tabs/vue/custom-icons.vue?raw';
 import tabsVueDisabledTab from '../../../snippets/tabs/vue/disabled-tab.vue?raw';
+import tabsVueFitted from '../../../snippets/tabs/vue/fitted.vue?raw';
 import tabsVueLazyMount from '../../../snippets/tabs/vue/lazy-mount.vue?raw';
 import tabsVueLine from '../../../snippets/tabs/vue/line.vue?raw';
 import tabsVueLinks from '../../../snippets/tabs/vue/links.vue?raw';
 import tabsVueManualActivation from '../../../snippets/tabs/vue/manual-activation.vue?raw';
 import tabsVueRootProvider from '../../../snippets/tabs/vue/root-provider.vue?raw';
+import tabsVueSizes from '../../../snippets/tabs/vue/sizes.vue?raw';
 import tabsVueVertical from '../../../snippets/tabs/vue/vertical.vue?raw';
 
 ## Справочник API
@@ -302,6 +308,50 @@ TabsContext
 
 </ExampleCode>
 
+### Растянутые вкладки
+
+Передайте `fitted` в `Tabs` или `TabsRootProvider`, чтобы горизонтальный список вкладок занял всю
+ширину корня и поделил её поровну между триггерами. Вертикальные вкладки его игнорируют.
+
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsFitted />
+  </div>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/fitted.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidFitted} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueFitted} />
+
+    </Tab>
+  </Tabs>
+
+</div>
+
+</ExampleCode>
+
 ### Ленивое монтирование
 
 Используйте `lazyMount`, если неактивные панели не должны монтироваться до выбора. Добавьте
@@ -348,7 +398,8 @@ TabsContext
 ### Вариант с линией
 
 Используйте `variant="line"`, если индикатор должен располагаться на активном краю, а не заполнять
-выбранную вкладку. Этот вариант доступен для горизонтальных вкладок.
+выбранную вкладку. У горизонтальных вкладок линия идёт под списком, у вертикальных по его краю
+со стороны панели.
 
 <ExampleFrame variant="component">
   <div className={tabsPreviewStyles.root}>
@@ -474,11 +525,58 @@ TabsContext
 
 </ExampleCode>
 
+### Размеры
+
+Задайте `size` у `Tabs` или `TabsRootProvider`: `sm`, `md` (по умолчанию) или `lg`. Тогда список
+вкладок получает высоту `Button` или `Input` того же размера, как `SegmentGroup`.
+
+<ExampleFrame variant="component">
+  <div className={tabsPreviewStyles.root}>
+    <TabsSizes />
+  </div>
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/tabs/sizes.tsx"
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={tabsSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={tabsVueSizes} />
+
+    </Tab>
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/tabs/tabs-sizes.module.css"
+```
+</div>
+
+</ExampleCode>
+
 ### Вертикальная ориентация
 
 Используйте `orientation="vertical"`, если список вкладок должен располагаться рядом с активной
-панелью. В вертикальном варианте используется заполненный индикатор, поэтому выбранный элемент
-легко заметить.
+панелью. Список занимает до `12rem`, а в узком контейнере не больше 40% ширины корня.
 
 <ExampleFrame variant="component">
   <div className={tabsPreviewStyles.root}>
@@ -594,7 +692,8 @@ TabsContext
 - `Tabs` для ширины, общего расстояния, ориентации и переопределений на уровне варианта
 - `TabsList` для фона, границ, оформления списка и расстояния вокруг индикатора
 - `TabsTrigger` для раскладки подписи, расстояния до значка, выбранного и отключённого состояний, а также фокуса
-- `TabsIndicator` для цвета, размера и переходов индикатора
+- `TabsIndicator` для цвета, размера и переходов индикатора; задайте на нём Ark-переменные
+  `--transition-duration` и `--transition-timing-function`, чтобы изменить движение
 - `TabsContent` для поверхности панели, внутренних отступов и стилей фокуса
 
 Основные публичные хуки: `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,

@@ -8,17 +8,19 @@ import styles from './Tabs.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type TabsVariant = 'default' | 'line';
+export type TabsVariant = 'default' | 'line';
+export type TabsSize = 'sm' | 'md' | 'lg';
 
 export interface Props extends /* @vue-ignore */ TabsRootProps {
   class?: HTMLAttributes['class'];
-  orientation?: TabsRootProps['orientation'];
   variant?: TabsVariant;
+  size?: TabsSize;
+  fitted?: boolean;
 }
 
 export interface Emits extends /* @vue-ignore */ TabsRootEmits {}
 
-const { class: className, orientation, variant = 'default' } = defineProps<Props>();
+const { class: className, variant = 'default', size = 'md', fitted } = defineProps<Props>();
 defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
@@ -29,8 +31,9 @@ const attrs = useAttrs();
   <ArkTabsRoot
     v-bind="attrs"
     :class="clsx(styles.root, className)"
-    :orientation="orientation"
-    :data-variant="orientation === 'vertical' ? 'default' : variant"
+    :data-variant="variant"
+    :data-size="size"
+    :data-fitted="fitted ? '' : undefined"
     data-slot="tabs-root"
   >
     <slot />

@@ -325,7 +325,7 @@ export const CustomStyling: Story = {
         <TabsTrigger value="email" class="rounded-sm">
           Email
         </TabsTrigger>
-        <TabsIndicator class="top-auto bottom-0 h-0.5 [translate:none] rounded-full bg-foreground" />
+        <TabsIndicator class="top-auto bottom-0 h-0.5 rounded-full bg-foreground shadow-none" />
       </TabsList>
       <TabsContent value="name" class="min-w-0 flex-1 border-0 bg-transparent p-0">
         <input
