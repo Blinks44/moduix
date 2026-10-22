@@ -154,6 +154,7 @@ const SidebarResizeTrigger = forwardRef<
 
   return (
     <SplitterPrimitive.ResizeTrigger
+      type={asChild ? undefined : 'button'}
       {...props}
       ref={ref}
       asChild={asChild}

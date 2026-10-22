@@ -149,6 +149,7 @@ function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
 
   return (
     <SplitterPrimitive.ResizeTrigger
+      type={local.asChild ? undefined : 'button'}
       {...others}
       asChild={local.asChild}
       id={config.side() === 'left' ? `${config.panelId()}:content` : `content:${config.panelId()}`}

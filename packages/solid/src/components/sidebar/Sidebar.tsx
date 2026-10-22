@@ -74,10 +74,10 @@ function Sidebar(props: SidebarRootProps) {
         class={clsx(splitterStyles.root, styles.root, local.class)}
         style={
           typeof local.style === 'string'
-            ? `width:var(--moduix-splitter-width, 100%);height:var(--moduix-splitter-height, 28rem);${local.style}`
+            ? `width:var(--moduix-sidebar-width, 100%);height:var(--moduix-sidebar-height, 100dvh);${local.style}`
             : {
-                width: 'var(--moduix-splitter-width, 100%)',
-                height: 'var(--moduix-splitter-height, 28rem)',
+                width: 'var(--moduix-sidebar-width, 100%)',
+                height: 'var(--moduix-sidebar-height, 100dvh)',
                 ...local.style,
               }
         }
@@ -140,6 +140,7 @@ function SidebarResizeTrigger(props: SidebarResizeTriggerProps) {
 
   return (
     <SplitterPrimitive.ResizeTrigger
+      type={local.asChild ? undefined : 'button'}
       {...others}
       asChild={local.asChild}
       id={config.side() === 'left' ? `${config.panelId()}:content` : `content:${config.panelId()}`}

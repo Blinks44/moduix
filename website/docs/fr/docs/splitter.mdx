@@ -490,7 +490,7 @@ empilés disposent de l'espace nécessaire pour être redimensionnés.
 
 ## Accessibilité
 
-`SplitterResizeTrigger` génère un bouton et prend en charge le redimensionnement à la souris et au clavier,
+`SplitterResizeTrigger` génère un bouton `type="button"`, qui n'envoie donc jamais le formulaire englobant, et prend en charge le redimensionnement à la souris et au clavier,
 conformément au modèle WAI-ARIA Window Splitter. Donnez à chaque poignée un nom accessible, par exemple
 avec `aria-label="Resize panels"`, lorsque l'indicateur visuel n'a pas de libellé. Avec `asChild`,
 l'élément hôte personnalisé doit conserver la sémantique d'un bouton, le focus et les interactions au
@@ -501,16 +501,19 @@ Ark expose l'état avec des attributs tels que `data-orientation`, `data-draggin
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles structurels.
-Les variantes Tailwind utilisent des utilitaires natifs et les classes du consommateur ; la variante
-CSS Modules expose les variables du composant ci-dessous. Les attributs d'état et les points d'accroche
-`data-slot` sont communs aux deux modes de style.
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour modifier leurs
+styles. Une classe change aussi la taille de la racine : moduix retire les `width` et `height` inline
+d'Ark, et la racine remplit par défaut son conteneur (`width: 100%` et `height: 100%`, comme Ark). Donnez
+une hauteur à la racine si son parent n'en a pas.
+
+Ark applique `overflow: hidden` inline à chaque panneau pour que le contenu ne modifie pas les tailles.
+Placez un contenu long dans un conteneur défilant à l'intérieur du panneau, par exemple `ScrollArea`.
 
 La poignée réserve un séparateur de `1px` dans la mise en page et dessine par-dessus une ligne de
 `0.5px`. Sa zone de clic transparente facilite la manipulation, et l'indicateur arrondi se place sur
-la ligne. Les états de survol et de glissement renforcent la ligne, la bordure et l'ombre. Remplacez
-les variables `--moduix-splitter-resize-trigger-*` correspondantes si votre thème nécessite un autre
-rendu.
+la ligne. Au survol et pendant le glissement, la ligne et la bordure de l'indicateur foncent et
+l'ombre de l'indicateur s'accentue. La ligne et la zone de clic sont des pseudo-éléments : les
+variantes CSS Modules les exposent avec les variables ci-dessous.
 
 ### Propriétés CSS
 

@@ -92,8 +92,9 @@ Every part except `SidebarTooltip`, `SidebarInput`, and `SidebarSeparator` has a
 - Public variables: `--moduix-sidebar-width` and `--moduix-sidebar-height` (Ark sets inline
   `width/height`, so a class cannot change them) and `--moduix-sidebar-trigger-offset-y`. Everything
   else is a class on the part.
-- The root customizes the shared Splitter styles through `--moduix-splitter-*` (no radius or shadow,
-  no panel padding, sidebar border color, `0.75rem` resize hit area).
+- The root overrides the shared Splitter styles with its own rules (no radius or shadow, no panel
+  padding, sidebar border color) and sets `--moduix-splitter-resize-trigger-line-color` and
+  `--moduix-splitter-resize-trigger-size` (`0.75rem` hit area).
 - Collapsed rail: header, footer, and group padding shrink, labels become visually hidden, sub lists,
   inputs, and group actions are hidden, navigation buttons become centered `size-md` squares that
   keep their active and hover backgrounds.

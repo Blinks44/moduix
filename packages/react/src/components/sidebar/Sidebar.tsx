@@ -72,8 +72,8 @@ const Sidebar = forwardRef<ComponentRef<typeof SplitterPrimitive.Root>, SidebarR
           data-slot="sidebar-root"
           className={clsx(splitterStyles.root, styles.root, className)}
           style={{
-            width: 'var(--moduix-splitter-width, 100%)',
-            height: 'var(--moduix-splitter-height, 28rem)',
+            width: 'var(--moduix-sidebar-width, 100%)',
+            height: 'var(--moduix-sidebar-height, 100dvh)',
             ...style,
           }}
         />
@@ -145,6 +145,7 @@ const SidebarResizeTrigger = forwardRef<
 
   return (
     <SplitterPrimitive.ResizeTrigger
+      type={asChild ? undefined : 'button'}
       {...props}
       ref={ref}
       asChild={asChild}

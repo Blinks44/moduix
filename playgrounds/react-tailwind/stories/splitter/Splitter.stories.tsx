@@ -198,7 +198,6 @@ export const Nested: Story = {
             size={verticalSize}
             registry={registry}
             onResize={({ size }) => setVerticalSize(size)}
-            className="h-full w-full"
           >
             <SplitterPanel id="top" className={panelClassName}>
               Top

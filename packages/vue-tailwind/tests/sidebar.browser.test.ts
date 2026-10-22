@@ -117,6 +117,7 @@ test('keeps the default panel, inset, and resize ids aligned', async () => {
   expect(resize.id).toMatch(/:splitter:navigation:content$/);
   expect(resize?.getAttribute('aria-controls')).toBe(panel.id + ' ' + inset.id);
   expect(resize?.getAttribute('aria-label')).toBe('Resize sidebar');
+  expect(resize?.getAttribute('type')).toBe('button');
   await expect
     .element(page.getByRole('button', { name: 'Toggle sidebar' }))
     .toHaveAttribute('aria-expanded', 'true');

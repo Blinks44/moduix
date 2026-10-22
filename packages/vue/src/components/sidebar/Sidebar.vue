@@ -17,8 +17,8 @@ import styles from './Sidebar.module.css';
 type SidebarSizes = (number | string)[];
 
 const rootStyle = {
-  width: 'var(--moduix-splitter-width, 100%)',
-  height: 'var(--moduix-splitter-height, 28rem)',
+  width: 'var(--moduix-sidebar-width, 100%)',
+  height: 'var(--moduix-sidebar-height, 100dvh)',
 };
 
 function getPanels(side: SidebarSide, panelId: string): SplitterPanelData[] {

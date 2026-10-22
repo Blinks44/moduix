@@ -6,7 +6,7 @@
 }
 
 .root {
-  --moduix-splitter-height: 28rem;
+  height: 28rem;
 }
 
 .panel {

@@ -10,19 +10,12 @@ import type { ComponentProps, JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
 import styles from './Splitter.module.css';
 
-const rootStyle = {
-  width: 'var(--moduix-splitter-width, 100%)',
-  height: 'var(--moduix-splitter-height, 28rem)',
-} satisfies JSX.CSSProperties;
-
-type SplitterRootStyle = ComponentProps<typeof SplitterPrimitive.Root>['style'];
-
-function getRootStyle(style: SplitterRootStyle): JSX.CSSProperties | string {
+function getRootStyle(style: ComponentProps<typeof SplitterPrimitive.Root>['style']) {
   if (typeof style === 'string') {
-    return `width:${rootStyle.width};height:${rootStyle.height};${style}`;
+    return `width:;height:;${style}`;
   }
 
-  return { ...rootStyle, ...style };
+  return { width: undefined, height: undefined, ...style } satisfies JSX.CSSProperties;
 }
 
 function Splitter(props: ComponentProps<typeof SplitterPrimitive.Root>) {
@@ -83,6 +76,7 @@ function SplitterResizeTrigger(props: ComponentProps<typeof SplitterPrimitive.Re
   return (
     <SplitterPrimitive.ResizeTrigger
       asChild={local.asChild}
+      type={local.asChild ? undefined : 'button'}
       class={clsx(styles.resizeTrigger, local.class)}
       {...others}
       data-slot="splitter-resize-trigger"
