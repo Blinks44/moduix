@@ -38,10 +38,10 @@ The wrapper follows Ark UI React `@ark-ui/react/toggle-group`.
 - Those styling hooks are wrapper-owned and cannot be replaced through HTML `data-*` props.
 - Items inherit the root/root-provider `variant` and `size` through a small local visual context.
   That context must not own selection, focus, disabled state, callbacks, ids, or ARIA behavior.
-- Compound members, duplicate root aliases, legacy `render` and `nativeButton` props, and raw-array
-  `onValueChange` callbacks are not part of this Ark-backed API.
 - `ToggleGroupRootProps`, `ToggleGroupRootProviderProps`, `ToggleGroupItemProps`, `ToggleVariant`, and
-  `ToggleSize` are exported for typed composition.
+  `ToggleSize` are exported for typed composition, together with the Ark types
+  `ToggleGroupContextProps`, `ToggleGroupValueChangeDetails`, `UseToggleGroupContext`,
+  `UseToggleGroupProps`, and `UseToggleGroupReturn`.
 
 ## Anatomy and exported parts
 
@@ -167,42 +167,34 @@ export function RootProviderToggleGroupDemo() {
   `className`.
 - Root and root provider cap their inline size to their container and use horizontal overflow for
   long groups.
-- Root/root-provider write `data-slot="toggle-group-root"` or
-  `data-slot="toggle-group-root-provider"`.
-- Item writes `data-slot="toggle-group-item"`.
-- `data-variant` and `data-size` are moduix visual hooks.
 - A root/root-provider `variant` and `size` flows to every item unless that item declares its own
   value.
-- Root CSS variables:
-  - `--moduix-toggle-group-bg`
-  - `--moduix-toggle-group-border-color`
-  - `--moduix-toggle-group-border-width`
-  - `--moduix-toggle-group-color`
-  - `--moduix-toggle-group-gap`
-  - `--moduix-toggle-group-ghost-bg`
-  - `--moduix-toggle-group-ghost-border-color`
-  - `--moduix-toggle-group-ghost-padding`
-  - `--moduix-toggle-group-item-radius`
-  - `--moduix-toggle-group-outline-bg`
-  - `--moduix-toggle-group-padding`
-  - `--moduix-toggle-group-radius`
-- Item also supports the public `--moduix-toggle-*` variables from `Toggle`.
-- Group-level overrides take priority across `default`, `outline`, and `ghost`; variant-specific
-  group variables provide the fallback for their corresponding treatment.
-- Set `--moduix-toggle-*` on the root to style all items, or on an item to style only that control.
+- The root is a `muted` container with a border; `outline` uses the background color, `ghost`
+  removes the background, border, and padding.
+- The root sets `--moduix-toggle-color` to `var(--moduix-color-foreground)`, so unpressed items use
+  the foreground color in every variant (a standalone default `Toggle` uses
+  `secondary-foreground`). Tailwind items use `text-foreground` for the same result.
+- Vertical groups stretch items to the group width and align their content to the start.
+
+The CSS Modules packages expose two root color variables. Variant defaults stay private in
+`--_toggle-group-*` properties.
+
+| Variable                             | Default                      | Notes                                    |
+| ------------------------------------ | ---------------------------- | ---------------------------------------- |
+| `--moduix-toggle-group-bg`           | `var(--moduix-color-muted)`  | Outline: background; ghost: transparent. |
+| `--moduix-toggle-group-border-color` | `var(--moduix-color-border)` | Ghost: transparent.                      |
+
+Gap, padding, border width, and radius use foundation tokens directly; override them with a class.
+Items support the public `--moduix-toggle-*` variables from `Toggle`: set them on the root to style
+all items, or on an item to style only that control.
 
 ## Intentional sugar and differences from upstream
 
 - `variant` and `size` are moduix visual sugar layered over Ark behavior.
-- Item styling reuses standalone `Toggle` visuals. Unpressed item text follows the group root
-  color, so a default-variant item in a group intentionally differs from a standalone default
-  `Toggle`, whose unpressed text is `secondary-foreground`.
+- Item styling reuses standalone `Toggle` visuals.
 - Items inherit root/root-provider `variant` and `size` unless the item overrides them.
 - `ToggleGroupRootProvider`, `ToggleGroupContext`, `useToggleGroup()`, and
   `useToggleGroupContext()` are public for normal provider and state composition.
-- The legacy `render`/`nativeButton` composition path is intentionally removed. Use Ark
-  `asChild`.
-- `onValueChange={setValue}` is intentionally removed because Ark passes details, not a raw array.
 
 ## Agent notes
 
@@ -213,21 +205,3 @@ export function RootProviderToggleGroupDemo() {
 - Keep examples and stories using the flat `ToggleGroupItem` export.
 - Keep `ToggleGroupItem` visuals synchronized with standalone `Toggle` when token names or
   variants change.
-
-## Local changelog
-
-- 2026-08-14: Made group-level token overrides apply consistently across variants and restored
-  root-level Toggle token inheritance for item state customization.
-- 2026-08-01: Made wrapper styling hooks non-overridable, exported the public composition types,
-  kept long horizontal groups reachable through inline scrolling, and added Context coverage.
-- 2026-07-12: Restored the Ark-aligned `Context`, `useToggleGroup()`, and
-  `useToggleGroupContext()` surfaces through moduix so normal advanced composition avoids direct
-  Ark imports.
-- 2026-07-03: Removed public re-exports of Ark toggle-group context helpers and render-prop
-  accessors while keeping `RootProvider` for externally owned Ark state.
-- 2026-06-29: Clarified Ark role, keyboard, `ids`, and context contracts; simplified CSS nesting
-  and docs examples; replaced fractional group padding with the matching border-width token; added
-  provider/context story coverage.
-- 2026-06-21: Migrated `ToggleGroup` to Ark UI React, adopted Ark `onValueChange(details)`,
-  exposed provider, context, hooks, and types, and updated the styling contract around Ark data
-  attributes.

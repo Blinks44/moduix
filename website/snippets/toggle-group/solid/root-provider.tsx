@@ -3,7 +3,7 @@ import {
   ToggleGroupRootProvider,
   useToggleGroup,
 } from '@moduix/solid/toggle-group';
-import styles from '@/components/examples/toggle-group/toggle-group-advanced-customization.module.css';
+import styles from '@/components/examples/toggle-group/toggle-group-controlled.module.css';
 
 const alignmentItems = [
   {

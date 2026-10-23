@@ -743,14 +743,4 @@
   /* ToggleGroup */
   --moduix-toggle-group-bg: initial; /* var(--moduix-color-muted) */
   --moduix-toggle-group-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-toggle-group-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-toggle-group-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-toggle-group-gap: initial; /* var(--moduix-border-width-sm) */
-  --moduix-toggle-group-ghost-bg: initial; /* transparent */
-  --moduix-toggle-group-ghost-border-color: initial; /* transparent */
-  --moduix-toggle-group-ghost-padding: initial; /* 0 */
-  --moduix-toggle-group-item-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-toggle-group-outline-bg: initial; /* var(--moduix-color-background) */
-  --moduix-toggle-group-padding: initial; /* var(--moduix-border-width-md) */
-  --moduix-toggle-group-radius: initial; /* var(--moduix-radius-lg) */
 }
