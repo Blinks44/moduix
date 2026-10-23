@@ -18,10 +18,20 @@
   color: var(--moduix-color-muted-foreground);
 }
 
-.customTimer {
-  --moduix-timer-area-font-size: var(--moduix-text-3xl);
-  --moduix-timer-item-color: var(--moduix-color-primary);
-  --moduix-timer-separator-color: var(--moduix-color-chart-2);
-  --moduix-timer-action-trigger-bg: var(--moduix-color-muted);
-  --moduix-timer-action-trigger-border-color: transparent;
+.customTimer [data-slot='timer-area'] {
+  font-size: var(--moduix-text-3xl);
+  line-height: var(--moduix-line-height-text-3xl);
+}
+
+.customTimer [data-slot='timer-item'] {
+  color: var(--moduix-color-primary);
+}
+
+.customTimer [data-slot='timer-separator'] {
+  color: var(--moduix-color-chart-2);
+}
+
+.customTimer [data-slot='timer-action-trigger'] {
+  border-color: transparent;
+  background-color: var(--moduix-color-muted);
 }

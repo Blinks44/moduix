@@ -4,7 +4,6 @@ component: timer
 description: Un composant pour suivre le temps écoulé ou restant, avec des contrôles explicites en React, Solid ou Vue.
 ---
 
-import * as TimerDocs from '@/components/examples/timer/css-properties';
 import TimerBasic from '@/components/examples/timer/basic.tsx';
 import TimerCountdown from '@/components/examples/timer/countdown.tsx';
 import TimerEvents from '@/components/examples/timer/events.tsx';
@@ -390,23 +389,10 @@ personnalisés.
 
 ## Styles
 
-Pour modifier la structure, utilisez `className` en React ou `class` en Solid et en Vue sur les éléments exportés.
-La variante CSS Modules expose des variables CSS pour les valeurs visuelles par défaut ; Tailwind utilise des
-classes utilitaires et vos propres classes pour les remplacer. Les attributs Ark restent disponibles pour cibler chaque élément.
-
-### Propriétés CSS
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TimerDocs.TimerCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Utilisez `className` en React ou `class` en Solid et en Vue sur n’importe quel élément exporté. Les variantes
+Tailwind utilisent des classes utilitaires et vos propres classes. Les variantes CSS Modules s’appuient sur les
+jetons de foundation et n’ont pas de variables propres : une classe sur un élément, ou un sélecteur `data-slot`,
+remplace les styles du composant placés dans une couche.
 
 ### Sélecteurs et attributs de style
 

@@ -5,6 +5,8 @@ import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { Fragment, forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
+const rootClass = 'inline-grid w-max max-w-full place-items-center gap-3 text-foreground';
+
 const Timer = forwardRef<
   ComponentRef<typeof TimerPrimitive.Root>,
   ComponentProps<typeof TimerPrimitive.Root>
@@ -12,10 +14,7 @@ const Timer = forwardRef<
   return (
     <TimerPrimitive.Root
       ref={ref}
-      className={cn(
-        'inline-grid w-max max-w-full place-items-center gap-3 text-foreground',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="timer-root"
     />
@@ -29,10 +28,7 @@ const TimerRootProvider = forwardRef<
   return (
     <TimerPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'inline-grid w-max max-w-full place-items-center gap-3 text-foreground',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="timer-root-provider"
     />
@@ -47,7 +43,7 @@ const TimerArea = forwardRef<
     <TimerPrimitive.Area
       ref={ref}
       className={cn(
-        'inline-flex max-w-full min-w-0 flex-wrap items-baseline justify-center gap-1 text-2xl leading-5 font-semibold tracking-normal tabular-nums',
+        'inline-flex max-w-full min-w-0 flex-wrap items-baseline justify-center gap-1 text-2xl font-semibold tabular-nums',
         className,
       )}
       {...props}
@@ -106,7 +102,7 @@ const TimerActionTrigger = forwardRef<
     <TimerPrimitive.ActionTrigger
       ref={ref}
       className={cn(
-        'inline-flex min-h-control-md cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition-[background-color,border-color,color,opacity,box-shadow] duration-normal ease-in-out focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:cursor-default aria-disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
+        'inline-flex min-h-control-md cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition-[background-color] duration-normal ease-in-out focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
@@ -115,23 +111,20 @@ const TimerActionTrigger = forwardRef<
   );
 });
 
+type TimerItemType = ComponentProps<typeof TimerPrimitive.Item>['type'];
 type TimerSegmentsProps = Omit<
   ComponentProps<typeof TimerPrimitive.Area>,
   'asChild' | 'children'
 > & {
   separator?: ReactNode;
-  types?: ComponentProps<typeof TimerPrimitive.Item>['type'][];
+  types?: TimerItemType[];
 };
+type TimerTickDetails = TimerPrimitive.TickDetails;
 
-const defaultTimerSegmentTypes = ['hours', 'minutes', 'seconds'] satisfies ComponentProps<
-  typeof TimerPrimitive.Item
->['type'][];
+const defaultTimerSegmentTypes: TimerItemType[] = ['hours', 'minutes', 'seconds'];
 
 const TimerSegments = forwardRef<ComponentRef<typeof TimerPrimitive.Area>, TimerSegmentsProps>(
-  function TimerSegments(
-    { separator = ':', types = defaultTimerSegmentTypes, ...props }: TimerSegmentsProps,
-    ref,
-  ) {
+  function TimerSegments({ separator = ':', types = defaultTimerSegmentTypes, ...props }, ref) {
     return (
       <TimerArea ref={ref} {...props}>
         {types.map((type, index) => (
@@ -157,7 +150,20 @@ export {
   TimerRootProvider,
   TimerSegments,
   TimerSeparator,
-  type TimerSegmentsProps,
   useTimer,
   useTimerContext,
 };
+export type {
+  TimerActionTriggerProps,
+  TimerAreaProps,
+  TimerContextProps,
+  TimerControlProps,
+  TimerItemProps,
+  TimerRootProps,
+  TimerRootProviderProps,
+  TimerSeparatorProps,
+  UseTimerContext,
+  UseTimerProps,
+  UseTimerReturn,
+} from '@ark-ui/react/timer';
+export type { TimerSegmentsProps, TimerTickDetails };
