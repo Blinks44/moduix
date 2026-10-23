@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'group/toc-link relative block min-w-0 overflow-hidden rounded-sm py-1 ps-[calc(0.875rem+max(0px,((var(--depth)-2)*0.5rem)))] pe-1 text-sm leading-5 text-ellipsis whitespace-nowrap text-muted-foreground no-underline outline-0 transition-colors duration-normal focus-visible:ring-1 focus-visible:ring-ring has-[[data-slot=toc-rail]]:overflow-visible data-active:font-medium data-active:text-foreground [@media(hover:hover)]:hover:text-foreground',
+        'group/toc-link relative block overflow-x-clip rounded-sm py-1 ps-[calc(var(--moduix-spacing-1)+var(--moduix-spacing-0-5)+var(--moduix-spacing-2)+max(0px,(var(--depth)-2)*var(--moduix-spacing-2)))] pe-1 text-sm leading-5 text-ellipsis whitespace-nowrap text-muted-foreground no-underline outline-0 transition-colors duration-normal focus-visible:ring-1 focus-visible:ring-ring data-active:font-medium data-active:text-foreground [@media(hover:hover)]:hover:text-foreground',
         className,
       )
     "

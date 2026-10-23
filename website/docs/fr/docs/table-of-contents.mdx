@@ -8,7 +8,6 @@ import TocBasic from '@/components/examples/table-of-contents/basic.tsx';
 import TocRail from '@/components/examples/table-of-contents/rail.tsx';
 import TocRootProvider from '@/components/examples/table-of-contents/root-provider.tsx';
 import TocWithCollapsible from '@/components/examples/table-of-contents/with-collapsible.tsx';
-import * as TocDocs from '@/components/examples/table-of-contents/css-properties';
 import tocSolidBasic from '../../../snippets/table-of-contents/solid/basic.tsx?raw';
 import tocSolidRail from '../../../snippets/table-of-contents/solid/rail.tsx?raw';
 import tocSolidRootProvider from '../../../snippets/table-of-contents/solid/root-provider.tsx?raw';
@@ -315,14 +314,11 @@ tandis que les liens ciblent toujours la même zone de lecture.
 
 ## Styles
 
-Stylisez le composant avec `className` en React ou `class` en Solid et Vue, les attributs Ark, les hooks
-`data-slot` de moduix et les variables publiques `--moduix-table-of-contents-*`. Les packages CSS
-Modules utilisent ces variables ; les packages Tailwind utilisent les classes utilitaires natives et
-les classes du consommateur pour les surcharges.
-
-### Propriétés CSS
-
-<CssPropertiesSection properties={TocDocs.tableOfContentsOverrideCssProperties} />
+Utilisez `className` en React ou `class` en Solid et en Vue sur n’importe quel élément exporté. Les variantes
+Tailwind utilisent des classes utilitaires et vos propres classes. Les variantes CSS Modules s’appuient sur les
+jetons de foundation et n’ont pas de variables propres : une classe sur un élément, ou un sélecteur `data-slot`,
+remplace les styles du composant placés dans une couche. Pour modifier la colonne de navigation, remplacez
+`grid-template-columns` sur `Toc`.
 
 ### Points d’accroche CSS
 

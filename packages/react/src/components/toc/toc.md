@@ -11,7 +11,7 @@
 
 ## Public contract
 
-`Toc` is the root of the flat public API. It preserves Ark's `Content`, `Nav`, `Title`, `List`, `Item`, `Link`, `Indicator`, `RootProvider`, and `Context` parts under the names `TocContent`, `TocNav`, `TocTitle`, `TocList`, `TocItem`, `TocLink`, `TocIndicator`, `TocRootProvider`, and `TocContext`. Moduix adds `TocRail`, an optional SVG helper for visualising depth transitions.
+`Toc` is the root of the flat public API. It preserves Ark's `Content`, `Nav`, `Title`, `List`, `Item`, `Link`, `Indicator`, `RootProvider`, and `Context` parts under the names `TocContent`, `TocNav`, `TocTitle`, `TocList`, `TocItem`, `TocLink`, `TocIndicator`, `TocRootProvider`, and `TocContext`. Moduix adds `TocRail`, an optional SVG helper for visualising depth transitions. Every framework exports the Ark part prop types, `TocItemData`, `TocActiveChangeDetails`, `UseTocProps`, `UseTocReturn`, `UseTocContext`, and `TocRailProps`.
 
 The root receives an `items` array with heading `value` and `depth`. Render matching heading IDs in `TocContent`, then pass the same item to `TocItem` and link to `#${item.value}` with `TocLink`.
 
@@ -30,7 +30,9 @@ The root receives an `items` array with heading `value` and `depth`. Render matc
 
 Every wrapper accepts `className` and exposes a `toc-*` `data-slot`. Ark supplies `data-scope="toc"`, `data-part`, `data-depth`, `data-active`, `data-first`, `data-last`, `--depth`, and `aria-current="location"`.
 
-The root uses a content/sidebar grid that stacks below 48rem. `Nav` supports Ark's `placement="left"` and `placement="right"`; the default visual placement is right. The nav is sticky, scrollable, and visually contained. Nav text uses `--moduix-table-of-contents-nav-color` (default `var(--moduix-color-card-foreground)`) on top of the `--moduix-table-of-contents-nav-bg` surface. Nested items are indented by depth; use `Rail` when the hierarchy needs a connecting line and use `Indicator` for a flat list. Reduced-motion preferences disable CSS smooth scrolling, link color transitions, and indicator transitions; pass `scrollBehavior="auto"` when Ark-driven scrolling should avoid animation too.
+The root uses a content/sidebar grid that stacks below 48rem; change the navigation column with `grid-template-columns` on the root. `Nav` supports Ark's `placement="left"` and `placement="right"`; the default visual placement is right, and only the nav is placed explicitly for `left`, so the content takes the remaining cell. The nav is sticky, scrollable, and visually contained. The CSS Modules variant has no component variables; override a part with a class or a `data-slot` selector. Nested items are indented by depth; use `Rail` when the hierarchy needs a connecting line and use `Indicator` for a flat list.
+
+The root copies Ark's `--top` and `--height` into private `--_toc-indicator-*` variables, so the indicator keeps Ark's measurements when a parent of the list, such as `CollapsibleContent`, defines its own `--top` or `--height`. Links clip only on the inline axis (`overflow-x: clip`), so long labels truncate with an ellipsis while `Rail` still reaches the neighbouring items. Transitions follow the foundation duration tokens, which reduced motion shortens; pass `scrollBehavior="auto"` when Ark-driven scrolling should avoid animation too.
 
 ## Differences from upstream
 

@@ -8,7 +8,6 @@ import TocBasic from '@/components/examples/table-of-contents/basic.tsx';
 import TocRail from '@/components/examples/table-of-contents/rail.tsx';
 import TocRootProvider from '@/components/examples/table-of-contents/root-provider.tsx';
 import TocWithCollapsible from '@/components/examples/table-of-contents/with-collapsible.tsx';
-import * as TocDocs from '@/components/examples/table-of-contents/css-properties';
 import tocSolidBasic from '../../../snippets/table-of-contents/solid/basic.tsx?raw';
 import tocSolidRail from '../../../snippets/table-of-contents/solid/rail.tsx?raw';
 import tocSolidRootProvider from '../../../snippets/table-of-contents/solid/root-provider.tsx?raw';
@@ -312,14 +311,10 @@ TocRootProvider
 
 ## Стилизация
 
-Стилизуйте компонент через `className` в React или `class` в Solid и Vue, атрибуты Ark, хуки moduix
-`data-slot` и публичные переменные `--moduix-table-of-contents-*`. Пакеты CSS Modules используют
-эти переменные, а Tailwind-пакеты используют нативные utility-классы и классы потребителя для
-переопределений.
-
-### CSS-свойства
-
-<CssPropertiesSection properties={TocDocs.tableOfContentsOverrideCssProperties} />
+Передайте `className` в React или `class` в Solid и Vue на любую экспортируемую часть. Варианты Tailwind
+используют утилиты и классы приложения. Варианты CSS Modules построены на токенах foundation и не имеют
+собственных переменных: класс на части или селектор по `data-slot` переопределяет стили компонента из слоя.
+Чтобы изменить колонку навигации, переопределите `grid-template-columns` у `Toc`.
 
 ### Хуки стилизации
 

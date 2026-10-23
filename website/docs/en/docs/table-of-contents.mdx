@@ -8,7 +8,6 @@ import TocBasic from '@/components/examples/table-of-contents/basic.tsx';
 import TocRail from '@/components/examples/table-of-contents/rail.tsx';
 import TocRootProvider from '@/components/examples/table-of-contents/root-provider.tsx';
 import TocWithCollapsible from '@/components/examples/table-of-contents/with-collapsible.tsx';
-import * as TocDocs from '@/components/examples/table-of-contents/css-properties';
 import tocSolidBasic from '../../../snippets/table-of-contents/solid/basic.tsx?raw';
 import tocSolidRail from '../../../snippets/table-of-contents/solid/rail.tsx?raw';
 import tocSolidRootProvider from '../../../snippets/table-of-contents/solid/root-provider.tsx?raw';
@@ -310,14 +309,10 @@ the links continue to target the same reading pane.
 
 ## Styling
 
-Style the component through `className` in React or `class` in Solid and Vue, Ark attributes, moduix
-`data-slot` hooks, and the public `--moduix-table-of-contents-*` variables. The CSS Modules
-packages use these variables; the Tailwind packages use native utility classes and consumer classes
-for overrides.
-
-### CSS Properties
-
-<CssPropertiesSection properties={TocDocs.tableOfContentsOverrideCssProperties} />
+Use `className` in React or `class` in Solid and Vue on any exported part. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on a part, or a `data-slot` selector, overrides the layered component styles. To
+change the navigation column, override `grid-template-columns` on `Toc`.
 
 ### Styling hooks
 

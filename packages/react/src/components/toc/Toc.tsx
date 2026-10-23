@@ -11,13 +11,11 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import styles from './Toc.module.css';
 
-const railBaseOffset = 0;
 const railStep = 12;
 const railBridge = 6;
-const maxRailLevel = 2;
 
-const getRailOffset = (depth: number) =>
-  railBaseOffset + Math.min(Math.max(depth - 2, 0), maxRailLevel) * railStep;
+// Depths 2 to 4 get their own rail column; deeper headings stay on the last one.
+const getRailX = (depth: number) => Math.min(Math.max(depth - 2, 0), 2) * railStep + 0.5;
 
 const useToc = ({ autoScroll = false, ...props }: UseTocProps) =>
   useTocPrimitive({ autoScroll, ...props });
@@ -166,11 +164,10 @@ const TocRail = forwardRef<SVGSVGElement, TocRailProps>(function TocRail(
   { className, depth, nextDepth = depth, previousDepth = depth, style, ...props },
   ref,
 ) {
-  const lineOffset = getRailOffset(depth);
-  const previousLineOffset = getRailOffset(previousDepth);
-  const nextLineOffset = getRailOffset(nextDepth);
-  const hasTurn = previousLineOffset !== lineOffset;
-  const width = Math.max(previousLineOffset, lineOffset, nextLineOffset) + 2;
+  const x = getRailX(depth);
+  const previousX = getRailX(previousDepth);
+  const nextX = getRailX(nextDepth);
+  const hasTurn = previousX !== x;
 
   return (
     <svg
@@ -178,11 +175,9 @@ const TocRail = forwardRef<SVGSVGElement, TocRailProps>(function TocRail(
       aria-hidden="true"
       className={clsx(styles.rail, className)}
       style={{
-        width,
-        height:
-          lineOffset === nextLineOffset
-            ? `calc(100% + ${railBridge}px + var(--moduix-table-of-contents-list-gap, var(--moduix-spacing-0-5)))`
-            : '100%',
+        width: Math.max(previousX, x, nextX) + 1.5,
+        // Cross the list gap to the next rail, and its bridge too when the line continues.
+        height: `calc(100% + ${nextX === x ? railBridge : 0}px + var(--moduix-spacing-0-5))`,
         ...style,
       }}
       {...props}
@@ -190,16 +185,16 @@ const TocRail = forwardRef<SVGSVGElement, TocRailProps>(function TocRail(
     >
       {hasTurn && (
         <path
-          d={`M ${previousLineOffset + 0.5} 0 C ${previousLineOffset + 0.5} 8 ${lineOffset + 0.5} 4 ${lineOffset + 0.5} ${railBridge * 2}`}
+          d={`M ${previousX} 0 C ${previousX} 8 ${x} 4 ${x} ${railBridge * 2}`}
           fill="none"
           vectorEffect="non-scaling-stroke"
           stroke="currentColor"
         />
       )}
       <line
-        x1={lineOffset + 0.5}
+        x1={x}
         y1={hasTurn ? railBridge * 2 : railBridge}
-        x2={lineOffset + 0.5}
+        x2={x}
         y2="100%"
         vectorEffect="non-scaling-stroke"
         stroke="currentColor"
@@ -225,3 +220,22 @@ export {
   useToc,
   useTocContext,
 };
+
+export type {
+  TocActiveChangeDetails,
+  TocContentProps,
+  TocContextProps,
+  TocIndicatorProps,
+  TocItemData,
+  TocItemProps,
+  TocLinkProps,
+  TocListProps,
+  TocNavProps,
+  TocRootProps,
+  TocRootProviderProps,
+  TocTitleProps,
+  UseTocContext,
+  UseTocProps,
+  UseTocReturn,
+} from '@ark-ui/react/toc';
+export type { TocRailProps };
