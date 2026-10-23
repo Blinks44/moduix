@@ -4,7 +4,6 @@ component: tooltip
 description: Une brève information complémentaire affichée lorsque l’élément déclencheur est survolé ou reçoit le focus.
 ---
 
-import * as TooltipDocs from '@/components/examples/tooltip/css-properties';
 import TooltipAdvancedCustomization from '@/components/examples/tooltip/advanced-customization.tsx';
 import TooltipBasic from '@/components/examples/tooltip/basic.tsx';
 import TooltipContext from '@/components/examples/tooltip/context.tsx';
@@ -620,25 +619,18 @@ avoir une composition ou une mise en forme indépendantes.
 
 ## Styles
 
-Utilisez `className` en React, `class` en Solid et Vue sur les parties exportées pour les styles
-structurels. Pour les styles liés à l’état, préférez les attributs Ark tels que `data-state`,
-`data-placement` et `data-side`, avec les sélecteurs `data-slot` de moduix. Les variantes Tailwind
-utilisent des utilitaires natifs et les classes du consommateur ; les variables CSS ci-dessous
-personnalisent les variantes CSS Modules.
+Sans `asChild`, `TooltipTrigger` s’affiche comme un bouton à contour ; lorsque plusieurs déclencheurs
+avec valeur partagent une infobulle, seul le déclencheur courant affiche l’état ouvert.
+`TooltipContent` mesure au plus 20rem de large dans l’espace disponible, coupe les longues chaînes
+sans espace et s’agrandit avec son texte. L’animation du contenu lit les variables partagées
+`--moduix-popup-motion-*` et est ignorée quand Ark bascule l’infobulle instantanément entre
+déclencheurs (`data-instant`) ou quand l’utilisateur préfère réduire les animations.
 
-### Propriétés CSS
-
-<div className="not-prose">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TooltipDocs.TooltipCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes
+Tailwind utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules
+reposent sur les jetons de foundation et n’ont pas de variables de composant : une classe sur la partie
+remplace les styles du composant en couche. Les attributs d’état et les hooks `data-slot` sont communs
+aux deux modes de style.
 
 ### Ciblage des styles
 

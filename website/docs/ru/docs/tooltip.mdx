@@ -4,7 +4,6 @@ component: tooltip
 description: Короткая дополнительная подсказка, которая появляется при наведении или когда триггер получает фокус.
 ---
 
-import * as TooltipDocs from '@/components/examples/tooltip/css-properties';
 import TooltipAdvancedCustomization from '@/components/examples/tooltip/advanced-customization.tsx';
 import TooltipBasic from '@/components/examples/tooltip/basic.tsx';
 import TooltipContext from '@/components/examples/tooltip/context.tsx';
@@ -622,24 +621,17 @@ Tooltip
 
 ## Стилизация
 
-Используйте `className` в React, `class` в Solid и Vue у экспортируемых частей для структурных
-стилей. Для состояний предпочитайте атрибуты Ark, такие как `data-state`, `data-placement` и
-`data-side`, вместе с селекторами moduix `data-slot`. Варианты Tailwind используют нативные
-утилиты и классы потребителя, а переменные CSS ниже настраивают вариант с CSS Modules.
+`TooltipTrigger` без `asChild` выглядит как кнопка с обводкой; если несколько триггеров со значением
+делят одну подсказку, состояние открытия показывает только текущий. `TooltipContent` шириной не
+больше 20rem в пределах доступного места, переносит длинные строки без пробелов и растёт по высоте
+вместе с текстом. Анимация содержимого читает общие переменные `--moduix-popup-motion-*` и
+пропускается, когда Ark мгновенно переключает подсказку между триггерами (`data-instant`) или
+пользователь предпочитает уменьшенное движение.
 
-### CSS-свойства
-
-<div className="not-prose">
-  <Tabs
-    values={[{ label: 'Переменные CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TooltipDocs.TooltipCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты Tailwind
+используют нативные utility-классы и классы потребителя. Варианты CSS Modules построены на токенах
+foundation и не имеют переменных компонента: класс на части переопределяет стили компонента из слоя.
+Атрибуты состояния и хуки `data-slot` общие для обоих вариантов стилизации.
 
 ### Точки для стилизации
 

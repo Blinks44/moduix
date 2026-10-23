@@ -16,7 +16,6 @@ type TooltipDisabledTriggerProps = JSX.IntrinsicElements['span'];
 
 function Tooltip(props: TooltipRootProps) {
   const [local, others] = splitProps(props, [
-    'children',
     'lazyMount',
     'portalled',
     'portalRef',
@@ -29,16 +28,13 @@ function Tooltip(props: TooltipRootProps) {
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
-      >
-        {local.children}
-      </TooltipPrimitive.Root>
+      />
     </OverlayPortalProvider>
   );
 }
 
 function TooltipRootProvider(props: TooltipRootProviderProps) {
   const [local, others] = splitProps(props, [
-    'children',
     'lazyMount',
     'portalled',
     'portalRef',
@@ -51,9 +47,7 @@ function TooltipRootProvider(props: TooltipRootProviderProps) {
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
-      >
-        {local.children}
-      </TooltipPrimitive.RootProvider>
+      />
     </OverlayPortalProvider>
   );
 }
@@ -66,7 +60,7 @@ function TooltipTrigger(props: ComponentProps<typeof TooltipPrimitive.Trigger>) 
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-sm leading-5 text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[state=open]:bg-accent [@media(hover:hover)]:hover:bg-accent',
+          'box-border inline-flex min-h-control-md cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3.5 py-1 text-sm text-foreground outline-0 transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-accent disabled:pointer-events-none disabled:opacity-50 data-[state=open]:not-data-[value]:bg-accent data-[current]:data-[state=open]:bg-accent [@media(hover:hover)]:hover:bg-accent',
         local.class,
       )}
       {...others}
@@ -106,7 +100,7 @@ function TooltipPositioner(props: ComponentProps<typeof TooltipPrimitive.Positio
     <OverlayPortal>
       <TooltipPrimitive.Positioner
         class={cn(
-          'z-[var(--z-index,var(--moduix-z-popup))] max-h-[var(--available-height)] max-w-[var(--available-width)] outline-0',
+          'z-[var(--z-index,var(--moduix-z-popup))] max-w-[var(--available-width)] outline-0',
           local.class,
         )}
         {...others}
@@ -122,7 +116,7 @@ function TooltipContent(props: ComponentProps<typeof TooltipPrimitive.Content>) 
   return (
     <TooltipPrimitive.Content
       class={cn(
-        'relative z-60 max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(20rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-md border border-border bg-popover px-2 py-1 text-center text-sm leading-5 wrap-anywhere text-popover-foreground shadow-md data-instant:animate-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
+        'relative max-w-[min(20rem,var(--available-width))] origin-[var(--transform-origin)] rounded-md border border-border bg-popover px-2 py-1 text-center text-sm wrap-anywhere text-popover-foreground shadow-md data-instant:data-[state]:animate-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         local.class,
       )}
       {...others}
@@ -186,3 +180,17 @@ export {
   useTooltipContext,
 };
 export type { TooltipRootProps, TooltipRootProviderProps };
+
+export type {
+  TooltipArrowProps,
+  TooltipArrowTipProps,
+  TooltipContentProps,
+  TooltipContextProps,
+  TooltipOpenChangeDetails,
+  TooltipPositionerProps,
+  TooltipTriggerProps,
+  TooltipTriggerValueChangeDetails,
+  UseTooltipContext,
+  UseTooltipProps,
+  UseTooltipReturn,
+} from '@ark-ui/solid/tooltip';

@@ -8,11 +8,10 @@ import { cn } from '@/lib/moduix/cn';
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ TooltipContentProps {
-  asChild?: boolean;
   class?: HTMLAttributes['class'];
 }
 
-const { asChild = false, class: className } = defineProps<Props>();
+const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -21,10 +20,9 @@ const attrs = useAttrs();
 <template>
   <ArkTooltipContent
     v-bind="attrs"
-    :as-child="asChild"
     :class="
       cn(
-        'relative z-60 max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(20rem,var(--available-width))] origin-[var(--transform-origin)] overflow-visible rounded-md border border-border bg-popover px-2 py-1 text-center text-sm leading-5 wrap-anywhere text-popover-foreground shadow-md data-instant:animate-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
+        'relative max-w-[min(20rem,var(--available-width))] origin-[var(--transform-origin)] rounded-md border border-border bg-popover px-2 py-1 text-center text-sm wrap-anywhere text-popover-foreground shadow-md data-instant:data-[state]:animate-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         className,
       )
     "

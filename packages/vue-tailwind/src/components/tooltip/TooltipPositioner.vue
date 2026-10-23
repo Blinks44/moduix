@@ -27,7 +27,7 @@ const { forwardRef } = useForwardExpose();
       v-bind="attrs"
       :class="
         cn(
-          'z-[var(--z-index,var(--moduix-z-popup))] max-h-[var(--available-height)] max-w-[var(--available-width)] outline-0',
+          'z-[var(--z-index,var(--moduix-z-popup))] max-w-[var(--available-width)] outline-0',
           className,
         )
       "

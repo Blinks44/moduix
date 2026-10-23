@@ -4,7 +4,6 @@ component: tooltip
 description: A short, supplementary label that appears when its trigger is hovered or focused.
 ---
 
-import * as TooltipDocs from '@/components/examples/tooltip/css-properties';
 import TooltipAdvancedCustomization from '@/components/examples/tooltip/advanced-customization.tsx';
 import TooltipBasic from '@/components/examples/tooltip/basic.tsx';
 import TooltipContext from '@/components/examples/tooltip/context.tsx';
@@ -618,24 +617,16 @@ composition or styling.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
-styles, prefer Ark data attributes such as `data-state`, `data-placement`, and `data-side`, together
-with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer classes; the
-CSS variables below customize the CSS Modules variants.
+`TooltipTrigger` without `asChild` renders as an outlined button; when several valued triggers share
+one tooltip, only the current one shows the open state. `TooltipContent` is at most 20rem wide within
+the available viewport space, wraps long unbroken strings, and grows with its text. Content motion
+reads the shared `--moduix-popup-motion-*` variables and is skipped when Ark switches the tooltip
+instantly between triggers (`data-instant`) or the user prefers reduced motion.
 
-### CSS Properties
-
-<div className="not-prose">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TooltipDocs.TooltipCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on the part overrides the layered component styles. Data attributes and
+`data-slot` hooks are shared by both styling tracks.
 
 ### Styling hooks
 

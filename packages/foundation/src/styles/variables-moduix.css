@@ -605,47 +605,6 @@
   --moduix-toast-description-color: initial; /* var(--moduix-color-muted-foreground) */
 
   /* Tooltip */
-  --moduix-tooltip-arrow-background: initial; /* var(--moduix-tooltip-bg, var(--moduix-color-popover)) */
-  --moduix-tooltip-arrow-size: initial; /* var(--moduix-spacing-2-5) */
-  --moduix-tooltip-arrow-stroke-color: initial; /* var(--moduix-tooltip-border-color, var(--moduix-color-border)) */
-  --moduix-tooltip-bg: initial; /* var(--moduix-color-popover) */
-  --moduix-tooltip-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-tooltip-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-tooltip-color: initial; /* var(--moduix-color-popover-foreground) */
-  --moduix-tooltip-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-tooltip-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-tooltip-focus-ring-offset: initial; /* var(--moduix-focus-ring-inset-offset) */
-  --moduix-tooltip-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
-  --moduix-tooltip-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-tooltip-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-tooltip-max-height: initial; /* 24rem */
-  --moduix-tooltip-max-width: initial; /* 20rem */
-  --moduix-tooltip-padding-x: initial; /* var(--moduix-spacing-2) */
-  --moduix-tooltip-padding-y: initial; /* var(--moduix-spacing-1) */
-  --moduix-tooltip-popup-ending-opacity: initial; /* 0 */
-  --moduix-tooltip-popup-ending-scale: initial; /* var(--moduix-scale-popup) */
-  --moduix-tooltip-popup-ending-translate-x: initial; /* 0 */
-  --moduix-tooltip-popup-ending-translate-y: initial; /* 0 */
-  --moduix-tooltip-popup-starting-opacity: initial; /* 0 */
-  --moduix-tooltip-popup-starting-scale: initial; /* var(--moduix-scale-popup) */
-  --moduix-tooltip-popup-starting-translate-x: initial; /* 0 */
-  --moduix-tooltip-popup-starting-translate-y: initial; /* 0 */
-  --moduix-tooltip-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-tooltip-shadow: initial; /* var(--moduix-shadow-md) */
-  --moduix-tooltip-transition: initial; /* 150ms */
-  --moduix-tooltip-trigger-bg: initial; /* var(--moduix-color-background) */
-  --moduix-tooltip-trigger-bg-active: initial; /* var(--moduix-tooltip-trigger-bg-hover, var(--moduix-color-accent)) */
-  --moduix-tooltip-trigger-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-tooltip-trigger-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-tooltip-trigger-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-tooltip-trigger-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-tooltip-trigger-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-tooltip-trigger-height: initial; /* var(--moduix-size-md) */
-  --moduix-tooltip-trigger-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-tooltip-trigger-padding-x: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-tooltip-trigger-padding-y: initial; /* var(--moduix-spacing-1) */
-  --moduix-tooltip-trigger-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-tooltip-z-index: initial; /* var(--moduix-z-popup) */
 
   /* Tour */
   --moduix-tour-action-bg: initial; /* var(--moduix-color-background) */
