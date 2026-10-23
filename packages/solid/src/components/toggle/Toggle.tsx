@@ -38,4 +38,11 @@ function ToggleIndicator(props: ComponentProps<typeof TogglePrimitive.Indicator>
 }
 
 export { Toggle, ToggleContext, ToggleIndicator, useToggleContext };
+export type {
+  ToggleContextProps,
+  ToggleIndicatorProps,
+  UseToggleContext,
+  UseToggleProps,
+  UseToggleReturn,
+} from '@ark-ui/solid/toggle';
 export type { ToggleRootProps, ToggleSize, ToggleVariant };

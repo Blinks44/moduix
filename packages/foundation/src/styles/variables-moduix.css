@@ -733,61 +733,12 @@
   --moduix-tour-z-index: initial; /* var(--moduix-z-modal) */
 
   /* Toggle */
-  --moduix-toggle-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-toggle-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-toggle-content-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-toggle-default-bg: initial; /* var(--moduix-color-secondary) */
-  --moduix-toggle-default-bg-active: initial; /* var(--moduix-color-accent) */
-  --moduix-toggle-default-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-toggle-default-bg-pressed: initial; /* var(--moduix-color-primary) */
-  --moduix-toggle-default-border-color: initial; /* var(--moduix-color-secondary) */
-  --moduix-toggle-default-border-color-pressed: initial; /* var(--moduix-color-primary) */
-  --moduix-toggle-default-color: initial; /* var(--moduix-color-secondary-foreground) */
-  --moduix-toggle-default-color-pressed: initial; /* var(--moduix-color-primary-foreground) */
-  --moduix-toggle-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-toggle-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-toggle-focus-ring-offset: initial; /* var(--moduix-focus-ring-inset-offset) */
-  --moduix-toggle-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
-  --moduix-toggle-font-size-xs: initial; /* var(--moduix-text-xs) */
-  --moduix-toggle-font-size-lg: initial; /* var(--moduix-text-md) */
-  --moduix-toggle-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-toggle-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-toggle-ghost-bg: initial; /* transparent */
-  --moduix-toggle-ghost-bg-active: initial; /* var(--moduix-color-accent) */
-  --moduix-toggle-ghost-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-toggle-ghost-bg-pressed: initial; /* var(--moduix-color-accent) */
-  --moduix-toggle-ghost-border-color: initial; /* transparent */
-  --moduix-toggle-ghost-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-toggle-ghost-color-pressed: initial; /* var(--moduix-color-foreground) */
-  --moduix-toggle-icon-size: initial; /* var(--moduix-spacing-4) */
-  --moduix-toggle-line-height-xs: initial; /* var(--moduix-line-height-text-xs) */
-  --moduix-toggle-line-height-lg: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-toggle-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-toggle-outline-bg: initial; /* var(--moduix-color-background) */
-  --moduix-toggle-outline-bg-active: initial; /* var(--moduix-color-accent) */
-  --moduix-toggle-outline-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-toggle-outline-bg-pressed: initial; /* var(--moduix-color-primary) */
-  --moduix-toggle-outline-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-toggle-outline-border-color-pressed: initial; /* var(--moduix-color-primary) */
-  --moduix-toggle-outline-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-toggle-outline-color-pressed: initial; /* var(--moduix-color-primary-foreground) */
-  --moduix-toggle-padding-x-xs: initial; /* var(--moduix-spacing-2-5) */
-  --moduix-toggle-padding-x-sm: initial; /* var(--moduix-spacing-3) */
-  --moduix-toggle-padding-x-md: initial; /* var(--moduix-spacing-4) */
-  --moduix-toggle-padding-x-lg: initial; /* var(--moduix-spacing-5) */
-  --moduix-toggle-padding-y-xs: initial; /* var(--moduix-spacing-0-5) */
-  --moduix-toggle-padding-y-sm: initial; /* var(--moduix-spacing-1) */
-  --moduix-toggle-padding-y-md: initial; /* var(--moduix-spacing-1) */
-  --moduix-toggle-padding-y-lg: initial; /* var(--moduix-spacing-1-5) */
-  --moduix-toggle-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-toggle-size-icon-sm: initial; /* var(--moduix-size-sm) */
-  --moduix-toggle-size-icon-md: initial; /* var(--moduix-size-md) */
-  --moduix-toggle-size-icon-lg: initial; /* var(--moduix-size-lg) */
-  --moduix-toggle-size-xs: initial; /* var(--moduix-size-xs) */
-  --moduix-toggle-size-sm: initial; /* var(--moduix-size-sm) */
-  --moduix-toggle-size-md: initial; /* var(--moduix-size-md) */
-  --moduix-toggle-size-lg: initial; /* var(--moduix-size-lg) */
-  --moduix-toggle-transition: initial; /* var(--moduix-transition-default) */
+  --moduix-toggle-bg: initial; /* var(--moduix-color-secondary) */
+  --moduix-toggle-bg-hover: initial; /* var(--moduix-color-accent) */
+  --moduix-toggle-bg-pressed: initial; /* var(--moduix-color-primary) */
+  --moduix-toggle-border-color: initial; /* var(--moduix-color-secondary) */
+  --moduix-toggle-color: initial; /* var(--moduix-color-secondary-foreground) */
+  --moduix-toggle-color-pressed: initial; /* var(--moduix-color-primary-foreground) */
 
   /* ToggleGroup */
   --moduix-toggle-group-bg: initial; /* var(--moduix-color-muted) */

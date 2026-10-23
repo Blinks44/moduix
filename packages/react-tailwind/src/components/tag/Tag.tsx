@@ -14,7 +14,7 @@ type TagRootProps = HTMLArkProps<'span'> & {
 };
 
 const tagVariants = cva(
-  'inline-flex min-h-control-xs w-fit max-w-full min-w-0 items-center gap-1.5 rounded-full border px-2 py-0.5 align-middle font-medium text-xs whitespace-nowrap transition-colors duration-normal ease-in-out [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [a&]:cursor-pointer [button&]:cursor-pointer',
+  "inline-flex min-h-control-xs w-fit max-w-full min-w-0 items-center gap-1.5 rounded-full border px-2 py-0.5 align-middle font-medium text-xs whitespace-nowrap transition-colors duration-normal ease-in-out [&>svg]:pointer-events-none [&>svg:not([class*='size-'])]:size-3 [&>svg]:shrink-0 [a&]:cursor-pointer [button&]:cursor-pointer",
   {
     variants: {
       variant: {
@@ -83,7 +83,7 @@ const TagStartElement = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(functi
       data-part="start-element"
       data-slot="tag-start-element"
       className={cn(
-        'inline-flex shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',
+        "inline-flex shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-3",
         className,
       )}
     />
@@ -102,7 +102,7 @@ const TagEndElement = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function
       data-part="end-element"
       data-slot="tag-end-element"
       className={cn(
-        'inline-flex shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0',
+        "inline-flex shrink-0 items-center justify-center [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-3",
         className,
       )}
     />

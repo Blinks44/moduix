@@ -31,12 +31,11 @@
   --moduix-toggle-group-gap: var(--moduix-spacing-1);
   --moduix-toggle-group-padding: var(--moduix-spacing-1);
   --moduix-toggle-group-radius: var(--moduix-radius-md);
-  --moduix-toggle-default-bg-pressed: var(--moduix-color-primary);
-  --moduix-toggle-default-border-color-pressed: var(--moduix-color-primary);
-  --moduix-toggle-default-color-pressed: var(--moduix-color-primary-foreground);
+  --moduix-toggle-bg-pressed: var(--moduix-color-primary);
+  --moduix-toggle-color-pressed: var(--moduix-color-primary-foreground);
 }
 
 .customItem {
   --moduix-toggle-group-item-radius: var(--moduix-radius-sm);
-  --moduix-toggle-padding-x-md: var(--moduix-spacing-3);
+  padding-inline: var(--moduix-spacing-3);
 }

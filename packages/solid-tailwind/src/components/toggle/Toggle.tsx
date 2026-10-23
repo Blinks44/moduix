@@ -33,7 +33,7 @@ function ToggleIndicator(props: ComponentProps<typeof TogglePrimitive.Indicator>
       {...others}
       data-slot="toggle-indicator"
       class={cn(
-        'inline-flex items-center justify-center text-inherit [&>svg]:block [&>svg]:size-4 [&>svg]:shrink-0',
+        "inline-flex items-center justify-center [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4",
         local.class,
       )}
     />
@@ -41,4 +41,11 @@ function ToggleIndicator(props: ComponentProps<typeof TogglePrimitive.Indicator>
 }
 
 export { Toggle, ToggleContext, ToggleIndicator, useToggleContext };
+export type {
+  ToggleContextProps,
+  ToggleIndicatorProps,
+  UseToggleContext,
+  UseToggleProps,
+  UseToggleReturn,
+} from '@ark-ui/solid/toggle';
 export type { ToggleRootProps, ToggleSize, ToggleVariant };

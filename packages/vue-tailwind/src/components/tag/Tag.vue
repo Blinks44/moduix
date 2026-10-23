@@ -12,7 +12,7 @@ export type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destru
 export type TagSize = 'sm' | 'md' | 'lg';
 
 const tagVariants = cva(
-  'inline-flex min-h-control-xs w-fit max-w-full min-w-0 items-center gap-1.5 rounded-full border px-2 py-0.5 align-middle font-medium text-xs whitespace-nowrap transition-colors duration-normal ease-in-out [&>svg]:pointer-events-none [&>svg]:size-3 [&>svg]:shrink-0 [a&]:cursor-pointer [button&]:cursor-pointer',
+  "inline-flex min-h-control-xs w-fit max-w-full min-w-0 items-center gap-1.5 rounded-full border px-2 py-0.5 align-middle font-medium text-xs whitespace-nowrap transition-colors duration-normal ease-in-out [&>svg]:pointer-events-none [&>svg:not([class*='size-'])]:size-3 [&>svg]:shrink-0 [a&]:cursor-pointer [button&]:cursor-pointer",
   {
     variants: {
       variant: {

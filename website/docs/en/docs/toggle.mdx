@@ -496,9 +496,10 @@ button content with `ToggleIndicator`.
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. Tailwind
-variants use native utilities and consumer classes; CSS Modules variants additionally expose the
-`--moduix-toggle-*` tokens for variants, sizes, focus ring, spacing, and icon sizing.
+Use `className` in React or `class` in Solid and Vue on exported parts. In the CSS Modules packages, set the
+`--moduix-toggle-*` color variables on a toggle, on `[data-slot='toggle-root'][data-variant='<variant>']` to theme one
+variant, or on a container such as `ToggleGroup`. Size, spacing, radius, and typography come from foundation tokens;
+change them with a class. Tailwind packages use native utilities and consumer classes instead.
 
 ### CSS Properties
 
@@ -520,5 +521,5 @@ variants use native utilities and consumer classes; CSS Modules variants additio
 - Ark part selectors: `data-scope="toggle"` and `data-part="root" | "indicator"`.
 - Ark state selectors: `data-state="on" | "off"`, `data-pressed`, and `data-disabled`.
 - moduix selectors: `data-variant` and `data-size`, including `icon-sm`, `icon-md`, and `icon-lg`.
-- Direct icon children and icons inside `ToggleIndicator` are sized through
-  `--moduix-toggle-icon-size` on the CSS Modules path.
+- Direct icon children and icons inside `ToggleIndicator` are 16px by default. A class on the icon, such as
+  `size-5` in Tailwind, overrides it.

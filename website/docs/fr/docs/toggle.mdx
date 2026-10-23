@@ -499,9 +499,11 @@ du bouton avec `ToggleIndicator`.
 
 ## Styles
 
-Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées pour les styles structurels. Les variantes
-Tailwind utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules exposent en plus les
-tokens `--moduix-toggle-*` pour les variantes, les tailles, l’anneau de focus, l’espacement et la taille des icônes.
+Utilisez `className` dans React ou `class` dans Solid et Vue sur les parties exportées. Dans les paquets CSS Modules,
+définissez les variables de couleur `--moduix-toggle-*` sur un toggle, sur
+`[data-slot='toggle-root'][data-variant='<variant>']` pour styliser une variante, ou sur un conteneur comme
+`ToggleGroup`. Les tailles, l’espacement, l’arrondi et la typographie viennent des tokens foundation ; modifiez-les avec
+une classe. Les paquets Tailwind utilisent à la place les utilitaires natifs et les classes du consommateur.
 
 ### Propriétés CSS
 
@@ -523,5 +525,5 @@ tokens `--moduix-toggle-*` pour les variantes, les tailles, l’anneau de focus,
 - Sélecteurs des parties Ark UI : `data-scope="toggle"` et `data-part="root" | "indicator"`.
 - Sélecteurs d’état Ark UI : `data-state="on" | "off"`, `data-pressed` et `data-disabled`.
 - Sélecteurs moduix : `data-variant` et `data-size`, notamment `icon-sm`, `icon-md` et `icon-lg`.
-- Les icônes enfants directes et celles de `ToggleIndicator` utilisent
-  `--moduix-toggle-icon-size` sur le chemin CSS Modules.
+- Les icônes enfants directes et celles de `ToggleIndicator` mesurent 16px par défaut. Une classe sur l’icône, comme
+  `size-5` dans Tailwind, remplace cette taille.

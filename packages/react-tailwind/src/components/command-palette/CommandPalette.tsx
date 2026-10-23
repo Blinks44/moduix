@@ -483,7 +483,7 @@ const CommandPaletteItemIcon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>
       <ark.span
         ref={ref}
         className={cn(
-          'inline-flex size-8 shrink-0 items-center justify-center rounded-md border border-border bg-muted text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
+          "inline-flex size-8 shrink-0 items-center justify-center rounded-md border border-border bg-muted text-muted-foreground [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4",
           className,
         )}
         {...props}

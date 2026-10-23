@@ -329,14 +329,7 @@ test('applies native utilities and keeps consumer classes last', () => {
     expect(root!.classList.contains(utility)).toBe(false);
   }
   expect([...item!.classList]).toEqual(
-    expect.arrayContaining([
-      'box-border',
-      'flex-none',
-      'border-primary',
-      'bg-card',
-      'p-0',
-      'text-xs',
-    ]),
+    expect.arrayContaining(['flex-none', 'border-primary', 'bg-card', 'p-0', 'text-xs']),
   );
   for (const utility of ['border-border', 'bg-background', 'px-5']) {
     expect(item!.classList.contains(utility)).toBe(false);

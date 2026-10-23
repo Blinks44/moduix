@@ -175,3 +175,13 @@ test('defaults to the md size and lets link badges ignore the size height', asyn
   const link = getComputedStyle(screen.getByTestId('link'));
   expect([link.minHeight, link.paddingInlineStart]).toEqual(['0px', '0px']);
 });
+test('lets a size utility on an icon override the default icon size', () => {
+  render(() => (
+    <Badge>
+      <svg aria-hidden="true" class="size-4" data-testid="icon" />
+      New
+    </Badge>
+  ));
+
+  expect(screen.getByTestId('icon').getBoundingClientRect().width).toBe(16);
+});

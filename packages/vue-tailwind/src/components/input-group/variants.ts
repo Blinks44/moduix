@@ -51,7 +51,7 @@ export const inputGroupTextareaVariants = cva(
 );
 
 export const inputGroupAddonVariants = cva(
-  'inline-flex min-w-0 items-center justify-center gap-2 overflow-hidden whitespace-nowrap border-s border-e border-border bg-muted text-muted-foreground first:border-s-0 last:border-e-0 [&>svg]:size-4 [&>svg]:shrink-0 data-[align=block]:justify-start data-[align=block]:border-x-0 data-[align=block]:border-y data-[align=block]:py-2 data-[align=block]:first:border-t-0 data-[align=block]:last:border-b-0',
+  "inline-flex min-w-0 items-center justify-center gap-2 overflow-hidden whitespace-nowrap border-s border-e border-border bg-muted text-muted-foreground first:border-s-0 last:border-e-0 [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0 data-[align=block]:justify-start data-[align=block]:border-x-0 data-[align=block]:border-y data-[align=block]:py-2 data-[align=block]:first:border-t-0 data-[align=block]:last:border-b-0",
   {
     variants: {
       size: inputGroupPaddingVariants,
@@ -63,7 +63,7 @@ export const inputGroupAddonVariants = cva(
 );
 
 export const inputGroupTextVariants = cva(
-  'inline-flex min-w-0 items-center justify-center gap-2 overflow-hidden whitespace-nowrap text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0 data-[align=block]:justify-start data-[align=block]:py-2',
+  "inline-flex min-w-0 items-center justify-center gap-2 overflow-hidden whitespace-nowrap text-muted-foreground [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0 data-[align=block]:justify-start data-[align=block]:py-2",
   {
     variants: {
       size: inputGroupPaddingVariants,

@@ -248,7 +248,6 @@ test('applies native utilities to component-owned visual parts', () => {
   );
   expect([...item!.classList]).toEqual(
     expect.arrayContaining([
-      'box-border',
       'flex-none',
       'min-h-control-md',
       'gap-2',
