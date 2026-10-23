@@ -9,8 +9,6 @@ import {
   TourTitle,
   TourDescription,
   TourProgressText,
-  TourBody,
-  TourCloseIcon,
   TourControl,
   TourActions,
   TourActionTrigger,
@@ -54,17 +52,14 @@ export default function TourDemo() {
 
   return (
     <div className={styles.root}>
-      <Tour tour={tour} lazyMount unmountOnExit>
+      <Tour tour={tour}>
         <TourBackdrop />
         <TourSpotlight />
         <TourPositioner>
           <TourContent>
-            <TourCloseIcon />
-            <TourBody>
-              <TourTitle />
-              <TourDescription />
-              <TourProgressText />
-            </TourBody>
+            <TourTitle />
+            <TourDescription />
+            <TourProgressText />
             <TourControl>
               <TourActions>
                 {(actions) =>

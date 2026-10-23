@@ -429,6 +429,7 @@ const zIndexTokens = [
   ['--moduix-z-backdrop', '40'],
   ['--moduix-z-modal', '50'],
   ['--moduix-z-popup', '60'],
+  ['--moduix-z-tour', '65'],
   ['--moduix-z-toast', '70'],
 ];
 
@@ -439,7 +440,6 @@ const sharedBackdropTokens = [
     'tokensOverviewGlobalBackdropColorFallback',
   ],
   ['--moduix-backdrop-filter', 'blur(4px)', 'tokensOverviewGlobalBackdropFilterFallback'],
-  ['--moduix-tour-backdrop-bg', 'var(--moduix-backdrop-bg, var(--moduix-color-overlay))', 'Tour'],
 ];
 
 const sharedPopupTokens = [
@@ -574,7 +574,7 @@ export function TokensOverview() {
           />
           <TokenCallout
             title={t('tokensOverviewSharedFallbacks')}
-            code="--moduix-tour-backdrop-bg -> --moduix-backdrop-bg / --moduix-backdrop-filter"
+            code="Dialog, Drawer, Tour -> --moduix-backdrop-bg / --moduix-backdrop-filter"
             body={t('tokensOverviewCentralizedBackdrop')}
           />
           <TokenCallout

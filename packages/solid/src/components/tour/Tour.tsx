@@ -22,6 +22,7 @@ import styles from './Tour.module.css';
 
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
 type TourCloseIconProps = Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>;
+type TourActionListProps = { class?: string };
 
 function Tour(props: TourRootProps) {
   const [local, others] = splitProps(props, [
@@ -165,20 +166,11 @@ function TourBody(props: HTMLArkProps<'div'>) {
 }
 
 function TourCloseTrigger(props: ComponentProps<typeof TourPrimitive.CloseTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <TourPrimitive.CloseTrigger
-      asChild={local.asChild}
-      class={clsx(!local.asChild && styles.closeTrigger, local.class)}
-      {...others}
-      data-slot="tour-close-trigger"
-    />
-  );
+  return <TourPrimitive.CloseTrigger {...props} data-slot="tour-close-trigger" />;
 }
 
 function TourCloseIcon(props: TourCloseIconProps) {
-  const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
+  const [local, others] = splitProps(props, ['aria-label', 'children', 'class']);
 
   return (
     <TourPrimitive.CloseTrigger
@@ -187,7 +179,6 @@ function TourCloseIcon(props: TourCloseIconProps) {
           {...triggerProps()}
           data-slot="tour-close-icon"
           aria-label={local['aria-label'] ?? a11yLabels.closeTour}
-          aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
         >
           {local.children}
@@ -225,14 +216,12 @@ function TourActionTrigger(props: ComponentProps<typeof TourPrimitive.ActionTrig
 
 const TourActions = TourPrimitive.Actions;
 
-function TourActionList(props: { class?: string }) {
-  const [local] = splitProps(props, ['class']);
-
+function TourActionList(props: TourActionListProps) {
   return (
     <TourPrimitive.Actions>
       {(actions) => (
         <For each={actions()}>
-          {(action) => <TourActionTrigger action={action} class={local.class} />}
+          {(action) => <TourActionTrigger action={action} class={props.class} />}
         </For>
       )}
     </TourPrimitive.Actions>
@@ -267,4 +256,30 @@ export {
   waitForEvent,
   waitForPromise,
 };
-export type { TourCloseIconProps, TourRootProps };
+export type { TourActionListProps, TourCloseIconProps, TourRootProps };
+
+export type {
+  TourActionTriggerProps,
+  TourActionsProps,
+  TourArrowProps,
+  TourArrowTipProps,
+  TourBackdropProps,
+  TourCloseTriggerProps,
+  TourContentProps,
+  TourContextProps,
+  TourControlProps,
+  TourDescriptionProps,
+  TourPositionerProps,
+  TourProgressTextProps,
+  TourSpotlightProps,
+  TourStatusChangeDetails,
+  TourStepChangeDetails,
+  TourStepDetails,
+  TourStepEffectArgs,
+  TourTitleProps,
+  UseTourContext,
+  UseTourProps,
+  UseTourReturn,
+  WaitForEventOptions,
+  WaitOptions,
+} from '@ark-ui/solid/tour';

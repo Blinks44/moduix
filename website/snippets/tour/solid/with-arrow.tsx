@@ -37,7 +37,7 @@ export default function TourWithArrowDemo() {
       <Button id="tour-with-arrow-upload" variant="outline">
         Upload files
       </Button>
-      <Tour tour={tour} lazyMount unmountOnExit>
+      <Tour tour={tour}>
         <TourBackdrop />
         <TourSpotlight />
         <TourPositioner>

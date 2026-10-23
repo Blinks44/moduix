@@ -4,7 +4,6 @@ component: tour
 description: Компонент для пошагового знакомства с продуктом на основе состояния Tour из Ark UI, с доступным оверлеем и готовыми действиями.
 ---
 
-import { TourCssPropertiesPanel } from '@/components/examples/tour/css-properties';
 import TourAdvancedCustomization from '@/components/examples/tour/advanced-customization.tsx';
 import TourBasic from '@/components/examples/tour/basic.tsx';
 import TourEvents from '@/components/examples/tour/events.tsx';
@@ -301,7 +300,8 @@ Tour
 
 Замените `TourActionList`, когда для каждого действия нужна своя разметка. В примере используются собственные
 элементы `Button` для Continue, Back и Skip tour. Каждый `TourActionTrigger` всё равно получает исходный объект
-действия Ark, поэтому навигация, закрытие и отключённое состояние продолжают работать.
+действия Ark, поэтому навигация, закрытие и отключённое состояние продолжают работать. Пример также обходится без помощников `TourCloseIcon` и `TourBody`:
+заголовок, описание и прогресс лежат прямо в `TourContent`.
 
 <ExampleFrame variant="component">
   <TourAdvancedCustomization />
@@ -346,27 +346,24 @@ Tour
 
 ## Стилизация
 
-### CSS-свойства
+Ширина `TourContent`: 20rem у шагов-подсказок, 26rem у диалоговых и 22rem у плавающих шагов, в пределах
+окна и доступного места от Ark. Высота ограничена 24rem: помещайте текст шага в `TourBody`, чтобы он
+прокручивался, а не выходил за панель. Плавающие шаги стоят в 1.5rem от края окна, заданного `placement`,
+или в центре окна при `placement: 'center'`. Слои оверлея начинаются с токена `--moduix-z-tour`: фон,
+подсветка и позиционер идут в этом порядке, выше диалогов и всплывающих окон, но ниже уведомлений. `TourCloseTrigger` без стилей, а `TourCloseIcon` это готовая кнопка
+закрытия с иконкой. Анимация панели читает общие переменные `--moduix-popup-motion-*`, а анимации фона и
+панели отключаются, если пользователь уменьшил движение в системе.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div className="docs-reference-panel docs-reference-panel--compact">
-        <TourCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+Передавайте `className` в React или `class` в Solid и Vue экспортируемым частям. Варианты Tailwind используют
+обычные утилиты и классы потребителя. Варианты CSS Modules построены на токенах foundation и не имеют
+переменных компонента: класс на части переопределяет стили компонента из слоя. Передайте `className` (или
+`class`) в `TourActionList`, чтобы стилизовать каждый созданный триггер.
 
 ### Хуки стилизации
 
-Для локальной стилизации используйте атрибуты moduix `data-slot`, например `tour-content`, `tour-body` и
-`tour-action-trigger`. Ark также добавляет `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
-`data-placement`, `data-side`, `data-step` и `data-disabled`, а также CSS-переменные `--tour-layer`, `--tour-z-index`,
-`--available-width`, `--available-height`, `--transform-origin` и переменные стрелки. Передайте `className` (или `class` в Vue) в
-`TourActionList`, чтобы стилизовать каждый созданный триггер. Если пользователь уменьшил анимации в системе, стили
-сокращают анимацию оверлея и убирают переходы у кнопок действий.
+Основные публичные хуки: `data-slot="tour-backdrop"`, `tour-spotlight`, `tour-positioner`, `tour-content`,
+`tour-arrow`, `tour-arrow-tip`, `tour-title`, `tour-description`, `tour-progress-text`, `tour-body`,
+`tour-close-trigger`, `tour-close-icon`, `tour-control` и `tour-action-trigger`. Ark также добавляет
+`data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`, `data-step` и
+`data-disabled`, а также переменные времени выполнения, включая `--tour-layer`, `--available-width`,
+`--available-height`, `--transform-origin` и переменные стрелки.

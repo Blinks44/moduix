@@ -78,7 +78,7 @@
     },
     {
       "path": "src/styles/z-index.css",
-      "content": ":root {\n  --moduix-z-default: 1;\n  --moduix-z-xs: 5;\n  --moduix-z-sm: 10;\n  --moduix-z-md: 20;\n  --moduix-z-lg: 30;\n  --moduix-z-xl: 40;\n\n  --moduix-z-backdrop: 40;\n  --moduix-z-modal: 50;\n  --moduix-z-popup: 60;\n  --moduix-z-toast: 70;\n}",
+      "content": ":root {\n  --moduix-z-default: 1;\n  --moduix-z-xs: 5;\n  --moduix-z-sm: 10;\n  --moduix-z-md: 20;\n  --moduix-z-lg: 30;\n  --moduix-z-xl: 40;\n\n  --moduix-z-backdrop: 40;\n  --moduix-z-modal: 50;\n  --moduix-z-popup: 60;\n  --moduix-z-tour: 65;\n  --moduix-z-toast: 70;\n}",
       "type": "registry:file",
       "target": "@lib/moduix/styles/z-index.css"
     }

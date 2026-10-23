@@ -1266,9 +1266,9 @@
     "fr": "Les composants utilisent les variables sémantiques, tandis que les thèmes redéfinissent la palette de base."
   },
   "tokensOverviewCentralizedBackdrop": {
-    "en": "Global backdrop color and blur stay centralized, and component-level variables can still opt out.",
-    "ru": "Цвет и размытие фона задаются централизованно, а переменные уровня компонента по-прежнему позволяют переопределить их.",
-    "fr": "La couleur et le flou de l’arrière-plan sont définis à un seul endroit, mais chaque composant peut toujours les redéfinir."
+    "en": "Global backdrop color and blur stay centralized: every overlay backdrop reads the same two variables.",
+    "ru": "Цвет и размытие фона задаются централизованно: фон каждого оверлея читает одни и те же две переменные.",
+    "fr": "La couleur et le flou de l’arrière-plan sont définis à un seul endroit : l’arrière-plan de chaque overlay lit les deux mêmes variables."
   },
   "tokensOverviewParentScope": {
     "en": "Any parent scope can change density, motion, or color for a focused area.",

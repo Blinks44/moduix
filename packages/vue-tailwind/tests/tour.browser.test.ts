@@ -24,6 +24,8 @@ import {
   TourTitle,
   useTour,
 } from '../src';
+import { Dialog, DialogContent, DialogPositioner, DialogTitle } from '../src';
+import { LocaleProvider } from '../src/locale';
 import SsrTour from './fixtures/SsrTour.vue';
 
 const steps = [
@@ -235,16 +237,14 @@ test('applies Tailwind defaults and lets consumer utilities win', async () => {
   const closeIcon = screen.getByRole('button', { name: 'Close tour' });
 
   expect([...backdrop!.classList]).toEqual(
-    expect.arrayContaining(['bg-overlay', 'backdrop-blur-xs']),
+    expect.arrayContaining(['bg-overlay', 'backdrop-blur-[4px]']),
   );
   expect([...spotlight!.classList]).toEqual(expect.arrayContaining(['ring-2', 'ring-ring']));
   expect([...positioner!.classList]).toEqual(
     expect.arrayContaining([
-      '[--tour-z-index:var(--moduix-tour-z-index,var(--moduix-z-modal))]',
+      'z-[calc(var(--moduix-z-tour)+var(--tour-layer,0))]',
       'max-w-[var(--available-width)]',
-      'data-[type=floating]:data-[placement=left-end]:start-6',
-      'data-[type=floating]:data-[placement=left-end]:bottom-6',
-      'data-[type=floating]:data-[placement=left-start]:start-6',
+      'data-[type=floating]:data-[placement^=left]:left-6',
       'data-[type=floating]:data-[placement=left-start]:top-6',
     ]),
   );
@@ -255,7 +255,7 @@ test('applies Tailwind defaults and lets consumer utilities win', async () => {
     ]),
   );
   expect([...content!.classList]).toEqual(expect.arrayContaining(['w-96', 'bg-card', 'p-4']));
-  expect(['w-80', 'bg-popover', 'p-5'].some((name) => content!.classList.contains(name))).toBe(
+  expect(['w-[20rem]', 'bg-popover', 'p-5'].some((name) => content!.classList.contains(name))).toBe(
     false,
   );
   expect([...screen.getByRole('heading', { name: 'Welcome' }).classList]).toEqual(
@@ -587,4 +587,137 @@ test('renders and hydrates inline and portalled Tour anatomy without replacing s
     host.remove();
     for (const node of teleportNodes) node.remove();
   }
+});
+
+test.each([
+  ['center', 'ltr'],
+  ['top', 'rtl'],
+] as const)('centers %s floating steps in %s', async (placement, dir) => {
+  const FloatingTour = defineComponent({
+    components: tourComponents,
+    setup() {
+      return {
+        tour: useTour({
+          steps: [
+            {
+              id: 'floating',
+              type: 'floating',
+              placement,
+              title: 'Floating',
+              description: 'A floating step.',
+            },
+          ],
+        }),
+      };
+    },
+    template: `
+      <button type="button" @click="tour.start()">Start floating tour</button>
+      <Tour :tour="tour">
+        <TourPositioner>
+          <TourContent>
+            <TourTitle />
+            <TourDescription />
+          </TourContent>
+        </TourPositioner>
+      </Tour>
+    `,
+  });
+  const App = defineComponent({
+    components: { FloatingTour, LocaleProvider },
+    setup() {
+      return { locale: dir === 'rtl' ? 'ar' : 'en' };
+    },
+    template: '<LocaleProvider :locale="locale"><FloatingTour /></LocaleProvider>',
+  });
+
+  render(App);
+  await page.getByRole('button', { name: 'Start floating tour', exact: true }).click();
+  await expect.element(page.getByRole('alertdialog', { name: 'Floating' })).toBeVisible();
+
+  const rect = document.querySelector('[data-slot="tour-content"]')!.getBoundingClientRect();
+  expect(Math.abs(rect.left + rect.width / 2 - window.innerWidth / 2)).toBeLessThanOrEqual(1);
+  if (placement === 'center') {
+    expect(Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2)).toBeLessThanOrEqual(1);
+  }
+});
+
+test('stacks a tooltip step above its spotlight and backdrop', async () => {
+  const App = defineComponent({
+    components: tourComponents,
+    setup() {
+      return {
+        tour: useTour({
+          steps: [
+            {
+              id: 'tooltip',
+              type: 'tooltip',
+              title: 'Tooltip',
+              description: 'A tooltip step.',
+              target: () => document.querySelector<HTMLElement>('#tour-tooltip-target'),
+              backdrop: true,
+            },
+          ],
+        }),
+      };
+    },
+    template: `
+      <button id="tour-tooltip-target" type="button" @click="tour.start()">Start tooltip tour</button>
+      <Tour :tour="tour">
+        <TourBackdrop />
+        <TourSpotlight />
+        <TourPositioner>
+          <TourContent>
+            <TourTitle />
+            <TourDescription />
+          </TourContent>
+        </TourPositioner>
+      </Tour>
+    `,
+  });
+
+  render(App);
+  await page.getByRole('button', { name: 'Start tooltip tour', exact: true }).click();
+  await expect.element(page.getByRole('alertdialog', { name: 'Tooltip' })).toBeVisible();
+
+  const zIndex = (slot: string) =>
+    Number(getComputedStyle(document.querySelector(`[data-slot="tour-${slot}"]`)!).zIndex);
+  expect(zIndex('spotlight')).toBeGreaterThan(zIndex('backdrop'));
+  expect(zIndex('positioner')).toBeGreaterThan(zIndex('spotlight'));
+});
+
+test('shows a tour started from an open dialog above that dialog', async () => {
+  const App = defineComponent({
+    components: { ...tourComponents, Dialog, DialogContent, DialogPositioner, DialogTitle },
+    setup() {
+      return { tour: useTour({ steps }) };
+    },
+    template: `
+      <Dialog default-open>
+        <DialogPositioner>
+          <DialogContent>
+            <DialogTitle>Settings</DialogTitle>
+            <button type="button" @click="tour.start()">Start dialog tour</button>
+          </DialogContent>
+        </DialogPositioner>
+        <Tour :tour="tour">
+          <TourBackdrop />
+          <TourPositioner>
+            <TourContent>
+              <TourTitle />
+              <TourDescription />
+            </TourContent>
+          </TourPositioner>
+        </Tour>
+      </Dialog>
+    `,
+  });
+
+  render(App);
+  await page.getByRole('button', { name: 'Start dialog tour', exact: true }).click();
+  await expect.element(page.getByRole('alertdialog', { name: 'Welcome' })).toBeVisible();
+
+  const content = document.querySelector('[data-slot="tour-content"]')!;
+  const rect = content.getBoundingClientRect();
+  const hit = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  expect(content.contains(hit)).toBe(true);
 });

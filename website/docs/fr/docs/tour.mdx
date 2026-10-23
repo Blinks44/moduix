@@ -4,7 +4,6 @@ component: tour
 description: Créez des parcours guidés pour faire découvrir votre produit avec l’état Tour d’Ark UI, une couche superposée accessible et des actions prêtes à l’emploi.
 ---
 
-import { TourCssPropertiesPanel } from '@/components/examples/tour/css-properties';
 import TourAdvancedCustomization from '@/components/examples/tour/advanced-customization.tsx';
 import TourBasic from '@/components/examples/tour/basic.tsx';
 import TourEvents from '@/components/examples/tour/events.tsx';
@@ -304,7 +303,8 @@ l’option `arrow` de l’étape pour qu’Ark positionne la flèche.
 
 Remplacez `TourActionList` lorsque chaque action demande son propre balisage. L’exemple utilise des enfants
 `Button` personnalisés pour Continue, Back et Skip tour. Chaque `TourActionTrigger` reçoit toujours l’objet d’action
-Ark d’origine : la navigation, la fermeture et l’état désactivé restent donc actifs.
+Ark d’origine : la navigation, la fermeture et l’état désactivé restent donc actifs. L’exemple se passe aussi des assistants `TourCloseIcon` et `TourBody` :
+le titre, la description et la progression sont placés directement dans `TourContent`.
 
 <ExampleFrame variant="component">
   <TourAdvancedCustomization />
@@ -349,27 +349,28 @@ Ark d’origine : la navigation, la fermeture et l’état désactivé restent d
 
 ## Styles
 
-### Propriétés CSS
+`TourContent` mesure 20rem pour les étapes infobulle, 26rem pour les étapes dialogue et 22rem pour les
+étapes flottantes, dans la limite de la fenêtre et de l’espace disponible calculé par Ark. Sa hauteur est
+limitée à 24rem : placez le texte de l’étape dans `TourBody` pour qu’il défile au lieu de déborder. Les
+étapes flottantes se placent à 1.5rem du bord de la fenêtre indiqué par `placement`, ou au centre avec
+`placement: 'center'`. Les couches commencent au jeton `--moduix-z-tour` : l’arrière-plan, la mise en
+évidence et le positionneur s’empilent dans cet ordre, au-dessus des dialogues et des popovers et sous les
+notifications. `TourCloseTrigger` n’a pas de style ;
+`TourCloseIcon` est le bouton de fermeture à icône prêt à l’emploi. L’animation du contenu lit les
+variables partagées `--moduix-popup-motion-*`, et les animations de l’arrière-plan et du contenu sont
+désactivées lorsque l’utilisateur préfère réduire les animations.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div className="docs-reference-panel docs-reference-panel--compact">
-        <TourCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes Tailwind
+utilisent des utilitaires natifs et les classes du consommateur. Les variantes CSS Modules reposent sur les
+jetons de foundation et n’ont pas de variables de composant : une classe sur la partie remplace les styles
+du composant placés dans une couche. Passez `className` (ou `class`) à `TourActionList` pour styliser
+chaque déclencheur généré.
 
 ### Hooks de style
 
-Utilisez les attributs `data-slot` de moduix, comme `tour-content`, `tour-body` et `tour-action-trigger`, pour le style
-local. Ark fournit aussi `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`,
-`data-step` et `data-disabled`, ainsi que des variables d’exécution comme `--tour-layer`, `--tour-z-index`,
-`--available-width`, `--available-height`, `--transform-origin` et les variables de la flèche. Passez `className` (ou `class` avec Vue) à
-`TourActionList` pour styliser chaque déclencheur généré. La feuille de style raccourcit les animations de la couche et
-supprime les transitions des boutons d’action lorsque l’utilisateur préfère réduire les animations.
+Les principaux hooks publics sont `data-slot="tour-backdrop"`, `tour-spotlight`, `tour-positioner`,
+`tour-content`, `tour-arrow`, `tour-arrow-tip`, `tour-title`, `tour-description`, `tour-progress-text`,
+`tour-body`, `tour-close-trigger`, `tour-close-icon`, `tour-control` et `tour-action-trigger`. Ark ajoute
+aussi `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`,
+`data-step` et `data-disabled`, ainsi que des variables d’exécution comme `--tour-layer`,
+`--available-width`, `--available-height`, `--transform-origin` et les variables de la flèche.

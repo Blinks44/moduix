@@ -1,11 +1,14 @@
+import { LocaleProvider } from '@ark-ui/react/locale';
 import type { TourStepDetails } from '@ark-ui/react/tour';
 import { page } from '@rstest/browser';
 import { describe, expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { Button } from '../src/components/button';
+import { Dialog, DialogContent, DialogPositioner, DialogTitle } from '../src/components/dialog';
 import {
   Tour,
   TourBackdrop,
+  TourSpotlight,
   TourPositioner,
   TourContent,
   TourTitle,
@@ -89,6 +92,93 @@ function CustomActionTourExample() {
   );
 }
 
+function FloatingTourExample({ placement }: { placement: 'center' | 'top' }) {
+  const tour = useTour({
+    steps: [
+      {
+        id: 'floating',
+        type: 'floating',
+        placement,
+        title: 'Floating',
+        description: 'A floating step.',
+      },
+    ],
+  });
+
+  return (
+    <>
+      <Button onClick={() => tour.start()}>Start floating tour</Button>
+      <Tour tour={tour}>
+        <TourPositioner>
+          <TourContent>
+            <TourTitle />
+            <TourDescription />
+          </TourContent>
+        </TourPositioner>
+      </Tour>
+    </>
+  );
+}
+
+function TooltipTourExample() {
+  const tour = useTour({
+    steps: [
+      {
+        id: 'tooltip',
+        type: 'tooltip',
+        title: 'Tooltip',
+        description: 'A tooltip step.',
+        target: () => document.querySelector<HTMLElement>('#tour-tooltip-target'),
+        backdrop: true,
+      },
+    ],
+  });
+
+  return (
+    <>
+      <Button id="tour-tooltip-target" onClick={() => tour.start()}>
+        Start tooltip tour
+      </Button>
+      <Tour tour={tour}>
+        <TourBackdrop />
+        <TourSpotlight />
+        <TourPositioner>
+          <TourContent>
+            <TourTitle />
+            <TourDescription />
+          </TourContent>
+        </TourPositioner>
+      </Tour>
+    </>
+  );
+}
+
+function TourInDialogExample() {
+  const tour = useTour({ steps });
+
+  return (
+    <Dialog defaultOpen>
+      <DialogPositioner>
+        <DialogContent>
+          <DialogTitle>Settings</DialogTitle>
+          <button type="button" onClick={() => tour.start()}>
+            Start dialog tour
+          </button>
+        </DialogContent>
+      </DialogPositioner>
+      <Tour tour={tour}>
+        <TourBackdrop />
+        <TourPositioner>
+          <TourContent>
+            <TourTitle />
+            <TourDescription />
+          </TourContent>
+        </TourPositioner>
+      </Tour>
+    </Dialog>
+  );
+}
+
 describe('Tour', () => {
   test('renders an inline dialog with the scrollable body sugar', async () => {
     render(
@@ -148,5 +238,46 @@ describe('Tour', () => {
       .toHaveAttribute('data-slot', 'tour-action-trigger');
     await expect.element(page.getByText('Continue').nth(0)).toBeDisabled();
     await expect.element(page.getByText('Continue').nth(1)).not.toBeDisabled();
+  });
+  test.each([
+    ['center', 'ltr'],
+    ['top', 'rtl'],
+  ] as const)('centers %s floating steps in %s', async (placement, dir) => {
+    render(
+      <LocaleProvider locale={dir === 'rtl' ? 'ar' : 'en'}>
+        <FloatingTourExample placement={placement} />
+      </LocaleProvider>,
+    );
+
+    await page.getByRole('button', { name: 'Start floating tour', exact: true }).click();
+    await expect.element(page.getByRole('alertdialog', { name: 'Floating' })).toBeVisible();
+
+    const rect = document.querySelector('[data-slot="tour-content"]')!.getBoundingClientRect();
+    expect(Math.abs(rect.left + rect.width / 2 - window.innerWidth / 2)).toBeLessThanOrEqual(1);
+    if (placement === 'center') {
+      expect(Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2)).toBeLessThanOrEqual(1);
+    }
+  });
+  test('stacks a tooltip step above its spotlight and backdrop', async () => {
+    render(<TooltipTourExample />);
+
+    await page.getByRole('button', { name: 'Start tooltip tour', exact: true }).click();
+    await expect.element(page.getByRole('alertdialog', { name: 'Tooltip' })).toBeVisible();
+
+    const zIndex = (slot: string) =>
+      Number(getComputedStyle(document.querySelector(`[data-slot="tour-${slot}"]`)!).zIndex);
+    expect(zIndex('spotlight')).toBeGreaterThan(zIndex('backdrop'));
+    expect(zIndex('positioner')).toBeGreaterThan(zIndex('spotlight'));
+  });
+  test('shows a tour started from an open dialog above that dialog', async () => {
+    render(<TourInDialogExample />);
+
+    await page.getByRole('button', { name: 'Start dialog tour', exact: true }).click();
+    await expect.element(page.getByRole('alertdialog', { name: 'Welcome' })).toBeVisible();
+
+    const content = document.querySelector('[data-slot="tour-content"]')!;
+    const rect = content.getBoundingClientRect();
+    const hit = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    expect(content.contains(hit)).toBe(true);
   });
 });

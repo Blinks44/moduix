@@ -4,7 +4,6 @@ component: tour
 description: Build guided product walkthroughs with Ark UI tour state, accessible overlay parts, and ready-made actions.
 ---
 
-import { TourCssPropertiesPanel } from '@/components/examples/tour/css-properties';
 import TourAdvancedCustomization from '@/components/examples/tour/advanced-customization.tsx';
 import TourBasic from '@/components/examples/tour/basic.tsx';
 import TourEvents from '@/components/examples/tour/events.tsx';
@@ -301,7 +300,8 @@ option so Ark can position it.
 
 Replace `TourActionList` when each action needs its own markup. The example uses custom `Button` children for
 Continue, Back, and Skip tour. Each `TourActionTrigger` still receives the original Ark action object, so navigation,
-dismissal, and disabled state continue to work.
+dismissal, and disabled state continue to work. The example also skips the `TourCloseIcon` and `TourBody`
+helpers and places the title, description, and progress text directly in `TourContent`.
 
 <ExampleFrame variant="component">
   <TourAdvancedCustomization />
@@ -346,27 +346,26 @@ dismissal, and disabled state continue to work.
 
 ## Styling
 
-### CSS Properties
+`TourContent` is 20rem wide for tooltip steps, 26rem for dialog steps, and 22rem for floating steps,
+within the viewport and Ark's available space. Its height is capped at 24rem: put step copy in
+`TourBody` so it scrolls instead of spilling past the surface. Floating steps sit 1.5rem from the
+viewport edge named by `placement`, or in the viewport center for `placement: 'center'`. Overlay
+layers start at the `--moduix-z-tour` token: the backdrop, the spotlight, and the positioner stack in
+that order, above dialogs and popovers and below toasts. `TourCloseTrigger` is unstyled; `TourCloseIcon` is the styled icon-only close button.
+Content motion reads the shared `--moduix-popup-motion-*` variables, and backdrop and content
+animations are skipped when the user prefers reduced motion.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div className="docs-reference-panel docs-reference-panel--compact">
-        <TourCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on the part overrides the layered component styles. Pass `className` (or `class`)
+to `TourActionList` to style every generated trigger.
 
 ### Styling hooks
 
-Use moduix `data-slot` hooks such as `tour-content`, `tour-body`, and `tour-action-trigger` for local styling. Ark also
-provides `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`, `data-step`, and
-`data-disabled`, plus runtime variables including `--tour-layer`, `--tour-z-index`, `--available-width`,
-`--available-height`, `--transform-origin`, and the arrow variables. Pass `className` (or `class` in Vue) to `TourActionList` to style
-every generated trigger. The stylesheet shortens overlay animations and removes action-button transitions for people
-who prefer reduced motion.
+The main public hooks are `data-slot="tour-backdrop"`, `tour-spotlight`, `tour-positioner`,
+`tour-content`, `tour-arrow`, `tour-arrow-tip`, `tour-title`, `tour-description`,
+`tour-progress-text`, `tour-body`, `tour-close-trigger`, `tour-close-icon`, `tour-control`, and
+`tour-action-trigger`. Ark also adds `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
+`data-placement`, `data-side`, `data-step`, and `data-disabled`, plus runtime variables including
+`--tour-layer`, `--available-width`, `--available-height`, `--transform-origin`, and the arrow
+variables.
