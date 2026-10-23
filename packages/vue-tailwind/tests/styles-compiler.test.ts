@@ -53,7 +53,7 @@ const cases = [
     "[@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]]:bg-accent",
   ],
   ['switch/Switch', 'data-[state=checked]:start-[calc(100%-var(--moduix-spacing-0-5))]'],
-  ['switch/Switch', '[&:dir(rtl)]:data-[state=checked]:translate-x-full'],
+  ['switch/Switch', 'data-[state=checked]:[&[dir=rtl]]:translate-x-full'],
   ['listbox/Listbox', 'in-[[data-slot=listbox-filter]]:focus-visible:border-ring'],
   [
     'listbox/Listbox',
