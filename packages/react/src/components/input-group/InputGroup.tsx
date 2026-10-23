@@ -69,8 +69,17 @@ const InputGroupInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<ty
 const InputGroupTextarea = forwardRef<
   ComponentRef<typeof Textarea>,
   ComponentProps<typeof Textarea>
->(function InputGroupTextarea({ className, ...props }, ref) {
-  return <Textarea ref={ref} className={clsx(styles.textarea, className)} {...props} />;
+>(function InputGroupTextarea({ className, size, ...props }, ref) {
+  const groupSize = useContext(InputGroupSizeContext);
+
+  return (
+    <Textarea
+      ref={ref}
+      className={clsx(styles.textarea, className)}
+      size={size ?? groupSize}
+      {...props}
+    />
+  );
 });
 
 const InputGroupAddon = forwardRef<HTMLSpanElement, InputGroupAddonProps>(function InputGroupAddon(

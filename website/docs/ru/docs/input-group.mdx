@@ -408,8 +408,8 @@ ARIA-атрибуты в `InputGroupInput`, а группа отразит со�
 ### Многострочное поле
 
 Используйте `InputGroupTextarea` для многострочного ввода, например в форме сообщения. Он рендерит
-`Textarea` moduix без собственной рамки, берёт размер шрифта и боковой отступ группы и сохраняет
-состояние Ark Field и `autoresize`. Панель действий добавляется через `InputGroupAddon align="block"`
+`Textarea` moduix без собственной рамки, наследует размер группы, если не задан свой `size`, и
+сохраняет состояние Ark Field и `autoresize`. Панель действий добавляется через `InputGroupAddon align="block"`
 с обычным `Button`.
 
 <ExampleFrame variant="component">

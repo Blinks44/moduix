@@ -54,9 +54,16 @@ function InputGroupInput(props: ComponentProps<typeof Input>) {
 }
 
 function InputGroupTextarea(props: ComponentProps<typeof Textarea>) {
-  const [local, others] = splitProps(props, ['class']);
+  const [local, others] = splitProps(props, ['class', 'size']);
+  const groupSize = useContext(InputGroupSizeContext);
 
-  return <Textarea {...others} class={clsx(styles.textarea, local.class)} />;
+  return (
+    <Textarea
+      {...others}
+      class={clsx(styles.textarea, local.class)}
+      size={local.size ?? groupSize()}
+    />
+  );
 }
 
 function InputGroupAddon(props: InputGroupAddonProps) {

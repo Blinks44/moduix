@@ -407,8 +407,8 @@ est contrôlé et `Send` ne devient disponible qu’après la saisie d’une val
 ### Zone de texte
 
 Utilisez `InputGroupTextarea` pour une saisie sur plusieurs lignes, par exemple un champ de message.
-Il affiche le `Textarea` de moduix sans sa bordure, reprend la taille de police et la marge latérale
-du groupe, et conserve l’état Ark Field et `autoresize`. Ajoutez une barre d’actions avec
+Il affiche le `Textarea` de moduix sans sa bordure, hérite de la taille du groupe sauf si une `size`
+locale est fournie, et conserve l’état Ark Field et `autoresize`. Ajoutez une barre d’actions avec
 `InputGroupAddon align="block"` et un `Button` classique.
 
 <ExampleFrame variant="component">

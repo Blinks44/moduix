@@ -29,6 +29,18 @@ export const DefaultPath: Story = {
   ),
 };
 
+export const Sizes: Story = {
+  render: () => (
+    <div class={stackClass}>
+      <Textarea size="xs" aria-label="Extra-small textarea" placeholder="Extra-small textarea" />
+      <Textarea size="sm" aria-label="Small textarea" placeholder="Small textarea" />
+      <Textarea size="md" aria-label="Medium textarea" placeholder="Medium textarea" />
+      <Textarea size="lg" aria-label="Large textarea" placeholder="Large textarea" />
+      <Textarea size="xl" aria-label="Extra-large textarea" placeholder="Extra-large textarea" />
+    </div>
+  ),
+};
+
 export const Controlled: Story = {
   render: () => {
     const [value, setValue] = createSignal('');

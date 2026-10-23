@@ -406,8 +406,8 @@ controlled and enables `Send` only after a value is entered.
 ### Textarea
 
 Use `InputGroupTextarea` for multi-line input, such as a message composer. It renders the moduix
-`Textarea` without its border, takes the group font size and inline padding, and keeps Ark Field
-state and `autoresize`. Add a toolbar with `InputGroupAddon align="block"` and a regular `Button`.
+`Textarea` without its border, inherits the group size unless it gets its own `size`, and keeps
+Ark Field state and `autoresize`. Add a toolbar with `InputGroupAddon align="block"` and a regular `Button`.
 
 <ExampleFrame variant="component">
   <InputGroupTextarea />

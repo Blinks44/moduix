@@ -32,9 +32,10 @@ preview-first inline editing.
 - `InputGroupInput` renders `Input`, inherits the group size unless it gets its own `size`, and
   accepts native `onChange(event)`. A local size controls the input font and inline padding; the
   group keeps its own height.
-- `InputGroupTextarea` renders `Textarea` with all its props, including `autoresize`. In the group
-  it has no border, background, radius, focus outline, or resize handle, takes the group font size
-  and inline padding, and grows the group. It has no `size` of its own.
+- `InputGroupTextarea` renders `Textarea` with all its props, including `autoresize`, and inherits
+  the group size unless it gets its own `size`, like `InputGroupInput`. In the group it has no
+  border, background, radius, focus outline, or resize handle, takes the group inline padding for
+  its size, and grows the group.
 - `InputGroupAddon` and `InputGroupText` render Ark factory `span` elements and support `asChild`.
   The addon has a muted background and separators; the text part is transparent. `align`
   (`inline` by default, mirrored as `data-align`) picks a side placement or, with `block`, a

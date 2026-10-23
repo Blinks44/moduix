@@ -1,7 +1,8 @@
 @layer moduix.components {
-  /* The root and the grouped input both carry `data-size`, so a local input size keeps its own padding. */
+  /* The root and the grouped controls all carry `data-size`, so a local size keeps its own padding. */
   .root,
-  .input {
+  .input,
+  .textarea {
     --_input-group-height: var(--moduix-size-md);
     --_input-group-padding-x: var(--moduix-spacing-3-5);
     --_input-group-font-size: var(--moduix-text-md);
@@ -105,15 +106,13 @@
     padding-inline: var(--_input-group-padding-x);
   }
 
-  /* The slot attribute outranks the Textarea state rules, including its read-only background. */
+  /* The slot attribute outranks the Textarea state rules regardless of stylesheet order. */
   .root .textarea[data-slot='textarea-root'] {
     min-width: 0;
     flex: 1 1 auto;
     border: 0;
     border-radius: 0;
     background-color: transparent;
-    font-size: inherit;
-    line-height: inherit;
     outline: 0;
     padding-inline: var(--_input-group-padding-x);
     resize: none;

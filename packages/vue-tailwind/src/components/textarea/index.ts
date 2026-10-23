@@ -1,5 +1,3 @@
-import Textarea from './Textarea.vue';
+export { default as Textarea } from './Textarea.vue';
 
-export { Textarea };
-
-export type { FieldTextareaProps } from '@ark-ui/vue/field';
+export type { Props as TextareaRootProps, TextareaSize } from './Textarea.vue';

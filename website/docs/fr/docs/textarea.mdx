@@ -11,18 +11,21 @@ import TextareaControlled from '@/components/examples/textarea/controlled.tsx';
 import TextareaDisabledAndReadonly from '@/components/examples/textarea/disabled-and-readonly.tsx';
 import TextareaFieldValidation from '@/components/examples/textarea/field-validation.tsx';
 import TextareaNativeAttributes from '@/components/examples/textarea/native-attributes.tsx';
+import TextareaSizes from '@/components/examples/textarea/sizes.tsx';
 import textareaSolidAutoResize from '../../../snippets/textarea/solid/auto-resize.tsx?raw';
 import textareaSolidBasic from '../../../snippets/textarea/solid/basic.tsx?raw';
 import textareaSolidControlled from '../../../snippets/textarea/solid/controlled.tsx?raw';
 import textareaSolidDisabledAndReadonly from '../../../snippets/textarea/solid/disabled-and-readonly.tsx?raw';
 import textareaSolidFieldValidation from '../../../snippets/textarea/solid/field-validation.tsx?raw';
 import textareaSolidNativeAttributes from '../../../snippets/textarea/solid/native-attributes.tsx?raw';
+import textareaSolidSizes from '../../../snippets/textarea/solid/sizes.tsx?raw';
 import textareaVueAutoResize from '../../../snippets/textarea/vue/auto-resize.vue?raw';
 import textareaVueBasic from '../../../snippets/textarea/vue/basic.vue?raw';
 import textareaVueControlled from '../../../snippets/textarea/vue/controlled.vue?raw';
 import textareaVueDisabledAndReadonly from '../../../snippets/textarea/vue/disabled-and-readonly.vue?raw';
 import textareaVueFieldValidation from '../../../snippets/textarea/vue/field-validation.vue?raw';
 import textareaVueNativeAttributes from '../../../snippets/textarea/vue/native-attributes.vue?raw';
+import textareaVueSizes from '../../../snippets/textarea/vue/sizes.vue?raw';
 
 ## Référence de l’API
 
@@ -160,9 +163,8 @@ le contrôle doit fournir un libellé, un texte complémentaire ou une validatio
 donnez-lui un nom accessible avec un `<label>` natif ou `aria-label`.
 
 Activez `autoresize` seulement lorsque le contrôle doit grandir avec son contenu. Dans ce mode, Ark
-désactive le redimensionnement manuel : `--moduix-textarea-resize` ne s’applique donc que lorsque
-`autoresize` vaut `false`. Avec `asChild`, fournissez un seul élément textarea sémantique capable de
-recevoir les propriétés fusionnées et la ref.
+désactive le redimensionnement manuel. Avec `asChild`, fournissez un seul élément textarea sémantique
+capable de recevoir les propriétés fusionnées et la ref.
 
 ## Exemples
 
@@ -209,6 +211,57 @@ redimensionnement manuel lorsque cette option est active.
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-auto-resize.module.css"
+
+```
+
+</div>
+
+</ExampleCode>
+
+### Tailles
+
+La propriété `size` définit les espacements et la typographie. L’espacement horizontal et la taille
+de police correspondent à `Input` de même taille, ce qui aligne les champs empilés. La hauteur vient
+de l’attribut natif `rows` et suit donc la taille de police.
+
+<ExampleFrame variant="component">
+  <TextareaSizes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/textarea/sizes.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textareaSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueSizes} />
+
+    </Tab>
+
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/textarea/textarea-sizes.module.css"
 
 ```
 
@@ -418,9 +471,14 @@ comportement du navigateur. Cet exemple soumet également le formulaire et lit l
 
 ## Styles
 
-Dans React, personnalisez le contrôle avec `className` ; dans Solid et Vue, utilisez `class`, avec
-`data-slot="textarea-root"`. Les variantes Tailwind utilisent les utilitaires natifs et les classes
-du consommateur. Les variables publiques `--moduix-textarea-*` ci-dessous concernent les variantes CSS Modules.
+Dans un `Field`, `FieldRootProvider` ou `Fieldset` moduix désactivé, seule la racine applique
+l’opacité de l’état désactivé ; un `Textarea` désactivé hors de ces conteneurs s’atténue lui-même.
+
+Utilisez `className` dans React ou `class` dans Solid et Vue sur `Textarea`. Les variantes Tailwind
+utilisent les classes utilitaires natives et les classes du consommateur. Les variantes CSS Modules
+reposent sur les tokens de la fondation et n’exposent que les deux variables ci-dessous ; remplacez
+les couleurs, les espacements, la typographie, la hauteur et `resize` avec une simple classe, qui l’emporte sur
+les styles du composant placés dans une couche.
 
 ### Propriétés CSS
 
@@ -430,21 +488,16 @@ du consommateur. Les variables publiques `--moduix-textarea-*` ci-dessous concer
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
-    {' '}
     <Tab>
-      {' '}
-      <TextareaDocs.TextareaCssPropertiesPanel />{' '}
-    </Tab>{' '}
+      <TextareaDocs.TextareaCssPropertiesPanel />
+    </Tab>
   </Tabs>
 </div>
 
 ### Points d’accroche CSS
 
-Utilisez la racine `Textarea` pour l’apparence du contrôle et le `Field` environnant pour la mise en
-page et le texte complémentaire.
-
-- La racine `Textarea` pour la bordure, l’arrière-plan, le placeholder, le comportement de redimensionnement et l’anneau de focus.
-- Le conteneur `Field` pour la largeur, la largeur maximale, l’espacement, la disposition du libellé, la description et le message de validation.
-- `data-slot="textarea-root"` pour un ciblage stable dans les styles à portée limitée.
-- `data-autoresize` lorsque `autoresize` est activé.
-- `data-invalid`, `[aria-invalid='true']`, `[disabled]`, `data-disabled`, `:read-only` et `data-readonly` pour les styles tenant compte de l’état.
+- `data-slot="textarea-root"`
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"`
+- `data-scope="field"` et `data-part="textarea"`
+- `data-invalid`, `data-required`, `data-disabled` et `data-readonly` d’Ark dans `Field`
+- les sélecteurs natifs `:disabled`, `:read-only`, `:focus-visible` et `[aria-invalid="true"]`

@@ -11,18 +11,21 @@ import TextareaControlled from '@/components/examples/textarea/controlled.tsx';
 import TextareaDisabledAndReadonly from '@/components/examples/textarea/disabled-and-readonly.tsx';
 import TextareaFieldValidation from '@/components/examples/textarea/field-validation.tsx';
 import TextareaNativeAttributes from '@/components/examples/textarea/native-attributes.tsx';
+import TextareaSizes from '@/components/examples/textarea/sizes.tsx';
 import textareaSolidAutoResize from '../../../snippets/textarea/solid/auto-resize.tsx?raw';
 import textareaSolidBasic from '../../../snippets/textarea/solid/basic.tsx?raw';
 import textareaSolidControlled from '../../../snippets/textarea/solid/controlled.tsx?raw';
 import textareaSolidDisabledAndReadonly from '../../../snippets/textarea/solid/disabled-and-readonly.tsx?raw';
 import textareaSolidFieldValidation from '../../../snippets/textarea/solid/field-validation.tsx?raw';
 import textareaSolidNativeAttributes from '../../../snippets/textarea/solid/native-attributes.tsx?raw';
+import textareaSolidSizes from '../../../snippets/textarea/solid/sizes.tsx?raw';
 import textareaVueAutoResize from '../../../snippets/textarea/vue/auto-resize.vue?raw';
 import textareaVueBasic from '../../../snippets/textarea/vue/basic.vue?raw';
 import textareaVueControlled from '../../../snippets/textarea/vue/controlled.vue?raw';
 import textareaVueDisabledAndReadonly from '../../../snippets/textarea/vue/disabled-and-readonly.vue?raw';
 import textareaVueFieldValidation from '../../../snippets/textarea/vue/field-validation.vue?raw';
 import textareaVueNativeAttributes from '../../../snippets/textarea/vue/native-attributes.vue?raw';
+import textareaVueSizes from '../../../snippets/textarea/vue/sizes.vue?raw';
 
 ## API Reference
 
@@ -158,8 +161,8 @@ control needs a label, supporting text, or validation. Outside `Field`, provide 
 with a native `<label>` or `aria-label`.
 
 Set `autoresize` only when the control should grow with its content. Ark disables manual resizing in
-that mode, so `--moduix-textarea-resize` applies only when `autoresize` is false. With `asChild`,
-provide one semantic textarea host that can receive the merged props and ref.
+that mode. With `asChild`, provide one semantic textarea host that can receive the merged props and
+ref.
 
 ## Examples
 
@@ -206,6 +209,57 @@ this option is enabled.
 **Styles**
 
 ```css file="../../../src/components/examples/textarea/textarea-auto-resize.module.css"
+
+```
+
+</div>
+
+</ExampleCode>
+
+### Sizes
+
+The `size` prop sets padding and type for a denser or roomier field. Inline padding and font size
+match `Input` of the same size, so stacked controls line up. Height comes from the native `rows`
+attribute, so it scales with the font size.
+
+<ExampleFrame variant="component">
+  <TextareaSizes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/textarea/sizes.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textareaSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueSizes} />
+
+    </Tab>
+
+  </Tabs>
+
+**Styles**
+
+```css file="../../../src/components/examples/textarea/textarea-sizes.module.css"
 
 ```
 
@@ -414,9 +468,13 @@ example also submits the form and reads the current value from `FormData`.
 
 ## Styling
 
-Style the control with `className` in React or `class` in Solid and Vue, together with
-`data-slot="textarea-root"`. Tailwind variants use native utility and consumer classes. The public
-`--moduix-textarea-*` variables below apply to the CSS Modules variants.
+Inside a disabled moduix `Field`, `FieldRootProvider`, or `Fieldset`, the root applies the disabled
+opacity once; a standalone disabled `Textarea` dims itself.
+
+Use `className` in React or `class` in Solid and Vue on `Textarea`. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and expose only the
+two variables below; override colors, padding, typography, height, and `resize` with a plain class, which
+wins over the layered component styles.
 
 ### CSS Properties
 
@@ -434,12 +492,8 @@ Style the control with `className` in React or `class` in Solid and Vue, togethe
 
 ### Styling hooks
 
-Use the `Textarea` root for the control's appearance and the surrounding `Field` for layout and
-supporting text.
-
-- `Textarea` root for the border, background, placeholder, resize behavior, and focus ring
-- `Field` wrapper for width, max width, spacing, label layout, description, and validation text
-- `data-slot="textarea-root"` for stable targeting in scoped styles
-- `data-autoresize` when `autoresize` is enabled
-- `data-invalid`, `[aria-invalid='true']`, `[disabled]`, `data-disabled`, `:read-only`, and
-  `data-readonly` for state-aware styling
+- `data-slot="textarea-root"`
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"`
+- `data-scope="field"` and `data-part="textarea"`
+- Ark `data-invalid`, `data-required`, `data-disabled`, and `data-readonly` inside `Field`
+- native `:disabled`, `:read-only`, `:focus-visible`, and `[aria-invalid="true"]`

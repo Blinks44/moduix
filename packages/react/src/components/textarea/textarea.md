@@ -1,147 +1,61 @@
 # Textarea
 
-Upstream docs:
+Upstream (accessed 2026-10-23):
 
-- Ark UI: no dedicated Textarea primitive; follows https://ark-ui.com/docs/components/field and `FieldTextarea`
-- Ark UI composition: https://ark-ui.com/docs/guides/composition
-- Ark UI styling: https://ark-ui.com/docs/guides/styling
-- Ark UI ref: https://ark-ui.com/docs/guides/ref
-- Chakra UI: https://chakra-ui.com/docs/components/textarea
+- Ark UI Field (no standalone Textarea primitive): https://ark-ui.com/docs/components/field
+- Chakra UI Textarea: https://chakra-ui.com/docs/components/textarea
+- shadcn/ui Textarea: https://ui.shadcn.com/r/styles/new-york-v4/textarea.json
+
+| Source             | Useful difference                                        | moduix decision                                                                              |
+| ------------------ | -------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Ark Field          | Native field state, ids, refs, `asChild`, `autoresize`   | **Required correctness:** preserve the primitive and native event contract.                  |
+| Chakra Textarea    | `size` xs–xl and `outline`, `subtle`, `flushed` variants | **Adopted:** `size` on the `Input` scale. **Rejected:** variants; moduix keeps one recipe.   |
+| shadcn/ui Textarea | A plain styled `<textarea>` with `field-sizing: content` | **Intentional difference:** moduix uses Ark `FieldTextarea` and its `autoresize` for growth. |
 
 ## Purpose
 
-`Textarea` is the moduix multi-line plain text control: a styled Ark `FieldTextarea` root that keeps the native `<textarea>` API.
-
-## Upstream model to preserve
-
-Ark UI does not ship a dedicated `textarea` primitive. Moduix directly wraps Ark `FieldTextarea`
-with styling, while preserving Ark's [composition](https://ark-ui.com/docs/guides/composition),
-[styling](https://ark-ui.com/docs/guides/styling), and [ref](https://ark-ui.com/docs/guides/ref)
-contracts.
-
-Preserve the `FieldTextarea` contract: native textarea props, `autoresize`, ref forwarding to `HTMLTextAreaElement`, `asChild` from Ark polymorphic props, and inherited `Field` / `Fieldset` state.
-
-Chakra's Textarea recipe informs the public examples for helper text, error text, `resize`, `autoresize`, Hook Form-style refs, and direct native textarea usage.
+`Textarea` is the styled multi-line plain text control. It keeps native textarea semantics, works
+standalone, and inherits `disabled`, `invalid`, `readOnly`, `required`, ids, labels, helper text,
+and error text inside `Field`.
 
 ## Current behavior contract
 
-- Renders one Ark `FieldTextarea`, which renders one native `<textarea>`.
-- Accepts `ComponentProps<typeof FieldPrimitive.Textarea>` from Ark, including native textarea props and `autoresize`.
-- Uses native `onChange` for controlled usage; no `onValueChange` compatibility layer is provided.
-- Works standalone when consumers provide an accessible name, or inside moduix `Field` for labels, helper text, error text, and state inheritance.
-- Adds moduix visual defaults, `data-slot="textarea-root"`, and public `--moduix-textarea-*` CSS variables.
-- Does not provide preview/edit controls; use `Editable` for inline read/edit workflows.
+- Renders one Ark `FieldTextarea` and forwards the ref to its `HTMLTextAreaElement`.
+- Accepts Ark `FieldTextarea` props, including native textarea props and `autoresize`.
+- Adds visual `size="xs" | "sm" | "md" | "lg" | "xl"`, default `md`, mirrored as `data-size`.
+- Supports `asChild` with one semantic textarea child.
+- Uses native `onChange(event)`; adds no value state, validation, label, counter, or preview/edit
+  API. Use `Editable` for inline read/edit flows.
+- Exports `TextareaRootProps` and `TextareaSize`.
 
-## Anatomy and exported parts
+## Anatomy
 
 ```text
 Field (optional)
-└─ Textarea
+└─ Textarea  data-slot="textarea-root" data-scope="field" data-part="textarea" data-size
 ```
 
-| Part       | Element / Ark model | `data-slot`     | Notes                                      |
-| ---------- | ------------------- | --------------- | ------------------------------------------ |
-| `Textarea` | Ark `FieldTextarea` | `textarea-root` | Styled textarea root and only public part. |
-
-`Textarea` is the only public component value. No additional provider, context hook, hidden input,
-wrapper shell, label prop, counter, or slot bag is exported for this component.
-
-## Composition
-
-```tsx
-import { Field } from '@moduix/react/field';
-import { Textarea } from '@moduix/react/textarea';
-
-export function CommentField() {
-  return (
-    <Field>
-      <FieldLabel>Comment</FieldLabel>
-      <FieldHelperText>Visible to the whole team.</FieldHelperText>
-      <Textarea name="comment" placeholder="Write a short comment" />
-    </Field>
-  );
-}
-```
-
-Use `Field` / `Field` for accessible labels, descriptions, required state, invalid state, and read-only/disabled inheritance. moduix `Field` has no styled textarea of its own; `Textarea` is the multiline control to place inside it.
-
-Use native textarea props such as `rows`, `maxLength`, `resize` styling, `value`, `defaultValue`, and `onChange` for browser behavior.
-
-Use `Editable` when the UI should render preview text first and switch into a multiline editing
-surface with edit, submit, and cancel controls.
-
-## Upstream feature coverage
-
-- Ark Field anatomy: covered through the optional `Field` wrapper plus `Textarea` as the control.
-- Ark Field examples: textarea, textarea autoresize, field state, and custom control patterns remain available through the `Field` component; `Textarea` itself intentionally stays root-only.
-- Ark Forms guide: accessible labels, helper text, error text, required state, invalid state, `readOnly`, `disabled`, and `Fieldset` inheritance are preserved by Ark.
-- Chakra Textarea examples: basic usage, Field composition, helper/error text, native resizing, autoresize, refs, and form-library integration are supported.
-- Inline read/edit flows belong to `Editable`, not `Textarea`.
-- Chakra size and variant props are not supported; moduix uses CSS variables and `className` instead.
-
-## Accessibility and state
-
-- The forwarded ref targets the native `HTMLTextAreaElement`, which is the correct target for invalid focus and form-library registration.
-- The textarea needs an accessible name from `FieldLabel`, a native `<label>`, or `aria-label`.
-- Ark links `FieldLabel`, `FieldHelperText`, and `FieldErrorText` to the textarea through IDs and `aria-describedby`.
-- Ark applies `required`, `disabled`, `readOnly`, `aria-invalid`, `data-required`, `data-disabled`, `data-readonly`, and `data-invalid` from `Field` context.
-- No `HiddenInput` is needed: native `<textarea>` participates in form submission and reset, including
-  association with an external form through `form`; native reset restores an uncontrolled `defaultValue`.
-- `asChild` is inherited from Ark polymorphic props; if used, the child must be a single semantic textarea-compatible element.
-- Ark sets inline `resize: none` while `autoresize` is enabled; `--moduix-textarea-resize` controls only non-autoresizing textareas.
+`data-scope` and `data-part` are set by the wrapper too, so a standalone textarea outside `Field`
+has the same hooks as one inside it.
 
 ## Defaults and styling
 
-`Textarea` merges consumer `className` with `Textarea.module.css` and exposes these stable hooks:
-
-- `data-scope="field"`
-- `data-part="textarea"`
-- `data-slot="textarea-root"`
-- `data-autoresize` when `autoresize` is true
-- native `[disabled]`, `[aria-invalid='true']`, `[readonly]`, `:read-only`, and Ark `data-disabled`, `data-readonly`, `data-invalid`
-
-Public CSS variables from `variables-moduix.css`:
-
-| Group        | Variables                                                                                                                                                                                                                                                                                         |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Layout       | `--moduix-textarea-width`, `--moduix-textarea-max-width`, `--moduix-textarea-min-height`                                                                                                                                                                                                          |
-| Spacing      | `--moduix-textarea-padding-x`, `--moduix-textarea-padding-y`                                                                                                                                                                                                                                      |
-| Typography   | `--moduix-textarea-font-size`, `--moduix-textarea-line-height`                                                                                                                                                                                                                                    |
-| Surface      | `--moduix-textarea-bg`, `--moduix-textarea-color`, `--moduix-textarea-placeholder-color`, `--moduix-textarea-radius`, `--moduix-textarea-readonly-bg`, `--moduix-textarea-readonly-color`                                                                                                         |
-| Border/focus | `--moduix-textarea-border-width`, `--moduix-textarea-border-style`, `--moduix-textarea-border-color`, `--moduix-textarea-border-color-invalid`, `--moduix-textarea-focus-ring-width`, `--moduix-textarea-focus-ring-offset`, `--moduix-textarea-focus-ring-color`, `--moduix-textarea-transition` |
-| Interaction  | `--moduix-textarea-resize`, `--moduix-textarea-disabled-opacity`                                                                                                                                                                                                                                  |
-
-## Intentional sugar and differences from upstream
-
-- moduix provides visual defaults and theme variables; Ark remains the behavior source.
-- The old `autoResize` prop was removed in favor of Ark `autoresize`.
-- The old `onValueChange(value)` callback was removed in favor of native `onChange(event)`.
-- `data-autoresize` is a moduix styling hook layered over Ark's `autoresize` behavior.
-- Chakra `variant`, `size`, and style-prop APIs are intentionally not mirrored.
-- Manual read-only/editing controls are intentionally not documented for `Textarea`; use `Editable`
-  for that behavior.
-- Duplicate `TextareaProps` re-exports are intentionally omitted; when a consumer needs the exact
-  upstream prop type they can derive it from the component or import Ark types directly.
+- Sizes set padding, font size, and line height. Inline padding and font size match `Input` of the
+  same size (`--moduix-spacing-2` for `xs`/`sm`, `3` for `md`, `4` for `lg`/`xl`), so stacked
+  controls line up. Block padding grows from `--moduix-spacing-1` to `--moduix-spacing-3`.
+- No `min-height`: height comes from the native `rows` attribute (2 by default), so it scales with
+  the size. Set `rows` or a class for a taller field.
+- `resize: vertical` by default. With `autoresize`, Ark sets inline `resize: none` and manages
+  `overflow-y` itself; moduix adds no styles for that mode.
+- CSS Modules expose `--moduix-textarea-width` and `--moduix-textarea-radius`; everything else
+  comes from foundation tokens. Override it with a plain
+  class on `Textarea`.
+- A disabled `Field`, `FieldRootProvider`, or `Fieldset` owns the opacity; the textarea is not dimmed
+  a second time. A standalone disabled textarea dims itself.
+- Read-only uses the regular surface; there is no separate read-only style.
 
 ## Agent notes
 
-- Do not reintroduce the legacy `FieldControl`, `render`, `mergeProps`, `autoResize`, or `onValueChange` adapter contract.
-- Keep `Textarea` aligned with Ark `FieldTextarea`; use Ark `FieldTextarea` as the implementation reference.
-- Keep inline edit/read-only examples on `Editable`, not `Textarea`.
-- Keep stories, docs examples, `variables-moduix.css`, registry output, and this file synchronized when the public contract changes.
-
-## Local changelog
-
-- 2026-08-13: Documented external form ownership and uncontrolled reset behavior; added regressions
-  for controlled external updates.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-31: Clarified `Textarea` as the recommended multiline control, documented the lower-level `FieldTextarea` escape hatch, and recorded Ark's autoresize resize constraint.
-- 2026-07-11: Corrected the Ark implementation description and synchronized the controlled docs
-  snippet and example ordering with the public component page.
-- 2026-06-27: Protected Ark/moduix data hooks from rest-prop overrides, aligned the validation example with Ark `Field invalid`, and refreshed docs wording for the no-dedicated-primitive contract.
-- 2026-07-03: Removed duplicate `TextareaProps` exports to keep the public surface aligned with the
-  simplified root-only component pattern.
-- 2026-06-22: Removed the manual read-only/editing story and docs path; inline editing now belongs
-  to `Editable`.
-- 2026-06-21: Migrated implementation to Ark `FieldTextarea`; replaced `autoResize` with `autoresize` and removed `onValueChange`.
-- 2026-06-21: Rewrote the local contract around Ark Field, Chakra Textarea examples, native textarea behavior, and moduix styling hooks.
+- Keep the wrapper as one Ark `FieldTextarea`; do not add local value or validation state.
+- `InputGroupTextarea` renders `Textarea` and removes its border, background, outline, and resize
+  handle with a `[data-slot='textarea-root']` selector; keep that slot stable.

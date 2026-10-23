@@ -62,7 +62,7 @@ const inputGroupInputVariants = cva('min-h-0 grow rounded-none border-0 bg-trans
 });
 
 const inputGroupTextareaVariants = cva(
-  'min-w-0 grow resize-none rounded-none border-0 bg-transparent text-[length:inherit] leading-[inherit] outline-0 disabled:opacity-100 data-disabled:opacity-100',
+  'min-w-0 grow resize-none rounded-none border-0 bg-transparent outline-0 disabled:opacity-100 data-disabled:opacity-100',
   {
     variants: {
       size: inputGroupPaddingVariants,
@@ -146,13 +146,15 @@ const InputGroupInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<ty
 const InputGroupTextarea = forwardRef<
   ComponentRef<typeof Textarea>,
   ComponentProps<typeof Textarea>
->(function InputGroupTextarea({ className, ...props }, ref) {
+>(function InputGroupTextarea({ className, size, ...props }, ref) {
   const groupSize = useContext(InputGroupSizeContext);
+  const textareaSize = size ?? groupSize;
 
   return (
     <Textarea
       ref={ref}
-      className={cn(inputGroupTextareaVariants({ size: groupSize }), className)}
+      className={cn(inputGroupTextareaVariants({ size: textareaSize }), className)}
+      size={textareaSize}
       {...props}
     />
   );

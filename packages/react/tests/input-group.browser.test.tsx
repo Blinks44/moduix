@@ -243,6 +243,7 @@ test('renders a borderless textarea that follows the group size', () => {
   const element = screen.getByRole('textbox', { name: 'Message' });
   expect(textarea).toBe(element);
   expect(element.getAttribute('data-slot')).toBe('textarea-root');
+  expect(element.dataset.size).toBe('sm');
   expect(getComputedStyle(element)).toMatchObject({
     backgroundColor: 'rgba(0, 0, 0, 0)',
     borderTopWidth: '0px',

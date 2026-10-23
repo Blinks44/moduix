@@ -1,25 +1,31 @@
 import { Field as FieldPrimitive } from '@ark-ui/react/field';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
 import styles from './Textarea.module.css';
 
-const Textarea = forwardRef<
-  ComponentRef<typeof FieldPrimitive.Textarea>,
-  ComponentProps<typeof FieldPrimitive.Textarea>
->(function Textarea({ autoresize, className, ...props }, ref) {
+type TextareaSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+type TextareaRootProps = ComponentProps<typeof FieldPrimitive.Textarea> & {
+  size?: TextareaSize;
+};
+
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaRootProps>(function Textarea(
+  { className, size = 'md', ...props },
+  ref,
+) {
   return (
     <FieldPrimitive.Textarea
-      ref={ref}
       {...props}
+      ref={ref}
       data-scope="field"
       data-part="textarea"
       data-slot="textarea-root"
-      data-autoresize={autoresize ? '' : undefined}
+      data-size={size}
       className={clsx(styles.root, className)}
-      autoresize={autoresize}
     />
   );
 });
 
 export { Textarea };
+export type { TextareaRootProps, TextareaSize };

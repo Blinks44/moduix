@@ -633,28 +633,7 @@
   --moduix-tree-view-width: initial; /* 20rem */
 
   /* Textarea */
-  --moduix-textarea-bg: initial; /* var(--moduix-color-background) */
-  --moduix-textarea-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-textarea-border-color-invalid: initial; /* var(--moduix-color-destructive) */
-  --moduix-textarea-border-style: initial; /* solid */
-  --moduix-textarea-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-textarea-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-textarea-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-textarea-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-textarea-focus-ring-offset: initial; /* var(--moduix-focus-ring-inset-offset) */
-  --moduix-textarea-focus-ring-width: initial; /* var(--moduix-textarea-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))) */
-  --moduix-textarea-font-size: initial; /* var(--moduix-text-md) */
-  --moduix-textarea-line-height: initial; /* var(--moduix-line-height-text-md) */
-  --moduix-textarea-max-width: initial; /* none */
-  --moduix-textarea-min-height: initial; /* 6rem */
-  --moduix-textarea-padding-x: initial; /* var(--moduix-spacing-3-5) */
-  --moduix-textarea-padding-y: initial; /* var(--moduix-spacing-2) */
-  --moduix-textarea-placeholder-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-textarea-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-textarea-readonly-bg: initial; /* var(--moduix-textarea-bg, var(--moduix-color-background)) */
-  --moduix-textarea-readonly-color: initial; /* var(--moduix-textarea-color, var(--moduix-color-foreground)) */
-  --moduix-textarea-resize: initial; /* vertical */
-  --moduix-textarea-transition: initial; /* var(--moduix-transition-default) */
   --moduix-textarea-width: initial; /* 100% */
 
   /* Timer */

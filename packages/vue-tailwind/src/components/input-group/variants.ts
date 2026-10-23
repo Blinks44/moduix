@@ -39,7 +39,7 @@ export const inputGroupInputVariants = cva(
 );
 
 export const inputGroupTextareaVariants = cva(
-  'min-w-0 grow resize-none rounded-none border-0 bg-transparent text-[length:inherit] leading-[inherit] outline-0 disabled:opacity-100 data-disabled:opacity-100',
+  'min-w-0 grow resize-none rounded-none border-0 bg-transparent outline-0 disabled:opacity-100 data-disabled:opacity-100',
   {
     variants: {
       size: inputGroupPaddingVariants,

@@ -11,18 +11,21 @@ import TextareaControlled from '@/components/examples/textarea/controlled.tsx';
 import TextareaDisabledAndReadonly from '@/components/examples/textarea/disabled-and-readonly.tsx';
 import TextareaFieldValidation from '@/components/examples/textarea/field-validation.tsx';
 import TextareaNativeAttributes from '@/components/examples/textarea/native-attributes.tsx';
+import TextareaSizes from '@/components/examples/textarea/sizes.tsx';
 import textareaSolidAutoResize from '../../../snippets/textarea/solid/auto-resize.tsx?raw';
 import textareaSolidBasic from '../../../snippets/textarea/solid/basic.tsx?raw';
 import textareaSolidControlled from '../../../snippets/textarea/solid/controlled.tsx?raw';
 import textareaSolidDisabledAndReadonly from '../../../snippets/textarea/solid/disabled-and-readonly.tsx?raw';
 import textareaSolidFieldValidation from '../../../snippets/textarea/solid/field-validation.tsx?raw';
 import textareaSolidNativeAttributes from '../../../snippets/textarea/solid/native-attributes.tsx?raw';
+import textareaSolidSizes from '../../../snippets/textarea/solid/sizes.tsx?raw';
 import textareaVueAutoResize from '../../../snippets/textarea/vue/auto-resize.vue?raw';
 import textareaVueBasic from '../../../snippets/textarea/vue/basic.vue?raw';
 import textareaVueControlled from '../../../snippets/textarea/vue/controlled.vue?raw';
 import textareaVueDisabledAndReadonly from '../../../snippets/textarea/vue/disabled-and-readonly.vue?raw';
 import textareaVueFieldValidation from '../../../snippets/textarea/vue/field-validation.vue?raw';
 import textareaVueNativeAttributes from '../../../snippets/textarea/vue/native-attributes.vue?raw';
+import textareaVueSizes from '../../../snippets/textarea/vue/sizes.vue?raw';
 
 ## Справочник API
 
@@ -159,9 +162,8 @@ Field (optional wrapper)
 имя через нативный `<label>` или `aria-label`.
 
 Включайте `autoresize`, только если поле должно расти вместе с содержимым. В этом режиме Ark
-отключает ручное изменение размера, поэтому `--moduix-textarea-resize` действует только при
-`autoresize={false}`. При использовании `asChild` передавайте один семантический элемент textarea,
-который принимает объединённые свойства и ref.
+отключает ручное изменение размера. При использовании `asChild` передавайте один семантический
+элемент textarea, который принимает объединённые свойства и ref.
 
 ## Примеры
 
@@ -208,6 +210,57 @@ Ark отключает ручное изменение размера.
 **Стили**
 
 ```css file="../../../src/components/examples/textarea/textarea-auto-resize.module.css"
+
+```
+
+</div>
+
+</ExampleCode>
+
+### Размеры
+
+Свойство `size` задаёт отступы и типографику. Горизонтальный отступ и размер шрифта совпадают с
+`Input` того же размера, поэтому поля в форме выровнены. Высоту задаёт нативный атрибут `rows`, и
+она меняется вместе с размером шрифта.
+
+<ExampleFrame variant="component">
+  <TextareaSizes />
+</ExampleFrame>
+
+<ExampleCode>
+<div className="docs-reference">
+  <Tabs
+    groupId="framework"
+    values={[
+      { label: 'React', value: 'react' },
+      { label: 'Solid', value: 'solid' },
+      { label: 'Vue', value: 'vue' },
+    ]}
+    className="docs-tabs"
+  >
+    <Tab value="react">
+
+```tsx pure file="../../../src/components/examples/textarea/sizes.tsx"
+
+```
+
+    </Tab>
+    <Tab value="solid">
+
+<CodeBlockRuntime lang="tsx" code={textareaSolidSizes} />
+
+    </Tab>
+    <Tab value="vue">
+
+<CodeBlockRuntime lang="vue" code={textareaVueSizes} />
+
+    </Tab>
+
+  </Tabs>
+
+**Стили**
+
+```css file="../../../src/components/examples/textarea/textarea-sizes.module.css"
 
 ```
 
@@ -416,9 +469,13 @@ Ark отключает ручное изменение размера.
 
 ## Стилизация
 
-В React настраивайте поле через `className`, а в Solid и Vue через `class`, вместе с
-`data-slot="textarea-root"`. Варианты Tailwind используют нативные utility-классы и классы
-потребителя. Публичные переменные `--moduix-textarea-*` ниже относятся к вариантам с CSS Modules.
+Внутри отключённого moduix `Field`, `FieldRootProvider` или `Fieldset` прозрачность применяется один
+раз, на корневом элементе; отдельный отключённый `Textarea` приглушает себя сам.
+
+Используйте `className` в React и `class` в Solid и Vue, чтобы стилизовать `Textarea`. Варианты на
+Tailwind используют нативные utility-классы и классы потребителя. Варианты с CSS Modules построены на
+токенах foundation и поддерживают только две переменные ниже; цвета, отступы, типографику, высоту и `resize`
+переопределяйте обычным классом, он сильнее стилей компонента в слое.
 
 ### CSS-свойства
 
@@ -428,21 +485,16 @@ Ark отключает ручное изменение размера.
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
-    {' '}
     <Tab>
-      {' '}
-      <TextareaDocs.TextareaCssPropertiesPanel />{' '}
-    </Tab>{' '}
+      <TextareaDocs.TextareaCssPropertiesPanel />
+    </Tab>
   </Tabs>
 </div>
 
 ### Хуки стилизации
 
-Оформляйте внешний вид через `Textarea`, а расположение поля и дополнительного текста через окружающий `Field`.
-
-- `Textarea` отвечает за границу, фон, placeholder, изменение размера и индикатор фокуса.
-- `Field` задаёт ширину, интервалы и расположение метки, описания и сообщения об ошибке.
-- `data-slot="textarea-root"` служит стабильным селектором для локальных стилей.
-- `data-autoresize` присутствует, когда включён `autoresize`.
-- Для стилизации состояний используйте `data-invalid`, `[aria-invalid='true']`, `[disabled]`,
-  `data-disabled`, `:read-only` и `data-readonly`.
+- `data-slot="textarea-root"`
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"`
+- `data-scope="field"` и `data-part="textarea"`
+- `data-invalid`, `data-required`, `data-disabled` и `data-readonly` от Ark внутри `Field`
+- нативные `:disabled`, `:read-only`, `:focus-visible` и `[aria-invalid="true"]`
