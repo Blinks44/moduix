@@ -620,6 +620,7 @@
       "registryDependencies": [
         "@moduix-vue/a11y-labels",
         "@moduix-vue/close-button",
+        "@moduix-vue/spinner",
         "@moduix-vue/foundation",
         "@moduix-vue/overlay-portal"
       ],

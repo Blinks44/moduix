@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { Toaster as ArkToaster } from '@ark-ui/vue/toast';
 import type { ToasterBaseProps, ToastOptions } from '@ark-ui/vue/toast';
-import { computed, toValue, useAttrs } from 'vue';
-import type { HTMLAttributes } from 'vue';
+import { computed, defineComponent, toValue, useAttrs } from 'vue';
+import type { HTMLAttributes, VNodeChild } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
+import Spinner from '../spinner/Spinner.vue';
 import Toast from './Toast.vue';
 import ToastActionTrigger from './ToastActionTrigger.vue';
 import ToastCloseTrigger from './ToastCloseTrigger.vue';
@@ -27,6 +28,9 @@ defineSlots<{ default?: (toast: ToastOptions) => unknown }>();
 
 const attrs = useAttrs();
 const portalTarget = computed(() => toValue(portalRef) ?? 'body');
+const VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => props.value, {
+  props: ['value'],
+});
 </script>
 
 <template>
@@ -46,7 +50,11 @@ const portalTarget = computed(() => toValue(portalRef) ?? 'body');
       <template #default="toast">
         <slot v-if="$slots.default" v-bind="toast" />
         <Toast v-else>
-          <ToastTitle v-if="toast.title != null" />
+          <ToastTitle v-if="toast.title != null && toast.type === 'loading'">
+            <Spinner decorative size="sm" />
+            <VNodeOutlet :value="toast.title" />
+          </ToastTitle>
+          <ToastTitle v-else-if="toast.title != null" />
           <ToastDescription v-if="toast.description != null" />
           <ToastActionTrigger v-if="toast.action != null">
             {{ toast.action.label }}

@@ -2283,6 +2283,7 @@
       "registryDependencies": [
         "@moduix-react/a11y-labels",
         "@moduix-react/close-button",
+        "@moduix-react/spinner",
         "@moduix-react/foundation",
         "@moduix-react/overlay-portal"
       ],

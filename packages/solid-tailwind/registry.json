@@ -1933,6 +1933,7 @@
         "@moduix-solid-tailwind/cn",
         "@moduix-solid-tailwind/a11y-labels",
         "@moduix-solid-tailwind/close-button",
+        "@moduix-solid-tailwind/spinner",
         "@moduix-solid-tailwind/overlay-portal"
       ],
       "files": [

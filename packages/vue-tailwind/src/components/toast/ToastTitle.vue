@@ -27,7 +27,7 @@ const VNodeOutlet = defineComponent((props: { value: VNodeChild }) => () => prop
     v-bind="attrs"
     :class="
       cn(
-        'm-0 flex min-w-0 items-center gap-2 text-sm leading-5 font-semibold wrap-anywhere text-inherit',
+        'm-0 flex min-w-0 items-center gap-2 text-sm leading-5 font-semibold wrap-anywhere',
         className,
       )
     "

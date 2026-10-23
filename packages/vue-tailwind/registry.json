@@ -603,6 +603,7 @@
         "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/spinner",
         "@moduix-vue-tailwind/overlay-portal"
       ],
       "files": [

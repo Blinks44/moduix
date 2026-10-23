@@ -637,67 +637,10 @@
   --moduix-textarea-width: initial; /* 100% */
 
   /* Toast */
-  --moduix-toast-action-bg: initial; /* transparent */
-  --moduix-toast-action-bg-hover: initial; /* var(--moduix-color-accent) */
-  --moduix-toast-action-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-toast-action-border-width: initial; /* var(--moduix-toast-border-width, var(--moduix-border-width-sm)) */
-  --moduix-toast-action-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-toast-action-font-size: initial; /* var(--moduix-text-xs) */
-  --moduix-toast-action-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-toast-action-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-toast-action-line-height: initial; /* var(--moduix-line-height-text-xs) */
-  --moduix-toast-action-margin-top: initial; /* var(--moduix-spacing-2) */
-  --moduix-toast-action-min-height: initial; /* var(--moduix-size-xs) */
-  --moduix-toast-action-padding-x: initial; /* var(--moduix-spacing-2) */
-  --moduix-toast-action-padding-y: initial; /* var(--moduix-spacing-1) */
-  --moduix-toast-action-radius: initial; /* var(--moduix-radius-sm) */
-  --moduix-toast-bg: initial; /* var(--moduix-toast-info-bg, var(--moduix-color-card)) */
-  --moduix-toast-border-color: initial; /* var(--moduix-toast-info-border-color, var(--moduix-color-border)) */
-  --moduix-toast-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-toast-close-bg: initial; /* transparent */
-  --moduix-toast-close-bg-hover: initial; /* var(--moduix-color-muted) */
-  --moduix-toast-close-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-toast-close-color-hover: initial; /* var(--moduix-color-foreground) */
-  --moduix-toast-close-focus-ring-offset: initial; /* var(--moduix-focus-ring-offset) */
-  --moduix-toast-close-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
-  --moduix-toast-close-icon-size: initial; /* var(--moduix-spacing-4) */
-  --moduix-toast-close-offset-right: initial; /* var(--moduix-spacing-2) */
-  --moduix-toast-close-offset-top: initial; /* var(--moduix-spacing-2) */
-  --moduix-toast-close-radius: initial; /* var(--moduix-radius-sm) */
-  --moduix-toast-close-size: initial; /* var(--moduix-spacing-7) */
-  --moduix-toast-color: initial; /* var(--moduix-toast-info-color, var(--moduix-color-card-foreground)) */
-  --moduix-toast-content-gap: initial; /* var(--moduix-spacing-1) */
+  --moduix-toast-bg: initial; /* type-specific */
+  --moduix-toast-border-color: initial; /* type-specific */
+  --moduix-toast-color: initial; /* type-specific */
   --moduix-toast-description-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-toast-description-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-toast-description-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-toast-error-bg: initial; /* color-mix(in oklab, var(--moduix-color-destructive) 9%, var(--moduix-color-background)) */
-  --moduix-toast-error-border-color: initial; /* color-mix(in oklab, var(--moduix-color-destructive) 35%, transparent) */
-  --moduix-toast-error-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-toast-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-toast-focus-ring-offset: initial; /* 0 */
-  --moduix-toast-focus-ring-width: initial; /* var(--moduix-toast-action-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))) */
-  --moduix-toast-info-bg: initial; /* var(--moduix-color-card) */
-  --moduix-toast-info-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-toast-info-color: initial; /* var(--moduix-color-card-foreground) */
-  --moduix-toast-min-height: initial; /* 0 */
-  --moduix-toast-padding: initial; /* var(--moduix-spacing-4) */
-  --moduix-toast-radius: initial; /* var(--moduix-radius-lg) */
-  --moduix-toast-shadow: initial; /* var(--moduix-shadow-lg) */
-  --moduix-toast-success-bg: initial; /* color-mix(in oklab, var(--moduix-color-success) 10%, var(--moduix-color-background)) */
-  --moduix-toast-success-border-color: initial; /* color-mix(in oklab, var(--moduix-color-success) 34%, transparent) */
-  --moduix-toast-success-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-toast-title-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-toast-title-gap: initial; /* var(--moduix-spacing-2) */
-  --moduix-toast-title-font-weight: initial; /* var(--moduix-weight-semibold) */
-  --moduix-toast-title-line-height: initial; /* var(--moduix-line-height-text-sm) */
-  --moduix-toast-transition: initial; /* 350ms */
-  --moduix-toast-transition-out: initial; /* 350ms */
-  --moduix-toast-opacity-transition-out: initial; /* 200ms */
-  --moduix-toast-viewport-inset: initial; /* var(--moduix-spacing-4) */
-  --moduix-toast-warning-bg: initial; /* color-mix(in oklab, var(--moduix-color-warning) 13%, var(--moduix-color-background)) */
-  --moduix-toast-warning-border-color: initial; /* color-mix(in oklab, var(--moduix-color-warning) 38%, transparent) */
-  --moduix-toast-warning-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-toast-width: initial; /* 20rem */
 
   /* Tooltip */
   --moduix-tooltip-arrow-background: initial; /* var(--moduix-tooltip-bg, var(--moduix-color-popover)) */

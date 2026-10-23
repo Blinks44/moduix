@@ -1599,6 +1599,7 @@
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/spinner",
         "@moduix-solid/foundation",
         "@moduix-solid/overlay-portal"
       ],

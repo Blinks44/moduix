@@ -14,6 +14,7 @@ import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import type { OverlayPortalProps } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
+import { Spinner } from '../spinner';
 
 type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
   OverlayPortalProps & {
@@ -21,7 +22,7 @@ type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
   };
 
 const ToastToaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(
-  function ToastToaster({ className, portalled = true, portalRef, ...props }, ref) {
+  function ToastToaster({ children, className, portalled = true, portalRef, ...props }, ref) {
     return (
       <Portal disabled={!portalled} container={portalRef}>
         <ToasterPrimitive
@@ -33,7 +34,7 @@ const ToastToaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterPr
           {...props}
           data-slot="toast-toaster"
         >
-          {props.children ?? ((toast) => <DefaultToast toast={toast} />)}
+          {children ?? ((toast) => <DefaultToast toast={toast} />)}
         </ToasterPrimitive>
       </Portal>
     );
@@ -42,8 +43,13 @@ const ToastToaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterPr
 
 function DefaultToast({ toast }: { toast: ToastOptions }) {
   return (
-    <Toast key={toast.id}>
-      {toast.title != null ? <ToastTitle /> : null}
+    <Toast>
+      {toast.title != null ? (
+        <ToastTitle>
+          {toast.type === 'loading' ? <Spinner decorative size="sm" /> : null}
+          {toast.title}
+        </ToastTitle>
+      ) : null}
       {toast.description != null ? <ToastDescription /> : null}
       {toast.action ? <ToastActionTrigger>{toast.action.label}</ToastActionTrigger> : null}
       {toast.closable !== false ? <ToastCloseTrigger /> : null}
@@ -59,7 +65,7 @@ const Toast = forwardRef<
     <ToastPrimitive.Root
       ref={ref}
       className={cn(
-        'group/toast pointer-events-auto [z-index:var(--z-index)] box-border grid [height:var(--height)] min-h-0 w-80 max-w-[calc(100vw-2rem)] min-w-0 [translate:var(--x)_var(--y)] [scale:var(--scale)] items-start gap-1 rounded-lg border border-border bg-card bg-clip-padding p-4 pe-11 text-card-foreground [opacity:var(--opacity)] shadow-lg transition-[translate,scale,opacity,height,box-shadow] duration-slow ease-[cubic-bezier(0.21,1.02,0.73,1)] [will-change:translate,opacity,scale] data-[state=closed]:[transition:translate_350ms_cubic-bezier(0.06,0.71,0.55,1),scale_350ms_cubic-bezier(0.06,0.71,0.55,1),opacity_200ms_cubic-bezier(0.06,0.71,0.55,1)] data-[type=error]:border-destructive/35 data-[type=error]:bg-destructive/9 data-[type=error]:text-foreground data-[type=success]:border-success/34 data-[type=success]:bg-success/10 data-[type=success]:text-foreground data-[type=warning]:border-warning/38 data-[type=warning]:bg-warning/13 data-[type=warning]:text-foreground motion-reduce:data-[state=closed]:[transition:none] [@media(max-width:40rem)]:inset-x-0 [@media(max-width:40rem)]:mx-auto [@media(max-width:40rem)]:max-w-full',
+        '[z-index:var(--z-index)] box-border grid [height:var(--height)] w-80 max-w-[calc(100vw-2rem)] [translate:var(--x)_var(--y)] [scale:var(--scale)] items-start gap-1 rounded-lg border border-border bg-card bg-clip-padding p-4 text-card-foreground [opacity:var(--opacity)] shadow-lg transition-[translate,scale,opacity,height] duration-slow ease-[cubic-bezier(0.21,1.02,0.73,1)] [will-change:translate,opacity,scale] has-[[data-slot=toast-close-trigger]]:pe-11 data-[state=closed]:[transition:translate_var(--moduix-duration-slow)_cubic-bezier(0.06,0.71,0.55,1),scale_var(--moduix-duration-slow)_cubic-bezier(0.06,0.71,0.55,1),opacity_var(--moduix-duration-normal)_cubic-bezier(0.06,0.71,0.55,1)] data-[type=error]:border-destructive/35 data-[type=error]:bg-[color-mix(in_oklab,var(--color-destructive)_9%,var(--color-background))] data-[type=error]:text-foreground data-[type=success]:border-success/34 data-[type=success]:bg-[color-mix(in_oklab,var(--color-success)_10%,var(--color-background))] data-[type=success]:text-foreground data-[type=warning]:border-warning/38 data-[type=warning]:bg-[color-mix(in_oklab,var(--color-warning)_13%,var(--color-background))] data-[type=warning]:text-foreground [@media(max-width:40rem)]:inset-x-0 [@media(max-width:40rem)]:mx-auto [@media(max-width:40rem)]:max-w-full',
         className,
       )}
       {...props}
@@ -78,7 +84,7 @@ const ToastTitle = forwardRef<
     <ToastPrimitive.Title
       ref={ref}
       className={cn(
-        'm-0 flex min-w-0 items-center gap-2 text-sm leading-5 font-semibold wrap-anywhere text-inherit',
+        'm-0 flex min-w-0 items-center gap-2 text-sm leading-5 font-semibold wrap-anywhere',
         className,
       )}
       {...props}
@@ -117,7 +123,7 @@ const ToastActionTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'mt-2 inline-flex min-h-control-xs w-max max-w-full min-w-0 cursor-pointer items-center justify-center gap-2 rounded-sm border border-border bg-transparent px-2 py-1 text-start text-xs leading-4 font-medium wrap-anywhere text-foreground transition-[background-color,border-color,color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:outline-ring [@media(hover:hover)]:hover:bg-accent',
+          'mt-2 inline-flex min-h-control-xs w-max max-w-full min-w-0 cursor-pointer items-center justify-center gap-2 rounded-sm border border-border bg-transparent px-2 py-1 text-start text-xs leading-4 font-medium wrap-anywhere text-foreground transition-[background-color] duration-normal ease-in-out select-none focus-visible:outline-1 focus-visible:outline-ring [@media(hover:hover)]:hover:bg-accent',
         className,
       )}
       {...props}
@@ -178,3 +184,23 @@ export {
   createToaster,
   useToastContext,
 };
+
+export type {
+  CreateToasterProps,
+  CreateToasterReturn,
+  ToastActionOptions,
+  ToastActionTriggerProps,
+  ToastCloseTriggerProps,
+  ToastContextProps,
+  ToastDescriptionProps,
+  ToastOptions,
+  ToastPlacement,
+  ToastPromiseOptions,
+  ToastRootProps,
+  ToastStatus,
+  ToastStatusChangeDetails,
+  ToastTitleProps,
+  ToastType,
+  UseToastContext,
+} from '@ark-ui/react/toast';
+export type { ToasterProps };

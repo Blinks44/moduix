@@ -23,6 +23,6 @@
     var(--moduix-color-primary-foreground) 72%,
     transparent
   );
-  --moduix-toast-close-color: var(--moduix-color-primary-foreground);
-  --moduix-toast-close-color-hover: var(--moduix-color-primary-foreground);
+  --moduix-close-button-color: var(--moduix-color-primary-foreground);
+  --moduix-close-button-color-hover: var(--moduix-color-primary-foreground);
 }

@@ -1911,6 +1911,7 @@
         "@moduix-react-tailwind/cn",
         "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/close-button",
+        "@moduix-react-tailwind/spinner",
         "@moduix-react-tailwind/overlay-portal"
       ],
       "files": [

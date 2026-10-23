@@ -366,7 +366,8 @@ bord précis de la fenêtre.
 ### Promise
 
 Utilisez `toaster.promise()` pour faire passer une même notification du chargement au succès ou à
-l’erreur lorsque l’opération asynchrone se termine.
+l’erreur lorsque l’opération asynchrone se termine. Tant que le toast a le type `loading`, le rendu par
+défaut affiche un `Spinner` décoratif avant le titre.
 
 <ExampleFrame variant="component">
   <ToastPromise />
@@ -517,9 +518,11 @@ l’icône de fermeture et appliquer des variables CSS propres au composant.
 
 ## Styles
 
-Personnalisez `Toast` avec les attributs de parties Ark, les points d’accroche `data-slot` et les
-variables publiques `--moduix-toast-*`. Les variantes Tailwind utilisent les utilitaires natifs et les
-classes de l’application ; les variables CSS ci-dessous concernent les variantes CSS Modules.
+Personnalisez `Toast` avec les attributs de parties Ark, les points d’accroche `data-slot` et des
+classes sur ses parties. Les variantes CSS Modules lisent aussi les quatre variables ci-dessous ;
+`--moduix-toast-bg`, `--moduix-toast-border-color` et `--moduix-toast-color` remplacent tous les types,
+donc définissez-les dans `[data-type='success']` ou un sélecteur similaire pour un seul type. Les
+variantes Tailwind utilisent les utilitaires natifs et les classes de l’application.
 
 ### Variables CSS
 
@@ -555,6 +558,6 @@ Moduix ajoute également des points d’accroche stables : `data-slot="toast-toa
 `data-slot="toast-root"`, `data-slot="toast-title"`, `data-slot="toast-description"`,
 `data-slot="toast-action-trigger"` et `data-slot="toast-close-trigger"`.
 
-Jusqu’à une largeur de fenêtre de `40rem`, le groupe de notifications occupe toute la largeur de la
-fenêtre et chaque élément racine utilise la variable Ark `--gap` pour conserver un espacement interne
-sûr.
+Jusqu’à une largeur de fenêtre de `40rem`, chaque placement est centré horizontalement. Les toasts
+gardent leur largeur de `20rem` et se rétrécissent entre les `offsets` d’Ark et les zones de sécurité
+horizontales de l’écran.
