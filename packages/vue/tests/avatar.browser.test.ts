@@ -102,11 +102,14 @@ test('lets root children overflow while the fallback stays clipped', () => {
   render({
     components: avatarComponents,
     template:
-      '<Avatar data-testid="avatar"><AvatarFallback data-testid="fallback">AT</AvatarFallback></Avatar>',
+      '<Avatar data-testid="avatar"><AvatarFallback data-testid="fallback">AT</AvatarFallback><AvatarImage data-testid="image" alt="" /></Avatar>',
   });
 
   expect(getComputedStyle(screen.getByTestId('avatar')).overflow).toBe('visible');
   expect(getComputedStyle(screen.getByTestId('fallback')).overflow).toBe('hidden');
+  expect(getComputedStyle(screen.getByTestId('image')).borderRadius).toBe(
+    getComputedStyle(screen.getByTestId('avatar')).borderRadius,
+  );
 });
 
 test('keeps image status, fallback, scoped slots, and context reactive after real loading', async () => {

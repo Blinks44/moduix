@@ -5,7 +5,6 @@ description: 'Компактное представление пользоват
 ---
 
 import * as AvatarDocs from '@/components/examples/avatar/css-properties';
-import AvatarRootProvider from '@/components/examples/avatar/root-provider.tsx';
 
 ## Справочник API
 
@@ -93,6 +92,10 @@ AvatarGroup
 `useAvatarContext()` и сохраняйте состояния `hidden` и `visible`, возвращаемые `getImageProps()`.
 В Vue `AvatarContext` предоставляет эти данные через слот. Применяйте `asChild` только с одним
 семантически подходящим дочерним элементом, если другой элемент должен владеть корневым DOM-узлом.
+
+В Solid назначайте ref элементу, который создаётся внутри функции рендеринга `asChild`: ref на самом
+`Avatar` через эту композицию не передаётся. В Vue ref указывает на экземпляр компонента; используйте
+`$el`, чтобы получить отрендеренный элемент.
 
 ## Примеры
 

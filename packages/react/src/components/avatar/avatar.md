@@ -26,7 +26,6 @@ externally owned state.
 - `AvatarFallback` is an Ark-shaped composition slot; consumers provide its content explicitly.
 - `AvatarContext`, `useAvatar`, and `useAvatarContext` are re-exported from `@moduix/react` for the normal advanced path.
 - Types `AvatarRootProps`, `AvatarRootProviderProps`, `AvatarGroupProps`, and `AvatarSize` are exported; other Ark type aliases remain direct imports from `@ark-ui/react/avatar`.
-- No legacy `render`, delay, loading-state adapter, or callback compatibility API remains.
 
 ## Anatomy and exported parts
 
@@ -53,7 +52,7 @@ AvatarGroup
 ## Composition
 
 ```tsx
-import { Avatar } from '@moduix/react/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/react/avatar';
 
 export function AvatarExample() {
   return (
@@ -152,16 +151,3 @@ positioned absolutely inside `Avatar` and stick out of the circle.
 - Preserve `onStatusChange(details)` and the original context method names.
 - Keep `AvatarRootProvider` styled like `Avatar`, but never create another state owner inside it.
 - Do not reintroduce legacy `render`, delay, or transition attributes.
-
-## Local changelog
-
-- 2026-10-14: Added `AvatarGroup`. Reduced public CSS variables from 12 to 6 (removed
-  `fallback-bg`, `fallback-color`, `fallback-padding`, `image-object-fit`, `image-object-position`, and
-  `line-height`); the root line height is `1`. Moved clipping from the root to the fallback so status
-  dots can overflow the root.
-- 2026-10-14: `size` defaults to `md` and is always mirrored as `data-size` on both roots, after the
-  consumer props, matching `Switch` and other sized components. Exported `AvatarRootProps`,
-  `AvatarRootProviderProps`, `AvatarGroupProps`, and `AvatarSize`. Removed the redundant fallback `line-height: inherit`.
-- 2026-09-21: Replaced the compound `Avatar.*` value surface with the shared flat API.
-- 2026-09-04: Removed the `AvatarFallback name` convenience API and built-in fallback icon.
-  Consumers now provide fallback content explicitly, matching Ark UI composition.
