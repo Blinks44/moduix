@@ -397,7 +397,8 @@ dans l’état de l’application.
 
 Créez l’état de l’arborescence avec `useTreeView` si des contrôles extérieurs doivent appeler des
 méthodes comme `expand()` ou `collapse()`. Transmettez cet état à `TreeViewRootProvider` au lieu de rendre un
-second `TreeView`.
+second `TreeView`. Cet exemple montre aussi la composition bas niveau d’un nœud : chaque nœud utilise
+`TreeViewNodeProvider` et lit son état dans `TreeViewNodeContext` au lieu du raccourci `TreeViewNode`.
 
 <ExampleFrame variant="component">
   <RootProviderTreeView />
@@ -453,19 +454,13 @@ la hauteur pendant le repli, et désactive l’animation des branches si l’uti
 les mouvements.
 
 Les variantes Tailwind utilisent des classes utilitaires natives et les classes de l’application. Les
-variantes CSS Modules exposent les variables documentées `--moduix-tree-view-*` ci-dessous.
+variantes CSS Modules prennent les couleurs, les espacements et la typographie dans les tokens de
+foundation et n'exposent en variables CSS que la largeur de la racine et le pas d'indentation ;
+surchargez le reste avec une classe sur la partie.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TreeViewDocs.TreeViewCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+### Propriétés CSS
+
+<CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties} />
 
 ### Points d’accroche de style
 
@@ -475,5 +470,3 @@ variantes CSS Modules exposent les variables documentées `--moduix-tree-view-*`
   `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`,
   `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator` et
   `tree-view-node-rename-input`.
-- Utilisez les variables documentées `--moduix-tree-view-*` pour personnaliser les variantes CSS
-  Modules.

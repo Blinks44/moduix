@@ -25,6 +25,7 @@ Apply these rules when writing or reviewing Rslib library projects.
 - For docs development, use the root `npm run dev:docs` workflow rather than an independent Rslib command; it owns the `rslib --watch --no-clean` watcher.
 - Treat `--no-clean` as development-only. Release, CI, `npm pack`, and final package checks use clean package builds.
 - Do not run a clean package build or `build:docs` while `dev:docs` is active; follow `docs-workflow` for the complete docs-development constraints.
+- `tsc:check` builds `dist` through each package's `build:dev` script (`rslib --no-clean`), so the required validation never deletes `dist` under a running docs server. Keep `tsc:check` turbo dependencies on `build:dev`, not on the clean `build`.
 
 ## Output
 

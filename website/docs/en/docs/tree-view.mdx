@@ -394,6 +394,8 @@ extend a selection range. The example keeps the selected values in application s
 
 Create tree state with `useTreeView` when controls outside the tree need methods such as `expand()`
 or `collapse()`. Pass that state to `TreeViewRootProvider` instead of rendering a second `TreeView`.
+This example also shows the low-level node composition: each node uses `TreeViewNodeProvider` and
+reads its state from `TreeViewNodeContext` instead of the `TreeViewNode` shortcut.
 
 <ExampleFrame variant="component">
   <RootProviderTreeView />
@@ -447,20 +449,13 @@ parts expose `data-state="open|closed"`; checkbox parts expose
 wrapper respects Ark's `--depth` indentation and `--height` collapse-measurement variables, and it
 disables branch animation when reduced motion is preferred.
 
-Tailwind variants use native utilities and consumer classes. The CSS Modules variants expose the
-documented `--moduix-tree-view-*` variables below.
+Tailwind variants use native utilities and consumer classes. CSS Modules variants take colors,
+spacing, and typography from foundation tokens and expose only the root width and the indentation
+step as CSS variables; override other styles with a class on the part.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TreeViewDocs.TreeViewCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+### CSS Properties
+
+<CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties} />
 
 ### Styling hooks
 
@@ -470,5 +465,3 @@ documented `--moduix-tree-view-*` variables below.
   `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`,
   `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator`, and
   `tree-view-node-rename-input`.
-- Use the documented `--moduix-tree-view-*` variables for visual customization on CSS Modules
-  packages.

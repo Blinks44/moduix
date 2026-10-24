@@ -397,7 +397,8 @@ Vue сохранял экземпляр класса.
 
 Создайте состояние дерева через `useTreeView`, если кнопкам и другим элементам вне дерева нужны
 методы вроде `expand()` или `collapse()`. Передайте состояние в `TreeViewRootProvider`, а не создавайте второй
-`TreeView`.
+`TreeView`. Пример также показывает низкоуровневую композицию узла: каждый узел использует
+`TreeViewNodeProvider` и читает состояние из `TreeViewNodeContext` вместо сокращения `TreeViewNode`.
 
 <ExampleFrame variant="component">
   <RootProviderTreeView />
@@ -451,20 +452,13 @@ Vue сохранял экземпляр класса.
 использует переменные Ark `--depth` для отступов и `--height` для высоты при сворачивании, а также
 отключает анимацию веток при предпочтении уменьшенного движения.
 
-Варианты Tailwind используют нативные utility-классы и классы приложения. Варианты CSS Modules
-предоставляют документированные переменные `--moduix-tree-view-*` ниже.
+Варианты Tailwind используют нативные utility-классы и классы приложения. Варианты с CSS Modules берут
+цвета, отступы и типографику из токенов foundation и выносят в CSS-переменные только ширину корня и шаг
+отступа вложенности; остальное переопределяйте классом на части.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TreeViewDocs.TreeViewCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+### CSS-свойства
+
+<CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties} />
 
 ### Точки для стилизации
 
@@ -474,5 +468,3 @@ Vue сохранял экземпляр класса.
   `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`,
   `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator` и
   `tree-view-node-rename-input`.
-- Для визуальной настройки вариантов CSS Modules используйте документированные переменные
-  `--moduix-tree-view-*`.

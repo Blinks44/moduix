@@ -6,6 +6,11 @@
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**", "doc_build/**", ".wrangler/deploy/**"]
     },
+    "build:dev": {
+      "dependsOn": ["^build:dev"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**"]
+    },
     "dev": {
       "dependsOn": ["^build"],
       "cache": false,
@@ -39,25 +44,25 @@
       "outputs": []
     },
     "@moduix/react#tsc:check": {
-      "dependsOn": ["^tsc:check", "build"]
+      "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/react-tailwind#tsc:check": {
-      "dependsOn": ["^tsc:check", "build"]
+      "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/solid#tsc:check": {
-      "dependsOn": ["^tsc:check", "build"]
+      "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/solid-tailwind#tsc:check": {
-      "dependsOn": ["^tsc:check", "build"]
+      "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/vue#tsc:check": {
-      "dependsOn": ["^tsc:check", "build"]
+      "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/vue-tailwind#tsc:check": {
-      "dependsOn": ["^tsc:check", "build"]
+      "dependsOn": ["^tsc:check", "build:dev"]
     },
     "moduix-docs#tsc:check": {
-      "dependsOn": ["^tsc:check", "^build"],
+      "dependsOn": ["^tsc:check", "^build:dev"],
       "outputs": []
     }
   }

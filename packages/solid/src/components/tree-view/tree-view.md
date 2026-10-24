@@ -36,7 +36,8 @@ receives `{ node, indexPath, state }`; because Ark Solid state is reactive, read
 
 `TreeViewRootProvider` accepts the accessor returned by `useTreeView()`. `TreeViewContext`,
 `TreeViewNodeContext`, `useTreeViewContext`, `useTreeViewNodeContext`, and the collection helpers are
-re-exported from the component entry point and package root.
+re-exported from the component entry point and package root, together with Ark's part props,
+callback details, and hook types.
 
 ## Anatomy and styling
 
@@ -62,11 +63,9 @@ The Solid `NodeCheckboxIndicator` wraps Ark's fragment-only indicator in a style
 the installed Ark Solid primitive does not accept DOM props. This keeps the public data slot and
 CSS hook available while preserving Ark's checked, indeterminate, and fallback selection.
 
-## Local changelog
+## Styling
 
-- 2026-09-22: Migrated TreeView to the flat public API. The root is `TreeView`, while parts,
-  contexts, and the provider use family-prefixed exports; legacy static members are removed.
-
-## Style contract (2026-10-03)
-
-Disabled root, row and checkbox opacity is not compounded. Preserve collection state, Ark measurement variables and keyboard navigation.
+The CSS Module matches React: only `--moduix-tree-view-width` and `--moduix-tree-view-indent` are
+public variables, row indentation follows Ark's `--depth`, and branch and item text truncate with an
+ellipsis. Ark Solid exports `TreeViewNodeCheckboxIndicatorProps` without DOM props, so the moduix
+`TreeViewNodeCheckboxIndicatorProps` adds the `span` props of the wrapper.

@@ -421,6 +421,7 @@
   },
   "scripts": {
     "build": "rslib",
+    "build:dev": "rslib --no-clean",
     "dev": "rslib --watch --no-clean",
     "prepublishOnly": "pnpm run build",
     "test": "rstest run",

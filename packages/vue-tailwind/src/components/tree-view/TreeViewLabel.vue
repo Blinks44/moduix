@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkTreeViewLabel
     v-bind="attrs"
-    :class="cn('text-sm leading-5 font-medium text-foreground select-none', className)"
+    :class="cn('text-sm font-medium select-none', className)"
     data-slot="tree-view-label"
     ><slot
   /></ArkTreeViewLabel>

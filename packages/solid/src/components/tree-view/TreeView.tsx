@@ -3,51 +3,77 @@ import {
   TreeView as TreeViewPrimitive,
   createFileTreeCollection,
   createTreeCollection,
+  type TreeCollection,
   type TreeNode,
+  type TreeViewBranchContentProps,
+  type TreeViewBranchControlProps,
+  type TreeViewBranchIndentGuideProps,
+  type TreeViewBranchIndicatorProps,
+  type TreeViewBranchProps,
+  type TreeViewBranchTextProps,
+  type TreeViewBranchTriggerProps,
+  type TreeViewCheckedChangeDetails,
+  type TreeViewContextProps,
+  type TreeViewExpandedChangeDetails,
+  type TreeViewFocusChangeDetails,
+  type TreeViewItemIndicatorProps,
+  type TreeViewItemProps,
+  type TreeViewItemTextProps,
+  type TreeViewLabelProps,
+  type TreeViewLoadChildrenCompleteDetails,
   type TreeViewLoadChildrenDetails,
+  type TreeViewLoadChildrenErrorDetails,
+  type TreeViewNodeCheckboxIndicatorBaseProps,
+  type TreeViewNodeCheckboxProps,
+  type TreeViewNodeContextProps,
   type TreeViewNodeProviderProps,
+  type TreeViewNodeRenameInputProps,
   type TreeViewNodeState,
+  type TreeViewRenameCompleteDetails,
+  type TreeViewRenameStartDetails,
   type TreeViewRootProps,
   type TreeViewRootProviderProps,
+  type TreeViewSelectionChangeDetails,
+  type TreeViewTreeProps,
+  type UseTreeViewContext,
+  type UseTreeViewNodeContext,
+  type UseTreeViewProps,
+  type UseTreeViewReturn,
   useTreeView,
   useTreeViewContext,
   useTreeViewNodeContext,
 } from '@ark-ui/solid/tree-view';
 import { clsx } from 'clsx';
-import type { Accessor, ComponentProps, JSX } from 'solid-js';
+import type { Accessor, JSX } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { CheckIcon, ChevronRightIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import styles from './TreeView.module.css';
 
 function TreeView<T extends TreeNode>(props: TreeViewRootProps<T>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <TreeViewPrimitive.Root
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="tree-view-root"
-    >
-      {local.children}
-    </TreeViewPrimitive.Root>
+    />
   );
 }
 
 function TreeViewRootProvider<T extends TreeNode>(props: TreeViewRootProviderProps<T>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <TreeViewPrimitive.RootProvider
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="tree-view-root-provider"
-    >
-      {local.children}
-    </TreeViewPrimitive.RootProvider>
+    />
   );
 }
 
-function TreeViewLabel(props: ComponentProps<typeof TreeViewPrimitive.Label>) {
+function TreeViewLabel(props: TreeViewLabelProps) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -59,7 +85,7 @@ function TreeViewLabel(props: ComponentProps<typeof TreeViewPrimitive.Label>) {
   );
 }
 
-function TreeViewTree(props: ComponentProps<typeof TreeViewPrimitive.Tree>) {
+function TreeViewTree(props: TreeViewTreeProps) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -71,7 +97,7 @@ function TreeViewTree(props: ComponentProps<typeof TreeViewPrimitive.Tree>) {
   );
 }
 
-function TreeViewBranch(props: ComponentProps<typeof TreeViewPrimitive.Branch>) {
+function TreeViewBranch(props: TreeViewBranchProps) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -83,7 +109,7 @@ function TreeViewBranch(props: ComponentProps<typeof TreeViewPrimitive.Branch>) 
   );
 }
 
-function TreeViewBranchControl(props: ComponentProps<typeof TreeViewPrimitive.BranchControl>) {
+function TreeViewBranchControl(props: TreeViewBranchControlProps) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -95,7 +121,7 @@ function TreeViewBranchControl(props: ComponentProps<typeof TreeViewPrimitive.Br
   );
 }
 
-function TreeViewBranchTrigger(props: ComponentProps<typeof TreeViewPrimitive.BranchTrigger>) {
+function TreeViewBranchTrigger(props: TreeViewBranchTriggerProps) {
   const [local, others] = splitProps(props, ['children', 'class']);
   const resolvedChildren = children(() => local.children);
 
@@ -110,7 +136,7 @@ function TreeViewBranchTrigger(props: ComponentProps<typeof TreeViewPrimitive.Br
   );
 }
 
-function TreeViewBranchIndicator(props: ComponentProps<typeof TreeViewPrimitive.BranchIndicator>) {
+function TreeViewBranchIndicator(props: TreeViewBranchIndicatorProps) {
   const [local, others] = splitProps(props, ['children', 'class']);
   const resolvedChildren = children(() => local.children);
 
@@ -125,7 +151,7 @@ function TreeViewBranchIndicator(props: ComponentProps<typeof TreeViewPrimitive.
   );
 }
 
-function TreeViewBranchText(props: ComponentProps<typeof TreeViewPrimitive.BranchText>) {
+function TreeViewBranchText(props: TreeViewBranchTextProps) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -137,7 +163,7 @@ function TreeViewBranchText(props: ComponentProps<typeof TreeViewPrimitive.Branc
   );
 }
 
-function TreeViewBranchContent(props: ComponentProps<typeof TreeViewPrimitive.BranchContent>) {
+function TreeViewBranchContent(props: TreeViewBranchContentProps) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -149,9 +175,7 @@ function TreeViewBranchContent(props: ComponentProps<typeof TreeViewPrimitive.Br
   );
 }
 
-function TreeViewBranchIndentGuide(
-  props: ComponentProps<typeof TreeViewPrimitive.BranchIndentGuide>,
-) {
+function TreeViewBranchIndentGuide(props: TreeViewBranchIndentGuideProps) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -163,7 +187,7 @@ function TreeViewBranchIndentGuide(
   );
 }
 
-function TreeViewItem(props: ComponentProps<typeof TreeViewPrimitive.Item>) {
+function TreeViewItem(props: TreeViewItemProps) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -175,7 +199,7 @@ function TreeViewItem(props: ComponentProps<typeof TreeViewPrimitive.Item>) {
   );
 }
 
-function TreeViewItemText(props: ComponentProps<typeof TreeViewPrimitive.ItemText>) {
+function TreeViewItemText(props: TreeViewItemTextProps) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -187,7 +211,7 @@ function TreeViewItemText(props: ComponentProps<typeof TreeViewPrimitive.ItemTex
   );
 }
 
-function TreeViewItemIndicator(props: ComponentProps<typeof TreeViewPrimitive.ItemIndicator>) {
+function TreeViewItemIndicator(props: TreeViewItemIndicatorProps) {
   const [local, others] = splitProps(props, ['children', 'class']);
   const resolvedChildren = children(() => local.children);
 
@@ -202,7 +226,7 @@ function TreeViewItemIndicator(props: ComponentProps<typeof TreeViewPrimitive.It
   );
 }
 
-function TreeViewNodeCheckbox(props: ComponentProps<typeof TreeViewPrimitive.NodeCheckbox>) {
+function TreeViewNodeCheckbox(props: TreeViewNodeCheckboxProps) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -214,9 +238,7 @@ function TreeViewNodeCheckbox(props: ComponentProps<typeof TreeViewPrimitive.Nod
   );
 }
 
-type TreeViewNodeCheckboxIndicatorProps = ComponentProps<
-  typeof TreeViewPrimitive.NodeCheckboxIndicator
-> &
+type TreeViewNodeCheckboxIndicatorProps = TreeViewNodeCheckboxIndicatorBaseProps &
   Omit<HTMLArkProps<'span'>, 'children'>;
 
 function TreeViewNodeCheckboxIndicator(props: TreeViewNodeCheckboxIndicatorProps) {
@@ -239,7 +261,7 @@ function TreeViewNodeCheckboxIndicator(props: TreeViewNodeCheckboxIndicatorProps
   );
 }
 
-function TreeViewNodeRenameInput(props: ComponentProps<typeof TreeViewPrimitive.NodeRenameInput>) {
+function TreeViewNodeRenameInput(props: TreeViewNodeRenameInputProps) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
@@ -310,9 +332,42 @@ export {
   useTreeView,
   useTreeViewContext,
   useTreeViewNodeContext,
+  type TreeCollection,
+  type TreeNode,
+  type TreeViewBranchContentProps,
+  type TreeViewBranchControlProps,
+  type TreeViewBranchIndentGuideProps,
+  type TreeViewBranchIndicatorProps,
+  type TreeViewBranchProps,
+  type TreeViewBranchTextProps,
+  type TreeViewBranchTriggerProps,
+  type TreeViewCheckedChangeDetails,
+  type TreeViewContextProps,
+  type TreeViewExpandedChangeDetails,
+  type TreeViewFocusChangeDetails,
+  type TreeViewItemIndicatorProps,
+  type TreeViewItemProps,
+  type TreeViewItemTextProps,
+  type TreeViewLabelProps,
+  type TreeViewLoadChildrenCompleteDetails,
   type TreeViewLoadChildrenDetails,
+  type TreeViewLoadChildrenErrorDetails,
+  type TreeViewNodeCheckboxIndicatorProps,
+  type TreeViewNodeCheckboxProps,
+  type TreeViewNodeContextProps,
   type TreeViewNodeProps,
+  type TreeViewNodeProviderProps,
+  type TreeViewNodeRenameInputProps,
   type TreeViewNodeRenderProps,
   type TreeViewNodeState,
-  type TreeViewNodeProviderProps,
+  type TreeViewRenameCompleteDetails,
+  type TreeViewRenameStartDetails,
+  type TreeViewRootProps,
+  type TreeViewRootProviderProps,
+  type TreeViewSelectionChangeDetails,
+  type TreeViewTreeProps,
+  type UseTreeViewContext,
+  type UseTreeViewNodeContext,
+  type UseTreeViewProps,
+  type UseTreeViewReturn,
 };

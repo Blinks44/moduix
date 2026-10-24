@@ -121,9 +121,6 @@ const FileTreeNode = defineComponent({
     node: { type: Object as PropType<FileNode>, required: true },
     indexPath: { type: Array as PropType<number[]>, required: true },
   },
-  setup() {
-    return { styles };
-  },
   template: `
     <TreeViewNode :node="node" :index-path="indexPath" v-slot="{ node: currentNode, indexPath: currentIndexPath, state }">
       <TreeViewBranch v-if="state.isBranch">
@@ -132,7 +129,7 @@ const FileTreeNode = defineComponent({
           <TreeViewBranchText>
             <FolderOpenIcon v-if="state.expanded" />
             <FolderIcon v-else />
-            <span :class="styles.text">{{ currentNode.name }}</span>
+            {{ currentNode.name }}
           </TreeViewBranchText>
         </TreeViewBranchControl>
         <TreeViewBranchContent>
@@ -148,7 +145,7 @@ const FileTreeNode = defineComponent({
       <TreeViewItem v-else>
         <TreeViewItemText>
           <FileIcon />
-          <span :class="styles.text">{{ currentNode.name }}</span>
+          {{ currentNode.name }}
         </TreeViewItemText>
       </TreeViewItem>
     </TreeViewNode>
