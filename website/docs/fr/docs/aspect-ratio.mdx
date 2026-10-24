@@ -23,7 +23,7 @@ et `@moduix/vue/aspect-ratio`. Pour Tailwind, utilisez respectivement `@moduix/r
 Utilisez `AspectRatio` comme racine du cadre adaptatif. Par défaut, il occupe toute la largeur disponible dans
 son conteneur parent. Ajoutez `width` ou `max-width` à la racine si le cadre doit avoir une autre largeur, puis
 transmettez à `ratio` le rapport largeur/hauteur. Sa valeur par défaut est `1` ; une valeur absente ou invalide
-(zéro, négative, `NaN`) revient aussi à `1`.
+(zéro, négative, `NaN`, `Infinity`) revient aussi à `1`.
 
 `AspectRatio` ne gère que le rapport des dimensions. Dimensionnez et stylisez explicitement ses enfants : appliquez
 par exemple une largeur et une hauteur complètes ainsi que `object-fit` à une image. Ajoutez le masquage des

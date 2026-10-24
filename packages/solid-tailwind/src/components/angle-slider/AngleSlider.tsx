@@ -57,7 +57,7 @@ function AngleSliderControl(props: ComponentProps<typeof AngleSliderPrimitive.Co
   return (
     <AngleSliderPrimitive.Control
       class={cn(
-        "relative box-border aspect-square w-36 min-w-0 cursor-pointer rounded-full outline-0 select-none [--_angle-slider-fill:var(--color-primary)] before:absolute before:inset-0 before:rounded-full before:bg-[conic-gradient(from_0deg,var(--_angle-slider-fill)_calc(var(--value,0)*1deg),var(--color-muted)_calc(var(--value,0)*1deg))] before:[mask-image:radial-gradient(closest-side,transparent_calc(100%-var(--moduix-spacing-2)-1px),#000_calc(100%-var(--moduix-spacing-2)))] before:content-[''] after:absolute after:top-1 after:left-1/2 after:z-1 after:size-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-[var(--_angle-slider-fill)] after:content-[''] data-disabled:cursor-default data-invalid:[--_angle-slider-fill:var(--color-destructive)] data-readonly:cursor-default [&[dir=rtl]]:before:-scale-x-100",
+        "relative box-border aspect-square w-36 min-w-0 cursor-pointer rounded-full outline-0 select-none [--_angle-slider-fill:var(--color-primary)] before:absolute before:inset-0 before:rounded-full before:bg-[conic-gradient(from_0deg,var(--_angle-slider-fill)_calc(var(--value,0)*1deg),var(--color-muted)_calc(var(--value,0)*1deg))] before:[mask-image:radial-gradient(closest-side,transparent_calc(100%-var(--moduix-spacing-2)-1px),#000_calc(100%-var(--moduix-spacing-2)))] before:content-[''] after:absolute after:top-1 after:left-1/2 after:z-1 after:size-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-(--_angle-slider-fill) after:content-[''] data-disabled:cursor-default data-invalid:[--_angle-slider-fill:var(--color-destructive)] data-readonly:cursor-default [&[dir=rtl]]:before:-scale-x-100",
         local.class,
       )}
       {...others}
@@ -110,7 +110,7 @@ function AngleSliderMarker(props: ComponentProps<typeof AngleSliderPrimitive.Mar
   return (
     <AngleSliderPrimitive.Marker
       class={cn(
-        "absolute inset-0 before:absolute before:top-1 before:left-1/2 before:h-2 before:w-0.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-muted-foreground before:content-[''] data-[state=at-value]:before:bg-foreground data-[state=under-value]:before:bg-[var(--_angle-slider-fill)]",
+        "absolute inset-0 before:absolute before:top-1 before:left-1/2 before:h-2 before:w-0.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-muted-foreground before:content-[''] data-[state=at-value]:before:bg-foreground data-[state=under-value]:before:bg-(--_angle-slider-fill)",
         local.class,
       )}
       {...others}

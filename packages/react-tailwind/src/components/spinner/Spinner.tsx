@@ -63,7 +63,7 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerRootProps>(function Spinner(
           data-scope="spinner"
           data-part="indicator"
           data-slot="spinner-indicator"
-          className="inline-flex size-full animate-[var(--moduix-animation-spin)] items-center justify-center [&_svg]:size-full"
+          className="inline-flex size-full animate-(--moduix-animation-spin) items-center justify-center [&_svg]:size-full"
           aria-hidden="true"
         >
           {children ?? (

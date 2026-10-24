@@ -286,8 +286,8 @@ test('keeps viewport motion and provider composition Ark-shaped', async () => {
   expect([...viewport!.classList]).toEqual(
     expect.arrayContaining([
       'relative',
-      'h-[var(--viewport-height)]',
-      'w-[var(--viewport-width)]',
+      'h-(--viewport-height)',
+      'w-(--viewport-width)',
       'overflow-hidden',
     ]),
   );

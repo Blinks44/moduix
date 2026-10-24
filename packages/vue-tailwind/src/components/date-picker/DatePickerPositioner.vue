@@ -22,7 +22,7 @@ const attrs = useAttrs();
   <OverlayPortal>
     <ArkDatePickerPositioner
       v-bind="attrs"
-      :class="cn('z-[var(--z-index)]', props.class)"
+      :class="cn('z-(--z-index)', props.class)"
       data-slot="date-picker-positioner"
     >
       <slot />

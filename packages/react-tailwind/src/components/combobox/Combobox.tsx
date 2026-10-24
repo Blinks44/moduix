@@ -203,7 +203,7 @@ const ComboboxPositioner = forwardRef<
     <OverlayPortal>
       <ComboboxPrimitive.Positioner
         ref={ref}
-        className={cn('z-[var(--z-index)]', className)}
+        className={cn('z-(--z-index)', className)}
         {...props}
         data-slot="combobox-positioner"
       />
@@ -219,7 +219,7 @@ const ComboboxContent = forwardRef<
     <ComboboxPrimitive.Content
       ref={ref}
       className={cn(
-        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border flex max-h-[min(24rem,var(--available-height))] max-w-[var(--available-width)] min-w-[var(--reference-width)] origin-[var(--transform-origin)] scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
+        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border flex max-h-[min(24rem,var(--available-height))] max-w-(--available-width) min-w-(--reference-width) origin-(--transform-origin) scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         className,
       )}
       {...props}

@@ -22,7 +22,7 @@ export default function AspectRatioCardGridDemo() {
     <div className={styles.root}>
       {stories.map((story) => (
         <Card key={story.title} className={styles.card}>
-          <AspectRatio ratio={16 / 9} className={styles.media}>
+          <AspectRatio ratio={16 / 9}>
             <img src={story.src} alt={story.alt} className={styles.image} />
           </AspectRatio>
           <div className={styles.body}>

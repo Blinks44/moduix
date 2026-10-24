@@ -14,7 +14,8 @@ Ark UI has no dedicated AspectRatio primitive. Moduix uses the
 
 ## Public contract
 
-- `AspectRatio` is the single flat public value and the only root part.
+- `AspectRatio` is the single flat public value and the only root part. The props type is exported
+  as `AspectRatioRootProps`.
 - The root renders as an Ark factory `div`, supports `asChild`, forwards its ref, and writes
   `data-scope="aspect-ratio"`, `data-part="root"`, and `data-slot="aspect-ratio-root"`.
 - A missing or invalid ratio (zero, negative, `NaN`, `Infinity`) falls back to `1` instead of
@@ -40,11 +41,3 @@ radius, and overflow. In particular, the root must not style arbitrary `img`, `v
 
 Moduix renders one element with native CSS `aspect-ratio` instead of Radix's padding wrapper, and
 adds stable data hooks around the Ark factory model.
-
-## Local changelog
-
-- 2026-10-13: `ratio` defaults to `1`; invalid values fall back to `1` instead of throwing. The root
-  sets `min-height: 0` so taller content no longer stretches the frame.
-
-- 2026-09-07: Reduced the component to ratio layout and moved media sizing, clipping, radius, and
-  iframe presentation to consumer-owned styles.

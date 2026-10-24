@@ -28,7 +28,7 @@ const ratioStyle = computed<StyleValue>(() => [
 <template>
   <ark.div
     v-bind="attrs"
-    :class="cn('relative block aspect-[var(--_aspect-ratio-value)] min-h-0 w-full', className)"
+    :class="cn('relative block aspect-(--_aspect-ratio-value) min-h-0 w-full', className)"
     :style="ratioStyle"
     data-scope="aspect-ratio"
     data-part="root"

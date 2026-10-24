@@ -4,11 +4,11 @@ import type { JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-type AspectRatioProps = HTMLArkProps<'div'> & {
+type AspectRatioRootProps = HTMLArkProps<'div'> & {
   ratio?: number | undefined;
 };
 
-function AspectRatio(props: AspectRatioProps) {
+function AspectRatio(props: AspectRatioRootProps) {
   const [local, others] = splitProps(props, ['class', 'ratio', 'style']);
   const aspectRatioStyle = (): JSX.CSSProperties | string => {
     const ratio = toAspectRatioValue(local.ratio);
@@ -26,7 +26,7 @@ function AspectRatio(props: AspectRatioProps) {
       data-scope="aspect-ratio"
       data-part="root"
       data-slot="aspect-ratio-root"
-      class={cn('relative block aspect-[var(--_aspect-ratio-value)] min-h-0 w-full', local.class)}
+      class={cn('relative block aspect-(--_aspect-ratio-value) min-h-0 w-full', local.class)}
       style={aspectRatioStyle()}
     />
   );
@@ -38,3 +38,4 @@ function toAspectRatioValue(ratio = 1) {
 }
 
 export { AspectRatio };
+export type { AspectRatioRootProps };

@@ -225,7 +225,7 @@ function SelectPositioner(props: ComponentProps<typeof SelectPrimitive.Positione
   return (
     <OverlayPortal>
       <SelectPrimitive.Positioner
-        class={cn('z-[var(--z-index)]', local.class)}
+        class={cn('z-(--z-index)', local.class)}
         {...others}
         data-slot="select-positioner"
       />
@@ -239,7 +239,7 @@ function SelectContent(props: ComponentProps<typeof SelectPrimitive.Content>) {
   return (
     <SelectPrimitive.Content
       class={cn(
-        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-h-[min(24rem,var(--available-height))] max-w-[var(--available-width)] min-w-[var(--reference-width)] origin-[var(--transform-origin)] scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
+        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-h-[min(24rem,var(--available-height))] max-w-(--available-width) min-w-(--reference-width) origin-(--transform-origin) scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         local.class,
       )}
       {...others}

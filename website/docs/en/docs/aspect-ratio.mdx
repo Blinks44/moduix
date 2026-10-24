@@ -23,7 +23,7 @@ Import `AspectRatio` from the matching runtime and styling package: `@moduix/rea
 
 Use `AspectRatio` as the root for a responsive frame. It fills the width of its containing block by default.
 Add `width` or `max-width` to the root when the frame needs a different size, then pass the width-to-height
-ratio to `ratio`. It defaults to `1`; a missing or invalid value (zero, negative, `NaN`) falls back to `1`.
+ratio to `ratio`. It defaults to `1`; a missing or invalid value (zero, negative, `NaN`, `Infinity`) falls back to `1`.
 
 `AspectRatio` owns only the ratio layout. Size and style its children explicitly-for example, apply full width,
 full height, and `object-fit` to an image. Put clipping and border radius on the root when the composition needs

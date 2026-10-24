@@ -243,7 +243,7 @@ test('applies Tailwind defaults and lets consumer utilities win', async () => {
   expect([...positioner!.classList]).toEqual(
     expect.arrayContaining([
       'z-[calc(var(--moduix-z-tour)+var(--tour-layer,0))]',
-      'max-w-[var(--available-width)]',
+      'max-w-(--available-width)',
       'data-[type=floating]:data-[placement^=left]:left-6',
       'data-[type=floating]:data-[placement=left-start]:top-6',
     ]),

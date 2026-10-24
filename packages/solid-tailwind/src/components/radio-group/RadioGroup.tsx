@@ -122,7 +122,7 @@ function RadioGroupIndicator(props: ComponentProps<typeof RadioGroupPrimitive.In
       {...others}
       data-slot="radio-group-indicator"
       class={cn(
-        'pointer-events-none top-[var(--top)] left-[var(--left)] h-[var(--height)] w-[var(--width)] rounded-md bg-primary opacity-[0.12] [--transition-duration:var(--moduix-duration-normal)] [--transition-timing-function:var(--moduix-ease-in-out)]',
+        'pointer-events-none top-(--top) left-(--left) h-(--height) w-(--width) rounded-md bg-primary opacity-[0.12] [--transition-duration:var(--moduix-duration-normal)] [--transition-timing-function:var(--moduix-ease-in-out)]',
         local.class,
       )}
     />

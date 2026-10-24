@@ -188,7 +188,7 @@ test('updates loading, slots, dimensions, variant and aria attrs without replaci
     'after:invisible',
     '[&_*]:invisible',
     'overflow-hidden',
-    'animate-[var(--moduix-animation-pulse)]',
+    'animate-(--moduix-animation-pulse)',
   ]) {
     expect(skeleton.classList.contains(className)).toBe(false);
   }

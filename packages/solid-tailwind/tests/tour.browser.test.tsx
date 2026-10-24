@@ -301,7 +301,7 @@ describe('Tour', () => {
     expect([...positioner!.classList]).toEqual(
       expect.arrayContaining([
         'z-[calc(var(--moduix-z-tour)+var(--tour-layer,0))]',
-        'max-w-[var(--available-width)]',
+        'max-w-(--available-width)',
       ]),
     );
     expect([...arrow!.classList]).toEqual(

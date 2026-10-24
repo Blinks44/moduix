@@ -5,11 +5,11 @@ import type { JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
 import styles from './AspectRatio.module.css';
 
-type AspectRatioProps = HTMLArkProps<'div'> & {
+type AspectRatioRootProps = HTMLArkProps<'div'> & {
   ratio?: number | undefined;
 };
 
-function AspectRatio(props: AspectRatioProps) {
+function AspectRatio(props: AspectRatioRootProps) {
   const [local, others] = splitProps(props, ['class', 'ratio', 'style']);
   const aspectRatioStyle = (): JSX.CSSProperties | string => {
     const ratio = toAspectRatioValue(local.ratio);
@@ -39,3 +39,4 @@ function toAspectRatioValue(ratio = 1) {
 }
 
 export { AspectRatio };
+export type { AspectRatioRootProps };

@@ -79,7 +79,7 @@ const HoverCardPositioner = forwardRef<
       <HoverCardPrimitive.Positioner
         ref={ref}
         className={cn(
-          'z-[var(--z-index,var(--moduix-z-popup))] max-w-[var(--available-width)] outline-0',
+          'z-[var(--z-index,var(--moduix-z-popup))] max-w-(--available-width) outline-0',
           className,
         )}
         {...props}
@@ -97,7 +97,7 @@ const HoverCardContent = forwardRef<
     <HoverCardPrimitive.Content
       ref={ref}
       className={cn(
-        'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(24rem,var(--available-width))] min-w-[min(14rem,var(--available-width))] origin-[var(--transform-origin)] rounded-lg border border-border bg-popover p-2 wrap-anywhere text-popover-foreground shadow-lg outline-0 has-[>[data-slot=hover-card-body]]:flex has-[>[data-slot=hover-card-body]]:flex-col data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
+        'relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] max-h-[min(24rem,var(--available-height,100dvh))] max-w-[min(24rem,var(--available-width))] min-w-[min(14rem,var(--available-width))] origin-(--transform-origin) rounded-lg border border-border bg-popover p-2 wrap-anywhere text-popover-foreground shadow-lg outline-0 has-[>[data-slot=hover-card-body]]:flex has-[>[data-slot=hover-card-body]]:flex-col data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         className,
       )}
       {...props}

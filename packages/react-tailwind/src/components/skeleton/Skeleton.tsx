@@ -47,7 +47,7 @@ const Skeleton = forwardRef<HTMLDivElement, SkeletonRootProps>(function Skeleton
         'block w-full rounded-md',
         loading &&
           'pointer-events-none h-4 overflow-hidden bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))] text-transparent select-none before:invisible after:invisible [&_*]:invisible',
-        loading && variant === 'pulse' && 'animate-[var(--moduix-animation-pulse)]',
+        loading && variant === 'pulse' && 'animate-(--moduix-animation-pulse)',
         className,
       )}
       style={{

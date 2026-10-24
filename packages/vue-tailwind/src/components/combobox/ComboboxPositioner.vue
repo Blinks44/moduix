@@ -22,7 +22,7 @@ const attrs = useAttrs();
   <OverlayPortal>
     <ArkComboboxPositioner
       v-bind="attrs"
-      :class="cn('z-[var(--z-index)]', className)"
+      :class="cn('z-(--z-index)', className)"
       data-slot="combobox-positioner"
     >
       <slot />

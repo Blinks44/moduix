@@ -93,7 +93,7 @@ const TooltipPositioner = forwardRef<
       <TooltipPrimitive.Positioner
         ref={ref}
         className={cn(
-          'z-[var(--z-index,var(--moduix-z-popup))] max-w-[var(--available-width)] outline-0',
+          'z-[var(--z-index,var(--moduix-z-popup))] max-w-(--available-width) outline-0',
           className,
         )}
         {...props}
@@ -111,7 +111,7 @@ const TooltipContent = forwardRef<
     <TooltipPrimitive.Content
       ref={ref}
       className={cn(
-        'relative max-w-[min(20rem,var(--available-width))] origin-[var(--transform-origin)] rounded-md border border-border bg-popover px-2 py-1 text-center text-sm wrap-anywhere text-popover-foreground shadow-md data-instant:data-[state]:animate-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
+        'relative max-w-[min(20rem,var(--available-width))] origin-(--transform-origin) rounded-md border border-border bg-popover px-2 py-1 text-center text-sm wrap-anywhere text-popover-foreground shadow-md data-instant:data-[state]:animate-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         className,
       )}
       {...props}

@@ -59,7 +59,7 @@ function Spinner(props: SpinnerRootProps) {
         data-scope="spinner"
         data-part="indicator"
         data-slot="spinner-indicator"
-        class="inline-flex size-full animate-[var(--moduix-animation-spin)] items-center justify-center [&_svg]:size-full"
+        class="inline-flex size-full animate-(--moduix-animation-spin) items-center justify-center [&_svg]:size-full"
         aria-hidden="true"
       >
         {local.children ?? (
