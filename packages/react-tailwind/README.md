@@ -1,4 +1,4 @@
-![moduix banner](https://raw.githubusercontent.com/Blinks44/moduix/main/website/docs/public/banner.png)
+![moduix banner](https://raw.githubusercontent.com/Blinks44/moduix/main/website/docs/public/banner.jpg)
 
 [![npm](https://img.shields.io/npm/v/@moduix/react-tailwind?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react-tailwind)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)

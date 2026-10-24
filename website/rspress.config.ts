@@ -30,7 +30,7 @@ const locales = [
       'Доступные компоненты для React, Solid и Vue на базе Ark UI. Один API во всех фреймворках, стили на CSS Modules или Tailwind CSS. Установка из npm или копирование исходников через CLI shadcn.',
   },
 ];
-const socialImage = `${siteOrigin}/banner.png`;
+const socialImage = `${siteOrigin}/banner.jpg`;
 const socialImageAlt = 'moduix component library';
 
 export default defineConfig({
