@@ -10,7 +10,8 @@
 
 ## Public contract
 
-- `JsonTreeView` and `JsonTreeView` accept Ark's `data`, expansion, selection, focus, and preview options.
+- `JsonTreeView` accepts Ark's `data`, expansion, selection, focus, and preview options;
+  `JsonTreeViewRootProvider` accepts the `value` returned by `useJsonTreeView`.
 - `JsonTreeViewTree` renders the generated JSON nodes and supplies a chevron when `arrow` is omitted.
 - `JsonTreeViewRootProvider` connects a `useJsonTreeView` state instance to `Tree`; do not render `Root` for the same instance.
 - `useJsonTreeView` and Ark's public props and return types are re-exported from `@moduix/react/json-tree-view`.
@@ -29,7 +30,6 @@ The wrapper styles generated branch and item rows, indentation, focus, selection
 with foundation tokens. Use `className` on the exported parts for local changes, or target Ark's generated
 `data-scope` and `data-part` attributes when a value renderer needs more specific styling.
 
-## Local changelog
-
-- 2026-08-24: Added the styled Ark JsonTreeView wrapper with its root, provider, tree, registry item, stories,
-  tests, and documentation.
+Rows keep their text selectable so inspected values can be copied. When a long preview wraps, the branch indicator
+stays on the first line. Branch content opens and closes with the shared collapsible keyframes and
+`--moduix-transition-default`, like `TreeView`; reduced motion turns the animation off.

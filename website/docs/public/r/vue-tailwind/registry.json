@@ -5471,6 +5471,11 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/json-tree-view/JsonTreeView.variants.ts",
+          "target": "@components/ui/json-tree-view/JsonTreeView.variants.ts",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/json-tree-view/JsonTreeViewRootProvider.vue",
           "target": "@components/ui/json-tree-view/JsonTreeViewRootProvider.vue",
           "type": "registry:component"

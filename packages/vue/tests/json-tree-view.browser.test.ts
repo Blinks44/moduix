@@ -18,6 +18,8 @@ const data = {
   },
 };
 
+const wrappedData = { checks: ['accessibility', 'visual-regression', 'type-check'] };
+
 const jsonTreeViewComponents = {
   JsonTreeView,
   JsonTreeViewRootProvider,
@@ -271,4 +273,53 @@ test('reflects controlled selection updates in the DOM', async () => {
   await expect
     .element(page.getByRole('treeitem', { name: 'status: "ready"', exact: true }))
     .toHaveAttribute('aria-selected', 'true');
+});
+
+test('keeps the branch indicator on the first line of a wrapped preview and lets values be copied', async () => {
+  render(
+    defineComponent({
+      components: jsonTreeViewComponents,
+      setup: () => ({ wrappedData }),
+      template:
+        '<div style="width: 160px"><JsonTreeView :data="wrappedData"><JsonTreeViewTree /></JsonTreeView></div>',
+    }),
+  );
+
+  await expect.element(page.getByRole('tree')).toBeVisible();
+
+  const control = document.querySelector<HTMLElement>('[data-part="branch-control"]')!;
+  const text = document.querySelector<HTMLElement>('[data-part="branch-text"]')!;
+  const indicator = document
+    .querySelector('[data-part="branch-indicator"]')!
+    .getBoundingClientRect();
+  const lineHeight = parseFloat(getComputedStyle(text).lineHeight);
+  const textTop = text.getBoundingClientRect().top;
+
+  expect(text.getBoundingClientRect().height).toBeGreaterThan(lineHeight * 1.5);
+  expect(
+    Math.abs(indicator.top + indicator.height / 2 - (textTop + lineHeight / 2)),
+  ).toBeLessThanOrEqual(1);
+  expect(getComputedStyle(control).userSelect).not.toBe('none');
+});
+
+test('animates branch content with the shared collapsible keyframes', async () => {
+  render(
+    defineComponent({
+      components: jsonTreeViewComponents,
+      setup: () => ({ data }),
+      template: '<JsonTreeView :data="data"><JsonTreeViewTree /></JsonTreeView>',
+    }),
+  );
+
+  await page.getByRole('button').nth(0).click();
+
+  await expect.element(page.getByRole('button').nth(0)).toHaveAttribute('data-state', 'open');
+  const content = document.querySelector<HTMLElement>('[data-part="branch-content"]')!;
+  expect(getComputedStyle(content).animationName).toBe('moduix-collapsible-content-open');
+
+  await page.getByRole('button').nth(0).click();
+
+  await expect.element(page.getByRole('button').nth(0)).toHaveAttribute('data-state', 'closed');
+  expect(content.getAttribute('data-state')).toBe('closed');
+  expect(getComputedStyle(content).animationName).toBe('moduix-collapsible-content-closed');
 });
