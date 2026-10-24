@@ -1,7 +1,6 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const progressLinearCssProperties: CssPropertyInput[] = [
+export const progressLinearCssProperties: CssPropertyInput[] = [
   [
     '--moduix-progress-linear-range-bg',
     'var(--moduix-color-primary)',
@@ -14,17 +13,3 @@ const progressLinearCssProperties: CssPropertyInput[] = [
     'Controls track thickness: height when horizontal, width when vertical.',
   ],
 ];
-
-const progressLinearCssPropertiesReference = progressLinearCssProperties.map(normalizeCssProperty);
-
-export function ProgressLinearCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={progressLinearCssPropertiesReference} />;
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
-}

@@ -1,18 +1,21 @@
 import type { CssProperty } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const tagCssProperties = (
+export const tagCssProperties = (
   [
-    ['--moduix-tag-bg', 'Variant-specific', 'Overrides the tag background in every variant.'],
+    [
+      '--moduix-tag-bg',
+      'var(--moduix-color-primary)',
+      'Overrides the tag background. Each `variant` sets its own default.',
+    ],
     [
       '--moduix-tag-border-color',
-      'Variant-specific',
-      'Overrides the tag border color in every variant.',
+      'transparent',
+      'Overrides the tag border color. Each `variant` sets its own default.',
     ],
     [
       '--moduix-tag-color',
-      'Variant-specific',
-      'Overrides the tag text, icon, and close trigger color in every variant.',
+      'var(--moduix-color-primary-foreground)',
+      'Overrides the tag text, icon, and close trigger color. Each `variant` sets its own default.',
     ],
   ] as const
 ).map(([name, defaultValue, description]) => ({
@@ -20,7 +23,3 @@ const tagCssProperties = (
   defaultValue,
   description,
 })) satisfies CssProperty[];
-
-export function TagCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={tagCssProperties} />;
-}

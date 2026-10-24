@@ -388,18 +388,6 @@ body .rp-doc {
   font-size: initial;
 }
 
-.docs-reference-panel {
-  max-height: 37.5rem;
-  overflow: auto;
-
-  &.docs-reference-panel--compact {
-    max-height: 26.25rem;
-    border: 1px solid var(--rp-c-divider-light);
-    border-radius: var(--rp-radius-small);
-  }
-}
-
-.docs-reference-tabs,
 .docs-tabs {
   margin-block: 0.75rem 0;
 }

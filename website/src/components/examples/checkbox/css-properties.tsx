@@ -24,13 +24,13 @@ export const checkboxOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-checkbox-gap', 'var(--moduix-spacing-2)', 'Controls gap between control and label.'],
   [
     '--moduix-checkbox-icon-size',
-    'Size-specific fallback',
-    'Overrides the indicator icon size for every size.',
+    'var(--moduix-spacing-3)',
+    'Overrides the indicator icon size. Each `size` sets its own default.',
   ],
   ['--moduix-checkbox-radius', 'var(--moduix-radius-xs)', 'Controls checkbox corner radius.'],
   [
     '--moduix-checkbox-size',
-    'Size-specific fallback',
-    'Overrides the control size for every size.',
+    'var(--moduix-spacing-5)',
+    'Overrides the control size. Each `size` sets its own default.',
   ],
 ];

@@ -1,7 +1,6 @@
 import type { CssProperty } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const tagsInputCssProperties = (
+export const tagsInputCssProperties = (
   [
     ['--moduix-tags-input-width', '24rem', 'Sets the root width; the root never exceeds 100%.'],
     [
@@ -16,7 +15,3 @@ const tagsInputCssProperties = (
   defaultValue,
   description,
 })) satisfies CssProperty[];
-
-export function TagsInputCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={tagsInputCssProperties} />;
-}

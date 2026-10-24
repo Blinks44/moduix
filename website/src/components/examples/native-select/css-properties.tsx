@@ -1,7 +1,6 @@
 import type { CssProperty } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const nativeSelectCssProperties: CssProperty[] = [
+export const nativeSelectCssProperties: CssProperty[] = [
   {
     name: '--moduix-select-width',
     defaultValue: '14rem',
@@ -23,7 +22,3 @@ const nativeSelectCssProperties: CssProperty[] = [
     description: 'Controls the indicator box size and the text space reserved for it.',
   },
 ];
-
-export function NativeSelectCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={nativeSelectCssProperties} />;
-}

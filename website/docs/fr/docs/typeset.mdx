@@ -374,17 +374,7 @@ espacement, ainsi le contenu déjà affiché reste en place à mesure que le flu
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <TypesetDocs.TypesetCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties} />
 
 Utilisez `--moduix-typeset-size`, `--moduix-typeset-leading` et `--moduix-typeset-flow` pour régler
 le rythme de lecture. Les variables de police sont facultatives ; les couleurs, bordures et rayons

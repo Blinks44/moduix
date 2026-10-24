@@ -1,7 +1,6 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const sliderCssProperties: CssPropertyInput[] = [
+export const sliderCssProperties: CssPropertyInput[] = [
   [
     '--moduix-slider-range-bg',
     'var(--moduix-color-primary)',
@@ -15,17 +14,3 @@ const sliderCssProperties: CssPropertyInput[] = [
     'Controls track thickness: height when horizontal, width when vertical.',
   ],
 ];
-
-const sliderCssPropertiesReference = sliderCssProperties.map(normalizeCssProperty);
-
-export function SliderCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={sliderCssPropertiesReference} />;
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
-}

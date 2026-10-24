@@ -1,7 +1,6 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const tabsOverrideCssProperties: CssPropertyInput[] = [
+export const tabsOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-tabs-bg', 'var(--moduix-color-background)', 'Controls the content background color.'],
   [
     '--moduix-tabs-border-color',
@@ -30,15 +29,3 @@ const tabsOverrideCssProperties: CssPropertyInput[] = [
     'Controls selected and hovered trigger text color and the line indicator color.',
   ],
 ];
-
-export function TabsCssPropertiesPanel() {
-  return (
-    <CSSPropertiesReferenceTable properties={tabsOverrideCssProperties.map(normalizeCssProperty)} />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}

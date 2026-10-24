@@ -1,7 +1,6 @@
 import type { CssProperty } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const passwordInputOverrideCssProperties: CssProperty[] = [
+export const passwordInputOverrideCssProperties: CssProperty[] = [
   {
     name: '--moduix-password-input-width',
     defaultValue: '100%',
@@ -18,7 +17,3 @@ const passwordInputOverrideCssProperties: CssProperty[] = [
     description: 'Corner radius of the control.',
   },
 ];
-
-export function PasswordInputCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={passwordInputOverrideCssProperties} />;
-}

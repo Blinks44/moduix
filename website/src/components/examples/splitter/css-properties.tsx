@@ -1,5 +1,4 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 export const splitterOverrideCssProperties: CssPropertyInput[] = [
   [
@@ -13,23 +12,3 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
     'Controls the transparent pointer hit area around the divider.',
   ],
 ];
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if ('name' in property) return property;
-
-  const [name, defaultValue, description] = property;
-
-  return {
-    name,
-    defaultValue,
-    description,
-  };
-}
-
-export function SplitterCssPropertiesPanel() {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={splitterOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}

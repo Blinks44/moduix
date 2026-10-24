@@ -1,7 +1,6 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const tableOverrideCssProperties: CssPropertyInput[] = [
+export const tableOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-table-bg',
     'var(--moduix-color-card)',
@@ -33,17 +32,3 @@ const tableOverrideCssProperties: CssPropertyInput[] = [
     'Controls the background of even striped rows.',
   ],
 ];
-
-export function TableCssPropertiesPanel() {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={tableOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}

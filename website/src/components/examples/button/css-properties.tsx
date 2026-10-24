@@ -1,34 +1,62 @@
 import type { CssPropertyInput } from '../../mdx/reference';
 
 export const buttonCssProperties: CssPropertyInput[] = [
-  ['--moduix-button-bg', 'Variant-specific fallback', 'Overrides button background color.'],
+  [
+    '--moduix-button-bg',
+    'var(--moduix-color-primary)',
+    'Overrides button background color. Each `variant` sets its own default.',
+  ],
   [
     '--moduix-button-bg-hover',
-    'Variant-specific fallback',
-    'Overrides hover background color. Filled variants darken `--moduix-button-bg` by default.',
+    'color-mix(in srgb, var(--moduix-button-bg) 88%, black)',
+    'Overrides hover background color. Filled variants darken `--moduix-button-bg` by default. Each `variant` sets its own default.',
   ],
-  ['--moduix-button-border-color', 'Variant-specific fallback', 'Overrides button border color.'],
+  [
+    '--moduix-button-border-color',
+    'var(--moduix-button-bg)',
+    'Overrides button border color. Each `variant` sets its own default.',
+  ],
   [
     '--moduix-button-border-width',
     'var(--moduix-border-width-sm)',
     'Controls button border width.',
   ],
-  ['--moduix-button-color', 'Variant-specific fallback', 'Overrides button text and icon color.'],
+  [
+    '--moduix-button-color',
+    'var(--moduix-color-primary-foreground)',
+    'Overrides button text and icon color. Each `variant` sets its own default.',
+  ],
   [
     '--moduix-button-content-gap',
     'var(--moduix-spacing-2)',
     'Controls space between text and icons.',
   ],
-  ['--moduix-button-font-size', 'Size-specific fallback', 'Overrides button font size.'],
+  [
+    '--moduix-button-font-size',
+    'var(--moduix-text-sm)',
+    'Overrides button font size. Each `size` sets its own default.',
+  ],
   ['--moduix-button-font-weight', 'var(--moduix-weight-medium)', 'Controls button font weight.'],
   [
     '--moduix-button-height',
-    'Size-specific fallback',
-    'Overrides minimum height, and the square size of `icon-*` buttons.',
+    'var(--moduix-size-md)',
+    'Overrides minimum height, and the square size of `icon-*` buttons. Each `size` sets its own default.',
   ],
   ['--moduix-button-icon-size', 'var(--moduix-spacing-4)', 'Controls direct child SVG icon size.'],
-  ['--moduix-button-line-height', 'Size-specific fallback', 'Overrides button line-height.'],
-  ['--moduix-button-padding-x', 'Size-specific fallback', 'Overrides horizontal button padding.'],
-  ['--moduix-button-padding-y', 'Size-specific fallback', 'Overrides vertical button padding.'],
+  [
+    '--moduix-button-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Overrides button line-height. Each `size` sets its own default.',
+  ],
+  [
+    '--moduix-button-padding-x',
+    'var(--moduix-spacing-4)',
+    'Overrides horizontal button padding. Each `size` sets its own default.',
+  ],
+  [
+    '--moduix-button-padding-y',
+    'var(--moduix-spacing-1)',
+    'Overrides vertical button padding. Each `size` sets its own default.',
+  ],
   ['--moduix-button-radius', 'var(--moduix-radius-md)', 'Controls button border radius.'],
 ];

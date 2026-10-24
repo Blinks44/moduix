@@ -525,17 +525,7 @@ Use the `size` prop on the root to match the cell size to the control heights of
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <PinInputDocs.PinInputCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties} />
 
 CSS Modules packages expose three variables: `--moduix-pin-input-input-size` (applies to every size),
 `--moduix-pin-input-gap`, and `--moduix-pin-input-radius`. Colors, borders, typography, and the focus ring

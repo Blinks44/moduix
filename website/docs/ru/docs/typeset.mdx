@@ -371,17 +371,7 @@ Typeset
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <TypesetDocs.TypesetCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties} />
 
 Ритм чтения задают `--moduix-typeset-size`, `--moduix-typeset-leading` и
 `--moduix-typeset-flow`. Переменные шрифта необязательны, а цвета, границы и радиус берутся из

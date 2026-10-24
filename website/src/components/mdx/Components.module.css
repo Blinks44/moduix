@@ -223,11 +223,6 @@
   margin-block: 1.5rem;
 }
 
-.cssProperties :global(.rp-tabs__content) {
-  max-block-size: 36rem;
-  overflow: auto;
-}
-
 .exampleCode {
   margin-top: -2.5rem;
 }

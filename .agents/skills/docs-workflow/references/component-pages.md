@@ -82,6 +82,8 @@ Popup-like components teach the explicit part tree. Do not add `Portal` to examp
 
 ## CSS properties
 
-Use the shared `CssPropertiesSection` pattern from Accordion. It provides the single `CSS Variables`
-tab and bounded scroll area. The table covers the complete public variable contract rather than an
-abbreviated prose list.
+Render `<CssPropertiesSection properties={...} />` with the array exported from the component's
+`css-properties.tsx`; do not add per-component panels or wrap the table in tabs. The table covers the
+complete public variable contract rather than an abbreviated prose list. Every entry has a
+description, and the default is a real value: when variants or sizes set their own value, list the
+default recipe's value and say so in the description.

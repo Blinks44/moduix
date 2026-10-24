@@ -1,7 +1,6 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const marqueeCssProperties: CssPropertyInput[] = [
+export const marqueeCssProperties: CssPropertyInput[] = [
   [
     '--marquee-delay',
     'computed from `delay` (default `0s`)',
@@ -34,17 +33,3 @@ const marqueeCssProperties: CssPropertyInput[] = [
     'Runtime value from Ark that drives the keyframe translate distance.',
   ],
 ];
-
-const marqueeCssPropertiesReference = marqueeCssProperties.map(normalizeCssProperty);
-
-export function MarqueeCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={marqueeCssPropertiesReference} />;
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
-}

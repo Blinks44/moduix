@@ -1,7 +1,6 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const spinnerOverrideCssProperties: CssPropertyInput[] = [
+export const spinnerOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-spinner-ring-border-width',
     'var(--moduix-border-width-md)',
@@ -18,17 +17,3 @@ const spinnerOverrideCssProperties: CssPropertyInput[] = [
     'Overrides the spinner size for every size except inherit.',
   ],
 ];
-
-export function SpinnerCssPropertiesPanel() {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={spinnerOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}

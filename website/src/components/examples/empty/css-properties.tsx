@@ -1,7 +1,6 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const emptyOverrideCssProperties = [
+export const emptyOverrideCssProperties = [
   {
     name: '--moduix-empty-bg',
     defaultValue: 'color-mix(in oklab, var(--moduix-color-card) 92%, var(--moduix-color-muted))',
@@ -33,7 +32,3 @@ const emptyOverrideCssProperties = [
     description: 'Controls the root border radius.',
   },
 ] satisfies CssPropertyInput[];
-
-export function EmptyCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={emptyOverrideCssProperties} />;
-}

@@ -490,11 +490,6 @@
     "ru": "Свойство",
     "fr": "Propriété"
   },
-  "cssVariables": {
-    "en": "CSS Variables",
-    "ru": "CSS-переменные",
-    "fr": "Variables CSS"
-  },
   "cssDefault": {
     "en": "Default",
     "ru": "По умолчанию",

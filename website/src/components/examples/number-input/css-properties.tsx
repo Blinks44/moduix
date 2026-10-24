@@ -1,7 +1,6 @@
 import type { CssProperty } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const numberInputOverrideCssProperties: CssProperty[] = [
+export const numberInputOverrideCssProperties: CssProperty[] = [
   {
     name: '--moduix-number-input-control-height',
     defaultValue: 'var(--moduix-size-md)',
@@ -18,7 +17,3 @@ const numberInputOverrideCssProperties: CssProperty[] = [
     description: 'Controls the outer control corner radius.',
   },
 ];
-
-export function NumberInputCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={numberInputOverrideCssProperties} />;
-}

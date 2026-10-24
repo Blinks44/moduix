@@ -1,7 +1,6 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const switchOverrideCssProperties: CssPropertyInput[] = [
+export const switchOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-switch-bg', 'var(--moduix-color-muted)', 'Controls unchecked track background.'],
   [
     '--moduix-switch-bg-checked',
@@ -20,17 +19,3 @@ const switchOverrideCssProperties: CssPropertyInput[] = [
     'Overrides the thumb background in both states.',
   ],
 ];
-
-export function SwitchCssPropertiesPanel() {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={switchOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}

@@ -28,12 +28,12 @@ export const radioGroupOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-radio-indicator-size',
-    'Size-specific fallback',
-    'Overrides the checked dot size for every size.',
+    'var(--moduix-spacing-2)',
+    'Overrides the checked dot size. Each `size` sets its own default.',
   ],
   [
     '--moduix-radio-size',
-    'Size-specific fallback',
-    'Overrides the item control size for every size.',
+    'var(--moduix-spacing-5)',
+    'Overrides the item control size. Each `size` sets its own default.',
   ],
 ];

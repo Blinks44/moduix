@@ -282,17 +282,7 @@ Tailwind utilisent des classes utilitaires natives et les classes transmises par
 Les variables suivantes sont disponibles dans les variantes CSS Modules. L’espacement interne par défaut et la géométrie de
 l’indicateur suivent l’échelle commune de 4 px.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <NativeSelectDocs.NativeSelectCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={NativeSelectDocs.nativeSelectCssProperties} />
 
 ### Points d’accroche CSS
 

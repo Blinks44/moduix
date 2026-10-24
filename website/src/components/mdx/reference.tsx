@@ -132,6 +132,12 @@ function normalizeCssProperty(property: CssPropertyInput): CssProperty {
   };
 }
 
+function renderInlineCode(text: string) {
+  return text
+    .split('`')
+    .map((chunk, index) => (index % 2 ? <code key={index}>{chunk}</code> : chunk));
+}
+
 function CSSPropertiesReferenceTable({ properties }: { properties: CssProperty[] }) {
   const t = useI18n<typeof import('i18n')>();
 
@@ -148,10 +154,21 @@ function CSSPropertiesReferenceTable({ properties }: { properties: CssProperty[]
           {properties.map((property) => (
             <tr key={property.name}>
               <td>
-                <code>{property.name}</code>
+                <code className={styles.propertyName}>{property.name}</code>
+                {property.description ? (
+                  <p className={styles.propertyDescription}>
+                    {typeof property.description === 'string'
+                      ? renderInlineCode(property.description)
+                      : property.description}
+                  </p>
+                ) : null}
               </td>
-              <td>
-                <code>{property.defaultValue}</code>
+              <td className={styles.propertyDefault}>
+                {property.defaultValue.includes('`') ? (
+                  renderInlineCode(property.defaultValue)
+                ) : (
+                  <code>{property.defaultValue}</code>
+                )}
               </td>
             </tr>
           ))}

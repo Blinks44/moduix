@@ -528,17 +528,7 @@ et `Button`. La valeur par défaut est `md` ; le texte des cases suit la taille.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <PinInputDocs.PinInputCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={PinInputDocs.pinInputOverrideCssProperties} />
 
 Les paquets CSS Modules exposent trois variables : `--moduix-pin-input-input-size` (valable pour toutes les
 tailles), `--moduix-pin-input-gap` et `--moduix-pin-input-radius`. Les couleurs, bordures, la typographie et
