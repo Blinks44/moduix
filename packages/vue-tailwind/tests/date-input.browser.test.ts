@@ -374,11 +374,10 @@ test('shows a focused placeholder segment in the foreground color', async () => 
   });
 
   await page.getByRole('spinbutton').nth(0).click();
-  await new Promise((resolve) => setTimeout(resolve, 400));
 
   const label = document.querySelector('[data-slot="date-input-label"]')!;
   const segment = document.querySelector('[data-slot="date-input-segment"]')!;
 
   expect(segment.hasAttribute('data-placeholder-shown')).toBe(true);
-  expect(getComputedStyle(segment).color).toBe(getComputedStyle(label).color);
+  await expect.poll(() => getComputedStyle(segment).color).toBe(getComputedStyle(label).color);
 });
