@@ -1,4 +1,4 @@
-# moduix
+# @moduix/vue
 
 ## 3.0.1
 

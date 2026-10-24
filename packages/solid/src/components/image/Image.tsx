@@ -32,6 +32,7 @@ function Image(props: ImageRootProps) {
       : transformBaseImageProps<never, never, ImageAttributes>(input as never);
   });
 
+  // oxlint-disable-next-line jsx-a11y/alt-text -- `alt` arrives through the transformed props.
   return <img {...imageProps()} data-slot="image-root" class={clsx(styles.root, local.class)} />;
 }
 

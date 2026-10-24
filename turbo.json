@@ -21,19 +21,26 @@
       "cache": false,
       "persistent": true
     },
+    "//#build:registry": {
+      "cache": false
+    },
     "moduix-docs#dev": {
       "dependsOn": ["@moduix/react#build"],
       "cache": false,
       "persistent": true
     },
     "moduix-docs#build": {
-      "dependsOn": ["@moduix/react#build"],
+      "dependsOn": ["@moduix/react#build", "//#build:registry"],
       "outputs": ["doc_build/**"]
     },
     "deploy": {
       "dependsOn": ["build"],
       "cache": false,
       "env": ["CLOUDFLARE_API_TOKEN"]
+    },
+    "check:package": {
+      "dependsOn": ["build"],
+      "outputs": []
     },
     "test": {
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/packages/foundation/src/**"],

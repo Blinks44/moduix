@@ -1,4 +1,4 @@
-# moduix
+# @moduix/react
 
 ## 3.0.1
 

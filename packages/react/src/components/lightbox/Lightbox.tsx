@@ -219,6 +219,7 @@ const LightboxImage = forwardRef<HTMLImageElement, LightboxImageProps>(function 
   };
 
   return (
+    // oxlint-disable-next-line jsx-a11y/alt-text, jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- `alt` arrives through props; click-to-close is a pointer shortcut for the Escape-dismissible dialog.
     <img
       ref={ref}
       className={clsx(styles.image, className)}

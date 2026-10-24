@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/@moduix/react?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![npm downloads](https://img.shields.io/npm/dm/@moduix/react?label=downloads)](https://www.npmjs.com/package/@moduix/react)
 [![CI](https://github.com/Blinks44/moduix/actions/workflows/verify.yml/badge.svg)](https://github.com/Blinks44/moduix/actions/workflows/verify.yml)
 
 # moduix
@@ -77,9 +77,20 @@ The [package README](packages/react/README.md) shows how to compose a component 
 
 ### Own the source with the registry
 
-Use the registry when a component should live in your repository and evolve with your product. Set
-up `components.json` with the [Quick start](https://moduix.dev/docs/quick-start), then add only the
-components you need:
+Use the registry when a component should live in your repository and evolve with your product. Add
+the moduix namespaces to `components.json` (the [Quick start](https://moduix.dev/docs/quick-start)
+has the full file for each styling track):
+
+```json
+{
+  "registries": {
+    "@moduix-react": "https://moduix.dev/r/react/{name}.json",
+    "@moduix-react-tailwind": "https://moduix.dev/r/react-tailwind/{name}.json"
+  }
+}
+```
+
+Then add only the components you need:
 
 ```bash
 pnpm dlx shadcn@latest add @moduix-react/button @moduix-react/dialog
@@ -110,34 +121,6 @@ and `contrast`.
 See [Styling](https://moduix.dev/docs/styling), [Themes](https://moduix.dev/docs/themes), and
 [Tokens](https://moduix.dev/docs/tokens) for customization.
 
-## Repository
-
-| Path                            | Purpose                                                                  |
-| ------------------------------- | ------------------------------------------------------------------------ |
-| `packages/<framework>`          | Published framework-native CSS Modules adapters.                         |
-| `packages/<framework>-tailwind` | Published framework-native Tailwind adapters.                            |
-| `packages/foundation`           | Shared framework-neutral tokens, resets, presets, and animations.        |
-| `playgrounds/<framework>*`      | Adapter playgrounds used for parity checks.                              |
-| `website`                       | Documentation site, runnable examples, and generated registry artifacts. |
-
-Use Node.js 24 or later and the pnpm version pinned in `package.json`. Install dependencies and
-run the documentation site locally:
-
-```bash
-pnpm install
-pnpm run dev:docs
-```
-
-Before opening a pull request, run the repository checks:
-
-```bash
-pnpm run fmt:fix
-pnpm run lint:check
-pnpm run tsc:check
-```
-
-Run `pnpm run build:registry` after changing files shipped by the registry.
-
 ## Versioning
 
 moduix follows semantic versioning. The 3.x API is stable: breaking changes ship only in major
@@ -152,7 +135,7 @@ Contributions are welcome, especially focused component improvements, accessibil
 reports, and documentation corrections. Keep public component behavior, local component notes,
 documentation, and registry output synchronized when a public contract changes.
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full workflow, and [AGENTS.md](./AGENTS.md) for
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the repository layout, local setup, and checks, and [AGENTS.md](./AGENTS.md) for
 repository conventions. Security issues go through [SECURITY.md](./SECURITY.md).
 
 ## Acknowledgements

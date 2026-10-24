@@ -73,8 +73,8 @@ For each affected existing variant, update only the surfaces the change reaches:
 - the package-owned registry item and dependencies;
 - component-local or public documentation when its described contract changed.
 
-Never edit `website/docs/public/r` by hand. When a registry source changes, run
-`pnpm run build:registry` and keep only the generated artifacts belonging to the source changes.
+`website/docs/public/r` is generated and gitignored; the docs build regenerates it. When a registry
+source changes, run `pnpm run build:registry` to validate the manifests and inspect the output.
 When an active plan reserves shared generation for an integration owner, defer that command and
 report it explicitly instead of mutating concurrent work.
 

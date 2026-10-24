@@ -166,7 +166,7 @@ packages/foundation`), run the tests, confirm they fail, then `git stash pop`. A
    Framework test idioms differ: Solid `asChild` takes a render function, so use a plain trigger in
    Solid tests.
 4. Update `<slug>.md`, the docs page, `variables-moduix.css`, and stories only where the fixed
-   behavior is described there. Do not edit `website/docs/public/r` by hand.
+   behavior is described there. `website/docs/public/r` is generated and gitignored.
 5. Validate from the repository root: `pnpm run fmt:fix`, `pnpm run lint:check`,
    `pnpm run tsc:check`, focused tests for the component in every changed package (for example
    `pnpm --filter @moduix/<adapter> test <slug>`), and `pnpm run build:registry` if

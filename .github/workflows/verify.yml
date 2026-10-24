@@ -92,18 +92,7 @@ jobs:
       - name: Build public packages
         run: pnpm run build:packages
 
-      - name: Build registry
-        run: pnpm run build:registry
-
-      - name: Check generated registry
-        run: |
-          if [ -n "$(git status --porcelain -- website/docs/public/r)" ]; then
-            git status --short -- website/docs/public/r
-            echo "::error::Regenerate and commit registry artifacts."
-            exit 1
-          fi
-
-      - name: Build docs
+      - name: Build registry and docs
         run: pnpm run build:docs
 
       - name: Check public package contracts
