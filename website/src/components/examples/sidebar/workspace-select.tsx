@@ -20,9 +20,7 @@ import {
   SelectIndicator,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/react/select';
 import {
   Sidebar,
@@ -107,10 +105,9 @@ export default function WorkspaceSidebar() {
                 <SelectPositioner>
                   <SelectContent>
                     {workspaces.items.map((workspace) => (
-                      <SelectItem key={workspace.value} item={workspace}>
-                        <SelectItemText>{workspace.label}</SelectItemText>
-                        <SelectItemIndicator />
-                      </SelectItem>
+                      <SelectOption key={workspace.value} item={workspace}>
+                        {workspace.label}
+                      </SelectOption>
                     ))}
                   </SelectContent>
                 </SelectPositioner>

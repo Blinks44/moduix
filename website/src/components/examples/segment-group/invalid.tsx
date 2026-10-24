@@ -4,12 +4,7 @@ import {
   SegmentGroupItems,
 } from '@moduix/react/segment-group';
 
-const frameworks = [
-  { value: 'React', label: 'React' },
-  { value: 'Solid', label: 'Solid' },
-  { value: 'Svelte', label: 'Svelte' },
-  { value: 'Vue', label: 'Vue' },
-];
+const frameworks = ['React', 'Solid', 'Svelte', 'Vue'];
 
 export default function InvalidSegmentGroupDemo() {
   return (

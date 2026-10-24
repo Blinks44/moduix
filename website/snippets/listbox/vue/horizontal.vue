@@ -26,7 +26,7 @@ const albums = createListCollection({
 </script>
 
 <template>
-  <Listbox :collection="albums" orientation="horizontal" :class="styles.horizontalRoot">
+  <Listbox :collection="albums" orientation="horizontal" :class="styles.root">
     <ListboxLabel>Select album</ListboxLabel>
     <ListboxContent>
       <ListboxItem v-for="item in albums.items" :key="item.title" :item="item">

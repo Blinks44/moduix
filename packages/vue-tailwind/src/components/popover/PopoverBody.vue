@@ -17,7 +17,11 @@ const attrs = useAttrs();
 </script>
 
 <template>
-  <ark.div v-bind="attrs" :class="cn('min-h-0', className)" data-slot="popover-body">
+  <ark.div
+    v-bind="attrs"
+    :class="cn('min-h-0 overflow-auto [[data-slot=popover-header]+&]:mt-3', className)"
+    data-slot="popover-body"
+  >
     <slot />
   </ark.div>
 </template>

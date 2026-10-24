@@ -10,18 +10,14 @@
 
 ## Public contract
 
-The flat API includes `Menu`, `MenuRootProvider`, `MenuTrigger`, `MenuContextTrigger`, `MenuPositioner`, `MenuContent`, `MenuViewport`, `MenuArrow`, `MenuArrowTip`, `MenuItem`, `MenuTriggerItem`, `MenuSeparator`, `MenuItemGroup`, `MenuItemGroupLabel`, `MenuCheckboxItem`, `MenuRadioItemGroup`, `MenuRadioItem`, `MenuIndicator`, `MenuItemIndicator`, `MenuItemText`, `MenuItemTextContent`, `MenuItemTextIcon`, `MenuItemTextLabel`, `MenuItemShortcut`, `MenuTriggerIcon`, `MenuTriggerItemIcon`, `MenuContext`, `MenuItemContext`, `useMenu`, `useMenuContext`, and `useMenuItemContext`.
+The flat API includes `Menu`, `MenuRootProvider`, `MenuTrigger`, `MenuContextTrigger`, `MenuPositioner`, `MenuContent`, `MenuViewport`, `MenuArrow`, `MenuArrowTip`, `MenuItem`, `MenuTriggerItem`, `MenuSeparator`, `MenuItemGroup`, `MenuItemGroupLabel`, `MenuCheckboxItem`, `MenuRadioItemGroup`, `MenuRadioItem`, `MenuIndicator`, `MenuItemIndicator`, `MenuItemText`, `MenuItemTextContent`, `MenuItemTextIcon`, `MenuItemTextLabel`, `MenuItemShortcut`, `MenuTriggerItemIcon`, `MenuContext`, `MenuItemContext`, `useMenu`, `useMenuContext`, and `useMenuItemContext`, plus the same type exports as React.
 
 ## Preservation notes
 
 - Keep Ark menu state, roving focus, typeahead, dismissal, focus restoration, and nested-menu keyboard traversal.
-- The popup is portalled by default. Preserve `portalled`, `portalRef`, `lazyMount`, and `unmountOnExit` options.
-- Keep Solid child resolution and native `class` prop behavior.
+- The popup is portalled by default. Preserve `portalled`, `portalRef`, and the `lazyMount` and `unmountOnExit` defaults of `true`.
+- Keep Solid child resolution and native `class` prop behavior. `asChild` takes a render function, and a ref on a part is not forwarded through it.
 
 ## Styling and accessibility
 
-Ark owns menu roles and state. The wrapper adds default icons, item indicator placement, and stable `data-slot` hooks.
-
-## Style contract (2026-10-03)
-
-Bare MenuTrigger and MenuContextTrigger get muted hover, active and open backgrounds. asChild composition does not receive the bare-trigger skin.
+Ark owns menu roles and state. `MenuTrigger` and `MenuContextTrigger` are unstyled; compose them with `asChild`. The styling contract (three CSS variables, shared `--moduix-popup-*` variables, default icons, `tone`, `indicator`) is described in the React `menu.md`.

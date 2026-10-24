@@ -1,27 +1,18 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { cva } from 'class-variance-authority';
-import type { ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
 type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type HeadingProps = HTMLArkProps<'h1'> & {
+
+type HeadingRootProps = HTMLArkProps<'h1'> & {
   as?: HeadingElement;
   size?: HeadingSize;
   weight?: HeadingWeight;
 };
-
-const elements = {
-  h1: ark.h1,
-  h2: ark.h2,
-  h3: ark.h3,
-  h4: ark.h4,
-  h5: ark.h5,
-  h6: ark.h6,
-} as const;
 
 const defaultSizes: Record<HeadingElement, HeadingSize> = {
   h1: '2xl',
@@ -51,25 +42,25 @@ const headingVariants = cva('m-0 text-foreground tracking-normal text-balance wr
   },
 });
 
-const Heading = forwardRef<ComponentRef<typeof ark.h1>, HeadingProps>(function Heading(
-  { as, asChild, size, weight = 'semibold', className, ...props },
+const Heading = forwardRef<HTMLHeadingElement, HeadingRootProps>(function Heading(
+  { as = 'h1', size = defaultSizes[as], weight = 'semibold', className, ...props },
   ref,
 ) {
-  const Element = elements[as ?? 'h1'] as typeof ark.h1;
+  const Element = ark[as] as typeof ark.h1;
 
   return (
     <Element
-      ref={ref}
-      asChild={asChild}
       {...props}
+      ref={ref}
       data-scope="heading"
       data-part="root"
       data-slot="heading-root"
       data-size={size}
       data-weight={weight}
-      className={cn(headingVariants({ size: size ?? defaultSizes[as ?? 'h1'], weight }), className)}
+      className={cn(headingVariants({ size, weight }), className)}
     />
   );
 });
 
 export { Heading };
+export type { HeadingElement, HeadingRootProps, HeadingSize, HeadingWeight };

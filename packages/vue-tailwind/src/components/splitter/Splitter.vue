@@ -21,7 +21,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const rootClass =
-  'group/splitter relative box-border h-112 min-h-0 w-full min-w-0 rounded-md border border-border bg-card text-foreground shadow-sm data-dragging:cursor-col-resize data-dragging:data-[orientation=vertical]:cursor-row-resize';
+  'h-full w-full rounded-md border border-border bg-card text-card-foreground shadow-sm';
 const rootStyle = computed<StyleValue>(() => [{ width: undefined, height: undefined }, style]);
 </script>
 

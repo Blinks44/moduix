@@ -5,27 +5,6 @@ description: Un espace réservé pour le chargement de textes, cartes, médias e
 ---
 
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
-import SkeletonBasic from '@/components/examples/skeleton/basic.tsx';
-import SkeletonCard from '@/components/examples/skeleton/card.tsx';
-import SkeletonCustomHost from '@/components/examples/skeleton/custom-host.tsx';
-import SkeletonLoadedContent from '@/components/examples/skeleton/loaded-content.tsx';
-import SkeletonMediaObject from '@/components/examples/skeleton/media-object.tsx';
-import SkeletonResponsiveLayout from '@/components/examples/skeleton/responsive-layout.tsx';
-import SkeletonVariants from '@/components/examples/skeleton/variants.tsx';
-import skeletonSolidBasic from '../../../snippets/skeleton/solid/basic.tsx?raw';
-import skeletonSolidCard from '../../../snippets/skeleton/solid/card.tsx?raw';
-import skeletonSolidCustomHost from '../../../snippets/skeleton/solid/custom-host.tsx?raw';
-import skeletonSolidLoadedContent from '../../../snippets/skeleton/solid/loaded-content.tsx?raw';
-import skeletonSolidMediaObject from '../../../snippets/skeleton/solid/media-object.tsx?raw';
-import skeletonSolidResponsiveLayout from '../../../snippets/skeleton/solid/responsive-layout.tsx?raw';
-import skeletonSolidVariants from '../../../snippets/skeleton/solid/variants.tsx?raw';
-import skeletonVueBasic from '../../../snippets/skeleton/vue/basic.vue?raw';
-import skeletonVueCard from '../../../snippets/skeleton/vue/card.vue?raw';
-import skeletonVueCustomHost from '../../../snippets/skeleton/vue/custom-host.vue?raw';
-import skeletonVueLoadedContent from '../../../snippets/skeleton/vue/loaded-content.vue?raw';
-import skeletonVueMediaObject from '../../../snippets/skeleton/vue/media-object.vue?raw';
-import skeletonVueResponsiveLayout from '../../../snippets/skeleton/vue/responsive-layout.vue?raw';
-import skeletonVueVariants from '../../../snippets/skeleton/vue/variants.vue?raw';
 
 ## Référence de l’API
 
@@ -41,46 +20,7 @@ Utilisez `Skeleton` pour les lignes de texte, les cartes, les avatars et les esp
 mise en page environnante gère les espacements et la composition responsive. Consultez le [guide de démarrage](/docs/quick-start)
 pour l’installation des packages, la configuration du registre et le choix du mode de style.
 
-<ExampleFrame variant="component">
-  <SkeletonBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/basic" />
 
 ## Installation avec shadcn
 
@@ -150,271 +90,37 @@ en Vue, utilisez `as-child` avec un seul élément sémantique dans le slot par 
 
 Utilisez un grand bloc et des lignes de texte plus courtes pour préserver la mise en page d’une carte pendant le chargement.
 
-<ExampleFrame variant="component">
-  <SkeletonCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/card.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidCard} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueCard} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-card.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/card" />
 
 ### Contenu chargé
 
 Utilisez `loading` pour conserver le même élément racine lors du remplacement de l’espace réservé par le contenu réel.
 
-<ExampleFrame variant="component">
-  <SkeletonLoadedContent />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/loaded-content.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidLoadedContent} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueLoadedContent} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-loaded-content.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/loaded-content" />
 
 ### Objet média
 
 Utilisez `boxSize` avec un rayon complet pour l’espace réservé d’un avatar, puis placez les lignes de texte à côté.
 
-<ExampleFrame variant="component">
-  <SkeletonMediaObject />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/media-object.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidMediaObject} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueMediaObject} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-media-object.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/media-object" />
 
 ### Mise en page responsive
 
 Laissez la logique de mise en page responsive dans le conteneur et utilisez chaque `Skeleton` comme un bloc visuel.
 
-<ExampleFrame variant="component">
-  <SkeletonResponsiveLayout />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/responsive-layout.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidResponsiveLayout} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueResponsiveLayout} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-responsive-layout.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/responsive-layout" />
 
 ### Variantes
 
 Utilisez `variant` pour choisir un espace réservé animé par pulsation ou statique.
 
-<ExampleFrame variant="component">
-  <SkeletonVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/variants" />
 
 ### Personnalisation avancée
 
 Utilisez `asChild` pour qu’un élément sémantique tel que `section` devienne la racine DOM à la place du `div` par défaut.
 
-<ExampleFrame variant="component">
-  <SkeletonCustomHost />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/custom-host.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidCustomHost} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueCustomHost} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-custom-host.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/custom-host" />
 
 ## Styles
 
@@ -425,17 +131,7 @@ modes de style.
 
 ### Variables CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <SkeletonDocs.SkeletonCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties} />
 
 ### Sélecteurs et attributs de style
 

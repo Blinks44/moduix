@@ -1,6 +1,7 @@
 import { For, createSignal } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
+import { Button } from '@/components/button/Button';
 import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   FileUpload,
@@ -69,7 +70,7 @@ function FileUploadItemList() {
               )}
               <FileUploadItemName />
               <FileUploadItemMetadata file={file} />
-              <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+              <FileUploadItemDeleteTrigger />
             </FileUploadItem>
           )}
         </For>
@@ -82,7 +83,7 @@ function FileUploadDemo(props: ComponentProps<typeof FileUpload>) {
   return (
     <FileUpload class={styles.simpleDemo} maxFiles={3} {...props}>
       <FileUploadLabel>Attachments</FileUploadLabel>
-      <FileUploadTrigger>Choose files</FileUploadTrigger>
+      <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose files</Button>} />
       <FileUploadItemGroup>
         <FileUploadItems />
       </FileUploadItemGroup>
@@ -105,7 +106,7 @@ export const Dropzone: Story = {
         <div class={styles.dropzoneContent}>
           <span class={styles.dropzoneTitle}>Drag and drop files here</span>
           <span class={styles.dropzoneDescription}>or browse from your device</span>
-          <FileUploadTrigger>Browse files</FileUploadTrigger>
+          <FileUploadTrigger asChild={(props) => <Button {...props()}>Browse files</Button>} />
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>
@@ -153,7 +154,7 @@ export const RejectedFiles: Story = {
         <div class={styles.dropzoneContent}>
           <span class={styles.dropzoneTitle}>Drop image files here</span>
           <span class={styles.dropzoneDescription}>PNG or JPEG, up to 120 KB</span>
-          <FileUploadTrigger>Select images</FileUploadTrigger>
+          <FileUploadTrigger asChild={(props) => <Button {...props()}>Select images</Button>} />
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>
@@ -172,7 +173,7 @@ export const RejectedFiles: Story = {
                     <FileUploadItemName />
                     <p class={styles.errorText}>{rejection.errors.join(', ')}</p>
                   </div>
-                  <FileUploadItemDeleteTrigger aria-label={`Remove ${rejection.file.name}`} />
+                  <FileUploadItemDeleteTrigger />
                 </FileUploadItem>
               )}
             </For>
@@ -189,7 +190,7 @@ export const WithField: Story = {
       <FileUpload name="attachments" maxFiles={3}>
         <FileUploadLabel>Required attachments</FileUploadLabel>
         <FileUploadHiddenInput />
-        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose files</Button>} />
         <FileUploadItemGroup>
           <FileUploadItemList />
         </FileUploadItemGroup>
@@ -213,7 +214,7 @@ export const RootProvider: Story = {
           <div class={styles.dropzoneContent}>
             <span class={styles.dropzoneTitle}>Drop images here</span>
             <span class={styles.dropzoneDescription}>or browse from your device</span>
-            <FileUploadTrigger>Choose images</FileUploadTrigger>
+            <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose images</Button>} />
           </div>
         </FileUploadDropzone>
         <FileUploadItemGroup>
@@ -234,7 +235,13 @@ export const CustomStyling: Story = {
         <div class={styles.dropzoneContent}>
           <span class={styles.dropzoneTitle}>Drop files here</span>
           <span class={styles.dropzoneDescription}>SVG, PNG, or PDF</span>
-          <FileUploadTrigger class={styles.customTrigger}>Browse files</FileUploadTrigger>
+          <FileUploadTrigger
+            asChild={(props) => (
+              <Button {...props()} class={styles.customTrigger}>
+                Browse files
+              </Button>
+            )}
+          />
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>

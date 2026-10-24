@@ -6,70 +6,48 @@ import {
   useRadioGroupContext,
   useRadioGroupItemContext,
 } from '@ark-ui/react/radio-group';
-import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-type RadioGroupItemControlSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type RadioGroupItemControlProps = ComponentProps<typeof RadioGroupPrimitive.ItemControl> & {
-  size?: RadioGroupItemControlSize;
+type RadioGroupSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type RadioGroupRootProps = ComponentProps<typeof RadioGroupPrimitive.Root> & {
+  size?: RadioGroupSize;
+};
+type RadioGroupRootProviderProps = ComponentProps<typeof RadioGroupPrimitive.RootProvider> & {
+  size?: RadioGroupSize;
 };
 type RadioGroupOptionProps = Omit<
   ComponentProps<typeof RadioGroupPrimitive.Item>,
   'asChild' | 'children'
 > & {
   children: ReactNode;
-  size?: RadioGroupItemControlSize;
 };
 
-const radioGroupItemControlVariants = cva(
-  "relative inline-flex shrink-0 items-center justify-center rounded-full border border-border bg-background text-primary-foreground outline-0 transition-[background-color,border-color,border-width,color,opacity] duration-200 ease-in-out select-none before:block before:rounded-full before:bg-current before:content-[''] before:scale-[0.6] before:opacity-0 before:transition-[opacity,transform] before:duration-200 before:ease-in-out data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:before:scale-100 data-[state=checked]:before:opacity-100 data-invalid:border-destructive data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:data-focus-visible:outline-destructive data-readonly:cursor-default data-disabled:cursor-default [@media(hover:hover)]:[&[data-state=unchecked]:not([data-readonly]):not([data-disabled]):hover]:bg-accent motion-reduce:transition-none motion-reduce:before:transition-none",
-  {
-    variants: {
-      size: {
-        xs: 'size-3.5 before:size-1',
-        sm: 'size-4 before:size-1.5',
-        md: 'size-5 before:size-2',
-        lg: 'size-control-xs before:size-2.5',
-        xl: 'size-7 before:size-3',
-      },
-    },
-    defaultVariants: {
-      size: 'md',
-    },
+const RadioGroup = forwardRef<ComponentRef<typeof RadioGroupPrimitive.Root>, RadioGroupRootProps>(
+  function RadioGroup({ className, size = 'md', ...props }, ref) {
+    return (
+      <RadioGroupPrimitive.Root
+        ref={ref}
+        className={cn('group/radio-group flex flex-col gap-2 text-foreground', className)}
+        {...props}
+        data-size={size}
+        data-slot="radio-group-root"
+      />
+    );
   },
 );
 
-const RadioGroup = forwardRef<
-  ComponentRef<typeof RadioGroupPrimitive.Root>,
-  ComponentProps<typeof RadioGroupPrimitive.Root>
->(function RadioGroup({ className, ...props }, ref) {
-  return (
-    <RadioGroupPrimitive.Root
-      ref={ref}
-      className={cn(
-        'relative flex flex-col gap-2 text-foreground data-disabled:cursor-default',
-        className,
-      )}
-      {...props}
-      data-slot="radio-group-root"
-    />
-  );
-});
-
 const RadioGroupRootProvider = forwardRef<
   ComponentRef<typeof RadioGroupPrimitive.RootProvider>,
-  ComponentProps<typeof RadioGroupPrimitive.RootProvider>
->(function RadioGroupRootProvider({ className, ...props }, ref) {
+  RadioGroupRootProviderProps
+>(function RadioGroupRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <RadioGroupPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'relative flex flex-col gap-2 text-foreground data-disabled:cursor-default',
-        className,
-      )}
+      className={cn('group/radio-group flex flex-col gap-2 text-foreground', className)}
       {...props}
+      data-size={size}
       data-slot="radio-group-root-provider"
     />
   );
@@ -82,7 +60,7 @@ const RadioGroupLabel = forwardRef<
   return (
     <RadioGroupPrimitive.Label
       ref={ref}
-      className={cn('text-sm leading-5 font-semibold text-inherit', className)}
+      className={cn('text-sm leading-5 font-semibold', className)}
       {...props}
       data-slot="radio-group-label"
     />
@@ -97,7 +75,7 @@ const RadioGroupItem = forwardRef<
     <RadioGroupPrimitive.Item
       ref={ref}
       className={cn(
-        'inline-flex w-fit cursor-pointer items-center gap-2 align-middle data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
+        'inline-flex w-fit cursor-pointer items-center gap-2 align-middle data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
         className,
       )}
       {...props}
@@ -109,11 +87,11 @@ const RadioGroupItem = forwardRef<
 const RadioGroupOption = forwardRef<
   ComponentRef<typeof RadioGroupPrimitive.Item>,
   RadioGroupOptionProps
->(function RadioGroupOption({ children, size, ...props }, ref) {
+>(function RadioGroupOption({ children, ...props }, ref) {
   return (
     <RadioGroupItem ref={ref} {...props}>
       <RadioGroupPrimitive.ItemHiddenInput />
-      <RadioGroupItemControl size={size} />
+      <RadioGroupItemControl />
       <RadioGroupItemText>{children}</RadioGroupItemText>
     </RadioGroupItem>
   );
@@ -121,14 +99,16 @@ const RadioGroupOption = forwardRef<
 
 const RadioGroupItemControl = forwardRef<
   ComponentRef<typeof RadioGroupPrimitive.ItemControl>,
-  RadioGroupItemControlProps
->(function RadioGroupItemControl({ className, size = 'md', ...props }, ref) {
+  ComponentProps<typeof RadioGroupPrimitive.ItemControl>
+>(function RadioGroupItemControl({ className, ...props }, ref) {
   return (
     <RadioGroupPrimitive.ItemControl
       ref={ref}
-      className={cn(radioGroupItemControlVariants({ size }), className)}
+      className={cn(
+        "inline-flex size-5 shrink-0 items-center justify-center rounded-full border border-border bg-background text-primary-foreground transition-[background-color,border-color] duration-normal ease-in-out select-none group-data-[size=lg]/radio-group:size-control-xs group-data-[size=sm]/radio-group:size-4 group-data-[size=xl]/radio-group:size-7 group-data-[size=xs]/radio-group:size-3.5 before:size-2 before:scale-[0.6] before:rounded-full before:bg-current before:opacity-0 before:transition-[opacity,transform] before:duration-normal before:ease-in-out before:content-[''] group-data-[size=lg]/radio-group:before:size-2.5 group-data-[size=sm]/radio-group:before:size-1.5 group-data-[size=xl]/radio-group:before:size-3 group-data-[size=xs]/radio-group:before:size-1 data-focus-visible:outline-focus-inset data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:border-destructive data-invalid:data-focus-visible:outline-destructive data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:before:scale-100 data-[state=checked]:before:opacity-100 data-invalid:data-[state=checked]:border-destructive [@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]]:bg-accent",
+        className,
+      )}
       {...props}
-      data-size={size}
       data-slot="radio-group-item-control"
     />
   );
@@ -141,7 +121,7 @@ const RadioGroupItemText = forwardRef<
   return (
     <RadioGroupPrimitive.ItemText
       ref={ref}
-      className={cn('text-sm leading-5 font-medium text-inherit', className)}
+      className={cn('text-sm leading-5 font-medium', className)}
       {...props}
       data-slot="radio-group-item-text"
     />
@@ -156,7 +136,7 @@ const RadioGroupIndicator = forwardRef<
     <RadioGroupPrimitive.Indicator
       ref={ref}
       className={cn(
-        'pointer-events-none absolute top-[var(--top)] left-[var(--left)] h-[var(--height)] w-[var(--width)] rounded-full bg-primary opacity-[0.12] [--transition-duration:var(--moduix-duration-normal)]',
+        'pointer-events-none top-(--top) left-(--left) h-(--height) w-(--width) rounded-md bg-primary opacity-[0.12] [--transition-duration:var(--moduix-duration-normal)] [--transition-timing-function:var(--moduix-ease-in-out)]',
         className,
       )}
       {...props}
@@ -185,4 +165,9 @@ export {
   useRadioGroupContext,
   useRadioGroupItemContext,
 };
-export type { RadioGroupItemControlProps, RadioGroupItemControlSize, RadioGroupOptionProps };
+export type {
+  RadioGroupOptionProps,
+  RadioGroupRootProps,
+  RadioGroupRootProviderProps,
+  RadioGroupSize,
+};

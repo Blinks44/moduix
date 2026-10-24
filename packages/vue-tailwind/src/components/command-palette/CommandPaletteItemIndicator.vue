@@ -4,7 +4,7 @@ import type { ComboboxItemIndicatorProps } from '@ark-ui/vue/combobox';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 
 defineOptions({ inheritAttrs: false });
 
@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'inline-flex size-8 items-center justify-center justify-self-end rounded-md border border-transparent bg-transparent text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
+        'ms-auto inline-flex shrink-0 text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
         className,
       )
     "

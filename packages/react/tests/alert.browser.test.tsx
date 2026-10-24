@@ -95,3 +95,64 @@ test('forwards refs and data hooks for every optional part', async () => {
   expect(descriptionRef.current?.getAttribute('data-slot')).toBe('alert-description');
   expect(actionsRef.current?.getAttribute('data-slot')).toBe('alert-actions');
 });
+
+test('does not add a live-region role by default', async () => {
+  render(
+    <Alert status="error" data-testid="plain-alert">
+      <AlertContent>
+        <AlertTitle>Payment failed</AlertTitle>
+      </AlertContent>
+    </Alert>,
+  );
+
+  await expect.element(page.getByTestId('plain-alert')).toHaveAttribute('data-status', 'error');
+  expect(screen.getByTestId('plain-alert').hasAttribute('role')).toBe(false);
+});
+
+test('applies status styles from the CSS module', async () => {
+  render(
+    <>
+      <Alert data-testid="info">
+        <AlertContent>
+          <AlertTitle data-testid="title">Update available</AlertTitle>
+          <AlertDescription data-testid="description">Install the latest version.</AlertDescription>
+        </AlertContent>
+      </Alert>
+      <Alert status="error" data-testid="error" />
+    </>,
+  );
+
+  await expect.element(page.getByTestId('info')).toHaveCSS('display', 'flex');
+  const info = getComputedStyle(screen.getByTestId('info'));
+  const error = getComputedStyle(screen.getByTestId('error'));
+
+  expect(info.borderTopWidth).toBe('1px');
+  expect(error.borderTopColor).not.toBe(info.borderTopColor);
+  expect(error.backgroundColor).not.toBe(info.backgroundColor);
+  expect(getComputedStyle(screen.getByTestId('description')).color).not.toBe(
+    getComputedStyle(screen.getByTestId('title')).color,
+  );
+  expect(getComputedStyle(screen.getByTestId('title')).color).toBe(info.color);
+});
+
+test('sizes the indicator to its icon', async () => {
+  render(
+    <Alert>
+      <AlertIndicator>
+        <svg data-testid="default-icon" />
+      </AlertIndicator>
+      <AlertIndicator>
+        <svg style={{ width: 24, height: 24 }} data-testid="custom-icon" />
+      </AlertIndicator>
+    </Alert>,
+  );
+
+  await expect.element(page.getByTestId('default-icon')).toHaveCount(1);
+  const defaultIcon = screen.getByTestId('default-icon');
+  const customIcon = screen.getByTestId('custom-icon');
+
+  expect(defaultIcon.getBoundingClientRect().width).toBe(16);
+  expect(defaultIcon.parentElement?.offsetWidth).toBe(16);
+  expect(customIcon.parentElement?.offsetWidth).toBe(24);
+  expect(customIcon.parentElement?.offsetHeight).toBe(24);
+});

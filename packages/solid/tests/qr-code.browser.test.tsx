@@ -173,3 +173,29 @@ test('does not forward refs through native Ark Solid asChild composition', () =>
   );
   expect(rootRef).toBeUndefined();
 });
+
+test('centers the overlay on the frame when a download trigger follows it', () => {
+  render(() => (
+    <QrCode defaultValue="https://moduix.dev/docs/qr-code">
+      <QrCodeFrame>
+        <QrCodePattern />
+      </QrCodeFrame>
+      <QrCodeOverlay>MX</QrCodeOverlay>
+      <QrCodeDownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png">
+        Download QR code (PNG)
+      </QrCodeDownloadTrigger>
+    </QrCode>
+  ));
+
+  const frame = document.querySelector('[data-slot="qr-code-frame"]')!.getBoundingClientRect();
+  const overlay = screen.getByText('MX').getBoundingClientRect();
+
+  expect(frame.width).toBe(128);
+  expect(Math.abs(overlay.width - frame.width / 3)).toBeLessThan(1);
+  expect(Math.abs(overlay.top + overlay.height / 2 - (frame.top + frame.height / 2))).toBeLessThan(
+    1,
+  );
+  expect(Math.abs(overlay.left + overlay.width / 2 - (frame.left + frame.width / 2))).toBeLessThan(
+    1,
+  );
+});

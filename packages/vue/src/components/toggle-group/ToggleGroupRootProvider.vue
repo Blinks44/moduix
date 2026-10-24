@@ -6,7 +6,6 @@ import { provide, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import type { ToggleSize, ToggleVariant } from '../toggle/Toggle.vue';
 import { ToggleGroupStyleContextKey, type ToggleGroupStyleContextValue } from './context';
-import '../toggle/Toggle.module.css';
 import styles from './ToggleGroup.module.css';
 
 defineOptions({ inheritAttrs: false });

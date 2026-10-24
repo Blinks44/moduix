@@ -15,7 +15,7 @@ function Steps(props: ComponentProps<typeof StepsPrimitive.Root>) {
   return (
     <StepsPrimitive.Root
       class={cn(
-        'box-border flex w-full max-w-[52rem] min-w-0 text-foreground data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:gap-4 data-[orientation=vertical]:flex-row data-[orientation=vertical]:items-stretch data-[orientation=vertical]:gap-6 max-[40rem]:data-[orientation=vertical]:flex-col max-[40rem]:data-[orientation=vertical]:gap-4',
+        'flex w-full min-w-0 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:gap-4 data-[orientation=vertical]:gap-6 max-[40rem]:data-[orientation=vertical]:flex-col max-[40rem]:data-[orientation=vertical]:gap-4',
         local.class,
       )}
       {...others}
@@ -30,7 +30,7 @@ function StepsRootProvider(props: ComponentProps<typeof StepsPrimitive.RootProvi
   return (
     <StepsPrimitive.RootProvider
       class={cn(
-        'box-border flex w-full max-w-[52rem] min-w-0 text-foreground data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:gap-4 data-[orientation=vertical]:flex-row data-[orientation=vertical]:items-stretch data-[orientation=vertical]:gap-6 max-[40rem]:data-[orientation=vertical]:flex-col max-[40rem]:data-[orientation=vertical]:gap-4',
+        'flex w-full min-w-0 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:gap-4 data-[orientation=vertical]:gap-6 max-[40rem]:data-[orientation=vertical]:flex-col max-[40rem]:data-[orientation=vertical]:gap-4',
         local.class,
       )}
       {...others}
@@ -45,7 +45,7 @@ function StepsList(props: ComponentProps<typeof StepsPrimitive.List>) {
   return (
     <StepsPrimitive.List
       class={cn(
-        'flex w-full min-w-0 data-[orientation=horizontal]:flex-row data-[orientation=horizontal]:items-center data-[orientation=vertical]:w-fit data-[orientation=vertical]:flex-none data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start data-[orientation=vertical]:gap-4 max-[40rem]:data-[orientation=horizontal]:[scrollbar-width:thin] max-[40rem]:data-[orientation=horizontal]:overflow-x-auto',
+        'flex min-w-0 data-[orientation=horizontal]:items-center data-[orientation=vertical]:flex-none data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start data-[orientation=vertical]:gap-4 max-[40rem]:data-[orientation=horizontal]:[scrollbar-width:thin] max-[40rem]:data-[orientation=horizontal]:overflow-x-auto',
         local.class,
       )}
       {...others}
@@ -75,7 +75,7 @@ function StepsTrigger(props: ComponentProps<typeof StepsPrimitive.Trigger>) {
   return (
     <StepsPrimitive.Trigger
       class={cn(
-        'group/steps-trigger relative z-1 inline-flex min-w-0 cursor-pointer items-center gap-3 rounded-md border-0 bg-transparent p-0 text-start text-inherit no-underline outline-none select-none [font:inherit] focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring data-[orientation=vertical]:items-start',
+        'group/steps-trigger relative z-1 inline-flex min-w-0 cursor-pointer items-center gap-3 rounded-md border-0 bg-transparent p-0 text-start text-inherit no-underline outline-none select-none [font:inherit] focus-visible:outline-focus-inset focus-visible:outline-offset-focus focus-visible:outline-ring data-[orientation=vertical]:items-start',
         local.class,
       )}
       {...others}
@@ -92,7 +92,7 @@ function StepsIndicator(props: ComponentProps<typeof StepsPrimitive.Indicator>) 
   return (
     <StepsPrimitive.Indicator
       class={cn(
-        'box-border inline-flex size-8 flex-none items-center justify-center rounded-full border border-border bg-background text-sm leading-none font-semibold text-muted-foreground transition-[background-color,border-color,color,opacity] duration-200 ease-in-out data-complete:border-foreground data-complete:bg-foreground data-complete:text-background data-current:border-foreground data-current:bg-background data-current:text-foreground motion-reduce:transition-none [&_svg]:size-3.5 [@media(hover:hover)]:group-hover/steps-trigger:data-incomplete:border-foreground [@media(hover:hover)]:group-hover/steps-trigger:data-incomplete:text-foreground',
+        'inline-flex size-8 flex-none items-center justify-center rounded-full border border-border bg-background text-sm leading-none font-semibold text-muted-foreground transition-[background-color,border-color,color] duration-normal ease-in-out data-complete:border-foreground data-complete:bg-foreground data-complete:text-background data-current:border-foreground data-current:text-foreground [&_svg]:size-3.5 [@media(hover:hover)]:group-hover/steps-trigger:data-incomplete:border-foreground [@media(hover:hover)]:group-hover/steps-trigger:data-incomplete:text-foreground',
         local.class,
       )}
       {...others}
@@ -109,7 +109,7 @@ function StepsSeparator(props: ComponentProps<typeof StepsPrimitive.Separator>) 
   return (
     <StepsPrimitive.Separator
       class={cn(
-        'pointer-events-none mx-2 h-px min-w-8 flex-auto bg-border group-last/steps-item:hidden data-complete:bg-foreground data-[orientation=vertical]:absolute data-[orientation=vertical]:start-[15.5px] data-[orientation=vertical]:top-10 data-[orientation=vertical]:-bottom-4 data-[orientation=vertical]:m-0 data-[orientation=vertical]:h-auto data-[orientation=vertical]:w-px data-[orientation=vertical]:min-w-0',
+        'pointer-events-none mx-2 h-px min-w-8 flex-auto bg-border group-last/steps-item:hidden data-complete:bg-foreground data-[orientation=vertical]:absolute data-[orientation=vertical]:start-[15.5px] data-[orientation=vertical]:top-10 data-[orientation=vertical]:-bottom-2 data-[orientation=vertical]:m-0 data-[orientation=vertical]:h-auto data-[orientation=vertical]:w-px data-[orientation=vertical]:min-w-0',
         local.class,
       )}
       {...others}
@@ -124,7 +124,7 @@ function StepsContent(props: ComponentProps<typeof StepsPrimitive.Content>) {
   return (
     <StepsPrimitive.Content
       class={cn(
-        "box-border grid min-h-40 min-w-0 place-items-center rounded-md bg-muted px-4 py-4 text-sm leading-5 text-foreground outline-none focus-visible:outline-1 focus-visible:-outline-offset-2 focus-visible:outline-ring data-[orientation=vertical]:flex-auto [&[hidden]:not([hidden='until-found'])]:hidden",
+        'grid min-h-40 min-w-0 place-items-center rounded-md bg-muted p-4 text-sm leading-5 text-foreground outline-none focus-visible:outline-focus-inset focus-visible:-outline-offset-focus focus-visible:outline-ring data-[orientation=vertical]:flex-auto [&[hidden]]:hidden',
         local.class,
       )}
       {...others}
@@ -139,7 +139,7 @@ function StepsCompletedContent(props: ComponentProps<typeof StepsPrimitive.Compl
   return (
     <StepsPrimitive.CompletedContent
       class={cn(
-        "box-border grid min-h-40 min-w-0 place-items-center rounded-md bg-muted px-4 py-4 text-center text-sm leading-5 font-medium text-foreground outline-none focus-visible:outline-1 focus-visible:-outline-offset-2 focus-visible:outline-ring data-[orientation=vertical]:flex-auto [&[hidden]:not([hidden='until-found'])]:hidden",
+        'grid min-h-40 min-w-0 place-items-center rounded-md bg-muted p-4 text-center text-sm leading-5 font-medium text-foreground outline-none focus-visible:outline-focus-inset focus-visible:-outline-offset-focus focus-visible:outline-ring data-[orientation=vertical]:flex-auto [&[hidden]]:hidden',
         local.class,
       )}
       {...others}
@@ -154,7 +154,7 @@ function StepsPrevTrigger(props: ComponentProps<typeof StepsPrimitive.PrevTrigge
   return (
     <StepsPrimitive.PrevTrigger
       class={cn(
-        'box-border inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 text-foreground transition-[background-color,border-color,color,opacity] duration-200 ease-in-out outline-none focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:[&:not(:disabled):not([data-disabled])]:hover:bg-accent',
+        'inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 text-foreground transition-[background-color,border-color,color,opacity] duration-normal ease-in-out outline-none focus-visible:outline-focus-inset focus-visible:outline-offset-focus focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent',
         local.class,
       )}
       {...others}
@@ -169,7 +169,7 @@ function StepsNextTrigger(props: ComponentProps<typeof StepsPrimitive.NextTrigge
   return (
     <StepsPrimitive.NextTrigger
       class={cn(
-        'box-border inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-foreground bg-foreground px-3 py-1.5 text-sm leading-5 text-background transition-[background-color,border-color,color,opacity] duration-200 ease-in-out outline-none focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 motion-reduce:transition-none [@media(hover:hover)]:[&:not(:disabled):not([data-disabled])]:hover:bg-foreground',
+        'inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-foreground bg-foreground px-3 py-1.5 text-sm leading-5 text-background transition-[background-color,border-color,color,opacity] duration-normal ease-in-out outline-none focus-visible:outline-focus-inset focus-visible:outline-offset-focus focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled [@media(hover:hover)]:[&:not(:disabled):hover]:border-[color-mix(in_srgb,var(--color-foreground)_88%,black)] [@media(hover:hover)]:[&:not(:disabled):hover]:bg-[color-mix(in_srgb,var(--color-foreground)_88%,black)]',
         local.class,
       )}
       {...others}
@@ -184,7 +184,7 @@ function StepsProgress(props: ComponentProps<typeof StepsPrimitive.Progress>) {
   return (
     <StepsPrimitive.Progress
       class={cn(
-        "relative block h-0.5 w-full overflow-hidden rounded-full bg-border before:absolute before:inset-y-0 before:start-0 before:w-[var(--percent,0%)] before:rounded-[inherit] before:bg-foreground before:transition-[width] before:duration-200 before:ease-in-out before:content-[''] motion-reduce:before:transition-none",
+        "relative h-0.5 w-full overflow-hidden rounded-full bg-border before:absolute before:inset-y-0 before:start-0 before:w-[var(--percent,0%)] before:rounded-[inherit] before:bg-foreground before:transition-[width] before:duration-normal before:ease-in-out before:content-['']",
         local.class,
       )}
       {...others}
@@ -215,3 +215,25 @@ export {
   useStepsContext,
   useStepsItemContext,
 };
+export type {
+  StepChangeDetails,
+  StepInvalidDetails,
+  StepsCompletedContentProps,
+  StepsContentProps,
+  StepsContextProps,
+  StepsIndicatorProps,
+  StepsItemContextProps,
+  StepsItemProps,
+  StepsListProps,
+  StepsNextTriggerProps,
+  StepsPrevTriggerProps,
+  StepsProgressProps,
+  StepsRootProps,
+  StepsRootProviderProps,
+  StepsSeparatorProps,
+  StepsTriggerProps,
+  UseStepsContext,
+  UseStepsItemContext,
+  UseStepsProps,
+  UseStepsReturn,
+} from '@ark-ui/solid/steps';

@@ -5,6 +5,7 @@ import styles from '@/components/examples/tag/tag-sizes.module.css';
 const sizes = [
   { label: 'Compact', size: 'sm' },
   { label: 'Default', size: 'md' },
+  { label: 'Large', size: 'lg' },
 ] as const;
 </script>
 

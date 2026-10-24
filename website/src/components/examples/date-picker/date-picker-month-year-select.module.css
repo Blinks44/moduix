@@ -20,9 +20,3 @@
 .nav {
   display: inline-flex;
 }
-
-.monthSelect,
-.yearSelect {
-  --moduix-select-width: 100%;
-  min-width: 0;
-}

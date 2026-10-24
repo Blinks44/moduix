@@ -49,7 +49,7 @@ export default function CardCarousel() {
       aria-label="Featured destinations"
       slideCount={destinations.length}
     >
-      <CarouselItemGroup className={styles.itemGroup}>
+      <CarouselItemGroup>
         {destinations.map((destination, index) => (
           <CarouselItem key={destination.id} index={index}>
             <Card className={styles.card}>
@@ -70,7 +70,7 @@ export default function CardCarousel() {
         ))}
       </CarouselItemGroup>
 
-      <CarouselControl className={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselIndicators />
         <CarouselNextTrigger />

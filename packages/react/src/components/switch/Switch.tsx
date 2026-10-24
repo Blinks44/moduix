@@ -99,4 +99,15 @@ export {
   useSwitch,
   useSwitchContext,
 };
+export type {
+  SwitchCheckedChangeDetails,
+  SwitchContextProps,
+  SwitchControlProps,
+  SwitchHiddenInputProps,
+  SwitchLabelProps,
+  SwitchThumbProps,
+  UseSwitchContext,
+  UseSwitchProps,
+  UseSwitchReturn,
+} from '@ark-ui/react/switch';
 export type { SwitchRootProps, SwitchRootProviderProps, SwitchSize };

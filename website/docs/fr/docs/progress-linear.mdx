@@ -5,33 +5,6 @@ description: Indicateur de progression linéaire pour suivre l’avancement d’
 ---
 
 import * as ProgressLinearDocs from '@/components/examples/progress-linear/css-properties';
-import ProgressLinearBasic from '@/components/examples/progress-linear/basic.tsx';
-import ProgressLinearControlled from '@/components/examples/progress-linear/controlled.tsx';
-import ProgressLinearIndeterminate from '@/components/examples/progress-linear/indeterminate.tsx';
-import ProgressLinearInitialValue from '@/components/examples/progress-linear/initial-value.tsx';
-import ProgressLinearMinMax from '@/components/examples/progress-linear/min-max.tsx';
-import ProgressLinearStateViews from '@/components/examples/progress-linear/state-views.tsx';
-import ProgressLinearValueText from '@/components/examples/progress-linear/value-text.tsx';
-import ProgressLinearVertical from '@/components/examples/progress-linear/vertical.tsx';
-import ProgressLinearRootProvider from '@/components/examples/progress-linear/root-provider.tsx';
-import progressLinearSolidBasic from '../../../snippets/progress-linear/solid/basic.tsx?raw';
-import progressLinearSolidControlled from '../../../snippets/progress-linear/solid/controlled.tsx?raw';
-import progressLinearSolidIndeterminate from '../../../snippets/progress-linear/solid/indeterminate.tsx?raw';
-import progressLinearSolidInitialValue from '../../../snippets/progress-linear/solid/initial-value.tsx?raw';
-import progressLinearSolidMinMax from '../../../snippets/progress-linear/solid/min-max.tsx?raw';
-import progressLinearSolidStateViews from '../../../snippets/progress-linear/solid/state-views.tsx?raw';
-import progressLinearSolidValueText from '../../../snippets/progress-linear/solid/value-text.tsx?raw';
-import progressLinearSolidVertical from '../../../snippets/progress-linear/solid/vertical.tsx?raw';
-import progressLinearSolidRootProvider from '../../../snippets/progress-linear/solid/root-provider.tsx?raw';
-import progressLinearVueBasic from '../../../snippets/progress-linear/vue/basic.vue?raw';
-import progressLinearVueControlled from '../../../snippets/progress-linear/vue/controlled.vue?raw';
-import progressLinearVueIndeterminate from '../../../snippets/progress-linear/vue/indeterminate.vue?raw';
-import progressLinearVueInitialValue from '../../../snippets/progress-linear/vue/initial-value.vue?raw';
-import progressLinearVueMinMax from '../../../snippets/progress-linear/vue/min-max.vue?raw';
-import progressLinearVueStateViews from '../../../snippets/progress-linear/vue/state-views.vue?raw';
-import progressLinearVueValueText from '../../../snippets/progress-linear/vue/value-text.vue?raw';
-import progressLinearVueVertical from '../../../snippets/progress-linear/vue/vertical.vue?raw';
-import progressLinearVueRootProvider from '../../../snippets/progress-linear/vue/root-provider.vue?raw';
 
 ## Référence de l’API
 
@@ -50,41 +23,7 @@ Composez la barre de progression avec les parties explicites `ProgressLinearLabe
 `ProgressLinearRange`. Donnez à `ProgressLinearTrack` un nom accessible qui décrit la tâche.
 React, Solid et Vue exposent les mêmes noms de parties plats ; Vue utilise `class`, les slots et `v-model` lorsque le contrat le prévoit.
 
-<ExampleFrame variant="component">
-  <ProgressLinearBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-linear/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressLinearSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressLinearVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="progress-linear/basic" width="sm" />
 
 ## Installation avec shadcn
 
@@ -165,328 +104,56 @@ Dans Vue, utilisez `v-model` pour la même valeur contrôlée.
 Conservez `value` dans l’état lorsque la progression doit rester synchronisée avec un autre contrôle
 ou une tâche externe.
 
-<ExampleFrame variant="component">
-  <ProgressLinearControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-linear/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressLinearSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressLinearVueControlled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="progress-linear/controlled" width="sm" />
 
 ### Progression indéterminée
 
 Définissez `defaultValue={null}` ou `value={null}` lorsque la tâche est en cours mais que son
 achèvement ne peut pas encore être mesuré.
 
-<ExampleFrame variant="component">
-  <ProgressLinearIndeterminate />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-linear/indeterminate.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressLinearSolidIndeterminate} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressLinearVueIndeterminate} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="progress-linear/indeterminate" width="sm" />
 
 ### Valeur initiale
 
 Utilisez `defaultValue` pour définir la valeur initiale d’une progression non contrôlée.
 
-<ExampleFrame variant="component">
-  <ProgressLinearInitialValue />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-linear/initial-value.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressLinearSolidInitialValue} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressLinearVueInitialValue} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="progress-linear/initial-value" width="sm" />
 
 ### Minimum et maximum
 
 Utilisez `min` et `max` lorsque la plage de progression diffère de la plage par défaut, de `0` à
 `100`.
 
-<ExampleFrame variant="component">
-  <ProgressLinearMinMax />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-linear/min-max.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressLinearSolidMinMax} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressLinearVueMinMax} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="progress-linear/min-max" width="sm" />
 
 ### Vues d’état
 
 Utilisez `ProgressLinearView` lorsque le texte ou l’interface d’accompagnement doit changer avec
 l’état de progression Ark.
 
-<ExampleFrame variant="component">
-  <ProgressLinearStateViews />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-linear/state-views.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressLinearSolidStateViews} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressLinearVueStateViews} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="progress-linear/state-views" width="sm" />
 
 ### Texte de la valeur
 
 Utilisez `ProgressLinearContext` avec `translations.value(details)` lorsque le texte visible de la
 valeur doit être formulé pour une tâche précise.
 
-<ExampleFrame variant="component">
-  <ProgressLinearValueText />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-linear/value-text.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressLinearSolidValueText} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressLinearVueValueText} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="progress-linear/value-text" width="sm" />
 
 ### Orientation verticale
 
 Définissez `orientation="vertical"` lorsque la partie remplie doit progresser du bas vers le haut.
 En mode vertical, la hauteur par défaut est de `12rem`. Si votre mise en page nécessite une autre
-hauteur, redéfinissez `--moduix-progress-linear-height`.
+hauteur, définissez `height` sur la racine.
 
-<ExampleFrame variant="component">
-  <ProgressLinearVertical />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-linear/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressLinearSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressLinearVueVertical} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="progress-linear/vertical" />
 
 ### Personnalisation avancée
 
 Créez l’état de progression avec `useProgress()` dans un composant parent, puis
 reliez-le aux parties rendues avec `ProgressLinearRootProvider`.
 
-<ExampleFrame variant="component">
-  <ProgressLinearRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/progress-linear/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={progressLinearSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={progressLinearVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="progress-linear/root-provider" width="sm" />
 
 ## Styles
 
@@ -495,23 +162,17 @@ structure visuelle. Pour les styles dépendants de l’état, utilisez les attri
 les points d’accroche `data-slot` de moduix. Les variantes Tailwind utilisent des utilitaires natifs et
 des classes du consommateur ; les variables ci-dessous personnalisent les variantes CSS Modules.
 
-La racine a une largeur par défaut de `12rem`. En mode vertical, sa hauteur par défaut est également
-de `12rem`. Utilisez les variables publiques `--moduix-progress-linear-*` pour adapter le composant
-à votre mise en page.
+La racine occupe toute la largeur de son conteneur. En mode vertical, elle prend la largeur de son
+contenu et une hauteur de `12rem`. Définissez `width` ou `height` sur la racine pour l'adapter à
+votre mise en page.
+`--moduix-progress-linear-track-size` règle l'épaisseur de la barre dans les deux orientations. La
+progression indéterminée fait défiler une plage de 35 % du bord de début vers le bord de fin (de droite
+à gauche en RTL) ; lorsque les animations réduites sont préférées, la plage reste immobile au bord de
+début.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <ProgressLinearDocs.ProgressLinearCssPropertiesPanel />
-  </Tab>
-</Tabs>
-</div>
+<CssPropertiesSection properties={ProgressLinearDocs.progressLinearCssProperties} />
 
 ### Points d’accroche CSS
 

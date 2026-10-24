@@ -20,7 +20,6 @@ import {
   ComboboxTrigger,
 } from '@moduix/vue/combobox';
 import { ref } from 'vue';
-import styles from '@/components/examples/combobox/component-creatable.module.css';
 
 type IssueLabel = { label: string; value: string; created?: boolean };
 const createOptionValue = '__create-option__';
@@ -88,7 +87,7 @@ function handleOpenChange(details: ComboboxOpenChangeDetails) {
       <ComboboxTrigger aria-label="Open options" />
     </ComboboxControl>
     <ComboboxPositioner>
-      <ComboboxContent :class="styles.content">
+      <ComboboxContent>
         <ComboboxList>
           <ComboboxItem v-for="item in collection.items" :key="item.value" :item="item">
             <ComboboxItemText>

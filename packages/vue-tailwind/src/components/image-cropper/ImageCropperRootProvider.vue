@@ -17,7 +17,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const rootClass =
-  'box-border grid w-[32rem] max-w-full gap-3 text-foreground data-dragging:cursor-grabbing data-panning:cursor-grabbing';
+  'grid w-[32rem] max-w-full gap-3 data-dragging:cursor-grabbing data-panning:cursor-grabbing';
 </script>
 
 <template>

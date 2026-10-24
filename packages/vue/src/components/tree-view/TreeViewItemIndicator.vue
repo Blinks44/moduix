@@ -4,7 +4,7 @@ import type { TreeViewItemIndicatorProps } from '@ark-ui/vue/tree-view';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import styles from './TreeView.module.css';
 
 defineOptions({ inheritAttrs: false });

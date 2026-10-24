@@ -11,54 +11,48 @@
 
   .trigger {
     position: relative;
-    min-width: 0;
     margin-inline-start: calc(
       var(--moduix-button-border-width, var(--moduix-border-width-sm)) * -1
     );
     border-start-start-radius: 0;
     border-end-start-radius: 0;
-  }
 
-  .trigger::before {
-    content: '';
-    position: absolute;
-    inset-block: var(--moduix-split-button-separator-inset, var(--moduix-spacing-1-5));
-    inset-inline-start: var(--moduix-split-button-separator-offset, 0);
-    width: var(--moduix-split-button-separator-width, var(--moduix-border-width-sm));
-    background-color: var(--moduix-split-button-separator-color, currentColor);
-    opacity: var(--moduix-split-button-separator-opacity, 0.16);
-    pointer-events: none;
-  }
+    &::before {
+      content: '';
+      position: absolute;
+      inset-block: var(--moduix-spacing-1-5);
+      inset-inline-start: 0;
+      width: var(--moduix-border-width-sm);
+      background-color: var(
+        --moduix-split-button-separator-color,
+        color-mix(in srgb, currentColor 16%, transparent)
+      );
+      pointer-events: none;
+    }
 
-  .trigger[data-variant='outline']::before,
-  .trigger[data-variant='destructive-outline']::before {
-    opacity: 0;
-  }
+    &[data-variant='outline']::before,
+    &[data-variant='destructive-outline']::before {
+      display: none;
+    }
 
-  .trigger[data-size='xs'] {
-    padding-inline: var(--moduix-split-button-trigger-padding-x-xs, var(--moduix-spacing-2));
-  }
+    &[data-size='xs'] {
+      padding-inline: var(--moduix-spacing-2);
+    }
 
-  .trigger[data-size='sm'] {
-    padding-inline: var(--moduix-split-button-trigger-padding-x-sm, var(--moduix-spacing-2-5));
-  }
+    &[data-size='sm'] {
+      padding-inline: var(--moduix-spacing-2-5);
+    }
 
-  .trigger[data-size='md'] {
-    padding-inline: var(--moduix-split-button-trigger-padding-x-md, var(--moduix-spacing-3));
-  }
+    &[data-size='md'] {
+      padding-inline: var(--moduix-spacing-3);
+    }
 
-  .trigger[data-size='lg'] {
-    padding-inline: var(--moduix-split-button-trigger-padding-x-lg, var(--moduix-spacing-3-5));
-  }
+    &[data-size='lg'] {
+      padding-inline: var(--moduix-spacing-3-5);
+    }
 
-  .trigger[data-size='xl'] {
-    padding-inline: var(--moduix-split-button-trigger-padding-x-xl, var(--moduix-spacing-4));
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .action:active:not([data-variant='link']),
-    .trigger:active:not([data-variant='link']) {
-      transform: none;
+    &[data-size='xl'] {
+      padding-inline: var(--moduix-spacing-4);
     }
   }
 }

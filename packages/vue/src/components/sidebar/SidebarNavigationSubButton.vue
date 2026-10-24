@@ -6,16 +6,6 @@ import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './Sidebar.module.css';
 
-type SidebarAriaCurrent =
-  | boolean
-  | 'true'
-  | 'false'
-  | 'page'
-  | 'step'
-  | 'location'
-  | 'date'
-  | 'time';
-
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ Omit<HTMLArkProps<'a'>, 'class'> {
@@ -31,9 +21,9 @@ const props = withDefaults(defineProps<Props>(), {
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const ariaCurrent = computed<SidebarAriaCurrent | undefined>(
+const ariaCurrent = computed(
   () =>
-    (attrs['aria-current'] as SidebarAriaCurrent | undefined) ??
+    (attrs['aria-current'] as HTMLAttributes['aria-current']) ??
     (props.active ? 'page' : undefined),
 );
 </script>
@@ -49,9 +39,6 @@ const ariaCurrent = computed<SidebarAriaCurrent | undefined>(
     data-part="navigation-sub-button"
     data-slot="sidebar-navigation-sub-button"
   >
-    <template v-if="props.asChild">
-      <slot />
-    </template>
-    <span v-else data-slot="sidebar-navigation-sub-label"><slot /></span>
+    <slot />
   </ark.a>
 </template>

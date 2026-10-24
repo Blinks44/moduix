@@ -29,7 +29,7 @@ export default function FileUploadFormDemo() {
       <FileUpload class={styles.root} name={name} maxFiles={maxFiles}>
         <FileUploadLabel>Project assets</FileUploadLabel>
         <FileUploadHiddenInput />
-        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose files</Button>} />
         <FileUploadItemGroup>
           <FileUploadContext>
             {(fileUpload) => (
@@ -37,7 +37,7 @@ export default function FileUploadFormDemo() {
                 {(file) => (
                   <FileUploadItem file={file}>
                     <FileUploadItemName />
-                    <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                    <FileUploadItemDeleteTrigger />
                   </FileUploadItem>
                 )}
               </For>

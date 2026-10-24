@@ -278,8 +278,7 @@ test('lets consumer classes override defaults and keeps empty visual parts visib
   const radioItem = screen.getByRole('menuitemradio', { name: 'Radio' });
   const separator = content.querySelector('[data-slot="menu-separator"]');
   const arrow = content.querySelector('[data-slot="menu-arrow"]');
-  expect(trigger?.classList.contains('bg-primary')).toBe(true);
-  expect(trigger?.classList.contains('bg-background')).toBe(false);
+  expect(trigger.className).toBe('bg-primary');
   expect(content?.classList.contains('py-0')).toBe(true);
   await expect.element(page.getByRole('menu')).toHaveCSS('padding-top', '0px');
   await expect.element(page.getByRole('menu')).toHaveCSS('padding-bottom', '0px');
@@ -302,4 +301,49 @@ test('lets consumer classes override defaults and keeps empty visual parts visib
       '[border-block-start:1px_solid_var(--color-border)]',
     ),
   ).toBe(true);
+});
+
+test('mounts content on first open and removes it after close', async () => {
+  const { container } = render(
+    <Menu portalled={false}>
+      <MenuTrigger>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="edit">Edit</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
+    </Menu>,
+  );
+
+  expect(container.querySelector('[data-slot="menu-content"]')).toBeNull();
+  await page.getByRole('button', { name: 'Actions' }).click();
+  await expect.element(page.getByRole('menu')).toBeVisible();
+  await page.getByRole('button', { name: 'Actions' }).click();
+  await expect.poll(() => container.querySelector('[data-slot="menu-content"]')).toBeNull();
+});
+
+test('mutes disabled items regardless of tone', async () => {
+  render(
+    <Menu defaultOpen portalled={false}>
+      <MenuTrigger>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="edit" disabled>
+              Edit
+            </MenuItem>
+            <MenuItem value="delete" tone="destructive" disabled>
+              Delete
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
+    </Menu>,
+  );
+
+  const edit = screen.getByRole('menuitem', { name: 'Edit' });
+  const remove = screen.getByRole('menuitem', { name: 'Delete' });
+  expect(getComputedStyle(remove).color).toBe(getComputedStyle(edit).color);
 });

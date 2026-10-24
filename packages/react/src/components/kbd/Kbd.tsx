@@ -14,8 +14,8 @@ const Kbd = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function Kbd(
       {...props}
       data-scope="kbd"
       data-part="root"
-      className={clsx(styles.root, className)}
       data-slot="kbd-root"
+      className={clsx(styles.root, className)}
     />
   );
 });
@@ -31,8 +31,8 @@ const KbdGroup = forwardRef<HTMLElement, HTMLArkProps<'span'>>(function KbdGroup
       role="group"
       data-scope="kbd"
       data-part="group"
-      className={clsx(styles.group, className)}
       data-slot="kbd-group"
+      className={clsx(styles.group, className)}
     />
   );
 });

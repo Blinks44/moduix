@@ -27,7 +27,7 @@ const { forwardRef } = useForwardExpose();
       v-bind="attrs"
       :class="
         cn(
-          'fixed inset-0 z-[var(--z-index,var(--moduix-z-popup))] box-border grid place-items-center overflow-auto overscroll-contain p-4',
+          'fixed inset-0 z-[var(--z-index,var(--moduix-z-popup))] grid place-items-center overflow-auto overscroll-contain p-4',
           className,
         )
       "

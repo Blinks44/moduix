@@ -26,12 +26,9 @@ const attrs = useAttrs();
     :class="clsx(styles.list, className)"
     data-slot="command-palette-list"
   >
-    <ScrollArea data-slot="command-palette-scroll-area" :class="styles.scrollArea">
-      <ScrollAreaViewport
-        data-slot="command-palette-scroll-viewport"
-        :class="styles.scrollViewport"
-      >
-        <ScrollAreaContent data-slot="command-palette-scroll-content" :class="styles.scrollContent">
+    <ScrollArea :class="styles.scrollArea">
+      <ScrollAreaViewport :class="styles.scrollViewport">
+        <ScrollAreaContent :class="styles.scrollContent">
           <slot />
         </ScrollAreaContent>
       </ScrollAreaViewport>

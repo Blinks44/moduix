@@ -70,7 +70,7 @@ import {
   SidebarSeparator,
   SidebarTooltip,
   SidebarTrigger,
-  type SidebarProps,
+  type SidebarRootProps,
   useSidebar,
 } from '@/components/sidebar';
 import {
@@ -82,7 +82,7 @@ import {
   PlusIcon,
   RestartIcon,
   TrashIcon,
-} from '@/lib/moduix/icons/ui/Icons';
+} from '@/lib/moduix/icons/ui';
 import styles from './Sidebar.stories.module.css';
 
 const meta = {
@@ -94,7 +94,7 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-type SidebarSize = NonNullable<SidebarProps['size']>;
+type SidebarSize = NonNullable<SidebarRootProps['size']>;
 
 const workspaces = createListCollection({
   items: [
@@ -328,11 +328,11 @@ const SidebarNavigation = defineComponent({
                 <CollapsibleContent>
                   <SidebarNavigationSubList>
                     <SidebarNavigationSubItem>
-                      <SidebarNavigationSubButton href="#website">Website</SidebarNavigationSubButton>
+                      <SidebarNavigationSubButton href="#website"><SidebarLabel>Website</SidebarLabel></SidebarNavigationSubButton>
                       <SidebarNavigationBadge>3</SidebarNavigationBadge>
                     </SidebarNavigationSubItem>
                     <SidebarNavigationSubItem>
-                      <SidebarNavigationSubButton href="#mobile">Mobile app</SidebarNavigationSubButton>
+                      <SidebarNavigationSubButton href="#mobile"><SidebarLabel>Mobile app</SidebarLabel></SidebarNavigationSubButton>
                     </SidebarNavigationSubItem>
                   </SidebarNavigationSubList>
                 </CollapsibleContent>
@@ -494,7 +494,7 @@ const storyComponents = {
 };
 
 function renderStory(template: string) {
-  return (args: SidebarProps) =>
+  return (args: SidebarRootProps) =>
     defineComponent({
       components: storyComponents,
       setup() {

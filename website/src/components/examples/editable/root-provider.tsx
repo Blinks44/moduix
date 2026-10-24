@@ -26,7 +26,7 @@ export default function RootProviderEditableDemo() {
         </EditableArea>
         <EditableControls />
       </EditableRootProvider>
-      <PreviewMeta className={styles.meta}>
+      <PreviewMeta>
         <Button type="button" size="sm" onClick={() => editable.edit()}>
           Edit
         </Button>

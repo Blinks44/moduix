@@ -65,7 +65,7 @@ const stackClass = 'flex flex-col items-start gap-3';
 const hintClass = 'text-muted-foreground text-xs leading-4';
 const customButtonClass = 'border-dashed';
 const customToggleClass =
-  'border-[color-mix(in_oklab,var(--color-primary)_45%,var(--color-border))] bg-[color-mix(in_oklab,var(--color-primary)_8%,transparent)] text-primary [@media(hover:hover)]:hover:bg-[color-mix(in_oklab,var(--color-primary)_14%,transparent)] active:bg-[color-mix(in_oklab,var(--color-primary)_18%,transparent)]';
+  'border-[color-mix(in_oklab,var(--color-primary)_45%,var(--color-border))] bg-[color-mix(in_oklab,var(--color-primary)_8%,transparent)] text-primary data-[state=off]:hover:bg-[color-mix(in_oklab,var(--color-primary)_14%,transparent)] data-[state=off]:active:bg-[color-mix(in_oklab,var(--color-primary)_18%,transparent)]';
 
 export const Default: Story = {
   render: (args) => <FavoriteToggle {...args} />,

@@ -36,45 +36,25 @@ type LightboxBindProps = {
   rootSelector?: string;
 };
 
-function preloadImage(src?: string) {
-  if (!src || typeof Image === 'undefined') {
-    return;
-  }
-
-  const image = new Image();
-  image.src = src;
-}
-
 function resolveImage(
   target: EventTarget | null,
   selector: string,
   rootNode: HTMLElement,
 ): LightboxImageSelectDetails | null {
-  if (!(target instanceof Element)) {
-    return null;
-  }
-
-  const matchedNode = target.closest(selector);
+  const matchedNode = target instanceof Element ? target.closest(selector) : null;
   if (!matchedNode || !rootNode.contains(matchedNode)) {
     return null;
   }
 
   const imageNode =
     matchedNode instanceof HTMLImageElement ? matchedNode : matchedNode.querySelector('img');
-  if (!(imageNode instanceof HTMLImageElement)) {
+  if (!imageNode) {
     return null;
   }
 
+  // An explicitly empty data-lightbox-src excludes the image.
   const src = imageNode.dataset.lightboxSrc ?? (imageNode.currentSrc || imageNode.src);
-  if (!src) {
-    return null;
-  }
-
-  return {
-    src,
-    alt: imageNode.alt || undefined,
-    element: imageNode,
-  };
+  return src ? { src, alt: imageNode.alt || undefined, element: imageNode } : null;
 }
 
 function resolveRootNode(
@@ -130,11 +110,10 @@ function LightboxRootProvider(props: LightboxRootProviderProps) {
 }
 
 function LightboxTrigger(props: ComponentProps<typeof DialogPrimitive.Trigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <DialogPrimitive.Trigger
-      asChild={local.asChild}
       class={clsx(styles.trigger, local.class)}
       {...others}
       data-slot="lightbox-trigger"
@@ -207,23 +186,13 @@ function LightboxDescription(props: ComponentProps<typeof DialogPrimitive.Descri
 }
 
 function LightboxCloseTrigger(props: ComponentProps<typeof DialogPrimitive.CloseTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <DialogPrimitive.CloseTrigger
-      asChild={local.asChild}
-      class={local.class}
-      {...others}
-      data-slot="lightbox-close-trigger"
-    />
-  );
+  return <DialogPrimitive.CloseTrigger {...props} data-slot="lightbox-close-trigger" />;
 }
 
 type LightboxCloseIconProps = Omit<ComponentProps<typeof DialogPrimitive.CloseTrigger>, 'asChild'>;
 
 function LightboxCloseIcon(props: LightboxCloseIconProps) {
   const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
-  const dialog = useDialogContext();
 
   return (
     <DialogPrimitive.CloseTrigger
@@ -231,7 +200,6 @@ function LightboxCloseIcon(props: LightboxCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="lightbox-close-icon"
-          data-state={dialog().open ? 'open' : 'closed'}
           aria-label={local['aria-label'] ?? a11yLabels.closeImage}
           aria-labelledby={local['aria-labelledby']}
           class={clsx(styles.closeIcon, local.class)}
@@ -262,6 +230,7 @@ function LightboxImage(props: LightboxImageProps) {
   };
 
   return (
+    // oxlint-disable-next-line jsx-a11y/alt-text, jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- `alt` arrives through props; click-to-close is a pointer shortcut for the Escape-dismissible dialog.
     <img
       class={clsx(styles.image, local.class)}
       onClick={handleClick}
@@ -302,60 +271,50 @@ function LightboxFooter(props: HTMLArkProps<'div'>) {
   );
 }
 
+const LightboxContext = DialogPrimitive.Context;
+
 function LightboxBind(props: LightboxBindProps) {
-  const [local] = splitProps(props, ['onImageSelect', 'rootRef', 'rootSelector', 'selector']);
   const dialog = useDialogContext();
 
   createEffect(() => {
-    const rootNode = resolveRootNode(local.rootRef, local.rootSelector);
-    const selector = local.selector;
-    const onImageSelect = local.onImageSelect;
-
+    const rootNode = resolveRootNode(props.rootRef, props.rootSelector);
+    const { onImageSelect, selector } = props;
     if (!rootNode) {
       return;
     }
 
     const handleClick = (event: MouseEvent) => {
-      if (event.defaultPrevented) return;
-
-      const nextImage = resolveImage(event.target, selector, rootNode);
-      if (!nextImage) {
+      const image = event.defaultPrevented ? null : resolveImage(event.target, selector, rootNode);
+      if (!image) {
         return;
       }
 
-      onImageSelect(nextImage);
+      onImageSelect(image);
       dialog().setOpen(true);
     };
 
-    const preloadFromTarget = (target: EventTarget | null) => {
-      const nextImage = resolveImage(target, selector, rootNode);
-      if (!nextImage) {
-        return;
+    // Warm the cache with the full-size source on hover or keyboard focus.
+    const handlePreload = (event: Event) => {
+      const image = resolveImage(event.target, selector, rootNode);
+      if (image) {
+        const preloaded = new Image();
+        preloaded.src = image.src;
       }
-
-      preloadImage(nextImage.src);
-    };
-
-    const handlePointerEnter = (event: PointerEvent) => {
-      preloadFromTarget(event.target);
-    };
-
-    const handleFocusIn = (event: FocusEvent) => {
-      preloadFromTarget(event.target);
     };
 
     rootNode.addEventListener('click', handleClick);
-    rootNode.addEventListener('pointerenter', handlePointerEnter, true);
-    rootNode.addEventListener('focusin', handleFocusIn);
+    // pointerenter does not bubble; the capture phase sees it for every descendant.
+    rootNode.addEventListener('pointerenter', handlePreload, true);
+    rootNode.addEventListener('focusin', handlePreload);
 
     onCleanup(() => {
       rootNode.removeEventListener('click', handleClick);
-      rootNode.removeEventListener('pointerenter', handlePointerEnter, true);
-      rootNode.removeEventListener('focusin', handleFocusIn);
+      rootNode.removeEventListener('pointerenter', handlePreload, true);
+      rootNode.removeEventListener('focusin', handlePreload);
     });
   });
 
-  return <></>;
+  return null;
 }
 
 export {
@@ -375,7 +334,14 @@ export {
   LightboxImage,
   LightboxGallery,
   LightboxBind,
+  LightboxContext,
   useDialog as useLightbox,
   useDialogContext as useLightboxContext,
 };
-export type { LightboxBindProps, LightboxImageSelectDetails };
+export type {
+  LightboxBindProps,
+  LightboxImageProps,
+  LightboxImageSelectDetails,
+  LightboxRootProps,
+  LightboxRootProviderProps,
+};

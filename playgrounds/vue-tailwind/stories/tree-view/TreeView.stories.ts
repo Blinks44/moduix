@@ -128,7 +128,7 @@ const FileTreeNode = defineComponent({
           <TreeViewBranchText>
             <FolderOpenIcon v-if="state.expanded" />
             <FolderIcon v-else />
-            <span class="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{{ currentNode.name }}</span>
+            {{ currentNode.name }}
           </TreeViewBranchText>
         </TreeViewBranchControl>
         <TreeViewBranchContent>
@@ -144,7 +144,7 @@ const FileTreeNode = defineComponent({
       <TreeViewItem v-else>
         <TreeViewItemText>
           <FileIcon />
-          <span class="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{{ currentNode.name }}</span>
+          {{ currentNode.name }}
         </TreeViewItemText>
       </TreeViewItem>
     </TreeViewNode>

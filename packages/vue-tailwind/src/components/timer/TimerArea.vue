@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'inline-flex max-w-full min-w-0 flex-wrap items-baseline justify-center gap-1 text-2xl leading-5 font-semibold tracking-normal tabular-nums',
+        'inline-flex max-w-full min-w-0 flex-wrap items-baseline justify-center gap-1 text-2xl font-semibold tabular-nums',
         className,
       )
     "

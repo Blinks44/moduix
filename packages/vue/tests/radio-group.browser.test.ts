@@ -291,3 +291,67 @@ test('hydrates without replacing hosts or ids and responds to selection', async 
   }
 });
 import SsrRadioGroup from './fixtures/SsrRadioGroup.vue';
+test('sizes every control from the root size prop', async () => {
+  render({
+    components: radioGroupComponents,
+    template: `
+      <div>
+        <RadioGroup aria-label="Default size">
+          <RadioGroupOption value="md">Default</RadioGroupOption>
+        </RadioGroup>
+        <RadioGroup aria-label="Small size" size="sm">
+          <RadioGroupOption value="sm">Small</RadioGroupOption>
+        </RadioGroup>
+        <RadioGroup aria-label="Extra large size" size="xl">
+          <RadioGroupOption value="xl">Extra large</RadioGroupOption>
+        </RadioGroup>
+      </div>
+    `,
+  });
+  await nextTick();
+
+  const roots = document.querySelectorAll('[data-slot="radio-group-root"]');
+  const controls = document.querySelectorAll<HTMLElement>('[data-slot="radio-group-item-control"]');
+  expect([...roots].map((root) => root.getAttribute('data-size'))).toEqual(['md', 'sm', 'xl']);
+  expect([...controls].map((control) => control.offsetWidth)).toEqual([20, 16, 28]);
+});
+
+test('highlights the control while its item text is hovered', async () => {
+  render({
+    components: radioGroupComponents,
+    template: `
+      <RadioGroup aria-label="Framework">
+        <RadioGroupItem value="React">
+          <RadioGroupItemControl data-testid="control" style="transition: none" />
+          <RadioGroupItemText>React</RadioGroupItemText>
+          <RadioGroupItemHiddenInput />
+        </RadioGroupItem>
+      </RadioGroup>
+    `,
+  });
+
+  const control = screen.getByTestId('control');
+  const idle = getComputedStyle(control).backgroundColor;
+  await page.getByText('React', { exact: true }).hover();
+  await expect.element(page.getByTestId('control')).toHaveAttribute('data-hover');
+  expect(getComputedStyle(control).backgroundColor).not.toBe(idle);
+});
+
+test('keeps the invalid border on a checked control', async () => {
+  render({
+    components: radioGroupComponents,
+    template: `
+      <RadioGroup aria-label="Framework" default-value="React" invalid>
+        <RadioGroupOption value="React">React</RadioGroupOption>
+        <RadioGroupOption value="Solid">Solid</RadioGroupOption>
+      </RadioGroup>
+    `,
+  });
+  await nextTick();
+
+  const [checked, unchecked] = document.querySelectorAll<HTMLElement>(
+    '[data-slot="radio-group-item-control"]',
+  );
+  expect(checked.getAttribute('data-state')).toBe('checked');
+  expect(getComputedStyle(checked).borderTopColor).toBe(getComputedStyle(unchecked).borderTopColor);
+});

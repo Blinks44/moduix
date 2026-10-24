@@ -10,8 +10,8 @@ implemented with the Ark Solid factory.
 - `Typeset` renders a `div` by default.
 - `asChild` accepts one semantic host through an Ark Solid render function.
 - `TypesetScroll` renders a keyboard-focusable horizontal scroller with `tabIndex={0}` by default.
-  It is designed to live inside a `Typeset` boundary: the horizontal scrolling,
-  flow spacing, and table widening for the wrapped block come from the Typeset element rules.
+  It owns its horizontal overflow and is designed to live inside a `Typeset` boundary: the flow
+  spacing and table widening for the wrapped block come from the Typeset element rules.
 - A scroll label through `aria-label` or `aria-labelledby` adds `role="region"` unless a role is
   explicitly provided.
 - `.not-typeset` and `data-not-typeset` exclude a subtree, including nested Typeset parts.
@@ -35,7 +35,7 @@ host composition are separate native paths.
 
 ## Styling
 
-The CSS module is intentionally identical to the React component. It styles semantic paragraphs,
+The CSS module is intentionally identical in every adapter, Tailwind variants included. It styles semantic paragraphs,
 headings, inline semantics, lists, task lists, blockquotes, code, keyboard keys, tables, math,
 media, disclosures, definition lists, and GFM footnotes using the existing moduix theme tokens.
 

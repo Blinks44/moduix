@@ -44,7 +44,10 @@ custom-host composition are therefore supported as separate native paths.
 The root supports Ark's `pressed`, `defaultPressed`, `onPressedChange`, `disabled`, and `asChild`
 props plus moduix `variant` (`default`, `outline`, `ghost`) and `size` (`xs`, `sm`, `md`, `lg`,
 `icon-sm`, `icon-md`, `icon-lg`). The barrel exports `Toggle`, `ToggleIndicator`, `ToggleContext`,
-`useToggleContext`, `ToggleRootProps`, `ToggleSize`, and `ToggleVariant`.
+`useToggleContext`, `ToggleRootProps`, `ToggleSize`, `ToggleVariant`, and the Ark types
+`ToggleContextProps`, `ToggleIndicatorProps`, `UseToggleContext`, `UseToggleProps`, and `UseToggleReturn`.
+The CSS Modules package exposes six color variables: `--moduix-toggle-bg`, `bg-hover`, `bg-pressed`,
+`border-color`, `color`, and `color-pressed`; see the React `toggle.md` for their defaults.
 
 The root emits `data-slot="toggle-root"`, `data-variant`, and `data-size`; the indicator emits
 `data-slot="toggle-indicator"`. Ark state attributes such as `data-scope="toggle"`,

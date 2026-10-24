@@ -7,7 +7,6 @@ import {
   ListboxItemText,
   ListboxLabel,
 } from '@moduix/react/listbox';
-import styles from '@/components/examples/listbox/listbox-extended-selection.module.css';
 
 const frameworks = createListCollection({
   items: [
@@ -40,7 +39,7 @@ const frameworks = createListCollection({
 
 export default function ExtendedListboxDemo() {
   return (
-    <Listbox collection={frameworks} className={styles.root} selectionMode="extended">
+    <Listbox collection={frameworks} selectionMode="extended">
       <ListboxLabel>Hold Cmd or Ctrl to select multiple</ListboxLabel>
       <ListboxContent>
         {frameworks.items.map((item) => (

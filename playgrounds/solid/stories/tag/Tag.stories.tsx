@@ -1,4 +1,3 @@
-import { clsx } from 'clsx';
 import { For, createSignal } from 'solid-js';
 import type { Meta, StoryObj } from 'storybook-solidjs-vite';
 import {
@@ -60,6 +59,9 @@ export const Sizes: Story = {
       </Tag>
       <Tag size="md">
         <TagLabel>Default</TagLabel>
+      </Tag>
+      <Tag size="lg">
+        <TagLabel>Large</TagLabel>
       </Tag>
     </div>
   ),
@@ -132,7 +134,7 @@ export const RenderAsButton: Story = {
     <Tag
       variant="outline"
       asChild={(props) => (
-        <button {...props()} class={clsx(props().class, styles.buttonTag)} type="button">
+        <button {...props()} type="button">
           <TagLabel>Open filter</TagLabel>
         </button>
       )}

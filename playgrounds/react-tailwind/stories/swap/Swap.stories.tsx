@@ -19,13 +19,13 @@ type Story = StoryObj<typeof meta>;
 
 const animations = ['fade', 'scale', 'rotate', 'flip'] as const;
 const feedbackButtonClass =
-  'w-28 min-w-28 overflow-hidden transition-[width,min-width] duration-200 ease-in-out data-playing:w-30 data-playing:min-w-30';
+  'w-28 min-w-28 overflow-hidden transition-[width,min-width] duration-normal ease-in-out data-playing:w-30 data-playing:min-w-30';
 const compactButtonClass =
-  'group/compact w-control-md min-w-control-md overflow-hidden transition-[width,min-width] duration-200 ease-in-out data-expanded:w-33 data-expanded:min-w-33';
+  'group/compact w-control-md min-w-control-md overflow-hidden transition-[width,min-width] duration-normal ease-in-out data-expanded:w-33 data-expanded:min-w-33';
 const compactContentClass =
-  'inline-flex items-center justify-center gap-0 transition-[gap] duration-200 ease-in-out group-data-[expanded]/compact:gap-2';
+  'inline-flex items-center justify-center gap-0 transition-[gap] duration-normal ease-in-out group-data-[expanded]/compact:gap-2';
 const compactLabelClass =
-  'w-0 min-w-0 overflow-hidden transition-[width] duration-200 ease-in-out group-data-[expanded]/compact:w-17';
+  'w-0 min-w-0 overflow-hidden transition-[width] duration-normal ease-in-out group-data-[expanded]/compact:w-17';
 const compactIndicatorClass = 'gap-2';
 const animationPresetsClass = 'flex flex-wrap justify-center gap-2';
 const providerClass = 'grid justify-items-center gap-3';

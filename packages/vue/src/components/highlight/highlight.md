@@ -15,7 +15,7 @@
 `Highlight` is the flat root export. It renders one `<mark>` for each matched chunk and plain text
 for unmatched chunks without adding a wrapper element. The public props are `query`, `text`,
 `ignoreCase`, `matchAll`, and `exactMatch`; native fallthrough attributes, listeners, `style`,
-`title`, `id`, `data-*`, and `class` attributes apply to every matched `<mark>`.
+`title`, `data-*`, and `class` attributes apply to every matched `<mark>`.
 
 There is no provider, context, `RootProvider`, ref target, hidden input, or controlled state. The
 component owns no surrounding text layout; compose it inside `Text`, a heading, a list item, or a
@@ -56,7 +56,6 @@ The CSS Modules track applies the component defaults through these public variab
 | `--moduix-highlight-padding-x`   | `var(--moduix-spacing-1)`                                                          |
 | `--moduix-highlight-padding-y`   | `0.0625rem`                                                                        |
 | `--moduix-highlight-radius`      | `var(--moduix-radius-xs)`                                                          |
-| `--moduix-highlight-shadow`      | `none`                                                                             |
 
 ## Canonical Vue composition
 
@@ -96,10 +95,3 @@ the adapter applies them to every matched mark.
 Ark Vue 5.39.3 forwards fallthrough attributes, classes, styles, and listeners to each matched
 `<mark>`. Both styling tracks use the direct primitive wrapper, and their browser tests cover
 attribute forwarding and clicks on multiple matched segments.
-
-## Local changelog
-
-- 2026-10-07: Removed the outdated attribute-forwarding warning after checking Ark 5.39.3 and
-  the passing regression tests in both styling tracks.
-- 2026-10-02: Reviewed the migration, removed the local mark-rendering workaround, and recorded
-  the upstream attribute-forwarding production blocker.

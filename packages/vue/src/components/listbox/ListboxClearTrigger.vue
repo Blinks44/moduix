@@ -4,7 +4,6 @@ import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
 import CloseButton from '../close-button/CloseButton.vue';
 import styles from './Listbox.module.css';
 
@@ -28,6 +27,6 @@ const attrs = useAttrs();
     :class="clsx(styles.clearTrigger, className)"
     data-slot="listbox-clear-trigger"
   >
-    <slot><CloseIcon /></slot>
+    <slot />
   </CloseButton>
 </template>

@@ -4,25 +4,7 @@ component: spinner
 description: Компактный индикатор загрузки, который сообщает ассистивным технологиям о состоянии загрузки и поддерживает несколько размеров и собственное содержимое.
 ---
 
-import SpinnerAsChild from '@/components/examples/spinner/as-child.tsx';
-import SpinnerBasic from '@/components/examples/spinner/basic.tsx';
-import SpinnerButton from '@/components/examples/spinner/button.tsx';
-import SpinnerCustomIndicator from '@/components/examples/spinner/custom-indicator.tsx';
-import SpinnerInlineLoadingText from '@/components/examples/spinner/inline-loading-text.tsx';
-import SpinnerSizes from '@/components/examples/spinner/sizes.tsx';
 import * as SpinnerDocs from '@/components/examples/spinner/css-properties';
-import spinnerSolidAsChild from '../../../snippets/spinner/solid/as-child.tsx?raw';
-import spinnerSolidBasic from '../../../snippets/spinner/solid/basic.tsx?raw';
-import spinnerSolidButton from '../../../snippets/spinner/solid/button.tsx?raw';
-import spinnerSolidCustomIndicator from '../../../snippets/spinner/solid/custom-indicator.tsx?raw';
-import spinnerSolidInlineLoadingText from '../../../snippets/spinner/solid/inline-loading-text.tsx?raw';
-import spinnerSolidSizes from '../../../snippets/spinner/solid/sizes.tsx?raw';
-import spinnerVueAsChild from '../../../snippets/spinner/vue/as-child.vue?raw';
-import spinnerVueBasic from '../../../snippets/spinner/vue/basic.vue?raw';
-import spinnerVueButton from '../../../snippets/spinner/vue/button.vue?raw';
-import spinnerVueCustomIndicator from '../../../snippets/spinner/vue/custom-indicator.vue?raw';
-import spinnerVueInlineLoadingText from '../../../snippets/spinner/vue/inline-loading-text.vue?raw';
-import spinnerVueSizes from '../../../snippets/spinner/vue/sizes.vue?raw';
 
 ## Справочник API
 
@@ -38,47 +20,15 @@ import spinnerVueSizes from '../../../snippets/spinner/vue/sizes.vue?raw';
 элемента есть `role="status"` и запасное имя `aria-label="Loading"`. Это буквальная английская строка `Loading`,
 поэтому в интерфейсе на другом языке задайте локализованный `aria-label` или используйте `aria-labelledby`.
 
-При `prefers-reduced-motion: reduce` спиннер перестаёт вращаться: токен анимации spin из foundation
-преобразуется в `none`, а индикатор Tailwind добавляет `motion-reduce:animate-none`. В пакетах с CSS
-Modules задайте `--moduix-spinner-animation`, чтобы вернуть анимацию пользователям со включенным
-режимом reduced-motion.
+При `prefers-reduced-motion: reduce` спиннер перестаёт вращаться: токен foundation
+`--moduix-animation-spin` преобразуется в `none`. Чтобы оставить вращение у конкретного спиннера, задайте
+`animation` для его `[data-slot="spinner-indicator"]` в своём классе.
+
+Задайте `decorative`, когда видимый текст уже описывает загрузку: корень получает `aria-hidden="true"`, без
+`role` и запасного имени.
 
 
-<ExampleFrame variant="component">
-  <SpinnerBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/spinner/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={spinnerSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={spinnerVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="spinner/basic" />
 
 ## Установка через shadcn
 
@@ -155,227 +105,33 @@ Spinner
 Передайте собственное содержимое через `children`, если стандартное кольцо нужно заменить, но размер и семантика
 статуса должны остаться прежними.
 
-<ExampleFrame variant="component">
-  <SpinnerCustomIndicator />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/spinner/custom-indicator.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={spinnerSolidCustomIndicator} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={spinnerVueCustomIndicator} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="spinner/custom-indicator" />
 
 ### В кнопке
 
 Оставьте `Spinner` декоративным, если текст кнопки уже объясняет действие. В примере `aria-busy` передаётся кнопке,
 а подпись под ней нужна только для демонстрации текущего состояния.
 
-<ExampleFrame variant="component">
-  <SpinnerButton />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/spinner/button.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={spinnerSolidButton} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={spinnerVueButton} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/spinner/spinner-button.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="spinner/button" />
 
 ### Загрузка с текстом
 
 Используйте `decorative`, когда видимый текст рядом со `Spinner` уже объясняет, что происходит.
 
-<ExampleFrame variant="component">
-  <SpinnerInlineLoadingText />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/spinner/inline-loading-text.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={spinnerSolidInlineLoadingText} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={spinnerVueInlineLoadingText} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/spinner/spinner-inline-loading-text.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="spinner/inline-loading-text" />
 
 ### Размеры
 
 Используйте небольшие размеры внутри компактных элементов управления, а большие - для самостоятельных состояний загрузки.
 
-<ExampleFrame variant="component">
-  <SpinnerSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/spinner/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={spinnerSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={spinnerVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/spinner/spinner-sizes.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="spinner/sizes" />
 
 ### Собственный корневой элемент
 
 Используйте `asChild`, когда другой компонент должен владеть корневым элементом. Дочерний элемент получает атрибуты
 и имя класса корня Spinner и должен сам отрисовать визуальный индикатор.
 
-<ExampleFrame variant="component">
-  <SpinnerAsChild />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/spinner/as-child.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={spinnerSolidAsChild} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={spinnerVueAsChild} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/spinner/spinner-as-child.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="spinner/as-child" />
 
 ## Стилизация
 
@@ -386,17 +142,7 @@ Spinner
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <SpinnerDocs.SpinnerCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={SpinnerDocs.spinnerOverrideCssProperties} />
 
 ### Хуки стилизации
 

@@ -9,11 +9,10 @@ import TooltipPositioner from './TooltipPositioner.vue';
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ TooltipContentProps {
-  asChild?: boolean;
   class?: HTMLAttributes['class'];
 }
 
-const { asChild = false, class: className } = defineProps<Props>();
+const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -22,7 +21,7 @@ const { forwardRef } = useForwardExpose();
 
 <template>
   <TooltipPositioner>
-    <TooltipContent :ref="forwardRef" v-bind="attrs" :as-child="asChild" :class="className">
+    <TooltipContent :ref="forwardRef" v-bind="attrs" :class="className">
       <slot />
     </TooltipContent>
   </TooltipPositioner>

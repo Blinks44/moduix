@@ -6,9 +6,8 @@ import {
   SelectContent,
   SelectControl,
   SelectIndicator,
-  SelectItem,
-  SelectItemText,
   SelectLabel,
+  SelectOption,
   SelectPositioner,
   SelectTrigger,
   SelectValueText,
@@ -35,10 +34,9 @@ const value = ref(['light']);
     </SelectControl>
     <SelectPositioner>
       <SelectContent>
-        <SelectItem v-for="item in themes.items" :key="item.value" :item="item">
-          <SelectItemText>{{ item.label }}</SelectItemText>
-          <SelectItemIndicator />
-        </SelectItem>
+        <SelectOption v-for="item in themes.items" :key="item.value" :item="item">{{
+          item.label
+        }}</SelectOption>
       </SelectContent>
     </SelectPositioner>
   </Select>

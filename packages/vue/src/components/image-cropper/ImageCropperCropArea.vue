@@ -7,41 +7,24 @@ import ImageCropperGrid from './ImageCropperGrid.vue';
 import ImageCropperHandle from './ImageCropperHandle.vue';
 import ImageCropperSelection from './ImageCropperSelection.vue';
 
-const ImageCropperHandles = ArkImageCropper.handles;
-
 defineOptions({ inheritAttrs: false });
 
-export interface Props
-  extends /* @vue-ignore */ Omit<ImageCropperSelectionProps, 'asChild' | 'children'> {
-  class?: HTMLAttributes['class'];
+export interface Props extends /* @vue-ignore */ Omit<ImageCropperSelectionProps, 'asChild'> {
   gridClassName?: HTMLAttributes['class'];
   handleClassName?: HTMLAttributes['class'];
 }
 
-const { class: className, gridClassName, handleClassName } = defineProps<Props>();
+const { gridClassName, handleClassName } = defineProps<Props>();
 
 const attrs = useAttrs();
-const getSelectionAttrs = () => {
-  const {
-    asChild: _asChild,
-    children: _children,
-    'as-child': _kebabAsChild,
-    ...selectionAttrs
-  } = attrs;
-  return selectionAttrs;
-};
 </script>
 
 <template>
-  <ImageCropperSelection
-    v-bind="getSelectionAttrs()"
-    :class="className"
-    data-slot="image-cropper-selection"
-  >
+  <ImageCropperSelection v-bind="attrs">
     <ImageCropperGrid axis="horizontal" :class="gridClassName" />
     <ImageCropperGrid axis="vertical" :class="gridClassName" />
     <ImageCropperHandle
-      v-for="position in ImageCropperHandles"
+      v-for="position in ArkImageCropper.handles"
       :key="position"
       :class="handleClassName"
       :position="position"

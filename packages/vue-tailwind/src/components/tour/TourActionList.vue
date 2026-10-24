@@ -19,7 +19,7 @@ defineSlots<{ default?: never }>();
     <template #default="actions">
       <TourActionTrigger
         v-for="(action, index) in actions"
-        :key="action.label + '-' + index"
+        :key="`${action.label}-${index}`"
         :action="action"
         :class="className"
       />

@@ -63,32 +63,9 @@ function MenuRootProvider({
 const MenuTrigger = forwardRef<
   ComponentRef<typeof MenuPrimitive.Trigger>,
   ComponentProps<typeof MenuPrimitive.Trigger>
->(function MenuTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <MenuPrimitive.Trigger
-      ref={ref}
-      asChild={asChild}
-      className={clsx(!asChild && styles.trigger, className)}
-      {...props}
-      data-slot="menu-trigger"
-    />
-  );
+>(function MenuTrigger(props, ref) {
+  return <MenuPrimitive.Trigger ref={ref} {...props} data-slot="menu-trigger" />;
 });
-
-const MenuTriggerIcon = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
-  function MenuTriggerIcon({ className, children, ...props }, ref) {
-    return (
-      <span
-        ref={ref}
-        className={clsx(styles.triggerIcon, className)}
-        {...props}
-        data-slot="menu-trigger-icon"
-      >
-        {children ?? <ChevronDownIcon className={styles.iconSvg} />}
-      </span>
-    );
-  },
-);
 
 const MenuIndicator = forwardRef<
   ComponentRef<typeof MenuPrimitive.Indicator>,
@@ -101,7 +78,7 @@ const MenuIndicator = forwardRef<
       {...props}
       data-slot="menu-indicator"
     >
-      {children ?? <ChevronDownIcon className={styles.iconSvg} />}
+      {children ?? <ChevronDownIcon />}
     </MenuPrimitive.Indicator>
   );
 });
@@ -109,16 +86,8 @@ const MenuIndicator = forwardRef<
 const MenuContextTrigger = forwardRef<
   ComponentRef<typeof MenuPrimitive.ContextTrigger>,
   ComponentProps<typeof MenuPrimitive.ContextTrigger>
->(function MenuContextTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <MenuPrimitive.ContextTrigger
-      ref={ref}
-      asChild={asChild}
-      className={clsx(!asChild && styles.contextTrigger, className)}
-      {...props}
-      data-slot="menu-context-trigger"
-    />
-  );
+>(function MenuContextTrigger(props, ref) {
+  return <MenuPrimitive.ContextTrigger ref={ref} {...props} data-slot="menu-context-trigger" />;
 });
 
 const MenuPositioner = forwardRef<
@@ -140,17 +109,14 @@ const MenuPositioner = forwardRef<
 const MenuContent = forwardRef<
   ComponentRef<typeof MenuPrimitive.Content>,
   ComponentProps<typeof MenuPrimitive.Content>
->(function MenuContent({ asChild, className, children, ...props }, ref) {
+>(function MenuContent({ className, ...props }, ref) {
   return (
     <MenuPrimitive.Content
       ref={ref}
-      asChild={asChild}
       className={clsx(styles.content, className)}
       {...props}
       data-slot="menu-content"
-    >
-      {children}
-    </MenuPrimitive.Content>
+    />
   );
 });
 
@@ -172,14 +138,9 @@ const MenuViewport = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
 const MenuArrow = forwardRef<
   ComponentRef<typeof MenuPrimitive.Arrow>,
   ComponentProps<typeof MenuPrimitive.Arrow>
->(function MenuArrow({ className, children, ...props }, ref) {
+>(function MenuArrow({ children, ...props }, ref) {
   return (
-    <MenuPrimitive.Arrow
-      ref={ref}
-      className={clsx(styles.arrow, className)}
-      {...props}
-      data-slot="menu-arrow"
-    >
+    <MenuPrimitive.Arrow ref={ref} {...props} data-slot="menu-arrow">
       {children ?? <MenuArrowTip />}
     </MenuPrimitive.Arrow>
   );
@@ -216,16 +177,14 @@ const MenuItem = forwardRef<ComponentRef<typeof MenuPrimitive.Item>, MenuItemPro
 const MenuTriggerItem = forwardRef<
   ComponentRef<typeof MenuPrimitive.TriggerItem>,
   ComponentProps<typeof MenuPrimitive.TriggerItem>
->(function MenuTriggerItem({ className, children, ...props }, ref) {
+>(function MenuTriggerItem({ className, ...props }, ref) {
   return (
     <MenuPrimitive.TriggerItem
       ref={ref}
       className={clsx(styles.triggerItem, className)}
       {...props}
       data-slot="menu-trigger-item"
-    >
-      {children}
-    </MenuPrimitive.TriggerItem>
+    />
   );
 });
 
@@ -238,7 +197,7 @@ const MenuTriggerItemIcon = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
         {...props}
         data-slot="menu-trigger-item-icon"
       >
-        {children ?? <ChevronRightIcon className={styles.iconSvg} />}
+        {children ?? <ChevronRightIcon />}
       </span>
     );
   },
@@ -340,7 +299,7 @@ const MenuItemIndicator = forwardRef<
       {...props}
       data-slot="menu-item-indicator"
     >
-      {children ?? <CheckIcon className={styles.itemIndicatorIcon} />}
+      {children ?? <CheckIcon />}
     </MenuPrimitive.ItemIndicator>
   );
 });
@@ -439,11 +398,51 @@ export {
   MenuRootProvider,
   MenuSeparator,
   MenuTrigger,
-  MenuTriggerIcon,
   MenuTriggerItem,
   MenuTriggerItemIcon,
   MenuViewport,
   useMenu,
   useMenuContext,
   useMenuItemContext,
+};
+
+export type {
+  MenuArrowProps,
+  MenuArrowTipProps,
+  MenuContentProps,
+  MenuContextProps,
+  MenuContextTriggerProps,
+  MenuFocusOutsideEvent,
+  MenuHighlightChangeDetails,
+  MenuIndicatorProps,
+  MenuInteractOutsideEvent,
+  MenuItemContextProps,
+  MenuItemGroupLabelProps,
+  MenuItemGroupProps,
+  MenuItemIndicatorProps,
+  MenuItemTextProps,
+  MenuOpenChangeDetails,
+  MenuPointerDownOutsideEvent,
+  MenuPositionerProps,
+  MenuRadioItemGroupProps,
+  MenuSelectionDetails,
+  MenuSeparatorProps,
+  MenuTriggerItemProps,
+  MenuTriggerProps,
+  MenuTriggerValueChangeDetails,
+  MenuValueChangeDetails,
+  UseMenuContext,
+  UseMenuItemContext,
+  UseMenuProps,
+  UseMenuReturn,
+} from '@ark-ui/react/menu';
+
+export type {
+  MenuCheckboxItemProps,
+  MenuIndicatorPosition,
+  MenuItemProps,
+  MenuItemTone,
+  MenuRadioItemProps,
+  MenuRootProps,
+  MenuRootProviderProps,
 };

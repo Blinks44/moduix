@@ -32,10 +32,12 @@ const items = [
 <template>
   <Accordion :class="styles.root" :default-value="['what-is-ark-ui']">
     <AccordionItem v-for="item in items" :key="item.value" :value="item.value">
-      <AccordionItemTrigger>
-        {{ item.title }}
-        <AccordionItemIndicator />
-      </AccordionItemTrigger>
+      <h3>
+        <AccordionItemTrigger>
+          {{ item.title }}
+          <AccordionItemIndicator />
+        </AccordionItemTrigger>
+      </h3>
       <AccordionItemContent>
         <AccordionItemBody>{{ item.description }}</AccordionItemBody>
       </AccordionItemContent>

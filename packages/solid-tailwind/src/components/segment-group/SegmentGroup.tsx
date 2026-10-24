@@ -1,5 +1,3 @@
-import { useFieldContext } from '@ark-ui/solid/field';
-import { useFieldsetContext } from '@ark-ui/solid/fieldset';
 import {
   SegmentGroup as SegmentGroupPrimitive,
   useSegmentGroup as useSegmentGroupPrimitive,
@@ -8,107 +6,67 @@ import {
   type UseSegmentGroupProps,
 } from '@ark-ui/solid/segment-group';
 import type { ComponentProps, JSX } from 'solid-js';
-import { For, mergeProps, splitProps } from 'solid-js';
+import { For, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
 type SegmentGroupMachineProps = NonNullable<Parameters<typeof useSegmentGroupPrimitive>[0]>;
-type SegmentGroupOption = {
-  value: string;
-  label: JSX.Element;
-  disabled?: boolean;
+type SegmentGroupSize = 'sm' | 'md' | 'lg';
+type SegmentGroupRootProps = ComponentProps<typeof SegmentGroupPrimitive.Root> & {
+  size?: SegmentGroupSize;
 };
-
-function omitUndefined<T extends object>(props: T) {
-  return Object.fromEntries(Object.entries(props).filter(([, value]) => value !== undefined)) as T;
-}
+type SegmentGroupRootProviderProps = ComponentProps<typeof SegmentGroupPrimitive.RootProvider> & {
+  size?: SegmentGroupSize;
+};
+type SegmentGroupItemOption = { value: string; label: JSX.Element; disabled?: boolean };
+type SegmentGroupItemsProps = { items: readonly (string | SegmentGroupItemOption)[] };
 
 function useSegmentGroup(props?: SegmentGroupMachineProps) {
-  const field = useFieldContext();
-  const fieldset = useFieldsetContext();
-
   return useSegmentGroupPrimitive(() => {
-    const machineProps = typeof props === 'function' ? props() : props;
-
-    return omitUndefined(
-      mergeProps(
-        {
-          orientation: 'horizontal',
-          disabled: field?.()?.disabled ?? fieldset?.()?.disabled,
-          invalid: field?.()?.invalid ?? fieldset?.()?.invalid,
-          readOnly: field?.()?.readOnly,
-          required: field?.()?.required,
-        } satisfies UseSegmentGroupProps,
-        machineProps ?? {},
-      ),
-    );
+    const machineProps: UseSegmentGroupProps =
+      (typeof props === 'function' ? props() : props) ?? {};
+    return { ...machineProps, orientation: machineProps.orientation ?? 'horizontal' };
   });
 }
 
-function SegmentGroup(props: ComponentProps<typeof SegmentGroupPrimitive.Root>) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
-    'class',
-    'disabled',
-    'invalid',
-    'orientation',
-    'readOnly',
-    'required',
-  ]);
-
-  const field = useFieldContext();
-  const fieldset = useFieldsetContext();
+function SegmentGroup(props: SegmentGroupRootProps) {
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <SegmentGroupPrimitive.Root
-      asChild={local.asChild}
+      orientation="horizontal"
       class={cn(
-        'group/segment-group relative isolate box-border inline-flex max-w-full items-stretch gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
-        local.class,
-      )}
-      {...omitUndefined({
-        ...others,
-        orientation: local.orientation ?? 'horizontal',
-        disabled: local.disabled ?? field?.()?.disabled ?? fieldset?.()?.disabled,
-        invalid: local.invalid ?? field?.()?.invalid ?? fieldset?.()?.invalid,
-        readOnly: local.readOnly ?? field?.()?.readOnly,
-        required: local.required ?? field?.()?.required,
-      })}
-      data-slot="segment-group-root"
-    >
-      {local.children}
-    </SegmentGroupPrimitive.Root>
-  );
-}
-
-function SegmentGroupRootProvider(
-  props: ComponentProps<typeof SegmentGroupPrimitive.RootProvider>,
-) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <SegmentGroupPrimitive.RootProvider
-      asChild={local.asChild}
-      class={cn(
-        'group/segment-group relative isolate box-border inline-flex max-w-full items-stretch gap-1 rounded-lg border border-border bg-muted p-1 text-foreground data-disabled:opacity-50 data-invalid:border-destructive data-[orientation=vertical]:flex-col',
+        'group/segment-group isolate inline-flex max-w-full gap-1 rounded-lg border border-border bg-muted p-1 text-foreground [--_segment-group-size:var(--moduix-size-md)] data-disabled:opacity-disabled data-invalid:border-destructive data-[orientation=vertical]:flex-col data-[size=lg]:[--_segment-group-size:var(--moduix-size-lg)] data-[size=sm]:[--_segment-group-size:var(--moduix-size-sm)]',
         local.class,
       )}
       {...others}
+      data-size={local.size ?? 'md'}
+      data-slot="segment-group-root"
+    />
+  );
+}
+
+function SegmentGroupRootProvider(props: SegmentGroupRootProviderProps) {
+  const [local, others] = splitProps(props, ['class', 'size']);
+
+  return (
+    <SegmentGroupPrimitive.RootProvider
+      class={cn(
+        'group/segment-group isolate inline-flex max-w-full gap-1 rounded-lg border border-border bg-muted p-1 text-foreground [--_segment-group-size:var(--moduix-size-md)] data-disabled:opacity-disabled data-invalid:border-destructive data-[orientation=vertical]:flex-col data-[size=lg]:[--_segment-group-size:var(--moduix-size-lg)] data-[size=sm]:[--_segment-group-size:var(--moduix-size-sm)]',
+        local.class,
+      )}
+      {...others}
+      data-size={local.size ?? 'md'}
       data-slot="segment-group-root-provider"
     />
   );
 }
 
 function SegmentGroupLabel(props: ComponentProps<typeof SegmentGroupPrimitive.Label>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <SegmentGroupPrimitive.Label
-      asChild={local.asChild}
-      class={cn(
-        'relative z-1 text-sm leading-5 font-semibold text-inherit select-none',
-        local.class,
-      )}
+      class={cn('text-sm leading-5 font-semibold', local.class)}
       {...others}
       data-slot="segment-group-label"
     />
@@ -116,57 +74,31 @@ function SegmentGroupLabel(props: ComponentProps<typeof SegmentGroupPrimitive.La
 }
 
 function SegmentGroupItem(props: ComponentProps<typeof SegmentGroupPrimitive.Item>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <SegmentGroupPrimitive.Item
-      asChild={local.asChild}
       class={cn(
-        'relative z-1 box-border inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md px-3.5 text-sm leading-5 font-medium whitespace-nowrap text-muted-foreground outline-0 transition-[color,opacity] duration-200 ease-in-out select-none group-data-disabled/segment-group:!opacity-100 data-disabled:cursor-default data-disabled:opacity-50 data-focus-visible:outline-1 data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:data-focus-visible:outline-destructive data-readonly:cursor-default data-[orientation=vertical]:w-full data-[orientation=vertical]:justify-start data-[state=checked]:text-foreground [@media(hover:hover)]:[&:not([data-readonly]):not([data-disabled]):hover]:text-foreground',
+        'inline-flex min-h-[calc(var(--_segment-group-size)-2*var(--moduix-spacing-1)-2*var(--moduix-border-width-sm))] cursor-pointer items-center justify-center gap-2 rounded-md px-3.5 text-sm font-medium whitespace-nowrap text-muted-foreground transition-[color] duration-normal ease-in-out select-none group-data-[size=lg]/segment-group:px-4 group-data-[size=lg]/segment-group:text-md group-data-[size=sm]/segment-group:px-3 data-disabled:cursor-default group-not-data-disabled/segment-group:data-disabled:opacity-disabled data-focus-visible:outline-focus-inset data-focus-visible:outline-offset-1 data-focus-visible:outline-ring data-invalid:data-focus-visible:outline-destructive data-readonly:cursor-default data-[orientation=vertical]:justify-start data-[state=checked]:text-foreground [@media(hover:hover)]:[&[data-state=unchecked]:not([data-readonly]):not([data-disabled]):hover]:text-foreground',
         local.class,
       )}
       {...others}
       data-slot="segment-group-item"
-    >
-      {local.children}
-    </SegmentGroupPrimitive.Item>
-  );
-}
-
-function SegmentGroupItemControl(props: ComponentProps<typeof SegmentGroupPrimitive.ItemControl>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <SegmentGroupPrimitive.ItemControl
-      asChild={local.asChild}
-      class={cn('hidden', local.class)}
-      {...others}
-      data-slot="segment-group-item-control"
     />
   );
 }
 
 function SegmentGroupItemText(props: ComponentProps<typeof SegmentGroupPrimitive.ItemText>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <SegmentGroupPrimitive.ItemText
-      asChild={local.asChild}
-      class={cn('relative z-1', local.class)}
-      {...others}
-      data-slot="segment-group-item-text"
-    />
-  );
+  return <SegmentGroupPrimitive.ItemText {...props} data-slot="segment-group-item-text" />;
 }
 
 function SegmentGroupIndicator(props: ComponentProps<typeof SegmentGroupPrimitive.Indicator>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <SegmentGroupPrimitive.Indicator
-      asChild={local.asChild}
       class={cn(
-        'pointer-events-none absolute top-[var(--top)] left-[var(--left)] z-0 h-[var(--height)] w-[var(--width)] rounded-md bg-background shadow-sm !duration-200 !ease-in-out',
+        'pointer-events-none top-(--top) left-(--left) -z-1 h-(--height) w-(--width) rounded-md bg-background shadow-sm [--transition-duration:var(--moduix-duration-normal)] [--transition-timing-function:var(--moduix-ease-in-out)]',
         local.class,
       )}
       {...others}
@@ -175,23 +107,26 @@ function SegmentGroupIndicator(props: ComponentProps<typeof SegmentGroupPrimitiv
   );
 }
 
-function SegmentGroupItems(props: { items: readonly SegmentGroupOption[] }) {
-  return (
-    <For each={props.items}>
-      {(item) => (
-        <SegmentGroupItem value={item.value} disabled={item.disabled}>
-          <SegmentGroupItemText>{item.label}</SegmentGroupItemText>
-          <SegmentGroupItemControl />
-          <SegmentGroupPrimitive.ItemHiddenInput />
-        </SegmentGroupItem>
-      )}
-    </For>
-  );
-}
-
 const SegmentGroupContext = SegmentGroupPrimitive.Context;
 const SegmentGroupItemContext = SegmentGroupPrimitive.ItemContext;
 const SegmentGroupItemHiddenInput = SegmentGroupPrimitive.ItemHiddenInput;
+
+function SegmentGroupItems(props: SegmentGroupItemsProps) {
+  return (
+    <For each={props.items}>
+      {(item) => {
+        const option: SegmentGroupItemOption =
+          typeof item === 'string' ? { value: item, label: item } : item;
+        return (
+          <SegmentGroupItem value={option.value} disabled={option.disabled}>
+            <SegmentGroupItemText>{option.label}</SegmentGroupItemText>
+            <SegmentGroupItemHiddenInput />
+          </SegmentGroupItem>
+        );
+      }}
+    </For>
+  );
+}
 
 export {
   SegmentGroup,
@@ -199,7 +134,6 @@ export {
   SegmentGroupIndicator,
   SegmentGroupItem,
   SegmentGroupItemContext,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItems,
   SegmentGroupItemText,
@@ -208,4 +142,11 @@ export {
   useSegmentGroup,
   useSegmentGroupContext,
   useSegmentGroupItemContext,
+};
+export type {
+  SegmentGroupItemOption,
+  SegmentGroupItemsProps,
+  SegmentGroupRootProps,
+  SegmentGroupRootProviderProps,
+  SegmentGroupSize,
 };

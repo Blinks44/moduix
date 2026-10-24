@@ -20,12 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkFloatingPanelBody
     v-bind="attrs"
-    :class="
-      cn(
-        'min-h-0 flex-auto overflow-auto p-4 text-sm text-popover-foreground data-minimized:hidden',
-        className,
-      )
-    "
+    :class="cn('min-h-0 flex-auto overflow-auto p-4 text-sm', className)"
     data-slot="floating-panel-body"
   >
     <slot />

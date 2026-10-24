@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkTreeViewBranch
     v-bind="attrs"
-    :class="cn('relative flex min-w-0 flex-col gap-1', className)"
+    :class="cn('flex min-w-0 flex-col gap-1', className)"
     data-slot="tree-view-branch"
     ><slot
   /></ArkTreeViewBranch>

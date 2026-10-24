@@ -2,165 +2,44 @@
 
 Upstream docs:
 
-- Ark UI: no dedicated primitive; use https://ark-ui.com/docs/guides/composition and https://ark-ui.com/docs/guides/styling
+- Ark UI: no dedicated primitive; built with https://ark-ui.com/docs/guides/composition
 - Chakra UI: https://chakra-ui.com/docs/components/separator
 
-## Purpose
+## Contract
 
-`Separator` is the moduix semantic divider for visually separating related content groups with a
-horizontal or vertical rule.
-
-## Upstream model to preserve
-
-Ark UI does not ship a dedicated separator primitive. Moduix builds this component with the official
-Ark factory: one exported `ark.span` root, `asChild` support for a single custom host, refs
-forwarded to the rendered element, and Ark-style `data-scope` / `data-part` styling hooks.
-
-Chakra's current Separator recipe materially informs this contract: `orientation`, `variant`,
-`size`, a single root element, default horizontal orientation, and separator semantics through
-`role="separator"` plus `aria-orientation`.
-
-## Current behavior contract
-
-- The flat `Separator` export is the only public root component.
-- `Separator` accepts Ark factory span props plus local `orientation`, `variant`, and `size`.
-- `asChild` replaces the host element through Ark factory composition; there is no legacy `render`
-  prop.
-- Default props are `orientation="horizontal"`, `variant="solid"`, and `size="sm"`.
-- The component is non-interactive and has no controlled state, uncontrolled state, callbacks,
-  keyboard behavior, focus management, form participation, `HiddenInput`, or provider/context API.
-
-## Anatomy and exported parts
+- `Separator` is the only public component: one `ark.span` root with `asChild` and a forwarded ref.
+- Local props: `orientation` (`horizontal` | `vertical`, default `horizontal`), `variant`
+  (`solid` | `dashed` | `dotted`, default `solid`), and `size` (`xs` | `sm` | `md` | `lg`, default
+  `sm`), the same model and thickness scale as Chakra (0.5px, 1px, 2px, 3px).
+- Exported types: `SeparatorRootProps`, `SeparatorOrientation`, `SeparatorSize`, `SeparatorVariant`.
+- The component is non-interactive and has no state, context, or callbacks.
 
 ```text
 Separator
 └─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
 ```
 
-| Part        | `data-slot`      | Notes                                                                      |
-| ----------- | ---------------- | -------------------------------------------------------------------------- |
-| `Separator` | `separator-root` | Single divider element with orientation, size, variant, and ARIA metadata. |
+## Accessibility
 
-## Composition
+- `role` defaults to `separator`, and `aria-orientation` follows `orientation` only while the role is
+  `separator`. Pass `role="presentation"` for a purely decorative line; a passthrough
+  `aria-orientation` is then dropped.
+- The wrapper owns `role`, `aria-orientation`, `data-scope`, `data-part`, `data-slot`,
+  `data-orientation`, `data-size`, and `data-variant`; passthrough values do not override them.
 
-Use the short root form for normal separators:
+## Styling
 
-```tsx
-import { Separator } from '@moduix/react/separator';
-
-export function AccountSections() {
-  return (
-    <div>
-      <span>Account settings</span>
-      <Separator />
-      <span>Billing details</span>
-    </div>
-  );
-}
-```
-
-Use `asChild` when the host must be a native element such as `hr`:
-
-```tsx
-<Separator asChild>
-  <hr />
-</Separator>
-```
-
-The child must be a single semantic element that can carry the merged separator props.
-
-## Upstream feature coverage
-
-- Ark composition: covered with `ark.span`, `HTMLArkProps<'span'>`, `asChild`, and forwarded refs.
-- Ark styling: covered with `data-scope="separator"`, `data-part="root"`, state-free data
-  attributes, and direct `className` support.
-- Chakra orientation: covered with `orientation="horizontal" | "vertical"`.
-- Chakra variants: covered with `variant="solid" | "dashed" | "dotted"`.
-- Chakra sizes: covered with `size="xs" | "sm" | "md" | "lg"`.
-- Chakra responsive orientation: intentionally not mirrored as a prop system because moduix does
-  not expose Chakra's responsive style-prop runtime. Consumers can switch `orientation`
-  responsively in their own React/CSS layer.
-- Chakra label example: intentionally not implemented as a `label` prop. Use surrounding
-  composition when a divider needs text because moduix keeps this component single-part and
-  semantic.
-
-## Accessibility and state
-
-- The root writes `role="separator"` by default.
-- The root writes `aria-orientation` from the resolved `orientation` when its role is `separator`.
-- Consumers can pass `role="presentation"` when a line is purely decorative; then
-  `aria-orientation` is omitted, including when passthrough props contain a stale value.
-- The root writes `data-orientation`, `data-size`, and `data-variant` for styling.
-- Local props retain ownership of the role, ARIA metadata, and stable data hooks; pass custom styles
-  through `className`, `style`, or the documented CSS variables instead of overriding those attributes.
-- There are no interactive states and no Ark runtime CSS variables for measured layout.
-- Refs point to the rendered separator host. With `asChild`, the child element receives the merged
-  props and ref.
-
-## Defaults and styling
-
-| Entry         | Default      | Values / Notes                       |
-| ------------- | ------------ | ------------------------------------ |
-| `orientation` | `horizontal` | `horizontal`, `vertical`             |
-| `variant`     | `solid`      | `solid`, `dashed`, `dotted`          |
-| `size`        | `sm`         | `xs`, `sm`, `md`, `lg`               |
-| `asChild`     | `false`      | Ark factory single-child composition |
-
-Public CSS variables:
-
-| Variable                               | Default                                                           | Effect                                   |
-| -------------------------------------- | ----------------------------------------------------------------- | ---------------------------------------- |
-| `--moduix-separator-border-style`      | active `variant` style                                            | Overrides the variant border style.      |
-| `--moduix-separator-color`             | `var(--moduix-color-border)`                                      | Divider color.                           |
-| `--moduix-separator-length-horizontal` | `100%`                                                            | Width for horizontal mode.               |
-| `--moduix-separator-length-vertical`   | `1em`                                                             | Height for vertical mode.                |
-| `--moduix-separator-thickness`         | `var(--_separator-size-thickness, var(--moduix-border-width-sm))` | Consumer override for both orientations. |
-| `--moduix-separator-thickness-xs`      | `0.5px`                                                           | `xs` recipe thickness.                   |
-| `--moduix-separator-thickness-sm`      | `var(--moduix-border-width-sm)`                                   | `sm` recipe thickness.                   |
-| `--moduix-separator-thickness-md`      | `var(--moduix-border-width-md)`                                   | `md` recipe thickness.                   |
-| `--moduix-separator-thickness-lg`      | `3px`                                                             | `lg` recipe thickness.                   |
-
-## Intentional sugar and differences from upstream
-
-- Ark UI has no dedicated `Separator` primitive; moduix uses the Ark factory and documents the
-  component as a moduix-owned single-part contract.
-- moduix keeps Chakra's useful `orientation`, `variant`, and `size` surface but maps visuals to
-  moduix tokens and CSS variables.
-- moduix does not export separate prop or option type aliases for this wrapper. Use
-  `ComponentProps<typeof Separator>` if you need to derive types locally.
-- legacy `render`, legacy state callback `className`, and legacy style callback behavior were
-  removed. Use Ark `asChild` and direct `className` instead.
-- moduix does not implement Chakra's responsive prop system or label prop pattern for this wrapper.
+- The line is a border (`border-block-start` or `border-inline-start`), so dashed and dotted are
+  native border styles. Horizontal lines are `100%` wide; vertical lines are `1em` tall.
+- The root has `margin: 0`, so an `asChild` `hr` matches the default span.
+- CSS Modules expose two variables: `--moduix-separator-color` (default
+  `var(--moduix-color-border)`) and `--moduix-separator-thickness` (default: the active size). To
+  theme one size, set the thickness on `[data-slot='separator-root'][data-size='<size>']`. Change
+  length or border style with a plain class.
+- Tailwind variants map the same values to utilities; consumer classes merge through `cn`.
 
 ## Agent notes
 
-- Keep `Separator` thin and state-free. Do not add variants beyond the current recipe-like
-  `variant` / `size` API without updating docs, stories, theme tokens, and registry output.
-- Preserve `data-scope`, `data-part`, `data-slot`, `data-orientation`, `data-size`, and
-  `data-variant`; these are the public styling hooks.
-- Keep the line border-based, not background-based, so dashed and dotted variants remain native CSS
-  border styles.
-- Keep the root marginless so `asChild` hosts such as `hr` match the default separator layout.
-
-## Local changelog
-
-- 2026-09-22: Replaced the compound root alias with the flat `Separator` export and aligned
-  consumers, tests, stories, registries, and documentation with the finished flat API.
-- 2026-09-20: Privatized the per-size recipe thickness plumbing into
-  `--_separator-size-thickness` and kept `--moduix-separator-thickness` plus the
-  `--moduix-separator-thickness-*` tokens as the public theming surface.
-- 2026-08-12: Kept `aria-orientation` derived from semantic role and orientation, and expanded
-  release coverage for defaults, styling props, namespace composition, and decorative usage.
-- 2026-07-30: Protected stable ARIA and data hooks from passthrough overrides and normalized margins
-  for `asChild` native hosts.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-03: Removed public prop and option type aliases while keeping the callable root component
-  as the only public component value.
-- 2026-06-27: Re-audited the Ark factory contract, simplified size and variant CSS selectors,
-  made `--moduix-separator-border-style` a consumer override above the recipe variant, and aligned public
-  docs/examples with the local-only Ark factory API text.
-- 2026-06-20: Migrated from legacy to an Ark factory wrapper, added `asChild`, `variant`, `size`,
-  Ark-style data hooks, Chakra-informed ARIA semantics, and removed legacy `render` compatibility.
-- 2026-06-03: Rewrote the local documentation around the real moduix wrapper, documented the
-  shipped styling contract and accessibility behavior, and aligned the wrapper with the repo Base
-  UI `forwardRef` pattern.
+- Keep `Separator` thin and state-free.
+- Keep the line border-based, not background-based.
+- `Sidebar` sets `--moduix-separator-color` for `SidebarSeparator`.

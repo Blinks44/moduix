@@ -4,7 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { computed, provide, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { defaultInputGroupSize, InputGroupSizeContextKey, type InputGroupSize } from './context';
+import { InputGroupSizeContextKey, type InputGroupSize } from './context';
 import styles from './InputGroup.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -14,7 +14,7 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {
   size?: InputGroupSize;
 }
 
-const { class: className, size = defaultInputGroupSize } = defineProps<Props>();
+const { class: className, size = 'md' } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();

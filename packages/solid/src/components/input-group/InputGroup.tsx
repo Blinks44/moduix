@@ -7,41 +7,30 @@ import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { CloseButton } from '../close-button';
-import { Input } from '../input';
+import { Input, type InputSize } from '../input';
+import { Textarea } from '../textarea';
 import styles from './InputGroup.module.css';
 
-type InputGroupSize = NonNullable<ComponentProps<typeof Input>['size']>;
+type InputGroupSize = InputSize;
 
-type InputGroupDataProps = {
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
+type InputGroupAddonAlign = 'inline' | 'block';
+
+type InputGroupAddonProps = HTMLArkProps<'span'> & {
+  align?: InputGroupAddonAlign;
 };
 
-type InputGroupProps = HTMLArkProps<'div'> &
-  InputGroupDataProps & {
-    size?: InputGroupSize;
-    'data-size'?: string;
-  };
+type InputGroupProps = HTMLArkProps<'div'> & {
+  size?: InputGroupSize;
+};
 
 const InputGroupSizeContext = createContext((): InputGroupSize => 'md');
 
 function InputGroup(props: InputGroupProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-size',
-    'data-slot',
-    'size',
-  ]);
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <InputGroupSizeContext.Provider value={() => local.size ?? 'md'}>
       <ark.div
-        asChild={local.asChild}
         {...others}
         data-scope="input-group"
         data-part="root"
@@ -64,43 +53,44 @@ function InputGroupInput(props: ComponentProps<typeof Input>) {
   );
 }
 
-function InputGroupAddon(props: HTMLArkProps<'span'> & InputGroupDataProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+function InputGroupTextarea(props: ComponentProps<typeof Textarea>) {
+  const [local, others] = splitProps(props, ['class', 'size']);
+  const groupSize = useContext(InputGroupSizeContext);
+
+  return (
+    <Textarea
+      {...others}
+      class={clsx(styles.textarea, local.class)}
+      size={local.size ?? groupSize()}
+    />
+  );
+}
+
+function InputGroupAddon(props: InputGroupAddonProps) {
+  const [local, others] = splitProps(props, ['align', 'class']);
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       data-scope="input-group"
       data-part="addon"
       data-slot="input-group-addon"
+      data-align={local.align ?? 'inline'}
       class={clsx(styles.addon, local.class)}
     />
   );
 }
 
-function InputGroupText(props: HTMLArkProps<'span'> & InputGroupDataProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+function InputGroupText(props: InputGroupAddonProps) {
+  const [local, others] = splitProps(props, ['align', 'class']);
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       data-scope="input-group"
       data-part="text"
       data-slot="input-group-text"
+      data-align={local.align ?? 'inline'}
       class={clsx(styles.text, local.class)}
     />
   );
@@ -134,6 +124,7 @@ function InputGroupClearTrigger(
     'aria-labelledby',
   ]);
   const groupSize = useContext(InputGroupSizeContext);
+
   return (
     <CloseButton
       {...others}
@@ -161,4 +152,6 @@ export {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
+  InputGroupTextarea,
 };
+export type { InputGroupAddonAlign, InputGroupSize };

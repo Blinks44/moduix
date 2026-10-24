@@ -9,8 +9,13 @@ site-wide framework and styling support matrix or explain which runtime powers a
 Call out availability only when a component has a real exception, such as a missing adapter or styling track.
 Show only installation choices that actually ship; an incomplete adapter or styling track must stay visibly unavailable.
 Keep non-React source display-only when it cannot run in the React-based documentation application.
-Import one shared source file with `?raw`, render it with `CodeBlockRuntime`, and reuse it across
-locales instead of adding another runtime to the documentation bundle.
+Render each standard example with `<Example name="<component>/<name>" />` at the top level of the page.
+`website/plugins/example-loader.js` expands it at build time into the React preview, the React, Solid,
+and Vue source tabs, and the CSS files the React example imports. It requires
+`src/components/examples/<component>/<name>.tsx`, `snippets/<component>/solid/<name>.tsx`, and
+`snippets/<component>/vue/<name>.vue`. Pass `width="sm"` or `clientOnly` through to `ExampleFrame`.
+Write the explicit `ExampleFrame` and `ExampleCode` markup only when an example needs a `PreviewFrame`,
+extra source files, or a missing framework.
 
 ## Section order
 
@@ -39,7 +44,7 @@ locales instead of adding another runtime to the documentation bundle.
   `AccordionItemTrigger`.
 - **Composition:** add this section only for non-obvious state ownership or part combinations. Write
   it as one concise section by default. Do not add the fixed `Recommended composition`, `When to go
-custom`, `Default props`, or `Behavioral notes` template. When migrating a page that still uses
+  custom`, `Default props`, or `Behavioral notes` template. When migrating a page that still uses
   that legacy template, consolidate the useful component-specific guidance into `Composition`, the
   relevant example, or `Styling`, and remove the rest. Add a nested heading only for a genuinely
   independent topic that needs more than a short paragraph. Add a defaults table only when moduix
@@ -82,6 +87,8 @@ Popup-like components teach the explicit part tree. Do not add `Portal` to examp
 
 ## CSS properties
 
-Use the shared `CssPropertiesSection` pattern from Accordion. It provides the single `CSS Variables`
-tab and bounded scroll area. The table covers the complete public variable contract rather than an
-abbreviated prose list.
+Render `<CssPropertiesSection properties={...} />` with the array exported from the component's
+`css-properties.tsx`; do not add per-component panels or wrap the table in tabs. The table covers the
+complete public variable contract rather than an abbreviated prose list. Every entry has a
+description, and the default is a real value: when variants or sizes set their own value, list the
+default recipe's value and say so in the description.

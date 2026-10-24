@@ -26,4 +26,6 @@ The flat API is `Chart`, `ChartPlot`, `ChartHeader`, `ChartTitle`, `ChartDescrip
 
 ## Styling and accessibility
 
-Keep `data-scope="chart"`, `data-part`, and `data-slot` hooks. `ChartPlot` forwards its styling and host props to the TanStack container.
+Keep `data-scope="chart"`, `data-part`, and `data-slot` hooks. `ChartPlot` forwards its styling and host props to the TanStack container and sets TanStack's `--ts-chart-tooltip-*` variables there.
+
+The default tooltip body is the compact Moduix layout. Rows that TanStack marks as `active` get `data-active` and a muted highlight. A custom `renderTooltipBody` receives it as `defaultBody`, together with TanStack's `primaryPoint`, `points`, `content`, `pinned`, and `dismiss`.

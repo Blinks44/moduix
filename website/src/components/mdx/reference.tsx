@@ -40,14 +40,29 @@ function ExampleFrame({
   children,
   clientOnly = false,
   variant = 'block',
+  width,
 }: {
   children: React.ReactNode;
   clientOnly?: boolean;
   variant?: 'component' | 'block';
+  /** Fixed preview width for full-width components, so docs code stays free of layout styles. */
+  width?: keyof typeof previewMaxWidths;
 }) {
   if (import.meta.env.SSG_MD) return null;
 
-  const content = <div className={styles.demoContent}>{children}</div>;
+  const content = (
+    <div
+      className={styles.demoContent}
+      data-example-width={width ? '' : undefined}
+      style={
+        width
+          ? ({ '--moduix-doc-example-inline-size': previewMaxWidths[width] } as React.CSSProperties)
+          : undefined
+      }
+    >
+      {children}
+    </div>
+  );
 
   return (
     <div className={`rp-not-doc ${styles.demo} ${variant === 'component' ? styles.component : ''}`}>
@@ -117,6 +132,12 @@ function normalizeCssProperty(property: CssPropertyInput): CssProperty {
   };
 }
 
+function renderInlineCode(text: string) {
+  return text
+    .split('`')
+    .map((chunk, index) => (index % 2 ? <code key={index}>{chunk}</code> : chunk));
+}
+
 function CSSPropertiesReferenceTable({ properties }: { properties: CssProperty[] }) {
   const t = useI18n<typeof import('i18n')>();
 
@@ -133,10 +154,21 @@ function CSSPropertiesReferenceTable({ properties }: { properties: CssProperty[]
           {properties.map((property) => (
             <tr key={property.name}>
               <td>
-                <code>{property.name}</code>
+                <code className={styles.propertyName}>{property.name}</code>
+                {property.description ? (
+                  <p className={styles.propertyDescription}>
+                    {typeof property.description === 'string'
+                      ? renderInlineCode(property.description)
+                      : property.description}
+                  </p>
+                ) : null}
               </td>
-              <td>
-                <code>{property.defaultValue}</code>
+              <td className={styles.propertyDefault}>
+                {property.defaultValue.includes('`') ? (
+                  renderInlineCode(property.defaultValue)
+                ) : (
+                  <code>{property.defaultValue}</code>
+                )}
               </td>
             </tr>
           ))}

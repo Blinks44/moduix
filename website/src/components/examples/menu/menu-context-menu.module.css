@@ -1,12 +1,12 @@
-.content {
-  --moduix-menu-popup-min-width: 13rem;
-}
-
 .contextTrigger {
-  --moduix-menu-trigger-bg-hover: var(--moduix-color-muted);
-  --moduix-menu-trigger-bg-active: var(--moduix-color-muted);
-
+  display: flex;
   width: 16rem;
   min-height: 10rem;
-  border-style: dashed;
+  align-items: center;
+  justify-content: center;
+  border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  user-select: none;
 }

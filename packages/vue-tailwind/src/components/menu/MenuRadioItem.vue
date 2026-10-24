@@ -8,8 +8,8 @@ import { menuItemStyles } from './Menu.variants';
 
 defineOptions({ inheritAttrs: false });
 
-type MenuIndicatorPosition = 'start' | 'end' | 'none';
-interface Props extends /* @vue-ignore */ MenuRadioItemProps {
+export type MenuIndicatorPosition = 'start' | 'end' | 'none';
+export interface Props extends /* @vue-ignore */ MenuRadioItemProps {
   class?: HTMLAttributes['class'];
   indicator?: MenuIndicatorPosition;
   value: MenuRadioItemProps['value'];

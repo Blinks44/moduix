@@ -110,6 +110,8 @@ test('preserves TreeView anatomy, labels, refs, and the Node convenience helper'
 });
 
 test('wraps the checkbox indicator with its data-slot and consumer class', () => {
+  const ref = createRef<HTMLSpanElement>();
+
   render(
     <TreeView collection={collection}>
       <TreeViewLabel>Checked files</TreeViewLabel>
@@ -118,7 +120,7 @@ test('wraps the checkbox indicator with its data-slot and consumer class', () =>
           {({ node }) => (
             <TreeViewItem>
               <TreeViewNodeCheckbox>
-                <TreeViewNodeCheckboxIndicator className="indicator-class" />
+                <TreeViewNodeCheckboxIndicator ref={ref} className="indicator-class" />
               </TreeViewNodeCheckbox>
               <TreeViewItemText>{node.name}</TreeViewItemText>
             </TreeViewItem>
@@ -131,6 +133,7 @@ test('wraps the checkbox indicator with its data-slot and consumer class', () =>
   const indicator = document.querySelector('[data-slot="tree-view-node-checkbox-indicator"]');
 
   expect(indicator?.tagName).toBe('SPAN');
+  expect(ref.current).toBe(indicator);
   expect([...indicator!.classList]).toEqual(expect.arrayContaining(['indicator-class']));
 });
 
@@ -274,4 +277,49 @@ test('keeps RootProvider and semantic item composition available', async () => {
   await expect
     .element(page.getByRole('treeitem', { name: 'README.md', exact: true }))
     .toHaveAttribute('data-slot', 'tree-view-item');
+});
+test('truncates long node names and centers indent guides under branch indicators', async () => {
+  const longName = 'a-file-name-that-is-much-longer-than-the-default-tree-width.tsx';
+  const longCollection = createTreeCollection<FileNode>({
+    nodeToString: (node) => node.name,
+    nodeToValue: (node) => node.id,
+    rootNode: {
+      id: 'ROOT',
+      name: '',
+      children: [{ id: 'src', name: 'src', children: [{ id: 'src/long', name: longName }] }],
+    },
+  });
+
+  render(
+    <TreeView collection={longCollection} defaultExpandedValue={['src']}>
+      <TreeViewLabel>Long files</TreeViewLabel>
+      <TreeViewTree>
+        <FileTreeNode node={longCollection.rootNode.children![0]} indexPath={[0]} />
+      </TreeViewTree>
+    </TreeView>,
+  );
+
+  await expect.element(page.getByRole('treeitem', { name: longName, exact: true })).toBeVisible();
+
+  const text = document.querySelector<HTMLElement>('[data-slot="tree-view-item-text"]')!;
+  // text-overflow draws an ellipsis only in a block container, not in a flex container.
+  expect(getComputedStyle(text).display).toBe('block');
+  expect(getComputedStyle(text).textOverflow).toBe('ellipsis');
+  expect(text.scrollWidth).toBeGreaterThan(text.clientWidth);
+
+  const indicator = document
+    .querySelector('[data-slot="tree-view-branch-indicator"]')!
+    .getBoundingClientRect();
+  const guide = document
+    .querySelector('[data-slot="tree-view-branch-indent-guide"]')!
+    .getBoundingClientRect();
+  expect(
+    Math.abs(guide.left + guide.width / 2 - (indicator.left + indicator.width / 2)),
+  ).toBeLessThanOrEqual(1);
+
+  // The nested row highlight must not overlap the parent's indent guide.
+  const item = document.querySelector('[data-slot="tree-view-item"]')!;
+  const highlightStart =
+    item.getBoundingClientRect().left + parseFloat(getComputedStyle(item, '::before').left);
+  expect(highlightStart).toBeGreaterThan(guide.right);
 });

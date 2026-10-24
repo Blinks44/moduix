@@ -4,20 +4,6 @@ component: toc
 description: Keep an accessible table of contents in sync with the section a reader is viewing.
 ---
 
-import TocBasic from '@/components/examples/table-of-contents/basic.tsx';
-import TocRail from '@/components/examples/table-of-contents/rail.tsx';
-import TocRootProvider from '@/components/examples/table-of-contents/root-provider.tsx';
-import TocWithCollapsible from '@/components/examples/table-of-contents/with-collapsible.tsx';
-import * as TocDocs from '@/components/examples/table-of-contents/css-properties';
-import tocSolidBasic from '../../../snippets/table-of-contents/solid/basic.tsx?raw';
-import tocSolidRail from '../../../snippets/table-of-contents/solid/rail.tsx?raw';
-import tocSolidRootProvider from '../../../snippets/table-of-contents/solid/root-provider.tsx?raw';
-import tocSolidWithCollapsible from '../../../snippets/table-of-contents/solid/with-collapsible.tsx?raw';
-import tocVueBasic from '../../../snippets/table-of-contents/vue/basic.vue?raw';
-import tocVueRail from '../../../snippets/table-of-contents/vue/rail.vue?raw';
-import tocVueRootProvider from '../../../snippets/table-of-contents/vue/root-provider.vue?raw';
-import tocVueWithCollapsible from '../../../snippets/table-of-contents/vue/with-collapsible.vue?raw';
-
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toc" />
@@ -34,46 +20,7 @@ On a regular document page, omit `scrollEl` and the component observes the page 
 preview below uses an inner scroll container, so it passes that element to `scrollEl` to keep
 tracking and link navigation inside the preview.
 
-<ExampleFrame variant="component">
-  <TocBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table-of-contents/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tocSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tocVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/table-of-contents/table-of-contents-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="table-of-contents/basic" />
 
 ## Install with shadcn
 
@@ -173,46 +120,7 @@ This remaining limitation is tracked in [Ark #4187](https://github.com/chakra-ui
 
 Use `useToc()` when another control needs to read the active headings or scroll the reading pane.
 
-<ExampleFrame variant="component">
-  <TocRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table-of-contents/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tocSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tocVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/table-of-contents/table-of-contents-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="table-of-contents/root-provider" />
 
 ### Rail
 
@@ -220,46 +128,7 @@ Place `TocRail` inside each link to draw an SVG connector between neighbouring h
 Pass the current, previous, and next depths from the same ordered `items` array. The rail on the
 active link uses the indicator colour. Do not render `TocIndicator` in the same list.
 
-<ExampleFrame variant="component">
-  <TocRail />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table-of-contents/rail.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tocSolidRail} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tocVueRail} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/table-of-contents/table-of-contents-rail.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="table-of-contents/rail" />
 
 ### With Collapsible
 
@@ -267,57 +136,14 @@ Place the navigation list inside `Collapsible` when readers should be able to hi
 of contents. `TocContext` supplies the active item for the trigger label and progress ring, while
 the links continue to target the same reading pane.
 
-<ExampleFrame variant="component">
-  <TocWithCollapsible />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table-of-contents/with-collapsible.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tocSolidWithCollapsible} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tocVueWithCollapsible} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/table-of-contents/table-of-contents-with-collapsible.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="table-of-contents/with-collapsible" />
 
 ## Styling
 
-Style the component through `className` in React or `class` in Solid and Vue, Ark attributes, moduix
-`data-slot` hooks, and the public `--moduix-table-of-contents-*` variables. The CSS Modules
-packages use these variables; the Tailwind packages use native utility classes and consumer classes
-for overrides.
-
-### CSS Properties
-
-<CssPropertiesSection properties={TocDocs.tableOfContentsOverrideCssProperties} />
+Use `className` in React or `class` in Solid and Vue on any exported part. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on a part, or a `data-slot` selector, overrides the layered component styles. To
+change the navigation column, override `grid-template-columns` on `Toc`.
 
 ### Styling hooks
 

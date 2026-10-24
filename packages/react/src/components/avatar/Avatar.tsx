@@ -1,4 +1,5 @@
 import { Avatar as AvatarPrimitive, useAvatar, useAvatarContext } from '@ark-ui/react/avatar';
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
 import styles from './Avatar.module.css';
@@ -7,18 +8,19 @@ type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type AvatarRootProps = ComponentProps<typeof AvatarPrimitive.Root> & {
   size?: AvatarSize;
 };
+type AvatarGroupProps = HTMLArkProps<'div'>;
 type AvatarRootProviderProps = ComponentProps<typeof AvatarPrimitive.RootProvider> & {
   size?: AvatarSize;
 };
 
 const Avatar = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarRootProps>(
-  function Avatar({ className, size, ...props }, ref) {
+  function Avatar({ className, size = 'md', ...props }, ref) {
     return (
       <AvatarPrimitive.Root
         ref={ref}
-        data-size={size}
         className={clsx(styles.root, className)}
         {...props}
+        data-size={size}
         data-slot="avatar-root"
       />
     );
@@ -28,7 +30,7 @@ const Avatar = forwardRef<ComponentRef<typeof AvatarPrimitive.Root>, AvatarRootP
 const AvatarRootProvider = forwardRef<
   ComponentRef<typeof AvatarPrimitive.RootProvider>,
   AvatarRootProviderProps
->(function AvatarRootProvider({ className, size, ...props }, ref) {
+>(function AvatarRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <AvatarPrimitive.RootProvider
       ref={ref}
@@ -57,16 +59,28 @@ const AvatarImage = forwardRef<
 const AvatarFallback = forwardRef<
   ComponentRef<typeof AvatarPrimitive.Fallback>,
   ComponentProps<typeof AvatarPrimitive.Fallback>
->(function AvatarFallback({ children, className, ...props }, ref) {
+>(function AvatarFallback({ className, ...props }, ref) {
   return (
     <AvatarPrimitive.Fallback
       ref={ref}
       className={clsx(styles.fallback, className)}
       {...props}
       data-slot="avatar-fallback"
-    >
-      {children}
-    </AvatarPrimitive.Fallback>
+    />
+  );
+});
+
+const AvatarGroup = forwardRef<ComponentRef<typeof ark.div>, AvatarGroupProps>(function AvatarGroup(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <ark.div
+      ref={ref}
+      className={clsx(styles.group, className)}
+      {...props}
+      data-slot="avatar-group"
+    />
   );
 });
 
@@ -76,8 +90,10 @@ export {
   Avatar,
   AvatarContext,
   AvatarFallback,
+  AvatarGroup,
   AvatarImage,
   AvatarRootProvider,
   useAvatar,
   useAvatarContext,
 };
+export type { AvatarGroupProps, AvatarRootProps, AvatarRootProviderProps, AvatarSize };

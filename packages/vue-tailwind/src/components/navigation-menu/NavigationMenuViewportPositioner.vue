@@ -16,7 +16,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const viewportPositionerClass =
-  'absolute start-0 top-full z-60 flex [translate:var(--viewport-x,0px)_0] data-[orientation=vertical]:start-full data-[orientation=vertical]:top-[var(--viewport-y,0px)] data-[orientation=vertical]:[translate:0_0] data-[orientation=vertical]:[&>[data-slot=navigation-menu-viewport]]:ms-2 data-[orientation=vertical]:[&>[data-slot=navigation-menu-viewport]]:mt-0';
+  'absolute z-60 flex data-[orientation=horizontal]:top-full data-[orientation=horizontal]:left-0 data-[orientation=horizontal]:[translate:var(--viewport-x,0px)_0] data-[orientation=vertical]:start-full data-[orientation=vertical]:top-[var(--viewport-y,0px)]';
 </script>
 
 <template>

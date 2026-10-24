@@ -30,8 +30,8 @@ export default function DialogOutsideScrollDemo() {
     <Dialog>
       <DialogTrigger asChild={(props) => <Button {...props()}>Open release notes</Button>} />
       <DialogBackdrop />
-      <DialogPositioner class={styles.positioner}>
-        <DialogContent class={styles.content}>
+      <DialogPositioner>
+        <DialogContent placement="top">
           <DialogHeader>
             <DialogTitle>Release notes</DialogTitle>
             <DialogDescription>

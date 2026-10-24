@@ -16,13 +16,13 @@ import {
   SidebarResizeTrigger,
   SidebarTooltip,
   SidebarTrigger,
-  type SidebarProps,
+  type SidebarRootProps,
 } from '@moduix/vue/sidebar';
 import { onMounted, ref } from 'vue';
 import styles from '@/components/examples/sidebar/sidebar-persisted-layout.module.css';
 
 const storageKey = 'my-app-sidebar-size';
-type SidebarSize = NonNullable<SidebarProps['size']>;
+type SidebarSize = NonNullable<SidebarRootProps['size']>;
 const defaultSize: SidebarSize = ['16rem'];
 const size = ref<SidebarSize>(defaultSize);
 

@@ -5,39 +5,6 @@ description: Créez des graphiques accessibles et adaptatifs avec TanStack Chart
 ---
 
 import * as ChartDocs from '@/components/examples/chart/css-properties';
-import ChartAdvancedCustomization from '@/components/examples/chart/advanced-customization.tsx';
-import ChartAnimatedArea from '@/components/examples/chart/animated-area.tsx';
-import ChartBasic from '@/components/examples/chart/basic.tsx';
-import ChartDonut from '@/components/examples/chart/donut.tsx';
-import ChartHeatmap from '@/components/examples/chart/heatmap.tsx';
-import ChartHorizontalBars from '@/components/examples/chart/horizontal-bars.tsx';
-import ChartInteractiveLegend from '@/components/examples/chart/interactive-legend.tsx';
-import ChartColors from '@/components/examples/chart/line-colors.tsx';
-import ChartRadar from '@/components/examples/chart/radar.tsx';
-import ChartScatter from '@/components/examples/chart/scatter.tsx';
-import ChartStackedBars from '@/components/examples/chart/stacked-bars.tsx';
-import chartSolidAdvancedCustomization from '../../../snippets/chart/solid/advanced-customization.tsx?raw';
-import chartSolidAnimatedArea from '../../../snippets/chart/solid/animated-area.tsx?raw';
-import chartSolidBasic from '../../../snippets/chart/solid/basic.tsx?raw';
-import chartSolidDonut from '../../../snippets/chart/solid/donut.tsx?raw';
-import chartSolidHeatmap from '../../../snippets/chart/solid/heatmap.tsx?raw';
-import chartSolidHorizontalBars from '../../../snippets/chart/solid/horizontal-bars.tsx?raw';
-import chartSolidInteractiveLegend from '../../../snippets/chart/solid/interactive-legend.tsx?raw';
-import chartSolidColors from '../../../snippets/chart/solid/line-colors.tsx?raw';
-import chartSolidRadar from '../../../snippets/chart/solid/radar.tsx?raw';
-import chartSolidScatter from '../../../snippets/chart/solid/scatter.tsx?raw';
-import chartSolidStackedBars from '../../../snippets/chart/solid/stacked-bars.tsx?raw';
-import chartVueAdvancedCustomization from '../../../snippets/chart/vue/advanced-customization.vue?raw';
-import chartVueAnimatedArea from '../../../snippets/chart/vue/animated-area.vue?raw';
-import chartVueBasic from '../../../snippets/chart/vue/basic.vue?raw';
-import chartVueDonut from '../../../snippets/chart/vue/donut.vue?raw';
-import chartVueHeatmap from '../../../snippets/chart/vue/heatmap.vue?raw';
-import chartVueHorizontalBars from '../../../snippets/chart/vue/horizontal-bars.vue?raw';
-import chartVueInteractiveLegend from '../../../snippets/chart/vue/interactive-legend.vue?raw';
-import chartVueColors from '../../../snippets/chart/vue/line-colors.vue?raw';
-import chartVueRadar from '../../../snippets/chart/vue/radar.vue?raw';
-import chartVueScatter from '../../../snippets/chart/vue/scatter.vue?raw';
-import chartVueStackedBars from '../../../snippets/chart/vue/stacked-bars.vue?raw';
 
 ## Référence de l’API
 
@@ -58,41 +25,7 @@ Créez une définition TanStack et transmettez-la à `ChartPlot`. Ajoutez autour
 titre, une description et une légende visibles, puis définissez un `ariaLabel` concis pour les
 personnes qui utilisent des technologies d’assistance.
 
-<ExampleFrame variant="component">
-  <ChartBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/chart/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={chartSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={chartVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="chart/basic" />
 
 ## Installation avec shadcn
 
@@ -174,64 +107,14 @@ contrôlés par l’application.
 La zone, la ligne, les points, le focus groupé et l’animation de l’info-bulle restent natifs de
 TanStack.
 
-<ExampleFrame variant="component">
-  <ChartAnimatedArea />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/chart/animated-area.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={chartSolidAnimatedArea} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={chartVueAnimatedArea} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="chart/animated-area" />
 
 ### Couleurs du graphique
 
 Utilisez les tokens de couleur de moduix dans l’échelle de couleurs TanStack. Les propriétés CSS
 fonctionnent comme des valeurs de peinture SVG et suivent automatiquement le thème actif.
 
-<ExampleFrame variant="component">
-  <ChartColors />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/chart/line-colors.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={chartSolidColors} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={chartVueColors} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="chart/line-colors" />
 
 ### Légende interactive
 
@@ -241,32 +124,7 @@ et au focus clavier. Les états avec `source: 'legend'` mettent la série en év
 d’info-bulle ni modifier le focus du graphique. Gardez les séries visibles dans l’état du framework
 via `controlledSignal` ; TanStack gère les boutons, le filtrage et les interactions au clavier.
 
-<ExampleFrame variant="component">
-  <ChartInteractiveLegend />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/chart/interactive-legend.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={chartSolidInteractiveLegend} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={chartVueInteractiveLegend} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="chart/interactive-legend" />
 
 ### Graphique radar
 
@@ -280,32 +138,7 @@ Cet exemple nécessite aussi `d3-shape` et ses types TypeScript :
 <PackageManagerTabs command="install d3-shape" />
 <PackageManagerTabs command="install -D @types/d3-shape" />
 
-<ExampleFrame variant="component">
-  <ChartRadar />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/chart/radar.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={chartSolidRadar} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={chartVueRadar} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="chart/radar" />
 
 ### Graphique en anneau
 
@@ -313,160 +146,35 @@ Combinez les primitives TanStack optionnelles `pie`, `polar` et `radialArc` pour
 parts d’un ensemble. La même composition de `ChartPlot`, de l’animation, du focus, de l’info-bulle
 et de la légende fonctionne aussi hors des graphiques cartésiens.
 
-<ExampleFrame variant="component">
-  <ChartDonut />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/chart/donut.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={chartSolidDonut} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={chartVueDonut} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="chart/donut" />
 
 ### Carte thermique
 
 Utilisez `cell` avec des échelles band sur les deux axes pour créer une matrice catégorielle
 compacte. Un canal de couleur transforme le niveau de chaque cellule en une valeur adaptée au thème.
 
-<ExampleFrame variant="component">
-  <ChartHeatmap />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/chart/heatmap.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={chartSolidHeatmap} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={chartVueHeatmap} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="chart/heatmap" />
 
 ### Barres horizontales
 
 Utilisez `barX` lorsque les libellés de catégories sont longs ou que le classement doit se lire de
 haut en bas. La valeur numérique se place sur x et la catégorie sur y.
 
-<ExampleFrame variant="component">
-  <ChartHorizontalBars />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/chart/horizontal-bars.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={chartSolidHorizontalBars} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={chartVueHorizontalBars} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="chart/horizontal-bars" />
 
 ### Nuage de points
 
 Utilisez `dot` pour comparer deux valeurs quantitatives. La couleur peut porter une dimension
 catégorielle supplémentaire sans modifier la relation entre x et y.
 
-<ExampleFrame variant="component">
-  <ChartScatter />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/chart/scatter.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={chartSolidScatter} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={chartVueScatter} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="chart/scatter" />
 
 ### Barres empilées
 
 Utilisez un canal de couleur TanStack et la disposition `stack()` pour les barres multi-séries.
 `focus: 'group-x'` regroupe l’info-bulle et le focus clavier par trimestre.
 
-<ExampleFrame variant="component">
-  <ChartStackedBars />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/chart/stacked-bars.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={chartSolidStackedBars} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={chartVueStackedBars} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="chart/stacked-bars" />
 
 ### Personnalisation avancée
 
@@ -480,57 +188,27 @@ l’élément externe, et `renderTooltipBody` pour étendre l’info-bulle. Rend
 propre enveloppe pendant que TanStack continue de gérer le positionnement et le portail. N’ajoutez
 des contrôles interactifs que dans une info-bulle épinglée.
 
-<ExampleFrame variant="component">
-  <ChartAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/chart/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={chartSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={chartVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/chart/chart-advanced-customization.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="chart/advanced-customization" />
 
 ## Styles
 
-Stylisez la figure avec `Chart` et l’hôte TanStack avec `ChartPlot`. Les propriétés CSS
-publiques contrôlent la surface, l’anneau de focus, l’enveloppe de l’info-bulle et sa mise en page
-par défaut. Gardez la géométrie du graphique dans la définition TanStack, via les options des
-éléments, les échelles et les canaux de couleur.
+Stylisez la figure avec `Chart` et l’hôte TanStack avec `ChartPlot`. Les propriétés CSS ci-dessous
+contrôlent la surface de `Chart` et l’indicateur de légende. Gardez la géométrie du graphique dans la
+définition TanStack, via les options des éléments, les échelles et les canaux de couleur.
 
 Les variantes Tailwind utilisent les utilitaires natifs et les classes de l’application ; les
-propriétés CSS ci-dessous personnalisent les variantes CSS Modules. Les attributs de données et les
-sélecteurs `data-slot` sont communs aux deux modes de style.
+propriétés CSS ci-dessous personnalisent les variantes CSS Modules. Les deux modes de style
+définissent les variables TanStack `--ts-chart-tooltip-*` sur l’hôte `ChartPlot`, et partagent les
+attributs de données et les sélecteurs `data-slot`.
 
-Ajoutez une classe locale (`className` en React ou `class` en Solid et Vue) lorsque le graphique nécessite
-des remplacements locaux :
+Pour modifier l’enveloppe de l’info-bulle, remplacez ces variables avec une classe sur `ChartPlot`
+(`className` en React ou `class` en Solid et Vue) :
 
 ```css
-.sales-chart {
-  --moduix-chart-tooltip-bg: var(--moduix-color-card);
-  --moduix-chart-tooltip-font-size: var(--moduix-text-sm);
-  --moduix-chart-tooltip-line-height: var(--moduix-line-height-text-sm);
+.sales-plot {
+  --ts-chart-tooltip-background: var(--moduix-color-card);
+  --ts-chart-tooltip-font: var(--moduix-weight-medium) var(--moduix-text-sm) /
+    var(--moduix-line-height-text-sm) var(--moduix-font-sans);
 }
 ```
 
@@ -547,6 +225,7 @@ des remplacements locaux :
   `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`,
   `chart-tooltip-value` et `chart-tooltip-text`.
 - Utilisez `--moduix-color-chart-1` à `--moduix-color-chart-5` dans les échelles de couleurs TanStack.
-- L’enveloppe de l’info-bulle se style avec les variables documentées `--ts-chart-tooltip-*`,
-  associées aux propriétés moduix. Utilisez `tooltip.className` pour vos sélecteurs CSS, ou
-  `renderTooltipBody` lorsque vous avez besoin d’un contenu personnalisé et du `defaultBody` natif.
+- Les lignes de l’info-bulle que TanStack marque comme `active` reçoivent `data-active`.
+- L’enveloppe de l’info-bulle lit les variables TanStack `--ts-chart-tooltip-*` sur l’hôte
+  `ChartPlot`. Utilisez `tooltip.className` pour vos sélecteurs CSS, ou `renderTooltipBody` pour un
+  contenu personnalisé autour du `defaultBody` de moduix.

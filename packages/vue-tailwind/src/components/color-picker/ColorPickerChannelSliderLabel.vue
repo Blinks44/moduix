@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkColorPickerChannelSliderLabel
     v-bind="attrs"
-    :class="cn('text-sm font-medium text-foreground', className)"
+    :class="cn('text-sm font-medium', className)"
     data-slot="color-picker-channel-slider-label"
   />
 </template>

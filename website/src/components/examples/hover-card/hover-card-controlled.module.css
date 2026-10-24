@@ -21,10 +21,3 @@
   color: var(--moduix-color-muted-foreground);
   margin: 0;
 }
-
-.trigger {
-  background-color: var(--moduix-color-muted);
-  border-radius: var(--moduix-radius-sm);
-  padding-inline: var(--moduix-spacing-1);
-  text-decoration: none;
-}

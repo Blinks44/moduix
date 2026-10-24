@@ -23,8 +23,13 @@ Ark передает состояния появления и скрытия ч�
 | Tailwind CSS | Используйте анимации из Tailwind-компонента, а для исключений переопределяйте классы потребителя или код из реестра. |
 
 Переменные ниже относятся к CSS Modules-пакетам всех выпущенных фреймворков. React, Solid и Vue используют
-одинаковые имена. Tailwind-пакеты строят анимации на utility-классах и не предоставляют контракт
-локальных переменных CSS Modules.
+одинаковые имена. Содержимое popup-элементов в Tailwind анимируют утилиты `animate-moduix-popup-in` и
+`animate-moduix-popup-out`, которые читают те же общие `--moduix-popup-motion-*`; семейства переменных
+отдельных компонентов Tailwind-пакеты не предоставляют.
+
+Переходы в Tailwind используют утилиты `duration-fast`, `duration-normal` и `duration-slow` из темы
+moduix. Они читают `--moduix-duration-*`, поэтому изменённый токен длительности и reduced motion
+действуют на оба способа стилизации.
 
 ## Настройте общую анимацию popup-элементов
 
@@ -54,28 +59,21 @@ Command Palette, Lightbox, Tour, Navigation Menu, Select, Combobox, Date Picker 
 
 ## Добавьте локальное исключение
 
-Переменные компонента имеют приоритет над общими значениями. Назначайте их визуальной части, которой
-принадлежит анимация.
+У popup-компонентов нет собственных переменных анимации. Задайте общие переменные `--moduix-popup-motion-*`
+на части с содержимым: keyframes читают их с этого элемента.
 
-| Поверхность | Часть | Семейство переменных |
-| --- | --- | --- |
-| Popover | `PopoverContent` | `--moduix-popover-content-*` |
-| Dialog | `DialogContent` | `--moduix-dialog-content-*` |
-| Select | `SelectContent` | `--moduix-select-content-*` |
-| Navigation Menu | `NavigationMenuContent` | `--moduix-navigation-menu-content-*` |
-
-Например, один Select можно открывать с более мягким масштабированием:
+Например, один Select можно открывать с более мягким масштабированием, если назначить класс `SelectContent`:
 
 ```css
 .softScalePicker {
-  --moduix-select-transition: 180ms cubic-bezier(0.22, 1, 0.36, 1);
-  --moduix-select-content-closed-opacity: 0;
-  --moduix-select-content-closed-scale: 0.96;
+  --moduix-popup-motion-duration: 180ms;
+  --moduix-popup-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-popup-motion-starting-scale: 0.96;
+  --moduix-popup-motion-ending-scale: 0.96;
 }
 ```
 
-Полный список переменных находится на странице [Select](/docs/select). Backdrop модальных компонентов использует
-собственные переменные перехода, прозрачности и размытия, а не масштаб и смещение popup-элементов.
+Backdrop модальных компонентов не наследует масштаб и смещение popup-элементов.
 
 ## Не смешивайте разные типы анимации
 

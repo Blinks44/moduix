@@ -5,48 +5,6 @@ description: Поле для поиска и выбора одного или н
 ---
 
 import * as ComboboxDocs from '@/components/examples/combobox/css-properties';
-import ComboboxAdvancedCustomization from '@/components/examples/combobox/advanced-customization.tsx';
-import ComboboxAsyncSearch from '@/components/examples/combobox/async-search.tsx';
-import ComboboxAutoHighlight from '@/components/examples/combobox/auto-highlight.tsx';
-import ComboboxBasic from '@/components/examples/combobox/basic.tsx';
-import ComboboxControlled from '@/components/examples/combobox/controlled.tsx';
-import ComboboxCreatable from '@/components/examples/combobox/creatable.tsx';
-import ComboboxCustomObjectsAndGrouping from '@/components/examples/combobox/custom-objects-and-grouping.tsx';
-import ComboboxDynamic from '@/components/examples/combobox/dynamic.tsx';
-import ComboboxInlineAutocomplete from '@/components/examples/combobox/inline-autocomplete.tsx';
-import ComboboxLimitResults from '@/components/examples/combobox/limit-results.tsx';
-import ComboboxMultiple from '@/components/examples/combobox/multiple.tsx';
-import ComboboxRootProvider from '@/components/examples/combobox/root-provider.tsx';
-import ComboboxVirtualized from '@/components/examples/combobox/virtualized.tsx';
-import ComboboxWithTagsInput from '@/components/examples/combobox/with-tags-input.tsx';
-import comboboxSolidAdvancedCustomization from '../../../snippets/combobox/solid/advanced-customization.tsx?raw';
-import comboboxSolidAsyncSearch from '../../../snippets/combobox/solid/async-search.tsx?raw';
-import comboboxSolidAutoHighlight from '../../../snippets/combobox/solid/auto-highlight.tsx?raw';
-import comboboxSolidBasic from '../../../snippets/combobox/solid/basic.tsx?raw';
-import comboboxSolidControlled from '../../../snippets/combobox/solid/controlled.tsx?raw';
-import comboboxSolidCreatable from '../../../snippets/combobox/solid/creatable.tsx?raw';
-import comboboxSolidCustomObjectsAndGrouping from '../../../snippets/combobox/solid/custom-objects-and-grouping.tsx?raw';
-import comboboxSolidDynamic from '../../../snippets/combobox/solid/dynamic.tsx?raw';
-import comboboxSolidInlineAutocomplete from '../../../snippets/combobox/solid/inline-autocomplete.tsx?raw';
-import comboboxSolidLimitResults from '../../../snippets/combobox/solid/limit-results.tsx?raw';
-import comboboxSolidMultiple from '../../../snippets/combobox/solid/multiple.tsx?raw';
-import comboboxSolidRootProvider from '../../../snippets/combobox/solid/root-provider.tsx?raw';
-import comboboxSolidVirtualized from '../../../snippets/combobox/solid/virtualized.tsx?raw';
-import comboboxSolidWithTagsInput from '../../../snippets/combobox/solid/with-tags-input.tsx?raw';
-import comboboxVueAdvancedCustomization from '../../../snippets/combobox/vue/advanced-customization.vue?raw';
-import comboboxVueAsyncSearch from '../../../snippets/combobox/vue/async-search.vue?raw';
-import comboboxVueAutoHighlight from '../../../snippets/combobox/vue/auto-highlight.vue?raw';
-import comboboxVueBasic from '../../../snippets/combobox/vue/basic.vue?raw';
-import comboboxVueControlled from '../../../snippets/combobox/vue/controlled.vue?raw';
-import comboboxVueCreatable from '../../../snippets/combobox/vue/creatable.vue?raw';
-import comboboxVueCustomObjectsAndGrouping from '../../../snippets/combobox/vue/custom-objects-and-grouping.vue?raw';
-import comboboxVueDynamic from '../../../snippets/combobox/vue/dynamic.vue?raw';
-import comboboxVueInlineAutocomplete from '../../../snippets/combobox/vue/inline-autocomplete.vue?raw';
-import comboboxVueLimitResults from '../../../snippets/combobox/vue/limit-results.vue?raw';
-import comboboxVueMultiple from '../../../snippets/combobox/vue/multiple.vue?raw';
-import comboboxVueRootProvider from '../../../snippets/combobox/vue/root-provider.vue?raw';
-import comboboxVueVirtualized from '../../../snippets/combobox/vue/virtualized.vue?raw';
-import comboboxVueWithTagsInput from '../../../snippets/combobox/vue/with-tags-input.vue?raw';
 
 ## Справочник API
 
@@ -65,46 +23,7 @@ import comboboxVueWithTagsInput from '../../../snippets/combobox/vue/with-tags-i
 Колбэк `onInputValueChange` получает объект `details` от Ark.
 Примеры для Vue используют нативные SFC с `script setup`, refs, слотами и `v-model`, когда это предусмотрено контрактом компонента.
 
-<ExampleFrame variant="component">
-  <ComboboxBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/basic" />
 
 ## Установка через shadcn
 
@@ -213,459 +132,69 @@ Combobox[collection]
 Используйте `details.reason`, чтобы отличать пользовательский ввод от программного изменения поля. Если поле пустое,
 показывайте статус `Start typing to search…`, чтобы список не оставался пустым.
 
-<ExampleFrame variant="component">
-  <ComboboxAsyncSearch />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-    { label: 'React', value: 'react' },
-    { label: 'Solid', value: 'solid' },
-    { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/async-search.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidAsyncSearch} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueAsyncSearch} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-async-search.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/async-search" />
 
 ### Автоматическая подсветка
 
 Задайте `inputBehavior="autohighlight"`, чтобы при вводе выделять первый подходящий элемент и выбирать его клавишей Enter
 без дополнительного нажатия клавиши со стрелкой.
 
-<ExampleFrame variant="component">
-  <ComboboxAutoHighlight />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/auto-highlight.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidAutoHighlight} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueAutoHighlight} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-auto-highlight.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/auto-highlight" />
 
 ### Управляемое состояние
 
 Управляйте массивом выбранных строк и получайте новое значение из `details.value`.
 
-<ExampleFrame variant="component">
-  <ComboboxControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/controlled" />
 
 ### Создание значения
 
 Сочетайте `allowCustomValue` с изменением коллекции, чтобы показывать временный элемент «Создать», а после выбора
 заменяйте его временное значение на введённый пользователем текст.
 
-<ExampleFrame variant="component">
-  <ComboboxCreatable />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/creatable.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidCreatable} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueCreatable} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-creatable.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/creatable" />
 
 ### Пользовательские объекты и группировка
 
 Настройте в коллекции преобразование объектов в подписи и значения, затем отображайте группы Ark через `collection.group()`.
 Подписи групп остаются у верхнего края всплывающего списка при прокрутке результатов.
 
-<ExampleFrame variant="component">
-  <ComboboxCustomObjectsAndGrouping />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/custom-objects-and-grouping.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidCustomObjectsAndGrouping} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueCustomObjectsAndGrouping} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-custom-objects-and-grouping.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/custom-objects-and-grouping" />
 
 ### Динамическое изменение
 
 Формируйте коллекцию из текущего ввода, если предложения появляются только после начала ввода. Проверяйте
 `details.reason`, чтобы не перестраивать её после изменения поля, вызванного выбором.
 
-<ExampleFrame variant="component">
-  <ComboboxDynamic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/dynamic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidDynamic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueDynamic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-dynamic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/dynamic" />
 
 ### Встроенное автодополнение
 
 Задайте `inputBehavior="autocomplete"` и фильтруйте с помощью `startsWith`, чтобы подставлять в поле первый подходящий
 вариант и сохранять клавиатурную навигацию Ark.
 
-<ExampleFrame variant="component">
-  <ComboboxInlineAutocomplete />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/inline-autocomplete.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidInlineAutocomplete} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueInlineAutocomplete} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-inline-autocomplete.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/inline-autocomplete" />
 
 ### Ограничение результатов
 
 Задайте `limit` в `useListCollection`, если полный набор совпадений не нужен или его трудно просматривать во всплывающем списке.
 Фильтрация всё равно выполняется по всей исходной коллекции.
 
-<ExampleFrame variant="component">
-  <ComboboxLimitResults />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/limit-results.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidLimitResults} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueLimitResults} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-limit-results.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/limit-results" />
 
 ### Множественный выбор
 
 Включите `multiple` и отображайте выбранные объекты из управляемого `value`. Теги нужно отрисовать на стороне приложения.
 Если они должны находиться в одной оболочке поля, скомпонуйте `Combobox` с `TagsInput`.
 
-<ExampleFrame variant="component">
-  <ComboboxMultiple />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/multiple.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidMultiple} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueMultiple} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-multiple.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/multiple" />
 
 ### Root Provider
 
 Создавайте состояние через `useCombobox` из moduix, когда внешним элементам управления нужны императивные методы или общее
 состояние до отображения корневого компонента. `ComboboxRootProvider` сохраняет стили корня moduix и настройки портала.
 
-<ExampleFrame variant="component">
-  <ComboboxRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/root-provider" />
 
 ### Виртуализация
 
@@ -674,133 +203,21 @@ Combobox[collection]
 затем свяжите клавиатурную навигацию Ark с `scrollToIndexFn`. Сохраняйте `aria-setsize` и
 `aria-posinset` у виртуализированных строк.
 
-<ExampleFrame variant="component">
-  <ComboboxVirtualized />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/virtualized.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidVirtualized} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueVirtualized} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-virtualized.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/virtualized" />
 
 ### Вместе с TagsInput
 
 Используйте `Combobox` вместе с `TagsInput`, если пользователю нужны отфильтрованные предложения, а выбранные значения должны
 находиться в одном редактируемом поле с тегами.
 
-<ExampleFrame variant="component">
-  <ComboboxWithTagsInput />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/with-tags-input.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidWithTagsInput} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueWithTagsInput} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="combobox/with-tags-input" />
 
 ### Расширенная настройка
 
 Используйте полную композицию элемента, если ему нужен собственный семантический элемент или макет. В этом примере
 каждый результат отображается как ссылка через `ComboboxItem asChild`.
 
-<ExampleFrame variant="component">
-  <ComboboxAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/combobox/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={comboboxSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={comboboxVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/combobox/component-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="combobox/advanced-customization" />
 
 ## Стилизация
 

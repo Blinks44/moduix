@@ -4,30 +4,9 @@ component: qr-code
 description: Компонент QR-кода на базе Ark UI, который выводит SVG, поддерживает наложение содержимого и скачивание изображения.
 ---
 
-import QrCodeBasic from '@/components/examples/qr-code/basic.tsx';
-import ControlledQrCode from '@/components/examples/qr-code/controlled.tsx';
-import DownloadQrCode from '@/components/examples/qr-code/download.tsx';
-import ErrorCorrectionQrCode from '@/components/examples/qr-code/error-correction.tsx';
-import FillQrCode from '@/components/examples/qr-code/fill.tsx';
-import InputQrCode from '@/components/examples/qr-code/input.tsx';
-import OverlayQrCode from '@/components/examples/qr-code/overlay.tsx';
 import RootProviderQrCode from '@/components/examples/qr-code/root-provider.tsx';
 import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
-import qrCodeSolidBasic from '../../../snippets/qr-code/solid/basic.tsx?raw';
-import qrCodeSolidControlled from '../../../snippets/qr-code/solid/controlled.tsx?raw';
-import qrCodeSolidDownload from '../../../snippets/qr-code/solid/download.tsx?raw';
-import qrCodeSolidErrorCorrection from '../../../snippets/qr-code/solid/error-correction.tsx?raw';
-import qrCodeSolidFill from '../../../snippets/qr-code/solid/fill.tsx?raw';
-import qrCodeSolidInput from '../../../snippets/qr-code/solid/input.tsx?raw';
-import qrCodeSolidOverlay from '../../../snippets/qr-code/solid/overlay.tsx?raw';
 import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provider.tsx?raw';
-import qrCodeVueBasic from '../../../snippets/qr-code/vue/basic.vue?raw';
-import qrCodeVueControlled from '../../../snippets/qr-code/vue/controlled.vue?raw';
-import qrCodeVueDownload from '../../../snippets/qr-code/vue/download.vue?raw';
-import qrCodeVueErrorCorrection from '../../../snippets/qr-code/vue/error-correction.vue?raw';
-import qrCodeVueFill from '../../../snippets/qr-code/vue/fill.vue?raw';
-import qrCodeVueInput from '../../../snippets/qr-code/vue/input.vue?raw';
-import qrCodeVueOverlay from '../../../snippets/qr-code/vue/overlay.vue?raw';
 import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.vue?raw';
 
 ## Справочник API
@@ -41,41 +20,7 @@ import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.v
 затем явно отрисуйте `QrCodeFrame` и `QrCodePattern`, чтобы показать созданный SVG. Если QR-код
 передаёт информацию, задайте для `QrCodeFrame` доступное имя.
 
-<ExampleFrame variant="component">
-  <QrCodeBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="qr-code/basic" />
 
 ## Установка через shadcn
 
@@ -155,87 +100,14 @@ QR-кода. Не создавайте для одного хранилища о
 Управляйте `value`, если QR-код должен следовать выбранному адресу или другой части состояния
 приложения.
 
-<ExampleFrame variant="component">
-  <ControlledQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/qr-code/component-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="qr-code/controlled" />
 
 ### Скачивание
 
 Добавьте `QrCodeDownloadTrigger`, если пользователям нужно сохранить QR-код как изображение.
 Укажите в триггере и `fileName`, и `mimeType`.
 
-<ExampleFrame variant="component">
-  <DownloadQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/download.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidDownload} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueDownload} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="qr-code/download" />
 
 ### Коррекция ошибок
 
@@ -248,138 +120,21 @@ QR-кода. Не создавайте для одного хранилища о
 - `Q`: до 25%.
 - `H`: до 30%.
 
-<ExampleFrame variant="component">
-  <ErrorCorrectionQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/error-correction.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidErrorCorrection} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueErrorCorrection} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/qr-code/component-error-correction.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="qr-code/error-correction" />
 
 ### Заливка
 
-По умолчанию модули QR-кода используют `currentColor`. Измените заливку SVG через `style`, класс
-или переменную `--moduix-qr-code-fill`.
+По умолчанию модули QR-кода используют `currentColor`. Измените заливку SVG через `style` или класс
+на `QrCodeFrame` либо задайте цвет текста родителю.
 
-<ExampleFrame variant="component">
-  <FillQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/fill.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidFill} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueFill} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/qr-code/component-fill.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="qr-code/fill" />
 
 ### Поле ввода
 
 Свяжите `value` с текстовым полем, если пользователям нужно вводить или редактировать содержимое,
 закодированное в QR-коде. Задайте для frame доступное имя, объясняющее, что представляет код.
 
-<ExampleFrame variant="component">
-  <InputQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/input.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidInput} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueInput} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/qr-code/component-input.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="qr-code/input" />
 
 ### Наложение
 
@@ -387,46 +142,7 @@ QR-кода. Не создавайте для одного хранилища о
 уровень коррекции ошибок и оставьте наложение достаточно маленьким, чтобы сканеры продолжали
 распознавать код.
 
-<ExampleFrame variant="component">
-  <OverlayQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/overlay.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidOverlay} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueOverlay} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/qr-code/component-overlay.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="qr-code/overlay" />
 
 ### Root Provider
 

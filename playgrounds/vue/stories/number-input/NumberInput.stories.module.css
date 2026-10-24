@@ -11,12 +11,20 @@
 }
 
 .customButton {
-  --moduix-number-input-button-bg: var(--moduix-color-muted);
-  --moduix-number-input-button-bg-hover: var(--moduix-color-accent);
-  --moduix-number-input-icon-size: 1rem;
+  background-color: var(--moduix-color-muted);
+
+  & > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &:hover {
+    background-color: var(--moduix-color-accent);
+  }
 }
 
 .customInput {
   --moduix-number-input-input-width: 7rem;
-  --moduix-number-input-input-font-size: var(--moduix-text-lg);
+
+  font-size: var(--moduix-text-lg);
 }

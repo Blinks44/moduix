@@ -8,17 +8,17 @@ import { cn } from '@/lib/moduix/cn';
 type AlertStatus = 'info' | 'success' | 'warning' | 'error';
 
 const alertVariants = cva(
-  'group/alert box-border flex w-full min-w-0 items-start gap-3 rounded-lg border bg-card p-3 text-card-foreground',
+  'flex w-full min-w-0 items-start gap-3 rounded-lg border bg-card p-3 text-card-foreground',
   {
     variants: {
       status: {
-        info: 'border-border',
+        info: 'border-border [--_alert-indicator-color:var(--color-muted-foreground)]',
         success:
-          'border-success/34 bg-[color-mix(in_oklab,var(--color-success)_10%,var(--color-background))] text-foreground',
+          'border-success/34 bg-[color-mix(in_oklab,var(--color-success)_10%,var(--color-background))] text-foreground [--_alert-indicator-color:var(--color-success)]',
         warning:
-          'border-warning/38 bg-[color-mix(in_oklab,var(--color-warning)_13%,var(--color-background))] text-foreground',
+          'border-warning/38 bg-[color-mix(in_oklab,var(--color-warning)_13%,var(--color-background))] text-foreground [--_alert-indicator-color:var(--color-warning)]',
         error:
-          'border-destructive/35 bg-[color-mix(in_oklab,var(--color-destructive)_9%,var(--color-background))] text-foreground',
+          'border-destructive/35 bg-[color-mix(in_oklab,var(--color-destructive)_9%,var(--color-background))] text-foreground [--_alert-indicator-color:var(--color-destructive)]',
       },
     },
     defaultVariants: {
@@ -27,27 +27,24 @@ const alertVariants = cva(
   },
 );
 
-type AlertProps = HTMLArkProps<'div'> & {
+type AlertRootProps = HTMLArkProps<'div'> & {
   status?: AlertStatus;
 };
 
-const Alert = forwardRef<ComponentRef<typeof ark.div>, AlertProps>(function Alert(
-  { children, className, role, status = 'info', ...props },
+const Alert = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(function Alert(
+  { className, status = 'info', ...props },
   ref,
 ) {
   return (
     <ark.div
       ref={ref}
-      role={role}
       className={cn(alertVariants({ status }), className)}
       {...props}
       data-scope="alert"
       data-part="root"
       data-status={status}
       data-slot="alert-root"
-    >
-      {children}
-    </ark.div>
+    />
   );
 });
 
@@ -58,7 +55,7 @@ const AlertIndicator = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'s
         ref={ref}
         aria-hidden="true"
         className={cn(
-          'mt-0.5 inline-flex size-4 shrink-0 items-center justify-center text-muted-foreground group-data-[status=error]/alert:text-destructive group-data-[status=success]/alert:text-success group-data-[status=warning]/alert:text-warning [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+          'mt-0.5 inline-flex shrink-0 items-center justify-center text-(color:--_alert-indicator-color) [&_svg]:pointer-events-none [&_svg]:shrink-0 [:where(&_svg)]:size-4',
           className,
         )}
         {...props}
@@ -135,3 +132,4 @@ const AlertActions = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
 );
 
 export { Alert, AlertActions, AlertContent, AlertDescription, AlertIndicator, AlertTitle };
+export type { AlertRootProps, AlertStatus };

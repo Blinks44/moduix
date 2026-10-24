@@ -4,22 +4,6 @@ component: bleed
 description: Компонент для выхода отдельных блоков за границы ограниченного контейнера.
 ---
 
-import * as BleedDocs from '@/components/examples/bleed/css-properties';
-import BleedBasic from '@/components/examples/bleed/basic.tsx';
-import BleedBlockBleed from '@/components/examples/bleed/block-bleed.tsx';
-import BleedCustomStyling from '@/components/examples/bleed/custom-styling.tsx';
-import BleedInlineAmounts from '@/components/examples/bleed/inline-amounts.tsx';
-import BleedSemanticElement from '@/components/examples/bleed/semantic-element.tsx';
-import bleedSolidBasic from '../../../snippets/bleed/solid/basic.tsx?raw';
-import bleedSolidBlockBleed from '../../../snippets/bleed/solid/block-bleed.tsx?raw';
-import bleedSolidCustomStyling from '../../../snippets/bleed/solid/custom-styling.tsx?raw';
-import bleedSolidInlineAmounts from '../../../snippets/bleed/solid/inline-amounts.tsx?raw';
-import bleedSolidSemanticElement from '../../../snippets/bleed/solid/semantic-element.tsx?raw';
-import bleedVueBasic from '../../../snippets/bleed/vue/basic.vue?raw';
-import bleedVueBlockBleed from '../../../snippets/bleed/vue/block-bleed.vue?raw';
-import bleedVueCustomStyling from '../../../snippets/bleed/vue/custom-styling.vue?raw';
-import bleedVueInlineAmounts from '../../../snippets/bleed/vue/inline-amounts.vue?raw';
-import bleedVueSemanticElement from '../../../snippets/bleed/vue/semantic-element.vue?raw';
 
 ## Справочник API
 
@@ -41,46 +25,7 @@ import bleedVueSemanticElement from '../../../snippets/bleed/vue/semantic-elemen
 Значение `inline="full"` по умолчанию позволяет медиаблоку, баннеру или декоративному элементу секции растянуться
 до краёв окна браузера и при этом остаться в обычном потоке документа.
 
-<ExampleFrame variant="component">
-  <BleedBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/bleed/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={bleedSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={bleedVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/bleed/bleed-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="bleed/basic" />
 
 ## Установка через shadcn
 
@@ -146,8 +91,9 @@ Bleed
 доступен через `$el`.
 
 Сочетайте `inline` и `block`, если поверхность должна выйти за отступы по обеим логическим осям. `inline="full"`
-рассчитывается относительно окна браузера, поэтому во вложенной оболочке могут понадобиться локальные переопределения
-`--moduix-bleed-inline-full` и `--moduix-bleed-inline-full-size`.
+рассчитывается относительно окна браузера и предполагает, что ограниченный родитель отцентрован в окне. Во вложенной
+или смещённой оболочке используйте фиксированное значение, равное её отступу, или задайте свои отступы, как в примере
+ниже.
 
 ## Примеры
 
@@ -155,195 +101,39 @@ Bleed
 
 Добавьте `block`, если поверхности нужно выйти за внутренние отступы контейнера и по блочной оси.
 
-<ExampleFrame variant="component">
-  <BleedBlockBleed />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/bleed/block-bleed.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={bleedSolidBlockBleed} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={bleedVueBlockBleed} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/bleed/bleed-block-bleed.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="bleed/block-bleed" />
 
 ### Настройка для вложенного контейнера
 
-Локально переопределите `--moduix-bleed-inline-full` и `--moduix-bleed-inline-full-size`, если вложенная оболочка
-должна растянуть `Bleed` до границ своей области, а не до краёв окна браузера.
+Задайте `margin-inline` и `inline-size` в своём классе, если вложенная оболочка должна растянуть `Bleed` до границ
+своей области, а не до краёв окна браузера. Стили moduix лежат в каскадном слое, поэтому обычный класс их перекрывает.
 
-<ExampleFrame variant="component">
-  <BleedCustomStyling />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/bleed/custom-styling.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={bleedSolidCustomStyling} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={bleedVueCustomStyling} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/bleed/bleed-custom-styling.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="bleed/custom-styling" />
 
 ### Значения по строчной оси
 
 Задайте `inline`, чтобы управлять выходом содержимого за пределы контейнера по строчной оси. В примере сравниваются
 фиксированные значения `sm` и `lg` с выходом `full` до краёв окна браузера.
 
-<ExampleFrame variant="component">
-  <BleedInlineAmounts />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/bleed/inline-amounts.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={bleedSolidInlineAmounts} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={bleedVueInlineAmounts} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/bleed/bleed-inline-amounts.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="bleed/inline-amounts" />
 
 ### Семантический элемент
 
 Используйте `asChild`, если содержимому нужен более подходящий семантический элемент. В этом примере элемент
 `figure` становится корневым элементом `Bleed`.
 
-<ExampleFrame variant="component">
-  <BleedSemanticElement />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/bleed/semantic-element.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={bleedSolidSemanticElement} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={bleedVueSemanticElement} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/bleed/bleed-semantic-element.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="bleed/semantic-element" />
 
 ## Стилизация
 
-`Bleed` предоставляет CSS-переменные и стабильные data-атрибуты на корневом элементе. Для структурных стилей
-используйте `className` в React и `class` в Solid или Vue. Варианты Tailwind используют обычные utility-классы и классы
-приложения, а переменные ниже настраивают варианты с CSS Modules. Data-атрибуты и `data-slot` общие для обоих
-способов стилизации. Предки с `overflow: hidden` или `overflow: clip` могут обрезать выход за границы.
+`Bleed` предоставляет стабильные data-атрибуты на корневом элементе. Для структурных стилей используйте `className`
+в React и `class` в Solid или Vue. Фиксированные значения следуют токенам отступов (`xs`–`xl` соответствуют
+`--moduix-spacing-1`, `2`, `3`, `4` и `6`), поэтому пресеты меняют их вместе с остальными отступами. Для своего значения
+задайте `margin-inline` или `margin-block` в своём классе. Data-атрибуты и `data-slot` общие для обоих способов
+стилизации. Предки с `overflow: hidden` или `overflow: clip` могут обрезать выход за границы.
 
-### CSS-свойства
-
-<CssPropertiesSection properties={BleedDocs.bleedCssProperties} />
+`inline="full"` использует `100vi`, а эта ширина включает классическую (не накладную) вертикальную полосу прокрутки.
+На таких системах добавьте `overflow-x: clip` корню страницы, чтобы не появлялась горизонтальная прокрутка.
 
 ### Хуки стилизации
 
@@ -351,5 +141,3 @@ Bleed
 - `data-slot="bleed-root"` - стабильный селектор moduix на экспортируемом корневом элементе.
 - `data-inline` показывает текущий режим выхода по строчной оси: `none`, `xs`, `sm`, `md`, `lg`, `xl` или `full`.
 - `data-block` показывает текущий режим выхода по блочной оси: `none`, `xs`, `sm`, `md`, `lg` или `xl`.
-- Публичный CSS API `--moduix-bleed-*` включает значения фиксированной шкалы и расчёт ширины до краёв окна
-  браузера, который используется при `inline="full"`.

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ToggleGroupItem, ToggleGroupRootProvider, useToggleGroup } from '@moduix/vue/toggle-group';
-import styles from '@/components/examples/toggle-group/toggle-group-advanced-customization.module.css';
+import styles from '@/components/examples/toggle-group/toggle-group-controlled.module.css';
 
 const toggleGroup = useToggleGroup({ defaultValue: ['left'] });
 const alignmentItems = [

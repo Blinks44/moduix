@@ -1,35 +1,19 @@
 'use client';
 
-import {
-  Marquee as MarqueePrimitive,
-  useMarquee as useMarqueePrimitive,
-  useMarqueeContext,
-} from '@ark-ui/react/marquee';
+import { Marquee as MarqueePrimitive, useMarquee, useMarqueeContext } from '@ark-ui/react/marquee';
 import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const marqueeEdgeVariants = cva('pointer-events-none z-1', {
+const marqueeEdgeVariants = cva('z-1 from-background to-transparent', {
   variants: {
     side: {
-      start: 'w-1/5 bg-linear-to-r from-background to-transparent rtl:bg-linear-to-l',
-      end: 'w-1/5 bg-linear-to-l from-background to-transparent rtl:bg-linear-to-r',
-      top: 'h-1/5 bg-linear-to-b from-background to-transparent',
-      bottom: 'h-1/5 bg-linear-to-t from-background to-transparent',
+      start: 'w-1/5 bg-linear-to-r rtl:bg-linear-to-l',
+      end: 'w-1/5 bg-linear-to-l rtl:bg-linear-to-r',
+      top: 'h-1/5 bg-linear-to-b',
+      bottom: 'h-1/5 bg-linear-to-t',
     },
-  },
-});
-
-const marqueeRootVariants = cva('group relative w-full overflow-hidden text-foreground', {
-  variants: {
-    orientation: {
-      horizontal: '',
-      vertical: 'h-60',
-    },
-  },
-  defaultVariants: {
-    orientation: 'horizontal',
   },
 });
 
@@ -41,9 +25,8 @@ const Marquee = forwardRef<
     <MarqueePrimitive.Root
       ref={ref}
       className={cn(
-        marqueeRootVariants({
-          orientation: props.side === 'top' || props.side === 'bottom' ? 'vertical' : 'horizontal',
-        }),
+        'group w-full',
+        (props.side === 'top' || props.side === 'bottom') && 'h-60',
         className,
       )}
       {...props}
@@ -59,7 +42,7 @@ const MarqueeRootProvider = forwardRef<
   return (
     <MarqueePrimitive.RootProvider
       ref={ref}
-      className={cn(marqueeRootVariants({ orientation: props.value.orientation }), className)}
+      className={cn('group w-full', props.value.orientation === 'vertical' && 'h-60', className)}
       {...props}
       data-slot="marquee-root-provider"
     />
@@ -69,15 +52,8 @@ const MarqueeRootProvider = forwardRef<
 const MarqueeViewport = forwardRef<
   ComponentRef<typeof MarqueePrimitive.Viewport>,
   ComponentProps<typeof MarqueePrimitive.Viewport>
->(function MarqueeViewport({ className, ...props }, ref) {
-  return (
-    <MarqueePrimitive.Viewport
-      ref={ref}
-      className={cn('size-full', className)}
-      {...props}
-      data-slot="marquee-viewport"
-    />
-  );
+>(function MarqueeViewport(props, ref) {
+  return <MarqueePrimitive.Viewport ref={ref} {...props} data-slot="marquee-viewport" />;
 });
 
 const MarqueeContent = forwardRef<
@@ -88,7 +64,7 @@ const MarqueeContent = forwardRef<
     <MarqueePrimitive.Content
       ref={ref}
       className={cn(
-        'animate-moduix-marquee-x group-data-paused:[animation-play-state:paused] data-reverse:[animation-direction:reverse] data-[side=bottom]:animate-moduix-marquee-y data-[side=top]:animate-moduix-marquee-y motion-reduce:animate-none',
+        'animate-moduix-marquee-x group-data-paused:[animation-play-state:paused] data-reverse:[animation-direction:reverse] data-[orientation=vertical]:animate-moduix-marquee-y motion-reduce:data-[orientation]:animate-none',
         className,
       )}
       {...props}
@@ -127,7 +103,6 @@ const MarqueeEdge = forwardRef<
 });
 
 const MarqueeContext = MarqueePrimitive.Context;
-const useMarquee = useMarqueePrimitive;
 
 export {
   Marquee,
@@ -140,3 +115,24 @@ export {
   useMarquee,
   useMarqueeContext,
 };
+
+export type {
+  MarqueeContentBaseProps,
+  MarqueeContentProps,
+  MarqueeContextProps,
+  MarqueeEdgeBaseProps,
+  MarqueeEdgeProps,
+  MarqueeItemBaseProps,
+  MarqueeItemProps,
+  MarqueePauseStatusDetails,
+  MarqueeRootBaseProps,
+  MarqueeRootProps,
+  MarqueeRootProviderBaseProps,
+  MarqueeRootProviderProps,
+  MarqueeSide,
+  MarqueeViewportBaseProps,
+  MarqueeViewportProps,
+  UseMarqueeContext,
+  UseMarqueeProps,
+  UseMarqueeReturn,
+} from '@ark-ui/react/marquee';

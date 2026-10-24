@@ -2,21 +2,12 @@ import { type DateValue } from '@ark-ui/react/date-picker';
 import { CalendarDate } from '@internationalized/date';
 import {
   DatePicker,
-  DatePickerContext,
   DatePickerLabel,
   DatePickerField,
   DatePickerPositioner,
   DatePickerContent,
   DatePickerView,
-  DatePickerViewControl,
-  DatePickerPrevTrigger,
-  DatePickerNextTrigger,
-  DatePickerRangeText,
-  DatePickerTable,
-  DatePickerTableBody,
-  DatePickerTableRow,
-  DatePickerTableCell,
-  DatePickerTableCellTrigger,
+  DatePickerYearTable,
 } from '@moduix/react/date-picker';
 
 const format = (date: DateValue) => String(date.year);
@@ -34,36 +25,7 @@ export default function YearPickerDemo() {
       <DatePickerPositioner>
         <DatePickerContent>
           <DatePickerView view="year">
-            <DatePickerViewControl>
-              <DatePickerPrevTrigger />
-              <DatePickerRangeText />
-              <DatePickerNextTrigger />
-            </DatePickerViewControl>
-            <DatePickerContext>
-              {(datePicker) => (
-                <DatePickerTable columns={4}>
-                  <DatePickerTableBody>
-                    {datePicker
-                      .getYearsGrid({
-                        columns: 4,
-                      })
-                      .map((years, rowIndex) => (
-                        <DatePickerTableRow key={rowIndex}>
-                          {years.map((year) => (
-                            <DatePickerTableCell
-                              key={`${year.label}-${year.value}`}
-                              value={year.value}
-                              disabled={year.disabled}
-                            >
-                              <DatePickerTableCellTrigger>{year.label}</DatePickerTableCellTrigger>
-                            </DatePickerTableCell>
-                          ))}
-                        </DatePickerTableRow>
-                      ))}
-                  </DatePickerTableBody>
-                </DatePickerTable>
-              )}
-            </DatePickerContext>
+            <DatePickerYearTable />
           </DatePickerView>
         </DatePickerContent>
       </DatePickerPositioner>

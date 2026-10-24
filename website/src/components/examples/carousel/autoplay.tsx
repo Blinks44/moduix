@@ -52,11 +52,7 @@ export default function AutoplayCarousel() {
       <CarouselContext>
         {(api) => (
           <>
-            <CarouselItemGroup
-              className={styles.itemGroup}
-              onFocus={() => api.pause()}
-              onPointerEnter={() => api.pause()}
-            >
+            <CarouselItemGroup onFocus={() => api.pause()} onPointerEnter={() => api.pause()}>
               {slides.map((slide, index) => (
                 <CarouselItem key={slide.id} index={index}>
                   <img className={styles.image} src={slide.src} alt={slide.alt} />
@@ -64,11 +60,7 @@ export default function AutoplayCarousel() {
               ))}
             </CarouselItemGroup>
 
-            <CarouselControl
-              className={styles.control}
-              onFocus={() => api.pause()}
-              onPointerEnter={() => api.pause()}
-            >
+            <CarouselControl onFocus={() => api.pause()} onPointerEnter={() => api.pause()}>
               <CarouselAutoplayTrigger>
                 <CarouselAutoplayIndicator fallback="Play">Pause</CarouselAutoplayIndicator>
               </CarouselAutoplayTrigger>

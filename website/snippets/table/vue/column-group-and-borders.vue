@@ -22,9 +22,9 @@ const products = [
   <TableScrollArea>
     <Table show-column-border>
       <TableColumnGroup>
-        <TableColumn html-width="42%" />
-        <TableColumn html-width="28%" />
-        <TableColumn html-width="30%" />
+        <TableColumn width="42%" />
+        <TableColumn width="28%" />
+        <TableColumn width="30%" />
       </TableColumnGroup>
       <TableHeader>
         <TableRow>

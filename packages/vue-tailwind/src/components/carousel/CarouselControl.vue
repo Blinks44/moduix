@@ -16,7 +16,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const controlClass =
-  'flex min-w-0 items-center gap-3 data-[orientation=vertical]:flex-col data-[orientation=vertical]:justify-between';
+  'flex min-w-0 items-center justify-center gap-3 data-[orientation=vertical]:flex-col data-[orientation=vertical]:justify-between';
 </script>
 
 <template>

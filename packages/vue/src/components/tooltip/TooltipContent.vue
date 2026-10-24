@@ -9,11 +9,10 @@ import styles from './Tooltip.module.css';
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ TooltipContentProps {
-  asChild?: boolean;
   class?: HTMLAttributes['class'];
 }
 
-const { asChild = false, class: className } = defineProps<Props>();
+const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -22,7 +21,6 @@ const attrs = useAttrs();
 <template>
   <ArkTooltipContent
     v-bind="attrs"
-    :as-child="asChild"
     :class="clsx(styles.content, className)"
     data-slot="tooltip-content"
   >

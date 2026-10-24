@@ -4,10 +4,8 @@ import {
   Select,
   SelectContent,
   SelectField,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
   SelectLabel,
+  SelectOption,
   SelectPositioner,
 } from '@moduix/vue/select';
 import { computed, ref } from 'vue';
@@ -40,9 +38,10 @@ function updateValue(details: { value: string[] }) {
     <SelectField placeholder="Select up to 3" clear-label="Clear selection" />
     <SelectPositioner
       ><SelectContent
-        ><SelectItem v-for="item in collection.items" :key="item.value" :item="item"
-          ><SelectItemText>{{ item.label }}</SelectItemText
-          ><SelectItemIndicator /></SelectItem></SelectContent
-    ></SelectPositioner>
+        ><SelectOption v-for="item in collection.items" :key="item.value" :item="item">{{
+          item.label
+        }}</SelectOption></SelectContent
+      ></SelectPositioner
+    >
   </Select>
 </template>

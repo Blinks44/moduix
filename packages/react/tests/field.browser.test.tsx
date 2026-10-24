@@ -4,50 +4,22 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import {
   Field,
+  Fieldset,
   Input,
   useField,
   FieldErrorText,
   FieldHelperText,
-  FieldInput,
   FieldItem,
   FieldLabel,
+  FieldRequiredIndicator,
   FieldRootProvider,
-  FieldSelect,
-  FieldTextarea,
 } from '../src';
-import fieldStyles from '../src/components/field/Field.module.css';
-
-test('keeps FieldInput native size distinct from Input visual size', async () => {
-  render(
-    <>
-      <FieldInput aria-label="Field input" size={8} disabled aria-invalid="true" />
-      <Input aria-label="Input" size="md" htmlSize={8} disabled aria-invalid="true" />
-    </>,
-  );
-
-  const fieldInput = screen.getByRole('textbox', { name: 'Field input' });
-
-  const fieldInputLocator = page.getByRole('textbox', { name: 'Field input', exact: true });
-  await expect.element(fieldInputLocator).toHaveAttribute('size', '8');
-  const textbox = page.getByRole('textbox', { name: 'Input', exact: true });
-  await expect.element(textbox).toHaveAttribute('size', '8');
-  await expect.element(fieldInputLocator).toHaveAttribute('data-slot', 'field-input');
-  expect([...fieldInput.classList]).toEqual(
-    expect.arrayContaining([fieldStyles.control, fieldStyles.input]),
-  );
-  await expect.element(fieldInputLocator).not.toHaveAttribute('data-size');
-  await expect.element(textbox).toHaveAttribute('data-size', 'md');
-  await expect.element(fieldInputLocator).toBeDisabled();
-  await expect.element(textbox).toBeDisabled();
-  await expect.element(fieldInputLocator).toHaveAttribute('aria-invalid', 'true');
-  await expect.element(textbox).toHaveAttribute('aria-invalid', 'true');
-});
 
 test('wires labels, descriptions, errors, and field state to a native control', async () => {
   render(
     <Field disabled id="email" invalid readOnly required>
       <FieldLabel>Email</FieldLabel>
-      <FieldInput />
+      <Input />
       <FieldHelperText>Use your work email.</FieldHelperText>
       <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>,
@@ -72,7 +44,7 @@ test('wires labels, descriptions, errors, and field state to a native control', 
 test('renders error text only while invalid', async () => {
   const { rerender } = render(
     <Field>
-      <FieldInput aria-label="Email" />
+      <Input aria-label="Email" />
       <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>,
   );
@@ -83,7 +55,7 @@ test('renders error text only while invalid', async () => {
 
   rerender(
     <Field invalid>
-      <FieldInput aria-label="Email" />
+      <Input aria-label="Email" />
       <FieldErrorText>Enter a valid email address.</FieldErrorText>
     </Field>,
   );
@@ -100,7 +72,7 @@ test('forwards FieldItem refs and uses target for its label wiring', async () =>
     <Field id="contact" target="email">
       <FieldItem ref={itemRef} value="email">
         <FieldLabel>Email</FieldLabel>
-        <FieldInput />
+        <Input />
       </FieldItem>
     </Field>,
   );
@@ -111,35 +83,53 @@ test('forwards FieldItem refs and uses target for its label wiring', async () =>
   await expect.element(page.getByText('Email', { exact: true })).toHaveAttribute('for', input.id);
 });
 
-test('forwards refs and styling hooks for the Ark native parts', () => {
+test('forwards refs and styling hooks for every part', () => {
   const rootRef = createRef<HTMLDivElement>();
-  const inputRef = createRef<HTMLInputElement>();
-  const textareaRef = createRef<HTMLTextAreaElement>();
-  const selectRef = createRef<HTMLSelectElement>();
+  const labelRef = createRef<HTMLLabelElement>();
+  const helperRef = createRef<HTMLSpanElement>();
+  const errorRef = createRef<HTMLSpanElement>();
+  const indicatorRef = createRef<HTMLSpanElement>();
 
   render(
-    <>
-      <Field ref={rootRef}>
-        <FieldLabel>Name</FieldLabel>
-        <FieldInput ref={inputRef} />
-      </Field>
-      <Field>
-        <FieldLabel>Summary</FieldLabel>
-        <FieldTextarea ref={textareaRef} />
-      </Field>
-      <Field>
-        <FieldLabel>Priority</FieldLabel>
-        <FieldSelect ref={selectRef}>
-          <option>Normal</option>
-        </FieldSelect>
-      </Field>
-    </>,
+    <Field ref={rootRef} invalid required>
+      <FieldLabel ref={labelRef}>
+        Name
+        <FieldRequiredIndicator ref={indicatorRef} />
+      </FieldLabel>
+      <Input />
+      <FieldHelperText ref={helperRef}>Shown on your profile.</FieldHelperText>
+      <FieldErrorText ref={errorRef}>Enter a name.</FieldErrorText>
+    </Field>,
   );
 
   expect(rootRef.current!.getAttribute('data-slot')).toBe('field-root');
-  expect(inputRef.current!.getAttribute('data-slot')).toBe('field-input');
-  expect(textareaRef.current!.getAttribute('data-slot')).toBe('field-textarea');
-  expect(selectRef.current!.getAttribute('data-slot')).toBe('field-select');
+  expect(labelRef.current!.getAttribute('data-slot')).toBe('field-label');
+  expect(indicatorRef.current!.getAttribute('data-slot')).toBe('field-required-indicator');
+  expect(helperRef.current!.getAttribute('data-slot')).toBe('field-helper-text');
+  expect(errorRef.current!.getAttribute('data-slot')).toBe('field-error-text');
+});
+
+test('dims a disabled field once, also inside a disabled Fieldset', () => {
+  render(
+    <>
+      <Field disabled data-testid="disabled-field">
+        <FieldLabel>Name</FieldLabel>
+        <Input data-testid="disabled-field-input" />
+      </Field>
+      <Fieldset disabled>
+        <Field data-testid="nested-field">
+          <FieldLabel>Email</FieldLabel>
+          <Input />
+        </Field>
+      </Fieldset>
+    </>,
+  );
+
+  const opacity = (testId: string) => getComputedStyle(screen.getByTestId(testId)).opacity;
+
+  expect(opacity('disabled-field')).toBe('0.5');
+  expect(opacity('disabled-field-input')).toBe('1');
+  expect(opacity('nested-field')).toBe('1');
 });
 
 test('keeps the RootProvider composition path Ark-shaped', async () => {
@@ -149,7 +139,7 @@ test('keeps the RootProvider composition path Ark-shaped', async () => {
     return (
       <FieldRootProvider value={field}>
         <FieldLabel>Email</FieldLabel>
-        <FieldInput />
+        <Input />
         <FieldErrorText>Enter a valid email address.</FieldErrorText>
       </FieldRootProvider>
     );
@@ -172,7 +162,7 @@ test('preserves Ark asChild composition and forwards refs for the root', async (
     <Field asChild ref={rootRef}>
       <section>
         <FieldLabel>Email</FieldLabel>
-        <FieldInput />
+        <Input />
       </section>
     </Field>,
   );

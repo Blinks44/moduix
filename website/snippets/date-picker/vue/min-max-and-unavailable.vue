@@ -6,8 +6,10 @@ import {
   DatePickerDayTable,
   DatePickerField,
   DatePickerLabel,
+  DatePickerMonthTable,
   DatePickerPositioner,
   DatePickerView,
+  DatePickerYearTable,
 } from '@moduix/vue/date-picker';
 
 const min = parseDate('2026-06-22');
@@ -25,7 +27,9 @@ const isDateUnavailable = (value: { day: number }) => value.day === 25;
     <DatePickerLabel>Booking date</DatePickerLabel><DatePickerField />
     <DatePickerPositioner>
       <DatePickerContent>
-        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
+        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView
+        ><DatePickerView view="month"><DatePickerMonthTable /></DatePickerView
+        ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
       </DatePickerContent>
     </DatePickerPositioner>
   </DatePicker>

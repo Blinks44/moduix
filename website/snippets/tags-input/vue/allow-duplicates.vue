@@ -7,11 +7,10 @@ import {
   TagsInputItems,
   TagsInputLabel,
 } from '@moduix/vue/tags-input';
-import styles from '@/components/examples/tags-input/tags-input-allow-duplicates.module.css';
 </script>
 
 <template>
-  <TagsInput :class="styles.root" allow-duplicates :default-value="['React', 'React']">
+  <TagsInput allow-duplicates :default-value="['React', 'React']">
     <TagsInputLabel>Frameworks</TagsInputLabel>
     <TagsInputControl>
       <TagsInputItems />

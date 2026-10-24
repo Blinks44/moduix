@@ -27,7 +27,6 @@ type Story = StoryObj<typeof meta>;
 
 const rowClass = 'flex flex-wrap items-center gap-3';
 const constrainedClass = 'max-w-72';
-const buttonTagClass = 'appearance-none cursor-pointer';
 const customSoftClass = 'border-primary/35 bg-primary/15 text-primary';
 const customOutlineClass = 'border-foreground/20 text-primary';
 
@@ -67,6 +66,9 @@ export const Sizes: Story = {
         </Tag>
         <Tag size="md">
           <TagLabel>Default</TagLabel>
+        </Tag>
+        <Tag size="lg">
+          <TagLabel>Large</TagLabel>
         </Tag>
       </div>
     );
@@ -141,7 +143,7 @@ export const RenderAsButton: Story = {
   render: () => {
     return (
       <Tag asChild variant="outline">
-        <button className={buttonTagClass} type="button">
+        <button type="button">
           <TagLabel>Open filter</TagLabel>
         </button>
       </Tag>

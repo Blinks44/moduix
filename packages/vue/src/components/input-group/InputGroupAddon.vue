@@ -4,15 +4,17 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import type { InputGroupAddonAlign } from './context';
 import styles from './InputGroup.module.css';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {
+  align?: InputGroupAddonAlign;
   class?: HTMLAttributes['class'];
 }
 
-const { class: className } = defineProps<Props>();
+const { align = 'inline', class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -25,6 +27,7 @@ const attrs = useAttrs();
     data-scope="input-group"
     data-part="addon"
     data-slot="input-group-addon"
+    :data-align="align"
   >
     <slot />
   </ark.span>

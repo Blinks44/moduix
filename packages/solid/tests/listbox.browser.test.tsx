@@ -2,11 +2,13 @@ import { createListCollection } from '@ark-ui/solid/collection';
 import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { createSignal } from 'solid-js';
+import { createSignal, For } from 'solid-js';
 import {
   Listbox,
   ListboxClearTrigger,
   ListboxContent,
+  ListboxFilter,
+  ListboxInput,
   ListboxItem,
   ListboxItemContext,
   ListboxItemIndicator,
@@ -239,4 +241,50 @@ test('renders the consumer-wired clear trigger as an accessible button', async (
     .toHaveAttribute('type', 'button');
   await page.getByRole('button', { name: 'Clear search', exact: true }).click();
   expect(handleClick).toHaveBeenCalledTimes(1);
+});
+
+test('reserves filter room for the clear action and keeps page scroll chaining', () => {
+  render(() => (
+    <Listbox collection={fruits}>
+      <ListboxLabel>Fruit</ListboxLabel>
+      <ListboxFilter>
+        <ListboxInput />
+        <ListboxClearTrigger />
+      </ListboxFilter>
+      <ListboxContent>
+        <For each={fruits.items}>
+          {(item) => (
+            <ListboxItem item={item}>
+              <ListboxItemText>{item.label}</ListboxItemText>
+            </ListboxItem>
+          )}
+        </For>
+      </ListboxContent>
+    </Listbox>
+  ));
+
+  const input = document.querySelector<HTMLElement>('[data-slot="listbox-input"]')!;
+  const clear = document.querySelector<HTMLElement>('[data-slot="listbox-clear-trigger"]')!;
+  const content = document.querySelector<HTMLElement>('[data-slot="listbox-content"]')!;
+
+  // 12px offset + 24px action + 8px gap before the text.
+  expect(getComputedStyle(input).paddingInlineEnd).toBe('44px');
+  expect(clear.offsetWidth).toBe(24);
+  expect(
+    Math.abs(input.getBoundingClientRect().right - clear.getBoundingClientRect().right - 12),
+  ).toBeLessThanOrEqual(1);
+  // The list is not a popup, so page scrolling chains past it.
+  expect(getComputedStyle(content).overscrollBehaviorY).toBe('auto');
+});
+
+test('dims disabled items once through opacity', () => {
+  render(() => <FruitListbox />);
+
+  const [apple, , unavailable] = [
+    ...document.querySelectorAll<HTMLElement>('[data-slot="listbox-item"]'),
+  ];
+
+  // Disabled items dim once, through opacity, and keep the regular text color.
+  expect(getComputedStyle(unavailable!).opacity).toBe('0.5');
+  expect(getComputedStyle(unavailable!).color).toBe(getComputedStyle(apple!).color);
 });

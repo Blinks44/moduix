@@ -5,35 +5,8 @@ description: Créez une visionneuse d’images modale avec navigation de galerie
 ---
 
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
-import LightboxAdvancedCustomization from '@/components/examples/lightbox/advanced-customization.tsx';
-import LightboxBasic from '@/components/examples/lightbox/basic.tsx';
-import LightboxBindCmsContent from '@/components/examples/lightbox/bind-cms-content.tsx';
-import LightboxClickToCloseImage from '@/components/examples/lightbox/click-to-close-image.tsx';
-import LightboxControlled from '@/components/examples/lightbox/controlled.tsx';
-import LightboxFocusAndIds from '@/components/examples/lightbox/focus-and-ids.tsx';
-import LightboxGallery from '@/components/examples/lightbox/gallery.tsx';
-import LightboxMultipleTriggers from '@/components/examples/lightbox/multiple-triggers.tsx';
-import LightboxNonModal from '@/components/examples/lightbox/non-modal.tsx';
 import LightboxRootProviderAndContext from '@/components/examples/lightbox/root-provider-and-context.tsx';
-import lightboxSolidAdvancedCustomization from '../../../snippets/lightbox/solid/advanced-customization.tsx?raw';
-import lightboxSolidBasic from '../../../snippets/lightbox/solid/basic.tsx?raw';
-import lightboxSolidBindCmsContent from '../../../snippets/lightbox/solid/bind-cms-content.tsx?raw';
-import lightboxSolidClickToCloseImage from '../../../snippets/lightbox/solid/click-to-close-image.tsx?raw';
-import lightboxSolidControlled from '../../../snippets/lightbox/solid/controlled.tsx?raw';
-import lightboxSolidFocusAndIds from '../../../snippets/lightbox/solid/focus-and-ids.tsx?raw';
-import lightboxSolidGallery from '../../../snippets/lightbox/solid/gallery.tsx?raw';
-import lightboxSolidMultipleTriggers from '../../../snippets/lightbox/solid/multiple-triggers.tsx?raw';
-import lightboxSolidNonModal from '../../../snippets/lightbox/solid/non-modal.tsx?raw';
 import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/solid/root-provider-and-context.tsx?raw';
-import lightboxVueAdvancedCustomization from '../../../snippets/lightbox/vue/advanced-customization.vue?raw';
-import lightboxVueBasic from '../../../snippets/lightbox/vue/basic.vue?raw';
-import lightboxVueBindCmsContent from '../../../snippets/lightbox/vue/bind-cms-content.vue?raw';
-import lightboxVueClickToCloseImage from '../../../snippets/lightbox/vue/click-to-close-image.vue?raw';
-import lightboxVueControlled from '../../../snippets/lightbox/vue/controlled.vue?raw';
-import lightboxVueFocusAndIds from '../../../snippets/lightbox/vue/focus-and-ids.vue?raw';
-import lightboxVueGallery from '../../../snippets/lightbox/vue/gallery.vue?raw';
-import lightboxVueMultipleTriggers from '../../../snippets/lightbox/vue/multiple-triggers.vue?raw';
-import lightboxVueNonModal from '../../../snippets/lightbox/vue/non-modal.vue?raw';
 import lightboxVueRootProviderAndContext from '../../../snippets/lightbox/vue/root-provider-and-context.vue?raw';
 import lightboxVueRootProviderAndContextPart from '../../../snippets/lightbox/vue/LightboxStatus.vue?raw';
 
@@ -60,46 +33,7 @@ Composez explicitement la structure de dialogue Ark UI avec `Lightbox`, `Lightbo
 `LightboxBackdrop`, `LightboxPositioner` et `LightboxContent`. Avec `asChild`, fournissez un
 seul élément sémantique comme déclencheur.
 
-<ExampleFrame variant="component">
-  <LightboxBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/lightbox/lightbox-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/basic" />
 
 ## Installation avec shadcn
 
@@ -210,138 +144,21 @@ recherchée dans `data-lightbox-src`, puis `currentSrc` et `src`, et l’image e
 au focus clavier. Utilisez un bouton ou un lien sémantique pour `selector` afin que l’ouverture fonctionne
 au clavier. Pour un tableau d’images structuré, utilisez la composition `LightboxGallery + Carousel`.
 
-<ExampleFrame variant="component">
-  <LightboxBindCmsContent />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/bind-cms-content.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidBindCmsContent} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueBindCmsContent} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/lightbox/lightbox-bind-cms-content.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/bind-cms-content" />
 
 ### Fermer en cliquant sur l’image
 
 Utilisez `LightboxImage closeOnClick` si un clic sur l’image doit fermer la fenêtre. L’icône de
 fermeture reste disponible et conserve la sémantique de fermeture d’Ark UI.
 
-<ExampleFrame variant="component">
-  <LightboxClickToCloseImage />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/click-to-close-image.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidClickToCloseImage} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueClickToCloseImage} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/lightbox/lightbox-click-to-close-image.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/click-to-close-image" />
 
 ### État contrôlé
 
 Utilisez le callback `onOpenChange(details)` d’Ark lorsque l’état de la Lightbox doit rester synchronisé
 avec l’état de l’application en React ou en Solid. En Vue, utilisez `v-model:open`.
 
-<ExampleFrame variant="component">
-  <LightboxControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/lightbox/lightbox-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/controlled" />
 
 ### Focus et identifiants
 
@@ -349,46 +166,7 @@ Utilisez `initialFocusEl`, `finalFocusEl` et `ids` lorsque la lightbox nécessit
 explicites ou des identifiants stables pour des relations d’accessibilité externes. La cible de retour
 est mise en évidence après la fermeture afin de rendre le passage du focus visible.
 
-<ExampleFrame variant="component">
-  <LightboxFocusAndIds />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/focus-and-ids.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidFocusAndIds} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueFocusAndIds} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/lightbox/lightbox-focus-and-ids.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/focus-and-ids" />
 
 ### Galerie
 
@@ -397,92 +175,14 @@ actuelle de `Carousel` dans l’état React, Solid ou Vue, puis placez `Carousel
 Utilisez `LightboxTrigger.value` pour choisir la diapositive initiale et synchronisez la page de
 `Carousel` pendant la navigation.
 
-<ExampleFrame variant="component">
-  <LightboxGallery />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/gallery.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidGallery} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueGallery} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/lightbox/lightbox-gallery.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/gallery" />
 
 ### Plusieurs déclencheurs
 
 Utilisez `LightboxTrigger.value` et `onTriggerValueChange(details)` pour les miniatures d’une galerie.
 Le composant ne maintient pas de registre d’images caché.
 
-<ExampleFrame variant="component">
-  <LightboxMultipleTriggers />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/multiple-triggers.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidMultipleTriggers} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueMultipleTriggers} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/lightbox/lightbox-multiple-triggers.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/multiple-triggers" />
 
 ### Mode non modal
 
@@ -490,46 +190,7 @@ Définissez `modal={false}` lorsque la page doit rester interactive pendant l’
 alors le piège de focus et le blocage du défilement. N’ajoutez pas `LightboxBackdrop` afin que les actions en
 arrière-plan restent accessibles pendant l’affichage de l’image.
 
-<ExampleFrame variant="component">
-  <LightboxNonModal />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/non-modal.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidNonModal} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueNonModal} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/lightbox/lightbox-non-modal.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/non-modal" />
 
 ### Root Provider
 
@@ -585,62 +246,13 @@ Dans un composant enfant, lisez l’état avec `useLightboxContext()`. Le bouton
 N’utilisez pas les conteneurs facultatifs lorsque la zone média nécessite ses propres classes de slots
 et des remplacements de tokens. `LightboxBackdrop`, `LightboxPositioner` et `LightboxContent` restent explicites.
 
-<ExampleFrame variant="component">
-  <LightboxAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/lightbox/lightbox-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/advanced-customization" />
 
 ## Styles
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <LightboxDocs.LightboxCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties} />
 
 ### Points d’accroche CSS
 
@@ -655,5 +267,10 @@ et des remplacements de tokens. `LightboxBackdrop`, `LightboxPositioner` et `Lig
   styles aux slots imbriqués de Carousel.
 - L’animation dépend de l’attribut Ark `data-state`. Utilisez `present` uniquement si le contrôle de
   l’animation en JavaScript doit maintenir le contenu monté.
-- Avec `prefers-reduced-motion: reduce`, l’arrière-plan et le contenu utilisent une animation de 1 ms.
-  Le nettoyage après la fermeture reste ainsi intact, sans mouvement visible.
+- Avec `prefers-reduced-motion: reduce`, les animations de l’arrière-plan et du contenu sont
+  désactivées ; le nettoyage après la fermeture reste intact.
+- Les couleurs, espacements et typographies viennent des tokens foundation. Pour les modifier sur une
+  seule lightbox, ajoutez une classe sur la partie concernée. L’arrière-plan lit les variables
+  partagées `--moduix-backdrop-bg` et `--moduix-backdrop-filter`, l’animation du contenu lit
+  `--moduix-popup-motion-*` sur `LightboxContent`, et `LightboxCloseIcon` lit les variables
+  `--moduix-close-button-*`.

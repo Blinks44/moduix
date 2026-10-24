@@ -15,9 +15,8 @@ import { CloseButton } from '../close-button';
 import styles from './Popover.module.css';
 
 export type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPortalProps;
-export type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> & {
-  portalRef?: OverlayPortalProps['portalRef'];
-};
+export type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> &
+  Pick<OverlayPortalProps, 'portalRef'>;
 
 function Popover({
   lazyMount = true,
@@ -64,15 +63,8 @@ function PopoverRootProvider({
 const PopoverAnchor = forwardRef<
   ComponentRef<typeof PopoverPrimitive.Anchor>,
   ComponentProps<typeof PopoverPrimitive.Anchor>
->(function PopoverAnchor({ className, ...props }, ref) {
-  return (
-    <PopoverPrimitive.Anchor
-      ref={ref}
-      className={className}
-      {...props}
-      data-slot="popover-anchor"
-    />
-  );
+>(function PopoverAnchor(props, ref) {
+  return <PopoverPrimitive.Anchor ref={ref} {...props} data-slot="popover-anchor" />;
 });
 
 const PopoverTrigger = forwardRef<
@@ -93,15 +85,8 @@ const PopoverTrigger = forwardRef<
 const PopoverIndicator = forwardRef<
   ComponentRef<typeof PopoverPrimitive.Indicator>,
   ComponentProps<typeof PopoverPrimitive.Indicator>
->(function PopoverIndicator({ className, ...props }, ref) {
-  return (
-    <PopoverPrimitive.Indicator
-      ref={ref}
-      className={className}
-      {...props}
-      data-slot="popover-indicator"
-    />
-  );
+>(function PopoverIndicator(props, ref) {
+  return <PopoverPrimitive.Indicator ref={ref} {...props} data-slot="popover-indicator" />;
 });
 
 const PopoverPositioner = forwardRef<
@@ -290,3 +275,25 @@ export {
   usePopover,
   usePopoverContext,
 };
+
+export type {
+  PopoverAnchorProps,
+  PopoverArrowProps,
+  PopoverArrowTipProps,
+  PopoverCloseTriggerProps,
+  PopoverContentProps,
+  PopoverContextProps,
+  PopoverDescriptionProps,
+  PopoverFocusOutsideEvent,
+  PopoverIndicatorProps,
+  PopoverInteractOutsideEvent,
+  PopoverOpenChangeDetails,
+  PopoverPointerDownOutsideEvent,
+  PopoverPositionerProps,
+  PopoverTitleProps,
+  PopoverTriggerProps,
+  PopoverTriggerValueChangeDetails,
+  UsePopoverContext,
+  UsePopoverProps,
+  UsePopoverReturn,
+} from '@ark-ui/react/popover';

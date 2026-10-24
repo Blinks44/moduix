@@ -5,16 +5,10 @@ import {
   DateInputLabel,
   DateInputSegments,
 } from '@moduix/solid/date-input';
-import styles from '@/components/examples/date-input/date-input-right-to-left.module.css';
 
 export default function RightToLeftDateInputDemo() {
   return (
-    <DateInput
-      class={styles.root}
-      dir="rtl"
-      locale="ar-EG"
-      defaultValue={[new CalendarDate(2026, 6, 22)]}
-    >
+    <DateInput dir="rtl" locale="ar-EG" defaultValue={[new CalendarDate(2026, 6, 22)]}>
       <DateInputLabel>تاريخ الإطلاق</DateInputLabel>
       <DateInputControl>
         <DateInputSegments />

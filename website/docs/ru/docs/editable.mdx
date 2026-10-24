@@ -5,33 +5,6 @@ description: Доступное редактирование текста в Rea
 ---
 
 import * as EditableDocs from '@/components/examples/editable/css-properties';
-import EditableAdvancedCustomization from '@/components/examples/editable/advanced-customization.tsx';
-import EditableBasic from '@/components/examples/editable/basic.tsx';
-import EditableControlled from '@/components/examples/editable/controlled.tsx';
-import EditableField from '@/components/examples/editable/field.tsx';
-import EditableForm from '@/components/examples/editable/form.tsx';
-import EditableGuides from '@/components/examples/editable/guides.tsx';
-import EditableRootProvider from '@/components/examples/editable/root-provider.tsx';
-import EditableStates from '@/components/examples/editable/disabled-and-read-only.tsx';
-import EditableTextarea from '@/components/examples/editable/textarea.tsx';
-import editableSolidAdvancedCustomization from '../../../snippets/editable/solid/advanced-customization.tsx?raw';
-import editableSolidBasic from '../../../snippets/editable/solid/basic.tsx?raw';
-import editableSolidControlled from '../../../snippets/editable/solid/controlled.tsx?raw';
-import editableSolidField from '../../../snippets/editable/solid/field.tsx?raw';
-import editableSolidForm from '../../../snippets/editable/solid/form.tsx?raw';
-import editableSolidGuides from '../../../snippets/editable/solid/guides.tsx?raw';
-import editableSolidRootProvider from '../../../snippets/editable/solid/root-provider.tsx?raw';
-import editableSolidStates from '../../../snippets/editable/solid/disabled-and-read-only.tsx?raw';
-import editableSolidTextarea from '../../../snippets/editable/solid/textarea.tsx?raw';
-import editableVueAdvancedCustomization from '../../../snippets/editable/vue/advanced-customization.vue?raw';
-import editableVueBasic from '../../../snippets/editable/vue/basic.vue?raw';
-import editableVueControlled from '../../../snippets/editable/vue/controlled.vue?raw';
-import editableVueField from '../../../snippets/editable/vue/field.vue?raw';
-import editableVueForm from '../../../snippets/editable/vue/form.vue?raw';
-import editableVueGuides from '../../../snippets/editable/vue/guides.vue?raw';
-import editableVueRootProvider from '../../../snippets/editable/vue/root-provider.vue?raw';
-import editableVueStates from '../../../snippets/editable/vue/disabled-and-read-only.vue?raw';
-import editableVueTextarea from '../../../snippets/editable/vue/textarea.vue?raw';
 
 ## Справочник API
 
@@ -53,41 +26,7 @@ import editableVueTextarea from '../../../snippets/editable/vue/textarea.vue?raw
 для кнопок управления. По умолчанию режим редактирования включается двойным щелчком, что помогает
 избежать случайных изменений.
 
-<ExampleFrame variant="component">
-  <EditableBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/editable/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={editableSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={editableVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="editable/basic" />
 
 ## Установка через shadcn
 
@@ -172,178 +111,27 @@ EditableRootProvider
 
 Используйте `value` и `onValueChange`, если источником значения должно быть состояние приложения.
 
-<ExampleFrame variant="component">
-  <EditableControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/editable/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={editableSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={editableVueControlled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="editable/controlled" />
 
 ### Отключённое состояние и режим только для чтения
 
 Используйте `disabled`, когда поле должно быть недоступно для взаимодействия. Используйте `readOnly`,
 если значение должно оставаться видимым, но недоступным для редактирования.
 
-<ExampleFrame variant="component">
-  <EditableStates />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/editable/disabled-and-read-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={editableSolidStates} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={editableVueStates} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/editable/editable-disabled-and-read-only.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="editable/disabled-and-read-only" />
 
 ### Field
 
 Поместите `Editable` в `Field`, если состояние валидации или сообщение об ошибке должны отображаться
 за пределами компонента.
 
-<ExampleFrame variant="component">
-  <EditableField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/editable/field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={editableSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={editableVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/editable/editable-field.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="editable/field" />
 
 ### В форме
 
 Передайте `name`, чтобы включить текущее значение в отправку нативной формы.
 
-<ExampleFrame variant="component">
-  <EditableForm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/editable/form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={editableSolidForm} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={editableVueForm} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/editable/editable-form.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="editable/form" />
 
 ### Редактирование по щелчку
 
@@ -352,41 +140,7 @@ EditableRootProvider
 элементов управления. В этом примере `activationMode` изменён на `click`, чтобы показать, как заменить
 двойной щелчок, используемый в moduix по умолчанию.
 
-<ExampleFrame variant="component">
-  <EditableGuides />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/editable/guides.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={editableSolidGuides} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={editableVueGuides} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="editable/guides" />
 
 ### Root Provider
 
@@ -395,140 +149,35 @@ EditableRootProvider
 `activationMode: 'dblclick'`, чтобы сохранить режим активации, установленный по умолчанию у корневого
 компонента. Для этого экземпляра состояния provider заменяет `Editable`.
 
-<ExampleFrame variant="component">
-  <EditableRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/editable/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={editableSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={editableVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/editable/editable-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="editable/root-provider" />
 
 ### Textarea
 
-Используйте `EditableInput asChild` с нативным `<textarea>` для многострочного текста. В примере задан
-размер textarea и выравнивание элементов управления, поэтому скопированный код можно использовать сразу.
+Используйте `EditableInput asChild` с нативным `<textarea>` для многострочного текста. У textarea есть
+минимальная высота, предпросмотр сохраняет переносы строк, а кнопки остаются у верхнего края.
+Сохранение по Cmd/Ctrl + Enter, Enter добавляет новую строку.
 
-<ExampleFrame variant="component">
-  <EditableTextarea />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/editable/textarea.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={editableSolidTextarea} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={editableVueTextarea} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/editable/editable-textarea.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="editable/textarea" />
 
 ### Расширенная настройка
 
-Используйте `EditableContext`, если индивидуальная компоновка зависит от текущего режима
-редактирования. В этом примере `EditableControls` не используется: вместо него во время редактирования
-показывается подсказка с сочетаниями клавиш.
+Пример собирает то же, что делает `EditableControls`, из низкоуровневых частей: `EditableContext`
+переключает `EditableEditTrigger` и кнопки сохранения и отмены внутри `EditableControl`. С `asChild`
+триггер рендерит ваш `Button` и сохраняет его стили, а `translations` согласует доступные имена с
+видимым текстом.
 
-<ExampleFrame variant="component">
-  <EditableAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/editable/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={editableSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={editableVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="editable/advanced-customization" />
 
 ## Стилизация
 
-Пакеты с CSS Modules предоставляют CSS-переменные ниже. В пакетах на Tailwind используются utility-классы
-и классы потребителя, переданные через `className` или `class`; для точечных переопределений доступны
-`data-slot` и атрибуты состояния Ark.
+Для структурных стилей передавайте `className` в React или `class` в Solid и Vue на экспортируемые
+части. Tailwind-варианты используют обычные utility-классы и классы потребителя. Варианты с CSS Modules
+дополнительно предоставляют переменную ниже: она держит одинаковую высоту у области и квадратных
+кнопок. Data-атрибуты и хуки `data-slot` общие для обоих вариантов.
+
+Корень занимает ширину контейнера, поэтому переключение между предпросмотром и полем ввода не сдвигает
+разметку. С `autoResize` корень подстраивается под ширину текста. Чтобы ограничить ширину, задайте
+`max-width` корню через класс.
 
 ### CSS-свойства
 

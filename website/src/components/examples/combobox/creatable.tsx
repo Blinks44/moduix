@@ -16,7 +16,6 @@ import {
 } from '@moduix/react/combobox';
 import { useState } from 'react';
 import { flushSync } from 'react-dom';
-import styles from '@/components/examples/combobox/component-creatable.module.css';
 
 const createOptionValue = '__create-option__';
 
@@ -93,7 +92,7 @@ export default function CreatableComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent className={styles.content}>
+        <ComboboxContent>
           <ComboboxList>
             {collection.items.map((item) => (
               <ComboboxItem key={item.value} item={item}>

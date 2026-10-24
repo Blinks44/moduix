@@ -4,22 +4,7 @@ component: aspect-ratio
 description: Помещает медиаконтент и встроенное содержимое в адаптивный контейнер с фиксированным соотношением сторон.
 ---
 
-import AspectRatioAdvancedCustomization from '@/components/examples/aspect-ratio/advanced-customization.tsx';
-import AspectRatioBasic from '@/components/examples/aspect-ratio/basic.tsx';
-import AspectRatioCardGrid from '@/components/examples/aspect-ratio/card-grid.tsx';
-import AspectRatioEmbeddedContent from '@/components/examples/aspect-ratio/embedded-content.tsx';
-import AspectRatioMigration from '@/components/examples/aspect-ratio/migrating-from-shadcn.tsx';
-import aspectRatioSolidAdvancedCustomization from '../../../snippets/aspect-ratio/solid/advanced-customization.tsx?raw';
-import aspectRatioSolidBasic from '../../../snippets/aspect-ratio/solid/basic.tsx?raw';
-import aspectRatioSolidCardGrid from '../../../snippets/aspect-ratio/solid/card-grid.tsx?raw';
-import aspectRatioSolidEmbeddedContent from '../../../snippets/aspect-ratio/solid/embedded-content.tsx?raw';
-import aspectRatioSolidMigration from '../../../snippets/aspect-ratio/solid/migrating-from-shadcn.tsx?raw';
-import aspectRatioVueAdvancedCustomization from '../../../snippets/aspect-ratio/vue/advanced-customization.vue?raw';
-import aspectRatioVueBasic from '../../../snippets/aspect-ratio/vue/basic.vue?raw';
-import aspectRatioVueEmbeddedContent from '../../../snippets/aspect-ratio/vue/embedded-content.vue?raw';
-import aspectRatioVueMigration from '../../../snippets/aspect-ratio/vue/migrating-from-shadcn.vue?raw';
 
-import aspectRatioVueCardGrid from '../../../snippets/aspect-ratio/vue/card-grid.vue?raw';
 
 ## Справочник API
 
@@ -38,52 +23,14 @@ import aspectRatioVueCardGrid from '../../../snippets/aspect-ratio/vue/card-grid
 
 Используйте `AspectRatio` как корневой элемент адаптивного контейнера. По умолчанию он занимает всю доступную
 ширину родительского контейнера. Если размер нужно ограничить или изменить, задайте корневому элементу `width`
-или `max-width`, а в `ratio` передайте конечное положительное число.
+или `max-width`, а в `ratio` передайте отношение ширины к высоте.
+По умолчанию `ratio` равен `1`; отсутствующее или некорректное значение (ноль, отрицательное, `NaN`, `Infinity`) тоже даёт `1`.
 
 `AspectRatio` управляет только соотношением сторон. Размеры и оформление дочерних элементов задавайте явно:
 например, укажите изображению полную ширину и высоту вместе с `object-fit`. Обрезку и радиус добавляйте корневому
 элементу только там, где они нужны композиции.
 
-<ExampleFrame variant="component">
-  <AspectRatioBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/aspect-ratio/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={aspectRatioSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={aspectRatioVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="aspect-ratio/basic" />
 
 ## Установка через shadcn
 
@@ -152,184 +99,28 @@ AspectRatio
 Одинаковое соотношение сторон у медиаконтента помогает выровнять карточки в списке, даже если исходные изображения
 имеют разные размеры.
 
-<ExampleFrame variant="component">
-  <AspectRatioCardGrid />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/aspect-ratio/card-grid.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={aspectRatioSolidCardGrid} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={aspectRatioVueCardGrid} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-card-grid.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="aspect-ratio/card-grid" />
 
 ### Встроенное содержимое
 
 Оберните видео или другой встроенный элемент в `AspectRatio`, чтобы размер контейнера не менялся во время загрузки
 внешнего содержимого.
 
-<ExampleFrame variant="component">
-  <AspectRatioEmbeddedContent />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/aspect-ratio/embedded-content.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={aspectRatioSolidEmbeddedContent} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={aspectRatioVueEmbeddedContent} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-embedded-content.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="aspect-ratio/embedded-content" />
 
 ### Миграция с shadcn
 
 При переходе с shadcn задайте `AspectRatio` ширину, обрезку и радиус, а размер вложенного медиаконтента укажите явно.
 Такой же корневой компонент подходит для `Image` из Next.js с `fill`.
 
-<ExampleFrame variant="component">
-  <AspectRatioMigration />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/aspect-ratio/migrating-from-shadcn.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={aspectRatioSolidMigration} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={aspectRatioVueMigration} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-migrating-from-shadcn.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="aspect-ratio/migrating-from-shadcn" />
 
 ### Расширенная настройка
 
 Используйте `asChild`, если корневым элементом должен быть семантический тег, например `figure`. Фабрика Ark
 передаёт свойства компонента его единственному дочернему элементу.
 
-<ExampleFrame variant="component">
-  <AspectRatioAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/aspect-ratio/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={aspectRatioSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={aspectRatioVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/aspect-ratio/aspect-ratio-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="aspect-ratio/advanced-customization" />
 
 ## Стилизация
 
@@ -341,4 +132,5 @@ AspectRatio
   нужно другое соотношение сторон, переопределите `aspect-ratio` в своём CSS.
 - Компонент не оформляет дочернее содержимое. Задавайте размеры медиаконтента и `object-fit` непосредственно
   дочернему элементу.
-- Добавляйте `overflow: hidden` и радиус корневому элементу только там, где содержимое действительно нужно обрезать.
+- Содержимое выше рамки не растягивает её, а выходит за её пределы. Добавляйте `overflow: hidden` и радиус
+  корневому элементу там, где содержимое нужно обрезать.

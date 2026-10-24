@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { UnpicSourceProps } from '@unpic/core';
 import { transformSourceProps } from '@unpic/core';
-import { ref, useAttrs } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes, SourceHTMLAttributes } from 'vue';
 
 export interface Props
@@ -19,9 +19,6 @@ defineOptions({ inheritAttrs: false });
 
 const props = defineProps<Props>();
 const attrs = useAttrs();
-const sourceElement = ref<HTMLSourceElement>();
-
-defineExpose({ $el: sourceElement });
 
 const getSourceProps = () => {
   const { class: _class, ...inputProps } = { ...attrs, ...props };
@@ -30,10 +27,5 @@ const getSourceProps = () => {
 </script>
 
 <template>
-  <source
-    ref="sourceElement"
-    v-bind="getSourceProps()"
-    :class="props.class"
-    data-slot="image-source"
-  />
+  <source v-bind="getSourceProps()" :class="props.class" data-slot="image-source" />
 </template>

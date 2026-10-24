@@ -4,19 +4,7 @@ component: swap
 description: Animez la transition entre deux états visuels avec les préréglages moduix fondés sur Ark UI.
 ---
 
-import SwapAnimationPresets from '@/components/examples/swap/animation-presets.tsx';
-import SwapBasic from '@/components/examples/swap/basic.tsx';
 import * as SwapDocs from '@/components/examples/swap/css-properties';
-import SwapCustomAnimation from '@/components/examples/swap/custom-animation.tsx';
-import SwapRootProvider from '@/components/examples/swap/root-provider.tsx';
-import swapSolidAnimationPresets from '../../../snippets/swap/solid/animation-presets.tsx?raw';
-import swapSolidBasic from '../../../snippets/swap/solid/basic.tsx?raw';
-import swapSolidCustomAnimation from '../../../snippets/swap/solid/custom-animation.tsx?raw';
-import swapSolidRootProvider from '../../../snippets/swap/solid/root-provider.tsx?raw';
-import swapVueAnimationPresets from '../../../snippets/swap/vue/animation-presets.vue?raw';
-import swapVueBasic from '../../../snippets/swap/vue/basic.vue?raw';
-import swapVueCustomAnimation from '../../../snippets/swap/vue/custom-animation.vue?raw';
-import swapVueRootProvider from '../../../snippets/swap/vue/root-provider.vue?raw';
 
 ## Référence de l’API
 
@@ -29,41 +17,7 @@ Utilisez `Swap` lorsqu’un élément de l’interface doit basculer entre deux 
 une icône qui change après une action. Passez la valeur booléenne courante à `swap` : `false` affiche
 l’indicateur `off` et `true` affiche l’indicateur `on`.
 
-<ExampleFrame variant="component">
-  <SwapBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/swap/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={swapSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={swapVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="swap/basic" />
 
 ## Installation avec shadcn
 
@@ -139,46 +93,7 @@ même état. Avec `asChild`, fournissez exactement un enfant sémantique.
 Choisissez un préréglage intégré, puis activez le bouton pour voir la transition sélectionnée. La
 valeur courante et les boutons de sélection sont affichés sous la démonstration.
 
-<ExampleFrame variant="component">
-  <SwapAnimationPresets />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/swap/animation-presets.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={swapSolidAnimationPresets} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={swapVueAnimationPresets} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/swap/swap-animation-presets.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="swap/animation-presets" />
 
 ### Animation personnalisée
 
@@ -187,46 +102,7 @@ attributs `data-state` d’Ark sur les indicateurs. Le préréglage `bounce` ci-
 ordinaire. Une animation personnalisée doit définir son entrée et sa sortie, avec une règle de secours
 pour la réduction des mouvements.
 
-<ExampleFrame variant="component">
-  <SwapCustomAnimation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/swap/custom-animation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={swapSolidCustomAnimation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={swapVueCustomAnimation} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/swap/swap-custom-animation.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="swap/custom-animation" />
 
 ### Root Provider
 
@@ -234,53 +110,14 @@ Créez l’état de `Swap` séparément avec `useSwap()`, puis transmettez-le à
 via la propriété `value`. Cet exemple utilise également `asChild`, de sorte que le bouton sémantique
 devient la racine rendue de `Swap`.
 
-<ExampleFrame variant="component">
-  <SwapRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/swap/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={swapSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={swapVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/swap/swap-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="swap/root-provider" />
 
 ## Styles
 
-Les préréglages intégrés utilisent les propriétés CSS ci-dessous dans les variantes CSS Modules. Les
-variantes Tailwind utilisent des classes utilitaires natives et les classes du consommateur. Un nom
-d’animation personnalisé désactive les préréglages intégrés, mais vous pouvez toujours réutiliser
-`--moduix-swap-transition` dans votre CSS.
+Dans les variantes CSS Modules, `--moduix-swap-transition` règle la durée des préréglages intégrés. Les
+variantes Tailwind utilisent des classes utilitaires natives et les classes du consommateur. Pour un
+autre mouvement, passez un nom d’animation personnalisé : il désactive les préréglages intégrés, et vous
+pouvez toujours réutiliser `--moduix-swap-transition` dans votre CSS.
 
 Ark fige la mise en page avec des styles inline : la racine reçoit `display: inline-grid`, et chaque
 indicateur reçoit `grid-area: 1 / 1` et `display: inline-flex`. Les remplacements de `display` et
@@ -289,8 +126,7 @@ via la prop `style` (par exemple `style={{ display: 'grid' }}`).
 
 Dans les variantes Tailwind, le préréglage flip applique `data-[animation=flip]:[perspective:24rem]`
 sur la racine, qui l’emporte sur un simple utilitaire `perspective` du consommateur ; répétez donc ce
-variant documenté (par exemple `data-[animation=flip]:[perspective:32rem]`) pour le remplacer, tandis
-que la variante CSS Modules expose plutôt `--moduix-swap-flip-perspective`.
+variant documenté (par exemple `data-[animation=flip]:[perspective:32rem]`) pour le remplacer.
 
 ### Propriétés CSS
 
@@ -302,7 +138,9 @@ que la variante CSS Modules expose plutôt `--moduix-swap-flip-perspective`.
 - `SwapRootProvider` utilise `data-slot="swap-root-provider"`.
 - `SwapIndicator` utilise `data-slot="swap-indicator"`.
 - `animation` est exposée sous forme de `data-animation` sur `Swap` et `SwapRootProvider`.
-- Les préréglages intégrés ciblent uniquement les enfants directs `SwapIndicator` de leur racine.
+- Avec CSS Modules, les préréglages intégrés ciblent uniquement les enfants directs `SwapIndicator` de
+  leur racine. Les préréglages Tailwind lisent l’ancêtre `group/swap` le plus proche : n’imbriquez pas
+  un `Swap` dans un autre.
 - Ark ajoute `data-scope="swap"` et `data-part="root" | "indicator"`.
 - Ark ajoute `data-state="open" | "closed"` aux indicateurs. moduix utilise ces attributs pour ses
   animations intégrées et personnalisées.

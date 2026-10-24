@@ -10,12 +10,15 @@ import { cn } from '@/lib/moduix/cn';
 import type { ToggleSize, ToggleVariant } from '../toggle/Toggle';
 import { toggleVariants } from '../toggle/Toggle.variants';
 
-type ToggleGroupStyleContextValue = {
-  variant: Accessor<ToggleVariant>;
-  size: Accessor<ToggleSize>;
+type ToggleGroupStyleProps = {
+  variant?: ToggleVariant;
+  size?: ToggleSize;
 };
 
-const ToggleGroupStyleContext = createContext<ToggleGroupStyleContextValue>({
+const ToggleGroupStyleContext = createContext<{
+  variant: Accessor<ToggleVariant>;
+  size: Accessor<ToggleSize>;
+}>({
   variant: (): ToggleVariant => 'default',
   size: (): ToggleSize => 'md',
 });
@@ -36,30 +39,23 @@ const toggleGroupRootVariants = cva(
   },
 );
 
-type ToggleGroupRootProps = ComponentProps<typeof ToggleGroupPrimitive.Root> & {
-  variant?: ToggleVariant;
-  size?: ToggleSize;
-};
+type ToggleGroupRootProps = ComponentProps<typeof ToggleGroupPrimitive.Root> &
+  ToggleGroupStyleProps;
 
-type ToggleGroupRootProviderProps = ComponentProps<typeof ToggleGroupPrimitive.RootProvider> & {
-  variant?: ToggleVariant;
-  size?: ToggleSize;
-};
+type ToggleGroupRootProviderProps = ComponentProps<typeof ToggleGroupPrimitive.RootProvider> &
+  ToggleGroupStyleProps;
 
-type ToggleGroupItemProps = ComponentProps<typeof ToggleGroupPrimitive.Item> & {
-  variant?: ToggleVariant;
-  size?: ToggleSize;
-};
+type ToggleGroupItemProps = ComponentProps<typeof ToggleGroupPrimitive.Item> &
+  ToggleGroupStyleProps;
 
 function ToggleGroup(props: ToggleGroupRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size', 'variant']);
+  const [local, others] = splitProps(props, ['children', 'class', 'size', 'variant']);
   const variant = () => local.variant ?? 'default';
   const size = () => local.size ?? 'md';
 
   return (
     <ToggleGroupStyleContext.Provider value={{ variant, size }}>
       <ToggleGroupPrimitive.Root
-        asChild={local.asChild}
         {...others}
         data-slot="toggle-group-root"
         data-variant={variant()}
@@ -73,14 +69,13 @@ function ToggleGroup(props: ToggleGroupRootProps) {
 }
 
 function ToggleGroupRootProvider(props: ToggleGroupRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size', 'variant']);
+  const [local, others] = splitProps(props, ['children', 'class', 'size', 'variant']);
   const variant = () => local.variant ?? 'default';
   const size = () => local.size ?? 'md';
 
   return (
     <ToggleGroupStyleContext.Provider value={{ variant, size }}>
       <ToggleGroupPrimitive.RootProvider
-        asChild={local.asChild}
         {...others}
         data-slot="toggle-group-root-provider"
         data-variant={variant()}
@@ -94,14 +89,13 @@ function ToggleGroupRootProvider(props: ToggleGroupRootProviderProps) {
 }
 
 function ToggleGroupItem(props: ToggleGroupItemProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size', 'variant']);
+  const [local, others] = splitProps(props, ['children', 'class', 'size', 'variant']);
   const inherited = useContext(ToggleGroupStyleContext);
   const variant = () => local.variant ?? inherited.variant();
   const size = () => local.size ?? inherited.size();
 
   return (
     <ToggleGroupPrimitive.Item
-      asChild={local.asChild}
       {...others}
       data-slot="toggle-group-item"
       data-variant={variant()}
@@ -127,6 +121,13 @@ export {
   useToggleGroup,
   useToggleGroupContext,
 };
+export type {
+  ToggleGroupContextProps,
+  ToggleGroupValueChangeDetails,
+  UseToggleGroupContext,
+  UseToggleGroupProps,
+  UseToggleGroupReturn,
+} from '@ark-ui/solid/toggle-group';
 export type {
   ToggleGroupItemProps,
   ToggleGroupRootProps,

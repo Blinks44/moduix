@@ -49,7 +49,7 @@ export default function TourEventsDemo() {
 
   return (
     <div class={styles.root}>
-      <Tour tour={tour} lazyMount unmountOnExit>
+      <Tour tour={tour}>
         <TourBackdrop />
         <TourPositioner>
           <TourContent>

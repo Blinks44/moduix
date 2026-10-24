@@ -20,7 +20,6 @@ import {
   TrafficCone as TrafficConeIcon,
 } from 'lucide-solid';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/menu/menu-indicator-placement.module.css';
 
 export default function IndicatorRightMenuDemo() {
   const [showSearch, setShowSearch] = createSignal(true);
@@ -35,7 +34,7 @@ export default function IndicatorRightMenuDemo() {
         <MenuIndicator />
       </MenuTrigger>
       <MenuPositioner>
-        <MenuContent class={styles.content}>
+        <MenuContent>
           <MenuViewport>
             <MenuCheckboxItem
               checked={showSearch()}

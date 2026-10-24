@@ -21,7 +21,6 @@ import {
 } from '@moduix/vue-tailwind/date-picker';
 import { Dialog, DialogCloseIcon, useDialog } from '@moduix/vue-tailwind/dialog';
 import { Drawer, DrawerCloseIcon } from '@moduix/vue-tailwind/drawer';
-import { FieldInput, FieldSelect, FieldTextarea } from '@moduix/vue-tailwind/field';
 import { FileUpload, FileUploadClearTrigger } from '@moduix/vue-tailwind/file-upload';
 import { FloatingPanel, FloatingPanelCloseIcon } from '@moduix/vue-tailwind/floating-panel';
 import { InputGroup, InputGroupInput } from '@moduix/vue-tailwind/input-group';
@@ -64,13 +63,6 @@ import { ref } from 'vue';
 
 const rawApi = useArkSignaturePad();
 const query = ref('project');
-const fieldDefaultPropsRemoved: Extract<
-  | keyof InstanceType<typeof FieldInput>['$props']
-  | keyof InstanceType<typeof FieldSelect>['$props'],
-  'defaultValue'
-> extends never
-  ? true
-  : false = true;
 const clearDisabled = ref<boolean>();
 type ChartDatum = { month: string; value: number; note: string };
 const chartDefinition = defineChart({
@@ -116,10 +108,6 @@ const fixedSlotTypes: Extract<
 </script>
 
 <template>
-  <FieldInput v-model="query" :size="8" @update:model-value="($event) => $event?.toString()" />
-  <FieldTextarea v-model="query" autoresize />
-  <FieldSelect v-model="query"><option value="project">Project</option></FieldSelect>
-  <output>{{ fieldDefaultPropsRemoved }}</output>
   <DatePicker selection-mode="multiple">
     <DatePickerMonthSelect :multiple="false" :size="'4'" aria-label="Month" />
     <DatePickerYearSelect :size="4" aria-label="Year" />

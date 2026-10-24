@@ -1,3 +1,4 @@
+import { Button } from '@moduix/solid/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -19,7 +20,7 @@ export default function DirectoryUploadDemo() {
   return (
     <FileUpload class={styles.root} directory maxFiles={maxFiles}>
       <FileUploadLabel>Folder</FileUploadLabel>
-      <FileUploadTrigger>Choose folder</FileUploadTrigger>
+      <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose folder</Button>} />
       <FileUploadItemGroup>
         <FileUploadContext>
           {(fileUpload) => (
@@ -28,7 +29,7 @@ export default function DirectoryUploadDemo() {
                 <FileUploadItem file={file}>
                   <FileUploadItemName>{file.webkitRelativePath || file.name}</FileUploadItemName>
                   <FileUploadItemSizeText />
-                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                  <FileUploadItemDeleteTrigger />
                 </FileUploadItem>
               )}
             </For>

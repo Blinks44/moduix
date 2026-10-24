@@ -5,23 +5,18 @@ import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './ScrollArea.module.css';
+import type { ScrollAreaVariant } from './ScrollArea.vue';
 
 defineOptions({ inheritAttrs: false });
 
-export interface ModuixScrollAreaRootProviderProps
-  extends /* @vue-ignore */ ScrollAreaRootProviderProps {
+export interface Props extends /* @vue-ignore */ ScrollAreaRootProviderProps {
   class?: HTMLAttributes['class'];
   fade?: boolean;
-  variant?: 'hover' | 'always';
+  variant?: ScrollAreaVariant;
   value: ScrollAreaRootProviderProps['value'];
 }
 
-const {
-  class: className,
-  fade = false,
-  variant = 'hover',
-  value,
-} = defineProps<ModuixScrollAreaRootProviderProps>();
+const { class: className, fade = false, variant = 'hover', value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();

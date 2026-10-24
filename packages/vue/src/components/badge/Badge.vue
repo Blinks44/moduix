@@ -8,14 +8,16 @@ import styles from './Badge.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
+export type BadgeSize = 'sm' | 'md' | 'lg';
+export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {
   variant?: BadgeVariant;
+  size?: BadgeSize;
   class?: HTMLAttributes['class'];
 }
 
-const { class: className, variant = 'default' } = defineProps<Props>();
+const { class: className, size = 'md', variant = 'default' } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -27,6 +29,7 @@ const attrs = useAttrs();
     data-scope="badge"
     data-part="root"
     data-slot="badge-root"
+    :data-size="size"
     :data-variant="variant"
     :class="clsx(styles.root, className)"
   >

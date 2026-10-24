@@ -2,6 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { cva } from 'class-variance-authority';
 import { forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 
 type SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -22,28 +23,23 @@ const spinnerVariants = cva('inline-flex shrink-0 items-center justify-center al
   },
 });
 
-type SpinnerProps = HTMLArkProps<'span'> & {
+type SpinnerRootProps = HTMLArkProps<'span'> & {
   size?: SpinnerSize;
   decorative?: boolean;
 };
 
-const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
+const Spinner = forwardRef<HTMLSpanElement, SpinnerRootProps>(function Spinner(
   {
+    'aria-label': ariaLabel,
     asChild,
     children,
     className,
     decorative = false,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
     size = 'md',
     ...props
   },
   ref,
 ) {
-  const accessibleLabel = decorative
-    ? undefined
-    : (ariaLabel ?? (ariaLabelledBy ? undefined : 'Loading'));
-
   return (
     <ark.span
       ref={ref}
@@ -53,10 +49,11 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
       data-part="root"
       data-slot="spinner-root"
       data-size={size}
-      role={decorative && !asChild ? 'presentation' : decorative ? undefined : 'status'}
-      aria-hidden={decorative && !asChild ? true : undefined}
-      aria-label={accessibleLabel}
-      aria-labelledby={decorative ? undefined : ariaLabelledBy}
+      role={decorative ? undefined : 'status'}
+      aria-hidden={decorative || undefined}
+      aria-label={
+        ariaLabel ?? (decorative || props['aria-labelledby'] ? undefined : a11yLabels.loading)
+      }
       className={cn(spinnerVariants({ size }), className)}
     >
       {asChild ? (
@@ -66,7 +63,7 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
           data-scope="spinner"
           data-part="indicator"
           data-slot="spinner-indicator"
-          className="inline-flex size-full animate-[var(--moduix-animation-spin)] items-center justify-center motion-reduce:animate-none [&_svg]:size-full"
+          className="inline-flex size-full animate-(--moduix-animation-spin) items-center justify-center [&_svg]:size-full"
           aria-hidden="true"
         >
           {children ?? (
@@ -74,7 +71,7 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
               data-scope="spinner"
               data-part="ring"
               data-slot="spinner-ring"
-              className="box-border block size-full rounded-full border-2 border-solid border-current/[22%] [border-block-start-color:currentColor]"
+              className="block size-full rounded-full border-2 border-solid border-current/[22%] [border-block-start-color:currentColor]"
             />
           )}
         </span>
@@ -84,3 +81,4 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
 });
 
 export { Spinner };
+export type { SpinnerRootProps, SpinnerSize };

@@ -60,9 +60,9 @@ export default function DataTableDemo() {
     <TableScrollArea className={styles.root}>
       <Table className={styles.table}>
         <TableColumnGroup>
-          <TableColumn htmlWidth={128} />
+          <TableColumn width={128} />
           <TableColumn />
-          <TableColumn htmlWidth={128} />
+          <TableColumn width={128} />
         </TableColumnGroup>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

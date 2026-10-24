@@ -2,8 +2,9 @@
 
 Upstream docs:
 
-- Ark UI: https://ark-ui.com/docs/guides/composition and https://ark-ui.com/docs/guides/styling (no dedicated Breadcrumb primitive found in current Ark docs or `@ark-ui/react`)
+- Ark UI: https://ark-ui.com/docs/guides/composition and https://ark-ui.com/docs/guides/styling (Ark has no Breadcrumb primitive)
 - Chakra UI: https://chakra-ui.com/docs/components/breadcrumb
+- shadcn/ui: https://ui.shadcn.com/docs/components/breadcrumb
 
 ## Purpose
 
@@ -11,29 +12,31 @@ Upstream docs:
 
 ## Upstream model to preserve
 
-Ark UI does not currently expose a Breadcrumb primitive in React. Preserve Ark-native composition by using the
-`@ark-ui/react/factory` `ark.*` elements, `HTMLArkProps`, and `asChild` for custom hosts instead of legacy `render`
-composition.
+Ark UI has no Breadcrumb primitive. Every part is an `@ark-ui/react/factory` `ark.*` element with `HTMLArkProps`, so
+custom hosts use Ark `asChild`.
 
 The semantic model is `nav` + `ol` + `li`, with links for navigable ancestors, a non-link current page, and visual
 separators hidden from assistive technology. Collapsed paths are composed explicitly with `Menu`.
 
 ## Current behavior contract
 
-- `Breadcrumbs` renders an Ark factory `nav` with default `aria-label="Breadcrumb"`.
-- `BreadcrumbsPath` renders `BreadcrumbsList`, `BreadcrumbsItem`, `BreadcrumbsLink`, `BreadcrumbsPage`, and
-  `BreadcrumbsSeparator` from required `links` and `page` props for the common anchor-based path case, with an
-  optional shared `separator` override. Every `links` entry requires an `href` and renders as an anchor; `page`
-  renders as the current page. It forwards its ref and native ordered-list props to the generated list, while keeping
-  `children` and `asChild` private because it owns that list's children.
-- `BreadcrumbsList` renders an ordered list and owns the horizontal layout.
+- `Breadcrumbs` renders a `nav` with a default `aria-label` from `a11yLabels.breadcrumb` (`"Breadcrumb"`); a consumer
+  `aria-label` wins.
+- `BreadcrumbsList` renders an ordered list and owns the single-line flex layout.
 - `BreadcrumbsItem` renders a list item for a visible segment.
 - `BreadcrumbsLink` renders an anchor by default and supports Ark `asChild` for router links.
 - `BreadcrumbsPage` renders a `span` with `aria-current="page"`.
-- `BreadcrumbsSeparator` renders an `aria-hidden` list item and defaults to a right chevron icon.
-- `BreadcrumbsEllipsis` renders an `aria-hidden` span and defaults to `...`.
-- Moduix does not re-export prop aliases that duplicate Ark factory types. Derive consumer types
-  with `ComponentProps<typeof Breadcrumbs>` or `ComponentProps<typeof BreadcrumbsLink>` when needed.
+- `BreadcrumbsSeparator` renders an `aria-hidden` list item and defaults to a right chevron that turns in RTL.
+- `BreadcrumbsEllipsis` renders an `aria-hidden` span and defaults to a horizontal ellipsis icon. A native `button`
+  that directly wraps it is reset and styled as a breadcrumb trigger: no border, padding, or background, pointer
+  cursor, the link hover color, and the focus ring drawn on the ellipsis.
+- `BreadcrumbsPath` renders the parts above from required `links` and `page` props, with an optional shared
+  `separator`. Every `links` entry requires an `href` and renders as an anchor; `page` renders as the current page.
+  It forwards its ref and native ordered-list props to the generated list and does not accept `children` or `asChild`.
+- `data-slot` hooks are written after forwarded props, and the owned `aria-current` and `aria-hidden` values cannot be
+  overridden.
+- Exported types: `BreadcrumbsPathLink` and `BreadcrumbsPathProps`. Other parts take Ark factory props; derive them
+  with `ComponentProps<typeof BreadcrumbsLink>` when needed.
 
 ## Anatomy and exported parts
 
@@ -47,8 +50,6 @@ Breadcrumbs
       `- BreadcrumbsPage
 ```
 
-`BreadcrumbsPath` is optional sugar that renders the tree above from `links` and `page`.
-
 | Part                   | `data-slot`             | Notes                                                       |
 | ---------------------- | ----------------------- | ----------------------------------------------------------- |
 | `Breadcrumbs`          | `breadcrumbs-root`      | `nav`, default landmark label.                              |
@@ -57,7 +58,7 @@ Breadcrumbs
 | `BreadcrumbsLink`      | `breadcrumbs-link`      | `a`, supports `asChild`.                                    |
 | `BreadcrumbsPage`      | `breadcrumbs-page`      | `span`, sets `aria-current="page"`.                         |
 | `BreadcrumbsSeparator` | `breadcrumbs-separator` | `li`, hidden from assistive technology, chevron by default. |
-| `BreadcrumbsEllipsis`  | `breadcrumbs-ellipsis`  | `span`, `aria-hidden`, defaults to `...`.                   |
+| `BreadcrumbsEllipsis`  | `breadcrumbs-ellipsis`  | `span`, `aria-hidden`, ellipsis icon by default.            |
 
 ## Composition
 
@@ -79,7 +80,7 @@ export function Example() {
 }
 ```
 
-Drop to explicit parts when different items need custom markup or framework links through Ark `asChild`:
+Drop to explicit parts when items need custom markup or framework links through Ark `asChild`:
 
 ```tsx
 <BreadcrumbsLink asChild>
@@ -87,115 +88,54 @@ Drop to explicit parts when different items need custom markup or framework link
 </BreadcrumbsLink>
 ```
 
-## Upstream feature coverage
-
-- Dedicated Ark Breadcrumb docs and React primitive: not present in the current Ark component list, package exports, or
-  `https://ark-ui.com/docs/components/breadcrumb.mdx`.
-- Ark factory composition: covered by every part using `ark.*` and `HTMLArkProps`.
-- Ark `asChild`: supported on every explicit part through `HTMLArkProps`; documented for `BreadcrumbsLink`.
-  `BreadcrumbsPath` intentionally excludes it because the shorthand owns multiple list children.
-- Moduix shorthand path rendering: covered by `BreadcrumbsPath`, which keeps the semantic `ol > li` structure while
-  auto-rendering links, the current page, and separators from `links` and `page`.
-- Ark Menu composition for collapsed paths: supported through explicit `Menu`, `MenuPositioner`,
-  `MenuContent`, and `MenuItem asChild`.
-- Controlled/uncontrolled state, callbacks, context, `RootProvider`, ids, `HiddenInput`, and Field/Fieldset state do not
-  apply because breadcrumbs do not own interactive state or form state.
-
 ## Accessibility and state
 
-Refs forward to the rendered Ark factory element for each part. `BreadcrumbsPath` forwards its ref to the generated
-ordered list. `BreadcrumbsLink` forwards to the anchor by default; with `asChild`, the child must be a single semantic
-link component that preserves link behavior and focusability.
+Refs forward to the rendered element of each part; `BreadcrumbsPath` forwards its ref to the generated list. With
+`asChild`, the child must be a single semantic link that keeps link behavior and focusability.
 
-`BreadcrumbsPath` does not add interaction state; it only renders the same list semantics as explicit parts. The last
-item is always the only current page, so give that item the current label instead of an `href`. Earlier items render as
-`BreadcrumbsLink`; provide an `href` when they should be navigable.
+`BreadcrumbsEllipsis` is presentational. When it opens a menu, put it inside `MenuTrigger asChild` with a native button
+and give that button the accessible label, for example `aria-label="Show hidden path items"`. The button needs no
+styles of its own.
 
-Visible breadcrumb items can now shrink when horizontal space is limited. The last item remains the primary truncation
-target through `--moduix-breadcrumbs-item-max-width`, while ancestor links can compress instead of forcing the whole trail to
-overflow immediately.
-
-`BreadcrumbsPage` sets `aria-current="page"`. `BreadcrumbsSeparator` is a presentational list item and
-`BreadcrumbsEllipsis` is hidden from assistive technology. When ellipsis opens a menu, the accessible label belongs on `MenuTrigger`, for example
-`aria-label="Show hidden path items"`.
-
-There is no component-owned state, callback, keyboard navigation, or CSS runtime variable.
+There is no component-owned state, callback, context, or keyboard navigation.
 
 ## Defaults and styling
 
-Every part accepts `className` and exposes stable Moduix `data-slot` hooks.
+- The root sets the muted text color. Links, separators, and the ellipsis inherit it; links turn to the foreground
+  color on hover (inside `@media (hover: hover)`), and the current page uses the foreground color and medium weight.
+- Items stay on one line and can shrink. Links and the page truncate with an ellipsis; the last item is capped by
+  `--moduix-breadcrumbs-item-max-width` and grows to fill the remaining space up to that cap.
+- Links show an inset-width focus ring as a `box-shadow` with the foundation ring tokens.
 
-Public CSS variables:
+Public CSS variables (CSS Modules):
 
-| Variable                                          | Default                                                               |
-| ------------------------------------------------- | --------------------------------------------------------------------- |
-| `--moduix-breadcrumbs-color`                      | `var(--moduix-color-muted-foreground)`                                |
-| `--moduix-breadcrumbs-ellipsis-color`             | `var(--moduix-color-muted-foreground)`                                |
-| `--moduix-breadcrumbs-ellipsis-size`              | `var(--moduix-spacing-4)`                                             |
-| `--moduix-breadcrumbs-focus-ring-color`           | `var(--moduix-color-ring)`                                            |
-| `--moduix-breadcrumbs-focus-ring-width`           | `var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))` |
-| `--moduix-breadcrumbs-font-size`                  | `var(--moduix-text-sm)`                                               |
-| `--moduix-breadcrumbs-gap`                        | `var(--moduix-spacing-1)`                                             |
-| `--moduix-breadcrumbs-item-max-width`             | `16rem`                                                               |
-| `--moduix-breadcrumbs-item-padding-x`             | `var(--moduix-spacing-1)`                                             |
-| `--moduix-breadcrumbs-line-height`                | `var(--moduix-line-height-text-sm)`                                   |
-| `--moduix-breadcrumbs-link-color`                 | `var(--moduix-color-muted-foreground)`                                |
-| `--moduix-breadcrumbs-link-color-hover`           | `var(--moduix-color-foreground)`                                      |
-| `--moduix-breadcrumbs-link-radius`                | `var(--moduix-radius-sm)`                                             |
-| `--moduix-breadcrumbs-link-text-decoration`       | `none`                                                                |
-| `--moduix-breadcrumbs-link-text-decoration-hover` | `none`                                                                |
-| `--moduix-breadcrumbs-link-transition`            | `var(--moduix-transition-default)`                                    |
-| `--moduix-breadcrumbs-link-underline-offset`      | `0.2em`                                                               |
-| `--moduix-breadcrumbs-max-width`                  | `100%`                                                                |
-| `--moduix-breadcrumbs-page-color`                 | `var(--moduix-color-foreground)`                                      |
-| `--moduix-breadcrumbs-page-font-weight`           | `var(--moduix-weight-medium)`                                         |
-| `--moduix-breadcrumbs-separator-color`            | `var(--moduix-color-muted-foreground)`                                |
-| `--moduix-breadcrumbs-separator-font-size`        | `0.875em`                                                             |
-| `--moduix-breadcrumbs-separator-icon-size`        | `1em`                                                                 |
-
-Visible items can shrink when necessary, and the last item is capped by `--moduix-breadcrumbs-item-max-width`; link, page, and
-ellipsis text uses `text-overflow: ellipsis`.
+| Variable                                   | Default                                |
+| ------------------------------------------ | -------------------------------------- |
+| `--moduix-breadcrumbs-color`               | `var(--moduix-color-muted-foreground)` |
+| `--moduix-breadcrumbs-font-size`           | `var(--moduix-text-sm)`                |
+| `--moduix-breadcrumbs-gap`                 | `var(--moduix-spacing-1)`              |
+| `--moduix-breadcrumbs-item-max-width`      | `16rem`                                |
+| `--moduix-breadcrumbs-item-padding-x`      | `var(--moduix-spacing-1)`              |
+| `--moduix-breadcrumbs-line-height`         | `var(--moduix-line-height-text-sm)`    |
+| `--moduix-breadcrumbs-link-color-hover`    | `var(--moduix-color-foreground)`       |
+| `--moduix-breadcrumbs-page-color`          | `var(--moduix-color-foreground)`       |
+| `--moduix-breadcrumbs-page-font-weight`    | `var(--moduix-weight-medium)`          |
+| `--moduix-breadcrumbs-separator-icon-size` | `1em`                                  |
 
 ## Intentional sugar and differences from upstream
 
-- Moduix provides the Breadcrumb part family because Ark UI does not currently provide a dedicated primitive.
-- Moduix adds `BreadcrumbsPath` as narrow shorthand for common anchor-based trails; advanced composition still uses the
-  explicit part family.
-- The legacy `render` prop was removed. Use Ark `asChild`.
-- `BreadcrumbsPath` generates separators automatically, while low-level composition keeps separators explicit.
+- Moduix provides the part family because Ark UI has no Breadcrumb primitive.
+- `BreadcrumbsPath` is narrow shorthand for anchor-based trails and generates separators; explicit composition keeps
+  separators explicit.
 - Collapsing is not built in; compose `Menu` explicitly for hidden path items.
-- `BreadcrumbsEllipsis` stays non-interactive; compose it inside an accessible trigger for collapsed menus.
-- Recommended docs now teach `BreadcrumbsPath` first and keep one explicit `Advanced Customization` example for the
-  full part-by-part composition path.
+- Unlike shadcn, the list does not wrap: items shrink and truncate on one line.
 
 ## Agent notes
 
-- Do not reintroduce a `render` prop compatibility layer.
+- Do not reintroduce a `render` prop; router links use `asChild`.
 - Keep `BreadcrumbsPath` narrow: anchor-based items, shared separator override, no hidden router abstraction.
-- Keep router-link composition on `asChild`.
-- Keep collapsed examples on the migrated Ark Menu contract: `MenuTrigger asChild` + `MenuPositioner` +
-  `MenuContent` + `MenuItem asChild`.
+- Keep collapsed examples on `MenuTrigger asChild` + `MenuPositioner` + `MenuContent` + `MenuItem asChild`.
+- Keep link, separator, and ellipsis colors inherited from the root; do not add per-part color variables back.
+- Keep the trigger styles keyed to a native `button` that directly wraps `BreadcrumbsEllipsis`; the ellipsis itself
+  stays `aria-hidden` and never becomes the trigger.
 - Keep docs, stories, registry output, and CSS variable tables synchronized when changing parts or tokens.
-
-## Local changelog
-
-- 2026-09-21: Replaced the compound `Breadcrumbs.*` value surface with the shared flat API across
-  React and Solid. `Breadcrumbs` is now the only root value; every other part uses a
-  `Breadcrumbs`-prefixed named export.
-- 2026-08-09: Made `BreadcrumbsPath` forward its ref and native list props to the generated `ol`, and removed the
-  unsupported `children` and `asChild` props from its public shorthand contract.
-- 2026-07-26: Ensured `BreadcrumbsPath` marks only its final item as current, made the default chevron RTL-aware, and
-  added focused semantics and composition coverage.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-09: Allowed ancestor breadcrumb items to shrink in tight layouts and added a dedicated advanced-composition
-  docs path alongside the shorthand-first examples.
-- 2026-07-07: Added `BreadcrumbsPath` for common anchor-based trails, switched the default separator to a chevron icon,
-  and updated the recommended docs/examples path to teach the shorthand first while keeping advanced composition explicit.
-- 2026-07-02: Removed public prop aliases that only duplicated Ark factory types while preserving
-  every structural part, callable root form, default separator and ellipsis content, and `asChild`.
-- 2026-06-19: Migrated the component to Ark factory elements, added Ark-style `data-scope`/`data-part` hooks,
-  namespace parts, prop type exports, and replaced `render` with `asChild`.
-- 2026-06-24: Re-audited the local-only Ark factory contract, made separators presentational by default,
-  aligned ellipsis padding with the documented item padding token, and removed non-interactive ellipsis hover styling.
-- 2026-08-31: Simplified internal styling selectors, removed unused ellipsis radius customization, and made the
-  accessibility semantics of page, separator, and ellipsis parts invariant.

@@ -252,14 +252,56 @@ test('applies consumer classes alongside component classes', async () => {
     </Menu>,
   );
 
-  expect(screen.getByRole('button', { name: 'Actions' })?.className).toMatch(/trigger/);
-  expect(
-    screen.getByRole('button', { name: 'Actions' })?.classList.contains('consumer-trigger'),
-  ).toBe(true);
+  expect(screen.getByRole('button', { name: 'Actions' }).className).toBe('consumer-trigger');
   expect(screen.getByRole('menu')?.className).toMatch(/content/);
   expect(screen.getByRole('menu')?.classList.contains('consumer-content')).toBe(true);
   expect(screen.getByRole('menuitem', { name: 'Edit' })?.className).toMatch(/item/);
   expect(screen.getByRole('menuitem', { name: 'Edit' })?.classList.contains('consumer-item')).toBe(
     true,
   );
+});
+
+test('mounts content on first open and removes it after close', async () => {
+  const { container } = render(
+    <Menu portalled={false}>
+      <MenuTrigger>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="edit">Edit</MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
+    </Menu>,
+  );
+
+  expect(container.querySelector('[data-slot="menu-content"]')).toBeNull();
+  await page.getByRole('button', { name: 'Actions' }).click();
+  await expect.element(page.getByRole('menu')).toBeVisible();
+  await page.getByRole('button', { name: 'Actions' }).click();
+  await expect.poll(() => container.querySelector('[data-slot="menu-content"]')).toBeNull();
+});
+
+test('mutes disabled items regardless of tone', async () => {
+  render(
+    <Menu defaultOpen portalled={false}>
+      <MenuTrigger>Actions</MenuTrigger>
+      <MenuPositioner>
+        <MenuContent>
+          <MenuViewport>
+            <MenuItem value="edit" disabled>
+              Edit
+            </MenuItem>
+            <MenuItem value="delete" tone="destructive" disabled>
+              Delete
+            </MenuItem>
+          </MenuViewport>
+        </MenuContent>
+      </MenuPositioner>
+    </Menu>,
+  );
+
+  const edit = screen.getByRole('menuitem', { name: 'Edit' });
+  const remove = screen.getByRole('menuitem', { name: 'Delete' });
+  expect(getComputedStyle(remove).color).toBe(getComputedStyle(edit).color);
 });

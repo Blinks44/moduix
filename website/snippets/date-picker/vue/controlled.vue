@@ -7,8 +7,10 @@ import {
   DatePickerDayTable,
   DatePickerField,
   DatePickerLabel,
+  DatePickerMonthTable,
   DatePickerPositioner,
   DatePickerView,
+  DatePickerYearTable,
 } from '@moduix/vue/date-picker';
 import { shallowRef } from 'vue';
 
@@ -22,7 +24,9 @@ const value = shallowRef<DatePickerValue>([parseDate('2026-06-22') as DatePicker
     <DatePickerField />
     <DatePickerPositioner>
       <DatePickerContent>
-        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
+        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView
+        ><DatePickerView view="month"><DatePickerMonthTable /></DatePickerView
+        ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
       </DatePickerContent>
     </DatePickerPositioner>
     <output>Current value: {{ value[0]?.toString() ?? 'empty' }}</output>

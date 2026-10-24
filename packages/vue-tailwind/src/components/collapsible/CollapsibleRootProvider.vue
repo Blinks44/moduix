@@ -21,7 +21,7 @@ const attrs = useAttrs();
 <template>
   <ArkCollapsibleRootProvider
     v-bind="attrs"
-    :class="cn('box-border flex w-full max-w-full min-w-0 flex-col text-foreground', className)"
+    :class="cn('flex w-full min-w-0 flex-col text-foreground', className)"
     :value="value"
     data-slot="collapsible-root-provider"
   >

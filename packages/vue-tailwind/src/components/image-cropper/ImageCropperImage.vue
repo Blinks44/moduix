@@ -19,9 +19,7 @@ const attrs = useAttrs();
 <template>
   <ArkImageCropperImage
     v-bind="attrs"
-    :class="
-      cn('absolute inset-0 block size-full origin-center object-contain backface-hidden', className)
-    "
+    :class="cn('absolute inset-0 m-auto block max-h-full max-w-full', className)"
     data-slot="image-cropper-image"
   />
 </template>

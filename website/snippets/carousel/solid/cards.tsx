@@ -50,7 +50,7 @@ export default function CardCarousel() {
       aria-label="Featured destinations"
       slideCount={destinations.length}
     >
-      <CarouselItemGroup class={styles.itemGroup}>
+      <CarouselItemGroup>
         <For each={destinations}>
           {(destination, index) => (
             <CarouselItem index={index()}>
@@ -73,7 +73,7 @@ export default function CardCarousel() {
         </For>
       </CarouselItemGroup>
 
-      <CarouselControl class={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselIndicators />
         <CarouselNextTrigger />

@@ -1,5 +1,4 @@
 .root {
-  inline-size: 100%;
   overflow: hidden;
   border-radius: var(--moduix-radius-md);
   background: var(--moduix-color-muted);

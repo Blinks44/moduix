@@ -18,7 +18,7 @@ const clipboard = useClipboard({ defaultValue: 'https://moduix.dev/docs/clipboar
     <ClipboardRootProvider :value="clipboard">
       <ClipboardLabel>Provider-driven clipboard</ClipboardLabel>
       <ClipboardControl>
-        <ClipboardInput readonly />
+        <ClipboardInput />
         <ClipboardTrigger>
           <ClipboardIndicator />
         </ClipboardTrigger>

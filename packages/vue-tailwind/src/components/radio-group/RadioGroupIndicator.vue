@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'pointer-events-none absolute top-[var(--top)] left-[var(--left)] h-[var(--height)] w-[var(--width)] rounded-full bg-primary opacity-[0.12] [--transition-duration:var(--moduix-duration-normal)]',
+        'pointer-events-none top-(--top) left-(--left) h-(--height) w-(--width) rounded-md bg-primary opacity-[0.12] [--transition-duration:var(--moduix-duration-normal)] [--transition-timing-function:var(--moduix-ease-in-out)]',
         className,
       )
     "

@@ -20,7 +20,7 @@ const attrs = useAttrs();
   <ark.div
     v-bind="attrs"
     role="separator"
-    :class="cn('mx-2 my-2 h-px bg-border', className)"
+    :class="cn('m-2 h-px bg-border', className)"
     data-slot="command-palette-separator"
   />
 </template>

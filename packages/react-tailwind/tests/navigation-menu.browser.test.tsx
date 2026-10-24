@@ -17,6 +17,7 @@ import {
   NavigationMenuViewportPositioner,
   NavigationMenuViewport,
 } from '../src';
+import { LocaleProvider } from '../src/locale';
 
 function NavigationMenuParts() {
   return (
@@ -95,7 +96,7 @@ test('preserves Ark value changes, navigation semantics, and Tailwind anatomy', 
     expect.arrayContaining(['relative', 'flex', 'w-fit', 'text-foreground']),
   );
   expect([...list!.classList]).toEqual(
-    expect.arrayContaining(['relative', 'flex', 'items-center', 'gap-1', 'p-0']),
+    expect.arrayContaining(['flex', 'items-center', 'gap-1', 'p-0']),
   );
   expect([...products!.classList]).toEqual(
     expect.arrayContaining(['inline-flex', 'min-h-control-md', 'rounded-md', 'px-3', 'text-sm']),
@@ -285,8 +286,8 @@ test('keeps viewport motion and provider composition Ark-shaped', async () => {
   expect([...viewport!.classList]).toEqual(
     expect.arrayContaining([
       'relative',
-      'h-[var(--viewport-height)]',
-      'w-[var(--viewport-width)]',
+      'h-(--viewport-height)',
+      'w-(--viewport-width)',
       'overflow-hidden',
     ]),
   );
@@ -317,4 +318,44 @@ test('keeps viewport motion and provider composition Ark-shaped', async () => {
   expect(viewport?.className).not.toContain(
     '[&_[data-slot=navigation-menu-content][data-motion=from-end]]:opacity-0',
   );
+});
+
+test('keeps the indicator and the start-aligned viewport under the open trigger in RTL', async () => {
+  render(
+    <LocaleProvider locale="ar">
+      <div style={{ padding: '2rem 8rem' }}>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem value="products">
+              <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+              <NavigationMenuContent>Product links</NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem value="docs">
+              <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
+              <NavigationMenuContent>Docs links</NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuIndicator />
+          </NavigationMenuList>
+          <NavigationMenuViewportPositioner align="start">
+            <NavigationMenuViewport />
+          </NavigationMenuViewportPositioner>
+        </NavigationMenu>
+      </div>
+    </LocaleProvider>,
+  );
+
+  const trigger = document.querySelector<HTMLElement>(
+    '[data-slot="navigation-menu-trigger"][data-value="docs"]',
+  )!;
+  const indicator = document.querySelector<HTMLElement>('[data-slot="navigation-menu-indicator"]')!;
+  const viewport = document.querySelector<HTMLElement>('[data-slot="navigation-menu-viewport"]')!;
+  const leftOffset = (element: HTMLElement) =>
+    Math.abs(element.getBoundingClientRect().left - trigger.getBoundingClientRect().left);
+
+  await page.getByRole('button', { name: 'Docs', exact: true }).hover();
+  await expect.element(page.getByText('Docs links')).toBeVisible();
+  await expect.poll(() => indicator.offsetWidth).toBe(trigger.offsetWidth);
+  // Polls wait for the viewport entrance scale to finish.
+  await expect.poll(() => leftOffset(indicator)).toBeLessThanOrEqual(1);
+  await expect.poll(() => leftOffset(viewport)).toBeLessThanOrEqual(1);
 });

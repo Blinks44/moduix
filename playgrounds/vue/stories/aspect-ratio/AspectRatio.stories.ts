@@ -20,7 +20,7 @@ const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w
 const storyComponents = { AspectRatio };
 
 function renderStory(template: string) {
-  return (args: { ratio: number }) =>
+  return (args: { ratio?: number }) =>
     defineComponent({
       components: storyComponents,
       setup() {

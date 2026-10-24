@@ -24,6 +24,7 @@ import styles from './Tour.module.css';
 
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
 type TourCloseIconProps = Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>;
+type TourActionListProps = { className?: string };
 
 function Tour({
   lazyMount = true,
@@ -185,16 +186,8 @@ const TourBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(f
 const TourCloseTrigger = forwardRef<
   ComponentRef<typeof TourPrimitive.CloseTrigger>,
   ComponentProps<typeof TourPrimitive.CloseTrigger>
->(function TourCloseTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <TourPrimitive.CloseTrigger
-      ref={ref}
-      asChild={asChild}
-      className={clsx(!asChild && styles.closeTrigger, className)}
-      {...props}
-      data-slot="tour-close-trigger"
-    />
-  );
+>(function TourCloseTrigger(props, ref) {
+  return <TourPrimitive.CloseTrigger ref={ref} {...props} data-slot="tour-close-trigger" />;
 });
 
 const TourCloseIcon = forwardRef<ComponentRef<typeof CloseButton>, TourCloseIconProps>(
@@ -248,7 +241,7 @@ const TourActionTrigger = forwardRef<
 
 const TourActions = TourPrimitive.Actions;
 
-function TourActionList({ className }: { className?: string }) {
+function TourActionList({ className }: TourActionListProps) {
   return (
     <TourPrimitive.Actions>
       {(actions) =>
@@ -293,4 +286,30 @@ export {
   waitForPromise,
 };
 
-export type { TourCloseIconProps, TourRootProps };
+export type { TourActionListProps, TourCloseIconProps, TourRootProps };
+
+export type {
+  TourActionTriggerProps,
+  TourActionsProps,
+  TourArrowProps,
+  TourArrowTipProps,
+  TourBackdropProps,
+  TourCloseTriggerProps,
+  TourContentProps,
+  TourContextProps,
+  TourControlProps,
+  TourDescriptionProps,
+  TourPositionerProps,
+  TourProgressTextProps,
+  TourSpotlightProps,
+  TourStatusChangeDetails,
+  TourStepChangeDetails,
+  TourStepDetails,
+  TourStepEffectArgs,
+  TourTitleProps,
+  UseTourContext,
+  UseTourProps,
+  UseTourReturn,
+  WaitForEventOptions,
+  WaitOptions,
+} from '@ark-ui/react/tour';

@@ -30,26 +30,11 @@ const clearAttrs = computed(() => {
   <ArkDatePickerClearTrigger
     v-bind="clearAttrs"
     :as-child="true"
-    :class="
-      cn(
-        'absolute end-[2.125rem] top-1/2 inline-flex size-control-xs shrink-0 -translate-y-1/2 cursor-pointer items-center justify-center rounded-sm bg-transparent p-0 leading-none text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,color,outline-color,opacity] duration-200 ease-in-out focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 data-disabled:cursor-default data-disabled:opacity-50 data-focus:outline-ring motion-reduce:transition-none [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:text-foreground',
-        className,
-      )
-    "
+    :class="cn('absolute end-[2.125rem] top-1/2 size-control-xs -translate-y-1/2', className)"
     data-slot="date-picker-clear-trigger"
   >
     <slot v-if="asChild" />
-    <CloseButton
-      v-else
-      :aria-label="ariaLabel"
-      :aria-labelledby="ariaLabelledBy"
-      :class="
-        cn(
-          'size-control-xs focus-visible:outline-1 focus-visible:-outline-offset-1 [&>svg]:size-4',
-          className,
-        )
-      "
-    >
+    <CloseButton v-else :aria-label="ariaLabel" :aria-labelledby="ariaLabelledBy">
       <slot />
     </CloseButton>
   </ArkDatePickerClearTrigger>

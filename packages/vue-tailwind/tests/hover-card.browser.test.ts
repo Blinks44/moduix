@@ -278,3 +278,54 @@ test('hydrates without replacing hosts or generated IDs and remains interactive'
     error.mockRestore();
   }
 });
+
+test('unmounts content after it closes by default', async () => {
+  const Harness = defineComponent({
+    components: { ...hoverCardComponents, HoverCardSurface },
+    setup() {
+      const open = ref(true);
+      return { open };
+    },
+    template: `
+      <button type="button" @click="open = false">Close</button>
+      <HoverCard :open="open" :portalled="false">
+        <HoverCardTrigger>Profile</HoverCardTrigger>
+        <HoverCardSurface />
+      </HoverCard>
+    `,
+  });
+
+  render(Harness);
+
+  await expect.element(page.getByTestId('content')).toBeVisible();
+  await page.getByRole('button', { name: 'Close' }).click();
+  await expect.element(page.getByTestId('content')).toHaveCount(0);
+});
+
+test('scrolls long body content inside the content height and uses shared popup motion', async () => {
+  const Harness = defineComponent({
+    components: hoverCardComponents,
+    template: `
+      <HoverCard open :portalled="false">
+        <HoverCardTrigger>Profile</HoverCardTrigger>
+        <HoverCardPositioner>
+          <HoverCardContent data-testid="content" style="max-height: 120px">
+            <HoverCardBody>
+              <div style="height: 400px">Long profile</div>
+            </HoverCardBody>
+          </HoverCardContent>
+        </HoverCardPositioner>
+      </HoverCard>
+    `,
+  });
+
+  render(Harness);
+
+  await expect.element(page.getByTestId('content')).toBeVisible();
+  const content = document.querySelector<HTMLElement>('[data-slot="hover-card-content"]')!;
+  const body = document.querySelector<HTMLElement>('[data-slot="hover-card-body"]')!;
+  expect(content.offsetHeight).toBeLessThanOrEqual(120);
+  expect(body.offsetHeight).toBeLessThan(content.offsetHeight);
+  expect(body.scrollHeight).toBeGreaterThan(body.clientHeight);
+  expect(getComputedStyle(content).animationName).toBe('moduix-popup-in');
+});

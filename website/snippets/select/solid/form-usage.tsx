@@ -10,10 +10,8 @@ import {
   SelectClearTrigger,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
   SelectHiddenSelect,
+  SelectOption,
 } from '@moduix/solid/select';
 import { createSignal, For } from 'solid-js';
 import styles from '@/components/examples/select/select-form-usage.module.css';
@@ -49,12 +47,7 @@ export default function SelectFormUsageDemo() {
         <SelectPositioner>
           <SelectContent>
             <For each={themes.items}>
-              {(item) => (
-                <SelectItem item={item}>
-                  <SelectItemText>{item.label}</SelectItemText>
-                  <SelectItemIndicator />
-                </SelectItem>
-              )}
+              {(item) => <SelectOption item={item}>{item.label}</SelectOption>}
             </For>
           </SelectContent>
         </SelectPositioner>

@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkRatingGroupControl
     v-bind="attrs"
-    :class="cn('inline-flex items-center gap-1 data-disabled:opacity-50', className)"
+    :class="cn('inline-flex items-center gap-1 data-disabled:opacity-disabled', className)"
     data-slot="rating-group-control"
   >
     <slot />

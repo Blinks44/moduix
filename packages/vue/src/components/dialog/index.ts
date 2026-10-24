@@ -36,7 +36,6 @@ export {
 export type {
   DialogBackdropProps,
   DialogCloseTriggerProps,
-  DialogContentProps,
   DialogContextProps,
   DialogDescriptionProps,
   DialogFocusOutsideEvent,
@@ -45,9 +44,7 @@ export type {
   DialogPointerDownOutsideEvent,
   DialogPositionerProps,
   DialogRootEmits,
-  DialogRootProps,
   DialogRootProviderEmits,
-  DialogRootProviderProps,
   DialogTitleProps,
   DialogTriggerProps,
   DialogTriggerValueChangeDetails,
@@ -55,3 +52,12 @@ export type {
   UseDialogProps,
   UseDialogReturn,
 } from '@ark-ui/vue/dialog';
+
+export type { Props as DialogRootProps } from './Dialog.vue';
+export type { Props as DialogRootProviderProps } from './DialogRootProvider.vue';
+export type {
+  Props as DialogContentProps,
+  DialogPlacement,
+  DialogScrollBehavior,
+  DialogSize,
+} from './DialogContent.vue';

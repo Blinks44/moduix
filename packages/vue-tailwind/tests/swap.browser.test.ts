@@ -219,7 +219,7 @@ test('applies owning Tailwind utilities and lets consumer classes override them'
   );
   expect(root.classList.contains('place-items-center')).toBe(false);
   expect([...indicator.classList]).toEqual(
-    expect.arrayContaining(['items-start', 'justify-center', 'text-inherit']),
+    expect.arrayContaining(['items-start', 'justify-center']),
   );
   expect(indicator.classList.contains('items-center')).toBe(false);
   await expect.element(page.getByTestId('swap')).toHaveCSS('place-items', 'start');

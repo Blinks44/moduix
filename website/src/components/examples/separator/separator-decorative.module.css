@@ -1,6 +1,5 @@
 .root {
   inline-size: min(24rem, 100%);
-  box-sizing: border-box;
   padding: var(--moduix-spacing-4);
   border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
   border-radius: var(--moduix-radius-md);

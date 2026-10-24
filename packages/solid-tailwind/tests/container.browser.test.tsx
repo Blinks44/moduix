@@ -13,9 +13,8 @@ test('updates size and gutter without replacing the host', () => {
   expect(screen.getByTestId('container')).toBe(container);
   expect(container.getAttribute('data-size')).toBe('full');
   expect(container.getAttribute('data-gutter')).toBe('none');
-  expect([...container.classList]).toEqual(expect.arrayContaining(['max-w-none', 'px-0']));
-  expect(container.className).not.toContain('max-w-[calc');
-  expect(container.className).not.toContain('px-[clamp');
+  expect(getComputedStyle(container).maxWidth).toBe('none');
+  expect(getComputedStyle(container).paddingInlineStart).toBe('0px');
 });
 
 test.each([
@@ -46,6 +45,18 @@ test.each([
   expect(parseFloat(style.paddingInlineStart)).toBeCloseTo(padding);
   expect(parseFloat(style.paddingInlineEnd)).toBeCloseTo(padding);
   expect(parseFloat(style.maxWidth)).toBeCloseTo(1152 + padding * 2);
+});
+
+test('derives gutters from spacing tokens', () => {
+  render(() => (
+    <div style={{ '--moduix-spacing-4': '10px', '--moduix-spacing-8': '10px' }}>
+      <Container data-testid="container" />
+    </div>
+  ));
+  const style = getComputedStyle(screen.getByTestId('container'));
+
+  expect(style.paddingInlineStart).toBe('10px');
+  expect(parseFloat(style.maxWidth)).toBeCloseTo(1152 + 20);
 });
 
 test('preserves default layout, refs, and owned hooks when consumer props conflict', () => {

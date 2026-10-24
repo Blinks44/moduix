@@ -1,6 +1,5 @@
 import { Avatar, AvatarFallback, useAvatarContext } from '@moduix/solid/avatar';
 import type { JSX } from 'solid-js';
-import { createMemo } from 'solid-js';
 import styles from '@/components/examples/avatar/avatar-custom-image.module.css';
 
 const avatarImage =
@@ -8,23 +7,10 @@ const avatarImage =
 
 type AvatarCustomImageProps = Pick<JSX.ImgHTMLAttributes<HTMLImageElement>, 'alt' | 'src'>;
 
-function AvatarCustomImage({ alt, src }: AvatarCustomImageProps) {
+function AvatarCustomImage(props: AvatarCustomImageProps) {
   const avatar = useAvatarContext();
-  const image = createMemo(() => {
-    const { hidden, ...imageProps } = avatar().getImageProps();
 
-    return { hidden, imageProps };
-  });
-
-  return (
-    <img
-      {...image().imageProps}
-      src={src}
-      alt={alt}
-      class={styles.image}
-      style={{ visibility: image().hidden ? 'hidden' : 'visible' }}
-    />
-  );
+  return <img {...avatar().getImageProps()} src={props.src} alt={props.alt} class={styles.image} />;
 }
 
 export default function AvatarCustomImageDemo() {

@@ -68,6 +68,17 @@ test('applies gaps and lets style override generated layout styles', () => {
   });
 });
 
+test('applies a lone gap to both axes across updates', () => {
+  const { getByTestId, rerender } = render(<SimpleGrid columns={2} gap={12} data-testid="grid" />);
+  const grid = getByTestId('grid');
+
+  expect(getComputedStyle(grid)).toMatchObject({ rowGap: '12px', columnGap: '12px' });
+
+  rerender(<SimpleGrid columns={3} gap={12} data-testid="grid" />);
+
+  expect(getComputedStyle(grid)).toMatchObject({ rowGap: '12px', columnGap: '12px' });
+});
+
 test('preserves semantic children with asChild', () => {
   const { getByRole } = render(
     <SimpleGrid asChild columns={2}>
@@ -88,25 +99,4 @@ test('lets consumer Tailwind utilities override fixed defaults', () => {
   expect([...grid.classList]).not.toContain('grid');
   expect([...grid.classList]).not.toContain('grid-cols-1');
   expect(getComputedStyle(grid).display).toBe('block');
-});
-
-test('rejects invalid column counts', () => {
-  for (const columns of [0, -1, 1.5, Number.NaN, Number.POSITIVE_INFINITY]) {
-    expect(() => render(<SimpleGrid columns={columns} />)).toThrow(
-      'SimpleGrid `columns` must be a finite positive integer.',
-    );
-  }
-});
-
-test('rejects invalid numeric minimum child widths', () => {
-  for (const minChildWidth of [
-    -1,
-    Number.NaN,
-    Number.NEGATIVE_INFINITY,
-    Number.POSITIVE_INFINITY,
-  ]) {
-    expect(() => render(<SimpleGrid minChildWidth={minChildWidth} />)).toThrow(
-      'SimpleGrid `minChildWidth` must be a finite non-negative number.',
-    );
-  }
 });

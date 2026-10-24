@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { MenuTrigger as ArkMenuTrigger, type MenuTriggerProps } from '@ark-ui/vue/menu';
 import { useAttrs, type HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { useSplitButtonContext, type SplitButtonSize, type SplitButtonVariant } from './context';
 import { splitButtonTriggerVariants } from './SplitButton.variants';
 
 defineOptions({ inheritAttrs: false });
-interface Props extends /* @vue-ignore */ Omit<MenuTriggerProps, 'asChild'> {
+export interface Props extends /* @vue-ignore */ Omit<MenuTriggerProps, 'asChild'> {
   class?: HTMLAttributes['class'];
   size?: SplitButtonSize;
   variant?: SplitButtonVariant;
@@ -21,23 +22,14 @@ const context = useSplitButtonContext('SplitButtonTrigger');
 
 <template>
   <ArkMenuTrigger
-    :aria-label="slots.default ? undefined : 'More actions'"
+    :aria-label="slots.default ? undefined : a11yLabels.moreActions"
     v-bind="attrs"
     as-child
-    data-slot="split-button-trigger"
   >
     <Button
       :size="size ?? context.size()"
       :variant="variant ?? context.variant()"
-      :class="
-        cn(
-          splitButtonTriggerVariants({
-            size: size ?? context.size(),
-            variant: variant ?? context.variant(),
-          }),
-          className,
-        )
-      "
+      :class="cn(splitButtonTriggerVariants({ size: size ?? context.size() }), className)"
       data-slot="split-button-trigger"
     >
       <slot><ChevronDownIcon /></slot>

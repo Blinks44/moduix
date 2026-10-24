@@ -20,12 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkSliderLabel
     v-bind="attrs"
-    :class="
-      cn(
-        'text-sm leading-5 font-normal text-foreground select-none group-data-[orientation=vertical]:[grid-area:label]',
-        className,
-      )
-    "
+    :class="cn('text-sm leading-5 group-data-[orientation=vertical]:[grid-area:label]', className)"
     data-slot="slider-label"
   >
     <slot />

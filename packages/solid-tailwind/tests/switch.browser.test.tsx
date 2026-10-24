@@ -1,3 +1,4 @@
+import { LocaleProvider } from '@ark-ui/solid/locale';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
@@ -22,6 +23,17 @@ function ProviderSwitch() {
       <SwitchLabel>Provider notifications</SwitchLabel>
     </SwitchRootProvider>
   );
+}
+
+function expectThumbGeometry(control: Element, edge: 'left' | 'right') {
+  const track = control.getBoundingClientRect();
+  const thumb = control.querySelector('[data-slot="switch-thumb"]')!.getBoundingClientRect();
+  // 1px border plus the 2px spacing-0-5 inset on each side.
+  const gap = edge === 'left' ? thumb.left - track.left : track.right - thumb.right;
+
+  expect(thumb.width).toBeCloseTo(track.height - 6, 0);
+  expect(thumb.height).toBeCloseTo(track.height - 6, 0);
+  expect(Math.abs(gap - 3)).toBeLessThanOrEqual(1);
 }
 
 test('submits through explicit Ark inputs', () => {
@@ -50,13 +62,7 @@ test('submits through explicit Ark inputs', () => {
 
   expect([...root.classList]).toEqual(expect.arrayContaining(['inline-flex', 'gap-2', 'w-fit']));
   expect([...control.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'w-11',
-      'h-[var(--switch-height)]',
-      'rounded-full',
-      'bg-muted',
-    ]),
+    expect.arrayContaining(['inline-flex', 'w-11', 'h-control-xs', 'rounded-full', 'bg-muted']),
   );
   expect([...control.classList]).toEqual(
     expect.arrayContaining([
@@ -68,7 +74,7 @@ test('submits through explicit Ark inputs', () => {
   expect([...thumb.classList]).toEqual(
     expect.arrayContaining([
       'inline-flex',
-      'size-[var(--switch-thumb-size)]',
+      'h-[calc(100%-var(--moduix-spacing-0-5)*2)]',
       'rounded-full',
       'bg-background',
       'shadow-sm',
@@ -198,7 +204,7 @@ test('keeps controlled state and invalid styling hooks Ark-shaped', async () => 
 test('lets consumer Tailwind classes override conflicting defaults', async () => {
   render(() => (
     <Switch class="gap-4" data-testid="root">
-      <SwitchControl class="w-10 rounded-md bg-background p-1">
+      <SwitchControl class="w-10 rounded-md bg-background">
         <SwitchThumb class="size-4 bg-muted-foreground" />
       </SwitchControl>
       <SwitchLabel class="text-lg">Notifications</SwitchLabel>
@@ -214,23 +220,73 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   expect([...root.classList]).toEqual(expect.arrayContaining(['gap-4']));
   expect(root.classList.contains('gap-2')).toBe(false);
   expect([...control.classList]).toEqual(
-    expect.arrayContaining(['w-10', 'rounded-md', 'bg-background', 'p-1']),
+    expect.arrayContaining(['w-10', 'rounded-md', 'bg-background']),
   );
   expect(
-    ['w-11', 'rounded-full', 'bg-muted', 'p-0.5'].some((name) => control.classList.contains(name)),
+    ['w-11', 'rounded-full', 'bg-muted'].some((name) => control.classList.contains(name)),
   ).toBe(false);
   expect([...thumb.classList]).toEqual(expect.arrayContaining(['size-4', 'bg-muted-foreground']));
   expect(
-    ['size-[var(--switch-thumb-size)]', 'bg-background'].some((name) =>
+    ['h-[calc(100%-var(--moduix-spacing-0-5)*2)]', 'bg-background'].some((name) =>
       thumb.classList.contains(name),
     ),
   ).toBe(false);
   expect([...label.classList]).toEqual(expect.arrayContaining(['text-lg']));
   expect(label.classList.contains('text-sm')).toBe(false);
   await expect.element(page.getByTestId('root')).toHaveCSS('gap', '16px');
-  await expect
-    .element(page.locator('[data-slot="switch-control"]'))
-    .toHaveCSS('padding-left', '4px');
   await expect.element(page.locator('[data-slot="switch-control"]')).toHaveCSS('width', '40px');
   await expect.element(page.locator('[data-slot="switch-thumb"]')).toHaveCSS('width', '16px');
+});
+
+test('places a square thumb from the control box, including size overrides and RTL', () => {
+  const { container } = render(() => (
+    <>
+      <Switch size="sm">
+        <SwitchControl />
+        <SwitchHiddenInput />
+      </Switch>
+      <Switch defaultChecked>
+        <SwitchControl class="h-[32px] w-[64px]" />
+        <SwitchHiddenInput />
+      </Switch>
+      <LocaleProvider locale="ar">
+        <Switch defaultChecked size="lg">
+          <SwitchControl />
+          <SwitchHiddenInput />
+        </Switch>
+      </LocaleProvider>
+    </>
+  ));
+
+  const [unchecked, overridden, rtl] = container.querySelectorAll('[data-slot="switch-control"]');
+
+  expectThumbGeometry(unchecked!, 'left');
+  expect(overridden!.getBoundingClientRect().width).toBe(64);
+  expectThumbGeometry(overridden!, 'right');
+  expectThumbGeometry(rtl!, 'left');
+});
+
+test('paints the focus ring of an invalid switch with the destructive color', async () => {
+  render(() => (
+    <>
+      <button type="button">Before</button>
+      <Switch invalid>
+        <SwitchControl />
+        <SwitchHiddenInput />
+        <SwitchLabel>Invalid option</SwitchLabel>
+      </Switch>
+    </>
+  ));
+
+  const before = page.getByRole('button', { name: 'Before', exact: true });
+  await before.click();
+  await before.press('Tab');
+
+  const control = document.querySelector('[data-slot="switch-control"]')!;
+  await expect
+    .element(page.locator('[data-slot="switch-control"]'))
+    .toHaveAttribute('data-focus-visible');
+  const style = getComputedStyle(control);
+  expect(style.outlineStyle).toBe('solid');
+  expect(style.outlineColor).toBe(style.borderTopColor);
 });

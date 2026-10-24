@@ -5,12 +5,10 @@ import {
   SelectContent,
   SelectField,
   SelectHiddenSelect,
-  SelectItem,
   SelectItemGroup,
   SelectItemGroupLabel,
-  SelectItemIndicator,
-  SelectItemText,
   SelectLabel,
+  SelectOption,
   SelectPositioner,
 } from '@moduix/vue/select';
 
@@ -31,10 +29,9 @@ const fruits = createListCollection({
       <SelectContent>
         <SelectItemGroup>
           <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
-          <SelectItem v-for="item in fruits.items" :key="item.value" :item="item">
-            <SelectItemText>{{ item.label }}</SelectItemText>
-            <SelectItemIndicator />
-          </SelectItem>
+          <SelectOption v-for="item in fruits.items" :key="item.value" :item="item">{{
+            item.label
+          }}</SelectOption>
         </SelectItemGroup>
       </SelectContent>
     </SelectPositioner>

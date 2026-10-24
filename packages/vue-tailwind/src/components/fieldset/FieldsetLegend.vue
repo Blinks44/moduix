@@ -20,12 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkFieldsetLegend
     v-bind="attrs"
-    :class="
-      cn(
-        'inline-block max-w-full pb-3 text-lg font-semibold wrap-anywhere text-foreground',
-        className,
-      )
-    "
+    :class="cn('max-w-full pb-3 text-lg font-semibold wrap-anywhere text-foreground', className)"
     data-slot="fieldset-legend"
   >
     <slot />

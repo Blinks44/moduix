@@ -130,6 +130,72 @@ test('forwards refs and data hooks for every optional part', async () => {
   expect(actionsRef.value?.$el?.getAttribute('data-slot')).toBe('alert-actions');
 });
 
+test('does not add a live-region role by default', async () => {
+  render({
+    components: alertComponents,
+    template: `
+      <Alert status="error" data-testid="plain-alert">
+        <AlertContent>
+          <AlertTitle>Payment failed</AlertTitle>
+        </AlertContent>
+      </Alert>
+    `,
+  });
+
+  await expect.element(page.getByTestId('plain-alert')).toHaveAttribute('data-status', 'error');
+  expect(screen.getByTestId('plain-alert').hasAttribute('role')).toBe(false);
+});
+
+test('applies status styles from the CSS module', async () => {
+  render({
+    components: alertComponents,
+    template: `
+      <div>
+        <Alert data-testid="info">
+          <AlertContent>
+            <AlertTitle data-testid="title">Update available</AlertTitle>
+            <AlertDescription data-testid="description">Install the latest version.</AlertDescription>
+          </AlertContent>
+        </Alert>
+        <Alert status="error" data-testid="error" />
+      </div>
+    `,
+  });
+
+  await expect.element(page.getByTestId('info')).toHaveCSS('display', 'flex');
+  const info = getComputedStyle(screen.getByTestId('info'));
+  const error = getComputedStyle(screen.getByTestId('error'));
+
+  expect(info.borderTopWidth).toBe('1px');
+  expect(error.borderTopColor).not.toBe(info.borderTopColor);
+  expect(error.backgroundColor).not.toBe(info.backgroundColor);
+  expect(getComputedStyle(screen.getByTestId('description')).color).not.toBe(
+    getComputedStyle(screen.getByTestId('title')).color,
+  );
+  expect(getComputedStyle(screen.getByTestId('title')).color).toBe(info.color);
+});
+
+test('sizes the indicator to its icon', async () => {
+  render({
+    components: alertComponents,
+    template: `
+      <Alert>
+        <AlertIndicator><svg data-testid="default-icon" /></AlertIndicator>
+        <AlertIndicator><svg style="width: 24px; height: 24px" data-testid="custom-icon" /></AlertIndicator>
+      </Alert>
+    `,
+  });
+
+  await expect.element(page.getByTestId('default-icon')).toHaveCount(1);
+  const defaultIcon = screen.getByTestId('default-icon');
+  const customIcon = screen.getByTestId('custom-icon');
+
+  expect(defaultIcon.getBoundingClientRect().width).toBe(16);
+  expect(defaultIcon.parentElement?.offsetWidth).toBe(16);
+  expect(customIcon.parentElement?.offsetWidth).toBe(24);
+  expect(customIcon.parentElement?.offsetHeight).toBe(24);
+});
+
 test('hydrates alert without replacing the server host', async () => {
   const host = document.createElement('div');
   host.innerHTML = await renderToString(createSSRApp(TestAlert));

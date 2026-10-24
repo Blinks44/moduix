@@ -210,3 +210,42 @@ test('styles a RootProvider tree created by the public hook', async () => {
     .toHaveAttribute('data-paused');
   expect(pauseChanges).toEqual([{ paused: true }]);
 });
+
+test('inherits text color and fills the root with the viewport in both orientations', () => {
+  render(() => (
+    <div style={{ color: 'rgb(1, 2, 3)', width: '320px' }}>
+      <Marquee aria-label="Horizontal" style={{ height: '100px' }}>
+        <MarqueeViewport>
+          <MarqueeContent>
+            <MarqueeItem>Atlas</MarqueeItem>
+          </MarqueeContent>
+        </MarqueeViewport>
+        <MarqueeEdge side="start" />
+      </Marquee>
+      <Marquee aria-label="Vertical" side="bottom">
+        <MarqueeViewport>
+          <MarqueeContent>
+            <MarqueeItem>Atlas</MarqueeItem>
+          </MarqueeContent>
+        </MarqueeViewport>
+      </Marquee>
+    </div>
+  ));
+
+  for (const name of ['Horizontal', 'Vertical']) {
+    const root = screen.getByRole('region', { name });
+    const viewport = root.querySelector<HTMLElement>('[data-part="viewport"]')!;
+
+    expect(getComputedStyle(root).color).toBe('rgb(1, 2, 3)');
+    expect(root.offsetWidth).toBe(320);
+    expect(viewport.offsetWidth).toBe(root.offsetWidth);
+    expect(viewport.offsetHeight).toBe(root.offsetHeight);
+  }
+
+  const horizontal = screen.getByRole('region', { name: 'Horizontal' });
+  expect(horizontal.offsetHeight).toBe(100);
+  expect(screen.getByRole('region', { name: 'Vertical' }).offsetHeight).toBe(240);
+  expect(getComputedStyle(horizontal.querySelector('[data-part="edge"]')!).pointerEvents).toBe(
+    'none',
+  );
+});

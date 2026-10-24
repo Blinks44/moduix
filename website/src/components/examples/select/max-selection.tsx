@@ -5,9 +5,7 @@ import {
   SelectField,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/react/select';
 import { useState } from 'react';
 
@@ -43,10 +41,9 @@ export default function SelectMaxSelectionDemo() {
       <SelectPositioner>
         <SelectContent>
           {collection.items.map((item) => (
-            <SelectItem key={item.value} item={item}>
-              <SelectItemText>{item.label}</SelectItemText>
-              <SelectItemIndicator />
-            </SelectItem>
+            <SelectOption key={item.value} item={item}>
+              {item.label}
+            </SelectOption>
           ))}
         </SelectContent>
       </SelectPositioner>

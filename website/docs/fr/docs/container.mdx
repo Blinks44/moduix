@@ -5,21 +5,6 @@ description: Un primitif de mise en page adaptatif pour conserver une largeur de
 ---
 
 import * as ContainerDocs from '@/components/examples/container/css-properties';
-import ContainerBasic from '@/components/examples/container/basic.tsx';
-import ContainerFullWidth from '@/components/examples/container/full-width.tsx';
-import ContainerGutters from '@/components/examples/container/gutters.tsx';
-import ContainerSemanticElement from '@/components/examples/container/semantic-element.tsx';
-import ContainerWithBleed from '@/components/examples/container/with-bleed.tsx';
-import containerSolidBasic from '../../../snippets/container/solid/basic.tsx?raw';
-import containerSolidFullWidth from '../../../snippets/container/solid/full-width.tsx?raw';
-import containerSolidGutters from '../../../snippets/container/solid/gutters.tsx?raw';
-import containerSolidSemanticElement from '../../../snippets/container/solid/semantic-element.tsx?raw';
-import containerSolidWithBleed from '../../../snippets/container/solid/with-bleed.tsx?raw';
-import containerVueBasic from '../../../snippets/container/vue/basic.vue?raw';
-import containerVueFullWidth from '../../../snippets/container/vue/full-width.vue?raw';
-import containerVueGutters from '../../../snippets/container/vue/gutters.vue?raw';
-import containerVueSemanticElement from '../../../snippets/container/vue/semantic-element.vue?raw';
-import containerVueWithBleed from '../../../snippets/container/vue/with-bleed.vue?raw';
 
 ## Référence de l’API
 
@@ -38,46 +23,7 @@ Importez `Container` depuis le package adapté : `@moduix/react/container`, `@mo
 Utilisez `Container` pour une colonne de contenu centrée et lisible. Le composant ajoute des espacements horizontaux
 adaptatifs et laisse les espacements verticaux à la mise en page qui l’entoure.
 
-<ExampleFrame variant="component">
-  <ContainerBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/container/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={containerSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={containerVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/container/container-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="container/basic" />
 
 ## Installation avec shadcn
 
@@ -147,181 +93,25 @@ du composant. Placez `Bleed` dans `Container` lorsqu’un seul enfant doit dépa
 Utilisez `size="full"` pour qu’une section large utilise la largeur de son parent tout en conservant un espacement
 latéral adaptatif.
 
-<ExampleFrame variant="component">
-  <ContainerFullWidth />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/container/full-width.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={containerSolidFullWidth} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={containerVueFullWidth} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/container/container-full-width.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="container/full-width" />
 
 ### Espacements latéraux
 
 Utilisez `gutter` pour choisir la taille des espacements horizontaux adaptatifs.
 
-<ExampleFrame variant="component">
-  <ContainerGutters />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/container/gutters.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={containerSolidGutters} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={containerVueGutters} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/container/container-gutters.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="container/gutters" />
 
 ### Élément sémantique
 
 Utilisez `asChild` lorsque l’enveloppe de mise en page doit également décrire la structure du document.
 
-<ExampleFrame variant="component">
-  <ContainerSemanticElement />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/container/semantic-element.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={containerSolidSemanticElement} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={containerVueSemanticElement} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/container/container-semantic-element.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="container/semantic-element" />
 
 ### Avec Bleed
 
 Gardez la colonne de texte contrainte et laissez uniquement l’enfant plus large dépasser de ses limites.
 
-<ExampleFrame variant="component">
-  <ContainerWithBleed />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/container/with-bleed.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={containerSolidWithBleed} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={containerVueWithBleed} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/container/container-with-bleed.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="container/with-bleed" />
 
 ## Styles
 

@@ -15,6 +15,7 @@ import {
   DatePickerInput,
   DatePickerLabel,
   DatePickerMonthSelect,
+  DatePickerMonthTable,
   DatePickerNextTrigger,
   DatePickerPositioner,
   DatePickerPresetTrigger,
@@ -35,6 +36,7 @@ import {
   DatePickerViewTrigger,
   DatePickerWeekNumberHeaderCell,
   DatePickerYearSelect,
+  DatePickerYearTable,
   useDatePicker,
 } from '@/components/date-picker';
 import { Field, FieldErrorText } from '@/components/field';
@@ -43,7 +45,7 @@ const styles = {
   hint: 'text-sm text-muted-foreground',
   presets: 'mb-3 flex flex-wrap gap-2',
   selectedDates:
-    'box-border flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background py-1 ps-3.5 pe-17',
+    'flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background py-1 ps-3.5 pe-17',
   selectedDatesPlaceholder: 'text-sm text-muted-foreground',
   selectedDate:
     'inline-flex min-w-0 items-center gap-1 rounded-sm bg-muted px-1.5 py-0.5 text-sm leading-5 text-foreground',
@@ -58,7 +60,7 @@ const styles = {
   multipleMonths: 'flex gap-3 overflow-x-auto',
   multipleMonthsTable: 'w-max shrink-0',
   customRoot:
-    '[--moduix-date-picker-bg:var(--moduix-color-muted)] [--moduix-date-picker-border-color:var(--moduix-color-primary)] [--moduix-date-picker-focus-ring-color:var(--moduix-color-primary)] [--moduix-date-picker-table-cell-selected-bg:var(--moduix-color-primary)] [--moduix-date-picker-table-cell-selected-color:var(--moduix-color-primary-foreground)]',
+    '[&_[data-slot=date-picker-input]]:border-primary [&_[data-slot=date-picker-input]]:bg-muted',
 };
 
 const meta = {
@@ -84,6 +86,7 @@ datePickerComponents.DatePickerField = DatePickerField;
 datePickerComponents.DatePickerInput = DatePickerInput as Component;
 datePickerComponents.DatePickerLabel = DatePickerLabel;
 datePickerComponents.DatePickerMonthSelect = DatePickerMonthSelect;
+datePickerComponents.DatePickerMonthTable = DatePickerMonthTable;
 datePickerComponents.DatePickerNextTrigger = DatePickerNextTrigger;
 datePickerComponents.DatePickerPositioner = DatePickerPositioner;
 datePickerComponents.DatePickerPresetTrigger = DatePickerPresetTrigger;
@@ -104,6 +107,7 @@ datePickerComponents.DatePickerViewControl = DatePickerViewControl;
 datePickerComponents.DatePickerViewTrigger = DatePickerViewTrigger;
 datePickerComponents.DatePickerWeekNumberHeaderCell = DatePickerWeekNumberHeaderCell;
 datePickerComponents.DatePickerYearSelect = DatePickerYearSelect;
+datePickerComponents.DatePickerYearTable = DatePickerYearTable;
 datePickerComponents.Field = Field;
 datePickerComponents.FieldErrorText = FieldErrorText;
 
@@ -156,39 +160,10 @@ const AdvancedDatePickerDayTable = defineComponent({
   `,
 });
 
-const DatePickerMonthTable = defineComponent({
-  components: datePickerComponents,
-  template: `
-    <DatePickerContext v-slot="context">
-      <DatePickerViewControl><DatePickerPrevTrigger /><DatePickerViewTrigger /><DatePickerNextTrigger /></DatePickerViewControl>
-      <DatePickerTable :columns="4"><DatePickerTableBody>
-        <DatePickerTableRow v-for="(months, rowIndex) in context.getMonthsGrid({ columns: 4, format: 'short' })" :key="rowIndex">
-          <DatePickerTableCell v-for="month in months" :key="month.value" :value="month.value"><DatePickerTableCellTrigger>{{ month.label }}</DatePickerTableCellTrigger></DatePickerTableCell>
-        </DatePickerTableRow>
-      </DatePickerTableBody></DatePickerTable>
-    </DatePickerContext>
-  `,
-});
-
-const DatePickerYearTable = defineComponent({
-  components: datePickerComponents,
-  template: `
-    <DatePickerContext v-slot="context">
-      <DatePickerViewControl><DatePickerPrevTrigger /><DatePickerViewTrigger /><DatePickerNextTrigger /></DatePickerViewControl>
-      <DatePickerTable :columns="4"><DatePickerTableBody>
-        <DatePickerTableRow v-for="(years, rowIndex) in context.getYearsGrid({ columns: 4 })" :key="rowIndex">
-          <DatePickerTableCell v-for="year in years" :key="year.value" :value="year.value" :disabled="year.disabled"><DatePickerTableCellTrigger>{{ year.label }}</DatePickerTableCellTrigger></DatePickerTableCell>
-        </DatePickerTableRow>
-      </DatePickerTableBody></DatePickerTable>
-    </DatePickerContext>
-  `,
-});
-
 const DatePickerViews = defineComponent({
-  components: { ...datePickerComponents, DatePickerMonthTable, DatePickerYearTable },
-  props: { showWeekNumbers: Boolean },
+  components: datePickerComponents,
   template: `
-    <DatePickerView view="day"><DatePickerDayTable :show-week-numbers="showWeekNumbers" /></DatePickerView>
+    <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
     <DatePickerView view="month"><DatePickerMonthTable /></DatePickerView>
     <DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
   `,
@@ -196,16 +171,13 @@ const DatePickerViews = defineComponent({
 
 const DatePickerPopup = defineComponent({
   components: { ...datePickerComponents, DatePickerViews },
-  props: { showWeekNumbers: Boolean },
   template:
-    '<DatePickerPositioner><DatePickerContent><DatePickerViews :show-week-numbers="showWeekNumbers" /></DatePickerContent></DatePickerPositioner>',
+    '<DatePickerPositioner><DatePickerContent><DatePickerViews /></DatePickerContent></DatePickerPositioner>',
 });
 
 const InlineDatePickerContent = defineComponent({
   components: { ...datePickerComponents, DatePickerViews },
-  props: { showWeekNumbers: Boolean },
-  template:
-    '<DatePickerContent><DatePickerViews :show-week-numbers="showWeekNumbers" /></DatePickerContent>',
+  template: '<DatePickerContent><DatePickerViews /></DatePickerContent>',
 });
 
 const MultipleMonthsDatePickerContent = defineComponent({
@@ -216,7 +188,7 @@ const MultipleMonthsDatePickerContent = defineComponent({
       <DatePickerViewControl><DatePickerPrevTrigger /><DatePickerRangeText /><DatePickerNextTrigger /></DatePickerViewControl>
       <div :class="styles.multipleMonths">
         <DatePickerDayTable :class="styles.multipleMonthsTable" :show-header="false" />
-        <DatePickerContext v-slot="context"><DatePickerDayTable :class="styles.multipleMonthsTable" :show-header="false" :offset="context.getOffset({ months: 1 })" /></DatePickerContext>
+        <DatePickerDayTable :class="styles.multipleMonthsTable" :show-header="false" :offset="1" />
       </div>
     </DatePickerContent>
   `,
@@ -313,7 +285,7 @@ export const MinMaxAndUnavailable: Story = {
 export const InlineMultipleWithWeekNumbers: Story = {
   render: renderStory(
     `
-    <DatePicker inline selection-mode="multiple" :max-selected-dates="3" :default-value="dates" show-week-numbers><DatePickerLabel>Available days</DatePickerLabel><InlineDatePickerContent show-week-numbers /></DatePicker>
+    <DatePicker inline selection-mode="multiple" :max-selected-dates="3" :default-value="dates" show-week-numbers><DatePickerLabel>Available days</DatePickerLabel><InlineDatePickerContent /></DatePicker>
   `,
     () => ({ dates: [parseDate('2026-06-22'), parseDate('2026-06-24')] }),
   ),

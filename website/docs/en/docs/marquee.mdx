@@ -5,36 +5,6 @@ description: A continuous scroller for logos, announcements, and other repeated 
 ---
 
 import * as MarqueeDocs from '@/components/examples/marquee/css-properties';
-import MarqueeAutoFill from '@/components/examples/marquee/auto-fill.tsx';
-import MarqueeBasic from '@/components/examples/marquee/basic.tsx';
-import MarqueeEdges from '@/components/examples/marquee/edges.tsx';
-import MarqueeFiniteLoops from '@/components/examples/marquee/finite-loops.tsx';
-import MarqueePauseOnInteraction from '@/components/examples/marquee/pause-on-interaction.tsx';
-import MarqueeProgrammaticControl from '@/components/examples/marquee/programmatic-control.tsx';
-import MarqueeReverse from '@/components/examples/marquee/reverse.tsx';
-import MarqueeRtl from '@/components/examples/marquee/rtl.tsx';
-import MarqueeSpeed from '@/components/examples/marquee/speed.tsx';
-import MarqueeVertical from '@/components/examples/marquee/vertical.tsx';
-import marqueeSolidAutoFill from '../../../snippets/marquee/solid/auto-fill.tsx?raw';
-import marqueeSolidBasic from '../../../snippets/marquee/solid/basic.tsx?raw';
-import marqueeSolidEdges from '../../../snippets/marquee/solid/edges.tsx?raw';
-import marqueeSolidFiniteLoops from '../../../snippets/marquee/solid/finite-loops.tsx?raw';
-import marqueeSolidPauseOnInteraction from '../../../snippets/marquee/solid/pause-on-interaction.tsx?raw';
-import marqueeSolidProgrammaticControl from '../../../snippets/marquee/solid/programmatic-control.tsx?raw';
-import marqueeSolidReverse from '../../../snippets/marquee/solid/reverse.tsx?raw';
-import marqueeSolidRtl from '../../../snippets/marquee/solid/rtl.tsx?raw';
-import marqueeSolidSpeed from '../../../snippets/marquee/solid/speed.tsx?raw';
-import marqueeSolidVertical from '../../../snippets/marquee/solid/vertical.tsx?raw';
-import marqueeVueAutoFill from '../../../snippets/marquee/vue/auto-fill.vue?raw';
-import marqueeVueBasic from '../../../snippets/marquee/vue/basic.vue?raw';
-import marqueeVueEdges from '../../../snippets/marquee/vue/edges.vue?raw';
-import marqueeVueFiniteLoops from '../../../snippets/marquee/vue/finite-loops.vue?raw';
-import marqueeVuePauseOnInteraction from '../../../snippets/marquee/vue/pause-on-interaction.vue?raw';
-import marqueeVueProgrammaticControl from '../../../snippets/marquee/vue/programmatic-control.vue?raw';
-import marqueeVueReverse from '../../../snippets/marquee/vue/reverse.vue?raw';
-import marqueeVueRtl from '../../../snippets/marquee/vue/rtl.vue?raw';
-import marqueeVueSpeed from '../../../snippets/marquee/vue/speed.vue?raw';
-import marqueeVueVertical from '../../../snippets/marquee/vue/vertical.vue?raw';
 
 ## API Reference
 
@@ -48,46 +18,7 @@ Use the short `Marquee` root and compose `MarqueeViewport`, `MarqueeContent`, an
 provides the behavior and required animation styles, but it does not style individual items or add a
 frame. The example styles its items and limits the root width separately.
 
-<ExampleFrame variant="component">
-  <MarqueeBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/basic" />
 
 ## Install with shadcn
 
@@ -168,138 +99,21 @@ same state. Controls inside the tree can read the current API from `MarqueeConte
 Use `autoFill` when the available content is shorter than the viewport. `spacing` controls the gap
 between duplicated content instances.
 
-<ExampleFrame variant="component">
-  <MarqueeAutoFill />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/auto-fill.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidAutoFill} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueAutoFill} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-auto-fill.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/auto-fill" />
 
 ### Edge fades
 
 Add `MarqueeEdge` on the sides that should fade into the page background. The edge part is
 decorative and does not receive pointer events.
 
-<ExampleFrame variant="component">
-  <MarqueeEdges />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/edges.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidEdges} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueEdges} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-edges.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/edges" />
 
 ### Finite Loops
 
 Set `loopCount` for finite playback. `onLoopComplete` fires after each loop and `onComplete` fires
 after the final loop.
 
-<ExampleFrame variant="component">
-  <MarqueeFiniteLoops />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/finite-loops.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidFiniteLoops} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueFiniteLoops} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-finite-loops.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/finite-loops" />
 
 ### Pause on Interaction
 
@@ -310,305 +124,58 @@ motion itself can be distracting or harmful. Treat marquee content as non-essent
 marquee a descriptive label, provide a way to pause it (`pauseOnInteraction` or explicit pause
 and resume controls), and never put critical information only inside a marquee.
 
-<ExampleFrame variant="component">
-  <MarqueePauseOnInteraction />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/pause-on-interaction.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidPauseOnInteraction} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVuePauseOnInteraction} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-pause-on-interaction.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/pause-on-interaction" />
 
 ### Root Provider
 
 Use moduix `useMarquee()` with `MarqueeRootProvider` when external controls need to pause, resume,
 or restart playback.
 
-<ExampleFrame variant="component">
-  <MarqueeProgrammaticControl />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/programmatic-control.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidProgrammaticControl} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueProgrammaticControl} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-programmatic-control.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/programmatic-control" />
 
 ### Reverse
 
 Use `reverse` when the content should move opposite the configured side without changing
 orientation.
 
-<ExampleFrame variant="component">
-  <MarqueeReverse />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/reverse.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidReverse} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueReverse} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-reverse.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/reverse" />
 
 ### Right to left
 
 Wrap the marquee in `LocaleProvider` with an RTL locale. Logical `start` and `end` edges then follow
 the configured direction.
 
-<ExampleFrame variant="component">
-  <MarqueeRtl />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/rtl.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidRtl} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueRtl} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-rtl.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/rtl" />
 
 ### Speed
 
 Control motion with `speed`, measured in pixels per second. Lower values are easier to read.
 
-<ExampleFrame variant="component">
-  <MarqueeSpeed />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/speed.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidSpeed} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueSpeed} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-speed.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/speed" />
 
 ### Vertical
 
-Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
-`--moduix-marquee-vertical-height` by default so the viewport has a stable block size.
+Set `side="top"` or `side="bottom"` for vertical marquees. A vertical root is `15rem` tall by
+default so the viewport has a stable block size; set `height` with a class to change it.
 
-<ExampleFrame variant="component">
-  <MarqueeVertical />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/marquee/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={marqueeSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={marqueeVueVertical} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/marquee/marquee-vertical.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="marquee/vertical" />
 
 ## Styling
 
 Marquee includes the keyframes required to animate its content. Use Ark state attributes for
 behavioral styles and pick the customization model of your registry variant:
 
-- CSS Modules variants: use `--moduix-marquee-*` variables for dimensions, color, spacing, and
-  edge fades, and `className` (React) or `class` (Solid and Vue) for layout and item styles. The
-  `--marquee-edge-color` and
-  `--marquee-edge-size` aliases stay Chakra-compatible; `--moduix-marquee-edge-*` take precedence
-  over them.
+- CSS Modules variants: use `--moduix-marquee-edge-color` and `--moduix-marquee-edge-size` for edge
+  fades, and `className` (React) or `class` (Solid and Vue) for size, color, and item styles.
 - Tailwind variants: use `className` (React) or `class` (Solid and Vue) with Tailwind utilities for the
   same aspects. Marquee exposes no CSS-variable API in Tailwind packages.
 
-`Marquee` is transparent by default and adds no border, background, padding, or radius. Add a framed
+`Marquee` is transparent by default, inherits the text color, and adds no border, background, padding, or radius. Add a framed
 surface in your own CSS when you need one.
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <MarqueeDocs.MarqueeCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={MarqueeDocs.marqueeCssProperties} />
 
 ### Styling hooks
 

@@ -6,11 +6,10 @@ import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
 } from '@moduix/solid/pagination';
-import styles from '@/components/examples/pagination/pagination-with-edges.module.css';
 
 export default function PaginationWithEdgesDemo() {
   return (
-    <Pagination class={styles.root} count={400} pageSize={20} siblingCount={2}>
+    <Pagination count={400} pageSize={20} siblingCount={2}>
       <PaginationFirstTrigger />
       <PaginationPrevTrigger />
       <PaginationItems />

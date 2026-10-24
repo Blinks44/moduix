@@ -1,6 +1,5 @@
 import {
   AngleSliderDial,
-  AngleSliderHiddenInput,
   AngleSliderLabel,
   AngleSliderMarks,
   AngleSliderRootProvider,
@@ -15,17 +14,15 @@ const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
 export default function RootProviderAngleSliderDemo() {
   const angleSlider = useAngleSlider({
     defaultValue: initialValue,
-    'aria-label': 'Rotation',
   });
 
   return (
     <div className={styles.layout}>
-      <AngleSliderRootProvider value={angleSlider} className={styles.root}>
+      <AngleSliderRootProvider value={angleSlider}>
         <AngleSliderLabel>Rotation</AngleSliderLabel>
         <AngleSliderDial>
           <AngleSliderMarks values={markerValues} />
         </AngleSliderDial>
-        <AngleSliderHiddenInput />
       </AngleSliderRootProvider>
       <PreviewMeta>
         <output>Current angle: {angleSlider.value}°</output>

@@ -8,9 +8,7 @@
       color-mix(in oklab, var(--moduix-color-warning) 40%, var(--moduix-color-accent))
     );
     color: var(--moduix-highlight-color, var(--moduix-color-foreground));
-    box-shadow: var(--moduix-highlight-shadow, none);
     font-weight: var(--moduix-highlight-font-weight, var(--moduix-weight-medium));
-    text-decoration: none;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
   }

@@ -9,7 +9,7 @@ import styles from '@/components/examples/progress-circular/component-indetermin
 </script>
 
 <template>
-  <ProgressCircular :class="styles.indeterminate" :default-value="null">
+  <ProgressCircular :default-value="null">
     <ProgressCircularLabel>Preparing report</ProgressCircularLabel>
     <div :class="styles.circleContainer">
       <ProgressCircularRing aria-label="Preparing report" />

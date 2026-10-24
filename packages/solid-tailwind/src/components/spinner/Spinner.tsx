@@ -2,6 +2,7 @@ import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
 import { splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 
 type SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -22,27 +23,21 @@ const spinnerVariants = cva('inline-flex shrink-0 items-center justify-center al
   },
 });
 
-type SpinnerProps = HTMLArkProps<'span'> & {
+type SpinnerRootProps = HTMLArkProps<'span'> & {
   size?: SpinnerSize;
   decorative?: boolean;
 };
 
-function Spinner(props: SpinnerProps) {
+function Spinner(props: SpinnerRootProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'children',
     'class',
     'decorative',
     'aria-label',
-    'aria-labelledby',
     'size',
   ]);
-  const decorative = () => local.decorative ?? false;
   const size = () => local.size ?? 'md';
-  const accessibleLabel = () =>
-    decorative()
-      ? undefined
-      : (local['aria-label'] ?? (local['aria-labelledby'] ? undefined : 'Loading'));
 
   return (
     <ark.span
@@ -52,17 +47,19 @@ function Spinner(props: SpinnerProps) {
       data-part="root"
       data-slot="spinner-root"
       data-size={size()}
-      role={decorative() && !local.asChild ? 'presentation' : decorative() ? undefined : 'status'}
-      aria-hidden={decorative() && !local.asChild ? true : undefined}
-      aria-label={accessibleLabel()}
-      aria-labelledby={decorative() ? undefined : local['aria-labelledby']}
+      role={local.decorative ? undefined : 'status'}
+      aria-hidden={local.decorative || undefined}
+      aria-label={
+        local['aria-label'] ??
+        (local.decorative || others['aria-labelledby'] ? undefined : a11yLabels.loading)
+      }
       class={cn(spinnerVariants({ size: size() }), local.class)}
     >
       <span
         data-scope="spinner"
         data-part="indicator"
         data-slot="spinner-indicator"
-        class="inline-flex size-full animate-[var(--moduix-animation-spin)] items-center justify-center motion-reduce:animate-none [&_svg]:size-full"
+        class="inline-flex size-full animate-(--moduix-animation-spin) items-center justify-center [&_svg]:size-full"
         aria-hidden="true"
       >
         {local.children ?? (
@@ -70,7 +67,7 @@ function Spinner(props: SpinnerProps) {
             data-scope="spinner"
             data-part="ring"
             data-slot="spinner-ring"
-            class="box-border block size-full rounded-full border-2 border-solid border-current/[22%] [border-block-start-color:currentColor]"
+            class="block size-full rounded-full border-2 border-solid border-current/[22%] [border-block-start-color:currentColor]"
           />
         )}
       </span>
@@ -79,3 +76,4 @@ function Spinner(props: SpinnerProps) {
 }
 
 export { Spinner };
+export type { SpinnerRootProps, SpinnerSize };

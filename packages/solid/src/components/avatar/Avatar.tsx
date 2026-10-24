@@ -1,4 +1,6 @@
 import { Avatar as AvatarPrimitive, useAvatar, useAvatarContext } from '@ark-ui/solid/avatar';
+import type { HTMLArkProps } from '@ark-ui/solid/factory';
+import { ark } from '@ark-ui/solid/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
@@ -8,6 +10,7 @@ type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type AvatarRootProps = ComponentProps<typeof AvatarPrimitive.Root> & {
   size?: AvatarSize;
 };
+type AvatarGroupProps = HTMLArkProps<'div'>;
 type AvatarRootProviderProps = ComponentProps<typeof AvatarPrimitive.RootProvider> & {
   size?: AvatarSize;
 };
@@ -17,9 +20,9 @@ function Avatar(props: AvatarRootProps) {
 
   return (
     <AvatarPrimitive.Root
-      data-size={local.size}
       class={clsx(styles.root, local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="avatar-root"
     />
   );
@@ -32,7 +35,7 @@ function AvatarRootProvider(props: AvatarRootProviderProps) {
     <AvatarPrimitive.RootProvider
       class={clsx(styles.root, local.class)}
       {...others}
-      data-size={local.size}
+      data-size={local.size ?? 'md'}
       data-slot="avatar-root-provider"
     />
   );
@@ -51,17 +54,21 @@ function AvatarImage(props: ComponentProps<typeof AvatarPrimitive.Image>) {
 }
 
 function AvatarFallback(props: ComponentProps<typeof AvatarPrimitive.Fallback>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <AvatarPrimitive.Fallback
       class={clsx(styles.fallback, local.class)}
       {...others}
       data-slot="avatar-fallback"
-    >
-      {local.children}
-    </AvatarPrimitive.Fallback>
+    />
   );
+}
+
+function AvatarGroup(props: AvatarGroupProps) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return <ark.div class={clsx(styles.group, local.class)} {...others} data-slot="avatar-group" />;
 }
 
 const AvatarContext = AvatarPrimitive.Context;
@@ -70,8 +77,10 @@ export {
   Avatar,
   AvatarContext,
   AvatarFallback,
+  AvatarGroup,
   AvatarImage,
   AvatarRootProvider,
   useAvatar,
   useAvatarContext,
 };
+export type { AvatarGroupProps, AvatarRootProps, AvatarRootProviderProps, AvatarSize };

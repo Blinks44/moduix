@@ -5,18 +5,6 @@ description: Responsive images with automatic CDN detection and Unpic-generated 
 ---
 
 import * as ImageDocs from '@/components/examples/image/css-properties';
-import ImageArtDirection from '@/components/examples/image/art-direction.tsx';
-import ImageBasic from '@/components/examples/image/basic.tsx';
-import ImageFixed from '@/components/examples/image/fixed.tsx';
-import ImageFullWidth from '@/components/examples/image/full-width.tsx';
-import imageSolidArtDirection from '../../../snippets/image/solid/art-direction.tsx?raw';
-import imageSolidBasic from '../../../snippets/image/solid/basic.tsx?raw';
-import imageSolidFixed from '../../../snippets/image/solid/fixed.tsx?raw';
-import imageSolidFullWidth from '../../../snippets/image/solid/full-width.tsx?raw';
-import imageVueArtDirection from '../../../snippets/image/vue/art-direction.vue?raw';
-import imageVueBasic from '../../../snippets/image/vue/basic.vue?raw';
-import imageVueFixed from '../../../snippets/image/vue/fixed.vue?raw';
-import imageVueFullWidth from '../../../snippets/image/vue/full-width.vue?raw';
 
 ## API Reference
 
@@ -29,7 +17,8 @@ for more on its native-element model.
 
 Use `Image` with a URL from a supported image CDN or any regular image URL. For the default
 `layout="constrained"`, provide `width` and `height`. When Unpic recognizes the provider, it
-generates responsive `srcset` and `sizes` attributes. Otherwise, it keeps the source URL unchanged.
+generates responsive `srcset` and `sizes` attributes. Otherwise, it keeps the source URL unchanged
+but still applies the `layout` styles.
 The browser reserves space for the image before it loads.
 
 Images default to `loading="lazy"` and `decoding="async"`, including local files and URLs
@@ -37,41 +26,7 @@ without a supported CDN. Set `priority` for the main image in the initial viewpo
 to `loading="eager"` and `fetchpriority="high"` without setting `decoding`. Explicit native
 attributes override these defaults.
 
-<ExampleFrame variant="component">
-  <ImageBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="image/basic" />
 
 ## Install with shadcn
 
@@ -132,6 +87,8 @@ picture (native)
 `<picture>`, and keep `Image` last so it remains the fallback when no source is selected. For
 format selection, place a typed source before an equivalent source without `type`; the browser
 chooses the first format it supports.
+`ImageSource` generates `srcset` only for a supported CDN or a `fallback` provider; for local files,
+use a native `<source srcset>` instead.
 
 ## Examples
 
@@ -141,128 +98,21 @@ Use `ImageSource` to show a wider office view on larger screens and a portrait f
 screens. The first large-screen source requests AVIF; the next source provides a fallback for
 browsers that do not support AVIF. `ImageSource` must stay inside a native `<picture>` element.
 
-<ExampleFrame variant="component">
-  <ImageArtDirection />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image/art-direction.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageSolidArtDirection} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageVueArtDirection} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/image/image-art-direction.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="image/art-direction" />
 
 ### Fixed
 
 Use `layout="fixed"` when the image must keep exact dimensions in CSS pixels. Make sure its parent
 has enough room, since fixed images do not shrink to fit a narrower container.
 
-<ExampleFrame variant="component">
-  <ImageFixed />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image/fixed.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageSolidFixed} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageVueFixed} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="image/fixed" />
 
 ### Full Width
 
 Use `layout="fullWidth"` for a hero image or media strip that should fill its container's width.
 Supply `height` when the crop height must remain fixed.
 
-<ExampleFrame variant="component">
-  <ImageFullWidth />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image/full-width.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageSolidFullWidth} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageVueFullWidth} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="image/full-width" />
 
 ## Styling
 

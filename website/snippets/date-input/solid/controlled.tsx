@@ -14,11 +14,7 @@ export default function ControlledDateInputDemo() {
 
   return (
     <div class={styles.stack}>
-      <DateInput
-        class={styles.root}
-        value={value()}
-        onValueChange={(details) => setValue(details.value)}
-      >
+      <DateInput value={value()} onValueChange={(details) => setValue(details.value)}>
         <DateInputLabel>Controlled date</DateInputLabel>
         <DateInputControl>
           <DateInputSegments />

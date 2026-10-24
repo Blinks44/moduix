@@ -47,13 +47,13 @@ const slides = [
     :slides-per-page="1.5"
     spacing="3rem"
   >
-    <CarouselItemGroup :class="styles.itemGroup" aria-label="Spaced gallery">
+    <CarouselItemGroup>
       <CarouselItem v-for="(slide, index) in slides" :key="slide.id" :index="index">
         <img :class="styles.image" :src="slide.src" :alt="slide.alt" />
       </CarouselItem>
     </CarouselItemGroup>
 
-    <CarouselControl :class="styles.control">
+    <CarouselControl>
       <CarouselPrevTrigger />
       <CarouselIndicators />
       <CarouselNextTrigger />

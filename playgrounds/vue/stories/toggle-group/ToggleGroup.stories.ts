@@ -10,7 +10,7 @@ import {
   useToggleGroup,
   useToggleGroupContext,
 } from '@/components/toggle-group';
-import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import styles from './ToggleGroup.stories.module.css';
 
 const meta = {

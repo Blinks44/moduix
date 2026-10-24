@@ -14,8 +14,4 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--moduix-spacing-2);
-  --moduix-file-upload-action-size: var(
-    --moduix-file-upload-trigger-height,
-    var(--moduix-button-size-md, var(--moduix-size-md))
-  );
 }

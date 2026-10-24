@@ -1,1 +1,0 @@
-export type RadioGroupItemControlSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

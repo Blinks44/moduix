@@ -1,6 +1,3 @@
-import type { HighlightChunk, HighlightProps, UseHighlightProps } from '@ark-ui/vue/highlight';
-import Highlight from './Highlight.vue';
+export { default as Highlight } from './Highlight.vue';
 
-export { Highlight };
-
-export type { HighlightChunk, HighlightProps, UseHighlightProps };
+export type { Props as HighlightRootProps } from './Highlight.vue';

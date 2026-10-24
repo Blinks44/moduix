@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref } from 'vue';
 import { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement } from '@/components/tag';
-import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import styles from './Tag.stories.module.css';
 
 const meta = {
@@ -58,6 +58,7 @@ export const Sizes: Story = {
     <div :class="styles.row">
       <Tag size="sm"><TagLabel>Compact</TagLabel></Tag>
       <Tag size="md"><TagLabel>Default</TagLabel></Tag>
+      <Tag size="lg"><TagLabel>Large</TagLabel></Tag>
     </div>
   `),
 };
@@ -118,7 +119,7 @@ export const TruncatedLabel: Story = {
 export const RenderAsButton: Story = {
   render: renderStory(`
     <Tag as-child variant="outline">
-      <button :class="styles.buttonTag" type="button"><TagLabel>Open filter</TagLabel></button>
+      <button type="button"><TagLabel>Open filter</TagLabel></button>
     </Tag>
   `),
 };

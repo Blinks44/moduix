@@ -11,7 +11,6 @@ import {
   MenuItemText,
 } from '@moduix/solid/menu';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/menu/menu-checkbox-items.module.css';
 
 export default function CheckboxItemsMenuDemo() {
   const [showToolbar, setShowToolbar] = createSignal(true);
@@ -26,7 +25,7 @@ export default function CheckboxItemsMenuDemo() {
         <MenuIndicator />
       </MenuTrigger>
       <MenuPositioner>
-        <MenuContent class={styles.content}>
+        <MenuContent>
           <MenuViewport>
             <MenuCheckboxItem
               checked={showToolbar()}

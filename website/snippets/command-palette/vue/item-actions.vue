@@ -22,7 +22,6 @@ import {
   CommandPaletteTrigger,
 } from '@moduix/vue/command-palette';
 import { ref } from 'vue';
-import styles from '@/components/examples/command-palette/command-palette-item-actions.module.css';
 
 const lastAction = ref('No command executed yet.');
 const commandPaletteItems = [
@@ -83,7 +82,7 @@ const handleSelect = (details: { itemValue: string }) => {
     <CommandPaletteTrigger as-child>
       <Button>Open actions palette</Button>
     </CommandPaletteTrigger>
-    <CommandPalettePanel :class="styles.highlightPalette">
+    <CommandPalettePanel>
       <CommandPaletteCombobox
         :collection="collection"
         @input-value-change="filter($event.inputValue)"

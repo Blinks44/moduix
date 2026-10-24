@@ -5,14 +5,12 @@ import type {
   FloatingPanelRootProviderProps,
 } from '@ark-ui/vue/floating-panel';
 import { useAttrs } from 'vue';
-import type { HTMLAttributes } from 'vue';
 import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
 import OverlayPortalProvider from '@/lib/moduix/overlayPortal/OverlayPortalProvider.vue';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ FloatingPanelRootProviderProps {
-  class?: HTMLAttributes['class'];
   lazyMount?: FloatingPanelRootProviderProps['lazyMount'];
   portalled?: boolean;
   portalRef?: PortalRef;

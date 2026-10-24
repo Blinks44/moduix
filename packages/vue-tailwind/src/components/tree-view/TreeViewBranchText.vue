@@ -16,7 +16,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const componentClass =
-  'inline-flex min-w-0 flex-1 items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap [&_svg]:size-4 [&_svg]:shrink-0';
+  'min-w-0 flex-1 truncate [&_svg]:my-[calc((1lh-var(--moduix-spacing-4))/2)] [&_svg]:me-2 [&_svg]:inline-block [&_svg]:size-4 [&_svg]:align-top';
 </script>
 
 <template>

@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { DialogCloseTrigger as ArkDialogCloseTrigger } from '@ark-ui/vue/dialog';
 import type { DialogCloseTriggerProps } from '@ark-ui/vue/dialog';
-import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import styles from './Dialog.module.css';
 
 defineOptions({ inheritAttrs: false });
 
@@ -22,7 +20,7 @@ const attrs = useAttrs();
   <ArkDialogCloseTrigger
     v-bind="attrs"
     :as-child="asChild"
-    :class="clsx(!asChild && styles.closeTrigger, className)"
+    :class="className"
     data-slot="dialog-close-trigger"
   >
     <slot />

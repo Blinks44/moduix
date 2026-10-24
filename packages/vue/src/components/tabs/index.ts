@@ -25,11 +25,12 @@ export type {
   TabsContextProps,
   TabsFocusChangeDetails,
   TabsRootEmits,
-  TabsRootProps,
-  TabsRootProviderProps,
   TabsValueChangeDetails,
   TabTriggerProps,
   UseTabsContext,
   UseTabsProps,
   UseTabsReturn,
 } from '@ark-ui/vue/tabs';
+
+export type { Props as TabsRootProps, TabsSize, TabsVariant } from './Tabs.vue';
+export type { Props as TabsRootProviderProps } from './TabsRootProvider.vue';

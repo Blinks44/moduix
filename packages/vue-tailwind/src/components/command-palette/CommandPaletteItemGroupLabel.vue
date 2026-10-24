@@ -21,7 +21,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'sticky top-0 z-1 block bg-popover px-3 py-1 text-xs leading-4 font-normal text-muted-foreground',
+        'sticky top-0 z-1 bg-popover px-3 py-1 text-xs leading-4 font-normal text-muted-foreground',
         className,
       )
     "

@@ -12,11 +12,13 @@ export interface Props extends /* @vue-ignore */ CarouselAutoplayIndicatorProps 
 }
 
 const { class: className } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+defineSlots<{
+  default?: () => unknown;
+  fallback?: (props: { fallback: string | undefined }) => unknown;
+}>();
 
 const attrs = useAttrs();
-const autoplayIndicatorClass =
-  'inline-flex min-w-4 items-center justify-center text-xs font-medium uppercase';
+const autoplayIndicatorClass = 'text-xs font-medium';
 </script>
 
 <template>
@@ -26,5 +28,8 @@ const autoplayIndicatorClass =
     data-slot="carousel-autoplay-indicator"
   >
     <slot />
+    <template v-if="$slots.fallback" #fallback="slotProps">
+      <slot name="fallback" v-bind="slotProps" />
+    </template>
   </ArkCarouselAutoplayIndicator>
 </template>

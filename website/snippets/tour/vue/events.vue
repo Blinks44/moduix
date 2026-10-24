@@ -50,7 +50,7 @@ const tour = useTour({
 
 <template>
   <div :class="styles.root">
-    <Tour :tour="tour" lazy-mount unmount-on-exit>
+    <Tour :tour="tour">
       <TourBackdrop />
       <TourPositioner>
         <TourContent>

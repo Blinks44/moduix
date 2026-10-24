@@ -14,7 +14,9 @@ Ark UI has no dedicated command-palette primitive. This family composes Dialog a
 
 ## Public contract
 
-The flat API includes `CommandPalette`, `CommandPaletteRootProvider`, `CommandPaletteTrigger`, `CommandPaletteBackdrop`, `CommandPalettePositioner`, `CommandPaletteContent`, `CommandPalettePanel`, `CommandPaletteTitle`, `CommandPaletteDescription`, `CommandPaletteHeader`, `CommandPaletteBody`, `CommandPaletteFooter`, `CommandPaletteCombobox`, `CommandPaletteSearch`, `CommandPaletteControl`, `CommandPaletteInput`, `CommandPaletteClearTrigger`, `CommandPaletteList`, `CommandPaletteItem`, `CommandPaletteItemText`, `CommandPaletteItemLabel`, `CommandPaletteItemDescription`, `CommandPaletteItemIcon`, `CommandPaletteItemMeta`, `CommandPaletteItemIndicator`, `CommandPaletteItemGroup`, `CommandPaletteItemGroupLabel`, `CommandPaletteEmpty`, `CommandPaletteSeparator`, and `CommandPaletteKbd`.
+The flat API includes `CommandPalette`, `CommandPaletteRootProvider`, `CommandPaletteTrigger`, `CommandPaletteBackdrop`, `CommandPalettePositioner`, `CommandPaletteContent`, `CommandPalettePanel`, `CommandPaletteTitle`, `CommandPaletteDescription`, `CommandPaletteHeader`, `CommandPaletteFooter`, `CommandPaletteCombobox`, `CommandPaletteSearch`, `CommandPaletteControl`, `CommandPaletteInput`, `CommandPaletteClearTrigger`, `CommandPaletteList`, `CommandPaletteItem`, `CommandPaletteItemText`, `CommandPaletteItemLabel`, `CommandPaletteItemDescription`, `CommandPaletteItemIcon`, `CommandPaletteItemMeta`, `CommandPaletteItemIndicator`, `CommandPaletteItemGroup`, `CommandPaletteItemGroupLabel`, `CommandPaletteEmpty`, `CommandPaletteSeparator`, and `CommandPaletteKbd`. Types `CommandPaletteRootProps` and `CommandPaletteRootProviderProps` are exported.
+
+Both roots accept `shortcut`. `CommandPaletteSearch` renders a decorative search icon before the input.
 
 ## Preservation notes
 
@@ -22,11 +24,14 @@ The flat API includes `CommandPalette`, `CommandPaletteRootProvider`, `CommandPa
 - Keep the global shortcut opt-in and Solid reactive cleanup for its listener.
 - Clear-trigger click/pointer handlers support Solid callbacks and bound `[handler, data]`
   pairs. Consumer click cancellation preserves the search value; pointer activation keeps focus.
+  The wrapper keeps its own pointer guard because Ark merges only function handlers.
 
 ## Styling and accessibility
 
 Give the root an accessible name with `aria-label` or `CommandPaletteTitle`. Keep search input labeling and `data-slot` hooks on the composed parts.
 
-## Style contract (2026-10-03)
+## Styling
 
-Content shares the --moduix-z-popup base and adds Ark --layer-index. Positioner and backdrop use Ark’s mirrored --z-index; the backdrop sits one level below. Foundation owns the content/backdrop keyframes, preserving public motion overrides and reduced-motion behavior.
+The React `command-palette.md` describes the shared style contract: two public variables
+(`--moduix-command-palette-width`, `--moduix-command-palette-max-height`), shared backdrop and
+popup-motion tokens, and a flex item row with trailing meta and indicator.

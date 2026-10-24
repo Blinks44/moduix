@@ -8,9 +8,7 @@ import {
   SelectPositioner,
   SelectContent,
   SelectItemGroup,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/react/select';
 
 const cities = createListCollection({
@@ -31,10 +29,9 @@ export function ArabicPreferences() {
             <SelectContent>
               <SelectItemGroup>
                 {cities.items.map((city) => (
-                  <SelectItem key={city.value} item={city}>
-                    <SelectItemText>{city.label}</SelectItemText>
-                    <SelectItemIndicator />
-                  </SelectItem>
+                  <SelectOption key={city.value} item={city}>
+                    {city.label}
+                  </SelectOption>
                 ))}
               </SelectItemGroup>
             </SelectContent>

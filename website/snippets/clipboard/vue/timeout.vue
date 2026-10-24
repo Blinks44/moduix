@@ -14,7 +14,7 @@ import styles from '@/components/examples/clipboard/component-timeout.module.css
   <Clipboard :class="styles.root" default-value="workspace-secret" :timeout="5000">
     <ClipboardLabel>Five second copied state</ClipboardLabel>
     <ClipboardControl>
-      <ClipboardInput readonly />
+      <ClipboardInput />
       <ClipboardTrigger>
         <ClipboardIndicator />
       </ClipboardTrigger>

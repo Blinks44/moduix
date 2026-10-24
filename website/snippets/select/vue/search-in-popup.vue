@@ -6,10 +6,8 @@ import {
   Select,
   SelectContent,
   SelectField,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
   SelectLabel,
+  SelectOption,
   SelectPositioner,
 } from '@moduix/vue/select';
 import { computed, nextTick, ref, watch } from 'vue';
@@ -73,10 +71,10 @@ function keepPopupOpen(event: { detail: { target: EventTarget }; preventDefault:
         </div>
         <SelectContent :class="styles.popupContent">
           <template v-if="collection.items.length"
-            ><SelectItem v-for="item in collection.items" :key="item.value" :item="item"
-              ><SelectItemText>{{ item.label }}</SelectItemText
-              ><SelectItemIndicator /></SelectItem
-          ></template>
+            ><SelectOption v-for="item in collection.items" :key="item.value" :item="item">{{
+              item.label
+            }}</SelectOption></template
+          >
           <div v-else :class="styles.popupEmpty" role="presentation">No fruits found.</div>
         </SelectContent>
       </div>

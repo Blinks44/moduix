@@ -4,6 +4,7 @@ import InputGroupButton from './InputGroupButton.vue';
 import InputGroupClearTrigger from './InputGroupClearTrigger.vue';
 import InputGroupInput from './InputGroupInput.vue';
 import InputGroupText from './InputGroupText.vue';
+import InputGroupTextarea from './InputGroupTextarea.vue';
 
 export {
   InputGroup,
@@ -12,6 +13,7 @@ export {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
+  InputGroupTextarea,
 };
 
-export type { InputGroupSize } from './context';
+export type { InputGroupAddonAlign, InputGroupSize } from './context';

@@ -4,44 +4,6 @@ component: image-cropper
 description: A component for cropping and transforming images with zoom, rotation, and aspect-ratio controls.
 ---
 
-import * as ImageCropperDocs from '@/components/examples/image-cropper/css-properties';
-import imageCropperSolidAdvancedCustomization from '../../../snippets/image-cropper/solid/advanced-customization.tsx?raw';
-import imageCropperSolidAspectRatio from '../../../snippets/image-cropper/solid/aspect-ratio.tsx?raw';
-import imageCropperSolidBasic from '../../../snippets/image-cropper/solid/basic.tsx?raw';
-import imageCropperSolidCircleCrop from '../../../snippets/image-cropper/solid/circle-crop.tsx?raw';
-import imageCropperSolidControlledZoom from '../../../snippets/image-cropper/solid/controlled-zoom.tsx?raw';
-import imageCropperSolidCropPreview from '../../../snippets/image-cropper/solid/crop-preview.tsx?raw';
-import imageCropperSolidEvents from '../../../snippets/image-cropper/solid/events.tsx?raw';
-import imageCropperSolidFixedCropArea from '../../../snippets/image-cropper/solid/fixed-crop-area.tsx?raw';
-import imageCropperSolidInitialCrop from '../../../snippets/image-cropper/solid/initial-crop.tsx?raw';
-import imageCropperSolidMinAndMaxSize from '../../../snippets/image-cropper/solid/min-and-max-size.tsx?raw';
-import imageCropperSolidRootProvider from '../../../snippets/image-cropper/solid/root-provider.tsx?raw';
-import imageCropperSolidRotationFlipAndReset from '../../../snippets/image-cropper/solid/rotation-flip-and-reset.tsx?raw';
-import imageCropperVueAdvancedCustomization from '../../../snippets/image-cropper/vue/advanced-customization.vue?raw';
-import imageCropperVueAspectRatio from '../../../snippets/image-cropper/vue/aspect-ratio.vue?raw';
-import imageCropperVueBasic from '../../../snippets/image-cropper/vue/basic.vue?raw';
-import imageCropperVueCircleCrop from '../../../snippets/image-cropper/vue/circle-crop.vue?raw';
-import imageCropperVueControlledZoom from '../../../snippets/image-cropper/vue/controlled-zoom.vue?raw';
-import imageCropperVueCropPreview from '../../../snippets/image-cropper/vue/crop-preview.vue?raw';
-import imageCropperVueEvents from '../../../snippets/image-cropper/vue/events.vue?raw';
-import imageCropperVueFixedCropArea from '../../../snippets/image-cropper/vue/fixed-crop-area.vue?raw';
-import imageCropperVueInitialCrop from '../../../snippets/image-cropper/vue/initial-crop.vue?raw';
-import imageCropperVueMinAndMaxSize from '../../../snippets/image-cropper/vue/min-and-max-size.vue?raw';
-import imageCropperVueRootProvider from '../../../snippets/image-cropper/vue/root-provider.vue?raw';
-import imageCropperVueRotationFlipAndReset from '../../../snippets/image-cropper/vue/rotation-flip-and-reset.vue?raw';
-import ImageCropperAdvancedCustomization from '@/components/examples/image-cropper/advanced-customization.tsx';
-import ImageCropperAspectRatio from '@/components/examples/image-cropper/aspect-ratio.tsx';
-import ImageCropperBasic from '@/components/examples/image-cropper/basic.tsx';
-import ImageCropperCircleCrop from '@/components/examples/image-cropper/circle-crop.tsx';
-import ImageCropperControlledZoom from '@/components/examples/image-cropper/controlled-zoom.tsx';
-import ImageCropperCropPreview from '@/components/examples/image-cropper/crop-preview.tsx';
-import ImageCropperEvents from '@/components/examples/image-cropper/events.tsx';
-import ImageCropperFixedCropArea from '@/components/examples/image-cropper/fixed-crop-area.tsx';
-import ImageCropperInitialCrop from '@/components/examples/image-cropper/initial-crop.tsx';
-import ImageCropperMinAndMaxSize from '@/components/examples/image-cropper/min-and-max-size.tsx';
-import ImageCropperRootProvider from '@/components/examples/image-cropper/root-provider.tsx';
-import ImageCropperRotationFlipAndReset from '@/components/examples/image-cropper/rotation-flip-and-reset.tsx';
-
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/image-cropper" />
@@ -52,33 +14,7 @@ Use `ImageCropper` with `ImageCropperViewport`, `ImageCropperImage`, and `ImageC
 Pass the image URL to `ImageCropperImage`. `ImageCropperCropArea` adds the selection, grid lines,
 and resize handles for you.
 
-<ExampleFrame variant="component">
-  <ImageCropperBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image-cropper/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageCropperSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageCropperVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="image-cropper/basic" />
 
 If you call `getCroppedImage()` for an image from another origin, the image server must allow CORS
 and `ImageCropperImage` must receive `crossOrigin="anonymous"`. The examples use this setup for
@@ -138,7 +74,7 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 | `ImageCropperRootProvider`          | Root connected to a `useImageCropper` instance created outside the component tree.   |
 | `ImageCropperViewport`              | Viewport that clips overflow and provides the surface for panning the image.         |
 | `ImageCropperImage`                 | Image element that Ark transforms as the user edits the crop.                        |
-| `ImageCropperSelection`             | Focusable crop area and keyboard target. It is removed from the tab order when `fixedCropArea` is enabled. |
+| `ImageCropperSelection`             | Focusable crop area and keyboard target. With `fixedCropArea` it stays focusable and arrow keys pan the image. |
 | `ImageCropperGrid`                  | Non-interactive horizontal or vertical crop guide. Requires `axis`.                  |
 | `ImageCropperHandle`                | Resize handle for a position from `ImageCropperHandles`. Requires `position`.       |
 | `ImageCropperCropArea`              | Ready-made selection with both grids and every resize handle. It does not accept `children` or `asChild`. |
@@ -165,108 +101,20 @@ the application owns that state. Ark passes the updated value in the callback's 
 Set `aspectRatio` to keep the selection at a fixed width-to-height ratio. Change it from React state
 when users choose an output format.
 
-<ExampleFrame variant="component">
-  <ImageCropperAspectRatio />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image-cropper/aspect-ratio.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageCropperSolidAspectRatio} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageCropperVueAspectRatio} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/image-cropper/image-cropper-aspect-ratio.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="image-cropper/aspect-ratio" />
 
 ### Circle Crop
 
 Use `cropShape="circle"` with `aspectRatio={1}` for avatars and profile images.
 
-<ExampleFrame variant="component">
-  <ImageCropperCircleCrop />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image-cropper/circle-crop.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageCropperSolidCircleCrop} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageCropperVueCircleCrop} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="image-cropper/circle-crop" />
 
 ### Controlled Zoom
 
 Use controlled `zoom` with `onZoomChange` when buttons or another part of the UI needs to change or
 display the current zoom. Set `minZoom` and `maxZoom` to constrain the range.
 
-<ExampleFrame variant="component">
-  <ImageCropperControlledZoom />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image-cropper/controlled-zoom.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageCropperSolidControlledZoom} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageCropperVueControlledZoom} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/image-cropper/image-cropper-controlled-zoom.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="image-cropper/controlled-zoom" />
 
 ### Crop Preview
 
@@ -274,250 +122,48 @@ Call `getCroppedImage()` on a `useImageCropper` instance to create a rendered re
 `{ output: 'dataUrl' }`, the method returns a data URL that you can use as an `img` source. Use
 `getCropData()` when you only need the crop coordinates and transform data.
 
-<ExampleFrame variant="component">
-  <ImageCropperCropPreview />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image-cropper/crop-preview.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageCropperSolidCropPreview} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageCropperVueCropPreview} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/image-cropper/image-cropper-crop-preview.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="image-cropper/crop-preview" />
 
 ### Events
 
 Subscribe to `onCropChange` and `onZoomChange` to display the current crop data or synchronize it
 with other UI.
 
-<ExampleFrame variant="component">
-  <ImageCropperEvents />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image-cropper/events.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageCropperSolidEvents} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageCropperVueEvents} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/image-cropper/image-cropper-events.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="image-cropper/events" />
 
 ### Fixed Crop Area
 
 Set `fixedCropArea` when the crop area must keep the same size and position while users pan the image
 behind it.
 
-<ExampleFrame variant="component">
-  <ImageCropperFixedCropArea />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image-cropper/fixed-crop-area.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageCropperSolidFixedCropArea} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageCropperVueFixedCropArea} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="image-cropper/fixed-crop-area" />
 
 ### Initial Crop
 
 Set `initialCrop` to open the cropper with a predefined crop rectangle in viewport coordinates and
 pixels.
 
-<ExampleFrame variant="component">
-  <ImageCropperInitialCrop />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image-cropper/initial-crop.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageCropperSolidInitialCrop} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageCropperVueInitialCrop} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="image-cropper/initial-crop" />
 
 ### Min And Max Size
 
 Constrain the selection with `minWidth`, `minHeight`, `maxWidth`, and `maxHeight`.
 
-<ExampleFrame variant="component">
-  <ImageCropperMinAndMaxSize />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image-cropper/min-and-max-size.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageCropperSolidMinAndMaxSize} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageCropperVueMinAndMaxSize} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="image-cropper/min-and-max-size" />
 
 ### Root Provider
 
 Use `ImageCropperRootProvider` with a `useImageCropper` instance when a toolbar or workflow needs to
 control the cropper from outside its component tree.
 
-<ExampleFrame variant="component">
-  <ImageCropperRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image-cropper/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageCropperSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageCropperVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/image-cropper/image-cropper-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="image-cropper/root-provider" />
 
 ### Rotation, Flip, And Reset
 
 Use `ImageCropperContext` to connect toolbar actions for zooming, rotating, flipping, and resetting
 the cropper. The example keeps rotation and flip state controlled.
 
-<ExampleFrame variant="component">
-  <ImageCropperRotationFlipAndReset />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image-cropper/rotation-flip-and-reset.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageCropperSolidRotationFlipAndReset} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageCropperVueRotationFlipAndReset} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/image-cropper/image-cropper-rotation-flip-and-reset.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="image-cropper/rotation-flip-and-reset" />
 
 ### Advanced Customization
 
@@ -525,53 +171,19 @@ Replace `ImageCropperCropArea` with the explicit `ImageCropperSelection`, `Image
 `ImageCropperHandle` parts when the crop area needs a different structure or custom child parts.
 `ImageCropperGrid` requires an `axis`, and `ImageCropperHandle` requires a `position`.
 
-<ExampleFrame variant="component">
-  <ImageCropperAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/image-cropper/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={imageCropperSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={imageCropperVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="image-cropper/advanced-customization" />
 
 ## Styling
 
-Use `className` in React, `class` in Solid, or `class` in Vue on exported parts for structural styles. Tailwind
-variants use native utilities and consumer classes; CSS Modules variants expose the component
-variables below. The `data-slot` hooks and Ark state attributes are shared by both styling tracks.
+The root is 32rem wide and shrinks with its container. The viewport keeps an 8:5 ratio and shows a
+checkerboard where the image does not cover it. The image keeps its own ratio: it shrinks to fit the
+viewport and stays centered, so the crop always matches the visible pixels.
 
-### CSS Properties
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <ImageCropperDocs.ImageCropperCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on the part overrides the layered component styles, for example a different
+viewport `aspect-ratio` or `height`. Data attributes and `data-slot` hooks are shared by both styling
+tracks.
 
 ### Styling hooks
 
@@ -584,5 +196,4 @@ on the relevant parts.
 
 Ark writes `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoom`,
 `--image-rotation`, `--image-offset-x`, and `--image-offset-y` on the root. These are read-only
-runtime values for synchronizing custom UI. Do not override them. Use the documented
-`--moduix-image-cropper-*` properties for visual customization.
+runtime values for synchronizing custom UI. Do not override them.

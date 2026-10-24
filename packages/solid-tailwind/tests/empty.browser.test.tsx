@@ -1,7 +1,15 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle } from '../src';
+import {
+  Button,
+  Empty,
+  EmptyActions,
+  EmptyContent,
+  EmptyDescription,
+  EmptyIcon,
+  EmptyTitle,
+} from '../src';
 
 test('renders presentational anatomy with stable hooks and forwarded refs', async () => {
   let rootRef!: HTMLDivElement;
@@ -131,7 +139,6 @@ test('applies native utilities to every component-owned visual part', () => {
   expect([...screen.getByTestId('empty-icon')!.classList]).toEqual(
     expect.arrayContaining([
       'inline-flex',
-      'min-w-0',
       'items-center',
       'justify-center',
       'rounded-full',
@@ -144,16 +151,15 @@ test('applies native utilities to every component-owned visual part', () => {
     expect.arrayContaining(['grid', 'min-w-0', 'justify-items-center', 'gap-1', 'max-w-md']),
   );
   expect([...screen.getByTestId('empty-title')!.classList]).toEqual(
-    expect.arrayContaining(['min-w-0', 'text-xl', 'font-semibold']),
+    expect.arrayContaining(['text-xl', 'font-semibold']),
   );
   expect([...screen.getByTestId('empty-description')!.classList]).toEqual(
-    expect.arrayContaining(['min-w-0', 'text-sm', 'text-muted-foreground']),
+    expect.arrayContaining(['text-sm', 'text-muted-foreground']),
   );
   expect([...screen.getByTestId('empty-actions')!.classList]).toEqual(
     expect.arrayContaining([
       'flex',
       'min-w-0',
-      'max-w-full',
       'flex-wrap',
       'items-center',
       'justify-center',
@@ -176,4 +182,21 @@ test('lets consumer utilities override default classes', () => {
     paddingBottom: '8px',
     paddingLeft: '8px',
   });
+});
+test('wraps long titles and button labels inside a narrow surface', () => {
+  render(() => (
+    <Empty data-testid="empty" style={{ width: '200px' }}>
+      <EmptyContent>
+        <EmptyTitle>Unbrokenprojectnamethatislongerthanthesurface</EmptyTitle>
+      </EmptyContent>
+      <EmptyActions>
+        <Button>Connect a repository to start tracking deployments</Button>
+      </EmptyActions>
+    </Empty>
+  ));
+
+  const root = screen.getByTestId('empty').getBoundingClientRect();
+  for (const element of [screen.getByRole('heading'), screen.getByRole('button')]) {
+    expect(element.getBoundingClientRect().right).toBeLessThanOrEqual(root.right + 1);
+  }
 });

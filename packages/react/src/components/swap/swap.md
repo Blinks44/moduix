@@ -11,7 +11,7 @@ Upstream docs:
 | Source    | Finding                                                                                                               | Classification         | moduix decision                                                                                                        |
 | --------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | Ark UI    | `Root`, `Indicator`, controlled `swap`, Presence, `asChild`, and the provider path are the primitive contract.        | Required correctness   | Preserve the Ark anatomy and behavior unchanged.                                                                       |
-| Chakra UI | Enter and exit animation is scoped to `data-state`, and reduced motion must retain the lifecycle.                     | Consumer friction      | Supply small CSS recipes, stable styling hooks, and a `1ms` reduced-motion fallback.                                   |
+| Chakra UI | Enter and exit animation is scoped to `data-state`, and reduced motion must retain the lifecycle.                     | Consumer friction      | Supply small CSS recipes, stable styling hooks, and an `animation: none` reduced-motion fallback.                      |
 | shadcn/ui | There is no dedicated Swap primitive; its registry examples establish the expected self-contained distribution model. | Intentional difference | Do not add a Button alias or interaction state. Keep Swap composable and ship its implementation through the registry. |
 
 ## Purpose
@@ -32,7 +32,6 @@ available during enter and exit animations.
 
 ## Current behavior contract
 
-- `Swap` is the callable alias of `Swap`.
 - `Swap`, `SwapRootProvider`, and `SwapIndicator` forward Ark props, refs, and `asChild`.
 - `useSwap()` creates Ark state for `SwapRootProvider`; `useSwapContext()` reads the nearest
   provider state.
@@ -56,7 +55,7 @@ animations stay scoped to that Swap instance.
 
 | Part               | `data-slot`          | Notes                                 |
 | ------------------ | -------------------- | ------------------------------------- |
-| `Swap` / `Swap`    | `swap-root`          | Ark span root and visual-state owner. |
+| `Swap`             | `swap-root`          | Ark span root and visual-state owner. |
 | `SwapRootProvider` | `swap-root-provider` | Ark provider-backed span root.        |
 | `SwapIndicator`    | `swap-indicator`     | One `on` or `off` visual state.       |
 
@@ -104,23 +103,15 @@ export function UploadButton() {
 
 ## Defaults and styling
 
-- The root is an `inline-grid` with a single `swap` grid area.
-- Indicators are inline-flex elements in that area and inherit their color.
-- Ark pins that layout with inline styles (`display: inline-grid` on the root, `grid-area: 1 / 1` and
+- The root centers its items and aligns with surrounding text (`vertical-align: middle`).
+- Ark pins the layout with inline styles (`display: inline-grid` on the root, `grid-area: 1 / 1` and
   `display: inline-flex` on each indicator), so class-based `display` and `grid-area` overrides do not
-  apply; change these properties through the `style` prop instead.
+  apply; change these properties through the `style` prop instead. Indicators center their content.
 - `animation="fade"` uses opacity, `scale` combines it with a 50% scale, `rotate` spins in 2D,
-  and `flip` applies a 3D Y-axis flip with a root perspective.
-- `--moduix-swap-transition` defaults to `--moduix-transition-slow` and controls both enter and exit timing.
-- `--moduix-swap-enter-starting-opacity`, `--moduix-swap-enter-starting-scale`,
-  `--moduix-swap-exit-ending-opacity`, and `--moduix-swap-exit-ending-scale` customise the default keyframes.
-- `--moduix-swap-rotate-enter-starting-angle` and `--moduix-swap-rotate-exit-ending-angle` control
-  the `rotate` recipe direction; `--moduix-swap-flip-perspective`,
-  `--moduix-swap-flip-enter-starting-angle`, and `--moduix-swap-flip-exit-ending-angle` control
-  the 3D `flip` recipe.
-- Override `animation` on `SwapIndicator[data-state]` for rotate or 3D flip recipes, and keep a
-  matching `prefers-reduced-motion` fallback in that custom CSS.
-- `prefers-reduced-motion: reduce` reduces the animation duration to `1ms`.
+  and `flip` applies a 3D Y-axis flip with a `24rem` root perspective.
+- `--moduix-swap-transition` defaults to `--moduix-transition-slow` and controls both enter and exit
+  timing. Other motion changes use a custom `animation` name.
+- `prefers-reduced-motion: reduce` disables the indicator animations (`animation: none`).
 - For expandable controls, animate the host dimensions and place the steady icon beside a width-
   animated `Swap` label. Swapping an icon-only indicator with an icon-and-label indicator gives the
   two icons different centers during the crossfade.
@@ -136,17 +127,3 @@ recipe and keeps the Ark `data-state` hooks available for consumer CSS.
 Keep the Ark `swap` prop, Presence-driven `data-state` attributes, provider path, and `asChild`
 composition intact. Keep `scale` as the default animation, and do not add hover state or
 expand/collapse behaviour to this primitive.
-
-## Local changelog
-
-- 2026-09-20: Moved the `data-animation` hook after consumer props, added `hideMode` to the upstream feature list, and documented Ark's inline-style layout pinning.
-- 2026-08-13: Added upstream comparison notes and regression coverage for the root styling hook and custom animation escape hatch.
-- 2026-08-13: Scoped preset animations to direct indicators and added angle and perspective CSS variables for rotate and flip.
-- 2026-07-31: Added `animation` presets and a custom-name escape hatch without changing Ark state.
-- 2026-07-31: Increased the default scale animation amplitude from `0.92` to `0.8` so it remains distinct from fade.
-- 2026-07-31: Set the preset transition to `--moduix-transition-slow` and the default scale to `0.5`.
-- 2026-07-31: Added provider, presence, `asChild`, and animation regression coverage.
-- 2026-07-14: Registered the public animation CSS properties in the theme override reference.
-- 2026-07-14: Added centered and width-animated button recipes plus rotate and 3D flip examples.
-- 2026-07-14: Kept the expandable-download icon outside Swap so its position animates continuously.
-- 2026-07-14: Added the Ark-aligned Swap wrapper with layered default animations and stable styling hooks.

@@ -2,7 +2,6 @@ import {
   SegmentGroup,
   SegmentGroupIndicator,
   SegmentGroupItem,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItemText,
 } from '@moduix/solid/segment-group';
@@ -26,7 +25,6 @@ export default function SegmentGroupAsChildDemo() {
           <>
             <SegmentGroupItemText class={styles.title}>{item}</SegmentGroupItemText>
             <span class={styles.description}>{description}</span>
-            <SegmentGroupItemControl />
             <SegmentGroupItemHiddenInput />
           </>
         </SegmentGroupItem>

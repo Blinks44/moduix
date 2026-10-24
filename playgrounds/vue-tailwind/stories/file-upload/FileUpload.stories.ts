@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref, type Component, type PropType } from 'vue';
+import { Button } from '@/components/button';
 import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   FileUpload,
@@ -64,6 +65,7 @@ const components = {
   FileUploadLabel,
   FileUploadRootProvider,
   FileUploadTrigger,
+  Button,
 } as Record<string, Component>;
 const FileUploadItemList = defineComponent({
   components,
@@ -80,7 +82,7 @@ const FileUploadItemList = defineComponent({
         </FileUploadItemPreview>
         <FileUploadItemName />
         <FileUploadItemMetadata :file="file" />
-        <FileUploadItemDeleteTrigger :aria-label="'Remove ' + file.name" />
+        <FileUploadItemDeleteTrigger />
       </FileUploadItem>
     </FileUploadContext>
   `,
@@ -93,6 +95,7 @@ const FileUploadDemo = defineComponent({
     FileUploadItems,
     FileUploadLabel,
     FileUploadTrigger,
+    Button,
   } as Record<string, Component>,
   props: {
     accept: { type: String, default: undefined },
@@ -109,7 +112,7 @@ const FileUploadDemo = defineComponent({
       :max-files="maxFiles"
     >
       <FileUploadLabel>Attachments</FileUploadLabel>
-      <FileUploadTrigger>Choose files</FileUploadTrigger>
+      <FileUploadTrigger as-child><Button>Choose files</Button></FileUploadTrigger>
       <FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup>
       <FileUploadHiddenInput />
     </FileUpload>
@@ -136,7 +139,7 @@ export const Dropzone: Story = {
         <div class="grid justify-items-center gap-1">
           <span class="text-sm font-medium leading-5 text-foreground">Drag and drop files here</span>
           <span class="text-xs leading-4 text-muted-foreground">or browse from your device</span>
-          <FileUploadTrigger class="mt-2">Browse files</FileUploadTrigger>
+          <FileUploadTrigger as-child><Button class="mt-2">Browse files</Button></FileUploadTrigger>
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup>
@@ -160,22 +163,22 @@ export const Controlled: Story = {
 };
 export const RejectedFiles: Story = {
   render: renderStory(
-    `<FileUpload accept="image/*" :max-files="2" :max-file-size="120000"><FileUploadLabel>Images</FileUploadLabel><FileUploadHiddenInput /><FileUploadDropzone disable-click><FileUploadDropzoneIcon /><div class="grid justify-items-center gap-1"><span class="text-sm font-medium leading-5 text-foreground">Drop image files here</span><span class="text-xs leading-4 text-muted-foreground">PNG or JPEG, up to 120 KB</span><FileUploadTrigger class="mt-2">Select images</FileUploadTrigger></div></FileUploadDropzone><FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup><FileUploadItemGroup type="rejected"><FileUploadContext v-slot="{ rejectedFiles }"><FileUploadItem v-for="{ file, errors } in rejectedFiles" :key="file.name + file.size" :file="file"><FileUploadItemPreview type=".*"><FileUploadItemPreviewIcon /></FileUploadItemPreview><div><FileUploadItemName /><p class="m-0 text-xs leading-4 text-destructive">{{ errors.join(', ') }}</p></div><FileUploadItemDeleteTrigger :aria-label="'Remove ' + file.name" /></FileUploadItem></FileUploadContext></FileUploadItemGroup></FileUpload>`,
+    `<FileUpload accept="image/*" :max-files="2" :max-file-size="120000"><FileUploadLabel>Images</FileUploadLabel><FileUploadHiddenInput /><FileUploadDropzone disable-click><FileUploadDropzoneIcon /><div class="grid justify-items-center gap-1"><span class="text-sm font-medium leading-5 text-foreground">Drop image files here</span><span class="text-xs leading-4 text-muted-foreground">PNG or JPEG, up to 120 KB</span><FileUploadTrigger as-child><Button class="mt-2">Select images</Button></FileUploadTrigger></div></FileUploadDropzone><FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup><FileUploadItemGroup type="rejected"><FileUploadContext v-slot="{ rejectedFiles }"><FileUploadItem v-for="{ file, errors } in rejectedFiles" :key="file.name + file.size" :file="file"><FileUploadItemPreview type=".*"><FileUploadItemPreviewIcon /></FileUploadItemPreview><div><FileUploadItemName /><p class="m-0 text-xs leading-4 text-destructive">{{ errors.join(', ') }}</p></div><FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup></FileUpload>`,
   ),
 };
 export const WithField: Story = {
   render: renderStory(
-    `<Field required><FileUpload name="attachments" :max-files="3"><FileUploadLabel>Required attachments</FileUploadLabel><FileUploadHiddenInput /><FileUploadTrigger>Choose files</FileUploadTrigger><FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup></FileUpload><FieldHelperText>Upload up to three files.</FieldHelperText><FieldErrorText>Upload at least one file.</FieldErrorText></Field>`,
+    `<Field required><FileUpload name="attachments" :max-files="3"><FileUploadLabel>Required attachments</FileUploadLabel><FileUploadHiddenInput /><FileUploadTrigger as-child><Button>Choose files</Button></FileUploadTrigger><FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup></FileUpload><FieldHelperText>Upload up to three files.</FieldHelperText><FieldErrorText>Upload at least one file.</FieldErrorText></Field>`,
   ),
 };
 export const RootProvider: Story = {
   render: renderStory(
-    `<FileUploadRootProvider :value="fileUpload"><FileUploadLabel>Images</FileUploadLabel><FileUploadHiddenInput /><FileUploadDropzone disable-click><FileUploadDropzoneIcon /><div class="grid justify-items-center gap-1"><span class="text-sm font-medium leading-5 text-foreground">Drop images here</span><span class="text-xs leading-4 text-muted-foreground">or browse from your device</span><FileUploadTrigger class="mt-2">Choose images</FileUploadTrigger></div></FileUploadDropzone><FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup></FileUploadRootProvider>`,
+    `<FileUploadRootProvider :value="fileUpload"><FileUploadLabel>Images</FileUploadLabel><FileUploadHiddenInput /><FileUploadDropzone disable-click><FileUploadDropzoneIcon /><div class="grid justify-items-center gap-1"><span class="text-sm font-medium leading-5 text-foreground">Drop images here</span><span class="text-xs leading-4 text-muted-foreground">or browse from your device</span><FileUploadTrigger as-child><Button class="mt-2">Choose images</Button></FileUploadTrigger></div></FileUploadDropzone><FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup></FileUploadRootProvider>`,
     () => ({ fileUpload: useFileUpload({ maxFiles: 3, accept: 'image/*' }) }),
   ),
 };
 export const CustomStyling: Story = {
   render: renderStory(
-    `<FileUpload :max-files="2"><FileUploadLabel>Brand assets</FileUploadLabel><FileUploadHiddenInput /><FileUploadDropzone class="border-primary bg-primary/5" disable-click><FileUploadDropzoneIcon /><div class="grid justify-items-center gap-1"><span class="text-sm font-medium leading-5 text-foreground">Drop files here</span><span class="text-xs leading-4 text-muted-foreground">SVG, PNG, or PDF</span><FileUploadTrigger class="mt-2 bg-foreground text-background">Browse files</FileUploadTrigger></div></FileUploadDropzone><FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup></FileUpload>`,
+    `<FileUpload :max-files="2"><FileUploadLabel>Brand assets</FileUploadLabel><FileUploadHiddenInput /><FileUploadDropzone class="border-primary bg-primary/5" disable-click><FileUploadDropzoneIcon /><div class="grid justify-items-center gap-1"><span class="text-sm font-medium leading-5 text-foreground">Drop files here</span><span class="text-xs leading-4 text-muted-foreground">SVG, PNG, or PDF</span><FileUploadTrigger as-child><Button class="mt-2 bg-foreground text-background">Browse files</Button></FileUploadTrigger></div></FileUploadDropzone><FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup></FileUpload>`,
   ),
 };

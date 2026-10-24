@@ -5,15 +5,6 @@ description: Barre de navigation pour les liens directs et les panneaux dépliab
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu/css-properties';
-import NavigationMenuBasic from '@/components/examples/navigation-menu/basic.tsx';
-import NavigationMenuControlledValue from '@/components/examples/navigation-menu/controlled-value.tsx';
-import NavigationMenuViewport from '@/components/examples/navigation-menu/viewport.tsx';
-import navigationMenuSolidBasic from '../../../snippets/navigation-menu/solid/basic.tsx?raw';
-import navigationMenuSolidControlledValue from '../../../snippets/navigation-menu/solid/controlled-value.tsx?raw';
-import navigationMenuSolidViewport from '../../../snippets/navigation-menu/solid/viewport.tsx?raw';
-import navigationMenuVueBasic from '../../../snippets/navigation-menu/vue/basic.vue?raw';
-import navigationMenuVueControlledValue from '../../../snippets/navigation-menu/vue/controlled-value.vue?raw';
-import navigationMenuVueViewport from '../../../snippets/navigation-menu/vue/viewport.vue?raw';
 
 ## Référence de l’API
 
@@ -41,46 +32,7 @@ Utilisez `NavigationMenu` avec `NavigationMenuList` et `NavigationMenuItem`. Att
 `NavigationMenuContent` dans le même élément. Utilisez `NavigationMenuLink` pour les destinations
 directes du premier niveau et pour les liens à l’intérieur d’un panneau.
 
-<ExampleFrame variant="component">
-  <NavigationMenuBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/navigation-menu/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={navigationMenuSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={navigationMenuVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="navigation-menu/basic" />
 
 ## Installation avec shadcn
 
@@ -184,46 +136,7 @@ Contrôlez la valeur ouverte avec un état React, un signal Solid ou une ref Vue
 doit également piloter une partie voisine de l’interface. La sortie sous l’exemple affiche la valeur de
 l’élément ouvert.
 
-<ExampleFrame variant="component">
-  <NavigationMenuControlledValue />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/navigation-menu/controlled-value.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={navigationMenuSolidControlledValue} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={navigationMenuVueControlledValue} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-controlled-value.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="navigation-menu/controlled-value" />
 
 ### Viewport partagé
 
@@ -232,69 +145,22 @@ s’animer dans une même surface. Cet exemple utilise un panneau à deux colonn
 largeurs différentes, afin de rendre visibles les animations de largeur et de hauteur de `NavigationMenuViewport`
 lors du passage d’un déclencheur à l’autre.
 
-<ExampleFrame variant="component">
-  <NavigationMenuViewport />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/navigation-menu/viewport.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={navigationMenuSolidViewport} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={navigationMenuVueViewport} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/navigation-menu/navigation-menu-viewport.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="navigation-menu/viewport" />
 
 ## Styles
 
 Utilisez `className` dans React, `class` dans Solid ou `class` dans Vue sur les parties exportées pour les styles
 structurels. Pour les styles liés à l’état, privilégiez les attributs de données Ark comme `data-state`,
 `data-current` et `data-orientation`, avec les sélecteurs moduix `data-slot`. Les variantes Tailwind
-utilisent des utilitaires natifs et les classes du consommateur ; les variables ci-dessous personnalisent
-les variantes CSS Modules. Les attributs de données et les points d’accroche `data-slot` sont communs
+utilisent des utilitaires natifs et les classes du consommateur. Les variantes CSS Modules prennent les
+couleurs, les espacements et la typographie dans les jetons foundation et n’exposent en variables CSS
+que les limites de taille du panneau et du viewport ; remplacez le reste avec une classe sur la partie.
+L’animation du panneau et du viewport suit les variables partagées `--moduix-popup-motion-*`. Les attributs de données et les points d’accroche `data-slot` sont communs
 aux deux modes de style.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <NavigationMenuDocs.NavigationMenuCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={NavigationMenuDocs.navigationMenuOverrideCssProperties} />
 
 ### Points d’accroche CSS
 

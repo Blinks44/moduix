@@ -6,7 +6,6 @@
     );
     --_container-max-width: var(--moduix-container-max-width-lg, 72rem);
 
-    box-sizing: border-box;
     display: block;
     width: 100%;
     max-width: calc(var(--_container-max-width) + (var(--_container-gutter) * 2));

@@ -206,3 +206,24 @@ test('forwards refs through ordinary Ark React part paths', () => {
   expect(labelRef.current!.getAttribute('data-slot')).toBe('tags-input-label');
   expect(inputRef.current!.getAttribute('data-slot')).toBe('tags-input-input');
 });
+
+test('dims a disabled root once and keeps the default clear icon', async () => {
+  render(
+    <TagsInput disabled defaultValue={['React']}>
+      <TagsInputLabel>Disabled frameworks</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputItems />
+        <TagsInputInput />
+        <TagsInputClearTrigger />
+      </TagsInputControl>
+    </TagsInput>,
+  );
+
+  await expect.element(page.locator('[data-slot="tags-input-root"]')).toHaveCSS('opacity', '0.5');
+  expect(document.querySelector('[data-slot="tags-input-clear-trigger"] > svg')).not.toBeNull();
+  for (const slot of ['label', 'item-preview', 'item-delete-trigger', 'clear-trigger']) {
+    await expect
+      .element(page.locator(`[data-slot="tags-input-${slot}"]`))
+      .toHaveCSS('opacity', '1');
+  }
+});

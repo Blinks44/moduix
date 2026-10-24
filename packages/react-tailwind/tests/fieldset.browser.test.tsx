@@ -39,11 +39,10 @@ test('updates invalid state and connects legend, description, and error text', a
   await expect.poll(() => fieldset.getAttribute('aria-describedby')).toContain(errorText.id);
   await expect.element(textLocator).toHaveAttribute('aria-live', 'polite');
   expect([...fieldset.classList]).toEqual(
-    expect.arrayContaining(['flex', 'w-full', 'max-w-none', 'min-w-0', 'gap-4']),
+    expect.arrayContaining(['flex', 'w-full', 'min-w-0', 'gap-4']),
   );
   expect([...screen.getByText('Contact details').classList]).toEqual(
     expect.arrayContaining([
-      'inline-block',
       'max-w-full',
       'wrap-anywhere',
       'pb-3',
@@ -55,6 +54,23 @@ test('updates invalid state and connects legend, description, and error text', a
   expect([...helperText.classList]).toEqual(
     expect.arrayContaining(['wrap-anywhere', 'text-sm', 'text-muted-foreground']),
   );
+});
+
+test('resets native fieldset chrome and draws no border when invalid', () => {
+  render(
+    <Fieldset invalid>
+      <FieldsetLegend>Billing</FieldsetLegend>
+    </Fieldset>,
+  );
+
+  const fieldset = screen.getByRole('group', { name: 'Billing' });
+  const style = getComputedStyle(fieldset);
+  expect([style.borderTopWidth, style.paddingTop, style.paddingLeft, style.marginLeft]).toEqual([
+    '0px',
+    '0px',
+    '0px',
+    '0px',
+  ]);
 });
 
 test('disables native descendants', async () => {
@@ -133,9 +149,7 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
     expect.arrayContaining(['w-1/2', 'max-w-sm', 'gap-2']),
   );
   expect(
-    ['w-full', 'max-w-none', 'gap-4'].some((name) =>
-      screen.getByTestId('fieldset').classList.contains(name),
-    ),
+    ['w-full', 'gap-4'].some((name) => screen.getByTestId('fieldset').classList.contains(name)),
   ).toBe(false);
   expect([...screen.getByTestId('legend').classList]).toEqual(
     expect.arrayContaining(['pb-0', 'text-sm']),

@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import { parseDate } from '@ark-ui/vue/date-picker';
+import type { DateValue } from '@ark-ui/vue/date-picker';
+import { CalendarDate } from '@internationalized/date';
 import {
   DatePicker,
   DatePickerContent,
-  DatePickerContext,
+  DatePickerField,
   DatePickerLabel,
+  DatePickerMonthTable,
   DatePickerPositioner,
-  DatePickerPrevTrigger,
-  DatePickerNextTrigger,
   DatePickerView,
-  DatePickerViewControl,
-  DatePickerViewTrigger,
-  DatePickerTable,
-  DatePickerTableBody,
-  DatePickerTableCell,
-  DatePickerTableCellTrigger,
-  DatePickerTableRow,
 } from '@moduix/vue/date-picker';
+
+const format = (date: DateValue) => `${String(date.month).padStart(2, '0')}/${date.year}`;
+const parse = (value: string) => {
+  const match = value.match(/^(\d{1,2})\/(\d{4})$/);
+  return match ? new CalendarDate(Number(match[2]), Number(match[1]), 1) : undefined;
+};
 </script>
 
 <template>
@@ -24,39 +23,15 @@ import {
     default-view="month"
     min-view="month"
     max-view="month"
-    :default-value="[parseDate('2026-06-22')]"
+    :format="format"
+    :parse="parse"
   >
-    <DatePickerLabel>Billing month</DatePickerLabel><DatePickerField />
-    <DatePickerPositioner
-      ><DatePickerContent
-        ><DatePickerView view="month">
-          <DatePickerContext v-slot="context">
-            <DatePickerViewControl
-              ><DatePickerPrevTrigger /><DatePickerViewTrigger /><DatePickerNextTrigger
-            /></DatePickerViewControl>
-            <DatePickerTable :columns="4"
-              ><DatePickerTableBody>
-                <DatePickerTableRow
-                  v-for="(months, rowIndex) in context.getMonthsGrid({
-                    columns: 4,
-                    format: 'short',
-                  })"
-                  :key="rowIndex"
-                >
-                  <DatePickerTableCell
-                    v-for="month in months"
-                    :key="month.value"
-                    :value="month.value"
-                    ><DatePickerTableCellTrigger>{{
-                      month.label
-                    }}</DatePickerTableCellTrigger></DatePickerTableCell
-                  >
-                </DatePickerTableRow>
-              </DatePickerTableBody></DatePickerTable
-            >
-          </DatePickerContext>
-        </DatePickerView></DatePickerContent
-      ></DatePickerPositioner
-    >
+    <DatePickerLabel>Month</DatePickerLabel>
+    <DatePickerField placeholder="mm/yyyy" clear-label="Clear month" />
+    <DatePickerPositioner>
+      <DatePickerContent>
+        <DatePickerView view="month"><DatePickerMonthTable /></DatePickerView>
+      </DatePickerContent>
+    </DatePickerPositioner>
   </DatePicker>
 </template>

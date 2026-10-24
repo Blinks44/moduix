@@ -1,7 +1,15 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { Empty, EmptyActions, EmptyContent, EmptyDescription, EmptyIcon, EmptyTitle } from '../src';
+import {
+  Button,
+  Empty,
+  EmptyActions,
+  EmptyContent,
+  EmptyDescription,
+  EmptyIcon,
+  EmptyTitle,
+} from '../src';
 
 test('renders presentational anatomy with stable hooks and forwarded refs', async () => {
   let rootRef!: HTMLDivElement;
@@ -101,4 +109,21 @@ test('does not forward refs through native Ark Solid asChild composition', async
   await expect.element(page.getByRole('heading', { name: 'No projects', level: 2 })).toBeAttached();
   expect(rootRef).toBeUndefined();
   expect(titleRef).toBeUndefined();
+});
+test('wraps long titles and button labels inside a narrow surface', () => {
+  render(() => (
+    <Empty data-testid="empty" style={{ width: '200px' }}>
+      <EmptyContent>
+        <EmptyTitle>Unbrokenprojectnamethatislongerthanthesurface</EmptyTitle>
+      </EmptyContent>
+      <EmptyActions>
+        <Button>Connect a repository to start tracking deployments</Button>
+      </EmptyActions>
+    </Empty>
+  ));
+
+  const root = screen.getByTestId('empty').getBoundingClientRect();
+  for (const element of [screen.getByRole('heading'), screen.getByRole('button')]) {
+    expect(element.getBoundingClientRect().right).toBeLessThanOrEqual(root.right + 1);
+  }
 });

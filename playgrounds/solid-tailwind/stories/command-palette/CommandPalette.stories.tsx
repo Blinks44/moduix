@@ -24,7 +24,7 @@ import {
   CommandPaletteSearch,
   CommandPaletteTrigger,
 } from '@/components/command-palette/CommandPalette';
-import { PlusIcon } from '@/lib/moduix/icons/ui/Icons';
+import { PlusIcon } from '@/lib/moduix/icons/ui';
 
 const meta = {
   title: 'Components/CommandPalette',

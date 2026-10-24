@@ -1,61 +1,42 @@
 @layer moduix.components {
   .root {
+    --_separator-thickness: var(--moduix-border-width-sm);
+
     display: block;
     flex-shrink: 0;
     margin: 0;
-    border: 0;
-    border-color: var(--moduix-separator-color, var(--moduix-color-border));
-    border-style: var(
-      --moduix-separator-border-style,
-      var(--_separator-variant-border-style, solid)
-    );
+    border: 0 solid var(--moduix-separator-color, var(--moduix-color-border));
 
     &[data-size='xs'] {
-      --_separator-size-thickness: var(--moduix-separator-thickness-xs, 0.5px);
-    }
-
-    &[data-size='sm'] {
-      --_separator-size-thickness: var(
-        --moduix-separator-thickness-sm,
-        var(--moduix-border-width-sm)
-      );
+      --_separator-thickness: 0.5px;
     }
 
     &[data-size='md'] {
-      --_separator-size-thickness: var(
-        --moduix-separator-thickness-md,
-        var(--moduix-border-width-md)
-      );
+      --_separator-thickness: var(--moduix-border-width-md);
     }
 
     &[data-size='lg'] {
-      --_separator-size-thickness: var(--moduix-separator-thickness-lg, 3px);
+      --_separator-thickness: 3px;
     }
 
     &[data-variant='dashed'] {
-      --_separator-variant-border-style: dashed;
+      border-style: dashed;
     }
 
     &[data-variant='dotted'] {
-      --_separator-variant-border-style: dotted;
+      border-style: dotted;
     }
 
     &[data-orientation='horizontal'] {
-      width: var(--moduix-separator-length-horizontal, 100%);
+      width: 100%;
       height: 0;
-      border-block-start-width: var(
-        --moduix-separator-thickness,
-        var(--_separator-size-thickness, var(--moduix-border-width-sm))
-      );
+      border-block-start-width: var(--moduix-separator-thickness, var(--_separator-thickness));
     }
 
     &[data-orientation='vertical'] {
       width: 0;
-      height: var(--moduix-separator-length-vertical, 1em);
-      border-inline-start-width: var(
-        --moduix-separator-thickness,
-        var(--_separator-size-thickness, var(--moduix-border-width-sm))
-      );
+      height: 1em;
+      border-inline-start-width: var(--moduix-separator-thickness, var(--_separator-thickness));
     }
   }
 }

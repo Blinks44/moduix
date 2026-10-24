@@ -5,8 +5,9 @@ import {
   type CollectionItem,
   type ComboboxRootComponent,
   type ComboboxRootProps,
+  useComboboxContext,
 } from '@ark-ui/react/combobox';
-import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
+import { Dialog as DialogPrimitive, useDialogContext } from '@ark-ui/react/dialog';
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { isHotKey } from '@ark-ui/react/hotkeys';
@@ -14,7 +15,7 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef, useEffect } from 'react';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui';
+import { CheckIcon, CloseIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -25,33 +26,22 @@ import { Kbd } from '../kbd';
 import { ScrollArea, ScrollAreaContent, ScrollAreaViewport } from '../scroll-area';
 import styles from './CommandPalette.module.css';
 
-type CommandPaletteProps = ComponentProps<typeof DialogPrimitive.Root> & {
+type CommandPaletteShortcutProps = {
   shortcut?: false | string;
-} & OverlayPortalProps;
+};
 
-type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
+type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> &
+  CommandPaletteShortcutProps &
   OverlayPortalProps;
 
-function CommandPalette({
-  shortcut = false,
-  lazyMount = true,
-  unmountOnExit = true,
-  immediate,
-  onExitComplete,
-  portalled,
-  present,
-  portalRef,
-  skipAnimationOnMount,
-  children,
-  ...props
-}: CommandPaletteProps) {
-  const dialog = useDialog(props);
+type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
+  CommandPaletteShortcutProps &
+  OverlayPortalProps;
+
+function CommandPaletteShortcut({ shortcut }: { shortcut: string }) {
+  const dialog = useDialogContext();
 
   useEffect(() => {
-    if (!shortcut) {
-      return;
-    }
-
     const handleKeyDown = (event: KeyboardEvent) => {
       if (
         event.defaultPrevented ||
@@ -73,37 +63,43 @@ function CommandPalette({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [dialog, shortcut]);
 
+  return null;
+}
+
+function CommandPalette({
+  shortcut = false,
+  lazyMount = true,
+  unmountOnExit = true,
+  portalled,
+  portalRef,
+  children,
+  ...props
+}: CommandPaletteRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DialogPrimitive.RootProvider
-        value={dialog}
-        immediate={immediate}
-        lazyMount={lazyMount}
-        onExitComplete={onExitComplete}
-        present={present}
-        skipAnimationOnMount={skipAnimationOnMount}
-        unmountOnExit={unmountOnExit}
-      >
+      <DialogPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props}>
+        {shortcut ? <CommandPaletteShortcut shortcut={shortcut} /> : null}
         {children}
-      </DialogPrimitive.RootProvider>
+      </DialogPrimitive.Root>
     </OverlayPortalProvider>
   );
 }
 
 function CommandPaletteRootProvider({
+  shortcut = false,
   lazyMount = true,
+  unmountOnExit = true,
   portalled,
   portalRef,
-  unmountOnExit = true,
+  children,
   ...props
 }: CommandPaletteRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DialogPrimitive.RootProvider
-        lazyMount={lazyMount}
-        unmountOnExit={unmountOnExit}
-        {...props}
-      />
+      <DialogPrimitive.RootProvider lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props}>
+        {shortcut ? <CommandPaletteShortcut shortcut={shortcut} /> : null}
+        {children}
+      </DialogPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
 }
@@ -111,16 +107,8 @@ function CommandPaletteRootProvider({
 const CommandPaletteTrigger = forwardRef<
   ComponentRef<typeof DialogPrimitive.Trigger>,
   ComponentProps<typeof DialogPrimitive.Trigger>
->(function CommandPaletteTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <DialogPrimitive.Trigger
-      ref={ref}
-      asChild={asChild}
-      className={clsx(!asChild && styles.trigger, className)}
-      {...props}
-      data-slot="command-palette-trigger"
-    />
-  );
+>(function CommandPaletteTrigger(props, ref) {
+  return <DialogPrimitive.Trigger ref={ref} {...props} data-slot="command-palette-trigger" />;
 });
 
 const CommandPaletteBackdrop = forwardRef<
@@ -172,14 +160,12 @@ const CommandPaletteContent = forwardRef<
 const CommandPalettePanel = forwardRef<
   ComponentRef<typeof DialogPrimitive.Content>,
   ComponentProps<typeof DialogPrimitive.Content>
->(function CommandPalettePanel({ children, ...props }, ref) {
+>(function CommandPalettePanel(props, ref) {
   return (
     <>
       <CommandPaletteBackdrop />
       <CommandPalettePositioner>
-        <CommandPaletteContent ref={ref} {...props}>
-          <CommandPaletteBody>{children}</CommandPaletteBody>
-        </CommandPaletteContent>
+        <CommandPaletteContent ref={ref} {...props} />
       </CommandPalettePositioner>
     </>
   );
@@ -221,19 +207,6 @@ const CommandPaletteHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
         className={clsx(styles.header, className)}
         {...props}
         data-slot="command-palette-header"
-      />
-    );
-  },
-);
-
-const CommandPaletteBody = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
-  function CommandPaletteBody({ className, ...props }, ref) {
-    return (
-      <ark.div
-        ref={ref}
-        className={clsx(styles.body, className)}
-        {...props}
-        data-slot="command-palette-body"
       />
     );
   },
@@ -314,6 +287,7 @@ const CommandPaletteSearch = forwardRef<
 ) {
   return (
     <CommandPaletteControl>
+      <SearchIcon data-slot="command-palette-search-icon" className={styles.searchIcon} />
       <CommandPaletteInput
         ref={ref}
         aria-label={ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.searchCommands : undefined)}
@@ -334,50 +308,38 @@ const CommandPaletteClearTrigger = forwardRef<
     className,
     children,
     onClick,
-    onPointerDown,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledBy,
     ...props
   },
   ref,
 ) {
+  const combobox = useComboboxContext();
+
   return (
-    <ComboboxPrimitive.Context>
-      {(combobox) => (
-        <ComboboxPrimitive.ClearTrigger
-          ref={ref}
-          asChild={asChild}
-          {...props}
-          data-slot="command-palette-clear-trigger"
-          hidden={combobox.inputValue.length === 0}
-          aria-label={
-            ariaLabel ??
-            (!asChild && children == null && ariaLabelledBy == null
-              ? a11yLabels.clearSearch
-              : undefined)
-          }
-          aria-labelledby={ariaLabelledBy}
-          className={clsx(closeButtonStyles.root, styles.clearTrigger, className)}
-          onClick={(event) => {
-            onClick?.(event);
+    <ComboboxPrimitive.ClearTrigger
+      ref={ref}
+      asChild={asChild}
+      aria-label={
+        ariaLabel ?? (!asChild && ariaLabelledBy == null ? a11yLabels.clearSearch : undefined)
+      }
+      aria-labelledby={ariaLabelledBy}
+      className={clsx(closeButtonStyles.root, styles.clearTrigger, className)}
+      {...props}
+      hidden={combobox.inputValue === ''}
+      onClick={(event) => {
+        onClick?.(event);
 
-            if (!event.defaultPrevented) {
-              event.preventDefault();
-              combobox.setInputValue('');
-            }
-          }}
-          onPointerDown={(event) => {
-            onPointerDown?.(event);
-
-            if (event.button === 0) {
-              event.preventDefault();
-            }
-          }}
-        >
-          {children ?? <CloseIcon />}
-        </ComboboxPrimitive.ClearTrigger>
-      )}
-    </ComboboxPrimitive.Context>
+        // Clear only the query; Ark's own handler would also clear the selected value.
+        if (!event.defaultPrevented) {
+          event.preventDefault();
+          combobox.setInputValue('');
+        }
+      }}
+      data-slot="command-palette-clear-trigger"
+    >
+      {children ?? <CloseIcon />}
+    </ComboboxPrimitive.ClearTrigger>
   );
 });
 
@@ -392,17 +354,9 @@ const CommandPaletteList = forwardRef<
       {...props}
       data-slot="command-palette-list"
     >
-      <ScrollArea data-slot="command-palette-scroll-area" className={styles.scrollArea}>
-        <ScrollAreaViewport
-          data-slot="command-palette-scroll-viewport"
-          className={styles.scrollViewport}
-        >
-          <ScrollAreaContent
-            data-slot="command-palette-scroll-content"
-            className={styles.scrollContent}
-          >
-            {children}
-          </ScrollAreaContent>
+      <ScrollArea className={styles.scrollArea}>
+        <ScrollAreaViewport className={styles.scrollViewport}>
+          <ScrollAreaContent className={styles.scrollContent}>{children}</ScrollAreaContent>
         </ScrollAreaViewport>
       </ScrollArea>
     </ComboboxPrimitive.Content>
@@ -590,7 +544,6 @@ const CommandPaletteKbd = forwardRef<ComponentRef<typeof Kbd>, ComponentProps<ty
 export {
   CommandPalette,
   CommandPaletteBackdrop,
-  CommandPaletteBody,
   CommandPaletteClearTrigger,
   CommandPaletteCombobox,
   CommandPaletteContent,
@@ -619,3 +572,5 @@ export {
   CommandPaletteTitle,
   CommandPaletteTrigger,
 };
+
+export type { CommandPaletteRootProps, CommandPaletteRootProviderProps };

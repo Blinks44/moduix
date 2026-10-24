@@ -13,6 +13,8 @@ The Solid tests cover both paths independently.
 `ColorPicker` and `ColorPickerRootProvider` accept `portalled`, `portalRef`, `lazyMount`, and
 `unmountOnExit`. `parseColor`, `useColorPicker`, and `useColorPickerContext` are re-exported.
 
-## Style contract (2026-10-03)
+## Style contract
 
-The root owns disabled opacity. Controls reset their own opacity inside a disabled root; a disabled Field or Fieldset owns the outer opacity instead.
+The root owns disabled opacity. Swatch triggers dim on their own when disabled and reset inside a
+disabled root; a disabled Field or Fieldset owns the outer opacity instead. Default children are the
+exported moduix parts, and Ark types are re-exported as in React and Vue.

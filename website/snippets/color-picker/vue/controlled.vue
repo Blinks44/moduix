@@ -21,6 +21,7 @@ const value = ref(parseColor('#16a34a'));
     <ColorPickerLabel>Color</ColorPickerLabel>
     <ColorPickerControl>
       <ColorPickerChannelInput channel="hex" />
+      <ColorPickerChannelInput channel="alpha" />
       <ColorPickerTrigger aria-label="Open color picker" />
     </ColorPickerControl>
     <ColorPickerPositioner>

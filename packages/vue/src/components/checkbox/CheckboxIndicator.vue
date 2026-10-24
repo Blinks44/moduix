@@ -4,7 +4,7 @@ import type { CheckboxIndicatorProps } from '@ark-ui/vue/checkbox';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import styles from './Checkbox.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -28,18 +28,8 @@ const attrs = useAttrs();
     data-slot="checkbox-indicator"
   >
     <slot>
-      <span
-        aria-hidden="true"
-        :class="styles.icon"
-        :data-slot="
-          indeterminate
-            ? 'checkbox-indicator-indeterminate-icon'
-            : 'checkbox-indicator-checked-icon'
-        "
-      >
-        <IndeterminateIcon v-if="indeterminate" />
-        <CheckIcon v-else />
-      </span>
+      <IndeterminateIcon v-if="indeterminate" />
+      <CheckIcon v-else />
     </slot>
   </ArkCheckboxIndicator>
 </template>

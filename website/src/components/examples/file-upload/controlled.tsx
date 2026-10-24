@@ -1,3 +1,4 @@
+import { Button } from '@moduix/react/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -28,14 +29,16 @@ export default function ControlledFileUploadDemo() {
         onFileChange={(details) => setFiles(details.acceptedFiles)}
       >
         <FileUploadLabel>Attachments</FileUploadLabel>
-        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadTrigger asChild>
+          <Button>Choose files</Button>
+        </FileUploadTrigger>
         <FileUploadItemGroup>
           <FileUploadContext>
             {({ acceptedFiles }) =>
               acceptedFiles.map((file) => (
                 <FileUploadItem key={file.name} file={file}>
                   <FileUploadItemName />
-                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                  <FileUploadItemDeleteTrigger />
                 </FileUploadItem>
               ))
             }

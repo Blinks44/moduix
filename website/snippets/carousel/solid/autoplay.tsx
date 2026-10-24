@@ -53,11 +53,7 @@ export default function AutoplayCarousel() {
       <CarouselContext>
         {(api) => (
           <>
-            <CarouselItemGroup
-              class={styles.itemGroup}
-              onFocus={() => api().pause()}
-              onPointerEnter={() => api().pause()}
-            >
+            <CarouselItemGroup onFocus={() => api().pause()} onPointerEnter={() => api().pause()}>
               <For each={slides}>
                 {(slide, index) => (
                   <CarouselItem index={index()}>
@@ -67,11 +63,7 @@ export default function AutoplayCarousel() {
               </For>
             </CarouselItemGroup>
 
-            <CarouselControl
-              class={styles.control}
-              onFocus={() => api().pause()}
-              onPointerEnter={() => api().pause()}
-            >
+            <CarouselControl onFocus={() => api().pause()} onPointerEnter={() => api().pause()}>
               <CarouselAutoplayTrigger>
                 <CarouselAutoplayIndicator fallback="Play">Pause</CarouselAutoplayIndicator>
               </CarouselAutoplayTrigger>

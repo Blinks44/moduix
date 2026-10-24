@@ -14,7 +14,6 @@ import {
   ComboboxTrigger,
 } from '@moduix/react/combobox';
 import { useEffect, useMemo, useState } from 'react';
-import styles from '@/components/examples/combobox/component-async-search.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -65,7 +64,7 @@ export default function AsyncSearchComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent className={styles.content}>
+        <ComboboxContent>
           {!query ? <ComboboxStatus>Start typing to search…</ComboboxStatus> : null}
           {loading ? <ComboboxStatus>Searching…</ComboboxStatus> : null}
           {!loading && query ? <ComboboxEmpty>No results found.</ComboboxEmpty> : null}

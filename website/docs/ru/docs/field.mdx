@@ -4,44 +4,6 @@ component: field
 description: Доступный контекст поля формы для React, Solid и Vue с вариантами пакетов CSS Modules и Tailwind.
 ---
 
-import * as FieldDocs from '@/components/examples/field/css-properties';
-import FieldBasic from '@/components/examples/field/basic.tsx';
-import FieldCheckbox from '@/components/examples/field/checkbox.tsx';
-import FieldControlledInvalid from '@/components/examples/field/controlled-invalid.tsx';
-import FieldDisabled from '@/components/examples/field/disabled.tsx';
-import FieldInvalid from '@/components/examples/field/invalid.tsx';
-import FieldItemTarget from '@/components/examples/field/item-target.tsx';
-import FieldNativeSelect from '@/components/examples/field/native-select.tsx';
-import FieldRadioGroup from '@/components/examples/field/radiogroup.tsx';
-import FieldReadOnly from '@/components/examples/field/read-only.tsx';
-import FieldRootProvider from '@/components/examples/field/root-provider.tsx';
-import FieldSelect from '@/components/examples/field/select.tsx';
-import FieldTextarea from '@/components/examples/field/textarea.tsx';
-import fieldSolidBasic from '../../../snippets/field/solid/basic.tsx?raw';
-import fieldSolidCheckbox from '../../../snippets/field/solid/checkbox.tsx?raw';
-import fieldSolidControlledInvalid from '../../../snippets/field/solid/controlled-invalid.tsx?raw';
-import fieldSolidDisabled from '../../../snippets/field/solid/disabled.tsx?raw';
-import fieldSolidInvalid from '../../../snippets/field/solid/invalid.tsx?raw';
-import fieldSolidItemTarget from '../../../snippets/field/solid/item-target.tsx?raw';
-import fieldSolidNativeSelect from '../../../snippets/field/solid/native-select.tsx?raw';
-import fieldSolidRadioGroup from '../../../snippets/field/solid/radiogroup.tsx?raw';
-import fieldSolidReadOnly from '../../../snippets/field/solid/read-only.tsx?raw';
-import fieldSolidRootProvider from '../../../snippets/field/solid/root-provider.tsx?raw';
-import fieldSolidSelect from '../../../snippets/field/solid/select.tsx?raw';
-import fieldSolidTextarea from '../../../snippets/field/solid/textarea.tsx?raw';
-import fieldVueBasic from '../../../snippets/field/vue/basic.vue?raw';
-import fieldVueCheckbox from '../../../snippets/field/vue/checkbox.vue?raw';
-import fieldVueControlledInvalid from '../../../snippets/field/vue/controlled-invalid.vue?raw';
-import fieldVueDisabled from '../../../snippets/field/vue/disabled.vue?raw';
-import fieldVueInvalid from '../../../snippets/field/vue/invalid.vue?raw';
-import fieldVueItemTarget from '../../../snippets/field/vue/item-target.vue?raw';
-import fieldVueNativeSelect from '../../../snippets/field/vue/native-select.vue?raw';
-import fieldVueRadioGroup from '../../../snippets/field/vue/radiogroup.vue?raw';
-import fieldVueReadOnly from '../../../snippets/field/vue/read-only.vue?raw';
-import fieldVueRootProvider from '../../../snippets/field/vue/root-provider.vue?raw';
-import fieldVueSelect from '../../../snippets/field/vue/select.vue?raw';
-import fieldVueTextarea from '../../../snippets/field/vue/textarea.vue?raw';
-
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/field" />
@@ -61,46 +23,7 @@ import fieldVueTextarea from '../../../snippets/field/vue/textarea.vue?raw';
 Используйте `Field` как оболочку для одного элемента управления формы. Разместите `FieldLabel` перед
 ним, а затем при необходимости добавьте `FieldHelperText` или `FieldErrorText`.
 
-<ExampleFrame variant="component">
-  <FieldBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/field/field-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/basic" />
 
 ## Установка через shadcn
 
@@ -141,14 +64,14 @@ import fieldVueTextarea from '../../../snippets/field/vue/textarea.vue?raw';
 
 ## Анатомия
 
-Публичный API `Field` использует плоские имена с префиксом семейства. Для явной композиции Ark
-используйте низкоуровневые части `Field*`. В обычных формах лучше выбирать соответствующие компоненты
-moduix, например `Input`, `Textarea` или `NativeSelect`.
+Публичный API `Field` использует плоские имена с префиксом семейства. `Field` не рисует собственный
+элемент ввода: поместите внутрь `Input`, `Textarea`, `NativeSelect` или другой элемент формы moduix, и он
+прочитает контекст поля.
 
 ```text
 Field
 ├─ FieldLabel
-├─ FieldInput | FieldTextarea | FieldSelect | custom control
+├─ Input | Textarea | NativeSelect | another form control
 ├─ FieldHelperText
 ├─ FieldErrorText
 └─ FieldRequiredIndicator
@@ -163,9 +86,6 @@ FieldRootProvider
 | `FieldRootProvider`     | Корень, использующий состояние `useField()`, созданное вне дерева компонентов.                  |
 | `FieldContext`          | Даёт доступ к текущему состоянию поля, не добавляя элемент в DOM.                                |
 | `FieldLabel`            | Доступная метка, связанная с текущим элементом управления.                                       |
-| `FieldInput`            | Низкоуровневый нативный input. Для обычного стилизованного поля используйте `Input`.             |
-| `FieldTextarea`         | Низкоуровневая нативная текстовая область. Для обычной используйте `Textarea`.                   |
-| `FieldSelect`           | Низкоуровневый нативный select. Для обычного используйте `NativeSelect`.                         |
 | `FieldHelperText`       | Поясняющий текст, связанный с элементом через `aria-describedby`.                                |
 | `FieldErrorText`        | Текст ошибки, который рендерится при состоянии корня `invalid`.                                  |
 | `FieldRequiredIndicator` | Визуальный маркер обязательного поля. С помощью `fallback` можно заменить маркер по умолчанию.  |
@@ -182,7 +102,7 @@ FieldRootProvider
 `FieldContext` или `useFieldContext`.
 
 Во Vue задавайте начальные значения нативных элементов через `v-model` и сбрасывайте связанные refs
-в обработчике сброса формы. У `FieldInput` и `FieldSelect` нет React-подобного свойства `defaultValue`.
+в обработчике сброса формы. У Vue-компонентов `Input` и `NativeSelect` нет React-подобного свойства `defaultValue`.
 Сейчас Ark очищает нативные начальные значения этих элементов без модели; до исправления используйте `v-model`.
 
 ## Примеры
@@ -192,227 +112,41 @@ FieldRootProvider
 Используйте `Field` вокруг флажка, если ему нужны поясняющий текст или сообщение об ошибке на уровне
 поля. Передавайте в `Checkbox` его собственные свойства состояния и формы.
 
-<ExampleFrame variant="component">
-  <FieldCheckbox />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/checkbox.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidCheckbox} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueCheckbox} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/field/field-checkbox.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/checkbox" />
 
 ### Управляемое состояние `invalid`
 
 Вычисляйте `invalid` из локального состояния, если валидация должна обновляться во время ввода. Текст
 ошибки появляется только пока поле находится в невалидном состоянии.
 
-<ExampleFrame variant="component">
-  <FieldControlledInvalid />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/controlled-invalid.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidControlledInvalid} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueControlledInvalid} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/field/field-controlled-invalid.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/controlled-invalid" />
 
 ### Отключённое состояние
 
 Установите `disabled` у корня, чтобы передать это состояние поддерживаемым частям поля Ark.
 
-<ExampleFrame variant="component">
-  <FieldDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/field/field-disabled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/disabled" />
 
 ### Невалидное состояние
 
 Устанавливайте `invalid` у корня, когда валидацией управляет состояние приложения или библиотека форм.
 Если составной дочерний компонент сам управляет валидацией, передайте свойство и ему.
 
-<ExampleFrame variant="component">
-  <FieldInvalid />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/invalid.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidInvalid} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueInvalid} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/field/field-invalid.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/invalid" />
 
 ### Целевой элемент
 
 Используйте `FieldItem` вместе с пропом `target` у корня, когда одна метка должна указывать на элемент
 управления внутри группы.
 
-<ExampleFrame variant="component">
-  <FieldItemTarget />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/item-target.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidItemTarget} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueItemTarget} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/field/field-item-target.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/item-target" />
 
 ### Нативный Select
 
 Используйте `NativeSelect` для нативного select браузера. `Field` связывает его с меткой поля,
 состоянием и описанием.
 
-<ExampleFrame variant="component">
-  <FieldNativeSelect />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/native-select.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidNativeSelect} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueNativeSelect} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/field/field-native-select.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/native-select" />
 
 ### RadioGroup
 
@@ -420,113 +154,20 @@ FieldRootProvider
 должны описывать весь набор вариантов, а не отдельные radio. Передавайте в `RadioGroup` его собственные
 свойства состояния.
 
-<ExampleFrame variant="component">
-  <FieldRadioGroup />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/radiogroup.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidRadioGroup} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueRadioGroup} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/field/field-radiogroup.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/radiogroup" />
 
 ### Только для чтения
 
 Установите `readOnly` у корня, если пользователь может скопировать значение, но не может его изменить.
 
-<ExampleFrame variant="component">
-  <FieldReadOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/read-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidReadOnly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueReadOnly} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/field/field-read-only.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/read-only" />
 
 ### Root Provider
 
 Используйте `useField` вместе с `FieldRootProvider`, когда состояние поля нужно создать вне дерева
 рендера.
 
-<ExampleFrame variant="component">
-  <FieldRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/field/field-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/root-provider" />
 
 ### Select
 
@@ -534,93 +175,25 @@ FieldRootProvider
 или интерфейс выбора. Поскольку `Select` управляет своим состоянием, передавайте `required`, `invalid`,
 `disabled` или `readOnly` в `Select`, когда состояние принадлежит ему.
 
-<ExampleFrame variant="component">
-  <FieldSelect />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/select.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidSelect} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueSelect} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/field/field-select.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/select" />
 
 ### Textarea
 
 Используйте `Textarea` для многострочного ввода, сохраняя связи поля с меткой, описанием и состоянием.
 
-<ExampleFrame variant="component">
-  <FieldTextarea />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/field/textarea.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldSolidTextarea} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldVueTextarea} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/field/field-textarea.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="field/textarea" />
 
 ## Стилизация
 
-По умолчанию `FieldInput` выглядит так же, как `Input size="md"`: совпадают оформление кнопки выбора
-файла, кольцо фокуса, рамка ошибки и вид отключённого поля. Его `size` остаётся нативным числовым
-HTML-атрибутом; для визуальных размеров и `htmlSize` используйте `Input`. В CSS Modules `FieldInput`
-настраивается через `--moduix-field-control-*`, а для `Input` используются `--moduix-input-*`.
-Отключённый `Field` или `FieldRootProvider` приглушает всё поле один раз, без дополнительного
-приглушения самого input.
+Отключённый `Field` или `FieldRootProvider` приглушает всё поле один раз: элементы ввода внутри него
+не приглушаются повторно, как и `Field` внутри отключённого `Fieldset`.
 
 Используйте `className` в React или `class` в Solid и Vue для структурной стилизации экспортируемых частей.
 Для стилей состояний применяйте атрибуты Ark, такие как `data-disabled`, `data-invalid`, `data-readonly`
 и `data-required`, вместе с селекторами moduix `data-slot`. Варианты на Tailwind используют нативные
-утилиты и классы потребителя, а CSS Modules настраиваются с помощью переменных ниже.
-
-### CSS-свойства
-
-<CssPropertiesSection properties={FieldDocs.fieldOverrideCssProperties} />
+утилиты и классы потребителя. Варианты на CSS Modules построены на токенах foundation и не имеют
+переменных компонента: класс на части перекрывает стили компонента из слоя. Корень занимает всю ширину
+контейнера.
 
 ### Хуки стилизации
 

@@ -9,7 +9,6 @@ import {
   ListboxLabel,
 } from '@moduix/vue/listbox';
 import SelectAllMeta from './SelectAllMeta.vue';
-import styles from '@/components/examples/listbox/listbox-select-all.module.css';
 
 const days = createListCollection({
   items: [
@@ -25,7 +24,7 @@ const days = createListCollection({
 </script>
 
 <template>
-  <Listbox :collection="days" :class="styles.root" selection-mode="multiple">
+  <Listbox :collection="days" selection-mode="multiple">
     <ListboxLabel>Select days</ListboxLabel>
     <ListboxContent>
       <ListboxItem v-for="item in days.items" :key="item.value" :item="item">

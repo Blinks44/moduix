@@ -9,7 +9,6 @@ import {
   MenuTrigger,
   MenuViewport,
 } from '@moduix/vue/menu';
-import styles from '@/components/examples/menu/menu-basic.module.css';
 
 const fileItems = [
   { value: 'new-file', label: 'New File' },
@@ -25,7 +24,7 @@ const fileItems = [
       <Button>File <MenuIndicator /></Button>
     </MenuTrigger>
     <MenuPositioner>
-      <MenuContent :class="styles.content">
+      <MenuContent>
         <MenuViewport>
           <MenuItem v-for="item in fileItems" :key="item.value" :value="item.value">
             {{ item.label }}

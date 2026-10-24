@@ -10,13 +10,13 @@
 
 ## Public contract
 
-The flat API includes `PasswordInput`, `PasswordInputRootProvider`, `PasswordInputLabel`, `PasswordInputControl`, `PasswordInputInput`, `PasswordInputVisibilityTrigger`, `PasswordInputIndicator`, `PasswordInputField`, `PasswordInputContext`, `usePasswordInput`, and `usePasswordInputContext`. Visibility uses Ark's `visible`, `defaultVisible`, and `onVisibilityChange(details)` contract.
+The flat API includes `PasswordInput`, `PasswordInputRootProvider`, `PasswordInputLabel`, `PasswordInputControl`, `PasswordInputInput`, `PasswordInputVisibilityTrigger`, `PasswordInputIndicator`, `PasswordInputField`, `PasswordInputContext`, `usePasswordInput`, and `usePasswordInputContext`. Visibility uses Ark's `visible`, `defaultVisible`, and `onVisibilityChange(details)` contract. The root and root provider accept `size` (`xs`–`xl`, default `md`) mirrored as `data-size`; see the React `password-input.md` for the shared styling contract.
 
 ## Preservation notes
 
 - Keep input type, visibility state, and trigger labeling owned by Ark.
 - `PasswordInputField` is fixed composition sugar; retain the lower-level parts for customized native input props.
-- Preserve Solid form props, reactive children, and `class`.
+- Preserve Solid form props, reactive children, and `class`. `PasswordInputInput` applies `defaultValue` as a DOM property so form reset restores it.
 
 ## Styling and accessibility
 

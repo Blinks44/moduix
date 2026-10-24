@@ -5,58 +5,6 @@ description: Компонент выбора цвета на базе Ark UI д�
 ---
 
 import * as ColorPickerDocs from '@/components/examples/color-picker/css-properties';
-import ColorPickerAdvancedCustomization from '@/components/examples/color-picker/advanced-customization.tsx';
-import ColorPickerBasic from '@/components/examples/color-picker/basic.tsx';
-import ColorPickerCompactTrigger from '@/components/examples/color-picker/compact-trigger.tsx';
-import ColorPickerControlled from '@/components/examples/color-picker/controlled.tsx';
-import ColorPickerDisabled from '@/components/examples/color-picker/disabled.tsx';
-import ColorPickerFieldState from '@/components/examples/color-picker/field-state.tsx';
-import ColorPickerFormUsage from '@/components/examples/color-picker/form-usage.tsx';
-import ColorPickerFormatViews from '@/components/examples/color-picker/format-views.tsx';
-import ColorPickerInline from '@/components/examples/color-picker/inline.tsx';
-import ColorPickerInsideDialog from '@/components/examples/color-picker/inside-dialog.tsx';
-import ColorPickerInputOnly from '@/components/examples/color-picker/input-only.tsx';
-import ColorPickerOpenControlled from '@/components/examples/color-picker/open-controlled.tsx';
-import ColorPickerRootProvider from '@/components/examples/color-picker/root-provider.tsx';
-import ColorPickerSliderOnly from '@/components/examples/color-picker/slider-only.tsx';
-import ColorPickerSwatchOnly from '@/components/examples/color-picker/swatch-only.tsx';
-import ColorPickerSwatches from '@/components/examples/color-picker/swatches.tsx';
-import ColorPickerValueSwatch from '@/components/examples/color-picker/value-swatch.tsx';
-
-import colorPickerSolidAdvancedCustomization from '../../../snippets/color-picker/solid/advanced-customization.tsx?raw';
-import colorPickerSolidBasic from '../../../snippets/color-picker/solid/basic.tsx?raw';
-import colorPickerSolidCompactTrigger from '../../../snippets/color-picker/solid/compact-trigger.tsx?raw';
-import colorPickerSolidControlled from '../../../snippets/color-picker/solid/controlled.tsx?raw';
-import colorPickerSolidDisabled from '../../../snippets/color-picker/solid/disabled.tsx?raw';
-import colorPickerSolidFieldState from '../../../snippets/color-picker/solid/field-state.tsx?raw';
-import colorPickerSolidFormUsage from '../../../snippets/color-picker/solid/form-usage.tsx?raw';
-import colorPickerSolidFormatViews from '../../../snippets/color-picker/solid/format-views.tsx?raw';
-import colorPickerSolidInline from '../../../snippets/color-picker/solid/inline.tsx?raw';
-import colorPickerSolidInsideDialog from '../../../snippets/color-picker/solid/inside-dialog.tsx?raw';
-import colorPickerSolidInputOnly from '../../../snippets/color-picker/solid/input-only.tsx?raw';
-import colorPickerSolidOpenControlled from '../../../snippets/color-picker/solid/open-controlled.tsx?raw';
-import colorPickerSolidRootProvider from '../../../snippets/color-picker/solid/root-provider.tsx?raw';
-import colorPickerSolidSliderOnly from '../../../snippets/color-picker/solid/slider-only.tsx?raw';
-import colorPickerSolidSwatchOnly from '../../../snippets/color-picker/solid/swatch-only.tsx?raw';
-import colorPickerSolidSwatches from '../../../snippets/color-picker/solid/swatches.tsx?raw';
-import colorPickerSolidValueSwatch from '../../../snippets/color-picker/solid/value-swatch.tsx?raw';
-import colorPickerVueAdvancedCustomization from '../../../snippets/color-picker/vue/advanced-customization.vue?raw';
-import colorPickerVueBasic from '../../../snippets/color-picker/vue/basic.vue?raw';
-import colorPickerVueCompactTrigger from '../../../snippets/color-picker/vue/compact-trigger.vue?raw';
-import colorPickerVueControlled from '../../../snippets/color-picker/vue/controlled.vue?raw';
-import colorPickerVueDisabled from '../../../snippets/color-picker/vue/disabled.vue?raw';
-import colorPickerVueFieldState from '../../../snippets/color-picker/vue/field-state.vue?raw';
-import colorPickerVueFormUsage from '../../../snippets/color-picker/vue/form-usage.vue?raw';
-import colorPickerVueFormatViews from '../../../snippets/color-picker/vue/format-views.vue?raw';
-import colorPickerVueInline from '../../../snippets/color-picker/vue/inline.vue?raw';
-import colorPickerVueInsideDialog from '../../../snippets/color-picker/vue/inside-dialog.vue?raw';
-import colorPickerVueInputOnly from '../../../snippets/color-picker/vue/input-only.vue?raw';
-import colorPickerVueOpenControlled from '../../../snippets/color-picker/vue/open-controlled.vue?raw';
-import colorPickerVueRootProvider from '../../../snippets/color-picker/vue/root-provider.vue?raw';
-import colorPickerVueSliderOnly from '../../../snippets/color-picker/vue/slider-only.vue?raw';
-import colorPickerVueSwatchOnly from '../../../snippets/color-picker/vue/swatch-only.vue?raw';
-import colorPickerVueSwatches from '../../../snippets/color-picker/vue/swatches.vue?raw';
-import colorPickerVueValueSwatch from '../../../snippets/color-picker/vue/value-swatch.vue?raw';
 
 ## Справочник API
 
@@ -74,46 +22,7 @@ import colorPickerVueValueSwatch from '../../../snippets/color-picker/vue/value-
 тогда компонент подставит их встроенную разметку. Явно добавьте `ColorPickerHiddenInput` и передайте
 `name`, если цвет нужно отправлять вместе с формой.
 
-<ExampleFrame variant="component">
-  <ColorPickerBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/color-picker/color-picker-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="color-picker/basic" />
 
 ## Установка через shadcn
 
@@ -160,7 +69,6 @@ ColorPicker
 ├─ ColorPickerControl
 │  ├─ ColorPickerChannelInput[channel]
 │  └─ ColorPickerTrigger
-│     ├─ ColorPickerTransparencyGrid
 │     └─ ColorPickerValueSwatch
 ├─ Ветка всплывающего окна (по умолчанию выводится через портал)
 │  └─ ColorPickerPositioner
@@ -195,7 +103,7 @@ ColorPicker
 | `ColorPickerAreaBackground` | Фоновый слой, который обрабатывает ввод указателя в области выбора цвета. |
 | `ColorPickerEyeDropperTrigger` | Пипетка для снятия цвета с экрана; отображается только там, где браузер поддерживает EyeDropper API. |
 | `ColorPickerChannelSlider` | Одномерный регулятор для оттенка, альфа-канала или другого канала. |
-| `ColorPickerTransparencyGrid` | Шахматный фон, который делает альфа-канал видимым за кнопкой открытия или слайдером канала. |
+| `ColorPickerTransparencyGrid` | Шахматный фон, который делает альфа-канал видимым за дорожкой слайдера канала. Свотчи рисуют шахматку сами. |
 | `ColorPickerSliders` | Готовая пара слайдеров для оттенка и альфа-канала. |
 | `ColorPickerChannelInput` | Текстовое или числовое поле для отдельного канала цвета. |
 | `ColorPickerSwatchTrigger` | Кнопка выбора готового цвета. |
@@ -224,254 +132,40 @@ ColorPicker через этот путь композиции не пробра�
 Используйте эту компактную композицию, если пользователям нужны область выбора цвета и слайдеры каналов, но не нужны
 поля для ввода каналов с клавиатуры.
 
-<ExampleFrame variant="component">
-  <ColorPickerSliderOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/slider-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidSliderOnly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueSliderOnly} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="color-picker/slider-only" />
 
 ### Компактная кнопка открытия
 
 Используйте `data-fit-content` на `ColorPickerTrigger`, если кнопка по размеру содержимого удобнее квадратного
 образца. Такой вариант подходит, например, для замены цветового поля на основе кнопки.
 
-<ExampleFrame variant="component">
-  <ColorPickerCompactTrigger />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/compact-trigger.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidCompactTrigger} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueCompactTrigger} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/color-picker/color-picker-compact-trigger.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="color-picker/compact-trigger" />
 
 ### Управляемое значение
 
 Используйте управляемое значение, когда выбранный цвет должен оставаться синхронизированным с состоянием приложения.
 
-<ExampleFrame variant="component">
-  <ColorPickerControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueControlled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="color-picker/controlled" />
 
 ### Отключённый компонент
 
 Задайте `disabled` на корневом компоненте, если все части выбора цвета должны стать недоступными для взаимодействия, но
 текущий цвет должен остаться видимым.
 
-<ExampleFrame variant="component">
-  <ColorPickerDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueDisabled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="color-picker/disabled" />
 
 ### Состояние поля
 
 Используйте свойства состояния формы корневого компонента, например `required` и `invalid`, если селектор находится
 внутри контейнера поля и должен передавать это состояние через атрибуты данных Ark.
 
-<ExampleFrame variant="component">
-  <ColorPickerFieldState />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/field-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidFieldState} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueFieldState} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/color-picker/color-picker-field-state.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="color-picker/field-state" />
 
 ### Использование в форме
 
 Передайте `name` в `ColorPicker` и явно добавьте `ColorPickerHiddenInput`.
 
-<ExampleFrame variant="component">
-  <ColorPickerFormUsage />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/form-usage.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidFormUsage} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueFormUsage} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="color-picker/form-usage" />
 
 ### Представления формата
 
@@ -480,452 +174,72 @@ ColorPicker через этот путь композиции не пробра�
 свёрнутый вид оформлен в стиле поля `Select` из moduix и единообразно показывает варианты RGBA, HSLA и HSBA. Список
 вариантов открывает браузер.
 
-<ExampleFrame variant="component">
-  <ColorPickerFormatViews />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/format-views.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidFormatViews} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueFormatViews} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/color-picker/color-picker-format-views.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="color-picker/format-views" />
 
 ### Встроенный режим
 
 Используйте `inline` в панелях настроек, если инструменты работы с цветом должны оставаться видимыми без кнопки открытия
 всплывающего окна.
 
-<ExampleFrame variant="component">
-  <ColorPickerInline />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/inline.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidInline} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueInline} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/color-picker/color-picker-inline.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="color-picker/inline" />
 
 ### Только ввод
 
 Используйте поля каналов с пассивным образцом, если важен ввод цвета с клавиатуры, а всплывающее окно только усложнит
 интерфейс.
 
-<ExampleFrame variant="component">
-  <ColorPickerInputOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/input-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidInputOnly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueInputOnly} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/color-picker/color-picker-input-only.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="color-picker/input-only" />
 
 ### Внутри Dialog
 
 Если селектор находится внутри модального диалога, отключите портал у всплывающего окна. Тогда оно останется в том же
 контексте наложения, что и диалог, и будет интерактивным поверх его содержимого.
 
-<ExampleFrame variant="component">
-  <ColorPickerInsideDialog />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/inside-dialog.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidInsideDialog} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueInsideDialog} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/color-picker/color-picker-inside-dialog.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="color-picker/inside-dialog" />
 
 ### Управляемое открытие
 
 Используйте управляемое состояние `open`, если другой элемент управления или сценарий отвечает за видимость
 всплывающего окна.
 
-<ExampleFrame variant="component">
-  <ColorPickerOpenControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/open-controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidOpenControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueOpenControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/color-picker/color-picker-open-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="color-picker/open-controlled" />
 
 ### Root Provider
 
 Используйте `useColorPicker` из moduix вместе с `ColorPickerRootProvider`, если состояние селектора нужно создать вне дерева
 компонентов и разделить с соседними элементами управления.
 
-<ExampleFrame variant="component">
-  <ColorPickerRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/color-picker/color-picker-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="color-picker/root-provider" />
 
 ### Только цветовые образцы
 
 Используйте композицию только с образцами, если достаточно готовой палитры и не нужны область, слайдеры и поля ввода.
 
-<ExampleFrame variant="component">
-  <ColorPickerSwatchOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/swatch-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidSwatchOnly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueSwatchOnly} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/color-picker/color-picker-swatch-only.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="color-picker/swatch-only" />
 
 ### Готовые цвета
 
 Добавьте образцы во всплывающее окно, если селектор должен предлагать готовую палитру вместе со свободным редактированием.
 `closeOnSelect` сохраняет поведение Ark и закрывает окно после выбора образца.
 
-<ExampleFrame variant="component">
-  <ColorPickerSwatches />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/swatches.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidSwatches} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueSwatches} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="color-picker/swatches" />
 
 ### Текущее значение
 
 Используйте `ColorPickerValueSwatch` и `ColorPickerValueText`, если соседнему интерфейсу нужно показать выбранный цвет без открытия полного
 селектора.
 
-<ExampleFrame variant="component">
-  <ColorPickerValueSwatch />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/value-swatch.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidValueSwatch} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueValueSwatch} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/color-picker/color-picker-value-swatch.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="color-picker/value-swatch" />
 
 ### Расширенная настройка
 
 Используйте явные части и дочерние элементы, если встроенной композиции недостаточно и нужна другая визуальная структура.
 
-<ExampleFrame variant="component">
-  <ColorPickerAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/color-picker/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={colorPickerSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={colorPickerVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="color-picker/advanced-customization" />
 
 ## Стилизация
 
-Используйте `className` в React и `class` в Solid и Vue для экспортируемых частей. Варианты Tailwind используют классы-утилиты и классы приложения, а варианты CSS Modules настраиваются через публичные CSS-переменные `--moduix-color-picker-*`, указанные ниже. Обе стилистические версии предоставляют стабильные хуки `data-slot="color-picker-*"` и атрибуты Ark `data-scope` / `data-part`.
+Используйте `className` в React и `class` в Solid и Vue для экспортируемых частей. Варианты Tailwind используют классы-утилиты и классы приложения, а варианты CSS Modules дают короткий список переменных `--moduix-color-picker-*` для размеров, общих для нескольких частей или дочерних элементов по умолчанию; цвета, отступы и типографика берутся из токенов foundation, их меняют классом на нужной части. Обе стилистические версии предоставляют стабильные хуки `data-slot="color-picker-*"` и атрибуты Ark `data-scope` / `data-part`.
 ### CSS-свойства
 
 <CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
@@ -950,5 +264,5 @@ ColorPicker через этот путь композиции не пробра�
 доступные во время работы, включают `--color`, `--value`, `--available-width`, `--available-height` и
 `--transform-origin`.
 
-При включённом `prefers-reduced-motion` анимации появления и закрытия всплывающего окна длятся 1 мс. Это позволяет Ark
-завершить жизненный цикл закрытия без заметного движения.
+При включённом `prefers-reduced-motion` анимации появления и закрытия всплывающего окна отключаются; Ark
+по-прежнему завершает жизненный цикл закрытия.

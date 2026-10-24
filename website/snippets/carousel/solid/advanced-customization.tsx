@@ -50,7 +50,7 @@ export default function AdvancedCustomizationCarousel() {
       slidesPerPage={2}
       spacing="var(--moduix-spacing-3)"
     >
-      <CarouselItemGroup class={styles.itemGroup} aria-label="Advanced customization gallery">
+      <CarouselItemGroup>
         <For each={slides}>
           {(slide, index) => (
             <CarouselItem index={index()}>
@@ -63,7 +63,7 @@ export default function AdvancedCustomizationCarousel() {
       <CarouselContext>
         {(api) => (
           <>
-            <CarouselControl class={styles.control}>
+            <CarouselControl>
               <CarouselPrevTrigger />
               <CarouselIndicatorGroup>
                 <For each={api().pageSnapPoints}>

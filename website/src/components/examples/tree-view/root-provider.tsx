@@ -9,7 +9,8 @@ import {
   TreeViewItem,
   TreeViewItemText,
   TreeViewLabel,
-  TreeViewNode,
+  TreeViewNodeContext,
+  TreeViewNodeProvider,
   TreeViewRootProvider,
   TreeViewTree,
   createTreeCollection,
@@ -49,32 +50,30 @@ const collection = createTreeCollection<FileNode>({
 
 function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeViewNode node={node} indexPath={indexPath}>
-      {({ node: currentNode, indexPath: currentIndexPath, state }) =>
-        state.isBranch ? (
-          <TreeViewBranch>
-            <TreeViewBranchControl>
-              <TreeViewBranchIndicator />
-              <TreeViewBranchText>{currentNode.name}</TreeViewBranchText>
-            </TreeViewBranchControl>
-            <TreeViewBranchContent>
-              <TreeViewBranchIndentGuide />
-              {currentNode.children?.map((child, index) => (
-                <FileTreeNode
-                  key={child.id}
-                  node={child}
-                  indexPath={[...currentIndexPath, index]}
-                />
-              ))}
-            </TreeViewBranchContent>
-          </TreeViewBranch>
-        ) : (
-          <TreeViewItem>
-            <TreeViewItemText>{currentNode.name}</TreeViewItemText>
-          </TreeViewItem>
-        )
-      }
-    </TreeViewNode>
+    <TreeViewNodeProvider node={node} indexPath={indexPath}>
+      <TreeViewNodeContext>
+        {(state) =>
+          state.isBranch ? (
+            <TreeViewBranch>
+              <TreeViewBranchControl>
+                <TreeViewBranchIndicator />
+                <TreeViewBranchText>{node.name}</TreeViewBranchText>
+              </TreeViewBranchControl>
+              <TreeViewBranchContent>
+                <TreeViewBranchIndentGuide />
+                {node.children?.map((child, index) => (
+                  <FileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+                ))}
+              </TreeViewBranchContent>
+            </TreeViewBranch>
+          ) : (
+            <TreeViewItem>
+              <TreeViewItemText>{node.name}</TreeViewItemText>
+            </TreeViewItem>
+          )
+        }
+      </TreeViewNodeContext>
+    </TreeViewNodeProvider>
   );
 }
 

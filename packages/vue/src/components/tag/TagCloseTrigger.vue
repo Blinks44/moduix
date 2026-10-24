@@ -26,10 +26,7 @@ const attrs = useAttrs();
   <CloseButton
     v-bind="attrs"
     :as-child="asChild"
-    :aria-label="
-      ariaLabel ??
-      (!asChild && !slots.default && ariaLabelledby == null ? a11yLabels.closeTag : undefined)
-    "
+    :aria-label="ariaLabel ?? (ariaLabelledby == null ? a11yLabels.closeTag : undefined)"
     :aria-labelledby="ariaLabelledby"
     data-scope="tag"
     data-part="close-trigger"

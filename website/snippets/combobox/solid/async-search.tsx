@@ -14,7 +14,6 @@ import {
   ComboboxTrigger,
 } from '@moduix/solid/combobox';
 import { createEffect, createMemo, createSignal, For, onCleanup, Show } from 'solid-js';
-import styles from '@/components/examples/combobox/component-async-search.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -68,7 +67,7 @@ export default function AsyncSearchComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent class={styles.content}>
+        <ComboboxContent>
           <Show when={!query()}>
             <ComboboxStatus>Start typing to search…</ComboboxStatus>
           </Show>

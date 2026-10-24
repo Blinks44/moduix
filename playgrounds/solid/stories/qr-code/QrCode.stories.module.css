@@ -41,7 +41,7 @@
   }
 
   .brandFrame {
-    --moduix-qr-code-fill: var(--moduix-color-primary);
+    fill: var(--moduix-color-primary);
   }
 
   .overlay {

@@ -93,8 +93,8 @@ test('preserves anatomy, fallthrough attrs, and refs for every styled part', () 
 
   expect(root.getAttribute('data-scope')).toBe('splitter');
   expect(root.getAttribute('data-probe')).toBe('root');
-  expect(root.style.width).toBe('var(--moduix-splitter-width, 100%)');
-  expect(root.style.height).toBe('var(--moduix-splitter-height, 28rem)');
+  expect(root.style.width).toBe('');
+  expect(root.style.height).toBe('');
   expect(rootRef.value?.$el).toBe(root);
   expect(panelRef.value?.$el).toBe(panel);
   expect(triggerRef.value?.$el).toBe(trigger);
@@ -228,4 +228,44 @@ test('hydrates without replacing server hosts or ids and still resizes', async (
     warn.mockRestore();
     error.mockRestore();
   }
+});
+
+test('sizes the root with a class, centers the indicator, and never submits a form', async () => {
+  const style = document.createElement('style');
+  style.textContent = '.sized-root { height: 200px; }';
+  document.head.append(style);
+  let submits = 0;
+  const { container } = render({
+    components: splitterComponents,
+    setup() {
+      return { panels, onSubmit: () => (submits += 1) };
+    },
+    template: `
+      <form @submit.prevent="onSubmit">
+        <Splitter :panels="panels" :default-size="[40, 60]" class="sized-root">
+          <SplitterPanel id="a">A</SplitterPanel>
+          <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
+          <SplitterPanel id="b">B</SplitterPanel>
+        </Splitter>
+      </form>
+    `,
+  });
+
+  const root = container.querySelector<HTMLElement>('[data-slot="splitter-root"]')!;
+  const trigger = container.querySelector<HTMLElement>('[role="separator"]')!;
+  const indicator = container.querySelector('[data-slot="splitter-resize-trigger-indicator"]')!;
+  const triggerBox = trigger.getBoundingClientRect();
+  const indicatorBox = indicator.getBoundingClientRect();
+
+  expect(root.offsetHeight).toBe(200);
+  expect(
+    Math.abs(triggerBox.left + triggerBox.width / 2 - (indicatorBox.left + indicatorBox.width / 2)),
+  ).toBeLessThanOrEqual(1);
+  expect(
+    Math.abs(triggerBox.top + triggerBox.height / 2 - (indicatorBox.top + indicatorBox.height / 2)),
+  ).toBeLessThanOrEqual(1);
+  expect(trigger.getAttribute('type')).toBe('button');
+  await page.getByRole('separator', { name: 'Resize panels' }).click();
+  expect(submits).toBe(0);
+  style.remove();
 });

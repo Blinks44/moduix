@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkPinInputLabel
     v-bind="attrs"
-    :class="cn('text-sm font-medium text-foreground', className)"
+    :class="cn('text-sm font-medium', className)"
     data-slot="pin-input-label"
   >
     <slot />

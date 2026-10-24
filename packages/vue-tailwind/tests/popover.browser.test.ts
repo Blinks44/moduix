@@ -395,3 +395,46 @@ test('keeps close-icon labels, attrs and fallback content reactive', async () =>
   custom.value = false;
   await expect.element(button.locator('svg')).toBeAttached();
 });
+test('follows runtime changes to portalled', async () => {
+  const portalled = ref(true);
+  const Harness = defineComponent({
+    components: { ...popoverComponents, PopoverSurface },
+    setup: () => ({ portalled }),
+    template: `
+      <div data-testid="host">
+        <Popover default-open :portalled="portalled"><PopoverSurface /></Popover>
+      </div>
+    `,
+  });
+
+  const { container } = render(Harness);
+  await expect.element(page.getByTestId('content')).toBeAttached();
+  expect(container.querySelector('[data-testid="content"]')).toBeNull();
+  portalled.value = false;
+  await expect.element(page.getByTestId('host').getByTestId('content')).toBeAttached();
+});
+
+test('spaces the body after the header and keeps the header clear of the close icon', async () => {
+  render({
+    components: popoverComponents,
+    template: `
+      <Popover default-open :portalled="false">
+        <PopoverPositioner>
+          <PopoverContent>
+            <PopoverCloseIcon />
+            <PopoverHeader><PopoverTitle>Preferences</PopoverTitle></PopoverHeader>
+            <PopoverBody>Body</PopoverBody>
+          </PopoverContent>
+        </PopoverPositioner>
+      </Popover>
+    `,
+  });
+
+  await expect.element(page.getByText('Body')).toBeVisible();
+  const header = document.querySelector<HTMLElement>('[data-slot="popover-header"]')!;
+  const body = document.querySelector<HTMLElement>('[data-slot="popover-body"]')!;
+  const gap = body.offsetTop - (header.offsetTop + header.offsetHeight);
+
+  expect(Math.abs(gap - 12)).toBeLessThanOrEqual(1);
+  expect(getComputedStyle(header).paddingInlineEnd).toBe('40px');
+});

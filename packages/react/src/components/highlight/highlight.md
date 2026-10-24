@@ -19,8 +19,8 @@ segments remain plain text nodes.
 Preserve these upstream behaviors:
 
 - `query`, `text`, `ignoreCase`, `matchAll`, and `exactMatch` pass through unchanged;
-- mark-element props such as `className`, `style`, `title`, `id`, and `data-*` apply to every
-  matched `<mark>`;
+- mark-element props such as `className`, `style`, `title`, and `data-*` apply to every matched
+  `<mark>`;
 - there is no wrapper element, ref target, provider, context, `RootProvider`, `ids`,
   `HiddenInput`, or field-state integration.
 
@@ -108,8 +108,7 @@ There are no Ark runtime CSS variables or state attributes because the component
 
 ## Defaults and styling
 
-Matched ranges inherit the surrounding typography and receive moduix styling through the default
-`mark` class.
+Matched ranges inherit the surrounding typography and receive the moduix highlight styles.
 
 Public CSS variables:
 
@@ -121,12 +120,10 @@ Public CSS variables:
 | `--moduix-highlight-padding-x`   | `var(--moduix-spacing-1)`                                                          |
 | `--moduix-highlight-padding-y`   | `0.0625rem`                                                                        |
 | `--moduix-highlight-radius`      | `var(--moduix-radius-xs)`                                                          |
-| `--moduix-highlight-shadow`      | `none`                                                                             |
 
 ## Intentional sugar and differences from upstream
 
 - moduix adds default highlight styling and stable `data-slot` hooks on every matched `<mark>`.
-- moduix exposes `Highlight` for consistency with other root-only components in the package.
 - moduix keeps the public API narrow and does not add a chunk-rendering API.
 
 ## Agent notes
@@ -136,15 +133,3 @@ Public CSS variables:
   surrounding text layout.
 - If public `--moduix-highlight-*` variables change, update `variables-moduix.css`, stories, docs examples, the local
   markdown file, and the docs page in the same task.
-
-## Local changelog
-
-- 2026-10-03: Excluded the unsupported `ref` prop from the React Highlight contract without adding a wrapper.
-- 2026-08-11: Protected the stable `data-scope`, `data-part`, and `data-slot` hooks from consumer-prop overrides.
-- 2026-07-27: Documented conditional `matchAll` defaults and the upstream non-ASCII `exactMatch`
-  limitation; added regression coverage for the rendered contract.
-- 2026-07-21: Routed Highlight padding and radius fallbacks through foundation tokens.
-- 2026-07-10: Clarified that custom chunk rendering is outside the Highlight contract and aligned the
-  public examples with the documented ordering.
-- 2026-07-05: Added the moduix `Highlight` wrapper around Ark Highlight with shared mark styling,
-  stable data hooks, Storybook coverage, local component documentation, and public docs.

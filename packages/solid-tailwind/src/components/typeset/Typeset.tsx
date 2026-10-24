@@ -4,26 +4,13 @@ import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import styles from './Typeset.module.css';
 
-type TypesetDataProps = {
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
-};
-
-type TypesetProps = HTMLArkProps<'div'> & TypesetDataProps;
+type TypesetProps = HTMLArkProps<'div'>;
 
 function Typeset(props: TypesetProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-scope',
-    'data-part',
-    'data-slot',
-  ]);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="typeset"
       data-part="root"
@@ -33,32 +20,21 @@ function Typeset(props: TypesetProps) {
   );
 }
 
-type TypesetScrollProps = HTMLArkProps<'div'> & TypesetDataProps;
+type TypesetScrollProps = HTMLArkProps<'div'>;
 
 function TypesetScroll(props: TypesetScrollProps) {
-  const [local, others] = splitProps(props, [
-    'aria-label',
-    'aria-labelledby',
-    'asChild',
-    'class',
-    'data-scope',
-    'data-part',
-    'data-slot',
-    'role',
-    'tabIndex',
-  ]);
+  const [local, others] = splitProps(props, ['class', 'role', 'tabIndex']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
-      aria-label={local['aria-label']}
-      aria-labelledby={local['aria-labelledby']}
       data-scope="typeset"
       data-part="scroll"
       data-slot="typeset-scroll"
       class={cn(styles.scroll, local.class)}
-      role={local.role ?? (local['aria-label'] || local['aria-labelledby'] ? 'region' : undefined)}
+      role={
+        local.role ?? (others['aria-label'] || others['aria-labelledby'] ? 'region' : undefined)
+      }
       tabIndex={local.tabIndex ?? 0}
     />
   );

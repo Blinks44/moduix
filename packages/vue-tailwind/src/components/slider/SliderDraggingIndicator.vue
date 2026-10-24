@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'pointer-events-none -top-8 rounded-sm bg-foreground px-2 py-1 text-xs leading-none font-medium whitespace-nowrap text-background',
+        'pointer-events-none rounded-sm bg-foreground px-2 py-1 text-xs leading-none font-medium whitespace-nowrap text-background data-[orientation=horizontal]:bottom-full data-[orientation=horizontal]:mb-2 data-[orientation=vertical]:start-full data-[orientation=vertical]:ms-2',
         className,
       )
     "

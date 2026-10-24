@@ -16,8 +16,7 @@ const { class: className, value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const rootClass =
-  'flex w-full max-w-none min-w-0 flex-col gap-4 border-transparent data-disabled:opacity-50 data-invalid:border-destructive';
+const rootClass = 'flex w-full min-w-0 flex-col gap-4 data-disabled:opacity-disabled';
 </script>
 
 <template>

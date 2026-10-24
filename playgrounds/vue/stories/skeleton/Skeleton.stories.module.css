@@ -20,7 +20,7 @@
     width: 20rem;
     --moduix-skeleton-bg: var(--moduix-color-primary);
     --moduix-skeleton-border-radius: var(--moduix-radius-full);
-    --moduix-skeleton-animation: none;
+    --moduix-animation-pulse: none;
   }
 
   .customSkeleton {

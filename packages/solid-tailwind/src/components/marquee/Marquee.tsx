@@ -4,26 +4,14 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-const marqueeEdgeVariants = cva('pointer-events-none z-1', {
+const marqueeEdgeVariants = cva('z-1 from-background to-transparent', {
   variants: {
     side: {
-      start: 'w-1/5 bg-linear-to-r from-background to-transparent rtl:bg-linear-to-l',
-      end: 'w-1/5 bg-linear-to-l from-background to-transparent rtl:bg-linear-to-r',
-      top: 'h-1/5 bg-linear-to-b from-background to-transparent',
-      bottom: 'h-1/5 bg-linear-to-t from-background to-transparent',
+      start: 'w-1/5 bg-linear-to-r rtl:bg-linear-to-l',
+      end: 'w-1/5 bg-linear-to-l rtl:bg-linear-to-r',
+      top: 'h-1/5 bg-linear-to-b',
+      bottom: 'h-1/5 bg-linear-to-t',
     },
-  },
-});
-
-const marqueeRootVariants = cva('group relative w-full overflow-hidden text-foreground', {
-  variants: {
-    orientation: {
-      horizontal: '',
-      vertical: 'h-60',
-    },
-  },
-  defaultVariants: {
-    orientation: 'horizontal',
   },
 });
 
@@ -34,9 +22,8 @@ function Marquee(props: ComponentProps<typeof MarqueePrimitive.Root>) {
     <MarqueePrimitive.Root
       side={local.side}
       class={cn(
-        marqueeRootVariants({
-          orientation: local.side === 'top' || local.side === 'bottom' ? 'vertical' : 'horizontal',
-        }),
+        'group w-full',
+        (local.side === 'top' || local.side === 'bottom') && 'h-60',
         local.class,
       )}
       {...others}
@@ -51,7 +38,7 @@ function MarqueeRootProvider(props: ComponentProps<typeof MarqueePrimitive.RootP
   return (
     <MarqueePrimitive.RootProvider
       value={local.value}
-      class={cn(marqueeRootVariants({ orientation: local.value().orientation }), local.class)}
+      class={cn('group w-full', local.value().orientation === 'vertical' && 'h-60', local.class)}
       {...others}
       data-slot="marquee-root-provider"
     />
@@ -59,15 +46,7 @@ function MarqueeRootProvider(props: ComponentProps<typeof MarqueePrimitive.RootP
 }
 
 function MarqueeViewport(props: ComponentProps<typeof MarqueePrimitive.Viewport>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <MarqueePrimitive.Viewport
-      class={cn('size-full', local.class)}
-      {...others}
-      data-slot="marquee-viewport"
-    />
-  );
+  return <MarqueePrimitive.Viewport {...props} data-slot="marquee-viewport" />;
 }
 
 function MarqueeContent(props: ComponentProps<typeof MarqueePrimitive.Content>) {
@@ -76,7 +55,7 @@ function MarqueeContent(props: ComponentProps<typeof MarqueePrimitive.Content>) 
   return (
     <MarqueePrimitive.Content
       class={cn(
-        'animate-moduix-marquee-x group-data-paused:[animation-play-state:paused] data-reverse:[animation-direction:reverse] data-[side=bottom]:animate-moduix-marquee-y data-[side=top]:animate-moduix-marquee-y motion-reduce:animate-none',
+        'animate-moduix-marquee-x group-data-paused:[animation-play-state:paused] data-reverse:[animation-direction:reverse] data-[orientation=vertical]:animate-moduix-marquee-y motion-reduce:data-[orientation]:animate-none',
         local.class,
       )}
       {...others}
@@ -123,3 +102,24 @@ export {
   useMarquee,
   useMarqueeContext,
 };
+
+export type {
+  MarqueeContentBaseProps,
+  MarqueeContentProps,
+  MarqueeContextProps,
+  MarqueeEdgeBaseProps,
+  MarqueeEdgeProps,
+  MarqueeItemBaseProps,
+  MarqueeItemProps,
+  MarqueePauseStatusDetails,
+  MarqueeRootBaseProps,
+  MarqueeRootProps,
+  MarqueeRootProviderBaseProps,
+  MarqueeRootProviderProps,
+  MarqueeSide,
+  MarqueeViewportBaseProps,
+  MarqueeViewportProps,
+  UseMarqueeContext,
+  UseMarqueeProps,
+  UseMarqueeReturn,
+} from '@ark-ui/solid/marquee';

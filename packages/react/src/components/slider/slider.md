@@ -1,192 +1,89 @@
 # Slider
 
-Upstream docs:
+Upstream (accessed 2026-10-22):
 
 - Ark UI: https://ark-ui.com/docs/components/slider
 - Chakra UI: https://chakra-ui.com/docs/components/slider
+- shadcn/ui: https://ui.shadcn.com/docs/components/slider
 
-## Purpose
-
-`Slider` is a styled Ark UI slider for selecting one numeric value or a range of numeric values.
-
-## Upstream model to preserve
-
-- Preserve Ark parts: `Root`, `RootProvider`, `Label`, `ValueText`, `Control`, `Track`, `Range`,
-  `Thumb`, `MarkerGroup`, `Marker`, `DraggingIndicator`, and the explicit `HiddenInput`.
-- Preserve Ark `number[]` value state, controlled/uncontrolled props, callback detail objects,
-  keyboard behavior, pointer dragging, the native form input, IDs, refs, `asChild`, and orientation state.
-- `RootProvider` owns an externally created `useSlider` instance and must not be nested with a
-  `Root` for that same instance.
+| Source    | Useful difference                                                              | moduix decision                                                                                               |
+| --------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| Ark UI    | Root, Label, ValueText, Control, Track, Range, Thumb, HiddenInput, markers     | **Required correctness:** keep every part, `number[]` values, callback details, and Ark-owned positioning.    |
+| Chakra UI | `Slider.Thumbs` sugar, `size`, `variant`, `colorPalette`, label/value header   | **Adopted:** `SliderThumbs`, label and value text on one row. **Rejected for now:** visual props.             |
+| shadcn/ui | One closed `Slider` with generated track, range, and thumbs; no label or marks | **Rejected:** keep explicit composition so label, value text, markers, and dragging indicator stay available. |
 
 ## Current behavior contract
 
-- `Slider` is the styled root.
-- All DOM parts are thin wrappers over the corresponding Ark parts and forward refs.
-- `value`, `defaultValue`, `min`, `max`, `step`, `origin`, `orientation`,
-  `minStepsBetweenThumbs`, `thumbAlignment`, `thumbCollisionBehavior`, `disabled`, `invalid`,
-  `readOnly`, `name`, `form`, `ids`, `thumbSize`, `onValueChange(details)`,
-  `onValueChangeEnd(details)`, and `onFocusChange(details)` pass through unchanged.
-- Values are arrays. Single-thumb sliders use `[value]`, not a bare number.
-- When `defaultValue` is omitted, Ark initializes the value to `[min]` (`[0]` by default).
-- `SliderThumbs` renders one styled `SliderThumb` with an Ark `HiddenInput` per value from slider
-  context. With explicit `SliderThumb` parts, nest `SliderHiddenInput` inside each thumb yourself.
-- `SliderContext`, `useSlider`, and `useSliderContext` are moduix-owned advanced state paths for
-  `SliderRootProvider` and inline state reads.
+- Ark owns value state (`value`, `defaultValue`, `onValueChange(details)`,
+  `onValueChangeEnd(details)`, `onFocusChange(details)`), `min`, `max`, `step`, `origin`,
+  `orientation`, `minStepsBetweenThumbs`, `thumbAlignment`, `thumbCollisionBehavior`, `thumbSize`,
+  `disabled`, `invalid`, `readOnly`, `name`, `form`, and `ids`. Values are arrays: a single thumb uses
+  `[value]`; without `defaultValue` Ark starts at `[min]`.
+- Ark provides the WAI-ARIA slider pattern, keyboard, pointer dragging, and `dir` from
+  `LocaleProvider` on every part. Every thumb needs a name through `SliderLabel`, `aria-label`, or
+  `aria-labelledby`.
+- `SliderThumbs` renders one styled `SliderThumb` with an Ark `HiddenInput` per value and accepts
+  `className` for those thumbs. Use explicit `SliderThumb` parts for per-thumb props or custom
+  children, and nest `SliderHiddenInput` inside each one for form submission.
+- `Slider` adds `data-readonly` when `readOnly` is set, so the control shows a default cursor.
+  `SliderRootProvider` cannot read `readOnly` from `useSlider()` and does not add it.
+- `SliderRootProvider` connects the parts to `useSlider()` state; `SliderContext` and
+  `useSliderContext()` read state below a root or provider. Do not render both for one machine.
+- Exports the Ark part, details, and hook types.
 
-## Anatomy and exported parts
+## Anatomy
 
 ```text
-Slider
-├─ SliderLabel
-├─ SliderValueText
-├─ SliderControl
-│  ├─ SliderTrack
-│  │  └─ SliderRange
-│  └─ SliderThumb[index]
-│     ├─ SliderDraggingIndicator
+Slider / SliderRootProvider       data-slot="slider-root[-provider]"
+├─ SliderLabel                    data-slot="slider-label"
+├─ SliderValueText                data-slot="slider-value-text"
+├─ SliderControl                  data-slot="slider-control"
+│  ├─ SliderTrack                 data-slot="slider-track"
+│  │  └─ SliderRange              data-slot="slider-range"
+│  └─ SliderThumb[index]          data-slot="slider-thumb"   (or SliderThumbs)
+│     ├─ SliderDraggingIndicator  data-slot="slider-dragging-indicator"
 │     └─ SliderHiddenInput
-└─ SliderMarkerGroup
-   └─ SliderMarker[value]
+└─ SliderMarkerGroup              data-slot="slider-marker-group"
+   └─ SliderMarker[value]         data-slot="slider-marker"
 ```
 
-Externally owned state replaces `Root` with `RootProvider`.
+## Defaults and styling
 
-| Part                      | `data-slot`                  |
-| ------------------------- | ---------------------------- |
-| `Slider`                  | `slider-root`                |
-| `SliderRootProvider`      | `slider-root-provider`       |
-| `SliderLabel`             | `slider-label`               |
-| `SliderValueText`         | `slider-value-text`          |
-| `SliderControl`           | `slider-control`             |
-| `SliderTrack`             | `slider-track`               |
-| `SliderRange`             | `slider-range`               |
-| `SliderThumb`             | `slider-thumb`               |
-| `SliderThumbs`            | Uses `slider-thumb` children |
-| `SliderMarkerGroup`       | `slider-marker-group`        |
-| `SliderMarker`            | `slider-marker`              |
-| `SliderDraggingIndicator` | `slider-dragging-indicator`  |
+- The horizontal root is a full-width grid: label and value text share the first row, the control
+  and marker group span the full width below. The vertical root is `max-content` wide and `12rem`
+  tall, with label and value text above the control and markers to its side. Set `width` or
+  `height` on the root to change them.
+- Ark positions thumbs, range, markers, and the dragging indicator with inline styles and runtime
+  variables. Do not position them manually. Ark also sets `position`, `touch-action`, and
+  `user-select` on the control, label, track, and marker group, so the CSS does not repeat them.
+- The marker group reserves one line for marker labels; marker dots are centered with logical
+  margins so they stay centered in RTL. Vertical marker labels are not measured: the marker column
+  is 0px wide, so leave room for the labels next to a vertical slider. The dragging indicator sits
+  above a horizontal thumb and beside a vertical one.
+- CSS Modules expose `--moduix-slider-track-size` (height when horizontal, width when vertical),
+  `--moduix-slider-track-bg`, `--moduix-slider-range-bg` (also active marker dots), and
+  `--moduix-slider-thumb-size`. Everything else comes from foundation tokens; override it with a
+  class on the part.
+- Focus uses thumb `:focus-visible` for keyboard and Ark `data-dragging` while pressed. Invalid
+  sliders use the destructive color for track, range, thumb, and active markers.
 
 ## Composition
 
 ```tsx
-import {
-  Slider,
-  SliderControl,
-  SliderLabel,
-  SliderRange,
-  SliderThumbs,
-  SliderTrack,
-  SliderValueText,
-} from '@moduix/react/slider';
-
-export function VolumeSlider() {
-  return (
-    <Slider defaultValue={[40]} name="volume">
-      <SliderLabel>Volume</SliderLabel>
-      <SliderValueText />
-      <SliderControl>
-        <SliderTrack>
-          <SliderRange />
-        </SliderTrack>
-        <SliderThumbs />
-      </SliderControl>
-    </Slider>
-  );
-}
+<Slider defaultValue={[40]} name="volume">
+  <SliderLabel>Volume</SliderLabel>
+  <SliderValueText />
+  <SliderControl>
+    <SliderTrack>
+      <SliderRange />
+    </SliderTrack>
+    <SliderThumbs />
+  </SliderControl>
+</Slider>
 ```
-
-## Upstream feature coverage
-
-- Official examples covered in docs/stories: basic, range, min/max, step, change events, vertical,
-  vertical marks, dragging indicator, context, root provider, center origin, thumb alignment, thumb
-  collision, thumb overlap, disabled, invalid, read-only, form submission, and custom styling.
-- `RootProvider` accepts the return value of moduix `useSlider`.
-- Inline state reads work through moduix `useSliderContext` inside slider children.
-- Marker state, dragging indicator state, orientation, invalid, disabled, read-only, and focus
-  attributes pass through for styling.
-
-## Accessibility and state
-
-- Ark provides the WAI-ARIA slider pattern, keyboard navigation, pointer dragging, ARIA value
-  attributes, and multi-thumb behavior.
-- Every thumb needs an accessible name through `SliderLabel`, `aria-label`, or `aria-labelledby`.
-- `SliderHiddenInput` must be nested inside its matching `SliderThumb` for form submission and
-  reset synchronization.
-- `Field` / `Fieldset` context can provide shared form state through Ark where
-  supported by the primitive.
-- `asChild` is available on Ark DOM parts and requires one semantic child that preserves the part's
-  interaction contract.
-- `thumbSize` can override Ark's measured thumb dimensions when custom thumb rendering needs a
-  known size.
-- `ids` can stabilize root, thumb, hidden input, control, track, range, label, value text, and
-  marker IDs.
-- Ark state hooks include `data-orientation`, `data-disabled`, `data-invalid`, `data-focus`,
-  `data-dragging`, marker `data-state="under-value | at-value | over-value"`, and dragging
-  indicator `data-state="open | closed"`.
-- Ark CSS variables include `--slider-thumb-width`, `--slider-thumb-height`,
-  `--slider-thumb-transform`, `--slider-range-start`, `--slider-range-end`, `--translate-x`, and
-  `--translate-y`.
-- moduix adds `data-readonly` to `Root` so the default control can expose a non-interactive cursor.
-
-## Defaults and styling
-
-- moduix supplies the rail, filled range, thumb, markers, dragging indicator, focus, dragging,
-  disabled, invalid, and read-only visuals.
-- Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
-- Public `--moduix-slider-*` variables are documented in the docs CSS properties table.
-- Invalid rail, range, thumb, focus ring, and active marker colors have independent public overrides:
-  `--moduix-slider-track-border-color-invalid`, `--moduix-slider-range-bg-invalid`,
-  `--moduix-slider-thumb-border-color-invalid`, `--moduix-slider-thumb-focus-ring-color-invalid`,
-  and `--moduix-slider-marker-dot-bg-active-invalid`.
-- Focus styling uses Ark thumb `:focus-visible` for keyboard navigation and `data-dragging` while
-  the thumb is pressed; marker styling uses Ark marker `data-state`.
-- Do not position `Thumb` manually. Ark owns thumb transform and range measurement.
-
-## Intentional sugar and differences from upstream
-
-- Ark is headless; moduix provides default visuals and stable `data-slot` hooks.
-- `SliderThumbs` is narrow sugar for repeated `SliderThumb` parts. It accepts `className` for the
-  generated thumbs; use explicit parts for per-thumb props or custom children.
-- The public API is flat: `Slider` is the root and every other component value is prefixed with
-  `Slider`. Hooks remain top-level exports.
-- `SliderRootProvider`, `SliderContext`, `useSlider`, and `useSliderContext` stay on the moduix
-  surface for normal advanced workflows. Direct Ark imports remain escape hatches for uncommon APIs
-  and types.
-- legacy props were removed. Use `ValueText` instead of `Value`, `Range` instead of `Indicator`,
-  `onValueChangeEnd(details)` instead of `onValueCommitted`, `minStepsBetweenThumbs` instead of
-  `minStepsBetweenValues`, and Ark `number[]` values instead of `number`.
-- No legacy render prop, positional callback adapter, child-splitting wrapper, generated track, or
-  generated range remains.
 
 ## Agent notes
 
 - Keep `SliderRootProvider` styled with the same root class as `Slider`.
-- Do not render both `Slider` and `SliderRootProvider` for one machine.
-- Preserve Ark detail objects passed to callbacks.
-- Keep `SliderThumbs` as the recommended path; it already nests `HiddenInput` in every generated
-  thumb. Use explicit `SliderThumb` parts for per-thumb props, custom children, or custom ordering.
-- Keep docs previews synchronized with `Code`, `CSS`, and `Data` tabs.
-
-## Local changelog
-
-- 2026-08-13: Added independent invalid-state CSS variables, including active markers, and covered
-  form reset plus `asChild` ref composition.
-
-- 2026-07-30: Added responsive vertical-marker layout, invalid and read-only default states, native
-  form coverage, and centered self-contained docs previews.
-
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed thumb child mutation.
-- 2026-07-13: Native form controls were rendered automatically at this point in the wrapper history.
-
-- 2026-07-11: Added `SliderThumbs` and restored moduix exports for `SliderContext`, `useSlider`,
-  and `useSliderContext`; recommend the helper for standard thumb and form-input composition.
-- 2026-07-11: Show the thumb focus ring during pointer dragging and keyboard focus.
-- 2026-07-03: Removed `SliderContext`, `useSlider`, `useSliderContext`, and Ark type re-exports
-  from the moduix public surface; keep `RootProvider` and use Ark imports directly for advanced
-  state workflows.
-- 2026-06-27: Finished Ark migration audit; added missing Ark part prop type exports, documented
-  `thumbSize`, and simplified the controlled docs example.
-- 2026-06-20: Migrated to Ark UI React; replaced the flat legacy-compatible API with Ark parts,
-  exposed `SliderRootProvider`, `SliderContext`, hooks, and Ark types; updated styles, stories,
-  docs, and registry dependencies for the Ark contract.
+- Keep `SliderThumbs` narrow: it only repeats `SliderThumb` with a hidden input.
+- The "Advanced customization" docs example builds thumbs explicitly without `SliderThumbs`.

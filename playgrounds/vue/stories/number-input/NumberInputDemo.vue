@@ -15,7 +15,7 @@ import {
   NumberInputValueText,
   useNumberInput,
 } from '@/components/number-input';
-import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
 import styles from './NumberInput.stories.module.css';
 
 defineProps<{
@@ -23,6 +23,7 @@ defineProps<{
     | 'basic'
     | 'controlled'
     | 'min-max-and-step'
+    | 'sizes'
     | 'fraction-digits'
     | 'scrubber'
     | 'mouse-wheel'
@@ -63,6 +64,29 @@ const numberInput = useNumberInput({ defaultValue: '3', min: 1, max: 10 });
     <NumberInputLabel>Quantity (0-20, step 2)</NumberInputLabel>
     <NumberInputField />
   </NumberInput>
+
+  <div v-else-if="scenario === 'sizes'" :class="styles.stack">
+    <NumberInput size="xs" default-value="8">
+      <NumberInputLabel>Extra small</NumberInputLabel>
+      <NumberInputField />
+    </NumberInput>
+    <NumberInput size="sm" default-value="8">
+      <NumberInputLabel>Small</NumberInputLabel>
+      <NumberInputField />
+    </NumberInput>
+    <NumberInput size="md" default-value="8">
+      <NumberInputLabel>Medium</NumberInputLabel>
+      <NumberInputField />
+    </NumberInput>
+    <NumberInput size="lg" default-value="8">
+      <NumberInputLabel>Large</NumberInputLabel>
+      <NumberInputField />
+    </NumberInput>
+    <NumberInput size="xl" default-value="8">
+      <NumberInputLabel>Extra large</NumberInputLabel>
+      <NumberInputField />
+    </NumberInput>
+  </div>
 
   <NumberInput
     v-else-if="scenario === 'fraction-digits'"

@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'ms-4 mt-1 flex w-auto min-w-0 flex-col gap-1 border-s border-border ps-2 group-data-[state=collapsed]/sidebar-panel:hidden',
+        'ms-4 mt-1 flex w-auto min-w-0 flex-col gap-1 border-s border-sidebar-border ps-2 group-data-[state=collapsed]/sidebar-panel:hidden',
         className,
       )
     "

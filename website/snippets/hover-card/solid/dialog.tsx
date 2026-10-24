@@ -32,7 +32,7 @@ export default function DialogHoverCard() {
             </DialogTitle>
           </DialogHeader>
           <HoverCard portalled={false}>
-            <HoverCardTrigger class={styles.trigger}>@sarah_chen</HoverCardTrigger>
+            <HoverCardTrigger>@sarah_chen</HoverCardTrigger>
             <HoverCardPositioner>
               <HoverCardContent>
                 <HoverCardBody>

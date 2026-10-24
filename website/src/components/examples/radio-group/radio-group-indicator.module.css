@@ -6,7 +6,3 @@
 .root {
   padding: var(--moduix-spacing-1);
 }
-
-.indicator {
-  border-radius: var(--moduix-radius-md);
-}

@@ -6,12 +6,10 @@ import {
   DateInputLabel,
   DateInputSegments,
 } from '@moduix/solid/date-input';
-import styles from '@/components/examples/date-input/date-input-granularity.module.css';
 
 export default function GranularityDateInputDemo() {
   return (
     <DateInput
-      class={styles.root}
       granularity="minute"
       hourCycle={24}
       name="scheduled-at"

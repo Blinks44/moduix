@@ -14,7 +14,12 @@ import {
 
 <template>
   <form @submit.prevent>
-    <DatePicker :default-value="[parseDate('2026-06-22')]" name="delivery-date">
+    <DatePicker
+      :default-value="[parseDate('2026-06-22')]"
+      min-view="day"
+      max-view="day"
+      name="delivery-date"
+    >
       <DatePickerLabel>Delivery date</DatePickerLabel><DatePickerField />
       <DatePickerPositioner>
         <DatePickerContent>

@@ -22,7 +22,6 @@ export { default as MenuRadioItemGroup } from './MenuRadioItemGroup.vue';
 export { default as MenuRootProvider } from './MenuRootProvider.vue';
 export { default as MenuSeparator } from './MenuSeparator.vue';
 export { default as MenuTrigger } from './MenuTrigger.vue';
-export { default as MenuTriggerIcon } from './MenuTriggerIcon.vue';
 export { default as MenuTriggerItem } from './MenuTriggerItem.vue';
 export { default as MenuTriggerItemIcon } from './MenuTriggerItemIcon.vue';
 export { default as MenuViewport } from './MenuViewport.vue';
@@ -30,54 +29,30 @@ export { default as MenuViewport } from './MenuViewport.vue';
 export { useMenu, useMenuContext, useMenuItemContext } from '@ark-ui/vue/menu';
 
 export type {
-  MenuArrowBaseProps,
   MenuArrowProps,
-  MenuArrowTipBaseProps,
   MenuArrowTipProps,
-  MenuCheckboxItemBaseProps,
   MenuCheckboxItemEmits,
-  MenuCheckboxItemProps,
-  MenuContentBaseProps,
   MenuContentProps,
   MenuContextProps,
-  MenuContextTriggerBaseProps,
   MenuContextTriggerProps,
   MenuFocusOutsideEvent,
   MenuHighlightChangeDetails,
-  MenuIndicatorBaseProps,
   MenuIndicatorProps,
   MenuInteractOutsideEvent,
-  MenuItemBaseProps,
   MenuItemContextProps,
-  MenuItemGroupBaseProps,
-  MenuItemGroupLabelBaseProps,
   MenuItemGroupLabelProps,
   MenuItemGroupProps,
-  MenuItemIndicatorBaseProps,
   MenuItemIndicatorProps,
-  MenuItemProps,
-  MenuItemTextBaseProps,
   MenuItemTextProps,
   MenuOpenChangeDetails,
   MenuPointerDownOutsideEvent,
-  MenuPositionerBaseProps,
   MenuPositionerProps,
-  MenuRadioItemBaseProps,
-  MenuRadioItemGroupBaseProps,
   MenuRadioItemGroupEmits,
   MenuRadioItemGroupProps,
-  MenuRadioItemProps,
-  MenuRootBaseProps,
   MenuRootEmits,
-  MenuRootProps,
-  MenuRootProviderBaseProps,
   MenuRootProviderEmits,
-  MenuRootProviderProps,
   MenuSelectionDetails,
-  MenuSeparatorBaseProps,
   MenuSeparatorProps,
-  MenuTriggerBaseProps,
-  MenuTriggerItemBaseProps,
   MenuTriggerItemProps,
   MenuTriggerProps,
   MenuTriggerValueChangeDetails,
@@ -87,3 +62,9 @@ export type {
   UseMenuProps,
   UseMenuReturn,
 } from '@ark-ui/vue/menu';
+
+export type { Props as MenuRootProps } from './Menu.vue';
+export type { Props as MenuRootProviderProps } from './MenuRootProvider.vue';
+export type { Props as MenuItemProps, MenuItemTone } from './MenuItem.vue';
+export type { Props as MenuCheckboxItemProps, MenuIndicatorPosition } from './MenuCheckboxItem.vue';
+export type { Props as MenuRadioItemProps } from './MenuRadioItem.vue';

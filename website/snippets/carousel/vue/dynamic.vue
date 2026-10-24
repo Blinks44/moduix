@@ -65,12 +65,12 @@ const addSlide = () => {
       :slide-count="visibleSlides.length"
       @page-change="page = $event.page"
     >
-      <CarouselItemGroup :class="styles.itemGroup" aria-label="Dynamic gallery">
+      <CarouselItemGroup>
         <CarouselItem v-for="(slide, index) in visibleSlides" :key="slide.id" :index="index">
           <img :class="styles.image" :src="slide.src" :alt="slide.alt" />
         </CarouselItem>
       </CarouselItemGroup>
-      <CarouselControl :class="styles.control">
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselIndicators />
         <CarouselNextTrigger />

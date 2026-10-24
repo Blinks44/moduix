@@ -46,11 +46,8 @@ test('preserves Ark marquee anatomy, semantics, and Tailwind styling hooks', asy
   await expect.element(rootLocator).toHaveAttribute('aria-roledescription', 'marquee');
   await expect.element(rootLocator).toHaveAttribute('data-slot', 'marquee-root');
   await expect.element(rootLocator).toHaveAttribute('dir', 'rtl');
-  expect([...root!.classList]).toEqual(
-    expect.arrayContaining(['group', 'relative', 'w-full', 'overflow-hidden', 'text-foreground']),
-  );
+  expect([...root!.classList]).toEqual(expect.arrayContaining(['group', 'w-full']));
   expect(viewport!.getAttribute('data-slot')).toBe('marquee-viewport');
-  expect([...viewport!.classList]).toEqual(expect.arrayContaining(['size-full']));
   expect(content!.getAttribute('data-slot')).toBe('marquee-content');
   expect([...content!.classList]).toEqual(expect.arrayContaining(['animate-moduix-marquee-x']));
   expect(item!.getAttribute('data-slot')).toBe('marquee-item');
@@ -81,7 +78,7 @@ test('lets consumer Tailwind utilities override conflicting defaults', () => {
   const edge = screen.getByTestId('edge');
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-1/2', 'text-primary']));
-  expect(['w-full', 'text-foreground'].some((name) => root!.classList.contains(name))).toBe(false);
+  expect(root!.classList.contains('w-full')).toBe(false);
   expect([...edge!.classList]).toEqual(expect.arrayContaining(['w-1/4']));
   expect(edge!.classList.contains('w-1/5')).toBe(false);
   expect(root.getBoundingClientRect().width).toBeGreaterThan(0);
@@ -264,4 +261,43 @@ test('styles a RootProvider tree created by the public hook', async () => {
     .element(page.getByRole('region', { name: 'Partner logos', exact: true }))
     .toHaveAttribute('data-paused');
   expect(pauseChanges).toEqual([{ paused: true }]);
+});
+
+test('inherits text color and fills the root with the viewport in both orientations', () => {
+  render(() => (
+    <div style={{ color: 'rgb(1, 2, 3)', width: '320px' }}>
+      <Marquee aria-label="Horizontal" style={{ height: '100px' }}>
+        <MarqueeViewport>
+          <MarqueeContent>
+            <MarqueeItem>Atlas</MarqueeItem>
+          </MarqueeContent>
+        </MarqueeViewport>
+        <MarqueeEdge side="start" />
+      </Marquee>
+      <Marquee aria-label="Vertical" side="bottom">
+        <MarqueeViewport>
+          <MarqueeContent>
+            <MarqueeItem>Atlas</MarqueeItem>
+          </MarqueeContent>
+        </MarqueeViewport>
+      </Marquee>
+    </div>
+  ));
+
+  for (const name of ['Horizontal', 'Vertical']) {
+    const root = screen.getByRole('region', { name });
+    const viewport = root.querySelector<HTMLElement>('[data-part="viewport"]')!;
+
+    expect(getComputedStyle(root).color).toBe('rgb(1, 2, 3)');
+    expect(root.offsetWidth).toBe(320);
+    expect(viewport.offsetWidth).toBe(root.offsetWidth);
+    expect(viewport.offsetHeight).toBe(root.offsetHeight);
+  }
+
+  const horizontal = screen.getByRole('region', { name: 'Horizontal' });
+  expect(horizontal.offsetHeight).toBe(100);
+  expect(screen.getByRole('region', { name: 'Vertical' }).offsetHeight).toBe(240);
+  expect(getComputedStyle(horizontal.querySelector('[data-part="edge"]')!).pointerEvents).toBe(
+    'none',
+  );
 });

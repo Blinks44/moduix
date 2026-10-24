@@ -5,120 +5,112 @@ import type { ForwardedRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
+type ListElement = 'ul' | 'ol';
 type ListMarker = 'disc' | 'decimal' | 'none';
 type ListGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 type ListSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type ListTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
-type ListMarkerValue = ListMarker | 'auto';
+type ListTone = 'default' | 'muted' | 'primary' | 'destructive';
 
-type ListBaseProps = {
+type ListRootProps = HTMLArkProps<'ol'> & {
+  as?: ListElement;
   marker?: ListMarker;
   gap?: ListGap;
   size?: ListSize;
   tone?: ListTone;
 };
-type ListRootProps =
-  | (HTMLArkProps<'ul'> & ListBaseProps & { as?: 'ul' })
-  | (HTMLArkProps<'ol'> & ListBaseProps & { as: 'ol' });
 
-const listVariants = cva('flex flex-col font-regular tracking-normal list-outside break-words', {
-  variants: {
-    as: {
-      ul: null,
-      ol: null,
-    },
-    gap: {
-      xs: 'gap-space-xs',
-      sm: 'gap-space-sm',
-      md: 'gap-space-md',
-      lg: 'gap-space-lg',
-      xl: 'gap-space-xl',
-      '2xl': 'gap-space-2xl',
-    },
-    marker: {
-      auto: null,
-      disc: 'list-disc ps-5',
-      decimal: 'list-decimal ps-5',
-      none: 'list-none',
-    },
-    size: {
-      xs: 'text-xs',
-      sm: 'text-sm',
-      md: 'text-md',
-      lg: 'text-lg',
-      xl: 'text-xl',
-    },
-    tone: {
-      default: 'text-foreground',
-      muted: 'text-muted-foreground',
-      subtle: 'text-secondary-foreground',
-      primary: 'text-primary',
-      destructive: 'text-destructive',
-    },
-  },
-  compoundVariants: [
-    { as: 'ul', marker: 'auto', class: 'list-disc ps-5' },
-    { as: 'ol', marker: 'auto', class: 'list-[revert] ps-5' },
+const listIndicatorClass =
+  "inline-flex shrink-0 items-center justify-center min-h-lh me-2 [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-[1em]";
+
+const listVariants = cva(
+  [
+    'flex flex-col gap-(--_list-gap) ps-5 font-regular tracking-normal break-words',
+    '[&>li>:is(ul,ol)]:mt-(--_list-gap)',
+    '[&>li:has(>[data-slot=list-indicator])]:flex [&>li:has(>[data-slot=list-indicator])]:items-start',
   ],
-  defaultVariants: {
-    as: 'ul',
-    gap: 'sm',
-    marker: 'auto',
-    size: 'md',
-    tone: 'default',
+  {
+    variants: {
+      marker: {
+        disc: 'list-disc',
+        decimal: 'list-decimal',
+        none: 'list-none ps-0',
+      },
+      gap: {
+        xs: '[--_list-gap:var(--moduix-spacing-1)]',
+        sm: '[--_list-gap:var(--moduix-spacing-2)]',
+        md: '[--_list-gap:var(--moduix-spacing-3)]',
+        lg: '[--_list-gap:var(--moduix-spacing-4)]',
+        xl: '[--_list-gap:var(--moduix-spacing-5)]',
+        '2xl': '[--_list-gap:var(--moduix-spacing-6)]',
+      },
+      size: {
+        xs: 'text-xs',
+        sm: 'text-sm',
+        md: 'text-md',
+        lg: 'text-lg',
+        xl: 'text-xl',
+      },
+      tone: {
+        default: 'text-foreground',
+        muted: 'text-muted-foreground',
+        primary: 'text-primary',
+        destructive: 'text-destructive',
+      },
+    },
   },
-});
+);
 
 const List = forwardRef<HTMLUListElement | HTMLOListElement, ListRootProps>(function List(
-  { as, asChild, className, gap = 'sm', marker, role, size = 'md', tone = 'default', ...props },
+  {
+    as = 'ul',
+    marker = as === 'ol' ? 'decimal' : 'disc',
+    gap = 'sm',
+    size = 'md',
+    tone = 'default',
+    role = marker === 'none' ? 'list' : undefined,
+    className,
+    ...props
+  },
   ref,
 ) {
-  const markerValue: ListMarkerValue = marker ?? 'auto';
-  const rootProps = {
-    asChild,
-    role: role ?? (markerValue === 'none' ? 'list' : undefined),
-    ...props,
-    'data-scope': 'list',
-    'data-part': 'root',
-    'data-slot': 'list-root',
-    'data-gap': gap,
-    'data-marker': markerValue,
-    'data-size': size,
-    'data-tone': tone,
-    className: cn(
-      listVariants({
-        as: as === 'ol' ? 'ol' : 'ul',
-        gap,
-        marker: markerValue,
-        size,
-        tone,
-      }),
-      className,
-    ),
-  };
+  const Element = ark[as] as typeof ark.ol;
 
-  if (as === 'ol') {
-    return <ark.ol ref={ref as ForwardedRef<HTMLOListElement>} {...rootProps} />;
-  }
-
-  return <ark.ul ref={ref as ForwardedRef<HTMLUListElement>} {...rootProps} />;
-});
-
-const ListItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(function ListItem(
-  { asChild, className, ...props },
-  ref,
-) {
   return (
-    <ark.li
-      ref={ref}
-      asChild={asChild}
+    <Element
       {...props}
+      ref={ref as ForwardedRef<HTMLOListElement>}
+      role={role}
       data-scope="list"
-      data-part="item"
-      data-slot="list-item"
-      className={className}
+      data-part="root"
+      data-slot="list-root"
+      data-gap={gap}
+      data-marker={marker}
+      data-size={size}
+      data-tone={tone}
+      className={cn(listVariants({ marker, gap, size, tone }), className)}
     />
   );
 });
 
-export { List, ListItem };
+const ListItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(function ListItem(props, ref) {
+  return <ark.li {...props} ref={ref} data-scope="list" data-part="item" data-slot="list-item" />;
+});
+
+const ListIndicator = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function ListIndicator(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <ark.span
+      {...props}
+      ref={ref}
+      data-scope="list"
+      data-part="indicator"
+      data-slot="list-indicator"
+      className={cn(listIndicatorClass, className)}
+    />
+  );
+});
+
+export { List, ListIndicator, ListItem };
+export type { ListElement, ListGap, ListMarker, ListRootProps, ListSize, ListTone };

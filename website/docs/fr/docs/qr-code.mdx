@@ -4,30 +4,9 @@ component: qr-code
 description: Un composant de code QR fondé sur Ark UI qui produit un SVG, prend en charge les superpositions et permet de télécharger le code comme image.
 ---
 
-import QrCodeBasic from '@/components/examples/qr-code/basic.tsx';
-import ControlledQrCode from '@/components/examples/qr-code/controlled.tsx';
-import DownloadQrCode from '@/components/examples/qr-code/download.tsx';
-import ErrorCorrectionQrCode from '@/components/examples/qr-code/error-correction.tsx';
-import FillQrCode from '@/components/examples/qr-code/fill.tsx';
-import InputQrCode from '@/components/examples/qr-code/input.tsx';
-import OverlayQrCode from '@/components/examples/qr-code/overlay.tsx';
 import RootProviderQrCode from '@/components/examples/qr-code/root-provider.tsx';
 import * as QrCodeDocs from '@/components/examples/qr-code/css-properties';
-import qrCodeSolidBasic from '../../../snippets/qr-code/solid/basic.tsx?raw';
-import qrCodeSolidControlled from '../../../snippets/qr-code/solid/controlled.tsx?raw';
-import qrCodeSolidDownload from '../../../snippets/qr-code/solid/download.tsx?raw';
-import qrCodeSolidErrorCorrection from '../../../snippets/qr-code/solid/error-correction.tsx?raw';
-import qrCodeSolidFill from '../../../snippets/qr-code/solid/fill.tsx?raw';
-import qrCodeSolidInput from '../../../snippets/qr-code/solid/input.tsx?raw';
-import qrCodeSolidOverlay from '../../../snippets/qr-code/solid/overlay.tsx?raw';
 import qrCodeSolidRootProvider from '../../../snippets/qr-code/solid/root-provider.tsx?raw';
-import qrCodeVueBasic from '../../../snippets/qr-code/vue/basic.vue?raw';
-import qrCodeVueControlled from '../../../snippets/qr-code/vue/controlled.vue?raw';
-import qrCodeVueDownload from '../../../snippets/qr-code/vue/download.vue?raw';
-import qrCodeVueErrorCorrection from '../../../snippets/qr-code/vue/error-correction.vue?raw';
-import qrCodeVueFill from '../../../snippets/qr-code/vue/fill.vue?raw';
-import qrCodeVueInput from '../../../snippets/qr-code/vue/input.vue?raw';
-import qrCodeVueOverlay from '../../../snippets/qr-code/vue/overlay.vue?raw';
 import qrCodeVueRootProvider from '../../../snippets/qr-code/vue/root-provider.vue?raw';
 
 ## Référence de l’API
@@ -41,41 +20,7 @@ Utilisez `QrCode` dans le cas courant. Passez le contenu à encoder dans `defaul
 explicitement `QrCodeFrame` et `QrCodePattern` pour rendre le SVG généré. Donnez un nom accessible
 à `QrCodeFrame` lorsque le code QR transmet une information.
 
-<ExampleFrame variant="component">
-  <QrCodeBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="qr-code/basic" />
 
 ## Installation avec shadcn
 
@@ -155,87 +100,14 @@ puis testez le code final avec les scanners utilisés par vos utilisateurs.
 Contrôlez `value` lorsque le code QR doit suivre une destination sélectionnée ou un autre état de
 l’application.
 
-<ExampleFrame variant="component">
-  <ControlledQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/qr-code/component-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="qr-code/controlled" />
 
 ### Téléchargement
 
 Ajoutez `QrCodeDownloadTrigger` lorsque les utilisateurs doivent enregistrer le code généré comme
 image. Définissez `fileName` et `mimeType` sur le trigger.
 
-<ExampleFrame variant="component">
-  <DownloadQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/download.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidDownload} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueDownload} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="qr-code/download" />
 
 ### Correction d’erreurs
 
@@ -248,138 +120,21 @@ qu’il peut être rayé ou déformé.
 - `Q` : jusqu’à 25 %.
 - `H` : jusqu’à 30 %.
 
-<ExampleFrame variant="component">
-  <ErrorCorrectionQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/error-correction.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidErrorCorrection} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueErrorCorrection} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/qr-code/component-error-correction.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="qr-code/error-correction" />
 
 ### Remplissage
 
 Par défaut, les modules du code QR utilisent `currentColor`. Modifiez le remplissage du SVG avec
-`style`, une classe ou la variable `--moduix-qr-code-fill`.
+`style` ou une classe sur `QrCodeFrame`, ou définissez la couleur du texte d'un parent.
 
-<ExampleFrame variant="component">
-  <FillQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/fill.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidFill} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueFill} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/qr-code/component-fill.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="qr-code/fill" />
 
 ### Champ de saisie
 
 Liez `value` à un champ de texte lorsque les utilisateurs doivent saisir ou modifier le contenu
 encodé dans le code QR. Donnez à la frame un nom accessible qui explique ce que représente le code.
 
-<ExampleFrame variant="component">
-  <InputQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/input.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidInput} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueInput} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/qr-code/component-input.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="qr-code/input" />
 
 ### Superposition
 
@@ -387,46 +142,7 @@ Utilisez `QrCodeOverlay` pour un logo compact ou une marque textuelle. Définiss
 de correction d’erreurs et gardez la superposition assez petite pour que les scanners puissent
 encore lire le code.
 
-<ExampleFrame variant="component">
-  <OverlayQrCode />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/qr-code/overlay.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={qrCodeSolidOverlay} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={qrCodeVueOverlay} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/qr-code/component-overlay.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="qr-code/overlay" />
 
 ### Root Provider
 

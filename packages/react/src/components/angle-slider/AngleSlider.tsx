@@ -6,7 +6,7 @@ import {
   useAngleSliderContext,
 } from '@ark-ui/react/angle-slider';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import styles from './AngleSlider.module.css';
 
@@ -41,12 +41,11 @@ const AngleSliderLabel = forwardRef<
 const AngleSliderRootProvider = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.RootProvider>,
   ComponentProps<typeof AngleSliderPrimitive.RootProvider>
->(function AngleSliderRootProvider({ className, value, ...props }, ref) {
+>(function AngleSliderRootProvider({ className, ...props }, ref) {
   return (
     <AngleSliderPrimitive.RootProvider
       ref={ref}
       className={clsx(styles.root, className)}
-      value={value}
       {...props}
       data-slot="angle-slider-root-provider"
     />
@@ -140,12 +139,7 @@ const AngleSliderMarks = forwardRef<
   );
 });
 
-type AngleSliderDialProps = Omit<
-  ComponentProps<typeof AngleSliderPrimitive.Control>,
-  'asChild' | 'children'
-> & {
-  children?: ReactNode;
-};
+type AngleSliderDialProps = Omit<ComponentProps<typeof AngleSliderPrimitive.Control>, 'asChild'>;
 
 const AngleSliderDial = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Control>,
@@ -163,14 +157,18 @@ const AngleSliderDial = forwardRef<
 const AngleSliderValueText = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.ValueText>,
   ComponentProps<typeof AngleSliderPrimitive.ValueText>
->(function AngleSliderValueText({ className, ...props }, ref) {
+>(function AngleSliderValueText({ className, children, ...props }, ref) {
+  const angleSlider = useAngleSliderContext();
+
   return (
     <AngleSliderPrimitive.ValueText
       ref={ref}
       className={clsx(styles.valueText, className)}
       {...props}
       data-slot="angle-slider-value-text"
-    />
+    >
+      {children ?? `${angleSlider.value}°`}
+    </AngleSliderPrimitive.ValueText>
   );
 });
 
@@ -197,3 +195,8 @@ export {
   useAngleSlider,
   useAngleSliderContext,
 };
+export type {
+  AngleSliderRootProps,
+  UseAngleSliderProps,
+  UseAngleSliderReturn,
+} from '@ark-ui/react/angle-slider';

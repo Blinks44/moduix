@@ -23,10 +23,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :axis="axis"
     :class="
-      cn(
-        'pointer-events-none data-[axis=horizontal]:border-y data-[axis=horizontal]:border-white/62 data-[axis=vertical]:border-x data-[axis=vertical]:border-white/62',
-        className,
-      )
+      cn('border-white/62 data-[axis=horizontal]:border-y data-[axis=vertical]:border-x', className)
     "
     data-slot="image-cropper-grid"
   >

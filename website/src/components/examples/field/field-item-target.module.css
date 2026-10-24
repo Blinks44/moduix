@@ -4,7 +4,9 @@
 }
 
 .inlineControls {
+  --moduix-select-width: auto;
+
   display: grid;
-  grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr);
   gap: var(--moduix-spacing-2);
 }

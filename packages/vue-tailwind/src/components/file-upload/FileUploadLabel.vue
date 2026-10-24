@@ -12,11 +12,13 @@ export interface Props extends /* @vue-ignore */ FileUploadLabelProps {
 const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
+const disabledClass =
+  'data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 </script>
 <template>
   <ArkFileUploadLabel
     v-bind="attrs"
-    :class="cn('text-sm font-medium text-foreground data-disabled:opacity-50', className)"
+    :class="cn('text-sm leading-5 font-medium', disabledClass, className)"
     data-slot="file-upload-label"
     ><slot
   /></ArkFileUploadLabel>

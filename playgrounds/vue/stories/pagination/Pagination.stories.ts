@@ -196,10 +196,7 @@ export const CustomStyles: Story = {
     `,
     () => ({
       customStyle: {
-        '--moduix-pagination-item-bg-selected': 'var(--moduix-color-primary)',
-        '--moduix-pagination-item-border-color-selected': 'var(--moduix-color-primary)',
-        '--moduix-pagination-item-color-selected': 'var(--moduix-color-primary-foreground)',
-        '--moduix-pagination-item-radius': 'var(--moduix-radius-sm)',
+        '--moduix-pagination-item-size': 'var(--moduix-size-lg)',
       } as CSSProperties,
     }),
   ),

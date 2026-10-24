@@ -5,27 +5,6 @@ description: "Компактная метка для краткой информ
 ---
 
 import * as BadgeDocs from '@/components/examples/badge/css-properties';
-import BadgeBasic from '@/components/examples/badge/basic.tsx';
-import BadgeCustomStyling from '@/components/examples/badge/custom-styling.tsx';
-import BadgeLink from '@/components/examples/badge/link.tsx';
-import BadgeLongLabels from '@/components/examples/badge/long-labels.tsx';
-import BadgeVariants from '@/components/examples/badge/variants.tsx';
-import BadgeWithDot from '@/components/examples/badge/with-dot.tsx';
-import BadgeWithIcon from '@/components/examples/badge/with-icon.tsx';
-import badgeSolidBasic from '../../../snippets/badge/solid/basic.tsx?raw';
-import badgeSolidCustomStyling from '../../../snippets/badge/solid/custom-styling.tsx?raw';
-import badgeSolidLink from '../../../snippets/badge/solid/link.tsx?raw';
-import badgeSolidLongLabels from '../../../snippets/badge/solid/long-labels.tsx?raw';
-import badgeSolidVariants from '../../../snippets/badge/solid/variants.tsx?raw';
-import badgeSolidWithDot from '../../../snippets/badge/solid/with-dot.tsx?raw';
-import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw';
-import badgeVueBasic from '../../../snippets/badge/vue/basic.vue?raw';
-import badgeVueCustomStyling from '../../../snippets/badge/vue/custom-styling.vue?raw';
-import badgeVueLink from '../../../snippets/badge/vue/link.vue?raw';
-import badgeVueLongLabels from '../../../snippets/badge/vue/long-labels.vue?raw';
-import badgeVueVariants from '../../../snippets/badge/vue/variants.vue?raw';
-import badgeVueWithDot from '../../../snippets/badge/vue/with-dot.vue?raw';
-import badgeVueWithIcon from '../../../snippets/badge/vue/with-icon.vue?raw';
 
 ## Справочник API
 
@@ -49,43 +28,9 @@ import badgeVueWithIcon from '../../../snippets/badge/vue/with-icon.vue?raw';
 
 Начните с обычного `<Badge>`. По умолчанию компонент отображается как `span` и не добавляет интерактивного
 поведения. Укажите `variant`, чтобы выбрать `default`, `secondary`, `destructive`, `outline`, `ghost` или `link`,
-и добавляйте `BadgeDot`, только если статусу нужен визуальный индикатор.
+`size`, чтобы выбрать `sm`, `md` или `lg`, и добавляйте `BadgeDot`, только если статусу нужен визуальный индикатор.
 
-<ExampleFrame variant="component">
-  <BadgeBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="badge/basic" />
 
 ## Установка через shadcn
 
@@ -159,87 +104,14 @@ Badge
 Если готовый вариант почти подходит, но требует небольшой правки, настройте бейдж с помощью класса или
 встроенных CSS-переменных.
 
-<ExampleFrame variant="component">
-  <BadgeCustomStyling />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/custom-styling.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidCustomStyling} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueCustomStyling} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/badge/badge-custom-styling.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/custom-styling" />
 
 ### Ссылка
 
 Используйте `variant="link"` вместе с `asChild`, когда бейдж должен быть ссылкой в строке метаданных. Дочерний
 элемент останется настоящей ссылкой и сохранит свою нативную семантику.
 
-<ExampleFrame variant="component">
-  <BadgeLink />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/link.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidLink} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueLink} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="badge/link" />
 
 ### Длинные подписи
 
@@ -247,191 +119,41 @@ Badge
 `title`, чтобы полное значение можно было увидеть при наведении курсора. На сенсорных устройствах выбирайте
 подпись, которая помещается в доступное пространство.
 
-<ExampleFrame variant="component">
-  <BadgeLongLabels />
-</ExampleFrame>
+<Example name="badge/long-labels" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+### Размеры
 
-```tsx pure file="../../../src/components/examples/badge/long-labels.tsx"
-```
+Задайте `size`: `sm`, `md` или `lg`. По умолчанию `md`.
 
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidLongLabels} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueLongLabels} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/badge/badge-long-labels.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/sizes" />
 
 ### Варианты
 
 Используйте готовые варианты оформления для распространённых случаев.
 
-<ExampleFrame variant="component">
-  <BadgeVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/badge/badge-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/variants" />
 
 ### С точкой
 
 Добавляйте `BadgeDot`, когда рядом с подписью нужен визуально связанный индикатор статуса. Смысл статуса должен
 оставаться в видимом тексте, потому что точка декоративна.
 
-<ExampleFrame variant="component">
-  <BadgeWithDot />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/with-dot.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidWithDot} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueWithDot} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/badge/badge-with-dot.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/with-dot" />
 
 ### С иконкой
 
 Размещайте дочернюю SVG-иконку рядом с подписью, когда метаданным нужна дополнительная визуальная подсказка.
 
-<ExampleFrame variant="component">
-  <BadgeWithIcon />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/with-icon.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidWithIcon} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueWithIcon} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/badge/badge-with-icon.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/with-icon" />
 
 ## Стилизация
 
-Начните с готового варианта оформления. Для разовой настройки размера или внешнего вида задайте публичные
-переменные `--moduix-badge-*` на бейдже через класс или встроенный стиль. Используйте переменные
-`--moduix-badge-<variant>-*`, чтобы настроить вариант во всём приложении. Общие переменные
-`--moduix-badge-bg`, `--moduix-badge-border-color` и `--moduix-badge-color` переопределяют значения варианта
-для отдельного бейджа. Таблица CSS-переменных относится к пакетам с CSS Modules; в пакетах Tailwind используются
-обычные утилитарные классы и классы приложения.
+Начните с готового варианта и размера. Переменные CSS Modules переопределяют фон, рамку и цвет текста
+во всех вариантах; чтобы настроить один вариант во всём приложении, задайте их на
+`[data-slot='badge-root'][data-variant='<variant>']`. Размеры, отступы, типографика, скругление и
+размеры иконки и точки берутся из токенов foundation; меняйте их классом на нужной части. Таблица
+CSS-переменных относится к пакетам с CSS Modules; в пакетах Tailwind используются обычные утилитарные классы
+и классы приложения.
 
 Для структурных стилей передавайте экспортируемым частям `className` в React или `class` в Solid и Vue. Стабильные
 хуки `data-slot` и атрибуты данных Ark общие для всех подходов.
@@ -444,7 +166,7 @@ Badge
 
 - `data-slot="badge-root"`, `data-slot="badge-label"` и `data-slot="badge-dot"` - стабильные селекторы экспортируемых частей.
 - `Badge` также предоставляет `data-scope="badge"` и `data-part="root"`. `BadgeLabel` и `BadgeDot` предоставляют `data-part="label"` и `data-part="dot"`.
-- `Badge` записывает выбранный вариант в `data-variant`.
+- `Badge` записывает выбранный вариант в `data-variant`, а размер в `data-size`.
 - Фокусируемые элементы, созданные через `Badge asChild`, получают стандартное кольцо фокуса. Корневые ссылки также получают стили наведения и курсор-указатель; оформление взаимодействия кнопок остаётся ответственностью приложения.
-- Дочерние `svg`-иконки наследуют `currentColor`, не получают события указателя и используют `--moduix-badge-icon-size`.
+- Дочерние `svg`-иконки наследуют `currentColor`, не получают события указателя и имеют размер 12px, если класс на иконке не задаёт другой.
 - У Badge нет отдельного примитива или машины поведения Ark, поэтому он не предоставляет управляемые Ark-состояния и runtime CSS-переменные.

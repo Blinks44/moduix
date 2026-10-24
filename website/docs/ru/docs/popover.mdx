@@ -4,50 +4,6 @@ component: popover
 description: Доступное всплывающее окно для компактного интерактивного содержимого, привязанного к триггеру или другому элементу.
 ---
 
-import * as PopoverDocs from '@/components/examples/popover/css-properties';
-import PopoverAdvancedCustomization from '@/components/examples/popover/advanced-customization.tsx';
-import PopoverAnchor from '@/components/examples/popover/anchor.tsx';
-import PopoverBasic from '@/components/examples/popover/basic.tsx';
-import PopoverCloseBehavior from '@/components/examples/popover/close-behavior.tsx';
-import PopoverContext from '@/components/examples/popover/context.tsx';
-import PopoverControlled from '@/components/examples/popover/controlled.tsx';
-import PopoverLazyMount from '@/components/examples/popover/lazy-mount.tsx';
-import PopoverModal from '@/components/examples/popover/modal.tsx';
-import PopoverMultipleTriggers from '@/components/examples/popover/multiple-triggers.tsx';
-import PopoverNested from '@/components/examples/popover/nested.tsx';
-import PopoverPlacement from '@/components/examples/popover/placement.tsx';
-import PopoverRootProvider from '@/components/examples/popover/root-provider.tsx';
-import PopoverSameWidth from '@/components/examples/popover/same-width.tsx';
-import PopoverWithArrow from '@/components/examples/popover/with-arrow.tsx';
-import popoverSolidAdvancedCustomization from '../../../snippets/popover/solid/advanced-customization.tsx?raw';
-import popoverSolidAnchor from '../../../snippets/popover/solid/anchor.tsx?raw';
-import popoverSolidBasic from '../../../snippets/popover/solid/basic.tsx?raw';
-import popoverSolidCloseBehavior from '../../../snippets/popover/solid/close-behavior.tsx?raw';
-import popoverSolidContext from '../../../snippets/popover/solid/context.tsx?raw';
-import popoverSolidControlled from '../../../snippets/popover/solid/controlled.tsx?raw';
-import popoverSolidLazyMount from '../../../snippets/popover/solid/lazy-mount.tsx?raw';
-import popoverSolidModal from '../../../snippets/popover/solid/modal.tsx?raw';
-import popoverSolidMultipleTriggers from '../../../snippets/popover/solid/multiple-triggers.tsx?raw';
-import popoverSolidNested from '../../../snippets/popover/solid/nested.tsx?raw';
-import popoverSolidPlacement from '../../../snippets/popover/solid/placement.tsx?raw';
-import popoverSolidRootProvider from '../../../snippets/popover/solid/root-provider.tsx?raw';
-import popoverSolidSameWidth from '../../../snippets/popover/solid/same-width.tsx?raw';
-import popoverSolidWithArrow from '../../../snippets/popover/solid/with-arrow.tsx?raw';
-import popoverVueAdvancedCustomization from '../../../snippets/popover/vue/advanced-customization.vue?raw';
-import popoverVueAnchor from '../../../snippets/popover/vue/anchor.vue?raw';
-import popoverVueBasic from '../../../snippets/popover/vue/basic.vue?raw';
-import popoverVueCloseBehavior from '../../../snippets/popover/vue/close-behavior.vue?raw';
-import popoverVueContext from '../../../snippets/popover/vue/context.vue?raw';
-import popoverVueControlled from '../../../snippets/popover/vue/controlled.vue?raw';
-import popoverVueLazyMount from '../../../snippets/popover/vue/lazy-mount.vue?raw';
-import popoverVueModal from '../../../snippets/popover/vue/modal.vue?raw';
-import popoverVueMultipleTriggers from '../../../snippets/popover/vue/multiple-triggers.vue?raw';
-import popoverVueNested from '../../../snippets/popover/vue/nested.vue?raw';
-import popoverVuePlacement from '../../../snippets/popover/vue/placement.vue?raw';
-import popoverVueRootProvider from '../../../snippets/popover/vue/root-provider.vue?raw';
-import popoverVueSameWidth from '../../../snippets/popover/vue/same-width.vue?raw';
-import popoverVueWithArrow from '../../../snippets/popover/vue/with-arrow.vue?raw';
-
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/popover" />
@@ -65,27 +21,7 @@ import popoverVueWithArrow from '../../../snippets/popover/vue/with-arrow.vue?ra
 shadcn-реестра. Настройте позиционирование на корневом компоненте, а `asChild` используйте, если
 триггером должна быть ваша кнопка.
 
-<ExampleFrame variant="component">
-  <PopoverBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/basic.tsx"
-```
-
-</Tab>
-<Tab value="solid">
-<CodeBlockRuntime lang="tsx" code={popoverSolidBasic} />
-</Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueBasic} /></Tab>
-</Tabs>
-</div>
-
-</ExampleCode>
+<Example name="popover/basic" />
 
 ## Установка через shadcn
 
@@ -183,123 +119,35 @@ PopoverContext
 
 Используйте `PopoverAnchor`, когда другой элемент должен задавать точку отсчёта для позиционирования.
 
-<ExampleFrame variant="component">
-  <PopoverAnchor />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/anchor.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidAnchor} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueAnchor} /></Tab>
-</Tabs>
-**Стили**
-```css file="../../../src/components/examples/popover/popover-anchor.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="popover/anchor" />
 
 ### Поведение закрытия
 
 Отключайте закрытие при взаимодействии за пределами окна или по Escape, только если в сценарии
 есть явное действие для закрытия.
 
-<ExampleFrame variant="component"><PopoverCloseBehavior /></ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/close-behavior.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidCloseBehavior} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueCloseBehavior} /></Tab>
-</Tabs>
-</div>
-
-</ExampleCode>
+<Example name="popover/close-behavior" />
 
 ### Контекст
 
 Используйте `usePopoverContext()` внутри потомка, которому нужно текущее состояние окна.
 `PopoverContext` подойдёт, когда для композиции удобнее render prop.
 
-<ExampleFrame variant="component"><PopoverContext /></ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/context.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidContext} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueContext} /></Tab>
-</Tabs>
-</div>
-
-</ExampleCode>
+<Example name="popover/context" />
 
 ### Управляемое состояние
 
 Храните `open` в состоянии фреймворка и читайте `details.open` из `onOpenChange`, чтобы
 синхронизировать окно с остальным интерфейсом.
 
-<ExampleFrame variant="component"><PopoverControlled /></ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/controlled.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidControlled} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueControlled} /></Tab>
-</Tabs>
-**Стили**
-```css file="../../../src/components/examples/popover/popover-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="popover/controlled" />
 
 ### Отложенное монтирование
 
 Используйте `lazyMount` и `unmountOnExit`, когда содержимое должно находиться в DOM только во
 время работы с окном.
 
-<ExampleFrame variant="component"><PopoverLazyMount /></ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/lazy-mount.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidLazyMount} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueLazyMount} /></Tab>
-</Tabs>
-</div>
-
-</ExampleCode>
+<Example name="popover/lazy-mount" />
 
 ### Модальный режим
 
@@ -307,219 +155,68 @@ PopoverContext
 и скрывает внешнее содержимое от вспомогательных технологий. Используйте `initialFocusEl`, чтобы
 выбрать первый элемент для фокуса.
 
-<ExampleFrame variant="component"><PopoverModal /></ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/modal.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidModal} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueModal} /></Tab>
-</Tabs>
-**Стили**
-```css file="../../../src/components/examples/popover/popover-modal.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="popover/modal" />
 
 ### Несколько триггеров
 
 Разделяйте одну область содержимого между несколькими триггерами: задайте каждому `value` и
 реагируйте на активное значение.
 
-<ExampleFrame variant="component"><PopoverMultipleTriggers /></ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/multiple-triggers.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidMultipleTriggers} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueMultipleTriggers} /></Tab>
-</Tabs>
-**Стили**
-```css file="../../../src/components/examples/popover/popover-multiple-triggers.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="popover/multiple-triggers" />
 
 ### Вложенный Popover
 
 Вложенные Popover имеют независимое состояние. Отрисовывайте вложенный Popover с
 `portalled={false}`, чтобы он оставался внутри родительского оверлея и участвовал в его слоях.
 
-<ExampleFrame variant="component"><PopoverNested /></ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/nested.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidNested} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueNested} /></Tab>
-</Tabs>
-**Стили**
-```css file="../../../src/components/examples/popover/popover-nested.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="popover/nested" />
 
 ### Позиционирование
 
 Передавайте параметры позиционирования Ark через свойство `positioning` корневого компонента.
 
-<ExampleFrame variant="component"><PopoverPlacement /></ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/placement.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidPlacement} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVuePlacement} /></Tab>
-</Tabs>
-</div>
-
-</ExampleCode>
+<Example name="popover/placement" />
 
 ### Root Provider
 
 Используйте `usePopover()` вместе с `PopoverRootProvider`, когда внешние по отношению к дереву
 Popover элементы должны читать или изменять его состояние.
 
-<ExampleFrame variant="component"><PopoverRootProvider /></ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/root-provider.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidRootProvider} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueRootProvider} /></Tab>
-</Tabs>
-**Стили**
-```css file="../../../src/components/examples/popover/popover-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="popover/root-provider" />
 
 ### Одинаковая ширина
 
 Установите `positioning.sameWidth`, если содержимое должно совпадать по ширине с триггером.
 
-<ExampleFrame variant="component"><PopoverSameWidth /></ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/same-width.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidSameWidth} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueSameWidth} /></Tab>
-</Tabs>
-**Стили**
-```css file="../../../src/components/examples/popover/popover-same-width.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="popover/same-width" />
 
 ### Со стрелкой
 
 Добавьте `PopoverArrow`, если окно должно визуально указывать на элемент, относительно которого
 оно позиционируется. Обёртка по умолчанию выводит стилизованный moduix `PopoverArrowTip`.
 
-<ExampleFrame variant="component"><PopoverWithArrow /></ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/with-arrow.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidWithArrow} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueWithArrow} /></Tab>
-</Tabs>
-</div>
-
-</ExampleCode>
+<Example name="popover/with-arrow" />
 
 ### Расширенная настройка
 
-Составляйте части Ark напрямую, когда окну нужен компактный пользовательский заголовок или другая
-разметка, для которой не подходят вспомогательные части moduix. Стрелка необязательна, поэтому её
-можно не добавлять, если панели не нужен визуальный указатель.
+Собирайте окно из низкоуровневых частей, когда вспомогательные части moduix не подходят к разметке.
+В этом примере `PopoverTitle` и `PopoverCloseTrigger` с `asChild` вокруг `CloseButton` стоят в
+собственном заголовке, а `PopoverArrowTip` явно отрисован внутри `PopoverArrow`.
 
-<ExampleFrame variant="component"><PopoverAdvancedCustomization /></ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-<Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-<Tab value="react">
-
-```tsx pure file="../../../src/components/examples/popover/advanced-customization.tsx"
-```
-
-</Tab>
-<Tab value="solid"><CodeBlockRuntime lang="tsx" code={popoverSolidAdvancedCustomization} /></Tab>
-<Tab value="vue"><CodeBlockRuntime lang="vue" code={popoverVueAdvancedCustomization} /></Tab>
-</Tabs>
-**Стили**
-```css file="../../../src/components/examples/popover/popover-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="popover/advanced-customization" />
 
 ## Стилизация
 
-Для структурных стилей используйте `className` в React и `class` в Solid и Vue на экспортируемых частях.
-Варианты Tailwind используют нативные utility-классы и классы потребителя. CSS-переменные ниже
-настраивают варианты CSS Modules, а атрибуты Ark и `data-slot` moduix общие для обоих вариантов.
+`PopoverTrigger` и `PopoverCloseTrigger` без `asChild` выглядят как кнопки с обводкой.
+`PopoverContent` шириной 16–28rem и высотой не больше 24rem в пределах доступного места; с прямым
+дочерним `PopoverBody` прокручивается тело. `PopoverBody` получает отступ после `PopoverHeader`, а
+`PopoverFooter` — от содержимого над ним. Анимация содержимого читает общие переменные
+`--moduix-popup-motion-*`.
 
-### CSS Properties
-
-Используйте публичные переменные ниже, чтобы настроить Popover без замены его структуры.
-
-<div className="docs-reference">
-  <Tabs values={[{ label: 'CSS Variables', value: 'CSS Variables' }]} className="docs-reference-tabs" contentItemClassName="docs-reference-panel">
-    <Tab value="CSS Variables">
-      <div><PopoverDocs.PopoverCssPropertiesPanel /></div>
-    </Tab>
-  </Tabs>
-</div>
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях. Варианты Tailwind
+используют нативные utility-классы и классы потребителя. Варианты CSS Modules построены на токенах
+foundation и не имеют переменных компонента: класс на части переопределяет стили компонента из слоя.
+Атрибуты состояния и хуки `data-slot` общие для обоих вариантов стилизации.
 
 ### Точки стилизации
 

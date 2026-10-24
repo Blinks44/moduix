@@ -9,17 +9,8 @@ type AvatarCustomImageProps = Pick<ImgHTMLAttributes<HTMLImageElement>, 'alt' | 
 
 function AvatarCustomImage({ alt, src }: AvatarCustomImageProps) {
   const avatar = useAvatarContext();
-  const { hidden, ...imageProps } = avatar.getImageProps();
 
-  return (
-    <img
-      {...imageProps}
-      src={src}
-      alt={alt}
-      className={styles.image}
-      style={{ visibility: hidden ? 'hidden' : 'visible' }}
-    />
-  );
+  return <img {...avatar.getImageProps()} src={src} alt={alt} className={styles.image} />;
 }
 
 export default function AvatarCustomImageDemo() {

@@ -1,8 +1,8 @@
 # Drawer (Solid)
 
-`Drawer` is a styled Ark UI edge panel for navigation, forms, bottom sheets, snap points, and
-swipe-driven workflows. The Solid adapter preserves the React component's explicit Ark anatomy,
-callbacks, focus behavior, lifecycle, stack coordination, runtime variables, and CSS hooks.
+The Solid adapter follows the React contract in `packages/react/src/components/drawer/drawer.md`:
+the same parts, slots, defaults (`lazyMount` and `unmountOnExit` are `true`), the `DrawerContent`
+`size` and `variant="island"` props, and the single `--moduix-drawer-island-inset` variable.
 
 ## Composition
 
@@ -29,56 +29,13 @@ callbacks, focus behavior, lifecycle, stack coordination, runtime variables, and
 </Drawer>
 ```
 
-`Drawer` is the root component. `DrawerBackdrop` and `DrawerPositioner` are portalled by
-default; use `portalled={false}` or `portalRef` on the root to control overlay placement.
-`lazyMount` and `unmountOnExit` default to `true`.
-`variant="island"` uses the full default snap point (`[1]`), passes the island presentation to
-`DrawerContent`, and keeps `swipeDirection` controlled by the caller. The surface is inset from the
-viewport, rounded on all sides, and has no directional overdrag bleed. `DrawerContent variant="island"`
-remains supported when the presentation needs to be selected on the content part.
-The inherited variant stays reactive in Solid; changing the root variant updates existing
-content without remounting it. An explicit content variant takes precedence.
+`DrawerRootProvider` receives the accessor returned by `useDrawer()`.
 
-## API surface
+## Solid notes
 
-The adapter exports `Drawer`, `DrawerRootProvider`, `DrawerContext`, `DrawerStack`, `DrawerTrigger`,
-`DrawerBackdrop`, `DrawerPositioner`, `DrawerContent`, `DrawerGrabber`, `DrawerGrabberIndicator`,
-`DrawerTitle`, `DrawerDescription`, `DrawerCloseTrigger`, `DrawerCloseIcon`, `DrawerSwipeArea`,
-`DrawerIndent`, `DrawerIndentBackground`, `DrawerHeader`, `DrawerBody`, `DrawerFooter`,
-`useDrawer`, `useDrawerContext`, and `useDrawerStackContext`.
-
-`DrawerRootProvider` receives the accessor returned by `useDrawer()`:
-
-```tsx
-const drawer = useDrawer();
-
-<DrawerRootProvider value={drawer}>
-  <DrawerPositioner>
-    <DrawerContent>
-      <DrawerTitle>Preferences</DrawerTitle>
-    </DrawerContent>
-  </DrawerPositioner>
-</DrawerRootProvider>;
-```
-
-Ark owns open state, snap points, swipe gestures, focus management, dismissal, IDs, state
-attributes, and runtime CSS variables. Callback handlers receive Ark detail objects, including
-`details.open`, `details.snapPoint`, and `details.value`.
-
-## Solid composition notes
-
-Ark Solid uses render-function `asChild`:
-`asChild={(props) => <button {...props()} type="button" />}`. Ordinary refs and custom-host
-composition are supported as separate native paths because Ark Solid does not forward refs through
-`asChild`. `DrawerCloseIcon` composes `CloseButton` through the same native render-function
-contract and defaults its accessible label to `Close drawer`.
-
-`Drawer variant="island"` adds the detached, safe-area-aware surface styling from the React
-component and defaults to the full snap point. `DrawerContent variant="island"` remains supported for
-explicit presentation selection. `DrawerHeader`, `DrawerBody`, and `DrawerFooter` are layout helpers
-only; all Ark
-structural parts remain explicit and independently styleable.
-
-## Style contract (2026-10-03)
-
-Content shares the --moduix-z-popup base and adds Ark --layer-index; surrounding parts use Ark’s mirrored --z-index. Foundation owns direction-aware keyframes. Ordinary drawers have no island offset; islands use the safe-area-aware inset. Upward exit includes the token-based bleed. Preserve Ark drag/snap and nested transforms.
+- Ark Solid uses render-function `asChild`. Refs and custom hosts are separate paths because Ark
+  Solid does not forward refs through `asChild`.
+- `DrawerContent` passes `draggable` to Ark as `true` unless the caller sets it.
+- `variant` on `DrawerContent` stays reactive; changing it does not remount open content.
+- Types `DrawerRootProps`, `DrawerRootProviderProps`, `DrawerContentProps`, `DrawerSize`, and
+  `DrawerVariant` are exported.

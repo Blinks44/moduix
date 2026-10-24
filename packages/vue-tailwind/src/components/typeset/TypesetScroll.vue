@@ -4,7 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import './Typeset.css';
+import styles from './Typeset.module.css';
 
 defineOptions({ inheritAttrs: false });
 
@@ -28,7 +28,7 @@ const resolvedRole = computed(() => role ?? (ariaLabel || ariaLabelledby ? 'regi
     v-bind="attrs"
     :aria-label="ariaLabel"
     :aria-labelledby="ariaLabelledby"
-    :class="cn('typeset-scroll', className)"
+    :class="cn(styles.scroll, className)"
     :role="resolvedRole"
     :tabindex="tabindex"
     data-scope="typeset"

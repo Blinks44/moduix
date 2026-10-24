@@ -63,6 +63,9 @@ export const Sizes: Story = {
         <Tag size="md">
           <TagLabel>Default</TagLabel>
         </Tag>
+        <Tag size="lg">
+          <TagLabel>Large</TagLabel>
+        </Tag>
       </div>
     );
   },
@@ -136,7 +139,7 @@ export const RenderAsButton: Story = {
   render: () => {
     return (
       <Tag asChild variant="outline">
-        <button className={styles.buttonTag} type="button">
+        <button type="button">
           <TagLabel>Open filter</TagLabel>
         </button>
       </Tag>

@@ -2,12 +2,11 @@
   .root {
     display: block;
     width: 100%;
-    overflow: hidden;
     border-radius: var(--moduix-skeleton-border-radius, var(--moduix-radius-md));
 
     &[data-state='loading'] {
       height: var(--moduix-skeleton-height, var(--moduix-spacing-4));
-      animation: var(--moduix-skeleton-animation, var(--moduix-animation-pulse));
+      overflow: hidden;
       background: var(
         --moduix-skeleton-bg,
         color-mix(
@@ -25,14 +24,11 @@
       & * {
         visibility: hidden;
       }
+    }
 
-      &[data-variant='none'] {
-        animation: none;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        animation: none;
-      }
+    /* The token turns into `none` under reduced motion. */
+    &[data-state='loading'][data-variant='pulse'] {
+      animation: var(--moduix-animation-pulse);
     }
   }
 }

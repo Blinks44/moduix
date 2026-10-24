@@ -15,7 +15,7 @@ const open = ref(false);
 
 <template>
   <HoverCard v-model:open="open">
-    <HoverCardTrigger :class="styles.trigger">@sarah_chen</HoverCardTrigger>
+    <HoverCardTrigger>@sarah_chen</HoverCardTrigger>
     <HoverCardPositioner>
       <HoverCardContent>
         <HoverCardBody>

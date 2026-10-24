@@ -9,7 +9,6 @@ import {
   ListboxLabel,
   ListboxValueText,
 } from '@moduix/vue/listbox';
-import styles from '@/components/examples/listbox/listbox-multiple.module.css';
 
 const days = createListCollection({
   items: [
@@ -25,12 +24,7 @@ const days = createListCollection({
 </script>
 
 <template>
-  <Listbox
-    :collection="days"
-    :class="styles.root"
-    selection-mode="multiple"
-    :default-value="['mon', 'wed', 'fri']"
-  >
+  <Listbox :collection="days" selection-mode="multiple" :default-value="['mon', 'wed', 'fri']">
     <ListboxLabel>Select days</ListboxLabel>
     <ListboxContent>
       <ListboxItem v-for="item in days.items" :key="item.value" :item="item">

@@ -20,12 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkColorPickerTransparencyGrid
     v-bind="attrs"
-    :class="
-      cn(
-        'col-start-1 row-start-1 size-full rounded-[inherit] group-data-[fit-content]/trigger:col-auto group-data-[fit-content]/trigger:row-auto group-data-[fit-content]/trigger:size-4 group-data-[fit-content]/trigger:shrink-0',
-        className,
-      )
-    "
+    :class="cn('size-full rounded-[inherit] [grid-area:1/1/2/2]', className)"
     data-slot="color-picker-transparency-grid"
   />
 </template>

@@ -4,7 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 
 defineOptions({ inheritAttrs: false });
 
@@ -24,10 +24,7 @@ const attrs = useAttrs();
     data-slot="breadcrumbs-separator"
     aria-hidden="true"
     :class="
-      cn(
-        'inline-flex items-center text-[length:0.875em] leading-none text-muted-foreground select-none',
-        className,
-      )
+      cn('inline-flex items-center text-[length:0.875em] leading-none select-none', className)
     "
   >
     <slot><ChevronRightIcon class="size-[1em] flex-none [&:dir(rtl)]:rotate-180" /></slot>

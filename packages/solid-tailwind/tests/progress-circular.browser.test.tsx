@@ -83,6 +83,15 @@ test('renders an indeterminate circular progressbar without an ARIA value', asyn
   await expect
     .element(page.getByRole('progressbar', { name: 'Preparing report' }))
     .not.toHaveAttribute('aria-valuenow');
+
+  const arc = screen
+    .getByRole('progressbar', { name: 'Preparing report' })
+    .querySelector<SVGCircleElement>('[data-part="circle-range"]')!;
+  const arcStyle = getComputedStyle(arc);
+
+  // The indeterminate range is a spinning arc, not a dot.
+  expect(arcStyle.animationName).toBe('moduix-progress-circular-indeterminate');
+  expect(Number.parseFloat(arcStyle.strokeDasharray) / arc.getTotalLength()).toBeGreaterThan(0.2);
 });
 
 test('synchronizes custom circular composition with controlled values and state views', async () => {
@@ -155,13 +164,11 @@ test('keeps component-owned visual utilities and lets consumers override them', 
   expect([...screen.getByTestId('progress-root')!.classList]).toEqual(
     expect.arrayContaining(['inline-grid', 'gap-0', 'text-primary']),
   );
-  for (const utility of ['gap-2', 'text-foreground']) {
-    expect(screen.getByTestId('progress-root')!.classList.contains(utility)).toBe(false);
-  }
+  expect(screen.getByTestId('progress-root')!.classList.contains('gap-2')).toBe(false);
   expect(screen.getByText('Export data')?.classList.contains('text-lg')).toBe(true);
   expect(screen.getByText('Export data')?.classList.contains('text-sm')).toBe(false);
   expect([...screen.getByTestId('progress-circle')!.classList]).toEqual(
-    expect.arrayContaining(['block', 'overflow-visible', '[--size:4rem]']),
+    expect.arrayContaining(['block', '[--size:4rem]']),
   );
   expect(
     screen.getByTestId('progress-circle')?.classList.contains('[--size:var(--spacing-control-xl)]'),

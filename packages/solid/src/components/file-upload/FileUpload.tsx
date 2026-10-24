@@ -8,17 +8,14 @@ import {
 import { clsx } from 'clsx';
 import { For, children as resolveChildren, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui/Icons';
-import { CloseButton } from '../close-button';
+import { FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import styles from './FileUpload.module.css';
 
 function FileUpload(props: ComponentProps<typeof FileUploadPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <FileUploadPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="file-upload-root"
@@ -29,11 +26,10 @@ function FileUpload(props: ComponentProps<typeof FileUploadPrimitive.Root>) {
 }
 
 function FileUploadRootProvider(props: ComponentProps<typeof FileUploadPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <FileUploadPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="file-upload-root-provider"
@@ -84,15 +80,7 @@ function FileUploadDropzoneIcon(props: HTMLArkProps<'span'>) {
 }
 
 function FileUploadTrigger(props: ComponentProps<typeof FileUploadPrimitive.Trigger>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <FileUploadPrimitive.Trigger
-      class={clsx(styles.trigger, local.class)}
-      {...others}
-      data-slot="file-upload-trigger"
-    />
-  );
+  return <FileUploadPrimitive.Trigger {...props} data-slot="file-upload-trigger" />;
 }
 
 function FileUploadItemGroup(props: ComponentProps<typeof FileUploadPrimitive.ItemGroup>) {
@@ -235,7 +223,7 @@ function FileUploadItems() {
           </FileUploadItemPreview>
           <FileUploadItemName />
           <FileUploadItemMetadata file={file} />
-          <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+          <FileUploadItemDeleteTrigger />
         </FileUploadItem>
       )}
     </For>
@@ -243,54 +231,7 @@ function FileUploadItems() {
 }
 
 function FileUploadClearTrigger(props: ComponentProps<typeof FileUploadPrimitive.ClearTrigger>) {
-  const [local, others] = splitProps(props, [
-    'aria-label',
-    'aria-labelledby',
-    'asChild',
-    'children',
-    'class',
-  ]);
-  const resolvedChildren = resolveChildren(() => local.children);
-  const clearLabel = () =>
-    local['aria-label'] ?? (local['aria-labelledby'] == null ? a11yLabels.clearFiles : undefined);
-  const triggerClass = () =>
-    clsx(
-      styles.clearTrigger,
-      local.children != null && styles.clearTriggerWithContent,
-      local.class,
-    );
-
-  if (local.asChild) {
-    return (
-      <FileUploadPrimitive.ClearTrigger
-        asChild={local.asChild}
-        class={triggerClass()}
-        aria-label={clearLabel()}
-        aria-labelledby={local['aria-labelledby']}
-        {...others}
-        data-slot="file-upload-clear-trigger"
-      >
-        {resolvedChildren()}
-      </FileUploadPrimitive.ClearTrigger>
-    );
-  }
-
-  return (
-    <FileUploadPrimitive.ClearTrigger
-      asChild={(triggerProps) => (
-        <CloseButton
-          {...triggerProps()}
-          aria-label={clearLabel()}
-          aria-labelledby={local['aria-labelledby']}
-        >
-          {resolvedChildren() ?? <CloseIcon />}
-        </CloseButton>
-      )}
-      class={triggerClass()}
-      {...others}
-      data-slot="file-upload-clear-trigger"
-    />
-  );
+  return <FileUploadPrimitive.ClearTrigger {...props} data-slot="file-upload-clear-trigger" />;
 }
 
 const FileUploadContext = FileUploadPrimitive.Context;
@@ -319,3 +260,31 @@ export {
   useFileUpload,
   useFileUploadContext,
 };
+
+export type {
+  FileUploadClearTriggerProps,
+  FileUploadContextProps,
+  FileUploadDropzoneProps,
+  FileUploadFileAcceptDetails,
+  FileUploadFileChangeDetails,
+  FileUploadFileError,
+  FileUploadFileMimeType,
+  FileUploadFileRejectDetails,
+  FileUploadFileRejection,
+  FileUploadFileValidateDetails,
+  FileUploadHiddenInputProps,
+  FileUploadItemDeleteTriggerProps,
+  FileUploadItemGroupProps,
+  FileUploadItemNameProps,
+  FileUploadItemPreviewImageProps,
+  FileUploadItemPreviewProps,
+  FileUploadItemProps,
+  FileUploadItemSizeTextProps,
+  FileUploadLabelProps,
+  FileUploadRootProps,
+  FileUploadRootProviderProps,
+  FileUploadTriggerProps,
+  UseFileUploadContext,
+  UseFileUploadProps,
+  UseFileUploadReturn,
+} from '@ark-ui/solid/file-upload';

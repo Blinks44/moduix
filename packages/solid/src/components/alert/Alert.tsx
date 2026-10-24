@@ -6,16 +6,15 @@ import styles from './Alert.module.css';
 
 type AlertStatus = 'info' | 'success' | 'warning' | 'error';
 
-type AlertProps = HTMLArkProps<'div'> & {
+type AlertRootProps = HTMLArkProps<'div'> & {
   status?: AlertStatus;
 };
 
-function Alert(props: AlertProps) {
-  const [local, others] = splitProps(props, ['class', 'role', 'status']);
+function Alert(props: AlertRootProps) {
+  const [local, others] = splitProps(props, ['class', 'status']);
 
   return (
     <ark.div
-      role={local.role}
       class={clsx(styles.root, local.class)}
       {...others}
       data-scope="alert"
@@ -98,3 +97,4 @@ function AlertActions(props: HTMLArkProps<'div'>) {
 }
 
 export { Alert, AlertActions, AlertContent, AlertDescription, AlertIndicator, AlertTitle };
+export type { AlertRootProps, AlertStatus };

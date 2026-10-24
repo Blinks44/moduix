@@ -6,21 +6,13 @@ import { splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { cn } from '@/lib/moduix/cn';
 
-const elements = {
-  div: ark.div,
-  em: ark.em,
-  p: ark.p,
-  small: ark.small,
-  span: ark.span,
-  strong: ark.strong,
-} as const;
-
 type TextElement = 'p' | 'span' | 'small' | 'strong' | 'em' | 'div';
 type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type TextWeight = 'regular' | 'medium' | 'semibold' | 'bold';
-type TextTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
+type TextTone = 'default' | 'muted' | 'primary' | 'destructive';
 type TextAlign = 'start' | 'center' | 'end' | 'left' | 'right' | 'justify';
-type TextProps = HTMLArkProps<'p'> & {
+
+type TextRootProps = HTMLArkProps<'p'> & {
   as?: TextElement;
   size?: TextSize;
   weight?: TextWeight;
@@ -28,18 +20,9 @@ type TextProps = HTMLArkProps<'p'> & {
   align?: TextAlign;
   truncate?: boolean;
   lineClamp?: number;
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
-  'data-size'?: string;
-  'data-weight'?: string;
-  'data-tone'?: string;
-  'data-align'?: string;
-  'data-truncate'?: string;
-  'data-line-clamp'?: string;
 };
 
-const textVariants = cva('tracking-normal wrap-anywhere', {
+const textVariants = cva('m-0 tracking-normal wrap-anywhere', {
   variants: {
     size: {
       xs: 'text-xs',
@@ -57,7 +40,6 @@ const textVariants = cva('tracking-normal wrap-anywhere', {
     tone: {
       default: 'text-foreground',
       muted: 'text-muted-foreground',
-      subtle: 'text-secondary-foreground',
       primary: 'text-primary',
       destructive: 'text-destructive',
     },
@@ -69,13 +51,18 @@ const textVariants = cva('tracking-normal wrap-anywhere', {
       right: 'text-right',
       justify: 'text-justify',
     },
+    truncate: {
+      true: 'overflow-hidden text-ellipsis whitespace-nowrap',
+    },
+    lineClamp: {
+      true: '[display:-webkit-box] overflow-hidden whitespace-normal [-webkit-box-orient:vertical]',
+    },
   },
 });
 
-function Text(props: TextProps) {
+function Text(props: TextRootProps) {
   const [local, others] = splitProps(props, [
     'as',
-    'asChild',
     'size',
     'weight',
     'tone',
@@ -84,61 +71,49 @@ function Text(props: TextProps) {
     'lineClamp',
     'class',
     'style',
-    'data-scope',
-    'data-part',
-    'data-slot',
-    'data-size',
-    'data-weight',
-    'data-tone',
-    'data-align',
-    'data-truncate',
-    'data-line-clamp',
   ]);
-  const Element = () => elements[local.as ?? 'p'] as typeof ark.p;
-  const defaultSize = () => (local.as === 'small' ? 'sm' : 'md');
-  const defaultWeight = () => (local.as === 'strong' ? 'semibold' : 'regular');
-  const resolvedLineClamp = () =>
+  const as = () => local.as ?? 'p';
+  const size = () => local.size ?? (as() === 'small' ? 'sm' : 'md');
+  const weight = () => local.weight ?? (as() === 'strong' ? 'semibold' : 'regular');
+  const tone = () => local.tone ?? 'default';
+  const clamp = () =>
     Number.isInteger(local.lineClamp) && (local.lineClamp ?? 0) > 0 ? local.lineClamp : undefined;
-  const lineClampStyle = (): JSX.CSSProperties | string | undefined => {
-    const value = resolvedLineClamp();
+  const style = (): JSX.CSSProperties | string | undefined => {
+    const value = clamp();
 
     if (value === undefined) return local.style;
-    if (typeof local.style === 'string') {
-      return `${local.style};-webkit-line-clamp:${value}`;
-    }
-
+    if (typeof local.style === 'string') return `${local.style};-webkit-line-clamp:${value}`;
     return { ...local.style, '-webkit-line-clamp': value };
   };
 
   return (
     <Dynamic
-      component={Element()}
-      asChild={local.asChild}
+      component={ark[as()] as typeof ark.p}
       {...others}
       data-scope="text"
       data-part="root"
       data-slot="text-root"
-      data-size={local.size ?? defaultSize()}
-      data-weight={local.weight ?? defaultWeight()}
-      data-tone={local.tone ?? 'default'}
+      data-size={size()}
+      data-weight={weight()}
+      data-tone={tone()}
       data-align={local.align}
       data-truncate={local.truncate ? '' : undefined}
-      data-line-clamp={resolvedLineClamp() === undefined ? undefined : ''}
+      data-line-clamp={clamp() === undefined ? undefined : ''}
       class={cn(
         textVariants({
-          size: local.size ?? defaultSize(),
-          weight: local.weight ?? defaultWeight(),
-          tone: local.tone ?? 'default',
-          align: local.align ?? 'start',
+          size: size(),
+          weight: weight(),
+          tone: tone(),
+          align: local.align,
+          truncate: local.truncate,
+          lineClamp: clamp() !== undefined,
         }),
-        local.truncate && 'overflow-hidden text-ellipsis whitespace-nowrap',
-        resolvedLineClamp() !== undefined &&
-          '[display:-webkit-box] overflow-hidden whitespace-normal [-webkit-box-orient:vertical]',
         local.class,
       )}
-      style={lineClampStyle()}
+      style={style()}
     />
   );
 }
 
 export { Text };
+export type { TextAlign, TextElement, TextRootProps, TextSize, TextTone, TextWeight };

@@ -53,6 +53,22 @@ test('updates invalid state and connects legend, description, and error text', a
   await expect.element(textLocator).toHaveAttribute('aria-live', 'polite');
 });
 
+test('resets native fieldset chrome and draws no border when invalid', () => {
+  render({
+    components: fieldsetComponents,
+    template: `<Fieldset invalid><FieldsetLegend>Billing</FieldsetLegend></Fieldset>`,
+  });
+
+  const fieldset = screen.getByRole('group', { name: 'Billing' });
+  const style = getComputedStyle(fieldset);
+  expect([style.borderTopWidth, style.paddingTop, style.paddingLeft, style.marginLeft]).toEqual([
+    '0px',
+    '0px',
+    '0px',
+    '0px',
+  ]);
+});
+
 test('disables native descendants', async () => {
   render({
     components: fieldsetComponents,

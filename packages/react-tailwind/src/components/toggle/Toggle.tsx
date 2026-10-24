@@ -36,7 +36,7 @@ const ToggleIndicator = forwardRef<
     <TogglePrimitive.Indicator
       ref={ref}
       className={cn(
-        'inline-flex items-center justify-center text-inherit [&>svg]:block [&>svg]:size-4 [&>svg]:shrink-0',
+        "inline-flex items-center justify-center [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -46,4 +46,11 @@ const ToggleIndicator = forwardRef<
 });
 
 export { Toggle, ToggleContext, ToggleIndicator, useToggleContext };
+export type {
+  ToggleContextProps,
+  ToggleIndicatorProps,
+  UseToggleContext,
+  UseToggleProps,
+  UseToggleReturn,
+} from '@ark-ui/react/toggle';
 export type { ToggleRootProps, ToggleSize, ToggleVariant };

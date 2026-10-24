@@ -22,15 +22,12 @@ const attrs = useAttrs();
 <template>
   <ArkComboboxContent
     v-bind="attrs"
-    :class="cn('group/list flex min-h-0 flex-1 overflow-hidden outline-0', className)"
+    :class="cn('flex min-h-0 flex-1 overflow-hidden outline-0', className)"
     data-slot="command-palette-list"
   >
-    <ScrollArea data-slot="command-palette-scroll-area" class="h-auto min-h-0 flex-1">
-      <ScrollAreaViewport data-slot="command-palette-scroll-viewport" class="scroll-py-2">
-        <ScrollAreaContent
-          data-slot="command-palette-scroll-content"
-          class="min-h-full px-3 py-3 group-data-[empty]/list:p-0"
-        >
+    <ScrollArea class="h-auto min-h-0 flex-1">
+      <ScrollAreaViewport class="scroll-py-2">
+        <ScrollAreaContent class="min-h-full p-3">
           <slot />
         </ScrollAreaContent>
       </ScrollAreaViewport>

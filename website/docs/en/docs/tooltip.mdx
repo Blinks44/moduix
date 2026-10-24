@@ -4,41 +4,10 @@ component: tooltip
 description: A short, supplementary label that appears when its trigger is hovered or focused.
 ---
 
-import * as TooltipDocs from '@/components/examples/tooltip/css-properties';
-import TooltipAdvancedCustomization from '@/components/examples/tooltip/advanced-customization.tsx';
-import TooltipBasic from '@/components/examples/tooltip/basic.tsx';
 import TooltipContext from '@/components/examples/tooltip/context.tsx';
-import TooltipControlled from '@/components/examples/tooltip/controlled.tsx';
-import TooltipDelay from '@/components/examples/tooltip/delay.tsx';
-import TooltipDisabledTrigger from '@/components/examples/tooltip/disabled-trigger.tsx';
-import TooltipMultipleTriggers from '@/components/examples/tooltip/multiple-triggers.tsx';
-import TooltipPositioning from '@/components/examples/tooltip/positioning.tsx';
-import TooltipRootProvider from '@/components/examples/tooltip/root-provider.tsx';
-import TooltipWithArrow from '@/components/examples/tooltip/with-arrow.tsx';
-import TooltipWithinFixedContainers from '@/components/examples/tooltip/within-fixed-containers.tsx';
-import tooltipSolidAdvancedCustomization from '../../../snippets/tooltip/solid/advanced-customization.tsx?raw';
-import tooltipSolidBasic from '../../../snippets/tooltip/solid/basic.tsx?raw';
 import tooltipSolidContext from '../../../snippets/tooltip/solid/context.tsx?raw';
-import tooltipSolidControlled from '../../../snippets/tooltip/solid/controlled.tsx?raw';
-import tooltipSolidDelay from '../../../snippets/tooltip/solid/delay.tsx?raw';
-import tooltipSolidDisabledTrigger from '../../../snippets/tooltip/solid/disabled-trigger.tsx?raw';
-import tooltipSolidMultipleTriggers from '../../../snippets/tooltip/solid/multiple-triggers.tsx?raw';
-import tooltipSolidPositioning from '../../../snippets/tooltip/solid/positioning.tsx?raw';
-import tooltipSolidRootProvider from '../../../snippets/tooltip/solid/root-provider.tsx?raw';
-import tooltipSolidWithArrow from '../../../snippets/tooltip/solid/with-arrow.tsx?raw';
-import tooltipSolidWithinFixedContainers from '../../../snippets/tooltip/solid/within-fixed-containers.tsx?raw';
-import tooltipVueAdvancedCustomization from '../../../snippets/tooltip/vue/advanced-customization.vue?raw';
-import tooltipVueBasic from '../../../snippets/tooltip/vue/basic.vue?raw';
 import tooltipVueContext from '../../../snippets/tooltip/vue/context.vue?raw';
 import tooltipVueContextPart from '../../../snippets/tooltip/vue/TooltipStateContent.vue?raw';
-import tooltipVueControlled from '../../../snippets/tooltip/vue/controlled.vue?raw';
-import tooltipVueDelay from '../../../snippets/tooltip/vue/delay.vue?raw';
-import tooltipVueDisabledTrigger from '../../../snippets/tooltip/vue/disabled-trigger.vue?raw';
-import tooltipVueMultipleTriggers from '../../../snippets/tooltip/vue/multiple-triggers.vue?raw';
-import tooltipVuePositioning from '../../../snippets/tooltip/vue/positioning.vue?raw';
-import tooltipVueRootProvider from '../../../snippets/tooltip/vue/root-provider.vue?raw';
-import tooltipVueWithArrow from '../../../snippets/tooltip/vue/with-arrow.vue?raw';
-import tooltipVueWithinFixedContainers from '../../../snippets/tooltip/vue/within-fixed-containers.vue?raw';
 
 ## API Reference
 
@@ -60,41 +29,7 @@ Use `TooltipTrigger` for the element that opens the tooltip and `TooltipBody` fo
 name of its own. Tooltip content is supplemental and does not replace visible text or an
 `aria-label`.
 
-<ExampleFrame variant="component">
-  <TooltipBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tooltip/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tooltipSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tooltipVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tooltip/basic" />
 
 ## Install with shadcn
 
@@ -237,254 +172,40 @@ Use `useTooltipContext()` inside a descendant that needs the current tooltip sta
 
 Control whether the tooltip is open with `open` and `onOpenChange(details)`.
 
-<ExampleFrame variant="component">
-  <TooltipControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tooltip/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tooltipSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tooltipVueControlled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tooltip/controlled" />
 
 ### Delay
 
 Set `openDelay` and `closeDelay` on the root to adjust hover and focus timing.
 
-<ExampleFrame variant="component">
-  <TooltipDelay />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tooltip/delay.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tooltipSolidDelay} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tooltipVueDelay} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tooltip/delay" />
 
 ### Disabled Trigger
 
 Use `TooltipDisabledTrigger` when a disabled native control still needs a short explanation. It
 keeps a focusable wrapper around the disabled child without changing its disabled state.
 
-<ExampleFrame variant="component">
-  <TooltipDisabledTrigger />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tooltip/disabled-trigger.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tooltipSolidDisabledTrigger} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tooltipVueDisabledTrigger} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tooltip/disabled-trigger" />
 
 ### Multiple Triggers
 
 Give each trigger a `value` and use `onTriggerValueChange(details)` to share one tooltip across
 several triggers.
 
-<ExampleFrame variant="component">
-  <TooltipMultipleTriggers />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tooltip/multiple-triggers.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tooltipSolidMultipleTriggers} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tooltipVueMultipleTriggers} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tooltip/component-multiple-triggers.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tooltip/multiple-triggers" />
 
 ### Positioning
 
 Pass Ark positioning options to `Tooltip`, including placement and offset values.
 
-<ExampleFrame variant="component">
-  <TooltipPositioning />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tooltip/positioning.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tooltipSolidPositioning} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tooltipVuePositioning} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tooltip/component-positioning.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tooltip/positioning" />
 
 ### Root Provider
 
 Use `useTooltip()` with `TooltipRootProvider` when the tooltip state is created outside the
 rendered tooltip tree.
 
-<ExampleFrame variant="component">
-  <TooltipRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tooltip/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tooltipSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tooltipVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tooltip/root-provider" />
 
 ### With Arrow
 
@@ -492,41 +213,7 @@ Add `TooltipArrow` as the first child of the tooltip content when it needs a vis
 `TooltipBody`, place it directly inside `TooltipBody`; the wrapper supplies the default
 `TooltipArrowTip`.
 
-<ExampleFrame variant="component">
-  <TooltipWithArrow />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tooltip/with-arrow.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tooltipSolidWithArrow} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tooltipVueWithArrow} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tooltip/with-arrow" />
 
 ### Within Fixed Containers
 
@@ -534,108 +221,27 @@ Use `positioning.strategy: "fixed"` when the trigger is inside a fixed or sticky
 This example sets `closeOnScroll={false}` so you can focus the trigger and scroll the panel while
 checking the tooltip's alignment.
 
-<ExampleFrame variant="component">
-  <TooltipWithinFixedContainers />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tooltip/within-fixed-containers.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tooltipSolidWithinFixedContainers} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tooltipVueWithinFixedContainers} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tooltip/component-within-fixed-containers.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tooltip/within-fixed-containers" />
 
 ### Advanced Customization
 
 Use the explicit `TooltipPositioner` and `TooltipContent` parts when they need independent
 composition or styling.
 
-<ExampleFrame variant="component">
-  <TooltipAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tooltip/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tooltipSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tooltipVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="tooltip/advanced-customization" />
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. For state-based
-styles, prefer Ark data attributes such as `data-state`, `data-placement`, and `data-side`, together
-with moduix `data-slot` selectors. Tailwind variants use native utilities and consumer classes; the
-CSS variables below customize the CSS Modules variants.
+`TooltipTrigger` without `asChild` renders as an outlined button; when several valued triggers share
+one tooltip, only the current one shows the open state. `TooltipContent` is at most 20rem wide within
+the available viewport space, wraps long unbroken strings, and grows with its text. Content motion
+reads the shared `--moduix-popup-motion-*` variables and is skipped when Ark switches the tooltip
+instantly between triggers (`data-instant`) or the user prefers reduced motion.
 
-### CSS Properties
-
-<div className="not-prose">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TooltipDocs.TooltipCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on the part overrides the layered component styles. Data attributes and
+`data-slot` hooks are shared by both styling tracks.
 
 ### Styling hooks
 

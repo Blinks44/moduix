@@ -5,7 +5,7 @@ export default function ListDemo() {
     <List>
       <ListItem>Use semantic list markup for grouped content.</ListItem>
       <ListItem>Keep spacing and typography on the library scale.</ListItem>
-      <ListItem>Style markers with CSS variables or native ::marker selectors.</ListItem>
+      <ListItem>Style markers with native ::marker selectors.</ListItem>
     </List>
   );
 }

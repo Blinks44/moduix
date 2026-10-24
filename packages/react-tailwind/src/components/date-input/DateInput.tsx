@@ -10,6 +10,9 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
+const rootClass =
+  'inline-flex max-w-full flex-col items-start gap-1 data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
+
 const DateInput = forwardRef<
   ComponentRef<typeof DateInputPrimitive.Root>,
   ComponentProps<typeof DateInputPrimitive.Root>
@@ -17,10 +20,7 @@ const DateInput = forwardRef<
   return (
     <DateInputPrimitive.Root
       ref={ref}
-      className={cn(
-        'inline-flex w-full max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="date-input-root"
     />
@@ -34,10 +34,7 @@ const DateInputRootProvider = forwardRef<
   return (
     <DateInputPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'inline-flex w-full max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="date-input-root-provider"
     />
@@ -66,7 +63,7 @@ const DateInputControl = forwardRef<
     <DateInputPrimitive.Control
       ref={ref}
       className={cn(
-        'box-border inline-flex min-h-control-md w-full items-center gap-1 rounded-md border border-border bg-background px-3 py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:focus-within:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none',
+        'flex min-h-control-md w-full items-center gap-1 rounded-md border border-border bg-background px-3 py-1 text-md text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive',
         className,
       )}
       {...props}
@@ -82,7 +79,7 @@ const DateInputSegmentGroup = forwardRef<
   return (
     <DateInputPrimitive.SegmentGroup
       ref={ref}
-      className={cn('inline-flex items-center gap-0.5 tabular-nums', className)}
+      className={cn('flex items-center gap-0.5 tabular-nums', className)}
       {...props}
       data-slot="date-input-segment-group"
     />
@@ -97,7 +94,7 @@ const DateInputSegment = forwardRef<
     <DateInputPrimitive.Segment
       ref={ref}
       className={cn(
-        'min-w-[2ch] cursor-text rounded-sm px-1 py-0 text-center leading-6 text-current outline-0 transition-colors duration-200 ease-in-out [font:inherit] focus-visible:bg-ring/18 focus-visible:text-foreground data-disabled:cursor-default data-placeholder-shown:text-muted-foreground data-readonly:cursor-default data-[type=literal]:pointer-events-none data-[type=literal]:min-w-auto data-[type=literal]:bg-transparent data-[type=literal]:px-0 data-[type=literal]:text-muted-foreground motion-reduce:transition-none',
+        'min-w-[2ch] cursor-default rounded-sm px-1 text-center outline-0 transition-colors duration-normal ease-in-out focus-visible:bg-ring/18 focus-visible:text-foreground data-editable:cursor-text data-placeholder-shown:not-focus-visible:text-muted-foreground data-[type=literal]:min-w-auto data-[type=literal]:px-0 data-[type=literal]:text-muted-foreground',
         className,
       )}
       {...props}
@@ -120,15 +117,11 @@ const DateInputSegments = forwardRef<
 });
 
 const DateInputSeparator = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
-  function DateInputSeparator(
-    { className, 'aria-hidden': ariaHidden = true, role = 'presentation', ...props },
-    ref,
-  ) {
+  function DateInputSeparator({ className, ...props }, ref) {
     return (
       <span
         ref={ref}
-        aria-hidden={ariaHidden}
-        role={role}
+        aria-hidden
         className={cn('text-muted-foreground select-none', className)}
         {...props}
         data-slot="date-input-separator"
@@ -157,3 +150,22 @@ export {
   useDateInput,
   useDateInputContext,
 };
+
+export type {
+  DateInputContextProps,
+  DateInputControlProps,
+  DateInputFocusChangeDetails,
+  DateInputHiddenInputProps,
+  DateInputLabelProps,
+  DateInputPlaceholderChangeDetails,
+  DateInputRootProps,
+  DateInputRootProviderProps,
+  DateInputSegmentContextProps,
+  DateInputSegmentGroupProps,
+  DateInputSegmentProps,
+  DateInputSelectionMode,
+  DateInputValueChangeDetails,
+  UseDateInputContext,
+  UseDateInputProps,
+  UseDateInputReturn,
+} from '@ark-ui/react/date-input';

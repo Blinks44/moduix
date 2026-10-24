@@ -10,9 +10,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
-import { CloseButton } from '../close-button';
+import { FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import styles from './FileUpload.module.css';
 
 const FileUpload = forwardRef<
@@ -87,15 +85,8 @@ function FileUploadDropzoneIcon({ className, children, ...props }: HTMLArkProps<
 const FileUploadTrigger = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.Trigger>,
   ComponentProps<typeof FileUploadPrimitive.Trigger>
->(function FileUploadTrigger({ className, ...props }, ref) {
-  return (
-    <FileUploadPrimitive.Trigger
-      ref={ref}
-      className={clsx(styles.trigger, className)}
-      {...props}
-      data-slot="file-upload-trigger"
-    />
-  );
+>(function FileUploadTrigger(props, ref) {
+  return <FileUploadPrimitive.Trigger ref={ref} {...props} data-slot="file-upload-trigger" />;
 });
 
 const FileUploadItemGroup = forwardRef<
@@ -248,7 +239,7 @@ function FileUploadItems() {
       </FileUploadItemPreview>
       <FileUploadItemName />
       <FileUploadItemMetadata file={file} />
-      <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+      <FileUploadItemDeleteTrigger />
     </FileUploadItem>
   ));
 }
@@ -256,42 +247,9 @@ function FileUploadItems() {
 const FileUploadClearTrigger = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.ClearTrigger>,
   ComponentProps<typeof FileUploadPrimitive.ClearTrigger>
->(function FileUploadClearTrigger(
-  {
-    asChild,
-    className,
-    children,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
-    ...props
-  },
-  ref,
-) {
-  const clearLabel = ariaLabel ?? (ariaLabelledBy == null ? a11yLabels.clearFiles : undefined);
-  const triggerClassName = clsx(
-    styles.clearTrigger,
-    children != null && styles.clearTriggerWithContent,
-    className,
-  );
-
+>(function FileUploadClearTrigger(props, ref) {
   return (
-    <FileUploadPrimitive.ClearTrigger
-      ref={ref}
-      asChild
-      className={triggerClassName}
-      aria-label={asChild ? clearLabel : undefined}
-      aria-labelledby={asChild ? ariaLabelledBy : undefined}
-      {...props}
-      data-slot="file-upload-clear-trigger"
-    >
-      {asChild ? (
-        children
-      ) : (
-        <CloseButton aria-label={clearLabel} aria-labelledby={ariaLabelledBy}>
-          {children ?? <CloseIcon />}
-        </CloseButton>
-      )}
-    </FileUploadPrimitive.ClearTrigger>
+    <FileUploadPrimitive.ClearTrigger ref={ref} {...props} data-slot="file-upload-clear-trigger" />
   );
 });
 
@@ -321,3 +279,31 @@ export {
   useFileUpload,
   useFileUploadContext,
 };
+
+export type {
+  FileUploadClearTriggerProps,
+  FileUploadContextProps,
+  FileUploadDropzoneProps,
+  FileUploadFileAcceptDetails,
+  FileUploadFileChangeDetails,
+  FileUploadFileError,
+  FileUploadFileMimeType,
+  FileUploadFileRejectDetails,
+  FileUploadFileRejection,
+  FileUploadFileValidateDetails,
+  FileUploadHiddenInputProps,
+  FileUploadItemDeleteTriggerProps,
+  FileUploadItemGroupProps,
+  FileUploadItemNameProps,
+  FileUploadItemPreviewImageProps,
+  FileUploadItemPreviewProps,
+  FileUploadItemProps,
+  FileUploadItemSizeTextProps,
+  FileUploadLabelProps,
+  FileUploadRootProps,
+  FileUploadRootProviderProps,
+  FileUploadTriggerProps,
+  UseFileUploadContext,
+  UseFileUploadProps,
+  UseFileUploadReturn,
+} from '@ark-ui/react/file-upload';

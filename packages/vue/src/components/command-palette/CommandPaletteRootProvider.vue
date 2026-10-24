@@ -4,6 +4,7 @@ import type { DialogRootProviderEmits, DialogRootProviderProps } from '@ark-ui/v
 import { useAttrs } from 'vue';
 import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
 import OverlayPortalProvider from '@/lib/moduix/overlayPortal/OverlayPortalProvider.vue';
+import CommandPaletteShortcut from './CommandPaletteShortcut.vue';
 
 defineOptions({ inheritAttrs: false });
 
@@ -11,6 +12,7 @@ export interface Props extends /* @vue-ignore */ DialogRootProviderProps {
   lazyMount?: boolean;
   portalled?: boolean;
   portalRef?: PortalRef;
+  shortcut?: false | string;
   unmountOnExit?: boolean;
   value: DialogRootProviderProps['value'];
 }
@@ -21,6 +23,7 @@ const {
   lazyMount = true,
   portalled = true,
   portalRef,
+  shortcut = false,
   unmountOnExit = true,
   value,
 } = defineProps<Props>();
@@ -38,6 +41,7 @@ const attrs = useAttrs();
       :unmount-on-exit="unmountOnExit"
       :value="value"
     >
+      <CommandPaletteShortcut v-if="shortcut" :shortcut="shortcut" />
       <slot />
     </ArkDialogRootProvider>
   </OverlayPortalProvider>

@@ -5,9 +5,7 @@ import styles from '@/components/examples/badge/badge-custom-styling.module.css'
 
 <template>
   <div :class="styles.root">
-    <Badge :class="styles.small">Small</Badge>
-    <Badge>Default</Badge>
-    <Badge :class="styles.large">Large</Badge>
+    <Badge :class="styles.square">Square</Badge>
     <Badge :class="styles.priority">
       <BadgeDot />
       <BadgeLabel>Priority</BadgeLabel>

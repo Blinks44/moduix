@@ -4,15 +4,18 @@ import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import styles from './Separator.module.css';
 
-type SeparatorProps = HTMLArkProps<'span'> & {
-  orientation?: 'horizontal' | 'vertical';
-  size?: 'xs' | 'sm' | 'md' | 'lg';
-  variant?: 'solid' | 'dashed' | 'dotted';
+type SeparatorOrientation = 'horizontal' | 'vertical';
+type SeparatorSize = 'xs' | 'sm' | 'md' | 'lg';
+type SeparatorVariant = 'solid' | 'dashed' | 'dotted';
+
+type SeparatorRootProps = HTMLArkProps<'span'> & {
+  orientation?: SeparatorOrientation;
+  size?: SeparatorSize;
+  variant?: SeparatorVariant;
 };
 
-const Separator = forwardRef<HTMLSpanElement, SeparatorProps>(function Separator(
+const Separator = forwardRef<HTMLSpanElement, SeparatorRootProps>(function Separator(
   {
-    asChild,
     className,
     orientation = 'horizontal',
     role,
@@ -29,7 +32,6 @@ const Separator = forwardRef<HTMLSpanElement, SeparatorProps>(function Separator
     <ark.span
       {...props}
       ref={ref}
-      asChild={asChild}
       role={resolvedRole}
       aria-orientation={resolvedRole === 'separator' ? orientation : undefined}
       data-scope="separator"
@@ -44,3 +46,4 @@ const Separator = forwardRef<HTMLSpanElement, SeparatorProps>(function Separator
 });
 
 export { Separator };
+export type { SeparatorOrientation, SeparatorRootProps, SeparatorSize, SeparatorVariant };

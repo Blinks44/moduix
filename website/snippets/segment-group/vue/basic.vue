@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/vue/segment-group';
 
-const frameworks = [
-  { value: 'React', label: 'React' },
-  { value: 'Solid', label: 'Solid' },
-  { value: 'Svelte', label: 'Svelte' },
-  { value: 'Vue', label: 'Vue' },
-];
+const frameworks = ['React', 'Solid', 'Svelte', 'Vue'];
 </script>
 
 <template>

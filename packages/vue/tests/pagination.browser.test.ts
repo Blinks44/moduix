@@ -123,7 +123,12 @@ test('renders ellipses and keeps first and last trigger boundaries in sync', asy
       `,
   });
 
-  expect(screen.getAllByText('...')).toHaveLength(2);
+  const ellipses = document.querySelectorAll('[data-slot="pagination-ellipsis"]');
+  expect(ellipses).toHaveLength(2);
+  for (const ellipsis of ellipses) {
+    expect(ellipsis.getAttribute('aria-hidden')).toBe('true');
+    expect(ellipsis.querySelector('svg')).not.toBeNull();
+  }
 
   const firstPageTrigger = page.getByRole('button', { name: 'first page', exact: true });
   await expect.element(firstPageTrigger).toHaveAttribute('data-slot', 'pagination-first-trigger');
@@ -311,3 +316,24 @@ test('keeps the public flat API usable from a Vue consumer SFC', async () => {
   await expect.element(page.getByText('3 of 3')).toBeAttached();
 });
 import SsrPagination from './fixtures/SsrPagination.vue';
+test('keeps default-icon triggers square and pads triggers with custom content', () => {
+  render({
+    components: paginationComponents,
+    template: `
+        <Pagination :count="200" :default-page="10" :page-size="10">
+          <PaginationFirstTrigger />
+          <PaginationPrevTrigger />
+          <PaginationItems />
+          <PaginationNextTrigger>Next</PaginationNextTrigger>
+        </Pagination>
+      `,
+  });
+
+  for (const name of ['first page', 'previous page']) {
+    const trigger = screen.getByRole('button', { name });
+    expect(trigger.offsetWidth).toBe(trigger.offsetHeight);
+  }
+  const textTrigger = screen.getByRole('button', { name: 'next page' });
+  expect(getComputedStyle(textTrigger).paddingInlineStart).toBe('12px');
+  expect(textTrigger.offsetWidth).toBeGreaterThan(textTrigger.offsetHeight);
+});

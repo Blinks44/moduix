@@ -9,10 +9,11 @@ import styles from './Clipboard.module.css';
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ ClipboardTriggerProps {
+  asChild?: boolean;
   class?: HTMLAttributes['class'];
 }
 
-const { class: className } = defineProps<Props>();
+const { asChild = false, class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -21,7 +22,8 @@ const attrs = useAttrs();
 <template>
   <ArkClipboardTrigger
     v-bind="attrs"
-    :class="clsx(styles.trigger, className)"
+    :as-child="asChild"
+    :class="clsx(!asChild && styles.trigger, className)"
     data-slot="clipboard-trigger"
   >
     <slot />

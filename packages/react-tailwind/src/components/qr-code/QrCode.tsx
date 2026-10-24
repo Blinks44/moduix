@@ -13,7 +13,7 @@ const QrCode = forwardRef<
     <QrCodePrimitive.Root
       ref={ref}
       className={cn(
-        'relative box-border inline-flex w-32 max-w-full flex-col items-center gap-3 text-foreground',
+        'inline-grid w-32 max-w-full grid-cols-1 justify-items-center gap-3',
         className,
       )}
       {...props}
@@ -30,7 +30,7 @@ const QrCodeRootProvider = forwardRef<
     <QrCodePrimitive.RootProvider
       ref={ref}
       className={cn(
-        'relative box-border inline-flex w-32 max-w-full flex-col items-center gap-3 text-foreground',
+        'inline-grid w-32 max-w-full grid-cols-1 justify-items-center gap-3',
         className,
       )}
       {...props}
@@ -46,7 +46,7 @@ const QrCodeFrame = forwardRef<
   return (
     <QrCodePrimitive.Frame
       ref={ref}
-      className={cn('box-border aspect-square h-auto w-full fill-current text-inherit', className)}
+      className={cn('aspect-square w-full fill-current', className)}
       {...props}
       data-slot="qr-code-frame"
     />
@@ -56,15 +56,8 @@ const QrCodeFrame = forwardRef<
 const QrCodePattern = forwardRef<
   ComponentRef<typeof QrCodePrimitive.Pattern>,
   ComponentProps<typeof QrCodePrimitive.Pattern>
->(function QrCodePattern({ className, ...props }, ref) {
-  return (
-    <QrCodePrimitive.Pattern
-      ref={ref}
-      className={cn('fill-inherit', className)}
-      {...props}
-      data-slot="qr-code-pattern"
-    />
-  );
+>(function QrCodePattern(props, ref) {
+  return <QrCodePrimitive.Pattern ref={ref} {...props} data-slot="qr-code-pattern" />;
 });
 
 const QrCodeOverlay = forwardRef<
@@ -75,7 +68,7 @@ const QrCodeOverlay = forwardRef<
     <QrCodePrimitive.Overlay
       ref={ref}
       className={cn(
-        'box-border inline-flex size-control-lg items-center justify-center rounded-sm bg-background p-1 text-foreground [&_img]:size-full [&_img]:object-contain [&_svg]:size-full [&_svg]:object-contain',
+        'inline-flex aspect-square w-1/3 items-center justify-center rounded-sm bg-background p-1 text-foreground [grid-area:1/1/2/2] [&_img]:size-full [&_img]:object-contain [&_svg]:size-full [&_svg]:object-contain',
         className,
       )}
       {...props}
@@ -92,7 +85,7 @@ const QrCodeDownloadTrigger = forwardRef<
     <QrCodePrimitive.DownloadTrigger
       ref={ref}
       className={cn(
-        'box-border inline-flex min-h-control-md cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm font-medium whitespace-nowrap text-foreground transition-[border-color,background-color,color,opacity,box-shadow] duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled):not([data-disabled])]:opacity-[0.94] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent',
+        'inline-flex min-h-control-md cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm font-medium whitespace-nowrap text-foreground transition-[background-color,opacity] duration-normal ease-in-out select-none focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled [&_svg]:size-4 [&_svg]:shrink-0 [&:active:not(:disabled)]:opacity-[0.94] [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent',
         className,
       )}
       {...props}
@@ -114,3 +107,17 @@ export {
   useQrCode,
   useQrCodeContext,
 };
+export type {
+  QrCodeContextProps,
+  QrCodeDownloadTriggerProps,
+  QrCodeFrameProps,
+  QrCodeGenerateOptions,
+  QrCodeOverlayProps,
+  QrCodePatternProps,
+  QrCodeRootProps,
+  QrCodeRootProviderProps,
+  QrCodeValueChangeDetails,
+  UseQrCodeContext,
+  UseQrCodeProps,
+  UseQrCodeReturn,
+} from '@ark-ui/react/qr-code';

@@ -4,29 +4,20 @@ import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
 import styles from './Separator.module.css';
 
-type SeparatorProps = HTMLArkProps<'span'> & {
-  orientation?: 'horizontal' | 'vertical';
-  size?: 'xs' | 'sm' | 'md' | 'lg';
-  variant?: 'solid' | 'dashed' | 'dotted';
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
-  'data-orientation'?: string;
-  'data-size'?: string;
-  'data-variant'?: string;
+type SeparatorOrientation = 'horizontal' | 'vertical';
+type SeparatorSize = 'xs' | 'sm' | 'md' | 'lg';
+type SeparatorVariant = 'solid' | 'dashed' | 'dotted';
+
+type SeparatorRootProps = HTMLArkProps<'span'> & {
+  orientation?: SeparatorOrientation;
+  size?: SeparatorSize;
+  variant?: SeparatorVariant;
 };
 
-function Separator(props: SeparatorProps) {
+function Separator(props: SeparatorRootProps) {
   const [local, others] = splitProps(props, [
     'aria-orientation',
-    'asChild',
     'class',
-    'data-orientation',
-    'data-part',
-    'data-scope',
-    'data-size',
-    'data-slot',
-    'data-variant',
     'orientation',
     'role',
     'size',
@@ -37,7 +28,6 @@ function Separator(props: SeparatorProps) {
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       role={role()}
       aria-orientation={role() === 'separator' ? orientation() : undefined}
@@ -53,3 +43,4 @@ function Separator(props: SeparatorProps) {
 }
 
 export { Separator };
+export type { SeparatorOrientation, SeparatorRootProps, SeparatorSize, SeparatorVariant };

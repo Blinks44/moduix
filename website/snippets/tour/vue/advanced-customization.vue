@@ -6,8 +6,6 @@ import {
   TourActionTrigger,
   TourActions,
   TourBackdrop,
-  TourBody,
-  TourCloseIcon,
   TourContent,
   TourControl,
   TourDescription,
@@ -56,17 +54,14 @@ const tour = useTour({
 
 <template>
   <div :class="styles.root">
-    <Tour :tour="tour" lazy-mount unmount-on-exit>
+    <Tour :tour="tour">
       <TourBackdrop />
       <TourSpotlight />
       <TourPositioner>
         <TourContent>
-          <TourCloseIcon />
-          <TourBody>
-            <TourTitle />
-            <TourDescription />
-            <TourProgressText />
-          </TourBody>
+          <TourTitle />
+          <TourDescription />
+          <TourProgressText />
           <TourControl>
             <TourActions v-slot="actions">
               <TourActionTrigger

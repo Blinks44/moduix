@@ -8,7 +8,6 @@ import {
   ListboxItemText,
   ListboxLabel,
 } from '@moduix/vue/listbox';
-import styles from '@/components/examples/listbox/listbox-disabled-item.module.css';
 
 const plans = createListCollection({
   items: [
@@ -21,7 +20,7 @@ const plans = createListCollection({
 </script>
 
 <template>
-  <Listbox :collection="plans" :class="styles.root">
+  <Listbox :collection="plans">
     <ListboxLabel>Select plan</ListboxLabel>
     <ListboxContent>
       <ListboxItem v-for="item in plans.items" :key="item.value" :item="item">

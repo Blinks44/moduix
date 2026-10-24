@@ -11,15 +11,24 @@ import { forwardRef } from 'react';
 import { MinusIcon, PlusIcon } from '@/lib/moduix/icons/ui';
 import styles from './NumberInput.module.css';
 
+type NumberInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type NumberInputRootProps = ComponentProps<typeof NumberInputPrimitive.Root> & {
+  size?: NumberInputSize;
+};
+type NumberInputRootProviderProps = ComponentProps<typeof NumberInputPrimitive.RootProvider> & {
+  size?: NumberInputSize;
+};
+
 const NumberInput = forwardRef<
   ComponentRef<typeof NumberInputPrimitive.Root>,
-  ComponentProps<typeof NumberInputPrimitive.Root>
->(function NumberInput({ className, ...props }, ref) {
+  NumberInputRootProps
+>(function NumberInput({ className, size = 'md', ...props }, ref) {
   return (
     <NumberInputPrimitive.Root
       ref={ref}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="number-input-root"
     />
   );
@@ -27,13 +36,14 @@ const NumberInput = forwardRef<
 
 const NumberInputRootProvider = forwardRef<
   ComponentRef<typeof NumberInputPrimitive.RootProvider>,
-  ComponentProps<typeof NumberInputPrimitive.RootProvider>
->(function NumberInputRootProvider({ className, ...props }, ref) {
+  NumberInputRootProviderProps
+>(function NumberInputRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <NumberInputPrimitive.RootProvider
       ref={ref}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="number-input-root-provider"
     />
   );
@@ -176,3 +186,21 @@ export {
   useNumberInput,
   useNumberInputContext,
 };
+export type {
+  NumberInputContextProps,
+  NumberInputControlProps,
+  NumberInputDecrementTriggerProps,
+  NumberInputFocusChangeDetails,
+  NumberInputIncrementTriggerProps,
+  NumberInputInputProps,
+  NumberInputLabelProps,
+  NumberInputScrubberProps,
+  NumberInputValueChangeDetails,
+  NumberInputValueInvalidDetails,
+  NumberInputValueTextProps,
+  UseNumberInputContext,
+  UseNumberInputProps,
+  UseNumberInputReturn,
+} from '@ark-ui/react/number-input';
+
+export type { NumberInputRootProps, NumberInputRootProviderProps, NumberInputSize };

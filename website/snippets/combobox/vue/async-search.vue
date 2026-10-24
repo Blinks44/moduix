@@ -16,7 +16,6 @@ import {
   ComboboxTrigger,
 } from '@moduix/vue/combobox';
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
-import styles from '@/components/examples/combobox/component-async-search.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -70,7 +69,7 @@ onBeforeUnmount(() => {
       <ComboboxTrigger aria-label="Open options" />
     </ComboboxControl>
     <ComboboxPositioner>
-      <ComboboxContent :class="styles.content">
+      <ComboboxContent>
         <ComboboxStatus v-if="!query">Start typing to search…</ComboboxStatus>
         <ComboboxStatus v-if="loading">Searching…</ComboboxStatus>
         <ComboboxEmpty v-if="!loading && query">No results found.</ComboboxEmpty>

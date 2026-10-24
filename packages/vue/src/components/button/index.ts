@@ -1,3 +1,3 @@
-import Button from './Button.vue';
+export { default as Button } from './Button.vue';
 
-export { Button };
+export type { Props as ButtonRootProps, ButtonSize, ButtonVariant } from './Button.vue';

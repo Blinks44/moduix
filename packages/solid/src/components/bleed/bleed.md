@@ -1,8 +1,8 @@
 # Bleed (Solid)
 
 `Bleed` lets a child escape a constrained parent with negative inline and/or block margins while
-staying in normal document flow. It preserves the React component's defaults, token-based CSS
-variables, stable data hooks, and flat public value API where `Bleed` is the only exported root.
+staying in normal document flow. It preserves the React component's defaults, spacing-token
+amounts, stable data hooks, and flat public value API where `Bleed` is the only exported root.
 
 ## Ark Solid composition
 

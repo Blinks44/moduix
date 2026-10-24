@@ -2,7 +2,7 @@
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './Menu.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -22,6 +22,6 @@ const attrs = useAttrs();
     :class="clsx(styles.triggerItemIcon, className)"
     data-slot="menu-trigger-item-icon"
   >
-    <slot><ChevronRightIcon :class="styles.iconSvg" /></slot>
+    <slot><ChevronRightIcon /></slot>
   </span>
 </template>

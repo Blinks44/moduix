@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkRadioGroupLabel
     v-bind="attrs"
-    :class="cn('text-sm leading-5 font-semibold text-inherit', className)"
+    :class="cn('text-sm leading-5 font-semibold', className)"
     data-slot="radio-group-label"
   >
     <slot />

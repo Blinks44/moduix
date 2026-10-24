@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@moduix/react/tabs';
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/react/tabs';
 
 const items = [
   {
@@ -29,6 +29,7 @@ export default function LinkTabsDemo() {
             <a href={'#' + item.value}>{item.title}</a>
           </TabsTrigger>
         ))}
+        <TabsIndicator />
       </TabsList>
 
       {items.map((item) => (

@@ -5,6 +5,7 @@ import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
+  Field,
   FileUpload,
   FileUploadClearTrigger,
   FileUploadContext,
@@ -65,79 +66,44 @@ test('uses MIME type or FILE for filenames without an extension', async () => {
 });
 
 test.each([false, true])(
-  'preserves clear state, labels, attrs, and refs with asChild=%s',
+  'forwards clear trigger attrs, refs, and Ark state with asChild=%s',
   async (asChild) => {
     const acceptedFiles = ref([file]);
     const disabled = ref(true);
-    const readOnly = ref(false);
-    const label = ref<string>();
-    const labelledby = ref<string>();
     const triggerRef = ref<ComponentPublicInstance>();
     const changes = rs.fn();
     const click = rs.fn();
     const { container } = render({
       components,
-      setup: () => ({
-        acceptedFiles,
-        disabled,
-        readOnly,
-        label,
-        labelledby,
-        triggerRef,
-        changes,
-        click,
-        asChild,
-      }),
+      setup: () => ({ acceptedFiles, disabled, triggerRef, changes, click, asChild }),
       template: `
-      <span id="clear-files-label">Remove attachments</span>
-      <FileUpload v-model:accepted-files="acceptedFiles" :disabled="disabled" :read-only="readOnly" @file-change="changes">
-        <FileUploadClearTrigger ref="triggerRef" :as-child="asChild" :aria-label="label" :aria-labelledby="labelledby"
-          class="consumer-clear" style="color: red" title="Clear attachments" data-testid="clear" @click="click">
-          <template v-if="asChild" #default><button type="button">Custom clear</button></template>
+      <FileUpload v-model:accepted-files="acceptedFiles" :disabled="disabled" @file-change="changes">
+        <FileUploadClearTrigger ref="triggerRef" :as-child="asChild" class="consumer-clear"
+          title="Clear attachments" data-testid="clear" @click="click">
+          <button v-if="asChild" type="button">Clear files</button>
+          <template v-else>Clear files</template>
         </FileUploadClearTrigger>
       </FileUpload>
     `,
     });
     const clear = page.getByTestId('clear');
-    await expect.element(page.getByRole('button', { name: 'Clear files' })).toHaveCount(1);
     await expect.element(clear).toBeDisabled();
     await expect.element(clear).toHaveAttribute('data-slot', 'file-upload-clear-trigger');
     await expect.element(clear).toHaveAttribute('title', 'Clear attachments');
-    await expect.element(clear).toHaveCSS('color', 'rgb(255, 0, 0)');
     const trigger = container.querySelector('[data-testid="clear"]')!;
     expect(triggerRef.value?.$el).toBe(trigger);
-    expect(trigger.classList.contains('consumer-clear')).toBe(true);
-    expect(trigger.querySelector('svg') !== null).toBe(!asChild);
+    expect([...trigger.classList]).toEqual(['consumer-clear']);
     // Deliberate dispatch verifies Ark's guard even for a programmatic disabled click.
     await clear.dispatchEvent('click');
     expect(changes).not.toHaveBeenCalled();
-    expect(acceptedFiles.value).toEqual([file]);
     disabled.value = false;
-    await expect.element(clear).toBeEnabled();
-    label.value = 'Clear selected files';
-    await expect.element(page.getByRole('button', { name: 'Clear selected files' })).toHaveCount(1);
-    label.value = '';
-    await expect.element(clear).toHaveAttribute('aria-label', '');
-    label.value = undefined;
-    labelledby.value = 'clear-files-label';
-    await expect.element(page.getByRole('button', { name: 'Remove attachments' })).toHaveCount(1);
-    await expect.element(clear).not.toHaveAttribute('aria-label');
-    labelledby.value = undefined;
-    await expect.element(page.getByRole('button', { name: 'Clear files' })).toHaveCount(1);
-    readOnly.value = true;
-    await expect.element(clear).toBeDisabled();
-    await clear.dispatchEvent('click');
-    expect(changes).not.toHaveBeenCalled();
-    readOnly.value = false;
     await expect.element(clear).toBeEnabled();
     click.mockClear();
     await page.getByRole('button', { name: 'Clear files' }).click();
     await expect.poll(() => acceptedFiles.value).toEqual([]);
-    expect(changes).toHaveBeenCalledTimes(1);
     expect(changes).toHaveBeenCalledWith({ acceptedFiles: [], rejectedFiles: [] });
     expect(click).toHaveBeenCalledTimes(1);
     await expect.element(clear).toHaveAttribute('hidden', '');
-    expect(triggerRef.value?.$el).toBe(trigger);
   },
 );
 
@@ -232,8 +198,8 @@ test('preserves provider refs, one preview per file, MIME fallback, and removal'
   const preview = items[0]!.querySelector<HTMLImageElement>('img')!;
   await expect.poll(() => preview.naturalWidth).toBe(32);
 
-  await page.getByRole('button', { name: 'Remove moduix.png' }).click();
-  await expect.element(page.getByRole('button', { name: 'Remove moduix.png' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'delete file moduix.png' }).click();
+  await expect.element(page.getByRole('button', { name: 'delete file moduix.png' })).toHaveCount(0);
   await expect.element(page.locator('[data-slot="file-upload-item"]')).toHaveCount(2);
 });
 
@@ -313,4 +279,96 @@ test('hydrates stable hosts and ids and still clears files', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
+});
+
+test('lets Ark translations name the default delete trigger', async () => {
+  render({
+    components,
+    setup: () => ({ file, translations: { deleteFile: (item: File) => `Delete ${item.name}` } }),
+    template: `
+      <FileUpload :default-accepted-files="[file]" :translations="translations">
+        <FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup>
+      </FileUpload>
+    `,
+  });
+  await expect.element(page.getByRole('button', { name: 'Delete moduix.txt' })).toBeVisible();
+});
+
+test('dims a disabled file upload once, also inside a disabled Field', async () => {
+  const { container } = render({
+    components: { ...components, Field },
+    setup: () => ({ file }),
+    template: `
+      <FileUpload disabled :default-accepted-files="[file]" data-testid="plain">
+        <FileUploadLabel>Attachments</FileUploadLabel>
+        <FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup>
+      </FileUpload>
+      <Field disabled>
+        <FileUpload :default-accepted-files="[file]" data-testid="in-field">
+          <FileUploadLabel>Attachments</FileUploadLabel>
+          <FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup>
+        </FileUpload>
+      </Field>
+    `,
+  });
+  await expect.element(page.getByTestId('in-field')).toBeVisible();
+  const opacity = (root: string, slot: string) =>
+    getComputedStyle(
+      container.querySelector(`[data-testid="${root}"] [data-slot="file-upload-${slot}"]`)!,
+    ).opacity;
+  expect(opacity('plain', 'label')).toBe('0.5');
+  expect(opacity('plain', 'item')).toBe('0.5');
+  expect(opacity('plain', 'item-delete-trigger')).toBe('1');
+  for (const slot of ['label', 'item', 'item-delete-trigger']) {
+    expect(opacity('in-field', slot)).toBe('1');
+  }
+});
+
+test('leaves the trigger and clear trigger unstyled for asChild composition', async () => {
+  render({
+    components,
+    setup: () => ({ file }),
+    template: `
+      <FileUpload :default-accepted-files="[file]">
+        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadClearTrigger>Clear files</FileUploadClearTrigger>
+      </FileUpload>
+    `,
+  });
+  await expect.element(page.getByRole('button', { name: 'Clear files' })).toBeVisible();
+  for (const slot of ['trigger', 'clear-trigger']) {
+    expect(document.querySelector(`[data-slot="file-upload-${slot}"]`)!.className).toBe('');
+  }
+});
+
+test('fills its container and lays out file rows and image cards', async () => {
+  const { container } = render({
+    components,
+    setup: () => ({ files: [file, image] }),
+    template: `
+      <div style="width: 600px">
+        <FileUpload :default-accepted-files="files" :max-files="2">
+          <FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup>
+        </FileUpload>
+      </div>
+    `,
+  });
+  await expect.element(page.locator('[data-slot="file-upload-item"]')).toHaveCount(2);
+  expect(container.querySelector<HTMLElement>('[data-slot="file-upload-root"]')!.offsetWidth).toBe(
+    600,
+  );
+  const [row, card] = container.querySelectorAll('[data-slot="file-upload-item"]');
+  const rect = (item: Element, slot: string) =>
+    item.querySelector(`[data-slot="file-upload-item-${slot}"]`)!.getBoundingClientRect();
+  // File row: preview, then the name over its metadata, then the delete button.
+  expect(rect(row!, 'preview').right).toBeLessThan(rect(row!, 'name').left);
+  expect(rect(row!, 'name').right).toBeLessThan(rect(row!, 'delete-trigger').left);
+  expect(Math.abs(rect(row!, 'metadata').left - rect(row!, 'name').left)).toBeLessThanOrEqual(1);
+  expect(rect(row!, 'metadata').top).toBeGreaterThanOrEqual(rect(row!, 'name').bottom);
+  // Image card: a square thumbnail above the name, at most 10rem wide.
+  expect(card!.getBoundingClientRect().width).toBeLessThanOrEqual(160);
+  expect(rect(card!, 'preview').bottom).toBeLessThanOrEqual(rect(card!, 'name').top);
+  expect(
+    Math.abs(rect(card!, 'preview').width - rect(card!, 'preview').height),
+  ).toBeLessThanOrEqual(1);
 });

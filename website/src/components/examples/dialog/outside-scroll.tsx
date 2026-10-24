@@ -32,8 +32,8 @@ export default function DialogOutsideScrollDemo() {
         <Button>Open release notes</Button>
       </DialogTrigger>
       <DialogBackdrop />
-      <DialogPositioner className={styles.positioner}>
-        <DialogContent className={styles.content}>
+      <DialogPositioner>
+        <DialogContent placement="top">
           <DialogHeader>
             <DialogTitle>Release notes</DialogTitle>
             <DialogDescription>

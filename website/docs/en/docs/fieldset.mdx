@@ -4,29 +4,6 @@ component: fieldset
 description: Group related form controls under one legend while preserving native fieldset semantics and shared state. Helper text and error messages are connected to the group so assistive technologies can announce them.
 ---
 
-import * as FieldsetDocs from '@/components/examples/fieldset/css-properties';
-import FieldsetBasic from '@/components/examples/fieldset/basic.tsx';
-import FieldsetCheckbox from '@/components/examples/fieldset/checkbox.tsx';
-import FieldsetDisabled from '@/components/examples/fieldset/disabled.tsx';
-import FieldsetField from '@/components/examples/fieldset/field.tsx';
-import FieldsetInputWithSelect from '@/components/examples/fieldset/input-with-select.tsx';
-import FieldsetInvalid from '@/components/examples/fieldset/invalid.tsx';
-import FieldsetRootProvider from '@/components/examples/fieldset/root-provider.tsx';
-import fieldsetSolidBasic from '../../../snippets/fieldset/solid/basic.tsx?raw';
-import fieldsetSolidCheckbox from '../../../snippets/fieldset/solid/checkbox.tsx?raw';
-import fieldsetSolidDisabled from '../../../snippets/fieldset/solid/disabled.tsx?raw';
-import fieldsetSolidField from '../../../snippets/fieldset/solid/field.tsx?raw';
-import fieldsetSolidInputWithSelect from '../../../snippets/fieldset/solid/input-with-select.tsx?raw';
-import fieldsetSolidInvalid from '../../../snippets/fieldset/solid/invalid.tsx?raw';
-import fieldsetSolidRootProvider from '../../../snippets/fieldset/solid/root-provider.tsx?raw';
-import fieldsetVueBasic from '../../../snippets/fieldset/vue/basic.vue?raw';
-import fieldsetVueCheckbox from '../../../snippets/fieldset/vue/checkbox.vue?raw';
-import fieldsetVueDisabled from '../../../snippets/fieldset/vue/disabled.vue?raw';
-import fieldsetVueField from '../../../snippets/fieldset/vue/field.vue?raw';
-import fieldsetVueInputWithSelect from '../../../snippets/fieldset/vue/input-with-select.vue?raw';
-import fieldsetVueInvalid from '../../../snippets/fieldset/vue/invalid.vue?raw';
-import fieldsetVueRootProvider from '../../../snippets/fieldset/vue/root-provider.vue?raw';
-
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/fieldset" />
@@ -47,46 +24,7 @@ for CSS Modules, and from `@moduix/react-tailwind/fieldset`, `@moduix/solid-tail
 Build a group with `Fieldset`, `FieldsetLegend`, the related controls, and optional helper or error
 text. `Fieldset` is the root component for the group.
 
-<ExampleFrame variant="component">
-  <FieldsetBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/fieldset/fieldset-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/basic" />
 
 ## Install with shadcn
 
@@ -163,297 +101,55 @@ Use `asChild` with one semantic child when replacing a part's rendered element.
 Use the legend to name a group of related checkbox controls. Add `CheckboxHiddenInput` to each
 checkbox that needs native focus, form submission, and form reset behavior.
 
-<ExampleFrame variant="component">
-  <FieldsetCheckbox />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/checkbox.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidCheckbox} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueCheckbox} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/fieldset/fieldset-checkbox.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/checkbox" />
 
 ### Disabled
 
 Set `disabled` on the root. The browser disables native controls, and Ark-aware controls read the same
 state from the fieldset context.
 
-<ExampleFrame variant="component">
-  <FieldsetDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/fieldset/fieldset-disabled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/disabled" />
 
 ### Field
 
 Nest `Field` components when each control needs its own label, helper text, or error message in addition
 to the shared legend.
 
-<ExampleFrame variant="component">
-  <FieldsetField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/fieldset/fieldset-field.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/field" />
 
 ### Input with Select
 
 Combine a country-code `Select` and a phone-number `Input` under one legend when together they make up
 one phone number.
 
-<ExampleFrame variant="component">
-  <FieldsetInputWithSelect />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/input-with-select.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidInputWithSelect} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueInputWithSelect} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/fieldset/fieldset-input-with-select.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/input-with-select" />
 
 ### Invalid
 
 Set `invalid` on `Fieldset` to mark the group as invalid and show its group-level error. Set `invalid`
 on nested `Field` components as well when individual controls need their own invalid styling and ARIA state.
 
-<ExampleFrame variant="component">
-  <FieldsetInvalid />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/invalid.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidInvalid} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueInvalid} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/fieldset/fieldset-invalid.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/invalid" />
 
 ### Advanced Customization
 
 Use `useFieldset` with `FieldsetRootProvider` to create fieldset state outside the JSX tree and share
 it with sibling controls or reusable descendants.
 
-<ExampleFrame variant="component">
-  <FieldsetRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/fieldset/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fieldsetSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fieldsetVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/fieldset/fieldset-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="fieldset/root-provider" />
 
 ## Styling
 
-### CSS Properties
+The root resets the browser's fieldset border, margin, and padding and fills the width of its
+container. A disabled `Fieldset` dims the whole group once; `Field` and `Input` inside it do not dim
+again. `invalid` does not draw a border on the group: show the problem with `FieldsetErrorText` and
+mark the affected controls through their own `Field`.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <FieldsetDocs.FieldsetCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on the part overrides the layered component styles.
 
 ### Styling hooks
 
 Every DOM part has Ark's `data-scope="fieldset"` and a `data-part` that matches the anatomy. The root
 and legend expose `data-disabled` and `data-invalid`; moduix also adds `data-slot="fieldset-*"` hooks.
-Use `className` in React or `class` in Solid and Vue for local overrides. CSS Modules packages use the
-`--moduix-fieldset-*` variables below for theme-level customization, while Tailwind packages use
-utilities and consumer class overrides.

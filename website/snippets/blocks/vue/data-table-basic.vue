@@ -54,7 +54,7 @@ const table = useTable({ features, data: payments, columns });
   <TableScrollArea :class="styles.root"
     ><Table :class="styles.table">
       <TableColumnGroup
-        ><TableColumn :html-width="128" /><TableColumn /><TableColumn :html-width="128"
+        ><TableColumn :width="128" /><TableColumn /><TableColumn :width="128"
       /></TableColumnGroup>
       <TableHeader
         ><TableRow v-for="group in table.getHeaderGroups()" :key="group.id">

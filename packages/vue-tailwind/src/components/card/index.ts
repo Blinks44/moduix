@@ -21,3 +21,5 @@ export {
   CardMedia,
   CardTitle,
 };
+
+export type { Props as CardRootProps, CardSize, CardVariant } from './Card.vue';

@@ -4,7 +4,7 @@ import type { MenuItemIndicatorProps } from '@ark-ui/vue/menu';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import styles from './Menu.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -24,6 +24,6 @@ const attrs = useAttrs();
     :class="clsx(styles.itemIndicator, className)"
     data-slot="menu-item-indicator"
   >
-    <slot><CheckIcon :class="styles.itemIndicatorIcon" /></slot>
+    <slot><CheckIcon /></slot>
   </ArkMenuItemIndicator>
 </template>

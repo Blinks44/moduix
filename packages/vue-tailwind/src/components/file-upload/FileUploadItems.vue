@@ -23,6 +23,6 @@ const isImageFile = (file: File) => file.type.startsWith('image/');
     </FileUploadItemPreview>
     <FileUploadItemName />
     <FileUploadItemMetadata :file="file" />
-    <FileUploadItemDeleteTrigger :aria-label="`Remove ${file.name}`" />
+    <FileUploadItemDeleteTrigger />
   </FileUploadItem>
 </template>

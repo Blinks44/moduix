@@ -288,7 +288,7 @@ export const CustomStyling: Story = {
     <FloatingPanel defaultSize={{ width: 380, height: 240 }}>
       <FloatingPanelTrigger asChild={(props) => <Button {...props()}>Open styled panel</Button>} />
       <FloatingPanelSurface title="Custom styling" class={storyStyles.customPanel}>
-        <p>Theme variables change the visual treatment without changing Ark composition.</p>
+        <p>A class on the content restyles the panel without changing Ark composition.</p>
       </FloatingPanelSurface>
     </FloatingPanel>
   ),

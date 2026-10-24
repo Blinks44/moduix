@@ -1,4 +1,6 @@
 import { Avatar as AvatarPrimitive, useAvatar, useAvatarContext } from '@ark-ui/solid/avatar';
+import type { HTMLArkProps } from '@ark-ui/solid/factory';
+import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
 import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
@@ -7,7 +9,7 @@ import { cn } from '@/lib/moduix/cn';
 type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 const avatarVariants = cva(
-  'relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-muted align-middle font-medium text-foreground select-none',
+  'relative inline-flex shrink-0 items-center justify-center rounded-full bg-muted align-middle leading-none font-medium text-foreground select-none',
   {
     variants: {
       size: {
@@ -27,6 +29,7 @@ const avatarVariants = cva(
 type AvatarRootProps = ComponentProps<typeof AvatarPrimitive.Root> & {
   size?: AvatarSize;
 };
+type AvatarGroupProps = HTMLArkProps<'div'>;
 type AvatarRootProviderProps = ComponentProps<typeof AvatarPrimitive.RootProvider> & {
   size?: AvatarSize;
 };
@@ -36,9 +39,9 @@ function Avatar(props: AvatarRootProps) {
 
   return (
     <AvatarPrimitive.Root
-      data-size={local.size}
       class={cn(avatarVariants({ size: local.size }), local.class)}
       {...others}
+      data-size={local.size ?? 'md'}
       data-slot="avatar-root"
     />
   );
@@ -51,7 +54,7 @@ function AvatarRootProvider(props: AvatarRootProviderProps) {
     <AvatarPrimitive.RootProvider
       class={cn(avatarVariants({ size: local.size }), local.class)}
       {...others}
-      data-size={local.size}
+      data-size={local.size ?? 'md'}
       data-slot="avatar-root-provider"
     />
   );
@@ -63,7 +66,7 @@ function AvatarImage(props: ComponentProps<typeof AvatarPrimitive.Image>) {
   return (
     <AvatarPrimitive.Image
       class={cn(
-        'block size-full rounded-[inherit] object-cover object-center data-[state=hidden]:hidden',
+        'block size-full rounded-[inherit] object-cover data-[state=hidden]:hidden',
         local.class,
       )}
       {...others}
@@ -73,19 +76,32 @@ function AvatarImage(props: ComponentProps<typeof AvatarPrimitive.Image>) {
 }
 
 function AvatarFallback(props: ComponentProps<typeof AvatarPrimitive.Fallback>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <AvatarPrimitive.Fallback
       class={cn(
-        'inline-flex size-full items-center justify-center rounded-[inherit] bg-[inherit] data-[state=hidden]:hidden',
+        'inline-flex size-full items-center justify-center overflow-hidden rounded-[inherit] data-[state=hidden]:hidden',
         local.class,
       )}
       {...others}
       data-slot="avatar-fallback"
-    >
-      {local.children}
-    </AvatarPrimitive.Fallback>
+    />
+  );
+}
+
+function AvatarGroup(props: AvatarGroupProps) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.div
+      class={cn(
+        'flex items-center *:not-first:-ms-2 *:data-[scope=avatar]:ring-2 *:data-[scope=avatar]:ring-background',
+        local.class,
+      )}
+      {...others}
+      data-slot="avatar-group"
+    />
   );
 }
 
@@ -95,8 +111,10 @@ export {
   Avatar,
   AvatarContext,
   AvatarFallback,
+  AvatarGroup,
   AvatarImage,
   AvatarRootProvider,
   useAvatar,
   useAvatarContext,
 };
+export type { AvatarGroupProps, AvatarRootProps, AvatarRootProviderProps, AvatarSize };

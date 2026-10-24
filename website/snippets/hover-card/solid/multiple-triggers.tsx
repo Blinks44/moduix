@@ -37,9 +37,7 @@ export default function MultipleTriggersHoverCard() {
         <For each={profiles}>
           {(profile, index) => (
             <span>
-              <HoverCardTrigger value={profile.id} class={styles.trigger}>
-                {profile.username}
-              </HoverCardTrigger>
+              <HoverCardTrigger value={profile.id}>{profile.username}</HoverCardTrigger>
               {index() < profiles.length - 1 ? ' and ' : null}
             </span>
           )}

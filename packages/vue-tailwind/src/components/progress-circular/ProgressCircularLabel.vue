@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkProgressLabel
     v-bind="attrs"
-    :class="cn('max-w-full min-w-0 text-center text-sm font-regular wrap-anywhere', className)"
+    :class="cn('text-center text-sm wrap-anywhere', className)"
     data-slot="progress-circular-label"
   >
     <slot />

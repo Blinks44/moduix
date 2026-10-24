@@ -6,13 +6,16 @@ import Input from '../input/Input.vue';
 import type { Emits as InputEmits, Props as InputProps } from '../input/Input.vue';
 
 defineOptions({ inheritAttrs: false });
+
 export interface Props extends /* @vue-ignore */ InputProps {
   class?: HTMLAttributes['class'];
 }
+
 const props = defineProps<Props>();
 export interface Emits extends /* @vue-ignore */ InputEmits {}
 defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
+
 const attrs = useAttrs();
 </script>
 

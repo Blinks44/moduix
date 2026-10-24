@@ -4,7 +4,7 @@ import type { CollapsibleIndicatorProps } from '@ark-ui/vue/collapsible';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import styles from './Collapsible.module.css';
 
 defineOptions({ inheritAttrs: false });

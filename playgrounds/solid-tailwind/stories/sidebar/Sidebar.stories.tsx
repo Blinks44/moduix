@@ -326,13 +326,13 @@ function SidebarNavigation({ accentClassName }: { accentClassName?: string } = {
                     <SidebarNavigationSubList>
                       <SidebarNavigationSubItem>
                         <SidebarNavigationSubButton href="#website" class={accentClassName}>
-                          Website
+                          <SidebarLabel>Website</SidebarLabel>
                         </SidebarNavigationSubButton>
                         <SidebarNavigationBadge>3</SidebarNavigationBadge>
                       </SidebarNavigationSubItem>
                       <SidebarNavigationSubItem>
                         <SidebarNavigationSubButton href="#mobile" class={accentClassName}>
-                          Mobile app
+                          <SidebarLabel>Mobile app</SidebarLabel>
                         </SidebarNavigationSubButton>
                       </SidebarNavigationSubItem>
                     </SidebarNavigationSubList>

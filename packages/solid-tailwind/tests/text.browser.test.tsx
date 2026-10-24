@@ -8,14 +8,11 @@ test('renders semantic defaults and stable data hooks', () => {
     <>
       <Text
         data-testid="default"
-        data-align="end"
-        data-line-clamp=""
         data-part="custom-part"
         data-scope="custom-scope"
         data-size="xs"
         data-slot="custom-slot"
         data-tone="primary"
-        data-truncate=""
         data-weight="bold"
       >
         Body copy
@@ -135,4 +132,16 @@ test('lets consumer utilities override typography defaults', () => {
     fontWeight: '700',
     textAlign: 'center',
   });
+});
+
+test('inherits the parent alignment unless align is set', () => {
+  render(() => (
+    <div style={{ 'text-align': 'center' }}>
+      <Text>Inherited copy</Text>
+      <Text align="end">Aligned copy</Text>
+    </div>
+  ));
+
+  expect(getComputedStyle(screen.getByText('Inherited copy')).textAlign).toBe('center');
+  expect(getComputedStyle(screen.getByText('Aligned copy')).textAlign).toBe('end');
 });

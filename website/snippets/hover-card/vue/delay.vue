@@ -11,7 +11,7 @@ import styles from '@/components/examples/hover-card/hover-card-delay.module.css
 
 <template>
   <HoverCard :open-delay="200" :close-delay="500">
-    <HoverCardTrigger :class="styles.trigger">Release notes</HoverCardTrigger>
+    <HoverCardTrigger>Release notes</HoverCardTrigger>
     <HoverCardPositioner>
       <HoverCardContent>
         <HoverCardBody>

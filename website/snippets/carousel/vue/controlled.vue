@@ -50,12 +50,12 @@ const page = ref(0);
     :slide-count="slides.length"
     @page-change="page = $event.page"
   >
-    <CarouselItemGroup :class="styles.itemGroup" aria-label="Controlled gallery">
+    <CarouselItemGroup>
       <CarouselItem v-for="(slide, index) in slides" :key="slide.id" :index="index">
         <img :class="styles.image" :src="slide.src" :alt="slide.alt" />
       </CarouselItem>
     </CarouselItemGroup>
-    <CarouselControl :class="styles.control">
+    <CarouselControl>
       <CarouselPrevTrigger />
       <CarouselNextTrigger />
     </CarouselControl>

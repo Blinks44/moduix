@@ -8,9 +8,9 @@ import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
-type SeparatorOrientation = 'horizontal' | 'vertical';
-type SeparatorSize = 'xs' | 'sm' | 'md' | 'lg';
-type SeparatorVariant = 'solid' | 'dashed' | 'dotted';
+export type SeparatorOrientation = 'horizontal' | 'vertical';
+export type SeparatorSize = 'xs' | 'sm' | 'md' | 'lg';
+export type SeparatorVariant = 'solid' | 'dashed' | 'dotted';
 
 const separatorVariants = cva('block shrink-0 m-0 border-border', {
   variants: {
@@ -40,11 +40,6 @@ const separatorVariants = cva('block shrink-0 m-0 border-border', {
     { orientation: 'vertical', size: 'md', class: 'border-s-2' },
     { orientation: 'vertical', size: 'lg', class: 'border-s-[3px]' },
   ],
-  defaultVariants: {
-    orientation: 'horizontal',
-    size: 'sm',
-    variant: 'solid',
-  },
 });
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {

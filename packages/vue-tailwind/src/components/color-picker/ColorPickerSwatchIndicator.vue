@@ -23,7 +23,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'pointer-events-none absolute inset-0 hidden items-center justify-center text-white [filter:drop-shadow(0_1px_1px_rgb(0_0_0_/_45%))] data-[state=checked]:inline-flex [&>svg]:size-4',
+        'inline-flex text-white [filter:drop-shadow(0_1px_1px_rgb(0_0_0_/_45%))] [&>svg]:size-4 [&[hidden]]:hidden',
         className,
       )
     "

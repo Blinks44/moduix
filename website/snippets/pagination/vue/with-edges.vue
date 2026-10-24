@@ -7,11 +7,10 @@ import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
 } from '@moduix/vue/pagination';
-import styles from '@/components/examples/pagination/pagination-with-edges.module.css';
 </script>
 
 <template>
-  <Pagination :class="styles.root" :count="400" :page-size="20" :sibling-count="2">
+  <Pagination :count="400" :page-size="20" :sibling-count="2">
     <PaginationFirstTrigger />
     <PaginationPrevTrigger />
     <PaginationItems />

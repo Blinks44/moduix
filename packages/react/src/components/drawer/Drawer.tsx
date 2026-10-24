@@ -9,7 +9,7 @@ import {
 import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
-import { createContext, forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import {
   OverlayPortal,
@@ -20,14 +20,15 @@ import { CloseButton } from '../close-button';
 import styles from './Drawer.module.css';
 
 type DrawerVariant = 'island';
-const DrawerVariantContext = createContext<DrawerVariant | undefined>(undefined);
-
-type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> &
-  OverlayPortalProps & { variant?: DrawerVariant };
+type DrawerSize = 'sm' | 'md' | 'lg' | 'xl';
+type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> & OverlayPortalProps;
 type DrawerRootProviderProps = ComponentProps<typeof DrawerPrimitive.RootProvider> &
   OverlayPortalProps;
 type DrawerContentProps = ComponentProps<typeof DrawerPrimitive.Content> & {
-  variant?: 'island';
+  /** Width preset for `start` and `end` drawers: 18rem, 22rem, 28rem, or 36rem. */
+  size?: DrawerSize;
+  /** `island` insets the surface from the viewport edges and rounds every corner. */
+  variant?: DrawerVariant;
 };
 
 function Drawer({
@@ -35,26 +36,11 @@ function Drawer({
   portalled,
   portalRef,
   unmountOnExit = true,
-  variant,
-  swipeDirection,
-  snapPoints,
-  defaultSnapPoint,
   ...props
 }: DrawerRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DrawerVariantContext.Provider value={variant}>
-        <DrawerPrimitive.Root
-          {...props}
-          lazyMount={lazyMount}
-          unmountOnExit={unmountOnExit}
-          swipeDirection={swipeDirection}
-          snapPoints={snapPoints ?? (variant === 'island' ? [1] : undefined)}
-          defaultSnapPoint={
-            defaultSnapPoint !== undefined ? defaultSnapPoint : variant === 'island' ? 1 : undefined
-          }
-        />
-      </DrawerVariantContext.Provider>
+      <DrawerPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
     </OverlayPortalProvider>
   );
 }
@@ -82,16 +68,8 @@ const DrawerStack = DrawerPrimitive.Stack;
 const DrawerTrigger = forwardRef<
   ComponentRef<typeof DrawerPrimitive.Trigger>,
   ComponentProps<typeof DrawerPrimitive.Trigger>
->(function DrawerTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <DrawerPrimitive.Trigger
-      ref={ref}
-      asChild={asChild}
-      className={clsx(!asChild && styles.trigger, className)}
-      {...props}
-      data-slot="drawer-trigger"
-    />
-  );
+>(function DrawerTrigger(props, ref) {
+  return <DrawerPrimitive.Trigger ref={ref} {...props} data-slot="drawer-trigger" />;
 });
 
 const DrawerBackdrop = forwardRef<
@@ -127,15 +105,14 @@ const DrawerPositioner = forwardRef<
 });
 
 const DrawerContent = forwardRef<ComponentRef<typeof DrawerPrimitive.Content>, DrawerContentProps>(
-  function DrawerContent({ className, variant, ...props }, ref) {
-    const rootVariant = useContext(DrawerVariantContext);
-
+  function DrawerContent({ className, size = 'md', variant, ...props }, ref) {
     return (
       <DrawerPrimitive.Content
         ref={ref}
         className={clsx(styles.content, className)}
         {...props}
-        data-variant={variant ?? rootVariant}
+        data-size={size}
+        data-variant={variant}
         data-slot="drawer-content"
       />
     );
@@ -201,16 +178,8 @@ const DrawerDescription = forwardRef<
 const DrawerCloseTrigger = forwardRef<
   ComponentRef<typeof DrawerPrimitive.CloseTrigger>,
   ComponentProps<typeof DrawerPrimitive.CloseTrigger>
->(function DrawerCloseTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <DrawerPrimitive.CloseTrigger
-      ref={ref}
-      asChild={asChild}
-      className={clsx(!asChild && styles.closeTrigger, className)}
-      {...props}
-      data-slot="drawer-close-trigger"
-    />
-  );
+>(function DrawerCloseTrigger(props, ref) {
+  return <DrawerPrimitive.CloseTrigger ref={ref} {...props} data-slot="drawer-close-trigger" />;
 });
 
 const DrawerCloseIcon = forwardRef<
@@ -341,4 +310,11 @@ export {
   useDrawer,
   useDrawerContext,
   useDrawerStackContext,
+};
+export type {
+  DrawerContentProps,
+  DrawerRootProps,
+  DrawerRootProviderProps,
+  DrawerSize,
+  DrawerVariant,
 };

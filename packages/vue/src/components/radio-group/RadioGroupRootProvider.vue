@@ -5,15 +5,17 @@ import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './RadioGroup.module.css';
+import type { RadioGroupSize } from './RadioGroup.vue';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ RadioGroupRootProviderProps {
   class?: HTMLAttributes['class'];
+  size?: RadioGroupSize;
   value: RadioGroupRootProviderProps['value'];
 }
 
-const { class: className, value } = defineProps<Props>();
+const { class: className, size = 'md', value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -23,6 +25,7 @@ const attrs = useAttrs();
   <ArkRadioGroupRootProvider
     v-bind="attrs"
     :class="clsx(styles.root, className)"
+    :data-size="size"
     :value="value"
     data-slot="radio-group-root-provider"
   >

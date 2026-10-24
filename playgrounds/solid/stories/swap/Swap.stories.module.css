@@ -21,8 +21,8 @@
   --moduix-compact-content-gap: 0;
   --moduix-compact-label-width: 0;
 
-  width: var(--moduix-button-size-icon-md, var(--moduix-size-md));
-  min-width: var(--moduix-button-size-icon-md, var(--moduix-size-md));
+  width: var(--moduix-size-md);
+  min-width: var(--moduix-size-md);
   overflow: hidden;
   transition:
     width var(--moduix-transition-default),

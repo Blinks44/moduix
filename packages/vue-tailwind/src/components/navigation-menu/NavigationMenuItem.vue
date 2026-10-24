@@ -17,7 +17,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const itemClass =
-  'relative group-has-[>[data-slot=navigation-menu-indicator]]/navigation-menu-list:static group-has-[>[data-slot=navigation-menu-viewport-positioner]>[data-slot=navigation-menu-viewport]]/navigation-menu:static';
+  'relative group-has-[>[data-slot=navigation-menu-indicator]]/navigation-menu-list:static';
 </script>
 
 <template>

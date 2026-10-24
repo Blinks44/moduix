@@ -3,57 +3,73 @@
 import {
   JsonTreeView as JsonTreeViewPrimitive,
   useJsonTreeView,
+  type JsonTreeViewRootProps,
+  type JsonTreeViewRootProviderProps,
+  type JsonTreeViewTreeProps,
+  type UseJsonTreeViewProps,
+  type UseJsonTreeViewReturn,
 } from '@ark-ui/react/json-tree-view';
-import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 
-const rootClassName =
-  "box-border flex w-full min-w-0 flex-col font-mono text-xs leading-4 text-foreground data-disabled:opacity-50 [&_[data-kind='brace']]:font-medium [&_[data-kind='brace']]:text-muted-foreground [&_[data-kind='colon']]:text-muted-foreground [&_[data-kind='constructor']]:font-medium [&_[data-kind='constructor']]:text-muted-foreground [&_[data-kind='error-stack']]:text-destructive [&_[data-kind='function-body']]:text-[color-mix(in_oklab,var(--color-chart-5)_72%,var(--color-foreground))] [&_[data-kind='function-body']]:italic [&_[data-kind='function-type']]:text-[color-mix(in_oklab,var(--color-chart-5)_72%,var(--color-foreground))] [&_[data-kind='function-type']]:italic [&_[data-kind='key']]:font-medium [&_[data-kind='key']]:text-[color-mix(in_oklab,var(--color-chart-1)_72%,var(--color-foreground))] [&_[data-kind='operator']]:text-destructive [&_[data-kind='preview'][data-type='bigint']]:text-[color-mix(in_oklab,var(--color-chart-3)_78%,var(--color-foreground))] [&_[data-kind='preview'][data-type='boolean']]:font-medium [&_[data-kind='preview'][data-type='boolean']]:text-[color-mix(in_oklab,var(--color-chart-4)_74%,var(--color-foreground))] [&_[data-kind='preview'][data-type='error']]:text-destructive [&_[data-kind='preview'][data-type='function']]:text-[color-mix(in_oklab,var(--color-chart-5)_72%,var(--color-foreground))] [&_[data-kind='preview'][data-type='null']]:font-medium [&_[data-kind='preview'][data-type='null']]:text-muted-foreground [&_[data-kind='preview'][data-type='null']]:italic [&_[data-kind='preview'][data-type='number']]:text-[color-mix(in_oklab,var(--color-chart-3)_78%,var(--color-foreground))] [&_[data-kind='preview'][data-type='string']]:text-[color-mix(in_oklab,var(--color-success)_78%,var(--color-foreground))] [&_[data-kind='preview'][data-type='undefined']]:font-medium [&_[data-kind='preview'][data-type='undefined']]:text-muted-foreground [&_[data-kind='preview'][data-type='undefined']]:italic [&_[data-kind='preview-text']]:text-muted-foreground [&_[data-scope='json-tree-view'][data-part='branch']]:flex [&_[data-scope='json-tree-view'][data-part='branch']]:min-w-0 [&_[data-scope='json-tree-view'][data-part='branch']]:flex-col [&_[data-scope='json-tree-view'][data-part='branch']]:gap-1 [&_[data-scope='json-tree-view'][data-part='branch-content']]:flex [&_[data-scope='json-tree-view'][data-part='branch-content']]:min-w-0 [&_[data-scope='json-tree-view'][data-part='branch-content']]:flex-col [&_[data-scope='json-tree-view'][data-part='branch-content']]:gap-1 [&_[data-scope='json-tree-view'][data-part='branch-content']]:overflow-hidden [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:relative [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:z-0 [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:box-border [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:flex [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:min-h-5 [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:w-full [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:min-w-0 [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:cursor-pointer [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:items-center [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:gap-0.5 [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:rounded-xs [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:bg-transparent [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:py-0.5 [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:ps-[calc(0.5rem+((var(--depth,1)-1)*1rem))] [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:pe-1 [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:text-start [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:text-inherit [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:transition-[color,opacity] [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:duration-200 [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:ease-in-out [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:outline-none [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:select-none [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:[font:inherit] [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:pointer-events-none [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:absolute [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:inset-y-0 [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:start-[calc(0.25rem+((var(--depth,1)-1)*1rem))] [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:end-0 [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:-z-1 [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:rounded-[inherit] [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:bg-transparent [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:ring-1 [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:ring-transparent [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:transition-[background-color,box-shadow] [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:duration-200 [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:ease-in-out [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:content-[''] [&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:ring-inset motion-reduce:[&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:transition-none motion-reduce:[&_[data-scope='json-tree-view'][data-part='branch-control'],&_[data-scope='json-tree-view'][data-part='item']]:before:transition-none [&_[data-scope='json-tree-view'][data-part='branch-control']:focus-visible,&_[data-scope='json-tree-view'][data-part='item']:focus-visible]:before:ring-ring [&_[data-scope='json-tree-view'][data-part='branch-control'][data-disabled],&_[data-scope='json-tree-view'][data-part='item'][data-disabled]]:cursor-default [&_[data-scope='json-tree-view'][data-part='branch-control'][data-disabled],&_[data-scope='json-tree-view'][data-part='item'][data-disabled]]:text-muted-foreground [&_[data-scope='json-tree-view'][data-part='branch-control'][data-focus],&_[data-scope='json-tree-view'][data-part='item'][data-focus]]:before:ring-ring [&_[data-scope='json-tree-view'][data-part='branch-control'][data-selected],&_[data-scope='json-tree-view'][data-part='item'][data-selected]]:before:bg-[color-mix(in_oklab,var(--color-accent)_72%,var(--color-background))] [&_[data-scope='json-tree-view'][data-part='branch-indicator']]:inline-flex [&_[data-scope='json-tree-view'][data-part='branch-indicator']]:size-3 [&_[data-scope='json-tree-view'][data-part='branch-indicator']]:shrink-0 [&_[data-scope='json-tree-view'][data-part='branch-indicator']]:items-center [&_[data-scope='json-tree-view'][data-part='branch-indicator']]:justify-center [&_[data-scope='json-tree-view'][data-part='branch-indicator']]:text-[color-mix(in_oklab,var(--color-muted-foreground)_42%,var(--color-foreground))] [&_[data-scope='json-tree-view'][data-part='branch-indicator']]:transition-transform [&_[data-scope='json-tree-view'][data-part='branch-indicator']]:duration-200 [&_[data-scope='json-tree-view'][data-part='branch-indicator']]:ease-in-out motion-reduce:[&_[data-scope='json-tree-view'][data-part='branch-indicator']]:transition-none [&_[data-scope='json-tree-view'][data-part='branch-indicator']_svg]:size-3 [&_[data-scope='json-tree-view'][data-part='branch-indicator'][data-state='open']]:rotate-90 [&_[data-scope='json-tree-view'][data-part='branch-text']]:min-w-0 [&_[data-scope='json-tree-view'][data-part='branch-text']]:wrap-anywhere [&_[data-scope='json-tree-view'][data-part='item-text']]:min-w-0 [&_[data-scope='json-tree-view'][data-part='item-text']]:wrap-anywhere [@media(hover:hover)]:[&_[data-scope='json-tree-view'][data-part='branch-control']:not([data-disabled]):hover,&_[data-scope='json-tree-view'][data-part='item']:not([data-disabled]):hover]:before:bg-[color-mix(in_oklab,var(--color-accent)_72%,var(--color-background))]";
+// Ark generates the JSON nodes, so the root styles them through their data attributes.
+const rootClassName = [
+  'flex w-full min-w-0 flex-col font-mono text-xs text-foreground',
+  // Generated branches and their content.
+  '[&_[data-scope=json-tree-view]:is([data-part=branch],[data-part=branch-content])]:flex [&_[data-scope=json-tree-view]:is([data-part=branch],[data-part=branch-content])]:min-w-0 [&_[data-scope=json-tree-view]:is([data-part=branch],[data-part=branch-content])]:flex-col [&_[data-scope=json-tree-view]:is([data-part=branch],[data-part=branch-content])]:gap-1',
+  // Branch content opens and closes like a collapsible.
+  '[&_[data-scope=json-tree-view][data-part=branch-content]]:overflow-hidden [&_[data-scope=json-tree-view][data-part=branch-content]]:data-[state=open]:animate-moduix-collapsible-open [&_[data-scope=json-tree-view][data-part=branch-content]]:data-[state=closed]:animate-moduix-collapsible-closed motion-reduce:[&_[data-scope=json-tree-view][data-part=branch-content]]:data-[state]:animate-none',
+  // Generated rows; Ark sets --depth on each row.
+  '[&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:[--_json-tree-view-indent:calc((var(--depth)-1)*var(--moduix-spacing-4))] [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:relative [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:z-0 [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:flex [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:min-w-0 [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:cursor-pointer [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:items-start [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:gap-0.5 [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:rounded-xs [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:py-0.5 [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:ps-[calc(var(--_json-tree-view-indent)+var(--moduix-spacing-2))] [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:pe-1 [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:outline-none',
+  // Row highlight and focus ring.
+  '[&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:pointer-events-none [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:absolute [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:inset-y-0 [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:start-[calc(var(--_json-tree-view-indent)+var(--moduix-spacing-1))] [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:end-0 [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:-z-1 [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:rounded-[inherit] [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:ring-1 [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:ring-transparent [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:ring-inset [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:transition-[background-color,box-shadow] [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:duration-normal [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:before:ease-in-out [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:hover:before:bg-[color-mix(in_oklab,var(--color-accent)_72%,var(--color-background))] [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:data-selected:before:bg-[color-mix(in_oklab,var(--color-accent)_72%,var(--color-background))] [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:focus-visible:before:ring-ring [&_[data-scope=json-tree-view]:is([data-part=branch-control],[data-part=item])]:data-focus:before:ring-ring',
+  // Branch indicator and node text.
+  '[&_[data-scope=json-tree-view][data-part=branch-indicator]]:inline-flex [&_[data-scope=json-tree-view][data-part=branch-indicator]]:h-lh [&_[data-scope=json-tree-view][data-part=branch-indicator]]:w-3 [&_[data-scope=json-tree-view][data-part=branch-indicator]]:shrink-0 [&_[data-scope=json-tree-view][data-part=branch-indicator]]:items-center [&_[data-scope=json-tree-view][data-part=branch-indicator]]:justify-center [&_[data-scope=json-tree-view][data-part=branch-indicator]]:text-[color-mix(in_oklab,var(--color-muted-foreground)_42%,var(--color-foreground))] [&_[data-scope=json-tree-view][data-part=branch-indicator]]:transition-transform [&_[data-scope=json-tree-view][data-part=branch-indicator]]:duration-normal [&_[data-scope=json-tree-view][data-part=branch-indicator]]:ease-in-out [&_[data-scope=json-tree-view][data-part=branch-indicator]]:data-[state=open]:rotate-90 [&_[data-scope=json-tree-view][data-part=branch-indicator]_svg]:size-3 [&_[data-scope=json-tree-view]:is([data-part=branch-text],[data-part=item-text])]:min-w-0 [&_[data-scope=json-tree-view]:is([data-part=branch-text],[data-part=item-text])]:wrap-anywhere',
+  // Value tokens rendered by Ark.
+  '[&_[data-kind=key]]:font-medium [&_[data-kind=key]]:text-[color-mix(in_oklab,var(--color-chart-1)_72%,var(--color-foreground))] [&_:is([data-kind=colon],[data-kind=brace],[data-kind=preview-text],[data-kind=constructor])]:text-muted-foreground [&_[data-kind=colon]]:me-0.5 [&_:is([data-kind=brace],[data-kind=constructor])]:font-medium [&_[data-kind=preview][data-type=string]]:text-[color-mix(in_oklab,var(--color-success)_78%,var(--color-foreground))] [&_[data-kind=preview]:is([data-type=number],[data-type=bigint])]:text-[color-mix(in_oklab,var(--color-chart-3)_78%,var(--color-foreground))] [&_[data-kind=preview][data-type=boolean]]:font-medium [&_[data-kind=preview][data-type=boolean]]:text-[color-mix(in_oklab,var(--color-chart-4)_74%,var(--color-foreground))] [&_[data-kind=preview]:is([data-type=null],[data-type=undefined])]:font-medium [&_[data-kind=preview]:is([data-type=null],[data-type=undefined])]:text-muted-foreground [&_[data-kind=preview]:is([data-type=null],[data-type=undefined])]:italic [&_:is([data-kind=error-stack],[data-kind=operator],[data-kind=preview][data-type=error])]:text-destructive [&_:is([data-kind=function-type],[data-kind=function-body],[data-kind=preview][data-type=function])]:text-[color-mix(in_oklab,var(--color-chart-5)_72%,var(--color-foreground))] [&_:is([data-kind=function-type],[data-kind=function-body],[data-kind=preview][data-type=function])]:italic',
+].join(' ');
 
-const JsonTreeView = forwardRef<
-  ComponentRef<typeof JsonTreeViewPrimitive.Root>,
-  ComponentProps<typeof JsonTreeViewPrimitive.Root>
->(function JsonTreeView({ className, ...props }, ref) {
+const JsonTreeView = forwardRef<HTMLDivElement, JsonTreeViewRootProps>(function JsonTreeView(
+  { className, ...props },
+  ref,
+) {
   return (
     <JsonTreeViewPrimitive.Root
       ref={ref}
-      className={cn(rootClassName, "[&_[data-kind='colon']]:me-0.5", className)}
+      className={cn(rootClassName, className)}
       {...props}
       data-slot="json-tree-view-root"
     />
   );
 });
 
-const JsonTreeViewRootProvider = forwardRef<
-  ComponentRef<typeof JsonTreeViewPrimitive.RootProvider>,
-  ComponentProps<typeof JsonTreeViewPrimitive.RootProvider>
->(function JsonTreeViewRootProvider({ className, ...props }, ref) {
-  return (
-    <JsonTreeViewPrimitive.RootProvider
-      ref={ref}
-      className={cn(rootClassName, "[&_[data-kind='colon']]:me-0.5", className)}
-      {...props}
-      data-slot="json-tree-view-root-provider"
-    />
-  );
-});
+const JsonTreeViewRootProvider = forwardRef<HTMLDivElement, JsonTreeViewRootProviderProps>(
+  function JsonTreeViewRootProvider({ className, ...props }, ref) {
+    return (
+      <JsonTreeViewPrimitive.RootProvider
+        ref={ref}
+        className={cn(rootClassName, className)}
+        {...props}
+        data-slot="json-tree-view-root-provider"
+      />
+    );
+  },
+);
 
-const JsonTreeViewTree = forwardRef<
-  ComponentRef<typeof JsonTreeViewPrimitive.Tree>,
-  ComponentProps<typeof JsonTreeViewPrimitive.Tree>
->(function JsonTreeViewTree({ arrow, className, ...props }, ref) {
-  return (
-    <JsonTreeViewPrimitive.Tree
-      ref={ref}
-      arrow={arrow ?? <ChevronRightIcon aria-hidden="true" />}
-      className={cn('flex min-w-0 flex-col gap-1', className)}
-      {...props}
-      data-slot="json-tree-view-tree"
-    />
-  );
-});
+const JsonTreeViewTree = forwardRef<HTMLDivElement, JsonTreeViewTreeProps>(
+  function JsonTreeViewTree({ arrow, className, ...props }, ref) {
+    return (
+      <JsonTreeViewPrimitive.Tree
+        ref={ref}
+        arrow={arrow ?? <ChevronRightIcon aria-hidden="true" />}
+        className={cn('flex min-w-0 flex-col gap-1', className)}
+        {...props}
+        data-slot="json-tree-view-tree"
+      />
+    );
+  },
+);
 
 export { JsonTreeView, JsonTreeViewRootProvider, JsonTreeViewTree, useJsonTreeView };
 export type {
@@ -62,4 +78,4 @@ export type {
   JsonTreeViewTreeProps,
   UseJsonTreeViewProps,
   UseJsonTreeViewReturn,
-} from '@ark-ui/react/json-tree-view';
+};

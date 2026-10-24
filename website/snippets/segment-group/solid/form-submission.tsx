@@ -7,12 +7,7 @@ import {
 import { createSignal } from 'solid-js';
 import styles from '@/components/examples/segment-group/segment-group-form-submission.module.css';
 
-const frameworks = [
-  { value: 'React', label: 'React' },
-  { value: 'Solid', label: 'Solid' },
-  { value: 'Svelte', label: 'Svelte' },
-  { value: 'Vue', label: 'Vue' },
-];
+const frameworks = ['React', 'Solid', 'Svelte', 'Vue'];
 
 export default function FormSegmentGroupDemo() {
   const [submitted, setSubmitted] = createSignal('none');

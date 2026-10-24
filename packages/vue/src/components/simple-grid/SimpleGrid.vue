@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
+import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { CSSProperties, HTMLAttributes, StyleValue } from 'vue';
+import styles from './SimpleGrid.module.css';
 
 defineOptions({ inheritAttrs: false });
 
@@ -31,36 +33,25 @@ const attrs = useAttrs();
 const toCssLength = (value: number | string) => (typeof value === 'number' ? `${value}px` : value);
 
 const gridStyle = computed<StyleValue>(() => {
-  if (columns != null && (!Number.isInteger(columns) || columns <= 0)) {
-    throw new Error('SimpleGrid `columns` must be a finite positive integer.');
-  }
-  if (typeof minChildWidth === 'number' && (!Number.isFinite(minChildWidth) || minChildWidth < 0)) {
-    throw new Error('SimpleGrid `minChildWidth` must be a finite non-negative number.');
-  }
-
-  let gridTemplateColumns = 'minmax(0, 1fr)';
-  if (columns != null) {
-    gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
-  }
+  // Only set what was passed: an empty `rowGap` after `gap` would reset part of the shorthand.
+  const layoutStyle: CSSProperties = {};
   if (minChildWidth != null) {
-    gridTemplateColumns = `repeat(auto-fit, minmax(min(100%, ${toCssLength(minChildWidth)}), 1fr))`;
+    layoutStyle.gridTemplateColumns = `repeat(auto-fit, minmax(min(100%, ${toCssLength(minChildWidth)}), 1fr))`;
+  } else if (columns != null) {
+    layoutStyle.gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
   }
+  if (gap != null) layoutStyle.gap = toCssLength(gap);
+  if (rowGap != null) layoutStyle.rowGap = toCssLength(rowGap);
+  if (columnGap != null) layoutStyle.columnGap = toCssLength(columnGap);
 
-  const generatedStyle: CSSProperties = {
-    display: 'grid',
-    gridTemplateColumns,
-    ...(gap == null ? {} : { gap: toCssLength(gap) }),
-    ...(rowGap == null ? {} : { rowGap: toCssLength(rowGap) }),
-    ...(columnGap == null ? {} : { columnGap: toCssLength(columnGap) }),
-  };
-  return [generatedStyle, style];
+  return [layoutStyle, style];
 });
 </script>
 
 <template>
   <ark.div
     v-bind="attrs"
-    :class="className"
+    :class="clsx(styles.root, className)"
     :style="gridStyle"
     data-scope="simple-grid"
     data-part="root"

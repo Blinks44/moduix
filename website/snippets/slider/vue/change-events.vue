@@ -31,10 +31,8 @@ const handleValueChangeEnd = (details: SliderValueChangeDetails) => {
       @value-change="handleValueChange"
       @value-change-end="handleValueChangeEnd"
     >
-      <div :class="styles.header">
-        <SliderLabel>Gain</SliderLabel>
-        <SliderValueText />
-      </div>
+      <SliderLabel>Gain</SliderLabel>
+      <SliderValueText />
       <SliderControl>
         <SliderTrack>
           <SliderRange />

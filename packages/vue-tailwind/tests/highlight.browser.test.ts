@@ -46,8 +46,6 @@ test('renders matched text as styled marks without a wrapper', () => {
       'bg-[color-mix(in_oklab,var(--color-warning)_40%,var(--color-accent))]',
       'font-medium',
       'text-foreground',
-      'no-underline',
-      'shadow-none',
       'box-decoration-clone',
     ]),
   );

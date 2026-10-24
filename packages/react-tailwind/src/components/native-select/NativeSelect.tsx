@@ -11,8 +11,8 @@ type NativeSelectProps = ComponentProps<typeof FieldPrimitive.Select> & {
 };
 
 const NativeSelect = forwardRef<ComponentRef<typeof FieldPrimitive.Select>, NativeSelectProps>(
-  function NativeSelect({ className, controlProps, multiple, size, ...props }, ref) {
-    const isList = multiple || (size !== undefined && size > 1);
+  function NativeSelect({ className, controlProps, ...props }, ref) {
+    const isList = props.multiple || Number(props.size) > 1;
 
     return (
       <span
@@ -28,11 +28,9 @@ const NativeSelect = forwardRef<ComponentRef<typeof FieldPrimitive.Select>, Nati
           data-scope="field"
           data-part="select"
           data-slot="native-select-root"
-          multiple={multiple}
-          size={size}
           className={cn(
-            'peer/native-select box-border h-control-md w-56 max-w-full min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background ps-3 pe-11 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color,opacity] duration-200 ease-in-out [font:inherit] focus-visible:border-ring focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:outline-destructive aria-invalid:focus-visible:outline-destructive data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none forced-colors:appearance-auto forced-colors:pe-3',
-            isList && 'h-auto appearance-auto px-3 py-2',
+            'peer/native-select h-control-md w-56 max-w-full min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background ps-3.5 pe-[2.875rem] text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color,opacity] duration-normal ease-in-out [font:inherit] focus-visible:border-ring focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled aria-invalid:border-destructive aria-invalid:outline-destructive data-disabled:pointer-events-none data-disabled:opacity-disabled data-invalid:border-destructive data-invalid:outline-destructive forced-colors:appearance-auto forced-colors:pe-3.5',
+            isList && 'h-auto appearance-auto px-3.5 py-2',
             className,
           )}
         />
@@ -42,7 +40,7 @@ const NativeSelect = forwardRef<ComponentRef<typeof FieldPrimitive.Select>, Nati
           data-part="indicator"
           data-slot="native-select-indicator"
           className={cn(
-            'pointer-events-none absolute end-2 top-1/2 inline-flex size-6 -translate-y-1/2 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-disabled/native-select:opacity-50 peer-data-disabled/native-select:opacity-50 motion-reduce:transition-none forced-colors:hidden [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:peer-[:not([disabled]):not([data-disabled]):hover]/native-select:bg-muted [@media(hover:hover)]:peer-[:not([disabled]):not([data-disabled]):hover]/native-select:text-foreground',
+            'pointer-events-none absolute end-2 top-1/2 inline-flex size-6 -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground transition-[background-color,color,opacity] duration-normal ease-in-out peer-hover/native-select:bg-muted peer-hover/native-select:text-foreground peer-disabled/native-select:opacity-disabled peer-data-disabled/native-select:opacity-disabled forced-colors:hidden [&>svg]:size-4',
             isList && 'hidden',
           )}
         >

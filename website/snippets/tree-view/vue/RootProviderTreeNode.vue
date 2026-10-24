@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
-  TreeViewNode,
+  TreeViewNodeProvider,
+  TreeViewNodeContext,
   TreeViewBranch,
   TreeViewBranchControl,
   TreeViewBranchIndicator,
@@ -15,28 +16,26 @@ defineProps<{ node: FileNode; indexPath: number[] }>();
 </script>
 
 <template>
-  <TreeViewNode
-    :node="node"
-    :index-path="indexPath"
-    v-slot="{ node: currentNode, indexPath: currentIndexPath, state }"
-  >
-    <TreeViewBranch v-if="state.isBranch">
-      <TreeViewBranchControl>
-        <TreeViewBranchIndicator />
-        <TreeViewBranchText>{{ currentNode.name }}</TreeViewBranchText>
-      </TreeViewBranchControl>
-      <TreeViewBranchContent>
-        <TreeViewBranchIndentGuide />
-        <RootProviderTreeNode
-          v-for="(child, index) in currentNode.children"
-          :key="child.id"
-          :node="child"
-          :index-path="[...currentIndexPath, index]"
-        />
-      </TreeViewBranchContent>
-    </TreeViewBranch>
-    <TreeViewItem v-else>
-      <TreeViewItemText>{{ currentNode.name }}</TreeViewItemText>
-    </TreeViewItem>
-  </TreeViewNode>
+  <TreeViewNodeProvider :node="node" :index-path="indexPath">
+    <TreeViewNodeContext v-slot="state">
+      <TreeViewBranch v-if="state.isBranch">
+        <TreeViewBranchControl>
+          <TreeViewBranchIndicator />
+          <TreeViewBranchText>{{ node.name }}</TreeViewBranchText>
+        </TreeViewBranchControl>
+        <TreeViewBranchContent>
+          <TreeViewBranchIndentGuide />
+          <RootProviderTreeNode
+            v-for="(child, index) in node.children"
+            :key="child.id"
+            :node="child"
+            :index-path="[...indexPath, index]"
+          />
+        </TreeViewBranchContent>
+      </TreeViewBranch>
+      <TreeViewItem v-else>
+        <TreeViewItemText>{{ node.name }}</TreeViewItemText>
+      </TreeViewItem>
+    </TreeViewNodeContext>
+  </TreeViewNodeProvider>
 </template>

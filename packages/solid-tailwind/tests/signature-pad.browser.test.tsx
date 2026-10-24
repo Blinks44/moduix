@@ -77,33 +77,22 @@ test('keeps the disabled control and clear action unavailable', async () => {
   await expect
     .element(page.getByRole('button', { name: 'Clear signature', exact: true }))
     .toBeDisabled();
+  // The root already dims the whole pad, so the trigger must not dim again.
+  expect(
+    getComputedStyle(document.querySelector('[data-slot="signature-pad-clear-trigger"]')!).opacity,
+  ).toBe('1');
 });
 
-test('prevents the clear action from changing read-only signatures', async () => {
-  const drawEnds: string[][] = [];
-
+test('hides the clear action for read-only signatures', async () => {
   render(() => (
     <Field readOnly>
-      <SignaturePad
-        defaultPaths={defaultPaths}
-        onDrawEnd={(details) => drawEnds.push(details.paths)}
-        translations={translations}
-      >
+      <SignaturePad defaultPaths={defaultPaths} translations={translations}>
         <SignaturePadParts label="Read-only signature" />
       </SignaturePad>
     </Field>
   ));
 
-  const clearTrigger = screen.getByRole('button', { name: 'Clear signature' });
-
-  await expect
-    .element(page.getByRole('button', { name: 'Clear signature', exact: true }))
-    .toBeDisabled();
-  (clearTrigger as HTMLButtonElement).click();
-  await expect
-    .element(page.getByRole('application', { name: 'Signature drawing area', exact: true }))
-    .toBeAttached();
-  expect(drawEnds).toEqual([]);
+  await expect.element(page.locator('[data-slot="signature-pad-clear-trigger"]')).not.toBeVisible();
 });
 
 test('forwards Canvas control props and ref', async () => {
@@ -176,9 +165,7 @@ test('preserves read-only behavior through useSignaturePad and RootProvider', as
 
   render(() => <ProviderSignaturePad />);
 
-  await expect
-    .element(page.getByRole('button', { name: /clear signature/i, exact: true }))
-    .toBeDisabled();
+  await expect.element(page.locator('[data-slot="signature-pad-clear-trigger"]')).not.toBeVisible();
 });
 
 test('uses native utility defaults for component-owned visual parts', async () => {
@@ -205,7 +192,6 @@ test('uses native utility defaults for component-owned visual parts', async () =
   });
   expect(getComputedStyle(control)).toMatchObject({
     height: '160px',
-    minHeight: '160px',
     borderWidth: '1px',
     borderRadius: '8px',
   });
@@ -225,13 +211,6 @@ test('uses native utility defaults for component-owned visual parts', async () =
     top: '8px',
     insetInlineEnd: '8px',
   });
-  expect([...clearTrigger.classList]).toEqual(
-    expect.arrayContaining([
-      'focus-visible:outline-1',
-      'focus-visible:outline-offset-1',
-      '[@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted',
-    ]),
-  );
   expect(getComputedStyle(clearTrigger.querySelector('svg')!)).toMatchObject({
     width: '16px',
     height: '16px',
@@ -265,9 +244,7 @@ test('accepts a native Ark provider API without moduix metadata', async () => {
     );
   }
   render(() => <NativeProvider />);
-  await expect
-    .element(page.getByRole('button', { name: 'Clear signature', exact: true }))
-    .not.toBeDisabled();
+  await expect.element(page.locator('[data-slot="signature-pad-clear-trigger"]')).toBeVisible();
 });
 
 test('keeps plain readOnly metadata reactive with Field inheritance and explicit overrides', async () => {
@@ -287,19 +264,13 @@ test('keeps plain readOnly metadata reactive with Field inheritance and explicit
     </Field>
   ));
   await expect.element(page.getByTestId('read-only')).toContainText('true');
-  await expect
-    .element(page.getByRole('button', { name: 'Clear signature', exact: true }))
-    .toBeDisabled();
+  await expect.element(page.locator('[data-slot="signature-pad-clear-trigger"]')).not.toBeVisible();
   setReadOnly(false);
   await expect.element(page.getByTestId('read-only')).toContainText('false');
-  await expect
-    .element(page.getByRole('button', { name: 'Clear signature', exact: true }))
-    .not.toBeDisabled();
+  await expect.element(page.locator('[data-slot="signature-pad-clear-trigger"]')).toBeVisible();
   setReadOnly(true);
   await expect.element(page.getByTestId('read-only')).toContainText('true');
-  await expect
-    .element(page.getByRole('button', { name: 'Clear signature', exact: true }))
-    .toBeDisabled();
+  await expect.element(page.locator('[data-slot="signature-pad-clear-trigger"]')).not.toBeVisible();
 });
 
 test.each([false, true])('updates the clear trigger class (asChild=%s)', async (asChild) => {

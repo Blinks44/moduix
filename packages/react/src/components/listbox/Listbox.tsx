@@ -90,26 +90,17 @@ const ListboxFilter = forwardRef<HTMLDivElement, ComponentProps<'div'>>(function
 
 const ListboxClearTrigger = forwardRef<ComponentRef<typeof ark.button>, HTMLArkProps<'button'>>(
   function ListboxClearTrigger(
-    {
-      'aria-label': ariaLabel = a11yLabels.clearSearch,
-      className,
-      children,
-      type = 'button',
-      ...props
-    },
+    { 'aria-label': ariaLabel = a11yLabels.clearSearch, className, ...props },
     ref,
   ) {
     return (
       <CloseButton
         ref={ref}
-        type={type}
         aria-label={ariaLabel}
         className={clsx(styles.clearTrigger, className)}
         {...props}
         data-slot="listbox-clear-trigger"
-      >
-        {children}
-      </CloseButton>
+      />
     );
   },
 );
@@ -294,3 +285,31 @@ export {
   useListboxContext,
   useListboxItemContext,
 };
+
+export type {
+  CollectionItem,
+  ListboxContentProps,
+  ListboxContextProps,
+  ListboxEmptyProps,
+  ListboxHighlightChangeDetails,
+  ListboxInputProps,
+  ListboxItemContextProps,
+  ListboxItemGroupLabelProps,
+  ListboxItemGroupProps,
+  ListboxItemIndicatorProps,
+  ListboxItemProps,
+  ListboxItemTextProps,
+  ListboxLabelProps,
+  ListboxRootProps,
+  ListboxRootProviderProps,
+  ListboxScrollToIndexDetails,
+  ListboxSelectionDetails,
+  ListboxSelectionMode,
+  ListboxValueChangeDetails,
+  ListboxValueTextProps,
+  ListCollection,
+  UseListboxContext,
+  UseListboxItemContext,
+  UseListboxProps,
+  UseListboxReturn,
+} from '@ark-ui/react/listbox';

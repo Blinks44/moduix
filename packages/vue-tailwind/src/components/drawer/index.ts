@@ -56,7 +56,6 @@ export type {
   DrawerCloseTriggerBaseProps,
   DrawerCloseTriggerProps,
   DrawerContentBaseProps,
-  DrawerContentProps,
   DrawerContextProps,
   DrawerDescriptionBaseProps,
   DrawerDescriptionProps,
@@ -68,9 +67,7 @@ export type {
   DrawerPositionerBaseProps,
   DrawerPositionerProps,
   DrawerRootBaseProps,
-  DrawerRootProps,
   DrawerRootProviderBaseProps,
-  DrawerRootProviderProps,
   DrawerSnapPointChangeDetails,
   DrawerStackProps,
   DrawerSwipeAreaBaseProps,
@@ -86,4 +83,6 @@ export type {
   UseDrawerStackContext,
 } from '@ark-ui/vue/drawer';
 
-export type { DrawerVariant } from './context';
+export type { Props as DrawerRootProps } from './Drawer.vue';
+export type { Props as DrawerRootProviderProps } from './DrawerRootProvider.vue';
+export type { Props as DrawerContentProps, DrawerSize, DrawerVariant } from './DrawerContent.vue';

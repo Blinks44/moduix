@@ -4,7 +4,7 @@ import type { FloatingPanelStageTriggerProps } from '@ark-ui/vue/floating-panel'
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui/Icons';
+import { stageIcons } from './floating-panel.types';
 import styles from './FloatingPanel.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -16,7 +16,7 @@ export interface Props extends /* @vue-ignore */ FloatingPanelStageTriggerProps 
 }
 
 const { asChild = false, class: className, stage } = defineProps<Props>();
-const slots = defineSlots<{ default?: () => unknown }>();
+defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 </script>
@@ -29,9 +29,8 @@ const attrs = useAttrs();
     :stage="stage"
     data-slot="floating-panel-stage-trigger"
   >
-    <slot />
-    <MinusIcon v-if="!slots.default && !asChild && stage === 'minimized'" />
-    <MaximizeIcon v-if="!slots.default && !asChild && stage === 'maximized'" />
-    <RestoreIcon v-if="!slots.default && !asChild && stage === 'default'" />
+    <slot>
+      <component :is="stageIcons[stage]" v-if="!asChild" />
+    </slot>
   </ArkFloatingPanelStageTrigger>
 </template>

@@ -1,185 +1,114 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
+    --_toggle-bg: var(--moduix-color-secondary);
+    --_toggle-border-color: var(--moduix-color-secondary);
+    --_toggle-color: var(--moduix-color-secondary-foreground);
+    --_toggle-bg-pressed: var(--moduix-color-primary);
+    --_toggle-color-pressed: var(--moduix-color-primary-foreground);
+    --_toggle-height: var(--moduix-size-md);
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--moduix-toggle-content-gap, var(--moduix-spacing-2));
-    min-height: var(--moduix-toggle-size-md, var(--moduix-size-md));
+    gap: var(--moduix-spacing-2);
+    min-height: var(--_toggle-height);
     margin: 0;
-    border-style: solid;
-    border-width: var(--moduix-toggle-border-width, var(--moduix-border-width-sm));
-    border-radius: var(--moduix-toggle-radius, var(--moduix-radius-md));
-    padding-block: var(--moduix-toggle-padding-y-md, var(--moduix-spacing-1));
-    padding-inline: var(--moduix-toggle-padding-x-md, var(--moduix-spacing-4));
-    border-color: transparent;
-    background-color: transparent;
-    color: var(--moduix-toggle-color, var(--moduix-color-foreground));
+    border: var(--moduix-border-width-sm) solid
+      var(--moduix-toggle-border-color, var(--_toggle-border-color));
+    border-radius: var(--moduix-radius-md);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-4);
+    background-color: var(--moduix-toggle-bg, var(--_toggle-bg));
+    color: var(--moduix-toggle-color, var(--_toggle-color));
     appearance: none;
     font: inherit;
-    font-size: var(--moduix-toggle-font-size, var(--moduix-text-sm));
-    font-weight: var(--moduix-toggle-font-weight, var(--moduix-weight-medium));
-    line-height: var(--moduix-toggle-line-height, var(--moduix-line-height-text-sm));
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
     user-select: none;
     white-space: nowrap;
     cursor: pointer;
     transition:
-      background-color var(--moduix-toggle-transition, var(--moduix-transition-default)),
-      border-color var(--moduix-toggle-transition, var(--moduix-transition-default)),
-      color var(--moduix-toggle-transition, var(--moduix-transition-default)),
-      opacity var(--moduix-toggle-transition, var(--moduix-transition-default));
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default),
+      color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
 
     &:focus-visible {
-      outline: var(
-          --moduix-toggle-focus-ring-width,
-          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
-        )
-        solid var(--moduix-toggle-focus-ring-color, var(--moduix-color-ring));
-      outline-offset: var(--moduix-toggle-focus-ring-offset, var(--moduix-focus-ring-inset-offset));
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline-offset: var(--moduix-focus-ring-inset-offset);
     }
 
     &[data-disabled] {
-      opacity: var(--moduix-toggle-disabled-opacity, var(--moduix-opacity-disabled));
-      cursor: default;
+      opacity: var(--moduix-opacity-disabled);
       pointer-events: none;
     }
 
-    & > :where(svg),
-    & [data-slot='toggle-indicator'] > :where(svg) {
-      display: block;
-      width: var(--moduix-toggle-icon-size, var(--moduix-spacing-4));
-      height: var(--moduix-toggle-icon-size, var(--moduix-spacing-4));
-      flex-shrink: 0;
+    @media (hover: hover) {
+      &[data-state='off']:hover {
+        background-color: var(--moduix-toggle-bg-hover, var(--moduix-color-accent));
+      }
     }
 
-    &[data-variant='default'] {
-      border-color: var(--moduix-toggle-default-border-color, var(--moduix-color-secondary));
-      background-color: var(--moduix-toggle-default-bg, var(--moduix-color-secondary));
-      color: var(
-        --moduix-toggle-default-color,
-        var(--moduix-toggle-color, var(--moduix-color-secondary-foreground))
-      );
+    &[data-state='off']:active {
+      background-color: var(--moduix-toggle-bg-hover, var(--moduix-color-accent));
+    }
 
-      @media (hover: hover) {
-        &[data-state='off']:not([data-disabled]):hover {
-          background-color: var(--moduix-toggle-default-bg-hover, var(--moduix-color-accent));
-        }
-      }
-
-      &[data-state='off']:not([data-disabled]):active {
-        background-color: var(--moduix-toggle-default-bg-active, var(--moduix-color-accent));
-      }
-
-      &[data-state='on'] {
-        border-color: var(
-          --moduix-toggle-default-border-color-pressed,
-          var(--moduix-color-primary)
-        );
-        background-color: var(--moduix-toggle-default-bg-pressed, var(--moduix-color-primary));
-        color: var(--moduix-toggle-default-color-pressed, var(--moduix-color-primary-foreground));
-      }
+    &[data-state='on'] {
+      border-color: var(--moduix-toggle-bg-pressed, var(--_toggle-bg-pressed));
+      background-color: var(--moduix-toggle-bg-pressed, var(--_toggle-bg-pressed));
+      color: var(--moduix-toggle-color-pressed, var(--_toggle-color-pressed));
     }
 
     &[data-variant='outline'] {
-      border-color: var(--moduix-toggle-outline-border-color, var(--moduix-color-border));
-      background-color: var(--moduix-toggle-outline-bg, var(--moduix-color-background));
-      color: var(
-        --moduix-toggle-outline-color,
-        var(--moduix-toggle-color, var(--moduix-color-foreground))
-      );
-
-      @media (hover: hover) {
-        &[data-state='off']:not([data-disabled]):hover {
-          background-color: var(--moduix-toggle-outline-bg-hover, var(--moduix-color-accent));
-        }
-      }
-
-      &[data-state='off']:not([data-disabled]):active {
-        background-color: var(--moduix-toggle-outline-bg-active, var(--moduix-color-accent));
-      }
-
-      &[data-state='on'] {
-        border-color: var(
-          --moduix-toggle-outline-border-color-pressed,
-          var(--moduix-color-primary)
-        );
-        background-color: var(--moduix-toggle-outline-bg-pressed, var(--moduix-color-primary));
-        color: var(--moduix-toggle-outline-color-pressed, var(--moduix-color-primary-foreground));
-      }
+      --_toggle-bg: var(--moduix-color-background);
+      --_toggle-border-color: var(--moduix-color-border);
+      --_toggle-color: var(--moduix-color-foreground);
     }
 
     &[data-variant='ghost'] {
-      border-color: var(--moduix-toggle-ghost-border-color, transparent);
-      background-color: var(--moduix-toggle-ghost-bg, transparent);
-      color: var(
-        --moduix-toggle-ghost-color,
-        var(--moduix-toggle-color, var(--moduix-color-foreground))
-      );
-
-      @media (hover: hover) {
-        &[data-state='off']:not([data-disabled]):hover {
-          background-color: var(--moduix-toggle-ghost-bg-hover, var(--moduix-color-accent));
-        }
-      }
-
-      &[data-state='off']:not([data-disabled]):active {
-        background-color: var(--moduix-toggle-ghost-bg-active, var(--moduix-color-accent));
-      }
-
-      &[data-state='on'] {
-        background-color: var(--moduix-toggle-ghost-bg-pressed, var(--moduix-color-accent));
-        color: var(--moduix-toggle-ghost-color-pressed, var(--moduix-color-foreground));
-      }
+      --_toggle-bg: transparent;
+      --_toggle-border-color: transparent;
+      --_toggle-color: var(--moduix-color-foreground);
+      --_toggle-bg-pressed: var(--moduix-color-accent);
+      --_toggle-color-pressed: var(--moduix-color-foreground);
     }
 
     &[data-size='xs'] {
-      min-height: var(--moduix-toggle-size-xs, var(--moduix-size-xs));
-      padding-block: var(--moduix-toggle-padding-y-xs, var(--moduix-spacing-0-5));
-      padding-inline: var(--moduix-toggle-padding-x-xs, var(--moduix-spacing-2-5));
-      font-size: var(--moduix-toggle-font-size-xs, var(--moduix-text-xs));
-      line-height: var(--moduix-toggle-line-height-xs, var(--moduix-line-height-text-xs));
+      --_toggle-height: var(--moduix-size-xs);
+
+      padding: var(--moduix-spacing-0-5) var(--moduix-spacing-2-5);
+      font-size: var(--moduix-text-xs);
+      line-height: var(--moduix-line-height-text-xs);
     }
 
     &[data-size='sm'] {
-      min-height: var(--moduix-toggle-size-sm, var(--moduix-size-sm));
-      padding-block: var(--moduix-toggle-padding-y-sm, var(--moduix-spacing-1));
-      padding-inline: var(--moduix-toggle-padding-x-sm, var(--moduix-spacing-3));
+      --_toggle-height: var(--moduix-size-sm);
+
+      padding-inline: var(--moduix-spacing-3);
     }
 
     &[data-size='lg'] {
-      min-height: var(--moduix-toggle-size-lg, var(--moduix-size-lg));
-      padding-block: var(--moduix-toggle-padding-y-lg, var(--moduix-spacing-1-5));
-      padding-inline: var(--moduix-toggle-padding-x-lg, var(--moduix-spacing-5));
-      font-size: var(--moduix-toggle-font-size-lg, var(--moduix-text-md));
-      line-height: var(--moduix-toggle-line-height-lg, var(--moduix-line-height-text-md));
-    }
+      --_toggle-height: var(--moduix-size-lg);
 
-    &[data-size='icon-sm'],
-    &[data-size='icon-md'],
-    &[data-size='icon-lg'] {
-      padding: 0;
-      gap: 0;
+      padding: var(--moduix-spacing-1-5) var(--moduix-spacing-5);
+      font-size: var(--moduix-text-md);
+      line-height: var(--moduix-line-height-text-md);
     }
 
     &[data-size='icon-sm'] {
-      width: var(--moduix-toggle-size-icon-sm, var(--moduix-size-sm));
-      min-width: var(--moduix-toggle-size-icon-sm, var(--moduix-size-sm));
-      min-height: var(--moduix-toggle-size-icon-sm, var(--moduix-size-sm));
-      height: var(--moduix-toggle-size-icon-sm, var(--moduix-size-sm));
-    }
-
-    &[data-size='icon-md'] {
-      width: var(--moduix-toggle-size-icon-md, var(--moduix-size-md));
-      min-width: var(--moduix-toggle-size-icon-md, var(--moduix-size-md));
-      min-height: var(--moduix-toggle-size-icon-md, var(--moduix-size-md));
-      height: var(--moduix-toggle-size-icon-md, var(--moduix-size-md));
+      --_toggle-height: var(--moduix-size-sm);
     }
 
     &[data-size='icon-lg'] {
-      width: var(--moduix-toggle-size-icon-lg, var(--moduix-size-lg));
-      min-width: var(--moduix-toggle-size-icon-lg, var(--moduix-size-lg));
-      min-height: var(--moduix-toggle-size-icon-lg, var(--moduix-size-lg));
-      height: var(--moduix-toggle-size-icon-lg, var(--moduix-size-lg));
+      --_toggle-height: var(--moduix-size-lg);
+    }
+
+    &[data-size^='icon-'] {
+      width: var(--_toggle-height);
+      min-width: var(--_toggle-height);
+      height: var(--_toggle-height);
+      padding: 0;
+      gap: 0;
     }
   }
 
@@ -187,6 +116,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: inherit;
+  }
+
+  .root > :where(svg),
+  .indicator > :where(svg) {
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
+    flex-shrink: 0;
   }
 }

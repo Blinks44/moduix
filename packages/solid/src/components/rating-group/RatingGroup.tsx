@@ -7,7 +7,8 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
 import { children, For, splitProps } from 'solid-js';
-import { RatingStarIcon } from '@/lib/moduix/icons/ui/Icons';
+import { callEventHandler } from '@/lib/moduix/callEventHandler';
+import { RatingStarIcon } from '@/lib/moduix/icons/ui';
 import styles from './RatingGroup.module.css';
 
 type RatingGroupSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -23,34 +24,28 @@ type RatingGroupRootProviderProps = ComponentProps<typeof RatingGroupPrimitive.R
 type RatingGroupItemIndicatorProps = ComponentProps<'span'>;
 
 function RatingGroup(props: RatingGroupRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <RatingGroupPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-size={local.size ?? 'md'}
       data-slot="rating-group-root"
-    >
-      {local.children}
-    </RatingGroupPrimitive.Root>
+    />
   );
 }
 
 function RatingGroupRootProvider(props: RatingGroupRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
+  const [local, others] = splitProps(props, ['class', 'size']);
 
   return (
     <RatingGroupPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-size={local.size ?? 'md'}
       data-slot="rating-group-root-provider"
-    >
-      {local.children}
-    </RatingGroupPrimitive.RootProvider>
+    />
   );
 }
 
@@ -79,12 +74,20 @@ function RatingGroupControl(props: ComponentProps<typeof RatingGroupPrimitive.Co
 }
 
 function RatingGroupItem(props: ComponentProps<typeof RatingGroupPrimitive.Item>) {
-  const [local, others] = splitProps(props, ['class']);
+  const [local, others] = splitProps(props, ['class', 'onPointerDown']);
 
   return (
     <RatingGroupPrimitive.Item
       class={clsx(styles.item, local.class)}
       {...others}
+      onPointerDown={(event) => {
+        callEventHandler(local.onPointerDown, event);
+
+        if (event.button !== 0) return;
+        if (event.currentTarget.matches('[data-disabled], [data-readonly]')) return;
+
+        event.currentTarget.focus({ preventScroll: true, focusVisible: false });
+      }}
       data-slot="rating-group-item"
     />
   );

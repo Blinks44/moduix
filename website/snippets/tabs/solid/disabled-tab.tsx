@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@moduix/solid/tabs';
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/solid/tabs';
 
 const items = [
   {
@@ -29,6 +29,7 @@ export default function DisabledTabTabsDemo() {
           Projects
         </TabsTrigger>
         <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsIndicator />
       </TabsList>
 
       {items.map((item) => (

@@ -115,8 +115,8 @@ function sortDirection(value: false | 'asc' | 'desc') {
     <TableScrollArea>
       <Table interactive :class="styles.interactiveTable">
         <TableColumnGroup
-          ><TableColumn :html-width="48" /><TableColumn
-            :html-width="128" /><TableColumn /><TableColumn :html-width="128"
+          ><TableColumn :width="48" /><TableColumn :width="128" /><TableColumn /><TableColumn
+            :width="128"
         /></TableColumnGroup>
         <TableHeader
           ><TableRow v-for="group in table.getHeaderGroups()" :key="group.id">

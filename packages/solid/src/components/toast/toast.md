@@ -13,7 +13,10 @@ The wrapper preserves Ark's store-first model: `createToaster(options)` creates 
 - `ToastToaster` portals to `document.body` by default. Set `portalled={false}` to render inline, or
   pass `portalRef` to target a custom container.
 - Without a render prop, `ToastToaster` renders non-null title and description values, an action when
-  present, and a close trigger unless `closable: false` is set.
+  present, and a close trigger unless `closable: false` is set. A `loading` toast gets a decorative
+  `Spinner` before its title.
+- The root reserves inline-end padding for the absolutely positioned close trigger only while a
+  `ToastCloseTrigger` is rendered inside it.
 - `ToastTitle` and `ToastDescription` read their current values from Ark context when children
   are omitted. Explicit `null` children remain empty.
 - `ToastCloseTrigger` uses the moduix `CloseButton` by default and defaults its accessible
@@ -23,6 +26,12 @@ The wrapper preserves Ark's store-first model: `createToaster(options)` creates 
 - Ark store methods and callback detail objects pass through unchanged, including `create`,
   `success`, `error`, `warning`, `info`, `loading`, `promise`, `update`, `dismiss`, `remove`,
   placement, overlap, gap, max, duration, remove delay, hotkey, offsets, and status changes.
+
+- CSS Modules read `--moduix-toast-bg`, `--moduix-toast-border-color`, `--moduix-toast-color`
+  (all override every type; scope them with `[data-type='…']` for one type) and
+  `--moduix-toast-description-color`. Everything else comes from foundation tokens.
+- The package exports the Ark part prop types, `ToasterProps`, `ToastOptions`, `ToastType`,
+  `ToastPlacement`, `CreateToasterProps`, `CreateToasterReturn`, and `UseToastContext`.
 
 ## Anatomy and data hooks
 
@@ -82,8 +91,3 @@ every `bottom-*` placement is centered at the bottom. Toasts keep their default 
 and shrink to fit between Ark's `offsets` and horizontal safe-area insets on narrower screens.
 The vertical placement, stack animations, and `gap` between toasts remain Ark-owned; `gap` does
 not control viewport padding. Above `40rem`, the configured corner or center placement applies.
-
-## Local changelog
-
-- 2026-10-11: Fixed mobile viewport overflow across all placements; centered toasts through the
-  inclusive 40rem breakpoint retain their 20rem width and shrink within offsets and safe-area insets.

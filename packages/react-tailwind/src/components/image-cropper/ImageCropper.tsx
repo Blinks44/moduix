@@ -9,6 +9,11 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
+const ImageCropperContext = ImageCropperPrimitive.Context;
+const ImageCropperHandles = ImageCropperPrimitive.handles;
+const imageCropperRootClass =
+  'grid w-[32rem] max-w-full gap-3 data-dragging:cursor-grabbing data-panning:cursor-grabbing';
+
 const ImageCropper = forwardRef<
   ComponentRef<typeof ImageCropperPrimitive.Root>,
   ComponentProps<typeof ImageCropperPrimitive.Root>
@@ -16,10 +21,7 @@ const ImageCropper = forwardRef<
   return (
     <ImageCropperPrimitive.Root
       ref={ref}
-      className={cn(
-        'box-border grid w-[32rem] max-w-full gap-3 text-foreground data-dragging:cursor-grabbing data-panning:cursor-grabbing',
-        className,
-      )}
+      className={cn(imageCropperRootClass, className)}
       {...props}
       data-slot="image-cropper-root"
     />
@@ -33,10 +35,7 @@ const ImageCropperRootProvider = forwardRef<
   return (
     <ImageCropperPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'box-border grid w-[32rem] max-w-full gap-3 text-foreground data-dragging:cursor-grabbing data-panning:cursor-grabbing',
-        className,
-      )}
+      className={cn(imageCropperRootClass, className)}
       {...props}
       data-slot="image-cropper-root-provider"
     />
@@ -51,7 +50,7 @@ const ImageCropperViewport = forwardRef<
     <ImageCropperPrimitive.Viewport
       ref={ref}
       className={cn(
-        'box-border h-[min(20rem,62.5vw)] w-full overflow-hidden rounded-lg border border-border bg-background bg-[conic-gradient(rgb(0_0_0_/_8%)_25%,transparent_0_50%,rgb(0_0_0_/_8%)_0_75%,transparent_0)] [background-size:1rem_1rem] shadow-none data-disabled:cursor-grab',
+        'aspect-[8/5] w-full rounded-lg border border-border [background:repeating-conic-gradient(var(--color-muted)_0_25%,var(--color-background)_0_50%)_0_0/1rem_1rem] data-disabled:cursor-grab',
         className,
       )}
       {...props}
@@ -67,10 +66,7 @@ const ImageCropperImage = forwardRef<
   return (
     <ImageCropperPrimitive.Image
       ref={ref}
-      className={cn(
-        'absolute inset-0 block size-full origin-center object-contain backface-hidden',
-        className,
-      )}
+      className={cn('absolute inset-0 m-auto block max-h-full max-w-full', className)}
       {...props}
       data-slot="image-cropper-image"
     />
@@ -85,7 +81,7 @@ const ImageCropperSelection = forwardRef<
     <ImageCropperPrimitive.Selection
       ref={ref}
       className={cn(
-        'box-border cursor-grab rounded-md border-2 border-primary shadow-[0_0_0_9999px_rgb(0_0_0_/_45%),inset_0_0_0_1px_rgb(255_255_255_/_64%)] outline-0 transition-[border-color,box-shadow] duration-200 ease-in-out focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-default data-dragging:cursor-grabbing data-[shape=circle]:rounded-full data-[shape=circle]:border-transparent motion-reduce:transition-none',
+        'cursor-grab rounded-md border-2 border-primary shadow-[0_0_0_9999px_rgb(0_0_0_/_45%),inset_0_0_0_1px_rgb(255_255_255_/_64%)] focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring data-disabled:cursor-default data-dragging:cursor-grabbing data-[shape=circle]:rounded-full data-[shape=circle]:border-transparent',
         className,
       )}
       {...props}
@@ -102,7 +98,7 @@ const ImageCropperGrid = forwardRef<
     <ImageCropperPrimitive.Grid
       ref={ref}
       className={cn(
-        'pointer-events-none data-[axis=horizontal]:border-y data-[axis=horizontal]:border-white/62 data-[axis=vertical]:border-x data-[axis=vertical]:border-white/62',
+        'border-white/62 data-[axis=horizontal]:border-y data-[axis=vertical]:border-x',
         className,
       )}
       {...props}
@@ -119,7 +115,7 @@ const ImageCropperHandle = forwardRef<
     <ImageCropperPrimitive.Handle
       ref={ref}
       className={cn(
-        'absolute z-1 box-border size-3 rounded-xs border border-white/88 bg-white/96 shadow-[0_1px_3px_rgb(15_23_42_/_18%)] transition-[border-color,background-color,box-shadow,opacity] duration-200 ease-in-out data-disabled:hidden data-[position=e]:!w-[0.2rem] data-[position=e]:rounded-full data-[position=e]:border-0 data-[position=n]:!h-[0.2rem] data-[position=n]:rounded-full data-[position=n]:border-0 data-[position=ne]:z-2 data-[position=nw]:z-2 data-[position=s]:!h-[0.2rem] data-[position=s]:rounded-full data-[position=s]:border-0 data-[position=se]:z-2 data-[position=sw]:z-2 data-[position=w]:!w-[0.2rem] data-[position=w]:rounded-full data-[position=w]:border-0 motion-reduce:transition-none',
+        'size-3 rounded-xs bg-white/96 shadow-[0_1px_3px_rgb(15_23_42_/_18%)] data-disabled:hidden data-[position=e]:w-[0.2rem] data-[position=e]:rounded-full data-[position=n]:h-[0.2rem] data-[position=n]:rounded-full data-[position=ne]:z-1 data-[position=nw]:z-1 data-[position=s]:h-[0.2rem] data-[position=s]:rounded-full data-[position=se]:z-1 data-[position=sw]:z-1 data-[position=w]:w-[0.2rem] data-[position=w]:rounded-full',
         className,
       )}
       {...props}
@@ -128,21 +124,20 @@ const ImageCropperHandle = forwardRef<
   );
 });
 
+type ImageCropperCropAreaProps = Omit<
+  ComponentProps<typeof ImageCropperPrimitive.Selection>,
+  'asChild' | 'children'
+> & {
+  gridClassName?: string;
+  handleClassName?: string;
+};
+
 const ImageCropperCropArea = forwardRef<
   ComponentRef<typeof ImageCropperPrimitive.Selection>,
-  Omit<ComponentProps<typeof ImageCropperPrimitive.Selection>, 'asChild' | 'children'> & {
-    gridClassName?: string;
-    handleClassName?: string;
-  }
+  ImageCropperCropAreaProps
 >(function ImageCropperCropArea({ gridClassName, handleClassName, ...props }, ref) {
-  const {
-    asChild: _asChild,
-    children: _children,
-    ...selectionProps
-  } = props as ComponentProps<typeof ImageCropperPrimitive.Selection>;
-
   return (
-    <ImageCropperSelection ref={ref} {...selectionProps}>
+    <ImageCropperSelection ref={ref} {...props}>
       <ImageCropperGrid axis="horizontal" className={gridClassName} />
       <ImageCropperGrid axis="vertical" className={gridClassName} />
       {ImageCropperHandles.map((position) => (
@@ -151,9 +146,6 @@ const ImageCropperCropArea = forwardRef<
     </ImageCropperSelection>
   );
 });
-
-const ImageCropperContext = ImageCropperPrimitive.Context;
-const ImageCropperHandles = ImageCropperPrimitive.handles;
 
 export {
   ImageCropper,
@@ -169,3 +161,24 @@ export {
   useImageCropper,
   useImageCropperContext,
 };
+export type { ImageCropperCropAreaProps };
+
+export type {
+  ImageCropperContextProps,
+  ImageCropperCropChangeDetails,
+  ImageCropperFlipChangeDetails,
+  ImageCropperFlipState,
+  ImageCropperGridProps,
+  ImageCropperHandlePosition,
+  ImageCropperHandleProps,
+  ImageCropperImageProps,
+  ImageCropperRootProps,
+  ImageCropperRootProviderProps,
+  ImageCropperRotationChangeDetails,
+  ImageCropperSelectionProps,
+  ImageCropperViewportProps,
+  ImageCropperZoomChangeDetails,
+  UseImageCropperContext,
+  UseImageCropperProps,
+  UseImageCropperReturn,
+} from '@ark-ui/react/image-cropper';

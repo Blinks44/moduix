@@ -50,14 +50,14 @@ const slides = [
     :slides-per-page="2"
     spacing="var(--moduix-spacing-3)"
   >
-    <CarouselItemGroup :class="styles.itemGroup" aria-label="Advanced customization gallery">
+    <CarouselItemGroup>
       <CarouselItem v-for="(slide, index) in slides" :key="slide.id" :index="index">
         <img :class="styles.image" :src="slide.src" :alt="slide.alt" />
       </CarouselItem>
     </CarouselItemGroup>
 
     <CarouselContext v-slot="api">
-      <CarouselControl :class="styles.control">
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselIndicatorGroup>
           <CarouselIndicator v-for="(_, index) in api.pageSnapPoints" :key="index" :index="index" />

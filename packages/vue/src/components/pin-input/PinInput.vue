@@ -8,15 +8,16 @@ import styles from './PinInput.module.css';
 
 defineOptions({ inheritAttrs: false });
 
+export type PinInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 export interface Props extends /* @vue-ignore */ PinInputRootProps {
   class?: HTMLAttributes['class'];
   placeholder?: PinInputRootProps['placeholder'];
+  size?: PinInputSize;
 }
 
-export interface Emits extends /* @vue-ignore */ PinInputRootEmits {}
-
-const { class: className, placeholder = '' } = defineProps<Props>();
-defineEmits<Emits>();
+const { class: className, placeholder = '', size = 'md' } = defineProps<Props>();
+defineEmits</* @vue-ignore */ PinInputRootEmits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -26,6 +27,7 @@ const attrs = useAttrs();
   <ArkPinInputRoot
     v-bind="attrs"
     :class="clsx(styles.root, className)"
+    :data-size="size"
     :placeholder="placeholder"
     data-slot="pin-input-root"
   >

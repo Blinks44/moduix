@@ -31,7 +31,6 @@ test('preserves native field state and component-owned styling hooks', async () 
     size: 'md',
     slot: 'input-root',
   });
-  expect(input.hasAttribute('data-html-size')).toBe(true);
   await expect.element(textbox).toHaveAttribute('size', '8');
 });
 
@@ -59,7 +58,6 @@ test('applies native utilities to the input', () => {
   expect([...input.classList]).toEqual(
     expect.arrayContaining([
       'w-full',
-      'max-w-none',
       'min-h-control-md',
       'rounded-md',
       'border',
@@ -141,7 +139,6 @@ test('lets consumer utilities replace component defaults', () => {
   for (const utility of [
     'w-full',
     'w-auto',
-    'max-w-none',
     'min-h-control-lg',
     'rounded-md',
     'bg-background',
@@ -160,4 +157,26 @@ test('lets consumer utilities replace component defaults', () => {
     paddingBottom: '0px',
     lineHeight: '20px',
   });
+});
+
+test('uses the native character width with htmlSize', () => {
+  render(
+    <div style={{ width: '600px' }}>
+      <Input aria-label="Full width" />
+      <Input aria-label="Four characters" htmlSize={4} />
+    </div>,
+  );
+
+  expect(screen.getByRole('textbox', { name: 'Full width' }).offsetWidth).toBe(600);
+  expect(screen.getByRole('textbox', { name: 'Four characters' }).offsetWidth).toBeLessThan(200);
+});
+
+test('shrinks below its htmlSize width in a narrow flex row', () => {
+  render(
+    <div style={{ display: 'flex', width: '80px' }}>
+      <Input aria-label="Narrow" htmlSize={20} />
+    </div>,
+  );
+
+  expect(screen.getByRole('textbox', { name: 'Narrow' }).offsetWidth).toBe(80);
 });

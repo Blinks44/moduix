@@ -23,9 +23,8 @@ defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const field = useFieldContext();
 const resolvedReadOnly = computed(() => readOnly ?? unref(field)?.readOnly);
-const readOnlyContext = computed(() => resolvedReadOnly.value ?? false);
 
-provide(signaturePadReadOnlyKey, readOnlyContext);
+provide(signaturePadReadOnlyKey, resolvedReadOnly);
 </script>
 
 <template>
@@ -33,7 +32,7 @@ provide(signaturePadReadOnlyKey, readOnlyContext);
     v-bind="attrs"
     :class="
       cn(
-        'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50',
+        'inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-disabled',
         className,
       )
     "

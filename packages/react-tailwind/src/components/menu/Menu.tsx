@@ -32,7 +32,7 @@ type MenuRootProps = ComponentProps<typeof MenuPrimitive.Root> & OverlayPortalPr
 type MenuRootProviderProps = ComponentProps<typeof MenuPrimitive.RootProvider> & OverlayPortalProps;
 
 const menuItemStyles = cva(
-  "relative z-0 min-h-control-sm cursor-default rounded-sm bg-transparent text-sm text-inherit no-underline outline-0 select-none before:absolute before:inset-x-1 before:inset-y-0 before:-z-1 before:rounded-sm before:bg-transparent before:content-[''] data-disabled:pointer-events-none data-disabled:text-muted-foreground data-highlighted:text-accent-foreground data-highlighted:before:bg-accent data-[state=open]:before:bg-accent",
+  "relative z-0 min-h-control-sm cursor-default rounded-sm text-sm text-inherit no-underline outline-0 select-none before:absolute before:inset-x-1 before:inset-y-0 before:-z-1 before:rounded-sm before:content-[''] data-disabled:pointer-events-none data-disabled:text-muted-foreground data-highlighted:text-accent-foreground data-highlighted:before:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:before:bg-accent",
   {
     variants: {
       layout: {
@@ -87,39 +87,9 @@ function MenuRootProvider({
 const MenuTrigger = forwardRef<
   ComponentRef<typeof MenuPrimitive.Trigger>,
   ComponentProps<typeof MenuPrimitive.Trigger>
->(function MenuTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <MenuPrimitive.Trigger
-      ref={ref}
-      asChild={asChild}
-      className={cn(
-        !asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [@media(hover:hover)]:hover:bg-muted',
-        className,
-      )}
-      {...props}
-      data-slot="menu-trigger"
-    />
-  );
+>(function MenuTrigger(props, ref) {
+  return <MenuPrimitive.Trigger ref={ref} {...props} data-slot="menu-trigger" />;
 });
-
-const MenuTriggerIcon = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
-  function MenuTriggerIcon({ className, children, ...props }, ref) {
-    return (
-      <span
-        ref={ref}
-        className={cn(
-          'inline-flex size-4 shrink-0 items-center justify-center [&_svg]:size-full',
-          className,
-        )}
-        {...props}
-        data-slot="menu-trigger-icon"
-      >
-        {children ?? <ChevronDownIcon />}
-      </span>
-    );
-  },
-);
 
 const MenuIndicator = forwardRef<
   ComponentRef<typeof MenuPrimitive.Indicator>,
@@ -143,20 +113,8 @@ const MenuIndicator = forwardRef<
 const MenuContextTrigger = forwardRef<
   ComponentRef<typeof MenuPrimitive.ContextTrigger>,
   ComponentProps<typeof MenuPrimitive.ContextTrigger>
->(function MenuContextTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <MenuPrimitive.ContextTrigger
-      ref={ref}
-      asChild={asChild}
-      className={cn(
-        !asChild &&
-          'inline-flex min-h-control-md cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-1 text-sm font-medium text-foreground outline-0 transition-colors duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring active:bg-muted data-disabled:pointer-events-none data-disabled:opacity-50 data-[current]:data-[state=open]:bg-muted motion-reduce:transition-none [@media(hover:hover)]:hover:bg-muted',
-        className,
-      )}
-      {...props}
-      data-slot="menu-context-trigger"
-    />
-  );
+>(function MenuContextTrigger(props, ref) {
+  return <MenuPrimitive.ContextTrigger ref={ref} {...props} data-slot="menu-context-trigger" />;
 });
 
 const MenuPositioner = forwardRef<
@@ -178,17 +136,14 @@ const MenuPositioner = forwardRef<
 const MenuContent = forwardRef<
   ComponentRef<typeof MenuPrimitive.Content>,
   ComponentProps<typeof MenuPrimitive.Content>
->(function MenuContent({ asChild, className, children, ...props }, ref) {
+>(function MenuContent({ className, ...props }, ref) {
   return (
     <MenuPrimitive.Content
       ref={ref}
-      asChild={asChild}
       className={cn(menuContentVariants(), className)}
       {...props}
       data-slot="menu-content"
-    >
-      {children}
-    </MenuPrimitive.Content>
+    />
   );
 });
 
@@ -213,14 +168,9 @@ const MenuViewport = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
 const MenuArrow = forwardRef<
   ComponentRef<typeof MenuPrimitive.Arrow>,
   ComponentProps<typeof MenuPrimitive.Arrow>
->(function MenuArrow({ className, children, ...props }, ref) {
+>(function MenuArrow({ children, ...props }, ref) {
   return (
-    <MenuPrimitive.Arrow
-      ref={ref}
-      className={cn('[--arrow-background:var(--color-popover)]', className)}
-      {...props}
-      data-slot="menu-arrow"
-    >
+    <MenuPrimitive.Arrow ref={ref} {...props} data-slot="menu-arrow">
       {children ?? <MenuArrowTip />}
     </MenuPrimitive.Arrow>
   );
@@ -384,10 +334,7 @@ const MenuItemIndicator = forwardRef<
   return (
     <MenuPrimitive.ItemIndicator
       ref={ref}
-      className={cn(
-        'inline-flex size-3 items-center justify-center rounded-xs [&_svg]:size-full',
-        className,
-      )}
+      className={cn('inline-flex size-3 items-center justify-center [&_svg]:size-full', className)}
       {...props}
       data-slot="menu-item-indicator"
     >
@@ -493,11 +440,51 @@ export {
   MenuRootProvider,
   MenuSeparator,
   MenuTrigger,
-  MenuTriggerIcon,
   MenuTriggerItem,
   MenuTriggerItemIcon,
   MenuViewport,
   useMenu,
   useMenuContext,
   useMenuItemContext,
+};
+
+export type {
+  MenuArrowProps,
+  MenuArrowTipProps,
+  MenuContentProps,
+  MenuContextProps,
+  MenuContextTriggerProps,
+  MenuFocusOutsideEvent,
+  MenuHighlightChangeDetails,
+  MenuIndicatorProps,
+  MenuInteractOutsideEvent,
+  MenuItemContextProps,
+  MenuItemGroupLabelProps,
+  MenuItemGroupProps,
+  MenuItemIndicatorProps,
+  MenuItemTextProps,
+  MenuOpenChangeDetails,
+  MenuPointerDownOutsideEvent,
+  MenuPositionerProps,
+  MenuRadioItemGroupProps,
+  MenuSelectionDetails,
+  MenuSeparatorProps,
+  MenuTriggerItemProps,
+  MenuTriggerProps,
+  MenuTriggerValueChangeDetails,
+  MenuValueChangeDetails,
+  UseMenuContext,
+  UseMenuItemContext,
+  UseMenuProps,
+  UseMenuReturn,
+} from '@ark-ui/react/menu';
+
+export type {
+  MenuCheckboxItemProps,
+  MenuIndicatorPosition,
+  MenuItemProps,
+  MenuItemTone,
+  MenuRadioItemProps,
+  MenuRootProps,
+  MenuRootProviderProps,
 };

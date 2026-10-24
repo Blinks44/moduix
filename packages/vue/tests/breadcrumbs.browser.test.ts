@@ -173,3 +173,67 @@ test('keeps the semantic link child with asChild and exposes its host through th
   await expect.element(page.getByRole('link', { name: 'Docs' })).toHaveAttribute('href', '/docs');
   expect(link.getAttribute('data-slot')).toBe('breadcrumbs-link');
 });
+test('lets links, separators, and the ellipsis inherit the root text color', () => {
+  render({
+    setup() {
+      return () =>
+        h(
+          Breadcrumbs,
+          { style: { color: 'rgb(1, 2, 3)' } },
+          {
+            default: () =>
+              h(BreadcrumbsList, null, {
+                default: () => [
+                  h(BreadcrumbsItem, null, {
+                    default: () => h(BreadcrumbsLink, { href: '/' }, { default: () => 'Home' }),
+                  }),
+                  h(BreadcrumbsSeparator),
+                  h(BreadcrumbsItem, null, { default: () => h(BreadcrumbsEllipsis) }),
+                  h(BreadcrumbsSeparator),
+                  h(BreadcrumbsItem, null, {
+                    default: () => h(BreadcrumbsPage, null, { default: () => 'Breadcrumbs' }),
+                  }),
+                ],
+              }),
+          },
+        );
+    },
+  });
+
+  const colorOf = (slot: string) =>
+    getComputedStyle(document.querySelector(`[data-slot="breadcrumbs-${slot}"]`)!).color;
+
+  expect(['link', 'separator', 'ellipsis'].map(colorOf)).toEqual([
+    'rgb(1, 2, 3)',
+    'rgb(1, 2, 3)',
+    'rgb(1, 2, 3)',
+  ]);
+  expect(colorOf('page')).not.toBe('rgb(1, 2, 3)');
+});
+test('renders an ellipsis icon and styles a wrapping native button as a trigger', () => {
+  render({
+    setup() {
+      return () =>
+        h(BreadcrumbsList, null, {
+          default: () =>
+            h(BreadcrumbsItem, null, {
+              default: () =>
+                h('button', { type: 'button', 'aria-label': 'Show hidden path items' }, [
+                  h(BreadcrumbsEllipsis),
+                ]),
+            }),
+        });
+    },
+  });
+
+  const trigger = screen.getByRole('button', { name: 'Show hidden path items' });
+  const style = getComputedStyle(trigger);
+
+  expect(trigger.querySelector('[data-slot="breadcrumbs-ellipsis"] > svg')).not.toBeNull();
+  expect([style.borderTopWidth, style.paddingLeft, style.cursor, style.backgroundColor]).toEqual([
+    '0px',
+    '0px',
+    'pointer',
+    'rgba(0, 0, 0, 0)',
+  ]);
+});

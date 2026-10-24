@@ -10,7 +10,6 @@ import {
   ListboxLabel,
 } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/listbox/listbox-standalone-filter-input.module.css';
 
 const frameworks = [
   { label: 'React', value: 'react' },
@@ -28,7 +27,7 @@ export default function StandaloneFilterInputListboxDemo() {
   });
 
   return (
-    <Listbox collection={collection()} class={styles.root} typeahead={false}>
+    <Listbox collection={collection()} typeahead={false}>
       <ListboxLabel>Select framework</ListboxLabel>
       <ListboxInput
         placeholder="Filter frameworks"

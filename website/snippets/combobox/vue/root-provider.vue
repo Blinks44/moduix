@@ -13,7 +13,6 @@ import {
   ComboboxRootProvider,
   ComboboxTrigger,
 } from '@moduix/vue/combobox';
-import styles from '@/components/examples/combobox/component-root-provider.module.css';
 
 const jobTitles = [
   { label: 'Designer', value: 'designer' },
@@ -33,7 +32,7 @@ const combobox = useCombobox({ collection });
       <ComboboxTrigger aria-label="Open options" />
     </ComboboxControl>
     <ComboboxPositioner>
-      <ComboboxContent :class="styles.content">
+      <ComboboxContent>
         <ComboboxList>
           <ComboboxOption v-for="item in collection.items" :key="item.value" :item="item">
             {{ item.label }}

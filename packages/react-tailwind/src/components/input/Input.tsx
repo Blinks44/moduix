@@ -1,11 +1,11 @@
 import { Field as FieldPrimitive } from '@ark-ui/react/field';
 import { cva } from 'class-variance-authority';
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
 const inputVariants = cva(
-  'w-full max-w-none rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 [[data-slot=input-group-root]:has([data-slot=input-root]:is([data-disabled],:disabled))_&]:opacity-100 [:is([data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:focus-visible:outline-destructive aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive motion-reduce:transition-none file:me-3 file:rounded-md file:border file:border-primary file:bg-primary file:px-2 file:py-0.5 file:font-medium file:text-primary-foreground file:transition-colors file:duration-200 file:ease-in-out file:cursor-pointer [@media(hover:hover)]:file:hover:bg-foreground [[data-slot=field-root][data-disabled]_&]:opacity-100 [[data-slot=field-root-provider][data-disabled]_&]:opacity-100',
+  'w-full min-w-0 rounded-md border border-border bg-background px-3 py-1 text-md leading-6 text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color,opacity] duration-normal ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled [[data-slot=input-group-root]:has([data-slot=input-root]:is([data-disabled],:disabled))_&]:opacity-100 [:is([data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 data-disabled:pointer-events-none data-disabled:opacity-disabled data-invalid:border-destructive data-invalid:focus-visible:outline-destructive aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive file:me-3 file:rounded-md file:border file:border-primary file:bg-primary file:px-2 file:py-0.5 file:font-medium file:text-primary-foreground file:transition-colors file:duration-normal file:ease-in-out file:cursor-pointer [@media(hover:hover)]:file:hover:bg-foreground [[data-slot=field-root][data-disabled]_&]:opacity-100 [[data-slot=field-root-provider][data-disabled]_&]:opacity-100',
   {
     variants: {
       size: {
@@ -22,13 +22,17 @@ const inputVariants = cva(
   },
 );
 
-const Input = forwardRef<
-  ComponentRef<typeof FieldPrimitive.Input>,
-  Omit<ComponentProps<typeof FieldPrimitive.Input>, 'size'> & {
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    htmlSize?: ComponentProps<'input'>['size'];
-  }
->(function Input({ className, htmlSize, size = 'md', ...props }, ref) {
+type InputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+type InputRootProps = Omit<ComponentProps<typeof FieldPrimitive.Input>, 'size'> & {
+  size?: InputSize;
+  htmlSize?: ComponentProps<'input'>['size'];
+};
+
+const Input = forwardRef<HTMLInputElement, InputRootProps>(function Input(
+  { className, size = 'md', htmlSize, ...props },
+  ref,
+) {
   return (
     <FieldPrimitive.Input
       {...props}
@@ -37,15 +41,11 @@ const Input = forwardRef<
       data-part="input"
       data-slot="input-root"
       data-size={size}
-      data-html-size={htmlSize === undefined ? undefined : ''}
-      className={cn(
-        inputVariants({ size }),
-        htmlSize === undefined ? undefined : 'w-auto',
-        className,
-      )}
+      className={cn(inputVariants({ size }), htmlSize !== undefined && 'w-auto', className)}
       size={htmlSize}
     />
   );
 });
 
 export { Input };
+export type { InputRootProps, InputSize };

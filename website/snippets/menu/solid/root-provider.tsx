@@ -23,7 +23,7 @@ export default function RootProviderMenuDemo() {
             <MenuIndicator />
           </MenuTrigger>
           <MenuPositioner>
-            <MenuContent class={styles.content}>
+            <MenuContent>
               <MenuViewport>
                 <MenuItem value="cut">Cut</MenuItem>
                 <MenuItem value="copy">Copy</MenuItem>

@@ -11,7 +11,6 @@ import {
   MenuTriggerItemIcon,
   MenuViewport,
 } from '@moduix/vue/menu';
-import styles from '@/components/examples/menu/menu-nested.module.css';
 </script>
 
 <template>
@@ -20,14 +19,14 @@ import styles from '@/components/examples/menu/menu-nested.module.css';
       <Button>File <MenuIndicator /></Button>
     </MenuTrigger>
     <MenuPositioner>
-      <MenuContent :class="styles.content">
+      <MenuContent>
         <MenuViewport>
           <MenuItem value="open">Open...</MenuItem>
           <MenuItem value="save">Save</MenuItem>
           <Menu>
             <MenuTriggerItem>Share <MenuTriggerItemIcon /></MenuTriggerItem>
             <MenuPositioner>
-              <MenuContent :class="styles.content">
+              <MenuContent>
                 <MenuViewport>
                   <MenuItem value="email">Email</MenuItem>
                   <MenuItem value="message">Message</MenuItem>

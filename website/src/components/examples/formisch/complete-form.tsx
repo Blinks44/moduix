@@ -38,10 +38,8 @@ import {
   SelectIndicator,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
   SelectHiddenSelect,
+  SelectOption,
 } from '@moduix/react/select';
 import { Textarea } from '@moduix/react/textarea';
 import * as v from 'valibot';
@@ -138,10 +136,9 @@ export default function ProjectForm() {
                   <SelectPositioner>
                     <SelectContent>
                       {teams.items.map((item) => (
-                        <SelectItem key={item.value} item={item}>
-                          <SelectItemText>{item.label}</SelectItemText>
-                          <SelectItemIndicator />
-                        </SelectItem>
+                        <SelectOption key={item.value} item={item}>
+                          {item.label}
+                        </SelectOption>
                       ))}
                     </SelectContent>
                   </SelectPositioner>

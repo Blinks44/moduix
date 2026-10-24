@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkTourArrowTip
     v-bind="attrs"
-    :class="cn('border-t border-l border-border !bg-popover', className)"
+    :class="cn('border-t border-l border-border', className)"
     data-slot="tour-arrow-tip"
   >
     <slot />

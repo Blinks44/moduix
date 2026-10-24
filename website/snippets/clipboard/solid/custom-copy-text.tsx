@@ -13,7 +13,7 @@ export default function CustomCopyTextClipboardDemo() {
     <Clipboard class={styles.root} defaultValue="workspace-secret">
       <ClipboardLabel>Override copy labels</ClipboardLabel>
       <ClipboardControl>
-        <ClipboardInput readOnly />
+        <ClipboardInput />
         <ClipboardTrigger>
           <ClipboardIndicator />
           <ClipboardIndicator copied="Copied!">Copy secret</ClipboardIndicator>

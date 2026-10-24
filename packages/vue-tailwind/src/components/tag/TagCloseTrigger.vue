@@ -2,6 +2,7 @@
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import CloseButton from '../close-button/CloseButton.vue';
 
@@ -24,16 +25,14 @@ const attrs = useAttrs();
   <CloseButton
     v-bind="attrs"
     :as-child="asChild"
-    :aria-label="
-      ariaLabel ?? (!asChild && !slots.default && ariaLabelledby == null ? 'Remove tag' : undefined)
-    "
+    :aria-label="ariaLabel ?? (ariaLabelledby == null ? a11yLabels.closeTag : undefined)"
     :aria-labelledby="ariaLabelledby"
     data-scope="tag"
     data-part="close-trigger"
     data-slot="tag-close-trigger"
     :class="
       cn(
-        'size-4 rounded-full bg-transparent p-0 text-inherit focus-visible:outline-1 focus-visible:outline-offset-0 [&>svg]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/12 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit',
+        `size-4 rounded-full text-inherit focus-visible:outline-focus-inset focus-visible:outline-offset-0 [&>svg:not([class*='size-'])]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/12 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit`,
         className,
       )
     "

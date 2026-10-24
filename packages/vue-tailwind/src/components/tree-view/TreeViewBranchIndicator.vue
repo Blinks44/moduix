@@ -17,7 +17,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const componentClass =
-  'inline-flex size-4 shrink-0 items-center justify-center transition-transform duration-200 ease-in-out data-[state=open]:rotate-90 motion-reduce:transition-none [&_svg]:size-3.5';
+  'inline-flex size-4 shrink-0 items-center justify-center transition-transform duration-normal ease-in-out data-[state=open]:rotate-90 [&_svg]:size-3.5';
 </script>
 
 <template>

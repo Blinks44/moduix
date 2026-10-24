@@ -8,16 +8,15 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
+const rootClass =
+  'inline-flex max-w-full flex-col items-start gap-1 data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
+
 function DateInput(props: ComponentProps<typeof DateInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <DateInputPrimitive.Root
-      asChild={local.asChild}
-      class={cn(
-        'inline-flex w-full max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
-        local.class,
-      )}
+      class={cn(rootClass, local.class)}
       {...others}
       data-slot="date-input-root"
     >
@@ -27,15 +26,11 @@ function DateInput(props: ComponentProps<typeof DateInputPrimitive.Root>) {
 }
 
 function DateInputRootProvider(props: ComponentProps<typeof DateInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <DateInputPrimitive.RootProvider
-      asChild={local.asChild}
-      class={cn(
-        'inline-flex w-full max-w-none flex-col items-start gap-1 data-disabled:opacity-50',
-        local.class,
-      )}
+      class={cn(rootClass, local.class)}
       {...others}
       data-slot="date-input-root-provider"
     >
@@ -62,7 +57,7 @@ function DateInputControl(props: ComponentProps<typeof DateInputPrimitive.Contro
   return (
     <DateInputPrimitive.Control
       class={cn(
-        'box-border inline-flex min-h-control-md w-full items-center gap-1 rounded-md border border-border bg-background px-3 py-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:focus-within:outline-destructive data-invalid:data-focus:outline-destructive motion-reduce:transition-none',
+        'flex min-h-control-md w-full items-center gap-1 rounded-md border border-border bg-background px-3 py-1 text-md text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive',
         local.class,
       )}
       {...others}
@@ -76,7 +71,7 @@ function DateInputSegmentGroup(props: ComponentProps<typeof DateInputPrimitive.S
 
   return (
     <DateInputPrimitive.SegmentGroup
-      class={cn('inline-flex items-center gap-0.5 tabular-nums', local.class)}
+      class={cn('flex items-center gap-0.5 tabular-nums', local.class)}
       {...others}
       data-slot="date-input-segment-group"
     />
@@ -89,7 +84,7 @@ function DateInputSegment(props: ComponentProps<typeof DateInputPrimitive.Segmen
   return (
     <DateInputPrimitive.Segment
       class={cn(
-        'min-w-[2ch] cursor-text rounded-sm px-1 py-0 text-center leading-6 text-current outline-0 transition-colors duration-200 ease-in-out [font:inherit] focus-visible:bg-ring/18 focus-visible:text-foreground data-disabled:cursor-default data-placeholder-shown:text-muted-foreground data-readonly:cursor-default data-[type=literal]:pointer-events-none data-[type=literal]:min-w-auto data-[type=literal]:bg-transparent data-[type=literal]:px-0 data-[type=literal]:text-muted-foreground motion-reduce:transition-none',
+        'min-w-[2ch] cursor-default rounded-sm px-1 text-center outline-0 transition-colors duration-normal ease-in-out focus-visible:bg-ring/18 focus-visible:text-foreground data-editable:cursor-text data-placeholder-shown:not-focus-visible:text-muted-foreground data-[type=literal]:min-w-auto data-[type=literal]:px-0 data-[type=literal]:text-muted-foreground',
         local.class,
       )}
       {...others}
@@ -114,12 +109,11 @@ function DateInputSegments(props: DateInputSegmentsProps) {
 }
 
 function DateInputSeparator(props: ComponentProps<'span'>) {
-  const [local, others] = splitProps(props, ['aria-hidden', 'class', 'role']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <span
-      aria-hidden={local['aria-hidden'] ?? true}
-      role={local.role ?? 'presentation'}
+      aria-hidden="true"
       class={cn('text-muted-foreground select-none', local.class)}
       {...others}
       data-slot="date-input-separator"
@@ -147,3 +141,22 @@ export {
   useDateInput,
   useDateInputContext,
 };
+
+export type {
+  DateInputContextProps,
+  DateInputControlProps,
+  DateInputFocusChangeDetails,
+  DateInputHiddenInputProps,
+  DateInputLabelProps,
+  DateInputPlaceholderChangeDetails,
+  DateInputRootProps,
+  DateInputRootProviderProps,
+  DateInputSegmentContextProps,
+  DateInputSegmentGroupProps,
+  DateInputSegmentProps,
+  DateInputSelectionMode,
+  DateInputValueChangeDetails,
+  UseDateInputContext,
+  UseDateInputProps,
+  UseDateInputReturn,
+} from '@ark-ui/solid/date-input';

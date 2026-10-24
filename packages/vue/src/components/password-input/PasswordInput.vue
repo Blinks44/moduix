@@ -11,8 +11,11 @@ import styles from './PasswordInput.module.css';
 
 defineOptions({ inheritAttrs: false });
 
+export type PasswordInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 export interface Props extends /* @vue-ignore */ PasswordInputRootProps {
   class?: HTMLAttributes['class'];
+  size?: PasswordInputSize;
 }
 
 export interface PasswordInputRootEmits {
@@ -20,7 +23,7 @@ export interface PasswordInputRootEmits {
   'update:visible': [visible: boolean];
 }
 
-const { class: className } = defineProps<Props>();
+const { class: className, size = 'md' } = defineProps<Props>();
 defineEmits</* @vue-ignore */ PasswordInputRootEmits>();
 defineSlots<{ default?: () => unknown }>();
 
@@ -31,6 +34,7 @@ const attrs = useAttrs();
   <ArkPasswordInputRoot
     v-bind="attrs"
     :class="clsx(styles.root, className)"
+    :data-size="size"
     data-slot="password-input-root"
   >
     <slot />

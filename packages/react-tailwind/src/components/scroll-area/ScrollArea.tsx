@@ -9,37 +9,34 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-type ModuixScrollAreaRootProps = ComponentProps<typeof ScrollAreaPrimitive.Root> & {
+type ScrollAreaVariant = 'hover' | 'always';
+type ScrollAreaRootProps = ComponentProps<typeof ScrollAreaPrimitive.Root> & {
   fade?: boolean;
-  variant?: 'hover' | 'always';
+  variant?: ScrollAreaVariant;
 };
-type ModuixScrollAreaRootProviderProps = ComponentProps<typeof ScrollAreaPrimitive.RootProvider> & {
+type ScrollAreaRootProviderProps = ComponentProps<typeof ScrollAreaPrimitive.RootProvider> & {
   fade?: boolean;
-  variant?: 'hover' | 'always';
+  variant?: ScrollAreaVariant;
 };
 
-const ScrollArea = forwardRef<
-  ComponentRef<typeof ScrollAreaPrimitive.Root>,
-  ModuixScrollAreaRootProps
->(function ScrollArea({ className, fade, variant = 'hover', ...props }, ref) {
-  return (
-    <ScrollAreaPrimitive.Root
-      ref={ref}
-      {...props}
-      data-slot="scroll-area-root"
-      data-fade={fade ? '' : undefined}
-      data-variant={variant}
-      className={cn(
-        'group/scroll-area relative h-full min-h-0 w-full min-w-0 text-foreground',
-        className,
-      )}
-    />
-  );
-});
+const ScrollArea = forwardRef<ComponentRef<typeof ScrollAreaPrimitive.Root>, ScrollAreaRootProps>(
+  function ScrollArea({ className, fade, variant = 'hover', ...props }, ref) {
+    return (
+      <ScrollAreaPrimitive.Root
+        ref={ref}
+        {...props}
+        data-slot="scroll-area-root"
+        data-fade={fade ? '' : undefined}
+        data-variant={variant}
+        className={cn('group/scroll-area h-full min-h-0 w-full min-w-0', className)}
+      />
+    );
+  },
+);
 
 const ScrollAreaRootProvider = forwardRef<
   ComponentRef<typeof ScrollAreaPrimitive.RootProvider>,
-  ModuixScrollAreaRootProviderProps
+  ScrollAreaRootProviderProps
 >(function ScrollAreaRootProvider({ className, fade, variant = 'hover', ...props }, ref) {
   return (
     <ScrollAreaPrimitive.RootProvider
@@ -48,10 +45,7 @@ const ScrollAreaRootProvider = forwardRef<
       data-slot="scroll-area-root-provider"
       data-fade={fade ? '' : undefined}
       data-variant={variant}
-      className={cn(
-        'group/scroll-area relative h-full min-h-0 w-full min-w-0 text-foreground',
-        className,
-      )}
+      className={cn('group/scroll-area h-full min-h-0 w-full min-w-0', className)}
     />
   );
 });
@@ -66,7 +60,7 @@ const ScrollAreaViewport = forwardRef<
       {...props}
       data-slot="scroll-area-viewport"
       className={cn(
-        'h-full min-h-0 w-full min-w-0 [scrollbar-width:none] rounded-md bg-transparent outline-0 group-data-[fade]/scroll-area:not-forced-colors:[mask-image:linear-gradient(to_bottom,transparent_0,black_min(var(--spacing-10),var(--scroll-area-overflow-y-start,0px)),black_calc(100%_-_min(var(--spacing-10),var(--scroll-area-overflow-y-end,0px))),transparent_100%)] group-data-[fade]/scroll-area:not-forced-colors:mask-no-repeat focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring forced-colors:focus-visible:outline-[Highlight] [&::-webkit-scrollbar]:hidden',
+        'h-full min-h-0 w-full min-w-0 [scrollbar-width:none] rounded-[inherit] outline-0 group-data-[fade]/scroll-area:not-forced-colors:[mask-image:linear-gradient(to_bottom,transparent_0,black_min(var(--spacing-10),var(--scroll-area-overflow-y-start,0px)),black_calc(100%_-_min(var(--spacing-10),var(--scroll-area-overflow-y-end,0px))),transparent_100%)] group-data-[fade]/scroll-area:not-forced-colors:mask-no-repeat focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring forced-colors:focus-visible:outline-[Highlight] [&::-webkit-scrollbar]:hidden',
         className,
       )}
     />
@@ -76,15 +70,8 @@ const ScrollAreaViewport = forwardRef<
 const ScrollAreaContent = forwardRef<
   ComponentRef<typeof ScrollAreaPrimitive.Content>,
   ComponentProps<typeof ScrollAreaPrimitive.Content>
->(function ScrollAreaContent({ className, ...props }, ref) {
-  return (
-    <ScrollAreaPrimitive.Content
-      ref={ref}
-      {...props}
-      data-slot="scroll-area-content"
-      className={cn('block', className)}
-    />
-  );
+>(function ScrollAreaContent(props, ref) {
+  return <ScrollAreaPrimitive.Content ref={ref} {...props} data-slot="scroll-area-content" />;
 });
 
 const ScrollAreaScrollbar = forwardRef<
@@ -97,7 +84,7 @@ const ScrollAreaScrollbar = forwardRef<
       {...props}
       data-slot="scroll-area-scrollbar"
       className={cn(
-        "pointer-events-none absolute hidden touch-none justify-center rounded-md bg-transparent opacity-0 transition-[opacity,width,height] duration-[200ms,150ms,150ms] ease-in-out select-none group-data-[variant=always]/scroll-area:pointer-events-auto group-data-[variant=always]/scroll-area:opacity-100 before:absolute before:content-[''] data-dragging:pointer-events-auto data-hover:pointer-events-auto data-hover:opacity-100 data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-0 data-[orientation=horizontal]:start-0 data-[orientation=horizontal]:end-[var(--corner-width,0px)] data-[orientation=horizontal]:bottom-0 data-[orientation=horizontal]:mx-1 data-[orientation=horizontal]:mb-1 data-[orientation=horizontal]:h-1 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:before:right-0 data-[orientation=horizontal]:before:bottom-1/2 data-[orientation=horizontal]:before:left-0 data-[orientation=horizontal]:before:h-5 data-[orientation=horizontal]:before:w-full data-[orientation=horizontal]:before:translate-y-1/2 data-[orientation=horizontal]:hover:h-1.5 data-[orientation=horizontal]:data-dragging:h-1.5 data-[orientation=horizontal]:data-overflow-x:flex data-[orientation=vertical]:end-0 data-[orientation=vertical]:top-0 data-[orientation=vertical]:bottom-[var(--corner-height,0px)] data-[orientation=vertical]:my-1 data-[orientation=vertical]:me-1 data-[orientation=vertical]:w-1 data-[orientation=vertical]:before:left-1/2 data-[orientation=vertical]:before:h-full data-[orientation=vertical]:before:w-5 data-[orientation=vertical]:before:-translate-x-1/2 data-[orientation=vertical]:hover:w-1.5 data-[orientation=vertical]:data-dragging:w-1.5 data-[orientation=vertical]:data-overflow-y:flex motion-reduce:transition-none",
+        "pointer-events-none hidden opacity-0 transition-[opacity,width,height] duration-[var(--moduix-duration-normal),var(--moduix-duration-fast),var(--moduix-duration-fast)] ease-in-out group-data-[variant=always]/scroll-area:pointer-events-auto group-data-[variant=always]/scroll-area:opacity-100 before:absolute before:content-[''] data-hover:pointer-events-auto data-hover:opacity-100 data-scrolling:pointer-events-auto data-scrolling:opacity-100 data-scrolling:duration-0 data-[orientation=horizontal]:mx-1 data-[orientation=horizontal]:mb-1 data-[orientation=horizontal]:h-1 data-[orientation=horizontal]:before:inset-x-0 data-[orientation=horizontal]:before:-inset-y-2 data-[orientation=horizontal]:hover:h-1.5 data-[orientation=horizontal]:data-dragging:h-1.5 data-[orientation=horizontal]:data-overflow-x:block data-[orientation=vertical]:my-1 data-[orientation=vertical]:me-1 data-[orientation=vertical]:w-1 data-[orientation=vertical]:before:-inset-x-2 data-[orientation=vertical]:before:inset-y-0 data-[orientation=vertical]:hover:w-1.5 data-[orientation=vertical]:data-dragging:w-1.5 data-[orientation=vertical]:data-overflow-y:block",
         className,
       )}
     />
@@ -124,15 +111,8 @@ const ScrollAreaThumb = forwardRef<
 const ScrollAreaCorner = forwardRef<
   ComponentRef<typeof ScrollAreaPrimitive.Corner>,
   ComponentProps<typeof ScrollAreaPrimitive.Corner>
->(function ScrollAreaCorner({ className, ...props }, ref) {
-  return (
-    <ScrollAreaPrimitive.Corner
-      ref={ref}
-      {...props}
-      data-slot="scroll-area-corner"
-      className={cn('bg-transparent', className)}
-    />
-  );
+>(function ScrollAreaCorner(props, ref) {
+  return <ScrollAreaPrimitive.Corner ref={ref} {...props} data-slot="scroll-area-corner" />;
 });
 
 const ScrollAreaContext = ScrollAreaPrimitive.Context;
@@ -149,4 +129,4 @@ export {
   useScrollArea,
   useScrollAreaContext,
 };
-export type { ModuixScrollAreaRootProps, ModuixScrollAreaRootProviderProps };
+export type { ScrollAreaRootProps, ScrollAreaRootProviderProps, ScrollAreaVariant };

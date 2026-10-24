@@ -10,10 +10,8 @@ import {
   SelectClearTrigger,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
   SelectHiddenSelect,
+  SelectOption,
 } from '@moduix/react/select';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
@@ -60,10 +58,9 @@ export default function SelectFormUsageDemo() {
         <SelectPositioner>
           <SelectContent>
             {themes.items.map((item) => (
-              <SelectItem key={item.value} item={item}>
-                <SelectItemText>{item.label}</SelectItemText>
-                <SelectItemIndicator />
-              </SelectItem>
+              <SelectOption key={item.value} item={item}>
+                {item.label}
+              </SelectOption>
             ))}
           </SelectContent>
         </SelectPositioner>

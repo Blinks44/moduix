@@ -9,34 +9,24 @@
 
 `Field` associates one control with `FieldLabel`, `FieldHelperText`, and `FieldErrorText`.
 `FieldItem` selects the root's `target` control; `FieldRootProvider` accepts a `useField()` store.
-`FieldContext` and `useFieldContext` expose the native Ark context.
+`FieldContext` and `useFieldContext` expose the native Ark context, and the barrel re-exports the
+Ark prop, context, and hook types.
 
-`FieldInput`, `FieldTextarea`, and `FieldSelect` preserve native Ark props, `v-model`, events,
-and `asChild`. The wrappers own only styling and `data-slot` hooks. `FieldInput.size` is the native
-numeric HTML attribute, not the visual size variant of `Input`.
+`Field` renders no control of its own; use `Input`, `Textarea`, `NativeSelect`, or another moduix
+control inside it. Those controls preserve native Ark props, `v-model`, events, and `asChild`.
 
-Initialize Vue models in the parent. A native form reset does not emit input/change events:
-reset the bound refs in the form's reset handler. No local default/reset state is maintained.
-There is no React-like `defaultValue` prop on the Vue Field wrappers.
+Initialize Vue models in the parent. A native form reset does not emit input/change events: reset
+the bound refs in the form's reset handler. Ark Vue 5.39.3 binds `value` even when `modelValue` is
+absent, clearing an input's `defaultValue` and a select's initial option, so use `v-model`.
 
 ## Preservation notes
 
-Keep native refs through `$el`, controlled updates, form submission, field state, and label wiring.
-Helper/error IDs belong to the control's `aria-describedby`. Field state and `data-slot` hooks
-must survive ordinary and `asChild` composition without duplicate events or hosts.
-
-Ark Vue 5.39.3 binds `value` even when `modelValue` is absent, clearing input `defaultValue`
-and select's initial selected option. Plain HTML controls preserve those defaults. The native
-uncontrolled regression remains skipped pending an upstream fix; the supported initialized
-`v-model` path, parent-owned reset, SSR, and hydration remain actively tested.
+Keep native refs through `$el`, field state, and label wiring. Helper/error IDs belong to the
+control's `aria-describedby`. Field state and `data-slot` hooks must survive ordinary and
+`asChild` composition without duplicate hosts, and SSR hydration must keep generated ids.
 
 ## Styling
 
-CSS Modules exposes `--moduix-field-control-*`; Tailwind uses utilities and consumer `class`.
-`FieldInput` matches the default `Input size="md"` appearance. Disabled Field roots dim the
-whole field once. Behavior is identical between the two Vue styling adapters.
-
-## Changelog
-
-- 2026-10-06: Removed the nonfunctional React-like defaultValue prop and redundant native prop
-  forwarding; control props and events now follow Ark Vue directly.
+CSS Modules have no `--moduix-field-*` variables; Tailwind uses utilities and consumer `class`.
+Disabled Field roots dim the whole field once. Behavior is identical between the two Vue styling
+adapters.

@@ -19,7 +19,7 @@ const attrs = useAttrs();
 <template>
   <ark.span
     v-bind="attrs"
-    :class="cn('min-w-0 overflow-hidden font-medium text-ellipsis whitespace-nowrap', className)"
+    :class="cn('overflow-hidden font-medium text-ellipsis whitespace-nowrap', className)"
     data-slot="command-palette-item-label"
   >
     <slot />

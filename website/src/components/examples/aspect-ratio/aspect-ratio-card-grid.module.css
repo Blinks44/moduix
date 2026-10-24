@@ -2,7 +2,6 @@
   display: grid;
   inline-size: 100%;
   gap: var(--moduix-spacing-4);
-  align-items: stretch;
 }
 
 @media (min-width: 40rem) {
@@ -12,11 +11,6 @@
 }
 
 .card {
-  overflow: hidden;
-  --moduix-card-radius: var(--moduix-radius-lg);
-}
-
-.media {
   overflow: hidden;
 }
 

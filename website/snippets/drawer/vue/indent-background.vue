@@ -35,7 +35,7 @@ const snapPoints = [0.18, 1];
             ><Button>Open indented drawer</Button></DrawerTrigger
           ></DrawerIndent
         ><DrawerBackdrop :class="styles.backdrop" /><DrawerPositioner :class="styles.positioner"
-          ><DrawerContent
+          ><DrawerContent :class="styles.content"
             ><DrawerGrabber><DrawerGrabberIndicator /></DrawerGrabber
             ><DrawerHeader><DrawerTitle>Indent effect</DrawerTitle><DrawerCloseIcon /></DrawerHeader
             ><DrawerBody :class="styles.body"

@@ -21,7 +21,7 @@ export function HighlightDemo() {
 }
 ```
 
-`Highlight` and `Highlight` are the same styled root. Each matched segment is a native
+Each matched segment is a native
 `<mark>` with `data-scope="highlight"`, `data-part="root"`, and `data-slot="highlight-root"`.
 Unmatched text remains plain text, and a query with no matches renders no `<mark>` elements.
 
@@ -29,6 +29,6 @@ The `query`, `text`, `ignoreCase`, `matchAll`, and `exactMatch` props are passed
 array query requires `matchAll` to remain `true`; `exactMatch` follows Ark's JavaScript word-boundary
 behavior and does not provide whole-word matching for every non-ASCII script.
 
-Pass `class`, `style`, `title`, `id`, or `data-*` attributes to style or annotate every matched
+Pass `class`, `style`, `title`, or `data-*` attributes to style or annotate every matched
 `<mark>`. The component has no focus behavior, refs, state context, hidden inputs, or controlled
 state of its own.

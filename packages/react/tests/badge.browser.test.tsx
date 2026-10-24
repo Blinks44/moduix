@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { createRef } from 'react';
+import { createRef, type CSSProperties } from 'react';
 import { Badge, BadgeDot, BadgeLabel } from '../src';
 
 test('protects variants, accessibility, and stable data hooks', async () => {
@@ -97,4 +97,59 @@ test('preserves native disabled button semantics with asChild', async () => {
   );
 
   await expect.element(page.getByRole('button', { name: 'Archived' })).toBeDisabled();
+});
+
+test('defaults to the md size and lets link badges ignore the size height', async () => {
+  render(
+    <>
+      <Badge data-testid="sm" size="sm">
+        Small
+      </Badge>
+      <Badge data-testid="md">Medium</Badge>
+      <Badge data-testid="lg" size="lg">
+        Large
+      </Badge>
+      <Badge data-testid="link" size="lg" variant="link">
+        Link
+      </Badge>
+    </>,
+  );
+
+  await expect.element(page.getByTestId('md')).toHaveCount(1);
+  const height = (id: string) => screen.getByTestId(id).offsetHeight;
+
+  expect(screen.getByTestId('md').getAttribute('data-size')).toBe('md');
+  expect(screen.getByTestId('lg').getAttribute('data-size')).toBe('lg');
+  expect([height('sm'), height('md'), height('lg')]).toEqual([16, 20, 24]);
+  const link = getComputedStyle(screen.getByTestId('link'));
+  expect([link.minHeight, link.paddingInlineStart]).toEqual(['0px', '0px']);
+});
+
+test('lets the color variables override every variant', async () => {
+  const colors = {
+    '--moduix-badge-bg': 'rgb(1, 2, 3)',
+    '--moduix-badge-border-color': 'rgb(4, 5, 6)',
+    '--moduix-badge-color': 'rgb(7, 8, 9)',
+  } as CSSProperties;
+
+  render(
+    <>
+      <Badge data-testid="outline" style={colors} variant="outline">
+        Outline
+      </Badge>
+      <Badge data-testid="link" style={colors} variant="link">
+        Link
+      </Badge>
+    </>,
+  );
+
+  await expect.element(page.getByTestId('outline')).toHaveCount(1);
+  for (const id of ['outline', 'link']) {
+    const style = getComputedStyle(screen.getByTestId(id));
+    expect([style.backgroundColor, style.borderTopColor, style.color]).toEqual([
+      'rgb(1, 2, 3)',
+      'rgb(4, 5, 6)',
+      'rgb(7, 8, 9)',
+    ]);
+  }
 });

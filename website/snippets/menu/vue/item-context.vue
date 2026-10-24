@@ -10,7 +10,6 @@ import {
   MenuTrigger,
   MenuViewport,
 } from '@moduix/vue/menu';
-import styles from '@/components/examples/menu/menu-item-context.module.css';
 </script>
 
 <template>
@@ -19,7 +18,7 @@ import styles from '@/components/examples/menu/menu-item-context.module.css';
       <Button>Settings <MenuIndicator /></Button>
     </MenuTrigger>
     <MenuPositioner>
-      <MenuContent :class="styles.content">
+      <MenuContent>
         <MenuViewport>
           <MenuItem
             v-for="item in ['profile', 'notifications', 'appearance', 'security']"

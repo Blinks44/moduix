@@ -207,7 +207,7 @@ export const Progress: Story = {
               <TourDescription />
               <div className="mt-2 h-1 overflow-hidden rounded-full bg-muted">
                 <div
-                  className="h-full rounded-[inherit] bg-primary transition-[width] duration-200"
+                  className="h-full rounded-[inherit] bg-primary transition-[width] duration-normal"
                   style={{ width: `${tour.getProgressPercent()}%` }}
                 />
               </div>

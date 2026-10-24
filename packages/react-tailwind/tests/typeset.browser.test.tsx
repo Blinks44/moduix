@@ -91,6 +91,44 @@ test('keeps an unnamed scroller generic and preserves explicit semantics', async
   await expect.element(page.getByTestId('custom-scroll')).toHaveAttribute('tabindex', '-1');
 });
 
+test('scrolls wide content without a Typeset root', () => {
+  render(
+    <TypesetScroll data-testid="scroll">
+      <table style={{ width: '200vw' }}>
+        <tbody>
+          <tr>
+            <td>Wide content</td>
+          </tr>
+        </tbody>
+      </table>
+    </TypesetScroll>,
+  );
+  const scroll = screen.getByTestId('scroll');
+  expect(getComputedStyle(scroll).overflowX).toBe('auto');
+});
+
+test('keeps table column alignment physical in right-to-left content', () => {
+  render(
+    <Typeset dir="rtl">
+      <table>
+        <tbody>
+          <tr>
+            <td align="left" data-testid="left-cell">
+              Left
+            </td>
+            <td align="right" data-testid="right-cell">
+              Right
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </Typeset>,
+  );
+
+  expect(getComputedStyle(screen.getByTestId('left-cell')).textAlign).toBe('left');
+  expect(getComputedStyle(screen.getByTestId('right-cell')).textAlign).toBe('right');
+});
+
 test('preserves semantic children and refs with asChild', () => {
   const rootRef = createRef<HTMLElement>();
   const scrollRef = createRef<HTMLElement>();

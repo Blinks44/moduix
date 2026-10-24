@@ -471,3 +471,49 @@ test('applies Tailwind defaults and lets consumer utilities override them', asyn
   await expect.element(page.getByTestId('content')).toHaveCSS('text-align', 'left');
   await expect.element(page.getByRole('button', { name: 'Save' })).toHaveCSS('padding-left', '8px');
 });
+
+test('highlights only the current trigger of a shared tooltip', async () => {
+  render(
+    defineComponent({
+      components: tooltipComponents,
+      template: `
+        <Tooltip :open-delay="0" :portalled="false">
+          <TooltipTrigger value="save">Save</TooltipTrigger>
+          <TooltipTrigger value="share">Share</TooltipTrigger>
+          <TooltipBody>Action tooltip</TooltipBody>
+        </Tooltip>
+      `,
+    }),
+  );
+
+  const save = document.querySelector<HTMLElement>('[data-value="save"]')!;
+  const share = document.querySelector<HTMLElement>('[data-value="share"]')!;
+  const closedBackground = getComputedStyle(save).backgroundColor;
+
+  await page.getByRole('button', { name: 'Share' }).hover();
+  await expect.element(page.getByRole('tooltip')).toBeVisible();
+  expect(save.dataset.state).toBe('open');
+  await expect.poll(() => getComputedStyle(share).backgroundColor).not.toBe(closedBackground);
+  await expect.poll(() => getComputedStyle(save).backgroundColor).toBe(closedBackground);
+});
+
+test('lets long content grow instead of spilling past the surface', async () => {
+  render(
+    defineComponent({
+      components: tooltipComponents,
+      setup() {
+        return { text: 'Long tooltip text '.repeat(200) };
+      },
+      template: `
+        <Tooltip open :portalled="false">
+          <TooltipTrigger>Save</TooltipTrigger>
+          <TooltipBody>{{ text }}</TooltipBody>
+        </Tooltip>
+      `,
+    }),
+  );
+
+  await expect.element(page.getByRole('tooltip')).toBeVisible();
+  const content = document.querySelector<HTMLElement>('[data-slot="tooltip-content"]')!;
+  expect(content.scrollHeight).toBeLessThanOrEqual(content.clientHeight + 1);
+});

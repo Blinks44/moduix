@@ -14,7 +14,6 @@ import {
   MenuItemText,
 } from '@moduix/solid/menu';
 import { createSignal } from 'solid-js';
-import styles from '@/components/examples/menu/menu-radio-items.module.css';
 
 export default function RadioItemsMenuDemo() {
   const [sortBy, setSortBy] = createSignal('date');
@@ -26,7 +25,7 @@ export default function RadioItemsMenuDemo() {
         <MenuIndicator />
       </MenuTrigger>
       <MenuPositioner>
-        <MenuContent class={styles.content}>
+        <MenuContent>
           <MenuViewport>
             <MenuItemGroup>
               <MenuItemGroupLabel>Sort By</MenuItemGroupLabel>

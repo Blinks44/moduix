@@ -7,7 +7,7 @@ import OverlayPortalProvider from '@/lib/moduix/overlayPortal/OverlayPortalProvi
 
 defineOptions({ inheritAttrs: false });
 
-interface Props extends /* @vue-ignore */ MenuRootProps {
+export interface Props extends /* @vue-ignore */ MenuRootProps {
   lazyMount?: boolean;
   portalled?: boolean;
   portalRef?: PortalRef;

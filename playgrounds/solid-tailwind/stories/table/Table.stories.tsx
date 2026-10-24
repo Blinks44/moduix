@@ -194,7 +194,7 @@ export const SizesAndVariants: Story = {
     <div class={stackClass}>
       {(['sm', 'md', 'lg'] as const).map((size) => (
         <TableScrollArea>
-          <Table size={size} variant={size === 'md' ? 'outline' : 'line'} class={tableClass}>
+          <Table size={size} class={tableClass}>
             <TableCaption side="top">{size.toUpperCase()} project summary</TableCaption>
             <TableHeader>
               <TableRow>
@@ -225,9 +225,9 @@ export const ColumnGroupAndBorders: Story = {
       <TableScrollArea>
         <Table showColumnBorder class={tableClass}>
           <TableColumnGroup>
-            <TableColumn htmlWidth="42%" />
-            <TableColumn htmlWidth="28%" />
-            <TableColumn htmlWidth="30%" />
+            <TableColumn width="42%" />
+            <TableColumn width="28%" />
+            <TableColumn width="30%" />
           </TableColumnGroup>
           <TableHeader>
             <TableRow>

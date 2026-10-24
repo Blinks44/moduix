@@ -47,7 +47,7 @@ export default function SpacingCarousel() {
       slidesPerPage={1.5}
       spacing="3rem"
     >
-      <CarouselItemGroup class={styles.itemGroup} aria-label="Spaced gallery">
+      <CarouselItemGroup>
         <For each={slides}>
           {(slide, index) => (
             <CarouselItem index={index()}>
@@ -57,7 +57,7 @@ export default function SpacingCarousel() {
         </For>
       </CarouselItemGroup>
 
-      <CarouselControl class={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselIndicators />
         <CarouselNextTrigger />

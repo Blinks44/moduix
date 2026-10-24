@@ -6,7 +6,7 @@ Upstream docs:
 - Chakra UI: https://chakra-ui.com/docs/components/date-picker
 - shadcn/ui: https://ui.shadcn.com/docs/components/date-picker
 
-Reviewed on 2026-08-10.
+Reviewed on 2026-10-15.
 
 ## Purpose
 
@@ -81,8 +81,9 @@ DateInputRootProvider
 | `DateInputContext`        | renderless                 | Reads root state with a render function.          |
 | `DateInputSegmentContext` | renderless                 | Iterates locale-aware segments.                   |
 
-Exported values: `DateInput`, `useDateInput`, and `useDateInputContext`. Exported type:
-`DateInputDateValue`.
+Exported values: `DateInput`, `useDateInput`, and `useDateInputContext`. Exported types:
+`DateInputDateValue`, the Ark part props (`DateInputRootProps`, `DateInputControlProps`, and the
+rest), callback details, `DateInputSelectionMode`, and the `UseDateInput*` hook types.
 
 ## Composition
 
@@ -153,37 +154,27 @@ Ark emits `data-scope="date-input"` and `data-part` attributes for `root`, `labe
 
 ## Defaults and styling
 
-The segmented date control defaults to `--moduix-size-md` with `--moduix-spacing-1` block padding.
+The root is content-sized (`width: auto`, `max-width: 100%`) like `NumberInput`; the control fills
+the root. Set `--moduix-date-input-width` or a class on the root to stretch it in a form. The control
+uses `--moduix-size-md` height, `--moduix-text-md` text, and `--moduix-spacing-1` block padding.
 
 All visual parts accept `className`. The CSS module defines defaults for root spacing, label text,
 the control frame, segment focus, placeholder color, invalid state, disabled/readonly state, and
-presentational separators. Disabled inputs are visually muted; read-only inputs remain focusable and
-non-editable.
+presentational separators. Disabled inputs are visually muted once: inside a disabled `Field` or
+`Fieldset` the root keeps full opacity because the field already dims. Read-only inputs remain
+focusable and non-editable; only editable segments (`data-editable`) show a text cursor. A focused
+placeholder segment uses the foreground color in both styling tracks.
 
-Public styling hooks:
-
-- Root: `--moduix-date-input-gap`, `--moduix-date-input-width`, `--moduix-date-input-max-width`,
-  `--moduix-date-input-disabled-opacity`
-- Label: `--moduix-date-input-label-color`, `--moduix-date-input-label-font-size`,
-  `--moduix-date-input-label-font-weight`, `--moduix-date-input-label-line-height`
-- Control: `--moduix-date-input-control-height`, `--moduix-date-input-border-width`,
-  `--moduix-date-input-control-width`, `--moduix-date-input-border-style`, `--moduix-date-input-border-color`,
-  `--moduix-date-input-border-color-invalid`, `--moduix-date-input-radius`, `--moduix-date-input-padding-x`, `--moduix-date-input-padding-y`,
-  `--moduix-date-input-bg`, `--moduix-date-input-color`, `--moduix-date-input-focus-ring-width`,
-  `--moduix-date-input-focus-ring-offset`, `--moduix-date-input-focus-ring-color`, `--moduix-date-input-transition`
-- Segment: `--moduix-date-input-segment-gap`, `--moduix-date-input-segment-min-width`,
-  `--moduix-date-input-segment-radius`, `--moduix-date-input-segment-padding-x`,
-  `--moduix-date-input-segment-padding-y`, `--moduix-date-input-segment-color`,
-  `--moduix-date-input-segment-bg-focus`, `--moduix-date-input-segment-color-focus`,
-  `--moduix-date-input-segment-line-height`, `--moduix-date-input-placeholder-color`,
-  `--moduix-date-input-separator-color`
+Public styling hooks (CSS Modules): `--moduix-date-input-width`, `--moduix-date-input-control-height`,
+and `--moduix-date-input-radius`. Override colors, borders, and spacing with a plain class; component
+styles live in `@layer moduix.components`, so unlayered rules win.
 
 ## Intentional sugar and differences from upstream
 
 `DateInputSegments` is local sugar for the standard locale-aware segment group. It keeps the Ark
 segment order and state while removing repeated `DateInputSegmentContext` boilerplate from the
 common path. Its `className` styles the generated segment group; use explicit parts when segment
-styling differs. `DateInputSeparator` renders a presentational span for text such as `to` between
+styling differs. `DateInputSeparator` renders an `aria-hidden` span for text such as `to` between
 range segment groups. The wrapper exports the root and segment contexts, root hooks, and
 `DateInputDateValue` used by normal controlled examples. Other Ark-only types remain direct
 advanced imports. The wrapper does not add date-picker popovers, calendar buttons, string parsing,
@@ -200,6 +191,11 @@ segment shortcuts, or local event aliases.
 - Keep `@internationalized/date` examples in docs because Ark values are `DateValue` objects.
 
 ## Local changelog
+
+- 2026-10-15: Root became content-sized (`width: auto`) and examples dropped their width overrides.
+  Reduced CSS variables from 33 to 3 (width, control height, radius). Fixed double dimming inside a
+  disabled `Field`/`Fieldset` and the Tailwind focused-placeholder segment color. Removed the
+  redundant `role="presentation"` from `DateInputSeparator` and re-exported Ark types.
 
 - 2026-09-21: Replaced the compound `DateInput.*` value surface with the shared flat API across
   React and Solid CSS Modules and Tailwind packages. `DateInput` is now the only root value; every

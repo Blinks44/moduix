@@ -4,16 +4,14 @@ import { cva } from 'class-variance-authority';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-type SeparatorProps = HTMLArkProps<'span'> & {
-  orientation?: 'horizontal' | 'vertical';
-  size?: 'xs' | 'sm' | 'md' | 'lg';
-  variant?: 'solid' | 'dashed' | 'dotted';
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
-  'data-orientation'?: string;
-  'data-size'?: string;
-  'data-variant'?: string;
+type SeparatorOrientation = 'horizontal' | 'vertical';
+type SeparatorSize = 'xs' | 'sm' | 'md' | 'lg';
+type SeparatorVariant = 'solid' | 'dashed' | 'dotted';
+
+type SeparatorRootProps = HTMLArkProps<'span'> & {
+  orientation?: SeparatorOrientation;
+  size?: SeparatorSize;
+  variant?: SeparatorVariant;
 };
 
 const separatorVariants = cva('block shrink-0 m-0 border-border', {
@@ -44,24 +42,12 @@ const separatorVariants = cva('block shrink-0 m-0 border-border', {
     { orientation: 'vertical', size: 'md', class: 'border-s-2' },
     { orientation: 'vertical', size: 'lg', class: 'border-s-[3px]' },
   ],
-  defaultVariants: {
-    orientation: 'horizontal',
-    size: 'sm',
-    variant: 'solid',
-  },
 });
 
-function Separator(props: SeparatorProps) {
+function Separator(props: SeparatorRootProps) {
   const [local, others] = splitProps(props, [
     'aria-orientation',
-    'asChild',
     'class',
-    'data-orientation',
-    'data-part',
-    'data-scope',
-    'data-size',
-    'data-slot',
-    'data-variant',
     'orientation',
     'role',
     'size',
@@ -74,7 +60,6 @@ function Separator(props: SeparatorProps) {
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       role={role()}
       aria-orientation={role() === 'separator' ? orientation() : undefined}
@@ -93,3 +78,4 @@ function Separator(props: SeparatorProps) {
 }
 
 export { Separator };
+export type { SeparatorOrientation, SeparatorRootProps, SeparatorSize, SeparatorVariant };

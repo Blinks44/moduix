@@ -5,10 +5,9 @@ import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './Checkbox.module.css';
+import type { CheckboxSize } from './Checkbox.vue';
 
 defineOptions({ inheritAttrs: false });
-
-type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface Props extends /* @vue-ignore */ CheckboxRootProviderProps {
   class?: HTMLAttributes['class'];

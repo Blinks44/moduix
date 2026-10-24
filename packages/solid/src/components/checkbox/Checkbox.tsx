@@ -8,7 +8,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import styles from './Checkbox.module.css';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -20,11 +20,10 @@ type CheckboxRootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootPro
 };
 
 function Checkbox(props: CheckboxRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <CheckboxPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-size={local.size ?? 'md'}
@@ -36,11 +35,10 @@ function Checkbox(props: CheckboxRootProps) {
 }
 
 function CheckboxRootProvider(props: CheckboxRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <CheckboxPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-size={local.size ?? 'md'}
@@ -54,10 +52,6 @@ function CheckboxRootProvider(props: CheckboxRootProviderProps) {
 function CheckboxIndicator(props: ComponentProps<typeof CheckboxPrimitive.Indicator>) {
   const [local, others] = splitProps(props, ['children', 'class', 'indeterminate']);
   const resolvedChildren = children(() => local.children);
-  const slot = () =>
-    local.indeterminate
-      ? 'checkbox-indicator-indeterminate-icon'
-      : 'checkbox-indicator-checked-icon';
 
   return (
     <CheckboxPrimitive.Indicator
@@ -66,11 +60,7 @@ function CheckboxIndicator(props: ComponentProps<typeof CheckboxPrimitive.Indica
       {...others}
       data-slot="checkbox-indicator"
     >
-      {resolvedChildren() ?? (
-        <span aria-hidden="true" data-slot={slot()} class={styles.icon}>
-          {local.indeterminate ? <IndeterminateIcon /> : <CheckIcon />}
-        </span>
-      )}
+      {resolvedChildren() ?? (local.indeterminate ? <IndeterminateIcon /> : <CheckIcon />)}
     </CheckboxPrimitive.Indicator>
   );
 }
@@ -136,3 +126,5 @@ export {
   useCheckboxGroup,
   useCheckboxGroupContext,
 };
+
+export type { CheckboxRootProps, CheckboxRootProviderProps, CheckboxSize };

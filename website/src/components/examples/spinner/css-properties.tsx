@@ -1,14 +1,6 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
-const spinnerOverrideCssProperties: CssPropertyInput[] = [
-  [
-    '--moduix-spinner-animation',
-    'var(--moduix-animation-spin)',
-    'Controls indicator rotation animation.',
-  ],
-  ['--moduix-spinner-color', 'currentColor', 'Controls spinner color.'],
-  ['--moduix-spinner-radius', 'var(--moduix-radius-full)', 'Controls round spinner part radius.'],
+export const spinnerOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-spinner-ring-border-width',
     'var(--moduix-border-width-md)',
@@ -21,26 +13,7 @@ const spinnerOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-spinner-size',
-    'var(--moduix-spinner-size-md, var(--moduix-spacing-5))',
-    'Controls spinner size override.',
+    'size-specific, md: var(--moduix-spacing-5)',
+    'Overrides the spinner size for every size except inherit.',
   ],
-  ['--moduix-spinner-size-xs', 'var(--moduix-spacing-3)', 'Controls xs spinner size.'],
-  ['--moduix-spinner-size-sm', 'var(--moduix-spacing-4)', 'Controls sm spinner size.'],
-  ['--moduix-spinner-size-md', 'var(--moduix-spacing-5)', 'Controls md spinner size.'],
-  ['--moduix-spinner-size-lg', 'var(--moduix-spacing-7)', 'Controls lg spinner size.'],
-  ['--moduix-spinner-size-xl', 'var(--moduix-size-md)', 'Controls xl spinner size.'],
 ];
-
-export function SpinnerCssPropertiesPanel() {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={spinnerOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}

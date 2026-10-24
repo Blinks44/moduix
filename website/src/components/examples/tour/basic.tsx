@@ -63,7 +63,7 @@ export default function TourDemo() {
         Upload files
       </Button>
 
-      <Tour tour={tour} lazyMount unmountOnExit>
+      <Tour tour={tour}>
         <TourBackdrop />
         <TourSpotlight />
         <TourPositioner>

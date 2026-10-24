@@ -1,5 +1,6 @@
 import {
   TagsInputContext,
+  TagsInputHiddenInput,
   TagsInputItemContext,
   useTagsInput,
   useTagsInputContext,
@@ -8,7 +9,6 @@ import {
 import TagsInput from './TagsInput.vue';
 import TagsInputClearTrigger from './TagsInputClearTrigger.vue';
 import TagsInputControl from './TagsInputControl.vue';
-import TagsInputHiddenInput from './TagsInputHiddenInput.vue';
 import TagsInputInput from './TagsInputInput.vue';
 import TagsInputItem from './TagsInputItem.vue';
 import TagsInputItemDeleteTrigger from './TagsInputItemDeleteTrigger.vue';
@@ -63,6 +63,8 @@ export type {
   TagsInputItemProps,
   TagsInputItemTextBaseProps,
   TagsInputItemTextProps,
+  TagsInputLabelBaseProps,
+  TagsInputLabelProps,
   TagsInputPointerDownOutsideEvent,
   TagsInputRootBaseProps,
   TagsInputRootEmits,

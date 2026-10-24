@@ -1,7 +1,9 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
+import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
 import { forwardRef } from 'react';
+import styles from './SimpleGrid.module.css';
 
 type SimpleGridRootProps = HTMLArkProps<'div'> & {
   columns?: number;
@@ -12,49 +14,33 @@ type SimpleGridRootProps = HTMLArkProps<'div'> & {
 };
 
 const SimpleGrid = forwardRef<HTMLDivElement, SimpleGridRootProps>(function SimpleGrid(
-  { asChild, className, style, columns, minChildWidth, gap, rowGap, columnGap, ...props },
+  { className, style, columns, minChildWidth, gap, rowGap, columnGap, ...props },
   ref,
 ) {
-  if (columns != null && (!Number.isInteger(columns) || columns <= 0)) {
-    throw new Error('SimpleGrid `columns` must be a finite positive integer.');
-  }
-
-  if (typeof minChildWidth === 'number' && (!Number.isFinite(minChildWidth) || minChildWidth < 0)) {
-    throw new Error('SimpleGrid `minChildWidth` must be a finite non-negative number.');
-  }
-
-  let gridTemplateColumns = 'minmax(0, 1fr)';
-
-  if (columns != null) {
-    gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
-  }
-
+  // Only set what was passed: React writes an empty `rowGap` after `gap` and resets part of the shorthand.
+  const layoutStyle: CSSProperties = {};
   if (minChildWidth != null) {
     const width = typeof minChildWidth === 'number' ? `${minChildWidth}px` : minChildWidth;
-    gridTemplateColumns = `repeat(auto-fit, minmax(min(100%, ${width}), 1fr))`;
+    layoutStyle.gridTemplateColumns = `repeat(auto-fit, minmax(min(100%, ${width}), 1fr))`;
+  } else if (columns != null) {
+    layoutStyle.gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
   }
-
-  const rootStyle: CSSProperties = {
-    display: 'grid',
-    gridTemplateColumns,
-    ...(gap == null ? {} : { gap }),
-    ...(rowGap == null ? {} : { rowGap }),
-    ...(columnGap == null ? {} : { columnGap }),
-    ...style,
-  };
+  if (gap != null) layoutStyle.gap = gap;
+  if (rowGap != null) layoutStyle.rowGap = rowGap;
+  if (columnGap != null) layoutStyle.columnGap = columnGap;
 
   return (
     <ark.div
       {...props}
       ref={ref}
-      asChild={asChild}
       data-scope="simple-grid"
       data-part="root"
       data-slot="simple-grid-root"
-      className={className}
-      style={rootStyle}
+      className={clsx(styles.root, className)}
+      style={{ ...layoutStyle, ...style }}
     />
   );
 });
 
 export { SimpleGrid };
+export type { SimpleGridRootProps };

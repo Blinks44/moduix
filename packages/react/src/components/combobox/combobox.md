@@ -35,8 +35,10 @@ explicit and independently styleable.
 - `onValueChange`, `onInputValueChange`, `onOpenChange`, and `onHighlightChange` preserve Ark detail
   objects without remapping.
 - `ComboboxContext`, `useCombobox`, and `useComboboxContext` are exported by moduix. Import
-  collection helpers from `@ark-ui/react/collection` and `useFilter` from `@ark-ui/react/locale`;
-  Ark-only item hooks and type aliases remain advanced escape hatches.
+  collection helpers from `@ark-ui/react/collection` and `useFilter` from `@ark-ui/react/locale`.
+- Part props and callback detail types are re-exported from Ark (the same list in every adapter).
+  `ComboboxRootProps` and `ComboboxRootProviderProps` are moduix types that add `portalled` and
+  `portalRef`; `ComboboxOptionProps` describes the row helper.
 - `ComboboxTrigger` and `ComboboxItemIndicator` provide default moduix icons when children are
   omitted. `ComboboxClearTrigger` composes Ark clearing behavior with the shared
   `CloseButton` by default.
@@ -190,32 +192,32 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 
 ## Defaults and styling
 
-The input control defaults to `--moduix-size-md`. Single-line popup options default to `--moduix-size-sm` with `--moduix-spacing-1` block padding.
-Empty and status messages use the same compact `--moduix-spacing-1` block padding.
+The input defaults to `--moduix-size-md`. Single-line popup options default to `--moduix-size-sm` with
+`--moduix-spacing-1` block padding. Empty and status messages share the same compact styles.
 
-Popup group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular
-weight, and `--moduix-spacing-1` block padding. Component-specific variables still take precedence.
-When popup content scrolls, `ItemGroupLabel` sticks to its top edge and keeps an opaque popup surface
-above the scrolled options.
+Popup items and group labels read the shared `--moduix-popup-item-*` and
+`--moduix-popup-group-label-*` defaults. When popup content scrolls, `ItemGroupLabel` sticks to its
+top edge and keeps an opaque popup surface above the scrolled options.
 
-`Status` uses the `--moduix-combobox-empty-*` tokens by default, so consumer-owned loading and error
-messages match the empty state without a duplicate token surface.
+Public CSS Modules variables are limited to sizes that several parts depend on:
+`--moduix-combobox-width`, `--moduix-combobox-radius` (control and content),
+`--moduix-combobox-control-height`, `--moduix-combobox-action-size` (trigger, clear action, and the
+input space reserved for them), and `--moduix-combobox-content-max-height` (capped by
+`--available-height`). Everything else comes from foundation tokens or a class on the part. They are
+declared in `packages/foundation/src/styles/variables-moduix.css`. Popup variables must be set on
+`:root` or `ComboboxContent` because the content is portalled.
 
-Ark positioning variables have neutral initial values in the shared theme for tooling and unpositioned
-content; Ark replaces them with measured values on `Positioner` when the popup opens.
-
-- Content motion falls back to the shared `--moduix-popup-motion-*` tokens. `--moduix-combobox-transition` and
-  closed-state variables remain the more specific override.
-- moduix applies its tokens, radius, focus ring, popup shadow, item highlight, and motion defaults.
-- The field keeps its focus ring while the popup is open. Hovering the input or trigger highlights
-  the field surface; hovering `ClearTrigger` highlights only that action.
-- `className` is accepted on every visual part.
-- `ComboboxClearTrigger` maps its component tokens to `CloseButton`; use `asChild` with one
-  semantic child when the clear control needs a custom host or visual treatment.
-- Trigger and clear actions are positioned at the logical inline end, so they follow RTL text flow.
-- `ComboboxInput asChild` preserves Ark input behavior without applying the default combobox input
-  visual class to the child element.
-- Public component variables are declared in `packages/foundation/src/styles/variables-moduix.css`.
+- Content motion uses the shared `--moduix-popup-motion-*` tokens.
+- The field keeps its focus ring while the popup is open. `Trigger` and `ClearTrigger` use the shared
+  focus ring (`--moduix-focus-ring-width`, `--moduix-focus-ring-offset`), like `CloseButton`.
+- `Trigger` and `ClearTrigger` sit at the logical inline end, so they follow RTL. A lone
+  `ClearTrigger` takes the trigger position. The input reserves space for one action or for both,
+  depending on which parts are rendered; a hidden clear action keeps its space so text does not jump.
+- `ComboboxClearTrigger` composes `CloseButton` and only passes the action size to it; use `asChild`
+  with one semantic child when the clear control needs a custom host or visual treatment.
+- `ComboboxInput asChild` preserves Ark input behavior without applying the default input class.
+- Items use inline margins, not a computed width, so absolutely positioned virtual rows can use
+  `left: 0; right: 0`.
 - `Content` uses Ark `--reference-width`, `--available-height`, `--transform-origin`, and
   `--layer-index`. Its z-index is declared on the content part so Ark can propagate it to
   `Positioner` through `--z-index`.
@@ -231,16 +233,12 @@ content; Ark replaces them with measured values on `Positioner` when the popup o
 - moduix adds `Status` because Ark has no status part. It is a styled `div`; consumers retain control
   of async state and any loading or error announcement semantics.
 - moduix exports `RootProvider`, `Context`, `ItemContext`, `useCombobox`, `useComboboxContext`, and
-  `useComboboxItemContext` for provider and context paths. Collection helpers and type aliases that
-  moduix does not expose remain direct Ark imports.
+  `useComboboxItemContext` for provider and context paths. Collection helpers remain direct Ark
+  imports.
 - moduix does not add a hidden popup bundle such as `ComboboxContent` or a root-level `items` prop.
   Keep state collection-first and hide repeated popup structure in local helpers when needed.
 - moduix does not ship combobox-owned chip parts. For richer multi-value controls, compose
   `Combobox` with controlled tags or with `TagsInput` when the chips must live inside one field.
-- Removed legacy `Field`, `Value`, `InputGroup`, `ControlActions`, popup aliases, arrow,
-  backdrop, row, separator, collection render props, and chip parts.
-- Removed legacy root props such as `items`, `itemToStringLabel`, `filter`, `filteredItems`,
-  `openOnInputClick`, and converted callback signatures.
 
 ## Migration notes
 
@@ -275,66 +273,3 @@ Common `shadcn` migration points:
 The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
 DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
 content after the first open; set both props to `false` only when eager initial rendering is needed.
-
-## Local changelog
-
-- 2026-08-10: Corrected the public CSS-property reference, documented the `RootProvider` styling hook,
-  and added regression coverage for keyboard selection, the default clear action, portalling, and refs.
-
-- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
-
-- 2026-07-26: Documented moduix item-context exports and advanced Ark root props in the public and
-  local composition guidance.
-
-- 2026-07-23: Compacted empty and status message block padding to `--moduix-spacing-1`.
-- 2026-07-23: Added `ComboboxStatus`, a styled consumer-owned message surface for loading, error,
-  and guidance content in popup composition.
-- 2026-07-23: Registered neutral initial values for shared Ark positioning variables and made the
-  async-search example show a prompt when the query is cleared.
-- 2026-07-23: Made grouped popup labels stick to the scrollable content edge instead of an inner
-  list scroll container.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Normalized popup group labels to the shared regular-weight, `--moduix-spacing-1` contract.
-
-- 2026-07-21: Reduced the default input to `--moduix-size-md` and compacted popup options to `--moduix-size-sm`.
-
-- 2026-07-20: Removed field hover and popup-open surfaces; clear and open actions retain their local hover treatment.
-- 2026-07-19: Positioned trigger and clear actions with logical inline-end properties for RTL.
-- 2026-07-17: Composed the default clear action with `CloseButton` and mapped combobox action
-  tokens to the shared close-button visual contract.
-- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
-- 2026-07-12: Exported `ComboboxContext`, `useCombobox`, and `useComboboxContext` from the moduix
-  implementation so normal provider and context paths no longer require direct Ark imports.
-- 2026-07-10: Restricted `ComboboxOption` to simple rows by excluding `asChild`; use
-  `ComboboxItem` for custom semantic elements and row layouts. Reordered public examples and added
-  an explicit advanced-customization path.
-- 2026-07-08: Added `ComboboxOption` as a narrow row helper for simple options, including
-  indicator replacement/removal, updated the recommended composition to use it, made input
-  end-padding depend on whether `Trigger` and `ClearTrigger` are rendered, documented the preferred
-  local popup-helper pattern, and added explicit migration notes for users moving from shadcn.
-- 2026-07-03: Synchronized field interaction styling with Select: open popups retain the focus ring,
-  and clear-action hover no longer highlights the whole field surface.
-- 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix
-  surface. Kept `RootProvider`, the callable root, and every styled visual part.
-- 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
-
-- 2026-06-27: Aligned `ComboboxInput asChild` with Ark composition so composed inputs keep their
-  own visual styling while receiving combobox behavior.
-- 2026-06-24: Removed collection and locale helper re-exports from the Combobox public surface;
-  docs now import those helpers directly from Ark UI.
-
-- 2026-06-22: Fixed the docs virtualized composition to use a dedicated scroll container,
-  synchronous `scrollToIndexFn`, and non-scrolling virtual list rows so popup scrolling works with
-  TanStack Virtual.
-- 2026-06-19: Aligned Combobox interactive styling with Select by moving item highlight to accent
-  tokens, adding open and hover surface states on the control, and matching checked/disabled item
-  colors to the Select visual contract.
-- 2026-06-18: Registered Ark `--layer-index` and `--z-index` in the shared theme runtime-variable
-  declarations.
-- 2026-06-18: Added the missing Ark context hooks to the public barrel, aligned popup layering with
-  Ark's content-to-positioner z-index contract, and documented async value rehydration and the
-  current Ark Field integration boundary.
-- 2026-06-18: Registered Ark `--reference-width` in the shared theme runtime-variable declarations.
-- 2026-06-18: Migrated Combobox to Ark UI, adopted collection-first state and Ark callback details,
-  removed hidden popup and chip abstractions, and moved styles to Ark state attributes and
-  positioning variables.

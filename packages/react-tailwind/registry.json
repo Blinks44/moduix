@@ -48,6 +48,20 @@
       ]
     },
     {
+      "name": "a11y-labels",
+      "type": "registry:item",
+      "title": "moduix a11y labels",
+      "description": "Internal accessible label defaults required only by registry components that render text fallbacks.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/internal/a11yLabels.ts",
+          "target": "@lib/moduix/a11yLabels.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "icons",
       "type": "registry:item",
       "title": "moduix icons",
@@ -108,7 +122,7 @@
       "type": "registry:item",
       "title": "Alert",
       "description": "moduix React Tailwind Alert component.",
-      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -232,6 +246,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/icons"
       ],
       "files": [
@@ -344,6 +359,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/icons"
       ],
       "files": [
@@ -392,6 +408,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/icons",
         "@moduix-react-tailwind/close-button",
         "@moduix-react-tailwind/overlay-portal"
@@ -489,6 +506,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/close-button",
         "@moduix-react-tailwind/overlay-portal"
       ],
@@ -514,6 +532,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/close-button",
         "@moduix-react-tailwind/overlay-portal"
       ],
@@ -539,6 +558,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/close-button",
         "@moduix-react-tailwind/overlay-portal"
       ],
@@ -564,6 +584,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/icons",
         "@moduix-react-tailwind/close-button"
       ],
@@ -717,8 +738,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
-        "@moduix-react-tailwind/icons",
-        "@moduix-react-tailwind/close-button"
+        "@moduix-react-tailwind/icons"
       ],
       "files": [
         {
@@ -742,6 +762,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/icons",
         "@moduix-react-tailwind/close-button",
         "@moduix-react-tailwind/overlay-portal"
@@ -888,7 +909,7 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix React Tailwind Image component.",
-      "dependencies": ["@unpic/react", "clsx", "tailwind-merge"],
+      "dependencies": ["@unpic/core", "@unpic/react", "clsx", "tailwind-merge", "unpic"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -978,8 +999,10 @@
         "@moduix-react-tailwind/close-button",
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/button",
-        "@moduix-react-tailwind/input"
+        "@moduix-react-tailwind/input",
+        "@moduix-react-tailwind/textarea"
       ],
       "files": [
         {
@@ -1047,6 +1070,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/icons",
         "@moduix-react-tailwind/kbd",
         "@moduix-react-tailwind/overlay-portal",
@@ -1160,7 +1184,7 @@
       "type": "registry:item",
       "title": "RadioGroup",
       "description": "moduix React Tailwind RadioGroup component.",
-      "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/react", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
       "files": [
         {
@@ -1228,6 +1252,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/icons",
         "@moduix-react-tailwind/input",
         "@moduix-react-tailwind/separator",
@@ -1348,6 +1373,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/close-button",
         "@moduix-react-tailwind/overlay-portal"
       ],
@@ -1397,6 +1423,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/icons",
         "@moduix-react-tailwind/close-button",
         "@moduix-react-tailwind/overlay-portal"
@@ -1545,7 +1572,11 @@
       "title": "Spinner",
       "description": "moduix React Tailwind Spinner component.",
       "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels"
+      ],
       "files": [
         {
           "path": "src/components/spinner/Spinner.tsx",
@@ -1568,6 +1599,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/button",
         "@moduix-react-tailwind/icons",
         "@moduix-react-tailwind/menu",
@@ -1696,7 +1728,11 @@
       "title": "Table",
       "description": "moduix React Tailwind Table component.",
       "dependencies": ["@ark-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@moduix-react-tailwind/foundation", "@moduix-react-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-react-tailwind/foundation",
+        "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels"
+      ],
       "files": [
         {
           "path": "src/components/table/Table.tsx",
@@ -1739,6 +1775,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/close-button"
       ],
       "files": [
@@ -1872,7 +1909,9 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/close-button",
+        "@moduix-react-tailwind/spinner",
         "@moduix-react-tailwind/overlay-portal"
       ],
       "files": [
@@ -1990,6 +2029,7 @@
       "registryDependencies": [
         "@moduix-react-tailwind/foundation",
         "@moduix-react-tailwind/cn",
+        "@moduix-react-tailwind/a11y-labels",
         "@moduix-react-tailwind/close-button",
         "@moduix-react-tailwind/overlay-portal"
       ],

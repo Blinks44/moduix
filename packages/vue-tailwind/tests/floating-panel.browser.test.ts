@@ -216,7 +216,7 @@ test('keeps consumer classes last on component parts and utility classes on empt
     components: floatingPanelComponents,
     template: `
       <FloatingPanel default-open :portalled="false">
-        <FloatingPanelPositioner><FloatingPanelContent class="min-h-0 min-w-0">
+        <FloatingPanelPositioner><FloatingPanelContent class="rounded-none bg-muted">
           <FloatingPanelHeader data-testid="header"><FloatingPanelTitle><FloatingPanelDragIndicator data-testid="drag-indicator" /></FloatingPanelTitle><FloatingPanelControl data-testid="control"><FloatingPanelStageTrigger stage="minimized" /></FloatingPanelControl></FloatingPanelHeader>
           <FloatingPanelBody data-testid="body" /><FloatingPanelFooter data-testid="footer" />
         </FloatingPanelContent></FloatingPanelPositioner>
@@ -226,8 +226,10 @@ test('keeps consumer classes last on component parts and utility classes on empt
 
   render(Harness);
   const content = screen.getByRole('dialog');
-  expect([...content!.classList]).toEqual(expect.arrayContaining(['min-h-0', 'min-w-0']));
-  expect(['min-h-40', 'min-w-64'].some((name) => content!.classList.contains(name))).toBe(false);
+  expect([...content!.classList]).toEqual(expect.arrayContaining(['rounded-none', 'bg-muted']));
+  expect(['rounded-md', 'bg-popover'].some((name) => content!.classList.contains(name))).toBe(
+    false,
+  );
   expect([...screen.getByTestId('header').classList]).toEqual(
     expect.arrayContaining(['min-h-control-xl', 'bg-muted', 'border-b']),
   );
@@ -249,10 +251,7 @@ test('keeps consumer classes last on component parts and utility classes on empt
 
   await expect
     .element(page.locator('[data-slot="floating-panel-content"]'))
-    .toHaveCSS('min-height', '0px');
-  await expect
-    .element(page.locator('[data-slot="floating-panel-content"]'))
-    .toHaveCSS('min-width', '0px');
+    .toHaveCSS('border-radius', '0px');
 });
 
 test('preserves refs through ordinary parts', () => {
@@ -353,4 +352,55 @@ test('keeps close-icon labels, attrs and fallback content reactive', async () =>
     .toBe(true);
   expect(screen.getByTestId('close')).toBe(button);
   await expect.element(page.getByTestId('close')).toBeFocused();
+});
+
+test('sizes the content from Ark state without a CSS minimum', async () => {
+  const Harness = defineComponent({
+    components: floatingPanelComponents,
+    template: `
+      <FloatingPanel default-open :default-size="{ width: 160, height: 96 }" :portalled="false">
+        <FloatingPanelPositioner><FloatingPanelContent /></FloatingPanelPositioner>
+      </FloatingPanel>
+    `,
+  });
+
+  render(Harness);
+  await expect.element(page.getByRole('dialog')).toBeAttached();
+
+  const content = document.querySelector<HTMLElement>('[data-slot="floating-panel-content"]')!;
+  expect([content.offsetWidth, content.offsetHeight]).toEqual([160, 96]);
+});
+
+test('leaves the native trigger unstyled', () => {
+  const Harness = defineComponent({
+    components: floatingPanelComponents,
+    template: `
+      <FloatingPanel :portalled="false">
+        <FloatingPanelTrigger>Open inspector</FloatingPanelTrigger>
+      </FloatingPanel>
+    `,
+  });
+
+  render(Harness);
+
+  expect(document.querySelector('[data-slot="floating-panel-trigger"]')!.className).toBe('');
+});
+
+test('opens with the shared popup keyframes and motion variables', async () => {
+  const Harness = defineComponent({
+    components: floatingPanelComponents,
+    template: `
+      <div style="--moduix-popup-motion-duration: 1234ms">
+        <FloatingPanel default-open :default-size="{ width: 360, height: 260 }" :portalled="false">
+          <FloatingPanelPositioner><FloatingPanelContent /></FloatingPanelPositioner>
+        </FloatingPanel>
+      </div>
+    `,
+  });
+
+  render(Harness);
+  await expect.element(page.getByRole('dialog')).toBeAttached();
+
+  const style = getComputedStyle(document.querySelector('[data-slot="floating-panel-content"]')!);
+  expect([style.animationName, style.animationDuration]).toEqual(['moduix-popup-in', '1.234s']);
 });

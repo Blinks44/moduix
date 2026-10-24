@@ -11,7 +11,7 @@ import styles from '@/components/examples/hover-card/hover-card-with-arrow.modul
 export default function HoverCardWithArrow() {
   return (
     <HoverCard>
-      <HoverCardTrigger class={styles.trigger}>@sarah_chen</HoverCardTrigger>
+      <HoverCardTrigger>@sarah_chen</HoverCardTrigger>
       <HoverCardPositioner>
         <HoverCardContent>
           <HoverCardArrow />

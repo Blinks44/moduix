@@ -2,14 +2,12 @@
 import { FloatingPanelRoot as ArkFloatingPanelRoot } from '@ark-ui/vue/floating-panel';
 import type { FloatingPanelRootEmits, FloatingPanelRootProps } from '@ark-ui/vue/floating-panel';
 import { useAttrs } from 'vue';
-import type { HTMLAttributes } from 'vue';
 import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
 import OverlayPortalProvider from '@/lib/moduix/overlayPortal/OverlayPortalProvider.vue';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ FloatingPanelRootProps {
-  class?: HTMLAttributes['class'];
   closeOnEscape?: FloatingPanelRootProps['closeOnEscape'];
   lazyMount?: FloatingPanelRootProps['lazyMount'];
   persistRect?: FloatingPanelRootProps['persistRect'];

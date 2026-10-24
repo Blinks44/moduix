@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import {
-  ColorPickerChannelSlider as ArkColorPickerChannelSlider,
-  ColorPickerChannelSliderThumb as ArkColorPickerChannelSliderThumb,
-  ColorPickerChannelSliderTrack as ArkColorPickerChannelSliderTrack,
-  ColorPickerTransparencyGrid as ArkColorPickerTransparencyGrid,
-} from '@ark-ui/vue/color-picker';
+import { ColorPickerChannelSlider as ArkColorPickerChannelSlider } from '@ark-ui/vue/color-picker';
 import type { ColorPickerChannelSliderProps } from '@ark-ui/vue/color-picker';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './ColorPicker.module.css';
+import ColorPickerChannelSliderThumb from './ColorPickerChannelSliderThumb.vue';
+import ColorPickerChannelSliderTrack from './ColorPickerChannelSliderTrack.vue';
+import ColorPickerTransparencyGrid from './ColorPickerTransparencyGrid.vue';
 
 defineOptions({ inheritAttrs: false });
 
@@ -32,19 +30,9 @@ const attrs = useAttrs();
     data-slot="color-picker-channel-slider"
   >
     <slot>
-      <ArkColorPickerTransparencyGrid
-        v-if="channel === 'alpha'"
-        data-slot="color-picker-transparency-grid"
-        :class="styles.transparencyGrid"
-      />
-      <ArkColorPickerChannelSliderTrack
-        data-slot="color-picker-channel-slider-track"
-        :class="styles.channelSliderTrack"
-      />
-      <ArkColorPickerChannelSliderThumb
-        data-slot="color-picker-channel-slider-thumb"
-        :class="styles.thumb"
-      />
+      <ColorPickerTransparencyGrid v-if="channel === 'alpha'" />
+      <ColorPickerChannelSliderTrack />
+      <ColorPickerChannelSliderThumb />
     </slot>
   </ArkColorPickerChannelSlider>
 </template>

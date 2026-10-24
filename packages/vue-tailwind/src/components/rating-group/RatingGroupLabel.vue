@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'text-sm leading-5 font-semibold text-foreground select-none data-disabled:opacity-50',
+        'text-sm leading-5 font-semibold text-foreground select-none data-disabled:opacity-disabled',
         className,
       )
     "

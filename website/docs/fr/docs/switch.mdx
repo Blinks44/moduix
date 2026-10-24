@@ -5,39 +5,6 @@ description: Un switch Ark UI composable pour activer ou désactiver un réglage
 ---
 
 import * as SwitchDocs from '@/components/examples/switch/css-properties';
-import SwitchAdvancedCustomization from '@/components/examples/switch/advanced-customization.tsx';
-import SwitchAsChild from '@/components/examples/switch/as-child.tsx';
-import SwitchBasic from '@/components/examples/switch/basic.tsx';
-import SwitchContext from '@/components/examples/switch/context.tsx';
-import SwitchControlled from '@/components/examples/switch/controlled.tsx';
-import SwitchDisabled from '@/components/examples/switch/disabled.tsx';
-import SwitchFormIntegration from '@/components/examples/switch/form-integration.tsx';
-import SwitchInitialChecked from '@/components/examples/switch/initial-checked.tsx';
-import SwitchReadOnly from '@/components/examples/switch/read-only.tsx';
-import SwitchRootProvider from '@/components/examples/switch/root-provider.tsx';
-import SwitchSizes from '@/components/examples/switch/sizes.tsx';
-import switchSolidAdvancedCustomization from '../../../snippets/switch/solid/advanced-customization.tsx?raw';
-import switchSolidAsChild from '../../../snippets/switch/solid/as-child.tsx?raw';
-import switchSolidBasic from '../../../snippets/switch/solid/basic.tsx?raw';
-import switchSolidContext from '../../../snippets/switch/solid/context.tsx?raw';
-import switchSolidControlled from '../../../snippets/switch/solid/controlled.tsx?raw';
-import switchSolidDisabled from '../../../snippets/switch/solid/disabled.tsx?raw';
-import switchSolidFormIntegration from '../../../snippets/switch/solid/form-integration.tsx?raw';
-import switchSolidInitialChecked from '../../../snippets/switch/solid/initial-checked.tsx?raw';
-import switchSolidReadOnly from '../../../snippets/switch/solid/read-only.tsx?raw';
-import switchSolidRootProvider from '../../../snippets/switch/solid/root-provider.tsx?raw';
-import switchSolidSizes from '../../../snippets/switch/solid/sizes.tsx?raw';
-import switchVueAdvancedCustomization from '../../../snippets/switch/vue/advanced-customization.vue?raw';
-import switchVueAsChild from '../../../snippets/switch/vue/as-child.vue?raw';
-import switchVueBasic from '../../../snippets/switch/vue/basic.vue?raw';
-import switchVueContext from '../../../snippets/switch/vue/context.vue?raw';
-import switchVueControlled from '../../../snippets/switch/vue/controlled.vue?raw';
-import switchVueDisabled from '../../../snippets/switch/vue/disabled.vue?raw';
-import switchVueFormIntegration from '../../../snippets/switch/vue/form-integration.vue?raw';
-import switchVueInitialChecked from '../../../snippets/switch/vue/initial-checked.vue?raw';
-import switchVueReadOnly from '../../../snippets/switch/vue/read-only.vue?raw';
-import switchVueRootProvider from '../../../snippets/switch/vue/root-provider.vue?raw';
-import switchVueSizes from '../../../snippets/switch/vue/sizes.vue?raw';
 
 ## Référence de l’API
 
@@ -59,41 +26,7 @@ valeur booléenne.
 Un switch de base comprend une racine, un contrôle visuel, un libellé et `SwitchHiddenInput` explicitement rendu pour les interactions
 natives et les formulaires. Le contrôle reçoit un thumb par défaut lorsqu’il n’a pas d’enfants.
 
-<ExampleFrame variant="component">
-  <SwitchBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="switch/basic" />
 
 ## Installation avec shadcn
 
@@ -174,443 +107,62 @@ du switch.
 
 ## Exemples
 
-### asChild
-
-Utilisez `asChild` lorsque vous avez besoin d’un élément racine personnalisé tout en laissant Ark gérer le comportement du switch.
-
-<ExampleFrame variant="component">
-  <SwitchAsChild />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/as-child.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidAsChild} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueAsChild} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/switch/switch-as-child.module.css"
-```
-</div>
-
-</ExampleCode>
-
 ### Contexte
 
 Utilisez `useSwitchContext` depuis le paquet du framework utilisé lorsque l’interface voisine doit
 lire l’état actuel du switch.
 
-<ExampleFrame variant="component">
-  <SwitchContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidContext} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueContext} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="switch/context" />
 
 ### État contrôlé
 
 Utilisez le mode contrôlé lorsque le switch doit rester synchronisé avec une autre partie de l’interface ou avec l’état de l’application.
 
-<ExampleFrame variant="component">
-  <SwitchControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/switch/switch-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="switch/controlled" />
 
 ### Désactivé
 
 Utilisez `disabled` pour empêcher les interactions tout en conservant l’état visuel actuel.
 
-<ExampleFrame variant="component">
-  <SwitchDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/switch/switch-disabled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="switch/disabled" />
 
 ### Intégration au formulaire
 
 Utilisez `Field` lorsque le switch doit gérer son libellé, sa validation ou son envoi dans un formulaire. Cet exemple affiche une
 erreur après l’envoi du formulaire si le switch est toujours désactivé.
 
-<ExampleFrame variant="component">
-  <SwitchFormIntegration />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/form-integration.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidFormIntegration} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueFormIntegration} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/switch/switch-form-integration.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="switch/form-integration" />
 
 ### État initial activé
 
 Utilisez `defaultChecked` lorsque le switch doit être activé au premier rendu, puis gérer lui-même son état.
 
-<ExampleFrame variant="component">
-  <SwitchInitialChecked />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/initial-checked.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidInitialChecked} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueInitialChecked} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="switch/initial-checked" />
 
 ### Lecture seule
 
 Utilisez `readOnly` lorsque l’état actuel doit rester visible sans que l’utilisateur puisse le modifier.
 
-<ExampleFrame variant="component">
-  <SwitchReadOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/read-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidReadOnly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueReadOnly} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/switch/switch-read-only.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="switch/read-only" />
 
 ### Root Provider
 
 Importez `useSwitch` depuis le paquet du framework utilisé et associez-le à
 `SwitchRootProvider` lorsque l’état doit être créé et contrôlé en dehors de l’arbre rendu du switch.
 
-<ExampleFrame variant="component">
-  <SwitchRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/switch/switch-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="switch/root-provider" />
 
 ### Tailles
 
 Utilisez `size` de moduix pour adapter la densité du formulaire sans modifier l’arbre des parties Ark.
 
-<ExampleFrame variant="component">
-  <SwitchSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/switch/switch-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="switch/sizes" />
 
 ### Personnalisation avancée
 
 Ajoutez `SwitchThumb` explicitement lorsque le thumb a besoin d’un contenu ou de styles personnalisés.
 
-<ExampleFrame variant="component">
-  <SwitchAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/switch/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={switchSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={switchVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="switch/advanced-customization" />
 
 ## Styles
 
@@ -619,24 +171,14 @@ ainsi que les variables CSS publiques `--moduix-switch-*` présentées ci-dessou
 des utilitaires et des classes supplémentaires ; les variables ci-dessous concernent CSS Modules, tandis que les attributs de données sont
 communs aux deux approches.
 
-Dans les variantes Tailwind, la distance de translation du thumb coché est codée en dur par taille. Si
-vous remplacez les utilitaires de largeur du contrôle ou de taille du thumb, remplacez aussi les
-utilitaires `translate-x` cochés correspondants. La variante CSS Modules recalcule le déplacement à
-partir de `--_switch-width`.
+Le thumb tire sa taille et sa position de la boîte du contrôle : un remplacement de `width` ou de
+`height` sur `SwitchControl` (une classe en CSS Modules, les utilitaires `w-*` et `h-*` en Tailwind) le
+garde carré et aligné sur les deux bords. La direction de droite à gauche vient d’Ark : dans un
+[`LocaleProvider`](/docs/rtl) RTL, Ark écrit `dir` sur chaque partie et le thumb coché se place en fin de ligne.
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <SwitchDocs.SwitchCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={SwitchDocs.switchOverrideCssProperties} />
 
 ### Points d’accroche CSS
 

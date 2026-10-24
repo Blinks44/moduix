@@ -4,6 +4,8 @@ import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import {
+  CloseButton,
+  SelectOption,
   Field,
   Select,
   useSelect,
@@ -72,6 +74,47 @@ test('keeps default values and native form values Ark-shaped', async () => {
   await expect
     .element(page.getByRole('button', { name: 'Clear fruit', exact: true }))
     .toBeVisible();
+});
+
+test('reserves room for the clear action only when it is rendered', async () => {
+  render(() => (
+    <>
+      <Select collection={fruits} defaultValue={['apple']}>
+        <SelectField />
+      </Select>
+      <Select collection={fruits} defaultValue={['apple']}>
+        <SelectField clearLabel="Clear fruit" />
+      </Select>
+    </>
+  ));
+
+  const [withoutClear, withClear] = [
+    ...document.querySelectorAll<HTMLElement>('[data-slot="select-trigger"]'),
+  ];
+  await expect.poll(() => getComputedStyle(withClear!).paddingInlineEnd).toBe('68px');
+  expect(getComputedStyle(withoutClear!).paddingInlineEnd).toBe('46px');
+});
+
+test('gives the clear trigger the CloseButton focus ring', async () => {
+  render(() => (
+    <>
+      <CloseButton data-testid="reference" />
+      <Select collection={fruits} defaultValue={['apple']}>
+        <SelectField clearLabel="Clear fruit" />
+      </Select>
+    </>
+  ));
+
+  await expect.element(page.getByRole('button', { name: 'Clear fruit' })).toBeVisible();
+  const reference = document.querySelector<HTMLElement>('[data-testid="reference"]')!;
+  const clear = document.querySelector<HTMLElement>('[data-slot="select-clear-trigger"]')!;
+  reference.focus();
+  const expected = getComputedStyle(reference);
+  const ring = [expected.outlineWidth, expected.outlineOffset];
+  clear.focus();
+  const actual = getComputedStyle(clear);
+  expect(ring).not.toEqual(['0px', '0px']);
+  expect([actual.outlineWidth, actual.outlineOffset]).toEqual(ring);
 });
 
 test('keeps the default indicator outside the trigger button', () => {
@@ -275,7 +318,7 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
     false,
   );
   expect([...clear!.classList]).toEqual(
-    expect.arrayContaining(['size-5', 'end-[2.125rem]', 'pointer-events-auto']),
+    expect.arrayContaining(['size-5', 'end-[2.125rem]', 'absolute']),
   );
   expect(clear!.classList.contains('size-control-xs')).toBe(false);
   expect([...indicator!.classList]).toEqual(
@@ -322,4 +365,42 @@ test.each([false, true])('updates the clear trigger class (asChild=%s)', (asChil
   expect([...trigger!.classList]).toEqual(expect.arrayContaining(['after']));
   expect(trigger!.classList.contains('before')).toBe(false);
   expect(container.querySelector('button')).toBe(trigger);
+});
+
+test('renders an option row with a replaceable indicator', async () => {
+  render(() => (
+    <Select collection={fruits} defaultOpen defaultValue={['apple']} portalled={false}>
+      <SelectPositioner>
+        <SelectContent>
+          <SelectOption item={fruits.items[0]!}>Apple</SelectOption>
+          <SelectOption item={fruits.items[1]!} indicator={false}>
+            Mango
+          </SelectOption>
+        </SelectContent>
+      </SelectPositioner>
+    </Select>
+  ));
+
+  await expect.element(page.getByRole('option', { name: 'Apple' })).toBeVisible();
+
+  const [apple, mango] = [...document.querySelectorAll<HTMLElement>('[data-slot="select-item"]')];
+  expect(apple!.querySelector('[data-slot="select-item-text"]')!.textContent).toBe('Apple');
+  expect(apple!.querySelector('[data-slot="select-item-indicator"] svg')).not.toBeNull();
+  expect(mango!.querySelector('[data-slot="select-item-indicator"]')).toBeNull();
+  expect(document.querySelector('[data-testid="custom-indicator"]')).toBeNull();
+
+  render(() => (
+    <Select collection={fruits} defaultOpen defaultValue={['mango']} portalled={false}>
+      <SelectPositioner>
+        <SelectContent>
+          <SelectOption item={fruits.items[1]!} indicator={<span data-testid="custom-indicator" />}>
+            Mango
+          </SelectOption>
+        </SelectContent>
+      </SelectPositioner>
+    </Select>
+  ));
+  await expect
+    .poll(() => document.querySelector('[data-testid="custom-indicator"]'))
+    .not.toBeNull();
 });

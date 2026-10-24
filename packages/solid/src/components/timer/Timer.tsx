@@ -88,29 +88,31 @@ function TimerActionTrigger(props: ComponentProps<typeof TimerPrimitive.ActionTr
   );
 }
 
+type TimerItemType = ComponentProps<typeof TimerPrimitive.Item>['type'];
 type TimerSegmentsProps = Omit<
   ComponentProps<typeof TimerPrimitive.Area>,
   'asChild' | 'children'
 > & {
   separator?: JSX.Element;
-  types?: ComponentProps<typeof TimerPrimitive.Item>['type'][];
+  types?: TimerItemType[];
 };
+type TimerTickDetails = Parameters<
+  NonNullable<ComponentProps<typeof TimerPrimitive.Root>['onTick']>
+>[0];
 
-const defaultTimerSegmentTypes = ['hours', 'minutes', 'seconds'] satisfies ComponentProps<
-  typeof TimerPrimitive.Item
->['type'][];
+const defaultTimerSegmentTypes: TimerItemType[] = ['hours', 'minutes', 'seconds'];
 
 function TimerSegments(props: TimerSegmentsProps) {
   const [local, others] = splitProps(props, ['separator', 'types']);
-  const segmentTypes = () => local.types ?? defaultTimerSegmentTypes;
+  const types = () => local.types ?? defaultTimerSegmentTypes;
 
   return (
     <TimerArea {...others}>
-      <Index each={segmentTypes()}>
+      <Index each={types()}>
         {(type, index) => (
           <>
             <TimerItem type={type()} />
-            {index < segmentTypes().length - 1 && (
+            {index < types().length - 1 && (
               <TimerSeparator>{local.separator ?? ':'}</TimerSeparator>
             )}
           </>
@@ -132,7 +134,21 @@ export {
   TimerRootProvider,
   TimerSegments,
   TimerSeparator,
-  type TimerSegmentsProps,
   useTimer,
   useTimerContext,
 };
+
+export type {
+  TimerActionTriggerProps,
+  TimerAreaProps,
+  TimerContextProps,
+  TimerControlProps,
+  TimerItemProps,
+  TimerRootProps,
+  TimerRootProviderProps,
+  TimerSeparatorProps,
+  UseTimerContext,
+  UseTimerProps,
+  UseTimerReturn,
+} from '@ark-ui/solid/timer';
+export type { TimerSegmentsProps, TimerTickDetails };

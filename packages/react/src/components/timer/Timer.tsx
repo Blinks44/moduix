@@ -104,23 +104,20 @@ const TimerActionTrigger = forwardRef<
   );
 });
 
+type TimerItemType = ComponentProps<typeof TimerPrimitive.Item>['type'];
 type TimerSegmentsProps = Omit<
   ComponentProps<typeof TimerPrimitive.Area>,
   'asChild' | 'children'
 > & {
   separator?: ReactNode;
-  types?: ComponentProps<typeof TimerPrimitive.Item>['type'][];
+  types?: TimerItemType[];
 };
+type TimerTickDetails = TimerPrimitive.TickDetails;
 
-const defaultTimerSegmentTypes = ['hours', 'minutes', 'seconds'] satisfies ComponentProps<
-  typeof TimerPrimitive.Item
->['type'][];
+const defaultTimerSegmentTypes: TimerItemType[] = ['hours', 'minutes', 'seconds'];
 
 const TimerSegments = forwardRef<ComponentRef<typeof TimerPrimitive.Area>, TimerSegmentsProps>(
-  function TimerSegments(
-    { separator = ':', types = defaultTimerSegmentTypes, ...props }: TimerSegmentsProps,
-    ref,
-  ) {
+  function TimerSegments({ separator = ':', types = defaultTimerSegmentTypes, ...props }, ref) {
     return (
       <TimerArea ref={ref} {...props}>
         {types.map((type, index) => (
@@ -146,7 +143,20 @@ export {
   TimerRootProvider,
   TimerSegments,
   TimerSeparator,
-  type TimerSegmentsProps,
   useTimer,
   useTimerContext,
 };
+export type {
+  TimerActionTriggerProps,
+  TimerAreaProps,
+  TimerContextProps,
+  TimerControlProps,
+  TimerItemProps,
+  TimerRootProps,
+  TimerRootProviderProps,
+  TimerSeparatorProps,
+  UseTimerContext,
+  UseTimerProps,
+  UseTimerReturn,
+} from '@ark-ui/react/timer';
+export type { TimerSegmentsProps, TimerTickDetails };

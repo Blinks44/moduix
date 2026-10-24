@@ -41,9 +41,9 @@ test('renders the native table anatomy with stable hooks and defaults', async ()
     components: tableComponents,
     template: `
       <TableScrollArea data-testid="scroll-area">
-        <Table data-testid="table" size="lg" variant="outline">
+        <Table data-testid="table" size="lg">
           <TableColumnGroup data-testid="column-group">
-            <TableColumn data-testid="column" html-width="40%" />
+            <TableColumn data-testid="column" width="40%" />
           </TableColumnGroup>
           <TableCaption data-testid="caption" side="top">Recent invoices</TableCaption>
           <TableHeader data-testid="header">
@@ -94,10 +94,9 @@ test('renders the native table anatomy with stable hooks and defaults', async ()
     part: 'root',
     slot: 'table-root',
     size: 'lg',
-    variant: 'outline',
   });
   expect([...table.classList]).toEqual(
-    expect.arrayContaining(['text-md', 'leading-6', 'border-collapse', 'border']),
+    expect.arrayContaining(['text-md', 'leading-6', 'border-collapse']),
   );
   expect(columnGroup.tagName).toBe('COLGROUP');
   expect(columnGroup.getAttribute('data-part')).toBe('column-group');
@@ -128,7 +127,7 @@ test('renders the native table anatomy with stable hooks and defaults', async ()
   );
   expect(cell.tagName).toBe('TD');
   expect(cell.getAttribute('data-part')).toBe('cell');
-  expect([...cell!.classList]).toEqual(expect.arrayContaining(['relative', 'align-middle']));
+  expect([...cell!.classList]).toEqual(expect.arrayContaining(['relative', 'px-4']));
 });
 
 test.each(['sm', 'md', 'lg'] as const)('renders the %s size preset', (size) => {
@@ -165,29 +164,12 @@ test('scopes interactive row styles to body rows', async () => {
     template: `
       <Table interactive striped>
         <TableHeader><TableRow data-testid="header-row"><TableColumnHeader>Invoice</TableColumnHeader></TableRow></TableHeader>
-        <TableBody data-testid="body"><TableRow data-testid="body-row"><TableCell>INV001</TableCell></TableRow></TableBody>
+        <TableBody><TableRow data-testid="body-row"><TableCell>INV001</TableCell></TableRow></TableBody>
       </Table>
     `,
   });
 
-  const body = screen.getByTestId('body');
   const bodyRow = screen.getByTestId('body-row');
-  expect(body?.classList.contains('group/table-body')).toBe(true);
-  expect([...bodyRow!.classList]).toEqual(
-    expect.arrayContaining([
-      'transition-colors',
-      'duration-200',
-      'ease-in-out',
-      'motion-reduce:transition-none',
-    ]),
-  );
-  expect([...bodyRow!.classList]).toEqual(
-    expect.arrayContaining([
-      'group-data-[interactive]/table:group-data-[slot=table-body]/table-body:[&:not([data-empty])]:hover:bg-muted',
-      'group-data-[interactive]/table:group-data-[slot=table-body]/table-body:[&:not([data-empty])]:focus-within:bg-muted',
-      'group-data-[striped]/table:group-data-[slot=table-body]/table-body:[&:nth-child(even):not([data-empty]):not(:hover):not(:focus-within)]:bg-muted/35',
-    ]),
-  );
 
   const headerRow = screen.getByTestId('header-row');
   const header = page.getByTestId('header-row');
@@ -210,7 +192,7 @@ test('keeps public hooks when consumer data attributes conflict', () => {
     components: tableComponents,
     template: `
       <Table data-testid="table" data-scope="custom" data-part="custom" data-slot="custom"
-        data-size="custom" data-variant="custom">
+        data-size="custom">
         <TableCaption data-testid="caption" data-scope="custom" data-part="custom"
           data-slot="custom" data-side="custom" />
         <TableBody><TableRow data-testid="row" data-scope="custom" data-part="custom" data-slot="custom" /></TableBody>
@@ -223,7 +205,6 @@ test('keeps public hooks when consumer data attributes conflict', () => {
     part: 'root',
     slot: 'table-root',
     size: 'md',
-    variant: 'line',
   });
 
   expect(screen.getByTestId('caption').dataset).toMatchObject({
@@ -281,8 +262,7 @@ test('supports native refs, fallthrough attrs, classes, and listeners', async ()
 test('preserves semantic root composition with native Ark Vue asChild', () => {
   render({
     components: { Table },
-    template:
-      '<Table as-child size="sm" variant="outline"><section aria-label="Invoice table" /></Table>',
+    template: '<Table as-child size="sm"><section aria-label="Invoice table" /></Table>',
   });
 
   expect(screen.getByRole('region', { name: 'Invoice table' }).dataset).toMatchObject({
@@ -290,7 +270,6 @@ test('preserves semantic root composition with native Ark Vue asChild', () => {
     part: 'root',
     slot: 'table-root',
     size: 'sm',
-    variant: 'outline',
   });
 });
 
@@ -365,7 +344,7 @@ test('supports replacing only the generated empty cell with asChild', async () =
   expect(emptyRef.value?.$el).toBe(emptyCell);
 });
 
-test('forwards the column slot to a semantic asChild host and preserves htmlWidth precedence', async () => {
+test('forwards the column slot to a semantic asChild host', async () => {
   const columnRef = ref<ComponentPublicInstance>();
   render({
     components: tableComponents,
@@ -373,7 +352,7 @@ test('forwards the column slot to a semantic asChild host and preserves htmlWidt
     template: `
       <Table>
         <TableColumnGroup>
-          <TableColumn ref="columnRef" as-child html-width="40%" width="60%">
+          <TableColumn ref="columnRef" as-child width="40%">
             <col data-testid="custom-column" />
           </TableColumn>
         </TableColumnGroup>
@@ -385,6 +364,53 @@ test('forwards the column slot to a semantic asChild host and preserves htmlWidt
   await expect.element(page.getByTestId('custom-column')).toHaveAttribute('width', '40%');
   expect(column.getAttribute('data-slot')).toBe('table-column');
   expect(columnRef.value?.$el).toBe(column);
+});
+
+test('paints row states on sticky cells, keeps stripes on plain hover, and keeps numbers on one line', async () => {
+  render({
+    components: tableComponents,
+    template: `
+      <div>
+        <Table striped>
+          <TableBody>
+            <TableRow><TableCell>INV001</TableCell></TableRow>
+            <TableRow data-testid="striped-row">
+              <TableCell data-testid="striped-sticky" data-sticky="start">INV002</TableCell>
+              <TableCell data-testid="numeric" numeric>$1 250.00</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+        <Table interactive>
+          <TableBody>
+            <TableRow>
+              <TableCell data-testid="interactive-sticky" data-sticky="start">
+                <button type="button">Edit</button>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
+    `,
+  });
+
+  const stripedRow = screen.getByTestId('striped-row');
+  const interactiveSticky = screen.getByTestId('interactive-sticky');
+  const stripe = getComputedStyle(stripedRow).backgroundColor;
+
+  expect(stripe).not.toBe('rgba(0, 0, 0, 0)');
+  expect(getComputedStyle(screen.getByTestId('striped-sticky')).backgroundImage).toContain(
+    'gradient',
+  );
+  expect(getComputedStyle(interactiveSticky).backgroundImage).toBe('none');
+  expect(getComputedStyle(screen.getByTestId('numeric')).whiteSpace).toBe('nowrap');
+
+  await page.getByTestId('striped-row').hover();
+  expect(getComputedStyle(stripedRow).backgroundColor).toBe(stripe);
+
+  screen.getByRole('button', { name: 'Edit' }).focus();
+  await expect
+    .poll(() => getComputedStyle(interactiveSticky).backgroundImage)
+    .toContain('gradient');
 });
 
 test('keeps sticky-column hooks on native table cells', () => {

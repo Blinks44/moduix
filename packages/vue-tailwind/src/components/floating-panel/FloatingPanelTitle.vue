@@ -20,12 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkFloatingPanelTitle
     v-bind="attrs"
-    :class="
-      cn(
-        'inline-flex min-w-0 items-center gap-2 text-sm font-semibold text-popover-foreground',
-        className,
-      )
-    "
+    :class="cn('inline-flex min-w-0 items-center gap-2 text-sm font-semibold', className)"
     data-slot="floating-panel-title"
   >
     <slot />

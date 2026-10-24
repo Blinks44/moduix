@@ -6,6 +6,7 @@ import {
   useFloatingPanel,
   useFloatingPanelContext,
   type FloatingPanelResizeTriggerAxis,
+  type FloatingPanelStage,
 } from '@ark-ui/react/floating-panel';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
@@ -30,6 +31,12 @@ const resizeTriggerAxes = [
   'sw',
   'nw',
 ] satisfies FloatingPanelResizeTriggerAxis[];
+
+const stageIcons = {
+  default: RestoreIcon,
+  maximized: MaximizeIcon,
+  minimized: MinusIcon,
+} satisfies Record<FloatingPanelStage, unknown>;
 
 type FloatingPanelRootProps = ComponentProps<typeof FloatingPanelPrimitive.Root> &
   OverlayPortalProps;
@@ -79,27 +86,18 @@ function FloatingPanelRootProvider({
 const FloatingPanelTrigger = forwardRef<
   ComponentRef<typeof FloatingPanelPrimitive.Trigger>,
   ComponentProps<typeof FloatingPanelPrimitive.Trigger>
->(function FloatingPanelTrigger({ asChild, className, ...props }, ref) {
-  return (
-    <FloatingPanelPrimitive.Trigger
-      ref={ref}
-      asChild={asChild}
-      className={clsx(!asChild && styles.trigger, className)}
-      {...props}
-      data-slot="floating-panel-trigger"
-    />
-  );
+>(function FloatingPanelTrigger(props, ref) {
+  return <FloatingPanelPrimitive.Trigger ref={ref} {...props} data-slot="floating-panel-trigger" />;
 });
 
 const FloatingPanelPositioner = forwardRef<
   ComponentRef<typeof FloatingPanelPrimitive.Positioner>,
   ComponentProps<typeof FloatingPanelPrimitive.Positioner>
->(function FloatingPanelPositioner({ className, ...props }, ref) {
+>(function FloatingPanelPositioner(props, ref) {
   return (
     <OverlayPortal>
       <FloatingPanelPrimitive.Positioner
         ref={ref}
-        className={clsx(styles.positioner, className)}
         {...props}
         data-slot="floating-panel-positioner"
       />
@@ -124,11 +122,10 @@ const FloatingPanelContent = forwardRef<
 const FloatingPanelDragTrigger = forwardRef<
   ComponentRef<typeof FloatingPanelPrimitive.DragTrigger>,
   ComponentProps<typeof FloatingPanelPrimitive.DragTrigger>
->(function FloatingPanelDragTrigger({ className, ...props }, ref) {
+>(function FloatingPanelDragTrigger(props, ref) {
   return (
     <FloatingPanelPrimitive.DragTrigger
       ref={ref}
-      className={clsx(styles.dragTrigger, className)}
       {...props}
       data-slot="floating-panel-drag-trigger"
     />
@@ -180,11 +177,8 @@ const FloatingPanelControl = forwardRef<
 const FloatingPanelStageTrigger = forwardRef<
   ComponentRef<typeof FloatingPanelPrimitive.StageTrigger>,
   ComponentProps<typeof FloatingPanelPrimitive.StageTrigger>
->(function FloatingPanelStageTrigger(
-  { asChild, className, children, stage, 'aria-label': ariaLabel, ...props },
-  ref,
-) {
-  const shouldRenderDefaultIcon = children == null && !asChild;
+>(function FloatingPanelStageTrigger({ asChild, className, children, stage, ...props }, ref) {
+  const StageIcon = stageIcons[stage];
 
   return (
     <FloatingPanelPrimitive.StageTrigger
@@ -192,14 +186,10 @@ const FloatingPanelStageTrigger = forwardRef<
       asChild={asChild}
       stage={stage}
       className={clsx(!asChild && styles.controlButton, className)}
-      aria-label={ariaLabel}
       {...props}
       data-slot="floating-panel-stage-trigger"
     >
-      {children}
-      {shouldRenderDefaultIcon && stage === 'minimized' ? <MinusIcon /> : null}
-      {shouldRenderDefaultIcon && stage === 'maximized' ? <MaximizeIcon /> : null}
-      {shouldRenderDefaultIcon && stage === 'default' ? <RestoreIcon /> : null}
+      {children ?? (asChild ? null : <StageIcon />)}
     </FloatingPanelPrimitive.StageTrigger>
   );
 });
@@ -256,7 +246,8 @@ const FloatingPanelBody = forwardRef<
 
 const FloatingPanelFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
   function FloatingPanelFooter({ className, ...props }, ref) {
-    const { ['data-minimized']: dataMinimized } = useFloatingPanelContext().getContentProps() as {
+    // Ark does not mark parts it does not own, so mirror the content stage.
+    const { 'data-minimized': dataMinimized } = useFloatingPanelContext().getContentProps() as {
       'data-minimized'?: string;
     };
 
@@ -343,3 +334,31 @@ export {
   type FloatingPanelRootProps,
   type FloatingPanelRootProviderProps,
 };
+
+export type {
+  FloatingPanelAnchorPositionDetails,
+  FloatingPanelBodyProps,
+  FloatingPanelCloseTriggerProps,
+  FloatingPanelContentProps,
+  FloatingPanelContextProps,
+  FloatingPanelControlProps,
+  FloatingPanelDragTriggerProps,
+  FloatingPanelHeaderProps,
+  FloatingPanelIntlTranslations,
+  FloatingPanelOpenChangeDetails,
+  FloatingPanelPoint,
+  FloatingPanelPositionChangeDetails,
+  FloatingPanelPositionerProps,
+  FloatingPanelResizeTriggerAxis,
+  FloatingPanelResizeTriggerProps,
+  FloatingPanelSize,
+  FloatingPanelSizeChangeDetails,
+  FloatingPanelStage,
+  FloatingPanelStageChangeDetails,
+  FloatingPanelStageTriggerProps,
+  FloatingPanelTitleProps,
+  FloatingPanelTriggerProps,
+  UseFloatingPanelContext,
+  UseFloatingPanelProps,
+  UseFloatingPanelReturn,
+} from '@ark-ui/react/floating-panel';

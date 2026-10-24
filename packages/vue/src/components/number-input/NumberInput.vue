@@ -8,13 +8,16 @@ import styles from './NumberInput.module.css';
 
 defineOptions({ inheritAttrs: false });
 
+export type NumberInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 export interface Props extends /* @vue-ignore */ NumberInputRootProps {
   class?: HTMLAttributes['class'];
+  size?: NumberInputSize;
 }
 
 export interface Emits extends /* @vue-ignore */ NumberInputRootEmits {}
 
-const { class: className } = defineProps<Props>();
+const { class: className, size = 'md' } = defineProps<Props>();
 defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
@@ -25,6 +28,7 @@ const attrs = useAttrs();
   <ArkNumberInputRoot
     v-bind="attrs"
     :class="clsx(styles.root, className)"
+    :data-size="size"
     data-slot="number-input-root"
   >
     <slot />

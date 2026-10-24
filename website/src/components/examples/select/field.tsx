@@ -10,10 +10,8 @@ import {
   SelectIndicator,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
   SelectHiddenSelect,
+  SelectOption,
 } from '@moduix/react/select';
 import styles from '@/components/examples/select/select-field.module.css';
 
@@ -54,10 +52,9 @@ export default function SelectFieldDemo() {
         <SelectPositioner>
           <SelectContent>
             {frameworks.items.map((item) => (
-              <SelectItem key={item.value} item={item}>
-                <SelectItemText>{item.label}</SelectItemText>
-                <SelectItemIndicator />
-              </SelectItem>
+              <SelectOption key={item.value} item={item}>
+                {item.label}
+              </SelectOption>
             ))}
           </SelectContent>
         </SelectPositioner>

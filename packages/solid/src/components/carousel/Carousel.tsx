@@ -6,7 +6,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, Index, splitProps } from 'solid-js';
-import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './Carousel.module.css';
 
 function Carousel(props: ComponentProps<typeof CarouselPrimitive.Root>) {
@@ -70,41 +70,31 @@ function CarouselItem(props: ComponentProps<typeof CarouselPrimitive.Item>) {
 }
 
 function CarouselPrevTrigger(props: ComponentProps<typeof CarouselPrimitive.PrevTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   const resolvedChildren = children(() => local.children);
 
   return (
     <CarouselPrimitive.PrevTrigger
-      asChild={local.asChild}
-      class={clsx(styles.prevTrigger, local.class)}
+      class={clsx(styles.trigger, local.class)}
       {...others}
       data-slot="carousel-prev-trigger"
     >
-      {resolvedChildren() ?? (
-        <span class={styles.defaultIcon}>
-          <ChevronLeftIcon />
-        </span>
-      )}
+      {resolvedChildren() ?? <ChevronLeftIcon class={styles.icon} />}
     </CarouselPrimitive.PrevTrigger>
   );
 }
 
 function CarouselNextTrigger(props: ComponentProps<typeof CarouselPrimitive.NextTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   const resolvedChildren = children(() => local.children);
 
   return (
     <CarouselPrimitive.NextTrigger
-      asChild={local.asChild}
-      class={clsx(styles.nextTrigger, local.class)}
+      class={clsx(styles.trigger, local.class)}
       {...others}
       data-slot="carousel-next-trigger"
     >
-      {resolvedChildren() ?? (
-        <span class={styles.defaultIcon}>
-          <ChevronRightIcon />
-        </span>
-      )}
+      {resolvedChildren() ?? <ChevronRightIcon class={styles.icon} />}
     </CarouselPrimitive.NextTrigger>
   );
 }
@@ -161,7 +151,7 @@ function CarouselAutoplayTrigger(props: ComponentProps<typeof CarouselPrimitive.
 
   return (
     <CarouselPrimitive.AutoplayTrigger
-      class={clsx(styles.autoplayTrigger, local.class)}
+      class={clsx(styles.trigger, styles.autoplayTrigger, local.class)}
       {...others}
       data-slot="carousel-autoplay-trigger"
     />

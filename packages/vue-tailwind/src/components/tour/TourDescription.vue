@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkTourDescription
     v-bind="attrs"
-    :class="cn('text-sm leading-5 text-muted-foreground', className)"
+    :class="cn('text-sm text-muted-foreground', className)"
     data-slot="tour-description"
   >
     <template v-if="slots.default" #default>

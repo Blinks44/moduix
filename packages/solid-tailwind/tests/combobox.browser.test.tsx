@@ -293,3 +293,38 @@ test.each([false, true])('updates the clear trigger class (asChild=%s)', (asChil
   expect(trigger!.classList.contains('before')).toBe(false);
   expect(container.querySelector('button')).toBe(trigger);
 });
+
+test('places a lone clear action at the inline end and reserves input space per action', () => {
+  render(() => (
+    <>
+      <Combobox collection={fruits} defaultValue={['apple']} portalled={false}>
+        <ComboboxControl>
+          <ComboboxInput />
+          <ComboboxClearTrigger />
+        </ComboboxControl>
+      </Combobox>
+      <Combobox collection={fruits} defaultValue={['apple']} portalled={false}>
+        <ComboboxControl>
+          <ComboboxInput />
+          <ComboboxClearTrigger />
+          <ComboboxTrigger aria-label="Open fruits" />
+        </ComboboxControl>
+      </Combobox>
+    </>
+  ));
+
+  const [clearOnly, both] = [
+    ...document.querySelectorAll<HTMLElement>('[data-slot="combobox-control"]'),
+  ];
+  const endGap = (control: HTMLElement) =>
+    control.getBoundingClientRect().right -
+    control.querySelector('[data-slot="combobox-clear-trigger"]')!.getBoundingClientRect().right;
+  const inputEnd = (control: HTMLElement) =>
+    getComputedStyle(control.querySelector('[data-slot="combobox-input"]')!).paddingInlineEnd;
+
+  // 1px control border + 8px action offset, then + 24px trigger + 2px gap.
+  expect(Math.abs(endGap(clearOnly!) - 9)).toBeLessThanOrEqual(1);
+  expect(Math.abs(endGap(both!) - 35)).toBeLessThanOrEqual(1);
+  expect(inputEnd(clearOnly!)).toBe('44px');
+  expect(inputEnd(both!)).toBe('70px');
+});

@@ -42,7 +42,7 @@ export default function IndentDrawerDemo() {
           </DrawerIndent>
           <DrawerBackdrop className={styles.backdrop} />
           <DrawerPositioner className={styles.positioner}>
-            <DrawerContent>
+            <DrawerContent className={styles.content}>
               <DrawerGrabber>
                 <DrawerGrabberIndicator />
               </DrawerGrabber>

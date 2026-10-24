@@ -8,8 +8,8 @@ import styles from './Card.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type CardSize = 'sm' | 'md' | 'lg';
-type CardVariant = 'elevated' | 'outline' | 'subtle';
+export type CardSize = 'sm' | 'md' | 'lg';
+export type CardVariant = 'elevated' | 'outline' | 'subtle';
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {
   class?: HTMLAttributes['class'];

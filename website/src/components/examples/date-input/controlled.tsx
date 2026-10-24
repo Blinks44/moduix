@@ -14,11 +14,7 @@ export default function ControlledDateInputDemo() {
   const [value, setValue] = useState([new CalendarDate(2026, 6, 22)] as DateInputDateValue[]);
   return (
     <div className={styles.stack}>
-      <DateInput
-        className={styles.root}
-        value={value}
-        onValueChange={(details) => setValue(details.value)}
-      >
+      <DateInput value={value} onValueChange={(details) => setValue(details.value)}>
         <DateInputLabel>Controlled date</DateInputLabel>
         <DateInputControl>
           <DateInputSegments />

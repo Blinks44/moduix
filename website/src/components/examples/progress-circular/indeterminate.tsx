@@ -8,7 +8,7 @@ import styles from '@/components/examples/progress-circular/component-indetermin
 
 export default function IndeterminateProgressCircularDemo() {
   return (
-    <ProgressCircular className={styles.indeterminate} defaultValue={null}>
+    <ProgressCircular defaultValue={null}>
       <ProgressCircularLabel>Preparing report</ProgressCircularLabel>
       <div className={styles.circleContainer}>
         <ProgressCircularRing aria-label="Preparing report" />

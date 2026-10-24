@@ -5,27 +5,17 @@ import { forwardRef } from 'react';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Table.module.css';
 
-type TableProps = HTMLArkProps<'table'> & {
+type TableSize = 'sm' | 'md' | 'lg';
+type TableRootProps = HTMLArkProps<'table'> & {
   interactive?: boolean;
   showColumnBorder?: boolean;
-  size?: 'sm' | 'md' | 'lg';
+  size?: TableSize;
   stickyHeader?: boolean;
   striped?: boolean;
-  variant?: 'line' | 'outline';
 };
-
-type TableScrollAreaProps = HTMLArkProps<'div'>;
 type TableCaptionProps = HTMLArkProps<'caption'> & {
   side?: 'top' | 'bottom';
 };
-type TableColumnGroupProps = HTMLArkProps<'colgroup'>;
-type TableColumnProps = HTMLArkProps<'col'> & {
-  htmlWidth?: string | number;
-};
-type TableHeaderProps = HTMLArkProps<'thead'>;
-type TableBodyProps = HTMLArkProps<'tbody'>;
-type TableFooterProps = HTMLArkProps<'tfoot'>;
-type TableRowProps = HTMLArkProps<'tr'>;
 type TableColumnHeaderProps = HTMLArkProps<'th'> & {
   numeric?: boolean;
 };
@@ -36,16 +26,14 @@ type TableEmptyProps = HTMLArkProps<'td'> & {
   colSpan: number;
 };
 
-const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
+const Table = forwardRef<HTMLTableElement, TableRootProps>(function Table(
   {
-    asChild,
     className,
     interactive = false,
     showColumnBorder = false,
     size = 'md',
     stickyHeader = false,
     striped = false,
-    variant = 'line',
     ...props
   },
   ref,
@@ -53,7 +41,6 @@ const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
   return (
     <ark.table
       ref={ref}
-      asChild={asChild}
       className={clsx(styles.root, className)}
       {...props}
       data-scope="table"
@@ -63,20 +50,18 @@ const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
       data-size={size}
       data-sticky-header={stickyHeader || undefined}
       data-striped={striped || undefined}
-      data-variant={variant}
       data-slot="table-root"
     />
   );
 });
 
-const TableScrollArea = forwardRef<HTMLDivElement, TableScrollAreaProps>(function TableScrollArea(
-  { asChild, className, ...props },
+const TableScrollArea = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function TableScrollArea(
+  { className, ...props },
   ref,
 ) {
   return (
     <ark.div
       ref={ref}
-      asChild={asChild}
       className={clsx(styles.scrollArea, className)}
       {...props}
       data-scope="table"
@@ -87,13 +72,12 @@ const TableScrollArea = forwardRef<HTMLDivElement, TableScrollAreaProps>(functio
 });
 
 const TableCaption = forwardRef<HTMLTableCaptionElement, TableCaptionProps>(function TableCaption(
-  { asChild, className, side = 'bottom', ...props },
+  { className, side = 'bottom', ...props },
   ref,
 ) {
   return (
     <ark.caption
       ref={ref}
-      asChild={asChild}
       className={clsx(styles.caption, className)}
       {...props}
       data-scope="table"
@@ -104,13 +88,11 @@ const TableCaption = forwardRef<HTMLTableCaptionElement, TableCaptionProps>(func
   );
 });
 
-const TableColumnGroup = forwardRef<HTMLTableColElement, TableColumnGroupProps>(
-  function TableColumnGroup({ asChild, className, ...props }, ref) {
+const TableColumnGroup = forwardRef<HTMLTableColElement, HTMLArkProps<'colgroup'>>(
+  function TableColumnGroup(props, ref) {
     return (
       <ark.colgroup
         ref={ref}
-        asChild={asChild}
-        className={className}
         {...props}
         data-scope="table"
         data-part="column-group"
@@ -120,32 +102,27 @@ const TableColumnGroup = forwardRef<HTMLTableColElement, TableColumnGroupProps>(
   },
 );
 
-const TableColumn = forwardRef<HTMLTableColElement, TableColumnProps>(function TableColumn(
-  { asChild, className, htmlWidth, width, ...props },
-  ref,
-) {
-  return (
-    <ark.col
-      ref={ref}
-      asChild={asChild}
-      width={htmlWidth ?? width}
-      className={className}
-      {...props}
-      data-scope="table"
-      data-part="column"
-      data-slot="table-column"
-    />
-  );
-});
+const TableColumn = forwardRef<HTMLTableColElement, HTMLArkProps<'col'>>(
+  function TableColumn(props, ref) {
+    return (
+      <ark.col
+        ref={ref}
+        {...props}
+        data-scope="table"
+        data-part="column"
+        data-slot="table-column"
+      />
+    );
+  },
+);
 
-const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderProps>(function TableHeader(
-  { asChild, className, ...props },
+const TableHeader = forwardRef<HTMLTableSectionElement, HTMLArkProps<'thead'>>(function TableHeader(
+  { className, ...props },
   ref,
 ) {
   return (
     <ark.thead
       ref={ref}
-      asChild={asChild}
       className={clsx(styles.header, className)}
       {...props}
       data-scope="table"
@@ -155,14 +132,13 @@ const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderProps>(functi
   );
 });
 
-const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(function TableBody(
-  { asChild, className, ...props },
+const TableBody = forwardRef<HTMLTableSectionElement, HTMLArkProps<'tbody'>>(function TableBody(
+  { className, ...props },
   ref,
 ) {
   return (
     <ark.tbody
       ref={ref}
-      asChild={asChild}
       className={clsx(styles.body, className)}
       {...props}
       data-scope="table"
@@ -172,14 +148,13 @@ const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(function T
   );
 });
 
-const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(function TableFooter(
-  { asChild, className, ...props },
+const TableFooter = forwardRef<HTMLTableSectionElement, HTMLArkProps<'tfoot'>>(function TableFooter(
+  { className, ...props },
   ref,
 ) {
   return (
     <ark.tfoot
       ref={ref}
-      asChild={asChild}
       className={clsx(styles.footer, className)}
       {...props}
       data-scope="table"
@@ -189,14 +164,13 @@ const TableFooter = forwardRef<HTMLTableSectionElement, TableFooterProps>(functi
   );
 });
 
-const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(function TableRow(
-  { asChild, className, ...props },
+const TableRow = forwardRef<HTMLTableRowElement, HTMLArkProps<'tr'>>(function TableRow(
+  { className, ...props },
   ref,
 ) {
   return (
     <ark.tr
       ref={ref}
-      asChild={asChild}
       className={clsx(styles.row, className)}
       {...props}
       data-scope="table"
@@ -207,11 +181,10 @@ const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(function TableRo
 });
 
 const TableColumnHeader = forwardRef<HTMLTableCellElement, TableColumnHeaderProps>(
-  function TableColumnHeader({ asChild, className, numeric = false, ...props }, ref) {
+  function TableColumnHeader({ className, numeric = false, ...props }, ref) {
     return (
       <ark.th
         ref={ref}
-        asChild={asChild}
         className={clsx(styles.columnHeader, numeric && styles.numeric, className)}
         {...props}
         data-scope="table"
@@ -224,13 +197,12 @@ const TableColumnHeader = forwardRef<HTMLTableCellElement, TableColumnHeaderProp
 );
 
 const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(function TableCell(
-  { asChild, className, numeric = false, ...props },
+  { className, numeric = false, ...props },
   ref,
 ) {
   return (
     <ark.td
       ref={ref}
-      asChild={asChild}
       className={clsx(styles.cell, numeric && styles.numeric, className)}
       {...props}
       data-scope="table"
@@ -242,21 +214,13 @@ const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(function Tabl
 });
 
 const TableEmpty = forwardRef<HTMLTableCellElement, TableEmptyProps>(function TableEmpty(
-  { asChild, children = a11yLabels.noResults, className, colSpan, ...props },
+  { children = a11yLabels.noResults, className, ...props },
   ref,
 ) {
   return (
-    <ark.tr
-      data-scope="table"
-      data-part="row"
-      data-empty
-      data-slot="table-row"
-      className={styles.row}
-    >
+    <TableRow data-empty>
       <ark.td
         ref={ref}
-        asChild={asChild}
-        colSpan={colSpan}
         className={clsx(styles.cell, styles.empty, className)}
         {...props}
         data-scope="table"
@@ -265,7 +229,7 @@ const TableEmpty = forwardRef<HTMLTableCellElement, TableEmptyProps>(function Ta
       >
         {children}
       </ark.td>
-    </ark.tr>
+    </TableRow>
   );
 });
 
@@ -283,3 +247,4 @@ export {
   TableRow,
   TableScrollArea,
 };
+export type { TableRootProps, TableSize };

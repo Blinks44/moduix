@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkPopoverTitle
     v-bind="attrs"
-    :class="cn('text-md font-semibold text-popover-foreground', className)"
+    :class="cn('text-md font-semibold', className)"
     data-slot="popover-title"
   >
     <slot />

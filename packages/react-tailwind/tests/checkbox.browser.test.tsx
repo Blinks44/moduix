@@ -13,6 +13,15 @@ import {
   useCheckbox,
 } from '../src';
 
+function visibleIconSizes() {
+  return [...document.querySelectorAll('[data-slot="checkbox-indicator"]:not([hidden]) svg')].map(
+    (icon) => {
+      const { width, height } = icon.getBoundingClientRect();
+      return [Math.round(width), Math.round(height)];
+    },
+  );
+}
+
 function ProviderCheckbox() {
   const checkbox = useCheckbox({ defaultChecked: true, name: 'provider-notifications' });
 
@@ -59,7 +68,7 @@ test('submits through explicit Ark inputs for roots', () => {
   ]);
   const root = screen.getByText('Email notifications').parentElement!;
   const control = root.querySelector('[data-slot="checkbox-control"]')!;
-  const checkedIcon = root.querySelector('[data-slot="checkbox-indicator-checked-icon"]')!;
+  const indicator = root.querySelector('[data-slot="checkbox-indicator"]')!;
   const label = screen.getByText('Email notifications');
 
   expect([...root.classList]).toEqual(expect.arrayContaining(['inline-flex', 'gap-2']));
@@ -69,7 +78,7 @@ test('submits through explicit Ark inputs for roots', () => {
   expect([...control.classList]).toEqual(
     expect.arrayContaining(['data-[state=checked]:bg-primary']),
   );
-  expect([...checkedIcon.classList]).toEqual(expect.arrayContaining(['inline-flex', 'size-3']));
+  expect([...indicator.classList]).toEqual(expect.arrayContaining(['inline-flex', 'size-3']));
   expect([...label.classList]).toEqual(expect.arrayContaining(['text-sm', 'font-medium']));
 });
 
@@ -220,4 +229,28 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   await expect
     .element(page.locator('[data-slot="checkbox-control"]'))
     .toHaveCSS('padding-left', '4px');
+});
+
+test('sizes default and custom indicator icons from the checkbox size', () => {
+  render(
+    <>
+      <Checkbox defaultChecked>
+        <CheckboxControl />
+        <CheckboxLabel>Default icon</CheckboxLabel>
+      </Checkbox>
+      <Checkbox defaultChecked size="lg">
+        <CheckboxControl>
+          <CheckboxIndicator>
+            <svg viewBox="0 0 16 16" />
+          </CheckboxIndicator>
+        </CheckboxControl>
+        <CheckboxLabel>Custom icon</CheckboxLabel>
+      </Checkbox>
+    </>,
+  );
+
+  expect(visibleIconSizes()).toEqual([
+    [12, 12],
+    [14, 14],
+  ]);
 });

@@ -1,63 +1,23 @@
 # Native Select
 
-## Upstream references
+Upstream docs:
 
-- Ark UI Field: https://ark-ui.com/react/docs/components/field (accessed 2026-08-11)
-- Chakra UI Native Select: https://chakra-ui.com/docs/components/native-select (accessed 2026-08-11)
-- shadcn/ui Native Select: https://ui.shadcn.com/docs/components/native-select (accessed 2026-08-11)
+- Ark UI Field: https://ark-ui.com/docs/components/field
+- Chakra UI: https://chakra-ui.com/docs/components/native-select
+- shadcn/ui: https://ui.shadcn.com/docs/components/native-select
 
-## Purpose
+`NativeSelect` is a styled native `<select>` for simple option lists that should keep browser
+keyboard behavior, autofill, form reset, and platform pickers. It renders Ark `FieldSelect`, so
+inside `Field` it gets ids, `aria-describedby`, and the disabled, invalid, and required state.
 
-`NativeSelect` is a styled native `<select>` for simple option lists that should preserve browser
-keyboard behavior, autofill, form reset, and platform pickers.
-
-## Upstream model to preserve
-
-`NativeSelect` wraps Ark `FieldSelect` directly. The rendered select remains the form control and
-inherits disabled, invalid, required, ids, and description relationships from `Field`.
-Chakra's Native Select informs the visual relationship with the custom `Select`, but moduix keeps a
-single-component public API.
-
-## Current behavior contract
-
-- `NativeSelect` is the only public root value.
-- `controlProps` target the outer layout span; use its `className` or `style` for styling that must
-  reach both the select and indicator.
-- Native `value`, `defaultValue`, `onChange(event)`, `name`, `required`, `disabled`, `multiple`, and
-  `size` props pass through unchanged.
-- `multiple` and native `size` values greater than one switch the fixed control height to an
-  intrinsic list height.
-- Children are native `option` and `optgroup` elements.
-- Ark's `asChild` is preserved; its child must remain a semantic `<select>` element.
-- The component adds no local state, collection model, popup, or value transformation.
-- The shared `ChevronDownIcon` is shown for collapsed single-select controls and hidden for
-  native list controls.
-- Styling reuses the control variables from `Select`.
-
-## Anatomy and exported parts
-
-```text
-NativeSelect
-└─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
-   ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
-   │  ├─ option
-   │  └─ optgroup
-   └─ span[data-scope="native-select"][data-part="indicator"][data-slot="native-select-indicator"]
-      └─ ChevronDownIcon
-```
-
-| Export         | `data-slot`          | Notes                       |
-| -------------- | -------------------- | --------------------------- |
-| `NativeSelect` | `native-select-root` | The real native `<select>`. |
-
-## Composition
+## Contract
 
 ```tsx
 import { NativeSelect } from '@moduix/react/native-select';
 
 export function Example() {
   return (
-    <NativeSelect defaultValue="" name="framework">
+    <NativeSelect defaultValue="" name="framework" aria-label="Framework">
       <option value="" disabled>
         Choose framework
       </option>
@@ -68,71 +28,39 @@ export function Example() {
 }
 ```
 
-Compose it inside `Field` when the control needs a visible label, helper text, error text, or
-shared invalid/disabled/required state.
+```text
+span[data-slot="native-select-control"]
+├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
+└─ span[data-slot="native-select-indicator"]  (aria-hidden, ChevronDownIcon)
+```
 
-## Upstream feature coverage
+| Export         | `data-slot`          | Notes                                    |
+| -------------- | -------------------- | ---------------------------------------- |
+| `NativeSelect` | `native-select-root` | The real `<select>`; the ref targets it. |
 
-- Ark `FieldSelect`: preserved as the rendered control.
-- Native form submission, autofill, reset, keyboard behavior, and platform picker: preserved.
-- Field context state and accessible description ids: preserved.
-- Chakra multipart API: intentionally reduced to one public component.
-- Ark custom Select collections, popup positioning, item parts, and context hooks: not applicable.
+- All props go to the select unchanged: native `value`, `defaultValue`, `onChange(event)`, `name`,
+  `required`, `disabled`, `multiple`, and `size`. No local state or value transformation.
+- Children are native `option` and `optgroup` elements.
+- `controlProps` go to the outer span. Use it for layout and for `--moduix-select-*` variables that
+  must reach the indicator too.
+- Ark `asChild` is kept; the child must be a `<select>`.
+- Give it a name with `FieldLabel`, a `<label>`, `aria-label`, or `aria-labelledby`. HTML select has
+  no `readonly`, so there is no read-only state.
 
-## Accessibility and state
+## Styling
 
-- The forwarded ref targets the real `HTMLSelectElement`.
-- Use `FieldLabel`, a native `<label>`, `aria-label`, or `aria-labelledby` for an accessible name.
-- `Field` supplies ids, `aria-describedby`, `aria-invalid`, and native state props.
-- Native options, selection events, required validation, and disabled behavior remain unchanged.
-- The component does not implement read-only behavior because HTML select has no `readonly`
-  attribute.
-
-## Defaults and styling
-
-The single-select control defaults to `--moduix-size-md`; multi-select controls retain their content-driven height.
-
-- The default control width, height, border, radius, colors, focus ring, disabled opacity, and hover
-  background use the same `--moduix-select-*` variables as `Select`.
-- `--moduix-select-action-offset-right` uses the same inline-end spacing for text and the indicator,
-  so custom offsets keep the two parts aligned.
-- Default control padding and indicator geometry use the shared 4px spacing scale.
-- `className` is merged onto the native select. `controlProps.className` and `controlProps.style`
-  target the outer layout span, so CSS variables there also reach the indicator.
-- Stable hooks are `data-slot="native-select-control"`, `data-slot="native-select-root"`, and
-  `data-slot="native-select-indicator"`.
-- Native `size` is not repurposed as a visual size prop.
-- `ChevronDownIcon` aligns the collapsed control with `Select`; the browser owns the popup
-  appearance.
-- Forced-colors mode restores the platform indicator.
-
-## Intentional sugar and differences from upstream
-
-- moduix exposes one direct `<NativeSelect>` component instead of a multipart public API.
-- `controlProps` is narrow styling sugar for the outer layout span; it does not alter native select
-  behavior.
-- The indicator is visual only and does not alter native select behavior.
-- Unlike custom `Select`, values and changes use native strings and `ChangeEvent`.
+- The control reads the same `--moduix-select-*` variables as `Select`: `width`, `control-height`,
+  `radius`, and `action-size`. Colors, borders, focus ring, disabled opacity, and motion come from
+  foundation tokens, as in `Select`.
+- Text starts 14px from the edge. The indicator sits 8px from the end, and the text end padding
+  reserves that offset, the indicator size, and 14px (46px by default).
+- `multiple` or `size > 1` makes a list: content height, platform appearance, no indicator.
+- Forced-colors mode restores the platform arrow and hides the indicator.
+- Native `size` is not a visual size prop.
 
 ## Agent notes
 
-- Keep one real `FieldSelect` without local state.
-- Do not replace native `onChange(event)` with Ark detail objects.
-- Keep visual control variables aligned with `Select`.
-- Keep the indicator inside the shared `--moduix-select-action-*` spacing contract.
-- Do not overload native `size`; add no visual size API without a distinct prop name.
-
-## Local changelog
-
-- 2026-09-22: Aligned the public component export with the flat API; `NativeSelect` is the only
-  public root value.
-- 2026-08-11: Aligned the indicator and text spacing fallback, documented the complete public
-  indicator token contract, and covered native reset and `asChild` preservation.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced the default single-select control to `--moduix-size-md`.
-
-- 2026-07-20: Removed the native field hover surface and aligned the decorative indicator's spacing and local hover treatment with `Select`; platform interaction stays on the native select.
-- 2026-06-30: Added the native select wrapper with Field integration, shared Select control styles,
-  the shared `ChevronDownIcon`, and token-based indicator spacing.
-- 2026-07-10: Added `controlProps` for styling the shared select-and-indicator layout and documented
-  accessible basic usage.
+- Keep one `FieldSelect` without local state; do not replace `onChange(event)` with Ark details.
+- Keep the control variables aligned with `Select`.
+- Tailwind decides list mode from props, not attribute selectors: a variant such as
+  `[&[multiple]]:h-auto` would beat consumer classes like `h-20`, which `cn` cannot remove.

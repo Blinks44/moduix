@@ -1,156 +1,60 @@
 # Input
 
-Upstream review (accessed 2026-08-11):
+Upstream (accessed 2026-10-16):
 
-- Ark UI: no dedicated Input primitive; follows https://ark-ui.com/docs/components/field and `FieldInput`
-- Ark UI composition: https://ark-ui.com/docs/guides/composition
-- Ark UI styling: https://ark-ui.com/docs/guides/styling
-- Ark UI ref: https://ark-ui.com/docs/guides/ref
-- Chakra UI Input: https://chakra-ui.com/docs/components/input
-- shadcn/ui Input: https://ui.shadcn.com/docs/components/input
+- Ark UI Field (no standalone Input primitive): https://ark-ui.com/docs/components/field
+- Chakra UI Input recipe: https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/input.ts
+- shadcn/ui Input: https://ui.shadcn.com/r/styles/new-york-v4/input.json
 
-Ark UI has no standalone `Input` component page. The wrapper uses Ark `FieldInput` as its
-behavioral and accessibility model.
-
-| Source          | Useful difference                                        | moduix decision                                                                                |
-| --------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| Ark Field       | Native field state, ids, refs, and `asChild` composition | **Required correctness:** preserve the primitive and native event contract.                    |
-| Chakra Input    | Adds visual variants and color-palette configuration     | **Rejected complexity:** moduix keeps one style recipe and semantic CSS-variable overrides.    |
-| shadcn/ui Input | Makes native and field examples easy to discover         | **Intentional difference:** moduix uses Ark `Field` and keeps standalone native input support. |
+| Source          | Useful difference                                        | moduix decision                                                                          |
+| --------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Ark Field       | Native field state, ids, refs, and `asChild` composition | **Required correctness:** preserve the primitive and native event contract.              |
+| Chakra Input    | Adds `outline`, `subtle`, and `flushed` variants         | **Rejected complexity:** moduix keeps one style recipe.                                  |
+| shadcn/ui Input | A plain styled `<input>`                                 | **Intentional difference:** moduix uses Ark `FieldInput` so the `Field` context applies. |
 
 ## Purpose
 
-`Input` is the default styled single-line input for moduix. It keeps native input semantics, works
-standalone, and inherits `disabled`, `invalid`, `readOnly`, `required`, ids, labels, helper text,
-and error text when rendered inside `Field`.
-
-## Upstream model to preserve
-
-- Render `FieldInput` from `@ark-ui/react/field`.
-- Preserve Ark `asChild` composition and native input props.
-- Preserve `Field` and `Fieldset` state propagation.
-- Keep `data-scope="field"` and `data-part="input"` on the rendered control.
-- Use native `onChange(event)`, not a remapped value callback.
+`Input` is the styled single-line input. It keeps native input semantics, works standalone, and
+inherits `disabled`, `invalid`, `readOnly`, `required`, ids, labels, helper text, and error text
+inside `Field`.
 
 ## Current behavior contract
 
-- Renders one `FieldInput` and forwards the ref to its `HTMLInputElement`.
-- Accepts Ark `FieldInput` props except native `size`, which is renamed to `htmlSize`; when it is
-  provided, the default width follows the native character-based input width.
-- Adds visual `size="xs" | "sm" | "md" | "lg" | "xl"` with `md` as the default.
+- Renders one Ark `FieldInput` and forwards the ref to its `HTMLInputElement`.
+- Accepts Ark `FieldInput` props except native `size`, which is renamed to `htmlSize`.
+- Adds visual `size="xs" | "sm" | "md" | "lg" | "xl"`, default `md`.
 - Supports `asChild` with one semantic input-like child.
-- Adds no value state, validation state, label, clear trigger, mask, or prefix/suffix API.
-- Adds no preview/edit mode; use `Editable` for inline read/edit workflows.
+- Uses native `onChange(event)`; adds no value state, validation, label, clear trigger, mask, or
+  prefix/suffix API.
+- Exports `InputRootProps` and `InputSize`.
 
-## Anatomy and exported parts
+## Anatomy
 
 ```text
 Field (optional)
-└─ Input
+└─ Input  data-slot="input-root" data-scope="field" data-part="input" data-size
 ```
 
-- `Input` -> `data-slot="input-root"`, `data-scope="field"`, `data-part="input"`
-
-## Composition
-
-```tsx
-import { Field } from '@moduix/react/field';
-import { Input } from '@moduix/react/input';
-
-export function EmailField() {
-  return (
-    <Field required>
-      <FieldLabel>Email</FieldLabel>
-      <Input name="email" type="email" />
-      <FieldHelperText>Used for account notifications.</FieldHelperText>
-    </Field>
-  );
-}
-```
-
-`asChild` follows Ark composition rules: provide exactly one child and preserve input semantics,
-focusability, refs, and forwarded props.
-
-Use `Editable` when the UI should render preview text first and switch into input editing with
-edit, submit, and cancel controls.
-
-## Upstream feature coverage
-
-- Field input: supported through `FieldInput`.
-- Disabled, invalid, read-only, and required state: inherited from `Field`; disabled also
-  inherits from `Fieldset`.
-- Native controlled/uncontrolled input: supported with `value`, `defaultValue`, and
-  `onChange(event)`.
-- Custom control: supported through `asChild` when one semantic input element must own the DOM
-  node.
-- Native file input: supported for simple forms; use `FileUpload` when the UI owns files, dropzones,
-  or upload lifecycle state.
-- Root provider, context, ids, helper/error text, and required indicator belong to `Field`, not
-  `Input`.
-- Preview/edit state belongs to `Editable`, not `Input`.
-- No `HiddenInput` is needed because `Input` is the native form control.
-
-## Accessibility and state
-
-- The ref targets the real input and is suitable for form-library invalid focus.
-- `Field` supplies ids, `aria-describedby`, `aria-invalid`, native state props, and
-  `data-invalid`, `data-required`, and `data-readonly`.
-- Standalone `disabled`, `readOnly`, `required`, and `aria-invalid` remain native props.
-- Every input requires an accessible name from a label, `aria-label`, or `aria-labelledby`.
-- There is no component-managed keyboard navigation; native input behavior is preserved.
+`data-scope` and `data-part` are set by the wrapper too, so a standalone input outside `Field` has
+the same hooks as one inside it.
 
 ## Defaults and styling
 
-`Input size="md"` matches the default `FieldInput` appearance. Both use Ark FieldInput directly;
-`Input` owns visual sizes, `htmlSize`, and `--moduix-input-*`, while `FieldInput` keeps the
-native numeric `size` and `--moduix-field-control-*`. A disabled moduix Field or FieldRootProvider
-owns the whole field’s opacity; the input is not dimmed a second time. Standalone disabled inputs
-retain their own disabled opacity.
-
-The default `md` input uses `--moduix-size-md` with `--moduix-spacing-1` block padding; explicit size variants and `--moduix-input-*` overrides remain available.
-
-- `size` defaults to `md`; native character width uses `htmlSize` unless
-  `--moduix-input-width` overrides it.
-- `className` is merged with the moduix CSS module class.
-- Stable hooks are `data-slot`, `data-size`, `data-scope`, `data-part`, Ark field state attributes,
-  native state selectors, and the public `--moduix-input-*` variables in `variables-moduix.css`.
-- `data-html-size` is added only while `htmlSize` is set so the default width can follow the native
-  character-based width.
-- File chooser buttons use the compact moduix primary-button treatment while preserving the native
-  control and selection text.
-- Visual size defaults use the shared control scale: `xs` uses `--moduix-size-xs`, `sm` uses `--moduix-size-sm`,
-  `md` uses `--moduix-size-md`, `lg` uses `--moduix-size-xl`, and `xl` uses an overrideable `3.5rem` fallback.
-- The component exposes no Ark runtime CSS variables.
-
-## Intentional sugar and differences from upstream
-
-- moduix adds visual sizes, `htmlSize`, design tokens, and `data-slot`.
-- `Input` is exported as a standalone wrapper even though its upstream implementation is
-  `FieldInput`.
-- Legacy value adapters, render shims, callback styling props, and duplicated field-state
-  attributes are intentionally not part of the current contract.
+- `min-width: 0`, as in Chakra and shadcn, so an input with `htmlSize` shrinks in a narrow flex row.
+- Sizes use the shared control scale: `--moduix-size-xs` through `--moduix-size-xl`.
+- With `htmlSize`, the native `size` attribute is rendered and the default width becomes `auto`, so
+  the browser's character-based width applies. CSS Modules select `[size]`; Tailwind adds `w-auto`
+  so that a consumer width utility can still replace it.
+- CSS Modules expose `--moduix-input-width`, `--moduix-input-height`, and `--moduix-input-radius`;
+  everything else comes from foundation tokens. Override it with a plain class on `Input`.
+- A disabled `Field`, `FieldRootProvider`, `Fieldset`, or `InputGroup` owns the opacity; the input
+  is not dimmed a second time. A standalone disabled input dims itself.
+- Native file inputs get a compact primary file-selector button.
 
 ## Agent notes
 
 - Keep the wrapper as one Ark `FieldInput`; do not add local value or validation state.
-- Keep controlled examples on native `onChange(event)`.
-- Use `InputGroup` for inline decoration and actions.
-- Keep inline edit/read-only examples on `Editable`, not `Input`.
-- Do not migrate `PasswordInput` to Ark Password Input as part of `Input` changes.
-- Keep file selection flows that need state or upload UI on `FileUpload`.
-
-## Local changelog
-
-- 2026-10-01: Aligned FieldInput with the default Input appearance and prevented compounded
-  disabled opacity for either input inside Field and FieldRootProvider.
-
-- 2026-07-28: Preserved native character width for `htmlSize`, made component-owned data hooks
-  stable, and gave simple native file inputs the compact moduix button treatment.
-- 2026-07-21: Normalized the complete input scale to `24/32/36/40/48px` tokens and compacted block
-  padding so typography no longer expands a selected size.
-
-- 2026-09-21: Migrated the public value API to flat `Input` and removed the root namespace alias.
-- 2026-06-22: Documented `Input` as plain native entry only; preview/edit behavior belongs to
-  `Editable`.
-- 2026-06-19: Migrated from legacy Input to Ark UI `FieldInput`; added `asChild` and Ark field
-  anatomy/state hooks; removed compatibility adapters and duplicated state contracts.
+- Use `InputGroup` for inline decoration and actions, `Editable` for preview/edit flows,
+  `PasswordInput` for visibility toggles, and `FileUpload` when files need state or upload UI.
+- Other input-like components (`TagsInput`, `PasswordInput`) do not read `--moduix-input-*`; they
+  have their own variables.

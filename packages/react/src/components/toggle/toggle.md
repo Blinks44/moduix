@@ -32,17 +32,18 @@ The root renders a `button`. `ToggleIndicator` renders inline pressed/fallback c
 - `ToggleContext` and `useToggleContext` preserve Ark's custom-descendant state access through
   moduix exports.
 - `ToggleRootProps`, `ToggleSize`, and `ToggleVariant` are exported for typed wrappers and shared
-  component APIs.
+  component APIs, together with the Ark types `ToggleContextProps`, `ToggleIndicatorProps`,
+  `UseToggleContext`, `UseToggleProps`, and `UseToggleReturn`.
 - moduix adds two visual props to the root:
   - `variant?: 'default' | 'outline' | 'ghost'`
   - `size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg'`
 - `variant` defaults to `default`. `size` defaults to `md`.
 - The default variant uses `var(--moduix-color-secondary)` while off; `outline` uses
-  `var(--moduix-color-background)` plus `var(--moduix-color-border)` when a standalone button outline is needed.
+  `var(--moduix-color-background)` plus `var(--moduix-color-border)`; `ghost` is transparent. Pressed
+  `default` and `outline` use `var(--moduix-color-primary)`; pressed `ghost` uses
+  `var(--moduix-color-accent)`.
 - The root writes `data-slot="toggle-root"`, `data-variant`, and `data-size`.
 - The indicator writes `data-slot="toggle-indicator"`.
-- legacy `render`, `nativeButton`, state callback `className`, and state callback `style` are removed. Use Ark
-  `asChild` or `ToggleIndicator` instead.
 
 ## Anatomy and exported parts
 
@@ -155,10 +156,26 @@ export function AsChildToggleDemo() {
 
 ## Defaults and styling
 
-The default and `icon-md` toggle variants use `--moduix-size-md`; the default text toggle uses `--moduix-spacing-1` block padding.
+Sizes follow Button: text sizes use `--moduix-size-*` heights with spacing-token padding, icon-only
+sizes are non-shrinking squares of the same height. Direct `svg` children and `svg` children of
+`ToggleIndicator` are 16px (`--moduix-spacing-4`); a class on the icon wins.
 
-`Toggle` keeps moduix visual identity through CSS Modules and public `--moduix-toggle-*` variables. Style
-the component through `className`, `data-slot`, Ark data attributes, and CSS variables.
+The CSS Modules packages expose six color variables. Set them on a toggle, on
+`[data-slot='toggle-root'][data-variant='<variant>']` to theme one variant, or on a container such as
+`ToggleGroup` (which sets `--moduix-toggle-color` for its items). Variant defaults stay private in
+`--_toggle-*` properties.
+
+| Variable                        | Default                                    | Notes                                    |
+| ------------------------------- | ------------------------------------------ | ---------------------------------------- |
+| `--moduix-toggle-bg`            | `var(--moduix-color-secondary)`            | Outline: background; ghost: transparent. |
+| `--moduix-toggle-bg-hover`      | `var(--moduix-color-accent)`               | Unpressed hover and `:active`.           |
+| `--moduix-toggle-bg-pressed`    | `var(--moduix-color-primary)`              | Also the pressed border; ghost: accent.  |
+| `--moduix-toggle-border-color`  | `var(--moduix-color-secondary)`            | Outline: border; ghost: transparent.     |
+| `--moduix-toggle-color`         | `var(--moduix-color-secondary-foreground)` | Outline and ghost: foreground.           |
+| `--moduix-toggle-color-pressed` | `var(--moduix-color-primary-foreground)`   | Ghost: foreground.                       |
+
+Size, spacing, radius, typography, focus ring, transition, and disabled opacity use foundation tokens
+directly; override them with a class. Tailwind packages use the same tokens through utilities.
 
 Important hooks:
 
@@ -171,9 +188,6 @@ Important hooks:
 | `data-state="on"`              | Preferred Ark selector for pressed state. |
 | `data-pressed`                 | Present when the toggle is pressed.       |
 
-Descendant `svg` elements inherit `--moduix-toggle-icon-size`. Icon-only sizes remove padding and keep the
-root at a non-shrinking square size.
-
 ## Intentional sugar and differences from upstream
 
 - The `Toggle` export is the default consumer path and the only root value export.
@@ -184,8 +198,6 @@ root at a non-shrinking square size.
   `fallback`.
 - moduix re-exports Ark's context surfaces as `ToggleContext` and `useToggleContext` so custom
   descendants do not need direct Ark imports.
-- legacy compatibility APIs are intentionally removed. There is no `render`, `nativeButton`,
-  legacy event details object, or legacy state callback styling contract.
 - Use Ark `asChild` for custom host composition.
 
 ## Agent notes
@@ -195,25 +207,5 @@ root at a non-shrinking square size.
   flat barrel.
 - Do not reintroduce legacy `render` examples in stories, docs, or local markdown.
 - `ToggleGroup` is a separate component family; do not make standalone `Toggle` depend on group context.
-
-## Local changelog
-
-- 2026-08-01: Exported Toggle prop and visual-union types, narrowed default SVG sizing to the
-  documented icon slots, and corrected the supported context-hook import path.
-
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Normalized the toggle scale to `24/32/36/40px` tokens, including icon-only sizes,
-  and compacted block padding so typography no longer expands a selected size.
-
-- 2026-06-29: Simplified variant/state CSS to target Ark `data-state` and `data-disabled`
-  directly, kept pressed colors stable on hover, made icon-only sizes non-shrinking, and aligned
-  anatomy docs with Ark's DOM parts.
-- 2026-06-21: Changed the off-state default variant from transparent/no-border to
-  `var(--moduix-color-background)` plus `var(--moduix-color-border)` so standalone toggles have visible affordance.
-- 2026-07-03: Removed public re-exports of Ark toggle context helpers so moduix keeps only the
-  visual parts and short root API on its public surface.
-- 2026-06-21: Migrated `Toggle` to Ark UI. Added the Ark root and indicator parts, removed
-  legacy `render` / `nativeButton` compatibility, and updated styling hooks to Ark data
-  attributes.
-- 2026-07-12: Made `default` visually distinct from `outline`, restored moduix context exports,
-  and documented the advanced custom-descendant path.
+- `ToggleGroupItem` reuses the Toggle root class (`toggleVariants` in Tailwind). Run the ToggleGroup
+  tests after any Toggle style change.

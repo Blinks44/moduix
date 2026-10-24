@@ -170,14 +170,23 @@ test('preserves native disabled button semantics with asChild', async () => {
 test('lets consumer Tailwind classes override conflicting defaults', async () => {
   render({
     components: badgeComponents,
-    template: '<Badge class="bg-secondary px-0" data-testid="badge">Ready</Badge>',
+    template:
+      '<Badge class="bg-secondary px-0 [a&]:hover:opacity-75" data-testid="badge">Ready</Badge>',
   });
 
   await expect.element(page.getByTestId('badge')).toHaveCount(1);
   const badge = screen.getByTestId('badge');
 
-  expect([...badge.classList]).toEqual(expect.arrayContaining(['bg-secondary', 'px-0']));
-  for (const className of ['bg-primary', 'px-2.5']) {
+  expect([...badge.classList]).toEqual(
+    expect.arrayContaining([
+      'bg-secondary',
+      'px-0',
+      '[a&]:hover:opacity-75',
+      'focus-visible:outline-focus',
+      'focus-visible:outline-ring',
+    ]),
+  );
+  for (const className of ['bg-primary', 'px-2.5', '[a&]:hover:opacity-hover']) {
     expect(badge.classList.contains(className)).toBe(false);
   }
   await expect.element(page.getByTestId('badge')).toHaveCSS('padding', '0px');
@@ -205,4 +214,41 @@ test('hydrates badge without replacing the server host', async () => {
     warn.mockRestore();
     error.mockRestore();
   }
+});
+
+test('defaults to the md size and lets link badges ignore the size height', async () => {
+  render({
+    components: badgeComponents,
+    template: `
+      <div>
+        <Badge data-testid="sm" size="sm">Small</Badge>
+        <Badge data-testid="md">Medium</Badge>
+        <Badge data-testid="lg" size="lg">Large</Badge>
+        <Badge data-testid="link" size="lg" variant="link">Link</Badge>
+      </div>
+    `,
+  });
+
+  await expect.element(page.getByTestId('md')).toHaveCount(1);
+  const height = (id: string) => screen.getByTestId(id).offsetHeight;
+
+  expect(screen.getByTestId('md').getAttribute('data-size')).toBe('md');
+  expect(screen.getByTestId('lg').getAttribute('data-size')).toBe('lg');
+  expect([height('sm'), height('md'), height('lg')]).toEqual([16, 20, 24]);
+  const link = getComputedStyle(screen.getByTestId('link'));
+  expect([link.minHeight, link.paddingInlineStart]).toEqual(['0px', '0px']);
+});
+
+test('lets a size utility on an icon override the default icon size', () => {
+  render({
+    components: badgeComponents,
+    template: `
+      <Badge>
+        <svg aria-hidden="true" class="size-4" data-testid="icon" />
+        New
+      </Badge>
+    `,
+  });
+
+  expect(screen.getByTestId('icon').getBoundingClientRect().width).toBe(16);
 });

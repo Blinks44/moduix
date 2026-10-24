@@ -38,20 +38,19 @@
   }
 
   .groupHeading {
-    color: var(--moduix-checkbox-label-color, var(--moduix-color-foreground));
-    font-size: var(--moduix-checkbox-label-font-size, var(--moduix-text-sm));
+    color: var(--moduix-color-foreground);
+    font-size: var(--moduix-text-sm);
     font-weight: var(--moduix-weight-semibold);
-    line-height: var(--moduix-checkbox-label-line-height, var(--moduix-line-height-text-sm));
+    line-height: var(--moduix-line-height-text-sm);
   }
 
   .customGroup {
-    --moduix-checkbox-group-color: var(--moduix-color-primary);
-
     gap: var(--moduix-spacing-3);
   }
 
   .customRoot {
     gap: var(--moduix-spacing-3);
+    color: var(--moduix-color-primary);
   }
 
   .customControl {

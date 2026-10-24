@@ -1,7 +1,8 @@
 # NumberInput (Solid)
 
 `NumberInput` preserves the React wrapper's Ark parts, string value state, callback details,
-formatting, native form behavior, and default stepper icons. Its public values are flat and match
+formatting, native form behavior, default stepper icons, and the `size` prop (`xs`–`xl`, default
+`md`) on `NumberInput` and `NumberInputRootProvider`. Its public values are flat and match
 the React package: `NumberInput`, `NumberInputRootProvider`, `NumberInputContext`,
 `NumberInputLabel`, `NumberInputScrubber`, `NumberInputControl`, `NumberInputField`,
 `NumberInputDecrementTrigger`, `NumberInputInput`, `NumberInputIncrementTrigger`,
@@ -38,8 +39,3 @@ Ark Solid uses a render-function `asChild` prop:
 
 The installed Ark Solid factory does not forward refs through an `asChild` render function.
 Ordinary refs and custom-host composition are supported as separate native paths.
-
-## Local changelog
-
-- 2026-09-22: Replaced the compound `NumberInput.*` value surface with the flat named exports
-  across React, Solid, and both Tailwind packages.

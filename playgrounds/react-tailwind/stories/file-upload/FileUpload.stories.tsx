@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
+import { Button } from '@/components/button';
 import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   FileUpload,
@@ -75,7 +76,7 @@ function FileUploadItemList() {
             )}
             <FileUploadItemName />
             <FileUploadItemMetadata file={file} />
-            <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+            <FileUploadItemDeleteTrigger />
           </FileUploadItem>
         ))
       }
@@ -87,7 +88,9 @@ function FileUploadDemo(props: ComponentProps<typeof FileUpload>) {
   return (
     <FileUpload className={simpleDemoClassName} maxFiles={3} {...props}>
       <FileUploadLabel>Attachments</FileUploadLabel>
-      <FileUploadTrigger>Choose files</FileUploadTrigger>
+      <FileUploadTrigger asChild>
+        <Button>Choose files</Button>
+      </FileUploadTrigger>
       <FileUploadItemGroup>
         <FileUploadItems />
       </FileUploadItemGroup>
@@ -110,7 +113,9 @@ export const Dropzone: Story = {
         <div className={dropzoneContentClassName}>
           <span className={dropzoneTitleClassName}>Drag and drop files here</span>
           <span className={dropzoneDescriptionClassName}>or browse from your device</span>
-          <FileUploadTrigger className="mt-2">Browse files</FileUploadTrigger>
+          <FileUploadTrigger asChild>
+            <Button className="mt-2">Browse files</Button>
+          </FileUploadTrigger>
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>
@@ -158,7 +163,9 @@ export const RejectedFiles: Story = {
         <div className={dropzoneContentClassName}>
           <span className={dropzoneTitleClassName}>Drop image files here</span>
           <span className={dropzoneDescriptionClassName}>PNG or JPEG, up to 120 KB</span>
-          <FileUploadTrigger className="mt-2">Select images</FileUploadTrigger>
+          <FileUploadTrigger asChild>
+            <Button className="mt-2">Select images</Button>
+          </FileUploadTrigger>
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>
@@ -176,7 +183,7 @@ export const RejectedFiles: Story = {
                   <FileUploadItemName />
                   <p className={errorTextClassName}>{errors.join(', ')}</p>
                 </div>
-                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                <FileUploadItemDeleteTrigger />
               </FileUploadItem>
             ))
           }
@@ -192,7 +199,9 @@ export const WithField: Story = {
       <FileUpload name="attachments" maxFiles={3}>
         <FileUploadLabel>Required attachments</FileUploadLabel>
         <FileUploadHiddenInput />
-        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadTrigger asChild>
+          <Button>Choose files</Button>
+        </FileUploadTrigger>
         <FileUploadItemGroup>
           <FileUploadItemList />
         </FileUploadItemGroup>
@@ -216,7 +225,9 @@ export const RootProvider: Story = {
           <div className={dropzoneContentClassName}>
             <span className={dropzoneTitleClassName}>Drop images here</span>
             <span className={dropzoneDescriptionClassName}>or browse from your device</span>
-            <FileUploadTrigger className="mt-2">Choose images</FileUploadTrigger>
+            <FileUploadTrigger asChild>
+              <Button className="mt-2">Choose images</Button>
+            </FileUploadTrigger>
           </div>
         </FileUploadDropzone>
         <FileUploadItemGroup>
@@ -237,8 +248,8 @@ export const CustomStyling: Story = {
         <div className={dropzoneContentClassName}>
           <span className={dropzoneTitleClassName}>Drop files here</span>
           <span className={dropzoneDescriptionClassName}>SVG, PNG, or PDF</span>
-          <FileUploadTrigger className="mt-2 bg-foreground text-background">
-            Browse files
+          <FileUploadTrigger asChild>
+            <Button className="mt-2 bg-foreground text-background">Browse files</Button>
           </FileUploadTrigger>
         </div>
       </FileUploadDropzone>

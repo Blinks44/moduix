@@ -6,13 +6,11 @@ import styles from './Toc.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-const railBaseOffset = 0;
 const railStep = 12;
 const railBridge = 6;
-const maxRailLevel = 2;
 
-const getRailOffset = (depth: number) =>
-  railBaseOffset + Math.min(Math.max(depth - 2, 0), maxRailLevel) * railStep;
+// Depths 2 to 4 get their own rail column; deeper headings stay on the last one.
+const getRailX = (depth: number) => Math.min(Math.max(depth - 2, 0), 2) * railStep + 0.5;
 
 export interface Props extends /* @vue-ignore */ SVGAttributes {
   class?: HTMLAttributes['class'];
@@ -25,20 +23,16 @@ export interface Props extends /* @vue-ignore */ SVGAttributes {
 const props = defineProps<Props>();
 const attrs = useAttrs();
 
-const lineOffset = computed(() => getRailOffset(props.depth));
-const previousLineOffset = computed(() => getRailOffset(props.previousDepth ?? props.depth));
-const nextLineOffset = computed(() => getRailOffset(props.nextDepth ?? props.depth));
-const hasTurn = computed(() => previousLineOffset.value !== lineOffset.value);
-const width = computed(
-  () => Math.max(previousLineOffset.value, lineOffset.value, nextLineOffset.value) + 2,
-);
-const height = computed(() =>
-  lineOffset.value === nextLineOffset.value
-    ? `calc(100% + ${railBridge}px + var(--moduix-table-of-contents-list-gap, var(--moduix-spacing-0-5)))`
-    : '100%',
-);
+const x = computed(() => getRailX(props.depth));
+const previousX = computed(() => getRailX(props.previousDepth ?? props.depth));
+const nextX = computed(() => getRailX(props.nextDepth ?? props.depth));
+const hasTurn = computed(() => previousX.value !== x.value);
 const railStyle = computed<StyleValue>(() => [
-  { width: `${width.value}px`, height: height.value },
+  {
+    width: `${Math.max(previousX.value, x.value, nextX.value) + 1.5}px`,
+    // Cross the list gap to the next rail, and its bridge too when the line continues.
+    height: `calc(100% + ${nextX.value === x.value ? railBridge : 0}px + var(--moduix-spacing-0-5))`,
+  },
   props.style,
 ]);
 </script>
@@ -53,15 +47,15 @@ const railStyle = computed<StyleValue>(() => [
   >
     <path
       v-if="hasTurn"
-      :d="`M ${previousLineOffset + 0.5} 0 C ${previousLineOffset + 0.5} 8 ${lineOffset + 0.5} 4 ${lineOffset + 0.5} ${railBridge * 2}`"
+      :d="`M ${previousX} 0 C ${previousX} 8 ${x} 4 ${x} ${railBridge * 2}`"
       fill="none"
       vector-effect="non-scaling-stroke"
       stroke="currentColor"
     />
     <line
-      :x1="lineOffset + 0.5"
+      :x1="x"
       :y1="hasTurn ? railBridge * 2 : railBridge"
-      :x2="lineOffset + 0.5"
+      :x2="x"
       y2="100%"
       vector-effect="non-scaling-stroke"
       stroke="currentColor"

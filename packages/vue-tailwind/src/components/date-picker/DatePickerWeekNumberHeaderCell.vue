@@ -4,6 +4,7 @@ import type { DatePickerWeekNumberHeaderCellProps } from '@ark-ui/vue/date-picke
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import { tableHeaderClass } from './DatePicker.variants';
 
 defineOptions({ inheritAttrs: false });
 
@@ -20,12 +21,7 @@ const attrs = useAttrs();
 <template>
   <ArkDatePickerWeekNumberHeaderCell
     v-bind="attrs"
-    :class="
-      cn(
-        'h-7 w-control-sm text-center text-xs leading-4 font-medium text-muted-foreground tabular-nums',
-        props.class,
-      )
-    "
+    :class="cn(tableHeaderClass, props.class)"
     data-slot="date-picker-week-number-header-cell"
   >
     <slot />

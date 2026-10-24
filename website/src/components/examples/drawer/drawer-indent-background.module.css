@@ -1,6 +1,4 @@
 .stage {
-  --moduix-drawer-max-height: 100%;
-
   position: relative;
   isolation: isolate;
   min-height: 22rem;
@@ -19,6 +17,10 @@
 .backdrop,
 .positioner {
   position: absolute;
+}
+
+.content {
+  max-height: 100%;
 }
 
 .body {

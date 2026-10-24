@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { UnpicImageProps } from '@unpic/core';
 import { transformProps } from '@unpic/core';
-import { ref, useAttrs } from 'vue';
+import { transformBaseImageProps } from '@unpic/core/base';
+import { getProviderForUrl } from 'unpic';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes, ImgHTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 
@@ -20,27 +22,18 @@ defineOptions({ inheritAttrs: false });
 
 const props = defineProps<Props>();
 const attrs = useAttrs();
-const imageElement = ref<HTMLImageElement>();
-
-defineExpose({ $el: imageElement });
 
 const getImageProps = () => {
-  const { class: _class, ...inputProps } = { ...attrs, ...props };
-  const input = inputProps as ImageTransformProps;
-  return transformProps<ImgHTMLAttributes>({
-    ...input,
-    loading: input.loading ?? (input.priority ? 'eager' : 'lazy'),
-    decoding: input.decoding ?? (input.priority ? undefined : 'async'),
-    fetchpriority: input.fetchpriority ?? (input.priority ? 'high' : undefined),
-  });
+  const { class: _class, ...input } = { ...attrs, ...props } as ImageTransformProps;
+  // Without a CDN, Unpic returns props unchanged; the base transform still applies its loading
+  // defaults and layout styles and drops Unpic-only props such as `layout` and `priority`.
+  const hasCdn = input.cdn ?? (getProviderForUrl(input.src) || input.fallback);
+  return hasCdn
+    ? transformProps<ImgHTMLAttributes>(input)
+    : transformBaseImageProps<never, never, ImgHTMLAttributes>(input as never);
 };
 </script>
 
 <template>
-  <img
-    ref="imageElement"
-    v-bind="getImageProps()"
-    :class="cn('rounded-md', props.class)"
-    data-slot="image-root"
-  />
+  <img v-bind="getImageProps()" :class="cn('rounded-md', props.class)" data-slot="image-root" />
 </template>

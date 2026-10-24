@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkQrCodeFrame
     v-bind="attrs"
-    :class="cn('box-border aspect-square h-auto w-full fill-current text-inherit', className)"
+    :class="cn('aspect-square w-full fill-current', className)"
     data-slot="qr-code-frame"
   >
     <slot />

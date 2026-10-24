@@ -5,9 +5,7 @@ import {
   SelectField,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/solid/select';
 import { createMemo, createSignal, For } from 'solid-js';
 
@@ -45,12 +43,7 @@ export default function SelectMaxSelectionDemo() {
       <SelectPositioner>
         <SelectContent>
           <For each={collection().items}>
-            {(item) => (
-              <SelectItem item={item}>
-                <SelectItemText>{item.label}</SelectItemText>
-                <SelectItemIndicator />
-              </SelectItem>
-            )}
+            {(item) => <SelectOption item={item}>{item.label}</SelectOption>}
           </For>
         </SelectContent>
       </SelectPositioner>

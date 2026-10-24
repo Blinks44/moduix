@@ -1,7 +1,6 @@
 import { parseDate } from '@ark-ui/solid/date-picker';
 import {
   DatePicker,
-  DatePickerContext,
   DatePickerLabel,
   DatePickerField,
   DatePickerPositioner,
@@ -27,14 +26,7 @@ export default function MultipleMonthsDatePickerDemo() {
           </DatePickerViewControl>
           <div>
             <DatePickerDayTable showHeader={false} />
-            <DatePickerContext>
-              {(datePicker) => (
-                <DatePickerDayTable
-                  offset={datePicker().getOffset({ months: 1 })}
-                  showHeader={false}
-                />
-              )}
-            </DatePickerContext>
+            <DatePickerDayTable offset={1} showHeader={false} />
           </div>
         </DatePickerContent>
       </DatePickerPositioner>

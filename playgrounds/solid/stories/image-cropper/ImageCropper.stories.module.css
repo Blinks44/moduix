@@ -85,8 +85,10 @@
     }
   }
 
-  .customRoot {
-    --moduix-image-cropper-selection-border-color: var(--moduix-color-destructive);
-    --moduix-image-cropper-selection-overlay-bg: rgb(15 23 42 / 55%);
+  .customRoot [data-slot='image-cropper-selection'] {
+    border-color: var(--moduix-color-destructive);
+    box-shadow:
+      0 0 0 9999px rgb(15 23 42 / 55%),
+      inset 0 0 0 var(--moduix-border-width-sm) rgb(255 255 255 / 64%);
   }
 }

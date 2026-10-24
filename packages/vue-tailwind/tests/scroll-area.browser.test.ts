@@ -57,10 +57,8 @@ test('renders Ark anatomy with Tailwind defaults and forwarded refs', async () =
 
   const root = rootRef.value?.$el as HTMLElement;
   const viewport = viewportRef.value?.$el as HTMLElement;
-  const content = screen.getByText('Scrollable content');
   const scrollbar = document.querySelector('[data-slot="scroll-area-scrollbar"]')!;
   const thumb = document.querySelector('[data-slot="scroll-area-thumb"]')!;
-  const corner = document.querySelector('[data-slot="scroll-area-corner"]')!;
 
   expect('Root' in ScrollArea).toBe(false);
   expect(root!.getAttribute('data-scope')).toBe('scroll-area');
@@ -69,28 +67,20 @@ test('renders Ark anatomy with Tailwind defaults and forwarded refs', async () =
   expect(root!.hasAttribute('data-fade')).toBe(true);
   expect(root!.getAttribute('data-variant')).toBe('always');
   expect([...root!.classList]).toEqual(
-    expect.arrayContaining([
-      'group/scroll-area',
-      'relative',
-      'h-full',
-      'w-full',
-      'text-foreground',
-    ]),
+    expect.arrayContaining(['group/scroll-area', 'h-full', 'w-full']),
   );
   expect(viewport!.getAttribute('data-part')).toBe('viewport');
   expect(viewport!.getAttribute('data-slot')).toBe('scroll-area-viewport');
   expect([...viewport!.classList]).toEqual(
-    expect.arrayContaining(['rounded-md', '[scrollbar-width:none]']),
+    expect.arrayContaining(['rounded-[inherit]', '[scrollbar-width:none]']),
   );
   await expect
     .element(page.getByText('Scrollable content'))
     .toHaveAttribute('data-slot', 'scroll-area-content');
-  expect([...content!.classList]).toEqual(expect.arrayContaining(['block']));
   expect([...scrollbar.classList]).toEqual(
-    expect.arrayContaining(['rounded-md', 'opacity-0', 'pointer-events-none']),
+    expect.arrayContaining(['opacity-0', 'pointer-events-none']),
   );
   expect([...thumb.classList]).toEqual(expect.arrayContaining(['rounded-full', 'bg-border']));
-  expect([...corner.classList]).toEqual(expect.arrayContaining(['bg-transparent']));
 });
 
 test('keeps RootProvider composition and context connected', async () => {
@@ -174,7 +164,7 @@ test('preserves asChild composition and refs for every visible part', async () =
     .element(page.getByRole('region', { name: 'Related articles', exact: true }))
     .toHaveAttribute('data-variant', 'hover');
   expect([...root!.classList]).toEqual(
-    expect.arrayContaining(['group/scroll-area', 'relative', 'h-full', 'w-full']),
+    expect.arrayContaining(['group/scroll-area', 'h-full', 'w-full']),
   );
   expect(viewportRef.value!.$el.getAttribute('data-slot')).toBe('scroll-area-viewport');
   expect(contentRef.value!.$el.getAttribute('data-slot')).toBe('scroll-area-content');
@@ -209,7 +199,7 @@ test('lets consumer Tailwind classes override component defaults', async () => {
   expect([...root.classList]).toEqual(expect.arrayContaining(['h-20']));
   expect(root.classList.contains('h-full')).toBe(false);
   expect([...viewport.classList]).toEqual(expect.arrayContaining(['rounded-none']));
-  expect(viewport!.classList.contains('rounded-md')).toBe(false);
+  expect(viewport!.classList.contains('rounded-[inherit]')).toBe(false);
   expect([...scrollbar.classList]).toEqual(expect.arrayContaining(['opacity-100']));
   expect(scrollbar!.classList.contains('opacity-0')).toBe(false);
   expect([...thumb.classList]).toEqual(expect.arrayContaining(['bg-primary']));
@@ -255,4 +245,57 @@ test('renders and hydrates scroll-area without replacing server hosts or IDs', a
     app.unmount();
     host.remove();
   }
+});
+test('inherits the container text color and the root border radius', () => {
+  render(
+    defineComponent({
+      components: scrollAreaComponents,
+      template: `
+        <div style="color: rgb(1, 2, 3)">
+          <ScrollArea style="border-radius: 12px">
+            <ScrollAreaViewport>
+              <ScrollAreaContent>Inherited content</ScrollAreaContent>
+            </ScrollAreaViewport>
+          </ScrollArea>
+        </div>
+      `,
+    }),
+  );
+
+  const root = document.querySelector('[data-slot="scroll-area-root"]')!;
+  const viewport = document.querySelector('[data-slot="scroll-area-viewport"]')!;
+
+  expect(getComputedStyle(root).color).toBe('rgb(1, 2, 3)');
+  expect(getComputedStyle(viewport).borderRadius).toBe('12px');
+});
+
+test('shows only the overflowing scrollbar with the always variant', async () => {
+  render(
+    defineComponent({
+      components: scrollAreaComponents,
+      template: `
+        <ScrollArea variant="always" style="width: 200px; height: 100px">
+          <ScrollAreaViewport>
+            <ScrollAreaContent style="height: 400px">Tall content</ScrollAreaContent>
+          </ScrollAreaViewport>
+          <ScrollAreaScrollbar data-testid="vertical">
+            <ScrollAreaThumb />
+          </ScrollAreaScrollbar>
+          <ScrollAreaScrollbar data-testid="horizontal" orientation="horizontal">
+            <ScrollAreaThumb />
+          </ScrollAreaScrollbar>
+        </ScrollArea>
+      `,
+    }),
+  );
+
+  await expect.element(page.getByTestId('vertical')).toHaveAttribute('data-overflow-y');
+  await expect.element(page.getByTestId('horizontal')).not.toHaveAttribute('data-overflow-x');
+  const vertical = document.querySelector<HTMLElement>('[data-testid="vertical"]')!;
+  const horizontal = document.querySelector<HTMLElement>('[data-testid="horizontal"]')!;
+
+  expect(getComputedStyle(vertical).opacity).toBe('1');
+  expect(vertical.offsetWidth).toBe(4);
+  expect(vertical.offsetHeight).toBe(92);
+  expect(getComputedStyle(horizontal).display).toBe('none');
 });

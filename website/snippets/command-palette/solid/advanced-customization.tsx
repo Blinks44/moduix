@@ -4,7 +4,6 @@ import { Button } from '@moduix/solid/button';
 import {
   CommandPalette,
   CommandPaletteBackdrop,
-  CommandPaletteBody,
   CommandPaletteClearTrigger,
   CommandPaletteCombobox,
   CommandPaletteContent,
@@ -90,46 +89,41 @@ export default function AdvancedCommandPalette() {
           <CommandPaletteHeader>
             <CommandPaletteTitle>Commands</CommandPaletteTitle>
           </CommandPaletteHeader>
-          <CommandPaletteBody>
-            <CommandPaletteCombobox
-              collection={collectionState.collection()}
-              onInputValueChange={(details) => collectionState.filter(details.inputValue)}
-            >
-              <CommandPaletteControl>
-                <CommandPaletteInput
-                  aria-label="Search commands"
-                  placeholder="Search commands..."
-                />
-                <CommandPaletteClearTrigger />
-              </CommandPaletteControl>
-              <CommandPaletteList>
-                <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
-                <For each={collectionState.collection().group()}>
-                  {([section, items]) => (
-                    <CommandPaletteItemGroup>
-                      <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
-                      <For each={items}>
-                        {(item) => (
-                          <CommandPaletteItem item={item}>
-                            <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
-                            <CommandPaletteItemText>
-                              <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
-                              <CommandPaletteItemDescription>
-                                {item.description}
-                              </CommandPaletteItemDescription>
-                            </CommandPaletteItemText>
-                            {item.shortcut ? (
-                              <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
-                            ) : null}
-                          </CommandPaletteItem>
-                        )}
-                      </For>
-                    </CommandPaletteItemGroup>
-                  )}
-                </For>
-              </CommandPaletteList>
-            </CommandPaletteCombobox>
-          </CommandPaletteBody>
+          <CommandPaletteCombobox
+            collection={collectionState.collection()}
+            onInputValueChange={(details) => collectionState.filter(details.inputValue)}
+          >
+            <CommandPaletteControl>
+              <CommandPaletteInput aria-label="Search commands" placeholder="Search commands..." />
+              <CommandPaletteClearTrigger />
+            </CommandPaletteControl>
+            <CommandPaletteList>
+              <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
+              <For each={collectionState.collection().group()}>
+                {([section, items]) => (
+                  <CommandPaletteItemGroup>
+                    <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
+                    <For each={items}>
+                      {(item) => (
+                        <CommandPaletteItem item={item}>
+                          <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                          <CommandPaletteItemText>
+                            <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                            <CommandPaletteItemDescription>
+                              {item.description}
+                            </CommandPaletteItemDescription>
+                          </CommandPaletteItemText>
+                          {item.shortcut ? (
+                            <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
+                          ) : null}
+                        </CommandPaletteItem>
+                      )}
+                    </For>
+                  </CommandPaletteItemGroup>
+                )}
+              </For>
+            </CommandPaletteList>
+          </CommandPaletteCombobox>
         </CommandPaletteContent>
       </CommandPalettePositioner>
     </CommandPalette>

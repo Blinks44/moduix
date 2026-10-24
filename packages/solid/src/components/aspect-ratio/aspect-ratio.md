@@ -1,6 +1,6 @@
 # AspectRatio (Solid)
 
-`AspectRatio` preserves the React component's numeric ratio validation, layout-only root, stable
+`AspectRatio` preserves the React component's `ratio` fallback to `1`, layout-only root, stable
 data hooks, and consumer-owned content styling.
 
 ## Ark Solid composition

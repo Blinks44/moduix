@@ -5,42 +5,6 @@ description: A native table component with an optional scroll container, numeric
 ---
 
 import * as TableDocs from '@/components/examples/table/css-properties';
-import TableBasic from '@/components/examples/table/basic.tsx';
-import TableCaptionAndFooter from '@/components/examples/table/caption-and-footer.tsx';
-import TableColumnGroupAndBorders from '@/components/examples/table/column-group-and-borders.tsx';
-import TableCustomComposition from '@/components/examples/table/custom-composition.tsx';
-import TableEmptyState from '@/components/examples/table/empty-state.tsx';
-import TableInsideCard from '@/components/examples/table/inside-card.tsx';
-import TableNumericColumns from '@/components/examples/table/numeric-columns.tsx';
-import TableRowActions from '@/components/examples/table/row-actions-with-menu.tsx';
-import TableSizesAndVariants from '@/components/examples/table/sizes-and-variants.tsx';
-import TableStickyHeaderAndColumn from '@/components/examples/table/sticky-header-and-column.tsx';
-import TableStripedRows from '@/components/examples/table/striped-rows.tsx';
-import TableWithScrollarea from '@/components/examples/table/with-scrollarea.tsx';
-import tableSolidBasic from '../../../snippets/table/solid/basic.tsx?raw';
-import tableSolidCaptionAndFooter from '../../../snippets/table/solid/caption-and-footer.tsx?raw';
-import tableSolidColumnGroupAndBorders from '../../../snippets/table/solid/column-group-and-borders.tsx?raw';
-import tableSolidCustomComposition from '../../../snippets/table/solid/custom-composition.tsx?raw';
-import tableSolidEmptyState from '../../../snippets/table/solid/empty-state.tsx?raw';
-import tableSolidInsideCard from '../../../snippets/table/solid/inside-card.tsx?raw';
-import tableSolidNumericColumns from '../../../snippets/table/solid/numeric-columns.tsx?raw';
-import tableSolidRowActions from '../../../snippets/table/solid/row-actions-with-menu.tsx?raw';
-import tableSolidSizesAndVariants from '../../../snippets/table/solid/sizes-and-variants.tsx?raw';
-import tableSolidStickyHeaderAndColumn from '../../../snippets/table/solid/sticky-header-and-column.tsx?raw';
-import tableSolidStripedRows from '../../../snippets/table/solid/striped-rows.tsx?raw';
-import tableSolidWithScrollarea from '../../../snippets/table/solid/with-scrollarea.tsx?raw';
-import tableVueBasic from '../../../snippets/table/vue/basic.vue?raw';
-import tableVueCaptionAndFooter from '../../../snippets/table/vue/caption-and-footer.vue?raw';
-import tableVueColumnGroupAndBorders from '../../../snippets/table/vue/column-group-and-borders.vue?raw';
-import tableVueCustomComposition from '../../../snippets/table/vue/custom-composition.vue?raw';
-import tableVueEmptyState from '../../../snippets/table/vue/empty-state.vue?raw';
-import tableVueInsideCard from '../../../snippets/table/vue/inside-card.vue?raw';
-import tableVueNumericColumns from '../../../snippets/table/vue/numeric-columns.vue?raw';
-import tableVueRowActions from '../../../snippets/table/vue/row-actions-with-menu.vue?raw';
-import tableVueSizesAndVariants from '../../../snippets/table/vue/sizes-and-variants.vue?raw';
-import tableVueStickyHeaderAndColumn from '../../../snippets/table/vue/sticky-header-and-column.vue?raw';
-import tableVueStripedRows from '../../../snippets/table/vue/striped-rows.vue?raw';
-import tableVueWithScrollarea from '../../../snippets/table/vue/with-scrollarea.vue?raw';
 
 ## API Reference
 
@@ -60,41 +24,7 @@ If the table may be wider than its container, wrap it in `TableScrollArea`. Then
 with `TableHeader`, `TableBody`, `TableRow`, and the matching header and cell parts. This is the
 recommended setup for invoices, summaries, and admin-style read-only datasets.
 
-<ExampleFrame variant="component">
-  <TableBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tableSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tableVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="table/basic" />
 
 ## Install with shadcn
 
@@ -158,7 +88,7 @@ TableScrollArea (optional)
 | `Table`           | Native `table` root. Owns typography, dividers, and state attributes.      |
 | `TableScrollArea`     | Optional bordered container with horizontal overflow for the table.       |
 | `TableColumnGroup`    | Native `colgroup` wrapper for column width distribution.                   |
-| `TableColumn`         | Native `col` wrapper. Supports `htmlWidth`.                                |
+| `TableColumn`         | Native `col` wrapper. Use the native `width` attribute.                    |
 | `TableCaption`        | Optional table caption above or below the table via `side`.                |
 | `TableHeader`         | Native `thead` wrapper for column headers.                                 |
 | `TableBody`           | Native `tbody` wrapper for body rows.                                      |
@@ -194,378 +124,63 @@ description, and use `id` / `headers` when a complex table needs explicit header
 Use `TableCaption side="top"` when the label reads better before the data, and `TableFooter` for
 totals or summaries.
 
-<ExampleFrame variant="component">
-  <TableCaptionAndFooter />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table/caption-and-footer.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tableSolidCaptionAndFooter} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tableVueCaptionAndFooter} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="table/caption-and-footer" />
 
 ### Column Group and Borders
 
 Use `TableColumnGroup` and `TableColumn` for native column widths, and `showColumnBorder` when
 column separation needs to be visible.
 
-<ExampleFrame variant="component">
-  <TableColumnGroupAndBorders />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table/column-group-and-borders.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tableSolidColumnGroupAndBorders} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tableVueColumnGroupAndBorders} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="table/column-group-and-borders" />
 
 ### Empty State
 
 Use `TableEmpty` when a body would otherwise render no rows. Set `colSpan` to the current number of
 columns.
 
-<ExampleFrame variant="component">
-  <TableEmptyState />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table/empty-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tableSolidEmptyState} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tableVueEmptyState} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="table/empty-state" />
 
 ### Inside Card
 
 `TableScrollArea` fits naturally inside `CardBody` when the table should live on a card surface.
 
-<ExampleFrame variant="component">
-  <TableInsideCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table/inside-card.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tableSolidInsideCard} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tableVueInsideCard} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="table/inside-card" />
 
 ### Numeric Columns
 
 Use `numeric` on both the header and the cells for aligned amounts, counts, percentages, and other
 numeric metrics.
 
-<ExampleFrame variant="component">
-  <TableNumericColumns />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table/numeric-columns.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tableSolidNumericColumns} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tableVueNumericColumns} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="table/numeric-columns" />
 
 ### Row Actions With Menu
 
 Use the last column for row-specific actions when the dataset needs lightweight overflow commands.
 `Menu` fits this case cleanly without changing the native table structure.
 
-<ExampleFrame variant="component">
-  <TableRowActions />
-</ExampleFrame>
+<Example name="table/row-actions-with-menu" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+### Sizes
 
-```tsx pure file="../../../src/components/examples/table/row-actions-with-menu.tsx"
-```
+Use `size` for density. It changes cell padding and font size. For an outer border without
+`TableScrollArea`, add a border class to `Table`.
 
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tableSolidRowActions} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tableVueRowActions} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
-
-### Sizes and Variants
-
-Use `size` for density and `variant` for divider style. `Table` keeps these as visual modes on the
-native root instead of adding extra state.
-
-<ExampleFrame variant="component">
-  <TableSizesAndVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table/sizes-and-variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tableSolidSizesAndVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tableVueSizesAndVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/table/table-sizes-and-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="table/sizes" />
 
 ### Sticky Header and Column
 
 Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a horizontally or
-vertically scrolling table needs persistent context.
+vertically scrolling table needs persistent context. Sticky cells keep the striped, hover, and
+focus row colors.
 
-<ExampleFrame variant="component">
-  <TableStickyHeaderAndColumn />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table/sticky-header-and-column.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tableSolidStickyHeaderAndColumn} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tableVueStickyHeaderAndColumn} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/table/table-sticky-header-and-column.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="table/sticky-header-and-column" />
 
 ### Striped Rows
 
 Use `striped` when long read-only bodies need stronger row separation without switching to a more
 opinionated table abstraction.
 
-<ExampleFrame variant="component">
-  <TableStripedRows />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table/striped-rows.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tableSolidStripedRows} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tableVueStripedRows} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="table/striped-rows" />
 
 ### With ScrollArea
 
@@ -573,46 +188,7 @@ Use `ScrollArea` directly when the table needs styled scrollbars on both axes, f
 scroll area API. `TableScrollArea` is a simpler bordered horizontal-overflow wrapper. Keep the
 `ScrollArea` structure explicit so the table stays native and lightweight.
 
-<ExampleFrame variant="component">
-  <TableWithScrollarea />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table/with-scrollarea.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tableSolidWithScrollarea} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tableVueWithScrollarea} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/table/table-with-scrollarea.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="table/with-scrollarea" />
 
 ### Advanced Customization
 
@@ -620,46 +196,7 @@ Use your own wrapper instead of `TableScrollArea` when the surrounding layout al
 surface or scrolling behavior. This keeps the native table composition explicit while giving your
 layout full control of the shell.
 
-<ExampleFrame variant="component">
-  <TableCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tableSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tableVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/table/table-custom-composition.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="table/custom-composition" />
 
 ## Styling
 
@@ -670,17 +207,7 @@ variables below apply to CSS Modules variants.
 
 ### CSS Variables
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TableDocs.TableCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={TableDocs.tableOverrideCssProperties} />
 
 ### Styling hooks
 
@@ -694,6 +221,6 @@ Use the part that owns the visual concern:
 - `data-side="top" | "bottom"` on `TableCaption` for caption placement styling
 - `data-numeric` on `TableColumnHeader` and `TableCell` for numeric-column targeting
 - `data-empty` on the row generated by `TableEmpty` for empty-row targeting
-- `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header`, and
+- `data-size`, `data-striped`, `data-interactive`, `data-sticky-header`, and
   `data-show-column-border` on `Table` for root-level state styling
 - `data-sticky="start" | "end"` on `TableColumnHeader` and `TableCell` for sticky columns

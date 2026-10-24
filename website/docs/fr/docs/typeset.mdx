@@ -5,24 +5,6 @@ description: Appliquez un rythme de lecture au HTML sémantique, au Markdown ren
 ---
 
 import * as TypesetDocs from '@/components/examples/typeset/css-properties';
-import TypesetBasic from '@/components/examples/typeset/basic.tsx';
-import TypesetExcludedSubtree from '@/components/examples/typeset/excluded-subtree.tsx';
-import TypesetMarkdownExtensions from '@/components/examples/typeset/markdown-extensions.tsx';
-import TypesetReadingRhythm from '@/components/examples/typeset/reading-rhythm.tsx';
-import TypesetScrollableTable from '@/components/examples/typeset/scrollable-table.tsx';
-import TypesetStreamingContent from '@/components/examples/typeset/streaming-content.tsx';
-import typesetSolidBasic from '../../../snippets/typeset/solid/basic.tsx?raw';
-import typesetSolidExcludedSubtree from '../../../snippets/typeset/solid/excluded-subtree.tsx?raw';
-import typesetSolidMarkdownExtensions from '../../../snippets/typeset/solid/markdown-extensions.tsx?raw';
-import typesetSolidReadingRhythm from '../../../snippets/typeset/solid/reading-rhythm.tsx?raw';
-import typesetSolidScrollableTable from '../../../snippets/typeset/solid/scrollable-table.tsx?raw';
-import typesetSolidStreamingContent from '../../../snippets/typeset/solid/streaming-content.tsx?raw';
-import typesetVueBasic from '../../../snippets/typeset/vue/basic.vue?raw';
-import typesetVueExcludedSubtree from '../../../snippets/typeset/vue/excluded-subtree.vue?raw';
-import typesetVueMarkdownExtensions from '../../../snippets/typeset/vue/markdown-extensions.vue?raw';
-import typesetVueReadingRhythm from '../../../snippets/typeset/vue/reading-rhythm.vue?raw';
-import typesetVueScrollableTable from '../../../snippets/typeset/vue/scrollable-table.vue?raw';
-import typesetVueStreamingContent from '../../../snippets/typeset/vue/streaming-content.vue?raw';
 
 ## Référence de l’API
 
@@ -51,40 +33,7 @@ lorsque le conteneur extérieur doit être un élément sémantique, comme `arti
 les listes en `<ul>` et `<ol>` natifs : Typeset leur apporte les marqueurs et les espacements sans
 classes utilitaires.
 
-<ExampleFrame variant="component">
-  <TypesetBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/typeset/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={typesetSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={typesetVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="typeset/basic" />
 
 ## Installation avec shadcn
 
@@ -140,9 +89,8 @@ Typeset
 `Typeset` ne gère aucun état, n’analyse ni ne filtre le contenu et n’en définit pas la largeur.
 Gardez les éléments sémantiques rendus dans la racine, utilisez `asChild` lorsque celle-ci doit être
 un `article` ou une `section`, et composez `TypesetScroll` autour d’un bloc large qui doit défiler
-plutôt que se comprimer. Gardez `TypesetScroll` à l’intérieur d’une limite `Typeset` : le défilement
-horizontal, les espacements de flux et l’élargissement des tableaux
-du bloc enveloppé proviennent des règles d’éléments Typeset. Ajoutez `.not-typeset` ou
+plutôt que se comprimer. Gardez `TypesetScroll` à l’intérieur d’une limite `Typeset` : les espacements
+de flux et l’élargissement des tableaux du bloc enveloppé proviennent des règles d’éléments Typeset. Ajoutez `.not-typeset` ou
 `data-not-typeset` à un sous-arbre appartenant à l’application lorsqu’il doit conserver sa propre
 mise en forme. Une zone de défilement destinée aux utilisateurs doit avoir un nom accessible ;
 `TypesetScroll` peut recevoir le focus au clavier par défaut.
@@ -155,130 +103,21 @@ Excluez un sous-arbre lorsqu’il a sa propre mise en forme, par exemple un cont
 carte. `.not-typeset` comme `data-not-typeset` excluent l’élément marqué et tout son contenu, y
 compris une racine `Typeset` imbriquée.
 
-<ExampleFrame variant="component">
-  <TypesetExcludedSubtree />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/typeset/excluded-subtree.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={typesetSolidExcludedSubtree} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={typesetVueExcludedSubtree} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/typeset/typeset-excluded-subtree.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="typeset/excluded-subtree" />
 
 ### Extensions Markdown
 
 Les listes de tâches, blocs dépliables `details`, listes de définitions et notes de bas de page GFM
 utilisent les mêmes tokens et espacements entre blocs que les principaux éléments HTML.
 
-<ExampleFrame variant="component">
-  <TypesetMarkdownExtensions />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/typeset/markdown-extensions.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={typesetSolidMarkdownExtensions} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={typesetVueMarkdownExtensions} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="typeset/markdown-extensions" />
 
 ### Rythme de lecture
 
 Réglez les variables CSS lorsqu’une section demande un rythme de lecture plus aéré ou plus dense,
 sans ajouter de propriétés au composant.
 
-<ExampleFrame variant="component">
-  <TypesetReadingRhythm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/typeset/reading-rhythm.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={typesetSolidReadingRhythm} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={typesetVueReadingRhythm} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/typeset/typeset-reading-rhythm.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="typeset/reading-rhythm" />
 
 ### Tableau défilant
 
@@ -286,106 +125,20 @@ Placez une table créée par votre moteur de rendu dans `TypesetScroll` lorsqu�
 largeur et défiler dans un conteneur étroit. Donnez à la zone de défilement un nom accessible qui
 identifie la table qu’elle contient.
 
-<ExampleFrame variant="component">
-  <TypesetScrollableTable />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/typeset/scrollable-table.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={typesetSolidScrollableTable} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={typesetVueScrollableTable} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/typeset/typeset-scrollable-table.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="typeset/scrollable-table" />
 
 ### Contenu diffusé en continu
 
 Pour un flux de messages, utilisez un rythme plus dense. Chaque nouveau bloc apporte son propre
 espacement, ainsi le contenu déjà affiché reste en place à mesure que le flux grandit.
 
-<ExampleFrame variant="component">
-  <TypesetStreamingContent />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/typeset/streaming-content.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={typesetSolidStreamingContent} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={typesetVueStreamingContent} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/typeset/typeset-streaming-content.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="typeset/streaming-content" />
 
 ## Styles
 
 ### Propriétés CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <TypesetDocs.TypesetCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={TypesetDocs.typesetOverrideCssProperties} />
 
 Utilisez `--moduix-typeset-size`, `--moduix-typeset-leading` et `--moduix-typeset-flow` pour régler
 le rythme de lecture. Les variables de police sont facultatives ; les couleurs, bordures et rayons
@@ -395,9 +148,9 @@ viennent du thème moduix actif. Les règles des éléments se trouvent dans la 
 sans `!important`.
 
 Utilisez `className` dans React et `class` dans Solid et Vue pour les styles structurels des
-parties exportées. Les variantes Tailwind conservent le même contrat CSS-first des éléments et
-fusionnent les classes avec `cn`, en plaçant la classe du consommateur en dernier ; les six variables
-CSS personnalisent donc les deux variantes.
+parties exportées. Les variantes CSS Modules et Tailwind livrent le même CSS Module ; les
+variantes Tailwind fusionnent les classes avec `cn`, en plaçant la classe du consommateur en
+dernier ; les six variables CSS personnalisent donc les deux variantes.
 
 ### Points d’accroche CSS
 

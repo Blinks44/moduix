@@ -9,7 +9,6 @@ import {
   ListboxValueText,
 } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/listbox/listbox-value-text.module.css';
 
 const countries = createListCollection({
   items: [
@@ -21,7 +20,7 @@ const countries = createListCollection({
 
 export default function ValueTextListboxDemo() {
   return (
-    <Listbox collection={countries} class={styles.root} defaultValue={['ca']}>
+    <Listbox collection={countries} defaultValue={['ca']}>
       <ListboxLabel>Select country</ListboxLabel>
       <ListboxContent>
         <For each={countries.items}>

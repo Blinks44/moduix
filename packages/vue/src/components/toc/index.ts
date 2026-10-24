@@ -27,6 +27,8 @@ export {
   useTocContext,
 };
 
+export type { Props as TocRailProps } from './TocRail.vue';
+
 export type {
   TocActiveChangeDetails,
   TocContentBaseProps,

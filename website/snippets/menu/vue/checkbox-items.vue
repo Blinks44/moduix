@@ -12,7 +12,6 @@ import {
   MenuViewport,
 } from '@moduix/vue/menu';
 import { ref } from 'vue';
-import styles from '@/components/examples/menu/menu-checkbox-items.module.css';
 
 const showToolbar = ref(true);
 const showSidebar = ref(false);
@@ -26,7 +25,7 @@ const showLineNumbers = ref(true);
       <Button>View <MenuIndicator /></Button>
     </MenuTrigger>
     <MenuPositioner>
-      <MenuContent :class="styles.content">
+      <MenuContent>
         <MenuViewport>
           <MenuCheckboxItem v-model:checked="showToolbar" value="toolbar">
             <MenuItemIndicator /><MenuItemText>Show Toolbar</MenuItemText>

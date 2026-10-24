@@ -8,7 +8,7 @@ export default function RadioGroupIndicatorDemo() {
     <div className={styles.stack}>
       <div>Framework</div>
       <RadioGroup aria-label="Framework" defaultValue="React" className={styles.root}>
-        <RadioGroupIndicator className={styles.indicator} />
+        <RadioGroupIndicator />
         {frameworks.map((framework) => (
           <RadioGroupOption key={framework} value={framework}>
             {framework}

@@ -102,18 +102,7 @@ const ColorPickerTrigger = forwardRef<
       {...props}
       data-slot="color-picker-trigger"
     >
-      {children ?? (
-        <>
-          <ColorPickerPrimitive.TransparencyGrid
-            data-slot="color-picker-transparency-grid"
-            className={styles.transparencyGrid}
-          />
-          <ColorPickerPrimitive.ValueSwatch
-            data-slot="color-picker-value-swatch"
-            className={styles.valueSwatch}
-          />
-        </>
-      )}
+      {children ?? <ColorPickerValueSwatch />}
     </ColorPickerPrimitive.Trigger>
   );
 });
@@ -161,14 +150,8 @@ const ColorPickerArea = forwardRef<
     >
       {children ?? (
         <>
-          <ColorPickerPrimitive.AreaBackground
-            data-slot="color-picker-area-background"
-            className={styles.areaBackground}
-          />
-          <ColorPickerPrimitive.AreaThumb
-            data-slot="color-picker-area-thumb"
-            className={styles.thumb}
-          />
+          <ColorPickerAreaBackground />
+          <ColorPickerAreaThumb />
         </>
       )}
     </ColorPickerPrimitive.Area>
@@ -217,20 +200,9 @@ const ColorPickerChannelSlider = forwardRef<
     >
       {children ?? (
         <>
-          {channel === 'alpha' && (
-            <ColorPickerPrimitive.TransparencyGrid
-              data-slot="color-picker-transparency-grid"
-              className={styles.transparencyGrid}
-            />
-          )}
-          <ColorPickerPrimitive.ChannelSliderTrack
-            data-slot="color-picker-channel-slider-track"
-            className={styles.channelSliderTrack}
-          />
-          <ColorPickerPrimitive.ChannelSliderThumb
-            data-slot="color-picker-channel-slider-thumb"
-            className={styles.thumb}
-          />
+          {channel === 'alpha' && <ColorPickerTransparencyGrid />}
+          <ColorPickerChannelSliderTrack />
+          <ColorPickerChannelSliderThumb />
         </>
       )}
     </ColorPickerPrimitive.ChannelSlider>
@@ -399,18 +371,9 @@ const ColorPickerSwatchTrigger = forwardRef<
       data-slot="color-picker-swatch-trigger"
     >
       {children ?? (
-        <ColorPickerPrimitive.Swatch
-          data-slot="color-picker-swatch"
-          className={styles.swatch}
-          value={value}
-        >
-          <ColorPickerPrimitive.SwatchIndicator
-            data-slot="color-picker-swatch-indicator"
-            className={styles.swatchIndicator}
-          >
-            <CheckIcon />
-          </ColorPickerPrimitive.SwatchIndicator>
-        </ColorPickerPrimitive.Swatch>
+        <ColorPickerSwatch value={value}>
+          <ColorPickerSwatchIndicator />
+        </ColorPickerSwatch>
       )}
     </ColorPickerPrimitive.SwatchTrigger>
   );
@@ -540,3 +503,71 @@ export {
   useColorPicker,
   useColorPickerContext,
 };
+
+export type { ColorPickerRootProps, ColorPickerRootProviderProps };
+
+export type {
+  Color,
+  ColorPickerAreaBackgroundBaseProps,
+  ColorPickerAreaBackgroundProps,
+  ColorPickerAreaBaseProps,
+  ColorPickerAreaProps,
+  ColorPickerAreaThumbBaseProps,
+  ColorPickerAreaThumbProps,
+  ColorPickerChannelInputBaseProps,
+  ColorPickerChannelInputProps,
+  ColorPickerChannelSliderBaseProps,
+  ColorPickerChannelSliderLabelBaseProps,
+  ColorPickerChannelSliderLabelProps,
+  ColorPickerChannelSliderProps,
+  ColorPickerChannelSliderThumbBaseProps,
+  ColorPickerChannelSliderThumbProps,
+  ColorPickerChannelSliderTrackBaseProps,
+  ColorPickerChannelSliderTrackProps,
+  ColorPickerChannelSliderValueTextBaseProps,
+  ColorPickerChannelSliderValueTextProps,
+  ColorPickerColorFormat,
+  ColorPickerContentBaseProps,
+  ColorPickerContentProps,
+  ColorPickerContextProps,
+  ColorPickerControlBaseProps,
+  ColorPickerControlProps,
+  ColorPickerEyeDropperTriggerBaseProps,
+  ColorPickerEyeDropperTriggerProps,
+  ColorPickerFocusOutsideEvent,
+  ColorPickerFormatChangeDetails,
+  ColorPickerFormatSelectBaseProps,
+  ColorPickerFormatSelectProps,
+  ColorPickerFormatTriggerBaseProps,
+  ColorPickerFormatTriggerProps,
+  ColorPickerInteractOutsideEvent,
+  ColorPickerLabelBaseProps,
+  ColorPickerLabelProps,
+  ColorPickerOpenChangeDetails,
+  ColorPickerPointerDownOutsideEvent,
+  ColorPickerPositionerBaseProps,
+  ColorPickerPositionerProps,
+  ColorPickerRootProviderBaseProps,
+  ColorPickerSwatchBaseProps,
+  ColorPickerSwatchGroupBaseProps,
+  ColorPickerSwatchGroupProps,
+  ColorPickerSwatchIndicatorBaseProps,
+  ColorPickerSwatchIndicatorProps,
+  ColorPickerSwatchProps,
+  ColorPickerSwatchTriggerBaseProps,
+  ColorPickerSwatchTriggerProps,
+  ColorPickerTransparencyGridBaseProps,
+  ColorPickerTransparencyGridProps,
+  ColorPickerTriggerBaseProps,
+  ColorPickerTriggerProps,
+  ColorPickerValueChangeDetails,
+  ColorPickerValueSwatchBaseProps,
+  ColorPickerValueSwatchProps,
+  ColorPickerValueTextBaseProps,
+  ColorPickerValueTextProps,
+  ColorPickerViewBaseProps,
+  ColorPickerViewProps,
+  UseColorPickerContext,
+  UseColorPickerProps,
+  UseColorPickerReturn,
+} from '@ark-ui/react/color-picker';

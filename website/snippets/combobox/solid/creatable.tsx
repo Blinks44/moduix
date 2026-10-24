@@ -15,7 +15,6 @@ import {
   ComboboxTrigger,
 } from '@moduix/solid/combobox';
 import { For, createSignal } from 'solid-js';
-import styles from '@/components/examples/combobox/component-creatable.module.css';
 
 const createOptionValue = '__create-option__';
 
@@ -90,7 +89,7 @@ export default function CreatableComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent class={styles.content}>
+        <ComboboxContent>
           <ComboboxList>
             <For each={collection().items}>
               {(item) => (

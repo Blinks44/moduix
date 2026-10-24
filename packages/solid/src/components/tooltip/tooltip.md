@@ -1,11 +1,12 @@
 # Tooltip (Solid)
 
 Primary upstream source: Ark UI Tooltip docs, https://ark-ui.com/docs/components/tooltip
-(accessed 2026-09-03).
+(accessed 2026-10-23).
 
 `Tooltip` is a native Solid adapter over `@ark-ui/solid/tooltip`. It preserves the React
 component's explicit Ark anatomy, open state, trigger value callbacks, positioning, portal boundary,
-presence defaults, `data-slot` hooks, CSS variables, and default arrow-tip sugar.
+presence defaults, `data-slot` hooks, styling, and default arrow-tip sugar. The React
+`tooltip.md` holds the full behavior contract.
 
 ## Composition
 
@@ -31,7 +32,8 @@ unmounted-by-default primitive settings.
 
 The adapter exports `Tooltip`, `useTooltip`, and `useTooltipContext`, together with
 `TooltipRootProvider`, `TooltipContext`, `TooltipTrigger`, `TooltipDisabledTrigger`, `TooltipBody`,
-`TooltipPositioner`, `TooltipContent`, `TooltipArrow`, and `TooltipArrowTip`.
+`TooltipPositioner`, `TooltipContent`, `TooltipArrow`, and `TooltipArrowTip`, plus
+`TooltipRootProps`, `TooltipRootProviderProps`, and the Ark part prop, detail, and hook types.
 
 `TooltipBody` renders `TooltipPositioner` plus `TooltipContent` and forwards props/ref to the
 visible content. Use explicit `Positioner` and `Content` for advanced composition.

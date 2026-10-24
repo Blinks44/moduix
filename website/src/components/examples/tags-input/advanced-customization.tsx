@@ -12,11 +12,10 @@ import {
   TagsInputItemText,
   TagsInputLabel,
 } from '@moduix/react/tags-input';
-import styles from '@/components/examples/tags-input/tags-input-advanced-customization.module.css';
 
 export default function AdvancedCustomizationTagsInput() {
   return (
-    <TagsInput className={styles.root} defaultValue={['React', 'TypeScript']} name="frameworks">
+    <TagsInput defaultValue={['React', 'TypeScript']} name="frameworks">
       <TagsInputLabel>Frameworks</TagsInputLabel>
       <TagsInputControl>
         <TagsInputContext>

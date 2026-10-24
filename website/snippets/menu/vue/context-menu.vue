@@ -14,7 +14,7 @@ import styles from '@/components/examples/menu/menu-context-menu.module.css';
   <Menu>
     <MenuContextTrigger :class="styles.contextTrigger">Right click here</MenuContextTrigger>
     <MenuPositioner>
-      <MenuContent :class="styles.content">
+      <MenuContent>
         <MenuViewport>
           <MenuItem value="cut">Cut</MenuItem>
           <MenuItem value="copy">Copy</MenuItem>

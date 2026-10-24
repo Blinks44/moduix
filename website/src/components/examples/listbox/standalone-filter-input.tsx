@@ -9,7 +9,6 @@ import {
   ListboxItemText,
   ListboxLabel,
 } from '@moduix/react/listbox';
-import styles from '@/components/examples/listbox/listbox-standalone-filter-input.module.css';
 
 const frameworks = [
   {
@@ -45,7 +44,7 @@ export default function StandaloneFilterInputListboxDemo() {
   });
 
   return (
-    <Listbox collection={collection} className={styles.root} typeahead={false}>
+    <Listbox collection={collection} typeahead={false}>
       <ListboxLabel>Select framework</ListboxLabel>
       <ListboxInput
         placeholder="Filter frameworks"

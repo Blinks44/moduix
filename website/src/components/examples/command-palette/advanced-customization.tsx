@@ -4,7 +4,6 @@ import { Button } from '@moduix/react/button';
 import {
   CommandPalette,
   CommandPaletteBackdrop,
-  CommandPaletteBody,
   CommandPaletteClearTrigger,
   CommandPaletteCombobox,
   CommandPaletteContent,
@@ -56,42 +55,37 @@ export default function AdvancedCommandPalette() {
           <CommandPaletteHeader>
             <CommandPaletteTitle>Commands</CommandPaletteTitle>
           </CommandPaletteHeader>
-          <CommandPaletteBody>
-            <CommandPaletteCombobox
-              collection={collection}
-              onInputValueChange={(details) => filter(details.inputValue)}
-            >
-              <CommandPaletteControl>
-                <CommandPaletteInput
-                  aria-label="Search commands"
-                  placeholder="Search commands..."
-                />
-                <CommandPaletteClearTrigger />
-              </CommandPaletteControl>
-              <CommandPaletteList>
-                <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
-                {collection.group().map(([section, items]) => (
-                  <CommandPaletteItemGroup key={section}>
-                    <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
-                    {items.map((item) => (
-                      <CommandPaletteItem key={item.id} item={item}>
-                        <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
-                        <CommandPaletteItemText>
-                          <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
-                          <CommandPaletteItemDescription>
-                            {item.description}
-                          </CommandPaletteItemDescription>
-                        </CommandPaletteItemText>
-                        {item.shortcut ? (
-                          <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
-                        ) : null}
-                      </CommandPaletteItem>
-                    ))}
-                  </CommandPaletteItemGroup>
-                ))}
-              </CommandPaletteList>
-            </CommandPaletteCombobox>
-          </CommandPaletteBody>
+          <CommandPaletteCombobox
+            collection={collection}
+            onInputValueChange={(details) => filter(details.inputValue)}
+          >
+            <CommandPaletteControl>
+              <CommandPaletteInput aria-label="Search commands" placeholder="Search commands..." />
+              <CommandPaletteClearTrigger />
+            </CommandPaletteControl>
+            <CommandPaletteList>
+              <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
+              {collection.group().map(([section, items]) => (
+                <CommandPaletteItemGroup key={section}>
+                  <CommandPaletteItemGroupLabel>{section}</CommandPaletteItemGroupLabel>
+                  {items.map((item) => (
+                    <CommandPaletteItem key={item.id} item={item}>
+                      <CommandPaletteItemIcon>{item.icon}</CommandPaletteItemIcon>
+                      <CommandPaletteItemText>
+                        <CommandPaletteItemLabel>{item.label}</CommandPaletteItemLabel>
+                        <CommandPaletteItemDescription>
+                          {item.description}
+                        </CommandPaletteItemDescription>
+                      </CommandPaletteItemText>
+                      {item.shortcut ? (
+                        <CommandPaletteItemMeta>{item.shortcut}</CommandPaletteItemMeta>
+                      ) : null}
+                    </CommandPaletteItem>
+                  ))}
+                </CommandPaletteItemGroup>
+              ))}
+            </CommandPaletteList>
+          </CommandPaletteCombobox>
         </CommandPaletteContent>
       </CommandPalettePositioner>
     </CommandPalette>

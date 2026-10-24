@@ -47,14 +47,14 @@ export default function RootProviderCarousel() {
       aria-label="Root provider gallery"
       value={carousel}
     >
-      <CarouselItemGroup className={styles.itemGroup} aria-label="Root provider gallery">
+      <CarouselItemGroup>
         {slides.map((slide, index) => (
           <CarouselItem key={slide.id} index={index}>
             <img className={styles.image} src={slide.src} alt={slide.alt} />
           </CarouselItem>
         ))}
       </CarouselItemGroup>
-      <CarouselControl className={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselNextTrigger />
       </CarouselControl>

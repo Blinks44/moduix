@@ -12,21 +12,12 @@
   }
 
   .inlineRoot {
-    --moduix-tabs-bg: transparent;
-    --moduix-tabs-border-color: transparent;
-    --moduix-tabs-border-width: 0;
-    --moduix-tabs-gap: var(--moduix-spacing-4);
-    --moduix-tabs-list-bg: transparent;
-    --moduix-tabs-list-border-width: 0;
-    --moduix-tabs-list-padding: 0;
-    --moduix-tabs-list-padding-x: 0;
-    --moduix-tabs-list-padding-y: 0;
     display: flex;
     flex-direction: row;
     width: 22rem;
     align-items: center;
     justify-content: space-between;
-    gap: var(--moduix-tabs-gap);
+    gap: var(--moduix-spacing-4);
     color: var(--moduix-color-foreground);
 
     @media (min-width: 32rem) {
@@ -40,6 +31,9 @@
     align-items: center;
     gap: var(--moduix-spacing-1);
     flex-shrink: 0;
+    padding: 0;
+    border-width: 0;
+    background-color: transparent;
   }
 
   .providerStack {
@@ -54,27 +48,27 @@
   }
 
   .inlineTrigger {
-    --moduix-tabs-tab-radius: var(--moduix-radius-sm);
+    border-radius: var(--moduix-radius-sm);
   }
 
   .inlineIndicator {
-    position: absolute;
     top: auto;
     bottom: 0;
-    width: var(--width);
     height: var(--moduix-border-width-md);
     border-radius: var(--moduix-radius-full);
     background: var(--moduix-color-foreground);
-    translate: none;
+    box-shadow: none;
   }
 
   .inlineContent {
     flex: 1;
     min-width: 0;
+    padding: 0;
+    border-width: 0;
+    background-color: transparent;
   }
 
   .inlineInput {
-    box-sizing: border-box;
     width: 100%;
     height: var(--moduix-size-md);
     border: var(--moduix-border-width-sm) solid var(--moduix-color-border);

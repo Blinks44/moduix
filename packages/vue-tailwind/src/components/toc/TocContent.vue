@@ -18,16 +18,7 @@ const attrs = useAttrs();
 </script>
 
 <template>
-  <ArkTocContent
-    v-bind="attrs"
-    :class="
-      cn(
-        'min-w-0 scroll-smooth group-has-[[data-slot=toc-nav][data-placement=left]]/toc:col-start-2 group-has-[[data-slot=toc-nav][data-placement=left]]/toc:row-start-1 motion-reduce:scroll-auto max-md:group-has-[[data-slot=toc-nav][data-placement=left]]/toc:col-auto max-md:group-has-[[data-slot=toc-nav][data-placement=left]]/toc:row-auto',
-        className,
-      )
-    "
-    data-slot="toc-content"
-  >
+  <ArkTocContent v-bind="attrs" :class="cn('min-w-0', className)" data-slot="toc-content">
     <slot />
   </ArkTocContent>
 </template>

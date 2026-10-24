@@ -6,9 +6,8 @@ import {
   SelectContent,
   SelectControl,
   SelectIndicator,
-  SelectItem,
-  SelectItemText,
   SelectLabel,
+  SelectOption,
   SelectPositioner,
   SelectTrigger,
   SelectValueText,
@@ -39,9 +38,10 @@ const fruits = createListCollection({
     /></SelectControl>
     <SelectPositioner
       ><SelectContent
-        ><SelectItem v-for="item in fruits.items" :key="item.value" :item="item"
-          ><SelectItemText>{{ item.label }}</SelectItemText
-          ><SelectItemIndicator /></SelectItem></SelectContent
-    ></SelectPositioner>
+        ><SelectOption v-for="item in fruits.items" :key="item.value" :item="item">{{
+          item.label
+        }}</SelectOption></SelectContent
+      ></SelectPositioner
+    >
   </Select>
 </template>

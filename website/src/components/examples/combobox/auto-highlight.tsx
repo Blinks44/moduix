@@ -13,7 +13,6 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/react/combobox';
-import styles from '@/components/examples/combobox/component-auto-highlight.module.css';
 
 const departments = [
   { label: 'Engineering', value: 'engineering' },
@@ -44,7 +43,7 @@ export default function AutoHighlightComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent className={styles.content}>
+        <ComboboxContent>
           <ComboboxEmpty>No departments found.</ComboboxEmpty>
           <ComboboxList>
             {collection.items.map((item) => (

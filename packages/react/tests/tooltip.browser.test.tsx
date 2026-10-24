@@ -41,6 +41,7 @@ test('preserves Ark open-change details and keeps trigger focus after Escape', a
 
   render(<ControlledTooltip />);
 
+  expect(document.querySelector('[data-slot="tooltip-content"]')).toBeNull();
   const trigger = page.getByRole('button', { name: 'Save' });
   await trigger.focus();
   await trigger.hover();
@@ -208,4 +209,36 @@ test('forwards refs on native parts and keeps asChild composition native', () =>
   expect(arrowRef.current?.getAttribute('data-slot')).toBe('tooltip-arrow');
   expect(arrowTipRef.current?.getAttribute('data-slot')).toBe('tooltip-arrow-tip');
   expect(composedTriggerRef.current?.getAttribute('href')).toBe('#save');
+});
+test('highlights only the current trigger of a shared tooltip', async () => {
+  render(
+    <Tooltip openDelay={0} portalled={false}>
+      <TooltipTrigger value="save">Save</TooltipTrigger>
+      <TooltipTrigger value="share">Share</TooltipTrigger>
+      <TooltipBody>Action tooltip</TooltipBody>
+    </Tooltip>,
+  );
+
+  const save = document.querySelector<HTMLElement>('[data-value="save"]')!;
+  const share = document.querySelector<HTMLElement>('[data-value="share"]')!;
+  const closedBackground = getComputedStyle(save).backgroundColor;
+
+  await page.getByRole('button', { name: 'Share' }).hover();
+  await expect.element(page.getByRole('tooltip')).toBeVisible();
+  expect(save.dataset.state).toBe('open');
+  await expect.poll(() => getComputedStyle(share).backgroundColor).not.toBe(closedBackground);
+  await expect.poll(() => getComputedStyle(save).backgroundColor).toBe(closedBackground);
+});
+
+test('lets long content grow instead of spilling past the surface', async () => {
+  render(
+    <Tooltip open portalled={false}>
+      <TooltipTrigger>Save</TooltipTrigger>
+      <TooltipBody>{'Long tooltip text '.repeat(200)}</TooltipBody>
+    </Tooltip>,
+  );
+
+  await expect.element(page.getByRole('tooltip')).toBeVisible();
+  const content = document.querySelector<HTMLElement>('[data-slot="tooltip-content"]')!;
+  expect(content.scrollHeight).toBeLessThanOrEqual(content.clientHeight + 1);
 });

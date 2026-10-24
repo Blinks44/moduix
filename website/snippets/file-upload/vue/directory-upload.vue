@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -16,15 +17,13 @@ const maxFiles = 20;
 </script>
 <template>
   <FileUpload :class="styles.root" directory :max-files="maxFiles"
-    ><FileUploadLabel>Folder</FileUploadLabel><FileUploadTrigger>Choose folder</FileUploadTrigger
+    ><FileUploadLabel>Folder</FileUploadLabel
+    ><FileUploadTrigger as-child><Button>Choose folder</Button></FileUploadTrigger
     ><FileUploadItemGroup
       ><FileUploadContext v-slot="{ acceptedFiles }"
         ><FileUploadItem v-for="file in acceptedFiles" :key="file.name + file.size" :file="file"
           ><FileUploadItemName>{{ file.webkitRelativePath || file.name }}</FileUploadItemName
-          ><FileUploadItemSizeText /><FileUploadItemDeleteTrigger
-            :aria-label="
-              'Remove ' + file.name
-            " /></FileUploadItem></FileUploadContext></FileUploadItemGroup
+          ><FileUploadItemSizeText /><FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
     ><FileUploadHiddenInput
   /></FileUpload>
 </template>

@@ -60,3 +60,19 @@ test('keeps wrapper-owned hooks and merges className through consumer props', ()
   expect(style.marginInlineStart).toBe('-4px');
   expect(style.marginBlockStart).toBe('-16px');
 });
+
+test('lets a plain consumer class override the layered bleed margins', () => {
+  const style = document.createElement('style');
+  style.textContent = '.custom-bleed { margin-inline: -20px; inline-size: auto; }';
+  document.head.append(style);
+
+  try {
+    const { getByTestId } = render(<Bleed data-testid="bleed" className="custom-bleed" />);
+    const bleed = getComputedStyle(getByTestId('bleed'));
+
+    expect(bleed.marginInlineStart).toBe('-20px');
+    expect(bleed.marginInlineEnd).toBe('-20px');
+  } finally {
+    style.remove();
+  }
+});

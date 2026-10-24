@@ -7,16 +7,9 @@ import {
   DatePickerPositioner,
   DatePickerContent,
   DatePickerView,
-  DatePickerViewControl,
-  DatePickerPrevTrigger,
-  DatePickerNextTrigger,
-  DatePickerViewTrigger,
-  DatePickerTable,
-  DatePickerTableBody,
-  DatePickerTableRow,
-  DatePickerTableCell,
-  DatePickerTableCellTrigger,
   DatePickerDayTable,
+  DatePickerMonthTable,
+  DatePickerYearTable,
 } from '@moduix/solid/date-picker';
 
 export default function SelectTodayDatePickerDemo() {
@@ -37,64 +30,10 @@ export default function SelectTodayDatePickerDemo() {
             </DatePickerContext>
           </DatePickerView>
           <DatePickerView view="month">
-            <DatePickerContext>
-              {(datePicker) => (
-                <>
-                  <DatePickerViewControl>
-                    <DatePickerPrevTrigger />
-                    <DatePickerViewTrigger />
-                    <DatePickerNextTrigger />
-                  </DatePickerViewControl>
-                  <DatePickerTable columns={4}>
-                    <DatePickerTableBody>
-                      {datePicker()
-                        .getMonthsGrid({ columns: 4, format: 'short' })
-                        .map((months) => (
-                          <DatePickerTableRow>
-                            {months.map((month) => (
-                              <DatePickerTableCell value={month.value}>
-                                <DatePickerTableCellTrigger>
-                                  {month.label}
-                                </DatePickerTableCellTrigger>
-                              </DatePickerTableCell>
-                            ))}
-                          </DatePickerTableRow>
-                        ))}
-                    </DatePickerTableBody>
-                  </DatePickerTable>
-                </>
-              )}
-            </DatePickerContext>
+            <DatePickerMonthTable />
           </DatePickerView>
           <DatePickerView view="year">
-            <DatePickerContext>
-              {(datePicker) => (
-                <>
-                  <DatePickerViewControl>
-                    <DatePickerPrevTrigger />
-                    <DatePickerViewTrigger />
-                    <DatePickerNextTrigger />
-                  </DatePickerViewControl>
-                  <DatePickerTable columns={4}>
-                    <DatePickerTableBody>
-                      {datePicker()
-                        .getYearsGrid({ columns: 4 })
-                        .map((years) => (
-                          <DatePickerTableRow>
-                            {years.map((year) => (
-                              <DatePickerTableCell value={year.value} disabled={year.disabled}>
-                                <DatePickerTableCellTrigger>
-                                  {year.label}
-                                </DatePickerTableCellTrigger>
-                              </DatePickerTableCell>
-                            ))}
-                          </DatePickerTableRow>
-                        ))}
-                    </DatePickerTableBody>
-                  </DatePickerTable>
-                </>
-              )}
-            </DatePickerContext>
+            <DatePickerYearTable />
           </DatePickerView>
         </DatePickerContent>
       </DatePickerPositioner>

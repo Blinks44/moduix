@@ -79,10 +79,34 @@ test('keeps the ratio contract while allowing style.aspectRatio to override the 
   expect(frame.getBoundingClientRect().height).toBe(320);
 });
 
-test('rejects invalid ratios', () => {
-  for (const ratio of [0, -1, Number.NaN, Number.POSITIVE_INFINITY]) {
-    expect(() => render(() => <AspectRatio ratio={ratio} />)).toThrow(
-      'AspectRatio `ratio` must be a finite number greater than zero.',
-    );
+test('keeps the ratio when content is taller than the frame', () => {
+  render(() => (
+    <AspectRatio ratio={2} data-testid="frame" style={{ width: '320px' }}>
+      <div style={{ height: '400px' }} />
+    </AspectRatio>
+  ));
+
+  expect(screen.getByTestId('frame').offsetHeight).toBe(160);
+});
+
+test('appends the ratio to string style values', () => {
+  render(() => <AspectRatio ratio={2} data-testid="frame" style="width: 320px" />);
+  const frame = screen.getByTestId('frame');
+
+  expect(frame.style.width).toBe('320px');
+  expect(frame.style.getPropertyValue('--_aspect-ratio-value')).toBe('2');
+  expect(frame.offsetHeight).toBe(160);
+});
+
+test('falls back to a square frame when the ratio is missing or invalid', () => {
+  for (const ratio of [undefined, 0, -1, Number.NaN, Number.POSITIVE_INFINITY]) {
+    const { unmount } = render(() => (
+      <AspectRatio ratio={ratio} data-testid="frame" style={{ width: '320px' }} />
+    ));
+    const frame = screen.getByTestId('frame');
+
+    expect(frame.style.getPropertyValue('--_aspect-ratio-value')).toBe('1');
+    expect(frame.offsetHeight).toBe(320);
+    unmount();
   }
 });

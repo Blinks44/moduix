@@ -55,11 +55,10 @@ type ChartPlotProps<
 };
 
 function Chart(props: HTMLArkProps<'figure'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.figure
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="root"
@@ -90,6 +89,7 @@ function ModuixTooltipObjectContent(props: { content: Accessor<ChartTooltipObjec
           <For each={props.content().rows}>
             {(row) => (
               <div
+                data-active={row.active ? '' : undefined}
                 data-has-swatch={row.color ? '' : undefined}
                 data-slot="chart-tooltip-row"
                 class={styles.tooltipRow}
@@ -119,14 +119,12 @@ function ModuixTooltipObjectContent(props: { content: Accessor<ChartTooltipObjec
 
 function ModuixTooltipBody(props: { content: Accessor<ChartTooltipContent> }) {
   return (
-    <>
-      <Show when={typeof props.content() === 'string'}>
-        <span data-slot="chart-tooltip-text">{props.content() as string}</span>
-      </Show>
-      <Show when={typeof props.content() !== 'string'}>
-        <ModuixTooltipObjectContent content={() => props.content() as ChartTooltipObjectContent} />
-      </Show>
-    </>
+    <Show
+      when={typeof props.content() !== 'string'}
+      fallback={<span data-slot="chart-tooltip-text">{props.content() as string}</span>}
+    >
+      <ModuixTooltipObjectContent content={() => props.content() as ChartTooltipObjectContent} />
+    </Show>
   );
 }
 
@@ -135,6 +133,9 @@ function ChartTooltipBody<TDatum, TXValue extends ChartValue, TYValue extends Ch
   target: Accessor<ChartTooltipBodyTarget<TDatum, TXValue, TYValue>>;
 }) {
   const context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue> = {
+    get primaryPoint() {
+      return props.target().primaryPoint;
+    },
     get points() {
       return props.target().points;
     },
@@ -152,14 +153,6 @@ function ChartTooltipBody<TDatum, TXValue extends ChartValue, TYValue extends Ch
 
   return <Portal mount={props.target().element}>{props.render(context)}</Portal>;
 }
-
-const renderDefaultTooltipBody = <
-  TDatum,
-  TXValue extends ChartValue = ChartValue,
-  TYValue extends ChartValue = ChartValue,
->(
-  context: ChartTooltipBodyRenderContext<TDatum, TXValue, TYValue>,
-) => context.defaultBody;
 
 function ChartPlot<
   TDatum,
@@ -235,7 +228,7 @@ function ChartPlot<
       <Show when={tooltipTarget()} keyed>
         {(target) => (
           <ChartTooltipBody
-            render={local.renderTooltipBody ?? renderDefaultTooltipBody}
+            render={local.renderTooltipBody ?? ((context) => context.defaultBody)}
             target={() => target}
           />
         )}
@@ -245,11 +238,10 @@ function ChartPlot<
 }
 
 function ChartHeader(props: HTMLArkProps<'figcaption'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.figcaption
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="header"
@@ -260,11 +252,10 @@ function ChartHeader(props: HTMLArkProps<'figcaption'>) {
 }
 
 function ChartTitle(props: HTMLArkProps<'h3'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.h3
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="title"
@@ -275,11 +266,10 @@ function ChartTitle(props: HTMLArkProps<'h3'>) {
 }
 
 function ChartDescription(props: HTMLArkProps<'p'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.p
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="description"
@@ -290,11 +280,10 @@ function ChartDescription(props: HTMLArkProps<'p'>) {
 }
 
 function ChartLegend(props: HTMLArkProps<'ul'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.ul
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="legend"
@@ -305,11 +294,10 @@ function ChartLegend(props: HTMLArkProps<'ul'>) {
 }
 
 function ChartLegendItem(props: HTMLArkProps<'li'> & { color?: string }) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'color', 'style']);
+  const [local, others] = splitProps(props, ['class', 'color', 'style']);
 
   return (
     <ark.li
-      asChild={local.asChild}
       {...others}
       data-scope="chart"
       data-part="legend-item"

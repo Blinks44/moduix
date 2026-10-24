@@ -1,3 +1,4 @@
+import { Button } from '@moduix/solid/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -29,7 +30,7 @@ export default function ControlledFileUploadDemo() {
         onFileChange={(details) => setFiles(details.acceptedFiles)}
       >
         <FileUploadLabel>Attachments</FileUploadLabel>
-        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose files</Button>} />
         <FileUploadItemGroup>
           <FileUploadContext>
             {(fileUpload) => (
@@ -37,7 +38,7 @@ export default function ControlledFileUploadDemo() {
                 {(file) => (
                   <FileUploadItem file={file}>
                     <FileUploadItemName />
-                    <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                    <FileUploadItemDeleteTrigger />
                   </FileUploadItem>
                 )}
               </For>

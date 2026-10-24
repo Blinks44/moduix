@@ -3,7 +3,7 @@ import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import { Fragment, forwardRef, type ComponentRef, type ReactNode } from 'react';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
+import { ChevronRightIcon, EllipsisIcon } from '@/lib/moduix/icons/ui';
 import styles from './Breadcrumbs.module.css';
 
 type BreadcrumbsPathLink = {
@@ -123,7 +123,7 @@ const BreadcrumbsSeparator = forwardRef<ComponentRef<typeof ark.li>, HTMLArkProp
 );
 
 const BreadcrumbsEllipsis = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function BreadcrumbsEllipsis({ className, children = '...', ...props }, ref) {
+  function BreadcrumbsEllipsis({ className, children, ...props }, ref) {
     return (
       <ark.span
         ref={ref}
@@ -132,7 +132,7 @@ const BreadcrumbsEllipsis = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
         aria-hidden="true"
         className={clsx(styles.ellipsis, className)}
       >
-        {children}
+        {children ?? <EllipsisIcon className={styles.ellipsisIcon} />}
       </ark.span>
     );
   },
@@ -148,3 +148,4 @@ export {
   BreadcrumbsPath,
   BreadcrumbsSeparator,
 };
+export type { BreadcrumbsPathLink, BreadcrumbsPathProps };

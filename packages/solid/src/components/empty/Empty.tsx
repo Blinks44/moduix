@@ -5,11 +5,10 @@ import { splitProps } from 'solid-js';
 import styles from './Empty.module.css';
 
 function Empty(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="empty"
       data-part="root"
@@ -20,11 +19,10 @@ function Empty(props: HTMLArkProps<'div'>) {
 }
 
 function EmptyIcon(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="empty"
       data-part="icon"
@@ -35,11 +33,10 @@ function EmptyIcon(props: HTMLArkProps<'div'>) {
 }
 
 function EmptyContent(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="empty"
       data-part="content"
@@ -50,11 +47,10 @@ function EmptyContent(props: HTMLArkProps<'div'>) {
 }
 
 function EmptyTitle(props: HTMLArkProps<'h3'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.h3
-      asChild={local.asChild}
       {...others}
       data-scope="empty"
       data-part="title"
@@ -65,11 +61,10 @@ function EmptyTitle(props: HTMLArkProps<'h3'>) {
 }
 
 function EmptyDescription(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="empty"
       data-part="description"
@@ -80,11 +75,10 @@ function EmptyDescription(props: HTMLArkProps<'div'>) {
 }
 
 function EmptyActions(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="empty"
       data-part="actions"

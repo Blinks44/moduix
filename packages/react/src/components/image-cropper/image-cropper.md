@@ -25,11 +25,14 @@ Ark owns pointer interactions, wheel and pinch zoom, keyboard nudging, transform
 `initialCrop`, `aspectRatio`, `cropShape`, `fixedCropArea`, controlled `zoom`, `rotation`, `flip`,
 default transform props, size limits, nudge steps, zoom limits, `ids`, `translations`, and Ark callbacks.
 
-The package exports `ImageCropper`, `useImageCropper`, `ImageCropperContext`, and `ImageCropperHandles`. `ImageCropperCropArea` is the recommended selection: it renders the selection, both grids, and every resize handle. Pass `className`, `gridClassName`, or `handleClassName` to style those levels; use the explicit parts when their structure needs to differ.
+The package exports `ImageCropper`, `useImageCropper`, `ImageCropperContext`, and `ImageCropperHandles`. `ImageCropperCropArea` is the recommended selection: it renders the selection, both grids, and every resize handle. Pass `className`, `gridClassName`, or `handleClassName` to style those levels.
 
-`ImageCropperCropArea` owns its complete child anatomy, so it does not accept `children` or `asChild`.
-Use `ImageCropperSelection`, `ImageCropperGrid`, and `ImageCropperHandle` directly when the
-selection structure needs to differ.
+`ImageCropperCropArea` owns its complete child anatomy, so its type omits `children` and `asChild`;
+the wrapper does not strip them at runtime. Use `ImageCropperSelection`, `ImageCropperGrid`, and
+`ImageCropperHandle` directly when the selection structure needs to differ.
+
+Types: `ImageCropperCropAreaProps` plus the Ark part prop, detail, and hook types
+(`ImageCropperRootProps`, `ImageCropperCropChangeDetails`, `UseImageCropperReturn`, and so on).
 
 ## Anatomy and exported parts
 
@@ -42,11 +45,11 @@ selection structure needs to differ.
 </ImageCropper>
 ```
 
-- `ImageCropper` / `ImageCropper`: `data-slot="image-cropper-root"`.
+- `ImageCropper`: `data-slot="image-cropper-root"`.
 - `ImageCropperRootProvider`: `data-slot="image-cropper-root-provider"` for an externally created Ark `useImageCropper` instance.
 - `ImageCropperViewport`: `data-slot="image-cropper-viewport"`; receives Ark panning handlers.
 - `ImageCropperImage`: `data-slot="image-cropper-image"`; renders the transformed image.
-- `ImageCropperSelection`: `data-slot="image-cropper-selection"`; focusable crop rectangle unless `fixedCropArea` disables resizing.
+- `ImageCropperSelection`: `data-slot="image-cropper-selection"`; focusable crop rectangle; `fixedCropArea` disables moving and resizing it.
 - `ImageCropperGrid`: `data-slot="image-cropper-grid"`; requires `axis`.
 - `ImageCropperHandle`: `data-slot="image-cropper-handle"`; requires `position`.
 - `ImageCropperCropArea`: recommended styled selection with both grids and all handles.
@@ -96,9 +99,22 @@ Ark writes the runtime CSS variables `--crop-width`, `--crop-height`, `--crop-x`
 
 ## Defaults and styling
 
-The wrapper uses CSS Modules and adds default cropper visuals: a `32rem` root width with `100%` max width, a viewport that uses `20rem` on roomy screens and stays within narrow viewports, bordered viewport, checkerboard background, dimmed outside area, crop grid, near-white resize handles with slim edge bars and token-rounded square corners, and a `:focus-visible` selection ring. Consumers can pass `className` to each exported visual part.
+The root is `32rem` wide with a `100%` max width. The bordered viewport keeps an `8 / 5` aspect ratio
+of its own width, so it follows the container instead of the window, and shows a checkerboard from
+the `muted` and `background` tokens where the image does not cover it. The outside area is dimmed,
+the selection has a primary border, a crop grid, near-white handles (slim edge bars, square corners),
+and the foundation focus outline.
 
-Public override variables use the `--moduix-image-cropper-*` prefix and are documented in the docs site. CSS targets local classes and Ark state attributes; it does not add custom modifier classes.
+Ark sets `object-fit: fill` and the image transform inline and maps crops through the image element
+box. The image therefore keeps its natural ratio through `max-width`/`max-height: 100%` and is
+centered with `inset: 0; margin: auto`; stretching it to the viewport would distort the preview and
+make `aspectRatio` crops non-proportional in natural pixels. Ark also sets viewport `position` and
+`overflow`, handle position and cursors, and grid position and `pointer-events` inline, so the CSS
+does not repeat them.
+
+CSS Modules have no `--moduix-image-cropper-*` variables: styles come from foundation tokens, so
+override them with a class on the part (for example a different viewport `aspect-ratio` or `height`).
+CSS targets local classes and Ark state attributes; it does not add custom modifier classes.
 
 ## Intentional sugar and differences from upstream
 
@@ -114,10 +130,18 @@ handles; it does not change crop state or hide the explicit Ark composition path
 - Keep `ImageCropperRootProvider` examples separate from `ImageCropper`; never nest both for the same
   cropper instance.
 - Keep `useImageCropper` and `ImageCropperContext` aligned with Ark's signatures.
-- Keep fixed-area selection semantics intact: it is removed from the tab order while the viewport remains the panning surface.
+- Keep fixed-area selection semantics intact: the selection stays focusable (arrow keys pan the
+  image) while the viewport remains the panning surface.
+- Do not stretch `ImageCropperImage` to the viewport: Ark measures the element box, so a stretched
+  box distorts the preview and the crop ratio.
 
 ## Local changelog
 
+- 2026-10-16: Fixed image distortion (the image keeps its ratio and is centered) and sized the
+  viewport by `aspect-ratio` instead of `vw`. Removed all `--moduix-image-cropper-*` variables, styles
+  that duplicate Ark inline styles, dead transitions, and the runtime `asChild`/`children` stripping
+  in `ImageCropperCropArea`; the focus ring is now the foundation outline. Exported
+  `ImageCropperCropAreaProps` and the Ark types.
 - 2026-09-21: Replaced the compound `ImageCropper.*` value surface with flat exports across React,
   Solid, and both styling tracks. `ImageCropper` is the only root value; all parts, context, and
   handle positions use `ImageCropper`-prefixed names.

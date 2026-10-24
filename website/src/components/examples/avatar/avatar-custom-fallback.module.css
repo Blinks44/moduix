@@ -1,6 +1,6 @@
 .root {
   --moduix-avatar-bg: var(--moduix-color-accent);
-  --moduix-avatar-fallback-color: var(--moduix-color-accent-foreground);
+  --moduix-avatar-color: var(--moduix-color-accent-foreground);
 }
 
 .glyph {

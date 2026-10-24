@@ -2,21 +2,12 @@ import { type DateValue } from '@ark-ui/react/date-picker';
 import { CalendarDate } from '@internationalized/date';
 import {
   DatePicker,
-  DatePickerContext,
   DatePickerLabel,
   DatePickerField,
   DatePickerPositioner,
   DatePickerContent,
   DatePickerView,
-  DatePickerViewControl,
-  DatePickerPrevTrigger,
-  DatePickerNextTrigger,
-  DatePickerViewTrigger,
-  DatePickerTable,
-  DatePickerTableBody,
-  DatePickerTableRow,
-  DatePickerTableCell,
-  DatePickerTableCellTrigger,
+  DatePickerMonthTable,
 } from '@moduix/react/date-picker';
 
 const format = (date: DateValue) => `${String(date.month).padStart(2, '0')}/${date.year}`;
@@ -32,33 +23,7 @@ export default function MonthPickerDemo() {
       <DatePickerPositioner>
         <DatePickerContent>
           <DatePickerView view="month">
-            <DatePickerViewControl>
-              <DatePickerPrevTrigger />
-              <DatePickerViewTrigger />
-              <DatePickerNextTrigger />
-            </DatePickerViewControl>
-            <DatePickerContext>
-              {(datePicker) => (
-                <DatePickerTable columns={4}>
-                  <DatePickerTableBody>
-                    {datePicker
-                      .getMonthsGrid({
-                        columns: 4,
-                        format: 'short',
-                      })
-                      .map((months, rowIndex) => (
-                        <DatePickerTableRow key={rowIndex}>
-                          {months.map((month) => (
-                            <DatePickerTableCell key={month.value} value={month.value}>
-                              <DatePickerTableCellTrigger>{month.label}</DatePickerTableCellTrigger>
-                            </DatePickerTableCell>
-                          ))}
-                        </DatePickerTableRow>
-                      ))}
-                  </DatePickerTableBody>
-                </DatePickerTable>
-              )}
-            </DatePickerContext>
+            <DatePickerMonthTable />
           </DatePickerView>
         </DatePickerContent>
       </DatePickerPositioner>

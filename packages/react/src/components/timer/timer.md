@@ -45,6 +45,9 @@ Ark anatomy:
   except `children` and `asChild`, because it owns the generated part tree.
 - moduix re-exports `useTimer` and `useTimerContext`; `TimerContext` provides the corresponding
   Ark context surface for normal advanced composition.
+- Every package exports the Ark part prop types (`TimerRootProps`, `TimerItemProps`, …),
+  `UseTimerProps`, `UseTimerReturn`, `UseTimerContext`, `TimerSegmentsProps`, and
+  `TimerTickDetails` for `onTick`.
 
 ## Anatomy and exported parts
 
@@ -122,9 +125,9 @@ the default accessible timer label is not appropriate.
 ## Defaults and styling
 
 The wrapper adds CSS Modules defaults and stable `data-slot` hooks. `Timer` centers its
-children with `place-items: center` by default. Runtime styling is controlled with component CSS
-variables such as `--moduix-timer-gap`, `--moduix-timer-area-font-size`, `--moduix-timer-item-min-width`,
-`--moduix-timer-action-trigger-bg`, and `--moduix-timer-action-trigger-icon-size`.
+children with `place-items: center` by default. Styles come from foundation tokens; there are no
+`--moduix-timer-*` variables, so override a part with a class or a `data-slot` selector. The time area
+uses the `text-2xl` font size and line height so wrapped rows do not overlap.
 
 `className` is normalized and merged with the default part class on every wrapped part.
 
@@ -148,24 +151,3 @@ needed, while the control row already wraps actions.
 
 Do not implement a custom interval, pause/resume state, or progress calculation in the wrapper.
 Keep future additions as explicit parts or style hooks unless Ark adds new timer primitives.
-
-## Local changelog
-
-- 2026-09-22: Replaced the compound Timer API with flat Timer, TimerRootProvider, TimerArea,
-  TimerItem, TimerSeparator, TimerControl, TimerActionTrigger, TimerContext, and TimerSegments
-  exports.
-- 2026-08-13: Made `TimerSegments` forward the available `TimerArea` attributes and its ref,
-  while intentionally retaining ownership of its generated children.
-- 2026-07-31: Added default `TimerSegments` units, responsive time-area wrapping, focused tests,
-  and centered docs previews with semantic interaction output.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-12: Added `TimerSegments` and moduix-owned `useTimer`, `useTimerContext`, and
-  `TimerContext` exports for the documented advanced composition path.
-- 2026-06-29: Preserved Ark's action-trigger `hidden` state, aligned typography and focus styling,
-  exported Ark part/context types, and completed public API and CSS-variable documentation.
-- 2026-07-03: Removed duplicate hook, context, and type re-exports from the moduix surface while
-  keeping `TimerRootProvider` for Ark-owned external state.
-- 2026-06-23: Added `Timer` as an Ark UI wrapper with CSS Modules, Storybook examples, docs, and
-  registry support.
-- 2026-06-23: Aligned examples with Ark's icon action triggers and labeled time item composition;
-  centered root layout by default.

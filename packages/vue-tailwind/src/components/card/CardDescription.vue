@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ark.p
     v-bind="attrs"
-    :class="cn('col-start-1 min-w-0 text-sm wrap-anywhere text-muted-foreground', className)"
+    :class="cn('min-w-0 text-sm wrap-anywhere text-muted-foreground', className)"
     data-scope="card"
     data-part="description"
     data-slot="card-description"

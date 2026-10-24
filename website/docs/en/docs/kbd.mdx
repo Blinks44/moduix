@@ -5,21 +5,6 @@ description: A compact component for keyboard shortcuts, command hints, and inli
 ---
 
 import * as KbdDocs from '@/components/examples/kbd/css-properties';
-import KbdBasic from '@/components/examples/kbd/basic.tsx';
-import KbdCompactDensity from '@/components/examples/kbd/compact-density.tsx';
-import KbdCustomElement from '@/components/examples/kbd/custom-element.tsx';
-import KbdShortcutList from '@/components/examples/kbd/shortcut-list.tsx';
-import KbdSingleKey from '@/components/examples/kbd/single-key.tsx';
-import kbdSolidBasic from '../../../snippets/kbd/solid/basic.tsx?raw';
-import kbdSolidCompactDensity from '../../../snippets/kbd/solid/compact-density.tsx?raw';
-import kbdSolidCustomElement from '../../../snippets/kbd/solid/custom-element.tsx?raw';
-import kbdSolidShortcutList from '../../../snippets/kbd/solid/shortcut-list.tsx?raw';
-import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
-import kbdVueBasic from '../../../snippets/kbd/vue/basic.vue?raw';
-import kbdVueCompactDensity from '../../../snippets/kbd/vue/compact-density.vue?raw';
-import kbdVueCustomElement from '../../../snippets/kbd/vue/custom-element.vue?raw';
-import kbdVueShortcutList from '../../../snippets/kbd/vue/shortcut-list.vue?raw';
-import kbdVueSingleKey from '../../../snippets/kbd/vue/single-key.vue?raw';
 
 ## API Reference
 
@@ -35,46 +20,7 @@ customize the rendered elements.
 Use `Kbd` to show one key. For a shortcut made of several keys, place the keycaps and their text separators inside
 `KbdGroup`.
 
-<ExampleFrame variant="component">
-  <KbdBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/kbd/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={kbdSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={kbdVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/kbd/kbd-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="kbd/basic" />
 
 ## Install with shadcn
 
@@ -144,171 +90,31 @@ semantic `<kbd>` element, and pass exactly one child.
 
 Use local CSS variables when one part of your interface needs more compact keycaps, without adding component props.
 
-<ExampleFrame variant="component">
-  <KbdCompactDensity />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/kbd/compact-density.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={kbdSolidCompactDensity} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={kbdVueCompactDensity} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/kbd/kbd-compact-density.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="kbd/compact-density" />
 
 ### Custom Element
 
 Use `asChild` when another component renders the semantic `<kbd>` element and you need to apply Kbd's styles to it.
 
-<ExampleFrame variant="component">
-  <KbdCustomElement />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/kbd/custom-element.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={kbdSolidCustomElement} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={kbdVueCustomElement} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="kbd/custom-element" />
 
 ### Shortcut List
 
 Combine `KbdGroup` with explanatory text to present a list of available shortcuts.
 
-<ExampleFrame variant="component">
-  <KbdShortcutList />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/kbd/shortcut-list.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={kbdSolidShortcutList} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={kbdVueShortcutList} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/kbd/kbd-shortcut-list.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="kbd/shortcut-list" />
 
 ### Single Key
 
 Use `Kbd` directly when you need to show one key, such as `Esc`.
 
-<ExampleFrame variant="component">
-  <KbdSingleKey />
-</ExampleFrame>
+<Example name="kbd/single-key" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+### With Icon
 
-```tsx pure file="../../../src/components/examples/kbd/single-key.tsx"
-```
+Place an icon directly inside `Kbd`; it is sized to the keycap text unless the icon has its own size class. Give the group an `aria-label` so the shortcut has a spoken name.
 
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={kbdSolidSingleKey} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={kbdVueSingleKey} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="kbd/with-icon" />
 
 ## Styling
 
@@ -325,4 +131,4 @@ classes, while CSS Modules variants use the component variables and consumer CSS
 - `data-slot="kbd-root"` targets each keycap element
 - `data-slot="kbd-group"` targets the inline wrapper for grouped shortcuts
 - `[data-scope="kbd"][data-part="root"]` and `[data-part="group"]` expose Ark-style anatomy selectors
-- Separators in `KbdGroup` inherit the group's text color. Use `--moduix-kbd-group-separator-color` to set it
+- Separators in `KbdGroup` inherit the group's text color. To change it, set `color` on `KbdGroup` with your own class

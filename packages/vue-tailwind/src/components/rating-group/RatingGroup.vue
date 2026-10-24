@@ -24,7 +24,7 @@ defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const rootClass = 'group/rating-group inline-flex flex-col gap-1 text-muted-foreground';
+const rootClass = 'group/rating-group inline-flex flex-col gap-1';
 </script>
 
 <template>

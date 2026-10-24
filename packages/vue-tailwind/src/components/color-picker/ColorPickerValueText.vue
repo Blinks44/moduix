@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkColorPickerValueText
     v-bind="attrs"
-    :class="cn('min-w-0 text-sm text-foreground', className)"
+    :class="cn('min-w-0 text-sm', className)"
     data-slot="color-picker-value-text"
   />
 </template>

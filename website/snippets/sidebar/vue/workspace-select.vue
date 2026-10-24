@@ -26,9 +26,7 @@ import {
   Select,
   SelectContent,
   SelectIndicator,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
+  SelectOption,
   SelectPositioner,
   SelectTrigger,
   SelectValueText,
@@ -89,14 +87,12 @@ const workspaces = createListCollection({
               </SelectTrigger>
               <SelectPositioner>
                 <SelectContent>
-                  <SelectItem
+                  <SelectOption
                     v-for="workspace in workspaces.items"
                     :key="workspace.value"
                     :item="workspace"
+                    >{{ workspace.label }}</SelectOption
                   >
-                    <SelectItemText>{{ workspace.label }}</SelectItemText>
-                    <SelectItemIndicator />
-                  </SelectItem>
                 </SelectContent>
               </SelectPositioner>
             </Select>

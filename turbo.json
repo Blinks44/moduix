@@ -6,6 +6,11 @@
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**", "doc_build/**", ".wrangler/deploy/**"]
     },
+    "build:dev": {
+      "dependsOn": ["^build:dev"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**"]
+    },
     "dev": {
       "dependsOn": ["^build"],
       "cache": false,
@@ -16,19 +21,26 @@
       "cache": false,
       "persistent": true
     },
+    "//#build:registry": {
+      "cache": false
+    },
     "moduix-docs#dev": {
       "dependsOn": ["@moduix/react#build"],
       "cache": false,
       "persistent": true
     },
     "moduix-docs#build": {
-      "dependsOn": ["@moduix/react#build"],
+      "dependsOn": ["@moduix/react#build", "//#build:registry"],
       "outputs": ["doc_build/**"]
     },
     "deploy": {
       "dependsOn": ["build"],
       "cache": false,
       "env": ["CLOUDFLARE_API_TOKEN"]
+    },
+    "check:package": {
+      "dependsOn": ["build"],
+      "outputs": []
     },
     "test": {
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/packages/foundation/src/**"],
@@ -39,25 +51,25 @@
       "outputs": []
     },
     "@moduix/react#tsc:check": {
-      "dependsOn": ["^tsc:check", "build"]
+      "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/react-tailwind#tsc:check": {
-      "dependsOn": ["^tsc:check", "build"]
+      "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/solid#tsc:check": {
-      "dependsOn": ["^tsc:check", "build"]
+      "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/solid-tailwind#tsc:check": {
-      "dependsOn": ["^tsc:check", "build"]
+      "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/vue#tsc:check": {
-      "dependsOn": ["^tsc:check", "build"]
+      "dependsOn": ["^tsc:check", "build:dev"]
     },
     "@moduix/vue-tailwind#tsc:check": {
-      "dependsOn": ["^tsc:check", "build"]
+      "dependsOn": ["^tsc:check", "build:dev"]
     },
     "moduix-docs#tsc:check": {
-      "dependsOn": ["^tsc:check", "^build"],
+      "dependsOn": ["^tsc:check", "^build:dev"],
       "outputs": []
     }
   }

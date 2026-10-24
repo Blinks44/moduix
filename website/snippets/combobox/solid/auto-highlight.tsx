@@ -14,7 +14,6 @@ import {
   ComboboxTrigger,
 } from '@moduix/solid/combobox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/combobox/component-auto-highlight.module.css';
 
 const departments = [
   { label: 'Engineering', value: 'engineering' },
@@ -45,7 +44,7 @@ export default function AutoHighlightComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent class={styles.content}>
+        <ComboboxContent>
           <ComboboxEmpty>No departments found.</ComboboxEmpty>
           <ComboboxList>
             <For each={collection().items}>

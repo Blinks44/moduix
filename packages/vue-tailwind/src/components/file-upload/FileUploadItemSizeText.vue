@@ -11,12 +11,14 @@ export interface Props extends /* @vue-ignore */ FileUploadItemSizeTextProps {
 }
 const { class: className } = defineProps<Props>();
 const attrs = useAttrs();
+const sizeTextClass =
+  'text-xs leading-4 text-muted-foreground [grid-area:meta] [[data-slot=file-upload-item]>&]:mt-1';
 </script>
 <template>
   <ArkFileUploadItemSizeText
     v-if="$slots.default"
     v-bind="attrs"
-    :class="cn('text-xs leading-4 text-muted-foreground', className)"
+    :class="cn(sizeTextClass, className)"
     data-slot="file-upload-item-size-text"
   >
     <slot />
@@ -24,7 +26,7 @@ const attrs = useAttrs();
   <ArkFileUploadItemSizeText
     v-else
     v-bind="attrs"
-    :class="cn('text-xs leading-4 text-muted-foreground', className)"
+    :class="cn(sizeTextClass, className)"
     data-slot="file-upload-item-size-text"
   />
 </template>

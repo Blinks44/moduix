@@ -4,12 +4,7 @@ import { SegmentGroup, SegmentGroupIndicator, SegmentGroupItems } from '@moduix/
 import { ref } from 'vue';
 import styles from '@/components/examples/segment-group/segment-group-form-submission.module.css';
 
-const frameworks = [
-  { value: 'React', label: 'React' },
-  { value: 'Solid', label: 'Solid' },
-  { value: 'Svelte', label: 'Svelte' },
-  { value: 'Vue', label: 'Vue' },
-];
+const frameworks = ['React', 'Solid', 'Svelte', 'Vue'];
 
 const submitted = ref('none');
 

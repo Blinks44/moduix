@@ -23,7 +23,6 @@ import {
 import { useState } from 'react';
 import { commandPaletteItems } from '@/components/examples/command-palette/command-palette-items';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/command-palette/command-palette-item-actions.module.css';
 
 export default function CommandPaletteActionsDemo() {
   const [lastAction, setLastAction] = useState('No command executed yet.');
@@ -53,7 +52,7 @@ export default function CommandPaletteActionsDemo() {
         <CommandPaletteTrigger asChild>
           <Button>Open actions palette</Button>
         </CommandPaletteTrigger>
-        <CommandPalettePanel className={styles.highlightPalette}>
+        <CommandPalettePanel>
           <CommandPaletteCombobox
             collection={collection}
             onInputValueChange={(details) => filter(details.inputValue)}

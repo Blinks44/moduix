@@ -36,7 +36,7 @@ const tour = useTour({ steps });
 <template>
   <div :class="styles.root">
     <Button id="tour-with-arrow-upload" variant="outline">Upload files</Button>
-    <Tour :tour="tour" lazy-mount unmount-on-exit>
+    <Tour :tour="tour">
       <TourBackdrop />
       <TourSpotlight />
       <TourPositioner>

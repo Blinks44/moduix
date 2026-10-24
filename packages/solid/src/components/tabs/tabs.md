@@ -66,11 +66,9 @@ const tabs = useTabs({ defaultValue: 'account' });
 </TabsRootProvider>;
 ```
 
-`variant="default"` uses the filled indicator treatment. `variant="line"` uses an underline for
-horizontal tabs; vertical tabs intentionally keep the filled treatment. `TabsRootProvider` resolves
-this vertical fallback from the Ark `data-orientation` root DOM hook exposed by the `useTabs()` state;
-if upstream ever drops the attribute, the regression tests catch it. `TabsList` does not
-render an indicator automatically.
+`variant`, `size`, `fitted`, the indicator geometry, styling variables, and agent notes follow the React contract in
+`packages/react/src/components/tabs/tabs.md`. `line` works in both orientations, and `TabsList` does
+not render an indicator automatically.
 
 ## Anatomy and styling hooks
 
@@ -85,9 +83,8 @@ render an indicator automatically.
 | `TabsContent`      | `tabs-content`       |
 
 Every visual part accepts `class` and keeps the corresponding Ark `data-scope`, `data-part`,
-orientation, selected, disabled, and focus attributes. The CSS Module preserves the React
-component's selectors, public `--moduix-tabs-*` variables, Ark indicator variables, focus rings,
-responsive layout, and reduced-motion-compatible transitions.
+orientation, selected, disabled, and focus attributes. The CSS Module is byte-identical to the React
+one.
 
 Ark Solid forwards ordinary refs through its parts. Its `asChild` render function does not forward
 refs, so custom-host composition and ordinary refs remain separate native paths.

@@ -18,7 +18,7 @@ import {
   MenuTrigger,
   MenuViewport,
 } from '@/components/menu';
-import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui/Icons';
+import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 
 const defaultLinks = [
   { href: '#', label: 'Home' },
@@ -30,19 +30,10 @@ const longCurrentLabel =
   'Go lang developer to production team with cross-functional ownership and platform support';
 
 const collapsedMenuContentStyle = {
-  '--moduix-menu-item-font-size': 'var(--moduix-text-xs)',
-  '--moduix-menu-item-padding-x-end': '0.5rem',
-  '--moduix-menu-item-padding-x-start': '0.5rem',
-  '--moduix-menu-item-padding-y': '0.25rem',
-};
-
-const collapsedMenuTriggerStyle = {
-  minWidth: 'auto',
-  minHeight: 'auto',
-  padding: 0,
-  border: 'none',
-  background: 'transparent',
-  color: 'inherit',
+  '--moduix-popup-item-font-size': 'var(--moduix-text-xs)',
+  '--moduix-popup-item-padding-x-end': '0.5rem',
+  '--moduix-popup-item-padding-x-start': '0.5rem',
+  '--moduix-popup-item-padding-y': '0.25rem',
 };
 
 const storyComponents = {
@@ -80,7 +71,6 @@ function renderStory(template: string, setup?: () => Record<string, unknown>) {
       setup() {
         return {
           collapsedMenuContentStyle,
-          collapsedMenuTriggerStyle,
           defaultLinks,
           defaultPage,
           longCurrentLabel,
@@ -114,7 +104,6 @@ export const Collapsed: Story = {
                 <button
                   type="button"
                   aria-label="Show hidden path items"
-                  :style="collapsedMenuTriggerStyle"
                 >
                   <BreadcrumbsEllipsis />
                 </button>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -17,14 +18,12 @@ const transformFiles = async (files: File[]) =>
 </script>
 <template>
   <FileUpload :class="styles.root" :accept="accept" :transform-files="transformFiles"
-    ><FileUploadLabel>Images</FileUploadLabel><FileUploadTrigger>Choose images</FileUploadTrigger
+    ><FileUploadLabel>Images</FileUploadLabel
+    ><FileUploadTrigger as-child><Button>Choose images</Button></FileUploadTrigger
     ><FileUploadItemGroup
       ><FileUploadContext v-slot="{ acceptedFiles }"
         ><FileUploadItem v-for="file in acceptedFiles" :key="file.name + file.size" :file="file"
-          ><FileUploadItemName /><FileUploadItemDeleteTrigger
-            :aria-label="
-              'Remove ' + file.name
-            " /></FileUploadItem></FileUploadContext></FileUploadItemGroup
+          ><FileUploadItemName /><FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
     ><FileUploadHiddenInput
   /></FileUpload>
 </template>

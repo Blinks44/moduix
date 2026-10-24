@@ -32,7 +32,7 @@ const slides = [
 export default function TravelCarousel() {
   return (
     <Carousel class={styles.root} aria-label="Travel gallery" slideCount={slides.length}>
-      <CarouselItemGroup class={styles.itemGroup} aria-label="Travel gallery">
+      <CarouselItemGroup>
         <For each={slides}>
           {(slide, index) => (
             <CarouselItem index={index()}>
@@ -42,7 +42,7 @@ export default function TravelCarousel() {
         </For>
       </CarouselItemGroup>
 
-      <CarouselControl class={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselNextTrigger />
       </CarouselControl>

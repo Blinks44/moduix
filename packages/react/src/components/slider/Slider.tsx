@@ -9,14 +9,13 @@ import styles from './Slider.module.css';
 const Slider = forwardRef<
   ComponentRef<typeof SliderPrimitive.Root>,
   ComponentProps<typeof SliderPrimitive.Root>
->(function Slider({ className, readOnly, ...props }, ref) {
+>(function Slider({ className, ...props }, ref) {
   return (
     <SliderPrimitive.Root
       ref={ref}
       className={clsx(styles.root, className)}
-      readOnly={readOnly}
       {...props}
-      data-readonly={readOnly ? '' : undefined}
+      data-readonly={props.readOnly ? '' : undefined}
       data-slot="slider-root"
     />
   );
@@ -193,3 +192,23 @@ export {
   useSlider,
   useSliderContext,
 };
+export type {
+  SliderContextProps,
+  SliderControlProps,
+  SliderDraggingIndicatorProps,
+  SliderFocusChangeDetails,
+  SliderHiddenInputProps,
+  SliderLabelProps,
+  SliderMarkerGroupProps,
+  SliderMarkerProps,
+  SliderRangeProps,
+  SliderRootProps,
+  SliderRootProviderProps,
+  SliderThumbProps,
+  SliderTrackProps,
+  SliderValueChangeDetails,
+  SliderValueTextProps,
+  UseSliderContext,
+  UseSliderProps,
+  UseSliderReturn,
+} from '@ark-ui/react/slider';

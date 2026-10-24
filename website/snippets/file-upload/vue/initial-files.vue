@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -16,14 +17,11 @@ const initialFiles = [new File(['Welcome to moduix'], 'README.md', { type: 'text
 <template>
   <FileUpload :class="styles.root" :default-accepted-files="initialFiles"
     ><FileUploadLabel>Attachments</FileUploadLabel
-    ><FileUploadTrigger>Choose files</FileUploadTrigger
+    ><FileUploadTrigger as-child><Button>Choose files</Button></FileUploadTrigger
     ><FileUploadItemGroup
       ><FileUploadContext v-slot="{ acceptedFiles }"
         ><FileUploadItem v-for="file in acceptedFiles" :key="file.name + file.size" :file="file"
-          ><FileUploadItemName /><FileUploadItemDeleteTrigger
-            :aria-label="
-              'Remove ' + file.name
-            " /></FileUploadItem></FileUploadContext></FileUploadItemGroup
+          ><FileUploadItemName /><FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
     ><FileUploadHiddenInput
   /></FileUpload>
 </template>

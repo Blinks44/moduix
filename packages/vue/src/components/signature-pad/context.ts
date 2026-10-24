@@ -5,5 +5,5 @@ export type SignaturePadApi = UnwrapRef<UseSignaturePadReturn> & {
   readOnly: boolean;
 };
 
-export const signaturePadReadOnlyKey: InjectionKey<ComputedRef<boolean>> =
+export const signaturePadReadOnlyKey: InjectionKey<ComputedRef<boolean | undefined>> =
   Symbol('SignaturePadReadOnly');

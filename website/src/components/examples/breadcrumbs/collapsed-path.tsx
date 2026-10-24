@@ -34,7 +34,7 @@ export default function BreadcrumbsCollapsedDemo() {
         <BreadcrumbsItem>
           <Menu positioning={{ placement: 'bottom-start' }}>
             <MenuTrigger asChild>
-              <button type="button" aria-label="Show hidden path items" className={styles.trigger}>
+              <button type="button" aria-label="Show hidden path items">
                 <BreadcrumbsEllipsis />
               </button>
             </MenuTrigger>

@@ -126,15 +126,8 @@ const ProgressCircularRing = forwardRef<
 const ProgressCircularView = forwardRef<
   ComponentRef<typeof ProgressPrimitive.View>,
   ComponentProps<typeof ProgressPrimitive.View>
->(function ProgressCircularView({ className, ...props }, ref) {
-  return (
-    <ProgressPrimitive.View
-      ref={ref}
-      className={clsx(styles.view, className)}
-      {...props}
-      data-slot="progress-circular-view"
-    />
-  );
+>(function ProgressCircularView(props, ref) {
+  return <ProgressPrimitive.View ref={ref} {...props} data-slot="progress-circular-view" />;
 });
 
 const ProgressCircularContext = ProgressPrimitive.Context;
@@ -153,3 +146,19 @@ export {
   useProgress,
   useProgressContext,
 };
+export type {
+  ProgressCircleProps,
+  ProgressCircleRangeProps,
+  ProgressCircleTrackProps,
+  ProgressContextProps,
+  ProgressLabelProps,
+  ProgressRootProps,
+  ProgressRootProviderProps,
+  ProgressValueChangeDetails,
+  ProgressValueTextProps,
+  ProgressValueTranslationDetails,
+  ProgressViewProps,
+  UseProgressContext,
+  UseProgressProps,
+  UseProgressReturn,
+} from '@ark-ui/react/progress';

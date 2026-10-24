@@ -28,19 +28,10 @@ const defaultLinks = [
 const defaultPage = 'Go Developer';
 
 const collapsedMenuContentStyle = {
-  '--moduix-menu-item-font-size': 'var(--moduix-text-xs)',
-  '--moduix-menu-item-padding-x-end': '0.5rem',
-  '--moduix-menu-item-padding-x-start': '0.5rem',
-  '--moduix-menu-item-padding-y': '0.25rem',
-} as JSX.CSSProperties;
-
-const collapsedMenuTriggerStyle = {
-  minWidth: 'auto',
-  minHeight: 'auto',
-  padding: 0,
-  border: 'none',
-  background: 'transparent',
-  color: 'inherit',
+  '--moduix-popup-item-font-size': 'var(--moduix-text-xs)',
+  '--moduix-popup-item-padding-x-end': '0.5rem',
+  '--moduix-popup-item-padding-x-start': '0.5rem',
+  '--moduix-popup-item-padding-y': '0.25rem',
 } as JSX.CSSProperties;
 
 function DefaultBreadcrumbs() {
@@ -80,12 +71,7 @@ export const Collapsed: Story = {
           <Menu positioning={{ placement: 'bottom-start' }}>
             <MenuTrigger
               asChild={(props) => (
-                <button
-                  {...props()}
-                  type="button"
-                  aria-label="Show hidden path items"
-                  style={collapsedMenuTriggerStyle}
-                >
+                <button {...props()} type="button" aria-label="Show hidden path items">
                   <BreadcrumbsEllipsis />
                 </button>
               )}

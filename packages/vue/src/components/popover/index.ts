@@ -40,39 +40,28 @@ export {
 };
 
 export type {
-  PopoverAnchorBaseProps,
   PopoverAnchorProps,
-  PopoverArrowBaseProps,
   PopoverArrowProps,
-  PopoverArrowTipBaseProps,
   PopoverArrowTipProps,
-  PopoverCloseTriggerBaseProps,
   PopoverCloseTriggerProps,
-  PopoverContentBaseProps,
   PopoverContentProps,
   PopoverContextProps,
-  PopoverDescriptionBaseProps,
   PopoverDescriptionProps,
   PopoverFocusOutsideEvent,
-  PopoverIndicatorBaseProps,
   PopoverIndicatorProps,
   PopoverInteractOutsideEvent,
   PopoverOpenChangeDetails,
   PopoverPointerDownOutsideEvent,
-  PopoverPositionerBaseProps,
   PopoverPositionerProps,
-  PopoverRootBaseProps,
   PopoverRootEmits,
-  PopoverRootProps,
-  PopoverRootProviderBaseProps,
   PopoverRootProviderEmits,
-  PopoverRootProviderProps,
-  PopoverTitleBaseProps,
   PopoverTitleProps,
-  PopoverTriggerBaseProps,
   PopoverTriggerProps,
   PopoverTriggerValueChangeDetails,
   UsePopoverContext,
   UsePopoverProps,
   UsePopoverReturn,
 } from '@ark-ui/vue/popover';
+
+export type { Props as PopoverRootProps } from './Popover.vue';
+export type { Props as PopoverRootProviderProps } from './PopoverRootProvider.vue';

@@ -10,7 +10,6 @@ import {
   useListboxContext,
 } from '@moduix/react/listbox';
 import { PreviewMeta } from '@/components/mdx/Components';
-import styles from '@/components/examples/listbox/listbox-select-all.module.css';
 
 const days = createListCollection({
   items: [
@@ -61,7 +60,7 @@ function SelectAllMeta() {
 
 export default function SelectAllListboxDemo() {
   return (
-    <Listbox collection={days} className={styles.root} selectionMode="multiple">
+    <Listbox collection={days} selectionMode="multiple">
       <ListboxLabel>Select days</ListboxLabel>
       <ListboxContent>
         {days.items.map((item) => (

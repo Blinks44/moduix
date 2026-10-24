@@ -5,27 +5,6 @@ description: A loading placeholder for text, cards, media, and custom page secti
 ---
 
 import * as SkeletonDocs from '@/components/examples/skeleton/css-properties';
-import SkeletonBasic from '@/components/examples/skeleton/basic.tsx';
-import SkeletonCard from '@/components/examples/skeleton/card.tsx';
-import SkeletonCustomHost from '@/components/examples/skeleton/custom-host.tsx';
-import SkeletonLoadedContent from '@/components/examples/skeleton/loaded-content.tsx';
-import SkeletonMediaObject from '@/components/examples/skeleton/media-object.tsx';
-import SkeletonResponsiveLayout from '@/components/examples/skeleton/responsive-layout.tsx';
-import SkeletonVariants from '@/components/examples/skeleton/variants.tsx';
-import skeletonSolidBasic from '../../../snippets/skeleton/solid/basic.tsx?raw';
-import skeletonSolidCard from '../../../snippets/skeleton/solid/card.tsx?raw';
-import skeletonSolidCustomHost from '../../../snippets/skeleton/solid/custom-host.tsx?raw';
-import skeletonSolidLoadedContent from '../../../snippets/skeleton/solid/loaded-content.tsx?raw';
-import skeletonSolidMediaObject from '../../../snippets/skeleton/solid/media-object.tsx?raw';
-import skeletonSolidResponsiveLayout from '../../../snippets/skeleton/solid/responsive-layout.tsx?raw';
-import skeletonSolidVariants from '../../../snippets/skeleton/solid/variants.tsx?raw';
-import skeletonVueBasic from '../../../snippets/skeleton/vue/basic.vue?raw';
-import skeletonVueCard from '../../../snippets/skeleton/vue/card.vue?raw';
-import skeletonVueCustomHost from '../../../snippets/skeleton/vue/custom-host.vue?raw';
-import skeletonVueLoadedContent from '../../../snippets/skeleton/vue/loaded-content.vue?raw';
-import skeletonVueMediaObject from '../../../snippets/skeleton/vue/media-object.vue?raw';
-import skeletonVueResponsiveLayout from '../../../snippets/skeleton/vue/responsive-layout.vue?raw';
-import skeletonVueVariants from '../../../snippets/skeleton/vue/variants.vue?raw';
 
 ## API Reference
 
@@ -41,46 +20,7 @@ Use `Skeleton` for text lines, cards, avatars, and media placeholders. The surro
 responsive composition. See [Quick Start](/docs/quick-start) for package setup, registry configuration, and
 choosing a styling track.
 
-<ExampleFrame variant="component">
-  <SkeletonBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/basic" />
 
 ## Install with shadcn
 
@@ -149,271 +89,37 @@ Use `asChild` only when a different semantic root is required. Solid passes a re
 
 Use a larger block and shorter text lines to reserve the card layout while content is loading.
 
-<ExampleFrame variant="component">
-  <SkeletonCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/card.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidCard} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueCard} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-card.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/card" />
 
 ### Loaded Content
 
 Use `loading` to keep the same root element in place while switching from the placeholder to real content.
 
-<ExampleFrame variant="component">
-  <SkeletonLoadedContent />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/loaded-content.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidLoadedContent} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueLoadedContent} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-loaded-content.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/loaded-content" />
 
 ### Media Object
 
 Use `boxSize` with a full radius for an avatar placeholder, then place text lines beside it.
 
-<ExampleFrame variant="component">
-  <SkeletonMediaObject />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/media-object.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidMediaObject} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueMediaObject} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-media-object.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/media-object" />
 
 ### Responsive Layout
 
 Keep responsive layout logic in the wrapper while each `Skeleton` remains a visual building block.
 
-<ExampleFrame variant="component">
-  <SkeletonResponsiveLayout />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/responsive-layout.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidResponsiveLayout} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueResponsiveLayout} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-responsive-layout.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/responsive-layout" />
 
 ### Variants
 
 Use `variant` to choose between pulse and static placeholder rendering.
 
-<ExampleFrame variant="component">
-  <SkeletonVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/variants" />
 
 ### Advanced Customization
 
 Use `asChild` when a semantic element such as `section` should become the DOM root instead of the default `div`.
 
-<ExampleFrame variant="component">
-  <SkeletonCustomHost />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/skeleton/custom-host.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={skeletonSolidCustomHost} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={skeletonVueCustomHost} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/skeleton/skeleton-custom-host.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="skeleton/custom-host" />
 
 ## Styling
 
@@ -423,17 +129,7 @@ attributes and `data-slot` hooks are shared by both styling tracks.
 
 ### CSS Variables
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <SkeletonDocs.SkeletonCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={SkeletonDocs.skeletonOverrideCssProperties} />
 
 ### Styling hooks
 

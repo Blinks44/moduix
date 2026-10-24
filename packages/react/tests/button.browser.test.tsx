@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { createRef } from 'react';
+import { createRef, type CSSProperties } from 'react';
 import { Button } from '../src';
 
 test('renders a native button with safe defaults, stable hooks, and a forwarded ref', async () => {
@@ -59,7 +59,7 @@ test('disables custom hosts accessibly and prevents activation', async () => {
   let activationCount = 0;
 
   render(
-    <Button asChild disabled>
+    <Button asChild disabled onClick={() => activationCount++}>
       <a href="#docs" onClick={() => activationCount++}>
         Read the docs
       </a>
@@ -77,6 +77,25 @@ test('disables custom hosts accessibly and prevents activation', async () => {
   expect(link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }))).toBe(
     false,
   );
+  expect(activationCount).toBe(0);
+});
+
+test('aria-disabled prevents activation and disables a native button', async () => {
+  let activationCount = 0;
+
+  render(
+    <Button aria-disabled="true" onClick={() => activationCount++}>
+      Unavailable
+    </Button>,
+  );
+
+  const button = screen.getByRole('button', { name: 'Unavailable' });
+
+  await expect.element(page.getByRole('button', { name: 'Unavailable' })).toBeDisabled();
+  await expect
+    .element(page.getByRole('button', { name: 'Unavailable' }))
+    .toHaveAttribute('data-disabled');
+  button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
   expect(activationCount).toBe(0);
 });
 
@@ -108,4 +127,36 @@ test('applies explicit recipe values to the root', () => {
   const button = screen.getByRole('button', { name: 'Delete item' });
 
   expect(button.dataset).toMatchObject({ size: 'icon-lg', variant: 'destructive-outline' });
+});
+
+test('lets the public variables override variant and size defaults', () => {
+  render(
+    <>
+      <Button
+        variant="outline"
+        style={
+          {
+            '--moduix-button-bg': 'rgb(1, 2, 3)',
+            '--moduix-button-height': '50px',
+          } as CSSProperties
+        }
+      >
+        Themed
+      </Button>
+      <Button
+        aria-label="Square"
+        size="icon-lg"
+        style={{ '--moduix-button-height': '44px' } as CSSProperties}
+      >
+        ×
+      </Button>
+    </>,
+  );
+
+  const themed = screen.getByRole('button', { name: 'Themed' });
+  const square = screen.getByRole('button', { name: 'Square' });
+
+  expect(getComputedStyle(themed).backgroundColor).toBe('rgb(1, 2, 3)');
+  expect(themed.offsetHeight).toBe(50);
+  expect([square.offsetWidth, square.offsetHeight]).toEqual([44, 44]);
 });

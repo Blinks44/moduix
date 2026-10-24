@@ -45,31 +45,31 @@
 }
 
 .customBleed {
-  --moduix-bleed-inline-full: calc(var(--moduix-spacing-4) * -1);
-  --moduix-bleed-inline-full-size: calc(100% + var(--moduix-spacing-8));
+  margin-inline: calc(var(--moduix-spacing-4) * -1);
+  inline-size: calc(100% + var(--moduix-spacing-8));
 }
 
 .text {
   margin: 0;
-  font-family: var(--moduix-text-font-family, inherit);
-  font-size: var(--moduix-text-font-size-md, var(--moduix-text-md));
-  font-weight: var(--moduix-text-font-weight-regular, var(--moduix-weight-regular));
-  line-height: var(--moduix-text-line-height-md, var(--moduix-line-height-text-md));
-  letter-spacing: var(--moduix-text-letter-spacing, 0);
-  color: var(--moduix-text-default-color, var(--moduix-color-foreground));
+  font-family: inherit;
+  font-size: var(--moduix-text-md);
+  font-weight: var(--moduix-weight-regular);
+  line-height: var(--moduix-line-height-text-md);
+  letter-spacing: 0;
+  color: var(--moduix-color-foreground);
   text-align: start;
   overflow-wrap: anywhere;
 }
 
 .mutedText {
-  color: var(--moduix-text-muted-color, var(--moduix-color-muted-foreground));
+  color: var(--moduix-color-muted-foreground);
 }
 
 .semiboldText {
-  font-weight: var(--moduix-text-font-weight-semibold, var(--moduix-weight-semibold));
+  font-weight: var(--moduix-weight-semibold);
 }
 
 .smallText {
-  font-size: var(--moduix-text-font-size-sm, var(--moduix-text-sm));
-  line-height: var(--moduix-text-line-height-sm, var(--moduix-line-height-text-sm));
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }

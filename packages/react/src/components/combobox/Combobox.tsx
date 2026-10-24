@@ -368,3 +368,33 @@ export {
   useComboboxContext,
   useComboboxItemContext,
 };
+
+export type { ComboboxOptionProps, ComboboxRootProps, ComboboxRootProviderProps };
+
+export type {
+  ComboboxClearTriggerProps,
+  ComboboxContentProps,
+  ComboboxContextProps,
+  ComboboxControlProps,
+  ComboboxEmptyProps,
+  ComboboxHighlightChangeDetails,
+  ComboboxInputProps,
+  ComboboxInputValueChangeDetails,
+  ComboboxItemContextProps,
+  ComboboxItemGroupLabelProps,
+  ComboboxItemGroupProps,
+  ComboboxItemIndicatorProps,
+  ComboboxItemProps,
+  ComboboxItemTextProps,
+  ComboboxLabelProps,
+  ComboboxListProps,
+  ComboboxOpenChangeDetails,
+  ComboboxPositionerProps,
+  ComboboxSelectionDetails,
+  ComboboxTriggerProps,
+  ComboboxValueChangeDetails,
+  UseComboboxContext,
+  UseComboboxItemContext,
+  UseComboboxProps,
+  UseComboboxReturn,
+} from '@ark-ui/react/combobox';

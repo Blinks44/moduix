@@ -52,6 +52,7 @@ export {
   waitForPromise,
 };
 
+export type { Props as TourActionListProps } from './TourActionList.vue';
 export type { Props as TourCloseIconProps } from './TourCloseIcon.vue';
 export type { Props as TourRootProps } from './Tour.vue';
 

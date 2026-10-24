@@ -10,6 +10,9 @@ storybook-static/
 .turbo/
 *.tsbuildinfo
 
+# Generated shadcn registry (built with the docs)
+website/docs/public/r/
+
 # Test output
 coverage/
 test-results/

@@ -17,45 +17,25 @@ export type LightboxBindProps = {
   rootSelector?: string;
 };
 
-export const preloadImage = (src?: string) => {
-  if (!src || typeof Image === 'undefined') {
-    return;
-  }
-
-  const image = new Image();
-  image.src = src;
-};
-
 export const resolveImage = (
   target: EventTarget | null,
   selector: string,
   rootNode: HTMLElement,
 ): LightboxImageSelectDetails | null => {
-  if (!(target instanceof Element)) {
-    return null;
-  }
-
-  const matchedNode = target.closest(selector);
+  const matchedNode = target instanceof Element ? target.closest(selector) : null;
   if (!matchedNode || !rootNode.contains(matchedNode)) {
     return null;
   }
 
   const imageNode =
     matchedNode instanceof HTMLImageElement ? matchedNode : matchedNode.querySelector('img');
-  if (!(imageNode instanceof HTMLImageElement)) {
+  if (!imageNode) {
     return null;
   }
 
+  // An explicitly empty data-lightbox-src excludes the image.
   const src = imageNode.dataset.lightboxSrc ?? (imageNode.currentSrc || imageNode.src);
-  if (!src) {
-    return null;
-  }
-
-  return {
-    src,
-    alt: imageNode.alt || undefined,
-    element: imageNode,
-  };
+  return src ? { src, alt: imageNode.alt || undefined, element: imageNode } : null;
 };
 
 export const resolveRootNode = (

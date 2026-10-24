@@ -4,7 +4,7 @@ import type { TagsInputItemDeleteTriggerProps } from '@ark-ui/vue/tags-input';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import styles from './TagsInput.module.css';
 
 defineOptions({ inheritAttrs: false });

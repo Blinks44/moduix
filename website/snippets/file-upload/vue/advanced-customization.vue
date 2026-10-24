@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -28,7 +29,7 @@ const isImageFile = (file: File) => file.type.startsWith('image/');
       <div :class="styles.dropzoneContent">
         <span :class="styles.dropzoneTitle">Drag and drop files here</span
         ><span :class="styles.dropzoneDescription">or browse from your device</span
-        ><FileUploadTrigger>Browse files</FileUploadTrigger>
+        ><FileUploadTrigger as-child><Button>Browse files</Button></FileUploadTrigger>
       </div></FileUploadDropzone
     ><FileUploadItemGroup
       ><FileUploadContext v-slot="{ acceptedFiles }"
@@ -36,10 +37,10 @@ const isImageFile = (file: File) => file.type.startsWith('image/');
           ><FileUploadItemPreview
             ><FileUploadItemPreviewImage v-if="isImageFile(file)" /><FileUploadItemPreviewIcon
               v-else /></FileUploadItemPreview
-          ><FileUploadItemName /><FileUploadItemMetadata :file="file" /><FileUploadItemDeleteTrigger
-            :aria-label="
-              'Remove ' + file.name
-            " /></FileUploadItem></FileUploadContext></FileUploadItemGroup
+          ><FileUploadItemName /><FileUploadItemMetadata
+            :file="
+              file
+            " /><FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
     ><FileUploadHiddenInput
   /></FileUpload>
 </template>

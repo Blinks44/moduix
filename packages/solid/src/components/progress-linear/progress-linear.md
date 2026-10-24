@@ -81,10 +81,13 @@ The wrapper adds `progress-linear-*` `data-slot` hooks and the same CSS Module a
 component. Ark retains `data-scope="progress"`, `data-part`, `data-state`, `data-value`,
 `data-max`, `data-orientation`, generated IDs, runtime variables, and progressbar ARIA attributes.
 
-Public styling variables use the `--moduix-progress-linear-*` prefix. Horizontal ranges use Ark's
-inline `width`; vertical ranges use inline `height`. Set
-`--moduix-progress-linear-height` for a vertical progress bar when the default height does not fit.
-Indeterminate animation, RTL direction, and reduced-motion behavior are preserved.
+CSS Modules expose `--moduix-progress-linear-track-size` (bar thickness in both orientations),
+`--moduix-progress-linear-track-bg`, and `--moduix-progress-linear-range-bg`; override everything
+else with a class on the part. Horizontal ranges use Ark's inline `width`; vertical ranges use inline
+`height`. The horizontal root fills its container; set `height` on a vertical root when the default `12rem` does not fit. Indeterminate
+progress sweeps a 35% range from the start edge to the end edge (mirrored in RTL) and stays still
+under reduced motion. `ProgressLinearView` is unstyled. The module also exports the Ark part,
+details, and hook types.
 
 `ProgressLinearTrack` receives `role="progressbar"` and its ARIA value attributes from Ark. Give it an
 `aria-label` or `aria-labelledby`; the visual `ProgressLinearLabel` alone does not name the progressbar.

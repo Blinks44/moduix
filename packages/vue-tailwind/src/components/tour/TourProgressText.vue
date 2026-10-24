@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkTourProgressText
     v-bind="attrs"
-    :class="cn('order-1 mt-2 text-xs leading-4 text-muted-foreground', className)"
+    :class="cn('mt-2 text-xs text-muted-foreground', className)"
     data-slot="tour-progress-text"
   >
     <template v-if="slots.default" #default>

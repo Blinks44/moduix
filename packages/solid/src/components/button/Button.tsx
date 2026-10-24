@@ -5,17 +5,21 @@ import type { JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
 import styles from './Button.module.css';
 
-type ButtonProps = HTMLArkProps<'button'> & {
+type ButtonVariant =
+  | 'default'
+  | 'outline'
+  | 'secondary'
+  | 'destructive'
+  | 'destructive-outline'
+  | 'ghost'
+  | 'link';
+
+type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
+
+type ButtonRootProps = HTMLArkProps<'button'> & {
   loading?: boolean;
-  variant?:
-    | 'default'
-    | 'outline'
-    | 'secondary'
-    | 'destructive'
-    | 'destructive-outline'
-    | 'ghost'
-    | 'link';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   'data-scope'?: string;
   'data-part'?: string;
   'data-slot'?: string;
@@ -23,18 +27,17 @@ type ButtonProps = HTMLArkProps<'button'> & {
 };
 
 const ArkButton = ark.button as (
-  props: ButtonProps & {
+  props: ButtonRootProps & {
     'oncapture:click'?: (event: MouseEvent) => void;
   },
 ) => JSX.Element;
 
-function Button(props: ButtonProps) {
+function Button(props: ButtonRootProps) {
   const [local, others] = splitProps(props, [
     'asChild',
     'class',
     'disabled',
     'loading',
-    'onClick',
     'onClickCapture',
     'size',
     'type',
@@ -68,7 +71,6 @@ function Button(props: ButtonProps) {
       aria-busy={local.loading ? true : local['aria-busy']}
       aria-disabled={isDisabled() ? true : local['aria-disabled']}
       oncapture:click={handleClickCapture}
-      onClick={local.onClick}
       data-scope={local['data-scope'] ?? 'button'}
       data-part={local['data-part'] ?? 'root'}
       data-slot={local['data-slot'] ?? 'button-root'}
@@ -82,3 +84,4 @@ function Button(props: ButtonProps) {
 }
 
 export { Button };
+export type { ButtonRootProps, ButtonSize, ButtonVariant };
