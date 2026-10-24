@@ -34,10 +34,10 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
     "@changesets/cli": "^3.0.3",
-    "@vue/language-server": "3.3.11",
+    "@vue/language-server": "3.3.13",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
-    "oxfmt": "^0.73.0",
+    "oxfmt": "^0.74.0",
     "oxlint": "^1.88.0",
     "playwright": "catalog:",
     "publint": "^0.3.25",
