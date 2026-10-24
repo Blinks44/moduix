@@ -7,4 +7,4 @@
 '@moduix/vue-tailwind': minor
 ---
 
-AspectRatio: export the `AspectRatioRootProps` type, matching the `<Component>RootProps` naming of other components.
+AspectRatio: Export the `AspectRatioRootProps` type, matching the `<Component>RootProps` naming of other components.
