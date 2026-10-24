@@ -4,7 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import './Typeset.css';
+import styles from './Typeset.module.css';
 
 defineOptions({ inheritAttrs: false });
 
@@ -21,7 +21,7 @@ const attrs = useAttrs();
 <template>
   <ark.div
     v-bind="attrs"
-    :class="cn('typeset', className)"
+    :class="cn(styles.root, className)"
     data-scope="typeset"
     data-part="root"
     data-slot="typeset"

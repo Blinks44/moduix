@@ -5506,8 +5506,8 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/typeset/Typeset.css",
-          "target": "@components/ui/typeset/Typeset.css",
+          "path": "src/components/typeset/Typeset.module.css",
+          "target": "@components/ui/typeset/Typeset.module.css",
           "type": "registry:file"
         },
         {

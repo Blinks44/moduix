@@ -137,8 +137,8 @@ Typeset
 `Typeset` owns no state and does not parse, sanitize, or size content. Keep rendered semantic
 elements inside the root, use `asChild` when the root must be an `article` or `section`, and compose
 `TypesetScroll` around a wide block that should scroll instead of compressing. Keep `TypesetScroll`
-inside a `Typeset` boundary: the horizontal scrolling, flow spacing, and table
-widening for the wrapped block come from the Typeset element rules. Mark an application-owned
+inside a `Typeset` boundary: the flow spacing and table widening for the wrapped block come from
+the Typeset element rules. Mark an application-owned
 subtree with `.not-typeset` or `data-not-typeset` when it needs its own visual treatment. A
 user-facing scroll region should have an accessible name; `TypesetScroll` is keyboard-focusable by
 default.
@@ -389,9 +389,8 @@ and use low-specificity `:where()` selectors, so normal application CSS can over
 elements without `!important`.
 
 Use `className` in React or `class` in Solid and Vue on exported parts for structural styles. The
-CSS Modules variants keep the semantic rules local; Tailwind variants preserve the same CSS-first
-element contract and merge consumer classes with `cn` last, so the six CSS variables customize both
-styling tracks.
+CSS Modules and Tailwind variants ship the same CSS Module; Tailwind variants merge consumer classes
+with `cn` last, so the six CSS variables customize both styling tracks.
 
 ### Styling hooks
 

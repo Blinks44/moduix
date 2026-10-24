@@ -140,9 +140,8 @@ Typeset
 `Typeset` ne gère aucun état, n’analyse ni ne filtre le contenu et n’en définit pas la largeur.
 Gardez les éléments sémantiques rendus dans la racine, utilisez `asChild` lorsque celle-ci doit être
 un `article` ou une `section`, et composez `TypesetScroll` autour d’un bloc large qui doit défiler
-plutôt que se comprimer. Gardez `TypesetScroll` à l’intérieur d’une limite `Typeset` : le défilement
-horizontal, les espacements de flux et l’élargissement des tableaux
-du bloc enveloppé proviennent des règles d’éléments Typeset. Ajoutez `.not-typeset` ou
+plutôt que se comprimer. Gardez `TypesetScroll` à l’intérieur d’une limite `Typeset` : les espacements
+de flux et l’élargissement des tableaux du bloc enveloppé proviennent des règles d’éléments Typeset. Ajoutez `.not-typeset` ou
 `data-not-typeset` à un sous-arbre appartenant à l’application lorsqu’il doit conserver sa propre
 mise en forme. Une zone de défilement destinée aux utilisateurs doit avoir un nom accessible ;
 `TypesetScroll` peut recevoir le focus au clavier par défaut.
@@ -395,9 +394,9 @@ viennent du thème moduix actif. Les règles des éléments se trouvent dans la 
 sans `!important`.
 
 Utilisez `className` dans React et `class` dans Solid et Vue pour les styles structurels des
-parties exportées. Les variantes Tailwind conservent le même contrat CSS-first des éléments et
-fusionnent les classes avec `cn`, en plaçant la classe du consommateur en dernier ; les six variables
-CSS personnalisent donc les deux variantes.
+parties exportées. Les variantes CSS Modules et Tailwind livrent le même CSS Module ; les
+variantes Tailwind fusionnent les classes avec `cn`, en plaçant la classe du consommateur en
+dernier ; les six variables CSS personnalisent donc les deux variantes.
 
 ### Points d’accroche CSS
 
