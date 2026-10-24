@@ -1,27 +1,49 @@
 import { Field as FieldPrimitive } from '@ark-ui/react/field';
-import type { ComponentProps, ComponentRef } from 'react';
+import { cva } from 'class-variance-authority';
+import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const Textarea = forwardRef<
-  ComponentRef<typeof FieldPrimitive.Textarea>,
-  ComponentProps<typeof FieldPrimitive.Textarea>
->(function Textarea({ autoresize, className, ...props }, ref) {
+type TextareaSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+type TextareaRootProps = ComponentProps<typeof FieldPrimitive.Textarea> & {
+  size?: TextareaSize;
+};
+
+const textareaVariants = cva(
+  'w-full resize-y rounded-md border border-border bg-background text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color,opacity] duration-normal ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-disabled:pointer-events-none data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive data-invalid:border-destructive data-invalid:focus-visible:outline-destructive',
+  {
+    variants: {
+      size: {
+        xs: 'px-2 py-1 text-xs leading-4',
+        sm: 'px-2 py-1.5 text-sm leading-5',
+        md: 'px-3 py-2 text-md leading-6',
+        lg: 'px-4 py-2.5 text-lg leading-7',
+        xl: 'px-4 py-3 text-lg leading-7',
+      },
+    },
+    defaultVariants: {
+      size: 'md',
+    },
+  },
+);
+
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaRootProps>(function Textarea(
+  { className, size = 'md', ...props },
+  ref,
+) {
   return (
     <FieldPrimitive.Textarea
-      ref={ref}
       {...props}
+      ref={ref}
       data-scope="field"
       data-part="textarea"
       data-slot="textarea-root"
-      data-autoresize={autoresize ? '' : undefined}
-      className={cn(
-        'min-h-24 w-full max-w-none resize-y rounded-md border border-border bg-background px-3.5 py-2 text-md leading-6 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out placeholder:text-muted-foreground focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:focus-visible:outline-destructive data-autoresize:overflow-y-hidden data-disabled:pointer-events-none data-disabled:opacity-50 data-invalid:border-destructive data-invalid:focus-visible:outline-destructive motion-reduce:transition-none',
-        className,
-      )}
-      autoresize={autoresize}
+      data-size={size}
+      className={cn(textareaVariants({ size }), className)}
     />
   );
 });
 
 export { Textarea };
+export type { TextareaRootProps, TextareaSize };

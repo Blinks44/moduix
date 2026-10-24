@@ -7,83 +7,52 @@ import { cn } from '@/lib/moduix/cn';
 type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
 
-const containerVariants = cva('w-full min-w-0 mx-auto', {
-  variants: {
-    size: {
-      xs: 'max-w-[calc(40rem_+_(clamp(1rem,4vw,2rem)*2))]',
-      sm: 'max-w-[calc(48rem_+_(clamp(1rem,4vw,2rem)*2))]',
-      md: 'max-w-[calc(64rem_+_(clamp(1rem,4vw,2rem)*2))]',
-      lg: 'max-w-[calc(72rem_+_(clamp(1rem,4vw,2rem)*2))]',
-      xl: 'max-w-[calc(90rem_+_(clamp(1rem,4vw,2rem)*2))]',
-      full: 'max-w-none',
+const containerVariants = cva(
+  'mx-auto w-full min-w-0 max-w-[calc(var(--_container-max-width)_+_var(--_container-gutter)*2)] px-(--_container-gutter)',
+  {
+    variants: {
+      size: {
+        xs: '[--_container-max-width:40rem]',
+        sm: '[--_container-max-width:48rem]',
+        md: '[--_container-max-width:64rem]',
+        lg: '[--_container-max-width:72rem]',
+        xl: '[--_container-max-width:90rem]',
+        full: 'max-w-none',
+      },
+      gutter: {
+        none: '[--_container-gutter:0px]',
+        sm: '[--_container-gutter:clamp(var(--moduix-spacing-3),3vw,var(--moduix-spacing-6))]',
+        md: '[--_container-gutter:clamp(var(--moduix-spacing-4),4vw,var(--moduix-spacing-8))]',
+        lg: '[--_container-gutter:clamp(var(--moduix-spacing-6),5vw,3rem)]',
+      },
     },
-    gutter: {
-      none: 'px-0',
-      sm: 'px-[clamp(0.75rem,3vw,1.5rem)]',
-      md: 'px-[clamp(1rem,4vw,2rem)]',
-      lg: 'px-[clamp(1.5rem,5vw,3rem)]',
+    defaultVariants: {
+      size: 'lg',
+      gutter: 'md',
     },
   },
-  compoundVariants: [
-    { size: 'xs', gutter: 'none', class: 'max-w-[40rem]' },
-    { size: 'xs', gutter: 'sm', class: 'max-w-[calc(40rem_+_(clamp(0.75rem,3vw,1.5rem)*2))]' },
-    { size: 'xs', gutter: 'lg', class: 'max-w-[calc(40rem_+_(clamp(1.5rem,5vw,3rem)*2))]' },
-    { size: 'sm', gutter: 'none', class: 'max-w-[48rem]' },
-    { size: 'sm', gutter: 'sm', class: 'max-w-[calc(48rem_+_(clamp(0.75rem,3vw,1.5rem)*2))]' },
-    { size: 'sm', gutter: 'lg', class: 'max-w-[calc(48rem_+_(clamp(1.5rem,5vw,3rem)*2))]' },
-    { size: 'md', gutter: 'none', class: 'max-w-[64rem]' },
-    { size: 'md', gutter: 'sm', class: 'max-w-[calc(64rem_+_(clamp(0.75rem,3vw,1.5rem)*2))]' },
-    { size: 'md', gutter: 'lg', class: 'max-w-[calc(64rem_+_(clamp(1.5rem,5vw,3rem)*2))]' },
-    { size: 'lg', gutter: 'none', class: 'max-w-[72rem]' },
-    { size: 'lg', gutter: 'sm', class: 'max-w-[calc(72rem_+_(clamp(0.75rem,3vw,1.5rem)*2))]' },
-    { size: 'lg', gutter: 'lg', class: 'max-w-[calc(72rem_+_(clamp(1.5rem,5vw,3rem)*2))]' },
-    { size: 'xl', gutter: 'none', class: 'max-w-[90rem]' },
-    { size: 'xl', gutter: 'sm', class: 'max-w-[calc(90rem_+_(clamp(0.75rem,3vw,1.5rem)*2))]' },
-    { size: 'xl', gutter: 'lg', class: 'max-w-[calc(90rem_+_(clamp(1.5rem,5vw,3rem)*2))]' },
-  ],
-  defaultVariants: {
-    size: 'lg',
-    gutter: 'md',
-  },
-});
+);
 
-type ContainerProps = HTMLArkProps<'div'> & {
+type ContainerRootProps = HTMLArkProps<'div'> & {
   size?: ContainerSize;
   gutter?: ContainerGutter;
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
-  'data-size'?: string;
-  'data-gutter'?: string;
 };
 
-function Container(props: ContainerProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'gutter',
-    'size',
-    'data-scope',
-    'data-part',
-    'data-slot',
-    'data-size',
-    'data-gutter',
-  ]);
-  const size = () => local.size ?? 'lg';
-  const gutter = () => local.gutter ?? 'md';
+function Container(props: ContainerRootProps) {
+  const [local, others] = splitProps(props, ['class', 'gutter', 'size']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="container"
       data-part="root"
       data-slot="container-root"
-      data-size={size()}
-      data-gutter={gutter()}
-      class={cn(containerVariants({ size: size(), gutter: gutter() }), local.class)}
+      data-size={local.size ?? 'lg'}
+      data-gutter={local.gutter ?? 'md'}
+      class={cn(containerVariants({ size: local.size, gutter: local.gutter }), local.class)}
     />
   );
 }
 
 export { Container };
+export type { ContainerGutter, ContainerRootProps, ContainerSize };

@@ -4,26 +4,6 @@ component: timer
 description: A timer for tracking elapsed or remaining time with explicit controls in React, Solid, or Vue.
 ---
 
-import * as TimerDocs from '@/components/examples/timer/css-properties';
-import TimerBasic from '@/components/examples/timer/basic.tsx';
-import TimerCountdown from '@/components/examples/timer/countdown.tsx';
-import TimerEvents from '@/components/examples/timer/events.tsx';
-import TimerInterval from '@/components/examples/timer/interval.tsx';
-import TimerPomodoro from '@/components/examples/timer/pomodoro.tsx';
-import TimerRootProvider from '@/components/examples/timer/root-provider.tsx';
-import timerSolidBasic from '../../../snippets/timer/solid/basic.tsx?raw';
-import timerSolidCountdown from '../../../snippets/timer/solid/countdown.tsx?raw';
-import timerSolidEvents from '../../../snippets/timer/solid/events.tsx?raw';
-import timerSolidInterval from '../../../snippets/timer/solid/interval.tsx?raw';
-import timerSolidPomodoro from '../../../snippets/timer/solid/pomodoro.tsx?raw';
-import timerSolidRootProvider from '../../../snippets/timer/solid/root-provider.tsx?raw';
-import timerVueBasic from '../../../snippets/timer/vue/basic.vue?raw';
-import timerVueCountdown from '../../../snippets/timer/vue/countdown.vue?raw';
-import timerVueEvents from '../../../snippets/timer/vue/events.vue?raw';
-import timerVueInterval from '../../../snippets/timer/vue/interval.vue?raw';
-import timerVuePomodoro from '../../../snippets/timer/vue/pomodoro.vue?raw';
-import timerVueRootProvider from '../../../snippets/timer/vue/root-provider.vue?raw';
-
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/timer" />
@@ -39,41 +19,7 @@ unit labels, custom separators, or per-item styling.
 it creates the items and separators itself, use `TimerArea` when you need to replace its host element or provide
 custom children.
 
-<ExampleFrame variant="component">
-  <TimerBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/timer/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={timerSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={timerVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="timer/basic" />
 
 ## Install with shadcn
 
@@ -161,247 +107,38 @@ upstream fixes this behavior; the examples above use that supported composition.
 
 Set `countdown` and `startMs` when the display should count down to zero.
 
-<ExampleFrame variant="component">
-  <TimerCountdown />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/timer/countdown.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={timerSolidCountdown} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={timerVueCountdown} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/timer/timer-countdown.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="timer/countdown" />
 
 ### Events
 
 Use `onTick` and `onComplete` for side effects tied to the timer lifecycle. In Vue, listen with `@tick` and `@complete`.
 
-<ExampleFrame variant="component">
-  <TimerEvents />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/timer/events.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={timerSolidEvents} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={timerVueEvents} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/timer/timer-events.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="timer/events" />
 
 ### Interval
 
 Use a shorter `interval` with a `milliseconds` item when the UI needs sub-second updates.
 
-<ExampleFrame variant="component">
-  <TimerInterval />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/timer/interval.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={timerSolidInterval} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={timerVueInterval} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/timer/timer-interval.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="timer/interval" />
 
 ### Pomodoro
 
 Use `onComplete` (`@complete` in Vue) to switch between work and break durations when the timer should advance to the next cycle.
 
-<ExampleFrame variant="component">
-  <TimerPomodoro />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/timer/pomodoro.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={timerSolidPomodoro} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={timerVuePomodoro} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/timer/timer-pomodoro.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="timer/pomodoro" />
 
 ### Advanced Customization
 
 Use `useTimer()` when the timer state and methods must also be available outside the rendered part tree. This is
 also the right composition for unit labels and other custom item layouts.
 
-<ExampleFrame variant="component">
-  <TimerRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/timer/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={timerSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={timerVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/timer/timer-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="timer/root-provider" />
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on exported parts for structural overrides. CSS Modules expose
-CSS variables for visual defaults; Tailwind uses utility classes and consumer overrides. Ark attributes remain
-available for part-specific styling.
-
-### CSS Properties
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TimerDocs.TimerCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on any exported part. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on a part, or a `data-slot` selector, overrides the layered component styles.
 
 ### Styling hooks
 

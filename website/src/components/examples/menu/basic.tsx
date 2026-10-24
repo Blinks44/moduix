@@ -8,7 +8,6 @@ import {
   MenuViewport,
   MenuItem,
 } from '@moduix/react/menu';
-import styles from '@/components/examples/menu/menu-basic.module.css';
 
 const fileItems = [
   {
@@ -39,7 +38,7 @@ export default function MenuDemo() {
         </Button>
       </MenuTrigger>
       <MenuPositioner>
-        <MenuContent className={styles.content}>
+        <MenuContent>
           <MenuViewport>
             {fileItems.map((item) => (
               <MenuItem key={item.value} value={item.value}>

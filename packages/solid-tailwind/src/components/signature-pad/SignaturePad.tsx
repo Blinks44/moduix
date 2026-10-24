@@ -5,10 +5,13 @@ import {
   useSignaturePadContext,
 } from '@ark-ui/solid/signature-pad';
 import type { Accessor, ComponentProps } from 'solid-js';
-import { children, createContext, splitProps, useContext } from 'solid-js';
+import { createContext, splitProps, useContext } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
-import { RotateCcwIcon } from '@/lib/moduix/icons/ui/Icons';
+import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
+
+const rootClassName =
+  'inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-disabled';
 
 const SignaturePadReadOnlyContext = createContext<Accessor<boolean>>(() => false);
 
@@ -22,16 +25,12 @@ type SignaturePadRootProviderProps = Omit<
 type SignaturePadHookProps = Parameters<typeof useSignaturePadPrimitive>[0];
 
 function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   const field = useFieldContext();
 
   return (
     <SignaturePadPrimitive.Root
-      asChild={local.asChild}
-      class={cn(
-        'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50',
-        local.class,
-      )}
+      class={cn(rootClassName, local.class)}
       {...others}
       data-slot="signature-pad-root"
     >
@@ -45,16 +44,12 @@ function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) 
 }
 
 function SignaturePadRootProvider(props: SignaturePadRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <SignaturePadReadOnlyContext.Provider value={() => props.value.readOnly?.() ?? false}>
       <SignaturePadPrimitive.RootProvider
-        asChild={local.asChild}
-        class={cn(
-          'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50',
-          local.class,
-        )}
+        class={cn(rootClassName, local.class)}
         {...others}
         data-slot="signature-pad-root-provider"
       >
@@ -69,7 +64,7 @@ function SignaturePadLabel(props: ComponentProps<typeof SignaturePadPrimitive.La
 
   return (
     <SignaturePadPrimitive.Label
-      class={cn('text-sm leading-5 font-medium text-foreground select-none', local.class)}
+      class={cn('text-sm leading-5 font-medium select-none', local.class)}
       {...others}
       data-slot="signature-pad-label"
     />
@@ -82,7 +77,7 @@ function SignaturePadControl(props: ComponentProps<typeof SignaturePadPrimitive.
   return (
     <SignaturePadPrimitive.Control
       class={cn(
-        'box-border h-40 min-h-40 w-full min-w-0 overflow-hidden rounded-md border border-border bg-background text-foreground shadow-sm transition-[border-color,box-shadow,opacity] duration-200 ease-in-out outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-not-allowed motion-reduce:transition-none',
+        'h-40 w-full min-w-0 overflow-hidden rounded-md border border-border bg-background shadow-sm transition-[border-color,box-shadow] duration-normal ease-in-out outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-not-allowed',
         local.class,
       )}
       {...others}
@@ -109,7 +104,7 @@ function SignaturePadGuide(props: ComponentProps<typeof SignaturePadPrimitive.Gu
   return (
     <SignaturePadPrimitive.Guide
       class={cn(
-        'pointer-events-none absolute start-6 end-6 bottom-8 border-b border-dashed border-border',
+        'pointer-events-none absolute inset-x-6 bottom-8 border-b border-dashed border-border',
         local.class,
       )}
       {...others}
@@ -121,59 +116,24 @@ function SignaturePadGuide(props: ComponentProps<typeof SignaturePadPrimitive.Gu
 function SignaturePadClearTrigger(
   props: ComponentProps<typeof SignaturePadPrimitive.ClearTrigger>,
 ) {
-  const [local, others] = splitProps(props, [
-    'aria-label',
-    'aria-labelledby',
-    'asChild',
-    'children',
-    'class',
-    'disabled',
-  ]);
-  const resolvedChildren = children(() => local.children);
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
   const readOnly = useContext(SignaturePadReadOnlyContext);
-  const isDisabled = () => (readOnly() || local.disabled ? true : undefined);
-  const triggerClass = () => cn('absolute end-2 top-2 border-0', local.class);
 
-  if (local.asChild) {
-    return (
-      <SignaturePadPrimitive.ClearTrigger
-        asChild={local.asChild}
-        aria-label={local['aria-label']}
-        aria-labelledby={local['aria-labelledby']}
-        class={triggerClass()}
-        {...others}
-        data-slot="signature-pad-clear-trigger"
-        disabled={isDisabled()}
-      >
-        {local.children}
-      </SignaturePadPrimitive.ClearTrigger>
-    );
-  }
-
+  // Ark still clears read-only signatures, so moduix hides the action as it does while empty.
   return (
     <SignaturePadPrimitive.ClearTrigger
-      asChild={(triggerProps) => {
-        const resolvedProps = triggerProps();
-
-        return (
-          <CloseButton
-            {...resolvedProps}
-            aria-label={local['aria-label']}
-            aria-labelledby={local['aria-labelledby']}
-            class={cn(
-              resolvedProps.class,
-              `size-control-xs rounded-sm bg-transparent text-muted-foreground focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground`,
-              local.class,
-            )}
-          >
-            {resolvedChildren() ?? <RotateCcwIcon class="size-4" aria-hidden="true" />}
+      asChild={
+        local.asChild ??
+        ((triggerProps) => (
+          <CloseButton {...triggerProps()}>
+            {local.children ?? <RotateCcwIcon aria-hidden="true" />}
           </CloseButton>
-        );
-      }}
-      class={triggerClass()}
+        ))
+      }
+      class={cn('absolute end-2 top-2 size-control-xs data-disabled:opacity-100', local.class)}
       {...others}
       data-slot="signature-pad-clear-trigger"
-      disabled={isDisabled()}
+      hidden={readOnly() || undefined}
     />
   );
 }
@@ -187,9 +147,7 @@ function SignaturePadCanvas(props: SignaturePadCanvasProps) {
   return (
     <SignaturePadControl {...props}>
       <SignaturePadSegment />
-      <SignaturePadClearTrigger>
-        <RotateCcwIcon class="size-4" aria-hidden="true" />
-      </SignaturePadClearTrigger>
+      <SignaturePadClearTrigger />
       <SignaturePadGuide />
     </SignaturePadControl>
   );

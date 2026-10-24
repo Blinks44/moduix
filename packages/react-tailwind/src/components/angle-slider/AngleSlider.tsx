@@ -5,9 +5,12 @@ import {
   useAngleSlider as useAngleSliderPrimitive,
   useAngleSliderContext,
 } from '@ark-ui/react/angle-slider';
-import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
+
+const rootClass =
+  'inline-flex min-w-0 flex-col items-center gap-3 text-foreground data-disabled:opacity-disabled';
 
 const AngleSliderRoot = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Root>,
@@ -16,10 +19,7 @@ const AngleSliderRoot = forwardRef<
   return (
     <AngleSliderPrimitive.Root
       ref={ref}
-      className={cn(
-        'box-border inline-flex min-w-0 flex-col items-center gap-3 text-foreground data-disabled:opacity-50',
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="angle-slider-root"
     />
@@ -33,7 +33,7 @@ const AngleSliderLabel = forwardRef<
   return (
     <AngleSliderPrimitive.Label
       ref={ref}
-      className={cn('text-center text-sm font-medium text-foreground', className)}
+      className={cn('text-center text-sm font-medium', className)}
       {...props}
       data-slot="angle-slider-label"
     />
@@ -43,15 +43,11 @@ const AngleSliderLabel = forwardRef<
 const AngleSliderRootProvider = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.RootProvider>,
   ComponentProps<typeof AngleSliderPrimitive.RootProvider>
->(function AngleSliderRootProvider({ className, value, ...props }, ref) {
+>(function AngleSliderRootProvider({ className, ...props }, ref) {
   return (
     <AngleSliderPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'box-border inline-flex min-w-0 flex-col items-center gap-3 text-foreground data-disabled:opacity-50',
-        className,
-      )}
-      value={value}
+      className={cn(rootClass, className)}
       {...props}
       data-slot="angle-slider-root-provider"
     />
@@ -66,7 +62,7 @@ const AngleSliderControl = forwardRef<
     <AngleSliderPrimitive.Control
       ref={ref}
       className={cn(
-        "relative box-border aspect-square w-32 min-w-0 cursor-pointer rounded-full outline-0 select-none [--angle-slider-fill:var(--color-primary)] before:absolute before:inset-0 before:rounded-full before:bg-[conic-gradient(from_0deg,var(--angle-slider-fill)_var(--angle,0deg),var(--color-muted)_var(--angle,0deg))] before:[mask-image:radial-gradient(closest-side,transparent_calc(100%-0.5rem-1px),#000_calc(100%-0.5rem))] before:content-[''] after:absolute after:top-1 after:left-1/2 after:z-1 after:size-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-[var(--angle-slider-fill)] after:content-[''] data-disabled:cursor-default data-invalid:[--angle-slider-fill:var(--color-destructive)] data-readonly:cursor-default",
+        "relative aspect-square w-36 min-w-0 cursor-pointer rounded-full outline-0 select-none [--_angle-slider-fill:var(--color-primary)] before:absolute before:inset-0 before:rounded-full before:bg-[conic-gradient(from_0deg,var(--_angle-slider-fill)_calc(var(--value,0)*1deg),var(--color-muted)_calc(var(--value,0)*1deg))] before:[mask-image:radial-gradient(closest-side,transparent_calc(100%-var(--moduix-spacing-2)-1px),#000_calc(100%-var(--moduix-spacing-2)))] before:content-[''] after:absolute after:top-1 after:left-1/2 after:z-1 after:size-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-(--_angle-slider-fill) after:content-[''] data-disabled:cursor-default data-invalid:[--_angle-slider-fill:var(--color-destructive)] data-readonly:cursor-default [&[dir=rtl]]:before:-scale-x-100",
         className,
       )}
       {...props}
@@ -94,7 +90,7 @@ const AngleSliderThumb = forwardRef<
     <AngleSliderPrimitive.Thumb
       ref={ref}
       className={cn(
-        "absolute inset-y-0 left-1/2 z-2 w-0 outline-0 before:absolute before:top-1 before:left-0 before:box-border before:size-4 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:border before:border-border before:bg-background before:shadow-sm before:transition-[border-color,background-color,box-shadow] before:duration-200 before:ease-in-out before:content-[''] focus-visible:before:border-ring focus-visible:before:ring-1 focus-visible:before:ring-ring data-disabled:pointer-events-none data-invalid:before:border-destructive motion-reduce:before:transition-none [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:border-ring [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:shadow-md [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:ring-1 [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:ring-ring",
+        "absolute inset-y-0 left-1/2 z-2 w-0 outline-0 before:absolute before:top-1 before:left-0 before:size-4 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:border before:border-border before:bg-background before:shadow-sm before:transition-[border-color,box-shadow] before:duration-normal before:ease-in-out before:content-[''] focus-visible:before:border-ring focus-visible:before:ring-1 focus-visible:before:ring-ring data-disabled:pointer-events-none data-invalid:before:border-destructive data-invalid:focus-visible:before:ring-destructive [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:border-ring [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:shadow-md [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:ring-1 [[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:ring-ring",
         className,
       )}
       {...props}
@@ -125,7 +121,7 @@ const AngleSliderMarker = forwardRef<
     <AngleSliderPrimitive.Marker
       ref={ref}
       className={cn(
-        "absolute inset-0 before:absolute before:top-1 before:left-1/2 before:h-2 before:w-0.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-muted-foreground before:content-[''] data-[state=at-value]:before:bg-foreground data-[state=under-value]:before:bg-primary",
+        "absolute inset-0 before:absolute before:top-1 before:left-1/2 before:h-2 before:w-0.5 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-muted-foreground before:content-[''] data-[state=at-value]:before:bg-foreground data-[state=under-value]:before:bg-(--_angle-slider-fill)",
         className,
       )}
       {...props}
@@ -154,12 +150,7 @@ const AngleSliderMarks = forwardRef<
   );
 });
 
-type AngleSliderDialProps = Omit<
-  ComponentProps<typeof AngleSliderPrimitive.Control>,
-  'asChild' | 'children'
-> & {
-  children?: ReactNode;
-};
+type AngleSliderDialProps = Omit<ComponentProps<typeof AngleSliderPrimitive.Control>, 'asChild'>;
 
 const AngleSliderDial = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Control>,
@@ -177,17 +168,21 @@ const AngleSliderDial = forwardRef<
 const AngleSliderValueText = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.ValueText>,
   ComponentProps<typeof AngleSliderPrimitive.ValueText>
->(function AngleSliderValueText({ className, ...props }, ref) {
+>(function AngleSliderValueText({ className, children, ...props }, ref) {
+  const angleSlider = useAngleSliderContext();
+
   return (
     <AngleSliderPrimitive.ValueText
       ref={ref}
       className={cn(
-        'absolute inset-0 z-1 grid place-items-center text-center text-lg font-medium text-foreground tabular-nums',
+        'text-center text-lg font-medium tabular-nums [[data-slot=angle-slider-control]_&]:absolute [[data-slot=angle-slider-control]_&]:inset-0 [[data-slot=angle-slider-control]_&]:z-1 [[data-slot=angle-slider-control]_&]:grid [[data-slot=angle-slider-control]_&]:place-items-center',
         className,
       )}
       {...props}
       data-slot="angle-slider-value-text"
-    />
+    >
+      {children ?? `${angleSlider.value}°`}
+    </AngleSliderPrimitive.ValueText>
   );
 });
 
@@ -214,3 +209,8 @@ export {
   useAngleSlider,
   useAngleSliderContext,
 };
+export type {
+  AngleSliderRootProps,
+  UseAngleSliderProps,
+  UseAngleSliderReturn,
+} from '@ark-ui/react/angle-slider';

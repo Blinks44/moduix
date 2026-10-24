@@ -1,12 +1,6 @@
 import type { CssPropertyInput } from '../../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../../mdx/reference';
 
 const skeletonCssProperties: CssPropertyInput[] = [
-  [
-    '--moduix-skeleton-animation',
-    'var(--moduix-animation-pulse)',
-    'Controls the pulse loading animation.',
-  ],
   [
     '--moduix-skeleton-border-radius',
     'var(--moduix-radius-md)',
@@ -19,18 +13,4 @@ const skeletonCssProperties: CssPropertyInput[] = [
   ],
   ['--moduix-skeleton-height', 'var(--moduix-spacing-4)', 'Controls default loading height.'],
 ];
-const skeletonOverrideCssProperties = skeletonCssProperties;
-
-export function SkeletonCssPropertiesPanel() {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={skeletonOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}
+export const skeletonOverrideCssProperties = skeletonCssProperties;

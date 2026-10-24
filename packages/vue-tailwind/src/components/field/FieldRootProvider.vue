@@ -4,7 +4,7 @@ import type { FieldRootProviderProps as ArkFieldRootProviderProps } from '@ark-u
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import { fieldRootVariants } from './Field.variants';
+import { fieldRootClass } from './Field.variants';
 
 defineOptions({ inheritAttrs: false });
 
@@ -22,7 +22,7 @@ const attrs = useAttrs();
 <template>
   <ArkFieldRootProvider
     v-bind="attrs"
-    :class="cn(fieldRootVariants(), className)"
+    :class="cn(fieldRootClass, className)"
     :value="value"
     data-slot="field-root-provider"
   >

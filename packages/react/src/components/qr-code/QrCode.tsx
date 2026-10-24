@@ -51,15 +51,8 @@ const QrCodeFrame = forwardRef<
 const QrCodePattern = forwardRef<
   ComponentRef<typeof QrCodePrimitive.Pattern>,
   ComponentProps<typeof QrCodePrimitive.Pattern>
->(function QrCodePattern({ className, ...props }, ref) {
-  return (
-    <QrCodePrimitive.Pattern
-      ref={ref}
-      className={clsx(styles.pattern, className)}
-      {...props}
-      data-slot="qr-code-pattern"
-    />
-  );
+>(function QrCodePattern(props, ref) {
+  return <QrCodePrimitive.Pattern ref={ref} {...props} data-slot="qr-code-pattern" />;
 });
 
 const QrCodeOverlay = forwardRef<
@@ -103,3 +96,17 @@ export {
   useQrCode,
   useQrCodeContext,
 };
+export type {
+  QrCodeContextProps,
+  QrCodeDownloadTriggerProps,
+  QrCodeFrameProps,
+  QrCodeGenerateOptions,
+  QrCodeOverlayProps,
+  QrCodePatternProps,
+  QrCodeRootProps,
+  QrCodeRootProviderProps,
+  QrCodeValueChangeDetails,
+  UseQrCodeContext,
+  UseQrCodeProps,
+  UseQrCodeReturn,
+} from '@ark-ui/react/qr-code';

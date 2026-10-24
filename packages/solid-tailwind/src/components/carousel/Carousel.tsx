@@ -4,19 +4,24 @@ import {
   useCarouselContext,
 } from '@ark-ui/solid/carousel';
 import type { ComponentProps } from 'solid-js';
-import { children, For, splitProps } from 'solid-js';
+import { children, Index, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
-import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
+
+const rootClass =
+  'flex w-full min-w-0 flex-col gap-3 data-[orientation=vertical]:h-96 data-[orientation=vertical]:flex-row';
+const triggerClass =
+  'group/carousel-trigger inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,color] duration-fast ease-in-out focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-disabled data-disabled:cursor-not-allowed data-disabled:opacity-disabled data-pressed:bg-accent data-pressed:text-accent-foreground [&_svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground';
+// Default chevrons point along the paging axis.
+const iconClass =
+  'group-data-[orientation=vertical]/carousel-trigger:rotate-90 group-data-[orientation=horizontal]/carousel-trigger:rtl:rotate-180';
 
 function Carousel(props: ComponentProps<typeof CarouselPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
     <CarouselPrimitive.Root
-      class={cn(
-        'group/carousel flex w-full min-w-0 flex-col gap-3 data-[orientation=vertical]:h-96 data-[orientation=vertical]:flex-row data-[orientation=vertical]:items-stretch',
-        local.class,
-      )}
+      class={cn(rootClass, local.class)}
       {...others}
       data-slot="carousel-root"
     />
@@ -28,10 +33,7 @@ function CarouselRootProvider(props: ComponentProps<typeof CarouselPrimitive.Roo
 
   return (
     <CarouselPrimitive.RootProvider
-      class={cn(
-        'group/carousel flex w-full min-w-0 flex-col gap-3 data-[orientation=vertical]:h-96 data-[orientation=vertical]:flex-row data-[orientation=vertical]:items-stretch',
-        local.class,
-      )}
+      class={cn(rootClass, local.class)}
       {...others}
       data-slot="carousel-root-provider"
     />
@@ -44,7 +46,7 @@ function CarouselControl(props: ComponentProps<typeof CarouselPrimitive.Control>
   return (
     <CarouselPrimitive.Control
       class={cn(
-        'flex min-w-0 items-center gap-3 data-[orientation=vertical]:flex-col data-[orientation=vertical]:justify-between',
+        'flex min-w-0 items-center justify-center gap-3 data-[orientation=vertical]:flex-col data-[orientation=vertical]:justify-between',
         local.class,
       )}
       {...others}
@@ -59,7 +61,7 @@ function CarouselItemGroup(props: ComponentProps<typeof CarouselPrimitive.ItemGr
   return (
     <CarouselPrimitive.ItemGroup
       class={cn(
-        'flex min-h-0 min-w-0 flex-1 [scrollbar-width:none] overscroll-x-contain overscroll-y-auto scroll-smooth rounded-xl outline-0 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring data-dragging:cursor-grabbing data-dragging:select-none data-[orientation=vertical]:h-full data-[orientation=vertical]:overscroll-x-auto data-[orientation=vertical]:overscroll-y-contain motion-reduce:scroll-auto [&::-webkit-scrollbar]:hidden',
+        'min-h-0 min-w-0 flex-1 rounded-xl outline-0 focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring data-dragging:cursor-grabbing data-dragging:select-none data-[orientation=vertical]:h-full data-[orientation=vertical]:overscroll-y-contain',
         local.class,
       )}
       {...others}
@@ -73,7 +75,7 @@ function CarouselItem(props: ComponentProps<typeof CarouselPrimitive.Item>) {
 
   return (
     <CarouselPrimitive.Item
-      class={cn('box-border min-h-0 min-w-0', local.class)}
+      class={cn('min-h-0 min-w-0', local.class)}
       {...others}
       data-slot="carousel-item"
     />
@@ -81,47 +83,31 @@ function CarouselItem(props: ComponentProps<typeof CarouselPrimitive.Item>) {
 }
 
 function CarouselPrevTrigger(props: ComponentProps<typeof CarouselPrimitive.PrevTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   const resolvedChildren = children(() => local.children);
 
   return (
     <CarouselPrimitive.PrevTrigger
-      asChild={local.asChild}
-      class={cn(
-        'inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-ring data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-ring [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
-        local.class,
-      )}
+      class={cn(triggerClass, 'size-control-md', local.class)}
       {...others}
       data-slot="carousel-prev-trigger"
     >
-      {resolvedChildren() ?? (
-        <span class="inline-flex items-center justify-center">
-          <ChevronLeftIcon class="group-data-[orientation=vertical]/carousel:rotate-90 group-data-[orientation=horizontal]/carousel:rtl:rotate-180" />
-        </span>
-      )}
+      {resolvedChildren() ?? <ChevronLeftIcon class={iconClass} />}
     </CarouselPrimitive.PrevTrigger>
   );
 }
 
 function CarouselNextTrigger(props: ComponentProps<typeof CarouselPrimitive.NextTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   const resolvedChildren = children(() => local.children);
 
   return (
     <CarouselPrimitive.NextTrigger
-      asChild={local.asChild}
-      class={cn(
-        'inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-ring data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-ring [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
-        local.class,
-      )}
+      class={cn(triggerClass, 'size-control-md', local.class)}
       {...others}
       data-slot="carousel-next-trigger"
     >
-      {resolvedChildren() ?? (
-        <span class="inline-flex items-center justify-center">
-          <ChevronRightIcon class="group-data-[orientation=vertical]/carousel:rotate-90 group-data-[orientation=horizontal]/carousel:rtl:rotate-180" />
-        </span>
-      )}
+      {resolvedChildren() ?? <ChevronRightIcon class={iconClass} />}
     </CarouselPrimitive.NextTrigger>
   );
 }
@@ -147,7 +133,7 @@ function CarouselIndicator(props: ComponentProps<typeof CarouselPrimitive.Indica
   return (
     <CarouselPrimitive.Indicator
       class={cn(
-        'size-2 cursor-pointer rounded-full border-0 bg-muted p-0 opacity-90 transition-[width,height,background-color,opacity] duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-current:w-6 data-current:bg-primary data-current:opacity-100 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-readonly:cursor-not-allowed data-readonly:opacity-50 data-[orientation=vertical]:data-current:h-6 data-[orientation=vertical]:data-current:w-2 motion-reduce:transition-none forced-colors:bg-[ButtonText] forced-colors:data-current:bg-[Highlight] [&:not(:disabled):not([data-disabled]):not([data-readonly]):not([data-current]):hover]:bg-muted-foreground',
+        'size-2 cursor-pointer rounded-full border-0 bg-muted-foreground/50 p-0 transition-[width,height,background-color] duration-fast focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-disabled data-current:w-6 data-current:bg-primary data-disabled:cursor-not-allowed data-disabled:opacity-disabled data-readonly:cursor-not-allowed data-readonly:opacity-disabled data-[orientation=vertical]:data-current:h-6 data-[orientation=vertical]:data-current:w-2 forced-colors:bg-[ButtonText] forced-colors:data-current:bg-[Highlight] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):not([data-readonly]):not([data-current]):hover]:bg-muted-foreground',
         local.class,
       )}
       {...others}
@@ -170,9 +156,9 @@ function CarouselIndicators(props: CarouselIndicatorsProps) {
     <CarouselPrimitive.Context>
       {(api) => (
         <CarouselIndicatorGroup class={local.class} {...others}>
-          <For each={api().pageSnapPoints}>
-            {(_, index) => <CarouselIndicator index={index()} class={local.indicatorClassName} />}
-          </For>
+          <Index each={api().pageSnapPoints}>
+            {(_, index) => <CarouselIndicator index={index} class={local.indicatorClassName} />}
+          </Index>
         </CarouselIndicatorGroup>
       )}
     </CarouselPrimitive.Context>
@@ -184,10 +170,7 @@ function CarouselAutoplayTrigger(props: ComponentProps<typeof CarouselPrimitive.
 
   return (
     <CarouselPrimitive.AutoplayTrigger
-      class={cn(
-        'inline-flex size-control-md min-w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm outline-0 transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:border-ring data-pressed:bg-accent data-pressed:text-accent-foreground motion-reduce:transition-none [&_svg]:size-4 [&:not(:disabled):not([data-disabled]):hover]:border-ring [&:not(:disabled):not([data-disabled]):hover]:bg-accent [&:not(:disabled):not([data-disabled]):hover]:text-accent-foreground [&:not(:disabled):not([data-disabled]):hover]:shadow-md',
-        local.class,
-      )}
+      class={cn(triggerClass, 'h-control-md min-w-control-md px-2', local.class)}
       {...others}
       data-slot="carousel-autoplay-trigger"
     />
@@ -201,10 +184,7 @@ function CarouselAutoplayIndicator(
 
   return (
     <CarouselPrimitive.AutoplayIndicator
-      class={cn(
-        'inline-flex min-w-4 items-center justify-center text-xs font-medium uppercase',
-        local.class,
-      )}
+      class={cn('text-xs font-medium', local.class)}
       {...others}
       data-slot="carousel-autoplay-indicator"
     />

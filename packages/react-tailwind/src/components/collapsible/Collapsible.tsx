@@ -18,10 +18,7 @@ const Collapsible = forwardRef<
   return (
     <CollapsiblePrimitive.Root
       ref={ref}
-      className={cn(
-        'box-border flex w-full max-w-full min-w-0 flex-col text-foreground',
-        className,
-      )}
+      className={cn('flex w-full min-w-0 flex-col text-foreground', className)}
       {...props}
       data-slot="collapsible-root"
     />
@@ -35,10 +32,7 @@ const CollapsibleRootProvider = forwardRef<
   return (
     <CollapsiblePrimitive.RootProvider
       ref={ref}
-      className={cn(
-        'box-border flex w-full max-w-full min-w-0 flex-col text-foreground',
-        className,
-      )}
+      className={cn('flex w-full min-w-0 flex-col text-foreground', className)}
       {...props}
       data-slot="collapsible-root-provider"
     />
@@ -55,7 +49,7 @@ const CollapsibleTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'box-border flex w-full cursor-pointer items-center justify-between gap-2 bg-transparent px-0 py-1 text-start text-sm outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none',
+          'flex w-full cursor-pointer items-center justify-between gap-2 bg-transparent px-0 py-1 text-start text-sm outline-0 select-none focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled data-disabled:cursor-default data-disabled:opacity-disabled',
         className,
       )}
       {...props}
@@ -72,7 +66,7 @@ const CollapsibleIndicator = forwardRef<
     <CollapsiblePrimitive.Indicator
       ref={ref}
       className={cn(
-        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-disabled:opacity-50 data-[state=open]:rotate-180 motion-reduce:transition-none [&_svg]:size-full',
+        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-normal data-[state=open]:rotate-180 [&_svg]:size-full',
         className,
       )}
       {...props}
@@ -91,7 +85,7 @@ const CollapsibleContent = forwardRef<
     <CollapsiblePrimitive.Content
       ref={ref}
       className={cn(
-        'box-border overflow-hidden text-sm text-muted-foreground data-[state=closed]:animate-moduix-collapsible-closed data-[has-collapsed-size]:data-[state=closed]:animate-moduix-collapsible-closed-partial data-[state=open]:animate-moduix-collapsible-open data-[has-collapsed-size]:data-[state=open]:animate-moduix-collapsible-open-partial motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
+        'overflow-hidden text-sm text-muted-foreground data-[state=closed]:animate-moduix-collapsible-closed data-[has-collapsed-size]:data-[state=closed]:animate-moduix-collapsible-closed-partial data-[state=open]:animate-moduix-collapsible-open data-[has-collapsed-size]:data-[state=open]:animate-moduix-collapsible-open-partial motion-reduce:data-[state]:animate-none motion-reduce:data-[has-collapsed-size]:data-[state]:animate-none',
         className,
       )}
       {...props}
@@ -107,6 +101,8 @@ const CollapsibleBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'d
         ref={ref}
         className={cn('grid min-w-0 gap-2', className)}
         {...props}
+        data-scope="collapsible"
+        data-part="body"
         data-slot="collapsible-body"
       />
     );
@@ -126,3 +122,16 @@ export {
   useCollapsible,
   useCollapsibleContext,
 };
+
+export type {
+  CollapsibleContentProps,
+  CollapsibleContextProps,
+  CollapsibleIndicatorProps,
+  CollapsibleOpenChangeDetails,
+  CollapsibleRootProps,
+  CollapsibleRootProviderProps,
+  CollapsibleTriggerProps,
+  UseCollapsibleContext,
+  UseCollapsibleProps,
+  UseCollapsibleReturn,
+} from '@ark-ui/react/collapsible';

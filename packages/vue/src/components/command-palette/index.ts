@@ -1,6 +1,5 @@
 export { default as CommandPalette } from './CommandPalette.vue';
 export { default as CommandPaletteBackdrop } from './CommandPaletteBackdrop.vue';
-export { default as CommandPaletteBody } from './CommandPaletteBody.vue';
 export { default as CommandPaletteClearTrigger } from './CommandPaletteClearTrigger.vue';
 export { default as CommandPaletteCombobox } from './CommandPaletteCombobox.vue';
 export { default as CommandPaletteContent } from './CommandPaletteContent.vue';
@@ -28,3 +27,6 @@ export { default as CommandPaletteSearch } from './CommandPaletteSearch.vue';
 export { default as CommandPaletteSeparator } from './CommandPaletteSeparator.vue';
 export { default as CommandPaletteTitle } from './CommandPaletteTitle.vue';
 export { default as CommandPaletteTrigger } from './CommandPaletteTrigger.vue';
+
+export type { Props as CommandPaletteRootProps } from './CommandPalette.vue';
+export type { Props as CommandPaletteRootProviderProps } from './CommandPaletteRootProvider.vue';

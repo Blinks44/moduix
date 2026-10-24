@@ -62,5 +62,6 @@ paths. `PopoverCloseIcon` composes `CloseButton` through the same native render-
 contract and defaults its accessible label to `Close popover`.
 
 `PopoverArrow` renders `PopoverArrowTip` when no child is supplied. `PopoverHeader`, `PopoverBody`, and `PopoverFooter`
-are plain layout helpers. When `PopoverBody` is a direct child of `PopoverContent`, it becomes the scroll region
-when the popup reaches its available height.
+are layout helpers. `PopoverBody` is spaced from a preceding `PopoverHeader`; as a direct child of
+`PopoverContent` it becomes the scroll region when the popup reaches its available height. CSS Modules
+have no `--moduix-popover-*` variables; override styles with a class on the part.

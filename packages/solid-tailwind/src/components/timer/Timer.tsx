@@ -3,18 +3,13 @@ import type { ComponentProps, JSX } from 'solid-js';
 import { Index, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
+const rootClass = 'inline-grid w-max max-w-full place-items-center gap-3 text-foreground';
+
 function Timer(props: ComponentProps<typeof TimerPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <TimerPrimitive.Root
-      class={cn(
-        'inline-grid w-max max-w-full place-items-center gap-3 text-foreground',
-        local.class,
-      )}
-      {...others}
-      data-slot="timer-root"
-    />
+    <TimerPrimitive.Root class={cn(rootClass, local.class)} {...others} data-slot="timer-root" />
   );
 }
 
@@ -23,10 +18,7 @@ function TimerRootProvider(props: ComponentProps<typeof TimerPrimitive.RootProvi
 
   return (
     <TimerPrimitive.RootProvider
-      class={cn(
-        'inline-grid w-max max-w-full place-items-center gap-3 text-foreground',
-        local.class,
-      )}
+      class={cn(rootClass, local.class)}
       {...others}
       data-slot="timer-root-provider"
     />
@@ -39,7 +31,7 @@ function TimerArea(props: ComponentProps<typeof TimerPrimitive.Area>) {
   return (
     <TimerPrimitive.Area
       class={cn(
-        'inline-flex max-w-full min-w-0 flex-wrap items-baseline justify-center gap-1 text-2xl leading-5 font-semibold tracking-normal tabular-nums',
+        'inline-flex max-w-full min-w-0 flex-wrap items-baseline justify-center gap-1 text-2xl font-semibold tabular-nums',
         local.class,
       )}
       {...others}
@@ -90,7 +82,7 @@ function TimerActionTrigger(props: ComponentProps<typeof TimerPrimitive.ActionTr
   return (
     <TimerPrimitive.ActionTrigger
       class={cn(
-        'inline-flex min-h-control-md cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition-[background-color,border-color,color,opacity,box-shadow] duration-200 ease-in-out focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:cursor-default aria-disabled:opacity-50 motion-reduce:transition-none [&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
+        'inline-flex min-h-control-md cursor-pointer appearance-none items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 font-medium whitespace-nowrap text-foreground transition-[background-color] duration-normal ease-in-out focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:cursor-default disabled:opacity-disabled [&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
         local.class,
       )}
       {...others}
@@ -99,29 +91,31 @@ function TimerActionTrigger(props: ComponentProps<typeof TimerPrimitive.ActionTr
   );
 }
 
+type TimerItemType = ComponentProps<typeof TimerPrimitive.Item>['type'];
 type TimerSegmentsProps = Omit<
   ComponentProps<typeof TimerPrimitive.Area>,
   'asChild' | 'children'
 > & {
   separator?: JSX.Element;
-  types?: ComponentProps<typeof TimerPrimitive.Item>['type'][];
+  types?: TimerItemType[];
 };
+type TimerTickDetails = Parameters<
+  NonNullable<ComponentProps<typeof TimerPrimitive.Root>['onTick']>
+>[0];
 
-const defaultTimerSegmentTypes = ['hours', 'minutes', 'seconds'] satisfies ComponentProps<
-  typeof TimerPrimitive.Item
->['type'][];
+const defaultTimerSegmentTypes: TimerItemType[] = ['hours', 'minutes', 'seconds'];
 
 function TimerSegments(props: TimerSegmentsProps) {
   const [local, others] = splitProps(props, ['separator', 'types']);
-  const segmentTypes = () => local.types ?? defaultTimerSegmentTypes;
+  const types = () => local.types ?? defaultTimerSegmentTypes;
 
   return (
     <TimerArea {...others}>
-      <Index each={segmentTypes()}>
+      <Index each={types()}>
         {(type, index) => (
           <>
             <TimerItem type={type()} />
-            {index < segmentTypes().length - 1 && (
+            {index < types().length - 1 && (
               <TimerSeparator>{local.separator ?? ':'}</TimerSeparator>
             )}
           </>
@@ -143,7 +137,21 @@ export {
   TimerRootProvider,
   TimerSegments,
   TimerSeparator,
-  type TimerSegmentsProps,
   useTimer,
   useTimerContext,
 };
+
+export type {
+  TimerActionTriggerProps,
+  TimerAreaProps,
+  TimerContextProps,
+  TimerControlProps,
+  TimerItemProps,
+  TimerRootProps,
+  TimerRootProviderProps,
+  TimerSeparatorProps,
+  UseTimerContext,
+  UseTimerProps,
+  UseTimerReturn,
+} from '@ark-ui/solid/timer';
+export type { TimerSegmentsProps, TimerTickDetails };

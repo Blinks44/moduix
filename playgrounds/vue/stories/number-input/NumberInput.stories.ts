@@ -16,6 +16,7 @@ type Scenario =
   | 'basic'
   | 'controlled'
   | 'min-max-and-step'
+  | 'sizes'
   | 'fraction-digits'
   | 'scrubber'
   | 'mouse-wheel'
@@ -34,6 +35,7 @@ function renderScenario(scenario: Scenario) {
 export const Basic: Story = { render: renderScenario('basic') };
 export const Controlled: Story = { render: renderScenario('controlled') };
 export const MinMaxAndStep: Story = { render: renderScenario('min-max-and-step') };
+export const Sizes: Story = { render: renderScenario('sizes') };
 export const FractionDigits: Story = { render: renderScenario('fraction-digits') };
 export const Scrubber: Story = { render: renderScenario('scrubber') };
 export const MouseWheel: Story = { render: renderScenario('mouse-wheel') };

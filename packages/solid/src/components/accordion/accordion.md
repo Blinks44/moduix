@@ -15,9 +15,9 @@ The flat API is `Accordion`, `AccordionRootProvider`, `AccordionItem`, `Accordio
 ## Preservation notes
 
 - Keep Ark lazy mounting, item state, and `--height` / `--width` content measurements intact.
-- `AccordionItemIndicator` defaults to `PlusIcon`; `AccordionItemBody` owns inner spacing.
+- `AccordionItemIndicator` defaults to `ChevronDownIcon` and turns it 180deg while open; `AccordionItemBody` owns inner spacing.
 - Preserve Solid accessors, native children, and the `class` prop.
 
 ## Styling and accessibility
 
-Parts expose `data-slot` hooks and Ark state attributes. Keep trigger focus behavior and reduced-motion handling, including the short exit lifecycle animation.
+Parts expose `data-slot` hooks and Ark state attributes. Keep trigger focus behavior and reduced-motion handling: content animation is `animation: none`, and Ark presence completes the exit at once. Wrap each trigger in a heading element, as the React notes and docs describe. The full contract lives in `packages/react/src/components/accordion/accordion.md`.

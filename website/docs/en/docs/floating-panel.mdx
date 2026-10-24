@@ -4,41 +4,6 @@ component: floating-panel
 description: A non-modal Ark UI window for content users can drag, resize, minimize, and maximize.
 ---
 
-import * as FloatingPanelDocs from '@/components/examples/floating-panel/css-properties';
-import FloatingPanelAdvancedCustomization from '@/components/examples/floating-panel/advanced-customization.tsx';
-import FloatingPanelAnchorPosition from '@/components/examples/floating-panel/anchor-position.tsx';
-import FloatingPanelBasic from '@/components/examples/floating-panel/basic.tsx';
-import FloatingPanelBoundary from '@/components/examples/floating-panel/boundary.tsx';
-import FloatingPanelContext from '@/components/examples/floating-panel/context.tsx';
-import FloatingPanelControlledOpen from '@/components/examples/floating-panel/controlled-open.tsx';
-import FloatingPanelControlledPosition from '@/components/examples/floating-panel/controlled-position.tsx';
-import FloatingPanelControlledSize from '@/components/examples/floating-panel/controlled-size.tsx';
-import FloatingPanelEscapeDismiss from '@/components/examples/floating-panel/escape-dismiss.tsx';
-import FloatingPanelLazyMount from '@/components/examples/floating-panel/lazy-mount.tsx';
-import FloatingPanelRootProvider from '@/components/examples/floating-panel/root-provider.tsx';
-import floatingPanelSolidAdvancedCustomization from '../../../snippets/floating-panel/solid/advanced-customization.tsx?raw';
-import floatingPanelSolidAnchorPosition from '../../../snippets/floating-panel/solid/anchor-position.tsx?raw';
-import floatingPanelSolidBasic from '../../../snippets/floating-panel/solid/basic.tsx?raw';
-import floatingPanelSolidBoundary from '../../../snippets/floating-panel/solid/boundary.tsx?raw';
-import floatingPanelSolidContext from '../../../snippets/floating-panel/solid/context.tsx?raw';
-import floatingPanelSolidControlledOpen from '../../../snippets/floating-panel/solid/controlled-open.tsx?raw';
-import floatingPanelSolidControlledPosition from '../../../snippets/floating-panel/solid/controlled-position.tsx?raw';
-import floatingPanelSolidControlledSize from '../../../snippets/floating-panel/solid/controlled-size.tsx?raw';
-import floatingPanelSolidEscapeDismiss from '../../../snippets/floating-panel/solid/escape-dismiss.tsx?raw';
-import floatingPanelSolidLazyMount from '../../../snippets/floating-panel/solid/lazy-mount.tsx?raw';
-import floatingPanelSolidRootProvider from '../../../snippets/floating-panel/solid/root-provider.tsx?raw';
-import floatingPanelVueAdvancedCustomization from '../../../snippets/floating-panel/vue/advanced-customization.vue?raw';
-import floatingPanelVueAnchorPosition from '../../../snippets/floating-panel/vue/anchor-position.vue?raw';
-import floatingPanelVueBasic from '../../../snippets/floating-panel/vue/basic.vue?raw';
-import floatingPanelVueBoundary from '../../../snippets/floating-panel/vue/boundary.vue?raw';
-import floatingPanelVueContext from '../../../snippets/floating-panel/vue/context.vue?raw';
-import floatingPanelVueControlledOpen from '../../../snippets/floating-panel/vue/controlled-open.vue?raw';
-import floatingPanelVueControlledPosition from '../../../snippets/floating-panel/vue/controlled-position.vue?raw';
-import floatingPanelVueControlledSize from '../../../snippets/floating-panel/vue/controlled-size.vue?raw';
-import floatingPanelVueEscapeDismiss from '../../../snippets/floating-panel/vue/escape-dismiss.vue?raw';
-import floatingPanelVueLazyMount from '../../../snippets/floating-panel/vue/lazy-mount.vue?raw';
-import floatingPanelVueRootProvider from '../../../snippets/floating-panel/vue/root-provider.vue?raw';
-
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/floating-panel" />
@@ -59,41 +24,7 @@ handle, and `FloatingPanelResizeTriggerGroup` adds the resize handles around the
 React, Solid, and Vue use the same flat component names. In Vue, compose the parts with slots and
 use `v-model` when the open, position, or size state is controlled.
 
-<ExampleFrame variant="component">
-  <FloatingPanelBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/floating-panel/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={floatingPanelSolidBasic} />
-
-    </Tab>
-
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={floatingPanelVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="floating-panel/basic" />
 
 ## Install with shadcn
 
@@ -192,71 +123,14 @@ form of this prop.
 
 Use `getAnchorPosition` to calculate the panel's initial position from the trigger rectangle.
 
-<ExampleFrame variant="component">
-  <FloatingPanelAnchorPosition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/floating-panel/anchor-position.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={floatingPanelSolidAnchorPosition} />
-
-    </Tab>
-
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={floatingPanelVueAnchorPosition} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="floating-panel/anchor-position" />
 
 ### Boundary
 
 Set `allowOverflow={false}` with `getBoundaryEl` to keep the panel inside a specific container while
 it is being dragged.
 
-<ExampleFrame variant="component">
-  <FloatingPanelBoundary />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/floating-panel/boundary.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={floatingPanelSolidBoundary} />
-
-    </Tab>
-
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={floatingPanelVueBoundary} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/floating-panel/floating-panel-boundary.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="floating-panel/boundary" />
 
 ### Context
 
@@ -264,286 +138,69 @@ Use `FloatingPanelContext` or `useFloatingPanelContext` to read panel state and 
 component tree. Vue receives the context value through its scoped slot, while Solid exposes it as
 an accessor.
 
-<ExampleFrame variant="component">
-  <FloatingPanelContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/floating-panel/context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={floatingPanelSolidContext} />
-
-    </Tab>
-
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={floatingPanelVueContext} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="floating-panel/context" />
 
 ### Controlled Open
 
 Use `open` with `onOpenChange` when application state should control the panel's visibility.
 
-<ExampleFrame variant="component">
-  <FloatingPanelControlledOpen />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/floating-panel/controlled-open.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={floatingPanelSolidControlledOpen} />
-
-    </Tab>
-
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={floatingPanelVueControlledOpen} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="floating-panel/controlled-open" />
 
 ### Controlled Position
 
 Control `position` when another part of the application needs the panel's current coordinates.
 
-<ExampleFrame variant="component">
-  <FloatingPanelControlledPosition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/floating-panel/controlled-position.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={floatingPanelSolidControlledPosition} />
-
-    </Tab>
-
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={floatingPanelVueControlledPosition} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="floating-panel/controlled-position" />
 
 ### Controlled Size
 
 Control `size` when the surrounding UI needs to store or display the panel's current dimensions.
 
-<ExampleFrame variant="component">
-  <FloatingPanelControlledSize />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/floating-panel/controlled-size.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={floatingPanelSolidControlledSize} />
-
-    </Tab>
-
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={floatingPanelVueControlledSize} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="floating-panel/controlled-size" />
 
 ### Escape Dismiss
 
 `closeOnEscape` is enabled by default. Add `autoFocus` to `FloatingPanelContent` when Escape should work
 immediately after the non-modal panel opens.
 
-<ExampleFrame variant="component">
-  <FloatingPanelEscapeDismiss />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/floating-panel/escape-dismiss.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={floatingPanelSolidEscapeDismiss} />
-
-    </Tab>
-
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={floatingPanelVueEscapeDismiss} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="floating-panel/escape-dismiss" />
 
 ### Lazy Mount
 
 Use `lazyMount` and `unmountOnExit` when content should mount on first open and be removed after the
 exit animation.
 
-<ExampleFrame variant="component">
-  <FloatingPanelLazyMount />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/floating-panel/lazy-mount.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={floatingPanelSolidLazyMount} />
-
-    </Tab>
-
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={floatingPanelVueLazyMount} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="floating-panel/lazy-mount" />
 
 ### FloatingPanelRootProvider
 
 Use `useFloatingPanel` with `FloatingPanelRootProvider` when controls outside the panel tree need
 methods such as `minimize`, `maximize`, and `setOpen`. The Solid store is read through an accessor.
 
-<ExampleFrame variant="component">
-  <FloatingPanelRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/floating-panel/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={floatingPanelSolidRootProvider} />
-
-    </Tab>
-
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={floatingPanelVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="floating-panel/root-provider" />
 
 ### Advanced Customization
 
 Use individual `FloatingPanelResizeTrigger` parts when each resize axis needs its own placement or styling.
 
-<ExampleFrame variant="component">
-  <FloatingPanelAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/floating-panel/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={floatingPanelSolidAdvancedCustomization} />
-
-    </Tab>
-
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={floatingPanelVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="floating-panel/advanced-customization" />
 
 ## Styling
 
-### CSS Properties
+`FloatingPanelTrigger` is unstyled: compose it with `asChild` and a `Button`. The panel takes its
+size from Ark state, so set `defaultSize`, `minSize`, and `maxSize` on the root instead of CSS sizes
+on `FloatingPanelContent`. Content motion reads the shared `--moduix-popup-motion-*` variables.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div>
-        <FloatingPanelDocs.FloatingPanelCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on exported parts. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and have no component
+variables: a class on the part overrides the layered component styles.
 
 ### Styling hooks
 
 Ark parts retain `data-scope="floating-panel"` and their `data-part` values. moduix adds
 `data-slot="floating-panel-*"` to rendered wrappers. Use `data-state="open|closed"`, `data-dragging`,
 `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`, `data-maximized`,
-`data-staged`, and `data-axis` for state-aware styling on the relevant parts.
+`data-staged`, and `data-axis` for state-aware styling on the relevant parts. `FloatingPanelFooter`
+mirrors `data-minimized` from the content.
 
-`FloatingPanelPositioner` exposes `--width`, `--height`, `--x`, `--y`, `--reference-width`, `--reference-height`,
-`--available-width`, `--available-height`, `--z-index`, and `--transform-origin`. Keep sizing and
-transform logic in Ark's runtime variables instead of duplicating measurements in application code.
+`FloatingPanelPositioner` exposes Ark's `--width`, `--height`, `--x`, `--y`, and `--z-index`.

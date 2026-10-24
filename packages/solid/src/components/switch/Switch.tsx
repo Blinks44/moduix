@@ -13,11 +13,10 @@ type SwitchRootProviderProps = ComponentProps<typeof SwitchPrimitive.RootProvide
 };
 
 function Switch(props: SwitchRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <SwitchPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-size={local.size ?? 'md'}
@@ -29,11 +28,10 @@ function Switch(props: SwitchRootProps) {
 }
 
 function SwitchRootProvider(props: SwitchRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class', 'size']);
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <SwitchPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-size={local.size ?? 'md'}
@@ -97,4 +95,15 @@ export {
   useSwitch,
   useSwitchContext,
 };
+export type {
+  SwitchCheckedChangeDetails,
+  SwitchContextProps,
+  SwitchControlProps,
+  SwitchHiddenInputProps,
+  SwitchLabelProps,
+  SwitchThumbProps,
+  UseSwitchContext,
+  UseSwitchProps,
+  UseSwitchReturn,
+} from '@ark-ui/solid/switch';
 export type { SwitchRootProps, SwitchRootProviderProps, SwitchSize };

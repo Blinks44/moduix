@@ -4,10 +4,9 @@ import type { CheckboxRootProviderProps } from '@ark-ui/vue/checkbox';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import type { CheckboxSize } from './Checkbox.vue';
 
 defineOptions({ inheritAttrs: false });
-
-type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface Props extends /* @vue-ignore */ CheckboxRootProviderProps {
   class?: HTMLAttributes['class'];
@@ -26,7 +25,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
+        'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
         className,
       )
     "

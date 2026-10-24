@@ -1,6 +1,6 @@
 .root {
   width: min(14rem, 100%);
-  --moduix-marquee-vertical-height: 18rem;
+  height: 18rem;
 }
 
 .item {

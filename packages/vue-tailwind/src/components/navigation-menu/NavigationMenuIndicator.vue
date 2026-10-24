@@ -16,7 +16,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const indicatorClass =
-  'pointer-events-none absolute start-0 -top-2.5 flex h-2.5 w-[var(--trigger-width,0px)] [translate:var(--trigger-x,0px)_0] justify-center transition-[translate,inline-size] duration-200 ease-in-out data-[state=closed]:opacity-0 data-[state=open]:opacity-100 motion-reduce:transition-none';
+  'pointer-events-none absolute -bottom-2.5 left-0 z-61 flex h-2.5 w-[var(--trigger-width,0px)] [translate:var(--trigger-x,0px)_0] justify-center transition-[translate,width] duration-normal ease-in-out data-[state=closed]:animate-[moduix-fade-out_var(--moduix-transition-default)_forwards] data-[state=open]:animate-[moduix-fade-in_var(--moduix-transition-default)] motion-reduce:data-[state]:animate-none';
 </script>
 
 <template>

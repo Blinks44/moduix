@@ -19,6 +19,12 @@ Ark UI has no dedicated visual list primitive. This component uses the Ark Solid
   and `type`.
 - `ListItem` renders a semantic `li` and forwards native item props and refs.
 - `gap`, `size`, `tone`, and `marker` control the moduix styling hooks.
+- `marker` defaults from `as`: `disc` for `ul`, `decimal` for `ol`. With `asChild`, pass `marker` to match the
+  child. The native `type` attribute does not change markers; use a class.
+- A nested `List` inside a `ListItem` starts one gap below the item text.
+- `ListIndicator` renders a `span` for an icon instead of the native marker; use it with `marker="none"`. Its item
+  becomes a flex row so long text wraps beside the icon.
+- Exported types: `ListRootProps`, `ListElement`, `ListMarker`, `ListGap`, `ListSize`, `ListTone`.
 - `marker="none"` keeps list semantics with a default `role="list"` unless a custom role is supplied.
 - Component-owned `data-scope`, `data-part`, `data-slot`, and styling data hooks override colliding
   consumer values.
@@ -66,8 +72,8 @@ Native list semantics come from the rendered `ul`, `ol`, and `li` elements. The 
 - `data-gap`, `data-marker`, `data-size`, and `data-tone`
 
 Items emit `data-scope="list"`, `data-part="item"`, and `data-slot="list-item"`. The CSS module is
-identical to the React component and uses native `::marker` styling and the public
-`--moduix-list-*` variables.
+identical to the React component, reads foundation tokens directly, and has no `--moduix-list-*` variables;
+override it with a class on the root and style markers with `li::marker`.
 
 ## Differences from upstream
 

@@ -1,123 +1,62 @@
 @layer moduix.components {
   .root {
-    --_card-padding-default: var(
-      --moduix-card-spacing,
-      var(--moduix-card-padding, var(--moduix-spacing-6))
-    );
-    --_card-section-spacing-default: var(
-      --moduix-card-spacing,
-      var(--moduix-card-body-padding-top, var(--moduix-spacing-4))
-    );
-    --_card-title-font-size-default: var(--moduix-card-title-font-size, var(--moduix-text-lg));
-    --_card-title-line-height-default: var(
-      --moduix-card-title-line-height,
-      var(--moduix-line-height-text-lg)
-    );
+    --_card-spacing: var(--moduix-spacing-6);
+    --_card-radius: var(--moduix-card-radius, var(--moduix-radius-lg));
+    --_card-bg: var(--moduix-color-card);
+    --_card-border-width: var(--moduix-border-width-sm);
+    --_card-shadow: none;
+    --_card-title-font-size: var(--moduix-text-lg);
+    --_card-title-line-height: var(--moduix-line-height-text-lg);
 
     position: relative;
     display: flex;
     width: 100%;
     min-width: 0;
     flex-direction: column;
-    border: var(
-        --moduix-card-border-width,
-        var(--_card-border-width-default, var(--moduix-border-width-sm))
-      )
-      solid
-      var(--moduix-card-border-color, var(--_card-border-color-default, var(--moduix-color-border)));
-    border-radius: var(--moduix-card-radius, var(--moduix-radius-lg));
-    background-color: var(--moduix-card-bg, var(--_card-bg-default, var(--moduix-color-card)));
-    color: var(
-      --moduix-card-color,
-      var(--_card-color-default, var(--moduix-color-card-foreground))
-    );
-    box-shadow: var(--moduix-card-shadow, var(--_card-shadow-default, none));
+    border: var(--moduix-card-border-width, var(--_card-border-width)) solid
+      var(--moduix-card-border-color, var(--moduix-color-border));
+    border-radius: var(--_card-radius);
+    background-color: var(--moduix-card-bg, var(--_card-bg));
+    color: var(--moduix-card-color, var(--moduix-color-card-foreground));
+    box-shadow: var(--moduix-card-shadow, var(--_card-shadow));
 
     &:where(a) {
       text-decoration: none;
     }
 
-    &:is(a, button, [role='button'], [tabindex]:not([tabindex='-1'])):focus-visible {
-      outline: var(
-          --moduix-card-focus-ring-width,
-          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
-        )
-        solid var(--moduix-card-focus-ring-color, var(--moduix-color-ring));
-      outline-offset: var(--moduix-card-focus-ring-offset, var(--moduix-border-width-sm));
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline-offset: var(--moduix-border-width-sm);
     }
 
     &[data-size='sm'] {
-      --_card-padding-default: var(
-        --moduix-card-spacing-sm,
-        var(--moduix-card-spacing, var(--moduix-card-padding-sm, var(--moduix-spacing-4)))
-      );
-      --_card-section-spacing-default: var(
-        --moduix-card-spacing-sm,
-        var(--moduix-card-spacing, var(--moduix-card-body-padding-top, var(--moduix-spacing-4)))
-      );
-      --_card-title-font-size-default: var(--moduix-card-title-font-size-sm, var(--moduix-text-md));
-      --_card-title-line-height-default: var(
-        --moduix-card-title-line-height-sm,
-        var(--moduix-line-height-text-md)
-      );
+      --_card-spacing: var(--moduix-spacing-4);
+      --_card-title-font-size: var(--moduix-text-md);
+      --_card-title-line-height: var(--moduix-line-height-text-md);
     }
 
     &[data-size='lg'] {
-      --_card-padding-default: var(
-        --moduix-card-spacing-lg,
-        var(--moduix-card-spacing, var(--moduix-card-padding-lg, var(--moduix-spacing-8)))
-      );
-      --_card-section-spacing-default: var(
-        --moduix-card-spacing-lg,
-        var(--moduix-card-spacing, var(--moduix-card-body-padding-top, var(--moduix-spacing-4)))
-      );
-      --_card-title-font-size-default: var(--moduix-card-title-font-size-lg, var(--moduix-text-xl));
-      --_card-title-line-height-default: var(
-        --moduix-card-title-line-height-lg,
-        var(--moduix-line-height-text-xl)
-      );
+      --_card-spacing: var(--moduix-spacing-8);
+      --_card-title-font-size: var(--moduix-text-xl);
+      --_card-title-line-height: var(--moduix-line-height-text-xl);
     }
 
     &[data-variant='elevated'] {
-      --_card-bg-default: var(--moduix-card-elevated-bg, var(--moduix-color-card));
-      --_card-border-color-default: var(--moduix-card-elevated-border-color, transparent);
-      --_card-border-width-default: var(--moduix-card-elevated-border-width, 0);
-      --_card-color-default: var(--moduix-card-elevated-color, var(--moduix-color-card-foreground));
-      --_card-shadow-default: var(--moduix-card-elevated-shadow, var(--moduix-shadow-md));
-    }
-
-    &[data-variant='outline'] {
-      --_card-bg-default: var(--moduix-card-outline-bg, var(--moduix-color-card));
-      --_card-border-color-default: var(
-        --moduix-card-outline-border-color,
-        var(--moduix-color-border)
-      );
-      --_card-border-width-default: var(
-        --moduix-card-outline-border-width,
-        var(--moduix-border-width-sm)
-      );
-      --_card-color-default: var(--moduix-card-outline-color, var(--moduix-color-card-foreground));
-      --_card-shadow-default: var(--moduix-card-outline-shadow, none);
+      --_card-border-width: 0;
+      --_card-shadow: var(--moduix-shadow-md);
     }
 
     &[data-variant='subtle'] {
-      --_card-bg-default: var(--moduix-card-subtle-bg, var(--moduix-color-muted));
-      --_card-border-color-default: var(--moduix-card-subtle-border-color, transparent);
-      --_card-border-width-default: var(--moduix-card-subtle-border-width, 0);
-      --_card-color-default: var(--moduix-card-subtle-color, var(--moduix-color-card-foreground));
-      --_card-shadow-default: var(--moduix-card-subtle-shadow, none);
+      --_card-bg: var(--moduix-color-muted);
+      --_card-border-width: 0;
     }
 
-    &:has(> [data-scope='card'][data-part='background']) {
+    &:has(> .background) {
       isolation: isolate;
     }
 
-    &:has(> [data-scope='card'][data-part='background'])
-      > :not([data-scope='card'][data-part='background']) {
-      z-index: 1;
-    }
-
-    &:has([data-scope='card'][data-part='link'])
+    /* Keep nested controls above the stretched CardLink target. */
+    &:has(.link)
       :where(
         a,
         button,
@@ -134,7 +73,7 @@
         [role='menuitem'],
         [role='switch'],
         [tabindex]:not([tabindex='-1'])
-      ):not([data-scope='card'][data-part='link']) {
+      ):not(.link) {
       position: relative;
       z-index: 1;
     }
@@ -144,15 +83,31 @@
   .body,
   .footer {
     min-width: 0;
-    padding-inline: var(--_card-padding-default);
+    padding: var(--moduix-card-spacing, var(--_card-spacing));
+    padding-block-end: 0;
+
+    &:last-child {
+      padding-block-end: var(--moduix-card-spacing, var(--_card-spacing));
+    }
   }
 
   .header {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: var(--moduix-card-action-gap, var(--moduix-spacing-2));
-    row-gap: var(--moduix-card-header-gap, var(--moduix-spacing-1));
-    padding-block: var(--_card-padding-default) 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--moduix-spacing-1) var(--moduix-spacing-2);
+  }
+
+  .body {
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    overflow-wrap: anywhere;
+  }
+
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
   }
 
   .media {
@@ -165,68 +120,38 @@
     & > picture > img {
       display: block;
       width: 100%;
-      max-width: 100%;
     }
   }
 
   .background {
     position: absolute;
-    z-index: 0;
+    z-index: -1;
     inset: 0;
     overflow: hidden;
     border-radius: inherit;
 
-    & > :where(img, video, canvas, svg, iframe),
+    & > :where(img, picture, video, canvas, svg, iframe),
     & > picture > img {
       display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-
-    & > picture {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .body {
-    padding-block: var(--_card-section-spacing-default) var(--_card-padding-default);
-    color: var(--moduix-card-body-color, var(--moduix-color-muted-foreground));
-    font-size: var(--moduix-card-body-font-size, var(--moduix-text-sm));
-    line-height: var(--moduix-card-body-line-height, var(--moduix-line-height-text-sm));
-    overflow-wrap: anywhere;
-
-    &:first-child {
-      padding-block-start: var(--_card-padding-default);
-    }
-  }
-
-  .footer {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--moduix-card-footer-gap, var(--moduix-spacing-2));
-    padding-block: 0 var(--_card-padding-default);
   }
 
   .title {
-    grid-column: 1;
     min-width: 0;
-    color: var(--moduix-card-title-color, currentColor);
-    font-size: var(--_card-title-font-size-default);
-    font-weight: var(--moduix-card-title-font-weight, var(--moduix-weight-semibold));
-    line-height: var(--_card-title-line-height-default);
+    font-size: var(--_card-title-font-size);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--_card-title-line-height);
     overflow-wrap: anywhere;
   }
 
   .description {
-    grid-column: 1;
     min-width: 0;
-    color: var(--moduix-card-description-color, var(--moduix-color-muted-foreground));
-    font-size: var(--moduix-card-description-font-size, var(--moduix-text-sm));
-    line-height: var(--moduix-card-description-line-height, var(--moduix-line-height-text-sm));
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     overflow-wrap: anywhere;
   }
 
@@ -238,21 +163,18 @@
     display: inline-flex;
     align-items: start;
     justify-content: flex-end;
-    gap: var(--moduix-card-action-gap, var(--moduix-spacing-2));
-    justify-self: end;
+    gap: var(--moduix-spacing-2);
   }
 
   .link {
-    position: static;
     color: inherit;
     text-decoration: none;
 
     &::after {
       content: '';
       position: absolute;
-      z-index: 0;
       inset: 0;
-      border-radius: var(--moduix-card-radius, var(--moduix-radius-lg));
+      border-radius: var(--_card-radius);
     }
 
     &:focus-visible {
@@ -260,12 +182,8 @@
     }
 
     &:focus-visible::after {
-      outline: var(
-          --moduix-card-focus-ring-width,
-          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
-        )
-        solid var(--moduix-card-focus-ring-color, var(--moduix-color-ring));
-      outline-offset: var(--moduix-card-focus-ring-offset, var(--moduix-border-width-sm));
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+      outline-offset: var(--moduix-border-width-sm);
     }
   }
 }

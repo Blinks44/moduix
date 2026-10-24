@@ -17,7 +17,6 @@ import {
   ColorPickerEyeDropperTrigger,
   ColorPickerSwatchGroup,
   ColorPickerSwatchTrigger,
-  ColorPickerTransparencyGrid,
   ColorPickerValueSwatch,
   ColorPickerValueText,
   ColorPickerView,
@@ -50,7 +49,6 @@ const colorPickerComponents = {
   ColorPickerEyeDropperTrigger,
   ColorPickerSwatchGroup,
   ColorPickerSwatchTrigger,
-  ColorPickerTransparencyGrid,
   ColorPickerValueSwatch,
   ColorPickerValueText,
   ColorPickerView,
@@ -69,6 +67,7 @@ const ColorPickerField = defineComponent({
     <ColorPickerLabel>Color</ColorPickerLabel>
     <ColorPickerControl>
       <ColorPickerChannelInput channel="hex" />
+      <ColorPickerChannelInput channel="alpha" />
       <ColorPickerTrigger
         aria-label="Open color picker"
         :class="triggerClassName"
@@ -130,13 +129,8 @@ const CompactTriggerPicker = defineComponent({
       <ColorPickerLabel>Color</ColorPickerLabel>
       <ColorPickerControl>
         <ColorPickerTrigger aria-label="Open color picker" data-fit-content>
-          <span class="inline-flex items-center gap-2">
-            <span class="relative grid size-4 shrink-0 overflow-hidden rounded-sm border border-border">
-              <ColorPickerTransparencyGrid />
-              <ColorPickerValueSwatch />
-            </span>
-            <ColorPickerValueText format="hex" />
-          </span>
+          <ColorPickerValueSwatch />
+          <ColorPickerValueText format="hex" />
         </ColorPickerTrigger>
       </ColorPickerControl>
       <ColorPickerPositioner>

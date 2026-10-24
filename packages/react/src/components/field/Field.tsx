@@ -63,48 +63,6 @@ const FieldLabel = forwardRef<
   );
 });
 
-const FieldInput = forwardRef<
-  ComponentRef<typeof FieldPrimitive.Input>,
-  ComponentProps<typeof FieldPrimitive.Input>
->(function FieldInput({ className, ...props }, ref) {
-  return (
-    <FieldPrimitive.Input
-      ref={ref}
-      className={clsx(styles.control, styles.input, className)}
-      {...props}
-      data-slot="field-input"
-    />
-  );
-});
-
-const FieldTextarea = forwardRef<
-  ComponentRef<typeof FieldPrimitive.Textarea>,
-  ComponentProps<typeof FieldPrimitive.Textarea>
->(function FieldTextarea({ className, ...props }, ref) {
-  return (
-    <FieldPrimitive.Textarea
-      ref={ref}
-      className={clsx(styles.control, styles.textarea, className)}
-      {...props}
-      data-slot="field-textarea"
-    />
-  );
-});
-
-const FieldSelect = forwardRef<
-  ComponentRef<typeof FieldPrimitive.Select>,
-  ComponentProps<typeof FieldPrimitive.Select>
->(function FieldSelect({ className, ...props }, ref) {
-  return (
-    <FieldPrimitive.Select
-      ref={ref}
-      className={clsx(styles.control, className)}
-      {...props}
-      data-slot="field-select"
-    />
-  );
-});
-
 const FieldHelperText = forwardRef<
   ComponentRef<typeof FieldPrimitive.HelperText>,
   ComponentProps<typeof FieldPrimitive.HelperText>
@@ -154,13 +112,23 @@ export {
   FieldContext,
   FieldErrorText,
   FieldHelperText,
-  FieldInput,
   FieldItem,
   FieldLabel,
   FieldRequiredIndicator,
   FieldRootProvider,
-  FieldSelect,
-  FieldTextarea,
   useField,
   useFieldContext,
 };
+
+export type {
+  FieldContextProps,
+  FieldErrorTextProps,
+  FieldHelperTextProps,
+  FieldLabelProps,
+  FieldRequiredIndicatorProps,
+  FieldRootProps,
+  FieldRootProviderProps,
+  UseFieldContext,
+  UseFieldProps,
+  UseFieldReturn,
+} from '@ark-ui/react/field';

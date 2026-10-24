@@ -114,6 +114,7 @@ test('preserves half steps, keyboard focus and mouse focus visibility', async ()
   await before.click();
   await before.press('Tab');
   await expect.element(items.nth(3)).toBeFocused();
+  expect(document.activeElement?.matches(':focus-visible')).toBe(true);
   await items.nth(3).press('ArrowLeft');
   await expect.element(items.nth(2)).toBeFocused();
   await items.nth(2).press('ArrowRight');
@@ -121,7 +122,7 @@ test('preserves half steps, keyboard focus and mouse focus visibility', async ()
   await expect.element(items.nth(3)).toHaveAttribute('data-half');
   await items.nth(2).click();
   await expect.element(items.nth(2)).toBeFocused();
-  await expect.element(items.nth(2)).not.toHaveAttribute('data-focus-visible');
+  expect(document.activeElement?.matches(':focus-visible')).toBe(false);
 });
 test('repeats custom indicators with Ark item state', async () => {
   render(
@@ -191,9 +192,7 @@ test('applies native utilities to component-owned visual parts', () => {
   const foregroundIcon = root.querySelector('[data-slot="rating-group-item-indicator-fg"]')!;
   const label = screen.getByText('Notifications');
 
-  expect([...root.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'flex-col', 'gap-1', 'text-muted-foreground']),
-  );
+  expect([...root.classList]).toEqual(expect.arrayContaining(['inline-flex', 'flex-col', 'gap-1']));
   expect([...label.classList]).toEqual(
     expect.arrayContaining(['text-sm', 'font-semibold', 'select-none']),
   );
@@ -201,29 +200,28 @@ test('applies native utilities to component-owned visual parts', () => {
     expect.arrayContaining(['inline-flex', 'items-center', 'gap-1']),
   );
   expect([...item!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'rounded-sm', 'outline-1', 'outline-transparent']),
+    expect.arrayContaining([
+      'inline-flex',
+      'rounded-sm',
+      'outline-focus-inset',
+      'outline-transparent',
+    ]),
   );
   expect([...indicator!.classList]).toEqual(
     expect.arrayContaining([
       'relative',
       'size-5',
       'text-primary',
-      '[&>svg]:transition-[color,fill,stroke,clip-path]',
-      '[&>svg]:duration-200',
+      '[&>svg]:transition-[color,fill,clip-path]',
+      '[&>svg]:duration-normal',
       '[&>svg]:ease-in-out',
     ]),
   );
   expect([...backgroundIcon.classList]).toEqual(
-    expect.arrayContaining(['absolute', 'inset-0', 'size-full', 'fill-transparent']),
+    expect.arrayContaining(['absolute', 'inset-0', 'fill-transparent']),
   );
   expect([...foregroundIcon.classList]).toEqual(
-    expect.arrayContaining([
-      'absolute',
-      'inset-0',
-      'size-full',
-      'fill-current',
-      '[clip-path:inset(0_0_0_0)]',
-    ]),
+    expect.arrayContaining(['absolute', 'inset-0', 'fill-current', '[clip-path:inset(0)]']),
   );
 });
 
@@ -256,4 +254,37 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   await expect
     .element(page.locator('[data-slot="rating-group-item-indicator"]').nth(0))
     .toHaveCSS('width', '28px');
+});
+test('colors the default filled star from the indicator color', () => {
+  render(
+    <RatingGroup defaultValue={1}>
+      <RatingGroupControl>
+        <RatingGroupItem index={1}>
+          <RatingGroupItemIndicator style={{ color: 'rgb(255, 0, 0)' }} />
+        </RatingGroupItem>
+      </RatingGroupControl>
+    </RatingGroup>,
+  );
+
+  const foregroundIcon = document.querySelector('[data-slot="rating-group-item-indicator-fg"]')!;
+
+  expect(getComputedStyle(foregroundIcon).color).toBe('rgb(255, 0, 0)');
+});
+
+test('clips the default star for half and empty items', async () => {
+  render(
+    <RatingGroup allowHalf count={3} defaultValue={1.5}>
+      <RatingGroupControl>
+        <RatingGroupItems />
+      </RatingGroupControl>
+    </RatingGroup>,
+  );
+
+  const foregroundIcons = document.querySelectorAll('[data-slot="rating-group-item-indicator-fg"]');
+
+  await expect
+    .poll(() => getComputedStyle(foregroundIcons[1]!).clipPath)
+    .toBe('inset(0px 50% 0px 0px)');
+  expect(getComputedStyle(foregroundIcons[0]!).clipPath).toBe('inset(0px)');
+  expect(getComputedStyle(foregroundIcons[2]!).clipPath).toBe('inset(0px 100% 0px 0px)');
 });

@@ -8,7 +8,6 @@ import {
   ListboxLabel,
   ListboxValueText,
 } from '@moduix/react/listbox';
-import styles from '@/components/examples/listbox/listbox-multiple.module.css';
 
 const days = createListCollection({
   items: [
@@ -45,12 +44,7 @@ const days = createListCollection({
 
 export default function MultipleListboxDemo() {
   return (
-    <Listbox
-      collection={days}
-      className={styles.root}
-      selectionMode="multiple"
-      defaultValue={['mon', 'wed', 'fri']}
-    >
+    <Listbox collection={days} selectionMode="multiple" defaultValue={['mon', 'wed', 'fri']}>
       <ListboxLabel>Select days</ListboxLabel>
       <ListboxContent>
         {days.items.map((item) => (

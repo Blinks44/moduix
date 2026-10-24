@@ -8,13 +8,16 @@ import styles from './RadioGroup.module.css';
 
 defineOptions({ inheritAttrs: false });
 
+export type RadioGroupSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 export interface Props extends /* @vue-ignore */ RadioGroupRootProps {
   class?: HTMLAttributes['class'];
+  size?: RadioGroupSize;
 }
 
 export interface Emits extends /* @vue-ignore */ RadioGroupRootEmits {}
 
-const { class: className } = defineProps<Props>();
+const { class: className, size = 'md' } = defineProps<Props>();
 defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
@@ -25,6 +28,7 @@ const attrs = useAttrs();
   <ArkRadioGroupRoot
     v-bind="attrs"
     :class="clsx(styles.root, className)"
+    :data-size="size"
     data-slot="radio-group-root"
   >
     <slot />

@@ -56,7 +56,7 @@ export default function TourWaitForInputDemo() {
         }}
       />
 
-      <Tour tour={tour} lazyMount unmountOnExit>
+      <Tour tour={tour}>
         <TourBackdrop />
         <TourSpotlight />
         <TourPositioner>

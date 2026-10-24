@@ -3,6 +3,7 @@ import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
 import {
+  Field,
   PasswordInput,
   PasswordInputControl,
   PasswordInputField,
@@ -177,4 +178,57 @@ test('renders the default Field composition through RootProvider', async () => {
   await expect
     .element(page.getByLabel('Password', { exact: true }))
     .toHaveAttribute('data-slot', 'password-input-input');
+});
+
+test('does not dim a password input twice inside a disabled field', () => {
+  render(() => (
+    <Field disabled>
+      <PasswordInput>
+        <PasswordInputLabel>Password</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+    </Field>
+  ));
+
+  const field = document.querySelector('[data-slot="field-root"]')!;
+  const root = document.querySelector('[data-slot="password-input-root"]')!;
+
+  expect(root.hasAttribute('data-disabled')).toBe(true);
+  expect(getComputedStyle(field).opacity).toBe('0.5');
+  expect(getComputedStyle(root).opacity).toBe('1');
+});
+
+test('sizes the control, input text, trigger, and icon from the root size', () => {
+  render(() => (
+    <div>
+      <PasswordInput size="xs">
+        <PasswordInputLabel>Extra small</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+      <PasswordInput size="xl">
+        <PasswordInputLabel>Extra large</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+    </div>
+  ));
+
+  const [xs, xl] = [...document.querySelectorAll('[data-slot="password-input-root"]')];
+  const part = (root: Element, slot: string) =>
+    root.querySelector<HTMLElement>(`[data-slot="password-input-${slot}"]`)!;
+  const iconWidth = (root: Element) =>
+    part(root, 'indicator').querySelector('svg')!.getBoundingClientRect().width;
+
+  expect(xs!.getAttribute('data-size')).toBe('xs');
+  expect(xl!.getAttribute('data-size')).toBe('xl');
+  expect(part(xs!, 'control').offsetHeight).toBe(24);
+  expect(part(xl!, 'control').offsetHeight).toBe(48);
+  for (const root of [xs!, xl!]) {
+    expect(part(root, 'visibility-trigger').offsetHeight).toBeLessThan(
+      part(root, 'control').offsetHeight,
+    );
+  }
+  expect(parseFloat(getComputedStyle(part(xl!, 'input')).fontSize)).toBeGreaterThan(
+    parseFloat(getComputedStyle(part(xs!, 'input')).fontSize),
+  );
+  expect(iconWidth(xl!)).toBeGreaterThan(iconWidth(xs!));
 });

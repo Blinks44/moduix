@@ -21,10 +21,8 @@ export default function EventsSliderDemo() {
         onValueChange={(details) => setLiveValue(details.value)}
         onValueChangeEnd={(details) => setCommittedValue(details.value)}
       >
-        <div class={styles.header}>
-          <SliderLabel>Gain</SliderLabel>
-          <SliderValueText />
-        </div>
+        <SliderLabel>Gain</SliderLabel>
+        <SliderValueText />
         <SliderControl>
           <SliderTrack>
             <SliderRange />

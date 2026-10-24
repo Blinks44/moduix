@@ -5,21 +5,6 @@ description: Компактный компонент для обозначени
 ---
 
 import * as KbdDocs from '@/components/examples/kbd/css-properties';
-import KbdBasic from '@/components/examples/kbd/basic.tsx';
-import KbdCompactDensity from '@/components/examples/kbd/compact-density.tsx';
-import KbdCustomElement from '@/components/examples/kbd/custom-element.tsx';
-import KbdShortcutList from '@/components/examples/kbd/shortcut-list.tsx';
-import KbdSingleKey from '@/components/examples/kbd/single-key.tsx';
-import kbdSolidBasic from '../../../snippets/kbd/solid/basic.tsx?raw';
-import kbdSolidCompactDensity from '../../../snippets/kbd/solid/compact-density.tsx?raw';
-import kbdSolidCustomElement from '../../../snippets/kbd/solid/custom-element.tsx?raw';
-import kbdSolidShortcutList from '../../../snippets/kbd/solid/shortcut-list.tsx?raw';
-import kbdSolidSingleKey from '../../../snippets/kbd/solid/single-key.tsx?raw';
-import kbdVueBasic from '../../../snippets/kbd/vue/basic.vue?raw';
-import kbdVueCompactDensity from '../../../snippets/kbd/vue/compact-density.vue?raw';
-import kbdVueCustomElement from '../../../snippets/kbd/vue/custom-element.vue?raw';
-import kbdVueShortcutList from '../../../snippets/kbd/vue/shortcut-list.vue?raw';
-import kbdVueSingleKey from '../../../snippets/kbd/vue/single-key.vue?raw';
 
 ## Справочник API
 
@@ -31,46 +16,7 @@ import kbdVueSingleKey from '../../../snippets/kbd/vue/single-key.vue?raw';
 
 Используйте `Kbd`, чтобы показать одну клавишу. Для сочетания из нескольких клавиш поместите клавиши и текстовые разделители в `KbdGroup`.
 
-<ExampleFrame variant="component">
-  <KbdBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/kbd/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={kbdSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={kbdVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/kbd/kbd-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="kbd/basic" />
 
 ## Установка через shadcn
 
@@ -137,171 +83,31 @@ Kbd не хранит состояние и не обрабатывает наж
 
 Используйте локальные CSS-переменные, если в отдельной части интерфейса нужны более компактные клавиши. Для этого не нужно добавлять новые свойства компонента.
 
-<ExampleFrame variant="component">
-  <KbdCompactDensity />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/kbd/compact-density.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={kbdSolidCompactDensity} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={kbdVueCompactDensity} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/kbd/kbd-compact-density.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="kbd/compact-density" />
 
 ### Пользовательский элемент
 
 Используйте `asChild`, если другой компонент уже выводит семантический элемент `<kbd>` и к нему нужно применить стили Kbd.
 
-<ExampleFrame variant="component">
-  <KbdCustomElement />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/kbd/custom-element.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={kbdSolidCustomElement} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={kbdVueCustomElement} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="kbd/custom-element" />
 
 ### Список сочетаний
 
 Объедините `KbdGroup` с поясняющим текстом, чтобы показать список доступных сочетаний клавиш.
 
-<ExampleFrame variant="component">
-  <KbdShortcutList />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/kbd/shortcut-list.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={kbdSolidShortcutList} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={kbdVueShortcutList} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/kbd/kbd-shortcut-list.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="kbd/shortcut-list" />
 
 ### Одна клавиша
 
 Используйте `Kbd` напрямую, если нужно показать одну клавишу, например `Esc`.
 
-<ExampleFrame variant="component">
-  <KbdSingleKey />
-</ExampleFrame>
+<Example name="kbd/single-key" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+### С иконкой
 
-```tsx pure file="../../../src/components/examples/kbd/single-key.tsx"
-```
+Иконку можно положить прямо в `Kbd`: она получает размер под текст клавиши, если у самой иконки нет класса размера. Задайте группе `aria-label`, чтобы у сочетания было понятное озвучиваемое название.
 
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={kbdSolidSingleKey} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={kbdVueSingleKey} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="kbd/with-icon" />
 
 ## Стилизация
 
@@ -316,4 +122,4 @@ Kbd не хранит состояние и не обрабатывает наж
 - `data-slot="kbd-root"` выбирает отдельный элемент клавиши
 - `data-slot="kbd-group"` выбирает строчный контейнер для сгруппированных сочетаний
 - `[data-scope="kbd"][data-part="root"]` и `[data-part="group"]` предоставляют селекторы анатомии в стиле Ark
-- Разделители в `KbdGroup` наследуют цвет текста группы. Чтобы задать этот цвет, используйте `--moduix-kbd-group-separator-color`
+- Разделители в `KbdGroup` наследуют цвет текста группы. Чтобы его изменить, задайте `color` для `KbdGroup` своим классом

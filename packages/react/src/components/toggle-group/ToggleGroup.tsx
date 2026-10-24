@@ -12,30 +12,24 @@ import type { ToggleSize, ToggleVariant } from '../toggle/Toggle';
 import toggleStyles from '../toggle/Toggle.module.css';
 import styles from './ToggleGroup.module.css';
 
-const defaultToggleGroupStyles = {
-  variant: 'default' as ToggleVariant,
-  size: 'md' as ToggleSize,
-};
-
-const ToggleGroupStyleContext = createContext<{
-  variant: ToggleVariant;
-  size: ToggleSize;
-}>(defaultToggleGroupStyles);
-
-type ToggleGroupRootProps = ComponentProps<typeof ToggleGroupPrimitive.Root> & {
+type ToggleGroupStyleProps = {
   variant?: ToggleVariant;
   size?: ToggleSize;
 };
 
-type ToggleGroupRootProviderProps = ComponentProps<typeof ToggleGroupPrimitive.RootProvider> & {
-  variant?: ToggleVariant;
-  size?: ToggleSize;
-};
+const ToggleGroupStyleContext = createContext<Required<ToggleGroupStyleProps>>({
+  variant: 'default',
+  size: 'md',
+});
 
-type ToggleGroupItemProps = ComponentProps<typeof ToggleGroupPrimitive.Item> & {
-  variant?: ToggleVariant;
-  size?: ToggleSize;
-};
+type ToggleGroupRootProps = ComponentProps<typeof ToggleGroupPrimitive.Root> &
+  ToggleGroupStyleProps;
+
+type ToggleGroupRootProviderProps = ComponentProps<typeof ToggleGroupPrimitive.RootProvider> &
+  ToggleGroupStyleProps;
+
+type ToggleGroupItemProps = ComponentProps<typeof ToggleGroupPrimitive.Item> &
+  ToggleGroupStyleProps;
 
 const ToggleGroup = forwardRef<
   ComponentRef<typeof ToggleGroupPrimitive.Root>,
@@ -101,6 +95,13 @@ export {
   useToggleGroup,
   useToggleGroupContext,
 };
+export type {
+  ToggleGroupContextProps,
+  ToggleGroupValueChangeDetails,
+  UseToggleGroupContext,
+  UseToggleGroupProps,
+  UseToggleGroupReturn,
+} from '@ark-ui/react/toggle-group';
 export type {
   ToggleGroupItemProps,
   ToggleGroupRootProps,

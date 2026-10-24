@@ -36,18 +36,15 @@ test('resizes with the keyboard and preserves trigger defaults', async () => {
   const indicator = container.querySelector('[data-slot="splitter-resize-trigger-indicator"]')!;
 
   expect([...root.classList]).toEqual(
-    expect.arrayContaining(['h-112', 'w-full', 'rounded-md', 'bg-card']),
+    expect.arrayContaining(['h-full', 'w-full', 'rounded-md', 'bg-card']),
   );
   expect([...trigger.classList]).toEqual(
     expect.arrayContaining([
       'w-px',
-      'min-w-px',
       'before:w-[0.5px]',
       'before:h-full',
       'data-dragging:before:bg-muted-foreground/40',
-      '[@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:before:bg-muted-foreground/40',
-      'motion-reduce:transition-none',
-      'motion-reduce:before:transition-none',
+      'hover:before:bg-muted-foreground/40',
     ]),
   );
   expect([...indicator.classList]).toEqual(
@@ -57,7 +54,6 @@ test('resizes with the keyboard and preserves trigger defaults', async () => {
       'rounded-full',
       'bg-background',
       'group-hover/trigger:border-muted-foreground/40',
-      'motion-reduce:transition-none',
     ]),
   );
   expect(indicator.classList.contains('data-dragging:border-border')).toBe(false);
@@ -208,12 +204,12 @@ test('lets consumer utilities replace fixed defaults', async () => {
   expect([...root.classList]).toEqual(
     expect.arrayContaining(['h-64', 'w-96', 'border-2', 'bg-muted']),
   );
-  for (const token of ['h-112', 'w-full', 'border-0', 'bg-card'])
+  for (const token of ['h-full', 'w-full', 'border-0', 'bg-card'])
     expect(root.classList.contains(token)).toBe(false);
   expect([...panel.classList]).toEqual(expect.arrayContaining(['min-h-0', 'p-6']));
-  for (const token of ['min-h-50', 'p-4']) expect(panel.classList.contains(token)).toBe(false);
+  for (const token of ['p-4']) expect(panel.classList.contains(token)).toBe(false);
   expect([...trigger.classList]).toEqual(expect.arrayContaining(['w-2', 'min-w-2']));
-  for (const token of ['w-px', 'min-w-px']) expect(trigger.classList.contains(token)).toBe(false);
+  for (const token of ['w-px']) expect(trigger.classList.contains(token)).toBe(false);
   await expect.element(page.locator('[data-slot="splitter-root"]')).toHaveCSS('height', '256px');
   await expect.element(page.locator('[data-slot="splitter-root"]')).toHaveCSS('width', '384px');
   await expect
@@ -291,4 +287,40 @@ test('hydrates without replacing server hosts or ids and still resizes', async (
     warn.mockRestore();
     error.mockRestore();
   }
+});
+
+test('sizes the root with a class, centers the indicator, and never submits a form', async () => {
+  let submits = 0;
+  const { container } = render({
+    components: splitterComponents,
+    setup() {
+      return { panels, onSubmit: () => (submits += 1) };
+    },
+    template: `
+      <form @submit.prevent="onSubmit">
+        <Splitter :panels="panels" :default-size="[40, 60]" class="h-50">
+          <SplitterPanel id="a">A</SplitterPanel>
+          <SplitterResizeTrigger id="a:b" aria-label="Resize panels" />
+          <SplitterPanel id="b">B</SplitterPanel>
+        </Splitter>
+      </form>
+    `,
+  });
+
+  const root = container.querySelector<HTMLElement>('[data-slot="splitter-root"]')!;
+  const trigger = container.querySelector<HTMLElement>('[role="separator"]')!;
+  const indicator = container.querySelector('[data-slot="splitter-resize-trigger-indicator"]')!;
+  const triggerBox = trigger.getBoundingClientRect();
+  const indicatorBox = indicator.getBoundingClientRect();
+
+  expect(root.offsetHeight).toBe(200);
+  expect(
+    Math.abs(triggerBox.left + triggerBox.width / 2 - (indicatorBox.left + indicatorBox.width / 2)),
+  ).toBeLessThanOrEqual(1);
+  expect(
+    Math.abs(triggerBox.top + triggerBox.height / 2 - (indicatorBox.top + indicatorBox.height / 2)),
+  ).toBeLessThanOrEqual(1);
+  expect(trigger.getAttribute('type')).toBe('button');
+  await page.getByRole('separator', { name: 'Resize panels' }).click();
+  expect(submits).toBe(0);
 });

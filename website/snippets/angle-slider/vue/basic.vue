@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { AngleSlider, AngleSliderDial, AngleSliderHiddenInput } from '@moduix/vue/angle-slider';
-import styles from '@/components/examples/angle-slider/angle-slider-basic.module.css';
+import { AngleSlider, AngleSliderDial } from '@moduix/vue/angle-slider';
 </script>
 
 <template>
-  <AngleSlider :default-value="135" aria-label="Rotation" :class="styles.root">
+  <AngleSlider :default-value="135" aria-label="Rotation">
     <AngleSliderDial />
-    <AngleSliderHiddenInput />
   </AngleSlider>
 </template>

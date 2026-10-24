@@ -7,6 +7,6 @@ test('renders the public field anatomy on the server', async () => {
   const html = await renderToString(createSSRApp(SsrField));
   expect(html).toContain('data-slot="field-root"');
   expect(html).toContain('data-slot="field-label"');
-  expect(html).toContain('data-slot="field-input"');
+  expect(html).toContain('data-slot="input-root"');
   expect(html).toContain('value="Initial name"');
 });

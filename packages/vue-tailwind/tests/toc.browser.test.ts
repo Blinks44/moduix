@@ -402,3 +402,115 @@ test('hydrates without replacing hosts, id drift, or warnings', async () => {
     error.mockRestore();
   }
 });
+test('keeps the indicator on Ark measurements inside a parent that sets --top and --height', async () => {
+  const { container } = renderToc(
+    `
+      <Toc :items="items" :default-active-ids="['introduction']">
+        <TocContent>
+          <h2 id="introduction">Introduction</h2>
+          <h3 id="configuration">Configuration</h3>
+        </TocContent>
+        <div style="--top: 300px; --height: 500px">
+          <TocList>
+            <TocIndicator />
+            <TocItem v-for="item in items" :key="item.value" :item="item">
+              <TocLink :href="\`#\${item.value}\`">{{ item.value }}</TocLink>
+            </TocItem>
+          </TocList>
+        </div>
+      </Toc>
+    `,
+    () => ({ items }),
+  );
+
+  const indicator = container.querySelector<HTMLElement>('[data-slot="toc-indicator"]')!;
+  // Distance between the indicator box and the active items inset by 2px on each end.
+  const getIndicatorOffset = () => {
+    const activeItems = [
+      ...container.querySelectorAll<HTMLElement>('[data-slot="toc-item"][data-active]'),
+    ];
+    const first = activeItems[0]!.getBoundingClientRect();
+    const last = activeItems.at(-1)!.getBoundingClientRect();
+    const box = indicator.getBoundingClientRect();
+
+    return Math.max(Math.abs(box.top - first.top - 2), Math.abs(box.bottom - last.bottom + 2));
+  };
+
+  await expect.poll(getIndicatorOffset).toBeLessThanOrEqual(1);
+});
+
+test('truncates long rail labels inside the navigation', async () => {
+  const { container } = renderToc(
+    `
+      <Toc :items="items">
+        <TocNav>
+          <TocList>
+            <TocItem :item="items[1]">
+              <TocLink href="#configuration">
+                <TocRail :depth="3" :previous-depth="2" :next-depth="2" />
+                {{ label }}
+              </TocLink>
+            </TocItem>
+          </TocList>
+        </TocNav>
+      </Toc>
+    `,
+    () => ({ items, label: 'A very long configuration heading '.repeat(8) }),
+  );
+
+  const nav = container.querySelector<HTMLElement>('[data-slot="toc-nav"]')!;
+
+  expect(nav.scrollWidth).toBe(nav.clientWidth);
+});
+
+test('places the left navigation before the content without moving the content explicitly', async () => {
+  const { container } = renderToc(
+    `
+      <Toc :items="items">
+        <TocContent>
+          <h2 id="introduction">Introduction</h2>
+        </TocContent>
+        <TocNav placement="left">
+          <TocTitle>Left navigation</TocTitle>
+        </TocNav>
+      </Toc>
+    `,
+    () => ({ items }),
+  );
+
+  const content = container.querySelector('[data-slot="toc-content"]')!.getBoundingClientRect();
+  const nav = container.querySelector('[data-slot="toc-nav"]')!.getBoundingClientRect();
+
+  expect(window.innerWidth).toBeGreaterThanOrEqual(768);
+  expect(nav.right).toBeLessThanOrEqual(content.left);
+  expect(nav.top).toBe(content.top);
+});
+test('connects rails without a gap when the depth changes', async () => {
+  const { container } = renderToc(
+    `
+      <Toc :items="items" :active-ids="[]">
+        <TocNav>
+          <TocList>
+            <TocItem v-for="(item, index) in items" :key="item.value" :item="item">
+              <TocLink :href="\`#\${item.value}\`">
+                <TocRail
+                  :depth="item.depth"
+                  :previous-depth="items[index - 1]?.depth"
+                  :next-depth="items[index + 1]?.depth"
+                />
+                {{ item.value }}
+              </TocLink>
+            </TocItem>
+          </TocList>
+        </TocNav>
+      </Toc>
+    `,
+    () => ({ items }),
+  );
+
+  const [first, second] = [...container.querySelectorAll('[data-slot="toc-rail"]')].map((rail) =>
+    rail.getBoundingClientRect(),
+  );
+
+  expect(Math.abs(first!.bottom - second!.top)).toBeLessThanOrEqual(1);
+});

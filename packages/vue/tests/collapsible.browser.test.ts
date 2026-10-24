@@ -270,3 +270,24 @@ test('hydrates collapsible without replacing server hosts or ids', async () => {
     error.mockRestore();
   }
 });
+
+test('dims a disabled trigger once without fading its indicator again', async () => {
+  render({
+    components: collapsibleComponents,
+    template: `
+      <Collapsible disabled>
+        <CollapsibleTrigger>
+          Disabled details
+          <CollapsibleIndicator data-testid="disabled-indicator" />
+        </CollapsibleTrigger>
+        <CollapsibleContent>Unavailable details.</CollapsibleContent>
+      </Collapsible>
+    `,
+  });
+
+  const trigger = await screen.findByRole('button', { name: 'Disabled details' });
+  const indicator = screen.getByTestId('disabled-indicator');
+
+  expect(getComputedStyle(trigger).opacity).toBe('0.5');
+  expect(getComputedStyle(indicator).opacity).toBe('1');
+});

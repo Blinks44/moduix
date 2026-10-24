@@ -21,3 +21,7 @@ The flat API includes `RatingGroup`, `RatingGroupRootProvider`, `RatingGroupLabe
 ## Styling and accessibility
 
 Ark owns radio-like semantics, keyboard and pointer interaction, labels, translations, and form synchronization. Keep `data-size` and `data-slot` hooks.
+
+`RatingGroupItem` focuses itself on a left pointer down with `focusVisible: false` (after the consumer `onPointerDown`, unless disabled or read-only), so a click does not show the keyboard focus ring that Chrome would otherwise apply to Zag's deferred focus. See the React `rating-group.md` for details.
+
+The filled default star inherits the `RatingGroupItemIndicator` color. CSS Modules expose `--moduix-rating-group-active-color`, `--moduix-rating-group-color`, `--moduix-rating-group-gap`, and `--moduix-rating-group-icon-size`.

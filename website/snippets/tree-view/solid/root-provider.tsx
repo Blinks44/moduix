@@ -9,7 +9,8 @@ import {
   TreeViewItem,
   TreeViewItemText,
   TreeViewLabel,
-  TreeViewNode,
+  TreeViewNodeContext,
+  TreeViewNodeProvider,
   TreeViewRootProvider,
   TreeViewTree,
   createTreeCollection,
@@ -49,33 +50,35 @@ const collection = createTreeCollection<FileNode>({
 
 function FileTreeNode(props: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeViewNode node={props.node} indexPath={props.indexPath}>
-      {({ node: currentNode, indexPath: currentIndexPath, state }) => (
-        <Show
-          when={state().isBranch}
-          fallback={
-            <TreeViewItem>
-              <TreeViewItemText>{currentNode.name}</TreeViewItemText>
-            </TreeViewItem>
-          }
-        >
-          <TreeViewBranch>
-            <TreeViewBranchControl>
-              <TreeViewBranchIndicator />
-              <TreeViewBranchText>{currentNode.name}</TreeViewBranchText>
-            </TreeViewBranchControl>
-            <TreeViewBranchContent>
-              <TreeViewBranchIndentGuide />
-              <For each={currentNode.children ?? []}>
-                {(child, index) => (
-                  <FileTreeNode node={child} indexPath={[...currentIndexPath, index()]} />
-                )}
-              </For>
-            </TreeViewBranchContent>
-          </TreeViewBranch>
-        </Show>
-      )}
-    </TreeViewNode>
+    <TreeViewNodeProvider node={props.node} indexPath={props.indexPath}>
+      <TreeViewNodeContext>
+        {(state) => (
+          <Show
+            when={state().isBranch}
+            fallback={
+              <TreeViewItem>
+                <TreeViewItemText>{props.node.name}</TreeViewItemText>
+              </TreeViewItem>
+            }
+          >
+            <TreeViewBranch>
+              <TreeViewBranchControl>
+                <TreeViewBranchIndicator />
+                <TreeViewBranchText>{props.node.name}</TreeViewBranchText>
+              </TreeViewBranchControl>
+              <TreeViewBranchContent>
+                <TreeViewBranchIndentGuide />
+                <For each={props.node.children ?? []}>
+                  {(child, index) => (
+                    <FileTreeNode node={child} indexPath={[...props.indexPath, index()]} />
+                  )}
+                </For>
+              </TreeViewBranchContent>
+            </TreeViewBranch>
+          </Show>
+        )}
+      </TreeViewNodeContext>
+    </TreeViewNodeProvider>
   );
 }
 

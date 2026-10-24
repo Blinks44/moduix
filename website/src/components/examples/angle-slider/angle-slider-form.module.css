@@ -2,7 +2,3 @@
   display: grid;
   justify-items: center;
 }
-
-.root {
-  --moduix-angle-slider-size: 9rem;
-}

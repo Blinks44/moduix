@@ -41,13 +41,12 @@
   .inlineItems {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--moduix-radio-group-gap, var(--moduix-spacing-2));
+    gap: var(--moduix-spacing-2);
   }
 
   .customRoot {
-    --moduix-radio-group-color: var(--moduix-color-primary);
-
     gap: var(--moduix-spacing-3);
+    color: var(--moduix-color-primary);
   }
 
   .customItem {

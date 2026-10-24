@@ -4,25 +4,6 @@ component: heading
 description: A semantic heading component with Ark factory composition and moduix typography tokens for React, Solid, and Vue.
 ---
 
-import * as HeadingDocs from '@/components/examples/heading/css-properties';
-import HeadingBasic from '@/components/examples/heading/basic.tsx';
-import HeadingLevels from '@/components/examples/heading/heading-levels.tsx';
-import SemanticLevelAndVisualSize from '@/components/examples/heading/semantic-level-and-visual-size.tsx';
-import HeadingVisualSizes from '@/components/examples/heading/visual-sizes.tsx';
-import HeadingWeights from '@/components/examples/heading/weights.tsx';
-import CustomHostHeading from '@/components/examples/heading/custom-host.tsx';
-import headingSolidBasic from '../../../snippets/heading/solid/basic.tsx?raw';
-import headingSolidLevels from '../../../snippets/heading/solid/heading-levels.tsx?raw';
-import headingSolidSemanticLevelAndVisualSize from '../../../snippets/heading/solid/semantic-level-and-visual-size.tsx?raw';
-import headingSolidVisualSizes from '../../../snippets/heading/solid/visual-sizes.tsx?raw';
-import headingSolidWeights from '../../../snippets/heading/solid/weights.tsx?raw';
-import headingSolidCustomHost from '../../../snippets/heading/solid/custom-host.tsx?raw';
-import headingVueBasic from '../../../snippets/heading/vue/basic.vue?raw';
-import headingVueLevels from '../../../snippets/heading/vue/heading-levels.vue?raw';
-import headingVueSemanticLevelAndVisualSize from '../../../snippets/heading/vue/semantic-level-and-visual-size.vue?raw';
-import headingVueVisualSizes from '../../../snippets/heading/vue/visual-sizes.vue?raw';
-import headingVueWeights from '../../../snippets/heading/vue/weights.vue?raw';
-import headingVueCustomHost from '../../../snippets/heading/vue/custom-host.vue?raw';
 
 ## API Reference
 
@@ -38,41 +19,7 @@ Ark UI does not provide a dedicated heading primitive. moduix implements `Headin
 matches the heading's place in the document outline. Set `size` separately when the visual emphasis
 should differ from the semantic level.
 
-<ExampleFrame variant="component">
-  <HeadingBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/heading/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={headingSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={headingVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="heading/basic" />
 
 ## Install with shadcn
 
@@ -129,239 +76,56 @@ Heading
 `Heading` is a root-only, stateless component, so it does not need a provider or coordinated parts.
 Use `<Heading>`, pass `as` for the semantic `h1` through `h6` level, and set `size` independently
 when visual emphasis should differ. Without an explicit `size`,
-the rendered element selects the scale from `2xl` for `h1` through `xs` for `h6`; `weight` defaults to
+`as` selects the scale from `2xl` for `h1` through `xs` for `h6`; `weight` defaults to
 `semibold`. Use `asChild` only when a custom semantic heading host must own the rendered DOM node.
 
 ## Examples
 
 ### Heading Levels
 
-Use `as` to choose `h2` through `h6`. When `size` is omitted, the visual scale follows the rendered
-heading element.
+Use `as` to choose `h2` through `h6`. When `size` is omitted, the visual scale follows `as`.
 
-<ExampleFrame variant="component">
-  <HeadingLevels />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/heading/heading-levels.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={headingSolidLevels} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={headingVueLevels} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="heading/heading-levels" />
 
 ### Semantic Level and Visual Size
 
 Keep document hierarchy and visual emphasis independent. Use `as` for the semantic level and `size`
 for the visual size.
 
-<ExampleFrame variant="component">
-  <SemanticLevelAndVisualSize />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/heading/semantic-level-and-visual-size.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={headingSolidSemanticLevelAndVisualSize} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={headingVueSemanticLevelAndVisualSize} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="heading/semantic-level-and-visual-size" />
 
 ### Visual Sizes
 
 Use `size` when multiple headings share one semantic level but need different visual emphasis.
 
-<ExampleFrame variant="component">
-  <HeadingVisualSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/heading/visual-sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={headingSolidVisualSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={headingVueVisualSizes} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="heading/visual-sizes" />
 
 ### Weights
 
 Use `weight` to choose one of the built-in font-weight presets.
 
-<ExampleFrame variant="component">
-  <HeadingWeights />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/heading/weights.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={headingSolidWeights} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={headingVueWeights} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="heading/weights" />
 
 ### Advanced Customization
 
 Use `asChild` when another semantic heading element must own the rendered DOM node. For the usual
-`h1` through `h6` cases, use `as` instead.
+`h1` through `h6` cases, use `as` instead. The default size follows `as`, not the child element, so set
+`size` to match the child.
 
-<ExampleFrame variant="component">
-  <CustomHostHeading />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/heading/custom-host.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={headingSolidCustomHost} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={headingVueCustomHost} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="heading/custom-host" />
 
 ## Styling
 
-Style `Heading` through `className` in React or `class` in Solid and Vue, root data attributes, and the public
-`--moduix-heading-*` variables listed in the CSS reference below. The CSS Modules packages expose
-these variables; the Tailwind packages use native utility classes and consumer class overrides.
+Use `className` in React or `class` in Solid and Vue on `Heading`. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation typography tokens and have no
+component variables: a class on the root overrides the layered component styles.
 
-### CSS Properties
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <HeadingDocs.HeadingCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
 
 ### Styling hooks
 
 - `data-scope="heading"` and `data-part="root"` identify the Ark-aligned root.
 - `data-slot="heading-root"` is the stable moduix selector.
-- `data-size` is present when `size` is explicitly set.
+- `data-size` reflects the resolved size: the explicit `size` or the default for `as`.
 - `data-weight` reflects `regular`, `medium`, `semibold`, or `bold`.
 - `Heading` owns these attributes. Matching `data-*` props cannot replace its styling contract.
 - Use `className` or `class` for consumer utility or local style overrides.

@@ -13,7 +13,10 @@ export interface Props extends /* @vue-ignore */ CarouselAutoplayIndicatorProps 
 }
 
 const { class: className } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
+defineSlots<{
+  default?: () => unknown;
+  fallback?: (props: { fallback: string | undefined }) => unknown;
+}>();
 
 const attrs = useAttrs();
 </script>
@@ -25,5 +28,8 @@ const attrs = useAttrs();
     data-slot="carousel-autoplay-indicator"
   >
     <slot />
+    <template v-if="$slots.fallback" #fallback="slotProps">
+      <slot name="fallback" v-bind="slotProps" />
+    </template>
   </ArkCarouselAutoplayIndicator>
 </template>

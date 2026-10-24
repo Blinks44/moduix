@@ -4,6 +4,7 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { EllipsisIcon } from '@/lib/moduix/icons/ui';
 import styles from './Breadcrumbs.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -25,6 +26,6 @@ const attrs = useAttrs();
     aria-hidden="true"
     :class="clsx(styles.ellipsis, className)"
   >
-    <slot>...</slot>
+    <slot><EllipsisIcon :class="styles.ellipsisIcon" /></slot>
   </ark.span>
 </template>

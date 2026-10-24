@@ -4,7 +4,7 @@ import type { NumberInputIncrementTriggerProps } from '@ark-ui/vue/number-input'
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { PlusIcon } from '@/lib/moduix/icons/ui/Icons';
+import { PlusIcon } from '@/lib/moduix/icons/ui';
 import styles from './NumberInput.module.css';
 
 defineOptions({ inheritAttrs: false });

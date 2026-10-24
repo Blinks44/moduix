@@ -14,7 +14,7 @@ export default function ContextHoverCard() {
     <HoverCard>
       <HoverCardContext>
         {(hoverCard) => (
-          <HoverCardTrigger className={styles.trigger}>
+          <HoverCardTrigger>
             @sarah_chen
             {hoverCard.open ? (
               <ChevronUpIcon aria-hidden size={16} />

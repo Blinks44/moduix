@@ -5,10 +5,8 @@ import {
   Select,
   SelectContent,
   SelectField,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
   SelectLabel,
+  SelectOption,
   SelectPositioner,
 } from '@moduix/vue/select';
 import { computed, ref } from 'vue';
@@ -42,10 +40,9 @@ const collection = computed(() =>
       <SelectField placeholder="Select an option" clear-label="Clear selection" />
       <SelectPositioner>
         <SelectContent>
-          <SelectItem v-for="item in collection.items" :key="item.value" :item="item">
-            <SelectItemText>{{ item.label }}</SelectItemText>
-            <SelectItemIndicator />
-          </SelectItem>
+          <SelectOption v-for="item in collection.items" :key="item.value" :item="item">{{
+            item.label
+          }}</SelectOption>
         </SelectContent>
       </SelectPositioner>
     </Select>

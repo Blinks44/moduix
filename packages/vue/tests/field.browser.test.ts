@@ -6,59 +6,29 @@ import { createSSRApp, nextTick, defineComponent, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import {
   Field,
+  Fieldset,
+  FieldRequiredIndicator,
   Input,
   FieldContext,
   FieldErrorText,
   FieldHelperText,
-  FieldInput,
   FieldItem,
   FieldLabel,
   FieldRootProvider,
-  FieldSelect,
-  FieldTextarea,
   useField,
   useFieldContext,
 } from '../src';
-import fieldStyles from '../src/components/field/Field.module.css';
-
-test('keeps FieldInput native size distinct from Input visual size', async () => {
-  render({
-    components: { FieldInput, Input },
-    template: `
-      <FieldInput aria-label="Field input" :size="8" disabled aria-invalid="true" />
-      <Input aria-label="Input" size="md" :html-size="8" disabled aria-invalid="true" />
-    `,
-  });
-
-  const fieldInput = screen.getByRole('textbox', { name: 'Field input' });
-
-  const fieldInputLocator = page.getByRole('textbox', { name: 'Field input', exact: true });
-  await expect.element(fieldInputLocator).toHaveAttribute('size', '8');
-  const textbox = page.getByRole('textbox', { name: 'Input', exact: true });
-  await expect.element(textbox).toHaveAttribute('size', '8');
-  await expect.element(fieldInputLocator).toHaveAttribute('data-slot', 'field-input');
-  expect([...fieldInput.classList]).toEqual(
-    expect.arrayContaining([fieldStyles.control, fieldStyles.input]),
-  );
-  await expect.element(fieldInputLocator).not.toHaveAttribute('data-size');
-  await expect.element(textbox).toHaveAttribute('data-size', 'md');
-  await expect.element(fieldInputLocator).toBeDisabled();
-  await expect.element(textbox).toBeDisabled();
-  await expect.element(fieldInputLocator).toHaveAttribute('aria-invalid', 'true');
-  await expect.element(textbox).toHaveAttribute('aria-invalid', 'true');
-});
 
 const fieldComponents = {
   Field,
+  Input,
+  FieldRequiredIndicator,
   FieldContext,
   FieldErrorText,
   FieldHelperText,
-  FieldInput,
   FieldItem,
   FieldLabel,
   FieldRootProvider,
-  FieldSelect,
-  FieldTextarea,
 };
 
 test('wires labels, descriptions, errors, and field state to a native control', async () => {
@@ -67,7 +37,7 @@ test('wires labels, descriptions, errors, and field state to a native control', 
     template: `
       <Field disabled id="email" invalid read-only required data-probe="root">
         <FieldLabel>Email</FieldLabel>
-        <FieldInput />
+        <Input />
         <FieldHelperText>Use your work email.</FieldHelperText>
         <FieldErrorText>Enter a valid email address.</FieldErrorText>
       </Field>
@@ -97,7 +67,7 @@ test('renders error text only while invalid', async () => {
   render({
     components: fieldComponents,
     setup: () => ({ invalid }),
-    template: `<Field :invalid="invalid"><FieldInput aria-label="Email" /><FieldErrorText>Enter a valid email address.</FieldErrorText></Field>`,
+    template: `<Field :invalid="invalid"><Input aria-label="Email" /><FieldErrorText>Enter a valid email address.</FieldErrorText></Field>`,
   });
   await expect
     .element(page.getByText('Enter a valid email address.', { exact: true }))
@@ -119,7 +89,7 @@ test('forwards FieldItem refs and uses target for its label wiring', async () =>
       <Field id="contact" target="email">
         <FieldItem ref="itemRef" value="email">
           <FieldLabel>Email</FieldLabel>
-          <FieldInput />
+          <Input />
         </FieldItem>
       </Field>
     `,
@@ -130,107 +100,57 @@ test('forwards FieldItem refs and uses target for its label wiring', async () =>
   await expect.element(page.getByText('Email', { exact: true })).toHaveAttribute('for', input.id);
 });
 
-test('forwards refs and styling hooks for the Ark native parts', () => {
+test('forwards refs and styling hooks for every part', () => {
   const rootRef = ref<ComponentPublicInstance>();
-  const inputRef = ref<ComponentPublicInstance>();
-  const textareaRef = ref<ComponentPublicInstance>();
-  const selectRef = ref<ComponentPublicInstance>();
+  const labelRef = ref<ComponentPublicInstance>();
+  const helperRef = ref<ComponentPublicInstance>();
+  const errorRef = ref<ComponentPublicInstance>();
+  const indicatorRef = ref<ComponentPublicInstance>();
 
   render({
     components: fieldComponents,
     setup() {
-      return { inputRef, rootRef, selectRef, textareaRef };
+      return { errorRef, helperRef, indicatorRef, labelRef, rootRef };
     },
     template: `
-      <Field ref="rootRef">
-        <FieldLabel>Name</FieldLabel>
-        <FieldInput ref="inputRef" />
-      </Field>
-      <Field>
-        <FieldLabel>Summary</FieldLabel>
-        <FieldTextarea ref="textareaRef" />
-      </Field>
-      <Field>
-        <FieldLabel>Priority</FieldLabel>
-        <FieldSelect ref="selectRef"><option>Normal</option></FieldSelect>
+      <Field ref="rootRef" invalid required>
+        <FieldLabel ref="labelRef">Name <FieldRequiredIndicator ref="indicatorRef" /></FieldLabel>
+        <Input />
+        <FieldHelperText ref="helperRef">Shown on your profile.</FieldHelperText>
+        <FieldErrorText ref="errorRef">Enter a name.</FieldErrorText>
       </Field>
     `,
   });
 
   expect(rootRef.value?.$el?.getAttribute('data-slot')).toBe('field-root');
-  expect(inputRef.value?.$el?.getAttribute('data-slot')).toBe('field-input');
-  expect(textareaRef.value?.$el?.getAttribute('data-slot')).toBe('field-textarea');
-  expect(selectRef.value?.$el?.getAttribute('data-slot')).toBe('field-select');
+  expect(labelRef.value?.$el?.getAttribute('data-slot')).toBe('field-label');
+  expect(indicatorRef.value?.$el?.getAttribute('data-slot')).toBe('field-required-indicator');
+  expect(helperRef.value?.$el?.getAttribute('data-slot')).toBe('field-helper-text');
+  expect(errorRef.value?.$el?.getAttribute('data-slot')).toBe('field-error-text');
 });
 
-test.each([
-  ['input', false],
-  ['input', true],
-  ['textarea', false],
-  ['textarea', true],
-  ['select', false],
-  ['select', true],
-] as const)('preserves controlled native models (%s, asChild=%s)', async (tag, asChild) => {
-  const value = ref('initial');
-  const controlRef = ref<ComponentPublicInstance>();
-  const changes: string[] = [];
-  const nativeEvent = rs.fn();
-  const options =
-    tag === 'select'
-      ? '<option value="initial">Initial</option><option value="next">Next</option><option value="parent">Parent</option>'
-      : '';
-
+test('dims a disabled field once, also inside a disabled Fieldset', () => {
   render({
-    components: {
-      Control: { input: FieldInput, textarea: FieldTextarea, select: FieldSelect }[tag],
-    },
-    setup: () => ({ asChild, changes, controlRef, nativeEvent, value }),
+    components: { ...fieldComponents, Fieldset },
     template: `
-      <form aria-label="Field form" @reset="value = 'initial'">
-        <Control
-          ref="controlRef"
-          v-model="value"
-          :as-child="asChild"
-          aria-label="Value"
-          name="value"
-          @${tag === 'select' ? 'change' : 'input'}="nativeEvent"
-          @update:model-value="changes.push($event)"
-        >${asChild ? `<${tag}>${options}</${tag}>` : options}</Control>
-      </form>
+      <Field disabled data-testid="disabled-field">
+        <FieldLabel>Name</FieldLabel>
+        <Input data-testid="disabled-field-input" />
+      </Field>
+      <Fieldset disabled>
+        <Field data-testid="nested-field">
+          <FieldLabel>Email</FieldLabel>
+          <Input />
+        </Field>
+      </Fieldset>
     `,
   });
-  const control = screen.getByRole(tag === 'select' ? 'combobox' : 'textbox', { name: 'Value' });
-  const form = screen.getByRole('form', { name: 'Field form' }) as HTMLFormElement;
-  const controlLocator = page.getByRole(tag === 'select' ? 'combobox' : 'textbox', {
-    name: 'Value',
-    exact: true,
-  });
 
-  expect(controlRef.value?.$el).toBe(control);
-  await expect.element(controlLocator).toHaveValue('initial');
-  if (tag === 'select') {
-    await controlLocator.selectOption('next');
-  } else {
-    await controlLocator.fill('next');
-  }
+  const opacity = (testId: string) => getComputedStyle(screen.getByTestId(testId)).opacity;
 
-  await expect.element(controlLocator).toHaveValue('next');
-  expect(value.value).toBe('next');
-  expect(changes).toEqual(['next']);
-  expect(nativeEvent).toHaveBeenCalledTimes(1);
-  expect(new FormData(form).get('value')).toBe('next');
-
-  value.value = 'parent';
-  await expect.element(controlLocator).toHaveValue('parent');
-  expect(changes).toEqual(['next']);
-  expect(nativeEvent).toHaveBeenCalledTimes(1);
-  expect(new FormData(form).get('value')).toBe('parent');
-  form.reset();
-  await expect.element(controlLocator).toHaveValue('initial');
-  expect(value.value).toBe('initial');
-  expect(new FormData(form).get('value')).toBe('initial');
-  expect(changes).toEqual(['next']);
-  expect(nativeEvent).toHaveBeenCalledTimes(1);
+  expect(opacity('disabled-field')).toBe('0.5');
+  expect(opacity('disabled-field-input')).toBe('1');
+  expect(opacity('nested-field')).toBe('1');
 });
 
 test('keeps the RootProvider composition path Ark-shaped', async () => {
@@ -242,7 +162,7 @@ test('keeps the RootProvider composition path Ark-shaped', async () => {
     template: `
       <FieldRootProvider :value="field">
         <FieldLabel>Email</FieldLabel>
-        <FieldInput />
+        <Input />
         <FieldErrorText>Enter a valid email address.</FieldErrorText>
       </FieldRootProvider>
     `,
@@ -288,7 +208,7 @@ test('preserves Ark asChild composition and forwards refs for the root', async (
       <Field ref="rootRef" as-child>
         <section aria-label="Email field">
           <FieldLabel>Email</FieldLabel>
-          <FieldInput />
+          <Input />
         </section>
       </Field>
     `,
@@ -309,7 +229,7 @@ test('keeps controlled field props reactive', async () => {
       components: fieldComponents,
       template: `
       <Field :required="requiredState">
-        <FieldInput aria-label="Project key" />
+        <Input aria-label="Project key" />
       </Field>
     `,
     },
@@ -323,50 +243,6 @@ test('keeps controlled field props reactive', async () => {
   await expect
     .element(page.getByRole('textbox', { name: 'Project key', exact: true }))
     .toHaveAttribute('required');
-});
-
-// Ark binds value=undefined without a model, clearing native defaultValue/selected.
-// Plain controls preserve both. Re-enable after Ark omits that uncontrolled value binding.
-test.skip('preserves native default values and reset behavior', async () => {
-  render({
-    components: fieldComponents,
-    template: `
-      <form aria-label="Project form">
-        <Field>
-          <FieldInput aria-label="Project key" :defaultValue="'MAPS'" name="project" />
-        </Field>
-        <Field>
-          <FieldSelect aria-label="Priority" name="priority">
-            <option value="low">Low</option>
-            <option value="normal" selected>Normal</option>
-          </FieldSelect>
-        </Field>
-      </form>
-    `,
-  });
-  const form = screen.getByRole('form', { name: 'Project form' }) as HTMLFormElement;
-
-  const textbox = page.getByRole('textbox', { name: 'Project key', exact: true });
-  const priority = page.getByRole('combobox', { name: 'Priority', exact: true });
-  await expect.element(textbox).toHaveValue('MAPS');
-  await expect.element(priority).toHaveValue('normal');
-  expect([...new FormData(form)]).toEqual([
-    ['project', 'MAPS'],
-    ['priority', 'normal'],
-  ]);
-  await textbox.fill('MODUIX');
-  await priority.selectOption('low');
-  expect([...new FormData(form)]).toEqual([
-    ['project', 'MODUIX'],
-    ['priority', 'low'],
-  ]);
-  form.reset();
-  await expect.element(textbox).toHaveValue('MAPS');
-  await expect.element(priority).toHaveValue('normal');
-  expect([...new FormData(form)]).toEqual([
-    ['project', 'MAPS'],
-    ['priority', 'normal'],
-  ]);
 });
 
 test('hydrates without replacing hosts or generated ids', async () => {

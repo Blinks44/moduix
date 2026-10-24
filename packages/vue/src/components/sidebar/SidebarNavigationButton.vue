@@ -6,16 +6,7 @@ import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './Sidebar.module.css';
 
-type SidebarNavigationButtonSize = 'sm' | 'md' | 'lg';
-type SidebarAriaCurrent =
-  | boolean
-  | 'true'
-  | 'false'
-  | 'page'
-  | 'step'
-  | 'location'
-  | 'date'
-  | 'time';
+export type SidebarNavigationButtonSize = 'sm' | 'md' | 'lg';
 
 defineOptions({ inheritAttrs: false });
 
@@ -36,9 +27,9 @@ const props = withDefaults(defineProps<Props>(), {
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const ariaCurrent = computed<SidebarAriaCurrent | undefined>(
+const ariaCurrent = computed(
   () =>
-    (attrs['aria-current'] as SidebarAriaCurrent | undefined) ??
+    (attrs['aria-current'] as HTMLAttributes['aria-current']) ??
     (props.active ? 'page' : undefined),
 );
 </script>

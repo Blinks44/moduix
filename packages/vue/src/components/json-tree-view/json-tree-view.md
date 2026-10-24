@@ -46,6 +46,10 @@ indicator with foundation tokens. Use the native `class` attribute on the export
 classes are merged after moduix classes. Target Ark's generated `data-scope` and `data-part` attributes when a value
 renderer needs more specific styling.
 
+Rows keep their text selectable so inspected values can be copied. When a long preview wraps, the branch indicator
+stays on the first line. Branch content opens and closes with the shared collapsible keyframes and
+`--moduix-transition-default`, like `TreeView`; reduced motion turns the animation off.
+
 ## Vue-specific composition
 
 `JsonTreeViewTree` exposes native Vue named slots for `#arrow`, `#indentGuide`, and the scoped `#renderValue` slot.
@@ -57,10 +61,3 @@ through the component instance `$el`, including `as-child` compositions.
 The wrapper gives the Ark root the flat moduix name `JsonTreeView`, adds stable `data-slot` hooks, foundation styling,
 and the moduix default disclosure icon. It does not expose namespace objects, `Component.Root` aliases,
 compatibility wrappers, or a second state layer.
-
-## Local changelog
-
-- 2026-10-06: Ark 5.39.3 fixes reactive inputs and model listeners; the corresponding regression
-  tests are enabled in both styling tracks. The built-in indentation-guide limitation remains.
-- 2026-10-02: Reviewed native slots, provider refs/listeners, and hydration stability; recorded
-  upstream reactive-input and model-listener blockers with direct Ark reproductions.

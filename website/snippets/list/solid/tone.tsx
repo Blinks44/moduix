@@ -10,9 +10,6 @@ export default function ListToneDemo() {
       <List tone="muted">
         <ListItem>Muted list tone</ListItem>
       </List>
-      <List tone="subtle">
-        <ListItem>Subtle list tone</ListItem>
-      </List>
       <List tone="primary">
         <ListItem>Primary list tone</ListItem>
       </List>

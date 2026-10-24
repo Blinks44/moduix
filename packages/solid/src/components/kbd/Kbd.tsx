@@ -12,8 +12,8 @@ function Kbd(props: HTMLArkProps<'kbd'>) {
       {...others}
       data-scope="kbd"
       data-part="root"
-      class={clsx(styles.root, local.class)}
       data-slot="kbd-root"
+      class={clsx(styles.root, local.class)}
     />
   );
 }
@@ -27,8 +27,8 @@ function KbdGroup(props: HTMLArkProps<'span'>) {
       role="group"
       data-scope="kbd"
       data-part="group"
-      class={clsx(styles.group, local.class)}
       data-slot="kbd-group"
+      class={clsx(styles.group, local.class)}
     />
   );
 }

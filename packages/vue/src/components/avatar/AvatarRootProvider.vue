@@ -5,10 +5,9 @@ import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './Avatar.module.css';
+import type { AvatarSize } from './Avatar.vue';
 
 defineOptions({ inheritAttrs: false });
-
-type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface Props extends /* @vue-ignore */ AvatarRootProviderProps {
   class?: HTMLAttributes['class'];
@@ -16,7 +15,7 @@ export interface Props extends /* @vue-ignore */ AvatarRootProviderProps {
   value: AvatarRootProviderProps['value'];
 }
 
-const { class: className, size, value } = defineProps<Props>();
+const { class: className, size = 'md', value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();

@@ -1,11 +1,13 @@
-import { useSegmentGroupContext, useSegmentGroupItemContext } from '@ark-ui/vue/segment-group';
+import {
+  SegmentGroupContext,
+  SegmentGroupItemContext,
+  SegmentGroupItemHiddenInput,
+  useSegmentGroupContext,
+  useSegmentGroupItemContext,
+} from '@ark-ui/vue/segment-group';
 import SegmentGroup from './SegmentGroup.vue';
-import SegmentGroupContext from './SegmentGroupContext.vue';
 import SegmentGroupIndicator from './SegmentGroupIndicator.vue';
 import SegmentGroupItem from './SegmentGroupItem.vue';
-import SegmentGroupItemContext from './SegmentGroupItemContext.vue';
-import SegmentGroupItemControl from './SegmentGroupItemControl.vue';
-import SegmentGroupItemHiddenInput from './SegmentGroupItemHiddenInput.vue';
 import SegmentGroupItems from './SegmentGroupItems.vue';
 import SegmentGroupItemText from './SegmentGroupItemText.vue';
 import SegmentGroupLabel from './SegmentGroupLabel.vue';
@@ -18,7 +20,6 @@ export {
   SegmentGroupIndicator,
   SegmentGroupItem,
   SegmentGroupItemContext,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItems,
   SegmentGroupItemText,
@@ -47,8 +48,8 @@ export type {
 export type {
   Emits as SegmentGroupRootEmits,
   Props as SegmentGroupRootProps,
+  SegmentGroupSize,
 } from './SegmentGroup.vue';
-export type { Props as SegmentGroupItemControlProps } from './SegmentGroupItemControl.vue';
 export type {
   SegmentGroupItemOption,
   Props as SegmentGroupItemsProps,

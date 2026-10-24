@@ -15,7 +15,7 @@ const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const labelClass = 'relative z-1 text-sm leading-5 font-semibold text-inherit select-none';
+const labelClass = 'text-sm leading-5 font-semibold';
 </script>
 
 <template>

@@ -12,31 +12,39 @@ import { forwardRef } from 'react';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 import styles from './PinInput.module.css';
 
-const PinInput = forwardRef<
-  ComponentRef<typeof PinInputPrimitive.Root>,
-  ComponentProps<typeof PinInputPrimitive.Root>
->(function PinInput({ className, count, placeholder = '', ...props }, ref) {
-  return (
-    <PinInputPrimitive.Root
-      ref={ref}
-      className={clsx(styles.root, className)}
-      count={count}
-      placeholder={placeholder}
-      {...props}
-      data-slot="pin-input-root"
-    />
-  );
-});
+type PinInputSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type PinInputRootProps = ComponentProps<typeof PinInputPrimitive.Root> & {
+  size?: PinInputSize;
+};
+type PinInputRootProviderProps = ComponentProps<typeof PinInputPrimitive.RootProvider> & {
+  size?: PinInputSize;
+};
+
+const PinInput = forwardRef<ComponentRef<typeof PinInputPrimitive.Root>, PinInputRootProps>(
+  function PinInput({ className, placeholder = '', size = 'md', ...props }, ref) {
+    return (
+      <PinInputPrimitive.Root
+        ref={ref}
+        className={clsx(styles.root, className)}
+        placeholder={placeholder}
+        {...props}
+        data-size={size}
+        data-slot="pin-input-root"
+      />
+    );
+  },
+);
 
 const PinInputRootProvider = forwardRef<
   ComponentRef<typeof PinInputPrimitive.RootProvider>,
-  ComponentProps<typeof PinInputPrimitive.RootProvider>
->(function PinInputRootProvider({ className, ...props }, ref) {
+  PinInputRootProviderProps
+>(function PinInputRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <PinInputPrimitive.RootProvider
       ref={ref}
       className={clsx(styles.root, className)}
       {...props}
+      data-size={size}
       data-slot="pin-input-root-provider"
     />
   );
@@ -91,15 +99,11 @@ function PinInputInputs({ className }: { className?: string }) {
 }
 
 const PinInputSeparator = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
-  function PinInputSeparator(
-    { className, 'aria-hidden': ariaHidden = true, role = 'presentation', children, ...props },
-    ref,
-  ) {
+  function PinInputSeparator({ className, children, ...props }, ref) {
     return (
       <span
         ref={ref}
-        aria-hidden={ariaHidden}
-        role={role}
+        aria-hidden
         className={clsx(styles.separator, className)}
         {...props}
         data-slot="pin-input-separator"
@@ -130,3 +134,17 @@ export {
   usePinInput,
   usePinInputContext,
 };
+export type {
+  PinInputContextProps,
+  PinInputControlProps,
+  PinInputHiddenInputProps,
+  PinInputInputProps,
+  PinInputLabelProps,
+  PinInputValueChangeDetails,
+  PinInputValueInvalidDetails,
+  UsePinInputContext,
+  UsePinInputProps,
+  UsePinInputReturn,
+} from '@ark-ui/react/pin-input';
+
+export type { PinInputRootProps, PinInputRootProviderProps, PinInputSize };

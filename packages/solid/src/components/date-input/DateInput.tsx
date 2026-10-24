@@ -10,11 +10,10 @@ import { splitProps } from 'solid-js';
 import styles from './DateInput.module.css';
 
 function DateInput(props: ComponentProps<typeof DateInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <DateInputPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="date-input-root"
@@ -25,11 +24,10 @@ function DateInput(props: ComponentProps<typeof DateInputPrimitive.Root>) {
 }
 
 function DateInputRootProvider(props: ComponentProps<typeof DateInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <DateInputPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="date-input-root-provider"
@@ -103,12 +101,11 @@ function DateInputSegments(props: DateInputSegmentsProps) {
 }
 
 function DateInputSeparator(props: ComponentProps<'span'>) {
-  const [local, others] = splitProps(props, ['aria-hidden', 'class', 'role']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <span
-      aria-hidden={local['aria-hidden'] ?? true}
-      role={local.role ?? 'presentation'}
+      aria-hidden="true"
       class={clsx(styles.separator, local.class)}
       {...others}
       data-slot="date-input-separator"
@@ -136,3 +133,22 @@ export {
   useDateInput,
   useDateInputContext,
 };
+
+export type {
+  DateInputContextProps,
+  DateInputControlProps,
+  DateInputFocusChangeDetails,
+  DateInputHiddenInputProps,
+  DateInputLabelProps,
+  DateInputPlaceholderChangeDetails,
+  DateInputRootProps,
+  DateInputRootProviderProps,
+  DateInputSegmentContextProps,
+  DateInputSegmentGroupProps,
+  DateInputSegmentProps,
+  DateInputSelectionMode,
+  DateInputValueChangeDetails,
+  UseDateInputContext,
+  UseDateInputProps,
+  UseDateInputReturn,
+} from '@ark-ui/solid/date-input';

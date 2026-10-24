@@ -66,7 +66,7 @@ export default function DynamicSlidesCarousel() {
         page={page()}
         onPageChange={(details) => setPage(details.page)}
       >
-        <CarouselItemGroup class={styles.itemGroup} aria-label="Dynamic gallery">
+        <CarouselItemGroup>
           <For each={visibleSlides()}>
             {(slide, index) => (
               <CarouselItem index={index()}>
@@ -75,7 +75,7 @@ export default function DynamicSlidesCarousel() {
             )}
           </For>
         </CarouselItemGroup>
-        <CarouselControl class={styles.control}>
+        <CarouselControl>
           <CarouselPrevTrigger />
           <CarouselIndicators />
           <CarouselNextTrigger />

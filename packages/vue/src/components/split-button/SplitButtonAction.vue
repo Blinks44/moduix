@@ -7,7 +7,7 @@ import { useSplitButtonContext, type SplitButtonSize, type SplitButtonVariant } 
 import styles from './SplitButton.module.css';
 
 defineOptions({ inheritAttrs: false });
-interface Props extends /* @vue-ignore */ Omit<ButtonProps, 'size' | 'variant'> {
+export interface Props extends /* @vue-ignore */ Omit<ButtonProps, 'size' | 'variant'> {
   class?: HTMLAttributes['class'];
   size?: SplitButtonSize;
   variant?: SplitButtonVariant;

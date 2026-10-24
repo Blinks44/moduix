@@ -8,7 +8,7 @@ import styles from './Button.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type ButtonVariant =
+export type ButtonVariant =
   | 'default'
   | 'outline'
   | 'secondary'
@@ -16,7 +16,7 @@ type ButtonVariant =
   | 'destructive-outline'
   | 'ghost'
   | 'link';
-type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
 type Booleanish = boolean | 'false' | 'true';
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'button'> {
@@ -69,16 +69,6 @@ const handleClickCapture = (event: MouseEvent) => {
 
   emit('clickCapture', event);
 };
-
-const handleClick = (event: MouseEvent) => {
-  if (isDisabled.value) {
-    event.preventDefault();
-    event.stopPropagation();
-    return;
-  }
-
-  emit('click', event);
-};
 </script>
 
 <template>
@@ -90,7 +80,7 @@ const handleClick = (event: MouseEvent) => {
     :aria-busy="loading ? true : ariaBusy"
     :aria-disabled="isDisabled ? true : ariaDisabled"
     @click.capture="handleClickCapture"
-    @click="handleClick"
+    @click="emit('click', $event)"
     :data-scope="dataScope"
     :data-part="dataPart"
     :data-slot="dataSlot"

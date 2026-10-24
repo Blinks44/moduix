@@ -25,7 +25,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'inline-flex items-center justify-center text-inherit [&>svg]:block [&>svg]:size-4 [&>svg]:shrink-0',
+        `inline-flex items-center justify-center [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4`,
         className,
       )
     "

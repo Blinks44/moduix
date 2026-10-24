@@ -8,35 +8,28 @@ import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
-const tableVariants = cva(
-  'group/table isolate w-full border-collapse border-spacing-0 text-start text-foreground',
-  {
-    variants: {
-      size: {
-        sm: 'text-xs leading-4',
-        md: 'text-sm leading-5',
-        lg: 'text-md leading-6',
-      },
-      variant: {
-        line: '',
-        outline: 'border border-border',
-      },
-    },
-    defaultVariants: {
-      size: 'md',
-      variant: 'line',
+const tableVariants = cva('group/table isolate w-full border-collapse text-start text-foreground', {
+  variants: {
+    size: {
+      sm: 'text-xs leading-4',
+      md: 'text-sm leading-5',
+      lg: 'text-md leading-6',
     },
   },
-);
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
+export type TableSize = 'sm' | 'md' | 'lg';
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'table'> {
   class?: HTMLAttributes['class'];
   interactive?: boolean;
   showColumnBorder?: boolean;
-  size?: 'sm' | 'md' | 'lg';
+  size?: TableSize;
   stickyHeader?: boolean;
   striped?: boolean;
-  variant?: 'line' | 'outline';
 }
 
 const {
@@ -46,12 +39,11 @@ const {
   size = 'md',
   stickyHeader = false,
   striped = false,
-  variant = 'line',
 } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const rootClass = computed(() => cn(tableVariants({ size, variant }), className));
+const rootClass = computed(() => cn(tableVariants({ size }), className));
 </script>
 
 <template>
@@ -65,7 +57,6 @@ const rootClass = computed(() => cn(tableVariants({ size, variant }), className)
     :data-size="size"
     :data-sticky-header="stickyHeader || undefined"
     :data-striped="striped || undefined"
-    :data-variant="variant"
     data-slot="table-root"
   >
     <slot />

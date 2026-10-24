@@ -57,7 +57,7 @@ export default function VirtualizedComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" onClick={reset} />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent className={`${styles.content} ${styles.virtualContent}`}>
+        <ComboboxContent className={styles.virtualContent}>
           <ComboboxEmpty>No results found.</ComboboxEmpty>
           <div ref={setScrollElement} className={styles.virtualScroller}>
             <ComboboxList
@@ -73,12 +73,11 @@ export default function VirtualizedComboboxDemo() {
                     item={item}
                     aria-setsize={collection.size}
                     aria-posinset={virtualItem.index + 1}
-                    className={styles.virtualItem}
                     style={{
                       position: 'absolute',
                       top: 0,
                       left: 0,
-                      width: '100%',
+                      right: 0,
                       height: virtualItem.size,
                       transform: `translateY(${virtualItem.start}px)`,
                     }}

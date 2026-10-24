@@ -23,7 +23,7 @@ export default function SelectEventMenuDemo() {
             <MenuIndicator />
           </MenuTrigger>
           <MenuPositioner>
-            <MenuContent class={styles.content}>
+            <MenuContent>
               <MenuViewport>
                 <MenuItem value="edit">Edit</MenuItem>
                 <MenuItem value="duplicate">Duplicate</MenuItem>

@@ -6,7 +6,7 @@ import { MenuViewport } from '../menu';
 import { menuContentVariants } from '../menu/Menu.variants';
 
 defineOptions({ inheritAttrs: false });
-interface Props extends /* @vue-ignore */ MenuContentProps {
+export interface Props extends /* @vue-ignore */ MenuContentProps {
   asChild?: boolean;
   class?: HTMLAttributes['class'];
 }

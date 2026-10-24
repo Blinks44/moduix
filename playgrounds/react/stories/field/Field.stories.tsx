@@ -12,12 +12,10 @@ import {
   useField,
   FieldErrorText,
   FieldHelperText,
-  FieldInput,
   FieldItem,
   FieldLabel,
   FieldRequiredIndicator,
   FieldRootProvider,
-  FieldTextarea,
 } from '@/components/field/Field';
 import { Input } from '@/components/input';
 import { NativeSelect } from '@/components/native-select/NativeSelect';
@@ -28,6 +26,7 @@ import {
   RadioGroupItemHiddenInput,
   RadioGroupItemText,
 } from '@/components/radio-group';
+import { Textarea } from '@/components/textarea';
 
 const meta = {
   title: 'Components/Field',
@@ -53,50 +52,46 @@ export const InputParity: Story = {
       }}
     >
       <Field>
-        <FieldLabel>FieldInput Default</FieldLabel>
-        <FieldInput placeholder="Enter your name" />
+        <FieldLabel>Input Default</FieldLabel>
+        <Input placeholder="Enter your name" />
       </Field>
       <Field>
         <FieldLabel>Input Default</FieldLabel>
         <Input placeholder="Enter your name" />
       </Field>
       <Field invalid>
-        <FieldLabel>FieldInput Invalid</FieldLabel>
-        <FieldInput placeholder="name@example.com" />
+        <FieldLabel>Input Invalid</FieldLabel>
+        <Input placeholder="name@example.com" />
       </Field>
       <Field invalid>
         <FieldLabel>Input Invalid</FieldLabel>
         <Input placeholder="name@example.com" />
       </Field>
       <Field readOnly>
-        <FieldLabel>FieldInput Read-only</FieldLabel>
-        <FieldInput placeholder="Workspace key" />
+        <FieldLabel>Input Read-only</FieldLabel>
+        <Input placeholder="Workspace key" />
       </Field>
       <Field readOnly>
         <FieldLabel>Input Read-only</FieldLabel>
         <Input placeholder="Workspace key" />
       </Field>
       <Field disabled>
-        <FieldLabel>FieldInput Disabled</FieldLabel>
-        <FieldInput placeholder="Acme Inc." />
+        <FieldLabel>Input Disabled</FieldLabel>
+        <Input placeholder="Acme Inc." />
       </Field>
       <Field disabled>
         <FieldLabel>Input Disabled</FieldLabel>
         <Input placeholder="Acme Inc." />
       </Field>
       <Field>
-        <FieldLabel>FieldInput File</FieldLabel>
-        <FieldInput type="file" />
+        <FieldLabel>Input File</FieldLabel>
+        <Input type="file" />
       </Field>
       <Field>
         <FieldLabel>Input File</FieldLabel>
         <Input type="file" />
       </Field>
-      <FieldInput
-        aria-label="FieldInput standalone disabled"
-        disabled
-        placeholder="Standalone disabled"
-      />
+      <Input aria-label="Input standalone disabled" disabled placeholder="Standalone disabled" />
       <Input aria-label="Input standalone disabled" disabled placeholder="Standalone disabled" />
     </div>
   ),
@@ -110,7 +105,7 @@ export const Basic: Story = {
           Name
           <FieldRequiredIndicator />
         </FieldLabel>
-        <FieldInput placeholder="Enter your name" />
+        <Input placeholder="Enter your name" />
         <FieldHelperText>Visible on your public profile.</FieldHelperText>
       </Field>
     );
@@ -122,7 +117,7 @@ export const Invalid: Story = {
     return (
       <Field invalid required>
         <FieldLabel>Email</FieldLabel>
-        <FieldInput type="email" placeholder="name@example.com" />
+        <Input type="email" placeholder="name@example.com" />
         <FieldHelperText>Use your work email.</FieldHelperText>
         <FieldErrorText>Enter a valid email address.</FieldErrorText>
       </Field>
@@ -138,7 +133,7 @@ export const ControlledInvalid: Story = {
     return (
       <Field invalid={invalid}>
         <FieldLabel>Username</FieldLabel>
-        <FieldInput
+        <Input
           value={value}
           onChange={(event) => setValue(event.currentTarget.value)}
           placeholder="e.g. vinny"
@@ -150,12 +145,12 @@ export const ControlledInvalid: Story = {
   },
 };
 
-export const Textarea: Story = {
+export const WithTextarea: Story = {
   render: () => {
     return (
       <Field>
         <FieldLabel>Summary</FieldLabel>
-        <FieldTextarea placeholder="Describe the request" autoresize />
+        <Textarea placeholder="Describe the request" autoresize />
         <FieldHelperText>The textarea can autoresize as the user types.</FieldHelperText>
       </Field>
     );
@@ -186,7 +181,7 @@ export const Disabled: Story = {
     return (
       <Field disabled>
         <FieldLabel>Organization</FieldLabel>
-        <FieldInput placeholder="Acme Inc." />
+        <Input placeholder="Acme Inc." />
         <FieldHelperText>This field is currently managed by your workspace.</FieldHelperText>
       </Field>
     );
@@ -198,7 +193,7 @@ export const ReadOnly: Story = {
     return (
       <Field readOnly>
         <FieldLabel>Workspace key</FieldLabel>
-        <FieldInput defaultValue="MAPS" />
+        <Input defaultValue="MAPS" />
         <FieldHelperText>Read-only state is propagated to the input.</FieldHelperText>
       </Field>
     );
@@ -252,7 +247,7 @@ export const LongContent: Story = {
       <FieldLabel>
         International tax residency and withholding election for non-resident account holders
       </FieldLabel>
-      <FieldInput />
+      <Input />
       <FieldHelperText>
         Enter the tax identification number issued by your country of tax residence.
       </FieldHelperText>
@@ -276,7 +271,7 @@ export const ItemTarget: Story = {
           </NativeSelect>
         </FieldItem>
         <FieldItem value="amount">
-          <FieldInput inputMode="decimal" placeholder="0.00" />
+          <Input inputMode="decimal" placeholder="0.00" />
         </FieldItem>
         <FieldHelperText>The root label targets the amount input.</FieldHelperText>
       </Field>
@@ -291,7 +286,7 @@ export const RootProvider: Story = {
     return (
       <FieldRootProvider value={field}>
         <FieldLabel>Project key</FieldLabel>
-        <FieldInput placeholder="MAPS" />
+        <Input placeholder="MAPS" />
         <FieldHelperText>The field state is created outside the rendered tree.</FieldHelperText>
       </FieldRootProvider>
     );

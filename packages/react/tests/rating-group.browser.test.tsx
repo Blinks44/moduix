@@ -6,6 +6,7 @@ import {
   RatingGroup,
   RatingGroupControl,
   RatingGroupHiddenInput,
+  RatingGroupItem,
   RatingGroupItemIndicator,
   RatingGroupItems,
   RatingGroupLabel,
@@ -113,6 +114,7 @@ test('preserves half steps, keyboard focus and mouse focus visibility', async ()
   await before.click();
   await before.press('Tab');
   await expect.element(items.nth(3)).toBeFocused();
+  expect(document.activeElement?.matches(':focus-visible')).toBe(true);
   await items.nth(3).press('ArrowLeft');
   await expect.element(items.nth(2)).toBeFocused();
   await items.nth(2).press('ArrowRight');
@@ -120,7 +122,7 @@ test('preserves half steps, keyboard focus and mouse focus visibility', async ()
   await expect.element(items.nth(3)).toHaveAttribute('data-half');
   await items.nth(2).click();
   await expect.element(items.nth(2)).toBeFocused();
-  await expect.element(items.nth(2)).not.toHaveAttribute('data-focus-visible');
+  expect(document.activeElement?.matches(':focus-visible')).toBe(false);
 });
 test('repeats custom indicators with Ark item state', async () => {
   render(
@@ -143,4 +145,37 @@ test('repeats custom indicators with Ark item state', async () => {
     .element(page.getByTestId('custom-indicator').nth(2))
     .toHaveAttribute('data-highlighted');
   await expect.element(page.getByTestId('custom-indicator').nth(3)).toHaveAttribute('data-half');
+});
+test('colors the default filled star from the indicator color', () => {
+  render(
+    <RatingGroup defaultValue={1}>
+      <RatingGroupControl>
+        <RatingGroupItem index={1}>
+          <RatingGroupItemIndicator style={{ color: 'rgb(255, 0, 0)' }} />
+        </RatingGroupItem>
+      </RatingGroupControl>
+    </RatingGroup>,
+  );
+
+  const foregroundIcon = document.querySelector('[data-slot="rating-group-item-indicator-fg"]')!;
+
+  expect(getComputedStyle(foregroundIcon).color).toBe('rgb(255, 0, 0)');
+});
+
+test('clips the default star for half and empty items', async () => {
+  render(
+    <RatingGroup allowHalf count={3} defaultValue={1.5}>
+      <RatingGroupControl>
+        <RatingGroupItems />
+      </RatingGroupControl>
+    </RatingGroup>,
+  );
+
+  const foregroundIcons = document.querySelectorAll('[data-slot="rating-group-item-indicator-fg"]');
+
+  await expect
+    .poll(() => getComputedStyle(foregroundIcons[1]!).clipPath)
+    .toBe('inset(0px 50% 0px 0px)');
+  expect(getComputedStyle(foregroundIcons[0]!).clipPath).toBe('inset(0px)');
+  expect(getComputedStyle(foregroundIcons[2]!).clipPath).toBe('inset(0px 100% 0px 0px)');
 });

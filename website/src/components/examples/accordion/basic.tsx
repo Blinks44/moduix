@@ -32,10 +32,12 @@ export default function AccordionDemo() {
     <Accordion className={styles.root} defaultValue={['what-is-ark-ui']}>
       {items.map((item) => (
         <AccordionItem key={item.value} value={item.value}>
-          <AccordionItemTrigger>
-            {item.title}
-            <AccordionItemIndicator />
-          </AccordionItemTrigger>
+          <h3>
+            <AccordionItemTrigger>
+              {item.title}
+              <AccordionItemIndicator />
+            </AccordionItemTrigger>
+          </h3>
           <AccordionItemContent>
             <AccordionItemBody>{item.description}</AccordionItemBody>
           </AccordionItemContent>

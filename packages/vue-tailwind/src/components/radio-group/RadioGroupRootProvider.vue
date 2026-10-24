@@ -4,15 +4,17 @@ import type { RadioGroupRootProviderProps } from '@ark-ui/vue/radio-group';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import type { RadioGroupSize } from './RadioGroup.vue';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ RadioGroupRootProviderProps {
   class?: HTMLAttributes['class'];
+  size?: RadioGroupSize;
   value: RadioGroupRootProviderProps['value'];
 }
 
-const { class: className, value } = defineProps<Props>();
+const { class: className, size = 'md', value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -21,9 +23,8 @@ const attrs = useAttrs();
 <template>
   <ArkRadioGroupRootProvider
     v-bind="attrs"
-    :class="
-      cn('relative flex flex-col gap-2 text-foreground data-disabled:cursor-default', className)
-    "
+    :class="cn('group/radio-group flex flex-col gap-2 text-foreground', className)"
+    :data-size="size"
     :value="value"
     data-slot="radio-group-root-provider"
   >

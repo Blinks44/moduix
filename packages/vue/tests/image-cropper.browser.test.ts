@@ -18,6 +18,10 @@ import styles from '../src/components/image-cropper/ImageCropper.module.css';
 import landscape from './fixtures/landscape.svg';
 import SsrImageCropper from './fixtures/SsrImageCropper.vue';
 
+const portrait = `data:image/svg+xml,${encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="400"></svg>',
+)}`;
+
 const imageCropperComponents = {
   ImageCropper,
   ImageCropperContext,
@@ -115,9 +119,6 @@ test('updates and removes CropArea attrs and listeners without replacing its hos
       'data-probe': 'next',
       style: { color: 'blue' },
       onClick: nextClick,
-      asChild: true,
-      'as-child': true,
-      children: 'Unsupported content',
     },
   });
   expect(screen.getByTitle('Next selection')).toBe(selection);
@@ -131,9 +132,6 @@ test('updates and removes CropArea attrs and listeners without replacing its hos
   await expect
     .element(page.locator('[data-slot="image-cropper-selection"]'))
     .toHaveCSS('color', 'rgb(0, 0, 255)');
-  await expect
-    .element(page.locator('[data-slot="image-cropper-selection"]'))
-    .not.toHaveAttribute('children');
   expect(container.querySelectorAll('[data-slot="image-cropper-grid"]')).toHaveLength(2);
   expect(container.querySelectorAll('[data-slot="image-cropper-handle"]')).toHaveLength(
     ImageCropperHandles.length,
@@ -268,27 +266,37 @@ test('forwards RootProvider and preserves its public hook contract', async () =>
     .toHaveAttribute('data-slot', 'image-cropper-root-provider');
 });
 
-test('does not forward unsupported CropArea composition props to Ark', async () => {
+test('keeps the image ratio inside a viewport sized by its container', async () => {
   const { container } = render(
     defineComponent({
-      setup: () => ({ landscape }),
+      setup: () => ({ portrait }),
       components: imageCropperComponents,
       template: `
-        <ImageCropper>
-          <ImageCropperViewport>
-            <ImageCropperImage :src="landscape" />
-            <ImageCropperCropArea as-child><section>Unsupported child</section></ImageCropperCropArea>
-          </ImageCropperViewport>
-        </ImageCropper>
+        <div style="width: 300px">
+          <ImageCropper>
+            <ImageCropperViewport>
+              <ImageCropperImage :src="portrait" />
+              <ImageCropperCropArea />
+            </ImageCropperViewport>
+          </ImageCropper>
+        </div>
       `,
     }),
   );
 
-  expect(container.querySelector('[data-slot="image-cropper-selection"]')).toBeTruthy();
-  expect(container.querySelector('section')).toBeNull();
-  expect(container.querySelectorAll('[data-slot="image-cropper-handle"]')).toHaveLength(
-    ImageCropperHandles.length,
-  );
+  await expect
+    .element(page.locator('[data-slot="image-cropper-image"]'))
+    .toHaveAttribute('data-ready');
+  const viewport = container.querySelector<HTMLElement>('[data-slot="image-cropper-viewport"]')!;
+  const image = container.querySelector<HTMLElement>('[data-slot="image-cropper-image"]')!;
+
+  expect(viewport.offsetWidth).toBe(300);
+  expect(Math.abs(viewport.offsetHeight - (300 * 5) / 8)).toBeLessThanOrEqual(1);
+  expect(image.offsetHeight).toBe(viewport.clientHeight);
+  expect(Math.abs(image.offsetWidth * 2 - image.offsetHeight)).toBeLessThanOrEqual(1);
+  expect(
+    Math.abs(image.offsetLeft * 2 + image.offsetWidth - viewport.clientWidth),
+  ).toBeLessThanOrEqual(1);
 });
 
 test('forwards native Vue v-model and Ark event details', async () => {

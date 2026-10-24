@@ -24,7 +24,7 @@ export default function AspectRatioCardGridDemo() {
       <For each={stories}>
         {(story) => (
           <Card class={styles.card}>
-            <AspectRatio ratio={16 / 9} class={styles.media}>
+            <AspectRatio ratio={16 / 9}>
               <img src={story.src} alt={story.alt} class={styles.image} />
             </AspectRatio>
             <div class={styles.body}>

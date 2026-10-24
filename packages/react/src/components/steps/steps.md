@@ -1,79 +1,22 @@
 # Steps
 
-Upstream docs:
-
-- Ark UI: https://ark-ui.com/docs/components/steps
+Upstream: https://ark-ui.com/docs/components/steps
 
 ## Purpose
 
-`Steps` guides users through a numbered process with Ark UI state, accessibility, keyboard, and navigation behavior.
+Guides users through a numbered, multi-step process.
 
-## Upstream model to preserve
-
-The wrapper follows Ark UI `@ark-ui/react/steps`. Preserve its part behavior while exposing the flat moduix values `Steps`, `StepsRootProvider`, `StepsList`, `StepsItem`, `StepsTrigger`, `StepsIndicator`, `StepsSeparator`, `StepsContent`, `StepsCompletedContent`, `StepsPrevTrigger`, `StepsNextTrigger`, and `StepsProgress`.
-
-Ark owns `count`, zero-based `index`, `step/defaultStep`, `onStepChange(details)`, `onStepComplete`, `linear`, `isStepValid`, `isStepSkippable`, `onStepInvalid(details)`, `orientation`, `ids`, tablist/tabpanel ARIA, progress percentage, and previous/next navigation.
-
-## Current behavior contract
-
-Consumers import `Steps` from `moduix` and use the short root form:
+## Public contract
 
 ```tsx
-import {
-  Steps,
-  StepsCompletedContent,
-  StepsContent,
-  StepsIndicator,
-  StepsItem,
-  StepsList,
-  StepsNextTrigger,
-  StepsPrevTrigger,
-  StepsSeparator,
-  StepsTrigger,
-} from '@moduix/react/steps';
-
-export function Example() {
-  return (
-    <Steps count={items.length}>
-      <StepsList>
-        {items.map((item, index) => (
-          <StepsItem key={item.title} index={index}>
-            <StepsTrigger>
-              <StepsIndicator />
-              <span>{item.title}</span>
-            </StepsTrigger>
-            <StepsSeparator />
-          </StepsItem>
-        ))}
-      </StepsList>
-
-      {items.map((item, index) => (
-        <StepsContent key={item.title} index={index}>
-          {item.description}
-        </StepsContent>
-      ))}
-
-      <StepsCompletedContent>Done</StepsCompletedContent>
-      <StepsPrevTrigger>Back</StepsPrevTrigger>
-      <StepsNextTrigger>Next</StepsNextTrigger>
-    </Steps>
-  );
-}
-```
-
-`StepsIndicator` is the only intentional visual sugar: when no children are provided, it renders `index + 1` or the shared check icon for completed steps.
-
-## Anatomy and exported parts
-
-```text
 Steps
-├─ StepsProgress
+├─ StepsProgress (optional)
 ├─ StepsList
-│  └─ StepsItem[index]
+│  └─ StepsItem index={n}
 │     ├─ StepsTrigger
-│     │  └─ StepsIndicator
+│     │  └─ StepsIndicator (number or check icon by default)
 │     └─ StepsSeparator
-├─ StepsContent[index]
+├─ StepsContent index={n}
 ├─ StepsCompletedContent
 ├─ StepsPrevTrigger
 └─ StepsNextTrigger
@@ -82,103 +25,47 @@ StepsRootProvider
 └─ same part tree connected to useSteps()
 ```
 
-| Export                  | `data-slot`               | Notes                                                                              |
-| ----------------------- | ------------------------- | ---------------------------------------------------------------------------------- |
-| `Steps`                 | `steps-root`              | Root Ark state machine and default export shape.                                   |
-| `StepsRootProvider`     | `steps-root-provider`     | Uses a `useSteps()` store.                                                         |
-| `StepsList`             | `steps-list`              | Ark tablist.                                                                       |
-| `StepsItem`             | `steps-item`              | Requires zero-based `index`.                                                       |
-| `StepsTrigger`          | `steps-trigger`           | Ark tab button, supports `asChild`.                                                |
-| `StepsIndicator`        | `steps-indicator`         | Defaults to number/check icon when children are omitted.                           |
-| `StepsSeparator`        | `steps-separator`         | Real Ark connector part.                                                           |
-| `StepsContent`          | `steps-content`           | Ark tabpanel for a matching `index`.                                               |
-| `StepsCompletedContent` | `steps-completed-content` | Ark tabpanel for completion state.                                                 |
-| `StepsPrevTrigger`      | `steps-prev-trigger`      | Previous-step button.                                                              |
-| `StepsNextTrigger`      | `steps-next-trigger`      | Next-step button.                                                                  |
-| `StepsProgress`         | `steps-progress`          | Visual progress track using Ark `--percent`; add an accessible status when needed. |
+| Part                    | `data-slot`               |
+| ----------------------- | ------------------------- |
+| `Steps`                 | `steps-root`              |
+| `StepsRootProvider`     | `steps-root-provider`     |
+| `StepsList`             | `steps-list`              |
+| `StepsItem`             | `steps-item`              |
+| `StepsTrigger`          | `steps-trigger`           |
+| `StepsIndicator`        | `steps-indicator`         |
+| `StepsSeparator`        | `steps-separator`         |
+| `StepsContent`          | `steps-content`           |
+| `StepsCompletedContent` | `steps-completed-content` |
+| `StepsPrevTrigger`      | `steps-prev-trigger`      |
+| `StepsNextTrigger`      | `steps-next-trigger`      |
+| `StepsProgress`         | `steps-progress`          |
 
-`useSteps()` creates state for `StepsRootProvider`. `useStepsContext`,
-`useStepsItemContext`, `StepsContext`, and `StepsItemContext` are exported from `@moduix/react`
-as low-level Ark-shaped APIs.
+Also exported: `StepsContext`, `StepsItemContext`, `useSteps`, `useStepsContext`,
+`useStepsItemContext`, and the Ark part prop, details, and hook types.
 
-## Composition
+- Every Ark root prop passes through (`count`, `step` / `defaultStep`, `linear`, `isStepValid`,
+  `isStepSkippable`, `orientation`, `ids`, callbacks). Indexes are zero-based; the step value equals
+  `count` when the flow is complete. moduix adds no state and does not translate callback details.
+- `StepsIndicator` without children renders `index + 1`, or the shared check icon for a completed
+  step. Children replace it. This is the only sugar; Ark leaves the indicator empty.
 
-Use `Steps` for normal usage. Use `StepsRootProvider` only when state is created outside with
-`useSteps()`.
+## Preservation notes
 
-Use `asChild` instead of the removed legacy `render` prop:
+- Ark sets `role="tablist"`, `tab`, and `tabpanel`, `aria-current="step"`, `type="button"` and
+  `disabled` on the previous and next triggers, `hidden` on inactive panels, and
+  `role="progressbar"` with `aria-valuenow` on `StepsProgress`. Give `StepsProgress` an
+  `aria-label`.
+- Ark writes `--percent` on the root; the `StepsProgress` fill (`::before`) reads it.
+- Do not render `Steps` and `StepsRootProvider` for one instance.
 
-```tsx
-<StepsTrigger asChild>
-  <a href="#billing">
-    <StepsIndicator />
-    <span>Billing</span>
-  </a>
-</StepsTrigger>
-```
+## Styling
 
-## Upstream feature coverage
-
-Official Ark examples are covered in docs: Basic, Controlled, Root Provider, Vertical, and
-Validation. Moduix also documents `asChild`, `StepsProgress`, custom CSS variables, and the
-default indicator sugar.
-
-Supported upstream behavior includes controlled/uncontrolled state, completion state via `count`, `PrevTrigger`/`NextTrigger`, `RootProvider`, root and item contexts, vertical orientation, `ids`, `linear`, validation callbacks, and skippable-step callbacks.
-
-## Accessibility and state
-
-Ark provides `role="tablist"` on `StepsList`, `role="tab"` on triggers, `role="tabpanel"` on content, `aria-controls`, `aria-labelledby`, `aria-current="step"`, `aria-selected`, `aria-orientation`, and disabled state for previous/next triggers.
-
-Use `useSteps()` for externally owned state. Use `useStepsContext`,
-`useStepsItemContext`, `StepsContext`, or `StepsItemContext` for inline root and item-state
-reads. Callback payloads stay Ark-shaped: `onStepChange(details)` exposes `details.step`, and
-`onStepInvalid(details)` exposes `details.step`, `details.action` (`'next'` or `'set'`), and the
-optional `details.targetStep`.
-
-Important data/state hooks: `data-scope="steps"`, `data-part`, `data-orientation`, `data-current`, `data-complete`, `data-incomplete`, `data-state="open" | "closed"` on triggers and content, `data-skippable`, `data-complete` on progress, and Ark `--percent` on the root.
-
-## Defaults and styling
-
-The CSS keeps Moduix density, tokens, focus rings, rounded indicators, connector behavior, and button styling while using Ark state attributes. Vertical layouts place navigation beside content on wide screens and above it below `40rem`. Public styling uses `data-slot` hooks and `--moduix-steps-*` variables in `packages/foundation/src/styles/variables-moduix.css`.
-
-Root class names apply to both `Steps` and `StepsRootProvider`. `StepsProgress` renders a visual track/fill through CSS using the Ark `--percent` runtime variable; add visible or screen-reader text when the progress needs to be announced. Incomplete trigger text styles target Ark `data-incomplete`; completed triggers keep normal inherited text color unless consumers override the state hooks.
-
-## Public CSS variable contract
-
-The public `--moduix-steps-*` contract is listed below. Keep it synchronized with
-`Steps.module.css`, `variables-moduix.css`, and the CSS Properties panel in the public docs.
-
-- Layout and state: `--moduix-steps-color`, `--moduix-steps-max-width`, `--moduix-steps-root-gap`, `--moduix-steps-vertical-gap`, `--moduix-steps-gap`, `--moduix-steps-vertical-item-min-height`, `--moduix-steps-trigger-gap`, `--moduix-steps-trigger-radius`, `--moduix-steps-trigger-color-incomplete`, `--moduix-steps-disabled-opacity`
-- Focus ring: `--moduix-steps-focus-ring-width`, `--moduix-steps-focus-ring-color`, `--moduix-steps-focus-ring-offset`
-- Indicator base and dimensions: `--moduix-steps-indicator-size`, `--moduix-steps-indicator-icon-size`, `--moduix-steps-indicator-border-width`, `--moduix-steps-indicator-radius`, `--moduix-steps-indicator-bg`, `--moduix-steps-indicator-border-color`, `--moduix-steps-indicator-color`, `--moduix-steps-indicator-font-size`, `--moduix-steps-indicator-font-weight`
-- Indicator states: `--moduix-steps-indicator-bg-current`, `--moduix-steps-indicator-bg-complete`, `--moduix-steps-indicator-border-color-current`, `--moduix-steps-indicator-border-color-complete`, `--moduix-steps-indicator-border-color-hover`, `--moduix-steps-indicator-color-current`, `--moduix-steps-indicator-color-complete`, `--moduix-steps-indicator-color-hover`
-- Separator: `--moduix-steps-separator-thickness`, `--moduix-steps-separator-min-width`, `--moduix-steps-separator-inset`, `--moduix-steps-separator-color`, `--moduix-steps-separator-color-complete`
-- Content: `--moduix-steps-content-min-height`, `--moduix-steps-content-padding-x`, `--moduix-steps-content-padding-y`, `--moduix-steps-content-radius`, `--moduix-steps-content-bg`, `--moduix-steps-content-color`, `--moduix-steps-content-font-size`, `--moduix-steps-content-line-height`, `--moduix-steps-completed-content-color`, `--moduix-steps-completed-content-font-weight`
-- Previous/next actions: `--moduix-steps-action-height`, `--moduix-steps-action-gap`, `--moduix-steps-action-border-width`, `--moduix-steps-action-border-color`, `--moduix-steps-action-radius`, `--moduix-steps-action-padding-x`, `--moduix-steps-action-padding-y`, `--moduix-steps-action-bg`, `--moduix-steps-action-bg-hover`, `--moduix-steps-action-color`, `--moduix-steps-action-font-size`, `--moduix-steps-action-line-height`, `--moduix-steps-next-action-bg`, `--moduix-steps-next-action-bg-hover`, `--moduix-steps-next-action-border-color`, `--moduix-steps-next-action-color`
-- Progress: `--moduix-steps-progress-height`, `--moduix-steps-progress-radius`, `--moduix-steps-progress-bg`, `--moduix-steps-progress-fill-bg`
-
-## Intentional sugar and differences from upstream
-
-`StepsIndicator` renders `index + 1` or a check icon by default. Upstream Ark leaves indicator content fully consumer-owned.
-
-The flat API intentionally removes the old `Stepper` contract and compatibility aliases: there is no
-`currentStep`, one-based item step prop, status override, `render` prop, or old title/description/text
-wrapper. Use Ark `asChild` and regular DOM/content composition instead.
-
-## Agent notes
-
-Do not re-add legacy primitive imports or compatibility aliases. Keep future changes aligned with Ark part names and zero-based state. `useSteps()` is the moduix-owned state factory for `StepsRootProvider`; the exported context APIs remain low-level Ark-shaped escape hatches. If a new Ark `Steps` part or hook appears upstream, mirror it through a flat family-prefixed export and the barrel unless there is a documented reason not to.
-
-When changing styling hooks or variables, update `Steps.module.css`, `variables-moduix.css`, stories, docs examples, `website/docs/en/docs/steps.mdx`, and this file together.
-
-## Local changelog
-
-- 2026-08-13: Documented the complete CSS-variable contract and verified linear-validation behavior for direct and next-step navigation.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-31: Moved the focus ring to the trigger so custom compositions remain visible, made the vertical separator RTL-safe, made narrow layouts scroll or stack safely, and synchronized tests and documentation with the exported context APIs.
-- 2026-07-11: Exposed `useSteps()` for the documented `StepsRootProvider` path so consumers do not need a mixed moduix/Ark import for externally owned state.
-- 2026-07-03: Simplified the moduix surface to match `combobox`: kept `RootProvider` and visual
-  parts, removed re-exported Ark state APIs/types, and pointed advanced state imports to
-  `@ark-ui/react/steps`.
-- 2026-06-27: Audited the Ark UI migration, tightened incomplete trigger/progress styling to current Ark data attributes, removed docs-only playground leftovers, and aligned docs snippets with the shipped composition.
-- 2026-06-21: Migrated `Stepper` to Ark UI `Steps`, renamed the component and registry surface to `steps`, removed legacy render compatibility, adopted Ark state/callback/index contracts, added real content/completed/progress/navigation parts, and documented the breaking API.
+- The root fills its container. Horizontal: the list sits above the content. Vertical: the list sits
+  beside the content and stacks above it below `40rem`; a narrow horizontal list scrolls.
+- Items share the row (`flex: 1 1 0`); the last item takes its content width and hides its separator.
+- The vertical separator is positioned from the indicator size and the list gap, so both are CSS
+  variables: `--moduix-steps-indicator-size` and `--moduix-steps-gap`. It keeps a `spacing-2` gap to
+  both indicators. Change everything else with a class on the part.
+- Indicator: outlined while incomplete (hover darkens it), foreground outline when current, filled with
+  a check icon when complete. Content panels are muted `10rem` cards. Previous is an outline button,
+  next is a solid foreground button.

@@ -5,7 +5,6 @@ import { Button } from '@moduix/vue/button';
 import {
   CommandPalette,
   CommandPaletteBackdrop,
-  CommandPaletteBody,
   CommandPaletteClearTrigger,
   CommandPaletteCombobox,
   CommandPaletteContent,
@@ -87,38 +86,33 @@ const handleOpenChange = (details: { open: boolean }) => {
         <CommandPaletteHeader>
           <CommandPaletteTitle>Commands</CommandPaletteTitle>
         </CommandPaletteHeader>
-        <CommandPaletteBody>
-          <CommandPaletteCombobox
-            :collection="collection"
-            @input-value-change="filter($event.inputValue)"
-          >
-            <CommandPaletteControl>
-              <CommandPaletteInput aria-label="Search commands" placeholder="Search commands..." />
-              <CommandPaletteClearTrigger />
-            </CommandPaletteControl>
-            <CommandPaletteList>
-              <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
-              <CommandPaletteItemGroup
-                v-for="[section, items] in collection.group()"
-                :key="section"
-              >
-                <CommandPaletteItemGroupLabel>{{ section }}</CommandPaletteItemGroupLabel>
-                <CommandPaletteItem v-for="item in items" :key="item.id" :item="item">
-                  <CommandPaletteItemIcon>{{ item.icon }}</CommandPaletteItemIcon>
-                  <CommandPaletteItemText>
-                    <CommandPaletteItemLabel>{{ item.label }}</CommandPaletteItemLabel>
-                    <CommandPaletteItemDescription>{{
-                      item.description
-                    }}</CommandPaletteItemDescription>
-                  </CommandPaletteItemText>
-                  <CommandPaletteItemMeta v-if="item.shortcut">{{
-                    item.shortcut
-                  }}</CommandPaletteItemMeta>
-                </CommandPaletteItem>
-              </CommandPaletteItemGroup>
-            </CommandPaletteList>
-          </CommandPaletteCombobox>
-        </CommandPaletteBody>
+        <CommandPaletteCombobox
+          :collection="collection"
+          @input-value-change="filter($event.inputValue)"
+        >
+          <CommandPaletteControl>
+            <CommandPaletteInput aria-label="Search commands" placeholder="Search commands..." />
+            <CommandPaletteClearTrigger />
+          </CommandPaletteControl>
+          <CommandPaletteList>
+            <CommandPaletteEmpty>No commands found.</CommandPaletteEmpty>
+            <CommandPaletteItemGroup v-for="[section, items] in collection.group()" :key="section">
+              <CommandPaletteItemGroupLabel>{{ section }}</CommandPaletteItemGroupLabel>
+              <CommandPaletteItem v-for="item in items" :key="item.id" :item="item">
+                <CommandPaletteItemIcon>{{ item.icon }}</CommandPaletteItemIcon>
+                <CommandPaletteItemText>
+                  <CommandPaletteItemLabel>{{ item.label }}</CommandPaletteItemLabel>
+                  <CommandPaletteItemDescription>{{
+                    item.description
+                  }}</CommandPaletteItemDescription>
+                </CommandPaletteItemText>
+                <CommandPaletteItemMeta v-if="item.shortcut">{{
+                  item.shortcut
+                }}</CommandPaletteItemMeta>
+              </CommandPaletteItem>
+            </CommandPaletteItemGroup>
+          </CommandPaletteList>
+        </CommandPaletteCombobox>
       </CommandPaletteContent>
     </CommandPalettePositioner>
   </CommandPalette>

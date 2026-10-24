@@ -20,12 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkDatePickerControl
     v-bind="attrs"
-    :class="
-      cn(
-        'group/date-picker-control relative flex w-full min-w-0 items-center gap-2 text-foreground',
-        props.class,
-      )
-    "
+    :class="cn('relative flex w-full min-w-0 items-center gap-2', props.class)"
     data-slot="date-picker-control"
   >
     <slot />

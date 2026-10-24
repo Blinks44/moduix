@@ -4,56 +4,6 @@ component: file-upload
 description: Composant Ark UI pour sélectionner, valider et prévisualiser des fichiers, avec prise en charge du glisser-déposer.
 ---
 
-import * as FileUploadDocs from '@/components/examples/file-upload/css-properties';
-import FileUploadAcceptedFileTypes from '@/components/examples/file-upload/accepted-file-types.tsx';
-import FileUploadAdvancedCustomization from '@/components/examples/file-upload/advanced-customization.tsx';
-import FileUploadBasic from '@/components/examples/file-upload/basic.tsx';
-import FileUploadClearTrigger from '@/components/examples/file-upload/clear-trigger.tsx';
-import FileUploadControlled from '@/components/examples/file-upload/controlled.tsx';
-import FileUploadDirectoryUpload from '@/components/examples/file-upload/directory-upload.tsx';
-import FileUploadDropzone from '@/components/examples/file-upload/dropzone.tsx';
-import FileUploadErrorHandling from '@/components/examples/file-upload/error-handling.tsx';
-import FileUploadFilePreviews from '@/components/examples/file-upload/file-previews.tsx';
-import FileUploadFormUsage from '@/components/examples/file-upload/form-usage.tsx';
-import FileUploadInitialFiles from '@/components/examples/file-upload/initial-files.tsx';
-import FileUploadMediaCapture from '@/components/examples/file-upload/media-capture.tsx';
-import FileUploadRejectedFiles from '@/components/examples/file-upload/rejected-files.tsx';
-import FileUploadRootProviderAndPaste from '@/components/examples/file-upload/root-provider-and-paste.tsx';
-import FileUploadTransformFiles from '@/components/examples/file-upload/transform-files.tsx';
-import FileUploadWithField from '@/components/examples/file-upload/with-field.tsx';
-import fileUploadSolidAcceptedFileTypes from '../../../snippets/file-upload/solid/accepted-file-types.tsx?raw';
-import fileUploadSolidAdvancedCustomization from '../../../snippets/file-upload/solid/advanced-customization.tsx?raw';
-import fileUploadSolidBasic from '../../../snippets/file-upload/solid/basic.tsx?raw';
-import fileUploadSolidClearTrigger from '../../../snippets/file-upload/solid/clear-trigger.tsx?raw';
-import fileUploadSolidControlled from '../../../snippets/file-upload/solid/controlled.tsx?raw';
-import fileUploadSolidDirectoryUpload from '../../../snippets/file-upload/solid/directory-upload.tsx?raw';
-import fileUploadSolidDropzone from '../../../snippets/file-upload/solid/dropzone.tsx?raw';
-import fileUploadSolidErrorHandling from '../../../snippets/file-upload/solid/error-handling.tsx?raw';
-import fileUploadSolidFilePreviews from '../../../snippets/file-upload/solid/file-previews.tsx?raw';
-import fileUploadSolidFormUsage from '../../../snippets/file-upload/solid/form-usage.tsx?raw';
-import fileUploadSolidInitialFiles from '../../../snippets/file-upload/solid/initial-files.tsx?raw';
-import fileUploadSolidMediaCapture from '../../../snippets/file-upload/solid/media-capture.tsx?raw';
-import fileUploadSolidRejectedFiles from '../../../snippets/file-upload/solid/rejected-files.tsx?raw';
-import fileUploadSolidRootProviderAndPaste from '../../../snippets/file-upload/solid/root-provider-and-paste.tsx?raw';
-import fileUploadSolidTransformFiles from '../../../snippets/file-upload/solid/transform-files.tsx?raw';
-import fileUploadSolidWithField from '../../../snippets/file-upload/solid/with-field.tsx?raw';
-import fileUploadVueAcceptedFileTypes from '../../../snippets/file-upload/vue/accepted-file-types.vue?raw';
-import fileUploadVueAdvancedCustomization from '../../../snippets/file-upload/vue/advanced-customization.vue?raw';
-import fileUploadVueBasic from '../../../snippets/file-upload/vue/basic.vue?raw';
-import fileUploadVueClearTrigger from '../../../snippets/file-upload/vue/clear-trigger.vue?raw';
-import fileUploadVueControlled from '../../../snippets/file-upload/vue/controlled.vue?raw';
-import fileUploadVueDirectoryUpload from '../../../snippets/file-upload/vue/directory-upload.vue?raw';
-import fileUploadVueDropzone from '../../../snippets/file-upload/vue/dropzone.vue?raw';
-import fileUploadVueErrorHandling from '../../../snippets/file-upload/vue/error-handling.vue?raw';
-import fileUploadVueFilePreviews from '../../../snippets/file-upload/vue/file-previews.vue?raw';
-import fileUploadVueFormUsage from '../../../snippets/file-upload/vue/form-usage.vue?raw';
-import fileUploadVueInitialFiles from '../../../snippets/file-upload/vue/initial-files.vue?raw';
-import fileUploadVueMediaCapture from '../../../snippets/file-upload/vue/media-capture.vue?raw';
-import fileUploadVueRejectedFiles from '../../../snippets/file-upload/vue/rejected-files.vue?raw';
-import fileUploadVueRootProviderAndPaste from '../../../snippets/file-upload/vue/root-provider-and-paste.vue?raw';
-import fileUploadVueTransformFiles from '../../../snippets/file-upload/vue/transform-files.vue?raw';
-import fileUploadVueWithField from '../../../snippets/file-upload/vue/with-field.vue?raw';
-
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/file-upload" />
@@ -74,51 +24,12 @@ sélecteur natif dans un formulaire simple.
 ## Exemple de base
 
 
-Commencez par utiliser `FileUpload` comme composant racine. Ajoutez un `FileUploadLabel`, puis utilisez `FileUploadTrigger` pour un contrôle
+Commencez par utiliser `FileUpload` comme composant racine. Ajoutez un `FileUploadLabel`, puis enveloppez un `Button` dans `FileUploadTrigger asChild` pour un contrôle
 compact ou `FileUploadDropzone` pour le glisser-déposer. Ajoutez explicitement `FileUploadHiddenInput` pour
 ouvrir le sélecteur natif. Placez `FileUploadItems` dans `FileUploadItemGroup` pour afficher les fichiers acceptés. `FileUploadItems` affiche une vignette uniquement lorsque le fichier
 possède un type MIME `image/*` ; les autres fichiers utilisent un aperçu générique.
 
-<ExampleFrame variant="component">
-  <FileUploadBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/basic" />
 
 ## Installation avec shadcn
 
@@ -189,7 +100,7 @@ FileUpload / FileUploadRootProvider
 | `FileUploadLabel` | Libellé accessible pour le champ de fichier masqué et les contrôles de téléversement. |
 | `FileUploadDropzone` | Zone de dépôt. Passez `disableClick` si elle contient un `FileUploadTrigger` imbriqué, afin de ne pas ouvrir deux fois le sélecteur. |
 | `FileUploadDropzoneIcon` | Icône de téléversement décorative pour une `FileUploadDropzone`. |
-| `FileUploadTrigger` | Bouton qui ouvre le sélecteur de fichiers natif. |
+| `FileUploadTrigger` | Bouton sans style qui ouvre le sélecteur de fichiers natif. Composez-le avec un `Button` via `asChild`. |
 | `FileUploadItemGroup` | Liste des fichiers acceptés ou rejetés. |
 | `FileUploadItems` | Composant prêt à l’emploi qui affiche des cartes pour les images et des lignes pour les autres fichiers, avec aperçu, métadonnées et suppression. |
 | `FileUploadContext` | Contexte compatible avec Ark et basé sur une fonction de rendu pour créer des lignes personnalisées. |
@@ -200,8 +111,8 @@ FileUpload / FileUploadRootProvider
 | `FileUploadItemName` | Nom du fichier. |
 | `FileUploadItemMetadata` | Type du fichier et taille formatée selon la locale. Passez-lui l’objet `file` courant. |
 | `FileUploadItemSizeText` | Taille du fichier formatée selon la locale. |
-| `FileUploadItemDeleteTrigger` | Supprime un fichier. Utilise par défaut l’icône de corbeille moduix. |
-| `FileUploadClearTrigger` | Efface les fichiers sélectionnés. Utilise par défaut l’icône de fermeture moduix. |
+| `FileUploadItemDeleteTrigger` | Supprime un fichier. Utilise par défaut l’icône de corbeille moduix ; son nom vient de `translations.deleteFile` d’Ark. |
+| `FileUploadClearTrigger` | Bouton sans style qui efface les fichiers acceptés ; masqué tant que la liste est vide. Composez-le avec un `Button` via `asChild`. |
 
 ## Composition
 
@@ -223,137 +134,20 @@ Utilisez `FileUploadItems` dans `FileUploadItemGroup` pour les lignes de fichier
 Utilisez `accept` pour restreindre à la fois le sélecteur de fichiers natif et la validation du glisser-déposer. Vous pouvez
 indiquer des types MIME ou des extensions de fichiers.
 
-<ExampleFrame variant="component">
-  <FileUploadAcceptedFileTypes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/accepted-file-types.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidAcceptedFileTypes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueAcceptedFileTypes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-accepted-file-types.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/accepted-file-types" />
 
 ### Effacer la liste de fichiers
 
 Utilisez `FileUploadClearTrigger` pour supprimer tous les fichiers acceptés en une seule action.
 
-<ExampleFrame variant="component">
-  <FileUploadClearTrigger />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/clear-trigger.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidClearTrigger} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueClearTrigger} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-clear-trigger.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/clear-trigger" />
 
 ### État contrôlé
 
 Contrôlez `acceptedFiles` lorsque les fichiers sélectionnés doivent rester synchronisés avec l’état de l’application ou un
 parcours en plusieurs étapes. Mettez la valeur à jour depuis `onFileChange(details)`.
 
-<ExampleFrame variant="component">
-  <FileUploadControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/controlled" />
 
 ### Téléversement d’un dossier
 
@@ -361,138 +155,21 @@ Utilisez `directory` pour laisser l’utilisateur sélectionner un dossier. Dans
 de chaque fichier est disponible via `file.webkitRelativePath`. Définissez `maxFiles` à une valeur suffisamment élevée, ou
 omettez-la si le nombre de fichiers est inconnu.
 
-<ExampleFrame variant="component">
-  <FileUploadDirectoryUpload />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/directory-upload.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidDirectoryUpload} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueDirectoryUpload} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-directory-upload.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/directory-upload" />
 
 ### Dropzone
 
 Utilisez `FileUploadDropzone` pour le téléversement par glisser-déposer. Gardez un `FileUploadTrigger` imbriqué afin que les utilisateurs puissent
 aussi ouvrir le sélecteur au clavier.
 
-<ExampleFrame variant="component">
-  <FileUploadDropzone />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/dropzone.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidDropzone} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueDropzone} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-dropzone.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/dropzone" />
 
 ### Gestion des erreurs
 
 Utilisez `onFileReject(details)` pour afficher un message adapté à l’application. Définissez les contraintes intégrées,
 comme `accept`, `maxFiles` et `maxFileSize`, sur le composant racine. Ajoutez `validate(file, details)` pour vos propres contrôles.
 
-<ExampleFrame variant="component">
-  <FileUploadErrorHandling />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/error-handling.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidErrorHandling} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueErrorHandling} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-error-handling.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/error-handling" />
 
 ### Aperçus des fichiers
 
@@ -500,137 +177,20 @@ Cet exemple contient déjà une image SVG et un PDF, ce qui permet de voir immé
 d’aperçu des lignes de fichiers mesure par défaut 2,5rem sur 2,5rem, et les noms longs restent sur une seule ligne. Supprimez
 l’un des éléments ou ajoutez vos propres fichiers pour tester ces deux présentations.
 
-<ExampleFrame variant="component">
-  <FileUploadFilePreviews />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/file-previews.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidFilePreviews} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueFilePreviews} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-file-previews.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/file-previews" />
 
 ### Utilisation dans un formulaire
 
 Passez `name` au composant racine et ajoutez `FileUploadHiddenInput` ; les fichiers sélectionnés
 participent alors à la soumission et à la réinitialisation du formulaire.
 
-<ExampleFrame variant="component">
-  <FileUploadFormUsage />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/form-usage.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidFormUsage} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueFormUsage} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-form-usage.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/form-usage" />
 
 ### Fichiers initiaux
 
 Utilisez `defaultAcceptedFiles` pour précharger des fichiers, puis laissez le composant gérer la sélection.
 
-<ExampleFrame variant="component">
-  <FileUploadInitialFiles />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/initial-files.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidInitialFiles} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueInitialFiles} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-initial-files.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/initial-files" />
 
 ### Capture avec l’appareil photo
 
@@ -638,92 +198,14 @@ Utilisez `capture` avec une valeur `accept` correspondant à une image ou une vi
 d’ouvrir l’appareil photo. Définissez-le sur `"user"` ou `"environment"` pour suggérer la caméra avant ou arrière. Il
 s’agit d’une indication pour le navigateur, pas d’une garantie que l’appareil photo s’ouvrira.
 
-<ExampleFrame variant="component">
-  <FileUploadMediaCapture />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/media-capture.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidMediaCapture} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueMediaCapture} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-media-capture.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/media-capture" />
 
 ### Fichiers rejetés
 
 Affichez `rejectedFiles` dans un groupe distinct `FileUploadItemGroup type="rejected"` lorsque les utilisateurs doivent voir pourquoi
 la validation a échoué.
 
-<ExampleFrame variant="component">
-  <FileUploadRejectedFiles />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/rejected-files.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidRejectedFiles} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueRejectedFiles} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-rejected-files.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/rejected-files" />
 
 ### Root Provider et collage de fichiers
 
@@ -731,137 +213,20 @@ Utilisez `useFileUpload` avec `FileUploadRootProvider` lorsque l’état ou les 
 téléversement affiché. Dans cet exemple, `setClipboardFiles` transmet à l’état du composant les fichiers collés dans une
 zone de texte.
 
-<ExampleFrame variant="component">
-  <FileUploadRootProviderAndPaste />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/root-provider-and-paste.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidRootProviderAndPaste} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueRootProviderAndPaste} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-root-provider-and-paste.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/root-provider-and-paste" />
 
 ### Transformation des fichiers
 
 Utilisez `transformFiles(files)` pour traiter les fichiers de manière asynchrone avant de les ajouter à l’état `acceptedFiles`.
 
-<ExampleFrame variant="component">
-  <FileUploadTransformFiles />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/transform-files.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidTransformFiles} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueTransformFiles} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-transform-files.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/transform-files" />
 
 ### Intégration avec Field
 
 Placez le téléversement dans `Field` lorsque le champ de formulaire doit inclure un texte d’aide ou un message d’erreur,
 ou indiquer qu’il est obligatoire ou invalide.
 
-<ExampleFrame variant="component">
-  <FileUploadWithField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/with-field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidWithField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueWithField} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-with-field.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/with-field" />
 
 ### Personnalisation avancée
 
@@ -869,68 +234,17 @@ Remplacez `FileUploadItems` par vos propres lignes lorsque vous avez besoin d’
 ou d’une autre disposition. La composition explicite avec `FileUploadContext` vous permet de conserver l’accès à l’état Ark
 et de choisir un aperçu d’image ou un aperçu de secours pour chaque fichier.
 
-<ExampleFrame variant="component">
-  <FileUploadAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/file-upload/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={fileUploadSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={fileUploadVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/file-upload/file-upload-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="file-upload/advanced-customization" />
 
 ## Styles
 
 Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles structurels. Les variantes Tailwind
-utilisent les utilitaires natifs et les classes du consommateur ; les variantes CSS Modules exposent les variables ci-dessous.
+utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules reposent sur les jetons de
+foundation et n’ont pas de variables de composant : une classe sur la partie remplace les styles de la couche des composants.
 Les deux solutions de styles partagent les attributs d’état d’Ark et les hooks `data-slot` de moduix.
 
-### Propriétés CSS
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <div>
-        <FileUploadDocs.FileUploadCssPropertiesPanel />
-      </div>
-    </Tab>
-  </Tabs>
-</div>
+La racine occupe toute la largeur de son conteneur ; limitez-la avec `max-width` dans une classe. Chaque élément est une
+grille aux zones nommées `preview`, `name`, `meta` et `delete` : un enfant personnalisé sans zone se place sous le nom du fichier.
 
 ### Points d’accroche CSS
 

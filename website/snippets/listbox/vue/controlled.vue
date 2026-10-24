@@ -9,7 +9,6 @@ import {
   ListboxLabel,
 } from '@moduix/vue/listbox';
 import { ref } from 'vue';
-import styles from '@/components/examples/listbox/listbox-controlled.module.css';
 
 const sizes = createListCollection({
   items: [
@@ -23,7 +22,7 @@ const value = ref<string[]>(['md']);
 </script>
 
 <template>
-  <Listbox v-model="value" :collection="sizes" :class="styles.root">
+  <Listbox v-model="value" :collection="sizes">
     <ListboxLabel>Select size</ListboxLabel>
     <ListboxContent>
       <ListboxItem v-for="item in sizes.items" :key="item.value" :item="item">

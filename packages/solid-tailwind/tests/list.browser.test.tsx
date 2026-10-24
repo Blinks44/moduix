@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
 import { createSignal } from 'solid-js';
-import { List, ListItem } from '../src';
+import { List, ListIndicator, ListItem } from '../src';
 
 test.each(['ul', 'ol'] as const)('updates %s markers without replacing the host', async (as) => {
   const [marker, setMarker] = createSignal<'none' | 'disc'>('none');
@@ -66,14 +66,13 @@ test('renders semantic unordered-list defaults and forwards the item ref', () =>
 
   expect(list.tagName).toBe('UL');
 
-  expect(list.dataset).toMatchObject({ gap: 'sm', marker: 'auto', size: 'md', tone: 'default' });
+  expect(list.dataset).toMatchObject({ gap: 'sm', marker: 'disc', size: 'md', tone: 'default' });
   expect([...list.classList]).toEqual(
     expect.arrayContaining([
       'flex',
       'flex-col',
-      'gap-space-sm',
+      'gap-(--_list-gap)',
       'list-disc',
-      'list-outside',
       'ps-5',
       'text-md',
       'text-foreground',
@@ -88,7 +87,7 @@ test('renders semantic roots with stable hooks and native ordered-list props', a
   let ref!: HTMLOListElement;
 
   render(() => (
-    <List ref={(element) => (ref = element)} as="ol" start={3} type="A" data-testid="list">
+    <List ref={(element) => (ref = element)} as="ol" start={3} reversed data-testid="list">
       <ListItem>Prepare the release notes.</ListItem>
     </List>
   ));
@@ -99,9 +98,9 @@ test('renders semantic roots with stable hooks and native ordered-list props', a
   expect(list.tagName).toBe('OL');
   const listLocator = page.getByTestId('list');
   await expect.element(listLocator).toHaveAttribute('start', '3');
-  await expect.element(listLocator).toHaveAttribute('type', 'A');
+  await expect.element(listLocator).toHaveAttribute('reversed');
   expect(list.dataset).toMatchObject({ scope: 'list', part: 'root', slot: 'list-root' });
-  expect([...list!.classList]).toEqual(expect.arrayContaining(['list-[revert]', 'ps-5']));
+  expect([...list!.classList]).toEqual(expect.arrayContaining(['list-decimal', 'ps-5']));
 });
 
 test('keeps markerless list semantics and supports custom semantic roots', async () => {
@@ -142,7 +141,7 @@ test('lets consumer utilities override conflicting defaults', () => {
   expect([...list.classList]).toEqual(
     expect.arrayContaining(['gap-6', 'ps-0', 'text-lg', 'text-primary']),
   );
-  for (const utility of ['gap-space-sm', 'ps-5', 'text-md', 'text-foreground']) {
+  for (const utility of ['gap-(--_list-gap)', 'ps-5', 'text-md', 'text-foreground']) {
     expect(list.classList.contains(utility)).toBe(false);
   }
   expect(getComputedStyle(list)).toMatchObject({
@@ -150,4 +149,90 @@ test('lets consumer utilities override conflicting defaults', () => {
     paddingInlineStart: '0px',
     fontSize: '18px',
   });
+});
+test('derives the default marker from the host and maps size, gap, and tone', () => {
+  render(() => (
+    <>
+      <List data-testid="ul">
+        <ListItem>Disc</ListItem>
+      </List>
+      <List as="ol" data-testid="ol">
+        <ListItem>Decimal</ListItem>
+      </List>
+      <List
+        marker="decimal"
+        data-testid="child"
+        asChild={(props) => (
+          <ol {...props()}>
+            <ListItem>Decimal</ListItem>
+          </ol>
+        )}
+      />
+      <List gap="lg" size="sm" tone="muted" marker="none" data-testid="custom">
+        <ListItem>Muted</ListItem>
+      </List>
+    </>
+  ));
+
+  const ul = screen.getByTestId('ul');
+  const ol = screen.getByTestId('ol');
+  const child = screen.getByTestId('child');
+  const custom = screen.getByTestId('custom');
+
+  expect(ul.dataset.marker).toBe('disc');
+  expect(getComputedStyle(ul)).toMatchObject({
+    listStyleType: 'disc',
+    paddingInlineStart: '20px',
+    rowGap: '8px',
+    fontSize: '16px',
+  });
+  expect(ol.dataset.marker).toBe('decimal');
+  expect(getComputedStyle(ol).listStyleType).toBe('decimal');
+  expect(child.tagName).toBe('OL');
+  expect(getComputedStyle(child).listStyleType).toBe('decimal');
+  expect(getComputedStyle(custom)).toMatchObject({
+    listStyleType: 'none',
+    paddingInlineStart: '0px',
+    rowGap: '16px',
+    fontSize: '14px',
+  });
+  expect(getComputedStyle(custom).color).not.toBe(getComputedStyle(ul).color);
+});
+test('spaces nested lists and lays out indicators', () => {
+  render(() => (
+    <>
+      <List gap="lg">
+        <ListItem>
+          Parent
+          <List gap="lg" data-testid="nested">
+            <ListItem>Child</ListItem>
+          </List>
+        </ListItem>
+      </List>
+      <List marker="none">
+        <ListItem data-testid="indicator-item">
+          <ListIndicator data-testid="indicator">
+            <svg viewBox="0 0 16 16" aria-hidden="true" />
+          </ListIndicator>
+          Done
+        </ListItem>
+      </List>
+    </>
+  ));
+  const nested = screen.getByTestId('nested');
+  const indicatorItem = screen.getByTestId('indicator-item');
+  const indicator = screen.getByTestId('indicator');
+  const icon = indicator.querySelector('svg')!;
+  expect(getComputedStyle(nested).marginBlockStart).toBe('16px');
+  expect(getComputedStyle(indicatorItem)).toMatchObject({
+    display: 'flex',
+    alignItems: 'flex-start',
+  });
+  expect(indicator.dataset).toMatchObject({
+    scope: 'list',
+    part: 'indicator',
+    slot: 'list-indicator',
+  });
+  expect(getComputedStyle(indicator)).toMatchObject({ marginInlineEnd: '8px', minHeight: '24px' });
+  expect(icon.getBoundingClientRect().width).toBe(16);
 });

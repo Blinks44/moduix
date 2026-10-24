@@ -8,17 +8,20 @@
 }
 
 .customBackdrop {
-  --moduix-lightbox-backdrop-bg: rgb(15 23 42 / 0.72);
+  background-color: rgb(15 23 42 / 0.72);
 }
 
 .customContent {
   --moduix-lightbox-content-max-width: 72vw;
   --moduix-lightbox-content-max-height: 72dvh;
-  --moduix-lightbox-media-radius: var(--moduix-radius-lg);
+
+  & img {
+    border-radius: var(--moduix-radius-lg);
+  }
 }
 
 .customClose {
-  --moduix-lightbox-close-icon-bg: var(--moduix-color-muted);
-  --moduix-lightbox-close-icon-bg-hover: var(--moduix-color-accent);
-  --moduix-lightbox-close-icon-radius: var(--moduix-radius-md);
+  --moduix-close-button-bg: var(--moduix-color-muted);
+  --moduix-close-button-bg-hover: var(--moduix-color-accent);
+  --moduix-close-button-radius: var(--moduix-radius-md);
 }

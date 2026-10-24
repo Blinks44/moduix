@@ -16,7 +16,7 @@ const { class: className, index } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const itemClass = 'box-border min-h-0 min-w-0';
+const itemClass = 'min-h-0 min-w-0';
 </script>
 
 <template>

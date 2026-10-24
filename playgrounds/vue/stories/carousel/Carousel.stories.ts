@@ -18,7 +18,7 @@ import {
   CarouselRootProvider,
   useCarousel,
 } from '@/components/carousel';
-import { PlusIcon } from '@/lib/moduix/icons/ui/Icons';
+import { PlusIcon } from '@/lib/moduix/icons/ui';
 import styles from './Carousel.stories.module.css';
 
 const meta = {

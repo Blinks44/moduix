@@ -14,12 +14,12 @@ import { CheckIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import styles from './Checkbox.module.css';
 
 type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type RootProps = ComponentProps<typeof CheckboxPrimitive.Root> & { size?: CheckboxSize };
-type RootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> & {
+type CheckboxRootProps = ComponentProps<typeof CheckboxPrimitive.Root> & { size?: CheckboxSize };
+type CheckboxRootProviderProps = ComponentProps<typeof CheckboxPrimitive.RootProvider> & {
   size?: CheckboxSize;
 };
 
-const Checkbox = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, RootProps>(
+const Checkbox = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, CheckboxRootProps>(
   function Checkbox({ className, size = 'md', ...props }, ref) {
     return (
       <CheckboxPrimitive.Root
@@ -35,7 +35,7 @@ const Checkbox = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, RootPro
 
 const CheckboxRootProvider = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.RootProvider>,
-  RootProviderProps
+  CheckboxRootProviderProps
 >(function CheckboxRootProvider({ className, size = 'md', ...props }, ref) {
   return (
     <CheckboxPrimitive.RootProvider
@@ -52,10 +52,6 @@ const CheckboxIndicator = forwardRef<
   ComponentRef<typeof CheckboxPrimitive.Indicator>,
   ComponentProps<typeof CheckboxPrimitive.Indicator>
 >(function CheckboxIndicator({ className, children, indeterminate, ...props }, ref) {
-  const slot = indeterminate
-    ? 'checkbox-indicator-indeterminate-icon'
-    : 'checkbox-indicator-checked-icon';
-
   return (
     <CheckboxPrimitive.Indicator
       ref={ref}
@@ -64,11 +60,7 @@ const CheckboxIndicator = forwardRef<
       {...props}
       data-slot="checkbox-indicator"
     >
-      {children ?? (
-        <span aria-hidden="true" data-slot={slot} className={styles.icon}>
-          {indeterminate ? <IndeterminateIcon /> : <CheckIcon />}
-        </span>
-      )}
+      {children ?? (indeterminate ? <IndeterminateIcon /> : <CheckIcon />)}
     </CheckboxPrimitive.Indicator>
   );
 });
@@ -139,3 +131,5 @@ export {
   useCheckboxGroup,
   useCheckboxGroupContext,
 };
+
+export type { CheckboxRootProps, CheckboxRootProviderProps, CheckboxSize };

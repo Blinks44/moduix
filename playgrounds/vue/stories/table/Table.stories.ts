@@ -203,7 +203,7 @@ export const SizesAndVariants: Story = {
   render: renderStory(`
     <div :class="styles.stack">
       <TableScrollArea v-for="size in sizes" :key="size">
-        <Table :size="size" :variant="size === 'md' ? 'outline' : 'line'" :class="styles.table">
+        <Table :size="size" :class="styles.table">
           <TableCaption side="top">{{ size.toUpperCase() }} project summary</TableCaption>
           <TableHeader>
             <TableRow>
@@ -231,9 +231,9 @@ export const ColumnGroupAndBorders: Story = {
       <TableScrollArea>
         <Table show-column-border :class="styles.table">
           <TableColumnGroup>
-            <TableColumn html-width="42%" />
-            <TableColumn html-width="28%" />
-            <TableColumn html-width="30%" />
+            <TableColumn width="42%" />
+            <TableColumn width="28%" />
+            <TableColumn width="30%" />
           </TableColumnGroup>
           <TableHeader>
             <TableRow>

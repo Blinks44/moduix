@@ -22,11 +22,12 @@ import {
   useDrawer,
   useDrawerContext,
 } from '../src';
+import { LocaleProvider } from '../src/locale';
 
-function DrawerParts(props: { children?: JSX.Element }) {
+function DrawerParts(props: { children?: JSX.Element; variant?: 'island' }) {
   return (
     <DrawerPositioner>
-      <DrawerContent>
+      <DrawerContent variant={props.variant}>
         <DrawerTitle>Preferences</DrawerTitle>
         {props.children}
       </DrawerContent>
@@ -167,12 +168,12 @@ test('opens a RootProvider drawer from external state', async () => {
   await expect.element(page.getByRole('dialog')).toBeVisible();
 });
 
-test('keeps the inherited variant reactive without remounting open content', async () => {
+test('keeps the content variant reactive without remounting open content', async () => {
   const [variant, setVariant] = createSignal<'island' | undefined>('island');
 
   render(() => (
-    <Drawer defaultOpen variant={variant()} portalled={false}>
-      <DrawerParts>
+    <Drawer defaultOpen portalled={false}>
+      <DrawerParts variant={variant()}>
         <input aria-label="Draft" />
       </DrawerParts>
     </Drawer>
@@ -180,49 +181,20 @@ test('keeps the inherited variant reactive without remounting open content', asy
 
   await expect.element(page.getByRole('dialog')).toBeVisible();
   const content = document.querySelector('[role="dialog"]')!;
-  const input = document.querySelector('input[aria-label="Draft"]')!;
   await page.getByRole('textbox', { name: 'Draft' }).fill('Keep my draft');
   await expect.element(page.getByRole('dialog')).toHaveAttribute('data-variant', 'island');
 
   setVariant(undefined);
   await expect.element(page.getByRole('dialog')).not.toHaveAttribute('data-variant');
   expect(document.querySelector('[role="dialog"]')).toBe(content);
-  expect(document.querySelector('input[aria-label="Draft"]')).toBe(input);
   await expect.element(page.getByRole('textbox', { name: 'Draft' })).toHaveValue('Keep my draft');
-
-  setVariant('island');
-  await expect.element(page.getByRole('dialog')).toHaveAttribute('data-variant', 'island');
-  expect(document.querySelector('[role="dialog"]')).toBe(content);
-  await expect.element(page.getByRole('textbox', { name: 'Draft' })).toHaveValue('Keep my draft');
-});
-
-test('keeps an explicit content variant ahead of changing root defaults', async () => {
-  const [variant, setVariant] = createSignal<'island' | undefined>(undefined);
-  render(() => (
-    <Drawer defaultOpen variant={variant()} portalled={false}>
-      <DrawerPositioner>
-        <DrawerContent variant="island">
-          <DrawerTitle>Preferences</DrawerTitle>
-        </DrawerContent>
-      </DrawerPositioner>
-    </Drawer>
-  ));
-
-  await expect.element(page.getByRole('dialog')).toBeVisible();
-  const content = document.querySelector('[role="dialog"]')!;
-  await expect.element(page.getByRole('dialog')).toHaveAttribute('data-variant', 'island');
-  setVariant('island');
-  await expect.element(page.getByRole('dialog')).toHaveAttribute('data-variant', 'island');
-  setVariant(undefined);
-  await expect.element(page.getByRole('dialog')).toHaveAttribute('data-variant', 'island');
-  expect(document.querySelector('[role="dialog"]')).toBe(content);
 });
 
 test('marks an island drawer and closes it through its accessible close icon', async () => {
   render(() => (
-    <Drawer variant="island">
+    <Drawer>
       <DrawerTrigger>Open drawer</DrawerTrigger>
-      <DrawerParts>
+      <DrawerParts variant="island">
         <DrawerStateReadout />
         <DrawerCloseIcon />
       </DrawerParts>
@@ -237,6 +209,9 @@ test('marks an island drawer and closes it through its accessible close icon', a
   await expect
     .element(page.locator('[data-slot="drawer-positioner"]'))
     .toHaveAttribute('data-swipe-direction', 'down');
+  await expect
+    .element(page.locator('[data-slot="drawer-positioner"]'))
+    .toHaveCSS('padding-bottom', '16px');
   await page.getByRole('button', { name: 'Close drawer' }).click();
 
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
@@ -292,9 +267,7 @@ test('applies Tailwind defaults and lets consumer utilities win', async () => {
   const content = document.querySelector('[role="dialog"]')!;
   const closeIcon = document.querySelector('[data-slot="drawer-close-icon"]')!;
 
-  expect([...trigger.classList]).toEqual(expect.arrayContaining(['bg-primary', 'px-2']));
-  expect([...trigger.classList]).not.toContain('bg-background');
-  expect([...trigger.classList]).not.toContain('px-3.5');
+  expect([...trigger.classList]).toEqual(['bg-primary', 'px-2']);
   expect([...document.querySelector('[data-slot="drawer-backdrop"]')!.classList]).toEqual(
     expect.arrayContaining(['fixed', 'inset-0', 'bg-overlay']),
   );
@@ -309,7 +282,7 @@ test('applies Tailwind defaults and lets consumer utilities win', async () => {
     expect.arrayContaining([
       'data-[swipe-direction=left]:after:inset-y-0',
       'data-[swipe-direction=right]:after:inset-y-0',
-      '[--drawer-island-translate-distance:0px]',
+      '[--_drawer-island-offset:0px]',
       '[--_drawer-bleed:var(--moduix-size-xl)]',
     ]),
   );
@@ -341,4 +314,56 @@ test('applies Tailwind defaults and lets consumer utilities win', async () => {
   await expect
     .element(page.getByRole('button', { name: 'Close drawer' }))
     .toHaveCSS('width', '32px');
+});
+
+test('leaves native triggers unstyled and keeps the body in the content color', async () => {
+  render(() => (
+    <Drawer defaultOpen portalled={false}>
+      <DrawerTrigger>Open drawer</DrawerTrigger>
+      <DrawerPositioner>
+        <DrawerContent>
+          <DrawerTitle>Preferences</DrawerTitle>
+          <DrawerBody>Body</DrawerBody>
+          <DrawerCloseTrigger>Done</DrawerCloseTrigger>
+        </DrawerContent>
+      </DrawerPositioner>
+    </Drawer>
+  ));
+
+  expect(document.querySelector('[data-slot="drawer-trigger"]')!.classList).toHaveLength(0);
+  expect(document.querySelector('[data-slot="drawer-close-trigger"]')!.classList).toHaveLength(0);
+  const content = document.querySelector('[role="dialog"]')!;
+  const body = document.querySelector('[data-slot="drawer-body"]')!;
+  expect(getComputedStyle(body).color).toBe(getComputedStyle(content).color);
+});
+
+test('keeps physical side corners for a start drawer in RTL', async () => {
+  render(() => (
+    <LocaleProvider locale="ar">
+      <Drawer defaultOpen portalled={false} swipeDirection="start">
+        <DrawerParts />
+      </Drawer>
+    </LocaleProvider>
+  ));
+
+  const content = page.getByRole('dialog');
+  await expect.element(content).toHaveAttribute('data-swipe-direction', 'right');
+  await expect.element(content).toHaveCSS('border-top-right-radius', '0px');
+  await expect.element(content).not.toHaveCSS('border-top-left-radius', '0px');
+});
+
+test('sets the side drawer width from size', async () => {
+  render(() => (
+    <Drawer defaultOpen portalled={false} swipeDirection="end">
+      <DrawerPositioner>
+        <DrawerContent size="lg">
+          <DrawerTitle>Preferences</DrawerTitle>
+        </DrawerContent>
+      </DrawerPositioner>
+    </Drawer>
+  ));
+
+  const content = page.getByRole('dialog');
+  await expect.element(content).toHaveAttribute('data-size', 'lg');
+  await expect.element(content).toHaveCSS('width', '448px');
 });

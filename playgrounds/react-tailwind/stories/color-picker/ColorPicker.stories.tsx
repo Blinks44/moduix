@@ -16,7 +16,6 @@ import {
   ColorPickerEyeDropperTrigger,
   ColorPickerSwatchGroup,
   ColorPickerSwatchTrigger,
-  ColorPickerTransparencyGrid,
   ColorPickerValueSwatch,
   ColorPickerValueText,
   ColorPickerView,
@@ -52,6 +51,7 @@ function ColorPickerField({
       <ColorPickerLabel>Color</ColorPickerLabel>
       <ColorPickerControl>
         <ColorPickerChannelInput channel="hex" />
+        <ColorPickerChannelInput channel="alpha" />
         <ColorPickerTrigger aria-label="Open color picker" className={triggerClassName} />
       </ColorPickerControl>
       <ColorPickerPositioner>
@@ -104,13 +104,8 @@ function CompactTriggerPicker() {
       <ColorPickerLabel>Color</ColorPickerLabel>
       <ColorPickerControl>
         <ColorPickerTrigger aria-label="Open color picker" data-fit-content>
-          <span className="inline-flex items-center gap-2">
-            <span className="relative grid size-4 shrink-0 overflow-hidden rounded-sm border border-border">
-              <ColorPickerTransparencyGrid />
-              <ColorPickerValueSwatch />
-            </span>
-            <ColorPickerValueText format="hex" />
-          </span>
+          <ColorPickerValueSwatch />
+          <ColorPickerValueText format="hex" />
         </ColorPickerTrigger>
       </ColorPickerControl>
       <ColorPickerPositioner>

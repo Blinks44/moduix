@@ -3,8 +3,9 @@ import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
-import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 
 defineOptions({ inheritAttrs: false });
 
@@ -49,6 +50,7 @@ const isDisabled = computed(
   () => disabled || ariaDisabled === true || ariaDisabled === 'true' || dataDisabled !== undefined,
 );
 
+// stopImmediatePropagation also skips the bubble @click below and listeners merged by asChild.
 const handleClickCapture = (event: MouseEvent) => {
   if (isDisabled.value) {
     event.preventDefault();
@@ -57,39 +59,30 @@ const handleClickCapture = (event: MouseEvent) => {
   }
   emit('clickCapture', event);
 };
-
-const handleClick = (event: MouseEvent) => {
-  if (isDisabled.value) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    return;
-  }
-  emit('click', event);
-};
 </script>
 
 <template>
   <ark.button
     @click.capture="handleClickCapture"
-    @click="handleClick"
+    @click="emit('click', $event)"
     v-bind="attrs"
     :as-child="asChild"
     :type="asChild ? type : (type ?? 'button')"
     :disabled="asChild ? undefined : disabled"
     :aria-disabled="asChild && disabled ? true : ariaDisabled"
-    :aria-label="ariaLabel ?? (ariaLabelledby == null ? 'Close' : undefined)"
+    :aria-label="ariaLabel ?? (ariaLabelledby == null ? a11yLabels.close : undefined)"
     :aria-labelledby="ariaLabelledby"
     :data-scope="dataScope"
     :data-part="dataPart"
     :data-slot="dataSlot"
-    :data-disabled="dataDisabled ?? (isDisabled ? '' : undefined)"
+    :data-disabled="isDisabled ? (dataDisabled ?? '') : undefined"
     :class="
       cn(
-        `m-0 box-border inline-flex size-7 shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 [&:active:not([data-disabled])]:opacity-[0.94] [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground`,
+        `m-0 inline-flex size-7 shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-normal ease-in-out select-none focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-disabled [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground`,
         className,
       )
     "
   >
-    <slot><CloseIcon class="size-4 shrink-0" /></slot>
+    <slot><CloseIcon /></slot>
   </ark.button>
 </template>

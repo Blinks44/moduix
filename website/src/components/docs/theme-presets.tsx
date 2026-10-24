@@ -22,9 +22,7 @@ import {
   SelectContent,
   SelectItemGroup,
   SelectItemGroupLabel,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/react/select';
 import { useI18n } from '@rspress/core/runtime';
 import { useState } from 'react';
@@ -170,10 +168,9 @@ function ThemePresets() {
                     <SelectItemGroup>
                       <SelectItemGroupLabel>{t('themePreviewWorkflow')}</SelectItemGroupLabel>
                       {stageCollection.items.map((item) => (
-                        <SelectItem key={item.value} item={item}>
-                          <SelectItemText>{item.label}</SelectItemText>
-                          <SelectItemIndicator />
-                        </SelectItem>
+                        <SelectOption key={item.value} item={item}>
+                          {item.label}
+                        </SelectOption>
                       ))}
                     </SelectItemGroup>
                   </SelectContent>

@@ -26,7 +26,7 @@ export default function RootProviderListboxDemo() {
 
   return (
     <div class={styles.stack}>
-      <ListboxRootProvider value={listbox} class={styles.root}>
+      <ListboxRootProvider value={listbox}>
         <ListboxLabel>Select priority</ListboxLabel>
         <ListboxContent>
           <For each={priorities.items}>

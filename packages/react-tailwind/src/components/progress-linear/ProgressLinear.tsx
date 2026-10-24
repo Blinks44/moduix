@@ -15,7 +15,7 @@ const ProgressLinear = forwardRef<
     <ProgressPrimitive.Root
       ref={ref}
       className={cn(
-        'box-border grid w-48 max-w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-2 text-foreground data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)]',
+        'grid w-full grid-cols-[minmax(0,1fr)_auto] gap-2 data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)]',
         className,
       )}
       {...props}
@@ -32,7 +32,7 @@ const ProgressLinearRootProvider = forwardRef<
     <ProgressPrimitive.RootProvider
       ref={ref}
       className={cn(
-        'box-border grid w-48 max-w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-2 text-foreground data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)]',
+        'grid w-full grid-cols-[minmax(0,1fr)_auto] gap-2 data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)]',
         className,
       )}
       {...props}
@@ -48,10 +48,7 @@ const ProgressLinearLabel = forwardRef<
   return (
     <ProgressPrimitive.Label
       ref={ref}
-      className={cn(
-        'min-w-0 text-sm leading-5 font-normal [overflow-wrap:anywhere] text-current',
-        className,
-      )}
+      className={cn('text-sm wrap-anywhere', className)}
       {...props}
       data-slot="progress-linear-label"
     />
@@ -65,10 +62,7 @@ const ProgressLinearValueText = forwardRef<
   return (
     <ProgressPrimitive.ValueText
       ref={ref}
-      className={cn(
-        'min-w-0 justify-self-end text-end text-sm leading-5 font-normal [overflow-wrap:anywhere] text-current',
-        className,
-      )}
+      className={cn('justify-self-end text-end text-sm wrap-anywhere', className)}
       {...props}
       data-slot="progress-linear-value-text"
     />
@@ -83,7 +77,7 @@ const ProgressLinearTrack = forwardRef<
     <ProgressPrimitive.Track
       ref={ref}
       className={cn(
-        'col-span-full box-border block h-2 w-full overflow-hidden rounded-full bg-muted ring-1 ring-border ring-inset data-[orientation=vertical]:flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2 data-[orientation=vertical]:items-end data-[orientation=vertical]:justify-self-center',
+        'col-span-full h-2 overflow-hidden rounded-full bg-muted ring-1 ring-border ring-inset data-[orientation=vertical]:flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2 data-[orientation=vertical]:items-end data-[orientation=vertical]:justify-self-center',
         className,
       )}
       {...props}
@@ -100,7 +94,7 @@ const ProgressLinearRange = forwardRef<
     <ProgressPrimitive.Range
       ref={ref}
       className={cn(
-        'block h-full rounded-[inherit] bg-primary transition-[width,height] duration-200 ease-in-out data-[orientation=vertical]:w-full data-[state=indeterminate]:w-[35%] data-[state=indeterminate]:animate-moduix-progress-linear-indeterminate data-[state=indeterminate]:data-[orientation=vertical]:h-[35%] data-[state=indeterminate]:data-[orientation=vertical]:animate-moduix-progress-linear-indeterminate-vertical motion-reduce:data-[state=indeterminate]:translate-x-0 motion-reduce:data-[state=indeterminate]:translate-y-0 motion-reduce:data-[state=indeterminate]:animate-none [&:dir(rtl)]:data-[state=indeterminate]:data-[orientation=horizontal]:[animation-direction:reverse]',
+        'h-full rounded-[inherit] bg-primary transition-[width,height] duration-normal ease-in-out data-[orientation=vertical]:w-full data-[state=indeterminate]:data-[orientation=horizontal]:w-[35%] data-[state=indeterminate]:data-[orientation=horizontal]:animate-moduix-progress-linear-indeterminate data-[state=indeterminate]:data-[orientation=vertical]:h-[35%] data-[state=indeterminate]:data-[orientation=vertical]:animate-moduix-progress-linear-indeterminate-vertical motion-reduce:data-[state=indeterminate]:data-[orientation]:animate-none [&:dir(rtl)]:data-[state=indeterminate]:data-[orientation=horizontal]:-scale-x-100',
         className,
       )}
       {...props}
@@ -112,15 +106,8 @@ const ProgressLinearRange = forwardRef<
 const ProgressLinearView = forwardRef<
   ComponentRef<typeof ProgressPrimitive.View>,
   ComponentProps<typeof ProgressPrimitive.View>
->(function ProgressLinearView({ className, ...props }, ref) {
-  return (
-    <ProgressPrimitive.View
-      ref={ref}
-      className={cn('contents', className)}
-      {...props}
-      data-slot="progress-linear-view"
-    />
-  );
+>(function ProgressLinearView(props, ref) {
+  return <ProgressPrimitive.View ref={ref} {...props} data-slot="progress-linear-view" />;
 });
 
 const ProgressLinearContext = ProgressPrimitive.Context;
@@ -137,3 +124,18 @@ export {
   useProgress,
   useProgressContext,
 };
+export type {
+  ProgressContextProps,
+  ProgressLabelProps,
+  ProgressRangeProps,
+  ProgressRootProps,
+  ProgressRootProviderProps,
+  ProgressTrackProps,
+  ProgressValueChangeDetails,
+  ProgressValueTextProps,
+  ProgressValueTranslationDetails,
+  ProgressViewProps,
+  UseProgressContext,
+  UseProgressProps,
+  UseProgressReturn,
+} from '@ark-ui/react/progress';

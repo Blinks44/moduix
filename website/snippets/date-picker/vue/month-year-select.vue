@@ -34,7 +34,9 @@ import {
           </div>
           <DatePickerPrevTrigger /><DatePickerNextTrigger
         /></DatePickerViewControl>
-        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView> </DatePickerContent
+        <DatePickerView view="day"
+          ><DatePickerDayTable :show-header="false"
+        /></DatePickerView> </DatePickerContent
     ></DatePickerPositioner>
   </DatePicker>
 </template>

@@ -87,12 +87,16 @@ import styles from '@/components/examples/sidebar/sidebar-nested-navigation-and-
                     <SidebarNavigationSubList>
                       <SidebarNavigationSubItem>
                         <SidebarNavigationSubButton as-child
-                          ><a href="/projects/website">Website</a></SidebarNavigationSubButton
+                          ><a href="/projects/website"
+                            ><SidebarLabel>Website</SidebarLabel></a
+                          ></SidebarNavigationSubButton
                         >
                       </SidebarNavigationSubItem>
                       <SidebarNavigationSubItem>
                         <SidebarNavigationSubButton as-child
-                          ><a href="/projects/mobile">Mobile app</a></SidebarNavigationSubButton
+                          ><a href="/projects/mobile"
+                            ><SidebarLabel>Mobile app</SidebarLabel></a
+                          ></SidebarNavigationSubButton
                         >
                       </SidebarNavigationSubItem>
                     </SidebarNavigationSubList>

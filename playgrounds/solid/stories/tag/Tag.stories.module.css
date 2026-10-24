@@ -9,11 +9,6 @@
   max-width: 18rem;
 }
 
-.buttonTag {
-  appearance: none;
-  cursor: pointer;
-}
-
 .customSoft {
   --moduix-tag-bg: color-mix(
     in oklab,
@@ -22,18 +17,9 @@
   );
   --moduix-tag-border-color: color-mix(in oklab, var(--moduix-color-primary) 35%, transparent);
   --moduix-tag-color: var(--moduix-color-primary);
-  --moduix-tag-close-trigger-bg-hover: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 18%,
-    transparent
-  );
 }
 
 .customOutline {
-  --moduix-tag-outline-border-color: color-mix(
-    in oklab,
-    var(--moduix-color-foreground) 18%,
-    transparent
-  );
-  --moduix-tag-outline-color: var(--moduix-color-primary);
+  --moduix-tag-border-color: color-mix(in oklab, var(--moduix-color-foreground) 18%, transparent);
+  --moduix-tag-color: var(--moduix-color-primary);
 }

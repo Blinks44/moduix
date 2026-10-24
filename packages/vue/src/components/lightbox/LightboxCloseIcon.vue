@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { DialogCloseTrigger as ArkDialogCloseTrigger, useDialogContext } from '@ark-ui/vue/dialog';
+import { DialogCloseTrigger as ArkDialogCloseTrigger } from '@ark-ui/vue/dialog';
 import type { DialogCloseTriggerProps } from '@ark-ui/vue/dialog';
 import { clsx } from 'clsx';
-import { computed, useAttrs } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import CloseButton from '../close-button/CloseButton.vue';
@@ -20,8 +20,6 @@ const { ariaLabel, ariaLabelledby, class: className } = defineProps<Props>();
 const slots = defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const dialog = useDialogContext();
-const closeState = computed(() => (dialog.value.open ? 'open' : 'closed'));
 </script>
 
 <template>
@@ -30,7 +28,6 @@ const closeState = computed(() => (dialog.value.open ? 'open' : 'closed'));
       :aria-label="ariaLabel ?? a11yLabels.closeImage"
       :aria-labelledby="ariaLabelledby"
       :class="clsx(styles.closeIcon, className)"
-      :data-state="closeState"
       data-slot="lightbox-close-icon"
     >
       <slot v-if="slots.default" />

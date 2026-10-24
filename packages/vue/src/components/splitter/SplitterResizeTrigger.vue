@@ -23,6 +23,7 @@ const attrs = useAttrs();
 
 <template>
   <ArkSplitterResizeTrigger
+    :type="asChild ? undefined : 'button'"
     v-bind="attrs"
     :as-child="asChild"
     :id="id"

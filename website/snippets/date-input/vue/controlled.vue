@@ -15,7 +15,7 @@ const value = shallowRef<DateInputDateValue[]>([new CalendarDate(2026, 6, 22)]);
 
 <template>
   <div :class="styles.stack">
-    <DateInput v-model="value" :class="styles.root">
+    <DateInput v-model="value">
       <DateInputLabel>Controlled date</DateInputLabel>
       <DateInputControl>
         <DateInputSegments />

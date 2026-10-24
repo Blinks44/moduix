@@ -7,7 +7,6 @@ import {
   ListboxLabel,
 } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/listbox/listbox-grid.module.css';
 
 const colors = createGridCollection({
   items: [
@@ -20,7 +19,7 @@ const colors = createGridCollection({
 
 export default function GridListboxDemo() {
   return (
-    <Listbox collection={colors} class={styles.gridRoot}>
+    <Listbox collection={colors}>
       <ListboxLabel>Pick a color</ListboxLabel>
       <ListboxContent>
         <For each={colors.items}>

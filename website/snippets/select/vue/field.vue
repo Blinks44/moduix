@@ -8,9 +8,8 @@ import {
   SelectControl,
   SelectHiddenSelect,
   SelectIndicator,
-  SelectItem,
-  SelectItemText,
   SelectLabel,
+  SelectOption,
   SelectPositioner,
   SelectTrigger,
   SelectValueText,
@@ -38,10 +37,9 @@ const frameworks = createListCollection({
       </SelectControl>
       <SelectPositioner>
         <SelectContent>
-          <SelectItem v-for="item in frameworks.items" :key="item.value" :item="item">
-            <SelectItemText>{{ item.label }}</SelectItemText>
-            <SelectItemIndicator />
-          </SelectItem>
+          <SelectOption v-for="item in frameworks.items" :key="item.value" :item="item">{{
+            item.label
+          }}</SelectOption>
         </SelectContent>
       </SelectPositioner>
       <SelectHiddenSelect />

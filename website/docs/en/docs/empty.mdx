@@ -5,18 +5,6 @@ description: A composable empty-state component for no-results, no-data, and fir
 ---
 
 import * as EmptyDocs from '@/components/examples/empty/css-properties';
-import EmptyAdvancedCustomization from '@/components/examples/empty/advanced-customization.tsx';
-import EmptyBasic from '@/components/examples/empty/basic.tsx';
-import EmptyWithoutActions from '@/components/examples/empty/without-actions.tsx';
-import EmptyWithoutIcon from '@/components/examples/empty/without-icon.tsx';
-import emptySolidAdvancedCustomization from '../../../snippets/empty/solid/advanced-customization.tsx?raw';
-import emptySolidBasic from '../../../snippets/empty/solid/basic.tsx?raw';
-import emptySolidWithoutActions from '../../../snippets/empty/solid/without-actions.tsx?raw';
-import emptySolidWithoutIcon from '../../../snippets/empty/solid/without-icon.tsx?raw';
-import emptyVueAdvancedCustomization from '../../../snippets/empty/vue/advanced-customization.vue?raw';
-import emptyVueBasic from '../../../snippets/empty/vue/basic.vue?raw';
-import emptyVueWithoutActions from '../../../snippets/empty/vue/without-actions.vue?raw';
-import emptyVueWithoutIcon from '../../../snippets/empty/vue/without-icon.vue?raw';
 
 ## API Reference
 
@@ -35,46 +23,7 @@ so you can arrange them in the order your screen needs.
 Start with `<Empty />` and add its named parts. Add `EmptyIcon` and `EmptyActions` only when
 the state benefits from a visual cue or a clear next step.
 
-<ExampleFrame variant="component">
-  <EmptyBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/empty/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={emptySolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={emptyVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/empty/empty-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="empty/basic" />
 
 ## Install with shadcn
 
@@ -150,91 +99,13 @@ required landmark, role, focus management, or `aria-live` behavior in the surrou
 
 Leave out `EmptyActions` when the state is informational and does not need an immediate action.
 
-<ExampleFrame variant="component">
-  <EmptyWithoutActions />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/empty/without-actions.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={emptySolidWithoutActions} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={emptyVueWithoutActions} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/empty/empty-without-actions.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="empty/without-actions" />
 
 ### Without an icon
 
 The icon is optional, so a text-only empty state can stay compact.
 
-<ExampleFrame variant="component">
-  <EmptyWithoutIcon />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/empty/without-icon.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={emptySolidWithoutIcon} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={emptyVueWithoutIcon} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/empty/empty-without-icon.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="empty/without-icon" />
 
 ### Advanced customization
 
@@ -242,65 +113,18 @@ Use the `asChild` prop on `Empty` when the empty state needs to render as a sema
 as `section`. Use it on `EmptyTitle` when the heading needs a different level. Because
 `EmptyDescription` renders as a `div`, it can contain paragraphs, links, and other block content.
 
-<ExampleFrame variant="component">
-  <EmptyAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/empty/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={emptySolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={emptyVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/empty/empty-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="empty/advanced-customization" />
 
 ## Styling
 
-Customize `Empty` with `className`, Ark `data-scope="empty"` / `data-part` selectors, stable
-`data-slot="empty-*"` hooks, and the public `--moduix-empty-*` CSS variables shown below.
+Customize `Empty` with `className` in React or `class` in Solid and Vue, Ark `data-scope="empty"` /
+`data-part` selectors, and stable `data-slot="empty-*"` hooks. The CSS Modules packages expose the
+`--moduix-empty-*` variables below for the root surface, so a theme can retune every empty state at
+once. Style the other parts with a class: it overrides the layered component styles.
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <EmptyDocs.EmptyCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={EmptyDocs.emptyOverrideCssProperties} />
 
 ### Styling hooks
 

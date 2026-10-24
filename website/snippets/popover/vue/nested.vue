@@ -12,7 +12,6 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '@moduix/vue/popover';
-import styles from '@/components/examples/popover/popover-nested.module.css';
 </script>
 
 <template>
@@ -24,7 +23,7 @@ import styles from '@/components/examples/popover/popover-nested.module.css';
           <PopoverTitle>Settings</PopoverTitle>
           <PopoverDescription>Nested popovers keep independent state.</PopoverDescription>
         </PopoverHeader>
-        <PopoverBody :class="styles.body">
+        <PopoverBody>
           <Popover :portalled="false" :positioning="{ placement: 'right', gutter: 8 }">
             <PopoverTrigger as-child><Button>Advanced</Button></PopoverTrigger>
             <PopoverPositioner>

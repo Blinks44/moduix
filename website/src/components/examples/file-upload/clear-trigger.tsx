@@ -1,3 +1,4 @@
+import { Button } from '@moduix/react/button';
 import {
   FileUpload,
   FileUploadClearTrigger,
@@ -18,8 +19,12 @@ export default function ClearTriggerFileUploadDemo() {
     <FileUpload className={styles.root} maxFiles={maxFiles}>
       <FileUploadLabel>Attachments</FileUploadLabel>
       <div className={styles.actions}>
-        <FileUploadTrigger>Choose files</FileUploadTrigger>
-        <FileUploadClearTrigger>Clear files</FileUploadClearTrigger>
+        <FileUploadTrigger asChild>
+          <Button>Choose files</Button>
+        </FileUploadTrigger>
+        <FileUploadClearTrigger asChild>
+          <Button variant="outline">Clear files</Button>
+        </FileUploadClearTrigger>
       </div>
       <FileUploadItemGroup>
         <FileUploadContext>
@@ -27,7 +32,7 @@ export default function ClearTriggerFileUploadDemo() {
             acceptedFiles.map((file) => (
               <FileUploadItem key={file.name} file={file}>
                 <FileUploadItemName />
-                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                <FileUploadItemDeleteTrigger />
               </FileUploadItem>
             ))
           }

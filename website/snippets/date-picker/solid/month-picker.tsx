@@ -2,23 +2,13 @@ import { type DateValue } from '@ark-ui/solid/date-picker';
 import { CalendarDate } from '@internationalized/date';
 import {
   DatePicker,
-  DatePickerContext,
   DatePickerLabel,
   DatePickerField,
   DatePickerPositioner,
   DatePickerContent,
   DatePickerView,
-  DatePickerViewControl,
-  DatePickerPrevTrigger,
-  DatePickerNextTrigger,
-  DatePickerViewTrigger,
-  DatePickerTable,
-  DatePickerTableBody,
-  DatePickerTableRow,
-  DatePickerTableCell,
-  DatePickerTableCellTrigger,
+  DatePickerMonthTable,
 } from '@moduix/solid/date-picker';
-import { For } from 'solid-js';
 
 const format = (date: DateValue) => `${String(date.month).padStart(2, '0')}/${date.year}`;
 const parse = (value: string) => {
@@ -34,34 +24,7 @@ export default function MonthPickerDemo() {
       <DatePickerPositioner>
         <DatePickerContent>
           <DatePickerView view="month">
-            <DatePickerViewControl>
-              <DatePickerPrevTrigger />
-              <DatePickerViewTrigger />
-              <DatePickerNextTrigger />
-            </DatePickerViewControl>
-            <DatePickerContext>
-              {(datePicker) => (
-                <DatePickerTable columns={4}>
-                  <DatePickerTableBody>
-                    <For each={datePicker().getMonthsGrid({ columns: 4, format: 'short' })}>
-                      {(months) => (
-                        <DatePickerTableRow>
-                          <For each={months}>
-                            {(month) => (
-                              <DatePickerTableCell value={month.value}>
-                                <DatePickerTableCellTrigger>
-                                  {month.label}
-                                </DatePickerTableCellTrigger>
-                              </DatePickerTableCell>
-                            )}
-                          </For>
-                        </DatePickerTableRow>
-                      )}
-                    </For>
-                  </DatePickerTableBody>
-                </DatePickerTable>
-              )}
-            </DatePickerContext>
+            <DatePickerMonthTable />
           </DatePickerView>
         </DatePickerContent>
       </DatePickerPositioner>

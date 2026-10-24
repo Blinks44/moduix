@@ -12,7 +12,6 @@ import {
   DrawerHeader,
   FileUploadItemPreviewIcon,
   ListboxFilter,
-  MenuTriggerIcon,
   MenuTriggerItemIcon,
   PinInputSeparator,
 } from '../src';
@@ -28,7 +27,6 @@ test.each(['object', 'callback'] as const)(
       pinSeparator: createRef<HTMLSpanElement>(),
       previewIcon: createRef<SVGSVGElement>(),
       filter: createRef<HTMLDivElement>(),
-      triggerIcon: createRef<HTMLSpanElement>(),
       triggerItemIcon: createRef<HTMLSpanElement>(),
       header: createRef<HTMLDivElement>(),
       body: createRef<HTMLDivElement>(),
@@ -69,7 +67,6 @@ test.each(['object', 'callback'] as const)(
           data-testid="previewIcon"
         />
         <ListboxFilter ref={getRef('filter', refs.filter)} data-testid="filter" />
-        <MenuTriggerIcon ref={getRef('triggerIcon', refs.triggerIcon)} data-testid="triggerIcon" />
         <MenuTriggerItemIcon
           ref={getRef('triggerItemIcon', refs.triggerItemIcon)}
           data-testid="triggerItemIcon"

@@ -20,12 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkDatePickerLabel
     v-bind="attrs"
-    :class="
-      cn(
-        'inline-flex items-center text-sm leading-5 font-medium text-foreground select-none',
-        props.class,
-      )
-    "
+    :class="cn('text-sm leading-5 font-medium text-foreground select-none', props.class)"
     data-slot="date-picker-label"
   >
     <slot />

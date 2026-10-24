@@ -1,3 +1,4 @@
+import { Button } from '@moduix/react/button';
 import {
   FileUpload,
   FileUploadHiddenInput,
@@ -23,7 +24,9 @@ export default function FileUploadPreviewDemo() {
   return (
     <FileUpload className={styles.root} defaultAcceptedFiles={previewFiles} maxFiles={4}>
       <FileUploadLabel>Project attachments</FileUploadLabel>
-      <FileUploadTrigger>Add files</FileUploadTrigger>
+      <FileUploadTrigger asChild>
+        <Button>Add files</Button>
+      </FileUploadTrigger>
       <FileUploadItemGroup>
         <FileUploadItems />
       </FileUploadItemGroup>

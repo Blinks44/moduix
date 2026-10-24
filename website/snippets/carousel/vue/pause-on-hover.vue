@@ -50,7 +50,6 @@ const slides = [
   >
     <CarouselContext v-slot="api">
       <CarouselItemGroup
-        :class="styles.itemGroup"
         @focusin="api.pause()"
         @pointerenter="api.pause()"
         @pointerleave="api.play()"
@@ -60,7 +59,6 @@ const slides = [
         </CarouselItem>
       </CarouselItemGroup>
       <CarouselControl
-        :class="styles.control"
         @focusin="api.pause()"
         @pointerenter="api.pause()"
         @pointerleave="api.play()"

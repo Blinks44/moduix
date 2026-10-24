@@ -5,9 +5,11 @@ import {
   DatePickerContent,
   DatePickerDayTable,
   DatePickerLabel,
+  DatePickerMonthTable,
   DatePickerPositioner,
   DatePickerRangeField,
   DatePickerView,
+  DatePickerYearTable,
 } from '@moduix/vue/date-picker';
 </script>
 
@@ -19,7 +21,9 @@ import {
     <DatePickerLabel>Travel dates</DatePickerLabel><DatePickerRangeField />
     <DatePickerPositioner>
       <DatePickerContent>
-        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
+        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView
+        ><DatePickerView view="month"><DatePickerMonthTable /></DatePickerView
+        ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
       </DatePickerContent>
     </DatePickerPositioner>
   </DatePicker>

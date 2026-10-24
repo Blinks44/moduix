@@ -1,3 +1,4 @@
+import { Button } from '@moduix/solid/button';
 import { Field, FieldErrorText, FieldHelperText } from '@moduix/solid/field';
 import {
   FileUpload,
@@ -21,7 +22,7 @@ export default function FileUploadWithFieldDemo() {
     <Field class={styles.root} required>
       <FileUpload name={name} maxFiles={maxFiles}>
         <FileUploadLabel>Required attachments</FileUploadLabel>
-        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose files</Button>} />
         <FileUploadItemGroup>
           <FileUploadContext>
             {(fileUpload) => (
@@ -29,7 +30,7 @@ export default function FileUploadWithFieldDemo() {
                 {(file) => (
                   <FileUploadItem file={file}>
                     <FileUploadItemName />
-                    <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                    <FileUploadItemDeleteTrigger />
                   </FileUploadItem>
                 )}
               </For>

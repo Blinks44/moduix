@@ -29,15 +29,7 @@ function MarqueeRootProvider(props: ComponentProps<typeof MarqueePrimitive.RootP
 }
 
 function MarqueeViewport(props: ComponentProps<typeof MarqueePrimitive.Viewport>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <MarqueePrimitive.Viewport
-      class={clsx(styles.viewport, local.class)}
-      {...others}
-      data-slot="marquee-viewport"
-    />
-  );
+  return <MarqueePrimitive.Viewport {...props} data-slot="marquee-viewport" />;
 }
 
 function MarqueeContent(props: ComponentProps<typeof MarqueePrimitive.Content>) {
@@ -89,3 +81,24 @@ export {
   useMarquee,
   useMarqueeContext,
 };
+
+export type {
+  MarqueeContentBaseProps,
+  MarqueeContentProps,
+  MarqueeContextProps,
+  MarqueeEdgeBaseProps,
+  MarqueeEdgeProps,
+  MarqueeItemBaseProps,
+  MarqueeItemProps,
+  MarqueePauseStatusDetails,
+  MarqueeRootBaseProps,
+  MarqueeRootProps,
+  MarqueeRootProviderBaseProps,
+  MarqueeRootProviderProps,
+  MarqueeSide,
+  MarqueeViewportBaseProps,
+  MarqueeViewportProps,
+  UseMarqueeContext,
+  UseMarqueeProps,
+  UseMarqueeReturn,
+} from '@ark-ui/solid/marquee';

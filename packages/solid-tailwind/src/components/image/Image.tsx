@@ -1,19 +1,16 @@
 import type { UnpicImageProps, UnpicSourceProps } from '@unpic/core';
 import { transformProps, transformSourceProps } from '@unpic/core';
+import { transformBaseImageProps } from '@unpic/core/base';
 import { createMemo, splitProps } from 'solid-js';
 import type { JSX } from 'solid-js';
+import { getProviderForUrl } from 'unpic';
 import { cn } from '@/lib/moduix/cn';
 
-type ImageProps = Omit<
-  UnpicImageProps<JSX.ImgHTMLAttributes<HTMLImageElement>>,
-  'fetchpriority'
-> & {
-  fetchpriority?: JSX.ImgHTMLAttributes<HTMLImageElement>['fetchpriority'];
-  style?: JSX.ImgHTMLAttributes<HTMLImageElement>['style'];
-};
+type ImageAttributes = JSX.ImgHTMLAttributes<HTMLImageElement>;
 
-type ImageTransformProps = UnpicImageProps<JSX.ImgHTMLAttributes<HTMLImageElement>> & {
-  style?: JSX.ImgHTMLAttributes<HTMLImageElement>['style'];
+type ImageRootProps = Omit<UnpicImageProps<ImageAttributes>, 'fetchpriority'> & {
+  fetchpriority?: ImageAttributes['fetchpriority'];
+  style?: ImageAttributes['style'];
 };
 
 type ImageSourceProps = UnpicSourceProps &
@@ -22,27 +19,29 @@ type ImageSourceProps = UnpicSourceProps &
     'height' | 'media' | 'sizes' | 'src' | 'srcset' | 'type' | 'width'
   >;
 
-function Image(props: ImageProps) {
-  const [local, others] = splitProps(props, ['class', 'fetchpriority']);
+function Image(props: ImageRootProps) {
+  const [local, others] = splitProps(props, ['class']);
   const imageProps = createMemo(() => {
-    return transformProps<JSX.ImgHTMLAttributes<HTMLImageElement>>({
-      ...others,
-      loading: others.loading ?? (others.priority ? 'eager' : 'lazy'),
-      decoding: others.decoding ?? (others.priority ? undefined : 'async'),
-      fetchpriority: local.fetchpriority ?? (others.priority ? 'high' : undefined),
-    } as ImageTransformProps);
+    const input = { ...others } as UnpicImageProps<ImageAttributes>;
+    // Without a CDN, Unpic returns props unchanged; the base transform still applies its loading
+    // defaults and layout styles and drops Unpic-only props such as `layout` and `priority`.
+    const hasCdn = input.cdn ?? (getProviderForUrl(input.src) || input.fallback);
+    return hasCdn
+      ? transformProps<ImageAttributes>(input)
+      : transformBaseImageProps<never, never, ImageAttributes>(input as never);
   });
 
+  // oxlint-disable-next-line jsx-a11y/alt-text -- `alt` arrives through the transformed props.
   return <img {...imageProps()} data-slot="image-root" class={cn('rounded-md', local.class)} />;
 }
 
 function ImageSource(props: ImageSourceProps) {
-  const [local, others] = splitProps(props, ['class']);
   const sourceProps = createMemo(() =>
-    transformSourceProps<JSX.SourceHTMLAttributes<HTMLSourceElement>>({ ...others }),
+    transformSourceProps<JSX.SourceHTMLAttributes<HTMLSourceElement>>({ ...props }),
   );
 
-  return <source {...sourceProps()} data-slot="image-source" class={local.class} />;
+  return <source {...sourceProps()} data-slot="image-source" />;
 }
 
 export { Image, ImageSource };
+export type { ImageRootProps, ImageSourceProps };

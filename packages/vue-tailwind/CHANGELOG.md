@@ -1,4 +1,4 @@
-# moduix
+# @moduix/vue-tailwind
 
 ## 3.0.1
 

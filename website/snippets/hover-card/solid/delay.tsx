@@ -10,7 +10,7 @@ import styles from '@/components/examples/hover-card/hover-card-delay.module.css
 export default function DelayHoverCard() {
   return (
     <HoverCard openDelay={200} closeDelay={500}>
-      <HoverCardTrigger class={styles.trigger}>Release notes</HoverCardTrigger>
+      <HoverCardTrigger>Release notes</HoverCardTrigger>
       <HoverCardPositioner>
         <HoverCardContent>
           <HoverCardBody>

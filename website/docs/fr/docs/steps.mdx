@@ -5,27 +5,6 @@ description: Guidez les utilisateurs dans un processus en plusieurs étapes avec
 ---
 
 import * as StepsDocs from '@/components/examples/steps/css-properties';
-import StepsBasic from '@/components/examples/steps/basic.tsx';
-import StepsControlled from '@/components/examples/steps/controlled.tsx';
-import StepsValidation from '@/components/examples/steps/validation.tsx';
-import StepsProgress from '@/components/examples/steps/progress.tsx';
-import StepsRootProvider from '@/components/examples/steps/root-provider.tsx';
-import StepsVertical from '@/components/examples/steps/vertical.tsx';
-import StepsCustomComposition from '@/components/examples/steps/custom-composition.tsx';
-import stepsSolidBasic from '../../../snippets/steps/solid/basic.tsx?raw';
-import stepsSolidControlled from '../../../snippets/steps/solid/controlled.tsx?raw';
-import stepsSolidValidation from '../../../snippets/steps/solid/validation.tsx?raw';
-import stepsSolidProgress from '../../../snippets/steps/solid/progress.tsx?raw';
-import stepsSolidRootProvider from '../../../snippets/steps/solid/root-provider.tsx?raw';
-import stepsSolidVertical from '../../../snippets/steps/solid/vertical.tsx?raw';
-import stepsSolidCustomComposition from '../../../snippets/steps/solid/custom-composition.tsx?raw';
-import stepsVueBasic from '../../../snippets/steps/vue/basic.vue?raw';
-import stepsVueControlled from '../../../snippets/steps/vue/controlled.vue?raw';
-import stepsVueValidation from '../../../snippets/steps/vue/validation.vue?raw';
-import stepsVueProgress from '../../../snippets/steps/vue/progress.vue?raw';
-import stepsVueRootProvider from '../../../snippets/steps/vue/root-provider.vue?raw';
-import stepsVueVertical from '../../../snippets/steps/vue/vertical.vue?raw';
-import stepsVueCustomComposition from '../../../snippets/steps/vue/custom-composition.vue?raw';
 
 ## Référence de l’API
 
@@ -45,46 +24,7 @@ React, Solid et Vue utilisent les mêmes noms de valeurs plats. En Vue, liez l�
 `v-model:step` et transmettez un store `useSteps()` à `StepsRootProvider` lorsqu’il est créé en
 dehors de l’arbre rendu.
 
-<ExampleFrame variant="component">
-  <StepsBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/basic" />
 
 ## Installation avec shadcn
 
@@ -180,231 +120,36 @@ marqueur.
 Contrôlez `step` depuis l’état de votre framework lorsque l’étape active doit rester synchronisée
 avec le routage, la validation ou une autre partie de l’interface.
 
-<ExampleFrame variant="component">
-  <StepsControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/controlled" />
 
 ### Validation
 
 Utilisez `linear`, `isStepValid` et `onStepInvalid` pour empêcher la navigation tant que l’étape
 courante ne respecte pas votre règle de validation.
 
-<ExampleFrame variant="component">
-  <StepsValidation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/validation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidValidation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueValidation} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-validation.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/validation" />
 
 ### Progression
 
 Ajoutez `StepsProgress` lorsque le parcours doit afficher une barre de progression à côté de la
-liste des étapes. Ajoutez votre propre statut accessible si la progression doit être annoncée aux
-technologies d’assistance.
+liste des étapes. Ark l’affiche avec `role="progressbar"` et le
+pourcentage courant ; donnez-lui un `aria-label` qui nomme le parcours.
 
-<ExampleFrame variant="component">
-  <StepsProgress />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/progress.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidProgress} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueProgress} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-progress.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/progress" />
 
 ### RootProvider
 
 Créez l’état avec `useSteps()` en dehors de l’arbre des parties rendues, puis transmettez-le à
 `StepsRootProvider` lorsque des contrôles externes doivent utiliser ce même état.
 
-<ExampleFrame variant="component">
-  <StepsRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/root-provider" />
 
 ### Orientation verticale
 
 Définissez `orientation="vertical"` lorsque la liste des étapes doit se trouver à côté du panneau
 actif sur les écrans larges, puis au-dessus sur les écrans étroits.
 
-<ExampleFrame variant="component">
-  <StepsVertical />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueVertical} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-vertical.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/vertical" />
 
 ### Personnalisation avancée
 
@@ -412,46 +157,7 @@ Utilisez `asChild` lorsqu’un déclencheur doit être rendu comme une ancre ou 
 que comme un bouton par défaut. Gardez un seul enfant sémantique afin qu’il reçoive le comportement
 ARIA, le clavier et le focus gérés par Ark.
 
-<ExampleFrame variant="component">
-  <StepsCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/steps/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stepsSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stepsVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/steps/steps-custom-composition.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="steps/custom-composition" />
 
 ## Styles
 
@@ -459,19 +165,15 @@ Stylez `Steps` avec `className` dans React ou `class` dans Solid et Vue, les att
 `data-scope="steps"` et `data-part`, les attributs d’état Ark, les hooks moduix `data-slot` et les
 variables CSS publiques `--moduix-steps-*` listées ci-dessous.
 
+La racine occupe toute la largeur de son conteneur ; limitez-la avec `max-width` dans votre propre
+classe. Les paquets CSS Modules exposent deux variables, car le séparateur vertical est positionné à
+partir d’elles : définissez `--moduix-steps-indicator-size` et `--moduix-steps-gap` plutôt que de
+redimensionner l’indicateur ou l’espacement de la liste verticale avec une classe. Modifiez les
+couleurs, la typographie et les surfaces avec une classe sur la partie.
+
 ### Variables CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <StepsDocs.StepsCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={StepsDocs.stepsCssProperties} />
 
 ### Hooks de style
 

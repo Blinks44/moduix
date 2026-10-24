@@ -36,29 +36,13 @@ const bleedVariants = cva('', {
 type BleedRootProps = HTMLArkProps<'div'> & {
   inline?: BleedInline;
   block?: BleedAmount;
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
-  'data-inline'?: string;
-  'data-block'?: string;
 };
 
 function Bleed(props: BleedRootProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'block',
-    'class',
-    'inline',
-    'data-scope',
-    'data-part',
-    'data-slot',
-    'data-inline',
-    'data-block',
-  ]);
+  const [local, others] = splitProps(props, ['block', 'class', 'inline']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="bleed"
       data-part="root"

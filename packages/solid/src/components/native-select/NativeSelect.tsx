@@ -3,7 +3,7 @@ import type { FieldSelectProps } from '@ark-ui/solid/field';
 import { clsx } from 'clsx';
 import type { JSX } from 'solid-js';
 import { splitProps } from 'solid-js';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import styles from './NativeSelect.module.css';
 
 type NativeSelectProps = FieldSelectProps & {
@@ -11,7 +11,7 @@ type NativeSelectProps = FieldSelectProps & {
 };
 
 function NativeSelect(props: NativeSelectProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'controlProps']);
+  const [local, others] = splitProps(props, ['class', 'controlProps']);
 
   return (
     <span
@@ -22,7 +22,6 @@ function NativeSelect(props: NativeSelectProps) {
       class={clsx(styles.control, local.controlProps?.class)}
     >
       <FieldPrimitive.Select
-        asChild={local.asChild}
         {...others}
         data-scope="field"
         data-part="select"

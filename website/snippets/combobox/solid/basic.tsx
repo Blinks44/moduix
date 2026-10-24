@@ -14,7 +14,6 @@ import {
   ComboboxTrigger,
 } from '@moduix/solid/combobox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/combobox/component-basic.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -41,7 +40,7 @@ export default function ComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent class={styles.content}>
+        <ComboboxContent>
           <ComboboxEmpty>No fruits found.</ComboboxEmpty>
           <ComboboxList>
             <For each={collection().items}>

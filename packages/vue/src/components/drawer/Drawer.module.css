@@ -1,67 +1,11 @@
 @layer moduix.components {
-  .trigger,
-  .closeTrigger {
-    box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: var(--moduix-drawer-control-height, var(--moduix-size-md));
-    margin: 0;
-    padding: var(--moduix-drawer-control-padding-y, var(--moduix-spacing-1))
-      var(--moduix-drawer-control-padding-x, var(--moduix-spacing-3-5));
-    border: var(--moduix-drawer-control-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-drawer-control-border-color, var(--moduix-color-border));
-    border-radius: var(--moduix-drawer-control-radius, var(--moduix-radius-md));
-    background-color: var(--moduix-drawer-control-bg, var(--moduix-color-background));
-    color: var(--moduix-drawer-control-color, var(--moduix-color-foreground));
-    font: inherit;
-    font-size: var(--moduix-drawer-control-font-size, var(--moduix-text-md));
-    line-height: var(--moduix-drawer-control-line-height, var(--moduix-line-height-text-md));
-    cursor: pointer;
-    user-select: none;
-    transition:
-      background-color var(--moduix-transition-default),
-      border-color var(--moduix-transition-default),
-      color var(--moduix-transition-default);
-
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(--moduix-drawer-control-bg-hover, var(--moduix-color-accent));
-      }
-    }
-
-    &:focus-visible {
-      outline: var(
-          --moduix-drawer-focus-ring-width,
-          var(--moduix-drawer-control-border-width, var(--moduix-border-width-sm))
-        )
-        solid var(--moduix-drawer-focus-ring-color, var(--moduix-color-ring));
-      outline-offset: calc(
-        var(
-            --moduix-drawer-focus-ring-width,
-            var(--moduix-drawer-control-border-width, var(--moduix-border-width-sm))
-          ) *
-          -1
-      );
-    }
-
-    &[data-disabled],
-    &[disabled] {
-      pointer-events: none;
-      opacity: var(--moduix-opacity-disabled);
-    }
-  }
-
   .backdrop {
     position: fixed;
     z-index: calc(var(--z-index, var(--moduix-z-popup)) - 1);
     inset: 0;
     min-height: 100dvh;
-    background-color: var(
-      --moduix-drawer-backdrop-bg,
-      var(--moduix-backdrop-bg, var(--moduix-color-overlay))
-    );
-    backdrop-filter: var(--moduix-backdrop-filter, blur(var(--moduix-drawer-backdrop-blur, 4px)));
+    background-color: var(--moduix-backdrop-bg, var(--moduix-color-overlay));
+    backdrop-filter: var(--moduix-backdrop-filter, blur(4px));
     transition:
       opacity calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
         var(--moduix-ease-out),
@@ -69,27 +13,25 @@
         var(--moduix-ease-out);
 
     &[data-state='open'] {
-      animation: global(moduix-drawer-backdrop-in)
-        var(--moduix-drawer-backdrop-transition, var(--moduix-transition-spring));
+      animation: global(moduix-drawer-backdrop-in) var(--moduix-transition-spring);
     }
 
     &[data-state='closed'] {
-      animation: global(moduix-drawer-backdrop-out)
-        var(--moduix-drawer-backdrop-transition, var(--moduix-transition-spring));
-      animation-fill-mode: forwards;
+      animation: global(moduix-drawer-backdrop-out) var(--moduix-transition-spring) forwards;
     }
 
     &[data-state='open'][data-swiping] {
       transition-duration: 0s;
     }
 
+    /* Keep the backdrop visible while the positioner is still present for the exit animation. */
     &[hidden]:has(~ .positioner:not([hidden])) {
       display: block;
     }
   }
 
   .positioner {
-    box-sizing: border-box;
+    --_drawer-island-inset: var(--moduix-drawer-island-inset, var(--moduix-spacing-4));
     position: fixed;
     z-index: var(--z-index, var(--moduix-z-popup));
     inset: 0;
@@ -98,25 +40,12 @@
     justify-content: center;
     overflow: hidden;
     overscroll-behavior: contain;
-    padding: var(--moduix-drawer-positioner-padding, 0);
 
     &:has(.content[data-variant='island']) {
-      padding-top: max(
-        var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
-        env(safe-area-inset-top, 0px)
-      );
-      padding-right: max(
-        var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
-        env(safe-area-inset-right, 0px)
-      );
-      padding-bottom: max(
-        var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
-        env(safe-area-inset-bottom, 0px)
-      );
-      padding-left: max(
-        var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
-        env(safe-area-inset-left, 0px)
-      );
+      padding: max(var(--_drawer-island-inset), env(safe-area-inset-top, 0px))
+        max(var(--_drawer-island-inset), env(safe-area-inset-right, 0px))
+        max(var(--_drawer-island-inset), env(safe-area-inset-bottom, 0px))
+        max(var(--_drawer-island-inset), env(safe-area-inset-left, 0px));
     }
 
     &[data-swipe-direction='up'] {
@@ -133,54 +62,42 @@
       justify-content: flex-end;
     }
 
-    &:not([hidden]) {
-      .content[hidden] {
-        display: flex;
-      }
+    &:not([hidden]) .content[hidden] {
+      display: flex;
     }
   }
 
   .content {
+    /* Overdrag bleed; the up exit keyframe also travels through it. */
+    --_drawer-bleed: var(--moduix-size-xl);
+    /* Extra travel so an island fully leaves the viewport; set per direction below. */
+    --_drawer-island-offset: 0px;
+    /* Side drawer width, set by `size`. */
+    --_drawer-width: 22rem;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
-    --_drawer-bleed: var(--moduix-drawer-bleed-size, var(--moduix-size-xl));
-    --drawer-island-translate-distance: 0px;
-    box-sizing: border-box;
     position: relative;
     display: flex;
     flex-direction: column;
-    width: min(var(--moduix-drawer-width, 100%), 100vw);
-    height: var(--moduix-drawer-size, 100%);
-    max-height: var(--moduix-drawer-max-height, 80dvh);
-    padding: var(--moduix-drawer-padding-y, var(--moduix-spacing-3))
-      var(--moduix-drawer-padding-x, var(--moduix-spacing-6))
-      calc(
-        var(--moduix-drawer-padding-y, var(--moduix-spacing-4)) + env(safe-area-inset-bottom, 0px)
-      );
-    border: var(--moduix-drawer-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-drawer-border-color, var(--moduix-color-border));
-    border-radius: var(--moduix-drawer-radius, var(--moduix-radius-xl))
-      var(--moduix-drawer-radius, var(--moduix-radius-xl)) 0 0;
+    width: 100%;
+    /* A fixed height keeps Ark's snap-point measurement stable; do not switch to auto. */
+    height: 100%;
+    max-height: 80dvh;
+    padding: var(--moduix-spacing-3) var(--moduix-spacing-6)
+      calc(var(--moduix-spacing-4) + env(safe-area-inset-bottom, 0px));
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-xl) var(--moduix-radius-xl) 0 0;
     outline: 0;
-    background-color: var(--moduix-drawer-bg, var(--moduix-color-popover));
-    color: var(--moduix-drawer-color, var(--moduix-color-popover-foreground));
-    box-shadow: var(--moduix-drawer-shadow, var(--moduix-shadow-lg));
+    background-color: var(--moduix-color-popover);
+    color: var(--moduix-color-popover-foreground);
+    box-shadow: var(--moduix-shadow-lg);
     overscroll-behavior: contain;
     transform-origin: center bottom;
-    scale: 1;
-    translate: 0 0;
+    /* Nested drawers use `scale` and `translate` so Ark's inline swipe `transform` stays intact. */
     transition:
       transform calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
         var(--moduix-ease-out),
-      scale
-        var(
-          --moduix-drawer-nested-transition,
-          var(--moduix-drawer-transition, var(--moduix-transition-spring))
-        ),
-      translate
-        var(
-          --moduix-drawer-nested-transition,
-          var(--moduix-drawer-transition, var(--moduix-transition-spring))
-        );
+      scale var(--moduix-transition-spring),
+      translate var(--moduix-transition-spring);
 
     &::after {
       position: absolute;
@@ -192,15 +109,13 @@
       pointer-events: none;
     }
 
+    /* Do not toggle `animation: none` while swiping: Ark would replay the open keyframe. */
     &[data-state='open'] {
-      animation: global(moduix-drawer-content-in-down)
-        var(--moduix-drawer-transition, var(--moduix-transition-spring));
+      animation: global(moduix-drawer-content-in-down) var(--moduix-transition-spring);
     }
 
     &[data-state='closed'] {
-      animation: global(moduix-drawer-content-out-down)
-        var(--moduix-drawer-transition, var(--moduix-transition-spring));
-      animation-fill-mode: forwards;
+      animation: global(moduix-drawer-content-out-down) var(--moduix-transition-spring) forwards;
     }
 
     &[data-state='open'][data-swiping],
@@ -212,14 +127,23 @@
       user-select: none;
     }
 
+    &[data-size='sm'] {
+      --_drawer-width: 18rem;
+    }
+
+    &[data-size='lg'] {
+      --_drawer-width: 28rem;
+    }
+
+    &[data-size='xl'] {
+      --_drawer-width: 36rem;
+    }
+
     &[data-swipe-direction='up'] {
       transform-origin: center top;
-      padding-top: calc(
-        var(--moduix-drawer-padding-y, var(--moduix-spacing-4)) + env(safe-area-inset-top, 0px)
-      );
-      padding-bottom: var(--moduix-drawer-padding-y, var(--moduix-spacing-4));
-      border-radius: 0 0 var(--moduix-drawer-radius, var(--moduix-radius-xl))
-        var(--moduix-drawer-radius, var(--moduix-radius-xl));
+      padding-top: calc(var(--moduix-spacing-4) + env(safe-area-inset-top, 0px));
+      padding-bottom: var(--moduix-spacing-4);
+      border-radius: 0 0 var(--moduix-radius-xl) var(--moduix-radius-xl);
 
       &::after {
         top: auto;
@@ -237,16 +161,12 @@
 
     &[data-swipe-direction='left'],
     &[data-swipe-direction='right'] {
-      width: min(var(--moduix-drawer-side-width, 22rem), calc(100vw - var(--moduix-spacing-8)));
-      height: var(--moduix-drawer-side-height, 100%);
+      width: min(var(--_drawer-width), calc(100vw - var(--moduix-spacing-8)));
       max-height: none;
-      padding: var(--moduix-drawer-padding-y, var(--moduix-spacing-6))
-        var(--moduix-drawer-padding-x, var(--moduix-spacing-6));
+      padding: var(--moduix-spacing-6);
 
       &::after {
         inset-block: 0;
-        inset-inline: auto;
-        top: 0;
         width: var(--_drawer-bleed);
         height: auto;
       }
@@ -254,11 +174,11 @@
 
     &[data-swipe-direction='left'] {
       transform-origin: left center;
-      border-radius: 0 var(--moduix-drawer-radius, var(--moduix-radius-xl))
-        var(--moduix-drawer-radius, var(--moduix-radius-xl)) 0;
+      border-radius: 0 var(--moduix-radius-xl) var(--moduix-radius-xl) 0;
 
       &::after {
         right: 100%;
+        left: auto;
       }
 
       &[data-state='open'] {
@@ -272,10 +192,10 @@
 
     &[data-swipe-direction='right'] {
       transform-origin: right center;
-      border-radius: var(--moduix-drawer-radius, var(--moduix-radius-xl)) 0 0
-        var(--moduix-drawer-radius, var(--moduix-radius-xl));
+      border-radius: var(--moduix-radius-xl) 0 0 var(--moduix-radius-xl);
 
       &::after {
+        right: auto;
         left: 100%;
       }
 
@@ -289,74 +209,46 @@
     }
 
     &[data-nested-drawer-open] {
-      scale: calc(1 - var(--moduix-drawer-nested-scale-step, 0.05) * var(--nested-drawers, 0));
+      scale: calc(1 - 0.05 * var(--nested-drawers, 0));
     }
 
     &[data-swipe-direction='down'][data-nested-drawer-open] {
-      translate: 0
-        calc(
-          -1 * var(--moduix-drawer-nested-translate-step, var(--moduix-spacing-10)) *
-            var(--nested-drawers, 0)
-        );
+      translate: 0 calc(-1 * var(--moduix-spacing-10) * var(--nested-drawers, 0));
     }
 
     &[data-swipe-direction='up'][data-nested-drawer-open] {
-      translate: 0
-        calc(
-          var(--moduix-drawer-nested-translate-step, var(--moduix-spacing-10)) *
-            var(--nested-drawers, 0)
-        );
+      translate: 0 calc(var(--moduix-spacing-10) * var(--nested-drawers, 0));
     }
 
     &[data-swipe-direction='left'][data-nested-drawer-open] {
-      translate: calc(
-          var(--moduix-drawer-nested-translate-step, var(--moduix-spacing-10)) *
-            var(--nested-drawers, 0)
-        )
-        0;
+      translate: calc(var(--moduix-spacing-10) * var(--nested-drawers, 0)) 0;
     }
 
     &[data-swipe-direction='right'][data-nested-drawer-open] {
-      translate: calc(
-          -1 * var(--moduix-drawer-nested-translate-step, var(--moduix-spacing-10)) *
-            var(--nested-drawers, 0)
-        )
-        0;
+      translate: calc(-1 * var(--moduix-spacing-10) * var(--nested-drawers, 0)) 0;
     }
 
     &[data-variant='island'] {
-      border-radius: var(--moduix-drawer-radius, var(--moduix-radius-xl));
+      border-radius: var(--moduix-radius-xl);
 
       &::after {
         display: none;
       }
 
       &[data-swipe-direction='down'] {
-        --drawer-island-translate-distance: max(
-          var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
-          env(safe-area-inset-bottom, 0px)
-        );
+        --_drawer-island-offset: max(var(--_drawer-island-inset), env(safe-area-inset-bottom, 0px));
       }
 
       &[data-swipe-direction='up'] {
-        --drawer-island-translate-distance: max(
-          var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
-          env(safe-area-inset-top, 0px)
-        );
+        --_drawer-island-offset: max(var(--_drawer-island-inset), env(safe-area-inset-top, 0px));
       }
 
       &[data-swipe-direction='left'] {
-        --drawer-island-translate-distance: max(
-          var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
-          env(safe-area-inset-left, 0px)
-        );
+        --_drawer-island-offset: max(var(--_drawer-island-inset), env(safe-area-inset-left, 0px));
       }
 
       &[data-swipe-direction='right'] {
-        --drawer-island-translate-distance: max(
-          var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
-          env(safe-area-inset-right, 0px)
-        );
+        --_drawer-island-offset: max(var(--_drawer-island-inset), env(safe-area-inset-right, 0px));
       }
     }
   }
@@ -367,8 +259,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: var(--moduix-drawer-grabber-padding-top, 0) 0
-      var(--moduix-drawer-grabber-padding, var(--moduix-spacing-1));
+    padding-bottom: var(--moduix-spacing-1);
     cursor: grab;
     user-select: none;
 
@@ -382,39 +273,33 @@
   }
 
   .grabberIndicator {
-    width: var(--moduix-drawer-grabber-indicator-width, 3rem);
-    height: var(--moduix-drawer-grabber-indicator-height, 0.25rem);
-    border-radius: var(--moduix-drawer-grabber-indicator-radius, var(--moduix-radius-full));
-    background-color: var(
-      --moduix-drawer-grabber-indicator-bg,
-      var(--moduix-color-muted-foreground)
-    );
-    opacity: var(--moduix-drawer-grabber-indicator-opacity, 0.45);
-    transition:
-      background-color var(--moduix-transition-default),
-      opacity var(--moduix-transition-default);
+    width: 3rem;
+    height: 0.25rem;
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-color-muted-foreground);
+    opacity: 0.45;
+    transition: opacity var(--moduix-transition-default);
 
     @media (hover: hover) {
       .grabber:hover & {
-        opacity: var(--moduix-drawer-grabber-indicator-opacity-hover, 0.7);
+        opacity: 0.7;
       }
     }
   }
 
+  /* Title and close icon share the first row; the description spans both columns. */
   .header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
-    gap: var(--moduix-drawer-header-gap, var(--moduix-spacing-1));
+    gap: var(--moduix-spacing-1);
 
     & > [data-slot='drawer-title'] {
       grid-column: 1;
     }
 
-    & > [data-slot='drawer-close-trigger'],
     & > [data-slot='drawer-close-icon'] {
       grid-column: 2;
-      justify-self: end;
     }
 
     & > [data-slot='drawer-description'] {
@@ -424,96 +309,75 @@
 
   .title {
     margin: 0;
-    color: var(
-      --moduix-drawer-title-color,
-      var(--moduix-drawer-color, var(--moduix-color-popover-foreground))
-    );
-    font-size: var(--moduix-drawer-title-font-size, var(--moduix-text-lg));
-    font-weight: var(--moduix-drawer-title-font-weight, var(--moduix-weight-semibold));
-    line-height: var(--moduix-drawer-title-line-height, var(--moduix-line-height-text-lg));
-  }
-
-  .description,
-  .body {
-    color: var(--moduix-drawer-description-color, var(--moduix-color-muted-foreground));
-    font-size: var(--moduix-drawer-description-font-size, var(--moduix-text-md));
-    line-height: var(--moduix-drawer-description-line-height, var(--moduix-line-height-text-md));
+    font-size: var(--moduix-text-lg);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-lg);
   }
 
   .description {
     margin: 0;
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
   }
 
+  /* The body inherits the content color; only the description is muted. */
   .body {
     min-height: 0;
-    margin-block-start: var(--moduix-drawer-body-margin-top, var(--moduix-spacing-4));
+    margin-block-start: var(--moduix-spacing-4);
     overflow-y: auto;
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
   }
 
   .footer {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
-    gap: var(--moduix-drawer-footer-gap, var(--moduix-spacing-2));
-    margin-block-start: var(--moduix-drawer-footer-margin-top, var(--moduix-spacing-6));
+    gap: var(--moduix-spacing-2);
+    margin-block-start: var(--moduix-spacing-6);
   }
 
   .closeIcon {
-    --moduix-close-button-size: var(--moduix-drawer-close-icon-size, var(--moduix-spacing-7));
-    --moduix-close-button-radius: var(--moduix-drawer-close-icon-radius, var(--moduix-radius-md));
-    --moduix-close-button-color: var(
-      --moduix-drawer-close-icon-color,
-      var(--moduix-drawer-description-color, var(--moduix-color-muted-foreground))
-    );
-    --moduix-close-button-color-hover: var(
-      --moduix-drawer-close-icon-color-hover,
-      var(--moduix-drawer-color, var(--moduix-color-popover-foreground))
-    );
-    --moduix-close-button-bg: var(--moduix-drawer-close-icon-bg, transparent);
-    --moduix-close-button-bg-hover: var(
-      --moduix-drawer-close-icon-bg-hover,
-      var(--moduix-color-accent)
-    );
-    --moduix-close-button-focus-ring-color: var(
-      --moduix-drawer-close-icon-focus-ring-color,
-      var(--moduix-drawer-focus-ring-color, var(--moduix-color-ring))
-    );
-    --moduix-close-button-icon-size: var(
-      --moduix-drawer-close-icon-glyph-size,
-      var(--moduix-spacing-4)
-    );
+    --moduix-close-button-radius: var(--moduix-radius-md);
+    --moduix-close-button-color-hover: var(--moduix-color-popover-foreground);
+    --moduix-close-button-bg-hover: var(--moduix-color-accent);
   }
 
+  /* `data-swipe-direction` is the physical opening direction, so the edges stay physical. */
   .swipeArea {
     position: fixed;
     z-index: var(--moduix-z-modal);
     touch-action: none;
 
-    &[data-swipe-direction='up'] {
+    &[data-swipe-direction='up'],
+    &[data-swipe-direction='down'] {
       right: 0;
-      bottom: 0;
       left: 0;
-      height: var(--moduix-drawer-swipe-area-size, var(--moduix-spacing-10));
+      height: var(--moduix-spacing-10);
+    }
+
+    &[data-swipe-direction='up'] {
+      bottom: 0;
     }
 
     &[data-swipe-direction='down'] {
       top: 0;
-      right: 0;
-      left: 0;
-      height: var(--moduix-drawer-swipe-area-size, var(--moduix-spacing-10));
     }
 
-    &[data-swipe-direction='left'] {
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: var(--moduix-drawer-swipe-area-size, var(--moduix-spacing-10));
-    }
-
+    &[data-swipe-direction='left'],
     &[data-swipe-direction='right'] {
       top: 0;
       bottom: 0;
+      width: var(--moduix-spacing-10);
+    }
+
+    &[data-swipe-direction='left'] {
+      right: 0;
+    }
+
+    &[data-swipe-direction='right'] {
       left: 0;
-      width: var(--moduix-drawer-swipe-area-size, var(--moduix-spacing-10));
     }
 
     &[data-disabled] {
@@ -521,53 +385,38 @@
     }
   }
 
-  .indentBackground {
-    position: absolute;
-    inset: 0;
-    background: var(--moduix-drawer-indent-background-bg, var(--moduix-color-foreground));
-    opacity: var(--moduix-drawer-indent-background-opacity, 0);
-    pointer-events: none;
-    transition: opacity var(--moduix-drawer-indent-transition, var(--moduix-transition-spring));
+  .indent {
+    position: relative;
+    transform-origin: center top;
+    transition:
+      transform var(--moduix-transition-spring),
+      border-radius var(--moduix-transition-spring);
 
+    /* Recedes while a drawer is open and follows the swipe back to rest. */
     &[data-active] {
-      opacity: calc(
-        var(--moduix-drawer-indent-background-opacity-active, 1) *
-          (1 - var(--drawer-swipe-progress, 0))
-      );
+      border-radius: var(--moduix-radius-lg) var(--moduix-radius-lg) 0 0;
+      transform: translateY(calc(var(--moduix-spacing-2) * (1 - var(--drawer-swipe-progress, 0))))
+        scale(calc(0.97 + 0.03 * var(--drawer-swipe-progress, 0)));
     }
   }
 
-  .indent {
-    position: relative;
-    transform: translateY(0) scale(1);
-    transform-origin: center top;
-    transition:
-      transform var(--moduix-drawer-indent-transition, var(--moduix-transition-spring)),
-      border-radius var(--moduix-drawer-indent-transition, var(--moduix-transition-spring));
+  .indentBackground {
+    position: absolute;
+    inset: 0;
+    background-color: var(--moduix-color-foreground);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--moduix-transition-spring);
 
     &[data-active] {
-      border-radius: var(--moduix-drawer-indent-radius-active, var(--moduix-radius-lg))
-        var(--moduix-drawer-indent-radius-active, var(--moduix-radius-lg)) 0 0;
-      transform: translateY(
-          calc(
-            var(--moduix-drawer-indent-translate-y-active, var(--moduix-spacing-2)) *
-              (1 - var(--drawer-swipe-progress, 0))
-          )
-        )
-        scale(
-          calc(
-            var(--moduix-drawer-indent-scale-active, 0.97) +
-              (1 - var(--moduix-drawer-indent-scale-active, 0.97)) * var(--drawer-swipe-progress, 0)
-          )
-        );
+      opacity: calc(1 - var(--drawer-swipe-progress, 0));
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .backdrop[data-state],
     .content[data-state] {
-      animation-delay: 0ms;
-      animation-duration: 1ms;
+      animation: none;
     }
 
     .backdrop,

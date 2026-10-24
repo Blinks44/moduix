@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Gift as PresentIcon, Handshake as HandshakeIcon, Map as MapIcon } from '@lucide/vue';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@moduix/vue/tabs';
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/vue/tabs';
 
 const items = [
   {
@@ -26,6 +26,7 @@ const items = [
       <TabsTrigger value="overview"><HandshakeIcon /><span>Overview</span></TabsTrigger>
       <TabsTrigger value="projects"><PresentIcon /><span>Projects</span></TabsTrigger>
       <TabsTrigger value="account"><MapIcon /><span>Account</span></TabsTrigger>
+      <TabsIndicator />
     </TabsList>
     <TabsContent v-for="item in items" :key="item.value" :value="item.value">
       {{ item.content }}

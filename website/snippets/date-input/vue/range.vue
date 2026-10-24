@@ -8,15 +8,14 @@ import {
   DateInputSegments,
   DateInputSeparator,
 } from '@moduix/vue/date-input';
-import styles from '@/components/examples/date-input/date-input-range.module.css';
 
 const defaultRange = [new CalendarDate(2026, 6, 22), new CalendarDate(2026, 6, 26)];
 </script>
 
 <template>
-  <DateInput :class="styles.root" selection-mode="range" :default-value="defaultRange">
+  <DateInput selection-mode="range" :default-value="defaultRange">
     <DateInputLabel>Travel dates</DateInputLabel>
-    <DateInputControl :class="styles.control">
+    <DateInputControl>
       <DateInputSegments :index="0" />
       <DateInputSeparator>to</DateInputSeparator>
       <DateInputSegments :index="1" />

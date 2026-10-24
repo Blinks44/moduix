@@ -12,7 +12,6 @@ import {
   ComboboxRootProvider,
   ComboboxTrigger,
 } from '@moduix/react/combobox';
-import styles from '@/components/examples/combobox/component-root-provider.module.css';
 
 const jobTitles = [
   { label: 'Designer', value: 'designer' },
@@ -34,7 +33,7 @@ export default function RootProviderComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent className={styles.content}>
+        <ComboboxContent>
           <ComboboxList>
             {collection.items.map((item) => (
               <ComboboxOption key={item.value} item={item}>

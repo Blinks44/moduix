@@ -21,7 +21,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'min-w-0 overflow-hidden text-xs leading-4 text-ellipsis whitespace-nowrap text-muted-foreground',
+        'overflow-hidden text-xs leading-4 text-ellipsis whitespace-nowrap text-muted-foreground',
         className,
       )
     "

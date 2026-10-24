@@ -70,7 +70,7 @@ import {
   SidebarSeparator,
   SidebarTooltip,
   SidebarTrigger,
-  type SidebarProps,
+  type SidebarRootProps,
 } from '@/components/sidebar';
 import {
   ChevronUpDownIcon,
@@ -92,7 +92,7 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-type SidebarSize = NonNullable<SidebarProps['size']>;
+type SidebarSize = NonNullable<SidebarRootProps['size']>;
 
 const classes = {
   accountButton: 'h-auto',
@@ -360,11 +360,11 @@ const SidebarNavigation = defineComponent({
                 <CollapsibleContent>
                   <SidebarNavigationSubList>
                     <SidebarNavigationSubItem>
-                      <SidebarNavigationSubButton href="#website" :class="props.accentClass">Website</SidebarNavigationSubButton>
+                      <SidebarNavigationSubButton href="#website" :class="props.accentClass"><SidebarLabel>Website</SidebarLabel></SidebarNavigationSubButton>
                       <SidebarNavigationBadge>3</SidebarNavigationBadge>
                     </SidebarNavigationSubItem>
                     <SidebarNavigationSubItem>
-                      <SidebarNavigationSubButton href="#mobile" :class="props.accentClass">Mobile app</SidebarNavigationSubButton>
+                      <SidebarNavigationSubButton href="#mobile" :class="props.accentClass"><SidebarLabel>Mobile app</SidebarLabel></SidebarNavigationSubButton>
                     </SidebarNavigationSubItem>
                   </SidebarNavigationSubList>
                 </CollapsibleContent>
@@ -526,7 +526,7 @@ const storyComponents = {
 };
 
 function renderStory(template: string) {
-  return (args: SidebarProps) =>
+  return (args: SidebarRootProps) =>
     defineComponent({
       components: storyComponents,
       setup() {

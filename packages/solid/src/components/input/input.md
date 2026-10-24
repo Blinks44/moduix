@@ -5,11 +5,10 @@ component's visual sizes, `htmlSize`, data hooks, native input props, and field 
 
 ## Defaults and styling
 
-`Input size="md"` matches the default `FieldInput` appearance. Both use Ark FieldInput directly;
-`Input` owns visual sizes, `htmlSize`, and `--moduix-input-*`, while `FieldInput` keeps the
-native numeric `size` and `--moduix-field-control-*`. A disabled moduix Field or FieldRootProvider
-owns the whole field’s opacity; the input is not dimmed a second time. Standalone disabled inputs
-retain their own disabled opacity.
+Same as React: visual sizes, `htmlSize` (renders the native `size` attribute and an `auto` default
+width), three CSS Modules variables (`--moduix-input-width`, `--moduix-input-height`,
+`--moduix-input-radius`), and no second dimming inside a disabled `Field`, `Fieldset`, or
+`InputGroup`. `InputRootProps` and `InputSize` are exported.
 
 ## Solid composition
 

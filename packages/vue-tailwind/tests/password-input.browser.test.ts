@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, defineComponent, h, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
+import { Field } from '../src/components/field';
 import {
   PasswordInput,
   PasswordInputContext,
@@ -76,41 +77,25 @@ test('applies native Tailwind utilities to component-owned parts', () => {
   const { container } = render(PasswordInput, { slots: passwordInputSlots });
 
   expect([...container.querySelector('[data-slot="password-input-root"]')!.classList]).toEqual(
-    expect.arrayContaining([
-      'flex',
-      'w-full',
-      'max-w-none',
-      'flex-col',
-      'gap-1',
-      'text-foreground',
-    ]),
+    expect.arrayContaining(['flex', 'w-full', 'flex-col', 'gap-1', 'text-foreground']),
   );
   expect([...screen.getByText('Password')!.classList]).toEqual(
-    expect.arrayContaining([
-      'inline-flex',
-      'items-center',
-      'gap-1',
-      'text-sm',
-      'font-medium',
-      'text-foreground',
-    ]),
+    expect.arrayContaining(['inline-flex', 'items-center', 'gap-1', 'text-sm', 'font-medium']),
   );
   expect([...container.querySelector('[data-slot="password-input-control"]')!.classList]).toEqual(
     expect.arrayContaining([
       'flex',
       'min-h-control-md',
-      'w-full',
       'rounded-md',
       'border',
       'border-border',
       'bg-background',
-      'pr-2',
+      'pe-2',
     ]),
   );
   expect([...screen.getByLabelText('Password')!.classList]).toEqual(
     expect.arrayContaining([
       'flex-auto',
-      'min-h-0',
       'min-w-0',
       'bg-transparent',
       'px-3',
@@ -123,7 +108,6 @@ test('applies native Tailwind utilities to component-owned parts', () => {
     expect.arrayContaining([
       'inline-flex',
       'size-control-sm',
-      'min-w-control-sm',
       'shrink-0',
       'rounded-sm',
       'text-muted-foreground',
@@ -156,7 +140,7 @@ test('lets consumer utilities replace component defaults', () => {
               h(
                 PasswordInputControl,
                 {
-                  class: 'min-h-20 rounded-lg border-2 border-primary bg-muted pr-0',
+                  class: 'min-h-20 rounded-lg border-2 border-primary bg-muted pe-0',
                 },
                 {
                   default: () => [
@@ -181,9 +165,7 @@ test('lets consumer utilities replace component defaults', () => {
     expect.arrayContaining(['w-80', 'max-w-sm', 'gap-4', 'text-muted-foreground']),
   );
   expect(
-    ['w-full', 'max-w-none', 'gap-1', 'text-foreground'].some((name) =>
-      root?.classList.contains(name),
-    ),
+    ['w-full', 'gap-1', 'text-foreground'].some((name) => root?.classList.contains(name)),
   ).toBe(false);
   expect([...control!.classList]).toEqual(
     expect.arrayContaining([
@@ -192,11 +174,11 @@ test('lets consumer utilities replace component defaults', () => {
       'border-2',
       'border-primary',
       'bg-muted',
-      'pr-0',
+      'pe-0',
     ]),
   );
   expect(
-    ['min-h-control-md', 'rounded-md', 'border-border', 'bg-background', 'pr-2'].some((name) =>
+    ['min-h-control-md', 'rounded-md', 'border-border', 'bg-background', 'pe-2'].some((name) =>
       control?.classList.contains(name),
     ),
   ).toBe(false);
@@ -453,4 +435,63 @@ test('preserves asChild root composition on the consumer host', async () => {
     expect.arrayContaining(['flex', 'flex-col', 'consumer-root']),
   );
   expect(rootRef.value?.$el).toBe(root);
+});
+
+test('does not dim a password input twice inside a disabled field', () => {
+  render({
+    components: { ...passwordInputComponents, Field },
+    template: `
+      <Field disabled>
+        <PasswordInput>
+          <PasswordInputLabel>Password</PasswordInputLabel>
+          <PasswordInputField />
+        </PasswordInput>
+      </Field>
+    `,
+  });
+
+  const field = document.querySelector('[data-slot="field-root"]')!;
+  const root = document.querySelector('[data-slot="password-input-root"]')!;
+
+  expect(root.hasAttribute('data-disabled')).toBe(true);
+  expect(getComputedStyle(field).opacity).toBe('0.5');
+  expect(getComputedStyle(root).opacity).toBe('1');
+});
+
+test('sizes the control, input text, trigger, and icon from the root size', () => {
+  render({
+    components: passwordInputComponents,
+    template: `
+      <div>
+        <PasswordInput size="xs">
+          <PasswordInputLabel>Extra small</PasswordInputLabel>
+          <PasswordInputField />
+        </PasswordInput>
+        <PasswordInput size="xl">
+          <PasswordInputLabel>Extra large</PasswordInputLabel>
+          <PasswordInputField />
+        </PasswordInput>
+      </div>
+    `,
+  });
+
+  const [xs, xl] = [...document.querySelectorAll('[data-slot="password-input-root"]')];
+  const part = (root: Element, slot: string) =>
+    root.querySelector<HTMLElement>(`[data-slot="password-input-${slot}"]`)!;
+  const iconWidth = (root: Element) =>
+    part(root, 'indicator').querySelector('svg')!.getBoundingClientRect().width;
+
+  expect(xs!.getAttribute('data-size')).toBe('xs');
+  expect(xl!.getAttribute('data-size')).toBe('xl');
+  expect(part(xs!, 'control').offsetHeight).toBe(24);
+  expect(part(xl!, 'control').offsetHeight).toBe(48);
+  for (const root of [xs!, xl!]) {
+    expect(part(root, 'visibility-trigger').offsetHeight).toBeLessThan(
+      part(root, 'control').offsetHeight,
+    );
+  }
+  expect(parseFloat(getComputedStyle(part(xl!, 'input')).fontSize)).toBeGreaterThan(
+    parseFloat(getComputedStyle(part(xs!, 'input')).fontSize),
+  );
+  expect(iconWidth(xl!)).toBeGreaterThan(iconWidth(xs!));
 });

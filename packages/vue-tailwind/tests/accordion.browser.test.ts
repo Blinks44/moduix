@@ -153,6 +153,10 @@ test('keeps Ark value details and ignores disabled items', async () => {
   await expect
     .element(page.getByRole('button', { name: 'Second item', exact: true }))
     .toBeDisabled();
+
+  const disabledTrigger = document.querySelectorAll('[data-slot="accordion-item-trigger"]')[1]!;
+  expect(getComputedStyle(disabledTrigger).opacity).toBe('0.5');
+  expect(getComputedStyle(disabledTrigger).cursor).toBe('default');
   expect(values).toEqual([]);
 });
 
@@ -355,4 +359,47 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   await expect
     .element(page.getByText('First content', { exact: true }))
     .toHaveCSS('padding', '0px');
+});
+
+test('wraps triggers in headings with a transparent trigger and a turning chevron', async () => {
+  render(
+    defineComponent({
+      components: accordionComponents,
+      template: `
+        <Accordion :default-value="['first']" collapsible>
+          <AccordionItem value="first">
+            <h3>
+              <AccordionItemTrigger>
+                First item
+                <AccordionItemIndicator />
+              </AccordionItemTrigger>
+            </h3>
+            <AccordionItemContent>
+              <AccordionItemBody>First content</AccordionItemBody>
+            </AccordionItemContent>
+          </AccordionItem>
+        </Accordion>
+      `,
+    }),
+  );
+
+  const trigger = screen.getByRole('button', { name: 'First item' });
+  const heading = screen.getByRole('heading', { level: 3, name: 'First item' });
+  const indicator = trigger.querySelector<HTMLElement>('[data-slot="accordion-item-indicator"]')!;
+
+  // CSS Modules turn the icon with `transform`, Tailwind with the `rotate` property.
+  const turn = () => {
+    const style = getComputedStyle(indicator);
+    return style.rotate === 'none' ? style.transform : style.rotate;
+  };
+
+  expect(trigger.parentElement).toBe(heading);
+  expect(getComputedStyle(heading).marginBlockStart).toBe('0px');
+  expect(getComputedStyle(trigger).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+  await expect.poll(turn).toMatch(/^(180deg|matrix\(-1, [^,]+, [^,]+, -1, 0, 0\))$/);
+
+  const triggerLocator = page.getByRole('button', { name: 'First item', exact: true });
+  await triggerLocator.click();
+  await expect.element(triggerLocator).toHaveAttribute('aria-expanded', 'false');
+  await expect.poll(turn).toMatch(/^(none|0deg)$/);
 });

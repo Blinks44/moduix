@@ -5,24 +5,6 @@ description: A native multiline text input with Field integration and moduix sty
 ---
 
 import * as TextareaDocs from '@/components/examples/textarea/css-properties';
-import TextareaAutoResize from '@/components/examples/textarea/auto-resize.tsx';
-import TextareaBasic from '@/components/examples/textarea/basic.tsx';
-import TextareaControlled from '@/components/examples/textarea/controlled.tsx';
-import TextareaDisabledAndReadonly from '@/components/examples/textarea/disabled-and-readonly.tsx';
-import TextareaFieldValidation from '@/components/examples/textarea/field-validation.tsx';
-import TextareaNativeAttributes from '@/components/examples/textarea/native-attributes.tsx';
-import textareaSolidAutoResize from '../../../snippets/textarea/solid/auto-resize.tsx?raw';
-import textareaSolidBasic from '../../../snippets/textarea/solid/basic.tsx?raw';
-import textareaSolidControlled from '../../../snippets/textarea/solid/controlled.tsx?raw';
-import textareaSolidDisabledAndReadonly from '../../../snippets/textarea/solid/disabled-and-readonly.tsx?raw';
-import textareaSolidFieldValidation from '../../../snippets/textarea/solid/field-validation.tsx?raw';
-import textareaSolidNativeAttributes from '../../../snippets/textarea/solid/native-attributes.tsx?raw';
-import textareaVueAutoResize from '../../../snippets/textarea/vue/auto-resize.vue?raw';
-import textareaVueBasic from '../../../snippets/textarea/vue/basic.vue?raw';
-import textareaVueControlled from '../../../snippets/textarea/vue/controlled.vue?raw';
-import textareaVueDisabledAndReadonly from '../../../snippets/textarea/vue/disabled-and-readonly.vue?raw';
-import textareaVueFieldValidation from '../../../snippets/textarea/vue/field-validation.vue?raw';
-import textareaVueNativeAttributes from '../../../snippets/textarea/vue/native-attributes.vue?raw';
 
 ## API Reference
 
@@ -46,50 +28,7 @@ Use `Textarea` for plain text that can span multiple lines and should behave lik
 Place `Textarea` inside `Field` when the control needs an accessible label or supporting text. This
 is the recommended setup for comments, notes, issue descriptions, and similar content.
 
-<ExampleFrame variant="component">
-  <TextareaBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/textarea/basic.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueBasic} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-basic.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/basic" />
 
 ## Install with shadcn
 
@@ -158,8 +97,8 @@ control needs a label, supporting text, or validation. Outside `Field`, provide 
 with a native `<label>` or `aria-label`.
 
 Set `autoresize` only when the control should grow with its content. Ark disables manual resizing in
-that mode, so `--moduix-textarea-resize` applies only when `autoresize` is false. With `asChild`,
-provide one semantic textarea host that can receive the merged props and ref.
+that mode. With `asChild`, provide one semantic textarea host that can receive the merged props and
+ref.
 
 ## Examples
 
@@ -168,278 +107,61 @@ provide one semantic textarea host that can receive the merged props and ref.
 Set `autoresize` when the textarea should grow as the user types. Ark disables manual resizing while
 this option is enabled.
 
-<ExampleFrame variant="component">
-  <TextareaAutoResize />
-</ExampleFrame>
+<Example name="textarea/auto-resize" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+### Sizes
 
-```tsx pure file="../../../src/components/examples/textarea/auto-resize.tsx"
+The `size` prop sets padding and type for a denser or roomier field. Inline padding and font size
+match `Input` of the same size, so stacked controls line up. Height comes from the native `rows`
+attribute, so it scales with the font size.
 
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidAutoResize} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueAutoResize} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-auto-resize.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/sizes" />
 
 ### Controlled value
 
 Use `value` and native `onChange` when application state should control the content.
 
-<ExampleFrame variant="component">
-  <TextareaControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/textarea/controlled.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueControlled} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-controlled.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/controlled" />
 
 ### Disabled and read-only
 
 Use `disabled` when the user must not interact with the control. Use `readOnly` when they can read
 and select the value but must not edit it.
 
-<ExampleFrame variant="component">
-  <TextareaDisabledAndReadonly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/textarea/disabled-and-readonly.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidDisabledAndReadonly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueDisabledAndReadonly} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-disabled-and-readonly.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/disabled-and-readonly" />
 
 ### Field validation
 
 Set `invalid` on `Field`. Ark adds `aria-invalid` and `data-invalid` to the textarea and connects
 its error text.
 
-<ExampleFrame variant="component">
-  <TextareaFieldValidation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/textarea/field-validation.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidFieldValidation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueFieldValidation} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-field-validation.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/field-validation" />
 
 ### Native attributes and form submission
 
 Use native textarea props such as `rows`, `maxLength`, and `spellCheck` for browser behavior. This
 example also submits the form and reads the current value from `FormData`.
 
-<ExampleFrame variant="component">
-  <TextareaNativeAttributes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/textarea/native-attributes.tsx"
-
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textareaSolidNativeAttributes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textareaVueNativeAttributes} />
-
-    </Tab>
-
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/textarea/textarea-native-attributes.module.css"
-
-```
-
-</div>
-
-</ExampleCode>
+<Example name="textarea/native-attributes" />
 
 ## Styling
 
-Style the control with `className` in React or `class` in Solid and Vue, together with
-`data-slot="textarea-root"`. Tailwind variants use native utility and consumer classes. The public
-`--moduix-textarea-*` variables below apply to the CSS Modules variants.
+Inside a disabled moduix `Field`, `FieldRootProvider`, or `Fieldset`, the root applies the disabled
+opacity once; a standalone disabled `Textarea` dims itself.
+
+Use `className` in React or `class` in Solid and Vue on `Textarea`. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation tokens and expose only the
+two variables below; override colors, padding, typography, height, and `resize` with a plain class, which
+wins over the layered component styles.
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TextareaDocs.TextareaCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={TextareaDocs.textareaCssProperties} />
 
 ### Styling hooks
 
-Use the `Textarea` root for the control's appearance and the surrounding `Field` for layout and
-supporting text.
-
-- `Textarea` root for the border, background, placeholder, resize behavior, and focus ring
-- `Field` wrapper for width, max width, spacing, label layout, description, and validation text
-- `data-slot="textarea-root"` for stable targeting in scoped styles
-- `data-autoresize` when `autoresize` is enabled
-- `data-invalid`, `[aria-invalid='true']`, `[disabled]`, `data-disabled`, `:read-only`, and
-  `data-readonly` for state-aware styling
+- `data-slot="textarea-root"`
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"`
+- `data-scope="field"` and `data-part="textarea"`
+- Ark `data-invalid`, `data-required`, `data-disabled`, and `data-readonly` inside `Field`
+- native `:disabled`, `:read-only`, `:focus-visible`, and `[aria-invalid="true"]`

@@ -14,11 +14,11 @@
 }
 
 .customSurface {
-  --moduix-bleed-inline-full: calc(var(--moduix-spacing-4) * -1);
-  --moduix-bleed-inline-full-size: calc(100% + var(--moduix-spacing-8));
   display: flex;
   flex-direction: column;
   align-items: center;
+  inline-size: calc(100% + var(--moduix-spacing-8));
+  margin-inline: calc(var(--moduix-spacing-4) * -1);
   padding: var(--moduix-spacing-4);
   background-color: var(--moduix-color-accent);
   color: var(--moduix-color-accent-foreground);

@@ -36,8 +36,6 @@ export type {
   CheckboxIndicatorProps,
   CheckboxLabelProps,
   CheckboxRootEmits,
-  CheckboxRootProps,
-  CheckboxRootProviderProps,
   UseCheckboxContext,
   UseCheckboxGroupContext,
   UseCheckboxGroupProps,
@@ -45,3 +43,6 @@ export type {
   UseCheckboxProps,
   UseCheckboxReturn,
 } from '@ark-ui/vue/checkbox';
+
+export type { CheckboxSize, Props as CheckboxRootProps } from './Checkbox.vue';
+export type { Props as CheckboxRootProviderProps } from './CheckboxRootProvider.vue';

@@ -29,10 +29,8 @@ export default function SliderFormDemo() {
       className={styles.stack}
     >
       <Slider defaultValue={[40]} name="volume">
-        <div className={styles.header}>
-          <SliderLabel>Volume</SliderLabel>
-          <SliderValueText />
-        </div>
+        <SliderLabel>Volume</SliderLabel>
+        <SliderValueText />
         <SliderControl>
           <SliderTrack>
             <SliderRange />

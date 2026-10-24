@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import { Field, FieldErrorText, FieldHelperText } from '@moduix/vue/field';
 import {
   FileUpload,
@@ -19,14 +20,11 @@ const maxFiles = 3;
   <Field :class="styles.root" required
     ><FileUpload :name="name" :max-files="maxFiles"
       ><FileUploadLabel>Required attachments</FileUploadLabel
-      ><FileUploadTrigger>Choose files</FileUploadTrigger
+      ><FileUploadTrigger as-child><Button>Choose files</Button></FileUploadTrigger
       ><FileUploadItemGroup
         ><FileUploadContext v-slot="{ acceptedFiles }"
           ><FileUploadItem v-for="file in acceptedFiles" :key="file.name + file.size" :file="file"
-            ><FileUploadItemName /><FileUploadItemDeleteTrigger
-              :aria-label="
-                'Remove ' + file.name
-              " /></FileUploadItem></FileUploadContext></FileUploadItemGroup
+            ><FileUploadItemName /><FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
       ><FileUploadHiddenInput /></FileUpload
     ><FieldHelperText>Upload up to three files.</FieldHelperText
     ><FieldErrorText>Upload at least one file.</FieldErrorText></Field

@@ -1,14 +1,9 @@
 @layer moduix.components {
   .root {
-    position: relative;
-    box-sizing: border-box;
-    overflow: hidden;
-    width: var(--moduix-marquee-width, 100%);
-    height: var(--moduix-marquee-height, auto);
-    color: var(--moduix-marquee-color, var(--moduix-color-foreground));
+    width: 100%;
 
     &[data-orientation='vertical'] {
-      height: var(--moduix-marquee-vertical-height, var(--moduix-marquee-height, 15rem));
+      height: 15rem;
     }
 
     &[data-paused] .content {
@@ -16,22 +11,13 @@
     }
   }
 
-  .viewport {
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-  }
-
   .content {
-    animation-name: marquee-x;
-    animation-duration: var(--marquee-duration);
-    animation-delay: var(--marquee-delay);
-    animation-timing-function: linear;
-    animation-iteration-count: var(--marquee-loop-count);
+    animation: global(moduix-marquee-x) var(--marquee-duration) linear var(--marquee-delay)
+      var(--marquee-loop-count);
 
-    &[data-side='top'],
-    &[data-side='bottom'] {
-      animation-name: marquee-y;
+    /* :where keeps the reduced-motion reset below at the same specificity. */
+    &:where([data-orientation='vertical']) {
+      animation-name: global(moduix-marquee-y);
     }
 
     &[data-reverse] {
@@ -44,18 +30,13 @@
   }
 
   .item {
-    box-sizing: border-box;
     flex-shrink: 0;
   }
 
   .edge {
-    --_edge-color: var(
-      --moduix-marquee-edge-color,
-      var(--marquee-edge-color, var(--moduix-color-background))
-    );
-    --_edge-size: var(--moduix-marquee-edge-size, var(--marquee-edge-size, 20%));
-    z-index: var(--moduix-marquee-edge-z-index, 1);
-    pointer-events: none;
+    --_edge-color: var(--moduix-marquee-edge-color, var(--moduix-color-background));
+    --_edge-size: var(--moduix-marquee-edge-size, 20%);
+    z-index: 1;
 
     &[data-side='start'] {
       width: var(--_edge-size);
@@ -83,26 +64,6 @@
     &[data-side='bottom'] {
       height: var(--_edge-size);
       background: linear-gradient(to top, var(--_edge-color), transparent);
-    }
-  }
-
-  @keyframes marquee-x {
-    from {
-      transform: translateX(0%);
-    }
-
-    to {
-      transform: translateX(var(--marquee-translate));
-    }
-  }
-
-  @keyframes marquee-y {
-    from {
-      transform: translateY(0%);
-    }
-
-    to {
-      transform: translateY(var(--marquee-translate));
     }
   }
 }

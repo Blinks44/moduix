@@ -28,18 +28,13 @@ export function useSidebar() {
   const splitter = useSplitterContext();
   const collapsed = computed(() => splitter.value.isPanelCollapsed(config.panelId.value));
 
-  const toggleSidebar = () => {
-    if (collapsed.value) {
-      splitter.value.expandPanel(config.panelId.value);
-    } else {
-      splitter.value.collapsePanel(config.panelId.value);
-    }
-  };
-
   return {
     collapsed,
     side: config.side,
     state: computed(() => (collapsed.value ? 'collapsed' : 'expanded')),
-    toggleSidebar,
+    toggleSidebar: () => {
+      if (collapsed.value) splitter.value.expandPanel(config.panelId.value);
+      else splitter.value.collapsePanel(config.panelId.value);
+    },
   };
 }

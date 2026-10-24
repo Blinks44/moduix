@@ -15,9 +15,7 @@ import {
   SelectIndicator,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/solid/select';
 import { For } from 'solid-js';
 import styles from '@/components/examples/pagination/pagination-page-size-control.module.css';
@@ -58,12 +56,7 @@ export default function PaginationPageSizeControlDemo() {
                 <SelectPositioner>
                   <SelectContent>
                     <For each={pageSizes.items}>
-                      {(item) => (
-                        <SelectItem item={item}>
-                          <SelectItemText>{item.label}</SelectItemText>
-                          <SelectItemIndicator />
-                        </SelectItem>
-                      )}
+                      {(item) => <SelectOption item={item}>{item.label}</SelectOption>}
                     </For>
                   </SelectContent>
                 </SelectPositioner>

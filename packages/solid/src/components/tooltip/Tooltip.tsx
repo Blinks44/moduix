@@ -17,7 +17,6 @@ type TooltipDisabledTriggerProps = JSX.IntrinsicElements['span'];
 
 function Tooltip(props: TooltipRootProps) {
   const [local, others] = splitProps(props, [
-    'children',
     'lazyMount',
     'portalled',
     'portalRef',
@@ -30,16 +29,13 @@ function Tooltip(props: TooltipRootProps) {
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
-      >
-        {local.children}
-      </TooltipPrimitive.Root>
+      />
     </OverlayPortalProvider>
   );
 }
 
 function TooltipRootProvider(props: TooltipRootProviderProps) {
   const [local, others] = splitProps(props, [
-    'children',
     'lazyMount',
     'portalled',
     'portalRef',
@@ -52,9 +48,7 @@ function TooltipRootProvider(props: TooltipRootProviderProps) {
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
-      >
-        {local.children}
-      </TooltipPrimitive.RootProvider>
+      />
     </OverlayPortalProvider>
   );
 }
@@ -171,3 +165,17 @@ export {
   useTooltipContext,
 };
 export type { TooltipRootProps, TooltipRootProviderProps };
+
+export type {
+  TooltipArrowProps,
+  TooltipArrowTipProps,
+  TooltipContentProps,
+  TooltipContextProps,
+  TooltipOpenChangeDetails,
+  TooltipPositionerProps,
+  TooltipTriggerProps,
+  TooltipTriggerValueChangeDetails,
+  UseTooltipContext,
+  UseTooltipProps,
+  UseTooltipReturn,
+} from '@ark-ui/solid/tooltip';

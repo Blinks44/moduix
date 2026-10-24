@@ -131,6 +131,10 @@
   }
 }
 
+/*
+ * Accordion panels fade to 0.01 rather than 0, as in Ark UI's reference styles.
+ * Shared by the CSS Modules and Tailwind accordions.
+ */
 @keyframes moduix-accordion-item-content-open {
   from {
     height: 0;
@@ -223,151 +227,97 @@
   }
 }
 
-@keyframes moduix-menu-content-open {
-  from {
-    opacity: 0;
-    translate: 0 0;
-    transform: scale(var(--moduix-scale-popup));
-  }
-  to {
-    opacity: 1;
-    translate: 0 0;
-    transform: scale(1);
-  }
-}
-
-@keyframes moduix-menu-content-closed {
-  from {
-    opacity: 1;
-    translate: 0 0;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    translate: 0 0;
-    transform: scale(var(--moduix-scale-popup));
-  }
-}
-
-@keyframes moduix-lightbox-backdrop-in {
-  from {
-    opacity: var(--moduix-lightbox-backdrop-starting-opacity, 0);
-    backdrop-filter: var(--moduix-lightbox-backdrop-starting-blur, none);
-  }
-}
-
-@keyframes moduix-lightbox-backdrop-out {
-  to {
-    opacity: var(--moduix-lightbox-backdrop-ending-opacity, 0);
-    backdrop-filter: var(--moduix-lightbox-backdrop-ending-blur, none);
-  }
-}
-
+/* Lightbox splits popup motion: Content fades and its Body scales, so a fixed close icon is not transformed. */
 @keyframes moduix-lightbox-content-in {
   from {
-    opacity: var(
-      --moduix-lightbox-content-starting-opacity,
-      var(--moduix-popup-motion-starting-opacity, 0)
-    );
-  }
-}
-
-@keyframes moduix-lightbox-body-in {
-  from {
-    translate: var(
-        --moduix-lightbox-content-starting-translate-x,
-        var(--moduix-popup-motion-starting-translate-x, 0)
-      )
-      var(
-        --moduix-lightbox-content-starting-translate-y,
-        var(--moduix-popup-motion-starting-translate-y, 0)
-      );
-    scale: var(
-      --moduix-lightbox-content-starting-scale,
-      var(--moduix-popup-motion-starting-scale, 0.82)
-    );
+    opacity: var(--moduix-popup-motion-starting-opacity, 0);
   }
 }
 
 @keyframes moduix-lightbox-content-out {
   to {
-    opacity: var(
-      --moduix-lightbox-content-ending-opacity,
-      var(--moduix-popup-motion-ending-opacity, 0)
-    );
+    opacity: var(--moduix-popup-motion-ending-opacity, 0);
+  }
+}
+
+@keyframes moduix-lightbox-body-in {
+  from {
+    translate: var(--moduix-popup-motion-starting-translate-x, 0)
+      var(--moduix-popup-motion-starting-translate-y, 0);
+    scale: var(--moduix-popup-motion-starting-scale, 0.82);
   }
 }
 
 @keyframes moduix-lightbox-body-out {
   to {
-    translate: var(
-        --moduix-lightbox-content-ending-translate-x,
-        var(--moduix-popup-motion-ending-translate-x, 0)
-      )
-      var(
-        --moduix-lightbox-content-ending-translate-y,
-        var(--moduix-popup-motion-ending-translate-y, 0)
-      );
-    scale: var(
-      --moduix-lightbox-content-ending-scale,
-      var(--moduix-popup-motion-ending-scale, 0.82)
-    );
+    translate: var(--moduix-popup-motion-ending-translate-x, 0)
+      var(--moduix-popup-motion-ending-translate-y, 0);
+    scale: var(--moduix-popup-motion-ending-scale, 0.82);
   }
 }
 
 @keyframes moduix-command-palette-backdrop-in {
   from {
-    opacity: var(--moduix-command-palette-backdrop-starting-opacity, 0);
-    backdrop-filter: var(--moduix-command-palette-backdrop-starting-blur, none);
+    opacity: 0;
+    backdrop-filter: none;
   }
 }
 
 @keyframes moduix-command-palette-backdrop-out {
   to {
-    opacity: var(--moduix-command-palette-backdrop-ending-opacity, 0);
-    backdrop-filter: var(--moduix-command-palette-backdrop-ending-blur, none);
+    opacity: 0;
+    backdrop-filter: none;
   }
 }
 
 @keyframes moduix-command-palette-content-in {
   from {
-    opacity: var(
-      --moduix-command-palette-content-starting-opacity,
-      var(--moduix-popup-motion-starting-opacity, 0)
-    );
-    translate: var(
-        --moduix-command-palette-content-starting-translate-x,
-        var(--moduix-popup-motion-starting-translate-x, 0)
-      )
-      var(
-        --moduix-command-palette-content-starting-translate-y,
-        var(--moduix-popup-motion-starting-translate-y, -0.75rem)
-      );
-    scale: var(
-      --moduix-command-palette-content-starting-scale,
-      var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup))
-    );
+    opacity: var(--moduix-popup-motion-starting-opacity, 0);
+    translate: var(--moduix-popup-motion-starting-translate-x, 0)
+      var(--moduix-popup-motion-starting-translate-y, -0.75rem);
+    scale: var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup));
   }
 }
 
 @keyframes moduix-command-palette-content-out {
   to {
-    opacity: var(
-      --moduix-command-palette-content-ending-opacity,
-      var(--moduix-popup-motion-ending-opacity, 0)
-    );
-    translate: var(
-        --moduix-command-palette-content-ending-translate-x,
-        var(--moduix-popup-motion-ending-translate-x, 0)
-      )
-      var(
-        --moduix-command-palette-content-ending-translate-y,
-        var(--moduix-popup-motion-ending-translate-y, -0.75rem)
-      );
-    scale: var(
-      --moduix-command-palette-content-ending-scale,
-      var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup))
-    );
+    opacity: var(--moduix-popup-motion-ending-opacity, 0);
+    translate: var(--moduix-popup-motion-ending-translate-x, 0)
+      var(--moduix-popup-motion-ending-translate-y, -0.75rem);
+    scale: var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup));
+  }
+}
+
+@keyframes moduix-dialog-backdrop-in {
+  from {
+    opacity: 0;
+    backdrop-filter: none;
+  }
+}
+
+@keyframes moduix-dialog-backdrop-out {
+  to {
+    opacity: 0;
+    backdrop-filter: none;
+  }
+}
+
+/* Shared enter and exit for popup content; read the --moduix-popup-motion-* variables. */
+@keyframes moduix-popup-in {
+  from {
+    opacity: var(--moduix-popup-motion-starting-opacity, 0);
+    translate: var(--moduix-popup-motion-starting-translate-x, 0)
+      var(--moduix-popup-motion-starting-translate-y, 0);
+    scale: var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup));
+  }
+}
+
+@keyframes moduix-popup-out {
+  to {
+    opacity: var(--moduix-popup-motion-ending-opacity, 0);
+    translate: var(--moduix-popup-motion-ending-translate-x, 0)
+      var(--moduix-popup-motion-ending-translate-y, 0);
+    scale: var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup));
   }
 }
 
@@ -435,53 +385,49 @@
 
 @keyframes moduix-drawer-content-in-down {
   from {
-    transform: translate3d(0, calc(100% + var(--drawer-island-translate-distance)), 0);
+    transform: translate3d(0, calc(100% + var(--_drawer-island-offset)), 0);
   }
 }
 
 @keyframes moduix-drawer-content-out-down {
   to {
-    transform: translate3d(0, calc(100% + var(--drawer-island-translate-distance)), 0);
+    transform: translate3d(0, calc(100% + var(--_drawer-island-offset)), 0);
   }
 }
 
 @keyframes moduix-drawer-content-in-up {
   from {
-    transform: translate3d(0, calc(-100% - var(--drawer-island-translate-distance)), 0);
+    transform: translate3d(0, calc(-100% - var(--_drawer-island-offset)), 0);
   }
 }
 
 @keyframes moduix-drawer-content-out-up {
   to {
-    transform: translate3d(
-      0,
-      calc(-100% - var(--drawer-island-translate-distance) - var(--_drawer-bleed)),
-      0
-    );
+    transform: translate3d(0, calc(-100% - var(--_drawer-island-offset) - var(--_drawer-bleed)), 0);
   }
 }
 
 @keyframes moduix-drawer-content-in-left {
   from {
-    transform: translate3d(calc(-100% - var(--drawer-island-translate-distance)), 0, 0);
+    transform: translate3d(calc(-100% - var(--_drawer-island-offset)), 0, 0);
   }
 }
 
 @keyframes moduix-drawer-content-out-left {
   to {
-    transform: translate3d(calc(-100% - var(--drawer-island-translate-distance)), 0, 0);
+    transform: translate3d(calc(-100% - var(--_drawer-island-offset)), 0, 0);
   }
 }
 
 @keyframes moduix-drawer-content-in-right {
   from {
-    transform: translate3d(calc(100% + var(--drawer-island-translate-distance)), 0, 0);
+    transform: translate3d(calc(100% + var(--_drawer-island-offset)), 0, 0);
   }
 }
 
 @keyframes moduix-drawer-content-out-right {
   to {
-    transform: translate3d(calc(100% + var(--drawer-island-translate-distance)), 0, 0);
+    transform: translate3d(calc(100% + var(--_drawer-island-offset)), 0, 0);
   }
 }
 

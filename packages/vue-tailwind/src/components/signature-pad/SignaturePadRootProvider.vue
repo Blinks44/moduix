@@ -17,7 +17,7 @@ const { class: className, value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const resolvedReadOnly = computed(() => value.readOnly ?? false);
+const resolvedReadOnly = computed(() => value.readOnly);
 
 provide(signaturePadReadOnlyKey, resolvedReadOnly);
 </script>
@@ -27,7 +27,7 @@ provide(signaturePadReadOnlyKey, resolvedReadOnly);
     v-bind="attrs"
     :class="
       cn(
-        'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50',
+        'inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-disabled',
         className,
       )
     "

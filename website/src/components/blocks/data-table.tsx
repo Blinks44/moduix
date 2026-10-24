@@ -431,7 +431,7 @@ function DataTable() {
             {table.getVisibleLeafColumns().map((column) => (
               <TableColumn
                 key={column.id}
-                htmlWidth={columnWidths[column.id as keyof typeof columnWidths]}
+                width={columnWidths[column.id as keyof typeof columnWidths]}
               />
             ))}
           </TableColumnGroup>

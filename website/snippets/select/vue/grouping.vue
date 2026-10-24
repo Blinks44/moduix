@@ -4,12 +4,10 @@ import {
   Select,
   SelectContent,
   SelectField,
-  SelectItem,
   SelectItemGroup,
   SelectItemGroupLabel,
-  SelectItemIndicator,
-  SelectItemText,
   SelectLabel,
+  SelectOption,
   SelectPositioner,
 } from '@moduix/vue/select';
 
@@ -35,10 +33,9 @@ const groups = produce.group();
       <SelectContent>
         <SelectItemGroup v-for="group in groups" :key="group[0]">
           <SelectItemGroupLabel>{{ group[0] }}</SelectItemGroupLabel>
-          <SelectItem v-for="item in group[1]" :key="item.value" :item="item">
-            <SelectItemText>{{ item.label }}</SelectItemText
-            ><SelectItemIndicator />
-          </SelectItem>
+          <SelectOption v-for="item in group[1]" :key="item.value" :item="item">{{
+            item.label
+          }}</SelectOption>
         </SelectItemGroup>
       </SelectContent>
     </SelectPositioner>

@@ -131,7 +131,7 @@ export const AsChildComposition: Story = {
     <Avatar
       asChild
       size="xl"
-      className="no-underline transition-[box-shadow,transform] duration-200 ease-in-out hover:-translate-y-px hover:shadow-[0_0_0_2px_var(--color-background),0_0_0_4px_var(--color-primary)]"
+      className="no-underline transition-[box-shadow,transform] duration-normal ease-in-out hover:-translate-y-px hover:shadow-[0_0_0_2px_var(--color-background),0_0_0_4px_var(--color-primary)]"
     >
       <a href="mailto:alex@example.com" aria-label="Email Alex T.">
         <AvatarFallback className="bg-primary text-primary-foreground">AT</AvatarFallback>

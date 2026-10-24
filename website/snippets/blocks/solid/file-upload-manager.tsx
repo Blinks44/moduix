@@ -1,4 +1,5 @@
 import { For, Show } from 'solid-js';
+import { Button } from '@/registry/solid/ui/button';
 import { Card, CardAction, CardBody, CardDescription, CardHeader } from '@/registry/solid/ui/card';
 import {
   FileUpload,
@@ -42,9 +43,18 @@ export function FileUploadManager() {
               {(api) => (
                 <Show when={api().acceptedFiles.length}>
                   <CardAction>
-                    <FileUploadClearTrigger class={styles.clearTrigger}>
-                      Clear all
-                    </FileUploadClearTrigger>
+                    <FileUploadClearTrigger
+                      asChild={(props) => (
+                        <Button
+                          {...props()}
+                          class={styles.clearTrigger}
+                          variant="outline"
+                          size="sm"
+                        >
+                          Clear all
+                        </Button>
+                      )}
+                    />
                   </CardAction>
                 </Show>
               )}
@@ -58,7 +68,13 @@ export function FileUploadManager() {
                 <strong>Drop files here</strong>
                 <span>PDF, DOCX, PNG, or JPG up to 10 MB</span>
               </div>
-              <FileUploadTrigger class={styles.trigger}>Browse files</FileUploadTrigger>
+              <FileUploadTrigger
+                asChild={(props) => (
+                  <Button {...props()} class={styles.trigger}>
+                    Browse files
+                  </Button>
+                )}
+              />
             </FileUploadDropzone>
 
             <FileUploadContext>
@@ -89,7 +105,7 @@ export function FileUploadManager() {
                             <p class={styles.error} role="alert">
                               {errors.join(', ')}
                             </p>
-                            <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                            <FileUploadItemDeleteTrigger />
                           </FileUploadItem>
                         )}
                       </For>

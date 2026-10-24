@@ -7,17 +7,17 @@ import { cn } from '@/lib/moduix/cn';
 type AlertStatus = 'info' | 'success' | 'warning' | 'error';
 
 const alertVariants = cva(
-  'group/alert box-border flex w-full min-w-0 items-start gap-3 rounded-lg border bg-card p-3 text-card-foreground',
+  'flex w-full min-w-0 items-start gap-3 rounded-lg border bg-card p-3 text-card-foreground',
   {
     variants: {
       status: {
-        info: 'border-border',
+        info: 'border-border [--_alert-indicator-color:var(--color-muted-foreground)]',
         success:
-          'border-success/34 bg-[color-mix(in_oklab,var(--color-success)_10%,var(--color-background))] text-foreground',
+          'border-success/34 bg-[color-mix(in_oklab,var(--color-success)_10%,var(--color-background))] text-foreground [--_alert-indicator-color:var(--color-success)]',
         warning:
-          'border-warning/38 bg-[color-mix(in_oklab,var(--color-warning)_13%,var(--color-background))] text-foreground',
+          'border-warning/38 bg-[color-mix(in_oklab,var(--color-warning)_13%,var(--color-background))] text-foreground [--_alert-indicator-color:var(--color-warning)]',
         error:
-          'border-destructive/35 bg-[color-mix(in_oklab,var(--color-destructive)_9%,var(--color-background))] text-foreground',
+          'border-destructive/35 bg-[color-mix(in_oklab,var(--color-destructive)_9%,var(--color-background))] text-foreground [--_alert-indicator-color:var(--color-destructive)]',
       },
     },
     defaultVariants: {
@@ -26,16 +26,15 @@ const alertVariants = cva(
   },
 );
 
-type AlertProps = HTMLArkProps<'div'> & {
+type AlertRootProps = HTMLArkProps<'div'> & {
   status?: AlertStatus;
 };
 
-function Alert(props: AlertProps) {
-  const [local, others] = splitProps(props, ['class', 'role', 'status']);
+function Alert(props: AlertRootProps) {
+  const [local, others] = splitProps(props, ['class', 'status']);
 
   return (
     <ark.div
-      role={local.role}
       class={cn(alertVariants({ status: local.status }), local.class)}
       {...others}
       data-scope="alert"
@@ -53,7 +52,7 @@ function AlertIndicator(props: HTMLArkProps<'span'>) {
     <ark.span
       aria-hidden="true"
       class={cn(
-        'mt-0.5 inline-flex size-4 shrink-0 items-center justify-center text-muted-foreground group-data-[status=error]/alert:text-destructive group-data-[status=success]/alert:text-success group-data-[status=warning]/alert:text-warning [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+        'mt-0.5 inline-flex shrink-0 items-center justify-center text-(color:--_alert-indicator-color) [&_svg]:pointer-events-none [&_svg]:shrink-0 [:where(&_svg)]:size-4',
         local.class,
       )}
       {...others}
@@ -124,3 +123,4 @@ function AlertActions(props: HTMLArkProps<'div'>) {
 }
 
 export { Alert, AlertActions, AlertContent, AlertDescription, AlertIndicator, AlertTitle };
+export type { AlertRootProps, AlertStatus };

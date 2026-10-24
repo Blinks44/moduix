@@ -4,17 +4,16 @@ import {
   useAngleSliderContext,
 } from '@ark-ui/solid/angle-slider';
 import { clsx } from 'clsx';
-import type { ComponentProps, JSX } from 'solid-js';
+import type { ComponentProps } from 'solid-js';
 import { For, splitProps } from 'solid-js';
 import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import styles from './AngleSlider.module.css';
 
 function AngleSlider(props: ComponentProps<typeof AngleSliderPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <AngleSliderPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="angle-slider-root"
@@ -37,11 +36,10 @@ function AngleSliderLabel(props: ComponentProps<typeof AngleSliderPrimitive.Labe
 }
 
 function AngleSliderRootProvider(props: ComponentProps<typeof AngleSliderPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <AngleSliderPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="angle-slider-root-provider"
@@ -127,12 +125,7 @@ function AngleSliderMarks(props: AngleSliderMarksProps) {
   );
 }
 
-type AngleSliderDialProps = Omit<
-  ComponentProps<typeof AngleSliderPrimitive.Control>,
-  'asChild' | 'children'
-> & {
-  children?: JSX.Element;
-};
+type AngleSliderDialProps = Omit<ComponentProps<typeof AngleSliderPrimitive.Control>, 'asChild'>;
 
 function AngleSliderDial(props: AngleSliderDialProps) {
   const [local, others] = splitProps(props, ['children']);
@@ -147,14 +140,17 @@ function AngleSliderDial(props: AngleSliderDialProps) {
 }
 
 function AngleSliderValueText(props: ComponentProps<typeof AngleSliderPrimitive.ValueText>) {
-  const [local, others] = splitProps(props, ['class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
+  const angleSlider = useAngleSliderContext();
 
   return (
     <AngleSliderPrimitive.ValueText
       class={clsx(styles.valueText, local.class)}
       {...others}
       data-slot="angle-slider-value-text"
-    />
+    >
+      {local.children ?? `${angleSlider().value}°`}
+    </AngleSliderPrimitive.ValueText>
   );
 }
 
@@ -177,3 +173,8 @@ export {
   useAngleSlider,
   useAngleSliderContext,
 };
+export type {
+  AngleSliderRootProps,
+  UseAngleSliderProps,
+  UseAngleSliderReturn,
+} from '@ark-ui/solid/angle-slider';

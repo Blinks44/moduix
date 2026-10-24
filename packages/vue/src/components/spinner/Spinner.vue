@@ -4,11 +4,12 @@ import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Spinner.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {
   asChild?: boolean;
@@ -41,10 +42,10 @@ const attrs = useAttrs();
     data-part="root"
     data-slot="spinner-root"
     :data-size="size"
-    :role="decorative && !asChild ? 'presentation' : decorative ? undefined : 'status'"
-    :aria-hidden="decorative && !asChild ? true : undefined"
-    :aria-label="decorative ? undefined : (ariaLabel ?? (ariaLabelledby ? undefined : 'Loading'))"
-    :aria-labelledby="decorative ? undefined : ariaLabelledby"
+    :role="decorative ? undefined : 'status'"
+    :aria-hidden="decorative || undefined"
+    :aria-label="ariaLabel ?? (decorative || ariaLabelledby ? undefined : a11yLabels.loading)"
+    :aria-labelledby="ariaLabelledby"
     :class="clsx(styles.root, className)"
   >
     <template v-if="asChild">

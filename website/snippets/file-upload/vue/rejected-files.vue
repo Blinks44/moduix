@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -30,15 +31,12 @@ const maxFileSize = 120_000;
       <div :class="styles.dropzoneContent">
         <span :class="styles.dropzoneTitle">Drop image files here</span
         ><span :class="styles.dropzoneDescription">PNG or JPEG, up to 120 KB</span
-        ><FileUploadTrigger>Select images</FileUploadTrigger>
+        ><FileUploadTrigger as-child><Button>Select images</Button></FileUploadTrigger>
       </div></FileUploadDropzone
     ><FileUploadItemGroup
       ><FileUploadContext v-slot="{ acceptedFiles }"
         ><FileUploadItem v-for="file in acceptedFiles" :key="file.name + file.size" :file="file"
-          ><FileUploadItemName /><FileUploadItemSizeText /><FileUploadItemDeleteTrigger
-            :aria-label="
-              'Remove ' + file.name
-            " /></FileUploadItem></FileUploadContext></FileUploadItemGroup
+          ><FileUploadItemName /><FileUploadItemSizeText /><FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
     ><FileUploadItemGroup type="rejected"
       ><FileUploadContext v-slot="{ rejectedFiles }"
         ><FileUploadItem
@@ -47,10 +45,7 @@ const maxFileSize = 120_000;
           :file="file"
           ><FileUploadItemName />
           <p :class="styles.error">{{ errors.join(', ') }}</p>
-          <FileUploadItemDeleteTrigger
-            :aria-label="
-              'Remove ' + file.name
-            " /></FileUploadItem></FileUploadContext></FileUploadItemGroup
+          <FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
     ><FileUploadHiddenInput
   /></FileUpload>
 </template>

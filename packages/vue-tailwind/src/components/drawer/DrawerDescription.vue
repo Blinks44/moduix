@@ -19,7 +19,7 @@ const attrs = useAttrs();
 <template>
   <ArkDrawerDescription
     v-bind="attrs"
-    :class="cn('text-md leading-6 text-muted-foreground', className)"
+    :class="cn('text-md text-muted-foreground', className)"
     data-slot="drawer-description"
   >
     <slot />

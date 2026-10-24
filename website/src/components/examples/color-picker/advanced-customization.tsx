@@ -23,8 +23,8 @@ export default function AdvancedCustomizationColorPickerDemo() {
       <ColorPickerLabel>Color</ColorPickerLabel>
       <ColorPickerControl>
         <ColorPickerChannelInput channel="hex" />
+        <ColorPickerChannelInput channel="alpha" />
         <ColorPickerTrigger aria-label="Open color picker">
-          <ColorPickerTransparencyGrid />
           <ColorPickerValueSwatch />
         </ColorPickerTrigger>
       </ColorPickerControl>

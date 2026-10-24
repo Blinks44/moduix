@@ -46,12 +46,12 @@ export default function SlidesPerPageCarousel() {
       slidesPerPage={2}
       spacing="var(--moduix-spacing-3)"
     >
-      <CarouselControl className={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselNextTrigger />
       </CarouselControl>
 
-      <CarouselItemGroup className={styles.itemGroup} aria-label="Two-up gallery">
+      <CarouselItemGroup>
         {slides.map((slide, index) => (
           <CarouselItem key={slide.id} index={index}>
             <img className={styles.image} src={slide.src} alt={slide.alt} />

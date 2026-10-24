@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { clsx } from 'clsx';
-import { computed, inject, useAttrs } from 'vue';
+import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import CloseButton from '../close-button/CloseButton.vue';
 import type { Props as CloseButtonProps } from '../close-button/CloseButton.vue';
-import { defaultInputGroupSize, InputGroupSizeContextKey } from './context';
-import type { InputGroupSize } from './context';
+import { useInputGroupSize, type InputGroupSize } from './context';
 import styles from './InputGroup.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -28,10 +27,7 @@ const { ariaLabel, ariaLabelledby, class: className, size, type = 'button' } = d
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const groupSize = inject(
-  InputGroupSizeContextKey,
-  computed(() => defaultInputGroupSize),
-);
+const groupSize = useInputGroupSize();
 const buttonSize = computed(() => size ?? groupSize.value);
 </script>
 

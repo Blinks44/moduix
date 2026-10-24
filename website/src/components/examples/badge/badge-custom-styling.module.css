@@ -8,16 +8,8 @@
   gap: var(--moduix-spacing-2);
 }
 
-.small {
-  --moduix-badge-height: 1rem;
-  --moduix-badge-padding-x: 0.5rem;
-  --moduix-badge-font-size: 0.625rem;
-}
-
-.large {
-  --moduix-badge-height: 1.5rem;
-  --moduix-badge-padding-x: 0.75rem;
-  --moduix-badge-font-size: 0.8125rem;
+.square {
+  border-radius: var(--moduix-radius-sm);
 }
 
 .priority {

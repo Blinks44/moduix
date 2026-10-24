@@ -47,7 +47,7 @@ export default function MouseDragCarousel() {
       aria-label="Mouse draggable gallery"
       slideCount={slides.length}
     >
-      <CarouselItemGroup class={styles.itemGroup} aria-label="Mouse draggable gallery">
+      <CarouselItemGroup>
         <For each={slides}>
           {(slide, index) => (
             <CarouselItem index={index()}>
@@ -57,7 +57,7 @@ export default function MouseDragCarousel() {
         </For>
       </CarouselItemGroup>
 
-      <CarouselControl class={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselNextTrigger />
       </CarouselControl>

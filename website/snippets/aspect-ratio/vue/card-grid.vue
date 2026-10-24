@@ -22,7 +22,7 @@ const stories = [
 <template>
   <div :class="styles.root">
     <Card v-for="story in stories" :key="story.title" :class="styles.card">
-      <AspectRatio :ratio="16 / 9" :class="styles.media">
+      <AspectRatio :ratio="16 / 9">
         <img :src="story.src" :alt="story.alt" :class="styles.image" />
       </AspectRatio>
       <div :class="styles.body">

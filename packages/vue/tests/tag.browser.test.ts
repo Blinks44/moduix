@@ -280,3 +280,77 @@ test('updates Tag variants, close names, and native form behavior reactively', a
   await nextTick();
   expect(screen.getByRole('button', { name: 'Remove tag' })).toBe(close);
 });
+
+test('renders a 12px close icon inside a 16px close trigger', () => {
+  render({
+    components: tagComponents,
+    template: `
+      <Tag>
+        <TagLabel>TypeScript</TagLabel>
+        <TagEndElement>
+          <TagCloseTrigger data-testid="close" />
+        </TagEndElement>
+      </Tag>
+    `,
+  });
+
+  const close = screen.getByTestId('close');
+  const icon = close.querySelector('svg')!;
+
+  expect([close.offsetWidth, close.offsetHeight]).toEqual([16, 16]);
+  expect(icon.getBoundingClientRect().width).toBeCloseTo(12, 0);
+  expect(icon.getBoundingClientRect().height).toBeCloseTo(12, 0);
+});
+
+test('keeps the fallback name when the close trigger has a custom icon', () => {
+  render({
+    components: { TagCloseTrigger },
+    template: `
+      <TagCloseTrigger>
+        <svg data-testid="custom-icon" aria-hidden="true" />
+      </TagCloseTrigger>
+    `,
+  });
+
+  const close = screen.getByRole('button', { name: 'Remove tag' });
+
+  expect(close.contains(screen.getByTestId('custom-icon'))).toBe(true);
+});
+
+test('shows a pointer cursor only on an interactive host', () => {
+  render({
+    components: tagComponents,
+    template: `
+      <Tag data-testid="span"><TagLabel>Draft</TagLabel></Tag>
+      <Tag as-child>
+        <button data-testid="button" type="button"><TagLabel>Open filter</TagLabel></button>
+      </Tag>
+    `,
+  });
+
+  expect(getComputedStyle(screen.getByTestId('span')).cursor).toBe('auto');
+  expect(getComputedStyle(screen.getByTestId('button')).cursor).toBe('pointer');
+});
+
+test('steps the tag height and text by size', () => {
+  render({
+    components: tagComponents,
+    template: `
+      <Tag data-testid="sm" size="sm"><TagLabel>Compact</TagLabel></Tag>
+      <Tag data-testid="md"><TagLabel>Default</TagLabel></Tag>
+      <Tag data-testid="lg" size="lg"><TagLabel>Large</TagLabel></Tag>
+    `,
+  });
+
+  const sizes = ['sm', 'md', 'lg'].map((size) => {
+    const tag = screen.getByTestId(size);
+
+    return [tag.offsetHeight, getComputedStyle(tag).fontSize];
+  });
+
+  expect(sizes).toEqual([
+    [20, '12px'],
+    [24, '12px'],
+    [28, '14px'],
+  ]);
+});

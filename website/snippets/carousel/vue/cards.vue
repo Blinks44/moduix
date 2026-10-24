@@ -50,7 +50,7 @@ const destinations = [
     aria-label="Featured destinations"
     :slide-count="destinations.length"
   >
-    <CarouselItemGroup :class="styles.itemGroup">
+    <CarouselItemGroup>
       <CarouselItem
         v-for="(destination, index) in destinations"
         :key="destination.id"
@@ -71,7 +71,7 @@ const destinations = [
       </CarouselItem>
     </CarouselItemGroup>
 
-    <CarouselControl :class="styles.control">
+    <CarouselControl>
       <CarouselPrevTrigger />
       <CarouselIndicators />
       <CarouselNextTrigger />

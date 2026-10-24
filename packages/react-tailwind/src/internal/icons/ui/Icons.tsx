@@ -6,6 +6,7 @@ import {
   ChevronRightIcon as LucideChevronRightIcon,
   ChevronsUpDownIcon as LucideChevronUpDownIcon,
   ChevronUpIcon as LucideChevronUpIcon,
+  CopyIcon as LucideCopyIcon,
   MinusIcon as LucideMinusIcon,
   PlusIcon as LucidePlusIcon,
   XIcon as LucideCloseIcon,
@@ -46,6 +47,10 @@ export function MinusIcon(props: IconProps) {
 
 export function CheckIcon(props: IconProps) {
   return <LucideCheckIcon aria-hidden="true" focusable="false" strokeWidth={3} {...props} />;
+}
+
+export function CopyIcon(props: IconProps) {
+  return <LucideCopyIcon aria-hidden="true" focusable="false" strokeWidth={2.5} {...props} />;
 }
 
 export function CloseIcon(props: IconProps) {
@@ -181,7 +186,7 @@ export function PopupArrowIcon({
 }
 
 export {
-  CopyIcon,
+  EllipsisIcon,
   EyeClosedIcon,
   EyeIcon,
   FileIcon,

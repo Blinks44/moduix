@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useAttrs, computed, inject } from 'vue';
+import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 import Button from '../button/Button.vue';
 import type { Props as ButtonProps } from '../button/Button.vue';
-import { defaultInputGroupSize, InputGroupSizeContextKey } from './context';
+import { useInputGroupSize } from './context';
 import { inputGroupButtonClass } from './variants';
 
 defineOptions({ inheritAttrs: false });
@@ -21,10 +21,7 @@ const { class: className, size, type = 'button', variant = 'ghost' } = definePro
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const groupSize = inject(
-  InputGroupSizeContextKey,
-  computed(() => defaultInputGroupSize),
-);
+const groupSize = useInputGroupSize();
 const buttonSize = computed(() => size ?? groupSize.value);
 </script>
 

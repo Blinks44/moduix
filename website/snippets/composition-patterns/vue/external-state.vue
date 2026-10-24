@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   DialogBackdrop,
   DialogContent,
@@ -11,7 +12,7 @@ const dialog = useDialog();
 </script>
 <template>
   <DialogRootProvider :value="dialog">
-    <DialogTrigger>Open dialog</DialogTrigger>
+    <DialogTrigger as-child><Button>Open dialog</Button></DialogTrigger>
     <DialogBackdrop />
     <DialogPositioner
       ><DialogContent>State is owned by useDialog().</DialogContent></DialogPositioner

@@ -5,45 +5,6 @@ description: A modal window for focused tasks such as forms, confirmations, and 
 ---
 
 import * as DialogDocs from '@/components/examples/dialog/css-properties';
-import DialogAdvancedCustomization from '@/components/examples/dialog/advanced-customization.tsx';
-import DialogAlertDialog from '@/components/examples/dialog/alert-dialog.tsx';
-import DialogBasic from '@/components/examples/dialog/basic.tsx';
-import DialogConfirmation from '@/components/examples/dialog/confirmation.tsx';
-import DialogControlled from '@/components/examples/dialog/controlled.tsx';
-import DialogInsideScroll from '@/components/examples/dialog/inside-scroll.tsx';
-import DialogMountingAndFocusLifecycle from '@/components/examples/dialog/mounting-and-focus-lifecycle.tsx';
-import DialogMultipleTriggers from '@/components/examples/dialog/multiple-triggers.tsx';
-import DialogNested from '@/components/examples/dialog/nested.tsx';
-import DialogNonModal from '@/components/examples/dialog/non-modal.tsx';
-import DialogOpenFromMenu from '@/components/examples/dialog/open-from-menu.tsx';
-import DialogOutsideScroll from '@/components/examples/dialog/outside-scroll.tsx';
-import DialogRootProvider from '@/components/examples/dialog/root-provider-and-ark-context-hooks.tsx';
-import dialogSolidAdvancedCustomization from '../../../snippets/dialog/solid/advanced-customization.tsx?raw';
-import dialogSolidAlertDialog from '../../../snippets/dialog/solid/alert-dialog.tsx?raw';
-import dialogSolidBasic from '../../../snippets/dialog/solid/basic.tsx?raw';
-import dialogSolidConfirmation from '../../../snippets/dialog/solid/confirmation.tsx?raw';
-import dialogSolidControlled from '../../../snippets/dialog/solid/controlled.tsx?raw';
-import dialogSolidInsideScroll from '../../../snippets/dialog/solid/inside-scroll.tsx?raw';
-import dialogSolidMountingAndFocusLifecycle from '../../../snippets/dialog/solid/mounting-and-focus-lifecycle.tsx?raw';
-import dialogSolidMultipleTriggers from '../../../snippets/dialog/solid/multiple-triggers.tsx?raw';
-import dialogSolidNested from '../../../snippets/dialog/solid/nested.tsx?raw';
-import dialogSolidNonModal from '../../../snippets/dialog/solid/non-modal.tsx?raw';
-import dialogSolidOpenFromMenu from '../../../snippets/dialog/solid/open-from-menu.tsx?raw';
-import dialogSolidOutsideScroll from '../../../snippets/dialog/solid/outside-scroll.tsx?raw';
-import dialogSolidRootProvider from '../../../snippets/dialog/solid/root-provider-and-ark-context-hooks.tsx?raw';
-import dialogVueAdvancedCustomization from '../../../snippets/dialog/vue/advanced-customization.vue?raw';
-import dialogVueAlertDialog from '../../../snippets/dialog/vue/alert-dialog.vue?raw';
-import dialogVueBasic from '../../../snippets/dialog/vue/basic.vue?raw';
-import dialogVueConfirmation from '../../../snippets/dialog/vue/confirmation.vue?raw';
-import dialogVueControlled from '../../../snippets/dialog/vue/controlled.vue?raw';
-import dialogVueInsideScroll from '../../../snippets/dialog/vue/inside-scroll.vue?raw';
-import dialogVueMountingAndFocusLifecycle from '../../../snippets/dialog/vue/mounting-and-focus-lifecycle.vue?raw';
-import dialogVueMultipleTriggers from '../../../snippets/dialog/vue/multiple-triggers.vue?raw';
-import dialogVueNested from '../../../snippets/dialog/vue/nested.vue?raw';
-import dialogVueNonModal from '../../../snippets/dialog/vue/non-modal.vue?raw';
-import dialogVueOpenFromMenu from '../../../snippets/dialog/vue/open-from-menu.vue?raw';
-import dialogVueOutsideScroll from '../../../snippets/dialog/vue/outside-scroll.vue?raw';
-import dialogVueRootProvider from '../../../snippets/dialog/vue/root-provider-and-ark-context-hooks.vue?raw';
 
 ## API Reference
 
@@ -61,41 +22,7 @@ support dragging.
 Use `Dialog` as the root and compose its structural parts explicitly. `DialogBackdrop` is the
 modal background, `DialogPositioner` places the dialog, and `DialogContent` contains its surface.
 
-<ExampleFrame variant="component">
-  <DialogBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/basic" />
 
 ## Install with shadcn
 
@@ -196,422 +123,70 @@ helpers fit the composition.
 Use `role="alertdialog"` for decisions with serious consequences. Include a clear cancel action
 and a separate action that confirms the decision.
 
-<ExampleFrame variant="component">
-  <DialogAlertDialog />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/alert-dialog.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidAlertDialog} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueAlertDialog} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/alert-dialog" />
 
 ### Confirmation
 
 Intercept the parent dialog's close request when a form contains unsaved changes and ask whether the
 user wants to discard them.
 
-<ExampleFrame variant="component">
-  <DialogConfirmation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/confirmation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidConfirmation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueConfirmation} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/confirmation" />
 
 ### Controlled
 
 Keep `open` in React state, a Solid signal, or a Vue ref and read `details.open` from
 `onOpenChange` (or bind `v-model:open`) to synchronize the dialog with the rest of the application.
 
-<ExampleFrame variant="component">
-  <DialogControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueControlled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/controlled" />
 
 ### Inside Scroll
 
-Make only the main content scrollable when the title and actions should remain visible.
+Make only the main content scrollable when the title and actions should remain visible. Set
+`scrollBehavior="inside"` on `DialogContent`: the dialog stops at the viewport height and
+`DialogBody` scrolls.
 
-<ExampleFrame variant="component">
-  <DialogInsideScroll />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/inside-scroll.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidInsideScroll} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueInsideScroll} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/dialog/dialog-inside-scroll.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="dialog/inside-scroll" />
 
 ### Mounting and Focus Lifecycle
 
 Use `lazyMount` and `unmountOnExit` for the presence lifecycle. Use `initialFocusEl` and
 `finalFocusEl` when focus should move to specific elements on open and close.
 
-<ExampleFrame variant="component">
-  <DialogMountingAndFocusLifecycle />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/mounting-and-focus-lifecycle.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidMountingAndFocusLifecycle} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueMountingAndFocusLifecycle} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/mounting-and-focus-lifecycle" />
 
 ### Multiple Triggers
 
 Share one dialog between several triggers by giving each trigger a `value` and handling
 `onTriggerValueChange(details)`.
 
-<ExampleFrame variant="component">
-  <DialogMultipleTriggers />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/multiple-triggers.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidMultipleTriggers} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueMultipleTriggers} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/multiple-triggers" />
 
 ### Nested
 
 Use separate `useDialog()` stores for nested dialogs. Ark UI manages the layer stack, and moduix
 uses the resulting state to make the parent recede while the nested dialog is open.
 
-<ExampleFrame variant="component">
-  <DialogNested />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/nested.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidNested} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueNested} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/dialog/dialog-nested.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="dialog/nested" />
 
 ### Non-Modal
 
 Set `modal={false}` and omit the backdrop when users should still be able to interact with the page
 outside the dialog.
 
-<ExampleFrame variant="component">
-  <DialogNonModal />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/non-modal.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidNonModal} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueNonModal} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/non-modal" />
 
 ### Open from Menu
 
 Control `open` from a menu item when a contextual action should open a confirmation dialog.
 
-<ExampleFrame variant="component">
-  <DialogOpenFromMenu />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/open-from-menu.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidOpenFromMenu} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueOpenFromMenu} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/open-from-menu" />
 
 ### Outside Scroll
 
 Let `DialogPositioner` scroll the whole dialog when long content should keep its natural height.
+This is the default `scrollBehavior`; `placement="top"` starts the dialog at the top of the viewport.
 
-<ExampleFrame variant="component">
-  <DialogOutsideScroll />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/outside-scroll.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidOutsideScroll} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueOutsideScroll} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/dialog/dialog-outside-scroll.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="dialog/outside-scroll" />
 
 ### Root Provider
 
@@ -619,87 +194,22 @@ Create the state with `useDialog()` when controls live outside the dialog. Conne
 `DialogRootProvider`, then read it with `DialogContext` or `useDialogContext()` in reusable
 components.
 
-<ExampleFrame variant="component">
-  <DialogRootProvider />
-</ExampleFrame>
+<Example name="dialog/root-provider-and-ark-context-hooks" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+### Sizes
 
-```tsx pure file="../../../src/components/examples/dialog/root-provider-and-ark-context-hooks.tsx"
-```
+Set `size` on `DialogContent` to `sm`, `md` (default), `lg`, `xl`, or `full`. Use `placement="top"`
+or `placement="bottom"` to move the surface away from the center, and `scrollBehavior="inside"` to
+cap the dialog at the viewport height and scroll `DialogBody` instead of the positioner.
 
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="dialog/sizes" />
 
 ### Advanced Customization
 
 Skip `DialogHeader`, `DialogBody`, `DialogFooter`, and `DialogCloseIcon` when a custom layout needs
 direct control over every Ark dialog part.
 
-<ExampleFrame variant="component">
-  <DialogAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/dialog/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={dialogSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={dialogVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/dialog/dialog-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="dialog/advanced-customization" />
 
 ## Styling
 
@@ -725,3 +235,5 @@ by both styling tracks.
 - Runtime variables: `--layer-index` and `--nested-layer-count`.
 - `DialogCloseIcon` is positioned against the corner of `DialogContent`, so its placement does
   not depend on `DialogHeader`.
+- Colors, borders, spacing, and typography come from foundation tokens. Change them for one dialog
+  with a class on the part, and change motion with `--moduix-popup-motion-*` on `DialogContent`.

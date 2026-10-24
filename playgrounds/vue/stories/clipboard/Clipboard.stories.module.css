@@ -42,7 +42,10 @@
 
   .customInput[data-copied] {
     border-color: color-mix(in srgb, var(--moduix-color-primary) 22%, var(--moduix-color-border));
-    --moduix-clipboard-input-focus-ring-color: var(--moduix-color-primary);
+
+    &:focus-visible {
+      outline-color: var(--moduix-color-primary);
+    }
   }
 
   .customTrigger[data-copied] {
@@ -53,6 +56,9 @@
       var(--moduix-color-background)
     );
     color: color-mix(in srgb, var(--moduix-color-primary) 70%, var(--moduix-color-foreground));
-    --moduix-clipboard-trigger-focus-ring-color: var(--moduix-color-primary);
+
+    &:focus-visible {
+      outline-color: var(--moduix-color-primary);
+    }
   }
 }

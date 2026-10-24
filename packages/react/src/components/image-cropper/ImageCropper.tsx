@@ -10,6 +10,9 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import styles from './ImageCropper.module.css';
 
+const ImageCropperContext = ImageCropperPrimitive.Context;
+const ImageCropperHandles = ImageCropperPrimitive.handles;
+
 const ImageCropper = forwardRef<
   ComponentRef<typeof ImageCropperPrimitive.Root>,
   ComponentProps<typeof ImageCropperPrimitive.Root>
@@ -108,21 +111,20 @@ const ImageCropperHandle = forwardRef<
   );
 });
 
+type ImageCropperCropAreaProps = Omit<
+  ComponentProps<typeof ImageCropperPrimitive.Selection>,
+  'asChild' | 'children'
+> & {
+  gridClassName?: string;
+  handleClassName?: string;
+};
+
 const ImageCropperCropArea = forwardRef<
   ComponentRef<typeof ImageCropperPrimitive.Selection>,
-  Omit<ComponentProps<typeof ImageCropperPrimitive.Selection>, 'asChild' | 'children'> & {
-    gridClassName?: string;
-    handleClassName?: string;
-  }
+  ImageCropperCropAreaProps
 >(function ImageCropperCropArea({ gridClassName, handleClassName, ...props }, ref) {
-  const {
-    asChild: _asChild,
-    children: _children,
-    ...selectionProps
-  } = props as ComponentProps<typeof ImageCropperPrimitive.Selection>;
-
   return (
-    <ImageCropperSelection ref={ref} {...selectionProps}>
+    <ImageCropperSelection ref={ref} {...props}>
       <ImageCropperGrid axis="horizontal" className={gridClassName} />
       <ImageCropperGrid axis="vertical" className={gridClassName} />
       {ImageCropperHandles.map((position) => (
@@ -131,9 +133,6 @@ const ImageCropperCropArea = forwardRef<
     </ImageCropperSelection>
   );
 });
-
-const ImageCropperContext = ImageCropperPrimitive.Context;
-const ImageCropperHandles = ImageCropperPrimitive.handles;
 
 export {
   ImageCropper,
@@ -149,3 +148,24 @@ export {
   useImageCropper,
   useImageCropperContext,
 };
+export type { ImageCropperCropAreaProps };
+
+export type {
+  ImageCropperContextProps,
+  ImageCropperCropChangeDetails,
+  ImageCropperFlipChangeDetails,
+  ImageCropperFlipState,
+  ImageCropperGridProps,
+  ImageCropperHandlePosition,
+  ImageCropperHandleProps,
+  ImageCropperImageProps,
+  ImageCropperRootProps,
+  ImageCropperRootProviderProps,
+  ImageCropperRotationChangeDetails,
+  ImageCropperSelectionProps,
+  ImageCropperViewportProps,
+  ImageCropperZoomChangeDetails,
+  UseImageCropperContext,
+  UseImageCropperProps,
+  UseImageCropperReturn,
+} from '@ark-ui/react/image-cropper';

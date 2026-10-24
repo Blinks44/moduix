@@ -5,36 +5,6 @@ description: Notifications temporaires pour les actions, les changements d’ét
 ---
 
 import * as ToastDocs from '@/components/examples/toast/css-properties';
-import ToastAction from '@/components/examples/toast/action.tsx';
-import ToastBasic from '@/components/examples/toast/basic.tsx';
-import ToastCustomComposition from '@/components/examples/toast/custom-composition.tsx';
-import ToastDuration from '@/components/examples/toast/duration.tsx';
-import ToastMaximumVisible from '@/components/examples/toast/max-toasts.tsx';
-import ToastNonOverlapping from '@/components/examples/toast/always-expanded.tsx';
-import ToastPlacement from '@/components/examples/toast/placement.tsx';
-import ToastPromise from '@/components/examples/toast/promise-toast.tsx';
-import ToastTypes from '@/components/examples/toast/types.tsx';
-import ToastUpdate from '@/components/examples/toast/update.tsx';
-import toastSolidAction from '../../../snippets/toast/solid/action.tsx?raw';
-import toastSolidBasic from '../../../snippets/toast/solid/basic.tsx?raw';
-import toastSolidCustomComposition from '../../../snippets/toast/solid/custom-composition.tsx?raw';
-import toastSolidDuration from '../../../snippets/toast/solid/duration.tsx?raw';
-import toastSolidMaximumVisible from '../../../snippets/toast/solid/max-toasts.tsx?raw';
-import toastSolidNonOverlapping from '../../../snippets/toast/solid/always-expanded.tsx?raw';
-import toastSolidPlacement from '../../../snippets/toast/solid/placement.tsx?raw';
-import toastSolidPromise from '../../../snippets/toast/solid/promise-toast.tsx?raw';
-import toastSolidTypes from '../../../snippets/toast/solid/types.tsx?raw';
-import toastSolidUpdate from '../../../snippets/toast/solid/update.tsx?raw';
-import toastVueAction from '../../../snippets/toast/vue/action.vue?raw';
-import toastVueBasic from '../../../snippets/toast/vue/basic.vue?raw';
-import toastVueCustomComposition from '../../../snippets/toast/vue/custom-composition.vue?raw';
-import toastVueDuration from '../../../snippets/toast/vue/duration.vue?raw';
-import toastVueMaximumVisible from '../../../snippets/toast/vue/max-toasts.vue?raw';
-import toastVueNonOverlapping from '../../../snippets/toast/vue/always-expanded.vue?raw';
-import toastVuePlacement from '../../../snippets/toast/vue/placement.vue?raw';
-import toastVuePromise from '../../../snippets/toast/vue/promise-toast.vue?raw';
-import toastVueTypes from '../../../snippets/toast/vue/types.vue?raw';
-import toastVueUpdate from '../../../snippets/toast/vue/update.vue?raw';
 
 ## Référence de l’API
 
@@ -50,46 +20,7 @@ complète du store et de ses parties.
 Créez une instance de toaster avec `createToaster()`, utilisez ses méthodes pour ajouter des
 notifications, puis affichez-la avec `ToastToaster`.
 
-<ExampleFrame variant="component">
-  <ToastBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toast/toast-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/basic" />
 
 ## Installation avec shadcn
 
@@ -178,362 +109,76 @@ le titre, la description et les boutons d’action et de fermeture.
 
 Ajoutez `action: { label, onClick }` lorsque la notification doit proposer une action directe.
 
-<ExampleFrame variant="component">
-  <ToastAction />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/action.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidAction} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueAction} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toast/toast-action.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/action" />
 
 ### Durée
 
 Définissez `duration` en millisecondes lorsqu’une notification doit disparaître plus tôt, rester
 visible plus longtemps ou rester affichée jusqu’à sa fermeture manuelle avec `Infinity`.
 
-<ExampleFrame variant="component">
-  <ToastDuration />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/duration.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidDuration} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueDuration} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toast/toast-duration.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/duration" />
 
 ### Nombre maximal visible
 
 Définissez `max` sur le toaster lorsque des rafales de notifications doivent être mises en file au
 lieu de remplir l’écran.
 
-<ExampleFrame variant="component">
-  <ToastMaximumVisible />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/max-toasts.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidMaximumVisible} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueMaximumVisible} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toast/toast-max-toasts.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/max-toasts" />
 
 ### Pile sans chevauchement
 
 Définissez `overlap: false` pour que chaque notification reste entièrement visible. Il s’agit d’un
 réglage du toaster, pas d’un mode distinct du composant.
 
-<ExampleFrame variant="component">
-  <ToastNonOverlapping />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/always-expanded.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidNonOverlapping} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueNonOverlapping} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toast/toast-always-expanded.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/always-expanded" />
 
 ### Placement
 
 Choisissez l’un des six placements d’Ark lorsque le groupe de notifications doit apparaître près d’un
 bord précis de la fenêtre.
 
-<ExampleFrame variant="component">
-  <ToastPlacement />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/placement.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidPlacement} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVuePlacement} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toast/toast-placement.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/placement" />
 
 ### Promise
 
 Utilisez `toaster.promise()` pour faire passer une même notification du chargement au succès ou à
-l’erreur lorsque l’opération asynchrone se termine.
+l’erreur lorsque l’opération asynchrone se termine. Tant que le toast a le type `loading`, le rendu par
+défaut affiche un `Spinner` décoratif avant le titre.
 
-<ExampleFrame variant="component">
-  <ToastPromise />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/promise-toast.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidPromise} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVuePromise} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toast/toast-promise-toast.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/promise-toast" />
 
 ### Types
 
 Utilisez les helpers typés du toaster pour les variantes liées au statut. Moduix applique les styles
 `info`, `success`, `warning` et `error` via `data-type`.
 
-<ExampleFrame variant="component">
-  <ToastTypes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/types.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidTypes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueTypes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toast/toast-types.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/types" />
 
 ### Mise à jour
 
 Conservez l’identifiant renvoyé lors de la création d’une notification et transmettez-le à
 `toaster.update()` lorsque la notification existante doit être modifiée sur place.
 
-<ExampleFrame variant="component">
-  <ToastUpdate />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/update.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidUpdate} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueUpdate} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toast/toast-update.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/update" />
 
 ### Personnalisation avancée
 
 Utilisez la render prop pour remplacer le rendu standard de `ToastToaster`, ajouter une icône, remplacer
 l’icône de fermeture et appliquer des variables CSS propres au composant.
 
-<ExampleFrame variant="component">
-  <ToastCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/toast/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={toastSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={toastVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/toast/toast-custom-composition.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="toast/custom-composition" />
 
 ## Styles
 
-Personnalisez `Toast` avec les attributs de parties Ark, les points d’accroche `data-slot` et les
-variables publiques `--moduix-toast-*`. Les variantes Tailwind utilisent les utilitaires natifs et les
-classes de l’application ; les variables CSS ci-dessous concernent les variantes CSS Modules.
+Personnalisez `Toast` avec les attributs de parties Ark, les points d’accroche `data-slot` et des
+classes sur ses parties. Les variantes CSS Modules lisent aussi les quatre variables ci-dessous ;
+`--moduix-toast-bg`, `--moduix-toast-border-color` et `--moduix-toast-color` remplacent tous les types,
+donc définissez-les dans `[data-type='success']` ou un sélecteur similaire pour un seul type. Les
+variantes Tailwind utilisent les utilitaires natifs et les classes de l’application.
 
 ### Variables CSS
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <ToastDocs.ToastCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={ToastDocs.toastCssProperties} />
 
 ### Points d’accroche CSS
 
@@ -555,6 +200,6 @@ Moduix ajoute également des points d’accroche stables : `data-slot="toast-toa
 `data-slot="toast-root"`, `data-slot="toast-title"`, `data-slot="toast-description"`,
 `data-slot="toast-action-trigger"` et `data-slot="toast-close-trigger"`.
 
-Jusqu’à une largeur de fenêtre de `40rem`, le groupe de notifications occupe toute la largeur de la
-fenêtre et chaque élément racine utilise la variable Ark `--gap` pour conserver un espacement interne
-sûr.
+Jusqu’à une largeur de fenêtre de `40rem`, chaque placement est centré horizontalement. Les toasts
+gardent leur largeur de `20rem` et se rétrécissent entre les `offsets` d’Ark et les zones de sécurité
+horizontales de l’écran.

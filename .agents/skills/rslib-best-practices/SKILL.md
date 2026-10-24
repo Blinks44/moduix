@@ -25,6 +25,7 @@ Apply these rules when writing or reviewing Rslib library projects.
 - For docs development, use the root `npm run dev:docs` workflow rather than an independent Rslib command; it owns the `rslib --watch --no-clean` watcher.
 - Treat `--no-clean` as development-only. Release, CI, `npm pack`, and final package checks use clean package builds.
 - Do not run a clean package build or `build:docs` while `dev:docs` is active; follow `docs-workflow` for the complete docs-development constraints.
+- `tsc:check` builds `dist` through each package's `build:dev` script (`rslib --no-clean`), so the required validation never deletes `dist` under a running docs server. Keep `tsc:check` turbo dependencies on `build:dev`, not on the clean `build`.
 
 ## Output
 
@@ -32,7 +33,8 @@ Apply these rules when writing or reviewing Rslib library projects.
 - Prefer to use bundleless mode with `output.target` set to `'web'` when building component libraries
 - Prefer to use bundle mode when building Node.js utility libraries
 - Ensure `exports` field in `../../../package.json` is correctly configured and matches the actual JavaScript output and declaration files output of different formats (ESM, CJS, etc.)
-- Keep every shipped public adapter package in the root `build:packages` and `check:packages` commands.
+- Give every shipped public adapter package `build` and `check:package` scripts; the root
+  `build:packages` and `check:packages` commands discover them through Turborepo.
 - For Solid packages, preserve the established dual output: compiled ESM for general bundlers and
   `.jsx` under the `solid` export condition for Solid-aware SSR. Give Rslib outputs stable ids and
   point Rstest at the compiled id; do not invent a custom transform pipeline.

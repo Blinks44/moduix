@@ -7,13 +7,16 @@ import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
+export type RadioGroupSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 export interface Props extends /* @vue-ignore */ RadioGroupRootProps {
   class?: HTMLAttributes['class'];
+  size?: RadioGroupSize;
 }
 
 export interface Emits extends /* @vue-ignore */ RadioGroupRootEmits {}
 
-const { class: className } = defineProps<Props>();
+const { class: className, size = 'md' } = defineProps<Props>();
 defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
@@ -23,9 +26,8 @@ const attrs = useAttrs();
 <template>
   <ArkRadioGroupRoot
     v-bind="attrs"
-    :class="
-      cn('relative flex flex-col gap-2 text-foreground data-disabled:cursor-default', className)
-    "
+    :class="cn('group/radio-group flex flex-col gap-2 text-foreground', className)"
+    :data-size="size"
     data-slot="radio-group-root"
   >
     <slot />

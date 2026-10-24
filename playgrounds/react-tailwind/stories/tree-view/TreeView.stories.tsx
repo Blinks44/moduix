@@ -68,9 +68,7 @@ function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) 
               <TreeViewBranchIndicator />
               <TreeViewBranchText>
                 {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-                <span className="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                  {currentNode.name}
-                </span>
+                {currentNode.name}
               </TreeViewBranchText>
             </TreeViewBranchControl>
             <TreeViewBranchContent>
@@ -88,9 +86,7 @@ function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) 
           <TreeViewItem>
             <TreeViewItemText>
               <FileIcon />
-              <span className="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                {currentNode.name}
-              </span>
+              {currentNode.name}
             </TreeViewItemText>
           </TreeViewItem>
         )

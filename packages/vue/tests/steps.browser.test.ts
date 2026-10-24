@@ -377,3 +377,34 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     error.mockRestore();
   }
 });
+test('fills its container and keeps the vertical separator clear of both indicators', () => {
+  const Harness = defineComponent({
+    components: stepsComponents,
+    setup: () => ({ items }),
+    template: `
+      <div style="width: 1200px">
+        <Steps :count="items.length" orientation="vertical">
+          <StepsList>
+            <StepsItem v-for="(item, index) in items" :key="item.title" :index="index">
+              <StepsTrigger><StepsIndicator />{{ item.title }}</StepsTrigger>
+              <StepsSeparator />
+            </StepsItem>
+          </StepsList>
+        </Steps>
+      </div>
+    `,
+  });
+
+  const { container } = render(Harness);
+  const root = container.querySelector<HTMLElement>('[data-slot="steps-root"]')!;
+  const [first, next] = [...container.querySelectorAll('[data-slot="steps-indicator"]')].map(
+    (indicator) => indicator.getBoundingClientRect(),
+  );
+  const separator = container
+    .querySelector('[data-slot="steps-separator"]')!
+    .getBoundingClientRect();
+
+  expect(root.offsetWidth).toBe(1200);
+  expect(Math.round(separator.top - first!.bottom)).toBe(8);
+  expect(Math.round(next!.top - separator.bottom)).toBe(8);
+});

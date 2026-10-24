@@ -10,7 +10,6 @@ import {
   useListboxContext,
 } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/listbox/listbox-select-all.module.css';
 
 const days = createListCollection({
   items: [
@@ -41,7 +40,7 @@ function SelectAllMeta() {
 
 export default function SelectAllListboxDemo() {
   return (
-    <Listbox collection={days} class={styles.root} selectionMode="multiple">
+    <Listbox collection={days} selectionMode="multiple">
       <ListboxLabel>Select days</ListboxLabel>
       <ListboxContent>
         <For each={days.items}>

@@ -7,14 +7,12 @@ import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
 } from '@moduix/vue/pagination';
-import styles from '@/components/examples/pagination/pagination-link.module.css';
 
 const getPageUrl = (details: { page: number }) => '?page=' + details.page;
 </script>
 
 <template>
   <Pagination
-    :class="styles.root"
     :count="200"
     :page-size="10"
     :sibling-count="2"

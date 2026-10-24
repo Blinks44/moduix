@@ -20,7 +20,7 @@ export default function RootProviderClipboardDemo() {
       <ClipboardRootProvider value={clipboard}>
         <ClipboardLabel>Provider-driven clipboard</ClipboardLabel>
         <ClipboardControl>
-          <ClipboardInput readOnly />
+          <ClipboardInput />
           <ClipboardTrigger>
             <ClipboardIndicator />
           </ClipboardTrigger>

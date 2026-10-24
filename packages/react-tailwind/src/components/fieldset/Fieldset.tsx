@@ -9,6 +9,8 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
+const rootClass = 'flex w-full min-w-0 flex-col gap-4 data-disabled:opacity-disabled';
+
 const Fieldset = forwardRef<
   ComponentRef<typeof FieldsetPrimitive.Root>,
   ComponentProps<typeof FieldsetPrimitive.Root>
@@ -18,10 +20,7 @@ const Fieldset = forwardRef<
       {...props}
       ref={ref}
       data-slot="fieldset-root"
-      className={cn(
-        'flex w-full max-w-none min-w-0 flex-col gap-4 border-transparent data-disabled:opacity-50 data-invalid:border-destructive',
-        className,
-      )}
+      className={cn(rootClass, className)}
     />
   );
 });
@@ -35,10 +34,7 @@ const FieldsetRootProvider = forwardRef<
       {...props}
       ref={ref}
       data-slot="fieldset-root-provider"
-      className={cn(
-        'flex w-full max-w-none min-w-0 flex-col gap-4 border-transparent data-disabled:opacity-50 data-invalid:border-destructive',
-        className,
-      )}
+      className={cn(rootClass, className)}
     />
   );
 });
@@ -53,7 +49,7 @@ const FieldsetLegend = forwardRef<
       ref={ref}
       data-slot="fieldset-legend"
       className={cn(
-        'inline-block max-w-full pb-3 text-lg font-semibold wrap-anywhere text-foreground',
+        'max-w-full pb-3 text-lg font-semibold wrap-anywhere text-foreground',
         className,
       )}
     />
@@ -100,3 +96,15 @@ export {
   useFieldset,
   useFieldsetContext,
 };
+
+export type {
+  FieldsetContextProps,
+  FieldsetErrorTextProps,
+  FieldsetHelperTextProps,
+  FieldsetLegendProps,
+  FieldsetRootProps,
+  FieldsetRootProviderProps,
+  UseFieldsetContext,
+  UseFieldsetProps,
+  UseFieldsetReturn,
+} from '@ark-ui/react/fieldset';

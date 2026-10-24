@@ -37,8 +37,8 @@ props, `asChild`, `className`, `style`, and an `HTMLElement` ref.
 pass through unchanged, including TanStack's optional `renderTooltipBody`.
 
 By default, `ChartPlot` uses a compact Moduix tooltip layout, so rows without a swatch do not
-reserve an empty column. When you provide `renderTooltipBody`, its `defaultBody` remains native to
-TanStack.
+reserve an empty column. Rows that TanStack marks as `active` get `data-active` and a muted highlight. When you provide `renderTooltipBody`, its
+`defaultBody` is the same compact Moduix body.
 
 `ChartHeader` renders `figcaption`. `ChartTitle`, `ChartDescription`, `ChartLegend`, and
 `ChartLegendItem` provide the standard figure context. `ChartLegendItem` accepts an optional
@@ -52,9 +52,9 @@ TanStack.
 - The default Moduix `motion()` preset animates initial geometry, keyed updates, focus guides, and the
   native tooltip. It respects `prefers-reduced-motion` by default. `motion={false}` disables the
   renderer animation entirely.
-- `renderTooltipBody` is an upstream escape hatch for React-owned tooltip content. Its
-  `defaultBody` stays native to TanStack, which owns tooltip anchoring, placement, pinned state,
-  portalling, and dismissal. Interactive content renders only while pinned.
+- `renderTooltipBody` is an upstream escape hatch for React-owned tooltip content. moduix replaces
+  only its `defaultBody`; TanStack owns tooltip anchoring, placement, pinned state, portalling, and
+  dismissal. Interactive content renders only while pinned.
 - The internal focusable SVG keeps TanStack keyboard navigation and receives the moduix focus ring.
   Do not disable `focusRing` unless the definition provides replacement focus geometry.
 - `@tanstack/charts` is an optional peer dependency. The current moduix peer range is `^1.0.0`,
@@ -63,8 +63,9 @@ TanStack.
 ## Styling and accessibility
 
 The root and presentational parts expose stable `data-scope="chart"`, `data-part`, and `data-slot`
-hooks. `className` and `style` on `ChartPlot` apply to the outer TanStack host. moduix maps its
-tooltip shell variables to TanStack's official `--ts-chart-tooltip-*` contract. The compact default
+hooks. `className` and `style` on `ChartPlot` apply to the outer TanStack host. moduix styles the
+tooltip shell by setting TanStack's `--ts-chart-tooltip-*` variables on that host; consumers
+override them there instead of through moduix aliases. The compact default
 body exposes `chart-tooltip-body`, `chart-tooltip-title`, `chart-tooltip-rows`,
 `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`, `chart-tooltip-value`, and
 `chart-tooltip-text` data slots. Use TanStack's `tooltip.className` for custom selectors; do not
@@ -82,8 +83,3 @@ description do not fully explain the data. The root is a `figure` and its header
   the same boundary without adding a label/color config that duplicates TanStack color scales.
 - Ark `Tooltip` is not used because TanStack already owns the plot focus anchor and tooltip
   lifecycle.
-
-## Local changelog
-
-- 2026-08-20: Restored the compact Moduix default tooltip body while preserving TanStack's native
-  `defaultBody` for custom `renderTooltipBody` callbacks.

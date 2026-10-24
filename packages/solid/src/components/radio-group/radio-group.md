@@ -2,7 +2,7 @@
 
 `RadioGroup` is the moduix Solid wrapper around Ark UI RadioGroup. It preserves the React
 wrapper's flat anatomy, state attributes, native form behavior, `RadioGroupRootProvider` composition,
-and `RadioGroupOption` and `RadioGroupItemControl` conveniences.
+the `RadioGroupOption` convenience, and the root `size` prop (`xs` to `xl`, default `md`).
 
 ## Composition
 
@@ -11,7 +11,7 @@ import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@moduix/solid/rad
 
 export function RadioGroupDemo() {
   return (
-    <RadioGroup defaultValue="React">
+    <RadioGroup defaultValue="React" size="sm">
       <RadioGroupLabel>Framework</RadioGroupLabel>
       <RadioGroupOption value="React">React</RadioGroupOption>
       <RadioGroupOption value="Solid">Solid</RadioGroupOption>

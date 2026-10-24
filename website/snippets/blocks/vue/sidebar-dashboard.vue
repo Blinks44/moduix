@@ -81,12 +81,16 @@ const manageItems = [
                   ><SidebarNavigationSubList>
                     <SidebarNavigationSubItem
                       ><SidebarNavigationSubButton as-child
-                        ><a href="#website">Website</a></SidebarNavigationSubButton
+                        ><a href="#website"
+                          ><SidebarLabel>Website</SidebarLabel></a
+                        ></SidebarNavigationSubButton
                       ></SidebarNavigationSubItem
                     >
                     <SidebarNavigationSubItem
                       ><SidebarNavigationSubButton as-child
-                        ><a href="#mobile-app">Mobile app</a></SidebarNavigationSubButton
+                        ><a href="#mobile-app"
+                          ><SidebarLabel>Mobile app</SidebarLabel></a
+                        ></SidebarNavigationSubButton
                       ></SidebarNavigationSubItem
                     >
                   </SidebarNavigationSubList></CollapsibleContent

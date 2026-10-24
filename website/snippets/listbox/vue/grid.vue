@@ -7,7 +7,6 @@ import {
   ListboxItemText,
   ListboxLabel,
 } from '@moduix/vue/listbox';
-import styles from '@/components/examples/listbox/listbox-grid.module.css';
 
 const colors = createGridCollection({
   items: [
@@ -20,7 +19,7 @@ const colors = createGridCollection({
 </script>
 
 <template>
-  <Listbox :collection="colors" :class="styles.gridRoot">
+  <Listbox :collection="colors">
     <ListboxLabel>Pick a color</ListboxLabel>
     <ListboxContent>
       <ListboxItem v-for="item in colors.items" :key="item.value" :item="item">

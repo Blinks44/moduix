@@ -3,7 +3,6 @@ import {
   SegmentGroup,
   SegmentGroupIndicator,
   SegmentGroupItem,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItemText,
 } from '@moduix/vue/segment-group';
@@ -28,7 +27,6 @@ const billingCycles = [
       <label>
         <SegmentGroupItemText :class="styles.title">{{ item }}</SegmentGroupItemText>
         <span :class="styles.description">{{ description }}</span>
-        <SegmentGroupItemControl />
         <SegmentGroupItemHiddenInput />
       </label>
     </SegmentGroupItem>

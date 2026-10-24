@@ -9,36 +9,30 @@ import {
 } from '@ark-ui/solid/json-tree-view';
 import { clsx } from 'clsx';
 import { splitProps } from 'solid-js';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './JsonTreeView.module.css';
 
 function JsonTreeView(props: JsonTreeViewRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <JsonTreeViewPrimitive.Root
-      asChild={local.asChild}
       {...others}
-      data-slot="json-tree-view-root"
       class={clsx(styles.root, local.class)}
-    >
-      {local.children}
-    </JsonTreeViewPrimitive.Root>
+      data-slot="json-tree-view-root"
+    />
   );
 }
 
 function JsonTreeViewRootProvider(props: JsonTreeViewRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <JsonTreeViewPrimitive.RootProvider
-      asChild={local.asChild}
       {...others}
-      data-slot="json-tree-view-root-provider"
       class={clsx(styles.root, local.class)}
-    >
-      {local.children}
-    </JsonTreeViewPrimitive.RootProvider>
+      data-slot="json-tree-view-root-provider"
+    />
   );
 }
 
@@ -49,8 +43,8 @@ function JsonTreeViewTree(props: JsonTreeViewTreeProps) {
     <JsonTreeViewPrimitive.Tree
       {...others}
       arrow={local.arrow ?? <ChevronRightIcon aria-hidden="true" />}
-      data-slot="json-tree-view-tree"
       class={clsx(styles.tree, local.class)}
+      data-slot="json-tree-view-tree"
     />
   );
 }

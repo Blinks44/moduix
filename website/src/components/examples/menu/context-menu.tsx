@@ -13,7 +13,7 @@ export default function ContextMenuDemo() {
     <Menu>
       <MenuContextTrigger className={styles.contextTrigger}>Right click here</MenuContextTrigger>
       <MenuPositioner>
-        <MenuContent className={styles.content}>
+        <MenuContent>
           <MenuViewport>
             <MenuItem value="cut">Cut</MenuItem>
             <MenuItem value="copy">Copy</MenuItem>

@@ -6,30 +6,6 @@ description: Доступная раскладка с изменяемыми п�
 
 import { CssPropertiesSection } from '@/components/mdx/Components';
 import { splitterOverrideCssProperties } from '@/components/examples/splitter/css-properties';
-import SplitterBasic from '@/components/examples/splitter/basic.tsx';
-import SplitterCollapsiblePanels from '@/components/examples/splitter/collapsible-panels.tsx';
-import SplitterControlled from '@/components/examples/splitter/controlled.tsx';
-import SplitterDynamicCollapsible from '@/components/examples/splitter/dynamic-collapsible.tsx';
-import SplitterMultiplePanels from '@/components/examples/splitter/multiple-panels.tsx';
-import SplitterNested from '@/components/examples/splitter/nested.tsx';
-import SplitterRootProvider from '@/components/examples/splitter/root-provider.tsx';
-import SplitterVertical from '@/components/examples/splitter/vertical.tsx';
-import splitterSolidBasic from '../../../snippets/splitter/solid/basic.tsx?raw';
-import splitterSolidCollapsiblePanels from '../../../snippets/splitter/solid/collapsible-panels.tsx?raw';
-import splitterSolidControlled from '../../../snippets/splitter/solid/controlled.tsx?raw';
-import splitterSolidDynamicCollapsible from '../../../snippets/splitter/solid/dynamic-collapsible.tsx?raw';
-import splitterSolidMultiplePanels from '../../../snippets/splitter/solid/multiple-panels.tsx?raw';
-import splitterSolidNested from '../../../snippets/splitter/solid/nested.tsx?raw';
-import splitterSolidRootProvider from '../../../snippets/splitter/solid/root-provider.tsx?raw';
-import splitterSolidVertical from '../../../snippets/splitter/solid/vertical.tsx?raw';
-import splitterVueBasic from '../../../snippets/splitter/vue/basic.vue?raw';
-import splitterVueCollapsiblePanels from '../../../snippets/splitter/vue/collapsible-panels.vue?raw';
-import splitterVueControlled from '../../../snippets/splitter/vue/controlled.vue?raw';
-import splitterVueDynamicCollapsible from '../../../snippets/splitter/vue/dynamic-collapsible.vue?raw';
-import splitterVueMultiplePanels from '../../../snippets/splitter/vue/multiple-panels.vue?raw';
-import splitterVueNested from '../../../snippets/splitter/vue/nested.vue?raw';
-import splitterVueRootProvider from '../../../snippets/splitter/vue/root-provider.vue?raw';
-import splitterVueVertical from '../../../snippets/splitter/vue/vertical.vue?raw';
 
 ## Справочник API
 
@@ -43,46 +19,7 @@ import splitterVueVertical from '../../../snippets/splitter/vue/vertical.vue?raw
 должен быть один из этих идентификаторов. Если не передавать триггеру дочерние элементы, moduix
 добавит индикатор изменения размера автоматически.
 
-<ExampleFrame variant="component">
-  <SplitterBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/splitter/splitter-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/basic" />
 
 ## Установка через shadcn
 
@@ -170,230 +107,35 @@ SplitterRootProvider
 `minSize` то же значение. Если `minSize` больше, Splitter переключается между минимальным
 развёрнутым размером и свёрнутой полосой.
 
-<ExampleFrame variant="component">
-  <SplitterCollapsiblePanels />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/collapsible-panels.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidCollapsiblePanels} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueCollapsiblePanels} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/splitter/splitter-collapsible-panels.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/collapsible-panels" />
 
 ### Управляемое состояние
 
 Храните размеры панелей в состоянии приложения и обновляйте его значением `details.size` из
 `onResize`.
 
-<ExampleFrame variant="component">
-  <SplitterControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/splitter/splitter-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/controlled" />
 
 ### Несколько панелей
 
 Добавьте ещё одну `SplitterPanel` и соседний `SplitterResizeTrigger`, чтобы получить раскладку из трёх панелей. Для
 каждой панели нужна запись в `panels`, а идентификатор каждой ручки должен связывать двух её соседей.
 
-<ExampleFrame variant="component">
-  <SplitterMultiplePanels />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/multiple-panels.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidMultiplePanels} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueMultiplePanels} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/splitter/splitter-multiple-panels.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/multiple-panels" />
 
 ### Вложенные Splitter
 
 Передайте один и тот же реестр вложенным Splitter, чтобы одновременно перетаскивать несколько ручек
 на пересечениях горизонтальных и вертикальных разделителей.
 
-<ExampleFrame variant="component">
-  <SplitterNested />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/nested.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidNested} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueNested} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/splitter/splitter-nested.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/nested" />
 
 ### Адаптивное сворачивание
 
 Используйте `collapsePanel()` и `expandPanel()`, если боковая панель должна реагировать на доступную
 ширину, измеренную приложением.
 
-<ExampleFrame variant="component">
-  <SplitterDynamicCollapsible />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/dynamic-collapsible.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidDynamicCollapsible} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueDynamicCollapsible} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/splitter/splitter-dynamic-collapsible.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/dynamic-collapsible" />
 
 ### SplitterRootProvider
 
@@ -401,96 +143,18 @@ SplitterRootProvider
 находиться за пределами отрисованных частей Splitter. Возвращаемый API включает, например,
 `getSizes()`, `setSizes()`, `resizePanel()`, `collapsePanel()`, `expandPanel()` и `resetSizes()`.
 
-<ExampleFrame variant="component">
-  <SplitterRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/splitter/splitter-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/root-provider" />
 
 ### Вертикальная ориентация
 
 Задайте `orientation="vertical"` и укажите корню стабильную высоту, чтобы вертикальным панелям было
 достаточно места для изменения размера.
 
-<ExampleFrame variant="component">
-  <SplitterVertical />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/splitter/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={splitterSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={splitterVueVertical} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/splitter/splitter-vertical.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="splitter/vertical" />
 
 ## Доступность
 
-`SplitterResizeTrigger` создаёт кнопку и поддерживает изменение размера указателем и клавиатурой в соответствии
+`SplitterResizeTrigger` создаёт кнопку с `type="button"`, поэтому она не отправляет окружающую форму, и поддерживает изменение размера указателем и клавиатурой в соответствии
 с паттерном WAI-ARIA Window Splitter. Задайте каждой ручке доступное имя, например через
 `aria-label="Resize panels"`, если на визуальной ручке нет текстовой подписи. При использовании
 `asChild` пользовательский элемент должен сохранять семантику кнопки, работу фокуса и управление с
@@ -501,16 +165,19 @@ Ark сообщает о состоянии через атрибуты `data-ori
 
 ## Стилизация
 
-Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях для структурных стилей.
-Варианты Tailwind используют нативные utility-классы и классы потребителя, а вариант с CSS Modules
-предоставляет переменные компонента ниже. Атрибуты состояния и точки привязки `data-slot` общие для
-обоих вариантов стилизации.
+Используйте `className` в React или `class` в Solid и Vue на экспортируемых частях, чтобы изменить их
+стили. Классом меняется и размер корня: moduix убирает inline `width` и `height` от Ark, а по умолчанию
+корень занимает контейнер (`width: 100%` и `height: 100%`, как в Ark). Если у родителя нет высоты,
+задайте её корню.
+
+Ark ставит каждой панели inline `overflow: hidden`, чтобы содержимое не меняло размеры панелей.
+Длинное содержимое оборачивайте в прокручиваемый контейнер внутри панели, например `ScrollArea`.
 
 Ручка изменения размера занимает в раскладке разделитель толщиной `1px`, поверх которого рисуется
 линия толщиной `0.5px`. Прозрачная область нажатия упрощает взаимодействие, а скруглённый индикатор
-располагается поверх линии. При наведении и перетаскивании усиливаются линия, граница и тень. Если
-нужен другой вид, переопределите соответствующие переменные
-`--moduix-splitter-resize-trigger-*`.
+располагается поверх линии. При наведении и перетаскивании линия и граница индикатора темнеют, а тень
+индикатора усиливается. Линия и область нажатия нарисованы псевдоэлементами, поэтому в вариантах
+с CSS Modules для них есть переменные ниже.
 
 ### CSS-свойства
 

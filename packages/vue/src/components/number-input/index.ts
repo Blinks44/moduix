@@ -45,9 +45,7 @@ export type {
   NumberInputLabelProps,
   NumberInputRootEmits,
   NumberInputRootBaseProps,
-  NumberInputRootProps,
   NumberInputRootProviderBaseProps,
-  NumberInputRootProviderProps,
   NumberInputScrubberBaseProps,
   NumberInputScrubberProps,
   NumberInputValueChangeDetails,
@@ -58,3 +56,6 @@ export type {
   UseNumberInputProps,
   UseNumberInputReturn,
 } from '@ark-ui/vue/number-input';
+
+export type { NumberInputSize, Props as NumberInputRootProps } from './NumberInput.vue';
+export type { Props as NumberInputRootProviderProps } from './NumberInputRootProvider.vue';

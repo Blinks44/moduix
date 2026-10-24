@@ -12,7 +12,7 @@ import { clsx } from 'clsx';
 import type { ComponentProps, JSX } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -27,7 +27,6 @@ type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProvid
 
 function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'lazyMount',
@@ -39,7 +38,6 @@ function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ComboboxPrimitive.Root
-        asChild={local.asChild}
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
@@ -54,7 +52,6 @@ function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
 
 function ComboboxRootProvider<T extends CollectionItem>(props: ComboboxRootProviderProps<T>) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'lazyMount',
@@ -66,7 +63,6 @@ function ComboboxRootProvider<T extends CollectionItem>(props: ComboboxRootProvi
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ComboboxPrimitive.RootProvider
-        asChild={local.asChild}
         class={clsx(styles.root, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
@@ -351,3 +347,33 @@ export {
   useComboboxContext,
   useComboboxItemContext,
 };
+
+export type { ComboboxOptionProps, ComboboxRootProps, ComboboxRootProviderProps };
+
+export type {
+  ComboboxClearTriggerProps,
+  ComboboxContentProps,
+  ComboboxContextProps,
+  ComboboxControlProps,
+  ComboboxEmptyProps,
+  ComboboxHighlightChangeDetails,
+  ComboboxInputProps,
+  ComboboxInputValueChangeDetails,
+  ComboboxItemContextProps,
+  ComboboxItemGroupLabelProps,
+  ComboboxItemGroupProps,
+  ComboboxItemIndicatorProps,
+  ComboboxItemProps,
+  ComboboxItemTextProps,
+  ComboboxLabelProps,
+  ComboboxListProps,
+  ComboboxOpenChangeDetails,
+  ComboboxPositionerProps,
+  ComboboxSelectionDetails,
+  ComboboxTriggerProps,
+  ComboboxValueChangeDetails,
+  UseComboboxContext,
+  UseComboboxItemContext,
+  UseComboboxProps,
+  UseComboboxReturn,
+} from '@ark-ui/solid/combobox';

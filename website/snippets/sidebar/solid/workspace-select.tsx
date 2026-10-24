@@ -17,9 +17,7 @@ import {
   SelectIndicator,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/solid/select';
 import {
   Sidebar,
@@ -95,10 +93,7 @@ export default function WorkspaceSidebar() {
                   <SelectContent>
                     <For each={workspaces.items}>
                       {(workspace) => (
-                        <SelectItem item={workspace}>
-                          <SelectItemText>{workspace.label}</SelectItemText>
-                          <SelectItemIndicator />
-                        </SelectItem>
+                        <SelectOption item={workspace}>{workspace.label}</SelectOption>
                       )}
                     </For>
                   </SelectContent>

@@ -12,7 +12,6 @@ import {
   MenuTrigger,
   MenuViewport,
 } from '@moduix/vue/menu';
-import styles from '@/components/examples/menu/menu-grouping.module.css';
 </script>
 
 <template>
@@ -21,7 +20,7 @@ import styles from '@/components/examples/menu/menu-grouping.module.css';
       <Button>Edit <MenuIndicator /></Button>
     </MenuTrigger>
     <MenuPositioner>
-      <MenuContent :class="styles.content">
+      <MenuContent>
         <MenuViewport>
           <MenuItemGroup>
             <MenuItemGroupLabel>Clipboard</MenuItemGroupLabel>

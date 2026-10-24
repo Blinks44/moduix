@@ -1,4 +1,11 @@
-import { TabsContent, TabsList, TabsRootProvider, TabsTrigger, useTabs } from '@moduix/react/tabs';
+import {
+  TabsContent,
+  TabsIndicator,
+  TabsList,
+  TabsRootProvider,
+  TabsTrigger,
+  useTabs,
+} from '@moduix/react/tabs';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/tabs/tabs-root-provider.module.css';
 
@@ -35,6 +42,7 @@ export default function RootProviderTabsDemo() {
               {item.title}
             </TabsTrigger>
           ))}
+          <TabsIndicator />
         </TabsList>
 
         {items.map((item) => (

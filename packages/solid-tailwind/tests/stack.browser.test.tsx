@@ -62,23 +62,35 @@ test('writes flex props and reverse directions as native utilities and root styl
   });
 });
 
-test('cross-falls back responsive directions when only one breakpoint is provided', () => {
+test('resolves responsive directions mobile-first', () => {
   render(() => (
     <>
+      <Stack direction="row" data-testid="string" />
       <Stack direction={{ desktop: 'row' }} data-testid="desktop-only" />
       <Stack direction={{ mobile: 'column-reverse' }} data-testid="mobile-only" />
     </>
   ));
 
-  const desktopOnly = screen.getByTestId('desktop-only');
-  const mobileOnly = screen.getByTestId('mobile-only');
+  const responsiveClasses = (testId: string) =>
+    [...screen.getByTestId(testId).classList].filter((name) => /^(sm:)?flex-(row|col)/.test(name));
 
-  expect([...desktopOnly.classList]).toEqual(expect.arrayContaining(['flex-row', 'sm:flex-row']));
-  expect([...mobileOnly.classList]).toEqual(
-    expect.arrayContaining(['flex-col-reverse', 'sm:flex-col-reverse']),
-  );
-  expect(getComputedStyle(desktopOnly).flexDirection).toBe('row');
-  expect(getComputedStyle(mobileOnly).flexDirection).toBe('column-reverse');
+  expect(responsiveClasses('string')).toEqual(['flex-row']);
+  expect(responsiveClasses('desktop-only')).toEqual(['flex-col', 'sm:flex-row']);
+  expect(responsiveClasses('mobile-only')).toEqual(['flex-col-reverse']);
+  expect(getComputedStyle(screen.getByTestId('mobile-only')).flexDirection).toBe('column-reverse');
+});
+
+test('does not pass direction or fill to nested roots', () => {
+  render(() => (
+    <Stack direction="row" fill data-testid="outer">
+      <Stack data-testid="inner" />
+    </Stack>
+  ));
+
+  const inner = screen.getByTestId('inner');
+
+  expect(getComputedStyle(inner).flexDirection).toBe('column');
+  expect(getComputedStyle(inner).flexGrow).toBe('0');
 });
 
 test('leaves optional layout styles unset and lets style override layout props', () => {
@@ -100,9 +112,7 @@ test('leaves optional layout styles unset and lets style override layout props',
   const overridden = screen.getByTestId('overridden');
 
   expect(defaults.style.gap).toBe('');
-  expect([...overridden.classList]).toEqual(
-    expect.arrayContaining(['flex-row', 'sm:flex-row', 'flex-1']),
-  );
+  expect([...overridden.classList]).toEqual(expect.arrayContaining(['flex-row', 'flex-1']));
   expect(overridden.style).toMatchObject({ flexWrap: 'nowrap', gap: '2rem' });
 });
 
@@ -114,6 +124,7 @@ test('lets consumer Tailwind utilities override fixed defaults', () => {
   expect([...stack.classList]).not.toContain('flex-1');
   expect([...stack.classList]).not.toContain('flex-row');
   expect(getComputedStyle(stack).flex).toBe('0 0 auto');
+  expect(getComputedStyle(stack).flexDirection).toBe('column');
 });
 
 test('merges root props onto an asChild element without forwarding the root ref', () => {

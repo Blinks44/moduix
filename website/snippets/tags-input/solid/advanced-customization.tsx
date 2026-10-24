@@ -13,11 +13,10 @@ import {
   TagsInputLabel,
 } from '@moduix/solid/tags-input';
 import { For } from 'solid-js';
-import styles from '@/components/examples/tags-input/tags-input-advanced-customization.module.css';
 
 export default function AdvancedCustomizationTagsInput() {
   return (
-    <TagsInput class={styles.root} defaultValue={['React', 'TypeScript']} name="frameworks">
+    <TagsInput defaultValue={['React', 'TypeScript']} name="frameworks">
       <TagsInputLabel>Frameworks</TagsInputLabel>
       <TagsInputControl>
         <TagsInputContext>

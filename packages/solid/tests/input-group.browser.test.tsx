@@ -11,6 +11,7 @@ import {
   InputGroupClearTrigger,
   InputGroupInput,
   InputGroupText,
+  InputGroupTextarea,
 } from '../src';
 
 test('preserves grouped field state, owned hooks, and native refs', async () => {
@@ -290,4 +291,124 @@ test('clear trigger preserves custom labels, children, asChild hosts, refs, and 
     .element(page.getByRole('button', { name: 'Disabled clear', exact: true }))
     .toBeDisabled();
   expect(clear).toHaveBeenCalledTimes(1);
+});
+
+test('removes the Input border and background inside the group', () => {
+  render(() => (
+    <InputGroup>
+      <InputGroupInput aria-label="Grouped" />
+    </InputGroup>
+  ));
+
+  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Grouped' }))).toMatchObject({
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    borderTopWidth: '0px',
+    minHeight: '0px',
+  });
+});
+
+test('keeps the group height when it holds a button', () => {
+  render(() => (
+    <div>
+      <InputGroup data-testid="plain">
+        <InputGroupInput aria-label="Plain" />
+      </InputGroup>
+      <InputGroup data-testid="with-button">
+        <InputGroupInput aria-label="With button" />
+        <InputGroupButton>Go</InputGroupButton>
+      </InputGroup>
+    </div>
+  ));
+
+  expect(screen.getByTestId('with-button').offsetHeight).toBe(
+    screen.getByTestId('plain').offsetHeight,
+  );
+});
+
+test('uses a local input size for font and inline padding', () => {
+  render(() => (
+    <InputGroup size="lg">
+      <InputGroupInput aria-label="Local size" size="xs" />
+    </InputGroup>
+  ));
+
+  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Local size' }))).toMatchObject({
+    fontSize: '12px',
+    paddingLeft: '10px',
+  });
+});
+
+test('renders a borderless textarea that follows the group size', () => {
+  let textarea: HTMLTextAreaElement | undefined;
+  render(() => (
+    <InputGroup size="sm" data-testid="textarea-group">
+      <InputGroupTextarea
+        aria-label="Message"
+        ref={(element) => {
+          textarea = element;
+        }}
+      />
+    </InputGroup>
+  ));
+
+  const element = screen.getByRole('textbox', { name: 'Message' });
+  expect(textarea).toBe(element);
+  expect(element.getAttribute('data-slot')).toBe('textarea-root');
+  expect(element.dataset.size).toBe('sm');
+  expect(getComputedStyle(element)).toMatchObject({
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    borderTopWidth: '0px',
+    resize: 'none',
+    fontSize: '14px',
+    paddingLeft: '12px',
+  });
+  expect(screen.getByTestId('textarea-group').offsetHeight).toBeGreaterThan(element.offsetHeight);
+});
+
+test('derives invalid and disabled group state from the textarea', () => {
+  render(() => (
+    <div>
+      <InputGroup data-testid="plain">
+        <InputGroupTextarea aria-label="Plain" />
+      </InputGroup>
+      <InputGroup data-testid="invalid">
+        <InputGroupTextarea aria-label="Invalid" aria-invalid="true" />
+      </InputGroup>
+      <InputGroup data-testid="disabled">
+        <InputGroupTextarea aria-label="Disabled" disabled />
+      </InputGroup>
+    </div>
+  ));
+
+  expect(getComputedStyle(screen.getByTestId('invalid')).borderTopColor).not.toBe(
+    getComputedStyle(screen.getByTestId('plain')).borderTopColor,
+  );
+  expect(getComputedStyle(screen.getByTestId('disabled')).opacity).toBe('0.5');
+  expect(getComputedStyle(screen.getByRole('textbox', { name: 'Disabled' })).opacity).toBe('1');
+});
+
+test('stacks block addons above and below the control', () => {
+  render(() => (
+    <InputGroup data-testid="block-group">
+      <InputGroupText align="block">Prompt</InputGroupText>
+      <InputGroupTextarea aria-label="Prompt" />
+      <InputGroupAddon align="block">
+        <button type="button">Send</button>
+      </InputGroupAddon>
+    </InputGroup>
+  ));
+
+  const group = screen.getByTestId('block-group');
+  const text = screen.getByText('Prompt');
+  const addon = screen.getByRole('button', { name: 'Send' }).parentElement!;
+
+  expect(getComputedStyle(group).flexDirection).toBe('column');
+  expect(text.getAttribute('data-align')).toBe('block');
+  expect(addon.getAttribute('data-align')).toBe('block');
+  expect(addon.offsetWidth).toBe(group.clientWidth);
+  expect(getComputedStyle(addon)).toMatchObject({
+    borderTopWidth: '1px',
+    borderBottomWidth: '0px',
+    borderLeftWidth: '0px',
+  });
 });

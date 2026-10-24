@@ -2,7 +2,7 @@
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui/Icons';
+import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 import styles from './PinInput.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -20,7 +20,6 @@ const attrs = useAttrs();
 <template>
   <span
     aria-hidden="true"
-    role="presentation"
     v-bind="attrs"
     :class="clsx(styles.separator, className)"
     data-slot="pin-input-separator"

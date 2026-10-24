@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@/components/ui/button';
 import { Card, CardAction, CardBody, CardDescription, CardHeader } from '@/components/ui/card';
 import {
   FileUpload,
@@ -39,8 +40,10 @@ const maxFileSize = 10 * 1024 * 1024;
           </div>
           <FileUploadContext v-slot="api"
             ><CardAction v-if="api.acceptedFiles.length"
-              ><FileUploadClearTrigger :class="styles.clearTrigger"
-                >Clear all</FileUploadClearTrigger
+              ><FileUploadClearTrigger as-child
+                ><Button :class="styles.clearTrigger" variant="outline" size="sm"
+                  >Clear all</Button
+                ></FileUploadClearTrigger
               ></CardAction
             ></FileUploadContext
           >
@@ -51,7 +54,9 @@ const maxFileSize = 10 * 1024 * 1024;
             <div :class="styles.dropzoneContent">
               <strong>Drop files here</strong><span>PDF, DOCX, PNG, or JPG up to 10 MB</span>
             </div>
-            <FileUploadTrigger :class="styles.trigger">Browse files</FileUploadTrigger>
+            <FileUploadTrigger as-child
+              ><Button :class="styles.trigger">Browse files</Button></FileUploadTrigger
+            >
           </FileUploadDropzone>
           <FileUploadContext v-slot="api">
             <div :class="styles.fileList">
@@ -77,7 +82,7 @@ const maxFileSize = 10 * 1024 * 1024;
                 >
                   <FileUploadItemName />
                   <p :class="styles.error" role="alert">{{ errors.join(', ') }}</p>
-                  <FileUploadItemDeleteTrigger :aria-label="`Remove ${file.name}`" />
+                  <FileUploadItemDeleteTrigger />
                 </FileUploadItem>
               </FileUploadItemGroup>
             </div>

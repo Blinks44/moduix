@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -26,15 +27,12 @@ const maxFiles = 1;
       <div :class="styles.dropzoneContent">
         <span :class="styles.dropzoneTitle">Drop an image or open the camera</span
         ><span :class="styles.dropzoneDescription">One image from the environment camera</span
-        ><FileUploadTrigger>Open camera</FileUploadTrigger>
+        ><FileUploadTrigger as-child><Button>Open camera</Button></FileUploadTrigger>
       </div></FileUploadDropzone
     ><FileUploadItemGroup
       ><FileUploadContext v-slot="{ acceptedFiles }"
         ><FileUploadItem v-for="file in acceptedFiles" :key="file.name + file.size" :file="file"
-          ><FileUploadItemName /><FileUploadItemSizeText /><FileUploadItemDeleteTrigger
-            :aria-label="
-              'Remove ' + file.name
-            " /></FileUploadItem></FileUploadContext></FileUploadItemGroup
+          ><FileUploadItemName /><FileUploadItemSizeText /><FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
     ><FileUploadHiddenInput
   /></FileUpload>
 </template>

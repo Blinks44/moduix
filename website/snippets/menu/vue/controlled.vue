@@ -10,7 +10,6 @@ import {
   MenuViewport,
 } from '@moduix/vue/menu';
 import { ref } from 'vue';
-import styles from '@/components/examples/menu/menu-controlled.module.css';
 
 const open = ref(false);
 function handleOpenChange(details: { open: boolean }) {
@@ -20,12 +19,12 @@ function handleOpenChange(details: { open: boolean }) {
 
 <template>
   <div>
-    <Menu v-model:open="open" :class="styles.root" @open-change="handleOpenChange">
+    <Menu v-model:open="open" @open-change="handleOpenChange">
       <MenuTrigger as-child>
         <Button>Actions <MenuIndicator /></Button>
       </MenuTrigger>
       <MenuPositioner>
-        <MenuContent :class="styles.content">
+        <MenuContent>
           <MenuViewport>
             <MenuItem value="edit">Edit</MenuItem>
             <MenuItem value="duplicate">Duplicate</MenuItem>

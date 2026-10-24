@@ -108,12 +108,12 @@ export default function AppSidebar() {
                       <SidebarNavigationSubList>
                         <SidebarNavigationSubItem>
                           <SidebarNavigationSubButton href="/projects/website">
-                            Website
+                            <SidebarLabel>Website</SidebarLabel>
                           </SidebarNavigationSubButton>
                         </SidebarNavigationSubItem>
                         <SidebarNavigationSubItem>
                           <SidebarNavigationSubButton href="/projects/mobile">
-                            Mobile app
+                            <SidebarLabel>Mobile app</SidebarLabel>
                           </SidebarNavigationSubButton>
                         </SidebarNavigationSubItem>
                       </SidebarNavigationSubList>

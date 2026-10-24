@@ -7,5 +7,22 @@
   "rules": {},
   "env": {
     "builtin": true
-  }
+  },
+  "overrides": [
+    {
+      "files": ["packages/react*/**", "playgrounds/react*/**", "website/**"],
+      "plugins": ["typescript", "unicorn", "oxc", "react"]
+    },
+    {
+      "files": ["packages/vue*/**", "playgrounds/vue*/**", "website/snippets/**/*.vue"],
+      "plugins": ["typescript", "unicorn", "oxc", "vue"]
+    },
+    {
+      "files": ["packages/*/src/**"],
+      "plugins": ["jsx-a11y"],
+      "rules": {
+        "jsx-a11y/prefer-tag-over-role": "off"
+      }
+    }
+  ]
 }

@@ -38,10 +38,8 @@ import {
   SelectIndicator,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
   SelectHiddenSelect,
+  SelectOption,
 } from '@moduix/vue/select';
 import { Textarea } from '@moduix/vue/textarea';
 import styles from '@/components/examples/tanstack-form/tanstack-form-complete-form.module.css';
@@ -134,10 +132,10 @@ const canSubmit = form.useSelector((state) => state.canSubmit);
               /></SelectControl>
               <SelectPositioner
                 ><SelectContent>
-                  <SelectItem v-for="item in teams.items" :key="item.value" :item="item"
-                    ><SelectItemText>{{ item.label }}</SelectItemText
-                    ><SelectItemIndicator
-                  /></SelectItem> </SelectContent></SelectPositioner
+                  <SelectOption v-for="item in teams.items" :key="item.value" :item="item">{{
+                    item.label
+                  }}</SelectOption>
+                </SelectContent></SelectPositioner
               ><SelectHiddenSelect /> </Select
             ><FieldErrorText>{{ state.meta.errors.join(', ') }}</FieldErrorText></Field
           >

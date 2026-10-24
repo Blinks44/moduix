@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/vue';
 import { renderToString } from '@vue/server-renderer';
 import { createSSRApp, nextTick, ref } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
-import { Textarea } from '../src';
+import { Field, FieldLabel as ModuixFieldLabel, Input, Textarea } from '../src';
 import SsrTextarea from './fixtures/SsrTextarea.vue';
 
 const fieldComponents = {
@@ -86,7 +86,7 @@ test('preserves asChild composition and forwards its ref to the semantic textare
   expect(textarea.getAttribute('data-slot')).toBe('textarea-root');
 });
 
-test('resizes with multiline input and preserves the autoresize styling hook', async () => {
+test('resizes with multiline input', async () => {
   render({
     components: fieldComponents,
     template: '<Textarea aria-label="Description" autoresize />',
@@ -94,7 +94,6 @@ test('resizes with multiline input and preserves the autoresize styling hook', a
 
   const textarea = screen.getByRole('textbox', { name: 'Description' });
 
-  expect(textarea.hasAttribute('data-autoresize')).toBe(true);
   expect(getComputedStyle(textarea!).resize).toBe('none');
 
   const initialHeight = textarea.getBoundingClientRect().height;
@@ -195,15 +194,13 @@ test('applies native utilities to the textarea', () => {
   const textarea = screen.getByRole('textbox', { name: 'Project notes' });
   expect([...textarea.classList]).toEqual(
     expect.arrayContaining([
-      'min-h-24',
       'w-full',
-      'max-w-none',
       'resize-y',
       'rounded-md',
       'border',
       'border-border',
       'bg-background',
-      'px-3.5',
+      'px-3',
       'py-2',
       'text-md',
       'leading-6',
@@ -238,12 +235,10 @@ test('lets consumer utilities replace component defaults', () => {
   );
   for (const utility of [
     'w-full',
-    'max-w-none',
-    'min-h-24',
     'resize-y',
     'rounded-md',
     'bg-background',
-    'px-3.5',
+    'px-3',
     'py-2',
     'leading-6',
   ]) {
@@ -278,4 +273,52 @@ test('hydrates the native textarea without replacing its host and supports editi
     warn.mockRestore();
     error.mockRestore();
   }
+});
+test('dims a disabled textarea once inside a disabled Field', () => {
+  render({
+    components: { Field, ModuixFieldLabel, Textarea },
+    template: `
+      <Field disabled data-testid="disabled-field">
+        <ModuixFieldLabel>Notes</ModuixFieldLabel>
+        <Textarea />
+      </Field>
+      <Textarea aria-label="Standalone" disabled />
+    `,
+  });
+
+  const opacity = (element: HTMLElement) => getComputedStyle(element).opacity;
+
+  expect(opacity(screen.getByTestId('disabled-field'))).toBe('0.5');
+  expect(opacity(screen.getByRole('textbox', { name: 'Notes' }))).toBe('1');
+  expect(opacity(screen.getByRole('textbox', { name: 'Standalone' }))).toBe('0.5');
+});
+test('matches Input padding and type at every size and defaults to md', () => {
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+  render({
+    components: { Input, Textarea },
+    setup() {
+      return { sizes };
+    },
+    template: `
+      <Textarea aria-label="Default" />
+      <div v-for="size in sizes" :key="size">
+        <Textarea :aria-label="'Textarea ' + size" :size="size" />
+        <Input :aria-label="'Input ' + size" :size="size" />
+      </div>
+    `,
+  });
+
+  expect(screen.getByRole('textbox', { name: 'Default' }).dataset.size).toBe('md');
+  for (const size of sizes) {
+    const textarea = getComputedStyle(screen.getByRole('textbox', { name: `Textarea ${size}` }));
+    const input = getComputedStyle(screen.getByRole('textbox', { name: `Input ${size}` }));
+    expect([textarea.paddingInlineStart, textarea.fontSize]).toEqual([
+      input.paddingInlineStart,
+      input.fontSize,
+    ]);
+  }
+  expect(screen.getByRole('textbox', { name: 'Textarea xs' }).offsetHeight).toBeLessThan(
+    screen.getByRole('textbox', { name: 'Textarea xl' }).offsetHeight,
+  );
 });

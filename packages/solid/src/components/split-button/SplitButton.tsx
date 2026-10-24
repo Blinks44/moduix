@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 import type { Accessor, ComponentProps, JSX } from 'solid-js';
 import { children, createContext, splitProps, useContext } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { OverlayPortal } from '@/lib/moduix/overlayPortal';
 import { Button } from '../button';
 import { Menu, MenuViewport } from '../menu';
@@ -19,7 +19,7 @@ type SplitButtonContextValue = {
   variant: Accessor<SplitButtonVariant>;
 };
 
-type SplitButtonProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
+type SplitButtonRootProps = Omit<ComponentProps<typeof Menu>, 'children'> & {
   'aria-label'?: string;
   'aria-labelledby'?: string;
   children?: JSX.Element;
@@ -59,13 +59,12 @@ function useSplitButtonContext(componentName: string) {
   return context;
 }
 
-function SplitButton(props: SplitButtonProps) {
+function SplitButton(props: SplitButtonRootProps) {
   const [local, others] = splitProps(props, [
     'aria-label',
     'aria-labelledby',
     'children',
     'class',
-    'onSelect',
     'positioning',
     'ref',
     'size',
@@ -79,11 +78,7 @@ function SplitButton(props: SplitButtonProps) {
         variant: () => local.variant ?? 'default',
       }}
     >
-      <Menu
-        onSelect={local.onSelect}
-        positioning={{ placement: 'bottom-end', gutter: 4, ...local.positioning }}
-        {...others}
-      >
+      <Menu positioning={{ placement: 'bottom-end', gutter: 4, ...local.positioning }} {...others}>
         <div
           role="group"
           aria-label={local['aria-label']}
@@ -127,9 +122,10 @@ function SplitButtonTrigger(props: SplitButtonTriggerProps) {
   ]);
   const context = useSplitButtonContext('SplitButtonTrigger');
   const resolvedChildren = children(() => local.children);
-  const isIconOnly = () => resolvedChildren() == null;
   const ariaLabel = () =>
-    isIconOnly() ? (local['aria-label'] ?? a11yLabels.moreActions) : local['aria-label'];
+    resolvedChildren() == null
+      ? (local['aria-label'] ?? a11yLabels.moreActions)
+      : local['aria-label'];
 
   return (
     <MenuPrimitive.Trigger
@@ -147,9 +143,6 @@ function SplitButtonTrigger(props: SplitButtonTriggerProps) {
           {resolvedChildren() ?? <ChevronDownIcon />}
         </Button>
       )}
-      data-slot="split-button-trigger"
-      aria-label={ariaLabel()}
-      class={clsx(styles.trigger, local.class)}
     />
   );
 }
@@ -189,4 +182,13 @@ export {
   SplitButtonContent,
   SplitButtonPositioner,
   SplitButtonTrigger,
+};
+export type {
+  SplitButtonActionProps,
+  SplitButtonContentProps,
+  SplitButtonPositionerProps,
+  SplitButtonRootProps,
+  SplitButtonSize,
+  SplitButtonTriggerProps,
+  SplitButtonVariant,
 };

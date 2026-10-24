@@ -8,9 +8,11 @@ import styles from './Textarea.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-export interface Props extends /* @vue-ignore */ Omit<FieldTextareaProps, 'autoresize' | 'class'> {
-  autoresize?: FieldTextareaProps['autoresize'];
+export type TextareaSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+export interface Props extends /* @vue-ignore */ FieldTextareaProps {
   class?: HTMLAttributes['class'];
+  size?: TextareaSize;
 }
 
 export interface Emits {
@@ -27,12 +29,11 @@ const attrs = useAttrs();
 <template>
   <ArkFieldTextarea
     v-bind="attrs"
-    :autoresize="props.autoresize"
     :class="clsx(styles.root, props.class)"
     data-scope="field"
     data-part="textarea"
     data-slot="textarea-root"
-    :data-autoresize="props.autoresize ? '' : undefined"
+    :data-size="props.size ?? 'md'"
   >
     <slot />
   </ArkFieldTextarea>

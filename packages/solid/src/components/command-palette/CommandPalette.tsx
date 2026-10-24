@@ -2,17 +2,18 @@ import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
   type ComboboxRootProps,
+  useComboboxContext,
 } from '@ark-ui/solid/combobox';
-import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/solid/dialog';
+import { Dialog as DialogPrimitive, useDialogContext } from '@ark-ui/solid/dialog';
 import type { HTMLArkProps } from '@ark-ui/solid/factory';
 import { ark } from '@ark-ui/solid/factory';
 import { isHotKey } from '@ark-ui/solid/hotkeys';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
-import { children, createEffect, onCleanup, splitProps } from 'solid-js';
+import { children, createEffect, onCleanup, Show, splitProps } from 'solid-js';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { callEventHandler } from '@/lib/moduix/callEventHandler';
-import { CheckIcon, CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, CloseIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -23,33 +24,23 @@ import { Kbd } from '../kbd';
 import { ScrollArea, ScrollAreaContent, ScrollAreaViewport } from '../scroll-area';
 import styles from './CommandPalette.module.css';
 
-type CommandPaletteProps = ComponentProps<typeof DialogPrimitive.Root> & {
+type CommandPaletteShortcutProps = {
   shortcut?: false | string;
-} & OverlayPortalProps;
+};
 
-type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
+type CommandPaletteRootProps = ComponentProps<typeof DialogPrimitive.Root> &
+  CommandPaletteShortcutProps &
   OverlayPortalProps;
 
-function CommandPalette(props: CommandPaletteProps) {
-  const [local, others] = splitProps(props, [
-    'children',
-    'shortcut',
-    'lazyMount',
-    'onExitComplete',
-    'portalled',
-    'present',
-    'portalRef',
-    'skipAnimationOnMount',
-    'unmountOnExit',
-  ]);
-  const dialog = useDialog(others);
+type CommandPaletteRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
+  CommandPaletteShortcutProps &
+  OverlayPortalProps;
+
+function CommandPaletteShortcut(props: { shortcut: string }) {
+  const dialog = useDialogContext();
 
   createEffect(() => {
-    const shortcut = local.shortcut;
-
-    if (!shortcut) {
-      return;
-    }
+    const shortcut = props.shortcut;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       const currentDialog = dialog();
@@ -74,18 +65,31 @@ function CommandPalette(props: CommandPaletteProps) {
     onCleanup(() => document.removeEventListener('keydown', handleKeyDown));
   });
 
+  return null;
+}
+
+function CommandPalette(props: CommandPaletteRootProps) {
+  const [local, others] = splitProps(props, [
+    'children',
+    'shortcut',
+    'lazyMount',
+    'portalled',
+    'portalRef',
+    'unmountOnExit',
+  ]);
+
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
-      <DialogPrimitive.RootProvider
-        value={dialog}
+      <DialogPrimitive.Root
         lazyMount={local.lazyMount ?? true}
-        onExitComplete={local.onExitComplete}
-        present={local.present}
-        skipAnimationOnMount={local.skipAnimationOnMount}
         unmountOnExit={local.unmountOnExit ?? true}
+        {...others}
       >
+        <Show when={local.shortcut}>
+          {(shortcut) => <CommandPaletteShortcut shortcut={shortcut()} />}
+        </Show>
         {local.children}
-      </DialogPrimitive.RootProvider>
+      </DialogPrimitive.Root>
     </OverlayPortalProvider>
   );
 }
@@ -93,6 +97,7 @@ function CommandPalette(props: CommandPaletteProps) {
 function CommandPaletteRootProvider(props: CommandPaletteRootProviderProps) {
   const [local, others] = splitProps(props, [
     'children',
+    'shortcut',
     'lazyMount',
     'portalled',
     'portalRef',
@@ -106,6 +111,9 @@ function CommandPaletteRootProvider(props: CommandPaletteRootProviderProps) {
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
       >
+        <Show when={local.shortcut}>
+          {(shortcut) => <CommandPaletteShortcut shortcut={shortcut()} />}
+        </Show>
         {local.children}
       </DialogPrimitive.RootProvider>
     </OverlayPortalProvider>
@@ -113,16 +121,7 @@ function CommandPaletteRootProvider(props: CommandPaletteRootProviderProps) {
 }
 
 function CommandPaletteTrigger(props: ComponentProps<typeof DialogPrimitive.Trigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <DialogPrimitive.Trigger
-      asChild={local.asChild}
-      class={clsx(!local.asChild && styles.trigger, local.class)}
-      {...others}
-      data-slot="command-palette-trigger"
-    />
-  );
+  return <DialogPrimitive.Trigger {...props} data-slot="command-palette-trigger" />;
 }
 
 function CommandPaletteBackdrop(props: ComponentProps<typeof DialogPrimitive.Backdrop>) {
@@ -166,15 +165,11 @@ function CommandPaletteContent(props: ComponentProps<typeof DialogPrimitive.Cont
 }
 
 function CommandPalettePanel(props: ComponentProps<typeof DialogPrimitive.Content>) {
-  const [local, others] = splitProps(props, ['children']);
-
   return (
     <>
       <CommandPaletteBackdrop />
       <CommandPalettePositioner>
-        <CommandPaletteContent {...others}>
-          <CommandPaletteBody>{local.children}</CommandPaletteBody>
-        </CommandPaletteContent>
+        <CommandPaletteContent {...props} />
       </CommandPalettePositioner>
     </>
   );
@@ -213,14 +208,6 @@ function CommandPaletteHeader(props: HTMLArkProps<'div'>) {
       {...others}
       data-slot="command-palette-header"
     />
-  );
-}
-
-function CommandPaletteBody(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.div class={clsx(styles.body, local.class)} {...others} data-slot="command-palette-body" />
   );
 }
 
@@ -292,6 +279,7 @@ function CommandPaletteSearch(props: ComponentProps<typeof ComboboxPrimitive.Inp
 
   return (
     <CommandPaletteControl>
+      <SearchIcon data-slot="command-palette-search-icon" class={styles.searchIcon} />
       <CommandPaletteInput
         aria-label={
           local['aria-label'] ??
@@ -315,44 +303,41 @@ function CommandPaletteClearTrigger(props: ComponentProps<typeof ComboboxPrimiti
     'aria-label',
     'aria-labelledby',
   ]);
+  const combobox = useComboboxContext();
   const resolvedChildren = children(() => local.children);
 
   return (
-    <ComboboxPrimitive.Context>
-      {(combobox) => (
-        <ComboboxPrimitive.ClearTrigger
-          asChild={local.asChild}
-          hidden={combobox().inputValue.length === 0}
-          aria-label={
-            local['aria-label'] ??
-            (!local.asChild && local.children == null && local['aria-labelledby'] == null
-              ? a11yLabels.clearSearch
-              : undefined)
-          }
-          aria-labelledby={local['aria-labelledby']}
-          class={clsx(closeButtonStyles.root, styles.clearTrigger, local.class)}
-          onClick={(event) => {
-            callEventHandler(local.onClick, event);
+    <ComboboxPrimitive.ClearTrigger
+      asChild={local.asChild}
+      aria-label={
+        local['aria-label'] ??
+        (!local.asChild && local['aria-labelledby'] == null ? a11yLabels.clearSearch : undefined)
+      }
+      aria-labelledby={local['aria-labelledby']}
+      class={clsx(closeButtonStyles.root, styles.clearTrigger, local.class)}
+      {...others}
+      hidden={combobox().inputValue === ''}
+      onClick={(event) => {
+        callEventHandler(local.onClick, event);
 
-            if (!event.defaultPrevented) {
-              event.preventDefault();
-              combobox().setInputValue('');
-            }
-          }}
-          onPointerDown={(event) => {
-            callEventHandler(local.onPointerDown, event);
+        // Clear only the query; Ark's own handler would also clear the selected value.
+        if (!event.defaultPrevented) {
+          event.preventDefault();
+          combobox().setInputValue('');
+        }
+      }}
+      onPointerDown={(event) => {
+        callEventHandler(local.onPointerDown, event);
 
-            if (event.button === 0) {
-              event.preventDefault();
-            }
-          }}
-          {...others}
-          data-slot="command-palette-clear-trigger"
-        >
-          {resolvedChildren() ?? <CloseIcon />}
-        </ComboboxPrimitive.ClearTrigger>
-      )}
-    </ComboboxPrimitive.Context>
+        // Ark merges only function handlers, so a bound handler would replace its focus guard.
+        if (event.button === 0) {
+          event.preventDefault();
+        }
+      }}
+      data-slot="command-palette-clear-trigger"
+    >
+      {resolvedChildren() ?? <CloseIcon />}
+    </ComboboxPrimitive.ClearTrigger>
   );
 }
 
@@ -365,17 +350,9 @@ function CommandPaletteList(props: ComponentProps<typeof ComboboxPrimitive.Conte
       {...others}
       data-slot="command-palette-list"
     >
-      <ScrollArea data-slot="command-palette-scroll-area" class={styles.scrollArea}>
-        <ScrollAreaViewport
-          data-slot="command-palette-scroll-viewport"
-          class={styles.scrollViewport}
-        >
-          <ScrollAreaContent
-            data-slot="command-palette-scroll-content"
-            class={styles.scrollContent}
-          >
-            {local.children}
-          </ScrollAreaContent>
+      <ScrollArea class={styles.scrollArea}>
+        <ScrollAreaViewport class={styles.scrollViewport}>
+          <ScrollAreaContent class={styles.scrollContent}>{local.children}</ScrollAreaContent>
         </ScrollAreaViewport>
       </ScrollArea>
     </ComboboxPrimitive.Content>
@@ -543,7 +520,6 @@ function CommandPaletteKbd(props: ComponentProps<typeof Kbd>) {
 export {
   CommandPalette,
   CommandPaletteBackdrop,
-  CommandPaletteBody,
   CommandPaletteClearTrigger,
   CommandPaletteCombobox,
   CommandPaletteContent,
@@ -572,3 +548,5 @@ export {
   CommandPaletteTitle,
   CommandPaletteTrigger,
 };
+
+export type { CommandPaletteRootProps, CommandPaletteRootProviderProps };

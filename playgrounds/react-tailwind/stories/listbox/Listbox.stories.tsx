@@ -157,7 +157,7 @@ type Story = StoryObj<typeof meta>;
 const stackClassName = 'flex flex-col items-start gap-2';
 const stateClassName = 'text-sm leading-5 text-muted-foreground';
 const buttonClassName =
-  'inline-flex min-h-8 cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3 text-foreground transition-colors duration-200 ease-in-out hover:bg-accent focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring';
+  'inline-flex min-h-8 cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3 text-foreground transition-colors duration-normal ease-in-out hover:bg-accent focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring';
 
 export const Basic: Story = {
   render: () => (

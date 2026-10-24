@@ -3,14 +3,16 @@ import { parseDate } from '@ark-ui/vue/date-picker';
 import {
   DatePicker,
   DatePickerClearTrigger,
+  DatePickerContent,
   DatePickerContext,
   DatePickerControl,
-  DatePickerContent,
   DatePickerDayTable,
   DatePickerLabel,
+  DatePickerMonthTable,
   DatePickerPositioner,
   DatePickerTrigger,
   DatePickerView,
+  DatePickerYearTable,
 } from '@moduix/vue/date-picker';
 </script>
 
@@ -40,7 +42,9 @@ import {
     </DatePickerControl>
     <DatePickerPositioner>
       <DatePickerContent>
-        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
+        <DatePickerView view="day"><DatePickerDayTable /></DatePickerView
+        ><DatePickerView view="month"><DatePickerMonthTable /></DatePickerView
+        ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
       </DatePickerContent>
     </DatePickerPositioner>
   </DatePicker>

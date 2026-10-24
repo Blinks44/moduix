@@ -40,7 +40,7 @@ const albums = createListCollection({
 
 export default function HorizontalListboxDemo() {
   return (
-    <Listbox collection={albums} orientation="horizontal" className={styles.horizontalRoot}>
+    <Listbox collection={albums} orientation="horizontal" className={styles.root}>
       <ListboxLabel>Select album</ListboxLabel>
       <ListboxContent>
         {albums.items.map((item) => (

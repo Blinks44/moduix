@@ -32,7 +32,7 @@ SVG renderer; an explicit `renderer` always takes precedence. Definitions, respo
 accessibility props, and the remaining callbacks pass through unchanged.
 
 By default, `ChartPlot` uses a compact Moduix tooltip layout, so rows without a swatch do not
-reserve an empty column. When you provide `renderTooltipBody`, its `defaultBody` is the same compact
+reserve an empty column. Rows that TanStack marks as `active` get `data-active` and a muted highlight. When you provide `renderTooltipBody`, its `defaultBody` is the same compact
 Moduix body, exposed as a `() => VNodeChild` render function matching TanStack's Vue adapter
 convention.
 
@@ -70,8 +70,9 @@ convention.
 ## Styling and accessibility
 
 The root and presentational parts expose stable `data-scope="chart"`, `data-part`, and `data-slot`
-hooks. `class` and `style` on `ChartPlot` apply to the outer TanStack host. moduix maps its tooltip
-shell variables to TanStack's official `--ts-chart-tooltip-*` contract. The compact default body
+hooks. `class` and `style` on `ChartPlot` apply to the outer TanStack host. moduix styles the
+tooltip shell by setting TanStack's `--ts-chart-tooltip-*` variables on that host; consumers
+override them there. The compact default body
 exposes `chart-tooltip-body`, `chart-tooltip-title`, `chart-tooltip-rows`, `chart-tooltip-row`,
 `chart-tooltip-swatch`, `chart-tooltip-label`, `chart-tooltip-value`, and `chart-tooltip-text` data
 slots. Use TanStack's `tooltip.className` for custom selectors; do not depend on its internal
@@ -89,8 +90,3 @@ description do not fully explain the data. The root is a `figure` and its header
   preserves the moduix `motion` and `renderer` contract.
 - Ark `Tooltip` is not used because TanStack already owns the plot focus anchor and tooltip
   lifecycle.
-
-## Local changelog
-
-- 2026-09-25: Initial Vue port following the React and Solid flat contract with the TanStack
-  renderer adapter.

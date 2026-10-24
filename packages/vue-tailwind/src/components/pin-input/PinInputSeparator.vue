@@ -19,14 +19,8 @@ const attrs = useAttrs();
 <template>
   <span
     aria-hidden="true"
-    role="presentation"
     v-bind="attrs"
-    :class="
-      cn(
-        'pointer-events-none inline-flex size-4 flex-none items-center justify-center leading-none text-muted-foreground [&>svg]:size-full [&>svg]:flex-none',
-        className,
-      )
-    "
+    :class="cn('inline-flex size-4 flex-none text-muted-foreground [&>svg]:size-full', className)"
     data-slot="pin-input-separator"
   >
     <slot><SeparatorMarkIcon /></slot>

@@ -19,9 +19,7 @@ const attrs = useAttrs();
 <template>
   <Kbd
     v-bind="attrs"
-    :class="
-      cn('min-h-5 min-w-5 rounded-sm px-1 text-xs leading-4 text-muted-foreground', className)
-    "
+    :class="cn('min-h-5 min-w-5 px-1 text-muted-foreground', className)"
     data-slot="command-palette-kbd"
   >
     <slot />

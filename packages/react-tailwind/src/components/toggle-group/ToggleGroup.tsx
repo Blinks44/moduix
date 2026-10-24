@@ -12,15 +12,15 @@ import { cn } from '@/lib/moduix/cn';
 import type { ToggleSize, ToggleVariant } from '../toggle/Toggle';
 import { toggleVariants } from '../toggle/Toggle.variants';
 
-const defaultToggleGroupStyles = {
-  variant: 'default' as ToggleVariant,
-  size: 'md' as ToggleSize,
+type ToggleGroupStyleProps = {
+  variant?: ToggleVariant;
+  size?: ToggleSize;
 };
 
-const ToggleGroupStyleContext = createContext<{
-  variant: ToggleVariant;
-  size: ToggleSize;
-}>(defaultToggleGroupStyles);
+const ToggleGroupStyleContext = createContext<Required<ToggleGroupStyleProps>>({
+  variant: 'default',
+  size: 'md',
+});
 
 const toggleGroupRootVariants = cva(
   'group/toggle-group inline-flex max-w-full items-center gap-px overflow-x-auto overscroll-x-contain rounded-lg border border-border bg-muted p-0.5 text-foreground [scrollbar-width:none] data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch [&::-webkit-scrollbar]:hidden',
@@ -38,20 +38,14 @@ const toggleGroupRootVariants = cva(
   },
 );
 
-type ToggleGroupRootProps = ComponentProps<typeof ToggleGroupPrimitive.Root> & {
-  variant?: ToggleVariant;
-  size?: ToggleSize;
-};
+type ToggleGroupRootProps = ComponentProps<typeof ToggleGroupPrimitive.Root> &
+  ToggleGroupStyleProps;
 
-type ToggleGroupRootProviderProps = ComponentProps<typeof ToggleGroupPrimitive.RootProvider> & {
-  variant?: ToggleVariant;
-  size?: ToggleSize;
-};
+type ToggleGroupRootProviderProps = ComponentProps<typeof ToggleGroupPrimitive.RootProvider> &
+  ToggleGroupStyleProps;
 
-type ToggleGroupItemProps = ComponentProps<typeof ToggleGroupPrimitive.Item> & {
-  variant?: ToggleVariant;
-  size?: ToggleSize;
-};
+type ToggleGroupItemProps = ComponentProps<typeof ToggleGroupPrimitive.Item> &
+  ToggleGroupStyleProps;
 
 const ToggleGroup = forwardRef<
   ComponentRef<typeof ToggleGroupPrimitive.Root>,
@@ -94,19 +88,18 @@ const ToggleGroupItem = forwardRef<
   ToggleGroupItemProps
 >(function ToggleGroupItem({ className, variant, size, ...props }, ref) {
   const inherited = useContext(ToggleGroupStyleContext);
+  const itemVariant = variant ?? inherited.variant;
+  const itemSize = size ?? inherited.size;
 
   return (
     <ToggleGroupPrimitive.Item
       {...props}
       ref={ref}
       data-slot="toggle-group-item"
-      data-variant={variant ?? inherited.variant}
-      data-size={size ?? inherited.size}
+      data-variant={itemVariant}
+      data-size={itemSize}
       className={cn(
-        toggleVariants({
-          variant: variant ?? inherited.variant,
-          size: size ?? inherited.size,
-        }),
+        toggleVariants({ variant: itemVariant, size: itemSize }),
         'flex-none text-foreground group-data-[orientation=vertical]/toggle-group:w-full group-data-[orientation=vertical]/toggle-group:justify-start',
         className,
       )}
@@ -124,6 +117,13 @@ export {
   useToggleGroup,
   useToggleGroupContext,
 };
+export type {
+  ToggleGroupContextProps,
+  ToggleGroupValueChangeDetails,
+  UseToggleGroupContext,
+  UseToggleGroupProps,
+  UseToggleGroupReturn,
+} from '@ark-ui/react/toggle-group';
 export type {
   ToggleGroupItemProps,
   ToggleGroupRootProps,

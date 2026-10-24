@@ -58,26 +58,23 @@ test('renders Ark anatomy with stable hooks, accessible SVG output, and forwarde
   expect(trigger.getAttribute('data-slot')).toBe('qr-code-download-trigger');
   expect([...container.querySelector('[data-slot="qr-code-root"]')!.classList]).toEqual(
     expect.arrayContaining([
-      'relative',
-      'inline-flex',
+      'inline-grid',
       'w-32',
       'max-w-full',
-      'flex-col',
-      'items-center',
+      'grid-cols-1',
+      'justify-items-center',
       'gap-3',
-      'text-foreground',
     ]),
   );
   expect([...container.querySelector('[data-slot="qr-code-frame"]')!.classList]).toEqual(
-    expect.arrayContaining(['h-auto', 'w-full', 'aspect-square', 'fill-current']),
+    expect.arrayContaining(['w-full', 'aspect-square', 'fill-current']),
   );
-  expect([...container.querySelector('[data-slot="qr-code-pattern"]')!.classList]).toEqual(
-    expect.arrayContaining(['fill-inherit']),
-  );
+  expect(container.querySelector('[data-slot="qr-code-pattern"]')!.classList).toHaveLength(0);
   expect([...container.querySelector('[data-slot="qr-code-overlay"]')!.classList]).toEqual(
     expect.arrayContaining([
       'inline-flex',
-      'size-control-lg',
+      'w-1/3',
+      'aspect-square',
       'items-center',
       'justify-center',
       'rounded-sm',
@@ -247,9 +244,9 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   expect([...overlay.classList]).toEqual(
     expect.arrayContaining(['size-control-xl', 'bg-muted', 'p-2']),
   );
-  expect(
-    ['size-control-lg', 'bg-background', 'p-1'].some((name) => overlay.classList.contains(name)),
-  ).toBe(false);
+  expect(['w-1/3', 'bg-background', 'p-1'].some((name) => overlay.classList.contains(name))).toBe(
+    false,
+  );
   expect([...trigger.classList]).toEqual(
     expect.arrayContaining(['rounded-lg', 'bg-muted', 'px-2']),
   );
@@ -264,4 +261,30 @@ test('lets consumer Tailwind classes override conflicting defaults', async () =>
   await expect
     .element(page.locator('[data-slot="qr-code-download-trigger"]'))
     .toHaveCSS('padding-left', '8px');
+});
+
+test('centers the overlay on the frame when a download trigger follows it', () => {
+  render(() => (
+    <QrCode defaultValue="https://moduix.dev/docs/qr-code">
+      <QrCodeFrame>
+        <QrCodePattern />
+      </QrCodeFrame>
+      <QrCodeOverlay>MX</QrCodeOverlay>
+      <QrCodeDownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png">
+        Download QR code (PNG)
+      </QrCodeDownloadTrigger>
+    </QrCode>
+  ));
+
+  const frame = document.querySelector('[data-slot="qr-code-frame"]')!.getBoundingClientRect();
+  const overlay = screen.getByText('MX').getBoundingClientRect();
+
+  expect(frame.width).toBe(128);
+  expect(Math.abs(overlay.width - frame.width / 3)).toBeLessThan(1);
+  expect(Math.abs(overlay.top + overlay.height / 2 - (frame.top + frame.height / 2))).toBeLessThan(
+    1,
+  );
+  expect(Math.abs(overlay.left + overlay.width / 2 - (frame.left + frame.width / 2))).toBeLessThan(
+    1,
+  );
 });

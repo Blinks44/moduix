@@ -21,10 +21,7 @@ const attrs = useAttrs();
   <ArkAvatarImage
     v-bind="attrs"
     :class="
-      cn(
-        'block size-full rounded-[inherit] object-cover object-center data-[state=hidden]:hidden',
-        className,
-      )
+      cn('block size-full rounded-[inherit] object-cover data-[state=hidden]:hidden', className)
     "
     data-slot="avatar-image"
   >

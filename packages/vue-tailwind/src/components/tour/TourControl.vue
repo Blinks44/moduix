@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkTourControl
     v-bind="attrs"
-    :class="cn('order-2 mt-3 flex flex-wrap justify-end gap-2', className)"
+    :class="cn('mt-3 flex flex-wrap justify-end gap-2', className)"
     data-slot="tour-control"
   >
     <slot />

@@ -4,11 +4,10 @@ import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
 function Empty(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="empty"
       data-part="root"
@@ -22,17 +21,16 @@ function Empty(props: HTMLArkProps<'div'>) {
 }
 
 function EmptyIcon(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="empty"
       data-part="icon"
       data-slot="empty-icon"
       class={cn(
-        'inline-flex min-w-0 items-center justify-center rounded-full bg-muted p-3 text-muted-foreground [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0',
+        'inline-flex items-center justify-center rounded-full bg-muted p-3 text-muted-foreground [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0',
         local.class,
       )}
     />
@@ -40,11 +38,10 @@ function EmptyIcon(props: HTMLArkProps<'div'>) {
 }
 
 function EmptyContent(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="empty"
       data-part="content"
@@ -55,32 +52,30 @@ function EmptyContent(props: HTMLArkProps<'div'>) {
 }
 
 function EmptyTitle(props: HTMLArkProps<'h3'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.h3
-      asChild={local.asChild}
       {...others}
       data-scope="empty"
       data-part="title"
       data-slot="empty-title"
-      class={cn('min-w-0 text-xl font-semibold wrap-anywhere', local.class)}
+      class={cn('text-xl font-semibold wrap-anywhere', local.class)}
     />
   );
 }
 
 function EmptyDescription(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="empty"
       data-part="description"
       data-slot="empty-description"
       class={cn(
-        'min-w-0 text-sm wrap-anywhere text-muted-foreground [&>:first-child]:mt-0 [&>:last-child]:mb-0',
+        'text-sm wrap-anywhere text-muted-foreground [&>:first-child]:mt-0 [&>:last-child]:mb-0',
         local.class,
       )}
     />
@@ -88,17 +83,16 @@ function EmptyDescription(props: HTMLArkProps<'div'>) {
 }
 
 function EmptyActions(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       {...others}
       data-scope="empty"
       data-part="actions"
       data-slot="empty-actions"
       class={cn(
-        'flex max-w-full min-w-0 flex-wrap items-center justify-center gap-2 [&>*]:max-w-full [&>*]:min-w-0 [&>:is(button,a)]:wrap-anywhere [&>:is(button,a)]:whitespace-normal',
+        'flex min-w-0 flex-wrap items-center justify-center gap-2 [&>*]:max-w-full [&>*]:min-w-0 [&>:is(button,a)]:wrap-anywhere [&>:is(button,a)]:whitespace-normal',
         local.class,
       )}
     />

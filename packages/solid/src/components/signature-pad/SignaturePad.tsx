@@ -6,8 +6,8 @@ import {
 } from '@ark-ui/solid/signature-pad';
 import { clsx } from 'clsx';
 import type { Accessor, ComponentProps } from 'solid-js';
-import { children, createContext, splitProps, useContext } from 'solid-js';
-import { RotateCcwIcon } from '@/lib/moduix/icons/ui/Icons';
+import { createContext, splitProps, useContext } from 'solid-js';
+import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 import styles from './SignaturePad.module.css';
 
@@ -21,13 +21,13 @@ type SignaturePadRootProviderProps = Omit<
   'value'
 > & { value: ReturnType<typeof useSignaturePadPrimitive> & { readOnly?: Accessor<boolean> } };
 type SignaturePadHookProps = Parameters<typeof useSignaturePadPrimitive>[0];
+
 function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
   const field = useFieldContext();
 
   return (
     <SignaturePadPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="signature-pad-root"
@@ -42,12 +42,11 @@ function SignaturePad(props: ComponentProps<typeof SignaturePadPrimitive.Root>) 
 }
 
 function SignaturePadRootProvider(props: SignaturePadRootProviderProps) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['children', 'class']);
 
   return (
     <SignaturePadReadOnlyContext.Provider value={() => props.value.readOnly?.() ?? false}>
       <SignaturePadPrimitive.RootProvider
-        asChild={local.asChild}
         class={clsx(styles.root, local.class)}
         {...others}
         data-slot="signature-pad-root-provider"
@@ -109,56 +108,24 @@ function SignaturePadGuide(props: ComponentProps<typeof SignaturePadPrimitive.Gu
 function SignaturePadClearTrigger(
   props: ComponentProps<typeof SignaturePadPrimitive.ClearTrigger>,
 ) {
-  const [local, others] = splitProps(props, [
-    'aria-label',
-    'aria-labelledby',
-    'asChild',
-    'children',
-    'class',
-    'disabled',
-  ]);
-  const resolvedChildren = children(() => local.children);
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
   const readOnly = useContext(SignaturePadReadOnlyContext);
-  const isDisabled = () => (readOnly() || local.disabled ? true : undefined);
-  const triggerClass = () => clsx(styles.clearTrigger, local.class);
 
-  if (local.asChild) {
-    return (
-      <SignaturePadPrimitive.ClearTrigger
-        asChild={local.asChild}
-        aria-label={local['aria-label']}
-        aria-labelledby={local['aria-labelledby']}
-        class={triggerClass()}
-        {...others}
-        data-slot="signature-pad-clear-trigger"
-        disabled={isDisabled()}
-      >
-        {local.children}
-      </SignaturePadPrimitive.ClearTrigger>
-    );
-  }
-
+  // Ark still clears read-only signatures, so moduix hides the action as it does while empty.
   return (
     <SignaturePadPrimitive.ClearTrigger
-      asChild={(triggerProps) => {
-        const resolvedProps = triggerProps();
-        return (
-          <CloseButton
-            {...resolvedProps}
-            aria-label={
-              local['aria-label'] ??
-              (local['aria-labelledby'] == null ? resolvedProps['aria-label'] : undefined)
-            }
-            aria-labelledby={local['aria-labelledby'] ?? resolvedProps['aria-labelledby']}
-          >
-            {resolvedChildren() ?? <RotateCcwIcon aria-hidden="true" />}
+      asChild={
+        local.asChild ??
+        ((triggerProps) => (
+          <CloseButton {...triggerProps()}>
+            {local.children ?? <RotateCcwIcon aria-hidden="true" />}
           </CloseButton>
-        );
-      }}
-      class={triggerClass()}
+        ))
+      }
+      class={clsx(styles.clearTrigger, local.class)}
       {...others}
       data-slot="signature-pad-clear-trigger"
-      disabled={isDisabled()}
+      hidden={readOnly() || undefined}
     />
   );
 }
@@ -172,9 +139,7 @@ function SignaturePadCanvas(props: SignaturePadCanvasProps) {
   return (
     <SignaturePadControl {...props}>
       <SignaturePadSegment />
-      <SignaturePadClearTrigger>
-        <RotateCcwIcon aria-hidden="true" />
-      </SignaturePadClearTrigger>
+      <SignaturePadClearTrigger />
       <SignaturePadGuide />
     </SignaturePadControl>
   );

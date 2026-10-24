@@ -6,27 +6,24 @@ import styles from './Alert.module.css';
 
 type AlertStatus = 'info' | 'success' | 'warning' | 'error';
 
-type AlertProps = HTMLArkProps<'div'> & {
+type AlertRootProps = HTMLArkProps<'div'> & {
   status?: AlertStatus;
 };
 
-const Alert = forwardRef<ComponentRef<typeof ark.div>, AlertProps>(function Alert(
-  { children, className, role, status = 'info', ...props },
+const Alert = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(function Alert(
+  { className, status = 'info', ...props },
   ref,
 ) {
   return (
     <ark.div
       ref={ref}
-      role={role}
       className={clsx(styles.root, className)}
       {...props}
       data-scope="alert"
       data-part="root"
       data-status={status}
       data-slot="alert-root"
-    >
-      {children}
-    </ark.div>
+    />
   );
 });
 
@@ -108,3 +105,4 @@ const AlertActions = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
 );
 
 export { Alert, AlertActions, AlertContent, AlertDescription, AlertIndicator, AlertTitle };
+export type { AlertRootProps, AlertStatus };

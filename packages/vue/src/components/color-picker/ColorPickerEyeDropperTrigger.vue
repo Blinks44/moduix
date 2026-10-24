@@ -4,7 +4,7 @@ import type { ColorPickerEyeDropperTriggerProps } from '@ark-ui/vue/color-picker
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { PipetteIcon } from '@/lib/moduix/icons/ui/Icons';
+import { PipetteIcon } from '@/lib/moduix/icons/ui';
 import styles from './ColorPicker.module.css';
 
 defineOptions({ inheritAttrs: false });

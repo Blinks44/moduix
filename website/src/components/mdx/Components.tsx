@@ -181,16 +181,9 @@ function ShadcnInstallOptions({ options }: { options: ShadcnInstallOption[] }) {
 }
 
 function CssPropertiesSection({ properties }: { properties: CssPropertyInput[] }) {
-  const t = useI18n<typeof import('i18n')>();
-  const normalizedProperties = normalizeCssProperties(properties);
-
   return (
     <div className={styles.cssProperties}>
-      <Tabs values={[{ label: t('cssVariables'), value: 'CSS Variables' }]}>
-        <Tab value="CSS Variables">
-          <CSSPropertiesReferenceTable properties={normalizedProperties} />
-        </Tab>
-      </Tabs>
+      <CSSPropertiesReferenceTable properties={normalizeCssProperties(properties)} />
     </div>
   );
 }

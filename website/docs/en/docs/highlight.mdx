@@ -5,24 +5,6 @@ component: highlight
 ---
 
 import * as HighlightDocs from '@/components/examples/highlight/css-properties';
-import HighlightBasic from '@/components/examples/highlight/basic.tsx';
-import HighlightDynamicQuery from '@/components/examples/highlight/dynamic-query.tsx';
-import HighlightExactMatch from '@/components/examples/highlight/exact-match.tsx';
-import HighlightIgnoreCase from '@/components/examples/highlight/ignore-case.tsx';
-import HighlightMatchAll from '@/components/examples/highlight/match-all.tsx';
-import HighlightMultipleQueries from '@/components/examples/highlight/multiple-queries.tsx';
-import highlightSolidBasic from '../../../snippets/highlight/solid/basic.tsx?raw';
-import highlightSolidDynamicQuery from '../../../snippets/highlight/solid/dynamic-query.tsx?raw';
-import highlightSolidExactMatch from '../../../snippets/highlight/solid/exact-match.tsx?raw';
-import highlightSolidIgnoreCase from '../../../snippets/highlight/solid/ignore-case.tsx?raw';
-import highlightSolidMatchAll from '../../../snippets/highlight/solid/match-all.tsx?raw';
-import highlightSolidMultipleQueries from '../../../snippets/highlight/solid/multiple-queries.tsx?raw';
-import highlightVueBasic from '../../../snippets/highlight/vue/basic.vue?raw';
-import highlightVueDynamicQuery from '../../../snippets/highlight/vue/dynamic-query.vue?raw';
-import highlightVueExactMatch from '../../../snippets/highlight/vue/exact-match.vue?raw';
-import highlightVueIgnoreCase from '../../../snippets/highlight/vue/ignore-case.vue?raw';
-import highlightVueMatchAll from '../../../snippets/highlight/vue/match-all.vue?raw';
-import highlightVueMultipleQueries from '../../../snippets/highlight/vue/multiple-queries.vue?raw';
 
 ## API Reference
 
@@ -42,40 +24,7 @@ Pass the complete source string through `text` and the term to find through `que
 `Highlight` inside the text component or HTML element that should provide the surrounding layout
 and semantics.
 
-<ExampleFrame variant="component">
-  <HighlightBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/highlight/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={highlightSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={highlightVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="highlight/basic" />
 
 ## Install with shadcn
 
@@ -125,8 +74,8 @@ Highlight
 └─ matched ranges rendered as repeated <mark> elements
 ```
 
-| Part                           | Role                                                                 |
-| ------------------------------ | -------------------------------------------------------------------- |
+| Part        | Role                                                                |
+| ----------- | ------------------------------------------------------------------- |
 | `Highlight` | Applies moduix styling to every matched range in the provided text. |
 
 ## Composition
@@ -144,45 +93,7 @@ different element or interactive behavior.
 Control `query` from framework state to highlight the current term while a user searches or filters
 visible text.
 
-<ExampleFrame variant="component">
-  <HighlightDynamicQuery />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/highlight/dynamic-query.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={highlightSolidDynamicQuery} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={highlightVueDynamicQuery} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/highlight/highlight-dynamic-query.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="highlight/dynamic-query" />
 
 ### Exact Match
 
@@ -190,168 +101,26 @@ Set `exactMatch` when partial-word matches are too broad. In this example, `box`
 standalone word but not `checkbox` or `combobox`. Matching follows JavaScript word boundaries,
 which are reliable for Latin text but do not treat Cyrillic and some other scripts as whole words.
 
-<ExampleFrame variant="component">
-  <HighlightExactMatch />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/highlight/exact-match.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={highlightSolidExactMatch} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={highlightVueExactMatch} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/highlight/highlight-exact-match.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="highlight/exact-match" />
 
 ### Ignore Case
 
 Set `ignoreCase` when the capitalization of the source text should not affect the result.
 
-<ExampleFrame variant="component">
-  <HighlightIgnoreCase />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/highlight/ignore-case.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={highlightSolidIgnoreCase} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={highlightVueIgnoreCase} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="highlight/ignore-case" />
 
 ### Match All
 
 Set `matchAll` when every occurrence should be highlighted instead of only the first one.
 
-<ExampleFrame variant="component">
-  <HighlightMatchAll />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/highlight/match-all.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={highlightSolidMatchAll} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={highlightVueMatchAll} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/highlight/highlight-match-all.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="highlight/match-all" />
 
 ### Multiple Queries
 
 Pass a string array when several terms should be highlighted in the same text. For an array,
 `matchAll` defaults to `true`; setting `matchAll={false}` throws an error.
 
-<ExampleFrame variant="component">
-  <HighlightMultipleQueries />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/highlight/multiple-queries.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={highlightSolidMultipleQueries} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={highlightVueMultipleQueries} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="highlight/multiple-queries" />
 
 ## Styling
 
@@ -367,5 +136,5 @@ use Tailwind utilities or consumer classes for Tailwind variants.
 
 - Every matched `<mark>` has `data-scope="highlight"` and `data-part="root"`.
 - `data-slot="highlight-root"` is the stable moduix selector for each matched mark.
-- Props such as `className`/`class`, `style`, `title`, `id`, and `data-*` are applied to every matched `<mark>`.
+- Props such as `className`/`class`, `style`, `title`, and `data-*` are applied to every matched `<mark>`.
 - There is no wrapper element, state attribute, or Ark runtime CSS variable.

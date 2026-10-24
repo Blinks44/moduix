@@ -8,7 +8,9 @@
 
 ToastToaster consumes createToaster and an optional scoped slot with Ark ToastOptions.
 Its default content composes Toast, ToastTitle, ToastDescription, optional ToastActionTrigger
-and optional ToastCloseTrigger. Hooks and public parts use the flat moduix exports.
+and optional ToastCloseTrigger. A `loading` toast gets a decorative Spinner before its title.
+The root reserves inline-end padding for the close trigger only while one is rendered.
+Hooks and public parts use the flat moduix exports.
 
 The toaster is portalled to body by default. portalled=false renders inline; portalRef
 accepts an element or getter with a body fallback. Native Teleport supports reactive
@@ -25,7 +27,11 @@ Existing skipped direct-Ark Toast/Toaster asChild regressions remain upstream li
 ## Styling and accessibility
 
 Parts accept class and expose data-slot / Ark state attributes. Tailwind uses utility overrides.
-Ark owns live-region semantics and toast lifecycle.
+CSS Modules read `--moduix-toast-bg`, `--moduix-toast-border-color`, `--moduix-toast-color` (all
+override every type; scope them with `[data-type='…']` for one type) and
+`--moduix-toast-description-color`; everything else comes from foundation tokens.
+ToastCloseTrigger defaults its label to `Close toast` unless `aria-label` or `aria-labelledby` is
+passed. Ark owns live-region semantics and toast lifecycle.
 
 ## Responsive layout
 
@@ -34,8 +40,3 @@ every `bottom-*` placement is centered at the bottom. Toasts keep their default 
 and shrink to fit between Ark's `offsets` and horizontal safe-area insets on narrower screens.
 The vertical placement, stack animations, and `gap` between toasts remain Ark-owned; `gap` does
 not control viewport padding. Above `40rem`, the configured corner or center placement applies.
-
-## Local changelog
-
-- 2026-10-11: Fixed mobile viewport overflow across all placements; centered toasts through the
-  inclusive 40rem breakpoint retain their 20rem width and shrink within offsets and safe-area insets.

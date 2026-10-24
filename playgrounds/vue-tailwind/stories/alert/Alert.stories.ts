@@ -49,7 +49,7 @@ const statuses = ['info', 'success', 'warning', 'error'] as const;
 const stackClassName = 'grid w-[min(38rem,calc(100vw-2rem))] gap-3';
 const customAlertClassName =
   'max-w-lg rounded-md border-primary/38 bg-[color-mix(in_oklab,var(--color-primary)_12%,var(--color-background))] shadow-sm';
-const customIndicatorClassName = 'group-data-[status=warning]/alert:text-primary';
+const customIndicatorClassName = 'text-primary';
 
 const alertComponents = {
   Alert,

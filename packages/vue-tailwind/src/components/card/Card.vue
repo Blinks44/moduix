@@ -8,8 +8,8 @@ import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
-type CardSize = 'sm' | 'md' | 'lg';
-type CardVariant = 'elevated' | 'outline' | 'subtle';
+export type CardSize = 'sm' | 'md' | 'lg';
+export type CardVariant = 'elevated' | 'outline' | 'subtle';
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {
   class?: HTMLAttributes['class'];
@@ -18,9 +18,14 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {
 }
 
 const cardRootVariants = cva(
-  'group/card relative flex w-full min-w-0 flex-col rounded-lg text-card-foreground focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring has-[>[data-slot=card-background]]:isolate [&:has(>[data-slot=card-background])>*:not([data-slot=card-background])]:z-1 [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:relative [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:z-1',
+  'group/card relative flex w-full min-w-0 flex-col rounded-lg text-card-foreground focus-visible:outline-focus focus-visible:outline-offset-1 focus-visible:outline-ring has-[>[data-slot=card-background]]:isolate [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:relative [&:has([data-slot=card-link])_:is(a,button,input,select,textarea,summary,audio[controls],video[controls],iframe,[contenteditable=true],[role=button],[role=checkbox],[role=menuitem],[role=switch],[tabindex]:not([tabindex=-1])):not([data-slot=card-link])]:z-1',
   {
     variants: {
+      size: {
+        sm: '[--card-spacing:var(--moduix-spacing-4)]',
+        md: '[--card-spacing:var(--moduix-spacing-6)]',
+        lg: '[--card-spacing:var(--moduix-spacing-8)]',
+      },
       variant: {
         elevated: 'border-0 bg-card shadow-md',
         outline: 'border border-border bg-card',
@@ -28,6 +33,7 @@ const cardRootVariants = cva(
       },
     },
     defaultVariants: {
+      size: 'md',
       variant: 'outline',
     },
   },
@@ -42,7 +48,7 @@ const attrs = useAttrs();
 <template>
   <ark.div
     v-bind="attrs"
-    :class="cn(cardRootVariants({ variant }), className)"
+    :class="cn(cardRootVariants({ size, variant }), className)"
     data-scope="card"
     data-part="root"
     :data-size="size"

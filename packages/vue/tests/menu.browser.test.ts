@@ -28,7 +28,6 @@ import {
   useMenuContext,
   useMenuItemContext,
 } from '../src';
-import styles from '../src/components/menu/Menu.module.css';
 import TestSsrMenu from './fixtures/TestMenu.vue';
 
 const menuComponents = {
@@ -136,9 +135,10 @@ test('sizes the default submenu chevron to its icon wrapper', async () => {
     template: '<MenuTriggerItemIcon />',
   };
   const { container } = render(Harness);
-  const icon = container.querySelector('[data-slot="menu-trigger-item-icon"] svg');
+  const wrapper = container.querySelector('[data-slot="menu-trigger-item-icon"]');
+  const icon = wrapper?.querySelector('svg');
 
-  expect(icon?.classList.contains(styles.iconSvg)).toBe(true);
+  expect(icon?.getBoundingClientRect().width).toBe(wrapper?.getBoundingClientRect().width);
 });
 
 test('preserves custom context trigger styling', async () => {
@@ -329,8 +329,7 @@ test('applies consumer classes alongside CSS Module defaults', async () => {
   const trigger = screen.getByRole('button', { name: 'Actions' });
   const content = screen.getByRole('menu');
   const item = screen.getByRole('menuitem', { name: 'Edit' });
-  expect(trigger?.classList.contains('consumer-trigger')).toBe(true);
-  expect(trigger.classList.length).toBeGreaterThan(1);
+  expect(trigger.className).toBe('consumer-trigger');
   expect(content?.classList.contains('consumer-content')).toBe(true);
   expect(content.classList.length).toBeGreaterThan(1);
   expect(item?.classList.contains('consumer-item')).toBe(true);
@@ -375,4 +374,32 @@ test('hydrates server hosts and preserves Escape dismissal without mismatches', 
     warn.mockRestore();
     error.mockRestore();
   }
+});
+
+test('mounts content on first open and removes it after close', async () => {
+  const Harness = {
+    components: menuComponents,
+    template:
+      '<Menu :portalled="false"><MenuTrigger>Actions</MenuTrigger><MenuPositioner><MenuContent><MenuViewport><MenuItem value="edit">Edit</MenuItem></MenuViewport></MenuContent></MenuPositioner></Menu>',
+  };
+  const { container } = render(Harness);
+
+  expect(container.querySelector('[data-slot="menu-content"]')).toBeNull();
+  await page.getByRole('button', { name: 'Actions' }).click();
+  await expect.element(page.getByRole('menu')).toBeVisible();
+  await page.getByRole('button', { name: 'Actions' }).click();
+  await expect.poll(() => container.querySelector('[data-slot="menu-content"]')).toBeNull();
+});
+
+test('mutes disabled items regardless of tone', async () => {
+  const Harness = {
+    components: menuComponents,
+    template:
+      '<Menu default-open :portalled="false"><MenuTrigger>Actions</MenuTrigger><MenuPositioner><MenuContent><MenuViewport><MenuItem value="edit" disabled>Edit</MenuItem><MenuItem value="delete" tone="destructive" disabled>Delete</MenuItem></MenuViewport></MenuContent></MenuPositioner></Menu>',
+  };
+  render(Harness);
+
+  const edit = screen.getByRole('menuitem', { name: 'Edit' });
+  const remove = screen.getByRole('menuitem', { name: 'Delete' });
+  expect(getComputedStyle(remove).color).toBe(getComputedStyle(edit).color);
 });

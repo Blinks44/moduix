@@ -10,16 +10,14 @@ import { mergeProps, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
 const tocRootVariants = cva(
-  'group/toc box-border grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] gap-6 text-foreground has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)] max-md:grid-cols-[minmax(0,1fr)] max-md:has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(0,1fr)]',
+  'grid w-full min-w-0 grid-cols-[minmax(0,1fr)_minmax(12rem,16rem)] gap-6 text-foreground [--_toc-indicator-height:var(--height)] [--_toc-indicator-top:var(--top)] has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)] max-md:grid-cols-[minmax(0,1fr)] max-md:has-[[data-slot=toc-nav][data-placement=left]]:grid-cols-[minmax(0,1fr)]',
 );
 
-const railBaseOffset = 0;
 const railStep = 12;
 const railBridge = 6;
-const maxRailLevel = 2;
 
-const getRailOffset = (depth: number) =>
-  railBaseOffset + Math.min(Math.max(depth - 2, 0), maxRailLevel) * railStep;
+// Depths 2 to 4 get their own rail column; deeper headings stay on the last one.
+const getRailX = (depth: number) => Math.min(Math.max(depth - 2, 0), 2) * railStep + 0.5;
 
 const useToc = (props: UseTocProps) => useTocPrimitive(mergeProps({ autoScroll: false }, props));
 
@@ -39,15 +37,11 @@ function Toc(props: ComponentProps<typeof TocPrimitive.Root>) {
 }
 
 function TocRootProvider(props: ComponentProps<typeof TocPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['class', 'style', 'value']);
-
-  const getRootStyle = () => mergeStyles(local.value().getRootProps().style, local.style);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <TocPrimitive.RootProvider
-      value={local.value}
       class={cn(tocRootVariants(), local.class)}
-      style={getRootStyle()}
       {...others}
       data-slot="toc-root-provider"
     />
@@ -58,14 +52,7 @@ function TocContent(props: ComponentProps<typeof TocPrimitive.Content>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
-    <TocPrimitive.Content
-      class={cn(
-        'min-w-0 scroll-smooth group-has-[[data-slot=toc-nav][data-placement=left]]/toc:col-start-2 group-has-[[data-slot=toc-nav][data-placement=left]]/toc:row-start-1 motion-reduce:scroll-auto max-md:group-has-[[data-slot=toc-nav][data-placement=left]]/toc:col-auto max-md:group-has-[[data-slot=toc-nav][data-placement=left]]/toc:row-auto',
-        local.class,
-      )}
-      {...others}
-      data-slot="toc-content"
-    />
+    <TocPrimitive.Content class={cn('min-w-0', local.class)} {...others} data-slot="toc-content" />
   );
 }
 
@@ -75,7 +62,7 @@ function TocNav(props: ComponentProps<typeof TocPrimitive.Nav>) {
   return (
     <TocPrimitive.Nav
       class={cn(
-        'sticky top-4 max-h-[calc(100dvh-2rem)] min-w-0 self-start overflow-auto rounded-lg border border-border bg-card p-4 text-card-foreground data-[placement=left]:col-start-1 data-[placement=left]:row-start-1 max-md:data-[placement=left]:col-auto max-md:data-[placement=left]:row-auto',
+        'sticky top-4 max-h-[calc(100dvh-2rem)] self-start overflow-auto rounded-lg border border-border bg-card p-4 text-card-foreground data-[placement=left]:col-start-1 data-[placement=left]:row-start-1 max-md:data-[placement=left]:col-auto max-md:data-[placement=left]:row-auto',
         local.class,
       )}
       {...others}
@@ -102,7 +89,7 @@ function TocList(props: ComponentProps<typeof TocPrimitive.List>) {
   return (
     <TocPrimitive.List
       class={cn(
-        "relative m-0 grid list-none gap-0.5 py-0 ps-1 has-[[data-slot=toc-indicator]]:before:pointer-events-none has-[[data-slot=toc-indicator]]:before:absolute has-[[data-slot=toc-indicator]]:before:inset-y-0.5 has-[[data-slot=toc-indicator]]:before:start-0 has-[[data-slot=toc-indicator]]:before:w-0.5 has-[[data-slot=toc-indicator]]:before:rounded-full has-[[data-slot=toc-indicator]]:before:bg-border has-[[data-slot=toc-indicator]]:before:content-['']",
+        "relative m-0 grid list-none gap-0.5 ps-1 has-[[data-slot=toc-indicator]]:before:pointer-events-none has-[[data-slot=toc-indicator]]:before:absolute has-[[data-slot=toc-indicator]]:before:inset-y-0.5 has-[[data-slot=toc-indicator]]:before:start-0 has-[[data-slot=toc-indicator]]:before:w-0.5 has-[[data-slot=toc-indicator]]:before:rounded-full has-[[data-slot=toc-indicator]]:before:bg-border has-[[data-slot=toc-indicator]]:before:content-['']",
         local.class,
       )}
       {...others}
@@ -123,7 +110,7 @@ function TocLink(props: ComponentProps<typeof TocPrimitive.Link>) {
   return (
     <TocPrimitive.Link
       class={cn(
-        'group/toc-link relative block min-w-0 overflow-hidden rounded-sm py-1 ps-[calc(0.875rem+max(0px,((var(--depth)-2)*0.5rem)))] pe-1 text-sm leading-5 text-ellipsis whitespace-nowrap text-muted-foreground no-underline outline-0 transition-colors duration-200 focus-visible:ring-1 focus-visible:ring-ring has-[[data-slot=toc-rail]]:overflow-visible data-active:font-medium data-active:text-foreground motion-reduce:transition-none [@media(hover:hover)]:hover:text-foreground',
+        'group/toc-link relative block overflow-x-clip rounded-sm py-1 ps-[calc(var(--moduix-spacing-1)+var(--moduix-spacing-0-5)+var(--moduix-spacing-2)+max(0px,(var(--depth)-2)*var(--moduix-spacing-2)))] pe-1 text-sm leading-5 text-ellipsis whitespace-nowrap text-muted-foreground no-underline outline-0 transition-colors duration-normal focus-visible:ring-1 focus-visible:ring-ring data-active:font-medium data-active:text-foreground [@media(hover:hover)]:hover:text-foreground',
         local.class,
       )}
       {...others}
@@ -138,7 +125,7 @@ function TocIndicator(props: ComponentProps<typeof TocPrimitive.Indicator>) {
   return (
     <TocPrimitive.Indicator
       class={cn(
-        'pointer-events-none start-0 top-[calc(var(--top)+0.125rem)] z-1 h-[calc(var(--height)-0.25rem)] w-0.5 rounded-full bg-muted-foreground opacity-70 transition-[top,height] duration-200 motion-reduce:transition-none',
+        'pointer-events-none start-0 top-[calc(var(--_toc-indicator-top)+var(--moduix-spacing-0-5))] z-1 h-[calc(var(--_toc-indicator-height)-var(--moduix-spacing-1))] w-0.5 rounded-full bg-muted-foreground opacity-70 transition-[top,height] duration-normal',
         local.class,
       )}
       {...others}
@@ -157,36 +144,6 @@ const nonScalingStrokeProps = {
   'vector-effect': 'non-scaling-stroke',
 } as const;
 
-const styleToString = (style: JSX.CSSProperties) =>
-  Object.entries(style)
-    .filter(([, value]) => value !== undefined)
-    .map(([property, value]) => `${property}:${value}`)
-    .join(';');
-
-const getStyleObject = (style: unknown): JSX.CSSProperties =>
-  typeof style === 'object' && style !== null ? (style as JSX.CSSProperties) : {};
-
-const mergeStyles = (base: unknown, override: unknown): JSX.CSSProperties | string | undefined => {
-  if (typeof override === 'string') {
-    const baseStyle = typeof base === 'string' ? base : styleToString(getStyleObject(base));
-
-    return baseStyle ? `${baseStyle};${override}` : override;
-  }
-
-  if (typeof base === 'string') {
-    const overrideStyle = styleToString(getStyleObject(override));
-
-    return overrideStyle ? `${base};${overrideStyle}` : base;
-  }
-
-  const baseStyle = getStyleObject(base);
-  const overrideStyle = getStyleObject(override);
-
-  return Object.keys(baseStyle).length || Object.keys(overrideStyle).length
-    ? { ...baseStyle, ...overrideStyle }
-    : undefined;
-};
-
 function TocRail(props: TocRailProps) {
   const [local, others] = splitProps(props, [
     'class',
@@ -195,13 +152,21 @@ function TocRail(props: TocRailProps) {
     'previousDepth',
     'style',
   ]);
-  const lineOffset = () => getRailOffset(local.depth);
-  const previousLineOffset = () => getRailOffset(local.previousDepth ?? local.depth);
-  const nextLineOffset = () => getRailOffset(local.nextDepth ?? local.depth);
-  const hasTurn = () => previousLineOffset() !== lineOffset();
-  const width = () => Math.max(previousLineOffset(), lineOffset(), nextLineOffset()) + 2;
-  const height = () => (lineOffset() === nextLineOffset() ? 'calc(100% + 0.5rem)' : '100%');
-  const getRailStyle = () => mergeStyles({ width: width(), height: height() }, local.style);
+  const x = () => getRailX(local.depth);
+  const previousX = () => getRailX(local.previousDepth ?? local.depth);
+  const nextX = () => getRailX(local.nextDepth ?? local.depth);
+  const hasTurn = () => previousX() !== x();
+  const style = (): JSX.CSSProperties | string => {
+    const width = `${Math.max(previousX(), x(), nextX()) + 1.5}px`;
+    // Cross the list gap to the next rail, and its bridge too when the line continues.
+    const height = `calc(100% + ${nextX() === x() ? railBridge : 0}px + var(--moduix-spacing-0-5))`;
+
+    if (typeof local.style === 'string') {
+      return `width:${width};height:${height};${local.style}`;
+    }
+
+    return { width, height, ...local.style };
+  };
 
   return (
     <svg
@@ -210,13 +175,13 @@ function TocRail(props: TocRailProps) {
         'pointer-events-none absolute start-0 -top-1.5 overflow-visible text-border group-data-active/toc-link:translate-y-0.5 group-data-active/toc-link:text-muted-foreground group-data-active/toc-link:opacity-70',
         local.class,
       )}
-      style={getRailStyle()}
+      style={style()}
       {...others}
       data-slot="toc-rail"
     >
       {hasTurn() && (
         <path
-          d={`M ${previousLineOffset() + 0.5} 0 C ${previousLineOffset() + 0.5} 8 ${lineOffset() + 0.5} 4 ${lineOffset() + 0.5} ${railBridge * 2}`}
+          d={`M ${previousX()} 0 C ${previousX()} 8 ${x()} 4 ${x()} ${railBridge * 2}`}
           fill="none"
           {...nonScalingStrokeProps}
           stroke="currentColor"
@@ -224,9 +189,9 @@ function TocRail(props: TocRailProps) {
         />
       )}
       <line
-        x1={lineOffset() + 0.5}
+        x1={x()}
         y1={hasTurn() ? railBridge * 2 : railBridge}
-        x2={lineOffset() + 0.5}
+        x2={x()}
         y2="100%"
         {...nonScalingStrokeProps}
         stroke="currentColor"
@@ -253,3 +218,22 @@ export {
   useToc,
   useTocContext,
 };
+
+export type {
+  TocActiveChangeDetails,
+  TocContentProps,
+  TocContextProps,
+  TocIndicatorProps,
+  TocItemData,
+  TocItemProps,
+  TocLinkProps,
+  TocListProps,
+  TocNavProps,
+  TocRootProps,
+  TocRootProviderProps,
+  TocTitleProps,
+  UseTocContext,
+  UseTocProps,
+  UseTocReturn,
+} from '@ark-ui/solid/toc';
+export type { TocRailProps };

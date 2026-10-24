@@ -6,13 +6,8 @@ import styles from './Stack.module.css';
 
 type StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 
-type StackProps = HTMLArkProps<'div'> & {
-  direction?:
-    | StackDirection
-    | {
-        mobile?: StackDirection;
-        desktop?: StackDirection;
-      };
+type StackRootProps = HTMLArkProps<'div'> & {
+  direction?: StackDirection | { mobile?: StackDirection; desktop?: StackDirection };
   gap?: number | string;
   align?: CSSProperties['alignItems'];
   justify?: CSSProperties['justifyContent'];
@@ -20,28 +15,24 @@ type StackProps = HTMLArkProps<'div'> & {
   fill?: boolean;
 };
 
-const Stack = forwardRef<HTMLElement, StackProps>(function Stack(
-  { asChild, children, className, style, direction, gap, align, justify, wrap, fill, ...props },
+const Stack = forwardRef<HTMLElement, StackRootProps>(function Stack(
+  { className, style, direction, gap, align, justify, wrap, fill, ...props },
   ref,
 ) {
-  const mobileDirection =
-    typeof direction === 'string' ? direction : (direction?.mobile ?? direction?.desktop);
-  const desktopDirection =
-    typeof direction === 'string' ? direction : (direction?.desktop ?? direction?.mobile);
+  const responsive = typeof direction === 'string' ? { mobile: direction } : direction;
+
   return (
     <ark.div
       {...props}
       ref={ref as ForwardedRef<HTMLDivElement>}
-      asChild={asChild}
       data-scope="stack"
       data-part="root"
       data-slot="stack-root"
-      className={clsx(styles.root, className)}
+      className={clsx(styles.root, fill && styles.fill, className)}
       style={
         {
-          '--moduix-stack-direction-desktop': desktopDirection ?? 'column',
-          '--moduix-stack-direction-mobile': mobileDirection ?? 'column',
-          '--moduix-stack-flex': fill == null ? undefined : fill ? '1 1 0%' : 'initial',
+          '--_stack-direction': responsive?.mobile,
+          '--_stack-direction-desktop': responsive?.desktop,
           gap,
           alignItems: align,
           justifyContent: justify,
@@ -49,10 +40,9 @@ const Stack = forwardRef<HTMLElement, StackProps>(function Stack(
           ...style,
         } as CSSProperties
       }
-    >
-      {children}
-    </ark.div>
+    />
   );
 });
 
 export { Stack };
+export type { StackDirection, StackRootProps };

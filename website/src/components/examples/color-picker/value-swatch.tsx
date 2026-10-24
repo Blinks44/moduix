@@ -2,7 +2,6 @@ import {
   ColorPicker,
   parseColor,
   ColorPickerLabel,
-  ColorPickerTransparencyGrid,
   ColorPickerValueSwatch,
   ColorPickerValueText,
 } from '@moduix/react/color-picker';
@@ -12,10 +11,7 @@ export default function ValueSwatchColorPickerDemo() {
   return (
     <ColorPicker className={styles.root} defaultValue={parseColor('#dc2626')}>
       <ColorPickerLabel>Current color</ColorPickerLabel>
-      <div className={styles.valueSwatch}>
-        <ColorPickerTransparencyGrid />
-        <ColorPickerValueSwatch />
-      </div>
+      <ColorPickerValueSwatch className={styles.valueSwatch} />
       <ColorPickerValueText format="hex" />
     </ColorPicker>
   );

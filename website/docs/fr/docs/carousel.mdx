@@ -5,55 +5,7 @@ description: Un carrousel paginé fondé sur Ark UI, avec lecture automatique, �
 ---
 
 import * as CarouselDocs from '@/components/examples/carousel/css-properties';
-import AdvancedCustomizationCarousel from '@/components/examples/carousel/advanced-customization.tsx';
-import AutoplayCarousel from '@/components/examples/carousel/autoplay.tsx';
-import TravelCarousel from '@/components/examples/carousel/basic.tsx';
-import CardCarousel from '@/components/examples/carousel/cards.tsx';
-import ControlledCarousel from '@/components/examples/carousel/controlled.tsx';
-import DynamicSlidesCarousel from '@/components/examples/carousel/dynamic.tsx';
-import LoopCarousel from '@/components/examples/carousel/loop.tsx';
-import MouseDragCarousel from '@/components/examples/carousel/mouse-drag.tsx';
-import PauseOnHoverCarousel from '@/components/examples/carousel/pause-on-hover.tsx';
-import RootProviderCarousel from '@/components/examples/carousel/root-provider.tsx';
-import ScrollToCarousel from '@/components/examples/carousel/scroll-to-slide.tsx';
-import SlidesPerPageCarousel from '@/components/examples/carousel/slides-per-page.tsx';
-import SpacingCarousel from '@/components/examples/carousel/spacing.tsx';
-import ThumbnailIndicatorCarousel from '@/components/examples/carousel/thumbnail-indicators.tsx';
-import VariableSizeCarousel from '@/components/examples/carousel/variable-sizes.tsx';
-import VerticalCarousel from '@/components/examples/carousel/vertical.tsx';
 
-import carouselSolidAdvancedCustomization from '../../../snippets/carousel/solid/advanced-customization.tsx?raw';
-import carouselSolidAutoplay from '../../../snippets/carousel/solid/autoplay.tsx?raw';
-import carouselSolidBasic from '../../../snippets/carousel/solid/basic.tsx?raw';
-import carouselSolidCards from '../../../snippets/carousel/solid/cards.tsx?raw';
-import carouselSolidControlled from '../../../snippets/carousel/solid/controlled.tsx?raw';
-import carouselSolidDynamic from '../../../snippets/carousel/solid/dynamic.tsx?raw';
-import carouselSolidLoop from '../../../snippets/carousel/solid/loop.tsx?raw';
-import carouselSolidMouseDrag from '../../../snippets/carousel/solid/mouse-drag.tsx?raw';
-import carouselSolidPauseOnHover from '../../../snippets/carousel/solid/pause-on-hover.tsx?raw';
-import carouselSolidRootProvider from '../../../snippets/carousel/solid/root-provider.tsx?raw';
-import carouselSolidScrollToSlide from '../../../snippets/carousel/solid/scroll-to-slide.tsx?raw';
-import carouselSolidSlidesPerPage from '../../../snippets/carousel/solid/slides-per-page.tsx?raw';
-import carouselSolidSpacing from '../../../snippets/carousel/solid/spacing.tsx?raw';
-import carouselSolidThumbnailIndicators from '../../../snippets/carousel/solid/thumbnail-indicators.tsx?raw';
-import carouselSolidVariableSizes from '../../../snippets/carousel/solid/variable-sizes.tsx?raw';
-import carouselSolidVertical from '../../../snippets/carousel/solid/vertical.tsx?raw';
-import carouselVueAdvancedCustomization from '../../../snippets/carousel/vue/advanced-customization.vue?raw';
-import carouselVueAutoplay from '../../../snippets/carousel/vue/autoplay.vue?raw';
-import carouselVueBasic from '../../../snippets/carousel/vue/basic.vue?raw';
-import carouselVueCards from '../../../snippets/carousel/vue/cards.vue?raw';
-import carouselVueControlled from '../../../snippets/carousel/vue/controlled.vue?raw';
-import carouselVueDynamic from '../../../snippets/carousel/vue/dynamic.vue?raw';
-import carouselVueLoop from '../../../snippets/carousel/vue/loop.vue?raw';
-import carouselVueMouseDrag from '../../../snippets/carousel/vue/mouse-drag.vue?raw';
-import carouselVuePauseOnHover from '../../../snippets/carousel/vue/pause-on-hover.vue?raw';
-import carouselVueRootProvider from '../../../snippets/carousel/vue/root-provider.vue?raw';
-import carouselVueScrollToSlide from '../../../snippets/carousel/vue/scroll-to-slide.vue?raw';
-import carouselVueSlidesPerPage from '../../../snippets/carousel/vue/slides-per-page.vue?raw';
-import carouselVueSpacing from '../../../snippets/carousel/vue/spacing.vue?raw';
-import carouselVueThumbnailIndicators from '../../../snippets/carousel/vue/thumbnail-indicators.vue?raw';
-import carouselVueVariableSizes from '../../../snippets/carousel/vue/variable-sizes.vue?raw';
-import carouselVueVertical from '../../../snippets/carousel/vue/vertical.vue?raw';
 
 ## Référence de l’API
 
@@ -68,46 +20,7 @@ placez les boutons précédent et suivant dans `CarouselControl`, puis utilisez 
 `CarouselProgressText` pour la pagination par défaut.
 
 
-<ExampleFrame variant="component">
-  <TravelCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/basic" />
 
 ## Installation avec shadcn
 
@@ -207,46 +120,7 @@ Utilisez la lecture automatique pour les galeries dont les diapositives doivent 
 des contrôles visibles. Dans cet exemple, elle s’interrompt lorsque le pointeur entre dans le carrousel ou
 qu’un élément reçoit le focus. L’utilisateur peut la relancer avec `CarouselAutoplayTrigger`.
 
-<ExampleFrame variant="component">
-  <AutoplayCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/autoplay.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidAutoplay} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueAutoplay} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-autoplay.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/autoplay" />
 
 Pour voir une galerie complète avec navigation latérale, texte sur les diapositives et indicateurs de progression
 qui se remplissent au fil du défilement, consultez le [bloc de galerie en lecture automatique](/blocks/autoplay-gallery).
@@ -256,229 +130,34 @@ qui se remplissent au fil du défilement, consultez le [bloc de galerie en lectu
 Les éléments du carrousel peuvent contenir n’importe quel contenu. Si une carte doit être plus étroite que la
 diapositive, utilisez vos propres styles et centrez-la.
 
-<ExampleFrame variant="component">
-  <CardCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/cards.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidCards} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueCards} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-cards.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/cards" />
 
 ### État contrôlé
 
 Utilisez un état contrôlé lorsque la page actuelle doit rester synchronisée avec une navigation externe, des
 filtres ou des données analytiques.
 
-<ExampleFrame variant="component">
-  <ControlledCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/controlled" />
 
 ### Mise à jour dynamique
 
 Si le nombre de diapositives change après le rendu initial, mettez `slideCount` à jour en même temps que la
 liste des éléments affichés.
 
-<ExampleFrame variant="component">
-  <DynamicSlidesCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/dynamic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidDynamic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueDynamic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-dynamic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/dynamic" />
 
 ### Boucle
 
 Définissez `loop` pour que le carrousel revienne à la première diapositive après la dernière.
 
-<ExampleFrame variant="component">
-  <LoopCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/loop.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidLoop} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueLoop} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-loop.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/loop" />
 
 ### Glissement à la souris
 
 Activez le glissement à la souris pour permettre aux utilisateurs sur ordinateur de parcourir les diapositives
 avec le même geste que sur un écran tactile.
 
-<ExampleFrame variant="component">
-  <MouseDragCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/mouse-drag.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidMouseDrag} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueMouseDrag} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-mouse-drag.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/mouse-drag" />
 
 ### Pause au survol
 
@@ -486,410 +165,59 @@ Utilisez ce modèle lorsque la lecture automatique doit s’arrêter tant que le
 carrousel. L’exemple utilise `CarouselContext` avec `api.pause()` et `api.play()`. Il met également la lecture
 en pause lorsque le carrousel reçoit le focus.
 
-<ExampleFrame variant="component">
-  <PauseOnHoverCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/pause-on-hover.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidPauseOnHover} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVuePauseOnHover} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-pause-on-hover.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/pause-on-hover" />
 
 ### Utiliser `CarouselRootProvider`
 
 Utilisez `CarouselRootProvider` lorsque l’état du carrousel doit être créé en dehors du sous-arbre rendu et
 partagé entre plusieurs parties de la composition.
 
-<ExampleFrame variant="component">
-  <RootProviderCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/root-provider" />
 
 ### Accéder directement à une diapositive
 
 Utilisez l’API du carrousel via le contexte lorsqu’un autre contrôle doit accéder directement à une diapositive.
 
-<ExampleFrame variant="component">
-  <ScrollToCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/scroll-to-slide.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidScrollToSlide} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueScrollToSlide} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-scroll-to-slide.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/scroll-to-slide" />
 
 ### Diapositives par page
 
 Augmentez `slidesPerPage` pour afficher plusieurs éléments à la fois au lieu d’un seul panneau pleine largeur.
 
-<ExampleFrame variant="component">
-  <SlidesPerPageCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/slides-per-page.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidSlidesPerPage} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueSlidesPerPage} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-slides-per-page.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/slides-per-page" />
 
 ### Espacement
 
 Augmentez `spacing` pour ajouter de l’espace entre les diapositives voisines dans des mises en page éditoriales,
 des galeries de produits ou des interfaces personnalisées.
 
-<ExampleFrame variant="component">
-  <SpacingCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/spacing.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidSpacing} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueSpacing} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-spacing.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/spacing" />
 
 ### Indicateurs sous forme de miniatures
 
 Affichez un contenu personnalisé dans les indicateurs lorsque la pagination doit montrer un aperçu des diapositives
 sous forme de miniatures plutôt que de simples points.
 
-<ExampleFrame variant="component">
-  <ThumbnailIndicatorCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/thumbnail-indicators.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidThumbnailIndicators} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueThumbnailIndicators} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-thumbnail-indicators.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/thumbnail-indicators" />
 
 ### Tailles variables
 
 Activez `autoSize` lorsque la largeur des diapositives doit suivre leur contenu plutôt qu’une grille de page fixe.
 
-<ExampleFrame variant="component">
-  <VariableSizeCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/variable-sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidVariableSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueVariableSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-variable-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/variable-sizes" />
 
 ### Orientation verticale
 
 Passez à l’orientation verticale lorsque le carrousel et ses contrôles doivent fonctionner sur l’axe vertical.
 
-<ExampleFrame variant="component">
-  <VerticalCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/vertical.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidVertical} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueVertical} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-vertical.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/vertical" />
 
 ### Personnalisation avancée
 
 N’utilisez pas `CarouselIndicators` lorsque vous devez afficher vous-même `pageSnapPoints` ou placer la pagination
 à côté d’autres contrôles pilotés par le contexte.
 
-<ExampleFrame variant="component">
-  <AdvancedCustomizationCarousel />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/carousel/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={carouselSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={carouselVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/carousel/carousel-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="carousel/advanced-customization" />
 
 ## Styles
 

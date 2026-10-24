@@ -14,7 +14,6 @@ import {
   MenuItemText,
 } from '@moduix/react/menu';
 import { useState } from 'react';
-import styles from '@/components/examples/menu/menu-radio-items.module.css';
 
 export default function RadioItemsMenuDemo() {
   const [sortBy, setSortBy] = useState('date');
@@ -27,7 +26,7 @@ export default function RadioItemsMenuDemo() {
         </Button>
       </MenuTrigger>
       <MenuPositioner>
-        <MenuContent className={styles.content}>
+        <MenuContent>
           <MenuViewport>
             <MenuItemGroup>
               <MenuItemGroupLabel>Sort By</MenuItemGroupLabel>

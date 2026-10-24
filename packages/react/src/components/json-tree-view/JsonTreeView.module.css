@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: flex;
     width: 100%;
     min-width: 0;
@@ -9,61 +8,60 @@
     font-family: var(--moduix-font-mono);
     font-size: var(--moduix-text-xs);
     line-height: var(--moduix-line-height-text-xs);
-
-    &[data-disabled] {
-      opacity: var(--moduix-opacity-disabled);
-    }
   }
 
   .tree,
-  .root :where([data-scope='json-tree-view'][data-part='branch']) {
+  .root
+    :where([data-scope='json-tree-view']:is([data-part='branch'], [data-part='branch-content'])) {
     display: flex;
     min-width: 0;
     flex-direction: column;
     gap: var(--moduix-spacing-1);
   }
 
-  .root
-    :where(
-      [data-scope='json-tree-view'][data-part='branch-control'],
-      [data-scope='json-tree-view'][data-part='item']
-    ) {
+  .root :where([data-scope='json-tree-view'][data-part='branch-content']) {
+    overflow: hidden;
+
+    &[data-state='open'] {
+      animation: global(moduix-collapsible-content-open) var(--moduix-transition-default);
+    }
+
+    &[data-state='closed'] {
+      animation: global(moduix-collapsible-content-closed) var(--moduix-transition-default);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &[data-state] {
+        animation: none;
+      }
+    }
+  }
+
+  .root :where([data-scope='json-tree-view']:is([data-part='branch-control'], [data-part='item'])) {
+    /* Nesting offset; Ark sets --depth on every generated row. */
+    --_json-tree-view-indent: calc((var(--depth) - 1) * var(--moduix-spacing-4));
+
     position: relative;
     z-index: 0;
-    box-sizing: border-box;
     display: flex;
-    width: 100%;
     min-width: 0;
-    min-height: calc(var(--moduix-line-height-text-xs) + (var(--moduix-spacing-0-5) * 2));
-    align-items: center;
+    /* Keeps the indicator on the first line when a long preview wraps. */
+    align-items: flex-start;
     gap: var(--moduix-spacing-0-5);
-    border: 0;
     border-radius: var(--moduix-radius-xs);
-    padding-block: var(--moduix-spacing-0-5);
-    padding-inline-end: var(--moduix-spacing-1);
-    padding-inline-start: calc(
-      var(--moduix-spacing-1) + var(--moduix-spacing-1) + ((var(--depth, 1) - 1) * 1rem)
-    );
-    background-color: transparent;
-    color: inherit;
-    cursor: pointer;
-    font: inherit;
     outline: none;
-    text-align: start;
-    transition:
-      color var(--moduix-transition-default),
-      opacity var(--moduix-transition-default);
-    user-select: none;
+    padding-block: var(--moduix-spacing-0-5);
+    padding-inline: calc(var(--_json-tree-view-indent) + var(--moduix-spacing-2))
+      var(--moduix-spacing-1);
+    cursor: pointer;
 
     &::before {
       position: absolute;
       z-index: -1;
       inset-block: 0;
-      inset-inline-end: 0;
-      inset-inline-start: calc(var(--moduix-spacing-1) + ((var(--depth, 1) - 1) * 1rem));
+      inset-inline: calc(var(--_json-tree-view-indent) + var(--moduix-spacing-1)) 0;
       border-radius: inherit;
-      background-color: transparent;
-      box-shadow: inset 0 0 0 var(--moduix-border-width-sm) transparent;
+      box-shadow: inset 0 0 0 var(--moduix-focus-ring-inset-width) transparent;
       content: '';
       pointer-events: none;
       transition:
@@ -72,19 +70,7 @@
     }
 
     @media (hover: hover) {
-      &:not([data-disabled]):hover {
-        &::before {
-          background-color: color-mix(
-            in oklab,
-            var(--moduix-color-accent) 72%,
-            var(--moduix-color-background)
-          );
-        }
-      }
-    }
-
-    &[data-selected] {
-      &::before {
+      &:hover::before {
         background-color: color-mix(
           in oklab,
           var(--moduix-color-accent) 72%,
@@ -93,24 +79,25 @@
       }
     }
 
-    &:focus-visible,
-    &[data-focus] {
-      &::before {
-        box-shadow: inset 0 0 0 var(--moduix-border-width-sm) var(--moduix-color-ring);
-      }
+    &[data-selected]::before {
+      background-color: color-mix(
+        in oklab,
+        var(--moduix-color-accent) 72%,
+        var(--moduix-color-background)
+      );
     }
 
-    &[data-disabled] {
-      color: var(--moduix-color-muted-foreground);
-      cursor: default;
+    &:focus-visible::before,
+    &[data-focus]::before {
+      box-shadow: inset 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-color-ring);
     }
   }
 
   .root :where([data-scope='json-tree-view'][data-part='branch-indicator']) {
     display: inline-flex;
     width: var(--moduix-spacing-3);
-    height: var(--moduix-spacing-3);
-    flex: 0 0 var(--moduix-spacing-3);
+    height: 1lh;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
     color: color-mix(
@@ -131,28 +118,22 @@
   }
 
   .root
-    :where(
-      [data-scope='json-tree-view'][data-part='branch-text'],
-      [data-scope='json-tree-view'][data-part='item-text']
-    ) {
+    :where([data-scope='json-tree-view']:is([data-part='branch-text'], [data-part='item-text'])) {
     min-width: 0;
     overflow-wrap: anywhere;
   }
 
-  .root :where([data-scope='json-tree-view'][data-part='branch-content']) {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
-    gap: var(--moduix-spacing-1);
-    overflow: hidden;
-  }
-
   .root :where([data-kind='key']) {
     color: color-mix(in oklab, var(--moduix-color-chart-1) 72%, var(--moduix-color-foreground));
-    font-weight: var(--moduix-weight-medium);
   }
 
-  .root :where([data-kind='colon'], [data-kind='brace'], [data-kind='preview-text']) {
+  .root
+    :where(
+      [data-kind='colon'],
+      [data-kind='brace'],
+      [data-kind='preview-text'],
+      [data-kind='constructor']
+    ) {
     color: var(--moduix-color-muted-foreground);
   }
 
@@ -160,7 +141,13 @@
     margin-inline-end: var(--moduix-spacing-0-5);
   }
 
-  .root :where([data-kind='brace']) {
+  .root
+    :where(
+      [data-kind='key'],
+      [data-kind='brace'],
+      [data-kind='constructor'],
+      [data-kind='preview']:is([data-type='boolean'], [data-type='null'], [data-type='undefined'])
+    ) {
     font-weight: var(--moduix-weight-medium);
   }
 
@@ -168,21 +155,17 @@
     color: color-mix(in oklab, var(--moduix-color-success) 78%, var(--moduix-color-foreground));
   }
 
-  .root
-    :where([data-kind='preview'][data-type='number'], [data-kind='preview'][data-type='bigint']) {
+  .root :where([data-kind='preview']:is([data-type='number'], [data-type='bigint'])) {
     color: color-mix(in oklab, var(--moduix-color-chart-3) 78%, var(--moduix-color-foreground));
   }
 
   .root :where([data-kind='preview'][data-type='boolean']) {
     color: color-mix(in oklab, var(--moduix-color-chart-4) 74%, var(--moduix-color-foreground));
-    font-weight: var(--moduix-weight-medium);
   }
 
-  .root
-    :where([data-kind='preview'][data-type='null'], [data-kind='preview'][data-type='undefined']) {
+  .root :where([data-kind='preview']:is([data-type='null'], [data-type='undefined'])) {
     color: var(--moduix-color-muted-foreground);
     font-style: italic;
-    font-weight: var(--moduix-weight-medium);
   }
 
   .root
@@ -202,10 +185,5 @@
     ) {
     color: color-mix(in oklab, var(--moduix-color-chart-5) 72%, var(--moduix-color-foreground));
     font-style: italic;
-  }
-
-  .root :where([data-kind='constructor']) {
-    color: var(--moduix-color-muted-foreground);
-    font-weight: var(--moduix-weight-medium);
   }
 }

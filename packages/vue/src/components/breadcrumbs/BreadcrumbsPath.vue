@@ -10,7 +10,7 @@ import BreadcrumbsSeparator from './BreadcrumbsSeparator.vue';
 
 defineOptions({ inheritAttrs: false });
 
-type BreadcrumbsPathLink = {
+export type BreadcrumbsPathLink = {
   href: string;
   label: VNodeChild;
 };

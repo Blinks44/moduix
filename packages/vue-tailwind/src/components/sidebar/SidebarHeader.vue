@@ -15,17 +15,15 @@ const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+
+const headerClass =
+  'flex flex-none items-center gap-2 p-3 group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:px-1 [&>*:only-child]:w-full group-data-[state=collapsed]/sidebar-panel:[&>*:only-child]:w-auto';
 </script>
 
 <template>
   <ark.header
     v-bind="attrs"
-    :class="
-      cn(
-        'flex flex-none items-center gap-2 p-3 group-data-[state=collapsed]/sidebar-panel:justify-center group-data-[state=collapsed]/sidebar-panel:px-1 [&>*:only-child]:w-full group-data-[state=collapsed]/sidebar-panel:[&>*:only-child]:w-auto',
-        className,
-      )
-    "
+    :class="cn(headerClass, className)"
     data-scope="sidebar"
     data-part="header"
     data-slot="sidebar-header"

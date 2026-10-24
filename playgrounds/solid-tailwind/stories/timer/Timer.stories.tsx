@@ -13,7 +13,7 @@ import {
   TimerContext,
   useTimer,
 } from '@/components/timer/Timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from '@/lib/moduix/icons/ui/Icons';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from '@/lib/moduix/icons/ui';
 
 const meta = {
   title: 'Components/Timer',

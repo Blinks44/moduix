@@ -229,6 +229,38 @@ test('keeps its close icon accessible and viewport-fixed, then restores trigger 
     .toBeFocused();
 });
 
+test('fades the close icon with content and uses the shared dialog motion', async () => {
+  render(() => (
+    <Lightbox defaultOpen portalled={false}>
+      <LightboxBackdrop />
+      <LightboxPositioner>
+        <LightboxContent aria-label="Image preview">
+          <LightboxCloseIcon />
+          <LightboxBody>
+            <LightboxImage src="/full-size.jpg" alt="Mountain ridge" />
+          </LightboxBody>
+        </LightboxContent>
+      </LightboxPositioner>
+    </Lightbox>
+  ));
+
+  const backdrop = document.querySelector('[data-slot="lightbox-backdrop"]')!;
+  const content = document.querySelector('[data-slot="lightbox-content"]')!;
+  const closeIcon = document.querySelector('[data-slot="lightbox-close-icon"]')!;
+  expect(getComputedStyle(backdrop).animationName).toBe('moduix-dialog-backdrop-in');
+  expect(getComputedStyle(content).animationDuration).toBe('0.2s');
+  expect(closeIcon.hasAttribute('data-state')).toBe(false);
+
+  // Click and poll in the page so the exit animation is read before the content unmounts.
+  screen.getByRole('button', { name: 'Close image' }).click();
+
+  await expect.poll(() => content.getAttribute('data-state')).toBe('closed');
+  expect(getComputedStyle(content).animationFillMode).toBe('forwards');
+  expect(getComputedStyle(backdrop).animationFillMode).toBe('forwards');
+  expect(getComputedStyle(closeIcon).visibility).toBe('visible');
+  await expect.element(page.getByRole('dialog')).toHaveCount(0);
+});
+
 test('exposes RootProvider state through useLightboxContext', async () => {
   function LightboxStatus() {
     const dialog = useLightboxContext();

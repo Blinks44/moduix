@@ -77,7 +77,9 @@ framework-selection guidance.
 ## Runnable previews
 
 - Keep runnable component-page examples in `website/src/components/examples/<component>/<name>.tsx`.
-- Render an imported example with `ExampleFrame` when the page also shows its source; use Rspress's
+- Render a standard component example with `<Example name="<component>/<name>" />`; see the
+  [component-page contract](references/component-pages.md). Use explicit `ExampleFrame` markup only for
+  nonstandard examples; use Rspress's
   `tsx preview file="../../../src/components/examples/<component>/<name>.tsx"` directive for a
   direct preview.
 - Mark source-only `tsx` or `jsx` fences that load code from a file with `pure` before `file=`, as
@@ -120,8 +122,8 @@ Read [preview rules](references/previews.md) whenever adding or changing a previ
   configured; a Tailwind path also assumes Tailwind CSS v4 is configured. Do not scaffold a project
   or reinstall framework runtimes or `tailwindcss`. Keep the matching Ark UI peer explicit in package
   commands so the instructions work consistently across npm, pnpm, Yarn, and Bun.
-- Never edit `website/docs/public/r` by hand. Run `pnpm run build:registry` and keep generated output
-  for every shipped package registry affected by the source change.
+- `website/docs/public/r` is generated and gitignored. Run `pnpm run build:registry` to validate
+  every shipped package registry affected by the source change.
 - `website/registry.json` owns installable blocks at `/r/blocks`. Blocks reuse native source per
   framework and a shared layout CSS Module across styling tracks; their registry dependencies
   select the matching UI primitives. Use the existing shadcn build, not a separate generator.

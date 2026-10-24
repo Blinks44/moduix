@@ -1,3 +1,4 @@
+import { Button } from '@moduix/solid/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -27,7 +28,7 @@ export default function AcceptedTypesFileUploadDemo() {
         <div class={styles.dropzoneContent}>
           <span class={styles.dropzoneTitle}>Drop PNG or JPEG files here</span>
           <span class={styles.dropzoneDescription}>Only PNG and JPEG files are accepted</span>
-          <FileUploadTrigger>Select images</FileUploadTrigger>
+          <FileUploadTrigger asChild={(props) => <Button {...props()}>Select images</Button>} />
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>
@@ -38,7 +39,7 @@ export default function AcceptedTypesFileUploadDemo() {
                 <FileUploadItem file={file}>
                   <FileUploadItemName />
                   <FileUploadItemSizeText />
-                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                  <FileUploadItemDeleteTrigger />
                 </FileUploadItem>
               )}
             </For>

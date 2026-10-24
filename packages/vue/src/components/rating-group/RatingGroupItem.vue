@@ -13,10 +13,23 @@ export interface Props extends /* @vue-ignore */ RatingGroupItemProps {
   index: RatingGroupItemProps['index'];
 }
 
+const emit = defineEmits<{ pointerdown: [event: PointerEvent] }>();
+
 const { class: className, index } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+
+const handlePointerDown = (event: PointerEvent) => {
+  emit('pointerdown', event);
+
+  if (event.button !== 0) return;
+
+  const currentTarget = event.currentTarget as HTMLElement | null;
+  if (!currentTarget || currentTarget.matches('[data-disabled], [data-readonly]')) return;
+
+  currentTarget.focus({ preventScroll: true, focusVisible: false });
+};
 </script>
 
 <template>
@@ -24,6 +37,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="clsx(styles.item, className)"
     :index="index"
+    @pointerdown="handlePointerDown"
     data-slot="rating-group-item"
   >
     <slot />

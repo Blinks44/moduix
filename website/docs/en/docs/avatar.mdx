@@ -5,27 +5,6 @@ description: A compact representation of a user or entity with Ark UI-managed im
 ---
 
 import * as AvatarDocs from '@/components/examples/avatar/css-properties';
-import AvatarBasic from '@/components/examples/avatar/basic.tsx';
-import AvatarCustomComposition from '@/components/examples/avatar/custom-composition.tsx';
-import AvatarCustomFallback from '@/components/examples/avatar/custom-fallback.tsx';
-import AvatarCustomImage from '@/components/examples/avatar/custom-image.tsx';
-import AvatarEvents from '@/components/examples/avatar/events.tsx';
-import AvatarRootProvider from '@/components/examples/avatar/root-provider.tsx';
-import AvatarSizesAndFallbackOnly from '@/components/examples/avatar/sizes-and-fallback-only.tsx';
-import avatarSolidBasic from '../../../snippets/avatar/solid/basic.tsx?raw';
-import avatarSolidCustomComposition from '../../../snippets/avatar/solid/custom-composition.tsx?raw';
-import avatarSolidCustomFallback from '../../../snippets/avatar/solid/custom-fallback.tsx?raw';
-import avatarSolidCustomImage from '../../../snippets/avatar/solid/custom-image.tsx?raw';
-import avatarSolidEvents from '../../../snippets/avatar/solid/events.tsx?raw';
-import avatarSolidRootProvider from '../../../snippets/avatar/solid/root-provider.tsx?raw';
-import avatarSolidSizesAndFallbackOnly from '../../../snippets/avatar/solid/sizes-and-fallback-only.tsx?raw';
-import avatarVueBasic from '../../../snippets/avatar/vue/basic.vue?raw';
-import avatarVueCustomComposition from '../../../snippets/avatar/vue/custom-composition.vue?raw';
-import avatarVueCustomFallback from '../../../snippets/avatar/vue/custom-fallback.vue?raw';
-import avatarVueCustomImage from '../../../snippets/avatar/vue/custom-image.vue?raw';
-import avatarVueEvents from '../../../snippets/avatar/vue/events.vue?raw';
-import avatarVueRootProvider from '../../../snippets/avatar/vue/root-provider.vue?raw';
-import avatarVueSizesAndFallbackOnly from '../../../snippets/avatar/vue/sizes-and-fallback-only.vue?raw';
 
 ## API Reference
 
@@ -41,41 +20,7 @@ React, Solid, and Vue use the same flat value names. Import `Avatar` as the root
 additional part directly, such as `AvatarImage` and `AvatarFallback`. The same names work with npm
 packages and shadcn registry source.
 
-<ExampleFrame variant="component">
-  <AvatarBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="avatar/basic" />
 
 ## Install with shadcn
 
@@ -123,6 +68,9 @@ Avatar
 
 AvatarRootProvider
 └─ same parts connected to a useAvatar() store
+
+AvatarGroup
+└─ Avatar, Avatar, ...
 ```
 
 | Part                | Role                                                               |
@@ -131,6 +79,7 @@ AvatarRootProvider
 | `AvatarRootProvider` | Renders an avatar from Ark UI state created outside the component. |
 | `AvatarFallback`    | Shows consumer-provided content until the image loads.             |
 | `AvatarImage`       | Shows the image after it loads successfully.                       |
+| `AvatarGroup`       | Stacks avatars with an overlap and a background-colored ring.      |
 
 ## Composition
 
@@ -154,46 +103,7 @@ itself is not forwarded through that composition path. Vue refs point to the com
 Fallback content can be an icon or another compact identity marker. Add an accessible name when
 the fallback itself conveys information that is not available in nearby text.
 
-<ExampleFrame variant="component">
-  <AvatarCustomFallback />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/custom-fallback.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidCustomFallback} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueCustomFallback} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-custom-fallback.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/custom-fallback" />
 
 ### Custom Image
 
@@ -201,229 +111,49 @@ Use `useAvatarContext()` from the matching moduix package in React and Solid whe
 component or custom renderer needs to participate in Ark's loading lifecycle. In Vue, use the
 `AvatarContext` scoped slot to receive its image state.
 
-<ExampleFrame variant="component">
-  <AvatarCustomImage />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/custom-image.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidCustomImage} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueCustomImage} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-custom-image.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/custom-image" />
 
 ### Events
 
 Use `onStatusChange(details)` when surrounding UI needs to react to the image lifecycle.
 
-<ExampleFrame variant="component">
-  <AvatarEvents />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/events.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidEvents} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueEvents} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-events.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/events" />
 
 ### Root Provider
 
 Create state with `useAvatar` from the matching framework package when controls outside the avatar
 need to coordinate with it, then render `AvatarRootProvider` instead of `Avatar`.
 
-<ExampleFrame variant="component">
-  <AvatarRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/root-provider" />
 
 ### Sizes and Fallback Only
 
 The moduix `size` shortcut maps common design-token sizes onto either root component. A fallback-only
 avatar is valid when no image source exists.
 
-<ExampleFrame variant="component">
-  <AvatarSizesAndFallbackOnly />
-</ExampleFrame>
+<Example name="avatar/sizes-and-fallback-only" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+### Group
 
-```tsx pure file="../../../src/components/examples/avatar/sizes-and-fallback-only.tsx"
-```
+Wrap avatars in `AvatarGroup` to stack them with an overlap. Every avatar after the first shifts
+under its neighbor, and each avatar root gets a ring in the page background color. Render the `+N`
+avatar yourself when the list is truncated.
 
-    </Tab>
-    <Tab value="solid">
+<Example name="avatar/group" />
 
-<CodeBlockRuntime lang="tsx" code={avatarSolidSizesAndFallbackOnly} />
+### Status Indicator
 
-    </Tab>
-    <Tab value="vue">
+The avatar root does not clip its children, so an absolutely positioned element inside `Avatar` can
+mark presence or a badge. Give it an accessible name when the status is not stated in nearby text.
 
-<CodeBlockRuntime lang="vue" code={avatarVueSizesAndFallbackOnly} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-sizes-and-fallback-only.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/status" />
 
 ### Advanced Customization
 
 Use `asChild` when the avatar itself is the interactive element. This replaces the default root DOM
 node while keeping Ark state, fallback behavior, and part composition explicit.
 
-<ExampleFrame variant="component">
-  <AvatarCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/avatar/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={avatarSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={avatarVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/avatar/avatar-custom-composition.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="avatar/custom-composition" />
 
 ## Styling
 
@@ -438,10 +168,11 @@ to CSS Modules variants. For state-based styles, prefer Ark data attributes toge
 
 ### Styling hooks
 
-- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, and `avatar-fallback`.
+- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, `avatar-fallback`, and
+  `avatar-group`.
 - Ark anatomy hooks: `data-scope="avatar"` and
   `data-part="root" | "image" | "fallback"`.
 - Ark image state: `data-state="visible" | "hidden"` on `AvatarImage` and
   `AvatarFallback`.
 - moduix size state: `data-size="xs" | "sm" | "md" | "lg" | "xl"` on
-  `Avatar` and `AvatarRootProvider` when `size` is provided.
+  `Avatar` and `AvatarRootProvider`, `md` by default.

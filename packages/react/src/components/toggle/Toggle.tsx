@@ -43,4 +43,11 @@ const ToggleIndicator = forwardRef<
 });
 
 export { Toggle, ToggleContext, ToggleIndicator, useToggleContext };
+export type {
+  ToggleContextProps,
+  ToggleIndicatorProps,
+  UseToggleContext,
+  UseToggleProps,
+  UseToggleReturn,
+} from '@ark-ui/react/toggle';
 export type { ToggleRootProps, ToggleSize, ToggleVariant };

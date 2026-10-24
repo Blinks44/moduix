@@ -10,24 +10,21 @@ import {
   SliderTrack,
   SliderValueText,
 } from '@moduix/vue/slider';
-import styles from '@/components/examples/slider/slider-marks.module.css';
 
 const marks = [0, 25, 50, 75, 100];
 </script>
 
 <template>
   <Slider :default-value="[50]">
-    <div :class="styles.header">
-      <SliderLabel>Progress</SliderLabel>
-      <SliderValueText />
-    </div>
+    <SliderLabel>Progress</SliderLabel>
+    <SliderValueText />
     <SliderControl>
       <SliderTrack>
         <SliderRange />
       </SliderTrack>
       <SliderThumbs />
     </SliderControl>
-    <SliderMarkerGroup :class="styles.markerGroup">
+    <SliderMarkerGroup>
       <SliderMarker v-for="value in marks" :key="value" :value="value">{{ value }}</SliderMarker>
     </SliderMarkerGroup>
   </Slider>

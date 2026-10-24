@@ -8,8 +8,8 @@
 }
 
 .customProgress {
-  --moduix-progress-linear-width: 16rem;
-  --moduix-progress-linear-track-height: 0.75rem;
+  width: 16rem;
+  --moduix-progress-linear-track-size: 0.75rem;
   --moduix-progress-linear-track-bg: var(--moduix-color-accent);
 }
 
@@ -23,11 +23,10 @@
 }
 
 .verticalProgress {
-  --moduix-progress-linear-height: 10rem;
+  height: 10rem;
 }
 
 .composedTrack {
-  box-sizing: border-box;
   display: flex;
   align-items: stretch;
   height: 1rem;

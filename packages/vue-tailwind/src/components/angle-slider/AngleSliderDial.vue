@@ -7,8 +7,7 @@ import AngleSliderValueText from './AngleSliderValueText.vue';
 
 defineOptions({ inheritAttrs: false });
 
-export interface Props
-  extends /* @vue-ignore */ Omit<AngleSliderControlProps, 'asChild' | 'children'> {}
+export interface Props extends /* @vue-ignore */ Omit<AngleSliderControlProps, 'asChild'> {}
 
 type DialEmits = { pointerdown: [event: PointerEvent] };
 

@@ -69,6 +69,9 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
   when the primitive provides them.
 - For mount and unmount animations, prefer CSS keyframes on `[data-state='open']` and `[data-state='closed']`.
   JavaScript animation paths should rely on Ark `present` in component code rather than CSS-only assumptions.
+- Under `prefers-reduced-motion: reduce`, disable these animations with `animation: none` on the same state
+  selectors (Tailwind: `motion-reduce:<same state variants>:animate-none`, so it wins on specificity). Ark
+  presence unmounts at once when the animation name is `none`; do not shorten durations to 1ms instead.
 - Do not translate Ark state attributes into parallel custom modifier classes unless the wrapper exposes an
   intentional local styling contract.
 - Do not override Ark-owned positioning, measurements, transforms, or runtime variables without confirming the
@@ -95,6 +98,13 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - Do not add `--moduix-<component>-*` wrappers around ordinary spacing, sizing, typography, border,
   opacity, or transition utilities. Keep detailed component variables in CSS Modules where they are
   useful; Tailwind consumers override defaults through `className`/`class` and `tailwind-merge`.
+- Dim disabled and read-only states with `opacity-disabled` (the `--moduix-opacity-disabled` token,
+  the same one CSS Modules use), never a numeric `opacity-50`.
+- Time transitions with the theme utilities `duration-fast`, `duration-normal`, and `duration-slow`
+  (the `--moduix-duration-*` tokens, the same ones CSS Modules use) plus `ease-in-out`; never numeric
+  `duration-150`/`duration-200`. The tokens drop to 0.01ms under reduced motion, so do not add
+  `motion-reduce:transition-none`. Register any new theme duration in every package's `cn` merge
+  configuration.
 - Keep Ark state variants next to the base utilities they modify.
 - Tailwind Preflight owns reset behavior; do not combine it with `foundation/src/styles/reset.css`.
 - Let oxfmt sort utility classes. Do not add another formatter or hand-maintained ordering scheme.

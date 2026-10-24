@@ -5,54 +5,6 @@ description: Композиция Select на базе Ark UI для выбор�
 ---
 
 import * as SelectDocs from '@/components/examples/select/css-properties';
-import SelectAdvancedCustomization from '@/components/examples/select/advanced-customization.tsx';
-import SelectBasic from '@/components/examples/select/basic.tsx';
-import SelectControlled from '@/components/examples/select/controlled.tsx';
-import SelectCustomItemLayout from '@/components/examples/select/custom-item-layout.tsx';
-import SelectDynamicItems from '@/components/examples/select/dynamic-items.tsx';
-import SelectField from '@/components/examples/select/field.tsx';
-import SelectFormUsage from '@/components/examples/select/form-usage.tsx';
-import SelectGrouping from '@/components/examples/select/grouping.tsx';
-import SelectLazyMount from '@/components/examples/select/lazy-mount.tsx';
-import SelectMaxSelection from '@/components/examples/select/max-selection.tsx';
-import SelectMultiple from '@/components/examples/select/multiple.tsx';
-import SelectOverflow from '@/components/examples/select/overflow.tsx';
-import SelectRootProvider from '@/components/examples/select/root-provider.tsx';
-import SelectSearchInPopup from '@/components/examples/select/search-in-popup.tsx';
-import SelectSelectAll from '@/components/examples/select/select-all.tsx';
-import SelectSelectOnHighlight from '@/components/examples/select/select-on-highlight.tsx';
-import selectSolidAdvancedCustomization from '../../../snippets/select/solid/advanced-customization.tsx?raw';
-import selectSolidBasic from '../../../snippets/select/solid/basic.tsx?raw';
-import selectSolidControlled from '../../../snippets/select/solid/controlled.tsx?raw';
-import selectSolidCustomItemLayout from '../../../snippets/select/solid/custom-item-layout.tsx?raw';
-import selectSolidDynamicItems from '../../../snippets/select/solid/dynamic-items.tsx?raw';
-import selectSolidField from '../../../snippets/select/solid/field.tsx?raw';
-import selectSolidFormUsage from '../../../snippets/select/solid/form-usage.tsx?raw';
-import selectSolidGrouping from '../../../snippets/select/solid/grouping.tsx?raw';
-import selectSolidLazyMount from '../../../snippets/select/solid/lazy-mount.tsx?raw';
-import selectSolidMaxSelection from '../../../snippets/select/solid/max-selection.tsx?raw';
-import selectSolidMultiple from '../../../snippets/select/solid/multiple.tsx?raw';
-import selectSolidOverflow from '../../../snippets/select/solid/overflow.tsx?raw';
-import selectSolidRootProvider from '../../../snippets/select/solid/root-provider.tsx?raw';
-import selectSolidSearchInPopup from '../../../snippets/select/solid/search-in-popup.tsx?raw';
-import selectSolidSelectAll from '../../../snippets/select/solid/select-all.tsx?raw';
-import selectSolidSelectOnHighlight from '../../../snippets/select/solid/select-on-highlight.tsx?raw';
-import selectVueAdvancedCustomization from '../../../snippets/select/vue/advanced-customization.vue?raw';
-import selectVueBasic from '../../../snippets/select/vue/basic.vue?raw';
-import selectVueControlled from '../../../snippets/select/vue/controlled.vue?raw';
-import selectVueCustomItemLayout from '../../../snippets/select/vue/custom-item-layout.vue?raw';
-import selectVueDynamicItems from '../../../snippets/select/vue/dynamic-items.vue?raw';
-import selectVueField from '../../../snippets/select/vue/field.vue?raw';
-import selectVueFormUsage from '../../../snippets/select/vue/form-usage.vue?raw';
-import selectVueGrouping from '../../../snippets/select/vue/grouping.vue?raw';
-import selectVueLazyMount from '../../../snippets/select/vue/lazy-mount.vue?raw';
-import selectVueMaxSelection from '../../../snippets/select/vue/max-selection.vue?raw';
-import selectVueMultiple from '../../../snippets/select/vue/multiple.vue?raw';
-import selectVueOverflow from '../../../snippets/select/vue/overflow.vue?raw';
-import selectVueRootProvider from '../../../snippets/select/vue/root-provider.vue?raw';
-import selectVueSearchInPopup from '../../../snippets/select/vue/search-in-popup.vue?raw';
-import selectVueSelectAll from '../../../snippets/select/vue/select-all.vue?raw';
-import selectVueSelectOnHighlight from '../../../snippets/select/vue/select-on-highlight.vue?raw';
 
 ## Справочник API
 
@@ -68,41 +20,7 @@ import selectVueSelectOnHighlight from '../../../snippets/select/vue/select-on-h
 
 Передайте коллекцию в `Select`, используйте `SelectField` для стандартного видимого поля и явно опишите структуру всплывающего окна. Свойство `clearLabel` добавляет доступную кнопку очистки. Явно добавьте `SelectHiddenSelect`, когда нужны нативная отправка, автозаполнение, валидация и сброс.
 
-<ExampleFrame variant="component">
-  <SelectBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="select/basic" />
 
 ## Установка через shadcn
 
@@ -157,6 +75,7 @@ Select
 │        ├─ SelectList
 │        └─ SelectItemGroup
 │           ├─ SelectItemGroupLabel
+│           ├─ SelectOption[item]
 │           └─ SelectItem[item]
 │              ├─ SelectItemText
 │              │  └─ SelectItemTextContent
@@ -186,6 +105,7 @@ Select
 | `SelectItemGroup`         | Обёртка группы связанных элементов коллекции.                           |
 | `SelectItemGroupLabel`   | Подпись группы коллекции.                                                |
 | `SelectItem`              | Выбираемая строка. Передайте элемент коллекции через `item`.             |
+| `SelectOption` | Готовая строка для простых пунктов с текстом и индикатором. |
 | `SelectItemText`          | Текст для отображения и доступности.                                    |
 | `SelectItemTextContent`   | Вспомогательный компонент для разметки сложного текста элемента.        |
 | `SelectItemTextIcon`      | Обёртка для иконки в тексте элемента.                                   |
@@ -194,7 +114,7 @@ Select
 
 ## Композиция
 
-`SelectField` объединяет `SelectControl`, `SelectTrigger`, `SelectValueText` и стандартный `SelectIndicator`. Передайте `clearLabel`, чтобы добавить подписанную кнопку очистки, или используйте явные части, когда разметку триггера нужно стилизовать независимо. Оставляйте `SelectPositioner`, `SelectContent` и элементы коллекции в одном дереве Select.
+`SelectField` объединяет `SelectControl`, `SelectTrigger`, `SelectValueText` и стандартный `SelectIndicator`. Передайте `clearLabel`, чтобы добавить подписанную кнопку очистки, или используйте явные части, когда разметку триггера нужно стилизовать независимо. Оставляйте `SelectPositioner`, `SelectContent` и элементы коллекции в одном дереве Select. Для обычных строк используйте `SelectOption`: он рендерит `SelectItem` с `SelectItemText` и `SelectItemIndicator`. Передайте `indicator={false}`, чтобы скрыть галочку, или иконку, чтобы её заменить, а для строк с особой структурой используйте `SelectItem`.
 
 Явно добавьте `SelectHiddenSelect` внутрь `Select` или `SelectRootProvider`, если выбор должен участвовать в нативной отправке формы, валидации, автозаполнении или сбросе. Корневой компонент не создаёт его автоматически. `Positioner` по умолчанию размещается через портал: для рендера в обычном потоке укажите `portalled={false}`, а для собственного контейнера используйте `portalRef`.
 
@@ -206,648 +126,108 @@ Select
 
 Управляйте массивом выбранных строк через состояние React, сигнал Solid или ref Vue и обновляйте его из `details.value`.
 
-<ExampleFrame variant="component">
-  <SelectControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueControlled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="select/controlled" />
 
 ### Пользовательская разметка элемента
 
 Используйте `SelectItemTextContent`, `SelectItemTextIcon` и `SelectItemTextLabel` внутри
 `ItemText`, когда элементу нужны иконка и подпись с обрезанием по ширине.
 
-<ExampleFrame variant="component">
-  <SelectCustomItemLayout />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/custom-item-layout.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidCustomItemLayout} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueCustomItemLayout} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="select/custom-item-layout" />
 
 ### Динамические элементы
 
 Обновляйте коллекцию, когда меняется список доступных элементов. Композиция Select при этом
 остаётся прежней.
 
-<ExampleFrame variant="component">
-  <SelectDynamicItems />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/dynamic-items.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidDynamicItems} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueDynamicItems} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/select/select-dynamic-items.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="select/dynamic-items" />
 
 ### Поле формы
 
 Оберните Select в `Field`, когда к полю формы относятся подпись, текст подсказки или состояния
 `invalid`, `required` и `disabled`.
 
-<ExampleFrame variant="component">
-  <SelectField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/select/select-field.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="select/field" />
 
 ### Использование в форме
 
 Явно добавленный `SelectHiddenSelect` сохраняет обычную отправку формы. Читайте отправленные
 значения из `FormData`.
 
-<ExampleFrame variant="component">
-  <SelectFormUsage />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/form-usage.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidFormUsage} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueFormUsage} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/select/select-form-usage.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="select/form-usage" />
 
 ### Группировка
 
 Задайте `groupBy` для коллекции и отрендерите `collection.group()` с помощью `ItemGroup` и
 `ItemGroupLabel`.
 
-<ExampleFrame variant="component">
-  <SelectGrouping />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/grouping.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidGrouping} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueGrouping} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="select/grouping" />
 
 ### Ленивое монтирование
 
 Используйте `lazyMount` и `unmountOnExit`, если содержимое всплывающего окна нужно монтировать
 только на время работы с Select.
 
-<ExampleFrame variant="component">
-  <SelectLazyMount />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/lazy-mount.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidLazyMount} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueLazyMount} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="select/lazy-mount" />
 
 ### Максимальное число выбранных элементов
 
 Ограничьте число выбранных элементов: отклоняйте массивы длиннее допустимого и отключайте остальные
 элементы.
 
-<ExampleFrame variant="component">
-  <SelectMaxSelection />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/max-selection.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidMaxSelection} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueMaxSelection} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="select/max-selection" />
 
 ### Множественный выбор
 
 Установите `multiple`, чтобы разрешить несколько выбранных значений. `ValueText` выводит подписи
 выбранных элементов из коллекции.
 
-<ExampleFrame variant="component">
-  <SelectMultiple />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/multiple.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidMultiple} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueMultiple} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="select/multiple" />
 
 ### Переполнение
 
 Для длинных списков используйте `positioning.fitViewport`. Содержимое уже ограничивает высоту с
 помощью переменной Ark `--available-height` и остаётся прокручиваемым.
 
-<ExampleFrame variant="component">
-  <SelectOverflow />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/overflow.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidOverflow} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueOverflow} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="select/overflow" />
 
 ### Root Provider
 
 Используйте `useSelect` вместе с `SelectRootProvider`, когда состояние нужно читать или
 контролировать за пределами отрендеренного дерева Select.
 
-<ExampleFrame variant="component">
-  <SelectRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/select/select-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="select/root-provider" />
 
 ### Поиск во всплывающем окне
 
 Разместите элемент фильтрации рядом с listbox внутри всплывающего окна. Храните состояние запроса и
 отфильтрованную коллекцию в своём компоненте, не расширяя API Select.
 
-<ExampleFrame variant="component">
-  <SelectSearchInPopup />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/search-in-popup.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidSearchInPopup} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueSearchInPopup} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/select/select-search-in-popup.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="select/search-in-popup" />
 
 ### Выбрать все
 
 Разместите массовые действия за пределами listbox. `useSelect` позволяет использовать их и
 Select с одним экземпляром состояния Ark.
 
-<ExampleFrame variant="component">
-  <SelectSelectAll />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/select-all.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidSelectAll} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueSelectAll} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/select/select-select-all.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="select/select-all" />
 
 ### Выбор при перемещении по вариантам
 
 Используйте `onHighlightChange(details)`, если переход по вариантам должен сразу обновлять выбор.
 
-<ExampleFrame variant="component">
-  <SelectSelectOnHighlight />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/select-on-highlight.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidSelectOnHighlight} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueSelectOnHighlight} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="select/select-on-highlight" />
 
 ### Расширенная настройка
 
 Соберите триггер, текст значения и индикатор вручную, если им нужны независимые композиция и
-стилизация. В этом случае не используйте `SelectField`.
+стилизация. В этом случае не используйте `SelectField` и `SelectOption`.
 
-<ExampleFrame variant="component">
-  <SelectAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/select/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={selectSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={selectVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="select/advanced-customization" />
 
 ## Стилизация
 
-Стилизуйте Select через `className` в React, `class` в Solid и Vue, стабильные хуки `data-slot="select-*"`, атрибуты Ark и публичные CSS-переменные `--moduix-select-*`. Варианты Tailwind используют нативные utility-классы и классы потребителя, а варианты CSS Modules используют переменные, описанные ниже.
+Стилизуйте Select через `className` в React, `class` в Solid и Vue, стабильные хуки `data-slot="select-*"` и атрибуты Ark. Варианты Tailwind используют нативные utility-классы и классы потребителя. Варианты CSS Modules оставляют пять переменных размеров, перечисленных ниже; цвета, границы, кольцо фокуса, отступы пунктов и анимация берутся из токенов foundation и общих переменных `--moduix-popup-*`, поэтому переопределяйте их классом на нужной части.
 
 ### CSS-свойства
 
@@ -858,7 +238,8 @@ Select с одним экземпляром состояния Ark.
 `SelectField` создаёт существующие слоты `select-control`, `select-trigger`, `select-value-text`,
 `select-indicator` и необязательный `select-clear-trigger`. Его свойство `indicator` передаёт
 дочерний элемент в существующий слот индикатора. Вспомогательные компоненты текста элемента
-предоставляют слоты `select-item-text-content`, `select-item-text-icon` и `select-item-text-label`.
+предоставляют слоты `select-item-text-content`, `select-item-text-icon` и `select-item-text-label`. `SelectOption` использует слоты пункта и не
+добавляет собственный хук стилизации.
 
 - Корни предоставляют `data-slot="select-root"` и `data-slot="select-root-provider"`.
 - Анатомия Ark использует `data-scope="select"` и `data-part`.

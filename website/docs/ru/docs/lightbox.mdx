@@ -5,35 +5,8 @@ description: Модальный просмотрщик изображений с
 ---
 
 import * as LightboxDocs from '@/components/examples/lightbox/css-properties';
-import LightboxAdvancedCustomization from '@/components/examples/lightbox/advanced-customization.tsx';
-import LightboxBasic from '@/components/examples/lightbox/basic.tsx';
-import LightboxBindCmsContent from '@/components/examples/lightbox/bind-cms-content.tsx';
-import LightboxClickToCloseImage from '@/components/examples/lightbox/click-to-close-image.tsx';
-import LightboxControlled from '@/components/examples/lightbox/controlled.tsx';
-import LightboxFocusAndIds from '@/components/examples/lightbox/focus-and-ids.tsx';
-import LightboxGallery from '@/components/examples/lightbox/gallery.tsx';
-import LightboxMultipleTriggers from '@/components/examples/lightbox/multiple-triggers.tsx';
-import LightboxNonModal from '@/components/examples/lightbox/non-modal.tsx';
 import LightboxRootProviderAndContext from '@/components/examples/lightbox/root-provider-and-context.tsx';
-import lightboxSolidAdvancedCustomization from '../../../snippets/lightbox/solid/advanced-customization.tsx?raw';
-import lightboxSolidBasic from '../../../snippets/lightbox/solid/basic.tsx?raw';
-import lightboxSolidBindCmsContent from '../../../snippets/lightbox/solid/bind-cms-content.tsx?raw';
-import lightboxSolidClickToCloseImage from '../../../snippets/lightbox/solid/click-to-close-image.tsx?raw';
-import lightboxSolidControlled from '../../../snippets/lightbox/solid/controlled.tsx?raw';
-import lightboxSolidFocusAndIds from '../../../snippets/lightbox/solid/focus-and-ids.tsx?raw';
-import lightboxSolidGallery from '../../../snippets/lightbox/solid/gallery.tsx?raw';
-import lightboxSolidMultipleTriggers from '../../../snippets/lightbox/solid/multiple-triggers.tsx?raw';
-import lightboxSolidNonModal from '../../../snippets/lightbox/solid/non-modal.tsx?raw';
 import lightboxSolidRootProviderAndContext from '../../../snippets/lightbox/solid/root-provider-and-context.tsx?raw';
-import lightboxVueAdvancedCustomization from '../../../snippets/lightbox/vue/advanced-customization.vue?raw';
-import lightboxVueBasic from '../../../snippets/lightbox/vue/basic.vue?raw';
-import lightboxVueBindCmsContent from '../../../snippets/lightbox/vue/bind-cms-content.vue?raw';
-import lightboxVueClickToCloseImage from '../../../snippets/lightbox/vue/click-to-close-image.vue?raw';
-import lightboxVueControlled from '../../../snippets/lightbox/vue/controlled.vue?raw';
-import lightboxVueFocusAndIds from '../../../snippets/lightbox/vue/focus-and-ids.vue?raw';
-import lightboxVueGallery from '../../../snippets/lightbox/vue/gallery.vue?raw';
-import lightboxVueMultipleTriggers from '../../../snippets/lightbox/vue/multiple-triggers.vue?raw';
-import lightboxVueNonModal from '../../../snippets/lightbox/vue/non-modal.vue?raw';
 import lightboxVueRootProviderAndContext from '../../../snippets/lightbox/vue/root-provider-and-context.vue?raw';
 import lightboxVueRootProviderAndContextPart from '../../../snippets/lightbox/vue/LightboxStatus.vue?raw';
 
@@ -60,46 +33,7 @@ import lightboxVueRootProviderAndContextPart from '../../../snippets/lightbox/vu
 `LightboxBackdrop`, `LightboxPositioner` и `LightboxContent`. С помощью `asChild` передайте
 один семантический элемент, который открывает окно просмотра.
 
-<ExampleFrame variant="component">
-  <LightboxBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/lightbox/lightbox-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/basic" />
 
 ## Установка через shadcn
 
@@ -209,138 +143,21 @@ Lightbox, но не создаёт его подложку, содержимое
 чтобы открытие работало с клавиатуры. Для структурированного массива изображений используйте
 композицию `LightboxGallery + Carousel`.
 
-<ExampleFrame variant="component">
-  <LightboxBindCmsContent />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/bind-cms-content.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidBindCmsContent} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueBindCmsContent} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/lightbox/lightbox-bind-cms-content.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/bind-cms-content" />
 
 ### Закрытие по клику на изображение
 
 Используйте `LightboxImage closeOnClick`, если клик по изображению должен закрывать окно просмотра.
 Иконка закрытия остаётся доступной и сохраняет стандартную семантику Ark UI.
 
-<ExampleFrame variant="component">
-  <LightboxClickToCloseImage />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/click-to-close-image.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidClickToCloseImage} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueClickToCloseImage} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/lightbox/lightbox-click-to-close-image.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/click-to-close-image" />
 
 ### Управляемое состояние
 
 Используйте callback `onOpenChange(details)` из Ark UI, если состояние Lightbox нужно синхронизировать
 с состоянием приложения на React или Solid. Во Vue используйте `v-model:open`.
 
-<ExampleFrame variant="component">
-  <LightboxControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/lightbox/lightbox-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/controlled" />
 
 ### Фокус и идентификаторы
 
@@ -348,46 +165,7 @@ Lightbox, но не создаёт его подложку, содержимое
 идентификаторы для внешних связей доступности. После закрытия целевая кнопка подсвечивается, поэтому
 возврат фокуса легко заметить.
 
-<ExampleFrame variant="component">
-  <LightboxFocusAndIds />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/focus-and-ids.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidFocusAndIds} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueFocusAndIds} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/lightbox/lightbox-focus-and-ids.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/focus-and-ids" />
 
 ### Галерея
 
@@ -396,92 +174,14 @@ Lightbox, но не создаёт его подложку, содержимое
 `LightboxGallery`. Используйте `LightboxTrigger.value`, чтобы выбрать начальный слайд, и
 синхронизируйте страницу `Carousel` во время навигации.
 
-<ExampleFrame variant="component">
-  <LightboxGallery />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/gallery.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidGallery} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueGallery} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/lightbox/lightbox-gallery.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/gallery" />
 
 ### Несколько триггеров
 
 Используйте `LightboxTrigger.value` и `onTriggerValueChange(details)` для миниатюр галереи.
 Компонент не создаёт скрытый реестр изображений.
 
-<ExampleFrame variant="component">
-  <LightboxMultipleTriggers />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/multiple-triggers.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidMultipleTriggers} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueMultipleTriggers} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/lightbox/lightbox-multiple-triggers.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/multiple-triggers" />
 
 ### Немодальный режим
 
@@ -489,46 +189,7 @@ Lightbox, но не создаёт его подложку, содержимое
 режиме Ark отключает удержание фокуса и блокировку прокрутки. Не добавляйте `LightboxBackdrop`, чтобы
 действия на фоне оставались доступными, пока изображение открыто.
 
-<ExampleFrame variant="component">
-  <LightboxNonModal />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/non-modal.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidNonModal} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueNonModal} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/lightbox/lightbox-non-modal.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/non-modal" />
 
 ### Root Provider
 
@@ -584,62 +245,13 @@ Lightbox, но не создаёт его подложку, содержимое
 Не используйте необязательные компоненты компоновки, если для медиаконтента нужны собственные классы
 слотов и переопределения токенов. `LightboxBackdrop`, `LightboxPositioner` и `LightboxContent` остаются явными.
 
-<ExampleFrame variant="component">
-  <LightboxAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/lightbox/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={lightboxSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={lightboxVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/lightbox/lightbox-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="lightbox/advanced-customization" />
 
 ## Стилизация
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <LightboxDocs.LightboxCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={LightboxDocs.lightboxOverrideCssProperties} />
 
 ### Хуки стилизации
 
@@ -654,5 +266,9 @@ Lightbox, но не создаёт его подложку, содержимое
   `data-slot="lightbox-gallery"` и стилизует вложенные слоты Carousel.
 - Анимация зависит от атрибута Ark `data-state`. Используйте `present`, только если управление
   анимацией в JavaScript должно оставлять содержимое в DOM.
-- При `prefers-reduced-motion: reduce` подложка и содержимое используют анимацию длительностью 1 мс.
-  Так сохраняется корректное удаление узлов после закрытия, но видимого движения нет.
+- При `prefers-reduced-motion: reduce` анимации подложки и содержимого отключаются; после закрытия
+  узлы по-прежнему корректно удаляются.
+- Цвета, отступы и типографика берутся из токенов foundation. Чтобы изменить их для одного
+  лайтбокса, добавьте класс на нужную часть. Подложка читает общие `--moduix-backdrop-bg` и
+  `--moduix-backdrop-filter`, анимация содержимого — `--moduix-popup-motion-*` на `LightboxContent`,
+  а `LightboxCloseIcon` — переменные `--moduix-close-button-*`.

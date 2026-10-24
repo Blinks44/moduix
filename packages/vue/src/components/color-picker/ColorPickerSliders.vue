@@ -12,7 +12,6 @@ export interface Props {
 }
 
 const { class: className } = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 </script>

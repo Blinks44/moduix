@@ -8,7 +8,6 @@ import {
 } from '@moduix/solid/breadcrumbs';
 import type { JSX } from 'solid-js';
 import { For } from 'solid-js';
-import styles from '@/components/examples/breadcrumbs/breadcrumbs-framework-link.module.css';
 
 const pathItems = [
   { href: '/', label: 'Home' },
@@ -17,7 +16,7 @@ const pathItems = [
 ] as const;
 
 function AppLink(props: JSX.AnchorHTMLAttributes<HTMLAnchorElement>) {
-  return <a data-framework-link class={styles.link} {...props} />;
+  return <a data-framework-link {...props} />;
 }
 
 export default function BreadcrumbsWithAppLinkDemo() {

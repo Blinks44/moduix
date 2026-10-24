@@ -11,8 +11,9 @@ import {
 } from '@ark-ui/solid/select';
 import type { ComponentProps, JSX } from 'solid-js';
 import { children, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
-import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -34,8 +35,6 @@ type SelectFieldProps = Omit<
 
 function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
   const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
     'class',
     'lazyMount',
     'portalled',
@@ -46,23 +45,18 @@ function Select<T extends CollectionItem>(props: SelectRootProps<T>) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <SelectPrimitive.Root
-        asChild={local.asChild}
         class={cn('flex w-56 max-w-full min-w-0 flex-col gap-1.5 text-foreground', local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
         data-slot="select-root"
-      >
-        {local.children}
-      </SelectPrimitive.Root>
+      />
     </OverlayPortalProvider>
   );
 }
 
 function SelectRootProvider<T extends CollectionItem>(props: SelectRootProviderProps<T>) {
   const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
     'class',
     'lazyMount',
     'portalled',
@@ -73,15 +67,12 @@ function SelectRootProvider<T extends CollectionItem>(props: SelectRootProviderP
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <SelectPrimitive.RootProvider
-        asChild={local.asChild}
         class={cn('flex w-56 max-w-full min-w-0 flex-col gap-1.5 text-foreground', local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
         data-slot="select-root-provider"
-      >
-        {local.children}
-      </SelectPrimitive.RootProvider>
+      />
     </OverlayPortalProvider>
   );
 }
@@ -92,7 +83,7 @@ function SelectLabel(props: ComponentProps<typeof SelectPrimitive.Label>) {
   return (
     <SelectPrimitive.Label
       class={cn(
-        'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-50',
+        'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-disabled',
         local.class,
       )}
       {...others}
@@ -107,7 +98,7 @@ function SelectControl(props: ComponentProps<typeof SelectPrimitive.Control>) {
   return (
     <SelectPrimitive.Control
       class={cn(
-        'group/select-control relative flex w-full min-w-0 items-center text-foreground data-disabled:opacity-50',
+        'group/select-control relative flex w-full min-w-0 items-center data-disabled:opacity-disabled',
         local.class,
       )}
       {...others}
@@ -124,7 +115,7 @@ function SelectTrigger(props: ComponentProps<typeof SelectPrimitive.Trigger>) {
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'peer/select-trigger relative inline-flex h-control-md w-full min-w-0 cursor-pointer items-center justify-start rounded-md border border-border bg-background px-3.5 pe-[2.875rem] text-start text-inherit outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color] duration-200 ease-in-out select-none [font:inherit] not-data-[placeholder-shown]:pe-[4.25rem] group-data-invalid/select-control:border-destructive group-data-invalid/select-control:outline-destructive focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default data-placeholder-shown:text-muted-foreground data-[state=open]:border-ring data-[state=open]:outline-ring motion-reduce:transition-none',
+          'peer/select-trigger inline-flex h-control-md w-full min-w-0 cursor-pointer items-center rounded-md border border-border bg-background px-3.5 pe-[2.875rem] text-start text-inherit outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out select-none [font:inherit] group-has-[>[data-slot=select-clear-trigger]:not([hidden])]/select-control:pe-[4.25rem] group-data-invalid/select-control:border-destructive group-data-invalid/select-control:outline-destructive focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-placeholder-shown:text-muted-foreground data-[state=open]:border-ring data-[state=open]:outline-ring',
         local.class,
       )}
       {...others}
@@ -145,8 +136,7 @@ function SelectValueText(props: ComponentProps<typeof SelectPrimitive.ValueText>
   );
 }
 
-const clearTriggerClassName =
-  'pointer-events-auto absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4';
+const clearTriggerClassName = 'absolute inset-y-0 end-[2.125rem] my-auto size-control-xs';
 
 function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTrigger>) {
   const [local, others] = splitProps(props, [
@@ -182,7 +172,7 @@ function SelectClearTrigger(props: ComponentProps<typeof SelectPrimitive.ClearTr
             {...resolvedProps}
             aria-label={
               local['aria-label'] ??
-              (local['aria-labelledby'] == null ? 'Clear selection' : undefined)
+              (local['aria-labelledby'] == null ? a11yLabels.clearSelection : undefined)
             }
             aria-labelledby={local['aria-labelledby']}
           >
@@ -204,7 +194,7 @@ function SelectIndicator(props: ComponentProps<typeof SelectPrimitive.Indicator>
   return (
     <SelectPrimitive.Indicator
       class={cn(
-        'pointer-events-none inline-flex size-control-xs shrink-0 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:bg-muted peer-[:not([disabled]):not([data-disabled]):hover]/select-trigger:text-foreground motion-reduce:transition-none [&:is([data-slot=select-control]>*)]:absolute [&:is([data-slot=select-control]>*)]:end-2 [&:is([data-slot=select-control]>*)]:top-1/2 [&:is([data-slot=select-control]>*)]:-translate-y-1/2 [&>svg]:block [&>svg]:size-4',
+        'pointer-events-none absolute end-2 top-1/2 inline-flex size-control-xs -translate-y-1/2 items-center justify-center rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out [&>svg]:size-4 [@media(hover:hover)]:peer-[:enabled:hover]/select-trigger:bg-muted [@media(hover:hover)]:peer-[:enabled:hover]/select-trigger:text-foreground',
         local.class,
       )}
       {...others}
@@ -235,7 +225,7 @@ function SelectPositioner(props: ComponentProps<typeof SelectPrimitive.Positione
   return (
     <OverlayPortal>
       <SelectPrimitive.Positioner
-        class={cn('z-[var(--z-index)] outline-0', local.class)}
+        class={cn('z-(--z-index)', local.class)}
         {...others}
         data-slot="select-positioner"
       />
@@ -249,7 +239,7 @@ function SelectContent(props: ComponentProps<typeof SelectPrimitive.Content>) {
   return (
     <SelectPrimitive.Content
       class={cn(
-        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-h-[min(24rem,var(--available-height))] max-w-[var(--available-width)] min-w-[var(--reference-width)] origin-[var(--transform-origin)] scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:animate-none',
+        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-h-[min(24rem,var(--available-height))] max-w-(--available-width) min-w-(--reference-width) origin-(--transform-origin) scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:pointer-events-none data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         local.class,
       )}
       {...others}
@@ -303,7 +293,7 @@ function SelectItem(props: ComponentProps<typeof SelectPrimitive.Item>) {
   return (
     <SelectPrimitive.Item
       class={cn(
-        'relative mx-1 flex min-h-control-sm w-[calc(100%-0.5rem)] cursor-default items-center justify-between gap-2 rounded-sm bg-transparent px-3 py-1 text-sm text-popover-foreground outline-0 select-none data-disabled:pointer-events-none data-disabled:text-muted-foreground data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground',
+        'relative mx-1 flex min-h-control-sm cursor-default items-center justify-between gap-2 rounded-sm px-3 py-1 text-sm outline-0 select-none data-disabled:pointer-events-none data-disabled:opacity-disabled data-highlighted:bg-accent data-highlighted:text-accent-foreground',
         local.class,
       )}
       {...others}
@@ -339,6 +329,25 @@ function SelectItemIndicator(props: ComponentProps<typeof SelectPrimitive.ItemIn
     >
       {resolvedChildren() ?? <CheckIcon />}
     </SelectPrimitive.ItemIndicator>
+  );
+}
+
+type SelectOptionProps = Omit<
+  ComponentProps<typeof SelectPrimitive.Item>,
+  'asChild' | 'children'
+> & {
+  children: JSX.Element;
+  indicator?: JSX.Element | false;
+};
+
+function SelectOption(props: SelectOptionProps) {
+  const [local, others] = splitProps(props, ['children', 'indicator']);
+
+  return (
+    <SelectItem {...others}>
+      <SelectItemText>{local.children}</SelectItemText>
+      {local.indicator !== false && <SelectItemIndicator>{local.indicator}</SelectItemIndicator>}
+    </SelectItem>
   );
 }
 
@@ -402,6 +411,7 @@ export {
   SelectItemTextLabel,
   SelectLabel,
   SelectList,
+  SelectOption,
   SelectPositioner,
   SelectRootProvider,
   SelectTrigger,
@@ -410,3 +420,32 @@ export {
   useSelectContext,
   useSelectItemContext,
 };
+
+export type { SelectFieldProps, SelectOptionProps, SelectRootProps, SelectRootProviderProps };
+
+export type {
+  SelectClearTriggerProps,
+  SelectContentProps,
+  SelectContextProps,
+  SelectControlProps,
+  SelectHiddenSelectProps,
+  SelectHighlightChangeDetails,
+  SelectIndicatorProps,
+  SelectItemContextProps,
+  SelectItemGroupLabelProps,
+  SelectItemGroupProps,
+  SelectItemIndicatorProps,
+  SelectItemProps,
+  SelectItemTextProps,
+  SelectLabelProps,
+  SelectListProps,
+  SelectOpenChangeDetails,
+  SelectPositionerProps,
+  SelectTriggerProps,
+  SelectValueChangeDetails,
+  SelectValueTextProps,
+  UseSelectContext,
+  UseSelectItemContext,
+  UseSelectProps,
+  UseSelectReturn,
+} from '@ark-ui/solid/select';

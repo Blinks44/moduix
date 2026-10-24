@@ -35,7 +35,8 @@
         "@moduix-vue-tailwind/menu",
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/overlay-portal",
-        "@moduix-vue-tailwind/cn"
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels"
       ],
       "files": [
         {
@@ -600,7 +601,9 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/close-button",
+        "@moduix-vue-tailwind/spinner",
         "@moduix-vue-tailwind/overlay-portal"
       ],
       "files": [
@@ -824,33 +827,13 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/segment-group/SegmentGroupItemControl.vue",
-          "target": "@components/ui/segment-group/SegmentGroupItemControl.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/segment-group/SegmentGroupItemText.vue",
           "target": "@components/ui/segment-group/SegmentGroupItemText.vue",
           "type": "registry:component"
         },
         {
-          "path": "src/components/segment-group/SegmentGroupItemHiddenInput.vue",
-          "target": "@components/ui/segment-group/SegmentGroupItemHiddenInput.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/segment-group/SegmentGroupIndicator.vue",
           "target": "@components/ui/segment-group/SegmentGroupIndicator.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/segment-group/SegmentGroupContext.vue",
-          "target": "@components/ui/segment-group/SegmentGroupContext.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/segment-group/SegmentGroupItemContext.vue",
-          "target": "@components/ui/segment-group/SegmentGroupItemContext.vue",
           "type": "registry:component"
         },
         {
@@ -876,7 +859,11 @@
       "title": "Table",
       "description": "moduix Vue Tailwind Table component.",
       "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels"
+      ],
       "files": [
         {
           "path": "src/components/table/Table.vue",
@@ -1172,6 +1159,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/icons"
       ],
@@ -1337,6 +1325,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/overlay-portal"
       ],
@@ -1369,6 +1358,11 @@
         {
           "path": "src/components/lightbox/LightboxContent.vue",
           "target": "@components/ui/lightbox/LightboxContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/lightbox/LightboxContext.vue",
+          "target": "@components/ui/lightbox/LightboxContext.vue",
           "type": "registry:component"
         },
         {
@@ -1522,6 +1516,11 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/list/ListIndicator.vue",
+          "target": "@components/ui/list/ListIndicator.vue",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/list/ListItem.vue",
           "target": "@components/ui/list/ListItem.vue",
           "type": "registry:component"
@@ -1606,6 +1605,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/overlay-portal"
       ],
@@ -1766,6 +1766,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/overlay-portal"
@@ -1951,8 +1952,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
-        "@moduix-vue-tailwind/icons",
-        "@moduix-vue-tailwind/close-button"
+        "@moduix-vue-tailwind/icons"
       ],
       "files": [
         {
@@ -2105,6 +2105,11 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/date-picker/DatePicker.variants.ts",
+          "target": "@components/ui/date-picker/DatePicker.variants.ts",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/date-picker/DatePickerClearTrigger.vue",
           "target": "@components/ui/date-picker/DatePickerClearTrigger.vue",
           "type": "registry:component"
@@ -2147,6 +2152,11 @@
         {
           "path": "src/components/date-picker/DatePickerMonthSelect.vue",
           "target": "@components/ui/date-picker/DatePickerMonthSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerMonthTable.vue",
+          "target": "@components/ui/date-picker/DatePickerMonthTable.vue",
           "type": "registry:component"
         },
         {
@@ -2257,6 +2267,11 @@
         {
           "path": "src/components/date-picker/DatePickerYearSelect.vue",
           "target": "@components/ui/date-picker/DatePickerYearSelect.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/date-picker/DatePickerYearTable.vue",
+          "target": "@components/ui/date-picker/DatePickerYearTable.vue",
           "type": "registry:component"
         },
         {
@@ -2372,7 +2387,8 @@
         "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/close-button",
-        "@moduix-vue-tailwind/overlay-portal"
+        "@moduix-vue-tailwind/overlay-portal",
+        "@moduix-vue-tailwind/a11y-labels"
       ],
       "files": [
         {
@@ -2486,8 +2502,8 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/select/SelectHiddenSelect.vue",
-          "target": "@components/ui/select/SelectHiddenSelect.vue",
+          "path": "src/components/select/SelectOption.vue",
+          "target": "@components/ui/select/SelectOption.vue",
           "type": "registry:component"
         },
         {
@@ -2565,29 +2581,9 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/radio-group/RadioGroupItemHiddenInput.vue",
-          "target": "@components/ui/radio-group/RadioGroupItemHiddenInput.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/radio-group/RadioGroupIndicator.vue",
           "target": "@components/ui/radio-group/RadioGroupIndicator.vue",
           "type": "registry:component"
-        },
-        {
-          "path": "src/components/radio-group/RadioGroupContext.vue",
-          "target": "@components/ui/radio-group/RadioGroupContext.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/radio-group/RadioGroupItemContext.vue",
-          "target": "@components/ui/radio-group/RadioGroupItemContext.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/radio-group/radio-group.types.ts",
-          "target": "@components/ui/radio-group/radio-group.types.ts",
-          "type": "registry:file"
         },
         {
           "path": "src/components/radio-group/index.ts",
@@ -2790,8 +2786,10 @@
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/button",
-        "@moduix-vue-tailwind/input"
+        "@moduix-vue-tailwind/input",
+        "@moduix-vue-tailwind/textarea"
       ],
       "files": [
         {
@@ -2822,6 +2820,11 @@
         {
           "path": "src/components/input-group/InputGroupText.vue",
           "target": "@components/ui/input-group/InputGroupText.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/input-group/InputGroupTextarea.vue",
+          "target": "@components/ui/input-group/InputGroupTextarea.vue",
           "type": "registry:component"
         },
         {
@@ -2897,7 +2900,8 @@
         "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/close-button",
-        "@moduix-vue-tailwind/overlay-portal"
+        "@moduix-vue-tailwind/overlay-portal",
+        "@moduix-vue-tailwind/a11y-labels"
       ],
       "files": [
         {
@@ -3019,7 +3023,8 @@
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/kbd",
         "@moduix-vue-tailwind/overlay-portal",
-        "@moduix-vue-tailwind/scroll-area"
+        "@moduix-vue-tailwind/scroll-area",
+        "@moduix-vue-tailwind/a11y-labels"
       ],
       "files": [
         {
@@ -3073,8 +3078,8 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/command-palette/CommandPaletteBody.vue",
-          "target": "@components/ui/command-palette/CommandPaletteBody.vue",
+          "path": "src/components/command-palette/CommandPaletteShortcut.vue",
+          "target": "@components/ui/command-palette/CommandPaletteShortcut.vue",
           "type": "registry:component"
         },
         {
@@ -3188,6 +3193,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/foundation"
       ],
       "files": [
@@ -3228,7 +3234,7 @@
       "type": "registry:item",
       "title": "Tags Input",
       "description": "moduix Vue Tailwind Tags Input component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -3239,11 +3245,6 @@
         {
           "path": "src/components/tags-input/TagsInput.vue",
           "target": "@components/ui/tags-input/TagsInput.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/tags-input/TagsInput.variants.ts",
-          "target": "@components/ui/tags-input/TagsInput.variants.ts",
           "type": "registry:component"
         },
         {
@@ -3299,11 +3300,6 @@
         {
           "path": "src/components/tags-input/TagsInputClearTrigger.vue",
           "target": "@components/ui/tags-input/TagsInputClearTrigger.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/tags-input/TagsInputHiddenInput.vue",
-          "target": "@components/ui/tags-input/TagsInputHiddenInput.vue",
           "type": "registry:component"
         },
         {
@@ -3441,6 +3437,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/overlay-portal"
       ],
@@ -3532,7 +3529,8 @@
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/close-button",
-        "@moduix-vue-tailwind/overlay-portal"
+        "@moduix-vue-tailwind/overlay-portal",
+        "@moduix-vue-tailwind/a11y-labels"
       ],
       "files": [
         {
@@ -3631,11 +3629,6 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/drawer/context.ts",
-          "target": "@components/ui/drawer/context.ts",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/drawer/index.ts",
           "target": "@components/ui/drawer/index.ts",
           "type": "registry:component"
@@ -3647,7 +3640,7 @@
       "type": "registry:item",
       "title": "Field",
       "description": "moduix Vue Tailwind Field component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -3673,21 +3666,6 @@
         {
           "path": "src/components/field/FieldLabel.vue",
           "target": "@components/ui/field/FieldLabel.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/field/FieldInput.vue",
-          "target": "@components/ui/field/FieldInput.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/field/FieldTextarea.vue",
-          "target": "@components/ui/field/FieldTextarea.vue",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/components/field/FieldSelect.vue",
-          "target": "@components/ui/field/FieldSelect.vue",
           "type": "registry:component"
         },
         {
@@ -4085,8 +4063,18 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/avatar/AvatarGroup.vue",
+          "target": "@components/ui/avatar/AvatarGroup.vue",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/avatar/AvatarImage.vue",
           "target": "@components/ui/avatar/AvatarImage.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/avatar/Avatar.variants.ts",
+          "target": "@components/ui/avatar/Avatar.variants.ts",
           "type": "registry:component"
         },
         {
@@ -4133,6 +4121,7 @@
       "description": "moduix Vue Tailwind Breadcrumbs component.",
       "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
       "registryDependencies": [
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
         "@moduix-vue-tailwind/icons"
@@ -4359,7 +4348,7 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix Vue Tailwind Image component.",
-      "dependencies": ["@unpic/core", "clsx", "tailwind-merge"],
+      "dependencies": ["@unpic/core", "clsx", "tailwind-merge", "unpic"],
       "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
       "files": [
         {
@@ -4533,11 +4522,6 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/menu/MenuTriggerIcon.vue",
-          "target": "@components/ui/menu/MenuTriggerIcon.vue",
-          "type": "registry:component"
-        },
-        {
           "path": "src/components/menu/MenuTriggerItem.vue",
           "target": "@components/ui/menu/MenuTriggerItem.vue",
           "type": "registry:component"
@@ -4570,7 +4554,11 @@
       "title": "Spinner",
       "description": "moduix Vue Tailwind Spinner component.",
       "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
-      "registryDependencies": ["@moduix-vue-tailwind/foundation", "@moduix-vue-tailwind/cn"],
+      "registryDependencies": [
+        "@moduix-vue-tailwind/foundation",
+        "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels"
+      ],
       "files": [
         {
           "path": "src/components/spinner/Spinner.vue",
@@ -4653,6 +4641,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/icons",
         "@moduix-vue-tailwind/input",
         "@moduix-vue-tailwind/separator",
@@ -4876,7 +4865,7 @@
       "type": "registry:item",
       "title": "ColorPicker",
       "description": "moduix Vue Tailwind ColorPicker component.",
-      "dependencies": ["@ark-ui/vue", "class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": ["@ark-ui/vue", "clsx", "tailwind-merge"],
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
@@ -5279,6 +5268,20 @@
       ]
     },
     {
+      "name": "a11y-labels",
+      "type": "registry:item",
+      "title": "moduix a11y labels",
+      "description": "Internal accessible label defaults required only by registry components that render text fallbacks.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/internal/a11yLabels.ts",
+          "target": "@lib/moduix/a11yLabels.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "icons",
       "type": "registry:item",
       "title": "moduix icons",
@@ -5358,6 +5361,7 @@
       "registryDependencies": [
         "@moduix-vue-tailwind/foundation",
         "@moduix-vue-tailwind/cn",
+        "@moduix-vue-tailwind/a11y-labels",
         "@moduix-vue-tailwind/close-button",
         "@moduix-vue-tailwind/overlay-portal"
       ],
@@ -5467,6 +5471,11 @@
           "type": "registry:component"
         },
         {
+          "path": "src/components/json-tree-view/JsonTreeView.variants.ts",
+          "target": "@components/ui/json-tree-view/JsonTreeView.variants.ts",
+          "type": "registry:component"
+        },
+        {
           "path": "src/components/json-tree-view/JsonTreeViewRootProvider.vue",
           "target": "@components/ui/json-tree-view/JsonTreeViewRootProvider.vue",
           "type": "registry:component"
@@ -5502,8 +5511,8 @@
           "type": "registry:component"
         },
         {
-          "path": "src/components/typeset/Typeset.css",
-          "target": "@components/ui/typeset/Typeset.css",
+          "path": "src/components/typeset/Typeset.module.css",
+          "target": "@components/ui/typeset/Typeset.module.css",
           "type": "registry:file"
         },
         {

@@ -6,15 +6,21 @@ import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes, StyleValue } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 
-type TextElement = 'p' | 'span' | 'small' | 'strong' | 'em' | 'div';
-type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type TextWeight = 'regular' | 'medium' | 'semibold' | 'bold';
-type TextTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
-type TextAlign = 'start' | 'center' | 'end' | 'left' | 'right' | 'justify';
+export type TextElement = 'p' | 'span' | 'small' | 'strong' | 'em' | 'div';
+export type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type TextWeight = 'regular' | 'medium' | 'semibold' | 'bold';
+export type TextTone = 'default' | 'muted' | 'primary' | 'destructive';
+export type TextAlign = 'start' | 'center' | 'end' | 'left' | 'right' | 'justify';
 
-const textVariants = cva('tracking-normal wrap-anywhere', {
+const textVariants = cva('m-0 tracking-normal wrap-anywhere', {
   variants: {
-    size: { xs: 'text-xs', sm: 'text-sm', md: 'text-md', lg: 'text-lg', xl: 'text-xl' },
+    size: {
+      xs: 'text-xs',
+      sm: 'text-sm',
+      md: 'text-md',
+      lg: 'text-lg',
+      xl: 'text-xl',
+    },
     weight: {
       regular: 'font-regular',
       medium: 'font-medium',
@@ -24,7 +30,6 @@ const textVariants = cva('tracking-normal wrap-anywhere', {
     tone: {
       default: 'text-foreground',
       muted: 'text-muted-foreground',
-      subtle: 'text-secondary-foreground',
       primary: 'text-primary',
       destructive: 'text-destructive',
     },
@@ -36,8 +41,15 @@ const textVariants = cva('tracking-normal wrap-anywhere', {
       right: 'text-right',
       justify: 'text-justify',
     },
+    truncate: {
+      true: 'overflow-hidden text-ellipsis whitespace-nowrap',
+    },
+    lineClamp: {
+      true: '[display:-webkit-box] overflow-hidden whitespace-normal [-webkit-box-orient:vertical]',
+    },
   },
 });
+
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'p'> {
@@ -53,7 +65,7 @@ export interface Props extends /* @vue-ignore */ HTMLArkProps<'p'> {
 }
 
 const {
-  as: elementName,
+  as = 'p',
   class: className,
   style,
   size,
@@ -66,17 +78,10 @@ const {
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const resolvedSize = computed(() => size ?? (elementName === 'small' ? 'sm' : 'md'));
-const resolvedWeight = computed(
-  () => weight ?? (elementName === 'strong' ? 'semibold' : 'regular'),
-);
-const resolvedLineClamp = computed(() =>
+const resolvedSize = computed(() => size ?? (as === 'small' ? 'sm' : 'md'));
+const resolvedWeight = computed(() => weight ?? (as === 'strong' ? 'semibold' : 'regular'));
+const clamp = computed(() =>
   Number.isInteger(lineClamp) && (lineClamp ?? 0) > 0 ? lineClamp : undefined,
-);
-const textStyle = computed<StyleValue>(() =>
-  resolvedLineClamp.value === undefined
-    ? style
-    : [style, { '-webkit-line-clamp': resolvedLineClamp.value }],
 );
 const textClass = computed(() =>
   cn(
@@ -84,11 +89,10 @@ const textClass = computed(() =>
       size: resolvedSize.value,
       weight: resolvedWeight.value,
       tone,
-      align: align ?? 'start',
+      align,
+      truncate,
+      lineClamp: clamp.value !== undefined,
     }),
-    truncate && 'overflow-hidden text-ellipsis whitespace-nowrap',
-    resolvedLineClamp.value !== undefined &&
-      '[display:-webkit-box] overflow-hidden whitespace-normal [-webkit-box-orient:vertical]',
     className,
   ),
 );
@@ -96,10 +100,10 @@ const textClass = computed(() =>
 
 <template>
   <component
-    :is="ark[elementName ?? 'p']"
+    :is="ark[as]"
     v-bind="attrs"
     :class="textClass"
-    :style="textStyle"
+    :style="clamp === undefined ? style : [style, { '-webkit-line-clamp': clamp }]"
     data-scope="text"
     data-part="root"
     data-slot="text-root"
@@ -108,7 +112,7 @@ const textClass = computed(() =>
     :data-tone="tone"
     :data-align="align"
     :data-truncate="truncate ? '' : undefined"
-    :data-line-clamp="resolvedLineClamp === undefined ? undefined : ''"
+    :data-line-clamp="clamp === undefined ? undefined : ''"
   >
     <slot />
   </component>

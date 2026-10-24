@@ -6,36 +6,38 @@ import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import styles from './Button.module.css';
 
-const Button = forwardRef<
-  HTMLButtonElement,
-  HTMLArkProps<'button'> & {
-    loading?: boolean;
-    variant?:
-      | 'default'
-      | 'outline'
-      | 'secondary'
-      | 'destructive'
-      | 'destructive-outline'
-      | 'ghost'
-      | 'link';
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
-    'data-scope'?: string;
-    'data-part'?: string;
-    'data-slot'?: string;
-  }
->(function Button(
+type ButtonVariant =
+  | 'default'
+  | 'outline'
+  | 'secondary'
+  | 'destructive'
+  | 'destructive-outline'
+  | 'ghost'
+  | 'link';
+
+type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
+
+type ButtonRootProps = HTMLArkProps<'button'> & {
+  loading?: boolean;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  'data-scope'?: string;
+  'data-part'?: string;
+  'data-slot'?: string;
+};
+
+const Button = forwardRef<HTMLButtonElement, ButtonRootProps>(function Button(
   {
     asChild,
     className,
     disabled,
     loading = false,
-    onClick,
     onClickCapture,
     size = 'md',
     type,
     'data-scope': dataScope = 'button',
     'data-part': dataPart = 'root',
-    'data-slot': dataSlot,
+    'data-slot': dataSlot = 'button-root',
     variant = 'default',
     'aria-busy': ariaBusy,
     'aria-disabled': ariaDisabled,
@@ -63,18 +65,9 @@ const Button = forwardRef<
 
         onClickCapture?.(event);
       }}
-      onClick={(event) => {
-        if (isDisabled) {
-          event.preventDefault();
-          event.stopPropagation();
-          return;
-        }
-
-        onClick?.(event);
-      }}
       data-scope={dataScope}
       data-part={dataPart}
-      data-slot={dataSlot ?? 'button-root'}
+      data-slot={dataSlot}
       data-variant={variant}
       data-size={size}
       data-disabled={isDisabled ? '' : undefined}
@@ -85,3 +78,4 @@ const Button = forwardRef<
 });
 
 export { Button };
+export type { ButtonRootProps, ButtonSize, ButtonVariant };

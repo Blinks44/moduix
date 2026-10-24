@@ -2,7 +2,7 @@
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
-import { GripIcon } from '@/lib/moduix/icons/ui/Icons';
+import { GripIcon } from '@/lib/moduix/icons/ui';
 
 defineOptions({ inheritAttrs: false });
 
@@ -20,12 +20,7 @@ const attrs = useAttrs();
   <span
     aria-hidden="true"
     v-bind="attrs"
-    :class="
-      cn(
-        'inline-flex flex-none items-center justify-center text-muted-foreground [&>svg]:size-4',
-        className,
-      )
-    "
+    :class="cn('inline-flex flex-none text-muted-foreground [&>svg]:size-4', className)"
     data-slot="floating-panel-drag-indicator"
   >
     <slot><GripIcon /></slot>

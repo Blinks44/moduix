@@ -109,6 +109,25 @@ test('disables custom hosts accessibly and prevents activation', async () => {
   expect(activationCount).toBe(0);
 });
 
+test('aria-disabled prevents activation and disables a native button', async () => {
+  let activationCount = 0;
+
+  render(() => (
+    <Button aria-disabled="true" onClick={() => activationCount++}>
+      Unavailable
+    </Button>
+  ));
+
+  const button = screen.getByRole('button', { name: 'Unavailable' });
+
+  await expect.element(page.getByRole('button', { name: 'Unavailable' })).toBeDisabled();
+  await expect
+    .element(page.getByRole('button', { name: 'Unavailable' }))
+    .toHaveAttribute('data-disabled');
+  button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+  expect(activationCount).toBe(0);
+});
+
 test('wires the loading state without taking over its content', async () => {
   render(() => <Button loading>Saving</Button>);
 
@@ -137,4 +156,27 @@ test('applies explicit recipe values to the root', () => {
   const button = screen.getByRole('button', { name: 'Delete item' });
 
   expect(button.dataset).toMatchObject({ size: 'icon-lg', variant: 'destructive-outline' });
+});
+
+test('lets the public variables override variant and size defaults', () => {
+  render(() => (
+    <>
+      <Button
+        variant="outline"
+        style={{ '--moduix-button-bg': 'rgb(1, 2, 3)', '--moduix-button-height': '50px' }}
+      >
+        Themed
+      </Button>
+      <Button aria-label="Square" size="icon-lg" style={{ '--moduix-button-height': '44px' }}>
+        ×
+      </Button>
+    </>
+  ));
+
+  const themed = screen.getByRole('button', { name: 'Themed' });
+  const square = screen.getByRole('button', { name: 'Square' });
+
+  expect(getComputedStyle(themed).backgroundColor).toBe('rgb(1, 2, 3)');
+  expect(themed.offsetHeight).toBe(50);
+  expect([square.offsetWidth, square.offsetHeight]).toEqual([44, 44]);
 });

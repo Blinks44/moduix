@@ -1,15 +1,8 @@
 import { CloseButton } from '@moduix/react/close-button';
-import styles from '@/components/examples/close-button/close-button-as-child.module.css';
 
 function CircleXIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-      stroke="currentColor"
-      className={styles.icon}
-    >
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" stroke="currentColor">
       <circle cx="12" cy="12" r="10" />
       <path d="m15 9-6 6" />
       <path d="m9 9 6 6" />

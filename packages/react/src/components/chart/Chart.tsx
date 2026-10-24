@@ -1,13 +1,10 @@
 'use client';
 
 import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
-import type { ChartValue } from '@tanstack/charts';
+import type { ChartTooltipBodyContext, ChartValue } from '@tanstack/charts';
 import { motion as createMotionRenderer } from '@tanstack/charts/motion';
 import { RendererChart as ChartPrimitive } from '@tanstack/charts/react/tooltip';
-import type {
-  ChartTooltipBodyRenderContext,
-  RendererChartProps,
-} from '@tanstack/charts/react/tooltip';
+import type { RendererChartProps } from '@tanstack/charts/react/tooltip';
 import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
 import { clsx } from 'clsx';
 import type { CSSProperties } from 'react';
@@ -39,7 +36,7 @@ const Chart = forwardRef<HTMLElement, HTMLArkProps<'figure'>>(function Chart(
   );
 });
 
-const renderDefaultTooltipBody = ({ content }: ChartTooltipBodyRenderContext) => {
+const renderDefaultTooltipBody = (content: ChartTooltipBodyContext['content']) => {
   if (typeof content === 'string') {
     return <span data-slot="chart-tooltip-text">{content}</span>;
   }
@@ -64,6 +61,7 @@ const renderDefaultTooltipBody = ({ content }: ChartTooltipBodyRenderContext) =>
           {content.rows.map((row, index) => (
             <div
               key={`${row.label}-${index}`}
+              data-active={row.active ? '' : undefined}
               data-has-swatch={row.color ? '' : undefined}
               data-slot="chart-tooltip-row"
               className={styles.tooltipRow}
@@ -108,7 +106,10 @@ const ChartPlot = function ChartPlot<
     <ChartPrimitive
       {...props}
       renderer={renderer ?? (motion ? defaultChartRenderer : svgChartRenderer)}
-      renderTooltipBody={renderTooltipBody ?? renderDefaultTooltipBody}
+      renderTooltipBody={(context) => {
+        const defaultBody = renderDefaultTooltipBody(context.content);
+        return renderTooltipBody ? renderTooltipBody({ ...context, defaultBody }) : defaultBody;
+      }}
       className={clsx(styles.plot, className)}
     />
   );

@@ -31,6 +31,8 @@ import {
   DatePickerTableCell,
   DatePickerTableCellTrigger,
   DatePickerDayTable,
+  DatePickerMonthTable,
+  DatePickerYearTable,
   DatePickerMonthSelect,
   DatePickerPresetTrigger,
   DatePickerYearSelect,
@@ -131,73 +133,11 @@ function AdvancedDatePickerDayTable() {
   );
 }
 
-function DatePickerMonthTable() {
-  return (
-    <DatePickerContext>
-      {(datePicker) => (
-        <>
-          <DatePickerViewControl>
-            <DatePickerPrevTrigger />
-            <DatePickerViewTrigger />
-            <DatePickerNextTrigger />
-          </DatePickerViewControl>
-          <DatePickerTable columns={4}>
-            <DatePickerTableBody>
-              {datePicker()
-                .getMonthsGrid({ columns: 4, format: 'short' })
-                .map((months) => (
-                  <DatePickerTableRow>
-                    {months.map((month) => (
-                      <DatePickerTableCell value={month.value}>
-                        <DatePickerTableCellTrigger>{month.label}</DatePickerTableCellTrigger>
-                      </DatePickerTableCell>
-                    ))}
-                  </DatePickerTableRow>
-                ))}
-            </DatePickerTableBody>
-          </DatePickerTable>
-        </>
-      )}
-    </DatePickerContext>
-  );
-}
-
-function DatePickerYearTable() {
-  return (
-    <DatePickerContext>
-      {(datePicker) => (
-        <>
-          <DatePickerViewControl>
-            <DatePickerPrevTrigger />
-            <DatePickerViewTrigger />
-            <DatePickerNextTrigger />
-          </DatePickerViewControl>
-          <DatePickerTable columns={4}>
-            <DatePickerTableBody>
-              {datePicker()
-                .getYearsGrid({ columns: 4 })
-                .map((years) => (
-                  <DatePickerTableRow>
-                    {years.map((year) => (
-                      <DatePickerTableCell value={year.value} disabled={year.disabled}>
-                        <DatePickerTableCellTrigger>{year.label}</DatePickerTableCellTrigger>
-                      </DatePickerTableCell>
-                    ))}
-                  </DatePickerTableRow>
-                ))}
-            </DatePickerTableBody>
-          </DatePickerTable>
-        </>
-      )}
-    </DatePickerContext>
-  );
-}
-
-function DatePickerViews(props: { showWeekNumbers?: boolean }) {
+function DatePickerViews() {
   return (
     <>
       <DatePickerView view="day">
-        <DatePickerDayTable showWeekNumbers={props.showWeekNumbers ?? false} />
+        <DatePickerDayTable />
       </DatePickerView>
       <DatePickerView view="month">
         <DatePickerMonthTable />
@@ -209,20 +149,20 @@ function DatePickerViews(props: { showWeekNumbers?: boolean }) {
   );
 }
 
-function DatePickerPopup(props: { showWeekNumbers?: boolean }) {
+function DatePickerPopup() {
   return (
     <DatePickerPositioner>
       <DatePickerContent>
-        <DatePickerViews showWeekNumbers={props.showWeekNumbers} />
+        <DatePickerViews />
       </DatePickerContent>
     </DatePickerPositioner>
   );
 }
 
-function InlineDatePickerContent(props: { showWeekNumbers?: boolean }) {
+function InlineDatePickerContent() {
   return (
     <DatePickerContent>
-      <DatePickerViews showWeekNumbers={props.showWeekNumbers} />
+      <DatePickerViews />
     </DatePickerContent>
   );
 }
@@ -236,58 +176,8 @@ function MultipleMonthsDatePickerContent() {
         <DatePickerNextTrigger />
       </DatePickerViewControl>
       <div class={storyStyles.multipleMonths}>
-        <DatePickerContext>
-          {(datePicker) => (
-            <DatePickerTable class={storyStyles.multipleMonthsTable}>
-              <DatePickerTableHead>
-                <DatePickerTableRow>
-                  {datePicker().weekDays.map((weekDay) => (
-                    <DatePickerTableHeader>{weekDay.short}</DatePickerTableHeader>
-                  ))}
-                </DatePickerTableRow>
-              </DatePickerTableHead>
-              <DatePickerTableBody>
-                {datePicker().weeks.map((week) => (
-                  <DatePickerTableRow>
-                    {week.map((day) => (
-                      <DatePickerTableCell value={day}>
-                        <DatePickerTableCellTrigger>{day.day}</DatePickerTableCellTrigger>
-                      </DatePickerTableCell>
-                    ))}
-                  </DatePickerTableRow>
-                ))}
-              </DatePickerTableBody>
-            </DatePickerTable>
-          )}
-        </DatePickerContext>
-        <DatePickerContext>
-          {(datePicker) => {
-            const offset = datePicker().getOffset({ months: 1 });
-
-            return (
-              <DatePickerTable class={storyStyles.multipleMonthsTable}>
-                <DatePickerTableHead>
-                  <DatePickerTableRow>
-                    {datePicker().weekDays.map((weekDay) => (
-                      <DatePickerTableHeader>{weekDay.short}</DatePickerTableHeader>
-                    ))}
-                  </DatePickerTableRow>
-                </DatePickerTableHead>
-                <DatePickerTableBody>
-                  {offset.weeks.map((week) => (
-                    <DatePickerTableRow>
-                      {week.map((day) => (
-                        <DatePickerTableCell value={day} visibleRange={offset.visibleRange}>
-                          <DatePickerTableCellTrigger>{day.day}</DatePickerTableCellTrigger>
-                        </DatePickerTableCell>
-                      ))}
-                    </DatePickerTableRow>
-                  ))}
-                </DatePickerTableBody>
-              </DatePickerTable>
-            );
-          }}
-        </DatePickerContext>
+        <DatePickerDayTable class={storyStyles.multipleMonthsTable} showHeader={false} />
+        <DatePickerDayTable class={storyStyles.multipleMonthsTable} offset={1} showHeader={false} />
       </div>
     </DatePickerContent>
   );
@@ -296,8 +186,8 @@ function MultipleMonthsDatePickerContent() {
 function MonthYearPickerSelects() {
   return (
     <div class={storyStyles.monthYearSelects}>
-      <DatePickerMonthSelect class={storyStyles.monthSelect} />
-      <DatePickerYearSelect class={storyStyles.yearSelect} />
+      <DatePickerMonthSelect />
+      <DatePickerYearSelect />
     </div>
   );
 }
@@ -417,7 +307,7 @@ export const InlineMultipleWithWeekNumbers: Story = {
       showWeekNumbers
     >
       <DatePickerLabel>Available days</DatePickerLabel>
-      <InlineDatePickerContent showWeekNumbers />
+      <InlineDatePickerContent />
     </DatePicker>
   ),
 };

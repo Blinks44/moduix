@@ -1,7 +1,6 @@
 import {
   AngleSlider,
   AngleSliderDial,
-  AngleSliderHiddenInput,
   AngleSliderLabel,
   AngleSliderMarks,
 } from '@moduix/solid/angle-slider';
@@ -17,7 +16,6 @@ export default function ControlledAngleSliderDemo() {
   return (
     <AngleSlider
       value={value()}
-      aria-label="Heading"
       class={styles.root}
       onValueChange={(details) => setValue(details.value)}
     >
@@ -25,7 +23,6 @@ export default function ControlledAngleSliderDemo() {
       <AngleSliderDial>
         <AngleSliderMarks values={markerValues} />
       </AngleSliderDial>
-      <AngleSliderHiddenInput />
     </AngleSlider>
   );
 }

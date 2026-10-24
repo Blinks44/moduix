@@ -1,3 +1,4 @@
+import { Button } from '@moduix/solid/button';
 import {
   FileUpload,
   FileUploadHiddenInput,
@@ -15,7 +16,7 @@ export default function FileUploadDemo() {
     <FileUpload class={styles.root} maxFiles={maxFiles}>
       <FileUploadLabel>Attachments</FileUploadLabel>
       <FileUploadHiddenInput />
-      <FileUploadTrigger>Choose files</FileUploadTrigger>
+      <FileUploadTrigger asChild={(props) => <Button {...props()}>Choose files</Button>} />
       <FileUploadItemGroup>
         <FileUploadItems />
       </FileUploadItemGroup>

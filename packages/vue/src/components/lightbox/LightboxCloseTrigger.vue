@@ -7,17 +7,23 @@ import type { HTMLAttributes } from 'vue';
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ DialogCloseTriggerProps {
+  asChild?: boolean;
   class?: HTMLAttributes['class'];
 }
 
-const { class: className } = defineProps<Props>();
+const { asChild = false, class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 </script>
 
 <template>
-  <ArkDialogCloseTrigger v-bind="attrs" :class="className" data-slot="lightbox-close-trigger">
+  <ArkDialogCloseTrigger
+    v-bind="attrs"
+    :as-child="asChild"
+    :class="className"
+    data-slot="lightbox-close-trigger"
+  >
     <slot />
   </ArkDialogCloseTrigger>
 </template>

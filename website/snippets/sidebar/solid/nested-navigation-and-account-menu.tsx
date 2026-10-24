@@ -108,14 +108,14 @@ export default function AppSidebar() {
                           <SidebarNavigationSubButton
                             asChild={(props) => <a {...props()} href="/projects/website" />}
                           >
-                            Website
+                            <SidebarLabel>Website</SidebarLabel>
                           </SidebarNavigationSubButton>
                         </SidebarNavigationSubItem>
                         <SidebarNavigationSubItem>
                           <SidebarNavigationSubButton
                             asChild={(props) => <a {...props()} href="/projects/mobile" />}
                           >
-                            Mobile app
+                            <SidebarLabel>Mobile app</SidebarLabel>
                           </SidebarNavigationSubButton>
                         </SidebarNavigationSubItem>
                       </SidebarNavigationSubList>

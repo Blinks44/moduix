@@ -10,12 +10,15 @@
 }
 
 .customControl {
-  --moduix-date-input-bg: var(--moduix-color-muted);
-  --moduix-date-input-border-color: var(--moduix-color-primary);
-  --moduix-date-input-focus-ring-color: var(--moduix-color-primary);
+  border-color: var(--moduix-color-primary);
+  background-color: var(--moduix-color-muted);
+
+  &[data-focus] {
+    outline-color: var(--moduix-color-primary);
+  }
 }
 
-.customSegment {
-  --moduix-date-input-segment-bg-focus: var(--moduix-color-primary);
-  --moduix-date-input-segment-color-focus: var(--moduix-color-primary-foreground);
+.customSegment:focus-visible {
+  background-color: var(--moduix-color-primary);
+  color: var(--moduix-color-primary-foreground);
 }

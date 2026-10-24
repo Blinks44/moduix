@@ -13,7 +13,7 @@
   }
 
   .nonModalContent {
-    --moduix-drawer-max-height: min(28rem, 80dvh);
+    max-height: min(28rem, 80dvh);
   }
 
   .nonModalGrabber {

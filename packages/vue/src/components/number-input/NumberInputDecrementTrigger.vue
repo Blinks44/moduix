@@ -4,7 +4,7 @@ import type { NumberInputDecrementTriggerProps } from '@ark-ui/vue/number-input'
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { MinusIcon } from '@/lib/moduix/icons/ui/Icons';
+import { MinusIcon } from '@/lib/moduix/icons/ui';
 import styles from './NumberInput.module.css';
 
 defineOptions({ inheritAttrs: false });

@@ -4,31 +4,6 @@ component: text
 description: A typography component for body text, inline content, semantic emphasis, and truncated previews.
 ---
 
-import * as TextDocs from '@/components/examples/text/css-properties';
-import TextAlignment from '@/components/examples/text/alignment.tsx';
-import TextBasic from '@/components/examples/text/basic.tsx';
-import TextCustomComposition from '@/components/examples/text/custom-composition.tsx';
-import TextSemantics from '@/components/examples/text/semantics.tsx';
-import TextSize from '@/components/examples/text/size.tsx';
-import TextTone from '@/components/examples/text/tone.tsx';
-import TextTruncation from '@/components/examples/text/truncation.tsx';
-import TextWeight from '@/components/examples/text/weight.tsx';
-import textSolidAlignment from '../../../snippets/text/solid/alignment.tsx?raw';
-import textSolidBasic from '../../../snippets/text/solid/basic.tsx?raw';
-import textSolidCustomComposition from '../../../snippets/text/solid/custom-composition.tsx?raw';
-import textSolidSemantics from '../../../snippets/text/solid/semantics.tsx?raw';
-import textSolidSize from '../../../snippets/text/solid/size.tsx?raw';
-import textSolidTone from '../../../snippets/text/solid/tone.tsx?raw';
-import textSolidTruncation from '../../../snippets/text/solid/truncation.tsx?raw';
-import textSolidWeight from '../../../snippets/text/solid/weight.tsx?raw';
-import textVueAlignment from '../../../snippets/text/vue/alignment.vue?raw';
-import textVueBasic from '../../../snippets/text/vue/basic.vue?raw';
-import textVueCustomComposition from '../../../snippets/text/vue/custom-composition.vue?raw';
-import textVueSemantics from '../../../snippets/text/vue/semantics.vue?raw';
-import textVueSize from '../../../snippets/text/vue/size.vue?raw';
-import textVueTone from '../../../snippets/text/vue/tone.vue?raw';
-import textVueTruncation from '../../../snippets/text/vue/truncation.vue?raw';
-import textVueWeight from '../../../snippets/text/vue/weight.vue?raw';
 
 ## API Reference
 
@@ -52,46 +27,7 @@ on moduix's typography scale.
 Use the default `p` root for a paragraph. Pass `as` when the content needs a different semantic HTML
 element but should keep `Text`'s typography styles.
 
-<ExampleFrame variant="component">
-  <TextBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/text/text-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/basic" />
 
 ## Install with shadcn
 
@@ -156,181 +92,25 @@ in the surrounding UI.
 
 Use `align` when alignment belongs to the text rather than its surrounding layout container.
 
-<ExampleFrame variant="component">
-  <TextAlignment />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/alignment.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidAlignment} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueAlignment} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/text/text-alignment.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/alignment" />
 
 ### Semantics
 
 Use `as` to choose a semantic HTML element while keeping `Text`'s typography styles.
 
-<ExampleFrame variant="component">
-  <TextSemantics />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/semantics.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidSemantics} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueSemantics} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/text/text-semantics.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/semantics" />
 
 ### Size
 
 Use `size` to change the visual hierarchy without switching to a different typography component.
 
-<ExampleFrame variant="component">
-  <TextSize />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/size.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidSize} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueSize} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/text/text-size.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/size" />
 
 ### Tone
 
 Use `tone` to express the role of the copy without adding local color classes.
 
-<ExampleFrame variant="component">
-  <TextTone />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/tone.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidTone} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueTone} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/text/text-tone.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/tone" />
 
 ### Truncation
 
@@ -338,152 +118,26 @@ Use `truncate` for a single-line ellipsis and `lineClamp` for dense multi-line p
 are set, `lineClamp` remains the effective constraint and overrides the single-line ellipsis. Add the
 expansion or disclosure behavior in the surrounding UI.
 
-<ExampleFrame variant="component">
-  <TextTruncation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/truncation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidTruncation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueTruncation} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/text/text-truncation.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/truncation" />
 
 ### Weight
 
 Use `weight` when the emphasis should stay within the same semantic element.
 
-<ExampleFrame variant="component">
-  <TextWeight />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/weight.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidWeight} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueWeight} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/text/text-weight.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="text/weight" />
 
 ### Advanced Customization
 
 Use `asChild` when the root should be an existing custom element instead of one of the supported
 intrinsic `as` values. The child must be a single element that accepts the forwarded props and ref.
 
-<ExampleFrame variant="component">
-  <TextCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/text/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={textSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={textVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="text/custom-composition" />
 
 ## Styling
 
-Style `Text` through `className` in React or `class` in Solid and Vue, root data attributes, and the public CSS API. CSS Modules packages
-expose the `--moduix-text-*` variables below; Tailwind packages use utility classes and consumer
-class overrides.
-
-### CSS Properties
-
-<div className="not-prose docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TextDocs.TextCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue on `Text`. Tailwind variants use native
+utilities and consumer classes. CSS Modules variants build on foundation typography tokens and have no
+component variables: a class on the root overrides the layered component styles.
 
 ### Styling hooks
 
@@ -491,10 +145,10 @@ class overrides.
 - `data-slot="text-root"` is the stable moduix selector on the exported root.
 - `data-size` reflects the resolved visual size: `xs`, `sm`, `md`, `lg`, or `xl`.
 - `data-weight` reflects the resolved weight preset: `regular`, `medium`, `semibold`, or `bold`.
-- `data-tone` reflects the active tone preset: `default`, `muted`, `subtle`, `primary`, or
+- `data-tone` reflects the active tone preset: `default`, `muted`, `primary`, or
   `destructive`.
-- `data-align` appears only when `align` is explicitly set to `start`, `center`, `end`, `left`,
-  `right`, or `justify`.
+- `data-align` appears only when `align` is set to `start`, `center`, `end`, `left`, `right`, or
+  `justify`. Without it, `Text` inherits the alignment of its container.
 - `data-truncate` appears when single-line ellipsis is active.
-- `data-line-clamp` appears when `lineClamp` is a positive integer. In that case, `lineClamp` sets
-  the fallback line count. Set `--moduix-text-line-clamp` to override it through the public CSS API.
+- `data-line-clamp` appears when `lineClamp` is a positive integer; the line count is set inline as
+  `-webkit-line-clamp`.

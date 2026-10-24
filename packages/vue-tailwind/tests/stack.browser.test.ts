@@ -7,6 +7,8 @@ import type { ComponentPublicInstance } from 'vue';
 import { Stack } from '../src';
 import TestStack from './fixtures/TestStack.vue';
 
+const isDesktop = () => window.matchMedia('(min-width: 640px)').matches;
+
 test.each([false, true])(
   'updates responsive layout and removes stale styles, asChild=%s',
   async (asChild) => {
@@ -25,9 +27,9 @@ test.each([false, true])(
     });
     const stack = screen.getByTestId('stack');
     for (const [value, mobile, desktop] of [
-      ['row', 'row', 'row'],
-      [{ desktop: 'row-reverse' }, 'row-reverse', 'row-reverse'],
-      [{ mobile: 'column-reverse' }, 'column-reverse', 'column-reverse'],
+      ['row', 'row', undefined],
+      [{ desktop: 'row-reverse' }, 'column', 'row-reverse'],
+      [{ mobile: 'column-reverse' }, 'column-reverse', undefined],
       [{ mobile: 'column', desktop: 'row' }, 'column', 'row'],
       [undefined, 'column', undefined],
     ] as const) {
@@ -44,7 +46,7 @@ test.each([false, true])(
         desktop ? ['sm:' + classes[desktop]] : [],
       );
       expect(getComputedStyle(stack).flexDirection).toBe(
-        window.matchMedia('(min-width: 640px)').matches ? (desktop ?? mobile) : mobile,
+        isDesktop() ? (desktop ?? mobile) : mobile,
       );
       expect(screen.getByTestId('stack')).toBe(stack);
       expect(rootRef.value?.$el).toBe(stack);
@@ -118,15 +120,29 @@ test('writes flex props and reverse directions as native utilities and root styl
   });
   expect(getComputedStyle(stack)).toMatchObject({
     display: 'flex',
-    flexDirection: window.matchMedia('(min-width: 640px)').matches
-      ? 'row-reverse'
-      : 'column-reverse',
+    flexDirection: isDesktop() ? 'row-reverse' : 'column-reverse',
     flexGrow: '1',
     alignItems: 'center',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
     gap: '12px',
   });
+});
+
+test('does not pass direction or fill to nested roots', () => {
+  render({
+    components: { Stack },
+    template: `
+      <Stack direction="row" fill data-testid="outer">
+        <Stack data-testid="inner" />
+      </Stack>
+    `,
+  });
+
+  const inner = screen.getByTestId('inner');
+
+  expect(getComputedStyle(inner).flexDirection).toBe('column');
+  expect(getComputedStyle(inner).flexGrow).toBe('0');
 });
 
 test('leaves optional layout styles unset and lets style override layout props', () => {
@@ -149,9 +165,7 @@ test('leaves optional layout styles unset and lets style override layout props',
   const overridden = screen.getByTestId('overridden');
 
   expect(defaults.style.gap).toBe('');
-  expect([...overridden.classList]).toEqual(
-    expect.arrayContaining(['flex-row', 'sm:flex-row', 'flex-1']),
-  );
+  expect([...overridden.classList]).toEqual(expect.arrayContaining(['flex-row', 'flex-1']));
   expect(overridden.style).toMatchObject({ flexWrap: 'nowrap', gap: '2rem' });
 });
 
@@ -166,6 +180,7 @@ test('lets consumer Tailwind utilities override fixed defaults', () => {
   expect([...stack.classList]).not.toContain('flex-1');
   expect([...stack.classList]).not.toContain('flex-row');
   expect(getComputedStyle(stack).flex).toBe('0 0 auto');
+  expect(getComputedStyle(stack).flexDirection).toBe('column');
 });
 
 test('preserves semantic hosts and refs with asChild', () => {

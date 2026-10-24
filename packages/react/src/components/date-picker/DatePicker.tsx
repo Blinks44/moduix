@@ -1,11 +1,10 @@
 'use client';
 
 import {
+  DatePicker as DatePickerPrimitive,
   useDatePicker,
   useDatePickerContext,
-  type UseDatePickerReturn,
 } from '@ark-ui/react/date-picker';
-import { DatePicker as DatePickerPrimitive } from '@ark-ui/react/date-picker';
 import { useFieldContext } from '@ark-ui/react/field';
 import { useFieldsetContext } from '@ark-ui/react/fieldset';
 import { clsx } from 'clsx';
@@ -52,15 +51,20 @@ type DatePickerRangeFieldProps = Omit<
   triggerLabel?: string;
   triggerProps?: ComponentProps<typeof DatePickerPrimitive.Trigger>;
 };
-type DatePickerOffset = ReturnType<UseDatePickerReturn['getOffset']>;
-type DatePickerDayTableProps = Omit<
+type DatePickerTableSugarProps = Omit<
   ComponentProps<typeof DatePickerPrimitive.Table>,
   'asChild' | 'children'
 > & {
-  offset?: DatePickerOffset;
   showHeader?: boolean;
-  showWeekNumbers?: boolean;
 };
+type DatePickerDayTableProps = Omit<DatePickerTableSugarProps, 'columns'> & {
+  /** Shows the month this many months after the visible one, for multi-month layouts. */
+  offset?: number;
+};
+type DatePickerMonthTableProps = DatePickerTableSugarProps & {
+  format?: 'short' | 'long';
+};
+type DatePickerYearTableProps = DatePickerTableSugarProps;
 
 const DatePicker = forwardRef<ComponentRef<typeof DatePickerPrimitive.Root>, DatePickerRootProps>(
   function DatePicker(
@@ -405,43 +409,22 @@ const DatePickerTable = forwardRef<
 const DatePickerTableHead = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.TableHead>,
   ComponentProps<typeof DatePickerPrimitive.TableHead>
->(function DatePickerTableHead({ className, ...props }, ref) {
-  return (
-    <DatePickerPrimitive.TableHead
-      ref={ref}
-      className={className}
-      {...props}
-      data-slot="date-picker-table-head"
-    />
-  );
+>(function DatePickerTableHead(props, ref) {
+  return <DatePickerPrimitive.TableHead ref={ref} {...props} data-slot="date-picker-table-head" />;
 });
 
 const DatePickerTableBody = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.TableBody>,
   ComponentProps<typeof DatePickerPrimitive.TableBody>
->(function DatePickerTableBody({ className, ...props }, ref) {
-  return (
-    <DatePickerPrimitive.TableBody
-      ref={ref}
-      className={className}
-      {...props}
-      data-slot="date-picker-table-body"
-    />
-  );
+>(function DatePickerTableBody(props, ref) {
+  return <DatePickerPrimitive.TableBody ref={ref} {...props} data-slot="date-picker-table-body" />;
 });
 
 const DatePickerTableRow = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.TableRow>,
   ComponentProps<typeof DatePickerPrimitive.TableRow>
->(function DatePickerTableRow({ className, ...props }, ref) {
-  return (
-    <DatePickerPrimitive.TableRow
-      ref={ref}
-      className={className}
-      {...props}
-      data-slot="date-picker-table-row"
-    />
-  );
+>(function DatePickerTableRow(props, ref) {
+  return <DatePickerPrimitive.TableRow ref={ref} {...props} data-slot="date-picker-table-row" />;
 });
 
 const DatePickerTableHeader = forwardRef<
@@ -465,7 +448,7 @@ const DatePickerWeekNumberHeaderCell = forwardRef<
   return (
     <DatePickerPrimitive.WeekNumberHeaderCell
       ref={ref}
-      className={clsx(styles.tableHeader, styles.weekNumberCell, className)}
+      className={clsx(styles.tableHeader, className)}
       {...props}
       data-slot="date-picker-week-number-header-cell"
     />
@@ -514,73 +497,126 @@ const DatePickerTableCellTrigger = forwardRef<
   );
 });
 
+function DatePickerHeader() {
+  return (
+    <DatePickerViewControl>
+      <DatePickerPrevTrigger />
+      <DatePickerViewTrigger />
+      <DatePickerNextTrigger />
+    </DatePickerViewControl>
+  );
+}
+
 const DatePickerDayTable = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.Table>,
   DatePickerDayTableProps
->(function DatePickerDayTable(
-  { offset, showHeader = true, showWeekNumbers = false, ...props },
+>(function DatePickerDayTable({ offset, showHeader = true, ...props }, ref) {
+  const datePicker = useDatePickerContext();
+  const offsetMonth = offset ? datePicker.getOffset({ months: offset }) : undefined;
+
+  return (
+    <>
+      {showHeader ? <DatePickerHeader /> : null}
+      <DatePickerTable ref={ref} {...props} asChild={false}>
+        <DatePickerTableHead>
+          <DatePickerTableRow>
+            {datePicker.showWeekNumbers ? <DatePickerWeekNumberHeaderCell /> : null}
+            {datePicker.weekDays.map((weekDay) => (
+              <DatePickerTableHeader key={weekDay.value.toString()}>
+                {weekDay.short}
+              </DatePickerTableHeader>
+            ))}
+          </DatePickerTableRow>
+        </DatePickerTableHead>
+        <DatePickerTableBody>
+          {(offsetMonth?.weeks ?? datePicker.weeks).map((week, weekIndex) => (
+            <DatePickerTableRow key={week[0]?.toString()}>
+              {datePicker.showWeekNumbers ? (
+                <DatePickerWeekNumberCell week={week} weekIndex={weekIndex}>
+                  {datePicker.getWeekNumber(week)}
+                </DatePickerWeekNumberCell>
+              ) : null}
+              {week.map((day) => (
+                <DatePickerTableCell
+                  key={day.toString()}
+                  value={day}
+                  visibleRange={offsetMonth?.visibleRange}
+                >
+                  <DatePickerTableCellTrigger>{day.day}</DatePickerTableCellTrigger>
+                </DatePickerTableCell>
+              ))}
+            </DatePickerTableRow>
+          ))}
+        </DatePickerTableBody>
+      </DatePickerTable>
+    </>
+  );
+});
+
+const DatePickerMonthTable = forwardRef<
+  ComponentRef<typeof DatePickerPrimitive.Table>,
+  DatePickerMonthTableProps
+>(function DatePickerMonthTable(
+  { columns = 4, format = 'short', showHeader = true, ...props },
   ref,
 ) {
+  const datePicker = useDatePickerContext();
+
   return (
-    <DatePickerPrimitive.Context>
-      {(datePicker) => (
-        <>
-          {showHeader ? (
-            <DatePickerViewControl>
-              <DatePickerPrevTrigger />
-              <DatePickerViewTrigger />
-              <DatePickerNextTrigger />
-            </DatePickerViewControl>
-          ) : null}
-          <DatePickerTable ref={ref} {...props} asChild={false}>
-            <DatePickerTableHead>
-              <DatePickerTableRow>
-                {showWeekNumbers ? <DatePickerWeekNumberHeaderCell /> : null}
-                {datePicker.weekDays.map((weekDay) => (
-                  <DatePickerTableHeader key={weekDay.value.toString()}>
-                    {weekDay.short}
-                  </DatePickerTableHeader>
-                ))}
-              </DatePickerTableRow>
-            </DatePickerTableHead>
-            <DatePickerTableBody>
-              {(offset?.weeks ?? datePicker.weeks).map((week, weekIndex) => (
-                <DatePickerTableRow key={week[0]?.toString()}>
-                  {showWeekNumbers ? (
-                    <DatePickerWeekNumberCell week={week} weekIndex={weekIndex}>
-                      {datePicker.getWeekNumber(week)}
-                    </DatePickerWeekNumberCell>
-                  ) : null}
-                  {week.map((day) => (
-                    <DatePickerTableCell
-                      key={day.toString()}
-                      value={day}
-                      visibleRange={offset?.visibleRange}
-                    >
-                      <DatePickerTableCellTrigger>{day.day}</DatePickerTableCellTrigger>
-                    </DatePickerTableCell>
-                  ))}
-                </DatePickerTableRow>
+    <>
+      {showHeader ? <DatePickerHeader /> : null}
+      <DatePickerTable ref={ref} columns={columns} {...props} asChild={false}>
+        <DatePickerTableBody>
+          {datePicker.getMonthsGrid({ columns, format }).map((months) => (
+            <DatePickerTableRow key={months[0]?.value}>
+              {months.map((month) => (
+                <DatePickerTableCell key={month.value} value={month.value}>
+                  <DatePickerTableCellTrigger>{month.label}</DatePickerTableCellTrigger>
+                </DatePickerTableCell>
               ))}
-            </DatePickerTableBody>
-          </DatePickerTable>
-        </>
-      )}
-    </DatePickerPrimitive.Context>
+            </DatePickerTableRow>
+          ))}
+        </DatePickerTableBody>
+      </DatePickerTable>
+    </>
+  );
+});
+
+const DatePickerYearTable = forwardRef<
+  ComponentRef<typeof DatePickerPrimitive.Table>,
+  DatePickerYearTableProps
+>(function DatePickerYearTable({ columns = 4, showHeader = true, ...props }, ref) {
+  const datePicker = useDatePickerContext();
+
+  return (
+    <>
+      {showHeader ? <DatePickerHeader /> : null}
+      <DatePickerTable ref={ref} columns={columns} {...props} asChild={false}>
+        <DatePickerTableBody>
+          {datePicker.getYearsGrid({ columns }).map((years) => (
+            <DatePickerTableRow key={years[0]?.value}>
+              {years.map((year) => (
+                <DatePickerTableCell key={year.value} value={year.value} disabled={year.disabled}>
+                  <DatePickerTableCellTrigger>{year.label}</DatePickerTableCellTrigger>
+                </DatePickerTableCell>
+              ))}
+            </DatePickerTableRow>
+          ))}
+        </DatePickerTableBody>
+      </DatePickerTable>
+    </>
   );
 });
 
 const DatePickerMonthSelect = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.MonthSelect>,
   ComponentProps<typeof DatePickerPrimitive.MonthSelect>
->(function DatePickerMonthSelect({ className, multiple, size, ...props }, ref) {
+>(function DatePickerMonthSelect({ className, ...props }, ref) {
   return (
     <span className={styles.selectControl} data-slot="date-picker-month-select-control">
       <DatePickerPrimitive.MonthSelect
         ref={ref}
         {...props}
-        multiple={multiple}
-        size={size}
         className={clsx(styles.select, className)}
         data-slot="date-picker-month-select"
       />
@@ -598,14 +634,12 @@ const DatePickerMonthSelect = forwardRef<
 const DatePickerYearSelect = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.YearSelect>,
   ComponentProps<typeof DatePickerPrimitive.YearSelect>
->(function DatePickerYearSelect({ className, multiple, size, ...props }, ref) {
+>(function DatePickerYearSelect({ className, ...props }, ref) {
   return (
     <span className={styles.selectControl} data-slot="date-picker-year-select-control">
       <DatePickerPrimitive.YearSelect
         ref={ref}
         {...props}
-        multiple={multiple}
-        size={size}
         className={clsx(styles.select, className)}
         data-slot="date-picker-year-select"
       />
@@ -662,6 +696,7 @@ export {
   DatePickerInput,
   DatePickerLabel,
   DatePickerMonthSelect,
+  DatePickerMonthTable,
   DatePickerNextTrigger,
   DatePickerPositioner,
   DatePickerPresetTrigger,
@@ -684,13 +719,29 @@ export {
   DatePickerWeekNumberCell,
   DatePickerWeekNumberHeaderCell,
   DatePickerYearSelect,
+  DatePickerYearTable,
   useDatePicker,
   useDatePickerContext,
 };
 export type {
   DatePickerDayTableProps,
   DatePickerFieldProps,
+  DatePickerMonthTableProps,
   DatePickerRangeFieldProps,
   DatePickerRootProps,
   DatePickerRootProviderProps,
+  DatePickerYearTableProps,
 };
+export type {
+  DatePickerDateRangePreset,
+  DatePickerDateView,
+  DatePickerFocusChangeDetails,
+  DatePickerOpenChangeDetails,
+  DatePickerSelectionMode,
+  DatePickerValueChangeDetails,
+  DatePickerViewChangeDetails,
+  DatePickerVisibleRangeChangeDetails,
+  DateValue,
+  UseDatePickerProps,
+  UseDatePickerReturn,
+} from '@ark-ui/react/date-picker';

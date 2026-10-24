@@ -20,12 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkProgressCircle
     v-bind="attrs"
-    :class="
-      cn(
-        'block overflow-visible [--size:var(--spacing-control-xl)] [--thickness:0.4rem]',
-        className,
-      )
-    "
+    :class="cn('block [--size:var(--spacing-control-xl)] [--thickness:0.4rem]', className)"
     data-slot="progress-circular-circle"
   >
     <slot />

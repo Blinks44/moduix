@@ -4,12 +4,10 @@ import {
   PaginationNextTrigger,
   PaginationPrevTrigger,
 } from '@moduix/react/pagination';
-import styles from '@/components/examples/pagination/pagination-customized.module.css';
 
 export default function CustomizedPaginationDemo() {
   return (
     <Pagination
-      className={styles.root}
       count={400}
       pageSize={20}
       siblingCount={3}

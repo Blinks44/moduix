@@ -7,37 +7,31 @@ import {
 import { clsx } from 'clsx';
 import { children, For, splitProps } from 'solid-js';
 import type { ComponentProps } from 'solid-js';
-import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 import styles from './TagsInput.module.css';
 
 function TagsInput(props: ComponentProps<typeof TagsInputPrimitive.Root>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <TagsInputPrimitive.Root
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="tags-input-root"
-    >
-      {local.children}
-    </TagsInputPrimitive.Root>
+    />
   );
 }
 
 function TagsInputRootProvider(props: ComponentProps<typeof TagsInputPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <TagsInputPrimitive.RootProvider
-      asChild={local.asChild}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="tags-input-root-provider"
-    >
-      {local.children}
-    </TagsInputPrimitive.RootProvider>
+    />
   );
 }
 
@@ -143,47 +137,16 @@ function TagsInputInput(props: ComponentProps<typeof TagsInputPrimitive.Input>) 
 }
 
 function TagsInputClearTrigger(props: ComponentProps<typeof TagsInputPrimitive.ClearTrigger>) {
-  const [local, others] = splitProps(props, [
-    'aria-label',
-    'aria-labelledby',
-    'asChild',
-    'children',
-    'class',
-  ]);
-  const tagsInput = useTagsInputContext();
-  const triggerClassName = () => clsx(styles.clearTrigger, local.class);
-  const clearTriggerLabel = () => tagsInput().getClearTriggerProps()['aria-label'];
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
 
-  if (local.asChild) {
-    return (
-      <TagsInputPrimitive.ClearTrigger
-        asChild={local.asChild}
-        class={triggerClassName()}
-        aria-label={local['aria-label']}
-        aria-labelledby={local['aria-labelledby']}
-        {...others}
-        data-slot="tags-input-clear-trigger"
-      >
-        {local.children}
-      </TagsInputPrimitive.ClearTrigger>
-    );
-  }
-
+  // Ark merges its label, anatomy, and state props onto the CloseButton host.
   return (
     <TagsInputPrimitive.ClearTrigger
-      asChild={(triggerProps) => (
-        <CloseButton
-          {...triggerProps()}
-          aria-label={local['aria-label'] ?? clearTriggerLabel()}
-          aria-labelledby={local['aria-labelledby']}
-          data-part="clear-trigger"
-          data-scope="tags-input"
-          data-slot="tags-input-clear-trigger"
-        >
-          {local.children}
-        </CloseButton>
-      )}
-      class={triggerClassName()}
+      asChild={
+        local.asChild ??
+        ((triggerProps) => <CloseButton {...triggerProps()}>{local.children}</CloseButton>)
+      }
+      class={clsx(styles.clearTrigger, local.class)}
       {...others}
       data-slot="tags-input-clear-trigger"
     />
@@ -234,3 +197,31 @@ export {
   useTagsInputContext,
   useTagsInputItemContext,
 };
+
+export type {
+  TagsInputClearTriggerProps,
+  TagsInputContextProps,
+  TagsInputControlProps,
+  TagsInputFocusOutsideEvent,
+  TagsInputHighlightChangeDetails,
+  TagsInputHiddenInputProps,
+  TagsInputInputProps,
+  TagsInputInputValueChangeDetails,
+  TagsInputInteractOutsideEvent,
+  TagsInputItemContextProps,
+  TagsInputItemDeleteTriggerProps,
+  TagsInputItemInputProps,
+  TagsInputItemPreviewProps,
+  TagsInputItemProps,
+  TagsInputItemTextProps,
+  TagsInputLabelProps,
+  TagsInputPointerDownOutsideEvent,
+  TagsInputRootProps,
+  TagsInputRootProviderProps,
+  TagsInputValidityChangeDetails,
+  TagsInputValueChangeDetails,
+  UseTagsInputContext,
+  UseTagsInputItemContext,
+  UseTagsInputProps,
+  UseTagsInputReturn,
+} from '@ark-ui/solid/tags-input';

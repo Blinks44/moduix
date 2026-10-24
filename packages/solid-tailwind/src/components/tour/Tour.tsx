@@ -10,6 +10,7 @@ import {
 } from '@ark-ui/solid/tour';
 import type { ComponentProps } from 'solid-js';
 import { For, children, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
 import {
   OverlayPortal,
@@ -18,10 +19,9 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 
-const DEFAULT_CLOSE_BUTTON_LABEL = 'Close tour';
-
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
 type TourCloseIconProps = Omit<ComponentProps<typeof TourPrimitive.CloseTrigger>, 'asChild'>;
+type TourActionListProps = { class?: string };
 
 function Tour(props: TourRootProps) {
   const [local, others] = splitProps(props, [
@@ -52,7 +52,7 @@ function TourBackdrop(props: ComponentProps<typeof TourPrimitive.Backdrop>) {
     <OverlayPortal>
       <TourPrimitive.Backdrop
         class={cn(
-          'z-[calc(50+var(--tour-layer,0)+var(--layer-index,0))] bg-overlay backdrop-blur-xs data-[state=closed]:animate-[moduix-fade-out_200ms_ease-in-out_forwards] data-[state=open]:animate-[moduix-fade-in_200ms_ease-in-out] motion-reduce:animate-none',
+          'z-[calc(var(--moduix-z-tour)+var(--tour-layer,0))] bg-overlay backdrop-blur-[4px] data-[state=closed]:animate-moduix-dialog-backdrop-out data-[state=open]:animate-moduix-dialog-backdrop-in motion-reduce:data-[state]:animate-none',
           local.class,
         )}
         {...others}
@@ -69,7 +69,7 @@ function TourSpotlight(props: ComponentProps<typeof TourPrimitive.Spotlight>) {
     <OverlayPortal>
       <TourPrimitive.Spotlight
         class={cn(
-          'z-[calc(50+var(--tour-layer,0)+var(--layer-index,0))] ring-2 ring-ring',
+          'z-[calc(var(--moduix-z-tour)+var(--tour-layer,0))] ring-2 ring-ring',
           local.class,
         )}
         {...others}
@@ -86,7 +86,7 @@ function TourPositioner(props: ComponentProps<typeof TourPrimitive.Positioner>) 
     <OverlayPortal>
       <TourPrimitive.Positioner
         class={cn(
-          'z-[calc(50+var(--tour-layer,0)+var(--layer-index,0))] max-h-[var(--available-height)] max-w-[var(--available-width)] outline-0 [--tour-z-index:var(--moduix-tour-z-index,var(--moduix-z-modal))] data-[type=dialog]:fixed data-[type=dialog]:inset-0 data-[type=dialog]:grid data-[type=dialog]:place-items-center data-[type=dialog]:overflow-y-auto data-[type=dialog]:overscroll-contain data-[type=dialog]:p-4 data-[type=floating]:fixed data-[type=floating]:max-h-[calc(100dvh-3rem)] data-[type=floating]:max-w-[calc(100vw-3rem)] data-[type=floating]:data-[placement=bottom]:start-1/2 data-[type=floating]:data-[placement=bottom]:bottom-6 data-[type=floating]:data-[placement=bottom]:-translate-x-1/2 data-[type=floating]:data-[placement=bottom-end]:end-6 data-[type=floating]:data-[placement=bottom-end]:bottom-6 data-[type=floating]:data-[placement=bottom-start]:start-6 data-[type=floating]:data-[placement=bottom-start]:bottom-6 data-[type=floating]:data-[placement=center]:inset-1/2 data-[type=floating]:data-[placement=center]:-translate-x-1/2 data-[type=floating]:data-[placement=center]:-translate-y-1/2 data-[type=floating]:data-[placement=left]:start-6 data-[type=floating]:data-[placement=left]:top-1/2 data-[type=floating]:data-[placement=left]:-translate-y-1/2 data-[type=floating]:data-[placement=left-end]:start-6 data-[type=floating]:data-[placement=left-end]:bottom-6 data-[type=floating]:data-[placement=left-start]:start-6 data-[type=floating]:data-[placement=left-start]:top-6 data-[type=floating]:data-[placement=right]:end-6 data-[type=floating]:data-[placement=right]:top-1/2 data-[type=floating]:data-[placement=right]:-translate-y-1/2 data-[type=floating]:data-[placement=right-end]:end-6 data-[type=floating]:data-[placement=right-end]:bottom-6 data-[type=floating]:data-[placement=right-start]:end-6 data-[type=floating]:data-[placement=right-start]:top-6 data-[type=floating]:data-[placement=top]:start-1/2 data-[type=floating]:data-[placement=top]:top-6 data-[type=floating]:data-[placement=top]:-translate-x-1/2 data-[type=floating]:data-[placement=top-end]:end-6 data-[type=floating]:data-[placement=top-end]:top-6 data-[type=floating]:data-[placement=top-start]:start-6 data-[type=floating]:data-[placement=top-start]:top-6',
+          'z-[calc(var(--moduix-z-tour)+var(--tour-layer,0))] max-h-(--available-height) max-w-(--available-width) outline-0 [--tour-z-index:var(--moduix-z-tour)] data-[type=dialog]:fixed data-[type=dialog]:inset-0 data-[type=dialog]:grid data-[type=dialog]:place-items-center-safe data-[type=dialog]:overflow-y-auto data-[type=dialog]:overscroll-contain data-[type=dialog]:p-4 data-[type=floating]:fixed data-[type=floating]:max-h-[calc(100dvh-2*var(--moduix-spacing-6))] data-[type=floating]:max-w-[calc(100vw-2*var(--moduix-spacing-6))] data-[type=floating]:data-[placement=bottom]:left-1/2 data-[type=floating]:data-[placement=bottom]:-translate-x-1/2 data-[type=floating]:data-[placement=bottom-end]:end-6 data-[type=floating]:data-[placement=bottom-start]:start-6 data-[type=floating]:data-[placement=center]:top-1/2 data-[type=floating]:data-[placement=center]:left-1/2 data-[type=floating]:data-[placement=center]:-translate-x-1/2 data-[type=floating]:data-[placement=center]:-translate-y-1/2 data-[type=floating]:data-[placement=left]:top-1/2 data-[type=floating]:data-[placement=left]:-translate-y-1/2 data-[type=floating]:data-[placement=left-end]:bottom-6 data-[type=floating]:data-[placement=left-start]:top-6 data-[type=floating]:data-[placement=right]:top-1/2 data-[type=floating]:data-[placement=right]:-translate-y-1/2 data-[type=floating]:data-[placement=right-end]:bottom-6 data-[type=floating]:data-[placement=right-start]:top-6 data-[type=floating]:data-[placement=top]:left-1/2 data-[type=floating]:data-[placement=top]:-translate-x-1/2 data-[type=floating]:data-[placement=top-end]:end-6 data-[type=floating]:data-[placement=top-start]:start-6 data-[type=floating]:data-[placement^=bottom]:bottom-6 data-[type=floating]:data-[placement^=left]:left-6 data-[type=floating]:data-[placement^=right]:right-6 data-[type=floating]:data-[placement^=top]:top-6',
           local.class,
         )}
         {...others}
@@ -102,7 +102,7 @@ function TourContent(props: ComponentProps<typeof TourPrimitive.Content>) {
   return (
     <TourPrimitive.Content
       class={cn(
-        'relative z-60 flex max-h-[min(24rem,var(--available-height,100dvh))] w-80 max-w-[min(calc(100vw-2rem),var(--available-width,100vw))] origin-[var(--transform-origin)] flex-col gap-1 overflow-visible rounded-lg border border-border bg-popover p-5 text-popover-foreground shadow-lg outline-0 has-[>[data-slot=tour-body]]:grid has-[>[data-slot=tour-body]]:grid-rows-[minmax(0,1fr)_auto] data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open data-[type=dialog]:w-[min(26rem,calc(100vw-2rem))] data-[type=floating]:w-[min(22rem,calc(100vw-2rem))] motion-reduce:animate-none',
+        'relative flex max-h-[min(24rem,var(--available-height,100dvh))] w-[20rem] max-w-[min(calc(100vw-var(--moduix-spacing-8)),var(--available-width,100vw))] origin-(--transform-origin) flex-col gap-1 rounded-lg border border-border bg-popover p-5 text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-popup-out data-[state=open]:pointer-events-auto data-[state=open]:animate-moduix-popup-in data-[type=dialog]:w-[26rem] data-[type=floating]:w-[22rem] motion-reduce:data-[state]:animate-none',
         local.class,
       )}
       {...others}
@@ -134,7 +134,7 @@ function TourArrowTip(props: ComponentProps<typeof TourPrimitive.ArrowTip>) {
 
   return (
     <TourPrimitive.ArrowTip
-      class={cn('border-t border-l border-border !bg-popover', local.class)}
+      class={cn('border-t border-l border-border', local.class)}
       {...others}
       data-slot="tour-arrow-tip"
     />
@@ -146,7 +146,7 @@ function TourTitle(props: ComponentProps<typeof TourPrimitive.Title>) {
 
   return (
     <TourPrimitive.Title
-      class={cn('pe-6 text-md leading-6 font-semibold text-popover-foreground', local.class)}
+      class={cn('pe-6 text-md font-semibold', local.class)}
       {...others}
       data-slot="tour-title"
     />
@@ -158,7 +158,7 @@ function TourDescription(props: ComponentProps<typeof TourPrimitive.Description>
 
   return (
     <TourPrimitive.Description
-      class={cn('text-sm leading-5 text-muted-foreground', local.class)}
+      class={cn('text-sm text-muted-foreground', local.class)}
       {...others}
       data-slot="tour-description"
     />
@@ -170,7 +170,7 @@ function TourProgressText(props: ComponentProps<typeof TourPrimitive.ProgressTex
 
   return (
     <TourPrimitive.ProgressText
-      class={cn('order-1 mt-2 text-xs leading-4 text-muted-foreground', local.class)}
+      class={cn('mt-2 text-xs text-muted-foreground', local.class)}
       {...others}
       data-slot="tour-progress-text"
     />
@@ -190,24 +190,11 @@ function TourBody(props: HTMLArkProps<'div'>) {
 }
 
 function TourCloseTrigger(props: ComponentProps<typeof TourPrimitive.CloseTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <TourPrimitive.CloseTrigger
-      asChild={local.asChild}
-      class={cn(
-        !local.asChild &&
-          'absolute end-4 top-4 inline-flex size-7 cursor-pointer items-center justify-center rounded-md leading-none text-muted-foreground outline-0 focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring [&>svg]:size-4 [@media(hover:hover)]:hover:bg-accent [@media(hover:hover)]:hover:text-popover-foreground',
-        local.class,
-      )}
-      {...others}
-      data-slot="tour-close-trigger"
-    />
-  );
+  return <TourPrimitive.CloseTrigger {...props} data-slot="tour-close-trigger" />;
 }
 
 function TourCloseIcon(props: TourCloseIconProps) {
-  const [local, others] = splitProps(props, ['aria-label', 'aria-labelledby', 'children', 'class']);
+  const [local, others] = splitProps(props, ['aria-label', 'children', 'class']);
 
   return (
     <TourPrimitive.CloseTrigger
@@ -215,10 +202,9 @@ function TourCloseIcon(props: TourCloseIconProps) {
         <CloseButton
           {...triggerProps()}
           data-slot="tour-close-icon"
-          aria-label={local['aria-label'] ?? DEFAULT_CLOSE_BUTTON_LABEL}
-          aria-labelledby={local['aria-labelledby']}
+          aria-label={local['aria-label'] ?? a11yLabels.closeTour}
           class={cn(
-            'absolute end-4 top-4 size-7 rounded-md bg-transparent text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
+            'absolute end-4 top-4 rounded-md [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-popover-foreground',
             local.class,
           )}
         >
@@ -235,7 +221,7 @@ function TourControl(props: ComponentProps<typeof TourPrimitive.Control>) {
 
   return (
     <TourPrimitive.Control
-      class={cn('order-2 mt-3 flex flex-wrap justify-end gap-2', local.class)}
+      class={cn('mt-3 flex flex-wrap justify-end gap-2', local.class)}
       {...others}
       data-slot="tour-control"
     />
@@ -250,7 +236,7 @@ function TourActionTrigger(props: ComponentProps<typeof TourPrimitive.ActionTrig
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          "inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 font-medium whitespace-nowrap text-foreground no-underline outline-0 transition-[background-color,border-color,color] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 data-[type=close]:border-primary data-[type=close]:bg-primary data-[type=close]:text-primary-foreground data-[type=next]:border-primary data-[type=next]:bg-primary data-[type=next]:text-primary-foreground motion-reduce:transition-none [@media(hover:hover)]:[&:is([data-type='next'],[data-type='close']):not(:disabled):not([data-disabled]):hover]:border-[color-mix(in_oklab,var(--color-primary),black_12%)] [@media(hover:hover)]:[&:is([data-type='next'],[data-type='close']):not(:disabled):not([data-disabled]):hover]:bg-[color-mix(in_oklab,var(--color-primary),black_12%)] [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-accent",
+          "inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm font-medium whitespace-nowrap text-foreground outline-0 transition-[background-color,color] duration-normal ease-in-out focus-visible:outline-focus-inset focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-[type=close]:border-transparent data-[type=close]:bg-primary data-[type=close]:text-primary-foreground data-[type=next]:border-transparent data-[type=next]:bg-primary data-[type=next]:text-primary-foreground [@media(hover:hover)]:[&:is([data-type='next'],[data-type='close']):not(:disabled):hover]:bg-[color-mix(in_oklab,var(--color-primary),black_12%)] [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent",
         local.class,
       )}
       {...others}
@@ -261,14 +247,12 @@ function TourActionTrigger(props: ComponentProps<typeof TourPrimitive.ActionTrig
 
 const TourActions = TourPrimitive.Actions;
 
-function TourActionList(props: { class?: string }) {
-  const [local] = splitProps(props, ['class']);
-
+function TourActionList(props: TourActionListProps) {
   return (
     <TourPrimitive.Actions>
       {(actions) => (
         <For each={actions()}>
-          {(action) => <TourActionTrigger action={action} class={local.class} />}
+          {(action) => <TourActionTrigger action={action} class={props.class} />}
         </For>
       )}
     </TourPrimitive.Actions>
@@ -303,4 +287,30 @@ export {
   waitForEvent,
   waitForPromise,
 };
-export type { TourCloseIconProps, TourRootProps };
+export type { TourActionListProps, TourCloseIconProps, TourRootProps };
+
+export type {
+  TourActionTriggerProps,
+  TourActionsProps,
+  TourArrowProps,
+  TourArrowTipProps,
+  TourBackdropProps,
+  TourCloseTriggerProps,
+  TourContentProps,
+  TourContextProps,
+  TourControlProps,
+  TourDescriptionProps,
+  TourPositionerProps,
+  TourProgressTextProps,
+  TourSpotlightProps,
+  TourStatusChangeDetails,
+  TourStepChangeDetails,
+  TourStepDetails,
+  TourStepEffectArgs,
+  TourTitleProps,
+  UseTourContext,
+  UseTourProps,
+  UseTourReturn,
+  WaitForEventOptions,
+  WaitOptions,
+} from '@ark-ui/solid/tour';

@@ -1,3 +1,4 @@
+import { Button } from '@moduix/react/button';
 import {
   Menu,
   MenuTrigger,
@@ -32,17 +33,19 @@ export default function MultipleTriggersMenuDemo() {
     <Menu>
       <div className={styles.triggers}>
         {messages.map((message) => (
-          <MenuTrigger
-            key={message.id}
-            value={message.id}
-            aria-label={`Open actions for ${message.sender}`}
-          >
-            <MapIcon />
+          <MenuTrigger key={message.id} value={message.id} asChild>
+            <Button
+              variant="outline"
+              size="icon-md"
+              aria-label={`Open actions for ${message.sender}`}
+            >
+              <MapIcon />
+            </Button>
           </MenuTrigger>
         ))}
       </div>
       <MenuPositioner>
-        <MenuContent className={styles.content}>
+        <MenuContent>
           <MenuViewport>
             <MenuItem value="reply">Reply</MenuItem>
             <MenuItem value="forward">Forward</MenuItem>

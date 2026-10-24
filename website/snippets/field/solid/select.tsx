@@ -9,10 +9,8 @@ import {
   SelectIndicator,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
   SelectHiddenSelect,
+  SelectOption,
 } from '@moduix/solid/select';
 import styles from '@/components/examples/field/field-select.module.css';
 
@@ -38,10 +36,7 @@ export default function SelectFieldDemo() {
         <SelectPositioner>
           <SelectContent>
             {priorities.items.map((item) => (
-              <SelectItem item={item}>
-                <SelectItemText>{item.label}</SelectItemText>
-                <SelectItemIndicator />
-              </SelectItem>
+              <SelectOption item={item}>{item.label}</SelectOption>
             ))}
           </SelectContent>
         </SelectPositioner>

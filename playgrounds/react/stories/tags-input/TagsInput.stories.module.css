@@ -37,26 +37,8 @@
   }
 
   .customRoot {
-    --moduix-tags-input-item-bg: color-mix(
-      in oklab,
-      var(--moduix-color-primary) 14%,
-      var(--moduix-color-background)
-    );
-    --moduix-tags-input-item-border-color: color-mix(
-      in oklab,
-      var(--moduix-color-primary) 28%,
-      transparent
-    );
-    --moduix-tags-input-item-color: var(--moduix-color-primary);
-    --moduix-tags-input-item-highlight-ring-color: color-mix(
-      in oklab,
-      var(--moduix-color-primary) 70%,
-      transparent
-    );
-    --moduix-tags-input-trigger-bg-hover: color-mix(
-      in oklab,
-      var(--moduix-color-primary) 16%,
-      transparent
-    );
+    --moduix-tags-input-width: 28rem;
+    --moduix-tags-input-min-height: var(--moduix-size-lg);
+    --moduix-tags-input-radius: var(--moduix-radius-lg);
   }
 }

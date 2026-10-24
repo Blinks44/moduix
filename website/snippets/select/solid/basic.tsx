@@ -7,10 +7,8 @@ import {
   SelectContent,
   SelectItemGroup,
   SelectItemGroupLabel,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
   SelectHiddenSelect,
+  SelectOption,
 } from '@moduix/solid/select';
 import { For } from 'solid-js';
 
@@ -32,12 +30,7 @@ export default function SelectDemo() {
           <SelectItemGroup>
             <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
             <For each={fruits.items}>
-              {(item) => (
-                <SelectItem item={item}>
-                  <SelectItemText>{item.label}</SelectItemText>
-                  <SelectItemIndicator />
-                </SelectItem>
-              )}
+              {(item) => <SelectOption item={item}>{item.label}</SelectOption>}
             </For>
           </SelectItemGroup>
         </SelectContent>

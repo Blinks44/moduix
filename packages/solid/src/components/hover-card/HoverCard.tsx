@@ -130,16 +130,9 @@ function HoverCardArrowTip(props: ComponentProps<typeof HoverCardPrimitive.Arrow
 }
 
 function HoverCardBody(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
-  return (
-    <ark.div
-      asChild={local.asChild}
-      class={clsx(styles.body, local.class)}
-      {...others}
-      data-slot="hover-card-body"
-    />
-  );
+  return <ark.div class={clsx(styles.body, local.class)} {...others} data-slot="hover-card-body" />;
 }
 
 const HoverCardContext = HoverCardPrimitive.Context;
@@ -158,3 +151,20 @@ export {
   useHoverCardContext,
 };
 export type { HoverCardRootProps, HoverCardRootProviderProps };
+
+export type {
+  HoverCardArrowProps,
+  HoverCardArrowTipProps,
+  HoverCardContentProps,
+  HoverCardContextProps,
+  HoverCardFocusOutsideEvent,
+  HoverCardInteractOutsideEvent,
+  HoverCardOpenChangeDetails,
+  HoverCardPointerDownOutsideEvent,
+  HoverCardPositionerProps,
+  HoverCardTriggerProps,
+  HoverCardTriggerValueChangeDetails,
+  UseHoverCardContext,
+  UseHoverCardProps,
+  UseHoverCardReturn,
+} from '@ark-ui/solid/hover-card';

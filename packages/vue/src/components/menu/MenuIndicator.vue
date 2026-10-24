@@ -4,7 +4,7 @@ import type { MenuIndicatorProps } from '@ark-ui/vue/menu';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import styles from './Menu.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -24,6 +24,6 @@ const attrs = useAttrs();
     :class="clsx(styles.indicator, className)"
     data-slot="menu-indicator"
   >
-    <slot><ChevronDownIcon :class="styles.iconSvg" /></slot>
+    <slot><ChevronDownIcon /></slot>
   </ArkMenuIndicator>
 </template>

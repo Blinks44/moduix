@@ -22,10 +22,10 @@ externally owned state.
 - `Avatar` is the only public root component; it creates Ark state and accepts local `size`.
 - `AvatarRootProvider` applies the same visual contract to externally created Ark state.
 - `size` is the only local behavior-neutral prop. It is available on `Avatar` and
-  `AvatarRootProvider`.
+  `AvatarRootProvider`, defaults to `md`, and is always mirrored as `data-size`.
 - `AvatarFallback` is an Ark-shaped composition slot; consumers provide its content explicitly.
-- `AvatarContext`, `useAvatar`, and `useAvatarContext` are re-exported from `@moduix/react` for the normal advanced path; Ark type aliases remain direct imports from `@ark-ui/react/avatar`.
-- No legacy `render`, delay, loading-state adapter, or callback compatibility API remains.
+- `AvatarContext`, `useAvatar`, and `useAvatarContext` are re-exported from `@moduix/react` for the normal advanced path.
+- Types `AvatarRootProps`, `AvatarRootProviderProps`, `AvatarGroupProps`, and `AvatarSize` are exported; other Ark type aliases remain direct imports from `@ark-ui/react/avatar`.
 
 ## Anatomy and exported parts
 
@@ -36,6 +36,9 @@ Avatar
 
 AvatarRootProvider
 └─ same parts connected to a useAvatar() store
+
+AvatarGroup
+└─ Avatar, Avatar, ...
 ```
 
 | Part                 | `data-slot`            | Notes                                        |
@@ -44,11 +47,12 @@ AvatarRootProvider
 | `AvatarRootProvider` | `avatar-root-provider` | Uses `useAvatar` state and accepts `size`.   |
 | `AvatarFallback`     | `avatar-fallback`      | Visible while the image is absent or hidden. |
 | `AvatarImage`        | `avatar-image`         | Native image shown after successful loading. |
+| `AvatarGroup`        | `avatar-group`         | Styled `div` that overlaps child avatars.    |
 
 ## Composition
 
 ```tsx
-import { Avatar } from '@moduix/react/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@moduix/react/avatar';
 
 export function AvatarExample() {
   return (
@@ -92,8 +96,9 @@ loading state. Keep Ark type aliases on `@ark-ui/react/avatar`. Use
 
 ## Defaults and styling
 
-Both root components accept `className`, receive the root styles, and set `data-size` when `size` is
-provided.
+Both root components accept `className`, receive the root styles, and always set `data-size`
+(`md` by default). `data-size` and `data-slot` are written after the consumer props, so they cannot be
+overridden by accident.
 
 | `size` | Root size token    | Text token         |
 | ------ | ------------------ | ------------------ |
@@ -107,22 +112,25 @@ Public CSS variables:
 
 - `--moduix-avatar-bg`
 - `--moduix-avatar-color`
-- `--moduix-avatar-fallback-bg`
-- `--moduix-avatar-fallback-color`
-- `--moduix-avatar-fallback-padding`
 - `--moduix-avatar-font-size`
 - `--moduix-avatar-font-weight`
-- `--moduix-avatar-image-object-fit`
-- `--moduix-avatar-image-object-position`
-- `--moduix-avatar-line-height`
 - `--moduix-avatar-radius`
 - `--moduix-avatar-size`
 
 State-dependent styling should target Ark `data-state`; local visual hooks should use `data-slot`
 or the public CSS variables.
 
-`--moduix-avatar-line-height` is inherited by fallback text. Fallback padding uses `border-box`, so
-`--moduix-avatar-fallback-padding` stays within the configured avatar size.
+The fallback inherits color from the root and paints no background of its own, so `--moduix-avatar-bg`
+and `--moduix-avatar-color` style it. Use a class on `AvatarFallback` or `AvatarImage` for one-off
+changes such as a different fallback color or `object-position`. The root line height is `1`.
+
+The root does not clip its children: `AvatarImage` and `AvatarFallback` round themselves with
+`border-radius: inherit`, and the fallback clips its own content. This lets a status dot or badge be
+positioned absolutely inside `Avatar` and stick out of the circle.
+
+`AvatarGroup` is a flex row: every child after the first gets a negative inline-start margin of
+`--moduix-spacing-2`, and direct avatar roots get a ring of `--moduix-border-width-md` in
+`--moduix-color-background`. It has no state and no Ark counterpart.
 
 ## Intentional sugar and differences from upstream
 
@@ -131,36 +139,15 @@ or the public CSS variables.
 - `AvatarFallback` remains an explicit composition slot; consumers choose its content.
 - moduix adds stable `data-slot` hooks.
 - moduix keeps the styled `AvatarRootProvider` and re-exports `useAvatar`, `useAvatarContext`, and
-  `AvatarContext`, but does not re-export broader Ark context parts or Ark type aliases.
-- No Chakra-style variant, shape, color palette, group, badge, or `icon` prop is added. Those
-  patterns remain explicit composition and styling.
+  `AvatarContext`, but does not re-export broader Ark context parts or Ark type aliases beyond the root
+  prop types.
+- `AvatarGroup` is a styled layout part, as in shadcn and Chakra; it has no `max` or overflow count
+  logic, consumers render the `+N` avatar themselves.
+- No Chakra-style variant, shape, color palette, badge part, or `icon` prop is added. Those patterns
+  remain explicit composition and styling.
 
 ## Agent notes
 
 - Preserve `onStatusChange(details)` and the original context method names.
 - Keep `AvatarRootProvider` styled like `Avatar`, but never create another state owner inside it.
 - Do not reintroduce legacy `render`, delay, or transition attributes.
-
-## Local changelog
-
-- 2026-09-21: Replaced the compound `Avatar.*` value surface with the shared flat API. `Avatar` is
-  now the only root value; `AvatarRootProvider`, `AvatarContext`, `AvatarImage`, and `AvatarFallback`
-  are direct named exports.
-- 2026-09-04: Removed the `AvatarFallback name` convenience API and built-in fallback icon.
-  Consumers now provide fallback content explicitly, matching Ark UI composition.
-- 2026-08-08: Added the default decorative User icon, made generated initials
-  Unicode-grapheme-safe, fixed fallback line-height and padding sizing, and added image lifecycle
-  regression coverage.
-- 2026-07-09: Re-exported `useAvatar` and `useAvatarContext` from moduix and aligned docs/stories
-  so the normal advanced path no longer requires direct Ark imports.
-- 2026-07-07: Documented `<Avatar>` as the default happy path and added `AvatarFallback name` for
-  initials-first fallback content.
-- 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix
-  surface. Kept `RootProvider`, the callable root, all visual parts, and the `size` sugar.
-- 2026-06-24: Audited the Ark UI migration, simplified pass-through wiring and state CSS, and
-  aligned public docs with Ark provider examples.
-- 2026-06-18: Completed Ark UI parity by exporting `RootProvider`, `Context`, `useAvatar`,
-  `useAvatarContext`, and related types; added root-provider styling and state selectors; aligned
-  stories and docs with Ark composition and provider/context examples.
-- 2026-06-17: Migrated Avatar to Ark UI, adopted `Root`, `Image`, and `Fallback`,
-  replaced `render` with `asChild`, and removed legacy loading and motion contracts.

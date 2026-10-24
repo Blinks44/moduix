@@ -3,3 +3,5 @@ export { default as TagCloseTrigger } from './TagCloseTrigger.vue';
 export { default as TagEndElement } from './TagEndElement.vue';
 export { default as TagLabel } from './TagLabel.vue';
 export { default as TagStartElement } from './TagStartElement.vue';
+
+export type { Props as TagRootProps, TagSize, TagVariant } from './Tag.vue';

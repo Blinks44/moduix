@@ -7,7 +7,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import styles from './Steps.module.css';
 
 function Steps(props: ComponentProps<typeof StepsPrimitive.Root>) {
@@ -180,3 +180,25 @@ export {
   useStepsContext,
   useStepsItemContext,
 };
+export type {
+  StepChangeDetails,
+  StepInvalidDetails,
+  StepsCompletedContentProps,
+  StepsContentProps,
+  StepsContextProps,
+  StepsIndicatorProps,
+  StepsItemContextProps,
+  StepsItemProps,
+  StepsListProps,
+  StepsNextTriggerProps,
+  StepsPrevTriggerProps,
+  StepsProgressProps,
+  StepsRootProps,
+  StepsRootProviderProps,
+  StepsSeparatorProps,
+  StepsTriggerProps,
+  UseStepsContext,
+  UseStepsItemContext,
+  UseStepsProps,
+  UseStepsReturn,
+} from '@ark-ui/solid/steps';

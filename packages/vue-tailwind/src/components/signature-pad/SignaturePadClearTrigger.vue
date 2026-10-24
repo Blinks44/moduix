@@ -11,20 +11,12 @@ import { signaturePadReadOnlyKey } from './context';
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ SignaturePadClearTriggerProps {
-  ariaLabel?: string;
-  ariaLabelledby?: string;
   asChild?: boolean;
   class?: HTMLAttributes['class'];
   disabled?: boolean;
 }
 
-const {
-  ariaLabel,
-  ariaLabelledby,
-  asChild = false,
-  class: className,
-  disabled = undefined,
-} = defineProps<Props>();
+const { asChild = false, class: className, disabled = undefined } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -32,38 +24,24 @@ const readOnly = inject(
   signaturePadReadOnlyKey,
   computed(() => false),
 );
-const clearTriggerProps = computed(() => {
-  const isDisabled = readOnly.value || disabled;
-  return isDisabled === undefined ? {} : { disabled: isDisabled };
-});
+// Vue mergeProps lets undefined win, so only pass state that is set.
+const stateProps = computed(() => ({
+  ...(disabled === undefined ? {} : { disabled }),
+  ...(readOnly.value ? { hidden: true } : {}),
+}));
 </script>
 
+<!-- Ark still clears read-only signatures, so moduix hides the action as it does while empty. -->
 <template>
   <ArkSignaturePadClearTrigger
-    v-if="asChild"
-    v-bind="{ ...attrs, ...clearTriggerProps }"
+    v-bind="{ ...attrs, ...stateProps }"
     as-child
-    :aria-label="ariaLabel"
-    :aria-labelledby="ariaLabelledby"
-    :class="cn('absolute end-2 top-2 border-0', className)"
+    :class="cn('absolute end-2 top-2 size-control-xs data-disabled:opacity-100', className)"
     data-slot="signature-pad-clear-trigger"
   >
-    <slot><RotateCcwIcon class="size-4" aria-hidden="true" /></slot>
-  </ArkSignaturePadClearTrigger>
-  <ArkSignaturePadClearTrigger
-    v-else
-    v-bind="{ ...attrs, ...clearTriggerProps }"
-    as-child
-    :class="
-      cn(
-        `absolute end-2 top-2 size-control-xs rounded-sm border-0 bg-transparent text-muted-foreground focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground`,
-        className,
-      )
-    "
-    data-slot="signature-pad-clear-trigger"
-  >
-    <CloseButton :aria-label="ariaLabel" :aria-labelledby="ariaLabelledby">
-      <slot><RotateCcwIcon class="size-4" aria-hidden="true" /></slot>
+    <slot v-if="asChild" />
+    <CloseButton v-else>
+      <slot><RotateCcwIcon aria-hidden="true" /></slot>
     </CloseButton>
   </ArkSignaturePadClearTrigger>
 </template>

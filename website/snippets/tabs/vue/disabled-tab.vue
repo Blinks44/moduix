@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@moduix/vue/tabs';
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@moduix/vue/tabs';
 
 const items = [
   {
@@ -28,6 +28,7 @@ const items = [
       <TabsTrigger value="overview">Overview</TabsTrigger>
       <TabsTrigger value="projects" disabled>Projects</TabsTrigger>
       <TabsTrigger value="account">Account</TabsTrigger>
+      <TabsIndicator />
     </TabsList>
     <TabsContent v-for="item in items" :key="item.value" :value="item.value">
       {{ item.content }}

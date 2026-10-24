@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { Button } from '@moduix/vue/button';
+import { CloseButton } from '@moduix/vue/close-button';
 import {
   Popover,
-  PopoverCloseIcon,
+  PopoverArrow,
+  PopoverArrowTip,
+  PopoverCloseTrigger,
   PopoverContent,
   PopoverDescription,
   PopoverPositioner,
@@ -14,16 +16,21 @@ import styles from '@/components/examples/popover/popover-advanced-customization
 
 <template>
   <Popover :positioning="{ gutter: 8 }">
-    <PopoverTrigger as-child><Button>Open custom popover</Button></PopoverTrigger>
+    <PopoverTrigger>Open custom popover</PopoverTrigger>
     <PopoverPositioner>
       <PopoverContent>
+        <PopoverArrow>
+          <PopoverArrowTip />
+        </PopoverArrow>
         <div :class="styles.header">
           <PopoverTitle>Custom layout</PopoverTitle>
-          <PopoverCloseIcon />
+          <PopoverCloseTrigger as-child>
+            <CloseButton aria-label="Close popover" />
+          </PopoverCloseTrigger>
         </div>
         <PopoverDescription>
-          Compose Ark parts directly and replace the standard arrow when the layout calls for a
-          clean anchored panel.
+          Build the popup from the low-level parts when the header, body, and footer helpers do not
+          fit the layout.
         </PopoverDescription>
       </PopoverContent>
     </PopoverPositioner>

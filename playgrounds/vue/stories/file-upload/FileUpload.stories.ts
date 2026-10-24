@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent, ref, type Component, type PropType } from 'vue';
+import { Button } from '@/components/button';
 import { Field, FieldErrorText, FieldHelperText } from '@/components/field';
 import {
   FileUpload,
@@ -67,6 +68,7 @@ const components = {
   FileUploadLabel,
   FileUploadRootProvider,
   FileUploadTrigger,
+  Button,
 } as Record<string, Component>;
 
 const FileUploadItemList = defineComponent({
@@ -80,7 +82,7 @@ const FileUploadItemList = defineComponent({
         </FileUploadItemPreview>
         <FileUploadItemName />
         <FileUploadItemMetadata :file="file" />
-        <FileUploadItemDeleteTrigger :aria-label="'Remove ' + file.name" />
+        <FileUploadItemDeleteTrigger />
       </FileUploadItem>
     </FileUploadContext>
   `,
@@ -94,6 +96,7 @@ const FileUploadDemo = defineComponent({
     FileUploadItems,
     FileUploadLabel,
     FileUploadTrigger,
+    Button,
   } as Record<string, Component>,
   props: {
     accept: { type: String, default: undefined },
@@ -105,7 +108,7 @@ const FileUploadDemo = defineComponent({
   template: `
     <FileUpload :class="styles.simpleDemo" :accept="accept" :accepted-files="acceptedFiles" :default-accepted-files="defaultAcceptedFiles" :max-files="maxFiles">
       <FileUploadLabel>Attachments</FileUploadLabel>
-      <FileUploadTrigger>Choose files</FileUploadTrigger>
+      <FileUploadTrigger as-child><Button>Choose files</Button></FileUploadTrigger>
       <FileUploadItemGroup><FileUploadItems /></FileUploadItemGroup>
       <FileUploadHiddenInput />
     </FileUpload>
@@ -137,7 +140,7 @@ export const Dropzone: Story = {
         <div :class="styles.dropzoneContent">
           <span :class="styles.dropzoneTitle">Drag and drop files here</span>
           <span :class="styles.dropzoneDescription">or browse from your device</span>
-          <FileUploadTrigger>Browse files</FileUploadTrigger>
+          <FileUploadTrigger as-child><Button>Browse files</Button></FileUploadTrigger>
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup>
@@ -172,7 +175,7 @@ export const RejectedFiles: Story = {
         <div :class="styles.dropzoneContent">
           <span :class="styles.dropzoneTitle">Drop image files here</span>
           <span :class="styles.dropzoneDescription">PNG or JPEG, up to 120 KB</span>
-          <FileUploadTrigger>Select images</FileUploadTrigger>
+          <FileUploadTrigger as-child><Button>Select images</Button></FileUploadTrigger>
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup>
@@ -181,7 +184,7 @@ export const RejectedFiles: Story = {
           <FileUploadItem v-for="{ file, errors } in rejectedFiles" :key="file.name + file.size" :file="file">
             <FileUploadItemPreview type=".*"><FileUploadItemPreviewIcon /></FileUploadItemPreview>
             <div><FileUploadItemName /><p :class="styles.errorText">{{ errors.join(', ') }}</p></div>
-            <FileUploadItemDeleteTrigger :aria-label="'Remove ' + file.name" />
+            <FileUploadItemDeleteTrigger />
           </FileUploadItem>
         </FileUploadContext>
       </FileUploadItemGroup>
@@ -195,7 +198,7 @@ export const WithField: Story = {
       <FileUpload name="attachments" :max-files="3">
         <FileUploadLabel>Required attachments</FileUploadLabel>
         <FileUploadHiddenInput />
-        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadTrigger as-child><Button>Choose files</Button></FileUploadTrigger>
         <FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup>
       </FileUpload>
       <FieldHelperText>Upload up to three files.</FieldHelperText>
@@ -215,7 +218,7 @@ export const RootProvider: Story = {
         <div :class="styles.dropzoneContent">
           <span :class="styles.dropzoneTitle">Drop images here</span>
           <span :class="styles.dropzoneDescription">or browse from your device</span>
-          <FileUploadTrigger>Choose images</FileUploadTrigger>
+          <FileUploadTrigger as-child><Button>Choose images</Button></FileUploadTrigger>
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup>
@@ -235,7 +238,7 @@ export const CustomStyling: Story = {
         <div :class="styles.dropzoneContent">
           <span :class="styles.dropzoneTitle">Drop files here</span>
           <span :class="styles.dropzoneDescription">SVG, PNG, or PDF</span>
-          <FileUploadTrigger :class="styles.customTrigger">Browse files</FileUploadTrigger>
+          <FileUploadTrigger as-child><Button :class="styles.customTrigger">Browse files</Button></FileUploadTrigger>
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup><FileUploadItemList /></FileUploadItemGroup>

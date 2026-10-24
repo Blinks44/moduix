@@ -8,9 +8,9 @@ import styles from './Separator.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type SeparatorOrientation = 'horizontal' | 'vertical';
-type SeparatorSize = 'xs' | 'sm' | 'md' | 'lg';
-type SeparatorVariant = 'solid' | 'dashed' | 'dotted';
+export type SeparatorOrientation = 'horizontal' | 'vertical';
+export type SeparatorSize = 'xs' | 'sm' | 'md' | 'lg';
+export type SeparatorVariant = 'solid' | 'dashed' | 'dotted';
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'span'> {
   class?: HTMLAttributes['class'];

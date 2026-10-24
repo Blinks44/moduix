@@ -8,7 +8,6 @@ import {
   ListboxItemText,
   ListboxLabel,
 } from '@moduix/vue/listbox';
-import styles from '@/components/examples/listbox/listbox-basic.module.css';
 
 const countries = createListCollection({
   items: [
@@ -24,7 +23,7 @@ const countries = createListCollection({
 </script>
 
 <template>
-  <Listbox :collection="countries" :class="styles.root">
+  <Listbox :collection="countries">
     <ListboxLabel>Select country</ListboxLabel>
     <ListboxContent>
       <ListboxItem v-for="item in countries.items" :key="item.value" :item="item">

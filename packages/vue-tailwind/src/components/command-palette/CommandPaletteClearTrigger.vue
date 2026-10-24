@@ -6,8 +6,9 @@ import {
 import type { ComboboxClearTriggerProps } from '@ark-ui/vue/combobox';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
-import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 
 defineOptions({ inheritAttrs: false });
 
@@ -22,18 +23,13 @@ const { ariaLabel, ariaLabelledby, asChild = false, class: className } = defineP
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const combobox = useComboboxContext();
-const hidden = computed(() => combobox.value.inputValue.length === 0);
+const hidden = computed(() => combobox.value.inputValue === '');
 
+// Clear only the query; Ark's own handler would also clear the selected value.
 const handleClick = (event: MouseEvent) => {
   if (!event.defaultPrevented) {
     event.preventDefault();
     combobox.value.setInputValue('');
-  }
-};
-
-const handlePointerDown = (event: PointerEvent) => {
-  if (event.button === 0) {
-    event.preventDefault();
   }
 };
 </script>
@@ -43,19 +39,17 @@ const handlePointerDown = (event: PointerEvent) => {
     v-bind="attrs"
     :as-child="asChild"
     :aria-label="
-      ariaLabel ??
-      (!asChild && $slots.default == null && ariaLabelledby == null ? 'Clear search' : undefined)
+      ariaLabel ?? (!asChild && ariaLabelledby == null ? a11yLabels.clearSearch : undefined)
     "
     :aria-labelledby="ariaLabelledby"
     :class="
       cn(
-        'inline-flex size-control-xs shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm bg-transparent text-muted-foreground transition-[background-color,color,opacity,translate,scale] duration-200 ease-in-out select-none focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring motion-reduce:transition-none [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:hover:bg-muted [@media(hover:hover)]:hover:text-foreground',
+        `m-0 inline-flex size-control-xs shrink-0 cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color,opacity] duration-normal ease-in-out select-none focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-disabled [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground`,
         className,
       )
     "
     :hidden="hidden"
     @click="handleClick"
-    @pointerdown="handlePointerDown"
     data-slot="command-palette-clear-trigger"
   >
     <slot><CloseIcon /></slot>

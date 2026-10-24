@@ -5,39 +5,6 @@ description: Доступный компонент для раскрытия и 
 ---
 
 import * as CollapsibleDocs from '@/components/examples/collapsible/css-properties';
-import CollapsibleBasic from '@/components/examples/collapsible/basic.tsx';
-import CollapsibleContext from '@/components/examples/collapsible/context.tsx';
-import CollapsibleControlled from '@/components/examples/collapsible/controlled.tsx';
-import CollapsibleDefaultOpen from '@/components/examples/collapsible/default-open.tsx';
-import CollapsibleDisabled from '@/components/examples/collapsible/disabled.tsx';
-import CollapsibleLazyMount from '@/components/examples/collapsible/lazy-mount.tsx';
-import CollapsibleNested from '@/components/examples/collapsible/nested.tsx';
-import CollapsiblePartialCollapse from '@/components/examples/collapsible/partial-collapse.tsx';
-import CollapsiblePartialCollapseWidth from '@/components/examples/collapsible/partial-collapse-width.tsx';
-import CollapsibleRootProvider from '@/components/examples/collapsible/root-provider.tsx';
-import CollapsibleCustomComposition from '@/components/examples/collapsible/custom-composition.tsx';
-import collapsibleSolidBasic from '../../../snippets/collapsible/solid/basic.tsx?raw';
-import collapsibleSolidContext from '../../../snippets/collapsible/solid/context.tsx?raw';
-import collapsibleSolidControlled from '../../../snippets/collapsible/solid/controlled.tsx?raw';
-import collapsibleSolidDefaultOpen from '../../../snippets/collapsible/solid/default-open.tsx?raw';
-import collapsibleSolidDisabled from '../../../snippets/collapsible/solid/disabled.tsx?raw';
-import collapsibleSolidLazyMount from '../../../snippets/collapsible/solid/lazy-mount.tsx?raw';
-import collapsibleSolidNested from '../../../snippets/collapsible/solid/nested.tsx?raw';
-import collapsibleSolidPartialCollapse from '../../../snippets/collapsible/solid/partial-collapse.tsx?raw';
-import collapsibleSolidPartialCollapseWidth from '../../../snippets/collapsible/solid/partial-collapse-width.tsx?raw';
-import collapsibleSolidRootProvider from '../../../snippets/collapsible/solid/root-provider.tsx?raw';
-import collapsibleSolidCustomComposition from '../../../snippets/collapsible/solid/custom-composition.tsx?raw';
-import collapsibleVueBasic from '../../../snippets/collapsible/vue/basic.vue?raw';
-import collapsibleVueContext from '../../../snippets/collapsible/vue/context.vue?raw';
-import collapsibleVueControlled from '../../../snippets/collapsible/vue/controlled.vue?raw';
-import collapsibleVueDefaultOpen from '../../../snippets/collapsible/vue/default-open.vue?raw';
-import collapsibleVueDisabled from '../../../snippets/collapsible/vue/disabled.vue?raw';
-import collapsibleVueLazyMount from '../../../snippets/collapsible/vue/lazy-mount.vue?raw';
-import collapsibleVueNested from '../../../snippets/collapsible/vue/nested.vue?raw';
-import collapsibleVuePartialCollapse from '../../../snippets/collapsible/vue/partial-collapse.vue?raw';
-import collapsibleVuePartialCollapseWidth from '../../../snippets/collapsible/vue/partial-collapse-width.vue?raw';
-import collapsibleVueRootProvider from '../../../snippets/collapsible/vue/root-provider.vue?raw';
-import collapsibleVueCustomComposition from '../../../snippets/collapsible/vue/custom-composition.vue?raw';
 
 ## Справочник API
 
@@ -55,47 +22,7 @@ import collapsibleVueCustomComposition from '../../../snippets/collapsible/vue/c
 раскрывать и сворачивать одну область содержимого. Размещайте содержимое внутри `CollapsibleBody`,
 если нужна рекомендуемая внутренняя обёртка для отступов и размещения.
 
-<ExampleFrame variant="component">
-  <CollapsibleBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/collapsible/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={collapsibleSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={collapsibleVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/collapsible/collapsible-basic.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="collapsible/basic" />
 
 ## Установка через shadcn
 
@@ -184,279 +111,39 @@ Vue для того же управляемого контракта испол�
 Используйте `useCollapsibleContext()` внутри дочернего компонента, которому нужно получить состояние
 или программно закрыть область.
 
-<ExampleFrame variant="component">
-  <CollapsibleContext />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/collapsible/context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={collapsibleSolidContext} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={collapsibleVueContext} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/collapsible/collapsible-context.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="collapsible/context" />
 
 ### Управляемое состояние
 
 Используйте `open` с колбэком Ark `onOpenChange(details)`, когда состояние хранится в другой части
 интерфейса.
 
-<ExampleFrame variant="component">
-  <CollapsibleControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/collapsible/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={collapsibleSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={collapsibleVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/collapsible/collapsible-controlled.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="collapsible/controlled" />
 
 ### Открыт по умолчанию
 
 Задайте `defaultOpen`, чтобы неуправляемый компонент изначально был открыт.
 
-<ExampleFrame variant="component">
-  <CollapsibleDefaultOpen />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/collapsible/default-open.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={collapsibleSolidDefaultOpen} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={collapsibleVueDefaultOpen} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/collapsible/collapsible-default-open.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="collapsible/default-open" />
 
 ### Отключённое состояние
 
 Задайте `disabled` корневому компоненту, чтобы запретить открытие и закрытие области.
 
-<ExampleFrame variant="component">
-  <CollapsibleDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/collapsible/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={collapsibleSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={collapsibleVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/collapsible/collapsible-disabled.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="collapsible/disabled" />
 
 ### Отложенное монтирование
 
 Установите `lazyMount`, чтобы монтировать содержимое только после первого открытия. Добавьте
 `unmountOnExit`, чтобы удалять его из DOM после закрытия.
 
-<ExampleFrame variant="component">
-  <CollapsibleLazyMount />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/collapsible/lazy-mount.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={collapsibleSolidLazyMount} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={collapsibleVueLazyMount} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/collapsible/collapsible-lazy-mount.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="collapsible/lazy-mount" />
 
 ### Вложенные компоненты
 
 Если внутри раскрытой секции нужен ещё один необязательный блок, вкладывайте независимые корневые компоненты.
 
-<ExampleFrame variant="component">
-  <CollapsibleNested />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/collapsible/nested.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={collapsibleSolidNested} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={collapsibleVueNested} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/collapsible/collapsible-nested.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="collapsible/nested" />
 
 ### Частичное сворачивание
 
@@ -465,187 +152,27 @@ Vue для того же управляемого контракта испол�
 клавиатуры, пока компонент свёрнут. Поэтому действия, которые должны оставаться доступными, размещайте
 за пределами `CollapsibleContent`.
 
-<ExampleFrame variant="component">
-  <CollapsiblePartialCollapse />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/collapsible/partial-collapse.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={collapsibleSolidPartialCollapse} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={collapsibleVuePartialCollapse} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/collapsible/collapsible-partial-collapse.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="collapsible/partial-collapse" />
 
 ### Частичная ширина
 
 Используйте `collapsedWidth`, когда удобнее оставлять видимой часть содержимого по ширине, а не по высоте.
 
-<ExampleFrame variant="component">
-  <CollapsiblePartialCollapseWidth />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/collapsible/partial-collapse-width.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={collapsibleSolidPartialCollapseWidth} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={collapsibleVuePartialCollapseWidth} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/collapsible/collapsible-partial-collapse-width.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="collapsible/partial-collapse-width" />
 
 ### Root Provider
 
 Создайте состояние через `useCollapsible()` и передайте его в `CollapsibleRootProvider`, если код за
 пределами дерева отрисованных компонентов должен обращаться к этому состоянию.
 
-<ExampleFrame variant="component">
-  <CollapsibleRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/collapsible/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={collapsibleSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={collapsibleVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/collapsible/collapsible-root-provider.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="collapsible/root-provider" />
 
 ### Расширенная настройка
 
 Используйте `asChild`, чтобы передать поведение триггера кнопке, которую стилизует ваше приложение.
 Стилизация `CollapsibleTrigger` по умолчанию не применяется, но поведение Ark и атрибуты состояния сохраняются.
 
-<ExampleFrame variant="component">
-  <CollapsibleCustomComposition />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/collapsible/custom-composition.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={collapsibleSolidCustomComposition} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={collapsibleVueCustomComposition} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/collapsible/collapsible-custom-composition.module.css"
-```
-
-</div>
-
-</ExampleCode>
+<Example name="collapsible/custom-composition" />
 
 ## Стилизация
 

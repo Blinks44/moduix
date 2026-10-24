@@ -25,7 +25,7 @@ const listbox = useListbox({ collection: priorities });
 
 <template>
   <div :class="styles.stack">
-    <ListboxRootProvider :value="listbox" :class="styles.root">
+    <ListboxRootProvider :value="listbox">
       <ListboxLabel>Select priority</ListboxLabel>
       <ListboxContent>
         <ListboxItem v-for="item in priorities.items" :key="item.value" :item="item">

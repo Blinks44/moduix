@@ -9,13 +9,11 @@ import type { ComponentProps, JSX } from 'solid-js';
 import { mergeProps, splitProps } from 'solid-js';
 import styles from './Toc.module.css';
 
-const railBaseOffset = 0;
 const railStep = 12;
 const railBridge = 6;
-const maxRailLevel = 2;
 
-const getRailOffset = (depth: number) =>
-  railBaseOffset + Math.min(Math.max(depth - 2, 0), maxRailLevel) * railStep;
+// Depths 2 to 4 get their own rail column; deeper headings stay on the last one.
+const getRailX = (depth: number) => Math.min(Math.max(depth - 2, 0), 2) * railStep + 0.5;
 
 const useToc = (props: UseTocProps) => useTocPrimitive(mergeProps({ autoScroll: false }, props));
 
@@ -35,15 +33,11 @@ function Toc(props: ComponentProps<typeof TocPrimitive.Root>) {
 }
 
 function TocRootProvider(props: ComponentProps<typeof TocPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['class', 'style', 'value']);
-
-  const getRootStyle = () => mergeStyles(local.value().getRootProps().style, local.style);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <TocPrimitive.RootProvider
-      value={local.value}
       class={clsx(styles.root, local.class)}
-      style={getRootStyle()}
       {...others}
       data-slot="toc-root-provider"
     />
@@ -122,36 +116,6 @@ const nonScalingStrokeProps = {
   'vector-effect': 'non-scaling-stroke',
 } as const;
 
-const styleToString = (style: JSX.CSSProperties) =>
-  Object.entries(style)
-    .filter(([, value]) => value !== undefined)
-    .map(([property, value]) => `${property}:${value}`)
-    .join(';');
-
-const getStyleObject = (style: unknown): JSX.CSSProperties =>
-  typeof style === 'object' && style !== null ? (style as JSX.CSSProperties) : {};
-
-const mergeStyles = (base: unknown, override: unknown): JSX.CSSProperties | string | undefined => {
-  if (typeof override === 'string') {
-    const baseStyle = typeof base === 'string' ? base : styleToString(getStyleObject(base));
-
-    return baseStyle ? `${baseStyle};${override}` : override;
-  }
-
-  if (typeof base === 'string') {
-    const overrideStyle = styleToString(getStyleObject(override));
-
-    return overrideStyle ? `${base};${overrideStyle}` : base;
-  }
-
-  const baseStyle = getStyleObject(base);
-  const overrideStyle = getStyleObject(override);
-
-  return Object.keys(baseStyle).length || Object.keys(overrideStyle).length
-    ? { ...baseStyle, ...overrideStyle }
-    : undefined;
-};
-
 function TocRail(props: TocRailProps) {
   const [local, others] = splitProps(props, [
     'class',
@@ -160,37 +124,42 @@ function TocRail(props: TocRailProps) {
     'previousDepth',
     'style',
   ]);
-  const lineOffset = () => getRailOffset(local.depth);
-  const previousLineOffset = () => getRailOffset(local.previousDepth ?? local.depth);
-  const nextLineOffset = () => getRailOffset(local.nextDepth ?? local.depth);
-  const hasTurn = () => previousLineOffset() !== lineOffset();
-  const width = () => Math.max(previousLineOffset(), lineOffset(), nextLineOffset()) + 2;
-  const height = () =>
-    lineOffset() === nextLineOffset()
-      ? `calc(100% + ${railBridge}px + var(--moduix-table-of-contents-list-gap, var(--moduix-spacing-0-5)))`
-      : '100%';
-  const getRailStyle = () => mergeStyles({ width: width(), height: height() }, local.style);
+  const x = () => getRailX(local.depth);
+  const previousX = () => getRailX(local.previousDepth ?? local.depth);
+  const nextX = () => getRailX(local.nextDepth ?? local.depth);
+  const hasTurn = () => previousX() !== x();
+  const style = (): JSX.CSSProperties | string => {
+    const width = `${Math.max(previousX(), x(), nextX()) + 1.5}px`;
+    // Cross the list gap to the next rail, and its bridge too when the line continues.
+    const height = `calc(100% + ${nextX() === x() ? railBridge : 0}px + var(--moduix-spacing-0-5))`;
+
+    if (typeof local.style === 'string') {
+      return `width:${width};height:${height};${local.style}`;
+    }
+
+    return { width, height, ...local.style };
+  };
 
   return (
     <svg
       aria-hidden="true"
       class={clsx(styles.rail, local.class)}
-      style={getRailStyle()}
+      style={style()}
       {...others}
       data-slot="toc-rail"
     >
       {hasTurn() && (
         <path
-          d={`M ${previousLineOffset() + 0.5} 0 C ${previousLineOffset() + 0.5} 8 ${lineOffset() + 0.5} 4 ${lineOffset() + 0.5} ${railBridge * 2}`}
+          d={`M ${previousX()} 0 C ${previousX()} 8 ${x()} 4 ${x()} ${railBridge * 2}`}
           fill="none"
           {...nonScalingStrokeProps}
           stroke="currentColor"
         />
       )}
       <line
-        x1={lineOffset() + 0.5}
+        x1={x()}
         y1={hasTurn() ? railBridge * 2 : railBridge}
-        x2={lineOffset() + 0.5}
+        x2={x()}
         y2="100%"
         {...nonScalingStrokeProps}
         stroke="currentColor"
@@ -216,3 +185,22 @@ export {
   useToc,
   useTocContext,
 };
+
+export type {
+  TocActiveChangeDetails,
+  TocContentProps,
+  TocContextProps,
+  TocIndicatorProps,
+  TocItemData,
+  TocItemProps,
+  TocLinkProps,
+  TocListProps,
+  TocNavProps,
+  TocRootProps,
+  TocRootProviderProps,
+  TocTitleProps,
+  UseTocContext,
+  UseTocProps,
+  UseTocReturn,
+} from '@ark-ui/solid/toc';
+export type { TocRailProps };

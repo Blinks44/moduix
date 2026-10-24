@@ -14,10 +14,17 @@ import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { CloseButton } from '../close-button';
-import { Input } from '../input';
+import { Input, type InputSize } from '../input';
+import { Textarea } from '../textarea';
 import styles from './InputGroup.module.css';
 
-type InputGroupSize = NonNullable<ComponentProps<typeof Input>['size']>;
+type InputGroupSize = InputSize;
+
+type InputGroupAddonAlign = 'inline' | 'block';
+
+type InputGroupAddonProps = HTMLArkProps<'span'> & {
+  align?: InputGroupAddonAlign;
+};
 
 const InputGroupSizeContext = createContext<InputGroupSize>('md');
 
@@ -59,8 +66,24 @@ const InputGroupInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<ty
   },
 );
 
-const InputGroupAddon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function InputGroupAddon(
-  { className, ...props },
+const InputGroupTextarea = forwardRef<
+  ComponentRef<typeof Textarea>,
+  ComponentProps<typeof Textarea>
+>(function InputGroupTextarea({ className, size, ...props }, ref) {
+  const groupSize = useContext(InputGroupSizeContext);
+
+  return (
+    <Textarea
+      ref={ref}
+      className={clsx(styles.textarea, className)}
+      size={size ?? groupSize}
+      {...props}
+    />
+  );
+});
+
+const InputGroupAddon = forwardRef<HTMLSpanElement, InputGroupAddonProps>(function InputGroupAddon(
+  { align = 'inline', className, ...props },
   ref,
 ) {
   return (
@@ -70,13 +93,14 @@ const InputGroupAddon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(functi
       data-scope="input-group"
       data-part="addon"
       data-slot="input-group-addon"
+      data-align={align}
       className={clsx(styles.addon, className)}
     />
   );
 });
 
-const InputGroupText = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function InputGroupText(
-  { className, ...props },
+const InputGroupText = forwardRef<HTMLSpanElement, InputGroupAddonProps>(function InputGroupText(
+  { align = 'inline', className, ...props },
   ref,
 ) {
   return (
@@ -86,6 +110,7 @@ const InputGroupText = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(functio
       data-scope="input-group"
       data-part="text"
       data-slot="input-group-text"
+      data-align={align}
       className={clsx(styles.text, className)}
     />
   );
@@ -128,6 +153,7 @@ const InputGroupClearTrigger = forwardRef<
   ref,
 ) {
   const groupSize = useContext(InputGroupSizeContext);
+
   return (
     <CloseButton
       ref={ref}
@@ -153,4 +179,6 @@ export {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
+  InputGroupTextarea,
 };
+export type { InputGroupAddonAlign, InputGroupSize };

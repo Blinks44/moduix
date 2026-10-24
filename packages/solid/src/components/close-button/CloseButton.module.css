@@ -1,6 +1,5 @@
 @layer moduix.components {
   :where(.root) {
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -18,9 +17,9 @@
     user-select: none;
     cursor: pointer;
     transition:
-      background-color var(--moduix-close-button-transition, var(--moduix-transition-default)),
-      color var(--moduix-close-button-transition, var(--moduix-transition-default)),
-      opacity var(--moduix-close-button-transition, var(--moduix-transition-default));
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
 
     & > svg {
       flex-shrink: 0;
@@ -36,16 +35,9 @@
     }
 
     &:focus-visible {
-      outline: var(
-          --moduix-close-button-focus-ring-width,
-          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
-        )
-        solid var(--moduix-close-button-focus-ring-color, var(--moduix-color-ring));
+      outline: var(--moduix-close-button-focus-ring-width, var(--moduix-focus-ring-width)) solid
+        var(--moduix-close-button-focus-ring-color, var(--moduix-color-ring));
       outline-offset: var(--moduix-close-button-focus-ring-offset, var(--moduix-focus-ring-offset));
-    }
-
-    &:active:not([data-disabled]) {
-      opacity: 0.94;
     }
 
     &[data-disabled] {

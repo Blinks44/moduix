@@ -6,8 +6,8 @@ time and keeps Ark's timer machine, controls, callbacks, ids, and context API in
 ## Public API
 
 `Timer` is the root component and exposes `TimerRootProvider`, `TimerArea`, `TimerItem`, `TimerSeparator`,
-`TimerControl`, `TimerActionTrigger`, `TimerContext`, and `TimerSegments`. The package also exports `useTimer` and
-`useTimerContext`.
+`TimerControl`, `TimerActionTrigger`, `TimerContext`, and `TimerSegments`. The package also exports `useTimer`,
+`useTimerContext`, the Ark part prop types, `TimerSegmentsProps`, and `TimerTickDetails`.
 
 `TimerSegments` renders `hours`, `minutes`, and `seconds` by default. Pass `types` and
 `separator` to customize the generated `TimerItem` and `TimerSeparator` parts. It forwards
@@ -15,7 +15,7 @@ time and keeps Ark's timer machine, controls, callbacks, ids, and context API in
 `asChild`.
 
 ```tsx
-import { Timer } from '@moduix/solid/timer';
+import { Timer, TimerActionTrigger, TimerControl, TimerSegments } from '@moduix/solid/timer';
 
 export function Example() {
   return (
@@ -49,9 +49,9 @@ const timer = useTimer({ targetMs: 60_000 });
 
 Ark preserves the timer semantics, action visibility, native button keyboard behavior, formatted
 time values, `data-scope="timer"`, `data-part`, `data-type`, ids, and callback detail objects.
-The wrapper adds the same CSS Module defaults and `data-slot` hooks as the React component. Use
-the `--moduix-timer-*` custom properties to adjust spacing, typography, colors, focus ring, and
-action dimensions.
+The wrapper adds the same CSS Module defaults and `data-slot` hooks as the React component. Styles
+come from foundation tokens without component variables; override a part with a class or a
+`data-slot` selector.
 
 ## Ark Solid composition
 
@@ -59,11 +59,3 @@ Ark Solid uses a render-function `asChild` prop, for example
 `asChild={(props) => <section {...props()} />}`. The installed Ark Solid factory does not forward
 refs through `asChild`; ordinary refs and custom-host composition are supported as separate native
 paths. The Solid tests cover both paths independently.
-
-## Local changelog
-
-- 2026-09-22: Replaced the compound Timer API with flat Timer, TimerRootProvider, TimerArea,
-  TimerItem, TimerSeparator, TimerControl, TimerActionTrigger, TimerContext, and TimerSegments
-  exports.
-- 2026-09-04: Added the Solid Timer wrapper, tests, playground story, and registry entry in parity
-  with the React component.

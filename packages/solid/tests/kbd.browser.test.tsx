@@ -81,3 +81,35 @@ test('preserves semantic children and stable hooks with native Ark Solid asChild
   expect(key.getAttribute('data-part')).toBe('root');
   expect(key.getAttribute('data-slot')).toBe('kbd-root');
 });
+test('tints the keycap edge with the text color', () => {
+  render(() => (
+    <>
+      <Kbd data-testid="default">K</Kbd>
+      <Kbd data-testid="tinted" style={{ color: 'rgb(255, 0, 0)' }}>
+        K
+      </Kbd>
+    </>
+  ));
+
+  expect(getComputedStyle(screen.getByTestId('tinted')).boxShadow).not.toBe(
+    getComputedStyle(screen.getByTestId('default')).boxShadow,
+  );
+});
+test('keeps a keycap on one line and sizes its icon', () => {
+  render(() => (
+    <div style={{ width: '16px' }}>
+      <Kbd data-testid="key">
+        <svg data-testid="icon" viewBox="0 0 24 24" />
+        Shift
+      </Kbd>
+    </div>
+  ));
+
+  const key = screen.getByTestId('key');
+  const icon = screen.getByTestId('icon').getBoundingClientRect();
+
+  expect(key.offsetHeight).toBe(24);
+  expect(key.offsetWidth).toBeGreaterThan(16);
+  expect(getComputedStyle(key).gap).toBe('4px');
+  expect([icon.width, icon.height]).toEqual([12, 12]);
+});

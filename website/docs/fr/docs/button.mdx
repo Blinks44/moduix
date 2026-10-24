@@ -5,31 +5,7 @@ description: Un bouton stylisé pour React, Solid et Vue, avec des variantes CSS
 ---
 
 import * as ButtonDocs from '@/components/examples/button/css-properties';
-import ButtonAsChildLink from '@/components/examples/button/as-child-link.tsx';
-import ButtonBasic from '@/components/examples/button/basic.tsx';
-import ButtonDisabled from '@/components/examples/button/disabled.tsx';
-import ButtonIcons from '@/components/examples/button/icons.tsx';
-import ButtonPendingState from '@/components/examples/button/pending-state.tsx';
-import ButtonRef from '@/components/examples/button/ref.tsx';
-import ButtonSizes from '@/components/examples/button/sizes.tsx';
-import ButtonVariants from '@/components/examples/button/variants.tsx';
 
-import buttonSolidAsChildLink from '../../../snippets/button/solid/as-child-link.tsx?raw';
-import buttonSolidBasic from '../../../snippets/button/solid/basic.tsx?raw';
-import buttonSolidDisabled from '../../../snippets/button/solid/disabled.tsx?raw';
-import buttonSolidIcons from '../../../snippets/button/solid/icons.tsx?raw';
-import buttonSolidPendingState from '../../../snippets/button/solid/pending-state.tsx?raw';
-import buttonSolidRef from '../../../snippets/button/solid/ref.tsx?raw';
-import buttonSolidSizes from '../../../snippets/button/solid/sizes.tsx?raw';
-import buttonSolidVariants from '../../../snippets/button/solid/variants.tsx?raw';
-import buttonVueAsChildLink from '../../../snippets/button/vue/as-child-link.vue?raw';
-import buttonVueBasic from '../../../snippets/button/vue/basic.vue?raw';
-import buttonVueDisabled from '../../../snippets/button/vue/disabled.vue?raw';
-import buttonVueIcons from '../../../snippets/button/vue/icons.vue?raw';
-import buttonVuePendingState from '../../../snippets/button/vue/pending-state.vue?raw';
-import buttonVueRef from '../../../snippets/button/vue/ref.vue?raw';
-import buttonVueSizes from '../../../snippets/button/vue/sizes.vue?raw';
-import buttonVueVariants from '../../../snippets/button/vue/variants.vue?raw';
 
 ## Référence de l’API
 
@@ -45,41 +21,7 @@ Les mêmes exports sont disponibles depuis `@moduix/solid/button` pour Solid et 
 Pour la plupart des actions, utilisez `<Button>...</Button>`.
 
 
-<ExampleFrame variant="component">
-  <ButtonBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="button/basic" />
 
 ## Installation avec shadcn
 
@@ -143,132 +85,20 @@ La propriété `loading` ne gère que l’état occupé et désactivé (`data-lo
 
 Utilisez `disabled` avec les boutons natifs et les éléments utilisés avec `asChild`.
 
-<ExampleFrame variant="component">
-  <ButtonDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/button/button-disabled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/disabled" />
 
 ### Icônes
 
 Les icônes peuvent se placer avant ou après le texte. Leur ordre dans le JSX et le `gap` de l’élément racine Button déterminent la disposition.
 
-<ExampleFrame variant="component">
-  <ButtonIcons />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/icons.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidIcons} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueIcons} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/button/button-icons.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/icons" />
 
 ### Lien avec `asChild`
 
 Utilisez `asChild` pour la navigation afin que l’élément `<a>` conserve sa sémantique de lien tout en
 recevant les styles du bouton.
 
-<ExampleFrame variant="component">
-  <ButtonAsChildLink />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/as-child-link.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidAsChildLink} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueAsChildLink} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="button/as-child-link" />
 
 ### État de chargement
 
@@ -276,178 +106,33 @@ Utilisez `loading` pour signaler l’état de chargement tout en gardant le libe
 de vie asynchrone sous le contrôle de votre application. Avec `asChild`, cette propriété bloque également
 l’activation au clic.
 
-<ExampleFrame variant="component">
-  <ButtonPendingState />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/pending-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidPendingState} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVuePendingState} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="button/pending-state" />
 
 ### Ref
 
 La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utiliser pour lui donner le focus par programmation ou le mesurer. Dans Vue, une ref de template pointe vers l’instance du composant ; utilisez `$el` pour accéder à la racine rendue, qui est l’élément sémantique enfant avec `asChild`.
 
-<ExampleFrame variant="component">
-  <ButtonRef />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/ref.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidRef} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueRef} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/button/button-ref.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/ref" />
 
 ### Tailles
 
 Les boutons avec texte et les boutons composés uniquement d’une icône utilisent la même API racine.
 
-<ExampleFrame variant="component">
-  <ButtonSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/button/button-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/sizes" />
 
 ### Variantes
 
 Utilisez les variantes pour exprimer la priorité et l’intention de l’action.
 
-<ExampleFrame variant="component">
-  <ButtonVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/button/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={buttonSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={buttonVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/button/button-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="button/variants" />
 
 ## Styles
+
+Commencez par une variante et une taille intégrées. Pour un ajustement ponctuel, définissez les variables
+publiques `--moduix-button-*` sur le bouton via une classe ou un style en ligne. Pour personnaliser une
+variante dans toute l’application, définissez les mêmes variables sur
+`[data-slot='button-root'][data-variant='<variant>']`. Ces variables CSS concernent les paquets CSS Modules ;
+les paquets Tailwind utilisent des utilitaires natifs et vos propres classes.
 
 Utilisez `className` en React et `class` en Solid ou Vue sur la racine pour appliquer des classes personnalisées.
 

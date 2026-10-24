@@ -84,11 +84,10 @@ function NavigationMenuContent(props: ComponentProps<typeof NavigationMenuPrimit
 }
 
 function NavigationMenuLink(props: ComponentProps<typeof NavigationMenuPrimitive.Link>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <NavigationMenuPrimitive.Link
-      asChild={local.asChild}
       class={clsx(styles.link, local.class)}
       {...others}
       data-slot="navigation-menu-link"
@@ -179,3 +178,23 @@ export {
   useNavigationMenu,
   useNavigationMenuContext,
 };
+
+export type {
+  NavigationMenuArrowProps,
+  NavigationMenuContentProps,
+  NavigationMenuContextProps,
+  NavigationMenuIndicatorProps,
+  NavigationMenuItemIndicatorProps,
+  NavigationMenuItemProps,
+  NavigationMenuLinkProps,
+  NavigationMenuListProps,
+  NavigationMenuRootProps,
+  NavigationMenuRootProviderProps,
+  NavigationMenuTriggerProps,
+  NavigationMenuValueChangeDetails,
+  NavigationMenuViewportPositionerProps,
+  NavigationMenuViewportProps,
+  UseNavigationMenuContext,
+  UseNavigationMenuProps,
+  UseNavigationMenuReturn,
+} from '@ark-ui/solid/navigation-menu';

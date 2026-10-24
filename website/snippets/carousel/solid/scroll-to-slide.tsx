@@ -43,7 +43,7 @@ const slides = [
 export default function ScrollToCarousel() {
   return (
     <Carousel class={styles.root} aria-label="Scroll to gallery" slideCount={slides.length}>
-      <CarouselItemGroup class={styles.itemGroup} aria-label="Scroll to gallery">
+      <CarouselItemGroup>
         <For each={slides}>
           {(slide, index) => (
             <CarouselItem index={index()}>
@@ -53,7 +53,7 @@ export default function ScrollToCarousel() {
         </For>
       </CarouselItemGroup>
 
-      <CarouselControl class={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselNextTrigger />
       </CarouselControl>

@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { AngleSliderValueText as ArkAngleSliderValueText } from '@ark-ui/vue/angle-slider';
+import {
+  AngleSliderValueText as ArkAngleSliderValueText,
+  useAngleSliderContext,
+} from '@ark-ui/vue/angle-slider';
 import type { AngleSliderValueTextProps } from '@ark-ui/vue/angle-slider';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
@@ -16,6 +19,7 @@ const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
+const angleSlider = useAngleSliderContext();
 </script>
 
 <template>
@@ -24,6 +28,6 @@ const attrs = useAttrs();
     :class="clsx(styles.valueText, className)"
     data-slot="angle-slider-value-text"
   >
-    <template v-if="$slots.default" #default><slot /></template>
+    <slot>{{ angleSlider.value }}°</slot>
   </ArkAngleSliderValueText>
 </template>

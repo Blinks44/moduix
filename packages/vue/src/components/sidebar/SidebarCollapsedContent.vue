@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
-import { computed, useAttrs } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { useSidebar } from './context';
 
@@ -16,14 +16,13 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const { collapsed } = useSidebar();
-const hidden = computed(() => !collapsed.value);
 </script>
 
 <template>
   <ark.div
     v-bind="attrs"
     :class="className"
-    :hidden="hidden"
+    :hidden="!collapsed"
     data-scope="sidebar"
     data-part="collapsed-content"
     data-slot="sidebar-collapsed-content"

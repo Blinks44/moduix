@@ -52,20 +52,8 @@ const {
   motion = true,
   renderer,
   renderTooltipBody,
-  definition,
-  ariaLabel,
-  ariaDescription,
-  height,
-  aspectRatio,
-  width,
-  initialWidth,
-  tabIndex,
   idPrefix,
-  measureText,
-  onFocusChange,
-  onFocusGroupChange,
-  onSelect,
-  onRender,
+  ...hostProps
 } = defineProps<Props<TDatum, TXValue, TYValue>>();
 
 const renderTooltipSwatch = (color: string) =>
@@ -97,6 +85,7 @@ const renderModuixTooltipBody = (content: ChartTooltipContent | string): VNodeCh
               'div',
               {
                 key: `${row.label}-${index}`,
+                'data-active': row.active ? '' : undefined,
                 'data-has-swatch': row.color ? '' : undefined,
                 'data-slot': 'chart-tooltip-row',
                 class: styles.tooltipRow,
@@ -123,7 +112,9 @@ const renderModuixTooltipBody = (content: ChartTooltipContent | string): VNodeCh
 
 const generatedIdPrefix = `ts-chart-${useId().replaceAll(/[^a-zA-Z0-9_-]/g, '')}`;
 
-const resolvedAspectRatio = computed(() => resolveChartAdapterLayout({ aspectRatio }).aspectRatio);
+const resolvedAspectRatio = computed(
+  () => resolveChartAdapterLayout({ aspectRatio: hostProps.aspectRatio }).aspectRatio,
+);
 
 const resolvedRenderer = computed(
   () =>
@@ -141,20 +132,8 @@ const setTooltipTarget = (target: ChartTooltipBodyTarget<TDatum, TXValue, TYValu
 };
 
 const hostOptions = computed<ChartRendererHostOptions<TDatum, TXValue, TYValue>>(() => ({
-  definition,
-  ariaLabel,
-  ariaDescription,
-  height,
-  aspectRatio,
-  width,
-  initialWidth,
-  tabIndex,
+  ...hostProps,
   idPrefix: idPrefix ?? generatedIdPrefix,
-  measureText,
-  onFocusChange,
-  onFocusGroupChange,
-  onSelect,
-  onRender,
   renderer: resolvedRenderer.value,
   onTooltipBodyChange: setTooltipTarget,
 }));
@@ -177,15 +156,15 @@ watch(hostOptions, (nextOptions) => adapter.update(nextOptions));
 const hostStyle = computed<StyleValue>(() => [
   {
     position: 'relative',
-    width: width === undefined ? '100%' : `${width}px`,
+    width: hostProps.width === undefined ? '100%' : `${hostProps.width}px`,
     height:
-      height === undefined
+      hostProps.height === undefined
         ? resolvedAspectRatio.value === undefined
           ? '320px'
           : undefined
-        : `${height}px`,
+        : `${hostProps.height}px`,
     aspectRatio:
-      height === undefined && resolvedAspectRatio.value !== undefined
+      hostProps.height === undefined && resolvedAspectRatio.value !== undefined
         ? resolvedAspectRatio.value.toString()
         : undefined,
   },

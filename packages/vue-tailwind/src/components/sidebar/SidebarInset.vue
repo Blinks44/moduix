@@ -12,8 +12,10 @@ export interface Props extends /* @vue-ignore */ Omit<SplitterPanelProps, 'id'> 
   asChild?: SplitterPanelProps['asChild'];
   class?: HTMLAttributes['class'];
 }
+
 const { asChild = false, class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
+
 const attrs = useAttrs();
 const { side } = useSidebarConfig();
 </script>
@@ -25,8 +27,7 @@ const { side } = useSidebarConfig();
     id="content"
     :class="
       cn(
-        'box-border min-h-50 min-w-0 overflow-auto rounded-none border-0 border-border bg-card p-4 text-card-foreground shadow-none data-dragging:select-none',
-        'relative min-w-0 overflow-auto bg-background p-0 text-foreground',
+        'relative min-w-0 overflow-auto bg-background text-foreground data-dragging:select-none',
         className,
       )
     "

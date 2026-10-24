@@ -3,10 +3,20 @@
 Thanks for contributing to moduix. This guide covers the repository workflows; the component
 contracts themselves are described in [AGENTS.md](./AGENTS.md) and the shipped package docs.
 
+## Repository layout
+
+| Path                            | Purpose                                                                 |
+| ------------------------------- | ----------------------------------------------------------------------- |
+| `packages/<framework>`          | Published framework-native CSS Modules adapters.                        |
+| `packages/<framework>-tailwind` | Published framework-native Tailwind adapters.                           |
+| `packages/foundation`           | Shared framework-neutral tokens, resets, presets, and animations.       |
+| `playgrounds/<framework>*`      | Adapter playgrounds used for parity checks.                             |
+| `website`                       | Documentation site, runnable examples, and registry sources for blocks. |
+
 ## Prerequisites
 
 - Node.js 24 or newer (the repository declares `devEngines.runtime`, so pnpm can fetch it)
-- pnpm 12.6.0 (pinned through `packageManager`; enable Corepack with `corepack enable`)
+- pnpm 12.14.0 (pinned through `packageManager`; enable Corepack with `corepack enable`)
 
 ```bash
 pnpm install
@@ -28,7 +38,7 @@ For headed tests, omit `--only-shell`. Linux CI also passes `--with-deps`.
 | `pnpm run test`                            | Run all package tests                                                |
 | `pnpm run fmt:fix` / `pnpm run lint:check` | Format (oxfmt) and lint (oxlint)                                     |
 | `pnpm run tsc:check`                       | Typecheck every package                                              |
-| `pnpm run build:registry`                  | Regenerate the hosted shadcn registry artifacts                      |
+| `pnpm run build:registry`                  | Validate and build the hosted shadcn registry (not committed)        |
 | `pnpm run check:packages`                  | `publint` and `@arethetypeswrong` validation for all public packages |
 
 ## Before opening a pull request
@@ -47,8 +57,8 @@ For headed tests, omit `--only-shell`. Linux CI also passes `--with-deps`.
 3. Keep the multi-adapter contract synchronized. A public component change must reach every
    shipped counterpart (React, Solid, Vue, CSS Modules, Tailwind): implementation, tests, playground
    story, package `exports` entry, registry item, and component-local docs.
-4. If any registry source file changed, run `pnpm run build:registry` and commit the regenerated
-   artifacts under `website/docs/public/r`. Never edit those files by hand.
+4. If any registry source file changed, run `pnpm run build:registry` to validate it. The output in
+   `website/docs/public/r` is gitignored and rebuilt by the docs build.
 5. Documentation changes must keep the en, fr, and ru locales page-complete; do not add a page to
    localized navigation before its translation exists.
 
@@ -71,12 +81,11 @@ pnpm run test
 pnpm run tsc:check
 pnpm run build:packages
 pnpm run check:packages
-pnpm run build:registry
 pnpm run build:docs
 pnpm --filter './playgrounds/*' run build:storybook
 ```
 
-Commit regenerated registry files and require a green Verify run for the release commit.
+Require a green Verify run for the release commit.
 Review skipped regressions before publishing; passing tests do not mean those contracts are fixed.
 
 ## Reporting issues

@@ -2,7 +2,7 @@ import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
-import { Field, Textarea, FieldLabel } from '../src';
+import { Field, FieldLabel, Input, Textarea } from '../src';
 
 test('preserves native field state and component-owned styling hooks', async () => {
   render(
@@ -44,12 +44,11 @@ test('forwards the textarea ref and preserves asChild composition', () => {
   expect(textarea.getAttribute('data-slot')).toBe('textarea-root');
 });
 
-test('resizes with multiline input and preserves the autoresize styling hook', async () => {
+test('resizes with multiline input', async () => {
   render(<Textarea aria-label="Description" autoresize />);
 
   const textarea = screen.getByRole('textbox', { name: 'Description' });
 
-  expect(textarea.hasAttribute('data-autoresize')).toBe(true);
   expect(getComputedStyle(textarea!).resize).toBe('none');
 
   const initialHeight = textarea.getBoundingClientRect().height;
@@ -106,13 +105,11 @@ test('applies native utilities to the textarea', () => {
   expect([...textarea.classList]).toEqual(
     expect.arrayContaining([
       'w-full',
-      'max-w-none',
-      'min-h-24',
       'rounded-md',
       'border',
       'border-border',
       'bg-background',
-      'px-3.5',
+      'px-3',
       'py-2',
       'text-md',
       'leading-6',
@@ -145,11 +142,9 @@ test('lets consumer utilities replace component defaults', () => {
   );
   for (const utility of [
     'w-full',
-    'max-w-none',
-    'min-h-24',
     'rounded-md',
     'bg-background',
-    'px-3.5',
+    'px-3',
     'py-2',
     'leading-6',
     'resize-y',
@@ -162,4 +157,47 @@ test('lets consumer utilities replace component defaults', () => {
     padding: '0px',
     resize: 'none',
   });
+});
+test('dims a disabled textarea once inside a disabled Field', () => {
+  render(
+    <>
+      <Field disabled data-testid="disabled-field">
+        <FieldLabel>Notes</FieldLabel>
+        <Textarea />
+      </Field>
+      <Textarea aria-label="Standalone" disabled />
+    </>,
+  );
+
+  const opacity = (element: HTMLElement) => getComputedStyle(element).opacity;
+
+  expect(opacity(screen.getByTestId('disabled-field'))).toBe('0.5');
+  expect(opacity(screen.getByRole('textbox', { name: 'Notes' }))).toBe('1');
+  expect(opacity(screen.getByRole('textbox', { name: 'Standalone' }))).toBe('0.5');
+});
+test('matches Input padding and type at every size and defaults to md', () => {
+  render(
+    <>
+      <Textarea aria-label="Default" />
+      {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
+        <div key={size}>
+          <Textarea aria-label={`Textarea ${size}`} size={size} />
+          <Input aria-label={`Input ${size}`} size={size} />
+        </div>
+      ))}
+    </>,
+  );
+
+  expect(screen.getByRole('textbox', { name: 'Default' }).dataset.size).toBe('md');
+  for (const size of ['xs', 'sm', 'md', 'lg', 'xl']) {
+    const textarea = getComputedStyle(screen.getByRole('textbox', { name: `Textarea ${size}` }));
+    const input = getComputedStyle(screen.getByRole('textbox', { name: `Input ${size}` }));
+    expect([textarea.paddingInlineStart, textarea.fontSize]).toEqual([
+      input.paddingInlineStart,
+      input.fontSize,
+    ]);
+  }
+  expect(screen.getByRole('textbox', { name: 'Textarea xs' }).offsetHeight).toBeLessThan(
+    screen.getByRole('textbox', { name: 'Textarea xl' }).offsetHeight,
+  );
 });

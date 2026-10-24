@@ -1,3 +1,4 @@
+import { LocaleProvider } from '@ark-ui/vue/locale';
 import { page } from '@rstest/browser';
 import { expect, rs, test } from '@rstest/core';
 import { render, screen } from '@testing-library/vue';
@@ -279,31 +280,6 @@ test('keeps provider and context composition connected', async () => {
   await expect.element(page.getByTestId('tabs-context-slot')).toContainText('projects');
 });
 
-test('keeps owned data-variant above consumer overrides on vertical roots', () => {
-  const Harness = defineComponent({
-    components: tabsComponents,
-    setup() {
-      return { tabs: useTabs({ defaultValue: 'overview', orientation: 'vertical' }) };
-    },
-    template: `
-      <Tabs data-variant="line" default-value="overview" orientation="vertical">
-        <TabsList><TabsTrigger value="overview">Overview</TabsTrigger></TabsList>
-      </Tabs>
-      <TabsRootProvider data-variant="line" :value="tabs">
-        <TabsList><TabsTrigger value="overview">Overview</TabsTrigger></TabsList>
-      </TabsRootProvider>
-    `,
-  });
-
-  render(Harness);
-  const [root, provider] = screen.getAllByRole('tablist').map((tablist) => tablist.parentElement);
-
-  expect(root!.getAttribute('data-orientation')).toBe('vertical');
-  expect(root!.getAttribute('data-variant')).toBe('default');
-  expect(provider!.getAttribute('data-orientation')).toBe('vertical');
-  expect(provider!.getAttribute('data-variant')).toBe('default');
-});
-
 test('hydrates stable hosts and ids and remains interactive', async () => {
   const html = await renderToString(createSSRApp(SsrTabs));
   const host = document.createElement('div');
@@ -404,9 +380,166 @@ test('updates provider orientation and preserves every asChild host ref', async 
 
   orientation.value = 'vertical';
   await expect.element(rootLocator).toHaveAttribute('data-orientation', 'vertical');
-  await expect.element(rootLocator).toHaveAttribute('data-variant', 'default');
   await expect.element(page.getByRole('tablist')).toHaveAttribute('aria-orientation', 'vertical');
 
   orientation.value = 'horizontal';
-  await expect.element(rootLocator).toHaveAttribute('data-variant', 'line');
+  await expect.element(rootLocator).toHaveAttribute('data-orientation', 'horizontal');
+});
+
+function expectSameBox(actual: Element, expected: Element) {
+  const a = actual.getBoundingClientRect();
+  const e = expected.getBoundingClientRect();
+  expect(Math.abs(a.left - e.left)).toBeLessThanOrEqual(1);
+  expect(Math.abs(a.top - e.top)).toBeLessThanOrEqual(1);
+  expect(Math.abs(a.width - e.width)).toBeLessThanOrEqual(1);
+  expect(Math.abs(a.height - e.height)).toBeLessThanOrEqual(1);
+}
+
+const IndicatorTabs = defineComponent({
+  components: tabsComponents,
+  inheritAttrs: false,
+  template: `
+    <Tabs default-value="projects" v-bind="$attrs">
+      <TabsList>
+        <TabsTrigger value="overview">Overview</TabsTrigger>
+        <TabsTrigger value="projects" style="height: 48px">Projects</TabsTrigger>
+        <TabsIndicator />
+      </TabsList>
+    </Tabs>
+  `,
+});
+
+function getIndicatorParts(root: Element) {
+  return {
+    indicator: root.querySelector('[data-slot="tabs-indicator"]')!,
+    list: root.querySelector('[data-slot="tabs-list"]')!,
+    trigger: root.querySelector('[data-slot="tabs-trigger"][data-selected]')!,
+  };
+}
+
+test('covers the selected trigger box with the indicator in both orientations', async () => {
+  const { container } = render({
+    components: { IndicatorTabs },
+    template: `
+      <IndicatorTabs />
+      <IndicatorTabs orientation="vertical" />
+    `,
+  });
+
+  for (const root of container.querySelectorAll('[data-slot="tabs-root"]')) {
+    const { indicator, trigger } = getIndicatorParts(root);
+    await expect.poll(() => indicator.getBoundingClientRect().height).toBe(48);
+    expectSameBox(indicator, trigger);
+  }
+});
+
+test('draws the line indicator on the list edge in both orientations and RTL', async () => {
+  const { container } = render({
+    components: { IndicatorTabs, LocaleProvider },
+    template: `
+      <IndicatorTabs variant="line" />
+      <IndicatorTabs orientation="vertical" variant="line" />
+      <LocaleProvider locale="ar">
+        <IndicatorTabs orientation="vertical" variant="line" />
+      </LocaleProvider>
+    `,
+  });
+
+  const [horizontal, vertical, rtl] = [
+    ...container.querySelectorAll('[data-slot="tabs-root"]'),
+  ].map(getIndicatorParts);
+
+  await expect.poll(() => horizontal!.indicator.getBoundingClientRect().width).toBeGreaterThan(0);
+  const h = horizontal!.indicator.getBoundingClientRect();
+  expect(h.height).toBe(2);
+  expect(h.left).toBeCloseTo(horizontal!.trigger.getBoundingClientRect().left, 0);
+  expect(h.bottom).toBeCloseTo(horizontal!.list.getBoundingClientRect().bottom - 1, 0);
+
+  for (const [parts, edge] of [
+    [vertical!, 'right'],
+    [rtl!, 'left'],
+  ] as const) {
+    await expect.poll(() => parts.indicator.getBoundingClientRect().height).toBe(48);
+    const rect = parts.indicator.getBoundingClientRect();
+    const list = parts.list.getBoundingClientRect();
+    expect(rect.width).toBe(2);
+    expect(rect.top).toBeCloseTo(parts.trigger.getBoundingClientRect().top, 0);
+    expect(rect[edge]).toBeCloseTo(edge === 'right' ? list.right - 1 : list.left + 1, 0);
+  }
+});
+
+test('keeps the content radius while the panel shows its focus ring', async () => {
+  render(TestTabs);
+
+  const content = document.querySelector('[data-slot="tabs-content"]:not([hidden])')!;
+  const radius = getComputedStyle(content).borderTopLeftRadius;
+  const trigger = page.getByRole('tab', { name: 'Overview', exact: true });
+  await trigger.click();
+  await trigger.press('Tab');
+
+  await expect.element(page.getByRole('tabpanel')).toBeFocused();
+  expect(getComputedStyle(content).outlineStyle).toBe('solid');
+  expect(getComputedStyle(content).borderTopLeftRadius).toBe(radius);
+  expect(radius).not.toBe('0px');
+});
+
+test('sizes the tab list to the matching control height', () => {
+  const { container } = render({
+    components: tabsComponents,
+    setup() {
+      return { items };
+    },
+    template: `
+      <Tabs v-for="size in ['sm', 'md', 'lg']" :key="size" default-value="overview" :size="size">
+        <TabsList>
+          <TabsTrigger v-for="item in items" :key="item.value" :value="item.value">
+            {{ item.label }}
+          </TabsTrigger>
+        </TabsList>
+      </Tabs>
+    `,
+  });
+
+  const heights = [...container.querySelectorAll<HTMLElement>('[data-slot="tabs-list"]')].map(
+    (list) => list.offsetHeight,
+  );
+  expect(heights).toEqual([32, 36, 40]);
+});
+
+test('stretches horizontal triggers across the root when fitted', () => {
+  const { container } = render({
+    components: tabsComponents,
+    setup() {
+      return { items };
+    },
+    template: `
+      <Tabs
+        v-for="orientation in ['horizontal', 'vertical']"
+        :key="orientation"
+        default-value="overview"
+        fitted
+        :orientation="orientation"
+        style="width: 480px"
+      >
+        <TabsList>
+          <TabsTrigger v-for="item in items" :key="item.value" :value="item.value">
+            {{ item.label }}
+          </TabsTrigger>
+        </TabsList>
+      </Tabs>
+    `,
+  });
+
+  const [horizontal, vertical] = container.querySelectorAll<HTMLElement>('[data-slot="tabs-root"]');
+  const list = horizontal!.querySelector<HTMLElement>('[data-slot="tabs-list"]')!;
+  const widths = [...list.querySelectorAll<HTMLElement>('[data-slot="tabs-trigger"]')].map(
+    (trigger) => trigger.offsetWidth,
+  );
+
+  expect(horizontal!.hasAttribute('data-fitted')).toBe(true);
+  expect(list.offsetWidth).toBe(480);
+  expect(Math.max(...widths) - Math.min(...widths)).toBeLessThanOrEqual(1);
+  for (const trigger of vertical!.querySelectorAll<HTMLElement>('[data-slot="tabs-trigger"]')) {
+    expect(trigger.offsetHeight).toBe(26);
+  }
 });

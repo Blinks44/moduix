@@ -172,3 +172,62 @@ test('keeps actions interactive when CardLink covers the card', async () => {
 
   expect(acknowledgements).toBe(1);
 });
+
+test('pads a lone section on both sides and spaces sections evenly', async () => {
+  render(() => (
+    <>
+      <Card size="lg">
+        <CardHeader data-testid="lone-header">
+          <CardTitle>Only a header</CardTitle>
+        </CardHeader>
+      </Card>
+      <Card>
+        <CardHeader data-testid="header">
+          <CardTitle>Header and footer</CardTitle>
+        </CardHeader>
+        <CardFooter data-testid="footer">Updated today</CardFooter>
+      </Card>
+      <Card>
+        <CardBackground />
+        <CardBody data-testid="body">Body after a background</CardBody>
+      </Card>
+    </>
+  ));
+
+  await expect.element(page.getByTestId('lone-header')).toHaveCSS('padding-top', '32px');
+  await expect.element(page.getByTestId('lone-header')).toHaveCSS('padding-bottom', '32px');
+  await expect.element(page.getByTestId('header')).toHaveCSS('padding-bottom', '0px');
+  await expect.element(page.getByTestId('footer')).toHaveCSS('padding-top', '24px');
+  await expect.element(page.getByTestId('footer')).toHaveCSS('padding-bottom', '24px');
+  await expect.element(page.getByTestId('body')).toHaveCSS('padding-top', '24px');
+});
+
+test('lets CardLink cover the body of a card with a background', async () => {
+  render(() => (
+    <Card>
+      <CardBackground>
+        <div />
+      </CardBackground>
+      <CardHeader>
+        <CardTitle>
+          <CardLink href="#guide">Weekend guide</CardLink>
+        </CardTitle>
+      </CardHeader>
+      <CardBody data-testid="body">Three places to slow down.</CardBody>
+      <CardFooter>
+        <button type="button">Save</button>
+      </CardFooter>
+    </Card>
+  ));
+
+  await expect.element(page.getByRole('link', { name: 'Weekend guide' })).toHaveCount(1);
+  const hit = (element: Element) => {
+    const rect = element.getBoundingClientRect();
+    return document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
+  };
+
+  expect(hit(screen.getByTestId('body'))).toBe(screen.getByRole('link', { name: 'Weekend guide' }));
+  expect(hit(screen.getByRole('button', { name: 'Save' }))).toBe(
+    screen.getByRole('button', { name: 'Save' }),
+  );
+});

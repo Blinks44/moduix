@@ -1,3 +1,4 @@
+import { Button } from '@moduix/solid/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -30,7 +31,7 @@ export default function AdvancedFileUploadDemo() {
         <div class={styles.dropzoneContent}>
           <span class={styles.dropzoneTitle}>Drag and drop files here</span>
           <span class={styles.dropzoneDescription}>or browse from your device</span>
-          <FileUploadTrigger>Browse files</FileUploadTrigger>
+          <FileUploadTrigger asChild={(props) => <Button {...props()}>Browse files</Button>} />
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>
@@ -50,7 +51,7 @@ export default function AdvancedFileUploadDemo() {
                   )}
                   <FileUploadItemName />
                   <FileUploadItemMetadata file={file} />
-                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                  <FileUploadItemDeleteTrigger />
                 </FileUploadItem>
               )}
             </For>

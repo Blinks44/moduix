@@ -5,27 +5,6 @@ description: A compact label for brief metadata such as status, category, versio
 ---
 
 import * as BadgeDocs from '@/components/examples/badge/css-properties';
-import BadgeBasic from '@/components/examples/badge/basic.tsx';
-import BadgeCustomStyling from '@/components/examples/badge/custom-styling.tsx';
-import BadgeLink from '@/components/examples/badge/link.tsx';
-import BadgeLongLabels from '@/components/examples/badge/long-labels.tsx';
-import BadgeVariants from '@/components/examples/badge/variants.tsx';
-import BadgeWithDot from '@/components/examples/badge/with-dot.tsx';
-import BadgeWithIcon from '@/components/examples/badge/with-icon.tsx';
-import badgeSolidBasic from '../../../snippets/badge/solid/basic.tsx?raw';
-import badgeSolidCustomStyling from '../../../snippets/badge/solid/custom-styling.tsx?raw';
-import badgeSolidLink from '../../../snippets/badge/solid/link.tsx?raw';
-import badgeSolidLongLabels from '../../../snippets/badge/solid/long-labels.tsx?raw';
-import badgeSolidVariants from '../../../snippets/badge/solid/variants.tsx?raw';
-import badgeSolidWithDot from '../../../snippets/badge/solid/with-dot.tsx?raw';
-import badgeSolidWithIcon from '../../../snippets/badge/solid/with-icon.tsx?raw';
-import badgeVueBasic from '../../../snippets/badge/vue/basic.vue?raw';
-import badgeVueCustomStyling from '../../../snippets/badge/vue/custom-styling.vue?raw';
-import badgeVueLink from '../../../snippets/badge/vue/link.vue?raw';
-import badgeVueLongLabels from '../../../snippets/badge/vue/long-labels.vue?raw';
-import badgeVueVariants from '../../../snippets/badge/vue/variants.vue?raw';
-import badgeVueWithDot from '../../../snippets/badge/vue/with-dot.vue?raw';
-import badgeVueWithIcon from '../../../snippets/badge/vue/with-icon.vue?raw';
 
 ## API Reference
 
@@ -48,44 +27,10 @@ The Vue exports are available from `@moduix/vue/badge` for CSS Modules and `@mod
 
 
 Start with a plain `<Badge>`. The component renders a presentational `span` by default. Set `variant`
-to choose `default`, `secondary`, `destructive`, `outline`, `ghost`, or `link`, and add `BadgeDot`
-only when the status benefits from a visual indicator.
+to choose `default`, `secondary`, `destructive`, `outline`, `ghost`, or `link`, set `size` to `sm`,
+`md`, or `lg`, and add `BadgeDot` only when the status benefits from a visual indicator.
 
-<ExampleFrame variant="component">
-  <BadgeBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="badge/basic" />
 
 ## Install with shadcn
 
@@ -160,87 +105,14 @@ In Vue, place exactly one child in the default slot when using `as-child`; the c
 Use a class or inline CSS variables when a built-in variant is close to what you need but still needs
 a small adjustment.
 
-<ExampleFrame variant="component">
-  <BadgeCustomStyling />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/custom-styling.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidCustomStyling} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueCustomStyling} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/badge/badge-custom-styling.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/custom-styling" />
 
 ### Link
 
 Use `variant="link"` with `asChild` when a badge needs to be a link in a metadata row. The child
 element remains a real link and keeps its native semantics.
 
-<ExampleFrame variant="component">
-  <BadgeLink />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/link.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidLink} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueLink} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="badge/link" />
 
 ### Long Labels
 
@@ -248,191 +120,40 @@ Wrap a long value in `BadgeLabel` to truncate it inside a constrained badge. Add
 the full label on pointer hover. On touch-first interfaces, choose a label that fits the available
 space.
 
-<ExampleFrame variant="component">
-  <BadgeLongLabels />
-</ExampleFrame>
+<Example name="badge/long-labels" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
+### Sizes
 
-```tsx pure file="../../../src/components/examples/badge/long-labels.tsx"
-```
+Set `size` to `sm`, `md`, or `lg`. The default is `md`.
 
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidLongLabels} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueLongLabels} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/badge/badge-long-labels.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/sizes" />
 
 ### Variants
 
 Use the built-in variants for common styles.
 
-<ExampleFrame variant="component">
-  <BadgeVariants />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/variants.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidVariants} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueVariants} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/badge/badge-variants.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/variants" />
 
 ### With Dot
 
 Add `BadgeDot` when the label needs a status indicator that stays visually connected to it. Keep the
 status meaning in the visible text because the dot is decorative.
 
-<ExampleFrame variant="component">
-  <BadgeWithDot />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/with-dot.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidWithDot} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueWithDot} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/badge/badge-with-dot.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/with-dot" />
 
 ### With Icon
 
 Place a direct child SVG icon next to the label when the metadata needs another visual cue.
 
-<ExampleFrame variant="component">
-  <BadgeWithIcon />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/badge/with-icon.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={badgeSolidWithIcon} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={badgeVueWithIcon} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/badge/badge-with-icon.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="badge/with-icon" />
 
 ## Styling
 
-Start with a built-in variant. For a one-off size or style change, set the public
-`--moduix-badge-*` variables on the badge through a class or inline style. Use
-`--moduix-badge-<variant>-*` variables to theme a variant across the application. The shared
-`--moduix-badge-bg`, `--moduix-badge-border-color`, and `--moduix-badge-color` variables override
-the variant-specific values for an individual badge. These CSS variables apply to the CSS Modules
-packages; Tailwind packages use native utilities and consumer classes instead.
+Start with a built-in variant and size. The CSS Modules variables override the background, border,
+and text color of every variant; to theme one variant across the application, set them on
+`[data-slot='badge-root'][data-variant='<variant>']`. Size, spacing, typography, radius, and icon and
+dot sizes use foundation tokens; change them with a class on the part. These CSS variables apply to the
+CSS Modules packages; Tailwind packages use native utilities and consumer classes instead.
 
 Use `className` in React or `class` in Solid and Vue on exported parts. The stable `data-slot` hooks and
 Ark data attributes are shared by all styling tracks.
@@ -445,7 +166,7 @@ Ark data attributes are shared by all styling tracks.
 
 - `data-slot="badge-root"`, `data-slot="badge-label"`, and `data-slot="badge-dot"` are stable selectors for styling the exported parts.
 - `Badge` also exposes `data-scope="badge"` and `data-part="root"`. `BadgeLabel` and `BadgeDot` expose `data-part="label"` and `data-part="dot"`.
-- `Badge` writes the selected variant to `data-variant`.
+- `Badge` writes the selected variant to `data-variant` and the selected size to `data-size`.
 - Focusable hosts rendered through `Badge asChild` receive the root focus-visible styling. Anchor roots also receive the variant hover and pointer-cursor styles; button-specific interaction styles remain application-owned.
-- Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and use `--moduix-badge-icon-size`.
+- Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and are 12px unless a class on the icon sets another size.
 - Badge has no dedicated Ark primitive or behavior machine, so it does not expose Ark-managed states or runtime CSS variables.

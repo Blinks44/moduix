@@ -12,8 +12,7 @@ export interface Props extends /* @vue-ignore */ FileUploadItemNameProps {
 const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
-const nameClass =
-  'col-start-1 line-clamp-1 min-w-0 text-sm leading-5 font-medium group-has-[[data-slot=file-upload-item-preview-image]]/item:row-start-2 group-has-[[data-slot=file-upload-item-preview-image]]/item:self-end group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-2';
+const nameClass = 'truncate text-sm leading-5 font-medium [grid-area:name]';
 </script>
 <template>
   <ArkFileUploadItemName

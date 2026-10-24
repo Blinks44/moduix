@@ -13,6 +13,7 @@ import {
   AngleSliderMarks,
   AngleSliderRootProvider,
   AngleSliderThumb,
+  AngleSliderValueText,
   useAngleSlider,
 } from '../src';
 import TestAngleSlider from './fixtures/TestAngleSlider.vue';
@@ -27,6 +28,7 @@ const components = {
   AngleSliderMarks,
   AngleSliderRootProvider,
   AngleSliderThumb,
+  AngleSliderValueText,
 };
 
 test('submits explicit root/provider inputs and keeps provider state connected', async () => {
@@ -230,7 +232,7 @@ test('preserves Tailwind overrides, masked fill, and pressed thumb styling', asy
   expect(track.maskImage).toContain('calc(100% - 9px)');
   expect(track.maskImage).toContain('calc(100% - 8px)');
   const controlStyle = getComputedStyle(control);
-  expect(controlStyle.getPropertyValue('--angle-slider-fill').trim()).toBe(
+  expect(controlStyle.getPropertyValue('--_angle-slider-fill').trim()).toBe(
     controlStyle.getPropertyValue('--color-destructive').trim(),
   );
   expect(getComputedStyle(thumb, '::before').translate).toBe('-50% -50%');
@@ -239,4 +241,104 @@ test('preserves Tailwind overrides, masked fill, and pressed thumb styling', asy
     '[[data-slot=angle-slider-control]:active:not([data-disabled]):not([data-readonly])_&]:before:shadow-md',
   ])
     expect(thumb.classList.contains(token)).toBe(true);
+});
+
+test('grows the fill toward the mirrored thumb in RTL', async () => {
+  const { container } = render({
+    components,
+    template: `
+      <AngleSlider dir="rtl" :default-value="90" aria-label="Rotation"><AngleSliderDial /></AngleSlider>
+    `,
+  });
+  await expect.element(page.getByRole('slider', { name: 'Rotation' })).toHaveCount(1);
+  const control = container.querySelector('[data-slot="angle-slider-control"]')!;
+  const track = getComputedStyle(control, '::before');
+
+  expect(getComputedStyle(container.querySelector('[role="slider"]')!).rotate).toBe('270deg');
+  expect(track.backgroundImage).toContain('90deg');
+  expect(track.scale.startsWith('-1')).toBe(true);
+});
+
+test('centers the value text only inside the control', async () => {
+  const { container } = render({
+    components,
+    template: `
+      <AngleSlider :default-value="45" aria-label="Rotation">
+        <AngleSliderControl>
+          <AngleSliderValueText />
+          <AngleSliderThumb />
+        </AngleSliderControl>
+        <AngleSliderValueText />
+      </AngleSlider>
+    `,
+  });
+  await expect.element(page.locator('[data-slot="angle-slider-value-text"]')).toHaveCount(2);
+  const [inside, outside] = container.querySelectorAll('[data-slot="angle-slider-value-text"]');
+
+  expect(getComputedStyle(inside).position).toBe('absolute');
+  expect(getComputedStyle(outside).position).toBe('static');
+});
+
+test('shows the value with a degree sign at the default dial size', async () => {
+  const { container } = render({
+    components,
+    template: `
+      <AngleSlider :default-value="45" aria-label="Rotation"><AngleSliderDial /></AngleSlider>
+      <AngleSlider :default-value="45" aria-label="Custom rotation">
+        <AngleSliderControl>
+          <AngleSliderValueText>North-east</AngleSliderValueText>
+          <AngleSliderThumb />
+        </AngleSliderControl>
+      </AngleSlider>
+    `,
+  });
+  await expect.element(page.locator('[data-slot="angle-slider-value-text"]')).toHaveCount(2);
+  const [value, customValue] = container.querySelectorAll('[data-slot="angle-slider-value-text"]');
+  const control = container.querySelector<HTMLElement>('[data-slot="angle-slider-control"]')!;
+
+  expect(value.textContent).toBe('45°');
+  expect(customValue.textContent).toBe('North-east');
+  expect(control.offsetWidth).toBe(144);
+  expect(control.offsetHeight).toBe(144);
+});
+
+test('uses the invalid color for passed markers and the focused thumb', async () => {
+  const { container } = render({
+    components,
+    template: `
+      <AngleSlider :default-value="135" invalid aria-label="Rotation">
+        <AngleSliderControl>
+          <AngleSliderMarks :values="[90, 180]" />
+          <AngleSliderThumb />
+        </AngleSliderControl>
+      </AngleSlider>
+    `,
+  });
+  await expect.element(page.locator('[data-slot="angle-slider-marker"]')).toHaveCount(2);
+  const control = container.querySelector('[data-slot="angle-slider-control"]')!;
+  const thumb = container.querySelector<HTMLElement>('[role="slider"]')!;
+  const [passed] = container.querySelectorAll('[data-state="under-value"]');
+  const fill = getComputedStyle(control, '::after').backgroundColor;
+
+  expect(getComputedStyle(passed, '::before').backgroundColor).toBe(fill);
+  thumb.focus();
+  expect(thumb.matches(':focus-visible')).toBe(true);
+  expect(getComputedStyle(thumb, '::before').borderTopColor).toBe(fill);
+  await expect.poll(() => getComputedStyle(thumb, '::before').boxShadow).toContain(fill);
+});
+
+test('sizes the ring from the spacing token', async () => {
+  const { container } = render({
+    components,
+    template: `
+      <AngleSlider :default-value="45" aria-label="Rotation" style="--moduix-spacing-2: 12px">
+        <AngleSliderDial />
+      </AngleSlider>
+    `,
+  });
+  await expect.element(page.getByRole('slider', { name: 'Rotation' })).toHaveCount(1);
+  const control = container.querySelector('[data-slot="angle-slider-control"]')!;
+
+  expect(getComputedStyle(control, '::before').maskImage).toContain('calc(100% - 12px)');
+  expect(getComputedStyle(control, '::after').width).toBe('12px');
 });

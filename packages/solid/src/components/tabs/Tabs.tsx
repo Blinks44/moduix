@@ -5,38 +5,36 @@ import { splitProps } from 'solid-js';
 import styles from './Tabs.module.css';
 
 type TabsVariant = 'default' | 'line';
+type TabsSize = 'sm' | 'md' | 'lg';
+type TabsStyleProps = { variant?: TabsVariant; size?: TabsSize; fitted?: boolean };
+type TabsRootProps = ComponentProps<typeof TabsPrimitive.Root> & TabsStyleProps;
+type TabsRootProviderProps = ComponentProps<typeof TabsPrimitive.RootProvider> & TabsStyleProps;
 
-function Tabs(props: ComponentProps<typeof TabsPrimitive.Root> & { variant?: TabsVariant }) {
-  const [local, others] = splitProps(props, ['class', 'orientation', 'variant']);
+function Tabs(props: TabsRootProps) {
+  const [local, others] = splitProps(props, ['class', 'variant', 'size', 'fitted']);
 
   return (
     <TabsPrimitive.Root
       class={clsx(styles.root, local.class)}
-      orientation={local.orientation}
       {...others}
-      data-variant={local.orientation === 'vertical' ? 'default' : (local.variant ?? 'default')}
+      data-variant={local.variant ?? 'default'}
+      data-size={local.size ?? 'md'}
+      data-fitted={local.fitted ? '' : undefined}
       data-slot="tabs-root"
     />
   );
 }
 
-function TabsRootProvider(
-  props: ComponentProps<typeof TabsPrimitive.RootProvider> & { variant?: TabsVariant },
-) {
-  const [local, others] = splitProps(props, ['class', 'value', 'variant']);
-  const orientation = () =>
-    (
-      local.value().getRootProps() as {
-        'data-orientation'?: 'horizontal' | 'vertical';
-      }
-    )['data-orientation'];
+function TabsRootProvider(props: TabsRootProviderProps) {
+  const [local, others] = splitProps(props, ['class', 'variant', 'size', 'fitted']);
 
   return (
     <TabsPrimitive.RootProvider
       class={clsx(styles.root, local.class)}
-      value={local.value}
       {...others}
-      data-variant={orientation() === 'vertical' ? 'default' : (local.variant ?? 'default')}
+      data-variant={local.variant ?? 'default'}
+      data-size={local.size ?? 'md'}
+      data-fitted={local.fitted ? '' : undefined}
       data-slot="tabs-root-provider"
     />
   );
@@ -99,3 +97,17 @@ export {
   useTabs,
   useTabsContext,
 };
+
+export type {
+  TabContentProps,
+  TabIndicatorProps,
+  TabListProps,
+  TabsContextProps,
+  TabsFocusChangeDetails,
+  TabsValueChangeDetails,
+  TabTriggerProps,
+  UseTabsContext,
+  UseTabsProps,
+  UseTabsReturn,
+} from '@ark-ui/solid/tabs';
+export type { TabsRootProps, TabsRootProviderProps, TabsSize, TabsVariant };

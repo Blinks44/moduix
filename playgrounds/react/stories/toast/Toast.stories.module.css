@@ -47,9 +47,9 @@
       var(--moduix-color-primary-foreground) 72%,
       transparent
     );
-    --moduix-toast-close-color: var(--moduix-color-primary-foreground);
-    --moduix-toast-close-color-hover: var(--moduix-color-primary-foreground);
-    --moduix-toast-close-bg-hover: color-mix(
+    --moduix-close-button-color: var(--moduix-color-primary-foreground);
+    --moduix-close-button-color-hover: var(--moduix-color-primary-foreground);
+    --moduix-close-button-bg-hover: color-mix(
       in srgb,
       var(--moduix-color-primary-foreground) 14%,
       transparent
@@ -70,8 +70,8 @@
   }
 
   .closeIcon {
-    inline-size: var(--moduix-toast-close-icon-size, var(--moduix-spacing-3));
-    block-size: var(--moduix-toast-close-icon-size, var(--moduix-spacing-3));
+    inline-size: var(--moduix-spacing-3);
+    block-size: var(--moduix-spacing-3);
     flex: none;
   }
 }

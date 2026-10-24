@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QrCodeRoot as ArkQrCodeRoot } from '@ark-ui/vue/qr-code';
-import type { QrCodeRootProps } from '@ark-ui/vue/qr-code';
+import type { QrCodeRootEmits, QrCodeRootProps } from '@ark-ui/vue/qr-code';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
@@ -12,13 +12,10 @@ export interface Props extends /* @vue-ignore */ QrCodeRootProps {
   class?: HTMLAttributes['class'];
 }
 
-export interface Emits {
-  valueChange: [details: { value: string }];
-  'update:modelValue': [value: string];
-}
+export interface Emits extends /* @vue-ignore */ QrCodeRootEmits {}
 
 const { class: className } = defineProps<Props>();
-defineEmits</* @vue-ignore */ Emits>();
+defineEmits<Emits>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();

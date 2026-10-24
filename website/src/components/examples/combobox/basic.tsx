@@ -13,7 +13,6 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/react/combobox';
-import styles from '@/components/examples/combobox/component-basic.module.css';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -37,7 +36,7 @@ export default function ComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent className={styles.content}>
+        <ComboboxContent>
           <ComboboxEmpty>No fruits found.</ComboboxEmpty>
           <ComboboxList>
             {collection.items.map((item) => (

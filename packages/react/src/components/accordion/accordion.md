@@ -33,7 +33,8 @@ variables, and stable `data-slot` hooks.
   `lazyMount`, `unmountOnExit`, `ids`, and `onFocusChange(details)`.
 - Uses Ark content animation measurement via `--height` for vertical accordions and `--width`
   for horizontal accordions.
-- `AccordionItemIndicator` renders `PlusIcon` by default when no children are passed.
+- `AccordionItemIndicator` renders `ChevronDownIcon` by default when no children are passed and
+  rotates it 180deg while the item is open.
 - `AccordionItemBody` provides the default inner spacing wrapper for panel content.
 
 ## Anatomy and exported parts
@@ -41,8 +42,9 @@ variables, and stable `data-slot` hooks.
 ```text
 Accordion
 └─ AccordionItem
-   ├─ AccordionItemTrigger
-   │  └─ AccordionItemIndicator
+   ├─ heading element (recommended, for example h3)
+   │  └─ AccordionItemTrigger
+   │     └─ AccordionItemIndicator
    └─ AccordionItemContent
       └─ AccordionItemBody
 
@@ -52,15 +54,15 @@ AccordionRootProvider
 
 Every styled part accepts `className` and receives a stable `data-slot`:
 
-| Part                     | `data-slot`                | Notes                                          |
-| ------------------------ | -------------------------- | ---------------------------------------------- |
-| `Accordion`              | `accordion-root`           | Styled Ark root.                               |
-| `AccordionRootProvider`  | `accordion-root-provider`  | Styled Ark root provider.                      |
-| `AccordionItem`          | `accordion-item`           | Styled Ark item.                               |
-| `AccordionItemTrigger`   | `accordion-item-trigger`   | Styled Ark trigger button.                     |
-| `AccordionItemIndicator` | `accordion-item-indicator` | Defaults to `PlusIcon` when no children exist. |
-| `AccordionItemContent`   | `accordion-item-content`   | Styled Ark content with Ark size animation.    |
-| `AccordionItemBody`      | `accordion-item-body`      | Default inner spacing wrapper for panel body.  |
+| Part                     | `data-slot`                | Notes                                                 |
+| ------------------------ | -------------------------- | ----------------------------------------------------- |
+| `Accordion`              | `accordion-root`           | Styled Ark root.                                      |
+| `AccordionRootProvider`  | `accordion-root-provider`  | Styled Ark root provider.                             |
+| `AccordionItem`          | `accordion-item`           | Styled Ark item.                                      |
+| `AccordionItemTrigger`   | `accordion-item-trigger`   | Styled Ark trigger button.                            |
+| `AccordionItemIndicator` | `accordion-item-indicator` | Defaults to `ChevronDownIcon` when no children exist. |
+| `AccordionItemContent`   | `accordion-item-content`   | Styled Ark content with Ark size animation.           |
+| `AccordionItemBody`      | `accordion-item-body`      | Default inner spacing wrapper for panel body.         |
 
 ## Composition
 
@@ -84,10 +86,12 @@ export function AccordionExample() {
     <Accordion defaultValue={['shipping']}>
       {items.map((item) => (
         <AccordionItem key={item.value} value={item.value}>
-          <AccordionItemTrigger>
-            {item.title}
-            <AccordionItemIndicator />
-          </AccordionItemTrigger>
+          <h3>
+            <AccordionItemTrigger>
+              {item.title}
+              <AccordionItemIndicator />
+            </AccordionItemTrigger>
+          </h3>
           <AccordionItemContent>
             <AccordionItemBody>{item.description}</AccordionItemBody>
           </AccordionItemContent>
@@ -97,6 +101,11 @@ export function AccordionExample() {
   );
 }
 ```
+
+Wrap each trigger in a heading element whose level fits the page outline, as the WAI-ARIA
+Accordion pattern asks. Ark does not render the heading, and the trigger does not need to be a direct
+child of the item. `reset.css` (or Tailwind Preflight) removes heading margins and font changes, so
+the heading adds no visual change.
 
 ## Upstream feature coverage
 
@@ -126,41 +135,46 @@ export function AccordionExample() {
   `Accordion` for the same accordion instance.
 - Ark content sizing variables remain available, especially `--height` and `--width`.
 - Trigger alignment uses the logical inline start so labels remain direction-safe in RTL layouts.
-- Content and indicator transitions collapse to an effectively instant path when the user requests
-  reduced motion; the 1ms content animation preserves Ark exit lifecycle handling.
+- Content animation and indicator transition are disabled when the user requests reduced motion;
+  Ark presence completes the exit at once when the animation is `none`.
 
 ## Defaults and styling
 
-Primary CSS variables:
+- Triggers are transparent and use `--moduix-color-muted` on hover and while pressed; items are
+  separated by borders.
+- A disabled item dims its trigger through the native `disabled` attribute. Ark sets
+  `data-disabled` on the item, indicator, and content, but not on the trigger, so trigger styles
+  use `:disabled` in both styling tracks.
+- Content animation uses the shared foundation keyframes `moduix-accordion-item-content-*`, the same
+  ones the Tailwind variants use.
+- Horizontal orientation uses fixed defaults (20rem root height, 2.5rem trigger width, 16rem content
+  width); override them with `className` on the parts.
 
-| Variable                                      | Default                                |
-| --------------------------------------------- | -------------------------------------- |
-| `--moduix-accordion-width`                    | `100%`                                 |
-| `--moduix-accordion-max-width`                | `100%`                                 |
-| `--moduix-accordion-horizontal-width`         | `auto`                                 |
-| `--moduix-accordion-horizontal-height`        | `20rem`                                |
-| `--moduix-accordion-horizontal-max-height`    | `100%`                                 |
-| `--moduix-accordion-horizontal-trigger-width` | `2.5rem`                               |
-| `--moduix-accordion-horizontal-content-width` | `16rem`                                |
-| `--moduix-accordion-trigger-bg`               | `var(--moduix-color-muted)`            |
-| `--moduix-accordion-trigger-bg-active`        | hover background                       |
-| `--moduix-accordion-trigger-bg-hover`         | `var(--moduix-color-accent)`           |
-| `--moduix-accordion-icon-open-transform`      | `rotate(45deg) scale(1.1)`             |
-| `--moduix-accordion-item-body-gap`            | `var(--moduix-spacing-3)`              |
-| `--moduix-accordion-item-body-padding`        | `var(--moduix-spacing-3)`              |
-| `--moduix-accordion-item-content-color`       | `var(--moduix-color-muted-foreground)` |
-| `--moduix-accordion-item-content-transition`  | `var(--moduix-transition-default)`     |
+CSS variables (the full list lives in `packages/foundation/src/styles/variables-moduix.css`):
+
+| Variable                                | Default                                |
+| --------------------------------------- | -------------------------------------- |
+| `--moduix-accordion-item-border-color`  | `var(--moduix-color-border)`           |
+| `--moduix-accordion-trigger-bg-hover`   | `var(--moduix-color-muted)`            |
+| `--moduix-accordion-item-body-gap`      | `var(--moduix-spacing-3)`              |
+| `--moduix-accordion-item-body-padding`  | `var(--moduix-spacing-3)`              |
+| `--moduix-accordion-item-content-color` | `var(--moduix-color-muted-foreground)` |
+
+Root color, separator width, focus ring, disabled opacity, and the open indicator rotation come
+straight from foundation tokens; override them with a class on the part.
 
 ## Intentional sugar and differences from upstream
 
 - moduix ships pre-styled defaults; Ark is intentionally unstyled.
-- `AccordionItemIndicator` defaults to `PlusIcon` when children are not provided.
+- `AccordionItemIndicator` defaults to `ChevronDownIcon` when children are not provided.
 - `AccordionItemBody` removes the need for per-example inner content wrappers just to add spacing.
 - `AccordionRootProvider` shares the same default root styling as `Accordion`.
 - moduix re-exports `useAccordion()`, `useAccordionContext()`, `useAccordionItemContext()`,
   `AccordionContext`, and `AccordionItemContext` for Ark-shaped provider and context composition.
-- Horizontal orientation gets a row layout, opposite-side trigger text rotation, trigger width
+- Horizontal orientation gets a row layout, opposite-side trigger text rotation, fixed size
   defaults, and `--width`-based content animation in addition to Ark's horizontal keyboard behavior.
+- React, Solid, and Vue re-export Ark accordion types such as `AccordionRootProps` and
+  `AccordionValueChangeDetails`.
 
 ## Agent notes
 
@@ -169,34 +183,3 @@ Primary CSS variables:
 - Keep `AccordionItemContent` animation based on Ark `--height` and `--width`.
 - Keep spacing on `AccordionItemBody`, not on `AccordionItemContent`, so Ark size measurement stays reliable.
 - Preserve the moduix `useAccordion()` re-export because docs and `RootProvider` examples depend on it.
-
-## Local changelog
-
-- 2026-09-21: Replaced the compound `Accordion.*` value surface with the shared flat API across
-  React, Solid, and Vue. `Accordion` is now the only root value; every other part uses an
-  `Accordion`-prefixed named export.
-- 2026-08-07: Added direction-safe trigger alignment and reduced-motion handling, expanded regression
-  coverage for semantics, refs, `asChild`, provider/context composition, and keyboard endpoints, and
-  aligned stories and public docs with the callable root.
-- 2026-07-24: Documented the short `Accordion` root form, corrected context export guidance, and
-  added the pressed trigger background token.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-06: Added `AccordionItemBody` as a thin inner spacing wrapper, moved default panel spacing
-  into the component CSS contract, and migrated stories/docs away from ad-hoc content wrapper divs.
-- 2026-07-09: Re-exported `useAccordion()` from moduix for the recommended `RootProvider` flow,
-  reordered docs examples, and documented `AccordionItemBody` as a moduix-owned styling hook.
-- 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix
-  surface. Kept `RootProvider`, the callable root, every styled visual part, the default indicator,
-  and horizontal-layout sugar.
-- 2026-06-17: Migrated wrapper internals from legacy Accordion to Ark UI Accordion, adopted Ark part
-  naming (`ItemTrigger`, `ItemIndicator`, `ItemContent`), and moved styling/state hooks to Ark
-  data attributes and `--height`-based content animation.
-- 2026-06-17: Removed flat named exports (`AccordionRoot`, `AccordionItem`, `AccordionItemTrigger`,
-  `AccordionItemIndicator`, `AccordionItemContent`) to keep the public API Ark-shaped (`Accordion.*` only),
-  and removed legacy `--moduix-accordion-panel-*` theme tokens that were no longer used.
-- 2026-06-18: Exposed Ark `RootProvider`, `Context`, `ItemContext`, `useAccordion()`,
-  `useAccordionContext()`, and `useAccordionItemContext()` through the moduix wrapper and updated
-  docs examples to cover the full upstream Ark Accordion example set.
-- 2026-06-24: Added horizontal orientation layout, opposite-side trigger text rotation, and
-  `--width`-based content animation, documented horizontal CSS variables, removed duplicate docs
-  example code, and added the upstream nested Slider composition example.

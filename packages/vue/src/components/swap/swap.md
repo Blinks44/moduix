@@ -12,6 +12,7 @@ control owns interaction, accessible naming, and any announcements.
 ## Public contract
 
 - Flat exports: `Swap`, `SwapRootProvider`, `SwapIndicator`, `useSwap`, and `useSwapContext`.
+  `SwapRootProps` and `SwapRootProviderProps` are the moduix props, including `animation`.
 - `swap` selects the `on` or `off` indicator; it is a prop, not a locally owned model.
 - `animation` defaults to `scale` and accepts `fade`, `scale`, `rotate`, `flip`, or a custom name.
 - `SwapRootProvider` accepts a `useSwap` store. Use a computed props object for reactive inputs.
@@ -37,9 +38,9 @@ indicator `data-state` when skipping mount animation; transitions expose `open` 
 | `SwapIndicator`    | `data-slot="swap-indicator"`     |
 
 Ark supplies `data-scope="swap"`, part attributes, `data-swap`, and indicator `data-type`.
-moduix sets `data-animation` on the root. Consumer classes are merged last. CSS Modules use
-the shared `--moduix-swap-*` variables; Tailwind uses native utilities and consumer classes.
-Reduced motion shortens animations to 1ms without changing presence.
+moduix sets `data-animation` on the root. Consumer classes are merged last. CSS Modules read
+`--moduix-swap-transition` for timing; Tailwind uses native utilities and consumer classes.
+Reduced motion disables the animations; Ark presence still swaps the indicators.
 
 The default hosts are spans, with no button or live-region behavior. When composing an icon or
 label inside a button, hide the visual indicators with `aria-hidden="true"` and keep the current
@@ -49,8 +50,3 @@ accessible name on the button.
 
 moduix adds visual recipes, stable styling hooks, and the default `scale` animation. It does not
 add state, interaction, aliases, or a compatibility layer.
-
-## Local changelog
-
-- 2026-10-02: Reviewed both Vue tracks and documented the native provider, refs, presence,
-  styling, and accessibility contract.

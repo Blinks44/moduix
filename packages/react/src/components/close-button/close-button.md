@@ -1,6 +1,6 @@
 # CloseButton
 
-Upstream docs (reviewed 2026-08-09):
+Upstream docs (reviewed 2026-10-14):
 
 - Ark UI Composition: https://ark-ui.com/docs/guides/composition
 - Ark UI Styling: https://ark-ui.com/docs/guides/styling
@@ -40,7 +40,6 @@ event handlers and render functions belong in a client composition.
 - When a parent Ark part composes `CloseButton` through `asChild`, the parent's `data-scope`,
   `data-part`, `data-slot`, and `data-disabled` hooks remain on the DOM node. `CloseButton`
   contributes its button styling and disabled click protection without replacing that anatomy.
-- legacy `render`, `nativeButton`, and `focusableWhenDisabled` are not supported.
 
 ## Upstream comparison
 
@@ -83,16 +82,6 @@ icon content because the single child is the composed root:
 </CloseButton>
 ```
 
-## Upstream feature coverage
-
-- `Ark factory`: used for the root element and its prop/ref contract.
-- `asChild`: supported with the Ark single-child constraint.
-- `data-scope` / `data-part`: exposed for Ark-style styling.
-- `Dedicated primitive state or callbacks`: not applicable because Ark has no close-button
-  primitive.
-- `Chakra close-button recipe`: reflected through the single-part anatomy and replaceable icon
-  children.
-
 ## Accessibility and state
 
 - The root receives `aria-label="Close"` when neither `aria-label` nor `aria-labelledby` is
@@ -103,7 +92,8 @@ icon content because the single child is the composed root:
   `asChild` host, `disabled` is represented by `aria-disabled="true"` rather than a native
   attribute. An inherited parent `data-disabled` state is preserved and prevents activation as
   well.
-- `aria-disabled="true"` suppresses the root click handler and prevents default activation.
+- Every disabled form blocks activation in one capture-phase handler, which also stops the bubble
+  `onClick` of the component and of an `asChild` child.
 - The component does not manage overlay state, escape handling, focus return, or dismissal
   callbacks.
 
@@ -118,61 +108,24 @@ icon content because the single child is the composed root:
 
 Public CSS variables:
 
-| CSS variable                              | Default                                                         |
-| ----------------------------------------- | --------------------------------------------------------------- |
-| `--moduix-close-button-bg`                | `transparent`                                                   |
-| `--moduix-close-button-bg-hover`          | `var(--moduix-color-muted)`                                     |
-| `--moduix-close-button-color`             | `var(--moduix-color-muted-foreground)`                          |
-| `--moduix-close-button-color-hover`       | `var(--moduix-color-foreground)`                                |
-| `--moduix-close-button-disabled-opacity`  | `var(--moduix-opacity-disabled)`                                |
-| `--moduix-close-button-focus-ring-color`  | `var(--moduix-color-ring)`                                      |
-| `--moduix-close-button-focus-ring-offset` | `var(--moduix-focus-ring-offset)`                               |
-| `--moduix-close-button-focus-ring-width`  | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))` |
-| `--moduix-close-button-icon-size`         | `var(--moduix-spacing-4)`                                       |
-| `--moduix-close-button-radius`            | `var(--moduix-radius-sm)`                                       |
-| `--moduix-close-button-size`              | `var(--moduix-spacing-7)`                                       |
-| `--moduix-close-button-transition`        | `var(--moduix-transition-default)`                              |
-
-## Intentional sugar and differences from upstream
-
-- moduix adds the default close glyph, accessible-name fallback, visual tokens, and square
-  icon-button styling.
-- The component exposes `CloseButton` as its only public component value.
-- The root defaults to safe non-submit behavior without forwarding that default through `asChild`.
+| CSS variable                              | Default                                |
+| ----------------------------------------- | -------------------------------------- |
+| `--moduix-close-button-bg`                | `transparent`                          |
+| `--moduix-close-button-bg-hover`          | `var(--moduix-color-muted)`            |
+| `--moduix-close-button-color`             | `var(--moduix-color-muted-foreground)` |
+| `--moduix-close-button-color-hover`       | `var(--moduix-color-foreground)`       |
+| `--moduix-close-button-disabled-opacity`  | `var(--moduix-opacity-disabled)`       |
+| `--moduix-close-button-focus-ring-color`  | `var(--moduix-color-ring)`             |
+| `--moduix-close-button-focus-ring-offset` | `var(--moduix-focus-ring-offset)`      |
+| `--moduix-close-button-focus-ring-width`  | `var(--moduix-focus-ring-width)`       |
+| `--moduix-close-button-icon-size`         | `var(--moduix-spacing-4)`              |
+| `--moduix-close-button-radius`            | `var(--moduix-radius-sm)`              |
+| `--moduix-close-button-size`              | `var(--moduix-spacing-7)`              |
 
 ## Agent notes
 
 - Keep this as a thin Ark factory wrapper with one part.
 - Keep standalone `CloseButton` data hooks stable. When it is composed by an Ark parent, preserve
   the parent's anatomy hooks so the parent remains the DOM contract owner.
-- Preserve the shared `--moduix-close-button-*` contract because Dialog, Drawer, and Lightbox map their
-  close-control tokens into it.
-- Do not reintroduce legacy render props.
-
-## Local changelog
-
-- 2026-10-02: Standardized close and clear glyphs at 16px, matching InputGroup across CSS Modules and Tailwind. Button dimensions remain context-specific.
-
-- 2026-09-09: Removed active `translate` and `scale` press feedback so composed close controls do
-  not shift or resize on click.
-
-- 2026-08-09: Kept disabled `asChild` hosts semantic by omitting native `disabled`, adding
-  `aria-disabled`, and blocking child click handlers during capture.
-
-- 2026-07-27: Kept press feedback transform-safe by using individual `translate` and `scale`
-  properties, so composed close controls retain parent positioning transforms.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-26: Made the close label and default icon resilient to falsy children, added active
-  feedback consistent with `Button`, and covered the public interaction contract with tests.
-- 2026-07-17: Preserved an Ark parent's data hooks when it composes `CloseButton`, so clear
-  triggers can share the button styling without losing their own anatomy or disabled state.
-
-- 2026-07-09: Made the stable data hooks authoritative so consumer props cannot replace the
-  component's styling contract.
-- 2026-06-24: Restored the flat `CloseButton` API as the only public root value.
-- 2026-06-24: Simplified close-button CSS to style the normalized `data-disabled`
-  state only and aligned public docs examples with the root API.
-- 2026-06-18: Migrated to `@ark-ui/react/factory`, introduced the explicit Ark factory root and
-  data hooks, added `asChild`, and removed the legacy button
-  contract and callable alias.
-- 2026-06-18: Aligned `aria-disabled` with disabled behavior by suppressing root click activation.
+- Preserve the shared `--moduix-close-button-*` contract: about 16 components (Dialog, Drawer, Toast,
+  Tag, Select, InputGroup and others) set these variables on their close and clear triggers.

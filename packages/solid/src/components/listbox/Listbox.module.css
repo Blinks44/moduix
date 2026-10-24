@@ -1,16 +1,17 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
+    --_listbox-gap: var(--moduix-spacing-3);
+
     display: flex;
     width: var(--moduix-listbox-width, 16rem);
-    max-width: var(--moduix-listbox-max-width, 100%);
+    max-width: 100%;
     min-width: 0;
     flex-direction: column;
-    gap: var(--moduix-listbox-root-gap, var(--moduix-spacing-3));
-    color: var(--moduix-listbox-color, var(--moduix-color-foreground));
+    gap: var(--_listbox-gap);
+    color: var(--moduix-color-foreground);
 
     &[data-disabled] {
-      opacity: var(--moduix-listbox-disabled-opacity, var(--moduix-opacity-disabled));
+      opacity: var(--moduix-opacity-disabled);
 
       :where(
           [data-slot='field-root'][data-disabled],
@@ -24,91 +25,97 @@
     }
   }
 
+  /* A disabled root already dims its parts. */
+  .root[data-disabled] :is(.input, .item) {
+    opacity: 1;
+  }
+
   .label {
-    color: var(
-      --moduix-listbox-label-color,
-      var(--moduix-listbox-color, var(--moduix-color-foreground))
-    );
-    font-size: var(--moduix-listbox-label-font-size, var(--moduix-text-sm));
-    font-weight: var(--moduix-listbox-label-font-weight, var(--moduix-weight-medium));
-    line-height: var(--moduix-listbox-label-line-height, var(--moduix-line-height-text-sm));
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
     user-select: none;
   }
 
   .input {
-    --_listbox-input-focus-ring-width: var(
-      --moduix-listbox-input-focus-ring-width,
-      var(
-        --moduix-listbox-focus-ring-width,
-        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-      )
-    );
-    box-sizing: border-box;
     width: 100%;
-    min-height: var(--moduix-listbox-input-height, var(--moduix-size-md));
+    min-height: var(--moduix-size-md);
     margin: 0;
-    border: var(
-        --moduix-listbox-input-border-width,
-        var(--moduix-listbox-border-width, var(--moduix-border-width-sm))
-      )
-      solid
-      var(
-        --moduix-listbox-input-border-color,
-        var(--moduix-listbox-border-color, var(--moduix-color-border))
-      );
-    border-radius: var(
-      --moduix-listbox-input-radius,
-      var(--moduix-listbox-radius, var(--moduix-radius-md))
-    );
-    padding: var(--moduix-listbox-input-padding-y, var(--moduix-spacing-1))
-      var(--moduix-listbox-input-padding-x, var(--moduix-spacing-3));
-    background-color: var(--moduix-listbox-input-bg, var(--moduix-color-background));
-    color: var(
-      --moduix-listbox-input-color,
-      var(--moduix-listbox-color, var(--moduix-color-foreground))
-    );
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-3);
+    background-color: var(--moduix-color-background);
+    color: inherit;
     font: inherit;
-    font-size: var(--moduix-listbox-input-font-size, var(--moduix-text-md));
-    line-height: var(--moduix-listbox-input-line-height, var(--moduix-line-height-text-md));
-    outline: var(--_listbox-input-focus-ring-width) solid transparent;
-    outline-offset: calc(var(--_listbox-input-focus-ring-width) * -1);
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
+    outline: var(--moduix-focus-ring-inset-width) solid transparent;
+    outline-offset: var(--moduix-focus-ring-inset-offset);
     transition:
-      border-color var(--moduix-listbox-transition, var(--moduix-transition-default)),
-      outline-color var(--moduix-listbox-transition, var(--moduix-transition-default)),
-      opacity var(--moduix-listbox-transition, var(--moduix-transition-default));
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
 
     &::placeholder {
-      color: var(--moduix-listbox-placeholder-color, var(--moduix-color-muted-foreground));
+      color: var(--moduix-color-muted-foreground);
     }
 
     &:focus-visible {
-      outline-color: var(
-        --moduix-listbox-input-focus-ring-color,
-        var(--moduix-listbox-focus-ring-color, var(--moduix-color-ring))
-      );
+      outline-color: var(--moduix-color-ring);
     }
 
-    &[data-disabled],
-    &[disabled] {
-      opacity: var(--moduix-listbox-disabled-opacity, var(--moduix-opacity-disabled));
+    &:disabled {
+      opacity: var(--moduix-opacity-disabled);
       cursor: default;
     }
   }
 
   .filter {
-    box-sizing: border-box;
     position: relative;
     width: 100%;
+  }
 
-    &:has(+ .content) .input {
-      border-bottom: 0;
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
+  .filterIcon {
+    position: absolute;
+    top: 50%;
+    inset-inline-start: var(--moduix-spacing-3);
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
+    color: var(--moduix-color-muted-foreground);
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+
+  /* Room for the icon and the clear action, each with an 8px gap before the text. */
+  .filter .input {
+    padding-inline: calc(
+        var(--moduix-spacing-3) + var(--moduix-spacing-4) + var(--moduix-spacing-2)
+      )
+      calc(var(--moduix-spacing-3) + var(--moduix-size-xs) + var(--moduix-spacing-2));
+
+    &:focus-visible {
+      outline-color: transparent;
     }
   }
 
+  .clearTrigger {
+    --moduix-close-button-size: var(--moduix-size-xs);
+
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(--moduix-spacing-3);
+    transform: translateY(-50%);
+  }
+
+  /* A filter right before the content joins it into one surface with a neutral divider. */
+  .filter:has(+ .content) .input {
+    border-bottom: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
   .filter + .content {
-    margin-block-start: calc(-1 * var(--moduix-listbox-root-gap, var(--moduix-spacing-3)));
+    margin-block-start: calc(-1 * var(--_listbox-gap));
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 
@@ -119,126 +126,49 @@
 
   .filter:has(.input:focus-visible, + .content:focus-visible) {
     .input {
-      border-color: var(--moduix-listbox-focus-ring-color, var(--moduix-color-ring));
+      border-color: var(--moduix-color-ring);
     }
 
     + .content {
-      border-inline-color: var(--moduix-listbox-focus-ring-color, var(--moduix-color-ring));
-      border-bottom-color: var(--moduix-listbox-focus-ring-color, var(--moduix-color-ring));
+      border-inline-color: var(--moduix-color-ring);
+      border-bottom-color: var(--moduix-color-ring);
     }
-  }
-
-  .filterIcon {
-    position: absolute;
-    z-index: 1;
-    top: 50%;
-    inset-inline-start: var(--moduix-listbox-filter-padding-x, var(--moduix-spacing-3));
-    width: var(--moduix-listbox-filter-icon-size, var(--moduix-spacing-4));
-    height: var(--moduix-listbox-filter-icon-size, var(--moduix-spacing-4));
-    color: var(--moduix-listbox-filter-icon-color, var(--moduix-color-muted-foreground));
-    pointer-events: none;
-    transform: translateY(-50%);
-  }
-
-  .filter .input {
-    min-height: var(
-      --moduix-listbox-filter-height,
-      var(--moduix-listbox-input-height, var(--moduix-size-md))
-    );
-    padding-inline-start: calc(
-      var(--moduix-listbox-filter-padding-x, var(--moduix-spacing-3)) +
-        var(--moduix-listbox-filter-icon-size, var(--moduix-spacing-4)) +
-        var(--moduix-listbox-filter-input-padding-x, var(--moduix-spacing-2))
-    );
-    padding-inline-end: calc(
-      var(--moduix-listbox-filter-padding-x, var(--moduix-spacing-3)) +
-        var(--moduix-listbox-filter-action-size, var(--moduix-size-xs)) +
-        var(--moduix-listbox-filter-input-padding-x, var(--moduix-spacing-2))
-    );
-    background-color: var(--moduix-listbox-bg, var(--moduix-color-background));
-
-    &:focus-visible {
-      outline-color: transparent;
-    }
-  }
-
-  .clearTrigger {
-    position: absolute;
-    z-index: 1;
-    top: 50%;
-    inset-inline-end: var(--moduix-listbox-filter-padding-x, var(--moduix-spacing-3));
-    transform: translateY(-50%);
-    --moduix-close-button-size: var(--moduix-listbox-filter-action-size, var(--moduix-size-xs));
-    --moduix-close-button-radius: var(
-      --moduix-listbox-filter-action-radius,
-      var(--moduix-radius-sm)
-    );
-    --moduix-close-button-bg: var(--moduix-listbox-filter-action-bg, transparent);
-    --moduix-close-button-bg-hover: var(
-      --moduix-listbox-filter-action-bg-hover,
-      var(--moduix-color-muted)
-    );
-    --moduix-close-button-color: var(
-      --moduix-listbox-filter-icon-color,
-      var(--moduix-color-muted-foreground)
-    );
-    --moduix-close-button-color-hover: var(
-      --moduix-listbox-filter-action-color-hover,
-      var(--moduix-color-foreground)
-    );
-    --moduix-close-button-icon-size: var(
-      --moduix-listbox-filter-icon-size,
-      var(--moduix-spacing-4)
-    );
   }
 
   .content {
-    --_listbox-focus-ring-width: var(
-      --moduix-listbox-focus-ring-width,
-      var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-    );
-    box-sizing: border-box;
     display: flex;
     min-height: 0;
     max-height: var(--moduix-listbox-content-max-height, 14rem);
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
-    border: var(--moduix-listbox-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-listbox-border-color, var(--moduix-color-border));
-    border-radius: var(--moduix-listbox-radius, var(--moduix-radius-md));
-    padding-block: var(
-      --moduix-listbox-content-padding-y,
-      var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))
-    );
-    background-color: var(--moduix-listbox-bg, var(--moduix-color-background));
-    color: var(--moduix-listbox-color, var(--moduix-color-foreground));
-    outline: var(--_listbox-focus-ring-width) solid transparent;
-    outline-offset: calc(var(--_listbox-focus-ring-width) * -1);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
+    background-color: var(--moduix-color-background);
+    outline: var(--moduix-focus-ring-inset-width) solid transparent;
+    outline-offset: var(--moduix-focus-ring-inset-offset);
     scrollbar-gutter: stable;
-    scroll-padding-block: var(
-      --moduix-listbox-content-padding-y,
-      var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))
-    );
+    scroll-padding-block: var(--moduix-popup-list-padding-y, var(--moduix-spacing-1));
     transition:
-      border-color var(--moduix-listbox-transition, var(--moduix-transition-default)),
-      outline-color var(--moduix-listbox-transition, var(--moduix-transition-default));
+      border-color var(--moduix-transition-default),
+      outline-color var(--moduix-transition-default);
 
     &:focus-visible {
-      outline-color: var(--moduix-listbox-focus-ring-color, var(--moduix-color-ring));
+      outline-color: var(--moduix-color-ring);
     }
 
     &[data-layout='grid'] {
       display: grid;
       grid-template-columns: repeat(var(--column-count), minmax(0, 1fr));
-      gap: var(--moduix-listbox-grid-gap, var(--moduix-spacing-1));
-      padding: var(--moduix-listbox-grid-padding, var(--moduix-spacing-2));
+      gap: var(--moduix-spacing-1);
+      padding: var(--moduix-spacing-2);
     }
 
     &[data-orientation='horizontal']:not([data-layout='grid']) {
+      max-height: none;
       flex-direction: row;
-      gap: var(--moduix-listbox-horizontal-gap, var(--moduix-spacing-2));
-      max-height: var(--moduix-listbox-horizontal-content-max-height, none);
+      gap: var(--moduix-spacing-2);
       overflow-x: auto;
       overflow-y: hidden;
       padding-inline: var(--moduix-spacing-1);
@@ -246,11 +176,11 @@
   }
 
   .empty {
-    padding-block: var(--moduix-listbox-empty-padding-y, var(--moduix-spacing-1));
-    padding-inline: var(--moduix-listbox-empty-padding-x, var(--moduix-spacing-3));
-    color: var(--moduix-listbox-empty-color, var(--moduix-color-muted-foreground));
-    font-size: var(--moduix-listbox-empty-font-size, var(--moduix-text-sm));
-    line-height: var(--moduix-listbox-empty-line-height, var(--moduix-line-height-text-sm));
+    padding-block: var(--moduix-spacing-1);
+    padding-inline: var(--moduix-spacing-3);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     text-align: center;
   }
 
@@ -259,133 +189,76 @@
     flex-direction: column;
 
     & + & {
-      margin-block-start: var(--moduix-listbox-item-group-gap, var(--moduix-spacing-2));
+      margin-block-start: var(--moduix-spacing-2);
     }
   }
 
   .itemGroupLabel {
-    padding-block: var(
-      --moduix-listbox-item-group-label-padding-y,
-      var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1))
-    );
-    padding-inline: var(--moduix-listbox-item-group-label-padding-x, var(--moduix-spacing-2));
-    color: var(
-      --moduix-listbox-item-group-label-color,
-      var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground))
-    );
-    font-size: var(
-      --moduix-listbox-item-group-label-font-size,
-      var(--moduix-popup-group-label-font-size, var(--moduix-text-xs))
-    );
-    font-weight: var(
-      --moduix-listbox-item-group-label-font-weight,
-      var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular))
-    );
-    line-height: var(
-      --moduix-listbox-item-group-label-line-height,
-      var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs))
-    );
+    padding-block: var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-spacing-2);
+    color: var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-popup-group-label-font-size, var(--moduix-text-xs));
+    font-weight: var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular));
+    line-height: var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs));
     user-select: none;
   }
 
+  /* The second column reserves indicator space, so selecting an item does not shift its text. */
   .item {
-    position: relative;
-    box-sizing: border-box;
     display: grid;
-    width: calc(100% - var(--moduix-listbox-item-inset-x, var(--moduix-spacing-2)));
-    min-height: var(
-      --moduix-listbox-item-min-height,
-      var(--moduix-popup-item-min-height, var(--moduix-size-sm))
-    );
-    grid-template-columns: minmax(0, 1fr) var(
-        --moduix-listbox-item-indicator-size,
-        var(--moduix-spacing-4)
-      );
+    min-height: var(--moduix-popup-item-min-height, var(--moduix-size-sm));
+    grid-template-columns: minmax(0, 1fr) var(--moduix-spacing-4);
     align-items: center;
-    gap: var(--moduix-listbox-item-gap, var(--moduix-spacing-2));
-    margin-inline: calc(var(--moduix-listbox-item-inset-x, var(--moduix-spacing-2)) / 2);
-    border: var(--moduix-listbox-item-border-width, 0) solid
-      var(--moduix-listbox-item-border-color, transparent);
-    border-radius: var(--moduix-listbox-item-radius, var(--moduix-radius-sm));
-    padding-block: var(
-      --moduix-listbox-item-padding-y,
-      var(--moduix-popup-item-padding-y, var(--moduix-spacing-1))
-    );
-    padding-inline: var(
-      --moduix-listbox-item-padding-x,
-      var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3))
-    );
-    background-color: var(--moduix-listbox-item-bg, transparent);
-    color: var(
-      --moduix-listbox-item-color,
-      var(--moduix-listbox-color, var(--moduix-color-foreground))
-    );
-    font: inherit;
-    font-size: var(
-      --moduix-listbox-item-font-size,
-      var(--moduix-popup-item-font-size, var(--moduix-text-sm))
-    );
-    line-height: var(
-      --moduix-listbox-item-line-height,
-      var(--moduix-popup-item-line-height, var(--moduix-line-height-text-sm))
-    );
+    gap: var(--moduix-spacing-2);
+    margin-inline: var(--moduix-spacing-1);
+    border-radius: var(--moduix-radius-sm);
+    padding-block: var(--moduix-popup-item-padding-y, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3));
+    font-size: var(--moduix-popup-item-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-popup-item-line-height, var(--moduix-line-height-text-sm));
     outline: 0;
     user-select: none;
     cursor: pointer;
     transition:
-      background-color var(--moduix-listbox-transition, var(--moduix-transition-default)),
-      color var(--moduix-listbox-transition, var(--moduix-transition-default));
+      background-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
 
     @media (hover: hover) {
       &:where(:not([data-disabled]):hover) {
-        background-color: var(
-          --moduix-listbox-hover-bg,
-          var(--moduix-listbox-highlight-bg, var(--moduix-color-accent))
-        );
-        color: var(
-          --moduix-listbox-hover-color,
-          var(--moduix-listbox-highlight-color, var(--moduix-color-accent-foreground))
-        );
+        background-color: var(--moduix-color-accent);
+        color: var(--moduix-color-accent-foreground);
       }
     }
 
     &[data-highlighted] {
-      background-color: var(--moduix-listbox-highlight-bg, var(--moduix-color-accent));
-      color: var(--moduix-listbox-highlight-color, var(--moduix-color-accent-foreground));
-    }
-
-    &[data-selected] {
-      color: var(
-        --moduix-listbox-item-selected-color,
-        var(--moduix-listbox-item-color, var(--moduix-color-foreground))
-      );
+      background-color: var(--moduix-color-accent);
+      color: var(--moduix-color-accent-foreground);
     }
 
     &[data-disabled] {
       pointer-events: none;
-      color: var(--moduix-listbox-item-disabled-color, var(--moduix-color-muted-foreground));
-      opacity: var(--moduix-listbox-disabled-opacity, var(--moduix-opacity-disabled));
+      opacity: var(--moduix-opacity-disabled);
       cursor: default;
     }
-  }
 
-  .content[data-orientation='horizontal']:not([data-layout='grid']) .item {
-    width: var(--moduix-listbox-horizontal-item-width, 11rem);
-    min-width: var(--moduix-listbox-horizontal-item-width, 11rem);
-    align-items: flex-start;
-  }
+    /* Grid items show selection with a neutral fill instead of the indicator column. */
+    &[data-layout='grid'] {
+      min-width: 0;
+      grid-template-columns: minmax(0, 1fr);
+      justify-items: center;
+      margin-inline: 0;
+      text-align: center;
 
-  .content[data-layout='grid'] .item {
-    width: 100%;
-    min-width: 0;
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: center;
-    margin-inline: 0;
-    text-align: center;
+      &[data-selected] {
+        background-color: var(--moduix-color-muted);
+        color: var(--moduix-color-foreground);
+      }
+    }
 
-    &[data-selected] {
-      background-color: var(--moduix-listbox-grid-selected-bg, var(--moduix-color-muted));
-      color: var(--moduix-listbox-grid-selected-color, var(--moduix-color-foreground));
+    &[data-orientation='horizontal']:not([data-layout='grid']) {
+      width: 11rem;
+      min-width: 11rem;
+      align-items: flex-start;
     }
   }
 
@@ -399,27 +272,27 @@
 
   .itemIndicator {
     display: inline-flex;
-    width: var(--moduix-listbox-item-indicator-size, var(--moduix-spacing-4));
-    height: var(--moduix-listbox-item-indicator-size, var(--moduix-spacing-4));
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    color: var(--moduix-listbox-item-indicator-color, currentColor);
 
     & > svg {
-      width: var(--moduix-listbox-item-indicator-icon-size, var(--moduix-spacing-3));
-      height: var(--moduix-listbox-item-indicator-icon-size, var(--moduix-spacing-3));
+      width: var(--moduix-spacing-3);
+      height: var(--moduix-spacing-3);
     }
 
+    /* Ark also sets `hidden`; this keeps the space when an app reset does not hide it. */
     &[data-state='unchecked'] {
       visibility: hidden;
     }
   }
 
   .valueText {
-    color: var(--moduix-listbox-value-text-color, var(--moduix-color-muted-foreground));
-    font-size: var(--moduix-listbox-value-text-font-size, var(--moduix-text-sm));
-    line-height: var(--moduix-listbox-value-text-line-height, var(--moduix-line-height-text-sm));
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 
   .itemTextContent {
@@ -427,21 +300,16 @@
     max-width: 100%;
     min-width: 0;
     align-items: center;
-    gap: var(--moduix-listbox-item-text-content-gap, var(--moduix-spacing-2));
+    gap: var(--moduix-spacing-2);
     vertical-align: top;
   }
 
   .itemTextIcon {
     display: inline-flex;
-    width: var(--moduix-listbox-item-text-icon-size, var(--moduix-spacing-4));
-    height: var(--moduix-listbox-item-text-icon-size, var(--moduix-spacing-4));
+    width: var(--moduix-spacing-4);
+    height: var(--moduix-spacing-4);
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    color: var(--moduix-listbox-item-text-icon-color, currentColor);
-  }
-
-  .root[data-disabled] :is(.input, .item) {
-    opacity: 1;
   }
 }

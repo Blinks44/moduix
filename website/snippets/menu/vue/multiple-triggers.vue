@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Map } from '@lucide/vue';
+import { Button } from '@moduix/vue/button';
 import {
   Menu,
   MenuContent,
@@ -20,17 +21,14 @@ const messages = [
 <template>
   <Menu>
     <div :class="styles.triggers">
-      <MenuTrigger
-        v-for="message in messages"
-        :key="message.id"
-        :value="message.id"
-        :aria-label="`Open actions for ${message.sender}`"
-      >
-        <Map />
+      <MenuTrigger v-for="message in messages" :key="message.id" :value="message.id" as-child>
+        <Button variant="outline" size="icon-md" :aria-label="`Open actions for ${message.sender}`">
+          <Map />
+        </Button>
       </MenuTrigger>
     </div>
     <MenuPositioner>
-      <MenuContent :class="styles.content">
+      <MenuContent>
         <MenuViewport>
           <MenuItem value="reply">Reply</MenuItem>
           <MenuItem value="forward">Forward</MenuItem>

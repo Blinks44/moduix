@@ -6,8 +6,6 @@
 }
 
 .fileUpload {
-  --moduix-file-upload-max-width: min(100%, 42rem);
-
   width: 100%;
   min-width: 0;
   max-width: 100%;
@@ -126,7 +124,6 @@
 }
 
 .error {
-  grid-column: 2;
   margin: 0;
   color: var(--moduix-color-destructive);
   font-size: var(--moduix-text-xs);

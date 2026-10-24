@@ -32,7 +32,7 @@ const frameworks = ['React', 'Solid', 'Vue'] as const;
 const stackClass = 'grid justify-items-start gap-2';
 const hintClass = 'text-xs leading-4 text-muted-foreground';
 const buttonClass =
-  'inline-flex min-h-8 cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3 text-foreground transition-colors duration-200 ease-in-out hover:bg-accent focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring';
+  'inline-flex min-h-8 cursor-pointer items-center justify-center rounded-md border border-border bg-background px-3 text-foreground transition-colors duration-normal ease-in-out hover:bg-accent focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring';
 const cardClass =
   'grid w-56 grid-cols-[auto_1fr] items-center gap-2 rounded-md border border-border p-3 data-[state=checked]:border-primary data-[state=checked]:bg-accent';
 
@@ -129,16 +129,14 @@ export const Orientation: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <RadioGroup defaultValue="md">
-      <RadioGroupLabel>Control Size</RadioGroupLabel>
+    <div class="grid gap-4">
       {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
-        <RadioGroupItem value={size}>
-          <RadioGroupItemControl size={size} />
-          <RadioGroupItemText>{size.toUpperCase()}</RadioGroupItemText>
-          <RadioGroupItemHiddenInput />
-        </RadioGroupItem>
+        <RadioGroup size={size} defaultValue="React">
+          <RadioGroupLabel>{size.toUpperCase()}</RadioGroupLabel>
+          <RadioItems />
+        </RadioGroup>
       ))}
-    </RadioGroup>
+    </div>
   ),
 };
 

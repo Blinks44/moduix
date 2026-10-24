@@ -11,7 +11,6 @@ import {
   MenuItemGroup,
   MenuItemGroupLabel,
 } from '@moduix/solid/menu';
-import styles from '@/components/examples/menu/menu-grouping.module.css';
 
 export default function GroupingMenuDemo() {
   return (
@@ -21,7 +20,7 @@ export default function GroupingMenuDemo() {
         <MenuIndicator />
       </MenuTrigger>
       <MenuPositioner>
-        <MenuContent class={styles.content}>
+        <MenuContent>
           <MenuViewport>
             <MenuItemGroup>
               <MenuItemGroupLabel>Clipboard</MenuItemGroupLabel>

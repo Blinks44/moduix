@@ -14,6 +14,7 @@ import { forwardRef } from 'react';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import type { OverlayPortalProps } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
+import { Spinner } from '../spinner';
 import styles from './Toast.module.css';
 
 type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
@@ -22,7 +23,7 @@ type ToasterProps = Omit<ComponentProps<typeof ToasterPrimitive>, 'children'> &
   };
 
 const ToastToaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterProps>(
-  function ToastToaster({ className, portalled = true, portalRef, ...props }, ref) {
+  function ToastToaster({ children, className, portalled = true, portalRef, ...props }, ref) {
     return (
       <Portal disabled={!portalled} container={portalRef}>
         <ToasterPrimitive
@@ -31,7 +32,7 @@ const ToastToaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterPr
           {...props}
           data-slot="toast-toaster"
         >
-          {props.children ?? ((toast) => <DefaultToast toast={toast} />)}
+          {children ?? ((toast) => <DefaultToast toast={toast} />)}
         </ToasterPrimitive>
       </Portal>
     );
@@ -40,8 +41,13 @@ const ToastToaster = forwardRef<ComponentRef<typeof ToasterPrimitive>, ToasterPr
 
 function DefaultToast({ toast }: { toast: ToastOptions }) {
   return (
-    <Toast key={toast.id}>
-      {toast.title != null ? <ToastTitle /> : null}
+    <Toast>
+      {toast.title != null ? (
+        <ToastTitle>
+          {toast.type === 'loading' ? <Spinner decorative size="sm" /> : null}
+          {toast.title}
+        </ToastTitle>
+      ) : null}
       {toast.description != null ? <ToastDescription /> : null}
       {toast.action ? <ToastActionTrigger>{toast.action.label}</ToastActionTrigger> : null}
       {toast.closable !== false ? <ToastCloseTrigger /> : null}
@@ -166,3 +172,23 @@ export {
   createToaster,
   useToastContext,
 };
+
+export type {
+  CreateToasterProps,
+  CreateToasterReturn,
+  ToastActionOptions,
+  ToastActionTriggerProps,
+  ToastCloseTriggerProps,
+  ToastContextProps,
+  ToastDescriptionProps,
+  ToastOptions,
+  ToastPlacement,
+  ToastPromiseOptions,
+  ToastRootProps,
+  ToastStatus,
+  ToastStatusChangeDetails,
+  ToastTitleProps,
+  ToastType,
+  UseToastContext,
+} from '@ark-ui/react/toast';
+export type { ToasterProps };

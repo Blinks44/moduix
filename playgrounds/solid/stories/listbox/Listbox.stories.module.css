@@ -46,8 +46,6 @@
 
   .horizontalRoot {
     --moduix-listbox-width: min(100%, 34rem);
-    --moduix-listbox-horizontal-content-max-height: none;
-    --moduix-listbox-horizontal-item-width: 10rem;
   }
 
   .artist {
@@ -58,11 +56,6 @@
 
   .customRoot {
     --moduix-listbox-width: 18rem;
-    --moduix-listbox-bg: var(--moduix-color-muted);
-    --moduix-listbox-border-color: var(--moduix-color-primary);
-    --moduix-listbox-highlight-bg: var(--moduix-color-primary);
-    --moduix-listbox-highlight-color: var(--moduix-color-primary-foreground);
-    --moduix-listbox-item-selected-color: var(--moduix-color-primary);
   }
 
   .customLabel {
@@ -70,11 +63,19 @@
   }
 
   .customContent {
+    border-color: var(--moduix-color-primary);
+    background-color: var(--moduix-color-muted);
     box-shadow: var(--moduix-shadow-sm);
   }
 
   .customItem {
+    &[data-highlighted] {
+      background-color: var(--moduix-color-primary);
+      color: var(--moduix-color-primary-foreground);
+    }
+
     &[data-selected] {
+      color: var(--moduix-color-primary);
       background-color: color-mix(in oklab, var(--moduix-color-primary), transparent 90%);
     }
   }

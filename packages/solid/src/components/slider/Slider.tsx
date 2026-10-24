@@ -5,38 +5,23 @@ import { Index, splitProps } from 'solid-js';
 import styles from './Slider.module.css';
 
 function Slider(props: ComponentProps<typeof SliderPrimitive.Root>) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
-    'class',
-    'defaultValue',
-    'readOnly',
-    'value',
-  ]);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <SliderPrimitive.Root
-      asChild={local.asChild}
-      defaultValue={local.defaultValue}
-      value={local.value}
       class={clsx(styles.root, local.class)}
-      readOnly={local.readOnly}
       {...others}
-      data-readonly={local.readOnly ? '' : undefined}
+      data-readonly={props.readOnly ? '' : undefined}
       data-slot="slider-root"
-    >
-      {local.children}
-    </SliderPrimitive.Root>
+    />
   );
 }
 
 function SliderRootProvider(props: ComponentProps<typeof SliderPrimitive.RootProvider>) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'value']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <SliderPrimitive.RootProvider
-      asChild={local.asChild}
-      value={local.value}
       class={clsx(styles.root, local.class)}
       {...others}
       data-slot="slider-root-provider"
@@ -105,17 +90,14 @@ function SliderRange(props: ComponentProps<typeof SliderPrimitive.Range>) {
 }
 
 function SliderThumb(props: ComponentProps<typeof SliderPrimitive.Thumb>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <SliderPrimitive.Thumb
-      asChild={local.asChild}
       class={clsx(styles.thumb, local.class)}
       {...others}
       data-slot="slider-thumb"
-    >
-      {local.children}
-    </SliderPrimitive.Thumb>
+    />
   );
 }
 
@@ -190,3 +172,23 @@ export {
   useSlider,
   useSliderContext,
 };
+export type {
+  SliderContextProps,
+  SliderControlProps,
+  SliderDraggingIndicatorProps,
+  SliderFocusChangeDetails,
+  SliderHiddenInputProps,
+  SliderLabelProps,
+  SliderMarkerGroupProps,
+  SliderMarkerProps,
+  SliderRangeProps,
+  SliderRootProps,
+  SliderRootProviderProps,
+  SliderThumbProps,
+  SliderTrackProps,
+  SliderValueChangeDetails,
+  SliderValueTextProps,
+  UseSliderContext,
+  UseSliderProps,
+  UseSliderReturn,
+} from '@ark-ui/solid/slider';

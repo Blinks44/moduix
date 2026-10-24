@@ -10,6 +10,10 @@ const sizes = [
     label: 'Default',
     size: 'md',
   },
+  {
+    label: 'Large',
+    size: 'lg',
+  },
 ] as const;
 
 export default function TagSizesDemo() {

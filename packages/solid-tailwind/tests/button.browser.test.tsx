@@ -20,8 +20,7 @@ test('renders a native button with safe defaults, stable hooks, and a forwarded 
   expect([...button!.classList]).toEqual(
     expect.arrayContaining([
       'transition-[background-color,border-color,color,opacity,transform,translate]',
-      'duration-150',
-      'motion-reduce:transition-none',
+      'duration-fast',
       "motion-safe:[&[data-slot='button-root']:not([data-variant='link']):not([aria-haspopup]):active]:translate-y-px",
     ]),
   );
@@ -115,6 +114,25 @@ test('disables custom hosts accessibly and prevents activation', async () => {
   expect(activationCount).toBe(0);
 });
 
+test('aria-disabled prevents activation and disables a native button', async () => {
+  let activationCount = 0;
+
+  render(() => (
+    <Button aria-disabled="true" onClick={() => activationCount++}>
+      Unavailable
+    </Button>
+  ));
+
+  const button = screen.getByRole('button', { name: 'Unavailable' });
+
+  await expect.element(page.getByRole('button', { name: 'Unavailable' })).toBeDisabled();
+  await expect
+    .element(page.getByRole('button', { name: 'Unavailable' }))
+    .toHaveAttribute('data-disabled');
+  button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+  expect(activationCount).toBe(0);
+});
+
 test('wires the loading state without taking over its content', async () => {
   render(() => <Button loading>Saving</Button>);
 
@@ -183,4 +201,18 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
   for (const utility of ['bg-primary', 'px-5', 'py-1.5', 'text-lg']) {
     expect(button!.classList.contains(utility)).toBe(false);
   }
+});
+
+test('reads the token duration and lets a consumer duration replace it', () => {
+  render(() => (
+    <Button class="duration-500" data-testid="button">
+      Save
+    </Button>
+  ));
+
+  const button = screen.getByTestId('button');
+
+  expect(button.classList.contains('duration-500')).toBe(true);
+  expect(button.classList.contains('duration-fast')).toBe(false);
+  expect(getComputedStyle(button).transitionDuration.split(', ')[0]).toBe('0.5s');
 });

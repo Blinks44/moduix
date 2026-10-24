@@ -4,37 +4,6 @@ component: hover-card
 description: Composant Hover Card basé sur Ark UI qui affiche des aperçus complémentaires au survol ou lorsque le déclencheur reçoit le focus.
 ---
 
-import * as HoverCardDocs from '@/components/examples/hover-card/css-properties';
-import BasicHoverCard from '@/components/examples/hover-card/basic.tsx';
-import ContextHoverCard from '@/components/examples/hover-card/context.tsx';
-import ControlledHoverCard from '@/components/examples/hover-card/controlled.tsx';
-import DelayHoverCard from '@/components/examples/hover-card/delay.tsx';
-import DialogHoverCard from '@/components/examples/hover-card/dialog.tsx';
-import DisabledHoverCard from '@/components/examples/hover-card/disabled.tsx';
-import MultipleTriggersHoverCard from '@/components/examples/hover-card/multiple-triggers.tsx';
-import PositioningHoverCard from '@/components/examples/hover-card/positioning.tsx';
-import RootProviderHoverCard from '@/components/examples/hover-card/root-provider.tsx';
-import HoverCardWithArrow from '@/components/examples/hover-card/with-arrow.tsx';
-import hoverCardSolidBasic from '../../../snippets/hover-card/solid/basic.tsx?raw';
-import hoverCardSolidContext from '../../../snippets/hover-card/solid/context.tsx?raw';
-import hoverCardSolidControlled from '../../../snippets/hover-card/solid/controlled.tsx?raw';
-import hoverCardSolidDelay from '../../../snippets/hover-card/solid/delay.tsx?raw';
-import hoverCardSolidDialog from '../../../snippets/hover-card/solid/dialog.tsx?raw';
-import hoverCardSolidDisabled from '../../../snippets/hover-card/solid/disabled.tsx?raw';
-import hoverCardSolidMultipleTriggers from '../../../snippets/hover-card/solid/multiple-triggers.tsx?raw';
-import hoverCardSolidPositioning from '../../../snippets/hover-card/solid/positioning.tsx?raw';
-import hoverCardSolidRootProvider from '../../../snippets/hover-card/solid/root-provider.tsx?raw';
-import hoverCardSolidWithArrow from '../../../snippets/hover-card/solid/with-arrow.tsx?raw';
-import hoverCardVueBasic from '../../../snippets/hover-card/vue/basic.vue?raw';
-import hoverCardVueContext from '../../../snippets/hover-card/vue/context.vue?raw';
-import hoverCardVueControlled from '../../../snippets/hover-card/vue/controlled.vue?raw';
-import hoverCardVueDelay from '../../../snippets/hover-card/vue/delay.vue?raw';
-import hoverCardVueDialog from '../../../snippets/hover-card/vue/dialog.vue?raw';
-import hoverCardVueDisabled from '../../../snippets/hover-card/vue/disabled.vue?raw';
-import hoverCardVueMultipleTriggers from '../../../snippets/hover-card/vue/multiple-triggers.vue?raw';
-import hoverCardVuePositioning from '../../../snippets/hover-card/vue/positioning.vue?raw';
-import hoverCardVueRootProvider from '../../../snippets/hover-card/vue/root-provider.vue?raw';
-import hoverCardVueWithArrow from '../../../snippets/hover-card/vue/with-arrow.vue?raw';
 
 ## Référence de l’API
 
@@ -56,46 +25,7 @@ de base n’inclut pas de flèche. Placez le contenu long dans `HoverCardBody` p
 défiler dans la hauteur disponible, tandis que `HoverCardContent` reste visible pour accueillir
 une flèche facultative.
 
-<ExampleFrame variant="component">
-  <BasicHoverCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hover-card/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hoverCardSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hoverCardVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/hover-card/hover-card-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="hover-card/basic" />
 
 ## Installation avec shadcn
 
@@ -187,136 +117,19 @@ un autre élément sémantique. Si plusieurs déclencheurs partagent un même co
 Utilisez `HoverCardContext` pour lire l’état dans l’arborescence de la carte sans modifier sa
 structure visible.
 
-<ExampleFrame variant="component">
-  <ContextHoverCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hover-card/context.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hoverCardSolidContext} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hoverCardVueContext} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/hover-card/hover-card-context.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="hover-card/context" />
 
 ### État contrôlé
 
 Contrôlez l’ouverture de la carte avec `open` et `onOpenChange(details)`.
 
-<ExampleFrame variant="component">
-  <ControlledHoverCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hover-card/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hoverCardSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hoverCardVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/hover-card/hover-card-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="hover-card/controlled" />
 
 ### Délai
 
 Ajustez les délais d’ouverture et de fermeture avec `openDelay` et `closeDelay` sur la racine.
 
-<ExampleFrame variant="component">
-  <DelayHoverCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hover-card/delay.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hoverCardSolidDelay} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hoverCardVueDelay} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/hover-card/hover-card-delay.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="hover-card/delay" />
 
 ### Dialogue
 
@@ -325,229 +138,34 @@ Le focus initial du dialogue peut se placer sur son déclencheur et ouvrir la ca
 Définissez `initialFocusEl` sur un autre élément si l’aperçu doit rester
 fermé jusqu’au survol ou à la réception du focus.
 
-<ExampleFrame variant="component">
-  <DialogHoverCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hover-card/dialog.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hoverCardSolidDialog} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hoverCardVueDialog} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/hover-card/hover-card-dialog.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="hover-card/dialog" />
 
 ### État désactivé
 
 Définissez `disabled` pour empêcher l’ouverture de la carte tout en conservant le contenu visible du
 déclencheur.
 
-<ExampleFrame variant="component">
-  <DisabledHoverCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hover-card/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hoverCardSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hoverCardVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/hover-card/hover-card-disabled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="hover-card/disabled" />
 
 ### Plusieurs déclencheurs
 
 Donnez une `value` à chaque déclencheur et utilisez `onTriggerValueChange(details)` pour partager
 un même contenu entre plusieurs déclencheurs.
 
-<ExampleFrame variant="component">
-  <MultipleTriggersHoverCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hover-card/multiple-triggers.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hoverCardSolidMultipleTriggers} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hoverCardVueMultipleTriggers} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/hover-card/hover-card-multiple-triggers.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="hover-card/multiple-triggers" />
 
 ### Positionnement
 
 Transmettez les options de positionnement d’Ark via la propriété `positioning`.
 
-<ExampleFrame variant="component">
-  <PositioningHoverCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hover-card/positioning.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hoverCardSolidPositioning} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hoverCardVuePositioning} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/hover-card/hover-card-positioning.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="hover-card/positioning" />
 
 ### Root Provider
 
 Utilisez `useHoverCard()` avec `HoverCardRootProvider` lorsque des contrôles ou d’autres éléments
 de l’interface situés en dehors de l’arborescence de la carte doivent lire son état ou le modifier.
 
-<ExampleFrame variant="component">
-  <RootProviderHoverCard />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hover-card/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hoverCardSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hoverCardVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/hover-card/hover-card-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="hover-card/root-provider" />
 
 ### Avec une flèche
 
@@ -556,67 +174,20 @@ visuellement vers son déclencheur. L’enveloppe rend `HoverCardArrowTip` par d
 l’aperçu dans `HoverCardBody` afin que la flèche reste intégrée à la surface avec bordure tout en
 permettant au contenu de défiler.
 
-<ExampleFrame variant="component">
-  <HoverCardWithArrow />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/hover-card/with-arrow.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={hoverCardSolidWithArrow} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={hoverCardVueWithArrow} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/hover-card/hover-card-with-arrow.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="hover-card/with-arrow" />
 
 ## Styles
 
-Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées pour les styles
-structurels. Les variantes Tailwind utilisent les utilitaires natifs et les classes du consommateur ;
-les variables ci-dessous personnalisent les variantes CSS Modules. Les attributs d’état et les hooks
-`data-slot` sont communs aux deux modes de style.
+Sans `asChild`, `HoverCardTrigger` ressemble à un lien en ligne de la couleur principale ; son
+soulignement suit `currentColor`, donc une classe `color` recolore les deux. `HoverCardContent` mesure
+de 14 à 24rem de large et au plus 24rem de haut dans l’espace disponible. L’animation du contenu lit
+les variables partagées `--moduix-popup-motion-*`.
 
-### Propriétés CSS
-
-<div className="not-prose">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab value="CSS Variables">
-      <HoverCardDocs.HoverCardCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les variantes
+Tailwind utilisent les utilitaires natifs et les classes du consommateur. Les variantes CSS Modules
+reposent sur les jetons de foundation et n’ont pas de variables de composant : une classe sur la partie
+remplace les styles du composant en couche. Les attributs d’état et les hooks `data-slot` sont communs
+aux deux modes de style.
 
 ### Ciblage des styles
 

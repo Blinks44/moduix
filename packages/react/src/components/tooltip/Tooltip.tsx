@@ -166,3 +166,17 @@ export {
   useTooltipContext,
 };
 export type { TooltipRootProps, TooltipRootProviderProps };
+
+export type {
+  TooltipArrowProps,
+  TooltipArrowTipProps,
+  TooltipContentProps,
+  TooltipContextProps,
+  TooltipOpenChangeDetails,
+  TooltipPositionerProps,
+  TooltipTriggerProps,
+  TooltipTriggerValueChangeDetails,
+  UseTooltipContext,
+  UseTooltipProps,
+  UseTooltipReturn,
+} from '@ark-ui/react/tooltip';

@@ -76,7 +76,7 @@ export const AsChild: Story = {
       as-child
       size="lg"
       aria-label="Loading report"
-      class="animate-[var(--moduix-animation-spin)] text-primary motion-reduce:animate-none"
+      class="animate-(--moduix-animation-spin) text-primary motion-reduce:animate-none"
     >
       <svg viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" opacity="0.22" />

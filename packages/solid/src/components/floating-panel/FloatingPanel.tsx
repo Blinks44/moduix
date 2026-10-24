@@ -4,12 +4,15 @@ import {
   FloatingPanel as FloatingPanelPrimitive,
   useFloatingPanel,
   useFloatingPanelContext,
+  type FloatingPanelResizeTriggerAxis,
+  type FloatingPanelStage,
 } from '@ark-ui/solid/floating-panel';
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { For, children, splitProps } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
-import { GripIcon, MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui/Icons';
+import { GripIcon, MaximizeIcon, MinusIcon, RestoreIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -17,10 +20,6 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 import styles from './FloatingPanel.module.css';
-
-type FloatingPanelResizeTriggerAxis = NonNullable<
-  ComponentProps<typeof FloatingPanelPrimitive.ResizeTrigger>['axis']
->;
 
 const resizeTriggerAxes = [
   'n',
@@ -32,6 +31,12 @@ const resizeTriggerAxes = [
   'sw',
   'nw',
 ] satisfies FloatingPanelResizeTriggerAxis[];
+
+const stageIcons = {
+  default: RestoreIcon,
+  maximized: MaximizeIcon,
+  minimized: MinusIcon,
+} satisfies Record<FloatingPanelStage, unknown>;
 
 type FloatingPanelRootProps = ComponentProps<typeof FloatingPanelPrimitive.Root> &
   OverlayPortalProps;
@@ -91,28 +96,13 @@ function FloatingPanelRootProvider(props: FloatingPanelRootProviderProps) {
 }
 
 function FloatingPanelTrigger(props: ComponentProps<typeof FloatingPanelPrimitive.Trigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <FloatingPanelPrimitive.Trigger
-      asChild={local.asChild}
-      class={clsx(!local.asChild && styles.trigger, local.class)}
-      {...others}
-      data-slot="floating-panel-trigger"
-    />
-  );
+  return <FloatingPanelPrimitive.Trigger {...props} data-slot="floating-panel-trigger" />;
 }
 
 function FloatingPanelPositioner(props: ComponentProps<typeof FloatingPanelPrimitive.Positioner>) {
-  const [local, others] = splitProps(props, ['class']);
-
   return (
     <OverlayPortal>
-      <FloatingPanelPrimitive.Positioner
-        class={clsx(styles.positioner, local.class)}
-        {...others}
-        data-slot="floating-panel-positioner"
-      />
+      <FloatingPanelPrimitive.Positioner {...props} data-slot="floating-panel-positioner" />
     </OverlayPortal>
   );
 }
@@ -132,15 +122,7 @@ function FloatingPanelContent(props: ComponentProps<typeof FloatingPanelPrimitiv
 function FloatingPanelDragTrigger(
   props: ComponentProps<typeof FloatingPanelPrimitive.DragTrigger>,
 ) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <FloatingPanelPrimitive.DragTrigger
-      class={clsx(styles.dragTrigger, local.class)}
-      {...others}
-      data-slot="floating-panel-drag-trigger"
-    />
-  );
+  return <FloatingPanelPrimitive.DragTrigger {...props} data-slot="floating-panel-drag-trigger" />;
 }
 
 function FloatingPanelHeader(props: ComponentProps<typeof FloatingPanelPrimitive.Header>) {
@@ -182,29 +164,18 @@ function FloatingPanelControl(props: ComponentProps<typeof FloatingPanelPrimitiv
 function FloatingPanelStageTrigger(
   props: ComponentProps<typeof FloatingPanelPrimitive.StageTrigger>,
 ) {
-  const [local, others] = splitProps(props, [
-    'aria-label',
-    'asChild',
-    'children',
-    'class',
-    'stage',
-  ]);
+  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
   const resolvedChildren = children(() => local.children);
-  const shouldRenderDefaultIcon = () => local.children == null && !local.asChild;
 
   return (
     <FloatingPanelPrimitive.StageTrigger
-      aria-label={local['aria-label']}
       asChild={local.asChild}
       class={clsx(!local.asChild && styles.controlButton, local.class)}
-      stage={local.stage}
       {...others}
       data-slot="floating-panel-stage-trigger"
     >
-      {resolvedChildren()}
-      {shouldRenderDefaultIcon() && local.stage === 'minimized' ? <MinusIcon /> : null}
-      {shouldRenderDefaultIcon() && local.stage === 'maximized' ? <MaximizeIcon /> : null}
-      {shouldRenderDefaultIcon() && local.stage === 'default' ? <RestoreIcon /> : null}
+      {resolvedChildren() ??
+        (local.asChild ? null : <Dynamic component={stageIcons[props.stage]} />)}
     </FloatingPanelPrimitive.StageTrigger>
   );
 }
@@ -343,3 +314,30 @@ export {
   useFloatingPanelContext,
 };
 export type { FloatingPanelRootProps, FloatingPanelRootProviderProps };
+export type {
+  FloatingPanelAnchorPositionDetails,
+  FloatingPanelBodyProps,
+  FloatingPanelCloseTriggerProps,
+  FloatingPanelContentProps,
+  FloatingPanelContextProps,
+  FloatingPanelControlProps,
+  FloatingPanelDragTriggerProps,
+  FloatingPanelHeaderProps,
+  FloatingPanelIntlTranslations,
+  FloatingPanelOpenChangeDetails,
+  FloatingPanelPoint,
+  FloatingPanelPositionChangeDetails,
+  FloatingPanelPositionerProps,
+  FloatingPanelResizeTriggerAxis,
+  FloatingPanelResizeTriggerProps,
+  FloatingPanelSize,
+  FloatingPanelSizeChangeDetails,
+  FloatingPanelStage,
+  FloatingPanelStageChangeDetails,
+  FloatingPanelStageTriggerProps,
+  FloatingPanelTitleProps,
+  FloatingPanelTriggerProps,
+  UseFloatingPanelContext,
+  UseFloatingPanelProps,
+  UseFloatingPanelReturn,
+} from '@ark-ui/solid/floating-panel';

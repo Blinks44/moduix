@@ -6,14 +6,9 @@ import {
   useSplitterContext,
 } from '@ark-ui/react/splitter';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, CSSProperties } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import styles from './Splitter.module.css';
-
-const rootStyle = {
-  width: 'var(--moduix-splitter-width, 100%)',
-  height: 'var(--moduix-splitter-height, 28rem)',
-} satisfies CSSProperties;
 
 const Splitter = forwardRef<
   ComponentRef<typeof SplitterPrimitive.Root>,
@@ -23,7 +18,7 @@ const Splitter = forwardRef<
     <SplitterPrimitive.Root
       ref={ref}
       className={clsx(styles.root, className)}
-      style={{ ...rootStyle, ...style }}
+      style={{ width: undefined, height: undefined, ...style }}
       {...props}
       data-slot="splitter-root"
     />
@@ -38,7 +33,7 @@ const SplitterRootProvider = forwardRef<
     <SplitterPrimitive.RootProvider
       ref={ref}
       className={clsx(styles.root, className)}
-      style={{ ...rootStyle, ...style }}
+      style={{ width: undefined, height: undefined, ...style }}
       {...props}
       data-slot="splitter-root-provider"
     />
@@ -81,6 +76,7 @@ const SplitterResizeTrigger = forwardRef<
     <SplitterPrimitive.ResizeTrigger
       ref={ref}
       asChild={asChild}
+      type={asChild ? undefined : 'button'}
       className={clsx(styles.resizeTrigger, className)}
       {...props}
       data-slot="splitter-resize-trigger"

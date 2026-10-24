@@ -24,10 +24,8 @@ export default function SliderFormDemo() {
       onReset={() => setSubmitted('Nothing submitted')}
     >
       <Slider defaultValue={[40]} name="volume">
-        <div class={styles.header}>
-          <SliderLabel>Volume</SliderLabel>
-          <SliderValueText />
-        </div>
+        <SliderLabel>Volume</SliderLabel>
+        <SliderValueText />
         <SliderControl>
           <SliderTrack>
             <SliderRange />

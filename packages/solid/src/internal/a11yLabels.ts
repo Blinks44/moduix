@@ -2,7 +2,6 @@
 export const a11yLabels = {
   breadcrumb: 'Breadcrumb',
   clearInput: 'Clear input',
-  clearFiles: 'Clear files',
   clearSearch: 'Clear search',
   clearSelection: 'Clear selection',
   close: 'Close',

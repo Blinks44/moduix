@@ -5,8 +5,10 @@ import {
   DatePickerDayTable,
   DatePickerField,
   DatePickerLabel,
+  DatePickerMonthTable,
   DatePickerPositioner,
   DatePickerView,
+  DatePickerYearTable,
 } from '@moduix/vue/date-picker';
 import { Field, FieldErrorText } from '@moduix/vue/field';
 </script>
@@ -17,7 +19,9 @@ import { Field, FieldErrorText } from '@moduix/vue/field';
       <DatePickerLabel>Deadline</DatePickerLabel><DatePickerField />
       <DatePickerPositioner>
         <DatePickerContent>
-          <DatePickerView view="day"><DatePickerDayTable /></DatePickerView>
+          <DatePickerView view="day"><DatePickerDayTable /></DatePickerView
+          ><DatePickerView view="month"><DatePickerMonthTable /></DatePickerView
+          ><DatePickerView view="year"><DatePickerYearTable /></DatePickerView>
         </DatePickerContent>
       </DatePickerPositioner>
     </DatePicker>

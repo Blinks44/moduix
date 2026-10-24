@@ -74,6 +74,8 @@ test('keeps RootProvider and asChild composition semantic', async () => {
   await expect
     .element(page.locator('[data-slot="clipboard-trigger"]'))
     .toHaveAttribute('data-slot', 'clipboard-trigger');
+  expect(document.querySelector('[data-slot="clipboard-input"]')?.className).toBe('');
+  expect(document.querySelector('[data-slot="clipboard-trigger"]')?.className).toBe('');
 });
 
 test('does not forward refs through native Ark Solid asChild composition', () => {
@@ -116,7 +118,12 @@ test('forwards refs and renders the default copy affordance', async () => {
   expect(rootRef?.getAttribute('data-slot')).toBe('clipboard-root');
   expect(inputRef).toBe(screen.getByRole('textbox', { name: 'Copy this link' }));
   expect(triggerRef).toBe(screen.getByRole('button', { name: 'Copy to clipboard' }));
-  await expect.element(page.locator('[data-slot="clipboard-indicator-idle-icon"]')).toBeAttached();
+  await expect
+    .element(page.locator('[data-slot="clipboard-indicator"] > svg[class*="copy"]'))
+    .toBeAttached();
+  expect(
+    document.querySelector('[data-slot="clipboard-indicator"] > svg')?.getAttribute('stroke-width'),
+  ).toBe('2.5');
 
   await page.locator('[data-slot="clipboard-trigger"]').click();
 
@@ -124,9 +131,11 @@ test('forwards refs and renders the default copy affordance', async () => {
     .element(page.locator('[data-slot="clipboard-trigger"]'))
     .toHaveAttribute('data-copied');
   await expect.poll(() => navigator.clipboard.readText()).toBe('https://moduix.dev/docs/clipboard');
-  await expect.element(page.locator('[data-slot="clipboard-indicator-idle-icon"]')).toHaveCount(0);
   await expect
-    .element(page.locator('[data-slot="clipboard-indicator-copied-icon"]'))
+    .element(page.locator('[data-slot="clipboard-indicator"] > svg[class*="copy"]'))
+    .toHaveCount(0);
+  await expect
+    .element(page.locator('[data-slot="clipboard-indicator"] > svg[class*="check"]'))
     .toBeAttached();
 });
 
@@ -182,4 +191,28 @@ test('clears copied state after the configured timeout', async () => {
 
   expect(statusChange).toHaveBeenCalledExactlyOnceWith({ copied: true });
   await expect.element(copyTrigger).not.toHaveAttribute('data-copied');
+});
+test('sizes the input, trigger, and default icon from the clipboard variables', () => {
+  render(() => (
+    <Clipboard
+      defaultValue="moduix"
+      style={{ '--moduix-clipboard-height': '48px', '--moduix-clipboard-icon-size': '20px' }}
+    >
+      <ClipboardControl>
+        <ClipboardInput />
+        <ClipboardTrigger>
+          <ClipboardIndicator />
+        </ClipboardTrigger>
+      </ClipboardControl>
+    </Clipboard>
+  ));
+
+  const input = document.querySelector<HTMLElement>('[data-slot="clipboard-input"]');
+  const trigger = document.querySelector<HTMLElement>('[data-slot="clipboard-trigger"]');
+  const icon = document.querySelector('[data-slot="clipboard-indicator"] > svg');
+
+  expect(input?.offsetHeight).toBe(48);
+  expect(trigger?.offsetHeight).toBe(48);
+  expect(icon?.getBoundingClientRect().width).toBe(20);
+  expect(input && getComputedStyle(input).paddingLeft).toBe('12px');
 });

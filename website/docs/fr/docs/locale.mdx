@@ -188,3 +188,29 @@ Pour une zone RTL dans une application LTR, définissez `lang` et la valeur corr
 cette zone, comme dans l’exemple de contexte. Si les utilisateurs peuvent passer d’une locale LTR à une locale RTL sans
 recharger la page, mettez à jour les attributs du document en même temps que `locale`. Consultez [De droite à gauche
 (RTL)](/docs/rtl) pour les portails, les propriétés CSS logiques et les icônes directionnelles.
+
+## Traduire les libellés par défaut
+
+`LocaleProvider` ne traduit pas le texte. Les contrôles composés d’une seule icône et quelques repères, comme les
+boutons de fermeture et d’effacement, `Spinner` et `Breadcrumbs`, reçoivent par défaut des noms accessibles en anglais
+tels que `Close` ou `Clear search`. Dans une interface dans une autre langue, remplacez-les de l’une des deux façons
+suivantes.
+
+Passez `aria-label` ou `aria-labelledby` là où le composant est utilisé. Un nom fourni remplace toujours la valeur par
+défaut :
+
+```tsx
+<DialogCloseIcon aria-label="Fermer" />
+<CommandPaletteSearch aria-label="Rechercher des commandes" />
+```
+
+Avec les sources installées par shadcn, les valeurs par défaut se trouvent dans `@/lib/moduix/a11yLabels.ts`.
+Traduisez les valeurs de ce fichier pour changer tous les libellés d’un coup :
+
+```ts
+export const a11yLabels = {
+  closeDialog: 'Fermer',
+  clearSearch: 'Effacer la recherche',
+  // ...
+} as const;
+```

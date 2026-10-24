@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
-import { List, ListItem } from '@/components/list/List';
+import { List, ListIndicator, ListItem } from '@/components/list/List';
 import storyStyles from './List.stories.module.css';
 
 const defaultItems = [
   'Use semantic list markup for grouped content.',
   'Keep spacing and typography on the library scale.',
-  'Style markers with CSS variables or native ::marker selectors.',
+  'Style markers with native ::marker selectors.',
 ];
 
 const AccentListItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(function AccentListItem(
@@ -67,17 +67,6 @@ export const Ordered: Story = {
   ),
 };
 
-export const OrderedType: Story = {
-  name: 'Ordered Type',
-  render: () => (
-    <List as="ol" type="A" className={storyStyles.list}>
-      <ListItem>Draft the rollout checklist.</ListItem>
-      <ListItem>Coordinate the release window.</ListItem>
-      <ListItem>Confirm the post-release review.</ListItem>
-    </List>
-  ),
-};
-
 export const Markerless: Story = {
   render: () => (
     <List marker="none" className={storyStyles.list}>
@@ -125,9 +114,6 @@ export const Tones: Story = {
       <List tone="muted">
         <ListItem>Muted list tone</ListItem>
       </List>
-      <List tone="subtle">
-        <ListItem>Subtle list tone</ListItem>
-      </List>
       <List tone="primary">
         <ListItem>Primary list tone</ListItem>
       </List>
@@ -157,7 +143,7 @@ export const CustomItemComposition: Story = {
         <AccentListItem>Native markers stay available for per-item styling.</AccentListItem>
       </ListItem>
       <ListItem asChild>
-        <AccentListItem>Root CSS variables still control spacing and indentation.</AccentListItem>
+        <AccentListItem>A class on the root still controls the indentation.</AccentListItem>
       </ListItem>
       <ListItem asChild>
         <AccentListItem>asChild keeps the semantic li contract for a custom item.</AccentListItem>
@@ -175,6 +161,63 @@ export const CustomRootComposition: Story = {
         <ListItem>Publish the package.</ListItem>
         <ListItem>Announce the release.</ListItem>
       </ReleaseList>
+    </List>
+  ),
+};
+
+export const Nested: Story = {
+  render: () => (
+    <List className={storyStyles.list}>
+      <ListItem>
+        Prepare the release
+        <List as="ol">
+          <ListItem>Update the changelog.</ListItem>
+          <ListItem>Bump the package versions.</ListItem>
+        </List>
+      </ListItem>
+      <ListItem>Publish the packages.</ListItem>
+    </List>
+  ),
+};
+
+export const WithIndicator: Story = {
+  name: 'With Indicator',
+  render: () => (
+    <List marker="none" className={storyStyles.list}>
+      <ListItem>
+        <ListIndicator>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+        </ListIndicator>
+        Tests pass in every adapter.
+      </ListItem>
+      <ListItem>
+        <ListIndicator>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+        </ListIndicator>
+        Long items wrap next to the indicator instead of under it, so the text stays aligned.
+      </ListItem>
     </List>
   ),
 };

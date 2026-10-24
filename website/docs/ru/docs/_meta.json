@@ -46,6 +46,11 @@
     "tag": "swatch-book"
   },
   {
+    "type": "file",
+    "name": "styling",
+    "tag": "paintbrush"
+  },
+  {
     "type": "section-header",
     "label": "Начало работы"
   },
@@ -595,11 +600,6 @@
     "type": "file",
     "name": "rtl",
     "tag": "languages"
-  },
-  {
-    "type": "file",
-    "name": "styling",
-    "tag": "paintbrush"
   },
   {
     "type": "file",

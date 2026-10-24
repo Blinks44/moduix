@@ -22,7 +22,7 @@ const attrs = useAttrs();
   <OverlayPortal>
     <ArkColorPickerPositioner
       v-bind="attrs"
-      :class="cn('z-[var(--z-index)] outline-0', className)"
+      :class="cn('z-(--z-index) outline-0', className)"
       data-slot="color-picker-positioner"
     >
       <slot />

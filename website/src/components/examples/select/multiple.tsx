@@ -9,9 +9,7 @@ import {
   SelectClearTrigger,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/react/select';
 
 const languages = createListCollection({
@@ -57,10 +55,9 @@ export default function SelectMultipleDemo() {
       <SelectPositioner>
         <SelectContent>
           {languages.items.map((item) => (
-            <SelectItem key={item.value} item={item}>
-              <SelectItemText>{item.label}</SelectItemText>
-              <SelectItemIndicator />
-            </SelectItem>
+            <SelectOption key={item.value} item={item}>
+              {item.label}
+            </SelectOption>
           ))}
         </SelectContent>
       </SelectPositioner>

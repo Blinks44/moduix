@@ -4,7 +4,7 @@ import type { JsonTreeViewTreeProps } from '@ark-ui/vue/json-tree-view';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './JsonTreeView.module.css';
 
 defineOptions({ inheritAttrs: false });

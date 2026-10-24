@@ -58,7 +58,7 @@ Typeset                 data-slot="typeset"
 ```
 
 Use `TypesetScroll` in a renderer's table component when a table should scroll instead of compress.
-Keep it inside a `Typeset` boundary: the horizontal scrolling, flow spacing, and
+It owns its horizontal overflow; keep it inside a `Typeset` boundary because the flow spacing and
 table widening for the wrapped block come from the Typeset element rules. Both parts forward refs to
 their rendered element; with `asChild`, that is the one semantic child.
 Do not put Markdown parsing, sanitization, or fixed reading width into this component.
@@ -90,8 +90,12 @@ Do not put Markdown parsing, sanitization, or fixed reading width into this comp
   and use `:where()` element selectors, allowing ordinary application CSS to override an individual
   rendered element.
 - Plain `ul` and `ol` elements always restore their semantic markers: disc, circle, then square for
-  unordered nesting; decimal, lower-alpha, then lower-roman for ordered nesting. Task lists keep
-  their checkbox treatment instead.
+  unordered nesting; decimal for ordered lists, with the native `type` attribute (`a`, `A`, `i`,
+  `I`) still respected. Task lists keep their checkbox treatment instead.
+- Table cells keep the native `align` attribute (`left`, `center`, `right`) as physical alignment,
+  also in right-to-left content.
+- Colors, borders, radius, and focus rings use foundation tokens directly, without fallbacks; the
+  registry item depends on foundation.
 - Block spacing only uses `margin-block-start`; no layout rule uses `:last-child`, `:has()`, or
   `:empty`. Cell borders, rather than row-position selectors, separate appended table rows.
 - Page layout owns measure. The root has no fixed or maximum width.
@@ -109,22 +113,3 @@ prop-driven.
   layout props.
 - Every future element rule must preserve the `.not-typeset` / `data-not-typeset` escape hatch,
   including nested Typeset roots and scroll wrappers, plus append-stability constraints.
-
-## Local changelog
-
-- 2026-09-22: Replaced the compound `Typeset.*` value surface with the shared flat API. `Typeset`
-  is the only root value and `TypesetScroll` is a direct named export.
-- 2026-09-14: Reworked the cascade layers: `--moduix-typeset-*` defaults moved to `base` and element
-  rules moved to the shared `components` layer, replacing the previous single `moduix.components`
-  layer.
-- 2026-08-14: Made named scroll regions the recommended path in stories and runnable docs, and
-  added regression coverage for default and custom scroll semantics.
-- 2026-08-01: Made the optional scroll wrapper keyboard-focusable by default, locked stable data hooks, widened
-  refs to rendered semantic elements, and made the opt-out contract cover nested Typeset parts.
-- 2026-07-22: Moved styles into the namespaced `moduix.components` cascade layer.
-- 2026-07-20: Made basic list markers explicit and expanded the recommended Basic example to cover
-  nested lists, ordered lists, quotations, code, tables, and disclosures.
-- 2026-07-20: Simplified the public CSS contract to rhythm and font variables, added the standard
-  opt-out class, broadened semantic Markdown coverage, and documented responsive/streaming rules.
-- 2026-07-20: Added the CSS-first Typeset root and optional scroll wrapper for rendered HTML and
-  Markdown.

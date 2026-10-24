@@ -9,7 +9,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -76,27 +76,7 @@ function MenuRootProvider(props: MenuRootProviderProps) {
 }
 
 function MenuTrigger(props: ComponentProps<typeof MenuPrimitive.Trigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <MenuPrimitive.Trigger
-      asChild={local.asChild}
-      class={clsx(!local.asChild && styles.trigger, local.class)}
-      {...others}
-      data-slot="menu-trigger"
-    />
-  );
-}
-
-function MenuTriggerIcon(props: ComponentProps<'span'>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
-  const resolvedChildren = children(() => local.children);
-
-  return (
-    <span class={clsx(styles.triggerIcon, local.class)} {...others} data-slot="menu-trigger-icon">
-      {resolvedChildren() ?? <ChevronDownIcon class={styles.iconSvg} />}
-    </span>
-  );
+  return <MenuPrimitive.Trigger {...props} data-slot="menu-trigger" />;
 }
 
 function MenuIndicator(props: ComponentProps<typeof MenuPrimitive.Indicator>) {
@@ -109,22 +89,13 @@ function MenuIndicator(props: ComponentProps<typeof MenuPrimitive.Indicator>) {
       {...others}
       data-slot="menu-indicator"
     >
-      {resolvedChildren() ?? <ChevronDownIcon class={styles.iconSvg} />}
+      {resolvedChildren() ?? <ChevronDownIcon />}
     </MenuPrimitive.Indicator>
   );
 }
 
 function MenuContextTrigger(props: ComponentProps<typeof MenuPrimitive.ContextTrigger>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
-
-  return (
-    <MenuPrimitive.ContextTrigger
-      asChild={local.asChild}
-      class={clsx(!local.asChild && styles.contextTrigger, local.class)}
-      {...others}
-      data-slot="menu-context-trigger"
-    />
-  );
+  return <MenuPrimitive.ContextTrigger {...props} data-slot="menu-context-trigger" />;
 }
 
 function MenuPositioner(props: ComponentProps<typeof MenuPrimitive.Positioner>) {
@@ -142,26 +113,22 @@ function MenuPositioner(props: ComponentProps<typeof MenuPrimitive.Positioner>) 
 }
 
 function MenuContent(props: ComponentProps<typeof MenuPrimitive.Content>) {
-  const [local, others] = splitProps(props, ['asChild', 'children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <MenuPrimitive.Content
-      asChild={local.asChild}
       class={clsx(styles.content, local.class)}
       {...others}
       data-slot="menu-content"
-    >
-      {local.children}
-    </MenuPrimitive.Content>
+    />
   );
 }
 
 function MenuViewport(props: HTMLArkProps<'div'>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <ark.div
-      asChild={local.asChild}
       class={clsx(styles.viewport, local.class)}
       {...others}
       data-scope="menu"
@@ -172,11 +139,11 @@ function MenuViewport(props: HTMLArkProps<'div'>) {
 }
 
 function MenuArrow(props: ComponentProps<typeof MenuPrimitive.Arrow>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['children']);
   const resolvedChildren = children(() => local.children);
 
   return (
-    <MenuPrimitive.Arrow class={clsx(styles.arrow, local.class)} {...others} data-slot="menu-arrow">
+    <MenuPrimitive.Arrow {...others} data-slot="menu-arrow">
       {resolvedChildren() ?? <MenuArrowTip />}
     </MenuPrimitive.Arrow>
   );
@@ -208,16 +175,14 @@ function MenuItem(props: MenuItemProps) {
 }
 
 function MenuTriggerItem(props: ComponentProps<typeof MenuPrimitive.TriggerItem>) {
-  const [local, others] = splitProps(props, ['children', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <MenuPrimitive.TriggerItem
       class={clsx(styles.triggerItem, local.class)}
       {...others}
       data-slot="menu-trigger-item"
-    >
-      {local.children}
-    </MenuPrimitive.TriggerItem>
+    />
   );
 }
 
@@ -231,7 +196,7 @@ function MenuTriggerItemIcon(props: ComponentProps<'span'>) {
       {...others}
       data-slot="menu-trigger-item-icon"
     >
-      {resolvedChildren() ?? <ChevronRightIcon class={styles.iconSvg} />}
+      {resolvedChildren() ?? <ChevronRightIcon />}
     </span>
   );
 }
@@ -320,7 +285,7 @@ function MenuItemIndicator(props: ComponentProps<typeof MenuPrimitive.ItemIndica
       {...others}
       data-slot="menu-item-indicator"
     >
-      {resolvedChildren() ?? <CheckIcon class={styles.itemIndicatorIcon} />}
+      {resolvedChildren() ?? <CheckIcon />}
     </MenuPrimitive.ItemIndicator>
   );
 }
@@ -413,11 +378,51 @@ export {
   MenuRootProvider,
   MenuSeparator,
   MenuTrigger,
-  MenuTriggerIcon,
   MenuTriggerItem,
   MenuTriggerItemIcon,
   MenuViewport,
   useMenu,
   useMenuContext,
   useMenuItemContext,
+};
+
+export type {
+  MenuArrowProps,
+  MenuArrowTipProps,
+  MenuContentProps,
+  MenuContextProps,
+  MenuContextTriggerProps,
+  MenuFocusOutsideEvent,
+  MenuHighlightChangeDetails,
+  MenuIndicatorProps,
+  MenuInteractOutsideEvent,
+  MenuItemContextProps,
+  MenuItemGroupLabelProps,
+  MenuItemGroupProps,
+  MenuItemIndicatorProps,
+  MenuItemTextProps,
+  MenuOpenChangeDetails,
+  MenuPointerDownOutsideEvent,
+  MenuPositionerProps,
+  MenuRadioItemGroupProps,
+  MenuSelectionDetails,
+  MenuSeparatorProps,
+  MenuTriggerItemProps,
+  MenuTriggerProps,
+  MenuTriggerValueChangeDetails,
+  MenuValueChangeDetails,
+  UseMenuContext,
+  UseMenuItemContext,
+  UseMenuProps,
+  UseMenuReturn,
+} from '@ark-ui/solid/menu';
+
+export type {
+  MenuCheckboxItemProps,
+  MenuIndicatorPosition,
+  MenuItemProps,
+  MenuItemTone,
+  MenuRadioItemProps,
+  MenuRootProps,
+  MenuRootProviderProps,
 };

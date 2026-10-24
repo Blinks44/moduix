@@ -30,7 +30,7 @@ const stackClassName = 'grid w-80 gap-2';
 const strengthMeterClassName = 'mt-2 grid gap-1';
 const strengthBarClassName = 'h-2 overflow-hidden rounded-full bg-muted';
 const strengthFillClassName =
-  'h-full transition-[width] duration-200 ease-in-out data-[strength=weak]:w-[30%] data-[strength=weak]:bg-destructive data-[strength=medium]:w-[60%] data-[strength=medium]:bg-warning data-[strength=strong]:w-full data-[strength=strong]:bg-success';
+  'h-full transition-[width] duration-normal ease-in-out data-[strength=weak]:w-[30%] data-[strength=weak]:bg-destructive data-[strength=medium]:w-[60%] data-[strength=medium]:bg-warning data-[strength=strong]:w-full data-[strength=strong]:bg-success';
 const strengthLabelClassName = 'text-xs leading-4 text-muted-foreground capitalize';
 
 export const Basic: Story = {
@@ -39,6 +39,33 @@ export const Basic: Story = {
       <PasswordInputLabel>Password</PasswordInputLabel>
       <PasswordInputField />
     </PasswordInput>
+  ),
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div className={stackClassName}>
+      <PasswordInput size="xs">
+        <PasswordInputLabel>Extra small</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+      <PasswordInput size="sm">
+        <PasswordInputLabel>Small</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+      <PasswordInput size="md">
+        <PasswordInputLabel>Medium</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+      <PasswordInput size="lg">
+        <PasswordInputLabel>Large</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+      <PasswordInput size="xl">
+        <PasswordInputLabel>Extra large</PasswordInputLabel>
+        <PasswordInputField />
+      </PasswordInput>
+    </div>
   ),
 };
 

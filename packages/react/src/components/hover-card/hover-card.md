@@ -6,7 +6,7 @@ Upstream docs:
 - Chakra UI: https://chakra-ui.com/docs/components/hover-card
 - shadcn/ui: https://ui.shadcn.com/docs/components/hover-card
 
-Last compared: 2026-09-03.
+Last compared: 2026-10-16.
 
 ## Purpose
 
@@ -89,8 +89,8 @@ export function Example() {
 Covered Ark examples: basic composition, controlled `open` with `onOpenChange(details)`,
 `HoverCardRootProvider` with moduix `useHoverCard`, `openDelay`/`closeDelay`, `disabled`, `positioning`, and
 multiple triggers through `Trigger value` plus `onTriggerValueChange(details)`. Moduix re-exports
-`useHoverCard` and `useHoverCardContext`, and exposes Ark `Context` as `HoverCardContext`. Event
-and detail types remain available from Ark for rare type-level escape hatches.
+`useHoverCard` and `useHoverCardContext`, exposes Ark `Context` as `HoverCardContext`, and
+re-exports the Ark part prop, event, detail, and hook types.
 
 ## Accessibility and state
 
@@ -104,18 +104,22 @@ advanced state reads or external state ownership, use `HoverCardContext`, `useHo
 
 ## Defaults and styling
 
-Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-hover-card-*` motion
-variables remain the more specific override. When the available viewport height limits the popup,
-content inside `HoverCardBody` scrolls inside the surface instead of escaping it. `Content` keeps
-overflow visible so an in-surface `Arrow` is not clipped.
-
 Moduix adds default visual styling to `Trigger`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, and
-`Body`.
-Content animation uses Ark `data-state='open' | 'closed'` and `--transform-origin`, and is disabled
-when the user requests reduced motion. Long unbroken text wraps instead of overflowing the card.
-Positioning and sizing use Ark runtime variables such as `--available-width`, `--available-height`,
-`--reference-width`, `--reference-height`, `--layer-index`, `--arrow-size`, `--arrow-background`,
-and `--arrow-offset`. Public theme variables use the `--moduix-hover-card-*` prefix.
+`Body`. A trigger without `asChild` is a link-like inline button in the primary color; its underline
+follows `currentColor`. Ark does not mark the trigger with `data-disabled` when the root is
+`disabled`, so only a native `disabled` trigger gets the disabled style.
+
+Content is 14–24rem wide and at most 24rem tall, limited by `--available-width` and
+`--available-height`. It stays overflow-visible so an in-surface `Arrow` is not clipped; with a
+direct `HoverCardBody` child it becomes a flex column and the body scrolls. Long unbroken text wraps.
+Content motion uses the shared `moduix-popup-in` and `moduix-popup-out` keyframes, which read the
+`--moduix-popup-motion-*` variables, keyed on Ark `data-state` and `--transform-origin`, and is
+disabled when the user requests reduced motion.
+
+CSS Modules have no `--moduix-hover-card-*` variables: styles come from foundation tokens, so
+override them with a class on the part. Ark runtime variables such as `--available-width`,
+`--available-height`, `--layer-index`, `--arrow-size`, `--arrow-background`, and `--arrow-offset`
+remain available.
 
 ## Release comparison
 
@@ -139,8 +143,7 @@ corresponding Ark state surfaces. No legacy `PreviewCard*` aliases are exported.
 Keep popup structure explicit. Do not reintroduce `HoverCardContent` sugar that hides positioner
 and content. Do not reintroduce legacy `createHandle`, `handle`, `payload`, `render`,
 `Popup`, `Viewport`, or `Backdrop` compatibility.
-Keep `RootProvider` compatible with Ark-owned state. Preserve the moduix context and hook exports;
-Ark utility types remain direct-import escape hatches.
+Keep `RootProvider` compatible with Ark-owned state. Preserve the moduix context, hook, and type exports.
 
 ## Mount lifecycle
 
@@ -149,6 +152,10 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-10-16: Removed all `--moduix-hover-card-*` variables, moved CSS Modules motion to the shared
+  popup keyframes, moved body scrolling onto `HoverCardBody`, dropped the unreachable
+  `data-disabled` trigger style, and re-exported Ark part, detail, and hook types.
 
 - 2026-09-21: Replaced the compound HoverCard API with flat family-prefixed exports across all
   shipped adapters, tests, stories, registries, and documentation. No compatibility aliases remain.

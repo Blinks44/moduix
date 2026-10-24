@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   FileUpload,
   FileUploadContext,
@@ -26,14 +27,13 @@ const maxFiles = 4;
       <div :class="styles.dropzoneContent">
         <span :class="styles.dropzoneTitle">Drop PNG or JPEG files here</span
         ><span :class="styles.dropzoneDescription">Only PNG and JPEG files are accepted</span
-        ><FileUploadTrigger>Select images</FileUploadTrigger>
+        ><FileUploadTrigger as-child><Button>Select images</Button></FileUploadTrigger>
       </div>
     </FileUploadDropzone>
     <FileUploadItemGroup>
       <FileUploadContext v-slot="{ acceptedFiles }">
         <FileUploadItem v-for="file in acceptedFiles" :key="file.name + file.size" :file="file"
           ><FileUploadItemName /><FileUploadItemSizeText /><FileUploadItemDeleteTrigger
-            :aria-label="'Remove ' + file.name"
         /></FileUploadItem>
       </FileUploadContext>
     </FileUploadItemGroup>

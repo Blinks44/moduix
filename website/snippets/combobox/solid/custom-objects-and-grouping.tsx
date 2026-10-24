@@ -15,7 +15,6 @@ import {
   ComboboxTrigger,
 } from '@moduix/solid/combobox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/combobox/component-custom-objects-and-grouping.module.css';
 
 const countries = [
   { country: 'Canada', code: 'CA', continent: 'North America' },
@@ -48,7 +47,7 @@ export default function GroupedComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent class={styles.content}>
+        <ComboboxContent>
           <ComboboxEmpty>No countries found.</ComboboxEmpty>
           <For each={collection().group()}>
             {(group) => {

@@ -4,8 +4,9 @@ import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import type { ComponentRef, ReactNode } from 'react';
 import { Fragment, forwardRef } from 'react';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
+import { ChevronRightIcon, EllipsisIcon } from '@/lib/moduix/icons/ui';
 
 type BreadcrumbsPathLink = {
   href: string;
@@ -19,7 +20,10 @@ type BreadcrumbsPathProps = Omit<HTMLArkProps<'ol'>, 'asChild' | 'children'> & {
 };
 
 const Breadcrumbs = forwardRef<ComponentRef<typeof ark.nav>, HTMLArkProps<'nav'>>(
-  function Breadcrumbs({ className, 'aria-label': ariaLabel = 'Breadcrumb', ...props }, ref) {
+  function Breadcrumbs(
+    { className, 'aria-label': ariaLabel = a11yLabels.breadcrumb, ...props },
+    ref,
+  ) {
     return (
       <ark.nav
         ref={ref}
@@ -40,7 +44,7 @@ const BreadcrumbsList = forwardRef<ComponentRef<typeof ark.ol>, HTMLArkProps<'ol
         {...props}
         data-slot="breadcrumbs-list"
         className={cn(
-          "flex min-w-0 items-center gap-1 whitespace-nowrap [&>[data-slot='breadcrumbs-item']:last-child]:max-w-64 [&>[data-slot='breadcrumbs-item']:last-child]:flex-auto",
+          'flex min-w-0 items-center gap-1 whitespace-nowrap [&>[data-slot=breadcrumbs-item]:last-child]:max-w-64 [&>[data-slot=breadcrumbs-item]:last-child]:flex-auto',
           className,
         )}
       />
@@ -69,7 +73,7 @@ const BreadcrumbsLink = forwardRef<ComponentRef<typeof ark.a>, HTMLArkProps<'a'>
         {...props}
         data-slot="breadcrumbs-link"
         className={cn(
-          'block max-w-full min-w-0 truncate rounded-sm px-1 text-muted-foreground no-underline underline-offset-[0.2em] transition-[color] duration-200 ease-in-out outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none [@media(hover:hover)]:hover:text-foreground',
+          'block max-w-full min-w-0 truncate rounded-sm px-1 text-inherit no-underline transition-[color] duration-normal ease-in-out outline-none focus-visible:ring-1 focus-visible:ring-ring [@media(hover:hover)]:hover:text-foreground',
           className,
         )}
       />
@@ -123,7 +127,7 @@ const BreadcrumbsSeparator = forwardRef<ComponentRef<typeof ark.li>, HTMLArkProp
         data-slot="breadcrumbs-separator"
         aria-hidden="true"
         className={cn(
-          'inline-flex items-center text-[length:0.875em] leading-none text-muted-foreground select-none',
+          'inline-flex items-center text-[length:0.875em] leading-none select-none',
           className,
         )}
       >
@@ -134,7 +138,7 @@ const BreadcrumbsSeparator = forwardRef<ComponentRef<typeof ark.li>, HTMLArkProp
 );
 
 const BreadcrumbsEllipsis = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function BreadcrumbsEllipsis({ className, children = '...', ...props }, ref) {
+  function BreadcrumbsEllipsis({ className, children, ...props }, ref) {
     return (
       <ark.span
         ref={ref}
@@ -142,11 +146,11 @@ const BreadcrumbsEllipsis = forwardRef<ComponentRef<typeof ark.span>, HTMLArkPro
         data-slot="breadcrumbs-ellipsis"
         aria-hidden="true"
         className={cn(
-          'inline-flex min-h-4 min-w-4 items-center justify-center overflow-hidden px-1 text-ellipsis text-muted-foreground',
+          'inline-flex min-h-4 min-w-4 items-center justify-center rounded-sm px-1 transition-[color] duration-normal ease-in-out [:where(button:has(>&))]:cursor-pointer [:where(button:has(>&))]:outline-none [button:focus-visible>&]:ring-1 [button:focus-visible>&]:ring-ring [@media(hover:hover)]:[button:hover>&]:text-foreground',
           className,
         )}
       >
-        {children}
+        {children ?? <EllipsisIcon className="size-[1em] flex-none" />}
       </ark.span>
     );
   },
@@ -162,3 +166,4 @@ export {
   BreadcrumbsPath,
   BreadcrumbsSeparator,
 };
+export type { BreadcrumbsPathLink, BreadcrumbsPathProps };

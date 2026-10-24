@@ -10,6 +10,13 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # Types follow the Node.js 24 runtime declared in package.json.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+      # Vue SFC tooling does not support TypeScript 7 yet; React and Solid packages opt in directly.
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
     groups:
       minor-and-patch:
         update-types:

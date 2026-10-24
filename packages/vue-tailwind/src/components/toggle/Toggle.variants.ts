@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export const toggleVariants = cva(
-  'box-border inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border text-sm font-medium appearance-none transition-[background-color,border-color,color,opacity] duration-200 ease-in-out select-none whitespace-nowrap focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50 motion-reduce:transition-none data-[state=off]:active:bg-accent [@media(hover:hover)]:data-[state=off]:hover:bg-accent [&>svg]:block [&>svg]:size-4 [&>svg]:shrink-0',
+  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border text-sm font-medium appearance-none transition-[background-color,border-color,color,opacity] duration-normal ease-in-out select-none whitespace-nowrap focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring data-disabled:pointer-events-none data-disabled:opacity-disabled data-[state=off]:hover:bg-accent data-[state=off]:active:bg-accent [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -9,8 +9,7 @@ export const toggleVariants = cva(
           'border-secondary bg-secondary text-secondary-foreground data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground',
         outline:
           'border-border bg-background text-foreground data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground',
-        ghost:
-          'border-transparent bg-transparent text-foreground data-[state=on]:bg-accent data-[state=on]:text-foreground',
+        ghost: 'border-transparent bg-transparent text-foreground data-[state=on]:bg-accent',
       },
       size: {
         xs: 'min-h-control-xs px-2.5 py-0.5 text-xs',

@@ -31,7 +31,7 @@ const items = [
 export default function StepsProgressDemo() {
   return (
     <Steps class={styles.root} count={items.length} defaultStep={1}>
-      <StepsProgress />
+      <StepsProgress aria-label="Workspace setup progress" />
       <StepsList>
         {items.map((item, index) => (
           <StepsItem index={index}>

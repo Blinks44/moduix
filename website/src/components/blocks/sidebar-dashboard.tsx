@@ -91,12 +91,12 @@ export function SidebarDashboard() {
                       <SidebarNavigationSubList>
                         <SidebarNavigationSubItem>
                           <SidebarNavigationSubButton href="#website">
-                            Website
+                            <SidebarLabel>Website</SidebarLabel>
                           </SidebarNavigationSubButton>
                         </SidebarNavigationSubItem>
                         <SidebarNavigationSubItem>
                           <SidebarNavigationSubButton href="#mobile-app">
-                            Mobile app
+                            <SidebarLabel>Mobile app</SidebarLabel>
                           </SidebarNavigationSubButton>
                           <SidebarNavigationBadge>8</SidebarNavigationBadge>
                         </SidebarNavigationSubItem>

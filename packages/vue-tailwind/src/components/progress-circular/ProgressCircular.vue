@@ -23,12 +23,7 @@ const attrs = useAttrs();
 <template>
   <ArkProgressRoot
     v-bind="attrs"
-    :class="
-      cn(
-        'inline-grid w-max max-w-full min-w-0 justify-items-center gap-2 text-foreground',
-        className,
-      )
-    "
+    :class="cn('inline-grid w-max max-w-full justify-items-center gap-2', className)"
     data-slot="progress-circular-root"
   >
     <slot />

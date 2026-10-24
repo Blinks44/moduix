@@ -4,20 +4,6 @@ component: toc
 description: Синхронизируйте доступное оглавление с разделом, который читает пользователь.
 ---
 
-import TocBasic from '@/components/examples/table-of-contents/basic.tsx';
-import TocRail from '@/components/examples/table-of-contents/rail.tsx';
-import TocRootProvider from '@/components/examples/table-of-contents/root-provider.tsx';
-import TocWithCollapsible from '@/components/examples/table-of-contents/with-collapsible.tsx';
-import * as TocDocs from '@/components/examples/table-of-contents/css-properties';
-import tocSolidBasic from '../../../snippets/table-of-contents/solid/basic.tsx?raw';
-import tocSolidRail from '../../../snippets/table-of-contents/solid/rail.tsx?raw';
-import tocSolidRootProvider from '../../../snippets/table-of-contents/solid/root-provider.tsx?raw';
-import tocSolidWithCollapsible from '../../../snippets/table-of-contents/solid/with-collapsible.tsx?raw';
-import tocVueBasic from '../../../snippets/table-of-contents/vue/basic.vue?raw';
-import tocVueRail from '../../../snippets/table-of-contents/vue/rail.vue?raw';
-import tocVueRootProvider from '../../../snippets/table-of-contents/vue/root-provider.vue?raw';
-import tocVueWithCollapsible from '../../../snippets/table-of-contents/vue/with-collapsible.vue?raw';
-
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toc" />
@@ -34,46 +20,7 @@ import tocVueWithCollapsible from '../../../snippets/table-of-contents/vue/with-
 просмотра страницы. В примере ниже используется вложенный контейнер с прокруткой. Он передаётся в
 `scrollEl`, поэтому отслеживание и переходы по ссылкам остаются внутри предпросмотра.
 
-<ExampleFrame variant="component">
-  <TocBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table-of-contents/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tocSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tocVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/table-of-contents/table-of-contents-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="table-of-contents/basic" />
 
 ## Установка через shadcn
 
@@ -174,46 +121,7 @@ TocRootProvider
 Используйте `useToc()`, если другому элементу интерфейса нужно читать активные заголовки или
 прокручивать область чтения.
 
-<ExampleFrame variant="component">
-  <TocRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table-of-contents/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tocSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tocVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/table-of-contents/table-of-contents-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="table-of-contents/root-provider" />
 
 ### Rail
 
@@ -222,46 +130,7 @@ TocRootProvider
 массива `items`. Для активной ссылки Rail использует цвет индикатора. Не добавляйте
 `TocIndicator` в тот же список.
 
-<ExampleFrame variant="component">
-  <TocRail />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table-of-contents/rail.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tocSolidRail} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tocVueRail} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/table-of-contents/table-of-contents-rail.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="table-of-contents/rail" />
 
 ### С раскрываемой навигацией
 
@@ -269,57 +138,14 @@ TocRootProvider
 `TocContext` передаёт активный элемент в текст кнопки и кольцо прогресса, а ссылки по-прежнему
 ведут в ту же область чтения.
 
-<ExampleFrame variant="component">
-  <TocWithCollapsible />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/table-of-contents/with-collapsible.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={tocSolidWithCollapsible} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={tocVueWithCollapsible} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/table-of-contents/table-of-contents-with-collapsible.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="table-of-contents/with-collapsible" />
 
 ## Стилизация
 
-Стилизуйте компонент через `className` в React или `class` в Solid и Vue, атрибуты Ark, хуки moduix
-`data-slot` и публичные переменные `--moduix-table-of-contents-*`. Пакеты CSS Modules используют
-эти переменные, а Tailwind-пакеты используют нативные utility-классы и классы потребителя для
-переопределений.
-
-### CSS-свойства
-
-<CssPropertiesSection properties={TocDocs.tableOfContentsOverrideCssProperties} />
+Передайте `className` в React или `class` в Solid и Vue на любую экспортируемую часть. Варианты Tailwind
+используют утилиты и классы приложения. Варианты CSS Modules построены на токенах foundation и не имеют
+собственных переменных: класс на части или селектор по `data-slot` переопределяет стили компонента из слоя.
+Чтобы изменить колонку навигации, переопределите `grid-template-columns` у `Toc`.
 
 ### Хуки стилизации
 

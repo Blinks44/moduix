@@ -4,6 +4,7 @@ import type { ColorPickerSwatchProps } from '@ark-ui/vue/color-picker';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import { colorPickerSwatchClass } from './ColorPicker.variants';
 
 defineOptions({ inheritAttrs: false });
 
@@ -21,12 +22,7 @@ const attrs = useAttrs();
 <template>
   <ArkColorPickerSwatch
     v-bind="attrs"
-    :class="
-      cn(
-        'relative grid size-control-sm shrink-0 place-items-center overflow-hidden rounded-[inherit] shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)]',
-        className,
-      )
-    "
+    :class="cn(colorPickerSwatchClass, className)"
     :value="value"
     data-slot="color-picker-swatch"
   >

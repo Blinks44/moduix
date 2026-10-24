@@ -17,20 +17,17 @@
 }
 
 .selectedDates {
-  box-sizing: border-box;
   display: flex;
   width: 100%;
-  min-height: var(--moduix-date-picker-control-height, var(--moduix-size-md));
+  min-height: var(--moduix-size-md);
   flex-wrap: wrap;
   align-items: center;
   gap: var(--moduix-spacing-1);
-  border: var(--moduix-date-picker-border-width, var(--moduix-border-width-sm)) solid
-    var(--moduix-date-picker-border-color, var(--moduix-color-border));
-  border-radius: var(--moduix-date-picker-radius, var(--moduix-radius-md));
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
   padding-block: var(--moduix-spacing-1);
-  padding-inline: var(--moduix-date-picker-input-padding-x-start, var(--moduix-spacing-3-5))
-    var(--moduix-date-picker-input-padding-x-end, 4.25rem);
-  background: var(--moduix-date-picker-bg, var(--moduix-color-background));
+  padding-inline: var(--moduix-spacing-3-5) 4.25rem;
+  background: var(--moduix-color-background);
 }
 
 .multipleRoot {
@@ -55,7 +52,7 @@
 }
 
 .selectedDatesPlaceholder {
-  color: var(--moduix-date-picker-placeholder-color, var(--moduix-color-muted-foreground));
+  color: var(--moduix-color-muted-foreground);
 }
 
 .selectedDateRemove {
@@ -100,12 +97,6 @@
   display: inline-flex;
 }
 
-.monthSelect,
-.yearSelect {
-  --moduix-select-width: 100%;
-  min-width: 0;
-}
-
 .multipleMonths {
   display: flex;
   gap: var(--moduix-spacing-3);
@@ -114,7 +105,6 @@
 
 .multipleMonthsContent {
   --moduix-date-picker-content-width: max-content;
-  --moduix-date-picker-content-max-width: calc(100vw - 2rem);
 }
 
 .multipleMonthsTable {
@@ -122,15 +112,7 @@
   flex: 0 0 auto;
 }
 
-.customRoot {
-  --moduix-date-picker-bg: var(--moduix-color-muted);
-  --moduix-date-picker-border-color: var(--moduix-color-primary);
-  --moduix-date-picker-focus-ring-color: var(--moduix-color-primary);
-  --moduix-date-picker-table-cell-selected-bg: var(--moduix-color-primary);
-  --moduix-date-picker-table-cell-selected-color: var(--moduix-color-primary-foreground);
-  --moduix-date-picker-table-cell-range-bg: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 12%,
-    transparent
-  );
+.customRoot [data-slot='date-picker-input'] {
+  border-color: var(--moduix-color-primary);
+  background-color: var(--moduix-color-muted);
 }

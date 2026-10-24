@@ -8,7 +8,6 @@ import {
   ListboxLabel,
   ListboxValueText,
 } from '@moduix/react/listbox';
-import styles from '@/components/examples/listbox/listbox-value-text.module.css';
 
 const countries = createListCollection({
   items: [
@@ -29,7 +28,7 @@ const countries = createListCollection({
 
 export default function ValueTextListboxDemo() {
   return (
-    <Listbox collection={countries} className={styles.root} defaultValue={['ca']}>
+    <Listbox collection={countries} defaultValue={['ca']}>
       <ListboxLabel>Select country</ListboxLabel>
       <ListboxContent>
         {countries.items.map((item) => (

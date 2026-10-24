@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'relative isolate w-full min-w-0 overflow-x-auto rounded-lg border border-border bg-card',
+        'relative w-full min-w-0 overflow-x-auto rounded-lg border border-border bg-card',
         className,
       )
     "

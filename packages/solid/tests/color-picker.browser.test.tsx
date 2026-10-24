@@ -13,6 +13,8 @@ import {
   ColorPickerPositioner,
   ColorPickerContent,
   ColorPickerChannelInput,
+  ColorPickerSwatch,
+  ColorPickerSwatchIndicator,
 } from '../src';
 
 function ProviderColorPicker() {
@@ -121,4 +123,36 @@ test('preserves Ark open-change details and default trigger composition', async 
   await expect.element(page.getByText('Content')).toBeFocused();
   await page.getByText('Content').press('Escape');
   await expect.poll(() => openStates).toEqual([true, false]);
+});
+
+test('draws checkerboards under swatches and shows a checked standalone swatch indicator', async () => {
+  render(() => (
+    <ColorPicker inline defaultValue={parseColor('rgba(235, 94, 65, 0.5)')}>
+      <ColorPickerTrigger aria-label="Open color picker" />
+      <ColorPickerSwatch value="rgba(235, 94, 65, 0.5)">
+        <ColorPickerSwatchIndicator data-testid="checked-indicator" />
+      </ColorPickerSwatch>
+      <ColorPickerSwatch value="#000000">
+        <ColorPickerSwatchIndicator data-testid="unchecked-indicator" />
+      </ColorPickerSwatch>
+    </ColorPicker>
+  ));
+
+  const trigger = document.querySelector<HTMLElement>('[data-slot="color-picker-trigger"]')!;
+  const valueSwatch = trigger.querySelector<HTMLElement>(
+    '[data-slot="color-picker-value-swatch"]',
+  )!;
+  const swatch = document.querySelector<HTMLElement>('[data-slot="color-picker-swatch"]')!;
+  const triggerPadding = Number.parseFloat(getComputedStyle(trigger).paddingLeft);
+
+  expect(trigger.querySelector('[data-slot="color-picker-transparency-grid"]')).toBeNull();
+  expect(valueSwatch.offsetWidth).toBe(trigger.clientWidth - triggerPadding * 2);
+  expect(getComputedStyle(valueSwatch, '::before').backgroundImage).toContain(
+    'repeating-conic-gradient',
+  );
+  expect(getComputedStyle(swatch, '::before').backgroundImage).toContain(
+    'repeating-conic-gradient',
+  );
+  await expect.element(page.getByTestId('checked-indicator')).toBeVisible();
+  expect(getComputedStyle(screen.getByTestId('unchecked-indicator')).display).toBe('none');
 });

@@ -8,7 +8,6 @@ import {
   ListboxLabel,
 } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/listbox/listbox-extended-selection.module.css';
 
 const frameworks = createListCollection({
   items: [
@@ -23,7 +22,7 @@ const frameworks = createListCollection({
 
 export default function ExtendedListboxDemo() {
   return (
-    <Listbox collection={frameworks} class={styles.root} selectionMode="extended">
+    <Listbox collection={frameworks} selectionMode="extended">
       <ListboxLabel>Hold Cmd or Ctrl to select multiple</ListboxLabel>
       <ListboxContent>
         <For each={frameworks.items}>

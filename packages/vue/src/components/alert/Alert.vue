@@ -8,7 +8,7 @@ import styles from './Alert.module.css';
 
 defineOptions({ inheritAttrs: false });
 
-type AlertStatus = 'info' | 'success' | 'warning' | 'error';
+export type AlertStatus = 'info' | 'success' | 'warning' | 'error';
 
 export interface Props extends /* @vue-ignore */ HTMLArkProps<'div'> {
   class?: HTMLAttributes['class'];

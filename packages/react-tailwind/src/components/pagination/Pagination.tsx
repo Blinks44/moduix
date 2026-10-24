@@ -8,7 +8,7 @@ import {
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
-import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
+import { ChevronLeftIcon, ChevronRightIcon, EllipsisIcon } from '@/lib/moduix/icons/ui';
 
 const Pagination = forwardRef<
   ComponentRef<typeof PaginationPrimitive.Root>,
@@ -54,7 +54,7 @@ const PaginationItem = forwardRef<
       className={cn(
         'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-2 whitespace-nowrap text-foreground no-underline select-none',
-        'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
+        'focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-disabled:pointer-events-none data-disabled:opacity-disabled',
         'data-selected:border-foreground data-selected:bg-foreground data-selected:text-background [@media(hover:hover)]:hover:bg-accent [@media(hover:hover)]:data-selected:hover:bg-foreground',
         '[&_svg]:size-4 [&_svg]:shrink-0',
         className,
@@ -73,13 +73,14 @@ const PaginationEllipsis = forwardRef<
     <PaginationPrimitive.Ellipsis
       ref={ref}
       className={cn(
-        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium text-muted-foreground tabular-nums select-none',
+        'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium text-muted-foreground tabular-nums select-none [&_svg]:size-4 [&_svg]:shrink-0',
         className,
       )}
       {...props}
       data-slot="pagination-ellipsis"
+      aria-hidden="true"
     >
-      {children ?? (!props.asChild && '...')}
+      {children ?? (!props.asChild && <EllipsisIcon />)}
     </PaginationPrimitive.Ellipsis>
   );
 });
@@ -88,7 +89,7 @@ function EdgeIcon({ side }: { side: 'left' | 'right' }) {
   const Icon = side === 'left' ? ChevronLeftIcon : ChevronRightIcon;
 
   return (
-    <span className="inline-flex items-center justify-center [&_svg+svg]:-ms-2" aria-hidden>
+    <span className="inline-flex [&_svg+svg]:-ms-2" aria-hidden>
       <Icon />
       <Icon />
     </span>
@@ -105,10 +106,9 @@ const PaginationPrevTrigger = forwardRef<
       className={cn(
         'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
-        'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
+        'focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-disabled:pointer-events-none data-disabled:opacity-disabled',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        (children == null || children === false) &&
-          'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
+        children == null && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         className,
       )}
       {...props}
@@ -129,10 +129,9 @@ const PaginationNextTrigger = forwardRef<
       className={cn(
         'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
-        'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
+        'focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-disabled:pointer-events-none data-disabled:opacity-disabled',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        (children == null || children === false) &&
-          'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
+        children == null && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         className,
       )}
       {...props}
@@ -153,10 +152,9 @@ const PaginationFirstTrigger = forwardRef<
       className={cn(
         'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
-        'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
+        'focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-disabled:pointer-events-none data-disabled:opacity-disabled',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        (children == null || children === false) &&
-          'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
+        children == null && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         className,
       )}
       {...props}
@@ -177,10 +175,9 @@ const PaginationLastTrigger = forwardRef<
       className={cn(
         'inline-flex h-control-md min-w-control-md items-center justify-center rounded-md text-sm font-medium tabular-nums',
         'cursor-pointer gap-2 border border-border bg-background px-3 whitespace-nowrap text-foreground no-underline select-none',
-        'focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50',
+        'focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-disabled:pointer-events-none data-disabled:opacity-disabled',
         '[&_svg]:size-4 [&_svg]:shrink-0 [@media(hover:hover)]:hover:bg-accent',
-        (children == null || children === false) &&
-          'w-control-md p-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
+        children == null && 'px-0 [&:dir(rtl)]:[&_svg]:-scale-x-100',
         className,
       )}
       {...props}
@@ -225,3 +222,21 @@ export {
   usePagination,
   usePaginationContext,
 };
+export type {
+  PaginationContextProps,
+  PaginationEllipsisProps,
+  PaginationFirstTriggerProps,
+  PaginationItemLabelDetails,
+  PaginationItemProps,
+  PaginationLastTriggerProps,
+  PaginationNextTriggerProps,
+  PaginationPageChangeDetails,
+  PaginationPageSizeChangeDetails,
+  PaginationPageUrlDetails,
+  PaginationPrevTriggerProps,
+  PaginationRootProps,
+  PaginationRootProviderProps,
+  UsePaginationContext,
+  UsePaginationProps,
+  UsePaginationReturn,
+} from '@ark-ui/react/pagination';

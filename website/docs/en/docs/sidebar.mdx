@@ -4,31 +4,7 @@ component: sidebar
 description: Resizable and collapsible application navigation built on the Ark UI Splitter.
 ---
 
-import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar/css-properties';
-import SidebarBasic from '@/components/examples/sidebar/basic.tsx';
-import SidebarCustomScrollArea from '@/components/examples/sidebar/custom-scroll-area.tsx';
-import SidebarCustomSizes from '@/components/examples/sidebar/custom-sizes.tsx';
-import SidebarNestedNavigation from '@/components/examples/sidebar/nested-navigation.tsx';
-import SidebarNestedNavigationAndAccountMenu from '@/components/examples/sidebar/nested-navigation-and-account-menu.tsx';
-import SidebarPersistedLayout from '@/components/examples/sidebar/persisted-layout.tsx';
-import SidebarRightSidebar from '@/components/examples/sidebar/right-sidebar.tsx';
-import SidebarWorkspaceSelect from '@/components/examples/sidebar/workspace-select.tsx';
-import sidebarSolidBasic from '../../../snippets/sidebar/solid/basic.tsx?raw';
-import sidebarSolidCustomScrollArea from '../../../snippets/sidebar/solid/custom-scroll-area.tsx?raw';
-import sidebarSolidCustomSizes from '../../../snippets/sidebar/solid/custom-sizes.tsx?raw';
-import sidebarSolidNestedNavigation from '../../../snippets/sidebar/solid/nested-navigation.tsx?raw';
-import sidebarSolidNestedNavigationAndAccountMenu from '../../../snippets/sidebar/solid/nested-navigation-and-account-menu.tsx?raw';
-import sidebarSolidPersistedLayout from '../../../snippets/sidebar/solid/persisted-layout.tsx?raw';
-import sidebarSolidRightSidebar from '../../../snippets/sidebar/solid/right-sidebar.tsx?raw';
-import sidebarSolidWorkspaceSelect from '../../../snippets/sidebar/solid/workspace-select.tsx?raw';
-import sidebarVueBasic from '../../../snippets/sidebar/vue/basic.vue?raw';
-import sidebarVueCustomScrollArea from '../../../snippets/sidebar/vue/custom-scroll-area.vue?raw';
-import sidebarVueCustomSizes from '../../../snippets/sidebar/vue/custom-sizes.vue?raw';
-import sidebarVueNestedNavigation from '../../../snippets/sidebar/vue/nested-navigation.vue?raw';
-import sidebarVueNestedNavigationAndAccountMenu from '../../../snippets/sidebar/vue/nested-navigation-and-account-menu.vue?raw';
-import sidebarVuePersistedLayout from '../../../snippets/sidebar/vue/persisted-layout.vue?raw';
-import sidebarVueRightSidebar from '../../../snippets/sidebar/vue/right-sidebar.vue?raw';
-import sidebarVueWorkspaceSelect from '../../../snippets/sidebar/vue/workspace-select.vue?raw';
+import { sidebarOverrideCssProperties } from '@/components/examples/sidebar/css-properties';
 
 ## API Reference
 
@@ -53,42 +29,7 @@ Compose the navigation panel, resize handle, and main content panel as direct ch
 The default ids and constraints cover the usual left-sidebar layout. Wrap icon-only navigation
 buttons in `SidebarTooltip` so their labels remain available after collapse.
 
-<ExampleFrame variant="component">
-  <SidebarBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/basic" />
 
 ## Install with shadcn
 
@@ -206,190 +147,35 @@ emitting `@collapse`. The model and `useSidebar().collapsed` still reflect the n
 Use `SidebarExpandedContent` for inline nested links and `SidebarCollapsedContent` for the same links in a popup
 menu. Both branches remain application-owned compositions.
 
-<ExampleFrame variant="component">
-  <SidebarNestedNavigation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/nested-navigation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidNestedNavigation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueNestedNavigation} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/nested-navigation" />
 
 ### Custom Scroll Area
 
 Native scrolling is the default. Put `ScrollArea` inside `SidebarContent` when the sidebar needs a
 styled scrollbar or edge fade, and make its viewport the only scroll container.
 
-<ExampleFrame variant="component">
-  <SidebarCustomScrollArea />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/custom-scroll-area.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidCustomScrollArea} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueCustomScrollArea} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-custom-scroll-area.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/custom-scroll-area" />
 
 ### Persisted Desktop Layout
 
 Keep the desktop width in application state or storage. Control `size` while resizing and persist
 the final value from `onResizeEnd(details)`.
 
-<ExampleFrame variant="component">
-  <SidebarPersistedLayout />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/persisted-layout.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidPersistedLayout} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVuePersistedLayout} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-persisted-layout.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/persisted-layout" />
 
 ### Complete App Shell
 
 Combine search, group actions, badges, nested navigation, a collapsed popup, and an account menu
 inside one application shell. Each nested primitive keeps its own state and focus behavior.
 
-<ExampleFrame variant="component">
-  <SidebarNestedNavigationAndAccountMenu />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/nested-navigation-and-account-menu.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidNestedNavigationAndAccountMenu} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueNestedNavigationAndAccountMenu} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-nested-navigation-and-account-menu.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/nested-navigation-and-account-menu" />
 
 ### Right Sidebar
 
 Pass `side="right"` and render `SidebarInset`, `SidebarTrigger`, `SidebarResizeTrigger`, and `SidebarPanel` in that order.
 Sidebar adjusts panel setup, trigger ids, placement, and chevron direction automatically.
 
-<ExampleFrame variant="component">
-  <SidebarRightSidebar />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/right-sidebar.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidRightSidebar} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueRightSidebar} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-right-sidebar.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/right-sidebar" />
 
 ### Workspace Select
 
@@ -397,76 +183,14 @@ Use `SelectTrigger asChild` with `SidebarNavigationButton`. Keep the selected va
 `SidebarLabel`, keep `SelectIndicator` as a direct child of the trigger, and mark a compact
 visual anchor with `data-sidebar-icon`.
 
-<ExampleFrame variant="component">
-  <SidebarWorkspaceSelect />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/workspace-select.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidWorkspaceSelect} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueWorkspaceSelect} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-workspace-select.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/workspace-select" />
 
 ### Advanced Customization
 
 Set an explicit initial size and compose other primitives in the shell when the default layout needs
 a different starting point.
 
-<ExampleFrame variant="component">
-  <SidebarCustomSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/sidebar/custom-sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={sidebarSolidCustomSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={sidebarVueCustomSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/sidebar/sidebar-custom-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="sidebar/custom-sizes" />
 
 ## Styling
 
@@ -481,22 +205,19 @@ icon rail compact. Mark non-SVG visual anchors such as `Avatar` or a brand mark 
 `data-sidebar-icon`.
 
 Panel widths are Ark state rather than visual CSS. Override `defaultSize` or controlled `size` for
-the current width. Use the public `--moduix-sidebar-*` variables for internal spacing, item
-dimensions, colors, and the trigger offset.
+the current width. Colors come from the foundation sidebar tokens (`--moduix-color-sidebar`,
+`--moduix-color-sidebar-foreground`, `--moduix-color-sidebar-accent`,
+`--moduix-color-sidebar-accent-foreground`, `--moduix-color-sidebar-border`, and
+`--moduix-color-sidebar-ring`), so themes and presets restyle every sidebar at once. The root keeps
+`--moduix-sidebar-width`, `--moduix-sidebar-height`, and `--moduix-sidebar-trigger-offset-y`; change
+spacing, radius, shadow, or item sizes with a class on the part.
+
+Wrap navigation text in `SidebarLabel`, including inside `SidebarNavigationSubButton`, so long labels
+truncate and leave the collapsed rail.
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <SidebarCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={sidebarOverrideCssProperties} />
 
 ### Styling hooks
 

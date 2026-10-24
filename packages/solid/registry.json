@@ -755,7 +755,7 @@
       "title": "Field",
       "description": "moduix Solid Field component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/default-values", "@moduix-solid/foundation"],
+      "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
           "path": "src/components/field/Field.tsx",
@@ -805,12 +805,7 @@
       "title": "FileUpload",
       "description": "moduix Solid FileUpload component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": [
-        "@moduix-solid/a11y-labels",
-        "@moduix-solid/close-button",
-        "@moduix-solid/foundation",
-        "@moduix-solid/icons"
-      ],
+      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
       "files": [
         {
           "path": "src/components/file-upload/FileUpload.tsx",
@@ -915,7 +910,7 @@
       "type": "registry:item",
       "title": "Image",
       "description": "moduix Solid Image component.",
-      "dependencies": ["@unpic/core", "clsx"],
+      "dependencies": ["@unpic/core", "clsx", "unpic"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
@@ -997,7 +992,8 @@
         "@moduix-solid/a11y-labels",
         "@moduix-solid/foundation",
         "@moduix-solid/button",
-        "@moduix-solid/input"
+        "@moduix-solid/input",
+        "@moduix-solid/textarea"
       ],
       "files": [
         {
@@ -1336,7 +1332,11 @@
       "title": "RatingGroup",
       "description": "moduix Solid RatingGroup component.",
       "dependencies": ["@ark-ui/solid", "clsx"],
-      "registryDependencies": ["@moduix-solid/foundation", "@moduix-solid/icons"],
+      "registryDependencies": [
+        "@moduix-solid/foundation",
+        "@moduix-solid/icons",
+        "@moduix-solid/event-handlers"
+      ],
       "files": [
         {
           "path": "src/components/rating-group/RatingGroup.tsx",
@@ -1599,6 +1599,7 @@
       "registryDependencies": [
         "@moduix-solid/a11y-labels",
         "@moduix-solid/close-button",
+        "@moduix-solid/spinner",
         "@moduix-solid/foundation",
         "@moduix-solid/overlay-portal"
       ],
@@ -1938,13 +1939,18 @@
       "type": "registry:item",
       "title": "Simple Grid",
       "description": "Responsive CSS Grid layout with fixed or intrinsic equal-width columns.",
-      "dependencies": ["@ark-ui/solid"],
+      "dependencies": ["@ark-ui/solid", "clsx"],
       "registryDependencies": ["@moduix-solid/foundation"],
       "files": [
         {
           "path": "src/components/simple-grid/SimpleGrid.tsx",
           "target": "@components/ui/simple-grid/SimpleGrid.tsx",
           "type": "registry:component"
+        },
+        {
+          "path": "src/components/simple-grid/SimpleGrid.module.css",
+          "target": "@components/ui/simple-grid/SimpleGrid.module.css",
+          "type": "registry:file"
         },
         {
           "path": "src/components/simple-grid/index.ts",

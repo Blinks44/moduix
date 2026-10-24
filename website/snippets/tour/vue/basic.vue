@@ -63,7 +63,7 @@ const tour = useTour({
   <div :class="styles.root">
     <Button id="tour-basic-upload" variant="outline">Upload files</Button>
 
-    <Tour :tour="tour" lazy-mount unmount-on-exit>
+    <Tour :tour="tour">
       <TourBackdrop />
       <TourSpotlight />
       <TourPositioner>

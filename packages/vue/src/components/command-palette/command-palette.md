@@ -13,16 +13,19 @@ A searchable command dialog with an optional global keyboard shortcut.
 
 ## Public contract
 
-- `CommandPalette` owns Dialog state; `CommandPaletteRootProvider` accepts the API from `useDialog`.
-- `shortcut` defaults to `false`. An enabled shortcut toggles the dialog, ignores repeats and
-  composing input, and removes its document listener on unmount.
+- `CommandPalette` is Ark `DialogRoot`; `CommandPaletteRootProvider` accepts the API from `useDialog`.
+  Their props are exported as `CommandPaletteRootProps` and `CommandPaletteRootProviderProps`.
+  Ark Vue roots take only `lazyMount` and `unmountOnExit` from the presence options.
+- `shortcut` defaults to `false` on both roots. An enabled shortcut renders the internal
+  `CommandPaletteShortcut`, which toggles the dialog, ignores repeats and composing input, and
+  removes its document listener on unmount.
 - Both roots default to `lazyMount`, `unmountOnExit`, and `portalled` enabled.
   `portalRef` chooses a target; `portalled=false` keeps popup infrastructure inline.
-- `CommandPalettePanel` composes the backdrop, positioner, content, and body.
+- `CommandPalettePanel` composes the backdrop, positioner, and content.
 - `CommandPaletteCombobox` requires an Ark collection and preserves its item type. Its defaults
   are `open=true`, `disableLayer=true`, `closeOnSelect=true`, `inputBehavior='autohighlight'`,
   and `selectionBehavior='preserve'`.
-- `CommandPaletteSearch` composes the input and clear trigger. Consumers own collection filtering.
+- `CommandPaletteSearch` composes a decorative search icon, the input, and the clear trigger. Consumers own collection filtering.
 
 ## Preservation notes
 
@@ -42,7 +45,3 @@ A searchable command dialog with an optional global keyboard shortcut.
 
 Preserve Dialog semantics, accessible search and clear labels, Ark state attributes, and `data-slot`
 hooks. CSS Modules uses the component stylesheet; Tailwind uses utilities and consumer `class`.
-
-## Local changelog
-
-- 2026-10-03: Corrected duplicate RootProvider presence-completion callbacks.

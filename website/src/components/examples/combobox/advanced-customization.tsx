@@ -13,7 +13,6 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/react/combobox';
-import styles from '@/components/examples/combobox/component-advanced-customization.module.css';
 
 const developerResources = [
   { label: 'GitHub', href: 'https://github.com', value: 'github' },
@@ -54,7 +53,7 @@ export default function AdvancedCustomizationComboboxDemo() {
         <ComboboxTrigger aria-label="Open options" />
       </ComboboxControl>
       <ComboboxPositioner>
-        <ComboboxContent className={styles.content}>
+        <ComboboxContent>
           <ComboboxList>
             {collection.items.map((item) => (
               <ComboboxItem key={item.value} item={item} asChild>

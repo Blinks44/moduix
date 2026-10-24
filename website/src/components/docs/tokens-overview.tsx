@@ -429,6 +429,7 @@ const zIndexTokens = [
   ['--moduix-z-backdrop', '40'],
   ['--moduix-z-modal', '50'],
   ['--moduix-z-popup', '60'],
+  ['--moduix-z-tour', '65'],
   ['--moduix-z-toast', '70'],
 ];
 
@@ -439,27 +440,6 @@ const sharedBackdropTokens = [
     'tokensOverviewGlobalBackdropColorFallback',
   ],
   ['--moduix-backdrop-filter', 'blur(4px)', 'tokensOverviewGlobalBackdropFilterFallback'],
-  [
-    '--moduix-command-palette-backdrop-bg',
-    'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
-    'CommandPalette',
-  ],
-  [
-    '--moduix-dialog-backdrop-bg',
-    'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
-    'Dialog',
-  ],
-  [
-    '--moduix-drawer-backdrop-bg',
-    'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
-    'Drawer',
-  ],
-  [
-    '--moduix-lightbox-backdrop-bg',
-    'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
-    'Lightbox',
-  ],
-  ['--moduix-tour-backdrop-bg', 'var(--moduix-backdrop-bg, var(--moduix-color-overlay))', 'Tour'],
 ];
 
 const sharedPopupTokens = [
@@ -564,7 +544,7 @@ export function TokensOverview() {
             <div className={styles.mapNode}>
               <span>03</span>
               <strong>{t('tokensOverviewComponentVariables')}</strong>
-              <code>--moduix-button-default-bg</code>
+              <code>--moduix-button-bg</code>
             </div>
           </div>
           <div className={styles.heroStats} aria-label={t('tokensOverviewTokenGroupsSummary')}>
@@ -594,7 +574,7 @@ export function TokensOverview() {
           />
           <TokenCallout
             title={t('tokensOverviewSharedFallbacks')}
-            code="--moduix-dialog-backdrop-bg -> --moduix-backdrop-bg / --moduix-backdrop-filter"
+            code="Dialog, Drawer, Tour -> --moduix-backdrop-bg / --moduix-backdrop-filter"
             body={t('tokensOverviewCentralizedBackdrop')}
           />
           <TokenCallout

@@ -5,7 +5,6 @@ import {
   SegmentGroup,
   SegmentGroupIndicator,
   SegmentGroupItem,
-  SegmentGroupItemControl,
   SegmentGroupItemHiddenInput,
   SegmentGroupItems,
   SegmentGroupItemText,
@@ -129,7 +128,6 @@ export const CustomStyling: Story = {
       {frameworks.map((item) => (
         <SegmentGroupItem value={item} class={styles.customItem}>
           <SegmentGroupItemText>{item}</SegmentGroupItemText>
-          <SegmentGroupItemControl />
           <SegmentGroupItemHiddenInput />
         </SegmentGroupItem>
       ))}
@@ -156,7 +154,6 @@ export const AsChild: Story = {
           <>
             <SegmentGroupItemText class={styles.cardTitle}>{item}</SegmentGroupItemText>
             <span class={styles.cardDescription}>{description}</span>
-            <SegmentGroupItemControl />
             <SegmentGroupItemHiddenInput />
           </>
         </SegmentGroupItem>

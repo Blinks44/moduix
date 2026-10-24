@@ -20,7 +20,7 @@ const attrs = useAttrs();
   <ark.span
     v-bind="attrs"
     :class="
-      cn('justify-self-end text-xs leading-4 whitespace-nowrap text-muted-foreground', className)
+      cn('ms-auto shrink-0 text-xs leading-4 whitespace-nowrap text-muted-foreground', className)
     "
     data-slot="command-palette-item-meta"
   >

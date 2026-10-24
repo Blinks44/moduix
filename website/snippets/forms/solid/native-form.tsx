@@ -37,10 +37,8 @@ import {
   SelectIndicator,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
   SelectHiddenSelect,
+  SelectOption,
 } from '@moduix/solid/select';
 import { Textarea } from '@moduix/solid/textarea';
 import { For } from 'solid-js';
@@ -106,12 +104,7 @@ export default function NativeForm() {
               <SelectPositioner>
                 <SelectContent>
                   <For each={teams.items}>
-                    {(item) => (
-                      <SelectItem item={item}>
-                        <SelectItemText>{item.label}</SelectItemText>
-                        <SelectItemIndicator />
-                      </SelectItem>
-                    )}
+                    {(item) => <SelectOption item={item}>{item.label}</SelectOption>}
                   </For>
                 </SelectContent>
               </SelectPositioner>

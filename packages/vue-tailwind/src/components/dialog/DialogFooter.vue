@@ -19,7 +19,7 @@ const attrs = useAttrs();
 <template>
   <ark.div
     v-bind="attrs"
-    :class="cn('mt-6 flex justify-end gap-2', className)"
+    :class="cn('mt-6 flex flex-wrap justify-end gap-2', className)"
     data-slot="dialog-footer"
   >
     <slot />

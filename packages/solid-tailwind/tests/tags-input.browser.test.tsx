@@ -270,7 +270,7 @@ test('lets consumer utilities replace defaults and keeps visual parts visible', 
   const clearTrigger = container.querySelector('[data-slot="tags-input-clear-trigger"]')!;
 
   expect([...root!.classList]).toEqual(expect.arrayContaining(['w-80']));
-  expect(root!.classList.contains('w-full')).toBe(false);
+  expect(root!.classList.contains('w-96')).toBe(false);
   expect([...control!.classList]).toEqual(expect.arrayContaining(['rounded-lg']));
   expect(control!.classList.contains('rounded-md')).toBe(false);
   expect([...input!.classList]).toEqual(expect.arrayContaining(['h-8']));
@@ -312,4 +312,25 @@ test('keeps consumer-owned styles on an asChild clear trigger', async () => {
   await expect
     .element(page.locator('[data-slot="tags-input-clear-trigger"]'))
     .toHaveCSS('height', '36px');
+});
+
+test('dims a disabled root once and keeps the default clear icon', async () => {
+  render(() => (
+    <TagsInput disabled defaultValue={['React']}>
+      <TagsInputLabel>Disabled frameworks</TagsInputLabel>
+      <TagsInputControl>
+        <TagsInputItems />
+        <TagsInputInput />
+        <TagsInputClearTrigger />
+      </TagsInputControl>
+    </TagsInput>
+  ));
+
+  await expect.element(page.locator('[data-slot="tags-input-root"]')).toHaveCSS('opacity', '0.5');
+  expect(document.querySelector('[data-slot="tags-input-clear-trigger"] > svg')).not.toBeNull();
+  for (const slot of ['label', 'item-preview', 'item-delete-trigger', 'clear-trigger']) {
+    await expect
+      .element(page.locator(`[data-slot="tags-input-${slot}"]`))
+      .toHaveCSS('opacity', '1');
+  }
 });

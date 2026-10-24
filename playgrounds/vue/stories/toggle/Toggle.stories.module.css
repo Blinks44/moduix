@@ -18,26 +18,16 @@
 }
 
 .customToggle {
-  --moduix-toggle-outline-bg: color-mix(in oklab, var(--moduix-color-primary) 8%, transparent);
-  --moduix-toggle-outline-bg-hover: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 14%,
-    transparent
-  );
-  --moduix-toggle-outline-bg-active: color-mix(
-    in oklab,
-    var(--moduix-color-primary) 18%,
-    transparent
-  );
-  --moduix-toggle-outline-border-color: color-mix(
+  --moduix-toggle-bg: color-mix(in oklab, var(--moduix-color-primary) 8%, transparent);
+  --moduix-toggle-bg-hover: color-mix(in oklab, var(--moduix-color-primary) 14%, transparent);
+  --moduix-toggle-border-color: color-mix(
     in oklab,
     var(--moduix-color-primary) 45%,
     var(--moduix-color-border)
   );
-  --moduix-toggle-outline-color: var(--moduix-color-primary);
-  --moduix-toggle-outline-bg-pressed: var(--moduix-color-primary);
-  --moduix-toggle-outline-border-color-pressed: var(--moduix-color-primary);
-  --moduix-toggle-outline-color-pressed: var(--moduix-color-primary-foreground);
+  --moduix-toggle-color: var(--moduix-color-primary);
+  --moduix-toggle-bg-pressed: var(--moduix-color-primary);
+  --moduix-toggle-color-pressed: var(--moduix-color-primary-foreground);
 }
 
 .customButton {

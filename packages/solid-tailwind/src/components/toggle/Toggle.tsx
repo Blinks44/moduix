@@ -12,11 +12,10 @@ type ToggleRootProps = ComponentProps<typeof TogglePrimitive.Root> & {
 };
 
 function Toggle(props: ToggleRootProps) {
-  const [local, others] = splitProps(props, ['asChild', 'class', 'size', 'variant']);
+  const [local, others] = splitProps(props, ['class', 'size', 'variant']);
 
   return (
     <TogglePrimitive.Root
-      asChild={local.asChild}
       {...others}
       data-slot="toggle-root"
       data-variant={local.variant ?? 'default'}
@@ -27,15 +26,14 @@ function Toggle(props: ToggleRootProps) {
 }
 
 function ToggleIndicator(props: ComponentProps<typeof TogglePrimitive.Indicator>) {
-  const [local, others] = splitProps(props, ['asChild', 'class']);
+  const [local, others] = splitProps(props, ['class']);
 
   return (
     <TogglePrimitive.Indicator
-      asChild={local.asChild}
       {...others}
       data-slot="toggle-indicator"
       class={cn(
-        'inline-flex items-center justify-center text-inherit [&>svg]:block [&>svg]:size-4 [&>svg]:shrink-0',
+        "inline-flex items-center justify-center [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-4",
         local.class,
       )}
     />
@@ -43,4 +41,11 @@ function ToggleIndicator(props: ComponentProps<typeof TogglePrimitive.Indicator>
 }
 
 export { Toggle, ToggleContext, ToggleIndicator, useToggleContext };
+export type {
+  ToggleContextProps,
+  ToggleIndicatorProps,
+  UseToggleContext,
+  UseToggleProps,
+  UseToggleReturn,
+} from '@ark-ui/solid/toggle';
 export type { ToggleRootProps, ToggleSize, ToggleVariant };

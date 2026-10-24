@@ -10,7 +10,6 @@ import {
   ListboxLabel,
 } from '@moduix/solid/listbox';
 import { For } from 'solid-js';
-import styles from '@/components/examples/listbox/listbox-grouping.module.css';
 
 const regions = createListCollection({
   items: [
@@ -29,7 +28,7 @@ const regions = createListCollection({
 
 export default function GroupedListboxDemo() {
   return (
-    <Listbox collection={regions} class={styles.root}>
+    <Listbox collection={regions}>
       <ListboxLabel>Select region</ListboxLabel>
       <ListboxContent>
         <For each={regions.group()}>

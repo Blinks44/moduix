@@ -25,9 +25,7 @@ const { forwardRef } = useForwardExpose();
     <ArkTourSpotlight
       :ref="forwardRef"
       v-bind="attrs"
-      :class="
-        cn('z-[calc(50+var(--tour-layer,0)+var(--layer-index,0))] ring-2 ring-ring', className)
-      "
+      :class="cn('z-[calc(var(--moduix-z-tour)+var(--tour-layer,0))] ring-2 ring-ring', className)"
       data-slot="tour-spotlight"
     >
       <slot />

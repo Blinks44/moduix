@@ -26,7 +26,7 @@ const attrs = useAttrs();
     data-slot="kbd-group"
     :class="
       cn(
-        'box-border inline-flex max-w-full flex-wrap items-center gap-1 border-0 bg-transparent p-0 align-middle text-muted-foreground shadow-none',
+        'inline-flex max-w-full flex-wrap items-center gap-1 align-middle text-muted-foreground',
         className,
       )
     "

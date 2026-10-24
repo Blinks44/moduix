@@ -5,12 +5,10 @@ import {
   useSelect,
   SelectContent,
   SelectField,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
   SelectLabel,
   SelectPositioner,
   SelectRootProvider,
+  SelectOption,
 } from '@moduix/vue/select';
 import styles from '@/components/examples/select/select-select-all.module.css';
 
@@ -38,10 +36,11 @@ function selectAll() {
       <SelectField placeholder="Select languages" clear-label="Clear selection" />
       <SelectPositioner
         ><SelectContent
-          ><SelectItem v-for="item in languages.items" :key="item.value" :item="item"
-            ><SelectItemText>{{ item.label }}</SelectItemText
-            ><SelectItemIndicator /></SelectItem></SelectContent
-      ></SelectPositioner>
+          ><SelectOption v-for="item in languages.items" :key="item.value" :item="item">{{
+            item.label
+          }}</SelectOption></SelectContent
+        ></SelectPositioner
+      >
     </SelectRootProvider>
     <div>
       <output>Selected: {{ select.value.length }}</output

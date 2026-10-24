@@ -12,7 +12,7 @@ import {
   AccordionRootProvider,
   useAccordion,
 } from '@/components/accordion';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import styles from './Accordion.stories.module.css';
 import NestedSlider from './NestedSlider.vue';
 

@@ -4,20 +4,50 @@ import {
   TreeView as TreeViewPrimitive,
   createFileTreeCollection,
   createTreeCollection,
+  type TreeCollection,
   type TreeNode,
+  type TreeViewBranchContentProps,
+  type TreeViewBranchControlProps,
+  type TreeViewBranchIndentGuideProps,
+  type TreeViewBranchIndicatorProps,
+  type TreeViewBranchProps,
+  type TreeViewBranchTextProps,
+  type TreeViewBranchTriggerProps,
+  type TreeViewCheckedChangeDetails,
+  type TreeViewContextProps,
+  type TreeViewExpandedChangeDetails,
+  type TreeViewFocusChangeDetails,
+  type TreeViewItemIndicatorProps,
+  type TreeViewItemProps,
+  type TreeViewItemTextProps,
+  type TreeViewLabelProps,
+  type TreeViewLoadChildrenCompleteDetails,
   type TreeViewLoadChildrenDetails,
+  type TreeViewLoadChildrenErrorDetails,
+  type TreeViewNodeCheckboxIndicatorProps,
+  type TreeViewNodeCheckboxProps,
+  type TreeViewNodeContextProps,
   type TreeViewNodeProviderProps,
+  type TreeViewNodeRenameInputProps,
   type TreeViewNodeState,
+  type TreeViewRenameCompleteDetails,
+  type TreeViewRenameStartDetails,
   type TreeViewRootComponent,
   type TreeViewRootProps,
   type TreeViewRootProviderComponent,
   type TreeViewRootProviderProps,
+  type TreeViewSelectionChangeDetails,
+  type TreeViewTreeProps,
+  type UseTreeViewContext,
+  type UseTreeViewNodeContext,
+  type UseTreeViewProps,
+  type UseTreeViewReturn,
   useTreeView,
   useTreeViewContext,
   useTreeViewNodeContext,
 } from '@ark-ui/react/tree-view';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
+import type { ComponentRef, ForwardedRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon, ChevronRightIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import styles from './TreeView.module.css';
@@ -50,37 +80,35 @@ const TreeViewRootProvider = forwardRef(function TreeViewRootProvider<T extends 
   );
 }) as TreeViewRootProviderComponent;
 
-const TreeViewLabel = forwardRef<
-  ComponentRef<typeof TreeViewPrimitive.Label>,
-  ComponentProps<typeof TreeViewPrimitive.Label>
->(function TreeViewLabel({ className, ...props }, ref) {
-  return (
-    <TreeViewPrimitive.Label
-      ref={ref}
-      className={clsx(styles.label, className)}
-      {...props}
-      data-slot="tree-view-label"
-    />
-  );
-});
+const TreeViewLabel = forwardRef<ComponentRef<typeof TreeViewPrimitive.Label>, TreeViewLabelProps>(
+  function TreeViewLabel({ className, ...props }, ref) {
+    return (
+      <TreeViewPrimitive.Label
+        ref={ref}
+        className={clsx(styles.label, className)}
+        {...props}
+        data-slot="tree-view-label"
+      />
+    );
+  },
+);
 
-const TreeViewTree = forwardRef<
-  ComponentRef<typeof TreeViewPrimitive.Tree>,
-  ComponentProps<typeof TreeViewPrimitive.Tree>
->(function TreeViewTree({ className, ...props }, ref) {
-  return (
-    <TreeViewPrimitive.Tree
-      ref={ref}
-      className={clsx(styles.tree, className)}
-      {...props}
-      data-slot="tree-view-tree"
-    />
-  );
-});
+const TreeViewTree = forwardRef<ComponentRef<typeof TreeViewPrimitive.Tree>, TreeViewTreeProps>(
+  function TreeViewTree({ className, ...props }, ref) {
+    return (
+      <TreeViewPrimitive.Tree
+        ref={ref}
+        className={clsx(styles.tree, className)}
+        {...props}
+        data-slot="tree-view-tree"
+      />
+    );
+  },
+);
 
 const TreeViewBranch = forwardRef<
   ComponentRef<typeof TreeViewPrimitive.Branch>,
-  ComponentProps<typeof TreeViewPrimitive.Branch>
+  TreeViewBranchProps
 >(function TreeViewBranch({ className, ...props }, ref) {
   return (
     <TreeViewPrimitive.Branch
@@ -94,7 +122,7 @@ const TreeViewBranch = forwardRef<
 
 const TreeViewBranchControl = forwardRef<
   ComponentRef<typeof TreeViewPrimitive.BranchControl>,
-  ComponentProps<typeof TreeViewPrimitive.BranchControl>
+  TreeViewBranchControlProps
 >(function TreeViewBranchControl({ className, ...props }, ref) {
   return (
     <TreeViewPrimitive.BranchControl
@@ -108,7 +136,7 @@ const TreeViewBranchControl = forwardRef<
 
 const TreeViewBranchTrigger = forwardRef<
   ComponentRef<typeof TreeViewPrimitive.BranchTrigger>,
-  ComponentProps<typeof TreeViewPrimitive.BranchTrigger>
+  TreeViewBranchTriggerProps
 >(function TreeViewBranchTrigger({ className, children, ...props }, ref) {
   return (
     <TreeViewPrimitive.BranchTrigger
@@ -124,7 +152,7 @@ const TreeViewBranchTrigger = forwardRef<
 
 const TreeViewBranchIndicator = forwardRef<
   ComponentRef<typeof TreeViewPrimitive.BranchIndicator>,
-  ComponentProps<typeof TreeViewPrimitive.BranchIndicator>
+  TreeViewBranchIndicatorProps
 >(function TreeViewBranchIndicator({ className, children, ...props }, ref) {
   return (
     <TreeViewPrimitive.BranchIndicator
@@ -140,7 +168,7 @@ const TreeViewBranchIndicator = forwardRef<
 
 const TreeViewBranchText = forwardRef<
   ComponentRef<typeof TreeViewPrimitive.BranchText>,
-  ComponentProps<typeof TreeViewPrimitive.BranchText>
+  TreeViewBranchTextProps
 >(function TreeViewBranchText({ className, ...props }, ref) {
   return (
     <TreeViewPrimitive.BranchText
@@ -154,7 +182,7 @@ const TreeViewBranchText = forwardRef<
 
 const TreeViewBranchContent = forwardRef<
   ComponentRef<typeof TreeViewPrimitive.BranchContent>,
-  ComponentProps<typeof TreeViewPrimitive.BranchContent>
+  TreeViewBranchContentProps
 >(function TreeViewBranchContent({ className, ...props }, ref) {
   return (
     <TreeViewPrimitive.BranchContent
@@ -168,7 +196,7 @@ const TreeViewBranchContent = forwardRef<
 
 const TreeViewBranchIndentGuide = forwardRef<
   ComponentRef<typeof TreeViewPrimitive.BranchIndentGuide>,
-  ComponentProps<typeof TreeViewPrimitive.BranchIndentGuide>
+  TreeViewBranchIndentGuideProps
 >(function TreeViewBranchIndentGuide({ className, ...props }, ref) {
   return (
     <TreeViewPrimitive.BranchIndentGuide
@@ -180,23 +208,22 @@ const TreeViewBranchIndentGuide = forwardRef<
   );
 });
 
-const TreeViewItem = forwardRef<
-  ComponentRef<typeof TreeViewPrimitive.Item>,
-  ComponentProps<typeof TreeViewPrimitive.Item>
->(function TreeViewItem({ className, ...props }, ref) {
-  return (
-    <TreeViewPrimitive.Item
-      ref={ref}
-      className={clsx(styles.item, className)}
-      {...props}
-      data-slot="tree-view-item"
-    />
-  );
-});
+const TreeViewItem = forwardRef<ComponentRef<typeof TreeViewPrimitive.Item>, TreeViewItemProps>(
+  function TreeViewItem({ className, ...props }, ref) {
+    return (
+      <TreeViewPrimitive.Item
+        ref={ref}
+        className={clsx(styles.item, className)}
+        {...props}
+        data-slot="tree-view-item"
+      />
+    );
+  },
+);
 
 const TreeViewItemText = forwardRef<
   ComponentRef<typeof TreeViewPrimitive.ItemText>,
-  ComponentProps<typeof TreeViewPrimitive.ItemText>
+  TreeViewItemTextProps
 >(function TreeViewItemText({ className, ...props }, ref) {
   return (
     <TreeViewPrimitive.ItemText
@@ -210,7 +237,7 @@ const TreeViewItemText = forwardRef<
 
 const TreeViewItemIndicator = forwardRef<
   ComponentRef<typeof TreeViewPrimitive.ItemIndicator>,
-  ComponentProps<typeof TreeViewPrimitive.ItemIndicator>
+  TreeViewItemIndicatorProps
 >(function TreeViewItemIndicator({ className, children, ...props }, ref) {
   return (
     <TreeViewPrimitive.ItemIndicator
@@ -226,7 +253,7 @@ const TreeViewItemIndicator = forwardRef<
 
 const TreeViewNodeCheckbox = forwardRef<
   ComponentRef<typeof TreeViewPrimitive.NodeCheckbox>,
-  ComponentProps<typeof TreeViewPrimitive.NodeCheckbox>
+  TreeViewNodeCheckboxProps
 >(function TreeViewNodeCheckbox({ className, ...props }, ref) {
   return (
     <TreeViewPrimitive.NodeCheckbox
@@ -238,15 +265,16 @@ const TreeViewNodeCheckbox = forwardRef<
   );
 });
 
-function TreeViewNodeCheckboxIndicator({
-  className,
-  children,
-  indeterminate,
-  fallback,
-  ...props
-}: ComponentProps<typeof TreeViewPrimitive.NodeCheckboxIndicator>) {
+const TreeViewNodeCheckboxIndicator = forwardRef<
+  HTMLSpanElement,
+  TreeViewNodeCheckboxIndicatorProps
+>(function TreeViewNodeCheckboxIndicator(
+  { className, children, indeterminate, fallback, ...props },
+  ref,
+) {
   return (
     <span
+      ref={ref}
       className={clsx(styles.nodeCheckboxIndicator, className)}
       {...props}
       data-slot="tree-view-node-checkbox-indicator"
@@ -259,11 +287,11 @@ function TreeViewNodeCheckboxIndicator({
       </TreeViewPrimitive.NodeCheckboxIndicator>
     </span>
   );
-}
+});
 
 const TreeViewNodeRenameInput = forwardRef<
   ComponentRef<typeof TreeViewPrimitive.NodeRenameInput>,
-  ComponentProps<typeof TreeViewPrimitive.NodeRenameInput>
+  TreeViewNodeRenameInputProps
 >(function TreeViewNodeRenameInput({ className, ...props }, ref) {
   return (
     <TreeViewPrimitive.NodeRenameInput
@@ -336,9 +364,42 @@ export {
   useTreeView,
   useTreeViewContext,
   useTreeViewNodeContext,
+  type TreeCollection,
+  type TreeNode,
+  type TreeViewBranchContentProps,
+  type TreeViewBranchControlProps,
+  type TreeViewBranchIndentGuideProps,
+  type TreeViewBranchIndicatorProps,
+  type TreeViewBranchProps,
+  type TreeViewBranchTextProps,
+  type TreeViewBranchTriggerProps,
+  type TreeViewCheckedChangeDetails,
+  type TreeViewContextProps,
+  type TreeViewExpandedChangeDetails,
+  type TreeViewFocusChangeDetails,
+  type TreeViewItemIndicatorProps,
+  type TreeViewItemProps,
+  type TreeViewItemTextProps,
+  type TreeViewLabelProps,
+  type TreeViewLoadChildrenCompleteDetails,
   type TreeViewLoadChildrenDetails,
+  type TreeViewLoadChildrenErrorDetails,
+  type TreeViewNodeCheckboxIndicatorProps,
+  type TreeViewNodeCheckboxProps,
+  type TreeViewNodeContextProps,
   type TreeViewNodeProps,
+  type TreeViewNodeProviderProps,
+  type TreeViewNodeRenameInputProps,
   type TreeViewNodeRenderProps,
   type TreeViewNodeState,
-  type TreeViewNodeProviderProps,
+  type TreeViewRenameCompleteDetails,
+  type TreeViewRenameStartDetails,
+  type TreeViewRootProps,
+  type TreeViewRootProviderProps,
+  type TreeViewSelectionChangeDetails,
+  type TreeViewTreeProps,
+  type UseTreeViewContext,
+  type UseTreeViewNodeContext,
+  type UseTreeViewProps,
+  type UseTreeViewReturn,
 };

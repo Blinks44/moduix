@@ -5,21 +5,6 @@ description: Палитра команд в диалоге с поиском и 
 ---
 
 import * as CommandPaletteDocs from '@/components/examples/command-palette/css-properties';
-import CommandPaletteBasic from '@/components/examples/command-palette/basic.tsx';
-import AdvancedCommandPalette from '@/components/examples/command-palette/advanced-customization.tsx';
-import ControlledCommandPalette from '@/components/examples/command-palette/controlled-open-state.tsx';
-import CommandPaletteShortcutDemo from '@/components/examples/command-palette/enable-the-global-shortcut.tsx';
-import CommandPaletteActionsDemo from '@/components/examples/command-palette/item-actions.tsx';
-import commandPaletteSolidBasic from '../../../snippets/command-palette/solid/basic.tsx?raw';
-import commandPaletteSolidAdvanced from '../../../snippets/command-palette/solid/advanced-customization.tsx?raw';
-import commandPaletteSolidControlled from '../../../snippets/command-palette/solid/controlled-open-state.tsx?raw';
-import commandPaletteSolidShortcut from '../../../snippets/command-palette/solid/enable-the-global-shortcut.tsx?raw';
-import commandPaletteSolidActions from '../../../snippets/command-palette/solid/item-actions.tsx?raw';
-import commandPaletteVueBasic from '../../../snippets/command-palette/vue/basic.vue?raw';
-import commandPaletteVueAdvanced from '../../../snippets/command-palette/vue/advanced-customization.vue?raw';
-import commandPaletteVueControlled from '../../../snippets/command-palette/vue/controlled-open-state.vue?raw';
-import commandPaletteVueShortcut from '../../../snippets/command-palette/vue/enable-the-global-shortcut.vue?raw';
-import commandPaletteVueActions from '../../../snippets/command-palette/vue/item-actions.vue?raw';
 
 ## Справочник API
 
@@ -35,50 +20,11 @@ import commandPaletteVueActions from '../../../snippets/command-palette/vue/item
 использует пакет React CSS Modules,
 
 Используйте `CommandPalettePanel` для стандартной структуры диалога. Он сам отрисовывает фон, контейнер
-позиционирования, содержимое и основную область. Поместите внутрь `CommandPaletteCombobox`, передайте ему
-коллекцию и выведите отфильтрованные команды в `CommandPaletteList`. `CommandPaletteSearch` добавляет поле
-ввода и кнопку очистки, которая появляется после ввода запроса.
+позиционирования и содержимое. Поместите внутрь `CommandPaletteCombobox`, передайте ему
+коллекцию и выведите отфильтрованные команды в `CommandPaletteList`. `CommandPaletteSearch` добавляет иконку
+поиска, поле ввода и кнопку очистки, которая появляется после ввода запроса.
 
-<ExampleFrame variant="component">
-  <CommandPaletteBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/command-palette/command-palette-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/basic" />
 
 ## Установка через shadcn
 
@@ -129,27 +75,26 @@ CommandPalette
          ├─ CommandPaletteHeader
          │  ├─ CommandPaletteTitle
          │  └─ CommandPaletteDescription
-         └─ CommandPaletteBody
-            └─ CommandPaletteCombobox
-               ├─ CommandPaletteControl
-               │  ├─ CommandPaletteInput
-               │  └─ CommandPaletteClearTrigger
-               ├─ CommandPaletteList
-               │  ├─ CommandPaletteEmpty
-               │  └─ CommandPaletteItemGroup
-               │     ├─ CommandPaletteItemGroupLabel
-               │     └─ CommandPaletteItem
-               │        ├─ CommandPaletteItemIcon
-               │        ├─ CommandPaletteItemText
-               │        │  ├─ CommandPaletteItemLabel
-               │        │  └─ CommandPaletteItemDescription
-               │        ├─ CommandPaletteItemMeta
-               │        └─ CommandPaletteItemIndicator
-               └─ CommandPaletteFooter
-                  └─ CommandPaletteKbd
+         └─ CommandPaletteCombobox
+            ├─ CommandPaletteControl
+            │  ├─ CommandPaletteInput
+            │  └─ CommandPaletteClearTrigger
+            ├─ CommandPaletteList
+            │  ├─ CommandPaletteEmpty
+            │  └─ CommandPaletteItemGroup
+            │     ├─ CommandPaletteItemGroupLabel
+            │     └─ CommandPaletteItem
+            │        ├─ CommandPaletteItemIcon
+            │        ├─ CommandPaletteItemText
+            │        │  ├─ CommandPaletteItemLabel
+            │        │  └─ CommandPaletteItemDescription
+            │        ├─ CommandPaletteItemMeta
+            │        └─ CommandPaletteItemIndicator
+            └─ CommandPaletteFooter
+               └─ CommandPaletteKbd
 
 CommandPalettePanel
-└─ сокращённая композиция для CommandPaletteBackdrop, CommandPalettePositioner, CommandPaletteContent и CommandPaletteBody
+└─ сокращённая композиция для CommandPaletteBackdrop, CommandPalettePositioner и CommandPaletteContent
 
 CommandPaletteRootProvider
 └─ то же дерево, подключённое к состоянию из useDialog()
@@ -158,18 +103,17 @@ CommandPaletteRootProvider
 | Часть | Назначение |
 | --- | --- |
 | `CommandPalette` | Управляет состоянием Ark Dialog и необязательным обработчиком глобального сочетания клавиш. |
-| `CommandPaletteRootProvider` | Подключает части палитры к состоянию диалога, созданному вне дерева компонентов. |
-| `CommandPaletteTrigger` | Открывает палитру. Используйте `asChild`, чтобы передать собственный элемент триггера. |
+| `CommandPaletteRootProvider` | Подключает части палитры к состоянию диалога, созданному вне дерева компонентов. Принимает тот же проп `shortcut`. |
+| `CommandPaletteTrigger` | Открывает палитру. Не стилизован: используйте `asChild` с `Button` или своим элементом. |
 | `CommandPaletteBackdrop` | Фон Ark Dialog с состоянием анимации в `data-state`. |
 | `CommandPalettePositioner` | Размещает диалог в области просмотра и не даёт его содержимому выйти за её пределы. |
 | `CommandPaletteContent` | Содержимое диалога и визуальная поверхность палитры. |
-| `CommandPalettePanel` | Готовый каркас со стандартными `CommandPaletteBackdrop`, `CommandPalettePositioner`, `CommandPaletteContent` и `CommandPaletteBody`. |
+| `CommandPalettePanel` | Готовый каркас со стандартными `CommandPaletteBackdrop`, `CommandPalettePositioner` и `CommandPaletteContent`. |
 | `CommandPaletteHeader` / `CommandPaletteTitle` / `CommandPaletteDescription` | Необязательные элементы компоновки, заголовка и описания Ark Dialog. |
-| `CommandPaletteBody` | Контейнер области Combobox внутри диалога. |
 | `CommandPaletteCombobox` | Корневой компонент Ark Combobox для поиска и выбора команд. |
 | `CommandPaletteControl` | Объединяет поле поиска и кнопку очистки. |
 | `CommandPaletteInput` | Поле ввода Ark Combobox. |
-| `CommandPaletteSearch` | Готовая строка поиска с `CommandPaletteControl`, `CommandPaletteInput` и `CommandPaletteClearTrigger`. Также добавляет полю ввода доступное имя по умолчанию. Если части нужно настраивать по отдельности, используйте явную композицию. |
+| `CommandPaletteSearch` | Готовая строка поиска с `CommandPaletteControl`, декоративной иконкой поиска, `CommandPaletteInput` и `CommandPaletteClearTrigger`. Также добавляет полю ввода доступное имя по умолчанию. Если части нужно настраивать по отдельности, используйте явную композицию. |
 | `CommandPaletteClearTrigger` | Очищает поисковый запрос и скрыта, пока поле пустое. |
 | `CommandPaletteList` | Список результатов Ark Combobox, обёрнутый во встроенный `ScrollArea` из moduix. |
 | `CommandPaletteEmpty` | Сообщение, которое показывается, если после фильтрации результатов нет. |
@@ -201,138 +145,21 @@ framework-пакета, если состояние диалога создаё�
 Используйте управляемое свойство `open`, если остальному интерфейсу тоже нужно управлять видимостью палитры.
 В этом примере внешний фильтр коллекции сбрасывается при закрытии палитры.
 
-<ExampleFrame variant="component">
-  <ControlledCommandPalette />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/controlled-open-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/command-palette/command-palette-controlled-open-state.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/controlled-open-state" />
 
 ### Включение глобального сочетания клавиш
 
-Задайте `shortcut="alt+k"`, чтобы зарегистрировать глобальное переключение палитры. Это единственный просмотр
+Задайте `shortcut="alt+k"` у `CommandPalette` или `CommandPaletteRootProvider`, чтобы зарегистрировать глобальное переключение палитры. Это единственный просмотр
 на странице, в котором регистрируется `Alt+K`.
 
-<ExampleFrame variant="component">
-  <CommandPaletteShortcutDemo />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/enable-the-global-shortcut.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidShortcut} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueShortcut} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/command-palette/command-palette-enable-the-global-shortcut.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/enable-the-global-shortcut" />
 
 ### Действия элемента
 
 Обрабатывайте `onSelect(details)`, чтобы запускать команду. При значении `closeOnSelect` по умолчанию палитра
 закрывается после выполнения выбранного действия.
 
-<ExampleFrame variant="component">
-  <CommandPaletteActionsDemo />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/item-actions.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidActions} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueActions} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/command-palette/command-palette-item-actions.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/item-actions" />
 
 ### Расширенная настройка
 
@@ -340,52 +167,16 @@ framework-пакета, если состояние диалога создаё�
 поиска. В примере сохраняется поведение Ark Dialog и Combobox, а готовые помощники `CommandPalettePanel` и `CommandPaletteSearch` заменяются
 явной разметкой.
 
-<ExampleFrame variant="component">
-  <AdvancedCommandPalette />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidAdvanced} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueAdvanced} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/command-palette/command-palette-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/advanced-customization" />
 
 ## Стилизация
 
-Используйте CSS-переменные на частях триггера, фона, содержимого, списка и элементов, если палитра должна
-соответствовать плотному интерфейсу или фирменному оформлению. Для изменения разметки или слоёв используйте
-структурные части. `CommandPaletteList` остаётся прокручиваемым, но не показывает видимую полосу прокрутки.
+Стили частей построены на токенах foundation. Чтобы их изменить, добавьте класс на нужную часть, например
+на `CommandPalettePanel` или `CommandPaletteItem`. Две переменные покрывают значения, которые одним классом
+не заменить, потому что их дополнительно ограничивает область просмотра. Фон следует общим токенам
+`--moduix-backdrop-bg` и `--moduix-backdrop-filter`, анимация содержимого следует общим токенам
+`--moduix-popup-motion-*`. `CommandPaletteList` остаётся прокручиваемым, но не показывает видимую полосу
+прокрутки.
 
 ### CSS-свойства
 
@@ -393,7 +184,8 @@ framework-пакета, если состояние диалога создаё�
 
 ### Хуки стилизации
 
-- Экспортируемые части предоставляют стабильные хуки `data-slot`, включая `command-palette-trigger`, `command-palette-backdrop`, `command-palette-positioner`, `command-palette-content`, `command-palette-title`, `command-palette-description`, `command-palette-header`, `command-palette-body`, `command-palette-combobox`, `command-palette-control`, `command-palette-input`, `command-palette-clear-trigger`, `command-palette-list`, `command-palette-scroll-area`, `command-palette-scroll-viewport`, `command-palette-scroll-content`, `command-palette-empty`, `command-palette-item-group`, `command-palette-item-group-label`, `command-palette-item`, `command-palette-item-text`, `command-palette-item-indicator`, `command-palette-item-icon`, `command-palette-item-label`, `command-palette-item-description`, `command-palette-item-meta`, `command-palette-separator`, `command-palette-footer` и `command-palette-kbd`.
+- Экспортируемые части предоставляют стабильные хуки `data-slot`, включая `command-palette-trigger`, `command-palette-backdrop`, `command-palette-positioner`, `command-palette-content`, `command-palette-title`, `command-palette-description`, `command-palette-header`, `command-palette-combobox`, `command-palette-control`, `command-palette-input`, `command-palette-clear-trigger`, `command-palette-list`, `command-palette-empty`, `command-palette-item-group`, `command-palette-item-group-label`, `command-palette-item`, `command-palette-item-text`, `command-palette-item-indicator`, `command-palette-item-icon`, `command-palette-item-label`, `command-palette-item-description`, `command-palette-item-meta`, `command-palette-separator`, `command-palette-footer` и `command-palette-kbd`.
+- `CommandPaletteList` рендерит `ScrollArea`, поэтому части прокрутки сохраняют хуки `scroll-area-root`, `scroll-area-viewport` и `scroll-area-content`; обращайтесь к ним внутри `[data-slot='command-palette-list']`.
 - Хуки состояния Ark Dialog включают `data-scope="dialog"`, `data-part` и `data-state="open" | "closed"` у таких частей диалога, как триггер, фон и содержимое.
 - Хуки состояния Ark Combobox включают `data-scope="combobox"`, `data-part`, `data-state`, `data-highlighted`, `data-disabled`, `data-invalid` и `data-empty` там, где они применимы.
 - Анимация привязана к `data-state` Ark. Устаревшие атрибуты `data-starting-style`, `data-ending-style` и `data-open` не входят в контракт command-palette.

@@ -19,7 +19,7 @@ defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 
 const controlClass =
-  "relative box-border aspect-square w-32 min-w-0 cursor-pointer rounded-full outline-0 select-none [--angle-slider-fill:var(--color-primary)] before:absolute before:inset-0 before:rounded-full before:bg-[conic-gradient(from_0deg,var(--angle-slider-fill)_var(--angle,0deg),var(--color-muted)_var(--angle,0deg))] before:[mask-image:radial-gradient(closest-side,transparent_calc(100%-0.5rem-1px),#000_calc(100%-0.5rem))] before:content-[''] after:absolute after:top-1 after:left-1/2 after:z-1 after:size-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-[var(--angle-slider-fill)] after:content-[''] data-disabled:cursor-default data-invalid:[--angle-slider-fill:var(--color-destructive)] data-readonly:cursor-default";
+  "relative aspect-square w-36 min-w-0 cursor-pointer rounded-full outline-0 select-none [--_angle-slider-fill:var(--color-primary)] before:absolute before:inset-0 before:rounded-full before:bg-[conic-gradient(from_0deg,var(--_angle-slider-fill)_calc(var(--value,0)*1deg),var(--color-muted)_calc(var(--value,0)*1deg))] before:[mask-image:radial-gradient(closest-side,transparent_calc(100%-var(--moduix-spacing-2)-1px),#000_calc(100%-var(--moduix-spacing-2)))] before:content-[''] [&[dir=rtl]]:before:-scale-x-100 after:absolute after:top-1 after:left-1/2 after:z-1 after:size-2 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-(--_angle-slider-fill) after:content-[''] data-disabled:cursor-default data-invalid:[--_angle-slider-fill:var(--color-destructive)] data-readonly:cursor-default";
 
 const handlePointerDown = (event: PointerEvent) => {
   emit('pointerdown', event);

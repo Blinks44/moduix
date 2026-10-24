@@ -158,43 +158,17 @@ const TagsInputInput = forwardRef<
 const TagsInputClearTrigger = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.ClearTrigger>,
   ComponentProps<typeof TagsInputPrimitive.ClearTrigger>
->(function TagsInputClearTrigger(
-  {
-    asChild,
-    className,
-    children,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
-    ...props
-  },
-  ref,
-) {
-  const triggerClassName = clsx(styles.clearTrigger, className);
-  const clearTriggerLabel = useTagsInputContext().getClearTriggerProps()['aria-label'];
-
+>(function TagsInputClearTrigger({ asChild, className, children, ...props }, ref) {
+  // Ark merges its label, anatomy, and state props onto the CloseButton host.
   return (
     <TagsInputPrimitive.ClearTrigger
       ref={ref}
       asChild
-      className={triggerClassName}
-      aria-label={asChild ? ariaLabel : undefined}
-      aria-labelledby={asChild ? ariaLabelledBy : undefined}
+      className={clsx(styles.clearTrigger, className)}
       {...props}
       data-slot="tags-input-clear-trigger"
     >
-      {asChild ? (
-        children
-      ) : (
-        <CloseButton
-          aria-label={ariaLabel ?? clearTriggerLabel}
-          aria-labelledby={ariaLabelledBy}
-          data-part="clear-trigger"
-          data-scope="tags-input"
-          data-slot="tags-input-clear-trigger"
-        >
-          {children}
-        </CloseButton>
-      )}
+      {asChild ? children : <CloseButton>{children}</CloseButton>}
     </TagsInputPrimitive.ClearTrigger>
   );
 });
@@ -241,3 +215,31 @@ export {
   useTagsInputContext,
   useTagsInputItemContext,
 };
+
+export type {
+  TagsInputClearTriggerProps,
+  TagsInputContextProps,
+  TagsInputControlProps,
+  TagsInputFocusOutsideEvent,
+  TagsInputHighlightChangeDetails,
+  TagsInputHiddenInputProps,
+  TagsInputInputProps,
+  TagsInputInputValueChangeDetails,
+  TagsInputInteractOutsideEvent,
+  TagsInputItemContextProps,
+  TagsInputItemDeleteTriggerProps,
+  TagsInputItemInputProps,
+  TagsInputItemPreviewProps,
+  TagsInputItemProps,
+  TagsInputItemTextProps,
+  TagsInputLabelProps,
+  TagsInputPointerDownOutsideEvent,
+  TagsInputRootProps,
+  TagsInputRootProviderProps,
+  TagsInputValidityChangeDetails,
+  TagsInputValueChangeDetails,
+  UseTagsInputContext,
+  UseTagsInputItemContext,
+  UseTagsInputProps,
+  UseTagsInputReturn,
+} from '@ark-ui/react/tags-input';

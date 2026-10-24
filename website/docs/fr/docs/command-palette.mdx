@@ -5,21 +5,6 @@ description: Une palette de commandes dans une boîte de dialogue, avec recherch
 ---
 
 import * as CommandPaletteDocs from '@/components/examples/command-palette/css-properties';
-import CommandPaletteBasic from '@/components/examples/command-palette/basic.tsx';
-import AdvancedCommandPalette from '@/components/examples/command-palette/advanced-customization.tsx';
-import ControlledCommandPalette from '@/components/examples/command-palette/controlled-open-state.tsx';
-import CommandPaletteShortcutDemo from '@/components/examples/command-palette/enable-the-global-shortcut.tsx';
-import CommandPaletteActionsDemo from '@/components/examples/command-palette/item-actions.tsx';
-import commandPaletteSolidBasic from '../../../snippets/command-palette/solid/basic.tsx?raw';
-import commandPaletteSolidAdvanced from '../../../snippets/command-palette/solid/advanced-customization.tsx?raw';
-import commandPaletteSolidControlled from '../../../snippets/command-palette/solid/controlled-open-state.tsx?raw';
-import commandPaletteSolidShortcut from '../../../snippets/command-palette/solid/enable-the-global-shortcut.tsx?raw';
-import commandPaletteSolidActions from '../../../snippets/command-palette/solid/item-actions.tsx?raw';
-import commandPaletteVueBasic from '../../../snippets/command-palette/vue/basic.vue?raw';
-import commandPaletteVueAdvanced from '../../../snippets/command-palette/vue/advanced-customization.vue?raw';
-import commandPaletteVueControlled from '../../../snippets/command-palette/vue/controlled-open-state.vue?raw';
-import commandPaletteVueShortcut from '../../../snippets/command-palette/vue/enable-the-global-shortcut.vue?raw';
-import commandPaletteVueActions from '../../../snippets/command-palette/vue/item-actions.vue?raw';
 
 ## Référence de l'API
 
@@ -33,50 +18,11 @@ les [styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-u
 
 
 Utilisez `CommandPalettePanel` pour obtenir la structure de dialogue standard. Il rend automatiquement l'arrière-plan,
-le conteneur de positionnement, le contenu et la zone principale. Placez `CommandPaletteCombobox` à l'intérieur,
+le conteneur de positionnement et le contenu. Placez `CommandPaletteCombobox` à l'intérieur,
 transmettez-lui une collection et affichez les commandes filtrées dans `CommandPaletteList`. `CommandPaletteSearch`
-ajoute le champ de saisie et un bouton d'effacement, visible dès qu'une requête est saisie.
+ajoute une icône de recherche, le champ de saisie et un bouton d'effacement, visible dès qu'une requête est saisie.
 
-<ExampleFrame variant="component">
-  <CommandPaletteBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/command-palette/command-palette-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/basic" />
 
 ## Installation avec shadcn
 
@@ -127,27 +73,26 @@ CommandPalette
          ├─ CommandPaletteHeader
          │  ├─ CommandPaletteTitle
          │  └─ CommandPaletteDescription
-         └─ CommandPaletteBody
-            └─ CommandPaletteCombobox
-               ├─ CommandPaletteControl
-               │  ├─ CommandPaletteInput
-               │  └─ CommandPaletteClearTrigger
-               ├─ CommandPaletteList
-               │  ├─ CommandPaletteEmpty
-               │  └─ CommandPaletteItemGroup
-               │     ├─ CommandPaletteItemGroupLabel
-               │     └─ CommandPaletteItem
-               │        ├─ CommandPaletteItemIcon
-               │        ├─ CommandPaletteItemText
-               │        │  ├─ CommandPaletteItemLabel
-               │        │  └─ CommandPaletteItemDescription
-               │        ├─ CommandPaletteItemMeta
-               │        └─ CommandPaletteItemIndicator
-               └─ CommandPaletteFooter
-                  └─ CommandPaletteKbd
+         └─ CommandPaletteCombobox
+            ├─ CommandPaletteControl
+            │  ├─ CommandPaletteInput
+            │  └─ CommandPaletteClearTrigger
+            ├─ CommandPaletteList
+            │  ├─ CommandPaletteEmpty
+            │  └─ CommandPaletteItemGroup
+            │     ├─ CommandPaletteItemGroupLabel
+            │     └─ CommandPaletteItem
+            │        ├─ CommandPaletteItemIcon
+            │        ├─ CommandPaletteItemText
+            │        │  ├─ CommandPaletteItemLabel
+            │        │  └─ CommandPaletteItemDescription
+            │        ├─ CommandPaletteItemMeta
+            │        └─ CommandPaletteItemIndicator
+            └─ CommandPaletteFooter
+               └─ CommandPaletteKbd
 
 CommandPalettePanel
-└─ composition abrégée pour CommandPaletteBackdrop, CommandPalettePositioner, CommandPaletteContent et CommandPaletteBody
+└─ composition abrégée pour CommandPaletteBackdrop, CommandPalettePositioner et CommandPaletteContent
 
 CommandPaletteRootProvider
 └─ le même arbre de contenu, relié à l'état créé avec useDialog()
@@ -156,18 +101,17 @@ CommandPaletteRootProvider
 | Partie | Rôle |
 | --- | --- |
 | `CommandPalette` | Gère l'état d'Ark Dialog et le gestionnaire facultatif de raccourci global. |
-| `CommandPaletteRootProvider` | Relie les parties de la palette à l'état du dialogue créé en dehors de l'arbre rendu. |
-| `CommandPaletteTrigger` | Ouvre la palette. Utilisez `asChild` pour fournir votre propre élément déclencheur. |
+| `CommandPaletteRootProvider` | Relie les parties de la palette à l'état du dialogue créé en dehors de l'arbre rendu. Accepte la même prop `shortcut`. |
+| `CommandPaletteTrigger` | Ouvre la palette. Il n'a pas de style : utilisez `asChild` avec un `Button` ou votre propre élément. |
 | `CommandPaletteBackdrop` | Arrière-plan d'Ark Dialog, avec l'état d'animation dans `data-state`. |
 | `CommandPalettePositioner` | Positionne le dialogue dans la fenêtre et maintient son contenu dans ses limites. |
 | `CommandPaletteContent` | Contenu du dialogue et surface visuelle de la palette. |
-| `CommandPalettePanel` | Structure prête à l'emploi pour l'arrière-plan, le positionnement, le contenu et la zone principale standards. |
+| `CommandPalettePanel` | Structure prête à l'emploi pour l'arrière-plan, le positionnement et le contenu standards. |
 | `CommandPaletteHeader` / `CommandPaletteTitle` / `CommandPaletteDescription` | Éléments de mise en page facultatifs, ainsi que les parties de titre et de description accessibles d'Ark Dialog. |
-| `CommandPaletteBody` | Conteneur de mise en page de la zone Combobox dans le dialogue. |
 | `CommandPaletteCombobox` | Racine Ark Combobox qui gère la recherche et la sélection des commandes. |
 | `CommandPaletteControl` | Regroupe le champ de recherche et le bouton d'effacement. |
 | `CommandPaletteInput` | Champ de saisie Ark Combobox. |
-| `CommandPaletteSearch` | Barre de recherche prête à l'emploi qui regroupe `CommandPaletteControl`, `CommandPaletteInput` et `CommandPaletteClearTrigger`. Elle ajoute aussi un nom accessible par défaut au champ. Utilisez les parties explicites lorsqu'elles nécessitent une configuration individuelle. |
+| `CommandPaletteSearch` | Barre de recherche prête à l'emploi qui regroupe `CommandPaletteControl`, une icône de recherche décorative, `CommandPaletteInput` et `CommandPaletteClearTrigger`. Elle ajoute aussi un nom accessible par défaut au champ. Utilisez les parties explicites lorsqu'elles nécessitent une configuration individuelle. |
 | `CommandPaletteClearTrigger` | Efface la requête et reste masqué lorsque le champ est vide. |
 | `CommandPaletteList` | Liste des résultats Ark Combobox enveloppée dans un `ScrollArea` moduix. |
 | `CommandPaletteEmpty` | Message affiché lorsque la collection filtrée ne contient aucun résultat. |
@@ -199,138 +143,21 @@ du package du framework correspondant lorsque l'état du dialogue doit être cr�
 Utilisez la prop contrôlée `open` lorsque le reste de l'interface doit également décider si la palette est visible.
 L'exemple réinitialise le filtre externe de la collection à la fermeture de la palette.
 
-<ExampleFrame variant="component">
-  <ControlledCommandPalette />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/controlled-open-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/command-palette/command-palette-controlled-open-state.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/controlled-open-state" />
 
 ### Activation du raccourci global
 
-Définissez `shortcut="alt+k"` pour enregistrer un raccourci global qui ouvre et ferme la palette. C'est le seul
+Définissez `shortcut="alt+k"` sur `CommandPalette` ou `CommandPaletteRootProvider` pour enregistrer un raccourci global qui ouvre et ferme la palette. C'est le seul
 aperçu de la page qui enregistre `Alt+K`.
 
-<ExampleFrame variant="component">
-  <CommandPaletteShortcutDemo />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/enable-the-global-shortcut.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidShortcut} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueShortcut} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/command-palette/command-palette-enable-the-global-shortcut.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/enable-the-global-shortcut" />
 
 ### Actions des éléments
 
 Gérez `onSelect(details)` pour exécuter une commande. Avec la valeur par défaut de `closeOnSelect`, la palette se
 ferme après l'exécution de l'action sélectionnée.
 
-<ExampleFrame variant="component">
-  <CommandPaletteActionsDemo />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/item-actions.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidActions} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueActions} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/command-palette/command-palette-item-actions.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/item-actions" />
 
 ### Personnalisation avancée
 
@@ -338,53 +165,16 @@ Rendez les parties explicites du dialogue et de la recherche lorsque la palette 
 de recherche personnalisés. L'exemple conserve le comportement d'Ark Dialog et d'Ark Combobox, tout en remplaçant
 les composants utilitaires `CommandPalettePanel` et `CommandPaletteSearch` par une composition explicite.
 
-<ExampleFrame variant="component">
-  <AdvancedCommandPalette />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/command-palette/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={commandPaletteSolidAdvanced} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={commandPaletteVueAdvanced} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/command-palette/command-palette-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="command-palette/advanced-customization" />
 
 ## Styles
 
-Utilisez les variables CSS sur les parties du déclencheur, de l'arrière-plan, du contenu, de la liste et des
-éléments lorsque la palette doit s'intégrer à une interface plus dense ou adopter les couleurs de votre marque.
-Utilisez les parties structurelles pour modifier la mise en page ou les couches. `CommandPaletteList` reste
-défilable, mais n'affiche pas de barre de défilement visible.
+Chaque partie a des styles par défaut construits à partir des tokens de foundation. Pour les modifier,
+ajoutez une classe sur la partie, par exemple sur `CommandPalettePanel` ou `CommandPaletteItem`. Deux
+variables couvrent les valeurs qu'une classe seule ne peut pas remplacer, car la fenêtre les limite aussi.
+L'arrière-plan suit les tokens partagés `--moduix-backdrop-bg` et `--moduix-backdrop-filter`, et l'animation
+du contenu suit les tokens partagés `--moduix-popup-motion-*`. `CommandPaletteList` reste défilable, mais
+n'affiche pas de barre de défilement visible.
 
 ### Propriétés CSS
 
@@ -392,7 +182,8 @@ défilable, mais n'affiche pas de barre de défilement visible.
 
 ### Points d'accroche CSS
 
-- Les parties exportées fournissent des points d'accroche stables via `data-slot`, notamment `command-palette-trigger`, `command-palette-backdrop`, `command-palette-positioner`, `command-palette-content`, `command-palette-title`, `command-palette-description`, `command-palette-header`, `command-palette-body`, `command-palette-combobox`, `command-palette-control`, `command-palette-input`, `command-palette-clear-trigger`, `command-palette-list`, `command-palette-scroll-area`, `command-palette-scroll-viewport`, `command-palette-scroll-content`, `command-palette-empty`, `command-palette-item-group`, `command-palette-item-group-label`, `command-palette-item`, `command-palette-item-text`, `command-palette-item-indicator`, `command-palette-item-icon`, `command-palette-item-label`, `command-palette-item-description`, `command-palette-item-meta`, `command-palette-separator`, `command-palette-footer` et `command-palette-kbd`.
+- Les parties exportées fournissent des points d'accroche stables via `data-slot`, notamment `command-palette-trigger`, `command-palette-backdrop`, `command-palette-positioner`, `command-palette-content`, `command-palette-title`, `command-palette-description`, `command-palette-header`, `command-palette-combobox`, `command-palette-control`, `command-palette-input`, `command-palette-clear-trigger`, `command-palette-list`, `command-palette-empty`, `command-palette-item-group`, `command-palette-item-group-label`, `command-palette-item`, `command-palette-item-text`, `command-palette-item-indicator`, `command-palette-item-icon`, `command-palette-item-label`, `command-palette-item-description`, `command-palette-item-meta`, `command-palette-separator`, `command-palette-footer` et `command-palette-kbd`.
+- `CommandPaletteList` affiche une `ScrollArea` : les parties de défilement gardent les points d'accroche `scroll-area-root`, `scroll-area-viewport` et `scroll-area-content` ; ciblez-les sous `[data-slot='command-palette-list']`.
 - Les attributs d'état d'Ark Dialog comprennent `data-scope="dialog"`, `data-part` et `data-state="open" | "closed"` sur les parties du dialogue, notamment le déclencheur, l'arrière-plan et le contenu.
 - Les attributs d'état d'Ark Combobox comprennent `data-scope="combobox"`, `data-part`, `data-state`, `data-highlighted`, `data-disabled`, `data-invalid` et `data-empty` lorsque ces attributs s'appliquent.
 - Les animations utilisent `data-state` d'Ark. Les anciens attributs `data-starting-style`, `data-ending-style` et `data-open` ne font pas partie du contrat de command-palette.

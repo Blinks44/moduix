@@ -50,7 +50,7 @@ const selectedItems = computed(() => fruits.filter((item) => value.value.include
       <ComboboxTrigger aria-label="Open options" />
     </ComboboxControl>
     <ComboboxPositioner>
-      <ComboboxContent :class="styles.content">
+      <ComboboxContent>
         <ComboboxEmpty>No fruits found.</ComboboxEmpty>
         <ComboboxList>
           <ComboboxOption v-for="item in collection.items" :key="item.value" :item="item">

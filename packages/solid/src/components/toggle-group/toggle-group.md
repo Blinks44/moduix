@@ -23,7 +23,8 @@ export function ToggleGroupDemo() {
 The public values are `ToggleGroup`, `ToggleGroupItem`, `ToggleGroupRootProvider`, and
 `ToggleGroupContext`. The barrel also exports `useToggleGroup`, `useToggleGroupContext`,
 `ToggleGroupRootProps`, `ToggleGroupRootProviderProps`, `ToggleGroupItemProps`, `ToggleVariant`,
-and `ToggleSize`.
+`ToggleSize`, and the Ark types `ToggleGroupContextProps`, `ToggleGroupValueChangeDetails`,
+`UseToggleGroupContext`, `UseToggleGroupProps`, and `UseToggleGroupReturn`.
 
 ## Ark Solid behavior
 
@@ -55,3 +56,7 @@ The root emits `data-slot="toggle-group-root"` and the root provider emits
 `data-slot="toggle-group-item"`, `data-variant`, and `data-size`. Ark state attributes such as
 `data-scope="toggle-group"`, `data-part`, `data-orientation`, `data-disabled`, `data-focus`, and
 item `data-state="on" | "off"` remain available.
+
+The CSS Modules package exposes `--moduix-toggle-group-bg` and `--moduix-toggle-group-border-color`
+on the root. Items accept the `--moduix-toggle-*` variables from `Toggle`; the root sets
+`--moduix-toggle-color` to the foreground color.

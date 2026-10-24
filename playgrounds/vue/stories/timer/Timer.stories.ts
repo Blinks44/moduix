@@ -14,7 +14,7 @@ import {
   useTimer,
 } from '@/components/timer';
 import type { TimerItemProps } from '@/components/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon } from '@/lib/moduix/icons/ui/Icons';
+import { PauseIcon, PlayIcon, RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import styles from './Timer.stories.module.css';
 
 const meta = {

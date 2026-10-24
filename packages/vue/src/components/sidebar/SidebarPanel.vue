@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { SplitterPanel as ArkSplitterPanel, useSplitterContext } from '@ark-ui/vue/splitter';
+import { SplitterPanel as ArkSplitterPanel } from '@ark-ui/vue/splitter';
 import type { SplitterPanelProps } from '@ark-ui/vue/splitter';
 import { clsx } from 'clsx';
-import { computed, useAttrs } from 'vue';
+import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import splitterStyles from '../splitter/Splitter.module.css';
-import { useSidebarConfig } from './context';
+import { useSidebar, useSidebarConfig } from './context';
 import styles from './Sidebar.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -19,9 +19,8 @@ const { asChild = false, class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const { panelId, side } = useSidebarConfig();
-const splitter = useSplitterContext();
-const collapsed = computed(() => splitter.value.isPanelCollapsed(panelId.value));
+const { panelId } = useSidebarConfig();
+const { side, state } = useSidebar();
 </script>
 
 <template>
@@ -31,7 +30,7 @@ const collapsed = computed(() => splitter.value.isPanelCollapsed(panelId.value))
     :id="panelId"
     :class="clsx(splitterStyles.panel, styles.panel, className)"
     :data-side="side"
-    :data-state="collapsed ? 'collapsed' : 'expanded'"
+    :data-state="state"
     data-slot="sidebar-panel"
   >
     <slot />

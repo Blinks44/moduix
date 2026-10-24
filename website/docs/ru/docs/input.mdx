@@ -5,33 +5,6 @@ description: Стилизованный однострочный `<input>` на 
 ---
 
 import * as InputDocs from '@/components/examples/input/css-properties';
-import InputAsChild from '@/components/examples/input/as-child.tsx';
-import InputBasic from '@/components/examples/input/basic.tsx';
-import InputControlled from '@/components/examples/input/controlled.tsx';
-import InputFieldState from '@/components/examples/input/field-state.tsx';
-import InputFile from '@/components/examples/input/file-input.tsx';
-import InputNativeAttributes from '@/components/examples/input/native-attributes.tsx';
-import InputSizes from '@/components/examples/input/sizes.tsx';
-import InputStandalone from '@/components/examples/input/standalone-input.tsx';
-import InputStates from '@/components/examples/input/disabled-and-readonly.tsx';
-import inputSolidAsChild from '../../../snippets/input/solid/as-child.tsx?raw';
-import inputSolidBasic from '../../../snippets/input/solid/basic.tsx?raw';
-import inputSolidControlled from '../../../snippets/input/solid/controlled.tsx?raw';
-import inputSolidFieldState from '../../../snippets/input/solid/field-state.tsx?raw';
-import inputSolidFile from '../../../snippets/input/solid/file-input.tsx?raw';
-import inputSolidNativeAttributes from '../../../snippets/input/solid/native-attributes.tsx?raw';
-import inputSolidSizes from '../../../snippets/input/solid/sizes.tsx?raw';
-import inputSolidStandalone from '../../../snippets/input/solid/standalone-input.tsx?raw';
-import inputSolidStates from '../../../snippets/input/solid/disabled-and-readonly.tsx?raw';
-import inputVueAsChild from '../../../snippets/input/vue/as-child.vue?raw';
-import inputVueBasic from '../../../snippets/input/vue/basic.vue?raw';
-import inputVueControlled from '../../../snippets/input/vue/controlled.vue?raw';
-import inputVueFieldState from '../../../snippets/input/vue/field-state.vue?raw';
-import inputVueFile from '../../../snippets/input/vue/file-input.vue?raw';
-import inputVueNativeAttributes from '../../../snippets/input/vue/native-attributes.vue?raw';
-import inputVueSizes from '../../../snippets/input/vue/sizes.vue?raw';
-import inputVueStandalone from '../../../snippets/input/vue/standalone-input.vue?raw';
-import inputVueStates from '../../../snippets/input/vue/disabled-and-readonly.vue?raw';
 
 ## Справочник API
 
@@ -54,46 +27,7 @@ import inputVueStates from '../../../snippets/input/vue/disabled-and-readonly.vu
 
 Поместите `Input` в `Field`, если полю нужны метка, пояснение или сообщение об ошибке. `Field` свяжет эти элементы с полем, автоматически создаст нужные идентификаторы и передаст его состояние.
 
-<ExampleFrame variant="component">
-  <InputBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/input/input-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input/basic" />
 
 ## Установка через shadcn
 
@@ -168,46 +102,7 @@ Field (необязательная оболочка)
 `v-model`. Передавайте текущее значение обратно через `value`, если фреймворк использует отдельные
 привязки для события и значения.
 
-<ExampleFrame variant="component">
-  <InputControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/input/input-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input/controlled" />
 
 ### Отключённое поле и режим только для чтения
 
@@ -216,92 +111,14 @@ Field (необязательная оболочка)
 свойства непосредственно на `Input`. Если метка, поясняющий текст и поле должны иметь одно
 состояние, задавайте свойства на `Field`.
 
-<ExampleFrame variant="component">
-  <InputStates />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input/disabled-and-readonly.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputSolidStates} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputVueStates} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/input/input-disabled-and-readonly.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input/disabled-and-readonly" />
 
 ### Валидация поля
 
 Задавайте `invalid` на `Field`, когда значение не проходит проверку. Ark добавит к `Input`
 `aria-invalid` и `data-invalid` и свяжет его с текстом ошибки.
 
-<ExampleFrame variant="component">
-  <InputFieldState />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input/field-state.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputSolidFieldState} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputVueFieldState} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/input/input-field-state.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input/field-state" />
 
 ### Выбор файла
 
@@ -309,46 +126,7 @@ Field (необязательная оболочка)
 `FileUpload`, если приложение должно хранить выбранные файлы в состоянии, показывать область
 перетаскивания или управлять процессом загрузки.
 
-<ExampleFrame variant="component">
-  <InputFile />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input/file-input.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputSolidFile} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputVueFile} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/input/input-file-input.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input/file-input" />
 
 ### Нативные атрибуты
 
@@ -356,92 +134,14 @@ Field (необязательная оболочка)
 автозаполнением и отправкой формы. Задавайте `htmlSize` для ширины в символах, а `size` для
 изменения визуального размера в React, Solid и Vue.
 
-<ExampleFrame variant="component">
-  <InputNativeAttributes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input/native-attributes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputSolidNativeAttributes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputVueNativeAttributes} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/input/input-native-attributes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input/native-attributes" />
 
 ### Размеры
 
 Свойство moduix `size` управляет визуальным размером. Оно не связано с `htmlSize`, которое задаёт
 нативную ширину в символах.
 
-<ExampleFrame variant="component">
-  <InputSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputVueSizes} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/input/input-sizes.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input/sizes" />
 
 ### Автономное поле
 
@@ -450,46 +150,7 @@ Field (необязательная оболочка)
 контекста `Field` идентификаторы не создаются автоматически, а поясняющий текст и сообщение об
 ошибке не связываются с полем.
 
-<ExampleFrame variant="component">
-  <InputStandalone />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input/standalone-input.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputSolidStandalone} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputVueStandalone} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/input/input-standalone-input.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input/standalone-input" />
 
 ### Расширенная настройка
 
@@ -497,71 +158,23 @@ Field (необязательная оболочка)
 Передавайте один семантически корректный элемент, который может получить фокус, объединённые
 свойства и `ref`.
 
-<ExampleFrame variant="component">
-  <InputAsChild />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/input/as-child.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={inputSolidAsChild} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={inputVueAsChild} />
-
-    </Tab>
-  </Tabs>
-
-**Стили**
-
-```css file="../../../src/components/examples/input/input-as-child.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="input/as-child" />
 
 ## Стилизация
 
-`Input size="md"` и `FieldInput` имеют одинаковое оформление по умолчанию. Оба получают контекст
-`Field`; `Input` добавляет визуальные размеры и `htmlSize`, а `FieldInput` сохраняет нативный
-числовой `size`. Внутри отключённого moduix `Field` или `FieldRootProvider` прозрачность
+`Input` получает контекст `Field`. Свойство `size` выбирает визуальный размер, а нативный числовой
+атрибут `size` передаётся как `htmlSize`. Внутри отключённого moduix `Field` или `FieldRootProvider` прозрачность
 применяется один раз, на корневом элементе.
 
-Используйте `className` в React и `class` в Solid и Vue, чтобы стилизовать `Input`. Варианты с CSS Modules
-поддерживают переменные ниже, а варианты на Tailwind используют нативные utility-классы и классы
-потребителя. Для стилей состояний используйте общие data-атрибуты и нативные селекторы состояния.
+Используйте `className` в React и `class` в Solid и Vue, чтобы стилизовать `Input`. Варианты на
+Tailwind используют нативные utility-классы и классы потребителя. Варианты с CSS Modules построены на
+токенах foundation и поддерживают только три переменные ниже; цвета, отступы и типографику
+переопределяйте обычным классом, он сильнее стилей компонента в слое. Для стилей состояний
+используйте общие data-атрибуты и нативные селекторы состояния.
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <InputDocs.InputCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={InputDocs.inputOverrideCssProperties} />
 
 ### Хуки стилизации
 

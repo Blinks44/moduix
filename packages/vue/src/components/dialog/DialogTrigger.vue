@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { DialogTrigger as ArkDialogTrigger } from '@ark-ui/vue/dialog';
 import type { DialogTriggerProps } from '@ark-ui/vue/dialog';
-import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import styles from './Dialog.module.css';
 
 defineOptions({ inheritAttrs: false });
 
@@ -22,7 +20,7 @@ const attrs = useAttrs();
   <ArkDialogTrigger
     v-bind="attrs"
     :as-child="asChild"
-    :class="clsx(!asChild && styles.trigger, className)"
+    :class="className"
     data-slot="dialog-trigger"
   >
     <slot />

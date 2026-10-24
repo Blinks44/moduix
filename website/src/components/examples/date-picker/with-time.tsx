@@ -8,22 +8,14 @@ import {
 } from '@moduix/react/date-input';
 import {
   DatePicker,
-  DatePickerContext,
   DatePickerLabel,
   DatePickerField,
   DatePickerPositioner,
   DatePickerContent,
   DatePickerView,
-  DatePickerViewControl,
-  DatePickerPrevTrigger,
-  DatePickerNextTrigger,
-  DatePickerViewTrigger,
-  DatePickerTable,
-  DatePickerTableBody,
-  DatePickerTableRow,
-  DatePickerTableCell,
-  DatePickerTableCellTrigger,
   DatePickerDayTable,
+  DatePickerMonthTable,
+  DatePickerYearTable,
 } from '@moduix/react/date-picker';
 import { useState } from 'react';
 import styles from '@/components/examples/date-picker/date-picker-with-time.module.css';
@@ -62,72 +54,15 @@ export default function DatePickerWithTimeDemo() {
               <DatePickerDayTable />
             </DatePickerView>
             <DatePickerView view="month">
-              <DatePickerContext>
-                {(datePicker) => (
-                  <>
-                    <DatePickerViewControl>
-                      <DatePickerPrevTrigger />
-                      <DatePickerViewTrigger />
-                      <DatePickerNextTrigger />
-                    </DatePickerViewControl>
-                    <DatePickerTable columns={4}>
-                      <DatePickerTableBody>
-                        {datePicker
-                          .getMonthsGrid({ columns: 4, format: 'short' })
-                          .map((months, rowIndex) => (
-                            <DatePickerTableRow key={rowIndex}>
-                              {months.map((month) => (
-                                <DatePickerTableCell key={month.value} value={month.value}>
-                                  <DatePickerTableCellTrigger>
-                                    {month.label}
-                                  </DatePickerTableCellTrigger>
-                                </DatePickerTableCell>
-                              ))}
-                            </DatePickerTableRow>
-                          ))}
-                      </DatePickerTableBody>
-                    </DatePickerTable>
-                  </>
-                )}
-              </DatePickerContext>
+              <DatePickerMonthTable />
             </DatePickerView>
             <DatePickerView view="year">
-              <DatePickerContext>
-                {(datePicker) => (
-                  <>
-                    <DatePickerViewControl>
-                      <DatePickerPrevTrigger />
-                      <DatePickerViewTrigger />
-                      <DatePickerNextTrigger />
-                    </DatePickerViewControl>
-                    <DatePickerTable columns={4}>
-                      <DatePickerTableBody>
-                        {datePicker.getYearsGrid({ columns: 4 }).map((years, rowIndex) => (
-                          <DatePickerTableRow key={rowIndex}>
-                            {years.map((year) => (
-                              <DatePickerTableCell
-                                key={year.value}
-                                value={year.value}
-                                disabled={year.disabled}
-                              >
-                                <DatePickerTableCellTrigger>
-                                  {year.label}
-                                </DatePickerTableCellTrigger>
-                              </DatePickerTableCell>
-                            ))}
-                          </DatePickerTableRow>
-                        ))}
-                      </DatePickerTableBody>
-                    </DatePickerTable>
-                  </>
-                )}
-              </DatePickerContext>
+              <DatePickerYearTable />
             </DatePickerView>
           </DatePickerContent>
         </DatePickerPositioner>
       </DatePicker>
       <DateInput
-        className={styles.timeInput}
         formatter={timeFormatter}
         granularity="minute"
         hourCycle={24}

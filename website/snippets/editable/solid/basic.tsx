@@ -6,10 +6,12 @@ import {
   EditableLabel,
   EditablePreview,
 } from '@moduix/solid/editable';
+import styles from '@/components/examples/editable/editable-basic.module.css';
 
 export default function EditableDemo() {
   return (
     <Editable
+      class={styles.root}
       defaultValue="Layer name"
       translations={{
         input: 'Layer name',

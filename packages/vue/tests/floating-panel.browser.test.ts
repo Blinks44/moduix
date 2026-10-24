@@ -355,3 +355,54 @@ test('keeps close-icon labels, attrs and fallback content reactive', async () =>
   expect(screen.getByTestId('close')).toBe(button);
   await expect.element(page.getByTestId('close')).toBeFocused();
 });
+
+test('sizes the content from Ark state without a CSS minimum', async () => {
+  const Harness = defineComponent({
+    components: floatingPanelComponents,
+    template: `
+      <FloatingPanel default-open :default-size="{ width: 160, height: 96 }" :portalled="false">
+        <FloatingPanelPositioner><FloatingPanelContent /></FloatingPanelPositioner>
+      </FloatingPanel>
+    `,
+  });
+
+  render(Harness);
+  await expect.element(page.getByRole('dialog')).toBeAttached();
+
+  const content = document.querySelector<HTMLElement>('[data-slot="floating-panel-content"]')!;
+  expect([content.offsetWidth, content.offsetHeight]).toEqual([160, 96]);
+});
+
+test('leaves the native trigger unstyled', () => {
+  const Harness = defineComponent({
+    components: floatingPanelComponents,
+    template: `
+      <FloatingPanel :portalled="false">
+        <FloatingPanelTrigger>Open inspector</FloatingPanelTrigger>
+      </FloatingPanel>
+    `,
+  });
+
+  render(Harness);
+
+  expect(document.querySelector('[data-slot="floating-panel-trigger"]')!.className).toBe('');
+});
+
+test('opens with the shared popup keyframes and motion variables', async () => {
+  const Harness = defineComponent({
+    components: floatingPanelComponents,
+    template: `
+      <div style="--moduix-popup-motion-duration: 1234ms">
+        <FloatingPanel default-open :default-size="{ width: 360, height: 260 }" :portalled="false">
+          <FloatingPanelPositioner><FloatingPanelContent /></FloatingPanelPositioner>
+        </FloatingPanel>
+      </div>
+    `,
+  });
+
+  render(Harness);
+  await expect.element(page.getByRole('dialog')).toBeAttached();
+
+  const style = getComputedStyle(document.querySelector('[data-slot="floating-panel-content"]')!);
+  expect([style.animationName, style.animationDuration]).toEqual(['moduix-popup-in', '1.234s']);
+});

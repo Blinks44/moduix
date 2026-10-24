@@ -1,3 +1,4 @@
+import { Button } from '@moduix/react/button';
 import { Field, FieldErrorText, FieldHelperText } from '@moduix/react/field';
 import {
   FileUpload,
@@ -19,14 +20,16 @@ export default function FileUploadWithFieldDemo() {
     <Field className={styles.root} required>
       <FileUpload name={name} maxFiles={maxFiles}>
         <FileUploadLabel>Required attachments</FileUploadLabel>
-        <FileUploadTrigger>Choose files</FileUploadTrigger>
+        <FileUploadTrigger asChild>
+          <Button>Choose files</Button>
+        </FileUploadTrigger>
         <FileUploadItemGroup>
           <FileUploadContext>
             {({ acceptedFiles }) =>
               acceptedFiles.map((file) => (
                 <FileUploadItem key={file.name} file={file}>
                   <FileUploadItemName />
-                  <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                  <FileUploadItemDeleteTrigger />
                 </FileUploadItem>
               ))
             }

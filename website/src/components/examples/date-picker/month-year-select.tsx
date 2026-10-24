@@ -24,8 +24,8 @@ export default function MonthYearSelectDatePickerDemo() {
         <DatePickerContent>
           <DatePickerViewControl className={styles.control}>
             <div className={styles.selects}>
-              <DatePickerMonthSelect className={styles.monthSelect} />
-              <DatePickerYearSelect className={styles.yearSelect} />
+              <DatePickerMonthSelect />
+              <DatePickerYearSelect />
             </div>
             <div className={styles.nav}>
               <DatePickerPrevTrigger />

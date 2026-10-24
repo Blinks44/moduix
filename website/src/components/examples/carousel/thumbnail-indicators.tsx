@@ -45,7 +45,7 @@ export default function ThumbnailIndicatorCarousel() {
       aria-label="Gallery with thumbnails"
       slideCount={slides.length}
     >
-      <CarouselItemGroup className={styles.itemGroup} aria-label="Gallery with thumbnails">
+      <CarouselItemGroup>
         {slides.map((slide, index) => (
           <CarouselItem key={slide.id} index={index}>
             <img className={styles.image} src={slide.src} alt={slide.alt} />
@@ -53,7 +53,7 @@ export default function ThumbnailIndicatorCarousel() {
         ))}
       </CarouselItemGroup>
 
-      <CarouselControl className={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselNextTrigger />
       </CarouselControl>

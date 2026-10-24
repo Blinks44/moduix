@@ -1,8 +1,9 @@
 .demo {
   --moduix-sidebar-width: min(68rem, calc(100vw - 4rem));
   --moduix-sidebar-height: 38rem;
-  --moduix-sidebar-radius: var(--moduix-radius-lg);
-  --moduix-sidebar-shadow: var(--moduix-shadow-md);
+
+  border-radius: var(--moduix-radius-lg);
+  box-shadow: var(--moduix-shadow-md);
 }
 
 .brand {
@@ -37,18 +38,13 @@
 }
 
 .collapsible {
-  --moduix-collapsible-width: 100%;
-  --moduix-collapsible-max-width: 100%;
-  --moduix-collapsible-color: inherit;
   --moduix-collapsible-content-color: inherit;
+
+  color: inherit;
 }
 
 .scrollAreaContent {
   overflow: hidden;
-}
-
-.sidebarScrollArea {
-  --moduix-scroll-area-radius: 0;
 }
 
 [data-slot='sidebar-panel'][data-state='collapsed'] {
@@ -133,12 +129,12 @@
 }
 
 .custom {
-  --moduix-sidebar-bg: color-mix(
+  --moduix-color-sidebar: color-mix(
     in oklab,
     var(--moduix-color-primary) 5%,
     var(--moduix-color-card)
   );
-  --moduix-sidebar-accent-bg: color-mix(
+  --moduix-color-sidebar-accent: color-mix(
     in oklab,
     var(--moduix-color-primary) 14%,
     var(--moduix-color-accent)

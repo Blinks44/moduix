@@ -7,17 +7,13 @@ import { CloseButton } from '../close-button';
 import styles from './Tag.module.css';
 
 type TagVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive';
-type TagSize = 'sm' | 'md';
-type TagProps = HTMLArkProps<'span'> & {
+type TagSize = 'sm' | 'md' | 'lg';
+type TagRootProps = HTMLArkProps<'span'> & {
   variant?: TagVariant;
   size?: TagSize;
 };
-type TagLabelProps = HTMLArkProps<'span'>;
-type TagStartElementProps = HTMLArkProps<'span'>;
-type TagEndElementProps = HTMLArkProps<'span'>;
-type TagCloseTriggerProps = HTMLArkProps<'button'>;
 
-const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
+const Tag = forwardRef<HTMLSpanElement, TagRootProps>(function Tag(
   { className, size = 'md', variant = 'default', ...props },
   ref,
 ) {
@@ -35,7 +31,7 @@ const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
   );
 });
 
-const TagLabel = forwardRef<HTMLSpanElement, TagLabelProps>(function TagLabel(
+const TagLabel = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function TagLabel(
   { className, ...props },
   ref,
 ) {
@@ -51,7 +47,7 @@ const TagLabel = forwardRef<HTMLSpanElement, TagLabelProps>(function TagLabel(
   );
 });
 
-const TagStartElement = forwardRef<HTMLSpanElement, TagStartElementProps>(function TagStartElement(
+const TagStartElement = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function TagStartElement(
   { className, ...props },
   ref,
 ) {
@@ -67,7 +63,7 @@ const TagStartElement = forwardRef<HTMLSpanElement, TagStartElementProps>(functi
   );
 });
 
-const TagEndElement = forwardRef<HTMLSpanElement, TagEndElementProps>(function TagEndElement(
+const TagEndElement = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(function TagEndElement(
   { className, ...props },
   ref,
 ) {
@@ -83,37 +79,23 @@ const TagEndElement = forwardRef<HTMLSpanElement, TagEndElementProps>(function T
   );
 });
 
-const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton>, TagCloseTriggerProps>(
-  function TagCloseTrigger(
-    {
-      asChild,
-      className,
-      children,
-      'aria-label': ariaLabel,
-      'aria-labelledby': ariaLabelledBy,
-      ...props
-    },
-    ref,
-  ) {
+const TagCloseTrigger = forwardRef<ComponentRef<typeof CloseButton>, HTMLArkProps<'button'>>(
+  function TagCloseTrigger({ className, 'aria-label': ariaLabel, ...props }, ref) {
     return (
       <CloseButton
         ref={ref}
-        asChild={asChild}
         {...props}
         data-scope="tag"
         data-part="close-trigger"
         data-slot="tag-close-trigger"
         aria-label={
-          ariaLabel ??
-          (!asChild && children == null && ariaLabelledBy == null ? a11yLabels.closeTag : undefined)
+          ariaLabel ?? (props['aria-labelledby'] == null ? a11yLabels.closeTag : undefined)
         }
-        aria-labelledby={ariaLabelledBy}
         className={clsx(styles.closeTrigger, className)}
-      >
-        {children}
-      </CloseButton>
+      />
     );
   },
 );
 
 export { Tag, TagCloseTrigger, TagEndElement, TagLabel, TagStartElement };
+export type { TagRootProps, TagSize, TagVariant };

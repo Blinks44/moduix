@@ -30,6 +30,22 @@ const commands = createListCollection({
   items: [{ label: 'Open settings', value: 'settings' }],
 });
 
+function measureItemRow() {
+  const item = document.querySelector<HTMLElement>('[data-slot="command-palette-item"]')!;
+  const text = document.querySelector('[data-slot="command-palette-item-text"]')!;
+  const meta = document.querySelector('[data-slot="command-palette-item-meta"]')!;
+  // The content may still be scaling in, so measure in the item's own coordinates.
+  const box = item.getBoundingClientRect();
+  const scale = box.width / item.offsetWidth;
+  const offset = (x: number) => (x - box.left) / scale;
+  const contentEnd = item.offsetWidth - Number.parseFloat(getComputedStyle(item).paddingRight);
+
+  return {
+    overlap: offset(text.getBoundingClientRect().right) > offset(meta.getBoundingClientRect().left),
+    metaAtEnd: Math.abs(offset(meta.getBoundingClientRect().right) - contentEnd) <= 1,
+  };
+}
+
 const commandPaletteComponents = {
   CommandPalette,
   CommandPaletteCombobox,
@@ -358,4 +374,84 @@ test('renders and hydrates command-palette without replacing server hosts or IDs
     app.unmount();
     host.remove();
   }
+});
+
+test('keeps item meta at the row end without overlapping a long label when there is no icon', async () => {
+  const Harness = defineComponent({
+    components: {
+      CommandPalette,
+      CommandPaletteCombobox,
+      CommandPaletteItem,
+      CommandPaletteItemLabel,
+      CommandPaletteItemMeta,
+      CommandPaletteItemText,
+      CommandPaletteList,
+      CommandPalettePanel,
+    } as unknown as Record<string, Component>,
+    setup() {
+      return {
+        collection: commands,
+        itemValue: commands.items[0],
+        longLabel:
+          'A long command label that has to be truncated before the trailing shortcut. '.repeat(3),
+      };
+    },
+    template:
+      '<CommandPalette default-open aria-label="Command palette" :portalled="false"><CommandPalettePanel><CommandPaletteCombobox :collection="collection"><CommandPaletteList><CommandPaletteItem :item="itemValue"><CommandPaletteItemText><CommandPaletteItemLabel>{{ longLabel }}</CommandPaletteItemLabel></CommandPaletteItemText><CommandPaletteItemMeta>Ctrl K</CommandPaletteItemMeta></CommandPaletteItem></CommandPaletteList></CommandPaletteCombobox></CommandPalettePanel></CommandPalette>',
+  });
+
+  render(Harness);
+
+  await expect.element(page.getByRole('option')).toBeVisible();
+  expect(measureItemRow()).toEqual({ overlap: false, metaAtEnd: true });
+});
+
+test('toggles a RootProvider palette from the shortcut', async () => {
+  const Harness = defineComponent({
+    components: {
+      CommandPalettePanel,
+      CommandPaletteRootProvider,
+      CommandPaletteTitle,
+    } as unknown as Record<string, Component>,
+    setup() {
+      return { dialog: useDialog() };
+    },
+    template:
+      '<div><button type="button">Shortcut target</button><CommandPaletteRootProvider :value="dialog" :portalled="false" shortcut="alt+k"><CommandPalettePanel><CommandPaletteTitle>Provider palette</CommandPaletteTitle></CommandPalettePanel></CommandPaletteRootProvider></div>',
+  });
+
+  render(Harness);
+
+  await page.getByRole('button', { name: 'Shortcut target', exact: true }).press('Alt+k');
+  await expect
+    .element(page.getByRole('dialog', { name: 'Provider palette', exact: true }))
+    .toBeVisible();
+
+  await page.getByRole('dialog').press('Alt+k');
+  await expect
+    .element(page.getByRole('dialog', { name: 'Provider palette', exact: true }))
+    .toHaveCount(0);
+});
+
+test('renders a decorative search icon before the input', async () => {
+  const Harness = defineComponent({
+    components: {
+      CommandPalette,
+      CommandPaletteCombobox,
+      CommandPalettePanel,
+      CommandPaletteSearch,
+    } as unknown as Record<string, Component>,
+    setup() {
+      return { collection: commands };
+    },
+    template:
+      '<CommandPalette default-open aria-label="Command palette" :portalled="false"><CommandPalettePanel><CommandPaletteCombobox :collection="collection"><CommandPaletteSearch /></CommandPaletteCombobox></CommandPalettePanel></CommandPalette>',
+  });
+
+  render(Harness);
+  await screen.findByRole('dialog', { name: 'Command palette' });
+
+  const icon = document.querySelector('[data-slot="command-palette-search-icon"]');
+  expect(icon?.getAttribute('aria-hidden')).toBe('true');
+  expect(icon?.nextElementSibling?.getAttribute('data-slot')).toBe('command-palette-input');
 });

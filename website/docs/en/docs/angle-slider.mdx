@@ -5,36 +5,6 @@ description: A circular control for selecting an angle between 0 and 360 degrees
 ---
 
 import * as AngleSliderDocs from '@/components/examples/angle-slider/css-properties';
-import AngleSliderAdvancedCustomization from '@/components/examples/angle-slider/advanced-customization.tsx';
-import AngleSliderBasic from '@/components/examples/angle-slider/basic.tsx';
-import AngleSliderControlled from '@/components/examples/angle-slider/controlled.tsx';
-import AngleSliderDisabled from '@/components/examples/angle-slider/disabled.tsx';
-import AngleSliderForm from '@/components/examples/angle-slider/form.tsx';
-import AngleSliderInvalid from '@/components/examples/angle-slider/invalid.tsx';
-import AngleSliderReadOnly from '@/components/examples/angle-slider/read-only.tsx';
-import AngleSliderRootProvider from '@/components/examples/angle-slider/root-provider.tsx';
-import AngleSliderSteps from '@/components/examples/angle-slider/steps.tsx';
-import AngleSliderWithMarks from '@/components/examples/angle-slider/with-marks.tsx';
-import angleSliderSolidAdvancedCustomization from '../../../snippets/angle-slider/solid/advanced-customization.tsx?raw';
-import angleSliderSolidBasic from '../../../snippets/angle-slider/solid/basic.tsx?raw';
-import angleSliderSolidControlled from '../../../snippets/angle-slider/solid/controlled.tsx?raw';
-import angleSliderSolidDisabled from '../../../snippets/angle-slider/solid/disabled.tsx?raw';
-import angleSliderSolidForm from '../../../snippets/angle-slider/solid/form.tsx?raw';
-import angleSliderSolidInvalid from '../../../snippets/angle-slider/solid/invalid.tsx?raw';
-import angleSliderSolidReadOnly from '../../../snippets/angle-slider/solid/read-only.tsx?raw';
-import angleSliderSolidRootProvider from '../../../snippets/angle-slider/solid/root-provider.tsx?raw';
-import angleSliderSolidSteps from '../../../snippets/angle-slider/solid/steps.tsx?raw';
-import angleSliderSolidWithMarks from '../../../snippets/angle-slider/solid/with-marks.tsx?raw';
-import angleSliderVueAdvancedCustomization from '../../../snippets/angle-slider/vue/advanced-customization.vue?raw';
-import angleSliderVueBasic from '../../../snippets/angle-slider/vue/basic.vue?raw';
-import angleSliderVueControlled from '../../../snippets/angle-slider/vue/controlled.vue?raw';
-import angleSliderVueDisabled from '../../../snippets/angle-slider/vue/disabled.vue?raw';
-import angleSliderVueForm from '../../../snippets/angle-slider/vue/form.vue?raw';
-import angleSliderVueInvalid from '../../../snippets/angle-slider/vue/invalid.vue?raw';
-import angleSliderVueReadOnly from '../../../snippets/angle-slider/vue/read-only.vue?raw';
-import angleSliderVueRootProvider from '../../../snippets/angle-slider/vue/root-provider.vue?raw';
-import angleSliderVueSteps from '../../../snippets/angle-slider/vue/steps.vue?raw';
-import angleSliderVueWithMarks from '../../../snippets/angle-slider/vue/with-marks.vue?raw';
 
 ## API Reference
 
@@ -56,46 +26,7 @@ fills from the top as the angle grows. `AngleSlider` accepts one angle
 from 0 to 360 degrees. Add a visible `AngleSliderLabel` when possible. If the dial has no visible label, add
 `aria-label` to the root.
 
-<ExampleFrame variant="component">
-  <AngleSliderBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/angle-slider/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={angleSliderSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={angleSliderVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/angle-slider/angle-slider-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="angle-slider/basic" />
 
 ## Install with shadcn
 
@@ -140,10 +71,10 @@ See [Quick Start](/docs/quick-start) for full package setup, registry configurat
 AngleSlider
 ├─ AngleSliderLabel
 ├─ AngleSliderDial
+│  ├─ AngleSliderMarks (optional)
+│  │  └─ AngleSliderMarker[value]
 │  ├─ AngleSliderValueText
 │  └─ AngleSliderThumb
-├─ AngleSliderMarks (optional)
-│  └─ AngleSliderMarker[value]
 └─ AngleSliderHiddenInput (explicit)
 
 AngleSliderRootProvider
@@ -185,228 +116,33 @@ tree, or set `form` on `AngleSliderHiddenInput` when the form is elsewhere.
 
 Use controlled state when the angle needs to stay synchronized with application state.
 
-<ExampleFrame variant="component">
-  <AngleSliderControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/angle-slider/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={angleSliderSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={angleSliderVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/angle-slider/angle-slider-controlled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="angle-slider/controlled" />
 
 ### Disabled
 
 Use `disabled` when the control should be unavailable and excluded from focus and interaction.
 
-<ExampleFrame variant="component">
-  <AngleSliderDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/angle-slider/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={angleSliderSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={angleSliderVueDisabled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/angle-slider/angle-slider-disabled.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="angle-slider/disabled" />
 
 ### In a Form
 
 Add `AngleSliderHiddenInput` and `name` to include the angle in native form submission. Set `form`
 on `AngleSliderHiddenInput` when the form is not an ancestor of the slider.
 
-<ExampleFrame variant="component">
-  <AngleSliderForm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/angle-slider/form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={angleSliderSolidForm} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={angleSliderVueForm} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/angle-slider/angle-slider-form.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="angle-slider/form" />
 
 ### Invalid
 
 Use `invalid` when the selected angle fails validation. The dial then exposes error styling and the
 corresponding ARIA state without changing its interaction model.
 
-<ExampleFrame variant="component">
-  <AngleSliderInvalid />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/angle-slider/invalid.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={angleSliderSolidInvalid} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={angleSliderVueInvalid} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/angle-slider/angle-slider-invalid.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="angle-slider/invalid" />
 
 ### Read Only
 
 Use `readOnly` when the current value should remain focusable and visible but not editable.
 
-<ExampleFrame variant="component">
-  <AngleSliderReadOnly />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/angle-slider/read-only.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={angleSliderSolidReadOnly} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={angleSliderVueReadOnly} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/angle-slider/angle-slider-read-only.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="angle-slider/read-only" />
 
 ### Root Provider
 
@@ -414,91 +150,13 @@ Use `useAngleSlider()` from the matching framework package with `AngleSliderRoot
 another component needs direct access to the same state machine. The external state can then drive
 surrounding UI.
 
-<ExampleFrame variant="component">
-  <AngleSliderRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/angle-slider/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={angleSliderSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={angleSliderVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/angle-slider/angle-slider-root-provider.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="angle-slider/root-provider" />
 
 ### Steps
 
 Use `step` to snap pointer and keyboard interaction to fixed angular increments.
 
-<ExampleFrame variant="component">
-  <AngleSliderSteps />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/angle-slider/steps.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={angleSliderSolidSteps} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={angleSliderVueSteps} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/angle-slider/angle-slider-steps.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="angle-slider/steps" />
 
 ### With Marks
 
@@ -507,92 +165,14 @@ Use `AngleSliderMarks` when the dial should show common reference angles without
 `AngleSliderControl` and `AngleSliderThumb`
 composition together.
 
-<ExampleFrame variant="component">
-  <AngleSliderWithMarks />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/angle-slider/with-marks.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={angleSliderSolidWithMarks} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={angleSliderVueWithMarks} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/angle-slider/angle-slider-with-marks.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="angle-slider/with-marks" />
 
 ### Advanced Customization
 
 Use the explicit parts instead of `AngleSliderDial` and `AngleSliderMarks` when the dial needs a
 custom marker composition or extra children inside the control.
 
-<ExampleFrame variant="component">
-  <AngleSliderAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/angle-slider/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={angleSliderSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={angleSliderVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/angle-slider/angle-slider-advanced-customization.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="angle-slider/advanced-customization" />
 
 ## Styling
 

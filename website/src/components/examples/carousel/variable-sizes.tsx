@@ -46,12 +46,12 @@ export default function VariableSizeCarousel() {
       spacing="var(--moduix-spacing-3)"
       padding="var(--moduix-spacing-4)"
     >
-      <CarouselControl className={styles.control}>
+      <CarouselControl>
         <CarouselPrevTrigger />
         <CarouselNextTrigger />
       </CarouselControl>
 
-      <CarouselItemGroup className={styles.itemGroup} aria-label="Variable size gallery">
+      <CarouselItemGroup>
         {slides.map((slide, index) => (
           <CarouselItem key={slide.id} index={index} snapAlign="center">
             <img

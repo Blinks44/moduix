@@ -10,6 +10,6 @@ test('renders FileUpload anatomy without browser globals', async () => {
   expect(html).toContain('data-slot="file-upload-root"');
   expect(html).toContain('data-slot="file-upload-dropzone-icon"');
   expect(html).toContain('type="file"');
-  expect(html).toContain('aria-label="Clear files"');
+  expect(html).toContain('data-slot="file-upload-clear-trigger"');
   expect(html).toContain('moduix.txt');
 });

@@ -23,7 +23,7 @@ export default function AngleSliderFormDemo() {
 
   return (
     <form className={styles.layout} onSubmit={handleSubmit}>
-      <AngleSlider defaultValue={135} aria-label="Rotation" name="rotation" className={styles.root}>
+      <AngleSlider defaultValue={135} name="rotation">
         <AngleSliderLabel>Rotation</AngleSliderLabel>
         <AngleSliderDial>
           <AngleSliderMarks values={markerValues} />

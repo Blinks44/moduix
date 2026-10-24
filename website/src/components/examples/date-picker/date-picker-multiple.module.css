@@ -3,20 +3,17 @@
 }
 
 .selectedDates {
-  box-sizing: border-box;
   display: flex;
   width: 100%;
-  min-height: var(--moduix-date-picker-control-height, var(--moduix-size-md));
+  min-height: var(--moduix-size-md);
   flex-wrap: wrap;
   align-items: center;
   gap: var(--moduix-spacing-1);
-  border: var(--moduix-date-picker-border-width, var(--moduix-border-width-sm)) solid
-    var(--moduix-date-picker-border-color, var(--moduix-color-border));
-  border-radius: var(--moduix-date-picker-radius, var(--moduix-radius-md));
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
   padding-block: var(--moduix-spacing-1);
-  padding-inline: var(--moduix-date-picker-input-padding-x-start, 0.875rem)
-    var(--moduix-date-picker-input-padding-x-end, 4.25rem);
-  background: var(--moduix-date-picker-bg, var(--moduix-color-background));
+  padding-inline: var(--moduix-spacing-3-5) 4.25rem;
+  background: var(--moduix-color-background);
 }
 
 .selectedDate,
@@ -37,7 +34,7 @@
 }
 
 .placeholder {
-  color: var(--moduix-date-picker-placeholder-color, var(--moduix-color-muted-foreground));
+  color: var(--moduix-color-muted-foreground);
 }
 
 .remove {

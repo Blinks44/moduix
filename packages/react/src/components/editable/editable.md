@@ -32,9 +32,12 @@ Ark parts exposed by moduix are `Editable`, `EditableRootProvider`, `EditableLab
   `translations`, `ids`, `name`, `form`, `disabled`, `readOnly`, `invalid`, and `required` are
   forwarded directly to Ark.
 - The wrapper adds visual styling, stable `data-slot` hooks, and default icons for edit, submit,
-  and cancel triggers. The default layout places `Control` to the right of `Area` and centers it
-  next to single-line input surfaces; textarea compositions can set
-  `--moduix-editable-control-align: start` to top-align controls with the multiline surface.
+  and cancel triggers. The root is a two-column grid that fills its container; `Control` sits to the
+  right of `Area` and is top-aligned, which matches single-line inputs and keeps controls at the top
+  of a textarea. With `autoResize` the root shrinks to the text width.
+- Trigger parts drop their own square styling under `asChild`, so a composed `Button` keeps its look.
+- Disabled state dims the root once; triggers do not add their own opacity, and the root does not dim
+  again inside a disabled `Field` / `Fieldset`.
 - `EditableControls` forwards its ref to the underlying `EditableControl` element.
 
 ## Anatomy and exported parts
@@ -167,35 +170,20 @@ Ark also exposes `data-scope="editable"` and `data-part` attributes for part-lev
 
 ## Defaults and styling
 
-The editable area and its square edit trigger share the `--moduix-size-md` baseline; the area uses `--moduix-spacing-1` block padding.
+The editable area and its square triggers share `--moduix-editable-area-height`
+(default `--moduix-size-md`). The preview keeps line breaks (`white-space: pre-wrap`) and wraps
+long unbroken values. Keyboard focus on the preview shows the same ring as editing.
 
 All exported parts accept `className`; Ark parts also support `asChild`. Trigger parts render the
 moduix pencil, check, or close icon when `children` is omitted.
 
-Public CSS variables:
-
-- Layout: `--moduix-editable-gap`, `--moduix-editable-width`, `--moduix-editable-max-width`,
-  `--moduix-editable-area-width`, `--moduix-editable-area-height`, `--moduix-editable-radius`.
-- Text: `--moduix-editable-color`, `--moduix-editable-font-size`, `--moduix-editable-line-height`,
-  `--moduix-editable-placeholder-color`, `--moduix-editable-preview-min-height`.
-- Label: `--moduix-editable-label-gap`, `--moduix-editable-label-color`,
-  `--moduix-editable-label-color-invalid`, `--moduix-editable-label-font-size`,
-  `--moduix-editable-label-line-height`, `--moduix-editable-label-font-weight`.
-- Surface: `--moduix-editable-bg`, `--moduix-editable-border-width`, `--moduix-editable-border-style`,
-  `--moduix-editable-border-color`, `--moduix-editable-border-color-invalid`, `--moduix-editable-padding-x`,
-  `--moduix-editable-padding-y`, `--moduix-editable-focus-ring-width`, `--moduix-editable-focus-ring-color`,
-  `--moduix-editable-transition`, `--moduix-editable-disabled-opacity`.
-- Controls: `--moduix-editable-control-align`, `--moduix-editable-control-gap`, `--moduix-editable-trigger-size`,
-  `--moduix-editable-trigger-bg`, `--moduix-editable-trigger-bg-hover`, `--moduix-editable-trigger-bg-active`,
-  `--moduix-editable-trigger-color`, `--moduix-editable-trigger-border-width`, `--moduix-editable-trigger-border-style`,
-  `--moduix-editable-trigger-border-color`, `--moduix-editable-trigger-radius`,
-  `--moduix-editable-trigger-icon-size`.
-- Textarea: `--moduix-editable-textarea-min-height`, `--moduix-editable-textarea-resize`.
+Public CSS variable: `--moduix-editable-area-height`. Everything else is customized with a regular
+class on the part (component styles live in `@layer moduix.components`).
 
 ## Intentional sugar and differences from upstream
 
 moduix adds visual defaults, stable `data-slot` hooks, default trigger icons, right-side control
-layout with configurable vertical alignment, `activationMode="dblclick"` on `Editable`, and
+layout, `activationMode="dblclick"` on `Editable`, and
 `EditableControls` for the standard trigger flow. `EditableContext`, `useEditable`, and
 `useEditableContext` are re-exported through moduix for advanced state access. moduix does not add
 variants, sizes, callback adapters, or high-level state props over Ark behavior.
@@ -209,6 +197,11 @@ with `:has(...)`. Docs examples must import from `moduix`, not from the componen
 `packages/react/src/components/editable`.
 
 ## Local changelog
+
+- 2026-10-16: Root fills its container (no width jump between preview and input), long values
+  wrap, controls top-align, disabled state dims once (also inside `Field`), triggers skip their styles
+  under `asChild`, preview keyboard focus shows the ring. CSS variables reduced from 43 to
+  `--moduix-editable-area-height`. React and Solid re-export Ark types.
 
 - 2026-07-27: Made `EditableControls` ref-compatible with `EditableControl`, added focused
   interaction coverage, and kept public examples self-contained for forms and state variants.

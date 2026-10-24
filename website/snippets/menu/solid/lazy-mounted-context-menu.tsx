@@ -15,7 +15,7 @@ export default function ContextLazyMountMenuDemo() {
         Right click lazy mounted content
       </MenuContextTrigger>
       <MenuPositioner>
-        <MenuContent class={styles.content}>
+        <MenuContent>
           <MenuViewport>
             <MenuItem value="cut">Cut</MenuItem>
             <MenuItem value="copy">Copy</MenuItem>

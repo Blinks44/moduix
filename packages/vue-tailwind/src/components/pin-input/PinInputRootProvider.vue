@@ -4,15 +4,17 @@ import type { PinInputRootProviderProps } from '@ark-ui/vue/pin-input';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
+import type { PinInputSize } from './PinInput.vue';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ PinInputRootProviderProps {
   class?: HTMLAttributes['class'];
+  size?: PinInputSize;
   value: PinInputRootProviderProps['value'];
 }
 
-const { class: className, value } = defineProps<Props>();
+const { class: className, size = 'md', value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -23,10 +25,11 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'inline-flex w-auto max-w-none flex-col items-start gap-2 data-disabled:opacity-50',
+        'group/pin-input inline-flex flex-col items-start gap-2 text-foreground data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
         className,
       )
     "
+    :data-size="size"
     :value="value"
     data-slot="pin-input-root-provider"
   >

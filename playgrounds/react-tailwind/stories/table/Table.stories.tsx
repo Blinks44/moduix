@@ -196,7 +196,7 @@ export const SizesAndVariants: Story = {
         <TableScrollArea key={size}>
           <Table
             size={size}
-            variant={size === 'md' ? 'outline' : 'line'}
+
             className={tableClassName}
           >
             <TableCaption side="top">{size.toUpperCase()} project summary</TableCaption>
@@ -229,9 +229,9 @@ export const ColumnGroupAndBorders: Story = {
       <TableScrollArea>
         <Table showColumnBorder className={tableClassName}>
           <TableColumnGroup>
-            <TableColumn htmlWidth="42%" />
-            <TableColumn htmlWidth="28%" />
-            <TableColumn htmlWidth="30%" />
+            <TableColumn width="42%" />
+            <TableColumn width="28%" />
+            <TableColumn width="30%" />
           </TableColumnGroup>
           <TableHeader>
             <TableRow>

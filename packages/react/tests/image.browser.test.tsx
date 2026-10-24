@@ -124,3 +124,26 @@ test('defaults local images to lazy loading and async decoding', () => {
   expect(image.getAttribute('decoding')).toBe('async');
   expect(image.hasAttribute('fetchpriority')).toBe(false);
 });
+
+test('keeps Unpic-only props off images without a CDN and applies their layout', () => {
+  render(
+    <Image
+      src="/__info-new/assets/photo.webp"
+      alt="Local photo"
+      layout="fixed"
+      width={192}
+      height={256}
+      priority
+      background="#eee"
+    />,
+  );
+  const image = screen.getByAltText('Local photo');
+
+  for (const name of ['layout', 'priority', 'background', 'aspectratio', 'unstyled']) {
+    expect(image.hasAttribute(name)).toBe(false);
+  }
+  expect(image.getAttribute('loading')).toBe('eager');
+  expect(image.getAttribute('fetchpriority')).toBe('high');
+  expect(image.style.width).toBe('192px');
+  expect(image.style.height).toBe('256px');
+});

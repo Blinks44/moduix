@@ -27,7 +27,7 @@ const editable = useEditable({
       </EditableArea>
       <EditableControls />
     </EditableRootProvider>
-    <div :class="styles.meta" data-preview-meta>
+    <div data-preview-meta>
       <Button type="button" size="sm" @click="editable.edit()">Edit</Button>
     </div>
   </div>

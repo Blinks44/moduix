@@ -32,8 +32,8 @@ event handlers and render functions belong in a client composition.
 - `variant`, `size`, and `loading` are the local root props. `variant` and `size` map to
   `data-variant` and `data-size`; `loading` sets `data-loading`, `aria-busy`, and the disabled
   styling path.
-- The package exports only the `Button` value. Derive its props with
-  `React.ComponentProps<typeof Button>` when a wrapper needs them.
+- The package exports the `Button` value and the `ButtonRootProps`, `ButtonSize`, and
+  `ButtonVariant` types.
 - Native roots default to `type="button"`; pass `type="submit"` explicitly for form submission.
 - `disabled`, `aria-disabled="true"`, and `loading` expose `data-disabled` and prevent click
   activation.
@@ -140,70 +140,28 @@ the movement. This keeps InputGroupButton, SplitButton, and trigger compositions
 | `asChild`   | `false`   | Ark factory composition                                                                  |
 | `className` | -         | Applied to the root                                                                      |
 
-Primary CSS variables:
+Public CSS variables (CSS Modules packages):
 
-| Variable                                                          | Default/fallback                                                                              |
-| ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `--moduix-button-border-width`                                    | `var(--moduix-border-width-sm)`                                                               |
-| `--moduix-button-color`                                           | `var(--moduix-color-foreground)`                                                              |
-| `--moduix-button-content-gap`                                     | `var(--moduix-spacing-2)`                                                                     |
-| `--moduix-button-default-bg`                                      | `var(--moduix-color-primary)`                                                                 |
-| `--moduix-button-default-bg-hover`                                | `color-mix(in srgb, var(--moduix-button-default-bg, var(--moduix-color-primary)) 88%, black)` |
-| `--moduix-button-default-border-color`                            | `var(--moduix-color-primary)`                                                                 |
-| `--moduix-button-default-color`                                   | `var(--moduix-color-primary-foreground)`                                                      |
-| `--moduix-button-destructive-bg`                                  | `var(--moduix-color-destructive)`                                                             |
-| `--moduix-button-destructive-border-color`                        | `var(--moduix-color-destructive)`                                                             |
-| `--moduix-button-destructive-color`                               | `var(--moduix-color-destructive-foreground)`                                                  |
-| `--moduix-button-destructive-hover-brightness`                    | `0.96`                                                                                        |
-| `--moduix-button-destructive-outline-bg`                          | `var(--moduix-color-background)`                                                              |
-| `--moduix-button-destructive-outline-bg-hover`                    | `var(--moduix-color-destructive)`                                                             |
-| `--moduix-button-destructive-outline-border-color`                | `var(--moduix-color-destructive)`                                                             |
-| `--moduix-button-destructive-outline-color`                       | `var(--moduix-color-destructive)`                                                             |
-| `--moduix-button-destructive-outline-color-hover`                 | `var(--moduix-button-destructive-color, var(--moduix-color-destructive-foreground))`          |
-| `--moduix-button-disabled-opacity`                                | `var(--moduix-opacity-disabled)`                                                              |
-| `--moduix-button-focus-ring-color`                                | `var(--moduix-color-ring)`                                                                    |
-| `--moduix-button-focus-ring-offset`                               | `var(--moduix-button-border-width, var(--moduix-border-width-sm))`                            |
-| `--moduix-button-focus-ring-width`                                | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`                               |
-| `--moduix-button-font-size`                                       | `var(--moduix-text-sm)`                                                                       |
-| `--moduix-button-font-size-xs` / `--moduix-button-line-height-xs` | `var(--moduix-text-xs)` / `var(--moduix-line-height-text-xs)`                                 |
-| `--moduix-button-font-size-sm` / `--moduix-button-line-height-sm` | `var(--moduix-text-sm)` / `var(--moduix-line-height-text-sm)`                                 |
-| `--moduix-button-font-size-md` / `--moduix-button-line-height-md` | `var(--moduix-text-sm)` / `var(--moduix-line-height-text-sm)`                                 |
-| `--moduix-button-font-size-lg` / `--moduix-button-line-height-lg` | `var(--moduix-text-md)` / `var(--moduix-line-height-text-md)`                                 |
-| `--moduix-button-font-size-xl` / `--moduix-button-line-height-xl` | `var(--moduix-text-lg)` / `var(--moduix-line-height-text-lg)`                                 |
-| `--moduix-button-font-weight`                                     | `var(--moduix-weight-medium)`                                                                 |
-| `--moduix-button-ghost-bg`                                        | `transparent`                                                                                 |
-| `--moduix-button-ghost-bg-hover`                                  | `var(--moduix-color-accent)`                                                                  |
-| `--moduix-button-ghost-border-color`                              | `transparent`                                                                                 |
-| `--moduix-button-ghost-color`                                     | `var(--moduix-color-foreground)`                                                              |
-| `--moduix-button-icon-size`                                       | `var(--moduix-spacing-4)`                                                                     |
-| `--moduix-button-line-height`                                     | `var(--moduix-line-height-text-sm)`                                                           |
-| `--moduix-button-link-color`                                      | `var(--moduix-color-primary)`                                                                 |
-| `--moduix-button-link-color-hover`                                | `var(--moduix-color-foreground)`                                                              |
-| `--moduix-button-link-text-decoration`                            | `underline`                                                                                   |
-| `--moduix-button-link-underline-offset`                           | `0.25em`                                                                                      |
-| `--moduix-button-outline-bg`                                      | `var(--moduix-color-background)`                                                              |
-| `--moduix-button-outline-bg-hover`                                | `var(--moduix-color-accent)`                                                                  |
-| `--moduix-button-outline-border-color`                            | `var(--moduix-color-border)`                                                                  |
-| `--moduix-button-outline-color`                                   | `var(--moduix-color-foreground)`                                                              |
-| `--moduix-button-padding-x-xs` / `--moduix-button-padding-y-xs`   | `var(--moduix-spacing-2-5)` / `var(--moduix-spacing-0-5)`                                     |
-| `--moduix-button-padding-x-sm` / `--moduix-button-padding-y-sm`   | `var(--moduix-spacing-3)` / `var(--moduix-spacing-1)`                                         |
-| `--moduix-button-padding-x-md` / `--moduix-button-padding-y-md`   | `var(--moduix-spacing-4)` / `var(--moduix-spacing-1)`                                         |
-| `--moduix-button-padding-x-lg` / `--moduix-button-padding-y-lg`   | `var(--moduix-spacing-5)` / `var(--moduix-spacing-1-5)`                                       |
-| `--moduix-button-padding-x-xl` / `--moduix-button-padding-y-xl`   | `var(--moduix-spacing-6)` / `var(--moduix-spacing-2)`                                         |
-| `--moduix-button-radius`                                          | `var(--moduix-radius-md)`                                                                     |
-| `--moduix-button-secondary-bg`                                    | `var(--moduix-color-secondary)`                                                               |
-| `--moduix-button-secondary-bg-hover`                              | `var(--moduix-color-accent)`                                                                  |
-| `--moduix-button-secondary-border-color`                          | `var(--moduix-color-secondary)`                                                               |
-| `--moduix-button-secondary-color`                                 | `var(--moduix-color-secondary-foreground)`                                                    |
-| `--moduix-button-size-icon-sm`                                    | `var(--moduix-size-sm)`                                                                       |
-| `--moduix-button-size-icon-md`                                    | `var(--moduix-size-md)`                                                                       |
-| `--moduix-button-size-icon-lg`                                    | `var(--moduix-size-lg)`                                                                       |
-| `--moduix-button-size-xs`                                         | `var(--moduix-size-xs)`                                                                       |
-| `--moduix-button-size-sm`                                         | `var(--moduix-size-sm)`                                                                       |
-| `--moduix-button-size-md`                                         | `var(--moduix-size-md)`                                                                       |
-| `--moduix-button-size-lg`                                         | `var(--moduix-size-lg)`                                                                       |
-| `--moduix-button-size-xl`                                         | `var(--moduix-size-xl)`                                                                       |
-| `--moduix-button-transition`                                      | `var(--moduix-transition-fast)`                                                               |
+| Variable                       | Default/fallback                                                               |
+| ------------------------------ | ------------------------------------------------------------------------------ |
+| `--moduix-button-bg`           | Variant-specific; `var(--moduix-color-primary)` for `default`                  |
+| `--moduix-button-bg-hover`     | Variant-specific; filled variants mix `--moduix-button-bg` 88% with black      |
+| `--moduix-button-border-color` | Variant-specific; filled variants follow `--moduix-button-bg`                  |
+| `--moduix-button-border-width` | `var(--moduix-border-width-sm)`                                                |
+| `--moduix-button-color`        | Variant-specific; `var(--moduix-color-primary-foreground)` for `default`       |
+| `--moduix-button-content-gap`  | `var(--moduix-spacing-2)`                                                      |
+| `--moduix-button-font-size`    | Size-specific; `var(--moduix-text-sm)` for `md`                                |
+| `--moduix-button-font-weight`  | `var(--moduix-weight-medium)`                                                  |
+| `--moduix-button-height`       | Size-specific; `var(--moduix-size-md)` for `md`; also the `icon-*` square side |
+| `--moduix-button-icon-size`    | `var(--moduix-spacing-4)`                                                      |
+| `--moduix-button-line-height`  | Size-specific; `var(--moduix-line-height-text-sm)` for `md`                    |
+| `--moduix-button-padding-x`    | Size-specific; `var(--moduix-spacing-4)` for `md`                              |
+| `--moduix-button-padding-y`    | Size-specific; `var(--moduix-spacing-1)` for `md`                              |
+| `--moduix-button-radius`       | `var(--moduix-radius-md)`                                                      |
+
+Variant and size defaults live in private `--_button-*` properties. To theme one variant across the
+application, set the public variables on `[data-slot='button-root'][data-variant='<variant>']`. Focus
+ring, transition, and disabled opacity use foundation tokens directly.
 
 ## Intentional sugar and differences from upstream
 
@@ -220,56 +178,20 @@ Primary CSS variables:
 
 - Keep the wrapper root-only unless a real multi-part button contract appears.
 - Keep `variant` and `size` synchronized across `Button.tsx`, CSS, stories, docs, and theme tokens.
+- Keep the public variables generic (no per-variant or per-size names); other components no longer read
+  `--moduix-button-*` colors or sizes, only the shared border, radius, font, gap, and icon variables.
 - Preserve the native-root `type="button"` default and do not forward that default through
   `asChild`.
 - Keep `data-disabled` synchronized with native `disabled`, `aria-disabled`, and `loading`.
 - Keep native `disabled` off `asChild` hosts; preserve `aria-disabled`, `aria-busy`, and
   `data-disabled` there instead.
 - Keep the disabled click capture guard: Ark composes a child's bubble handler before the wrapper's
-  bubble handler, so the guard must stop composed activation before the target phase.
+  bubble handler, so the guard must stop composed activation before the target phase. Stopping
+  propagation in the capture phase also skips every bubble listener on the target, including the
+  wrapper's own `onClick`, so no second bubble guard is needed.
 - Keep `loading` narrow: it owns busy/disabled state only, not spinner structure or loading text.
 - Keep the `data-slot` default as `button-root`, but preserve the narrow override path for composed
   wrappers that need their own stable slot.
 - Preserve incoming `data-scope` and `data-part` so Ark trigger composition keeps parent anatomy;
   do not move styling dependencies from `data-slot` onto those parent-owned attributes.
 - Do not reintroduce Base button shims or converted prop names.
-
-## Local changelog
-
-- 2026-09-21: Replaced the compound `Button` value surface with the shared flat API across
-  React and Solid. `Button` is now the only root value and the namespaced form is removed.
-- 2026-08-09: Guarded disabled `asChild` activation before composed child click handlers and added
-  focused composition and content-resilience coverage.
-- 2026-07-29: Added `font-size` and `line-height` theme overrides for `sm` and `md` button sizes.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-26: Added subtle press feedback for enabled button variants while keeping links and
-  reduced-motion preferences free of movement.
-- 2026-07-26: Made disabled custom hosts expose `aria-disabled` and prevent click activation, narrowed
-  icon sizing to direct SVG children, and aligned docs with the behavior.
-- 2026-07-21: Normalized the complete control scale to `24/32/36/40/48px` tokens, including icon
-  buttons, and compacted block padding so typography no longer expands a selected size.
-
-- 2026-07-12: Preserved parent Ark `data-scope` and `data-part` values when Button is composed as a
-  trigger child, while retaining passthrough handlers, merged refs, recipe styling, and the stable
-  `data-slot` hook.
-- 2026-08-06: Removed redundant `data-icon` hooks; child composition and root `gap` determine
-  inline icon placement.
-- 2026-07-09: Stopped forcing native `disabled` onto `asChild` hosts and documented the `loading`
-  contract for custom hosts.
-- 2026-07-07: Added narrow `loading` state sugar that sets `data-loading`, `aria-busy`, and the
-  disabled styling path, softened the default hover fallback, and aligned link sizing plus press
-  feedback with the recommended usage contract.
-- 2026-07-02: Removed the public `ButtonRootProps`, `ButtonSize`, and `ButtonVariant` aliases while
-  preserving the callable root and all local variant, size, composition, state, and styling sugar.
-- 2026-06-25: Allowed composed wrappers to override only the root `data-slot` while keeping
-  `data-scope="button"` and `data-part="root"` locked to Button.
-- 2026-06-24: Finalized the Ark factory review by locking the root data hooks after passthrough
-  props, simplifying disabled CSS to the shared `data-disabled` state, and aligning docs with the
-  local-only Ark factory API reference text.
-- 2026-06-18: Restored safe `type="button"` behavior for native roots, added Ark-style
-  `data-disabled`, documented ref forwarding and Chakra recipe coverage, and kept `asChild`
-  free of injected button-only defaults.
-- 2026-06-17: Migrated `Button` from legacy to an Ark-style factory wrapper, added `Button`
-  plus the callable `Button` alias, and replaced `render` / `nativeButton` with `asChild`.
-- 2026-06-17: Switched disabled styling hooks to native `[disabled]` and `[aria-disabled='true']`
-  for the root-only Ark surface.

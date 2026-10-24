@@ -10,8 +10,9 @@ import {
 import { ark, type HTMLArkProps } from '@ark-ui/solid/factory';
 import type { ComponentProps, JSX } from 'solid-js';
 import { children, splitProps } from 'solid-js';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import { cn } from '@/lib/moduix/cn';
-import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import {
   OverlayPortal,
   OverlayPortalProvider,
@@ -19,13 +20,14 @@ import {
 } from '@/lib/moduix/overlayPortal';
 import { CloseButton } from '../close-button';
 
+const rootClass = 'flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground';
+
 type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & OverlayPortalProps;
 type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProviderProps<T> &
   OverlayPortalProps;
 
 function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'lazyMount',
@@ -37,11 +39,7 @@ function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ComboboxPrimitive.Root
-        asChild={local.asChild}
-        class={cn(
-          'box-border flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground',
-          local.class,
-        )}
+        class={cn(rootClass, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
@@ -55,7 +53,6 @@ function Combobox<T extends CollectionItem>(props: ComboboxRootProps<T>) {
 
 function ComboboxRootProvider<T extends CollectionItem>(props: ComboboxRootProviderProps<T>) {
   const [local, others] = splitProps(props, [
-    'asChild',
     'children',
     'class',
     'lazyMount',
@@ -67,11 +64,7 @@ function ComboboxRootProvider<T extends CollectionItem>(props: ComboboxRootProvi
   return (
     <OverlayPortalProvider portalled={local.portalled} portalRef={local.portalRef}>
       <ComboboxPrimitive.RootProvider
-        asChild={local.asChild}
-        class={cn(
-          'box-border flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground',
-          local.class,
-        )}
+        class={cn(rootClass, local.class)}
         lazyMount={local.lazyMount ?? true}
         unmountOnExit={local.unmountOnExit ?? true}
         {...others}
@@ -89,7 +82,7 @@ function ComboboxLabel(props: ComponentProps<typeof ComboboxPrimitive.Label>) {
   return (
     <ComboboxPrimitive.Label
       class={cn(
-        'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-50',
+        'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-disabled',
         local.class,
       )}
       {...others}
@@ -104,7 +97,7 @@ function ComboboxControl(props: ComponentProps<typeof ComboboxPrimitive.Control>
   return (
     <ComboboxPrimitive.Control
       class={cn(
-        'group/combobox-control relative flex w-full min-w-0 items-center rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color] duration-200 ease-in-out data-disabled:opacity-50 data-focus:border-ring data-focus:outline-ring data-invalid:border-destructive data-invalid:outline-destructive data-[state=open]:border-ring data-[state=open]:outline-ring motion-reduce:transition-none',
+        'group/combobox-control relative flex w-full min-w-0 items-center rounded-md border border-border bg-background text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:opacity-disabled data-focus:border-ring data-focus:outline-ring data-invalid:border-destructive data-invalid:outline-destructive data-[state=open]:border-ring data-[state=open]:outline-ring',
         local.class,
       )}
       {...others}
@@ -121,7 +114,7 @@ function ComboboxInput(props: ComponentProps<typeof ComboboxPrimitive.Input>) {
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'm-0 box-border h-control-md w-full min-w-0 rounded-[inherit] border-0 bg-transparent px-3.5 text-inherit outline-0 [font:inherit] group-has-[>[data-slot=combobox-clear-trigger]]/combobox-control:pe-[4.375rem] group-has-[>[data-slot=combobox-trigger]]/combobox-control:pe-11 group-has-[>[data-slot=combobox-clear-trigger]]/combobox-control:group-has-[>[data-slot=combobox-trigger]]/combobox-control:pe-[4.375rem] placeholder:text-muted-foreground',
+          'm-0 h-control-md w-full min-w-0 rounded-[inherit] border-0 bg-transparent px-3.5 text-inherit outline-0 [font:inherit] group-has-[>[data-slot=combobox-clear-trigger]]/combobox-control:pe-11 group-has-[>[data-slot=combobox-trigger]]/combobox-control:pe-11 group-has-[>[data-slot=combobox-clear-trigger]]/combobox-control:group-has-[>[data-slot=combobox-trigger]]/combobox-control:pe-[4.375rem] placeholder:text-muted-foreground',
         local.class,
       )}
       {...others}
@@ -140,7 +133,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
   ]);
   const triggerClass = () =>
     cn(
-      'absolute inset-y-0 end-[2.125rem] my-auto size-control-xs transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none [&>svg]:size-4',
+      'absolute inset-y-0 end-2 my-auto size-control-xs group-has-[>[data-slot=combobox-trigger]]/combobox-control:end-[2.125rem]',
       local.class,
     );
 
@@ -169,7 +162,7 @@ function ComboboxClearTrigger(props: ComponentProps<typeof ComboboxPrimitive.Cle
             {...resolvedProps}
             aria-label={
               local['aria-label'] ??
-              (local['aria-labelledby'] == null ? 'Clear selection' : undefined)
+              (local['aria-labelledby'] == null ? a11yLabels.clearSelection : undefined)
             }
             aria-labelledby={local['aria-labelledby']}
           >
@@ -191,7 +184,7 @@ function ComboboxTrigger(props: ComponentProps<typeof ComboboxPrimitive.Trigger>
   return (
     <ComboboxPrimitive.Trigger
       class={cn(
-        'absolute end-2 top-1/2 m-0 box-border inline-flex size-control-xs shrink-0 -translate-y-1/2 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 [line-height:0] text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default motion-reduce:transition-none [&>svg]:block [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-disabled]):hover]:text-foreground',
+        'absolute end-2 top-1/2 m-0 inline-flex size-control-xs -translate-y-1/2 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color] duration-normal ease-in-out focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring data-disabled:cursor-default [&>svg]:size-4 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-muted [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-foreground',
         local.class,
       )}
       {...others}
@@ -208,7 +201,7 @@ function ComboboxPositioner(props: ComponentProps<typeof ComboboxPrimitive.Posit
   return (
     <OverlayPortal>
       <ComboboxPrimitive.Positioner
-        class={cn('z-[var(--z-index)] outline-0', local.class)}
+        class={cn('z-(--z-index)', local.class)}
         {...others}
         data-slot="combobox-positioner"
       />
@@ -222,7 +215,7 @@ function ComboboxContent(props: ComponentProps<typeof ComboboxPrimitive.Content>
   return (
     <ComboboxPrimitive.Content
       class={cn(
-        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border flex max-h-[min(24rem,var(--available-height))] max-w-[var(--available-width)] min-w-[var(--reference-width)] origin-[var(--transform-origin)] scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
+        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-h-[min(24rem,var(--available-height))] max-w-(--available-width) min-w-(--reference-width) origin-(--transform-origin) scroll-py-1 flex-col overflow-auto overscroll-contain rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         local.class,
       )}
       {...others}
@@ -300,7 +293,7 @@ function ComboboxItem(props: ComponentProps<typeof ComboboxPrimitive.Item>) {
   return (
     <ComboboxPrimitive.Item
       class={cn(
-        'relative mx-1 box-border flex min-h-control-sm w-[calc(100%-0.5rem)] cursor-default items-center justify-between gap-2 rounded-sm border-0 bg-transparent px-3 py-1 text-sm text-popover-foreground outline-0 select-none data-disabled:pointer-events-none data-disabled:text-muted-foreground data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground data-[state=checked]:text-popover-foreground',
+        'relative mx-1 flex min-h-control-sm cursor-default items-center justify-between gap-2 rounded-sm px-3 py-1 text-sm outline-0 select-none data-disabled:pointer-events-none data-disabled:opacity-disabled data-highlighted:bg-accent data-highlighted:text-accent-foreground',
         local.class,
       )}
       {...others}
@@ -388,3 +381,33 @@ export {
   useComboboxContext,
   useComboboxItemContext,
 };
+
+export type { ComboboxOptionProps, ComboboxRootProps, ComboboxRootProviderProps };
+
+export type {
+  ComboboxClearTriggerProps,
+  ComboboxContentProps,
+  ComboboxContextProps,
+  ComboboxControlProps,
+  ComboboxEmptyProps,
+  ComboboxHighlightChangeDetails,
+  ComboboxInputProps,
+  ComboboxInputValueChangeDetails,
+  ComboboxItemContextProps,
+  ComboboxItemGroupLabelProps,
+  ComboboxItemGroupProps,
+  ComboboxItemIndicatorProps,
+  ComboboxItemProps,
+  ComboboxItemTextProps,
+  ComboboxLabelProps,
+  ComboboxListProps,
+  ComboboxOpenChangeDetails,
+  ComboboxPositionerProps,
+  ComboboxSelectionDetails,
+  ComboboxTriggerProps,
+  ComboboxValueChangeDetails,
+  UseComboboxContext,
+  UseComboboxItemContext,
+  UseComboboxProps,
+  UseComboboxReturn,
+} from '@ark-ui/solid/combobox';

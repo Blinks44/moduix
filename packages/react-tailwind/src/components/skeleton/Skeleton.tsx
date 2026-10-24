@@ -1,12 +1,13 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
-import type { ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-type SkeletonProps = HTMLArkProps<'div'> & {
+type SkeletonVariant = 'pulse' | 'none';
+
+type SkeletonRootProps = HTMLArkProps<'div'> & {
   loading?: boolean;
-  variant?: 'pulse' | 'none';
+  variant?: SkeletonVariant;
   width?: number | string;
   height?: number | string;
   boxSize?: number | string;
@@ -16,10 +17,9 @@ type SkeletonProps = HTMLArkProps<'div'> & {
 const toCssValue = (value: number | string | undefined) =>
   typeof value === 'number' ? `${value}px` : value;
 
-const Skeleton = forwardRef<ComponentRef<typeof ark.div>, SkeletonProps>(function Skeleton(
+const Skeleton = forwardRef<HTMLDivElement, SkeletonRootProps>(function Skeleton(
   {
     'aria-hidden': ariaHidden,
-    asChild,
     borderRadius,
     boxSize,
     className,
@@ -36,7 +36,6 @@ const Skeleton = forwardRef<ComponentRef<typeof ark.div>, SkeletonProps>(functio
     <ark.div
       {...props}
       ref={ref}
-      asChild={asChild}
       data-scope="skeleton"
       data-part="root"
       data-slot="skeleton-root"
@@ -45,15 +44,10 @@ const Skeleton = forwardRef<ComponentRef<typeof ark.div>, SkeletonProps>(functio
       data-variant={variant}
       aria-hidden={ariaHidden ?? (loading ? true : undefined)}
       className={cn(
-        'block w-full overflow-hidden rounded-md',
+        'block w-full rounded-md',
         loading &&
-          cn(
-            'pointer-events-none h-4 bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))] text-transparent select-none before:invisible after:invisible [&_*]:invisible',
-            variant === 'none'
-              ? 'animate-none'
-              : 'animate-[moduix-pulse_2.5s_ease-in-out_infinite]',
-            'motion-reduce:animate-none',
-          ),
+          'pointer-events-none h-4 overflow-hidden bg-[color-mix(in_oklab,var(--color-muted-foreground)_18%,var(--color-background))] text-transparent select-none before:invisible after:invisible [&_*]:invisible',
+        loading && variant === 'pulse' && 'animate-(--moduix-animation-pulse)',
         className,
       )}
       style={{
@@ -67,3 +61,4 @@ const Skeleton = forwardRef<ComponentRef<typeof ark.div>, SkeletonProps>(functio
 });
 
 export { Skeleton };
+export type { SkeletonRootProps, SkeletonVariant };

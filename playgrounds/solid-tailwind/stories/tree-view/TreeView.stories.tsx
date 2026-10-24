@@ -16,7 +16,7 @@ import {
   createTreeCollection,
   type TreeViewNodeProviderProps,
 } from '@/components/tree-view/TreeView';
-import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui/Icons';
+import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui';
 
 interface FileNode {
   disabled?: boolean;
@@ -69,9 +69,7 @@ function FileTreeNode(props: TreeViewNodeProviderProps<FileNode>) {
             <TreeViewItem>
               <TreeViewItemText>
                 <FileIcon />
-                <span class="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                  {renderProps.node.name}
-                </span>
+                {renderProps.node.name}
               </TreeViewItemText>
             </TreeViewItem>
           }
@@ -83,9 +81,7 @@ function FileTreeNode(props: TreeViewNodeProviderProps<FileNode>) {
                 <Show when={renderProps.state().expanded} fallback={<FolderIcon />}>
                   <FolderOpenIcon />
                 </Show>
-                <span class="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                  {renderProps.node.name}
-                </span>
+                {renderProps.node.name}
               </TreeViewBranchText>
             </TreeViewBranchControl>
             <TreeViewBranchContent>

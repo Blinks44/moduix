@@ -21,7 +21,7 @@ import {
   SliderThumb,
   SliderTrack,
 } from '@/components/slider/Slider';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import styles from './Accordion.stories.module.css';
 
 const meta = {

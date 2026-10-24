@@ -19,7 +19,6 @@ defineSlots<{
 }>();
 
 const attrs = useAttrs();
-const iconClass = 'inline-flex shrink-0 items-center justify-center';
 </script>
 
 <template>
@@ -29,18 +28,10 @@ const iconClass = 'inline-flex shrink-0 items-center justify-center';
     data-slot="clipboard-indicator"
   >
     <template #copied>
-      <slot name="copied">
-        <span aria-hidden="true" data-slot="clipboard-indicator-copied-icon" :class="iconClass">
-          <CheckIcon />
-        </span>
-      </slot>
+      <slot name="copied"><CheckIcon /></slot>
     </template>
     <template #default>
-      <slot>
-        <span aria-hidden="true" data-slot="clipboard-indicator-idle-icon" :class="iconClass">
-          <CopyIcon />
-        </span>
-      </slot>
+      <slot><CopyIcon /></slot>
     </template>
   </ArkClipboardIndicator>
 </template>

@@ -11,7 +11,6 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '@moduix/react/popover';
-import styles from '@/components/examples/popover/popover-nested.module.css';
 
 export default function NestedPopoverDemo() {
   return (
@@ -25,7 +24,7 @@ export default function NestedPopoverDemo() {
             <PopoverTitle>Settings</PopoverTitle>
             <PopoverDescription>Nested popovers keep independent state.</PopoverDescription>
           </PopoverHeader>
-          <PopoverBody className={styles.body}>
+          <PopoverBody>
             <Popover
               portalled={false}
               positioning={{

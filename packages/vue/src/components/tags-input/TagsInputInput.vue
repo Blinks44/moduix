@@ -13,7 +13,6 @@ export interface Props extends /* @vue-ignore */ TagsInputInputProps {
 }
 
 const props = defineProps<Props>();
-defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 </script>

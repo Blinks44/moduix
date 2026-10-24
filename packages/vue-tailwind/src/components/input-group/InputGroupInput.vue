@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import type { FieldInputProps } from '@ark-ui/vue/field';
-import { computed, inject, useAttrs } from 'vue';
+import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/moduix/cn';
 import Input from '../input/Input.vue';
-import { defaultInputGroupSize, InputGroupSizeContextKey } from './context';
-import type { InputGroupSize } from './context';
+import { useInputGroupSize, type InputGroupSize } from './context';
 import { inputGroupInputVariants } from './variants';
 
 defineOptions({ inheritAttrs: false });
@@ -24,13 +23,11 @@ const props = defineProps<Props>();
 defineEmits</* @vue-ignore */ Emits>();
 defineSlots<{ default?: () => unknown }>();
 
+// Narrowed because reading the full Field input props type hits TS2590 (union too complex).
 const inputProps = props as Pick<Props, 'class' | 'htmlSize' | 'size'>;
 
 const attrs = useAttrs();
-const groupSize = inject(
-  InputGroupSizeContextKey,
-  computed(() => defaultInputGroupSize),
-);
+const groupSize = useInputGroupSize();
 const inputSize = computed(() => inputProps.size ?? groupSize.value);
 </script>
 

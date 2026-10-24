@@ -5,18 +5,6 @@ description: Un élément `<select>` natif stylisé pour les listes d’options 
 ---
 
 import * as NativeSelectDocs from '@/components/examples/native-select/css-properties';
-import NativeSelectBasic from '@/components/examples/native-select/basic.tsx';
-import NativeSelectControlled from '@/components/examples/native-select/controlled.tsx';
-import NativeSelectField from '@/components/examples/native-select/field-integration.tsx';
-import NativeSelectMultiple from '@/components/examples/native-select/multiple-selection.tsx';
-import nativeSelectSolidBasic from '../../../snippets/native-select/solid/basic.tsx?raw';
-import nativeSelectSolidControlled from '../../../snippets/native-select/solid/controlled.tsx?raw';
-import nativeSelectSolidField from '../../../snippets/native-select/solid/field-integration.tsx?raw';
-import nativeSelectSolidMultiple from '../../../snippets/native-select/solid/multiple-selection.tsx?raw';
-import nativeSelectVueBasic from '../../../snippets/native-select/vue/basic.vue?raw';
-import nativeSelectVueControlled from '../../../snippets/native-select/vue/controlled.vue?raw';
-import nativeSelectVueField from '../../../snippets/native-select/vue/field-integration.vue?raw';
-import nativeSelectVueMultiple from '../../../snippets/native-select/vue/multiple-selection.vue?raw';
 
 ## Référence de l’API
 
@@ -37,41 +25,7 @@ les API de collection, des options riches, une action d’effacement ou le contr
 
 Ajoutez des éléments natifs `option` ou `optgroup` comme enfants et passez les mêmes propriétés qu’à un élément HTML `<select>`.
 
-<ExampleFrame variant="component">
-  <NativeSelectBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/native-select/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeSelectSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeSelectVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="native-select/basic" />
 
 ## Installation avec shadcn
 
@@ -147,159 +101,42 @@ le select rendu, mais l’enfant doit rester un seul élément HTML `<select>` s
 Utilisez `value` et `onChange` lorsque l’application contrôle la valeur courante. Lisez la nouvelle valeur dans l’événement
 natif et transmettez-la via `value`.
 
-<ExampleFrame variant="component">
-  <NativeSelectControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/native-select/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeSelectSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeSelectVueControlled} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="native-select/controlled" />
 
 ### Champ de formulaire
 
 Utilisez `Field` lorsque le select a besoin d’un libellé visible, d’un texte d’aide, d’un message d’erreur ou d’un état
 de champ partagé. `Field` relie ces éléments au contrôle natif.
 
-<ExampleFrame variant="component">
-  <NativeSelectField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/native-select/field-integration.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeSelectSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeSelectVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/native-select/native-select-field-integration.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="native-select/field-integration" />
 
 ### Sélection multiple
 
 Passez les propriétés natives `multiple` et `size` pour afficher une liste à sélection multiple. Le navigateur gère directement
 les options sélectionnées et les interactions au clavier.
 
-<ExampleFrame variant="component">
-  <NativeSelectMultiple />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/native-select/multiple-selection.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={nativeSelectSolidMultiple} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={nativeSelectVueMultiple} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="native-select/multiple-selection" />
 
 ## Styles
 
-`NativeSelect` réutilise les variables `--moduix-select-*` des variantes CSS Modules de `Select`. Vous pouvez ainsi régler de
-manière cohérente les dimensions, l’espacement de l’indicateur, les bordures, les couleurs, le rayon, l’anneau de focus,
-l’opacité à l’état désactivé et les transitions. Les variantes Tailwind utilisent des classes utilitaires natives et les classes
-transmises par l’utilisateur.
+`NativeSelect` lit les mêmes variables de largeur, de hauteur, de rayon et de taille d’indicateur que les variantes
+CSS Modules de `Select`, ce qui permet de redimensionner les deux sélecteurs ensemble. Les couleurs, les bordures,
+l’anneau de focus et l’animation proviennent des tokens de foundation ; remplacez-les avec une classe. Les variantes
+Tailwind utilisent des classes utilitaires natives et les classes transmises par l’utilisateur.
 
 ### Propriétés CSS
 
 Les variables suivantes sont disponibles dans les variantes CSS Modules. L’espacement interne par défaut et la géométrie de
 l’indicateur suivent l’échelle commune de 4 px.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <NativeSelectDocs.NativeSelectCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={NativeSelectDocs.nativeSelectCssProperties} />
 
 ### Points d’accroche CSS
 
 - En React, utilisez `className` sur le select et, en Solid ou en Vue, `class`. Utilisez `controlProps.className` ou
   `controlProps.class` pour le conteneur externe `<span>`.
-- Placez dans `controlProps.style` les variables `--moduix-select-*` liées à l’indicateur lorsqu’elles doivent être héritées à
-  la fois par l’élément `<select>` et par l’indicateur.
+- Définissez `--moduix-select-action-size` dans `controlProps.style` (ou sur un ancêtre) pour que l’espacement
+  du `<select>` et l’indicateur la suivent.
 - `data-scope="field"` et `data-part="select"` préservent le contrat de styles d’Ark Field.
 - `data-slot="native-select-root"` est le sélecteur moduix stable de l’élément `<select>`.
 - `data-slot="native-select-control"` et `data-slot="native-select-indicator"` ciblent le conteneur interne et l’icône.

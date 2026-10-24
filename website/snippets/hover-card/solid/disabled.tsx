@@ -10,7 +10,7 @@ import styles from '@/components/examples/hover-card/hover-card-disabled.module.
 export default function DisabledHoverCard() {
   return (
     <HoverCard disabled>
-      <HoverCardTrigger class={styles.trigger}>Profile preview unavailable</HoverCardTrigger>
+      <HoverCardTrigger>Profile preview unavailable</HoverCardTrigger>
       <HoverCardPositioner>
         <HoverCardContent>
           <HoverCardBody>

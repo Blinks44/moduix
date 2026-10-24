@@ -75,7 +75,7 @@ export const AsChild: Story = {
       )}
       size="lg"
       aria-label="Loading report"
-      class="animate-[var(--moduix-animation-spin)] text-primary motion-reduce:animate-none"
+      class="animate-(--moduix-animation-spin) text-primary motion-reduce:animate-none"
     />
   ),
 };

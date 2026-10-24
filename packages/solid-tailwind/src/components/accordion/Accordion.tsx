@@ -9,17 +9,17 @@ import { ark } from '@ark-ui/solid/factory';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
-import { PlusIcon } from '@/lib/moduix/icons/ui';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
+
+const rootClass =
+  'flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row';
 
 function Accordion(props: ComponentProps<typeof AccordionPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
 
   return (
     <AccordionPrimitive.Root
-      class={cn(
-        'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row',
-        local.class,
-      )}
+      class={cn(rootClass, local.class)}
       {...others}
       data-slot="accordion-root"
     />
@@ -31,10 +31,7 @@ function AccordionRootProvider(props: ComponentProps<typeof AccordionPrimitive.R
 
   return (
     <AccordionPrimitive.RootProvider
-      class={cn(
-        'box-border flex w-full max-w-full min-w-0 flex-col text-foreground data-[orientation=horizontal]:h-80 data-[orientation=horizontal]:max-h-full data-[orientation=horizontal]:w-auto data-[orientation=horizontal]:flex-row',
-        local.class,
-      )}
+      class={cn(rootClass, local.class)}
       {...others}
       data-slot="accordion-root-provider"
     />
@@ -62,7 +59,7 @@ function AccordionItemTrigger(props: ComponentProps<typeof AccordionPrimitive.It
   return (
     <AccordionPrimitive.ItemTrigger
       class={cn(
-        'flex w-full cursor-pointer items-center justify-between gap-4 bg-muted px-3 py-2 text-start text-md outline-0 transition-colors duration-200 select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-50 data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] motion-reduce:transition-none [&:not([data-disabled]):active]:bg-accent [&:not([data-disabled]):hover]:bg-accent',
+        'flex w-full cursor-pointer items-center justify-between gap-4 bg-transparent px-3 py-2 text-start text-md outline-0 transition-colors duration-normal select-none focus-visible:relative focus-visible:z-1 focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled data-[orientation=horizontal]:h-full data-[orientation=horizontal]:w-10 data-[orientation=horizontal]:justify-center data-[orientation=horizontal]:[writing-mode:sideways-lr] [&:not(:disabled):active]:bg-muted [@media(hover:hover)]:[&:not(:disabled):hover]:bg-muted',
         local.class,
       )}
       {...others}
@@ -78,13 +75,13 @@ function AccordionItemIndicator(props: ComponentProps<typeof AccordionPrimitive.
   return (
     <AccordionPrimitive.ItemIndicator
       class={cn(
-        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-200 data-[state=open]:scale-110 data-[state=open]:rotate-45 motion-reduce:transition-none [&_svg]:size-full',
+        'inline-flex size-3 shrink-0 items-center justify-center transition-transform duration-normal data-[state=open]:rotate-180 [&_svg]:size-full',
         local.class,
       )}
       {...others}
       data-slot="accordion-item-indicator"
     >
-      {resolvedChildren() ?? <PlusIcon />}
+      {resolvedChildren() ?? <ChevronDownIcon />}
     </AccordionPrimitive.ItemIndicator>
   );
 }
@@ -95,7 +92,7 @@ function AccordionItemContent(props: ComponentProps<typeof AccordionPrimitive.It
   return (
     <AccordionPrimitive.ItemContent
       class={cn(
-        "overflow-hidden text-md text-muted-foreground data-[state=closed]:data-[orientation=horizontal]:animate-moduix-accordion-closed-horizontal data-[state=closed]:data-[orientation=vertical]:animate-moduix-accordion-closed data-[state=open]:data-[orientation=horizontal]:animate-moduix-accordion-open-horizontal data-[state=open]:data-[orientation=vertical]:animate-moduix-accordion-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms] data-[orientation=horizontal]:[&>*]:w-64 [&[hidden]:not([hidden='until-found'])]:hidden",
+        'overflow-hidden text-md text-muted-foreground data-[state=closed]:data-[orientation=horizontal]:animate-moduix-accordion-closed-horizontal data-[state=closed]:data-[orientation=vertical]:animate-moduix-accordion-closed data-[state=open]:data-[orientation=horizontal]:animate-moduix-accordion-open-horizontal data-[state=open]:data-[orientation=vertical]:animate-moduix-accordion-open motion-reduce:data-[state]:data-[orientation]:animate-none data-[orientation=horizontal]:[&>*]:w-64',
         local.class,
       )}
       {...others}
@@ -135,3 +132,19 @@ export {
   useAccordionContext,
   useAccordionItemContext,
 };
+export type {
+  AccordionContextProps,
+  AccordionFocusChangeDetails,
+  AccordionItemContentProps,
+  AccordionItemContextProps,
+  AccordionItemIndicatorProps,
+  AccordionItemProps,
+  AccordionItemTriggerProps,
+  AccordionRootProps,
+  AccordionRootProviderProps,
+  AccordionValueChangeDetails,
+  UseAccordionContext,
+  UseAccordionItemContext,
+  UseAccordionProps,
+  UseAccordionReturn,
+} from '@ark-ui/solid/accordion';

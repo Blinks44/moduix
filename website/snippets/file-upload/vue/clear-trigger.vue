@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@moduix/vue/button';
 import {
   FileUpload,
   FileUploadClearTrigger,
@@ -18,16 +19,15 @@ const maxFiles = 3;
   <FileUpload :class="styles.root" :max-files="maxFiles"
     ><FileUploadLabel>Attachments</FileUploadLabel>
     <div :class="styles.actions">
-      <FileUploadTrigger>Choose files</FileUploadTrigger
-      ><FileUploadClearTrigger>Clear files</FileUploadClearTrigger>
+      <FileUploadTrigger as-child><Button>Choose files</Button></FileUploadTrigger
+      ><FileUploadClearTrigger as-child
+        ><Button variant="outline">Clear files</Button></FileUploadClearTrigger
+      >
     </div>
     <FileUploadItemGroup
       ><FileUploadContext v-slot="{ acceptedFiles }"
         ><FileUploadItem v-for="file in acceptedFiles" :key="file.name + file.size" :file="file"
-          ><FileUploadItemName /><FileUploadItemDeleteTrigger
-            :aria-label="
-              'Remove ' + file.name
-            " /></FileUploadItem></FileUploadContext></FileUploadItemGroup
+          ><FileUploadItemName /><FileUploadItemDeleteTrigger /></FileUploadItem></FileUploadContext></FileUploadItemGroup
     ><FileUploadHiddenInput
   /></FileUpload>
 </template>

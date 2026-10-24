@@ -16,7 +16,6 @@ import {
   MenuViewport,
 } from '@moduix/vue/menu';
 import { ref } from 'vue';
-import styles from '@/components/examples/menu/menu-indicator-placement.module.css';
 
 const showSearch = ref(true);
 const showGrid = ref(false);
@@ -30,7 +29,7 @@ const showTraffic = ref(false);
       <Button>View <MenuIndicator /></Button>
     </MenuTrigger>
     <MenuPositioner>
-      <MenuContent :class="styles.content">
+      <MenuContent>
         <MenuViewport>
           <MenuCheckboxItem v-model:checked="showSearch" value="search" indicator="end">
             <MenuItemText>

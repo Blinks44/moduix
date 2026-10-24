@@ -7,10 +7,8 @@ import {
   SelectContent,
   SelectItemGroup,
   SelectItemGroupLabel,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
   SelectHiddenSelect,
+  SelectOption,
 } from '@moduix/react/select';
 
 const fruits = createListCollection({
@@ -40,10 +38,9 @@ export default function ListCollectionDemo() {
           <SelectItemGroup>
             <SelectItemGroupLabel>Fruits</SelectItemGroupLabel>
             {fruits.items.map((item) => (
-              <SelectItem key={item.value} item={item}>
-                <SelectItemText>{item.label}</SelectItemText>
-                <SelectItemIndicator />
-              </SelectItem>
+              <SelectOption key={item.value} item={item}>
+                {item.label}
+              </SelectOption>
             ))}
           </SelectItemGroup>
         </SelectContent>

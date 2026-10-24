@@ -21,7 +21,7 @@ const attrs = useAttrs();
 <template>
   <ArkCarouselAutoplayTrigger
     v-bind="attrs"
-    :class="clsx(styles.autoplayTrigger, className)"
+    :class="clsx(styles.trigger, styles.autoplayTrigger, className)"
     data-slot="carousel-autoplay-trigger"
   >
     <slot />

@@ -38,7 +38,11 @@ The adapter exports `Tour`, `TourContext`, `TourBackdrop`, `TourSpotlight`, `Tou
 `TourContent`, `TourArrow`, `TourArrowTip`, `TourTitle`, `TourDescription`, `TourProgressText`,
 `TourBody`, `TourCloseTrigger`, `TourCloseIcon`, `TourControl`, `TourActions`, `TourActionList`,
 `TourActionTrigger`, `useTour`, `useTourContext`, `waitForElement`, `waitForElementValue`,
-`waitForEvent`, and `waitForPromise`.
+`waitForEvent`, and `waitForPromise`, plus `TourRootProps`, `TourCloseIconProps`, `TourActionListProps`, and the
+Ark part props, step, callback detail, and hook types.
+
+`TourCloseTrigger` is unstyled; `TourCloseIcon` is the styled icon-only close button. Styling and
+layering rules are shared with React; see the React `tour.md`.
 
 `Tour` requires the accessor returned by `useTour`:
 

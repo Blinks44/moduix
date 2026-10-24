@@ -4,7 +4,6 @@ export const a11yLabels = {
   clipboardCopied: 'Copied',
   clipboardCopy: 'Copy',
   clearInput: 'Clear input',
-  clearFiles: 'Clear files',
   clearSearch: 'Clear search',
   clearSelection: 'Clear selection',
   close: 'Close',

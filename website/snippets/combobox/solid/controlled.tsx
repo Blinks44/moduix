@@ -46,7 +46,7 @@ export default function ControlledComboboxDemo() {
           <ComboboxTrigger aria-label="Open options" />
         </ComboboxControl>
         <ComboboxPositioner>
-          <ComboboxContent class={styles.content}>
+          <ComboboxContent>
             <ComboboxEmpty>No fruits found.</ComboboxEmpty>
             <ComboboxList>
               <For each={collection().items}>

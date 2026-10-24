@@ -43,6 +43,21 @@ test.each([
   expect(parseFloat(style.maxWidth)).toBeCloseTo(1152 + padding * 2);
 });
 
+test('derives gutters from spacing tokens', () => {
+  render({
+    components: { Container },
+    template: `
+      <div style="--moduix-spacing-4: 10px; --moduix-spacing-8: 10px">
+        <Container data-testid="container" />
+      </div>
+    `,
+  });
+  const style = getComputedStyle(screen.getByTestId('container'));
+
+  expect(style.paddingInlineStart).toBe('10px');
+  expect(parseFloat(style.maxWidth)).toBeCloseTo(1152 + 20);
+});
+
 test('preserves default layout, refs, and owned hooks when consumer props conflict', () => {
   const rootRef = ref<ComponentPublicInstance>();
   render({

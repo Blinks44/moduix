@@ -63,7 +63,7 @@ const handleInput = (nextValue: string) => {
       @update:model-value="handleInput"
     />
 
-    <Tour :tour="tour" lazy-mount unmount-on-exit>
+    <Tour :tour="tour">
       <TourBackdrop />
       <TourSpotlight />
       <TourPositioner>

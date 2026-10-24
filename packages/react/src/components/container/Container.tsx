@@ -7,12 +7,12 @@ import styles from './Container.module.css';
 type ContainerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 type ContainerGutter = 'none' | 'sm' | 'md' | 'lg';
 
-type ContainerProps = HTMLArkProps<'div'> & {
+type ContainerRootProps = HTMLArkProps<'div'> & {
   size?: ContainerSize;
   gutter?: ContainerGutter;
 };
 
-const Container = forwardRef<HTMLDivElement, ContainerProps>(function Container(
+const Container = forwardRef<HTMLDivElement, ContainerRootProps>(function Container(
   { size = 'lg', gutter = 'md', className, ...props },
   ref,
 ) {
@@ -31,3 +31,4 @@ const Container = forwardRef<HTMLDivElement, ContainerProps>(function Container(
 });
 
 export { Container };
+export type { ContainerGutter, ContainerRootProps, ContainerSize };

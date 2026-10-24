@@ -6,9 +6,7 @@ import {
   SelectField,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/solid/select';
 import { Search as SearchIcon } from 'lucide-solid';
 import { createEffect, createMemo, createSignal, For, Show } from 'solid-js';
@@ -89,12 +87,7 @@ export default function SelectSearchInPopupDemo() {
               }
             >
               <For each={collection().items}>
-                {(item) => (
-                  <SelectItem item={item}>
-                    <SelectItemText>{item.label}</SelectItemText>
-                    <SelectItemIndicator />
-                  </SelectItem>
-                )}
+                {(item) => <SelectOption item={item}>{item.label}</SelectOption>}
               </For>
             </Show>
           </SelectContent>

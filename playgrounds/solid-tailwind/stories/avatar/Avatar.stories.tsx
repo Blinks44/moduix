@@ -144,7 +144,7 @@ export const AsChildComposition: Story = {
         </a>
       )}
       size="xl"
-      class="no-underline transition-[box-shadow,transform] duration-200 ease-in-out hover:-translate-y-px hover:shadow-[0_0_0_2px_var(--color-background),0_0_0_4px_var(--color-primary)]"
+      class="no-underline transition-[box-shadow,transform] duration-normal ease-in-out hover:-translate-y-px hover:shadow-[0_0_0_2px_var(--color-background),0_0_0_4px_var(--color-primary)]"
     />
   ),
 };

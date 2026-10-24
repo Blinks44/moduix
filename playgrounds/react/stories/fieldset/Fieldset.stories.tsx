@@ -6,7 +6,7 @@ import {
   CheckboxIndicator,
   CheckboxLabel,
 } from '@/components/checkbox';
-import { Field, FieldInput, FieldLabel } from '@/components/field';
+import { Field, FieldLabel } from '@/components/field';
 import {
   Fieldset,
   FieldsetErrorText,
@@ -15,6 +15,7 @@ import {
   FieldsetRootProvider,
   useFieldset,
 } from '@/components/fieldset/Fieldset';
+import { Input } from '@/components/input';
 import {
   RadioGroup,
   RadioGroupItem,
@@ -43,11 +44,11 @@ export const Default: Story = {
       <FieldsetLegend>Billing details</FieldsetLegend>
       <Field>
         <FieldLabel>Company</FieldLabel>
-        <FieldInput placeholder="Enter company name" />
+        <Input placeholder="Enter company name" />
       </Field>
       <Field>
         <FieldLabel>Tax ID</FieldLabel>
-        <FieldInput placeholder="Enter tax ID" />
+        <Input placeholder="Enter tax ID" />
       </Field>
       <FieldsetHelperText>Use the legal details shown on your invoice.</FieldsetHelperText>
     </Fieldset>
@@ -60,7 +61,7 @@ export const Invalid: Story = {
       <FieldsetLegend>Contact details</FieldsetLegend>
       <Field invalid>
         <FieldLabel>Email</FieldLabel>
-        <FieldInput type="email" defaultValue="invalid-address" />
+        <Input type="email" defaultValue="invalid-address" />
       </Field>
       <FieldsetErrorText>Enter a valid email address.</FieldsetErrorText>
     </Fieldset>
@@ -73,11 +74,11 @@ export const Disabled: Story = {
       <FieldsetLegend>Disabled account details</FieldsetLegend>
       <Field>
         <FieldLabel>Email</FieldLabel>
-        <FieldInput defaultValue="team@example.com" />
+        <Input defaultValue="team@example.com" />
       </Field>
       <Field>
         <FieldLabel>Phone</FieldLabel>
-        <FieldInput defaultValue="+1 (555) 123-45-67" />
+        <Input defaultValue="+1 (555) 123-45-67" />
       </Field>
     </Fieldset>
   ),
@@ -131,7 +132,7 @@ export const LongContent: Story = {
       </FieldsetLegend>
       <Field invalid>
         <FieldLabel>Tax identification number</FieldLabel>
-        <FieldInput />
+        <Input />
       </Field>
       <FieldsetHelperText>
         Enter the tax identification number issued by your country of tax residence.
@@ -151,7 +152,7 @@ function RootProviderDemo() {
       <FieldsetLegend>External state</FieldsetLegend>
       <Field invalid>
         <FieldLabel>Project name</FieldLabel>
-        <FieldInput defaultValue="" />
+        <Input defaultValue="" />
       </Field>
       <FieldsetErrorText>A project name is required.</FieldsetErrorText>
     </FieldsetRootProvider>
@@ -168,7 +169,7 @@ export const CustomStyles: Story = {
       <FieldsetLegend className={styles.customLegend}>Styled fieldset</FieldsetLegend>
       <Field className={styles.customField}>
         <FieldLabel className={styles.customLabel}>Project name</FieldLabel>
-        <FieldInput placeholder="Maps Platform" className={styles.customControl} />
+        <Input placeholder="Maps Platform" className={styles.customControl} />
       </Field>
       <FieldsetHelperText className={styles.customHelper}>
         Visible to project members.

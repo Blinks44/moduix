@@ -20,7 +20,7 @@ const attrs = useAttrs();
 <template>
   <ArkNumberInputControl
     v-bind="attrs"
-    :class="cn('inline-flex items-stretch', className)"
+    :class="cn('inline-flex', className)"
     data-slot="number-input-control"
   >
     <slot />

@@ -1,6 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
+import type { CSSProperties } from 'react';
 import { useRef } from 'react';
 import {
   Toc,
@@ -178,4 +179,111 @@ test('supports Ark navigation placement and scrolls the supplied reading pane', 
   await expect
     .element(page.getByRole('navigation', { name: 'Left navigation' }))
     .toHaveAttribute('data-placement', 'left');
+});
+test('keeps the indicator on Ark measurements inside a parent that sets --top and --height', async () => {
+  const { container } = render(
+    <Toc items={items} defaultActiveIds={['introduction']}>
+      <TocContent>
+        <h2 id="introduction">Introduction</h2>
+        <h3 id="configuration">Configuration</h3>
+      </TocContent>
+      <div style={{ '--top': '300px', '--height': '500px' } as CSSProperties}>
+        <TocList>
+          <TocIndicator />
+          {items.map((item) => (
+            <TocItem key={item.value} item={item}>
+              <TocLink href={`#${item.value}`}>{item.value}</TocLink>
+            </TocItem>
+          ))}
+        </TocList>
+      </div>
+    </Toc>,
+  );
+
+  const indicator = container.querySelector<HTMLElement>('[data-slot="toc-indicator"]')!;
+  // Distance between the indicator box and the active items inset by 2px on each end.
+  const getIndicatorOffset = () => {
+    const activeItems = [
+      ...container.querySelectorAll<HTMLElement>('[data-slot="toc-item"][data-active]'),
+    ];
+    const first = activeItems[0]!.getBoundingClientRect();
+    const last = activeItems.at(-1)!.getBoundingClientRect();
+    const box = indicator.getBoundingClientRect();
+
+    return Math.max(Math.abs(box.top - first.top - 2), Math.abs(box.bottom - last.bottom + 2));
+  };
+
+  await expect.poll(getIndicatorOffset).toBeLessThanOrEqual(1);
+});
+
+test('sizes the rail and truncates long rail labels inside the navigation', async () => {
+  const { container } = render(
+    <Toc items={items}>
+      <TocNav>
+        <TocList>
+          <TocItem item={items[1]!}>
+            <TocLink href="#configuration">
+              <TocRail depth={3} previousDepth={2} nextDepth={2} />
+              {'A very long configuration heading '.repeat(8)}
+            </TocLink>
+          </TocItem>
+        </TocList>
+      </TocNav>
+    </Toc>,
+  );
+
+  const nav = container.querySelector<HTMLElement>('[data-slot="toc-nav"]')!;
+  const rail = container.querySelector<SVGSVGElement>('[data-slot="toc-rail"]')!;
+
+  expect(rail.style.width).toBe('14px');
+  expect(rail.querySelector('path')?.getAttribute('d')).toBe('M 0.5 0 C 0.5 8 12.5 4 12.5 12');
+  expect(nav.scrollWidth).toBe(nav.clientWidth);
+});
+
+test('places the left navigation before the content without moving the content explicitly', async () => {
+  const { container } = render(
+    <Toc items={items}>
+      <TocContent>
+        <h2 id="introduction">Introduction</h2>
+      </TocContent>
+      <TocNav placement="left">
+        <TocTitle>Left navigation</TocTitle>
+      </TocNav>
+    </Toc>,
+  );
+
+  const content = container.querySelector('[data-slot="toc-content"]')!.getBoundingClientRect();
+  const nav = container.querySelector('[data-slot="toc-nav"]')!.getBoundingClientRect();
+
+  expect(window.innerWidth).toBeGreaterThanOrEqual(768);
+  expect(nav.right).toBeLessThanOrEqual(content.left);
+  expect(nav.top).toBe(content.top);
+});
+test('connects rails without a gap when the depth changes', async () => {
+  const { container } = render(
+    <Toc items={items} activeIds={[]}>
+      <TocNav>
+        <TocList>
+          {items.map((item, index) => (
+            <TocItem key={item.value} item={item}>
+              <TocLink href={`#${item.value}`}>
+                <TocRail
+                  depth={item.depth}
+                  previousDepth={items[index - 1]?.depth}
+                  nextDepth={items[index + 1]?.depth}
+                />
+                {item.value}
+              </TocLink>
+            </TocItem>
+          ))}
+        </TocList>
+      </TocNav>
+    </Toc>,
+  );
+
+  const [first, second] = [...container.querySelectorAll('[data-slot="toc-rail"]')].map((rail) =>
+    rail.getBoundingClientRect(),
+  );
+
+  expect(Math.abs(first!.bottom - second!.top)).toBeLessThanOrEqual(1);
 });

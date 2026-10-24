@@ -11,30 +11,21 @@ const cases = [
     'file-upload/FileUpload',
     'has-[[data-slot=file-upload-item-preview]]:not-has-[[data-slot=file-upload-item-preview-image]]:grid-cols-[auto_minmax(0,1fr)_auto]',
   ],
+  ['file-upload/FileUpload', "[grid-template-areas:'name_delete'_'meta_delete']"],
   [
     'file-upload/FileUpload',
-    'group-not-has-[[data-slot=file-upload-item-preview-image]]/item:row-[1/span_2]',
+    "has-[[data-slot=file-upload-item-preview-image]]:[grid-template-areas:'preview_preview'_'name_delete'_'meta_delete']",
   ],
   [
     'file-upload/FileUpload',
-    'group-has-[[data-slot=file-upload-item-preview-image]]/item:col-span-full',
+    'group-has-[[data-slot=file-upload-item-preview-image]]/item:aspect-square',
   ],
+  ['file-upload/FileUpload', '[[data-slot=file-upload-item]>&]:mt-1'],
   [
     'file-upload/FileUpload',
-    'group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-2',
+    '[:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
   ],
-  [
-    'file-upload/FileUpload',
-    'group-has-[[data-slot=file-upload-item-preview]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:col-start-3',
-  ],
-  [
-    'file-upload/FileUpload',
-    'group-has-[[data-slot=file-upload-item-preview-image]]/item:row-[2/span_2]',
-  ],
-  [
-    'file-upload/FileUpload',
-    'group-has-[[data-slot=file-upload-item-size-text]]/item:group-not-has-[[data-slot=file-upload-item-preview-image]]/item:row-[1/span_2]',
-  ],
+  ['file-upload/FileUpload', '[@media(hover:hover)]:[&:not(:disabled):hover]:bg-muted'],
   ['lightbox/Lightbox', 'data-[state=open]:animate-moduix-lightbox-content-in'],
   ['lightbox/Lightbox', 'data-[state=closed]:animate-moduix-lightbox-content-out'],
   ['command-palette/CommandPalette', 'data-[state=open]:animate-moduix-command-palette-content-in'],
@@ -42,16 +33,21 @@ const cases = [
     'command-palette/CommandPalette',
     'data-[state=closed]:animate-moduix-command-palette-content-out',
   ],
-  ['drawer/Drawer', '[--drawer-island-translate-distance:0px]'],
+  ['drawer/Drawer', '[--_drawer-island-offset:0px]'],
   ['drawer/Drawer', '[--_drawer-bleed:var(--moduix-size-xl)]'],
   [
     'drawer/Drawer',
-    'data-[variant=island]:data-[swipe-direction=up]:[--drawer-island-translate-distance:max(var(--moduix-spacing-4),env(safe-area-inset-top,0px))]',
+    'data-[variant=island]:data-[swipe-direction=up]:[--_drawer-island-offset:max(var(--moduix-spacing-4),env(safe-area-inset-top,0px))]',
   ],
-  ['badge/Badge', 'focus-visible:outline-offset-2'],
-  ['carousel/Carousel', 'focus-visible:outline-offset-2'],
-  ['sidebar/Sidebar', 'focus-visible:outline-offset-2'],
-  ['chart/Chart', '[&_.ts-chart:focus-visible]:outline-offset-2'],
+  ['badge/Badge', 'focus-visible:outline-focus'],
+  ['badge/Badge', 'focus-visible:outline-offset-focus'],
+  ['badge/Badge', '[a&]:hover:opacity-hover'],
+  ['carousel/Carousel', 'focus-visible:outline-offset-focus'],
+  ['sidebar/Sidebar', 'focus-visible:outline-offset-focus'],
+  ['chart/Chart', '[&_.ts-chart:focus-visible]:outline-offset-focus'],
+  ['input/Input', 'outline-focus-inset'],
+  ['input/Input', 'outline-offset-focus-inset'],
+  ['steps/Steps', 'focus-visible:-outline-offset-focus'],
   ['date-picker/DatePicker', 'read-only:cursor-default'],
   [
     'checkbox/Checkbox',
@@ -62,7 +58,7 @@ const cases = [
     "[@media(hover:hover)]:[&:not([data-disabled]):not([data-readonly])[data-state='unchecked'][data-hover]]:bg-accent",
   ],
   ['switch/Switch', 'data-[state=checked]:start-[calc(100%-var(--moduix-spacing-0-5))]'],
-  ['switch/Switch', '[&:dir(rtl)]:data-[state=checked]:translate-x-full'],
+  ['switch/Switch', 'data-[state=checked]:[&[dir=rtl]]:translate-x-full'],
   ['listbox/Listbox', 'in-[[data-slot=listbox-filter]]:focus-visible:border-ring'],
   [
     'listbox/Listbox',
@@ -98,7 +94,7 @@ const cases = [
   ],
   [
     'tree-view/TreeView',
-    '[:is([data-slot=tree-view-root],[data-slot=tree-view-root-provider])[data-disabled]_&]:opacity-100',
+    '[:is([data-slot=tree-view-item],[data-slot=tree-view-branch-control])[data-disabled]_&]:opacity-100',
   ],
 ] as const;
 

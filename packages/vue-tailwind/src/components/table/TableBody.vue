@@ -3,7 +3,6 @@ import { ark } from '@ark-ui/vue/factory';
 import type { HTMLArkProps } from '@ark-ui/vue/factory';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
@@ -20,7 +19,7 @@ const attrs = useAttrs();
 <template>
   <ark.tbody
     v-bind="attrs"
-    :class="cn('group/table-body', className)"
+    :class="className"
     data-scope="table"
     data-part="body"
     data-slot="table-body"

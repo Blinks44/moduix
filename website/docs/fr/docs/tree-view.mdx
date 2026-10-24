@@ -7,7 +7,6 @@ description: Une arborescence accessible, fondée sur Ark UI, pour les dossiers,
 import * as TreeViewDocs from '@/components/examples/tree-view/css-properties';
 import AsyncTreeView from '@/components/examples/tree-view/async-loading.tsx';
 import CheckboxTreeView from '@/components/examples/tree-view/checkboxes.tsx';
-import ControlledSelectionTreeView from '@/components/examples/tree-view/controlled-selection.tsx';
 import FileIconsTreeView from '@/components/examples/tree-view/file-icons.tsx';
 import LinkedTreeView from '@/components/examples/tree-view/links.tsx';
 import RootProviderTreeView from '@/components/examples/tree-view/root-provider.tsx';
@@ -15,7 +14,6 @@ import TreeViewBasic from '@/components/examples/tree-view/basic.tsx';
 import treeViewSolidAsyncLoading from '../../../snippets/tree-view/solid/async-loading.tsx?raw';
 import treeViewSolidBasic from '../../../snippets/tree-view/solid/basic.tsx?raw';
 import treeViewSolidCheckboxes from '../../../snippets/tree-view/solid/checkboxes.tsx?raw';
-import treeViewSolidControlledSelection from '../../../snippets/tree-view/solid/controlled-selection.tsx?raw';
 import treeViewSolidFileIcons from '../../../snippets/tree-view/solid/file-icons.tsx?raw';
 import treeViewSolidLinks from '../../../snippets/tree-view/solid/links.tsx?raw';
 import treeViewSolidRootProvider from '../../../snippets/tree-view/solid/root-provider.tsx?raw';
@@ -25,7 +23,6 @@ import treeViewVueBasic from '../../../snippets/tree-view/vue/basic.vue?raw';
 import treeViewVueBasicNode from '../../../snippets/tree-view/vue/BasicTreeNode.vue?raw';
 import treeViewVueCheckboxes from '../../../snippets/tree-view/vue/checkboxes.vue?raw';
 import treeViewVueCheckboxesNode from '../../../snippets/tree-view/vue/CheckboxesTreeNode.vue?raw';
-import treeViewVueControlledSelection from '../../../snippets/tree-view/vue/controlled-selection.vue?raw';
 import treeViewVueFileIcons from '../../../snippets/tree-view/vue/file-icons.vue?raw';
 import treeViewVueFileIconsNode from '../../../snippets/tree-view/vue/FileIconsTreeNode.vue?raw';
 import treeViewVueLinks from '../../../snippets/tree-view/vue/links.vue?raw';
@@ -352,52 +349,14 @@ Définissez `selectionMode="multiple"`. Utilisez Ctrl ou ⌘ pour ajouter ou ret
 individuels, et Maj pour étendre une plage de sélection. L’exemple conserve les valeurs sélectionnées
 dans l’état de l’application.
 
-<ExampleFrame variant="component">
-  <ControlledSelectionTreeView />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/tree-view/controlled-selection.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={treeViewSolidControlledSelection} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={treeViewVueControlledSelection} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/tree-view/tree-view-controlled-selection.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="tree-view/controlled-selection" />
 
 ### Root provider
 
 Créez l’état de l’arborescence avec `useTreeView` si des contrôles extérieurs doivent appeler des
 méthodes comme `expand()` ou `collapse()`. Transmettez cet état à `TreeViewRootProvider` au lieu de rendre un
-second `TreeView`.
+second `TreeView`. Cet exemple montre aussi la composition bas niveau d’un nœud : chaque nœud utilise
+`TreeViewNodeProvider` et lit son état dans `TreeViewNodeContext` au lieu du raccourci `TreeViewNode`.
 
 <ExampleFrame variant="component">
   <RootProviderTreeView />
@@ -453,19 +412,13 @@ la hauteur pendant le repli, et désactive l’animation des branches si l’uti
 les mouvements.
 
 Les variantes Tailwind utilisent des classes utilitaires natives et les classes de l’application. Les
-variantes CSS Modules exposent les variables documentées `--moduix-tree-view-*` ci-dessous.
+variantes CSS Modules prennent les couleurs, les espacements et la typographie dans les tokens de
+foundation et n'exposent en variables CSS que la largeur de la racine et le pas d'indentation ;
+surchargez le reste avec une classe sur la partie.
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <TreeViewDocs.TreeViewCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+### Propriétés CSS
+
+<CssPropertiesSection properties={TreeViewDocs.treeViewOverrideCssProperties} />
 
 ### Points d’accroche de style
 
@@ -475,5 +428,3 @@ variantes CSS Modules exposent les variables documentées `--moduix-tree-view-*`
   `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`,
   `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator` et
   `tree-view-node-rename-input`.
-- Utilisez les variables documentées `--moduix-tree-view-*` pour personnaliser les variantes CSS
-  Modules.

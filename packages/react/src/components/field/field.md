@@ -13,18 +13,24 @@ required marker, and shared `disabled`, `invalid`, `required`, and `readOnly` st
 ## Upstream model to preserve
 
 The wrapper follows `@ark-ui/react/field`. Preserve Ark part names (`Root`, `RootProvider`,
-`Label`, `Input`, `Textarea`, `Select`, `HelperText`, `ErrorText`, `RequiredIndicator`, `Item`),
-`ids`, `target`, `asChild`, and root state props.
+`Label`, `HelperText`, `ErrorText`, `RequiredIndicator`, `Item`), `ids`, `target`, `asChild`, and
+root state props.
 
-Ark Field does not own legacy validation. It exposes `invalid` state and ARIA wiring; form
-libraries or app state decide when the field is invalid.
+Ark Field does not own validation. It exposes `invalid` state and ARIA wiring; form libraries or app
+state decide when the field is invalid.
 
 ## Current behavior contract
 
 `Field` is the root export. Every DOM part is a thin Ark wrapper with moduix styling, `className`,
-and stable `data-slot` hooks. `FieldItem` wraps Ark's provider-only `Item` with a small
+and a stable `data-slot` hook. `FieldItem` wraps Ark's provider-only `Item` with a
 `<div data-slot="field-item">` so grouped rows keep a style hook. `FieldContext`, `useField`, and
-`useFieldContext` are exported for normal state access.
+`useFieldContext` are exported for state access, and the barrel re-exports the Ark prop, context,
+and hook types for the exported parts.
+
+`Field` renders no control of its own. Moduix controls (`Input`, `Textarea`, `NativeSelect`,
+`Checkbox`, `Select`, and others) read the field context. Ark's `Field.Input`, `Field.Textarea`, and
+`Field.Select` are not re-exported as styled parts: `Input`, `Textarea`, and `NativeSelect` are
+those parts with moduix styling.
 
 ## Anatomy and exported parts
 
@@ -34,7 +40,7 @@ and stable `data-slot` hooks. `FieldItem` wraps Ark's provider-only `Item` with 
     Label
     <FieldRequiredIndicator />
   </FieldLabel>
-  <FieldInput />
+  <Input />
   <FieldHelperText />
   <FieldErrorText />
 </Field>
@@ -47,9 +53,6 @@ and stable `data-slot` hooks. `FieldItem` wraps Ark's provider-only `Item` with 
 | `FieldContext`           | `Context`           | renderless                 |
 | `FieldItem`              | `Item` + local div  | `field-item`               |
 | `FieldLabel`             | `Label`             | `field-label`              |
-| `FieldInput`             | `Input`             | `field-input`              |
-| `FieldTextarea`          | `Textarea`          | `field-textarea`           |
-| `FieldSelect`            | `Select`            | `field-select`             |
 | `FieldHelperText`        | `HelperText`        | `field-helper-text`        |
 | `FieldErrorText`         | `ErrorText`         | `field-error-text`         |
 | `FieldRequiredIndicator` | `RequiredIndicator` | `field-required-indicator` |
@@ -57,13 +60,8 @@ and stable `data-slot` hooks. `FieldItem` wraps Ark's provider-only `Item` with 
 ## Composition
 
 ```tsx
-import {
-  Field,
-  FieldHelperText,
-  FieldInput,
-  FieldLabel,
-  FieldRequiredIndicator,
-} from '@moduix/react/field';
+import { Field, FieldHelperText, FieldLabel, FieldRequiredIndicator } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 
 export function NameField() {
   return (
@@ -72,115 +70,56 @@ export function NameField() {
         Name
         <FieldRequiredIndicator />
       </FieldLabel>
-      <FieldInput placeholder="Enter your name" />
+      <Input placeholder="Enter your name" />
       <FieldHelperText>Visible on your public profile.</FieldHelperText>
     </Field>
   );
 }
 ```
 
-Use `FieldRootProvider` with `useField()` from `@moduix/react` when state must be created outside
-the rendered tree. Do not render `Field` and `FieldRootProvider` for the same field instance.
+Use `FieldRootProvider` with `useField()` when state must be created outside the rendered tree. Do
+not render `Field` and `FieldRootProvider` for the same field instance.
 
 ## Upstream feature coverage
 
-Covered Ark examples:
-
-- native input via `FieldInput`
-- native textarea via `FieldTextarea`
-- textarea autoresize via `FieldTextarea autoresize`
-- native select via `FieldSelect`
-- checkbox composition via `Field` + `Checkbox`
-- radio group composition via `Field` + `RadioGroup`
-- read-only root state via `readOnly`
-- root provider via moduix `useField` and `FieldRootProvider`
-- context access via `FieldContext` or moduix `useFieldContext`
+- native input, textarea, and select via `Input`, `Textarea` (including `autoresize`), and
+  `NativeSelect`
+- checkbox, radio group, and select composition
+- read-only, disabled, invalid, and required root state
+- root provider via `useField` and `FieldRootProvider`
+- context access via `FieldContext` or `useFieldContext`
 - item-target label wiring via `FieldItem value` and root `target`
-
-Moduix does not implement legacy `validate`, `validationMode`, `match`, `dirty`, `touched`, or
-`FieldValidity`; those were removed during the Ark migration.
 
 ## Accessibility and state
 
-Ark owns ids and ARIA links. `FieldLabel` points to the current control id, helper text is included
-in `aria-describedby`, alongside the active error text id. `FieldErrorText`
-renders only when the field is invalid, and state is exposed through `data-disabled`, `data-invalid`,
-`data-readonly`, and `data-required`.
+Ark owns ids and ARIA links. `FieldLabel` points to the current control id, and helper text and the
+active error text are included in `aria-describedby`. `FieldErrorText` renders only while the field
+is invalid. State is exposed through `data-disabled`, `data-invalid`, `data-readonly`, and
+`data-required`.
 
-Forwarded refs target the rendered DOM part. `Field` and `FieldRootProvider` forward to the
-root `div`; control parts forward to their native control elements; `FieldItem` forwards to its
-moduix row wrapper.
+`Field` and `FieldRootProvider` forward refs to the root `div`; `FieldItem` forwards its ref to the
+row wrapper.
 
 ## Defaults and styling
 
-`FieldInput` matches the default `Input size="md"` appearance, including inline padding,
-file chooser button, focus and invalid styles. It retains the native numeric `size` and
-`--moduix-field-control-*` customization; `Input` adds visual sizes and `htmlSize`.
-`FieldInput` uses `--moduix-spacing-3` inline padding; `FieldTextarea` and `FieldSelect`
-keep `--moduix-spacing-3-5`. A disabled moduix field root owns opacity for either input;
-standalone disabled inputs apply their own opacity. A disabled `Fieldset` owns opacity above a
-`Field`, and a disabled `InputGroup` owns opacity instead of its nested input; these compositions
-must not multiply the dimming.
+The root is a vertical flex column that fills its container. Label, helper text, and error text use
+foundation typography tokens; long text wraps without overflowing. CSS Modules have no
+`--moduix-field-*` variables: a class on a part overrides the layered component styles.
 
-`FieldInput`, `FieldTextarea`, and `FieldSelect` default to `--moduix-size-md` with
-`--moduix-spacing-1` block padding. Their `--moduix-field-control-*` variables continue to override
-that baseline.
-
-The wrapper preserves moduix visual defaults: compact vertical layout, tokenized control chrome,
-focus ring, disabled opacity, invalid border color, helper text, and destructive error text. Long labels,
-helper text, and errors wrap without overflowing their container.
-
-Styles use Ark `data-scope="field"` / `data-part="..."` attributes where Ark provides state and
-moduix `data-slot` hooks for consumer overrides. Public CSS variables remain under `--moduix-field-*`;
-`--moduix-field-required-indicator-color`, `--moduix-field-error-font-weight`, and
-`--moduix-field-textarea-min-height` are part of the Ark-aligned contract.
-`--moduix-field-label-gap` defaults to `var(--moduix-spacing-2)`.
-
-## Intentional sugar and differences from upstream
-
-`Field` is the root export. `FieldItem` adds a local wrapper div because Ark's `Item` only provides
-nested field context and does not render a styleable row. Its ref targets that wrapper. `FieldContext`,
-`useField`, and `useFieldContext` are re-exported without changing their Ark state contracts.
-
-No legacy compatibility aliases are exported. `useField` is available from `@moduix/react` for
-`FieldRootProvider`, while `FieldContext` and `useFieldContext` cover state inside the tree.
-The public component values use the flat names `FieldInput`, `FieldHelperText`, `FieldErrorText`,
-`FieldTextarea`, and `FieldSelect`.
+A disabled root dims the whole field once. A `Field` inside a disabled `Field` or `Fieldset` does
+not dim again, and moduix controls inside a disabled `Field` do not apply their own disabled
+opacity.
 
 ## Agent notes
 
-Do not add validation props back to `Field`. Keep validation examples controlled through `invalid`
-or delegated to form-specific components. If future controls need native form submission, preserve
-their own `HiddenInput`; Field itself has no hidden input.
+Do not add validation props or styled control parts back to `Field`; controls belong to their own
+components. Keep validation examples controlled through `invalid`.
 
 ## Local changelog
 
+- 2026-10-16: Removed the styled `FieldInput`, `FieldTextarea`, and `FieldSelect` parts (use
+  `Input`, `Textarea`, and `NativeSelect`) and all `--moduix-field-*` variables; re-exported Ark
+  types.
 - 2026-10-02: Prevented repeated disabled opacity under Fieldset and through InputGroup.
-
-- 2026-10-01: Aligned FieldInput with the default Input appearance and prevented compounded
-  disabled opacity for either input inside Field and FieldRootProvider.
-
-- 2026-09-21: Replaced the compound public API with flat `Field`-prefixed values across packages,
-  tests, stories, registries, and documentation without compatibility aliases.
-- 2026-08-10: Added a dedicated error-text weight token and resilient wrapping for long field text.
-
-- 2026-07-27: Removed compounded disabled opacity from nested field parts and made `FieldItem`'s
-  row wrapper ref-forwarding.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced the default control to `--moduix-size-md` and compacted its block padding.
-
-- 2026-07-12: Added moduix `FieldContext` and `useFieldContext` exports alongside `useField`, and
-  made the component-local index a re-export-only barrel.
-- 2026-07-10: Re-exported `useField` for the supported `RootProvider` composition path and restored
-  the native select affordance by leaving browser appearance intact.
-- 2026-07-02: Simplified the public surface to match other Ark-backed wrappers; kept callable root,
-  `RootProvider`, and visual parts while removing re-exported Ark hooks, context parts, and type
-  aliases from `moduix`.
-- 2026-06-25: Exported Ark part prop types through the field barrel, aligned
-  `--moduix-field-label-gap` fallback with the documented theme default, and refreshed docs coverage for
-  `FieldItem`, `readOnly`, and `RootProvider`.
-- 2026-06-19: Migrated `Field` to Ark UI, replaced legacy validation API with Ark
-  field context, renamed public parts to Ark names, exposed provider/context hooks, and updated
-  styling hooks.
-- 2026-06-19: Replaced legacy `type="radio"` field examples with Ark-style `Checkbox` and
-  `RadioGroup` compositions in stories and docs.
+- 2026-09-21: Replaced the compound public API with flat `Field`-prefixed values.
+- 2026-06-19: Migrated `Field` to Ark UI and removed the legacy validation API.

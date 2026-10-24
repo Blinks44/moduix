@@ -32,7 +32,7 @@ export default function RootProviderPasteUploadDemo() {
             acceptedFiles.map((file) => (
               <FileUploadItem key={file.name} file={file}>
                 <FileUploadItemName />
-                <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                <FileUploadItemDeleteTrigger />
               </FileUploadItem>
             ))
           }

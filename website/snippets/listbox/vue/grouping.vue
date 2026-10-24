@@ -10,7 +10,6 @@ import {
   ListboxItemText,
   ListboxLabel,
 } from '@moduix/vue/listbox';
-import styles from '@/components/examples/listbox/listbox-grouping.module.css';
 
 const regions = createListCollection({
   items: [
@@ -29,7 +28,7 @@ const regions = createListCollection({
 </script>
 
 <template>
-  <Listbox :collection="regions" :class="styles.root">
+  <Listbox :collection="regions">
     <ListboxLabel>Select region</ListboxLabel>
     <ListboxContent>
       <ListboxItemGroup v-for="[region, items] in regions.group()" :id="region" :key="region">

@@ -4,31 +4,6 @@ component: stack
 description: A lightweight flex layout primitive for arranging content vertically or horizontally in React, Solid, or Vue.
 ---
 
-import * as StackDocs from '@/components/examples/stack/css-properties';
-import StackBasic from '@/components/examples/stack/basic.tsx';
-import StackFill from '@/components/examples/stack/growing-child-stack.tsx';
-import StackLoadingLayout from '@/components/examples/stack/loading-layout.tsx';
-import StackResponsiveDirection from '@/components/examples/stack/responsive-direction.tsx';
-import StackRowLayout from '@/components/examples/stack/row-layout.tsx';
-import StackSemanticElement from '@/components/examples/stack/semantic-element.tsx';
-import StackSeparator from '@/components/examples/stack/separator.tsx';
-import StackWrappedItems from '@/components/examples/stack/wrapped-items.tsx';
-import stackSolidBasic from '../../../snippets/stack/solid/basic.tsx?raw';
-import stackSolidFill from '../../../snippets/stack/solid/growing-child-stack.tsx?raw';
-import stackSolidLoadingLayout from '../../../snippets/stack/solid/loading-layout.tsx?raw';
-import stackSolidResponsiveDirection from '../../../snippets/stack/solid/responsive-direction.tsx?raw';
-import stackSolidRowLayout from '../../../snippets/stack/solid/row-layout.tsx?raw';
-import stackSolidSemanticElement from '../../../snippets/stack/solid/semantic-element.tsx?raw';
-import stackSolidSeparator from '../../../snippets/stack/solid/separator.tsx?raw';
-import stackSolidWrappedItems from '../../../snippets/stack/solid/wrapped-items.tsx?raw';
-import stackVueBasic from '../../../snippets/stack/vue/basic.vue?raw';
-import stackVueFill from '../../../snippets/stack/vue/growing-child-stack.vue?raw';
-import stackVueLoadingLayout from '../../../snippets/stack/vue/loading-layout.vue?raw';
-import stackVueResponsiveDirection from '../../../snippets/stack/vue/responsive-direction.vue?raw';
-import stackVueRowLayout from '../../../snippets/stack/vue/row-layout.vue?raw';
-import stackVueSemanticElement from '../../../snippets/stack/vue/semantic-element.vue?raw';
-import stackVueSeparator from '../../../snippets/stack/vue/separator.vue?raw';
-import stackVueWrappedItems from '../../../snippets/stack/vue/wrapped-items.vue?raw';
 
 ## API Reference
 
@@ -43,41 +18,7 @@ documentation informs the layout prop names only.
 
 Use `Stack` when a single flex container is enough and you only need to control direction, gap, and alignment.
 
-<ExampleFrame variant="component">
-  <StackBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/basic" />
 
 ## Install with shadcn
 
@@ -143,312 +84,62 @@ and use `asChild` when the root should be a semantic element.
 
 Use `fill` when a nested `Stack` should take the remaining space in a flex row.
 
-<ExampleFrame variant="component">
-  <StackFill />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/growing-child-stack.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidFill} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueFill} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/growing-child-stack" />
 
 ### Loading Layout
 
 Combine `Stack` and `Skeleton` for a loading layout that only needs flex composition and spacing.
 
-<ExampleFrame variant="component">
-  <StackLoadingLayout />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/loading-layout.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidLoadingLayout} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueLoadingLayout} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/loading-layout" />
 
 ### Responsive Direction
 
-Use responsive `direction` for a simple column-on-mobile, row-on-desktop layout. The desktop value starts at `640px`;
-if only one responsive value is provided, Stack uses it at both breakpoints.
+Use responsive `direction` for a simple column-on-mobile, row-on-desktop layout. The desktop value starts at `640px`.
+Responsive values are mobile-first: an omitted `mobile` value stays `column`, and an omitted `desktop` value keeps the
+mobile direction.
 
-<ExampleFrame variant="component">
-  <StackResponsiveDirection />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/responsive-direction.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidResponsiveDirection} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueResponsiveDirection} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/responsive-direction" />
 
 ### Row Layout
 
 Use `direction="row"` with alignment props for inline content.
 
-<ExampleFrame variant="component">
-  <StackRowLayout />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/row-layout.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidRowLayout} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueRowLayout} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/row-layout" />
 
 ### Semantic Element
 
 Use Ark's `asChild` when the layout wrapper should also express document structure.
 
-<ExampleFrame variant="component">
-  <StackSemanticElement />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/semantic-element.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidSemanticElement} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueSemanticElement} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/semantic-element" />
 
 ### Separator
 
 Add `Separator` directly when a horizontal or vertical `Stack` needs a repeated visual divider between children. `gap`
 applies to every child, including dividers.
 
-<ExampleFrame variant="component">
-  <StackSeparator />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/separator.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidSeparator} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueSeparator} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/separator" />
 
 ### Wrapped Items
 
 Use `wrap="wrap"` when items should flow onto the next line.
 
-<ExampleFrame variant="component">
-  <StackWrappedItems />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/stack/wrapped-items.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={stackSolidWrappedItems} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={stackVueWrappedItems} />
-
-    </Tab>
-  </Tabs>
-</div>
-
-</ExampleCode>
+<Example name="stack/wrapped-items" />
 
 ## Styling
 
-Use `className` in React or `class` in Solid and Vue on the root for structural styles. Tailwind variants use native utility
-classes and consumer overrides; the CSS variables below customize the CSS Modules variants. Data attributes and the
-`data-slot` hook are shared by both styling tracks.
+`Stack` does not define component-specific CSS variables. The default `display: flex` and column direction come from
+the component stylesheet (or the `flex flex-col` utilities in the Tailwind variants), so your classes can replace them,
+including a responsive `flex-direction` in your own media queries.
 
-### CSS Properties
-
-`Stack` exposes public CSS variables on its root. By default, they use `column` and `initial`; the `direction` and
-`fill` props write inline values when provided, and `style` can override them for a single instance.
-
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <StackDocs.StackCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+Use `className` in React or `class` in Solid and Vue for structural styles. Tailwind variants use native utility
+classes and consumer class overrides; the data attributes and `data-slot` hook are shared by both styling tracks.
 
 ### Styling hooks
 
 - `className` or `class` styles the single root for width, padding, borders, backgrounds, and other surface concerns.
 - `data-scope="stack"` and `data-part="root"` align the wrapper with Ark styling conventions.
 - `data-slot="stack-root"` is the stable moduix selector for targeting the root in local CSS.
-- `style` is applied last, so it can override computed `gap`, `alignItems`, `justifyContent`, `flexWrap`, and any
-  `--moduix-stack-*` variables written by props.
+- `direction` and `fill` are applied through the component stylesheet or utilities, so consumer classes can override
+  them. `gap`, `align`, `justify`, and `wrap` write inline styles.
+- `style` is applied last, so it can override the inline `gap`, `alignItems`, `justifyContent`, and `flexWrap`.
 - There are no state attributes, CSS animation variables, or `slotProps` maps in the public contract.

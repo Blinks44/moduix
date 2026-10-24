@@ -22,7 +22,7 @@ const attrs = useAttrs();
   <OverlayPortal>
     <ArkSelectPositioner
       v-bind="attrs"
-      :class="cn('z-[var(--z-index)] outline-0', className)"
+      :class="cn('z-(--z-index)', className)"
       data-slot="select-positioner"
     >
       <slot />

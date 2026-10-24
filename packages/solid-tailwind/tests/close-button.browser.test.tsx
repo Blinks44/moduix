@@ -40,7 +40,7 @@ test('renders an accessible native button with safe defaults and a forwarded ref
   expect(ref).toBe(button);
   await expect.element(page.getByTestId('close-button')).toHaveAttribute('type', 'button');
   expect(screen.getByRole('button', { name: 'Close' })).toBe(button);
-  expect([...icon!.classList]).toEqual(expect.arrayContaining(['size-4', 'shrink-0']));
+  expect(getComputedStyle(icon!)).toMatchObject({ width: '16px', height: '16px', flexShrink: '0' });
   expect([...button!.classList]).toEqual(
     expect.arrayContaining(['size-7', 'rounded-sm', 'bg-transparent', 'text-muted-foreground']),
   );
@@ -109,7 +109,7 @@ test('keeps disabled asChild hosts semantic and prevents their activation', asyn
   await expect.element(close).toHaveAttribute('aria-disabled', 'true');
   await expect.element(close).toHaveAttribute('data-disabled');
   expect([...button!.classList]).toEqual(
-    expect.arrayContaining(['data-disabled:pointer-events-none', 'data-disabled:opacity-50']),
+    expect.arrayContaining(['data-disabled:pointer-events-none', 'data-disabled:opacity-disabled']),
   );
   expect(button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }))).toBe(
     false,

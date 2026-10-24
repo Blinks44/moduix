@@ -4,7 +4,7 @@ import type { TreeViewBranchIndicatorProps } from '@ark-ui/vue/tree-view';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './TreeView.module.css';
 
 defineOptions({ inheritAttrs: false });

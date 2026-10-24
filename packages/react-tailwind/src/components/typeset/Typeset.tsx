@@ -22,27 +22,18 @@ const Typeset = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function Typeset(
 });
 
 const TypesetScroll = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function TypesetScroll(
-  {
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
-    className,
-    role,
-    tabIndex = 0,
-    ...props
-  },
+  { className, role, tabIndex = 0, ...props },
   ref,
 ) {
   return (
     <ark.div
       ref={ref as Ref<ComponentRef<typeof ark.div>>}
       {...props}
-      aria-label={ariaLabel}
-      aria-labelledby={ariaLabelledBy}
       data-scope="typeset"
       data-part="scroll"
       data-slot="typeset-scroll"
       className={cn(styles.scroll, className)}
-      role={role ?? (ariaLabel || ariaLabelledBy ? 'region' : undefined)}
+      role={role ?? (props['aria-label'] || props['aria-labelledby'] ? 'region' : undefined)}
       tabIndex={tabIndex}
     />
   );

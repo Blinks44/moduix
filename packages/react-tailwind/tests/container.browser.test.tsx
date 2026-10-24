@@ -1,6 +1,7 @@
 import { expect, test } from '@rstest/core';
 import { render } from '@testing-library/react';
 import { createRef } from 'react';
+import type { CSSProperties } from 'react';
 import { Container } from '../src';
 
 test.each([
@@ -31,6 +32,18 @@ test.each([
   expect(parseFloat(style.paddingInlineStart)).toBeCloseTo(padding);
   expect(parseFloat(style.paddingInlineEnd)).toBeCloseTo(padding);
   expect(parseFloat(style.maxWidth)).toBeCloseTo(1152 + padding * 2);
+});
+
+test('derives gutters from spacing tokens', () => {
+  const { getByTestId } = render(
+    <div style={{ '--moduix-spacing-4': '10px', '--moduix-spacing-8': '10px' } as CSSProperties}>
+      <Container data-testid="container" />
+    </div>,
+  );
+  const style = getComputedStyle(getByTestId('container'));
+
+  expect(style.paddingInlineStart).toBe('10px');
+  expect(parseFloat(style.maxWidth)).toBeCloseTo(1152 + 20);
 });
 
 test('preserves default layout, refs, and owned hooks when consumer props conflict', () => {

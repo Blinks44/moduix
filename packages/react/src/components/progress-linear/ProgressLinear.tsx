@@ -95,15 +95,8 @@ const ProgressLinearRange = forwardRef<
 const ProgressLinearView = forwardRef<
   ComponentRef<typeof ProgressPrimitive.View>,
   ComponentProps<typeof ProgressPrimitive.View>
->(function ProgressLinearView({ className, ...props }, ref) {
-  return (
-    <ProgressPrimitive.View
-      ref={ref}
-      className={clsx(styles.view, className)}
-      {...props}
-      data-slot="progress-linear-view"
-    />
-  );
+>(function ProgressLinearView(props, ref) {
+  return <ProgressPrimitive.View ref={ref} {...props} data-slot="progress-linear-view" />;
 });
 
 const ProgressLinearContext = ProgressPrimitive.Context;
@@ -120,3 +113,18 @@ export {
   useProgress,
   useProgressContext,
 };
+export type {
+  ProgressContextProps,
+  ProgressLabelProps,
+  ProgressRangeProps,
+  ProgressRootProps,
+  ProgressRootProviderProps,
+  ProgressTrackProps,
+  ProgressValueChangeDetails,
+  ProgressValueTextProps,
+  ProgressValueTranslationDetails,
+  ProgressViewProps,
+  UseProgressContext,
+  UseProgressProps,
+  UseProgressReturn,
+} from '@ark-ui/react/progress';

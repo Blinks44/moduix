@@ -1,24 +1,17 @@
 <script setup lang="ts">
 import type { TooltipRootEmits, TooltipRootProps } from '@ark-ui/vue/tooltip';
 import { computed, useAttrs } from 'vue';
-import type { HTMLAttributes } from 'vue';
-import type { PortalRef } from '@/lib/moduix/overlayPortal/context';
 import { Tooltip, TooltipContent, TooltipPositioner, TooltipTrigger } from '../tooltip';
+import type { Props as TooltipProps } from '../tooltip/Tooltip.vue';
 import { useSidebar } from './context';
 
 defineOptions({ inheritAttrs: false });
 
-export interface Props
-  extends /* @vue-ignore */ Omit<TooltipRootProps, 'disabled' | 'positioning'> {
-  class?: HTMLAttributes['class'];
+export interface Props extends /* @vue-ignore */ Omit<TooltipProps, 'disabled' | 'positioning'> {
   closeDelay?: TooltipRootProps['closeDelay'];
   content?: string | number;
-  lazyMount?: TooltipRootProps['lazyMount'];
   openDelay?: TooltipRootProps['openDelay'];
   positioning?: TooltipRootProps['positioning'];
-  portalRef?: PortalRef;
-  portalled?: boolean;
-  unmountOnExit?: TooltipRootProps['unmountOnExit'];
 }
 
 export interface Emits extends /* @vue-ignore */ TooltipRootEmits {}
@@ -26,12 +19,8 @@ export interface Emits extends /* @vue-ignore */ TooltipRootEmits {}
 const {
   closeDelay = 0,
   content,
-  lazyMount = true,
   openDelay = 200,
   positioning: positioningProp,
-  portalRef,
-  portalled = true,
-  unmountOnExit = true,
 } = defineProps<Props>();
 defineEmits<Emits>();
 defineSlots<{ default?: () => unknown; content?: () => unknown }>();
@@ -49,12 +38,8 @@ const positioning = computed<TooltipRootProps['positioning']>(() => ({
 <template>
   <Tooltip
     v-bind="attrs"
-    :portalled="portalled"
-    :portal-ref="portalRef"
     :close-delay="closeDelay"
-    :lazy-mount="lazyMount"
     :open-delay="openDelay"
-    :unmount-on-exit="unmountOnExit"
     :disabled="!collapsed"
     :positioning="positioning"
   >

@@ -21,7 +21,6 @@ import {
   CommandPaletteTrigger,
 } from '@moduix/solid/command-palette';
 import { For } from 'solid-js';
-import styles from '@/components/examples/command-palette/command-palette-basic.module.css';
 
 const commandItems = [
   {
@@ -94,7 +93,7 @@ export default function CommandPaletteDemo() {
       <CommandPaletteTrigger
         asChild={(triggerProps) => <Button {...triggerProps()}>Open palette</Button>}
       />
-      <CommandPalettePanel class={styles.palette}>
+      <CommandPalettePanel>
         <CommandPaletteCombobox
           collection={collectionState.collection()}
           onInputValueChange={(details) => collectionState.filter(details.inputValue)}

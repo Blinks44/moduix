@@ -75,6 +75,43 @@ export const Basic: Story = {
   `),
 };
 
+export const Sizes: Story = {
+  render: renderStory(`
+    <div class="grid gap-3">
+      <PinInput :count="PIN_COUNT" size="xs">
+        <PinInputLabel>Extra small</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+      </PinInput>
+      <PinInput :count="PIN_COUNT" size="sm">
+        <PinInputLabel>Small</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+      </PinInput>
+      <PinInput :count="PIN_COUNT" size="md">
+        <PinInputLabel>Medium</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+      </PinInput>
+      <PinInput :count="PIN_COUNT" size="lg">
+        <PinInputLabel>Large</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+      </PinInput>
+      <PinInput :count="PIN_COUNT" size="xl">
+        <PinInputLabel>Extra large</PinInputLabel>
+        <PinInputControl>
+          <PinInputInputs />
+        </PinInputControl>
+      </PinInput>
+    </div>
+  `),
+};
+
 export const Alphanumeric: Story = {
   render: renderStory(
     `

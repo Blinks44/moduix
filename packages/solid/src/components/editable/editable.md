@@ -20,4 +20,4 @@ The flat API includes `Editable`, `EditableRootProvider`, `EditableLabel`, `Edit
 
 ## Styling and accessibility
 
-Keep Ark's input labeling, IDs, focus transfer, and state attributes. Parts expose `data-slot` hooks and accept consumer classes.
+Keep Ark's input labeling, IDs, focus transfer, and state attributes. Parts expose `data-slot` hooks and accept consumer classes. Trigger parts skip their own styles under `asChild`. The only public CSS variable is `--moduix-editable-area-height`; see the React `editable.md` for the shared layout and disabled-state rules.

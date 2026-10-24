@@ -57,9 +57,10 @@ Give `ProgressCircularRing` or `ProgressCircularCircle` an `aria-label` or
 `aria-labelledby` that names the task. Ark provides `role="progressbar"` and the value ARIA
 attributes on `ProgressCircularCircle`.
 
-The CSS Modules adapter adds stable `data-slot` hooks and the documented
-`--moduix-progress-circular-*` variables. The Tailwind adapter uses native utilities and `class`
-overrides instead of CSS Modules variables.
+The CSS Modules adapter adds stable `data-slot` hooks and four variables: size, thickness, track
+color, and range color. The Tailwind adapter uses native utilities and `class` overrides instead.
+Styling, indeterminate motion, and exported types match the React contract in
+`packages/react/src/components/progress-circular/progress-circular.md`.
 
 ## Composition
 
@@ -81,8 +82,3 @@ export function ExportProgress() {
   );
 }
 ```
-
-## Local changelog
-
-- 2026-09-22: Replaced the compound namespace with flat family-prefixed exports and aligned the
-  Solid contract with the React adapter.

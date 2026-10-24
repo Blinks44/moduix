@@ -6,7 +6,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps } from 'solid-js';
 import { children, splitProps } from 'solid-js';
-import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui';
 import styles from './Clipboard.module.css';
 
 function Clipboard(props: ComponentProps<typeof ClipboardPrimitive.Root>) {
@@ -58,11 +58,12 @@ function ClipboardControl(props: ComponentProps<typeof ClipboardPrimitive.Contro
 }
 
 function ClipboardInput(props: ComponentProps<typeof ClipboardPrimitive.Input>) {
-  const [local, others] = splitProps(props, ['class']);
+  const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
     <ClipboardPrimitive.Input
-      class={clsx(styles.input, local.class)}
+      asChild={local.asChild}
+      class={clsx(!local.asChild && styles.input, local.class)}
       {...others}
       data-slot="clipboard-input"
     />
@@ -70,11 +71,12 @@ function ClipboardInput(props: ComponentProps<typeof ClipboardPrimitive.Input>) 
 }
 
 function ClipboardTrigger(props: ComponentProps<typeof ClipboardPrimitive.Trigger>) {
-  const [local, others] = splitProps(props, ['class']);
+  const [local, others] = splitProps(props, ['asChild', 'class']);
 
   return (
     <ClipboardPrimitive.Trigger
-      class={clsx(styles.trigger, local.class)}
+      asChild={local.asChild}
+      class={clsx(!local.asChild && styles.trigger, local.class)}
       {...others}
       data-slot="clipboard-trigger"
     />
@@ -88,21 +90,11 @@ function ClipboardIndicator(props: ComponentProps<typeof ClipboardPrimitive.Indi
   return (
     <ClipboardPrimitive.Indicator
       class={clsx(styles.indicator, local.class)}
-      copied={
-        local.copied ?? (
-          <span aria-hidden="true" data-slot="clipboard-indicator-copied-icon" class={styles.icon}>
-            <CheckIcon />
-          </span>
-        )
-      }
+      copied={local.copied ?? <CheckIcon />}
       {...others}
       data-slot="clipboard-indicator"
     >
-      {resolvedChildren() ?? (
-        <span aria-hidden="true" data-slot="clipboard-indicator-idle-icon" class={styles.icon}>
-          <CopyIcon />
-        </span>
-      )}
+      {resolvedChildren() ?? <CopyIcon />}
     </ClipboardPrimitive.Indicator>
   );
 }

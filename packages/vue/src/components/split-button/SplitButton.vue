@@ -10,7 +10,7 @@ import '../button/Button.module.css';
 import styles from './SplitButton.module.css';
 
 defineOptions({ inheritAttrs: false });
-interface Props extends /* @vue-ignore */ MenuRootProps {
+export interface Props extends /* @vue-ignore */ MenuRootProps {
   ariaLabel?: string;
   ariaLabelledby?: string;
   class?: HTMLAttributes['class'];

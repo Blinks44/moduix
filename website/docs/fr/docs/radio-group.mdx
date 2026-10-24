@@ -5,48 +5,6 @@ description: Un groupe de boutons radio pour choisir une seule option parmi plus
 ---
 
 import * as RadioGroupDocs from '@/components/examples/radio-group/css-properties';
-import RadioGroupAdvancedCustomization from '@/components/examples/radio-group/advanced-customization.tsx';
-import RadioGroupAsChild from '@/components/examples/radio-group/aschild.tsx';
-import RadioGroupBasic from '@/components/examples/radio-group/basic.tsx';
-import RadioGroupControlled from '@/components/examples/radio-group/controlled.tsx';
-import RadioGroupDisabled from '@/components/examples/radio-group/disabled.tsx';
-import RadioGroupDisabledItem from '@/components/examples/radio-group/item-disabled.tsx';
-import RadioGroupForm from '@/components/examples/radio-group/form.tsx';
-import RadioGroupIndicator from '@/components/examples/radio-group/indicator.tsx';
-import RadioGroupInitialValue from '@/components/examples/radio-group/initial-value.tsx';
-import RadioGroupOrientation from '@/components/examples/radio-group/orientation.tsx';
-import RadioGroupRootProvider from '@/components/examples/radio-group/root-provider.tsx';
-import RadioGroupSizes from '@/components/examples/radio-group/sizes.tsx';
-import RadioGroupField from '@/components/examples/radio-group/with-field.tsx';
-import RadioGroupFieldset from '@/components/examples/radio-group/with-fieldset.tsx';
-import radioGroupSolidAdvancedCustomization from '../../../snippets/radio-group/solid/advanced-customization.tsx?raw';
-import radioGroupSolidAsChild from '../../../snippets/radio-group/solid/aschild.tsx?raw';
-import radioGroupSolidBasic from '../../../snippets/radio-group/solid/basic.tsx?raw';
-import radioGroupSolidControlled from '../../../snippets/radio-group/solid/controlled.tsx?raw';
-import radioGroupSolidDisabled from '../../../snippets/radio-group/solid/disabled.tsx?raw';
-import radioGroupSolidDisabledItem from '../../../snippets/radio-group/solid/item-disabled.tsx?raw';
-import radioGroupSolidForm from '../../../snippets/radio-group/solid/form.tsx?raw';
-import radioGroupSolidIndicator from '../../../snippets/radio-group/solid/indicator.tsx?raw';
-import radioGroupSolidInitialValue from '../../../snippets/radio-group/solid/initial-value.tsx?raw';
-import radioGroupSolidOrientation from '../../../snippets/radio-group/solid/orientation.tsx?raw';
-import radioGroupSolidRootProvider from '../../../snippets/radio-group/solid/root-provider.tsx?raw';
-import radioGroupSolidSizes from '../../../snippets/radio-group/solid/sizes.tsx?raw';
-import radioGroupSolidField from '../../../snippets/radio-group/solid/with-field.tsx?raw';
-import radioGroupSolidFieldset from '../../../snippets/radio-group/solid/with-fieldset.tsx?raw';
-import radioGroupVueAdvancedCustomization from '../../../snippets/radio-group/vue/advanced-customization.vue?raw';
-import radioGroupVueAsChild from '../../../snippets/radio-group/vue/aschild.vue?raw';
-import radioGroupVueBasic from '../../../snippets/radio-group/vue/basic.vue?raw';
-import radioGroupVueControlled from '../../../snippets/radio-group/vue/controlled.vue?raw';
-import radioGroupVueDisabled from '../../../snippets/radio-group/vue/disabled.vue?raw';
-import radioGroupVueDisabledItem from '../../../snippets/radio-group/vue/item-disabled.vue?raw';
-import radioGroupVueForm from '../../../snippets/radio-group/vue/form.vue?raw';
-import radioGroupVueIndicator from '../../../snippets/radio-group/vue/indicator.vue?raw';
-import radioGroupVueInitialValue from '../../../snippets/radio-group/vue/initial-value.vue?raw';
-import radioGroupVueOrientation from '../../../snippets/radio-group/vue/orientation.vue?raw';
-import radioGroupVueRootProvider from '../../../snippets/radio-group/vue/root-provider.vue?raw';
-import radioGroupVueSizes from '../../../snippets/radio-group/vue/sizes.vue?raw';
-import radioGroupVueField from '../../../snippets/radio-group/vue/with-field.vue?raw';
-import radioGroupVueFieldset from '../../../snippets/radio-group/vue/with-fieldset.vue?raw';
 
 ## Référence de l’API
 
@@ -68,40 +26,7 @@ choix indépendants et `Switch` pour un réglage qui s’applique immédiatement
 Utilisez `RadioGroup` comme racine et donnez une valeur à chaque option. `RadioGroupOption` affiche
 un élément libellé avec son contrôle, son texte et son champ natif.
 
-<ExampleFrame variant="component">
-  <RadioGroupBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueBasic} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="radio-group/basic" />
 
 ## Installation avec shadcn
 
@@ -165,7 +90,7 @@ RadioGroupOption
 | `RadioGroupLabel`           | Libellé accessible du groupe.                                   |
 | `RadioGroupItem`             | Une option sélectionnable ; rend un `label` par défaut.         |
 | `RadioGroupOption`           | Élément pratique avec contrôle, texte et champ masqué.           |
-| `RadioGroupItemControl`      | Contrôle radio visuel ; accepte la prop moduix `size`.           |
+| `RadioGroupItemControl`      | Contrôle radio visuel ; sa taille vient de `size` sur la racine. |
 | `RadioGroupItemText`         | Texte visible de l’option.                                      |
 | `RadioGroupItemHiddenInput`  | Champ natif pour la composition explicite de `RadioGroupItem`.             |
 | `RadioGroupIndicator`        | Indicateur facultatif de l’élément actif, mesuré par Ark.        |
@@ -196,215 +121,35 @@ son état à `RadioGroup`. Passez `disabled`, `invalid`, `readOnly` et `required
 Utilisez `RadioGroupItem asChild` lorsqu’une carte ou une mise en page personnalisée doit posséder le
 nœud DOM de l’option. Gardez un `label` sémantique comme enfant direct.
 
-<ExampleFrame variant="component">
-  <RadioGroupAsChild />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/aschild.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidAsChild} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueAsChild} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/radio-group/radio-group-aschild.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="radio-group/aschild" />
 
 ### État contrôlé
 
 Gérez `value` avec `useState` dans React, `createSignal` dans Solid ou `ref` et `v-model` dans Vue lorsque la valeur sélectionnée
 doit rester synchronisée avec le routage, les filtres ou l’interface environnante.
 
-<ExampleFrame variant="component">
-  <RadioGroupControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/radio-group/radio-group-controlled.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="radio-group/controlled" />
 
 ### Groupe désactivé
 
 Définissez `disabled` sur la racine pour rendre toutes les options indisponibles tout en gardant la
 valeur sélectionnée visible.
 
-<ExampleFrame variant="component">
-  <RadioGroupDisabled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidDisabled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueDisabled} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="radio-group/disabled" />
 
 ### Élément désactivé
 
 Définissez `disabled` sur un `RadioGroupItem` ou un `RadioGroupOption` individuel lorsqu’une seule option doit être
 indisponible.
 
-<ExampleFrame variant="component">
-  <RadioGroupDisabledItem />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/item-disabled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidDisabledItem} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueDisabledItem} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="radio-group/item-disabled" />
 
 ### Formulaire
 
 Passez `name` à la racine lorsque la valeur sélectionnée doit être envoyée dans un formulaire.
 `RadioGroupOption` contient déjà le champ ; ajoutez `RadioGroupItemHiddenInput` à chaque `RadioGroupItem` personnalisé.
 
-<ExampleFrame variant="component">
-  <RadioGroupForm />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/form.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidForm} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueForm} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/radio-group/radio-group-form.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="radio-group/form" />
 
 ### Indicateur
 
@@ -412,130 +157,21 @@ Rendez `RadioGroupIndicator` lorsqu’un surlignage supplémentaire et mesuré e
 l’option active. Gardez l’indicateur et les boutons radio dans le même contexte de positionnement afin
 qu’il suive la géométrie des options.
 
-<ExampleFrame variant="component">
-  <RadioGroupIndicator />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/indicator.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidIndicator} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueIndicator} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/radio-group/radio-group-indicator.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="radio-group/indicator" />
 
 ### Valeur initiale
 
 Définissez `defaultValue` lorsque l’option initialement sélectionnée est connue et que le groupe doit
 gérer seul les changements suivants.
 
-<ExampleFrame variant="component">
-  <RadioGroupInitialValue />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/initial-value.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidInitialValue} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueInitialValue} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="radio-group/initial-value" />
 
 ### Orientation
 
 Définissez `orientation="horizontal"` lorsque la navigation avec les flèches doit suivre un groupe
 horizontal. Placez les options dans un conteneur en ligne pour obtenir la même disposition visuelle.
 
-<ExampleFrame variant="component">
-  <RadioGroupOrientation />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/orientation.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidOrientation} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueOrientation} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/radio-group/radio-group-orientation.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="radio-group/orientation" />
 
 ### Root Provider
 
@@ -543,85 +179,14 @@ Utilisez `RadioGroupRootProvider` lorsqu’un store `useRadioGroup()` doit être
 en dehors de l’arbre du groupe. L’exemple montre aussi comment modifier la valeur sélectionnée depuis
 l’extérieur du groupe.
 
-<ExampleFrame variant="component">
-  <RadioGroupRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/radio-group/radio-group-root-provider.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="radio-group/root-provider" />
 
 ### Tailles
 
-Utilisez la prop moduix `size` sur `RadioGroupOption` ou `RadioGroupItemControl` lorsque le contrôle radio doit avoir un
-diamètre différent. Les valeurs prises en charge sont `xs`, `sm`, `md`, `lg` et `xl`.
+Passez la prop moduix `size` à `RadioGroup` ou `RadioGroupRootProvider` pour changer le diamètre de tous les
+contrôles radio du groupe. Les valeurs prises en charge sont `xs`, `sm`, `md` (par défaut), `lg` et `xl`.
 
-<ExampleFrame variant="component">
-  <RadioGroupSizes />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/sizes.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidSizes} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueSizes} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="radio-group/sizes" />
 
 ### Avec Field
 
@@ -629,45 +194,7 @@ Utilisez `Field` lorsqu’un groupe radio a besoin d’un libellé, d’un texte
 d’erreur au niveau du champ. Passez aussi `invalid` à `RadioGroup`, car `Field` ne définit pas
 l’état de validation du groupe.
 
-<ExampleFrame variant="component">
-  <RadioGroupField />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/with-field.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidField} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueField} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/radio-group/radio-group-with-field.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="radio-group/with-field" />
 
 ### Avec Fieldset
 
@@ -675,85 +202,14 @@ Entourez le groupe d’un `Fieldset` lorsque plusieurs options partagent une lé
 même formulaire. `Fieldset` peut également transmettre les états `disabled` et `invalid` au groupe
 imbriqué.
 
-<ExampleFrame variant="component">
-  <RadioGroupFieldset />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/with-fieldset.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidFieldset} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueFieldset} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/radio-group/radio-group-with-fieldset.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="radio-group/with-fieldset" />
 
 ### Personnalisation avancée
 
 Contournez `RadioGroupOption` et utilisez l’arbre complet de `RadioGroupItem` lorsque chaque partie imbriquée doit avoir
 son propre placement, ses propres props ou son propre style.
 
-<ExampleFrame variant="component">
-  <RadioGroupAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/radio-group/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={radioGroupSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={radioGroupVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-</div>
-</ExampleCode>
+<Example name="radio-group/advanced-customization" />
 
 ## Styles
 
@@ -778,4 +234,4 @@ partagés par les deux approches de style.
 - Variables de l’indicateur Ark : `--transition-property`, `--left`, `--top`, `--width` et `--height`.
 - Hooks moduix : `data-slot="radio-group-root"`, `radio-group-root-provider`,
   `radio-group-label`, `radio-group-item`, `radio-group-item-control`, `radio-group-item-text` et
-  `radio-group-indicator`.
+  `radio-group-indicator`, ainsi que `data-size` sur la racine et `RadioGroupRootProvider`.

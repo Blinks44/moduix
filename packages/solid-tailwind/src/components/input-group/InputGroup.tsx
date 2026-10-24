@@ -3,44 +3,44 @@ import { ark } from '@ark-ui/solid/factory';
 import { cva } from 'class-variance-authority';
 import type { ComponentProps } from 'solid-js';
 import { createContext, splitProps, useContext } from 'solid-js';
-import { cn } from '@/internal/cn';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { cn } from '@/lib/moduix/cn';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../button';
 import { CloseButton } from '../close-button';
-import { Input } from '../input';
+import { Input, type InputSize } from '../input';
+import { Textarea } from '../textarea';
 
-type InputGroupSize = NonNullable<ComponentProps<typeof Input>['size']>;
+type InputGroupSize = InputSize;
 
-type InputGroupDataProps = {
-  'data-scope'?: string;
-  'data-part'?: string;
-  'data-slot'?: string;
+type InputGroupAddonAlign = 'inline' | 'block';
+
+type InputGroupAddonProps = HTMLArkProps<'span'> & {
+  align?: InputGroupAddonAlign;
 };
 
-type InputGroupProps = HTMLArkProps<'div'> &
-  InputGroupDataProps & {
-    size?: InputGroupSize;
-    'data-size'?: string;
-  };
+type InputGroupProps = HTMLArkProps<'div'> & {
+  size?: InputGroupSize;
+};
 
-const inputGroupSizeVariants = {
-  xs: 'px-2.5 text-xs leading-4',
-  sm: 'px-3 text-sm leading-5',
-  md: 'px-3.5 text-md leading-6',
-  lg: 'px-4 text-lg leading-7',
-  xl: 'px-4.5 text-lg leading-7',
+const inputGroupPaddingVariants = {
+  xs: 'px-2.5',
+  sm: 'px-3',
+  md: 'px-3.5',
+  lg: 'px-4',
+  xl: 'px-4.5',
 };
 
 const inputGroupRootVariants = cva(
-  'flex w-full max-w-none items-stretch overflow-hidden rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-200 ease-in-out focus-within:outline-ring has-[[data-slot=input-root][data-invalid]]:border-destructive has-[[data-slot=input-root][data-invalid]]:focus-within:outline-destructive has-[[data-slot=input-root][aria-invalid=true]]:border-destructive has-[[data-slot=input-root][aria-invalid=true]]:focus-within:outline-destructive has-[[data-slot=input-root][data-disabled]]:opacity-50 has-[[data-slot=input-root]:disabled]:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100 motion-reduce:transition-none',
+  'flex w-full items-stretch overflow-hidden rounded-md border border-border bg-background text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color,opacity] duration-normal ease-in-out has-[>[data-align=block]]:flex-col focus-within:outline-ring has-[:is([data-slot=input-root],[data-slot=textarea-root]):is([data-invalid],[aria-invalid=true])]:border-destructive has-[:is([data-slot=input-root],[data-slot=textarea-root]):is([data-invalid],[aria-invalid=true])]:focus-within:outline-destructive has-[:is([data-slot=input-root],[data-slot=textarea-root]):is([data-disabled],:disabled)]:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
   {
     variants: {
       size: {
-        xs: 'min-h-control-xs',
-        sm: 'min-h-control-sm',
-        md: 'min-h-control-md',
-        lg: 'min-h-control-lg',
-        xl: 'min-h-control-xl',
+        xs: 'min-h-control-xs text-xs leading-4',
+        sm: 'min-h-control-sm text-sm leading-5',
+        md: 'min-h-control-md text-md leading-6',
+        lg: 'min-h-control-lg text-lg leading-7',
+        xl: 'min-h-control-xl text-lg leading-7',
       },
     },
     defaultVariants: {
@@ -49,11 +49,20 @@ const inputGroupRootVariants = cva(
   },
 );
 
-const inputGroupInputVariants = cva(
-  'min-h-0 min-w-0 grow basis-auto rounded-none border-0 bg-transparent outline-0',
+const inputGroupInputVariants = cva('min-h-0 grow rounded-none border-0 bg-transparent outline-0', {
+  variants: {
+    size: inputGroupPaddingVariants,
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
+const inputGroupTextareaVariants = cva(
+  'min-w-0 grow resize-none rounded-none border-0 bg-transparent outline-0 disabled:opacity-100 data-disabled:opacity-100',
   {
     variants: {
-      size: inputGroupSizeVariants,
+      size: inputGroupPaddingVariants,
     },
     defaultVariants: {
       size: 'md',
@@ -62,10 +71,10 @@ const inputGroupInputVariants = cva(
 );
 
 const inputGroupAddonVariants = cva(
-  'inline-flex min-w-0 items-center justify-center gap-2 truncate bg-muted text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0 border-s border-e border-border first:border-s-0 last:border-e-0',
+  "inline-flex min-w-0 items-center justify-center gap-2 overflow-hidden whitespace-nowrap border-s border-e border-border bg-muted text-muted-foreground first:border-s-0 last:border-e-0 [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0 data-[align=block]:justify-start data-[align=block]:border-x-0 data-[align=block]:border-y data-[align=block]:py-2 data-[align=block]:first:border-t-0 data-[align=block]:last:border-b-0",
   {
     variants: {
-      size: inputGroupSizeVariants,
+      size: inputGroupPaddingVariants,
     },
     defaultVariants: {
       size: 'md',
@@ -74,10 +83,10 @@ const inputGroupAddonVariants = cva(
 );
 
 const inputGroupTextVariants = cva(
-  'inline-flex min-w-0 items-center justify-center gap-2 truncate bg-transparent text-muted-foreground [&>svg]:size-4 [&>svg]:shrink-0',
+  "inline-flex min-w-0 items-center justify-center gap-2 overflow-hidden whitespace-nowrap text-muted-foreground [&>svg:not([class*='size-'])]:size-4 [&>svg]:shrink-0 data-[align=block]:justify-start data-[align=block]:py-2",
   {
     variants: {
-      size: inputGroupSizeVariants,
+      size: inputGroupPaddingVariants,
     },
     defaultVariants: {
       size: 'md',
@@ -85,34 +94,19 @@ const inputGroupTextVariants = cva(
   },
 );
 
-const inputGroupButtonClass = 'h-auto self-stretch rounded-none border-0';
+const inputGroupButtonClass = 'h-auto min-h-0 self-stretch rounded-none border-0 py-0';
 
-const inputGroupClearTriggerVariants = cva(
-  'me-2 size-control-xs self-center focus-visible:outline-1 focus-visible:outline-offset-1 motion-reduce:transition-none',
-  {
-    variants: { size: { xs: 'size-5', sm: '', md: '', lg: '', xl: '' } },
-    defaultVariants: { size: 'md' },
-  },
-);
+const inputGroupClearTriggerClass =
+  'me-2 size-control-xs self-center focus-visible:outline-focus-inset focus-visible:outline-offset-1 data-[size=xs]:size-5';
 
 const InputGroupSizeContext = createContext((): InputGroupSize => 'md');
 
 function InputGroup(props: InputGroupProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'children',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-size',
-    'data-slot',
-    'size',
-  ]);
+  const [local, others] = splitProps(props, ['children', 'class', 'size']);
 
   return (
     <InputGroupSizeContext.Provider value={() => local.size ?? 'md'}>
       <ark.div
-        asChild={local.asChild}
         {...others}
         data-scope="input-group"
         data-part="root"
@@ -140,45 +134,47 @@ function InputGroupInput(props: ComponentProps<typeof Input>) {
   );
 }
 
-function InputGroupAddon(props: HTMLArkProps<'span'> & InputGroupDataProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+function InputGroupTextarea(props: ComponentProps<typeof Textarea>) {
+  const [local, others] = splitProps(props, ['class', 'size']);
+  const groupSize = useContext(InputGroupSizeContext);
+  const textareaSize = () => local.size ?? groupSize();
+
+  return (
+    <Textarea
+      {...others}
+      class={cn(inputGroupTextareaVariants({ size: textareaSize() }), local.class)}
+      size={textareaSize()}
+    />
+  );
+}
+
+function InputGroupAddon(props: InputGroupAddonProps) {
+  const [local, others] = splitProps(props, ['align', 'class']);
   const groupSize = useContext(InputGroupSizeContext);
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       data-scope="input-group"
       data-part="addon"
       data-slot="input-group-addon"
+      data-align={local.align ?? 'inline'}
       class={cn(inputGroupAddonVariants({ size: groupSize() }), local.class)}
     />
   );
 }
 
-function InputGroupText(props: HTMLArkProps<'span'> & InputGroupDataProps) {
-  const [local, others] = splitProps(props, [
-    'asChild',
-    'class',
-    'data-part',
-    'data-scope',
-    'data-slot',
-  ]);
+function InputGroupText(props: InputGroupAddonProps) {
+  const [local, others] = splitProps(props, ['align', 'class']);
   const groupSize = useContext(InputGroupSizeContext);
 
   return (
     <ark.span
-      asChild={local.asChild}
       {...others}
       data-scope="input-group"
       data-part="text"
       data-slot="input-group-text"
+      data-align={local.align ?? 'inline'}
       class={cn(inputGroupTextVariants({ size: groupSize() }), local.class)}
     />
   );
@@ -187,7 +183,6 @@ function InputGroupText(props: HTMLArkProps<'span'> & InputGroupDataProps) {
 function InputGroupButton(props: ComponentProps<typeof Button>) {
   const [local, others] = splitProps(props, ['class', 'size', 'type', 'variant']);
   const groupSize = useContext(InputGroupSizeContext);
-  const buttonSize = () => local.size ?? groupSize();
 
   return (
     <Button
@@ -195,7 +190,7 @@ function InputGroupButton(props: ComponentProps<typeof Button>) {
       data-slot="input-group-button"
       class={cn(inputGroupButtonClass, local.class)}
       variant={local.variant ?? 'ghost'}
-      size={buttonSize()}
+      size={local.size ?? groupSize()}
       type={local.type ?? 'button'}
     />
   );
@@ -213,6 +208,7 @@ function InputGroupClearTrigger(
     'aria-labelledby',
   ]);
   const groupSize = useContext(InputGroupSizeContext);
+
   return (
     <CloseButton
       {...others}
@@ -220,10 +216,11 @@ function InputGroupClearTrigger(
       data-part="clear-trigger"
       data-slot="input-group-clear-trigger"
       data-size={local.size ?? groupSize()}
-      class={cn(inputGroupClearTriggerVariants({ size: local.size ?? groupSize() }), local.class)}
+      class={cn(inputGroupClearTriggerClass, local.class)}
       type={local.type ?? 'button'}
       aria-label={
-        local['aria-label'] ?? (local['aria-labelledby'] == null ? 'Clear input' : undefined)
+        local['aria-label'] ??
+        (local['aria-labelledby'] == null ? a11yLabels.clearInput : undefined)
       }
       aria-labelledby={local['aria-labelledby']}
     >
@@ -239,4 +236,6 @@ export {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
+  InputGroupTextarea,
 };
+export type { InputGroupAddonAlign, InputGroupSize };

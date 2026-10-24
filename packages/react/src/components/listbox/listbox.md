@@ -160,89 +160,41 @@ results should remain visually separate or need a custom wrapper.
 
 ## Defaults and styling
 
-The input and filter default to `--moduix-size-md`. Single-line list items default to `--moduix-size-sm` with `--moduix-spacing-1` block padding.
-Empty messages use the same compact `--moduix-spacing-1` block padding.
-
-Group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular weight,
-and `--moduix-spacing-1` block padding. Listbox-specific variables still take precedence.
-
-- Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
-- Default root width is `16rem` through `--moduix-listbox-width`.
-- `ListboxFilter` has a default search icon. When placed immediately before `ListboxContent`, the
-  content provides the visible boundary and divider between the input and results.
-- Standalone `ListboxContent` and `ListboxInput` retain their keyboard focus rings. When
-  `ListboxFilter` immediately precedes `ListboxContent`, focus on either the input or content
-  highlights their shared outer border. The internal divider stays neutral; no separate outline
-  surrounds only the results.
-- `ListboxContent` has a `14rem` default max height and scrolls long lists without blocking page scroll
-  chaining.
-- `ListboxInput` is optional and only needed for filtering scenarios. Its default border matches
-  `ListboxContent`; used directly, `:focus-visible` animates only its outline color. Inside
-  `ListboxFilter`, it keeps that border and suppresses the outline.
-- Moduix visually hides `ListboxItemIndicator` when Ark marks the item as unchecked, preserving
-  the reserved indicator space.
-- `ListboxContent[data-layout='grid']` uses Ark's `--column-count` CSS variable.
-- Grid items collapse the indicator column and should normally show selection through the neutral
-  `--moduix-listbox-grid-selected-bg` background instead of `ListboxItemIndicator`.
-- Grid item labels are centered by default.
+- CSS Modules expose two variables: `--moduix-listbox-width` (root, `16rem`) and
+  `--moduix-listbox-content-max-height` (vertical content, `14rem`). Colors, spacing, typography,
+  focus rings, and disabled opacity come from foundation tokens; override them with a class on the
+  part. Items, group labels, and list padding also follow the shared `--moduix-popup-item-*`,
+  `--moduix-popup-group-label-*`, and `--moduix-popup-list-padding-y` variables.
+- The input and filter default to `--moduix-size-md`; items default to `--moduix-size-sm`.
+- `ListboxFilter` places the search icon at the inline start and reserves 44px at the inline end for
+  `ListboxClearTrigger` (12px offset, 24px action, 8px gap). The clear trigger keeps the
+  `CloseButton` colors, hover, and focus ring and only sets its size and position.
+- When `ListboxFilter` immediately precedes `ListboxContent`, both form one surface: focus on either
+  part highlights the shared outer border, and the internal divider stays neutral. Standalone
+  `ListboxInput` and `ListboxContent` keep their own inset focus outline.
+- `ListboxContent` scrolls long lists and does not contain overscroll, so page scrolling chains past
+  it; it is not a popup.
+- Items reserve a 16px indicator column, so selecting an item does not shift its text. Ark sets
+  `hidden` on unchecked indicators; moduix also sets `visibility: hidden` for apps whose reset does
+  not hide `[hidden]` elements.
+- Grid collections (`data-layout="grid"`, Ark `--column-count`) collapse the indicator column, center
+  item labels, and show selection with a neutral muted fill.
+- Horizontal content does not cap its height and scrolls inline; its items are `11rem` wide.
+- Disabled items dim with the shared disabled opacity only, without a second muted text color.
+  A disabled root dims once; its input and items do not dim again.
 
 ## Intentional sugar and differences from upstream
 
-- Default selected indicator icon is added for `ListboxItemIndicator`.
-- `ListboxFilter` and `ListboxClearTrigger` add search-field visuals only. `ListboxInput` also
-  remains available without `ListboxFilter` for custom layouts; both paths keep filtering state and
-  collection updates explicit through the existing Ark input and collection APIs.
-- `ListboxClearTrigger` composes the shared `CloseButton` for its default icon, interaction, and
-  focus styling without taking ownership of the consumer-managed filter reset.
-- `ListboxItemTextContent`, `ListboxItemTextIcon`, and `ListboxItemTextLabel` are local leaf helpers only; they do not
-  replace Ark item composition.
-- No convenience wrapper hides Ark parts; consumers compose the content and items directly.
+- `ListboxItemIndicator` renders the moduix `CheckIcon` when children are omitted.
+- `ListboxFilter` and `ListboxClearTrigger` add search-field visuals only; filter text and
+  collection updates stay explicit through Ark input and collection APIs.
+- `ListboxItemTextContent`, `ListboxItemTextIcon`, and `ListboxItemTextLabel` are leaf span helpers
+  shared in shape with Menu and Select; they do not replace Ark item composition.
+- No convenience wrapper hides Ark parts; consumers compose content and items directly.
+- React and Solid re-export the Ark Listbox part props, callback details, and hook types.
 
 ## Agent notes
 
 - Keep package barrel exports aligned with the component file.
 - Docs import from `@moduix/react`, not local component paths.
 - When registry-shipped listbox source changes, run `pnpm run build:registry`.
-
-## Local changelog
-
-- 2026-10-03: Unified filter/content focus also covers content focus after keyboard navigation
-  or pointer selection; the internal divider no longer takes the focus-ring color.
-
-- 2026-10-02: Filter input focus highlights the composed outer boundary; disabled parts no longer dim an already disabled root twice.
-
-- 2026-07-23: Compacted empty-message block padding to `--moduix-spacing-1` to align with popup items.
-- 2026-07-28: Restored visible keyboard focus for content and unified filter inputs; added Listbox
-  regression coverage and synchronized public docs with the advanced state and item-text helpers.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Normalized group labels to the shared regular-weight popup-label contract.
-
-- 2026-07-21: Reduced the default input and filter to `--moduix-size-md` and compacted list items to `--moduix-size-sm`.
-
-- 2026-07-17: Composed the standard filter clear action with `CloseButton` and mapped existing
-  Listbox tokens to the shared button styling.
-
-- 2026-07-17: Added the unified `ListboxFilter` and `ListboxClearTrigger` defaults, including
-  search and clear icons, a filter/content divider, and styling tokens. Documented the direct
-  `ListboxInput` alternative, aligned ListboxFilter with the content background, and removed its outer
-  focus ring. Standalone inputs retain their default border and animate their outline color on
-  focus, while ListboxFilter preserves its input border and suppresses the outline.
-- 2026-07-10: Re-exported Listbox state and context surfaces from moduix so `ListboxRootProvider`, select-all,
-  and item-level customization do not require direct Ark Listbox imports. Collection helpers remain Ark imports.
-- 2026-06-26: Simplified listbox spacing defaults to existing spacing tokens, changed content max
-  height to `14rem`, removed the docs-only filter input focus override, and aligned the public
-  docs composition section with the current Ark-backed contract.
-
-- 2026-06-24: Removed collection helper re-exports from the Listbox public surface; docs now import
-  `createListCollection`, `createGridCollection`, and `useListCollection` directly from Ark UI.
-
-- 2026-06-22: Polished default sizing, scroll behavior, filtering input styling, indicator layout,
-  horizontal/grid examples, stories, and docs snippets.
-- 2026-06-22: Added item hover affordance, stable content focus styling, docs root sizing, and
-  compact grid selection background.
-- 2026-06-22: Added `--moduix-listbox-*` variables to the public theme reference and changed default
-  width to `16rem`.
-- 2026-06-22: Changed grid selected background from primary to neutral muted color.
-- 2026-06-22: Kept listbox content focused after pointer selection and centered grid items.
-- 2026-06-22: Added Ark UI `Listbox` wrapper with CSS Modules styling, item indicator defaults,
-  rich item text helpers, stories, local docs, site docs, and registry metadata.

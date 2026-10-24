@@ -8,7 +8,6 @@ import {
   MenuViewport,
   MenuItem,
 } from '@moduix/solid/menu';
-import styles from '@/components/examples/menu/menu-basic.module.css';
 
 const fileItems = [
   { value: 'new-file', label: 'New File' },
@@ -25,7 +24,7 @@ export default function MenuDemo() {
         <MenuIndicator />
       </MenuTrigger>
       <MenuPositioner>
-        <MenuContent class={styles.content}>
+        <MenuContent>
           <MenuViewport>
             {fileItems.map((item) => (
               <MenuItem value={item.value}>{item.label}</MenuItem>

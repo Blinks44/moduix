@@ -4,7 +4,7 @@ import type { CarouselPrevTriggerProps } from '@ark-ui/vue/carousel';
 import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { ChevronLeftIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import styles from './Carousel.module.css';
 
 defineOptions({ inheritAttrs: false });
@@ -22,11 +22,11 @@ const attrs = useAttrs();
 <template>
   <ArkCarouselPrevTrigger
     v-bind="attrs"
-    :class="clsx(styles.prevTrigger, className)"
+    :class="clsx(styles.trigger, className)"
     data-slot="carousel-prev-trigger"
   >
     <slot>
-      <span :class="styles.defaultIcon"><ChevronLeftIcon /></span>
+      <ChevronLeftIcon :class="styles.icon" />
     </slot>
   </ArkCarouselPrevTrigger>
 </template>

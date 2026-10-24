@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { defineComponent } from 'vue';
 import { Badge, BadgeDot, BadgeLabel } from '@/components/badge';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import styles from './Badge.stories.module.css';
 
 const meta = {
@@ -108,9 +108,9 @@ export const TruncatedLabel: Story = {
 export const CustomStyling: Story = {
   render: renderStory(`
     <div :class="styles.row">
-      <Badge :class="styles.small">Small</Badge>
+      <Badge size="sm">Small</Badge>
       <Badge>Default</Badge>
-      <Badge :class="styles.large">Large</Badge>
+      <Badge size="lg">Large</Badge>
       <Badge :class="styles.customBadge">
         <BadgeDot />
         <BadgeLabel>Priority</BadgeLabel>

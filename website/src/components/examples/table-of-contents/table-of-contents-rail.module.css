@@ -1,12 +1,10 @@
 .root {
-  inline-size: 100%;
   grid-template-columns: minmax(0, 1fr) minmax(10rem, 12rem);
-  --moduix-table-of-contents-gap: var(--moduix-spacing-4);
-  --moduix-table-of-contents-nav-padding: var(--moduix-spacing-3);
+  gap: var(--moduix-spacing-4);
 }
 
-.root [data-slot='toc-content'] {
-  min-width: 0;
+.root [data-slot='toc-nav'] {
+  padding: var(--moduix-spacing-3);
 }
 
 .scrollArea {

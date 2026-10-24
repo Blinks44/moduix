@@ -10,6 +10,8 @@ import {
   ListboxClearTrigger,
   ListboxContent,
   ListboxContext,
+  ListboxFilter,
+  ListboxInput,
   ListboxItem,
   ListboxItemContext,
   ListboxItemIndicator,
@@ -35,6 +37,8 @@ const listboxComponents = {
   ListboxClearTrigger,
   ListboxContent,
   ListboxContext,
+  ListboxFilter,
+  ListboxInput,
   ListboxItem,
   ListboxItemContext,
   ListboxItemIndicator,
@@ -255,4 +259,57 @@ test('hydrates stable hosts and ids and remains interactive', async () => {
     app.unmount();
     host.remove();
   }
+});
+
+test('reserves filter room for the clear action and keeps page scroll chaining', async () => {
+  render(
+    defineComponent({
+      components: listboxComponents,
+      setup() {
+        return { collection: fruits, items: fruits.items };
+      },
+      template: `
+        <Listbox :collection="collection">
+          <ListboxLabel>Fruit</ListboxLabel>
+          <ListboxFilter>
+            <ListboxInput />
+            <ListboxClearTrigger />
+          </ListboxFilter>
+          <ListboxContent>
+            <ListboxItem v-for="item in items" :key="item.value" :item="item">
+              <ListboxItemText>{{ item.label }}</ListboxItemText>
+            </ListboxItem>
+          </ListboxContent>
+        </Listbox>
+      `,
+    }),
+  );
+  await nextTick();
+
+  const input = document.querySelector<HTMLElement>('[data-slot="listbox-input"]')!;
+  const clear = document.querySelector<HTMLElement>('[data-slot="listbox-clear-trigger"]')!;
+  const content = document.querySelector<HTMLElement>('[data-slot="listbox-content"]')!;
+
+  // 12px offset + 24px action + 8px gap before the text.
+  expect(getComputedStyle(input).paddingInlineEnd).toBe('44px');
+  expect(clear.offsetWidth).toBe(24);
+  expect(clear.querySelector('svg')).not.toBeNull();
+  expect(
+    Math.abs(input.getBoundingClientRect().right - clear.getBoundingClientRect().right - 12),
+  ).toBeLessThanOrEqual(1);
+  // The list is not a popup, so page scrolling chains past it.
+  expect(getComputedStyle(content).overscrollBehaviorY).toBe('auto');
+});
+
+test('dims disabled items once through opacity', async () => {
+  render(FruitListbox);
+  await nextTick();
+
+  const [apple, , unavailable] = [
+    ...document.querySelectorAll<HTMLElement>('[data-slot="listbox-item"]'),
+  ];
+
+  // Disabled items dim once, through opacity, and keep the regular text color.
+  expect(getComputedStyle(unavailable!).opacity).toBe('0.5');
+  expect(getComputedStyle(unavailable!).color).toBe(getComputedStyle(apple!).color);
 });

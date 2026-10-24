@@ -19,9 +19,9 @@ import {
 test('renders the native table anatomy with stable hooks', async () => {
   render(() => (
     <TableScrollArea data-testid="scroll-area">
-      <Table data-testid="table" size="lg" variant="outline">
+      <Table data-testid="table" size="lg">
         <TableColumnGroup data-testid="column-group">
-          <TableColumn data-testid="column" htmlWidth="40%" />
+          <TableColumn data-testid="column" width="40%" />
         </TableColumnGroup>
         <TableCaption data-testid="caption" side="top">
           Recent invoices
@@ -73,7 +73,6 @@ test('renders the native table anatomy with stable hooks', async () => {
     part: 'root',
     slot: 'table-root',
     size: 'lg',
-    variant: 'outline',
   });
   expect(columnGroup.tagName).toBe('COLGROUP');
   expect(columnGroup.dataset).toMatchObject({ part: 'column-group', slot: 'table-column-group' });
@@ -135,7 +134,6 @@ test('keeps public hooks when consumer data attributes conflict', () => {
       data-part="custom"
       data-slot="custom"
       data-size="custom"
-      data-variant="custom"
     >
       <TableCaption
         data-testid="caption"
@@ -155,7 +153,6 @@ test('keeps public hooks when consumer data attributes conflict', () => {
     part: 'root',
     slot: 'table-root',
     size: 'md',
-    variant: 'line',
   });
 
   expect(screen.getByTestId('caption').dataset).toMatchObject({
@@ -201,11 +198,7 @@ test('supports native refs on the ordinary factory path', () => {
 
 test('preserves semantic root composition with native Ark Solid asChild', () => {
   render(() => (
-    <Table
-      asChild={(props) => <section {...props()} aria-label="Invoice table" />}
-      size="sm"
-      variant="outline"
-    />
+    <Table asChild={(props) => <section {...props()} aria-label="Invoice table" />} size="sm" />
   ));
 
   expect(screen.getByRole('region', { name: 'Invoice table' }).dataset).toMatchObject({
@@ -213,7 +206,6 @@ test('preserves semantic root composition with native Ark Solid asChild', () => 
     part: 'root',
     slot: 'table-root',
     size: 'sm',
-    variant: 'outline',
   });
 });
 
@@ -284,6 +276,56 @@ test('supports replacing only the generated empty cell with asChild', async () =
   expect(emptyCell.dataset).toMatchObject({ scope: 'table', part: 'empty', slot: 'table-empty' });
   await expect.element(customEmptyCell).toHaveAttribute('colspan', '2');
   await expect.element(customEmptyCell).toContainText('Nothing to review.');
+});
+
+test('paints row states on sticky cells, keeps stripes on plain hover, and keeps numbers on one line', async () => {
+  render(() => (
+    <>
+      <Table striped>
+        <TableBody>
+          <TableRow>
+            <TableCell>INV001</TableCell>
+          </TableRow>
+          <TableRow data-testid="striped-row">
+            <TableCell data-testid="striped-sticky" data-sticky="start">
+              INV002
+            </TableCell>
+            <TableCell data-testid="numeric" numeric>
+              $1 250.00
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+      <Table interactive>
+        <TableBody>
+          <TableRow>
+            <TableCell data-testid="interactive-sticky" data-sticky="start">
+              <button type="button">Edit</button>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </>
+  ));
+
+  const stripedRow = screen.getByTestId('striped-row');
+  const interactiveSticky = screen.getByTestId('interactive-sticky');
+  const stripe = getComputedStyle(stripedRow).backgroundColor;
+
+  expect(stripe).not.toBe('rgba(0, 0, 0, 0)');
+  expect(getComputedStyle(screen.getByTestId('striped-sticky')).backgroundImage).toContain(
+    'gradient',
+  );
+  expect(getComputedStyle(interactiveSticky).backgroundImage).toBe('none');
+  expect(getComputedStyle(screen.getByTestId('numeric')).whiteSpace).toBe('nowrap');
+
+  await page.getByTestId('striped-row').hover();
+  expect(getComputedStyle(stripedRow).backgroundColor).toBe(stripe);
+
+  screen.getByRole('button', { name: 'Edit' }).focus();
+  await expect
+    .poll(() => getComputedStyle(interactiveSticky).backgroundImage)
+    .toContain('gradient');
 });
 
 test('keeps sticky-column hooks on native table cells', () => {

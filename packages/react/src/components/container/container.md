@@ -27,8 +27,7 @@ semantic child, forwarded refs to the rendered root, and no legacy `render` or l
 
 - `Container` is the only public root component.
 - Root accepts Ark factory div props, including `asChild`, which requires exactly one semantic child.
-- moduix does not export dedicated `Container*` prop or variant type aliases; advanced consumers can
-  derive prop types locally or import Ark factory helpers directly.
+- Exports `ContainerRootProps`, `ContainerSize`, and `ContainerGutter` types.
 - Applies `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`,
   `data-size`, and `data-gutter` on the root.
 - Defaults to `size="lg"` and `gutter="md"`.
@@ -148,11 +147,8 @@ when a page shell needs different layout math.
 
 - There is still no upstream Ark primitive for this component; moduix keeps it as a thin factory
   wrapper rather than inventing a richer primitive surface.
-- The old `as` prop was removed in favor of Ark `asChild`.
 - moduix adds Ark-style `data-scope` and `data-part` hooks on the root.
 - The only built-in layout variants are `size` and `gutter`.
-- moduix intentionally keeps the TypeScript surface minimal and does not mirror local root prop or
-  variant aliases as public exports.
 
 ## Agent notes
 
@@ -162,22 +158,9 @@ when a page shell needs different layout math.
 - Keep wrapper-owned data hooks and the merged root class after consumer props so they cannot be
   accidentally replaced.
 - Keep `size="full"` as "uncapped width with the current gutter", not as a different layout mode.
+- Tailwind adapters mirror the CSS Module math with private `--_container-max-width` and
+  `--_container-gutter` properties set per variant; gutters use the same spacing tokens. They do
+  not read the public `--moduix-container-*` variables.
 - Do not add vertical rhythm props, slot bags, or convenience wrappers around headings/content.
 - If stories or docs previews show custom surface styling, the code snippet must include the same
   meaningful class names and CSS needed to understand that preview.
-
-## Local changelog
-
-- 2026-08-10: Added coverage for every `size` and `gutter` preset, protected root hooks, and the
-  documented uncapped-width composition path.
-- 2026-07-26: Restored spacing-token fallbacks for responsive gutters, documented the single-child
-  `asChild` and ref contract, and made the site examples self-contained.
-- 2026-09-21: Replaced the compound root surface with the flat `Container` value and removed the
-  compatibility alias.
-- 2026-07-02: Removed redundant public `Container*` type exports and kept only the callable root
-  component surface (`Container`).
-- 2026-06-25: Re-audited `Container` as a local Ark factory primitive, protected root data/class
-  hooks from consumer prop overrides, simplified the root CSS selector, aligned public docs API
-  reference wording, and removed decorative docs example CSS.
-- 2026-06-18: Migrated `Container` to an Ark-aligned factory wrapper, replaced `as` with `asChild`,
-  added Ark-style root hooks, and aligned docs/examples to the root contract.

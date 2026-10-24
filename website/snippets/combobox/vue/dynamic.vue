@@ -12,7 +12,6 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/vue/combobox';
-import styles from '@/components/examples/combobox/component-dynamic.module.css';
 
 const domains = ['gmail.com', 'outlook.com', 'proton.me'];
 const { collection, set } = useListCollection<string>({ initialItems: [] });
@@ -32,7 +31,7 @@ function handleInputValueChange(details: ComboboxInputValueChangeDetails) {
       <ComboboxTrigger aria-label="Open options" />
     </ComboboxControl>
     <ComboboxPositioner>
-      <ComboboxContent :class="styles.content">
+      <ComboboxContent>
         <ComboboxList>
           <ComboboxOption v-for="item in collection.items" :key="item" :item="item">
             {{ item }}

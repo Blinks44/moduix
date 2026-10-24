@@ -4,22 +4,6 @@ component: bleed
 description: Layout primitive that lets selected content extend beyond a constrained container.
 ---
 
-import * as BleedDocs from '@/components/examples/bleed/css-properties';
-import BleedBasic from '@/components/examples/bleed/basic.tsx';
-import BleedBlockBleed from '@/components/examples/bleed/block-bleed.tsx';
-import BleedCustomStyling from '@/components/examples/bleed/custom-styling.tsx';
-import BleedInlineAmounts from '@/components/examples/bleed/inline-amounts.tsx';
-import BleedSemanticElement from '@/components/examples/bleed/semantic-element.tsx';
-import bleedSolidBasic from '../../../snippets/bleed/solid/basic.tsx?raw';
-import bleedSolidBlockBleed from '../../../snippets/bleed/solid/block-bleed.tsx?raw';
-import bleedSolidCustomStyling from '../../../snippets/bleed/solid/custom-styling.tsx?raw';
-import bleedSolidInlineAmounts from '../../../snippets/bleed/solid/inline-amounts.tsx?raw';
-import bleedSolidSemanticElement from '../../../snippets/bleed/solid/semantic-element.tsx?raw';
-import bleedVueBasic from '../../../snippets/bleed/vue/basic.vue?raw';
-import bleedVueBlockBleed from '../../../snippets/bleed/vue/block-bleed.vue?raw';
-import bleedVueCustomStyling from '../../../snippets/bleed/vue/custom-styling.vue?raw';
-import bleedVueInlineAmounts from '../../../snippets/bleed/vue/inline-amounts.vue?raw';
-import bleedVueSemanticElement from '../../../snippets/bleed/vue/semantic-element.vue?raw';
 
 ## API Reference
 
@@ -42,46 +26,7 @@ subpath for Tailwind.
 The default `inline="full"` makes media, banners, and section decorations reach the viewport edges while
 remaining in the normal document flow.
 
-<ExampleFrame variant="component">
-  <BleedBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/bleed/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={bleedSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={bleedVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/bleed/bleed-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="bleed/basic" />
 
 ## Install with shadcn
 
@@ -145,8 +90,8 @@ the Solid form does not forward the component ref through the custom host.
 In Vue, Ark's factory renders one semantic child for `asChild`; read a component ref's rendered host through `$el`.
 
 Combine `inline` and `block` when a surface should extend through padding on both logical axes. `inline="full"`
-is viewport-relative, so a nested shell may need local `--moduix-bleed-inline-full` and
-`--moduix-bleed-inline-full-size` overrides.
+is viewport-relative: it assumes the constrained parent is centered in the viewport. Inside a nested or off-center
+shell, use a fixed amount that matches the shell padding, or set your own margins as shown in Custom Styling.
 
 ## Examples
 
@@ -154,195 +99,39 @@ is viewport-relative, so a nested shell may need local `--moduix-bleed-inline-fu
 
 Add `block` when a surface should extend through the container's block-axis padding as well as its inline-axis padding.
 
-<ExampleFrame variant="component">
-  <BleedBlockBleed />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/bleed/block-bleed.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={bleedSolidBlockBleed} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={bleedVueBlockBleed} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/bleed/bleed-block-bleed.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="bleed/block-bleed" />
 
 ### Custom Styling
 
-Override `--moduix-bleed-inline-full` and `--moduix-bleed-inline-full-size` locally when a nested shell
-should size the bleed to its own content area instead of the viewport.
+Set `margin-inline` and `inline-size` in your own class when a nested shell should size the bleed to its own
+content area instead of the viewport. moduix styles live in a cascade layer, so a plain class wins.
 
-<ExampleFrame variant="component">
-  <BleedCustomStyling />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/bleed/custom-styling.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={bleedSolidCustomStyling} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={bleedVueCustomStyling} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/bleed/bleed-custom-styling.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="bleed/custom-styling" />
 
 ### Inline Amounts
 
 Set `inline` to control how far content extends along the inline axis. This example compares the fixed
 `sm` and `lg` values with `full`, which reaches the viewport.
 
-<ExampleFrame variant="component">
-  <BleedInlineAmounts />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/bleed/inline-amounts.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={bleedSolidInlineAmounts} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={bleedVueInlineAmounts} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/bleed/bleed-inline-amounts.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="bleed/inline-amounts" />
 
 ### Semantic Element
 
 Use `asChild` when the content should use a more specific semantic element. In this example, the `figure`
 element becomes the `Bleed` root.
 
-<ExampleFrame variant="component">
-  <BleedSemanticElement />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/bleed/semantic-element.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={bleedSolidSemanticElement} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={bleedVueSemanticElement} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/bleed/bleed-semantic-element.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="bleed/semantic-element" />
 
 ## Styling
 
-`Bleed` exposes CSS variables and stable data attributes on its root. Use `className` in React or `class` in
-Solid and Vue for structural styles. Tailwind variants use native utilities and consumer classes; the variables below
-customize the CSS Modules variants. Data attributes and `data-slot` hooks are shared by both styling tracks.
+`Bleed` exposes stable data attributes on its root. Use `className` in React or `class` in Solid and Vue for
+structural styles. The fixed amounts follow the spacing tokens (`xs` to `xl` map to `--moduix-spacing-1`, `2`, `3`,
+`4`, and `6`), so presets change them together with the rest of the spacing. For a custom amount, set `margin-inline`
+or `margin-block` in your own class. Data attributes and `data-slot` hooks are shared by both styling tracks.
 Ancestors with `overflow: hidden` or `overflow: clip` can crop the bleed.
 
-### CSS Properties
-
-<CssPropertiesSection properties={BleedDocs.bleedCssProperties} />
+`inline="full"` uses `100vi`, which includes the width of a classic (non-overlay) vertical scrollbar. On such
+systems, add `overflow-x: clip` to the page root to avoid a horizontal scrollbar.
 
 ### Styling hooks
 
@@ -350,5 +139,3 @@ Ancestors with `overflow: hidden` or `overflow: clip` can crop the bleed.
 - `data-slot="bleed-root"` is the stable moduix selector on the exported root.
 - `data-inline` shows the current inline bleed mode: `none`, `xs`, `sm`, `md`, `lg`, `xl`, or `full`.
 - `data-block` shows the current block bleed mode: `none`, `xs`, `sm`, `md`, `lg`, or `xl`.
-- The public `--moduix-bleed-*` CSS API covers both scale-based bleed amounts and the viewport sizing
-  used by `inline="full"`.

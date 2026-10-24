@@ -5,15 +5,17 @@ import { clsx } from 'clsx';
 import { useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import styles from './PinInput.module.css';
+import type { PinInputSize } from './PinInput.vue';
 
 defineOptions({ inheritAttrs: false });
 
 export interface Props extends /* @vue-ignore */ PinInputRootProviderProps {
   class?: HTMLAttributes['class'];
+  size?: PinInputSize;
   value: PinInputRootProviderProps['value'];
 }
 
-const { class: className, value } = defineProps<Props>();
+const { class: className, size = 'md', value } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
@@ -23,6 +25,7 @@ const attrs = useAttrs();
   <ArkPinInputRootProvider
     v-bind="attrs"
     :class="clsx(styles.root, className)"
+    :data-size="size"
     :value="value"
     data-slot="pin-input-root-provider"
   >

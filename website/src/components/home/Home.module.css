@@ -577,7 +577,7 @@
   min-height: 12.5rem;
   --moduix-tabs-bg: color-mix(in oklab, var(--rp-c-bg) 62%, transparent);
   --moduix-tabs-border-color: color-mix(in oklab, var(--rp-c-divider-light) 58%, transparent);
-  --moduix-tabs-panel-padding: 1rem;
+  padding: 1rem;
 
   @media (min-width: 521px) {
     min-height: 15rem;
@@ -595,17 +595,19 @@
 
 .nestedTabsList {
   width: fit-content;
-  --moduix-tabs-list-bg: transparent;
-  --moduix-tabs-list-border-width: 0;
+  border-width: 0;
   --moduix-tabs-tab-color: var(--rp-c-text-2);
   --moduix-tabs-tab-color-active: var(--rp-c-text-1);
-  --moduix-tabs-line-indicator-bg: color-mix(in oklab, var(--rp-c-text-1) 78%, transparent);
+}
+
+.nestedIndicator {
+  background-color: color-mix(in oklab, var(--rp-c-text-1) 78%, transparent);
 }
 
 .nestedPanel {
-  --moduix-tabs-bg: transparent;
-  --moduix-tabs-border-width: 0;
-  --moduix-tabs-panel-padding: 0;
+  border-width: 0;
+  padding: 0;
+  background-color: transparent;
 }
 
 .previewCard {
@@ -688,7 +690,6 @@
 
 .heroProgress {
   width: 100%;
-  --moduix-progress-linear-width: 100%;
 
   :global([data-slot='progress-linear-range']) {
     background: linear-gradient(90deg, var(--rp-c-text-1), var(--moduix-home-brand));

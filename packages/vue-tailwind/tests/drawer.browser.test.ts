@@ -27,6 +27,7 @@ import {
   DrawerTrigger,
   useDrawer,
 } from '../src';
+import { LocaleProvider } from '../src/locale';
 import TestDrawer from './fixtures/TestDrawer.vue';
 
 const drawerComponents = {
@@ -322,15 +323,13 @@ test('applies Tailwind defaults and lets consumer utilities win', async () => {
   const trigger = document.querySelector('[data-slot="drawer-trigger"]')!;
   const content = document.querySelector('[role="dialog"]')!;
   const close = document.querySelector('[data-slot="drawer-close-icon"]')!;
-  expect([...trigger.classList]).toEqual(expect.arrayContaining(['bg-primary', 'px-2']));
-  expect([...trigger.classList]).not.toContain('bg-background');
-  expect([...trigger.classList]).not.toContain('px-3.5');
+  expect([...trigger.classList]).toEqual(['bg-primary', 'px-2']);
   expect([...content.classList]).toEqual(
     expect.arrayContaining([
       'w-96',
       'bg-card',
       'p-4',
-      '[--drawer-island-translate-distance:0px]',
+      '[--_drawer-island-offset:0px]',
       '[--_drawer-bleed:var(--moduix-size-xl)]',
       'data-[swipe-direction=left]:after:inset-y-0',
       'data-[swipe-direction=right]:after:inset-y-0',
@@ -370,7 +369,7 @@ test('marks an island drawer and closes it through its accessible close icon', a
   const Harness = defineComponent({
     components: drawerComponents,
     template:
-      '<Drawer variant="island"><DrawerTrigger as-child><button type="button">Open drawer</button></DrawerTrigger><DrawerPositioner><DrawerContent><DrawerTitle>Preferences</DrawerTitle><DrawerCloseIcon /></DrawerContent></DrawerPositioner><DrawerContext v-slot="drawer"><output data-testid="drawer-state">{{ drawer.swipeDirection }}:{{ drawer.snapPoints.join(",") }}:{{ String(drawer.snapPoint) }}</output></DrawerContext></Drawer>',
+      '<Drawer><DrawerTrigger as-child><button type="button">Open drawer</button></DrawerTrigger><DrawerPositioner><DrawerContent variant="island"><DrawerTitle>Preferences</DrawerTitle><DrawerCloseIcon /></DrawerContent></DrawerPositioner><DrawerContext v-slot="drawer"><output data-testid="drawer-state">{{ drawer.swipeDirection }}:{{ drawer.snapPoints.join(",") }}:{{ String(drawer.snapPoint) }}</output></DrawerContext></Drawer>',
   });
   render(Harness);
   const trigger = page.getByRole('button', { name: 'Open drawer' });
@@ -381,6 +380,9 @@ test('marks an island drawer and closes it through its accessible close icon', a
   await expect
     .element(page.locator('[data-slot="drawer-positioner"]'))
     .toHaveAttribute('data-swipe-direction', 'down');
+  await expect
+    .element(page.locator('[data-slot="drawer-positioner"]'))
+    .toHaveCSS('padding-bottom', '16px');
   await page.getByRole('button', { name: 'Close drawer' }).click();
 
   await expect.element(page.getByRole('dialog')).toHaveCount(0);
@@ -458,4 +460,46 @@ test('keeps close-icon labels, attrs and fallback content reactive', async () =>
   await expect.element(button.locator('svg')).toHaveCount(0);
   custom.value = false;
   await expect.element(button.locator('svg')).toHaveCount(1);
+});
+
+test('leaves native triggers unstyled and keeps the body in the content color', () => {
+  const Harness = defineComponent({
+    components: drawerComponents,
+    template:
+      '<Drawer default-open :portalled="false"><DrawerTrigger>Open drawer</DrawerTrigger><DrawerPositioner><DrawerContent><DrawerTitle>Preferences</DrawerTitle><DrawerBody>Body</DrawerBody><DrawerCloseTrigger>Done</DrawerCloseTrigger></DrawerContent></DrawerPositioner></Drawer>',
+  });
+  render(Harness);
+
+  expect(document.querySelector('[data-slot="drawer-trigger"]')!.classList).toHaveLength(0);
+  expect(document.querySelector('[data-slot="drawer-close-trigger"]')!.classList).toHaveLength(0);
+  const content = document.querySelector('[role="dialog"]')!;
+  const body = document.querySelector('[data-slot="drawer-body"]')!;
+  expect(getComputedStyle(body).color).toBe(getComputedStyle(content).color);
+});
+
+test('keeps physical side corners for a start drawer in RTL', async () => {
+  const Harness = defineComponent({
+    components: { ...drawerComponents, LocaleProvider },
+    template:
+      '<LocaleProvider locale="ar"><Drawer default-open :portalled="false" swipe-direction="start"><DrawerPositioner><DrawerContent><DrawerTitle>Preferences</DrawerTitle></DrawerContent></DrawerPositioner></Drawer></LocaleProvider>',
+  });
+  render(Harness);
+
+  const content = page.getByRole('dialog');
+  await expect.element(content).toHaveAttribute('data-swipe-direction', 'right');
+  await expect.element(content).toHaveCSS('border-top-right-radius', '0px');
+  await expect.element(content).not.toHaveCSS('border-top-left-radius', '0px');
+});
+
+test('sets the side drawer width from size', async () => {
+  const Harness = defineComponent({
+    components: drawerComponents,
+    template:
+      '<Drawer default-open :portalled="false" swipe-direction="end"><DrawerPositioner><DrawerContent size="lg"><DrawerTitle>Preferences</DrawerTitle></DrawerContent></DrawerPositioner></Drawer>',
+  });
+  render(Harness);
+
+  const content = page.getByRole('dialog');
+  await expect.element(content).toHaveAttribute('data-size', 'lg');
+  await expect.element(content).toHaveCSS('width', '448px');
 });

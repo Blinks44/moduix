@@ -5,48 +5,6 @@ description: Доступная панель от края экрана для �
 ---
 
 import * as DrawerDocs from '@/components/examples/drawer/css-properties';
-import DrawerAdvancedCustomization from '@/components/examples/drawer/advanced-customization.tsx';
-import DrawerBasic from '@/components/examples/drawer/basic.tsx';
-import DrawerControlled from '@/components/examples/drawer/controlled.tsx';
-import DrawerDragControls from '@/components/examples/drawer/drag-controls.tsx';
-import DrawerFloatingGrabber from '@/components/examples/drawer/floating-grabber.tsx';
-import DrawerIndentBackground from '@/components/examples/drawer/indent-background.tsx';
-import DrawerIsland from '@/components/examples/drawer/island.tsx';
-import DrawerMultipleTriggers from '@/components/examples/drawer/multiple-triggers.tsx';
-import DrawerNested from '@/components/examples/drawer/nested.tsx';
-import DrawerNonModal from '@/components/examples/drawer/non-modal.tsx';
-import DrawerRootProvider from '@/components/examples/drawer/root-provider.tsx';
-import DrawerScrollable from '@/components/examples/drawer/scrollable.tsx';
-import DrawerSnapPoints from '@/components/examples/drawer/snap-points.tsx';
-import DrawerSwipeDirection from '@/components/examples/drawer/swipe-direction.tsx';
-import drawerSolidAdvancedCustomization from '../../../snippets/drawer/solid/advanced-customization.tsx?raw';
-import drawerSolidBasic from '../../../snippets/drawer/solid/basic.tsx?raw';
-import drawerSolidControlled from '../../../snippets/drawer/solid/controlled.tsx?raw';
-import drawerSolidDragControls from '../../../snippets/drawer/solid/drag-controls.tsx?raw';
-import drawerSolidFloatingGrabber from '../../../snippets/drawer/solid/floating-grabber.tsx?raw';
-import drawerSolidIndentBackground from '../../../snippets/drawer/solid/indent-background.tsx?raw';
-import drawerSolidIsland from '../../../snippets/drawer/solid/island.tsx?raw';
-import drawerSolidMultipleTriggers from '../../../snippets/drawer/solid/multiple-triggers.tsx?raw';
-import drawerSolidNested from '../../../snippets/drawer/solid/nested.tsx?raw';
-import drawerSolidNonModal from '../../../snippets/drawer/solid/non-modal.tsx?raw';
-import drawerSolidRootProvider from '../../../snippets/drawer/solid/root-provider.tsx?raw';
-import drawerSolidScrollable from '../../../snippets/drawer/solid/scrollable.tsx?raw';
-import drawerSolidSnapPoints from '../../../snippets/drawer/solid/snap-points.tsx?raw';
-import drawerSolidSwipeDirection from '../../../snippets/drawer/solid/swipe-direction.tsx?raw';
-import drawerVueAdvancedCustomization from '../../../snippets/drawer/vue/advanced-customization.vue?raw';
-import drawerVueBasic from '../../../snippets/drawer/vue/basic.vue?raw';
-import drawerVueControlled from '../../../snippets/drawer/vue/controlled.vue?raw';
-import drawerVueDragControls from '../../../snippets/drawer/vue/drag-controls.vue?raw';
-import drawerVueFloatingGrabber from '../../../snippets/drawer/vue/floating-grabber.vue?raw';
-import drawerVueIndentBackground from '../../../snippets/drawer/vue/indent-background.vue?raw';
-import drawerVueIsland from '../../../snippets/drawer/vue/island.vue?raw';
-import drawerVueMultipleTriggers from '../../../snippets/drawer/vue/multiple-triggers.vue?raw';
-import drawerVueNested from '../../../snippets/drawer/vue/nested.vue?raw';
-import drawerVueNonModal from '../../../snippets/drawer/vue/non-modal.vue?raw';
-import drawerVueRootProvider from '../../../snippets/drawer/vue/root-provider.vue?raw';
-import drawerVueScrollable from '../../../snippets/drawer/vue/scrollable.vue?raw';
-import drawerVueSnapPoints from '../../../snippets/drawer/vue/snap-points.vue?raw';
-import drawerVueSwipeDirection from '../../../snippets/drawer/vue/swipe-direction.vue?raw';
 
 ## Справочник API
 
@@ -66,46 +24,7 @@ import drawerVueSwipeDirection from '../../../snippets/drawer/vue/swipe-directio
 привязки, а затем её можно перетащить на полную высоту. `DrawerContent` отвечает за интерактивную
 поверхность, `DrawerPositioner` размещает её, а `DrawerBackdrop` добавляет модальный фон.
 
-<ExampleFrame variant="component">
-  <DrawerBasic />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs
-    groupId="framework"
-    values={[
-      { label: 'React', value: 'react' },
-      { label: 'Solid', value: 'solid' },
-      { label: 'Vue', value: 'vue' },
-    ]}
-    className="docs-tabs"
-  >
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/basic.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidBasic} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueBasic} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-basic.module.css"
-```
-</div>
-
-</ExampleCode>
+<Example name="drawer/basic" />
 
 ## Установка через shadcn
 
@@ -210,222 +129,42 @@ DrawerRootProvider
 
 Читайте `details.open` в callback Ark. Callback получает объект деталей, а не логическое значение напрямую.
 
-<ExampleFrame variant="component">
-  <DrawerControlled />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/controlled.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidControlled} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueControlled} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-controlled.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/controlled" />
 
 ### Управление перетаскиванием
 
 Добавьте `data-no-drag` на интерактивные области, которые не должны запускать перетаскивание.
 Укажите `draggable={false}` на `DrawerContent`, если панель должна двигаться только за ручку.
 
-<ExampleFrame variant="component">
-  <DrawerDragControls />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/drag-controls.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidDragControls} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueDragControls} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-drag-controls.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/drag-controls" />
 
 ### Плавающая ручка
 
 Разместите `DrawerGrabber` над поверхностью, если ручка должна выглядеть отдельным элементом.
 В этом примере между ручкой и краем панели оставлено 10px.
 
-<ExampleFrame variant="component">
-  <DrawerFloatingGrabber />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/floating-grabber.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidFloatingGrabber} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueFloatingGrabber} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-floating-grabber.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/floating-grabber" />
 
 ### Фон с отступом
 
 `DrawerStack` использует состояние стека и прогресс свайпа Ark, чтобы перемещать
 `DrawerIndentBackground` и `DrawerIndent` вместе.
 
-<ExampleFrame variant="component">
-  <DrawerIndentBackground />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/indent-background.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidIndentBackground} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueIndentBackground} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-indent-background.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/indent-background" />
 
 ### Островная панель
 
 Укажите `variant="island"` на `DrawerContent`, если компактная панель должна располагаться с
 отступом внутри окна, а не визуально выходить за край, откуда она открывается.
 
-<ExampleFrame variant="component">
-  <DrawerIsland />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/island.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidIsland} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueIsland} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-island.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/island" />
 
 ### Несколько триггеров
 
 Задайте каждому триггеру `value`, чтобы использовать одну панель для списка. Callback сообщает,
 какой триггер активен.
 
-<ExampleFrame variant="component">
-  <DrawerMultipleTriggers />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/multiple-triggers.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidMultipleTriggers} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueMultipleTriggers} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-multiple-triggers.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/multiple-triggers" />
 
 ### Вложенные панели
 
@@ -433,259 +172,58 @@ DrawerRootProvider
 `DrawerRootProvider` для вложенных панелей. Тогда каждая панель сохраняет собственное состояние
 открытия и жизненный цикл фокуса.
 
-<ExampleFrame variant="component">
-  <DrawerNested />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/nested.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidNested} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueNested} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-nested.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/nested" />
 
 ### Немодальная панель
 
 Укажите `modal={false}`, если страница должна оставаться доступной для взаимодействия, пока панель
 открыта. В этом примере ручка отвечает за перетаскивание, а `ScrollArea` содержит длинный контент.
 
-<ExampleFrame variant="component">
-  <DrawerNonModal />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/non-modal.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidNonModal} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueNonModal} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-non-modal.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/non-modal" />
 
 ### Root Provider
 
 Используйте экспорт moduix `useDrawer`, если кнопки за пределами дерева панели должны открывать её
 или менять её точки привязки.
 
-<ExampleFrame variant="component">
-  <DrawerRootProvider />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/root-provider.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidRootProvider} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueRootProvider} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-root-provider.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/root-provider" />
 
 ### Прокручиваемое содержимое
 
 Поместите длинный контент в `DrawerBody`. Используйте `ScrollArea`, если панели нужен отдельный
 контейнер прокрутки, а ручка и заголовок должны оставаться на месте.
 
-<ExampleFrame variant="component">
-  <DrawerScrollable />
-</ExampleFrame>
+<Example name="drawer/scrollable" />
 
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
+### Размеры
 
-```tsx pure file="../../../src/components/examples/drawer/scrollable.tsx"
-```
+Задайте `size` на `DrawerContent`: `sm`, `md` (по умолчанию), `lg` или `xl`, чтобы выбрать ширину
+боковой панели `start` или `end`: 18rem, 22rem, 28rem или 36rem. На узком экране панель всё равно
+оставляет зазор у противоположного края. Верхняя и нижняя панели занимают всю ширину, а их высоту
+задают точки привязки.
 
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidScrollable} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueScrollable} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-scrollable.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/sizes" />
 
 ### Точки привязки
 
 Задайте промежуточные позиции в корневом компоненте и выберите начальную позицию через
 `defaultSnapPoint`.
 
-<ExampleFrame variant="component">
-  <DrawerSnapPoints />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/snap-points.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidSnapPoints} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueSnapPoints} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-snap-points.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/snap-points" />
 
 ### Направление свайпа
 
 Используйте логические значения `start` и `end` для боковых панелей, чтобы один и тот же код
 работал в LTR и RTL. Для верхней панели используйте `up`, для нижней - `down`.
 
-<ExampleFrame variant="component">
-  <DrawerSwipeDirection />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/swipe-direction.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidSwipeDirection} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueSwipeDirection} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-swipe-direction.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/swipe-direction" />
 
 ### Расширенная настройка
 
 Не используйте необязательные помощники `DrawerHeader`, `DrawerBody`, `DrawerFooter` и `DrawerCloseIcon`, если собственной
 разметке нужен полный низкоуровневый набор частей Drawer.
 
-<ExampleFrame variant="component">
-  <DrawerAdvancedCustomization />
-</ExampleFrame>
-
-<ExampleCode>
-<div className="docs-reference">
-  <Tabs groupId="framework" values={[{ label: 'React', value: 'react' }, { label: 'Solid', value: 'solid' }, { label: 'Vue', value: 'vue' }]} className="docs-tabs">
-    <Tab value="react">
-
-```tsx pure file="../../../src/components/examples/drawer/advanced-customization.tsx"
-```
-
-    </Tab>
-    <Tab value="solid">
-
-<CodeBlockRuntime lang="tsx" code={drawerSolidAdvancedCustomization} />
-
-    </Tab>
-    <Tab value="vue">
-
-<CodeBlockRuntime lang="vue" code={drawerVueAdvancedCustomization} />
-
-    </Tab>
-  </Tabs>
-
-**Styles**
-
-```css file="../../../src/components/examples/drawer/drawer-advanced-customization.module.css"
-```
-</div>
-</ExampleCode>
+<Example name="drawer/advanced-customization" />
 
 ## Стилизация
 
@@ -705,7 +243,8 @@ DrawerRootProvider
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
   `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
   `drawer-indent-background`, `drawer-header`, `drawer-body` и `drawer-footer`.
-- `DrawerContent` записывает `data-variant="island"`, когда включено островное представление.
+- `DrawerContent` записывает `data-size` (по умолчанию `md`) и `data-variant="island"`, когда
+  включено островное представление.
 - хуки частей Ark: `data-scope="drawer"` вместе с `data-part`.
 - хуки состояния: `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
   `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,
@@ -715,3 +254,10 @@ DrawerRootProvider
   `--drawer-swipe-movement-y`, `--drawer-swipe-progress`, `--drawer-swipe-strength`,
   `--drawer-height`, `--drawer-frontmost-height`, `--nested-drawers`, `--nested-layer-count`
   и `--layer-index`.
+- `DrawerTrigger` и `DrawerCloseTrigger` не стилизованы. Соберите их через `asChild` с `Button` или
+  задайте стили нативной кнопке классом.
+- Цвета, границы, отступы и типографика берутся из токенов foundation. Чтобы изменить их для одного
+  drawer, повесьте класс на нужную часть. Подложка читает общие `--moduix-backdrop-bg` и
+  `--moduix-backdrop-filter`.
+- Высота верхнего и нижнего drawer ограничена `max-height: 80dvh`; другое значение задайте классом
+  на `DrawerContent`.

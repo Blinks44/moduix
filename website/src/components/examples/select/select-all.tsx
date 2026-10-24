@@ -7,9 +7,7 @@ import {
   SelectField,
   SelectPositioner,
   SelectContent,
-  SelectItem,
-  SelectItemText,
-  SelectItemIndicator,
+  SelectOption,
 } from '@moduix/react/select';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/select/select-select-all.module.css';
@@ -57,10 +55,9 @@ export default function SelectSelectAllDemo() {
         <SelectPositioner>
           <SelectContent>
             {languages.items.map((item) => (
-              <SelectItem key={item.value} item={item}>
-                <SelectItemText>{item.label}</SelectItemText>
-                <SelectItemIndicator />
-              </SelectItem>
+              <SelectOption key={item.value} item={item}>
+                {item.label}
+              </SelectOption>
             ))}
           </SelectContent>
         </SelectPositioner>

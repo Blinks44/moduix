@@ -6,7 +6,6 @@ import {
   useColorPicker,
   useColorPickerContext,
 } from '@ark-ui/react/color-picker';
-import { cva } from 'class-variance-authority';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
@@ -21,9 +20,12 @@ type ColorPickerRootProps = ComponentProps<typeof ColorPickerPrimitive.Root> & O
 type ColorPickerRootProviderProps = ComponentProps<typeof ColorPickerPrimitive.RootProvider> &
   OverlayPortalProps;
 
-const colorPickerRootVariants = cva(
-  'box-border flex w-64 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
-);
+// Ark paints swatches with an inline background color; ::before repaints it over a checkerboard.
+const colorPickerSwatchClass =
+  'relative isolate grid size-control-sm shrink-0 place-items-center rounded-sm before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)] before:[background:linear-gradient(var(--color),var(--color)),repeating-conic-gradient(var(--color-muted)_0_25%,var(--color-background)_0_50%)_0_0/0.5rem_0.5rem]';
+
+const colorPickerRootClass =
+  'flex w-64 max-w-full min-w-0 flex-col gap-2 text-foreground data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 
 const ColorPicker = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.Root>,
@@ -36,7 +38,7 @@ const ColorPicker = forwardRef<
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <ColorPickerPrimitive.Root
         ref={ref}
-        className={cn(colorPickerRootVariants(), className)}
+        className={cn(colorPickerRootClass, className)}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
@@ -57,7 +59,7 @@ const ColorPickerRootProvider = forwardRef<
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <ColorPickerPrimitive.RootProvider
         ref={ref}
-        className={cn(colorPickerRootVariants(), className)}
+        className={cn(colorPickerRootClass, className)}
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}
@@ -74,10 +76,7 @@ const ColorPickerLabel = forwardRef<
   return (
     <ColorPickerPrimitive.Label
       ref={ref}
-      className={cn(
-        'inline-flex items-center text-sm font-medium text-foreground select-none',
-        className,
-      )}
+      className={cn('inline-flex items-center text-sm font-medium select-none', className)}
       {...props}
       data-slot="color-picker-label"
     />
@@ -91,10 +90,7 @@ const ColorPickerControl = forwardRef<
   return (
     <ColorPickerPrimitive.Control
       ref={ref}
-      className={cn(
-        'flex min-w-0 items-center gap-2 data-disabled:opacity-50 [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
-        className,
-      )}
+      className={cn('flex min-w-0 items-center gap-2', className)}
       {...props}
       data-slot="color-picker-control"
     />
@@ -109,24 +105,13 @@ const ColorPickerTrigger = forwardRef<
     <ColorPickerPrimitive.Trigger
       ref={ref}
       className={cn(
-        'group/trigger box-border grid size-control-md shrink-0 place-items-center overflow-hidden rounded-md border border-border bg-background p-1 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color] duration-200 ease-in-out select-none focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-readonly:cursor-default data-[fit-content]:inline-flex data-[fit-content]:w-auto data-[fit-content]:min-w-control-md data-[fit-content]:gap-2 data-[fit-content]:px-3 data-[state=open]:border-ring data-[state=open]:outline-ring motion-reduce:transition-none',
+        'grid size-control-md shrink-0 cursor-pointer place-items-center overflow-hidden rounded-md border border-border bg-background p-1 text-sm outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color,background-color] duration-normal ease-in-out select-none focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-readonly:cursor-default data-[fit-content]:inline-flex data-[fit-content]:w-auto data-[fit-content]:min-w-control-md data-[fit-content]:gap-2 data-[fit-content]:px-3 data-[state=open]:border-ring data-[state=open]:outline-ring [&>[data-slot=color-picker-value-swatch]]:size-full [&>[data-slot=color-picker-value-swatch]]:rounded-[inherit] [&>[data-slot=color-picker-value-swatch]]:[grid-area:1/1/2/2] data-[fit-content]:[&>[data-slot=color-picker-value-swatch]]:size-4 data-[fit-content]:[&>[data-slot=color-picker-value-swatch]]:rounded-sm',
         className,
       )}
       {...props}
       data-slot="color-picker-trigger"
     >
-      {children ?? (
-        <>
-          <ColorPickerPrimitive.TransparencyGrid
-            data-slot="color-picker-transparency-grid"
-            className="col-start-1 row-start-1 size-full rounded-[inherit] group-data-[fit-content]/trigger:col-auto group-data-[fit-content]/trigger:row-auto group-data-[fit-content]/trigger:size-4 group-data-[fit-content]/trigger:shrink-0"
-          />
-          <ColorPickerPrimitive.ValueSwatch
-            data-slot="color-picker-value-swatch"
-            className="z-1 col-start-1 row-start-1 size-full rounded-[inherit] group-data-[fit-content]/trigger:col-auto group-data-[fit-content]/trigger:row-auto group-data-[fit-content]/trigger:size-4 group-data-[fit-content]/trigger:shrink-0"
-          />
-        </>
-      )}
+      {children ?? <ColorPickerValueSwatch />}
     </ColorPickerPrimitive.Trigger>
   );
 });
@@ -139,7 +124,7 @@ const ColorPickerPositioner = forwardRef<
     <OverlayPortal>
       <ColorPickerPrimitive.Positioner
         ref={ref}
-        className={cn('z-[var(--z-index)] outline-0', className)}
+        className={cn('z-(--z-index) outline-0', className)}
         {...props}
         data-slot="color-picker-positioner"
       />
@@ -155,7 +140,7 @@ const ColorPickerContent = forwardRef<
     <ColorPickerPrimitive.Content
       ref={ref}
       className={cn(
-        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border flex max-h-[min(32rem,var(--available-height))] w-64 max-w-[var(--available-width)] origin-[var(--transform-origin)] flex-col gap-3 overflow-auto overscroll-contain rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-menu-closed data-[state=open]:animate-moduix-menu-open motion-reduce:[animation-delay:0ms] motion-reduce:[animation-duration:1ms]',
+        'z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] flex max-h-[min(32rem,var(--available-height))] w-64 max-w-(--available-width) origin-(--transform-origin) flex-col gap-3 overflow-auto overscroll-contain rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-lg outline-0 data-[state=closed]:animate-moduix-popup-out data-[state=open]:animate-moduix-popup-in motion-reduce:data-[state]:animate-none',
         className,
       )}
       {...props}
@@ -172,7 +157,7 @@ const ColorPickerArea = forwardRef<
     <ColorPickerPrimitive.Area
       ref={ref}
       className={cn(
-        'relative box-border h-40 w-full touch-none overflow-hidden rounded-md shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)] select-none data-disabled:cursor-default data-readonly:cursor-default',
+        'h-40 w-full overflow-hidden rounded-md shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)] select-none',
         className,
       )}
       {...props}
@@ -180,14 +165,8 @@ const ColorPickerArea = forwardRef<
     >
       {children ?? (
         <>
-          <ColorPickerPrimitive.AreaBackground
-            data-slot="color-picker-area-background"
-            className="size-full rounded-[inherit]"
-          />
-          <ColorPickerPrimitive.AreaThumb
-            data-slot="color-picker-area-thumb"
-            className="box-border size-4 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:shadow-[0_0_0_4px_var(--color-ring),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] focus-visible:ring-background data-disabled:pointer-events-none"
-          />
+          <ColorPickerAreaBackground />
+          <ColorPickerAreaThumb />
         </>
       )}
     </ColorPickerPrimitive.Area>
@@ -216,7 +195,7 @@ const ColorPickerAreaThumb = forwardRef<
     <ColorPickerPrimitive.AreaThumb
       ref={ref}
       className={cn(
-        'box-border size-4 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:shadow-[0_0_0_4px_var(--color-ring),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] focus-visible:ring-background data-disabled:pointer-events-none',
+        'size-4 rounded-full shadow-[0_0_0_4px_color-mix(in_oklab,black_18%,transparent),var(--moduix-shadow-sm)] ring-2 ring-background outline-0 focus-visible:shadow-[0_0_0_4px_var(--color-ring),var(--moduix-shadow-sm)]',
         className,
       )}
       {...props}
@@ -233,7 +212,7 @@ const ColorPickerChannelSlider = forwardRef<
     <ColorPickerPrimitive.ChannelSlider
       ref={ref}
       className={cn(
-        'relative box-border flex h-3 touch-none items-center rounded-full select-none data-[orientation=vertical]:h-40 data-[orientation=vertical]:w-3 data-[orientation=vertical]:items-stretch data-[orientation=vertical]:justify-center',
+        'flex h-3 items-center rounded-full select-none data-[orientation=vertical]:h-40 data-[orientation=vertical]:w-3 data-[orientation=vertical]:items-stretch data-[orientation=vertical]:justify-center',
         className,
       )}
       channel={channel}
@@ -242,20 +221,9 @@ const ColorPickerChannelSlider = forwardRef<
     >
       {children ?? (
         <>
-          {channel === 'alpha' && (
-            <ColorPickerPrimitive.TransparencyGrid
-              data-slot="color-picker-transparency-grid"
-              className="size-full rounded-[inherit]"
-            />
-          )}
-          <ColorPickerPrimitive.ChannelSliderTrack
-            data-slot="color-picker-channel-slider-track"
-            className="h-3 w-full rounded-[inherit] shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)] data-[orientation=vertical]:h-full data-[orientation=vertical]:w-3"
-          />
-          <ColorPickerPrimitive.ChannelSliderThumb
-            data-slot="color-picker-channel-slider-thumb"
-            className="box-border size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:ring-ring data-disabled:pointer-events-none"
-          />
+          {channel === 'alpha' && <ColorPickerTransparencyGrid />}
+          <ColorPickerChannelSliderTrack />
+          <ColorPickerChannelSliderThumb />
         </>
       )}
     </ColorPickerPrimitive.ChannelSlider>
@@ -286,7 +254,7 @@ const ColorPickerChannelSliderTrack = forwardRef<
     <ColorPickerPrimitive.ChannelSliderTrack
       ref={ref}
       className={cn(
-        'h-3 w-full rounded-[inherit] shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)] data-[orientation=vertical]:h-full data-[orientation=vertical]:w-3',
+        'size-full rounded-[inherit] shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)]',
         className,
       )}
       {...props}
@@ -303,7 +271,7 @@ const ColorPickerChannelSliderThumb = forwardRef<
     <ColorPickerPrimitive.ChannelSliderThumb
       ref={ref}
       className={cn(
-        'box-border size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background shadow-[0_0_0_4px_rgb(0_0_0_/_18%),0_2px_4px_0_rgb(0_0_0_/_10%),0_1px_2px_-1px_rgb(0_0_0_/_10%)] ring-2 ring-background outline-0 focus-visible:ring-ring data-disabled:pointer-events-none',
+        'size-4 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_0_4px_color-mix(in_oklab,black_18%,transparent),var(--moduix-shadow-sm)] ring-2 ring-background outline-0 focus-visible:shadow-[0_0_0_4px_var(--color-ring),var(--moduix-shadow-sm)]',
         className,
       )}
       {...props}
@@ -319,7 +287,7 @@ const ColorPickerChannelSliderLabel = forwardRef<
   return (
     <ColorPickerPrimitive.ChannelSliderLabel
       ref={ref}
-      className={cn('text-sm font-medium text-foreground', className)}
+      className={cn('text-sm font-medium', className)}
       {...props}
       data-slot="color-picker-channel-slider-label"
     />
@@ -333,7 +301,7 @@ const ColorPickerChannelSliderValueText = forwardRef<
   return (
     <ColorPickerPrimitive.ChannelSliderValueText
       ref={ref}
-      className={cn('text-sm text-muted-foreground', className)}
+      className={cn('min-w-0 text-sm text-muted-foreground', className)}
       {...props}
       data-slot="color-picker-channel-slider-value-text"
     />
@@ -348,7 +316,7 @@ const ColorPickerChannelInput = forwardRef<
     <ColorPickerPrimitive.ChannelInput
       ref={ref}
       className={cn(
-        'box-border h-control-md w-full min-w-0 [appearance:textfield] rounded-md border border-border bg-background px-3 text-sm text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive data-[channel=alpha]:w-16 data-[channel=alpha]:flex-none motion-reduce:transition-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
+        'h-control-md w-full min-w-0 flex-1 rounded-md border border-border bg-background px-3 text-sm text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive data-readonly:cursor-default data-[channel=alpha]:w-16 data-[channel=alpha]:flex-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
         className,
       )}
       {...props}
@@ -365,7 +333,7 @@ const ColorPickerEyeDropperTrigger = forwardRef<
     <ColorPickerPrimitive.EyeDropperTrigger
       ref={ref}
       className={cn(
-        'box-border inline-flex h-control-md min-w-control-md shrink-0 items-center justify-center gap-2 rounded-md border border-border bg-transparent px-2 text-sm text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,color] duration-200 ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default data-focus:border-ring data-focus:outline-ring data-readonly:cursor-default motion-reduce:transition-none [&:not([disabled]):not([data-disabled]):not([data-readonly]):hover]:bg-muted [&:not([disabled]):not([data-disabled]):not([data-readonly]):hover]:text-foreground [&>svg]:size-4 [&>svg]:shrink-0',
+        'inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-transparent px-2 text-sm text-muted-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color,background-color,color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-readonly:cursor-default [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:text-foreground',
         className,
       )}
       {...props}
@@ -381,11 +349,11 @@ const ColorPickerFormatSelect = forwardRef<
   ComponentProps<typeof ColorPickerPrimitive.FormatSelect>
 >(function ColorPickerFormatSelect({ className, ...props }, ref) {
   return (
-    <span className="group/format-select relative inline-grid w-fit max-w-full min-w-0 shrink-0">
+    <span className="relative inline-grid w-fit max-w-full min-w-0 shrink-0">
       <ColorPickerPrimitive.FormatSelect
         ref={ref}
         className={cn(
-          'peer/format-select box-border h-control-md w-auto min-w-0 rounded-md border border-border bg-background px-3 pe-8 text-sm text-foreground uppercase outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-200 ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-disabled:cursor-default data-disabled:opacity-50 data-invalid:border-destructive data-invalid:outline-destructive forced-colors:appearance-auto forced-colors:pe-3 [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
+          'peer/format-select h-control-md w-auto min-w-0 cursor-pointer appearance-none rounded-md border border-border bg-background px-3 pe-8 text-sm text-foreground uppercase outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out focus:border-ring focus:outline-ring disabled:cursor-default data-invalid:border-destructive data-invalid:outline-destructive forced-colors:appearance-auto forced-colors:pe-3',
           className,
         )}
         {...props}
@@ -393,7 +361,7 @@ const ColorPickerFormatSelect = forwardRef<
       />
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 right-3 inline-flex size-4 -translate-y-1/2 items-center justify-center rounded-sm bg-transparent leading-none text-muted-foreground transition-[background-color,color,opacity] duration-200 ease-in-out peer-disabled/format-select:opacity-50 peer-data-disabled/format-select:opacity-50 peer-[:not([disabled]):hover]/format-select:bg-muted peer-[:not([disabled]):hover]/format-select:text-foreground forced-colors:hidden [&>svg]:block [&>svg]:size-full"
+        className="pointer-events-none absolute end-3 top-1/2 inline-flex size-4 -translate-y-1/2 rounded-sm text-muted-foreground transition-[background-color,color] duration-normal ease-in-out forced-colors:hidden [&>svg]:size-full [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:bg-muted [@media(hover:hover)]:peer-[:not(:disabled):hover]/format-select:text-foreground"
       >
         <ChevronDownIcon />
       </span>
@@ -409,7 +377,7 @@ const ColorPickerFormatTrigger = forwardRef<
     <ColorPickerPrimitive.FormatTrigger
       ref={ref}
       className={cn(
-        'box-border inline-flex h-control-md min-w-control-md shrink-0 items-center justify-center gap-2 rounded-md border border-border bg-transparent px-2 text-sm text-muted-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,background-color,color] duration-200 ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-disabled:cursor-default data-focus:border-ring data-focus:outline-ring data-readonly:cursor-default motion-reduce:transition-none [&:not([disabled]):not([data-disabled]):not([data-readonly]):hover]:bg-muted [&:not([disabled]):not([data-disabled]):not([data-readonly]):hover]:text-foreground [&>svg]:size-4 [&>svg]:shrink-0',
+        'inline-flex h-control-md min-w-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-transparent px-2 text-sm text-muted-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color,background-color,color] duration-normal ease-in-out focus-visible:border-ring focus-visible:outline-ring disabled:cursor-default data-readonly:cursor-default [&>svg]:size-4 [&>svg]:shrink-0 [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):not([data-readonly]):hover]:text-foreground',
         className,
       )}
       {...props}
@@ -440,7 +408,7 @@ const ColorPickerSwatchTrigger = forwardRef<
     <ColorPickerPrimitive.SwatchTrigger
       ref={ref}
       className={cn(
-        'group/swatch inline-flex cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 outline-0 focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-default data-disabled:opacity-50 [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
+        'inline-flex cursor-pointer rounded-sm border-0 bg-transparent p-0 outline-0 focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled [:is([data-slot=color-picker-root],[data-slot=color-picker-root-provider])[data-disabled]_&]:opacity-100',
         className,
       )}
       value={value}
@@ -448,18 +416,9 @@ const ColorPickerSwatchTrigger = forwardRef<
       data-slot="color-picker-swatch-trigger"
     >
       {children ?? (
-        <ColorPickerPrimitive.Swatch
-          data-slot="color-picker-swatch"
-          className="relative grid size-control-sm shrink-0 place-items-center overflow-hidden rounded-[inherit] shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)]"
-          value={value}
-        >
-          <ColorPickerPrimitive.SwatchIndicator
-            data-slot="color-picker-swatch-indicator"
-            className="pointer-events-none absolute inset-0 hidden items-center justify-center text-white [filter:drop-shadow(0_1px_1px_rgb(0_0_0_/_45%))] group-data-[state=checked]/swatch:inline-flex data-[state=checked]:inline-flex [&>svg]:size-4"
-          >
-            <CheckIcon />
-          </ColorPickerPrimitive.SwatchIndicator>
-        </ColorPickerPrimitive.Swatch>
+        <ColorPickerSwatch value={value}>
+          <ColorPickerSwatchIndicator />
+        </ColorPickerSwatch>
       )}
     </ColorPickerPrimitive.SwatchTrigger>
   );
@@ -472,10 +431,7 @@ const ColorPickerSwatch = forwardRef<
   return (
     <ColorPickerPrimitive.Swatch
       ref={ref}
-      className={cn(
-        'relative grid size-control-sm shrink-0 place-items-center overflow-hidden rounded-[inherit] shadow-[inset_0_0_0_1px_color-mix(in_oklab,black_14%,transparent)]',
-        className,
-      )}
+      className={cn(colorPickerSwatchClass, className)}
       {...props}
       data-slot="color-picker-swatch"
     />
@@ -490,7 +446,7 @@ const ColorPickerSwatchIndicator = forwardRef<
     <ColorPickerPrimitive.SwatchIndicator
       ref={ref}
       className={cn(
-        'pointer-events-none absolute inset-0 hidden items-center justify-center text-white [filter:drop-shadow(0_1px_1px_rgb(0_0_0_/_45%))] data-[state=checked]:inline-flex [&>svg]:size-4',
+        'inline-flex text-white [filter:drop-shadow(0_1px_1px_rgb(0_0_0_/_45%))] [&>svg]:size-4 [&[hidden]]:hidden',
         className,
       )}
       {...props}
@@ -508,10 +464,7 @@ const ColorPickerTransparencyGrid = forwardRef<
   return (
     <ColorPickerPrimitive.TransparencyGrid
       ref={ref}
-      className={cn(
-        'col-start-1 row-start-1 size-full rounded-[inherit] group-data-[fit-content]/trigger:col-auto group-data-[fit-content]/trigger:row-auto group-data-[fit-content]/trigger:size-4 group-data-[fit-content]/trigger:shrink-0',
-        className,
-      )}
+      className={cn('size-full rounded-[inherit] [grid-area:1/1/2/2]', className)}
       {...props}
       data-slot="color-picker-transparency-grid"
     />
@@ -525,10 +478,7 @@ const ColorPickerValueSwatch = forwardRef<
   return (
     <ColorPickerPrimitive.ValueSwatch
       ref={ref}
-      className={cn(
-        'z-1 col-start-1 row-start-1 size-full rounded-[inherit] group-data-[fit-content]/trigger:col-auto group-data-[fit-content]/trigger:row-auto group-data-[fit-content]/trigger:size-4 group-data-[fit-content]/trigger:shrink-0',
-        className,
-      )}
+      className={cn(colorPickerSwatchClass, className)}
       {...props}
       data-slot="color-picker-value-swatch"
     />
@@ -542,7 +492,7 @@ const ColorPickerValueText = forwardRef<
   return (
     <ColorPickerPrimitive.ValueText
       ref={ref}
-      className={cn('min-w-0 text-sm text-foreground', className)}
+      className={cn('min-w-0 text-sm', className)}
       {...props}
       data-slot="color-picker-value-text"
     />
@@ -604,3 +554,71 @@ export {
   useColorPicker,
   useColorPickerContext,
 };
+
+export type { ColorPickerRootProps, ColorPickerRootProviderProps };
+
+export type {
+  Color,
+  ColorPickerAreaBackgroundBaseProps,
+  ColorPickerAreaBackgroundProps,
+  ColorPickerAreaBaseProps,
+  ColorPickerAreaProps,
+  ColorPickerAreaThumbBaseProps,
+  ColorPickerAreaThumbProps,
+  ColorPickerChannelInputBaseProps,
+  ColorPickerChannelInputProps,
+  ColorPickerChannelSliderBaseProps,
+  ColorPickerChannelSliderLabelBaseProps,
+  ColorPickerChannelSliderLabelProps,
+  ColorPickerChannelSliderProps,
+  ColorPickerChannelSliderThumbBaseProps,
+  ColorPickerChannelSliderThumbProps,
+  ColorPickerChannelSliderTrackBaseProps,
+  ColorPickerChannelSliderTrackProps,
+  ColorPickerChannelSliderValueTextBaseProps,
+  ColorPickerChannelSliderValueTextProps,
+  ColorPickerColorFormat,
+  ColorPickerContentBaseProps,
+  ColorPickerContentProps,
+  ColorPickerContextProps,
+  ColorPickerControlBaseProps,
+  ColorPickerControlProps,
+  ColorPickerEyeDropperTriggerBaseProps,
+  ColorPickerEyeDropperTriggerProps,
+  ColorPickerFocusOutsideEvent,
+  ColorPickerFormatChangeDetails,
+  ColorPickerFormatSelectBaseProps,
+  ColorPickerFormatSelectProps,
+  ColorPickerFormatTriggerBaseProps,
+  ColorPickerFormatTriggerProps,
+  ColorPickerInteractOutsideEvent,
+  ColorPickerLabelBaseProps,
+  ColorPickerLabelProps,
+  ColorPickerOpenChangeDetails,
+  ColorPickerPointerDownOutsideEvent,
+  ColorPickerPositionerBaseProps,
+  ColorPickerPositionerProps,
+  ColorPickerRootProviderBaseProps,
+  ColorPickerSwatchBaseProps,
+  ColorPickerSwatchGroupBaseProps,
+  ColorPickerSwatchGroupProps,
+  ColorPickerSwatchIndicatorBaseProps,
+  ColorPickerSwatchIndicatorProps,
+  ColorPickerSwatchProps,
+  ColorPickerSwatchTriggerBaseProps,
+  ColorPickerSwatchTriggerProps,
+  ColorPickerTransparencyGridBaseProps,
+  ColorPickerTransparencyGridProps,
+  ColorPickerTriggerBaseProps,
+  ColorPickerTriggerProps,
+  ColorPickerValueChangeDetails,
+  ColorPickerValueSwatchBaseProps,
+  ColorPickerValueSwatchProps,
+  ColorPickerValueTextBaseProps,
+  ColorPickerValueTextProps,
+  ColorPickerViewBaseProps,
+  ColorPickerViewProps,
+  UseColorPickerContext,
+  UseColorPickerProps,
+  UseColorPickerReturn,
+} from '@ark-ui/react/color-picker';

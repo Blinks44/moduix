@@ -10,7 +10,7 @@
 
 ## Public contract
 
-The flat API is `Avatar`, `AvatarRootProvider`, `AvatarFallback`, `AvatarImage`, `AvatarContext`, `useAvatar`, and `useAvatarContext`. Both roots accept the local `size` values `xs`, `sm`, `md`, `lg`, and `xl`; `onStatusChange(details)` keeps Ark's detail shape.
+The flat API is `Avatar`, `AvatarRootProvider`, `AvatarFallback`, `AvatarImage`, `AvatarGroup`, `AvatarContext`, `useAvatar`, and `useAvatarContext`. Both roots accept the local `size` values `xs`, `sm`, `md` (default), `lg`, and `xl`, always mirrored as `data-size`; types `AvatarRootProps`, `AvatarRootProviderProps`, `AvatarGroupProps`, and `AvatarSize` are exported; `onStatusChange(details)` keeps Ark's detail shape.
 
 ## Preservation notes
 
@@ -20,3 +20,5 @@ The flat API is `Avatar`, `AvatarRootProvider`, `AvatarFallback`, `AvatarImage`,
 ## Styling and accessibility
 
 `AvatarImage` renders an image, so callers provide appropriate `alt` text. Keep `data-size` and `data-slot` hooks on the styled parts.
+
+The root does not clip its children, so absolutely positioned status dots can stick out; the fallback clips its own content.

@@ -14,7 +14,6 @@ import {
   ComboboxPositioner,
   ComboboxTrigger,
 } from '@moduix/vue/combobox';
-import styles from '@/components/examples/combobox/component-advanced-customization.module.css';
 
 const developerResources = [
   { label: 'GitHub', href: 'https://github.com', value: 'github' },
@@ -42,7 +41,7 @@ const { collection, filter } = useListCollection({
       <ComboboxTrigger aria-label="Open options" />
     </ComboboxControl>
     <ComboboxPositioner>
-      <ComboboxContent :class="styles.content">
+      <ComboboxContent>
         <ComboboxList>
           <ComboboxItem v-for="item in collection.items" :key="item.value" :item="item" as-child>
             <a :href="item.href" target="_blank" rel="noreferrer">

@@ -45,7 +45,7 @@ const statuses = ['info', 'success', 'warning', 'error'] as const;
 const stackClass = 'grid w-[min(38rem,calc(100vw-2rem))] gap-3';
 const customAlertClass =
   'max-w-lg rounded-md border-primary/38 bg-[color-mix(in_oklab,var(--color-primary)_12%,var(--color-background))] shadow-sm';
-const customIndicatorClass = 'group-data-[status=warning]/alert:text-primary';
+const customIndicatorClass = 'text-primary';
 
 function DismissibleCustomAlert() {
   const [visible, setVisible] = createSignal(true);

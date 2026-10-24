@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { createRef } from 'react';
+import { createRef, type CSSProperties } from 'react';
 import {
   Alert,
   AlertActions,
@@ -114,4 +114,65 @@ test('lets consumer utilities override default classes', async () => {
 
   expect(root.classList.contains('w-auto')).toBe(true);
   expect(root.classList.contains('w-full')).toBe(false);
+});
+
+test('does not add a live-region role by default', async () => {
+  render(
+    <Alert status="error" data-testid="plain-alert">
+      <AlertContent>
+        <AlertTitle>Payment failed</AlertTitle>
+      </AlertContent>
+    </Alert>,
+  );
+
+  await expect.element(page.getByTestId('plain-alert')).toHaveAttribute('data-status', 'error');
+  expect(screen.getByTestId('plain-alert').hasAttribute('role')).toBe(false);
+});
+
+test('lets a consumer color utility override the status indicator color', async () => {
+  render(
+    <>
+      <span className="text-primary" data-testid="reference" />
+      <Alert status="error">
+        <AlertIndicator data-testid="status-indicator">!</AlertIndicator>
+        <AlertIndicator className="text-primary" data-testid="custom-indicator">
+          !
+        </AlertIndicator>
+      </Alert>
+    </>,
+  );
+
+  await expect.element(page.getByTestId('custom-indicator')).toHaveCount(1);
+  const reference = getComputedStyle(screen.getByTestId('reference')).color;
+
+  expect(getComputedStyle(screen.getByTestId('status-indicator')).color).not.toBe(reference);
+  expect(getComputedStyle(screen.getByTestId('custom-indicator')).color).toBe(reference);
+});
+
+test('lets a size utility on the icon resize the icon and the indicator', async () => {
+  render(
+    <Alert>
+      <AlertIndicator>
+        <svg data-testid="default-icon" />
+      </AlertIndicator>
+      <AlertIndicator>
+        <svg className="size-6" data-testid="custom-icon" />
+      </AlertIndicator>
+    </Alert>,
+  );
+
+  await expect.element(page.getByTestId('default-icon')).toHaveCount(1);
+
+  expect(screen.getByTestId('default-icon').getBoundingClientRect().width).toBe(16);
+  expect(screen.getByTestId('custom-icon').getBoundingClientRect().width).toBe(24);
+  expect(screen.getByTestId('custom-icon').parentElement?.offsetWidth).toBe(24);
+  expect(screen.getByTestId('custom-icon').parentElement?.offsetHeight).toBe(24);
+});
+
+test('reads the border width from the foundation token', async () => {
+  render(
+    <Alert data-testid="alert" style={{ '--moduix-border-width-sm': '3px' } as CSSProperties} />,
+  );
+
+  await expect.element(page.getByTestId('alert')).toHaveCSS('border-top-width', '3px');
 });

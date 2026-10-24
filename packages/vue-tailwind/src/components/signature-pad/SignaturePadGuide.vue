@@ -22,7 +22,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'pointer-events-none absolute start-6 end-6 bottom-8 border-b border-dashed border-border',
+        'pointer-events-none absolute inset-x-6 bottom-8 border-b border-dashed border-border',
         className,
       )
     "

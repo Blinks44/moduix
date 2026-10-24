@@ -133,9 +133,9 @@ export const CustomStyling: Story = {
   render: () => {
     return (
       <div className={styles.row}>
-        <Badge className={styles.small}>Small</Badge>
+        <Badge size="sm">Small</Badge>
         <Badge>Default</Badge>
-        <Badge className={styles.large}>Large</Badge>
+        <Badge size="lg">Large</Badge>
         <Badge className={styles.customBadge}>
           <BadgeDot />
           <BadgeLabel>Priority</BadgeLabel>

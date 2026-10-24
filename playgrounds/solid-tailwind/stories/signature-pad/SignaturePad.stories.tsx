@@ -16,7 +16,7 @@ import {
   useSignaturePad,
   useSignaturePadContext,
 } from '@/components/signature-pad/SignaturePad';
-import { RotateCcwIcon } from '@/lib/moduix/icons/ui/Icons';
+import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 
 const meta = {
   title: 'Components/SignaturePad',

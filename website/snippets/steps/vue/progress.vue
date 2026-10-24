@@ -32,7 +32,7 @@ const items = [
 
 <template>
   <Steps :class="styles.root" :count="items.length" :default-step="1">
-    <StepsProgress />
+    <StepsProgress aria-label="Workspace setup progress" />
     <StepsList>
       <StepsItem v-for="(item, index) in items" :key="item.title" :index="index">
         <StepsTrigger>

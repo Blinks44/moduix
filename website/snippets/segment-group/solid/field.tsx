@@ -6,17 +6,12 @@ import {
 } from '@moduix/solid/segment-group';
 import styles from '@/components/examples/segment-group/segment-group-field.module.css';
 
-const frameworks = [
-  { value: 'React', label: 'React' },
-  { value: 'Solid', label: 'Solid' },
-  { value: 'Svelte', label: 'Svelte' },
-  { value: 'Vue', label: 'Vue' },
-];
+const frameworks = ['React', 'Solid', 'Svelte', 'Vue'];
 
 export default function FieldSegmentGroupDemo() {
   return (
     <Field class={styles.root} invalid>
-      <SegmentGroup aria-label="Framework" defaultValue="React" name="framework" required>
+      <SegmentGroup aria-label="Framework" defaultValue="React" name="framework" invalid required>
         <SegmentGroupIndicator />
         <SegmentGroupItems items={frameworks} />
       </SegmentGroup>

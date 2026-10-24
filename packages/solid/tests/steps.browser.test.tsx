@@ -156,3 +156,34 @@ test('preserves Ark linear validation and prevents direct navigation', async () 
   expect(invalidSteps).toHaveLength(1);
   await expect.element(page.getByRole('tab').nth(0)).toHaveAttribute('aria-selected', 'true');
 });
+test('fills its container and keeps the vertical separator clear of both indicators', () => {
+  const { container } = render(() => (
+    <div style={{ width: '1200px' }}>
+      <Steps count={items.length} orientation="vertical">
+        <StepsList>
+          {items.map((item, index) => (
+            <StepsItem index={index}>
+              <StepsTrigger>
+                <StepsIndicator />
+                {item.title}
+              </StepsTrigger>
+              <StepsSeparator />
+            </StepsItem>
+          ))}
+        </StepsList>
+      </Steps>
+    </div>
+  ));
+
+  const root = container.querySelector<HTMLElement>('[data-slot="steps-root"]')!;
+  const [first, next] = [...container.querySelectorAll('[data-slot="steps-indicator"]')].map(
+    (indicator) => indicator.getBoundingClientRect(),
+  );
+  const separator = container
+    .querySelector('[data-slot="steps-separator"]')!
+    .getBoundingClientRect();
+
+  expect(root.offsetWidth).toBe(1200);
+  expect(Math.round(separator.top - first!.bottom)).toBe(8);
+  expect(Math.round(next!.top - separator.bottom)).toBe(8);
+});

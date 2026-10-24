@@ -120,7 +120,6 @@ test('applies native utilities to component-owned visual parts', () => {
 
   expect([...toggle!.classList]).toEqual(
     expect.arrayContaining([
-      'box-border',
       'inline-flex',
       'min-h-control-md',
       'gap-2',
@@ -130,8 +129,7 @@ test('applies native utilities to component-owned visual parts', () => {
       'px-4',
       'py-1',
       'text-sm',
-      '[&>svg]:block',
-      '[&>svg]:size-4',
+      "[&>svg:not([class*='size-'])]:size-4",
       '[&>svg]:shrink-0',
     ]),
   );
@@ -140,8 +138,7 @@ test('applies native utilities to component-owned visual parts', () => {
       'inline-flex',
       'items-center',
       'justify-center',
-      '[&>svg]:block',
-      '[&>svg]:size-4',
+      "[&>svg:not([class*='size-'])]:size-4",
     ]),
   );
 });
@@ -170,4 +167,17 @@ test('lets consumer Tailwind classes override conflicting defaults', () => {
     paddingLeft: '0px',
     fontSize: '12px',
   });
+});
+test('lets size utilities on icons override the default icon size', () => {
+  render(
+    <Toggle defaultPressed>
+      <svg aria-hidden="true" className="size-5" data-testid="root-icon" />
+      <ToggleIndicator>
+        <svg aria-hidden="true" className="size-6" data-testid="indicator-icon" />
+      </ToggleIndicator>
+    </Toggle>,
+  );
+
+  expect(screen.getByTestId('root-icon').getBoundingClientRect().width).toBe(20);
+  expect(screen.getByTestId('indicator-icon').getBoundingClientRect().width).toBe(24);
 });

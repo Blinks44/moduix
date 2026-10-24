@@ -14,7 +14,7 @@ import {
   NavigationMenuViewport,
   NavigationMenuRootProvider,
 } from '@/components/navigation-menu/NavigationMenu';
-import { ChevronDownIcon } from '@/lib/moduix/icons/ui/Icons';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import styles from './NavigationMenu.stories.module.css';
 
 const meta = {

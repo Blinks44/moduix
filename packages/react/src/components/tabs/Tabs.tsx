@@ -7,20 +7,23 @@ import { forwardRef } from 'react';
 import styles from './Tabs.module.css';
 
 type TabsVariant = 'default' | 'line';
+type TabsSize = 'sm' | 'md' | 'lg';
+type TabsStyleProps = { variant?: TabsVariant; size?: TabsSize; fitted?: boolean };
+type TabsRootProps = ComponentProps<typeof TabsPrimitive.Root> & TabsStyleProps;
+type TabsRootProviderProps = ComponentProps<typeof TabsPrimitive.RootProvider> & TabsStyleProps;
 
-const Tabs = forwardRef<
-  ComponentRef<typeof TabsPrimitive.Root>,
-  ComponentProps<typeof TabsPrimitive.Root> & { variant?: TabsVariant }
->(function Tabs({ className, orientation, variant = 'default', ...props }, ref) {
-  const resolvedVariant = orientation === 'vertical' ? 'default' : variant;
-
+const Tabs = forwardRef<ComponentRef<typeof TabsPrimitive.Root>, TabsRootProps>(function Tabs(
+  { className, variant = 'default', size = 'md', fitted = false, ...props },
+  ref,
+) {
   return (
     <TabsPrimitive.Root
       ref={ref}
       className={clsx(styles.root, className)}
-      orientation={orientation}
       {...props}
-      data-variant={resolvedVariant}
+      data-variant={variant}
+      data-size={size}
+      data-fitted={fitted ? '' : undefined}
       data-slot="tabs-root"
     />
   );
@@ -28,22 +31,19 @@ const Tabs = forwardRef<
 
 const TabsRootProvider = forwardRef<
   ComponentRef<typeof TabsPrimitive.RootProvider>,
-  ComponentProps<typeof TabsPrimitive.RootProvider> & { variant?: TabsVariant }
->(function TabsRootProvider({ className, value, variant = 'default', ...props }, ref) {
-  const orientation = (
-    value.getRootProps() as {
-      'data-orientation'?: 'horizontal' | 'vertical';
-    }
-  )['data-orientation'];
-  const resolvedVariant = orientation === 'vertical' ? 'default' : variant;
-
+  TabsRootProviderProps
+>(function TabsRootProvider(
+  { className, variant = 'default', size = 'md', fitted = false, ...props },
+  ref,
+) {
   return (
     <TabsPrimitive.RootProvider
       ref={ref}
       className={clsx(styles.root, className)}
-      value={value}
       {...props}
-      data-variant={resolvedVariant}
+      data-variant={variant}
+      data-size={size}
+      data-fitted={fitted ? '' : undefined}
       data-slot="tabs-root-provider"
     />
   );
@@ -118,3 +118,16 @@ export {
   useTabs,
   useTabsContext,
 };
+export type {
+  TabContentProps,
+  TabIndicatorProps,
+  TabListProps,
+  TabsContextProps,
+  TabsFocusChangeDetails,
+  TabsValueChangeDetails,
+  TabTriggerProps,
+  UseTabsContext,
+  UseTabsProps,
+  UseTabsReturn,
+} from '@ark-ui/react/tabs';
+export type { TabsRootProps, TabsRootProviderProps, TabsSize, TabsVariant };

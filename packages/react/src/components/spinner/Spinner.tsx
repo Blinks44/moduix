@@ -5,28 +5,25 @@ import { forwardRef } from 'react';
 import { a11yLabels } from '@/lib/moduix/a11yLabels';
 import styles from './Spinner.module.css';
 
-type SpinnerProps = HTMLArkProps<'span'> & {
-  size?: 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+type SpinnerSize = 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+type SpinnerRootProps = HTMLArkProps<'span'> & {
+  size?: SpinnerSize;
   decorative?: boolean;
 };
 
-const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
+const Spinner = forwardRef<HTMLSpanElement, SpinnerRootProps>(function Spinner(
   {
+    'aria-label': ariaLabel,
     asChild,
     children,
     className,
     decorative = false,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
     size = 'md',
     ...props
   },
   ref,
 ) {
-  const accessibleLabel = decorative
-    ? undefined
-    : (ariaLabel ?? (ariaLabelledBy ? undefined : a11yLabels.loading));
-
   return (
     <ark.span
       ref={ref}
@@ -36,10 +33,11 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
       data-part="root"
       data-slot="spinner-root"
       data-size={size}
-      role={decorative && !asChild ? 'presentation' : decorative ? undefined : 'status'}
-      aria-hidden={decorative && !asChild ? true : undefined}
-      aria-label={accessibleLabel}
-      aria-labelledby={decorative ? undefined : ariaLabelledBy}
+      role={decorative ? undefined : 'status'}
+      aria-hidden={decorative || undefined}
+      aria-label={
+        ariaLabel ?? (decorative || props['aria-labelledby'] ? undefined : a11yLabels.loading)
+      }
       className={clsx(styles.root, className)}
     >
       {asChild ? (
@@ -67,3 +65,4 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(function Spinner(
 });
 
 export { Spinner };
+export type { SpinnerRootProps, SpinnerSize };

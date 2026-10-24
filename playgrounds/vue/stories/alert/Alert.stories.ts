@@ -9,7 +9,7 @@ import {
   AlertTitle,
 } from '@/components/alert';
 import { Button } from '@/components/button';
-import { CheckIcon } from '@/lib/moduix/icons/ui/Icons';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import styles from './Alert.stories.module.css';
 
 const InfoIcon = defineComponent({

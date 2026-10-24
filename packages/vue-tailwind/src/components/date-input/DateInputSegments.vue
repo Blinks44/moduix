@@ -8,8 +8,7 @@ import DateInputSegmentGroup from './DateInputSegmentGroup.vue';
 
 defineOptions({ inheritAttrs: false });
 
-export interface Props
-  extends /* @vue-ignore */ Omit<DateInputSegmentGroupProps, 'asChild' | 'children'> {
+export interface Props extends /* @vue-ignore */ Omit<DateInputSegmentGroupProps, 'asChild'> {
   class?: HTMLAttributes['class'];
 }
 

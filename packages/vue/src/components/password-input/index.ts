@@ -32,9 +32,8 @@ export type {
   PasswordInputInputProps,
   PasswordInputLabelBaseProps,
   PasswordInputLabelProps,
-  PasswordInputRootProps,
+  PasswordInputRootBaseProps,
   PasswordInputRootProviderBaseProps,
-  PasswordInputRootProviderProps,
   PasswordInputVisibilityChangeDetails,
   PasswordInputVisibilityTriggerBaseProps,
   PasswordInputVisibilityTriggerProps,
@@ -43,5 +42,9 @@ export type {
   UsePasswordInputReturn,
 } from '@ark-ui/vue/password-input';
 
-export type { PasswordInputRootEmits } from './PasswordInput.vue';
-export type { PasswordInputContextProps } from './PasswordInputContext.vue';
+export type {
+  PasswordInputRootEmits,
+  PasswordInputSize,
+  Props as PasswordInputRootProps,
+} from './PasswordInput.vue';
+export type { Props as PasswordInputRootProviderProps } from './PasswordInputRootProvider.vue';

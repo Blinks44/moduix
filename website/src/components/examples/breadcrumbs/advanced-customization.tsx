@@ -11,7 +11,7 @@ import type { ComponentProps } from 'react';
 import styles from '@/components/examples/breadcrumbs/breadcrumbs-advanced-customization.module.css';
 
 function AppLink(props: ComponentProps<'a'>) {
-  return <a data-framework-link className={styles.link} {...props} />;
+  return <a data-framework-link {...props} />;
 }
 
 export default function BreadcrumbsAdvancedCustomizationDemo() {

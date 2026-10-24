@@ -7,11 +7,10 @@ import {
   TagsInputItems,
   TagsInputLabel,
 } from '@moduix/vue/tags-input';
-import styles from '@/components/examples/tags-input/tags-input-max-with-overflow.module.css';
 </script>
 
 <template>
-  <TagsInput :class="styles.root" :default-value="['React', 'Solid']" :max="2" allow-overflow>
+  <TagsInput :default-value="['React', 'Solid']" :max="2" allow-overflow>
     <TagsInputLabel>Frameworks</TagsInputLabel>
     <TagsInputControl>
       <TagsInputItems />

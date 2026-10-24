@@ -1,3 +1,4 @@
+import { Button } from '@moduix/solid/button';
 import {
   FileUpload,
   FileUploadDropzone,
@@ -21,7 +22,7 @@ export default function FileUploadDropzoneDemo() {
         <div class={styles.dropzoneContent}>
           <span class={styles.dropzoneTitle}>Drag and drop files here</span>
           <span class={styles.dropzoneDescription}>or browse from your device</span>
-          <FileUploadTrigger>Browse files</FileUploadTrigger>
+          <FileUploadTrigger asChild={(props) => <Button {...props()}>Browse files</Button>} />
         </div>
       </FileUploadDropzone>
       <FileUploadItemGroup>

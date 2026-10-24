@@ -1,169 +1,69 @@
 # Splitter
 
-Upstream docs:
-
-- Ark UI: https://ark-ui.com/docs/components/splitter
-- Zag: https://zagjs.com/components/react/splitter
+Upstream: https://ark-ui.com/docs/components/splitter
 
 ## Purpose
 
-Resizable layout primitive for dividing an interface into horizontal or vertical panels.
+Resizable layout that divides an interface into horizontal or vertical panels.
 
-## Upstream model to preserve
-
-`Splitter` is a thin wrapper over Ark UI's splitter primitive and preserves the Ark part tree, percentage- and CSS-length panel sizing, constraints, collapse/expand behavior, keyboard resizing, root-provider pattern, and shared registry support for nested multi-drag layouts.
-
-The upstream model is:
-
-- `Splitter` owns `panels`, `defaultSize` / `size`, orientation, resize callbacks, ids, keyboard step, nonce, and optional `registry`.
-- `SplitterPanel` renders each resizable region and requires a stable `id` matching the `panels` array.
-- `SplitterResizeTrigger` connects two adjacent panels with an id such as `"a:b"` and renders the accessible window-splitter handle.
-- `SplitterResizeTriggerIndicator` is the default visual child of `SplitterResizeTrigger`; passing trigger children
-  replaces it.
-- `SplitterRootProvider`, `useSplitter`, `useSplitterContext`, and `createSplitterRegistry` preserve the
-  Ark externally-owned state and advanced layout paths through moduix exports.
-
-## Current behavior contract
-
-`Splitter` exposes Ark props directly. It does not translate callback details, manage sizes locally, infer panel ids, or render hidden panels. Consumers pass `panels` and render matching `SplitterPanel` / `SplitterResizeTrigger` parts explicitly.
-
-`Splitter` and `SplitterRootProvider` add a default inline sizing style that resolves `--moduix-splitter-width` and `--moduix-splitter-height`. This keeps moduix sizing variables effective because Ark's root props include inline `width: 100%` and `height: 100%`.
-
-`Splitter` keeps the visual root/part namespace plus `SplitterRootProvider`, `useSplitter`,
-`useSplitterContext`, `createSplitterRegistry`, and `SplitterPanelData`. moduix does not translate
-their Ark contracts or add local state management.
-
-## Anatomy and exported parts
+## Public contract
 
 ```tsx
 Splitter
 ├─ SplitterPanel id="a"
 ├─ SplitterResizeTrigger id="a:b"
-│  └─ SplitterResizeTriggerIndicator (default, customizable)
+│  └─ SplitterResizeTriggerIndicator (default, replaced by children)
 └─ SplitterPanel id="b"
 
 SplitterRootProvider
 └─ same part tree connected to useSplitter()
 ```
 
-| Part                             | Stable hook                                     | Notes                                                       |
-| -------------------------------- | ----------------------------------------------- | ----------------------------------------------------------- |
-| `Splitter`                       | `data-slot="splitter-root"`                     | Splitter machine, panel constraints, size state, callbacks. |
-| `SplitterRootProvider`           | `data-slot="splitter-root-provider"`            | Renders from `useSplitter()` state.                         |
-| `SplitterPanel`                  | `data-slot="splitter-panel"`                    | Resizable region, id must match a panel entry.              |
-| `SplitterResizeTrigger`          | `data-slot="splitter-resize-trigger"`           | Accessible button handle between adjacent panels.           |
-| `SplitterResizeTriggerIndicator` | `data-slot="splitter-resize-trigger-indicator"` | Default visual indicator; custom children replace it.       |
+| Part                             | `data-slot`                         |
+| -------------------------------- | ----------------------------------- |
+| `Splitter`                       | `splitter-root`                     |
+| `SplitterRootProvider`           | `splitter-root-provider`            |
+| `SplitterPanel`                  | `splitter-panel`                    |
+| `SplitterResizeTrigger`          | `splitter-resize-trigger`           |
+| `SplitterResizeTriggerIndicator` | `splitter-resize-trigger-indicator` |
 
-## Composition
+Also exported: `SplitterContext`, `useSplitter`, `useSplitterContext`, `createSplitterRegistry`, and
+`SplitterPanelData`.
 
-```tsx
-<Splitter
-  panels={[
-    { id: 'a', minSize: 20 },
-    { id: 'b', minSize: 20 },
-  ]}
-  defaultSize={[40, 60]}
->
-  <SplitterPanel id="a">A</SplitterPanel>
-  <SplitterResizeTrigger id="a:b" />
-  <SplitterPanel id="b">B</SplitterPanel>
-</Splitter>
-```
+- Every Ark root prop passes through (`panels`, `defaultSize` / `size`, `orientation`, callbacks,
+  `keyboardResizeBy`, `registry`, `nonce`, `ids`). moduix adds no state, does not translate callback
+  details, and does not infer panel or trigger ids.
+- `SplitterResizeTrigger` renders `SplitterResizeTriggerIndicator` when it has no children and no
+  `asChild`. Children replace the indicator; an `asChild` host never gets it.
+- A native trigger gets `type="button"`, so a splitter inside a form never submits it. An `asChild`
+  host keeps its own `type`.
 
-Use `size` with `onResize(details)` for controlled layouts. Use `onResizeStart`, `onResizeEnd`, `onCollapse`, and `onExpand` with the original Ark detail objects. Use `orientation="vertical"` for stacked panels and keep a stable root height.
+## Preservation notes
 
-Import `useSplitterContext()` or `useSplitter()` from `@moduix/react` when child UI needs imperative
-methods such as `resizePanel`, `collapsePanel`, `expandPanel`, `setSizes`, and `resetSizes`. Use
-`useSplitter()` plus `SplitterRootProvider` when state must be created outside the rendered part
-tree.
+- Ark sets inline `width: 100%` and `height: 100%` on the root. `Splitter` and `SplitterRootProvider`
+  remove them, so the CSS defaults (`width: 100%`, `height: 100%`, like Ark) and consumer classes size
+  the root. A `style` prop still wins. In a parent without a definite height the root takes its content
+  height, so give it a height when the panels have little content or the splitter is vertical.
+- Ark sets `overflow: hidden`, flex sizing, `min-*` / `max-*` constraints, and `pointer-events: none`
+  during a drag inline on panels; moduix does not style those properties. Long content needs its own
+  scroll container inside the panel.
+- Ark sets the trigger cursor, `touch-action`, `user-select`, `flex`, and `pointer-events: none` while
+  disabled, and injects a global cursor stylesheet while dragging. moduix styles do not repeat them.
+- Keep `SplitterResizeTriggerIndicator` inside `SplitterResizeTrigger`; it reads the trigger props
+  context. Do not render `Splitter` and `SplitterRootProvider` for one instance.
 
-For nested splitters that should resize together at handle intersections, create a shared registry
-with `createSplitterRegistry()` from `@moduix/react` and pass it to each root.
+## Styling and accessibility
 
-## Upstream feature coverage
-
-The wrapper supports the Ark examples for basic usage, vertical orientation, collapsible panels,
-multiple panels, root-provider usage, resize indicator, dynamic collapsible behavior, and
-nested/shared registry layouts. `SplitterContext` and hook-based state access are available from the
-moduix package barrel.
-
-Zag notes preserved by the wrapper:
-
-- A collapsible panel with different `minSize` and `collapsedSize` values intentionally snaps between
-  those sizes. Set them equal when the pointer should resize continuously into the collapsed rail.
-- Numeric `defaultSize` and controlled `size` values are percentage arrays and should total `100`;
-  Ark also supports CSS lengths for initial and constraint sizes.
-- `panels` defines constraints such as `minSize`, `maxSize`, `collapsible`, and `collapsedSize`.
-- `keyboardResizeBy` configures arrow-key resize distance.
-- `nonce` is passed through for the cursor stylesheet Ark injects.
-- `ids` can be used when external composition needs stable accessibility and interaction ids.
-
-## Accessibility and state
-
-Ark implements the WAI-ARIA Window Splitter pattern. `SplitterResizeTrigger` renders a button with keyboard and pointer handling, focus state, and panel relationship metadata from Ark.
-
-Data attributes from Ark:
-
-- `Splitter`: `data-scope="splitter"`, `data-part="root"`, `data-orientation`, `data-dragging`
-- `SplitterPanel`: `data-scope="splitter"`, `data-part="panel"`, `data-orientation`, `data-dragging`, `data-id`, `data-index`
-- `SplitterResizeTrigger`: `data-scope="splitter"`, `data-part="resize-trigger"`, `data-id`, `data-orientation`, `data-focus`, `data-dragging`, `data-disabled`
-
-Refs are forwarded to the actual Ark-rendered root, panel, trigger, and indicator elements. `asChild` is preserved on all Ark parts that expose it; custom trigger hosts must keep button semantics and keyboard/focus behavior.
-An `asChild` resize trigger requires exactly one interactive host and does not receive the default indicator.
-
-## Defaults and styling
-
-Every styled part accepts `className`, merged with moduix defaults through `clsx`. The CSS module uses flat selectors, Ark data attributes, and stable `data-slot` hooks.
-
-The root defaults to inline `width: var(--moduix-splitter-width, 100%)` and `height: var(--moduix-splitter-height, 28rem)` plus a card background, an outer border, rounded corners, clipping, and a small shadow. Panels get `min-height: 12.5rem`, padding, `overflow: auto`, and a flat card background so adjacent panels sit flush. Vertical splitters reset panel min height through `--moduix-splitter-panel-min-height-vertical` so top/bottom panels can resize inside the fixed root height. The resize trigger keeps a `1px` layout divider while its visible line is `0.5px`; its transparent hit area overlaps the divider. Hover strengthens the line, indicator border, and shadow. Pointer dragging strengthens the line and indicator; keyboard `:focus-visible` keeps the idle line and draws a focus ring around the indicator instead. When no indicator is rendered, the transparent hit area receives that ring. The keyboard ring is suppressed during dragging, and pointer focus alone does not leave a persistent highlight. `SplitterResizeTriggerIndicator` is centered absolutely over the divider and renders as a narrow rounded handle with a background fill, stable border, and shadow.
-
-All public `--moduix-splitter-*` variables used by the component are declared in `packages/foundation/src/styles/variables-moduix.css`. Common overrides include `--moduix-splitter-height`, `--moduix-splitter-bg`, `--moduix-splitter-border-color`, `--moduix-splitter-radius`, `--moduix-splitter-shadow`, `--moduix-splitter-panel-bg`, `--moduix-splitter-panel-min-height`, `--moduix-splitter-panel-min-height-vertical`, `--moduix-splitter-panel-padding`, `--moduix-splitter-resize-trigger-size`, `--moduix-splitter-resize-trigger-line-thickness`, `--moduix-splitter-resize-trigger-line-color`, `--moduix-splitter-resize-trigger-line-color-hover`, `--moduix-splitter-resize-trigger-line-color-dragging`, `--moduix-splitter-resize-trigger-focus-ring-color`, `--moduix-splitter-resize-trigger-focus-ring-offset`, `--moduix-splitter-resize-trigger-focus-ring-width`, `--moduix-splitter-resize-trigger-indicator-bg`, `--moduix-splitter-resize-trigger-indicator-bg-dragging`, `--moduix-splitter-resize-trigger-indicator-border-color`, `--moduix-splitter-resize-trigger-indicator-border-color-hover`, `--moduix-splitter-resize-trigger-indicator-border-color-dragging`, `--moduix-splitter-resize-trigger-indicator-shadow`, `--moduix-splitter-resize-trigger-indicator-shadow-hover`, and `--moduix-splitter-resize-trigger-indicator-shadow-dragging`.
-
-## Intentional sugar and differences from upstream
-
-moduix adds visual defaults, `data-slot` hooks, and a default `SplitterResizeTriggerIndicator` when the
-trigger has no children. Passing children replaces that default while preserving the lower-level Ark
-composition. moduix does not add custom callbacks, local controlled/uncontrolled state, or inferred
-trigger ids.
-
-moduix exposes `SplitterRootProvider`, `useSplitter`, `useSplitterContext`, `createSplitterRegistry`, and
-`SplitterPanelData` for normal advanced workflows. Other Ark-only helpers remain direct escape
-hatches.
-
-## Agent notes
-
-Keep `SplitterResizeTriggerIndicator` inside `SplitterResizeTrigger`; it depends on trigger props context from Ark.
-Do not render both `Splitter` and `SplitterRootProvider` for one splitter instance. Keep `panels` ids synchronized
-with rendered `SplitterPanel` ids and adjacent trigger ids.
-
-## Local changelog
-
-- 2026-10-02: Kept restrained pointer styling and added keyboard focus for resize triggers without an indicator.
-
-- 2026-08-12: Made persistent keyboard focus distinct from active pointer resizing by retaining the
-  idle divider and drawing a ring around the handle indicator.
-- 2026-08-12: Kept `asChild` resize triggers explicitly consumer-composed instead of mounting the
-  decorative default indicator as their interactive host.
-- 2026-08-05: Restored visible keyboard focus by sharing the existing restrained dragging styles
-  between `:focus-visible` and `[data-dragging]`.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-11: Made the visible divider thinner and added restrained indicator feedback for hover and dragging.
-
-- 2026-07-11: Made the resize indicator the default trigger content, exposed normal advanced Ark
-  helpers through moduix, and added visible default keyboard focus styling. Sidebar opts out of the
-  default indicator to preserve its neutral divider.
-
-- 2026-07-03: Removed Ark context parts, hooks, registry/layout helpers, and type re-exports from
-  the public moduix surface while keeping `SplitterRootProvider` for externally owned Ark state.
-- 2026-06-22: Added Ark-backed `Splitter` with styled parts, context/provider hooks, registry helpers, theme variables, docs, and registry integration.
-- 2026-06-22: Refined default styling to use a thin splitter line plus rounded indicator handle, and enlarged docs/story demos for practical resizing.
-- 2026-06-22: Tightened the handle and added polished panel surface defaults with minimum panel height.
-- 2026-06-22: Moved the default surface to `Splitter` and made the resize trigger behave like a `1px` divider between flush panels.
-- 2026-06-23: Centered the resize indicator over the divider, fixed vertical resizing by resetting vertical panel min height, and moved context example controls above the panels.
-- 2026-06-23: Removed drag-time divider color changes so the separator stays neutral in nested splitters too.
-- 2026-06-23: Added drag-state CSS variables for the divider and handle with neutral default fallbacks.
-- 2026-06-23: Kept focus and drag handle styles neutral by default while preserving CSS variables for consumer opt-in styling.
-- 2026-06-23: Stabilized vertical Storybook and docs examples with direct root height on first render while keeping Storybook's centered layout.
-- 2026-06-27: Aligned focus styling with Ark's `data-focus` state and refreshed docs examples/CSS variable coverage after the Ark migration review.
-- 2026-06-27: Moved root width/height defaults into the wrapper's inline style so `--moduix-splitter-width` and `--moduix-splitter-height` override Ark's inline root layout.
-- 2026-07-05: Made the divider tint slightly darker on hover and drag by default, while restoring the idle line color for default focus so pointer release cannot leave the divider visually active.
+- Root: card surface with border, `md` radius, and `sm` shadow. Panels: `spacing-4` padding and no
+  surface of their own, so adjacent panels sit flush.
+- Trigger: a `1px` flex item that centers a `0.5px` line (`::before`), a transparent hit area
+  (`::after`), and the indicator, all absolutely positioned at their static position. Hover and
+  dragging tint the line and the indicator border with `muted-foreground` at 40% and raise the
+  indicator shadow; dragging also scales the indicator.
+- Keyboard `:focus-visible` draws the ring around the indicator, or around the hit area when there is
+  no indicator. Dragging suppresses the ring.
+- CSS variables: `--moduix-splitter-resize-trigger-line-color` and
+  `--moduix-splitter-resize-trigger-size`, because the line and hit area are pseudo-elements. Change
+  everything else with a class on the part. Sidebar sets both variables.
+- Ark implements the WAI-ARIA Window Splitter pattern: `role="separator"`, `aria-valuenow`,
+  `aria-controls`, arrow keys, Home/End, Enter, and F6. Give each trigger an accessible name.

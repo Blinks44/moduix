@@ -11,7 +11,7 @@
     line-height: var(--moduix-line-height-text-sm);
   }
 
-  .customIcon {
-    --moduix-accordion-icon-open-transform: rotate(180deg);
+  .customIcon[data-state='open'] {
+    transform: rotate(180deg);
   }
 }

@@ -44,7 +44,7 @@ const dialog = useDialogContext();
 type SelectDetails = ComboboxRootEmits<T>['select'][0];
 const handleSelect = (details: SelectDetails) => {
   emit('select', details);
-  if (closeOnSelect ?? true) {
+  if (closeOnSelect) {
     dialog.value.setOpen(false);
   }
 };
@@ -55,11 +55,11 @@ const handleSelect = (details: SelectDetails) => {
     v-bind="attrs"
     :collection="collection"
     :class="cn('flex min-h-0 flex-1 flex-col overflow-hidden', className)"
-    :close-on-select="closeOnSelect ?? true"
-    :disable-layer="disableLayer ?? true"
-    :input-behavior="inputBehavior ?? 'autohighlight'"
-    :open="open ?? true"
-    :selection-behavior="selectionBehavior ?? 'preserve'"
+    :close-on-select="closeOnSelect"
+    :disable-layer="disableLayer"
+    :input-behavior="inputBehavior"
+    :open="open"
+    :selection-behavior="selectionBehavior"
     @select="handleSelect"
     data-slot="command-palette-combobox"
   >

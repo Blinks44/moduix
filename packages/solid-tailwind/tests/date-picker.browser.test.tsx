@@ -3,7 +3,7 @@ import { CalendarDate } from '@internationalized/date';
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@solidjs/testing-library';
-import { createSignal, For } from 'solid-js';
+import { createSignal, For, type JSX } from 'solid-js';
 import {
   DatePicker,
   Field,
@@ -27,6 +27,8 @@ import {
   DatePickerTableCell,
   DatePickerTableCellTrigger,
   DatePickerDayTable,
+  DatePickerMonthTable,
+  DatePickerYearTable,
   DatePickerMonthSelect,
   DatePickerYearSelect,
 } from '../src';
@@ -58,13 +60,7 @@ test('renders Ark month and year primitives as native selects', async () => {
 
   expect(monthSelect.tagName).toBe('SELECT');
   expect(monthSelect!.classList.contains('appearance-none')).toBe(true);
-  expect([...monthSelect!.classList]).toEqual(
-    expect.arrayContaining([
-      '[font-family:inherit]',
-      '[font-size:var(--moduix-date-picker-select-font-size,var(--moduix-text-sm))]',
-      '[line-height:var(--moduix-date-picker-select-line-height,var(--moduix-line-height-text-sm))]',
-    ]),
-  );
+  expect([...monthSelect!.classList]).toEqual(expect.arrayContaining(['text-sm', 'leading-5']));
   expect(monthSelect.querySelectorAll('option')).toHaveLength(12);
   expect(yearSelect.tagName).toBe('SELECT');
   expect(yearSelect!.classList.contains('appearance-none')).toBe(true);
@@ -448,13 +444,12 @@ test.each([
 
 test('preserves native table asChild composition with the fixed calendar child tree', async () => {
   render(() => (
-    <DatePicker defaultOpen portalled={false}>
+    <DatePicker defaultOpen portalled={false} showWeekNumbers>
       <DatePickerPositioner>
         <DatePickerContent>
           <DatePickerView view="day">
             <DatePickerDayTable
               showHeader={false}
-              showWeekNumbers
               asChild={(props) => <table {...props()} data-testid="composed-table" />}
             />
           </DatePickerView>
@@ -483,4 +478,129 @@ test.each([false, true])('updates the clear trigger class (asChild=%s)', async (
   expect(trigger!.classList.contains('after')).toBe(true);
   expect(trigger!.classList.contains('before')).toBe(false);
   expect(container.querySelector('button')).toBe(trigger);
+});
+function Calendar(props: { children: JSX.Element }) {
+  return (
+    <DatePickerPositioner>
+      <DatePickerContent>{props.children}</DatePickerContent>
+    </DatePickerPositioner>
+  );
+}
+
+test('renders month and year tables with a navigation header', async () => {
+  const { unmount } = render(() => (
+    <DatePicker defaultOpen portalled={false} defaultView="month">
+      <Calendar>
+        <DatePickerView view="month">
+          <DatePickerMonthTable />
+        </DatePickerView>
+      </Calendar>
+    </DatePicker>
+  ));
+  expect(document.querySelectorAll('[data-slot="date-picker-table-cell-trigger"]')).toHaveLength(
+    12,
+  );
+  expect(document.querySelector('[data-slot="date-picker-view-trigger"]')).not.toBeNull();
+  unmount();
+
+  render(() => (
+    <DatePicker defaultOpen portalled={false} defaultView="year">
+      <Calendar>
+        <DatePickerView view="year">
+          <DatePickerYearTable showHeader={false} />
+        </DatePickerView>
+      </Calendar>
+    </DatePicker>
+  ));
+  expect(document.querySelectorAll('[data-slot="date-picker-table-cell-trigger"]')).toHaveLength(
+    10,
+  );
+  expect(document.querySelector('[data-slot="date-picker-view-trigger"]')).toBeNull();
+});
+
+test('reads week numbers from the root and offsets the day table by months', async () => {
+  render(() => (
+    <DatePicker
+      defaultOpen
+      portalled={false}
+      showWeekNumbers
+      defaultFocusedValue={new CalendarDate(2026, 6, 1)}
+    >
+      <Calendar>
+        <DatePickerView view="day">
+          <DatePickerDayTable showHeader={false} offset={1} />
+        </DatePickerView>
+      </Calendar>
+    </DatePicker>
+  ));
+  expect(document.querySelector('[data-slot="date-picker-week-number-cell"]')).not.toBeNull();
+  expect(
+    document.querySelector('[data-slot="date-picker-table-cell-trigger"][data-value="2026-07-15"]'),
+  ).not.toBeNull();
+});
+
+test('marks today with a visible border', async () => {
+  render(() => (
+    <DatePicker defaultOpen portalled={false}>
+      <Calendar>
+        <DatePickerView view="day">
+          <DatePickerDayTable />
+        </DatePickerView>
+      </Calendar>
+    </DatePicker>
+  ));
+  const today = document.querySelector<HTMLElement>(
+    '[data-slot="date-picker-table-cell-trigger"][data-today]',
+  )!;
+  await expect.poll(() => getComputedStyle(today).borderTopWidth).not.toBe('0px');
+  await expect.poll(() => getComputedStyle(today).borderTopColor).not.toBe('rgba(0, 0, 0, 0)');
+});
+
+test('dims disabled outside-range days with opacity only', async () => {
+  render(() => (
+    <DatePicker defaultOpen portalled={false} defaultFocusedValue={new CalendarDate(2026, 6, 1)}>
+      <Calendar>
+        <DatePickerView view="day">
+          <DatePickerDayTable />
+        </DatePickerView>
+      </Calendar>
+    </DatePicker>
+  ));
+  const outside = document.querySelector<HTMLElement>(
+    '[data-slot="date-picker-table-cell-trigger"][data-outside-range][data-disabled]',
+  )!;
+  const regular = document.querySelector<HTMLElement>(
+    '[data-slot="date-picker-table-cell-trigger"][data-value="2026-06-10"]',
+  )!;
+  await new Promise((resolve) => setTimeout(resolve, 400));
+  expect(getComputedStyle(outside).color).toBe(getComputedStyle(regular).color);
+  expect(getComputedStyle(outside).opacity).toBe('0.5');
+});
+
+test('dims a disabled picker once', async () => {
+  render(() => (
+    <>
+      <DatePicker disabled data-testid="disabled">
+        <DatePickerLabel>Disabled date</DatePickerLabel>
+        <DatePickerField />
+      </DatePicker>
+      <Field disabled>
+        <DatePicker disabled data-testid="field">
+          <DatePickerLabel>Field date</DatePickerLabel>
+          <DatePickerField />
+        </DatePicker>
+      </Field>
+      <DatePicker readOnly data-testid="read-only">
+        <DatePickerLabel>Read-only date</DatePickerLabel>
+        <DatePickerField />
+      </DatePicker>
+    </>
+  ));
+  const disabled = screen.getByTestId('disabled');
+  await expect.poll(() => getComputedStyle(disabled).opacity).toBe('0.5');
+  expect(
+    getComputedStyle(disabled.querySelector('[data-slot="date-picker-trigger"]')!).opacity,
+  ).toBe('1');
+  expect(getComputedStyle(screen.getByTestId('field')).opacity).toBe('1');
+  expect(getComputedStyle(screen.getByTestId('read-only')).opacity).toBe('1');
 });

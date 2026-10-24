@@ -1,56 +1,60 @@
 # InputGroup
 
-Upstream review (accessed 2026-08-11):
+Upstream review (accessed 2026-10-17):
 
 - Ark UI composition: https://ark-ui.com/docs/guides/composition
 - Ark UI Field: https://ark-ui.com/docs/components/field
-- Chakra UI Input: https://chakra-ui.com/docs/components/input
-- Chakra UI Group: https://chakra-ui.com/docs/components/group
+- Chakra UI Input and Group: https://chakra-ui.com/docs/components/input
 - shadcn/ui Input Group: https://ui.shadcn.com/docs/components/input-group
 
 Ark UI has no `InputGroup` primitive. `InputGroup` is a moduix-owned composition built from Ark
-factory elements, the Ark-backed local `Input`, and the local `Button`.
+factory elements, the Ark-backed local `Input` and `Textarea`, `Button`, and `CloseButton`.
 
-Chakra UI has no current dedicated InputGroup page: its Input docs pair `InputAddon` with `Group`.
-
-| Source                 | Useful difference                                     | moduix decision                                                                            |
-| ---------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Ark factory and Field  | Polymorphic structural parts and native form behavior | **Required correctness:** preserve `asChild`, refs, and the nested Ark input.              |
-| Chakra Input and Group | Configurable start/end elements and attached controls | **Intentional difference:** retain explicit child parts instead of start/end props.        |
-| shadcn/ui Input Group  | Discoverable addon, text, and button anatomy          | **Consumer friction addressed:** expose matching explicit parts with stable styling hooks. |
+| Source                 | Useful difference                                     | moduix decision                                                                   |
+| ---------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Ark factory and Field  | Polymorphic structural parts and native form behavior | Preserve `asChild`, refs, and the nested Ark input.                               |
+| Chakra Input and Group | `startElement`/`endElement` props and attached addons | Keep explicit child parts instead of start/end props.                             |
+| shadcn/ui Input Group  | Explicit parts, textarea control, four-way `align`    | Match the parts; `align` is only `inline` or `block`, position follows DOM order. |
 
 ## Purpose
 
-`InputGroup` presents one single-line input with inline addons, text, or actions as one visual
-control while preserving the native semantics of the nested input and buttons. It does not provide
-preview/edit mode; use `Editable` when text should render read-only first and switch into editing
-intentionally.
+`InputGroup` presents one input or textarea with addons, text, or actions as one visual
+control while preserving the native semantics of the nested input and buttons. Use `Editable` for
+preview-first inline editing.
 
-## Upstream model to preserve
+## Public contract
 
-- Use Ark factory elements for standalone polymorphic parts and `asChild`.
-- Use the local Ark-backed `Input` for field context, ids, state, and native form behavior.
-- Keep inline decoration compositional instead of adding prefix/suffix configuration props.
-- Do not invent Ark state machines, callbacks, providers, contexts, or hidden form inputs.
-
-## Current behavior contract
-
-- `InputGroup` is the only public root value.
-- `InputGroup` renders an Ark factory `div`, owns visual size context, and supports
-  `asChild`.
-- `InputGroupInput` renders `Input`, inherits group size, and accepts native `onChange(event)`.
+- Values: `InputGroup`, `InputGroupAddon`, `InputGroupText`, `InputGroupInput`, `InputGroupTextarea`,
+  `InputGroupButton`, and `InputGroupClearTrigger`. Types: `InputGroupSize`
+  (`'xs' | 'sm' | 'md' | 'lg' | 'xl'`) and `InputGroupAddonAlign` (`'inline' | 'block'`).
+- `InputGroup` renders an Ark factory `div`, supports `asChild`, and provides the visual size
+  (`md` by default) to its parts. It has no default ARIA role.
+- `InputGroupInput` renders `Input`, inherits the group size unless it gets its own `size`, and
+  accepts native `onChange(event)`. A local size controls the input font and inline padding; the
+  group keeps its own height.
+- `InputGroupTextarea` renders `Textarea` with all its props, including `autoresize`, and inherits
+  the group size unless it gets its own `size`, like `InputGroupInput`. In the group it has no
+  border, background, radius, focus outline, or resize handle, takes the group inline padding for
+  its size, and grows the group.
 - `InputGroupAddon` and `InputGroupText` render Ark factory `span` elements and support `asChild`.
-- `InputGroupButton` renders `Button`, inherits group size, defaults to `variant="ghost"` and
-  `type="button"`.
-- `InputGroupClearTrigger` renders a compact `CloseButton` with a default close icon and clear label; the consumer handles value changes.
-- One `InputGroupInput` per group is the supported composition.
-
-## Anatomy and exported parts
+  The addon has a muted background and separators; the text part is transparent. `align`
+  (`inline` by default, mirrored as `data-align`) picks a side placement or, with `block`, a
+  full-width row above or below the control; the DOM order sets the side. A block addon switches the
+  root to a column. Use a regular `Button` inside a block addon; `InputGroupButton` is for actions
+  beside the control.
+- `InputGroupButton` renders `Button`, inherits the group size, and defaults to `variant="ghost"`
+  and `type="button"`. It keeps its Button size and variant styles but drops its own height, block
+  padding, border, and radius so it stretches inside the group without making it taller.
+- `InputGroupClearTrigger` renders `CloseButton`: 24px (20px in an `xs` group), centered with an 8px
+  end inset, `type="button"`, a decorative close icon, and `aria-label="Clear input"`. Explicit
+  `aria-label` or `aria-labelledby` replaces the fallback label; children replace the icon.
+- One control (`InputGroupInput` or `InputGroupTextarea`) per group is the supported composition. A
+  group with a block addon holds only block addons next to the control.
 
 ```text
 InputGroup
 ├─ InputGroupAddon (optional)
-├─ InputGroupInput
+├─ InputGroupInput or InputGroupTextarea
 ├─ InputGroupText (optional)
 ├─ InputGroupButton (optional)
 └─ InputGroupClearTrigger (optional)
@@ -60,144 +64,43 @@ InputGroup
 | ------------------------ | --------------------------- |
 | `InputGroup`             | `input-group-root`          |
 | `InputGroupInput`        | `input-root`                |
+| `InputGroupTextarea`     | `textarea-root`             |
 | `InputGroupAddon`        | `input-group-addon`         |
 | `InputGroupText`         | `input-group-text`          |
 | `InputGroupButton`       | `input-group-button`        |
 | `InputGroupClearTrigger` | `input-group-clear-trigger` |
 
-## Composition
-
-```tsx
-import { Field } from '@moduix/react/field';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-  InputGroupText,
-} from '@moduix/react/input-group';
-
-export function WorkspaceField() {
-  return (
-    <Field>
-      <FieldLabel>Workspace</FieldLabel>
-      <InputGroup>
-        <InputGroupAddon>@</InputGroupAddon>
-        <InputGroupInput name="workspace" />
-        <InputGroupButton>Check</InputGroupButton>
-      </InputGroup>
-    </Field>
-  );
-}
-```
-
-Use `asChild` only with one semantic child that can receive the part props and ref. The root child
-must remain a container; addon/text children should remain presentational.
-
-Use `Editable` instead of composing manual inline editing around `InputGroupInput`. `InputGroup`
-should stay focused on ordinary input composition with addons, text, and actions.
-
-## Upstream feature coverage
-
-- Ark factory composition: supported on root, addon, and text.
-- Ark Field integration: inherited by `InputGroupInput`.
-- Ark ref guidance: refs forward to the rendered root, input, addon, text, and button elements.
-- Native controlled/uncontrolled input: `value`, `defaultValue`, and `onChange(event)`.
-- Field and Fieldset state: invalid, disabled, required, and read-only state reaches the nested
-  input through Ark Field context.
-- RootProvider, component context hooks, ids, callbacks, and `HiddenInput` do not exist for
-  `InputGroup`; those concepts belong to the nested components.
-- Chakra-style start/end elements, addons, buttons, and keyboard hints are expressed with explicit
-  child composition rather than `startElement`/`endElement` props.
-- Preview-first inline editing belongs to `Editable`, not `InputGroup`.
+Root, addon, text, and clear trigger also expose `data-scope="input-group"` with a matching
+`data-part`; the root and clear trigger expose `data-size`; addon and text expose `data-align`. Component-owned hooks are set after the
+props spread, so consumer props cannot replace them. Classes merge with the default styles.
 
 ## Accessibility and state
 
-- The nested input owns the accessible name and native form value.
-- Prefer `FieldLabel`; use `role="group"` plus an accessible name only when the full standalone
-  composition needs grouped semantics.
-- The input ref targets the real `HTMLInputElement`.
-- Root, addon, and text expose `data-scope="input-group"` plus matching `data-part` attributes.
-- The nested input keeps Ark Field input state attributes and Input's `input-root` slot.
-- The grouped button keeps Button behavior while exposing the grouped `input-group-button` slot.
-- Root visuals derive invalid, disabled, and read-only state from the nested input with `:has(...)`.
-- Buttons retain native keyboard behavior and default to `type="button"`. They do not inherit the
-  disabled state from `Field`; disable each action explicitly when it should be unavailable.
+- The nested input owns the accessible name, field state, and native form value. Prefer
+  `FieldLabel`; add `role="group"` with an accessible name only when the whole composition needs one.
+- The root shows invalid and disabled state from the nested input or textarea with `:has(...)`. A
+  disabled group dims once; inside a disabled `Field` or `Fieldset` the outer owner dims instead.
+- Buttons and the clear trigger keep native keyboard behavior and do not inherit `Field` disabled
+  state; disable each action explicitly when it should be unavailable.
+- The clear trigger does not own value state, clear the input, hide itself, or move focus. Handle
+  clearing and focus in `onClick` and render it only for non-empty values.
 
-## Defaults and styling
+## Styling
 
-The default `md` group uses `--moduix-size-md`; the `sm` variant uses `--moduix-size-sm`. The `md` input block padding is `--moduix-spacing-1`.
-
-- Group size defaults to `md` and is exposed as `data-size`.
-- `className` is supported on every exported part.
-- Component-owned `data-slot`, `data-scope`, `data-part`, and root `data-size` hooks cannot be
-  replaced through component props; supplied classes merge with the default styles.
-- Use stable `data-slot` hooks, `data-scope`/`data-part` on factory parts, Ark field attributes on
-  `InputGroupInput`, native state selectors, and public `--moduix-input-group-*` variables.
-- `InputGroupAddon` and `InputGroupText` content shrink and truncate instead of forcing the input out
-  of a narrow group.
-- The group exposes no Ark runtime CSS variables.
-
-## Intentional sugar and differences from upstream
-
-- There is no upstream Ark primitive; the size context, visual merging, and button defaults are
-  moduix sugar.
-- Explicit child parts are retained instead of Chakra's `startElement` and `endElement` props.
+- Sizes use foundation tokens: group height `--moduix-size-*`, inline padding, and typography.
+  Addon and text inherit the group font size from the root.
+- CSS Modules expose `--moduix-input-group-width`, `--moduix-input-group-height` (applies to every
+  size), and `--moduix-input-group-radius`. Override colors, padding, and typography with a class
+  on the part.
+- `.root .input`, `.root .textarea[data-slot='textarea-root']`, and
+  `.root .button[data-slot='input-group-button']` are deliberately more specific than the Input,
+  Textarea, and Button root rules so the group styles win regardless of stylesheet order.
+- Addon and text content shrink and clip instead of forcing the input out of a narrow group.
 
 ## Agent notes
 
-- Keep one grouped input per root.
-- Keep the root free of a default ARIA role.
-- Do not move value state into the group or mirror child state with React state.
-- Keep inline edit/read-only examples on `Editable`; do not reintroduce manual edit toggles here.
-- Keep `PasswordInput` behavior isolated until its separate Ark Password Input migration.
-
-## Local changelog
-
-- 2026-10-02: Made the outer disabled owner dim the composition once instead of multiplying input and ancestor opacity.
-
-- 2026-09-21: Replaced the compound value surface with the shared flat API across
-  React, Solid, and both Tailwind adapters. `InputGroup` is now the only root value; parts use
-  `InputGroupAddon`, `InputGroupInput`, `InputGroupText`, and `InputGroupButton` exports.
-- 2026-08-11: Protected component-owned styling hooks from consumer prop overrides and covered the
-  group size and button defaults with behavior tests.
-- 2026-07-28: Restored shell invalid, disabled, and read-only state styling through Input's stable
-  `input-root` slot, and made addon/text content truncate safely in narrow groups.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Normalized the complete group scale to `24/32/36/40/48px` tokens and compacted input
-  padding so typography no longer expands a selected size.
-
-- 2026-07-10: Clarified that actions remain independently enabled in disabled fields and added
-  disabled/read-only story coverage for the shared shell states.
-- 2026-07-03: Simplified the public surface to the namespace API and removed
-  duplicate standalone part exports and prop aliases.
-- 2026-06-25: Added the root and part composition, aligned factory data attributes, and made the
-  grouped button's `input-group-button` slot render on the actual button.
-- 2026-06-22: Removed shell focus redirection from `InputGroup`; the root now stays a passive
-  composition wrapper and clicks focus only native interactive descendants.
-- 2026-06-22: Removed the manual inline editing story and docs path; preview-first editing now
-  belongs to `Editable`.
-- 2026-06-19: Migrated structural elements to Ark factory composition and the nested input to Ark
-  `FieldInput`; added `asChild`; replaced legacy value callbacks with native input events.
-
-## Clear action
-
-`InputGroupClearTrigger` renders the local `CloseButton`, with the same compact hover surface as
-Select and Combobox. Its action is 24px (20px in an `xs` group), centered with an 8px end inset.
-It inherits the group size and defaults to `type="button"`, a decorative close icon, and
-`aria-label="Clear input"`. Explicit `aria-label` or `aria-labelledby` replaces the fallback label.
-Children replace the icon; `asChild`, native button refs, events, disabled behavior, and
-consumer classes follow `CloseButton`. The host owns `data-scope="input-group"`,
-`data-part="clear-trigger"`, and `data-slot="input-group-clear-trigger"`.
-
-This part does not own value state, clear an input automatically, hide itself, reset a form, or
-redirect focus. Handle clearing and focus in the consumer's `onClick`, and render it conditionally
-for non-empty values. Set `disabled` explicitly for disabled or read-only fields; actions do not
-inherit Field state.
-
-Upstream composition reviewed 2026-10-01: https://ark-ui.com/docs/guides/composition.
-This is moduix-owned composition; there is no Ark InputGroup clear primitive.
-
-## Clear action changelog
-
-- 2026-10-01: Added `InputGroupClearTrigger` across React, Solid, Vue, CSS Modules, and Tailwind.
+- Keep explicit child parts, one grouped control per root, and a root without a default role.
+- Keep `align` to `inline` and `block`; the DOM order owns the side. Do not add CSS `order`.
+- Do not move value state into the group or mirror child state.
+- Keep inline edit and read-only preview on `Editable`.
+- Keep `PasswordInput` behavior isolated from this component.

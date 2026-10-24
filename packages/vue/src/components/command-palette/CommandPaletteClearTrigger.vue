@@ -7,7 +7,8 @@ import type { ComboboxClearTriggerProps } from '@ark-ui/vue/combobox';
 import { clsx } from 'clsx';
 import { computed, useAttrs } from 'vue';
 import type { HTMLAttributes } from 'vue';
-import { CloseIcon } from '@/lib/moduix/icons/ui/Icons';
+import { a11yLabels } from '@/lib/moduix/a11yLabels';
+import { CloseIcon } from '@/lib/moduix/icons/ui';
 import closeButtonStyles from '../close-button/CloseButton.module.css';
 import styles from './CommandPalette.module.css';
 
@@ -24,18 +25,13 @@ const { ariaLabel, ariaLabelledby, asChild = false, class: className } = defineP
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const combobox = useComboboxContext();
-const hidden = computed(() => combobox.value.inputValue.length === 0);
+const hidden = computed(() => combobox.value.inputValue === '');
 
+// Clear only the query; Ark's own handler would also clear the selected value.
 const handleClick = (event: MouseEvent) => {
   if (!event.defaultPrevented) {
     event.preventDefault();
     combobox.value.setInputValue('');
-  }
-};
-
-const handlePointerDown = (event: PointerEvent) => {
-  if (event.button === 0) {
-    event.preventDefault();
   }
 };
 </script>
@@ -45,14 +41,12 @@ const handlePointerDown = (event: PointerEvent) => {
     v-bind="attrs"
     :as-child="asChild"
     :aria-label="
-      ariaLabel ??
-      (!asChild && $slots.default == null && ariaLabelledby == null ? 'Clear search' : undefined)
+      ariaLabel ?? (!asChild && ariaLabelledby == null ? a11yLabels.clearSearch : undefined)
     "
     :aria-labelledby="ariaLabelledby"
     :class="clsx(closeButtonStyles.root, styles.clearTrigger, className)"
     :hidden="hidden"
     @click="handleClick"
-    @pointerdown="handlePointerDown"
     data-slot="command-palette-clear-trigger"
   >
     <slot><CloseIcon /></slot>
