@@ -131,3 +131,25 @@ test('applies status styles from the CSS module', async () => {
   );
   expect(getComputedStyle(screen.getByTestId('title')).color).toBe(info.color);
 });
+
+test('sizes the indicator to its icon', async () => {
+  render(() => (
+    <Alert>
+      <AlertIndicator>
+        <svg data-testid="default-icon" />
+      </AlertIndicator>
+      <AlertIndicator>
+        <svg style={{ width: '24px', height: '24px' }} data-testid="custom-icon" />
+      </AlertIndicator>
+    </Alert>
+  ));
+
+  await expect.element(page.getByTestId('default-icon')).toHaveCount(1);
+  const defaultIcon = screen.getByTestId('default-icon');
+  const customIcon = screen.getByTestId('custom-icon');
+
+  expect(defaultIcon.getBoundingClientRect().width).toBe(16);
+  expect(defaultIcon.parentElement?.offsetWidth).toBe(16);
+  expect(customIcon.parentElement?.offsetWidth).toBe(24);
+  expect(customIcon.parentElement?.offsetHeight).toBe(24);
+});

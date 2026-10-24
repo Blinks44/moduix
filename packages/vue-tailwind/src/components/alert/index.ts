@@ -6,3 +6,4 @@ import AlertIndicator from './AlertIndicator.vue';
 import AlertTitle from './AlertTitle.vue';
 
 export { Alert, AlertActions, AlertContent, AlertDescription, AlertIndicator, AlertTitle };
+export type { Props as AlertRootProps, AlertStatus } from './Alert.vue';

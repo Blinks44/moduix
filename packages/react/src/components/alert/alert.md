@@ -36,8 +36,7 @@ factory and Chakra's Alert part contract.
 - All exported parts accept `className`.
 - All exported parts accept Ark `asChild`.
 - Refs forward to each rendered DOM part.
-- Props are inferred from the component values with `ComponentProps`; moduix does not re-export
-  aliases for the Ark factory props or the `status` union.
+- Exports the `AlertRootProps` and `AlertStatus` types, like `Badge` and `Tag`.
 - The component stays presentational and does not add dismiss state, controlled state, action slots,
   or focus management.
 - Public docs examples should show `Code`, `Styles`, and `Data` tabs, even though Alert has no Ark
@@ -154,45 +153,13 @@ Extends Ark `div` props and supports `asChild`.
 
 ### Public CSS variables
 
-| Variable                                 | Default/fallback                                                   |
-| ---------------------------------------- | ------------------------------------------------------------------ |
-| `--moduix-alert-actions-gap`             | `var(--moduix-spacing-2)`                                          |
-| `--moduix-alert-actions-margin-top`      | `var(--moduix-spacing-2)`                                          |
-| `--moduix-alert-bg`                      | Status-dependent; info uses `var(--moduix-color-card)`             |
-| `--moduix-alert-border-color`            | Status-dependent; info uses `var(--moduix-color-border)`           |
-| `--moduix-alert-border-width`            | `var(--moduix-border-width-sm)`                                    |
-| `--moduix-alert-color`                   | Status-dependent; info uses `var(--moduix-color-card-foreground)`  |
-| `--moduix-alert-content-gap`             | `var(--moduix-spacing-1)`                                          |
-| `--moduix-alert-description-color`       | `var(--moduix-color-muted-foreground)`                             |
-| `--moduix-alert-description-font-size`   | `var(--moduix-text-sm)`                                            |
-| `--moduix-alert-description-line-height` | `var(--moduix-line-height-text-sm)`                                |
-| `--moduix-alert-gap`                     | `var(--moduix-spacing-3)`                                          |
-| `--moduix-alert-indicator-color`         | Status-dependent; info uses `var(--moduix-color-muted-foreground)` |
-| `--moduix-alert-indicator-offset`        | `var(--moduix-spacing-0-5)`                                        |
-| `--moduix-alert-indicator-size`          | `var(--moduix-spacing-4)`                                          |
-| `--moduix-alert-info-bg`                 | `var(--moduix-color-card)`                                         |
-| `--moduix-alert-info-border-color`       | `var(--moduix-color-border)`                                       |
-| `--moduix-alert-info-color`              | `var(--moduix-color-card-foreground)`                              |
-| `--moduix-alert-info-indicator-color`    | `var(--moduix-color-muted-foreground)`                             |
-| `--moduix-alert-success-bg`              | Success at 10% over `var(--moduix-color-background)`               |
-| `--moduix-alert-success-border-color`    | Success at 34%                                                     |
-| `--moduix-alert-success-color`           | `var(--moduix-color-foreground)`                                   |
-| `--moduix-alert-success-indicator-color` | `var(--moduix-color-success)`                                      |
-| `--moduix-alert-warning-bg`              | Warning at 13% over `var(--moduix-color-background)`               |
-| `--moduix-alert-warning-border-color`    | Warning at 38%                                                     |
-| `--moduix-alert-warning-color`           | `var(--moduix-color-foreground)`                                   |
-| `--moduix-alert-warning-indicator-color` | `var(--moduix-color-warning)`                                      |
-| `--moduix-alert-error-bg`                | Destructive at 9% over `var(--moduix-color-background)`            |
-| `--moduix-alert-error-border-color`      | Destructive at 35%                                                 |
-| `--moduix-alert-error-color`             | `var(--moduix-color-foreground)`                                   |
-| `--moduix-alert-error-indicator-color`   | `var(--moduix-color-destructive)`                                  |
-| `--moduix-alert-padding`                 | `var(--moduix-spacing-3)`                                          |
-| `--moduix-alert-radius`                  | `var(--moduix-radius-lg)`                                          |
-| `--moduix-alert-shadow`                  | `none`                                                             |
-| `--moduix-alert-title-color`             | `inherit`                                                          |
-| `--moduix-alert-title-font-size`         | `var(--moduix-text-sm)`                                            |
-| `--moduix-alert-title-font-weight`       | `var(--moduix-weight-semibold)`                                    |
-| `--moduix-alert-title-line-height`       | `var(--moduix-line-height-text-sm)`                                |
+| Variable                           | Default/fallback                                                   |
+| ---------------------------------- | ------------------------------------------------------------------ |
+| `--moduix-alert-bg`                | Status-dependent; info uses `var(--moduix-color-card)`             |
+| `--moduix-alert-border-color`      | Status-dependent; info uses `var(--moduix-color-border)`           |
+| `--moduix-alert-color`             | Status-dependent; info uses `var(--moduix-color-card-foreground)`  |
+| `--moduix-alert-description-color` | `var(--moduix-color-muted-foreground)`                             |
+| `--moduix-alert-indicator-color`   | Status-dependent; info uses `var(--moduix-color-muted-foreground)` |
 
 Built-in statuses derive their accents from shared palette tokens:
 
@@ -201,9 +168,12 @@ Built-in statuses derive their accents from shared palette tokens:
 - `warning` -> `--moduix-color-warning`
 - `error` -> `--moduix-color-destructive`
 
-The component-wide background, border, text, and indicator variables take precedence over their
-status-specific counterparts. Use a status-specific variable to retheme one status without
-changing the others, or a component-wide variable when every status should share that decision.
+The four color variables override every status. Scope them with `[data-status='success']` and
+similar selectors to retheme one status. Spacing, radius, shadow, and typography use foundation
+tokens; override them with a class on the part.
+
+`AlertIndicator` sizes itself to its content. Child SVG icons default to 16px, and a size class on
+the icon resizes both the icon and the indicator.
 
 ## Intentional sugar and differences from upstream
 
@@ -221,9 +191,10 @@ changing the others, or a component-wide variable when every status should share
 
 - Do not add a default status icon or a status context; `AlertIndicator` renders only its children.
 - Icon sizing must stay overridable from the icon itself: `:where(svg)` in CSS Modules and
-  `[:where(&_svg)]:size-4` in Tailwind.
+  `[:where(&_svg)]:size-4` in Tailwind. Do not give `AlertIndicator` a fixed size; a larger icon
+  would overflow it into the gap.
 - Tailwind variants pass the status indicator color from the root to `AlertIndicator` through the
-  private `--alert-indicator-color` property, so a plain color utility on `AlertIndicator` overrides
+  private `--_alert-indicator-color` property, so a plain color utility on `AlertIndicator` overrides
   it. Do not move it back to `group-data-[status=…]` utilities: they outrank consumer classes.
 - Use `AlertContent` for all message content in runnable examples; use `Alert` as the only root
   value in anatomy and API explanations.
@@ -231,15 +202,3 @@ changing the others, or a component-wide variable when every status should share
   controls inside `AlertContent`.
 - Keep `AlertActions` thin and stylable. Do not grow it into an action API with special button
   props or close behavior.
-
-## Local changelog
-
-- 2026-10-13: Fixed Tailwind indicator color and icon size overrides; kept the indicator from shrinking in CSS Modules; removed unreachable
-  fallbacks from the root color variables; and corrected this contract: `Alert` has not set an
-  automatic `role` since the 2026-09-15 contract alignment.
-- 2026-09-21: Replaced the compound `Alert.*` value surface with the shared flat API. `Alert` is now
-  the only root value; every other part uses an `Alert`-prefixed named export.
-- 2026-09-06: Made `AlertContent` required, simplifying the root layout to a single flex row and
-  removing support for direct title and description children.
-
-Earlier history lives in git.

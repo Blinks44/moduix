@@ -154,10 +154,11 @@ appliquer des styles locaux. Les variantes Tailwind se personnalisent avec des u
 classes supplémentaires. Dans les variantes CSS Modules, définissez les variables
 `--moduix-alert-*` sur la racine lorsqu’une alerte nécessite un thème local.
 
-Dans les variantes CSS Modules, les variables communes `--moduix-alert-bg`,
-`--moduix-alert-border-color`, `--moduix-alert-color` et `--moduix-alert-indicator-color`
-s’appliquent à tous les statuts. Utilisez les variables `--moduix-alert-<status>-*` correspondantes
-lorsqu’un seul statut doit changer.
+Dans les variantes CSS Modules, les variables `--moduix-alert-bg`, `--moduix-alert-border-color`,
+`--moduix-alert-color` et `--moduix-alert-indicator-color` s’appliquent à tous les statuts : ciblez-les
+avec `[data-status='success']` ou un sélecteur similaire lorsqu’un seul statut doit changer. Les
+espacements, l’arrondi, l’ombre et la typographie proviennent des tokens de foundation ; remplacez-les
+avec une classe sur la partie concernée.
 
 Les statuts intégrés utilisent également les tokens de palette partagée :
 

@@ -8,20 +8,20 @@ import { cn } from '@/lib/moduix/cn';
 
 defineOptions({ inheritAttrs: false });
 
-type AlertStatus = 'info' | 'success' | 'warning' | 'error';
+export type AlertStatus = 'info' | 'success' | 'warning' | 'error';
 
 const alertVariants = cva(
-  'group/alert box-border flex w-full min-w-0 items-start gap-3 rounded-lg border bg-card p-3 text-card-foreground',
+  'box-border flex w-full min-w-0 items-start gap-3 rounded-lg border bg-card p-3 text-card-foreground',
   {
     variants: {
       status: {
-        info: 'border-border [--alert-indicator-color:var(--color-muted-foreground)]',
+        info: 'border-border [--_alert-indicator-color:var(--color-muted-foreground)]',
         success:
-          'border-success/34 bg-[color-mix(in_oklab,var(--color-success)_10%,var(--color-background))] text-foreground [--alert-indicator-color:var(--color-success)]',
+          'border-success/34 bg-[color-mix(in_oklab,var(--color-success)_10%,var(--color-background))] text-foreground [--_alert-indicator-color:var(--color-success)]',
         warning:
-          'border-warning/38 bg-[color-mix(in_oklab,var(--color-warning)_13%,var(--color-background))] text-foreground [--alert-indicator-color:var(--color-warning)]',
+          'border-warning/38 bg-[color-mix(in_oklab,var(--color-warning)_13%,var(--color-background))] text-foreground [--_alert-indicator-color:var(--color-warning)]',
         error:
-          'border-destructive/35 bg-[color-mix(in_oklab,var(--color-destructive)_9%,var(--color-background))] text-foreground [--alert-indicator-color:var(--color-destructive)]',
+          'border-destructive/35 bg-[color-mix(in_oklab,var(--color-destructive)_9%,var(--color-background))] text-foreground [--_alert-indicator-color:var(--color-destructive)]',
       },
     },
     defaultVariants: {

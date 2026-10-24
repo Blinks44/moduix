@@ -190,7 +190,7 @@ test('lets a consumer color utility override the status indicator color', async 
   expect(getComputedStyle(screen.getByTestId('custom-indicator')).color).toBe(reference);
 });
 
-test('lets a size utility on the icon override the default icon size', async () => {
+test('lets a size utility on the icon resize the icon and the indicator', async () => {
   render({
     components: alertComponents,
     template: `
@@ -205,6 +205,17 @@ test('lets a size utility on the icon override the default icon size', async () 
 
   expect(screen.getByTestId('default-icon').getBoundingClientRect().width).toBe(16);
   expect(screen.getByTestId('custom-icon').getBoundingClientRect().width).toBe(24);
+  expect(screen.getByTestId('custom-icon').parentElement?.offsetWidth).toBe(24);
+  expect(screen.getByTestId('custom-icon').parentElement?.offsetHeight).toBe(24);
+});
+
+test('reads the border width from the foundation token', async () => {
+  render({
+    components: alertComponents,
+    template: `<Alert data-testid="alert" style="--moduix-border-width-sm: 3px" />`,
+  });
+
+  await expect.element(page.getByTestId('alert')).toHaveCSS('border-top-width', '3px');
 });
 
 test('hydrates alert without replacing the server host', async () => {

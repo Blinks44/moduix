@@ -153,9 +153,10 @@ Use `className` or `class` on the root or its parts for local styles. Tailwind v
 utilities and consumer classes. In the CSS Modules variants, override `--moduix-alert-*` variables
 on the root when the alert needs a local theme.
 
-In CSS Modules, the component-wide `--moduix-alert-bg`, `--moduix-alert-border-color`,
-`--moduix-alert-color`, and `--moduix-alert-indicator-color` variables apply to every status. Use
-the matching `--moduix-alert-<status>-*` variables when only one status should change.
+In CSS Modules, `--moduix-alert-bg`, `--moduix-alert-border-color`, `--moduix-alert-color`, and
+`--moduix-alert-indicator-color` override every status, so scope them with
+`[data-status='success']` and similar selectors when only one status should change. Spacing, radius,
+shadow, and typography come from foundation tokens; override them with a class on the part.
 
 Built-in statuses also read shared palette tokens:
 

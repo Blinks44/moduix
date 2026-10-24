@@ -6,11 +6,11 @@ import styles from './Alert.module.css';
 
 type AlertStatus = 'info' | 'success' | 'warning' | 'error';
 
-type AlertProps = HTMLArkProps<'div'> & {
+type AlertRootProps = HTMLArkProps<'div'> & {
   status?: AlertStatus;
 };
 
-const Alert = forwardRef<ComponentRef<typeof ark.div>, AlertProps>(function Alert(
+const Alert = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(function Alert(
   { className, status = 'info', ...props },
   ref,
 ) {
@@ -105,3 +105,4 @@ const AlertActions = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
 );
 
 export { Alert, AlertActions, AlertContent, AlertDescription, AlertIndicator, AlertTitle };
+export type { AlertRootProps, AlertStatus };

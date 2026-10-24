@@ -13,9 +13,3 @@ message content.
 `ref` and `asChild` are supported as separate native Ark Solid paths. Ark Solid's factory does not
 forward `ref` through `asChild`, so their combination is intentionally unsupported. The Solid tests
 cover ordinary ref forwarding and `asChild` composition independently.
-
-## Local changelog
-
-- 2026-10-13: Fixed Tailwind indicator color and icon size overrides.
-- 2026-09-21: Replaced the compound `Alert.*` value surface with the shared flat API. `Alert` is now
-  the only root value; every other part uses an `Alert`-prefixed named export.

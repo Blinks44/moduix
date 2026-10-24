@@ -1,7 +1,7 @@
 import { page } from '@rstest/browser';
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { createRef } from 'react';
+import { createRef, type CSSProperties } from 'react';
 import {
   Alert,
   AlertActions,
@@ -149,7 +149,7 @@ test('lets a consumer color utility override the status indicator color', async 
   expect(getComputedStyle(screen.getByTestId('custom-indicator')).color).toBe(reference);
 });
 
-test('lets a size utility on the icon override the default icon size', async () => {
+test('lets a size utility on the icon resize the icon and the indicator', async () => {
   render(
     <Alert>
       <AlertIndicator>
@@ -165,4 +165,14 @@ test('lets a size utility on the icon override the default icon size', async () 
 
   expect(screen.getByTestId('default-icon').getBoundingClientRect().width).toBe(16);
   expect(screen.getByTestId('custom-icon').getBoundingClientRect().width).toBe(24);
+  expect(screen.getByTestId('custom-icon').parentElement?.offsetWidth).toBe(24);
+  expect(screen.getByTestId('custom-icon').parentElement?.offsetHeight).toBe(24);
+});
+
+test('reads the border width from the foundation token', async () => {
+  render(
+    <Alert data-testid="alert" style={{ '--moduix-border-width-sm': '3px' } as CSSProperties} />,
+  );
+
+  await expect.element(page.getByTestId('alert')).toHaveCSS('border-top-width', '3px');
 });
