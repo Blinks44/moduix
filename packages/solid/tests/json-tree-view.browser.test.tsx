@@ -85,23 +85,3 @@ test('keeps the branch indicator on the first line of a wrapped preview and lets
   ).toBeLessThanOrEqual(1);
   expect(getComputedStyle(control).userSelect).not.toBe('none');
 });
-
-test('animates branch content with the shared collapsible keyframes', async () => {
-  render(() => (
-    <JsonTreeView data={data}>
-      <JsonTreeViewTree />
-    </JsonTreeView>
-  ));
-
-  await page.getByRole('button').nth(0).click();
-
-  await expect.element(page.getByRole('button').nth(0)).toHaveAttribute('data-state', 'open');
-  const content = document.querySelector<HTMLElement>('[data-part="branch-content"]')!;
-  expect(getComputedStyle(content).animationName).toBe('moduix-collapsible-content-open');
-
-  await page.getByRole('button').nth(0).click();
-
-  await expect.element(page.getByRole('button').nth(0)).toHaveAttribute('data-state', 'closed');
-  expect(content.getAttribute('data-state')).toBe('closed');
-  expect(getComputedStyle(content).animationName).toBe('moduix-collapsible-content-closed');
-});

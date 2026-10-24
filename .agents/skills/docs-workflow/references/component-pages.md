@@ -44,7 +44,7 @@ extra source files, or a missing framework.
   `AccordionItemTrigger`.
 - **Composition:** add this section only for non-obvious state ownership or part combinations. Write
   it as one concise section by default. Do not add the fixed `Recommended composition`, `When to go
-custom`, `Default props`, or `Behavioral notes` template. When migrating a page that still uses
+  custom`, `Default props`, or `Behavioral notes` template. When migrating a page that still uses
   that legacy template, consolidate the useful component-specific guidance into `Composition`, the
   relevant example, or `Styling`, and remove the rest. Add a nested heading only for a genuinely
   independent topic that needs more than a short paragraph. Add a defaults table only when moduix

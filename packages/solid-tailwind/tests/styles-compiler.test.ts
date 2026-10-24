@@ -89,7 +89,7 @@ const cases = [
   ],
   [
     'tree-view/TreeView',
-    '[:is([data-slot=tree-view-root],[data-slot=tree-view-root-provider])[data-disabled]_&]:opacity-100',
+    '[:is([data-slot=tree-view-item],[data-slot=tree-view-branch-control])[data-disabled]_&]:opacity-100',
   ],
 ] as const;
 

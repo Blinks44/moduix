@@ -163,7 +163,10 @@
       );
       bottom: calc(var(--moduix-spacing-2) - var(--moduix-steps-gap, var(--moduix-spacing-4)));
       inset-inline-start: calc(
-        (var(--moduix-steps-indicator-size, var(--moduix-spacing-8)) - var(--moduix-border-width-sm)) /
+        (
+            var(--moduix-steps-indicator-size, var(--moduix-spacing-8)) -
+              var(--moduix-border-width-sm)
+          ) /
           2
       );
       width: var(--moduix-border-width-sm);

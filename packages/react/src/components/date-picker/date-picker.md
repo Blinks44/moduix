@@ -125,6 +125,7 @@ utilities such as `parseDate` remain direct imports from `@ark-ui/react/date-pic
 ## Composition
 
 ```tsx
+import { parseDate } from '@ark-ui/react/date-picker';
 import {
   DatePicker,
   DatePickerContent,
@@ -136,7 +137,6 @@ import {
   DatePickerView,
   DatePickerYearTable,
 } from '@moduix/react/date-picker';
-import { parseDate } from '@ark-ui/react/date-picker';
 
 export function ReleaseDatePicker() {
   return (

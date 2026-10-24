@@ -157,7 +157,7 @@ How to apply fixes:
    example removing a `max-height` that makes content spill).
 3. Add or adjust tests in every adapter for each bug fixed, assertion-for-assertion by behavior.
    Prove each new test is meaningful: stash the source changes (`git stash push -- packages/*/src
-packages/foundation`), run the tests, confirm they fail, then `git stash pop`. A test that passes
+   packages/foundation`), run the tests, confirm they fail, then `git stash pop`. A test that passes
    on the old code does not cover the bug; redesign it (Dialog: a footer test with fixed-width
    buttons passed on old code because flex items shrink; real labels exposed the overflow).
    Layout bugs are testable in browser mode with `getBoundingClientRect()`; allow 1px for subpixel
@@ -181,7 +181,7 @@ When the maintainer approves the "Ждёт решения" list ("сделай �
 second round on top of the first and add an "Исправлено, раунд 2" section. Extra rules for that round:
 
 - Before removing a CSS variable family, search the docs pages for it (`grep -rn '<prefix>'
-website/docs`). A family documented as a library mechanism (Dialog `--moduix-dialog-content-*`
+  website/docs`). A family documented as a library mechanism (Dialog `--moduix-dialog-content-*`
   in "Animations" → "Add a local exception", shared with Popover, Select, Navigation Menu) stays;
   report it as a library-wide question instead.
 - Before removing a pattern from one component, grep sibling components for the same pattern
@@ -192,7 +192,7 @@ website/docs`). A family documented as a library mechanism (Dialog `--moduix-dia
   with `&[data-<prop>='…']` in CSS Modules and `data-[<prop>=…]:` in Tailwind, types exported as in
   `Switch` (`SwitchSize`). Private per-variant values use `--_<component>-*` custom properties.
 - Removing a variable updates `variables-moduix.css`, `website/src/components/examples/<slug>/
-css-properties.tsx`, `<slug>.md`, and every docs language (`website/docs/{en,ru,fr}`).
+  css-properties.tsx`, `<slug>.md`, and every docs language (`website/docs/{en,ru,fr}`).
 - A shared internal file new to a package (for example `a11yLabels.ts` in Tailwind packages) also
   needs a registry item and `registryDependencies` on every item that imports it; then
   `build:registry`.

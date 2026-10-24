@@ -7,6 +7,7 @@ behavior, form participation, accessibility attributes, and CSS-variable contrac
 ## Composition
 
 ```tsx
+import { parseDate } from '@ark-ui/solid/date-picker';
 import {
   DatePicker,
   DatePickerContent,
@@ -18,7 +19,6 @@ import {
   DatePickerView,
   DatePickerYearTable,
 } from '@moduix/solid/date-picker';
-import { parseDate } from '@ark-ui/solid/date-picker';
 
 <DatePicker defaultValue={[parseDate('2026-06-22')]} name="release-date">
   <DatePickerLabel>Release date</DatePickerLabel>

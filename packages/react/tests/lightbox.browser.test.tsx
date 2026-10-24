@@ -170,9 +170,10 @@ test('fades the close icon with content and uses the shared dialog motion', asyn
   expect(getComputedStyle(content).animationDuration).toBe('0.2s');
   expect(closeIcon.hasAttribute('data-state')).toBe(false);
 
-  await page.getByRole('button', { name: 'Close image', exact: true }).click();
+  // Click and poll in the page so the exit animation is read before the content unmounts.
+  screen.getByRole('button', { name: 'Close image' }).click();
 
-  expect(content.getAttribute('data-state')).toBe('closed');
+  await expect.poll(() => content.getAttribute('data-state')).toBe('closed');
   expect(getComputedStyle(content).animationFillMode).toBe('forwards');
   expect(getComputedStyle(backdrop).animationFillMode).toBe('forwards');
   expect(getComputedStyle(closeIcon).visibility).toBe('visible');
