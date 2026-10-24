@@ -324,7 +324,6 @@
   --moduix-highlight-padding-x: initial; /* var(--moduix-spacing-1) */
   --moduix-highlight-padding-y: initial; /* 0.0625rem */
   --moduix-highlight-radius: initial; /* var(--moduix-radius-xs) */
-  --moduix-highlight-shadow: initial; /* none */
 
   /* Image */
   --moduix-image-radius: initial; /* var(--moduix-radius-md) */

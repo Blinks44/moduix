@@ -127,9 +127,9 @@ Highlight
 └─ segments correspondants rendus dans des éléments <mark> successifs
 ```
 
-| Partie                         | Rôle                                                                  |
-| ------------------------------ | --------------------------------------------------------------------- |
-| `Highlight` | Applique les styles moduix à chaque correspondance du texte fourni.   |
+| Partie      | Rôle                                                                |
+| ----------- | ------------------------------------------------------------------- |
+| `Highlight` | Applique les styles moduix à chaque correspondance du texte fourni. |
 
 ## Composition
 
@@ -372,5 +372,5 @@ utilitaires ou les classes du consommateur.
 
 - Chaque `<mark>` correspondant porte `data-scope="highlight"` et `data-part="root"`.
 - `data-slot="highlight-root"` est le sélecteur moduix stable de chaque `mark` correspondant.
-- Les propriétés comme `className`/`class`, `style`, `title`, `id` et `data-*` s’appliquent à chaque `<mark>` correspondant.
+- Les propriétés comme `className`/`class`, `style`, `title` et `data-*` s’appliquent à chaque `<mark>` correspondant.
 - Il n’y a ni conteneur supplémentaire, ni attribut d’état, ni variable CSS d’exécution Ark.

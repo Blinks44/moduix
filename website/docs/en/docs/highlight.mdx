@@ -125,8 +125,8 @@ Highlight
 └─ matched ranges rendered as repeated <mark> elements
 ```
 
-| Part                           | Role                                                                 |
-| ------------------------------ | -------------------------------------------------------------------- |
+| Part        | Role                                                                |
+| ----------- | ------------------------------------------------------------------- |
 | `Highlight` | Applies moduix styling to every matched range in the provided text. |
 
 ## Composition
@@ -367,5 +367,5 @@ use Tailwind utilities or consumer classes for Tailwind variants.
 
 - Every matched `<mark>` has `data-scope="highlight"` and `data-part="root"`.
 - `data-slot="highlight-root"` is the stable moduix selector for each matched mark.
-- Props such as `className`/`class`, `style`, `title`, `id`, and `data-*` are applied to every matched `<mark>`.
+- Props such as `className`/`class`, `style`, `title`, and `data-*` are applied to every matched `<mark>`.
 - There is no wrapper element, state attribute, or Ark runtime CSS variable.

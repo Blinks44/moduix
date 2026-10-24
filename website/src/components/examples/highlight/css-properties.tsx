@@ -27,5 +27,4 @@ export const highlightCssProperties: CssPropertyInput[] = [
     'var(--moduix-radius-xs)',
     'Controls the corner radius of each matched mark.',
   ],
-  ['--moduix-highlight-shadow', 'none', 'Controls the box shadow of each matched mark.'],
 ];

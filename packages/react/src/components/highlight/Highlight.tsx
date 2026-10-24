@@ -6,11 +6,11 @@ import styles from './Highlight.module.css';
 function Highlight({ className, ...props }: ComponentPropsWithoutRef<typeof HighlightPrimitive>) {
   return (
     <HighlightPrimitive
-      className={clsx(styles.root, className)}
       {...props}
       data-scope="highlight"
       data-part="root"
       data-slot="highlight-root"
+      className={clsx(styles.root, className)}
     />
   );
 }
