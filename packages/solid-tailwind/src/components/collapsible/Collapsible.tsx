@@ -42,7 +42,7 @@ function CollapsibleTrigger(props: ComponentProps<typeof CollapsiblePrimitive.Tr
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'box-border flex w-full cursor-pointer items-center justify-between gap-2 bg-transparent px-0 py-1 text-start text-sm outline-0 select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 data-disabled:cursor-default data-disabled:opacity-50',
+          'box-border flex w-full cursor-pointer items-center justify-between gap-2 bg-transparent px-0 py-1 text-start text-sm outline-0 select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled data-disabled:cursor-default data-disabled:opacity-disabled',
         local.class,
       )}
       {...others}

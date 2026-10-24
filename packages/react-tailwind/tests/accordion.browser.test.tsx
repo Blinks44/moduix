@@ -171,6 +171,10 @@ test('keeps Ark value change details and ignores disabled items', async () => {
     .element(page.getByRole('button', { name: 'Second item', exact: true }))
     .toBeDisabled();
 
+  const disabledTrigger = document.querySelectorAll('[data-slot="accordion-item-trigger"]')[1]!;
+  expect(getComputedStyle(disabledTrigger).opacity).toBe('0.5');
+  expect(getComputedStyle(disabledTrigger).cursor).toBe('default');
+
   expect(values).toEqual([]);
 });
 

@@ -24,7 +24,7 @@ const Checkbox = forwardRef<ComponentRef<typeof CheckboxPrimitive.Root>, Checkbo
       <CheckboxPrimitive.Root
         ref={ref}
         className={cn(
-          'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
+          'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
           className,
         )}
         {...props}
@@ -43,7 +43,7 @@ const CheckboxRootProvider = forwardRef<
     <CheckboxPrimitive.RootProvider
       ref={ref}
       className={cn(
-        'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
+        'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
         className,
       )}
       {...props}

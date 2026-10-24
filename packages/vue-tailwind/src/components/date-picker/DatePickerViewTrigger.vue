@@ -29,7 +29,7 @@ const attrs = useAttrs();
       cn(
         !props.asChild && [
           actionClass,
-          'min-h-control-sm min-w-0 flex-1 gap-2 px-2 text-sm leading-5 font-medium text-foreground disabled:opacity-50',
+          'min-h-control-sm min-w-0 flex-1 gap-2 px-2 text-sm leading-5 font-medium text-foreground disabled:opacity-disabled',
         ],
         props.class,
       )

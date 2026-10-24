@@ -13,7 +13,7 @@ const Slider = forwardRef<
     <SliderPrimitive.Root
       ref={ref}
       className={cn(
-        "group grid w-full grid-cols-[minmax(0,1fr)_auto] gap-2 data-disabled:opacity-50 data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
+        "group grid w-full grid-cols-[minmax(0,1fr)_auto] gap-2 data-disabled:opacity-disabled data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
         className,
       )}
       {...props}
@@ -31,7 +31,7 @@ const SliderRootProvider = forwardRef<
     <SliderPrimitive.RootProvider
       ref={ref}
       className={cn(
-        "group grid w-full grid-cols-[minmax(0,1fr)_auto] gap-2 data-disabled:opacity-50 data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
+        "group grid w-full grid-cols-[minmax(0,1fr)_auto] gap-2 data-disabled:opacity-disabled data-[orientation=vertical]:h-48 data-[orientation=vertical]:w-max data-[orientation=vertical]:grid-cols-[auto_max-content] data-[orientation=vertical]:grid-rows-[auto_minmax(0,1fr)] data-[orientation=vertical]:items-center data-[orientation=vertical]:[grid-template-areas:'label_value'_'control_markers']",
         className,
       )}
       {...props}

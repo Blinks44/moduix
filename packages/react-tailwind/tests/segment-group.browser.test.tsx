@@ -133,7 +133,9 @@ test('propagates group disabled state to every native input', async () => {
     .getAllByRole('radio')
     .map((radio) => radio.closest('[data-slot="segment-group-item"]'))) {
     expect([...item!.classList]).toEqual(
-      expect.arrayContaining(['group-not-data-disabled/segment-group:data-disabled:opacity-50']),
+      expect.arrayContaining([
+        'group-not-data-disabled/segment-group:data-disabled:opacity-disabled',
+      ]),
     );
   }
   for (const radio of screen.getAllByRole('radio')) {

@@ -176,7 +176,7 @@ const StepsPrevTrigger = forwardRef<
     <StepsPrimitive.PrevTrigger
       ref={ref}
       className={cn(
-        'box-border inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 text-foreground transition-[background-color,border-color,color,opacity] duration-normal ease-in-out outline-none focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent',
+        'box-border inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 text-foreground transition-[background-color,border-color,color,opacity] duration-normal ease-in-out outline-none focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent',
         className,
       )}
       {...props}
@@ -193,7 +193,7 @@ const StepsNextTrigger = forwardRef<
     <StepsPrimitive.NextTrigger
       ref={ref}
       className={cn(
-        'box-border inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-foreground bg-foreground px-3 py-1.5 text-sm leading-5 text-background transition-[background-color,border-color,color,opacity] duration-normal ease-in-out outline-none focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-default disabled:opacity-50 [@media(hover:hover)]:[&:not(:disabled):hover]:border-[color-mix(in_srgb,var(--color-foreground)_88%,black)] [@media(hover:hover)]:[&:not(:disabled):hover]:bg-[color-mix(in_srgb,var(--color-foreground)_88%,black)]',
+        'box-border inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-foreground bg-foreground px-3 py-1.5 text-sm leading-5 text-background transition-[background-color,border-color,color,opacity] duration-normal ease-in-out outline-none focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled [@media(hover:hover)]:[&:not(:disabled):hover]:border-[color-mix(in_srgb,var(--color-foreground)_88%,black)] [@media(hover:hover)]:[&:not(:disabled):hover]:bg-[color-mix(in_srgb,var(--color-foreground)_88%,black)]',
         className,
       )}
       {...props}

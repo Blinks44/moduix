@@ -11,7 +11,7 @@ import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 
 const rootClassName =
-  'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-50';
+  'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-disabled';
 
 const SignaturePadReadOnlyContext = createContext<Accessor<boolean>>(() => false);
 

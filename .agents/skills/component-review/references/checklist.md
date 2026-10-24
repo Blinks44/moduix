@@ -24,8 +24,8 @@ Start from `scripts/parity.mjs <slug>` output.
 The script only compares Tailwind with Tailwind. Compare each CSS Modules rule with its Tailwind
 counterpart by meaning:
 
-- Values that come from foundation tokens in CSS Modules but are hard-coded in Tailwind (Accordion:
-  `opacity-50`, `outline-2`; Dialog: `200ms`, `backdrop-blur-[4px]`). They drift when a preset
+- Values that come from foundation tokens in CSS Modules but are hard-coded in Tailwind (Accordion before
+  `opacity-disabled`: `opacity-50`; Dialog: `200ms`, `backdrop-blur-[4px]`). They drift when a preset
   (dense, soft, contrast) changes the token.
 - Animations: same keyframes and the same tokens? (Dialog: Tailwind content reused the menu
   keyframes `animate-moduix-menu-*` instead of the dialog ones with `--moduix-popup-motion-*`.)

@@ -7,7 +7,7 @@ import type { ComponentProps } from 'solid-js';
 import { splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 
-const rootClass = 'flex w-full min-w-0 flex-col gap-4 data-disabled:opacity-50';
+const rootClass = 'flex w-full min-w-0 flex-col gap-4 data-disabled:opacity-disabled';
 
 function Fieldset(props: ComponentProps<typeof FieldsetPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);

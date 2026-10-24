@@ -17,7 +17,7 @@ function Switch(props: SwitchRootProps) {
   return (
     <SwitchPrimitive.Root
       class={cn(
-        'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
+        'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
         local.class,
       )}
       {...others}
@@ -35,7 +35,7 @@ function SwitchRootProvider(props: SwitchRootProviderProps) {
   return (
     <SwitchPrimitive.RootProvider
       class={cn(
-        'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
+        'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
         local.class,
       )}
       {...others}

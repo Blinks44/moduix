@@ -24,7 +24,7 @@ function Checkbox(props: CheckboxRootProps) {
   return (
     <CheckboxPrimitive.Root
       class={cn(
-        'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
+        'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
         local.class,
       )}
       {...others}
@@ -42,7 +42,7 @@ function CheckboxRootProvider(props: CheckboxRootProviderProps) {
   return (
     <CheckboxPrimitive.RootProvider
       class={cn(
-        'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
+        'group/checkbox inline-flex cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
         local.class,
       )}
       {...others}

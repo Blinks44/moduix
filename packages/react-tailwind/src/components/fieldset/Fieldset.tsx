@@ -9,7 +9,7 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
-const rootClass = 'flex w-full min-w-0 flex-col gap-4 data-disabled:opacity-50';
+const rootClass = 'flex w-full min-w-0 flex-col gap-4 data-disabled:opacity-disabled';
 
 const Fieldset = forwardRef<
   ComponentRef<typeof FieldsetPrimitive.Root>,

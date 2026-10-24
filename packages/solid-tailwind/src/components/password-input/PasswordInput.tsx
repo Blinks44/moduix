@@ -17,7 +17,7 @@ type PasswordInputRootProviderProps = ComponentProps<typeof PasswordInputPrimiti
 };
 
 const rootClass =
-  'group/password-input flex w-full flex-col gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
+  'group/password-input flex w-full flex-col gap-1 text-foreground data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 
 function PasswordInput(props: PasswordInputRootProps) {
   const [local, others] = splitProps(props, ['class', 'size']);

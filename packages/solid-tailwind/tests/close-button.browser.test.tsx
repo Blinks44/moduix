@@ -109,7 +109,7 @@ test('keeps disabled asChild hosts semantic and prevents their activation', asyn
   await expect.element(close).toHaveAttribute('aria-disabled', 'true');
   await expect.element(close).toHaveAttribute('data-disabled');
   expect([...button!.classList]).toEqual(
-    expect.arrayContaining(['data-disabled:pointer-events-none', 'data-disabled:opacity-50']),
+    expect.arrayContaining(['data-disabled:pointer-events-none', 'data-disabled:opacity-disabled']),
   );
   expect(button.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }))).toBe(
     false,

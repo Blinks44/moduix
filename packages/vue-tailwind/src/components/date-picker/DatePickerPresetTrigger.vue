@@ -29,7 +29,7 @@ const attrs = useAttrs();
       cn(
         !props.asChild && [
           actionClass,
-          'min-h-control-sm bg-muted px-2 text-sm leading-5 text-foreground disabled:opacity-50 [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent [@media(hover:hover)]:[&:not(:disabled):hover]:text-accent-foreground',
+          'min-h-control-sm bg-muted px-2 text-sm leading-5 text-foreground disabled:opacity-disabled [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent [@media(hover:hover)]:[&:not(:disabled):hover]:text-accent-foreground',
         ],
         props.class,
       )

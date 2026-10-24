@@ -17,7 +17,7 @@ const Switch = forwardRef<ComponentRef<typeof SwitchPrimitive.Root>, SwitchRootP
       <SwitchPrimitive.Root
         ref={ref}
         className={cn(
-          'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
+          'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
           className,
         )}
         {...props}
@@ -36,7 +36,7 @@ const SwitchRootProvider = forwardRef<
     <SwitchPrimitive.RootProvider
       ref={ref}
       className={cn(
-        'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-50 data-readonly:cursor-default',
+        'group/switch inline-flex w-fit cursor-pointer items-center gap-2 align-middle text-foreground data-disabled:cursor-default data-disabled:opacity-disabled data-readonly:cursor-default',
         className,
       )}
       {...props}

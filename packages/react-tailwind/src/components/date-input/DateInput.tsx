@@ -11,7 +11,7 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
 const rootClass =
-  'inline-flex max-w-full flex-col items-start gap-1 data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
+  'inline-flex max-w-full flex-col items-start gap-1 data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 
 const DateInput = forwardRef<
   ComponentRef<typeof DateInputPrimitive.Root>,

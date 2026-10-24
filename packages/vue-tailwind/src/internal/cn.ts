@@ -24,6 +24,7 @@ const twMerge = extendTailwindMerge({
     },
     classGroups: {
       duration: [{ duration: ['fast', 'normal', 'slow', 'slower'] }],
+      opacity: [{ opacity: ['disabled'] }],
     },
   },
 });

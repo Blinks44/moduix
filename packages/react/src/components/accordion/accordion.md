@@ -142,6 +142,9 @@ the heading adds no visual change.
 
 - Triggers are transparent and use `--moduix-color-muted` on hover and while pressed; items are
   separated by borders.
+- A disabled item dims its trigger through the native `disabled` attribute. Ark sets
+  `data-disabled` on the item, indicator, and content, but not on the trigger, so trigger styles
+  use `:disabled` in both styling tracks.
 - Content animation uses the shared foundation keyframes `moduix-accordion-item-content-*`, the same
   ones the Tailwind variants use.
 - Horizontal orientation uses fixed defaults (20rem root height, 2.5rem trigger width, 16rem content
@@ -149,14 +152,16 @@ the heading adds no visual change.
 
 CSS variables (the full list lives in `packages/foundation/src/styles/variables-moduix.css`):
 
-| Variable                                 | Default                                |
-| ---------------------------------------- | -------------------------------------- |
-| `--moduix-accordion-trigger-bg`          | `transparent`                          |
-| `--moduix-accordion-trigger-bg-hover`    | `var(--moduix-color-muted)`            |
-| `--moduix-accordion-icon-open-transform` | `rotate(180deg)`                       |
-| `--moduix-accordion-item-body-gap`       | `var(--moduix-spacing-3)`              |
-| `--moduix-accordion-item-body-padding`   | `var(--moduix-spacing-3)`              |
-| `--moduix-accordion-item-content-color`  | `var(--moduix-color-muted-foreground)` |
+| Variable                                | Default                                |
+| --------------------------------------- | -------------------------------------- |
+| `--moduix-accordion-item-border-color`  | `var(--moduix-color-border)`           |
+| `--moduix-accordion-trigger-bg-hover`   | `var(--moduix-color-muted)`            |
+| `--moduix-accordion-item-body-gap`      | `var(--moduix-spacing-3)`              |
+| `--moduix-accordion-item-body-padding`  | `var(--moduix-spacing-3)`              |
+| `--moduix-accordion-item-content-color` | `var(--moduix-color-muted-foreground)` |
+
+Root color, separator width, focus ring, disabled opacity, and the open indicator rotation come
+straight from foundation tokens; override them with a class on the part.
 
 ## Intentional sugar and differences from upstream
 
@@ -178,24 +183,3 @@ CSS variables (the full list lives in `packages/foundation/src/styles/variables-
 - Keep `AccordionItemContent` animation based on Ark `--height` and `--width`.
 - Keep spacing on `AccordionItemBody`, not on `AccordionItemContent`, so Ark size measurement stays reliable.
 - Preserve the moduix `useAccordion()` re-export because docs and `RootProvider` examples depend on it.
-
-## Local changelog
-
-- 2026-10-13: Default look changed to transparent triggers and a rotating chevron. Removed 14 rarely
-  used CSS variables (width, line-height, transition, opacity, pressed background, and horizontal
-  sizes). CSS Modules now use the shared foundation keyframes. React and Solid re-export Ark types
-  like Vue. Docs wrap triggers in headings. Tailwind hover styles on `AccordionItemTrigger` apply
-  only on hover-capable devices.
-- 2026-09-21: Replaced the compound `Accordion.*` value surface with the shared flat API across
-  React, Solid, and Vue. `Accordion` is now the only root value; every other part uses an
-  `Accordion`-prefixed named export.
-- 2026-08-07: Added direction-safe trigger alignment and reduced-motion handling, expanded regression
-  coverage for semantics, refs, `asChild`, provider/context composition, and keyboard endpoints.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through
-  foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-09: Re-exported `useAccordion()` from moduix for the recommended `RootProvider` flow.
-- 2026-07-06: Added `AccordionItemBody` as a thin inner spacing wrapper.
-- 2026-06-24: Added horizontal orientation layout and `--width`-based content animation.
-- 2026-06-17: Migrated wrapper internals to Ark UI Accordion and Ark part naming.
-
-Earlier entries described intermediate API shapes that no longer exist; see git history.

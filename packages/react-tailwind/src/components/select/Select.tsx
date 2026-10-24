@@ -94,7 +94,7 @@ const SelectLabel = forwardRef<
     <SelectPrimitive.Label
       ref={ref}
       className={cn(
-        'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-50',
+        'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-disabled',
         className,
       )}
       {...props}
@@ -111,7 +111,7 @@ const SelectControl = forwardRef<
     <SelectPrimitive.Control
       ref={ref}
       className={cn(
-        'group/select-control relative flex w-full min-w-0 items-center data-disabled:opacity-50',
+        'group/select-control relative flex w-full min-w-0 items-center data-disabled:opacity-disabled',
         className,
       )}
       {...props}
@@ -310,7 +310,7 @@ const SelectItem = forwardRef<
     <SelectPrimitive.Item
       ref={ref}
       className={cn(
-        'relative mx-1 flex min-h-control-sm cursor-default items-center justify-between gap-2 rounded-sm px-3 py-1 text-sm outline-0 select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground',
+        'relative mx-1 flex min-h-control-sm cursor-default items-center justify-between gap-2 rounded-sm px-3 py-1 text-sm outline-0 select-none data-disabled:pointer-events-none data-disabled:opacity-disabled data-highlighted:bg-accent data-highlighted:text-accent-foreground',
         className,
       )}
       {...props}

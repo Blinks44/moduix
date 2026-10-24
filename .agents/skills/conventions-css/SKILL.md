@@ -98,6 +98,8 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - Do not add `--moduix-<component>-*` wrappers around ordinary spacing, sizing, typography, border,
   opacity, or transition utilities. Keep detailed component variables in CSS Modules where they are
   useful; Tailwind consumers override defaults through `className`/`class` and `tailwind-merge`.
+- Dim disabled and read-only states with `opacity-disabled` (the `--moduix-opacity-disabled` token,
+  the same one CSS Modules use), never a numeric `opacity-50`.
 - Time transitions with the theme utilities `duration-fast`, `duration-normal`, and `duration-slow`
   (the `--moduix-duration-*` tokens, the same ones CSS Modules use) plus `ease-in-out`; never numeric
   `duration-150`/`duration-200`. The tokens drop to 0.01ms under reduced motion, so do not add

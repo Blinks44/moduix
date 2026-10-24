@@ -13,7 +13,7 @@ const { class: className } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const disabledClass =
-  'data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
+  'data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 </script>
 <template>
   <ArkFileUploadLabel

@@ -36,7 +36,7 @@ const attrs = useAttrs();
     v-bind="attrs"
     :class="
       cn(
-        'box-border inline-flex min-w-0 flex-col items-center gap-3 text-foreground data-disabled:opacity-50',
+        'box-border inline-flex min-w-0 flex-col items-center gap-3 text-foreground data-disabled:opacity-disabled',
         className,
       )
     "

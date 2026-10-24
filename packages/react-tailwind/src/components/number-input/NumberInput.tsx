@@ -19,7 +19,7 @@ type NumberInputRootProviderProps = ComponentProps<typeof NumberInputPrimitive.R
 };
 
 const rootClass =
-  'group/number-input flex flex-col items-start gap-1 data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
+  'group/number-input flex flex-col items-start gap-1 data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 
 const triggerClass =
   'box-border inline-flex size-control-md shrink-0 cursor-pointer items-center justify-center border border-border bg-background p-0 text-foreground outline-1 -outline-offset-1 outline-transparent transition-[background-color,border-color,color] duration-normal ease-in-out select-none group-data-invalid/number-input:border-destructive group-data-[size=lg]/number-input:size-control-lg group-data-[size=sm]/number-input:size-control-sm group-data-[size=xl]/number-input:size-control-xl group-data-[size=xs]/number-input:size-control-xs focus-visible:z-1 focus-visible:outline-ring group-data-invalid/number-input:focus-visible:outline-destructive active:bg-accent data-disabled:pointer-events-none data-disabled:text-muted-foreground [&>svg]:size-3.5 group-data-[size=lg]/number-input:[&>svg]:size-4 group-data-[size=sm]/number-input:[&>svg]:size-3 group-data-[size=xl]/number-input:[&>svg]:size-4 group-data-[size=xs]/number-input:[&>svg]:size-3 [@media(hover:hover)]:hover:bg-accent';

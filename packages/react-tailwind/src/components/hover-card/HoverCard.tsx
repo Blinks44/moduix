@@ -61,7 +61,7 @@ const HoverCardTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'inline-flex cursor-pointer items-center gap-1 text-primary underline decoration-current/60 decoration-1 underline-offset-2 outline-0 transition-[text-decoration-color] duration-fast ease-in-out focus-visible:rounded-xs focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-[state=open]:decoration-current [@media(hover:hover)]:hover:decoration-current',
+          'inline-flex cursor-pointer items-center gap-1 text-primary underline decoration-current/60 decoration-1 underline-offset-2 outline-0 transition-[text-decoration-color] duration-fast ease-in-out focus-visible:rounded-xs focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-disabled data-[state=open]:decoration-current [@media(hover:hover)]:hover:decoration-current',
         className,
       )}
       {...props}

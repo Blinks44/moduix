@@ -24,7 +24,9 @@ const attrs = useAttrs();
   <ArkDatePickerPrevTrigger
     v-bind="attrs"
     :as-child="props.asChild"
-    :class="cn(!props.asChild && [actionClass, 'size-control-sm disabled:opacity-50'], props.class)"
+    :class="
+      cn(!props.asChild && [actionClass, 'size-control-sm disabled:opacity-disabled'], props.class)
+    "
     data-slot="date-picker-prev-trigger"
   >
     <slot><ChevronLeftIcon /></slot>

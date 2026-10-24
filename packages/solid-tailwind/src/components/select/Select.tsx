@@ -83,7 +83,7 @@ function SelectLabel(props: ComponentProps<typeof SelectPrimitive.Label>) {
   return (
     <SelectPrimitive.Label
       class={cn(
-        'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-50',
+        'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-disabled',
         local.class,
       )}
       {...others}
@@ -98,7 +98,7 @@ function SelectControl(props: ComponentProps<typeof SelectPrimitive.Control>) {
   return (
     <SelectPrimitive.Control
       class={cn(
-        'group/select-control relative flex w-full min-w-0 items-center data-disabled:opacity-50',
+        'group/select-control relative flex w-full min-w-0 items-center data-disabled:opacity-disabled',
         local.class,
       )}
       {...others}
@@ -293,7 +293,7 @@ function SelectItem(props: ComponentProps<typeof SelectPrimitive.Item>) {
   return (
     <SelectPrimitive.Item
       class={cn(
-        'relative mx-1 flex min-h-control-sm cursor-default items-center justify-between gap-2 rounded-sm px-3 py-1 text-sm outline-0 select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground',
+        'relative mx-1 flex min-h-control-sm cursor-default items-center justify-between gap-2 rounded-sm px-3 py-1 text-sm outline-0 select-none data-disabled:pointer-events-none data-disabled:opacity-disabled data-highlighted:bg-accent data-highlighted:text-accent-foreground',
         local.class,
       )}
       {...others}

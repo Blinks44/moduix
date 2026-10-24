@@ -6,7 +6,7 @@ import { cn } from '@/lib/moduix/cn';
 type FieldItemProps = ComponentProps<typeof FieldPrimitive.Item> & ComponentProps<'div'>;
 
 const rootClass =
-  'flex w-full flex-col items-start gap-1 text-foreground data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
+  'flex w-full flex-col items-start gap-1 text-foreground data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 
 function Field(props: ComponentProps<typeof FieldPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);

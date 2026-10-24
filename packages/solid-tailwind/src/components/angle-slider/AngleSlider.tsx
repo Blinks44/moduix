@@ -9,7 +9,7 @@ import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import { cn } from '@/lib/moduix/cn';
 
 const rootClass =
-  'box-border inline-flex min-w-0 flex-col items-center gap-3 text-foreground data-disabled:opacity-50';
+  'box-border inline-flex min-w-0 flex-col items-center gap-3 text-foreground data-disabled:opacity-disabled';
 
 function AngleSlider(props: ComponentProps<typeof AngleSliderPrimitive.Root>) {
   const [local, others] = splitProps(props, ['children', 'class']);

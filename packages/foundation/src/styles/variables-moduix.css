@@ -62,20 +62,12 @@
   --moduix-popup-motion-ending-translate-y: initial; /* component default */
 
   /* Accordion */
-  --moduix-accordion-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-accordion-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-accordion-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-accordion-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
-  --moduix-accordion-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
-  --moduix-accordion-icon-open-transform: initial; /* rotate(180deg) */
   --moduix-accordion-icon-size: initial; /* var(--moduix-spacing-3) */
   --moduix-accordion-item-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-accordion-item-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-accordion-item-body-gap: initial; /* var(--moduix-spacing-3) */
   --moduix-accordion-item-body-padding: initial; /* var(--moduix-spacing-3) */
   --moduix-accordion-item-content-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-accordion-item-content-font-size: initial; /* var(--moduix-text-md) */
-  --moduix-accordion-trigger-bg: initial; /* transparent */
   --moduix-accordion-trigger-bg-hover: initial; /* var(--moduix-color-muted) */
   --moduix-accordion-trigger-font-size: initial; /* var(--moduix-text-md) */
   --moduix-accordion-trigger-gap: initial; /* var(--moduix-spacing-4) */

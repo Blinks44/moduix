@@ -61,7 +61,7 @@ const RatingGroupLabel = forwardRef<
     <RatingGroupPrimitive.Label
       ref={ref}
       className={cn(
-        'text-sm leading-5 font-semibold text-foreground select-none data-disabled:opacity-50',
+        'text-sm leading-5 font-semibold text-foreground select-none data-disabled:opacity-disabled',
         className,
       )}
       {...props}
@@ -77,7 +77,7 @@ const RatingGroupControl = forwardRef<
   return (
     <RatingGroupPrimitive.Control
       ref={ref}
-      className={cn('inline-flex items-center gap-1 data-disabled:opacity-50', className)}
+      className={cn('inline-flex items-center gap-1 data-disabled:opacity-disabled', className)}
       {...props}
       data-slot="rating-group-control"
     />

@@ -88,7 +88,7 @@ const ComboboxLabel = forwardRef<
     <ComboboxPrimitive.Label
       ref={ref}
       className={cn(
-        'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-50',
+        'inline-flex items-center text-sm font-medium text-foreground select-none data-disabled:opacity-disabled',
         className,
       )}
       {...props}
@@ -105,7 +105,7 @@ const ComboboxControl = forwardRef<
     <ComboboxPrimitive.Control
       ref={ref}
       className={cn(
-        'group/combobox-control relative flex w-full min-w-0 items-center rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:opacity-50 data-focus:border-ring data-focus:outline-ring data-invalid:border-destructive data-invalid:outline-destructive data-[state=open]:border-ring data-[state=open]:outline-ring',
+        'group/combobox-control relative flex w-full min-w-0 items-center rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:opacity-disabled data-focus:border-ring data-focus:outline-ring data-invalid:border-destructive data-invalid:outline-destructive data-[state=open]:border-ring data-[state=open]:outline-ring',
         className,
       )}
       {...props}
@@ -308,7 +308,7 @@ const ComboboxItem = forwardRef<
     <ComboboxPrimitive.Item
       ref={ref}
       className={cn(
-        'relative mx-1 box-border flex min-h-control-sm cursor-default items-center justify-between gap-2 rounded-sm px-3 py-1 text-sm outline-0 select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground',
+        'relative mx-1 box-border flex min-h-control-sm cursor-default items-center justify-between gap-2 rounded-sm px-3 py-1 text-sm outline-0 select-none data-disabled:pointer-events-none data-disabled:opacity-disabled data-highlighted:bg-accent data-highlighted:text-accent-foreground',
         className,
       )}
       {...props}

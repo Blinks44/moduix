@@ -12,7 +12,7 @@ import { FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 
 const rootClass = 'box-border flex w-full flex-col items-start gap-3 text-foreground';
 const disabledClass =
-  'data-disabled:opacity-50 [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
+  'data-disabled:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100';
 
 function FileUpload(props: ComponentProps<typeof FileUploadPrimitive.Root>) {
   const [local, others] = splitProps(props, ['children', 'class']);
@@ -60,7 +60,7 @@ function FileUploadDropzone(props: ComponentProps<typeof FileUploadPrimitive.Dro
   return (
     <FileUploadPrimitive.Dropzone
       class={cn(
-        'box-border grid min-h-32 w-full place-items-center gap-3 rounded-md border border-dashed border-border bg-background p-5 text-center text-muted-foreground transition-[border-color,background-color,color] duration-normal ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-dragging:border-primary data-dragging:bg-accent data-dragging:text-foreground data-invalid:border-destructive data-readonly:opacity-50 [&[role=button]:not([aria-disabled])]:cursor-pointer',
+        'box-border grid min-h-32 w-full place-items-center gap-3 rounded-md border border-dashed border-border bg-background p-5 text-center text-muted-foreground transition-[border-color,background-color,color] duration-normal ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-dragging:border-primary data-dragging:bg-accent data-dragging:text-foreground data-invalid:border-destructive data-readonly:opacity-disabled [&[role=button]:not([aria-disabled])]:cursor-pointer',
         disabledClass,
         local.class,
       )}
@@ -226,7 +226,7 @@ function FileUploadItemDeleteTrigger(
   return (
     <FileUploadPrimitive.ItemDeleteTrigger
       class={cn(
-        'box-border inline-flex size-control-xs cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color] duration-normal ease-in-out [grid-area:delete] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-default data-readonly:opacity-50 [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):hover]:text-foreground',
+        'box-border inline-flex size-control-xs cursor-pointer appearance-none items-center justify-center rounded-sm border-0 bg-transparent p-0 text-muted-foreground transition-[background-color,color] duration-normal ease-in-out [grid-area:delete] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-default data-readonly:opacity-disabled [&>svg]:size-4 [@media(hover:hover)]:[&:not(:disabled):hover]:bg-muted [@media(hover:hover)]:[&:not(:disabled):hover]:text-foreground',
         local.class,
       )}
       {...others}
