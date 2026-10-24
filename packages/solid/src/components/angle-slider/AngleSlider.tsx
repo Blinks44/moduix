@@ -4,7 +4,7 @@ import {
   useAngleSliderContext,
 } from '@ark-ui/solid/angle-slider';
 import { clsx } from 'clsx';
-import type { ComponentProps, JSX } from 'solid-js';
+import type { ComponentProps } from 'solid-js';
 import { For, splitProps } from 'solid-js';
 import { callEventHandler } from '@/lib/moduix/callEventHandler';
 import styles from './AngleSlider.module.css';
@@ -125,12 +125,7 @@ function AngleSliderMarks(props: AngleSliderMarksProps) {
   );
 }
 
-type AngleSliderDialProps = Omit<
-  ComponentProps<typeof AngleSliderPrimitive.Control>,
-  'asChild' | 'children'
-> & {
-  children?: JSX.Element;
-};
+type AngleSliderDialProps = Omit<ComponentProps<typeof AngleSliderPrimitive.Control>, 'asChild'>;
 
 function AngleSliderDial(props: AngleSliderDialProps) {
   const [local, others] = splitProps(props, ['children']);

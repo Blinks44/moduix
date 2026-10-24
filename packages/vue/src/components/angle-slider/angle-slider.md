@@ -61,10 +61,4 @@ or `aria-labelledby`.
 The dial is `9rem` wide by default. The fill is sized from Ark's `--value` and flipped on
 `Control[dir='rtl']`, so it follows the thumb that Ark mirrors in RTL. `AngleSliderValueText` is
 centered only inside `AngleSliderControl`. The pressed thumb look comes from the native `:active`
-state of the control, and thumb transitions are removed under reduced motion.
-
-## Local changelog
-
-- 2026-10-13: Added this file. Fixed the RTL fill direction, changed the default dial size to
-  `9rem` and the value text to `135°`, and removed 8 rarely used CSS variables (see the React
-  `angle-slider.md`).
+state of the control, and thumb transitions use token durations that drop under reduced motion.

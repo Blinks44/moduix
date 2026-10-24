@@ -144,7 +144,12 @@ per-marker props, custom ordering, or no centered value text.
 - moduix supplies the circular track: a ring drawn with a `conic-gradient` fill from the top
   (`0deg`) to Ark's `--angle`, masked to the ring band; a rounded start cap where the fill begins;
   a circle thumb riding the ring centerline, mirroring the linear `Slider` thumb contract; the
-  centered value text; and marker, focus, disabled, read-only, and invalid visuals.
+  centered value text; and marker, focus, disabled, read-only, and invalid visuals. Markers below
+  the value take the fill color, so they follow `--moduix-angle-slider-indicator-bg` and the invalid
+  state.
+- Ring geometry (track thickness, start cap, thumb and marker centerline) comes from one value,
+  `--moduix-angle-slider-ring-thickness` (default `--moduix-spacing-2`); Tailwind uses the same
+  spacing token, so density presets keep the mask, cap, and thumb aligned.
 - The dial geometry is driven by the Ark root variables `--angle` and `--value`; no extra JS is
   used for the fill or the thumb position. The thumb follows `--angle`, which Ark mirrors in RTL;
   the fill is sized from `--value` and flipped horizontally on `Control[dir='rtl']`, so it always
@@ -152,9 +157,14 @@ per-marker props, custom ordering, or no centered value text.
 - `AngleSliderValueText` is centered over the dial only inside `AngleSliderControl`; outside the
   control it stays in normal flow. CSS Modules and Tailwind behave the same.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
-- Public `--moduix-angle-slider-*` variables are registered in `packages/foundation/src/styles/variables-moduix.css`.
+- Five public variables cover the pseudo-element geometry and colors that a class on a part cannot
+  reach directly: `size`, `ring-thickness`, `thumb-size`, `indicator-bg`, and `track-bg`
+  (`--moduix-angle-slider-*`, registered in `packages/foundation/src/styles/variables-moduix.css`).
+  Text, spacing, thumb border, shadow, and marker look are styled with a class on the part, like
+  the linear `Slider`.
 - Focus styling follows `Thumb:focus-visible` and mirrors the linear `Slider` thumb: ring-colored
   border plus the shared inset focus ring on the thumb only; the control adds no second indicator.
+  In the invalid state the thumb keeps a destructive border and focus ring, as in `Slider`.
   Invalid, disabled, read-only, and marker styling use Ark state attributes rather than legacy
   classes or wrapper state.
 - The dial is `9rem` wide by default (`--moduix-angle-slider-size`; `w-36` in Tailwind). The thumb
@@ -164,8 +174,8 @@ per-marker props, custom ordering, or no centered value text.
   the thumb mirrors the linear `Slider` dragging look through the native `:active` control state
   (Zag exposes no `data-dragging` attribute on the angle slider thumb); the ring disappears on
   release because the press focus was suppressed with `focusVisible: false`. Keyboard focus still
-  shows the ring through `:focus-visible`. Thumb transitions are removed under
-  `prefers-reduced-motion`.
+  shows the ring through `:focus-visible`. Thumb transitions use token durations, which drop to
+  near zero under `prefers-reduced-motion`.
 - `AngleSliderMarks` preserves the same marker styling hooks as explicit `MarkerGroup` /
   `Marker` composition.
 
@@ -197,40 +207,3 @@ per-marker props, custom ordering, or no centered value text.
 - Preserve the Ark detail object passed to value callbacks.
 - Keep geometry driven by Ark `--angle` / marker variables and state attributes.
 - Keep docs previews synchronized with `Code` and `CSS`.
-
-## Local changelog
-
-- 2026-10-13: Fixed the RTL fill direction (the arc now follows the mirrored thumb) and made the
-  Tailwind `AngleSliderValueText` centered only inside the control like CSS Modules. The default
-  dial size is now `9rem` and the value text reads `135°` instead of `135deg`. Removed 8 CSS
-  variables: the track hover and active colors (they never changed the default look), label and
-  value-text font weight and line height, `thumb-radius`, and `invalid-indicator-bg` (use
-  `--moduix-angle-slider-invalid-color`). React and Solid re-export the root and hook types like
-  Vue. Docs examples add `AngleSliderHiddenInput` only in the form example.
-- 2026-09-21: Migrated the public surface to the flat component API: the root is exported as
-  `AngleSlider`, parts as `AngleSlider<Part>` values, and hooks stay top-level `use*` exports; the
-  compound `AngleSlider.*` namespace was removed without compatibility aliases.
-- 2026-09-17: Redesigned the dial as a circular track with a conic-gradient fill from the top,
-  a circle thumb riding the ring, and the value text centered in the dial (`Dial` now renders the
-  centered `ValueText`); removed the needle thumb, inner disc, center dot, and track/control border
-  variables, and retuned the public variable set. Aligned the thumb with the linear `Slider` thumb
-  (border token, focus ring, no active scale), added a rounded start cap for the fill, and dropped
-  the control-level focus ring and dial shadow variables. Added a `:active` dragging ring and the
-  `preventDefault` + `focusVisible: false` press focus so the ring clears on mouse release like the
-  linear slider.
-- 2026-09-04: Exposed Ark `HiddenInput` explicitly and removed root child mutation and custom reset
-  handling.
-- 2026-08-31: Removed the unused `Dial.thumbClassName` configuration prop; use explicit
-  `Control` and `Thumb` composition to style the thumb.
-- 2026-08-08: Added external `form` ownership and native reset synchronization, completed
-  asChild/ref/read-only regression coverage, made invalid indicator theming accurate, and added
-  interactive ring plus reduced-motion styling.
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through
-  foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-09: Added `AngleSliderDial`, re-exported `useAngleSlider()` for the normal
-  `RootProvider` path, documented `invalid`, and moved the full explicit dial composition into
-  advanced examples.
-- 2026-07-07: Added `AngleSliderMarks` and shifted docs and stories to a lighter default
-  composition.
-- 2026-06-17: Added the initial Ark UI wrapper, circular styles, theme tokens, stories, docs, and
-  registry export.

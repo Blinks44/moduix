@@ -30,12 +30,10 @@ type Story = StoryObj<typeof meta>;
 
 const demoRootClass = '[&_[data-slot=angle-slider-control]]:w-36';
 const stressRootClass = 'max-w-48 [&_[data-slot=angle-slider-control]]:w-36';
-const customControlClass =
-  'w-40 bg-[color-mix(in_oklab,var(--color-chart-4)_16%,var(--color-muted))] after:inset-4 after:bg-[color-mix(in_oklab,var(--color-chart-4)_10%,var(--color-card))]';
-const customThumbClass =
-  'before:top-4 before:size-[1.125rem] before:border-background before:bg-chart-4 after:top-[2.375rem] after:h-[calc(50%-2.5rem)] after:from-chart-4';
+const customControlClass = 'w-40 [--_angle-slider-fill:var(--color-chart-4)]';
+const customThumbClass = 'before:size-[1.125rem] before:border-chart-4';
 const customMarkerClass =
-  'before:top-4.5 before:bg-[color-mix(in_oklab,var(--color-chart-4)_18%,var(--color-border))] data-[state=under-value]:before:bg-[color-mix(in_oklab,var(--color-chart-4)_65%,var(--color-foreground))]';
+  'before:bg-[color-mix(in_oklab,var(--color-chart-4)_18%,var(--color-border))] data-[state=under-value]:before:bg-[color-mix(in_oklab,var(--color-chart-4)_65%,var(--color-foreground))]';
 const providerLayoutClass = 'flex items-center gap-8';
 const providerButtonClass =
   'min-h-10 cursor-pointer rounded-md border border-border bg-background px-4 text-foreground [font:inherit] hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';

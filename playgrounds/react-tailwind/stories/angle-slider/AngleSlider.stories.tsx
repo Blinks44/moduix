@@ -33,7 +33,7 @@ type Story = StoryObj<typeof meta>;
 
 const demoRootClassName = '[&_[data-slot=angle-slider-control]]:w-36';
 const stressRootClassName = 'max-w-48 [&_[data-slot=angle-slider-control]]:w-36';
-const customControlClassName = 'w-40 [--angle-slider-fill:var(--color-chart-4)]';
+const customControlClassName = 'w-40 [--_angle-slider-fill:var(--color-chart-4)]';
 const customThumbClassName = 'before:size-[1.125rem] before:border-chart-4';
 const customMarkerClassName =
   'before:bg-[color-mix(in_oklab,var(--color-chart-4)_18%,var(--color-border))] data-[state=under-value]:before:bg-[color-mix(in_oklab,var(--color-chart-4)_65%,var(--color-foreground))]';

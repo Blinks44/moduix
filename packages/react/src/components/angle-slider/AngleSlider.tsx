@@ -6,7 +6,7 @@ import {
   useAngleSliderContext,
 } from '@ark-ui/react/angle-slider';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import styles from './AngleSlider.module.css';
 
@@ -139,12 +139,7 @@ const AngleSliderMarks = forwardRef<
   );
 });
 
-type AngleSliderDialProps = Omit<
-  ComponentProps<typeof AngleSliderPrimitive.Control>,
-  'asChild' | 'children'
-> & {
-  children?: ReactNode;
-};
+type AngleSliderDialProps = Omit<ComponentProps<typeof AngleSliderPrimitive.Control>, 'asChild'>;
 
 const AngleSliderDial = forwardRef<
   ComponentRef<typeof AngleSliderPrimitive.Control>,

@@ -74,31 +74,11 @@
   --moduix-accordion-trigger-padding-x: initial; /* var(--moduix-spacing-3) */
   --moduix-accordion-trigger-padding-y: initial; /* var(--moduix-spacing-2) */
   /* AngleSlider */
-  --moduix-angle-slider-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-angle-slider-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-angle-slider-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-angle-slider-gap: initial; /* var(--moduix-spacing-3) */
   --moduix-angle-slider-indicator-bg: initial; /* var(--moduix-color-primary) */
-  --moduix-angle-slider-invalid-color: initial; /* var(--moduix-color-destructive) */
-  --moduix-angle-slider-label-color: initial; /* var(--moduix-angle-slider-color) */
-  --moduix-angle-slider-label-font-size: initial; /* var(--moduix-text-sm) */
-  --moduix-angle-slider-marker-active-color: initial; /* var(--moduix-color-primary) */
-  --moduix-angle-slider-marker-color: initial; /* var(--moduix-color-muted-foreground) */
-  --moduix-angle-slider-marker-current-color: initial; /* var(--moduix-color-foreground) */
-  --moduix-angle-slider-marker-height: initial; /* 0.5rem */
-  --moduix-angle-slider-marker-width: initial; /* 0.125rem */
-  --moduix-angle-slider-ring-thickness: initial; /* 0.5rem */
+  --moduix-angle-slider-ring-thickness: initial; /* var(--moduix-spacing-2) */
   --moduix-angle-slider-size: initial; /* 9rem */
-  --moduix-angle-slider-thumb-bg: initial; /* var(--moduix-color-background) */
-  --moduix-angle-slider-thumb-border-color: initial; /* var(--moduix-color-border) */
-  --moduix-angle-slider-thumb-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-angle-slider-thumb-shadow: initial; /* var(--moduix-shadow-sm) */
-  --moduix-angle-slider-thumb-shadow-dragging: initial; /* var(--moduix-shadow-md) */
   --moduix-angle-slider-thumb-size: initial; /* var(--moduix-spacing-4) */
   --moduix-angle-slider-track-bg: initial; /* var(--moduix-color-muted) */
-  --moduix-angle-slider-transition: initial; /* var(--moduix-transition-default) */
-  --moduix-angle-slider-value-text-color: initial; /* var(--moduix-angle-slider-color) */
-  --moduix-angle-slider-value-text-font-size: initial; /* var(--moduix-text-lg) */
   /* Alert */
   --moduix-alert-bg: initial; /* status-dependent; info: var(--moduix-color-card) */
   --moduix-alert-border-color: initial; /* status-dependent; info: var(--moduix-color-border) */
