@@ -25,7 +25,6 @@
   }
 
   .positioner {
-    box-sizing: border-box;
     position: fixed;
     z-index: var(--z-index, var(--moduix-z-popup));
     inset: 0;
@@ -39,7 +38,6 @@
   /* Content only fades, so the fixed close icon inside it stays pinned to the viewport. */
   .content {
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
-    box-sizing: border-box;
     position: relative;
     display: grid;
     gap: var(--moduix-spacing-3);

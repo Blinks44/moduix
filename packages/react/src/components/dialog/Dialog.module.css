@@ -16,7 +16,6 @@
   }
 
   .positioner {
-    box-sizing: border-box;
     position: fixed;
     z-index: var(--z-index, var(--moduix-z-popup));
     inset: 0;
@@ -36,7 +35,6 @@
   .content {
     --_dialog-width: 28rem;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
-    box-sizing: border-box;
     position: relative;
     width: min(
       var(--moduix-dialog-width, var(--_dialog-width)),

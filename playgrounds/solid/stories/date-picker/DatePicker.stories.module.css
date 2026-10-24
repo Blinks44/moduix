@@ -17,7 +17,6 @@
 }
 
 .selectedDates {
-  box-sizing: border-box;
   display: flex;
   width: 100%;
   min-height: var(--moduix-size-md);

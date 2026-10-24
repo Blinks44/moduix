@@ -28,7 +28,7 @@ const { side, state } = useSidebar();
     :id="panelId"
     :class="
       cn(
-        'group/sidebar-panel @container/sidebar-panel relative box-border flex min-w-0 flex-col overflow-hidden bg-sidebar text-sidebar-foreground data-dragging:select-none',
+        'group/sidebar-panel @container/sidebar-panel relative flex min-w-0 flex-col overflow-hidden bg-sidebar text-sidebar-foreground data-dragging:select-none',
         className,
       )
     "

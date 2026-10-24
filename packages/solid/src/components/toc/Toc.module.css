@@ -110,8 +110,7 @@
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-        var(--moduix-color-ring);
+      box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width) var(--moduix-color-ring);
     }
 
     &[data-active] {

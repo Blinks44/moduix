@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: var(--moduix-spacing-1);
@@ -33,7 +32,6 @@
   }
 
   .control {
-    box-sizing: border-box;
     display: flex;
     min-height: var(--moduix-tags-input-min-height, var(--moduix-size-md));
     flex-wrap: wrap;
@@ -73,7 +71,6 @@
   }
 
   .itemPreview {
-    box-sizing: border-box;
     display: inline-flex;
     min-width: 0;
     max-width: 100%;
@@ -104,7 +101,6 @@
 
   .input,
   .itemInput {
-    box-sizing: border-box;
     flex: 1 1 7rem;
     min-width: 7rem;
     height: var(--moduix-size-xs);

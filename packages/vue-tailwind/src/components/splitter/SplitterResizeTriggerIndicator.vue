@@ -16,7 +16,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const indicatorClass =
-  'pointer-events-none absolute box-border h-control-xs w-1.5 rounded-full border border-border bg-background shadow-sm transition-[border-color,box-shadow,scale] duration-normal ease-in-out group-hover/trigger:border-muted-foreground/40 group-hover/trigger:shadow-md group-[:focus-visible:not([data-dragging])]/trigger:outline-2 group-[:focus-visible:not([data-dragging])]/trigger:outline-offset-1 group-[:focus-visible:not([data-dragging])]/trigger:outline-ring data-disabled:invisible data-dragging:scale-[1.08] data-dragging:shadow-md data-[orientation=vertical]:h-1.5 data-[orientation=vertical]:w-control-xs';
+  'pointer-events-none absolute h-control-xs w-1.5 rounded-full border border-border bg-background shadow-sm transition-[border-color,box-shadow,scale] duration-normal ease-in-out group-hover/trigger:border-muted-foreground/40 group-hover/trigger:shadow-md group-[:focus-visible:not([data-dragging])]/trigger:outline-focus group-[:focus-visible:not([data-dragging])]/trigger:outline-offset-1 group-[:focus-visible:not([data-dragging])]/trigger:outline-ring data-disabled:invisible data-dragging:scale-[1.08] data-dragging:shadow-md data-[orientation=vertical]:h-1.5 data-[orientation=vertical]:w-control-xs';
 </script>
 
 <template>

@@ -22,7 +22,6 @@
 
   .input,
   .trigger {
-    box-sizing: border-box;
     min-height: var(--moduix-clipboard-height, var(--moduix-size-md));
     margin: 0;
     border: var(--moduix-border-width-sm) solid

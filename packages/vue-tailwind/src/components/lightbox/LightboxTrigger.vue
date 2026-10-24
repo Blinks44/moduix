@@ -24,7 +24,7 @@ const attrs = useAttrs();
     :as-child="asChild"
     :class="
       cn(
-        'cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+        'cursor-zoom-in focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring',
         className,
       )
     "

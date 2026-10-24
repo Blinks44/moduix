@@ -6,7 +6,6 @@
     --_input-font-size: var(--moduix-text-md);
     --_input-line-height: var(--moduix-line-height-text-md);
 
-    box-sizing: border-box;
     width: var(--moduix-input-width, 100%);
     min-width: 0;
     min-height: var(--moduix-input-height, var(--_input-height));

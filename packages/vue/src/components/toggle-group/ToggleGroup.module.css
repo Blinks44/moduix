@@ -4,7 +4,6 @@
     --_toggle-group-border-color: var(--moduix-color-border);
     --moduix-toggle-color: var(--moduix-color-foreground);
 
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     gap: var(--moduix-border-width-sm);

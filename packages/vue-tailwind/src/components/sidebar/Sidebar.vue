@@ -90,7 +90,7 @@ const splitter = useSplitter(
     :value="splitter"
     :class="
       cn(
-        'relative isolate box-border h-dvh min-h-96 w-full min-w-0 border border-sidebar-border bg-background text-foreground data-dragging:cursor-col-resize',
+        'relative isolate h-dvh min-h-96 w-full min-w-0 border border-sidebar-border bg-background text-foreground data-dragging:cursor-col-resize',
         props.class,
       )
     "

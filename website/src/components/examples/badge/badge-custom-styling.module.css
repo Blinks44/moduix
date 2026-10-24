@@ -9,7 +9,7 @@
 }
 
 .square {
-  --moduix-badge-radius: var(--moduix-radius-sm);
+  border-radius: var(--moduix-radius-sm);
 }
 
 .priority {

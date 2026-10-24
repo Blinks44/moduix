@@ -49,12 +49,10 @@ import { children, splitProps } from 'solid-js';
 import { cn } from '@/lib/moduix/cn';
 import { CheckIcon, ChevronRightIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 
-const treeViewRootVariants = cva(
-  'box-border flex w-80 max-w-full min-w-0 flex-col gap-2 text-foreground',
-);
+const treeViewRootVariants = cva('flex w-80 max-w-full min-w-0 flex-col gap-2 text-foreground');
 
 const treeViewRowVariants = cva(
-  "relative z-0 box-border flex min-h-control-sm w-full min-w-0 cursor-pointer items-center gap-2 rounded-sm py-1 pe-2 text-start text-inherit no-underline transition-[color,opacity] duration-normal ease-in-out outline-none select-none [--_tree-view-indent:calc((var(--depth)-1)*var(--moduix-spacing-4))] [font:inherit] before:pointer-events-none before:absolute before:inset-y-0 before:start-[calc(var(--_tree-view-indent)+var(--moduix-spacing-1))] before:end-0 before:-z-1 before:rounded-sm before:ring-1 before:ring-transparent before:transition-[background-color,box-shadow] before:duration-normal before:ease-in-out before:content-[''] before:ring-inset focus-visible:before:ring-ring data-disabled:cursor-default data-disabled:opacity-disabled data-focus:before:ring-ring data-selected:text-accent-foreground data-selected:before:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-accent-foreground [@media(hover:hover)]:[&:not([data-disabled]):hover]:before:bg-accent",
+  "relative z-0 flex min-h-control-sm w-full min-w-0 cursor-pointer items-center gap-2 rounded-sm py-1 pe-2 text-start text-inherit no-underline transition-[color,opacity] duration-normal ease-in-out outline-none select-none [--_tree-view-indent:calc((var(--depth)-1)*var(--moduix-spacing-4))] [font:inherit] before:pointer-events-none before:absolute before:inset-y-0 before:start-[calc(var(--_tree-view-indent)+var(--moduix-spacing-1))] before:end-0 before:-z-1 before:rounded-sm before:ring-1 before:ring-transparent before:transition-[background-color,box-shadow] before:duration-normal before:ease-in-out before:content-[''] before:ring-inset focus-visible:before:ring-ring data-disabled:cursor-default data-disabled:opacity-disabled data-focus:before:ring-ring data-selected:text-accent-foreground data-selected:before:bg-accent [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-accent-foreground [@media(hover:hover)]:[&:not([data-disabled]):hover]:before:bg-accent",
 );
 
 function TreeView<T extends TreeNode>(props: TreeViewRootProps<T>) {
@@ -269,7 +267,7 @@ function TreeViewNodeCheckbox(props: TreeViewNodeCheckboxProps) {
   return (
     <TreeViewPrimitive.NodeCheckbox
       class={cn(
-        'inline-flex size-4 shrink-0 items-center justify-center rounded-xs border border-border bg-background text-primary-foreground outline-1 outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color] duration-normal ease-in-out focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-disabled data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary [&_svg]:size-3 [:is([data-slot=tree-view-item],[data-slot=tree-view-branch-control])[data-disabled]_&]:opacity-100',
+        'inline-flex size-4 shrink-0 items-center justify-center rounded-xs border border-border bg-background text-primary-foreground outline-focus-inset outline-offset-1 outline-transparent transition-[background-color,border-color,outline-color] duration-normal ease-in-out focus-visible:outline-ring data-disabled:cursor-default data-disabled:opacity-disabled data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=indeterminate]:border-primary data-[state=indeterminate]:bg-primary [&_svg]:size-3 [:is([data-slot=tree-view-item],[data-slot=tree-view-branch-control])[data-disabled]_&]:opacity-100',
         local.class,
       )}
       {...others}
@@ -307,7 +305,7 @@ function TreeViewNodeRenameInput(props: TreeViewNodeRenameInputProps) {
   return (
     <TreeViewPrimitive.NodeRenameInput
       class={cn(
-        'box-border min-w-0 flex-1 rounded-xs border border-ring bg-background px-1 py-0 text-foreground outline-1 -outline-offset-1 outline-transparent [font:inherit] focus-visible:outline-ring',
+        'min-w-0 flex-1 rounded-xs border border-ring bg-background px-1 py-0 text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent [font:inherit] focus-visible:outline-ring',
         local.class,
       )}
       {...others}

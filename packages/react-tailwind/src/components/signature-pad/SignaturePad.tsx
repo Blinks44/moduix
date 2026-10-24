@@ -13,7 +13,7 @@ import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { CloseButton } from '../close-button';
 
 const rootClassName =
-  'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-disabled';
+  'inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-disabled';
 
 const SignaturePadReadOnlyContext = createContext(false);
 
@@ -82,7 +82,7 @@ const SignaturePadControl = forwardRef<
     <SignaturePadPrimitive.Control
       ref={ref}
       className={cn(
-        'box-border h-40 w-full min-w-0 overflow-hidden rounded-md border border-border bg-background shadow-sm transition-[border-color,box-shadow] duration-normal ease-in-out outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-not-allowed',
+        'h-40 w-full min-w-0 overflow-hidden rounded-md border border-border bg-background shadow-sm transition-[border-color,box-shadow] duration-normal ease-in-out outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring data-disabled:cursor-not-allowed',
         className,
       )}
       {...props}

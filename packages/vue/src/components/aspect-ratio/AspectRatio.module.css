@@ -1,7 +1,6 @@
 @layer moduix.components {
   .root {
     position: relative;
-    box-sizing: border-box;
     display: block;
     width: 100%;
     min-height: 0;

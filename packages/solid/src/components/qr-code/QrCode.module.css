@@ -17,7 +17,6 @@
      so percentages also resolve against the frame. */
   .overlay {
     grid-area: 1 / 1 / 2 / 2;
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -36,7 +35,6 @@
   }
 
   .downloadTrigger {
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;

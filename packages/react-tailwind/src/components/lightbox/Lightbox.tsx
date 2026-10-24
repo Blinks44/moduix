@@ -95,7 +95,7 @@ const LightboxTrigger = forwardRef<
     <DialogPrimitive.Trigger
       ref={ref}
       className={cn(
-        'cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+        'cursor-zoom-in focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring',
         className,
       )}
       {...props}
@@ -132,7 +132,7 @@ const LightboxPositioner = forwardRef<
       <DialogPrimitive.Positioner
         ref={ref}
         className={cn(
-          'fixed inset-0 z-[var(--z-index,var(--moduix-z-popup))] box-border grid place-items-center overflow-auto overscroll-contain p-4',
+          'fixed inset-0 z-[var(--z-index,var(--moduix-z-popup))] grid place-items-center overflow-auto overscroll-contain p-4',
           className,
         )}
         {...props}
@@ -150,7 +150,7 @@ const LightboxContent = forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'group/lightbox relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] box-border grid max-h-[min(80dvh,calc(100dvh-2rem))] w-fit max-w-[min(80vw,calc(100vw-2rem))] gap-3 outline-0 data-[state=closed]:animate-moduix-lightbox-content-out data-[state=open]:animate-moduix-lightbox-content-in motion-reduce:data-[state]:animate-none',
+        'group/lightbox relative z-[calc(var(--moduix-z-popup)+var(--layer-index,0))] grid max-h-[min(80dvh,calc(100dvh-2rem))] w-fit max-w-[min(80vw,calc(100vw-2rem))] gap-3 outline-0 data-[state=closed]:animate-moduix-lightbox-content-out data-[state=open]:animate-moduix-lightbox-content-in motion-reduce:data-[state]:animate-none',
         className,
       )}
       {...props}

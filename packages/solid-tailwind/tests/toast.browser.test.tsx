@@ -33,7 +33,7 @@ test('renders the default toaster content and keeps closable and action behavior
     .element(page.getByRole('button', { name: 'Close toast', exact: true }))
     .toBeVisible();
   expect([...root!.classList]).toEqual(
-    expect.arrayContaining(['box-border', 'grid', 'w-80', 'gap-1', 'rounded-lg', 'bg-card', 'p-4']),
+    expect.arrayContaining(['grid', 'w-80', 'gap-1', 'rounded-lg', 'bg-card', 'p-4']),
   );
   expect([...title!.classList]).toEqual(
     expect.arrayContaining(['m-0', 'text-sm', 'leading-5', 'font-semibold']),

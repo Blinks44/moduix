@@ -17,10 +17,14 @@
   );
   --moduix-badge-border-color: color-mix(in oklab, var(--moduix-color-primary) 35%, transparent);
   --moduix-badge-color: var(--moduix-color-primary);
-  --moduix-badge-dot-size: 0.5rem;
-  --moduix-badge-radius: var(--moduix-radius-sm);
-  --moduix-badge-height: 1.5rem;
-  --moduix-badge-padding-x: var(--moduix-spacing-3);
+  min-height: 1.5rem;
+  border-radius: var(--moduix-radius-sm);
+  padding-inline: var(--moduix-spacing-3);
+
+  & > [data-slot='badge-dot'] {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
 }
 
 .disabledButton {

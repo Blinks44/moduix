@@ -149,10 +149,11 @@ Place a direct child SVG icon next to the label when the metadata needs another 
 
 ## Styling
 
-Start with a built-in variant and size. For a one-off change, set the public `--moduix-badge-*`
-variables on the badge through a class or inline style. To theme one variant across the application,
-set the same variables on `[data-slot='badge-root'][data-variant='<variant>']`. These CSS variables
-apply to the CSS Modules packages; Tailwind packages use native utilities and consumer classes instead.
+Start with a built-in variant and size. The CSS Modules variables override the background, border,
+and text color of every variant; to theme one variant across the application, set them on
+`[data-slot='badge-root'][data-variant='<variant>']`. Size, spacing, typography, radius, and icon and
+dot sizes use foundation tokens; change them with a class on the part. These CSS variables apply to the
+CSS Modules packages; Tailwind packages use native utilities and consumer classes instead.
 
 Use `className` in React or `class` in Solid and Vue on exported parts. The stable `data-slot` hooks and
 Ark data attributes are shared by all styling tracks.
@@ -167,5 +168,5 @@ Ark data attributes are shared by all styling tracks.
 - `Badge` also exposes `data-scope="badge"` and `data-part="root"`. `BadgeLabel` and `BadgeDot` expose `data-part="label"` and `data-part="dot"`.
 - `Badge` writes the selected variant to `data-variant` and the selected size to `data-size`.
 - Focusable hosts rendered through `Badge asChild` receive the root focus-visible styling. Anchor roots also receive the variant hover and pointer-cursor styles; button-specific interaction styles remain application-owned.
-- Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and use `--moduix-badge-icon-size`.
+- Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and are 12px unless a class on the icon sets another size.
 - Badge has no dedicated Ark primitive or behavior machine, so it does not expose Ark-managed states or runtime CSS variables.

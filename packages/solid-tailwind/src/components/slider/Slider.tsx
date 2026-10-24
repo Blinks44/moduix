@@ -115,7 +115,7 @@ function SliderThumb(props: ComponentProps<typeof SliderPrimitive.Thumb>) {
   return (
     <SliderPrimitive.Thumb
       class={cn(
-        'box-border flex size-4 items-center justify-center rounded-full border border-border bg-background shadow-sm outline-0 transition-[border-color,box-shadow] duration-normal ease-in-out focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring data-dragging:border-ring data-dragging:shadow-md data-dragging:ring-1 data-dragging:ring-ring data-invalid:border-destructive data-invalid:focus-visible:ring-destructive',
+        'flex size-4 items-center justify-center rounded-full border border-border bg-background shadow-sm outline-0 transition-[border-color,box-shadow] duration-normal ease-in-out focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring data-dragging:border-ring data-dragging:shadow-md data-dragging:ring-1 data-dragging:ring-ring data-invalid:border-destructive data-invalid:focus-visible:ring-destructive',
         local.class,
       )}
       {...others}

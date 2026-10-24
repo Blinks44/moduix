@@ -18,7 +18,7 @@ const Collapsible = forwardRef<
   return (
     <CollapsiblePrimitive.Root
       ref={ref}
-      className={cn('box-border flex w-full min-w-0 flex-col text-foreground', className)}
+      className={cn('flex w-full min-w-0 flex-col text-foreground', className)}
       {...props}
       data-slot="collapsible-root"
     />
@@ -32,7 +32,7 @@ const CollapsibleRootProvider = forwardRef<
   return (
     <CollapsiblePrimitive.RootProvider
       ref={ref}
-      className={cn('box-border flex w-full min-w-0 flex-col text-foreground', className)}
+      className={cn('flex w-full min-w-0 flex-col text-foreground', className)}
       {...props}
       data-slot="collapsible-root-provider"
     />
@@ -49,7 +49,7 @@ const CollapsibleTrigger = forwardRef<
       asChild={asChild}
       className={cn(
         !asChild &&
-          'box-border flex w-full cursor-pointer items-center justify-between gap-2 bg-transparent px-0 py-1 text-start text-sm outline-0 select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled data-disabled:cursor-default data-disabled:opacity-disabled',
+          'flex w-full cursor-pointer items-center justify-between gap-2 bg-transparent px-0 py-1 text-start text-sm outline-0 select-none focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled data-disabled:cursor-default data-disabled:opacity-disabled',
         className,
       )}
       {...props}
@@ -85,7 +85,7 @@ const CollapsibleContent = forwardRef<
     <CollapsiblePrimitive.Content
       ref={ref}
       className={cn(
-        'box-border overflow-hidden text-sm text-muted-foreground data-[state=closed]:animate-moduix-collapsible-closed data-[has-collapsed-size]:data-[state=closed]:animate-moduix-collapsible-closed-partial data-[state=open]:animate-moduix-collapsible-open data-[has-collapsed-size]:data-[state=open]:animate-moduix-collapsible-open-partial motion-reduce:data-[state]:animate-none motion-reduce:data-[has-collapsed-size]:data-[state]:animate-none',
+        'overflow-hidden text-sm text-muted-foreground data-[state=closed]:animate-moduix-collapsible-closed data-[has-collapsed-size]:data-[state=closed]:animate-moduix-collapsible-closed-partial data-[state=open]:animate-moduix-collapsible-open data-[has-collapsed-size]:data-[state=open]:animate-moduix-collapsible-open-partial motion-reduce:data-[state]:animate-none motion-reduce:data-[has-collapsed-size]:data-[state]:animate-none',
         className,
       )}
       {...props}

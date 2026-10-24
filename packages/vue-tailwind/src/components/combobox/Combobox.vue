@@ -44,9 +44,7 @@ provide(OverlayPortalContextKey, {
 <template>
   <ArkComboboxRoot
     v-bind="attrs"
-    :class="
-      cn('box-border flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground', className)
-    "
+    :class="cn('flex w-64 max-w-full min-w-0 flex-col gap-1.5 text-foreground', className)"
     :lazy-mount="lazyMount"
     :unmount-on-exit="unmountOnExit"
     data-slot="combobox-root"

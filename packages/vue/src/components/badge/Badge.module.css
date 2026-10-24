@@ -1,31 +1,23 @@
 @layer moduix.components {
   .root {
-    --_badge-height: 1.25rem;
-    --_badge-padding-x: var(--moduix-spacing-2-5);
-    --_badge-font-size: var(--moduix-text-xs);
-    --_badge-line-height: var(--moduix-line-height-text-xs);
-
     display: inline-flex;
     width: fit-content;
     max-width: 100%;
     min-width: 0;
-    box-sizing: border-box;
     align-items: center;
     justify-content: center;
-    gap: var(--moduix-badge-gap, var(--moduix-spacing-1-5));
+    gap: var(--moduix-spacing-1-5);
     overflow: hidden;
-    border: var(--moduix-badge-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-badge-border-color, transparent);
-    border-radius: var(--moduix-badge-radius, var(--moduix-radius-full));
-    padding-block: var(--moduix-badge-padding-y, 0);
-    padding-inline: var(--moduix-badge-padding-x, var(--_badge-padding-x));
+    border: var(--moduix-border-width-sm) solid var(--moduix-badge-border-color, transparent);
+    border-radius: var(--moduix-radius-full);
+    padding-inline: var(--moduix-spacing-2-5);
     background-color: var(--moduix-badge-bg, var(--moduix-color-primary));
     color: var(--moduix-badge-color, var(--moduix-color-primary-foreground));
-    font-size: var(--moduix-badge-font-size, var(--_badge-font-size));
-    font-weight: var(--moduix-badge-font-weight, var(--moduix-weight-medium));
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-medium);
     font-variant-numeric: tabular-nums;
-    line-height: var(--moduix-badge-line-height, var(--_badge-line-height));
-    min-height: var(--moduix-badge-height, var(--_badge-height));
+    line-height: var(--moduix-line-height-text-xs);
+    min-height: 1.25rem;
     user-select: none;
     white-space: nowrap;
     text-decoration: none;
@@ -37,8 +29,7 @@
       opacity var(--moduix-transition-default);
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width, var(--moduix-border-width-md)) solid
-        var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
       outline-offset: var(--moduix-focus-ring-offset);
     }
 
@@ -70,24 +61,24 @@
     }
 
     & > svg {
-      width: var(--moduix-badge-icon-size, var(--moduix-spacing-3));
-      height: var(--moduix-badge-icon-size, var(--moduix-spacing-3));
+      width: var(--moduix-spacing-3);
+      height: var(--moduix-spacing-3);
       flex-shrink: 0;
       pointer-events: none;
     }
 
     &[data-size='sm'] {
-      --_badge-height: 1rem;
-      --_badge-padding-x: var(--moduix-spacing-2);
-      --_badge-font-size: 0.625rem;
-      --_badge-line-height: 0.875rem;
+      min-height: 1rem;
+      padding-inline: var(--moduix-spacing-2);
+      font-size: 0.625rem;
+      line-height: 0.875rem;
     }
 
     &[data-size='lg'] {
-      --_badge-height: 1.5rem;
-      --_badge-padding-x: var(--moduix-spacing-3);
-      --_badge-font-size: var(--moduix-text-sm);
-      --_badge-line-height: var(--moduix-line-height-text-sm);
+      min-height: 1.5rem;
+      padding-inline: var(--moduix-spacing-3);
+      font-size: var(--moduix-text-sm);
+      line-height: var(--moduix-line-height-text-sm);
     }
 
     &[data-variant='secondary'] {
@@ -111,6 +102,7 @@
       color: var(--moduix-badge-color, var(--moduix-color-foreground));
     }
 
+    /* Placed after the sizes so the link keeps its own height and padding at every size. */
     &[data-variant='link'] {
       min-height: auto;
       border-radius: 0;
@@ -126,8 +118,8 @@
   }
 
   .dot {
-    width: var(--moduix-badge-dot-size, var(--moduix-spacing-1-5));
-    height: var(--moduix-badge-dot-size, var(--moduix-spacing-1-5));
+    width: var(--moduix-spacing-1-5);
+    height: var(--moduix-spacing-1-5);
     flex-shrink: 0;
     border-radius: 50%;
     background-color: currentColor;

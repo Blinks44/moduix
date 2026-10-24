@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
@@ -44,7 +43,6 @@
   }
 
   .area {
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     min-width: 0;
@@ -80,7 +78,6 @@
 
   .input,
   .preview {
-    box-sizing: border-box;
     width: 100%;
     min-width: 0;
     margin: 0;
@@ -126,7 +123,6 @@
   }
 
   .trigger {
-    box-sizing: border-box;
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;

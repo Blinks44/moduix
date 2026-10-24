@@ -2,7 +2,6 @@
   .root {
     --_listbox-gap: var(--moduix-spacing-3);
 
-    box-sizing: border-box;
     display: flex;
     width: var(--moduix-listbox-width, 16rem);
     max-width: 100%;
@@ -39,7 +38,6 @@
   }
 
   .input {
-    box-sizing: border-box;
     width: 100%;
     min-height: var(--moduix-size-md);
     margin: 0;
@@ -73,7 +71,6 @@
   }
 
   .filter {
-    box-sizing: border-box;
     position: relative;
     width: 100%;
   }
@@ -139,7 +136,6 @@
   }
 
   .content {
-    box-sizing: border-box;
     display: flex;
     min-height: 0;
     max-height: var(--moduix-listbox-content-max-height, 14rem);
@@ -209,7 +205,6 @@
 
   /* The second column reserves indicator space, so selecting an item does not shift its text. */
   .item {
-    box-sizing: border-box;
     display: grid;
     min-height: var(--moduix-popup-item-min-height, var(--moduix-size-sm));
     grid-template-columns: minmax(0, 1fr) var(--moduix-spacing-4);

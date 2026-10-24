@@ -3,7 +3,6 @@
     --_toast-bg: var(--moduix-color-card);
     --_toast-border-color: var(--moduix-color-border);
     --_toast-color: var(--moduix-color-card-foreground);
-    box-sizing: border-box;
     display: grid;
     width: 20rem;
     max-width: calc(100vw - var(--moduix-spacing-4) * 2);

@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     margin: 0;
 
     &[data-inline='xs'] {

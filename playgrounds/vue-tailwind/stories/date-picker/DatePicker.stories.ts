@@ -45,7 +45,7 @@ const styles = {
   hint: 'text-sm text-muted-foreground',
   presets: 'mb-3 flex flex-wrap gap-2',
   selectedDates:
-    'box-border flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background py-1 ps-3.5 pe-17',
+    'flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background py-1 ps-3.5 pe-17',
   selectedDatesPlaceholder: 'text-sm text-muted-foreground',
   selectedDate:
     'inline-flex min-w-0 items-center gap-1 rounded-sm bg-muted px-1.5 py-0.5 text-sm leading-5 text-foreground',

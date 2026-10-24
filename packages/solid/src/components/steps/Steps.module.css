@@ -108,7 +108,6 @@
   }
 
   .indicator {
-    box-sizing: border-box;
     display: inline-flex;
     width: var(--moduix-steps-indicator-size, var(--moduix-spacing-8));
     height: var(--moduix-steps-indicator-size, var(--moduix-spacing-8));
@@ -178,7 +177,6 @@
 
   .content,
   .completedContent {
-    box-sizing: border-box;
     display: grid;
     min-width: 0;
     min-height: 10rem;
@@ -212,7 +210,6 @@
 
   .prevTrigger,
   .nextTrigger {
-    box-sizing: border-box;
     display: inline-flex;
     min-height: var(--moduix-size-sm);
     align-items: center;

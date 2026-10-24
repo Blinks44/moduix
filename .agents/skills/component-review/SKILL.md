@@ -134,7 +134,7 @@ record the group in the report.
 
 Before fixing a "drift" finding, check whether the library does the same thing everywhere
 (`grep -rho '<utility>' packages/<adapter>/src/components | sort | uniq -c`). A pattern used in
-dozens of components (Tailwind `focus-visible:outline-2`, Tailwind packages without `a11yLabels`) is a
+dozens of components (Tailwind `focus-visible:outline-focus`, Tailwind packages without `a11yLabels`) is a
 library-wide convention: do not change it in one component; list it under "Library-wide". When
 fixing a real drift, copy the library's existing pattern (for example
 `[@media(hover:hover)]:[&:not([data-disabled]):hover]:` in Tailwind) instead of inventing one.

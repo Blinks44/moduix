@@ -69,7 +69,6 @@
   }
 
   .inlineInput {
-    box-sizing: border-box;
     width: 100%;
     height: var(--moduix-size-md);
     border: var(--moduix-border-width-sm) solid var(--moduix-color-border);

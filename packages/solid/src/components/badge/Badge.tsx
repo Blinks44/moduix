@@ -13,20 +13,6 @@ type BadgeRootProps = HTMLArkProps<'span'> & {
   size?: BadgeSize;
 };
 
-function BadgeLabel(props: HTMLArkProps<'span'>) {
-  const [local, others] = splitProps(props, ['class']);
-
-  return (
-    <ark.span
-      {...others}
-      data-scope="badge"
-      data-part="label"
-      data-slot="badge-label"
-      class={clsx(styles.label, local.class)}
-    />
-  );
-}
-
 function Badge(props: BadgeRootProps) {
   const [local, others] = splitProps(props, ['class', 'size', 'variant']);
 
@@ -39,6 +25,20 @@ function Badge(props: BadgeRootProps) {
       data-size={local.size ?? 'md'}
       data-variant={local.variant ?? 'default'}
       class={clsx(styles.root, local.class)}
+    />
+  );
+}
+
+function BadgeLabel(props: HTMLArkProps<'span'>) {
+  const [local, others] = splitProps(props, ['class']);
+
+  return (
+    <ark.span
+      {...others}
+      data-scope="badge"
+      data-part="label"
+      data-slot="badge-label"
+      class={clsx(styles.label, local.class)}
     />
   );
 }

@@ -13,21 +13,6 @@ type BadgeRootProps = HTMLArkProps<'span'> & {
   size?: BadgeSize;
 };
 
-const BadgeLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function BadgeLabel({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        {...props}
-        data-scope="badge"
-        data-part="label"
-        data-slot="badge-label"
-        className={clsx(styles.label, className)}
-      />
-    );
-  },
-);
-
 const Badge = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function Badge(
   { className, size = 'md', variant = 'default', ...props },
   ref,
@@ -45,6 +30,21 @@ const Badge = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function
     />
   );
 });
+
+const BadgeLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function BadgeLabel({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        {...props}
+        data-scope="badge"
+        data-part="label"
+        data-slot="badge-label"
+        className={clsx(styles.label, className)}
+      />
+    );
+  },
+);
 
 const BadgeDot = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(function BadgeDot(
   { className, ...props },

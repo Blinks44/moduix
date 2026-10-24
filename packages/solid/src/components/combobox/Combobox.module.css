@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: flex;
     width: var(--moduix-combobox-width, 16rem);
     max-width: 100%;
@@ -58,7 +57,6 @@
   }
 
   .input {
-    box-sizing: border-box;
     width: 100%;
     min-width: 0;
     height: var(--moduix-combobox-control-height, var(--moduix-size-md));
@@ -105,7 +103,6 @@
   }
 
   .trigger {
-    box-sizing: border-box;
     display: inline-flex;
     width: var(--_combobox-action-size);
     height: var(--_combobox-action-size);
@@ -159,7 +156,6 @@
   }
 
   .content {
-    box-sizing: border-box;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     display: flex;
     min-width: var(--reference-width);
@@ -234,7 +230,6 @@
   }
 
   .item {
-    box-sizing: border-box;
     position: relative;
     display: flex;
     min-height: var(--moduix-popup-item-min-height, var(--moduix-size-sm));

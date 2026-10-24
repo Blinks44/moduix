@@ -87,7 +87,7 @@ const StepsTrigger = forwardRef<
     <StepsPrimitive.Trigger
       ref={ref}
       className={cn(
-        'group/steps-trigger relative z-1 inline-flex min-w-0 cursor-pointer items-center gap-3 rounded-md border-0 bg-transparent p-0 text-start text-inherit no-underline outline-none select-none [font:inherit] focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring data-[orientation=vertical]:items-start',
+        'group/steps-trigger relative z-1 inline-flex min-w-0 cursor-pointer items-center gap-3 rounded-md border-0 bg-transparent p-0 text-start text-inherit no-underline outline-none select-none [font:inherit] focus-visible:outline-focus-inset focus-visible:outline-offset-focus focus-visible:outline-ring data-[orientation=vertical]:items-start',
         className,
       )}
       {...props}
@@ -106,7 +106,7 @@ const StepsIndicator = forwardRef<
     <StepsPrimitive.Indicator
       ref={ref}
       className={cn(
-        'box-border inline-flex size-8 flex-none items-center justify-center rounded-full border border-border bg-background text-sm leading-none font-semibold text-muted-foreground transition-[background-color,border-color,color] duration-normal ease-in-out data-complete:border-foreground data-complete:bg-foreground data-complete:text-background data-current:border-foreground data-current:text-foreground [&_svg]:size-3.5 [@media(hover:hover)]:group-hover/steps-trigger:data-incomplete:border-foreground [@media(hover:hover)]:group-hover/steps-trigger:data-incomplete:text-foreground',
+        'inline-flex size-8 flex-none items-center justify-center rounded-full border border-border bg-background text-sm leading-none font-semibold text-muted-foreground transition-[background-color,border-color,color] duration-normal ease-in-out data-complete:border-foreground data-complete:bg-foreground data-complete:text-background data-current:border-foreground data-current:text-foreground [&_svg]:size-3.5 [@media(hover:hover)]:group-hover/steps-trigger:data-incomplete:border-foreground [@media(hover:hover)]:group-hover/steps-trigger:data-incomplete:text-foreground',
         className,
       )}
       {...props}
@@ -142,7 +142,7 @@ const StepsContent = forwardRef<
     <StepsPrimitive.Content
       ref={ref}
       className={cn(
-        'box-border grid min-h-40 min-w-0 place-items-center rounded-md bg-muted p-4 text-sm leading-5 text-foreground outline-none focus-visible:outline-1 focus-visible:-outline-offset-2 focus-visible:outline-ring data-[orientation=vertical]:flex-auto [&[hidden]]:hidden',
+        'grid min-h-40 min-w-0 place-items-center rounded-md bg-muted p-4 text-sm leading-5 text-foreground outline-none focus-visible:outline-focus-inset focus-visible:-outline-offset-focus focus-visible:outline-ring data-[orientation=vertical]:flex-auto [&[hidden]]:hidden',
         className,
       )}
       {...props}
@@ -159,7 +159,7 @@ const StepsCompletedContent = forwardRef<
     <StepsPrimitive.CompletedContent
       ref={ref}
       className={cn(
-        'box-border grid min-h-40 min-w-0 place-items-center rounded-md bg-muted p-4 text-center text-sm leading-5 font-medium text-foreground outline-none focus-visible:outline-1 focus-visible:-outline-offset-2 focus-visible:outline-ring data-[orientation=vertical]:flex-auto [&[hidden]]:hidden',
+        'grid min-h-40 min-w-0 place-items-center rounded-md bg-muted p-4 text-center text-sm leading-5 font-medium text-foreground outline-none focus-visible:outline-focus-inset focus-visible:-outline-offset-focus focus-visible:outline-ring data-[orientation=vertical]:flex-auto [&[hidden]]:hidden',
         className,
       )}
       {...props}
@@ -176,7 +176,7 @@ const StepsPrevTrigger = forwardRef<
     <StepsPrimitive.PrevTrigger
       ref={ref}
       className={cn(
-        'box-border inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 text-foreground transition-[background-color,border-color,color,opacity] duration-normal ease-in-out outline-none focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent',
+        'inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-sm leading-5 text-foreground transition-[background-color,border-color,color,opacity] duration-normal ease-in-out outline-none focus-visible:outline-focus-inset focus-visible:outline-offset-focus focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled [@media(hover:hover)]:[&:not(:disabled):hover]:bg-accent',
         className,
       )}
       {...props}
@@ -193,7 +193,7 @@ const StepsNextTrigger = forwardRef<
     <StepsPrimitive.NextTrigger
       ref={ref}
       className={cn(
-        'box-border inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-foreground bg-foreground px-3 py-1.5 text-sm leading-5 text-background transition-[background-color,border-color,color,opacity] duration-normal ease-in-out outline-none focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled [@media(hover:hover)]:[&:not(:disabled):hover]:border-[color-mix(in_srgb,var(--color-foreground)_88%,black)] [@media(hover:hover)]:[&:not(:disabled):hover]:bg-[color-mix(in_srgb,var(--color-foreground)_88%,black)]',
+        'inline-flex min-h-control-sm cursor-pointer items-center justify-center gap-2 rounded-md border border-foreground bg-foreground px-3 py-1.5 text-sm leading-5 text-background transition-[background-color,border-color,color,opacity] duration-normal ease-in-out outline-none focus-visible:outline-focus-inset focus-visible:outline-offset-focus focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled [@media(hover:hover)]:[&:not(:disabled):hover]:border-[color-mix(in_srgb,var(--color-foreground)_88%,black)] [@media(hover:hover)]:[&:not(:disabled):hover]:bg-[color-mix(in_srgb,var(--color-foreground)_88%,black)]',
         className,
       )}
       {...props}

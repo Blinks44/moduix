@@ -156,7 +156,6 @@
 .previewSurface {
   position: relative;
   width: min(100%, 21rem);
-  box-sizing: border-box;
   border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 82%, transparent);
   border-radius: 1rem;
   background: color-mix(in oklab, var(--rp-c-bg) 88%, transparent);
@@ -400,7 +399,6 @@
   display: grid;
   width: 8.5rem;
   height: 10rem;
-  box-sizing: border-box;
   place-items: center;
   border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 80%, transparent);
   border-radius: 1rem;

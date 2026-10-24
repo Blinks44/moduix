@@ -19,7 +19,7 @@ const Splitter = forwardRef<
     <SplitterPrimitive.Root
       ref={ref}
       className={cn(
-        'box-border h-full w-full rounded-md border border-border bg-card text-card-foreground shadow-sm',
+        'h-full w-full rounded-md border border-border bg-card text-card-foreground shadow-sm',
         className,
       )}
       style={{ width: undefined, height: undefined, ...style }}
@@ -37,7 +37,7 @@ const SplitterRootProvider = forwardRef<
     <SplitterPrimitive.RootProvider
       ref={ref}
       className={cn(
-        'box-border h-full w-full rounded-md border border-border bg-card text-card-foreground shadow-sm',
+        'h-full w-full rounded-md border border-border bg-card text-card-foreground shadow-sm',
         className,
       )}
       style={{ width: undefined, height: undefined, ...style }}
@@ -54,7 +54,7 @@ const SplitterPanel = forwardRef<
   return (
     <SplitterPrimitive.Panel
       ref={ref}
-      className={cn('box-border p-4 data-dragging:select-none', className)}
+      className={cn('p-4 data-dragging:select-none', className)}
       {...props}
       data-slot="splitter-panel"
     />
@@ -69,7 +69,7 @@ const SplitterResizeTriggerIndicator = forwardRef<
     <SplitterPrimitive.ResizeTriggerIndicator
       ref={ref}
       className={cn(
-        'pointer-events-none absolute box-border h-control-xs w-1.5 rounded-full border border-border bg-background shadow-sm transition-[border-color,box-shadow,scale] duration-normal ease-in-out group-hover/trigger:border-muted-foreground/40 group-hover/trigger:shadow-md group-[:focus-visible:not([data-dragging])]/trigger:outline-2 group-[:focus-visible:not([data-dragging])]/trigger:outline-offset-1 group-[:focus-visible:not([data-dragging])]/trigger:outline-ring data-disabled:invisible data-dragging:scale-[1.08] data-dragging:shadow-md data-[orientation=vertical]:h-1.5 data-[orientation=vertical]:w-control-xs',
+        'pointer-events-none absolute h-control-xs w-1.5 rounded-full border border-border bg-background shadow-sm transition-[border-color,box-shadow,scale] duration-normal ease-in-out group-hover/trigger:border-muted-foreground/40 group-hover/trigger:shadow-md group-[:focus-visible:not([data-dragging])]/trigger:outline-focus group-[:focus-visible:not([data-dragging])]/trigger:outline-offset-1 group-[:focus-visible:not([data-dragging])]/trigger:outline-ring data-disabled:invisible data-dragging:scale-[1.08] data-dragging:shadow-md data-[orientation=vertical]:h-1.5 data-[orientation=vertical]:w-control-xs',
         className,
       )}
       {...props}
@@ -88,7 +88,7 @@ const SplitterResizeTrigger = forwardRef<
       asChild={asChild}
       type={asChild ? undefined : 'button'}
       className={cn(
-        "group/trigger relative z-1 box-border flex w-px appearance-none items-center justify-center border-0 bg-transparent p-0 outline-0 before:absolute before:h-full before:w-[0.5px] before:bg-border before:transition-[background-color] before:duration-normal before:ease-in-out before:content-[''] after:absolute after:h-full after:w-2.5 after:content-[''] hover:before:bg-muted-foreground/40 data-disabled:opacity-disabled data-dragging:before:bg-muted-foreground/40 data-[orientation=vertical]:h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:before:h-[0.5px] data-[orientation=vertical]:before:w-full data-[orientation=vertical]:after:h-2.5 data-[orientation=vertical]:after:w-full [&:focus-visible:not([data-dragging]):not(:has([data-slot=splitter-resize-trigger-indicator]))]:after:outline-2 [&:focus-visible:not([data-dragging]):not(:has([data-slot=splitter-resize-trigger-indicator]))]:after:outline-offset-1 [&:focus-visible:not([data-dragging]):not(:has([data-slot=splitter-resize-trigger-indicator]))]:after:outline-ring",
+        "group/trigger relative z-1 flex w-px appearance-none items-center justify-center border-0 bg-transparent p-0 outline-0 before:absolute before:h-full before:w-[0.5px] before:bg-border before:transition-[background-color] before:duration-normal before:ease-in-out before:content-[''] after:absolute after:h-full after:w-2.5 after:content-[''] hover:before:bg-muted-foreground/40 data-disabled:opacity-disabled data-dragging:before:bg-muted-foreground/40 data-[orientation=vertical]:h-px data-[orientation=vertical]:w-full data-[orientation=vertical]:before:h-[0.5px] data-[orientation=vertical]:before:w-full data-[orientation=vertical]:after:h-2.5 data-[orientation=vertical]:after:w-full [&:focus-visible:not([data-dragging]):not(:has([data-slot=splitter-resize-trigger-indicator]))]:after:outline-focus [&:focus-visible:not([data-dragging]):not(:has([data-slot=splitter-resize-trigger-indicator]))]:after:outline-offset-1 [&:focus-visible:not([data-dragging]):not(:has([data-slot=splitter-resize-trigger-indicator]))]:after:outline-ring",
         className,
       )}
       {...props}

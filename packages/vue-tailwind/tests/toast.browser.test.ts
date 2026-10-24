@@ -259,7 +259,7 @@ test('renders default content and keeps closable and action behavior', async () 
     Boolean(screen.getByRole('button', { name: 'Close toast' }).querySelector('svg')?.isConnected),
   ).toBe(true);
   expect([...root!.classList]).toEqual(
-    expect.arrayContaining(['box-border', 'grid', 'w-80', 'gap-1', 'rounded-lg', 'bg-card', 'p-4']),
+    expect.arrayContaining(['grid', 'w-80', 'gap-1', 'rounded-lg', 'bg-card', 'p-4']),
   );
   expect([...title!.classList]).toEqual(
     expect.arrayContaining(['m-0', 'text-sm', 'leading-5', 'font-semibold']),

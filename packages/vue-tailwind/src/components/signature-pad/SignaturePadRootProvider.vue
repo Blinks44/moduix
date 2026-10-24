@@ -27,7 +27,7 @@ provide(signaturePadReadOnlyKey, resolvedReadOnly);
     v-bind="attrs"
     :class="
       cn(
-        'box-border inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-disabled',
+        'inline-flex w-70 max-w-full flex-col gap-2 text-foreground data-disabled:opacity-disabled',
         className,
       )
     "

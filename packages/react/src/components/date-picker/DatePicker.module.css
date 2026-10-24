@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: inline-flex;
     width: var(--moduix-date-picker-width, 18.75rem);
     max-width: 100%;
@@ -46,7 +45,6 @@
   }
 
   .input {
-    box-sizing: border-box;
     flex: 1 1 0;
     width: 100%;
     min-width: min(7.5rem, 100%);
@@ -95,7 +93,6 @@
   .navTrigger,
   .viewTrigger,
   .presetTrigger {
-    box-sizing: border-box;
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
@@ -178,7 +175,6 @@
   }
 
   .content {
-    box-sizing: border-box;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     width: var(--moduix-date-picker-content-width, 20rem);
     max-width: min(100vw - 2rem, var(--available-width, 100%));
@@ -282,7 +278,6 @@
   }
 
   .tableCellTrigger {
-    box-sizing: border-box;
     display: inline-flex;
     width: 100%;
     min-width: var(--moduix-date-picker-table-cell-size, var(--moduix-size-sm));
@@ -350,7 +345,6 @@
   }
 
   .select {
-    box-sizing: border-box;
     width: 100%;
     min-width: 0;
     height: var(--moduix-size-sm);

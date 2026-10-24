@@ -1,6 +1,5 @@
 @layer moduix.components {
   .scrollArea {
-    box-sizing: border-box;
     position: relative;
     width: 100%;
     min-width: 0;

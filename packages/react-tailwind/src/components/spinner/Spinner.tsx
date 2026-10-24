@@ -71,7 +71,7 @@ const Spinner = forwardRef<HTMLSpanElement, SpinnerRootProps>(function Spinner(
               data-scope="spinner"
               data-part="ring"
               data-slot="spinner-ring"
-              className="box-border block size-full rounded-full border-2 border-solid border-current/[22%] [border-block-start-color:currentColor]"
+              className="block size-full rounded-full border-2 border-solid border-current/[22%] [border-block-start-color:currentColor]"
             />
           )}
         </span>

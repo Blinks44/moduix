@@ -4,7 +4,6 @@
     --_alert-border-color: var(--moduix-color-border);
     --_alert-color: var(--moduix-color-card-foreground);
     --_alert-indicator-color: var(--moduix-color-muted-foreground);
-    box-sizing: border-box;
     display: flex;
     align-items: start;
     width: 100%;

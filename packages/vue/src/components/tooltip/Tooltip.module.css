@@ -1,6 +1,5 @@
 @layer moduix.components {
   .trigger {
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -62,7 +61,6 @@
 
   .content {
     position: relative;
-    box-sizing: border-box;
     max-width: min(20rem, var(--available-width));
     overflow-wrap: anywhere;
     padding: var(--moduix-spacing-1) var(--moduix-spacing-2);

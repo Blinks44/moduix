@@ -18,7 +18,7 @@ defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 
 const groupActionClass =
-  "me-2 inline-flex size-control-xs flex-none cursor-pointer items-center justify-center rounded-md p-0 text-muted-foreground outline-0 transition-colors duration-normal ease-in-out hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sidebar-ring @max-[7rem]:hidden [&>svg:not([class*='size-'])]:size-4";
+  "me-2 inline-flex size-control-xs flex-none cursor-pointer items-center justify-center rounded-md p-0 text-muted-foreground outline-0 transition-colors duration-normal ease-in-out hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-sidebar-ring @max-[7rem]:hidden [&>svg:not([class*='size-'])]:size-4";
 </script>
 
 <template>

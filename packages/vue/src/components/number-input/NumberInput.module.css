@@ -87,7 +87,6 @@
   .decrementTrigger,
   .input,
   .incrementTrigger {
-    box-sizing: border-box;
     height: var(--moduix-number-input-control-height, var(--_number-input-height));
     margin: 0;
     border: var(--moduix-border-width-sm) solid var(--moduix-color-border);

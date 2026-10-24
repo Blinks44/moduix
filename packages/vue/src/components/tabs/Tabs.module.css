@@ -5,7 +5,6 @@
     --_tabs-font-size: var(--moduix-text-sm);
     --_tabs-line-height: var(--moduix-line-height-text-sm);
 
-    box-sizing: border-box;
     display: flex;
     inline-size: 100%;
     min-width: 0;
@@ -31,7 +30,6 @@
   }
 
   .list {
-    box-sizing: border-box;
     position: relative;
     isolation: isolate;
     display: inline-flex;
@@ -76,7 +74,6 @@
   }
 
   .trigger {
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -167,7 +164,6 @@
   }
 
   .content {
-    box-sizing: border-box;
     flex: 1;
     min-width: 0;
     border: var(--moduix-border-width-sm) solid

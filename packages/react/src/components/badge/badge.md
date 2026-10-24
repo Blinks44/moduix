@@ -29,8 +29,8 @@ Ark UI has no dedicated Badge primitive. Moduix uses the
 - Keep Badge presentational: it owns no state, disabled model, or button behavior.
 - Preserve semantic root composition through Ark factory `asChild`.
 - Use `BadgeLabel` explicitly when a constrained composed label must ellipsize.
-- Direct child SVG icons are the one normalized child contract: they use the public icon-size
-  variable, do not shrink, and do not receive pointer events.
+- Direct child SVG icons are the one normalized child contract: they are 12px unless a class on the
+  icon sets another size, do not shrink, and do not receive pointer events.
 
 ## Styling and accessibility
 
@@ -39,13 +39,14 @@ cursor and variant hover treatment; hover applies only under `@media (hover: hov
 custom interactive roles retain their native semantics, while their hover, disabled, and
 action-specific presentation remains consumer-owned.
 
-CSS Modules expose 14 `--moduix-badge-*` variables listed in
-`packages/foundation/src/styles/variables-moduix.css`. There are no per-variant variables: `bg`,
-`color`, and `border-color` override any variant, and a variant is themed app-wide by setting them on
-`[data-slot='badge-root'][data-variant='<variant>']`. Size values live in private `--_badge-*`
-properties; `height`, `padding-x`, `font-size`, and `line-height` override them. Focus ring,
-transition, and hover use foundation tokens directly. Tailwind variants use utilities and consumer
-class overrides instead.
+CSS Modules expose 3 `--moduix-badge-*` variables listed in
+`packages/foundation/src/styles/variables-moduix.css`: `bg`, `border-color`, and `color` override any
+variant, including the anchor hover colors, and a variant is themed app-wide by setting them on
+`[data-slot='badge-root'][data-variant='<variant>']`. Size, spacing, typography, radius, icon and dot
+size, focus ring, transition, and hover use foundation tokens directly; a consumer class on the part
+overrides them because component styles live in the `moduix.components` layer. The filled-variant
+anchor hover reads `--moduix-opacity-hover`, exposed to Tailwind as `opacity-hover`. Tailwind variants
+use utilities and consumer class overrides instead.
 
 ## Differences from upstream
 

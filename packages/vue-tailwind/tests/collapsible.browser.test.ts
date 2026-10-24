@@ -198,9 +198,7 @@ test('preserves Vue refs, anatomy, attrs, and Tailwind hooks', async () => {
   expect(content?.getAttribute('data-slot')).toBe('collapsible-content');
   expect(bodyRef.value?.$el).toBe(body);
   expect([...body!.classList]).toEqual(expect.arrayContaining(['grid', 'min-w-0', 'gap-2']));
-  expect([...content!.classList]).toEqual(
-    expect.arrayContaining(['box-border', 'overflow-hidden', 'text-sm']),
-  );
+  expect([...content!.classList]).toEqual(expect.arrayContaining(['overflow-hidden', 'text-sm']));
 });
 
 test('keeps provider and descendant context composition connected', async () => {
@@ -293,7 +291,7 @@ test('exposes component-owned Tailwind defaults on every visual part', () => {
   const body = root.querySelector('[data-slot="collapsible-body"]');
 
   expect([...root!.classList]).toEqual(
-    expect.arrayContaining(['box-border', 'flex', 'w-full', 'min-w-0', 'flex-col']),
+    expect.arrayContaining(['flex', 'w-full', 'min-w-0', 'flex-col']),
   );
   expect([...trigger!.classList]).toEqual(
     expect.arrayContaining([
@@ -310,7 +308,7 @@ test('exposes component-owned Tailwind defaults on every visual part', () => {
     expect.arrayContaining(['inline-flex', 'size-3', 'shrink-0', 'transition-transform']),
   );
   expect([...content!.classList]).toEqual(
-    expect.arrayContaining(['box-border', 'overflow-hidden', 'text-sm', 'text-muted-foreground']),
+    expect.arrayContaining(['overflow-hidden', 'text-sm', 'text-muted-foreground']),
   );
   expect([...body!.classList]).toEqual(expect.arrayContaining(['grid', 'min-w-0', 'gap-2']));
 });

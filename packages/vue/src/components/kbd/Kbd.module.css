@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: inline-flex;
     flex: none;
     min-width: var(--moduix-kbd-height, var(--moduix-size-xs));

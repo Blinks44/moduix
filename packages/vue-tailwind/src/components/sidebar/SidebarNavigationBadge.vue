@@ -17,7 +17,7 @@ defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 
 const menuBadgeClass =
-  'pointer-events-none absolute end-2.5 top-1/2 z-1 box-border inline-grid size-5 -translate-y-1/2 place-items-center rounded-full bg-primary text-[0.5625rem] leading-none font-medium text-primary-foreground tabular-nums @max-[7rem]:hidden';
+  'pointer-events-none absolute end-2.5 top-1/2 z-1 inline-grid size-5 -translate-y-1/2 place-items-center rounded-full bg-primary text-[0.5625rem] leading-none font-medium text-primary-foreground tabular-nums @max-[7rem]:hidden';
 </script>
 
 <template>

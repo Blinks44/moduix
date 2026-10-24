@@ -100,7 +100,6 @@
 
   .content {
     --_tour-width: 20rem;
-    box-sizing: border-box;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -201,7 +200,6 @@
 
   .actionTrigger {
     --_tour-action-bg-hover: var(--moduix-color-accent);
-    box-sizing: border-box;
     display: inline-flex;
     min-height: var(--moduix-size-sm);
     align-items: center;

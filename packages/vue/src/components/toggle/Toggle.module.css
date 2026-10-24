@@ -7,7 +7,6 @@
     --_toggle-color-pressed: var(--moduix-color-primary-foreground);
     --_toggle-height: var(--moduix-size-md);
 
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;

@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: flex;
     width: var(--moduix-color-picker-width, 16rem);
     max-width: 100%;
@@ -45,7 +44,6 @@
   .formatSelect,
   .eyeDropperTrigger,
   .formatTrigger {
-    box-sizing: border-box;
     margin: 0;
     border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
     border-radius: var(--moduix-color-picker-radius, var(--moduix-radius-md));
@@ -97,7 +95,6 @@
   }
 
   .content {
-    box-sizing: border-box;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     display: flex;
     width: var(--moduix-color-picker-content-width, 16rem);
@@ -136,7 +133,6 @@
   }
 
   .area {
-    box-sizing: border-box;
     width: 100%;
     height: var(--moduix-color-picker-area-height, 10rem);
     overflow: hidden;
@@ -154,7 +150,6 @@
 
   /* Ark positions both thumbs by their top-left corner and paints them with the current color. */
   .thumb {
-    box-sizing: border-box;
     width: var(--moduix-color-picker-thumb-size, var(--moduix-spacing-4));
     height: var(--moduix-color-picker-thumb-size, var(--moduix-spacing-4));
     border-radius: var(--moduix-radius-full);
@@ -172,7 +167,6 @@
   }
 
   .channelSlider {
-    box-sizing: border-box;
     display: flex;
     height: var(--moduix-color-picker-channel-slider-height, var(--moduix-spacing-3));
     align-items: center;
@@ -380,7 +374,6 @@
      a checkerboard, so translucent values read as translucent without a TransparencyGrid part. */
   .swatch,
   .valueSwatch {
-    box-sizing: border-box;
     display: grid;
     width: var(--moduix-color-picker-swatch-size, var(--moduix-size-sm));
     height: var(--moduix-color-picker-swatch-size, var(--moduix-size-sm));

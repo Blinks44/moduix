@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: var(--moduix-spacing-4);

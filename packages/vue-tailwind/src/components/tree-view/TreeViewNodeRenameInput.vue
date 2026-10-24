@@ -16,7 +16,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const componentClass =
-  'box-border min-w-0 flex-1 rounded-xs border border-ring bg-background px-1 py-0 text-foreground outline-1 -outline-offset-1 outline-transparent [font:inherit] focus-visible:outline-ring';
+  'min-w-0 flex-1 rounded-xs border border-ring bg-background px-1 py-0 text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent [font:inherit] focus-visible:outline-ring';
 </script>
 
 <template>

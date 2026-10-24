@@ -27,7 +27,7 @@ const { side } = useSidebarConfig();
     id="content"
     :class="
       cn(
-        'relative box-border min-w-0 overflow-auto bg-background text-foreground data-dragging:select-none',
+        'relative min-w-0 overflow-auto bg-background text-foreground data-dragging:select-none',
         className,
       )
     "

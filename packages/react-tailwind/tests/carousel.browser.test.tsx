@@ -131,8 +131,8 @@ test('keeps component-owned visual utilities visible and lets consumers override
     expect.arrayContaining([
       'rounded-xl',
       'outline-0',
-      'focus-visible:outline-1',
-      'focus-visible:-outline-offset-1',
+      'focus-visible:outline-focus-inset',
+      'focus-visible:outline-offset-focus-inset',
       'focus-visible:outline-ring',
     ]),
   );

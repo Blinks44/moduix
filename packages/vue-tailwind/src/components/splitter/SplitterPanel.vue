@@ -16,7 +16,7 @@ const { class: className, id } = defineProps<Props>();
 defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
-const panelClass = 'box-border p-4 data-dragging:select-none';
+const panelClass = 'p-4 data-dragging:select-none';
 </script>
 
 <template>

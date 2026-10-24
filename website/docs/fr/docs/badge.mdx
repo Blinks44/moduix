@@ -141,10 +141,11 @@ Placez une icône SVG enfant directe à côté du libellé lorsque les métadonn
 
 ## Styles
 
-Commencez avec une variante et une taille intégrées. Pour une modification ponctuelle, définissez les
-variables `--moduix-badge-*` publiques sur le badge via une classe ou un style en ligne. Pour personnaliser
-une variante dans toute l’application, définissez les mêmes variables sur
-`[data-slot='badge-root'][data-variant='<variant>']`.
+Commencez avec une variante et une taille intégrées. Les variables CSS Modules remplacent le fond, la
+bordure et la couleur du texte de toutes les variantes ; pour personnaliser une variante dans toute
+l’application, définissez-les sur `[data-slot='badge-root'][data-variant='<variant>']`. La taille, les
+espacements, la typographie, l’arrondi et la taille de l’icône et du point utilisent les tokens de
+foundation ; modifiez-les avec une classe sur la partie.
 
 Ces variables CSS s’appliquent aux packages CSS Modules ; les packages Tailwind utilisent des utilitaires natifs et les classes du consommateur. Utilisez `className` en React ou `class` en Solid et Vue sur les parties exportées. Les hooks `data-slot` et les attributs Ark sont communs aux deux approches de style et aux trois frameworks.
 
@@ -158,5 +159,5 @@ Ces variables CSS s’appliquent aux packages CSS Modules ; les packages Tailwin
 - `Badge` expose également `data-scope="badge"` et `data-part="root"`. `BadgeLabel` et `BadgeDot` exposent `data-part="label"` et `data-part="dot"`.
 - `Badge` indique la variante sélectionnée dans l’attribut `data-variant` et la taille dans `data-size`.
 - Les hôtes focalisables rendus avec `Badge asChild` reçoivent le style de focus visible. Les racines de type lien reçoivent aussi le survol de la variante et le curseur pointeur ; les styles propres aux boutons restent gérés par l’application.
-- Les icônes `svg` placées directement comme enfants héritent de `currentColor`, ne capturent pas les événements du pointeur et utilisent `--moduix-badge-icon-size`.
+- Les icônes `svg` placées directement comme enfants héritent de `currentColor`, ne capturent pas les événements du pointeur et mesurent 12px sauf si une classe sur l’icône définit une autre taille.
 - `Badge` ne dispose ni d’une primitive Ark dédiée ni d’une machine de comportement ; il n’expose donc aucun état géré par Ark ni aucune variable CSS d’exécution.

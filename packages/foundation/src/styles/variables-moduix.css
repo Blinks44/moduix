@@ -95,18 +95,7 @@
   /* Badge */
   --moduix-badge-bg: initial; /* variant-specific background */
   --moduix-badge-border-color: initial; /* variant-specific border color */
-  --moduix-badge-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-badge-color: initial; /* variant-specific text and icon color */
-  --moduix-badge-dot-size: initial; /* var(--moduix-spacing-1-5) */
-  --moduix-badge-font-size: initial; /* size-specific, md: var(--moduix-text-xs) */
-  --moduix-badge-font-weight: initial; /* var(--moduix-weight-medium) */
-  --moduix-badge-gap: initial; /* var(--moduix-spacing-1-5) */
-  --moduix-badge-height: initial; /* size-specific, md: 1.25rem */
-  --moduix-badge-icon-size: initial; /* var(--moduix-spacing-3) */
-  --moduix-badge-line-height: initial; /* size-specific, md: var(--moduix-line-height-text-xs) */
-  --moduix-badge-padding-x: initial; /* size-specific, md: var(--moduix-spacing-2-5) */
-  --moduix-badge-padding-y: initial; /* 0 */
-  --moduix-badge-radius: initial; /* var(--moduix-radius-full) */
   /* Breadcrumbs */
   --moduix-breadcrumbs-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-breadcrumbs-font-size: initial; /* var(--moduix-text-sm) */

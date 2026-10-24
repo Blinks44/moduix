@@ -18,7 +18,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const rootClass =
-  'box-border h-full w-full rounded-md border border-border bg-card text-card-foreground shadow-sm';
+  'h-full w-full rounded-md border border-border bg-card text-card-foreground shadow-sm';
 const rootStyle = computed<StyleValue>(() => [{ width: undefined, height: undefined }, style]);
 </script>
 

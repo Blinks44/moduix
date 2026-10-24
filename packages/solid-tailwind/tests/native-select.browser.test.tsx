@@ -66,7 +66,6 @@ test('forwards the native select ref and supports controlled values', async () =
   );
   expect([...select.classList]).toEqual(
     expect.arrayContaining([
-      'box-border',
       'h-control-md',
       'w-56',
       'rounded-md',

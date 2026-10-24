@@ -32,7 +32,7 @@ const attrs = useAttrs();
     data-slot="tag-close-trigger"
     :class="
       cn(
-        `size-4 rounded-full text-inherit focus-visible:outline-1 focus-visible:outline-offset-0 [&>svg:not([class*='size-'])]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/12 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit`,
+        `size-4 rounded-full text-inherit focus-visible:outline-focus-inset focus-visible:outline-offset-0 [&>svg:not([class*='size-'])]:size-3 [@media(hover:hover)]:[&:not([data-disabled]):hover]:bg-current/12 [@media(hover:hover)]:[&:not([data-disabled]):hover]:text-inherit`,
         className,
       )
     "

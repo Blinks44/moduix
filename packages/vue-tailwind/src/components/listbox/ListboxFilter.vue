@@ -19,7 +19,7 @@ const attrs = useAttrs();
 <template>
   <div
     v-bind="attrs"
-    :class="cn('group/listbox-filter peer/listbox-filter relative box-border w-full', className)"
+    :class="cn('group/listbox-filter peer/listbox-filter relative w-full', className)"
     data-slot="listbox-filter"
   >
     <SearchIcon

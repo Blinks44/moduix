@@ -28,7 +28,6 @@
 
     position: relative;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     min-width: min(
@@ -75,7 +74,6 @@
   .radioItem,
   .checkboxItem {
     position: relative;
-    box-sizing: border-box;
     min-height: var(--moduix-popup-item-min-height, var(--moduix-size-sm));
     margin: 0;
     border: 0;
@@ -247,7 +245,6 @@
   }
 
   .separator {
-    box-sizing: border-box;
     height: var(--moduix-border-width-sm);
     margin-block: var(--moduix-popup-separator-margin-y, var(--moduix-spacing-1-5));
     margin-inline: var(--moduix-popup-separator-margin-x-start, var(--moduix-spacing-3))

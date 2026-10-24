@@ -296,10 +296,10 @@ test('applies native utilities and lets consumer classes win', async () => {
   expect([...control.classList]).toEqual(expect.arrayContaining(['gap-3']));
   expect([...item!.classList]).toEqual(
     expect.arrayContaining([
-      'outline-1',
-      '-outline-offset-1',
+      'outline-focus-inset',
+      'outline-offset-focus-inset',
       'outline-transparent',
-      'focus-visible:outline-1',
+      'focus-visible:outline-focus-inset',
       'focus-visible:outline-offset-1',
       'focus-visible:outline-ring',
     ]),

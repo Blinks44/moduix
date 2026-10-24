@@ -30,7 +30,6 @@
   }
 
   .control {
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     gap: var(--moduix-spacing-1);

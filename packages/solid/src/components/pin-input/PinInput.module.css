@@ -62,7 +62,6 @@
   }
 
   .input {
-    box-sizing: border-box;
     flex: none;
     width: var(--moduix-pin-input-input-size, var(--_pin-input-input-size));
     height: var(--moduix-pin-input-input-size, var(--_pin-input-input-size));

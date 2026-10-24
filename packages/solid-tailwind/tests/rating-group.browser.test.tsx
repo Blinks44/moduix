@@ -223,7 +223,12 @@ test('applies native utilities to component-owned visual parts', () => {
     expect.arrayContaining(['inline-flex', 'items-center', 'gap-1']),
   );
   expect([...item!.classList]).toEqual(
-    expect.arrayContaining(['inline-flex', 'rounded-sm', 'outline-1', 'outline-transparent']),
+    expect.arrayContaining([
+      'inline-flex',
+      'rounded-sm',
+      'outline-focus-inset',
+      'outline-transparent',
+    ]),
   );
   expect([...indicator!.classList]).toEqual(
     expect.arrayContaining([

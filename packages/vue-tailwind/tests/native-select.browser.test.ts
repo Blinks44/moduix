@@ -112,7 +112,6 @@ test.each([false, true])(
     );
     expect([...select.classList]).toEqual(
       expect.arrayContaining([
-        'box-border',
         'h-control-md',
         'w-56',
         'rounded-md',

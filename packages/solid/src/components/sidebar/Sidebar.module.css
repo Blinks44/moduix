@@ -84,7 +84,6 @@
   }
 
   .trigger {
-    box-sizing: border-box;
     display: inline-flex;
     flex: none;
     position: relative;
@@ -245,7 +244,6 @@
     inset-block-start: 50%;
     inset-inline-end: var(--moduix-spacing-2-5);
     z-index: 1;
-    box-sizing: border-box;
     display: inline-grid;
     place-items: center;
     width: var(--moduix-spacing-5);
@@ -263,7 +261,6 @@
 
   .menuButton,
   .menuSubButton {
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     gap: var(--moduix-spacing-2);
@@ -382,7 +379,6 @@
   }
 
   .menuSub {
-    box-sizing: border-box;
     width: auto;
     margin-block-start: var(--moduix-spacing-1);
     margin-inline-start: var(--moduix-spacing-4);

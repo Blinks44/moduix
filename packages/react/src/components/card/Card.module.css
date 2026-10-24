@@ -25,8 +25,7 @@
     }
 
     &:focus-visible {
-      outline: var(--moduix-focus-ring-width, var(--moduix-border-width-md)) solid
-        var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
       outline-offset: var(--moduix-border-width-sm);
     }
 
@@ -183,8 +182,7 @@
     }
 
     &:focus-visible::after {
-      outline: var(--moduix-focus-ring-width, var(--moduix-border-width-md)) solid
-        var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
       outline-offset: var(--moduix-border-width-sm);
     }
   }

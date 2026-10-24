@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: flex;
     width: 100%;
     min-width: 0;
@@ -9,7 +8,6 @@
   }
 
   .trigger {
-    box-sizing: border-box;
     display: flex;
     width: 100%;
     align-items: center;
@@ -41,7 +39,6 @@
   }
 
   .indicator {
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -61,7 +58,6 @@
   }
 
   .content {
-    box-sizing: border-box;
     overflow: hidden;
     color: var(--moduix-collapsible-content-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-collapsible-content-font-size, var(--moduix-text-sm));

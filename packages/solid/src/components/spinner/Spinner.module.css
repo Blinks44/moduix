@@ -49,7 +49,6 @@
 
   .ring,
   [data-scope='spinner'][data-part='ring'] {
-    box-sizing: border-box;
     display: block;
     width: 100%;
     height: 100%;

@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: grid;
     width: 100%;
     min-width: 0;
@@ -34,8 +33,7 @@
     }
 
     & :global(.ts-chart:focus-visible) {
-      outline: var(--moduix-focus-ring-width, var(--moduix-border-width-md)) solid
-        var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
       outline-offset: var(--moduix-focus-ring-offset);
     }
   }

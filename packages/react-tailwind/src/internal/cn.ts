@@ -24,7 +24,9 @@ const twMerge = extendTailwindMerge({
     },
     classGroups: {
       duration: [{ duration: ['fast', 'normal', 'slow', 'slower'] }],
-      opacity: [{ opacity: ['disabled'] }],
+      opacity: [{ opacity: ['disabled', 'hover'] }],
+      'outline-w': [{ outline: ['focus', 'focus-inset'] }],
+      'outline-offset': [{ 'outline-offset': ['focus', 'focus-inset'] }],
     },
   },
 });

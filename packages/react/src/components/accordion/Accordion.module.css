@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: flex;
     width: 100%;
     max-width: 100%;
@@ -35,7 +34,6 @@
   }
 
   .itemTrigger {
-    box-sizing: border-box;
     display: flex;
     width: 100%;
     align-items: center;
@@ -91,7 +89,6 @@
   }
 
   .itemIndicator {
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -111,7 +108,6 @@
   }
 
   .itemContent {
-    box-sizing: border-box;
     overflow: hidden;
     color: var(--moduix-accordion-item-content-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-accordion-item-content-font-size, var(--moduix-text-md));

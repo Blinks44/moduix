@@ -45,7 +45,6 @@
   .content {
     position: relative;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
-    box-sizing: border-box;
     min-width: min(14rem, var(--available-width));
     max-width: min(24rem, var(--available-width));
     max-height: min(24rem, var(--available-height, 100dvh));

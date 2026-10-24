@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: flex;
     width: var(--moduix-tree-view-width, 20rem);
     max-width: 100%;
@@ -40,7 +39,6 @@
 
     position: relative;
     z-index: 0;
-    box-sizing: border-box;
     display: flex;
     width: 100%;
     min-width: 0;
@@ -188,7 +186,6 @@
   }
 
   .nodeCheckbox {
-    box-sizing: border-box;
     display: inline-flex;
     width: var(--moduix-spacing-4);
     height: var(--moduix-spacing-4);
@@ -239,7 +236,6 @@
   }
 
   .nodeRenameInput {
-    box-sizing: border-box;
     min-width: 0;
     flex: 1;
     border: var(--moduix-border-width-sm) solid var(--moduix-color-ring);

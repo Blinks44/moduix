@@ -8,7 +8,7 @@ type BadgeSize = 'sm' | 'md' | 'lg';
 type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
 
 const badgeVariants = cva(
-  "inline-flex min-h-5 w-fit max-w-full min-w-0 items-center justify-center gap-1.5 overflow-hidden rounded-full border px-2.5 align-middle font-medium text-xs tabular-nums whitespace-nowrap no-underline select-none transition-[color,background-color,border-color,opacity] duration-normal ease-in-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring [&>svg]:pointer-events-none [&>svg:not([class*='size-'])]:size-3 [&>svg]:shrink-0 [a&]:cursor-pointer",
+  "inline-flex min-h-5 w-fit max-w-full min-w-0 items-center justify-center gap-1.5 overflow-hidden rounded-full border px-2.5 align-middle font-medium text-xs tabular-nums whitespace-nowrap no-underline select-none transition-[color,background-color,border-color,opacity] duration-normal ease-in-out focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring [&>svg]:pointer-events-none [&>svg:not([class*='size-'])]:size-3 [&>svg]:shrink-0 [a&]:cursor-pointer",
   {
     variants: {
       size: {
@@ -17,11 +17,11 @@ const badgeVariants = cva(
         lg: 'min-h-6 px-3 text-sm',
       },
       variant: {
-        default: 'border-transparent bg-primary text-primary-foreground [a&]:hover:opacity-90',
+        default: 'border-transparent bg-primary text-primary-foreground [a&]:hover:opacity-hover',
         secondary:
-          'border-transparent bg-secondary text-secondary-foreground [a&]:hover:opacity-90',
+          'border-transparent bg-secondary text-secondary-foreground [a&]:hover:opacity-hover',
         destructive:
-          'border-transparent bg-destructive text-destructive-foreground [a&]:hover:opacity-90',
+          'border-transparent bg-destructive text-destructive-foreground [a&]:hover:opacity-hover',
         outline:
           'border-border bg-transparent text-foreground [a&]:hover:border-primary [a&]:hover:text-primary',
         ghost: 'border-transparent bg-transparent text-foreground [a&]:hover:text-primary',
@@ -40,21 +40,6 @@ type BadgeRootProps = HTMLArkProps<'span'> & {
   size?: BadgeSize;
 };
 
-const BadgeLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
-  function BadgeLabel({ className, ...props }, ref) {
-    return (
-      <ark.span
-        ref={ref}
-        {...props}
-        data-scope="badge"
-        data-part="label"
-        data-slot="badge-label"
-        className={cn('min-w-0 overflow-hidden text-ellipsis', className)}
-      />
-    );
-  },
-);
-
 const Badge = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function Badge(
   { className, size = 'md', variant = 'default', ...props },
   ref,
@@ -72,6 +57,21 @@ const Badge = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function
     />
   );
 });
+
+const BadgeLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function BadgeLabel({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        {...props}
+        data-scope="badge"
+        data-part="label"
+        data-slot="badge-label"
+        className={cn('min-w-0 overflow-hidden text-ellipsis', className)}
+      />
+    );
+  },
+);
 
 const BadgeDot = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(function BadgeDot(
   { className, ...props },

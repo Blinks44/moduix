@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: flex;
     width: var(--moduix-select-width, 14rem);
     max-width: 100%;
@@ -39,7 +38,6 @@
   }
 
   .trigger {
-    box-sizing: border-box;
     display: inline-flex;
     width: 100%;
     min-width: 0;
@@ -146,7 +144,6 @@
   }
 
   .content {
-    box-sizing: border-box;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     display: flex;
     min-width: var(--reference-width);
@@ -209,7 +206,6 @@
   }
 
   .item {
-    box-sizing: border-box;
     position: relative;
     display: flex;
     min-height: var(--moduix-popup-item-min-height, var(--moduix-size-sm));

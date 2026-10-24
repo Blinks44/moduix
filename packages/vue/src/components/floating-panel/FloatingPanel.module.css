@@ -1,7 +1,6 @@
 @layer moduix.components {
   .content {
     position: relative;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -32,7 +31,6 @@
   }
 
   .header {
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -73,7 +71,6 @@
   }
 
   .controlButton {
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -132,7 +129,6 @@
   }
 
   .body {
-    box-sizing: border-box;
     flex: 1 1 auto;
     min-height: 0;
     overflow: auto;
@@ -142,7 +138,6 @@
   }
 
   .footer {
-    box-sizing: border-box;
     display: flex;
     flex: none;
     align-items: center;

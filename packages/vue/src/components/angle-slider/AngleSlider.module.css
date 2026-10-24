@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: inline-flex;
     flex-direction: column;
     min-width: 0;
@@ -31,7 +30,6 @@
     );
 
     position: relative;
-    box-sizing: border-box;
     width: var(--moduix-angle-slider-size, 9rem);
     min-width: 0;
     aspect-ratio: 1;
@@ -107,7 +105,6 @@
       position: absolute;
       top: calc(var(--_angle-slider-ring-thickness) / 2);
       left: 0;
-      box-sizing: border-box;
       width: var(--moduix-angle-slider-thumb-size, var(--moduix-spacing-4));
       height: var(--moduix-angle-slider-thumb-size, var(--moduix-spacing-4));
       border: var(--moduix-border-width-sm) solid var(--moduix-color-border);

@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     width: 100%;
     height: 100%;
     border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
@@ -11,7 +10,6 @@
   }
 
   .panel {
-    box-sizing: border-box;
     padding: var(--moduix-spacing-4);
 
     &[data-dragging] {
@@ -22,7 +20,6 @@
   .resizeTrigger {
     position: relative;
     z-index: 1;
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,15 +73,13 @@
     }
 
     &:focus-visible:not([data-dragging]):not(:has(.resizeTriggerIndicator))::after {
-      outline: var(--moduix-focus-ring-width, var(--moduix-border-width-md)) solid
-        var(--moduix-color-ring);
+      outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
       outline-offset: var(--moduix-border-width-sm);
     }
   }
 
   .resizeTriggerIndicator {
     position: absolute;
-    box-sizing: border-box;
     width: var(--moduix-spacing-1-5);
     height: var(--moduix-size-xs);
     border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
@@ -113,8 +108,7 @@
   }
 
   .resizeTrigger:focus-visible:not([data-dragging]) .resizeTriggerIndicator {
-    outline: var(--moduix-focus-ring-width, var(--moduix-border-width-md)) solid
-      var(--moduix-color-ring);
+    outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
     outline-offset: var(--moduix-border-width-sm);
   }
 

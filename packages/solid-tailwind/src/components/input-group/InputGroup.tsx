@@ -32,7 +32,7 @@ const inputGroupPaddingVariants = {
 };
 
 const inputGroupRootVariants = cva(
-  'flex w-full items-stretch overflow-hidden rounded-md border border-border bg-background text-foreground outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color,opacity] duration-normal ease-in-out has-[>[data-align=block]]:flex-col focus-within:outline-ring has-[:is([data-slot=input-root],[data-slot=textarea-root]):is([data-invalid],[aria-invalid=true])]:border-destructive has-[:is([data-slot=input-root],[data-slot=textarea-root]):is([data-invalid],[aria-invalid=true])]:focus-within:outline-destructive has-[:is([data-slot=input-root],[data-slot=textarea-root]):is([data-disabled],:disabled)]:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
+  'flex w-full items-stretch overflow-hidden rounded-md border border-border bg-background text-foreground outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color,opacity] duration-normal ease-in-out has-[>[data-align=block]]:flex-col focus-within:outline-ring has-[:is([data-slot=input-root],[data-slot=textarea-root]):is([data-invalid],[aria-invalid=true])]:border-destructive has-[:is([data-slot=input-root],[data-slot=textarea-root]):is([data-invalid],[aria-invalid=true])]:focus-within:outline-destructive has-[:is([data-slot=input-root],[data-slot=textarea-root]):is([data-disabled],:disabled)]:opacity-disabled [:is([data-slot=field-root][data-disabled],[data-slot=field-root-provider][data-disabled],[data-slot=fieldset-root][data-disabled],[data-slot=fieldset-root-provider][data-disabled])_&]:opacity-100',
   {
     variants: {
       size: {
@@ -97,7 +97,7 @@ const inputGroupTextVariants = cva(
 const inputGroupButtonClass = 'h-auto min-h-0 self-stretch rounded-none border-0 py-0';
 
 const inputGroupClearTriggerClass =
-  'me-2 size-control-xs self-center focus-visible:outline-1 focus-visible:outline-offset-1 data-[size=xs]:size-5';
+  'me-2 size-control-xs self-center focus-visible:outline-focus-inset focus-visible:outline-offset-1 data-[size=xs]:size-5';
 
 const InputGroupSizeContext = createContext((): InputGroupSize => 'md');
 

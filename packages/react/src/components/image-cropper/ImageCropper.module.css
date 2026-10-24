@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: grid;
     width: 32rem;
     max-width: 100%;
@@ -14,7 +13,6 @@
 
   /* Ark sets position, overflow, and touch handling inline. */
   .viewport {
-    box-sizing: border-box;
     width: 100%;
     aspect-ratio: 8 / 5;
     border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
@@ -42,7 +40,6 @@
   }
 
   .selection {
-    box-sizing: border-box;
     border: var(--moduix-border-width-md) solid var(--moduix-color-primary);
     border-radius: var(--moduix-radius-md);
     box-shadow:

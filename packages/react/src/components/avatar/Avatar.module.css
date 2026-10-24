@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: inline-flex;
     width: var(--moduix-avatar-size, var(--moduix-size-md));
     height: var(--moduix-avatar-size, var(--moduix-size-md));

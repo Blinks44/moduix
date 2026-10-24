@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: grid;
     justify-items: center;
     width: 100%;

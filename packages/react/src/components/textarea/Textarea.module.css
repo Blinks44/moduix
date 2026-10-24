@@ -5,7 +5,6 @@
     --_textarea-font-size: var(--moduix-text-md);
     --_textarea-line-height: var(--moduix-line-height-text-md);
 
-    box-sizing: border-box;
     width: var(--moduix-textarea-width, 100%);
     margin: 0;
     border: var(--moduix-border-width-sm) solid var(--moduix-color-border);

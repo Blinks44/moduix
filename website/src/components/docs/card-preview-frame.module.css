@@ -24,9 +24,3 @@
     var(--rp-c-bg-soft);
   background-size: 1.5rem 1.5rem;
 }
-
-.frame *,
-.frame *::before,
-.frame *::after {
-  box-sizing: border-box;
-}

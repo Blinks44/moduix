@@ -41,7 +41,6 @@
   }
 
   .control {
-    box-sizing: border-box;
     display: inline-flex;
     flex: none;
     align-items: center;

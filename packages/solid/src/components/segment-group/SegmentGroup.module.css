@@ -5,7 +5,6 @@
     --_segment-group-font-size: var(--moduix-text-sm);
     --_segment-group-line-height: var(--moduix-line-height-text-sm);
 
-    box-sizing: border-box;
     isolation: isolate;
     display: inline-flex;
     max-inline-size: 100%;

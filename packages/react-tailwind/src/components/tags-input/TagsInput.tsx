@@ -65,7 +65,7 @@ const TagsInputControl = forwardRef<
     <TagsInputPrimitive.Control
       ref={ref}
       className={cn(
-        'group flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-[0.3125rem] outline-1 -outline-offset-1 outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive',
+        'group flex min-h-control-md w-full flex-wrap items-center gap-1 rounded-md border border-border bg-background px-2 py-[0.3125rem] outline-focus-inset outline-offset-focus-inset outline-transparent transition-[border-color,outline-color] duration-normal ease-in-out data-disabled:pointer-events-none data-focus:outline-ring data-invalid:border-destructive data-invalid:data-focus:outline-destructive',
         className,
       )}
       {...props}
@@ -184,7 +184,7 @@ const TagsInputClearTrigger = forwardRef<
       className={cn(
         asChild
           ? 'ms-auto data-readonly:hidden'
-          : 'ms-auto size-control-xs focus-visible:outline-1 focus-visible:outline-offset-1 data-readonly:hidden [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
+          : 'ms-auto size-control-xs focus-visible:outline-focus-inset focus-visible:outline-offset-1 data-readonly:hidden [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100',
         className,
       )}
       {...props}

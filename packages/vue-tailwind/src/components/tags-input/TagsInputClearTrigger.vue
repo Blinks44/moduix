@@ -19,7 +19,7 @@ defineSlots<{ default?: () => unknown }>();
 const attrs = useAttrs();
 const asChildClass = 'ms-auto data-readonly:hidden';
 const closeButtonClass =
-  'ms-auto size-control-xs focus-visible:outline-1 focus-visible:outline-offset-1 data-readonly:hidden [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100';
+  'ms-auto size-control-xs focus-visible:outline-focus-inset focus-visible:outline-offset-1 data-readonly:hidden [:is([data-slot=tags-input-root],[data-slot=tags-input-root-provider])[data-disabled]_&]:opacity-100';
 </script>
 
 <!-- Ark merges its label, anatomy, and state props onto the CloseButton host. -->

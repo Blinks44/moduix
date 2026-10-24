@@ -38,7 +38,6 @@
   }
 
   .root {
-    box-sizing: border-box;
     display: flex;
     width: var(--moduix-input-group-width, 100%);
     min-height: var(--moduix-input-group-height, var(--_input-group-height));
@@ -124,7 +123,6 @@
 
   .addon,
   .text {
-    box-sizing: border-box;
     display: inline-flex;
     min-width: 0;
     align-items: center;

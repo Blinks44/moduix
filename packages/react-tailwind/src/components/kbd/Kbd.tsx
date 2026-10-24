@@ -15,7 +15,7 @@ const Kbd = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function Kbd(
       data-part="root"
       data-slot="kbd-root"
       className={cn(
-        "box-border inline-flex min-h-control-xs min-w-control-xs flex-none items-center justify-center gap-1 rounded-sm border border-border bg-muted px-2 align-middle font-mono text-xs font-medium whitespace-nowrap text-foreground tabular-nums shadow-[inset_0_-1px_0_color-mix(in_oklab,currentColor_12%,transparent)] select-none [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-3",
+        "inline-flex min-h-control-xs min-w-control-xs flex-none items-center justify-center gap-1 rounded-sm border border-border bg-muted px-2 align-middle font-mono text-xs font-medium whitespace-nowrap text-foreground tabular-nums shadow-[inset_0_-1px_0_color-mix(in_oklab,currentColor_12%,transparent)] select-none [&>svg]:pointer-events-none [&>svg]:shrink-0 [&>svg:not([class*='size-'])]:size-3",
         className,
       )}
     />

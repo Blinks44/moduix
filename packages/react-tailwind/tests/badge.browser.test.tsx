@@ -101,15 +101,23 @@ test('preserves native disabled button semantics with asChild', async () => {
 
 test('lets consumer Tailwind classes override conflicting defaults', async () => {
   render(
-    <Badge className="bg-secondary px-0" data-testid="badge">
+    <Badge className="bg-secondary px-0 [a&]:hover:opacity-75" data-testid="badge">
       Ready
     </Badge>,
   );
 
   await expect.element(page.getByTestId('badge')).toHaveCount(1);
   const badge = screen.getByTestId('badge');
-  expect([...badge.classList]).toEqual(expect.arrayContaining(['bg-secondary', 'px-0']));
-  for (const className of ['bg-primary', 'px-2.5']) {
+  expect([...badge.classList]).toEqual(
+    expect.arrayContaining([
+      'bg-secondary',
+      'px-0',
+      '[a&]:hover:opacity-75',
+      'focus-visible:outline-focus',
+      'focus-visible:outline-ring',
+    ]),
+  );
+  for (const className of ['bg-primary', 'px-2.5', '[a&]:hover:opacity-hover']) {
     expect(badge.classList.contains(className)).toBe(false);
   }
   await expect.element(page.getByTestId('badge')).toHaveCSS('padding', '0px');
@@ -140,6 +148,7 @@ test('defaults to the md size and lets link badges ignore the size height', asyn
   const link = getComputedStyle(screen.getByTestId('link'));
   expect([link.minHeight, link.paddingInlineStart]).toEqual(['0px', '0px']);
 });
+
 test('lets a size utility on an icon override the default icon size', () => {
   render(
     <Badge>

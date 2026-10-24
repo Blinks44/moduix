@@ -10,7 +10,7 @@ import { cn } from '@/lib/moduix/cn';
 const ImageCropperContext = ImageCropperPrimitive.Context;
 const ImageCropperHandles = ImageCropperPrimitive.handles;
 const imageCropperRootClass =
-  'box-border grid w-[32rem] max-w-full gap-3 data-dragging:cursor-grabbing data-panning:cursor-grabbing';
+  'grid w-[32rem] max-w-full gap-3 data-dragging:cursor-grabbing data-panning:cursor-grabbing';
 
 function ImageCropper(props: ComponentProps<typeof ImageCropperPrimitive.Root>) {
   const [local, others] = splitProps(props, ['class']);
@@ -44,7 +44,7 @@ function ImageCropperViewport(props: ComponentProps<typeof ImageCropperPrimitive
   return (
     <ImageCropperPrimitive.Viewport
       class={cn(
-        'box-border aspect-[8/5] w-full rounded-lg border border-border [background:repeating-conic-gradient(var(--color-muted)_0_25%,var(--color-background)_0_50%)_0_0/1rem_1rem] data-disabled:cursor-grab',
+        'aspect-[8/5] w-full rounded-lg border border-border [background:repeating-conic-gradient(var(--color-muted)_0_25%,var(--color-background)_0_50%)_0_0/1rem_1rem] data-disabled:cursor-grab',
         local.class,
       )}
       {...others}
@@ -71,7 +71,7 @@ function ImageCropperSelection(props: ComponentProps<typeof ImageCropperPrimitiv
   return (
     <ImageCropperPrimitive.Selection
       class={cn(
-        'box-border cursor-grab rounded-md border-2 border-primary shadow-[0_0_0_9999px_rgb(0_0_0_/_45%),inset_0_0_0_1px_rgb(255_255_255_/_64%)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-disabled:cursor-default data-dragging:cursor-grabbing data-[shape=circle]:rounded-full data-[shape=circle]:border-transparent',
+        'cursor-grab rounded-md border-2 border-primary shadow-[0_0_0_9999px_rgb(0_0_0_/_45%),inset_0_0_0_1px_rgb(255_255_255_/_64%)] focus-visible:outline-focus focus-visible:outline-offset-focus focus-visible:outline-ring data-disabled:cursor-default data-dragging:cursor-grabbing data-[shape=circle]:rounded-full data-[shape=circle]:border-transparent',
         local.class,
       )}
       {...others}

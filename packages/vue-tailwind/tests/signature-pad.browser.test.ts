@@ -378,7 +378,7 @@ test('renders Ark anatomy and lets consumer classes win', async () => {
   const guide = container.querySelector('[data-slot="signature-pad-guide"]');
 
   expect([...root!.classList]).toEqual(
-    expect.arrayContaining(['box-border', 'inline-flex', 'w-70', 'consumer-root']),
+    expect.arrayContaining(['inline-flex', 'w-70', 'consumer-root']),
   );
   expect(root?.className.endsWith('consumer-root')).toBe(true);
   expect([...label!.classList]).toEqual(expect.arrayContaining(['text-sm', 'consumer-label']));

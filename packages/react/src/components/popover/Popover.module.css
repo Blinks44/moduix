@@ -1,7 +1,6 @@
 @layer moduix.components {
   .trigger,
   .closeTrigger {
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -55,7 +54,6 @@
   .content {
     position: relative;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
-    box-sizing: border-box;
     min-width: min(16rem, var(--available-width));
     max-width: min(28rem, var(--available-width));
     max-height: min(24rem, var(--available-height, 100dvh));

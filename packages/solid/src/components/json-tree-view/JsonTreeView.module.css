@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: flex;
     width: 100%;
     min-width: 0;
@@ -44,7 +43,6 @@
 
     position: relative;
     z-index: 0;
-    box-sizing: border-box;
     display: flex;
     min-width: 0;
     /* Keeps the indicator on the first line when a long preview wraps. */

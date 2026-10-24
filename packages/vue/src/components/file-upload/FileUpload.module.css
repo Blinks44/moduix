@@ -1,6 +1,5 @@
 @layer moduix.components {
   .root {
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -34,7 +33,6 @@
   }
 
   .dropzone {
-    box-sizing: border-box;
     display: grid;
     place-items: center;
     gap: var(--moduix-spacing-3);
@@ -76,7 +74,6 @@
   }
 
   .dropzoneIcon {
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -110,7 +107,6 @@
 
   /* A file row: name and metadata stacked between an optional preview and the delete button. */
   .item {
-    box-sizing: border-box;
     display: grid;
     flex: 1 0 100%;
     grid-template-areas:
@@ -217,7 +213,6 @@
 
   .itemDeleteTrigger {
     grid-area: delete;
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;

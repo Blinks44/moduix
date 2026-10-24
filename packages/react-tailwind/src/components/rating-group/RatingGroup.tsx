@@ -92,7 +92,7 @@ const RatingGroupItem = forwardRef<
     <RatingGroupPrimitive.Item
       ref={ref}
       className={cn(
-        'inline-flex cursor-pointer rounded-sm outline-1 -outline-offset-1 outline-transparent focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-readonly:cursor-default',
+        'inline-flex cursor-pointer rounded-sm outline-focus-inset outline-offset-focus-inset outline-transparent focus-visible:outline-focus-inset focus-visible:outline-offset-1 focus-visible:outline-ring data-disabled:cursor-default data-readonly:cursor-default',
         className,
       )}
       {...props}

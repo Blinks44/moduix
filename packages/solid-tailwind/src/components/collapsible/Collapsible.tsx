@@ -15,7 +15,7 @@ function Collapsible(props: ComponentProps<typeof CollapsiblePrimitive.Root>) {
 
   return (
     <CollapsiblePrimitive.Root
-      class={cn('box-border flex w-full min-w-0 flex-col text-foreground', local.class)}
+      class={cn('flex w-full min-w-0 flex-col text-foreground', local.class)}
       {...others}
       data-slot="collapsible-root"
     />
@@ -27,7 +27,7 @@ function CollapsibleRootProvider(props: ComponentProps<typeof CollapsiblePrimiti
 
   return (
     <CollapsiblePrimitive.RootProvider
-      class={cn('box-border flex w-full min-w-0 flex-col text-foreground', local.class)}
+      class={cn('flex w-full min-w-0 flex-col text-foreground', local.class)}
       {...others}
       data-slot="collapsible-root-provider"
     />
@@ -42,7 +42,7 @@ function CollapsibleTrigger(props: ComponentProps<typeof CollapsiblePrimitive.Tr
       asChild={local.asChild}
       class={cn(
         !local.asChild &&
-          'box-border flex w-full cursor-pointer items-center justify-between gap-2 bg-transparent px-0 py-1 text-start text-sm outline-0 select-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled data-disabled:cursor-default data-disabled:opacity-disabled',
+          'flex w-full cursor-pointer items-center justify-between gap-2 bg-transparent px-0 py-1 text-start text-sm outline-0 select-none focus-visible:outline-focus focus-visible:outline-offset-focus-inset focus-visible:outline-ring disabled:cursor-default disabled:opacity-disabled data-disabled:cursor-default data-disabled:opacity-disabled',
         local.class,
       )}
       {...others}
@@ -75,7 +75,7 @@ function CollapsibleContent(props: ComponentProps<typeof CollapsiblePrimitive.Co
   return (
     <CollapsiblePrimitive.Content
       class={cn(
-        'box-border overflow-hidden text-sm text-muted-foreground data-[state=closed]:animate-moduix-collapsible-closed data-[has-collapsed-size]:data-[state=closed]:animate-moduix-collapsible-closed-partial data-[state=open]:animate-moduix-collapsible-open data-[has-collapsed-size]:data-[state=open]:animate-moduix-collapsible-open-partial motion-reduce:data-[state]:animate-none motion-reduce:data-[has-collapsed-size]:data-[state]:animate-none',
+        'overflow-hidden text-sm text-muted-foreground data-[state=closed]:animate-moduix-collapsible-closed data-[has-collapsed-size]:data-[state=closed]:animate-moduix-collapsible-closed-partial data-[state=open]:animate-moduix-collapsible-open data-[has-collapsed-size]:data-[state=open]:animate-moduix-collapsible-open-partial motion-reduce:data-[state]:animate-none motion-reduce:data-[has-collapsed-size]:data-[state]:animate-none',
         local.class,
       )}
       {...others}
