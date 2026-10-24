@@ -1,19 +1,18 @@
 @layer moduix.components {
   .root {
-    grid-template-areas: 'swap';
     place-items: center;
     vertical-align: middle;
 
     &[data-animation='flip'] {
-      perspective: var(--moduix-swap-flip-perspective, 24rem);
+      perspective: 24rem;
     }
 
     &[data-animation='fade'] > .indicator[data-state='open'] {
-      animation: swap-enter var(--moduix-swap-transition, var(--moduix-transition-slow));
+      animation: swap-fade-enter var(--moduix-swap-transition, var(--moduix-transition-slow));
     }
 
     &[data-animation='fade'] > .indicator[data-state='closed'] {
-      animation: swap-exit var(--moduix-swap-transition, var(--moduix-transition-slow));
+      animation: swap-fade-exit var(--moduix-swap-transition, var(--moduix-transition-slow));
     }
 
     &[data-animation='scale'] > .indicator[data-state='open'] {
@@ -48,7 +47,6 @@
   .indicator {
     align-items: center;
     justify-content: center;
-    color: inherit;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -57,57 +55,57 @@
     }
   }
 
-  @keyframes swap-enter {
+  @keyframes swap-fade-enter {
     from {
-      opacity: var(--moduix-swap-enter-starting-opacity, 0);
+      opacity: 0;
     }
   }
 
-  @keyframes swap-exit {
+  @keyframes swap-fade-exit {
     to {
-      opacity: var(--moduix-swap-exit-ending-opacity, 0);
+      opacity: 0;
     }
   }
 
   @keyframes swap-scale-enter {
     from {
-      opacity: var(--moduix-swap-enter-starting-opacity, 0);
-      transform: scale(var(--moduix-swap-enter-starting-scale, 0.5));
+      opacity: 0;
+      transform: scale(0.5);
     }
   }
 
   @keyframes swap-scale-exit {
     to {
-      opacity: var(--moduix-swap-exit-ending-opacity, 0);
-      transform: scale(var(--moduix-swap-exit-ending-scale, 0.5));
+      opacity: 0;
+      transform: scale(0.5);
     }
   }
 
   @keyframes swap-rotate-enter {
     from {
-      opacity: var(--moduix-swap-enter-starting-opacity, 0);
-      transform: rotate(var(--moduix-swap-rotate-enter-starting-angle, -180deg));
+      opacity: 0;
+      transform: rotate(-180deg);
     }
   }
 
   @keyframes swap-rotate-exit {
     to {
-      opacity: var(--moduix-swap-exit-ending-opacity, 0);
-      transform: rotate(var(--moduix-swap-rotate-exit-ending-angle, 180deg));
+      opacity: 0;
+      transform: rotate(180deg);
     }
   }
 
   @keyframes swap-flip-enter {
     from {
-      opacity: var(--moduix-swap-enter-starting-opacity, 0);
-      transform: rotateY(var(--moduix-swap-flip-enter-starting-angle, -180deg));
+      opacity: 0;
+      transform: rotateY(-180deg);
     }
   }
 
   @keyframes swap-flip-exit {
     to {
-      opacity: var(--moduix-swap-exit-ending-opacity, 0);
-      transform: rotateY(var(--moduix-swap-flip-exit-ending-angle, 180deg));
+      opacity: 0;
+      transform: rotateY(180deg);
     }
   }
 }

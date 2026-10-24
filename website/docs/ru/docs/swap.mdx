@@ -277,10 +277,10 @@ SwapRootProvider
 
 ## Стилизация
 
-Встроенные рецепты используют перечисленные ниже CSS-переменные в вариантах с CSS Modules. Варианты
-на Tailwind используют нативные utility-классы и классы, заданные потребителем. Пользовательское имя
-анимации отключает встроенные рецепты, но в собственном CSS по-прежнему можно использовать
-`--moduix-swap-transition`.
+В вариантах с CSS Modules длительность встроенных рецептов задаёт `--moduix-swap-transition`. Варианты
+на Tailwind используют нативные utility-классы и классы, заданные потребителем. Для другого движения
+передайте собственное имя анимации: оно отключает встроенные рецепты, а в своём CSS по-прежнему можно
+использовать `--moduix-swap-transition`.
 
 Ark закрепляет раскладку inline-стилями: корень получает `display: inline-grid`, а каждый индикатор -
 `grid-area: 1 / 1` и `display: inline-flex`. Переопределения `display` и `grid-area` через классы не
@@ -290,8 +290,7 @@ Ark закрепляет раскладку inline-стилями: корень 
 В вариантах Tailwind рецепт flip применяет к корню `data-[animation=flip]:[perspective:24rem]`, который
 имеет более высокую специфичность, чем обычный utility-класс `perspective` приложения, поэтому, чтобы
 его переопределить, повторите тот же задокументированный вариант (например,
-`data-[animation=flip]:[perspective:32rem]`), а трек с CSS Modules вместо этого предоставляет
-`--moduix-swap-flip-perspective`.
+`data-[animation=flip]:[perspective:32rem]`).
 
 ### CSS-свойства
 
@@ -303,7 +302,9 @@ Ark закрепляет раскладку inline-стилями: корень 
 - `SwapRootProvider` использует `data-slot="swap-root-provider"`.
 - `SwapIndicator` использует `data-slot="swap-indicator"`.
 - `animation` доступно как `data-animation` на `Swap` и `SwapRootProvider`.
-- Встроенные рецепты нацелены только на непосредственных потомков `SwapIndicator` своего корня.
+- В CSS Modules встроенные рецепты нацелены только на непосредственных потомков `SwapIndicator` своего
+  корня. Рецепты Tailwind читают ближайшего предка `group/swap`, поэтому не вкладывайте один `Swap` в
+  другой.
 - Ark добавляет `data-scope="swap"` и `data-part="root" | "indicator"`.
 - Ark добавляет индикаторам `data-state="open" | "closed"`. moduix использует эти атрибуты во
   встроенных и пользовательских рецептах анимации.

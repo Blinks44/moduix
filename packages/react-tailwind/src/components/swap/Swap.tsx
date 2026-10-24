@@ -5,6 +5,9 @@ import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { cn } from '@/lib/moduix/cn';
 
+const rootClass =
+  'group/swap place-items-center align-middle data-[animation=flip]:[perspective:24rem]';
+
 type SwapAnimation = 'fade' | 'scale' | 'rotate' | 'flip' | (string & {});
 
 type SwapProps = ComponentProps<typeof SwapPrimitive.Root> & {
@@ -22,10 +25,7 @@ const Swap = forwardRef<ComponentRef<typeof SwapPrimitive.Root>, SwapProps>(func
   return (
     <SwapPrimitive.Root
       ref={ref}
-      className={cn(
-        "group/swap place-items-center align-middle [grid-template-areas:'swap'] data-[animation=flip]:[perspective:24rem]",
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-animation={animation}
       data-slot="swap-root"
@@ -40,10 +40,7 @@ const SwapRootProvider = forwardRef<
   return (
     <SwapPrimitive.RootProvider
       ref={ref}
-      className={cn(
-        "group/swap place-items-center align-middle [grid-template-areas:'swap'] data-[animation=flip]:[perspective:24rem]",
-        className,
-      )}
+      className={cn(rootClass, className)}
       {...props}
       data-animation={animation}
       data-slot="swap-root-provider"
@@ -59,7 +56,7 @@ const SwapIndicator = forwardRef<
     <SwapPrimitive.Indicator
       ref={ref}
       className={cn(
-        'items-center justify-center text-inherit group-data-[animation=flip]/swap:[backface-visibility:hidden] group-data-[animation=fade]/swap:data-[state=closed]:animate-moduix-swap-fade-exit group-data-[animation=flip]/swap:data-[state=closed]:animate-moduix-swap-flip-exit group-data-[animation=rotate]/swap:data-[state=closed]:animate-moduix-swap-rotate-exit group-data-[animation=scale]/swap:data-[state=closed]:animate-moduix-swap-scale-exit group-data-[animation=fade]/swap:data-[state=open]:animate-moduix-swap-fade-enter group-data-[animation=flip]/swap:data-[state=open]:animate-moduix-swap-flip-enter group-data-[animation=rotate]/swap:data-[state=open]:animate-moduix-swap-rotate-enter group-data-[animation=scale]/swap:data-[state=open]:animate-moduix-swap-scale-enter motion-reduce:group-data-[animation]/swap:data-[state]:animate-none',
+        'items-center justify-center group-data-[animation=flip]/swap:[backface-visibility:hidden] group-data-[animation=fade]/swap:data-[state=closed]:animate-moduix-swap-fade-exit group-data-[animation=flip]/swap:data-[state=closed]:animate-moduix-swap-flip-exit group-data-[animation=rotate]/swap:data-[state=closed]:animate-moduix-swap-rotate-exit group-data-[animation=scale]/swap:data-[state=closed]:animate-moduix-swap-scale-exit group-data-[animation=fade]/swap:data-[state=open]:animate-moduix-swap-fade-enter group-data-[animation=flip]/swap:data-[state=open]:animate-moduix-swap-flip-enter group-data-[animation=rotate]/swap:data-[state=open]:animate-moduix-swap-rotate-enter group-data-[animation=scale]/swap:data-[state=open]:animate-moduix-swap-scale-enter motion-reduce:group-data-[animation]/swap:data-[state]:animate-none',
         className,
       )}
       {...props}

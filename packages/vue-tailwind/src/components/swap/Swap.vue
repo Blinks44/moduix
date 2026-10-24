@@ -18,7 +18,7 @@ defineSlots<{ default?: () => unknown }>();
 
 const attrs = useAttrs();
 const rootClass =
-  "group/swap place-items-center align-middle [grid-template-areas:'swap'] data-[animation=flip]:[perspective:24rem]";
+  'group/swap place-items-center align-middle data-[animation=flip]:[perspective:24rem]';
 </script>
 
 <template>

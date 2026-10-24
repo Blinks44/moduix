@@ -276,9 +276,10 @@ root.
 
 ## Styling
 
-Built-in recipes use the CSS variables below in the CSS Modules variants. Tailwind variants use native
-utility and consumer class overrides. A custom animation name disables the built-in recipes, but you
-can still reuse `--moduix-swap-transition` in your own CSS.
+In the CSS Modules variants, `--moduix-swap-transition` controls the timing of the built-in recipes.
+Tailwind variants use native utility and consumer class overrides. For a different motion, pass a
+custom animation name: it disables the built-in recipes, and you can still reuse
+`--moduix-swap-transition` in your own CSS.
 
 Ark pins the layout with inline styles: the root gets `display: inline-grid`, and each indicator gets
 `grid-area: 1 / 1` and `display: inline-flex`. Class-based `display` and `grid-area` overrides are
@@ -287,8 +288,7 @@ no-ops in both tracks, so change these properties through the `style` prop (for 
 
 In the Tailwind variants the flip recipe applies `data-[animation=flip]:[perspective:24rem]` on the
 root, which out-specifies a plain consumer `perspective` utility, so repeat that documented variant
-(for example `data-[animation=flip]:[perspective:32rem]`) to override it - the CSS Modules track
-instead exposes `--moduix-swap-flip-perspective`.
+(for example `data-[animation=flip]:[perspective:32rem]`) to override it.
 
 ### CSS Properties
 
@@ -300,7 +300,8 @@ instead exposes `--moduix-swap-flip-perspective`.
 - `SwapRootProvider` uses `data-slot="swap-root-provider"`.
 - `SwapIndicator` uses `data-slot="swap-indicator"`.
 - `animation` is exposed as `data-animation` on `Swap` and `SwapRootProvider`.
-- Built-in recipes target only direct `SwapIndicator` children of their root.
+- In CSS Modules, built-in recipes target only direct `SwapIndicator` children of their root. Tailwind
+  recipes read the nearest `group/swap` ancestor, so do not nest one `Swap` inside another.
 - Ark adds `data-scope="swap"` and `data-part="root" | "indicator"`.
 - Ark adds `data-state="open" | "closed"` to indicators. moduix uses those attributes for its
   built-in animations and for custom recipes.

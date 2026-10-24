@@ -44,7 +44,7 @@ test('uses the scale animation by default and supports named presets', () => {
     expect.arrayContaining(['group/swap', 'place-items-center', 'align-middle']),
   );
   expect([...screen.getByText('Off')!.classList]).toEqual(
-    expect.arrayContaining(['items-center', 'justify-center', 'text-inherit']),
+    expect.arrayContaining(['items-center', 'justify-center']),
   );
 });
 
